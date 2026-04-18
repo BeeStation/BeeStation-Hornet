@@ -1586,14 +1586,6 @@
 /obj/effect/turf_decal/guideline/guideline_in/yellow,
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
-"aCe" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
-/turf/open/space/basic,
-/area/misc/space/nearstation)
 "aCz" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -8759,6 +8751,7 @@
 	},
 /obj/structure/cable/yellow,
 /obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/iron/tech,
 /area/station/engineering/supermatter)
 "dmh" = (
@@ -13836,7 +13829,6 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/space/basic,
 /area/misc/space/nearstation)
 "fal" = (
@@ -18442,7 +18434,6 @@
 	name = "Engineering External Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/plating,
 /area/station/engineering/supermatter)
 "gWq" = (
@@ -23123,6 +23114,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/iron/tech,
 /area/station/engineering/supermatter)
 "iLB" = (
@@ -25844,6 +25836,11 @@
 /obj/effect/turf_decal/siding/wideplating/dark,
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen)
+"jNm" = (
+/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
+/turf/open/floor/plating,
+/area/station/engineering/supermatter)
 "jNn" = (
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
 	dir = 4
@@ -30826,7 +30823,6 @@
 	name = "Engineering External Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/plating,
 /area/station/engineering/supermatter)
 "lDR" = (
@@ -32417,6 +32413,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter)
 "miF" = (
@@ -36183,7 +36180,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/iron/tech,
 /area/station/engineering/supermatter)
 "nzs" = (
@@ -47206,7 +47202,6 @@
 "rEU" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/tech,
@@ -47219,6 +47214,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/iron/tech,
 /area/station/engineering/supermatter)
 "rFh" = (
@@ -47828,7 +47824,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/station/engineering/supermatter)
@@ -49088,6 +49083,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/iron/tech,
 /area/station/engineering/supermatter)
 "srb" = (
@@ -55248,6 +55244,11 @@
 	dir = 8
 	},
 /area/station/hallway/primary/central)
+"uGA" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
+/turf/open/floor/iron/tech,
+/area/station/engineering/supermatter)
 "uGD" = (
 /obj/effect/turf_decal/tile/purple/fourcorners,
 /obj/effect/turf_decal/bot,
@@ -56605,6 +56606,7 @@
 	dir = 2
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/iron/tech,
 /area/station/engineering/supermatter)
 "vjb" = (
@@ -64726,6 +64728,7 @@
 "yiV" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/iron/tech,
 /area/station/engineering/supermatter)
 "yjf" = (
@@ -93346,7 +93349,7 @@ iLs
 dmg
 rFd
 mii
-tVM
+jNm
 uyV
 uyV
 uyV
@@ -93598,13 +93601,13 @@ xkE
 hPJ
 jmC
 wjA
-kEz
+uGA
 buy
 cVH
 hYn
 tDq
 vcb
-aCe
+iPL
 vUz
 rir
 vUz
@@ -94118,7 +94121,7 @@ azR
 sxy
 iFo
 mfJ
-aCe
+iPL
 bJE
 bJE
 bJE
@@ -94369,7 +94372,7 @@ tjT
 hPJ
 msY
 gxR
-kEz
+uGA
 buy
 biP
 tVM
@@ -94632,7 +94635,7 @@ nyZ
 lDH
 rSD
 gWp
-uyV
+myA
 lZF
 nHH
 lZF
