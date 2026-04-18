@@ -211,7 +211,7 @@ export const AtmosGasRigTemplate = (props) => {
                   unit="m"
                   minValue={0}
                   maxValue={max_extension}
-                  step={10}
+                  step={100}
                   onChange={(value) =>
                     act('set_extension', {
                       // send meters (integer) to backend
