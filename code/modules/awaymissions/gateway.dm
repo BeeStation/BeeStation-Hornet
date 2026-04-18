@@ -49,6 +49,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 /obj/machinery/gateway/Destroy()
 	if(GLOB.the_gateway == src)
 		GLOB.the_gateway = null
+	UnregisterSignal(SSorbital_altitude, COMSIG_ORBITAL_GATEWAY_STATUS_CHANGED)
 	if(linked_gateway)
 		linked_gateway.linked_gateway = null
 		linked_gateway = null
@@ -56,13 +57,37 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 		QDEL_NULL(bumper)
 	return ..()
 
+/// Called when orbital altitude gateway status changes
+/obj/machinery/gateway/proc/on_gateway_status_changed(datum/source, new_status)
+	SIGNAL_HANDLER
+	if(new_status == GATEWAY_STATUS_OK)
+		return
+
+	if(!active)
+		return
+
+	// Only care about gateways linked to the station
+	if(!istype(src, /obj/machinery/gateway/station) && !istype(linked_gateway, /obj/machinery/gateway/station))
+		return
+
+	// Force shutdown
+	toggleoff()
+	switch(new_status)
+		if(GATEWAY_STATUS_TOO_HIGH)
+			say("ALIGNMENT ERROR: Tunnel lost. Station altitude is out of alignment range. Shutting down.")
+		if(GATEWAY_STATUS_TOO_LOW)
+			say("STABILITY ERROR: Tunnel lost. Too much atmospheric interference at this altitude. Shutting down.")
+
+	playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
+
 /obj/machinery/gateway/examine(mob/user)
 	. = ..()
 
 	. += span_info("It appears to be [active ? (istype(linked_gateway) ? "on, and connected to a destination" : "on, but not linked") : "off"].")
 
-	// Show altitude warnings for station gateways
-	if(istype(src, /obj/machinery/gateway/station))
+	// Show altitude warnings for gateways linked to the station
+	if(istype(src, /obj/machinery/gateway/station) || istype(linked_gateway, /obj/machinery/gateway/station))
+		. += span_info("This gateway operates when the station is between [ORBITAL_ALTITUDE_MODERATE / 1000]km and [ORBITAL_ALTITUDE_DEFAULT / 1000]km altitude.")
 		var/gateway_status = SSorbital_altitude.get_gateway_status()
 		switch(gateway_status)
 			if(GATEWAY_STATUS_TOO_HIGH)
@@ -90,17 +115,6 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	if(!linked_gateway.active)
 		say_cooldown("Destination gateway not active.")
 		return FALSE
-
-	// Check orbital altitude before allowing teleportation
-	if(istype(src, /obj/machinery/gateway/station))
-		var/gateway_status = SSorbital_altitude.get_gateway_status()
-		switch(gateway_status)
-			if(GATEWAY_STATUS_TOO_HIGH)
-				say_cooldown("ALIGNMENT ERROR: Tunnel lost. Station altitude is out of alignment range.")
-				return FALSE
-			if(GATEWAY_STATUS_TOO_LOW)
-				say_cooldown("STABILITY ERROR: Tunnel lost. Too much atmospheric interference at this altitude.")
-				return FALSE
 
 	return check_teleport(AM, dest_turf, channel = TELEPORT_CHANNEL_GATEWAY)
 
@@ -185,14 +199,16 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 
 /obj/machinery/gateway/proc/toggleon(mob/user)
 	if(!powered())
-		to_chat(user, span_warning("It has no power!"))
+		if(user)
+			to_chat(user, span_warning("It has no power!"))
 		return FALSE
 	if(!linked_gateway)
-		to_chat(user, span_warning("No destination found!"))
+		if(user)
+			to_chat(user, span_warning("No destination found!"))
 		return FALSE
 
-	// Check orbital altitude before allowing activation
-	if(istype(src, /obj/machinery/gateway/station))
+	// Check orbital altitude before allowing activation (applies to both directions)
+	if(istype(src, /obj/machinery/gateway/station) || istype(linked_gateway, /obj/machinery/gateway/station))
 		var/gateway_status = SSorbital_altitude.get_gateway_status()
 		switch(gateway_status)
 			if(GATEWAY_STATUS_TOO_HIGH)
@@ -209,6 +225,9 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	update_icon()
 	bumper = new(get_turf(src))
 	bumper.parent_gateway = src
+	// Try to activate the linked gateway too
+	if(linked_gateway && !linked_gateway.active)
+		linked_gateway.toggleon()
 	return TRUE
 
 /obj/machinery/gateway/proc/toggleoff(telegraph = FALSE)
@@ -231,6 +250,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 		GLOB.the_gateway = src
 	update_icon()
 	linked_gateway = locate(/obj/machinery/gateway/away)
+	RegisterSignal(SSorbital_altitude, COMSIG_ORBITAL_GATEWAY_STATUS_CHANGED, PROC_REF(on_gateway_status_changed))
 
 /obj/machinery/gateway/away
 
@@ -238,6 +258,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	. = ..()
 	update_icon()
 	linked_gateway = locate(/obj/machinery/gateway/station)
+	RegisterSignal(SSorbital_altitude, COMSIG_ORBITAL_GATEWAY_STATUS_CHANGED, PROC_REF(on_gateway_status_changed))
 
 
 /obj/item/paper/fluff/gateway

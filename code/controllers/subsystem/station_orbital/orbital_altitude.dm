@@ -42,6 +42,9 @@ SUBSYSTEM_DEF(orbital_altitude)
 	/// Cached solar panel efficiency multiplier based on orbital altitude (0.0 to 2.0)
 	var/solar_efficiency = 1.0
 
+	/// Last gateway status, used to detect changes and send signals
+	var/last_gateway_status = GATEWAY_STATUS_OK
+
 	COOLDOWN_DECLARE(orbital_report_cooldown)
 	COOLDOWN_DECLARE(orbital_report_critical)
 
@@ -62,6 +65,9 @@ SUBSYSTEM_DEF(orbital_altitude)
 
 	// Check for critical orbit conditions and warnings
 	check_critical_orbit()
+
+	// Check for gateway status changes
+	check_gateway_status()
 
 	// Send periodic status reports
 	if(COOLDOWN_FINISHED(src, orbital_report_cooldown) && !in_critical_orbit)
@@ -325,6 +331,15 @@ SUBSYSTEM_DEF(orbital_altitude)
 	if(orbital_altitude < ORBITAL_ALTITUDE_MODERATE)
 		return GATEWAY_STATUS_TOO_LOW
 	return GATEWAY_STATUS_OK
+
+/**
+ * Checks if gateway status has changed and sends a signal if so.
+ */
+/datum/controller/subsystem/orbital_altitude/proc/check_gateway_status()
+	var/current_status = get_gateway_status()
+	if(current_status != last_gateway_status)
+		last_gateway_status = current_status
+		SEND_SIGNAL(src, COMSIG_ORBITAL_GATEWAY_STATUS_CHANGED, current_status)
 
 /**
  * Returns a flight time multiplier for the cargo shuttle based on orbital altitude.

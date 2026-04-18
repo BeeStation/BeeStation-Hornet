@@ -16,6 +16,9 @@
 #define GATEWAY_STATUS_TOO_HIGH 1
 #define GATEWAY_STATUS_TOO_LOW 2
 
+/// Sent on SSorbital_altitude when gateway operational status changes. Args: (new_status)
+#define COMSIG_ORBITAL_GATEWAY_STATUS_CHANGED "orbital_gateway_status_changed"
+
 // Cargo shuttle max flight time multiplier at floor altitude
 #define CARGO_SHUTTLE_MAX_MULTIPLIER 10
 
