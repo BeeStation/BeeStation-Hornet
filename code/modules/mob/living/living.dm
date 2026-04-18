@@ -2424,7 +2424,14 @@ GLOBAL_DATUM_INIT(combat_indicator_vis, /obj/effect/overlay/combat_indicator, ne
 /mob/living/proc/enable_combat_indicator()
 	if(COOLDOWN_FINISHED(src, nextcombatpopup))
 		COOLDOWN_START(src, nextcombatpopup, combat_notice_cooldown)
-		playsound(src, 'sound/machines/chime.ogg', vol = 5, vary = FALSE, extrarange = -6, falloff_exponent = 4, frequency = null, channel = 0, pressure_affected = FALSE, ignore_walls = FALSE, falloff_distance = 1)
+		var/turf/sound_turf = get_turf(src)
+		var/maxdistance = SOUND_RANGE - 10
+		var/sound_channel = SSsounds.random_available_channel()
+		var/sound/chime = sound('sound/machines/chime.ogg')
+		for(var/mob/M in get_hearers_in_view(maxdistance, sound_turf))
+			if(M == src)
+				continue
+			M.playsound_local(sound_turf, 'sound/machines/chime.ogg', 5, FALSE, null, 4, sound_channel, FALSE, chime, maxdistance, 1)
 		flick_emote_popup_on_mob("combat", 1 SECONDS)
 		var/ciweapon
 		if(get_active_held_item())
