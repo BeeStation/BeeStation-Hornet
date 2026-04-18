@@ -48,6 +48,7 @@ GLOBAL_LIST_EMPTY(ladders)
 GLOBAL_LIST_EMPTY(stairs)
 GLOBAL_LIST_EMPTY(bot_elevator)
 GLOBAL_LIST_EMPTY(janitor_devices)
+GLOBAL_LIST_EMPTY(closets)                          //list of all closets, for stowaway spawning atleast
 GLOBAL_LIST_EMPTY(trophy_cases)
 
 GLOBAL_LIST_EMPTY(wire_color_directory)

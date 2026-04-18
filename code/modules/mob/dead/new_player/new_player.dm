@@ -286,6 +286,8 @@
 		return JOB_UNAVAILABLE_GENERIC
 	if(job.lock_flags)
 		return JOB_UNAVAILABLE_LOCKED
+	if(("Stowaway" in client.prefs.all_quirks) && rank != SSjob.overflow_role)
+		return JOB_UNAVAILABLE_GENERIC
 	if(!job.has_space())
 		if(job.title == JOB_NAME_ASSISTANT)
 			//Newbies can always be assistants
@@ -444,30 +446,38 @@
 		if(!prioritized_job.has_space())
 			SSjob.prioritized_jobs -= prioritized_job
 	dat += "<table><tr><td valign='top'>"
-	var/column_counter = 0
-	for(var/datum/department_group/each_dept as anything in SSdepartment.sorted_department_for_latejoin)
-		var/dept_name = each_dept.pref_category_name
-		var/cat_color = each_dept.dept_colour || "#ff46c7" // failsafe colour
-		dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
-		dat += "<legend align='center' style='color: [cat_color]'>[dept_name]</legend>"
-		var/list/valid_jobs = list()
-		for(var/job in each_dept.jobs)
-			var/datum/job/job_datum = SSjob.name_occupations[job]
-			if(job_datum && IsJobUnavailable(job_datum.title, TRUE) == JOB_AVAILABLE)
-				var/command_bold = ""
-				if(each_dept.dept_id == DEPT_NAME_COMMAND || (job in each_dept.leaders))
-					command_bold = " command"
-				if(job_datum in SSjob.prioritized_jobs)
-					valid_jobs += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[span_priority("[job_datum.title] ([job_datum.current_positions])")]</a>"
-				else
-					valid_jobs += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[job_datum.title] ([job_datum.current_positions])</a>"
-		if(!valid_jobs.len)
-			valid_jobs += span_nopositions("No positions open.")
-		dat += jointext(valid_jobs, "")
+	if("Stowaway" in client.prefs.all_quirks)
+		// Stowaway players can only spawn as the overflow role and give them their own section in late-join job select.
+		var/stow_color = "#888888"
+		dat += "<fieldset style='width: 185px; border: 2px solid [stow_color]; display: inline'>"
+		dat += "<legend align='center' style='color: [stow_color]'>Stowaway</legend>"
+		dat += "<a class='job' href='byond://?src=[REF(src)];SelectedJob=[SSjob.overflow_role]'>Spawn as Stowaway</a>"
 		dat += "</fieldset><br>"
-		column_counter++
-		if(column_counter > 0 && (column_counter % 3 == 0))
-			dat += "</td><td valign='top'>"
+	else
+		var/column_counter = 0
+		for(var/datum/department_group/each_dept as anything in SSdepartment.sorted_department_for_latejoin)
+			var/dept_name = each_dept.pref_category_name
+			var/cat_color = each_dept.dept_colour || "#ffeaea6a" // failsafe colour
+			dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
+			dat += "<legend align='center' style='color: [cat_color]'>[dept_name]</legend>"
+			var/list/valid_jobs = list()
+			for(var/job in each_dept.jobs)
+				var/datum/job/job_datum = SSjob.name_occupations[job]
+				if(job_datum && IsJobUnavailable(job_datum.title, TRUE) == JOB_AVAILABLE)
+					var/command_bold = ""
+					if(each_dept.dept_id == DEPT_NAME_COMMAND || (job in each_dept.leaders))
+						command_bold = " command"
+					if(job_datum in SSjob.prioritized_jobs)
+						valid_jobs += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[span_priority("[job_datum.title] ([job_datum.current_positions])")]</a>"
+					else
+						valid_jobs += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[job_datum.title] ([job_datum.current_positions])</a>"
+			if(!valid_jobs.len)
+				valid_jobs += span_nopositions("No positions open.")
+			dat += jointext(valid_jobs, "")
+			dat += "</fieldset><br>"
+			column_counter++
+			if(column_counter > 0 && (column_counter % 3 == 0))
+				dat += "</td><td valign='top'>"
 	dat += "</td></tr></table></center>"
 	dat += "</div></div>"
 	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 680, 580)

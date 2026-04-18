@@ -128,7 +128,7 @@
 		name = person.real_name,
 		rank = assignment,
 		species = record_dna.species,
-		active_department = bank_account.active_departments,
+		active_department = bank_account ? bank_account.active_departments : null,
 		// Crew specific
 		lock_ref = FAST_REF(lockfile),
 		major_disabilities = person.get_quirk_string(FALSE, CAT_QUIRK_MAJOR_DISABILITY, from_scan = TRUE),

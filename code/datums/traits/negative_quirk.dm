@@ -727,26 +727,82 @@
 /datum/quirk/stowaway/on_spawn()
 	. = ..()
 	var/mob/living/carbon/human/H = quirk_target
-	H.Sleeping(5 SECONDS, TRUE, TRUE)
-	if(prob(20))
+	H.Sleeping(6 SECONDS, TRUE, TRUE)
+	if(prob(15))
 		H.adjust_drunk_effect(rand(8 SECONDS, 10 SECONDS))
 	else
 		H.adjust_drugginess(rand(10 SECONDS, 20 SECONDS))
+	var/obj/item/card/id/id_card = H.get_item_by_slot(ITEM_SLOT_ID)
+	qdel(id_card)
 	var/obj/structure/closet/selected_closet = get_unlocked_closed_locker()
 	if(selected_closet)
 		H.forceMove(selected_closet)
 		new /obj/item/storage/toolbox/mechanical(selected_closet)
+	if(!isplasmaman(H))
+		var/loadout_replaced_uniform = FALSE
+		var/obj/item/storage/bag = H.get_item_by_slot(ITEM_SLOT_BACK)
+		if(bag)
+			for(var/obj/item/storage/box/B in bag.contents)
+				if(B.name == "compression box of standard gear")
+					for(var/obj/item/clothing/under/U in B.contents)
+						loadout_replaced_uniform = TRUE
+						break
+					break
+		if(!loadout_replaced_uniform)
+			var/obj/item/current_uniform = H.get_item_by_slot(ITEM_SLOT_ICLOTHING)
+			qdel(current_uniform)
+			var/new_uniform_type
+			if(H.jumpsuit_style == PREF_SUIT)
+				new_uniform_type = pick(
+					/obj/item/clothing/under/pants/jeans,
+					/obj/item/clothing/under/pants/classicjeans,
+					/obj/item/clothing/under/pants/blackjeans,
+					/obj/item/clothing/under/pants/mustangjeans,
+					/obj/item/clothing/under/pants/khaki,
+					/obj/item/clothing/under/pants/track,
+					/obj/item/clothing/under/pants/camo,
+					/obj/item/clothing/under/shorts/red,
+					/obj/item/clothing/under/shorts/blue,
+					/obj/item/clothing/under/shorts/black,
+					/obj/item/clothing/under/shorts/grey,
+				)
+			else
+				new_uniform_type = pick(
+					/obj/item/clothing/under/dress/skirt,
+					/obj/item/clothing/under/dress/skirt/blue,
+					/obj/item/clothing/under/dress/skirt/red,
+					/obj/item/clothing/under/dress/skirt/purple,
+					/obj/item/clothing/under/dress/skirt/plaid,
+					/obj/item/clothing/under/dress/skirt/plaid/blue,
+					/obj/item/clothing/under/dress/skirt/plaid/purple,
+					/obj/item/clothing/under/shorts/red,
+					/obj/item/clothing/under/shorts/blue,
+					/obj/item/clothing/under/shorts/black,
+					/obj/item/clothing/under/shorts/grey,
+					/obj/item/clothing/under/shorts/purple,
+				)
+			H.equip_to_slot_or_del(new new_uniform_type(H), ITEM_SLOT_ICLOTHING)
 
 /datum/quirk/stowaway/post_spawn()
 	. = ..()
+	to_chat(quirk_holder, "<b>You are a Stowaway who has snuck onto the station.</b>")
+	to_chat(quirk_holder, "<b>As a Stowaway, you have no supervisors and are on your own. Try to survive, and find a way to thrive aboard the station!</b>")
 	addtimer(CALLBACK(src, PROC_REF(delete_stowaway_record)), 4 SECONDS)
 
 /datum/quirk/stowaway/proc/delete_stowaway_record()
 	if(!quirk_holder)
 		return
-	var/mob/living/carbon/human/H = quirk_target
-	if(H)
-		var/obj/item/card/id/trashed = H.get_item_by_slot(ITEM_SLOT_ID)
-		qdel(trashed)
 	var/datum/record/crew/R = find_record(quirk_holder.name, GLOB.manifest.general)
 	qdel(R)
+
+/proc/get_unlocked_closed_locker()
+	var/list/eligible_lockers = list()
+	for(var/obj/structure/closet/closet in GLOB.closets)
+		if(closet.opened || istype(closet, /obj/structure/closet/secure_closet))
+			continue
+		var/turf/closet_turf = get_turf(closet)
+		if(!closet_turf || !is_station_level(closet_turf.z) || closet_turf.is_blocked_turf(ignore_atoms = list(closet)))
+			continue
+		eligible_lockers += closet
+	if(length(eligible_lockers))
+		return pick(eligible_lockers)

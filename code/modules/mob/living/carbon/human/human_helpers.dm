@@ -253,6 +253,8 @@
 	return FALSE
 
 /mob/living/carbon/human/proc/get_job_id() //Used in secHUD icon generation (the new one)
+	if(!wear_id)
+		return
 	var/obj/item/card/id/I = wear_id.GetID()
 	if(!I)
 		return

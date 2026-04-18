@@ -74,6 +74,7 @@
 
 /obj/structure/closet/Initialize(mapload)
 	. = ..()
+	GLOB.closets += src
 	// if closed, any item at the crate's loc is put in the contents
 	if (mapload && !opened)
 		. = INITIALIZE_HINT_LATELOAD
@@ -99,6 +100,7 @@
 	return
 
 /obj/structure/closet/Destroy()
+	GLOB.closets -= src
 	dump_contents()
 	return ..()
 
