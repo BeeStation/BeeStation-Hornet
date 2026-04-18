@@ -1,0 +1,4 @@
+author: timothymtorres
+delete-after: true
+changes:
+  - server: PRs that don't touch mapping no longer have maplints ran on them
