@@ -12,7 +12,7 @@
 
 	viewer_client.orbital_layers = list()
 
-	// Create base space background layer (always visible)
+	// Create base space background layer
 	var/atom/movable/screen/orbital_layer/space_background/base_layer = new
 	base_layer.set_new_hud(null)
 	base_layer.create_tiled_overlays(viewer_client.view)
@@ -184,15 +184,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 // ============================================================================
 
 /atom/movable/screen/orbital_layer/space_background
-	icon_state = "space_background"
+	icon_state = "layer1"
 	blend_mode = BLEND_DEFAULT
+	should_scroll = TRUE
+	scroll_time = 60 SECONDS
 
 // ============================================================================
 // STARS LAYER
 // ============================================================================
 
 /atom/movable/screen/orbital_layer/stars
-	icon_state = "stars"
+	icon_state = "layer2"
 	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/orbital_layer/stars/update_for_altitude(altitude, client/viewer_client)
