@@ -42,6 +42,13 @@ SUBSYSTEM_DEF(orbital_altitude)
 	/// Cached solar panel efficiency multiplier based on orbital altitude (0.0 to 2.0)
 	var/solar_efficiency = 1.0
 
+	/// Whether altitude hold mode is enabled (shared across all consoles)
+	var/altitude_hold_enabled = TRUE
+	/// Target altitude for altitude hold in meters (shared across all consoles)
+	var/altitude_hold_target = 110000
+	/// Current thrust setting from consoles (-20 to +20)
+	var/console_set_thrust = 0
+
 	/// Last gateway status, used to detect changes and send signals
 	var/last_gateway_status = GATEWAY_STATUS_OK
 
@@ -56,6 +63,9 @@ SUBSYSTEM_DEF(orbital_altitude)
 
 	// Update thrust from all orbital thrusters
 	update_thrust_from_thrusters()
+
+	// Apply altitude hold or manual thrust to thrusters
+	apply_console_thrust()
 
 	// Update orbital altitude based on physics
 	orbital_altitude_change()
@@ -100,6 +110,23 @@ SUBSYSTEM_DEF(orbital_altitude)
 	summed_thrust /= thruster_count
 
 	thrust = clamp(summed_thrust * 2, -40, 40) // Since thrusters can now range from -20 to +20, and we need -40 to +40 range
+
+/**
+ * Applies the current console thrust setting to all orbital thrusters.
+ * If altitude hold is enabled, automatically adjusts thrust to reach target altitude.
+ */
+/datum/controller/subsystem/orbital_altitude/proc/apply_console_thrust()
+	if(altitude_hold_enabled)
+		if(orbital_altitude < altitude_hold_target)
+			console_set_thrust = 20
+		else if(orbital_altitude > altitude_hold_target + 500)
+			console_set_thrust = -20
+		else
+			console_set_thrust = 0
+
+	for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/thruster in orbital_thrusters)
+		if(!QDELETED(thruster))
+			thruster.set_thrust(console_set_thrust)
 
 /datum/controller/subsystem/orbital_altitude/proc/orbital_altitude_change()
 	var/orbital_altitude_change = 0

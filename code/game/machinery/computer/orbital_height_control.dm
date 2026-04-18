@@ -6,34 +6,13 @@
 	circuit = /obj/item/circuitboard/computer/orbital_height_control
 	light_color = LIGHT_COLOR_BLUE
 
-	var/altitude_hold_enabled = TRUE
-	var/altitude_hold_target = 110000  // in meters
-
-	var/set_thrust = 0
-
 /obj/machinery/computer/orbital_height_control/Initialize(mapload)
 	. = ..()
-	begin_processing()
 	if(mapload)
 		var/obj/item/sticker/sticky_note/orbital_tutorial/label = new(loc)
 		label.afterattack(src, src, TRUE)
 		label.pixel_y = rand(-8, 8)
 		label.pixel_x = rand(-8, 8)
-
-/obj/machinery/computer/orbital_height_control/process()
-	if(altitude_hold_enabled)
-		// Simple altitude hold logic
-		if(SSorbital_altitude.orbital_altitude < altitude_hold_target)
-			set_thrust = 20
-		else if(SSorbital_altitude.orbital_altitude > altitude_hold_target + 500) // Add buffer to prevent oscillation
-			set_thrust = -20
-		else
-			set_thrust = 0
-
-	// Send thrust commands to all thrusters
-	for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/thruster in SSorbital_altitude.orbital_thrusters)
-		if(!QDELETED(thruster))
-			thruster.set_thrust(set_thrust)
 
 /obj/machinery/computer/orbital_height_control/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -94,10 +73,10 @@
 	var/resistance_normalized = clamp((1 - SSorbital_altitude.resistance) * 100 + rand(-10, 10), 0, 100)
 	data["normalized_resistance"] = round(resistance_normalized, 0.1)
 
-	data["thrust_level"] = set_thrust
+	data["thrust_level"] = SSorbital_altitude.console_set_thrust
 	data["actual_thrust"] = SSorbital_altitude.thrust / 2 // It uses -40 to +40 range, we only want to display -20 to +20
-	data["altitude_hold_enabled"] = altitude_hold_enabled || FALSE
-	data["altitude_hold_target"] = altitude_hold_target || SSorbital_altitude.orbital_altitude
+	data["altitude_hold_enabled"] = SSorbital_altitude.altitude_hold_enabled || FALSE
+	data["altitude_hold_target"] = SSorbital_altitude.altitude_hold_target || SSorbital_altitude.orbital_altitude
 
 	// Thruster status data
 	var/list/thrusters = list()
@@ -130,22 +109,22 @@
 	switch(action)
 		if("increase_thrust")
 			// Increase thrust by 1, max 20
-			set_thrust = clamp(set_thrust + 1, -20, 20)
+			SSorbital_altitude.console_set_thrust = clamp(SSorbital_altitude.console_set_thrust + 1, -20, 20)
 			. = TRUE
 		if("decrease_thrust")
 			// Decrease thrust by 1, min -20
-			set_thrust = clamp(set_thrust - 1, -20, 20)
+			SSorbital_altitude.console_set_thrust = clamp(SSorbital_altitude.console_set_thrust - 1, -20, 20)
 			. = TRUE
 		if("set_altitude_hold_target")
 			// Set the target altitude for altitude hold system
 			var/target = text2num(params["target"])
 			if(isnull(target))
 				return FALSE
-			altitude_hold_target = clamp(target, 80000, 140000)  // 80km to 140km in meters
+			SSorbital_altitude.altitude_hold_target = clamp(target, 80000, 140000)  // 80km to 140km in meters
 			. = TRUE
 		if("toggle_altitude_hold")
 			// Toggle altitude hold system on/off
-			altitude_hold_enabled = !altitude_hold_enabled
+			SSorbital_altitude.altitude_hold_enabled = !SSorbital_altitude.altitude_hold_enabled
 			. = TRUE
 
 /*
