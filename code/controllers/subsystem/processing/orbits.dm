@@ -12,7 +12,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 
 	var/initial_space_ruins = 2
 	var/initial_objective_beacons = 3
-	var/initial_asteroids = 50
+	var/initial_asteroids = 20
 	var/initial_neo_cluster_asteroids = 3
 
 	var/orbits_setup = FALSE
