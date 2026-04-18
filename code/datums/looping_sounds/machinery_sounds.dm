@@ -140,3 +140,10 @@
 	end_sound = 1.5 SECONDS
 	mid_sounds = 'sound/machines/fan/fan_loop.ogg'
 	mid_length = 2 SECONDS
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/transformer
+	mid_sounds = list('sound/machines/transformer.ogg' = 1)
+	mid_length = 0.9 SECONDS
+	volume = 100

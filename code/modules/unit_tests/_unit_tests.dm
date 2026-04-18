@@ -83,6 +83,7 @@
 #include "reagent_id_duplicates.dm"
 #include "reagent_id_typos.dm"
 #include "reagent_recipe_collisions.dm"
+#include "say.dm"
 #include "security_levels.dm"
 #include "serving_tray.dm"
 #include "shuttle_width_height_correctness.dm"
@@ -124,7 +125,7 @@
 #include "mapping\check_disposals.dm"
 #include "mapping\check_light_attachment.dm"
 #include "mapping\check_multiple_objects.dm"
-#include "mapping\check_wire_crossing.dm"
+#include "mapping\check_wires.dm"
 #include "mapping\map_test.dm"
 
 // END_INCLUDE

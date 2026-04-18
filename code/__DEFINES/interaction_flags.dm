@@ -1,3 +1,6 @@
+/**
+ * Interaction Flags
+ */
 
 #define INTERACT_ATOM_REQUIRES_ANCHORED 			(1<<0)	//! whether can_interact() checks for anchored. only works on movables.
 #define INTERACT_ATOM_ATTACK_HAND 					(1<<1)	//! calls try_interact() on attack_hand() and returns that.
@@ -33,3 +36,4 @@
 #define INTERACT_MACHINE_REQUIRES_SIGHT (1<<7)
 /// the user must be able to read to interact
 #define INTERACT_MACHINE_REQUIRES_LITERACY (1<<8)
+

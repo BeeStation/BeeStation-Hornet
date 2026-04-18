@@ -169,6 +169,13 @@
 		return
 	crossing_mob.knockOver(owner)
 
+/*
+/obj/item/organ/brain/primate/get_attacking_limb(mob/living/carbon/human/target)
+	if(!HAS_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER) || HAS_TRAIT(owner, TRAIT_FERAL_BITER))
+		return owner.get_bodypart(BODY_ZONE_HEAD)
+	return ..()
+*/
+
 /// Virtual monkeys that crave virtual bananas. Everything about them is ephemeral (except that bite).
 /datum/species/monkey/holodeck
 	id = SPECIES_MONKEY_HOLODECK

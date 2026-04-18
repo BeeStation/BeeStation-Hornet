@@ -9,6 +9,7 @@
 	is_dimorphic = TRUE
 	px_x = 0
 	px_y = 0
+	grind_results = null
 	stam_damage_coeff = 1
 	max_stamina_damage = 120
 	///The bodyshape(s) allowed to attach to this chest.
@@ -73,8 +74,19 @@
 	bodytype = BODYTYPE_LARVA_PLACEHOLDER | BODYTYPE_ORGANIC
 	acceptable_bodytype = BODYTYPE_LARVA_PLACEHOLDER
 
-/// Parent Type for arms, should not appear in game.
 /obj/item/bodypart/arm
+	abstract_type = /obj/item/bodypart/arm
+	name = "arm"
+	desc = "Hey buddy give me a HAND and report this to the github because you shouldn't be seeing this."
+	attack_verb_continuous = list("slaps", "punches")
+	attack_verb_simple = list("slap", "punch")
+	max_damage = 50
+	max_stamina_damage = 50
+	aux_layer = BODYPARTS_HIGH_LAYER
+	body_damage_coeff = 0.75
+	can_be_disabled = TRUE
+	body_zone = BODY_ZONE_L_ARM
+
 	/// The noun to use when referring to this arm's appendage, e.g. "hand" or "paw"
 	var/appendage_noun = "hand"
 
@@ -85,21 +97,13 @@
 		be possessed by the devil? This arm appears to be possessed by no \
 		one though."
 	icon_state = "default_human_l_arm"
-	attack_verb_continuous = list("slaps", "punches")
-	attack_verb_simple = list("slap", "punch")
-	max_damage = 40
-	max_stamina_damage = 50
 	body_zone = BODY_ZONE_L_ARM
 	body_part = ARM_LEFT
 	plaintext_zone = "left arm"
 	aux_zone = BODY_ZONE_PRECISE_L_HAND
-	aux_layer = HANDS_PART_LAYER
-	body_damage_coeff = 0.75
 	held_index = 1
 	px_x = -6
 	px_y = 0
-	can_be_disabled = TRUE
-
 
 /obj/item/bodypart/arm/left/set_owner(new_owner)
 	. = ..()
@@ -192,21 +196,13 @@
 	desc = "Over 87% of humans are right handed. That figure is much lower \
 		among humans missing their right arm."
 	icon_state = "default_human_r_arm"
-	attack_verb_continuous = list("slaps", "punches")
-	attack_verb_simple = list("slap", "punch")
-	max_damage = 40
-	max_stamina_damage = 50
 	body_zone = BODY_ZONE_R_ARM
 	body_part = ARM_RIGHT
 	plaintext_zone = "right arm"
 	aux_zone = BODY_ZONE_PRECISE_R_HAND
-	aux_layer = HANDS_PART_LAYER
-	body_damage_coeff = 0.75
 	held_index = 2
 	px_x = 6
 	px_y = 0
-	can_be_disabled = TRUE
-
 
 /obj/item/bodypart/arm/right/set_owner(new_owner)
 	. = ..()
@@ -295,23 +291,27 @@
 	should_draw_greyscale = FALSE
 	appendage_noun = "scythe-like hand"
 
+/obj/item/bodypart/leg
+	abstract_type = /obj/item/bodypart/leg
+	name = "leg"
+	desc = "This item shouldn't exist. Talk about breaking a leg. Badum-Tss!"
+	attack_verb_continuous = list("kicks", "stomps")
+	attack_verb_simple = list("kick", "stomp")
+	max_damage = 40
+	body_damage_coeff = 0.75
+	max_stamina_damage = 50
+	can_be_disabled = TRUE
+
 /obj/item/bodypart/leg/left
 	name = "left leg"
 	desc = "Some athletes prefer to tie their left shoelaces first for good \
 		luck. In this instance, it probably would not have helped."
 	icon_state = "default_human_l_leg"
-	attack_verb_continuous = list("kicks", "stomps")
-	attack_verb_simple = list("kick", "stomp")
-	max_damage = 40
 	body_zone = BODY_ZONE_L_LEG
 	body_part = LEG_LEFT
 	plaintext_zone = "left leg"
-	body_damage_coeff = 0.75
 	px_x = -2
 	px_y = 12
-	max_stamina_damage = 50
-	can_be_disabled = TRUE
-
 
 /obj/item/bodypart/leg/left/set_owner(new_owner)
 	. = ..()
@@ -399,18 +399,11 @@
 		The hokey pokey has certainly changed a lot since space colonisation."
 	// alternative spellings of 'pokey' are available
 	icon_state = "default_human_r_leg"
-	attack_verb_continuous = list("kicks", "stomps")
-	attack_verb_simple = list("kick", "stomp")
-	max_damage = 40
 	body_zone = BODY_ZONE_R_LEG
 	body_part = LEG_RIGHT
 	plaintext_zone = "right leg"
-	body_damage_coeff = 0.75
 	px_x = 2
 	px_y = 12
-	max_stamina_damage = 50
-	can_be_disabled = TRUE
-
 
 /obj/item/bodypart/leg/right/set_owner(new_owner)
 	. = ..()

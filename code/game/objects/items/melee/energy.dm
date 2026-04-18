@@ -1,4 +1,5 @@
 /obj/item/melee/energy
+	abstract_type = /obj/item/melee/energy
 	icon = 'icons/obj/transforming_energy.dmi'
 	max_integrity = 200
 	armor_type = /datum/armor/transforming_energy
@@ -148,7 +149,7 @@
 	armour_penetration = 100
 	sharpness = SHARP
 	w_class = WEIGHT_CLASS_NORMAL
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 
 	active_force = 150

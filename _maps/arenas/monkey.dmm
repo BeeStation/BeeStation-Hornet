@@ -1,205 +1,205 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/open/floor/grass,
-/area/tdome/arena)
-"b" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/turf/open/floor/grass,
-/area/tdome/arena)
-"c" = (
-/obj/structure/flora/ausbushes/sunnybush,
-/turf/open/floor/grass,
-/area/tdome/arena)
-"d" = (
-/obj/structure/flora/rock/jungle,
-/turf/open/floor/grass,
-/area/tdome/arena)
-"e" = (
+"p" = (
 /obj/structure/flora/ausbushes/fernybush,
 /turf/open/floor/grass,
-/area/tdome/arena)
-"f" = (
+/area/centcom/tdome/arena)
+"x" = (
 /obj/structure/flora/tree/jungle/small,
 /obj/structure/spacevine,
 /turf/open/floor/grass,
-/area/tdome/arena)
-"g" = (
+/area/centcom/tdome/arena)
+"z" = (
+/obj/structure/flora/ausbushes/sunnybush,
+/turf/open/floor/grass,
+/area/centcom/tdome/arena)
+"D" = (
+/obj/structure/flora/ausbushes/fernybush,
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/grass,
+/area/centcom/tdome/arena)
+"G" = (
 /obj/structure/flora/ausbushes/sunnybush,
 /obj/structure/spacevine,
 /turf/open/floor/grass,
-/area/tdome/arena)
-"h" = (
+/area/centcom/tdome/arena)
+"J" = (
+/turf/open/floor/grass,
+/area/centcom/tdome/arena)
+"L" = (
+/obj/structure/flora/rock/jungle,
+/turf/open/floor/grass,
+/area/centcom/tdome/arena)
+"M" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/open/floor/grass,
+/area/centcom/tdome/arena)
+"O" = (
+/obj/structure/flora/ausbushes/fernybush,
 /obj/structure/spacevine,
 /turf/open/floor/grass,
-/area/tdome/arena)
-"i" = (
+/area/centcom/tdome/arena)
+"Q" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/spacevine,
 /turf/open/floor/grass,
-/area/tdome/arena)
-"k" = (
-/obj/structure/flora/ausbushes/fernybush,
+/area/centcom/tdome/arena)
+"R" = (
 /obj/structure/spacevine,
 /turf/open/floor/grass,
-/area/tdome/arena)
-"l" = (
-/obj/structure/flora/ausbushes/fernybush,
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/grass,
-/area/tdome/arena)
-"m" = (
+/area/centcom/tdome/arena)
+"Y" = (
 /obj/structure/flora/rock/jungle,
 /mob/living/carbon/human/species/monkey,
 /turf/open/floor/grass,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 
 (1,1,1) = {"
-a
-a
-d
-a
-a
-a
-b
-a
+J
+J
+L
+J
+J
+J
+M
+J
 "}
 (2,1,1) = {"
-d
-a
-a
-a
-e
-a
-a
-c
+L
+J
+J
+J
+p
+J
+J
+z
 "}
 (3,1,1) = {"
-e
-a
-a
-a
-a
-a
-a
-a
+p
+J
+J
+J
+J
+J
+J
+J
 "}
 (4,1,1) = {"
-a
-a
-f
-i
-h
-f
-e
-l
+J
+J
+x
+Q
+R
+x
+p
+D
 "}
 (5,1,1) = {"
-a
-b
-g
-e
-a
-h
-a
-a
+J
+M
+G
+p
+J
+R
+J
+J
 "}
 (6,1,1) = {"
-a
-a
-h
-h
-a
-a
-d
-a
+J
+J
+R
+R
+J
+J
+L
+J
 "}
 (7,1,1) = {"
-a
-a
-a
-b
-h
-i
-a
-e
+J
+J
+J
+M
+R
+Q
+J
+p
 "}
 (8,1,1) = {"
-a
-a
-a
-d
-a
-h
-b
-a
+J
+J
+J
+L
+J
+R
+M
+J
 "}
 (9,1,1) = {"
-a
-c
-h
-a
-h
-g
-a
-a
+J
+z
+R
+J
+R
+G
+J
+J
 "}
 (10,1,1) = {"
-a
-a
-g
-i
-a
-k
-a
-m
+J
+J
+G
+Q
+J
+O
+J
+Y
 "}
 (11,1,1) = {"
-a
-b
-h
-a
-a
-h
-a
-a
+J
+M
+R
+J
+J
+R
+J
+J
 "}
 (12,1,1) = {"
-a
-a
-f
-h
-h
-f
-a
-b
+J
+J
+x
+R
+R
+x
+J
+M
 "}
 (13,1,1) = {"
-a
-a
-a
-e
-a
-a
-a
-e
+J
+J
+J
+p
+J
+J
+J
+p
 "}
 (14,1,1) = {"
-a
-d
-a
-a
-a
-d
-a
-a
+J
+L
+J
+J
+J
+L
+J
+J
 "}
 (15,1,1) = {"
-b
-a
-a
-a
-a
-b
-a
-d
+M
+J
+J
+J
+J
+M
+J
+L
 "}

@@ -1,4 +1,7 @@
 /datum/bounty/genetics
+	abstract_type = /datum/bounty/genetics
+
+/datum/bounty/genetics
 	reward = 1000
 	var/shipped = FALSE
 	var/datum/mutation/bounty_mutation

@@ -31,23 +31,26 @@
 	/// How many smaller table smacks we can do before we're out
 	var/table_smacks_left = 3
 
-/obj/item/hand_item/slapper/attack(mob/living/M, mob/living/carbon/human/user)
-	if(ishuman(M))
-		var/mob/living/carbon/human/L = M
+/obj/item/hand_item/slapper/attack(mob/living/slapped, mob/living/carbon/human/user)
+	. = ..()
+	SEND_SIGNAL(slapped, COMSIG_LIVING_SLAPPED, user)
+
+	if(ishuman(slapped))
+		var/mob/living/carbon/human/L = slapped
 		if(L && L.dna && L.dna.species)
-			L.dna.species.stop_wagging_tail(M)
-	user.do_attack_animation(M)
+			L.dna.species.stop_wagging_tail(slapped)
+	user.do_attack_animation(slapped)
 
 	var/slap_volume = 50
 	if(user.is_zone_selected(BODY_ZONE_HEAD, precise_only = TRUE) || user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH, simplified_probability = 50))
-		user.visible_message(span_danger("[user] slaps [M] in the face!"),
-			span_notice("You slap [M] in the face!"),
+		user.visible_message(span_danger("[user] slaps [slapped] in the face!"),
+			span_notice("You slap [slapped] in the face!"),
 			span_hear("You hear a slap."))
 	else
-		user.visible_message(span_danger("[user] slaps [M]!"),
-			span_notice("You slap [M]!"),
+		user.visible_message(span_danger("[user] slaps [slapped]!"),
+			span_notice("You slap [slapped]!"),
 			span_hear("You hear a slap."))
-	playsound(M, 'sound/weapons/slap.ogg', slap_volume, TRUE, -1)
+	playsound(slapped, 'sound/weapons/slap.ogg', slap_volume, TRUE, -1)
 	return
 
 /obj/item/hand_item/slapper/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)

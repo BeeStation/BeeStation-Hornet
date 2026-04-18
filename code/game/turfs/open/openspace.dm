@@ -34,7 +34,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 /turf/open/openspace/Initialize(mapload)
 	. = ..()
 	var/area/our_area = loc
-	if(istype(our_area, /area/space))
+	if(istype(our_area, /area/misc/space))
 		force_no_gravity = TRUE
 	return INITIALIZE_HINT_LATELOAD
 

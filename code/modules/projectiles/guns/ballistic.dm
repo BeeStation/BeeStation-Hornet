@@ -1,4 +1,5 @@
 /obj/item/gun/ballistic
+	abstract_type = /obj/item/gun/ballistic
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason."
 	name = "projectile gun"
 	icon_state = "pistol"

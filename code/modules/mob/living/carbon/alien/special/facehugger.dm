@@ -35,6 +35,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddElement(/datum/element/atmos_sensitive)
+	AddElement(/datum/element/muffles_speech)
 
 /obj/item/clothing/mask/facehugger/compile_monkey_icon()
 	//If the icon, for this type of item, is already made by something else, don't make it again
@@ -138,58 +139,62 @@
 		icon_state = "[initial(icon_state)]"
 		Leap(hit_atom)
 
-/obj/item/clothing/mask/facehugger/proc/valid_to_attach(mob/living/M)
+/obj/item/clothing/mask/facehugger/proc/valid_to_attach(mob/living/hit_mob)
 	// valid targets: carbons except aliens and devils
 	// facehugger state early exit checks
 	if(stat != CONSCIOUS || attached)
 		return FALSE
-	if(iscarbon(M))
-		// disallowed carbons
-		if(isalien(M))
-			return FALSE
-		var/mob/living/carbon/target = M
-		// gotta have a head to be implanted (no changelings or sentient plants), gotta be able to have the xeno implanted
-		if(!target.get_bodypart(BODY_ZONE_HEAD) || HAS_TRAIT(target, TRAIT_XENO_IMMUNE))
-			return FALSE
-		// carbon, has head, not alien or devil, has no hivenode or embryo: valid
-		return TRUE
-
-	return FALSE
-
-/obj/item/clothing/mask/facehugger/proc/Leap(mob/living/M)
-	if(!valid_to_attach(M))
+	if(!iscarbon(hit_mob))
 		return FALSE
-	if(iscarbon(M))
-		var/mob/living/carbon/target = M
-		if(target.wear_mask && istype(target.wear_mask, /obj/item/clothing/mask/facehugger))
-			return FALSE
+	// disallowed carbons
+	if(isalien(hit_mob))
+		return FALSE
+	var/mob/living/carbon/target = hit_mob
+	// gotta have a head to be implanted (no changelings or sentient plants)
+	if(!target.get_bodypart(BODY_ZONE_HEAD))
+		return FALSE
+	// gotta be able to have the xeno implanted
+	if(HAS_TRAIT(target, TRAIT_XENO_IMMUNE))
+		return FALSE
+	// carbon, has head, not alien nor has hivenode or embryo: valid
+	return TRUE
+
+/obj/item/clothing/mask/facehugger/proc/Leap(mob/living/hit_mob)
+	if(!valid_to_attach(hit_mob))
+		return FALSE
+	var/mob/living/carbon/target = hit_mob
+	if(target.wear_mask && istype(target.wear_mask, /obj/item/clothing/mask/facehugger))
+		return FALSE
 	// passed initial checks - time to leap!
-	M.visible_message(span_danger("[src] leaps at [M]'s face!"), \
-							span_userdanger("[src] leaps at your face!"))
+	target.visible_message(
+		span_danger("[src] leaps at [target]'s face!"),
+		span_userdanger("[src] leaps at your face!")
+	)
 
 	// probiscis-blocker handling
-	if(iscarbon(M))
-		var/mob/living/carbon/target = M
+	if(target.is_mouth_covered(ITEM_SLOT_HEAD))
+		target.visible_message(
+			span_danger("[src] smashes against [target]'s [target.head]!"),
+			span_userdanger("[src] smashes against your [target.head]!")
+		)
+		Die()
+		return FALSE
 
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(H.is_mouth_covered(head_only = 1))
-				H.visible_message(span_danger("[src] smashes against [H]'s [H.head]!"), \
-									span_userdanger("[src] smashes against your [H.head]!"))
-				Die()
-				return FALSE
-
-		if(target.wear_mask)
-			var/obj/item/clothing/W = target.wear_mask
-			if(target.dropItemToGround(W))
-				target.visible_message(span_danger("[src] tears [W] off of [target]'s face!"), \
-									span_userdanger("[src] tears [W] off of your face!"))
-		target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK, 0, 1, 1)
+	if(target.wear_mask)
+		var/obj/item/clothing/W = target.wear_mask
+		if(target.dropItemToGround(W))
+			target.visible_message(
+				span_danger("[src] tears [W] off of [target]'s face!"),
+				span_userdanger("[src] tears [W] off of your face!")
+			)
+	if(!target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK, 0, 1, 1))
+		return FALSE
 	return TRUE // time for a smoke
 
 /obj/item/clothing/mask/facehugger/proc/Attach(mob/living/M)
 	if(!valid_to_attach(M))
 		return
+
 	// early returns and validity checks done: attach.
 	attached = TRUE
 	//ensure we detach once we no longer need to be attached
@@ -259,13 +264,17 @@
 	visible_message(span_danger("[src] curls up into a ball!"))
 
 /proc/CanHug(mob/living/M)
-	if(!istype(M) || M.stat == DEAD || M.get_organ_by_type(/obj/item/organ/alien/hivenode))
+	if(!istype(M))
+		return FALSE
+	if(M.stat == DEAD)
+		return FALSE
+	if(M.get_organ_by_type(/obj/item/organ/alien/hivenode))
 		return FALSE
 
 	var/mob/living/carbon/C = M
 	if(ishuman(C) && !(C.dna.species.no_equip_flags & ITEM_SLOT_MASK))
 		var/mob/living/carbon/human/H = C
-		if(H.is_mouth_covered(head_only = 1))
+		if(H.is_mouth_covered(ITEM_SLOT_HEAD))
 			return FALSE
 		return TRUE
 	return FALSE

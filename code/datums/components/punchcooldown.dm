@@ -6,6 +6,8 @@
 	valid_slots = ITEM_SLOT_GLOVES
 	///The warcry this generates
 	var/warcry = "AT"
+	///Items attack cooldown speed
+	var/attackspeed = CLICK_CD_RAPID
 
 /datum/component/wearertargeting/punchcooldown/Initialize()
 	. = ..()
@@ -17,7 +19,7 @@
 /datum/component/wearertargeting/punchcooldown/proc/reducecooldown(mob/living/carbon/M, atom/target)
 	var/obj/item/used_item = M.get_active_held_item()
 	if((M.combat_mode && isliving(target)) || (used_item & HAND_ITEM))
-		M.changeNext_move(CLICK_CD_RAPID)
+		M.changeNext_move(attackspeed)
 		if(warcry)
 			M.say(warcry, ignore_spam = TRUE, forced = "north star warcry")
 

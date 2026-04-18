@@ -1,4 +1,5 @@
 /datum/emote/living/carbon
+	abstract_type = /datum/emote/living/carbon
 	mob_type_allowed_typecache = list(/mob/living/carbon)
 
 /datum/emote/living/carbon/airguitar
@@ -23,7 +24,6 @@
 	key = "clap"
 	key_third_person = "claps"
 	message = "claps"
-	muzzle_ignore = TRUE
 	hands_use_check = TRUE
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 	vary = TRUE
@@ -81,7 +81,6 @@
 	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/snap
-	muzzle_ignore = TRUE
 	hands_use_check = TRUE
 	vary = TRUE
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE

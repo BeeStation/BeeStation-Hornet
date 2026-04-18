@@ -1,4 +1,5 @@
 /datum/disease/transformation
+	abstract_type = /datum/disease/transformation
 	name = "Transformation"
 	max_stages = 5
 	spread_text = "Acute"

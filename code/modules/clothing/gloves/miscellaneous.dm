@@ -98,6 +98,26 @@
 	. = ..()
 	AddComponent(/datum/component/wearertargeting/punchcooldown)
 
+/obj/item/clothing/gloves/rapid/vampire
+	name = "Strange Blur"
+	desc = "There is a strange, subtle blur surrounding the hands."
+	icon_state = "exactitude"
+	inhand_icon_state = "exactitude"
+	worn_icon_state = null
+
+/obj/item/clothing/gloves/rapid/vampire/Initialize(mapload)
+	. = ..()
+	var/datum/component/wearertargeting/punchcooldown/local_var = GetComponent(/datum/component/wearertargeting/punchcooldown)
+	local_var.warcry = null
+	local_var.attackspeed = CLICK_CD_MELEE // Slower than the gloves as vamps are also stronger
+
+/obj/item/clothing/gloves/rapid/vampire/attack_self(mob/user) // Just in case
+	return
+
+/obj/item/clothing/gloves/rapid/vampire/New()
+	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+	return ..()
+
 /obj/item/clothing/gloves/color/white/magic
 	name = "white gloves"
 	desc = "These look pretty fancy."

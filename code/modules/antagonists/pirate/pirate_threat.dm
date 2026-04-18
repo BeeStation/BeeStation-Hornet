@@ -402,6 +402,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 
 /// This only serves to be a parent type to all pirate exports for purposes of find_loot
 /datum/export/pirate
+	abstract_type = /datum/export/pirate
 
 /datum/export/pirate/proc/find_loot()
 	return

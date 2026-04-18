@@ -21,6 +21,8 @@
 						"<span class='notice'>[M] [response_help_continuous] you.</span>", null, null, M)
 		to_chat(M, "<span class='notice'>You [response_help_simple] [src].</span>")
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+
+		SEND_SIGNAL(M, COMSIG_LIVING_PET_ANIMAL, src)
 	else
 		if(HAS_TRAIT(M, TRAIT_PACIFISM))
 			to_chat(M, "<span class='warning'>You don't want to hurt [src]!</span>")

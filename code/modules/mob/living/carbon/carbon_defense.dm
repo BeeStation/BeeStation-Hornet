@@ -26,9 +26,13 @@
 		var/obj/item/radio/headset/headset_in_ear = ears
 		. += headset_in_ear.bang_protect
 
-/mob/living/carbon/is_mouth_covered(head_only = 0, mask_only = 0)
-	if( (!mask_only && head && (head.flags_cover & HEADCOVERSMOUTH)) || (!head_only && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH)) )
-		return TRUE
+/mob/living/carbon/is_mouth_covered(check_flags = ALL)
+	if((check_flags & ITEM_SLOT_HEAD) && head && (head.flags_cover & HEADCOVERSMOUTH))
+		return head
+	if((check_flags & ITEM_SLOT_MASK) && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH))
+		return wear_mask
+
+	return null
 
 /mob/living/carbon/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	if(check_head && head && (head.flags_cover & HEADCOVERSEYES))
@@ -353,6 +357,8 @@
 	else if(helper.is_zone_selected(BODY_ZONE_CHEST))
 		helper.visible_message(span_notice("[helper] hugs [src] to make [p_them()] feel better!"), \
 					span_notice("You hug [src] to make [p_them()] feel better!"))
+
+		SEND_SIGNAL(helper, COMSIG_LIVING_HUG_CARBON, src)
 
 		// Warm them up with hugs
 		share_bodytemperature(helper)

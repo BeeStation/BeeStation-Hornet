@@ -1,4 +1,5 @@
 /mob/living
+	abstract_type = /mob/living
 	see_invisible = SEE_INVISIBLE_LIVING
 	sight = 0
 	see_in_dark = 2
@@ -182,3 +183,5 @@
 
 	//If we are currently leaning on something, and what that object is
 	var/atom/leaned_object
+	//to track the last use of say's message arg
+	var/last_say_args_ref

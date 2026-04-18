@@ -1,4 +1,5 @@
 /datum/holiday
+	abstract_type = /datum/holiday
 	var/name = "Bugsgiving"
 
 	var/begin_day = 1
