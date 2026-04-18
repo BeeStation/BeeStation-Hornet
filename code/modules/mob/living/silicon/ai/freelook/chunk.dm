@@ -33,14 +33,16 @@
 	if(changed)
 		update()
 
-	if(eye.use_static)
-		if(clients)
-			for(var/client/each_client as anything in clients)
-				each_client.images += active_static_images
-		else
-			var/client/viewer_client = eye.GetViewerClient() // this can return null
-			if(viewer_client)
-				viewer_client.images += active_static_images
+	if(!eye.use_static)
+		return
+
+	if(clients)
+		for(var/client/each_client as anything in clients)
+			each_client.images += active_static_images
+	else
+		var/client/viewer_client = eye.GetViewerClient() // this can return null
+		if(viewer_client)
+			viewer_client.images += active_static_images
 
 /// Same as add() proc, but for those who got the eye as its observer. (see camera_advanced code)
 /datum/camerachunk/proc/single_add(mob/camera/ai_eye/eye, client/late_client)
@@ -52,14 +54,16 @@
 	eye.visibleCameraChunks -= src
 	seenby -= eye
 
-	if(eye.use_static)
-		if(clients)
-			for(var/client/each_client as anything in clients)
-				each_client.images -= active_static_images
-		else
-			var/client/viewer_client = eye.GetViewerClient() // this can return null
-			if(viewer_client)
-				viewer_client.images -= active_static_images
+	if(!eye.use_static)
+		return
+
+	if(clients)
+		for(var/client/each_client as anything in clients)
+			each_client.images -= active_static_images
+	else
+		var/client/viewer_client = eye.GetViewerClient() // this can return null
+		if(viewer_client)
+			viewer_client.images -= active_static_images
 
 /datum/camerachunk/proc/single_remove(mob/camera/ai_eye/eye, client/late_client)
 	if(late_client && eye.use_static)

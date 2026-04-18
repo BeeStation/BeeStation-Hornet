@@ -32,6 +32,8 @@
 	remove_from_disconnected_mob_list()
 
 	focus = null
+	if(length(current_mob_eye?.eye_mobs))
+		LAZYREMOVE(current_mob_eye.eye_mobs, src)
 	current_mob_eye = null
 	if(length(progressbars))
 		stack_trace("[src] destroyed with elements in its progressbars list")

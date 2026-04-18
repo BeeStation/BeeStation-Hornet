@@ -873,7 +873,16 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/cancel_camera_ghosts()
 	set name = "Cancel Camera View"
 	set category = "Ghost"
-	set_mob_eye_to(MOB_EYE_SELF)
+
+	if(observetarget) // stop observing
+		to_chat(src, span_notice("You stopped observing [observetarget]"))
+		LAZYREMOVE(observetarget.observers, src)
+		observetarget = null
+		set_mob_eye_to(MOB_EYE_SELF)
+		if(hud_used)
+			client.screen = list()
+			hud_used.show_hud(hud_used.hud_version)
+
 	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
 
 /mob/dead/observer/verb/observe()
@@ -881,7 +890,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 
 	if(observetarget) // stop observing
-		to_chat(src, "<span class='notice'>You stopped observing [observetarget]</span>")
+		to_chat(src, span_notice("You stopped observing [observetarget]"))
 		LAZYREMOVE(observetarget.observers, src)
 		observetarget = null
 		set_mob_eye_to(MOB_EYE_SELF)
@@ -905,7 +914,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		observetarget = mob_eye
 		LAZYOR(observetarget.observers, src)
 		set_mob_eye_to(observetarget)
-		to_chat(src, "<span class='notice'>You started observing [observetarget]</span>")
+		to_chat(src, span_notice("You started observing [observetarget]"))
 		if(observetarget.hud_used)
 			client.screen = list()
 			observetarget.hud_used.show_hud(observetarget.hud_used.hud_version, src)
