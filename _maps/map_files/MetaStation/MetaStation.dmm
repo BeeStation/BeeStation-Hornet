@@ -21825,9 +21825,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/science/research)
-"idG" = (
-/turf/open/floor/plating,
-/area/station/engineering/atmos)
 "idY" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -111475,7 +111472,7 @@ izq
 err
 arr
 qFC
-idG
+vMx
 hbp
 auH
 auH
