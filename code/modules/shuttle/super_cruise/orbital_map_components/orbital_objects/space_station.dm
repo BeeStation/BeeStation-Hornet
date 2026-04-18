@@ -29,8 +29,14 @@
 	SSticker.force_ending = FORCE_END_ROUND
 
 /datum/orbital_object/z_linked/station/post_map_setup()
-	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
 	if (SSmapping.current_map.planetary_station)
+		var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
 		set_orbitting_around_body(linked_map.center, 10000)
 	else
-		set_orbitting_around_body(linked_map.center, 2100)
+		//Orbit Cinis directly
+		var/datum/orbital_object/cinis = SSorbits.find_orbital_object_by_name("Cinis")
+		if(cinis)
+			set_orbitting_around_body(cinis, 2100)
+		else
+			var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
+			set_orbitting_around_body(linked_map.center, 2100)

@@ -7,8 +7,11 @@
 	if(!orbital_body)
 		message_admins("Error: Shuttle is entering supercruise from a bad location. Shuttle: [name]")
 		log_runtime("Error: Shuttle is entering supercruise from a bad location. Shuttle: [name]")
-		var/datum/orbital_map/default_map = SSorbits.orbital_maps[PRIMARY_ORBITAL_MAP]
-		orbital_body = default_map.center
+		// Fall back to the station's orbital body rather than the map center (which is the star)
+		orbital_body = SSorbits.station_instance
+		if(!orbital_body)
+			var/datum/orbital_map/default_map = SSorbits.orbital_maps[PRIMARY_ORBITAL_MAP]
+			orbital_body = default_map.center
 	//Start moving
 	destination = null
 	mode = SHUTTLE_IGNITING

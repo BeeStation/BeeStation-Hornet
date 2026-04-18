@@ -13,6 +13,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	var/initial_space_ruins = 2
 	var/initial_objective_beacons = 3
 	var/initial_asteroids = 20
+	var/initial_neo_cluster_asteroids = 3
 
 	var/orbits_setup = FALSE
 
@@ -97,6 +98,13 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	return pick_weight(runnable_events)
 
 /datum/controller/subsystem/processing/orbits/proc/post_load_init()
+	//Spawn the system star. Must be first, sets the map center.
+	new /datum/orbital_object/auri_geminae()
+	//Spawn gas giant Thetis
+	new /datum/orbital_object/thetis()
+	//Spawn Triea
+	new /datum/orbital_object/triea()
+
 	if (!SSmapping.current_map.planetary_station)
 		new /datum/orbital_object/echoplanet()
 
@@ -109,12 +117,10 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		new /datum/orbital_object/z_linked/beacon/ruin/spaceruin()
 	for(var/i in 1 to initial_objective_beacons)
 		new /datum/orbital_object/z_linked/beacon/ruin()
-	//Create asteroid belt - 2/3 in the main belt, 1/3 clustered around Neo
-	var/neo_cluster_count = round(initial_asteroids / 3)
-	var/belt_count = initial_asteroids - neo_cluster_count
-	for(var/i in 1 to belt_count)
+	//Create asteroid belt. Belt asteroids + a fixed few clustered around Neo
+	for(var/i in 1 to initial_asteroids)
 		new /datum/orbital_object/z_linked/beacon/ruin/asteroid()
-	for(var/i in 1 to neo_cluster_count)
+	for(var/i in 1 to initial_neo_cluster_asteroids)
 		new /datum/orbital_object/z_linked/beacon/ruin/asteroid/neo_cluster()
 
 /datum/controller/subsystem/processing/orbits/fire(resumed)
