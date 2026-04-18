@@ -1,0 +1,1 @@
+/mob/living/carbon/monkey/@SUBTYPES : /mob/living/carbon/human/species/monkey/@SUBTYPES

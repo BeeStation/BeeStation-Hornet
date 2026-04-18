@@ -1511,7 +1511,7 @@
 /obj/structure/window/reinforced/spawner/directional/south{
 	pixel_y = 1
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/freezer,
 /area/station/medical/genetics)
 "aIb" = (
@@ -2308,7 +2308,7 @@
 /turf/open/floor/carpet/grimy,
 /area/station/hallway/primary/port)
 "aZy" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/virology)
 "aZJ" = (
@@ -6850,7 +6850,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port)
 "cOZ" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/structure/window/reinforced/spawner/directional/south{
 	pixel_y = 1
 	},
@@ -39879,7 +39879,7 @@
 	pixel_y = 1;
 	req_access_txt = "9"
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -46509,7 +46509,7 @@
 /area/station/hallway/secondary/exit/departure_lounge)
 "qkU" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/mob/living/carbon/monkey/punpun,
+/mob/living/carbon/human/species/monkey/punpun,
 /turf/open/floor/iron/dark,
 /area/station/service/bar/lounge)
 "qkW" = (
@@ -66603,7 +66603,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron,
 /area/station/maintenance/aft)
 "wZc" = (

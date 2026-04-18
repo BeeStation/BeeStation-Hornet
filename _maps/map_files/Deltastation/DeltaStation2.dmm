@@ -19709,7 +19709,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron,
 /area/station/medical/genetics)
 "gMk" = (
@@ -50178,7 +50178,7 @@
 /turf/open/floor/iron,
 /area/station/command/teleporter)
 "pHU" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/virology)
 "pHW" = (
@@ -52499,7 +52499,7 @@
 /area/station/medical/medbay/aft)
 "qsV" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/mob/living/carbon/monkey/punpun,
+/mob/living/carbon/human/species/monkey/punpun,
 /turf/open/floor/iron/dark,
 /area/station/service/bar)
 "qsW" = (
@@ -62483,7 +62483,7 @@
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/end,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron,
 /area/station/medical/genetics)
 "twA" = (
@@ -76042,7 +76042,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron,
 /area/station/medical/genetics)
 "xAZ" = (

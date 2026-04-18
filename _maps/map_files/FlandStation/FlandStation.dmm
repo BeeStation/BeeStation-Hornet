@@ -20023,7 +20023,7 @@
 /area/station/engineering/atmos)
 "fUK" = (
 /obj/structure/chair/stool,
-/mob/living/carbon/monkey/punpun,
+/mob/living/carbon/human/species/monkey/punpun,
 /turf/open/floor/carpet,
 /area/station/service/bar/atrium)
 "fUN" = (
@@ -29992,7 +29992,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/ameridiner,
 /area/station/medical/genetics)
 "iQi" = (
@@ -44095,7 +44095,7 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos)
 "mPD" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/dark_green{
 	dir = 4
 	},
@@ -52920,7 +52920,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/dark_green/corner{
 	dir = 1
 	},
@@ -55952,7 +55952,7 @@
 /area/station/science/xenobiology)
 "qto" = (
 /obj/item/toy/beach_ball,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/dark_green,
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/virology)
@@ -56371,7 +56371,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/ameridiner,
 /area/station/medical/genetics)
 "qAS" = (
@@ -62533,7 +62533,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/station/science/misc_lab)
 "suz" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -67855,7 +67855,7 @@
 /turf/open/floor/carpet,
 /area/station/hallway/primary/starboard)
 "tWF" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/dark_green{
 	dir = 1
 	},
@@ -68498,7 +68498,7 @@
 /turf/open/floor/iron/techmaint,
 /area/station/science/xenobiology)
 "ugn" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/dark_green{
 	dir = 8
 	},

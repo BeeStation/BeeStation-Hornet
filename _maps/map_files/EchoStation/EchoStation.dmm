@@ -1554,7 +1554,7 @@
 /turf/open/openspace/planetary,
 /area/station/hallway/primary/fore)
 "bhb" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/structure/window/reinforced/spawner/directional/north{
 	pixel_y = 1
 	},
@@ -21840,7 +21840,7 @@
 /area/station/command/heads_quarters/hop)
 "nqi" = (
 /obj/machinery/light,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/machinery/door/window/westleft{
 	dir = 1;
 	name = "Monkey Pen";

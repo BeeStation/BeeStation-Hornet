@@ -5876,7 +5876,7 @@
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "cTa" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/freezer,
@@ -20081,7 +20081,7 @@
 "iAJ" = (
 /obj/item/grown/bananapeel,
 /obj/structure/flora/ausbushes/fullgrass,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/grass/no_border,
 /area/station/medical/genetics)
 "iAK" = (
@@ -23422,7 +23422,7 @@
 /turf/closed/wall/r_wall,
 /area/station/ai_monitored/turret_protected/ai)
 "jWx" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/machinery/flasher{
 	id = "monkeypen";
 	pixel_y = 23
@@ -29220,7 +29220,7 @@
 "mkk" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/mob/living/carbon/monkey/punpun,
+/mob/living/carbon/human/species/monkey/punpun,
 /turf/open/floor/iron/cafeteria_red,
 /area/station/service/bar)
 "mkn" = (
@@ -32649,7 +32649,7 @@
 "nEY" = (
 /obj/item/food/grown/banana,
 /obj/structure/flora/ausbushes/fullgrass,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/grass/no_border,
 /area/station/medical/genetics)
 "nFr" = (
@@ -44821,7 +44821,7 @@
 /area/station/maintenance/starboard/fore)
 "sFH" = (
 /obj/structure/flora/grass/jungle,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/plating/dirt/jungle,
 /area/station/medical/genetics)
 "sFR" = (
@@ -49288,7 +49288,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port/fore)
 "uta" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/freezer,
 /area/station/medical/virology)
 "utj" = (
