@@ -4,7 +4,7 @@
 	radius = 30
 	can_dock_anywhere = TRUE
 	render_mode = RENDER_MODE_BEACON
-	priority = 10 // Lower than Thallos (20) so all beacons are initialized after Thallos exists
+	priority = 10 // Lower than all planets (15+) so all beacons are initialized after celestial bodies exist
 	//The attached event
 	var/datum/ruin_event/ruin_event
 
@@ -20,10 +20,13 @@
 	ruin_event?.linked_z = src
 
 /datum/orbital_object/z_linked/beacon/post_map_setup()
-	//Orbit around Thallos (echoplanet)
-	var/datum/orbital_object/thallos = SSorbits.find_orbital_object_by_name("Thallos")
-	if(thallos)
-		set_orbitting_around_body(thallos, rand(1000, 4000))
+	//Orbit around Cinis
+	var/datum/orbital_object/cinis = SSorbits.find_orbital_object_by_name("Cinis")
+	if(cinis)
+		set_orbitting_around_body(cinis, 4000)
+	else
+		var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
+		set_orbitting_around_body(linked_map.center, 200000)
 
 /datum/orbital_object/z_linked/beacon/weak
 	name = "Weak Signal"
@@ -47,10 +50,13 @@
 	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 120, rand(-0.5, 0), rand(40, 70))
 
 /datum/orbital_object/z_linked/beacon/ruin/asteroid/post_map_setup()
-	//Orbit around Cinis in a tight ring near Neo's orbital distance
+	//Orbit around Cinis
 	var/datum/orbital_object/cinis = SSorbits.find_orbital_object_by_name("Cinis")
 	if(cinis)
-		set_orbitting_around_body(cinis, rand(2950, 3050))
+		set_orbitting_around_body(cinis, 4000)
+	else
+		var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
+		set_orbitting_around_body(linked_map.center, 200000)
 
 //====================
 // Neo-cluster Asteroids
