@@ -1,5 +1,6 @@
 /// MODsuits, trade-off between armor and utility
 /obj/item/mod
+	abstract_type = /obj/item/mod
 	name = "Base MOD"
 	desc = "You should not see this, yell at a coder!"
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'

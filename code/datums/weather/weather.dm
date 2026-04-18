@@ -1,6 +1,7 @@
 //The effects of weather occur across an entire z-level. For instance, lavaland has periodic ash storms that scorch most unprotected creatures.
 
 /datum/weather
+	abstract_type = /datum/weather
 	var/name = "space wind"
 	var/desc = "Heavy gusts of wind blanket the area, periodically knocking down anyone caught in the open."
 
@@ -22,7 +23,7 @@
 	var/end_sound
 	var/end_overlay
 
-	var/area_type = /area/space //Types of area to affect
+	var/area_type = /area/misc/space //Types of area to affect
 	var/protect_indoors = FALSE // set to TRUE to protect indoor areas
 	/// Areas to be affected by the weather, calculated when the weather begins.
 	/// * If you need to update this list outside of this datum, you might be doing wrong. use update_areas(new_list)

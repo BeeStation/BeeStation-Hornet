@@ -47,7 +47,7 @@
 	for(var/datum/mind/M in SSticker.minds)
 		if(!istype(M.current) || (M.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY)))
 			continue
-		if(istype(get_area(M.current), /area/security/prison))
+		if(istype(get_area(M.current), /area/station/security/prison))
 			return FALSE
 	return TRUE
 
@@ -59,11 +59,11 @@
 	if(..())
 		return TRUE
 	var/list/security_areas = typecacheof(list(
-		/area/security,
-		/area/security/brig,
-		/area/security/main,
-		/area/security/prison,
-		/area/security/processing,
+		/area/station/security,
+		/area/station/security/brig,
+		/area/station/security/office,
+		/area/station/security/prison,
+		/area/station/security/processing,
 	))
 	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
 		var/area/A = get_area(H)

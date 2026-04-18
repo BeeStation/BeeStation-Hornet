@@ -31,11 +31,11 @@
 	biohazard = 40//who knows what you'll find out there that could have nasties on it...
 
 	lightup_areas = list(
-		/area/science/mixing,
-		/area/science/storage,
-		/area/science/xenobiology
+		/area/station/science/mixing,
+		/area/station/science/storage,
+		/area/station/science/xenobiology
 	)
-	minimal_lightup_areas = list(/area/quartermaster/exploration_dock, /area/quartermaster/exploration_prep)
+	minimal_lightup_areas = list(/area/station/cargo/exploration_dock, /area/station/cargo/exploration_prep)
 
 	manuscript_jobs = list(
 		JOB_NAME_EXPLORATIONCREW,

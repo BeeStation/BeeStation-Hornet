@@ -21,6 +21,8 @@
 #define THEME_WIZARD "wizard"
 #define THEME_HOLY "holy"
 
+#define CULT_POLL_WAIT (4 MINUTES)
+
 ///how many sacrifices we have used, cultists get 1 free revive at the start
 GLOBAL_VAR_INIT(sacrifices_used, -SOULS_TO_REVIVE)
 

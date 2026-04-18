@@ -1,4 +1,5 @@
 /obj/item/clothing/glasses/hud
+	abstract_type = /obj/item/clothing/glasses/hud
 	name = "HUD"
 	desc = "A heads-up display that provides important info in (almost) real time."
 	flags_1 = null //doesn't protect eyes because it's a monocle, duh
@@ -288,6 +289,7 @@
 	desc = "GAR glasses with a HUD."
 	icon_state = "gars"
 	inhand_icon_state = "garb"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 10
 	throw_speed = 4

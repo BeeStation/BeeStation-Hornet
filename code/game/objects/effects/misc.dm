@@ -71,21 +71,6 @@
 		L.adjust_fire_stacks(5)
 		L.ignite_mob()
 
-//Makes a tile fully lit no matter what
-/obj/effect/fullbright
-	icon = 'icons/effects/alphacolors.dmi'
-	icon_state = "white"
-	plane = LIGHTING_PLANE
-	blend_mode = BLEND_ADD
-
-/obj/effect/fullbright/starlight
-	plane = STARLIGHT_PLANE
-	transform = matrix(2, 0, 0, 0, 2, 0)
-
-/obj/effect/fullbright/starlight/starfloor
-	icon_state = "grey"
-	transform = matrix(1.5, 0, 0, 0, 1.5, 0)
-
 /obj/effect/abstract/marker
 	name = "marker"
 	icon = 'icons/effects/effects.dmi'

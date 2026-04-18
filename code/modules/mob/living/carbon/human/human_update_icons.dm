@@ -486,7 +486,7 @@ There are several things that need to be remembered:
 
 		if(bodytype & BODYTYPE_DIGITIGRADE)
 			if(wear_suit.supports_variations_flags & CLOTHING_DIGITIGRADE_VARIATION)
-				icon_file = DIGITIGRADE_SUIT_FILE
+				icon_file = DIGITIGRADE_UNIFORM_FILE
 
 		var/mutable_appearance/suit_overlay = wear_suit.build_worn_icon(src, default_layer = SUIT_LAYER, default_icon_file = icon_file)
 		if(OFFSET_SUIT in dna.species.offset_features)

@@ -1,4 +1,5 @@
 /mob/living
+	abstract_type = /mob/living
 	see_invisible = SEE_INVISIBLE_LIVING
 	sight = 0
 	see_in_dark = 2

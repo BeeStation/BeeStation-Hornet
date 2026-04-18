@@ -16,7 +16,7 @@
 "ae" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "af" = (
 /turf/closed/wall,
 /area/ruin/space/djstation)
@@ -58,15 +58,11 @@
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
 	name = "power storage unit"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
 "ao" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
 "ap" = (
@@ -74,9 +70,7 @@
 	name = "Worn-out APC";
 	pixel_y = -24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
 "aq" = (
@@ -84,15 +78,7 @@
 /obj/structure/sign/warning/electricshock{
 	pixel_y = -32
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/ruin/space/djstation)
-"ar" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
 "as" = (
@@ -248,7 +234,7 @@
 "aZ" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating/airless,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ba" = (
 /turf/open/floor/iron/freezer,
 /area/ruin/space/djstation)
@@ -313,7 +299,7 @@
 	},
 /obj/structure/disposaloutlet,
 /turf/open/floor/plating/airless,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "dT" = (
 /obj/structure/chair{
 	dir = 1
@@ -572,7 +558,7 @@ ah
 aj
 an
 ao
-ar
+ao
 at
 aw
 aw

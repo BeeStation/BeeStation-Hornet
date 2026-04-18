@@ -1,6 +1,7 @@
 
 // Pizza (Whole)
 /obj/item/food/pizza
+	abstract_type = /obj/item/food/pizza
 	icon = 'icons/obj/food/pizza.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	max_volume = 80
@@ -34,6 +35,7 @@
 
 // Pizza Slice
 /obj/item/food/pizzaslice
+	abstract_type = /obj/item/food/pizzaslice
 	icon = 'icons/obj/food/pizza.dmi'
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	foodtypes = GRAIN | DAIRY | VEGETABLES
