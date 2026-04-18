@@ -3,6 +3,7 @@
 // **********************
 
 /obj/item/grown // Grown weapons
+	abstract_type = /obj/item/grown
 	name = "grown_weapon"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'

@@ -1,6 +1,7 @@
 #define FOOTSTEP_COOLDOWN 3	//3 deci-seconds
 
 /obj/item/clothing/suit
+	abstract_type = /obj/item/clothing/suit
 	name = "suit"
 	icon = 'icons/obj/clothing/suits/default.dmi'
 	var/fire_resist = T0C+100

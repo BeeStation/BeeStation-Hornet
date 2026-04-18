@@ -100,7 +100,7 @@
 	var/obj/effect/abstract/vampire_tracker_holder/tracker
 
 	/// Static typecache of all vampire powers.
-	var/static/list/all_vampire_powers = typecacheof(/datum/action/vampire, ignore_root_path = TRUE)
+	var/static/list/all_vampire_powers = valid_subtypesof(/datum/action/vampire)
 	/// Antagonists that cannot be vassalized no matter what
 	var/static/list/vassal_banned_antags = list(
 		/datum/antagonist/vampire,

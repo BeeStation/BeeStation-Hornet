@@ -466,9 +466,9 @@
 /area/shuttle/escape)
 "vM" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Holding Area";
-	req_one_access_txt = "19"
+	name = "Holding Area"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -524,9 +524,9 @@
 /area/shuttle/escape)
 "Ch" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Holding Area";
-	req_access_txt = "2"
+	name = "Holding Area"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/mineral/plastitanium,
@@ -857,9 +857,9 @@
 /area/shuttle/escape)
 "TW" = (
 /obj/machinery/door/airlock/command{
-	name = "Shuttle Control";
-	req_one_access_txt = "19"
+	name = "Shuttle Control"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/mineral/plastitanium,
@@ -945,9 +945,9 @@
 /area/shuttle/escape)
 "VU" = (
 /obj/machinery/door/airlock/command{
-	name = "Shuttle Control";
-	req_one_access_txt = "19"
+	name = "Shuttle Control"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -995,9 +995,9 @@
 /area/shuttle/escape)
 "Yl" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Emergency Shuttle Airlock";
-	req_one_access_txt = "63"
+	name = "Emergency Shuttle Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/entrance,
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1

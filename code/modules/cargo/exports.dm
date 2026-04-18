@@ -97,6 +97,8 @@ then the player gets the profit from selling his own wasted time.
 	return report
 
 /datum/export
+	abstract_type = /datum/export
+
 	/// Unit name. Only used in "Received [total_amount] [name]s [message]."
 	var/unit_name = ""
 	/// Message appended to the sale report
