@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(orbital_altitude)
 	name = "Orbital Altitude"
 	can_fire = TRUE
-	wait = 1 SECONDS
+	wait = 0.5 SECONDS
 	flags = SS_NO_INIT | SS_KEEP_TIMING
 
 	/// Current orbital altitude in meters
@@ -128,12 +128,15 @@ SUBSYSTEM_DEF(orbital_altitude)
 	// Apply resistance to altitude change
 	orbital_altitude_change *= resistance
 
-	// Extreme atmospheric drag below 85km
+	// Slow it down even more below this as a grace mechanic and to make sure they don't bump the bottom.
 	if(orbital_altitude <= 85000)
 		orbital_altitude_change /= 2
 
-	// Clamp altitude change rate
-	orbital_altitude_change = clamp(orbital_altitude_change, -30, 30)
+	// Scale for half-second timestep (fire() runs twice per second)
+	orbital_altitude_change *= 0.5
+
+	// Clamp altitude change rate (halved for 0.5s tick)
+	orbital_altitude_change = clamp(orbital_altitude_change, -15, 15)
 
 	// Apply the change
 	orbital_altitude += orbital_altitude_change
