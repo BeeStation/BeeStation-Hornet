@@ -1,205 +1,205 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"p" = (
+"a" = (
+/turf/open/floor/grass,
+/area/centcom/tdome/arena)
+"b" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/open/floor/grass,
+/area/centcom/tdome/arena)
+"c" = (
+/obj/structure/flora/ausbushes/sunnybush,
+/turf/open/floor/grass,
+/area/centcom/tdome/arena)
+"d" = (
+/obj/structure/flora/rock/jungle,
+/turf/open/floor/grass,
+/area/centcom/tdome/arena)
+"e" = (
 /obj/structure/flora/ausbushes/fernybush,
 /turf/open/floor/grass,
 /area/centcom/tdome/arena)
-"x" = (
+"f" = (
 /obj/structure/flora/tree/jungle/small,
 /obj/structure/spacevine,
 /turf/open/floor/grass,
 /area/centcom/tdome/arena)
-"z" = (
-/obj/structure/flora/ausbushes/sunnybush,
-/turf/open/floor/grass,
-/area/centcom/tdome/arena)
-"D" = (
-/obj/structure/flora/ausbushes/fernybush,
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/grass,
-/area/centcom/tdome/arena)
-"G" = (
+"g" = (
 /obj/structure/flora/ausbushes/sunnybush,
 /obj/structure/spacevine,
 /turf/open/floor/grass,
 /area/centcom/tdome/arena)
-"J" = (
+"h" = (
+/obj/structure/spacevine,
 /turf/open/floor/grass,
 /area/centcom/tdome/arena)
-"L" = (
-/obj/structure/flora/rock/jungle,
-/turf/open/floor/grass,
-/area/centcom/tdome/arena)
-"M" = (
+"i" = (
 /obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/spacevine,
 /turf/open/floor/grass,
 /area/centcom/tdome/arena)
-"O" = (
+"k" = (
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/spacevine,
 /turf/open/floor/grass,
 /area/centcom/tdome/arena)
-"Q" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/spacevine,
+"l" = (
+/obj/structure/flora/ausbushes/fernybush,
+/mob/living/carbon/monkey,
 /turf/open/floor/grass,
 /area/centcom/tdome/arena)
-"R" = (
-/obj/structure/spacevine,
-/turf/open/floor/grass,
-/area/centcom/tdome/arena)
-"Y" = (
+"m" = (
 /obj/structure/flora/rock/jungle,
-/mob/living/carbon/human/species/monkey,
+/mob/living/carbon/monkey,
 /turf/open/floor/grass,
 /area/centcom/tdome/arena)
 
 (1,1,1) = {"
-J
-J
-L
-J
-J
-J
-M
-J
+a
+a
+d
+a
+a
+a
+b
+a
 "}
 (2,1,1) = {"
-L
-J
-J
-J
-p
-J
-J
-z
+d
+a
+a
+a
+e
+a
+a
+c
 "}
 (3,1,1) = {"
-p
-J
-J
-J
-J
-J
-J
-J
+e
+a
+a
+a
+a
+a
+a
+a
 "}
 (4,1,1) = {"
-J
-J
-x
-Q
-R
-x
-p
-D
+a
+a
+f
+i
+h
+f
+e
+l
 "}
 (5,1,1) = {"
-J
-M
-G
-p
-J
-R
-J
-J
+a
+b
+g
+e
+a
+h
+a
+a
 "}
 (6,1,1) = {"
-J
-J
-R
-R
-J
-J
-L
-J
+a
+a
+h
+h
+a
+a
+d
+a
 "}
 (7,1,1) = {"
-J
-J
-J
-M
-R
-Q
-J
-p
+a
+a
+a
+b
+h
+i
+a
+e
 "}
 (8,1,1) = {"
-J
-J
-J
-L
-J
-R
-M
-J
+a
+a
+a
+d
+a
+h
+b
+a
 "}
 (9,1,1) = {"
-J
-z
-R
-J
-R
-G
-J
-J
+a
+c
+h
+a
+h
+g
+a
+a
 "}
 (10,1,1) = {"
-J
-J
-G
-Q
-J
-O
-J
-Y
+a
+a
+g
+i
+a
+k
+a
+m
 "}
 (11,1,1) = {"
-J
-M
-R
-J
-J
-R
-J
-J
+a
+b
+h
+a
+a
+h
+a
+a
 "}
 (12,1,1) = {"
-J
-J
-x
-R
-R
-x
-J
-M
+a
+a
+f
+h
+h
+f
+a
+b
 "}
 (13,1,1) = {"
-J
-J
-J
-p
-J
-J
-J
-p
+a
+a
+a
+e
+a
+a
+a
+e
 "}
 (14,1,1) = {"
-J
-L
-J
-J
-J
-L
-J
-J
+a
+d
+a
+a
+a
+d
+a
+a
 "}
 (15,1,1) = {"
-M
-J
-J
-J
-J
-M
-J
-L
+b
+a
+a
+a
+a
+b
+a
+d
 "}
