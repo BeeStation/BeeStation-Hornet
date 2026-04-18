@@ -352,6 +352,9 @@
 
 		// Apply damage to all affected turfs
 		for(var/turf/affected_turf in affected_turfs)
+			// Damage turfs themselves
+			affected_turf.take_damage(damage)
+
 			// Apply damage to all mobs in the turf
 			for(var/mob/living/living_mob in affected_turf)
 				living_mob.adjustFireLoss(damage)
@@ -363,7 +366,8 @@
 			for(var/obj/damaged_obj in affected_turf)
 				if(damaged_obj.resistance_flags & INDESTRUCTIBLE)
 					continue
-				damaged_obj.take_damage(damage / 2)
+				damaged_obj.take_damage(damage)
+
 				if(!played_sound)
 					playsound(affected_turf, 'sound/effects/wounds/sizzle1.ogg', 50, vary = TRUE)
 					played_sound = TRUE
