@@ -279,7 +279,7 @@
 
 /obj/item/clothing/neck/cloak/hop_mantle
 	name = "head of personnel's shawl"
-	desc = "A shawl for the head of personnel. It's remarkably well kept."
+	desc = "A shawl for the Head of Personnel. It's remarkably well kept."
 	icon_state = "hopmantle"
 
 /obj/item/clothing/neck/cloak/ce_mantle
