@@ -4,6 +4,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 CREATION_TEST_IGNORE_SELF(/turf)
 
 /turf
+	abstract_type = /turf
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
 	uses_integrity = TRUE
@@ -353,17 +354,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		if(A.density && A.anchored)
 			return 1
 	return 0
-
-/turf/proc/handleRCL(obj/item/rcl/C, mob/user)
-	if(C.loaded)
-		for(var/obj/structure/cable/LC in src)
-			if(!LC.d1 || !LC.d2)
-				LC.handlecable(C, user)
-				return
-		C.loaded.place_turf(src, user)
-		if(C.wiring_gui_menu)
-			C.wiringGuiUpdate(user)
-		C.is_empty(user)
 
 //There's a lot of QDELETED() calls here if someone can figure out how to optimize this but not runtime when something gets deleted by a Bump/CanPass/Cross call, lemme know or go ahead and fix this mess - kevinz000
 /turf/Enter(atom/movable/mover)

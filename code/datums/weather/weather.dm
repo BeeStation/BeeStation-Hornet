@@ -1,6 +1,7 @@
 //The effects of weather occur across an entire z-level. For instance, lavaland has periodic ash storms that scorch most unprotected creatures.
 
 /datum/weather
+	abstract_type = /datum/weather
 	var/name = "space wind"
 	var/desc = "Heavy gusts of wind blanket the area, periodically knocking down anyone caught in the open."
 
