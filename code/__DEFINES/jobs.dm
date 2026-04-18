@@ -316,6 +316,11 @@
 #define JOB_CHATCOLOR_PRISONER   "#D38A5C"
 #define JOB_CHATCOLOR_UNKNOWN    "#DDA583" // grey hud icon gets this
 
+// reasons why you can't play this job
+#define JOB_LOCK_REASON_ABSTRACT (1<<0)
+#define JOB_LOCK_REASON_MAP (1<<1)
+#define JOB_LOCK_REASON_CONFIG (1<<2)
+
 /* Job datum job_flags */
 /// Whether the mob is announced on arrival.
 #define JOB_ANNOUNCE_ARRIVAL (1<<0)

@@ -100,6 +100,9 @@
 
 	var/job_flags = NONE
 
+	/// flags with the job lock reasons. If this flag exists, it's not available anyway.
+	var/lock_flags = NONE
+
 	///A dictionary of species IDs and a path to the outfit.
 	var/list/species_outfits = null
 
@@ -149,7 +152,11 @@
 	lightup_areas = typecacheof(lightup_areas)
 	minimal_lightup_areas = typecacheof(minimal_lightup_areas)
 
-	if(!config_check() || (SSmapping.map_adjustment && (title in SSmapping.map_adjustment.blacklisted_jobs)))
+	if(!config_check())
+		lock_flags |= JOB_LOCK_REASON_CONFIG
+		job_flags &= ~JOB_NEW_PLAYER_JOINABLE
+	if(SSmapping.map_adjustment && (title in SSmapping.map_adjustment.blacklisted_jobs))
+		lock_flags |= JOB_LOCK_REASON_MAP
 		job_flags &= ~JOB_NEW_PLAYER_JOINABLE
 	if(!(job_flags & JOB_NEW_PLAYER_JOINABLE) || gimmick)
 		job_flags |= JOB_CANNOT_OPEN_SLOTS
@@ -565,11 +572,13 @@
 	return TRUE
 
 /datum/job/proc/get_lock_reason()
+	if(lock_flags & JOB_LOCK_REASON_ABSTRACT)
+		return "Not a real job"
 	if(!(initial(job_flags) & JOB_NEW_PLAYER_JOINABLE))
 		return "Not a real job"
-	if(!config_check())
+	if(lock_flags & JOB_LOCK_REASON_CONFIG)
 		return "Disabled by server configuration"
-	if(SSmapping.map_adjustment && (title in SSmapping.map_adjustment.blacklisted_jobs))
+	if(lock_flags & JOB_LOCK_REASON_MAP)
 		return "Not available on this map"
 	if(!(job_flags & JOB_NEW_PLAYER_JOINABLE))
 		return "Unavailable"

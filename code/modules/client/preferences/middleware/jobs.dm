@@ -25,6 +25,9 @@
 	if (job.faction != FACTION_STATION)
 		return FALSE
 
+	if(!(job.job_flags & JOB_NEW_PLAYER_JOINABLE))
+		return FALSE
+
 	if (!preferences.set_job_preference_level(job, level))
 		return FALSE
 
@@ -42,7 +45,7 @@
 		if(!job.show_in_prefs)
 			continue
 		if(!(job.job_flags & JOB_NEW_PLAYER_JOINABLE)) // job is locked, check if it's only because of map
-			if(!(initial(job.job_flags) & JOB_NEW_PLAYER_JOINABLE) || !job.config_check()) // abstract or config-locked, hide it
+			if(job.lock_flags != JOB_LOCK_REASON_MAP) // not solely map-locked, hide it
 				continue
 
 		var/department_id = job.department_for_prefs

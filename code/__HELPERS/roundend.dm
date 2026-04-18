@@ -525,8 +525,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		/datum/bank_account/department,
 		/datum/bank_account/remote,
 	))
-	for(var/id in SSeconomy.bank_accounts_by_id)
-		var/datum/bank_account/current_acc = SSeconomy.bank_accounts_by_id[id]
+	for(var/datum/bank_account/current_acc as anything in flatten_list(SSeconomy.bank_accounts_by_id))
 		if(typecache_bank[current_acc.type])
 			continue
 		station_vault += current_acc.account_balance
