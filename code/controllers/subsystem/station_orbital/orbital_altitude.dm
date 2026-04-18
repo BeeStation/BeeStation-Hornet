@@ -188,6 +188,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 	// High altitude critical warning (above 130km threshold)
 	if(orbital_altitude > ORBITAL_ALTITUDE_UPPER_CRITICAL && !in_high_altitude_critical)
 		in_high_altitude_critical = TRUE
+		in_high_altitude = TRUE // Also set high altitude flag so it clears properly on descent
 
 		// Enable radiation band subsystem
 		SSorbital_radiation_band.can_fire = TRUE
@@ -302,22 +303,22 @@ SUBSYSTEM_DEF(orbital_altitude)
 			SSorbital_reentry_scanning.deactivate()
 			SSorbital_reentry_erosion.deactivate()
 
-	// Clear high altitude flags when returning to normal range
-	if(orbital_altitude <= ORBITAL_ALTITUDE_UPPER)
-		if(in_high_altitude_critical)
-			in_high_altitude_critical = FALSE
-			minor_announce("Station altitude has returned below critical upper threshold. \
-				Radiative exposure normalized.", \
-				"Altitude Stabilized")
+	// Clear critical high altitude flag when returning below 130km
+	if(orbital_altitude <= ORBITAL_ALTITUDE_UPPER_CRITICAL && in_high_altitude_critical)
+		in_high_altitude_critical = FALSE
+		minor_announce("Station altitude has returned below critical upper threshold. \
+			Radiative exposure normalizing.", \
+			"Altitude Stabilized")
 
-		if(in_high_altitude)
-			in_high_altitude = FALSE
+	// Clear high altitude flag when returning below 120km
+	if(orbital_altitude <= ORBITAL_ALTITUDE_UPPER && in_high_altitude)
+		in_high_altitude = FALSE
 
-			// Disable radiation band subsystem
-			SSorbital_radiation_band.deactivate()
+		// Disable radiation band subsystem
+		SSorbital_radiation_band.deactivate()
 
-			minor_announce("Station altitude has returned to normal operating parameters.", \
-				"Altitude Normalized")
+		minor_announce("Station altitude has returned to normal operating parameters.", \
+			"Altitude Normalized")
 
 /**
  * Returns the current gateway operational status based on orbital altitude.
