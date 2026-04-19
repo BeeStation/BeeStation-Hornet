@@ -15,12 +15,18 @@
 	interaction_flags_atom = INTERACT_ATOM_ALLOW_USER_LOCATION
 	can_save_id = TRUE
 	saved_auto_imprint = TRUE
-	var/list/contained_item = list(/obj/item/pen, /obj/item/toy/crayon, /obj/item/lipstick, /obj/item/flashlight/pen, /obj/item/clothing/mask/cigarette)
-	//This is the typepath to load "into" the pda
-	var/obj/item/insert_type = /obj/item/pen
-	//This is the currently inserted item
-	var/obj/item/inserted_item
 	can_store_pai = TRUE
+
+	/// The typepaths we are allowed to store
+	var/static/list/contained_item = list(
+		/obj/item/pen,
+		/obj/item/toy/crayon,
+		/obj/item/lipstick,
+		/obj/item/flashlight/pen,
+		/obj/item/clothing/mask/cigarette,
+	)
+	/// The item currently inserted into the PDA
+	var/obj/item/inserted_item
 
 	/// The note used by the notekeeping app, stored here for convenience.
 	var/note = "Congratulations on your station upgrading to the new NtOS and Thinktronic based collaboration effort, bringing you the best in electronics and software since 2467!"
@@ -28,7 +34,10 @@
 	var/obj/item/paper/stored_paper
 
 /obj/item/modular_computer/tablet/Destroy()
-	QDEL_NULL(stored_paper)
+	if(inserted_item)
+		QDEL_NULL(inserted_item)
+	if(stored_paper)
+		QDEL_NULL(stored_paper)
 	return ..()
 
 /obj/item/modular_computer/tablet/ui_static_data(mob/user)
@@ -74,21 +83,27 @@
 		ui_update()
 	return TRUE
 
-/obj/item/modular_computer/tablet/attackby(obj/item/attacking_item, mob/user)
+/obj/item/modular_computer/tablet/attackby(obj/item/attacking_item, mob/user, params)
 	. = ..()
+	if(!is_type_in_list(attacking_item, contained_item))
+		return
+	if(attacking_item.w_class >= WEIGHT_CLASS_SMALL) // Prevent putting spray cans, pipes, etc (subtypes of pens/crayons)
+		return
+	if(inserted_item)
+		to_chat(user, span_warning("There is already \a [inserted_item] in \the [src]!"))
+		return
+	if(!user.transferItemToLoc(attacking_item, src))
+		return
 
-	if(is_type_in_list(attacking_item, contained_item))
-		if(attacking_item.w_class >= WEIGHT_CLASS_SMALL) // Prevent putting spray cans, pipes, etc (subtypes of pens/crayons)
-			return
-		if(inserted_item)
-			to_chat(user, span_warning("There is already \a [inserted_item] in \the [src]!"))
-		else
-			if(!user.transferItemToLoc(attacking_item, src))
-				return
-			to_chat(user, span_notice("You insert \the [attacking_item] into \the [src]."))
-			inserted_item = attacking_item
-			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
-			update_appearance()
+	to_chat(user, span_notice("You insert \the [attacking_item] into \the [src]."))
+	inserted_item = attacking_item
+	RegisterSignal(inserted_item, COMSIG_QDELETING, PROC_REF(on_inserted_item_deleted))
+	playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+	update_appearance()
+
+/obj/item/modular_computer/tablet/proc/on_inserted_item_deleted(datum/source)
+	UnregisterSignal(source, COMSIG_QDELETING)
+	inserted_item = null
 
 /obj/item/modular_computer/tablet/pre_attack(atom/target, mob/living/user, params)
 	if(try_scan_paper(target, user))
@@ -157,14 +172,16 @@
 /obj/item/modular_computer/tablet/proc/remove_pen(mob/user)
 	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK)) //TK doesn't work even with this removed but here for readability
 		return
-	if(inserted_item)
-		to_chat(user, span_notice("You remove [inserted_item] from [src]."))
-		user.put_in_hands(inserted_item)
-		inserted_item = null
-		playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
-		update_appearance()
-	else
+	if(!inserted_item)
 		to_chat(user, span_warning("This tablet does not have a pen in it!"))
+		return
+
+	to_chat(user, span_notice("You remove [inserted_item] from [src]."))
+	user.put_in_hands(inserted_item)
+	UnregisterSignal(inserted_item, COMSIG_QDELETING)
+	inserted_item = null
+	playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
+	update_appearance()
 
 // SUBTYPES
 /obj/item/modular_computer/tablet/syndicate_contract_uplink
@@ -354,8 +371,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 /// Also as a courtesy to me, don't pass in any bombs
 /obj/item/modular_computer/tablet/pda/proc/get_types_to_preload()
 	var/list/preload = list()
-	//preload += default_cartridge
-	preload += insert_type
+	if(ispath(inserted_item))
+		preload += inserted_item
 	return preload
 
 /// Callbacks for preloading pdas
