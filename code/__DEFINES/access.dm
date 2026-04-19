@@ -84,7 +84,7 @@
 		// 20 : Extra special room(i.e. Meta exhibit room)
 
 /***** Common: 10000    *****/
-#define ACCESS_ALLMAP_PSYCHOTHERAPY 10000 // Psychiatrist room
+#define ACCESS_ALLMAP_THERAPY_DEN 10000 // Psychiatrist room
 
 /***** Box :  11000    *****/
 #define ACCESS_BOX_VACANT 11000 // at Arrival

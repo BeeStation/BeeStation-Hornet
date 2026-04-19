@@ -80,9 +80,9 @@
 	var/grant_to_department_security_officer = FALSE
 
 // a simple sample for Psychiatrist's room
-/datum/map_exclusive_access/psychotherapy
-	access_code = ACCESS_ALLMAP_PSYCHOTHERAPY
-	access_name = "Psychotherapy"
+/datum/map_exclusive_access/therapy_den
+	access_code = ACCESS_ALLMAP_THERAPY_DEN
+	access_name = "Therapy Den"
 	department_codes = DEPT_NAME_MEDICAL
 	jobs_for_base_access  = list(JOB_NAME_PSYCHIATRIST, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_MEDICALDOCTOR)
 	jobs_for_extra_access = list(JOB_NAME_PARAMEDIC, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST)
