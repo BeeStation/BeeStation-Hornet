@@ -57,20 +57,20 @@
 /datum/component/simple_rotation/proc/RotateRight(datum/source, mob/user)
 	SIGNAL_HANDLER
 	// This pref makes the rotation reversed. Rotate "right" would be different for each individual.
-	var/client_pref = !user?.client?.prefs?.read_player_preference(/datum/preference/toggle/reversed_rotation)
+	var/client_pref_found = user?.client?.prefs?.read_player_preference(/datum/preference/toggle/reversed_rotation)
 	if(rotation_flags & ROTATION_DIAGONAL)
-		Rotate(user, client_pref ? ROTATION_CLOCKWISE_DIAGONAL : ROTATION_COUNTERCLOCKWISE_DIAGONAL)
+		Rotate(user, client_pref_found ? ROTATION_COUNTERCLOCKWISE_DIAGONAL : ROTATION_CLOCKWISE_DIAGONAL)
 	else
-		Rotate(user, client_pref ? ROTATION_CLOCKWISE : ROTATION_COUNTERCLOCKWISE)
+		Rotate(user, client_pref_found ? ROTATION_COUNTERCLOCKWISE : ROTATION_CLOCKWISE)
 
 /datum/component/simple_rotation/proc/RotateLeft(datum/source, mob/user)
 	SIGNAL_HANDLER
 	// This pref makes the rotation reversed. Rotate "left" would be different for each individual.
-	var/client_pref = !user?.client?.prefs?.read_player_preference(/datum/preference/toggle/reversed_rotation)
+	var/client_pref_found = !user?.client?.prefs?.read_player_preference(/datum/preference/toggle/reversed_rotation)
 	if(rotation_flags & ROTATION_DIAGONAL)
-		Rotate(user, client_pref ? ROTATION_COUNTERCLOCKWISE_DIAGONAL : ROTATION_CLOCKWISE_DIAGONAL)
+		Rotate(user, client_pref_found ? ROTATION_CLOCKWISE_DIAGONAL : ROTATION_COUNTERCLOCKWISE_DIAGONAL)
 	else
-		Rotate(user, client_pref ? ROTATION_COUNTERCLOCKWISE : ROTATION_CLOCKWISE)
+		Rotate(user, client_pref_found ? ROTATION_CLOCKWISE : ROTATION_COUNTERCLOCKWISE)
 
 /datum/component/simple_rotation/proc/Rotate(mob/user, degrees)
 	if(QDELETED(user))
