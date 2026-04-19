@@ -89,11 +89,12 @@
  * Basic checks to see if the target atom can be affected by this sigil
  */
 /obj/structure/destructible/clockwork/sigil/proc/can_affect(atom/movable/target_atom)
+	if(QDELETED(target_atom))
+		return FALSE
 	if(ismob(target_atom))
 		var/mob/mob_target = target_atom
 		if(mob_target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 			return FALSE
-
 	return TRUE
 
 /**

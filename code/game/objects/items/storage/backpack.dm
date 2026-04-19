@@ -140,6 +140,7 @@
 	desc = "It's useful for both carrying extra gear and proudly declaring your insanity."
 	icon_state = "cultpack"
 	inhand_icon_state = "backpack"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 
 /obj/item/storage/backpack/clown
 	name = "Giggles von Honkerton"
@@ -620,7 +621,7 @@
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil/random(src)
+	new /obj/item/stack/cable_coil(src)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
 
@@ -738,9 +739,9 @@
 	new /obj/item/mecha_ammo/scattershot(src)
 	new /obj/item/mecha_ammo/scattershot(src)
 	new /obj/item/mecha_ammo/scattershot(src)
-	new /obj/item/mecha_ammo/missiles_he(src)
-	new /obj/item/mecha_ammo/missiles_he(src)
-	new /obj/item/mecha_ammo/missiles_he(src)
+	new /obj/item/mecha_ammo/missiles_srm(src)
+	new /obj/item/mecha_ammo/missiles_srm(src)
+	new /obj/item/mecha_ammo/missiles_srm(src)
 
 /obj/item/storage/backpack/duffelbag/syndie/c20rbundle
 	desc = "A large duffel bag containing a C-20r, some magazines, and a cheap looking suppressor."

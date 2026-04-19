@@ -1,4 +1,16 @@
-/mob/living/carbon/human/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced, message_range, datum/saymode/saymode)
+/mob/living/carbon/human/say(
+	message,
+	bubble_type,
+	list/spans = list(),
+	sanitize = TRUE,
+	datum/language/language,
+	ignore_spam = FALSE,
+	forced,
+	filterproof = FALSE,
+	message_range = 7,
+	datum/saymode/saymode,
+	list/message_mods = list(),
+)
 	if(!HAS_TRAIT(src, TRAIT_SPEAKS_CLEARLY))
 		var/static/regex/tongueless_lower = new("\[gdntke]+", "g")
 		var/static/regex/tongueless_upper = new("\[GDNTKE]+", "g")
@@ -7,21 +19,29 @@
 			message = tongueless_upper.Replace(message, pick("AA","OO","'"))
 	return ..()
 
-/mob/living/carbon/human/say_mod(input, list/message_mods = list())
+/mob/living/carbon/human/get_default_say_verb()
 	var/obj/item/organ/tongue/tongue = get_organ_slot(ORGAN_SLOT_TONGUE)
-	if(tongue)
-		verb_say = pick(tongue.say_mod)
-		verb_ask = pick(tongue.ask_mod)
-		verb_yell = pick(tongue.yell_mod)
-		verb_exclaim = pick(tongue.exclaim_mod)
-	if(wear_mask && istype(wear_mask, /obj/item/clothing/mask))
-		var/obj/item/clothing/mask/worn_mask = wear_mask
-		if(!isnull(worn_mask.chosen_tongue))
-			verb_say = pick(initial(worn_mask.chosen_tongue.say_mod))
-			verb_ask = pick(initial(worn_mask.chosen_tongue.ask_mod))
-			verb_yell = pick(initial(worn_mask.chosen_tongue.yell_mod))
-			verb_exclaim = pick(initial(worn_mask.chosen_tongue.exclaim_mod))
-	return ..()
+	if(isnull(tongue))
+		return "gurgles"
+	return tongue.temp_say_mod || tongue.say_mod || ..()
+
+/mob/living/carbon/human/get_default_ask_verb()
+	var/obj/item/organ/tongue/tongue = get_organ_slot(ORGAN_SLOT_TONGUE)
+	if(isnull(tongue))
+		return "gurgles inquisitively"
+	return tongue.ask_mod || ..()
+
+/mob/living/carbon/human/get_default_yell_verb()
+	var/obj/item/organ/tongue/tongue = get_organ_slot(ORGAN_SLOT_TONGUE)
+	if(isnull(tongue))
+		return "gurgles loudly"
+	return tongue.yell_mod || ..()
+
+/mob/living/carbon/human/get_default_exclaim_verb()
+	var/obj/item/organ/tongue/tongue = get_organ_slot(ORGAN_SLOT_TONGUE)
+	if(isnull(tongue))
+		return "gurgles excitedly"
+	return tongue.exclaim_mod || ..()
 
 /mob/living/carbon/human/GetVoice()
 	if(HAS_TRAIT(src, TRAIT_UNKNOWN))

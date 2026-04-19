@@ -1,4 +1,5 @@
 /obj/item/antag_spawner
+	abstract_type = /obj/item/antag_spawner
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
@@ -67,14 +68,16 @@
 				return
 
 			currently_polling_ghosts = TRUE
-			var/datum/poll_config/config = new()
-			config.question = "Do you want to play as a wizard's [href_list["school"]] apprentice?"
-			config.check_jobban = ROLE_WIZARD
-			config.poll_time = 15 SECONDS
-			config.ignore_category = POLL_IGNORE_WIZARD_HELPER
-			config.jump_target = H
-			config.role_name_text = "[href_list["school"]] apprentice"
-			config.alert_pic = H
+			var/datum/poll_config/config = new(
+				question = "Do you want to play as a wizard's [href_list["school"]] apprentice?",
+				check_jobban = ROLE_WIZARD,
+				poll_time = 15 SECONDS,
+				ignore_category = POLL_IGNORE_WIZARD_HELPER,
+				jump_target = H,
+				role_name_text = "[href_list["school"]] apprentice",
+				alert_pic = H,
+				amount_to_pick = 1,
+			)
 			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 			currently_polling_ghosts = FALSE
 
@@ -154,12 +157,14 @@
 	to_chat(user, span_notice("You activate [src] and wait for confirmation."))
 
 	currently_polling_ghosts = TRUE
-	var/datum/poll_config/config = new()
-	config.check_jobban = ROLE_OPERATIVE
-	config.poll_time = 5 SECONDS //15 SECONDS
-	config.jump_target = user
-	config.role_name_text = "reinforcement [special_role_name]"
-	config.alert_pic = poll_alert_pic || src
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_OPERATIVE,
+		poll_time = 5 SECONDS,
+		jump_target = user,
+		role_name_text = "reinforcement [special_role_name]",
+		alert_pic = poll_alert_pic || src,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	currently_polling_ghosts = FALSE
 
@@ -282,12 +287,14 @@
 		return
 
 	currently_polling_ghosts = TRUE
-	var/datum/poll_config/config = new()
-	config.check_jobban = ROLE_SLAUGHTER_DEMON
-	config.poll_time = 10 SECONDS
-	config.jump_target = user
-	config.role_name_text = initial(demon_type.name)
-	config.alert_pic = /mob/living/simple_animal/hostile/imp/slaughter
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_SLAUGHTER_DEMON,
+		poll_time = 10 SECONDS,
+		jump_target = user,
+		role_name_text = initial(demon_type.name),
+		alert_pic = /mob/living/simple_animal/hostile/imp/slaughter,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	currently_polling_ghosts = FALSE
 

@@ -9,6 +9,7 @@ CREATION_TEST_IGNORE_SELF(/mob)
   * Has a lot of the creature game world logic, such as health etc
   */
 /mob
+	abstract_type = /mob
 	density = TRUE
 	layer = MOB_LAYER
 	animate_movement = SLIDE_STEPS
@@ -181,13 +182,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 
 	///Calls relay_move() to whatever this is set to when the mob tries to move
 	var/atom/movable/remote_control
-
-	/**
-	  * The sound made on death
-	  *
-	  * leave null for no sound. used for *deathgasp
-	  */
-	var/deathsound
 
 	///the current turf being examined in the stat panel
 	var/turf/listed_turf = null

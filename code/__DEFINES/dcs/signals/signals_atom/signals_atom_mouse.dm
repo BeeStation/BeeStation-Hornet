@@ -2,6 +2,8 @@
 // When the signal is called: (signal arguments)
 // All signals send the source datum of the signal as the first argument
 
+///from base of atom/on_mouse_enter(): (atom/hovered_atom)
+#define COMSIG_ATOM_MOUSE_ENTERED "atom_mouse_entered"
 ///from base of client/Click(): (atom/target, atom/location, control, params, mob/user)
 #define COMSIG_CLIENT_CLICK "atom_client_click"
 ///from base of client/Click(): (atom/target, atom/location, control, params, mob/user)

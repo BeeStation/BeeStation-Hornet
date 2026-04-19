@@ -98,8 +98,6 @@
 				O.gen_amount_goal()
 				objectives += O
 				log_objective(owner, O.explanation_text)
-			else
-				break
 	var/datum/objective/O = new /datum/objective/survive()
 	O.owner = owner
 	objectives += O
@@ -150,4 +148,5 @@
 	set_antag_hud(ninja, null)
 
 /datum/objective/plant_explosive
+	name = "plant explosive"
 	var/area/detonation_location

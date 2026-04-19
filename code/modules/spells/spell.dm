@@ -39,6 +39,7 @@
  * - [update_spell_name][/datum/action/spell/update_spell_name] updates the prefix of the spell name based on its level.
  */
 /datum/action/spell
+	abstract_type = /datum/action/spell
 	name = "Spell"
 	desc = "A wizard spell."
 	background_icon_state = "bg_spell"
@@ -163,7 +164,7 @@
 		// No point in feedback here, as mindless mobs aren't players
 		return FALSE
 
-	if((spell_requirements & SPELL_REQUIRES_MIME_VOW) && !HAS_TRAIT(owner, TRAIT_MIMING))
+	if((spell_requirements & SPELL_REQUIRES_MIME_VOW) && !HAS_MIND_TRAIT(owner, TRAIT_MIMING))
 		// In the future this can be moved out of spell checks exactly
 		if(feedback)
 			to_chat(owner, span_warning("You must dedicate yourself to silence first!"))

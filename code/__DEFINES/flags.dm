@@ -28,52 +28,52 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 
 //FLAGS BITMASK
 
-/// conducts electricity (iron etc.)
-#define CONDUCT_1 (1<<1)
-/// For machines and structures that should not break into parts, eg, holodeck stuff
-#define NODECONSTRUCT_1 (1<<2)
-/// atom queued to SSoverlay
-#define OVERLAY_QUEUED_1 (1<<3)
-/// item has priority to check when entering or leaving
-#define ON_BORDER_1 (1<<4)
-/// Prevent clicking things below it on the same turf eg. doors/ fulltile windows
-#define PREVENT_CLICK_UNDER_1 (1<<5)
-///specifies that this atom is a hologram that isnt real
-#define HOLOGRAM_1 (1<<6)
-/// grants immunity from being targeted by tesla-style electricity
-#define TESLA_IGNORE_1 (1<<7)
-///Whether /atom/Initialize() has already run for the object
-#define INITIALIZED_1 (1<<8)
-/// was this spawned by an admin? used for stat tracking stuff.
-#define ADMIN_SPAWNED_1 (1<<9)
-/// should not get harmed if this gets caught by an explosion?
-#define PREVENT_CONTENTS_EXPLOSION_1 (1<<10)
-/// Should this object be unpaintable?
-#define UNPAINTABLE_1 (1<<11)
-/// Is this atom on top of another atom, and as such has click priority?
-#define IS_ONTOP_1 (1<<12)
-/// Should we use the initial icon for display? Mostly used by overlay only objects
-#define HTML_USE_INITAL_ICON_1 (1<<13)
-/// Prevents direct access for anything in the contents of this atom.
-#define NO_DIRECT_ACCESS_FROM_CONTENTS_1 (1<<14)
-/// Prevents aggregation of the item in the stack panel
-#define STAT_UNIQUE_1 (1<<15)
-// Whether or not this atom is storing contents for a disassociated storage object
-#define HAS_DISASSOCIATED_STORAGE_1 (1<<15)
 /// Is this object currently processing in the atmos object list?
-#define ATMOS_IS_PROCESSING_1 (1<<16)
+#define ATMOS_IS_PROCESSING_1 (1<<0)
+/// For machines and structures that should not break into parts, eg, holodeck stuff
+#define NODECONSTRUCT_1 (1<<1)
+/// atom queued to SSoverlay
+#define OVERLAY_QUEUED_1 (1<<2)
+/// item has priority to check when entering or leaving
+#define ON_BORDER_1 (1<<3)
+/// Prevent clicking things below it on the same turf eg. doors/ fulltile windows
+#define PREVENT_CLICK_UNDER_1 (1<<4)
+///specifies that this atom is a hologram that isnt real
+#define HOLOGRAM_1 (1<<5)
+///Whether /atom/Initialize() has already run for the object
+#define INITIALIZED_1 (1<<6)
+/// was this spawned by an admin? used for stat tracking stuff.
+#define ADMIN_SPAWNED_1 (1<<7)
+/// should not get harmed if this gets caught by an explosion?
+#define PREVENT_CONTENTS_EXPLOSION_1 (1<<8)
+/// Should this object be unpaintable?
+#define UNPAINTABLE_1 (1<<9)
+/// Is this atom on top of another atom, and as such has click priority?
+#define IS_ONTOP_1 (1<<10)
+/// Should we use the initial icon for display? Mostly used by overlay only objects
+#define HTML_USE_INITAL_ICON_1 (1<<11)
+/// Prevents direct access for anything in the contents of this atom.
+#define NO_DIRECT_ACCESS_FROM_CONTENTS_1 (1<<12)
+/// Prevents aggregation of the item in the stack panel
+#define STAT_UNIQUE_1 (1<<13)
+// Whether or not this atom is storing contents for a disassociated storage object
+#define HAS_DISASSOCIATED_STORAGE_1 (1<<14)
 /// Can players recolor this in-game via vendors (and maybe more if support is added)?
-#define IS_PLAYER_COLORABLE_1 (1<<16)
+#define IS_PLAYER_COLORABLE_1 (1<<15)
 /// Is this atom immune to being dusted by the supermatter?
-#define SUPERMATTER_IGNORES_1 (1<<17)
+#define SUPERMATTER_IGNORES_1 (1<<16)
+/// If a turf can be made dirty at roundstart. This is also used in areas.
+#define CAN_BE_DIRTY_1 (1<<20)
 
-//turf-only flags. These use flags_1 too.
-// These exist to cover /turf and /area at the same time
-#define NOJAUNT_1					(1<<17)
-#define UNUSED_RESERVATION_TURF_1	(1<<18)
-#define CAN_BE_DIRTY_1				(1<<19) 	//! If a turf can be made dirty at roundstart. This is also used in areas.
-#define NO_LAVA_GEN_1				(1<<20) 	//! Blocks lava rivers being generated on the turf
-#define NO_RUINS_1					(1<<21) //! Blocks ruins spawning on the turf
+
+//TURF FLAGS
+/// If a turf cant be jaunted through.
+#define NOJAUNT (1<<0)
+#define UNUSED_RESERVATION_TURF (1<<1)
+/// Blocks lava rivers being generated on the turf.
+#define NO_LAVA_GEN (1<<3)
+/// Blocks ruins spawning on the turf.
+#define NO_RUINS (1<<4)
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
@@ -98,31 +98,33 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 
 ////////////////Area flags\\\\\\\\\\\\\\
 /// If it's a valid territory for cult summoning or the CRAB-17 phone to spawn
-#define VALID_TERRITORY				(1<<0)
+#define VALID_TERRITORY (1<<0)
 /// If blobs can spawn there and if it counts towards their score.
-#define BLOBS_ALLOWED				(1<<1)
+#define BLOBS_ALLOWED (1<<1)
 /// If mining tunnel generation is allowed in this area
-#define CAVES_ALLOWED				(1<<2)
+#define CAVES_ALLOWED (1<<2)
 /// If flora are allowed to spawn in this area randomly through tunnel generation
-#define FLORA_ALLOWED				(1<<3)
+#define FLORA_ALLOWED (1<<3)
 /// If mobs can be spawned by natural random generation
-#define MOB_SPAWN_ALLOWED			(1<<4)
+#define MOB_SPAWN_ALLOWED (1<<4)
 /// If megafauna can be spawned by natural random generation
-#define MEGAFAUNA_SPAWN_ALLOWED		(1<<5)
+#define MEGAFAUNA_SPAWN_ALLOWED (1<<5)
 /// Hides area from player Teleport function.
-#define HIDDEN_AREA					(1<<6)
+#define HIDDEN_AREA (1<<6)
 /// If false, loading multiple maps with this area type will create multiple instances.
-#define UNIQUE_AREA					(1<<7)
+#define UNIQUE_AREA (1<<7)
 /// If people are allowed to suicide in it. Mostly for OOC stuff like minigames
-#define BLOCK_SUICIDE				(1<<8)
+#define BLOCK_SUICIDE (1<<8)
 /// Can the Xenobio management console transverse this area by default?
-#define XENOBIOLOGY_COMPATIBLE		(1<<9)
+#define XENOBIOLOGY_COMPATIBLE (1<<9)
+/// If blood cultists can draw runes or build structures on this AREA.
+#define CULT_PERMITTED (1<<10)
 /// Are hidden stashes allowed to spawn here?
-#define HIDDEN_STASH_LOCATION		(1<<10)
+#define HIDDEN_STASH_LOCATION (1<<11)
 /// Indicates that this area uses an APC from another location (Skips the unit tests for APCs)
-#define REMOTE_APC					(1<<11)
+#define REMOTE_APC (1<<12)
 /// This area is prevented from having gravity (ie. space, nearstation, or outside solars)
-#define NO_GRAVITY 					(1<<12)
+#define NO_GRAVITY (1<<13)
 /*
 	These defines are used specifically with the atom/pass_flags bitmask
 	the atom/checkpass() proc uses them (tables will call movable atom checkpass(PASSTABLE) for example)

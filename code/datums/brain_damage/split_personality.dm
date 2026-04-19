@@ -34,12 +34,14 @@
 /datum/brain_trauma/severe/split_personality/proc/get_ghost()
 	set waitfor = FALSE
 
-	var/datum/poll_config/config = new()
-	config.check_jobban = ROLE_SPLIT_PERSONALITY
-	config.poll_time = 10 SECONDS
-	config.jump_target = owner
-	config.role_name_text = "[owner]'s split personality"
-	config.alert_pic = owner
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_SPLIT_PERSONALITY,
+		poll_time = 10 SECONDS,
+		jump_target = owner,
+		role_name_text = "[owner]'s split personality",
+		alert_pic = owner,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
 	if(candidate)
 		stranger_backseat.key = candidate.key
@@ -173,11 +175,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 	to_chat(src, span_notice("As a split personality, you cannot do anything but observe. However, you will eventually gain control of your body, switching places with the current personality."))
 	to_chat(src, span_warning("<b>Do not commit suicide or put the body in a deadly position. Behave like you care about it as much as the owner.</b>"))
 
-/mob/living/split_personality/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_range = 7, datum/saymode/saymode = null)
+/mob/living/split_personality/try_speak(message, ignore_spam, forced, filterproof)
+	SHOULD_CALL_PARENT(FALSE)
 	to_chat(src, span_warning("You cannot speak, your other self is controlling your body!"))
 	return FALSE
 
-/mob/living/split_personality/emote(act, m_type = null, message = null, intentional = FALSE)
+/mob/living/split_personality/emote(act, type_override = NONE, message = null, intentional = FALSE, force_silence = FALSE, forced = FALSE)
 	return FALSE
 
 ///////////////BRAINWASHING////////////////////
@@ -217,12 +220,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 /datum/brain_trauma/severe/split_personality/brainwashing/get_ghost()
 	set waitfor = FALSE
 
-	var/datum/poll_config/config = new()
-	config.check_jobban = ROLE_TRAITOR
-	config.poll_time = 10 SECONDS
-	config.jump_target = owner
-	config.role_name_text = "[owner]'s brainwashed mind"
-	config.alert_pic = owner
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_TRAITOR,
+		poll_time = 10 SECONDS,
+		jump_target = owner,
+		role_name_text = "[owner]'s brainwashed mind",
+		alert_pic = owner,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
 	if(candidate)
 		stranger_backseat.key = candidate.key
@@ -233,7 +238,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 	return //no random switching
 
 /datum/brain_trauma/severe/split_personality/brainwashing/handle_hearing(datum/source, list/hearing_args)
-	if(!owner.can_hear() || owner == hearing_args[HEARING_SPEAKER])
+	if(!owner.can_hear() || owner == hearing_args[HEARING_SPEAKER] || !owner.has_language(hearing_args[HEARING_LANGUAGE]))
 		return
 
 	var/message = hearing_args[HEARING_RAW_MESSAGE]

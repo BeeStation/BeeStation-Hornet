@@ -332,6 +332,7 @@ export const StripMenu = (props) => {
       // Enough height to fit human with internals,
       // jumpsuit, handcuffs and legcuffs
       height={580}
+      theme="generic"
     >
       <Window.Content
         scrollable

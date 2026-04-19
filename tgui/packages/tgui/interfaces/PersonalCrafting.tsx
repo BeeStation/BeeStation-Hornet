@@ -65,6 +65,7 @@ const CATEGORY_ICONS_CRAFTING = {
   Tools: 'screwdriver-wrench',
   Entertainment: 'masks-theater',
   'Blood Cult': 'users',
+  Vampire: 'droplet',
 } as const;
 
 const CATEGORY_ICONS_COOKING = {
@@ -250,7 +251,7 @@ export const PersonalCrafting = (props) => {
   const CATEGORY_ICONS =
     mode === MODE.cooking ? CATEGORY_ICONS_COOKING : CATEGORY_ICONS_CRAFTING;
   return (
-    <Window width={700} height={720}>
+    <Window width={700} height={720} theme="generic">
       <Window.Content>
         <Stack fill>
           <Stack.Item width={'200px'}>
