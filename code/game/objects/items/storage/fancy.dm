@@ -173,6 +173,7 @@
 	spawn_count = 6
 	contents_tag = "cigarette"
 	custom_price = 15
+
 	//Special handling for cig overlays
 	var/display_cigs = TRUE
 
@@ -184,6 +185,7 @@
 /obj/item/storage/fancy/cigarettes/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
 	quick_remove_item(/obj/item/cigarette, user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/storage/fancy/cigarettes/AltClick(mob/user)
 	. = ..()
@@ -194,13 +196,6 @@
 		quick_remove_item(lighter, user)
 	else
 		quick_remove_item(/obj/item/cigarette, user)
-
-/// Removes an item from the packet if there is one
-/obj/item/storage/fancy/cigarettes/proc/quick_remove_item(obj/item/grabbies, mob/user)
-	var/obj/item/finger = locate(grabbies) in contents
-	if(finger)
-		atom_storage.attempt_remove(finger, drop_location())
-		user.put_in_hands(finger)
 
 /*
 /obj/item/storage/fancy/cigarettes/add_context(atom/source, list/context, obj/item/held_item, mob/user)
