@@ -168,3 +168,6 @@
       now.
   - refactor: Optimized powernet and cable code
   - rscdel: Removed the rapid cable layer
+2026-04-18:
+  timothymtorres:
+  - server: PRs that don't touch mapping no longer have maplints ran on them
