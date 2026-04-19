@@ -9124,7 +9124,12 @@
 /turf/open/floor/iron/techmaint,
 /area/station/maintenance/port/central)
 "cHE" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/green/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 5
+	},
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "cHF" = (
@@ -20364,11 +20369,12 @@
 /area/station/medical/medbay/lobby)
 "fYM" = (
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/components/binary/pump/on{
-	name = "Waste to Filter"
-	},
 /obj/machinery/atmospherics/pipe/bridge_pipe/pink/hidden{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
@@ -50886,6 +50892,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/pink/visible/layer2{
 	dir = 10
 	},
+/obj/machinery/computer/atmos_control/fuelsupply_tank{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/side,
 /area/station/engineering/atmos)
 "oIW" = (
@@ -71480,14 +71489,15 @@
 	},
 /area/station/hallway/primary/starboard)
 "uTK" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/green/visible{
-	dir = 4
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1{
+	dir = 8
 	},
-/obj/machinery/computer/atmos_control/fuelsupply_tank{
+/obj/machinery/atmospherics/pipe/bridge_pipe/pink/hidden{
 	dir = 1
 	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/bridge_pipe/pink/hidden{
+/obj/machinery/atmospherics/components/binary/pump/on{
+	name = "Waste to Filter";
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -78385,8 +78395,8 @@
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/central)
 "wXy" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/layer_manifold/green/visible,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "wXC" = (
@@ -78594,10 +78604,8 @@
 /turf/open/floor/iron,
 /area/station/commons/locker)
 "xbk" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible{
-	dir = 8
-	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "xbm" = (
@@ -80061,9 +80069,6 @@
 "xwk" = (
 /obj/machinery/light{
 	dir = 8
-	},
-/obj/machinery/atmospherics/components/unary/thermomachine/heater/on{
-	dir = 1
 	},
 /turf/open/floor/iron/dark/side{
 	dir = 8
