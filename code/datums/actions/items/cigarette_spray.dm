@@ -1,12 +1,9 @@
-/proc/do_exhale_spray(atom/source_item, mob/user, atom/target, amount, consume = TRUE)
+/proc/do_exhale_spray(atom/source_item, mob/user, atom/target, amount)
 	var/range = min(2, max(1, get_dist(source_item, target)))
 	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(user))
 	D.create_reagents(amount)
 	var/contained = source_item.reagents.log_list()
-	if(consume)
-		source_item.reagents.trans_to(D, amount)
-	else
-		source_item.reagents.trans_to(D, amount)
+	source_item.reagents.trans_to(D, amount)
 	D.user = user
 	D.block_masked_mobs = TRUE
 	D.lifetime = 1
