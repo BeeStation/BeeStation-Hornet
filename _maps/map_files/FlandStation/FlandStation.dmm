@@ -6613,13 +6613,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
-"bYe" = (
-/obj/machinery/air_sensor/fuelsupply_tank,
-/obj/machinery/atmospherics/pipe/layer_manifold/general/hidden{
-	dir = 4
-	},
-/turf/open/floor/engine/vacuum,
-/area/misc/space)
 "bYq" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/trimline/yellow/filled/line,
@@ -13176,12 +13169,6 @@
 	},
 /turf/open/floor/noslip/standard,
 /area/station/commons/fitness/recreation)
-"dRi" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/fuelsupply_output{
-	dir = 4
-	},
-/turf/open/floor/engine/vacuum,
-/area/misc/space)
 "dRN" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
@@ -37501,21 +37488,6 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/airless,
 /area/drydock/security)
-"kOv" = (
-/obj/effect/turf_decal/edges/borderfloor{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
-/turf/open/floor/iron/edge{
-	dir = 1
-	},
-/area/misc/space)
 "kOG" = (
 /turf/closed/wall/r_wall,
 /area/station/security/checkpoint/escape)
@@ -46085,18 +46057,6 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload_foyer)
-"nqi" = (
-/obj/machinery/atmospherics/pipe/smart/simple/pink/visible/layer2{
-	dir = 6
-	},
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/fuelsupply_input{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/pink/hidden{
-	dir = 10
-	},
-/turf/open/floor/engine/vacuum,
-/area/misc/space)
 "nqm" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/turf_decal/stripes/closeup{
@@ -71539,11 +71499,13 @@
 /obj/machinery/atmospherics/pipe/layer_manifold/green/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/pink/hidden,
 /obj/machinery/computer/atmos_control/fuelsupply_tank{
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/bridge_pipe/pink/hidden{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos)
 "uTO" = (
@@ -72652,17 +72614,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/station/engineering/storage/tech)
-"vlp" = (
-/obj/effect/turf_decal/edges/borderfloor{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden/layer2,
-/turf/open/floor/iron/edge,
-/area/misc/space)
 "vlN" = (
 /obj/effect/spawner/random/vending/colavend,
 /obj/effect/turf_decal/delivery,
@@ -138262,7 +138213,7 @@ ilJ
 ilJ
 ilJ
 ilJ
-dRi
+ilJ
 ilJ
 ilJ
 ilJ
@@ -138519,9 +138470,9 @@ ilJ
 ilJ
 ilJ
 ilJ
-nqi
 ilJ
-vlp
+ilJ
+ilJ
 ilJ
 ilJ
 ilJ
@@ -138776,9 +138727,9 @@ ilJ
 ilJ
 ilJ
 ilJ
-bYe
 ilJ
-kOv
+ilJ
+ilJ
 ilJ
 ilJ
 ilJ
