@@ -270,8 +270,6 @@ that means the proc needs to be defined prior to everything else.
 
 	var/list/test_results = list()
 
-	tests_to_run = list(/datum/unit_test/test_janky_actions)
-
 	//Hell code, we're bound to end the round somehow so let's stop if from ending while we work
 	SSticker.delay_end = TRUE
 	for(var/unit_path in tests_to_run)
