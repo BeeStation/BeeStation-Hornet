@@ -105,6 +105,9 @@
 		department_codes = list(department_codes)
 	for(var/each_dept_code in department_codes)
 		var/datum/department_group/dept = SSdepartment.get_department_by_dept_id(each_dept_code)
+		if(!dept)
+			stack_trace("Failed to get a department([each_dept_code]) from SSdepartment. Department code list: [english_list(department_codes)]")
+			continue
 		dept.access_list |= access_code
 
 		// Giving access to security officers
@@ -129,16 +132,18 @@
 	for(var/each_job_name in jobs_for_base_access)
 		var/datum/job/job = SSjob.GetJob(each_job_name)
 		if(!job)
-			CRASH("Failed to adjust access for jobs: [each_job_name]")
+			stack_trace("Failed to adjust access for jobs: [each_job_name]")
+			continue
 		job.base_access |= access_code
 
-	// // jobs_for_extra_access part
+	// jobs_for_extra_access part
 	if(istext(jobs_for_extra_access))
 		jobs_for_extra_access = list(jobs_for_extra_access)
 	for(var/each_job_name in jobs_for_extra_access)
 		var/datum/job/job = SSjob.GetJob(each_job_name)
 		if(!job)
-			CRASH("Failed to adjust access for jobs: [each_job_name]")
+			stack_trace("Failed to adjust access for jobs: [each_job_name]")
+			continue
 		job.extra_access |= access_code
 
 	// self-qdel process
