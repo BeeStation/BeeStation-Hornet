@@ -101,13 +101,13 @@
 
 	//Make mob invisible and spawn animation
 	notransform = TRUE
-	Paralyze(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
+	Stun(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
 	icon = null
 	cut_overlays()
+
+	var/obj/effect = new /obj/effect/temp_visual/monkeyify(loc)
+	effect.invisibility = INVISIBILITY_MAXIMUM
 	invisibility = INVISIBILITY_MAXIMUM
-
-	new /obj/effect/temp_visual/monkeyify(loc)
-
 	transformation_timer = addtimer(CALLBACK(src, PROC_REF(finish_teratomize)), TRANSFORMATION_DURATION, TIMER_UNIQUE)
 
 /mob/living/carbon/proc/finish_teratomize()

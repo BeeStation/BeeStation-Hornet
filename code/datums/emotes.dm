@@ -41,7 +41,7 @@
 	/// Message with %t at the end to allow adding params to the message, like for mobs doing an emote relatively to something else.
 	var/message_param = ""
 	/// Whether the emote is visible and/or audible bitflag
-	var/emote_type = NONE
+	var/emote_type = EMOTE_VISIBLE
 	/// Checks if the mob can use its hands before performing the emote.
 	var/hands_use_check = FALSE
 	/// Types that are allowed to use that emote.

@@ -313,10 +313,16 @@
 /datum/ai_behavior/find_nearby/perform(delta_time, datum/ai_controller/controller, target_key)
 	var/list/possible_targets = list()
 	for(var/atom/thing in view(2, controller.pawn))
+		if(thing == controller.pawn)
+			continue
 		if(!thing.mouse_opacity)
 			continue
 		if(thing.IsObscured())
 			continue
+		if(isitem(thing))
+			var/obj/item/item = thing
+			if(item.item_flags & ABSTRACT)
+				continue
 		possible_targets += thing
 	if(!possible_targets.len)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
