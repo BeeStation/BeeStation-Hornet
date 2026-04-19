@@ -1036,7 +1036,7 @@
 /obj/machinery/camera/directional/south{
 	c_tag = "Atmospherics - Plasma Cell"
 	},
-/turf/open/floor/engine/air/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "aoo" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2584,12 +2584,11 @@
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "aPT" = (
-/obj/structure/table/reinforced,
 /obj/machinery/status_display/ai{
 	pixel_y = 32
 	},
-/obj/item/flashlight/lamp,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/machinery/computer/atmos_control/fuelsupply_tank,
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "aPW" = (
@@ -5697,9 +5696,9 @@
 /obj/machinery/light_switch{
 	pixel_y = -24
 	},
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/machinery/computer/atmos_control/fuelsupply_tank{
+	dir = 1
+	},
 /turf/open/floor/iron/sepia,
 /area/station/engineering/break_room)
 "bMl" = (
@@ -5987,9 +5986,6 @@
 /obj/item/circuitboard/machine/shuttle/engine/plasma,
 /turf/open/floor/dock/drydock,
 /area/drydock)
-"bQe" = (
-/turf/open/floor/engine/air/light,
-/area/station/engineering/atmos)
 "bQg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
@@ -9669,7 +9665,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/air_input{
 	dir = 1
 	},
-/turf/open/floor/engine/air/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "cPH" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -9709,9 +9705,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/commons/vacant_room/commissary/commissary2)
-"cQe" = (
-/turf/open/floor/engine/n2o/light,
-/area/station/engineering/atmos)
 "cQp" = (
 /obj/structure/closet/emcloset,
 /obj/structure/lattice/catwalk/over,
@@ -13123,8 +13116,8 @@
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
-/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/machinery/computer/message_monitor,
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "dQE" = (
@@ -14438,7 +14431,7 @@
 /area/misc/space)
 "emo" = (
 /obj/machinery/air_sensor/plasma_tank,
-/turf/open/floor/engine/plasma/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "emr" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -20418,7 +20411,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/carbon_input{
 	dir = 8
 	},
-/turf/open/floor/engine/co2/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "gaq" = (
 /obj/structure/girder,
@@ -21003,7 +20996,7 @@
 	c_tag = "Atmospherics - Nitrous Oxide Cell";
 	name = "atmospherics camera"
 	},
-/turf/open/floor/engine/n2o/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "gjn" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -23359,6 +23352,7 @@
 /obj/item/taperecorder,
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/item/flashlight/lamp,
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "gVs" = (
@@ -23628,10 +23622,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload_foyer)
-"gYI" = (
-/obj/machinery/light/floor,
-/turf/open/floor/engine/plasma/light,
-/area/station/engineering/atmos)
 "gYL" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom,
@@ -31027,11 +31017,11 @@
 /area/station/maintenance/starboard/fore)
 "jcJ" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/station_alert{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
+	},
+/obj/machinery/computer/orbital_height_control{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/chief)
@@ -33407,6 +33397,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
+"jJn" = (
+/obj/machinery/portable_atmospherics/canister/hydrogen_fuel,
+/turf/open/floor/iron/tech/grid,
+/area/station/engineering/supermatter)
 "jJv" = (
 /obj/effect/turf_decal/trimline/blue/line{
 	dir = 8
@@ -37687,7 +37681,7 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/landmark/event_spawn,
 /obj/machinery/light/floor,
-/turf/open/floor/engine/air/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "kRo" = (
 /obj/structure/lattice/catwalk/over,
@@ -41288,7 +41282,7 @@
 	c_tag = "Atmospherics - Carbon Dioxide Cell";
 	name = "atmospherics camera"
 	},
-/turf/open/floor/engine/co2/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "lVI" = (
 /obj/effect/turf_decal/tile/blue{
@@ -42360,7 +42354,7 @@
 /area/station/service/hydroponics/garden)
 "mkr" = (
 /obj/machinery/air_sensor/nitrous_tank,
-/turf/open/floor/engine/n2o/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "mku" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -42553,7 +42547,7 @@
 /area/station/command/bridge)
 "mnU" = (
 /obj/machinery/air_sensor/carbon_tank,
-/turf/open/floor/engine/co2/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "mnY" = (
 /mob/living/simple_animal/slime/pet{
@@ -43647,9 +43641,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/station/engineering/supermatter)
-"mGh" = (
-/turf/open/floor/engine/plasma/light,
-/area/station/engineering/atmos)
 "mGj" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -50789,7 +50780,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/carbon_output{
 	dir = 8
 	},
-/turf/open/floor/engine/co2/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "oHq" = (
 /turf/open/floor/carpet/green,
@@ -52016,9 +52007,6 @@
 /obj/structure/chair/fancy/bench/corporate/left,
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/fore)
-"pek" = (
-/turf/open/floor/engine/co2/light,
-/area/station/engineering/atmos)
 "peo" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 1
@@ -57608,7 +57596,7 @@
 	c_tag = "Atmospherics - Plasma Cell";
 	name = "atmospherics camera"
 	},
-/turf/open/floor/engine/plasma/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "qNY" = (
 /obj/effect/turf_decal/bot,
@@ -61024,7 +61012,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/monitored/air_output{
 	dir = 1
 	},
-/turf/open/floor/engine/air/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "rOT" = (
 /obj/machinery/igniter/incinerator_toxmix,
@@ -62649,7 +62637,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
 "sqf" = (
-/obj/machinery/computer/message_monitor,
+/obj/machinery/computer/orbital_height_control,
 /turf/open/floor/iron/grid/steel,
 /area/station/command/bridge)
 "sqo" = (
@@ -64944,10 +64932,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/grid/steel,
 /area/station/hallway/primary/starboard)
-"sYj" = (
-/obj/machinery/light/floor,
-/turf/open/floor/engine/co2/light,
-/area/station/engineering/atmos)
 "sYD" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/cable,
@@ -67021,7 +67005,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/plasma_output{
 	dir = 8
 	},
-/turf/open/floor/engine/plasma/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "tDv" = (
 /obj/effect/turf_decal/stripes/white/corner{
@@ -68981,7 +68965,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/nitrous_output{
 	dir = 8
 	},
-/turf/open/floor/engine/n2o/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "uhE" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -69998,7 +69982,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/plasma_input{
 	dir = 8
 	},
-/turf/open/floor/engine/plasma/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "uyr" = (
 /obj/machinery/atmospherics/pipe/bridge_pipe/pink/visible{
@@ -72690,10 +72674,6 @@
 /obj/structure/railing,
 /turf/open/floor/iron/dark,
 /area/station/hallway/secondary/exit/departure_lounge)
-"vmT" = (
-/obj/machinery/light/floor,
-/turf/open/floor/engine/n2o/light,
-/area/station/engineering/atmos)
 "vmU" = (
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -22
@@ -75894,7 +75874,7 @@
 /area/station/engineering/atmos)
 "wmI" = (
 /obj/machinery/air_sensor/air_tank,
-/turf/open/floor/engine/air/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "wmJ" = (
 /turf/closed/wall,
@@ -79648,7 +79628,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitrous_input{
 	dir = 8
 	},
-/turf/open/floor/engine/n2o/light,
+/turf/open/floor/engine/vacuum/light,
 /area/station/engineering/atmos)
 "xrl" = (
 /obj/machinery/light{
@@ -125252,7 +125232,7 @@ ilJ
 ilJ
 sya
 sqf
-bNc
+lbS
 mgQ
 ouA
 aRU
@@ -125509,7 +125489,7 @@ ilJ
 ilJ
 sya
 jBM
-lbS
+bNc
 ooX
 gzQ
 aRU
@@ -125766,7 +125746,7 @@ ilJ
 ilJ
 sya
 rZo
-bNc
+lbS
 mgQ
 qcy
 plB
@@ -127666,8 +127646,8 @@ cac
 puz
 bOp
 cPB
-bQe
-bQe
+obC
+obC
 qSK
 dUB
 iKw
@@ -127924,7 +127904,7 @@ jgh
 urC
 wmI
 kRn
-bQe
+obC
 qSK
 dUB
 umV
@@ -128180,7 +128160,7 @@ mFG
 caR
 tLx
 rOO
-bQe
+obC
 aof
 qSK
 xut
@@ -131237,7 +131217,7 @@ mQb
 pWG
 nsv
 tDL
-bwa
+jJn
 kjw
 mDq
 mDq
@@ -131256,17 +131236,17 @@ rsp
 hOn
 gYt
 urC
-cQe
-vmT
-cQe
+obC
+iGV
+obC
 urC
-mGh
-gYI
-mGh
+obC
+iGV
+obC
 urC
-pek
-sYj
-pek
+obC
+iGV
+obC
 qSK
 iKw
 pzO
@@ -131514,16 +131494,16 @@ pCr
 ubu
 qSK
 gjm
-cQe
-cQe
+obC
+obC
 qSK
 qNS
-mGh
-mGh
+obC
+obC
 qSK
 lVx
-pek
-pek
+obC
+obC
 qSK
 iKw
 pzO
