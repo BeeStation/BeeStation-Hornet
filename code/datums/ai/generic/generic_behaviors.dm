@@ -89,6 +89,8 @@
 	var/atom/target = controller.blackboard[target_key]
 	if(QDELETED(target))
 		return FALSE
+	if(target == controller.pawn)
+		return FALSE
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/use_on_object/perform(delta_time, datum/ai_controller/controller, target_key)
@@ -313,8 +315,6 @@
 /datum/ai_behavior/find_nearby/perform(delta_time, datum/ai_controller/controller, target_key)
 	var/list/possible_targets = list()
 	for(var/atom/thing in view(2, controller.pawn))
-		if(thing == controller.pawn)
-			continue
 		if(!thing.mouse_opacity)
 			continue
 		if(thing.IsObscured())
