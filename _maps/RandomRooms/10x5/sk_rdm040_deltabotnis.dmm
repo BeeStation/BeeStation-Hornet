@@ -91,7 +91,7 @@
 	pixel_x = -12;
 	pixel_y = 2
 	},
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/bot,
