@@ -5636,7 +5636,7 @@
 /area/station/maintenance/starboard/aft)
 "bLV" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
@@ -8948,7 +8948,7 @@
 /area/station/science/research)
 "cGw" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/pipe,
+/obj/item/cigarette/pipe,
 /turf/open/floor/carpet,
 /area/station/service/bar/atrium)
 "cGy" = (
@@ -10128,7 +10128,7 @@
 /area/station/hallway/primary/starboard)
 "cXa" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /obj/structure/cable/yellow,
 /turf/open/floor/carpet,
 /area/station/service/bar/atrium)
@@ -13321,7 +13321,7 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /obj/item/reagent_containers/cup/glass/flask/gold,
 /turf/open/floor/carpet/royalblue,
 /area/station/command/heads_quarters/captain/private)
@@ -16854,11 +16854,11 @@
 	dir = 1;
 	pixel_y = -29
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 3
 	},
-/obj/item/clothing/mask/cigarette/cigar,
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar,
+/obj/item/cigarette/cigar/havana{
 	pixel_x = -3
 	},
 /obj/machinery/light/small,
@@ -30883,13 +30883,13 @@
 /area/station/command/heads_quarters/chief)
 "jcM" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 3
 	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar/havana{
 	pixel_x = -3
 	},
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /obj/machinery/button/door{
 	id = "heads_meeting";
 	name = "Security Shutters";
@@ -33951,14 +33951,14 @@
 /area/station/medical/medbay/central)
 "jUU" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar/havana{
 	pixel_x = -3
 	},
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold{
 	pixel_x = 8;
 	pixel_y = 8
 	},
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /obj/item/lighter,
 /obj/item/book/manual/wiki/detective{
 	pixel_x = 7;
@@ -45095,7 +45095,7 @@
 	pixel_y = 4
 	},
 /obj/item/folder/yellow,
-/obj/item/clothing/mask/cigarette/cigar/cohiba,
+/obj/item/cigarette/cigar/cohiba,
 /obj/item/lighter,
 /obj/effect/turf_decal/bot,
 /obj/item/phone{
@@ -81541,13 +81541,13 @@
 /area/station/maintenance/disposal)
 "xZE" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 6
 	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar/havana{
 	pixel_x = 2
 	},
-/obj/item/clothing/mask/cigarette/cigar{
+/obj/item/cigarette/cigar{
 	pixel_x = 4.5
 	},
 /obj/item/phone{

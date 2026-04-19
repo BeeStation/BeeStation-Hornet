@@ -904,7 +904,7 @@
 	pixel_x = 5;
 	pixel_y = 6
 	},
-/obj/item/clothing/mask/cigarette/pipe/cobpipe{
+/obj/item/cigarette/pipe/cobpipe{
 	pixel_y = 10;
 	pixel_x = -5
 	},

@@ -150,7 +150,7 @@
 /area/template_noop)
 "D" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/pipe,
+/obj/item/cigarette/pipe,
 /obj/effect/holodeck_effect/random_book,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -250,7 +250,7 @@
 /area/template_noop)
 "T" = (
 /obj/structure/table/wood/poker,
-/obj/item/clothing/mask/cigarette/pipe,
+/obj/item/cigarette/pipe,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"

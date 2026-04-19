@@ -302,7 +302,7 @@
 	pixel_x = 5;
 	pixel_y = 4
 	},
-/obj/item/clothing/mask/vape,
+/obj/item/vape,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)

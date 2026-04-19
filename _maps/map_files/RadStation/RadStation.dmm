@@ -30068,7 +30068,7 @@
 /obj/structure/closet/crate/hydroponics,
 /obj/item/clothing/head/utility/beekeeper_head,
 /obj/item/clothing/suit/utility/beekeeper_suit,
-/obj/item/clothing/mask/vape,
+/obj/item/vape,
 /turf/open/floor/iron/grid/steel,
 /area/station/service/hydroponics)
 "luP" = (
