@@ -20,3 +20,7 @@
 /obj/structure/sign/warning/nosmoking/@SUBTYPES : /obj/structure/sign/warning/no_smoking/@SUBTYPES{@OLD}
 /obj/structure/sign/warning/enginesafety : /obj/structure/sign/warning/engine_safety{@OLD}
 /obj/structure/sign/departments/examroom : /obj/structure/sign/departments/exam_room{@OLD}
+
+# all access freezer
+
+/obj/structure/closet/secure_closet/freezer/kitchen/mining : /obj/structure/closet/secure_closet/freezer/kitchen/all_access{}

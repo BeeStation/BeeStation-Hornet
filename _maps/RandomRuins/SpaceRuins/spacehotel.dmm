@@ -1760,7 +1760,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "gJ" = (
-/obj/structure/closet/secure_closet/freezer/kitchen/mining,
+/obj/structure/closet/secure_closet/freezer/kitchen/all_access,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "gK" = (
