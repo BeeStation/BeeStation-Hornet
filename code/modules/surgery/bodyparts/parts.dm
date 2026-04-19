@@ -40,7 +40,6 @@
 	icon_state = "default_monkey_chest"
 	limb_id = SPECIES_MONKEY
 	should_draw_greyscale = FALSE
-	is_dimorphic = FALSE
 	bodyshape = BODYSHAPE_MONKEY
 	acceptable_bodyshape = BODYSHAPE_MONKEY
 	dmg_overlay_type = SPECIES_MONKEY
@@ -48,6 +47,7 @@
 /obj/item/bodypart/chest/monkey/teratoma
 	icon_state = "teratoma_chest"
 	limb_id = "teratoma"
+	is_dimorphic = FALSE
 
 /obj/item/bodypart/chest/alien
 	icon = 'icons/mob/human/species/alien/bodyparts.dmi'
@@ -175,6 +175,7 @@
 
 /obj/item/bodypart/arm/left/monkey/teratoma
 	icon_state = "teratoma_l_arm"
+	limb_id = "teratoma"
 
 /obj/item/bodypart/arm/left/alien
 	icon = 'icons/mob/human/species/alien/bodyparts.dmi'

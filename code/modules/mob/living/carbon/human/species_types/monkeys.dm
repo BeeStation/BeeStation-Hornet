@@ -2,6 +2,7 @@
 /datum/species/monkey
 	name = "\improper Monkey"
 	id = SPECIES_MONKEY
+	species_traits = list(EYECOLOR)
 	mutanttongue = /obj/item/organ/tongue/monkey
 	mutantbrain = /obj/item/organ/brain/primate
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
@@ -16,14 +17,11 @@
 		TRAIT_VENTCRAWLER_NUDE,
 		TRAIT_WEAK_SOUL,
 	)
-	offset_features = list(
-		OFFSET_HEAD = list(0,-3),
-		OFFSET_FACEMASK = list(0,-3)
-	)
 	no_equip_flags = ITEM_SLOT_OCLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET | ITEM_SLOT_SUITSTORE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN | SLIME_EXTRACT
 	sexes = FALSE
 	species_language_holder = /datum/language_holder/monkey
+	mutant_organs = list(/obj/item/organ/tail/monkey)
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/monkey,
@@ -35,6 +33,8 @@
 	)
 	dust_anim = "dust-m"
 	gib_anim = "gibbed-m"
+	height_icon_state = "height_displacement_monkey"
+	species_height = SPECIES_HEIGHTS(8, 8, 8)
 
 	ai_controlled_species = TRUE
 
@@ -218,6 +218,7 @@
 	use_skintones = FALSE
 	mutantbrain = /obj/item/organ/brain/tumor
 	mutanttongue = /obj/item/organ/tongue/teratoma
+	mutant_organs = list()
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/monkey/teratoma,
