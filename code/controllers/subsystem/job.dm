@@ -234,6 +234,8 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/GiveRandomJob(mob/dead/new_player/authenticated/player)
 	JobDebug("GRJ Giving random job, Player: [player]")
 	. = FALSE
+	if("Stowaway" in player.client?.prefs?.all_quirks)
+		return AssignRole(player, overflow_role)
 	for(var/datum/job/job in shuffle(occupations))
 		if(!job || job.lock_flags)
 			continue

@@ -782,11 +782,11 @@
 					/obj/item/clothing/under/shorts/purple,
 				)
 			H.equip_to_slot_or_del(new new_uniform_type(H), ITEM_SLOT_ICLOTHING)
+	to_chat(quirk_holder, "<b>You are a Stowaway who has snuck onto the station.</b>")
+	to_chat(quirk_holder, "<b>As a Stowaway, you are NOT an antagonist. You are still bound by normal crew escalation rules — survive and thrive, but play fair.</b>")
 
 /datum/quirk/stowaway/post_spawn()
 	. = ..()
-	to_chat(quirk_holder, "<b>You are a Stowaway who has snuck onto the station.</b>")
-	to_chat(quirk_holder, "<b>As a Stowaway, you have no supervisors and are on your own. Try to survive, and find a way to thrive aboard the station!</b>")
 	addtimer(CALLBACK(src, PROC_REF(delete_stowaway_record)), 4 SECONDS)
 
 /datum/quirk/stowaway/proc/delete_stowaway_record()
