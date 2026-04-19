@@ -48,6 +48,10 @@
 	RegisterSignal(master, COMSIG_ATOM_TOOL_ACT(TOOL_MULTITOOL), PROC_REF(on_multitool_act))
 	RegisterSignal(master, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
 
+/datum/action/item_action/chameleon/change/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	return ..()
+
 /datum/action/item_action/chameleon/change/proc/on_multitool_act(obj/item/source, mob/living/user, obj/item/tool, list/processing_recipes)
 	SIGNAL_HANDLER
 	should_hide = !should_hide
