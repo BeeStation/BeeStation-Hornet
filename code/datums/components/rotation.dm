@@ -60,7 +60,7 @@
 
 /datum/component/simple_rotation/proc/RotateRight(datum/source, mob/user)
 	SIGNAL_HANDLER
-	// This pref makes the rotation reversed. Rotate "right" would be different for each individual.
+	// This pref makes the rotation behaviour inverted. Rotate "right" would be different for each individual.
 	var/client_pref_found = user?.client?.prefs?.read_player_preference(/datum/preference/toggle/inverted_rotation)
 	if(rotation_flags & ROTATION_DIAGONAL)
 		Rotate(user, client_pref_found ? ROTATION_COUNTERCLOCKWISE_DIAGONAL : ROTATION_CLOCKWISE_DIAGONAL)
@@ -69,7 +69,7 @@
 
 /datum/component/simple_rotation/proc/RotateLeft(datum/source, mob/user)
 	SIGNAL_HANDLER
-	// This pref makes the rotation reversed. Rotate "left" would be different for each individual.
+	// This pref makes the rotation behaviour inverted. Rotate "left" would be different for each individual.
 	var/client_pref_found = user?.client?.prefs?.read_player_preference(/datum/preference/toggle/inverted_rotation)
 	if(rotation_flags & ROTATION_DIAGONAL)
 		Rotate(user, client_pref_found ? ROTATION_CLOCKWISE_DIAGONAL : ROTATION_COUNTERCLOCKWISE_DIAGONAL)
