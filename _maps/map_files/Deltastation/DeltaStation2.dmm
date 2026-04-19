@@ -81,7 +81,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/bridge_pipe/pink/hidden,
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "adK" = (
@@ -9543,6 +9542,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/pink/hidden,
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "dxI" = (
@@ -34765,6 +34765,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "kWf" = (
@@ -42476,6 +42477,9 @@
 "nqT" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/bridge_pipe/pink/hidden{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "nro" = (
@@ -43954,7 +43958,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "nOs" = (
@@ -45700,6 +45703,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "omo" = (
@@ -52919,7 +52923,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/bridge_pipe/pink/hidden,
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "qrc" = (
@@ -61454,7 +61457,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "sXf" = (
@@ -67466,7 +67468,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "uIC" = (
@@ -68384,6 +68385,7 @@
 /obj/structure/cable,
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "uUX" = (
@@ -70611,6 +70613,14 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/grass,
 /area/station/cargo/exploration_prep)
+"vGf" = (
+/obj/structure/cable,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
+/turf/open/floor/iron,
+/area/station/engineering/atmospherics_engine)
 "vGm" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance/two,
@@ -75248,7 +75258,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/bridge_pipe/pink/hidden,
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "xbU" = (
@@ -77538,7 +77547,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/corner,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "xKN" = (
@@ -106336,7 +106344,7 @@ jVZ
 vWA
 iXB
 iXB
-iXB
+vGf
 omh
 kVJ
 kVJ
