@@ -31032,7 +31032,6 @@
 /area/station/maintenance/department/bridge)
 "lIo" = (
 /obj/machinery/orbital_thruster_nozzle,
-/obj/structure/lattice,
 /turf/open/space/basic,
 /area/misc/space/nearstation)
 "lIN" = (
@@ -41576,6 +41575,12 @@
 /obj/effect/turf_decal/guideline/guideline_in/yellow,
 /turf/open/floor/iron,
 /area/station/engineering/main)
+"pyI" = (
+/obj/structure/orbital_thruster_dummy{
+	icon_state = "13"
+	},
+/turf/open/space/basic,
+/area/misc/space/nearstation)
 "pyX" = (
 /obj/structure/sign/poster/official/help_others,
 /turf/closed/wall,
@@ -47454,6 +47459,7 @@
 /obj/structure/sign/warning/vacuum/external{
 	pixel_y = -32
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
 /turf/open/floor/plating,
 /area/station/engineering/supermatter)
 "rLr" = (
@@ -64458,6 +64464,12 @@
 "yfm" = (
 /obj/structure/grille,
 /turf/open/floor/plating/airless,
+/area/misc/space/nearstation)
+"yfw" = (
+/obj/structure/orbital_thruster_dummy{
+	icon_state = "15"
+	},
+/turf/open/space/basic,
 /area/misc/space/nearstation)
 "yfE" = (
 /obj/effect/mapping_helpers/tile_breaker,
@@ -91488,7 +91500,7 @@ dOF
 pFi
 hNj
 iuD
-bmT
+pyI
 jiE
 jiE
 jiE
@@ -92002,7 +92014,7 @@ nVm
 aqU
 dmh
 vcM
-uJw
+yfw
 jiE
 jiE
 jiE
@@ -101255,7 +101267,7 @@ hcJ
 jdv
 hNj
 jfR
-bmT
+pyI
 jiE
 jiE
 jiE
@@ -101769,7 +101781,7 @@ mvR
 aqU
 dmh
 vcM
-uJw
+yfw
 jiE
 jiE
 jiE
@@ -102540,7 +102552,7 @@ gUO
 bBA
 ecJ
 lIo
-bHh
+dHS
 jiE
 jiE
 jiE
@@ -102797,8 +102809,8 @@ vsE
 oeX
 pFO
 uJw
-bHh
-bHh
+dHS
+dHS
 jiE
 jiE
 jiE
