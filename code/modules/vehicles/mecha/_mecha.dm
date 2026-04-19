@@ -307,6 +307,7 @@
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
 	QDEL_NULL(ui_view)
+	QDEL_LIST(trackers)
 	QDEL_NULL(wires)
 
 	GLOB.mechas_list -= src //global mech list
