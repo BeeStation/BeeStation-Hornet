@@ -156,7 +156,7 @@
 		if("select_feature")
 			current_feature_ref = current_feature_ref == params["key"] ? null : params["key"]
 			current_feature = locate(current_feature_ref)
-			last_command = "pit feature select -m [params["key"]]"
+			last_command = "pit feature select -m [encrypt_ref(params["key"])]"
 			return TRUE
 		if("cancel")
 			confirm_radiation = FALSE
@@ -174,7 +174,7 @@
 				confirm_radiation = TRUE
 				return TRUE
 			//Nuke the SOB
-			last_command = "per kiln heat -f -k -m [params["key"]]"
+			last_command = "per kiln heat -f -k -m [encrypt_ref(params["key"])]"
 			confirm_radiation = FALSE
 			if(!catalyst?.air_contents?.has_gas(/datum/gas/plasma, 1))
 				playsound(controller, 'sound/machines/terminal_error.ogg', 60)

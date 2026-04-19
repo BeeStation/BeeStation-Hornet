@@ -128,7 +128,7 @@
 	switch(action)
 		if("select_entry")
 			focused_seeds = params["key"]
-			last_command = "pit seed select -m [params["key"]]"
+			last_command = "pit seed select -m [encrypt_ref(params["key"])]"
 			screen.flash()
 			return TRUE
 		if("dispense")
@@ -151,6 +151,8 @@
 		animate(pixel_x = rand(-1, 1), pixel_y = rand(-1, 1), time = 0.05 SECONDS)
 	animate(pixel_x = 0, pixel_y = 0, time = 0.05 SECONDS)
 
+/obj/machinery/seeder/proc/encrypt_ref(ref_string)
+	return "0x[copytext(md5(ref_string), 1, 8)]"
 
 /obj/item/circuitboard/machine/seeder
 	name = "industrial seeder (Machine Board)"

@@ -114,7 +114,7 @@
 		if("select_feature")
 			current_feature_ref = current_feature_ref == params["key"] ? null : params["key"]
 			current_feature = locate(current_feature_ref)
-			last_command = "pit feature select -m [params["key"]]"
+			last_command = "pit feature select -m [encrypt_ref(params["key"])]"
 			return TRUE
 		if("remove_feature")
 			var/datum/plant_feature/feature = locate(params["key"])
@@ -132,7 +132,7 @@
 			//We can safely set this to null, so it makes a new ID when planted.
 			seeds.update_species_id()
 			seeds.update_plant_name()
-			last_command = "pit feature remove -f -m [params["key"]]"
+			last_command = "pit feature remove -f -m [encrypt_ref(params["key"])]"
 			return TRUE
 		if("remove_trait")
 			var/datum/plant_trait/trait = locate(params["key"])
@@ -147,7 +147,7 @@
 			if(current_feature)
 				current_feature.plant_traits -= trait
 			qdel(trait)
-			last_command = "pit trait remove -f -m [params["key"]]"
+			last_command = "pit trait remove -f -m [encrypt_ref(params["key"])]"
 			return TRUE
 		if("add_trait")
 			if(!current_feature)
@@ -170,7 +170,7 @@
 			//Reset the species ID
 			seeds.update_species_id()
 			seeds.update_plant_name()
-			last_command = "pit trait add -f -cd [params["key"]]"
+			last_command = "pit trait add -f -cd [encrypt_ref(params["key"])]"
 			return TRUE
 		if("add_feature")
 			var/datum/plant_feature/feature = locate(params["key"])
@@ -210,7 +210,7 @@
 			seeds.plant_features += new_feature
 			seeds.update_species_id()
 			seeds.update_plant_name()
-			last_command = "pit feature add -f -cd [params["key"]]"
+			last_command = "pit feature add -f -cd [encrypt_ref(params["key"])]"
 			return TRUE
 		if("remove_disk")
 			//Fix focus

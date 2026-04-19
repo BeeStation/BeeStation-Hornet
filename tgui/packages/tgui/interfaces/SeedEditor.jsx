@@ -44,9 +44,9 @@ export const SeedEditor = (props) => {
                       icon={'eject'}
                       tooltip={'Eject Seeds'}
                       onClick={() => act('remove_seeds')}
-                      mx={"5px"}
-                      my={"8px"}
-                      height={"50%"}
+                      mx={'5px'}
+                      my={'8px'}
+                      height={'50%'}
                     />
                   </Flex>
                 </Section>
@@ -102,10 +102,7 @@ export const SeedEditor = (props) => {
                           </Flex.Item>
                         ) : (
                           <Flex.Item>
-                            <Button
-                              width={'100%'}
-                              className="plant__dialogue"
-                            >
+                            <Button width={'100%'} className="plant__dialogue">
                               {'No Disk Inserted'}
                             </Button>
                           </Flex.Item>

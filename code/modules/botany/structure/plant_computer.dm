@@ -122,13 +122,13 @@
 			var/datum/plant_feature/feature = locate(params["key"])
 			if(istype(feature))
 				selected_type_shortcut = "[feature.trait_type_shortcut]"
-			last_command = "pit entry select -m [params["key"]]"
+			last_command = "pit entry select -m [encrypt_ref(params["key"])]"
 			screen.flash()
 			return TRUE
 		if("select_chapter")
 			selected_chapter = params["key"]
 			selected_entry = null
-			last_command = "pit chapter select -m [params["key"]]"
+			last_command = "pit chapter select -m [encrypt_ref(params["key"])]"
 			screen.flash()
 			return TRUE
 		if("select_link")
@@ -139,7 +139,7 @@
 				selected_type_shortcut = "[feature.trait_type_shortcut]"
 			//Chapter
 			selected_chapter = params["chapter"]
-			last_command = "pit seek select -m [params["key"]]"
+			last_command = "pit seek select -m [encrypt_ref(params["key"])]"
 			screen.flash()
 			return TRUE
 
@@ -193,6 +193,10 @@
 
 	if(get_dist(src, source) > PC_LINK_RANGE)
 		machines -= source
+
+/obj/machinery/computer/plant_machine_controller/proc/encrypt_ref(ref_string)
+	return "0x[copytext(md5(ref_string), 1, 8)]"
+
 
 //Circuitboard
 /obj/item/circuitboard/computer/plant_machine_controller

@@ -171,7 +171,7 @@
 		if("select_feature")
 			current_feature_ref = current_feature_ref == params["key"] ? null : params["key"]
 			current_feature = locate(current_feature_ref)
-			last_command = "pit feature select -m [params["key"]]"
+			last_command = "pit feature select -m [encrypt_ref(params["key"])]"
 			screen.flash()
 			ui_update()
 		if("save_trait")
@@ -185,7 +185,7 @@
 			if(!trait.can_copy)
 				return
 			disk.set_saved(trait.copy())
-			last_command = "per reader write -f -m [params["key"]]"
+			last_command = "per reader write -f -m [encrypt_ref(params["key"])]"
 			screen.flash()
 			ui_update()
 		if("save_feature")
@@ -223,13 +223,13 @@
 				//finished :)
 				disk.set_saved(feature)
 				saving_feature = FALSE
-				last_command = "per reader write -f -m [params["key"]]"
+				last_command = "per reader write -f -m [encrypt_ref(params["key"])]"
 				screen.flash()
 				ui_update()
 				return
 			//Otherwise, enable drafting phase
 			saving_feature = !isnull(current_feature?.get_ui_traits())
-			last_command = "pit draft start -k -m [params["key"]]"
+			last_command = "pit draft start -k -m [encrypt_ref(params["key"])]"
 			ui_update()
 		if("toggle_trait")
 			var/datum/plant_trait/trait = locate(params["key"])
@@ -241,7 +241,7 @@
 			else
 				save_excluded_traits_ref += params["key"]
 				save_excluded_traits += trait.type
-			last_command = "pit trait toggle -l -m [params["key"]]"
+			last_command = "pit trait toggle -l -m [encrypt_ref(params["key"])]"
 			screen.flash()
 			ui_update()
 		if("remove_feature") //For disk
@@ -252,14 +252,14 @@
 				current_feature_ref = null
 				current_feature = null
 			qdel(feature)
-			last_command = "pit feature remove -f -m [params["key"]]"
+			last_command = "pit feature remove -f -m [encrypt_ref(params["key"])]"
 			screen.flash()
 			ui_update()
 		if("remove_trait") //For disk
 			var/datum/plant_trait/trait = locate(params["key"])
 			disk?.set_saved(null)
 			qdel(trait)
-			last_command = "pit trait remove -f -m [params["key"]]"
+			last_command = "pit trait remove -f -m [encrypt_ref(params["key"])]"
 			screen.flash()
 			ui_update()
 		if("remove_disk")

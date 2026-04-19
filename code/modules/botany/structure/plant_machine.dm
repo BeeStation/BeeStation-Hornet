@@ -20,3 +20,6 @@
 /obj/machinery/plant_machine/ui_act(action, params)
 	if(..() && (!isliving(usr) || !in_range(controller, usr)))
 		return TRUE
+
+/obj/machinery/plant_machine/proc/encrypt_ref(ref_string)
+	return "0x[copytext(md5(ref_string), 1, 8)]"

@@ -207,9 +207,7 @@ const InspectionPanel = (props) => {
               />
             ))
           ) : (
-            <Button className="plant__dialogue--beacon">
-              No Traits Found
-            </Button>
+            <Button className="plant__dialogue--beacon">No Traits Found</Button>
           )}
         </Flex.Item>
       </Box>

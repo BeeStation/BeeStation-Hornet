@@ -10,13 +10,27 @@
 //Blood
 /datum/plant_need/reagent/blood
 	need_description = "This plant has acquired a taste for blood..."
-	reagent_needs = list(/datum/reagent/blood = 0.3)
-	success_threshold = 1
+	reagent_needs = list(/datum/reagent/blood = 0.3, /datum/reagent/medicine/earthsblood = 0.01)
+	auto_threshold = TRUE
 	overdraw_need = TRUE
 
 //Milk
 /datum/plant_need/reagent/milk
 	need_description = "This plant wants milk."
-	reagent_needs = list(/datum/reagent/consumable/milk = 0.3)
-	success_threshold = 1
+	reagent_needs = list(/datum/reagent/consumable/milk = 0.3, /datum/reagent/medicine/earthsblood = 0.01)
+	auto_threshold = TRUE
+	overdraw_need = TRUE
+
+//Kelotane
+/datum/plant_need/reagent/kelotane
+	need_description = "This plant needs kelotane to stabilize its biology."
+	reagent_needs = list(/datum/reagent/medicine/kelotane = 0.1, /datum/reagent/medicine/earthsblood = 0.01)
+	auto_threshold = TRUE
+	overdraw_need = TRUE
+
+//Bicaridine
+/datum/plant_need/reagent/bicaridine
+	need_description = "This plant needs bicaridine to stabilize its biology."
+	reagent_needs = list(/datum/reagent/medicine/bicaridine = 0.1, /datum/reagent/medicine/earthsblood = 0.01)
+	auto_threshold = TRUE
 	overdraw_need = TRUE
