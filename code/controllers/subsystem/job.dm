@@ -482,7 +482,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/is_valid_job(mob/dead/new_player/authenticated/player, datum/job/job, required_priority)
 	if(!job || job.lock_flags)
 		return FALSE
-	if(("Stowaway" in player.client.prefs.all_quirks) && job.title != overflow_role)
+	if(("Stowaway" in player.client?.prefs?.all_quirks) && job.title != overflow_role)
 		return FALSE
 	if(is_banned_from(player.ckey, job.title))
 		JobDebug("DO isbanned failed, Player: [player], Job:[job.title]")
@@ -587,7 +587,7 @@ SUBSYSTEM_DEF(job)
 
 	if(living_mob.mind)
 		living_mob.mind.assigned_role = rank
-	if(!("Stowaway" in M.client?.prefs.all_quirks))
+	if(!("Stowaway" in M.client?.prefs?.all_quirks))
 		to_chat(M, "<b>You are the [rank].</b>")
 	if(job)
 		var/new_mob = job.equip(living_mob, null, null, joined_late , null, M.client)
@@ -612,7 +612,7 @@ SUBSYSTEM_DEF(job)
 				M.client.holder.auto_deadmin()
 			else
 				handle_auto_deadmin_roles(M.client, rank)
-		if(!("Stowaway" in M.client?.prefs.all_quirks))
+		if(!("Stowaway" in M.client?.prefs?.all_quirks))
 			to_chat(M, "<b>As the [rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
 		job.radio_help_message(M)
 		if(job.req_admin_notify)

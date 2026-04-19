@@ -286,7 +286,7 @@
 		return JOB_UNAVAILABLE_GENERIC
 	if(job.lock_flags)
 		return JOB_UNAVAILABLE_LOCKED
-	if(("Stowaway" in client.prefs.all_quirks) && rank != SSjob.overflow_role)
+	if(("Stowaway" in client?.prefs?.all_quirks) && rank != SSjob.overflow_role)
 		return JOB_UNAVAILABLE_GENERIC
 	if(!job.has_space())
 		if(job.title == JOB_NAME_ASSISTANT)
@@ -446,7 +446,7 @@
 		if(!prioritized_job.has_space())
 			SSjob.prioritized_jobs -= prioritized_job
 	dat += "<table><tr><td valign='top'>"
-	if("Stowaway" in client.prefs.all_quirks)
+	if("Stowaway" in client?.prefs?.all_quirks)
 		// Stowaway players can only spawn as the overflow role and give them their own section in late-join job select.
 		var/stow_color = "#888888"
 		dat += "<fieldset style='width: 185px; border: 2px solid [stow_color]; display: inline'>"
