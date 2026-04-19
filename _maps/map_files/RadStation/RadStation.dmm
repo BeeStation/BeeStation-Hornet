@@ -24035,7 +24035,7 @@
 /area/station/hallway/primary/central)
 "jhm" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/gravity_generator/main/station,
+/obj/machinery/gravity_generator/main,
 /turf/open/floor/iron/techmaint,
 /area/station/engineering/gravity_generator)
 "jhn" = (
