@@ -31,7 +31,7 @@ GLOBAL_ALIST_EMPTY(reftracker_skip_typecache_b)
 		/datum/greyscale_layer,
 		/datum/icon_transformer,
 		/datum/instrument_key,
-		/datum/lighting_object, // only contains turf and MA refs
+		/atom/movable/lighting_object, // only contains turf and MA refs
 		/datum/movespeed_modifier,
 		/datum/painting,
 		/datum/paper_input,
