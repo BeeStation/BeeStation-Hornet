@@ -24,15 +24,12 @@
 /datum/dynamic_ruleset/midround/ghost/allowed(require_drafted = TRUE)
 	// With ghost midrounds, we do not care about drafted player counts
 	// as the players may come later
-	. = ..()
-	if(!.)
-		return FALSE
-
 	if(use_spawn_locations)
 		get_spawn_locations()
 		if(!length(spawn_locations))
 			log_dynamic("NOT ALLOWED: [src] could not trigger due to a lack of valid spawning locations.")
 			return FALSE
+	return ..()
 
 /datum/dynamic_ruleset/midround/ghost/select_player()
 	var/mob/candidate = CHECK_BITFIELD(ruleset_flags, SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
@@ -658,18 +655,14 @@
 	return /obj/item/clothing/mask/gas/tiki_mask
 
 /datum/dynamic_ruleset/midround/ghost/fugitives/allowed(require_drafted = TRUE)
-	. = ..()
-	if(!.)
-		return FALSE
-
 	if(!SSmapping.empty_space)
 		return FALSE
-
 	// There cannot already be fugitives or hunters
 	for(var/datum/team/fugitive/fugitive_team in GLOB.antagonist_teams)
 		return FALSE
 	for(var/datum/team/fugitive_hunters/hunter_team in GLOB.antagonist_teams)
 		return FALSE
+	return ..()
 
 /datum/dynamic_ruleset/midround/ghost/fugitives/get_spawn_locations()
 	for(var/turf/turf in GLOB.xeno_spawn)

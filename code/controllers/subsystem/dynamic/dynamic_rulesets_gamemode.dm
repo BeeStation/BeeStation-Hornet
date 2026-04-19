@@ -70,6 +70,7 @@
 
 		chosen_mind.special_role = initial(antag_datum.banning_key)
 		chosen_mind.restricted_roles = restricted_roles
+	LAZYNULL(candidates)
 
 /datum/dynamic_ruleset/gamemode/execute()
 	. = ..()
@@ -180,13 +181,10 @@
 	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN | NO_CONVERSION_TRANSFER_RULESET | REQUIRED_POP_ALLOW_UNREADY
 
 /datum/dynamic_ruleset/gamemode/wizard/allowed(require_drafted = TRUE)
-	. = ..()
-	if(!.)
-		return FALSE
-
 	if(!length(GLOB.wizardstart))
 		log_dynamic("NOT ALLOWED: [src] couldn't find any spawn points.")
 		return FALSE
+	return ..()
 
 /datum/dynamic_ruleset/gamemode/wizard/choose_candidates()
 	. = ..()
