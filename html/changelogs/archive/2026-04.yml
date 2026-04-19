@@ -162,3 +162,12 @@
   - refactor: Any tgui message that would be too big to send to the server is now
       split into chunks and sent in sequence. This fixes several issues, such as...
   - bugfix: It is once again possible to save large amounts of text on paper at once.
+2026-04-17:
+  PowerfulBacon, Pestoverde322, mrmanlikesbt, h42:
+  - rscadd: Added smartwires. For those of you who are unaware, it means cables auto-connect
+      now.
+  - refactor: Optimized powernet and cable code
+  - rscdel: Removed the rapid cable layer
+2026-04-18:
+  timothymtorres:
+  - server: PRs that don't touch mapping no longer have maplints ran on them
