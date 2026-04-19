@@ -174,6 +174,8 @@
 	contents_tag = "cigarette"
 	custom_price = 15
 
+	///for cigarette overlay
+	var/candy = FALSE
 	//Special handling for cig overlays
 	var/display_cigs = TRUE
 
@@ -234,8 +236,8 @@
 			use_icon_state = "lighter_in"
 		else if(istype(C, /obj/item/lighter))
 			use_icon_state = "zippo_in"
-		//else if(candy)
-		//	use_icon_state = "candy"
+		else if(candy)
+			use_icon_state = "candy"
 		else
 			use_icon_state = "cigarette"
 
@@ -293,6 +295,20 @@
 	base_icon_state = "midori"
 	spawn_type = /obj/item/cigarette/rollie/nicotine
 	trade_flags = TRADE_CONTRABAND
+
+/obj/item/storage/fancy/cigarettes/cigpack_candy
+	name = "\improper Timmy's First Candy Smokes packet"
+	desc = "Unsure about smoking? Want to bring your children safely into the family tradition? Look no more with this special packet! Includes 100%* Nicotine-Free candy cigarettes."
+	icon_state = "candy"
+	base_icon_state = "candy"
+	contents_tag = "candy cigarette"
+	spawn_type = /obj/item/cigarette/candy
+	candy = TRUE
+
+/obj/item/storage/fancy/cigarettes/cigpack_candy/Initialize(mapload)
+	. = ..()
+	if(prob(7))
+		spawn_type = /obj/item/cigarette/candy/nicotine //uh oh!
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
 	name = "\improper Shady Jim's Super Slims packet"
