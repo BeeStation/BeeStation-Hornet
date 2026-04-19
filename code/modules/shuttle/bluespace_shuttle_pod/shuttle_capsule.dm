@@ -11,9 +11,9 @@
 	. = ..()
 	if(!allowed_turfs)
 		whitelisted_areas = typecacheof(list(
-			/area/space,
+			/area/misc/space,
 			/area/lavaland,
-			/area/asteroid
+			/area/centcom/asteroid
 		))
 		allowed_turfs = zebra_typecacheof(list(
 			/turf/open/space = TRUE,

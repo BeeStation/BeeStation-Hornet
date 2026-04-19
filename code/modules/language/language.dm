@@ -3,6 +3,8 @@
 
 /// Datum based languages. Easily editable and modular.
 /datum/language
+	abstract_type = /datum/language
+
 	/// Fluff name of language if any.
 	var/name = "an unknown language"
 	/// Short description for 'Check Languages'.

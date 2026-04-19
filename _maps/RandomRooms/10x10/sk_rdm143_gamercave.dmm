@@ -72,9 +72,7 @@
 /obj/effect/turf_decal/stripes{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/template_noop)
 "q" = (
@@ -177,9 +175,7 @@
 /obj/effect/turf_decal/stripes{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/item/trash/can{
 	pixel_x = -10;
 	pixel_y = 11
@@ -194,9 +190,7 @@
 /area/template_noop)
 "S" = (
 /obj/structure/falsewall,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/template_noop)
 "T" = (

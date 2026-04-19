@@ -5,7 +5,7 @@
 ///from base of atom/movable/Moved(): (/atom)
 #define COMSIG_MOVABLE_PRE_MOVE "movable_pre_move"
 	#define COMPONENT_MOVABLE_BLOCK_PRE_MOVE (1<<0)
-///from base of atom/movable/Moved(): (/atom, dir)
+///from base of atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
 #define COMSIG_MOVABLE_MOVED "movable_moved"
 ///from base of atom/movable/Cross(): (/atom/movable)
 #define COMSIG_MOVABLE_CROSS "movable_cross"
@@ -48,13 +48,13 @@
 #define COMSIG_MOVABLE_SECLUDED_LOCATION "movable_secluded" 	//! called when the movable is placed in an unaccessible area, used for stationloving: ()
 ///from base of atom/movable/Hear(): (proc args list(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range))
 #define COMSIG_MOVABLE_HEAR "movable_hear"
-	#define HEARING_MESSAGE 1
-	#define HEARING_SPEAKER 2
-//	#define HEARING_LANGUAGE 3
-	#define HEARING_RAW_MESSAGE 4
-	#define HEARING_RADIO_FREQ 5
-	#define HEARING_SPANS 6
-	#define HEARING_MESSAGE_MODE 7
+	#define HEARING_SPEAKER 1
+	#define HEARING_LANGUAGE 2
+	#define HEARING_RAW_MESSAGE 3
+	#define HEARING_RADIO_FREQ 4
+	#define HEARING_SPANS 5
+	#define HEARING_MESSAGE_MODE 6
+	#define HEARING_RANGE 7
 
 ///called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"
@@ -74,6 +74,14 @@
 #define COMSIG_MOVABLE_USING_RADIO "movable_radio"
 	/// Return to prevent the movable from talking into the radio.
 	#define COMPONENT_CANNOT_USE_RADIO (1<<0)
+
+/// Sent from /atom/movable/proc/generate_messagepart() generating a quoted message, after say verb is chosen and before spans are applied.
+#define COMSIG_MOVABLE_SAY_QUOTE "movable_say_quote"
+	// Used to access COMSIG_MOVABLE_SAY_QUOTE argslist
+	/// The index of args that corresponds to the actual message
+	#define MOVABLE_SAY_QUOTE_MESSAGE 1
+	#define MOVABLE_SAY_QUOTE_MESSAGE_SPANS 2
+	#define MOVABLE_SAY_QUOTE_MESSAGE_MODS 3
 
 ///from base of atom/movable/newtonian_move(): (inertia_direction)
 #define COMSIG_MOVABLE_NEWTONIAN_MOVE "movable_newtonian_move"

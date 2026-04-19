@@ -213,6 +213,8 @@
 #define SHIELD_SETUPFIELDS 1
 #define SHIELD_HASFIELDS 2
 
+WANTS_POWER_NODE(/obj/machinery/power/shieldwallgen)
+
 /obj/machinery/power/shieldwallgen
 	name = "shield wall generator"
 	desc = "A shield generator."
@@ -221,7 +223,7 @@
 	anchored = FALSE
 	density = TRUE
 	req_access = list(ACCESS_TELEPORTER)
-	flags_1 = CONDUCT_1
+	obj_flags = parent_type::obj_flags | CONDUCTS_ELECTRICITY
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 50
@@ -258,13 +260,10 @@
 	QDEL_NULL(wires)
 	return ..()
 
-//obj/machinery/power/shieldwallgen/should_have_node()
-//	return anchored
-
 /obj/machinery/power/shieldwallgen/connect_to_network()
 	if(!anchored)
 		return FALSE
-	. = ..()
+	return ..()
 
 /obj/machinery/power/shieldwallgen/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock)
 	id = "[REF(port)][id]"

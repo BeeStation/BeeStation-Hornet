@@ -1,8 +1,9 @@
 
 /* EMOTE DATUMS */
 /datum/emote/living
+	abstract_type = /datum/emote/living
 	mob_type_allowed_typecache = /mob/living
-	mob_type_blacklist_typecache = list(/mob/living/simple_animal/slime, /mob/living/brain)
+	mob_type_blacklist_typecache = list(/mob/living/brain)
 
 /// The time it takes for the blush visual to be removed
 #define BLUSH_DURATION 5.2 SECONDS
@@ -103,6 +104,8 @@
 	stat_allowed = HARD_CRIT
 
 /datum/emote/living/deathgasp/run_emote(mob/living/user, params, type_override, intentional)
+	if(!is_type_in_typecache(user, mob_type_allowed_typecache))
+		return
 	var/custom_message = user.death_message
 	if(custom_message)
 		message_animal_or_basic = custom_message
@@ -465,6 +468,10 @@
 	key = "yawn"
 	key_third_person = "yawns"
 	message = "yawns"
+	message_mime = "acts out an exaggerated silent yawn"
+	message_robot = "symphathetically yawns"
+	message_AI = "symphathetically yawns"
+	message_ipc = "symphathetically yawns"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/custom
@@ -480,64 +487,53 @@
 		return FALSE
 
 	if(!isnull(user.ckey) && is_banned_from(user.ckey, "Emote"))
-		to_chat(user, "You cannot send custom emotes (banned).")
+		to_chat(user, span_boldwarning("You cannot send custom emotes (banned)."))
 		return FALSE
 
 	if(QDELETED(user))
 		return FALSE
 
 	if(user.client && (user.client.player_details.muted & MUTE_IC))
-		to_chat(user, "You cannot send IC messages (muted).")
+		to_chat(user, span_boldwarning("You cannot send IC messages (muted)."))
 		return FALSE
 
-/datum/emote/living/custom/proc/check_invalid(mob/user, input)
+/datum/emote/living/custom/proc/emote_is_valid(mob/user, input)
+	// We're assuming clientless mobs custom emoting is something codebase-driven and not player-driven.
+	// If players ever get the ability to force clientless mobs to emote, we'd need to reconsider this.
+	if(!user.client)
+		return TRUE
+
+	if(!isnull(user?.client?.holder))
+		return TRUE
+
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
 	if(stop_bad_mime.Find(input, 1, 1))
 		to_chat(user, span_danger("Invalid emote."))
-		return TRUE
-	return FALSE
+		return FALSE
+
+	var/list/filter_result = CHAT_FILTER_CHECK(input)
+
+	if(filter_result)
+		to_chat(user, span_warning("That emote contained a word prohibited in IC emotes! Consider reviewing the server rules."))
+		to_chat(user, span_warning("\"[input]\""))
+		SSblackbox.record_feedback("tally", "ic_blocked_words", 1, LOWER_TEXT(config.ic_filter_regex.match))
+		return FALSE
+
+	return TRUE
+
+/datum/emote/living/custom/get_message_flags(intentional)
+	. = ..()
+	return .|WITH_EMPHASIS_MESSAGE
 
 /datum/emote/living/custom/run_emote(mob/user, params, type_override = null, intentional = FALSE)
-	if(params && type_override)
-		emote_type = type_override
-	message = params
-	. = ..()
-	message = null
-	emote_type = null
+	if(!emote_is_valid(user, params))
+		return FALSE
+	. = ..(user = user, params = params, type_override = type_override, intentional = intentional)
 
 /datum/emote/living/custom/replace_pronoun(mob/user, message)
 	return message
 
-/datum/emote/living/help
-	key = "help"
-
-/datum/emote/living/help/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	var/list/keys = list()
-	var/list/message = list("Available emotes, you can use them with say \"*emote\": ")
-
-	for(var/key in GLOB.emote_list)
-		for(var/datum/emote/P in GLOB.emote_list[key])
-			if(P.key in keys)
-				continue
-			if(P.can_run_emote(user, status_check = FALSE , intentional = TRUE))
-				keys += P.key
-
-	keys = sort_list(keys)
-
-	for(var/emote in keys)
-		if(LAZYLEN(message) > 1)
-			message += ", [emote]"
-		else
-			message += "[emote]"
-
-	message += "." // Note that this is adding extras on emotes that already had punctuation
-
-	message = jointext(message, "")
-
-	to_chat(user, message)
-
-/datum/emote/beep
+/datum/emote/living/beep
 	key = "beep"
 	key_third_person = "beeps"
 	message = "beeps"

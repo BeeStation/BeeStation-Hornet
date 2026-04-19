@@ -4,11 +4,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 CREATION_TEST_IGNORE_SELF(/turf)
 
 /turf
+	abstract_type = /turf
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
-	flags_1 = CAN_BE_DIRTY_1
 	uses_integrity = TRUE
-
 
 	///what /mob/oranges_ear instance is already assigned to us as there should only ever be one.
 	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
@@ -175,12 +174,13 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	for(var/atom/movable/content as anything in src)
 		Entered(content, null)
 
-	var/area/A = loc
-	if(fullbright_type && IS_DYNAMIC_LIGHTING(A))
-		if (fullbright_type == FULLBRIGHT_STARLIGHT)
+	// Same optimization principle used in /atom/movable/Initialize()
+	var/area/our_area = loc
+	if(fullbright_type)
+		if(fullbright_type == FULLBRIGHT_STARLIGHT && !our_area.has_starlight_overlay)
 			add_overlay(GLOB.starlight_overlay)
-		else
-			add_overlay(GLOB.fullbright_overlay)
+	else if(!our_area.area_has_base_lighting)
+		add_overlay(GLOB.fullbright_overlay)
 
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src, KILL_EXCITED)
@@ -276,9 +276,11 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		return
 
 	//move the turf
-	old_area.turfs_to_uncontain += src
+	LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, z, list())
+	LISTASSERTLEN(new_area.turfs_by_zlevel, z, list())
+	old_area.turfs_to_uncontain_by_zlevel[z] += src
+	new_area.turfs_by_zlevel[z] += src
 	new_area.contents += src
-	new_area.contained_turfs += src
 
 	//changes to make after turf has moved
 	on_change_area(old_area, new_area)
@@ -352,17 +354,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		if(A.density && A.anchored)
 			return 1
 	return 0
-
-/turf/proc/handleRCL(obj/item/rcl/C, mob/user)
-	if(C.loaded)
-		for(var/obj/structure/cable/LC in src)
-			if(!LC.d1 || !LC.d2)
-				LC.handlecable(C, user)
-				return
-		C.loaded.place_turf(src, user)
-		if(C.wiring_gui_menu)
-			C.wiringGuiUpdate(user)
-		C.is_empty(user)
 
 //There's a lot of QDELETED() calls here if someone can figure out how to optimize this but not runtime when something gets deleted by a Bump/CanPass/Cross call, lemme know or go ahead and fix this mess - kevinz000
 /turf/Enter(atom/movable/mover)
@@ -637,7 +628,8 @@ CREATION_TEST_IGNORE_SELF(/turf)
 /turf/proc/is_holy()
 	if(locate(/obj/effect/blessing) in src)
 		return TRUE
-	if(istype(loc, /area/chapel))
+	if(istype(loc,
+/area/station/service/chapel))
 		return TRUE
 	return FALSE
 

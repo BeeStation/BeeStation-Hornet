@@ -223,7 +223,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 		crab_account.bank_card_talk("You have stolen [total_credits_stolen] credits, and the machine is located at [get_area(src)].")
 	for(var/M in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(M, src)
-		to_chat(M, span_deadsay("[link] [name] [total_credits_stolen ? "siphons total [total_credits_stolen] credits from [victim_count] bank accounts." : "tried to siphon bank accounts, but there're no victims."] location: [get_area(src)]"))
+		to_chat(M, "[link] [name] [total_credits_stolen ? "siphons total [total_credits_stolen] credits from [victim_count] bank accounts." : "tried to siphon bank accounts, but there're no victims."] location: [get_area(src)]")
 
 	if(atom_integrity>25)
 		next_health_to_teleport -= round(max_integrity/60)
@@ -276,7 +276,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/dumpeetTarget)
 	bogdanoff = user
 	addtimer(CALLBACK(src, PROC_REF(startLaunch)), 100)
 	sound_to_playing_players('sound/items/dump_it.ogg', 20)
-	deadchat_broadcast(span_deadsay("Protocol CRAB-17 has been activated. A space-coin market has been launched at the station!"), turf_target = get_turf(src))
+	deadchat_broadcast("Protocol CRAB-17 has been activated. A space-coin market has been launched at the station!", turf_target = get_turf(src), message_type=DEADCHAT_ANNOUNCEMENT)
 
 /obj/effect/dumpeetTarget/proc/startLaunch()
 	DF = new /obj/effect/dumpeetFall(drop_location())

@@ -35,6 +35,8 @@
 	user.visible_message(span_notice("[user] stops and looks intently at [source]."), \
 						span_notice("You appraise [source]... [msg]"))
 
+	SEND_SIGNAL(user, COMSIG_LIVING_APPRAISE_ART, source)
+
 /datum/element/art/proc/on_examine(atom/source, mob/user, list/examine_texts)
 	SIGNAL_HANDLER
 	if(!isliving(user))

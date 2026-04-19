@@ -1,4 +1,6 @@
 /datum/dynamic_ruleset
+	abstract_type = /datum/dynamic_ruleset
+
 	/**
 	 * Configurable Variables
 	 */
@@ -37,8 +39,6 @@
 	 * Backend Variables
 	 */
 
-	/// The base abstract path for this subtype.
-	var/abstract_type = /datum/dynamic_ruleset
 	/// List of possible mobs (or minds for roundstart rulesets) for this ruleset to draft.
 	var/list/candidates
 	/// A list of mobs (or minds for roundstart rulesets) chosen for this ruleset.
@@ -52,7 +52,7 @@
 	// Check to see if we just nuked a ruleset
 	var/last_remaining_from_ruleset = TRUE
 	var/last_remaining_of_type = TRUE
-	for (var/datum/antagonist/antagonist in GLOB.antagonists)
+	for (var/datum/antagonist/antagonist as anything in GLOB.active_antagonists)
 		// This antagonist has been removed from its owner
 		if (!antagonist.owner)
 			continue
