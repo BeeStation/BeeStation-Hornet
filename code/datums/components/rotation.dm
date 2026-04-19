@@ -52,11 +52,11 @@
 	SIGNAL_HANDLER
 	var/client_pref_found = user?.client?.prefs?.read_player_preference(/datum/preference/toggle/inverted_rotation)
 	if(client_pref_found)
-		examine_list += "<span class='notice'>Alt + Left-click to rotate it clockwise. Alt + Right-click to rotate it counterclockwise. (You can invert the rotation behavior in your game preference.)</span>"
+		examine_list += span_notice("Alt + Left-click to rotate it clockwise. Alt + Right-click to rotate it counterclockwise. (You can invert the rotation behavior in your game preference.)")
 	else
-		examine_list += "<span class='notice'>Alt + Right-click to rotate it clockwise. Alt + Left-click to rotate it counterclockwise. (You can invert the rotation behavior in your game preference.)</span>"
+		examine_list += span_notice("Alt + Right-click to rotate it clockwise. Alt + Left-click to rotate it counterclockwise. (You can invert the rotation behavior in your game preference.)")
 	if(rotation_flags & ROTATION_REQUIRE_WRENCH)
-		examine_list += "<span class='notice'>This requires a wrench to be rotated.</span>"
+		examine_list += span_notice("This requires a wrench to be rotated.")
 
 /datum/component/simple_rotation/proc/RotateRight(datum/source, mob/user)
 	SIGNAL_HANDLER
