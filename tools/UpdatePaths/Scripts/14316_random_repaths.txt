@@ -23,7 +23,7 @@
 
 # all access freezer
 
-/obj/structure/closet/secure_closet/freezer/kitchen/mining : /obj/structure/closet/secure_closet/freezer/kitchen/all_access{}
+/obj/structure/closet/secure_closet/freezer/kitchen/mining : /obj/structure/closet/secure_closet/freezer/kitchen/all_access{@OLD}
 
 # horrible debug lockers & crates
 
