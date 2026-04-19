@@ -116,7 +116,7 @@
 
 /obj/item/organ/tail/monkey
 	name = "monkey tail"
-	desc = "A severed monkey tail. Does not look like a banana."
+	desc = "A severed monkey tail. Somewhere, a monkey just became an ape."
 	tail_type = "Monkey"
 	icon_state = "severedmonkeytail"
 
