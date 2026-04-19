@@ -34,7 +34,7 @@
 	var/obj/item/paper/stored_paper
 
 /obj/item/modular_computer/tablet/Destroy()
-	if(inserted_item)
+	if(istype(inserted_item))
 		QDEL_NULL(inserted_item)
 	if(stored_paper)
 		QDEL_NULL(stored_paper)
