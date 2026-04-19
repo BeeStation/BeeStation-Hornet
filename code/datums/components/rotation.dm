@@ -50,14 +50,18 @@
 
 /datum/component/simple_rotation/proc/ExamineMessage(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
-	examine_list += "<span class='notice'>Alt + Right-click to rotate it clockwise. Alt + Left-click to rotate it counterclockwise.</span>"
+	var/client_pref_found = user?.client?.prefs?.read_player_preference(/datum/preference/toggle/inverted_rotation)
+	if(client_pref_found)
+		examine_list += "<span class='notice'>Alt + Left-click to rotate it clockwise. Alt + Right-click to rotate it counterclockwise. (You can invert the rotation behavior in your game preference.)</span>"
+	else
+		examine_list += "<span class='notice'>Alt + Right-click to rotate it clockwise. Alt + Left-click to rotate it counterclockwise. (You can invert the rotation behavior in your game preference.)</span>"
 	if(rotation_flags & ROTATION_REQUIRE_WRENCH)
 		examine_list += "<span class='notice'>This requires a wrench to be rotated.</span>"
 
 /datum/component/simple_rotation/proc/RotateRight(datum/source, mob/user)
 	SIGNAL_HANDLER
 	// This pref makes the rotation reversed. Rotate "right" would be different for each individual.
-	var/client_pref_found = user?.client?.prefs?.read_player_preference(/datum/preference/toggle/reversed_rotation)
+	var/client_pref_found = user?.client?.prefs?.read_player_preference(/datum/preference/toggle/inverted_rotation)
 	if(rotation_flags & ROTATION_DIAGONAL)
 		Rotate(user, client_pref_found ? ROTATION_COUNTERCLOCKWISE_DIAGONAL : ROTATION_CLOCKWISE_DIAGONAL)
 	else
@@ -66,7 +70,7 @@
 /datum/component/simple_rotation/proc/RotateLeft(datum/source, mob/user)
 	SIGNAL_HANDLER
 	// This pref makes the rotation reversed. Rotate "left" would be different for each individual.
-	var/client_pref_found = !user?.client?.prefs?.read_player_preference(/datum/preference/toggle/reversed_rotation)
+	var/client_pref_found = user?.client?.prefs?.read_player_preference(/datum/preference/toggle/inverted_rotation)
 	if(rotation_flags & ROTATION_DIAGONAL)
 		Rotate(user, client_pref_found ? ROTATION_CLOCKWISE_DIAGONAL : ROTATION_COUNTERCLOCKWISE_DIAGONAL)
 	else
