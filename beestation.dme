@@ -696,6 +696,7 @@
 #include "code\datums\actions\items\adjust.dm"
 #include "code\datums\actions\items\beam_rifle.dm"
 #include "code\datums\actions\items\boot_dash.dm"
+#include "code\datums\actions\items\cigarette_spray.dm"
 #include "code\datums\actions\items\clothing.dm"
 #include "code\datums\actions\items\cult_dagger.dm"
 #include "code\datums\actions\items\hands_free.dm"

@@ -22,3 +22,5 @@ sound/effects/fire_puff.ogg made from: Bonfire Being Lit by samararaine -- https
 
 crimescenealarm.ogg uses:
 alarm2.wav by bumpelsnake -- https://freesound.org/s/456566/ -- License: Attribution 4.0
+
+blow_smoke.ogg - From: https://pixabay.com/sound-effects/people-exhale-83157/ -- Liscencing Info: https://pixabay.com/service/license-summary/
