@@ -734,6 +734,9 @@
 		H.adjust_drugginess(rand(10 SECONDS, 20 SECONDS))
 	var/obj/item/card/id/id_card = H.get_item_by_slot(ITEM_SLOT_ID)
 	qdel(id_card)
+	var/obj/item/modular_computer/pda = H.get_item_by_slot(ITEM_SLOT_BELT)
+	if(istype(pda, /obj/item/modular_computer/tablet/pda))
+		pda.name = "Unregistered PDA"
 	var/obj/structure/closet/selected_closet = get_unlocked_closed_locker()
 	if(selected_closet)
 		H.forceMove(selected_closet)
@@ -782,11 +785,11 @@
 					/obj/item/clothing/under/shorts/purple,
 				)
 			H.equip_to_slot_or_del(new new_uniform_type(H), ITEM_SLOT_ICLOTHING)
-	to_chat(quirk_holder, "<b>You are a Stowaway who has snuck onto the station.</b>")
-	to_chat(quirk_holder, "<b>As a Stowaway, you are NOT an antagonist. You are still bound by normal crew escalation rules — survive and thrive, but play fair.</b>")
 
 /datum/quirk/stowaway/post_spawn()
 	. = ..()
+	to_chat(quirk_holder, "<b>You are a Stowaway who has snuck onto the station.</b>")
+	to_chat(quirk_holder, "<b>As a Stowaway, you are NOT an antagonist. You are still bound by normal crew escalation rules — survive and thrive, but play fair.</b>")
 	addtimer(CALLBACK(src, PROC_REF(delete_stowaway_record)), 4 SECONDS)
 
 /datum/quirk/stowaway/proc/delete_stowaway_record()
