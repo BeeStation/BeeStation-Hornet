@@ -10146,10 +10146,6 @@
 /area/station/hallway/secondary/entry)
 "dOF" = (
 /obj/structure/orbital_thruster_dummy,
-/obj/structure/railing{
-	dir = 1;
-	layer = 1
-	},
 /turf/open/space/basic,
 /area/misc/space)
 "dOG" = (
@@ -18411,14 +18407,6 @@
 	burnt = 1
 	},
 /area/station/maintenance/port/aft)
-"gVX" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/structure/orbital_thruster_dummy,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/misc/space/nearstation)
 "gWp" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -32475,6 +32463,14 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/station/cargo/storage)
+"mjJ" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/space/basic,
+/area/misc/space/nearstation)
 "mjL" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -37469,10 +37465,6 @@
 /obj/structure/orbital_thruster_dummy{
 	icon_state = "3"
 	},
-/obj/structure/railing{
-	dir = 5;
-	layer = 1
-	},
 /turf/open/space/basic,
 /area/misc/space)
 "nVt" = (
@@ -38250,10 +38242,6 @@
 /area/station/science/xenobiology)
 "olx" = (
 /obj/machinery/atmospherics/components/unary/orbital_thruster,
-/obj/structure/railing{
-	dir = 1;
-	layer = 1
-	},
 /turf/open/space/basic,
 /area/misc/space)
 "olY" = (
@@ -40457,15 +40445,6 @@
 /obj/item/camera,
 /turf/open/floor/wood,
 /area/station/commons/vacant_room/office)
-"pcu" = (
-/obj/structure/railing{
-	dir = 1;
-	layer = 1
-	},
-/obj/machinery/atmospherics/components/unary/orbital_thruster,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/misc/space/nearstation)
 "pcy" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/bed/dogbed/vector{
@@ -41994,14 +41973,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/cargo/storage)
-"pGt" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/hidden,
-/turf/open/space/basic,
-/area/misc/space/nearstation)
 "pGx" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced,
@@ -43805,15 +43776,6 @@
 	},
 /turf/open/floor/circuit/red,
 /area/station/ai_monitored/turret_protected/ai)
-"qsb" = (
-/obj/structure/orbital_thruster_dummy{
-	icon_state = "6"
-	},
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/turf/open/space/basic,
-/area/misc/space)
 "qsg" = (
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -52614,16 +52576,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter)
-"tDF" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/structure/orbital_thruster_dummy{
-	icon_state = "3"
-	},
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/misc/space/nearstation)
 "tDH" = (
 /obj/effect/turf_decal/guideline/guideline_edge_alt/purple{
 	dir = 1
@@ -57283,8 +57235,7 @@
 	icon_state = "3"
 	},
 /obj/structure/railing{
-	dir = 5;
-	layer = 1
+	dir = 4
 	},
 /turf/open/space/basic,
 /area/misc/space/nearstation)
@@ -91282,8 +91233,8 @@ aer
 gkj
 lwh
 gQo
-yfl
-ecm
+bHh
+bHh
 bHh
 kbH
 bHh
@@ -92055,7 +92006,7 @@ ndq
 tVM
 uyV
 nVm
-qsb
+aqU
 dmh
 vcM
 uJw
@@ -92312,7 +92263,7 @@ fTt
 mfJ
 uyV
 uyV
-kPq
+bHh
 myA
 myA
 bHh
@@ -93082,7 +93033,7 @@ tVM
 tVM
 tVM
 tVM
-uyV
+mjJ
 vzy
 xCH
 dBZ
@@ -102077,7 +102028,7 @@ iHu
 fnP
 myA
 uyV
-pGt
+vPr
 vPr
 uyV
 myA
@@ -102334,7 +102285,7 @@ jHA
 myA
 myA
 uyV
-gVX
+hcJ
 iTM
 mmK
 iuD
@@ -102591,7 +102542,7 @@ hBg
 dbR
 xCb
 uyV
-pcu
+hjX
 gUO
 bBA
 ecJ
@@ -102848,7 +102799,7 @@ cOH
 mPi
 dbR
 myA
-tDF
+mvR
 vsE
 oeX
 pFO
