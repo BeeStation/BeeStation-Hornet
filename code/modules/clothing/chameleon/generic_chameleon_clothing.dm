@@ -419,3 +419,4 @@ do { \
 	. = ..()
 	BREAK_CHAMELEON_ACTION(src)
 
+#undef BREAK_CHAMELEON_ACTION
