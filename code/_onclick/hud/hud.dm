@@ -114,10 +114,13 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	QDEL_LIST(static_inventory)
 	QDEL_LIST(team_finder_arrows)
 
+	// all already deleted by static inventory clear
 	inv_slots.Cut()
 	action_intent = null
 	zone_select = null
 	pull_icon = null
+	rest_icon = null
+	hand_slots.Cut()
 
 	QDEL_LIST(toggleable_inventory)
 	QDEL_LIST(hotkeybuttons)
