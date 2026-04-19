@@ -70,7 +70,7 @@
 	user.dna.features = random_features()
 
 	// Apply Appearance
-	user.SetSpecialVoice(user.name)
+	user.override_voice = user.name
 	user.update_body() // Outfit and underwear, also body.
 	user.update_mutant_bodyparts() // Lizard tails etc
 	user.update_hair()
@@ -106,7 +106,7 @@
 	user.dna.features = prev_features
 
 	// Apply Appearance
-	user.UnsetSpecialVoice()
+	user.override_voice = null
 	user.update_body() // Outfit and underwear, also body.
 	user.update_hair()
 	user.update_body_parts() // Body itself, maybe skin color?

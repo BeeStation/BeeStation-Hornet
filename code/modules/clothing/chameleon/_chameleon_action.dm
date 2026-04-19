@@ -1,0 +1,247 @@
+/// Default duration of an EMP randomisation on a chameleon item
+#define EMP_RANDOMISE_TIME 30 SECONDS
+
+/datum/action/item_action/chameleon
+
+/datum/action/item_action/chameleon/change
+	name = "Chameleon Change"
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED
+	/// Typecache of all item types we explicitly cannot pick
+	/// Note that abstract items are already excluded
+	VAR_FINAL/list/chameleon_blacklist
+	/// Typecache of typepaths we can turn into
+	VAR_FINAL/list/chameleon_typecache
+	/// Assoc list of item name + icon state to item typepath
+	/// This is passed to the list input
+	VAR_FINAL/list/chameleon_list
+	/// The prime typepath of what class of item we're allowed to pick from
+	var/chameleon_type
+	/// Used in the action button to describe what we're changing into
+	var/chameleon_name = "Item"
+	/// What chameleon is active right now?
+	/// Can be set in the declaration to update in init
+	var/active_type
+	/// If we should hide our chameleon functionality. Can be toggled with a multitool
+	var/should_hide = FALSE
+	/// Cooldown from when we started being EMP'd
+	COOLDOWN_DECLARE(emp_timer)
+
+/datum/action/item_action/chameleon/change/New(datum/M)
+	. = ..()
+	if(!isitem(master))
+		stack_trace("Adding chameleon action to non-item ([master])")
+		qdel(src)
+		return
+
+	name = "Change [chameleon_name] Appearance"
+	update_buttons()
+
+	LAZYINITLIST(chameleon_blacklist)
+	LAZYINITLIST(chameleon_typecache)
+	LAZYINITLIST(chameleon_list)
+
+	initialize_blacklist()
+	initialize_disguises()
+
+	active_type = master.type
+
+	RegisterSignal(master, COMSIG_ATOM_TOOL_ACT(TOOL_MULTITOOL), PROC_REF(on_multitool_act))
+	RegisterSignal(master, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
+
+/datum/action/item_action/chameleon/change/proc/on_multitool_act(obj/item/source, mob/living/user, obj/item/tool, list/processing_recipes)
+	SIGNAL_HANDLER
+	should_hide = !should_hide
+	if(should_hide)
+		source.actions -= src
+		Remove(user)
+		log_game("[key_name(user)] has locked the disguise of \the [source] ([source.type]) with [tool].")
+	else
+		source.actions += src
+		Grant(user)
+		log_game("[key_name(user)] has removed the disguise lock on \the [source] ([source.type]) with [tool].")
+
+	return COMPONENT_BLOCK_TOOL_ATTACK
+
+/datum/action/item_action/chameleon/change/proc/on_emp(datum/source, severity, protection)
+	SIGNAL_HANDLER
+	if(protection & EMP_PROTECT_SELF)
+		return
+	emp_randomise()
+
+/datum/action/item_action/chameleon/change/Grant(mob/grant_to)
+	. = ..()
+	if(isnull(owner))
+		return
+
+	// Whenever a mob gains their first cham change action, they need to also gain the outfit action
+	if(locate(/datum/action/chameleon_outfit) in grant_to.actions)
+		return
+
+	var/datum/action/chameleon_outfit/outfit_action = new(owner)
+	outfit_action.Grant(owner)
+
+/datum/action/item_action/chameleon/change/Remove(mob/remove_from)
+	. = ..()
+	// Likewise when the mob loses the cham change action, if they have no others, they need to lose the outfit action
+	if(locate(/datum/action/item_action/chameleon/change) in remove_from.actions)
+		return
+
+	var/datum/action/chameleon_outfit/outfit_action = locate() in remove_from.actions
+	QDEL_NULL(outfit_action)
+
+/// Basic initialization of the chameleon items we cannot pick from
+/datum/action/item_action/chameleon/change/proc/initialize_blacklist()
+	chameleon_blacklist |= typecacheof(master.type)
+
+/// Basic initialization of the chameleon items we can pick from
+/datum/action/item_action/chameleon/change/proc/initialize_disguises()
+	if(!ispath(chameleon_type, /obj/item))
+		stack_trace("Non-item chameleon type defined on [type] ([chameleon_type])")
+		return
+
+	add_chameleon_items(chameleon_type)
+
+/// Used for formatting a typepath into something human readable for selection
+/datum/action/item_action/chameleon/change/proc/format_readable_name(datum/format_type)
+	if(ispath(format_type, /obj/item))
+		var/obj/item/format_item = format_type
+		return "[format_item::name] ([replacetext(format_item::icon_state, "_", " ")])"
+
+	return "[format_type]"
+
+/**
+ * Adds items of the given type or types to the chameleon selection list
+ *
+ * * type_or_types_to_add: A single typepath or a list of typepaths to add to the chameleon selection
+ * * only_root: If TRUE, only add the literal type or types passed, not their children
+ * * ignore_root: If TRUE, only add children of the type or types passed, not the literal types
+ */
+/datum/action/item_action/chameleon/change/proc/add_chameleon_items(type_or_types_to_add, only_root = FALSE, ignore_root = FALSE)
+	var/list/new_items = typecacheof(type_or_types_to_add, only_root_path = only_root, ignore_root_path = ignore_root)
+	for(var/obj/item/item_type as anything in new_items - chameleon_typecache)
+		if(is_type_in_typecache(item_type, chameleon_blacklist) || (item_type::item_flags & ABSTRACT) || item_type == item_type::abstract_type || !item_type::icon_state)
+			continue
+		chameleon_list[format_readable_name(item_type)] = item_type
+	chameleon_typecache |= new_items
+
+/datum/action/item_action/chameleon/change/proc/select_look(mob/user)
+	var/picked_name = tgui_input_list(user, "Select [chameleon_name] to change into", "Chameleon Settings", sort_list(chameleon_list, GLOBAL_PROC_REF(cmp_typepaths_asc)))
+	if(isnull(picked_name) || isnull(chameleon_list[picked_name]) || QDELETED(src) || QDELETED(user) || QDELETED(owner) || !is_available(feedback = TRUE))
+		return
+	var/obj/item/picked_item = chameleon_list[picked_name]
+	update_look(picked_item)
+
+/datum/action/item_action/chameleon/change/proc/random_look()
+	var/picked_name = pick(chameleon_list)
+	update_look(chameleon_list[picked_name])
+
+/datum/action/item_action/chameleon/change/proc/update_look(obj/item/picked_item)
+	var/obj/item/chameleon_item = master
+
+	update_item(picked_item)
+	update_buttons()
+	active_type = picked_item
+
+	if(ismob(chameleon_item.loc))
+		var/mob/wearer = chameleon_item.loc
+		wearer.update_clothing(chameleon_item.slot_flags | ITEM_SLOT_HANDS)
+
+/datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
+	PROTECTED_PROC(TRUE) // Call update_look, not this!
+
+	var/atom/atom_target = master
+	atom_target.name = picked_item::name
+	atom_target.desc = picked_item::desc
+	atom_target.icon_state = picked_item::icon_state
+
+	if(isitem(atom_target))
+		var/obj/item/item_target = atom_target
+		item_target.worn_icon = picked_item::worn_icon
+		item_target.lefthand_file = picked_item::lefthand_file
+		item_target.righthand_file = picked_item::righthand_file
+
+		item_target.worn_icon_state = picked_item::worn_icon_state
+		item_target.inhand_icon_state = picked_item::inhand_icon_state
+
+		if(picked_item::greyscale_colors)
+			if(picked_item.greyscale_config_worn)
+				item_target.worn_icon = SSgreyscale.GetColoredIconByType(
+					picked_item::greyscale_config_worn,
+					picked_item::greyscale_colors,
+				)
+			if(picked_item::greyscale_config_inhand_left)
+				item_target.lefthand_file = SSgreyscale.GetColoredIconByType(
+					picked_item::greyscale_config_inhand_left,
+					picked_item::greyscale_colors,
+				)
+			if(picked_item::greyscale_config_inhand_right)
+				item_target.righthand_file = SSgreyscale.GetColoredIconByType(
+					picked_item::greyscale_config_inhand_right,
+					picked_item::greyscale_colors,
+				)
+
+		item_target.flags_inv = picked_item::flags_inv
+		item_target.transparent_protection = picked_item::transparent_protection
+		if(isclothing(item_target) && ispath(picked_item, /obj/item/clothing))
+			var/obj/item/clothing/clothing_target = item_target
+			var/obj/item/clothing/picked_clothing = picked_item
+			clothing_target.flags_cover = picked_clothing::flags_cover
+
+			// Used to fake our armor rating during examination
+			REMOVE_TRAIT(clothing_target, TRAIT_VALUE_MIMIC_PATH, FROM_CHAMELEON)
+			ADD_VALUE_TRAIT(clothing_target, TRAIT_VALUE_MIMIC_PATH, FROM_CHAMELEON, picked_item::type, PRIORITY_CHAMELEON_MIMIC)
+
+	if(picked_item::greyscale_config && picked_item::greyscale_colors)
+		atom_target.icon = SSgreyscale.GetColoredIconByType(
+			picked_item::greyscale_config,
+			picked_item::greyscale_colors,
+		)
+
+	else
+		atom_target.icon = picked_item::icon
+
+/datum/action/item_action/chameleon/change/on_activate(mob/user, atom/target)
+	select_look(owner)
+	return TRUE
+
+/datum/action/item_action/chameleon/change/proc/emp_randomise(amount = EMP_RANDOMISE_TIME)
+	START_PROCESSING(SSprocessing, src)
+	random_look()
+
+	COOLDOWN_START(src, emp_timer, amount)
+
+/datum/action/item_action/chameleon/change/process()
+	if(COOLDOWN_FINISHED(src, emp_timer))
+		STOP_PROCESSING(SSprocessing, src)
+		return
+	random_look(owner)
+
+/datum/action/item_action/chameleon/change/proc/apply_outfit(datum/outfit/applying_from, list/all_items_to_apply)
+	SHOULD_CALL_PARENT(TRUE)
+
+	var/using_item_type
+	for(var/item_type in all_items_to_apply)
+		if(!ispath(item_type, /obj/item))
+			stack_trace("Invalid item type passed to apply_outfit ([item_type])")
+			continue
+		if(chameleon_typecache[item_type])
+			using_item_type = item_type
+			break
+
+	if(isnull(using_item_type))
+		return FALSE
+
+	if(istype(applying_from, /datum/outfit/job))
+		var/datum/outfit/job/job_outfit = applying_from
+		var/datum/job/job_datum = SSjob.GetJobType(job_outfit.jobtype)
+		apply_job_data(job_datum)
+
+	update_look(using_item_type)
+	all_items_to_apply -= using_item_type
+	return TRUE
+
+/// Used when applying this cham item via a job datum (from an outfit selection)
+/datum/action/item_action/chameleon/change/proc/apply_job_data(datum/job/job_datum)
+	return
+
+#undef EMP_RANDOMISE_TIME

@@ -20,9 +20,7 @@
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/gear(get_turf(src))
 	AddElement(/datum/element/climbable)
-
-/obj/structure/destructible/clockwork/wall_gear/emp_act(severity)
-	return
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/structure/destructible/clockwork/wall_gear/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH)

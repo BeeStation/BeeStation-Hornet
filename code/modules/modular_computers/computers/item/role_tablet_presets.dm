@@ -148,6 +148,7 @@
 	icon_state = "pda-service"
 
 /obj/item/modular_computer/tablet/pda/preset/heads
+	abstract_type = /obj/item/modular_computer/tablet/pda/preset/heads
 	default_disk = /obj/item/computer_hardware/hard_drive/role/head
 	icon_state = "pda-heads"
 	default_virus_defense = ANTIVIRUS_GOOD
