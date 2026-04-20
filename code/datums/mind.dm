@@ -695,11 +695,16 @@
 /// Setter for assigned_role. Keeps assigned_role (string) and assigned_role_datum (job ref) in sync.
 /// Returns the previous assigned_role value.
 /datum/mind/proc/set_assigned_role(role_title, datum/job/job_datum)
-	if(assigned_role == role_title && assigned_role_datum == job_datum)
+	if((assigned_role == role_title) && (assigned_role_datum == job_datum))
 		return
 	. = assigned_role
 	assigned_role = role_title
-	assigned_role_datum = job_datum
+	//second argument was filled
+	if(job_datum)
+		assigned_role_datum = job_datum
+	//second argument was not filled, take string and find job datum. If there is no associated job-datum, it will be null anyway
+	else
+		assigned_role_datum = SSjob.GetJob(assigned_role)
 
 /mob/dead/new_player/sync_mind()
 	return
