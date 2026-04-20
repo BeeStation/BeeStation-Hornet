@@ -231,14 +231,14 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 				attacking_item.play_tool_sound(src)
 				broken_state++
 				update_appearance(UPDATE_ICON_STATE)
-				return
+				return TRUE
 		if(GRAV_NEEDS_WELDING)
 			if(attacking_item.tool_behaviour == TOOL_WELDER)
 				if(attacking_item.use_tool(src, user, 0, volume = 50, amount = 1))
 					to_chat(user, span_notice("You mend the damaged framework."))
 					broken_state++
 					update_appearance(UPDATE_ICON_STATE)
-				return
+				return TRUE
 		if(GRAV_NEEDS_PLASTEEL)
 			if(istype(attacking_item, /obj/item/stack/sheet/plasteel))
 				var/obj/item/stack/sheet/plasteel/plasteel = attacking_item
@@ -250,13 +250,13 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 					update_appearance(UPDATE_ICON_STATE)
 				else
 					to_chat(user, span_warning("You need 10 sheets of plasteel!"))
-				return
+				return TRUE
 		if(GRAV_NEEDS_WRENCH)
 			if(attacking_item.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, span_notice("You secure the plating to the framework."))
 				attacking_item.play_tool_sound(src)
 				set_fix()
-				return
+				return TRUE
 	return ..()
 
 /obj/machinery/gravity_generator/main/ui_requires_update(mob/user, datum/tgui/ui)
