@@ -32,7 +32,7 @@
 /datum/plant_feature/body/tuber/catch_harvest(datum/source, mob/user, list/temp_fruits, dummy_harvest)
 	. = ..()
 	if(yields <= 0)
-		//Remove ourselves from the tray to avoid issues before we kill ourselves, so it works as tradition
+		SEND_SIGNAL(parent, COMSIG_PLANT_UPROOTED,  null, null, parent.plant_item.loc)
 		parent.plant_item.forceMove(get_turf(parent.plant_item))
 		qdel(parent.plant_item)
 

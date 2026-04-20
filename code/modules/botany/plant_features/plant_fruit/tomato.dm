@@ -86,7 +86,7 @@
 	icon_state = "friendly_tomato"
 	seed_icon_state = "seed-friendlytomato"
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin,
-	/datum/plant_trait/fruit/liquid_contents, /datum/plant_trait/fruit/killer/friendly)
+	/datum/plant_trait/fruit/liquid_contents/sensitive, /datum/plant_trait/fruit/killer/friendly)
 	fruit_product = /obj/item/food/grown/tomato/friendly
 	mutations = list(/datum/plant_feature/fruit/tomato)
 

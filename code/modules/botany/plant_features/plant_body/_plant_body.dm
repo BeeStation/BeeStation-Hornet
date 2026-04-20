@@ -69,11 +69,15 @@
 	return ..()
 
 /datum/plant_feature/body/Destroy(force, ...)
-	. = ..()
-	var/datum/component/planter/tray_component = parent?.plant_item?.GetComponent(/datum/component/planter)
-	tray_component?.plant_slots += slot_size
+	//Tray cleaning
+	var/obj/item/plant_tray/tray = parent?.plant_item?.loc
+	if(istype(tray))
+		tray.remove_feature_indicator(src, src, tray.problem_features) //second measure, usually tray handles this
+	//Undo changes to parent
 	parent?.plant_item?.cut_overlay(feature_appearance)
 	parent?.plant_item.layer -= layer_offset
+
+	return ..()
 
 /datum/plant_feature/body/get_scan_dialogue()
 	. = ..()

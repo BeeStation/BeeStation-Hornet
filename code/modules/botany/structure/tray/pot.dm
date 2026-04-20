@@ -11,6 +11,7 @@
 	gain_weeds = FALSE
 	use_substrate = FALSE
 	plant_offset = list(0, 12)
+	can_scan = FALSE
 
 /obj/item/plant_tray/pot/Initialize(mapload)
 	. = ..()

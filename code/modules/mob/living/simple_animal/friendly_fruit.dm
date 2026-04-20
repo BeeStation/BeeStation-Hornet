@@ -7,8 +7,8 @@
 	gender = NEUTER
 	speak_chance = 0
 	turns_per_move = 5
-	maxHealth = 30
-	health = 30
+	maxHealth = 15
+	health = 15
 	see_in_dark = 3
 	response_help_continuous = "prods"
 	response_help_simple = "prod"

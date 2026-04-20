@@ -59,7 +59,7 @@ export const PlantDictionary = (props) => {
                       <Section>
                         <Box
                           className={'scrollbox'}
-                          height={'300px'}
+                          height={'427px'}
                           overflowY="scroll"
                         >
                           {selected_chapter === 'features' ? (

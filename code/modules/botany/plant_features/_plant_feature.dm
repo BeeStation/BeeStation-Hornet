@@ -69,6 +69,8 @@
 		plant_traits += new trait(src)
 	//Build initial needs
 	for(var/need as anything in plant_needs)
+		if(!ispath(need))
+			continue
 		plant_needs -= need
 		plant_needs += new need(src)
 	//Build white & black list

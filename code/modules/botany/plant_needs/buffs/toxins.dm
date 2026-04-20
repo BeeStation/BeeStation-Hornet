@@ -21,6 +21,6 @@
 	var/datum/plant_feature/body/body_feature = parent
 	if(!istype(body_feature))
 		return
-	body_feature.adjust_health(GENERIC_TOXIN_DAMAGE*__delta_time)
+	body_feature.adjust_health(-GENERIC_TOXIN_DAMAGE*__delta_time)
 
 #undef GENERIC_TOXIN_DAMAGE

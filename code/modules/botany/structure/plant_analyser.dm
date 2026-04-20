@@ -51,7 +51,7 @@
 
 /obj/machinery/plant_machine/plant_analyser/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
-	to_chat(user, span_danger("[src] can be controlled with a hydroponics machine terminal.\nA plant can be inserted into [src] using a spade."))
+	to_chat(user, span_danger("A plant can be inserted into [src] using a spade."))
 
 /obj/machinery/plant_machine/plant_analyser/add_context_self(datum/screentip_context/context, mob/user)
 	if(!isliving(user))

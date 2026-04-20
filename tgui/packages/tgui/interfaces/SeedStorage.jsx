@@ -18,7 +18,7 @@ export const SeedStorage = (props) => {
                   <Section>
                     <Box
                       className={'scrollbox'}
-                      height={'300px'}
+                      height={'550px'}
                       overflowY="scroll"
                     >
                       {Object.entries(seeds).map(

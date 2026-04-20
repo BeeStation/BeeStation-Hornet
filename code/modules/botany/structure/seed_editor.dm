@@ -26,10 +26,6 @@
 	. += span_notice("[src] can be used to edit seed genetics.")
 	. += span_warning("[src] is not capable of saving genes.")
 
-/obj/machinery/plant_machine/seed_editor/attack_hand(mob/living/user, list/modifiers)
-	. = ..()
-	to_chat(user, span_danger("[src] can be controlled with a hydroponics machine terminal."))
-
 /obj/machinery/plant_machine/seed_editor/add_context_self(datum/screentip_context/context, mob/user)
 	if(!isliving(user))
 		return
@@ -152,12 +148,23 @@
 		if("add_trait")
 			if(!current_feature)
 				return
-			//Don't allow trait duplication
 			var/datum/plant_trait/trait = locate(params["key"])
+			//Flight checks
 			for(var/datum/plant_trait/local_trait as anything in current_feature.plant_traits)
+				//Don't allow trait duplication
 				if(!local_trait.allow_multiple && local_trait.get_id() == trait.get_id())
 					playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 					say("ERROR: Seed composition cannot support multiple of selected trait!")
+					return
+				//Is this trait blacklisted from another feature
+				if(is_type_in_typecache(local_trait, trait.blacklist) || is_type_in_typecache(trait, local_trait.blacklist))
+					playsound(controller, 'sound/machines/terminal_error.ogg', 60)
+					say("ERROR: Incompatible traits!")
+					return
+				//If a trait has a whitelist, are we in it?
+				if(length(trait.whitelist) && !is_type_in_typecache(local_trait, trait.whitelist) || length(local_trait.whitelist) && !is_type_in_typecache(trait, local_trait.whitelist))
+					playsound(controller, 'sound/machines/terminal_error.ogg', 60)
+					say("ERROR: Trait missing supporting composition!")
 					return
 			//Add the trait
 			var/datum/plant_trait/new_trait = trait.copy(current_feature)

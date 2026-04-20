@@ -53,6 +53,9 @@
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
 	return BRUTELOSS
 
+/obj/item/grown/bananapeel/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/slippery, 40)
 
 // Mimana - invisible sprites are totally a feature!
 /obj/item/food/grown/banana/mime
@@ -89,7 +92,3 @@
 /obj/item/grown/bananapeel/specialpeel //used by /obj/item/clothing/shoes/clown_shoes/banana_shoes
 	name = "synthesized banana peel"
 	desc = "A synthetic banana peel."
-
-/obj/item/grown/bananapeel/specialpeel/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/slippery, 40)

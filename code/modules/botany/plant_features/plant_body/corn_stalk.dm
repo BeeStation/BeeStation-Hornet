@@ -70,6 +70,13 @@
 	slot_size = PLANT_BODY_SLOT_SIZE_MICRO
 	whitelist_features = list(/datum/plant_feature/fruit/flower, /datum/plant_feature/roots)
 
+/datum/plant_feature/body/corn_stalk/flower/catch_harvest(datum/source, mob/user, list/temp_fruits, dummy_harvest)
+	. = ..()
+	if(yields <= 0)
+		SEND_SIGNAL(parent, COMSIG_PLANT_UPROOTED,  null, null, parent.plant_item.loc)
+		parent.plant_item.forceMove(get_turf(parent.plant_item))
+		qdel(parent.plant_item)
+
 /*
 	Ground Stalk
 */

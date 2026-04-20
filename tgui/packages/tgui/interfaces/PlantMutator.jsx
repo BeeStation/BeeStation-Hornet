@@ -177,7 +177,7 @@ const InspectionPanel = (props) => {
   const { current_feature_data, current_feature_traits } = data;
   return (
     <Flex direction="column">
-      <Box className={'scrollbox'} height={'300px'} overflowY="scroll">
+      <Box className={'scrollbox'} height={'535px'} overflowY="scroll">
         {/* base feature information, stats */}
         <Flex.Item>
           <Button className="plant__dialogue--beacon" width={'100%'}>

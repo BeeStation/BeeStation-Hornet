@@ -5,6 +5,7 @@
 	plumbing = FALSE
 	density = FALSE
 	use_substrate = FALSE
+	can_scan = FALSE
 	///Do we repel pests?
 	var/repel_pests = FALSE
 

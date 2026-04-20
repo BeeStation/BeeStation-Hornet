@@ -45,7 +45,7 @@
 	//This code is kinda samey but it's easier to read
 //Tray
 	var/obj/item/plant_tray/tray = target
-	if(istype(tray))
+	if(istype(tray) && tray.can_scan)
 		var/datum/plant_feature/feature
 		//Report needs
 		for(var/ref as anything in tray.needy_features)

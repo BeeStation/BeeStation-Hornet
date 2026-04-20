@@ -2,7 +2,7 @@
 
 /datum/plant_trait/roots/parasitic
 	name = "Parasitic"
-	desc = "This gene causes roots to parasitically feed of a plant's fruit, depositing their reagents into their environment."
+	desc = "This gene causes roots to parasitically feed off a plant's fruit, depositing their reagents into their environment."
 
 /datum/plant_trait/roots/parasitic/setup_component_parent(datum/source)
 	. = ..()

@@ -2,7 +2,7 @@
 	name = "irradiator kiln"
 	desc = "A large kiln designed to safely expose plants to radiation particles from excited plasma gas."
 	icon = 'icons/obj/hydroponics/features/generic.dmi'
-	icon_state = "mutator"
+	icon_state = "mutator_open"
 	density = TRUE
 	pass_flags = PASSTABLE
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
@@ -54,7 +54,7 @@
 
 /obj/machinery/plant_machine/plant_mutator/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
-	to_chat(user, span_danger("[src] can be controlled with a hydroponics machine terminal.\nA plant can be inserted into [src] using a spade."))
+	to_chat(user, span_danger("A plant can be inserted into [src] using a spade."))
 
 /obj/machinery/plant_machine/plant_mutator/add_context_self(datum/screentip_context/context, mob/user)
 	if(!isliving(user))
@@ -83,6 +83,8 @@
 		plant_component = null
 		current_feature = null
 		current_feature_ref = null
+		confirm_radiation = FALSE
+		icon_state = "mutator_open"
 		ui_update()
 		return
 	//Insert plant from spade
@@ -104,6 +106,8 @@
 	plant_item.forceMove(src)
 	plant = plant_item
 	plant_component = comp
+	icon_state = "mutator"
+	playsound(src, 'sound/machines/click.ogg', 30)
 	ui_update()
 
 //Remove
@@ -222,6 +226,9 @@
 					var/datum/plant_trait/new_trait = trait.copy(new_feature)
 					if(!QDELING(new_trait))
 						new_feature.plant_traits += new_trait
+			//In case there's fruit on us and we're mutating a non-fruit feature
+			var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in plant_component.plant_features
+			fruit_feature?.catch_attack_hand()
 			//Out with the old, in with the new
 			plant_component.plant_features -= feature
 			if(!QDELING(new_feature))
@@ -231,8 +238,8 @@
 			//Reset the plant's growth
 			for(var/datum/plant_feature/body/body_feature in plant_component.plant_features)
 				body_feature.growth_time_elapsed = 0
-				body_feature.current_stage = 0
-				body_feature.growth_step(0)
+				body_feature.current_stage = 1
+				body_feature.growth_step(1)
 			qdel(feature)
 			working = TRUE
 			icon_state = "mutator_on"

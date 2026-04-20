@@ -4,7 +4,7 @@
 /datum/plant_trait/reagent
 	genetic_cost = 0.25
 	random_trait = FALSE
-	plant_feature_compat = null
+	plant_feature_compat = /datum/plant_feature/fruit //If you decide to let this live on any feature, as was the original plan, just change this to null
 	abstract_type = /datum/plant_trait/reagent
 	///What reagent are we adding
 	var/datum/reagent/reagent

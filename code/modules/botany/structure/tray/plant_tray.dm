@@ -21,6 +21,8 @@
 	var/list/starting_offset = list(-2, 2, -5, 5)
 	///Plant offset to properly line things up
 	var/list/plant_offset = list(-2, 14)
+	///Can this tray be scanned with a plant scanner?
+	var/can_scan = TRUE
 //Effects
 	var/mutable_appearance/tray_reagents
 	var/icon/mask
@@ -57,8 +59,8 @@
 	//mask for plants
 	mask = icon(icon, "[icon_state]_mask")
 	//Reagent liquids, visual puddle
-	tray_reagents = mutable_appearance('icons/obj/hydroponics/features/generic.dmi', "[icon_state]_water", layer)
-	tray_reagents.add_overlay(mutable_appearance('icons/obj/hydroponics/features/generic.dmi', "[icon_state]_water_over", layer+0.1))
+	tray_reagents = mutable_appearance(src.icon, "[icon_state]_water", layer)
+	tray_reagents.add_overlay(mutable_appearance(src.icon, "[icon_state]_water_over", layer+0.1))
 	tray_reagents.appearance_flags = KEEP_APART
 	tray_reagents.color = mix_color_from_reagents(reagents.reagent_list)
 	if(length(reagents.reagent_list))

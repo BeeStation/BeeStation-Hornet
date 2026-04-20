@@ -67,7 +67,7 @@
 		return
 //Removing weeeds
 	if(istype(I, /obj/item/cultivator))
-		if(weed_level <= 0)
+		if(weed_level <= 1)
 			attacker.visible_message("[attacker] digs around in [parent].", span_warning("[parent] is devoid of weeds!"))
 			return
 		attacker.visible_message("[attacker] uproots the weeds.", span_notice("You remove the weeds from [parent]."))
@@ -127,7 +127,7 @@
 	if(!length(plants))
 		return
 	for(var/datum/component/plant/plant as anything in plants)
-		qdel(plant.parent)
+		qdel(plant.plant_item)
 	playsound(parent, 'sound/effects/shovel_dig.ogg', 60)
 
 /datum/component/planter/proc/async_spade_options(mob/user, obj/item/I)
