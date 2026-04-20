@@ -49,8 +49,7 @@
 	var/obj/item/plant_scanner/scanner = I
 	if(!istype(scanner))
 		return
-	if(!scanner.advanced)
-		return
+	//TODO: Update this for TGUI scanner - Racc
 	var/text_string = ""
 	for(var/datum/spacevine_mutation/SM in mutations)
 		text_string += "<span class='plant_sub'>[(text_string == "") ? "" : ", "][SM.name]</span>"

@@ -100,25 +100,29 @@
 
 //Used to get dialogue / text for hand-held plant scanner - This is like get_ui_data() but it has more information about specific things you'd want to know on the fly
 /datum/plant_feature/proc/get_scan_dialogue()
-	var/dialogue = "[capitalize(name)]([species_name])\n"
+	var/list/dialogue = list()
+	//identity
+	dialogue += "[capitalize(name)]([species_name])\n"
 	//Traits
+	var/grouping = ""
 	for(var/datum/plant_trait/trait as anything in plant_traits)
-		dialogue += "<i>	[trait.name]</i>\n"
-	if(!length(plant_traits))
-		dialogue += "\n"
+		grouping += "[trait.name]\n"
+	dialogue += grouping
 	//generic shared info - This can be a little duplicate when compared with get_ui_data() but it'll be good to keep this seperate for future additions
-	dialogue += "Genetic Stability: [genetic_budget]\n"
-	dialogue += "Genetic Availability: [remaining_genetic_budget]\n"
-	dialogue += "Trait Modifier: [trait_power]\n"
+	grouping = ""
+	grouping += "Genetic Stability: [genetic_budget]\n"
+	grouping += "Genetic Availability: [remaining_genetic_budget]\n"
+	grouping += "Trait Modifier: [trait_power]\n"
+	dialogue += grouping
 	return dialogue
 
 //Used to get dialogue / text for needs, when a tray is scanned
 /datum/plant_feature/proc/get_need_dialogue(buffs = TRUE)
-	var/dialogue = ""
+	var/list/dialogue = list()
 	for(var/datum/plant_need/need as anything in plant_needs)
 		if(!buffs && need.buff)
 			continue
-		dialogue += "[need.need_description]<br/>"
+		dialogue += "[need.need_description]"
 	return dialogue
 
 ///This is a keyed list for UIs to get specific values, usually for logic or display

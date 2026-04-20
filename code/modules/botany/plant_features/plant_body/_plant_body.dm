@@ -81,12 +81,15 @@
 
 /datum/plant_feature/body/get_scan_dialogue()
 	. = ..()
-	. += "Harvest Size: [max_harvest]\n"
-	. += "Remaining Yields: [yields]\n"
-	. += "Growth Time: [growth_time/10] seconds\n"
-	. += "Fruit Size: [upper_fruit_size]\n"
-	. += "Plant Size: [slot_size]\n"
-	. += "Plant Health: [health]\n"
+	var/list/dialogue = .
+	var/grouping = dialogue[3]
+	grouping += "Harvest Size: [max_harvest]\n"
+	grouping += "Remaining Yields: [yields]\n"
+	grouping += "Growth Time: [growth_time/10] seconds\n"
+	grouping += "Fruit Size: [upper_fruit_size]\n"
+	grouping += "Plant Size: [slot_size]\n"
+	grouping += "Plant Health: [health]\n"
+	dialogue[3] = grouping
 
 /datum/plant_feature/body/get_ui_data()
 	. = ..()
