@@ -1,0 +1,13 @@
+author: rkz, Rohesie, Ghommie, skoglol
+delete-after: true
+changes:
+  - rscadd: 'Bureaucratic overflow event is less boring. The event now has two possibilties:
+      1. A new overflow role is set other than the default assistant job 2. all jobs
+      other than overflow have their available slots adjusted by -2 to 4'
+  - bugfix: roundstart offstation antagonists such as wizards and nuke ops no longer
+      have quirks assigned to them
+  - code_imp: SSeconomy/var/bank_accounts is now an association list of account identifiers
+      and datums and also was renamed to bank_accounts_by_id.
+  - refactor: bank account lists should be faster
+  - refactor: job checks now have a new granular bitflag var named job_flags. This
+      can be relied upon for granular job trait control
