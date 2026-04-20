@@ -325,7 +325,7 @@
 		E.ethereal_light.set_light_on(TRUE)
 
 /datum/quirk/shadowsynthesis
-	name = "Inverted Photosynthesis"
+	name = "Shadowsynthesis"
 	desc = "Your biology has adapted to draw sustenance from the dark. You now thrive in darkness instead of light."
 	icon = "moon"
 	quirk_value = 0
@@ -335,7 +335,7 @@
 	process = TRUE
 	gain_text = span_notice("The excessive light feels discomforting to you. You yearn for the dark.")
 	lose_text = span_notice("The darkness loses its comfort, you feel like you can finally enjoy the light again.")
-	medical_record_text = "Patient's photosynthetic processes are inverted - they respond to darkness rather than light."
+	medical_record_text = "Patient's photosynthetic processes are reversed - they respond to darkness rather than light."
 	var/time_spent_in_dark = 0
 
 /datum/quirk/shadowsynthesis/add()
