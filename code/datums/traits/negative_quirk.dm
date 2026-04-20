@@ -714,3 +714,19 @@
 /datum/quirk/trauma/remove()
 	var/mob/living/carbon/human/H = quirk_target
 	H.cure_trauma_type(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
+
+/datum/quirk/burnt_wings
+	name = "Crippled Wings"
+	desc = "Your wings were badly burned at some point in your past and never fully healed, leaving them permanently non-functional. No amount of treatment can restore them."
+	icon = "fire"
+	quirk_value = -1
+	mob_trait = TRAIT_MOTH_BURNT
+	restricted_species = list(/datum/species/moth)
+	species_whitelist = TRUE
+	pref_restricted_species_id = SPECIES_MOTH
+	gain_text = span_danger("Your wings feel scorched and useless from a past accident.")
+	lose_text = span_notice("Your nerves begin to reconnect and your wings begin to feel as good as new.")
+	medical_record_text = "Patient has recieved severe burn damage to their wings in the past, leaving them permanently scarred. All attempts at regenerative treatment have proved ineffective."
+/datum/quirk/burnt_wings/add()
+	var/mob/living/carbon/human/H = quirk_target
+	H.regenerate_icons()

@@ -173,6 +173,8 @@ export function QuirksPage(props) {
 
   const [selectedQuirks, setSelectedQuirks] = useState(data.selected_quirks);
 
+  const currentSpecies = data.character_preferences.misc.species;
+
   return (
     <ServerPreferencesFetcher
       render={(data) => {
@@ -186,7 +188,20 @@ export function QuirksPage(props) {
           quirk_info: quirkInfo,
         } = data.quirks;
 
-        const quirks = Object.entries(quirkInfo);
+        const isQuirkValidForSpecies = (quirk: Quirk) => {
+          if (
+            !quirk.restricted_species ||
+            quirk.restricted_species.length === 0
+          ) {
+            return true;
+          }
+          const inList = quirk.restricted_species.includes(currentSpecies);
+          return quirk.species_whitelist ? inList : !inList;
+        };
+
+        const quirks = Object.entries(quirkInfo).filter(([_, quirk]) =>
+          isQuirkValidForSpecies(quirk),
+        );
         quirks.sort(([_, quirkA], [__, quirkB]) => {
           if (quirkA.value === quirkB.value) {
             return quirkA.name > quirkB.name ? 1 : -1;

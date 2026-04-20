@@ -14,6 +14,7 @@ import {
   LabeledList,
   Popper,
   Stack,
+  Tooltip,
 } from '../../components';
 import { CharacterPreview } from '../common/CharacterPreview';
 import {
@@ -507,11 +508,32 @@ const PreferenceList = (props: {
               );
             }
 
+            const labelInner = feature.description ? (
+              <Box
+                as="span"
+                style={{
+                  borderBottom: '2px dotted rgba(180, 180, 180, 0.8)',
+                }}
+              >
+                {feature.name}
+              </Box>
+            ) : (
+              feature.name
+            );
+
+            const label = feature.description ? (
+              <Tooltip content={feature.description} position="bottom-start">
+                <Box as="span">{labelInner}</Box>
+              </Tooltip>
+            ) : (
+              labelInner
+            );
+
             return (
               <LabeledList.Item
                 className="candystripe"
                 key={featureId}
-                label={feature.name}
+                label={label}
                 verticalAlign="middle"
               >
                 <Stack fill>

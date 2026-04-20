@@ -215,9 +215,153 @@
 	SIGNAL_HANDLER
 	handle_accented_speech(speech_args, accent_to_use)
 
+/datum/quirk/lizard_shedding
+	name = "Shedding"
+	desc = "Your scales naturally shed and regrow in cycles, changing your scale color each time."
+	icon = "layer-group"
+	process = TRUE
+	restricted_species = list(/datum/species/lizard)
+	species_whitelist = TRUE
+	pref_restricted_species_id = SPECIES_LIZARD
+	gain_text = span_notice("Your scales feel loose and itchy. You feel like you'll shed soon.")
+	lose_text = span_notice("Your scales feel moisturized and stop their shedding cycle.")
+	medical_record_text = "Patient exhibits a periodic shedding cycle. Pigment changes with each shed. No medical risk associated with this condition."
+	var/shed_timer = 0
+	var/shed_warning_stage = 0
+
+/datum/quirk/lizard_shedding/add()
+	shed_timer = rand(600, 9000) // 1-15 minutes before the first shed happens
+
+/datum/quirk/lizard_shedding/on_process(delta_time)
+	shed_timer -= delta_time
+	if(shed_timer > 0)
+		var/mob/living/carbon/human/H = quirk_target
+		if(istype(H) && H.client)
+			if(shed_timer <= 60 && shed_warning_stage == 0)
+				shed_warning_stage = 1
+				H.overlay_fullscreen("lizard_shed", /atom/movable/screen/fullscreen/brute, 2)
+				to_chat(H, span_warning("Your scales feel dry and itchy."))
+			if(shed_timer <= 12 && shed_warning_stage == 1)
+				shed_warning_stage = 2
+				H.overlay_fullscreen("lizard_shed", /atom/movable/screen/fullscreen/brute, 3)
+				to_chat(H, span_warning("The itching from your scales intensifies - you feel like your shed is imminent!"))
+				H.adjust_jitter(12 SECONDS)
+		return
+	shed_timer = rand(1800, 108000) // 3minutes to 3hours till next shed
+	do_shed()
+
+/datum/quirk/lizard_shedding/proc/do_shed()
+	var/mob/living/carbon/human/H = quirk_target
+	if(!istype(H) || H.stat == DEAD)
+		return
+	var/old_color = H.dna.features["mcolor"]
+	if(!old_color)
+		return
+	shed_warning_stage = 0
+	H.clear_fullscreen("lizard_shed", 20)
+
+	var/list/old_hsv = rgb2hsv(old_color)
+	var/hue_shift = rand(30, 60) * pick(1, -1)
+	var/new_hue = (old_hsv[1] + hue_shift + 360) % 360
+	var/new_sat = clamp(old_hsv[2] + rand(-15, 15), 20, 100)
+	var/new_val = clamp(old_hsv[3] + rand(-10, 10), 20, 100)
+	var/new_color = hsv2rgb(list(new_hue, new_sat, new_val))
+
+	var/obj/item/skin = new /obj/item/stack/sheet/animalhide/lizard/shed_lizard_skin(H.drop_location())
+	skin.color = old_color
+
+	new /obj/effect/temp_visual/heal(get_turf(H), old_color)
+	playsound(H, pick('sound/effects/rustle1.ogg', 'sound/effects/rustle2.ogg', 'sound/effects/rustle3.ogg', 'sound/effects/rustle4.ogg', 'sound/effects/rustle5.ogg'), 50, TRUE)
+
+	H.dna.features["mcolor"] = new_color
+	H.dna.update_uf_block(DNA_MUTANT_COLOR_BLOCK)
+	H.update_body()
+	H.update_body_parts(TRUE)
+
+	var/atom/movable/shed_debris = new /obj/emitter/debris/colored(get_turf(H), old_color)
+	QDEL_IN(shed_debris, 0.5 SECONDS)
+
+	to_chat(H, span_notice("Your scales peel away as your old skin falls to the floor revealing a bright new pigmentation beneath!"))
+	H.visible_message(span_notice("[H.name] shudders as their scales peel away, revealing a new pigmentation beneath!"))
+
 /datum/quirk/shifty_eyes
 	name = "Shifty Eyes"
 	desc = "Your eyes tend to wander all over the place, whether you mean to or not, causing people to sometimes think you're looking directly at them when you aren't."
 	icon = "fa-eye"
 	medical_record_text = "Fucking creep kept staring at me the whole damn checkup. I'm only diagnosing this because it's less awkward than thinking it was on purpose."
 	mob_trait = TRAIT_SHIFTY_EYES
+
+/datum/quirk/emotional_luminescence
+	name = "Emotional Luminescence"
+	desc = "Your inner light is tied to your emotional state. Happiness makes you glow brighter, while a poor mood dims your light entirely."
+	icon = "lightbulb"
+	quirk_value = 0
+	restricted_species = list(/datum/species/ethereal)
+	species_whitelist = TRUE
+	pref_restricted_species_id = SPECIES_ETHEREAL
+	process = TRUE
+	gain_text = span_notice("You feel your inner light connect with your emotions.")
+	lose_text = span_notice("Your light settles back to a natural rhythm.")
+	medical_record_text = "Patient's luminescence levels are dependant on their emotional state. Fufillment caused the subject to emit is significantly brighter light, while distress caused it to dim."
+
+/datum/quirk/emotional_luminescence/on_process(delta_time)
+	var/mob/living/carbon/human/H = quirk_target
+	if(!istype(H))
+		return
+	var/datum/species/ethereal/E = H.dna?.species
+	if(!istype(E) || !E.ethereal_light || E.EMPeffect || H.stat == DEAD)
+		return
+	var/datum/component/mood/mood_comp = H.GetComponent(/datum/component/mood)
+	if(!mood_comp)
+		return
+	var/healthpercent = max(H.health, 0) / 100
+	var/base_range = 1 + (2 * healthpercent)
+	var/base_power = 1 + (1 * healthpercent)
+	var/mood_mult = (mood_comp.mood_level - 1) * 0.25
+	if(mood_mult <= 0)
+		E.ethereal_light.set_light_on(FALSE)
+	else
+		E.ethereal_light.set_light_range_power_color(base_range * mood_mult, base_power * mood_mult, E.current_color)
+		E.ethereal_light.set_light_on(TRUE)
+
+/datum/quirk/shadowsynthesis
+	name = "Inverted Photosynthesis"
+	desc = "Your biology has adapted to draw sustenance from the dark. You now thrive in darkness instead of light."
+	icon = "moon"
+	quirk_value = 0
+	restricted_species = list(/datum/species/diona)
+	species_whitelist = TRUE
+	pref_restricted_species_id = SPECIES_DIONA
+	process = TRUE
+	gain_text = span_notice("The excessive light feels discomforting to you. You yearn for the dark.")
+	lose_text = span_notice("The darkness loses its comfort, you feel like you can finally enjoy the light again.")
+	medical_record_text = "Patient's photosynthetic processes are inverted - they respond to darkness rather than light."
+	var/time_spent_in_dark = 0
+
+/datum/quirk/shadowsynthesis/add()
+	var/mob/living/carbon/human/H = quirk_target
+	H.remove_status_effect(/datum/status_effect/planthealing)
+
+/datum/quirk/shadowsynthesis/remove()
+	var/mob/living/carbon/human/H = quirk_target
+	H.remove_status_effect(/datum/status_effect/plant_darkhealing)
+	time_spent_in_dark = 0
+
+/datum/quirk/shadowsynthesis/on_process(delta_time)
+	var/mob/living/carbon/human/H = quirk_target
+	if(!istype(H))
+		return
+	H.remove_status_effect(/datum/status_effect/planthealing)
+	if(H.stat != CONSCIOUS || !isturf(H.loc))
+		H.remove_status_effect(/datum/status_effect/plant_darkhealing)
+		time_spent_in_dark = 0
+		return
+	var/turf/T = H.loc
+	var/light_amount = min(1, T.get_lumcount())
+	if(light_amount < 0.2) // Mob is in the dark if its below this threshold.
+		time_spent_in_dark += delta_time
+		if(time_spent_in_dark > 5)
+			H.apply_status_effect(/datum/status_effect/plant_darkhealing)
+	else
+		H.remove_status_effect(/datum/status_effect/plant_darkhealing)
+		time_spent_in_dark = 0

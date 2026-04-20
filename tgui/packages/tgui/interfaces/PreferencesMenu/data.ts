@@ -85,6 +85,8 @@ export type Quirk = {
   icon?: string;
   name: string;
   value: number;
+  restricted_species?: string[];
+  species_whitelist?: boolean;
 };
 
 export type QuirkInfo = {

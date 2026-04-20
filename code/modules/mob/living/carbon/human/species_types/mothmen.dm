@@ -134,7 +134,7 @@
 /datum/action/innate/cocoon/is_available()
 	if(..())
 		var/mob/living/carbon/human/H = owner
-		if(HAS_TRAIT(H, TRAIT_MOTH_BURNT))
+		if(HAS_TRAIT(H, TRAIT_MOTH_BURNT) && !HAS_TRAIT_FROM(H, TRAIT_MOTH_BURNT, ROUNDSTART_TRAIT))
 			return TRUE
 		return FALSE
 

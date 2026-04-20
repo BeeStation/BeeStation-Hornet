@@ -91,12 +91,14 @@
 				built_color += skin_color[i] + ((colors[i] - skin_color[i]) * healthpercent)
 			current_color = rgb(built_color[1], built_color[2], built_color[3])
 
-		ethereal_light.set_light_range_power_color(1 + (2 * healthpercent), 1 + (1 * healthpercent), current_color)
-		ethereal_light.set_light_on(TRUE)
 		fixed_mut_color = current_color
+		if(!ethereal.has_quirk(/datum/quirk/emotional_luminescence)) // Emotional luminescence quirk handles light based on mood
+			ethereal_light.set_light_range_power_color(1 + (2 * healthpercent), 1 + (1 * healthpercent), current_color)
+			ethereal_light.set_light_on(TRUE)
 	else
-		ethereal_light.set_light_on(FALSE)
 		fixed_mut_color = COLOR_GRAY
+		if(!ethereal.has_quirk(/datum/quirk/emotional_luminescence))
+			ethereal_light.set_light_on(FALSE)
 	ethereal.update_body()
 	//ethereal.update_hair()
 
