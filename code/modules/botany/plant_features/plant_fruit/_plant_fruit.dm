@@ -84,9 +84,12 @@
 
 /datum/plant_feature/fruit/get_scan_dialogue()
 	. = ..()
-	. += "Fruit Volume: [total_volume]u\n"
-	. += "Growth Time: [growth_time/10] seconds\n"
-	. += "Fruit Size: [fruit_size]\n"
+	var/list/dialogue = .
+	var/grouping = dialogue[3]
+	grouping += "Fruit Volume: [total_volume]u\n"
+	grouping += "Growth Time: [growth_time/10] seconds\n"
+	grouping += "Fruit Size: [fruit_size]\n"
+	dialogue[3] = grouping
 
 /datum/plant_feature/fruit/get_ui_data()
 	. = ..()
