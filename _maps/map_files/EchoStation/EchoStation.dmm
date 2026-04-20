@@ -462,7 +462,7 @@
 /turf/open/floor/iron,
 /area/station/maintenance/disposal/incinerator)
 "arR" = (
-/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/engineering/hallway)
 "arU" = (
@@ -1455,10 +1455,10 @@
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "bcH" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/railing{
 	dir = 4
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/science/central)
 "bdv" = (
@@ -2672,7 +2672,7 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow,
-/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/security/brig)
 "bWb" = (
@@ -3021,7 +3021,7 @@
 /area/station/maintenance/department/bridge)
 "ceL" = (
 /obj/machinery/firealarm/directional/north,
-/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/security/brig)
 "ceP" = (
@@ -3756,7 +3756,7 @@
 "cBl" = (
 /obj/effect/turf_decal/trimline/yellow,
 /obj/structure/cable/yellow,
-/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/science/central)
 "cBq" = (
@@ -5251,7 +5251,7 @@
 /obj/machinery/camera/directional/north,
 /obj/machinery/firealarm/directional/north,
 /obj/item/kirbyplants/random,
-/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "duG" = (
@@ -5520,7 +5520,7 @@
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/trimline/yellow,
 /obj/structure/closet/emcloset/anchored,
-/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/engine/atmos)
 "dCQ" = (
@@ -5839,10 +5839,10 @@
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/paradise)
 "dMe" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/railing{
 	dir = 4
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/station/maintenance/department/science/central)
 "dNb" = (
@@ -6593,12 +6593,12 @@
 /turf/open/floor/iron/textured_half,
 /area/station/engineering/atmos)
 "ekw" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/table,
 /obj/item/binoculars,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/station/maintenance/department/security/brig)
 "ekx" = (
@@ -7035,8 +7035,8 @@
 /turf/open/floor/iron,
 /area/station/maintenance/department/crew_quarters/dorms)
 "ewa" = (
-/obj/structure/lattice/catwalk/over,
 /obj/machinery/firealarm/directional/east,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/security/brig)
 "ewx" = (
@@ -7215,10 +7215,10 @@
 	},
 /area/station/science/lab)
 "ezU" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/chair/foldable{
 	dir = 8
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/station/maintenance/department/security/brig)
 "eAf" = (
@@ -7308,13 +7308,13 @@
 /turf/open/floor/wood,
 /area/station/service/cafeteria)
 "eBy" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/railing{
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/engineering/hallway)
 "eBH" = (
@@ -9499,8 +9499,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/lattice/catwalk/over,
 /obj/machinery/portable_thermomachine,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "fRQ" = (
@@ -11502,7 +11502,6 @@
 /turf/open/floor/iron/large,
 /area/station/engineering/main)
 "gYW" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/table,
 /obj/item/paper/fluff/jobs/security/beepsky_mom{
 	pixel_x = 6;
@@ -11521,6 +11520,7 @@
 	name = "map - level 1";
 	pixel_x = 32
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/hallway/primary/fore)
 "gZJ" = (
@@ -11588,7 +11588,7 @@
 /area/station/service/cafeteria)
 "hcq" = (
 /obj/machinery/camera/directional/south,
-/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/security/brig)
 "hcD" = (
@@ -11803,10 +11803,10 @@
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen)
 "hlv" = (
-/obj/structure/lattice/catwalk/over,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/engine/atmos)
 "hlz" = (
@@ -13207,7 +13207,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/trimline/yellow,
-/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/bridge)
 "ifa" = (
@@ -13321,11 +13321,11 @@
 /turf/open/floor/iron/large,
 /area/station/service/hydroponics)
 "iiu" = (
-/obj/structure/lattice/catwalk/over,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/machinery/camera/directional/east,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/hallway/primary/fore)
 "iiF" = (
@@ -15139,10 +15139,10 @@
 /turf/open/floor/plating,
 /area/station/service/library/abandoned)
 "jnc" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/railing{
 	dir = 8
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/science/central)
 "jnq" = (
@@ -15230,10 +15230,10 @@
 /turf/closed/wall,
 /area/station/science/research)
 "jpT" = (
-/obj/structure/lattice/catwalk/over,
 /obj/machinery/modular_computer/console/preset/engineering{
 	dir = 1
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/command/heads_quarters/chief)
 "jqe" = (
@@ -15568,11 +15568,11 @@
 /turf/open/floor/circuit/telecomms/server,
 /area/station/science/server)
 "jzq" = (
-/obj/structure/lattice/catwalk/over,
 /obj/machinery/computer/apc_control{
 	dir = 1
 	},
 /obj/machinery/airalarm/directional/east,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/command/heads_quarters/chief)
 "jzr" = (
@@ -16776,13 +16776,13 @@
 /turf/open/floor/carpet/blue,
 /area/station/command/heads_quarters/hop)
 "kmk" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/railing/corner{
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/engineering/hallway)
 "kmr" = (
@@ -17966,10 +17966,10 @@
 /turf/open/floor/glass/reinforced,
 /area/station/hallway/primary/central)
 "kZP" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/chair/foldable{
 	dir = 8
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/hallway/primary/fore)
 "kZX" = (
@@ -18145,7 +18145,7 @@
 /turf/open/floor/iron/white,
 /area/station/science/lab)
 "lfR" = (
-/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/crew_quarters/bar)
 "lfZ" = (
@@ -20424,9 +20424,9 @@
 /turf/open/openspace/planetary,
 /area/station/hallway/primary/fore)
 "mAg" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/chair/foldable,
 /obj/effect/landmark/start/chief_engineer,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/engineering/hallway)
 "mAA" = (
@@ -22746,8 +22746,8 @@
 /turf/open/openspace/planetary,
 /area/station/ai_monitored/turret_protected/aisat/maint)
 "nTq" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/chair/foldable,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/engineering/hallway)
 "nTO" = (
@@ -23297,8 +23297,8 @@
 /turf/open/floor/circuit,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "okT" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/ladder,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/engineering/hallway)
 "olq" = (
@@ -23491,11 +23491,11 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/station/medical/medbay/central)
 "otv" = (
-/obj/structure/lattice/catwalk/over,
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/machinery/camera/directional/west,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/hallway/primary/fore)
 "otJ" = (
@@ -23606,7 +23606,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/science/central)
 "owD" = (
-/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/ai_monitored/turret_protected/aisat/maint)
 "owJ" = (
@@ -25839,7 +25839,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/trimline/yellow,
-/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/bridge)
 "pGg" = (
@@ -25976,8 +25976,8 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "pKA" = (
-/obj/structure/lattice/catwalk/over,
 /obj/machinery/firealarm/directional/east,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/engine/atmos)
 "pLn" = (
@@ -27998,8 +27998,8 @@
 /turf/open/floor/carpet/orange,
 /area/station/cargo/qm)
 "rae" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/chair/foldable,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/ai_monitored/turret_protected/aisat/maint)
 "raF" = (
@@ -28898,7 +28898,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/trimline/yellow,
-/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/crew_quarters/bar)
 "rCE" = (
@@ -29334,6 +29334,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/security/brig)
 "rSM" = (
@@ -31370,10 +31371,10 @@
 /turf/open/floor/wood,
 /area/station/service/library/abandoned)
 "tbO" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/railing{
 	dir = 8
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/engine/atmos)
 "tbR" = (
@@ -31938,8 +31939,8 @@
 /turf/open/floor/iron/dark,
 /area/station/science/mixing)
 "tto" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/closet/firecloset,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/engine/atmos)
 "tuc" = (
@@ -32330,8 +32331,8 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/service)
 "tKf" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/marker_beacon,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/engineering/hallway)
 "tKg" = (
@@ -32849,9 +32850,9 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/lattice/catwalk/over,
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance/five,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/engine/atmos)
 "tWy" = (
@@ -32972,10 +32973,10 @@
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/station/tcommsat/server)
 "tYv" = (
-/obj/structure/lattice/catwalk/over,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/security/brig)
 "tYC" = (
@@ -33350,7 +33351,7 @@
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "uni" = (
-/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/security/brig)
 "unw" = (
@@ -33365,8 +33366,8 @@
 	},
 /area/station/science/research)
 "uny" = (
-/obj/structure/lattice/catwalk/over,
 /obj/machinery/firealarm/directional/east,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/hallway/primary/fore)
 "unF" = (
@@ -33686,7 +33687,7 @@
 	},
 /area/station/science/research)
 "uxN" = (
-/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/engine/atmos)
 "uyh" = (
@@ -34420,7 +34421,6 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/service)
 "uWq" = (
-/obj/structure/lattice/catwalk/over,
 /obj/machinery/computer/card/minor/ce{
 	dir = 1
 	},
@@ -34428,6 +34428,7 @@
 	pixel_x = -27;
 	pixel_y = 1
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/command/heads_quarters/chief)
 "uWD" = (
@@ -35025,12 +35026,12 @@
 /turf/open/floor/plating,
 /area/paradise/surface)
 "vpZ" = (
-/obj/structure/lattice/catwalk/over,
 /obj/effect/turf_decal/trimline/yellow,
 /obj/structure/cable/yellow,
 /obj/effect/spawner/random/maintenance/two,
 /obj/structure/closet/firecloset,
-/turf/open/floor/plating,
+/obj/structure/lattice/catwalk,
+/turf/open/openspace/planetary,
 /area/station/maintenance/department/science/central)
 "vqt" = (
 /obj/effect/turf_decal/delivery,
@@ -35107,8 +35108,8 @@
 /turf/open/floor/iron/white,
 /area/station/science/robotics)
 "vsr" = (
-/obj/structure/lattice/catwalk/over,
 /obj/machinery/firealarm/directional/east,
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/station/maintenance/department/security/brig)
 "vsz" = (
@@ -36747,11 +36748,11 @@
 /turf/open/floor/plating/rust,
 /area/station/science/mixing)
 "wkm" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/railing/corner{
 	dir = 4
 	},
 /obj/structure/railing/corner,
+/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/station/maintenance/department/science/central)
 "wku" = (
@@ -36798,10 +36799,10 @@
 /turf/closed/wall/rust,
 /area/station/maintenance/department/science/xenobiology)
 "wlI" = (
-/obj/structure/lattice/catwalk/over,
 /obj/structure/railing/corner{
 	dir = 1
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/engine/atmos)
 "wma" = (
@@ -37180,6 +37181,10 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/dark,
 /area/station/cargo/sorting)
+"wvZ" = (
+/obj/structure/cable/yellow,
+/turf/closed/mineral/random/air,
+/area/paradise)
 "wwl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -37483,7 +37488,7 @@
 /turf/closed/wall,
 /area/station/maintenance/department/engine/atmos)
 "wDT" = (
-/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/hallway/primary/fore)
 "wEd" = (
@@ -38227,8 +38232,8 @@
 /turf/open/floor/iron,
 /area/station/commons/dorms)
 "xdw" = (
-/obj/structure/lattice/catwalk/over,
 /obj/item/kirbyplants/random,
+/obj/structure/lattice/catwalk,
 /turf/open/openspace/planetary,
 /area/station/engineering/hallway)
 "xdz" = (
@@ -43197,7 +43202,7 @@ mGR
 mGR
 mGR
 mGR
-mGR
+wvZ
 mGR
 mGR
 mGR
@@ -180366,7 +180371,7 @@ ooi
 fNZ
 alO
 fIU
-fNZ
+dTl
 jpk
 geo
 pcQ
@@ -180392,7 +180397,7 @@ qfR
 qfR
 puw
 luc
-tES
+icq
 rTl
 rTl
 sJO
