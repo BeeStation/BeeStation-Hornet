@@ -40,7 +40,7 @@
 	if(!tattoo_artist.mind.memories)
 		balloon_alert(tattoo_artist, "nothing memorable to engrave!")
 		return
-	var/selected_zone = tattoo_artist.zone_selected
+	var/selected_zone = tattoo_artist.get_combat_bodyzone(tattoo_holder)
 	var/obj/item/bodypart/tattoo_target = tattoo_holder.get_bodypart(selected_zone)
 	if(!tattoo_target)
 		balloon_alert(tattoo_artist, "no limb to tattoo!")

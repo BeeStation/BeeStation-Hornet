@@ -252,10 +252,10 @@
 
 	data["jobs"] = list()
 	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-		if(!length(each_dept.jobs) || each_dept.access_filter) // no centcom jobs in this code for now
+		if(!length(each_dept.department_jobs) || each_dept.access_filter) // no centcom jobs in this code for now
 			continue
 		var/list/department_jobs = list()
-		for(var/each_job in each_dept.jobs)
+		for(var/each_job in each_dept.department_jobs)
 			if(each_job in SSjob.all_job_exceptions)
 				continue
 			department_jobs += list(list(
@@ -263,7 +263,7 @@
 				"job" = each_job
 			))
 		if(length(department_jobs))
-			data["jobs"][each_dept.dept_name] = department_jobs
+			data["jobs"][each_dept.department_name] = department_jobs
 
 
 	var/list/regions = list()

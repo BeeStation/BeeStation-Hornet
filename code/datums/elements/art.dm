@@ -61,7 +61,7 @@
 	var/msg
 	var/list/haters = list()
 	for(var/hater_department_type in list(/datum/department_group/security, /datum/department_group/command))
-		var/datum/department_group/hater_department = SSjob.get_department_type(hater_department_type)
+		var/datum/department_group/hater_department = SSjob.GetDepartmentType(hater_department_type)
 		if (isnull(hater_department))
 			continue
 		for(var/datum/job/hater_job as anything in hater_department.department_jobs)

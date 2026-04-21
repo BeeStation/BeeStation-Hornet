@@ -116,7 +116,7 @@
 	data["authed"] = authed
 
 	var/list/pos = list()
-	for(var/j in SSjob.occupations)
+	for(var/j in SSjob.all_occupations)
 		var/datum/job/job = j
 		if(!can_edit_job(job))
 			continue

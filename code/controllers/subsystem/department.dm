@@ -123,7 +123,7 @@ SUBSYSTEM_DEF(department)
 
 	if(istext(id_or_list))
 		var/datum/department_group/dept = department_assoc[id_or_list]
-		return dept.jobs
+		return dept.department_jobs
 
 	if(!islist(id_or_list))
 		id_or_list = list(id_or_list)
@@ -136,9 +136,9 @@ SUBSYSTEM_DEF(department)
 		if(!dept)
 			message_admins("is not exist: [each]")
 			continue
-		if(!length(dept.jobs))
+		if(!length(dept.department_jobs))
 			continue
-		jobs_to_return |= dept.jobs
+		jobs_to_return |= dept.department_jobs
 
 	return jobs_to_return
 
@@ -146,7 +146,7 @@ SUBSYSTEM_DEF(department)
 // department group datums for this subsystem
 /datum/department_group
 	// basic variables
-	var/dept_name = "No department"
+	var/department_name = "No department"
 	var/dept_id = NONE
 	var/dept_bitflag = null
 	var/dept_colour = null
@@ -157,8 +157,7 @@ SUBSYSTEM_DEF(department)
 	/// who's responsible of a department? (this is made as a list just in case)
 	var/list/leaders = list()
 	/// job list of people working in a department
-	var/list/jobs = list()
-
+	var/list/department_jobs = list()
 
 	/// Group name of the access list
 	var/access_group_name = "Unknown"
@@ -168,30 +167,30 @@ SUBSYSTEM_DEF(department)
 	var/access_filter
 
 	/// Alternative department name in latejoin job selection window
-	/// dept_name variable will be used if this variable has no value
+	/// department_name variable will be used if this variable has no value
 	var/pref_category_name
 	/// Latejoin department sort by low number (Command first)
 	var/pref_category_order = 0
 
 	/// Alternative department name in crew manifest.
-	/// dept_name variable will be used if this variable has no value
+	/// department_name variable will be used if this variable has no value
 	var/manifest_category_name
 	/// Crew manifest sort by low number (Command first)
 	var/manifest_category_order = 0
 
 /datum/department_group/New()
 	. = ..()
-	if(dept_name)
+	if(department_name)
 		if(isnull(pref_category_name))
-			pref_category_name = dept_name
+			pref_category_name = department_name
 		if(isnull(manifest_category_name))
-			manifest_category_name = dept_name
+			manifest_category_name = department_name
 
 // ---------------------------------------------------------------------
 //                                COMMAND
 // ---------------------------------------------------------------------
 /datum/department_group/command
-	dept_name = DEPT_NAME_COMMAND
+	department_name = DEPT_NAME_COMMAND
 	dept_id = DEPT_NAME_COMMAND
 	dept_bitflag = DEPT_BITFLAG_COM
 	dept_colour = "#ddddff"
@@ -199,13 +198,14 @@ SUBSYSTEM_DEF(department)
 	is_station = TRUE
 
 	leaders = list(JOB_NAME_CAPTAIN)
-	jobs = list(JOB_NAME_CAPTAIN,
-				JOB_NAME_HEADOFPERSONNEL,
-				JOB_NAME_RESEARCHDIRECTOR,
-				JOB_NAME_CHIEFENGINEER,
-				JOB_NAME_CHIEFMEDICALOFFICER,
-				JOB_NAME_HEADOFSECURITY,
-				)
+	department_jobs = list(
+		JOB_NAME_CAPTAIN,
+		JOB_NAME_HEADOFPERSONNEL,
+		JOB_NAME_RESEARCHDIRECTOR,
+		JOB_NAME_CHIEFENGINEER,
+		JOB_NAME_CHIEFMEDICALOFFICER,
+		JOB_NAME_HEADOFSECURITY,
+	)
 
 	access_group_name = "Command"
 	access_list = list(
@@ -233,7 +233,7 @@ SUBSYSTEM_DEF(department)
 //                                SERVICE
 // ---------------------------------------------------------------------
 /datum/department_group/service
-	dept_name = DEPT_NAME_SERVICE
+	department_name = DEPT_NAME_SERVICE
 	dept_id = DEPT_NAME_SERVICE
 	dept_bitflag = DEPT_BITFLAG_SRV
 	dept_colour = "#bbe291"
@@ -241,15 +241,16 @@ SUBSYSTEM_DEF(department)
 	is_station = TRUE
 
 	leaders = list(JOB_NAME_HEADOFPERSONNEL)
-	jobs = list(JOB_NAME_HEADOFPERSONNEL,
-				JOB_NAME_BARTENDER,
-				JOB_NAME_BOTANIST,
-				JOB_NAME_COOK,
-				JOB_NAME_JANITOR,
-				JOB_NAME_MIME,
-				JOB_NAME_CLOWN,
-				JOB_NAME_STAGEMAGICIAN,
-				)
+	department_jobs = list(
+		JOB_NAME_HEADOFPERSONNEL,
+		JOB_NAME_BARTENDER,
+		JOB_NAME_BOTANIST,
+		JOB_NAME_COOK,
+		JOB_NAME_JANITOR,
+		JOB_NAME_MIME,
+		JOB_NAME_CLOWN,
+		JOB_NAME_STAGEMAGICIAN,
+	)
 
 	access_group_name = "General"
 	// actually station general list
@@ -277,22 +278,23 @@ SUBSYSTEM_DEF(department)
 //                                CIVILIAN
 // ---------------------------------------------------------------------
 /datum/department_group/civilian
-	dept_name = DEPT_NAME_CIVILIAN
+	department_name = DEPT_NAME_CIVILIAN
 	dept_id = DEPT_NAME_CIVILIAN
 	dept_bitflag = DEPT_BITFLAG_CIV
 	dept_colour = "#bbe291"
 	is_station = TRUE
 
 	leaders = list(JOB_NAME_HEADOFPERSONNEL)
-	jobs = list(JOB_NAME_ASSISTANT,
-				JOB_NAME_GIMMICK,
-				JOB_NAME_BARBER,
-				JOB_NAME_VIP,
-				JOB_NAME_CHAPLAIN,
-				JOB_NAME_CURATOR,
-				JOB_NAME_LAWYER,
-				JOB_NAME_PRISONER,
-				)
+	department_jobs = list(
+		JOB_NAME_ASSISTANT,
+		JOB_NAME_GIMMICK,
+		JOB_NAME_BARBER,
+		JOB_NAME_VIP,
+		JOB_NAME_CHAPLAIN,
+		JOB_NAME_CURATOR,
+		JOB_NAME_LAWYER,
+		JOB_NAME_PRISONER,
+	)
 
 	access_group_name = "Residential" // in case when it's used
 	// access_list = list() // check service
@@ -307,7 +309,7 @@ SUBSYSTEM_DEF(department)
 //                               SUPPLY (CARGO)
 // ---------------------------------------------------------------------
 /datum/department_group/cargo
-	dept_name = DEPT_NAME_CARGO
+	department_name = DEPT_NAME_CARGO
 	dept_id = DEPT_NAME_CARGO
 	dept_bitflag = DEPT_BITFLAG_CAR
 	dept_colour = "#d7b088"
@@ -315,11 +317,12 @@ SUBSYSTEM_DEF(department)
 	is_station = TRUE
 
 	leaders = list(JOB_NAME_HEADOFPERSONNEL)
-	jobs = list(JOB_NAME_HEADOFPERSONNEL,
-				JOB_NAME_QUARTERMASTER,
-				JOB_NAME_CARGOTECHNICIAN,
-				JOB_NAME_SHAFTMINER,
-				)
+	department_jobs = list(
+		JOB_NAME_HEADOFPERSONNEL,
+		JOB_NAME_QUARTERMASTER,
+		JOB_NAME_CARGOTECHNICIAN,
+		JOB_NAME_SHAFTMINER,
+	)
 
 	access_group_name = "Supply"
 	access_list = list(
@@ -344,7 +347,7 @@ SUBSYSTEM_DEF(department)
 //                              SCIENCE
 // ---------------------------------------------------------------------
 /datum/department_group/science
-	dept_name = DEPT_NAME_SCIENCE
+	department_name = DEPT_NAME_SCIENCE
 	dept_id = DEPT_NAME_SCIENCE
 	dept_bitflag = DEPT_BITFLAG_SCI
 	dept_colour = "#ffddff"
@@ -352,11 +355,12 @@ SUBSYSTEM_DEF(department)
 	is_station = TRUE
 
 	leaders = list(JOB_NAME_RESEARCHDIRECTOR)
-	jobs = list(JOB_NAME_RESEARCHDIRECTOR,
-				JOB_NAME_SCIENTIST,
-				JOB_NAME_EXPLORATIONCREW,
-				JOB_NAME_ROBOTICIST,
-				)
+	department_jobs = list(
+		JOB_NAME_RESEARCHDIRECTOR,
+		JOB_NAME_SCIENTIST,
+		JOB_NAME_EXPLORATIONCREW,
+		JOB_NAME_ROBOTICIST,
+	)
 
 	access_group_name = "Research"
 	access_list = list(
@@ -383,7 +387,7 @@ SUBSYSTEM_DEF(department)
 //                            ENGINEERING
 // ---------------------------------------------------------------------
 /datum/department_group/engineering
-	dept_name = DEPT_NAME_ENGINEERING
+	department_name = DEPT_NAME_ENGINEERING
 	dept_id = DEPT_NAME_ENGINEERING
 	dept_bitflag = DEPT_BITFLAG_ENG
 	dept_colour = "#ffeeaa"
@@ -391,10 +395,11 @@ SUBSYSTEM_DEF(department)
 	is_station = TRUE
 
 	leaders = list(JOB_NAME_CHIEFENGINEER)
-	jobs = list(JOB_NAME_CHIEFENGINEER,
-				JOB_NAME_STATIONENGINEER,
-				JOB_NAME_ATMOSPHERICTECHNICIAN,
-				)
+	department_jobs = list(
+		JOB_NAME_CHIEFENGINEER,
+		JOB_NAME_STATIONENGINEER,
+		JOB_NAME_ATMOSPHERICTECHNICIAN,
+	)
 
 	access_group_name = "Engineering"
 	access_list = list(
@@ -422,7 +427,7 @@ SUBSYSTEM_DEF(department)
 //                               MEDICAL
 // ---------------------------------------------------------------------
 /datum/department_group/medical
-	dept_name = DEPT_NAME_MEDICAL
+	department_name = DEPT_NAME_MEDICAL
 	dept_id = DEPT_NAME_MEDICAL
 	dept_bitflag = DEPT_BITFLAG_MED
 	dept_colour = "#c1e1ec"
@@ -430,14 +435,15 @@ SUBSYSTEM_DEF(department)
 	is_station = TRUE
 
 	leaders = list(JOB_NAME_CHIEFMEDICALOFFICER)
-	jobs = list(JOB_NAME_CHIEFMEDICALOFFICER,
-				JOB_NAME_MEDICALDOCTOR,
-				JOB_NAME_PARAMEDIC,
-				JOB_NAME_CHEMIST,
-				JOB_NAME_GENETICIST,
-				JOB_NAME_VIROLOGIST,
-				JOB_NAME_PSYCHIATRIST,
-				)
+	department_jobs = list(
+		JOB_NAME_CHIEFMEDICALOFFICER,
+		JOB_NAME_MEDICALDOCTOR,
+		JOB_NAME_PARAMEDIC,
+		JOB_NAME_CHEMIST,
+		JOB_NAME_GENETICIST,
+		JOB_NAME_VIROLOGIST,
+		JOB_NAME_PSYCHIATRIST,
+	)
 
 	access_group_name = "Medbay"
 	access_list = list(
@@ -462,7 +468,7 @@ SUBSYSTEM_DEF(department)
 //                               SECURITY
 // ---------------------------------------------------------------------
 /datum/department_group/security
-	dept_name = DEPT_NAME_SECURITY
+	department_name = DEPT_NAME_SECURITY
 	dept_id = DEPT_NAME_SECURITY
 	dept_bitflag = DEPT_BITFLAG_SEC
 	dept_colour = "#ffdddd"
@@ -470,13 +476,14 @@ SUBSYSTEM_DEF(department)
 	is_station = TRUE
 
 	leaders = list(JOB_NAME_HEADOFSECURITY)
-	jobs = list(JOB_NAME_HEADOFSECURITY,
-				JOB_NAME_WARDEN,
-				JOB_NAME_DETECTIVE,
-				JOB_NAME_SECURITYOFFICER,
-				JOB_NAME_BRIGPHYSICIAN,
-				JOB_NAME_DEPUTY,
-				)
+	department_jobs = list(
+		JOB_NAME_HEADOFSECURITY,
+		JOB_NAME_WARDEN,
+		JOB_NAME_DETECTIVE,
+		JOB_NAME_SECURITYOFFICER,
+		JOB_NAME_BRIGPHYSICIAN,
+		JOB_NAME_DEPUTY,
+	)
 
 	access_group_name = "Security"
 	access_list = list(
@@ -505,7 +512,7 @@ SUBSYSTEM_DEF(department)
 // ---------------------------------------------------------------------
 // in fact, nobody belongs here even VIPs don't because how system works. This is dummy department actually.
 /datum/department_group/vip
-	dept_name = DEPT_NAME_VIP
+	department_name = DEPT_NAME_VIP
 	dept_id = DEPT_NAME_VIP
 	dept_bitflag = DEPT_BITFLAG_VIP
 
@@ -518,7 +525,7 @@ SUBSYSTEM_DEF(department)
 // ---------------------------------------------------------------------
 // This is a dummy department for crew manifest of people who have no department assigned
 /datum/department_group/unassigned
-	dept_name = DEPT_NAME_UNASSIGNED
+	department_name = DEPT_NAME_UNASSIGNED
 	dept_id = DEPT_NAME_UNASSIGNED
 
 	manifest_category_name = DEPT_NAME_UNASSIGNED
@@ -530,15 +537,17 @@ SUBSYSTEM_DEF(department)
 //                 (currently not for crew manifest)
 // ---------------------------------------------------------------------
 /datum/department_group/silicon
-	dept_name = DEPT_NAME_SILICON
+	department_name = DEPT_NAME_SILICON
 	dept_id = DEPT_NAME_SILICON
 	dept_bitflag = DEPT_BITFLAG_SILICON
 	dept_colour = "#ccffcc"
 	// is_station = TRUE // It's station department, but silicon list... maybe not a good idea using this
 
 	leaders = list()
-	jobs = list(JOB_NAME_AI,
-				JOB_NAME_CYBORG)
+	department_jobs = list(
+		JOB_NAME_AI,
+		JOB_NAME_CYBORG
+	)
 
 	pref_category_name = DEPT_NAME_SILICON
 	pref_category_order = DEPT_PREF_ORDER_SILICON
@@ -552,7 +561,7 @@ SUBSYSTEM_DEF(department)
 //     Used for: access sorting (mainly), cerw manifest (admin gimmick)
 // ---------------------------------------------------------------------
 /datum/department_group/centcom
-	dept_name = DEPT_NAME_CENTCOM
+	department_name = DEPT_NAME_CENTCOM
 	dept_id = DEPT_NAME_CENTCOM
 	dept_bitflag = DEPT_BITFLAG_CENTCOM
 	dept_colour = "#00eba4"
@@ -582,7 +591,7 @@ SUBSYSTEM_DEF(department)
 //     Used for: access sorting (mainly), cerw manifest (admin gimmick)
 // ---------------------------------------------------------------------
 /datum/department_group/other
-	dept_name = DEPT_NAME_OTHER
+	department_name = DEPT_NAME_OTHER
 	dept_id = DEPT_NAME_OTHER
 	dept_bitflag = DEPT_BITFLAG_OTHER
 	dept_colour = "#00eba4"

@@ -232,7 +232,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			ID = 1
 		else
 			ID = 0
-		for(var/datum/job/job in SSjob.occupations)
+		for(var/datum/job/job in SSjob.all_occupations)
 			dat += "<tr>"
 			if(!can_edit_job(job))
 				continue
@@ -370,10 +370,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		var/jobs_all = "<a href='byond://?src=[REF(src)];choice=assign;assign_target=Unassigned'>Unassigned</a> "
 		for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-			if(!length(each_dept.jobs) || each_dept.access_filter) // no centcom jobs for now
+			if(!length(each_dept.department_jobs) || each_dept.access_filter) // no centcom jobs for now
 				continue
-			jobs_all += "<br/>* [each_dept.dept_name]: "
-			for(var/each_job in each_dept.jobs)
+			jobs_all += "<br/>* [each_dept.department_name]: "
+			for(var/each_job in each_dept.department_jobs)
 				if(each_job in SSjob.all_job_exceptions)
 					continue
 				jobs_all += "<a href='byond://?src=[REF(src)];choice=assign;assign_target=[each_job]'>[each_job]</a> " //make sure there isn't a line break in the middle of a job

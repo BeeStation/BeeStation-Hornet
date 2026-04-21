@@ -25,7 +25,7 @@
 		var/static/error_count = 30
 		while(!job)
 			if(!length(available_jobs))
-				available_jobs = SSjob.occupations.Copy()
+				available_jobs = SSjob.all_occupations.Copy()
 			if(error_count-- < 0)
 				name = "MANUSCRIPT BOUNTY ERROR"
 				CRASH("Failed to make a manuscript bounty: There are no available jobs.")
@@ -92,6 +92,6 @@
 /datum/bounty/manuscript/assistant/New()
 	bounty_job = SSjob.GetJob(JOB_NAME_ASSISTANT)
 	if(!length(available_jobs))
-		available_jobs = SSjob.occupations.Copy()
+		available_jobs = SSjob.all_occupations.Copy()
 		available_jobs -= JOB_NAME_ASSISTANT
 	..()

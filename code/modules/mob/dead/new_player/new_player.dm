@@ -293,7 +293,7 @@
 				return JOB_AVAILABLE
 			// If there are other jobs that this user can select, then the assistant is unavailable
 			// If the user has no other choices, then we will display the assistant
-			for(var/datum/job/J in SSjob.occupations)
+			for(var/datum/job/J in SSjob.all_occupations)
 				if(J && J.title != job.title && IsJobUnavailable(J.title, latejoin) == JOB_AVAILABLE)
 					return JOB_UNAVAILABLE_SLOTFULL
 		else
@@ -446,12 +446,12 @@
 	dat += "<table><tr><td valign='top'>"
 	var/column_counter = 0
 	for(var/datum/department_group/each_dept as anything in SSdepartment.sorted_department_for_latejoin)
-		var/dept_name = each_dept.pref_category_name
+		var/department_name = each_dept.pref_category_name
 		var/cat_color = each_dept.dept_colour || "#ff46c7" // failsafe colour
 		dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
-		dat += "<legend align='center' style='color: [cat_color]'>[dept_name]</legend>"
+		dat += "<legend align='center' style='color: [cat_color]'>[department_name]</legend>"
 		var/list/valid_jobs = list()
-		for(var/job in each_dept.jobs)
+		for(var/job in each_dept.department_jobs)
 			var/datum/job/job_datum = SSjob.name_occupations[job]
 			if(job_datum && IsJobUnavailable(job_datum.title, TRUE) == JOB_AVAILABLE)
 				var/command_bold = ""

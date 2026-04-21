@@ -188,7 +188,7 @@
 	var/spawn_group_size = current_positions * dynamic_spawn_group_multiplier
 	// Find all jobs that proxy to the target's spawn group
 	// This will mean that medical will count all of the players in medical
-	for (var/datum/job/group_job in SSjob.occupations)
+	for (var/datum/job/group_job in SSjob.all_occupations)
 		// We already counted ourselves
 		if (group_job == src)
 			continue
@@ -250,7 +250,7 @@
 	var/spawn_group_total = 0
 	// Amount of jobs in the same job group as us
 	var/spawn_group_sizes = 0
-	for (var/datum/job/other in SSjob.occupations)
+	for (var/datum/job/other in SSjob.all_occupations)
 		// Find everything in the same group, doesn't matter if its us
 		if (other.dynamic_spawn_group != proxy.dynamic_spawn_group)
 			continue

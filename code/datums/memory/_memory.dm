@@ -57,7 +57,7 @@
 	src.deuteragonist_name = build_story_character(deuteragonist)
 	src.antagonist_name = build_story_character(antagonist)
 
-	if(protagonist && !(memory_flags & MEMORY_FLAG_NOLOCATION))
+	if(!src.where && isatom(protagonist) && !(memory_flags & MEMORY_FLAG_NOLOCATION))
 		src.where = get_area_name(protagonist)
 
 	if(!(memory_flags & MEMORY_FLAG_NOMOOD))
@@ -292,12 +292,9 @@
 	// Get a random crewmember
 	else
 		var/list/crew_members = list()
-		// TODO: STUPID shitty temp code, fix when job datums are in
 		for(var/mob/living/carbon/human/potential_crew_member as anything in GLOB.human_list)
-			if(potential_crew_member.mind?.assigned_role)
-				var/datum/job/job = potential_crew_member.mind.assigned_role
-				if(job.departments & DEPT_BITFLAG_CREW)
-					crew_members += potential_crew_member
+			if(potential_crew_member.mind?.assigned_role_datum.job_flags & JOB_CREW_MEMBER)
+				crew_members += potential_crew_member
 
 		crew_member = length(crew_members) ? pick(crew_members) : "an unknown crewmember"
 
@@ -371,20 +368,16 @@
 
 	if(isliving(character))
 		var/mob/living/living_character = character
-		// TODO: UGLIEST SHIT IMAGINABLE, purge this when job datums are in
-		if(living_character.mind && living_character.mind.assigned_role)
-			if(istext(living_character.mind.assigned_role))
-				if(living_character.mind.assigned_role != "Unassigned")
-					character = living_character.mind
-			else if(living_character.mind.assigned_role.title != "Unassigned")
-				character = living_character.mind
+		if(living_character.mind && !isnull(living_character.mind.assigned_role))
+			character = living_character.mind
+
 		else if(ishuman(character))
 			// This can slip into memories involving monkey humans.
 			return "the unfamiliar person"
 
 	if(istype(character, /datum/mind))
 		var/datum/mind/character_mind = character
-		return "\the [lowertext(initial(character_mind.assigned_role.title))]"
+		return "\the [LOWER_TEXT(initial(character_mind.assigned_role_datum.title))]"
 
 	// Generic result - mobs get "the guy", objs / turfs get "a thing"
 	return ismob(character) ? "\the [character]" : "\a [character]"

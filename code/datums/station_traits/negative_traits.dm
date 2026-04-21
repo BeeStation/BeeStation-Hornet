@@ -151,7 +151,7 @@
 	SIGNAL_HANDLER
 
 	var/list/joinable = list()
-	for(var/datum/job/job in SSjob.occupations) //Not ideal, but we dont have a populated alist of joinable occuptions
+	for(var/datum/job/job in SSjob.all_occupations) //Not ideal, but we dont have a populated alist of joinable occuptions
 		if(job.job_flags & JOB_NEW_PLAYER_JOINABLE)
 			joinable += job
 	var/datum/job/picked_job = pick(joinable)
