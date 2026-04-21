@@ -565,26 +565,21 @@ Do the things below instead of using reset_perspective()
 		stack_trace("something changed client's eye perspective. Current: [client.perspective]")
 		client.perspective = EYE_PERSPECTIVE
 
+	var/_proper_new_eye
 	if(new_eye == src) // do not use when 'mob == src'
 		stack_trace("The proc received 'new_eye' as src. If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
-		new_eye = get_my_eye()
+		_proper_new_eye = get_my_eye()
 	else if(isnull(new_eye))
 		stack_trace("The proc received 'new_eye' as null value. If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
-		new_eye = get_my_eye()
+		_proper_new_eye = get_my_eye()
 	else if(new_eye == MOB_EYE_SELF)
-		new_eye = get_my_eye()
+		_proper_new_eye = get_my_eye()
 	if(new_eye == current_mob_eye)
 		return // no need to do this
 
-	// Change the first arg[new_eye] into the proper eye value
-	// This is applied to all the proc chains from subtypes.
-	// For example, if this was called from "/mob/living/carbon/human/set_mob_eye_to()"
-	// the arg value in all relevent proc calls will be changed
-	var/callee/callee_chain = callee
-	do
-		callee_chain.args[1] = new_eye // every first arg must be "new_eye"
-		callee_chain = callee_chain.caller
-	while(callee.name == callee_chain.name) // This means: while(set_mob_eye_to == set_mob_eye_to)
+	#define _new_eye 1 // first arg. Unfortunately, there's no way to use arg name.
+	revise_proc_arg_value(_new_eye, _proper_new_eye)
+	#undef _new_eye
 
 	var/atom/old_eye = current_mob_eye
 
