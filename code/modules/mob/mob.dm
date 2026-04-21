@@ -576,6 +576,16 @@ Do the things below instead of using reset_perspective()
 	if(new_eye == current_mob_eye)
 		return // no need to do this
 
+	// Change the first arg[new_eye] into the proper eye value
+	// This is applied to all the proc chains from subtypes.
+	// For example, if this was called from "/mob/living/carbon/human/set_mob_eye_to()"
+	// the arg value in all relevent proc calls will be changed
+	var/callee/callee_chain = callee
+	do
+		callee_chain.args[1] = new_eye // every first arg must be "new_eye"
+		callee_chain = callee_chain.caller
+	while(callee.name == callee_chain.name) // This means: while(set_mob_eye_to == set_mob_eye_to)
+
 	var/atom/old_eye = current_mob_eye
 
 	_on_setting_mob_eye(new_eye, old_eye)
