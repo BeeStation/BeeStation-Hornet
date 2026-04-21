@@ -207,7 +207,6 @@
 			span_hear("Everything suddenly goes silent.")
 		)
 		user.investigate_log("has been attacked ([item]) by [key_name(user)]", INVESTIGATE_ENGINES)
-		add_memory_in_range(atom_source, 7, /datum/memory/witness_supermatter_dusting, protagonist = nom, antagonist = atom_source)
 		playsound(get_turf(atom_source), 'sound/effects/supermatter.ogg', 50, TRUE)
 		consume(atom_source, item)
 
@@ -300,7 +299,7 @@
 		cause = "contact"
 	nom.visible_message(vis_msg, mob_msg, span_hear("You hear an unearthly noise as a wave of heat washes over you."))
 	atom_source.investigate_log("has been attacked ([cause]) by [key_name(nom)]", INVESTIGATE_ENGINES)
-
+	add_memory_in_range(atom_source, 7, /datum/memory/witness_supermatter_dusting, protagonist = nom, antagonist = atom_source)
 	playsound(get_turf(atom_source), 'sound/effects/supermatter.ogg', 50, TRUE)
 	consume(atom_source, nom)
 

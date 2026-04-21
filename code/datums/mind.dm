@@ -254,8 +254,6 @@
 		else if(A.type == datum_type)
 			return A
 
-	if(isnull(current))
-
 /datum/mind/proc/equip_traitor(datum/antagonist/traitor/antag_datum, employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = TELECRYSTALS_DEFAULT)
 	if(!current)
 		return

@@ -50,6 +50,7 @@
 	user.balloon_alert_to_viewers("[user] points [parent] at [target]!", ignored_mobs = list(user, target))
 	user.balloon_alert(target, "[user] points [parent] at you!")
 	playsound(target, 'sound/weapons/autoguninsert.ogg', 100, TRUE)
+	add_memory_in_range(target, 7, /datum/memory/held_at_gunpoint, protagonist = target, deuteragonist = user, antagonist = parent)
 	new /obj/effect/temp_visual/aiming(get_turf(target))
 
 	// Register signals to alert our user if the target does something shifty.

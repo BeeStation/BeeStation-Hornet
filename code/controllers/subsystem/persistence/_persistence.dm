@@ -8,6 +8,8 @@ SUBSYSTEM_DEF(persistence)
 
 	///instantiated wall engraving components
 	var/list/wall_engravings = list()
+	///all saved persistent engravings loaded from JSON
+	var/list/saved_engravings = list()
 	///tattoo stories that we're saving.
 	var/list/prison_tattoos_to_save = list()
 	///tattoo stories that have been selected for this round.
