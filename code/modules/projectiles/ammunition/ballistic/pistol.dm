@@ -64,3 +64,11 @@
 	caliber = ".50"
 	projectile_type = /obj/projectile/bullet/a50AE
 
+// Seccie
+
+/obj/item/ammo_casing/x200law
+	name = "x200 LAW bullet casing"
+	desc = "A x200 LAW bullet casing."
+	caliber = "x200 LAW"
+	icon_state = "s-casing_steel"
+	projectile_type = /obj/projectile/bullet/x200law

@@ -33,7 +33,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "cT" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "dn" = (
@@ -357,7 +357,7 @@
 /area/shuttle/supply)
 "Fy" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced/survival_pod,
+/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/plating,
 /area/shuttle/supply)

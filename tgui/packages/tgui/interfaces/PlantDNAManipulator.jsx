@@ -166,6 +166,7 @@ const PlantDNAManipulatorHeader = (props) => {
       title="Status"
       buttons={
         <Button.Checkbox
+          color="default"
           content="Skip confirmation"
           checked={skip_confirmation}
           onClick={() => act('toggle_skip_confirmation')}

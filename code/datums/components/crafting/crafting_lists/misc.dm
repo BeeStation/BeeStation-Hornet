@@ -165,7 +165,7 @@
 	result = /obj/item/extendohand
 	time = 1 SECONDS
 	reqs = list(
-		/obj/item/bodypart/r_arm/robot = 1,
+		/obj/item/bodypart/arm/right/robot = 1,
 		/obj/item/clothing/gloves/boxing = 1
 	)
 	category = CAT_MISC
@@ -213,14 +213,6 @@
 		/obj/item/stack/cable_coil = 2,
 		/obj/item/assembly/igniter = 1
 	)
-	category = CAT_MISC
-
-/datum/crafting_recipe/rcl
-	name = "Makeshift Rapid Cable Layer"
-	result = /obj/item/rcl/ghetto
-	time = 4 SECONDS
-	tool_behaviors = list(TOOL_WELDER, TOOL_SCREWDRIVER, TOOL_WRENCH)
-	reqs = list(/obj/item/stack/sheet/iron = 15)
 	category = CAT_MISC
 
 /datum/crafting_recipe/aitater
@@ -329,13 +321,6 @@
 	time = 1 SECONDS
 	tool_behaviors = list(TOOL_WIRECUTTER)
 	reqs = list(/obj/item/paper = 5)
-	category = CAT_MISC
-
-/datum/crafting_recipe/basic_lasso
-	name= "Basic Lasso"
-	result = /obj/item/mob_lasso
-	time = 2 SECONDS
-	reqs = list(/obj/item/stack/sheet/leather = 5)
 	category = CAT_MISC
 
 /datum/crafting_recipe/foldable

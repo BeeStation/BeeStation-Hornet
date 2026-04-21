@@ -16,15 +16,6 @@
 	/// The duration of the time stop.
 	var/timestop_duration = 10 SECONDS
 
-/datum/action/spell/timestop/Grant(mob/grant_to)
-	. = ..()
-	if(owner)
-		ADD_TRAIT(owner, TRAIT_TIME_STOP_IMMUNE, REF(src))
-
-/datum/action/spell/timestop/Remove(mob/remove_from)
-	REMOVE_TRAIT(remove_from, TRAIT_TIME_STOP_IMMUNE, REF(src))
-	return ..()
-
 /datum/action/spell/timestop/on_cast(mob/user, atom/target)
 	. = ..()
 	new /obj/effect/timestop(get_turf(user), timestop_range, timestop_duration, list(user))

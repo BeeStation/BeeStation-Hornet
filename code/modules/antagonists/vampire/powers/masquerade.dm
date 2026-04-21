@@ -7,12 +7,11 @@
 		You gain a Genetic sequence, and appear to have 100% blood when scanned by a Health Analyzer.\n\
 		You won't appear as pale when examined. Anything further than pale, however, will not be hidden.\n\
 		After deactivating Masquerade, you will re-gain your Vampiric abilities, as well as lose any Diseases or mutations you might have gained."
-	power_flags = BP_AM_TOGGLE|BP_AM_STATIC_COOLDOWN|BP_AM_COSTLESS_UNCONSCIOUS
-	check_flags = BP_CANT_USE_IN_FRENZY|BP_CANT_USE_DURING_SOL
-	purchase_flags = VAMPIRE_DEFAULT_POWER|VASSAL_CAN_BUY
-	bloodcost = 10
+	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN | BP_AM_COSTLESS_UNCONSCIOUS
+	check_flags = BP_CANT_USE_IN_FRENZY | BP_CANT_USE_DURING_SOL | BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED
+	vitaecost = 15
 	cooldown_time = 5 SECONDS
-	constant_bloodcost = 0.1
+	constant_vitaecost = 0.5
 
 /datum/action/vampire/masquerade/activate_power()
 	. = ..()
@@ -28,8 +27,8 @@
 
 /datum/status_effect/masquerade
 	id = "masquerade"
-	duration = -1
-	tick_interval = -1
+	duration = STATUS_EFFECT_PERMANENT
+	tick_interval = STATUS_EFFECT_NO_TICK
 	alert_type = /atom/movable/screen/alert/status_effect/masquerade
 
 /atom/movable/screen/alert/status_effect/masquerade

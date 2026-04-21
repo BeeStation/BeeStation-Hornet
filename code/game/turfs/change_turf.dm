@@ -2,11 +2,16 @@
 GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	/turf/open/space,
 	/turf/baseturf_bottom,
-	)))
+)))
 
 /turf/proc/empty(turf_type=/turf/open/space, baseturf_type, list/ignore_typecache, flags)
 	// Remove all atoms except observers, landmarks, docking ports
-	var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /obj/effect/landmark, /obj/docking_port, /atom/movable/lighting_object))
+	var/static/list/ignored_atoms = typecacheof(list(
+		/mob/dead,
+		/obj/effect/landmark,
+		/obj/docking_port,
+		/atom/movable/lighting_object,
+	))
 	var/list/allowed_contents = typecache_filter_list_reverse(GetAllContentsIgnoring(ignore_typecache), ignored_atoms)
 	allowed_contents -= src
 	for(var/i in 1 to allowed_contents.len)
@@ -166,17 +171,30 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	dynamic_lumcount = old_dynamic_lumcount
 
 	if(SSlighting.initialized)
-		lighting_object = old_lighting_object
+		// Fullbright tiles should never have lighting objects
+		if(fullbright_type == FULLBRIGHT_NONE)
+			// Should have a lighting object if we never had one
+			if(old_lighting_object)
+				lighting_object = old_lighting_object
+			else
+				new /atom/movable/lighting_object(src)
+		else if (old_lighting_object)
+			qdel(old_lighting_object, force = TRUE)
 
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
 
 		//Bacon's Starlight lighting
 		if(fullbright_type != old_fullbright_type)
-			if (!fullbright_type)
-				lighting_build_overlay()
-			else
-				lighting_clear_overlay()
+			var/area/our_area = loc
+			if(fullbright_type)
+				if(fullbright_type == FULLBRIGHT_STARLIGHT && !our_area.has_starlight_overlay)
+					add_overlay(GLOB.starlight_overlay)
+			else if(!our_area.area_has_base_lighting)
+				add_overlay(GLOB.fullbright_overlay)
+
+		if(lighting_object && !lighting_object.needs_update)
+			lighting_object.update()
 
 	if(old_opacity != opacity && SSticker)
 		GLOB.cameranet.bareMajorChunkChange(src)

@@ -19,7 +19,11 @@
 	low_threshold = 45
 	high_threshold = 120
 
-	organ_traits = list(TRAIT_ADVANCEDTOOLUSER)
+	organ_traits = list(
+		TRAIT_ADVANCEDTOOLUSER,
+		//TRAIT_LITERATE,
+		TRAIT_CAN_STRIP
+	)
 
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
@@ -30,9 +34,20 @@
 	var/damage_delta = 0
 
 	var/list/datum/brain_trauma/traumas = list()
+
+	/// Variance in brain traits added by subtypes
+	var/list/variant_traits_added
+	/// Variance in brain traits removed by subtypes
+	var/list/variant_traits_removed
+
 	juice_typepath = null	//the moment the brains become juicable, people will find a way to cheese round removal. So NO.
 
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
+
+/obj/item/organ/brain/Initialize(mapload)
+	. = ..()
+	organ_traits.Remove(variant_traits_removed)
+	organ_traits |= variant_traits_added
 
 /obj/item/organ/brain/Insert(mob/living/carbon/brain_owner, special = FALSE, drop_if_replaced = TRUE, no_id_transfer = FALSE, pref_load = FALSE)
 	. = ..()
@@ -118,7 +133,7 @@
 	if((!gc_destroyed || (owner && !owner.gc_destroyed)) && !no_id_transfer)
 		if(brain_owner.mind)
 			transfer_identity(brain_owner)
-			if(brain_owner.mind.current)
+			if(brain_owner.mind.current && !decoy_override)
 				brain_owner.mind.transfer_to(brainmob)
 		to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a brain."))
 	brain_owner.update_hair()
@@ -128,7 +143,7 @@
 	. = ..()
 	if(brain_death && !(organ_flags & ORGAN_FAILING))
 		brain_death = FALSE
-		brainmob.revive(TRUE) // We fixed the brain, fix the brainmob too.
+		brainmob.revive(HEAL_ALL) // We fixed the brain, fix the brainmob too.
 
 /obj/item/organ/brain/proc/transfer_identity(mob/living/L)
 	name = "[L.name]'s brain"
@@ -137,7 +152,7 @@
 	brainmob = new(src)
 	brainmob.name = L.real_name
 	brainmob.real_name = L.real_name
-	brainmob.timeofhostdeath = L.timeofdeath
+	brainmob.timeofdeath = L.timeofdeath
 	brainmob.suiciding = suicided
 	if(L.has_dna())
 		var/mob/living/carbon/C = L
@@ -185,7 +200,7 @@
 	if(suicided)
 		. += span_info("It's started turning slightly grey. They must not have been able to handle the stress of it all.")
 	else if(brainmob)
-		if(!brainmob.soul_departed())
+		if(brainmob.key || brainmob.get_ghost(FALSE, TRUE))
 			if(brain_death || brainmob.health <= HEALTH_THRESHOLD_DEAD)
 				. += span_info("It's lifeless and severely damaged.")
 			else if(organ_flags & ORGAN_FAILING)
@@ -232,7 +247,7 @@
 		owner.death()
 		brain_death = TRUE
 
-/obj/item/organ/brain/check_damage_thresholds(mob/M)
+/obj/item/organ/brain/check_damage_thresholds()
 	. = ..()
 	//if we're not more injured than before, return without gambling for a trauma
 	if(damage <= prev_damage)
@@ -280,7 +295,27 @@
 	name = "alien brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
-	organ_traits = null
+	variant_traits_removed = list(/*TRAIT_LITERATE,*/ TRAIT_ADVANCEDTOOLUSER)
+
+/obj/item/organ/brain/primitive //No like books and stompy metal men
+	name = "primitive brain"
+	desc = "This juicy piece of meat has a clearly underdeveloped frontal lobe."
+	variant_traits_added = list(
+		TRAIT_PRIMITIVE,
+		TRAIT_BEAST_EMPATHY,
+	)
+
+
+/obj/item/organ/brain/primate
+	name = "primate brain"
+	desc = "This wad of meat is small, but has enlaged occipital lobes for spotting bananas."
+	variant_traits_removed = list(TRAIT_ADVANCEDTOOLUSER)
+	variant_traits_added = list(TRAIT_PRIMITIVE)
+
+/obj/item/organ/brain/lizard
+	name = "lizard brain"
+	desc = "This juicy piece of meat has a oversized brain stem and cerebellum, with not much of a limbic system to speak of at all. You would expect its owner to be pretty cold blooded."
+	variant_traits_added = list(TRAIT_TACKLING_TAILED_DEFENDER)
 
 /obj/item/organ/brain/diona
 	name = "diona nymph"
@@ -299,11 +334,10 @@
 	name = "positronic brain"
 	slot = ORGAN_SLOT_BRAIN
 	zone = BODY_ZONE_CHEST
-	status = ORGAN_ROBOTIC
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. In order for this Posibrain to be used as a newly built Positronic Brain, it must be coupled with an MMI."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain-ipc"
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 	base_icon_state = "posibrain"
 
 /obj/item/organ/brain/positron/on_insert(mob/living/carbon/human/brain_owner)
@@ -313,10 +347,10 @@
 		if(H.dna?.species)
 			if(REVIVESBYHEALING in H.dna.species.species_traits)
 				if(H.health > 0)
-					H.revive(0)
+					H.revive()
 
 /obj/item/organ/brain/positron/emp_act(severity)
-	owner.apply_status_effect(/datum/status_effect/ipc/emp)
+	owner.apply_status_effect(/datum/status_effect/ipc_emp)
 	to_chat(owner, span_warning("Alert: Posibrain function disrupted."))
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
@@ -408,6 +442,9 @@
 	add_trauma_to_traumas(actual_trauma)
 	if(owner)
 		actual_trauma.owner = owner
+		if(SEND_SIGNAL(owner, COMSIG_CARBON_GAIN_TRAUMA, trauma, resilience) & COMSIG_CARBON_BLOCK_TRAUMA)
+			qdel(actual_trauma)
+			return null
 		actual_trauma.on_gain()
 	if(resilience)
 		actual_trauma.resilience = resilience

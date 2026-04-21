@@ -2,8 +2,9 @@
 	name = "proto-kinetic accelerator"
 	desc = "A self recharging, ranged mining tool that does increased damage in low pressure."
 	icon_state = "kineticgun"
-	item_state = "kineticgun"
+	inhand_icon_state = "kineticgun"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
+	resistance_flags = FIRE_PROOF
 	item_flags = NONE
 	obj_flags = UNIQUE_RENAME
 	weapon_weight = WEAPON_LIGHT
@@ -78,7 +79,7 @@
 /obj/item/gun/energy/recharge/kinetic_accelerator/proc/check_menu(mob/living/carbon/human/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	return TRUE
 
@@ -125,7 +126,7 @@
 /obj/item/ammo_casing/energy/kinetic
 	projectile_type = /obj/projectile/kinetic
 	select_name = "kinetic"
-	e_cost = 500
+	e_cost = 5000 WATT
 	fire_sound = 'sound/weapons/kenetic_accel.ogg' // fine spelling there chap
 
 /obj/item/ammo_casing/energy/kinetic/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
@@ -509,14 +510,14 @@
 		KA.name = chassis_name
 		if(iscarbon(KA.loc))
 			var/mob/living/carbon/holder = KA.loc
-			holder.update_inv_hands()
+			holder.update_held_items()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/uninstall(obj/item/gun/energy/recharge/kinetic_accelerator/KA)
 	KA.icon_state = initial(KA.icon_state)
 	KA.name = initial(KA.name)
 	if(iscarbon(KA.loc))
 		var/mob/living/carbon/holder = KA.loc
-		holder.update_inv_hands()
+		holder.update_held_items()
 	..()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/orange
@@ -530,7 +531,7 @@
 	desc = "Causes kinetic accelerator bolts to have a white tracer trail and explosion. Only one may be installed."
 	cost = 0
 	restricted_mod_type = /obj/item/borg/upgrade/modkit/tracer
-	var/bolt_color = "#FFFFFF"
+	var/bolt_color = COLOR_WHITE
 
 /obj/item/borg/upgrade/modkit/tracer/modify_projectile(obj/projectile/kinetic/K)
 	K.icon_state = "ka_tracer"

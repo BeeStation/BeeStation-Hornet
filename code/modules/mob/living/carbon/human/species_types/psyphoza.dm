@@ -2,7 +2,6 @@
 	name = "\improper Psyphoza"
 	plural_form = "Psyphoza"
 	id = SPECIES_PSYPHOZA
-	bodyflag = FLAG_PSYPHOZA
 	meat = /obj/item/food/meat/slab/human/mutant/psyphoza
 	species_traits = list(NOEYESPRITES, AGENDER, MUTCOLORS)
 	sexes = FALSE
@@ -18,20 +17,17 @@
 	mutanteyes = /obj/item/organ/eyes/psyphoza
 	mutanttongue = /obj/item/organ/tongue/psyphoza
 
-	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = "fff")
+	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = COLOR_WHITE)
 	hair_color = "fixedmutcolor"
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/psyphoza,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/psyphoza,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/psyphoza,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/psyphoza,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/psyphoza,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/psyphoza
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/psyphoza,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/psyphoza,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/psyphoza,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/psyphoza
 	)
-
-	//Fire bad!
-	burnmod = 1.25
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
@@ -48,11 +44,6 @@
 	. = ..()
 	REMOVE_TRAIT(C, TRAIT_PSYCHIC_SENSE, SPECIES_TRAIT)
 	PH = null
-
-/datum/species/psyphoza/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.psyphoza_first_names)] [pick(GLOB.psyphoza_last_names)]"
-	if(unique && attempts < 10 && findname(.))
-		return .(gender, TRUE, null, ++attempts)
 
 /datum/species/psyphoza/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(istype(chem, /datum/reagent/drug) && H.blood_volume < BLOOD_VOLUME_NORMAL)
@@ -136,7 +127,7 @@
 /datum/action/item_action/organ_action/psychic_highlight
 	name = "Psychic Sense"
 	desc = "Sense your surroundings psychically."
-	icon_icon = 'icons/hud/actions/action_generic.dmi'
+	button_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "activate_psychic"
 	transparent_when_unavailable = TRUE
 	///The distant our psychic sense works
@@ -403,7 +394,7 @@
 /datum/action/change_psychic_visual
 	name = "Change Psychic Sense"
 	desc = "Change the visual style of your psychic sense."
-	icon_icon = 'icons/hud/actions/action_generic.dmi'
+	button_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change_color"
 	///Ref to the overlay - hard del edition
 	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay
@@ -430,7 +421,7 @@
 /datum/action/change_psychic_auto
 	name = "Auto Psychic Sense"
 	desc = "Change your psychic sense to auto."
-	icon_icon = 'icons/hud/actions/action_generic.dmi'
+	button_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change_generic"
 	///Ref to the action
 	var/datum/action/item_action/organ_action/psychic_highlight/psychic_action
@@ -463,7 +454,7 @@
 /datum/action/change_psychic_texture
 	name = "Change Psychic Texture"
 	desc = "Change your psychic texture."
-	icon_icon = 'icons/hud/actions/action_generic.dmi'
+	button_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change_texture"
 	///Ref to the overlay - hard del edition
 	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay

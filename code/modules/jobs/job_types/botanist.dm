@@ -4,28 +4,44 @@
 	department_for_prefs = DEPT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 3
 	selection_color = "#bbe291"
 	exp_requirements = 60
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/botanist
 
-	base_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
-	extra_access = list(ACCESS_BAR, ACCESS_KITCHEN)
+	base_access = list(
+		ACCESS_HYDROPONICS,
+		ACCESS_MORGUE,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SERVICE,
+	)
+	extra_access = list(
+		ACCESS_BAR,
+		ACCESS_KITCHEN,
+	)
 
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
 
 	display_order = JOB_DISPLAY_ORDER_BOTANIST
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Gardener"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/botany
 	)
 
-	minimal_lightup_areas = list(/area/hydroponics, /area/medical/morgue)
+	minimal_lightup_areas = list(
+/area/station/service/hydroponics, /area/station/medical/morgue)
+
+	manuscript_jobs = list(
+		JOB_NAME_BOTANIST,
+		JOB_NAME_MEDICALDOCTOR // herbal remedist
+	)
 
 /datum/outfit/job/botanist
 	name = JOB_NAME_BOTANIST

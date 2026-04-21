@@ -75,7 +75,6 @@
 	refill_canister = /obj/item/vending_refill/boozeomat
 	default_price = 20
 	extra_price = 50
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_mask = "boozeomat-light-mask"
 
 /obj/machinery/vending/boozeomat/all_access
@@ -84,6 +83,7 @@
 
 /obj/machinery/vending/boozeomat/syndicate_access
 	req_access = list(ACCESS_SYNDICATE)
+	initial_language_holder = /datum/language_holder/syndicate
 
 /obj/item/vending_refill/boozeomat
 	machine_name = "Booze-O-Mat"

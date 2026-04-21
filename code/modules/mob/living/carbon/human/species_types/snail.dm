@@ -1,7 +1,7 @@
 /datum/species/snail
 	name = "Snailperson"
 	plural_form = "Snailpeople"
-	id = SPECIES_SNAILPERSON
+	id = SPECIES_SNAIL
 	offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,4), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
 	species_traits = list(
 		MUTCOLORS,
@@ -9,7 +9,6 @@
 	)
 	attack_verb = "slap"
 	coldmod = 0.5 //snails only come out when its cold and wet
-	burnmod = 1.5
 	speedmod = 2
 	punchdamage = 3
 	siemens_coeff = 2 //snails are mostly water
@@ -24,15 +23,15 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/snail,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/snail,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/snail,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/snail,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/snail,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/snail
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/snail,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/snail,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/snail,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/snail
 	)
 
 /datum/species/snail/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(istype(chem,/datum/reagent/consumable/sodiumchloride))
-		H.adjustFireLoss(2 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.adjustFireLoss(2 * REM * delta_time)
 		playsound(H, 'sound/weapons/sear.ogg', 30, 1)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return TRUE
@@ -60,7 +59,7 @@
 	name = "snail shell"
 	desc = "Worn by snails as armor and storage compartment."
 	icon_state = "snailshell"
-	item_state = "snailshell"
+	inhand_icon_state = "snailshell"
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
 	armor_type = /datum/armor/backpack_snail

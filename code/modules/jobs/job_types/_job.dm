@@ -7,8 +7,10 @@
 	var/description
 
 	///Job access. The use of minimal_access or access is determined by a config setting: config.jobs_have_minimal_access
-	var/list/base_access = list()  // access list that's basically given to jobs.
-	var/list/extra_access = list() // EXTRA access list that's given in lowpop.
+	// access list that's basically given to jobs.
+	var/list/base_access = list()
+	// EXTRA access list that's given in lowpop.
+	var/list/extra_access = list()
 
 	///Determines who can demote this position
 	var/department_head = list()
@@ -23,20 +25,14 @@
 	/// Determines whether or not late-joining as this role is allowed
 	var/latejoin_allowed = TRUE
 
-	/// flags with the job lock reasons. If this flag exists, it's not available anyway.
-	var/lock_flags = NONE
-
 	/// If this job should show in the preferences menu
 	var/show_in_prefs = TRUE
 
 	/// The head of the department to show in the preferences menu
 	var/department_head_for_prefs
 
-	///Mostly deprecated, but only used in pref job savefiles
-	var/department_flag = NONE
-
 	///Players will be allowed to spawn in as jobs that are set to "Station"
-	var/faction = "None"
+	var/faction = FACTION_NONE
 
 	///How many players can be this job
 	var/total_positions = 0
@@ -48,10 +44,10 @@
 	var/supervisors = ""
 
 	///Selection screen color
-	var/selection_color = "#ffffff"
+	var/selection_color = COLOR_WHITE
 
 	///Overhead chat message colour
-	var/chat_color = "#ffffff"
+	var/chat_color = COLOR_WHITE
 
 	///If this is set to 1, a text is printed to the player when jobs are assigned, telling him that he should let admins know that he has to disconnect.
 	var/req_admin_notify
@@ -102,6 +98,11 @@
 	///how at risk is this occupation at for being a carrier of a dormant disease
 	var/biohazard = 20
 
+	var/job_flags = NONE
+
+	/// flags with the job lock reasons. If this flag exists, it's not available anyway.
+	var/lock_flags = NONE
+
 	///A dictionary of species IDs and a path to the outfit.
 	var/list/species_outfits = null
 
@@ -135,13 +136,16 @@
 	var/dynamic_spawn_group = null
 	/// The maximum allowed variance to other job roles in this group.
 	/// Should be the same as everything else in the dynamic spawn group
-	var/dynamic_spawn_variance_limit = 3
+	var/dynamic_spawn_variance_limit = 2
 	/// How many times should this role count towards the spawn group size?
 	var/dynamic_spawn_group_multiplier = 1
 
 	/// The HOP can manually add or decrease the amount of players
 	/// that can apply for a job, which adjusts the delta value.
 	var/total_position_delta = 0
+
+	/// The list of jobs that you can write a manuscript as. This exists letting command roles write more.
+	var/list/manuscript_jobs
 
 /datum/job/New()
 	. = ..()
@@ -150,10 +154,12 @@
 
 	if(!config_check())
 		lock_flags |= JOB_LOCK_REASON_CONFIG
+		job_flags &= ~JOB_NEW_PLAYER_JOINABLE
 	if(SSmapping.map_adjustment && (title in SSmapping.map_adjustment.blacklisted_jobs))
 		lock_flags |= JOB_LOCK_REASON_MAP
-	if(lock_flags || gimmick)
-		SSjob.job_manager_blacklisted |= title
+		job_flags &= ~JOB_NEW_PLAYER_JOINABLE
+	if(!(job_flags & JOB_NEW_PLAYER_JOINABLE) || gimmick)
+		job_flags |= JOB_CANNOT_OPEN_SLOTS
 
 /// Returns true if there are available slots
 /datum/job/proc/has_space()
@@ -241,7 +247,9 @@
 			return -1
 		return max(proxy.total_positions + total_position_delta, 0)
 	// Calculate spawn group size
-	var/spawn_group_minimum = INFINITY
+	var/spawn_group_total = 0
+	// Amount of jobs in the same job group as us
+	var/spawn_group_sizes = 0
 	for (var/datum/job/other in SSjob.occupations)
 		// Find everything in the same group, doesn't matter if its us
 		if (other.dynamic_spawn_group != proxy.dynamic_spawn_group)
@@ -250,7 +258,8 @@
 		// If the HOP removes a position from another job, then that removed position.
 		// If the HOP adds a position to a job group, then it has to be filled before the spawn
 		// group bumps.
-		spawn_group_minimum = min(spawn_group_minimum, other.count_players_in_group())
+		spawn_group_total += other.count_players_in_group()
+		spawn_group_sizes ++
 	// The amount of positions we have is the least filled job + our allowed variance
 	// variance is calculated per job, not based on the proxy
 	// If we are using a proxy, then the number of spawn positions is limited to the total
@@ -264,7 +273,7 @@
 	// being only limited by its spawn variance limit
 	if (proxy == src || ignore_self_limit || proxy.dynamic_spawn_group)
 		position_limit = INFINITY
-	return min(position_limit, max(spawn_group_minimum + proxy.dynamic_spawn_variance_limit + total_position_delta, 0))
+	return min(position_limit, max(ceil(spawn_group_total / max(spawn_group_sizes, 1)) + proxy.dynamic_spawn_variance_limit + total_position_delta, 0))
 
 /// Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 /// H is usually a human unless an /equip override transformed it
@@ -437,32 +446,32 @@
 
 //Don't override this unless the job transforms into a non-human (Silicons do this for example)
 //Returning FALSE is considered a failure. A null or mob return is a successful equip.
-/datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)
+/datum/job/proc/equip(mob/living/carbon/human/H, visuals_only = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)
 	if(!H)
 		return FALSE
 	if(CONFIG_GET(flag/enforce_human_authority) && (title in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
 		if(H.dna.species.id != SPECIES_HUMAN)
 			H.set_species(/datum/species/human)
 			H.apply_pref_name(/datum/preference/name/backup_human, preference_source)
-	if(!visualsOnly)
+	if(!visuals_only)
 		var/datum/bank_account/bank_account = new(H.real_name, src)
 		bank_account.payday(STARTING_PAYCHECKS, TRUE)
 		H.mind?.account_id = bank_account.account_id
 
 	//Equip the rest of the gear
-	H.dna.species.before_equip_job(src, H, visualsOnly)
+	H.dna.species.before_equip_job(src, H, visuals_only)
 
 	if(src.species_outfits)
 		if(H.dna.species.id in src.species_outfits)
 			var/datum/outfit/O = species_outfits[H.dna.species.id]
-			H.equipOutfit(O, visualsOnly)
+			H.equipOutfit(O, visuals_only)
 
 	if(outfit_override || outfit)
-		H.equipOutfit(outfit_override ? outfit_override : outfit, visualsOnly)
+		H.equipOutfit(outfit_override ? outfit_override : outfit, visuals_only)
 
-	H.dna.species.after_equip_job(src, H, visualsOnly, preference_source)
+	H.dna.species.after_equip_job(src, H, visuals_only, preference_source)
 
-	if(!visualsOnly && announce)
+	if(!visuals_only && announce)
 		announce(H)
 	H.give_random_dormant_disease(biohazard, (title == JOB_NAME_CLOWN || title == JOB_NAME_MIME) ? 0 : 4)
 
@@ -500,11 +509,6 @@
 		if (SSjob.is_job_empty(JOB_NAME_CAPTAIN))
 			. |= ACCESS_HEADS
 			. |= ACCESS_KEYCARD_AUTH
-		// Access to security basics (get captain for guns)
-		if (SSjob.is_job_empty(JOB_NAME_SECURITYOFFICER))
-			. |= list(
-				ACCESS_SECURITY, ACCESS_BRIG, ACCESS_SEC_DOORS
-			)
 		// Access to science
 		if (SSjob.is_job_empty(JOB_NAME_SCIENTIST))
 			. |= list(
@@ -524,7 +528,7 @@
 				ACCESS_CLONING
 			)
 
-/datum/job/proc/announce_head(var/mob/living/carbon/human/H, var/channels) //tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
+/datum/job/proc/announce_head(mob/living/carbon/human/H, channels) //tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
 	if(H && GLOB.announcement_systems.len)
 		//timer because these should come after the captain announcement
 		SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_addtimer), CALLBACK(pick(GLOB.announcement_systems), /obj/machinery/announcement_system/proc/announce, "NEWHEAD", H.real_name, H.job, channels), 1))
@@ -570,12 +574,14 @@
 /datum/job/proc/get_lock_reason()
 	if(lock_flags & JOB_LOCK_REASON_ABSTRACT)
 		return "Not a real job"
-	else if(lock_flags & JOB_LOCK_REASON_CONFIG)
+	if(!(initial(job_flags) & JOB_NEW_PLAYER_JOINABLE))
+		return "Not a real job"
+	if(lock_flags & JOB_LOCK_REASON_CONFIG)
 		return "Disabled by server configuration"
-	else if(lock_flags & JOB_LOCK_REASON_MAP)
+	if(lock_flags & JOB_LOCK_REASON_MAP)
 		return "Not available on this map"
-	else if(lock_flags) // somehow flag exists
-		return "Unknown: [lock_flags]"
+	if(!(job_flags & JOB_NEW_PLAYER_JOINABLE))
+		return "Unavailable"
 
 /datum/job/proc/radio_help_message(mob/M)
 	to_chat(M, "<b>Prefix your message with :h to speak on your department's radio. To see other prefixes, look closely at your headset.</b>")
@@ -601,7 +607,7 @@
 
 	var/pda_slot = ITEM_SLOT_BELT
 
-/datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/pre_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	if(ispath(back, /obj/item/storage/backpack))
 		switch(H.backbag)
 			if(GBACKPACK)
@@ -630,35 +636,39 @@
 	uniform = text2path(holder)
 
 
-/datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/job/post_equip(mob/living/carbon/human/user, visuals_only = FALSE)
+	if(visuals_only)
 		return
 
-	var/datum/job/J = SSjob.GetJobType(jobtype)
-	if(!J)
-		J = SSjob.GetJob(H.job)
+	var/datum/job/equipped_job = SSjob.GetJobType(jobtype)
+	if(!equipped_job)
+		equipped_job = SSjob.GetJob(user.job)
 
-	var/obj/item/card/id/C = H.wear_id
-	if(istype(C))
-		C.access = J.get_access()
-		shuffle_inplace(C.access) // Shuffle access list to make NTNet passkeys less predictable
-		C.registered_name = H.real_name
-		C.assignment = J.title
-		C.set_hud_icon_on_spawn(J.title)
-		C.update_label()
-		for(var/datum/bank_account/B in SSeconomy.bank_accounts)
-			if(!H.mind)
-				continue
-			if(B.account_id == H.mind.account_id)
-				C.registered_account = B
-				B.bank_cards += C
-				break
-		H.sec_hud_set_ID()
+	var/obj/item/card/id/card = user.wear_id
+	if(istype(card))
+		card.access = equipped_job.get_access()
+		shuffle_inplace(card.access) // Shuffle access list to make NTNet passkeys less predictable
+		card.registered_name = user.real_name
+		card.assignment = equipped_job.title
+		card.set_hud_icon_on_spawn(equipped_job.title)
 
-	var/obj/item/modular_computer/tablet/pda/PDA = H.get_item_by_slot(pda_slot)
+		if(user.age)
+			card.registered_age = user.age
+
+		card.update_label()
+		card.update_icon()
+
+		if(user.mind)
+			var/datum/bank_account/account = SSeconomy.bank_accounts_by_id["[user.mind.account_id]"]
+			if(account)
+				card.registered_account = account
+				account.bank_cards += card
+		user.sec_hud_set_ID()
+
+	var/obj/item/modular_computer/tablet/pda/PDA = user.get_item_by_slot(pda_slot)
 	if(istype(PDA))
-		PDA.saved_identification = C.registered_name
-		PDA.saved_job = C.assignment
+		PDA.saved_identification = card.registered_name
+		PDA.saved_job = card.assignment
 		PDA.update_id_display()
 
 /datum/outfit/job/get_chameleon_disguise_info()
@@ -686,6 +696,7 @@
 /// Applies the preference options to the spawning mob, taking the job into account. Assumes the client has the proper mind.
 /mob/living/proc/apply_prefs_job(client/player_client, datum/job/job)
 
+
 /mob/living/carbon/human/apply_prefs_job(client/player_client, datum/job/job)
 	var/fully_randomize = is_banned_from(player_client.ckey, "Appearance")
 	if(!player_client)
@@ -712,11 +723,11 @@
 			set_species(/datum/species/human)
 			apply_pref_name(/datum/preference/name/backup_human, player_client)
 		if(CONFIG_GET(flag/force_random_names))
-			var/species_type = player_client.prefs.read_character_preference(/datum/preference/choiced/species)
-			var/datum/species/species = new species_type
-
-			var/gender = player_client.prefs.read_character_preference(/datum/preference/choiced/gender)
-			real_name = species.random_name(gender, TRUE)
+			real_name = generate_random_name_species_based(
+				player_client.prefs.read_character_preference(/datum/preference/choiced/gender),
+				TRUE,
+				player_client.prefs.read_character_preference(/datum/preference/choiced/species),
+			)
 	dna.update_dna_identity()
 
 /mob/living/silicon/ai/apply_prefs_job(client/player_client, datum/job/job)
@@ -730,9 +741,11 @@
 			if(!player_client)
 				return // Disconnected while checking the appearance ban.
 
-			var/species_type = player_client.prefs.read_character_preference(/datum/preference/choiced/species)
-			var/datum/species/species = new species_type
-			organic_name = species.random_name(player_client.prefs.read_character_preference(/datum/preference/choiced/gender), TRUE)
+			organic_name = generate_random_name_species_based(
+				player_client.prefs.read_character_preference(/datum/preference/choiced/gender),
+				TRUE,
+				player_client.prefs.read_character_preference(/datum/preference/choiced/species),
+			)
 		else
 			if(!player_client)
 				return // Disconnected while checking the appearance ban.

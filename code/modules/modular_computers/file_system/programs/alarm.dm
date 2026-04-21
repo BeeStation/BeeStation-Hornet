@@ -10,6 +10,7 @@
 	size = 4
 	tgui_id = "NtosStationAlertConsole"
 	program_icon = "bell"
+	power_consumption = 50 WATT
 	/// If there is any station alert
 	var/has_alert = FALSE
 	/// Station alert datum for showing alerts UI

@@ -70,8 +70,8 @@
 	requisition_paper.update_appearance()
 	return requisition_paper
 
-/datum/supply_order/proc/generateManifest(obj/structure/closet/crate/C, var/owner, var/packname) //generates-the-manifests.
-	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest_paper = new(C, id, 0)
+/datum/supply_order/proc/generateManifest(obj/structure/closet/crate/C, owner, packname, cost) //generates-the-manifests.
+	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest_paper = new(C, id, cost)
 
 	var/station_name = (manifest_paper.errors & MANIFEST_ERROR_NAME) ? new_station_name() : GLOB.station_name
 
@@ -123,13 +123,13 @@
 	else
 		account_holder = "Cargo"
 	var/obj/structure/closet/crate/C = pack.generate(A, paying_account)
-	generateManifest(C, account_holder, pack)
+	generateManifest(C, account_holder, pack, pack.cost)
 	return C
 
-/datum/supply_order/proc/generateCombo(var/miscbox, var/misc_own, var/misc_contents)
+/datum/supply_order/proc/generateCombo(miscbox, misc_own, misc_contents, misc_cost)
 	for (var/I in misc_contents)
 		new I(miscbox)
-	generateManifest(miscbox, misc_own, "")
+	generateManifest(miscbox, misc_own, "", misc_cost)
 	return
 
 #undef MANIFEST_ERROR_CHANCE

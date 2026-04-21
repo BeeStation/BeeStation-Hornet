@@ -1,11 +1,14 @@
 ///Simple animals 2.0, This time, let's really try to keep it simple. This basetype should purely be used as a base-level for implementing simplified behaviours for things such as damage and attacks. Everything else should be in components or AI behaviours.
 /mob/living/basic
+	abstract_type = /mob/living/basic
 	name = "basic mob"
 	icon = 'icons/mob/animal.dmi'
 	health = 20
 	maxHealth = 20
 	gender = PLURAL
+	living_flags = MOVES_ON_ITS_OWN
 	status_flags = CANPUSH
+	fire_stack_decay_rate = -5 // Reasonably fast as NPCs will not usually actively extinguish themselves
 
 	var/basic_mob_flags = NONE
 
@@ -33,6 +36,8 @@
 	var/attack_vis_effect
 	///Played when someone punches the creature.
 	var/attacked_sound = "punch" //This should be an element
+	/// How often can you melee attack?
+	var/melee_attack_cooldown = 2 SECONDS
 
 	///What kind of objects this mob can smash.
 	var/environment_smash = ENVIRONMENT_SMASH_NONE
@@ -96,8 +101,6 @@
 	///This damage is taken when the body temp is too hot. Set both this and unsuitable_cold_damage to 0 to avoid adding the basic_body_temp_sensitive element.
 	var/unsuitable_heat_damage = 1
 
-
-
 /mob/living/basic/Initialize(mapload)
 	. = ..()
 
@@ -125,14 +128,11 @@
 
 /mob/living/basic/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
-	///Automatic stamina re-gain
 	if(staminaloss > 0)
-		adjustStaminaLoss(-stamina_recovery * delta_time, updating_health = FALSE, forced = TRUE)
+		adjustStaminaLoss(-stamina_recovery * delta_time, forced = TRUE)
 
-/mob/living/basic/say_mod(input, list/message_mods = list())
-	if(length(speak_emote))
-		verb_say = pick(speak_emote)
-	return ..()
+/mob/living/basic/get_default_say_verb()
+	return length(speak_emote) ? pick(speak_emote) : ..()
 
 /mob/living/basic/death(gibbed)
 	. = ..()
@@ -152,10 +152,11 @@
 		transform = transform.Turn(180)
 	if(!(basic_mob_flags & REMAIN_DENSE_WHILE_DEAD))
 		set_density(FALSE)
+	SEND_SIGNAL(src, COMSIG_BASICMOB_LOOK_DEAD)
 
-/mob/living/basic/revive(full_heal = FALSE, admin_revive = FALSE)
+/mob/living/basic/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
-	if (!.)
+	if(!.)
 		return
 	look_alive()
 
@@ -166,6 +167,7 @@
 		transform = transform.Turn(180)
 	if(!(basic_mob_flags & REMAIN_DENSE_WHILE_DEAD))
 		set_density(initial(density))
+	SEND_SIGNAL(src, COMSIG_BASICMOB_LOOK_ALIVE)
 
 /mob/living/basic/examine(mob/user)
 	. = ..()
@@ -173,8 +175,10 @@
 		return
 	. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be [HAS_MIND_TRAIT(user, TRAIT_NAIVE) ? "asleep" : "dead"].")
 
-/mob/living/basic/proc/melee_attack(atom/target, list/modifiers)
+/mob/living/basic/proc/melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
 	face_atom(target)
+	if (!ignore_cooldown)
+		changeNext_move(melee_attack_cooldown)
 	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
 		return FALSE //but more importantly return before attack_animal called
 	var/result = target.attack_basic_mob(src, modifiers)
@@ -185,6 +189,7 @@
 	melee_attack(attack_target, modifiers)
 
 /mob/living/basic/vv_edit_var(vname, vval)
+	. = ..()
 	if(vname == NAMEOF(src, speed))
 		datum_flags |= DF_VAR_EDITED
 		set_varspeed(vval)
@@ -200,7 +205,7 @@
 	SEND_SIGNAL(src, POST_BASIC_MOB_UPDATE_VARSPEED)
 
 /mob/living/basic/relaymove(mob/living/user, direction)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	return relaydrive(user, direction)
 
@@ -213,3 +218,22 @@
 
 /mob/living/basic/compare_sentience_type(compare_type)
 	return sentience_type == compare_type
+
+/// Updates movement speed based on stamina loss
+/mob/living/basic/update_stamina()
+	set_varspeed(initial(speed) + (staminaloss * 0.06))
+
+/mob/living/basic/on_fire_stack(delta_time, datum/status_effect/fire_handler/fire_stacks/fire_handler)
+	adjust_bodytemperature((maximum_survivable_temperature + (fire_handler.stacks * 12)) * 0.5 * delta_time)
+
+/mob/living/basic/get_fire_overlay(stacks, on_fire)
+	var/fire_icon = "generic_fire"
+	if(!GLOB.fire_appearances[fire_icon])
+		GLOB.fire_appearances[fire_icon] = mutable_appearance(
+			'icons/mob/effects/onfire.dmi',
+			fire_icon,
+			-HIGHEST_LAYER,
+			appearance_flags = RESET_COLOR | KEEP_APART,
+		)
+
+	return GLOB.fire_appearances[fire_icon]

@@ -16,9 +16,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "f" = (
@@ -44,7 +42,7 @@
 /area/ruin/unpowered)
 "l" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "m" = (
@@ -72,11 +70,11 @@
 /turf/open/floor/mineral/titanium,
 /area/ruin/unpowered)
 "s" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/mineral/titanium,
 /area/ruin/unpowered)
 "t" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "v" = (
@@ -86,12 +84,12 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered)
 "w" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "y" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "A" = (
@@ -118,12 +116,12 @@
 /area/ruin/unpowered)
 "G" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "H" = (
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "I" = (

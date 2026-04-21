@@ -24,8 +24,7 @@
 	if(!..())
 		return FALSE
 	var/obj/item/grenade/chem_grenade/G = holder
-	if(G.stage == GRENADE_WIRED)
-		return TRUE
+	return !G.active
 
 /datum/wires/explosive/chem_grenade/attach_assembly(color, obj/item/assembly/S)
 	if(istype(S,/obj/item/assembly/timer))

@@ -5,7 +5,8 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE
 
-/obj/structure/alien_artifact/ComponentInitialize()
+/obj/structure/alien_artifact/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/discoverable, 20000)
 
 //Watcher

@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 "ac" = (
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/space/has_grav/powered)
@@ -740,7 +740,7 @@
 "da" = (
 /obj/item/toy/figure/syndie,
 /obj/item/gun/ballistic/automatic/toy/pistol,
-/obj/item/toy/syndicateballoon,
+/obj/item/toy/balloon/syndicate,
 /obj/item/toy/sword,
 /obj/effect/decal/cleanable/food/tomato_smudge,
 /obj/structure/chair/wood/wings{

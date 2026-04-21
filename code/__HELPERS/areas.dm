@@ -1,9 +1,11 @@
 #define BP_MAX_ROOM_SIZE 300
 
-GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/engineering, \
-																/area/engine/supermatter, \
-																/area/engine/atmospherics_engine, \
-																/area/ai_monitored/turret_protected/ai))
+GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(list(
+	/area/station/engineering/main,
+	/area/station/engineering/supermatter,
+	/area/station/engineering/atmospherics_engine,
+	/area/station/ai_monitored/turret_protected/ai,
+)))
 
 // Gets an atmos isolated contained space
 // Returns an associative list of turf|dirs pairs
@@ -43,7 +45,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 	var/static/area_or_turf_fail_types = typecacheof(list(
 		/turf/open/space,
 		/area/shuttle,
-		))
+	))
 
 	if(creator)
 		if(creator.create_area_cooldown >= world.time)
@@ -53,8 +55,8 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 
 	// Ignore these areas and dont let people expand them. They can expand into them though
 	var/static/blacklisted_areas = typecacheof(list(
-		/area/space,
-		))
+		/area/misc/space,
+	))
 
 	var/list/turfs = detect_room(get_turf(creator), area_or_turf_fail_types)
 	if(!turfs)
@@ -100,7 +102,6 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 			return
 		newA = new area_choice
 		newA.setup(str)
-		newA.set_dynamic_lighting()
 		newA.default_gravity = oldA.default_gravity
 		require_area_resort() //new area registered. resort the names
 	else
@@ -138,6 +139,9 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 				SEND_SIGNAL(stuff, COMSIG_ENTER_AREA, newA)
 
 	newA.reg_in_areas_in_z()
+
+	if(!isarea(area_choice) && newA.static_lighting)
+		newA.create_area_lighting_objects()
 
 	//convert map to list
 	var/list/area/area_list = list()
@@ -230,15 +234,12 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 	// Now their turfs
 	var/list/turfs = list()
 	for(var/area/pull_from as anything in areas_to_pull)
-		var/list/our_turfs = pull_from.get_contained_turfs()
-		if(target_z == 0)
-			turfs += our_turfs
+		if (target_z == 0)
+			for (var/list/zlevel_turfs as anything in pull_from.get_zlevel_turf_lists())
+				turfs += zlevel_turfs
 		else
-			for(var/turf/turf_in_area as anything in our_turfs)
-				if(target_z == turf_in_area.z)
-					turfs += turf_in_area
+			turfs += pull_from.get_turfs_by_zlevel(target_z)
 	return turfs
-
 
 ///Takes: list of area types
 ///Returns: all mobs that are in an area type

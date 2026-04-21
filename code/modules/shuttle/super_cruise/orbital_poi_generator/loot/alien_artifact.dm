@@ -16,10 +16,7 @@
 		for(var/verb in effect.effect_act_descs)
 			. += "[src] likely does something when [verb]."
 
-/obj/item/alienartifact/ComponentInitialize()
-	AddComponent(/datum/component/discoverable, 10000, TRUE)
-
-/obj/item/alienartifact/objective/ComponentInitialize()
+/obj/item/alienartifact/objective/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
 	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#eb4d4d", TRUE, TRUE)
@@ -48,6 +45,8 @@
 			effect.Initialize(src)
 			effects += effect
 
+	AddComponent(/datum/component/discoverable, 10000, TRUE)
+
 /obj/item/alienartifact/Destroy()
 	. = ..()
 	QDEL_LIST(effects)
@@ -62,7 +61,6 @@
 	ambience_index = AMBIENCE_NONE
 	sound_environment = SOUND_ENVIRONMENT_DRUGGED
 	teleport_restriction = TELEPORT_ALLOW_NONE
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 
 /area/tear_in_reality/Initialize(mapload)
 	. = ..()
@@ -439,7 +437,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	for(var/atom/movable/thing in view(3, T))
 		var/obj/item/stock_parts/cell/C = thing.get_cell()
 		if(C)
-			C.give(250 * delta_time)
+			C.give(25 * delta_time)
 			thing.update_icon()
 
 //===================

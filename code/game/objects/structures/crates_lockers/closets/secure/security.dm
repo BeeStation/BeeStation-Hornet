@@ -51,7 +51,7 @@
 	new /obj/item/clothing/under/rank/captain/skirt(src)
 	new /obj/item/clothing/under/rank/captain/parade(src)
 	new /obj/item/clothing/head/hats/caphat(src)
-	new /obj/item/clothing/head/caphat/beret(src)
+	new /obj/item/clothing/head/hats/caphat/beret(src)
 	new /obj/item/clothing/head/hats/caphat/parade(src)
 	new /obj/item/clothing/head/costume/crown/fancy(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
@@ -67,6 +67,7 @@
 
 /obj/structure/closet/secure_closet/hop/PopulateContents()
 	..()
+	new /obj/item/dog_bone(src)
 	new /obj/item/storage/box/suitbox/hop(src)
 	new /obj/item/radio/headset/heads/head_of_personnel(src)
 
@@ -194,6 +195,7 @@
 
 /obj/structure/closet/secure_closet/warden/PopulateContents()
 	..()
+	new /obj/item/dog_bone(src)
 	new /obj/item/radio/headset/headset_sec(src)
 	new /obj/item/clothing/suit/armor/vest/warden(src)
 	new /obj/item/clothing/head/hats/warden(src)
@@ -218,6 +220,7 @@
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/gun/ballistic/shotgun/automatic/combat/compact(src)
 	new /obj/item/storage/box/deputy(src)
+	new /obj/item/storage/box/vouchers(src)
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"

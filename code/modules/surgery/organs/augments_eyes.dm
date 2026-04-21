@@ -1,3 +1,6 @@
+/obj/item/organ/cyberimp/eyes
+	abstract_type = /obj/item/organ/cyberimp/eyes
+
 /obj/item/organ/cyberimp/eyes/emp_act(severity)
 	if(prob(30/severity)) //They same effect as having cybernetic eyes
 		to_chat(owner, span_warning("Static obfuscates your vision!"))
@@ -59,4 +62,4 @@
 /obj/item/organ/cyberimp/eyes/hud/security/syndicate
 	name = "Contraband Security HUD Implant"
 	desc = "A Cybersun Industries brand Security HUD Implant. These illicit cybernetic eye implants will display a security HUD over everything you see."
-	syndicate_implant = TRUE
+	organ_flags = ORGAN_ROBOTIC | ORGAN_HIDDEN

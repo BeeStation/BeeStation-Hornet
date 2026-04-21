@@ -10,7 +10,7 @@
 	var/warping = FALSE
 
 /datum/action/innate/clockcult/warp/is_available()
-	if(!IS_SERVANT_OF_RATVAR(owner) || owner.incapacitated())
+	if(!IS_SERVANT_OF_RATVAR(owner) || owner.incapacitated)
 		return FALSE
 	return ..()
 

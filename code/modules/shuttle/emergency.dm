@@ -266,13 +266,12 @@
 	log_game("[key_name(user)] has emagged the emergency shuttle in [COORD(src)] [time] seconds before launch.")
 
 	SSshuttle.emergency.movement_force = list("KNOCKDOWN" = 60, "THROW" = 20)//YOUR PUNY SEATBELTS can SAVE YOU NOW, MORTAL
-	var/datum/species/S = new
 	for(var/i in 1 to 10)
 		// the shuttle system doesn't know who these people are, but they
 		// must be important, surely
 		var/obj/item/card/id/ID = new(src)
 		var/datum/job/J = pick(SSjob.occupations)
-		ID.registered_name = S.random_name(pick(MALE, FEMALE))
+		ID.registered_name = generate_random_name_species_based(species_type = /datum/species/human)
 		ID.assignment = J.title
 
 		authorized += ID
@@ -513,7 +512,15 @@
 				mode = SHUTTLE_ESCAPE
 				launch_status = ENDGAME_LAUNCHED
 				setTimer(SSshuttle.emergencyEscapeTime * engine_coeff)
-				priority_announce("The Emergency Shuttle has left the station. Estimate: [timeLeft(600)] minutes until the shuttle docks at Central Command.", null, null, ANNOUNCEMENT_TYPE_PRIORITY)
+				priority_announce(
+					text = "The emergency shuttle has left the station. Estimate [timeLeft(60 SECONDS)] minutes until the shuttle docks at [command_name()].",
+					title = "Emergency Shuttle Departure",
+					sender_override = "Emergency Shuttle Uplink Alert",
+					color_override = "orange",
+				)
+
+				if(CONFIG_GET(flag/automapvote))
+					INVOKE_ASYNC(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, initiate_vote), /datum/vote/map_vote, "Map Rotation", null, TRUE)
 
 		if(SHUTTLE_STRANDED)
 			SSshuttle.checkHostileEnvironment()
@@ -675,13 +682,13 @@
 /obj/item/clothing/head/helmet/space/orange
 	name = "emergency space helmet"
 	icon_state = "syndicate-helm-orange"
-	item_state = "syndicate-helm-orange"
+	inhand_icon_state = "syndicate-helm-orange"
 	flash_protect = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/suit/space/orange
 	name = "emergency space suit"
 	icon_state = "syndicate-orange"
-	item_state = "syndicate-orange"
+	inhand_icon_state = "syndicate-orange"
 	slowdown = 3
 
 /obj/item/pickaxe/emergency

@@ -206,7 +206,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	desc = "Rubber ducky you're so fine, you make bathtime lots of fuuun. Rubber ducky I'm awfully fooooond of yooooouuuu~"	//thanks doohl
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "rubberducky"
-	item_state = "rubberducky"
+	inhand_icon_state = "rubberducky"
 	worn_icon_state = "duck"
 
 
@@ -274,7 +274,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 
 	if(washing_face)
 		SEND_SIGNAL(user, COMSIG_COMPONENT_CLEAN_FACE_ACT, CLEAN_WASH)
-		user.drowsyness = max(user.drowsyness - rand(2,3), 0) //Washing your face wakes you up if you're falling asleep
 	else if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		if(!human_user.wash_hands(CLEAN_WASH))
@@ -301,16 +300,16 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 			to_chat(user, span_notice("\The [RG] is full."))
 			return FALSE
 
-	if(istype(O, /obj/item/melee/baton))
-		var/obj/item/melee/baton/B = O
-		if(B.cell && B.cell.charge && B.turned_on)
+	if(istype(O, /obj/item/melee/baton/security))
+		var/obj/item/melee/baton/security/baton = O
+		if(baton.cell?.charge && baton.active)
 			flick("baton_active", src)
-			user.Paralyze(B.stun_time)
-			user.stuttering = B.stun_time/20
-			B.deductcharge(B.cell_hit_cost)
-			user.visible_message(span_warning("[user] shocks [user.p_them()]self while attempting to wash the active [B.name]!"), \
-								span_userdanger("You unwisely attempt to wash [B] while it's still on."))
-			playsound(src, B.stun_sound, 50, TRUE)
+			user.Paralyze(baton.knockdown_time)
+			user.set_stutter(baton.knockdown_time)
+			baton.cell.use(baton.cell_hit_cost)
+			user.visible_message(span_warning("[user] shocks [user.p_them()]self while attempting to wash the active [baton.name]!"), \
+								span_userdanger("You unwisely attempt to wash [baton] while it's still on."))
+			playsound(src, baton.on_stun_sound, 50, TRUE)
 			return
 
 	if(istype(O, /obj/item/mop))

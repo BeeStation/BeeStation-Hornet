@@ -64,7 +64,12 @@ export function FeatureDropdownInput(props: DropdownInputProps) {
     <StandardizedChoiceButtons
       choices={choices}
       disabled={disabled}
-      displayNames={display_names || {}}
+      displayNames={
+        display_names ||
+        Object.fromEntries(
+          serverData.choices.map((choice) => [choice, capitalizeFirst(choice)]),
+        )
+      }
       onSetValue={handleSetValue}
       value={value}
     />

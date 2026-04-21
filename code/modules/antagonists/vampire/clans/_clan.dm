@@ -2,281 +2,214 @@
  * Vampire clans
  *
  * Handles everything related to clans.
- * the entire idea of datumizing this came to me in a dream.
+ * The entire idea of datumizing this came to me in a dream.
  */
 /datum/vampire_clan
-	///The vampire datum that owns this clan. Use this over 'source', because while it's the same thing, this is more consistent (and used for deletion).
-	var/datum/antagonist/vampire/vampiredatum
-	///The name of the clan we're in.
-	var/name = CLAN_NONE
-	///Description of what the clan is, given when joining and through your antag UI.
-	var/description = "The Caitiff is as basic as you can get with Vampires.\n\
-		No additional abilities are gained, nothing is lost, if you want a plain Vampire, this is it.\n\
-		Your Favorite Vassal will gain the Brawn ability to help in combat."
-	///The clan objective that is required to greentext.
-	var/datum/objective/vampire/clan_objective
-	///The icon of the radial icon to join this clan.
-	var/join_icon = 'icons/vampires/clan_icons.dmi'
-	///Same as join_icon, but the state
-	var/join_icon_state = "caitiff"
-	///Description shown when trying to join the clan.
-	var/join_description = "The default, Classic Vampire. You gain nothing, you lose nothing."
-	///Whether the clan can be joined by players. FALSE for flavortext-only clans.
-	var/joinable_clan = TRUE
+	/// The name of the clan we're in.
+	var/name = "Caitiff"
+	/// Description of what the clan is, given when joining and through your antag UI.
+	var/description = "Vile thinblooded mongrel. Choose a clan or die like the freak you are."
+	/// Description shown when trying to join the clan.
+	var/join_description
 
-	///How we will drink blood using Feed.
+	/// The vampire datum that owns this clan. Use this over 'source', because while it's the same thing, this is more consistent (and used for deletion).
+	var/datum/antagonist/vampire/vampiredatum
+
+	/// The icon of this clan on the selection radial menu.
+	var/join_icon = 'icons/vampires/clan_icons.dmi'
+	var/join_icon_state = "base"
+
+	/// Whether the clan can be joined by players. FALSE for flavortext-only clans.
+	var/joinable_clan = FALSE
+
+	/// How we will drink blood using Feed.
 	var/blood_drink_type = VAMPIRE_DRINK_NORMAL
+
+	// Societee
+	var/is_sabbat = FALSE // In case we want a bad guy clan that doesn't care about the masquerade.
+	var/princely_score_bonus = -10 // Will be added to playtime in get_princely_score()
+
+/**
+ * Starting Humanity score, some clans are closer to the beast, some closer to humanity.
+ * We start out at null and set it in new because we want a fall back to the global default if none is set.
+ * 10 	Saintly			Toreador
+ * 9 	Compassionate	Ventrue
+ * 8 	Caring			Malkavian, Brujah
+ * 7 	Normal			Tremere
+ * 6 	Distant
+ * 5 	Removed
+ * 4 	Unfeeling
+ * 3 	Cold
+ * 2 	Bestial
+ * 1 	Horrific
+ * 0 	Wight
+ */
+	var/default_humanity
 
 /datum/vampire_clan/New(datum/antagonist/vampire/owner_datum)
 	. = ..()
+	RegisterSignal(SSdcs, COMSIG_VAMPIRE_BROKE_MASQUERADE, PROC_REF(on_vampire_broke_masquerade))
+
 	vampiredatum = owner_datum
+	// Apply clan-specific default humanity; fall back to the global default only if none was set.
+	if(isnull(default_humanity))
+		default_humanity = VAMPIRE_DEFAULT_HUMANITY
+	vampiredatum.adjust_humanity(default_humanity - VAMPIRE_DEFAULT_HUMANITY, TRUE)
 
-	RegisterSignal(vampiredatum, COMSIG_VAMPIRE_ON_LIFETICK, PROC_REF(handle_clan_life))
-	RegisterSignal(vampiredatum, VAMPIRE_RANK_UP, PROC_REF(on_spend_rank))
+	// Masquerade breakers
+	for(var/datum/antagonist/vampire/unmasked in GLOB.masquerade_breakers)
+		if(unmasked.owner.current)
+			on_vampire_broke_masquerade(vampiredatum.owner.current, unmasked)
 
-	RegisterSignal(vampiredatum, VAMPIRE_INTERACT_WITH_VASSAL, PROC_REF(on_interact_with_vassal))
-	RegisterSignal(vampiredatum, VAMPIRE_MAKE_FAVORITE, PROC_REF(on_favorite_vassal))
+	vampiredatum.owner.current.playsound_local(get_turf(vampiredatum.owner.current), 'sound/vampires/VampireAlert.ogg', 80, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	to_chat(vampiredatum.owner.current, span_narsiesmall("I remember now. I belong with the [name]..."))
 
-	RegisterSignal(vampiredatum, VAMPIRE_MADE_VASSAL, PROC_REF(on_vassal_made))
-	RegisterSignal(vampiredatum, VAMPIRE_EXIT_TORPOR, PROC_REF(on_exit_torpor))
+/datum/vampire_clan/proc/on_apply()
+	for(var/datum/discipline/disciple as anything in vampiredatum.owned_disciplines)
+		disciple.apply_discipline_quirks(vampiredatum)
 
-	RegisterSignal(vampiredatum, VAMPIRE_ENTERS_FRENZY, PROC_REF(on_enter_frenzy))
-	RegisterSignal(vampiredatum, VAMPIRE_EXITS_FRENZY, PROC_REF(on_exit_frenzy))
-
-	give_clan_objective()
+	for(var/datum/action/vampire/clanselect/clanselect in vampiredatum.powers)
+		vampiredatum.remove_power(clanselect)
+	return
 
 /datum/vampire_clan/Destroy(force)
-	UnregisterSignal(vampiredatum, list(
-		COMSIG_VAMPIRE_ON_LIFETICK,
-		VAMPIRE_RANK_UP,
-		VAMPIRE_INTERACT_WITH_VASSAL,
-		VAMPIRE_MAKE_FAVORITE,
-		VAMPIRE_MADE_VASSAL,
-		VAMPIRE_EXIT_TORPOR,
-		VAMPIRE_ENTERS_FRENZY,
-		VAMPIRE_EXITS_FRENZY,
-	))
-	remove_clan_objective()
 	vampiredatum = null
+	UnregisterSignal(SSdcs, COMSIG_VAMPIRE_BROKE_MASQUERADE)
 	. = ..()
-
-/datum/vampire_clan/proc/on_enter_frenzy(datum/antagonist/vampire/source)
-	SIGNAL_HANDLER
-
-	var/mob/living/carbon/human/human_vampire = vampiredatum.owner.current
-	human_vampire?.physiology?.stamina_mod *= 0.4
-
-/datum/vampire_clan/proc/on_exit_frenzy(datum/antagonist/vampire/source)
-	SIGNAL_HANDLER
-
-	var/mob/living/carbon/human/human_vampire = vampiredatum.owner.current
-	if(human_vampire)
-		human_vampire.set_dizziness(3 SECONDS)
-		human_vampire.Paralyze(2 SECONDS)
-		human_vampire.physiology.stamina_mod /= 0.4
-
-/datum/vampire_clan/proc/give_clan_objective()
-	if(isnull(clan_objective))
-		return
-	clan_objective = new clan_objective()
-	clan_objective.name = "Clan Objective"
-	clan_objective.owner = vampiredatum.owner
-	vampiredatum.objectives += clan_objective
-	vampiredatum.owner.announce_objectives()
-
-/datum/vampire_clan/proc/remove_clan_objective()
-	vampiredatum.objectives -= clan_objective
-	QDEL_NULL(clan_objective)
-	vampiredatum.owner.announce_objectives()
 
 /**
  * Called when a Vampire exits Torpor
- * args:
- * source - the Vampire exiting Torpor
  */
-/datum/vampire_clan/proc/on_exit_torpor(datum/antagonist/vampire/source)
-	SIGNAL_HANDLER
+/datum/vampire_clan/proc/on_exit_torpor()
+	return
 
 /**
- * Called during Vampire's LifeTick
- * args:
- * vampiredatum - the antagonist datum of the Vampire running this.
+ * Called during Vampire's life_tick
  */
-/datum/vampire_clan/proc/handle_clan_life(datum/antagonist/vampire/source)
-	SIGNAL_HANDLER
+/datum/vampire_clan/proc/handle_clan_life()
+	if(!is_type_in_list(/datum/action/vampire/levelup, vampiredatum.powers) && vampiredatum.vampire_level_unspent > 0)
+		vampiredatum.grant_power(new /datum/action/vampire/levelup)
 
 /**
- * Called when a Vampire successfully Vassalizes someone.
- * args:
- * vampiredatum - the antagonist datum of the Vampire running this.
+ * Called when a Vampire successfully vassalizes someone via the persuasion rack.
+ * Do not call this on [/datum/antagonist/vampire/proc/make_vassal()] !!!
  */
-/datum/vampire_clan/proc/on_vassal_made(datum/antagonist/vampire/source, mob/living/user, mob/living/target)
-	SIGNAL_HANDLER
-	user.playsound_local(null, 'sound/effects/explosion_distant.ogg', 40, TRUE)
-	target.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
-	target.Jitter(15 SECONDS)
-	INVOKE_ASYNC(target, TYPE_PROC_REF(/mob, emote), "laugh")
+/datum/vampire_clan/proc/on_vassal_made(mob/living/living_vampire, mob/living/living_vassal)
+	living_vampire.playsound_local(null, 'sound/effects/singlebeat.ogg', 70, TRUE)
+
+	living_vassal.playsound_local(null, 'sound/effects/singlebeat.ogg', 70, TRUE)
+	living_vassal.set_jitter_if_lower(30 SECONDS)
+	living_vassal.emote("laugh")
 
 /**
- * Called when a Vampire successfully starts spending their Rank
- * args:
- * vampiredatum - the antagonist datum of the Vampire running this.
- * target - The Vassal (if any) we are upgrading.
- * cost_rank - TRUE/FALSE on whether this will cost us a rank when we go through with it.
- * blood_cost - A number saying how much it costs to rank up.
+ * Called when we level up inside a coffin.
  */
-/datum/vampire_clan/proc/on_spend_rank(datum/antagonist/vampire/source, mob/living/carbon/target, cost_rank = TRUE, blood_cost)
-	SIGNAL_HANDLER
 
-	INVOKE_ASYNC(src, PROC_REF(spend_rank), vampiredatum, target, cost_rank, blood_cost)
+	/**
+	 * For every discipline in clan_disciplines we do:
+	 * if the next level returns anything but null, we add it to the options
+	 * ///
+	 * Then we display the radial with the options.
+	 * Picking a choice will do the following:
+	 * Remove all powers from the discipline's current level, by:
+	 * for every power in get_abilities_with_level(current level) > remove
+	 * increase discipline level
+	 * for every power in get_abilities_with_level(current level) > add
+	 */
+/datum/vampire_clan/proc/spend_rank(mob/living/carbon/carbon_vampire)
+	if(QDELETED(vampiredatum.owner?.current) || vampiredatum.vampire_level_unspent <= 0)
+		return
 
-/datum/vampire_clan/proc/spend_rank(datum/antagonist/vampire/source, mob/living/carbon/target, cost_rank = TRUE, blood_cost)
-	// Purchase Power Prompt
+	// Generate radial menu
 	var/list/options = list()
 	var/list/radial_display = list()
-	for(var/datum/action/vampire/power as anything in vampiredatum.all_vampire_powers)
-		if(initial(power.purchase_flags) & VAMPIRE_CAN_BUY && !(locate(power) in vampiredatum.powers))
-			options[initial(power.name)] = power
 
+	for(var/datum/discipline/discipline as anything in vampiredatum.owned_disciplines)	// We do owned_disciplines, not clan_disciplines. clan_disciplines is used to populate owned_disciplines.
+		if(discipline.get_abilities_with_level("next"))
+			options[discipline.name] = discipline
 			var/datum/radial_menu_choice/option = new
-			option.image = image(icon = 'icons/vampires/actions_vampire.dmi', icon_state = initial(power.button_icon_state))
-			option.info = "[span_boldnotice(initial(power.name))]\n[span_cult(power.power_explanation)]"
-			radial_display[initial(power.name)] = option
+			option.image = image(icon = 'icons/vampires/disciplines.dmi', icon_state = discipline.icon_state)
+			option.info = "[span_boldnotice(discipline.name)]\n[span_cult(discipline.discipline_explanation)]"
+			radial_display[initial(discipline.name)] = option
 
-	var/mob/living/user = vampiredatum.owner.current
+	var/mob/living/living_vampire = vampiredatum.owner.current
 
+	// Show radial menu
 	if(!length(options))
-		to_chat(user, span_notice("You grow more ancient by the night!"))
+		to_chat(living_vampire, span_notice("You grow more familiar with your powers!"))
 	else
-		to_chat(user, span_notice("You have the opportunity to grow more ancient. Select a power to advance your Rank."))
+		to_chat(living_vampire, span_notice("You have the opportunity to grow your expertise. Select a discipline to advance your Rank."))
 
-		var/power_response
-		if(istype(user.loc, /obj/structure/closet))
-			var/obj/structure/closet/container = user.loc
-			power_response = show_radial_menu(user, container, radial_display)
+		// If we're in a closet, anchor the radial menu to it. If not, anchor it to the vampire body
+		var/datum/discipline/discipline_response
+
+		if(istype(living_vampire.loc, /obj/structure/closet))
+			var/obj/structure/closet/container = living_vampire.loc
+			discipline_response = show_radial_menu(living_vampire, container, radial_display)
 		else
-			power_response = show_radial_menu(user, user, radial_display)
+			discipline_response = show_radial_menu(living_vampire, living_vampire, radial_display)
 
-		if(!power_response || QDELETED(src) || QDELETED(user))
+		var/datum/discipline/chosen_discipline
+
+		for(var/datum/discipline/discipline as anything in vampiredatum.owned_disciplines)
+			if(discipline.name == discipline_response)
+				chosen_discipline = discipline
+				break
+
+		if(isnull(discipline_response) || QDELETED(src) || QDELETED(living_vampire))
 			return FALSE
 
-		var/datum/action/vampire/purchased_power = options[power_response]
-		vampiredatum.BuyPower(new purchased_power)
-		user.balloon_alert(user, "learned [power_response]!")
-		to_chat(user, span_notice("You have learned how to use [power_response]!"))
+		// Remove all current powers
+		for(var/datum/action/vampire/power_old as anything in vampiredatum.powers)
+			if(is_type_in_list(power_old, chosen_discipline.get_abilities_with_level("current")))
+				vampiredatum.remove_power(power_old)
 
-	finalize_spend_rank(vampiredatum, cost_rank, blood_cost)
+		// increment level
+		chosen_discipline.level_up()
+
+		// add all current powers (of the new level)
+		for(var/datum/action/vampire/power_new as anything in chosen_discipline.get_abilities_with_level("current"))
+			vampiredatum.grant_power(new power_new)
+
+		living_vampire.balloon_alert(living_vampire, "learned [discipline_response] level [chosen_discipline.level - 1]!")
+		to_chat(living_vampire, span_notice("You have learned how to use [discipline_response]!"))
+
+	finalize_spend_rank()
 
 	// QoL
 	if(vampiredatum.vampire_level_unspent > 0)
-		spend_rank(source, target, cost_rank, blood_cost)
+		spend_rank(carbon_vampire)
 
-/datum/vampire_clan/proc/finalize_spend_rank(datum/antagonist/vampire/source, cost_rank = TRUE, blood_cost)
-	vampiredatum.LevelUpPowers()
+/datum/vampire_clan/proc/finalize_spend_rank()
+	// Level up the vampire
 	vampiredatum.vampire_regen_rate += 0.05
-	vampiredatum.max_blood_volume += 100
+	vampiredatum.max_vitae += 100
 
-	var/mob/living/carbon/human/vampire_human = vampiredatum.owner.current
-	if(ishuman(vampire_human))
+	if(ishuman(vampiredatum.owner.current))
+		var/mob/living/carbon/human/vampire_human = vampiredatum.owner.current
 		vampire_human.dna.species.punchdamage += 0.5
+
 	// We're almost done - Spend your Rank now.
 	vampiredatum.vampire_level++
-	if(cost_rank)
-		vampiredatum.vampire_level_unspent--
-	if(blood_cost)
-		vampiredatum.AddBloodVolume(-blood_cost)
+	vampiredatum.vampire_level_unspent--
 
-	// Ranked up enough to get your true Reputation?
-	if(vampiredatum.vampire_level == 4)
-		vampiredatum.SelectReputation(am_fledgling = FALSE, forced = TRUE)
-
+	// Flavor
 	to_chat(vampiredatum.owner.current, span_notice("You are now a rank [vampiredatum.vampire_level] Vampire. \
 		Your strength, health, feed rate, regen rate, and maximum blood capacity have all increased! \n\
 		* Your existing powers have all ranked up as well!"))
-	vampiredatum.owner.current.playsound_local(null, 'sound/effects/pope_entry.ogg', 25, TRUE, pressure_affected = FALSE)
 	vampiredatum.update_hud()
 
-/**
- * Called when we are trying to turn someone into a Favorite Vassal
- * args:
- * vampiredatum - the antagonist datum of the Vampire performing this.
- * vassaldatum - the antagonist datum of the Vassal being offered up.
- */
-/datum/vampire_clan/proc/on_interact_with_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/vassaldatum)
+/datum/vampire_clan/proc/on_vampire_broke_masquerade(datum/source, datum/antagonist/vampire/masquerade_breaker)
 	SIGNAL_HANDLER
 
-	INVOKE_ASYNC(src, PROC_REF(interact_with_vassal), vampiredatum, vassaldatum)
-
-/datum/vampire_clan/proc/interact_with_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/vassaldatum)
-	if(vassaldatum.special_type)
-		to_chat(vampiredatum.owner.current, span_notice("This Vassal was already assigned a special position."))
-		return FALSE
-	if(!(vassaldatum.owner.current.mob_biotypes & MOB_ORGANIC))
-		to_chat(vampiredatum.owner.current, span_notice("This Vassal is unable to gain a special rank due to innate features."))
-		return FALSE
-
-	// Brujuah clan time
-	if(istype(clan_objective, /datum/objective/brujah_clan_objective) && (clan_objective.target == vassaldatum.owner))
-		var/datum/objective/brujah_clan_objective/brujah_objective = clan_objective
-
-		// Find Mind Implant & Destroy
-		for(var/obj/item/implant/mindshield/mindshield in vassaldatum.owner.current.implants)
-			mindshield.Destroy()
-
-		vassaldatum.make_special(/datum/antagonist/vassal/discordant)
-		brujah_objective.target_subverted = TRUE
-		to_chat(source.owner, span_notice("You have turned [vassaldatum.owner.current?.name] into a Discordant Vassal."))
-		playsound(get_turf(vassaldatum.owner.current), 'sound/effects/rocktap3.ogg', 75)
-		vassaldatum.owner.announce_objectives()
-		return TRUE
-
-	var/list/options = list()
-	var/list/radial_display = list()
-	for(var/datum/antagonist/vassal/vassal_path as anything in subtypesof(/datum/antagonist/vassal))
-		if(vampiredatum.special_vassals[initial(vassal_path.special_type)])
-			continue
-		if(initial(vassal_path.special_type) == DISCORDANT_VASSAL && (!source.my_clan.clan_objective || vassaldatum.owner != source.my_clan.clan_objective.target))
-			continue
-		options[initial(vassal_path.name)] = vassal_path
-
-		var/datum/radial_menu_choice/option = new
-		option.image = image(icon = 'icons/mob/hud.dmi', icon_state = initial(vassal_path.vassal_hud_name))
-		option.info = "[span_boldnotice(initial(vassal_path.name))]\n[span_cult(initial(vassal_path.vassal_description))]"
-		radial_display[initial(vassal_path.name)] = option
-
-	if(!length(options))
+	if(masquerade_breaker == vampiredatum)
 		return
 
-	to_chat(vampiredatum.owner.current, span_notice("You can change who this Vassal is, who are they to you?"))
-	var/vassal_response = show_radial_menu(vampiredatum.owner.current, vassaldatum.owner.current, radial_display)
-	if(!vassal_response)
-		return
-	vassal_response = options[vassal_response]
-	if(QDELETED(src) || QDELETED(vampiredatum.owner.current) || QDELETED(vassaldatum.owner.current))
-		return FALSE
-	vassaldatum.make_special(vassal_response)
-	vampiredatum.vampire_blood_volume -= 150
-	return TRUE
-
-/**
- * Called when we are successfully turn a Vassal into a Favorite Vassal
- * args:
- * source - antagonist datum of the Vampire who turned them into a Vassal.
- * vassaldatum - the antagonist datum of the Vassal being offered up.
- */
-/datum/vampire_clan/proc/on_favorite_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/vassaldatum)
-	SIGNAL_HANDLER
-	vassaldatum.BuyPower(new /datum/action/vampire/targeted/brawn)
-
-/**
- * Calculates how many vassals you can have at any given time
- */
-/datum/vampire_clan/proc/get_max_vassals()
-	var/total_players = length(GLOB.joined_player_list)
-	switch(total_players)
-		if(1 to 20)
-			return 1
-		if(21 to 30)
-			return 3
-		if(31 to INFINITY)
-			return 4
+	to_chat(vampiredatum.owner.current, span_userdanger("[masquerade_breaker.owner.current] has broken the Masquerade! We must destroy them at all costs, for the good of all kindred!\n\
+																							(Hint: You may feed on a vampire that has broken the masquerade to steal their powers.)"))
+	var/datum/objective/assassinate/masquerade_objective = new()
+	masquerade_objective.target = masquerade_breaker.owner
+	masquerade_objective.name = "Masquerade Objective"
+	masquerade_objective.explanation_text = "Ensure [masquerade_breaker.owner.current], who has broken the Masquerade, succumbs to Final Death."
+	vampiredatum.objectives += masquerade_objective
+	vampiredatum.owner.announce_objectives()

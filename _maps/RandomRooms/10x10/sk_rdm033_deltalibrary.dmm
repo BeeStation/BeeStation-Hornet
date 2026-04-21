@@ -96,7 +96,7 @@
 "r" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/paicard,
+/obj/item/pai_card,
 /turf/open/floor/carpet,
 /area/template_noop)
 "s" = (
@@ -253,7 +253,7 @@
 "U" = (
 /obj/structure/table/wood,
 /obj/item/clothing/under/rank/civilian/curator,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/wood,
 /area/template_noop)
 "V" = (

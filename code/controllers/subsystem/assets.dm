@@ -1,6 +1,10 @@
 SUBSYSTEM_DEF(assets)
 	name = "Assets"
-	init_order = INIT_ORDER_ASSETS
+	dependencies = list(
+		/datum/controller/subsystem/atoms,
+		/datum/controller/subsystem/persistent_paintings,
+		/datum/controller/subsystem/processing/greyscale,
+	)
 	flags = SS_NO_FIRE
 	var/list/cache = list()
 	var/list/preload = list()
@@ -21,10 +25,8 @@ SUBSYSTEM_DEF(assets)
 	transport.Load()
 
 /datum/controller/subsystem/assets/Initialize()
-	for(var/type in typesof(/datum/asset))
-		var/datum/asset/A = type
-		if (type != initial(A._abstract))
-			load_asset_datum(type)
+	for(var/datum/asset/asset_type as anything in valid_subtypesof(/datum/asset))
+		load_asset_datum(asset_type)
 
 	transport.Initialize(cache)
 

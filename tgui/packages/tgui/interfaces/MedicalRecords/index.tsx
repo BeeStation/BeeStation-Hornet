@@ -8,13 +8,13 @@ import { MedicalRecordData } from './types';
 
 export const MedicalRecords = (props) => {
   const { data } = useBackend<MedicalRecordData>();
-  const { authenticated } = data;
+  const { authenticated, is_silicon } = data;
 
   return (
     <Window title="Medical Records" width={750} height={550}>
       <Window.Content>
         <Stack fill>
-          {!authenticated ? <UnauthorizedView /> : <AuthView />}
+          {authenticated || is_silicon ? <AuthView /> : <UnauthorizedView />}
         </Stack>
       </Window.Content>
     </Window>
@@ -50,7 +50,7 @@ const UnauthorizedView = (props) => {
 };
 
 const AuthView = (props) => {
-  const { act } = useBackend<MedicalRecordData>();
+  const { data, act } = useBackend<MedicalRecordData>();
 
   return (
     <>
@@ -62,20 +62,29 @@ const AuthView = (props) => {
           <Stack.Item grow>
             <MedicalRecordView />
           </Stack.Item>
-          <Stack.Item>
-            <NoticeBox align="right" info>
-              Secure Your Workspace.
-              <Button
-                align="right"
-                icon="lock"
-                color="good"
-                ml={2}
-                onClick={() => act('logout')}
-              >
-                Log Out
-              </Button>
-            </NoticeBox>
-          </Stack.Item>
+          {data.is_silicon ? (
+            <Stack.Item>
+              <NoticeBox danger>
+                For security reasons, silicons are not permitted to change
+                record data.
+              </NoticeBox>
+            </Stack.Item>
+          ) : (
+            <Stack.Item>
+              <NoticeBox align="right" info>
+                Secure Your Workspace.
+                <Button
+                  align="right"
+                  icon="lock"
+                  color="good"
+                  ml={2}
+                  onClick={() => act('logout')}
+                >
+                  Log Out
+                </Button>
+              </NoticeBox>
+            </Stack.Item>
+          )}
         </Stack>
       </Stack.Item>
     </>

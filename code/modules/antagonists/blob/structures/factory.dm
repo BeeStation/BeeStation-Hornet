@@ -4,7 +4,6 @@
 	icon_state = "blob_factory"
 	desc = "A thick spire of tendrils."
 	max_integrity = BLOB_FACTORY_MAX_HP
-	max_hit_damage = BLOB_FACTORY_MAX_HP / 10
 	health_regen = BLOB_FACTORY_HP_REGEN
 	point_return = BLOB_REFUND_FACTORY_COST
 	resistance_flags = LAVA_PROOF

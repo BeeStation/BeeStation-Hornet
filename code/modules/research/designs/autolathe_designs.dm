@@ -156,7 +156,7 @@
 	id = "cable_coil"
 	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 10, /datum/material/glass = 5)
-	build_path = /obj/item/stack/cable_coil/red/one
+	build_path = /obj/item/stack/cable_coil/one
 	category = list("initial","Tools","Tool Designs")
 	maxstack = MAXCOIL
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
@@ -601,7 +601,7 @@
 	category = list("initial", "Misc")
 
 /datum/design/tape
-	name = "Tape"
+	name = "Cassette Tape"
 	id = "tape"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 20, /datum/material/glass = 5)
@@ -907,6 +907,15 @@
 	build_path = /obj/item/dest_tagger
 	category = list("initial", "Electronics")
 
+/datum/design/salestagger
+	name = "Sales Tagger"
+	id = "salestagger"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 700, /datum/material/glass = 200)
+	build_path = /obj/item/sales_tagger
+	category = list("initial", "Electronics")
+	departmental_flags = DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_SERVICE
+
 /datum/design/handlabeler
 	name = "Hand Labeler"
 	id = "handlabel"
@@ -1142,3 +1151,12 @@
 	build_path = /obj/item/reagent_containers/cup/bottle/vial
 	category = list("initial", "Medical")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/duct_tape
+	name = "Duct Tape"
+	id = "duct_tape"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list (/datum/material/plastic = 200)
+	build_path = /obj/item/stack/sticky_tape/duct
+	category = list("initial", "Tools", "Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SERVICE

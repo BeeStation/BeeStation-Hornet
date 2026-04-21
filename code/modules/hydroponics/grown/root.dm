@@ -26,7 +26,7 @@
 	wine_power = 30
 
 /obj/item/food/grown/carrot/attackby(obj/item/I, mob/user, params)
-	if(I.is_sharp())
+	if(I.get_sharpness())
 		to_chat(user, span_notice("You sharpen the carrot into a shiv with [I]."))
 		var/obj/item/knife/shiv/carrot/Shiv = new /obj/item/knife/shiv/carrot
 		remove_item_from_storage(user)
@@ -66,7 +66,7 @@
 	species = "whitebeet"
 	plantname = "White-Beet Plants"
 	product = /obj/item/food/grown/whitebeet
-	lifespan = 60
+	lifespan = 240
 	endurance = 50
 	yield = 6
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
@@ -92,7 +92,7 @@
 	species = "redbeet"
 	plantname = "Red-Beet Plants"
 	product = /obj/item/food/grown/redbeet
-	lifespan = 60
+	lifespan = 240
 	endurance = 50
 	yield = 6
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'

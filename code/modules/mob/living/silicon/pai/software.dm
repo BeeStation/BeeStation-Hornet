@@ -62,8 +62,8 @@
 	data["master"] = list()
 	data["ram"] = ram
 	data["refresh_spam"] = refresh_spam
-	if(master)
-		data["master"]["name"] = master
+	if(master_name)
+		data["master"]["name"] = master_name
 		data["master"]["dna"] = master_dna
 	return data
 
@@ -202,7 +202,7 @@
 	return TRUE
 
 /mob/living/silicon/pai/proc/check_radial_menu(atom/anchor)
-	if(incapacitated())
+	if(incapacitated)
 		return FALSE
 	if(get_turf(src) != get_turf(anchor))
 		return FALSE

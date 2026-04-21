@@ -6,7 +6,7 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-	ADD_TRAIT(src, TRAIT_FORCED_STANDING, INNATE_TRAIT)
+	add_traits(list(TRAIT_CAN_STRIP, TRAIT_FORCED_STANDING), INNATE_TRAIT)
 	AddComponent(/datum/component/tippable, \
 		tip_time = 3 SECONDS, \
 		untip_time = 2 SECONDS, \
@@ -27,6 +27,8 @@
 	robot_modules_background.plane = HUD_PLANE
 
 	ident = rand(1, 999)
+
+	previous_health = health
 
 	if(ispath(cell))
 		cell = new cell(src)
@@ -284,12 +286,15 @@
 	togglelock(user)
 
 /mob/living/silicon/robot/attackby(obj/item/attacking_item, mob/living/user, params)
+	if (user.combat_mode)
+		return ..()
+
 	if(length(user.progressbars))
 		if(attacking_item.tool_behaviour == TOOL_WELDER || istype(attacking_item, /obj/item/stack/cable_coil))
 			user.changeNext_move(CLICK_CD_MELEE)
 			to_chat(user, span_notice("You are already busy!"))
 			return
-	if(attacking_item.tool_behaviour == TOOL_WELDER && (!user.combat_mode))
+	if(attacking_item.tool_behaviour == TOOL_WELDER)
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(user == src)
 			to_chat(user, span_warning("You are unable to maneuver [attacking_item] properly to repair yourself, seek assistance!"))
@@ -486,6 +491,20 @@
 /mob/living/silicon/robot/proc/untip_roleplay()
 	to_chat(src, span_notice("Your frustration has empowered you! You can now right yourself faster!"))
 
+/mob/living/silicon/robot/get_fire_overlay(stacks, on_fire)
+	var/fire_icon = "generic_fire"
+
+	if(!GLOB.fire_appearances[fire_icon])
+		var/mutable_appearance/new_fire_overlay = mutable_appearance(
+			'icons/mob/effects/onfire.dmi',
+			fire_icon,
+			-HIGHEST_LAYER,
+			appearance_flags = RESET_COLOR | KEEP_APART,
+		)
+		GLOB.fire_appearances[fire_icon] = new_fire_overlay
+
+	return GLOB.fire_appearances[fire_icon]
+
 /mob/living/silicon/robot/proc/allowed(mob/M)
 	//check if it doesn't require any access at all
 	if(check_access(null))
@@ -554,7 +573,7 @@
 		var/mutable_appearance/head_overlay = hat.build_worn_icon(default_layer = 20, default_icon_file = 'icons/mob/clothing/head/default.dmi')
 		head_overlay.pixel_y += hat_offset
 		add_overlay(head_overlay)
-	update_fire()
+	update_appearance(UPDATE_OVERLAYS)
 
 /mob/living/silicon/robot/proc/self_destruct(mob/user)
 	var/turf/groundzero = get_turf(src)
@@ -592,7 +611,7 @@
 	set category = "IC"
 	set src = usr
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 	var/obj/item/held_item = get_active_held_item()
 	if(held_item)
@@ -716,12 +735,12 @@
 		robot_suit.update_icon()
 	else
 		new /obj/item/robot_suit(T)
-		new /obj/item/bodypart/l_leg/robot(T)
-		new /obj/item/bodypart/r_leg/robot(T)
+		new /obj/item/bodypart/leg/left/robot(T)
+		new /obj/item/bodypart/leg/right/robot(T)
 		new /obj/item/stack/cable_coil(T, 1)
 		new /obj/item/bodypart/chest/robot(T)
-		new /obj/item/bodypart/l_arm/robot(T)
-		new /obj/item/bodypart/r_arm/robot(T)
+		new /obj/item/bodypart/arm/left/robot(T)
+		new /obj/item/bodypart/arm/right/robot(T)
 		new /obj/item/bodypart/head/robot(T)
 		var/b
 		for(b=0, b!=2, b++)
@@ -825,7 +844,7 @@
 	sync_lighting_plane_alpha()
 
 /mob/living/silicon/robot/update_stat()
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(stat != DEAD)
 		if(health <= 0) //die only once
@@ -842,15 +861,19 @@
 	update_health_hud()
 	update_icons() //Updates eye_light overlay
 
-/mob/living/silicon/robot/revive(full_heal = 0, admin_revive = 0)
-	if(..()) //successfully ressuscitated from death
-		if(!QDELETED(builtInCamera) && !wires.is_cut(WIRE_CAMERA))
-			builtInCamera.toggle_cam(src,0)
-		if(admin_revive)
-			locked = TRUE
-		notify_ai(NEW_BORG)
-		wires.ui_update()
-		. = 1
+/mob/living/silicon/robot/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
+	. = ..()
+	if(!.)
+		return
+
+	if(!QDELETED(builtInCamera) && !wires.is_cut(WIRE_CAMERA))
+		builtInCamera.toggle_cam(src, 0)
+	if(full_heal_flags & HEAL_ADMIN)
+		locked = TRUE
+	notify_ai(NEW_BORG)
+	toggle_headlamp(FALSE, TRUE) //This will reenable borg headlamps if doomsday is currently going on still.
+	wires.ui_update()
+	return TRUE
 
 /mob/living/silicon/robot/fully_replace_character_name(oldname, newname)
 	..()
@@ -984,7 +1007,7 @@
 	upgrades -= old_upgrade
 	UnregisterSignal(old_upgrade, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))
 
-/mob/living/silicon/robot/proc/make_shell(var/obj/item/borg/upgrade/ai/board)
+/mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)
 	if(isnull(board))
 		stack_trace("make_shell was called without a board argument! This is never supposed to happen!")
 		return FALSE
@@ -1014,7 +1037,7 @@
 		builtInCamera.c_tag = real_name
 	diag_hud_set_aishell()
 
-/mob/living/silicon/robot/proc/deploy_init(var/mob/living/silicon/ai/AI)
+/mob/living/silicon/robot/proc/deploy_init(mob/living/silicon/ai/AI)
 	real_name = "[AI.real_name] shell [rand(100, 999)] - [designation]"	//Randomizing the name so it shows up separately in the shells list
 	name = real_name
 	if(!QDELETED(builtInCamera))
@@ -1040,7 +1063,7 @@
 /datum/action/innate/undeployment
 	name = "Disconnect from shell"
 	desc = "Stop controlling your shell and resume normal core operations."
-	icon_icon = 'icons/hud/actions/actions_AI.dmi'
+	button_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_core"
 
 /datum/action/innate/undeployment/on_activate(mob/user, atom/target)
@@ -1093,7 +1116,7 @@
 		M.visible_message(span_warning("[M] really can't seem to mount [src]..."))
 		return
 
-	if(stat || incapacitated())
+	if(stat || incapacitated)
 		return
 	if(model && !model.allow_riding)
 		M.visible_message(span_boldwarning("Unfortunately, [M] just can't seem to hold onto [src]!"))

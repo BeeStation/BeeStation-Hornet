@@ -76,6 +76,9 @@
 			var/mob/camera/ai_eye/E = V
 			E.update_ai_detect_hud()
 
+/datum/atom_hud/hacked_apc
+	hud_icons = list(HACKED_APC_HUD)
+
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*
@@ -194,7 +197,7 @@
 		if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 			holder.icon_state = "hudxeno"
 		else if(stat == DEAD)
-			if(!get_organ_by_type(/obj/item/organ/brain) || soul_departed() || ishellbound())
+			if(!get_organ_by_type(/obj/item/organ/brain) || (!key && !get_ghost(FALSE, TRUE)))
 				holder.icon_state = "huddead-permanent"
 				return
 			if(tod)
@@ -281,6 +284,17 @@
 		return FALSE
 	return HAS_TRAIT(src, TRAIT_MINDSHIELD) || HAS_TRAIT(src, TRAIT_FAKE_MINDSHIELD)
 
+/mob/living/carbon/human/proc/get_wanted_status()
+	var/perp_name = get_face_name(get_id_name(""))
+
+	if(!perp_name || isnull(GLOB.manifest))
+		return WANTED_NONE
+
+	var/datum/record/crew/target = find_record(perp_name, GLOB.manifest.general)
+	if(isnull(target))
+		return WANTED_NONE
+	return target.wanted_status
+
 /mob/living/carbon/human/proc/sec_hud_set_security_status()
 	var/image/holder = hud_list[WANTED_HUD]
 	var/icon/sec_icon = icon(icon, icon_state, dir)
@@ -291,12 +305,7 @@
 		holder.icon_state = null
 		return
 
-	var/datum/record/crew/target = find_record(perp_name, GLOB.manifest.general)
-	if(isnull(target))
-		holder.icon_state = null
-		return
-
-	switch(target.wanted_status)
+	switch(get_wanted_status())
 		if(WANTED_ARREST)
 			holder.icon_state = "hudwanted"
 		if(WANTED_PRISONER)
@@ -515,3 +524,12 @@
 		holder.icon_state = "electrified"
 	else
 		holder.icon_state = ""
+
+/*~~~~~~~~~~~~
+	APCs!
+~~~~~~~~~~~~~*/
+/obj/machinery/power/apc/proc/set_hacked_hud()
+	var/image/holder = hud_list[HACKED_APC_HUD]
+	holder.loc = src
+	holder.icon = 'icons/obj/power.dmi'
+	holder.icon_state = "apcemag"

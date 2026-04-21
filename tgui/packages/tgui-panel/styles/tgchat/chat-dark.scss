@@ -4,6 +4,7 @@
 *
 ******************************************/
 
+@use 'sass:color';
 @use 'sass:map';
 
 html,
@@ -556,70 +557,150 @@ em {
   color: hsl(0, 82.9%, 34.3%);
 }
 
+.good {
+  color: hsl(132, 100%, 67%);
+  font-weight: bold;
+}
+
+.traitor_objective {
+  display: block;
+  font-size: large;
+  font-family: monospace;
+  color: #f08181;
+  background-color: #000000;
+  border: 1px solid #f08181;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .userdanger {
   color: hsl(0, 73.6%, 44.5%);
   font-weight: bold;
   font-size: 24px;
 }
+
 .danger {
   color: hsl(0, 73.6%, 44.5%);
 }
+
+.tinydanger {
+  color: #c51e1e;
+  font-size: 85%;
+}
+
+.smalldanger {
+  color: #c51e1e;
+  font-size: 90%;
+}
+
 .warning {
   color: hsl(0, 73.6%, 44.5%);
   font-style: italic;
 }
+
 .alertwarning {
   color: hsl(0, 100%, 50%);
   font-weight: bold;
 }
+
 .boldwarning {
   color: hsl(0, 73.6%, 44.5%);
   font-style: italic;
   font-weight: bold;
 }
+
+.subtle {
+  color: hsl(210, 6%, 55%);
+  font-style: italic;
+}
+
 .announce {
   color: hsl(0, 73.6%, 44.5%);
   font-weight: bold;
 }
+
 .boldannounce {
   color: hsl(0, 73.6%, 44.5%);
   font-weight: bold;
 }
+
 .greenannounce {
   color: hsl(132.8, 93.4%, 29.6%);
   font-weight: bold;
 }
+
 .rose {
   color: hsl(0, 100%, 65.7%);
 }
+
 .info {
   color: hsl(227, 87.7%, 68%);
 }
+
 .notice {
   color: hsl(227, 87.7%, 68%);
 }
+
+.smallnotice {
+  color: hsl(227, 87.7%, 68%);
+  font-size: 90%;
+}
+
+.smallnoticeital {
+  color: hsl(227, 87.7%, 68%);
+  font-style: italic;
+  font-size: 90%;
+}
+
 .boldnotice {
   color: hsl(227, 87.7%, 68%);
   font-weight: bold;
 }
+
+.hear {
+  color: hsl(227, 87.7%, 68%);
+  font-style: italic;
+}
+
 .usernotice {
   color: hsl(227, 87.7%, 68%);
   font-weight: bold;
   font-size: 24px;
 }
+
+.subtlenotice {
+  color: hsl(211, 63.4%, 50.8%);
+}
+
 .adminnotice {
   color: hsl(227, 87.7%, 68%);
 }
+
 .adminhelp {
   color: hsl(0, 100%, 50%);
   font-weight: bold;
 }
+
 .adminhelp_conclusion {
   display: block;
   color: white;
   text-align: center;
   background-color: black;
   border: 2px solid red;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 20px;
+}
+
+.testmerge_message {
+  display: block;
+  color: white;
+  text-align: center;
+  background-color: black;
+  border: 2px solid rgb(240, 160, 62);
   border-radius: 10px;
   padding: 10px;
   margin: 10px 20px;
@@ -632,6 +713,19 @@ em {
   background-color: black;
   border: 2px solid rgb(240, 62, 225);
   border-radius: 10px;
+  padding: 10px;
+  margin: 10px 20px;
+}
+
+.prisoner_message {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20px;
+  display: block;
+  color: #656062;
+  text-align: center;
+  background-color: #fff5ed;
+  border: 8px solid #9c958f;
+  border-radius: 0px;
   padding: 10px;
   margin: 10px 20px;
 }
@@ -765,6 +859,21 @@ em {
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
+}
+
+.awe {
+  color: hsl(227, 87.7%, 68%);
+  animation: aweGlow 2s ease-in-out infinite;
+}
+
+@keyframes aweGlow {
+  0%,
+  100% {
+    text-shadow: 0 0 8px rgb(255, 131, 197);
+  }
+  50% {
+    text-shadow: 0 0 16px rgb(255, 0, 136);
+  }
 }
 
 .deconversion_message {
@@ -993,49 +1102,65 @@ em {
   font-weight: bold;
   font-size: 24px;
 }
+
 .megaphone {
   font-weight: bold;
   font-size: 24px;
 }
+
 .small {
   font-size: 8px;
 }
+
+.slightly_larger {
+  font-size: 115%;
+}
+
 .big {
   font-size: 24px;
 }
+
 .reallybig {
   font-size: 32px;
 }
+
 .extremelybig {
   font-size: 40px;
 }
+
 .greentext {
   color: hsl(132.8, 93.4%, 29.6%);
   font-size: 24px;
 }
+
 .infotext {
   color: hsl(175.2, 87%, 57.8%);
   font-size: 24px;
 }
+
 .redtext {
   color: hsl(0, 73.6%, 44.5%);
   font-size: 24px;
 }
+
 .clowntext {
   color: hsl(326, 100%, 72%);
   font-size: 24px;
   font-family: 'Comic Sans MS', cursive, sans-serif;
   font-weight: bold;
 }
+
 .singing {
   font-family: 'Trebuchet MS', cursive, sans-serif;
   font-style: italic;
 }
+
 .his_grace {
   color: hsl(119.1, 84.4%, 45.3%);
   font-family: 'Courier New', cursive, sans-serif;
   font-style: italic;
 }
+
 .hypnophrase {
   color: hsl(0, 0%, 12.5%);
   font-weight: bold;
@@ -1079,6 +1204,20 @@ em {
 .icon {
   height: 1em;
   width: auto;
+}
+
+.bigicon {
+  font-size: 2.5em;
+}
+
+.hugeicon {
+  font-size: 5em;
+}
+
+.idicon {
+  min-height: 94px;
+  margin-top: -10%;
+  margin-bottom: -10%;
 }
 
 .memo {
@@ -1152,6 +1291,57 @@ em {
   border: 1px solid hsl(213.6, 37.9%, 74.1%);
   margin: 0.5em;
   padding: 0.5em 0.75em;
+}
+
+// Provides a horizontal bar with text in the middle
+// I got this off stackoverflow
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #a4bad6;
+}
+
+.separator:not(:empty)::before {
+  margin-right: 0.25em;
+}
+
+.separator:not(:empty)::after {
+  margin-left: 0.25em;
+}
+
+// Used to display images besides text
+.img_by_text_container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.img_by_text_container img {
+  width: 3em; // a css guru can probably dehardcode this later
+  height: auto;
+  margin-right: 12px;
+}
+
+.img_by_text_container .img_text {
+  flex-grow: 1;
+}
+
+.emoji_button {
+  border-radius: 4px;
+  padding-top: 4px;
+  padding-left: 1px;
+  padding-right: 1px;
+  margin: 0px 1px;
+  background: hsl(212, 45%, 25%);
+  border: 1px solid hsl(212, 37.6%, 100.9%);
 }
 
 //Job Colours
@@ -1591,12 +1781,30 @@ $border-width-px: $border-width * 1px;
   }
 
   .chat_alert_#{$color-name} .minor_announcement_text {
-    background-color: darken(map.get($alert-stripe-colors, $color-name), 5);
+    background-color: color.adjust(
+      map.get($alert-stripe-colors, $color-name),
+      $lightness: -5%
+    );
   }
 
   .chat_alert_#{$color-name} .major_announcement_text {
-    background-color: darken(map.get($alert-stripe-colors, $color-name), 5);
+    background-color: color.adjust(
+      map.get($alert-stripe-colors, $color-name),
+      $lightness: -5%
+    );
   }
+}
+
+.ml-1 {
+  margin-left: 1em;
+}
+
+.ml-2 {
+  margin-left: 2em;
+}
+
+.ml-3 {
+  margin-left: 2.5em;
 }
 
 .tooltip {

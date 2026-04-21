@@ -5,11 +5,12 @@
 /area/shuttle
 	name = "Shuttle"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	default_gravity = STANDARD_GRAVITY
 	always_unpowered = FALSE
 	// Loading the same shuttle map at a different time will produce distinct area instances.
 	area_flags = NONE
+	icon = 'icons/area/areas_station.dmi'
+	icon_state = "shuttle"
 	lighting_colour_tube = "#fff0dd"
 	lighting_colour_bulb = "#ffe1c1"
 	sound_environment = SOUND_ENVIRONMENT_ROOM
@@ -18,14 +19,9 @@
 	var/obj/docking_port/mobile/mobile_port
 	area_limited_icon_smoothing = /area/shuttle
 
-/area/shuttle/Initialize(mapload)
-	if(!canSmoothWithAreas)
-		canSmoothWithAreas = type
-	. = ..()
-
 /area/shuttle/Destroy()
 	mobile_port = null
-	. = ..()
+	return ..()
 
 //Returns how many shuttles are missing a skipovers on a given turf, this usually represents how many shuttles have hull breaches on this turf. This only works if this is the actual area of T when called.
 //TODO: optimize this somehow
@@ -68,7 +64,6 @@
 /area/shuttle/syndicate
 	name = "Syndicate Infiltrator"
 	ambience_index = AMBIENCE_DANGER
-	canSmoothWithAreas = /area/shuttle/syndicate
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
 
 /area/shuttle/syndicate/bridge
@@ -93,21 +88,18 @@
 /area/shuttle/pirate
 	name = "Pirate Shuttle"
 	requires_power = TRUE
-	canSmoothWithAreas = /area/shuttle/pirate
 
 ////////////////////////////Bounty Hunter Shuttles////////////////////////////
 
 /area/shuttle/hunter
 	name = "Hunter Shuttle"
 	requires_power = TRUE
-	canSmoothWithAreas = /area/shuttle/hunter
 
 ////////////////////////////White Ship////////////////////////////
 
 /area/shuttle/abandoned
 	name = "Abandoned Ship"
 	requires_power = TRUE
-	canSmoothWithAreas = /area/shuttle/abandoned
 
 /area/shuttle/abandoned/bridge
 	name = "Abandoned Ship Bridge"
@@ -135,8 +127,8 @@
 /area/shuttle/transit
 	name = "Hyperspace"
 	desc = "Weeeeee"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	fullbright_type = FULLBRIGHT_STARLIGHT
+	static_lighting = FALSE
+	has_starlight_overlay = TRUE
 
 /area/shuttle/custom
 	name = "Custom player shuttle"
@@ -188,6 +180,9 @@
 
 /area/shuttle/escape
 	name = "Emergency Shuttle"
+	area_flags = BLOBS_ALLOWED | CULT_PERMITTED
+	area_limited_icon_smoothing = /area/shuttle/escape
+	flags_1 = CAN_BE_DIRTY_1
 	camera_networks = list(CAMERA_NETWORK_EVAC)
 
 /area/shuttle/escape/backup

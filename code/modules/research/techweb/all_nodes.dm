@@ -23,6 +23,8 @@
 		"design_disk",
 		"dest_tagger",
 		"destructive_analyzer",
+		"duct_tape",
+		"epaperread",
 		"fax",
 		"glasses_prescription",
 		"handlabel",
@@ -40,10 +42,12 @@
 		"plastitanium",
 		"plastitaniumglass",
 		"plumbing_rcd",
+		"portable_thermomachine",
 		"rdconsole",
 		"rdserver",
 		"rdservercontrol",
 		"rglass",
+		"salestagger",
 		"sec_38",
 		"sec_38b",
 		"sec_beanbag_slug",
@@ -54,12 +58,10 @@
 		"sec_Islug",
 		"sec_rshot",
 		"sec_slug",
-		"portable_thermomachine",
 		"tech_disk",
 		"titaniumglass",
 		"xenoa_labeler",
 		"xlarge_beaker",
-		"epaperread"
 	)
 
 /datum/techweb_node/mmi
@@ -99,7 +101,6 @@
 	display_name = "Mechanical Exosuits"
 	description = "Mechanized exosuits that are several magnitudes stronger and more powerful than the average human."
 	design_ids = list(
-		"mech_hydraulic_clamp",
 		"mech_recharger",
 		"mecha_tracking",
 		"mechacontrol",
@@ -113,6 +114,10 @@
 		"ripley_right_leg",
 		"ripley_torso",
 		"ripleyupgrade",
+		"mech_hydraulic_clamp",
+		"mech_radio",
+		"mech_air_tank",
+		"mech_thrusters",
 	)
 
 /datum/techweb_node/mod_basic
@@ -225,6 +230,7 @@
 		"comp_module",
 		"comp_multiplexer",
 		"comp_not",
+		"comp_noop",
 		"comp_ntnet_receive",
 		"comp_ntnet_send",
 		"comp_pathfind",
@@ -253,6 +259,26 @@
 		"integrated_circuit",
 		"module_duplicator",
 		"usb_cable",
+		"comp_gate_toggle",
+		"comp_gate_set_reset",
+	)
+
+/////////////////////Circuit Templates///////////////////
+/datum/techweb_node/circuit_templates
+	id = "circuit_templates"
+	tech_tier = 0
+	starting_node = TRUE
+	display_name = "Professor's Circuits"
+	description = "I need some help with circuits. Can you lend a hand?"
+	design_ids = list(
+		"template_notes",
+		"template_hello_world",
+		"template_greeter",
+		"template_ticker",
+		"template_simple_math",
+		"template_times_table",
+		"template_coin_flip",
+		"template_atmos_checker"
 	)
 
 /////////////////////////Biotech/////////////////////////
@@ -385,7 +411,7 @@
 	id = "alien_surgery"
 	tech_tier = 5
 	display_name = "Alien Surgery"
-	description = "Abductors did nothing wrong."
+	description = "Anything from brainwashing to reviving the dead. Alien technology."
 	prereq_ids = list(
 		"alientech",
 		"exp_surgery",
@@ -445,7 +471,6 @@
 		"plasmaman_tank",
 		"power control",
 		"powermonitor",
-		"rad_collector",
 		"recharger",
 		"recycler",
 		"researchdisk_locator",
@@ -870,6 +895,26 @@
 	design_ids = list("server_shell")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 
+//Circuit Templates
+/datum/techweb_node/advanced_circuit_templates
+	id = "advanced_circuit_templates"
+	tech_tier = 2
+	display_name = "Advanced Circuit Templates"
+	description = "Circuit Templates. Some broken, some not very useful"
+	prereq_ids = list(
+		"math_circuits",
+		"list_circuits",
+		"adv_shells",
+		"bci_shells",
+		"movable_shells",
+		"server_shell")
+	design_ids = list(
+		"template_broken_translator",
+		"template_scanning_gate",
+		"template_circuit_vendor"
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
+
 /////////////////////////robotics tech/////////////////////////
 /datum/techweb_node/robotics
 	id = "robotics"
@@ -1097,6 +1142,7 @@
 	description = "Honk?!"
 	prereq_ids = list("base")
 	design_ids = list(
+		"clown_car",
 		"air_horn",
 		"borg_transform_clown",
 		"clown_mine",
@@ -1154,7 +1200,6 @@
 	export_price = 2000
 	design_ids = list(
 		"antivirus",
-		"bat_control",
 		"bat_nano",
 		"bat_micro",
 		"cardslot",
@@ -1458,6 +1503,7 @@
 		"power_cord",
 		"robotic_ears",
 		"robotic_eyes",
+		"robotic_heart",
 		"robotic_liver",
 		"robotic_stomach",
 		"robotic_tongue",
@@ -1971,7 +2017,7 @@
 	design_ids = list(
 		"mod_plating_atmospheric",
 		"mod_jetpack",
-		//"mod_rad_protection",
+		"mod_rad_protection",
 		"mod_emp_shield",
 		"mod_storage_expanded",
 	)
@@ -2018,7 +2064,6 @@
 		"mod_visor_sechud",
 		"mod_stealth",
 		"mod_mag_harness",
-		"mod_pathfinder",
 		"mod_holster",
 		"mod_sonar",
 		"mod_projectile_dampener",
@@ -2192,7 +2237,6 @@
 	prereq_ids = list("adv_mecha")
 	design_ids = list(
 		"mech_rcd",
-		"mech_thrusters",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -2222,7 +2266,6 @@
 	)
 	design_ids = list(
 		"mech_ccw_armor",
-		"mech_energy_relay",
 		"mech_generator_nuclear",
 		"mech_proj_armor",
 	)

@@ -1,4 +1,5 @@
 /obj/item/storage
+	abstract_type = /obj/item/storage
 	name = "storage"
 	icon = 'icons/obj/storage/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
@@ -14,7 +15,8 @@
 /obj/item/storage/Initialize(mapload)
 	. = ..()
 
-	create_storage(storage_type = storage_type)
+	if(!istype(atom_storage))
+		create_storage(storage_type = storage_type)
 
 	if(empty)
 		return
@@ -56,7 +58,7 @@
 /obj/item/storage/proc/emptyStorage()
 	atom_storage.remove_all()
 
-/obj/item/storage/on_object_saved(var/depth = 0)
+/obj/item/storage/on_object_saved(depth = 0)
 	if(depth >= 10)
 		return ""
 	var/dat = ""

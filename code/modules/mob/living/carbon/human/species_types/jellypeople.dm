@@ -14,6 +14,10 @@
 		FACEHAIR,
 	)
 	inherent_traits = list(
+		TRAIT_TOXINLOVER,
+		TRAIT_NOHAIRLOSS,
+		TRAIT_NOFIRE,
+		TRAIT_EASYDISMEMBER,
 		TRAIT_NOBLOOD
 	)
 	hair_color = "mutcolor"
@@ -23,11 +27,11 @@
 	var/datum/action/innate/swap_body/swap_body
 
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/slime,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/slime,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/slime,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/slime,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/slime,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/slime,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/slime,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/slime,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/slime,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/slime,
 	)
 
@@ -89,7 +93,7 @@
 	name = "Split Body"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "slimesplit"
-	icon_icon = 'icons/hud/actions/actions_slime.dmi'
+	button_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/split_body/is_available()
@@ -133,7 +137,7 @@
 
 	spare.underwear = "Nude"
 	H.dna.transfer_identity(spare, transfer_SE=1)
-	spare.dna.features["mcolor"] = pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F")
+	spare.dna.features["mcolor"] = pick(COLOR_WHITE, "#7F7F7F", "#7FFF7F", "#7F7FFF", "#FF7F7F", "#7FFFFF", "#FF7FFF", "#FFFF7F")
 	spare.real_name = spare.dna.real_name
 	spare.name = spare.dna.real_name
 	spare.updateappearance(mutcolor_update=1)
@@ -164,7 +168,7 @@
 	name = "Swap Body"
 	check_flags = NONE
 	button_icon_state = "slimeswap"
-	icon_icon = 'icons/hud/actions/actions_slime.dmi'
+	button_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/swap_body/on_activate()
@@ -203,7 +207,7 @@
 
 		var/list/L = list()
 		// HTML colors need a # prefix
-		L["htmlcolor"] = "#[body.dna.features["mcolor"]]"
+		L["htmlcolor"] = body.dna.features["mcolor"]
 		L["area"] = get_area_name(body, TRUE)
 		var/stat = "error"
 		switch(body.stat)
@@ -308,11 +312,11 @@
 	id = SPECIES_LUMINESCENT
 	examine_limb_id = SPECIES_OOZELING
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/luminescent,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/luminescent,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/luminescent,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/luminescent,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/luminescent,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/luminescent,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/luminescent,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/luminescent,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/luminescent,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/luminescent,
 	)
 	var/glow_intensity = LUMINESCENT_DEFAULT_GLOW
@@ -371,7 +375,7 @@
 	desc = "Eat a slime extract to use its properties."
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "slimeconsume"
-	icon_icon = 'icons/hud/actions/actions_slime.dmi'
+	button_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/integrate_extract/proc/update_name()
@@ -437,7 +441,7 @@
 	desc = "Pulse the slime extract with energized jelly to activate it."
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "slimeuse1"
-	icon_icon = 'icons/hud/actions/actions_slime.dmi'
+	button_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 	var/activation_type = SLIME_ACTIVATE_MINOR
 
@@ -523,7 +527,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	name = "Send Thought"
 	desc = "Send a private psychic message to someone you can see."
 	button_icon_state = "send_mind"
-	icon_icon = 'icons/hud/actions/actions_slime.dmi'
+	button_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/project_thought/on_activate()
@@ -563,7 +567,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	name = "Link Minds"
 	desc = "Link someone's mind to your Slime Link, allowing them to communicate telepathically with other linked minds."
 	button_icon_state = "mindlink"
-	icon_icon = 'icons/hud/actions/actions_slime.dmi'
+	button_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 	/// The species required to use this ability. Typepath.
 	var/req_species = /datum/species/oozeling/stargazer

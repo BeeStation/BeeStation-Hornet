@@ -3,7 +3,7 @@
 	desc = "Don't cross the streams!"
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
-	item_state = "chronogun"
+	inhand_icon_state = "chronogun"
 	w_class = WEIGHT_CLASS_NORMAL
 	requires_wielding = FALSE
 	equip_time = 0
@@ -104,7 +104,7 @@
 	dummy.pass_flags |= PASSTABLE|PASSTRANSPARENT|PASSGRILLE //Grille/Glass so it can be used through common windows
 	var/turf/previous_step = user_turf
 	var/first_step = TRUE
-	for(var/turf/next_step as anything in (getline(user_turf, target) - user_turf))
+	for(var/turf/next_step as anything in (get_line(user_turf, target) - user_turf))
 		if(first_step)
 			for(var/obj/blocker in user_turf)
 				if(!blocker.density || !(blocker.flags_1 & ON_BORDER_1))
@@ -132,19 +132,22 @@
 	qdel(dummy)
 	return TRUE
 
-/obj/item/gun/medbeam/proc/on_beam_hit(var/mob/living/target)
+/obj/item/gun/medbeam/proc/on_beam_hit(mob/living/target)
 	return
 
-/obj/item/gun/medbeam/proc/on_beam_tick(var/mob/living/target)
+/obj/item/gun/medbeam/proc/on_beam_tick(mob/living/target)
 	if(target.health != target.maxHealth)
 		new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
-	target.adjustBruteLoss(-4)
-	target.adjustFireLoss(-4)
-	target.adjustToxLoss(-1, FALSE, TRUE)
-	target.adjustOxyLoss(-1)
+	var/need_mob_update
+	need_mob_update = target.adjustBruteLoss(-4, updating_health = FALSE, forced = TRUE)
+	need_mob_update += target.adjustFireLoss(-4, updating_health = FALSE, forced = TRUE)
+	need_mob_update += target.adjustToxLoss(-1, updating_health = FALSE, forced = TRUE)
+	need_mob_update += target.adjustOxyLoss(-1, updating_health = FALSE, forced = TRUE)
+	if(need_mob_update)
+		target.updatehealth()
 	return
 
-/obj/item/gun/medbeam/proc/on_beam_release(var/mob/living/target)
+/obj/item/gun/medbeam/proc/on_beam_release(mob/living/target)
 	return
 
 /obj/effect/ebeam/medical

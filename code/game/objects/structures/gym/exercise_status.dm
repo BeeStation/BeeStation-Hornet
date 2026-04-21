@@ -50,15 +50,17 @@
 		human_owner.physiology.stun_add -= delta
 		human_owner.physiology.stamina_mod -= delta
 		applied_amount = exercise_amount
+
+/datum/status_effect/exercised/get_examine_text()
 	switch (exercise_amount)
 		if (0.3 to 0.5)
-			examine_text = span_warning("[owner.p_they(TRUE)] seems exceptionally strong!")
+			return span_warning("[owner.p_They()] seem[owner.p_s()] exceptionally strong!")
 		if (0.1 to 0.3)
-			examine_text = span_warning("[owner.p_they(TRUE)] seems very strong!")
+			return span_warning("[owner.p_They()] seem[owner.p_s()] very strong!")
 		else
-			examine_text = span_warning("[owner.p_they(TRUE)] seems strong!")
+			return span_warning("[owner.p_They()] seem[owner.p_s()] strong!")
 
-/datum/status_effect/exercised/update_icon()
+/datum/status_effect/exercised/update_shown_duration()
 	linked_alert?.maptext = MAPTEXT("[round(100 * exercise_amount / EXERCISE_LIMIT, 1)]%")
 
 /atom/movable/screen/alert/status_effect/exercised

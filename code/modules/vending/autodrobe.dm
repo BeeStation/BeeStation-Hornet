@@ -168,7 +168,6 @@
 	refill_canister = /obj/item/vending_refill/autodrobe
 	default_price = 50
 	extra_price = 75
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_mask="theater-light-mask"
 
 /obj/machinery/vending/autodrobe/all_access

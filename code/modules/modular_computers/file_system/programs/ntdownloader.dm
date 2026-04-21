@@ -6,11 +6,11 @@
 	undeletable = TRUE
 	size = 4
 	requires_ntnet = TRUE
-	requires_ntnet_feature = NTNET_SOFTWAREDOWNLOAD
 	available_on_ntnet = FALSE
 	ui_header = "downloader_finished.gif"
 	tgui_id = "NtosNetDownloader"
 	program_icon = "download"
+	power_consumption = 80 WATT
 
 
 
@@ -23,6 +23,7 @@
 	var/emagged = FALSE
 	var/list/main_repo
 	var/list/antag_repo
+
 	var/list/show_categories = list(
 		PROGRAM_CATEGORY_CREW,
 		PROGRAM_CATEGORY_ENGI,
@@ -35,8 +36,8 @@
 	. = ..()
 	if(!.)
 		return
-	main_repo = SSnetworks.station_network.available_station_software
-	antag_repo = SSnetworks.station_network.available_antag_software
+	main_repo = SSmodular_computers.available_station_software
+	antag_repo = SSmodular_computers.available_antag_software
 
 /datum/computer_file/program/ntnetdownload/run_emag()
 	if(emagged)
@@ -49,7 +50,7 @@
 	if(downloaded_file)
 		return 0
 
-	var/datum/computer_file/program/PRG = SSnetworks.station_network.find_ntnet_file_by_name(filename)
+	var/datum/computer_file/program/PRG = SSmodular_computers.find_ntnet_file_by_name(filename)
 
 	if(!PRG || !istype(PRG))
 		return 0
@@ -199,10 +200,11 @@
 	ui_header = "downloader_finished.gif"
 	tgui_id = "NtosNetDownloader"
 	emagged = TRUE
+	power_consumption = 10 WATT
 
 /datum/computer_file/program/ntnetdownload/syndicate/on_start()
 	. = ..()
 	if(!.)
 		return
-	main_repo = SSnetworks.station_network.available_antag_software
+	main_repo = SSmodular_computers.available_antag_software
 	antag_repo = null

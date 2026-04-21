@@ -4,8 +4,9 @@
 	id = "hallucination"
 	alert_type = null
 	tick_interval = 2 SECONDS
-	/// Can this hallucination apply to silicons?
-	var/affects_silicons = FALSE
+	remove_on_fullheal = TRUE
+	/// Biotypes which cannot hallucinate.
+	var/barred_biotypes = NO_HALLUCINATION_BIOTYPES
 	/// The lower range of when the next hallucination will trigger after one occurs.
 	var/lower_tick_interval = 10 SECONDS
 	/// The upper range of when the next hallucination will trigger after one occurs.
@@ -13,22 +14,15 @@
 	/// The cooldown for when the next hallucination can occur
 	COOLDOWN_DECLARE(hallucination_cooldown)
 
-/datum/status_effect/hallucination/on_creation(
-	mob/living/new_owner,
-	duration,
-	affects_silicons = FALSE,
-)
-
-	if(isnum(duration))
-		src.duration = duration
-	src.affects_silicons = affects_silicons
+/datum/status_effect/hallucination/on_creation(mob/living/new_owner, new_duration)
+	if(isnum(new_duration))
+		src.duration = new_duration
 	return ..()
 
 /datum/status_effect/hallucination/on_apply()
-	if(!affects_silicons && issilicon(owner))
+	if(owner.mob_biotypes & barred_biotypes)
 		return FALSE
 
-	RegisterSignal(owner, COMSIG_LIVING_POST_FULLY_HEAL, PROC_REF(remove_hallucinations))
 	RegisterSignal(owner, COMSIG_LIVING_HEALTHSCAN, PROC_REF(on_health_scan))
 	if(iscarbon(owner))
 		RegisterSignal(owner, COMSIG_CARBON_CHECKING_BODYPART, PROC_REF(on_check_bodypart))
@@ -38,17 +32,10 @@
 
 /datum/status_effect/hallucination/on_remove()
 	UnregisterSignal(owner, list(
-		COMSIG_LIVING_POST_FULLY_HEAL,
 		COMSIG_LIVING_HEALTHSCAN,
 		COMSIG_CARBON_CHECKING_BODYPART,
 		COMSIG_CARBON_BUMPED_AIRLOCK_OPEN,
 	))
-
-/// Signal proc for [COMSIG_LIVING_POST_FULLY_HEAL], terminate on full heal
-/datum/status_effect/hallucination/proc/remove_hallucinations(datum/source)
-	SIGNAL_HANDLER
-
-	qdel(src)
 
 /// Signal proc for [COMSIG_LIVING_HEALTHSCAN]. Show we're hallucinating to (advanced) scanners.
 /datum/status_effect/hallucination/proc/on_health_scan(datum/source, list/render_list, advanced, mob/user, mode)
@@ -81,7 +68,7 @@
 	source.cause_hallucination(/datum/hallucination/shock, "hallucinated shock from [bumped]",)
 	return STOP_BUMP
 
-/datum/status_effect/hallucination/tick(delta_time, times_fired)
+/datum/status_effect/hallucination/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		return
 	if(!COOLDOWN_FINISHED(src, hallucination_cooldown))
@@ -95,7 +82,7 @@
 /datum/status_effect/hallucination/sanity
 	id = "low sanity"
 	status_type = STATUS_EFFECT_REFRESH
-	duration = -1 // This lasts "forever", only goes away with sanity gain
+	duration = -STATUS_EFFECT_PERMANENT // This lasts "forever", only goes away with sanity gain
 
 /datum/status_effect/hallucination/sanity/on_apply()
 	if(!owner.mob_mood)

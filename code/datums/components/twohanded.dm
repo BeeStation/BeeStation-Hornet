@@ -270,9 +270,9 @@
 	// Update icons
 	parent_item.update_icon()
 	if(wielder.get_item_by_slot(ITEM_SLOT_BACK) == parent)
-		wielder.update_inv_back()
+		wielder.update_worn_back()
 	else
-		wielder.update_inv_hands()
+		wielder.update_held_items()
 
 	// if the item requires two handed drop the item on unwield
 	if(require_twohands)

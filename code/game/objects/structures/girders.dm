@@ -8,7 +8,6 @@
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	layer = BELOW_OBJ_LAYER
 	max_integrity = 200
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	base_icon_state = "girder"
 	smoothing_flags = SMOOTH_BITMASK
@@ -314,10 +313,12 @@
 	if((mover.pass_flags & PASSGRILLE) || isprojectile(mover))
 		return prob(girderpasschance)
 
-/obj/structure/girder/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
-	. = !density
-	if(istype(passing_atom))
-		. = . || (passing_atom.pass_flags & PASSGRILLE)
+/obj/structure/girder/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags & PASSGRILLE)
+		return TRUE
+	return FALSE
 
 /obj/structure/girder/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))

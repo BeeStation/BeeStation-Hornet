@@ -48,7 +48,6 @@
 		damage *= 1.1
 	damage = round(damage / 2) // borgs receive half damage
 	adjustBruteLoss(damage)
-	updatehealth()
 
 	return
 
@@ -70,7 +69,7 @@
 
 /mob/living/silicon/robot/fire_act()
 	if(!on_fire) //Silicons don't gain stacks from hotspots, but hotspots can ignite them
-		IgniteMob()
+		ignite_mob()
 
 
 /mob/living/silicon/robot/emp_act(severity)
@@ -217,29 +216,8 @@
 			if (stat != DEAD)
 				adjustBruteLoss(30)
 
-/mob/living/silicon/robot/bullet_act(var/obj/projectile/Proj, def_zone)
+/mob/living/silicon/robot/bullet_act(obj/projectile/Proj, def_zone)
 	. = ..()
 	updatehealth()
 	if(prob(75) && Proj.damage > 0)
 		spark_system.start()
-
-/mob/living/silicon/robot/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
-	. = ..()
-	if(isnull(.))
-		return
-	if(. <= (maxHealth * 0.5))
-		if(getOxyLoss() > (maxHealth * 0.5))
-			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-	else if(getOxyLoss() <= (maxHealth * 0.5))
-		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-
-
-/mob/living/silicon/robot/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
-	. = ..()
-	if(isnull(.))
-		return
-	if(. <= (maxHealth * 0.5))
-		if(getOxyLoss() > (maxHealth * 0.5))
-			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-	else if(getOxyLoss() <= (maxHealth * 0.5))
-		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)

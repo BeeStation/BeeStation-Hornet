@@ -12,12 +12,11 @@
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/bridge)
 "ae" = (
-/obj/structure/window/plastitanium,
 /obj/machinery/door/poddoor/shutters{
 	id = "syndieshutters";
 	name = "blast Shutters"
 	},
-/obj/structure/grille,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/syndicate/bridge)
 "af" = (
@@ -162,8 +161,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
 "aV" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/syndicate/hallway)
 "aX" = (
@@ -224,13 +222,11 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/eva)
 "bg" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/syndicate/eva)
 "bh" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/syndicate/airlock)
 "bi" = (
@@ -326,13 +322,11 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
 "bv" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/syndicate/medical)
 "bw" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/syndicate/armory)
 "bx" = (
@@ -405,9 +399,8 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/medical)
 "bK" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "150"
-	},
+/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -420,9 +413,8 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/hallway)
 "bM" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "150"
-	},
+/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -486,9 +478,7 @@
 /area/shuttle/syndicate/medical)
 "cr" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/syndicate/hallway)
@@ -504,9 +494,7 @@
 /area/shuttle/syndicate/armory)
 "cu" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/syndicate/medical)
@@ -527,9 +515,7 @@
 /area/shuttle/syndicate/hallway)
 "cy" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/syndicate/armory)
@@ -597,17 +583,17 @@
 /area/shuttle/syndicate/bridge)
 "iF" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/cable_coil/white,
-/obj/item/stack/cable_coil/white,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
 /obj/item/crowbar/red,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
 "jp" = (
 /obj/machinery/door/airlock/hatch{
-	name = "Cockpit";
-	req_access_txt = "150"
+	name = "Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/bridge)
@@ -636,9 +622,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
 "mt" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/item/storage/firstaid/regular{
 	pixel_x = 3;
 	pixel_y = 3
@@ -712,9 +696,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
 "wJ" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/table/reinforced,
 /obj/item/aicard,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -734,9 +716,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
 "yk" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -788,11 +768,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
 "El" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/item/bodypart/r_arm/robot,
-/obj/item/bodypart/l_arm/robot,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/item/bodypart/arm/right/robot,
+/obj/item/bodypart/arm/left/robot,
 /obj/structure/table/reinforced,
 /obj/item/toy/plush/nukeplushie,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -834,9 +812,8 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
 "Ga" = (
-/obj/machinery/door/airlock/external{
-	req_access_txt = "150"
-	},
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/airlock)
@@ -862,9 +839,9 @@
 /area/shuttle/syndicate/medical)
 "Mn" = (
 /obj/machinery/door/airlock/external{
-	name = "E.V.A. Gear Storage";
-	req_access_txt = "150"
+	name = "E.V.A. Gear Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
@@ -879,9 +856,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
 "Ok" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -896,9 +871,7 @@
 	pixel_x = -1
 	},
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/grenade/plastic/c4,
 /obj/item/grenade/plastic/c4,
 /obj/item/grenade/plastic/c4,
@@ -929,9 +902,9 @@
 /area/shuttle/syndicate/armory)
 "Ub" = (
 /obj/machinery/door/airlock/external{
-	name = "Ready Room";
-	req_access_txt = "150"
+	name = "Ready Room"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)

@@ -6,7 +6,7 @@ disallow_relative_type_definitions = true
 disallow_relative_proc_definitions = true
 
 [diagnostics]
-var_in_proc_parameter = "off"
+var_in_proc_parameter = "warning"
 
 [debugger]
 engine = "auxtools"

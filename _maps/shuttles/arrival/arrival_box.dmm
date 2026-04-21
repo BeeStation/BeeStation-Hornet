@@ -13,7 +13,7 @@
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "d" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "e" = (
@@ -25,7 +25,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/arrival)
 "g" = (
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -62,9 +62,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "n" = (
@@ -74,7 +72,7 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "o" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/arrival)

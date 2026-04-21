@@ -3,7 +3,7 @@
 	desc = "A small electronic device that should never exist."
 	icon = 'icons/obj/assemblies/new_assemblies.dmi'
 	icon_state = ""
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=100)
 	throwforce = 2
@@ -35,7 +35,7 @@
  * Will also be called if the assembly holder is attached to a plasma (internals) tank or welding fuel (dispenser) tank.
  */
 
-/obj/item/assembly/proc/on_attach(var/obj/structure/reagent_dispensers/T)
+/obj/item/assembly/proc/on_attach(obj/structure/reagent_dispensers/T)
 	if(!holder && connected)
 		holder = connected.holder
 	if(T)

@@ -4,18 +4,22 @@
 	icon = 'icons/mob/human.dmi'
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	COOLDOWN_DECLARE(special_emote_cooldown)
+	COOLDOWN_DECLARE(block_cooldown)
 
 /mob/living/carbon/human/Initialize(mapload)
 	add_verb(/mob/living/proc/mob_sleep)
 	add_verb(/mob/living/proc/toggle_resting)
 
-	icon_state = ""		//Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
+	icon_state = "" //Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
 
 	//initialize limbs first
 	create_bodyparts()
 
 	setup_mood()
-
+	// This needs to be called very very early in human init (before organs / species are created at the minimum)
+	setup_organless_effects()
+	// Physiology needs to be created before species, as some species modify physiology
+	setup_physiology()
 	setup_human_dna()
 
 
@@ -26,7 +30,6 @@
 
 	//initialise organs
 	create_internal_organs() //most of it is done in set_species now, this is only for parent call
-	physiology = new()
 
 	. = ..()
 
@@ -43,6 +46,9 @@
 	AddElement(/datum/element/mechanical_repair)
 	GLOB.human_list += src
 
+/mob/living/carbon/human/proc/setup_physiology()
+	physiology = new()
+
 /mob/living/carbon/human/proc/setup_mood()
 	if (CONFIG_GET(flag/disable_human_mood))
 		return
@@ -50,15 +56,23 @@
 		return
 	mob_mood = new /datum/mood(src)
 
+/// This proc is for holding effects applied when a mob is missing certain organs
+/// It is called very, very early in human init because all humans innately spawn with no organs and gain them during init
+/// Gaining said organs removes these effects
+/mob/living/carbon/human/proc/setup_organless_effects()
+	// All start without eyes, and get them via set species
+	//become_blind(NO_EYES)
+	// Mobs cannot taste anything without a tongue; the tongue organ removes this on Insert
+	ADD_TRAIT(src, TRAIT_AGEUSIA, NO_TONGUE_TRAIT)
+
 /mob/living/carbon/human/proc/setup_human_dna()
 	//initialize dna. for spawned humans; overwritten by other code
 	create_dna(src)
-	randomize_human(src, TRUE)
+	randomize_human(src)
 	dna.initialize_dna()
 
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
-	QDEL_LIST(bioware)
 	GLOB.suit_sensors_list -= src
 	GLOB.human_list -= src
 
@@ -66,7 +80,6 @@
 		QDEL_NULL(mob_mood)
 
 	return ..()
-
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...
@@ -114,6 +127,64 @@
 	return ..()
 
 /mob/living/carbon/human/Topic(href, href_list)
+	if(href_list["see_id"])
+		var/mob/viewer = usr
+		var/can_see_still = (viewer in viewers(src))
+
+		var/obj/item/card/id/id = wear_id?.GetID()
+		if(!istype(id))
+			id = get_active_held_item()
+		if(!istype(id))
+			id = get_inactive_held_item()
+
+		var/same_id = istype(id) && (href_list["id_ref"] == REF(id) || href_list["id_name"] == id.registered_name)
+		if(!same_id && can_see_still)
+			to_chat(viewer, span_notice("[p_They()] [p_are()] no longer wearing that ID card."))
+			return
+
+		var/viable_time = can_see_still ? 3 MINUTES : 1 MINUTES // assuming 3min is the length of a hop line visit - give some leeway if they're still in sight
+		if(!same_id || (text2num(href_list["examine_time"]) + viable_time) < world.time)
+			to_chat(viewer, span_notice("You don't have that good of a memory. Examine [p_them()] again."))
+			return
+		if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+			to_chat(viewer, span_notice("You can't make out that ID anymore."))
+			return
+		if(!isobserver(viewer) && get_dist(viewer, src) > ID_EXAMINE_DISTANCE + 1) // leeway, ignored if the viewer is a ghost
+			to_chat(viewer, span_notice("You can't make out that ID from here."))
+			return
+
+		var/id_name = id.registered_name
+		var/id_age = id.registered_age
+		var/id_job = id.assignment
+		// Should probably be recorded on the ID, but this is easier (albiet more restrictive) on chameleon ID users
+		var/datum/record/crew/record = find_record(id_name, GLOB.manifest.general)
+		var/id_blood_type = record?.blood_type
+		var/id_gender = record?.gender
+		var/id_species = record?.species
+		var/id_icon = jointext(id.get_id_examine_strings(viewer), "")
+		// Fill in some blanks for chameleon IDs to maintain the illusion of a real ID
+		if(istype(id, /obj/item/card/id/syndicate))
+			id_gender ||= gender
+			id_species ||= dna.species.name
+			id_blood_type ||= dna.blood_type?.name
+
+		var/id_examine = span_slightly_larger(separator_hr("This is <em>[id.get_examine_name(viewer)]</em>."))
+		id_examine += "<div class='img_by_text_container'>"
+		id_examine += "[id_icon]"
+		id_examine += "<div class='img_text'>"
+		id_examine += jointext(list(
+			"&bull; Name: [id_name || "Unknown"]",
+			"&bull; Job: [id_job || "Unassigned"]",
+			"&bull; Age: [id_age || "Unknown"]",
+			"&bull; Gender: [id_gender || "Unknown"]",
+			"&bull; Blood Type: [id_blood_type || "?"]",
+			"&bull; Species: [id_species || "Unknown"]",
+		), "<br>")
+		id_examine += "</div>" // container
+		id_examine += "</div>" // text
+
+		to_chat(viewer, examine_block(span_info(id_examine)))
+
 	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		var/obj/item/bodypart/L = locate(href_list["embedded_limb"]) in bodyparts
 		if(!L)
@@ -254,7 +325,7 @@
 					investigate_log("SecHUD auto-crime | Added to [target_record.name] by [key_name(human_user)]", INVESTIGATE_RECORDS)
 
 				investigate_log("has been set from [target_record.wanted_status] to [new_status] via HUD by [key_name(human_user)].", INVESTIGATE_RECORDS)
-				target_record.wanted_status = new_status
+				target_record.set_wanted_status(human_user, new_status)
 				update_matching_security_huds(target_record.name)
 				return
 
@@ -317,7 +388,7 @@
 /mob/living/carbon/human/can_inject(mob/user, target_zone, injection_flags)
 	. = TRUE // Default to returning true.
 	if(user && !target_zone)
-		target_zone = user.get_combat_bodyzone()
+		target_zone = user.get_combat_bodyzone(zone_context = BODYZONE_CONTEXT_INJECTION)
 	var/obj/item/bodypart/the_part = get_bodypart(target_zone) || get_bodypart(BODY_ZONE_CHEST)
 	// we may choose to ignore species trait pierce immunity in case we still want to check skellies for thick clothing without insta failing them (wounds)
 	if(injection_flags & INJECT_CHECK_IGNORE_SPECIES)
@@ -331,7 +402,7 @@
 		return FALSE
 	// Loop through the clothing covering this bodypart and see if there's any thiccmaterials
 	var/require_thickness = (injection_flags & INJECT_CHECK_PENETRATE_THICK)
-	for(var/obj/item/clothing/iter_clothing in clothingonpart(the_part))
+	for(var/obj/item/clothing/iter_clothing in get_clothing_on_part(the_part))
 		// If it has armour, it has enough thickness to block basic things
 		if(!require_thickness && (iter_clothing.get_armor().get_rating(MELEE) >= 20 || iter_clothing.get_armor().get_rating(BULLET) >= 20))
 			if (user && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE))
@@ -439,14 +510,13 @@
 	update_body()
 	update_hair()
 
-/mob/living/carbon/human/singularity_pull(S, current_size)
-	..()
+/mob/living/carbon/human/singularity_pull(obj/anomaly/singularity/singularity, current_size)
+	. = ..()
 	if(current_size >= STAGE_THREE)
 		for(var/obj/item/hand in held_items)
-			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)  && dropItemToGround(hand))
+			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2) && dropItemToGround(hand))
 				step_towards(hand, src)
-				to_chat(src, span_warning("\The [S] pulls \the [hand] from your grip!"))
-	rad_act(current_size * 3)
+				to_chat(src, span_warning("\The [singularity] pulls \the [hand] from your grip!"))
 
 #define CPR_PANIC_SPEED (0.8 SECONDS)
 
@@ -537,10 +607,10 @@
 
 	if(gloves)
 		if(gloves.wash(clean_types))
-			update_inv_gloves()
+			update_worn_gloves()
 	else if((clean_types & CLEAN_TYPE_BLOOD) && blood_in_hands > 0)
 		blood_in_hands = 0
-		update_inv_gloves()
+		update_worn_gloves()
 
 	return TRUE
 
@@ -563,12 +633,12 @@
 		. = TRUE
 
 	if(glasses && is_eyes_covered(FALSE, TRUE, TRUE) && glasses.wash(clean_types))
-		update_inv_glasses()
+		update_worn_glasses()
 		. = TRUE
 
 	var/list/obscured = check_obscured_slots()
 	if(wear_mask && !(ITEM_SLOT_MASK in obscured) && wear_mask.wash(clean_types))
-		update_inv_wear_mask()
+		update_worn_mask()
 		. = TRUE
 
 /**
@@ -579,18 +649,18 @@
 
 	// Wash equipped stuff that cannot be covered
 	if(wear_suit?.wash(clean_types))
-		update_inv_wear_suit()
+		update_worn_oversuit()
 		. = TRUE
 
 	if(belt?.wash(clean_types))
-		update_inv_belt()
+		update_worn_belt()
 		. = TRUE
 
 	// Check and wash stuff that can be covered
 	var/list/obscured = check_obscured_slots()
 
 	if(w_uniform && !(ITEM_SLOT_ICLOTHING in obscured) && w_uniform.wash(clean_types))
-		update_inv_w_uniform()
+		update_worn_undersuit()
 		. = TRUE
 
 	if(!is_mouth_covered() && clean_lips())
@@ -599,27 +669,36 @@
 	// Wash hands if exposed
 	if(!gloves && (clean_types & CLEAN_TYPE_BLOOD) && blood_in_hands > 0 && !(ITEM_SLOT_GLOVES in obscured))
 		blood_in_hands = 0
-		update_inv_gloves()
+		update_worn_gloves()
 		. = TRUE
 
 //Turns a mob black, flashes a skeleton overlay
 //Just like a cartoon!
 /mob/living/carbon/human/proc/electrocution_animation(anim_duration)
-	//Handle mutant parts if possible
-	if(dna?.species)
-		add_atom_colour("#000000", TEMPORARY_COLOUR_PRIORITY)
-		var/static/mutable_appearance/electrocution_skeleton_anim
-		if(!electrocution_skeleton_anim)
-			electrocution_skeleton_anim = mutable_appearance(icon, "electrocuted_base")
-			electrocution_skeleton_anim.appearance_flags |= RESET_COLOR|KEEP_APART
-		add_overlay(electrocution_skeleton_anim)
-		addtimer(CALLBACK(src, PROC_REF(end_electrocution_animation), electrocution_skeleton_anim), anim_duration)
+	var/mutable_appearance/zap_appearance
 
-	else //or just do a generic animation
-		flick_overlay_view(image(icon,src,"electrocuted_generic",ABOVE_MOB_LAYER), src, anim_duration)
+	// If we have a species, we need to handle mutant parts and stuff
+	if(dna?.species)
+		add_atom_colour(COLOR_BLACK, TEMPORARY_COLOUR_PRIORITY)
+		var/static/mutable_appearance/shock_animation_dna
+		if(!shock_animation_dna)
+			shock_animation_dna = mutable_appearance(icon, "electrocuted_base")
+			shock_animation_dna.appearance_flags |= RESET_COLOR|KEEP_APART
+		zap_appearance = shock_animation_dna
+
+	// Otherwise do a generic animation
+	else
+		var/static/mutable_appearance/shock_animation_generic
+		if(!shock_animation_generic)
+			shock_animation_generic = mutable_appearance(icon, "electrocuted_generic")
+			shock_animation_generic.appearance_flags |= RESET_COLOR|KEEP_APART
+		zap_appearance = shock_animation_generic
+
+	add_overlay(zap_appearance)
+	addtimer(CALLBACK(src, PROC_REF(end_electrocution_animation), zap_appearance), anim_duration)
 
 /mob/living/carbon/human/proc/end_electrocution_animation(mutable_appearance/MA)
-	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#000000")
+	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_BLACK)
 	cut_overlay(MA)
 
 /mob/living/carbon/human/can_interact_with(atom/A, treat_mob_as_adjacent)
@@ -709,27 +788,22 @@
 	for(var/t in get_disabled_limbs()) //Disabled limbs
 		hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]7"))
 
-/mob/living/carbon/human/fully_heal(admin_revive = FALSE)
-	dna?.species.spec_fully_heal(src)
-	if(admin_revive)
-		regenerate_limbs()
-		regenerate_organs()
-		if(ismoth(src))
-			REMOVE_TRAIT(src, TRAIT_MOTH_BURNT, "fire")
-	remove_all_embedded_objects()
-	set_heartattack(FALSE)
-	drunkenness = 0
-	for(var/datum/mutation/HM as() in dna.mutations)
-		if(HM.quality != POSITIVE)
-			dna.remove_mutation(HM.name)
-	coretemperature = get_body_temp_normal(apply_change=FALSE)
-	heat_exposure_stacks = 0
-	..()
+/mob/living/carbon/human/fully_heal(heal_flags = HEAL_ALL)
+	if(heal_flags & HEAL_NEGATIVE_MUTATIONS)
+		for(var/datum/mutation/human/existing_mutation in dna.mutations)
+			if(existing_mutation.quality != POSITIVE)
+				dna.remove_mutation(existing_mutation.name)
+
+	if(heal_flags & HEAL_TEMP)
+		coretemperature = get_body_temp_normal(apply_change = FALSE)
+		heat_exposure_stacks = 0
+
+	return ..()
 
 /mob/living/carbon/human/is_literate()
 	return TRUE
 
-/mob/living/carbon/human/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1, toxic = 0)
+/mob/living/carbon/human/vomit(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, toxic = 0)
 	if(blood && HAS_TRAIT(src, TRAIT_NOBLOOD))
 		if(message)
 			visible_message(span_warning("[src] dry heaves!"), \
@@ -843,7 +917,7 @@
 		if(isnull(dna.species))
 			to_chat(usr, "The species of [src] is null, aborting.")
 		var/old_name = real_name
-		fully_replace_character_name(real_name, dna.species.random_name(gender))
+		fully_replace_character_name(real_name, generate_random_mob_name())
 		log_admin("[key_name(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].")
 		message_admins(span_notice("[key_name_admin(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name]."))
 
@@ -950,7 +1024,7 @@
 	return ((ishuman(target) || ismonkey(target)) && target.body_position == LYING_DOWN)
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
-	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB))
+	if(!can_be_firemanned(target) || INCAPACITATED_IGNORING(src, INCAPABLE_GRAB))
 		to_chat(src, span_notice("You can't fireman carry [target] while they're standing!"))
 		return
 
@@ -972,7 +1046,7 @@
 		return
 
 	//Second check to make sure they're still valid to be carried
-	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB) || target.buckled)
+	if(!can_be_firemanned(target) || INCAPACITATED_IGNORING(src, INCAPABLE_GRAB) || target.buckled)
 		target.visible_message(span_warning("[target] can't hang on to [src]!"))
 		return
 
@@ -988,7 +1062,7 @@
 		visible_message(span_warning("[target] fails to climb onto [src]!"))
 		return
 
-	if(target.incapacitated(IGNORE_GRAB) || incapacitated(IGNORE_GRAB))
+	if(INCAPACITATED_IGNORING(target, INCAPABLE_GRAB) || INCAPACITATED_IGNORING(src, INCAPABLE_GRAB))
 		target.visible_message(span_warning("[target] can't hang onto [src]!"))
 		return
 
@@ -1041,7 +1115,7 @@
 		return FALSE
 	return ..()
 
-/mob/living/carbon/human/proc/stub_toe(var/power)
+/mob/living/carbon/human/proc/stub_toe(power)
 	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))
 		power *= 0.5
 		src.emote("gasp")
@@ -1049,6 +1123,12 @@
 		src.emote("scream")
 	src.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 	src.Paralyze(10 * power)
+
+/mob/living/carbon/human/get_exp_list(minutes)
+	. = ..()
+
+	if(mind.assigned_role in SSjob.name_occupations)
+		.[mind.assigned_role] = minutes
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey

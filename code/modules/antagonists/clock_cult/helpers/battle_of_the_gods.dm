@@ -10,9 +10,9 @@ GLOBAL_VAR(narsie_arrival)
 		return TRUE
 	return FALSE
 
+// Oh dear god what have you done.
+// The only way this is actually possible in game is on dynamic (with restrictions turned off) and cult summon nar'sie after the ark activates.
 /proc/trigger_battle_of_the_gods()
-	//Oh dear god what have you done.
-	//The only way this is actually possible in game is on dynamic (with restrictions turned off) and cult summon nar'sie after the ark activates.
 	to_chat(world, span_userdanger("You feel a wave of dread wash over you."))
 	var/obj/eldritch/ratvar/R = GLOB.cult_ratvar
 	var/obj/eldritch/narsie/N = GLOB.narsie

@@ -1,6 +1,7 @@
 #define DONUT_SPRINKLE_CHANCE 30
 
 /obj/item/food/donut
+	abstract_type = /obj/item/food/donut
 	name = "donut"
 	desc = "Goes great with robust coffee."
 	icon = 'icons/obj/food/donuts.dmi'
@@ -58,17 +59,6 @@
 //Regular, tasty donut.
 /obj/item/food/donut/plain
 	icon_state = "donut"
-
-//Its like eating an Midwest donut, versus a scrumptious East Coast donut. Not very filling and you just want to eat more
-/obj/item/food/donut/premade
-	name = "prepackaged donut"
-	desc = "A mass produced donut, goes great with a cup of coffee."
-	icon_state = "donut"
-	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 3,
-		/datum/reagent/consumable/sprinkles = 1,
-		/datum/reagent/consumable/sugar = 2
-	)
 
 /obj/item/food/donut/chaos
 	name = "chaos donut"

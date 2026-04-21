@@ -34,8 +34,8 @@
 	speed = 4
 	move_to_delay = 10
 	mouse_opacity = MOUSE_OPACITY_ICON
-	deathsound = 'sound/magic/demon_dies.ogg'
-	deathmessage = "begins to shudder as it becomes transparent..."
+	death_sound = 'sound/magic/demon_dies.ogg'
+	death_message = "begins to shudder as it becomes transparent..."
 	loot_drop = /obj/item/clothing/neck/cloak/herald_cloak
 
 	can_talk = 1
@@ -58,9 +58,11 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/become_ghost()
 	icon_state = "herald_ghost"
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/simple_animal/hostile/asteroid/elite/herald/send_speech(message_raw, message_range, obj/source, bubble_type, list/spans, datum/language/message_language, list/message_mods, forced)
 	. = ..()
-	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
+	if(stat != CONSCIOUS)
+		return
+	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 
 /datum/action/innate/elite_attack/herald_trishot
 	name = "Triple Shot"
@@ -121,7 +123,7 @@
 		if(HERALD_MIRROR)
 			herald_mirror()
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/proc/shoot_projectile(turf/marker, set_angle, var/is_teleshot)
+/mob/living/simple_animal/hostile/asteroid/elite/herald/proc/shoot_projectile(turf/marker, set_angle, is_teleshot)
 	var/turf/startloc = get_turf(src)
 	var/obj/projectile/herald/H = null
 	if(!is_teleshot)
@@ -193,8 +195,8 @@
 	health = 30
 	maxHealth = 30
 	icon_state = "herald_mirror"
-	deathmessage = "shatters violently!"
-	deathsound = 'sound/effects/glassbr1.ogg'
+	death_message = "shatters violently!"
+	death_sound = 'sound/effects/glassbr1.ogg'
 	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	del_on_death = TRUE
@@ -264,7 +266,7 @@
 	H.firer = owner
 	H.fire(set_angle)
 
-/obj/item/clothing/neck/cloak/herald_cloak/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/neck/cloak/herald_cloak/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	. = ..()
 	if(rand(1,100) > hit_reaction_chance)
 		return

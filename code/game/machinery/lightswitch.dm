@@ -6,6 +6,7 @@
 	desc = "Make dark."
 	power_channel = AREA_USAGE_LIGHT
 	layer = ABOVE_WINDOW_LAYER
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	/// Set this to a string, path, or area instance to control that area
 	/// instead of the switch's location.
 	var/area/area = null
@@ -112,7 +113,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 
 /obj/machinery/light_switch/tcomms
 	name = "Server Room light switch"
-	area = /area/tcommsat/server
+	area = /area/station/tcommsat/server
 
 /obj/item/wallframe/light_switch
 	name = "light switch frame"

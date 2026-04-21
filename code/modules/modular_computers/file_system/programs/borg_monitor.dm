@@ -11,6 +11,7 @@
 	size = 6
 	tgui_id = "NtosCyborgRemoteMonitor"
 	program_icon = "project-diagram"
+	power_consumption = 100 WATT
 	var/emagged = FALSE
 
 /datum/computer_file/program/borg_monitor/run_emag()
@@ -111,6 +112,7 @@
 	available_on_syndinet = TRUE
 	transfer_access = null
 	tgui_id = "NtosCyborgRemoteMonitorSyndicate"
+	power_consumption = 10 WATT
 
 /datum/computer_file/program/borg_monitor/syndicate/run_emag()
 	return FALSE

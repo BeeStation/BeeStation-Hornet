@@ -39,7 +39,7 @@
 	SIGNAL_HANDLER
 
 	if(item.force >= 5 || item.throwforce >= 5 || item.override_notes || item.offensive_notes || attached_proc) /// Only show this tag for items that could feasibly be weapons, shields, or those that have special notes
-		examine_texts += span_notice("<a href='byond://?src=[REF(item)];examine=1'>See combat information.</a>")
+		examine_texts += span_notice("<a href='byond://?src=[REF(item)];examine_combat=1'>See combat information.</a>")
 
 /**
  *
@@ -56,7 +56,7 @@
 /datum/element/weapon_description/proc/topic_handler(atom/source, user, href_list)
 	SIGNAL_HANDLER
 
-	if(href_list["examine"])
+	if(href_list["examine_combat"])
 		to_chat(user, span_notice(examine_block("[build_label_text(source)]")))
 
 //Some readouts are coded competently to go from 0-100.
@@ -95,19 +95,25 @@
 			readout += "It takes about [span_warning("[HITS_TO_CRIT(source.throwforce)] throwing hit\s")] to take down an enemy."
 		else
 			readout += "It does not deal noticeable throwing damage."
-		if(source.armour_penetration > 0 || source.block_level > 0)
+		if(source.armour_penetration > 0)
 			readout += "It has [span_warning("[weapon_tag_convert(source.armour_penetration)]")] armor-piercing capability."
 
-		if(source.block_level || source.block_upgrade_walk)
+		if(source.canblock)
 			//empty line
 			readout += ""
-			if(source.block_upgrade_walk && !source.block_level)
-				readout += "While walking, it can block attacks in a <b>narrow</b> arc."
-			else
-				readout += "It can block attacks in a [span_warning("[weapon_tag_convert(source.block_upgrade_walk + source.block_level * OUTPUT_MODIFIER)]")] arc."
-				if(source.block_upgrade_walk)
-					readout += "It is [span_warning("less")] effective at blocking while the user is [span_warning("running")]."
-			readout += "It has [span_warning("[weapon_tag_convert((source.block_power * OUTPUT_MODIFIER))]")] blocking ability."
+			readout += "It should be able to block incoming attacks [(source.block_flags & BLOCKING_ACTIVE) ? "from your main-hand.":"even in your off-hand"]"
+			readout += "It has [span_warning("[weapon_tag_convert((source.block_power + 1))]")] blocking ability."
+			if(source.block_flags & BLOCKING_UNBALANCE)
+				readout += "It may be able to throw your opponent off-balance when blocking their attacks."
+			if(source.block_flags & (BLOCKING_COUNTERATTACK | BLOCKING_NASTY))
+				readout += "It is able to counter-attack while blocking."
+			if(source.block_flags & BLOCKING_PROJECTILE)
+				readout += "It is able to block gunfire."
+
+				if(istype(source, /obj/item/shield))
+					var/obj/item/shield/source_shield = source
+					if(source_shield.transparent)
+						readout += "Because it is transparent, lasers will pass right through it."
 
 	// Custom manual notes
 	if(source.offensive_notes)

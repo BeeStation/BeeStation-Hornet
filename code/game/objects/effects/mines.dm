@@ -323,8 +323,8 @@
 /obj/effect/mine/pickup/bloodbath
 	name = "Red Orb"
 	desc = "You feel angry just looking at it."
-	duration = 1200 //2min
-	color = "#FF0000"
+	duration = 2 MINUTES
+	color = COLOR_RED
 	var/mob/living/doomslayer
 	var/obj/item/chainsaw/doomslayer/chainsaw
 
@@ -375,18 +375,18 @@
 /obj/effect/mine/pickup/healing
 	name = "Blue Orb"
 	desc = "You feel better just looking at it."
-	color = "#0000FF"
+	color = COLOR_BLUE
 
 /obj/effect/mine/pickup/healing/mineEffect(mob/living/carbon/victim)
 	if(!victim.client || !istype(victim))
 		return
 	to_chat(victim, span_notice("You feel great!"))
-	victim.revive(full_heal = 1, admin_revive = 1)
+	victim.revive(HEAL_ALL)
 
 /obj/effect/mine/pickup/speed
 	name = "Yellow Orb"
 	desc = "You feel faster just looking at it."
-	color = "#FFFF00"
+	color = COLOR_YELLOW
 	duration = 300
 
 /obj/effect/mine/pickup/speed/mineEffect(mob/living/carbon/victim)

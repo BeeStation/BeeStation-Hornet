@@ -83,15 +83,14 @@
  */
 /proc/do_teleport(atom/movable/teleatom, atom/destination, precision=null, datum/effect_system/effectin=null, datum/effect_system/effectout=null, asoundin=null, asoundout=null, no_effects=FALSE, channel=TELEPORT_CHANNEL_BLUESPACE, bypass_area_restriction = FALSE, teleport_mode = TELEPORT_ALLOW_ALL, ignore_check_teleport = FALSE, no_wake = FALSE)
 	// teleporting most effects just deletes them
-	var/static/list/delete_atoms = typecacheof(list(
-		/obj/effect,
-	)) - typecacheof(list(
-		/obj/effect/dummy/chameleon,
-		/obj/effect/wisp,
-		/obj/effect/mob_spawn,
-		/obj/effect/warp_cube,
-		/obj/effect/extraction_holder,
-		/obj/effect/anomaly,
+	var/static/list/delete_atoms = zebra_typecacheof(list(
+		/obj/effect = TRUE,
+		/obj/effect/dummy/chameleon = FALSE,
+		/obj/effect/wisp = FALSE,
+		/obj/effect/mob_spawn = FALSE,
+		/obj/effect/warp_cube = FALSE,
+		/obj/effect/extraction_holder = FALSE,
+		/obj/effect/anomaly = FALSE,
 	))
 	if(delete_atoms[teleatom.type])
 		qdel(teleatom)
@@ -229,7 +228,7 @@
 
 /proc/wizarditis_teleport(mob/living/carbon/affected_mob)
 	var/list/theareas = get_areas_in_range(80, affected_mob)
-	for(var/area/space/S in theareas)
+	for(var/area/misc/space/S in theareas)
 		theareas -= S
 
 	if(!length(theareas))
@@ -393,7 +392,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 
 	// getline path
 	var/turf/landing_turf = current_turf
-	var/list/path = getline(current_turf, target_turf)
+	var/list/path = get_line(current_turf, target_turf)
 	path -= current_turf
 	// iterate
 	for (var/turf/checked_turf in path)

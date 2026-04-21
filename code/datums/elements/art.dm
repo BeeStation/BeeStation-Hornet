@@ -24,16 +24,18 @@
 			msg = "What \a [pick("masterpiece", "chef-d'oeuvre")] [source.p_theyre()]. So [pick("trascended", "awe-inspiring", "bewitching", "impeccable")]!"
 		if (GOOD_ART to GREAT_ART)
 			user.add_mood_event("artgood", /datum/mood_event/artgood)
-			msg = "[source.p_theyre(TRUE)] a [pick("respectable", "commendable", "laudable")] art piece, easy on the keen eye."
+			msg = "[source.p_Theyre()] a [pick("respectable", "commendable", "laudable")] art piece, easy on the keen eye."
 		if (BAD_ART to GOOD_ART)
 			user.add_mood_event("artok", /datum/mood_event/artok)
-			msg = "[source.p_theyre(TRUE)] fair to middling, enough to be called an \"art object\"."
+			msg = "[source.p_Theyre()] fair to middling, enough to be called an \"art object\"."
 		if (0 to BAD_ART)
 			user.add_mood_event("artbad", /datum/mood_event/artbad)
 			msg = "Wow, [source.p_they()] sucks."
 
 	user.visible_message(span_notice("[user] stops and looks intently at [source]."), \
 						span_notice("You appraise [source]... [msg]"))
+
+	SEND_SIGNAL(user, COMSIG_LIVING_APPRAISE_ART, source)
 
 /datum/element/art/proc/on_examine(atom/source, mob/user, list/examine_texts)
 	SIGNAL_HANDLER
@@ -58,16 +60,16 @@
 /datum/element/art/commoner/apply_moodlet(atom/source, mob/living/user, impress)
 	var/msg
 	var/list/haters = list()
-	for(var/datum/department_group/hater_department in SSdepartment.department_datums)
-		if(!(hater_department.dept_bitflag & (DEPT_BITFLAG_SEC | DEPT_BITFLAG_COM)))
+	for(var/hater_department_type in list(/datum/department_group/security, /datum/department_group/command))
+		var/datum/department_group/hater_department = SSjob.get_department_type(hater_department_type)
+		if (isnull(hater_department))
 			continue
-		for(var/job_name in hater_department.jobs)
-			var/datum/job/hater_job = SSjob.GetJob(job_name)
+		for(var/datum/job/hater_job as anything in hater_department.department_jobs)
 			haters += hater_job.title
-	var/datum/job/quartermaster/fucking_quartermaster = SSjob.GetJob(JOB_NAME_QUARTERMASTER)
+	var/datum/job/quartermaster/fucking_quartermaster = SSjob.GetJobType(/datum/job/quartermaster)
 	haters += fucking_quartermaster.title
 
-	if(!(user.mind.assigned_role.title in haters))
+	if(!(user.mind.assigned_role_datum.title in haters))
 		user.add_mood_event("artgreat", /datum/mood_event/artgreat)
 		msg = "What \a [pick("masterpiece", "chef-d'oeuvre")] [source.p_theyre()]. So [pick("relatable", "down to earth", "true", "real")]!"
 	else

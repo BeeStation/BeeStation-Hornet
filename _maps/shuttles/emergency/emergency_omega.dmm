@@ -95,7 +95,7 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sunnybush,
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /turf/open/floor/grass,
 /area/shuttle/escape)
 "aH" = (
@@ -183,7 +183,7 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/fernybush,
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /turf/open/floor/grass,
 /area/shuttle/escape)
 "aJ" = (
@@ -388,17 +388,13 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "bs" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/shuttle/engine/heater,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "bt" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/shuttle/engine/heater,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
@@ -429,9 +425,9 @@
 /area/shuttle/escape)
 "fg" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Holding Area";
-	req_access_txt = "2"
+	name = "Holding Area"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -491,9 +487,9 @@
 /area/shuttle/escape)
 "sC" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Cockpit";
-	req_access_txt = "19"
+	name = "Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -543,7 +539,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "Dr" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -589,9 +585,9 @@
 /area/shuttle/escape)
 "Ls" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
+	name = "Emergency Shuttle Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -669,9 +665,9 @@
 /area/shuttle/escape)
 "Rm" = (
 /obj/machinery/door/airlock/command{
-	name = "Emergency Recovery Airlock";
-	req_access_txt = "19"
+	name = "Emergency Recovery Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},

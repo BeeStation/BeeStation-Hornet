@@ -32,7 +32,7 @@
 			to_chat(src, span_warning("Your armor softens the blow!"))
 	return armor
 
-/// Get the armour value for a specific damage type, targetting a particular zone.
+/// Get the armour value for a specific damage type, targeting a particular zone.
 /// def_zone: The body zone to get the armour for. Null indicates no body zone and will calculate an average armour value instead.
 /// type: The damage type to test for. Must not be null.
 /// penetration: The amount of penetration to add. A value of 20 will reduce the effectiveness of each individual armour piece by 80%.
@@ -134,7 +134,7 @@
 			var/mob/thrown_by = I.thrownby?.resolve()
 			if(thrown_by)
 				log_combat(thrown_by, src, "threw and hit", I, important = I.force)
-			if(!incapacitated(IGNORE_GRAB)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
+			if(!INCAPACITATED_IGNORING(src, INCAPABLE_GRAB)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
 				hitpush = FALSE
 		else
 			return 1
@@ -143,8 +143,9 @@
 	..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
 /mob/living/fire_act()
+	. = ..()
 	adjust_fire_stacks(3)
-	IgniteMob()
+	ignite_mob()
 
 /**
  * Called when this mob is grabbed by another mob.
@@ -165,6 +166,7 @@
 		to_chat(user, span_notice("You don't want to risk hurting [src]!"))
 		return FALSE
 	grippedby(user)
+	update_incapacitated()
 
 //proc to upgrade a simple pull into a more aggressive grab.
 /mob/living/proc/grippedby(mob/living/user, instant = FALSE)
@@ -289,8 +291,8 @@
 		to_chat(user, "<span class='notice'>You don't want to hurt anyone!</span>")
 		return FALSE
 
-	if(user.is_muzzled() || user.is_mouth_covered(FALSE, TRUE))
-		to_chat(user, "<span class='warning'>You can't bite with your mouth covered!</span>")
+	if(user.is_mouth_covered(ITEM_SLOT_MASK))
+		to_chat(user, span_warning("You can't bite with your mouth covered!"))
 		return FALSE
 	user.do_attack_animation(src, ATTACK_EFFECT_BITE)
 	log_combat(user, src, "attacked")
@@ -356,9 +358,10 @@
 
 ///As the name suggests, this should be called to apply electric shocks.
 /mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags) & COMPONENT_LIVING_BLOCK_SHOCK)
+		return FALSE
 	shock_damage *= siemens_coeff
-	if((flags & SHOCK_TESLA) && (flags_1 & TESLA_IGNORE_1))
+	if((flags & SHOCK_TESLA) && HAS_TRAIT(src, TRAIT_TESLA_SHOCKIMMUNE))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
 		return FALSE
@@ -368,11 +371,12 @@
 		adjustFireLoss(shock_damage)
 	else
 		adjustStaminaLoss(shock_damage)
-	visible_message(
-		span_danger("[src] was shocked by \the [source]!"), \
-		span_userdanger("You feel a powerful shock coursing through your body!"), \
-		span_hear("You hear a heavy electrical crack.") \
-	)
+	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
+		visible_message(
+			span_danger("[src] was shocked by \the [source]!"),
+			span_userdanger("You feel a powerful shock coursing through your body!"),
+			span_hear("You hear a heavy electrical crack."),
+		)
 	return shock_damage
 
 /mob/living/emp_act(severity)
@@ -397,7 +401,7 @@
 	return 20 //20 points goes to our lucky winner Mr. Singulo!~
 
 /mob/living/narsie_act()
-	if(status_flags & GODMODE || QDELETED(src))
+	if(HAS_TRAIT(src, TRAIT_GODMODE) || QDELETED(src))
 		return
 	if(GLOB.narsie && GLOB.narsie.souls_needed[src])
 		GLOB.narsie.souls_needed -= src
@@ -449,16 +453,6 @@
 	if(!used_item)
 		used_item = get_active_held_item()
 	..()
-
-/mob/living/proc/sethellbound()
-	if(mind)
-		mind.hellbound = TRUE
-		med_hud_set_status()
-		return TRUE
-	return FALSE
-
-/mob/living/proc/ishellbound()
-	return mind?.hellbound
 
 /mob/living/proc/force_hit_projectile(obj/projectile/projectile)
 	return FALSE

@@ -71,7 +71,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	sendToNewRoom(chosenRoomNumber, user)
 
 
-/obj/item/hilbertshotel/proc/tryActiveRoom(var/roomNumber, var/mob/user)
+/obj/item/hilbertshotel/proc/tryActiveRoom(roomNumber, mob/user)
 	if(activeRooms["[roomNumber]"])
 		var/datum/turf_reservation/roomReservation = activeRooms["[roomNumber]"]
 		do_sparks(3, FALSE, get_turf(user))
@@ -80,7 +80,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	else
 		return FALSE
 
-/obj/item/hilbertshotel/proc/tryStoredRoom(var/roomNumber, var/mob/user)
+/obj/item/hilbertshotel/proc/tryStoredRoom(roomNumber, mob/user)
 	if(storedRooms["[roomNumber]"])
 		var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
 		hotelRoomTempEmpty.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
@@ -103,7 +103,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	else
 		return FALSE
 
-/obj/item/hilbertshotel/proc/sendToNewRoom(var/roomNumber, var/mob/user)
+/obj/item/hilbertshotel/proc/sendToNewRoom(roomNumber, mob/user)
 	var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
 	var/datum/async_map_generator/placer
 	if(ruinSpawned)
@@ -119,8 +119,8 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	do_sparks(3, FALSE, get_turf(user))
 	user.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
 
-/obj/item/hilbertshotel/proc/linkTurfs(var/datum/turf_reservation/currentReservation, var/currentRoomnumber)
-	var/area/hilbertshotel/currentArea = get_area(locate(currentReservation.bottom_left_coords[1], currentReservation.bottom_left_coords[2], currentReservation.bottom_left_coords[3]))
+/obj/item/hilbertshotel/proc/linkTurfs(datum/turf_reservation/currentReservation, currentRoomnumber)
+	var/area/misc/hilbertshotel/currentArea = get_area(locate(currentReservation.bottom_left_coords[1], currentReservation.bottom_left_coords[2], currentReservation.bottom_left_coords[3]))
 	currentArea.name = "Hilbert's Hotel Room [currentRoomnumber]"
 	currentArea.parentSphere = src
 	currentArea.storageTurf = storageTurf
@@ -220,7 +220,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	name = "\proper bluespace hyperzone"
 	icon_state = "bluespace"
 	baseturfs = /turf/open/space/bluespace
-	flags_1 = NOJAUNT_1
+	turf_flags = NOJAUNT
 	explosion_block = INFINITY
 	var/obj/item/hilbertshotel/parentSphere
 
@@ -336,14 +336,13 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	owner.clear_fullscreen("remote_view", 0)
 	qdel(src)
 
-/area/hilbertshotel
+/area/misc/hilbertshotel
 	name = "Hilbert's Hotel Room"
 	icon_state = "hilbertshotel"
 	requires_power = FALSE
 	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
 	area_flags = HIDDEN_AREA
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	ambientsounds = list('sound/ambience/servicebell.ogg')
 	var/roomnumber = 0
 	var/obj/item/hilbertshotel/parentSphere
@@ -351,13 +350,13 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	var/turf/storageTurf
 	var/virtual_z_value
 
-/area/hilbertshotel/get_virtual_z(turf/T)
+/area/misc/hilbertshotel/get_virtual_z(turf/T)
 	if(virtual_z_value)
 		return virtual_z_value
 	else
 		return ..(T)
 
-/area/hilbertshotel/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+/area/misc/hilbertshotel/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(istype(arrived, /obj/item/hilbertshotel))
 		relocate(arrived)
@@ -366,7 +365,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 		if(parentSphere == H)
 			relocate(H)
 
-/area/hilbertshotel/proc/relocate(obj/item/hilbertshotel/H)
+/area/misc/hilbertshotel/proc/relocate(obj/item/hilbertshotel/H)
 	if(prob(0.135685)) //Because screw you
 		qdel(H)
 		return
@@ -384,7 +383,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 		to_chat(M, span_danger("[H] almost implodes in upon itself, but quickly rebounds, shooting off into a random point in space!"))
 	H.forceMove(targetturf)
 
-/area/hilbertshotel/Exited(atom/movable/gone, direction)
+/area/misc/hilbertshotel/Exited(atom/movable/gone, direction)
 	. = ..()
 	if(ismob(gone))
 		var/mob/M = gone
@@ -398,7 +397,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 			if(!stillPopulated)
 				storeRoom()
 
-/area/hilbertshotel/proc/storeRoom()
+/area/misc/hilbertshotel/proc/storeRoom()
 	var/roomSize = (reservation.top_right_coords[1]-reservation.bottom_left_coords[1]+1)*(reservation.top_right_coords[2]-reservation.bottom_left_coords[2]+1)
 	var/storage[roomSize]
 	var/turfNumber = 1
@@ -420,7 +419,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	parentSphere.activeRooms -= "[roomnumber]"
 	qdel(reservation)
 
-/area/hilbertshotelstorage
+/area/misc/hilbertshotelstorage
 	name = "Hilbert's Hotel Storage Room"
 	icon_state = "hilbertshotel"
 	requires_power = FALSE

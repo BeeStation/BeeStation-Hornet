@@ -48,7 +48,7 @@ const RecordInfo = (props) => {
   if (!foundRecord) return <NoticeBox>Nothing selected.</NoticeBox>;
 
   const { act, data } = useBackend<SecurityRecordsData>();
-  const { available_statuses } = data;
+  const { available_statuses, is_silicon } = data;
   const [open, setOpen] = useLocalState<boolean>('printOpen', false);
 
   const {
@@ -76,6 +76,7 @@ const RecordInfo = (props) => {
             <Stack>
               <Stack.Item>
                 <Button
+                  disabled={is_silicon}
                   height="1.7rem"
                   icon="print"
                   onClick={() => setOpen(true)}
@@ -86,6 +87,7 @@ const RecordInfo = (props) => {
               </Stack.Item>
               <Stack.Item>
                 <Button.Confirm
+                  disabled={is_silicon}
                   content="Delete"
                   icon="trash"
                   onClick={() =>
@@ -111,7 +113,9 @@ const RecordInfo = (props) => {
                 return (
                   <Button
                     color={isSelected ? CRIMESTATUS2COLOR[button] : 'grey'}
-                    disabled={button === 'Arrest' && !hasValidCrimes}
+                    disabled={
+                      (button === 'Arrest' && !hasValidCrimes) || is_silicon
+                    }
                     icon={isSelected ? 'check' : ''}
                     key={index}
                     onClick={() =>
@@ -141,53 +145,89 @@ const RecordInfo = (props) => {
         <Section fill scrollable>
           <LabeledList>
             <LabeledList.Item label="Name">
-              <EditableText field="name" target_ref={record_ref} text={name} />
+              {is_silicon ? (
+                name
+              ) : (
+                <EditableText
+                  field="name"
+                  target_ref={record_ref}
+                  text={name}
+                />
+              )}
             </LabeledList.Item>
             <LabeledList.Item label="Job">
-              <EditableText field="rank" target_ref={record_ref} text={rank} />
+              {is_silicon ? (
+                rank
+              ) : (
+                <EditableText
+                  field="rank"
+                  target_ref={record_ref}
+                  text={rank}
+                />
+              )}
             </LabeledList.Item>
             <LabeledList.Item label="Age">
-              <RestrictedInput
-                minValue={min_age}
-                maxValue={max_age}
-                onEnter={(event, value) =>
-                  act('edit_field', {
-                    record_ref: record_ref,
-                    field: 'age',
-                    value: value,
-                  })
-                }
-                value={age}
-              />
+              {is_silicon ? (
+                age
+              ) : (
+                <RestrictedInput
+                  minValue={min_age}
+                  maxValue={max_age}
+                  onChange={(_, value) =>
+                    act('edit_field', {
+                      record_ref: record_ref,
+                      field: 'age',
+                      value: value,
+                    })
+                  }
+                  value={age}
+                />
+              )}
             </LabeledList.Item>
             <LabeledList.Item label="Species">
-              <EditableText
-                field="species"
-                target_ref={record_ref}
-                text={species}
-              />
+              {is_silicon ? (
+                species
+              ) : (
+                <EditableText
+                  field="species"
+                  target_ref={record_ref}
+                  text={species}
+                />
+              )}
             </LabeledList.Item>
             <LabeledList.Item label="Gender">
-              <EditableText
-                field="gender"
-                target_ref={record_ref}
-                text={gender}
-              />
+              {is_silicon ? (
+                gender
+              ) : (
+                <EditableText
+                  field="gender"
+                  target_ref={record_ref}
+                  text={gender}
+                />
+              )}
             </LabeledList.Item>
             <LabeledList.Item color="good" label="Fingerprint">
-              <EditableText
-                color="good"
-                field="fingerprint"
-                target_ref={record_ref}
-                text={fingerprint}
-              />
+              {is_silicon ? (
+                fingerprint
+              ) : (
+                <EditableText
+                  color="good"
+                  field="fingerprint"
+                  target_ref={record_ref}
+                  text={fingerprint}
+                />
+              )}
             </LabeledList.Item>
             <LabeledList.Item label="Note">
-              <EditableText
-                field="security_note"
-                target_ref={record_ref}
-                text={security_note}
-              />
+              {is_silicon ? (
+                security_note
+              ) : (
+                <EditableText
+                  field="security_note"
+                  target_ref={record_ref}
+                  text={security_note}
+                />
+              )}
             </LabeledList.Item>
           </LabeledList>
         </Section>

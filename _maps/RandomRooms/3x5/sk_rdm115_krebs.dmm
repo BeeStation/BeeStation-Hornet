@@ -10,7 +10,7 @@
 /area/template_noop)
 "c" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/costume,
+/obj/effect/spawner/random/clothing/costume,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
@@ -27,7 +27,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
@@ -35,7 +35,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)

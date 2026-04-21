@@ -32,6 +32,8 @@
 	var/requires_wizard_garb = FALSE
 	/// Used so you can't have specific spells together
 	var/list/no_coexistance_typecache
+	/// Wildmagic wizard apprentice should not get these
+	var/no_random = FALSE
 	/// Locking the purchase down for whatever reason
 	var/locked = FALSE
 /datum/spellbook_entry/New()
@@ -213,12 +215,18 @@
 	limit = 1
 	refundable = FALSE
 	buy_word = "Cast"
+	var/ritual_invocation // If set forces you to say a phrase as feedback when buying a summon spell
 
 /datum/spellbook_entry/summon/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
 	log_spellbook("[key_name(user)] cast [src] for [cost] points")
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	log_purchase(user.key)
+	say_invocation(user)
 	return TRUE
+
+/datum/spellbook_entry/summon/proc/say_invocation(mob/living/carbon/human/user)
+	if(ritual_invocation)
+		user.say(ritual_invocation, forced = "spell")
 
 /// Non-purchasable flavor spells to populate the spell book with, for style.
 /datum/spellbook_entry/challenge

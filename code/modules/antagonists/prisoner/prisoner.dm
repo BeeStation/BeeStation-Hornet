@@ -6,6 +6,7 @@
 	antagpanel_category = "Prisoners"
 	show_to_ghosts = TRUE
 	prevent_roundtype_conversion = FALSE
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/antagonist/prisoner/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/M = mob_override || owner.current
@@ -31,12 +32,12 @@
 					Avoid killing as much as possible, especially non-security staff, but everything else is fair game!"))
 	owner.announce_objectives()
 
-/datum/antagonist/prisoner/proc/update_prisoner_icons_added(var/mob/living/carbon/human/prisoner)
+/datum/antagonist/prisoner/proc/update_prisoner_icons_added(mob/living/carbon/human/prisoner)
 	var/datum/atom_hud/antag/prihud = GLOB.huds[ANTAG_HUD_PRISONER]
 	prihud.join_hud(prisoner)
 	set_antag_hud(prisoner, "prisoner")
 
-/datum/antagonist/prisoner/proc/update_prisoner_icons_removed(var/mob/living/carbon/human/prisoner)
+/datum/antagonist/prisoner/proc/update_prisoner_icons_removed(mob/living/carbon/human/prisoner)
 	var/datum/atom_hud/antag/prihud = GLOB.huds[ANTAG_HUD_PRISONER]
 	prihud.leave_hud(prisoner)
 	set_antag_hud(prisoner, null)

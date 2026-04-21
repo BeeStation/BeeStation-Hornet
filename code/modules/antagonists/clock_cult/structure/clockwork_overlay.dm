@@ -14,10 +14,10 @@
 
 /obj/effect/clockwork/overlay/singularity_act()
 	return
-/obj/effect/clockwork/overlay/singularity_pull()
+/obj/effect/clockwork/overlay/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
-/obj/effect/clockwork/overlay/singularity_pull(S, current_size)
+/obj/effect/clockwork/overlay/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/clockwork/overlay/Destroy()

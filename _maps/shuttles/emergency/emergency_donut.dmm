@@ -6,7 +6,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "ac" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ad" = (
@@ -241,14 +241,12 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aX" = (
 /obj/structure/chair/fancy/shuttle,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aY" = (
@@ -424,9 +422,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "bs" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/shuttle/engine/heater,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
@@ -450,17 +446,17 @@
 /area/shuttle/escape)
 "hl" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Cockpit";
-	req_access_txt = "19"
+	name = "Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "pk" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
+	name = "Emergency Shuttle Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -484,17 +480,17 @@
 /area/shuttle/escape)
 "Ia" = (
 /obj/machinery/door/airlock/public/glass{
-	name = "Containment Cell";
-	req_access_txt = "2"
+	name = "Containment Cell"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "JF" = (
 /obj/machinery/door/airlock/public/glass{
-	name = "Emergency Shuttle Brig";
-	req_access_txt = "2"
+	name = "Emergency Shuttle Brig"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)

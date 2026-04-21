@@ -37,7 +37,7 @@
 	failure_sound = 'sound/surgery/organ2.ogg'
 
 /datum/surgery_step/lobotomize/tool_check(mob/user, obj/item/tool)
-	if(implement_type == /obj/item && !tool.is_sharp())
+	if(implement_type == /obj/item && !tool.get_sharpness())
 		return FALSE
 	return TRUE
 
@@ -88,7 +88,7 @@
 			span_notice("[user] successfully lobotomizes [target]!"),
 			span_notice("[user] completes the surgery on [target]'s brain."),
 		)
-		B.applyOrganDamage(80)
+		B.apply_organ_damage(80)
 		switch(rand(1,3))
 			if(1)
 				target.gain_trauma_type(BRAIN_TRAUMA_MILD, TRAUMA_RESILIENCE_MAGIC)

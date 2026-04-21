@@ -27,7 +27,7 @@ Difficulty: Medium
 	icon_state = "miner"
 	icon_living = "miner"
 	icon = 'icons/mob/broadMobs.dmi'
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	light_color = "#E4C7C5"
 	movement_type = GROUND
 	speak_emote = list("roars")
@@ -53,8 +53,8 @@ Difficulty: Medium
 	var/dash_cooldown = 15
 	var/guidance = FALSE
 	var/transform_stop_attack = FALSE // stops the blood drunk miner from attacking after transforming his weapon until the next attack chain
-	deathmessage = "falls to the ground, decaying into glowing particles."
-	deathsound = "bodyfall"
+	death_message = "falls to the ground, decaying into glowing particles."
+	death_sound = "bodyfall"
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
 							   /datum/action/innate/megafauna_attack/kinetic_accelerator,
@@ -66,21 +66,21 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Dash To Target"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = span_colossus("You are now dashing to your target.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/kinetic_accelerator
 	name = "Fire Kinetic Accelerator"
-	icon_icon = 'icons/obj/guns/energy.dmi'
+	button_icon = 'icons/obj/guns/energy.dmi'
 	button_icon_state = "kineticgun"
 	chosen_message = span_colossus("You are now shooting your kinetic accelerator.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/transform_weapon
 	name = "Transform Weapon"
-	icon_icon = 'icons/obj/lavaland/artefacts.dmi'
+	button_icon = 'icons/obj/lavaland/artefacts.dmi'
 	button_icon_state = "cleaving_saw"
 	chosen_message = span_colossus("You are now transforming your weapon.")
 	chosen_attack_num = 3
@@ -118,7 +118,7 @@ Difficulty: Medium
 	icon_state = "ka_tracer"
 	range = MINER_DASH_RANGE
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	var/adjustment_amount = amount * 0.1
 	if(world.time + adjustment_amount > next_move)
 		changeNext_move(adjustment_amount) //attacking it interrupts it attacking, but only briefly
@@ -197,7 +197,7 @@ Difficulty: Medium
 			turf_dist_to_target += get_dist(dash_target, O)
 		if(get_dist(src, O) >= MINER_DASH_RANGE && turf_dist_to_target <= self_dist_to_target && !islava(O) && !ischasm(O))
 			var/valid = TRUE
-			for(var/turf/T in getline(own_turf, O))
+			for(var/turf/T in get_line(own_turf, O))
 				if(T.is_blocked_turf(TRUE))
 					valid = FALSE
 					continue

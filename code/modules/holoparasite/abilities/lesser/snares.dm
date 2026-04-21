@@ -83,8 +83,8 @@
 		message_part = message_mods[MODE_CUSTOM_SAY_EMOTE]
 	else
 		var/atom/movable/source = speaker.GetSource() || speaker
-		message_part = source.say_quote(message, spans, message_mods)
-	message_part = span_message("[summoner.say_emphasis(message_part)]")
+		message_part = source.generate_messagepart(message, spans, message_mods)
+	message_part = span_message("[summoner.apply_message_emphasis(message_part)]")
 	// And now, we put the final message together and show it to the summoner.
 	var/final_message = "[message_prefix] [message_part]"
 	to_chat(owner.list_summoner_and_or_holoparasites(), final_message)
@@ -149,7 +149,7 @@
 	update_both_huds()
 	var/datum/space_level/snare_z_level = SSmapping.get_level(snare_turf.z)
 	SSblackbox.record_feedback("associative", "holoparasite_snares", 1, list(
-		"map" = SSmapping.config.map_name,
+		"map" = SSmapping.current_map.map_name,
 		"area" = "[snare_area]",
 		"x" = snare_turf.x,
 		"y" = snare_turf.y,
@@ -300,5 +300,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/snare)
 /**
  * Destroy the surveillance snare when pulled by a singularity.
  */
-/obj/effect/snare/singularity_pull()
+/obj/effect/snare/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	qdel(src)

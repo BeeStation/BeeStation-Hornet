@@ -2,12 +2,14 @@
 /// Drinks.
 ////////////////////////////////////////////////////////////////////////////////
 /obj/item/reagent_containers/cup/glass
+	abstract_type = /obj/item/reagent_containers/cup/glass
 	name = "drink"
 	desc = "yummy"
 	icon = 'icons/obj/drinks/drinks.dmi'
 	icon_state = null
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	resistance_flags = NONE
+	custom_price = 15	// We dont yet have a way to calculate price based on contents
 
 	isGlass = TRUE
 
@@ -15,7 +17,8 @@
 /obj/item/reagent_containers/cup/glass/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(!.) //if the bottle wasn't caught
-		smash(hit_atom, throwingdatum?.thrower, TRUE)
+		var/mob/thrower = throwingdatum?.get_thrower()
+		smash(hit_atom, thrower, TRUE)
 
 /obj/item/reagent_containers/cup/glass/proc/smash(atom/target, mob/thrower, ranged = FALSE)
 	if(!isGlass)
@@ -49,7 +52,7 @@
 	custom_materials = list(/datum/material/iron=100)
 	has_variable_transfer_amount = FALSE
 	volume = 5
-	flags_1 = CONDUCT_1
+	obj_flags = parent_type::obj_flags | CONDUCTS_ELECTRICITY
 	spillable = TRUE
 	resistance_flags = FIRE_PROOF
 	isGlass = FALSE
@@ -130,6 +133,7 @@
 	name = "dirty ice cup"
 	desc = "Either Nanotrasen's water supply is contaminated, or this machine actually vends lemon, chocolate, and cherry snow cones."
 	list_reagents = list(/datum/reagent/consumable/ice = 25, /datum/reagent/liquidgibs = 5)
+	trade_flags = TRADE_NOT_SELLABLE
 
 /obj/item/reagent_containers/cup/glass/mug // parent type is literally just so empty mug sprites are a thing
 	name = "mug"
@@ -137,7 +141,7 @@
 	icon = 'icons/obj/drinks/coffee.dmi'
 	icon_state = "tea_empty"
 	base_icon_state = "tea"
-	item_state = "coffee"
+	inhand_icon_state = "coffee"
 	spillable = TRUE
 
 /obj/item/reagent_containers/cup/glass/mug/update_icon_state()
@@ -166,13 +170,14 @@
 	drink_type = GRAIN
 	isGlass = FALSE
 	custom_price = PAYCHECK_MEDIUM * 0.9
+	custom_price = 20
 
 /obj/item/reagent_containers/cup/glass/waterbottle
 	name = "bottle of water"
 	desc = "A bottle of water filled at an old Earth bottling facility."
 	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "smallbottle"
-	item_state = "bottle"
+	inhand_icon_state = "bottle"
 	list_reagents = list(/datum/reagent/water = 49.5, /datum/reagent/fluorine = 0.5)//see desc, don't think about it too hard
 	custom_materials = list(/datum/material/plastic=1000)
 	volume = 50
@@ -274,9 +279,9 @@
 		return
 	if(prob(flip_chance)) // landed upright
 		src.visible_message(span_notice("[src] lands upright!"))
-		if(throwingdatum.thrower)
-			var/mob/living/living_thrower = throwingdatum.thrower
-			living_thrower.add_mood_event("bottle_flip", /datum/mood_event/bottle_flip)
+		var/mob/living/thrower = throwingdatum?.get_thrower()
+		if(istype(thrower))
+			thrower.add_mood_event("bottle_flip", /datum/mood_event/bottle_flip)
 	else // landed on it's side
 		animate(src, transform = matrix(prob(50)? 90 : -90, MATRIX_ROTATE), time = 3, loop = 0)
 
@@ -358,7 +363,7 @@
 	desc = "A cheap, mass produced style of cup, typically used at parties. They never seem to come out red, for some reason..."
 	icon = 'icons/obj/drinks/colo.dmi'
 	icon_state = "colocup"
-	item_state = "colocup"
+	inhand_icon_state = "colocup"
 	custom_materials = list(/datum/material/plastic = 1000)
 	possible_transfer_amounts = list(5, 10, 15, 20)
 	volume = 20
@@ -413,6 +418,7 @@
 	desc = "The detective's only true friend."
 	icon_state = "detflask"
 	list_reagents = list(/datum/reagent/consumable/ethanol/whiskey = 30)
+	custom_price = 50
 
 /obj/item/reagent_containers/cup/glass/mug/britcup
 	name = "cup"

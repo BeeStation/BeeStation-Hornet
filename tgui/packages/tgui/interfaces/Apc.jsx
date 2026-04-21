@@ -12,7 +12,7 @@ import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
 export const Apc = (props) => {
   return (
-    <Window width={450} height={460}>
+    <Window width={450} height={470}>
       <Window.Content scrollable>
         <ApcContent />
       </Window.Content>
@@ -109,9 +109,15 @@ const ApcContent = (props) => {
           >
             [ {externalPowerStatus.externalPowerText} ]
           </LabeledList.Item>
+
+          <LabeledList.Item label="Cell Capacity">
+            {data.cellcharge}
+          </LabeledList.Item>
+
           <LabeledList.Item label="Power Cell">
             <ProgressBar color="good" value={adjustedCellChange} />
           </LabeledList.Item>
+
           <LabeledList.Item
             label="Charge Mode"
             color={chargingStatus.color}

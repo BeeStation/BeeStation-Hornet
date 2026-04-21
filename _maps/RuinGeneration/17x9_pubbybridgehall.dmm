@@ -44,7 +44,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "s" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -55,7 +55,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "v" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -77,9 +77,8 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "C" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "12"
-	},
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "F" = (
@@ -107,7 +106,7 @@
 	pixel_y = 32
 	},
 /turf/template_noop,
-/area/space)
+/area/misc/space)
 "M" = (
 /obj/structure/lattice,
 /obj/structure/sign/logo{
@@ -115,7 +114,7 @@
 	pixel_y = 32
 	},
 /turf/template_noop,
-/area/space)
+/area/misc/space)
 "O" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
@@ -127,7 +126,7 @@
 	pixel_y = 32
 	},
 /turf/template_noop,
-/area/space)
+/area/misc/space)
 "V" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron,
@@ -136,7 +135,7 @@
 /obj/structure/sign/poster/contraband/lizard{
 	pixel_y = 32
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "X" = (
@@ -146,7 +145,7 @@
 	pixel_y = 32
 	},
 /turf/template_noop,
-/area/space)
+/area/misc/space)
 "Y" = (
 /obj/structure/lattice,
 /obj/structure/sign/logo{
@@ -154,7 +153,7 @@
 	pixel_y = 32
 	},
 /turf/template_noop,
-/area/space)
+/area/misc/space)
 
 (1,1,1) = {"
 a

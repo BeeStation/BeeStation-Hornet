@@ -4,11 +4,11 @@
 	custom_price = PAYCHECK_ASSISTANT * 0.9
 	icon = 'icons/obj/device.dmi'
 	icon_state = "analyzer"
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
@@ -191,8 +191,8 @@
 			message += span_notice("Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)")
 			message += span_notice("Volume: [volume] L")
 			message += span_notice("Pressure: [round(pressure, 0.01)] kPa")
-			message += span_notice("Heat Capacity: [display_energy(heat_capacity)] / K")
-			message += span_notice("Thermal Energy: [display_energy(thermal_energy)]")
+			message += span_notice("Heat Capacity: [display_power(heat_capacity)] / K")
+			message += span_notice("Thermal Energy: [display_power_persec(thermal_energy)]")
 		else
 			message += airs.len > 1 ? span_notice("This node is empty!") : span_notice("[target] is empty!")
 			message += span_notice("Volume: [volume] L") // don't want to change the order volume appears in, suck it

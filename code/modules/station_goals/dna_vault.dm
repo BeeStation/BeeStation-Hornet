@@ -22,7 +22,7 @@
 	animal_count = rand(15,20) //might be too few given ~15 roundstart stationside ones
 	human_count = rand(round(0.75 * SSticker.totalPlayersReady) , SSticker.totalPlayersReady) // 75%+ roundstart population.
 	var/non_standard_plants = non_standard_plants_count()
-	plant_count = rand(round(0.5 * non_standard_plants),round(0.7 * non_standard_plants))
+	plant_count = rand(round(0.2 * non_standard_plants),round(0.4 * non_standard_plants))
 
 /datum/station_goal/dna_vault/proc/non_standard_plants_count()
 	. = 0
@@ -65,7 +65,7 @@
 	name = "DNA Sampler"
 	desc = "Can be used to take chemical and genetic samples of pretty much anything."
 	icon = 'icons/obj/syringe.dmi'
-	item_state = "hypo"
+	inhand_icon_state = "hypo"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	icon_state = "hypo"
@@ -102,16 +102,18 @@
 
 	//animals
 	var/obj/machinery/dna_vault/our_vault = dna_vault_ref?.resolve()
-	var/static/list/non_simple_animals = typecacheof(list(/mob/living/carbon/alien))
+	var/static/list/non_simple_animals = typecacheof(list(
+		/mob/living/carbon/alien,
+	))
 	if(isanimal_or_basicmob(target) || is_type_in_typecache(target, non_simple_animals) || ismonkey(target))
 		var/mob/living/living_target = target
-		if(our_vault.animals[living_target.type])
+		if(our_vault?.animals?[living_target.type])
 			to_chat(user, span_notice("Animal data already present in vault storage."))
 			return
 		if(animals[living_target.type])
 			to_chat(user, span_notice("Animal data already present in local storage."))
 			return
-		if(!(MOB_ORGANIC in living_target.mob_biotypes))
+		if(!(living_target.mob_biotypes & MOB_ORGANIC))
 			to_chat(user, span_alert("No compatible DNA detected."))
 			return .
 		animals[living_target.type] = 1
@@ -262,7 +264,6 @@
 	if(!(upgrade_type in power_lottery[H]))
 		return
 	. = TRUE
-	var/datum/species/S = H.dna.species
 	switch(upgrade_type)
 		if(VAULT_TOXIN)
 			to_chat(H, span_notice("You feel resistant to airborne toxins."))
@@ -275,15 +276,15 @@
 			ADD_TRAIT(H, TRAIT_NOBREATH, "dna_vault")
 		if(VAULT_FIREPROOF)
 			to_chat(H, span_notice("You feel fireproof."))
-			S.burnmod = 0.5
+			H.physiology.burn_mod = 0.5
 			ADD_TRAIT(H, TRAIT_RESISTHEAT, "dna_vault")
 			ADD_TRAIT(H, TRAIT_NOFIRE, "dna_vault")
 		if(VAULT_STUNTIME)
 			to_chat(H, span_notice("Nothing can keep you down for long."))
-			S.stunmod = 0.5
+			H.physiology.stun_mod = 0.5
 		if(VAULT_ARMOUR)
 			to_chat(H, span_notice("You feel tough."))
-			S.armor = 30
+			H.physiology.damage_resistance = 30
 			ADD_TRAIT(H, TRAIT_PIERCEIMMUNE, "dna_vault")
 		if(VAULT_SPEED)
 			to_chat(H, span_notice("Your legs feel faster."))

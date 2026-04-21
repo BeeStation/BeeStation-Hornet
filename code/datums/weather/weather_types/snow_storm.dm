@@ -19,11 +19,10 @@
 	//area_type = /area/awaymission/snowdin/outside
 	target_trait = ZTRAIT_AWAY
 
-	immunity_type = "snow"
+	immunity_type = TRAIT_SNOWSTORM_IMMUNE
 
 	barometer_predictable = TRUE
 
-
-/datum/weather/snow_storm/weather_act(mob/living/L)
-	L.adjust_bodytemperature(-rand(5,15))
+/datum/weather/snow_storm/weather_act_mob(mob/living/victim)
+	victim.adjust_bodytemperature(-rand(5,15))
 

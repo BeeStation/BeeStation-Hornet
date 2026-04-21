@@ -13,7 +13,7 @@
 
 /datum/quirk/badback/on_process()
 	var/mob/living/carbon/human/H = quirk_target
-	if(H.back && istype(H.back, /obj/item/storage/backpack))
+	if(istype(H.back, /obj/item/storage/backpack))
 		quirk_target.add_mood_event("back_pain", /datum/mood_event/back_pain)
 	else
 		quirk_target.clear_mood_event("back_pain")
@@ -117,7 +117,6 @@
 	desc = "You sometimes just hate life."
 	icon = "frown"
 	quirk_value = -1
-	mob_trait = TRAIT_DEPRESSION
 	gain_text = span_danger("You start feeling depressed.")
 	lose_text = span_notice("You no longer feel depressed.") //if only it were that easy!
 	medical_record_text = "Patient has a severe mood disorder causing them to experience sudden moments of sadness."
@@ -138,6 +137,15 @@
 	medical_record_text = "Patient demonstrates an unnatural attachment to a family heirloom."
 	var/obj/item/heirloom
 	var/where
+
+/datum/quirk/depression/on_process(seconds_per_tick)
+	// 0.416% is 15 successes / 3600 seconds. Calculated with 2 minute
+	// mood runtime, so 50% average uptime across the hour.
+	if(DT_PROB(0.416, seconds_per_tick))
+		quirk_target.add_mood_event("depression", /datum/mood_event/depression)
+
+/datum/quirk/depression/remove()
+	quirk_target.clear_mood_event("depression")
 
 /datum/quirk/family_heirloom/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
@@ -165,6 +173,8 @@
 			if(JOB_NAME_CHAPLAIN)
 				heirloom_type = pick(/obj/item/toy/windupToolbox, /obj/item/reagent_containers/cup/glass/bottle/holywater)
 			if(JOB_NAME_ASSISTANT)
+				heirloom_type = pick(/obj/item/heirloomtoolbox, /obj/item/clothing/gloves/cut/heirloom)
+			if(JOB_NAME_PRISONER)
 				heirloom_type = pick(/obj/item/heirloomtoolbox, /obj/item/clothing/gloves/cut/heirloom)
 			if(JOB_NAME_BARBER)
 				heirloom_type = /obj/item/handmirror
@@ -220,11 +230,11 @@
 			if(JOB_NAME_SHAFTMINER)
 				heirloom_type = pick(/obj/item/pickaxe/mini, /obj/item/shovel)
 
-	if(!heirloom_type)
-		heirloom_type = pick(
+	heirloom_type ||= pick(
 		/obj/item/toy/cards/deck,
 		/obj/item/lighter,
-		/obj/item/dice/d20)
+		/obj/item/dice/d20,
+	)
 	heirloom = new heirloom_type(get_turf(quirk_target))
 	var/list/slots = list(
 		"in your left pocket" = ITEM_SLOT_LPOCKET,
@@ -400,7 +410,6 @@
 	desc = "You have a mental disorder that prevents you from being able to recognize faces at all."
 	icon = "user-secret"
 	quirk_value = -1
-	mob_trait = TRAIT_PROSOPAGNOSIA
 	medical_record_text = "Patient suffers from prosopagnosia and cannot recognize faces."
 
 /datum/quirk/prosthetic_limb
@@ -416,16 +425,16 @@
 	var/obj/item/bodypart/prosthetic
 	switch(limb_slot)
 		if(BODY_ZONE_L_ARM)
-			prosthetic = new/obj/item/bodypart/l_arm/robot/surplus(quirk_target)
+			prosthetic = new/obj/item/bodypart/arm/left/robot/surplus(quirk_target)
 			slot_string = "left arm"
 		if(BODY_ZONE_R_ARM)
-			prosthetic = new/obj/item/bodypart/r_arm/robot/surplus(quirk_target)
+			prosthetic = new/obj/item/bodypart/arm/right/robot/surplus(quirk_target)
 			slot_string = "right arm"
 		if(BODY_ZONE_L_LEG)
-			prosthetic = new/obj/item/bodypart/l_leg/robot/surplus(quirk_target)
+			prosthetic = new/obj/item/bodypart/leg/left/robot/surplus(quirk_target)
 			slot_string = "left leg"
 		if(BODY_ZONE_R_LEG)
-			prosthetic = new/obj/item/bodypart/r_leg/robot/surplus(quirk_target)
+			prosthetic = new/obj/item/bodypart/leg/right/robot/surplus(quirk_target)
 			slot_string = "right leg"
 	H.del_and_replace_bodypart(prosthetic)
 	medical_record_text = "Patient uses a low-budget prosthetic on the [prosthetic.name]."
@@ -458,9 +467,9 @@
 	var/datum/weakref/added_trauma_ref
 
 /datum/quirk/insanity/add()
-	if(!iscarbon(quirk_holder))
+	if(!iscarbon(quirk_target))
 		return
-	var/mob/living/carbon/carbon_quirk_holder = quirk_holder
+	var/mob/living/carbon/carbon_quirk_target = quirk_target
 
 	// Setup our special RDS mild hallucination.
 	// Not a unique subtype so not to plague subtypesof,
@@ -473,7 +482,7 @@
 	added_trauma.gain_text = null
 	added_trauma.lose_text = null
 
-	carbon_quirk_holder.gain_trauma(added_trauma)
+	carbon_quirk_target.gain_trauma(added_trauma)
 	added_trauma_ref = WEAKREF(added_trauma)
 
 /datum/quirk/insanity/post_spawn()
@@ -481,7 +490,7 @@
 		return
 	// I don't /think/ we'll need this, but for newbies who think "roleplay as insane" = "license to kill",
 	// it's probably a good thing to have.
-	to_chat(quirk_holder, "<span class='big bold info'>Please note that your [LOWER_TEXT(name)] does NOT give you the right to attack people or otherwise cause any interference to \
+	to_chat(quirk_target, "<span class='big bold info'>Please note that your [LOWER_TEXT(name)] does NOT give you the right to attack people or otherwise cause any interference to \
 		the round. You are not an antagonist, and the rules will treat you the same as other crewmembers.</span>")
 
 /datum/quirk/insanity/remove()
@@ -505,11 +514,11 @@
 			nearby_people++
 	var/mob/living/carbon/human/H = quirk_target
 	if(DT_PROB(2 + nearby_people, delta_time))
-		H.stuttering = max(3, H.stuttering)
+		H.set_silence_if_lower(6 SECONDS)
 		quirk_target.add_mood_event("anxiety", /datum/mood_event/anxiety)
-	else if(DT_PROB(min(3, nearby_people), delta_time) && !H.silent)
+	else if(DT_PROB(min(3, nearby_people), delta_time) && !H.has_status_effect(/datum/status_effect/silenced))
 		to_chat(H, span_danger("You retreat into yourself. You <i>really</i> don't feel up to talking."))
-		H.silent = max(10, H.silent)
+		H.set_silence_if_lower(10 SECONDS)
 		quirk_target.add_mood_event("anxiety_mute", /datum/mood_event/anxiety_mute)
 	else if(DT_PROB(0.5, delta_time) && dumb_thing)
 		to_chat(H, span_userdanger("You think of a dumb thing you said a long time ago and scream internally."))
@@ -544,7 +553,8 @@
 	if (!reagent_type)
 		reagent_type = pick(drug_list)
 	reagent_instance = new reagent_type()
-	H.reagents.addiction_list.Add(reagent_instance)
+	for(var/addiction in reagent_instance.addiction_types)
+		H.mind.add_addiction_points(addiction, 1000) ///Max that shit out
 	var/current_turf = get_turf(quirk_target)
 	if (!drug_container_type)
 		drug_container_type = /obj/item/storage/pill_bottle
@@ -578,16 +588,21 @@
 	to_chat(quirk_target, span_boldnotice("There is a [initial(drug_container_type.name)] of [initial(reagent_type.name)] [where_drug]. Better hope you don't run out..."))
 
 /datum/quirk/junkie/on_process()
-	var/mob/living/carbon/human/H = quirk_target
-	if(world.time > next_process)
-		next_process = world.time + process_interval
-		if(!H.reagents.addiction_list.Find(reagent_instance))
-			if(QDELETED(reagent_instance))
-				reagent_instance = new reagent_type()
-			else
-				reagent_instance.addiction_stage = 0
-			H.reagents.addiction_list += reagent_instance
-			to_chat(quirk_target, span_danger("You thought you kicked it, but you suddenly feel like you need [reagent_instance.name] again..."))
+	if(!COOLDOWN_FINISHED(src, next_process))
+		return
+	COOLDOWN_START(src, next_process, process_interval)
+	var/mob/living/carbon/human/human_holder = quirk_target
+	var/deleted = QDELETED(reagent_instance)
+	var/missing_addiction = FALSE
+	for(var/addiction_type in reagent_instance.addiction_types)
+		if(!LAZYACCESS(human_holder.mind.active_addictions, addiction_type))
+			missing_addiction = TRUE
+	if(deleted || missing_addiction)
+		if(deleted)
+			reagent_instance = new reagent_type()
+		to_chat(quirk_target, span_danger("You thought you kicked it, but you feel like you're falling back onto bad habits.."))
+		for(var/addiction in reagent_instance.addiction_types)
+			human_holder.mind.add_addiction_points(addiction, 1000) ///Max that shit out
 
 /datum/quirk/junkie/smoker
 	name = "Smoker"
@@ -659,7 +674,7 @@
 	if(tick_number >= 6) // how many ticks should pass between a check
 		tick_number = 0
 		var/mob/living/carbon/human/H = quirk_target
-		if(H.drunkenness > 0) // If they're not drunk, need goes up. else they're satisfied
+		if(H.get_drunk_amount() > 0) // If they're not drunk, need goes up. else they're satisfied
 			need = -15
 		else
 			need++

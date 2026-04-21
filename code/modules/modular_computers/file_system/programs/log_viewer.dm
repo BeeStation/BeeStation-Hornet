@@ -7,6 +7,7 @@
 	size = 4
 	tgui_id = "NtosLogViewer"
 	program_icon = "database"
+	power_consumption = 20 WATT
 
 /datum/computer_file/program/log_viewer/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
@@ -115,4 +116,4 @@
 	return silo_log
 
 /datum/computer_file/program/log_viewer/proc/check_remote()
-	return computer.get_ntnet_status(NTNET_COMMUNICATION)
+	return !!find_functional_ntnet_relay()

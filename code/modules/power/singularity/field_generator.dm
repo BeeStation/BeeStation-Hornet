@@ -32,6 +32,7 @@ field_generator power level display
 	density = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 500
+	custom_price = 550
 	//100% immune to lasers and energy projectiles since it absorbs their energy.
 	armor_type = /datum/armor/field_generator
 	var/power_level = 0
@@ -58,9 +59,6 @@ field_generator power level display
 	fields = list()
 	connected_gens = list()
 	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, PROC_REF(block_singularity_if_active))
-
-/obj/machinery/field/generator/ComponentInitialize()
-	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
 
 /obj/machinery/field/generator/update_icon()

@@ -18,6 +18,7 @@
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
 	crafting_complexity = FOOD_COMPLEXITY_2
+	custom_price = 20
 
 /obj/item/food/sosjerky
 	name = "\improper Scaredy's Private Reserve Beef Jerky"
@@ -35,6 +36,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	foodtypes = JUNKFOOD | MEAT | SUGAR
 	crafting_complexity = FOOD_COMPLEXITY_1
+	custom_price = 20
 
 /obj/item/food/sosjerky/healthy
 	name = "homemade beef jerky"
@@ -183,6 +185,7 @@
 	foodtypes = JUNKFOOD | FRIED
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_1
+	custom_price = 20
 
 /obj/item/food/no_raisin
 	name = "\improper 4no raisins"
@@ -201,6 +204,7 @@
 	custom_price = PAYCHECK_MEDIUM * 0.7
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_1
+	custom_price = 20
 
 /obj/item/food/no_raisin/healthy
 	name = "homemade raisins"
@@ -227,6 +231,7 @@
 	custom_price = PAYCHECK_EASY
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_1
+	custom_price = 20
 
 /obj/item/food/cheesiehonkers
 	name = "\improper Cheesie Honkers"
@@ -243,6 +248,7 @@
 	foodtypes = JUNKFOOD | DAIRY | SUGAR
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_1
+	custom_price = 20
 
 /obj/item/food/syndicake
 	name = "\improper Syndi-Cakes"
@@ -258,6 +264,8 @@
 	foodtypes = GRAIN | FRUIT | VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_1
+	custom_price = 30
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/food/energybar
 	name = "\improper High-power energy bars"
@@ -274,3 +282,4 @@
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_1
+	custom_price = 20

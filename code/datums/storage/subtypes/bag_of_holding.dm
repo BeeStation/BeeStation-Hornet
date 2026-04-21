@@ -22,7 +22,7 @@
 		return
 
 	var/turf/loccheck = get_turf(resolve_parent)
-	to_chat(user, "<span class='danger'>The Bluespace interfaces of the two devices catastrophically malfunction!</span>")
+	to_chat(user, span_danger("The Bluespace interfaces of the two devices catastrophically malfunction!"))
 	qdel(to_insert)
 	playsound(loccheck,'sound/effects/supermatter.ogg', 200, TRUE)
 

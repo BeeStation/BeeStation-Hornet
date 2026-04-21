@@ -139,8 +139,7 @@
 	if(!do_after(ninja, 20 SECONDS, src, extra_checks = CALLBACK(src, PROC_REF(can_hack), ninja), hidden = TRUE))
 		return
 	for(var/datum/record/crew/target in GLOB.manifest.general)
-		target.wanted_status = WANTED_ARREST
-	update_all_security_huds()
+		target.set_wanted_status(ninja, WANTED_SUSPECT)
 
 /obj/machinery/computer/records/security/proc/can_hack(mob/living/hacker, feedback = FALSE)
 	if(machine_stat & (NOPOWER|BROKEN))
@@ -278,7 +277,7 @@
 
 /mob/living/carbon/proc/ninja_knockdown()
 	Knockdown(3 SECONDS)
-	Jitter(3 SECONDS)
+	set_jitter_if_lower(3 SECONDS)
 
 //CAMERAS//
 /obj/machinery/camera/ninjadrain_act(mob/living/carbon/human/ninja, obj/item/mod/module/hacker/hacking_module)

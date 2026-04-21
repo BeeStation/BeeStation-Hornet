@@ -4,13 +4,18 @@
 	department_for_prefs = DEPT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 2
 	selection_color = "#bbe291"
 
 	outfit = /datum/outfit/job/janitor
 
-	base_access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
+	base_access = list(
+		ACCESS_JANITOR,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SERVICE,
+	)
 	extra_access = list()
 
 	departments = DEPT_BITFLAG_SRV
@@ -18,6 +23,8 @@
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
 
 	display_order = JOB_DISPLAY_ORDER_JANITOR
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Groundskeeper"
 	biohazard = 40//cleaning up hazardous messes puts janitors at extra risk
 
@@ -25,7 +32,13 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/janitor
 	)
 
-	minimal_lightup_areas = list(/area/janitor)
+	minimal_lightup_areas = list(
+/area/station/service/janitor)
+
+	manuscript_jobs = list(
+		JOB_NAME_JANITOR,
+		JOB_NAME_CHEMIST // chemicals for cleaning.
+	)
 
 /datum/outfit/job/janitor
 	name = JOB_NAME_JANITOR
@@ -36,7 +49,7 @@
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/janitor
 
-/datum/outfit/job/janitor/pre_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/job/janitor/pre_equip(mob/living/carbon/human/H, visuals_only)
 	. = ..()
 	if(GARBAGEDAY in SSevents.holidays)
 		l_pocket = /obj/item/gun/ballistic/revolver

@@ -6,7 +6,7 @@
 	antagpanel_category = "Fugitive Hunters"
 	show_to_ghosts = TRUE
 	prevent_roundtype_conversion = FALSE
-	required_living_playtime = 4
+	required_living_playtime = 0
 	var/datum/team/fugitive_hunters/hunter_team
 	var/datum/fugitive_type/hunter/backstory
 
@@ -31,7 +31,7 @@
 
 /datum/antagonist/fugitive_hunter/create_team(datum/team/fugitive_hunters/new_team)
 	if(!new_team)
-		for(var/datum/antagonist/fugitive_hunter/H in GLOB.antagonists)
+		for(var/datum/antagonist/fugitive_hunter/H in GLOB.active_antagonists)
 			if(!H.owner)
 				continue
 			if(H.hunter_team)
@@ -76,7 +76,7 @@
 	return backstory.multiple_name
 
 /datum/team/fugitive_hunters/proc/forge_team_objectives()
-	for(var/datum/antagonist/fugitive/A in GLOB.antagonists)
+	for(var/datum/antagonist/fugitive/A in GLOB.active_antagonists)
 		if(!A.owner)
 			continue
 		var/datum/objective/capture_fugitive/capture = new()
@@ -199,12 +199,12 @@
 
 	return result.Join("<br>")
 
-/datum/antagonist/fugitive_hunter/proc/update_fugitive_icons_added(var/mob/living/carbon/human/fugitive)
+/datum/antagonist/fugitive_hunter/proc/update_fugitive_icons_added(mob/living/carbon/human/fugitive)
 	var/datum/atom_hud/antag/fughud = GLOB.huds[ANTAG_HUD_FUGITIVE]
 	fughud.join_hud(fugitive)
 	set_antag_hud(fugitive, "fugitive_hunter")
 
-/datum/antagonist/fugitive_hunter/proc/update_fugitive_icons_removed(var/mob/living/carbon/human/fugitive)
+/datum/antagonist/fugitive_hunter/proc/update_fugitive_icons_removed(mob/living/carbon/human/fugitive)
 	var/datum/atom_hud/antag/fughud = GLOB.huds[ANTAG_HUD_FUGITIVE]
 	fughud.leave_hud(fugitive)
 	set_antag_hud(fugitive, null)

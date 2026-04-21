@@ -4,11 +4,11 @@
 	singular_name = "floor tile"
 	desc = "The ground you walk on."
 	icon_state = "tile"
-	item_state = "tile"
+	inhand_icon_state = "tile"
 	force = 6
 	mats_per_unit = list(/datum/material/iron=500)
 	throwforce = 10
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	turf_type = /turf/open/floor/iron
 	armor_type = /datum/armor/tile_iron
 	resistance_flags = FIRE_PROOF

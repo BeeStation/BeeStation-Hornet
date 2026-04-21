@@ -5,7 +5,7 @@
 		but only few can evoke the dangers that lurk beneath reality."
 	icon = 'icons/obj/heretic.dmi'
 	icon_state = "rune_carver"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_SMALL
@@ -32,7 +32,11 @@
 	/// A list of weakrefs to all of ourc urrent runes
 	var/list/datum/weakref/current_runes = list()
 	/// Turfs that you cannot draw carvings on
-	var/static/list/blacklisted_turfs = typecacheof(list(/turf/open/space, /turf/open/openspace, /turf/open/lava))
+	var/static/list/blacklisted_turfs = typecacheof(list(
+		/turf/open/space,
+		/turf/open/openspace,
+		/turf/open/lava,
+	))
 
 /obj/item/melee/rune_carver/examine(mob/user)
 	. = ..()
@@ -128,7 +132,7 @@
 	desc = "Destroys all runes carved by this blade."
 	background_icon_state = "bg_heretic"
 	button_icon_state = "rune_break"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 
 /datum/action/item_action/rune_shatter/New(Target)
 	. = ..()
@@ -236,10 +240,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/trap/eldritch)
 		return
 	var/mob/living/carbon/carbon_victim = victim
 	carbon_victim.adjustStaminaLoss(80)
-	carbon_victim.silent += 10
-	carbon_victim.stuttering += 30
-	carbon_victim.Jitter(10)
-	carbon_victim.Dizzy(20)
+	carbon_victim.adjust_silence(20 SECONDS)
+	carbon_victim.adjust_stutter(1 MINUTES)
+	carbon_victim.set_jitter_if_lower(20 SECONDS)
+	carbon_victim.set_dizzy_if_lower(40 SECONDS)
 	carbon_victim.adjust_blindness(2)
 	carbon_victim.add_mood_event("gates_of_mansus", /datum/mood_event/gates_of_mansus)
 	playsound(src, 'sound/magic/blind.ogg', 75, TRUE)

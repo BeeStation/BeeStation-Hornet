@@ -91,18 +91,20 @@
 	if(resistance_flags & INDESTRUCTIBLE)
 		return ..()
 	..() //contents explosion
-	if(target == src)
+	if(target == src || severity == EXPLODE_DEVASTATE)
 		take_damage(INFINITY, BRUTE, BOMB, 0)
 		return
+
+	if(is_shielded())
+		return
+
 	switch(severity)
-		if(1)
-			take_damage(INFINITY, BRUTE, BOMB, 0)
-		if(2)
-			hotspot_expose(1000,CELL_VOLUME)
-			take_damage(rand(0.5, max(1600 / max_integrity, 1.2)) * max_integrity, BRUTE, BOMB, 0)
-		if(3)
-			hotspot_expose(1000,CELL_VOLUME)
-			take_damage(rand(0.3, max(700 / max_integrity, 0.5)) * max_integrity, BRUTE, BOMB, 0)
+		if(EXPLODE_HEAVY)
+			hotspot_expose(1000, CELL_VOLUME)
+			take_damage(RANDOM_DECIMAL(0.5, max(1600 / max_integrity, 1.2)) * max_integrity, BRUTE, BOMB, 0)
+		if(EXPLODE_LIGHT)
+			hotspot_expose(1000, CELL_VOLUME)
+			take_damage(RANDOM_DECIMAL(0.3, max(700 / max_integrity, 0.5)) * max_integrity, BRUTE, BOMB, 0)
 
 /turf/contents_explosion(severity, target)
 	for(var/thing in contents)
@@ -138,7 +140,7 @@
 //====================================
 
 /obj/item/proc/attack_turf(turf/T, mob/living/user)
-	if(item_flags & NOBLUDGEON)
+	if((item_flags & NOBLUDGEON) || !T.can_hit)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(T)
@@ -167,21 +169,9 @@
 
 	//the istype cascade has been spread among various procs for easy overriding
 	if(try_clean(W, user, T) || try_wallmount(W, user, T) || try_decon(W, user, T) || try_destroy(W, user, T))
-		return
-
-	if(can_lay_cable() && istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/coil = W
-		for(var/obj/structure/cable/LC in src)
-			if(!LC.d1 || !LC.d2)
-				LC.attackby(W,user)
-				return
-		coil.place_turf(src, user)
 		return TRUE
 
-	else if(istype(W, /obj/item/rcl))
-		handleRCL(W, user)
-
-	return ..() || ((can_hit) && W.attack_turf(src, user))
+	return ..() || W.attack_turf(src, user)
 
 /turf/proc/try_clean(obj/item/W, mob/user, turf/T)
 	return FALSE
@@ -189,10 +179,8 @@
 /turf/proc/try_wallmount(obj/item/W, mob/user, turf/T)
 	return FALSE
 
-
 /turf/proc/try_decon(obj/item/I, mob/user, turf/T)
 	return FALSE
-
 
 /turf/proc/try_destroy(obj/item/I, mob/user, turf/T)
 	return FALSE
@@ -264,28 +252,20 @@
 // Mechs
 //====================================
 
-/turf/mech_melee_attack(obj/vehicle/sealed/mecha/M)
+/turf/mech_melee_attack(obj/vehicle/sealed/mecha/mecha_attacker, mob/living/user)
 	if (!can_hit)
 		return FALSE
-	M.do_attack_animation(src)
-	var/play_soundeffect = 0
-	var/mech_damtype = M.damtype
-	if(M.selected)
-		mech_damtype = M.selected.damtype
-		play_soundeffect = 1
-	else
-		switch(M.damtype)
-			if(BRUTE)
-				playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
-			if(BURN)
-				playsound(src, 'sound/items/welder.ogg', 50, 1)
-			if(TOX)
-				playsound(src, 'sound/effects/spray2.ogg', 50, 1)
-				return FALSE
-			else
-				return FALSE
-	M.visible_message(span_danger("[M.name] hits [src]!"), span_danger("You hit [src]!"), null, COMBAT_MESSAGE_RANGE)
-	return take_damage(M.force*3, mech_damtype, MELEE, play_soundeffect, get_dir(src, M)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
+	mecha_attacker.do_attack_animation(src)
+	switch(mecha_attacker.damtype)
+		if(BRUTE)
+			playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
+		if(BURN)
+			playsound(src, 'sound/items/welder.ogg', 50, TRUE)
+		else
+			return FALSE
+	mecha_attacker.visible_message(span_danger("[mecha_attacker.name] hits [src]!"), span_danger("You hit [src]!"), null, COMBAT_MESSAGE_RANGE)
+	..()
+	return take_damage(mecha_attacker.force * 3, mecha_attacker.damtype, "melee", FALSE, get_dir(src, mecha_attacker)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
 
 //====================================
 // Singularity
@@ -350,7 +330,8 @@
 		SSfire_burning.processing -= src
 	turf_destruction(FIRE, 0)
 
-/turf/proc/extinguish()
+/turf/extinguish()
+	. = ..()
 	if(resistance_flags & ON_FIRE)
 		resistance_flags &= ~ON_FIRE
 		update_icon()

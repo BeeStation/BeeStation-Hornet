@@ -31,7 +31,7 @@
 	name = "reactive armor"
 	desc = "Doesn't seem to do much for some reason."
 	icon_state = "reactiveoff"
-	item_state = "reactiveoff"
+	inhand_icon_state = "reactiveoff"
 	blood_overlay_type = "armor"
 	armor_type = /datum/armor/armor_reactive
 	actions_types = list(/datum/action/item_action/toggle)
@@ -62,11 +62,11 @@
 	if(active)
 		to_chat(user, span_notice("[src] is now active."))
 		icon_state = "reactive"
-		item_state = "reactive"
+		inhand_icon_state = "reactive"
 	else
 		to_chat(user, span_notice("[src] is now inactive."))
 		icon_state = "reactiveoff"
-		item_state = "reactiveoff"
+		inhand_icon_state = "reactiveoff"
 	add_fingerprint(user)
 	return
 
@@ -141,11 +141,14 @@
 	var/tele_range = 6
 	var/rad_amount= 15
 
+/obj/item/clothing/suit/armor/reactive/teleport/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
+
 /obj/item/clothing/suit/armor/reactive/teleport/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("The reactive teleport system flings [owner] clear of [attack_text], shutting itself off in the process!"))
 	playsound(get_turf(owner),'sound/magic/blink.ogg', 100, 1)
 	do_teleport(teleatom = owner, destination = get_turf(owner), no_effects = TRUE, precision = tele_range, channel = TELEPORT_CHANNEL_BLUESPACE)
-	owner.rad_act(rad_amount)
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/teleport/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
@@ -154,7 +157,6 @@
 	playsound(get_turf(owner), 'sound/machines/buzz-sigh.ogg', 50, 1)
 	playsound(get_turf(owner), 'sound/magic/blink.ogg', 100, 1)
 	do_teleport(teleatom = src, destination = get_turf(owner), no_effects = TRUE, precision = tele_range, channel = TELEPORT_CHANNEL_BLUESPACE)
-	owner.rad_act(rad_amount)
 	return FALSE //you didn't actually evade the attack now did you
 
 //Fire
@@ -169,16 +171,16 @@
 	owner.visible_message(span_danger("[src] blocks [attack_text], sending out jets of flame!"))
 	playsound(get_turf(owner),'sound/magic/fireball.ogg', 100, 1)
 	for(var/mob/living/carbon/C in ohearers(6, owner))
-		C.fire_stacks += 8
-		C.IgniteMob()
-	owner.fire_stacks = -20
+		C.adjust_fire_stacks(8)
+		C.ignite_mob()
+	owner.set_wet_stacks(20)
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/fire/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] just makes [attack_text] worse by spewing fire on [owner]!"))
 	playsound(get_turf(owner),'sound/magic/fireball.ogg', 100, 1)
-	owner.fire_stacks += 12
-	owner.IgniteMob()
+	owner.adjust_fire_stacks(12)
+	owner.ignite_mob()
 	return FALSE
 
 //Stealth
@@ -238,37 +240,30 @@
 	siemens_coefficient = -1
 	cooldown_message = span_danger("The tesla capacitors on the reactive tesla armor are still recharging! The armor merely emits some sparks.")
 	emp_message = span_warning("The tesla capacitors beep ominously for a moment.")
-	var/tesla_power = 25000
-	var/tesla_range = 20
-	var/tesla_flags = TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE
-
-/obj/item/clothing/suit/armor/reactive/tesla/dropped(mob/user)
-	..()
-	if(istype(user))
-		user.flags_1 |= ~TESLA_IGNORE_1
-
-/obj/item/clothing/suit/armor/reactive/tesla/equipped(mob/user, slot)
-	..()
-	if(slot_flags & slot) //Was equipped to a valid slot for this item?
-		user.flags_1 &= TESLA_IGNORE_1
+	clothing_traits = list(TRAIT_TESLA_SHOCKIMMUNE)
+	/// How strong are the zaps we give off?
+	var/zap_power = 2.5e4
+	/// How far to the zaps we give off go?
+	var/zap_range = 20
+	/// What flags do we pass to the zaps we give off?
+	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
 
 /obj/item/clothing/suit/armor/reactive/tesla/cooldown_activation(mob/living/carbon/human/owner)
 	var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 	sparks.set_up(1, 1, src)
 	sparks.start()
-	..()
+	return ..()
 
 /obj/item/clothing/suit/armor/reactive/tesla/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] blocks [attack_text], sending out arcs of lightning!"))
-	tesla_zap(owner, tesla_range, tesla_power, tesla_flags)
+	tesla_zap(source = owner, zap_range = zap_range, power = zap_power, cutoff = 1e3, zap_flags = zap_flags)
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/tesla/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] blocks [attack_text], but pulls a massive charge of energy into [owner] from the surrounding environment!"))
-	if(istype(owner))
-		owner.flags_1 &= ~TESLA_IGNORE_1
+	REMOVE_CLOTHING_TRAIT(owner, TRAIT_TESLA_SHOCKIMMUNE) //oops! can't shock without this!
 	electrocute_mob(owner, get_area(src), src, 1)
-	owner.flags_1 |= TESLA_IGNORE_1
+	ADD_CLOTHING_TRAIT(owner, TRAIT_TESLA_SHOCKIMMUNE)
 	return FALSE
 
 //Repulse
@@ -358,7 +353,7 @@
 	sparks.start()
 	return ..()
 
-/obj/item/clothing/suit/armor/reactive/hallucinating/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/armor/reactive/hallucinating/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] blocks [attack_text], sending out mental pulses!"))
 	visible_hallucination_pulse(
 		center = get_turf(owner),
@@ -368,7 +363,7 @@
 	)
 	return TRUE
 
-/obj/item/clothing/suit/armor/reactive/hallucinating/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/armor/reactive/hallucinating/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] blocks [attack_text], but pulls a massive charge of mental energy into [owner] from the surrounding environment!"))
 	owner.adjust_hallucinations_up_to(50 SECONDS, 300 SECONDS)
 	return TRUE
@@ -388,12 +383,12 @@
 	sparks.start()
 	return ..()
 
-/obj/item/clothing/suit/armor/reactive/bioscrambling/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/armor/reactive/bioscrambling/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] blocks [attack_text], biohazard body scramble released!"))
 	bioscrambler_pulse(owner, range, FALSE, TRUE)
 	return TRUE
 
-/obj/item/clothing/suit/armor/reactive/bioscrambling/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/armor/reactive/bioscrambling/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] blocks [attack_text], but pulls a massive charge of biohazard material into [owner] from the surrounding environment!"))
 	bioscrambler_pulse(owner, range, TRUE, TRUE)
 	return TRUE
@@ -414,13 +409,13 @@
 	sparks.start()
 	return ..()
 
-/obj/item/clothing/suit/armor/reactive/bleed/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/armor/reactive/bleed/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] blocks [attack_text], the blood anomaly from within releasing a massive cloud of razors!"))
 	owner.AddComponent(/datum/component/pellet_cloud, projectile_type=/obj/projectile/bullet/shrapnel/bleed, magnitude=3)
 	playsound(src, 'sound/weapons/shrapnel.ogg', 70, TRUE)
 	return TRUE
 
-/obj/item/clothing/suit/armor/reactive/bleed/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/armor/reactive/bleed/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] blocks [attack_text], but pulls a massive charge of biohazard material into [owner] from the surrounding environment!"))
 	owner.AddComponent(/datum/component/pellet_cloud, projectile_type=/obj/projectile/bullet/shrapnel/bleed, magnitude=5)
 	owner.add_bleeding(BLEED_CRITICAL)

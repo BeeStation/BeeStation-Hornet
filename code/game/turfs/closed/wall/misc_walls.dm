@@ -88,9 +88,6 @@
 /turf/closed/wall/rust/Initialize(mapload)
 	. = ..()
 	color = null
-
-/turf/closed/wall/rust/ComponentInitialize()
-	. = ..()
 	AddElement(/datum/element/rust)
 
 /turf/closed/wall/rust/rust_heretic_act()
@@ -107,9 +104,6 @@
 /turf/closed/wall/r_wall/rust/Initialize(mapload)
 	. = ..()
 	color = null
-
-/turf/closed/wall/r_wall/rust/ComponentInitialize()
-	. = ..()
 	AddElement(/datum/element/rust)
 
 /turf/closed/wall/r_wall/rust/rust_heretic_act()

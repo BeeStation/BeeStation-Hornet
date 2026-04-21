@@ -95,14 +95,6 @@
 			set_sanity(sanity + 0.6 * delta_time, SANITY_NEUTRAL, SANITY_MAXIMUM)
 	handle_nutrition()
 
-	// 0.416% is 15 successes / 3600 seconds. Calculated with 2 minute
-	// mood runtime, so 50% average uptime across the hour.
-	if(HAS_TRAIT(mob_parent, TRAIT_DEPRESSION) && DT_PROB(0.416, delta_time))
-		add_mood_event("depression_mild", /datum/mood_event/depression)
-
-	if(HAS_TRAIT(mob_parent, TRAIT_JOLLY) && DT_PROB(0.416, delta_time))
-		add_mood_event("jolly", /datum/mood_event/jolly)
-
 /datum/mood/proc/handle_mob_death(datum/source)
 	SIGNAL_HANDLER
 

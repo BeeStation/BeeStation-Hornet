@@ -10,6 +10,7 @@
  */
 
 /obj/item/kitchen
+	abstract_type = /obj/item/kitchen
 	icon = 'icons/obj/service/kitchen.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
@@ -26,7 +27,7 @@
 	throw_range = 5
 	custom_price = 5 /// Silly useless thing
 	custom_materials = list(/datum/material/iron=80)
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	attack_verb_continuous = list("attacks", "stabs", "pokes")
 	attack_verb_simple = list("attack", "stab", "poke")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -57,12 +58,12 @@
 		icon_state = "fork"
 		forkload = null
 
-	else if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES, simplified_probability = 30))
+	else if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) && user.is_zone_selected(BODY_GROUP_CHEST_HEAD))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 			M = user
-		return eyestab(M,user)
-	else
-		return ..()
+		if (eyestab(M, user, src, silent = user.is_zone_selected(BODY_GROUP_CHEST_HEAD)))
+			return TRUE
+	return ..()
 
 /obj/item/knife/kitchen
 	name = "kitchen knife"

@@ -6,6 +6,7 @@
 
 ///Abstract class to allow us to easily create all the generic "normal" food without too much copy pasta of adding more components
 /obj/item/food
+	abstract_type = /obj/item/food
 	name = "food"
 	desc = "you eat this"
 	resistance_flags = FLAMMABLE
@@ -120,3 +121,16 @@
 		if(resistance_flags & ON_FIRE)
 			SSfire_burning.processing -= src
 		qdel(src)
+
+/obj/item/food/attackby(obj/item/attacking_item, mob/user, params)
+	. = ..()
+	if(istype(attacking_item, /obj/item/pen))
+		var/target_name = tgui_input_text(user, "What would you like to name your masterpiece?", "Name:", name || "Food", MAX_MESSAGE_LEN)
+		if(!target_name || !length(target_name))
+			return
+		if(CHAT_FILTER_CHECK(target_name))
+			to_chat(user, span_warning("The given name contains prohibited word(s)."))
+			return
+		to_chat(user, span_notice("You rename the '<span class='cfc_bluesky'>[name]</span>' to '<span class='cfc_orange'>[target_name]</span>'."))
+		name = target_name
+		update_appearance()

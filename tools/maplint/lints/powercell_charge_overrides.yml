@@ -1,0 +1,4 @@
+/obj/item/stock_parts/cell:
+  banned_variables:
+  - charge
+  - maxcharge

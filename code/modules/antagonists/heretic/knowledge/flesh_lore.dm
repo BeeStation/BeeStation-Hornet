@@ -55,16 +55,6 @@
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	route = HERETIC_PATH_FLESH
 
-/datum/heretic_knowledge/limited_amount/base_flesh/on_research(mob/user, datum/antagonist/heretic/our_heretic)
-	. = ..()
-
-	var/datum/objective/heretic_summon/summon_objective = new()
-	summon_objective.owner = our_heretic.owner
-	our_heretic.objectives += summon_objective
-
-	to_chat(user, span_hierophant("Undertaking the Path of Flesh, you are given another objective."))
-	our_heretic.owner.announce_objectives()
-
 /datum/heretic_knowledge/limited_amount/flesh_grasp
 	name = "Grasp of Flesh"
 	desc = "Your Mansus Grasp gains the ability to create a single ghoul out of corpse with a soul. \
@@ -108,8 +98,8 @@
 	log_game("[key_name(source)] created a ghoul, controlled by [key_name(human_target)].")
 	message_admins("[ADMIN_LOOKUPFLW(source)] created a ghoul, [ADMIN_LOOKUPFLW(human_target)].")
 
-	RegisterSignal(human_target, COMSIG_MOB_DEATH, PROC_REF(remove_ghoul))
-	human_target.revive(full_heal = TRUE, admin_revive = TRUE)
+	RegisterSignal(human_target, COMSIG_LIVING_DEATH, PROC_REF(remove_ghoul))
+	human_target.revive(ADMIN_HEAL_ALL) // Have to do an admin heal here, otherwise they'll likely just die due to missing organs or limbs
 	human_target.setMaxHealth(GHOUL_MAX_HEALTH)
 	human_target.health = GHOUL_MAX_HEALTH
 	human_target.become_husk(MAGIC_TRAIT)
@@ -127,7 +117,7 @@
 	source.remove_status_effect(/datum/status_effect/ghoul)
 	source.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
 
-	UnregisterSignal(source, COMSIG_MOB_DEATH)
+	UnregisterSignal(source, COMSIG_LIVING_DEATH)
 
 /datum/heretic_knowledge/limited_amount/flesh_ghoul
 	name = "Imperfect Ritual"
@@ -171,15 +161,16 @@
 
 	if(!soon_to_be_ghoul.mind || !soon_to_be_ghoul.client)
 		message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
-		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+		var/datum/poll_config/config = new(
 			question = "Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?",
 			check_jobban = ROLE_HERETIC,
 			poll_time = 10 SECONDS,
-			checked_target = soon_to_be_ghoul,
 			jump_target = soon_to_be_ghoul,
 			role_name_text = "voiceless dead",
 			alert_pic = soon_to_be_ghoul,
+			amount_to_pick = 1,
 		)
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = soon_to_be_ghoul)
 		if(!candidate)
 			loc.balloon_alert(user, "Ritual failed, no ghosts")
 			return FALSE
@@ -191,7 +182,7 @@
 	ADD_TRAIT(soon_to_be_ghoul, TRAIT_MUTE, MAGIC_TRAIT)
 	log_game("[key_name(user)] created a voiceless dead, controlled by [key_name(soon_to_be_ghoul)].")
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a voiceless dead, [ADMIN_LOOKUPFLW(soon_to_be_ghoul)].")
-	soon_to_be_ghoul.revive(full_heal = TRUE, admin_revive = TRUE)
+	soon_to_be_ghoul.revive(HEAL_ALL)
 	soon_to_be_ghoul.setMaxHealth(MUTE_MAX_HEALTH)
 	soon_to_be_ghoul.health = MUTE_MAX_HEALTH // Voiceless dead are much tougher than ghouls
 	soon_to_be_ghoul.become_husk()
@@ -205,7 +196,7 @@
 	selected_atoms -= soon_to_be_ghoul
 	LAZYADD(created_items, WEAKREF(soon_to_be_ghoul))
 
-	RegisterSignal(soon_to_be_ghoul, COMSIG_MOB_DEATH, PROC_REF(remove_ghoul))
+	RegisterSignal(soon_to_be_ghoul, COMSIG_LIVING_DEATH, PROC_REF(remove_ghoul))
 	return TRUE
 
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/proc/remove_ghoul(mob/living/carbon/human/source)
@@ -216,7 +207,7 @@
 	source.remove_status_effect(/datum/status_effect/ghoul)
 	source.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
 
-	UnregisterSignal(source, COMSIG_MOB_DEATH)
+	UnregisterSignal(source, COMSIG_LIVING_DEATH)
 
 /datum/heretic_knowledge/flesh_mark
 	name = "Mark of Flesh"
@@ -278,7 +269,7 @@
 	required_atoms = list(
 		/obj/item/organ/eyes = 1,
 		/obj/effect/decal/cleanable/blood = 1,
-		/obj/item/bodypart/l_arm = 1,
+		/obj/item/bodypart/arm/left = 1,
 	)
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/raw_prophet
 	cost = 1

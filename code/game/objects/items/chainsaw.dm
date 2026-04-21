@@ -7,9 +7,8 @@
 	base_icon_state = "chainsaw"
 	lefthand_file = 'icons/mob/inhands/weapons/chainsaw_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 13
-	block_power = 20
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	attack_weight = 2
 	w_class = WEIGHT_CLASS_HUGE
@@ -37,7 +36,8 @@
 	/// The sound that plays when the chainsaw is turned off
 	var/sound/off_sound = 'sound/weapons/chainsaw_off.ogg'
 
-/obj/item/chainsaw/ComponentInitialize()
+/obj/item/chainsaw/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/butchering, \
 		_speed = 3 SECONDS, \
 		_effectiveness = 100, \
@@ -64,6 +64,7 @@
 		attack_verb_simple_on = list("saw", "tear", "lacerate", "cut", "chop", "dice"), \
 	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
+	RegisterSignal(src, COMSIG_ITEM_DROPPED, PROC_REF(on_dropped))
 
 /obj/item/chainsaw/proc/on_transform(obj/item/source, mob/user, active)
 	SIGNAL_HANDLER
@@ -84,6 +85,12 @@
 
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
+/obj/item/chainsaw/proc/on_dropped(obj/item/source, mob/user)
+	SIGNAL_HANDLER
+	var/datum/component/transforming/T = GetComponent(/datum/component/transforming)
+	if(T && T.active)
+		SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user)
+
 /obj/item/chainsaw/suicide_act(mob/living/carbon/user)
 	var/datum/component/transforming/transforming = src.GetComponent(/datum/component/transforming)
 
@@ -103,7 +110,7 @@
 	armour_penetration = 100
 	active_force = 30
 
-/obj/item/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
 		owner.visible_message(span_danger("Ranged attacks just make [owner] angrier!"))
 		playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
@@ -121,8 +128,9 @@
 	w_class = WEIGHT_CLASS_HUGE
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	block_power = 50
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_UNBLOCKABLE
 	armour_penetration = 50
-	light_color = "#ff0000"
+	light_color = COLOR_RED
 	light_system = MOVABLE_LIGHT
 	light_range = 3
 	light_power = 1
@@ -130,7 +138,7 @@
 	active_force = 40
 	active_hitsound = 'sound/weapons/energychainsaw_hit1.ogg'
 
-/obj/item/chainsaw/ComponentInitialize()
+/obj/item/chainsaw/Initialize(mapload)
 	. = ..()
 	var/datum/component/transforming/transforming = src.GetComponent(/datum/component/transforming)
 
@@ -146,11 +154,11 @@
 	desc = "The chainsaw you want when you need to kill every damn thing in the room."
 	w_class = WEIGHT_CLASS_LARGE
 	block_power = 75
-	block_level = 1
+	canblock = TRUE
 	attack_weight = 3
 	armour_penetration = 75
 	light_range = 6
-	active_force = 60
+	active_force = 45
 
 	/// How much time someone is knocked down for when attacking them
 	var/knockdown_time = 1 SECONDS

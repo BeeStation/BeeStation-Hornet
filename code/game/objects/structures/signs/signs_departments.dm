@@ -117,6 +117,11 @@
 	desc = "A sign labelling the atmospherics division of the station. Making Comrade Dyatlov proud since April 26th, 1981."
 	icon_state = "minskyatmo"
 
+/obj/structure/sign/departments/minsky/medical/emt/emt1
+	name = "Paramedic Department"
+	desc = "A sign labelling the paramedic department of the station. First responders to all medical emergencies."
+	icon_state = "minskyemt"
+
 /obj/structure/sign/departments/minsky/medical/medical1
 	name = "Medical Department"
 	desc = "A sign labelling the medical department of the station. You'll probably get treatment here."
@@ -196,3 +201,8 @@
 	name = "Hydroponics Division"
 	desc = "A sign labelling the hydroponics division of the station. Don't mind the redeyes and giggles."
 	icon_state = "minskyhydrob"
+
+/obj/structure/sign/departments/minsky/supply/serv
+	name = "Service Department"
+	desc = "A sign labelling the service department of the station. Keeping the station running since 2185."
+	icon_state = "minskyserv"

@@ -18,7 +18,6 @@
 	refill_canister = /obj/item/vending_refill/wallmed
 	default_price = 25
 	extra_price = 100
-	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	tiltable = FALSE
 	light_mask = "wallmed-light-mask"
 

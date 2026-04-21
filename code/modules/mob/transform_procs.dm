@@ -74,7 +74,9 @@
 		O.adjustFireLoss(getFireLoss(), 0)
 		O.setOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
 		O.updatehealth()
-		O.radiation = radiation
+		var/datum/component/irradiated/irradiated_component = GetComponent(/datum/component/irradiated)
+		if(irradiated_component)
+			O.AddComponent(/datum/component/irradiated, irradiated_component.intensity)
 
 	//move implants to new mob
 	if(tr_flags & TR_KEEPIMPLANTS)
@@ -92,7 +94,7 @@
 			var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
 			if(changeling)
 				var/datum/action/changeling/humanform/hf = new
-				changeling.purchased_powers += hf
+				changeling.purchased_powers[hf.type] = hf
 				changeling.regain_powers()
 
 		for(var/X in internal_organs)
@@ -127,7 +129,7 @@
 		var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			var/datum/action/changeling/humanform/hf = new
-			changeling.purchased_powers += hf
+			changeling.purchased_powers[hf.type] = hf
 			changeling.regain_powers()
 
 
@@ -223,7 +225,9 @@
 		O.adjustFireLoss(getFireLoss(), 0)
 		O.setOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
 		O.updatehealth()
-		O.radiation = radiation
+		var/datum/component/irradiated/irradiated_component = GetComponent(/datum/component/irradiated)
+		if(irradiated_component)
+			O.AddComponent(/datum/component/irradiated, irradiated_component.intensity)
 
 	//move implants to new mob
 	if(tr_flags & TR_KEEPIMPLANTS)
@@ -241,7 +245,7 @@
 			var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
 			if(changeling)
 				var/datum/action/changeling/humanform/hf = new
-				changeling.purchased_powers += hf
+				changeling.purchased_powers[hf.type] = hf
 				changeling.regain_powers()
 
 		for(var/X in internal_organs)
@@ -276,7 +280,7 @@
 		var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			var/datum/action/changeling/humanform/hf = new
-			changeling.purchased_powers += hf
+			changeling.purchased_powers[hf.type] = hf
 			changeling.regain_powers()
 
 
@@ -298,7 +302,7 @@
 //////////////////////////           Humanize               //////////////////////////////
 //Could probably be merged with monkeyize but other transformations got their own procs, too
 
-/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), keep_original_species = FALSE, var/datum/species/original_species, species = /datum/species/human)
+/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), keep_original_species = FALSE, datum/species/original_species, species = /datum/species/human)
 	if (notransform || transformation_timer)
 		return
 
@@ -343,7 +347,7 @@
 	O.updateappearance(mutcolor_update=1)
 
 	if(findtext(O.dna.real_name, "monkey", 1, 7)) //7 == length("monkey") + 1
-		O.real_name = random_unique_name(O.gender)
+		O.real_name = generate_random_mob_name()
 		O.dna.generate_unique_enzymes(O)
 	else
 		O.real_name = O.dna.real_name
@@ -370,7 +374,9 @@
 		O.adjustFireLoss(getFireLoss(), 0)
 		O.adjustOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
 		O.updatehealth()
-		O.radiation = radiation
+		var/datum/component/irradiated/irradiated_component = GetComponent(/datum/component/irradiated)
+		if(irradiated_component)
+			O.AddComponent(/datum/component/irradiated, irradiated_component.intensity)
 
 	//move implants to new mob
 	if(tr_flags & TR_KEEPIMPLANTS)
@@ -387,7 +393,7 @@
 			var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
 			if(changeling)
 				for(var/datum/action/changeling/humanform/HF in changeling.purchased_powers)
-					changeling.purchased_powers -= HF
+					changeling.purchased_powers -= HF.type
 					changeling.regain_powers()
 
 		for(var/X in internal_organs)
@@ -422,7 +428,7 @@
 		var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			for(var/datum/action/changeling/humanform/HF in changeling.purchased_powers)
-				changeling.purchased_powers -= HF
+				changeling.purchased_powers -= HF.type
 				changeling.regain_powers()
 
 	//if we have an AI, transfer it; if we don't, make sure the new thing doesn't either
@@ -475,7 +481,7 @@
 	Paralyze(1, ignore_canstun = TRUE)
 
 	if(delete_items)
-		for(var/obj/item/W in get_equipped_items(TRUE) | held_items)
+		for(var/obj/item/W in get_equipped_items(INCLUDE_POCKETS) | held_items)
 			qdel(W)
 	else
 		unequip_everything()
@@ -552,13 +558,15 @@
 	to_chat(src, span_userdanger("You are job banned from cyborg! Appeal your job ban if you want to avoid this in the future!"))
 	ghostize(FALSE)
 
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+	var/datum/poll_config/config = new(
 		check_jobban = JOB_NAME_CYBORG,
 		poll_time = 10 SECONDS,
 		jump_target = src,
 		role_name_text = name,
 		alert_pic = src,
+		amount_to_pick = 1,
 	)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(candidate)
 		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(src)]) to replace a jobbanned player.")
 		key = candidate.key

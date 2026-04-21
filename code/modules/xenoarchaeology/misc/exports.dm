@@ -6,10 +6,10 @@
 	unit_name = "xenoartifact"
 	export_types = list(/obj/item/xenoartifact)
 
-/datum/export/artifact/get_cost(obj/item/O, allowed_categories = NONE, apply_elastic = TRUE)
-	cost = O.custom_price
+/datum/export/artifact/get_cost(obj/item/O, allowed_categories = NONE)
+	cost = O.item_price
 	return ..()
 
-/datum/export/artifact/applies_to(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
+/datum/export/artifact/applies_to(obj/O, allowed_categories = NONE)
 	. = ..()
 	return O.GetComponent(/datum/component/xenoartifact) ? TRUE : .

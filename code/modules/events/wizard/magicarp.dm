@@ -45,7 +45,7 @@
 		/obj/projectile/magic/animate,
 		/obj/projectile/magic/arcane_barrage,
 		/obj/projectile/magic/change,
-		/obj/projectile/magic/resurrection,
+		/obj/projectile/magic/healing,
 		/obj/projectile/magic/death,
 		/obj/projectile/magic/teleport,
 		/obj/projectile/magic/door,
@@ -58,10 +58,13 @@
 	projectiletype = pick(allowed_projectile_types)
 	return ..()
 
+/mob/living/simple_animal/hostile/carp/cayenne/make_tameable()
+	return
+
 /mob/living/simple_animal/hostile/carp/ranged/chaos
 	name = "chaos magicarp"
 	desc = "50% carp, 100% magic, 150% horrible."
-	color = "#00FFFF"
+	color = COLOR_CYAN
 	maxHealth = 75
 	health = 75
 	gold_core_spawnable = NO_SPAWN

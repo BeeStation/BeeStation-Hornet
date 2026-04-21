@@ -142,13 +142,12 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 		to_chat(user, span_warning("This station is not equipped with an auxillary base. Please contact your Nanotrasen contractor."))
 		return
 	if(!no_restrictions)
-		var/static/list/disallowed_turf_types = typecacheof(list(
-			/turf/closed,
-			/turf/open/lava,
-			/turf/open/indestructible,
-			)) - typecacheof(list(
-			/turf/closed/mineral,
-			))
+		var/static/list/disallowed_turf_types = zebra_typecacheof(list(
+			/turf/closed = TRUE,
+			/turf/open/lava = TRUE,
+			/turf/open/indestructible = TRUE,
+			/turf/closed/mineral = FALSE,
+		))
 
 		if(!is_mining_level(T.z))
 			return BAD_ZLEVEL
@@ -188,7 +187,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 /obj/item/assault_pod/mining
 	name = "Landing Field Designator"
 	icon_state = "gangtool-purple"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	desc = "Deploy to designate the landing zone of the auxillary base."
@@ -250,7 +249,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	. = ..()
 	for(var/area/A in shuttle_areas)
 		for(var/turf/T in A.contents)
-			underlying_turf_area[T] = GLOB.areas_by_type[/area/construction/mining/aux_base]
+			underlying_turf_area[T] = GLOB.areas_by_type[/area/station/construction/mining/aux_base]
 
 /obj/docking_port/mobile/auxillary_base/takeoff(list/old_turfs, list/new_turfs, list/moved_atoms, rotation, movement_direction, old_dock, area/underlying_old_area)
 	for(var/i in new_turfs)

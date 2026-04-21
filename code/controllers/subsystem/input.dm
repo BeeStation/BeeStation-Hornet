@@ -1,7 +1,6 @@
 SUBSYSTEM_DEF(input)
 	name = "Input"
 	wait = 1 //SS_TICKER means this runs every tick
-	init_order = INIT_ORDER_INPUT
 	init_stage = INITSTAGE_EARLY
 	flags = SS_TICKER
 	priority = FIRE_PRIORITY_INPUT
@@ -23,7 +22,7 @@ SUBSYSTEM_DEF(input)
 
 // This is for when macro sets are eventualy datumized
 /datum/controller/subsystem/input/proc/setup_default_macro_sets()
-	var/list/static/default_macro_sets
+	var/static/list/default_macro_sets
 
 	if(default_macro_sets)
 		macro_sets = default_macro_sets
@@ -49,7 +48,7 @@ SUBSYSTEM_DEF(input)
 	// Because i'm lazy and don't want to type all these out twice
 	var/list/old_default = default_macro_sets["old_default"]
 
-	var/list/static/oldmode_keys = list(
+	var/static/list/oldmode_keys = list(
 		"North", "East", "South", "West",
 		"Northeast", "Southeast", "Northwest", "Southwest",
 		"Insert", "Delete", "Ctrl", "Alt",
@@ -61,7 +60,7 @@ SUBSYSTEM_DEF(input)
 		old_default[key] = "\"KeyDown [key]\""
 		old_default["[key]+UP"] = "\"KeyUp [key]\""
 
-	var/list/static/oldmode_ctrl_override_keys = list(
+	var/static/list/oldmode_ctrl_override_keys = list(
 		"W" = "W", "A" = "A", "S" = "S", "D" = "D", // movement
 		"1" = "1", "2" = "2", "3" = "3", "4" = "4", // intent
 		"B" = "B", // resist

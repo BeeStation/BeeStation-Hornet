@@ -35,11 +35,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/processor)
 	update_integrity(machinery_computer.get_integrity())
 	max_integrity = machinery_computer.max_integrity
 	integrity_failure = machinery_computer.integrity_failure
-	base_active_power_usage = machinery_computer.base_active_power_usage
-	base_idle_power_usage = machinery_computer.base_idle_power_usage
+	base_power_usage = machinery_computer.base_power_usage
 
-/obj/item/modular_computer/processor/relay_qdel()
-	qdel(machinery_computer)
+/obj/item/modular_computer/processor/Destroy()
+	if(!QDELETED(machinery_computer))
+		QDEL_NULL(machinery_computer)
+	return..()
 
 /obj/item/modular_computer/processor/update_icon()
 	if(machinery_computer)

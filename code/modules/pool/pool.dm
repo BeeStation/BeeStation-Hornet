@@ -123,7 +123,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	if(ishuman(user))
 		var/mob/living/carbon/human/F = user
 		var/datum/species/SS = F.dna.species
-		if(MOB_ROBOTIC in SS.inherent_biotypes)  //ZAP goes the IPC!
+		if(SS.inherent_biotypes & MOB_ROBOTIC)  //ZAP goes the IPC!
 			zap = 2 //You can protect yourself from water damage with thick clothing.
 		if(F.head && isclothing(F.head))
 			var/obj/item/clothing/CH = F.head

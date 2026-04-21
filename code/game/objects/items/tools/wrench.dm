@@ -3,14 +3,14 @@
 	desc = "A wrench with common uses. Can be found in your hand."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "wrench"
-	item_state = "wrench"
+	inhand_icon_state = "wrench"
 	worn_icon_state = "wrench"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
-	force = 5
-	throwforce = 7
+	force = 10
+	throwforce = 12
 	w_class = WEIGHT_CLASS_SMALL
 	usesound = 'sound/items/ratchet.ogg'
 	custom_materials = list(/datum/material/iron=150)
@@ -22,6 +22,9 @@
 	toolspeed = 1
 	armor_type = /datum/armor/item_wrench
 
+/obj/item/wrench/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
 /datum/armor/item_wrench
 	fire = 50
@@ -55,6 +58,7 @@
 	throwforce = 4
 	attack_verb_continuous = list("heals", "medicals", "taps", "pokes", "analyzes") //"cobbyed"
 	attack_verb_simple = list("heal", "medical", "tap", "poke", "analyze")
+	custom_price = 25 //useless fucking shit items that only serve to suicide
 	///var to hold the name of the person who suicided
 	var/suicider
 

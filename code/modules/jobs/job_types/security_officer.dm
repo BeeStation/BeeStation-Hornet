@@ -5,7 +5,7 @@
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security, and the head of your assigned department (if applicable)"
-	faction = "Station"
+	faction = FACTION_STATION
 	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
@@ -30,6 +30,8 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_SECURITY)
 
 	display_order = JOB_DISPLAY_ORDER_SECURITY_OFFICER
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Guard"
 
 	species_outfits = list(
@@ -37,7 +39,12 @@
 	)
 	biohazard = 25 //clean your baton, man
 
-	minimal_lightup_areas = list(/area/construction/mining/aux_base)
+	minimal_lightup_areas = list(/area/station/construction/mining/aux_base)
+
+	manuscript_jobs = list(
+		JOB_NAME_SECURITYOFFICER,
+		JOB_NAME_ASSISTANT // they're used to be troubles
+	)
 
 /datum/job/security_officer/get_access()
 	. = ..()
@@ -77,7 +84,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			accessory = /obj/item/clothing/accessory/armband/cargo
 			if(!on_dummy)
 				dep_access = dept_access_supply
-				destination = /area/security/checkpoint/supply
+				destination = /area/station/security/checkpoint/supply
 				spawn_point = locate(/obj/effect/landmark/start/depsec/supply) in GLOB.department_security_spawns
 				minimal_lightup_areas |= GLOB.supply_lightup_areas
 		if(SEC_DEPT_MEDICAL)
@@ -85,7 +92,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			accessory =  /obj/item/clothing/accessory/armband/medblue
 			if(!on_dummy)
 				dep_access = dept_access_medical
-				destination = /area/security/checkpoint/medical
+				destination = /area/station/security/checkpoint/medical
 				spawn_point = locate(/obj/effect/landmark/start/depsec/medical) in GLOB.department_security_spawns
 				minimal_lightup_areas |= GLOB.medical_lightup_areas
 		if(SEC_DEPT_SCIENCE)
@@ -93,7 +100,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			accessory = /obj/item/clothing/accessory/armband/science
 			if(!on_dummy)
 				dep_access = dept_access_science
-				destination = /area/security/checkpoint/science
+				destination = /area/station/security/checkpoint/science
 				spawn_point = locate(/obj/effect/landmark/start/depsec/science) in GLOB.department_security_spawns
 				minimal_lightup_areas |= GLOB.science_lightup_areas
 		if(SEC_DEPT_ENGINEERING)
@@ -101,7 +108,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			accessory = /obj/item/clothing/accessory/armband/engine
 			if(!on_dummy)
 				dep_access = dept_access_engineering
-				destination = /area/security/checkpoint/engineering
+				destination = /area/station/security/checkpoint/engineering
 				spawn_point = locate(/obj/effect/landmark/start/depsec/engineering) in GLOB.department_security_spawns
 				minimal_lightup_areas |= GLOB.engineering_lightup_areas
 
@@ -157,13 +164,18 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	suit = /obj/item/clothing/suit/armor/vest/alt
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/modular_computer/tablet/pda/preset/security
-	r_pocket = /obj/item/clothing/accessory/badge/officer
-	suit_store = /obj/item/gun/energy/disabler
+	r_pocket = /obj/item/clothing/accessory/badge
+	accessory = /obj/item/clothing/accessory/security_pager
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
 	box = /obj/item/storage/box/survival/security
+
+	backpack_contents = list(
+		/obj/item/mining_voucher/security = 1,
+		/obj/item/ammo_casing/taser = 1,
+		)
 
 	implants = list(/obj/item/implant/mindshield)
 

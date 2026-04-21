@@ -20,6 +20,7 @@
 	throwforce = 1 // if someone manages to bust out of jail with candy corn god bless them
 	tastes = list("bitter wax" = 1)
 	foodtypes = JUNKFOOD | GROSS
+	trade_flags = TRADE_NOT_SELLABLE
 
 /obj/item/food/candiedapple
 	name = "candied apple"
@@ -187,7 +188,7 @@
 	)
 	tastes = list("gummy death")
 
-/obj/item/food/gumball/syndicate/ComponentInitialize()
+/obj/item/food/gumball/syndicate/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/slippery, 0.5 SECONDS, NO_SLIP_WHEN_WALKING)
 
@@ -223,7 +224,7 @@
 	desc = "A delicious lollipop. Makes for a great Valentine's present."
 	icon = 'icons/obj/lollipop.dmi'
 	icon_state = "lollipop_stick"
-	item_state = null
+	inhand_icon_state = null
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 1,
 		/datum/reagent/consumable/nutriment/vitamin = 1,
@@ -344,7 +345,7 @@
 	name = "Swirl lollipop"
 	desc = "A massive rainbow swirlled lollipop. Said to contain extra sugar."
 	icon_state = "swirl_lollipop"
-	item_state = "swirl_lollipop"
+	inhand_icon_state = "swirl_lollipop"
 	food_reagents = list(
 		/datum/reagent/consumable/sugar = 30,
 		/datum/reagent/drug/happiness = 5, //swirl lollipops make everyone happy!
@@ -354,6 +355,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	crafting_complexity = FOOD_COMPLEXITY_1
+	custom_price = 30
 
 /obj/item/food/rock_candy
 	name = "Rock candy"

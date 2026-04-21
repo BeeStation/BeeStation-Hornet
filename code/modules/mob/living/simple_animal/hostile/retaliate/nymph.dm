@@ -10,11 +10,10 @@
 	faction = list(FACTION_DIONA)
 	gender = NEUTER
 	gold_core_spawnable = FRIENDLY_SPAWN
-	ventcrawler = VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_SMALL
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
 	head_icon = 'icons/mob/pets_held.dmi'
@@ -59,8 +58,7 @@
 	instance_num = rand(1, 1000)
 	name = "[initial(name)] ([instance_num])"
 	real_name = name
-	regenerate_icons()
-	ADD_TRAIT(src, TRAIT_MUTE, "nymph")
+	add_traits(list(TRAIT_MUTE, TRAIT_VENTCRAWLER_ALWAYS), INNATE_TRAIT)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -104,15 +102,15 @@
 		switch_ability.Remove(src)
 	return ..(gibbed,death_msg)
 
-/mob/living/simple_animal/hostile/retaliate/nymph/adjustBruteLoss(amount, updating_health, forced)
+/mob/living/simple_animal/hostile/retaliate/nymph/adjustBruteLoss(amount, updating_health, forced, required_bodytype)
 	brute_damage = brute_damage + amount * damage_coeff[BRUTE] * CONFIG_GET(number/damage_multiplier)
 	. = ..()
 
-/mob/living/simple_animal/hostile/retaliate/nymph/adjustFireLoss(amount, updating_health, forced)
+/mob/living/simple_animal/hostile/retaliate/nymph/adjustFireLoss(amount, updating_health, forced, required_bodytype)
 	fire_damage = fire_damage + amount * damage_coeff[BURN] * CONFIG_GET(number/damage_multiplier)
 	. = ..()
 
-/mob/living/simple_animal/hostile/retaliate/nymph/UnarmedAttack(atom/A, proximity)
+/mob/living/simple_animal/hostile/retaliate/nymph/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	melee_damage = 1.5
 	. = ..()
 
@@ -196,14 +194,9 @@
 		balloon_alert(arrived_diona, "[arrived_diona] assimilates [src]")
 		QDEL_NULL(src)
 
-/mob/living/simple_animal/hostile/retaliate/nymph/handle_mutations_and_radiation()
-	if(radiation > 50)
-		heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
-	. = ..()
-
-/mob/living/simple_animal/hostile/retaliate/nymph/proc/evolve(var/mob/living/simple_animal/hostile/retaliate/nymph/nymphs)
-	if(istype(loc, /obj/item/clothing/head/mob_holder))
-		var/obj/item/clothing/head/mob_holder/L = loc
+/mob/living/simple_animal/hostile/retaliate/nymph/proc/evolve(mob/living/simple_animal/hostile/retaliate/nymph/nymphs)
+	if(ispickedupmob(loc))
+		var/obj/item/mob_holder/L = loc
 		src.loc = L.loc
 		qdel(L)
 
@@ -237,7 +230,7 @@
 		adult.real_name = old_name
 		adult.dna.features = features
 	else
-		adult.fully_replace_character_name(name, adult.dna.species.random_name(gender))
+		adult.fully_replace_character_name(name, generate_random_name_species_based(gender = gender, species_type = /datum/species/diona))
 		adult.dna.features["mcolor"] = sanitize_hexcolor(RANDOM_COLOUR)
 	if(mind)
 		mind.transfer_to(adult)
@@ -252,15 +245,15 @@
 	QDEL_NULL(helpers)
 	qdel(src)
 
-/mob/living/simple_animal/hostile/retaliate/nymph/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced)
-	if(!..())
-		emote("chitter")
+/mob/living/simple_animal/hostile/retaliate/nymph/send_speech(message_raw, message_range, obj/source, bubble_type, list/spans, datum/language/message_language, list/message_mods, forced)
+	. = ..()
+	emote("chitter")
 
 /datum/action/nymph/evolve
 	name = "Evolve"
 	desc = "Evolve into your adult form with the help of another nymph."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "grow"
 	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_INCAPACITATED
 
@@ -285,7 +278,7 @@
 	name = "Return"
 	desc = "Return back into your adult form."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "return"
 
 /datum/action/nymph/SwitchFrom/pre_activate(mob/user, atom/target)
@@ -336,13 +329,13 @@
 		resting = FALSE
 		update_resting()
 	toggle_ai(AI_OFF)
-	var/obj/item/clothing/head/mob_holder/nymph/holder = new(get_turf(src), src, held_state, head_icon, held_lh, held_rh, worn_slot_flags)
+	var/obj/item/mob_holder/nymph/holder = new(get_turf(src), src, held_state, head_icon, held_lh, held_rh, worn_slot_flags)
 	if(stat == DEAD && mind)
 		holder.tool_behaviour = TOOL_SEED
 	L.visible_message(span_warning("[L] scoops up [src]!"))
 	L.put_in_hands(holder)
 
-/obj/item/clothing/head/mob_holder/nymph
+/obj/item/mob_holder/nymph
 	var/moving_cooldown
 	var/on_head
 	//Variables for planting a dead nymph into a hydroponics tray
@@ -351,13 +344,13 @@
 	grind_results = list(/datum/reagent/consumable/chlorophyll = 20)
 	juice_typepath = /datum/reagent/consumable/chlorophyll
 
-/obj/item/clothing/head/mob_holder/nymph/Initialize(mapload, mob/living/M, worn_state, head_icon, lh_icon, rh_icon, worn_slot_flags)
+/obj/item/mob_holder/nymph/Initialize(mapload, mob/living/M, worn_state, head_icon, lh_icon, rh_icon, worn_slot_flags)
 	if(M.mind)
 		fake_seed = new /obj/item/seeds/nymph
 		fake_seed.mind = M.mind
 	. = ..()
 
-/obj/item/clothing/head/mob_holder/nymph/relaymove(mob/user) // Hold nymph like petulant child...
+/obj/item/mob_holder/nymph/relaymove(mob/user) // Hold nymph like petulant child...
 	if(moving_cooldown <= world.time)
 		moving_cooldown = world.time + 50
 		user.visible_message(span_notice("[user] starts to squirm in [loc]'s hands!"),
@@ -367,23 +360,23 @@
 		if(do_after(held_mob, 8 SECONDS, user, NONE, TRUE))
 			release()
 
-/obj/item/clothing/head/mob_holder/nymph/microwave_act(obj/machinery/microwave/M)
+/obj/item/mob_holder/nymph/microwave_act(obj/machinery/microwave/M)
 	. = ..()
 	M.muck()
 	held_mob.adjustFireLoss(50)
 	Destroy()
 
-/obj/item/clothing/head/mob_holder/nymph/release()
+/obj/item/mob_holder/nymph/release(display_messages = TRUE, delete_mob = FALSE)
 	on_head = FALSE
 	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph_mob = held_mob
 	nymph_mob.toggle_ai(AI_ON)
 	. = ..()
 
-/obj/item/clothing/head/mob_holder/nymph/equipped()
+/obj/item/mob_holder/nymph/equipped()
 	. = ..()
 	on_head = TRUE
 
-/obj/item/clothing/head/mob_holder/nymph/on_grind()
+/obj/item/mob_holder/nymph/on_grind()
 	playsound(held_mob, 'sound/effects/splat.ogg', 50, 1)
 	qdel(held_mob)
 	. = ..()

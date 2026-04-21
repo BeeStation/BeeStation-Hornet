@@ -2,6 +2,10 @@
 	mood_change = 6
 	description = "Woooow duudeeeeee...I'm tripping baaalls..."
 
+/datum/mood_event/stoned
+	mood_change = 6
+	description = "I'm sooooo stooooooooooooned..."
+
 /datum/mood_event/smoked
 	description = "I have had a smoke recently."
 	mood_change = 2
@@ -78,3 +82,11 @@
 	description = "Eh ah AAAAH! HA HA HA HA HAA! Uuuh."
 	mood_change = 6
 	timeout = 3 MINUTES
+
+/datum/mood_event/nicotine_withdrawal_moderate
+	description = "Haven't had a smoke in a while. Feeling a little on edge... "
+	mood_change = -5
+
+/datum/mood_event/nicotine_withdrawal_severe
+	description = "Head pounding. Cold sweating. Feeling anxious. Need a smoke to calm down!"
+	mood_change = -8

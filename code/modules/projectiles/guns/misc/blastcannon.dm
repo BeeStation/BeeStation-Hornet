@@ -3,7 +3,7 @@
 	desc = "A pipe welded onto a gun stock, with a mechanical trigger. The pipe has an opening near the top, and there seems to be a spring loaded wheel in the hole."
 	icon_state = "empty_blastcannon"
 	var/icon_state_loaded = "loaded_blastcannon"
-	item_state = "blastcannon_empty"
+	inhand_icon_state = "blastcannon_empty"
 	w_class = WEIGHT_CLASS_LARGE
 	force = 10
 	fire_sound = 'sound/weapons/blastcannon.ogg'
@@ -87,7 +87,7 @@
 		return 0
 	return ((pressure - TANK_FRAGMENT_PRESSURE) / TANK_FRAGMENT_SCALE)
 
-/obj/item/gun/blastcannon/afterattack(atom/target, mob/user, flag, params)
+/obj/item/gun/blastcannon/pull_trigger(atom/target, mob/living/user, params, aimed)
 	if((!bomb && bombcheck) || (!target) || (get_dist(get_turf(target), get_turf(user)) <= 2))
 		return ..()
 	var/power = bomb? calculate_bomb() : debug_power

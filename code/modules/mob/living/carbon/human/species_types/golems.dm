@@ -16,23 +16,22 @@
 		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NO_JUMPSUIT,
+		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
-		TRAIT_NONECRODISEASE,
 		TRAIT_NOBLOOD,
 	)
 	mutantheart = null
 	mutantlungs = null
-	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
+	inherent_biotypes = MOB_INORGANIC | MOB_HUMANOID
 	mutant_organs = list(/obj/item/organ/adamantine_resonator)
 	mutanttongue = /obj/item/organ/tongue/golem
 	speedmod = 2
-	armor = 55
+	damage_modifier = 55
 	siemens_coeff = 0
 	punchdamage = 11
-	no_equip = list(ITEM_SLOT_MASK, ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
-	nojumpsuit = 1
+	no_equip_flags = ITEM_SLOT_MASK | ITEM_SLOT_OCLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET | ITEM_SLOT_ICLOTHING | ITEM_SLOT_SUITSTORE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	sexes = FALSE
 	meat = /obj/item/food/meat/slab/human/mutant/golem
@@ -40,11 +39,11 @@
 	// To prevent golem subtypes from overwhelming the odds when random species
 	// changes, only the Random Golem type can be chosen
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/golem,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/golem,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/golem,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/golem,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem,
 	)
 
@@ -55,21 +54,7 @@
 
 	var/prefix = "Iron"
 	var/list/special_names = list("Tarkus")
-	var/human_surname_chance = 3
-	var/special_name_chance = 5
 	var/owner //dobby is a free golem
-
-/datum/species/golem/random_name(gender,unique,lastname)
-	var/golem_surname = pick(GLOB.golem_names)
-	// 3% chance that our golem has a human surname, because
-	// cultural contamination
-	if(prob(human_surname_chance))
-		golem_surname = pick(GLOB.last_names)
-	else if(special_names?.len && prob(special_name_chance))
-		golem_surname = pick(special_names)
-
-	var/golem_name = "[prefix] [golem_surname]"
-	return golem_name
 
 /datum/species/golem/create_pref_unique_perks()
 	var/list/to_add = list()
@@ -91,7 +76,7 @@
 	id = SPECIES_GOLEM_ADAMANTINE
 	meat = /obj/item/food/meat/slab/human/mutant/golem/adamantine
 	mutant_organs = list(/obj/item/organ/adamantine_resonator, /obj/item/organ/vocal_cords/adamantine)
-	fixed_mut_color = "4ed"
+	fixed_mut_color = "#44eedd"
 	info_text = "As an " + span_danger("Adamantine Golem") + ", you possess special vocal cords allowing you to \"resonate\" messages to all golems. Your unique mineral makeup makes you immune to most types of magic."
 	prefix = "Adamantine"
 	special_names = null
@@ -111,7 +96,7 @@
 /datum/species/golem/plasma
 	name = "Plasma Golem"
 	id = SPECIES_GOLEM_PLASMA
-	fixed_mut_color = "a3d"
+	fixed_mut_color = "#aa33dd"
 	meat = /obj/item/stack/ore/plasma
 	//Can burn and takes damage from heat
 	inherent_traits = list(
@@ -168,7 +153,7 @@
 	desc = "Set yourself aflame, bringing yourself closer to exploding!"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "sacredflame"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 
 /datum/action/innate/ignite/on_activate()
 	if(ishuman(owner))
@@ -177,14 +162,14 @@
 			to_chat(owner, span_notice("You ignite yourself!"))
 		else
 			to_chat(owner, span_warning("You try to ignite yourself, but fail!"))
-		H.IgniteMob() //firestacks are already there passively
+		H.ignite_mob() //firestacks are already there passively
 
 //Harder to hurt
 /datum/species/golem/diamond
 	name = "Diamond Golem"
 	id = SPECIES_GOLEM_DIAMOND
-	fixed_mut_color = "0ff"
-	armor = 70 //up from 55
+	fixed_mut_color = COLOR_CYAN
+	damage_modifier = 70 //up from 55
 	meat = /obj/item/stack/ore/diamond
 	info_text = "As a " + span_danger("Diamond Golem") + ", you are more resistant than the average golem."
 	prefix = "Diamond"
@@ -195,20 +180,29 @@
 /datum/species/golem/gold
 	name = "Gold Golem"
 	id = SPECIES_GOLEM_GOLD
-	fixed_mut_color = "cc0"
+	fixed_mut_color = "#cccc00"
 	speedmod = 1
-	armor = 25 //down from 55
+	damage_modifier = 25 //down from 55
 	meat = /obj/item/stack/ore/gold
 	info_text = "As a " + span_danger("Gold Golem") + ", you are faster but less resistant than the average golem."
 	prefix = "Golden"
 	special_names = list("Boy")
 	examine_limb_id = SPECIES_GOLEM
 
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/gold,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/gold,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem,
+	)
+
 //Heavier, thus higher chance of stunning when punching
 /datum/species/golem/silver
 	name = "Silver Golem"
 	id = SPECIES_GOLEM_SILVER
-	fixed_mut_color = "ddd"
+	fixed_mut_color = "#dddddd"
 	meat = /obj/item/stack/ore/silver
 	info_text = "As a " + span_danger("Silver Golem") + ", your attacks have a higher chance of stunning. Being made of silver, your body is immune to most types of magic."
 	prefix = "Silver"
@@ -231,7 +225,7 @@
 	id = SPECIES_GOLEM_COPPER
 	fixed_mut_color = "#d95802"
 	speedmod = 1.5
-	armor = 30
+	damage_modifier = 30
 	meat = /obj/item/stack/ore/copper
 	siemens_coeff = 1 //set as conductive, next line sets shock immunity
 	inherent_traits = list(
@@ -251,11 +245,20 @@
 	prefix = "Copper"
 	special_names = list("Wire")
 
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/copper,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/copper,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem,
+	)
+
 //Harder to stun, deals more damage, massively slowpokes, but gravproof and obstructive. Basically, The Wall.
 /datum/species/golem/plasteel
 	name = "Plasteel Golem"
 	id = SPECIES_GOLEM_PLASTEEL
-	fixed_mut_color = "bbb"
+	fixed_mut_color = "#bbbbbb"
 	stunmod = 0.4
 	punchdamage = 18
 	speedmod = 4 //pretty fucking slow
@@ -265,6 +268,15 @@
 	attack_sound = 'sound/effects/meteorimpact.ogg' //hits pretty hard
 	prefix = "Plasteel"
 	special_names = null
+
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/plasteel,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/plasteel,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/plasteel,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/plasteel,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem,
+	)
 
 /datum/species/golem/plasteel/negates_gravity(mob/living/carbon/human/H)
 	return TRUE
@@ -281,41 +293,55 @@
 /datum/species/golem/titanium
 	name = "Titanium Golem"
 	id = SPECIES_GOLEM_TITANIUM
-	fixed_mut_color = "fff"
+	fixed_mut_color = COLOR_WHITE
 	meat = /obj/item/stack/ore/titanium
 	info_text = "As a " + span_danger("Titanium Golem") + ", you are immune to ash storms, and slightly more resistant to burn damage."
-	burnmod = 0.9
 	prefix = "Titanium"
 	special_names = list("Dioxide")
 
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/titanium,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/titanium,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/titanium,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/titanium,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/titanium,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/titanium
+	)
+
 /datum/species/golem/titanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-	C.weather_immunities |= "ash"
+	ADD_TRAIT(C, TRAIT_ASHSTORM_IMMUNE, SPECIES_TRAIT)
 
 /datum/species/golem/titanium/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	C.weather_immunities -= "ash"
+	REMOVE_TRAIT(C, TRAIT_ASHSTORM_IMMUNE, SPECIES_TRAIT)
 
 //Immune to ash storms and lava
 /datum/species/golem/plastitanium
 	name = "Plastitanium Golem"
 	id = SPECIES_GOLEM_PLASTITANIUM
-	fixed_mut_color = "888"
+	fixed_mut_color = "#888888"
 	meat = /obj/item/stack/ore/titanium
 	info_text = "As a " + span_danger("Plastitanium Golem") + ", you are immune to both ash storms and lava, and slightly more resistant to burn damage."
-	burnmod = 0.8
 	prefix = "Plastitanium"
 	special_names = null
 
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/plastitanium,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/plastitanium,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/plastitanium,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/plastitanium,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/plastitanium,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/plastitanium
+	)
+
 /datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-	C.weather_immunities |= "lava"
-	C.weather_immunities |= "ash"
+	C.add_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE), SPECIES_TRAIT)
 
 /datum/species/golem/plastitanium/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	C.weather_immunities -= "ash"
-	C.weather_immunities -= "lava"
+	C.remove_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE), SPECIES_TRAIT)
 
 //Fast and regenerates... but can only speak like an abductor
 /datum/species/golem/alloy
@@ -332,10 +358,10 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/alloy,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/alloy,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/golem/alloy,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/golem/alloy,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/golem/alloy,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/golem/alloy
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/alloy,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/alloy,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/alloy,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/alloy
 	)
 
 //Regenerates because self-repairing super-advanced alien tech
@@ -350,7 +376,7 @@
 /datum/species/golem/wood
 	name = "Wood Golem"
 	id = SPECIES_GOLEM_WOOD
-	fixed_mut_color = "9E704B"
+	fixed_mut_color = "#9E704B"
 	meat = /obj/item/stack/sheet/wood
 	//Can burn and take damage from heat
 	inherent_traits = list(
@@ -363,15 +389,21 @@
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER
 	)
-	armor = 30
-	burnmod = 1.25
+	damage_modifier = 30
 	heatmod = 1.5
 	info_text = "As a " + span_danger("Wood Golem") + ", you have plant-like traits: you take damage from extreme temperatures, can be set on fire, and have lower armor than a normal golem. You regenerate when in the light and wither in the darkness."
 	prefix = "Wooden"
 	special_names = list("Bark", "Willow", "Catalpa", "Woody", "Oak", "Sap", "Twig", "Branch", "Maple", "Birch", "Elm", "Basswood", "Cottonwood", "Larch", "Aspen", "Ash", "Beech", "Buckeye", "Cedar", "Chestnut", "Cypress", "Fir", "Hawthorn", "Hazel", "Hickory", "Ironwood", "Juniper", "Leaf", "Mangrove", "Palm", "Pawpaw", "Pine", "Poplar", "Redwood", "Redbud", "Sassafras", "Spruce", "Sumac", "Trunk", "Walnut", "Yew")
-	human_surname_chance = 0
-	special_name_chance = 100
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES)
+
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/wood,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/wood,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/wood,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/wood,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/wood,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/wood
+	)
 
 /datum/species/golem/wood/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	if(H.stat == DEAD)
@@ -389,11 +421,11 @@
 			H.adjustOxyLoss(-0.5 * delta_time)
 
 	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
-		H.take_overall_damage(2,0)
+		H.take_overall_damage(brute = 2, required_bodytype = BODYTYPE_ORGANIC)
 
 /datum/species/golem/wood/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/toxin/plantbgone)
-		H.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.adjustToxLoss(3 * REM * delta_time)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return TRUE
 	return ..()
@@ -402,37 +434,50 @@
 /datum/species/golem/uranium
 	name = "Uranium Golem"
 	id = SPECIES_GOLEM_URANIUM
-	fixed_mut_color = "7f0"
+	fixed_mut_color = "#77ff00"
 	meat = /obj/item/stack/ore/uranium
 	info_text = "As an " + span_danger("Uranium Golem") + ", you emit radiation pulses every once in a while. It won't harm fellow golems, but organic lifeforms will be affected."
-
-	var/last_event = 0
-	var/active = null
 	prefix = "Uranium"
 	special_names = list("Oxide", "Rod", "Meltdown", "235")
 
-/datum/species/golem/uranium/spec_life(mob/living/carbon/human/H)
-	if(!active)
-		if(world.time > last_event+30)
-			active = 1
-			radiation_pulse(H, 50)
-			last_event = world.time
-			active = null
-	..()
+	examine_limb_id = SPECIES_GOLEM
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/uranium,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/uranium,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/uranium,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/uranium,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/uranium,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/uranium,
+	)
+
+	COOLDOWN_DECLARE(radiate_cooldown)
+
+/datum/species/golem/uranium/spec_life(mob/living/carbon/human/source)
+	. = ..()
+	if(COOLDOWN_FINISHED(src, radiate_cooldown))
+		COOLDOWN_START(src, radiate_cooldown, 3 SECONDS)
+		radiation_pulse(source, max_range = 2)
 
 //Immune to physical bullets and resistant to brute, but very vulnerable to burn damage. Dusts on death.
 /datum/species/golem/sand
 	name = "Sand Golem"
 	id = SPECIES_GOLEM_SAND
-	fixed_mut_color = "ffdc8f"
+	fixed_mut_color = "#ffdc8f"
 	meat = /obj/item/stack/ore/glass //this is sand
-	armor = 0
-	burnmod = 3 //melts easily
-	brutemod = 0.25
+	damage_modifier = 0
 	info_text = "As a " + span_danger("Sand Golem") + ", you are immune to physical bullets and take very little brute damage, but are extremely vulnerable to burn damage and energy weapons. You will also turn to sand when dying, preventing any form of recovery."
 	attack_sound = 'sound/effects/shovel_dig.ogg'
 	prefix = "Sand"
 	special_names = list("Castle", "Bag", "Dune", "Worm", "Storm")
+
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/sand,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/sand,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/sand,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/sand,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/sand,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/sand
+	)
 
 /datum/species/golem/sand/spec_death(gibbed, mob/living/carbon/human/H)
 	H.visible_message(span_danger("[H] turns into a pile of sand!"))
@@ -455,15 +500,22 @@
 /datum/species/golem/glass
 	name = "Glass Golem"
 	id = SPECIES_GOLEM_GLASS
-	fixed_mut_color = "5a96b4aa" //transparent body
+	fixed_mut_color = "#5a96b4aa" //transparent body
 	meat = /obj/item/shard
-	armor = 0
-	brutemod = 3 //very fragile
-	burnmod = 0.25
+	damage_modifier = 0
 	info_text = "As a " + span_danger("Glass Golem") + ", you reflect lasers and energy weapons, and are very resistant to burn damage. However, you are extremely vulnerable to brute damage. On death, you'll shatter beyond any hope of recovery."
 	attack_sound = 'sound/effects/glassbr2.ogg'
 	prefix = "Glass"
 	special_names = list("Lens", "Prism", "Fiber", "Bead")
+
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/glass,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/glass,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/glass,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/glass,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/glass,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/glass
+	)
 
 /datum/species/golem/glass/spec_death(gibbed, mob/living/carbon/human/H)
 	playsound(H, "shatter", 70, 1)
@@ -492,7 +544,7 @@
 /datum/species/golem/bluespace
 	name = "Bluespace Golem"
 	id = SPECIES_GOLEM_BLUESPACE
-	fixed_mut_color = "33f"
+	fixed_mut_color = "#3333ff"
 	meat = /obj/item/stack/ore/bluespace_crystal
 	info_text = "As a " + span_danger("Bluespace Golem") + ", you are spatially unstable: You will teleport when hit, and you can teleport manually at a long distance."
 	attack_verb = "bluespace punch"
@@ -552,7 +604,7 @@
 	name = "Unstable Teleport"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "jaunt"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	var/cooldown = 150
 	var/last_teleport = 0
 
@@ -598,10 +650,10 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/bananium,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/bananium,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/golem/bananium,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/golem/bananium,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/golem/bananium,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/golem/bananium
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/bananium,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/bananium,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/bananium,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/bananium
 	)
 
 	/// Cooldown for producing honks
@@ -622,11 +674,6 @@
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_SAY)
-
-/datum/species/golem/bananium/random_name(gender,unique,lastname)
-	var/clown_name = pick(GLOB.clown_names)
-	var/golem_name = "[uppertext(clown_name)]"
-	return golem_name
 
 /datum/species/golem/bananium/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
 	..()
@@ -677,6 +724,7 @@
 	name = "Runic Golem"
 	id = SPECIES_GOLEM_RUNIC
 	sexes = FALSE
+	speedmod = 0
 	info_text = "As a " + span_danger("Runic Golem") + ", you possess eldritch powers granted by the Elder Goddess Nar'Sie."
 	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH) //no mutcolors
 	prefix = "Runic"
@@ -692,19 +740,23 @@
 	var/datum/action/spell/pointed/dominate/dominate
 
 	bodypart_overrides = list(
-		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/cult,
-		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/cult,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/golem/cult,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/golem/cult,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/golem/cult,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/golem/cult
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/runic,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/runic,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/runic,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/runic,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/runic,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/runic
 	)
 
-/datum/species/golem/runic/random_name(gender,unique,lastname)
-	var/edgy_first_name = pick("Razor","Blood","Dark","Evil","Cold","Pale","Black","Silent","Chaos","Deadly","Coldsteel")
-	var/edgy_last_name = pick("Edge","Night","Death","Razor","Blade","Steel","Calamity","Twilight","Shadow","Nightmare") //dammit Razor Razor
-	var/golem_name = "[edgy_first_name] [edgy_last_name]"
-	return golem_name
+/datum/species/golem/runic/spec_death(gibbed, mob/living/carbon/human/body)
+
+	for(var/obj/item/item in body.get_equipped_items(INCLUDE_POCKETS))
+		body.dropItemToGround(item)
+	body.visible_message(span_danger("[body] dissolves into a pile of blood, leaving behind a strange stone."))
+	var/obj/item/soulstone/new_stone = new(body.drop_location())
+	new_stone.init_shade(body)
+	new /obj/effect/decal/cleanable/blood/splatter(get_turf(body))
+	body.dust()
 
 /datum/species/golem/runic/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species)
 	. = ..()
@@ -712,15 +764,12 @@
 	// Note we link them to the mob, not the mind,
 	// so they're not moved around on mindswaps
 	jaunt = new(grant_to)
-	jaunt.start_cooldown()
 	jaunt.Grant(grant_to)
 
 	abyssal_gaze = new(grant_to)
-	abyssal_gaze.start_cooldown()
 	abyssal_gaze.Grant(grant_to)
 
 	dominate = new(grant_to)
-	dominate.start_cooldown()
 	dominate.Grant(grant_to)
 
 /datum/species/golem/runic/on_species_loss(mob/living/carbon/C)
@@ -733,13 +782,13 @@
 
 /datum/species/golem/runic/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(istype(chem, /datum/reagent/water/holywater))
-		H.adjustFireLoss(4 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.adjustFireLoss(4 * REM * delta_time)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return TRUE
 
 	if(chem.type == /datum/reagent/fuel/unholywater)
-		H.adjustBruteLoss(-4 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
-		H.adjustFireLoss(-4 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.adjustBruteLoss(-4 * REM * delta_time)
+		H.adjustFireLoss(-4 * REM * delta_time)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return TRUE
 	return ..()
@@ -749,8 +798,8 @@
 	id = SPECIES_GOLEM_CLOCKWORK
 	info_text = span_boldalloy("As a " + span_danger("Clockwork Golem") + ", you are faster than other types of golems. On death, you will break down into scrap.")
 	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH)
-	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
-	armor = 20 //Reinforced, but much less so to allow for fast movement
+	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
+	damage_modifier = 20 //Reinforced, but much less so to allow for fast movement
 	attack_verb = "smash"
 	attack_sound = 'sound/magic/clockwork/anima_fragment_attack.ogg'
 	sexes = FALSE
@@ -765,10 +814,10 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/clock,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/clock,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/golem/clock,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/golem/clock,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/golem/clock,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/golem/clock
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/clock,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/clock,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/clock,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/clock
 	)
 
 /datum/species/golem/clockwork/on_species_gain(mob/living/carbon/human/H)
@@ -796,9 +845,23 @@
 
 /datum/species/golem/clockwork/no_scrap //These golems are created through the herald's beacon and leave normal corpses on death.
 	id = SPECIES_GOLEM_CLOCKWORK_SERVANT
-	armor = 15 //Balance reasons make this armor weak
-	no_equip = list()
-	nojumpsuit = FALSE
+	inherent_traits = list(
+		TRAIT_RESISTHEAT,
+		TRAIT_NOBREATH,
+		TRAIT_RESISTCOLD,
+		TRAIT_RESISTHIGHPRESSURE,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_NOFIRE,
+		TRAIT_CHUNKYFINGERS,
+		TRAIT_RADIMMUNE,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_PIERCEIMMUNE,
+		TRAIT_NODISMEMBER,
+		TRAIT_NOBLOOD,
+	)
+	damage_modifier = 15 //Balance reasons make this armor weak
+	no_equip_flags = NONE
 	has_corpse = TRUE
 	random_eligible = FALSE
 	info_text = span_boldalloy("As a " + span_boldbrass("Clockwork Golem Servant") + ", you are faster than other types of golems.") //warcult golems leave a corpse
@@ -821,11 +884,10 @@
 		TRAIT_CHUNKYFINGERS,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
-	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
-	armor = 15 //feels no pain, but not too resistant
-	burnmod = 2 // don't get burned
+	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
+	damage_modifier = 15 //feels no pain, but not too resistant
 	speedmod = 1 // not as heavy as stone
 	punchdamage = 6
 	prefix = "Cloth"
@@ -834,10 +896,10 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/cloth,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/cloth,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/golem/cloth,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/golem/cloth,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/golem/cloth,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/golem/cloth
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/cloth,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/cloth,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/cloth,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/cloth
 	)
 
 /datum/species/golem/cloth/on_species_gain(mob/living/carbon/C, datum/species/old_species)
@@ -854,12 +916,6 @@
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
 	return ..()
-
-/datum/species/golem/cloth/random_name(gender,unique,lastname)
-	var/pharaoh_name = pick("Neferkare", "Hudjefa", "Khufu", "Mentuhotep", "Ahmose", "Amenhotep", "Thutmose", "Hatshepsut", "Tutankhamun", "Ramses", "Seti", \
-	"Merenptah", "Djer", "Semerkhet", "Nynetjer", "Khafre", "Pepi", "Intef", "Ay") //yes, Ay was an actual pharaoh
-	var/golem_name = "[pharaoh_name] \Roman[rand(1,99)]"
-	return golem_name
 
 /datum/species/golem/cloth/spec_life(mob/living/carbon/human/H)
 	if(H.fire_stacks < 1)
@@ -929,7 +985,7 @@
 	icon_state = "pile_bandages"
 	resistance_flags = FLAMMABLE
 
-	var/revive_time = 900
+	var/revive_time = 90 SECONDS
 	var/mob/living/carbon/human/cloth_golem
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
@@ -968,13 +1024,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 /obj/structure/cloth_pile/proc/revive()
 	if(QDELETED(src) || QDELETED(cloth_golem)) //QDELETED also checks for null, so if no cloth golem is set this won't runtime
 		return
-	if(cloth_golem.suiciding || cloth_golem.ishellbound())
+	if(cloth_golem.suiciding)
 		QDEL_NULL(cloth_golem)
 		return
 
 	invisibility = INVISIBILITY_MAXIMUM //disappear before the animation
 	new /obj/effect/temp_visual/mummy_animation(get_turf(src))
-	if(cloth_golem.revive(full_heal = TRUE, admin_revive = TRUE))
+	if(cloth_golem.revive(HEAL_ALL))
 		cloth_golem.grab_ghost() //won't pull if it's a suicide
 	sleep(20)
 	cloth_golem.forceMove(get_turf(src))
@@ -988,32 +1044,42 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	if(resistance_flags & ON_FIRE)
 		return
 
-	if(P.is_hot())
+	if(P.get_temperature())
 		visible_message(span_danger("[src] bursts into flames!"))
 		fire_act()
 
 /datum/species/golem/plastic
 	name = "Plastic Golem"
 	id = SPECIES_GOLEM_PLASTIC
+	//Default plus ventcrawling
+	inherent_traits = list(
+		TRAIT_RESISTHEAT,
+		TRAIT_NOBREATH,
+		TRAIT_RESISTCOLD,
+		TRAIT_RESISTHIGHPRESSURE,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_NOFIRE,
+		TRAIT_CHUNKYFINGERS,
+		TRAIT_RADIMMUNE,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_JUMPSUIT,
+		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_PIERCEIMMUNE,
+		TRAIT_NODISMEMBER,
+		TRAIT_NOBLOOD,
+		TRAIT_VENTCRAWLER_NUDE
+	)
 	prefix = "Plastic"
 	special_names = list("Sheet", "Bag", "Bottle")
-	fixed_mut_color = "fffa"
+	fixed_mut_color = "#ffffffaa"
 	info_text = "As a " + span_danger("Plastic Golem") + ", you are capable of ventcrawling and passing through plastic flaps as long as you are naked."
-
-/datum/species/golem/plastic/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	. = ..()
-	C.ventcrawler = VENTCRAWLER_NUDE
-
-/datum/species/golem/plastic/on_species_loss(mob/living/carbon/C)
-	. = ..()
-	C.ventcrawler = initial(C.ventcrawler)
 
 /datum/species/golem/bronze
 	name = "Bronze Golem"
 	id = SPECIES_GOLEM_BRONZE
 	prefix = "Bronze"
 	special_names = list("Bell")
-	fixed_mut_color = "cd7f32"
+	fixed_mut_color = "#cd7f32"
 	info_text = "As a " + span_danger("Bronze Golem") + ", you are very resistant to loud noises, and make loud noises if something hard hits you, however this ability does hurt your hearing."
 	special_step_sounds = list('sound/machines/clockcult/integration_cog_install.ogg', 'sound/magic/clockwork/fellowship_armory.ogg' )
 	mutantears = /obj/item/organ/ears/bronze
@@ -1056,21 +1122,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 			H.show_message(span_narsiesmall("You cringe with pain as your body rings around you!"), MSG_AUDIBLE)
 			H.playsound_local(H, 'sound/effects/gong.ogg', 100, TRUE)
 			H.soundbang_act(2, 0, 100, 1)
-			H.jitteriness += 7
+			H.adjust_jitter(14 SECONDS)
 		var/distance = max(0,get_dist(get_turf(H),get_turf(M)))
 		switch(distance)
 			if(0 to 1)
 				M.show_message(span_narsiesmall("GONG!"), MSG_AUDIBLE)
 				M.playsound_local(H, 'sound/effects/gong.ogg', 100, TRUE)
 				M.soundbang_act(1, 0, 30, 3)
-				M.confused += 10
-				M.jitteriness += 4
+				M.adjust_confusion(10 SECONDS)
+				M.adjust_jitter(8 SECONDS)
 				M.add_mood_event("gonged", /datum/mood_event/loud_gong)
 			if(2 to 3)
 				M.show_message(span_cult("GONG!"), MSG_AUDIBLE)
 				M.playsound_local(H, 'sound/effects/gong.ogg', 75, TRUE)
 				M.soundbang_act(1, 0, 15, 2)
-				M.jitteriness += 3
+				M.adjust_jitter(6 SECONDS)
 				M.add_mood_event("gonged", /datum/mood_event/loud_gong)
 			else
 				M.show_message(span_warning("GONG!"), MSG_AUDIBLE)
@@ -1095,14 +1161,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 	attack_verb = "whips"
 	attack_sound = 'sound/weapons/whip.ogg'
 	miss_sound = 'sound/weapons/etherealmiss.ogg'
 	fixed_mut_color = null
-	armor = 25
-	burnmod = 1.25
+	damage_modifier = 25
 	heatmod = 2
 	speedmod = 1.5
 	punchdamage = 6
@@ -1112,10 +1177,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/cardboard,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/cardboard,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/golem/cardboard,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/golem/cardboard,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/golem/cardboard,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/golem/cardboard
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/cardboard,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/cardboard,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/cardboard,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/cardboard
 	)
 
 /datum/species/golem/cardboard/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
@@ -1139,7 +1204,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 			to_chat(H, span_notice("You create a new cardboard golem shell."))
 			create_brother(H.loc)
 
-/datum/species/golem/cardboard/proc/create_brother(var/location)
+/datum/species/golem/cardboard/proc/create_brother(location)
 	new /obj/effect/mob_spawn/human/golem/servant(location, /datum/species/golem/cardboard, owner)
 	last_creation = world.time
 
@@ -1159,7 +1224,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_STRONG_GRABBER
 	)
 	prefix = "Leather"
-	fixed_mut_color = "624a2e"
+	fixed_mut_color = "#624a2e"
 	info_text = "As a " + span_danger("Leather Golem") + ", you are flammable, but you can grab things with incredible ease, allowing all your grabs to start at a strong level."
 	grab_sound = 'sound/weapons/whipgrab.ogg'
 	attack_sound = 'sound/weapons/whip.ogg'
@@ -1182,17 +1247,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 	info_text = "As a " + span_danger("Durathread Golem") + ", your strikes will cause those your targets to start choking, but your woven body won't withstand fire as well."
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/durathread,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/durathread,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/golem/durathread,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/golem/durathread,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/golem/durathread,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/golem/durathread
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/durathread,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/durathread,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/durathread,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/durathread
 	)
 
 /datum/species/golem/durathread/spec_unarmedattack(mob/living/carbon/human/user, mob/living/carbon/human/target)
@@ -1205,7 +1270,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	prefix = "Bone"
 	special_names = list("Head", "Broth", "Fracture", "Rattler", "Appetit")
 	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH)
-	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
+	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	mutanttongue = /obj/item/organ/tongue/bone
 	sexes = FALSE
 	fixed_mut_color = null
@@ -1230,10 +1295,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/bone,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/bone,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/golem/bone,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/golem/bone,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/golem/bone,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/golem/bone
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/bone,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/bone,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/bone,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/bone
 	)
 
 /datum/species/golem/bone/on_species_gain(mob/living/carbon/C, datum/species/old_species)
@@ -1266,7 +1331,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	name = "Bone Chill"
 	desc = "Rattle your bones and strike fear into your enemies!"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "bonechill"
 	var/cooldown = 600
 	var/last_use
@@ -1282,15 +1347,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		playsound(get_turf(owner),'sound/magic/RATTLEMEBONES2.ogg', 100)
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
-			var/mutable_appearance/badtime = mutable_appearance('icons/mob/species/human/bodyparts.dmi', "b_golem_eyes", CALCULATE_MOB_OVERLAY_LAYER(FIRE_LAYER))
+			var/mutable_appearance/badtime = mutable_appearance('icons/mob/human/bodyparts.dmi', "b_golem_eyes", CALCULATE_MOB_OVERLAY_LAYER(HIGHEST_LAYER))
 			badtime.appearance_flags = RESET_COLOR
-			H.overlays_standing[FIRE_LAYER+0.5] = badtime
-			H.apply_overlay(FIRE_LAYER+0.5)
-			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon, remove_overlay), FIRE_LAYER+0.5), 25)
+			H.overlays_standing[HIGHEST_LAYER+0.5] = badtime
+			H.apply_overlay(HIGHEST_LAYER+0.5)
+			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon, remove_overlay), HIGHEST_LAYER+0.5), 25)
 	else
 		playsound(get_turf(owner),'sound/magic/RATTLEMEBONES.ogg', 100)
 	for(var/mob/living/L in orange(7, get_turf(owner)))
-		if((MOB_UNDEAD in L.mob_biotypes) || isgolem(L) || HAS_TRAIT(L, TRAIT_RESISTCOLD))
+		if((L.mob_biotypes & MOB_UNDEAD) || isgolem(L) || HAS_TRAIT(L, TRAIT_RESISTCOLD))
 			return //Do not affect our brothers
 
 		to_chat(L, span_cultlarge("A spine-chilling sound chills you to the bone!"))
@@ -1301,8 +1366,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	name = "Snow Golem"
 	id = SPECIES_GOLEM_SNOW
 	fixed_mut_color = null //custom sprites
-	armor = 45 //down from 55
-	burnmod = 3 //melts easily
+	damage_modifier = 45 //down from 55
 	info_text = "As a " + span_danger("Snow Golem") + ", you are extremely vulnerable to burn damage, but you can generate snowballs and shoot cryokinetic beams. You will also turn to snow when dying, preventing any form of recovery."
 	prefix = "Snow"
 	special_names = list("Flake", "Blizzard", "Storm")
@@ -1318,7 +1382,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 
 	/// A ref to our "throw snowball" spell we get on species gain.
@@ -1329,10 +1393,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/snow,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/snow,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/golem/snow,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/golem/snow,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/golem/snow,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/golem/snow
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/snow,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/snow,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/snow,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/snow
 	)
 
 /datum/species/golem/snow/spec_death(gibbed, mob/living/carbon/human/H)

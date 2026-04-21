@@ -10,7 +10,7 @@
 	icon_living = "basic"
 	icon_dead = "basic"
 	gender = NEUTER
-	mob_biotypes = list(MOB_ROBOTIC)
+	mob_biotypes = MOB_ROBOTIC
 	health = 15
 	maxHealth = 15
 	healable = 0
@@ -30,11 +30,8 @@
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 
 	footstep_type = FOOTSTEP_MOB_CLAW
+	death_message = "blows apart!"
 	hardattacks = TRUE
-
-/mob/living/simple_animal/hostile/hivebot/Initialize(mapload)
-	. = ..()
-	deathmessage = "[src] blows apart!"
 
 /mob/living/simple_animal/hostile/hivebot/range
 	name = "hivebot"

@@ -79,7 +79,7 @@
 		//This could all be one very long if-statement, but I broke it up for better readability
 
 		//Can't hold on to controls if you're cuffed or completely incapacitated
-		if(HAS_TRAIT(carbon_user, TRAIT_HANDS_BLOCKED) || carbon_user.incapacitated(TRUE, TRUE))
+		if(HAS_TRAIT(carbon_user, TRAIT_HANDS_BLOCKED) || INCAPACITATED_IGNORING(carbon_user, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
 			holding_on = FALSE
 
 		//Can't hold on if you don't have arms in the first place
@@ -331,7 +331,7 @@
 	AM.remove_emitter("smoke")
 
 /datum/component/riding/vehicle/lawnmower
-	vehicle_move_delay = 2
+	vehicle_move_delay = 2.75
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
 
 /datum/component/riding/vehicle/lawnmower/handle_specials()
@@ -339,5 +339,5 @@
 	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 7), TEXT_EAST = list(-5, 2), TEXT_WEST = list(5, 2)))
 
 /datum/component/riding/vehicle/lawnmower/nukie
-	vehicle_move_delay = 1
+	vehicle_move_delay = 1.5
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER

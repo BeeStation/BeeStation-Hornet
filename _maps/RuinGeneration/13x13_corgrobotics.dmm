@@ -38,7 +38,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "e" = (
-/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "f" = (
@@ -70,9 +70,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "i" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -93,7 +91,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "l" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "m" = (
@@ -138,8 +136,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/ruinloot/science,
-/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "r" = (
@@ -176,9 +174,9 @@
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
-/obj/effect/spawner/lootdrop/ruinloot/science,
-/obj/effect/spawner/lootdrop/ruinloot/science,
-/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "v" = (
@@ -186,7 +184,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "w" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "x" = (
@@ -286,14 +284,12 @@
 /area/ruin/unpowered)
 "M" = (
 /obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /obj/machinery/light,
-/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "N" = (
@@ -320,11 +316,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "R" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "S" = (
