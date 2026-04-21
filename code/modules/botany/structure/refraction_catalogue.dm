@@ -118,13 +118,11 @@
 				playsound(src, 'sound/machines/terminal_error.ogg', 60)
 				say("ERROR: No disk inserted!")
 				return
-			if(!SSbotany.refraction_coords["[list_accuracy]"]["[grid_x]:[grid_y]"])
-				say("For testing purposes, you choose an unstable grid square, this will not save to disk. Try again!")
-				return
 			if(disk.saved)
 				QDEL_NULL(disk.saved)
 			var/datum/plant_trait/refraction/trait = new(null, grid_x, grid_y, list_accuracy)
 			disk.set_saved(trait)
+			playsound(src, 'sound/machines/ping.ogg', 30)
 	screen.flash()
 	return TRUE
 

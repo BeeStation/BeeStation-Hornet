@@ -11,6 +11,12 @@
 	///Remember our old tray for signal cleanup
 	var/atom/strangle_loc
 
+/datum/plant_trait/roots/strangling/Destroy(force, ...)
+	. = ..()
+	var/obj/item/plant_tray/tray = plant_item?.loc
+	if(istype(tray))
+		tray.remove_feature_indicator(src, parent, tray.problem_features)
+
 /datum/plant_trait/roots/strangling/setup_component_parent(datum/source)
 	. = ..()
 	if(!parent || !parent.parent)

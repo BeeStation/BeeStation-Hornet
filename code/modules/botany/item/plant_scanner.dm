@@ -112,7 +112,7 @@
 			feature = locate(ref)
 			var/big_excerpt = ""
 			for(var/exceprt in feature.get_need_dialogue(FALSE))
-				big_excerpt += exceprt
+				big_excerpt += "[exceprt]\n" //This needs special formatting to NOT fuck up
 			scan_dialogue += "<span class='plant_sub'>[big_excerpt]</span>"
 			buffer += feature.get_need_dialogue(FALSE)
 		//Report Weeds

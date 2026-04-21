@@ -155,7 +155,8 @@
 	//Reset our machines
 	for(var/obj/machinery/plant_machine/machine as anything in machines)
 		machine.controller = null
-	machines = list()
+	machines.Cut()
+	machine_options.Cut()
 	//Link machines
 	for(var/obj/machinery/machine in range(PC_LINK_RANGE, src))
 		if(machine_options["[machine]"])
@@ -173,6 +174,7 @@
 
 /obj/machinery/computer/plant_machine_controller/proc/assemble_menu()
 
+	option_links.Cut()
 	for(var/obj/machinery/machine as anything in machines)
 		var/image/image = new()
 		image.appearance = machine.appearance

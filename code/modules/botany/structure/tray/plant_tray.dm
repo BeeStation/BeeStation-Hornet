@@ -108,6 +108,12 @@
 	animate(direction, alpha = 0, time = 1.3 SECONDS)
 	return ..()
 
+/obj/item/plant_tray/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
+	to_chat(user, span_notice("You start furiously plunging [name]."))
+	if(do_after(user, 30, target = src))
+		to_chat(user, span_notice("You finish plunging the [name]."))
+		reagents.expose(get_turf(src), TOUCH) //splash on the floor
+		reagents.clear_reagents()
 
 /obj/item/plant_tray/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
