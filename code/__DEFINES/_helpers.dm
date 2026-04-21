@@ -34,10 +34,10 @@
 /// This will change every arg value of subtype procs even if it's called from the most parent type of a proc.
 /// This is helpful when you need to call a parent proc first, but you need to change arg value for each subtype proc.
 /// * arg_number : the order number of proc argument you want to change.
-/// * new_value : The value you want to change
+/// * new_value : The value you want to assign to the target arg (arg_number)
 #define revise_proc_arg_value(arg_number, new_value)\
 var/callee/callee_chain = callee; \
 do{\
 	callee_chain.args[arg_number] = new_value;\
 	callee_chain = callee_chain.caller;\
-}while(callee.name == callee_chain.name);
+}while(callee.name == callee_chain.name); // This means: while(proc_name_foo == proc_name_foo)
