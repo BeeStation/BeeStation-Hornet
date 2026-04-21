@@ -36,8 +36,10 @@
 /// * arg_number : the order number of proc argument you want to change.
 /// * new_value : The value you want to assign to the target arg (arg_number)
 #define revise_proc_arg_value(arg_number, new_value)\
-var/callee/callee_chain = callee; \
-do{\
-	callee_chain.args[arg_number] = new_value;\
-	callee_chain = callee_chain.caller;\
-}while(callee.name == callee_chain.name); // This means: while(proc_name_foo == proc_name_foo)
+do{/* GOD, I HATE LINTER*/ \
+	var/callee/callee_chain = callee; /* Linter blames this if it's outside of the do-while*/\
+	do{\
+		callee_chain.args[arg_number] = new_value;\
+		callee_chain = callee_chain.caller;\
+	}while(callee.name == callee_chain.name); /* This means: while(proc_name_foo == proc_name_foo)*/ \
+}while(0); // Linter, my goodness
