@@ -439,14 +439,14 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/away/engineering/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_AWAY_ENGINE)
+	access_list += list(ACCESS_AWAY_ENGINEERING)
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/away/medical/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_AWAY_MED)
+	access_list += list(ACCESS_AWAY_MEDICAL)
 	return access_list
-/*
+
 /obj/effect/mapping_helpers/airlock/access/any/away/supply/get_access()
 	var/list/access_list = ..()
 	access_list += list(ACCESS_AWAY_SUPPLY)
@@ -456,10 +456,10 @@
 	var/list/access_list = ..()
 	access_list += list(ACCESS_AWAY_SCIENCE)
 	return access_list
-*/
+
 /obj/effect/mapping_helpers/airlock/access/any/away/maintenance/get_access()
 	var/list/access_list = ..()
-	access_list += list(ACCESS_AWAY_MAINT)
+	access_list += list(ACCESS_AWAY_MAINTENANCE)
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/any/away/generic1/get_access()
@@ -900,14 +900,14 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/away/engineering/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_AWAY_ENGINE
+	access_list += ACCESS_AWAY_ENGINEERING
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/away/medical/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_AWAY_MED
+	access_list += ACCESS_AWAY_MEDICAL
 	return access_list
-/*
+
 /obj/effect/mapping_helpers/airlock/access/all/away/supply/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_AWAY_SUPPLY
@@ -917,10 +917,10 @@
 	var/list/access_list = ..()
 	access_list += ACCESS_AWAY_SCIENCE
 	return access_list
-*/
+
 /obj/effect/mapping_helpers/airlock/access/all/away/maintenance/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_AWAY_MAINT
+	access_list += ACCESS_AWAY_MAINTENANCE
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/away/generic1/get_access()

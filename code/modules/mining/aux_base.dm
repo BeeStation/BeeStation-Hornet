@@ -137,7 +137,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 		possible_destinations = "mining_home;mining_away;landing_zone_dock;mining_public"
 
 /obj/machinery/computer/auxiliary_base/proc/set_landing_zone(turf/T, mob/user, no_restrictions)
-	var/obj/docking_port/mobile/auxiliary_base/base_dock =locate(/obj/docking_port/mobile/auxilary_base) in SSshuttle.mobile_docking_ports
+	var/obj/docking_port/mobile/auxiliary_base/base_dock = locate(/obj/docking_port/mobile/auxiliary_base) in SSshuttle.mobile_docking_ports
 	if(!base_dock) //Not all maps have an Aux base. This object is useless in that case.
 		to_chat(user, span_warning("This station is not equipped with an auxiliary base. Please contact your Nanotrasen contractor."))
 		return
