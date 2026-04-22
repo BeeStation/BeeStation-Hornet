@@ -29,7 +29,7 @@
 
 /datum/looping_sound/portable_generator
 	mid_sounds = list('sound/machines/engine.ogg' = 1)
-	mid_length = 4 SECONDS
+	mid_length = 2.9 SECONDS
 	volume = 25
 
 /datum/looping_sound/oven
@@ -104,15 +104,35 @@
 	falloff_distance = 3
 	volume = 150
 
-/datum/looping_sound/gravgen
-	mid_sounds = list('sound/machines/gravgen/gravgen_mid1.ogg' = 1, 'sound/machines/gravgen/gravgen_mid2.ogg' = 1, 'sound/machines/gravgen/gravgen_mid3.ogg' = 1, 'sound/machines/gravgen/gravgen_mid4.ogg' = 1)
+/datum/looping_sound/gas_rig
+	mid_sounds = list(
+		'sound/machines/gas_rig/gas_rig_mid1.ogg' = 1,
+		'sound/machines/gas_rig/gas_rig_mid2.ogg' = 1,
+		'sound/machines/gas_rig/gas_rig_mid3.ogg' = 1,
+		'sound/machines/gas_rig/gas_rig_mid4.ogg' = 1,
+	)
 	mid_length = 1.8 SECONDS
 	extra_range = 10
 	volume = 40
 	falloff_distance = 5
 	falloff_exponent = 20
 
-/datum/looping_sound/gravgen/kinesis
+/datum/looping_sound/grav_gen
+	start_sound = 'sound/machines/grav_gen/grav_gen_start.ogg'
+	start_length = 1 SECONDS
+	mid_sounds = list(
+		'sound/machines/grav_gen/grav_gen_mid1.ogg' = 12,
+		'sound/machines/grav_gen/grav_gen_mid2.ogg' = 1,
+	)
+	mid_length = 1.1 SECONDS
+	end_sound = 'sound/machines/grav_gen/grav_gen_end.ogg'
+	extra_range = 8
+	vary = TRUE
+	volume = 70
+	falloff_distance = 5
+	falloff_exponent = 20
+
+/datum/looping_sound/grav_gen/kinesis
 	volume = 20
 	falloff_distance = 2
 	falloff_exponent = 5

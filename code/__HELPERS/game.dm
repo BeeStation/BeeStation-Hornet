@@ -326,12 +326,12 @@
 	return A.loc
 
 /proc/announce_arrival(mob/living/carbon/human/character, rank)
-	if(QDELETED(character) || !SSticker.IsRoundInProgress())
+	if(!SSticker.IsRoundInProgress() || QDELETED(character))
 		return
 	var/area/player_area = get_area(character)
 	deadchat_broadcast(span_game(" has arrived at the station at [span_name(player_area.name)]."), span_game("[span_name(character.real_name)] ([rank])"), follow_target = character, message_type=DEADCHAT_ARRIVALRATTLE)
-	if(!character.mind || character.mind.assigned_role == JOB_NAME_CYBORG || character.mind.assigned_role == character.mind.special_role)
-		return
+	if(character.mind && (character.mind.assigned_role_datum?.job_flags & JOB_ANNOUNCE_ARRIVAL))
+		aas_config_announce(/datum/aas_config_entry/arrival, list("PERSON" = character.real_name,"RANK" = rank))
 
 	aas_config_announce(/datum/aas_config_entry/arrival, list("PERSON" = character.real_name, "RANK" = rank))
 

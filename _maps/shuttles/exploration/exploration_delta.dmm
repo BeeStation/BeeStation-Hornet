@@ -430,7 +430,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/computer/rdconsole/unlocked{
+/obj/machinery/computer/rdconsole/core{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,

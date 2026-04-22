@@ -426,7 +426,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/unpowered)
 "KM" = (
-/obj/machinery/computer/rdconsole/unlocked{
+/obj/machinery/computer/rdconsole/core{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{

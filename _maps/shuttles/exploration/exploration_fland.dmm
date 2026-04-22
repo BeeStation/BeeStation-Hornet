@@ -171,7 +171,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "fp" = (
-/obj/machinery/computer/rdconsole/unlocked,
+/obj/machinery/computer/rdconsole,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "fW" = (
@@ -530,7 +530,7 @@
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/cable/yellow,
-/obj/structure/sign/warning/nosmoking/circle{
+/obj/structure/sign/warning/no_smoking/circle{
 	pixel_y = 32
 	},
 /turf/open/floor/plating,
