@@ -10,72 +10,8 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/misc/space/nearstation)
-"ad" = (
-/obj/machinery/power/solar,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
-"ae" = (
-/obj/machinery/power/solar,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
 "af" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
-"ag" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
-"ah" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
-"ai" = (
-/obj/machinery/power/tracker,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
-"aj" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
-"ak" = (
-/obj/machinery/power/solar,
 /obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
-"al" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "am" = (
@@ -432,15 +368,11 @@
 	name = "Guest Room APC";
 	pixel_y = -24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_3)
 "bO" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_3)
@@ -474,15 +406,11 @@
 	name = "Guest Room APC";
 	pixel_y = -24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_4)
 "bU" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_4)
@@ -521,15 +449,11 @@
 	name = "Guest Room APC";
 	pixel_y = -24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_5)
 "ca" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_5)
@@ -568,15 +492,11 @@
 	name = "Guest Room APC";
 	pixel_y = -24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_6)
 "cg" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_6)
@@ -608,9 +528,7 @@
 	id_tag = "a3";
 	name = "Guest Room A3"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_3)
@@ -623,9 +541,7 @@
 	id_tag = "a4";
 	name = "Guest Room A4"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_4)
@@ -638,9 +554,7 @@
 	id_tag = "a5";
 	name = "Guest Room A5"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_5)
@@ -653,9 +567,7 @@
 	id_tag = "a6";
 	name = "Guest Room A6"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_6)
@@ -695,9 +607,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel)
 "cy" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
@@ -778,18 +688,14 @@
 /turf/closed/wall,
 /area/ruin/space/has_grav/hotel)
 "cI" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 6
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
 "cJ" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
@@ -797,43 +703,29 @@
 /area/ruin/space/has_grav/hotel)
 "cK" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Hotel Maintenance";
-	req_access_txt = "201"
+	name = "Hotel Maintenance"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
 "cL" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel)
 "cM" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel)
 "cN" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
@@ -841,27 +733,21 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel)
 "cO" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 1
 	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel)
 "cP" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 9
 	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel)
 "cQ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
@@ -870,9 +756,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel)
 "cS" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel)
@@ -924,9 +808,7 @@
 	id_tag = "a2";
 	name = "Guest Room A2"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_2)
@@ -942,9 +824,7 @@
 	id_tag = "a1";
 	name = "Guest Room A1"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_1)
@@ -974,9 +854,7 @@
 /obj/machinery/door/airlock/grunge{
 	name = "Hotel Staff Storage"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,
@@ -1004,15 +882,11 @@
 	name = "Guest Room APC";
 	pixel_y = 24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_2)
 "do" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_2)
@@ -1058,15 +932,11 @@
 	name = "Guest Room APC";
 	pixel_y = 24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_1)
 "dw" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_1)
@@ -1096,9 +966,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/hotel/workroom)
 "dB" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/hotel/workroom)
@@ -1181,35 +1049,15 @@
 "dV" = (
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/hotel/workroom)
-"dW" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
-/turf/open/floor/iron/white,
-/area/ruin/space/has_grav/hotel/workroom)
 "dX" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 5
 	},
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/hotel/workroom)
 "dY" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/ruin/space/has_grav/hotel/workroom)
-"dZ" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
 	},
@@ -1314,14 +1162,9 @@
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/hotel/workroom)
 "eq" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
 	},
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/hotel/workroom)
@@ -1329,9 +1172,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/hotel/workroom)
 "es" = (
@@ -1413,26 +1254,8 @@
 	},
 /turf/closed/wall,
 /area/ruin/space/has_grav/hotel)
-"eI" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/hotel)
 "eJ" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/hotel)
-"eK" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
 "eL" = (
@@ -1449,9 +1272,9 @@
 /area/ruin/space/has_grav/hotel)
 "eN" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Hotel Maintenance";
-	req_access_txt = "201"
+	name = "Hotel Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
 "eO" = (
@@ -1533,18 +1356,14 @@
 /area/ruin/space/has_grav/hotel/dock)
 "fd" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 6
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
 "fe" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 9
 	},
@@ -1567,9 +1386,10 @@
 /area/ruin/space/has_grav/hotel/bar)
 "fj" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Hotel Maintenance";
-	req_access_txt = "200,201"
+	name = "Hotel Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/bar)
 "fk" = (
@@ -1731,9 +1551,9 @@
 /area/ruin/space/has_grav/hotel/bar)
 "fT" = (
 /obj/machinery/door/airlock/freezer{
-	name = "Freezer";
-	req_access_txt = "200"
+	name = "Freezer"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/hotel/bar)
 "fV" = (
@@ -1817,9 +1637,7 @@
 /area/ruin/space/has_grav/hotel/dock)
 "gj" = (
 /obj/effect/decal/cleanable/oil,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
@@ -1862,9 +1680,9 @@
 /area/ruin/space/has_grav/hotel/bar)
 "gs" = (
 /obj/machinery/door/airlock/grunge{
-	name = "Hotel Staff Room";
-	req_access_txt = "200"
+	name = "Hotel Staff Room"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "gw" = (
@@ -2024,9 +1842,7 @@
 /turf/closed/wall,
 /area/ruin/space/has_grav/hotel)
 "hf" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
@@ -2186,9 +2002,7 @@
 	name = "Staff Room APC";
 	pixel_y = -24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /mob/living/simple_animal/bot/medbot{
 	name = "Accidents Happen"
 	},
@@ -2241,9 +2055,10 @@
 /area/ruin/space/has_grav/hotel/workroom)
 "hI" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Hotel Maintenance";
-	req_access_txt = "200,201"
+	name = "Hotel Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/bar)
@@ -2262,38 +2077,27 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/dock)
 "hP" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 5
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
 "hQ" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
 "hR" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
 "hS" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 10
 	},
@@ -2335,12 +2139,11 @@
 /area/ruin/space/has_grav/hotel/power)
 "id" = (
 /obj/machinery/door/airlock/engineering{
-	name = "Power Storage";
-	req_access_txt = "200,201"
+	name = "Power Storage"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
@@ -2363,20 +2166,9 @@
 	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel)
-"ik" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 4
-	},
-/turf/open/floor/carpet,
-/area/ruin/space/has_grav/hotel)
 "il" = (
 /obj/machinery/door/airlock/public/glass,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
@@ -2384,9 +2176,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel/dock)
 "im" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
@@ -2404,18 +2194,6 @@
 	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel/dock)
-"ip" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
-"iq" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
 "ir" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/closed/wall,
@@ -2441,18 +2219,14 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel)
 "iE" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel)
 "iF" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel/dock)
 "iG" = (
@@ -2460,9 +2234,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel/dock)
 "iI" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/power)
@@ -2480,9 +2252,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel)
 "iN" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel)
@@ -2491,9 +2261,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel)
 "iP" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/dock)
 "iQ" = (
@@ -2509,28 +2277,19 @@
 	name = "Security APC";
 	pixel_y = -24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/security)
 "iV" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
 "iW" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
@@ -2538,9 +2297,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
 "iY" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/airalarm/directional/south{
 	pixel_y = -24
 	},
@@ -2554,39 +2311,28 @@
 	name = "Pool APC";
 	pixel_y = -24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/pool)
 "ja" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel)
 "jb" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel)
 "jc" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel)
@@ -2623,9 +2369,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/dock)
 "jj" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 5
 	},
@@ -2663,9 +2407,9 @@
 /area/ruin/space/has_grav/hotel/security)
 "jq" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Hotel Security Checkpoint";
-	req_access_txt = "203"
+	name = "Hotel Security Checkpoint"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/security,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
@@ -2731,9 +2475,7 @@
 /turf/closed/wall,
 /area/ruin/space/has_grav/hotel/dock)
 "jB" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/power)
 "jC" = (
@@ -2818,25 +2560,11 @@
 /area/ruin/space/has_grav/hotel/power)
 "kd" = (
 /obj/machinery/power/terminal,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/hotel/power)
-"ke" = (
-/obj/machinery/power/terminal,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/power)
 "kf" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/components/binary/valve/on{
 	name = "Air Release Valve"
 	},
@@ -2900,17 +2628,16 @@
 /area/ruin/space/has_grav/hotel/power)
 "kI" = (
 /obj/machinery/door/airlock/engineering{
-	name = "Air Supply";
-	req_access_txt = "200,201"
+	name = "Air Supply"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/power)
 "kJ" = (
 /obj/machinery/door/airlock/external/glass,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/power)
@@ -2979,9 +2706,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/power)
 "lc" = (
@@ -3077,18 +2802,14 @@
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "lD" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "lE" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 9
 	},
@@ -3097,15 +2818,6 @@
 "lH" = (
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/hotel/pool)
-"lJ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
 "lL" = (
 /obj/structure/closet/crate,
 /obj/item/clothing/head/costume/rice_hat,
@@ -3126,52 +2838,6 @@
 /obj/structure/dresser,
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/hotel/pool)
-"lV" = (
-/obj/machinery/power/solar,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
-"lW" = (
-/obj/machinery/power/solar,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
-"lX" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
-"lY" = (
-/obj/machinery/power/solar,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
-"lZ" = (
-/obj/machinery/power/solar,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
 "ma" = (
 /obj/structure/closet,
 /turf/open/floor/plating,
@@ -3215,24 +2881,16 @@
 /area/ruin/space/has_grav/hotel/pool)
 "mx" = (
 /obj/machinery/door/airlock{
-	name = "Custodial Closet";
-	req_access_txt = "200,201"
+	name = "Custodial Closet"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/custodial)
-"my" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/hotel)
 "mz" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
@@ -3241,9 +2899,9 @@
 /area/ruin/space/has_grav/hotel)
 "mA" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Hotel Maintenance";
-	req_access_txt = "201"
+	name = "Hotel Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
@@ -3278,55 +2936,19 @@
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "mP" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "mQ" = (
 /obj/machinery/door/airlock/grunge{
-	name = "Hotel Staff Room";
-	req_access_txt = "200"
+	name = "Hotel Staff Room"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "mR" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/carpet,
-/area/ruin/space/has_grav/hotel)
-"mS" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/carpet,
-/area/ruin/space/has_grav/hotel)
-"mT" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/turf/open/floor/carpet,
-/area/ruin/space/has_grav/hotel)
-"mU" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/carpet,
-/area/ruin/space/has_grav/hotel)
-"mV" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel)
 "mW" = (
@@ -3379,9 +3001,9 @@
 "pj" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /obj/machinery/door/airlock{
-	name = "Theatre";
-	req_access_txt = "200"
+	name = "Theatre"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
 "pS" = (
@@ -3401,9 +3023,7 @@
 /area/ruin/space/has_grav/hotel/pool)
 "qu" = (
 /obj/machinery/power/smes/engineering,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
@@ -3421,9 +3041,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/secondary_solars)
 "rx" = (
@@ -3431,9 +3049,7 @@
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
 "rz" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/sign/warning/vacuum{
 	pixel_y = -32
 	},
@@ -3444,9 +3060,7 @@
 /area/ruin/space/has_grav/hotel/power)
 "sc" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/template_noop,
 /area/ruin/unpowered/no_grav)
 "sw" = (
@@ -3466,9 +3080,7 @@
 /area/ruin/space/has_grav/hotel/power)
 "sN" = (
 /obj/machinery/door/airlock/external/glass,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
@@ -3493,9 +3105,7 @@
 "tr" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/secondary_solars)
 "tx" = (
@@ -3528,9 +3138,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/power)
 "ul" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
@@ -3547,15 +3155,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/custodial)
-"uL" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
 "vD" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
 	dir = 4
@@ -3633,21 +3232,15 @@
 	name = "Power Storage APC";
 	pixel_y = 24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/power)
 "xX" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/yellow,
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/secondary_solars)
 "ym" = (
@@ -3677,9 +3270,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/custodial)
 "yP" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -3702,12 +3293,7 @@
 /area/ruin/space/has_grav/hotel/bar)
 "zf" = (
 /obj/machinery/power/smes/engineering,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/sign/warning/electricshock{
 	pixel_y = -32
 	},
@@ -3776,9 +3362,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/bar)
 "BR" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/hotel/workroom)
 "Ch" = (
@@ -3947,9 +3531,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/custodial)
 "HE" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
@@ -3966,9 +3548,9 @@
 /area/ruin/space/has_grav/hotel/dock)
 "If" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Hotel Security Checkpoint";
-	req_access_txt = "203"
+	name = "Hotel Security Checkpoint"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/security,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/security)
@@ -4035,22 +3617,8 @@
 /obj/structure/window/spawner/directional/west,
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/hotel/guestroom/room_5)
-"Ju" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/open/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
 "JU" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/sign/warning/fire{
 	desc = "A poster designed to remind the reader to wear appropriate insulation and head protection when working with material.";
 	icon_state = "safety";
@@ -4127,9 +3695,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/hotel/workroom)
 "Nl" = (
@@ -4137,9 +3703,7 @@
 /area/ruin/space/has_grav/hotel/bar)
 "NP" = (
 /obj/machinery/suit_storage_unit/standard_unit,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 8
 	},
@@ -4161,13 +3725,6 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/security)
-"Ov" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/template_noop,
-/area/ruin/unpowered/no_grav)
 "Ow" = (
 /obj/structure/closet/l3closet/janitor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -4179,12 +3736,11 @@
 /area/ruin/space/has_grav/hotel/security)
 "Pc" = (
 /obj/machinery/door/airlock/engineering{
-	name = "Power Storage";
-	req_access_txt = "200,201"
+	name = "Power Storage"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/away/general,
+/obj/effect/mapping_helpers/airlock/access/all/away/maintenance,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/hotel/secondary_solars)
 "Pr" = (
@@ -4193,12 +3749,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/hotel/guestroom/room_2)
 "Px" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
@@ -4367,12 +3918,7 @@
 /obj/machinery/power/solar_control{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
@@ -4400,9 +3946,7 @@
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
 /obj/item/stock_parts/cell/high,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
 	},
@@ -4458,9 +4002,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
 "Xr" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/power)
@@ -4516,9 +4058,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/security)
 "Zy" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 24
 	},
@@ -4743,16 +4283,16 @@ aa
 ac
 aa
 aa
-lV
+bd
 aa
 aa
-lV
+bd
 aa
 aa
-lV
+bd
 aa
 aa
-lV
+bd
 aa
 ab
 aa
@@ -4813,16 +4353,16 @@ aa
 ac
 aa
 aa
-lW
+bd
 aa
 aa
-lW
+bd
 aa
 aa
-lW
+bd
 aa
 aa
-lW
+bd
 aa
 ab
 aa
@@ -4883,16 +4423,16 @@ lB
 ac
 aa
 aa
-lW
+bd
 aa
 aa
-lW
+bd
 aa
 aa
-lW
+bd
 aa
 aa
-lW
+bd
 aa
 ab
 aa
@@ -4925,20 +4465,20 @@ ab
 ab
 aa
 af
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-ip
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
 aa
 aa
 aa
@@ -4953,16 +4493,16 @@ lC
 ac
 aa
 aa
-lW
+bd
 aa
 aa
-lW
+bd
 aa
 aa
-lW
+bd
 aa
 aa
-lW
+bd
 aa
 ab
 aa
@@ -4994,7 +4534,7 @@ aa
 aa
 ac
 ac
-ag
+af
 ct
 cH
 cH
@@ -5008,31 +4548,31 @@ cH
 cH
 cH
 ia
-iq
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
 lD
 ac
 aa
 aa
-lW
+bd
 aa
 aa
-lW
+bd
 aa
 aa
-lW
+bd
 aa
 aa
-lW
+bd
 aa
 aa
 ab
@@ -5050,21 +4590,21 @@ aa
 ab
 aa
 af
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-al
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
 cw
 fd
 cQ
@@ -5090,19 +4630,19 @@ ir
 ir
 ir
 lE
-lJ
-aj
-aj
-lX
-aj
-aj
-lX
-aj
-aj
-lX
-aj
-aj
-Ju
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
 mO
 ac
 ab
@@ -5119,7 +4659,7 @@ aa
 aa
 ab
 aa
-ag
+af
 am
 am
 am
@@ -5160,19 +4700,19 @@ kV
 lp
 kH
 aa
-ag
+af
 aa
 aa
-lY
+bd
 aa
 aa
-lY
+bd
 aa
 aa
-lY
+bd
 aa
 aa
-lY
+bd
 aa
 aa
 ab
@@ -5189,7 +4729,7 @@ aa
 aa
 ab
 ac
-ag
+af
 am
 av
 aw
@@ -5205,7 +4745,7 @@ cQ
 cQ
 cQ
 cQ
-eI
+cQ
 fe
 fi
 fP
@@ -5230,19 +4770,19 @@ kW
 lp
 kH
 aa
-ag
+af
 aa
 aa
-lY
+bd
 aa
 aa
-lY
+bd
 aa
 aa
-lY
+bd
 aa
 aa
-lY
+bd
 aa
 ab
 aa
@@ -5259,7 +4799,7 @@ aa
 aa
 ab
 aa
-ag
+af
 am
 aw
 aw
@@ -5293,26 +4833,26 @@ iJ
 iS
 jk
 iK
-ke
+kd
 qu
 kH
 kX
 lq
 kH
 aa
-ag
+af
 aa
 aa
-lY
+bd
 aa
 aa
-lY
+bd
 aa
 aa
-lY
+bd
 aa
 aa
-lY
+bd
 aa
 ab
 aa
@@ -5329,7 +4869,7 @@ aa
 aa
 ab
 aa
-ag
+af
 an
 an
 an
@@ -5370,19 +4910,19 @@ kY
 lp
 kH
 aa
-ag
+af
 aa
 aa
-lY
+bd
 aa
 aa
-lY
+bd
 aa
 aa
-lY
+bd
 aa
 aa
-lY
+bd
 aa
 ab
 aa
@@ -5399,7 +4939,7 @@ aa
 aa
 ab
 aa
-ag
+af
 an
 ax
 az
@@ -5440,19 +4980,19 @@ kZ
 lp
 kH
 aa
-ag
+af
 aa
 aa
-lZ
+bd
 aa
 aa
-lZ
+bd
 aa
 aa
-lZ
+bd
 aa
 aa
-lZ
+bd
 aa
 ab
 aa
@@ -5469,7 +5009,7 @@ aa
 aa
 ab
 aa
-ag
+af
 an
 QN
 Gu
@@ -5510,7 +5050,7 @@ kH
 kH
 kH
 aa
-ag
+af
 aa
 aa
 ac
@@ -5539,7 +5079,7 @@ aa
 aa
 ab
 aa
-ag
+af
 an
 az
 bf
@@ -5578,9 +5118,9 @@ Xr
 kJ
 la
 sN
-aj
-aj
-al
+af
+af
+af
 aa
 aa
 ac
@@ -5609,7 +5149,7 @@ aa
 aa
 ab
 ac
-ag
+af
 an
 aA
 an
@@ -5625,7 +5165,7 @@ cZ
 cZ
 es
 cZ
-eK
+eJ
 fh
 fi
 fQ
@@ -5679,7 +5219,7 @@ aa
 aa
 ab
 aa
-ag
+af
 an
 aB
 bg
@@ -5749,7 +5289,7 @@ aa
 aa
 ab
 aa
-ag
+af
 ao
 aB
 bh
@@ -5819,7 +5359,7 @@ aa
 aa
 ab
 aa
-ag
+af
 ao
 aC
 bi
@@ -5889,7 +5429,7 @@ aa
 aa
 ab
 aa
-ag
+af
 ao
 aD
 aB
@@ -5959,7 +5499,7 @@ aa
 aa
 ab
 aa
-ag
+af
 an
 aE
 bj
@@ -6029,7 +5569,7 @@ aa
 aa
 ab
 ac
-ag
+af
 an
 an
 an
@@ -6099,7 +5639,7 @@ aa
 aa
 ab
 aa
-ag
+af
 ap
 aF
 aH
@@ -6169,7 +5709,7 @@ aa
 aa
 ab
 aa
-ag
+af
 ap
 tx
 EA
@@ -6239,7 +5779,7 @@ aa
 aa
 ab
 aa
-ag
+af
 ap
 aH
 bl
@@ -6309,7 +5849,7 @@ aa
 aa
 ab
 ac
-ag
+af
 ap
 aI
 ap
@@ -6379,7 +5919,7 @@ aa
 aa
 ab
 aa
-ag
+af
 ap
 aJ
 bm
@@ -6426,7 +5966,7 @@ cI
 cQ
 cQ
 hf
-my
+hR
 aw
 aw
 am
@@ -6449,7 +5989,7 @@ aa
 aa
 ab
 aa
-ag
+af
 aq
 aJ
 bn
@@ -6519,7 +6059,7 @@ aa
 aa
 ab
 aa
-ag
+af
 aq
 aK
 bo
@@ -6589,7 +6129,7 @@ aa
 aa
 ab
 aa
-ag
+af
 aq
 aL
 aJ
@@ -6659,7 +6199,7 @@ aa
 aa
 ab
 aa
-ag
+af
 ap
 aM
 bp
@@ -6729,7 +6269,7 @@ aa
 aa
 ab
 ac
-ag
+af
 ap
 ap
 ap
@@ -6799,7 +6339,7 @@ aa
 aa
 ab
 aa
-ag
+af
 ar
 aN
 aP
@@ -6869,7 +6409,7 @@ aa
 aa
 ab
 aa
-ag
+af
 ar
 Wp
 Jh
@@ -6939,7 +6479,7 @@ aa
 aa
 ab
 aa
-ag
+af
 ar
 aP
 br
@@ -7009,7 +6549,7 @@ aa
 aa
 ab
 ac
-ag
+af
 ar
 aQ
 ar
@@ -7036,7 +6576,7 @@ gG
 gG
 hB
 di
-mS
+mR
 cF
 eT
 am
@@ -7079,7 +6619,7 @@ aa
 aa
 ab
 aa
-ag
+af
 ar
 aR
 bs
@@ -7106,7 +6646,7 @@ gG
 gG
 hC
 di
-mS
+mR
 cF
 eT
 am
@@ -7149,7 +6689,7 @@ aa
 aa
 ab
 aa
-ag
+af
 as
 aR
 bt
@@ -7161,7 +6701,7 @@ cM
 cS
 dj
 dB
-dW
+dB
 eo
 ey
 di
@@ -7176,7 +6716,7 @@ gG
 gG
 hD
 di
-mS
+mR
 cF
 eT
 iM
@@ -7219,7 +6759,7 @@ aa
 aa
 ab
 aa
-ag
+af
 as
 aS
 bu
@@ -7246,11 +6786,11 @@ gG
 gG
 hE
 di
-mT
-mU
-mU
-mU
-mV
+mR
+mR
+mR
+mR
+cL
 ju
 jW
 jW
@@ -7289,7 +6829,7 @@ aa
 aa
 ab
 aa
-ag
+af
 as
 aT
 aR
@@ -7359,7 +6899,7 @@ aa
 aa
 ab
 aa
-ag
+af
 ar
 aU
 bv
@@ -7371,7 +6911,7 @@ cL
 cF
 di
 dE
-dZ
+dY
 eq
 eA
 di
@@ -7429,7 +6969,7 @@ aa
 aa
 ab
 ac
-ag
+af
 ar
 ar
 ar
@@ -7457,7 +6997,7 @@ gG
 hH
 di
 hZ
-ik
+cL
 iE
 iN
 jc
@@ -7499,7 +7039,7 @@ aa
 aa
 ab
 aa
-ag
+af
 at
 aV
 aX
@@ -7569,7 +7109,7 @@ aa
 aa
 ab
 aa
-ag
+af
 at
 Ak
 Bb
@@ -7639,7 +7179,7 @@ aa
 aa
 ab
 aa
-ag
+af
 at
 aX
 bx
@@ -7709,7 +7249,7 @@ aa
 aa
 ab
 ac
-ag
+af
 at
 aY
 at
@@ -7779,7 +7319,7 @@ aa
 aa
 ab
 aa
-ag
+af
 at
 aZ
 by
@@ -7849,7 +7389,7 @@ aa
 ab
 aa
 aa
-ag
+af
 au
 aZ
 bz
@@ -7919,7 +7459,7 @@ aa
 ab
 ac
 aa
-ag
+af
 au
 ba
 bA
@@ -7989,7 +7529,7 @@ ab
 aa
 ac
 ac
-ag
+af
 au
 bb
 aZ
@@ -8059,7 +7599,7 @@ aa
 aa
 aa
 aa
-ag
+af
 at
 bc
 bB
@@ -8127,9 +7667,9 @@ ac
 aa
 aa
 af
-aj
-aj
-uL
+af
+af
+af
 at
 at
 at
@@ -8196,10 +7736,10 @@ aa
 ac
 aa
 aa
-ag
+af
 aa
 aa
-Ov
+sc
 sc
 sc
 sc
@@ -8261,16 +7801,16 @@ aa
 ab
 ac
 ac
-ad
-ae
-ae
-ae
-ae
-ah
-ak
-ak
-ak
-ak
+bd
+bd
+bd
+bd
+bd
+af
+bd
+bd
+bd
+bd
 bd
 aa
 aa
@@ -8336,7 +7876,7 @@ aa
 aa
 aa
 aa
-ag
+af
 aa
 aa
 aa
@@ -8406,7 +7946,7 @@ aa
 aa
 aa
 aa
-ag
+af
 aa
 aa
 aa
@@ -8471,16 +8011,16 @@ aa
 ab
 ac
 ac
-ad
-ae
-ae
-ae
-ae
-ah
-ak
-ak
-ak
-ak
+bd
+bd
+bd
+bd
+bd
+af
+bd
+bd
+bd
+bd
 bd
 ac
 ac
@@ -8546,7 +8086,7 @@ aa
 aa
 aa
 aa
-ag
+af
 aa
 aa
 aa
@@ -8616,7 +8156,7 @@ aa
 aa
 aa
 aa
-ag
+af
 aa
 aa
 aa
@@ -8681,16 +8221,16 @@ aa
 ab
 ac
 ac
-ad
-ae
-ae
-ae
-ae
-ah
-ak
-ak
-ak
-ak
+bd
+bd
+bd
+bd
+bd
+af
+bd
+bd
+bd
+bd
 bd
 ac
 ac
@@ -8756,7 +8296,7 @@ aa
 aa
 aa
 aa
-ag
+af
 aa
 aa
 aa
@@ -8826,7 +8366,7 @@ aa
 aa
 aa
 aa
-ag
+af
 aa
 aa
 aa
@@ -8891,16 +8431,16 @@ aa
 ab
 ac
 ac
-ad
-ae
-ae
-ae
-ae
-ah
-ak
-ak
-ak
-ak
+bd
+bd
+bd
+bd
+bd
+af
+bd
+bd
+bd
+bd
 bd
 ac
 ac
@@ -8966,7 +8506,7 @@ aa
 aa
 aa
 aa
-ai
+mO
 aa
 aa
 aa

@@ -93,9 +93,8 @@
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/misc/survivalpod)
 "p" = (
-/obj/machinery/door/airlock/survival_pod/glass{
-	req_access_txt = "25"
-	},
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/effect/mapping_helpers/airlock/access/all/service/bar,
 /obj/structure/fans/tiny,
 /turf/open/floor/pod/dark,
 /area/misc/survivalpod)

@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_SILICON
 	department_head_for_prefs = JOB_NAME_AI
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ccffcc"
 	supervisors = "your laws"
@@ -16,6 +16,8 @@
 	departments = DEPT_BITFLAG_SILICON
 	random_spawns_possible = FALSE
 	allow_bureaucratic_error = FALSE
+
+	job_flags = JOB_NEW_PLAYER_JOINABLE | JOB_CANNOT_OPEN_SLOTS
 	var/do_special_check = TRUE
 
 /datum/job/ai/get_access() // no point of calling parent proc

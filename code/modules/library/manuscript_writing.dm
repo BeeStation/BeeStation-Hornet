@@ -54,7 +54,7 @@
 		if(!(user.mind?.assigned_role in valid_jobs))
 			to_chat(user, span_notice("Your job knowledge doesn't seem to be describable in writing."))
 			return ..()
-		writer_job = SSjob.GetJob(user.mind?.assigned_role)
+		writer_job = user.mind?.assigned_role_datum
 
 	var/list/jobs_with_knowledge = \
 		is_antag ? valid_jobs \
