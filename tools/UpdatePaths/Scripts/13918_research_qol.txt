@@ -12,13 +12,6 @@
 
 /obj/machinery/doppler_array/research/science : /obj/machinery/doppler_array/research{@OLD}
 
-# fixes auxiliary typo
-
-/area/shuttle/auxillary_base : /area/shuttle/auxiliary_base{@OLD}
-/obj/machinery/computer/auxillary_base : /obj/machinery/computer/auxiliary_base{@OLD}
-/obj/item/circuitboard/computer/auxillary_base : /obj/item/circuitboard/computer/auxiliary_base{@OLD}
-/obj/docking_port/mobile/auxillary_base : /obj/docking_port/mobile/auxiliary_base{@OLD}
-
 # useless exosuit_fab subtype
 
 /obj/machinery/modular_fabricator/exosuit_fab/maint : /obj/machinery/modular_fabricator/exosuit_fab{@OLD}
