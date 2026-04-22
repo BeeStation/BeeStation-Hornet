@@ -30,7 +30,7 @@
 
 /datum/generator_settings/netherworld/get_directional_walltrash()
 	return list(
-		/obj/machinery/light/empty = 5,
+		/obj/machinery/light/built = 5,
 		/obj/machinery/light = 1,
 		/obj/machinery/light/broken = 4,
 		/obj/machinery/light/small = 2,

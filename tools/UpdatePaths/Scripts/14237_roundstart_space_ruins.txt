@@ -1,29 +1,9 @@
-# snake_case-ification
-
-/obj/structure/sign/warning/securearea : /obj/structure/sign/warning/secure_area{@OLD}
-/obj/structure/sign/warning/electricshock : /obj/structure/sign/warning/electric_shock{@OLD}
-/obj/structure/sign/warning/nosmoking/@SUBTYPES : /obj/structure/sign/warning/no_smoking/@SUBTYPES{@OLD}
-/obj/structure/sign/warning/enginesafety : /obj/structure/sign/warning/engine_safety{@OLD}
-/obj/structure/sign/departments/examroom : /obj/structure/sign/departments/exam_room{@OLD}
-
-/obj/structure/AIcore : /obj/structure/ai_core{@OLD}
-/obj/structure/mopbucket : /obj/structure/mop_bucket{@OLD}
-
-/obj/item/reagent_containers/blood/APlus : /obj/item/reagent_containers/blood/a_plus{@OLD}
-/obj/item/reagent_containers/blood/AMinus : /obj/item/reagent_containers/blood/a_minus{@OLD}
-/obj/item/reagent_containers/blood/BPlus : /obj/item/reagent_containers/blood/b_plus{@OLD}
-/obj/item/reagent_containers/blood/BMinus : /obj/item/reagent_containers/blood/b_minus{@OLD}
-/obj/item/reagent_containers/blood/OPlus : /obj/item/reagent_containers/blood/o_plus{@OLD}
-/obj/item/reagent_containers/blood/OMinus : /obj/item/reagent_containers/blood/o_minus{@OLD}
-
 # misc
 
 /obj/item/codespeak_manual : /obj/item/language_manual/codespeak_manual{@OLD}
-/obj/structure/sign/departments/science{icon_state="science2"} : /obj/structure/sign/departments/science/alt{@OLD;icon_state=@SKIP;}
-/obj/machinery/gravity_generator/main/station/@SUBTYPES : /obj/machinery/gravity_generator/main/@SUBTYPES{@OLD}
+/obj/structure/sign/departments/science{icon_state="science2"} : /obj/structure/sign/departments/science/alt{@OLD;icon_state=@SKIP}
 /obj/machinery/door/airlock/arrivals_external : /obj/machinery/door/airlock/external/arrivals{@OLD}
 /obj/item/storage/backpack/satchel/tox : /obj/item/storage/backpack/satchel/science{@OLD}
-/obj/structure/closet/secure_closet/freezer/kitchen/mining : /obj/structure/closet/secure_closet/freezer/kitchen/all_access{@OLD}
 /obj/effect/landmark/prisonspawn : @DELETE
 
 # broken flooring
@@ -41,50 +21,6 @@
 /obj/structure/broken_flooring/@SUBTYPES{icon_state="plating"} : /obj/structure/broken_flooring/plating/@SUBTYPES{@OLD;icon_state=@SKIP}
 
 /obj/structure/broken_flooring/directional/@SUBTYPES : /obj/structure/broken_flooring/corner/directional/@SUBTYPES{@OLD}
-
-# lights
-
-/obj/machinery/light{dir=1} : /obj/machinery/light/directional/north{@OLD;dir=@SKIP}
-/obj/machinery/light{dir=@UNSET} : /obj/machinery/light/directional/south{@OLD;dir=@SKIP}
-/obj/machinery/light{dir=4} : /obj/machinery/light/directional/east{@OLD;dir=@SKIP}
-/obj/machinery/light{dir=8} : /obj/machinery/light/directional/west{@OLD;dir=@SKIP}
-
-/obj/machinery/light/@SUBTYPES{icon_state="tube"} : /obj/machinery/light/@SUBTYPES{@OLD;icon_state=@SKIP}
-
-/obj/machinery/light/small{dir=1} : /obj/machinery/light/small/directional/north{@OLD;dir=@SKIP}
-/obj/machinery/light/small{dir=@UNSET} : /obj/machinery/light/small/directional/south{@OLD;dir=@SKIP}
-/obj/machinery/light/small{dir=4} : /obj/machinery/light/small/directional/east{@OLD;dir=@SKIP}
-/obj/machinery/light/small{dir=8} : /obj/machinery/light/small/directional/west{@OLD;dir=@SKIP}
-
-/obj/machinery/light/small/@SUBTYPES{icon_state="bulb"} : /obj/machinery/light/small/@SUBTYPES{@OLD;icon_state=@SKIP}
-
-/obj/machinery/light/built{dir=1} : /obj/machinery/light/empty/directional/north{@OLD;icon_state=@SKIP;dir=@SKIP}
-/obj/machinery/light/built{dir=@UNSET} : /obj/machinery/light/empty/directional/south{@OLD;icon_state=@SKIP;dir=@SKIP}
-/obj/machinery/light/built{dir=4} : /obj/machinery/light/empty/directional/east{@OLD;icon_state=@SKIP;dir=@SKIP}
-/obj/machinery/light/built{dir=8} : /obj/machinery/light/empty/directional/west{@OLD;icon_state=@SKIP;dir=@SKIP}
-
-/obj/machinery/light/empty/@SUBTYPES{icon_state="tube-empty"} : /obj/machinery/light/empty/@SUBTYPES{@OLD;icon_state=@SKIP}
-
-/obj/machinery/light/broken{dir=1} : /obj/machinery/light/broken/directional/north{@OLD;dir=@SKIP}
-/obj/machinery/light/broken{dir=@UNSET} : /obj/machinery/light/broken/directional/south{@OLD;dir=@SKIP}
-/obj/machinery/light/broken{dir=4} : /obj/machinery/light/broken/directional/east{@OLD;dir=@SKIP}
-/obj/machinery/light/broken{dir=8} : /obj/machinery/light/broken/directional/west{@OLD;dir=@SKIP}
-
-/obj/machinery/light/broken/@SUBTYPES{icon_state="tube-broken"} : /obj/machinery/light/broken/@SUBTYPES{@OLD;icon_state=@SKIP}
-
-/obj/machinery/light/small/built{dir=1} : /obj/machinery/light/small/empty/directional/north{@OLD;icon_state=@SKIP;dir=@SKIP}
-/obj/machinery/light/small/built{dir=@UNSET} : /obj/machinery/light/small/empty/directional/south{@OLD;icon_state=@SKIP;dir=@SKIP}
-/obj/machinery/light/small/built{dir=4} : /obj/machinery/light/small/empty/directional/east{@OLD;icon_state=@SKIP;dir=@SKIP}
-/obj/machinery/light/small/built{dir=8} : /obj/machinery/light/small/empty/directional/west{@OLD;icon_state=@SKIP;dir=@SKIP}
-
-/obj/machinery/light/small/empty/@SUBTYPES{icon_state="bulb-empty"} : /obj/machinery/light/small/empty/@SUBTYPES{@OLD;icon_state=@SKIP}
-
-/obj/machinery/light/small/broken{dir=1} : /obj/machinery/light/small/broken/directional/north{@OLD;dir=@SKIP}
-/obj/machinery/light/small/broken{dir=@UNSET} : /obj/machinery/light/small/broken/directional/south{@OLD;dir=@SKIP}
-/obj/machinery/light/small/broken{dir=4} : /obj/machinery/light/small/broken/directional/east{@OLD;dir=@SKIP}
-/obj/machinery/light/small/broken{dir=8} : /obj/machinery/light/small/broken/directional/west{@OLD;dir=@SKIP}
-
-/obj/machinery/light/small/broken/@SUBTYPES{icon_state="bulb-broken"} : /obj/machinery/light/small/broken/@SUBTYPES{@OLD;icon_state=@SKIP}
 
 # sinks (sink dirs had flipped icons in the .dmi file, hence the "wrong" dir-to-directional-subtype here)
 
