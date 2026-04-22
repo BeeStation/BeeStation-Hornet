@@ -33,7 +33,7 @@
 	parent.RemoveElement(/datum/element/art/commoner)
 
 /datum/component/tattoo/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, .proc/on_examine)
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/tattoo/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ATOM_EXAMINE)
@@ -43,7 +43,7 @@
 	examine_list += span_boldnotice(tattoo_description)
 
 /datum/component/tattoo/proc/setup_tatted_owner(mob/living/carbon/new_owner)
-	RegisterSignal(new_owner, COMSIG_ATOM_EXAMINE, .proc/on_bodypart_owner_examine)
+	RegisterSignal(new_owner, COMSIG_ATOM_EXAMINE, PROC_REF(on_bodypart_owner_examine))
 
 /datum/component/tattoo/proc/clear_tatted_owner(mob/living/carbon/old_owner)
 	UnregisterSignal(old_owner, COMSIG_ATOM_EXAMINE)

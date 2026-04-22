@@ -51,7 +51,7 @@
 	*/
 	icon_state_append = rand(1, 2)
 	//must be here to allow overlays to be updated
-	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, .proc/on_update_overlays)
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_update_overlays))
 	engraved_wall.update_appearance()
 
 /datum/component/engraved/Destroy(force, silent)
@@ -64,7 +64,7 @@
 		parent_atom.update_appearance()
 
 /datum/component/engraved/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, .proc/on_examine)
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	//supporting component transfer means putting these here instead of initialize
 	SSpersistence.wall_engravings += src
 	ADD_TRAIT(parent, TRAIT_NOT_ENGRAVABLE, TRAIT_GENERIC)
