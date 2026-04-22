@@ -30,7 +30,7 @@
 				name = "MANUSCRIPT BOUNTY ERROR"
 				CRASH("Failed to make a manuscript bounty: There are no available jobs.")
 			job = pick_n_take(available_jobs)
-			if((!job.total_positions) || job.lock_flags || is_type_in_typecache(job, bad_jobs))
+			if((!job.total_positions) || !(job.job_flags & JOB_NEW_PLAYER_JOINABLE) || is_type_in_typecache(job, bad_jobs))
 				job = null
 				continue
 		bounty_job = job

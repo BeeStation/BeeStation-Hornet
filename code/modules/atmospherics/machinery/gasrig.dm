@@ -53,7 +53,7 @@
 
 	init_processing = TRUE
 
-	var/datum/looping_sound/gravgen/soundloop
+	var/datum/looping_sound/gas_rig/soundloop
 
 	/// Our internal radio for broadcasting warnings on engineering channel
 	var/obj/item/radio/radio

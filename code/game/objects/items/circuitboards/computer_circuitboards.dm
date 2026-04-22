@@ -179,10 +179,10 @@
 	name = "Water Vapor Supply Control (Computer Board)"
 	build_path = /obj/machinery/computer/atmos_control/water_vapor
 
-/obj/item/circuitboard/computer/auxillary_base
-	name = "auxillary base management console (Computer Board)"
+/obj/item/circuitboard/computer/auxiliary_base
+	name = "auxiliary base management console (Computer Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/computer/auxillary_base
+	build_path = /obj/machinery/computer/auxiliary_base
 
 /obj/item/circuitboard/computer/base_construction
 	name = "aux mining base construction console (Computer Board)"

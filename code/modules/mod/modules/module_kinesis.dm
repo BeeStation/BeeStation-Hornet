@@ -33,7 +33,7 @@
 	/// Our mouse movement catcher.
 	var/atom/movable/screen/fullscreen/cursor_catcher/kinesis/kinesis_catcher
 	/// The sounds playing while we grabbed an object.
-	var/datum/looping_sound/gravgen/kinesis/soundloop
+	var/datum/looping_sound/grav_gen/kinesis/soundloop
 	/// The cooldown between us hitting objects with kinesis.
 	COOLDOWN_DECLARE(hit_cooldown)
 
