@@ -134,7 +134,7 @@
 		if (length(mind.antag_datums) || mind.special_role)
 			continue
 		// Are we allowed security?
-		var/datum/job/job = SSjob.GetJob(mind.assigned_role)
+		var/datum/job/job = mind.assigned_role_datum
 		if (istype(job, /datum/job))
 			if (!sec_allowed && CHECK_BITFIELD(job.departments, DEPT_BITFLAG_SEC))
 				continue

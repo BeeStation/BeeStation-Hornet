@@ -3,7 +3,7 @@
 	desc = "A warning sign."
 	icon_state = "securearea"
 
-/obj/structure/sign/warning/securearea
+/obj/structure/sign/warning/secure_area
 	name = "\improper SECURE AREA"
 	desc = "A warning sign which reads 'SECURE AREA'."
 
@@ -16,7 +16,7 @@
 	desc = "A warning sign which reads 'BIOHAZARD'."
 	icon_state = "bio"
 
-/obj/structure/sign/warning/electricshock
+/obj/structure/sign/warning/electric_shock
 	name = "\improper HIGH VOLTAGE"
 	desc = "A warning sign which reads 'HIGH VOLTAGE'."
 	icon_state = "shock"
@@ -55,13 +55,13 @@
 	resistance_flags = FIRE_PROOF
 */
 
-/obj/structure/sign/warning/nosmoking
+/obj/structure/sign/warning/no_smoking
 	name = "\improper NO SMOKING"
 	desc = "A warning sign which reads 'NO SMOKING'."
 	icon_state = "nosmoking2"
 	resistance_flags = FLAMMABLE
 
-/obj/structure/sign/warning/nosmoking/circle
+/obj/structure/sign/warning/no_smoking/circle
 	icon_state = "nosmoking"
 
 /obj/structure/sign/warning/radiation
@@ -83,7 +83,7 @@
 	desc = "A sign that warns would-be travellers of hostile alien life in the vicinity."
 	icon_state = "xeno_warning"
 
-/obj/structure/sign/warning/enginesafety
+/obj/structure/sign/warning/engine_safety
 	name = "\improper ENGINEERING SAFETY"
 	desc = "A sign detailing the various safety protocols when working on-site to ensure a safe shift."
 	icon_state = "safety"
