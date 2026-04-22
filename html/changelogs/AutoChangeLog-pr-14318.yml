@@ -1,0 +1,7 @@
+author: mrmanlikesbt, grungussuss, kayozz
+delete-after: true
+changes:
+  - code_imp: Cleaned up gravity generator code
+  - bugfix: Fixed the soundloop for pacman generators' being horribly off sync
+  - bugfix: Fixed gravity generators not using any more power than usual when active
+  - balance: Decreased the gravity generator's inactive power usage from 5kW to 1kW
