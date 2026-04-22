@@ -1403,7 +1403,7 @@
 /obj/structure/fence{
 	dir = 8
 	},
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
 "wk" = (
@@ -1568,7 +1568,7 @@
 /obj/structure/fence{
 	dir = 8
 	},
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
 "yl" = (
@@ -3407,7 +3407,7 @@
 /obj/structure/fence{
 	dir = 8
 	},
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/open/floor/plating/asteroid/frozengrass,
 /area/template_noop)
 "Zt" = (
