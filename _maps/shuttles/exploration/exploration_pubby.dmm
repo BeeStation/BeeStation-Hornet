@@ -31,9 +31,6 @@
 /obj/machinery/atmospherics/components/unary/plasma_refiner{
 	dir = 8
 	},
-/obj/structure/sign/warning/nosmoking/circle{
-	pixel_x = 32
-	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -540,6 +537,10 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"Zd" = (
+/obj/structure/sign/warning/no_smoking/circle,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/exploration)
 "ZX" = (
 /obj/docking_port/mobile{
 	dir = 8;
@@ -609,7 +610,7 @@ vd
 Hf
 Ax
 Ax
-Ax
+Zd
 jR
 da
 Vl
