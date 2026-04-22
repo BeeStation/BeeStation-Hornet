@@ -60,7 +60,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "aN" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "aO" = (
@@ -75,7 +75,9 @@
 /area/shuttle/escape)
 "aT" = (
 /obj/structure/chair/fancy/shuttle,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aU" = (
@@ -191,7 +193,9 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "bQ" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "bS" = (
@@ -214,7 +218,9 @@
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "bZ" = (
@@ -237,21 +243,27 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "cd" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
 	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "cf" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "cg" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "cp" = (
@@ -292,18 +304,26 @@
 /obj/structure/toilet{
 	dir = 8
 	},
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/iron/freezer,
 /area/shuttle/escape)
 "cX" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
 /obj/structure/mirror{
 	pixel_x = -28
 	},
 /turf/open/floor/iron/freezer,
 /area/shuttle/escape)
 "cY" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron/freezer,
 /area/shuttle/escape)
 "da" = (
@@ -325,7 +345,9 @@
 /turf/open/floor/iron/freezer,
 /area/shuttle/escape)
 "dg" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /obj/machinery/recharge_station,
 /turf/open/floor/iron/freezer,
 /area/shuttle/escape)
@@ -333,7 +355,9 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ds" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dt" = (
@@ -479,7 +503,9 @@
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
 /obj/item/crowbar,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -490,7 +516,9 @@
 	pixel_y = 3
 	},
 /obj/item/storage/firstaid/o2,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -531,7 +559,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "mE" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
@@ -687,7 +717,9 @@
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "wP" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/machinery/computer/monitor/secret,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
@@ -703,7 +735,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
@@ -830,7 +864,9 @@
 	dir = 1
 	},
 /obj/structure/closet,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/iron,
 /area/shuttle/escape)
@@ -842,7 +878,9 @@
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "Gm" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/machinery/stasis,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
@@ -853,7 +891,9 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/shuttle/escape)
@@ -879,7 +919,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "Jq" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
@@ -1124,7 +1164,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "Yn" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},

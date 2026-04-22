@@ -36,7 +36,10 @@
 /turf/open/floor/wood/airless,
 /area/ruin/unpowered)
 "m" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
 /turf/open/floor/wood/airless,
 /area/ruin/unpowered)
 "n" = (

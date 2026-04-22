@@ -39,7 +39,9 @@
 /turf/open/floor/iron/white,
 /area/template_noop)
 "t" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/structure/window/spawner/directional/east,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
@@ -51,7 +53,10 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "E" = (
-/obj/machinery/light/broken/directional/east,
+/obj/machinery/light/broken{
+	icon_state = "tube-broken";
+	dir = 4
+	},
 /obj/structure/window/spawner/directional/west,
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron,

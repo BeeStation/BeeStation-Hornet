@@ -1,71 +1,89 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"ah" = (
-/obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/cup/glass/drinkingglass{
-	pixel_x = 7;
-	pixel_y = 2
-	},
-/obj/effect/spawner/random/food_or_drink/three_course_meal,
-/turf/open/floor/carpet/black,
+"a" = (
+/turf/closed/wall/mineral/titanium/survival/pod,
 /area/misc/survivalpod)
-"aF" = (
+"b" = (
+/obj/structure/sign/mining/survival{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium/survival/pod,
+/area/misc/survivalpod)
+"c" = (
+/obj/machinery/shower,
+/obj/item/soap/deluxe,
+/obj/structure/curtain{
+	alpha = 240;
+	color = "#454545";
+	icon_state = "bathroom-closed";
+	open = 0
+	},
 /turf/open/floor/pod,
 /area/misc/survivalpod)
-"aG" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666";
+"d" = (
+/obj/structure/sign/mining/survival{
+	dir = 8
+	},
+/turf/closed/wall/mineral/titanium/survival/pod,
+/area/misc/survivalpod)
+"e" = (
+/obj/structure/fans,
+/turf/open/floor/pod,
+/area/misc/survivalpod)
+"f" = (
+/obj/machinery/smartfridge/survival_pod/preloaded,
+/turf/open/floor/pod,
+/area/misc/survivalpod)
+"g" = (
+/obj/item/gps/computer,
+/turf/open/floor/pod,
+/area/misc/survivalpod)
+"i" = (
+/obj/structure/toilet/secret{
+	secret_type = /obj/item/knife/combat/survival
+	},
+/turf/open/floor/pod,
+/area/misc/survivalpod)
+"j" = (
+/obj/structure/sign/mining/survival{
+	dir = 4
+	},
+/turf/closed/wall/mineral/titanium/survival/pod,
+/area/misc/survivalpod)
+"k" = (
+/obj/machinery/stasis/survival_pod,
+/obj/machinery/vending/wallmed/survival_pod{
+	pixel_x = -24
+	},
+/turf/open/floor/pod,
+/area/misc/survivalpod)
+"l" = (
+/turf/open/floor/pod,
+/area/misc/survivalpod)
+"m" = (
+/obj/structure/bed/pod,
+/obj/item/bedsheet/black,
+/turf/open/floor/pod,
+/area/misc/survivalpod)
+"n" = (
+/obj/structure/window/reinforced/survival_pod/spawner/directional/west,
+/obj/machinery/door/window/survival_pod{
 	dir = 1
 	},
 /turf/open/floor/carpet/black,
 /area/misc/survivalpod)
-"aH" = (
-/obj/structure/tubes,
-/obj/item/kirbyplants/random,
-/turf/open/floor/pod,
-/area/misc/survivalpod)
-"aI" = (
-/turf/closed/wall/mineral/titanium/survival/pod,
-/area/misc/survivalpod)
-"aJ" = (
+"o" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666"
+	},
+/obj/item/cardboard_cutout{
+	desc = "A cardboard cutout of a xenomorph maid.";
+	icon_state = "cutout_lusty";
+	name = "lusty xenomorph maid"
+	},
 /obj/structure/window/reinforced/survival_pod/spawner/directional/north,
-/obj/structure/displaycase{
-	alert = 0;
-	desc = "A display case containing an expensive forgery, probably.";
-	pixel_y = -4;
-	req_access_txt = "48";
-	start_showpiece_type = /obj/item/fakeartefact
-	},
 /turf/open/floor/carpet/black,
 /area/misc/survivalpod)
-"aK" = (
-/obj/structure/sign/mining,
-/turf/closed/wall/mineral/titanium/survival/pod,
-/area/misc/survivalpod)
-"aL" = (
-/obj/structure/sign/mining/survival,
-/turf/closed/wall/mineral/titanium/survival/pod,
-/area/misc/survivalpod)
-"aM" = (
-/obj/machinery/light/directional/south,
-/turf/open/floor/carpet/black,
-/area/misc/survivalpod)
-"aN" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/survival_pod/glass,
-/turf/open/floor/pod,
-/area/misc/survivalpod)
-"aO" = (
-/obj/structure/window/reinforced/survival_pod{
-	density = 0;
-	dir = 9
-	},
-/turf/open/floor/carpet/black,
-/area/misc/survivalpod)
-"aP" = (
-/obj/structure/sink/kitchen/directional/east,
-/turf/open/floor/carpet/black,
-/area/misc/survivalpod)
-"aQ" = (
+"p" = (
 /obj/structure/table/survival_pod,
 /obj/item/storage/firstaid/regular,
 /obj/item/storage/firstaid/brute{
@@ -73,37 +91,18 @@
 	},
 /turf/open/floor/pod,
 /area/misc/survivalpod)
-"aR" = (
-/obj/structure/sign/mining/survival{
-	dir = 4
-	},
-/turf/closed/wall/mineral/titanium/survival/pod,
-/area/misc/survivalpod)
-"aS" = (
-/obj/structure/bed/pod,
-/obj/item/bedsheet/black,
+"q" = (
+/obj/structure/tubes,
+/obj/item/kirbyplants/random,
 /turf/open/floor/pod,
 /area/misc/survivalpod)
-"aT" = (
-/obj/machinery/microwave{
-	pixel_y = 4
-	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
-/obj/structure/table/wood/fancy/black,
-/turf/open/floor/carpet/black,
-/area/misc/survivalpod)
-"aU" = (
-/obj/structure/sign/mining/survival{
-	dir = 8
-	},
-/turf/closed/wall/mineral/titanium/survival/pod,
-/area/misc/survivalpod)
-"aV" = (
+"r" = (
 /obj/structure/window/reinforced/survival_pod/spawner/directional/west,
 /turf/open/floor/carpet/black,
 /area/misc/survivalpod)
-"aW" = (
-/obj/machinery/light/directional/east{
+"s" = (
+/obj/machinery/light{
+	dir = 4;
 	light_color = "#DDFFD3"
 	},
 /obj/structure/table/wood/fancy/black,
@@ -117,137 +116,142 @@
 	},
 /turf/open/floor/carpet/black,
 /area/misc/survivalpod)
-"aX" = (
-/turf/open/floor/carpet/black,
-/area/misc/survivalpod)
-"aY" = (
-/obj/machinery/door/window/survival_pod{
-	dir = 1
-	},
-/turf/open/floor/carpet/black,
-/area/misc/survivalpod)
-"aZ" = (
-/obj/machinery/stasis/survival_pod,
-/obj/machinery/vending/wallmed/survival_pod{
-	pixel_x = -24
-	},
-/turf/open/floor/pod,
-/area/misc/survivalpod)
-"fa" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666"
-	},
-/obj/item/cardboard_cutout{
-	desc = "A cardboard cutout of a xenomorph maid.";
-	icon_state = "cutout_lusty";
-	name = "lusty xenomorph maid"
+"t" = (
+/obj/machinery/microwave{
+	pixel_y = 4
 	},
 /obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/structure/table/wood/fancy/black,
 /turf/open/floor/carpet/black,
 /area/misc/survivalpod)
-"tV" = (
-/obj/structure/toilet/secret{
-	secret_type = /obj/item/knife/combat/survival
-	},
-/turf/open/floor/pod,
-/area/misc/survivalpod)
-"wk" = (
-/obj/machinery/smartfridge/survival_pod/preloaded,
-/turf/open/floor/pod,
-/area/misc/survivalpod)
-"wA" = (
-/obj/item/gps/computer,
-/turf/open/floor/pod,
-/area/misc/survivalpod)
-"yA" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/west,
+"u" = (
 /obj/machinery/door/window/survival_pod{
 	dir = 1
 	},
 /turf/open/floor/carpet/black,
 /area/misc/survivalpod)
-"Bm" = (
-/obj/machinery/shower,
-/obj/item/soap/deluxe,
-/obj/structure/curtain{
-	alpha = 240;
-	color = "#454545";
-	icon_state = "bathroom-closed";
-	open = 0
+"v" = (
+/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/structure/displaycase{
+	alert = 0;
+	desc = "A display case containing an expensive forgery, probably.";
+	pixel_y = -4;
+	req_access_txt = "48";
+	start_showpiece_type = /obj/item/fakeartefact
 	},
-/turf/open/floor/pod,
+/turf/open/floor/carpet/black,
 /area/misc/survivalpod)
-"LL" = (
-/obj/structure/sign/mining/survival{
+"w" = (
+/obj/structure/window/reinforced/survival_pod{
+	density = 0;
+	dir = 9
+	},
+/turf/open/floor/carpet/black,
+/area/misc/survivalpod)
+"x" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/effect/spawner/random/food_or_drink/three_course_meal,
+/turf/open/floor/carpet/black,
+/area/misc/survivalpod)
+"y" = (
+/obj/structure/sink/kitchen{
+	dir = 4;
+	pixel_x = -13
+	},
+/turf/open/floor/carpet/black,
+/area/misc/survivalpod)
+"z" = (
+/obj/machinery/light,
+/turf/open/floor/carpet/black,
+/area/misc/survivalpod)
+"A" = (
+/turf/open/floor/carpet/black,
+/area/misc/survivalpod)
+"B" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
 	dir = 1
 	},
+/turf/open/floor/carpet/black,
+/area/misc/survivalpod)
+"C" = (
+/obj/structure/sign/mining/survival,
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/misc/survivalpod)
-"Sv" = (
-/obj/structure/fans,
+"D" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass,
 /turf/open/floor/pod,
+/area/misc/survivalpod)
+"E" = (
+/obj/structure/sign/mining,
+/turf/closed/wall/mineral/titanium/survival/pod,
 /area/misc/survivalpod)
 
 (1,1,1) = {"
-aI
-aU
-aI
-aU
-aI
-aU
-aI
+a
+d
+a
+d
+a
+d
+a
 "}
 (2,1,1) = {"
-LL
-Sv
-aZ
-aQ
-aT
-aP
-aL
+b
+e
+k
+p
+t
+y
+C
 "}
 (3,1,1) = {"
-aI
-wk
-aF
-aF
-aY
-aM
-aI
+a
+f
+l
+l
+u
+z
+a
 "}
 (4,1,1) = {"
-LL
-wA
-aS
-aH
-aJ
-aX
-aN
+b
+g
+m
+q
+v
+A
+D
 "}
 (5,1,1) = {"
-aI
-Bm
-yA
-aV
-aO
-aX
-aI
+a
+c
+n
+r
+w
+A
+a
 "}
 (6,1,1) = {"
-LL
-tV
-fa
-aW
-ah
-aG
-aK
+b
+i
+o
+s
+x
+B
+E
 "}
 (7,1,1) = {"
-aI
-aR
-aI
-aR
-aI
-aR
-aI
+a
+j
+a
+j
+a
+j
+a
 "}

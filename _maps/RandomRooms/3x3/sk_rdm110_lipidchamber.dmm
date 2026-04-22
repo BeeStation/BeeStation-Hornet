@@ -5,7 +5,10 @@
 /area/template_noop)
 "l" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/empty/directional/east,
+/obj/machinery/light/small/built{
+	icon_state = "bulb-empty";
+	dir = 4
+	},
 /turf/open/floor/carpet/grimy,
 /area/template_noop)
 "r" = (
@@ -14,7 +17,10 @@
 /area/template_noop)
 "A" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/broken/directional/west,
+/obj/machinery/light/small/broken{
+	icon_state = "bulb-broken";
+	dir = 8
+	},
 /turf/open/floor/carpet/grimy,
 /area/template_noop)
 "T" = (

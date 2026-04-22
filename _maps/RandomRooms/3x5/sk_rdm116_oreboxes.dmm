@@ -40,7 +40,10 @@
 /obj/item/stack/ore/uranium,
 /obj/item/stack/ore/uranium,
 /obj/item/stack/ore/uranium,
-/obj/machinery/light/broken/directional/east,
+/obj/machinery/light/broken{
+	dir = 4;
+	icon_state = "tube-broken"
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
@@ -55,7 +58,9 @@
 /obj/item/stack/ore/copper,
 /obj/item/stack/ore/copper,
 /obj/item/stack/ore/copper,
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (

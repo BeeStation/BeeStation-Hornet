@@ -64,7 +64,9 @@
 	},
 /area/ruin/unpowered)
 "l" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/structure/table/wood,
 /obj/effect/spawner/random/food_or_drink/pizzaparty,
 /obj/effect/decal/cleanable/dirt,
@@ -232,7 +234,9 @@
 	},
 /area/ruin/unpowered)
 "P" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"

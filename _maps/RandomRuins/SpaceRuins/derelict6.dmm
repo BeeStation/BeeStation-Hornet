@@ -77,7 +77,10 @@
 	},
 /area/ruin/unpowered)
 "aW" = (
-/obj/structure/broken_flooring/pile/directional/west,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "pile";
+	dir = 8
+	},
 /turf/template_noop,
 /area/template_noop)
 "be" = (
@@ -151,7 +154,9 @@
 /turf/template_noop,
 /area/misc/space/nearstation)
 "kM" = (
-/obj/structure/broken_flooring/pile/directional/south,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "pile"
+	},
 /turf/template_noop,
 /area/template_noop)
 "kZ" = (
@@ -172,7 +177,8 @@
 /turf/open/floor/iron/cafeteria/airless,
 /area/ruin/unpowered)
 "og" = (
-/obj/structure/broken_flooring/plating/directional/south{
+/obj/structure/fluff/broken_flooring{
+	icon_state = "plating";
 	name = "broken plating"
 	},
 /obj/structure/lattice,
@@ -184,7 +190,7 @@
 /turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "qE" = (
-/obj/structure/broken_flooring/corner/directional/south,
+/obj/structure/fluff/broken_flooring,
 /turf/template_noop,
 /area/ruin/unpowered)
 "qL" = (
@@ -197,16 +203,20 @@
 /turf/open/floor/iron/cafeteria/airless,
 /area/ruin/unpowered)
 "us" = (
-/obj/structure/broken_flooring/plating/directional/east{
-	name = "broken plating"
+/obj/structure/fluff/broken_flooring{
+	name = "broken plating";
+	icon_state = "plating";
+	dir = 4
 	},
 /obj/structure/lattice,
 /turf/template_noop,
 /area/ruin/unpowered)
 "uF" = (
 /obj/structure/lattice,
-/obj/structure/broken_flooring/plating/directional/west{
-	name = "broken plating"
+/obj/structure/fluff/broken_flooring{
+	name = "broken plating";
+	icon_state = "plating";
+	dir = 8
 	},
 /turf/template_noop,
 /area/ruin/unpowered)
@@ -223,12 +233,18 @@
 	},
 /area/ruin/unpowered)
 "wb" = (
-/obj/structure/broken_flooring,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "side";
+	dir = 1
+	},
 /obj/structure/lattice,
 /turf/template_noop,
 /area/ruin/unpowered)
 "wS" = (
-/obj/structure/broken_flooring,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "pile";
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "xr" = (
@@ -237,7 +253,10 @@
 /turf/template_noop,
 /area/misc/space/nearstation)
 "yx" = (
-/obj/structure/broken_flooring/singular/directional/east,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "singular";
+	dir = 4
+	},
 /turf/template_noop,
 /area/template_noop)
 "yC" = (
@@ -245,36 +264,60 @@
 /area/ruin/unpowered)
 "Fw" = (
 /obj/structure/lattice,
-/obj/structure/broken_flooring/side/directional/east,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "side";
+	dir = 4
+	},
 /turf/template_noop,
 /area/ruin/unpowered)
 "FR" = (
 /obj/structure/lattice,
-/obj/structure/broken_flooring,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "singular";
+	dir = 1
+	},
 /turf/template_noop,
 /area/misc/space/nearstation)
 "Gv" = (
-/obj/structure/broken_flooring/singular/directional/east,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "singular";
+	dir = 4
+	},
 /turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "GV" = (
-/obj/machinery/light/broken/directional/south,
+/obj/machinery/light/broken,
 /turf/open/floor/iron/airless,
+/area/ruin/unpowered)
+"HG" = (
+/obj/structure/lattice,
+/obj/structure/fluff/broken_flooring{
+	name = "broken plating";
+	icon_state = "plating";
+	dir = 1
+	},
+/turf/template_noop,
 /area/ruin/unpowered)
 "Jo" = (
 /obj/structure/lattice,
-/obj/structure/broken_flooring/plating/directional/east{
-	name = "broken plating"
+/obj/structure/fluff/broken_flooring{
+	name = "broken plating";
+	icon_state = "plating";
+	dir = 4
 	},
 /turf/template_noop,
 /area/ruin/unpowered)
 "Qa" = (
-/obj/machinery/light/broken/directional/west,
+/obj/machinery/light/broken{
+	dir = 8
+	},
 /turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "Qh" = (
 /obj/structure/lattice,
-/obj/structure/broken_flooring/corner/directional/west,
+/obj/structure/fluff/broken_flooring{
+	dir = 8
+	},
 /turf/template_noop,
 /area/ruin/unpowered)
 "QT" = (
@@ -289,7 +332,9 @@
 /area/ruin/unpowered)
 "RM" = (
 /obj/structure/lattice,
-/obj/structure/broken_flooring,
+/obj/structure/fluff/broken_flooring{
+	dir = 1
+	},
 /turf/template_noop,
 /area/ruin/unpowered)
 "Sc" = (
@@ -297,7 +342,10 @@
 /turf/open/floor/iron/cafeteria/airless,
 /area/ruin/unpowered)
 "St" = (
-/obj/structure/broken_flooring/singular/directional/east,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "singular";
+	dir = 4
+	},
 /obj/structure/lattice,
 /turf/template_noop,
 /area/misc/space/nearstation)
@@ -312,14 +360,19 @@
 /turf/template_noop,
 /area/misc/space/nearstation)
 "Us" = (
-/obj/structure/broken_flooring/plating/directional/west{
-	name = "broken plating"
+/obj/structure/fluff/broken_flooring{
+	name = "broken plating";
+	icon_state = "plating";
+	dir = 8
 	},
 /obj/structure/lattice,
 /turf/template_noop,
 /area/ruin/unpowered)
 "UH" = (
-/obj/structure/broken_flooring/pile/directional/east,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "pile";
+	dir = 4
+	},
 /turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "UK" = (
@@ -329,7 +382,9 @@
 /area/ruin/unpowered)
 "Vs" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/machinery/light/broken/directional/north,
+/obj/machinery/light/broken{
+	dir = 1
+	},
 /turf/open/floor/iron/cafeteria/airless,
 /area/ruin/unpowered)
 "VU" = (
@@ -337,7 +392,9 @@
 /turf/open/floor/iron/cafeteria/airless,
 /area/ruin/unpowered)
 "VY" = (
-/obj/machinery/light/broken/directional/north,
+/obj/machinery/light/broken{
+	dir = 1
+	},
 /turf/open/floor/plating/airless{
 	broken = 1
 	},
@@ -347,16 +404,23 @@
 /turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "XQ" = (
-/obj/structure/broken_flooring/pile/directional/east,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "pile";
+	dir = 4
+	},
 /turf/template_noop,
 /area/template_noop)
 "XW" = (
-/obj/machinery/light/broken/directional/west,
+/obj/machinery/light/broken{
+	dir = 8
+	},
 /obj/structure/table_frame,
 /turf/open/floor/iron/cafeteria/airless,
 /area/ruin/unpowered)
 "Ya" = (
-/obj/structure/broken_flooring/singular/directional/south,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "singular"
+	},
 /turf/template_noop,
 /area/template_noop)
 "Yq" = (
@@ -464,7 +528,7 @@ aa
 aa
 aa
 aa
-RM
+HG
 bl
 ag
 ag
@@ -600,7 +664,7 @@ aa
 (11,1,1) = {"
 aa
 aa
-RM
+HG
 as
 ai
 ai

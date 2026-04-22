@@ -28,7 +28,9 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/arrival)
 "g" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/structure/sign/poster/official/enlist{
 	pixel_y = 32
 	},
@@ -48,7 +50,9 @@
 	name = "Arrivals Shuttle console";
 	pixel_y = 30
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/arrival)
 "k" = (
@@ -97,7 +101,7 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "q" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/arrival)
 "r" = (
@@ -117,7 +121,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -29
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/arrival)
 "u" = (
@@ -125,7 +129,7 @@
 	name = "Station Intercom (General)";
 	pixel_y = -29
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/arrival)
 "v" = (

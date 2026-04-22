@@ -234,7 +234,9 @@
 /area/template_noop)
 "dr" = (
 /obj/structure/table,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/gloves/color/black,
 /obj/item/crowbar/red,

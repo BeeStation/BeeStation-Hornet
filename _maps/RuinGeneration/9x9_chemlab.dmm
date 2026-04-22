@@ -145,12 +145,16 @@
 /turf/open/floor/iron/white,
 /area/ruin)
 "kt" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin)
 "pt" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
@@ -226,7 +230,9 @@
 /area/ruin)
 "Ih" = (
 /obj/structure/table/glass,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/item/book/manual/wiki/grenades{
 	pixel_y = 3
 	},

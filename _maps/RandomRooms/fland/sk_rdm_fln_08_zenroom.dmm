@@ -78,7 +78,9 @@
 /obj/machinery/light_switch{
 	pixel_x = 27
 	},
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/bamboo,
 /area/template_noop)
 "G" = (
@@ -113,7 +115,9 @@
 /obj/structure/sign/poster/official/moth6{
 	pixel_x = -32
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "O" = (
@@ -124,7 +128,9 @@
 "Q" = (
 /obj/machinery/hydroponics/constructable,
 /obj/item/seeds/tea,
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "U" = (
@@ -145,7 +151,9 @@
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/bamboo,
 /area/template_noop)
 "Z" = (

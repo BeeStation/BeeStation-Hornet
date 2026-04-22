@@ -224,7 +224,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "aU" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 4
 	},

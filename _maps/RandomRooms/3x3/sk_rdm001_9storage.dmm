@@ -8,7 +8,10 @@
 "b" = (
 /obj/effect/turf_decal/box,
 /obj/structure/closet/crate,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1;
+	icon_state = "bulb"
+	},
 /obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)

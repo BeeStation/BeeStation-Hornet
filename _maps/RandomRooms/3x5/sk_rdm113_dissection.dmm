@@ -16,14 +16,18 @@
 /turf/open/floor/noslip/standard,
 /area/template_noop)
 "d" = (
-/obj/machinery/light/small/directional/west{
-	brightness = 3
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
 	},
 /obj/machinery/iv_drip,
 /turf/open/floor/iron,
 /area/template_noop)
 "e" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/template_noop)

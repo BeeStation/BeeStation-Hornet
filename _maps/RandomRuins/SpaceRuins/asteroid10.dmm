@@ -182,31 +182,43 @@
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "aT" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 "aU" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 "aV" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/checker,
 /area/ruin/space/has_grav/powered)
 "aW" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 "aX" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/holofloor/beach,
 /area/ruin/space/has_grav/powered)
 "aY" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/holofloor/beach/coast_t,
 /area/ruin/space/has_grav/powered)
 "aZ" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron/checker,
 /area/ruin/space/has_grav/powered)
 "ba" = (

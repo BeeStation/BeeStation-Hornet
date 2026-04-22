@@ -32,7 +32,7 @@
 /area/ruin/powered/seedvault)
 "aY" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "bm" = (
@@ -78,9 +78,14 @@
 /turf/closed/wall/mineral/titanium/survival,
 /area/ruin/powered/seedvault)
 "dX" = (
-/obj/machinery/light/broken/directional/north,
+/obj/machinery/light/broken{
+	dir = 1
+	},
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/sink/directional/south,
+/obj/structure/sink{
+	dir = 1;
+	pixel_y = 28
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
@@ -348,7 +353,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/blood/old,
-/obj/machinery/light/small/broken/directional/west,
+/obj/machinery/light/small/broken{
+	dir = 8
+	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "sn" = (
@@ -416,7 +423,9 @@
 /obj/item/pickaxe,
 /obj/item/pickaxe,
 /obj/structure/rack,
-/obj/machinery/light/small/broken/directional/north,
+/obj/machinery/light/small/broken{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
@@ -430,18 +439,23 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/structure/sink/directional/south,
+/obj/structure/sink{
+	dir = 1;
+	pixel_y = 28
+	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "wW" = (
-/obj/machinery/light/broken/directional/north,
+/obj/machinery/light/broken{
+	dir = 1
+	},
 /obj/effect/turf_decal/loading_area{
 	dir = 1
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "xB" = (
-/obj/machinery/light/broken/directional/south,
+/obj/machinery/light/broken,
 /obj/structure/closet/crate/hydroponics,
 /obj/item/melee/flyswatter,
 /obj/item/honey_frame,
@@ -506,7 +520,9 @@
 "zb" = (
 /obj/effect/mob_spawn/human/seed_vault,
 /obj/effect/turf_decal/box,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/pod/light,
 /area/ruin/powered/seedvault)
 "zr" = (
@@ -643,7 +659,9 @@
 /turf/template_noop/closed,
 /area/lavaland/surface/outdoors)
 "Gm" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/extinguisher_cabinet{
@@ -678,7 +696,9 @@
 /turf/template_noop/open,
 /area/lavaland/surface/outdoors)
 "Ih" = (
-/obj/machinery/light/broken/directional/west,
+/obj/machinery/light/broken{
+	dir = 8
+	},
 /obj/structure/table,
 /obj/item/gun/energy/floragun,
 /obj/item/gun/energy/floragun{
@@ -713,7 +733,7 @@
 /turf/open/floor/grass,
 /area/lavaland/surface/outdoors)
 "IL" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/machinery/vending/hydronutrients,
 /obj/effect/turf_decal/bot,
 /obj/structure/sign/poster/contraband/smoke{
@@ -722,7 +742,9 @@
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "Jg" = (
-/obj/machinery/light/broken/directional/west,
+/obj/machinery/light/broken{
+	dir = 8
+	},
 /obj/machinery/chem_master/condimaster,
 /obj/structure/sign/poster/ripped{
 	pixel_x = -32;
@@ -735,7 +757,7 @@
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "JD" = (
-/obj/machinery/light/broken/directional/south,
+/obj/machinery/light/broken,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
@@ -801,7 +823,7 @@
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "Lb" = (
-/obj/machinery/light/broken/directional/south,
+/obj/machinery/light/broken,
 /obj/machinery/chem_dispenser/mutagensaltpeter,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
@@ -973,7 +995,7 @@
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "PU" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /obj/structure/table,
 /obj/item/circuitboard/machine/plantgenes{
 	pixel_x = -6;
@@ -1073,7 +1095,9 @@
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "SC" = (
-/obj/machinery/light/broken/directional/north,
+/obj/machinery/light/broken{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
@@ -1082,7 +1106,9 @@
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "SK" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/structure/table/wood,
 /obj/machinery/plantgenes/seedvault{
 	pixel_y = 6
@@ -1124,7 +1150,9 @@
 /obj/machinery/atmospherics/components/binary/valve,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small/broken/directional/west,
+/obj/machinery/light/small/broken{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "UB" = (
@@ -1171,7 +1199,9 @@
 	pixel_x = 10;
 	pixel_y = 14
 	},
-/obj/machinery/light/broken/directional/east,
+/obj/machinery/light/broken{
+	dir = 4
+	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "Wm" = (
@@ -1211,7 +1241,9 @@
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "Zi" = (
-/obj/machinery/light/broken/directional/north,
+/obj/machinery/light/broken{
+	dir = 1
+	},
 /obj/structure/closet/crate/hydroponics,
 /obj/item/melee/flyswatter,
 /obj/item/honey_frame,

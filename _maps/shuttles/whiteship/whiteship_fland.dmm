@@ -739,7 +739,7 @@
 	pixel_x = -5;
 	pixel_y = 11
 	},
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/shuttle/abandoned)
 "Sy" = (

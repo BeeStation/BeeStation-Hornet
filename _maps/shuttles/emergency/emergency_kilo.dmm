@@ -47,7 +47,9 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "aw" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/structure/closet/emcloset/anchored,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
@@ -61,7 +63,9 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "bg" = (
@@ -127,7 +131,9 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "ch" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
@@ -186,7 +192,9 @@
 	pixel_y = 16
 	},
 /obj/item/hemostat,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "cS" = (
@@ -270,7 +278,9 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -286,7 +296,9 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "iZ" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
@@ -298,7 +310,9 @@
 /obj/structure/sign/departments/engineering{
 	pixel_y = 32
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
@@ -306,7 +320,11 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "ms" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
@@ -314,7 +332,9 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/machinery/keycard_auth{
 	pixel_x = 24
 	},
@@ -384,7 +404,9 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/machinery/keycard_auth{
 	pixel_x = -24
 	},
@@ -560,7 +582,7 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
@@ -591,7 +613,9 @@
 /area/shuttle/escape)
 "Gp" = (
 /obj/machinery/vending/medical,
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
@@ -599,7 +623,9 @@
 /obj/structure/sign/departments/security{
 	pixel_y = 32
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/siding/dark{
 	dir = 6
@@ -610,7 +636,9 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -723,7 +751,10 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "MR" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
@@ -814,7 +845,9 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "RU" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -857,7 +890,9 @@
 	pixel_y = -5
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},

@@ -147,7 +147,9 @@
 /turf/open/floor/monotile,
 /area/template_noop)
 "u" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/monotile,
 /area/template_noop)
 "v" = (
@@ -222,7 +224,9 @@
 	},
 /area/template_noop)
 "D" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/carpet{
 	icon_state = "carpetsymbol"
 	},
@@ -235,7 +239,7 @@
 /area/template_noop)
 "F" = (
 /obj/structure/table/wood,
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /obj/item/clothing/head/wig/random,
 /turf/open/floor/monotile,
 /area/template_noop)

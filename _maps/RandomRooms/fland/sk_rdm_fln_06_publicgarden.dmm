@@ -11,7 +11,10 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "g" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12
+	},
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
@@ -100,7 +103,9 @@
 /area/template_noop)
 "z" = (
 /obj/machinery/hydroponics/soil,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/grass,
 /area/template_noop)
 "A" = (
@@ -140,12 +145,16 @@
 /area/template_noop)
 "M" = (
 /obj/machinery/hydroponics/soil,
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/grass,
 /area/template_noop)
 "O" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/structure/table,
 /obj/item/seeds/tower,
 /obj/item/seeds/watermelon,

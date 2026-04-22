@@ -15,7 +15,11 @@
 "f" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/obj/structure/sink/directional/east,
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
 /obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /turf/open/floor/plating{
@@ -39,7 +43,9 @@
 "x" = (
 /obj/structure/janitorialcart,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/lusty_xenomorph{
 	pixel_x = 32

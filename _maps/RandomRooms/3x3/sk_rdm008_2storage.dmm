@@ -2,7 +2,10 @@
 "a" = (
 /obj/effect/spawner/random/maintenance/six,
 /obj/structure/closet/crate,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	icon_state = "bulb";
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (

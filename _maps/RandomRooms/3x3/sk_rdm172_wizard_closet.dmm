@@ -19,7 +19,9 @@
 	pixel_x = -8;
 	pixel_y = 7
 	},
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (

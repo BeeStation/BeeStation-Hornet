@@ -84,7 +84,9 @@
 /obj/machinery/shower{
 	pixel_y = 16
 	},
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "z" = (
@@ -159,7 +161,9 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "P" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/item/trash/canned/beans,
 /turf/open/floor/carpet,
 /area/template_noop)

@@ -88,7 +88,9 @@
 /area/template_noop)
 "nT" = (
 /obj/item/shuttle_creator,
-/obj/machinery/light/empty/directional/west,
+/obj/machinery/light/built{
+	dir = 8
+	},
 /obj/item/radio/intercom{
 	pixel_y = -27
 	},
@@ -139,7 +141,9 @@
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "zv" = (
-/obj/machinery/light/empty/directional/east,
+/obj/machinery/light/built{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "Ah" = (

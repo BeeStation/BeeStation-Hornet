@@ -25,7 +25,9 @@
 /area/template_noop)
 "g" = (
 /obj/item/grown/bananapeel,
-/obj/machinery/light/broken/directional/east,
+/obj/machinery/light/broken{
+	dir = 4
+	},
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -65,7 +67,8 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "I" = (
-/obj/machinery/light/directional/west{
+/obj/machinery/light{
+	dir = 8;
 	light_color = "#e8eaff"
 	},
 /obj/effect/decal/cleanable/dirt,

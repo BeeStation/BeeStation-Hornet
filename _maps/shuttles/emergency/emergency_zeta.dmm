@@ -216,11 +216,13 @@
 /area/shuttle/escape)
 "kv" = (
 /obj/item/kirbyplants/photosynthetic,
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "pQ" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/structure/closet/abductor,
 /obj/item/clothing/under/misc/pj/blue,
 /obj/item/clothing/under/misc/pj,
@@ -231,7 +233,9 @@
 /area/shuttle/escape)
 "pW" = (
 /obj/item/kirbyplants/photosynthetic,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "qB" = (
@@ -240,7 +244,9 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "sV" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "tG" = (
@@ -252,13 +258,17 @@
 /area/shuttle/escape)
 "wM" = (
 /obj/structure/chair/office,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "wV" = (
 /obj/item/lazarus_injector,
 /obj/structure/table/abductor,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "yL" = (
@@ -289,7 +299,9 @@
 "Dm" = (
 /obj/structure/table/abductor,
 /obj/item/storage/box/alienhandcuffs,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "DI" = (
@@ -304,11 +316,15 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "Og" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "Uh" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/item/kirbyplants/photosynthetic,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)

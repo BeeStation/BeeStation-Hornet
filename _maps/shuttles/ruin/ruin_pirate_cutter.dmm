@@ -47,7 +47,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/caravan/pirate)
 "ev" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 9
 	},
@@ -102,7 +104,9 @@
 /turf/open/floor/plating,
 /area/shuttle/caravan/pirate)
 "gj" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
@@ -134,7 +138,9 @@
 /turf/open/floor/plating,
 /area/shuttle/caravan/pirate)
 "hT" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
 /turf/open/floor/iron/dark,
@@ -219,7 +225,9 @@
 	},
 /area/shuttle/caravan/pirate)
 "nD" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 10
 	},
@@ -236,7 +244,9 @@
 /obj/item/cautery{
 	pixel_x = 4
 	},
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/iron/white/side{
 	dir = 8
 	},
@@ -425,7 +435,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/caravan/pirate)
 "vW" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/shuttle/caravan/pirate)
@@ -528,8 +540,9 @@
 /area/shuttle/caravan/pirate)
 "BI" = (
 /obj/structure/table,
-/obj/machinery/light/small/directional/west{
-	brightness = 3
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
 	},
 /obj/item/stack/spacecash/c200,
 /turf/open/floor/iron/dark,
@@ -719,7 +732,9 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/pirate)
 "NM" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/structure/closet/crate/secure/loot,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
@@ -785,7 +800,9 @@
 /turf/open/floor/plating,
 /area/shuttle/caravan/pirate)
 "Sd" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/structure/sign/warning/vacuum{
 	pixel_x = -32
 	},
@@ -845,7 +862,7 @@
 /turf/open/floor/iron,
 /area/shuttle/caravan/pirate)
 "Wb" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
 /turf/open/floor/iron/dark,

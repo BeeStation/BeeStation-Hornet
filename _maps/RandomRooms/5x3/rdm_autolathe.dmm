@@ -37,7 +37,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "x" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/plating,

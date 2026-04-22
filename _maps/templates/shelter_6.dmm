@@ -38,11 +38,15 @@
 /area/misc/survivalpod)
 "K" = (
 /obj/structure/bed/pod,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/pod/dark,
 /area/misc/survivalpod)
 "P" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/structure/fans,
 /turf/open/floor/pod/dark,
 /area/misc/survivalpod)

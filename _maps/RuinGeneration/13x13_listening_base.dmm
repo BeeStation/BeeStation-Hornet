@@ -1,6 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "bO" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 25
 	},
@@ -40,9 +42,12 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/listeningstation)
 "er" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
 /obj/machinery/iv_drip,
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/syndicate_access,
 /obj/effect/decal/cleanable/dirt,
@@ -198,7 +203,9 @@
 /area/ruin/space/has_grav/listeningstation)
 "oR" = (
 /obj/effect/turf_decal/stripes/red/corner,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/syndicate_access,
 /obj/effect/decal/cleanable/dirt,
@@ -237,7 +244,9 @@
 /obj/item/clothing/head/utility/welding,
 /obj/item/weldingtool/largetank,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/listeningstation)
 "qg" = (
@@ -256,7 +265,7 @@
 	dir = 9
 	},
 /obj/structure/closet/emcloset/anchored,
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/listeningstation)
 "qz" = (
@@ -300,7 +309,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/photo_album,
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "rx" = (
@@ -344,7 +353,10 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/listeningstation)
 "tf" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
 /obj/structure/toilet{
 	pixel_y = 18
 	},
@@ -393,7 +405,7 @@
 /obj/machinery/shower{
 	pixel_y = 14
 	},
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /obj/item/soap,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/showroomfloor,
@@ -451,7 +463,9 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/space/has_grav/listeningstation)
 "yz" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -646,7 +660,9 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/listeningstation)
 "Kv" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
@@ -665,8 +681,9 @@
 /area/ruin/space/has_grav/listeningstation)
 "KU" = (
 /obj/structure/table,
-/obj/machinery/light/small/directional/west{
-	brightness = 3
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
 	},
 /obj/item/storage/box/donkpockets{
 	pixel_x = -2;

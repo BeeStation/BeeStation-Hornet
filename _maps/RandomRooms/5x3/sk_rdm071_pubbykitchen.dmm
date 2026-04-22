@@ -12,7 +12,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/structure/sink/kitchen/directional/south,
+/obj/structure/sink/kitchen{
+	pixel_y = 28
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
@@ -20,7 +22,9 @@
 /obj/item/reagent_containers/cup/bowl,
 /obj/item/reagent_containers/cup/bowl,
 /obj/item/reagent_containers/condiment/rice,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating,
 /area/template_noop)

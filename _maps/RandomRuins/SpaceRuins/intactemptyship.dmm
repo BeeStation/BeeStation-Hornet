@@ -41,7 +41,9 @@
 "i" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/purple,
 /area/ruin/space/has_grav/powered/authorship)
 "j" = (
@@ -58,7 +60,9 @@
 /turf/open/floor/mineral/titanium/purple,
 /area/ruin/space/has_grav/powered/authorship)
 "m" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium/purple,
 /area/ruin/space/has_grav/powered/authorship)
 "n" = (
@@ -113,7 +117,7 @@
 /turf/open/floor/mineral/titanium/purple,
 /area/ruin/space/has_grav/powered/authorship)
 "x" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /turf/open/floor/mineral/titanium/purple,
 /area/ruin/space/has_grav/powered/authorship)
 "y" = (
@@ -136,7 +140,7 @@
 	},
 /area/ruin/space/has_grav/powered/authorship)
 "C" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/structure/bed,
 /turf/open/floor/mineral/titanium/purple,
 /area/ruin/space/has_grav/powered/authorship)

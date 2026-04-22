@@ -84,7 +84,9 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
 "I" = (

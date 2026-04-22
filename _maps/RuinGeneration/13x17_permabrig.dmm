@@ -281,7 +281,9 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "AM" = (
-/obj/structure/sink/directional/north,
+/obj/structure/sink{
+	pixel_y = 20
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Be" = (
@@ -335,7 +337,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/unpowered)
 "Ha" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/sustenance,
 /turf/open/floor/iron,
@@ -364,7 +366,9 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "Nf" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "NR" = (
@@ -392,7 +396,11 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "Qh" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
 /turf/open/floor/iron/freezer,
 /area/ruin/unpowered)
 "QQ" = (

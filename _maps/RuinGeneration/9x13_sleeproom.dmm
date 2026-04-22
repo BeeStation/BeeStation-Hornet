@@ -13,7 +13,9 @@
 /area/ruin/unpowered)
 "f" = (
 /obj/structure/table,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
 "h" = (
@@ -36,12 +38,16 @@
 /area/ruin/unpowered)
 "n" = (
 /obj/structure/table,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/carpet/purple,
 /area/ruin/unpowered)
 "p" = (
 /obj/structure/table,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/carpet/blue,
 /area/ruin/unpowered)
 "s" = (
@@ -76,7 +82,9 @@
 /area/ruin/unpowered)
 "A" = (
 /obj/structure/table,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/carpet/cyan,
 /area/ruin/unpowered)
 "B" = (

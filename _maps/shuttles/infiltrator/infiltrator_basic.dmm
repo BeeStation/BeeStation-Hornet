@@ -154,7 +154,9 @@
 /area/shuttle/syndicate/airlock)
 "aU" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
@@ -168,7 +170,9 @@
 	name = "tactical chair"
 	},
 /obj/effect/turf_decal/bot_white,
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/airlock)
 "aY" = (
@@ -269,7 +273,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
 "bs" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
 "bt" = (
@@ -346,7 +352,9 @@
 /obj/item/wrench,
 /obj/item/assembly/infra,
 /obj/structure/table/reinforced,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/armory)
 "bA" = (
@@ -553,7 +561,9 @@
 	pixel_x = 32
 	},
 /obj/item/storage/fancy/donut_box,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/bridge)
@@ -563,7 +573,9 @@
 	pixel_x = -32
 	},
 /obj/item/clipboard,
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/item/folder/red,
 /obj/item/toy/figure/syndie,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -638,7 +650,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/armory)
 "nS" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/armory)
@@ -670,7 +684,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
 "vo" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
@@ -711,7 +727,9 @@
 	dir = 4;
 	name = "tactical chair"
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
@@ -728,7 +746,10 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/armory)
 "Cs" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
 /obj/structure/mirror{
 	pixel_x = 30
 	},
@@ -740,7 +761,9 @@
 	dir = 8;
 	name = "tactical chair"
 	},
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
@@ -798,7 +821,9 @@
 /obj/item/surgicaldrill,
 /obj/item/circular_saw,
 /obj/structure/table/reinforced,
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
@@ -865,7 +890,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
 "RL" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)

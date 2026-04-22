@@ -55,7 +55,11 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "m" = (

@@ -141,7 +141,9 @@
 	dir = 4
 	},
 /obj/structure/reagent_dispensers/peppertank/directional/west,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "hG" = (
@@ -267,7 +269,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
 	},
@@ -292,7 +294,9 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "pP" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "qn" = (
@@ -302,7 +306,9 @@
 /obj/machinery/computer/communications{
 	dir = 8
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/effect/turf_decal/siding/dark_blue/corner{
 	dir = 8
 	},
@@ -378,12 +384,16 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/random,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "ww" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/structure/chair/fancy/bench{
 	pixel_y = 13
 	},
@@ -407,7 +417,9 @@
 /area/shuttle/escape)
 "yC" = (
 /obj/machinery/computer/emergency_shuttle,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/effect/turf_decal/siding/dark_blue,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
@@ -456,7 +468,9 @@
 	pixel_y = 3
 	},
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
@@ -501,7 +515,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 5
 	},
@@ -525,7 +541,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
@@ -540,7 +558,7 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
 	},
@@ -582,14 +600,18 @@
 /obj/item/clothing/glasses/hud/health,
 /obj/effect/turf_decal/bot,
 /obj/structure/table/reinforced,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "HP" = (
 /obj/machinery/computer/crew{
 	dir = 4
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/effect/turf_decal/siding/dark_blue/corner,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
@@ -606,7 +628,9 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
@@ -617,7 +641,9 @@
 /area/shuttle/escape)
 "IL" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
@@ -638,7 +664,9 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/effect/turf_decal/siding/thinplating_new/corner,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
@@ -666,7 +694,9 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Ki" = (
@@ -769,7 +799,7 @@
 /area/shuttle/escape)
 "PK" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},

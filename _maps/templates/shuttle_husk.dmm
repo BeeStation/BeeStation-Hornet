@@ -76,7 +76,7 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
 "p" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
@@ -88,7 +88,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/template_noop)
 "r" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /obj/structure/frame/machine,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
@@ -261,7 +261,9 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/template_noop)
 "Y" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/energybar,

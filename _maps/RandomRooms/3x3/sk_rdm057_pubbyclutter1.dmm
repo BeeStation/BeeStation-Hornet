@@ -3,8 +3,9 @@
 /obj/structure/table,
 /obj/item/wirecutters,
 /obj/effect/spawner/random/maintenance,
-/obj/machinery/light/small/directional/west{
-	brightness = 3
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/template_noop)

@@ -30,7 +30,9 @@
 /area/shuttle/pod_1)
 "C" = (
 /obj/machinery/computer/shuttle_flight/monastery_shuttle,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "H" = (

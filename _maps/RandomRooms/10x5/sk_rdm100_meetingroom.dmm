@@ -109,7 +109,7 @@
 	},
 /area/template_noop)
 "H" = (
-/obj/machinery/light/empty/directional/south,
+/obj/machinery/light/built,
 /turf/open/floor/plating,
 /area/template_noop)
 "I" = (
@@ -119,7 +119,10 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "J" = (
-/obj/machinery/light/broken/directional/north,
+/obj/machinery/light/broken{
+	icon_state = "tube-broken";
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
@@ -138,7 +141,9 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "O" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
@@ -146,7 +151,7 @@
 /area/template_noop)
 "P" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/broken/directional/south,
+/obj/machinery/light/broken,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},

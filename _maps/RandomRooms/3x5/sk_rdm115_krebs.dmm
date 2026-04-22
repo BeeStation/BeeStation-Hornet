@@ -14,7 +14,10 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/machinery/light/small/empty/directional/west,
+/obj/machinery/light/small/built{
+	icon_state = "bulb-empty";
+	dir = 8
+	},
 /mob/living/simple_animal/crab,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -41,7 +44,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/crab,
 /turf/open/floor/plating,

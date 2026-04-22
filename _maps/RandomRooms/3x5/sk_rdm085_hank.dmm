@@ -29,7 +29,9 @@
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "h" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /mob/living/simple_animal/cluwne{
 	name = "Hank"
 	},

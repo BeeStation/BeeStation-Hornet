@@ -200,7 +200,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/supply)
 "A" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/machinery/conveyor/inverted{
 	dir = 5;
 	id = "MailConv"
@@ -218,7 +220,7 @@
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "C" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/machinery/conveyor{
 	dir = 1;
 	id = "QMLoad2"
@@ -240,14 +242,16 @@
 /turf/open/floor/iron,
 /area/shuttle/supply)
 "F" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/machinery/conveyor{
 	id = "MailConv"
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/supply)
 "G" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/machinery/conveyor{
 	id = "MailConv"
 	},
@@ -305,7 +309,9 @@
 /turf/open/floor/iron,
 /area/shuttle/supply)
 "O" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/machinery/button/door{
 	id = "QMLoaddoor2";
 	name = "Loading Doors";
@@ -358,7 +364,9 @@
 /turf/open/floor/iron/sepia,
 /area/shuttle/supply)
 "R" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/machinery/conveyor/inverted{
 	dir = 6;
 	id = "MailConv"

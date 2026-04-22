@@ -44,7 +44,9 @@
 "i" = (
 /obj/structure/table,
 /obj/item/clothing/mask/gas,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/template_noop)
 "j" = (

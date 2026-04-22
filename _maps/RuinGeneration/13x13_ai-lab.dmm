@@ -45,7 +45,7 @@
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "gf" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "hB" = (
@@ -104,20 +104,28 @@
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "sG" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "tj" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/item/robot_suit/prebuilt,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "to" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "tA" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "tD" = (
@@ -166,7 +174,9 @@
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "wO" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/machinery/door/window{
 	base_state = "rightsecure";
 	dir = 1;
@@ -250,7 +260,9 @@
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "JG" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/effect/turf_decal/bot_red,
 /mob/living/simple_animal/bot/floorbot,
 /turf/open/floor/iron/tech/grid,
@@ -273,7 +285,7 @@
 /area/ruin/unpowered)
 "MV" = (
 /obj/structure/rack,
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/item/storage/toolbox/emergency/old{
 	pixel_x = 3;
 	pixel_y = 3

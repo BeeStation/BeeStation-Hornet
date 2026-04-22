@@ -24,7 +24,9 @@
 	icon_state = "tracks";
 	dir = 5
 	},
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
@@ -87,7 +89,7 @@
 /area/template_noop)
 "n" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/broken/directional/south,
+/obj/machinery/light/small/broken,
 /turf/open/floor/plating,
 /area/template_noop)
 

@@ -40,8 +40,9 @@
 "V" = (
 /obj/item/food/cakeslice/chocolate,
 /obj/structure/table,
-/obj/machinery/light/small/directional/west{
-	brightness = 3
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/template_noop)
@@ -54,7 +55,9 @@
 "X" = (
 /obj/item/food/cakeslice/chocolate,
 /obj/structure/table,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 

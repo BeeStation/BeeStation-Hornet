@@ -24,7 +24,9 @@
 	},
 /obj/effect/spawner/random/structure/crate_abandoned,
 /obj/item/gun/ballistic/shotgun/toy,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
@@ -96,7 +98,9 @@
 	pixel_y = 32
 	},
 /mob/living/simple_animal/hostile/mimic/crate,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "Z" = (

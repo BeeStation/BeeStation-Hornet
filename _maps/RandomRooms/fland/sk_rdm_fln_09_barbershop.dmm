@@ -43,7 +43,9 @@
 /obj/item/clothing/head/wig/random,
 /obj/item/reagent_containers/medspray/spraytan,
 /obj/item/radio,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "p" = (
@@ -114,7 +116,9 @@
 /obj/machinery/light_switch{
 	pixel_x = 27
 	},
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/structure/dresser,
 /obj/item/flashlight/lamp{
 	pixel_x = 2;
@@ -146,7 +150,9 @@
 /obj/structure/sign/poster/official/moth6{
 	pixel_x = -32
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/structure/table,
 /obj/item/reagent_containers/medspray/dye{
 	pixel_x = 10;
@@ -175,7 +181,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "O" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/structure/window/spawner/directional/south,
 /obj/structure/table/wood,
 /obj/item/paper/pamphlet/ruin/spacehotel,
@@ -214,7 +222,9 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "Z" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/structure/window/spawner/directional/south,
 /turf/open/floor/wood,
 /area/template_noop)

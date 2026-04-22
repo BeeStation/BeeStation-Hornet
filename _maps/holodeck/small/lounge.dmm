@@ -75,7 +75,11 @@
 	},
 /area/template_noop)
 "n" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"

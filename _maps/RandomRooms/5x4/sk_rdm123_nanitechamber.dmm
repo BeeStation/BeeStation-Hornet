@@ -39,7 +39,10 @@
 "f" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/empty/directional/west,
+/obj/machinery/light/built{
+	icon_state = "tube-empty";
+	dir = 8
+	},
 /obj/structure/frame/machine,
 /turf/open/floor/iron/dark,
 /area/template_noop)
@@ -65,7 +68,10 @@
 /obj/item/storage/box/disks_nanite{
 	pixel_y = 5
 	},
-/obj/machinery/light/broken/directional/east,
+/obj/machinery/light/broken{
+	icon_state = "tube-broken";
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (

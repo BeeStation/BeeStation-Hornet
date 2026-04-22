@@ -8,7 +8,10 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "j" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 12
+	},
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
 	},

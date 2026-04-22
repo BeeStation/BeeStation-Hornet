@@ -16,7 +16,9 @@
 "af" = (
 /obj/structure/table,
 /obj/item/clothing/mask/gas,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/item/clothing/glasses/sunglasses,
 /obj/item/clothing/glasses/sunglasses,
 /obj/item/clothing/glasses/sunglasses,
@@ -57,11 +59,16 @@
 /area/ruin/powered/beach)
 "an" = (
 /obj/item/flashlight/lantern,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/powered/beach)
 "ao" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
 /obj/effect/turf_decal/sand,
 /obj/structure/mirror{
 	pixel_x = 28
@@ -134,7 +141,9 @@
 /area/ruin/powered/beach)
 "aD" = (
 /obj/structure/table,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/machinery/chem_dispenser/drinks,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
@@ -151,7 +160,9 @@
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aH" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
 /turf/open/floor/wood,
@@ -363,37 +374,49 @@
 /turf/closed/wall/r_wall,
 /area/ruin/powered/beach)
 "cd" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/closed/wall/mineral/sandstone,
 /area/ruin/powered/beach)
 "ce" = (
 /obj/effect/turf_decal/sand,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "cg" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "ch" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "cj" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/effect/turf_decal/sand,
 /turf/open/floor/iron,
 /area/ruin/powered/beach)
 "cs" = (
 /obj/effect/overlay/palmtree_l,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "ct" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /turf/open/floor/plating/beach/water,
 /area/ruin/powered/beach)
 "cR" = (
@@ -423,8 +446,9 @@
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "iw" = (
-/obj/machinery/light/small/directional/west{
-	brightness = 3
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
 	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered/beach)
@@ -433,7 +457,9 @@
 /turf/open/floor/pod/dark,
 /area/ruin/powered/beach)
 "lF" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/pod/dark{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -468,12 +494,16 @@
 /turf/open/floor/pod/dark,
 /area/ruin/powered/beach)
 "pU" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered/beach)
 "qa" = (
 /obj/effect/turf_decal/sand,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered/beach)
 "qT" = (
@@ -512,7 +542,9 @@
 /area/ruin/powered/beach)
 "Bl" = (
 /obj/effect/turf_decal/sand,
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "Ec" = (
@@ -549,11 +581,15 @@
 /area/ruin/powered/beach)
 "QS" = (
 /obj/effect/turf_decal/sand,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "TP" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/pod/dark{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -563,8 +599,9 @@
 /area/ruin/powered/beach)
 "Xp" = (
 /obj/effect/turf_decal/sand,
-/obj/machinery/light/small/directional/west{
-	brightness = 3
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
 	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered/beach)

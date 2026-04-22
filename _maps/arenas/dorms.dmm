@@ -1,7 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aR" = (
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/sink/directional/north,
+/obj/structure/sink{
+	pixel_y = 24
+	},
 /turf/open/floor/plating,
 /area/centcom/tdome/arena)
 "cp" = (
@@ -222,7 +224,9 @@
 /area/centcom/tdome/arena)
 "Op" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/sink/directional/north,
+/obj/structure/sink{
+	pixel_y = 24
+	},
 /turf/open/floor/plating,
 /area/centcom/tdome/arena)
 "OI" = (

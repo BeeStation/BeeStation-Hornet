@@ -10,7 +10,10 @@
 /area/template_noop)
 "c" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small/empty/directional/west,
+/obj/machinery/light/small/built{
+	icon_state = "bulb-empty";
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/template_noop)
 "d" = (
@@ -25,7 +28,10 @@
 /obj/item/clothing/head/costume/ushanka,
 /obj/item/clothing/head/costume/ushanka,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small/broken/directional/east,
+/obj/machinery/light/small/broken{
+	icon_state = "bulb-broken";
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/template_noop)
 

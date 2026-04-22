@@ -14,7 +14,10 @@
 /area/template_noop)
 "c" = (
 /obj/structure/closet/radiation,
-/obj/machinery/light/empty/directional/north,
+/obj/machinery/light/built{
+	icon_state = "tube-empty";
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -47,7 +50,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/light/broken/directional/north,
+/obj/machinery/light/broken{
+	icon_state = "tube-broken";
+	dir = 1
+	},
 /obj/effect/turf_decal/caution/stand_clear{
 	icon_state = "stand_clear";
 	dir = 1
@@ -193,7 +199,7 @@
 /area/template_noop)
 "E" = (
 /obj/structure/table,
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/item/surgical_drapes,
 /turf/open/floor/plating{
 	burnt = 1
@@ -212,7 +218,7 @@
 "H" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/light/broken/directional/south,
+/obj/machinery/light/broken,
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,

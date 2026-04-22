@@ -15,7 +15,10 @@
 /turf/template_noop,
 /area/template_noop)
 "ae" = (
-/obj/structure/broken_flooring/plating/directional/east,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "plating";
+	dir = 4
+	},
 /turf/template_noop,
 /area/template_noop)
 "af" = (
@@ -37,7 +40,10 @@
 /area/template_noop)
 "ai" = (
 /obj/structure/lattice,
-/obj/structure/broken_flooring/plating/directional/south,
+/obj/structure/fluff/broken_flooring{
+	dir = 2;
+	icon_state = "plating"
+	},
 /turf/template_noop,
 /area/template_noop)
 "aj" = (
@@ -59,7 +65,10 @@
 /area/shuttle/caravan/freighter3)
 "an" = (
 /obj/structure/lattice,
-/obj/structure/broken_flooring/plating/directional/east,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "plating";
+	dir = 4
+	},
 /turf/template_noop,
 /area/template_noop)
 "ao" = (
@@ -68,11 +77,17 @@
 /area/template_noop)
 "ap" = (
 /obj/structure/lattice,
-/obj/structure/broken_flooring/pile/directional/west,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "pile";
+	dir = 8
+	},
 /turf/template_noop,
 /area/template_noop)
 "as" = (
-/obj/structure/broken_flooring/singular/directional/east,
+/obj/structure/fluff/broken_flooring{
+	dir = 4;
+	icon_state = "singular"
+	},
 /turf/template_noop,
 /area/template_noop)
 "aD" = (
@@ -80,7 +95,10 @@
 /turf/template_noop,
 /area/template_noop)
 "aE" = (
-/obj/structure/broken_flooring/pile/directional/east,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "pile";
+	dir = 4
+	},
 /turf/template_noop,
 /area/template_noop)
 "aG" = (
@@ -127,7 +145,9 @@
 	name = "Cargo Blast Door Control";
 	pixel_y = 24
 	},
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark/airless,
@@ -140,7 +160,9 @@
 /turf/open/floor/iron/airless,
 /area/shuttle/caravan/freighter3)
 "aT" = (
-/obj/structure/broken_flooring/singular/directional/south,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "singular"
+	},
 /turf/template_noop,
 /area/template_noop)
 "bh" = (
@@ -288,7 +310,9 @@
 "gk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/broken_flooring/singular/directional/south,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "singular"
+	},
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/airless,
@@ -447,7 +471,9 @@
 "hX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/structure/sign/warning/vacuum{
 	pixel_x = -32;
 	pixel_y = 32
@@ -565,7 +591,9 @@
 /area/shuttle/caravan/freighter2)
 "iy" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/broken_flooring/pile/directional/south,
+/obj/structure/fluff/broken_flooring{
+	icon_state = "pile"
+	},
 /turf/open/floor/plating/airless{
 	broken = 1
 	},
@@ -874,7 +902,9 @@
 /turf/open/floor/iron/dark/airless,
 /area/shuttle/caravan/freighter2)
 "pm" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/structure/sign/warning/vacuum{
 	pixel_x = -32;
 	pixel_y = -32
@@ -949,7 +979,9 @@
 /area/shuttle/caravan/freighter3)
 "vV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/structure/sign/warning/vacuum{
 	pixel_x = -32;
 	pixel_y = -32
@@ -965,7 +997,7 @@
 	name = "Cargo Blast Door Control";
 	pixel_y = -24
 	},
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /turf/open/floor/iron/dark/airless,
 /area/shuttle/caravan/freighter2)
 "yi" = (
@@ -999,7 +1031,7 @@
 	name = "Cargo Blast Door Control";
 	pixel_y = -24
 	},
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /turf/open/floor/iron/dark/airless,
 /area/shuttle/caravan/freighter2)
 "Ao" = (
@@ -1129,7 +1161,7 @@
 /area/shuttle/caravan/freighter3)
 "Kw" = (
 /obj/effect/turf_decal/bot_white,
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /obj/machinery/button/door{
 	id = "caravantrade3_cargo_starboard";
 	name = "Cargo Blast Door Control";
@@ -1165,7 +1197,9 @@
 	name = "Cargo Blast Door Control";
 	pixel_y = 24
 	},
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/item/ammo_box/magazine/m10mm{
 	pixel_x = -3;
 	pixel_y = 3
@@ -1195,7 +1229,9 @@
 	name = "Cargo Blast Door Control";
 	pixel_y = 24
 	},
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/airless,
 /area/shuttle/caravan/freighter2)
 "Ur" = (
@@ -1206,7 +1242,9 @@
 /area/shuttle/caravan/freighter3)
 "Uv" = (
 /obj/effect/turf_decal/bot_white,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/machinery/button/door{
 	id = "caravantrade3_cargo_port";
 	name = "Cargo Blast Door Control";
@@ -1215,7 +1253,9 @@
 /turf/open/floor/iron/dark/airless,
 /area/shuttle/caravan/freighter3)
 "YG" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/structure/sign/warning/vacuum{
 	pixel_x = -32;
 	pixel_y = 32

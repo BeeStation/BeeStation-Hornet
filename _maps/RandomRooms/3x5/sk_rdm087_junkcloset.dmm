@@ -13,7 +13,9 @@
 	pixel_y = 2
 	},
 /obj/item/clothing/mask/gas,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (

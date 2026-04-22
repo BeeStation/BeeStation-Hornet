@@ -57,7 +57,9 @@
 "o" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 "p" = (

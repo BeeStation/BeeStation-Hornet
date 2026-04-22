@@ -3,7 +3,9 @@
 /obj/structure/transit_tube/curved{
 	dir = 8
 	},
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
@@ -33,7 +35,7 @@
 /obj/structure/transit_tube/curved/flipped{
 	dir = 8
 	},
-/obj/machinery/light/small/broken/directional/south,
+/obj/machinery/light/small/broken,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
@@ -51,7 +53,9 @@
 /obj/structure/transit_tube/curved/flipped{
 	dir = 4
 	},
-/obj/machinery/light/small/broken/directional/north,
+/obj/machinery/light/small/broken{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "p" = (
@@ -123,7 +127,7 @@
 /obj/structure/transit_tube/curved{
 	dir = 4
 	},
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/template_noop)
 "L" = (

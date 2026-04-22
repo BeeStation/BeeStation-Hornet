@@ -125,7 +125,9 @@
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/supply)
 "Z" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/supply)

@@ -3,7 +3,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plating,
@@ -41,7 +43,9 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "j" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/structure/grille/broken,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -55,7 +59,9 @@
 /area/template_noop)
 "m" = (
 /obj/structure/curtain,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (
@@ -144,7 +150,9 @@
 /area/template_noop)
 "G" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "M" = (
@@ -160,7 +168,7 @@
 /turf/open/floor/carpet,
 /area/template_noop)
 "P" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/template_noop)
 "Q" = (
@@ -175,7 +183,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "R" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "S" = (
@@ -194,7 +204,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "V" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance/eight,
 /turf/open/floor/plating,

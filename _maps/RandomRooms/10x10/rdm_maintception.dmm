@@ -20,7 +20,9 @@
 /area/template_noop)
 "D" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "N" = (

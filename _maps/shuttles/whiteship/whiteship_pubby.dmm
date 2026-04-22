@@ -7,7 +7,9 @@
 /area/shuttle/abandoned)
 "c" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/machinery/power/smes/engineering{
 	charge = 1e+006
 	},
@@ -203,7 +205,9 @@
 /obj/item/food/badrecipe{
 	pixel_y = 3
 	},
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
 "H" = (
@@ -239,7 +243,7 @@
 /obj/item/pen{
 	pixel_x = -6
 	},
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /obj/item/storage/bag/money{
 	pixel_y = 6;
 	pixel_x = 8
@@ -270,7 +274,9 @@
 	pixel_y = -1;
 	pixel_x = -5
 	},
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/item/toy/figure/qm{
 	pixel_x = 8
 	},

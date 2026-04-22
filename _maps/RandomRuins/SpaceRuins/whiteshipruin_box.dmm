@@ -242,7 +242,9 @@
 /obj/structure/frame/computer{
 	anchored = 1
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/space/has_grav/whiteship/box)
 "RU" = (

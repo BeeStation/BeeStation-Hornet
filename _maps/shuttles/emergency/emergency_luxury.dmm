@@ -242,22 +242,28 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "bi" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "bj" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "bk" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "bl" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "cu" = (
@@ -277,7 +283,7 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "ex" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /turf/open/floor/wood{
 	broken = 1
 	},
@@ -307,7 +313,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/effect/turf_decal/pool{
 	dir = 8
 	},
@@ -319,7 +325,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/effect/turf_decal/pool{
 	dir = 4
 	},

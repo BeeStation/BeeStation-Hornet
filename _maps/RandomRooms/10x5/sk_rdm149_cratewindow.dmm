@@ -56,11 +56,13 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "t" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "u" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /turf/open/floor/plating,
 /area/template_noop)
 "x" = (

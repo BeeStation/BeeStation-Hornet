@@ -5,7 +5,8 @@
 /area/template_noop)
 "b" = (
 /obj/structure/frame/computer,
-/obj/machinery/light/small/directional/north{
+/obj/machinery/light/small{
+	dir = 1;
 	light_color = "#ffc1c1"
 	},
 /turf/open/floor/plating{

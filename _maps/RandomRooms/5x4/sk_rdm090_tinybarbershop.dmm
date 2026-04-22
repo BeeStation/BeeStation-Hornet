@@ -15,7 +15,9 @@
 /obj/item/reagent_containers/medspray/dye{
 	pixel_x = -3
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "b" = (

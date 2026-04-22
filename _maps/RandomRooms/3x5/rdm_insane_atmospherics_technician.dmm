@@ -141,7 +141,9 @@
 /area/template_noop)
 "O" = (
 /obj/item/wrench,
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/effect/spawner/random/structure/crate_abandoned,
 /obj/structure/disposalpipe/segment,
 /obj/structure/railing{

@@ -39,7 +39,9 @@
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -122,7 +124,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/clothing/suit/space/hardsuit/skinsuit,
 /obj/item/tank/internals/emergency_oxygen,
@@ -199,7 +201,9 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "sz" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/machinery/gear_requisition/exploration,
 /obj/machinery/button/door/directional/west{
 	pixel_y = -6;
@@ -272,7 +276,9 @@
 /area/shuttle/exploration)
 "BF" = (
 /obj/structure/table,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/machinery/microwave{
 	pixel_y = 9
 	},
@@ -307,7 +313,9 @@
 /area/shuttle/exploration)
 "Hf" = (
 /obj/structure/tank_dispenser/oxygen,
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -413,11 +421,15 @@
 	frequency = 1453;
 	pixel_y = -30
 	},
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "NT" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/machinery/computer/rdconsole/core{
 	dir = 8
 	},
@@ -515,7 +527,9 @@
 /obj/item/mining_scanner,
 /obj/item/radio/headset/headset_exploration,
 /obj/item/radio/headset/headset_exploration,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)

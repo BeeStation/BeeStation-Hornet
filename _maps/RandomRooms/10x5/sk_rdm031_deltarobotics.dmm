@@ -13,7 +13,9 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "c" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/frame/machine,
 /turf/open/floor/plating,
@@ -43,7 +45,9 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "h" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/modular_fabricator/exosuit_fab/maint{
 	name = "forgotten exosuit fabricator"
@@ -213,7 +217,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "J" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
@@ -246,7 +250,7 @@
 /area/template_noop)
 "N" = (
 /obj/structure/frame/machine,
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /obj/item/stack/sheet/glass,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,

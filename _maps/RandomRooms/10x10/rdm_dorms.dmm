@@ -42,7 +42,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "lc" = (
-/obj/machinery/light/small/broken/directional/north,
+/obj/machinery/light/small/broken{
+	dir = 1
+	},
 /turf/open/floor/carpet/purple,
 /area/template_noop)
 "ld" = (
@@ -80,7 +82,7 @@
 /area/template_noop)
 "ov" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/broken/directional/south,
+/obj/machinery/light/small/broken,
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "qy" = (
@@ -171,11 +173,13 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "EM" = (
-/obj/machinery/light/small/broken/directional/south,
+/obj/machinery/light/small/broken,
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "Fu" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/red,
 /area/template_noop)
@@ -361,7 +365,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "Yu" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/template_noop)
 "ZF" = (

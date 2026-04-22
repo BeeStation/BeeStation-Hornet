@@ -3,8 +3,6 @@
 	"map_link": "echostation",
 	"map_path": "map_files/EchoStation",
 	"map_file": "EchoStation.dmm",
-	"space_ruin_levels": 0,
-	"space_empty_levels": 0,
 	"planetary_station": "true",
 	"planet_name": "5513-E",
 	"planet_radius": "100",

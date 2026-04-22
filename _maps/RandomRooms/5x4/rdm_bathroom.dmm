@@ -14,7 +14,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/oil/slippery,
 /turf/open/floor/iron/freezer,
@@ -56,7 +56,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/iron/freezer,
@@ -65,7 +65,9 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink{
+	pixel_y = 25
+	},
 /obj/structure/mirror{
 	pixel_y = 35
 	},
@@ -83,7 +85,9 @@
 	pixel_y = 25;
 	specialfunctions = 4
 	},
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /obj/structure/toilet{
 	dir = 8;
 	pixel_x = -1;
@@ -129,7 +133,9 @@
 	pixel_y = 25;
 	specialfunctions = 4
 	},
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/structure/toilet{
 	dir = 4;
 	pixel_y = 6

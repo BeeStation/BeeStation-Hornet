@@ -52,7 +52,10 @@
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "m" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 12
+	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)

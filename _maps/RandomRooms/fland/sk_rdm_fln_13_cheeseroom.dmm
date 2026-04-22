@@ -36,7 +36,9 @@
 /obj/structure/table,
 /obj/item/food/spaghetti/kasespatzle,
 /obj/effect/decal/cleanable/crayon,
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/iron/techmaint,
 /area/template_noop)
 "r" = (
@@ -69,14 +71,18 @@
 /obj/structure/table,
 /obj/item/food/butterbiscuit,
 /obj/effect/decal/cleanable/crayon,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron/techmaint,
 /area/template_noop)
 "B" = (
 /obj/structure/table,
 /obj/item/food/store/bread/creamcheese,
 /obj/effect/decal/cleanable/crayon,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron/techmaint,
 /area/template_noop)
 "E" = (
@@ -111,7 +117,9 @@
 /obj/structure/table,
 /obj/item/food/cheesynachos,
 /obj/effect/decal/cleanable/crayon,
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/iron/techmaint,
 /area/template_noop)
 "X" = (

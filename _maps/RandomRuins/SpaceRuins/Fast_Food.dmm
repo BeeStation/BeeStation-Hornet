@@ -854,7 +854,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dJ" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/item/knife/butcher,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
@@ -869,11 +869,15 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "fU" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "fY" = (
-/obj/structure/sink/kitchen/directional/south,
+/obj/structure/sink/kitchen{
+	pixel_y = 20
+	},
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "iO" = (
@@ -911,7 +915,9 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "nX" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/toy/mecha/honk,
 /turf/open/floor/iron/cafeteria,
@@ -924,7 +930,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "tb" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
@@ -942,7 +948,9 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "zC" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/structure/reagent_dispensers/beerkeg,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/cafeteria,
@@ -952,7 +960,9 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "Bx" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
@@ -985,11 +995,15 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "Sq" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "VH" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "VJ" = (
@@ -998,7 +1012,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "WF" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "Xp" = (

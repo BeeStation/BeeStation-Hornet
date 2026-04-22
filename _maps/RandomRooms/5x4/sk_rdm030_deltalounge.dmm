@@ -13,7 +13,10 @@
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/maintenance,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	icon_state = "bulb";
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "d" = (
@@ -46,7 +49,9 @@
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/maintenance/two,
 /obj/item/toy/cards/deck/syndicate{

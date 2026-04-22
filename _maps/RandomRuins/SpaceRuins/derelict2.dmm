@@ -39,7 +39,9 @@
 /turf/template_noop,
 /area/misc/space/nearstation)
 "E" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/powered/dinner_for_two)
 "G" = (
@@ -60,7 +62,9 @@
 /turf/template_noop,
 /area/misc/space/nearstation)
 "L" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/powered/dinner_for_two)
 "M" = (
@@ -71,11 +75,13 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/powered/dinner_for_two)
 "N" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/powered/dinner_for_two)
 "T" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/powered/dinner_for_two)
 "W" = (

@@ -16,7 +16,9 @@
 	pixel_x = 2;
 	pixel_y = 5
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "c" = (
@@ -286,7 +288,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light,
 /obj/effect/spawner/random/ruinloot/science,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
@@ -347,7 +349,9 @@
 /obj/structure/table,
 /obj/item/retractor,
 /obj/item/hemostat,
-/obj/machinery/light/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "X" = (

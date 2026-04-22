@@ -37,7 +37,9 @@
 /obj/item/storage/pod{
 	pixel_x = -26
 	},
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/effect/landmark/navigate_destination,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)

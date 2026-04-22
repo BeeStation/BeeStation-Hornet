@@ -1,6 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/machinery/light/small/broken/directional/west,
+/obj/machinery/light/small/broken{
+	icon_state = "bulb-broken";
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (

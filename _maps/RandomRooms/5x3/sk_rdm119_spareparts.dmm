@@ -24,7 +24,10 @@
 /obj/item/stock_parts/manipulator,
 /obj/item/stock_parts/manipulator,
 /obj/item/stock_parts/manipulator,
-/obj/machinery/light/broken/directional/north,
+/obj/machinery/light/broken{
+	icon_state = "tube-broken";
+	dir = 1
+	},
 /obj/item/stock_parts/cell/hyper,
 /turf/open/floor/plating{
 	broken = 1
@@ -54,7 +57,7 @@
 /area/template_noop)
 "i" = (
 /obj/structure/frame,
-/obj/machinery/light/empty/directional/south,
+/obj/machinery/light/built,
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
 /area/template_noop)

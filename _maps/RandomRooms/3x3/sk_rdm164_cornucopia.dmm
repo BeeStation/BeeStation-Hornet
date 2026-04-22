@@ -15,7 +15,10 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "u" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1;
+	icon_state = "bulb"
+	},
 /obj/item/food/grown/carrot{
 	pixel_x = 5;
 	pixel_y = 6
@@ -44,7 +47,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "M" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /obj/item/food/grown/berries,
 /turf/open/floor/grass,
 /area/template_noop)

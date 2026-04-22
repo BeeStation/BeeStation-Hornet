@@ -55,7 +55,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "Z" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/plating,

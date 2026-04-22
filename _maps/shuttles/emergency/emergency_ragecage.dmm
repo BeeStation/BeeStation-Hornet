@@ -212,7 +212,9 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "rb" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid{
 	pixel_x = 3;

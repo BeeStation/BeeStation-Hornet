@@ -25,7 +25,9 @@
 /obj/item/food/meat/slab/human/mutant/psyphoza,
 /obj/item/food/meat/slab/human/mutant/psyphoza,
 /obj/item/stack/sheet/animalhide/mothroach,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/iron/freezer,
 /area/template_noop)
 "g" = (

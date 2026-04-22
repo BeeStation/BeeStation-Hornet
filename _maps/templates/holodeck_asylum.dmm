@@ -144,7 +144,10 @@
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "aQ" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12
+	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "aS" = (

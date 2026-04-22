@@ -72,7 +72,9 @@
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "y" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio{
@@ -107,7 +109,9 @@
 /area/template_noop)
 "G" = (
 /obj/machinery/computer/slot_machine,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /obj/effect/turf_decal/bot_white,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,

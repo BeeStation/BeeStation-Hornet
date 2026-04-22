@@ -10,7 +10,8 @@
 	pixel_x = -24
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/light/directional/west{
+/obj/machinery/light{
+	dir = 8;
 	light_color = "#e8eaff"
 	},
 /obj/item/storage/toolbox/mechanical,
@@ -26,7 +27,8 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "h" = (
-/obj/machinery/light/directional/west{
+/obj/machinery/light{
+	dir = 8;
 	light_color = "#e8eaff"
 	},
 /obj/effect/turf_decal/box,
@@ -34,7 +36,9 @@
 /area/shuttle/science)
 "n" = (
 /obj/structure/table/reinforced,
-/obj/machinery/light/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/item/toy/plush/moth/random,
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)

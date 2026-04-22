@@ -40,7 +40,9 @@
 /area/template_noop)
 "k" = (
 /obj/structure/frame/computer,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/machinery/status_display/evac{
 	pixel_x = -32
 	},
@@ -106,7 +108,9 @@
 /area/template_noop)
 "R" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /obj/item/kirbyplants/random,
 /obj/structure/sign/poster/official/do_not_question{
 	pixel_x = 32
