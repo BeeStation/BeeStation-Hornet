@@ -8114,7 +8114,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -32
 	},
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
@@ -8864,7 +8864,7 @@
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/lobby)
 "dpa" = (
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 4
 	},
 /obj/machinery/requests_console{
@@ -39249,7 +39249,7 @@
 	},
 /area/station/hallway/primary/central)
 "oMH" = (
-/obj/machinery/doppler_array/research/science{
+/obj/machinery/doppler_array/research{
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/east,
@@ -57867,10 +57867,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/computer/rdconsole/production{
+/obj/machinery/digital_clock/directional/west,
+/obj/machinery/modular_computer/console/preset/engineering{
 	dir = 4
 	},
-/obj/machinery/digital_clock/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/engineering/main)
 "vSR" = (

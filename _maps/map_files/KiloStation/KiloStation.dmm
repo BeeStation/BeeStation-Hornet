@@ -13565,7 +13565,9 @@
 "faQ" = (
 /obj/machinery/rnd/production/circuit_imprinter,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/turf_decal/stripes/box,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
 "faR" = (
@@ -37224,11 +37226,10 @@
 	},
 /area/station/service/chapel)
 "mRS" = (
-/obj/machinery/computer/rdconsole/production{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/rnd/production/protolathe/department/engineering,
+/obj/effect/turf_decal/stripes/end,
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
 "mRT" = (
@@ -38512,7 +38513,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard)
 "nod" = (
-/obj/machinery/doppler_array/research/science{
+/obj/machinery/doppler_array/research{
 	dir = 4
 	},
 /obj/item/radio/intercom{
@@ -42932,9 +42933,6 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "oME" = (
-/obj/machinery/rnd/production/protolathe/department/engineering,
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/stripes/box,
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
 "oMG" = (
@@ -47056,7 +47054,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -67177,7 +67175,7 @@
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
 "xjp" = (
-/obj/machinery/computer/rdconsole/robotics{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,

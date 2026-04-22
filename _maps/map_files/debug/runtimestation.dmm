@@ -1610,7 +1610,7 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/gravity_generator)
 "wj" = (
-/obj/machinery/computer/rdconsole/core,
+/obj/machinery/computer/rdconsole/unlocked,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},

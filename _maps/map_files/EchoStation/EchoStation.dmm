@@ -10242,7 +10242,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -19522,7 +19522,7 @@
 	pixel_x = 1;
 	pixel_y = 30
 	},
-/obj/machinery/doppler_array/research/science{
+/obj/machinery/doppler_array/research{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -33189,12 +33189,6 @@
 	},
 /turf/open/floor/iron/smooth_half,
 /area/station/engineering/main)
-"ufv" = (
-/obj/machinery/computer/rdconsole/production{
-	dir = 4
-	},
-/turf/open/floor/iron/large,
-/area/station/engineering/main)
 "ufB" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/bot,
@@ -38467,7 +38461,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 8
 	},
 /obj/machinery/light{
@@ -55233,10 +55227,10 @@ mzm
 ixa
 lSB
 bWe
-ufv
+tnq
 gTZ
 jMR
-jYB
+iSD
 kiH
 uAE
 diU
@@ -55493,7 +55487,7 @@ kwr
 kmr
 xzV
 eeQ
-tnq
+jYB
 kiH
 uAE
 diU
