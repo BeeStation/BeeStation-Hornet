@@ -9106,7 +9106,7 @@
 /turf/open/space/basic,
 /area/misc/space/nearstation)
 "dFz" = (
-/obj/machinery/gravity_generator/main/station,
+/obj/machinery/gravity_generator/main,
 /obj/effect/decal/cleanable/greenglow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{

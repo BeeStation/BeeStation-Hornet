@@ -102,37 +102,49 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		inserted_modify_id.forceMove(drop_location())
 		inserted_modify_id = null
 
-//Check if you can't open a new position for a certain job
-/obj/machinery/computer/card/proc/job_blacklisted(jobtitle)
-	return jobtitle == SSjob.overflow_role ? TRUE : (jobtitle in SSjob.job_manager_blacklisted)
+//Check if a job's slots can be edited from this console
+/obj/machinery/computer/card/proc/can_edit_job(datum/job/job)
+	if(!istype(job))
+		return FALSE
+	if(!(job.job_flags & JOB_CREW_MEMBER))
+		return FALSE
+	if(job.job_flags & JOB_CANNOT_OPEN_SLOTS)
+		return FALSE
+	return TRUE
 
-// CentCom is powerful
-/obj/machinery/computer/card/centcom/job_blacklisted(jobtitle)
-	return jobtitle == SSjob.overflow_role ? TRUE : FALSE
+// CentCom is powerful - can edit any crew job except the overflow role
+/obj/machinery/computer/card/centcom/can_edit_job(datum/job/job)
+	if(!istype(job))
+		return FALSE
+	return job.type != SSjob.overflow_role
 
 //Logic check for Topic() if you can open the job
 /obj/machinery/computer/card/proc/can_open_job(datum/job/job)
-	if(job)
-		if(!job_blacklisted(job.title))
-			if((job.get_spawn_position_count() <= GLOB.player_list.len * (max_relative_positions / 100)))
-				var/delta = (world.time / 10) - GLOB.time_last_changed_position
-				if((change_position_cooldown < delta) || (opened_positions[job.title] < 0))
-					return 1
-				return -2
-			return -1
-	return 0
+	if(!can_edit_job(job))
+		return 0
+	// Always allow reopening positions that were previously closed from this console
+	if(opened_positions[job.title] < 0)
+		return 1
+	if((job.get_spawn_position_count() <= GLOB.player_list.len * (max_relative_positions / 100)))
+		var/delta = (world.time / 10) - GLOB.time_last_changed_position
+		if(change_position_cooldown < delta)
+			return 1
+		return -2
+	return -1
 
 //Logic check for Topic() if you can close the job
 /obj/machinery/computer/card/proc/can_close_job(datum/job/job)
-	if(job)
-		if(!job_blacklisted(job.title))
-			if(job.get_spawn_position_count() > job.current_positions)
-				var/delta = (world.time / 10) - GLOB.time_last_changed_position
-				if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
-					return 1
-				return -2
-			return -1
-	return 0
+	if(!can_edit_job(job))
+		return 0
+	// Always allow reclosing positions that were previously opened from this console
+	if(opened_positions[job.title] > 0)
+		return 1
+	if(job.get_spawn_position_count() > job.current_positions)
+		var/delta = (world.time / 10) - GLOB.time_last_changed_position
+		if(change_position_cooldown < delta)
+			return 1
+		return -2
+	return -1
 
 /obj/machinery/computer/card/proc/id_insert(mob/user, obj/item/inserting_item, obj/item/target)
 	var/obj/item/card/id/card_to_insert = inserting_item
@@ -222,7 +234,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			ID = 0
 		for(var/datum/job/job in SSjob.occupations)
 			dat += "<tr>"
-			if(job_blacklisted(job.title))
+			if(!can_edit_job(job))
 				continue
 			dat += "<td>[job.title]</td>"
 			dat += "<td>[job.current_positions]/[job.get_spawn_position_count()]</td>"
@@ -313,7 +325,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		dat += "<tr><td style='width:30%'><b>Name</b></td><td style='width:20%'><b>Job</b></td><td style='width:20%'><b>Department</b></td><td style='width:15%'><b>Paycheck</b></td><td style='width:15%'><b>Pay Bonus</b></td></tr>"
 
 		if(length(paycheck_departments))
-			for(var/datum/bank_account/B in SSeconomy.bank_accounts)
+			for(var/datum/bank_account/B in flatten_list(SSeconomy.bank_accounts_by_id))
 				var/datum/record/crew/record = find_record(B.account_holder, GLOB.manifest.general)
 				dat += "<tr>"
 				dat += "<td>[B.account_holder] [B.suspended ? "(Account closed)" : ""]</td>"
