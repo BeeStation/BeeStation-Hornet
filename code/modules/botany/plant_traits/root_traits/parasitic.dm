@@ -10,6 +10,10 @@
 		return
 	RegisterSignal(parent.parent, COMSIG_FRUIT_BUILT_POST, PROC_REF(catch_fruit))
 
+/datum/plant_trait/roots/parasitic/catch_component_qdel(datum/source)
+	. = ..()
+	UnregisterSignal(source, COMSIG_FRUIT_BUILT_POST)
+
 /datum/plant_trait/roots/parasitic/proc/catch_fruit(datum/source, obj/fruit)
 	SIGNAL_HANDLER
 
@@ -23,13 +27,10 @@
 	if(QDELETED(fruit))
 		return
 	var/divided_reagents = (fruit?.reagents.total_volume || 1) / length(available_reagents)
-	if(!fruit?.reagents.total_volume)
-		qdel(fruit)
-		return
-	for(var/datum/reagents/reagents as anything in available_reagents)
-		fruit.reagents.trans_to(reagents, divided_reagents, CANNIBAL_MULTI*parent.trait_power)
+	if(fruit?.reagents.total_volume)
+		for(var/datum/reagents/reagents as anything in available_reagents)
+			fruit.reagents.trans_to(reagents, divided_reagents, CANNIBAL_MULTI*parent.trait_power)
 	qdel(fruit)
-	parent.parent.plant_item?.visible_message("[parent.parent.plant_item] devours [fruit]!")
 //handle body harvest stuff
 	SEND_SIGNAL(parent.parent, COMSIG_PLANT_ACTION_HARVEST)
 

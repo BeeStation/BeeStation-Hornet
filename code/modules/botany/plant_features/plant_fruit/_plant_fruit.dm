@@ -98,10 +98,10 @@
 /datum/plant_feature/fruit/process(delta_time)
 	var/obj/item/plant_tray/tray = parent.plant_item.loc
 	var/paused = SEND_SIGNAL(tray, COMSIG_PLANTER_PAUSE_PLANT)
+	if(!paused && !check_needs(delta_time))
+		return
 	if(!length(growth_timers))
 		skip_growth = FALSE
-		return
-	if(!paused && !check_needs(delta_time))
 		return
 	if(paused && !skip_growth)
 		return
@@ -199,9 +199,16 @@
 //Genes
 	new_fruit.AddElement(/datum/element/plant_genes, SSbotany.gene_cache["[parent.species_id]"], parent.species_id, parent.name_override, parent.desc_override)
 	fruits += new_fruit
+	RegisterSignal(new_fruit, COMSIG_QDELETING, PROC_REF(catch_fruit_qdel))
 	SEND_SIGNAL(parent, COMSIG_FRUIT_BUILT, new_fruit) //Used when we're done prepping the fruit and we want to add stuff to it, like reagents
 	SEND_SIGNAL(parent, COMSIG_FRUIT_BUILT_POST, new_fruit) //Essentially the same as before, but for things that come after reagents
 	return new_fruit
+
+/datum/plant_feature/fruit/proc/catch_fruit_qdel(datum/source)
+	SIGNAL_HANDLER
+
+	UnregisterSignal(source, COMSIG_QDELETING)
+	fruits -= source
 
 /datum/plant_feature/fruit/proc/catch_attack_hand(datum/source, mob/user)
 	SIGNAL_HANDLER

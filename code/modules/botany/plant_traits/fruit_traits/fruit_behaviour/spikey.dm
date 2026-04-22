@@ -3,7 +3,7 @@
 */
 /datum/plant_trait/fruit/spikey
 	name = "Spikey"
-	desc = "The fruit becomes spikey, allowing it to embed into targets."
+	desc = "The fruit becomes spikey, causing it to embed into targets."
 
 /datum/plant_trait/fruit/spikey/setup_fruit_parent()
 	. = ..()

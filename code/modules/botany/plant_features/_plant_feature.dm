@@ -83,6 +83,7 @@
 		qdel(trait)
 	for(var/datum/plant_need/need as anything in plant_needs)
 		plant_needs -= need
+		overdraw_needs -= need
 		qdel(need)
 	//Remove ourselves from a trays concern when self immolating - Only happens with admin fuckery and tubers
 	var/obj/item/plant_tray/tray = parent?.plant_item?.loc
@@ -132,7 +133,7 @@
 
 ///This is for display+, a pre-formatted list of nice looking text
 /datum/plant_feature/proc/get_ui_data()
-	return list(PLANT_DATA("Name", capitalize(name)), PLANT_DATA("Species Name", capitalize(species_name)), PLANT_DATA(null, null))
+	return list(PLANT_DATA("Name", capitalize(name)), PLANT_DATA("Species Name", capitalize(species_name)), PLANT_DATA("Trait Power", trait_power), PLANT_DATA(null, null))
 
 //our traits
 /datum/plant_feature/proc/get_ui_traits()

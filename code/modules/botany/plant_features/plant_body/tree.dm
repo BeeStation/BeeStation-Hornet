@@ -35,6 +35,7 @@
 	Birch
 */
 /datum/plant_feature/body/tree/birch
+	name = "birch tree"
 	icon_state = "birch"
 	growth_prefix = "birch"
 	overlay_positions = list(list(7, 30), list(13, 25), list(23, 23), list(28, 19), list(13, 15))
@@ -45,6 +46,7 @@
 	Cherry
 */
 /datum/plant_feature/body/tree/cherry
+	name = "cherry tree"
 	icon_state = "cherry"
 	growth_prefix = "cherry"
 	overlay_positions = list(list(7, 30), list(13, 25), list(23, 23), list(28, 19), list(13, 15))

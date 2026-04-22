@@ -64,6 +64,7 @@
 	icon_state = "harebell"
 	seed_icon_state = "seed-harebell"
 	fruit_product = /obj/item/food/grown/flower/harebell
+	mutations = list()
 
 /*
 	Lily

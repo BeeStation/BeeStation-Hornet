@@ -54,19 +54,32 @@
 	if(!istype(parent))
 		return
 //Stuff we can do with just our feature parent
+	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(catch_parent_qdel))
 	//Tax genetic budget
 	parent.adjust_genetic_budget(-genetic_cost, src)
 //Stuff we need a component parent for
 	if(!parent.parent)
 		RegisterSignal(parent, COMSIG_PF_ATTACHED_PARENT, PROC_REF(setup_component_parent))
-		return
 	else
 		setup_component_parent(parent.parent)
 
 /datum/plant_trait/proc/setup_component_parent(datum/source)
 	SIGNAL_HANDLER
 
-	return
+	RegisterSignal(source, COMSIG_QDELETING, PROC_REF(catch_component_qdel))
+
+/datum/plant_trait/proc/catch_component_qdel(datum/source)
+	SIGNAL_HANDLER
+
+	UnregisterSignal(source, COMSIG_QDELETING)
+
+//The parent should clean us up, but sometimes it don't if some dickhead(me) codes it weird - see parasitic
+/datum/plant_trait/proc/catch_parent_qdel(datum/source)
+	SIGNAL_HANDLER
+
+	parent = null
+	UnregisterSignal(source, COMSIG_QDELETING)
+
 
 //use this to give randomized traits unique IDs, mostly for reagent traits
 /datum/plant_trait/proc/get_id()

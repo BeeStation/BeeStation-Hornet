@@ -34,6 +34,10 @@
 		return
 	RegisterSignal(parent.parent, COMSIG_FRUIT_BUILT, PROC_REF(prepare_fruit))
 
+/datum/plant_trait/refraction/catch_component_qdel(datum/source)
+	. = ..()
+	UnregisterSignal(source, COMSIG_FRUIT_BUILT)
+
 /datum/plant_trait/refraction/proc/prepare_fruit(datum/source, obj/item/fruit)
 	SIGNAL_HANDLER
 

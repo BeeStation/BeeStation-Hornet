@@ -17,6 +17,7 @@
 
 /datum/element/plant_genes/Detach(datum/source, ...)
 	. = ..()
+	plant_genes -= REF(source)
 	UnregisterSignal(source, COMSIG_PLANT_GET_GENES)
 
 /datum/element/plant_genes/proc/append_genes(datum/source, list/gene_list)

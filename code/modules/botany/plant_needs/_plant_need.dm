@@ -108,3 +108,4 @@
 
 	var/ray_filter = get_filter("rays")
 	animate(ray_filter, offset = 100, time = 100 SECONDS, loop = -1, flags = ANIMATION_PARALLEL)
+	animate(offset = 0, time = 0)

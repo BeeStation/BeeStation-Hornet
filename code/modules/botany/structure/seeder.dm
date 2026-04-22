@@ -4,7 +4,9 @@
 */
 /obj/machinery/seeder
 	name = "industrial seeder"
-	desc = "A large set of jaws set in a compact frame.\n<span class='notice'>Turns 'fruit' into seed</span>"
+	desc = "A large set of jaws set in a compact frame.\n\
+	Hardware upgrades improve the seed output.\n\
+	\n<span class='notice'>Turns fruits or plants into seeds.</span>"
 	icon = 'icons/obj/hydroponics/features/generic.dmi'
 	icon_state = "seeder"
 	density = TRUE
@@ -59,7 +61,7 @@
 		plant_item.forceMove(get_turf(src))
 		seedify(plant_item, new_seed_amount)
 		playsound(src, 'sound/machines/juicer.ogg', 30)
-		to_chat(user, "<span class='notice'>[new_seed_amount] seeds created!</span>")
+		to_chat(user, span_notice("[new_seed_amount] seeds created!"))
 		shake()
 //Store seeds
 	if(istype(C, /obj/item/plant_seeds))

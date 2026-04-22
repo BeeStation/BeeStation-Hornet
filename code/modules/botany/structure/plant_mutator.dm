@@ -1,6 +1,7 @@
 /obj/machinery/plant_machine/plant_mutator
 	name = "irradiator kiln"
-	desc = "A large kiln designed to safely expose plants to radiation particles from excited plasma gas."
+	desc = "A large kiln designed to safely expose plants to radiation particles from excited plasma gas.\n\
+	Hardware upgrades reduce the operation cost of gas."
 	icon = 'icons/obj/hydroponics/features/generic.dmi'
 	icon_state = "mutator_open"
 	density = TRUE
@@ -34,6 +35,8 @@
 	///Are we under going the process of mutating?
 	var/working = FALSE
 	var/working_time = 5 SECONDS
+	///Our reduction on mutation prices
+	var/reduction_coef = 1
 
 /obj/machinery/plant_machine/plant_mutator/Initialize(mapload)
 	. = ..()
@@ -46,6 +49,18 @@
 /obj/machinery/plant_machine/plant_mutator/Destroy()
 	. = ..()
 	QDEL_NULL(soundloop)
+
+/obj/machinery/plant_machine/plant_mutator/examine(mob/user)
+	. = ..()
+	. += span_notice("The gas cost reduction coefficient is [reduction_coef*100]%, a reduction of [(1-reduction_coef)*100]%.")
+
+/obj/machinery/plant_machine/plant_mutator/RefreshParts()
+	. = ..()
+	var/total_rating = 0
+	for(var/obj/item/stock_parts/S in component_parts)
+		total_rating += S.rating
+	reduction_coef = 6/total_rating
+	return total_rating
 
 /obj/machinery/plant_machine/plant_mutator/proc/catch_pause(datum/source)
 	SIGNAL_HANDLER
@@ -192,7 +207,7 @@
 			//Check compatibility
 			var/datum/plant_feature/new_feature = pick(feature.mutations)
 			//Tax plasma
-			var/tax = feature.mutations[new_feature] || 1
+			var/tax = (feature.mutations[new_feature] || 1)*reduction_coef
 			if(!catalyst?.air_contents?.has_gas(/datum/gas/plasma, tax))
 				playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 				say("ERROR: Tank lacks adequate moles, operation requires [tax] moles!")

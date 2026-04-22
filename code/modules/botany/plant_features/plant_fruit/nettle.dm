@@ -11,6 +11,7 @@
 	growth_time = PLANT_FRUIT_GROWTH_FAST
 	plant_traits = list(/datum/plant_trait/fruit/prickles)
 	fast_reagents = list(/datum/reagent/toxin/acid = PLANT_REAGENT_MEDIUM)
+	mutations = list(/datum/plant_feature/fruit/nettle/death = 8)
 
 /*
 	Death Nettle
@@ -22,3 +23,4 @@
 	seed_icon_state = "seed-deathnettle"
 	fruit_product = /obj/item/food/grown/nettle/death
 	fast_reagents = list(/datum/reagent/toxin/acid/fluacid = PLANT_REAGENT_MEDIUM)
+	mutations = list(/datum/plant_feature/fruit/nettle)

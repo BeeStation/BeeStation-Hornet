@@ -21,6 +21,10 @@
 		return
 	RegisterSignal(parent.parent, COMSIG_FRUIT_BUILT_POST, PROC_REF(catch_fruit))
 
+/datum/plant_trait/fruit/catch_component_qdel(datum/source)
+	. = ..()
+	UnregisterSignal(source, COMSIG_FRUIT_BUILT_POST)
+
 /datum/plant_trait/fruit/copy(datum/plant_feature/_parent, datum/plant_trait/_trait)
 	. = ..()
 	var/datum/plant_trait/fruit/new_trait = .

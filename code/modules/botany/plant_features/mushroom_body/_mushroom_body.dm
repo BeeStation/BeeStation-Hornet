@@ -14,6 +14,7 @@
 	growth_time = PLANT_BODY_GROWTH_VERY_FAST
 	genetic_budget = 1
 	seeds = 5
+	trait_power = 0.5
 	//Mushrooms have no needs
 	plant_needs = list()
 	//We can pair with only mushroom fruit, but any kind of roots

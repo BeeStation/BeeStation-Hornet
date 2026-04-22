@@ -1,12 +1,12 @@
 //Percentage of reagents transfered on prick
-#define BASE_REAGENT_TRANSFER 8
+#define BASE_REAGENT_TRANSFER 3
 
 /*
 	Transfers chems from the loc, tray, to mobs passing within 1 tile, deals a small small amount of damage
 */
 /datum/plant_trait/body/thorns
 	name = "Thorns"
-	desc = "Injects  with a % of reagents from the plant's location. Wearing <i>thick</i> gloves will block this. "
+	desc = "Injects nearby passing targets with a % of reagents from the plant's location. Wearing thick gloves will block this."
 	///Quick reference to the plant item
 	var/obj/item/plant_item
 	///List of turfs we thorn
@@ -66,7 +66,7 @@
 		return
 //FX
 	playsound(plant_item, 'sound/effects/prick.ogg', 60, TRUE)
-	victim.apply_damage(1, BRUTE)
+	victim.apply_damage(0.5, BRUTE)
 	var/matrix/o_transform = plant_item.transform
 	animate(plant_item, time = 1.5, loop = 0, transform = matrix().Scale(1.07, 0.9))
 	animate(time = 2, transform = o_transform)
@@ -79,7 +79,7 @@
 	var/injecting_amount = (parent.trait_power*BASE_REAGENT_TRANSFER)*0.01
 	var/fraction = max(holder.maximum_volume*injecting_amount, 1)
 	holder.expose(victim, INJECT, fraction)
-	holder.trans_to(victim, injecting_amount)
+	holder.trans_to(victim, fraction)
 	to_chat(victim, span_danger("You are pricked by [plant_item]!"))
 
 #undef BASE_REAGENT_TRANSFER

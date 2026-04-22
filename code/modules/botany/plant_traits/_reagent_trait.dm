@@ -36,6 +36,10 @@
 		return
 	RegisterSignal(parent.parent, COMSIG_FRUIT_BUILT, PROC_REF(catch_fruit))
 
+/datum/plant_trait/reagent/catch_component_qdel(datum/source)
+	. = ..()
+	UnregisterSignal(source, COMSIG_FRUIT_BUILT)
+
 /datum/plant_trait/reagent/copy(datum/plant_feature/_parent, datum/plant_trait/_trait)
 //Support for custom reagents traits made with fast reagents
 	var/datum/plant_trait/reagent/new_trait = _trait || new type(_parent, reagent, volume_percentage, TRUE)

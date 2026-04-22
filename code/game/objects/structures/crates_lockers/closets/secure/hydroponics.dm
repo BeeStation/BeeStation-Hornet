@@ -7,6 +7,7 @@
 	..()
 	new /obj/item/storage/bag/plants/portaseeder(src)
 	new /obj/item/plant_scanner(src)
+	new /obj/item/shovel/spade(src)
 	new /obj/item/radio/headset/headset_srv(src)
 	new /obj/item/cultivator(src)
 	new /obj/item/hatchet(src)

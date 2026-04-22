@@ -74,6 +74,11 @@
 		weed_level = 0
 		playsound(parent, 'sound/effects/shovel_dig.ogg', 60)
 		return
+//Plumbing - because the punger is coded stupid
+	if(istype(I, /obj/item/plunger))
+		to_chat(attacker, span_notice("You start furiously plunging [parent]."))
+		INVOKE_ASYNC(src, PROC_REF(async_plunger_action), attacker, I)
+		return
 //Remove substrate
 	if(istype(I, /obj/item/shovel/spade) && !length(plants) && allow_substrate_change)
 		INVOKE_ASYNC(src, PROC_REF(async_spade_action), attacker)
@@ -120,6 +125,13 @@
 	if(!do_after(user, 2.3 SECONDS, parent))
 		return
 	set_substrate(null)
+
+/datum/component/planter/proc/async_plunger_action(mob/user, obj/item/I)
+	var/obj/reagent_source = parent
+	if(do_after(user, 30, target = reagent_source))
+		to_chat(user, span_notice("You finish plunging the [reagent_source]."))
+		reagent_source.reagents.expose(get_turf(src), TOUCH) //splash on the floor
+		reagent_source.reagents.clear_reagents()
 
 /datum/component/planter/proc/async_hasty_remove(mob/user, obj/item/I)
 	if(!do_after(user, 5 SECONDS, parent))
