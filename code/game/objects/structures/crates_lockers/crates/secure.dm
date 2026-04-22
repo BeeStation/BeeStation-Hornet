@@ -58,7 +58,7 @@
 
 /obj/structure/closet/crate/secure/gear/debug_mech/PopulateContents()
 	. = ..()
-	for(var/obj/item/mecha_parts/mecha_equipment/equipment as anything in subtypesof(/obj/item/mecha_parts/mecha_equipment))
+	for(var/obj/item/mecha_parts/mecha_equipment/equipment as anything in valid_subtypesof(/obj/item/mecha_parts/mecha_equipment))
 		new equipment(src)
 	new /obj/item/stack/sheet/animalhide/goliath_hide(src, 5)
 	new /obj/item/mecha_parts/mecha_equipment/concealed_weapon_bay(src)

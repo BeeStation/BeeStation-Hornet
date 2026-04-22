@@ -1016,7 +1016,7 @@
 	},
 /obj/structure/reagent_dispensers/fueltank,
 /obj/item/weldingtool/largetank,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 32
 	},
 /turf/open/floor/plating,

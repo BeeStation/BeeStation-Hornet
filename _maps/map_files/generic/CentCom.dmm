@@ -386,7 +386,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = 32
 	},
 /obj/structure/sign/warning/fire{
@@ -2056,7 +2056,7 @@
 "aeG" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/bot_white,
@@ -3299,7 +3299,7 @@
 	icon_state = "plant-10"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -3544,7 +3544,7 @@
 /turf/closed/indestructible/riveted,
 /area/centcom/central_command_areas/prison)
 "aiI" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/indestructible/riveted,
 /area/centcom/central_command_areas/prison)
 "aiJ" = (
@@ -5306,7 +5306,7 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/syndicate_mothership/control)
 "anA" = (
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/indestructible/riveted,
 /area/centcom/central_command_areas/ferry)
 "anB" = (
@@ -5545,7 +5545,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/turf_decal/bot_white,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 32
 	},
 /obj/machinery/light/small{
@@ -6155,7 +6155,7 @@
 /obj/item/crowbar/red,
 /obj/item/wrench,
 /obj/item/clothing/mask/gas,
-/obj/machinery/computer/auxillary_base{
+/obj/machinery/computer/auxiliary_base{
 	pixel_y = 32
 	},
 /turf/open/floor/iron/dark/smooth_edge,
@@ -6167,7 +6167,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -28
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -6849,7 +6849,7 @@
 /turf/closed/indestructible/syndicate,
 /area/centcom/syndicate_mothership/control)
 "arz" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/indestructible/riveted,
 /area/centcom/central_command_areas/ferry)
 "arA" = (
@@ -7696,7 +7696,7 @@
 	},
 /area/centcom/central_command_areas/control)
 "atP" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/indestructible/riveted,
 /area/centcom/central_command_areas/control)
 "atQ" = (
@@ -8150,7 +8150,7 @@
 "auT" = (
 /obj/machinery/airalarm/directional/east,
 /obj/structure/filingcabinet/filingcabinet,
-/obj/machinery/computer/auxillary_base{
+/obj/machinery/computer/auxiliary_base{
 	pixel_y = 32
 	},
 /turf/open/floor/iron/dark/smooth_edge,
@@ -12361,7 +12361,7 @@
 /turf/open/floor/iron/techmaint,
 /area/centcom/tdome/observation)
 "aGw" = (
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/indestructible/riveted,
 /area/centcom/tdome/observation)
 "aGx" = (
@@ -12576,7 +12576,7 @@
 /area/centcom/central_command_areas/holding)
 "aGZ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 32
 	},
 /turf/open/floor/grass,
@@ -15871,7 +15871,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners,
@@ -17732,7 +17732,7 @@
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/holding)
 "aTL" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /obj/item/clothing/accessory/lawyers_badge,
 /turf/closed/indestructible/riveted,
 /area/centcom/central_command_areas/ferry)
@@ -20579,7 +20579,7 @@
 /area/centcom/syndicate_mothership)
 "edM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /obj/machinery/light{
