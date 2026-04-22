@@ -50,13 +50,16 @@
 	/// Designs imported from design disks. Only initialized if accepts_disks is TRUE.
 	var/list/imported_designs
 
-	/// If TRUE, connect to the ore silo. If FALSE, create our own /datum/component/material_container
+	/// If TRUE, connect to the ore silo. If FALSE, create our own material container
 	var/remote_materials = FALSE
+	/// If TRUE, we will automatically connect to an ore silo
+	/// Only matters if remote_materials is also TRUE
+	var/auto_link = TRUE
 
 	/// looping sound for printing items
 	var/datum/looping_sound/lathe_print/print_sound
 
-	//Queue items
+	// Queue items
 
 	/// An associative list of the designs in the queue
 	/// design_queue[design_id] = list("amount" = int, "repeating" = bool, "build_mat" = something)
@@ -96,7 +99,7 @@
 		cached_designs = list()
 
 	if(remote_materials)
-		AddComponent(/datum/component/remote_materials, "modfab", mapload, mat_container_flags = BREAKDOWN_FLAGS_LATHE)
+		AddComponent(/datum/component/remote_materials, "modfab", mapload, auto_link, mat_container_flags = BREAKDOWN_FLAGS_LATHE)
 	else
 		AddComponent(/datum/component/material_container, SSmaterials.materialtypes_by_category[MAT_CATEGORY_RIGID], _mat_container_flags = MATCONTAINER_EXAMINE, _after_insert = CALLBACK(src, PROC_REF(after_material_insert)))
 	return ..()

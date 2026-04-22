@@ -38,3 +38,6 @@
 
 /obj/machinery/modular_fabricator/exosuit_fab/set_working_sprite()
 	add_overlay("fab-active")
+
+/obj/machinery/modular_fabricator/exosuit_fab/maint
+	auto_link = FALSE
