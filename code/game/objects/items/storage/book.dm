@@ -125,81 +125,80 @@
 		SSblackbox.record_feedback("text", "religion_book", 1, "[choice]")//I don't know why it's here but I'm keeping it in case it breaks something
 	return
 
-/obj/item/storage/book/bible/proc/bless(mob/living/L, mob/living/user)
+/obj/item/storage/book/bible/proc/bless(mob/living/blessed, mob/living/user)
 	if(GLOB.religious_sect)
-		return GLOB.religious_sect.sect_bless(L,user)
-	if(!ishuman(L))
-		return
+		return GLOB.religious_sect.sect_bless(blessed,user)
 
-	var/mob/living/carbon/human/H = L
+	if(!ishuman(blessed))
+		return BLESSING_FAILED
 
-	for(var/X in H.bodyparts)
-		var/obj/item/bodypart/BP = X
-		if(!IS_ORGANIC_LIMB(BP))
+	var/mob/living/carbon/human/built_in_his_image = blessed
+	for(var/obj/item/bodypart/bodypart as anything in built_in_his_image.bodyparts)
+		if(!IS_ORGANIC_LIMB(bodypart))
 			to_chat(user, span_warning("[src.deity_name] refuses to heal this metallic taint!"))
-			return 0
+			return BLESSING_FAILED
 
 	var/heal_amt = 10
-	var/list/hurt_limbs = H.get_damaged_bodyparts(1, 1, null, BODYTYPE_ORGANIC)
+	var/list/hurt_limbs = built_in_his_image.get_damaged_bodyparts(brute = 1, burn = 1, required_bodytype = BODYTYPE_ORGANIC)
+	if(!length(hurt_limbs))
+		return BLESSING_IGNORED
 
-	if(hurt_limbs.len)
-		for(var/obj/item/bodypart/affecting as anything in hurt_limbs)
-			if(affecting.heal_damage(heal_amt, heal_amt, required_bodytype = BODYTYPE_ORGANIC))
-				H.update_damage_overlays()
-		H.visible_message(span_notice("[user] heals [H] with the power of [deity_name]!"))
-		to_chat(H, span_boldnotice("May the power of [deity_name] compel you to be healed!"))
-		playsound(src.loc, "punch", 25, 1, -1)
-		H.add_mood_event("blessing", /datum/mood_event/blessing)
-	return TRUE
+	for(var/obj/item/bodypart/affecting as anything in hurt_limbs)
+		if(affecting.heal_damage(heal_amt, heal_amt, required_bodytype = BODYTYPE_ORGANIC))
+			built_in_his_image.update_damage_overlays()
 
-/obj/item/storage/book/bible/attack(mob/living/M, mob/living/carbon/human/user, heal_mode = TRUE)
+	built_in_his_image.visible_message(span_notice("[user] heals [built_in_his_image] with the power of [deity_name]!"))
+	to_chat(built_in_his_image, span_boldnotice("May the power of [deity_name] compel you to be healed!"))
+	playsound(built_in_his_image, "punch", 25, TRUE, -1)
+	built_in_his_image.add_mood_event("blessing", /datum/mood_event/blessing)
+	return BLESSING_SUCCESS
 
-	if (!ISADVANCEDTOOLUSER(user))
-		to_chat(user, span_warning("You don't have the dexterity to do this!"))
+/obj/item/storage/book/bible/attack(mob/living/target_mob, mob/living/carbon/human/user, list/modifiers, list/attack_modifiers, heal_mode = TRUE)
+	if(!ISADVANCEDTOOLUSER(user))
+		balloon_alert(user, "not dextrous enough!")
 		return
 
-	if (HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, span_danger("[src] slips out of your hand and hits your head."))
 		user.take_bodypart_damage(10)
-		user.Unconscious(400)
+		user.Unconscious(40 SECONDS)
 		return
 
-	var/chaplain = 0
-	if(user?.mind?.holy_role)
-		chaplain = 1
-
-	if(!chaplain)
+	if(!user.mind?.holy_role)
 		to_chat(user, span_danger("The book sizzles in your hands."))
-		user.take_bodypart_damage(0,10)
+		user.take_bodypart_damage(burn = 10)
 		return
 
-	if (!heal_mode)
+	if(!heal_mode)
 		return ..()
 
-	var/smack = 1
+	if(target_mob.stat == DEAD)
+		target_mob.visible_message(span_danger("[user] smacks [target_mob]'s lifeless corpse with [src]."))
+		playsound(target_mob, "punch", 25, TRUE, -1)
 
-	if (M.stat != DEAD)
-		if(chaplain && user == M)
-			to_chat(user, span_warning("You can't heal yourself!"))
+	if(user == target_mob)
+		balloon_alert(user, "can't heal yourself!")
+		return
+
+	var/smack_chance = 60
+
+	if(!prob(smack_chance))
+		var/bless_result = bless(target_mob, user)
+		if (bless_result != BLESSING_FAILED)
+			//SEND_SIGNAL(target_mob, COMSIG_LIVING_BLESSED, user, src, bless_result)
 			return
 
-		if(prob(60) && bless(M, user))
-			smack = 0
-		else if(iscarbon(M))
-			var/mob/living/carbon/C = M
-			if(isnull(C.head) || istype(C.head.get_armor(), /datum/armor/none))
-				C.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5, 60)
-				to_chat(C, span_danger("You feel dumber."))
-
-		if(smack)
-			M.visible_message(span_danger("[user] beats [M] over the head with [src]!"), \
-					span_userdanger("[user] beats [M] over the head with [src]!"))
-			playsound(src.loc, "punch", 25, 1, -1)
-			log_combat(user, M, "attacked", src)
-
-	else
-		M.visible_message(span_danger("[user] smacks [M]'s lifeless corpse with [src]."))
-		playsound(src.loc, "punch", 25, 1, -1)
+	if(iscarbon(target_mob))
+		var/mob/living/carbon/carbon_target = target_mob
+		if(isnull(carbon_target.head) || istype(carbon_target.head.get_armor(), /datum/armor/none))
+			carbon_target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5, 60)
+			to_chat(carbon_target, span_danger("You feel dumber."))
+	target_mob.visible_message(
+		span_danger("[user] beats [target_mob] over the head with [src]!"),
+		span_userdanger("[user] beats [target_mob] over the head with [src]!")
+	)
+	playsound(target_mob, "punch", 25, TRUE, -1)
+	log_combat(user, target_mob, "attacked", src)
 
 /obj/item/storage/book/bible/afterattack(atom/A, mob/user, proximity)
 	. = ..()
@@ -270,23 +269,28 @@
 	attack_verb_continuous = list("attacks", "burns", "blesses", "damns", "scorches")
 	attack_verb_simple = list("attack", "burn", "bless", "damn", "scorch")
 	var/uses = 1
+	var/owner_name
 
-/obj/item/storage/book/bible/syndicate/attack_self(mob/living/carbon/human/H)
-	if (uses)
-		H.mind.holy_role = HOLY_ROLE_PRIEST
-		uses -= 1
-		to_chat(H, span_userdanger("You try to open the book AND IT BITES YOU!"))
-		playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
-		H.apply_damage(5, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
-		to_chat(H, span_notice("Your name appears on the inside cover, in blood."))
-		var/ownername = H.real_name
-		desc += span_warning("The name [ownername] is written in blood inside the cover.")
+/obj/item/storage/book/bible/syndicate/attack_self(mob/living/carbon/human/user, modifiers)
+	if(!uses || !istype(user))
+		return
+	user.mind.holy_role = HOLY_ROLE_PRIEST
+	uses -= 1
+	to_chat(user, span_userdanger("You try to open the book AND IT BITES YOU!"))
+	playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+	user.apply_damage(5, BRUTE, user.get_active_hand(), attacking_item = src)
+	to_chat(user, span_notice("Your name appears on the inside cover, in blood."))
+	owner_name = user.real_name
 
-/obj/item/storage/book/bible/syndicate/attack(mob/living/M, mob/living/carbon/human/user, heal_mode = TRUE)
-	if (!user.combat_mode)
+/obj/item/storage/book/bible/syndicate/examine(mob/user)
+	. = ..()
+	if(owner_name)
+		. += span_warning("The name [owner_name] is written in blood inside the cover.")
+
+/obj/item/storage/book/bible/syndicate/attack(mob/living/target_mob, mob/living/carbon/human/user,  list/modifiers, list/attack_modifiers, heal_mode = TRUE)
+	if(!user.combat_mode)
 		return ..()
-	else
-		return ..(M,user,heal_mode = FALSE)
+	return ..(target_mob, user, modifiers, attack_modifiers, heal_mode = FALSE)
 
 /obj/item/storage/book/bible/syndicate/add_blood_DNA(list/blood_dna)
 	return FALSE

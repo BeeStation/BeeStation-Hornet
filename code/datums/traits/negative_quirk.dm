@@ -316,6 +316,14 @@
 	lose_text = span_notice("You don't seem to make a big deal out of everything anymore.")
 	medical_record_text = "Patient demonstrates a high level of emotional volatility."
 
+/datum/quirk/hypersensitive/add(client/client_source)
+	if (quirk_target.mob_mood)
+		quirk_target.mob_mood.mood_modifier += 0.5
+
+/datum/quirk/hypersensitive/remove()
+	if (quirk_target.mob_mood)
+		quirk_target.mob_mood.mood_modifier -= 0.5
+
 /datum/quirk/nearsighted //t. errorage
 	name = "Nearsighted"
 	desc = "You are nearsighted without prescription glasses, but spawn with a pair."

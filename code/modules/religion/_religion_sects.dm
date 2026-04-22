@@ -101,22 +101,26 @@
 /// Replaces the bible's bless mechanic. Return TRUE if you want to not do the brain hit.
 /datum/religion_sect/proc/sect_bless(mob/living/target, mob/living/chap)
 	if(!ishuman(target))
-		return FALSE
+		return BLESSING_FAILED
+
 	var/mob/living/carbon/human/blessed = target
 	for(var/obj/item/bodypart/bodypart as anything in blessed.bodyparts)
-		if(!IS_ORGANIC_LIMB(bodypart))
+		if(IS_ROBOTIC_LIMB(bodypart))
 			to_chat(chap, span_warning("[GLOB.deity] refuses to heal this metallic taint!"))
-			return TRUE
+			return BLESSING_IGNORED
 
 	var/heal_amt = 10
 	var/list/hurt_limbs = blessed.get_damaged_bodyparts(1, 1, null, BODYTYPE_ORGANIC)
 
-	if(hurt_limbs.len)
-		for(var/obj/item/bodypart/affecting as anything in hurt_limbs)
-			if(affecting.heal_damage(heal_amt, heal_amt, required_bodytype = BODYTYPE_ORGANIC))
-				blessed.update_damage_overlays()
-		blessed.visible_message(span_notice("[chap] heals [blessed] with the power of [GLOB.deity]!"))
-		to_chat(blessed, span_boldnotice("May the power of [GLOB.deity] compel you to be healed!"))
-		playsound(chap, "punch", 25, TRUE, -1)
-		blessed.add_mood_event("blessing", /datum/mood_event/blessing)
-	return TRUE
+	if(!length(hurt_limbs))
+		return BLESSING_IGNORED
+
+	for(var/obj/item/bodypart/affecting as anything in hurt_limbs)
+		if(affecting.heal_damage(heal_amt, heal_amt, required_bodytype = BODYTYPE_ORGANIC))
+			blessed.update_damage_overlays()
+
+	blessed.visible_message(span_notice("[chap] heals [blessed] with the power of [GLOB.deity]!"))
+	to_chat(blessed, span_boldnotice("May the power of [GLOB.deity] compel you to be healed!"))
+	playsound(chap, "punch", 25, TRUE, -1)
+	blessed.add_mood_event("blessing", /datum/mood_event/blessing)
+	return BLESSING_SUCCESS

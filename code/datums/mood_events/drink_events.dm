@@ -5,10 +5,8 @@
 /datum/mood_event/drunk/add_effects(drunkness)
 	update_change(drunkness)
 	// Display blush visual
-	var/datum/component/L = owner
-	var/mob/living/T = L.parent
-	ADD_TRAIT(T, TRAIT_BLUSHING, "[type]")
-	T.update_body()
+	ADD_TRAIT(owner, TRAIT_BLUSHING, "[type]")
+	owner.update_body()
 
 /// Updates the description and value of the moodlet according to the passed drunkness value
 /// (Does not add to or remove from the current level - it will sets it directly to the new value)
@@ -35,10 +33,8 @@
 
 /datum/mood_event/drunk/remove_effects()
 	// Stop displaying blush visual
-	var/datum/component/L = owner
-	var/mob/living/T = L.parent
-	REMOVE_TRAIT(T, TRAIT_BLUSHING, "[type]")
-	T.update_body()
+	REMOVE_TRAIT(owner, TRAIT_BLUSHING, "[type]")
+	owner.update_body()
 
 /datum/mood_event/quality_bad
 	description = "That drink wasn't good at all."

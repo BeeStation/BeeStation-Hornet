@@ -25,9 +25,11 @@
 		to_chat(R, span_boldnotice("You are charged by the power of [GLOB.deity]!"))
 		R.add_mood_event("blessing", /datum/mood_event/blessing)
 		playsound(chap, 'sound/effects/bang.ogg', 25, TRUE, -1)
-		return TRUE
+		return BLESSING_SUCCESS
+
 	if(!ishuman(target))
-		return
+		return BLESSING_FAILED
+
 	var/mob/living/carbon/human/blessed = target
 
 	//first we determine if we can charge them
@@ -42,22 +44,23 @@
 	if(IS_ORGANIC_LIMB(bodypart))
 		if(!did_we_charge)
 			to_chat(chap, span_warning("[GLOB.deity] scoffs at the idea of healing such fleshy matter!"))
-		else
-			blessed.visible_message(span_notice("[chap] charges [blessed] with the power of [GLOB.deity]!"))
-			to_chat(blessed, span_boldnotice("You feel charged by the power of [GLOB.deity]!"))
-			blessed.add_mood_event("blessing", /datum/mood_event/blessing)
-			playsound(chap, 'sound/machines/synth_yes.ogg', 25, TRUE, -1)
-		return TRUE
+			return BLESSING_IGNORED
+
+		blessed.visible_message(span_notice("[chap] charges [blessed] with the power of [GLOB.deity]!"))
+		to_chat(blessed, span_boldnotice("You feel charged by the power of [GLOB.deity]!"))
+		blessed.add_mood_event("blessing", /datum/mood_event/blessing)
+		playsound(chap, 'sound/machines/synth_yes.ogg', 25, TRUE, -1)
+		return BLESSING_SUCCESS
 
 	//charge(?) and go
-	if(bodypart.heal_damage(5,5,null,BODYTYPE_ROBOTIC))
+	if(bodypart.heal_damage(brute = 5, burn = 5, required_bodytype = BODYTYPE_ROBOTIC))
 		blessed.update_damage_overlays()
 
 	blessed.visible_message(span_notice("[chap] [did_we_charge ? "repairs" : "repairs and charges"] [blessed] with the power of [GLOB.deity]!"))
 	to_chat(blessed, span_boldnotice("The inner machinations of [GLOB.deity] [did_we_charge ? "repairs" : "repairs and charges"] you!"))
 	playsound(chap, 'sound/effects/bang.ogg', 25, TRUE, -1)
 	blessed.add_mood_event("blessing", /datum/mood_event/blessing)
-	return TRUE
+	return BLESSING_SUCCESS
 
 /datum/religion_sect/technophile/on_sacrifice(obj/item/I, mob/living/chap)
 	var/obj/item/stock_parts/cell/the_cell = I

@@ -16,11 +16,11 @@
 //Carp bibles give people the carp faction!
 /datum/religion_sect/carp_sect/sect_bless(mob/living/L, mob/living/user)
 	if(!isliving(L))
-		return FALSE
+		return BLESSING_FAILED
 	L.faction |= FACTION_CARP
 	user.visible_message(span_notice("[user] blessed [L] with the power of [GLOB.deity]! They are now protected from Space Carps, Although carps will still fight back if attacked."))
 	L.add_mood_event("blessing", /datum/mood_event/blessing)
-	return TRUE
+	return BLESSING_SUCCESS
 
 /datum/religion_sect/carp_sect/on_sacrifice(obj/item/N, mob/living/L) //and this
 	var/obj/item/food/meat/meat = N

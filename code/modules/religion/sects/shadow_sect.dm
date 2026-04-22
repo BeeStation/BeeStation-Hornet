@@ -36,13 +36,14 @@
 
 //Shadow sect doesn't heal non shadowpeople
 /datum/religion_sect/shadow_sect/sect_bless(mob/living/blessed, mob/living/user)
-	if(isshadow(blessed))
-		var/mob/living/carbon/human/O = blessed
-		var/datum/species/shadow/S = O.dna.species
-		S.change_hearts_ritual(blessed)
-		blessed.heal_overall_damage(5, 5, 20, BODYTYPE_ORGANIC)
-		to_chat(user, span_notice("You bless [blessed] with the power of [GLOB.deity], healing them and spreading blessings."))
-	return TRUE
+	if(!isshadow(blessed))
+		return BLESSING_IGNORED
+	var/mob/living/carbon/human/O = blessed
+	var/datum/species/shadow/S = O.dna.species
+	S.change_hearts_ritual(blessed)
+	blessed.heal_overall_damage(5, 5, 20, BODYTYPE_ORGANIC)
+	to_chat(user, span_notice("You bless [blessed] with the power of [GLOB.deity], healing them and spreading blessings."))
+	return BLESSING_SUCCESS
 
 
 /datum/religion_sect/shadow_sect/on_sacrifice(obj/item/N, mob/living/L)

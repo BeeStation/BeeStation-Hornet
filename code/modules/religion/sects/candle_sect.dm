@@ -15,7 +15,7 @@
 
 //candle sect bibles don't heal or do anything special apart from the standard holy water blessings
 /datum/religion_sect/candle_sect/sect_bless(mob/living/target, mob/living/chap)
-	return TRUE
+	return BLESSING_SUCCESS
 
 /datum/religion_sect/candle_sect/on_sacrifice(obj/item/candle/offering, mob/living/user)
 	if(!istype(offering))

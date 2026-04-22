@@ -1597,7 +1597,7 @@
 	affected_mob.adjust_confusion(-6 SECONDS * REM * delta_time)
 	affected_mob.disgust = max(affected_mob.disgust - (6 * REM * delta_time), 0)
 	if(affected_mob.mob_mood != null && affected_mob.mob_mood.sanity <= SANITY_NEUTRAL) // only take effect if in negative sanity and then...
-		affected_mob.mob_mood.set_sanity(min(affected_mob.mob_mood.sanity + (5 * REM * delta_time), SANITY_NEUTRAL)) // set minimum to prevent unwanted spiking over neutral
+		affected_mob.mob_mood.adjust_sanity(5 * REM * delta_time, maximum = SANITY_NEUTRAL) // set minimum to prevent unwanted spiking over neutral
 
 /datum/reagent/medicine/psicodine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
