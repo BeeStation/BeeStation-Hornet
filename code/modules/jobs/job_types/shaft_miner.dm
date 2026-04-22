@@ -5,7 +5,7 @@
 	department_head_for_prefs = JOB_NAME_QUARTERMASTER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 3
 	selection_color = "#dcba97"
 	// Requires a little bit of game knowledge to play appropriately
@@ -34,6 +34,8 @@
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_HARD)
 
 	display_order = JOB_DISPLAY_ORDER_SHAFT_MINER
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Adventurer"
 
 	species_outfits = list(

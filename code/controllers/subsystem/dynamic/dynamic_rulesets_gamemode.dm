@@ -189,13 +189,13 @@
 /datum/dynamic_ruleset/gamemode/wizard/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
 
 /datum/dynamic_ruleset/gamemode/wizard/execute()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.current.forceMove(pick(GLOB.wizardstart))
-		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
 
 /datum/dynamic_ruleset/gamemode/wizard/security_report()
 	return "Unconfirmed rumours suggest that a series of powerful artifacts that possess intricate control over space-time are in the hands \
@@ -308,7 +308,7 @@
 	generate_clockcult_scriptures()
 
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
 
 /datum/dynamic_ruleset/gamemode/clockcult/execute()
 	main_cult = new()
@@ -369,7 +369,7 @@
 /datum/dynamic_ruleset/gamemode/nuclear/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
 
 /datum/dynamic_ruleset/gamemode/nuclear/execute()
 	var/has_made_leader = FALSE

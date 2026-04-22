@@ -362,17 +362,16 @@
 		to_chat(user, span_warning("The account ID was already assigned to this card."))
 		return
 
-	for(var/A in SSeconomy.bank_accounts)
-		var/datum/bank_account/B = A
-		if(B.account_id == new_bank_id)
-			if (old_account)
-				old_account.bank_cards -= src
+	var/datum/bank_account/B = SSeconomy.bank_accounts_by_id["[new_bank_id]"]
+	if(B)
+		if (old_account)
+			old_account.bank_cards -= src
 
-			B.bank_cards += src
-			registered_account = B
-			to_chat(user, span_notice("The provided account has been linked to this ID card."))
+		B.bank_cards += src
+		registered_account = B
+		to_chat(user, span_notice("The provided account has been linked to this ID card."))
 
-			return TRUE
+		return TRUE
 
 	to_chat(user, span_warning("The account ID number provided is invalid."))
 	return
@@ -550,68 +549,65 @@ update_label("John Doe", "Clowny")
 	if(forge_disabled || !isliving(user) || !user.mind)
 		return ..()
 
-	var/first_use = !!registered_name
-	if(!(user.mind.special_role || anyone)) //Unless anyone is allowed, only syndies can use the card, to stop metagaming.
-		if(first_use) //If a non-syndie is the first to forge an unassigned agent ID, then anyone can forge it.
-			anyone = TRUE
-		else
-			return ..()
-
-	var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change Account ID"))
-	if(user.incapacitated)
+	var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change Account ID", "Abort"))
+	if(isnull(popup_input) || popup_input == "Abort" || QDELETED(src) || user.incapacitated)
 		return
-	if(popup_input == "Forge/Reset")
-		if(!assignment)
-			assignment = JOB_NAME_ASSISTANT
 
-		var/input_name = stripped_input(user, "What name would you like to put on this card? Leave blank to randomise.", "Agent card name", registered_name ? registered_name : (ishuman(user) ? user.real_name : user.name), MAX_NAME_LEN)
-		input_name = reject_bad_name(input_name, allow_numbers = TRUE)
-		if(!input_name)
-			// Invalid/blank names give a randomly generated one.
-			if(user.gender == MALE)
-				input_name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
-			else if(user.gender == FEMALE)
-				input_name = "[pick(GLOB.first_names_female)] [pick(GLOB.last_names)]"
-			else
-				input_name = "[pick(GLOB.first_names)] [pick(GLOB.last_names)]"
-
-		var/target_id_style = "-"
-		while(target_id_style[1] == "-") // trick. "-" is only non-valid option here.
-			target_id_style = input(user, "Select an ID skin (Cancel to change nothing)\nCard HUD icon will follow the job you choose.", "Chameleon card shape") as null|anything in get_card_style_list(TRUE)
-			if(!target_id_style)
-				break
-
-		var/target_occupation = stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", !(assignment in get_card_style_list(TRUE)) ? assignment : target_id_style, MAX_MESSAGE_LEN) // ternary operator means you keep custom title if your title is special(not in standard job titles). if that is in job title list, you just get new job title.
-		if(!target_occupation)
-			target_occupation = assignment ? assignment : JOB_NAME_ASSISTANT
-
-		log_id("[key_name(user)] forged agent ID [src] name to [input_name] and occupation to [target_occupation][target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"] at [AREACOORD(user)].")
-		registered_name = input_name
-		assignment = capitalize(target_occupation)
-		if(target_id_style)
-			icon_state = get_cardstyle_by_jobname(target_id_style)
-			hud_state = get_hud_by_jobname(target_id_style)
-			var/mob/living/carbon/human/H = user
-			H.sec_hud_set_ID()
-		update_label()
-		to_chat(user, span_notice("You successfully forge the ID card."))
-		log_game("[key_name(user)] has forged \the [initial(name)] with name \"[registered_name]\" and occupation \"[assignment]\"[target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"].")
-
-		// First time use automatically sets the account id to the user.
-		if (first_use && !registered_account)
-			if(ishuman(user))
-				var/mob/living/carbon/human/accountowner = user
-
-				for(var/bank_account in SSeconomy.bank_accounts)
-					var/datum/bank_account/account = bank_account
-					if(account.account_id == accountowner.mind?.account_id)
-						account.bank_cards += src
-						registered_account = account
-						to_chat(user, span_notice("Your account number has been automatically assigned."))
-		return
-	else if (popup_input == "Change Account ID")
+	if(popup_input == "Change Account ID")
 		set_new_account(user)
 		return
+	if(popup_input == "Show")
+		return ..()
+
+	// if we've gotten to this point, it's going to be "Forge/Reset"
+
+	assignment ||= "Assistant"
+
+	var/input_name = stripped_input(user, "What name would you like to put on this card? Leave blank to randomise.", "Agent card name", registered_name ? registered_name : (ishuman(user) ? user.real_name : user.name), MAX_NAME_LEN)
+	input_name = reject_bad_name(input_name, allow_numbers = TRUE)
+	if(!input_name)
+		// Invalid/blank names give a randomly generated one.
+		if(user.gender == MALE)
+			input_name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
+		else if(user.gender == FEMALE)
+			input_name = "[pick(GLOB.first_names_female)] [pick(GLOB.last_names)]"
+		else
+			input_name = "[pick(GLOB.first_names)] [pick(GLOB.last_names)]"
+
+	var/target_id_style = "-"
+	while(target_id_style[1] == "-") // trick. "-" is only non-valid option here.
+		target_id_style = input(user, "Select an ID skin (Cancel to change nothing)\nCard HUD icon will follow the job you choose.", "Chameleon card shape") as null|anything in get_card_style_list(TRUE)
+		if(!target_id_style)
+			break
+
+	var/target_occupation = stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", !(assignment in get_card_style_list(TRUE)) ? assignment : target_id_style, MAX_MESSAGE_LEN) // ternary operator means you keep custom title if your title is special(not in standard job titles). if that is in job title list, you just get new job title.
+	target_occupation ||= (assignment || JOB_NAME_ASSISTANT)
+
+	log_id("[key_name(user)] forged agent ID [src] name to [input_name] and occupation to [target_occupation] [target_id_style ? "with [target_id_style] card style" : "with non changed [icon_state] shape, [hud_state] hud style"] at [AREACOORD(user)].")
+	registered_name = input_name
+	assignment = capitalize(target_occupation)
+	if(target_id_style)
+		icon_state = get_cardstyle_by_jobname(target_id_style)
+		hud_state = get_hud_by_jobname(target_id_style)
+		astype(user, /mob/living/carbon/human)?.sec_hud_set_ID()
+
+	update_label()
+	to_chat(user, span_notice("You successfully forge the ID card."))
+	log_game("[key_name(user)] has forged \the [initial(name)] with name \"[registered_name]\" and occupation \"[assignment]\"[target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"].")
+
+	// First time use automatically sets the account id to the user.
+	if (first_use && !registered_account && ishuman(user))
+		var/datum/bank_account/account = SSeconomy.bank_accounts_by_id["[user.mind?.account_id]"]
+		if(account)
+			account.bank_cards += src
+			registered_account = account
+			to_chat(user, span_notice("Your account number has been automatically assigned."))
+
+/obj/item/card/id/syndicate/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	chameleon_action.emp_randomise()
 
 #define BREAK_CHAMELEON_ACTION(item) \
 do { \
