@@ -378,11 +378,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Pc" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 3
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "PL" = (

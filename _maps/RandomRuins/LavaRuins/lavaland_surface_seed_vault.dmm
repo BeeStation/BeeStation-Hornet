@@ -82,10 +82,7 @@
 	dir = 1
 	},
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 28
-	},
+/obj/structure/sink/directional/south,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
@@ -439,10 +436,7 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 28
-	},
+/obj/structure/sink/directional/south,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "wW" = (
