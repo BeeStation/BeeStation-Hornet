@@ -7,7 +7,7 @@
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list(RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_SERVICE)
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ddddff"
 	req_admin_notify = 1
@@ -71,6 +71,8 @@
 		ACCOUNT_SRV_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_PERSONNEL
+
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "Guild Questgiver"
 
 	species_outfits = list(

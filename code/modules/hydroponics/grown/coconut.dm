@@ -5,7 +5,7 @@
 	desc = "A coconut. It's a hard nut to crack."
 	icon_state = "coconut"
 	force = 5
-	throwforce = 5
+	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 2
 	throw_range = 4

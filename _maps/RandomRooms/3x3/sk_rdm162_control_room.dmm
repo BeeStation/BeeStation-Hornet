@@ -31,7 +31,7 @@
 	},
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance/three,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = -32
 	},
 /turf/open/floor/plating{
@@ -99,7 +99,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 32
 	},
 /turf/open/floor/plating{

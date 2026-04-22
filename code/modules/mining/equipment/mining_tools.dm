@@ -119,7 +119,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/mining_righthand.dmi'
 	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
-	force = 8
+	force = 12
 	tool_behaviour = TOOL_SHOVEL
 	toolspeed = 1
 	usesound = 'sound/effects/shovel_dig.ogg'
@@ -148,7 +148,7 @@
 	inhand_icon_state = "spade"
 	lefthand_file = 'icons/mob/inhands/equipment/hydroponics_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
-	force = 5
+	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL
 

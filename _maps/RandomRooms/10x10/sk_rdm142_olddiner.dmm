@@ -171,7 +171,7 @@
 	},
 /area/template_noop)
 "FF" = (
-/obj/structure/sign/warning/nosmoking/circle,
+/obj/structure/sign/warning/no_smoking/circle,
 /turf/closed/wall,
 /area/template_noop)
 "FK" = (
@@ -265,7 +265,7 @@
 /turf/open/floor/iron/white,
 /area/template_noop)
 "Yd" = (
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/wall,
 /area/template_noop)
 "Yr" = (
