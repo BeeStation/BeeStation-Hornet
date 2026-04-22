@@ -130,6 +130,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	healths = null
 	stamina = null
 	healthdoll = null
+	spacesuit = null
 	lingchemdisplay = null
 	lingstingdisplay = null
 	blobpwrdisplay = null
