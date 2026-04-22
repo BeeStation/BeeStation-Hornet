@@ -9,7 +9,6 @@
 	icon = 'icons/obj/clothing/under/captain.dmi'
 	worn_icon = 'icons/mob/clothing/under/captain.dmi'
 
-
 /datum/armor/rank_captain
 	melee = 10
 	bio = 10

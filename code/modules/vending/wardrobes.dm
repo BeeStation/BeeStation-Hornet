@@ -494,6 +494,7 @@
 		/obj/item/clothing/suit/jacket/aristocrat/red = 1,
 		/obj/item/clothing/suit/jacket/aristocrat/brown = 1,
 		/obj/item/clothing/suit/jacket/aristocrat/blue = 1,
+		/obj/item/clothing/neck/cloak/regal = 2,
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/law_wardrobe
 
