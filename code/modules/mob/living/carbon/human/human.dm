@@ -113,10 +113,10 @@
 	spreadFire(AM)
 
 /mob/living/carbon/human/set_mob_eye_to(atom/new_eye, force_reset = FALSE)
+	. = ..()
 	if(dna?.species?.prevent_perspective_change && !force_reset) // This is in case a species needs to prevent perspective changes in certain cases
 		update_fullscreen()
 		return
-	return ..()
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(href_list["see_id"])

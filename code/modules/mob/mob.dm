@@ -565,21 +565,20 @@ Do the things below instead of using reset_perspective()
 		stack_trace("something changed client's eye perspective. Current: [client.perspective]")
 		client.perspective = EYE_PERSPECTIVE
 
-	var/_proper_new_eye
 	if(new_eye == src) // do not use when 'mob == src'
 		stack_trace("The proc received 'new_eye' as src. If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
-		_proper_new_eye = get_my_eye()
+		new_eye = get_my_eye()
 	else if(isnull(new_eye))
 		stack_trace("The proc received 'new_eye' as null value. If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
-		_proper_new_eye = get_my_eye()
+		new_eye = get_my_eye()
 	else if(new_eye == MOB_EYE_SELF)
-		_proper_new_eye = get_my_eye()
+		new_eye = get_my_eye()
 	if(new_eye == current_mob_eye)
 		return // no need to do this
 
-	#define _new_eye 1 // first arg. Unfortunately, there's no way to use arg name.
-	revise_proc_arg_value(_new_eye, _proper_new_eye)
-	#undef _new_eye
+	#define _new_eye_arg 1 // first arg. Unfortunately, there's no way to use arg name.
+	revise_proc_arg_value(_new_eye_arg, new_eye)
+	#undef _new_eye_arg
 
 	var/atom/old_eye = current_mob_eye
 

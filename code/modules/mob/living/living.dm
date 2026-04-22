@@ -1818,7 +1818,8 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	return result
 
 /mob/living/set_mob_eye_to(atom/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 	update_sight()
 	update_fullscreen()
