@@ -1,8 +1,0 @@
-author: rkz, christasmurf, axietheaxolotl
-delete-after: true
-changes:
-  - rscadd: resprites 2 of head of personnel's existing uniforms and adds 4 new ones
-  - rscadd: the head of personnel now spawns with his armor on. It is resprited to
-      appear as an 'armored jacket'
-  - rscadd: adds mantles for every head of staff, a form of shortcloak meant to make
-      ones uniform more visible than the longcloaks
