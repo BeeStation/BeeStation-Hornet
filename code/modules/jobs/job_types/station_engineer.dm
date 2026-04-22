@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_ENGINEERING
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
-	faction = "Station"
+	faction = FACTION_STATION
 	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#fff5cc"
 	exp_requirements = 120
@@ -20,6 +20,8 @@
 	payment_per_department = list(ACCOUNT_ENG_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_STATION_ENGINEER
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Crystallomancer"
 
 	species_outfits = list(

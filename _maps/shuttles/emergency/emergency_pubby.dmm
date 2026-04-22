@@ -361,9 +361,8 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "wl" = (
-/obj/machinery/door/airlock/public/glass{
-	req_access_txt = "2"
-	},
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -570,17 +569,17 @@
 /area/shuttle/escape)
 "UT" = (
 /obj/machinery/door/airlock/public/glass{
-	name = "Brig";
-	req_access_txt = "2"
+	name = "Brig"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "XN" = (
 /obj/machinery/door/airlock/public/glass{
-	name = "Cockpit";
-	req_access_txt = "19"
+	name = "Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/escape)

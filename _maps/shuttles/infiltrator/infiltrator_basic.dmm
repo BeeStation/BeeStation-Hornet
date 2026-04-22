@@ -391,9 +391,8 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/medical)
 "bK" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "150"
-	},
+/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -406,9 +405,8 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/hallway)
 "bM" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "150"
-	},
+/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -573,17 +571,17 @@
 /area/shuttle/syndicate/bridge)
 "iF" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/cable_coil/white,
-/obj/item/stack/cable_coil/white,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
 /obj/item/crowbar/red,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
 "jp" = (
 /obj/machinery/door/airlock/hatch{
-	name = "Cockpit";
-	req_access_txt = "150"
+	name = "Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/bridge)
@@ -791,9 +789,8 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
 "Ga" = (
-/obj/machinery/door/airlock/external{
-	req_access_txt = "150"
-	},
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/airlock)
@@ -817,9 +814,9 @@
 /area/shuttle/syndicate/medical)
 "Mn" = (
 /obj/machinery/door/airlock/external{
-	name = "E.V.A. Gear Storage";
-	req_access_txt = "150"
+	name = "E.V.A. Gear Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
@@ -878,9 +875,9 @@
 /area/shuttle/syndicate/armory)
 "Ub" = (
 /obj/machinery/door/airlock/external{
-	name = "Ready Room";
-	req_access_txt = "150"
+	name = "Ready Room"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)

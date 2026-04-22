@@ -203,9 +203,8 @@
 /turf/open/floor/mineral/plasma,
 /area/shuttle/escape)
 "V" = (
-/obj/machinery/door/airlock/gold{
-	req_access_txt = "19"
-	},
+/obj/machinery/door/airlock/gold,
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape)

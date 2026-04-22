@@ -7,8 +7,10 @@
 	var/description
 
 	///Job access. The use of minimal_access or access is determined by a config setting: config.jobs_have_minimal_access
-	var/list/base_access = list()  // access list that's basically given to jobs.
-	var/list/extra_access = list() // EXTRA access list that's given in lowpop.
+	// access list that's basically given to jobs.
+	var/list/base_access = list()
+	// EXTRA access list that's given in lowpop.
+	var/list/extra_access = list()
 
 	///Determines who can demote this position
 	var/department_head = list()
@@ -23,9 +25,6 @@
 	/// Determines whether or not late-joining as this role is allowed
 	var/latejoin_allowed = TRUE
 
-	/// flags with the job lock reasons. If this flag exists, it's not available anyway.
-	var/lock_flags = NONE
-
 	/// If this job should show in the preferences menu
 	var/show_in_prefs = TRUE
 
@@ -33,7 +32,7 @@
 	var/department_head_for_prefs
 
 	///Players will be allowed to spawn in as jobs that are set to "Station"
-	var/faction = "None"
+	var/faction = FACTION_NONE
 
 	///How many players can be this job
 	var/total_positions = 0
@@ -99,6 +98,11 @@
 	///how at risk is this occupation at for being a carrier of a dormant disease
 	var/biohazard = 20
 
+	var/job_flags = NONE
+
+	/// flags with the job lock reasons. If this flag exists, it's not available anyway.
+	var/lock_flags = NONE
+
 	///A dictionary of species IDs and a path to the outfit.
 	var/list/species_outfits = null
 
@@ -150,10 +154,12 @@
 
 	if(!config_check())
 		lock_flags |= JOB_LOCK_REASON_CONFIG
+		job_flags &= ~JOB_NEW_PLAYER_JOINABLE
 	if(SSmapping.map_adjustment && (title in SSmapping.map_adjustment.blacklisted_jobs))
 		lock_flags |= JOB_LOCK_REASON_MAP
-	if(lock_flags || gimmick)
-		SSjob.job_manager_blacklisted |= title
+		job_flags &= ~JOB_NEW_PLAYER_JOINABLE
+	if(!(job_flags & JOB_NEW_PLAYER_JOINABLE) || gimmick)
+		job_flags |= JOB_CANNOT_OPEN_SLOTS
 
 /// Returns true if there are available slots
 /datum/job/proc/has_space()
@@ -568,12 +574,14 @@
 /datum/job/proc/get_lock_reason()
 	if(lock_flags & JOB_LOCK_REASON_ABSTRACT)
 		return "Not a real job"
-	else if(lock_flags & JOB_LOCK_REASON_CONFIG)
+	if(!(initial(job_flags) & JOB_NEW_PLAYER_JOINABLE))
+		return "Not a real job"
+	if(lock_flags & JOB_LOCK_REASON_CONFIG)
 		return "Disabled by server configuration"
-	else if(lock_flags & JOB_LOCK_REASON_MAP)
+	if(lock_flags & JOB_LOCK_REASON_MAP)
 		return "Not available on this map"
-	else if(lock_flags) // somehow flag exists
-		return "Unknown: [lock_flags]"
+	if(!(job_flags & JOB_NEW_PLAYER_JOINABLE))
+		return "Unavailable"
 
 /datum/job/proc/radio_help_message(mob/M)
 	to_chat(M, "<b>Prefix your message with :h to speak on your department's radio. To see other prefixes, look closely at your headset.</b>")
@@ -655,13 +663,11 @@
 		card.update_label()
 		card.update_icon()
 
-		for(var/datum/bank_account/account in SSeconomy.bank_accounts)
-			if(!user.mind)
-				continue
-			if(account.account_id == user.mind.account_id)
+		if(user.mind)
+			var/datum/bank_account/account = SSeconomy.bank_accounts_by_id["[user.mind.account_id]"]
+			if(account)
 				card.registered_account = account
 				account.bank_cards += card
-				break
 		user.sec_hud_set_ID()
 
 	var/obj/item/modular_computer/tablet/pda/PDA = user.get_item_by_slot(pda_slot)
@@ -694,6 +700,7 @@
 
 /// Applies the preference options to the spawning mob, taking the job into account. Assumes the client has the proper mind.
 /mob/living/proc/apply_prefs_job(client/player_client, datum/job/job)
+
 
 /mob/living/carbon/human/apply_prefs_job(client/player_client, datum/job/job)
 	var/fully_randomize = is_banned_from(player_client.ckey, "Appearance")

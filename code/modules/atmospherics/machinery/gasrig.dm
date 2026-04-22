@@ -52,7 +52,7 @@
 
 	init_processing = TRUE
 
-	var/datum/looping_sound/gasrig/soundloop
+	var/datum/looping_sound/gas_rig/soundloop
 
 	var/obj/machinery/atmospherics/components/unary/gasrig/shielding_input/shielding_input
 

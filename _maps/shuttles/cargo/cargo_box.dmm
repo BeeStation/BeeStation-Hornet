@@ -19,9 +19,9 @@
 /area/shuttle/supply)
 "g" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Supply Shuttle Airlock";
-	req_access_txt = "31"
+	name = "Supply Shuttle Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/supply)
@@ -43,9 +43,9 @@
 /area/shuttle/supply)
 "i" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Supply Shuttle Airlock";
-	req_access_txt = "31"
+	name = "Supply Shuttle Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/docking_port/mobile/supply,
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,

@@ -167,9 +167,9 @@
 "J" = (
 /obj/machinery/door/airlock/maintenance{
 	id_tag = "ScooterBack";
-	name = "Scooter Rental Maintenance";
-	req_access_txt = "12"
+	name = "Scooter Rental Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/template_noop,

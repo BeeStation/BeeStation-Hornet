@@ -2,14 +2,186 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
+"ab" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/misc/space/nearstation)
+"ac" = (
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"ad" = (
+/obj/structure/lattice,
+/obj/structure/grille/broken,
+/turf/template_noop,
+/area/misc/space/nearstation)
+"ae" = (
+/obj/structure/lattice,
+/obj/structure/grille,
+/turf/template_noop,
+/area/misc/space/nearstation)
+"af" = (
+/obj/structure/grille,
+/turf/open/floor/plating/airless,
+/area/misc/space/nearstation)
+"ag" = (
+/turf/closed/wall/r_wall,
+/area/station/tcommsat/oldaisat)
+"ah" = (
+/obj/structure/girder,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
 "ai" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/template_noop,
 /area/template_noop)
+"aj" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"ak" = (
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Worn-out APC";
+	pixel_x = 1;
+	pixel_y = 23
+	},
+/obj/structure/cable,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"al" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/cable,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"am" = (
+/obj/item/stock_parts/cell,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"an" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"ao" = (
+/obj/item/coin/bananium,
+/turf/open/floor/engine,
+/area/station/tcommsat/oldaisat)
+"ap" = (
+/obj/structure/bed,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"aq" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"ar" = (
+/turf/open/floor/iron/airless{
+	broken = 1
+	},
+/area/station/tcommsat/oldaisat)
+"at" = (
+/obj/structure/lattice,
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/template_noop,
+/area/misc/space/nearstation)
+"au" = (
+/obj/structure/cable,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"av" = (
+/obj/item/wrench,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"aw" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"ax" = (
+/obj/structure/lattice,
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/template_noop,
+/area/misc/space/nearstation)
+"ay" = (
+/obj/effect/spawner/random/structure/crate_abandoned,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"az" = (
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"aA" = (
+/obj/structure/table,
+/obj/item/paper,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"aB" = (
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen/blue,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"aC" = (
+/obj/structure/frame/computer,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"aD" = (
+/obj/structure/table,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"aE" = (
+/obj/item/food/meat/slab/synthmeat{
+	name = "Cuban Pete-Meat"
+	},
+/turf/open/floor/engine,
+/area/station/tcommsat/oldaisat)
+"aF" = (
+/obj/structure/grille,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"aG" = (
+/obj/structure/grille/broken,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"aH" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"aI" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"aJ" = (
+/obj/item/stack/cable_coil/cut{
+	amount = 1
+	},
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"aK" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/closet,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
 "aL" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/template_noop,
 /area/template_noop)
+"aM" = (
+/obj/item/folder/yellow,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"aN" = (
+/obj/structure/bed,
+/obj/effect/decal/remains/human,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
 "aO" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/north,
@@ -23,6 +195,11 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
+"aQ" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
 "aR" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/west,
@@ -37,49 +214,416 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/template_noop,
 /area/template_noop)
+"aU" = (
+/obj/structure/sign/warning/secure_area,
+/turf/closed/wall/r_wall,
+/area/station/tcommsat/oldaisat)
+"aV" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"aW" = (
+/obj/item/paper/crumpled,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"aX" = (
+/obj/item/food/meat/slab/synthmeat{
+	name = "Cuban Pete-Meat"
+	},
+/obj/item/stack/spacecash,
+/turf/open/floor/engine,
+/area/station/tcommsat/oldaisat)
+"aY" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"aZ" = (
+/obj/structure/table,
+/obj/item/storage/fancy/cigarettes,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"ba" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"bf" = (
+/obj/structure/door_assembly/door_assembly_hatch,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"bg" = (
+/obj/item/cigbutt,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"bh" = (
+/obj/machinery/vending/snack,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"bi" = (
+/obj/machinery/vending/cola,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"bj" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"bk" = (
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"bl" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/closed/wall/r_wall,
+/area/station/tcommsat/oldaisat)
+"bm" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/grille/broken,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"bn" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"bo" = (
+/obj/structure/disposaloutlet{
+	dir = 4
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
 "bq" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/template_noop,
 /area/template_noop)
+"br" = (
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/misc/space/nearstation)
 "bs" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/template_noop,
 /area/template_noop)
-"bR" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+"bt" = (
+/obj/structure/table,
+/obj/item/radio/off,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"bu" = (
+/obj/structure/chair,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"by" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/turf/open/floor/iron/dark/airless,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/misc/space/nearstation)
+"bA" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/end{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"bB" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/directional{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"bC" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/middle,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"bD" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/end{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"bF" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/misc/space/nearstation)
+"bH" = (
+/obj/item/stack/rods,
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"bK" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/directional{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/station/tcommsat/oldaisat)
+"bL" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/middle,
+/turf/open/floor/plating,
+/area/station/tcommsat/oldaisat)
+"bM" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/end{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/station/tcommsat/oldaisat)
+"bP" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/middle{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/station/tcommsat/oldaisat)
+"bQ" = (
+/obj/structure/rack,
+/obj/item/circuitboard/computer/teleporter,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"bS" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/middle{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/floor/plating,
+/area/station/tcommsat/oldaisat)
+"bT" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"bV" = (
+/obj/structure/table,
+/obj/item/flashlight/lamp,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"bY" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"bZ" = (
+/obj/item/cigbutt,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"cc" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/end{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/station/tcommsat/oldaisat)
+"cd" = (
+/obj/item/storage/toolbox/syndicate,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"ce" = (
+/obj/structure/table,
+/obj/item/electropack,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"ch" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/directional{
+	dir = 10
+	},
+/turf/open/floor/plating,
 /area/station/tcommsat/oldaisat)
 "cj" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/template_noop,
 /area/template_noop)
+"ck" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/misc/space/nearstation)
+"cl" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"cm" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"cn" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"co" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
 "cp" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/template_noop,
 /area/template_noop)
+"cr" = (
+/obj/item/paper/crumpled,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"cs" = (
+/obj/item/stack/rods,
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"ct" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"cv" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"cw" = (
+/obj/machinery/light/small,
+/obj/item/paper,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
+"cx" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/iron/airless,
+/area/station/tcommsat/oldaisat)
 "cy" = (
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /turf/template_noop,
 /area/template_noop)
+"cz" = (
+/obj/structure/lattice,
+/obj/item/stack/rods,
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/turf/template_noop,
+/area/misc/space/nearstation)
+"cB" = (
+/obj/effect/spawner/structure/window/hollow/reinforced,
+/turf/open/floor/plating,
+/area/station/tcommsat/oldaisat)
 "cC" = (
 /obj/structure/grille/broken,
 /turf/template_noop,
 /area/template_noop)
-"du" = (
-/obj/item/wrench,
+"cD" = (
+/obj/machinery/door/airlock/hatch,
+/turf/open/floor/iron,
+/area/station/tcommsat/oldaisat)
+"cE" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/iron,
+/area/station/tcommsat/oldaisat)
+"cF" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/station/tcommsat/oldaisat)
+"cG" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/iron,
+/area/station/tcommsat/oldaisat)
+"cH" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/station/tcommsat/oldaisat)
+"cI" = (
+/turf/open/floor/iron,
+/area/station/tcommsat/oldaisat)
+"cJ" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/station/tcommsat/oldaisat)
+"cK" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/station/tcommsat/oldaisat)
+"cL" = (
+/obj/structure/sign/warning/vacuum,
+/turf/closed/wall/r_wall,
+/area/station/tcommsat/oldaisat)
+"cM" = (
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/iron,
+/area/station/tcommsat/oldaisat)
+"cN" = (
+/obj/item/paper/crumpled,
+/turf/open/floor/iron,
+/area/station/tcommsat/oldaisat)
+"cO" = (
+/obj/structure/closet/malf/suits,
+/turf/open/floor/iron,
+/area/station/tcommsat/oldaisat)
+"cP" = (
+/obj/structure/door_assembly/door_assembly_ext,
 /turf/open/floor/plating/airless,
 /area/station/tcommsat/oldaisat)
-"dv" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/turf/open/floor/iron/dark/airless,
+"cQ" = (
+/obj/machinery/door/airlock/external,
+/turf/open/floor/plating,
 /area/station/tcommsat/oldaisat)
-"dx" = (
+"cR" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/station/tcommsat/oldaisat)
+"cS" = (
+/obj/item/crowbar,
+/turf/open/floor/plating/airless,
+/area/station/tcommsat/oldaisat)
+"cT" = (
 /obj/structure/closet/crate,
 /obj/item/clothing/glasses/night,
 /obj/effect/turf_decal/stripes/line{
@@ -87,105 +631,13 @@
 	},
 /turf/open/floor/iron,
 /area/station/tcommsat/oldaisat)
-"ef" = (
-/obj/structure/frame/computer,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"fm" = (
-/obj/structure/table,
-/obj/item/electropack,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"fM" = (
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"fP" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/grille/broken,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"ga" = (
-/obj/item/paper/crumpled,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"gg" = (
-/obj/structure/frame/computer,
-/turf/open/floor/plating,
-/area/station/tcommsat/oldaisat)
-"gz" = (
-/obj/effect/spawner/structure/window/hollow/reinforced/middle,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"gB" = (
-/obj/machinery/light/small/directional/north,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"gC" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/machinery/portable_atmospherics/canister/air,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"gE" = (
+"cU" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/turf/open/floor/iron/airless,
+/turf/open/floor/iron,
 /area/station/tcommsat/oldaisat)
-"gZ" = (
-/obj/structure/lattice,
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/template_noop,
-/area/misc/space/nearstation)
-"he" = (
-/obj/structure/sign/warning/vacuum,
-/turf/closed/wall/r_wall,
-/area/station/tcommsat/oldaisat)
-"hf" = (
-/obj/effect/spawner/structure/window/hollow/reinforced/end{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"hr" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/lattice,
-/turf/template_noop,
-/area/misc/space/nearstation)
-"if" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen/blue,
-/obj/machinery/light/small/directional/north,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"iq" = (
-/obj/item/food/meat/slab/synthmeat{
-	name = "Cuban Pete-Meat"
-	},
-/obj/item/stack/spacecash,
-/turf/open/floor/engine,
-/area/station/tcommsat/oldaisat)
-"iG" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"kc" = (
-/obj/machinery/door/airlock/hatch,
-/turf/open/floor/iron/dark/airless,
-/area/station/tcommsat/oldaisat)
-"kG" = (
-/obj/effect/spawner/structure/window/hollow/reinforced,
-/turf/open/floor/plating,
-/area/station/tcommsat/oldaisat)
-"kH" = (
+"cV" = (
 /obj/item/storage/toolbox/electrical{
 	pixel_x = 1;
 	pixel_y = -1
@@ -195,144 +647,58 @@
 	},
 /turf/open/floor/iron,
 /area/station/tcommsat/oldaisat)
-"kS" = (
-/obj/effect/spawner/structure/window/hollow/reinforced/end{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"lL" = (
-/obj/item/stock_parts/cell,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"md" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
+"cW" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
 /turf/open/floor/iron,
 /area/station/tcommsat/oldaisat)
-"mg" = (
-/obj/structure/table,
-/obj/item/storage/fancy/cigarettes,
-/turf/open/floor/iron/airless,
+"cX" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/iron,
 /area/station/tcommsat/oldaisat)
-"mn" = (
-/obj/item/stack/rods,
+"cY" = (
+/obj/structure/frame/computer,
+/turf/open/floor/plating,
+/area/station/tcommsat/oldaisat)
+"cZ" = (
+/obj/machinery/teleport/station,
+/turf/open/floor/plating,
+/area/station/tcommsat/oldaisat)
+"da" = (
+/obj/machinery/teleport/hub,
+/turf/open/floor/plating,
+/area/station/tcommsat/oldaisat)
+"dZ" = (
+/turf/open/floor/iron/dark/airless,
+/area/station/tcommsat/oldaisat)
+"fz" = (
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
-"mO" = (
-/turf/open/floor/iron/airless{
-	broken = 1
-	},
-/area/station/tcommsat/oldaisat)
-"na" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"nf" = (
-/obj/structure/closet/emcloset,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/iron,
-/area/station/tcommsat/oldaisat)
-"nq" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/station/tcommsat/oldaisat)
-"pg" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/turf/template_noop,
-/area/misc/space/nearstation)
-"pm" = (
-/obj/structure/disposaloutlet{
-	dir = 4
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"po" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/misc/space/nearstation)
-"pz" = (
-/obj/structure/girder,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"pK" = (
-/obj/machinery/light/small/directional/west,
-/turf/open/floor/iron,
-/area/station/tcommsat/oldaisat)
-"rf" = (
-/obj/structure/door_assembly/door_assembly_hatch,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"rj" = (
-/turf/open/floor/iron,
-/area/station/tcommsat/oldaisat)
-"rw" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"rE" = (
-/obj/item/storage/toolbox/syndicate,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"rN" = (
-/obj/structure/sign/warning/secure_area,
-/turf/closed/wall/r_wall,
-/area/station/tcommsat/oldaisat)
-"rX" = (
-/obj/machinery/vending/cola,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"sj" = (
-/obj/machinery/door/airlock/hatch,
-/turf/open/floor/iron,
-/area/station/tcommsat/oldaisat)
-"sy" = (
-/obj/item/food/meat/slab/synthmeat{
-	name = "Cuban Pete-Meat"
-	},
-/turf/open/floor/engine,
-/area/station/tcommsat/oldaisat)
-"sE" = (
+"kx" = (
 /obj/structure/table,
-/obj/item/radio/off,
-/turf/open/floor/iron/airless,
+/obj/item/circular_saw,
+/turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
-"sY" = (
-/obj/machinery/light/small/directional/north,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/open/floor/plating/airless,
+"mU" = (
+/obj/effect/decal/cleanable/blood,
+/obj/item/assembly/signaler,
+/turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
-"tf" = (
-/obj/machinery/light/small/directional/east,
-/turf/open/floor/iron/airless,
+"nQ" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
-"tu" = (
-/obj/item/paper/crumpled,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"tF" = (
-/obj/structure/closet/malf/suits,
-/turf/open/floor/iron,
-/area/station/tcommsat/oldaisat)
-"tH" = (
+"oi" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/chair,
 /obj/item/clothing/under/rank/centcom/official,
@@ -340,384 +706,79 @@
 /obj/effect/decal/remains/human,
 /turf/open/floor/plating/airless,
 /area/station/tcommsat/oldaisat)
-"tI" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"tN" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/station/tcommsat/oldaisat)
-"vg" = (
-/obj/effect/spawner/structure/window/hollow/reinforced/directional{
-	dir = 9
-	},
-/turf/open/floor/plating,
-/area/station/tcommsat/oldaisat)
-"vu" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"wj" = (
+"oX" = (
+/obj/structure/door_assembly/door_assembly_mhatch,
 /turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
-"wr" = (
-/obj/effect/spawner/structure/window/hollow/reinforced/middle{
-	dir = 4
-	},
-/turf/open/floor/plating,
+"rK" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/item/stack/rods,
+/turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
-"wV" = (
+"uh" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/item/stack/rods,
+/turf/open/floor/iron/dark/airless,
+/area/station/tcommsat/oldaisat)
+"wm" = (
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/iron/dark/airless,
-/area/station/tcommsat/oldaisat)
-"xi" = (
-/obj/structure/lattice,
-/obj/structure/window/reinforced/spawner/directional/east,
-/turf/template_noop,
-/area/misc/space/nearstation)
-"xx" = (
-/obj/effect/decal/cleanable/blood,
-/obj/item/assembly/signaler,
-/turf/open/floor/iron/dark/airless,
-/area/station/tcommsat/oldaisat)
-"xQ" = (
-/obj/machinery/door/airlock/maintenance_hatch,
-/turf/open/floor/iron/dark/airless,
-/area/station/tcommsat/oldaisat)
-"yh" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/iron/dark/airless,
-/area/station/tcommsat/oldaisat)
-"yt" = (
-/turf/closed/wall/r_wall,
-/area/station/tcommsat/oldaisat)
-"yw" = (
-/obj/structure/lattice,
-/obj/structure/grille/broken,
-/turf/template_noop,
-/area/misc/space/nearstation)
-"yQ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/open/floor/iron,
-/area/station/tcommsat/oldaisat)
-"yU" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/iron/dark/airless,
-/area/station/tcommsat/oldaisat)
-"zO" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/station/tcommsat/oldaisat)
-"zQ" = (
-/obj/machinery/portable_atmospherics/canister/air,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"Ai" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/turf/open/floor/iron/dark/airless,
-/area/station/tcommsat/oldaisat)
-"Aj" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/lattice,
-/turf/template_noop,
-/area/misc/space/nearstation)
-"Ap" = (
-/obj/effect/spawner/structure/window/hollow/reinforced/end{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/station/tcommsat/oldaisat)
-"Au" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
-"AG" = (
-/obj/machinery/vending/snack,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"Bg" = (
-/obj/item/cigbutt,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"Cb" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"Ct" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"Cx" = (
+"Ar" = (
 /obj/structure/table,
 /obj/item/hemostat,
 /turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
-"CE" = (
+"Bo" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/iron/dark/airless,
+/area/station/tcommsat/oldaisat)
+"FE" = (
+/obj/machinery/door/airlock/hatch,
+/turf/open/floor/iron/dark/airless,
+/area/station/tcommsat/oldaisat)
+"HO" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/open/floor/iron/dark/airless,
+/area/station/tcommsat/oldaisat)
+"HU" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/iron/dark/airless,
+/area/station/tcommsat/oldaisat)
+"Jm" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
-"CR" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"CS" = (
-/obj/machinery/door/airlock/external,
-/turf/open/floor/plating,
-/area/station/tcommsat/oldaisat)
-"Dx" = (
-/obj/machinery/light/small/directional/east,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/iron,
-/area/station/tcommsat/oldaisat)
-"DQ" = (
-/obj/structure/grille,
-/turf/open/floor/plating/airless,
-/area/misc/space/nearstation)
-"Eq" = (
-/obj/item/radio/off,
+"LY" = (
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
-"EM" = (
+"SX" = (
 /obj/effect/decal/cleanable/blood,
 /obj/item/scalpel{
 	pixel_y = 12
 	},
 /turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
-"FO" = (
-/obj/machinery/teleport/hub,
-/turf/open/floor/plating,
-/area/station/tcommsat/oldaisat)
-"Gh" = (
-/obj/structure/bed,
-/obj/effect/decal/remains/human,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"Gn" = (
-/obj/structure/door_assembly/door_assembly_mhatch,
-/turf/open/floor/iron/dark/airless,
-/area/station/tcommsat/oldaisat)
-"Gw" = (
+"Tv" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
-"GC" = (
-/obj/structure/rack,
-/obj/item/circuitboard/computer/teleporter,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"Hb" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"Hn" = (
-/obj/effect/spawner/structure/window/hollow/reinforced/middle,
-/turf/open/floor/plating,
-/area/station/tcommsat/oldaisat)
-"Hs" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/iron,
-/area/station/tcommsat/oldaisat)
-"HV" = (
+"TT" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/item/electronics/airlock,
 /turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
-"Ix" = (
-/obj/effect/spawner/random/structure/crate_abandoned,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"IN" = (
-/obj/effect/spawner/structure/window/hollow/reinforced/directional{
-	dir = 1
-	},
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"Jf" = (
-/obj/structure/table,
-/obj/item/circular_saw,
-/turf/open/floor/iron/dark/airless,
-/area/station/tcommsat/oldaisat)
-"Jq" = (
-/obj/item/coin/bananium,
-/turf/open/floor/engine,
-/area/station/tcommsat/oldaisat)
-"JL" = (
-/obj/structure/table,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"LS" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/closet,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"LT" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/station/tcommsat/oldaisat)
-"LZ" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Worn-out APC";
-	pixel_x = 1;
-	pixel_y = 23
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"NM" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"Oe" = (
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"Ow" = (
-/obj/machinery/light/small/directional/south,
-/obj/item/paper,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"Pn" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"PB" = (
-/obj/item/stack/cable_coil/cut/red{
-	amount = 1
-	},
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"PX" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
-/turf/open/floor/iron/dark/airless,
-/area/station/tcommsat/oldaisat)
-"Qc" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/closed/wall/r_wall,
-/area/station/tcommsat/oldaisat)
-"Qk" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"Qs" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/item/stack/rods,
-/turf/open/floor/iron/dark/airless,
-/area/station/tcommsat/oldaisat)
-"Qw" = (
-/obj/structure/lattice,
-/obj/item/stack/rods,
-/obj/item/shard{
-	icon_state = "medium"
-	},
-/turf/template_noop,
-/area/misc/space/nearstation)
-"Qy" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"QB" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/turf/open/floor/iron,
-/area/station/tcommsat/oldaisat)
-"QE" = (
-/obj/effect/spawner/structure/window/hollow/reinforced/middle{
-	dir = 4
-	},
-/obj/structure/window/reinforced/spawner/directional/south,
-/turf/open/floor/plating,
-/area/station/tcommsat/oldaisat)
-"QQ" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"Rk" = (
-/obj/structure/grille/broken,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"Rs" = (
-/obj/item/cigbutt,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"RD" = (
-/obj/item/crowbar,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"RI" = (
-/obj/structure/table,
-/obj/item/flashlight/lamp,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"RU" = (
-/obj/machinery/light/small/directional/west,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"SL" = (
-/obj/structure/bed,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"Tf" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
-/turf/open/floor/iron/dark/airless,
-/area/station/tcommsat/oldaisat)
-"TD" = (
-/obj/item/stack/rods,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"TH" = (
+"VE" = (
 /obj/structure/table,
 /obj/item/reagent_containers/syringe/lethal/choral,
 /obj/item/reagent_containers/syringe/lethal{
@@ -725,82 +786,29 @@
 	},
 /turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
-"TY" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/lattice,
-/turf/template_noop,
-/area/misc/space/nearstation)
-"UW" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/item/shard{
-	icon_state = "medium"
-	},
-/turf/open/floor/iron/dark/airless,
-/area/station/tcommsat/oldaisat)
-"UX" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/lattice,
-/turf/template_noop,
-/area/misc/space/nearstation)
-"Wa" = (
-/obj/structure/door_assembly/door_assembly_ext,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"Wh" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"WG" = (
-/obj/structure/chair,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"WI" = (
-/obj/item/paper/crumpled,
-/turf/open/floor/iron,
-/area/station/tcommsat/oldaisat)
-"WV" = (
-/obj/item/folder/yellow,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"Xc" = (
-/obj/effect/spawner/structure/window/hollow/reinforced/directional{
-	dir = 10
-	},
-/turf/open/floor/plating,
-/area/station/tcommsat/oldaisat)
-"Xe" = (
-/obj/machinery/teleport/station,
-/turf/open/floor/plating,
-/area/station/tcommsat/oldaisat)
-"Ym" = (
-/obj/structure/grille,
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"YG" = (
-/turf/open/floor/iron/airless,
-/area/station/tcommsat/oldaisat)
-"YS" = (
-/obj/effect/spawner/structure/window/hollow/reinforced/end{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/station/tcommsat/oldaisat)
-"YX" = (
-/obj/effect/decal/cleanable/oil,
-/turf/open/floor/plating/airless,
-/area/station/tcommsat/oldaisat)
-"Zh" = (
+"VS" = (
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/item/stack/rods,
 /turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
-"ZG" = (
-/obj/structure/table,
-/obj/item/paper,
-/turf/open/floor/iron/airless,
+"Xs" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/iron/dark/airless,
+/area/station/tcommsat/oldaisat)
+"XS" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/item/electronics/airlock,
+/turf/open/floor/iron/dark/airless,
+/area/station/tcommsat/oldaisat)
+"YJ" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/iron/dark/airless,
+/area/station/tcommsat/oldaisat)
+"YZ" = (
+/obj/item/radio/off,
+/turf/open/floor/iron/dark/airless,
 /area/station/tcommsat/oldaisat)
 
 (1,1,1) = {"
@@ -826,7 +834,7 @@ aa
 aa
 aa
 aa
-po
+ab
 aa
 aa
 aa
@@ -885,7 +893,7 @@ aa
 aa
 aa
 aa
-po
+ab
 aa
 aa
 aa
@@ -944,7 +952,7 @@ aa
 aa
 aa
 aa
-po
+ab
 aa
 aa
 aa
@@ -1002,15 +1010,15 @@ aa
 aa
 aa
 aa
-po
-po
+ab
+ab
 aa
 aa
 aa
 aa
 aa
 aa
-po
+ab
 aa
 aa
 aa
@@ -1061,15 +1069,15 @@ aa
 aa
 aa
 aa
-po
-po
+ab
+ab
 aa
 aa
 aa
 aa
 aa
 aa
-po
+ab
 aa
 aa
 aa
@@ -1120,15 +1128,15 @@ aa
 aa
 aa
 aa
-Oe
-po
-po
+ac
+ab
+ab
 aa
 aa
 aa
 aa
-po
-po
+ab
+ab
 aa
 aa
 aa
@@ -1179,17 +1187,17 @@ aa
 aa
 aa
 aa
-Oe
-po
-po
+ac
+ab
+ab
 aa
 aa
 aa
-po
-po
-po
+ab
+ab
+ab
 aa
-po
+ab
 aa
 aa
 aa
@@ -1238,17 +1246,17 @@ aa
 aa
 aa
 aa
-Oe
-po
-po
+ac
+ab
+ab
 aa
 aa
 aa
-po
-po
-po
+ab
+ab
+ab
 aa
-po
+ab
 aa
 aa
 aa
@@ -1295,19 +1303,19 @@ aa
 aa
 aa
 aa
-po
+ab
 aa
-Oe
-Oe
-po
+ac
+ac
+ab
 aa
 aa
 aa
-po
-Oe
-po
+ab
+ac
+ab
 aa
-po
+ab
 aa
 aa
 aa
@@ -1354,19 +1362,19 @@ aa
 aa
 aa
 aa
-po
+ab
 aa
-Oe
-Oe
-Oe
+ac
+ac
+ac
 aa
 aa
 aa
-Oe
-Oe
-po
+ac
+ac
+ab
 aa
-po
+ab
 aa
 aa
 aa
@@ -1413,19 +1421,19 @@ aa
 aa
 aa
 aa
-yw
+ad
 aa
-po
-Oe
-Oe
+ab
+ac
+ac
 aa
 aa
 aa
-Oe
-Oe
-po
+ac
+ac
+ab
 aa
-po
+ab
 aa
 aa
 aa
@@ -1472,19 +1480,19 @@ aa
 aa
 aa
 aa
-pg
+ae
 aa
-po
-Oe
-Oe
-Oe
-Oe
-Oe
-Oe
-Oe
-po
+ab
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ab
 aa
-yw
+ad
 aa
 aa
 aa
@@ -1531,19 +1539,19 @@ aa
 aa
 aa
 aa
-pg
-po
+ae
+ab
 aa
 aa
 aa
 aa
-Oe
+ac
 aa
 aa
 aa
 aa
-pg
-pg
+ae
+ae
 aa
 aa
 aa
@@ -1584,27 +1592,27 @@ aa
 aa
 aa
 aa
-yw
-pg
-pg
-pg
-yw
-pg
-pg
-pg
-pg
-pg
-pg
-pg
-DQ
-pg
-pg
-pg
-pg
-pg
-pg
-yw
-po
+ad
+ae
+ae
+ae
+ad
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+af
+ae
+ae
+ae
+ae
+ae
+ae
+ad
+ab
 aa
 aa
 aa
@@ -1642,30 +1650,30 @@ aa
 aa
 aa
 aa
-pg
-pg
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-pz
-Oe
-Oe
-po
-po
+ae
+ae
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ah
+ac
+ac
+ab
+ab
 aa
 aa
 aa
@@ -1700,34 +1708,34 @@ aa
 aa
 aa
 aa
-pg
-pg
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-pz
-po
-po
+ae
+ae
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ah
+ab
+ab
 aa
 aa
 aa
-po
+ab
 aa
 aa
 aa
@@ -1759,35 +1767,35 @@ aa
 aa
 aa
 aa
-yw
-yt
-yt
-yt
-po
+ad
+ag
+ag
+ag
+ab
 aa
 aa
 aa
 aa
-po
+ab
 aa
 aa
 aa
 aa
-po
+ab
 aa
 aa
 aa
 aa
-po
+ab
 aa
 aa
 aa
 aa
 aa
 aa
-po
-Oe
-yw
+ab
+ac
+ad
 aa
 aa
 aa
@@ -1818,35 +1826,35 @@ aa
 aa
 aa
 aa
-yw
-pz
-yt
-po
-po
-po
-po
-po
-po
-po
-po
-po
-po
-po
-po
-po
-po
-po
-po
-po
+ad
+ah
+ag
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
 aa
 aa
 aa
-Oe
-pz
-pg
+ac
+ah
+ae
 aa
 aa
 aa
@@ -1878,34 +1886,34 @@ aa
 aa
 aa
 aa
-pz
-yt
+ah
+ag
 aa
-po
-aa
-aa
-aa
-aa
-po
+ab
 aa
 aa
 aa
 aa
-po
+ab
 aa
 aa
 aa
 aa
-po
+ab
+aa
+aa
+aa
+aa
+ab
 aa
 aa
 aa
 aa
 aa
 aa
-pz
-yt
-yw
+ah
+ag
+ad
 aa
 aa
 aa
@@ -1937,34 +1945,34 @@ aa
 aa
 aa
 aa
-Oe
-yt
+ac
+ag
 ai
-xi
-ai
-aa
-ai
-ai
-TY
-ai
+at
 ai
 aa
 ai
-TY
+ai
+by
+ai
+ai
+aa
+ai
+by
 ai
 aa
 ai
 aa
-TY
+by
 ai
 ai
 aa
 aa
-po
+ab
 aa
-yt
-yt
-pg
+ag
+ag
+ae
 aa
 aa
 aa
@@ -1994,42 +2002,42 @@ aa
 aa
 aa
 aa
-po
-po
-pz
-yt
-rw
-rw
-na
+ab
+ab
+ah
+ag
+aj
+aj
+aH
 aO
-wV
-PX
-CE
-Qs
-yU
-PX
-yh
-PX
-PX
-yh
-PX
-Zh
-UW
-yh
-Gw
+LY
+HU
+Jm
+rK
+VS
+HU
+YJ
+HU
+HU
+YJ
+HU
+uh
+fz
+YJ
+Xs
 bs
 aa
-po
+ab
 aa
-yt
-yt
-pg
-yw
-Oe
-Oe
-RD
-po
-po
+ag
+ag
+ae
+ad
+ac
+ac
+cS
+ab
+ab
 aa
 aa
 aa
@@ -2054,41 +2062,41 @@ aa
 aa
 aa
 aa
-yw
-yt
-yt
-LZ
-Oe
-Pn
+ad
+ag
+ag
+ak
+ac
+aI
 aP
-Au
+TT
 bq
-gZ
-hr
-hr
-hr
+ax
+bF
+bF
+bF
 aL
-gZ
+ax
 aL
 aa
 aL
 aL
-gZ
+ax
 cj
-dv
+nQ
 bs
 aa
-po
+ab
 aa
-yt
-yt
-pg
-Oe
-Oe
-Oe
-Oe
-Oe
-yw
+ag
+ag
+ae
+ac
+ac
+ac
+ac
+ac
+ad
 aa
 aa
 aa
@@ -2113,41 +2121,41 @@ aa
 aa
 aa
 aa
-pg
-yt
-yt
-sY
-CR
-PB
-QQ
-dv
-Aj
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-UX
-Au
-Aj
-po
-po
+ae
+ag
+ag
+al
+au
+aJ
+aQ
+nQ
+br
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ck
+TT
+br
+ab
+ab
 aa
-yt
-yt
-pg
-Oe
-Oe
-Oe
-Oe
-Oe
-yw
+ag
+ag
+ae
+ac
+ac
+ac
+ac
+ac
+ad
 aa
 aa
 aa
@@ -2167,53 +2175,53 @@ aa
 aa
 aa
 aa
-po
-po
-yw
-pg
-pg
-pg
-yt
-yt
-lL
-du
-Pn
+ab
+ab
+ad
+ae
+ae
+ae
+ag
+ag
+am
+av
+aI
 aR
-Au
+TT
 bs
-yt
-Oe
-Oe
-Oe
-Oe
-Oe
-Oe
-Oe
-Oe
-Oe
-yt
+ag
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ag
 aT
-Au
+TT
 bs
 aa
-Qw
-yt
-yt
-yt
-pg
-pg
-yt
-Wa
-yt
-pg
-pg
-yw
-pg
-pg
-pg
-po
-po
-po
+cz
+ag
+ag
+ag
+ae
+ae
+ag
+cP
+ag
+ae
+ae
+ad
+ae
+ae
+ae
+ab
+ab
+ab
 aa
 aa
 aa
@@ -2229,45 +2237,45 @@ aa
 aa
 aa
 aa
-po
+ab
 aa
-pg
-yt
-yt
-zQ
-gC
-LS
+ae
+ag
+ag
+an
+aw
+aK
 aS
-dv
+nQ
 bs
-yt
-Oe
-Oe
-wj
-wj
-wj
-wj
-wj
-wj
-Oe
-yt
+ag
+ac
+ac
+dZ
+dZ
+dZ
+dZ
+dZ
+dZ
+ac
+ag
 aa
-Au
+TT
 bs
-yt
-gz
-yt
-yt
-yt
-pg
-pg
-yt
-Oe
-yt
-pg
-pg
-pg
-pg
+ag
+bC
+ag
+ag
+ag
+ae
+ae
+ag
+ac
+ag
+ae
+ae
+ae
+ae
 aa
 aa
 aa
@@ -2284,51 +2292,51 @@ aa
 aa
 aa
 aa
-po
-po
-po
+ab
+ab
+ab
 aa
-po
+ab
 aa
-pg
-yt
-yt
-yt
-gZ
+ae
+ag
+ag
+ag
+ax
 aL
 aT
-HV
+XS
 bs
-yt
-Oe
-wj
-wj
-wj
-wj
-wj
-wj
-Oe
-Oe
-yt
-yt
-kc
-yt
-yt
-mO
-YG
-yt
-yt
-pg
-yt
-he
-CS
-he
-yt
-pg
-pg
+ag
+ac
+dZ
+dZ
+dZ
+dZ
+dZ
+dZ
+ac
+ac
+ag
+ag
+FE
+ag
+ag
+ar
+az
+ag
+ag
+ae
+ag
+cL
+cQ
+cL
+ag
+ae
+ae
 aa
 aa
-po
+ab
 aa
 aa
 aa
@@ -2341,58 +2349,58 @@ aa
 aa
 aa
 aa
-po
-po
-Oe
-Oe
-Oe
-po
-Oe
-po
-pg
-yt
-yt
-yt
-yt
-yt
-rN
-rf
-yt
-yt
-Oe
-wj
-wj
-wj
-wj
-Oe
-wj
-wj
-Oe
-yt
-iG
-tu
-Wh
-yt
-YG
-YG
-yt
-yt
-yt
-yt
-nf
-tN
-dx
-yt
-yt
-pg
-pg
-po
-Oe
-po
-po
-Oe
-Oe
-po
+ab
+ab
+ac
+ac
+ac
+ab
+ac
+ab
+ae
+ag
+ag
+ag
+ag
+ag
+aU
+bf
+ag
+ag
+ac
+dZ
+dZ
+dZ
+dZ
+ac
+dZ
+dZ
+ac
+ag
+cl
+cr
+cv
+ag
+az
+az
+ag
+ag
+ag
+ag
+cM
+cR
+cT
+ag
+ag
+ae
+ae
+ab
+ac
+ab
+ab
+ac
+ac
+ab
 aa
 aa
 "}
@@ -2401,52 +2409,52 @@ aa
 aa
 aa
 aa
-po
-po
+ab
+ab
 aa
 aa
 aa
-Oe
+ac
 aa
-pg
-yt
-yt
-yt
-Ix
-YG
-RU
-YG
-YG
-hf
-Oe
-Oe
-wj
-wj
-Oe
-wj
-wj
-wj
-Oe
-yt
-gE
-YG
-Ow
-yt
-yt
-YG
-yt
-yt
-yt
-pK
-rj
-rj
-md
-kH
-yt
-yt
-pg
+ae
+ag
+ag
+ag
+ay
+az
+aV
+az
+az
+bA
+ac
+ac
+dZ
+dZ
+ac
+dZ
+dZ
+dZ
+ac
+ag
+cm
+az
+cw
+ag
+ag
+az
+ag
+ag
+ag
+cK
+cI
+cI
+cJ
+cV
+ag
+ag
+ae
 aa
-po
+ab
 aa
 aa
 aa
@@ -2465,47 +2473,47 @@ aa
 aa
 aa
 aa
-Oe
+ac
 aa
-pg
-yt
-yt
-yt
-YG
-WV
-YG
-YG
-sE
-IN
-mn
-wj
-wj
-wj
-YX
-wj
-wj
-wj
-Oe
-yt
-mO
-YG
-mO
-yt
-YG
-YG
-yt
-Hs
-nq
-rj
-rj
-rj
-rj
-QB
-gg
-yt
-pg
+ae
+ag
+ag
+ag
+az
+aM
+az
+az
+bt
+bB
+bH
+dZ
+dZ
+dZ
+bT
+dZ
+dZ
+dZ
+ac
+ag
+ar
+az
+ar
+ag
+az
+az
+ag
+cE
+cU
+cI
+cI
+cI
+cI
+cW
+cY
+ag
+ae
 aa
-Oe
+ac
 aa
 aa
 aa
@@ -2524,47 +2532,47 @@ aa
 aa
 aa
 aa
-Oe
-Oe
-DQ
-yt
-yt
-yt
-ZG
-YG
-ga
-Rs
-WG
-gz
-Oe
-wj
-Oe
-Oe
-tH
-Bg
-fm
-wj
-Oe
-yt
-Qk
-YG
-mO
-mO
-mO
-YG
-sj
-LT
-rj
-rj
-rj
-rj
-rj
-QB
-Xe
-yt
-DQ
-Oe
-Oe
+ac
+ac
+af
+ag
+ag
+ag
+aA
+az
+aW
+bg
+bu
+bC
+ac
+dZ
+ac
+ac
+oi
+bZ
+ce
+dZ
+ac
+ag
+cn
+az
+ar
+ar
+ar
+az
+cD
+cF
+cI
+cI
+cI
+cI
+cI
+cW
+cZ
+ag
+af
+ac
+ac
 aa
 aa
 aa
@@ -2583,47 +2591,47 @@ aa
 aa
 aa
 aa
-Oe
+ac
 aa
-pg
-yt
-yt
-yt
-if
-YG
-YG
-YG
-YG
-gz
-Oe
-wj
-wj
-wj
-Oe
-xx
-Cx
-wj
-Oe
-yt
-gE
-YG
-YG
-pz
-YG
-YG
-yt
-yQ
-zO
-rj
-rj
-rj
-rj
-QB
-FO
-yt
-pg
+ae
+ag
+ag
+ag
+aB
+az
+az
+az
+az
+bC
+ac
+dZ
+dZ
+dZ
+ac
+mU
+Ar
+dZ
+ac
+ag
+cm
+az
+az
+ah
+az
+az
+ag
+cG
+cH
+cI
+cI
+cI
+cI
+cW
+da
+ag
+ae
 aa
-Oe
+ac
 aa
 aa
 aa
@@ -2636,55 +2644,55 @@ aa
 aa
 aa
 aa
-po
-po
-Oe
-Oe
-po
-po
-Oe
+ab
+ab
+ac
+ac
+ab
+ab
+ac
 aa
-yw
-yt
-yt
-yt
-ef
-YG
-YG
-YG
-YG
-kS
-Oe
-wj
-EM
-Eq
-RI
-TH
-Jf
-wj
-Oe
-yt
-mO
-TD
-mO
-yt
-yt
-gB
-yt
-yt
-yt
-rj
-WI
-rj
-rj
-Dx
-yt
-yt
-pg
+ad
+ag
+ag
+ag
+aC
+az
+az
+az
+az
+bD
+ac
+dZ
+SX
+YZ
+bV
+VE
+kx
+dZ
+ac
+ag
+ar
+cs
+ar
+ag
+ag
+aq
+ag
+ag
+ag
+cI
+cN
+cI
+cI
+cX
+ag
+ag
+ae
 aa
-po
-po
-po
+ab
+ab
+ab
 aa
 aa
 aa
@@ -2695,57 +2703,57 @@ aa
 aa
 aa
 aa
-po
-po
-po
-Oe
-Oe
-po
-Oe
-po
-pg
-yt
-yt
-yt
-JL
-ef
-ef
-yt
-xQ
-yt
-Oe
-wj
-wj
-wj
-wj
-wj
-wj
-wj
-Oe
-yt
-Hb
-Cb
-vu
-yt
-YG
-YG
-yt
-yt
-yt
-yt
-tF
-rj
-tF
-yt
-yt
-pg
-pg
-po
-po
-po
-po
-po
-po
+ab
+ab
+ab
+ac
+ac
+ab
+ac
+ab
+ae
+ag
+ag
+ag
+aD
+aC
+aC
+ag
+HO
+ag
+ac
+dZ
+dZ
+dZ
+dZ
+dZ
+dZ
+dZ
+ac
+ag
+co
+ct
+cx
+ag
+az
+az
+ag
+ag
+ag
+ag
+cO
+cI
+cO
+ag
+ag
+ae
+ae
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -2757,51 +2765,51 @@ aa
 aa
 aa
 aa
-po
-po
-po
-po
+ab
+ab
+ab
+ab
 aa
-pg
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-wj
-xQ
-wj
-wj
-wj
-wj
-wj
-wj
-wj
-wj
-Oe
-yt
-yt
-kc
-yt
-yt
-ef
-YG
-yt
-yt
-pg
-yt
-yt
-yt
-yt
-yt
-pg
-pg
+ae
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+dZ
+HO
+dZ
+dZ
+dZ
+dZ
+dZ
+dZ
+dZ
+dZ
+ac
+ag
+ag
+FE
+ag
+ag
+aC
+az
+ag
+ag
+ae
+ag
+ag
+ag
+ag
+ag
+ae
+ae
 aa
 aa
-po
-po
+ab
+ab
 aa
 aa
 aa
@@ -2819,45 +2827,45 @@ aa
 aa
 aa
 aa
-po
+ab
 aa
-pg
-yt
-yt
-Jq
-sy
-sy
-iq
-yt
-yt
-yt
-wj
-Oe
-wj
-wj
-wj
-wj
-Oe
-wj
-Oe
-yt
+ae
+ag
+ag
+ao
+aE
+aE
+aX
+ag
+ag
+ag
+dZ
+ac
+dZ
+dZ
+dZ
+dZ
+ac
+dZ
+ac
+ag
 aT
-Au
+TT
 bs
-yt
-kG
-yt
-yt
-yt
-pg
-pg
-pg
-pg
-pg
-pg
-pg
-pg
-pg
+ag
+cB
+ag
+ag
+ag
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
 aa
 aa
 aa
@@ -2869,63 +2877,63 @@ aa
 aa
 "}
 (36,1,1) = {"
-po
-po
-po
-po
-po
-po
-po
-po
-yw
-pg
-pg
-pg
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-Oe
-Oe
-Oe
-Oe
-Oe
-Oe
-Oe
-Oe
-Oe
-yt
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ad
+ae
+ae
+ae
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ag
 aT
-dv
+nQ
 bs
 aa
-po
-yt
-yt
-Oe
-pg
-pg
-yw
-pg
-pg
-pg
-pg
-yw
-pg
-po
-pg
-po
-po
-po
-po
-po
-po
-po
+ab
+ag
+ag
+ac
+ae
+ae
+ad
+ae
+ae
+ae
+ae
+ad
+ae
+ab
+ae
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 "}
 (37,1,1) = {"
 aa
@@ -2939,35 +2947,35 @@ aa
 aa
 aa
 aa
-pg
-yt
-yt
-SL
-Ym
-Gh
-Ym
-AG
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
+ae
+ag
+ag
+ap
+aF
+aN
+aF
+bh
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
 aT
-Au
+TT
 bs
 aa
-po
+ab
 aa
-yt
-po
-yw
+ag
+ab
+ad
 aa
 aa
 aa
@@ -2998,34 +3006,34 @@ aa
 aa
 aa
 aa
-pg
-yt
-yt
-gB
-Rk
-Ym
-Ym
-rX
-yt
-TY
-TY
-TY
-TY
-TY
-TY
+ae
+ag
+ag
+aq
+aG
+aF
+aF
+bi
+ag
+by
+by
+by
+by
+by
+by
 ai
 aa
 ai
 ai
-TY
+by
 cp
-Au
+TT
 cy
 aa
-po
+ab
 aa
-pz
-po
+ah
+ab
 aa
 aa
 aa
@@ -3057,34 +3065,34 @@ aa
 aa
 aa
 aa
-yw
-yt
-pz
-mO
-YG
-YG
-YG
-YG
-kc
-yh
-yh
-Ai
-UW
-yh
-yU
-yh
-yh
-yh
-Ai
-yh
-yh
-bR
+ad
+ag
+ah
+ar
+az
+az
+az
+az
+FE
+YJ
+YJ
+Bo
+fz
+YJ
+VS
+YJ
+YJ
+YJ
+Bo
+YJ
+YJ
+Tv
 bs
 aa
-po
+ab
 aa
-Oe
-po
+ac
+ab
 aa
 aa
 aa
@@ -3116,33 +3124,33 @@ aa
 aa
 aa
 aa
-po
-pz
-Oe
-mO
-mO
-YG
-NM
-Rs
-yt
-hr
+ab
+ah
+ac
+ar
+ar
+az
+aY
+bg
+ag
+bF
 aa
 aL
 aL
 aT
-Tf
+wm
 bs
 aL
 aL
 aL
-gZ
+ax
 aL
 aL
 aa
 aa
 aa
 aa
-po
+ab
 aa
 aa
 aa
@@ -3176,35 +3184,35 @@ aa
 aa
 aa
 aa
-Oe
-po
-Oe
-mO
-mO
-mg
-Ct
-yt
-po
+ac
+ab
+ac
+ar
+ar
+aZ
+bj
+ag
+ab
 aa
-vg
-wr
-QE
-Gn
-YS
-wr
-Xc
+bK
+bP
+bS
+oX
+cc
+bP
+ch
 aa
-po
-aa
-aa
+ab
 aa
 aa
 aa
 aa
-po
 aa
 aa
-po
+ab
+aa
+aa
+ab
 aa
 aa
 aa
@@ -3235,37 +3243,37 @@ aa
 aa
 aa
 aa
-po
-po
-Oe
-mO
-mO
-tI
-fM
-yt
-po
-po
-Hn
-YG
-YG
-YG
-YG
-YG
-Hn
-po
-po
-po
-po
-po
-po
+ab
+ab
+ac
+ar
+ar
+ba
+bk
+ag
+ab
+ab
+bL
+az
+az
+az
+az
+az
+bL
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
 aa
 aa
-Oe
-po
-po
+ac
+ab
+ab
 aa
 aa
 aa
@@ -3294,37 +3302,37 @@ aa
 aa
 aa
 aa
-po
-po
-po
-Oe
-yt
-yt
-Qc
-yt
-po
+ab
+ab
+ab
+ac
+ag
+ag
+bl
+ag
+ab
 aa
-Ap
-YG
-YG
-YG
-rE
-YG
-Ap
+bM
+az
+az
+az
+cd
+az
+bM
 aa
-po
-aa
-aa
+ab
 aa
 aa
 aa
 aa
 aa
-po
 aa
-Oe
-po
-yw
+aa
+ab
+aa
+ac
+ab
+ad
 aa
 aa
 aa
@@ -3354,36 +3362,36 @@ aa
 aa
 aa
 aa
-po
-Oe
-pz
-yt
-yt
-Qc
-yt
-yt
-yt
-yt
-GC
-JL
-tf
-YG
-JL
-yt
-yt
-yt
-pz
-Oe
-po
+ab
+ac
+ah
+ag
+ag
+bl
+ag
+ag
+ag
+ag
+bQ
+aD
+bY
+az
+aD
+ag
+ag
+ag
+ah
+ac
+ab
 aa
 aa
 aa
 aa
-po
-po
-pz
-Oe
-pg
+ab
+ab
+ah
+ac
+ae
 aa
 aa
 aa
@@ -3412,37 +3420,37 @@ aa
 aa
 aa
 aa
-po
-po
-pz
-yt
-yt
-yt
-Qc
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-pz
-po
-po
+ab
+ab
+ah
+ag
+ag
+ag
+bl
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ah
+ab
+ab
 aa
 aa
 aa
 aa
 aa
-po
-yt
-yt
-yt
-pg
+ab
+ag
+ag
+ag
+ae
 aa
 aa
 aa
@@ -3473,35 +3481,35 @@ aa
 aa
 aa
 aa
-yw
-pg
-pg
-pg
-fP
-pg
-pg
-pg
-yt
-yt
-yt
-yt
-yt
-yt
-yt
-pg
-pg
-pg
-yw
+ad
+ae
+ae
+ae
+bm
+ae
+ae
+ae
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ae
+ae
+ae
+ad
 aa
 aa
 aa
-po
-Oe
-pz
-yt
-yt
-pg
-pg
+ab
+ac
+ah
+ag
+ag
+ae
+ae
 aa
 aa
 aa
@@ -3536,30 +3544,30 @@ aa
 aa
 aa
 aa
-Qy
-pg
-pg
-pg
-pg
-pg
-pg
-DQ
-pg
-pg
-pg
-pg
-pg
-pg
+bn
+ae
+ae
+ae
+ae
+ae
+ae
+af
+ae
+ae
+ae
+ae
+ae
+ae
 aa
 aa
-po
-po
-Oe
-pz
-yt
-yt
-pg
-pg
+ab
+ab
+ac
+ah
+ag
+ag
+ae
+ae
 aa
 aa
 aa
@@ -3595,29 +3603,29 @@ aa
 aa
 aa
 aa
-pm
-yw
-pg
+bo
+ad
+ae
 aa
-po
-aa
-aa
-Oe
+ab
 aa
 aa
-po
+ac
 aa
-pg
-pg
+aa
+ab
+aa
+ae
+ae
 aa
 aa
 aa
 cC
-pg
-pg
-yw
-pg
-pg
+ae
+ae
+ad
+ae
+ae
 aa
 aa
 aa
@@ -3655,19 +3663,19 @@ aa
 aa
 aa
 aa
-po
+ab
 aa
-po
-Oe
-po
-po
-po
-po
-Oe
-Oe
-po
+ab
+ac
+ab
+ab
+ab
+ab
+ac
+ac
+ab
 aa
-yw
+ad
 aa
 aa
 aa
@@ -3717,16 +3725,16 @@ aa
 aa
 aa
 aa
-po
+ab
 aa
 aa
 aa
 aa
 aa
-po
-po
+ab
+ab
 aa
-po
+ab
 aa
 aa
 aa
@@ -3776,16 +3784,16 @@ aa
 aa
 aa
 aa
-po
+ab
 aa
 aa
 aa
 aa
 aa
-po
-po
+ab
+ab
 aa
-po
+ab
 aa
 aa
 aa
@@ -3841,10 +3849,10 @@ aa
 aa
 aa
 aa
-po
+ab
 aa
 aa
-po
+ab
 aa
 aa
 aa
@@ -3900,7 +3908,7 @@ aa
 aa
 aa
 aa
-po
+ab
 aa
 aa
 aa

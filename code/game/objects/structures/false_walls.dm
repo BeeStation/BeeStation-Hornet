@@ -160,9 +160,10 @@
 	return null
 
 /obj/structure/falsewall/reinforced/attackby(obj/item/tool, mob/user)
-	..()
 	if(tool.tool_behaviour == TOOL_WIRECUTTER)
 		dismantle(user, TRUE, tool)
+		return TRUE
+	return ..()
 
 /*
  * Uranium Falsewalls

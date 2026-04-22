@@ -1,9 +1,9 @@
-
 //
 // Gravity Generator
 //
 
-GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding new gravity generators to the list, and keying it with the z level.
+/// We will keep track of this by adding new gravity generators to the list, and keying it with the z level.
+GLOBAL_LIST_EMPTY(gravity_generators)
 
 #define POWER_IDLE 0
 #define POWER_UP 1
@@ -134,7 +134,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	/// The gravity field created by the generator.
 	var/datum/proximity_monitor/advanced/gravity/gravity_field
 	/// Audio for when the gravgen is on
-	var/datum/looping_sound/gravgen/soundloop
+	var/datum/looping_sound/grav_gen/soundloop
 
 /obj/machinery/gravity_generator/main/admin
 	use_power = NO_POWER_USE
@@ -231,14 +231,14 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 				attacking_item.play_tool_sound(src)
 				broken_state++
 				update_appearance(UPDATE_ICON_STATE)
-				return
+				return TRUE
 		if(GRAV_NEEDS_WELDING)
 			if(attacking_item.tool_behaviour == TOOL_WELDER)
 				if(attacking_item.use_tool(src, user, 0, volume = 50, amount = 1))
 					to_chat(user, span_notice("You mend the damaged framework."))
 					broken_state++
 					update_appearance(UPDATE_ICON_STATE)
-				return
+				return TRUE
 		if(GRAV_NEEDS_PLASTEEL)
 			if(istype(attacking_item, /obj/item/stack/sheet/plasteel))
 				var/obj/item/stack/sheet/plasteel/plasteel = attacking_item
@@ -250,20 +250,19 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 					update_appearance(UPDATE_ICON_STATE)
 				else
 					to_chat(user, span_warning("You need 10 sheets of plasteel!"))
-				return
+				return TRUE
 		if(GRAV_NEEDS_WRENCH)
 			if(attacking_item.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, span_notice("You secure the plating to the framework."))
 				attacking_item.play_tool_sound(src)
 				set_fix()
-				return
+				return TRUE
 	return ..()
-
 
 /obj/machinery/gravity_generator/main/ui_requires_update(mob/user, datum/tgui/ui)
 	. = ..()
 	if(charging_state != POWER_IDLE && !(machine_stat & BROKEN))
-		. = TRUE // Autoupdate while charging up/down
+		return TRUE // Autoupdate while charging up/down
 
 /obj/machinery/gravity_generator/main/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -283,7 +282,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	return data
 
 /obj/machinery/gravity_generator/main/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
 
 	switch(action)
@@ -291,7 +291,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 			breaker = !breaker
 			investigate_log("was toggled [breaker ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>"] by [key_name(usr)].", INVESTIGATE_GRAVITY)
 			set_power()
-			. = TRUE
+			return TRUE
 
 // Power and Icon States
 
@@ -456,8 +456,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	name = "paper- 'Generate your own gravity!'"
 	default_raw_text = {"<h1>Gravity Generator Instructions For Dummies</h1>
 	<p>Surprisingly, gravity isn't that hard to make! All you have to do is inject deadly radioactive minerals into a ball of
-	energy and you have yourself gravity! You can turn the machine on or off when required.
-	The generator produces a very harmful amount of gravity when enabled, so don't stay close for too long.</p>
+	energy and you have yourself gravity! You can turn the machine on or off when required but you must remember that the generator
+	will EMIT RADIATION when charging or discharging, you can tell it is charging or discharging by the noise it makes, so please WEAR PROTECTIVE CLOTHING.</p>
 	<br>
 	<h3>It blew up!</h3>
 	<p>Don't panic! The gravity generator was designed to be easily repaired. If, somehow, the sturdy framework did not survive then

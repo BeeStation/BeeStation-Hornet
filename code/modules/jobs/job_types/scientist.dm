@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_SCIENCE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
-	faction = "Station"
+	faction = FACTION_STATION
 	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#ffeeff"
 	exp_requirements = 120
@@ -21,6 +21,8 @@
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_SCIENTIST
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Thaumaturgist"
 
 	species_outfits = list(

@@ -77,9 +77,8 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "C" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "12"
-	},
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "F" = (

@@ -37,7 +37,7 @@
 /obj/structure/rack,
 /obj/item/wrench,
 /obj/item/screwdriver,
-/obj/item/stack/cable_coil/random/five,
+/obj/item/stack/cable_coil,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/techmaint,
 /area/template_noop)
@@ -135,9 +135,9 @@
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Convenience Store Maintenance";
-	req_access_txt = "12"
+	name = "Convenience Store Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/template_noop,

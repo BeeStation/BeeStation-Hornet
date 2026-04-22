@@ -10,9 +10,9 @@
 /area/shuttle/escape)
 "bM" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Brig";
-	req_access_txt = "2"
+	name = "Brig"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -56,9 +56,9 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/command{
-	name = "Cockpit";
-	req_access_txt = "19"
+	name = "Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
@@ -200,9 +200,9 @@
 /area/shuttle/escape)
 "lt" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
+	name = "Emergency Shuttle Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -548,9 +548,9 @@
 /area/shuttle/escape)
 "Hb" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
+	name = "Emergency Shuttle Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1

@@ -1,42 +1,124 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aS" = (
-/obj/structure/sign/mining/survival,
+"a" = (
+/turf/closed/wall/mineral/titanium/survival/pod,
+/area/misc/survivalpod)
+"b" = (
+/obj/structure/sign/mining/survival{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium/survival/pod,
+/area/misc/survivalpod)
+"c" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/misc/survivalpod)
-"aT" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/structure/fans/tiny,
-/turf/open/floor/carpet/black,
+"d" = (
+/obj/structure/sign/mining/survival{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/misc/survivalpod)
-"aU" = (
+"e" = (
 /obj/structure/sign/mining/survival{
 	dir = 8
 	},
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/misc/survivalpod)
-"aV" = (
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+"f" = (
+/obj/structure/table/wood/fancy/black,
+/obj/machinery/chem_dispenser/drinks,
+/turf/open/floor/pod/dark,
 /area/misc/survivalpod)
-"aW" = (
-/obj/structure/sign/mining/survival,
-/turf/closed/wall/mineral/titanium/survival/pod,
+"g" = (
+/obj/structure/table/wood/fancy/black,
+/obj/machinery/chem_dispenser/drinks/beer,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/pod/dark,
 /area/misc/survivalpod)
-"aX" = (
-/obj/effect/spawner/random/vending/snackvend,
-/turf/open/floor/carpet/black,
-/area/misc/survivalpod)
-"aY" = (
-/turf/closed/wall/mineral/titanium/survival/pod,
-/area/misc/survivalpod)
-"aZ" = (
-/obj/machinery/light/directional/south,
-/turf/open/floor/carpet/black,
-/area/misc/survivalpod)
-"bl" = (
+"h" = (
 /obj/machinery/vending/boozeomat,
 /turf/open/floor/pod/dark,
 /area/misc/survivalpod)
-"by" = (
+"i" = (
+/obj/item/book/manual/wiki/barman_recipes,
+/obj/item/reagent_containers/cup/glass/shaker,
+/obj/item/reagent_containers/cup/rag,
+/obj/structure/table/wood/fancy/black,
+/turf/open/floor/pod/dark,
+/area/misc/survivalpod)
+"j" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/clipboard,
+/obj/item/toy/figure/bartender,
+/turf/open/floor/pod/dark,
+/area/misc/survivalpod)
+"k" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/storage/fancy/cigarettes/cigars,
+/obj/item/storage/fancy/cigarettes/cigars/cohiba{
+	pixel_y = 4
+	},
+/obj/item/storage/fancy/cigarettes/cigars/havana{
+	pixel_y = 8
+	},
+/turf/open/floor/pod/dark,
+/area/misc/survivalpod)
+"l" = (
+/obj/structure/table/wood/fancy/black,
+/obj/structure/reagent_dispensers/beerkeg,
+/turf/open/floor/pod/dark,
+/area/misc/survivalpod)
+"m" = (
+/obj/structure/closet/secure_closet/bar,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/pod/dark,
+/area/misc/survivalpod)
+"n" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal/bin,
+/turf/open/floor/pod/dark,
+/area/misc/survivalpod)
+"o" = (
+/obj/structure/sign/mining/survival{
+	dir = 4
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 4
+	},
+/turf/closed/wall/mineral/titanium/survival/pod,
+/area/misc/survivalpod)
+"p" = (
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/effect/mapping_helpers/airlock/access/all/service/bar,
+/obj/structure/fans/tiny,
+/turf/open/floor/pod/dark,
+/area/misc/survivalpod)
+"q" = (
+/turf/open/floor/pod/dark,
+/area/misc/survivalpod)
+"r" = (
+/obj/structure/disposalpipe/segment,
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/area/misc/survivalpod)
+"s" = (
+/obj/structure/table/reinforced,
+/obj/item/lighter{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/lighter,
+/turf/open/floor/pod/dark,
+/area/misc/survivalpod)
+"t" = (
+/obj/structure/table/reinforced,
+/turf/open/floor/pod/dark,
+/area/misc/survivalpod)
+"u" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/matches{
 	pixel_x = -4;
@@ -44,17 +126,65 @@
 	},
 /turf/open/floor/pod/dark,
 /area/misc/survivalpod)
-"dJ" = (
+"v" = (
 /obj/machinery/door/window/survival_pod{
 	req_access_txt = "25"
 	},
 /turf/open/floor/pod/dark,
 /area/misc/survivalpod)
-"gv" = (
-/obj/structure/table/reinforced,
+"w" = (
+/obj/structure/sign/mining/survival{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment,
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/area/misc/survivalpod)
+"x" = (
+/obj/structure/chair/stool/bar,
+/turf/open/floor/carpet/black,
+/area/misc/survivalpod)
+"y" = (
+/turf/open/floor/carpet/black,
+/area/misc/survivalpod)
+"z" = (
+/obj/machinery/vending/cigarette/beach,
+/turf/open/floor/carpet/black,
+/area/misc/survivalpod)
+"A" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal/bin,
+/turf/open/floor/carpet/black,
+/area/misc/survivalpod)
+"B" = (
+/obj/structure/sign/mining/survival{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/area/misc/survivalpod)
+"C" = (
+/obj/structure/window/reinforced/survival_pod/spawner/directional/west,
+/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
+/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/structure/grille,
 /turf/open/floor/pod/dark,
 /area/misc/survivalpod)
-"hp" = (
+"D" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666"
+	},
+/turf/open/floor/carpet/black,
+/area/misc/survivalpod)
+"E" = (
+/obj/machinery/door/airlock/survival_pod,
+/turf/open/floor/pod/light,
+/area/misc/survivalpod)
+"F" = (
 /obj/structure/table/wood/fancy,
 /obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -4;
@@ -66,335 +196,215 @@
 	},
 /turf/open/floor/carpet/black,
 /area/misc/survivalpod)
-"hz" = (
-/obj/structure/table/wood/fancy/black,
-/obj/structure/reagent_dispensers/beerkeg,
-/turf/open/floor/pod/dark,
-/area/misc/survivalpod)
-"iv" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/machinery/disposal/bin,
-/turf/open/floor/pod/dark,
-/area/misc/survivalpod)
-"kW" = (
-/obj/structure/sink/directional/west,
-/obj/machinery/light/small/directional/east,
-/turf/open/floor/pod/light,
-/area/misc/survivalpod)
-"lb" = (
-/obj/structure/table/wood/fancy/black,
-/obj/machinery/chem_dispenser/drinks,
-/turf/open/floor/pod/dark,
-/area/misc/survivalpod)
-"lt" = (
-/obj/structure/closet/secure_closet/bar,
-/obj/machinery/light/directional/north,
-/turf/open/floor/pod/dark,
-/area/misc/survivalpod)
-"mz" = (
-/obj/structure/sign/mining/survival{
-	dir = 1
-	},
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
-/area/misc/survivalpod)
-"mO" = (
-/obj/structure/sign/mining/survival{
-	dir = 4
-	},
-/obj/structure/disposalpipe/junction{
-	dir = 4
-	},
-/turf/closed/wall/mineral/titanium/survival/pod,
-/area/misc/survivalpod)
-"pa" = (
-/obj/structure/sign/mining/survival{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment,
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
-/area/misc/survivalpod)
-"qC" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/machinery/disposal/bin,
-/turf/open/floor/carpet/black,
-/area/misc/survivalpod)
-"rn" = (
-/obj/structure/table/wood/fancy/black,
-/obj/item/clipboard,
-/obj/item/toy/figure/bartender,
-/turf/open/floor/pod/dark,
-/area/misc/survivalpod)
-"rt" = (
-/turf/open/floor/pod/light,
-/area/misc/survivalpod)
-"rK" = (
+"G" = (
 /obj/structure/urinal{
 	pixel_y = 24
 	},
 /turf/open/floor/pod/light,
 /area/misc/survivalpod)
-"rP" = (
-/obj/structure/disposalpipe/segment,
+"H" = (
+/turf/open/floor/pod/light,
+/area/misc/survivalpod)
+"I" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/pod/light,
+/area/misc/survivalpod)
+"J" = (
+/obj/structure/sign/mining/survival{
+	dir = 4
+	},
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/misc/survivalpod)
-"rW" = (
-/obj/machinery/door/airlock/survival_pod,
-/turf/open/floor/pod/light,
-/area/misc/survivalpod)
-"sO" = (
-/obj/structure/toilet{
-	dir = 8
-	},
-/obj/machinery/light/small/directional/east,
-/turf/open/floor/pod/light,
-/area/misc/survivalpod)
-"sZ" = (
+"K" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#666666";
 	dir = 1
 	},
 /turf/open/floor/carpet/black,
 /area/misc/survivalpod)
-"tY" = (
-/obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/cup/glass/shaker,
-/obj/item/reagent_containers/cup/rag,
-/obj/structure/table/wood/fancy/black,
-/turf/open/floor/pod/dark,
+"L" = (
+/obj/effect/spawner/random/vending/snackvend,
+/turf/open/floor/carpet/black,
 /area/misc/survivalpod)
-"uR" = (
-/obj/structure/table/reinforced,
-/obj/item/lighter{
-	pixel_x = -4;
-	pixel_y = 4
+"M" = (
+/obj/machinery/light,
+/turf/open/floor/carpet/black,
+/area/misc/survivalpod)
+"N" = (
+/obj/structure/toilet{
+	dir = 8
 	},
-/obj/item/lighter,
-/turf/open/floor/pod/dark,
-/area/misc/survivalpod)
-"vo" = (
-/obj/structure/sign/mining/survival{
+/obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/turf/open/floor/pod/light,
 /area/misc/survivalpod)
-"xm" = (
-/obj/structure/table/wood/fancy/black,
-/obj/machinery/chem_dispenser/drinks/beer,
-/obj/machinery/light/directional/north,
-/turf/open/floor/pod/dark,
-/area/misc/survivalpod)
-"xs" = (
-/turf/open/floor/pod/dark,
-/area/misc/survivalpod)
-"xH" = (
-/obj/structure/table/wood/fancy/black,
-/obj/item/storage/fancy/cigarettes/cigars,
-/obj/item/storage/fancy/cigarettes/cigars/cohiba{
-	pixel_y = 4
-	},
-/obj/item/storage/fancy/cigarettes/cigars/havana{
-	pixel_y = 8
-	},
-/turf/open/floor/pod/dark,
-/area/misc/survivalpod)
-"CE" = (
-/obj/structure/chair/stool/bar,
-/turf/open/floor/carpet/black,
-/area/misc/survivalpod)
-"Gx" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/west,
-/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
-/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
-/obj/structure/grille,
-/turf/open/floor/pod/dark,
-/area/misc/survivalpod)
-"Ln" = (
-/turf/open/floor/carpet/black,
-/area/misc/survivalpod)
-"LQ" = (
+"O" = (
 /obj/structure/sign/mining/survival{
 	dir = 4
 	},
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/misc/survivalpod)
-"MH" = (
-/obj/structure/sign/mining/survival{
-	dir = 1
-	},
+"P" = (
+/obj/structure/sign/mining/survival,
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/misc/survivalpod)
-"PD" = (
-/obj/structure/sign/mining/survival{
-	dir = 4
-	},
+"Q" = (
+/obj/structure/sign/mining/survival,
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/misc/survivalpod)
-"SM" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666"
-	},
-/turf/open/floor/carpet/black,
-/area/misc/survivalpod)
-"To" = (
-/obj/machinery/door/airlock/survival_pod/glass{
-	req_access_txt = "25"
-	},
+"R" = (
+/obj/machinery/door/airlock/survival_pod/glass,
 /obj/structure/fans/tiny,
-/turf/open/floor/pod/dark,
-/area/misc/survivalpod)
-"Yl" = (
-/obj/machinery/vending/cigarette/beach,
 /turf/open/floor/carpet/black,
 /area/misc/survivalpod)
 
 (1,1,1) = {"
-aY
-aU
-To
-aU
-aV
-aU
-Gx
-aU
-Gx
-aU
-aY
+a
+e
+p
+e
+c
+e
+C
+e
+C
+e
+a
 "}
 (2,1,1) = {"
-MH
-lb
-xs
-uR
-CE
-Ln
-SM
-hp
-sZ
-aX
-aW
+b
+f
+q
+s
+x
+y
+D
+F
+K
+L
+P
 "}
 (3,1,1) = {"
-aV
-xm
-xs
-gv
-CE
-Ln
-Ln
-Ln
-Ln
-aZ
-aV
+c
+g
+q
+t
+x
+y
+y
+y
+y
+M
+c
 "}
 (4,1,1) = {"
-mz
-bl
-xs
-gv
-CE
-Ln
-SM
-hp
-sZ
-Ln
-aS
+d
+h
+q
+t
+x
+y
+D
+F
+K
+y
+Q
 "}
 (5,1,1) = {"
-aV
-tY
-xs
-by
-CE
-Ln
-SM
-hp
-sZ
-Ln
-aV
+c
+i
+q
+u
+x
+y
+D
+F
+K
+y
+c
 "}
 (6,1,1) = {"
-mz
-rn
-xs
-gv
-CE
-Ln
-Ln
-Ln
-Ln
-Ln
-aT
+d
+j
+q
+t
+x
+y
+y
+y
+y
+y
+R
 "}
 (7,1,1) = {"
-aV
-xH
-xs
-gv
-CE
-Ln
-aV
-aV
-aV
-aV
-aV
+c
+k
+q
+t
+x
+y
+c
+c
+c
+c
+c
 "}
 (8,1,1) = {"
-mz
-hz
-xs
-gv
-CE
-Ln
-aV
-rK
-rt
-rt
-aS
+d
+l
+q
+t
+x
+y
+c
+G
+H
+H
+Q
 "}
 (9,1,1) = {"
-aV
-lt
-xs
-dJ
-Ln
-Ln
-rW
-rt
-aV
-rW
-aV
+c
+m
+q
+v
+y
+y
+E
+H
+c
+E
+c
 "}
 (10,1,1) = {"
-MH
-iv
-xs
-gv
-Yl
-qC
-aV
-kW
-aV
-sO
-aW
+b
+n
+q
+t
+z
+A
+c
+I
+c
+N
+P
 "}
 (11,1,1) = {"
-aY
-mO
-rP
-pa
-rP
-vo
-aV
-PD
-aV
-LQ
-aY
+a
+o
+r
+w
+r
+B
+c
+J
+c
+O
+a
 "}

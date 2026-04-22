@@ -39,7 +39,7 @@
 	operative.dna.update_dna_identity()
 
 	var/datum/mind/new_mind = new /datum/mind(candidate.key)
-	new_mind.assigned_role = "Lone Operative"
+	new_mind.set_assigned_role("Lone Operative")
 	new_mind.special_role = "Lone Operative"
 	new_mind.active = TRUE
 	new_mind.transfer_to(operative)

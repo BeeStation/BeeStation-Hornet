@@ -225,7 +225,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	..()
 	var/datum/job/J = SSjob.GetJob(job)
 	J.total_positions += 1
-	SSjob.job_manager_blacklisted -= J.title
+	J.job_flags &= ~JOB_CANNOT_OPEN_SLOTS
 
 /obj/effect/landmark/start/randommaint/backalley_doc
 	name = "Barber"

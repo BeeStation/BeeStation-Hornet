@@ -96,7 +96,7 @@
 	desc = "Contains dangerous plasma. Do not inhale. Warning: extremely flammable."
 	icon_state = "plasma"
 	slot_flags = null	//they have no straps!
-	force = 8
+	force = 10
 
 /obj/item/tank/internals/plasma/populate_gas()
 	SET_MOLES(/datum/gas/plasma, air_contents, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))

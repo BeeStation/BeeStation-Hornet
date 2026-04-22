@@ -41,9 +41,6 @@
 	new /obj/item/reagent_containers/condiment/rice(src)
 	new /obj/item/reagent_containers/condiment/sugar(src)
 
-/obj/structure/closet/secure_closet/freezer/kitchen/all_access
-	req_access = null
-
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance
 	name = "maintenance refrigerator"
 	desc = "This refrigerator looks quite dusty, is there anything edible still inside?"
@@ -56,6 +53,10 @@
 		new /obj/item/reagent_containers/condiment/soymilk(src)
 	for(var/i in 1 to 2)
 		new /obj/item/storage/fancy/egg_box(src)
+/// Keeping this here so some Chef can ask an assistant to find him one of these
+
+/obj/structure/closet/secure_closet/freezer/kitchen/all_access
+	req_access = null
 
 /obj/structure/closet/secure_closet/freezer/meat
 	name = "meat fridge"

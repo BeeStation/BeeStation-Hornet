@@ -93,9 +93,9 @@
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Bee Lounge Maintenance";
-	req_access_txt = "12"
+	name = "Bee Lounge Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/template_noop,

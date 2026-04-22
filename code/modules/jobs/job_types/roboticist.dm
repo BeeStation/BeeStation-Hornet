@@ -3,7 +3,7 @@
 	description = "Create bots and utility mechs for helping out around the station. Construct war machines by the request of the Captain or Head of Security. Make new Cyborgs, give augmentations and implants to crew members."
 	department_for_prefs = DEPT_NAME_SCIENCE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 2
 	supervisors = "the research director"
 	selection_color = "#ffeeff"
@@ -22,6 +22,8 @@
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_ROBOTICIST
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Golemancer"
 
 	species_outfits = list(

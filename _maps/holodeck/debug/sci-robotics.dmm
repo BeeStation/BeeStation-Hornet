@@ -175,10 +175,6 @@
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"G" = (
-/obj/structure/closet/crate/science/debug,
-/turf/open/floor/iron,
-/area/template_noop)
 "H" = (
 /obj/vehicle/sealed/mecha/phazon,
 /obj/effect/turf_decal/bot,
@@ -230,16 +226,12 @@
 /obj/item/organ/brain/positron,
 /turf/open/floor/iron,
 /area/template_noop)
-"P" = (
-/obj/structure/closet/crate/secure/gear/debug/cyborg,
-/turf/open/floor/iron,
-/area/template_noop)
 "Q" = (
 /obj/machinery/rnd/production/techfab/department/science,
 /turf/open/floor/iron,
 /area/template_noop)
 "R" = (
-/obj/structure/closet/crate/secure/gear/debug/mech,
+/obj/structure/closet/crate/secure/gear/debug_mech,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -290,9 +282,9 @@ a
 a
 A
 Q
-G
 a
-P
+a
+a
 a
 a
 a

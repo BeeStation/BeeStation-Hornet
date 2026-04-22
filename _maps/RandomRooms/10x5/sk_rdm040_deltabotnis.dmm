@@ -1,7 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
 /obj/item/kirbyplants/random,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
@@ -73,7 +75,10 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "l" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
 /obj/effect/turf_decal/bot,
 /obj/structure/sign/departments/minsky/supply/hydroponics{
 	pixel_x = 32
@@ -81,7 +86,11 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "m" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
 /obj/structure/sign/warning/no_smoking{
 	pixel_x = -32
 	},
@@ -97,7 +106,7 @@
 "o" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/flower/harebell,
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -112,7 +121,7 @@
 	},
 /obj/item/reagent_containers/syringe,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/white,
+/obj/structure/cable/pink,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -141,7 +150,7 @@
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/tower,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/template_noop)
