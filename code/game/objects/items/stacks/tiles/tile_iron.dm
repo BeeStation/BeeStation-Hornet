@@ -312,6 +312,7 @@
 	singular_name = "large dark textured floor tile"
 	icon_state = "tile_textured_dark_large"
 	turf_type = /turf/open/floor/iron/dark/textured_large
+	merge_type = /obj/item/stack/tile/iron/dark/textured_large
 
 /obj/item/stack/tile/iron/dark/small
 	name = "dark small tile"

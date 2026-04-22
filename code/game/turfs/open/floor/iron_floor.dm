@@ -108,6 +108,9 @@
 	base_icon_state = "diagonal"
 	floor_tile = /obj/item/stack/tile/iron/diagonal
 
+/turf/open/floor/iron/diagonal/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/herringbone
 	icon_state = "herringbone"
 	base_icon_state = "herringbone"
@@ -219,6 +222,9 @@
 	icon_state = "dark_diagonal"
 	base_icon_state = "dark_diagonal"
 	floor_tile = /obj/item/stack/tile/iron/dark/diagonal
+
+/turf/open/floor/iron/dark/diagonal/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/dark/herringbone
 	icon_state = "dark_herringbone"
@@ -345,6 +351,9 @@
 	base_icon_state = "white_diagonal"
 	floor_tile = /obj/item/stack/tile/iron/white/diagonal
 
+/turf/open/floor/iron/white/diagonal/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/white/herringbone
 	icon_state = "white_herringbone"
 	base_icon_state = "white_herringbone"
@@ -427,6 +436,9 @@
 	base_icon_state = "terracotta_diagonal"
 	floor_tile = /obj/item/stack/tile/iron/terracotta/diagonal
 
+/turf/open/floor/iron/terracotta/diagonal/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/terracotta/herringbone
 	icon_state = "terracotta_herringbone"
 	base_icon_state = "terracotta_herringbone"
@@ -446,6 +458,9 @@
 	icon_state = "kitchen_diagonal"
 	base_icon_state = "kitchen_diagonal"
 	floor_tile = /obj/item/stack/tile/iron/kitchen/diagonal
+
+/turf/open/floor/iron/kitchen/diagonal/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/kitchen/herringbone
 	icon_state = "kitchen_herringbone"
