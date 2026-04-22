@@ -129,7 +129,7 @@
 /area/misc/hilbertshotel)
 "tM" = (
 /obj/structure/table/reinforced,
-/obj/structure/sink/kitchen,
+/obj/structure/sink/kitchen/directional/south,
 /obj/machinery/light/small,
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
@@ -186,11 +186,7 @@
 /obj/structure/mirror{
 	pixel_x = -32
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/hoteltile,
 /area/misc/hilbertshotel)
@@ -319,11 +315,7 @@
 /obj/structure/mirror{
 	pixel_x = -32
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /turf/open/indestructible/hoteltile,
 /area/misc/hilbertshotel)
 "WJ" = (

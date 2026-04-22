@@ -1685,10 +1685,7 @@
 /turf/open/floor/iron/dark/textured,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "qT" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/unpowered/syndicate_lava_base/port)
@@ -2658,7 +2655,6 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "CS" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored{
-	chamber_id = "syndie_lavaland_inc_in";
 	dir = 1
 	},
 /obj/structure/sign/warning/vacuum/external{
@@ -3997,9 +3993,7 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "QW" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/structure/sink/kitchen{
-	pixel_y = 28
-	},
+/obj/structure/sink/kitchen/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
@@ -4053,10 +4047,7 @@
 /obj/machinery/shower{
 	pixel_y = 14
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/syndicate_access,
 /turf/open/floor/iron/white/textured,

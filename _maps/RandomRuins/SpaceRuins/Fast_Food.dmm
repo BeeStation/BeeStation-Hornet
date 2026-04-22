@@ -875,9 +875,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "fY" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 20
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "iO" = (

@@ -9689,8 +9689,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/toxins_burn_chamber_input{
-	dir = 8;
-	chamber_id = "toxinsburn2"
+	dir = 8
 	},
 /turf/open/floor/engine,
 /area/station/science/mixing/chamber)
@@ -15965,10 +15964,7 @@
 	dir = 8;
 	pixel_x = 28
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/iron/grid,
 /area/station/medical/surgery)
 "dPj" = (
@@ -17560,11 +17556,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 10
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -26;
 	pixel_y = 8
@@ -18115,9 +18107,7 @@
 /obj/effect/turf_decal/trimline/brown/warning,
 /obj/effect/turf_decal/trimline/red/warning,
 /obj/effect/turf_decal/trimline/neutral/warning,
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/north,
 /turf/open/floor/iron/dark/textured_half,
 /area/station/service/theater/backstage)
 "epE" = (
@@ -20487,11 +20477,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 4
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11;
-	pixel_y = 5
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/landmark/start/botanist,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
@@ -21123,8 +21109,7 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/sink/kitchen{
-	pixel_y = 28;
+/obj/structure/sink/kitchen/directional/south{
 	name = "chemistry sink"
 	},
 /turf/open/floor/iron/dark/textured_half{
@@ -21672,7 +21657,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "fed" = (
@@ -22148,16 +22132,6 @@
 /obj/structure/extinguisher_cabinet/directional/south,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/cargo/warehouse)
-"fkK" = (
-/obj/effect/turf_decal/siding/thinplating_new/terracotta{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/techfloor/diagonal{
-	dir = 4
-	},
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison/dark,
-/area/station/security/prison)
 "fkL" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4;
@@ -31611,10 +31585,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/medical/morgue)
 "hwq" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror/directional/east{
 	pixel_x = 24;
 	pixel_y = 4
@@ -33157,10 +33128,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 9
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -11
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/requests_console/auto_name/directional/north,
 /obj/machinery/firealarm{
 	pixel_x = -28;
@@ -34025,7 +33993,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /turf/open/floor/iron/dark/textured_half,
@@ -39532,10 +39500,7 @@
 /obj/structure/toilet{
 	pixel_y = 13
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/turf_decal/siding/thinplating_new/end{
 	dir = 4
 	},
@@ -41022,10 +40987,7 @@
 /area/station/engineering/atmos)
 "jDc" = (
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -4
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 10
 	},
@@ -45290,7 +45252,6 @@
 /obj/effect/turf_decal/alphabet/number_2/cardinal{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/machinery/digital_clock/directional/north,
 /turf/open/floor/prison,
 /area/station/security/prison)
@@ -48939,10 +48900,6 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/station/engineering/atmos)
-"luZ" = (
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/grass,
-/area/station/security/prison)
 "lvl" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/siding/wideplating_new/dark,
@@ -56037,10 +55994,7 @@
 /obj/effect/turf_decal/box/corners{
 	dir = 4
 	},
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/south,
 /obj/machinery/light/small/directional/east,
 /obj/structure/sign/poster/official/xenoarchaeology_pearl{
 	pixel_x = 32
@@ -58330,9 +58284,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/north,
 /obj/structure/mirror{
 	pixel_y = 33
 	},
@@ -59596,10 +59548,7 @@
 /area/station/medical/genetics/cloning)
 "nVS" = (
 /obj/structure/mirror/directional/north,
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/south,
 /obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/freezer,
 /area/station/security/prison)
@@ -60741,7 +60690,6 @@
 /obj/effect/turf_decal/alphabet/number_3/cardinal{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/machinery/digital_clock/directional/north,
 /turf/open/floor/prison,
 /area/station/security/prison)
@@ -62450,7 +62398,6 @@
 	dir = 8
 	},
 /obj/structure/chair/stool/directional/east,
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/wood,
 /area/station/security/prison)
 "oCt" = (
@@ -63532,10 +63479,7 @@
 /turf/open/floor/wood/big,
 /area/station/command/heads_quarters/hop)
 "oPS" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 26
 	},
@@ -67463,7 +67407,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line,
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -67906,9 +67850,7 @@
 	},
 /obj/structure/window/spawner/directional/south,
 /obj/machinery/door/window/eastleft,
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/north,
 /turf/open/floor/iron/dark,
 /area/station/commons/vacant_room/commissary/commissaryRandom)
 "pWf" = (
@@ -68049,10 +67991,7 @@
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_x = -32
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -11
-	},
+/obj/structure/sink/directional/east,
 /obj/item/radio/intercom/directional/south,
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
@@ -72857,7 +72796,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line,
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -73676,10 +73615,7 @@
 /area/station/medical/morgue)
 "rnJ" = (
 /obj/structure/mirror/directional/north,
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/freezer,
@@ -74113,7 +74049,6 @@
 /area/station/hallway/primary/fore)
 "rsK" = (
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "rsY" = (
@@ -75801,7 +75736,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "rNb" = (
@@ -81057,7 +80991,6 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron/freezer,
 /area/station/security/prison)
@@ -98330,10 +98263,7 @@
 /area/station/construction/mining/aux_base)
 "xdw" = (
 /obj/effect/turf_decal/siding/thinplating_new/light,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/light_switch/directional/east,
 /obj/effect/turf_decal/tile/steelgrid/diagonal{
 	dir = 4;
@@ -101347,7 +101277,6 @@
 /obj/effect/turf_decal/alphabet/number_1/cardinal{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/machinery/digital_clock/directional/north,
 /turf/open/floor/prison,
 /area/station/security/prison)
@@ -103104,9 +103033,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/north,
 /turf/open/floor/iron/tiled,
 /area/station/medical/booth)
 "ylL" = (
@@ -144868,7 +144795,7 @@ lsu
 iPm
 iry
 kbX
-luZ
+dEq
 tgQ
 imy
 pup
@@ -145896,7 +145823,7 @@ lsu
 wzR
 pDP
 qqZ
-fkK
+xkd
 xkd
 ghs
 eTZ

@@ -218,7 +218,7 @@
 /turf/open/floor/pod/light,
 /area/misc/survivalpod)
 "EX" = (
-/obj/structure/sink,
+/obj/structure/sink/directional/north,
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/misc/survivalpod)
 "FB" = (

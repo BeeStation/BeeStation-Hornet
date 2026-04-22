@@ -1589,7 +1589,7 @@
 /turf/open/floor/carpet/purple,
 /area/station/service/chapel/office)
 "LC" = (
-/obj/structure/sink/kitchen,
+/obj/structure/sink/kitchen/directional/south,
 /turf/open/floor/iron/freezer,
 /area/station/service/kitchen)
 "LH" = (
