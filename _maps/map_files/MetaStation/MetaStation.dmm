@@ -12053,11 +12053,6 @@
 /turf/open/floor/iron/dark,
 /area/station/science/server)
 "eEK" = (
-/obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/station/hallway/primary/fore";
-	name = "Fore Primary Hallway APC";
-	pixel_y = -24
-	},
 /obj/structure/cable/yellow,
 /obj/machinery/light,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -12065,6 +12060,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "eEL" = (
@@ -13150,11 +13146,6 @@
 "eVB" = (
 /obj/structure/table,
 /obj/item/analyzer,
-/obj/machinery/power/apc{
-	areastring = "/area/station/commons/storage/primary";
-	name = "Tool Storage APC";
-	pixel_y = -24
-	},
 /obj/structure/cable/yellow,
 /obj/item/wrench,
 /obj/structure/sign/poster/official/random{
@@ -13163,6 +13154,7 @@
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 8
 	},
+/obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron,
 /area/station/commons/storage/primary)
 "eVH" = (
@@ -15395,17 +15387,13 @@
 /turf/open/floor/iron/tech/grid,
 /area/station/security/office)
 "fPs" = (
-/obj/machinery/power/apc{
-	areastring = "/area/station/construction/storage_wing";
-	name = "Storage Wing APC";
-	pixel_y = -24
-	},
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
+/obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron,
 /area/station/construction/storage_wing)
 "fPJ" = (
@@ -25506,12 +25494,8 @@
 /obj/effect/turf_decal/tile/dark_red/anticorner{
 	dir = 8
 	},
-/obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/station/security/prison";
-	name = "Prison APC";
-	pixel_y = -24
-	},
 /obj/structure/cable/yellow,
+/obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron/smooth_corner{
 	dir = 4
 	},
@@ -64163,15 +64147,11 @@
 /turf/open/space,
 /area/station/solars/port/fore)
 "wja" = (
-/obj/machinery/power/apc/highcap/ten_k{
-	areastring = "/area/station/security/brig";
-	name = "Brig APC";
-	pixel_y = -24
-	},
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/red/half{
 	dir = 8
 	},
+/obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/security/brig)
 "wjj" = (
