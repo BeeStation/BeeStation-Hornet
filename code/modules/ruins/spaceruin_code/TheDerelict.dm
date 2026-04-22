@@ -73,19 +73,26 @@
 
 ///Looks for a cable connection beneath the machine.
 /obj/machinery/computer/vaultcontroller/proc/update_cable()
-	var/turf/T = get_turf(src)
-	attached_cable = locate(/obj/structure/cable) in T
+	var/turf/our_turf = get_turf(src)
+	attached_cable = locate(/obj/structure/cable) in our_turf
+	if(attached_cable)
+		RegisterSignal(attached_cable, COMSIG_QDELETING, PROC_REF(unregister_cable))
+
+/obj/machinery/computer/vaultcontroller/proc/unregister_cable(datum/source)
+	SIGNAL_HANDLER
+	attached_cable = null
 
 ///Initializes airlock links.
 /obj/machinery/computer/vaultcontroller/proc/find_airlocks()
-	for(var/obj/machinery/door/airlock/A in GLOB.machines)
-		if(A.id_tag == door_id)
-			if(!door1)
-				door1 = A
-				continue
-			if(door1 && !door2)
-				door2 = A
-				break
+	for(var/obj/machinery/door/airlock/airlock in GLOB.machines)
+		if(airlock.id_tag != door_id)
+			continue
+		if(!door1)
+			door1 = airlock
+			continue
+		else if(!door2)
+			door2 = airlock
+			break
 
 ///Tries to charge from powernet excess, no upper limit except max charge.
 /obj/machinery/computer/vaultcontroller/proc/attempt_siphon()
