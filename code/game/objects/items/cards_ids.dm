@@ -549,8 +549,15 @@ update_label("John Doe", "Clowny")
 	if(forge_disabled || !isliving(user) || !user.mind)
 		return ..()
 
-	var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change Account ID", "Abort"))
-	if(isnull(popup_input) || popup_input == "Abort" || QDELETED(src) || user.incapacitated)
+	var/first_use = !registered_name
+	if(!user.mind.special_role && !anyone) //Unless anyone is allowed, only syndies can use the card, to stop metagaming.
+		if(first_use) //If a non-syndie is the first to forge an unassigned agent ID, then anyone can forge it.
+			anyone = TRUE
+		else
+			return ..()
+
+	var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change Account ID"))
+	if(isnull(popup_input) || QDELETED(src) || user.incapacitated)
 		return
 
 	if(popup_input == "Change Account ID")
@@ -597,17 +604,11 @@ update_label("John Doe", "Clowny")
 
 	// First time use automatically sets the account id to the user.
 	if (first_use && !registered_account && ishuman(user))
-		var/datum/bank_account/account = SSeconomy.bank_accounts_by_id["[user.mind?.account_id]"]
+		var/datum/bank_account/account = SSeconomy.bank_accounts_by_id["[user.mind.account_id]"]
 		if(account)
 			account.bank_cards += src
 			registered_account = account
 			to_chat(user, span_notice("Your account number has been automatically assigned."))
-
-/obj/item/card/id/syndicate/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	chameleon_action.emp_randomise()
 
 #define BREAK_CHAMELEON_ACTION(item) \
 do { \
