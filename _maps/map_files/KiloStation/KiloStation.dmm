@@ -8,7 +8,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -227,7 +227,7 @@
 /turf/open/floor/iron,
 /area/station/ai_monitored/command/storage/eva)
 "agA" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2324,7 +2324,7 @@
 /turf/open/floor/plating,
 /area/station/command/heads_quarters/cmo)
 "baz" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall/rust,
 /area/station/engineering/main)
 "baO" = (
@@ -2996,7 +2996,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/maintenance/port/aft)
 "blX" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
 /area/station/ai_monitored/security/armory)
 "bmr" = (
@@ -3575,7 +3575,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 32
 	},
 /turf/open/floor/iron/dark,
@@ -5102,7 +5102,7 @@
 /obj/machinery/porta_turret/ai{
 	dir = 4
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
@@ -5290,7 +5290,7 @@
 /turf/open/floor/iron/dark,
 /area/station/service/chapel)
 "chC" = (
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = -30
 	},
 /obj/structure/closet/firecloset,
@@ -5311,7 +5311,7 @@
 "chT" = (
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -6729,7 +6729,7 @@
 /area/station/hallway/secondary/exit/departure_lounge)
 "cMN" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = -32
 	},
 /obj/machinery/suit_storage_unit/standard_unit{
@@ -6758,7 +6758,7 @@
 /turf/open/floor/iron/dark,
 /area/station/science/lower)
 "cNp" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall,
 /area/station/maintenance/starboard/fore)
 "cNT" = (
@@ -6888,7 +6888,7 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos)
 "cQt" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall,
 /area/station/engineering/storage/tech)
 "cQA" = (
@@ -7213,7 +7213,7 @@
 /turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "cXR" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/rust,
 /area/station/maintenance/aft)
 "cXV" = (
@@ -7599,7 +7599,7 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -8475,7 +8475,7 @@
 "dtQ" = (
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = -32
 	},
 /turf/open/floor/iron/dark,
@@ -8512,7 +8512,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/port)
 "dve" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall,
 /area/station/command/gateway)
 "dvk" = (
@@ -8815,7 +8815,7 @@
 /turf/open/floor/iron,
 /area/station/security/courtroom)
 "dAW" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /obj/machinery/light{
@@ -10528,7 +10528,7 @@
 	},
 /area/station/maintenance/port)
 "ecp" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "ecs" = (
@@ -10952,7 +10952,7 @@
 /turf/open/floor/iron,
 /area/station/security/courtroom)
 "eli" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
 /area/station/tcommsat/computer)
 "elp" = (
@@ -11222,7 +11222,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
 "eqW" = (
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted,
@@ -11682,7 +11682,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/command/heads_quarters/rd)
 "exx" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall/rust,
 /area/station/maintenance/solars/starboard/fore)
 "exF" = (
@@ -11800,7 +11800,7 @@
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/port)
 "ezf" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall/rust,
 /area/station/command/heads_quarters/hos)
 "ezh" = (
@@ -12082,7 +12082,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/shuttledock)
 "eEX" = (
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -12330,7 +12330,7 @@
 "eHP" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 32
 	},
 /obj/machinery/camera/directional/east{
@@ -14259,7 +14259,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/research)
 "fld" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall/rust,
 /area/station/maintenance/solars/port/fore)
 "flf" = (
@@ -14588,7 +14588,7 @@
 /area/misc/space/nearstation)
 "fpJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = 32
 	},
 /turf/open/floor/plating,
@@ -15163,7 +15163,7 @@
 /turf/open/floor/iron/dark,
 /area/station/security/checkpoint/supply)
 "fAv" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall,
 /area/station/commons/fitness/recreation)
 "fAH" = (
@@ -16140,7 +16140,7 @@
 /turf/open/floor/iron,
 /area/station/security/courtroom)
 "fRZ" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall,
 /area/station/hallway/primary/fore)
 "fSg" = (
@@ -16394,7 +16394,7 @@
 /area/station/service/bar/atrium)
 "fVZ" = (
 /obj/machinery/portable_atmospherics/canister/plasma,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/tile/purple/opposingcorners,
@@ -16832,7 +16832,7 @@
 /turf/open/floor/plating,
 /area/station/cargo/warehouse)
 "gdS" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/rust,
 /area/station/engineering/gravity_generator)
 "gei" = (
@@ -18712,7 +18712,7 @@
 /area/station/service/bar)
 "gNk" = (
 /obj/machinery/computer/bank_machine,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /obj/machinery/light/small{
@@ -19468,7 +19468,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "hbJ" = (
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -20173,7 +20173,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/random/techstorage/rnd_all,
 /obj/effect/turf_decal/bot,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 32
 	},
 /obj/structure/cable/yellow,
@@ -20493,7 +20493,7 @@
 /turf/open/floor/wood,
 /area/station/security/detectives_office)
 "htc" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	name = "EMERGENCY STORAGE"
 	},
 /turf/closed/wall,
@@ -21214,7 +21214,7 @@
 /turf/open/floor/iron,
 /area/station/commons/fitness/recreation)
 "hDS" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall/rust,
 /area/misc/space/nearstation)
 "hEc" = (
@@ -22087,7 +22087,7 @@
 /turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/aisat/atmos)
 "hTI" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = -32
 	},
 /turf/open/floor/plating/asteroid/airless,
@@ -22304,7 +22304,7 @@
 /turf/open/space/basic,
 /area/station/solars/port/fore)
 "hYj" = (
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 28;
 	pixel_y = 32
 	},
@@ -22437,7 +22437,7 @@
 /turf/open/floor/iron/dark,
 /area/station/commons/locker)
 "hZO" = (
-/obj/structure/sign/warning/enginesafety,
+/obj/structure/sign/warning/engine_safety,
 /turf/closed/wall/r_wall,
 /area/station/engineering/main)
 "hZT" = (
@@ -22455,7 +22455,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/mixing)
 "iac" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall,
 /area/station/command/bridge)
 "iae" = (
@@ -23168,7 +23168,7 @@
 /area/station/security/brig)
 "imS" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = -32;
 	pixel_y = -32
 	},
@@ -23952,7 +23952,7 @@
 /turf/open/floor/iron/dark,
 /area/station/cargo/office)
 "iAf" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/rust,
 /area/station/service/chapel/office)
 "iAs" = (
@@ -24325,7 +24325,7 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/main)
 "iHj" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "iHr" = (
@@ -24401,7 +24401,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/shuttledock)
 "iIm" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall,
 /area/station/command/bridge)
 "iIn" = (
@@ -24647,7 +24647,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/robotics/lab)
 "iNS" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall,
 /area/station/maintenance/port/fore)
 "iOg" = (
@@ -24833,7 +24833,7 @@
 /turf/open/floor/iron/dark,
 /area/station/maintenance/starboard/fore)
 "iRr" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	desc = "A warning sign which reads 'BOMB RANGE";
 	name = "BOMB RANGE"
 	},
@@ -25024,7 +25024,7 @@
 	},
 /area/station/cargo/warehouse)
 "iVu" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
 /area/station/engineering/storage/tech)
 "iVx" = (
@@ -25116,7 +25116,7 @@
 	},
 /obj/item/kitchen/fork,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
 /turf/open/floor/plating{
@@ -26196,7 +26196,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/sand/plating,
 /obj/machinery/light,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
 /obj/structure/lattice/catwalk,
@@ -26895,7 +26895,7 @@
 	},
 /area/station/maintenance/fore)
 "jBy" = (
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/wall,
 /area/station/maintenance/fore)
 "jBz" = (
@@ -27003,7 +27003,7 @@
 /area/station/medical/surgery)
 "jDD" = (
 /obj/effect/turf_decal/box/corners,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
 /turf/open/floor/engine,
@@ -27150,7 +27150,7 @@
 /area/station/maintenance/port)
 "jFR" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /obj/structure/cable/yellow,
@@ -27233,7 +27233,7 @@
 	},
 /area/station/maintenance/port/fore)
 "jHQ" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall,
 /area/station/maintenance/solars/starboard/aft)
 "jHR" = (
@@ -27463,7 +27463,7 @@
 /area/station/cargo/warehouse)
 "jKC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = -30
 	},
 /obj/structure/cable/yellow,
@@ -27968,7 +27968,7 @@
 	},
 /area/station/maintenance/starboard)
 "jRV" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall,
 /area/station/science/xenobiology)
 "jRX" = (
@@ -28490,7 +28490,7 @@
 /turf/closed/wall/r_wall/rust,
 /area/station/ai_monitored/command/storage/eva)
 "kaH" = (
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = -30
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -28731,7 +28731,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/ai_monitored/security/armory)
 "kfy" = (
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/wall,
 /area/station/maintenance/aft)
 "kfH" = (
@@ -30664,7 +30664,7 @@
 "kLz" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/emcloset,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	name = "EMERGENCY STORAGE";
 	pixel_y = -32
 	},
@@ -31917,7 +31917,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/warden)
 "liy" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "liE" = (
@@ -32407,7 +32407,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
 "lrk" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	name = "WARNING: Station Limits"
 	},
 /turf/closed/wall,
@@ -33560,7 +33560,7 @@
 /area/station/security/prison)
 "lKz" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	name = "EMERGENCY STORAGE";
 	pixel_y = -32
 	},
@@ -34348,7 +34348,7 @@
 /turf/open/floor/iron,
 /area/station/security/execution/transfer)
 "lZF" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/rust,
 /area/station/maintenance/starboard/aft)
 "lZJ" = (
@@ -34477,7 +34477,7 @@
 /turf/open/floor/iron/dark,
 /area/station/maintenance/starboard)
 "mcp" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /obj/item/multitool,
 /turf/closed/wall/r_wall,
 /area/station/ai_monitored/command/nuke_storage)
@@ -34765,7 +34765,7 @@
 /turf/open/floor/iron/dark,
 /area/station/maintenance/central)
 "mhq" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall/rust,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "mhC" = (
@@ -35556,7 +35556,7 @@
 /obj/machinery/status_display/evac{
 	pixel_x = -32
 	},
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/neutral,
@@ -36278,7 +36278,7 @@
 /turf/open/floor/plating,
 /area/station/science/test_area)
 "mEL" = (
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = 32
 	},
 /obj/machinery/vending/cigarette,
@@ -36815,7 +36815,7 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /obj/item/storage/toolbox/electrical,
@@ -37916,7 +37916,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 32
 	},
 /turf/open/floor/plating,
@@ -38580,7 +38580,7 @@
 /turf/open/floor/iron/freezer,
 /area/station/medical/virology)
 "npp" = (
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/wall,
 /area/station/service/chapel/office)
 "npD" = (
@@ -39326,7 +39326,7 @@
 /turf/open/floor/iron/dark,
 /area/station/service/chapel)
 "nCb" = (
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/wall/rust,
 /area/station/maintenance/port)
 "nCd" = (
@@ -40561,7 +40561,7 @@
 /area/station/science/xenobiology)
 "nXG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	desc = "A warning sign which reads 'BOMB RANGE";
 	name = "BOMB RANGE";
 	pixel_y = 32
@@ -41021,7 +41021,7 @@
 /turf/open/floor/iron/dark,
 /area/station/cargo/sorting)
 "ohj" = (
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 30
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -41178,7 +41178,7 @@
 /area/station/maintenance/port/aft)
 "olI" = (
 /obj/machinery/portable_atmospherics/canister,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = -32
 	},
 /obj/machinery/light/small{
@@ -42124,7 +42124,7 @@
 /area/station/service/bar)
 "oyo" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = -32
 	},
 /turf/open/floor/plating,
@@ -43406,7 +43406,7 @@
 /turf/open/floor/iron/dark/corner,
 /area/station/hallway/primary/starboard)
 "oVd" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall,
 /area/station/maintenance/port/aft)
 "oVz" = (
@@ -44247,7 +44247,7 @@
 /obj/effect/turf_decal/box/corners{
 	dir = 1
 	},
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /turf/open/floor/engine,
@@ -45055,7 +45055,7 @@
 /turf/open/floor/iron/dark,
 /area/station/cargo/warehouse)
 "pzn" = (
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 30
 	},
 /turf/open/floor/engine,
@@ -45477,7 +45477,7 @@
 /turf/open/floor/plating/airless,
 /area/misc/space/nearstation)
 "pLg" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall,
 /area/station/command/heads_quarters/hop)
 "pLi" = (
@@ -46010,7 +46010,7 @@
 /turf/open/floor/iron/dark,
 /area/station/service/kitchen)
 "pTM" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall,
 /area/station/maintenance/port/aft)
 "pTN" = (
@@ -46996,7 +46996,7 @@
 	},
 /area/station/maintenance/fore)
 "qjj" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall,
 /area/station/engineering/gravity_generator)
 "qjm" = (
@@ -47587,7 +47587,7 @@
 /turf/open/floor/iron/dark,
 /area/station/service/bar)
 "quG" = (
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/wall/r_wall,
 /area/station/engineering/atmos)
 "quJ" = (
@@ -49297,7 +49297,7 @@
 "qUb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/port_gen/pacman,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/cobweb,
@@ -49984,7 +49984,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/shuttledock)
 "rgk" = (
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 30;
 	pixel_y = -32
 	},
@@ -50139,7 +50139,7 @@
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
@@ -50293,7 +50293,7 @@
 /area/station/medical/medbay/central)
 "rmZ" = (
 /obj/machinery/mech_bay_recharge_port,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = -28
 	},
 /obj/machinery/camera/directional/north{
@@ -50717,7 +50717,7 @@
 /area/station/engineering/break_room)
 "rwH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/item/mop,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
@@ -50927,7 +50927,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/mixing)
 "rBl" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/rust,
 /area/station/cargo/exploration_dock)
 "rBx" = (
@@ -51121,7 +51121,7 @@
 	},
 /area/station/maintenance/port)
 "rFq" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall/rust,
 /area/station/ai_monitored/turret_protected/aisat/foyer)
 "rFs" = (
@@ -51853,7 +51853,7 @@
 "rSu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cardboard,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 30
 	},
 /turf/open/floor/plating,
@@ -52496,7 +52496,7 @@
 /turf/open/floor/iron/dark,
 /area/station/maintenance/port/aft)
 "sfj" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/rust,
 /area/station/command/bridge)
 "sfk" = (
@@ -53507,7 +53507,7 @@
 /area/station/science/shuttledock)
 "syC" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	desc = "A warning sign which reads 'SERVER ROOM'.";
 	name = "SERVER ROOM";
 	pixel_y = 32
@@ -53593,7 +53593,7 @@
 	},
 /area/station/maintenance/port/aft)
 "sAp" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall,
 /area/station/maintenance/starboard)
 "sAC" = (
@@ -53699,7 +53699,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "sCI" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall,
 /area/station/tcommsat/computer)
 "sDp" = (
@@ -54295,7 +54295,7 @@
 /turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/aisat/foyer)
 "sNc" = (
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = 30
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -55239,7 +55239,7 @@
 	name = "Chief Engineer's Privacy Shutters"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/closeup{
@@ -55953,7 +55953,7 @@
 /turf/open/floor/grass,
 /area/station/service/chapel)
 "tsO" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	desc = "A warning sign which reads 'BOMB RANGE";
 	name = "BOMB RANGE"
 	},
@@ -56690,7 +56690,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/clothing/gloves/color/black,
 /obj/item/wrench,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 30
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -56736,11 +56736,11 @@
 /turf/open/floor/iron/dark,
 /area/station/service/kitchen)
 "tFt" = (
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = -32
 	},
 /turf/open/floor/iron/dark,
@@ -56959,7 +56959,7 @@
 /turf/open/floor/iron/dark,
 /area/station/service/bar/atrium)
 "tIX" = (
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = -30
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -57204,7 +57204,7 @@
 /turf/open/floor/iron/dark,
 /area/station/maintenance/fore)
 "tMc" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall,
 /area/station/cargo/warehouse)
 "tMf" = (
@@ -57467,7 +57467,7 @@
 	},
 /area/station/cargo/warehouse)
 "tRb" = (
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
 /obj/effect/spawner/room/fivexthree,
@@ -57544,7 +57544,7 @@
 /turf/open/floor/iron,
 /area/station/maintenance/starboard/fore)
 "tSr" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall,
 /area/station/maintenance/solars/port/aft)
 "tSt" = (
@@ -57902,7 +57902,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
 "tVY" = (
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 30
 	},
 /obj/structure/cable/yellow,
@@ -58540,7 +58540,7 @@
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "uhD" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/rust,
 /area/misc/space/nearstation)
 "uhG" = (
@@ -58616,7 +58616,7 @@
 /turf/open/floor/iron/dark,
 /area/station/service/library)
 "uiF" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
 /area/station/ai_monitored/turret_protected/aisat/foyer)
 "ujh" = (
@@ -58946,7 +58946,7 @@
 /turf/open/floor/iron/dark,
 /area/station/maintenance/port/aft)
 "upy" = (
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -59215,7 +59215,7 @@
 	},
 /area/station/tcommsat/server)
 "uuX" = (
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -59520,7 +59520,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
 "uAE" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	name = "EMERGENCY STORAGE";
 	pixel_y = 32
 	},
@@ -60086,7 +60086,7 @@
 /area/station/maintenance/port/aft)
 "uIS" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = -32
 	},
 /obj/structure/cable,
@@ -60510,7 +60510,7 @@
 /area/station/maintenance/fore)
 "uSo" = (
 /obj/machinery/power/port_gen/pacman,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /obj/machinery/light{
@@ -60651,7 +60651,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/explab)
 "uVf" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall/rust,
 /area/station/engineering/main)
 "uVy" = (
@@ -61418,7 +61418,7 @@
 	id = "Xenolab";
 	name = "Containment Chamber Blast Door"
 	},
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = -32
 	},
 /obj/machinery/door/firedoor,
@@ -61951,7 +61951,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
 "vrw" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall,
 /area/station/engineering/main)
 "vrH" = (
@@ -62789,7 +62789,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "vGh" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	name = "WARNING: Station Limits"
 	},
 /turf/closed/wall/rust,
@@ -62842,7 +62842,7 @@
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "vHW" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
 /area/station/security/execution/transfer)
 "vHX" = (
@@ -64178,7 +64178,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /obj/structure/cable,
@@ -64676,7 +64676,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/medical/cryo)
 "wnS" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall/rust,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "wok" = (
@@ -65102,7 +65102,7 @@
 	},
 /area/station/cargo/warehouse)
 "wvG" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
 /area/station/engineering/gravity_generator)
 "wvP" = (
@@ -66897,7 +66897,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
 "xdL" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall,
 /area/station/engineering/storage/tcomms)
 "xdM" = (
@@ -67950,7 +67950,7 @@
 /area/station/engineering/atmos)
 "xxj" = (
 /obj/machinery/power/smes/engineering,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = 32
 	},
 /obj/structure/cable/yellow,
@@ -68254,7 +68254,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard)
 "xBY" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall,
 /area/misc/space/nearstation)
 "xCb" = (
@@ -68846,7 +68846,7 @@
 /obj/machinery/porta_turret/ai{
 	dir = 4
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/cobweb,
@@ -69360,7 +69360,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -70142,7 +70142,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/fore)
 "ygw" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall,
 /area/station/maintenance/fore)
 "ygF" = (
