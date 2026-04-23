@@ -1,0 +1,172 @@
+{
+	"Name": "Greenshift",
+	"Description": "A peaceful round with no antagonists.",
+	"Dynamic": {
+		"roundstart_divergence_percent_lower": 0.9,
+		"roundstart_divergence_percent_upper": 1.1,
+
+		"supplementary_points_per_ready": 0,
+		"supplementary_points_per_unready": 0,
+
+		"midround_grace_period": 15000,
+
+		"midround_light_starting_chance": 80,
+		"midround_medium_starting_chance": 15,
+		"midround_heavy_starting_chance": 5,
+		"midround_medium_increase_ratio": 0.6,
+
+		"midround_light_end_time": 54000,
+		"midround_medium_end_time": 108000,
+
+		"midround_linear_delta": 0,
+		"midround_linear_delta_forced": 0,
+		"midround_living_delta": 0,
+		"midround_observer_delta": 0,
+		"midround_dead_delta": 0,
+		"midround_dead_security_delta": 0,
+
+		"forced_extended": true
+	},
+	"Gamemode": {
+		"Traitor": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Changeling": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Heretic": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Malfunctioning AI": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Wizard": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Blood Cult": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Vampires": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Clockwork Cult": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Nuclear Operatives": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Clown Operatives": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Revolution": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		}
+	},
+	"Supplementary": {
+		"Blood Brothers": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Vampire": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		}
+	},
+	"Midround": {
+		"Syndicate Sleeper Agent": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Fanatic Revelation": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Lone Vampire (Midround)": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Obsessed": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Value Drifted AI": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Revenant": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Abductors": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Lone Abductor": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Morph": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Prisoners": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Fugitives": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Nightmare": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Space Ninja": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Space Dragon": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Spider Infestation": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Swarmer": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Space Pirates": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Blob": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Nuclear Assault": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Wizard": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		},
+		"Xenomorph Infestation": {
+			"weight": 0,
+			"minimum_players_required": 99999
+		}
+	}
+}
