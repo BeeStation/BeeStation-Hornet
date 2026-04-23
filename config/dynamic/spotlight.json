@@ -1,6 +1,6 @@
 {
 	"Name": "Spotlight",
-	"Description": "A calmer experience focused on a single impactful antagonist per round. Supplementary antagonists are suppressed to avoid overwhelming the crew, and midrounds escalate slowly, favouring lighter events. Ideal for lower population rounds or players who prefer a more focused narrative.",
+	"Description": "A tighter experience focused on a single impactful antagonist per round. Supplementary antagonists are suppressed, and midrounds are more responsive to station dynamics.",
 	"Dynamic": {
 		"supplementary_points_per_ready": 0,
 		"supplementary_points_per_unready": 0,
