@@ -793,10 +793,8 @@ SUBSYSTEM_DEF(dynamic)
 			antag_delta += midround_points_per_antag["[antag_datum.type]"]
 
 	// Add points
-	var/variable_delta = max(living_delta + observing_delta + dead_delta + dead_security_delta + antag_delta + midround_linear_delta, 0)
-	if(!isnull(midround_max_positive_delta))
-		variable_delta = min(variable_delta, midround_max_positive_delta)
-	midround_points += variable_delta
+	var/variable_delta = living_delta + observing_delta + dead_delta + dead_security_delta + antag_delta + midround_linear_delta
+	midround_points += clamp(variable_delta, 0, midround_max_positive_delta)
 	midround_points += midround_linear_delta_forced
 
 	// Log point sources
