@@ -1,0 +1,129 @@
+{
+	"Name": "Spotlight",
+	"Description": "A calmer experience focused on a single impactful antagonist per round. Supplementary antagonists are suppressed to avoid overwhelming the crew, and midrounds escalate slowly, favouring lighter events. Ideal for lower population rounds or players who prefer a more focused narrative.",
+	"Dynamic": {
+		"roundstart_divergence_percent_lower": 0.9,
+		"roundstart_divergence_percent_upper": 1.1,
+
+		"supplementary_points_per_ready": 0,
+		"supplementary_points_per_unready": 0,
+
+		"midround_grace_period": 18000,
+
+		"midround_light_starting_chance": 80,
+		"midround_medium_starting_chance": 15,
+		"midround_heavy_starting_chance": 5,
+		"midround_medium_increase_ratio": 0.6,
+
+		"midround_light_end_time": 54000,
+		"midround_medium_end_time": 108000,
+
+		"midround_linear_delta": 0,
+		"midround_linear_delta_forced": 0,
+		"midround_living_delta": 0.06,
+		"midround_observer_delta": 0,
+		"midround_dead_delta": -0.1,
+		"midround_dead_security_delta": -0.5
+	},
+	"Gamemode": {
+		"Traitor": {
+			"weight": 10,
+			"minimum_players_required": 5
+		},
+		"Changeling": {
+			"weight": 11,
+			"minimum_players_required": 10
+		},
+		"Vampires": {
+			"weight": 12
+		},
+		"Heretic": {
+			"weight": 13
+		},
+		"Malfunctioning AI": {
+			"weight": 14
+		},
+		"Wizard": {
+			"weight": 15
+		},
+		"Blood Cult": {
+			"weight": 16
+		},
+		"Nuclear Operatives": {
+			"weight": 17
+		},
+		"Clockwork Cult": {
+			"weight": 18
+		}
+	},
+	"Supplementary": {
+		"Blood Brothers": {
+			"minimum_players_required": 9999
+		},
+		"Vampire": {
+			"minimum_players_required": 9999
+		}
+	},
+	"Midround": {
+		"Obsessed": {
+			"minimum_players_required": 5
+		},
+		"Syndicate Sleeper Agent": {
+			"minimum_players_required": 5
+		},
+		"Fanatic Revelation": {
+			"minimum_players_required": 5
+		},
+		"Lone Vampire (Midround)": {
+			"minimum_players_required": 5
+		},
+		"Revenant": {
+			"minimum_players_required": 5
+		},
+		"Abductors": {
+			"minimum_players_required": 5
+		},
+		"Lone Abductor": {
+			"minimum_players_required": 5
+		},
+		"Morph": {
+			"minimum_players_required": 5
+		},
+		"Prisoners": {
+			"minimum_players_required": 5
+		},
+		"Value Drifted AI": {
+			"minimum_players_required": 5
+		},
+		"Nightmare": {
+			"minimum_players_required": 5
+		},
+		"Space Ninja": {
+			"minimum_players_required": 5
+		},
+		"Space Dragon": {
+			"minimum_players_required": 5
+		},
+		"Spider Infestation": {
+			"minimum_players_required": 5
+		},
+		"Swarmer": {
+			"minimum_players_required": 5
+		},
+		"Space Pirates": {
+			"minimum_players_required": 5
+		},
+		"Blob": {
+			"minimum_players_required": 5
+		},
+		"Nuclear Assault": {
+			"minimum_players_required": 5
+		},
+		"Wizard": {
+			"minimum_players_required": 5
+		},
+		"Xenomorph Infestation": {
+			"minimum_players_required": 5
+		}
+	}
+}
