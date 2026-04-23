@@ -69,7 +69,6 @@ type MidroundData = {
   observer_delta: number;
   linear_delta: number;
   linear_delta_forced: number;
-  max_positive_delta: number | null;
   logged_points: number[][];
   logged_points_living: number[][];
   logged_points_dead: number[][];
@@ -634,7 +633,6 @@ const MidroundPage = () => {
     observer_delta,
     linear_delta,
     linear_delta_forced,
-    max_positive_delta,
   } = data;
 
   // Convert our logged data into a useable format
@@ -899,25 +897,6 @@ const MidroundPage = () => {
                   onChange={(value) =>
                     act('set_midround_linear_delta_forced', {
                       new_linear_delta_forced: value,
-                    })
-                  }
-                  width="25%"
-                />
-              </LabeledList.Item>
-              <LabeledList.Item
-                label="Max Positive Delta"
-                verticalAlign="middle"
-              >
-                <NumberInput
-                  value={max_positive_delta ?? -1}
-                  animated
-                  minValue={-1}
-                  maxValue={100}
-                  step={0.5}
-                  format={(value) => (value === -1 ? 'Unlimited' : String(value))}
-                  onChange={(value) =>
-                    act('set_midround_max_positive_delta', {
-                      new_max_positive_delta: value,
                     })
                   }
                   width="25%"
