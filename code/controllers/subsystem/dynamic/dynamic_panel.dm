@@ -146,6 +146,7 @@
 	data["observer_delta"] = SSdynamic.midround_observer_delta
 	data["linear_delta"] = SSdynamic.midround_linear_delta
 	data["linear_delta_forced"] = SSdynamic.midround_linear_delta_forced
+	data["max_positive_delta"] = SSdynamic.midround_max_positive_delta
 
 	data["logged_points"] = SSdynamic.logged_points["logged_points"]
 	data["logged_points_living"] = SSdynamic.logged_points["logged_points_living"]
@@ -491,6 +492,13 @@
 			SSdynamic.midround_linear_delta_forced = new_linear_delta_forced
 			message_admins("[key_name(usr)] set the forced midround linear delta to [new_linear_delta_forced]")
 			log_dynamic("[key_name(usr)] set the forced midround linear delta to [new_linear_delta_forced]")
+			return TRUE
+		if("set_midround_max_positive_delta")
+			var/new_max_positive_delta = params["new_max_positive_delta"]
+			SSdynamic.midround_max_positive_delta = (new_max_positive_delta == -1) ? null : new_max_positive_delta
+			message_admins("[key_name(usr)] set the midround max positive delta to [isnull(SSdynamic.midround_max_positive_delta) ? "unlimited" : SSdynamic.midround_max_positive_delta]")
+			log_dynamic("[key_name(usr)] set the midround max positive delta to [isnull(SSdynamic.midround_max_positive_delta) ? "unlimited" : SSdynamic.midround_max_positive_delta]")
+			return TRUE
 			return TRUE
 
 		// Latejoin

@@ -192,6 +192,8 @@ SUBSYSTEM_DEF(dynamic)
 	var/midround_linear_delta = 0.7
 	/// This delta is applied no matter what
 	var/midround_linear_delta_forced = 0.25
+	/// The maximum positive delta that can be added per tick. null means unlimited.
+	var/midround_max_positive_delta = null
 
 	/// How long dynamic will wait to execute another ruleset if it fails to execute the previous one
 	/// Used to mitigate spam and antag rolling
@@ -791,7 +793,10 @@ SUBSYSTEM_DEF(dynamic)
 			antag_delta += midround_points_per_antag["[antag_datum.type]"]
 
 	// Add points
-	midround_points += max(living_delta + observing_delta + dead_delta + dead_security_delta + antag_delta + midround_linear_delta, 0)
+	var/variable_delta = max(living_delta + observing_delta + dead_delta + dead_security_delta + antag_delta + midround_linear_delta, 0)
+	if(!isnull(midround_max_positive_delta))
+		variable_delta = min(variable_delta, midround_max_positive_delta)
+	midround_points += variable_delta
 	midround_points += midround_linear_delta_forced
 
 	// Log point sources
