@@ -193,7 +193,7 @@ SUBSYSTEM_DEF(dynamic)
 	/// This delta is applied no matter what
 	var/midround_linear_delta_forced = 0.25
 	/// The maximum positive delta that can be added per tick. null means unlimited.
-	var/midround_max_positive_delta = null
+	var/midround_max_positive_delta = INFINITY
 
 	/// How long dynamic will wait to execute another ruleset if it fails to execute the previous one
 	/// Used to mitigate spam and antag rolling
