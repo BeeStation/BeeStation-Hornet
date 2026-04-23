@@ -473,6 +473,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 // Main loop.
 /datum/controller/master/proc/Loop(init_stage)
+	set category = CATEGORY_NO_RUNTIME_LOOP // DO NOT REMOVE THIS - This is used in runtime tracy
 	. = -1
 	//Prep the loop (most of this is because we want MC restarts to reset as much state as we can, and because
 	//	local vars rock

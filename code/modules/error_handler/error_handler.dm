@@ -18,6 +18,31 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		E.desc += " ## STACK TRACE INFO: [E.file], line [E.line]. Proc: [GLOB.runtime_helper["procname"]] / Type: [GLOB.runtime_helper["error_type"] || "null"]"
 		GLOB.runtime_helper["runtime_message"] = STACK_TRACE_NULL_HINT
 
+	// Failsafe vars to make runtime tracy won't be broken
+	var/force_break = 0 // a var to detect the loop
+	var/proc_loop_detected = 0 // a var to detect the loop with CATEGORY_NO_RUNTIME_LOOP
+	try
+		E.desc += "\n ## Proc call chain: \n"
+		var/callee/callee_chain = caller
+		do
+			E.desc += "[callee_chain.src] | [callee_chain.proc]([english_list(callee_chain.args, nothing_text = "", and_text = ", ")])"
+			if(callee_chain.category == CATEGORY_NO_RUNTIME_LOOP)
+				if(proc_loop_detected++ > 4)
+					E.desc += "\n< Notice: \"no loop\" Category detected. Stops the loop. >\n"
+					break
+			if(force_break++ > 100)
+				E.desc += "\n< ERROR: Something is looping. Stops the loop. Please report to the team. >\n"
+				break
+			callee_chain = callee_chain.caller
+			if(!length("[callee_chain]"))
+				E.desc += "\n< Notice: Null '/callee' detected. Stops trace callee chain. >\n"
+				break
+			E.desc += " | CalledBy: [callee_chain.file]:[callee_chain.line]\n"
+		while(callee_chain)
+	catch(var/exception/callee_error)
+		E.desc += "\n << CRITICAL ERROR: Please report to the team. >>\n"
+		E.desc += "# Details: [callee_error.name] / [callee_error.desc] / line:[callee_error.line]\n"
+
 	//this is snowflake because of a byond bug (ID:2306577), do not attempt to call non-builtin procs in this if
 	if(copytext(E.name, 1, 32) == "Maximum recursion level reached")//32 == length() of that string + 1
 		//log to world while intentionally triggering the byond bug.

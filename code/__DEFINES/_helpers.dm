@@ -28,3 +28,6 @@
 
 /// Takes a datum as input, returns its ref string
 #define text_ref(datum) ref(datum)
+
+// I just couldn't find a better room for this
+#define CATEGORY_NO_RUNTIME_LOOP "no_runtime_loop" //! Marks a proc with a category to prevent the loop issue in the runtime tracy.
