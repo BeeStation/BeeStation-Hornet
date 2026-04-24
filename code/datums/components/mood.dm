@@ -427,5 +427,5 @@
 		return
 
 	for(var/addiction_type in affected_carbon.mind.addiction_points)
-		var/datum/addiction/addiction_to_remove = SSaddiction.all_addictions[type]
+		var/datum/addiction/addiction_to_remove = GLOB.addictions[type]
 		affected_carbon.mind.remove_addiction_points(type, addiction_to_remove.high_sanity_addiction_loss) //If true was returned, we lost the addiction!

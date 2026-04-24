@@ -51,21 +51,22 @@
 			mutant_organs = list()
 	return ..()
 
-/datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
+/datum/species/human/felinid/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(istype(chem, /datum/reagent/consumable/cocoa))
 		if(prob(40))
-			M.adjust_disgust(20)
+			affected.adjust_disgust(20)
 		if(prob(5))
-			M.visible_message(span_warning("[M] [pick("dry heaves!","coughs!","sputters!")]"))
+			affected.visible_message(span_warning("[affected] [pick("dry heaves!","coughs!","sputters!")]"))
 		if(prob(10))
 			var/sick_message = pick("You feel nauseous.", "You feel like your insides are melting.")
-			to_chat(M, span_notice("[sick_message]"))
+			to_chat(affected, span_notice("[sick_message]"))
 		if(prob(15))
-			if(locate(/obj/item/organ/stomach) in M.internal_organs)
-				var/obj/item/organ/stomach/cat_stomach = M.internal_organs_slot[ORGAN_SLOT_STOMACH]
+			if(locate(/obj/item/organ/stomach) in affected.internal_organs)
+				var/obj/item/organ/stomach/cat_stomach = affected.internal_organs_slot[ORGAN_SLOT_STOMACH]
 				cat_stomach.apply_organ_damage(15)
-		return FALSE
-	return ..() //second part of this effect is handled elsewhere
 
 /proc/mass_purrbation()
 	for(var/M in GLOB.mob_list)

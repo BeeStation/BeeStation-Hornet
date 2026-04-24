@@ -224,7 +224,7 @@
 		/obj/item/organ/eyes/robotic/flashlight = 1,
 		/obj/item/organ/eyes/night_vision = 1,
 		/obj/item/organ/liver/cybernetic = 4,
-		/obj/item/organ/liver/cybernetic/upgraded/ipc = 3,
+		/obj/item/organ/liver/cybernetic/tier2/ipc = 3,
 		/obj/item/organ/lungs/cybernetic = 4,
 		/obj/item/organ/lungs/cybernetic/upgraded= 2,
 		/obj/item/organ/stomach/battery/ipc = 4,

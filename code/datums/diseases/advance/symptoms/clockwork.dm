@@ -293,7 +293,6 @@
 	icon_state = "liver-clock"
 	organ_flags = ORGAN_ROBOTIC
 	alcohol_tolerance = 0
-	toxLethality = 0
 	toxTolerance = 1 //while the organ isn't damaged by doing its job, it doesnt do it very well
 
 /obj/item/organ/lungs/clockwork

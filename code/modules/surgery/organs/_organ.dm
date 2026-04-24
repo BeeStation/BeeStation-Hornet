@@ -45,9 +45,14 @@
 	/// The size of the reagent container if the organ is edible
 	var/reagent_vol = 10
 
+	/// Time this organ has failed for
+	var/failure_time = 0
 	///Do we effect the appearance of our mob. Used to save time in preference code
 	var/visual = TRUE
-	/// Traits that are given to the holder of the organ.
+	/**
+	 * Traits that are given to the holder of the organ.
+	 * If you want an effect that changes this, don't add directly to this. Use the add_organ_trait() proc.
+	 */
 	var/list/organ_traits
 	/// Status Effects that are given to the holder of the organ.
 	var/list/organ_effects
@@ -124,7 +129,6 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 	if(!special)
 		organ_owner.hud_used?.update_locked_slots()
-	//RegisterSignal(owner, COMSIG_ATOM_EXAMINE, PROC_REF(on_owner_examine))
 	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, organ_owner)
 	SEND_SIGNAL(organ_owner, COMSIG_CARBON_GAIN_ORGAN, src, special)
 
@@ -214,25 +218,41 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	SHOULD_CALL_PARENT(TRUE) //PASS YOUR ARGS FUCKER
 
 	if(organ_flags & ORGAN_FAILING)
+		handle_failing_organs(delta_time)
 		return
+
+	if(failure_time > 0)
+		failure_time--
+
+	if(!damage) // No sense healing if you're not even hurt bro
+		return
+
+	if(IS_ROBOTIC_ORGAN(src)) // Robotic organs don't naturally heal
+		return
+
 	///Damage decrements by a percent of its maxhealth
 	var/healing_amount = healing_factor
 	///Damage decrements again by a percent of its maxhealth, up to a total of 4 extra times depending on the owner's health
-	if(owner)
-		healing_amount += (owner.satiety > 0) ? (4 * healing_factor * owner.satiety / MAX_SATIETY) : 0
+	healing_amount += (owner.satiety > 0) ? (4 * healing_factor * owner.satiety / MAX_SATIETY) : 0
 	apply_organ_damage(-healing_amount * maxHealth * delta_time, damage) // pass current damage incase we are over cap
 
 /obj/item/organ/examine(mob/user)
 	. = ..()
+
+	. += span_info("[src] fit[name[length(name)] == "s" ? "" : "s"] in the <b>[parse_zone(zone)]</b>.")
+
 	if(organ_flags & ORGAN_FAILING)
 		if(IS_ROBOTIC_ORGAN(src))
-			. += span_warning("[src] seems to be broken!")
+			. += span_warning("[src] seems to be malfunctioning.")
 			return
 		. += span_warning("[src] has decayed for too long, and has turned a sickly color! It doesn't look like it will work anymore!")
 		return
+
 	if(damage > high_threshold)
+		if(IS_ROBOTIC_ORGAN(src))
+			. += span_warning("[src] seems to be malfunctioning.")
+			return
 		. += span_warning("[src] is starting to look discolored.")
-	. += span_info("[src] fit[name[length(name)] == "s" ? "" : "s"] in the <b>[parse_zone(zone)]</b>.")
 
 ///Used as callbacks by object pooling
 /obj/item/organ/proc/exit_wardrobe()
@@ -375,6 +395,24 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		ears = new()
 		ears.Insert(src)
 	ears.set_organ_damage(0)
+
+///Organs don't die instantly, and neither should you when you get fucked up
+/obj/item/organ/proc/handle_failing_organs(delta_time)
+	if(owner.stat == DEAD)
+		return
+
+	failure_time += delta_time
+	organ_failure(delta_time)
+
+
+/** organ_failure
+ * generic proc for handling dying organs
+ *
+ * Arguments:
+ * delta_time - seconds since last tick
+ */
+/obj/item/organ/proc/organ_failure(delta_time)
+	return
 
 /** get_availability
   * returns whether the species should innately have this organ.

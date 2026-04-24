@@ -25,8 +25,6 @@
 		if(stat != DEAD)
 			//Mutations and radiation
 			handle_mutations(delta_time, times_fired)
-
-		if(stat != DEAD)
 			//Breathing, if applicable
 			handle_breathing(delta_time, times_fired)
 

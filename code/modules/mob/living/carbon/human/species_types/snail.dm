@@ -29,13 +29,15 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/snail
 	)
 
-/datum/species/snail/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
+/datum/species/snail/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(istype(chem,/datum/reagent/consumable/sodiumchloride))
-		H.adjustFireLoss(2 * REM * delta_time)
-		playsound(H, 'sound/weapons/sear.ogg', 30, 1)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
-		return TRUE
-	return ..()
+		playsound(affected, 'sound/weapons/sear.ogg', 30, TRUE)
+		affected.adjustFireLoss(2 * REM * delta_time)
+		affected.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
+		return COMSIG_MOB_STOP_REAGENT_CHECK
 
 /datum/species/snail/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	. = ..()

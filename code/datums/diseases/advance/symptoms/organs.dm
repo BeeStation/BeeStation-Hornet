@@ -198,7 +198,7 @@
 					O.Insert(M, drop_if_replaced = FALSE)
 					M.adjustOrganLoss(ORGAN_SLOT_HEART, 200)
 					return
-				if(!M.get_organ_by_type(/obj/item/organ/liver) && !(TRAIT_NOMETABOLISM in S.inherent_traits))
+				if(!M.get_organ_by_type(/obj/item/organ/liver) && !(TRAIT_LIVERLESS_METABOLISM in S.inherent_traits))
 					var/obj/item/organ/liver/O
 					if(S.mutantliver)
 						O = new S.mutantliver()

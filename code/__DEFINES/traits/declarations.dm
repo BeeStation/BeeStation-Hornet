@@ -109,11 +109,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOHUNGER "no_hunger"
 ///This carbon doesn't bleed
 #define TRAIT_NOBLOOD "noblood"
+/// This just means that the carbon will always have functional liverless metabolism
+#define TRAIT_LIVERLESS_METABOLISM "liverless_metabolism"
 /// Carbons with this trait can't have their DNA copied by diseases nor changelings
 #define TRAIT_NO_DNA_COPY "no_dna_copy"
 // This race can't become a vampire, changeling antagonist or be copied by a changeling.
 #define TRAIT_NOT_TRANSMORPHIC "not_transmorphic"
 #define TRAIT_NOMETABOLISM		"no_metabolism"
+// Use when you want a mob to be able to metabolize plasma temporarily (e.g. plasma fixation disease symptom)
+#define TRAIT_PLASMA_LOVER_METABOLISM "plasma_lover_metabolism"
 #define TRAIT_NOCLONELOSS		"no_cloneloss"
 #define TRAIT_TOXIMMUNE			"toxin_immune"
 #define TRAIT_EASYDISMEMBER		"easy_dismember"

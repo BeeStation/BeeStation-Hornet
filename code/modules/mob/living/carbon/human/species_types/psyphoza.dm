@@ -45,12 +45,12 @@
 	REMOVE_TRAIT(C, TRAIT_PSYCHIC_SENSE, SPECIES_TRAIT)
 	PH = null
 
-/datum/species/psyphoza/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/psyphoza/handle_chemical(datum/reagent/chem, mob/living/carbon/human/H)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(istype(chem, /datum/reagent/drug) && H.blood_volume < BLOOD_VOLUME_NORMAL)
 		H.blood_volume += chem.volume * 15
-		H.reagents.remove_reagent(chem.type, chem.volume)
-		return FALSE
-	return ..()
 
 /datum/species/psyphoza/get_scream_sound(mob/living/carbon/user)
 	return pick('sound/voice/psyphoza/psyphoza_scream_1.ogg', 'sound/voice/psyphoza/psyphoza_scream_2.ogg')

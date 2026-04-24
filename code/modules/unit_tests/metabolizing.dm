@@ -3,17 +3,13 @@
 	SSmobs.pause()
 
 	var/mob/living/carbon/human/human = allocate(/mob/living/carbon/human/consistent)
-	//var/mob/living/carbon/monkey/monkey = allocate(/mob/living/carbon/monkey)
-
-	//This should only be used for existing reagents which are coded like ass. Do NOT add new reagents to this list.
-	var/list/janky_reagents = list(
+	var/list/blacklisted_reagents = list(
 		/datum/reagent/consumable/ethanol/sarsaparilliansunset,
 		/datum/reagent/corgium
 	)
-
-	for (var/reagent_type in subtypesof(/datum/reagent) - janky_reagents)
+	var/list/reagents_to_check = valid_subtypesof(/datum/reagent) - blacklisted_reagents
+	for (var/reagent_type in reagents_to_check)
 		test_reagent(human, reagent_type)
-	//	test_reagent(monkey, reagent_type) //These break fucking everything. If only they were species instead of carbons. Oh well.
 
 /datum/unit_test/metabolization/proc/test_reagent(mob/living/carbon/C, reagent_type)
 	C.reagents.add_reagent(reagent_type, 10)
@@ -49,3 +45,78 @@
 	SSmobs.ignite()
 	return ..()
 
+/datum/unit_test/addictions/Run()
+	SSmobs.pause()
+
+	var/mob/living/carbon/human/pill_user = allocate(/mob/living/carbon/human/consistent)
+	var/mob/living/carbon/human/syringe_user = allocate(/mob/living/carbon/human/consistent)
+	var/mob/living/carbon/human/pill_syringe_user = allocate(/mob/living/carbon/human/consistent)
+
+	var/datum/mind/pill_mind = new /datum/mind(null)
+	pill_mind.active = TRUE
+	pill_mind.transfer_to(pill_user)
+
+	var/datum/mind/syringe_mind = new /datum/mind(null)
+	syringe_mind.active = TRUE
+	syringe_mind.transfer_to(syringe_user)
+
+	var/datum/mind/pill_syringe_mind = new /datum/mind(null)
+	pill_syringe_mind.active = TRUE
+	pill_syringe_mind.transfer_to(pill_syringe_user)
+
+	var/obj/item/reagent_containers/pill/pill = allocate(/obj/item/reagent_containers/pill)
+	var/obj/item/reagent_containers/pill/pill_two = allocate(/obj/item/reagent_containers/pill)
+
+	var/obj/item/reagent_containers/syringe/syringe = allocate(/obj/item/reagent_containers/syringe)
+
+	var/datum/reagent/drug/methamphetamine/meth = allocate(/datum/reagent/drug/methamphetamine)
+
+	var/addiction_type_to_check
+
+	for(var/key in meth.addiction_types)
+		addiction_type_to_check = key //idk how to do this otherwise
+
+	// Let's start with stomach metabolism
+	pill.reagents.add_reagent(meth.type, 5)
+	pill.attack(pill_user, pill_user)
+
+	// Set the metabolism efficiency to 1.0 so it transfers all reagents to the body in one go.
+	var/obj/item/organ/stomach/pill_belly = pill_user.get_organ_slot(ORGAN_SLOT_STOMACH)
+	pill_belly.metabolism_efficiency = 1
+
+	pill_user.Life()
+
+	TEST_ASSERT(pill_user.mind.addiction_points[addiction_type_to_check], "User did not gain addiction points after metabolizing meth")
+
+	// Then injected metabolism
+	syringe.volume = 5
+	syringe.amount_per_transfer_from_this = 5
+	syringe.reagents.add_reagent(meth.type, 5)
+	syringe.melee_attack_chain(syringe_user, syringe_user)
+
+	syringe_user.Life()
+
+	TEST_ASSERT(syringe_user.mind.addiction_points[addiction_type_to_check], "User did not gain addiction points after metabolizing meth")
+
+	// One half syringe
+	syringe.reagents.remove_all()
+	syringe.volume = 5
+	syringe.amount_per_transfer_from_this = 5
+	syringe.reagents.add_reagent(meth.type, (5 * 0.5) + 1)
+
+	// One half pill
+	pill_two.reagents.add_reagent(meth.type, (5 * 0.5) + 1)
+	pill_two.attack(pill_syringe_user, pill_syringe_user)
+	syringe.melee_attack_chain(pill_syringe_user, pill_syringe_user)
+
+	// Set the metabolism efficiency to 1.0 so it transfers all reagents to the body in one go.
+	pill_belly = pill_syringe_user.get_organ_slot(ORGAN_SLOT_STOMACH)
+	pill_belly.metabolism_efficiency = 1
+
+	pill_syringe_user.Life()
+
+	TEST_ASSERT(pill_syringe_user.mind.addiction_points[addiction_type_to_check], "User did not gain addiction points after metabolizing meth")
+
+/datum/unit_test/addictions/Destroy()
+	SSmobs.ignite()
+	return ..()

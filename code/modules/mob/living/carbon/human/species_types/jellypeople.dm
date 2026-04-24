@@ -80,14 +80,13 @@
 	bodies = old_species.bodies
 
 /datum/species/oozeling/slime/spec_life(mob/living/carbon/human/H)
+	. = ..()
 	if(H.blood_volume >= BLOOD_VOLUME_SLIME_SPLIT)
 		if(prob(5))
 			to_chat(H, span_notice("You feel very bloated!"))
 	else if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
 		H.blood_volume += 3
 		H.adjust_nutrition(-2.5)
-
-	..()
 
 /datum/action/innate/split_body
 	name = "Split Body"

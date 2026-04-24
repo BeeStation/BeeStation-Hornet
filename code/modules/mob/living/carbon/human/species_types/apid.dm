@@ -63,12 +63,12 @@
 	if(istype(attacking_item, /obj/item/melee/flyswatter))
 		damage_mods += 30 // Yes, a 30x damage modifier
 
-/datum/species/apid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/apid/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(chem.type == /datum/reagent/toxin/pestkiller)
-		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return FALSE
-	return ..()
+		affected.adjustToxLoss(3 * REM * delta_time)
 
 /datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null) // For roundstart
 	H.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)

@@ -229,6 +229,13 @@
 	icon_state = "pill_shape_capsule_white"
 	list_reagents = list(/datum/reagent/medicine/potass_iodide = 30)
 
+/obj/item/reagent_containers/pill/iron
+	name = "iron pill"
+	desc = "Used to reduce bloodloss slowly."
+	icon_state = "pill_shape_tablet_skyblue_lined"
+	list_reagents = list(/datum/reagent/iron = 30)
+	rename_with_volume = TRUE
+
 
 ///////////////////////////////////////// this pill is used only in a legion mob drop
 /obj/item/reagent_containers/pill/shadowtoxin

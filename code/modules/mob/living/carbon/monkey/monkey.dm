@@ -141,9 +141,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	internal = null
 	return
 
-/mob/living/carbon/monkey/reagent_check(datum/reagent/R) //can metabolize all reagents
-	return FALSE
-
 /mob/living/carbon/monkey/canBeHandcuffed()
 	if(num_hands < 2)
 		return FALSE

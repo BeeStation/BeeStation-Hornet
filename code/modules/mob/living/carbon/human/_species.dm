@@ -466,11 +466,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/C, datum/species/old_species, pref_load)
 	SHOULD_CALL_PARENT(TRUE)
-	if((AGENDER in species_traits))
-		C.gender = PLURAL
 
-	if(inherent_biotypes & MOB_INORGANIC && !(old_species.inherent_biotypes & MOB_INORGANIC)) // if the mob was previously not of the MOB_INORGANIC biotype when changing to MOB_INORGANIC
-		C.adjustToxLoss(-C.getToxLoss(), forced = TRUE) // clear the organic toxin damage upon turning into a MOB_INORGANIC, as they are now immune
+	if(AGENDER in species_traits)
+		C.gender = PLURAL
 
 	C.mob_biotypes = inherent_biotypes
 
@@ -493,23 +491,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	for(var/X in inherent_traits)
 		ADD_TRAIT(C, X, SPECIES_TRAIT)
 
-	if(TRAIT_VIRUSIMMUNE in inherent_traits)
-		for(var/datum/disease/A in C.diseases)
-			A.cure(FALSE)
-
 	//if we can't have the disease, dont keep it
 	for(var/datum/disease/disease in C.diseases)
 		if(!(disease.infectable_biotypes & inherent_biotypes))
 			disease.cure(FALSE)
-
-	if(TRAIT_TOXIMMUNE in inherent_traits)
-		C.setToxLoss(0, TRUE, TRUE)
-
-	if(TRAIT_NOMETABOLISM in inherent_traits)
-		C.reagents.end_metabolization(C, keep_liverless = TRUE)
-
-	if(TRAIT_GENELESS in inherent_traits)
-		C.dna.remove_all_mutations() // Radiation immune mobs can't get mutations normally
 
 	if(inherent_factions)
 		for(var/i in inherent_factions)
@@ -532,8 +517,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	SHOULD_CALL_PARENT(TRUE)
-	if(C.dna.species.exotic_bloodtype)
-		C.dna.blood_type = random_blood_type()
 
 	if(NOMOUTH in species_traits)
 		for(var/obj/item/bodypart/head/head in C.bodyparts)
@@ -1186,13 +1169,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 
 /datum/species/proc/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
-	if(HAS_TRAIT(H, TRAIT_NOBREATH))
-		H.setOxyLoss(0)
-		H.losebreath = 0
+	SHOULD_CALL_PARENT(TRUE)
+	if(H.stat == DEAD)
+		return
+	if(HAS_TRAIT(H, TRAIT_NOBREATH) && (H.health < H.crit_threshold) && !HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
+		H.adjustBruteLoss(0.5 * delta_time)
 
-		var/takes_crit_damage = (!HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
-		if((H.health <= H.crit_threshold) && takes_crit_damage)
-			H.adjustBruteLoss(0.5 * delta_time)
 	if(H.get_organ_by_type(/obj/item/organ/wings))
 		handle_flight(H)
 
@@ -1377,27 +1359,37 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.update_mutant_bodyparts()
 
 /**
- * Handling special reagent types.
+ * Handling special reagent interactions.
  *
- * Return False to run the normal on_mob_life() for that reagent.
- * Return True to not run the normal metabolism effects.
- * NOTE: If you return TRUE, that reagent will not be removed liike normal! You must handle it manually.
- */
-/datum/species/proc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
+ * Return null continue running the normal on_mob_life() for that reagent.
+ * Return COMSIG_MOB_STOP_REAGENT_CHECK to not run the normal metabolism effects.
+ *
+ * NOTE: If you return COMSIG_MOB_STOP_REAGENT_CHECK, that reagent will not be removed liike normal! You must handle it manually.
+ **/
+/datum/species/proc/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	SHOULD_CALL_PARENT(TRUE)
 	if(chem.type == exotic_blood)
-		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
-		H.reagents.del_reagent(chem.type)
-		return TRUE
+		affected.blood_volume = min(affected.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
+		affected.reagents.del_reagent(chem.type)
+		return COMSIG_MOB_STOP_REAGENT_CHECK
+	if(!chem.overdosed && chem.overdose_threshold && chem.volume >= chem.overdose_threshold)
+		chem.overdosed = TRUE
+		chem.overdose_start(affected)
+		log_game("[key_name(affected)] has started overdosing on [chem.name] at [chem.volume] units.")
+	process_out_reagents(chem, affected)
+	return SEND_SIGNAL(affected, COMSIG_SPECIES_HANDLE_CHEMICAL, chem, delta_time, times_fired)
+
+/datum/species/proc/process_out_reagents(datum/reagent/chem, mob/living/carbon/human/affected)
 	//This handles dumping unprocessable reagents.
 	var/dump_reagent = TRUE
-	if((chem.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYNTHETIC))		//SYNTHETIC-oriented reagents require PROCESS_SYNTHETIC
+	//SYNTHETIC-oriented reagents require PROCESS_SYNTHETIC
+	if((chem.process_flags & SYNTHETIC) && (affected.dna.species.reagent_tag & PROCESS_SYNTHETIC))
 		dump_reagent = FALSE
-	if((chem.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORGANIC))		//ORGANIC-oriented reagents require PROCESS_ORGANIC
+	//ORGANIC-oriented reagents require PROCESS_ORGANIC
+	if((chem.process_flags & ORGANIC) && (affected.dna.species.reagent_tag & PROCESS_ORGANIC))
 		dump_reagent = FALSE
 	if(dump_reagent)
 		chem.holder.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
-	return FALSE
 
 /**
  * Equip the outfit required for life. Replaces items currently worn.
