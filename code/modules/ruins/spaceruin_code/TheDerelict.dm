@@ -42,6 +42,9 @@
 	content = list("INTER-MAIL - #790 - Cargo Technician J. Holmes -> I. Miller -- HOT SINGLE SILICONS IN YOUR AREA, CLICK ->HERE<- FOR MORE INFORMATION!")
 
 /// Vault controller for use on the derelict/KS13.
+
+WANTS_POWER_NODE(/obj/machinery/computer/vaultcontroller)
+
 /obj/machinery/computer/vaultcontroller
 	name = "vault controller"
 	desc = "It seems to be powering and controlling the vault locks."
@@ -52,9 +55,9 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 	var/door_id = DERELICT_VAULT_ID
-	var/obj/structure/cable/attached_cable
-	var/obj/machinery/door/airlock/vault/derelict/door1
-	var/obj/machinery/door/airlock/vault/derelict/door2
+	var/datum/weakref/attached_cable
+	var/datum/weakref/door1
+	var/datum/weakref/door2
 	var/locked = TRUE
 	var/siphoned_power = 0
 	var/siphon_max = 1e7
@@ -63,85 +66,99 @@
 	. = ..()
 	. += span_notice("It appears to be powered via a cable connector.")
 
-//Checks for cable connection, charges if possible.
+/// Checks for cable connection, charges if possible.
 /obj/machinery/computer/vaultcontroller/process()
 	if(siphoned_power >= siphon_max)
 		return
-	update_cable()
-	if(attached_cable)
-		attempt_siphon()
 
-///Looks for a cable connection beneath the machine.
-/obj/machinery/computer/vaultcontroller/proc/update_cable()
+	var/obj/structure/cable/cable_to_siphon = attached_cable?.resolve()
+	if(isnull(cable_to_siphon))
+		find_cable()
+		cable_to_siphon = attached_cable?.resolve()
+
+	if(!isnull(cable_to_siphon))
+		attempt_siphon(cable_to_siphon)
+
+/// Looks for a cable connection beneath the machine.
+/obj/machinery/computer/vaultcontroller/proc/find_cable()
 	var/turf/our_turf = get_turf(src)
-	attached_cable = locate(/obj/structure/cable) in our_turf
-	if(attached_cable)
-		RegisterSignal(attached_cable, COMSIG_QDELETING, PROC_REF(unregister_cable))
+	var/obj/structure/cable/potential_cable = our_turf.get_cable_node()
+	if(!isnull(potential_cable))
+		attached_cable = WEAKREF(potential_cable)
 
-/obj/machinery/computer/vaultcontroller/proc/unregister_cable(datum/source)
-	SIGNAL_HANDLER
-	attached_cable = null
-
-///Initializes airlock links.
+/// Initializes airlock links.
 /obj/machinery/computer/vaultcontroller/proc/find_airlocks()
+	var/obj/machinery/door/airlock/first_airlock = door1?.resolve()
+	var/obj/machinery/door/airlock/second_airlock = door2?.resolve()
+
 	for(var/obj/machinery/door/airlock/airlock in GLOB.machines)
 		if(airlock.id_tag != door_id)
 			continue
-		if(!door1)
-			door1 = airlock
-			continue
-		else if(!door2)
-			door2 = airlock
+		if(isnull(first_airlock))
+			door1 = WEAKREF(airlock)
+			first_airlock = airlock
+		else if(isnull(second_airlock))
+			door2 = WEAKREF(airlock)
+			second_airlock = airlock // setting second_airlock here is pointless because of the break, but just so it looks better
 			break
 
-///Tries to charge from powernet excess, no upper limit except max charge.
-/obj/machinery/computer/vaultcontroller/proc/attempt_siphon()
-	var/surpluspower = clamp(attached_cable.surplus(), 0, (siphon_max - siphoned_power))
+/// Tries to charge from powernet excess, no upper limit except max charge.
+/obj/machinery/computer/vaultcontroller/proc/attempt_siphon(obj/structure/cable/cable_to_siphon)
+	var/surpluspower = clamp(cable_to_siphon.surplus(), 0, (siphon_max - siphoned_power))
 	if(surpluspower)
-		attached_cable.add_load(surpluspower)
+		cable_to_siphon.add_load(surpluspower)
 		siphoned_power += surpluspower
 
-///Handles the doors closing
-/obj/machinery/computer/vaultcontroller/proc/cycle_close(obj/machinery/door/airlock/A)
-	A.safe = FALSE //Make sure its forced closed, always
-	A.unbolt()
-	A.close()
-	A.bolt()
+/// Handles the doors closing
+/obj/machinery/computer/vaultcontroller/proc/cycle_close(obj/machinery/door/airlock/airlock)
+	airlock.safe = FALSE // Make sure its forced closed, always
+	airlock.unbolt()
+	airlock.close()
+	airlock.bolt()
 
 ///Handles the doors opening
-/obj/machinery/computer/vaultcontroller/proc/cycle_open(obj/machinery/door/airlock/A)
-	A.unbolt()
-	A.open()
-	A.bolt()
+/obj/machinery/computer/vaultcontroller/proc/cycle_open(obj/machinery/door/airlock/airlock)
+	airlock.unbolt()
+	airlock.open()
+	airlock.bolt()
 
 ///Attempts to lock the vault doors
-/obj/machinery/computer/vaultcontroller/proc/lock_vault()
-	if(door1 && !door1.density)
-		cycle_close(door1)
-	if(door2 && !door2.density)
-		cycle_close(door2)
-	if(door1.density && door1.locked && door2.density && door2.locked)
+/obj/machinery/computer/vaultcontroller/proc/lock_vault(obj/machinery/door/airlock/first_airlock, obj/machinery/door/airlock/second_airlock)
+	if(first_airlock && !first_airlock.density)
+		cycle_close(first_airlock)
+	if(second_airlock && !second_airlock.density)
+		cycle_close(second_airlock)
+	if(first_airlock.density && first_airlock.locked && second_airlock.density && second_airlock.locked)
 		locked = TRUE
 
 ///Attempts to unlock the vault doors
-/obj/machinery/computer/vaultcontroller/proc/unlock_vault()
-	if(door1?.density)
-		cycle_open(door1)
-	if(door2?.density)
-		cycle_open(door2)
-	if(!door1.density && door1.locked && !door2.density && door2.locked)
+/obj/machinery/computer/vaultcontroller/proc/unlock_vault(obj/machinery/door/airlock/first_airlock, obj/machinery/door/airlock/second_airlock)
+	if(first_airlock.density)
+		cycle_open(first_airlock)
+	if(second_airlock.density)
+		cycle_open(second_airlock)
+	if(!first_airlock.density && first_airlock.locked && !second_airlock.density && second_airlock.locked)
 		locked = FALSE
 
 ///Attempts to lock/unlock vault doors, if machine is charged.
 /obj/machinery/computer/vaultcontroller/proc/activate_lock()
 	if(siphoned_power < siphon_max)
 		return
-	if(!door1 || !door2)
+
+	var/obj/machinery/door/airlock/first_airlock = door1?.resolve()
+	var/obj/machinery/door/airlock/second_airlock = door2?.resolve()
+	if(isnull(first_airlock) || isnull(second_airlock))
 		find_airlocks()
+
+	first_airlock = door1?.resolve()
+	second_airlock = door2?.resolve()
+	if(isnull(first_airlock) || isnull(second_airlock))
+		return
+
 	if(locked)
-		unlock_vault()
+		unlock_vault(first_airlock, second_airlock)
 	else
-		lock_vault()
+		lock_vault(first_airlock, second_airlock)
 
 /obj/machinery/computer/vaultcontroller/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
@@ -155,14 +172,20 @@
 	. = ..()
 	if(.)
 		return
+
 	switch(action)
 		if("togglelock")
 			activate_lock()
+			return TRUE
+
+/obj/machinery/computer/vaultcontroller/ui_static_data()
+	var/list/data = list()
+	data["max"] = siphon_max
+	return data
 
 /obj/machinery/computer/vaultcontroller/ui_data()
 	var/list/data = list()
 	data["stored"] = siphoned_power
-	data["max"] = siphon_max
 	data["doorstatus"] = locked
 	return data
 
