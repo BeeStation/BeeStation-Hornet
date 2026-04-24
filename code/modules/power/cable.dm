@@ -531,8 +531,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		if(!power_machine.connect_to_network())
 			power_machine.disconnect_from_network()
 
-/obj/structure/cable/proc/disconnect_from_machines()
-	for(var/obj/machinery/power/power_machine in get_turf(src))
+/obj/structure/cable/proc/disconnect_from_machines(turf/turf_to_check)
+	for(var/obj/machinery/power/power_machine in turf_to_check)
 		if(!power_machine.connect_to_network()) //can't find a node cable on a the turf to connect to
 			power_machine.disconnect_from_network() //remove from current network
 
@@ -548,12 +548,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		moveToNullspace()
 	powernet.remove_cable(src) //remove the cut cable from its powernet
 
-	if (!location)
-		return
-
 	// Disconnect machines connected to nodes
-	if(has_power_node) // if we cut a node (O-X) cable
-		disconnect_from_machines()
+	if(location && has_power_node) // if we cut a node (O-X) cable
+		disconnect_from_machines(location)
 
 /obj/structure/cable/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
 	. = ..()
