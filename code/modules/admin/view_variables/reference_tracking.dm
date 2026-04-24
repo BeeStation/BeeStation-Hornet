@@ -21,6 +21,7 @@ GLOBAL_ALIST_EMPTY(reftracker_skip_typecache_b)
 		/regex,
 		/atom/movable/mirage_holder,
 		/atom/movable/render_step/emissive_blocker,
+		/atom/movable/lighting_object, // only contains turf and MA refs
 		/datum/armor,
 		/datum/asset_cache_item,
 		/datum/book_info,
@@ -31,7 +32,6 @@ GLOBAL_ALIST_EMPTY(reftracker_skip_typecache_b)
 		/datum/greyscale_layer,
 		/datum/icon_transformer,
 		/datum/instrument_key,
-		/atom/movable/lighting_object, // only contains turf and MA refs
 		/datum/movespeed_modifier,
 		/datum/painting,
 		/datum/paper_input,
