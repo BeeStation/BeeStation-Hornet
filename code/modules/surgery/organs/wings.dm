@@ -166,7 +166,7 @@
 
 /obj/item/organ/wings/bee
 	name = "pair of bee wings"
-	desc = "A pair of bee wings. They seem tiny and undergrown"
+	desc = "A pair of bee wings."
 	icon_state = "beewings"
 	flight_level = WINGS_COSMETIC
 	actions_types = list(/datum/action/item_action/organ_action/use/bee_dash)
@@ -217,6 +217,9 @@
 	if(L.throw_at(dash_target, jumpdistancemoved, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = crashcallback, force = MOVE_FORCE_WEAK))
 		playsound(L, 'sound/creatures/bee.ogg', 50, 1, 1)
 		L.visible_message(span_warning("[usr] dashes forward into the air!"))
+		// Flap wings during the dash
+		if(L.Togglewings())
+			addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living/carbon/human, Togglewings)), 8 DECISECONDS)
 		start_cooldown()
 	else
 		to_chat(L, span_warning("Something prevents you from dashing forward!"))

@@ -2120,7 +2120,7 @@
 
 /datum/sprite_accessory/wings/apid
 	name = "Bee"
-	icon = 'icons/mob/apid_accessories/apid_wings.dmi'
+	icon = 'icons/mob/human/species/apid/apid_wings.dmi'
 	icon_state = "apid"
 	color_src = 0
 	dimension_x = 32
@@ -2129,12 +2129,11 @@
 
 /datum/sprite_accessory/wings_open/apid
 	name = "Bee"
-	icon = 'icons/mob/apid_accessories/apid_wings.dmi'
+	icon = 'icons/mob/human/species/apid/apid_wingsopen.dmi'
 	icon_state = "apid"
 	color_src = 0
-	dimension_x = 32
+	dimension_x = 76
 	center = TRUE
-	dimension_y = 32
 
 /datum/sprite_accessory/wings/robot
 	name = "Robot"
@@ -3126,7 +3125,7 @@
 //apids
 
 /datum/sprite_accessory/apid_antenna
-	icon = 'icons/mob/apid_accessories/apid_antenna.dmi'
+	icon = 'icons/mob/human/species/apid/apid_antenna.dmi'
 
 /datum/sprite_accessory/apid_antenna/moth
 	name = "Mothlike Antenna"
@@ -3221,7 +3220,7 @@
 	icon_state = "split"
 
 /datum/sprite_accessory/apid_stripes
-	icon = 'icons/mob/apid_accessories/apid_body.dmi'
+	icon = 'icons/mob/human/species/apid/apid_body.dmi'
 	gender_specific = TRUE
 
 /datum/sprite_accessory/apid_stripes/none
@@ -3249,7 +3248,7 @@
 	icon_state = "arachnid"
 
 /datum/sprite_accessory/apid_headstripes
-	icon = 'icons/mob/apid_accessories/apid_head.dmi'
+	icon = 'icons/mob/human/species/apid/apid_head.dmi'
 	gender_specific = TRUE
 
 /datum/sprite_accessory/apid_headstripes/none
