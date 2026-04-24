@@ -28169,6 +28169,7 @@
 	name = "Draconian Fur Hat";
 	desc = "Popularised by the Draconian Empire , During the Third Era of their Reign , you always Wondered how they were made"
 	},
+/obj/item/stack/sheet/animalhide/cat,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
 "kjk" = (
