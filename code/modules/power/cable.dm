@@ -167,6 +167,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 		connected_cable.update_power_node()
 		connected_cable.update_appearance(UPDATE_ICON)
+
+	update_power_node()
+
 	down?.set_up(null)
 	up?.set_down(null)
 
@@ -196,6 +199,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 			adjacent_cable.update_power_node()
 			adjacent_cable.update_appearance(UPDATE_ICON)
 
+	update_power_node()
+
 	// Linkup with multi-z cables
 	if (multiz)
 		var/turf/current_location = get_turf(src)
@@ -217,7 +222,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	has_power_node = FALSE
 
 	// If we have 0 or 1 connections, we get a free power node
-	if((linked_dirs & NORTH) + (linked_dirs & SOUTH) + (linked_dirs & WEST) + (linked_dirs & EAST) <= 1)
+	if(!!(linked_dirs & NORTH) + !!(linked_dirs & SOUTH) + !!(linked_dirs & WEST) + !!(linked_dirs & EAST) <= 1)
 		has_power_node = TRUE
 
 	if (previous_node_state != has_power_node)
