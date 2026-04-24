@@ -12,16 +12,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 	throw_range = 3
 	///What type of artifact
 	var/datum/xenoartifact_material/artifact_material
-	///Cover some special interactions we fuck up
-	var/transfer_prints = TRUE
 
 /obj/item/xenoartifact/Initialize(mapload, _artifact_type)
 	. = ..()
 	artifact_material = _artifact_type || artifact_material
 	ADD_TRAIT(src, TRAIT_IGNORE_EXPORT_SCAN, GENERIC_ITEM_TRAIT)
-
-/obj/item/xenoartifact/ComponentInitialize()
-	. = ..()
 	add_artifact_component()
 
 ///Proc to add your artifact stuff, here so we can override it
@@ -33,15 +28,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 	has a 90% chance of being bluespace, 10% of being anything else, like a regular artifact.
 	Lets crew discover / play with artifacts without blowing shit up
 */
-/obj/item/xenoartifact/maint/ComponentInitialize()
+/obj/item/xenoartifact/maint/Initialize(mapload, _artifact_type)
+	. = ..()
 	artifact_material = prob(90) ? /datum/xenoartifact_material/bluespace : null
-	return ..()
 
 /*
 	objective variant
 	spawns with objective trait, shouldn't effect labelling.
 */
-/obj/item/xenoartifact/objective/ComponentInitialize()
+/obj/item/xenoartifact/objective/Initialize(mapload, _artifact_type)
 	. = ..()
 	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#eb4d4d", TRUE, TRUE)
 	var/datum/component/xenoartifact/artifact_component = GetComponent(/datum/component/xenoartifact)
@@ -70,7 +65,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 	sticker.pixel_x = rand(-5, 5)
 
 /obj/item/xenoartifact/tutorial/add_artifact_component()
-	AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/bluespace, list(/datum/xenoartifact_trait/activator/sturdy, /datum/xenoartifact_trait/minor/slippery, /datum/xenoartifact_trait/minor/charged, /datum/xenoartifact_trait/minor/cooling, /datum/xenoartifact_trait/major/projectile))
+	AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/bluespace, list(/datum/xenoartifact_trait/activator/sturdy, /datum/xenoartifact_trait/minor/slippery, /datum/xenoartifact_trait/minor/charged, /datum/xenoartifact_trait/minor/cooling, /datum/xenoartifact_trait/major/animalize))
 
 /*
 	Pre-labeled variant
@@ -78,7 +73,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 */
 /obj/item/xenoartifact/pre_labeled
 
-/obj/item/xenoartifact/pre_labeled/ComponentInitialize()
+/obj/item/xenoartifact/pre_labeled/Initialize(mapload, _artifact_type)
 	. = ..()
 	var/datum/component/xenoartifact/artifact_component = GetComponent(/datum/component/xenoartifact)
 	var/trait_list = list()

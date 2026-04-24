@@ -32,7 +32,6 @@
 	energy = 80
 	bomb = 10
 	bio = 100
-	rad = 100
 	fire = 90
 	acid = 50
 
@@ -249,7 +248,7 @@
 			var/obj/O = AM
 			if(O.throwforce != 0)//don't want to let people spam tesla bolts, this way it will break after time
 				playsound(src, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
-				tesla_zap(src, 3, 8000, TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE | TESLA_MOB_STUN | TESLA_ALLOW_DUPLICATES) // Around 20 damage for humans
+				tesla_zap(src, 3, 8000, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN | ZAP_ALLOW_DUPLICATES) // Around 20 damage for humans
 	return ..()
 
 /obj/machinery/turnstile/welder_act(mob/living/user, obj/item/I)
@@ -590,26 +589,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	if(desired_crime)
 		var/datum/record/crew/target_record = find_record(desired_name, GLOB.manifest.general)
 		if(target_record)
-			target_record.wanted_status = WANTED_PRISONER
+			target_record.set_wanted_status(user, WANTED_PRISONER)
 			var/datum/crime_record/new_crime = new(desired_crime, null, "General Populace")
 			target_record.crimes += new_crime
 			investigate_log("New Crime: <strong>[desired_crime]</strong> | Added to [target_record.name] by [key_name(user)]", INVESTIGATE_RECORDS)
 			say("Criminal record for [target_record.name] successfully updated.")
 			update_matching_security_huds(target_record.name)
 			playsound(loc, 'sound/machines/ping.ogg', 50, 1)
+			SEND_GLOBAL_SIGNAL(COMSIG_GLOB_WANTED_STATUS_CHANGED, target_record, user, target_record.wanted_status)
 
 	var/obj/item/card/id/id = new /obj/item/card/id/prisoner(get_turf(src), desired_sentence * 0.1, desired_crime, desired_name)
 	Radio.talk_into(src, "Prisoner [id.registered_name] has been incarcerated for [desired_sentence / 600 ] minutes.")
 	var/obj/item/paper/paperwork = new /obj/item/paper(get_turf(src))
 	paperwork.add_raw_text("<h1 id='record-of-incarceration'>Record Of Incarceration:</h1> <hr> <h2 id='name'>Name: </h2> <p>[desired_name]</p> <h2 id='crime'>Crime: </h2> <p>[desired_crime]</p> <h2 id='sentence-min'>Sentence (Min)</h2> <p>[desired_sentence/600]</p> <h2 id='description'>Description </h2> <p>[desired_details]</p> <p>Nanotrasen Disciplinary council.</p>")
 	paperwork.update_appearance()
-	desired_name = null
-	desired_details = null
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	next_print = world.time + 5 SECONDS
-
-
-
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_PRISONER_REGISTERED, user, desired_name, desired_crime, desired_sentence)
+	desired_name = null
+	desired_details = null
 
 /obj/machinery/genpop_interface/ui_act(action, params)
 	if(buildstage != 2 & panel_open)
@@ -624,30 +622,32 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	switch(action)
 		if("prisoner_name")
 			// Encode the name and ensure it is saniticed for IC input
-			var/prisoner_name = stripped_input(usr, "Input prisoner's name...", "Crimes", desired_name)
-			prisoner_name = sanitize_name(prisoner_name)
+			var/prisoner_name = tgui_input_text(usr, "Input prisoner's name...", "Prisoner Name", desired_name, MAX_NAME_LEN)
+			if(CHAT_FILTER_CHECK(prisoner_name)) // check for forbidden words
+				to_chat(usr, span_warning("Your message contains forbidden words."))
+				return FALSE
 			if(!prisoner_name || (!Adjacent(usr) && !IsAdminGhost(usr)))
 				return FALSE
 			desired_name = prisoner_name
-			var/prisoner_details = stripped_input(usr, "Input details of the offense...", "Crimes", desired_details)
-			if (!prisoner_details || CHAT_FILTER_CHECK(prisoner_details) || (!Adjacent(usr) && !IsAdminGhost(usr)))
-				return TRUE
-			desired_details = prisoner_details
-			// Ask them for the details of the crime
 		if("edit_details")
-			var/prisoner_details = stripped_input(usr, "Input details of the offense...", "Crimes", desired_details)
-			if (!prisoner_details || CHAT_FILTER_CHECK(prisoner_details) || (!Adjacent(usr) && !IsAdminGhost(usr)))
+			var/prisoner_details = tgui_input_text(usr, "Input details of the offense...", "Crime Details", desired_details)
+			if (CHAT_FILTER_CHECK(prisoner_details)) // check for forbidden words
+				to_chat(usr, span_warning("Your message contains forbidden words."))
+				return FALSE
+			if (!prisoner_details || (!Adjacent(usr) && !IsAdminGhost(usr)))
 				return FALSE
 			desired_details = prisoner_details
-			// Ask them for the details of the crime
 		if("print")
 			if (!desired_name)
 				return
 			if (!desired_details)
-				var/prisoner_details = stripped_input(usr, "Input details of the offense...", "Crimes", desired_details)
-				if (!prisoner_details || CHAT_FILTER_CHECK(prisoner_details) || (!Adjacent(usr) && !IsAdminGhost(usr)))
+				var/prisoner_details = tgui_input_text(usr, "Input details of the offense...", "Crime Details", desired_details)
+				if (CHAT_FILTER_CHECK(prisoner_details)) // check for forbidden words
+					to_chat(usr, span_warning("Your message contains forbidden words."))
+					return FALSE
+				if (!prisoner_details || (!Adjacent(usr) && !IsAdminGhost(usr)))
 					say("Please provide a correct description of the incident that led to their charge.")
-					return
+					return FALSE
 				desired_details = prisoner_details
 			var/desired_sentence = text2num(params["desired_sentence"])
 			if (!desired_sentence)
@@ -695,7 +695,7 @@ GLOBAL_LIST_EMPTY(prisoner_ids)
 
 /obj/item/card/id/prisoner //renamed existing prisonner id to id/gulag
 	icon_state = "orange"
-	item_state = "orange-id"
+	inhand_icon_state = "orange-id"
 	assignment = "convict"
 	hud_state = JOB_HUD_PRISONER
 	var/served_time = 0 //Seconds.
@@ -740,7 +740,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/card/id/prisoner)
 
 		var/datum/record/crew/R = find_record(registered_name, GLOB.manifest.general)
 		if(R)
-			R.wanted_status = WANTED_DISCHARGED
+			R.set_wanted_status(src, WANTED_DISCHARGED)
 
 		if(isliving(loc))
 			to_chat(loc, span_boldnotice("You have served your sentence! You may now exit prison through the turnstiles and collect your belongings."))

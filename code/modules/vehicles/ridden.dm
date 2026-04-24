@@ -28,6 +28,10 @@
 	add_occupant(M)
 	return ..()
 
+/obj/vehicle/ridden/zap_act(power, zap_flags)
+	zap_buckle_check(power)
+	return ..()
+
 /obj/vehicle/ridden/attackby(obj/item/I, mob/user, params)
 	if(key_type && !is_key(inserted_key) && is_key(I))
 		if(user.transferItemToLoc(I, src))
@@ -62,6 +66,7 @@
 	return ..()
 
 /obj/vehicle/ridden/onZImpact(turf/newloc, levels)
+	. = ..()
 	if(levels > 1)
 		for(var/mob/M in occupants)
 			unbuckle_mob(M) // Even though unbuckle_all_mobs exists we may as well only iterate once

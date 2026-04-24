@@ -109,7 +109,6 @@
 	// prioritized items
 	new /obj/item/door_remote/chief_medical_officer(src)
 	new /obj/item/autosurgeon/cmo(src)
-	new /obj/item/extrapolator(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/neck/cloak/cmo(src)
 	new /obj/item/defibrillator/compact/loaded(src)
@@ -127,6 +126,7 @@
 	new /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 	new /obj/item/clothing/head/beret/medical/cmo(src)
+	new /obj/item/clothing/neck/cloak/cmo_mantle(src)
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control"

@@ -54,12 +54,12 @@
 		return
 
 	var/mob/living/carbon/human/moffin_observer = user
-	var/obj/item/organ/tongue/tongue = moffin_observer.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/tongue = moffin_observer.get_organ_slot(ORGAN_SLOT_TONGUE)
 
 	if(!tongue) ///no tongue means no taste
 		return
 
-	if(tongue.liked_food & CLOTH)
+	if(tongue.liked_foodtypes & CLOTH)
 		to_chat(moffin_observer,span_nicegreen("Ooh! It's even got bits of clothes on it! Yummy!"))
 	else
 		to_chat(moffin_observer,span_warning("You're not too sure what's on top though..."))

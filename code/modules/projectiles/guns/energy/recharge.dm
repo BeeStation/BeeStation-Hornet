@@ -6,7 +6,7 @@
 	base_icon_state = "kineticgun"
 	desc = "A self recharging gun. Holds one shot at a time."
 	automatic_charge_overlays = FALSE
-	cell_type = /obj/item/stock_parts/cell/emproof
+	gun_charge = 5000 WATT
 	/// If set to something, instead of an overlay, sets the icon_state directly.
 	var/no_charge_state
 	/// Does it hold charge when not put away?
@@ -102,7 +102,7 @@
 	desc = "A weapon favored by syndicate stealth specialists."
 	icon_state = "crossbow"
 	base_icon_state = "crossbow"
-	item_state = "crossbow"
+	inhand_icon_state = "crossbow"
 	no_charge_state = "crossbow_empty"
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=2000)
@@ -139,7 +139,7 @@
 	name = "gamma bow"
 	desc = "A weapon favored by Madmen."
 	icon_state = "crossbow"
-	item_state = "crossbow"
+	inhand_icon_state = "crossbow"
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/radbolt)
 	recharge_time = 250
 

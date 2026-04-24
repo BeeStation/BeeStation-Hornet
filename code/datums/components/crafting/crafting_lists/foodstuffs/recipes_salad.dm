@@ -9,7 +9,7 @@
 		/obj/item/food/grown/ambrosia/vulgaris = 3,
 		/obj/item/food/grown/apple = 1
 	)
-	subcategory = CAT_SALAD
+	category = CAT_SALAD
 
 /datum/crafting_recipe/food/aesirsalad
 	name = "Aesir salad"
@@ -19,7 +19,7 @@
 		/obj/item/food/grown/ambrosia/deus = 3,
 		/obj/item/food/grown/apple/gold = 1
 	)
-	subcategory = CAT_SALAD
+	category = CAT_SALAD
 
 /datum/crafting_recipe/food/validsalad
 	name = "Valid salad"
@@ -30,7 +30,7 @@
 		/obj/item/food/grown/potato = 1,
 		/obj/item/food/meatball = 1
 	)
-	subcategory = CAT_SALAD
+	category = CAT_SALAD
 
 /datum/crafting_recipe/food/monkeysdelight
 	name = "Monkeys delight"
@@ -43,7 +43,7 @@
 		/obj/item/food/monkeycube = 1,
 		/obj/item/food/grown/banana = 1
 	)
-	subcategory = CAT_SALAD
+	category = CAT_SALAD
 
 /datum/crafting_recipe/food/melonfruitbowl
 	name ="Melon fruit bowl"
@@ -56,7 +56,7 @@
 		/obj/item/food/grown/banana = 1,
 		/obj/item/food/grown/ambrosia = 1
 	)
-	subcategory = CAT_SALAD
+	category = CAT_SALAD
 
 /datum/crafting_recipe/food/fruitsalad
 	name = "Fruit salad"
@@ -69,7 +69,7 @@
 		/obj/item/food/watermelonslice = 2
 
 	)
-	subcategory = CAT_SALAD
+	category = CAT_SALAD
 
 /datum/crafting_recipe/food/junglesalad
 	name = "Jungle salad"
@@ -81,7 +81,7 @@
 		/obj/item/food/grown/banana = 2,
 		/obj/item/food/watermelonslice = 2
 	)
-	subcategory = CAT_SALAD
+	category = CAT_SALAD
 
 /datum/crafting_recipe/food/citrusdelight
 	name = "Citrus delight"
@@ -92,7 +92,7 @@
 		/obj/item/food/grown/citrus/lemon = 1,
 		/obj/item/food/grown/citrus/orange = 1
 	)
-	subcategory = CAT_SALAD
+	category = CAT_SALAD
 
 //Peace go here
 

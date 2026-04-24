@@ -27,7 +27,6 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_BUCKLE, PROC_REF(try_infect_buckle))
 	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, PROC_REF(try_infect_collide))
 	RegisterSignal(parent, COMSIG_MOVABLE_IMPACT_ZONE, PROC_REF(try_infect_impact_zone))
-	RegisterSignal(parent, COMSIG_ATOM_EXTRAPOLATOR_ACT, PROC_REF(extrapolation))
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK_ZONE, PROC_REF(try_infect_attack_zone))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(try_infect_attack))
@@ -37,6 +36,22 @@
 			RegisterSignal(parent, COMSIG_GLASS_DRANK, PROC_REF(try_infect_drink))
 	else if(istype(parent, /obj/effect/decal/cleanable/blood/gibs))
 		RegisterSignal(parent, COMSIG_GIBS_STREAK, PROC_REF(try_infect_streak))
+
+/datum/component/infective/UnregisterFromParent()
+	. = ..()
+	UnregisterSignal(parent, list(
+		COMSIG_COMPONENT_CLEAN_ACT,
+		COMSIG_MOVABLE_BUCKLE,
+		COMSIG_MOVABLE_BUMP,
+		COMSIG_MOVABLE_IMPACT_ZONE,
+		COMSIG_ITEM_ATTACK_ZONE,
+		COMSIG_ITEM_ATTACK,
+		COMSIG_ITEM_EQUIPPED,
+		COMSIG_FOOD_EATEN,
+		COMSIG_GLASS_DRANK,
+		COMSIG_GIBS_STREAK,
+	))
+	qdel(GetComponent(/datum/component/connect_loc_behalf))
 
 /datum/component/infective/proc/try_infect_eat(datum/source, mob/living/eater, mob/living/feeder)
 	SIGNAL_HANDLER
@@ -129,7 +144,3 @@
 /datum/component/infective/proc/try_infect(mob/living/L, target_zone)
 	for(var/V in diseases)
 		L.ContactContractDisease(V, target_zone)
-
-/datum/component/infective/proc/extrapolation(datum/source, mob/user, obj/item/extrapolator/extrapolator, dry_run = FALSE, list/result)
-	SIGNAL_HANDLER
-	EXTRAPOLATOR_ACT_ADD_DISEASES(result, diseases)

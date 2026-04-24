@@ -45,8 +45,8 @@
 	//Because the leaping sprite is bigger than the normal one
 	body_position_pixel_x_offset = -32
 	body_position_pixel_y_offset = -32
-	weather_immunities += "lava"
 	update_icons()
+	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, LEAPING_TRAIT) //Throwing itself doesn't protect mobs against lava (because gulag).
 	throw_at(A, MAX_ALIEN_LEAP_DIST, 1, src, FALSE, TRUE, callback = CALLBACK(src, PROC_REF(leap_end)))
 
 #undef MAX_ALIEN_LEAP_DIST
@@ -55,7 +55,7 @@
 	leaping = FALSE
 	body_position_pixel_x_offset = 0
 	body_position_pixel_y_offset = 0
-	weather_immunities -= "lava"
+	REMOVE_TRAIT(src, TRAIT_MOVE_FLOATING, LEAPING_TRAIT)
 	update_icons()
 
 /mob/living/carbon/alien/humanoid/hunter/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -73,7 +73,9 @@
 					blocked = TRUE
 			if(!blocked)
 				L.visible_message(span_danger("[src] pounces on [L]!"), span_userdanger("[src] pounces on you!"))
-				L.Paralyze(100)
+				var/obj/item/bodypart/chest = L.get_bodypart(BODY_ZONE_CHEST)
+				var/armor_block = L.run_armor_check(chest, MELEE, "", "")
+				L.apply_damage(110, STAMINA, chest, armor_block)
 				sleep(0.2 SECONDS)//Runtime prevention (infinite bump() calls on hulks)
 				step_towards(src, L)
 			else

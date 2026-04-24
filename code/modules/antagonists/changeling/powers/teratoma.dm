@@ -10,7 +10,7 @@
 	req_human = TRUE
 
 //Reskinned monkey - teratoma, will burst out of the host, with the objective to cause chaos.
-/datum/action/changeling/teratoma/sting_action(mob/user)
+/datum/action/changeling/teratoma/sting_action(mob/living/user)
 	..()
 	if(create_teratoma(user))
 		var/mob/living/U = user
@@ -38,8 +38,16 @@
 	var/datum/antagonist/changeling/c = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	c.chem_charges -= chemical_cost				//I'm taking your chemicals hostage!
 	var/turf/A = get_turf(user)
-	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as a living teratoma?", ROLE_TERATOMA, null, 7.5 SECONDS) //players must answer rapidly
-	if(!LAZYLEN(candidates)) //if we got at least one candidate, they're teratoma now
+	var/datum/poll_config/config = new(
+		poll_time = 10 SECONDS,
+		check_jobban = ROLE_TERATOMA,
+		jump_target = owner,
+		role_name_text = "living teratoma",
+		alert_pic = /mob/living/carbon/monkey/tumor,
+		amount_to_pick = 1,
+	)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
+	if(!candidate) //if we got at least one candidate, they're teratoma now
 		to_chat(usr, span_warning("You fail at creating a tumor. Perhaps you should try again later?"))
 		c.chem_charges += chemical_cost				//If it fails we want to refund the chemicals
 		return FALSE
@@ -61,8 +69,7 @@
 	// Copies the DNA, so that you can find who caused it while causing some chaos
 	T.dna.copy_dna(user.dna)
 	T.creator_key = user.key
-	var/mob/dead/observer/C = pick(candidates)
-	T.key = C.key
+	T.key = candidate.key
 	var/datum/antagonist/teratoma/D = new
 	T.mind.add_antag_datum(D)
 	to_chat(T, span_notice("You burst out from [user]'s chest!"))

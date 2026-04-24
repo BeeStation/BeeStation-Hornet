@@ -119,14 +119,14 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		if(!brainmob.stored_dna)
 			brainmob.stored_dna = new /datum/dna/stored(brainmob)
 		C.dna.copy_dna(brainmob.stored_dna)
-	brainmob.timeofhostdeath = C.timeofdeath
+	brainmob.timeofdeath = C.timeofdeath
 	brainmob.set_stat(CONSCIOUS)
 	if(brainmob.mind)
-		brainmob.mind.assigned_role = new_role
+		brainmob.mind.set_assigned_role(new_role)
 	if(C.mind)
 		C.mind.transfer_to(brainmob)
 
-	brainmob.mind.remove_all_antag()
+	brainmob.mind.remove_all_antag_datums()
 	brainmob.mind.wipe_memory()
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 	update_icon()
@@ -143,7 +143,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		brainmob.ckey = candidate.ckey
 	name = "[initial(name)] ([brainmob.name])"
 	to_chat(brainmob, welcome_message)
-	brainmob.mind.assigned_role = new_role
+	brainmob.mind.set_assigned_role(new_role)
 	brainmob.set_stat(CONSCIOUS)
 	brainmob.remove_from_dead_mob_list()
 	brainmob.add_to_alive_mob_list()
@@ -229,3 +229,6 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	var/datum/job/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
 	pj.remove_posi_slot(src)
 	return ..()
+
+/obj/item/mmi/posibrain/add_mmi_overlay()
+	return

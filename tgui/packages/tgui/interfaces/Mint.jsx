@@ -17,7 +17,8 @@ export const Mint = (props) => {
               selected={data.processing}
               onClick={() => act(data.processing ? 'stoppress' : 'startpress')}
             />
-          }>
+          }
+        >
           <LabeledList>
             {inserted_materials.map((material) => (
               <LabeledList.Item
@@ -32,7 +33,8 @@ export const Mint = (props) => {
                       })
                     }
                   />
-                }>
+                }
+              >
                 {material.amount} cm³
               </LabeledList.Item>
             ))}

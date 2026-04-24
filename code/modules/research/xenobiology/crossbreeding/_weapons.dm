@@ -29,7 +29,7 @@ Slimecrossing Weapons
 	desc = "A strange, transparent knife which constantly shifts color. It hums slightly when moved."
 	icon = 'icons/obj/knives.dmi'
 	icon_state = "rainbowknife"
-	item_state = "rainbowknife"
+	inhand_icon_state = "rainbowknife"
 	force = 15
 	throwforce = 15
 	damtype = BRUTE
@@ -44,8 +44,8 @@ Slimecrossing Weapons
 			attack_verb_simple = list("slash", "slice", "cut")
 		if(BURN)
 			hitsound = 'sound/weapons/sear.ogg'
-			attack_verb_continuous = list("burns", "sings", "heats")
-			attack_verb_simple = list("burn", "sing", "heat")
+			attack_verb_continuous = list("burns", "singes", "heats")
+			attack_verb_simple = list("burn", "singe", "heat")
 		if(TOX)
 			hitsound = 'sound/weapons/pierce.ogg'
 			attack_verb_continuous = list("poisons", "doses", "toxifies")
@@ -66,15 +66,16 @@ Slimecrossing Weapons
 	desc = "A gigantic shield made of solid adamantium."
 	icon = 'icons/obj/slimecrossing.dmi'
 	icon_state = "adamshield"
-	item_state = "adamshield"
+	inhand_icon_state = "adamshield"
 	w_class = WEIGHT_CLASS_HUGE
 	armor_type = /datum/armor/shield_adamantineshield
 	slot_flags = ITEM_SLOT_BACK
 	attack_weight = 2
+
 	block_power = 75
-	block_level = 3
-	block_upgrade_walk = TRUE
-	block_flags = BLOCKING_PROJECTILE
+	canblock = TRUE
+	max_integrity = 1000 //This one isn't getting destroyed easily
+
 	throw_range = 1 //How far do you think you're gonna throw a solid crystalline shield...?
 	throw_speed = 2
 	attack_verb_continuous = list("bashes", "pounds", "slams")
@@ -91,7 +92,7 @@ Slimecrossing Weapons
 	acid = 70
 	stamina = 70
 
-/obj/item/shield/adamantineshield/ComponentInitialize()
+/obj/item/shield/adamantineshield/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_wielded=15)
 
@@ -101,7 +102,7 @@ Slimecrossing Weapons
 	desc = "A horrifying weapon made of your own bone and blood vessels. It shoots slowing globules of your own blood. Ech."
 	icon = 'icons/obj/slimecrossing.dmi'
 	icon_state = "bloodgun"
-	item_state = "bloodgun"
+	inhand_icon_state = "bloodgun"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	item_flags = ABSTRACT | DROPDEL

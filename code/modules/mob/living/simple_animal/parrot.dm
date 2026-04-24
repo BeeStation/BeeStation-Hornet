@@ -111,15 +111,7 @@
 
 /mob/living/simple_animal/parrot/Initialize(mapload)
 	. = ..()
-	if(!ears)
-		var/headset = pick(/obj/item/radio/headset/headset_sec, \
-						/obj/item/radio/headset/headset_eng, \
-						/obj/item/radio/headset/headset_med, \
-						/obj/item/radio/headset/headset_sci, \
-						/obj/item/radio/headset/headset_cargo, \
-						/obj/item/radio/headset/headset_exploration)
-		ears = new headset(src)
-
+//normal parrats dont get free headsets
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var
 
 	add_verb(list(/mob/living/simple_animal/parrot/proc/steal_from_ground, \
@@ -160,7 +152,7 @@
 	tab_data["Combat mode"] = GENERATE_STAT_TEXT("[combat_mode ? "On" : "Off"]")
 	return tab_data
 
-/mob/living/simple_animal/parrot/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, list/spans, list/message_mods = list())
+/mob/living/simple_animal/parrot/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range)
 	. = ..()
 	if(speaker != src && prob(50)) //Dont imitate ourselves
 		if(!radio_freq || prob(10))
@@ -170,7 +162,7 @@
 					speech_buffer -= pick(speech_buffer)
 				speech_buffer |= html_decode(raw_message)
 	if(speaker == src && !client) //If a parrot squawks in the woods and no one is around to hear it, does it make a sound? This code says yes!
-		return message
+		return raw_message
 
 /mob/living/simple_animal/parrot/radio(message, list/message_mods = list(), list/spans, language)	//literally copied from human/radio(), but there's no other way to do this. at least it's better than it used to be.
 	. = ..()
@@ -653,7 +645,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 					item = I
 					break
 		if(item)
-			if(!get_path_to(src, item))
+			if(!length(get_path_to(src, item))) // WHY DO WE DISREGARD THE PATH AHHHHHH
 				item = null
 				continue
 			return item
@@ -920,13 +912,15 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 /mob/living/simple_animal/parrot/Poly/Life(delta_time = SSMOBS_DT, times_fired)
 	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
-		Write_Memory(FALSE)
+		write_memory(FALSE)
 		memory_saved = TRUE
 	..()
 
 /mob/living/simple_animal/parrot/Poly/death(gibbed)
+	if(HAS_TRAIT(src, TRAIT_DONT_WRITE_MEMORY))
+		return ..() // Don't read memory either.
 	if(!memory_saved)
-		Write_Memory(TRUE)
+		write_memory(TRUE)
 	if(rounds_survived == longest_survival || rounds_survived == longest_deathstreak || prob(0.666))
 		var/mob/living/simple_animal/parrot/Poly/ghost/G = new(loc)
 		if(mind)
@@ -955,7 +949,10 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	if(!islist(speech_buffer))
 		speech_buffer = list()
 
-/mob/living/simple_animal/parrot/Poly/proc/Write_Memory(dead)
+/mob/living/simple_animal/parrot/Poly/write_memory(dead)
+	. = ..()
+	if(!.)
+		return
 	var/json_file = file("data/npc_saves/Poly.json")
 	var/list/file_data = list()
 	if(islist(speech_buffer))
@@ -982,12 +979,13 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	desc = "Doomed to squawk the Earth."
 	color = "#FFFFFF77"
 	speak_chance = 20
-	status_flags = GODMODE
+	status_flags = NONE
 	incorporeal_move = INCORPOREAL_MOVE_BASIC
 	butcher_results = list(/obj/item/ectoplasm = 1)
 
 /mob/living/simple_animal/parrot/Poly/ghost/Initialize(mapload)
 	memory_saved = TRUE //At this point nothing is saved
+	ADD_TRAIT(src, TRAIT_GODMODE, TRAIT_GENERIC)
 	. = ..()
 
 /mob/living/simple_animal/parrot/Poly/ghost/handle_automated_speech()
@@ -1031,7 +1029,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	faction = list(FACTION_RATVAR)
 	gold_core_spawnable = NO_SPAWN
 	del_on_death = TRUE
-	deathsound = 'sound/magic/clockwork/anima_fragment_death.ogg'
+	death_sound = 'sound/magic/clockwork/anima_fragment_death.ogg'
 
 #undef PARROT_PERCH
 #undef PARROT_SWOOP

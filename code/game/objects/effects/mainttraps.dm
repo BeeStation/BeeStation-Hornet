@@ -282,14 +282,14 @@
 	req_cultists = 9//if a cultist invokes this, it acts like an invocation rune by asking them to check this.
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "Cluwne"
-	color = RUNE_COLOR_SUMMON
+	color = COLOR_VIBRANT_LIME
 	pixel_x = -32
 	pixel_y = -32
 	rune_in_use = FALSE
 	can_be_scribed = FALSE
 
 /obj/effect/rune/cluwne/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
+	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
 		SEND_SOUND(user,'sound/items/sheath.ogg')
 		if(do_after(user, 15, target = src))
 			to_chat(user, span_clowntext("It's not within your power to erase the [LOWER_TEXT(cultist_name)]."))
@@ -303,7 +303,7 @@
 		return
 	if(locate(/mob/living/simple_animal/hostile/floor_cluwne) in range(5, src))
 		cluwne = TRUE
-	if(!cluwne && !iscultist(user))
+	if(!cluwne && !IS_CULTIST(user))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.job == JOB_NAME_CLOWN || H.dna.check_mutation(/datum/mutation/cluwne))
@@ -313,7 +313,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if((HAS_TRAIT(H, TRAIT_MUTE)) || H.silent)// NO MIMES
+		if((HAS_TRAIT(H, TRAIT_MUTE)) || H.has_status_effect(/datum/status_effect/silenced))// NO MIMES
 			to_chat(user, span_warning("The quiet cannot comprehend [src]."))
 			return
 		if(HAS_TRAIT(H, TRAIT_LAW_ENFORCEMENT_METABOLISM) || HAS_TRAIT(H, TRAIT_MINDSHIELD))// NO SHITSEC
@@ -327,7 +327,7 @@
 			else
 				to_chat(user, span_warning("This would be no fun without at least five people on the rune!"))
 			return
-		if(iscultist(H)) //cultists are good at this kind of magic, so they can use it too
+		if(IS_CULTIST(H)) //cultists are good at this kind of magic, so they can use it too
 			var/list/invokers = can_invoke(user)
 			if(invokers.len >= req_cultists)
 				invoke(invokers)
@@ -357,14 +357,14 @@
 		invokers += L
 	return invokers
 
-/obj/effect/rune/cluwne/invoke(var/list/invokers)
+/obj/effect/rune/cluwne/invoke(list/invokers)
 	..()
 	rune_in_use = TRUE
 	for(var/mob/living/simple_animal/hostile/floor_cluwne/FC in range(5, src)) //we unleash the floor cluwne
 		FC.dontkill = FALSE
 		FC.delete_after_target_killed = FALSE
 		FC.interest = 300
-	color = RUNE_COLOR_SUMMON
+	color = COLOR_VIBRANT_LIME
 	for(var/mob/living/carbon/C in hearers(10, src))
 		C.Stun(350, ignore_canstun = TRUE)
 	priority_announce("Figments of an elder god have been detected in your sector. Exercise extreme caution, and abide by the 'buddy system' at all times.","Central Command Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES)

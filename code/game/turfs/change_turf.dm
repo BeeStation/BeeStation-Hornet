@@ -2,11 +2,16 @@
 GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	/turf/open/space,
 	/turf/baseturf_bottom,
-	)))
+)))
 
 /turf/proc/empty(turf_type=/turf/open/space, baseturf_type, list/ignore_typecache, flags)
 	// Remove all atoms except observers, landmarks, docking ports
-	var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /obj/effect/landmark, /obj/docking_port, /atom/movable/lighting_object))
+	var/static/list/ignored_atoms = typecacheof(list(
+		/mob/dead,
+		/obj/effect/landmark,
+		/obj/docking_port,
+		/atom/movable/lighting_object,
+	))
 	var/list/allowed_contents = typecache_filter_list_reverse(GetAllContentsIgnoring(ignore_typecache), ignored_atoms)
 	allowed_contents -= src
 	for(var/i in 1 to allowed_contents.len)
@@ -111,8 +116,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	changing_turf = TRUE
 	qdel(src) //Just get the side effects and call Destroy
 	//We do this here so anything that doesn't want to persist can clear itself
-	var/list/old_comp_lookup = comp_lookup?.Copy()
-	var/list/old_signal_procs = signal_procs?.Copy()
+	var/list/old_listen_lookup = _listen_lookup?.Copy()
+	var/list/old_signal_procs = _signal_procs?.Copy()
 
 	var/old_atoms_state = SSatoms.initialized
 	// Disable initialisation for the atom
@@ -136,10 +141,10 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	// WARNING WARNING
 	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
 	// It's possible because turfs are fucked, and if you have one in a list and it's replaced with another one, the list ref points to the new turf
-	if(old_comp_lookup)
-		LAZYOR(new_turf.comp_lookup, old_comp_lookup)
+	if(old_listen_lookup)
+		LAZYOR(new_turf._listen_lookup, old_listen_lookup)
 	if(old_signal_procs)
-		LAZYOR(new_turf.signal_procs, old_signal_procs)
+		LAZYOR(new_turf._signal_procs, old_signal_procs)
 
 	for(var/datum/callback/callback as anything in post_change_callbacks)
 		callback.InvokeAsync(new_turf)
@@ -166,17 +171,30 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	dynamic_lumcount = old_dynamic_lumcount
 
 	if(SSlighting.initialized)
-		lighting_object = old_lighting_object
+		// Fullbright tiles should never have lighting objects
+		if(fullbright_type == FULLBRIGHT_NONE)
+			// Should have a lighting object if we never had one
+			if(old_lighting_object)
+				lighting_object = old_lighting_object
+			else
+				new /atom/movable/lighting_object(src)
+		else if (old_lighting_object)
+			qdel(old_lighting_object, force = TRUE)
 
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
 
 		//Bacon's Starlight lighting
 		if(fullbright_type != old_fullbright_type)
-			if (!fullbright_type)
-				lighting_build_overlay()
-			else
-				lighting_clear_overlay()
+			var/area/our_area = loc
+			if(fullbright_type)
+				if(fullbright_type == FULLBRIGHT_STARLIGHT && !our_area.has_starlight_overlay)
+					add_overlay(GLOB.starlight_overlay)
+			else if(!our_area.area_has_base_lighting)
+				add_overlay(GLOB.fullbright_overlay)
+
+		if(lighting_object && !lighting_object.needs_update)
+			lighting_object.update()
 
 	if(old_opacity != opacity && SSticker)
 		GLOB.cameranet.bareMajorChunkChange(src)

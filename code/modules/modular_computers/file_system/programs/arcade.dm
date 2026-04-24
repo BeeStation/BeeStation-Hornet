@@ -9,6 +9,7 @@
 	size = 6
 	tgui_id = "NtosArcade"
 	program_icon = "gamepad"
+	power_consumption = 80 WATT
 
 
 

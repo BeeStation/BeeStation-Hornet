@@ -23,6 +23,7 @@
 			new_blob.forceMove(get_turf(possible_expander))
 			possible_expander.forceMove(chosen_turf)
 			possible_expander.setDir(get_dir(new_blob, possible_expander))
+			return
 	overmind.add_points(4)
 	qdel(new_blob)
 
@@ -31,7 +32,7 @@
 	name = "Networked Fibers"
 	taste_description = "efficiency"
 	color = "#CDC0B0"
-	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
 /datum/reagent/blob/networked_fibers/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	reac_volume = ..()

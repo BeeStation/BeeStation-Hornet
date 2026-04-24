@@ -5,9 +5,8 @@
 	department_for_prefs = DEPT_NAME_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 0
-	spawn_positions = 0
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 180
@@ -21,9 +20,11 @@
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_EASY)
-	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
+	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_SECURITY)
 
 	show_in_prefs = FALSE
+
+	job_flags = (STATION_JOB_FLAGS | JOB_CANNOT_OPEN_SLOTS) & ~JOB_NEW_PLAYER_JOINABLE
 
 /datum/outfit/job/deputy
 	name = JOB_NAME_DEPUTY
@@ -37,7 +38,7 @@
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	glasses = /obj/item/clothing/glasses/hud/security/deputy
 	head = /obj/item/clothing/head/soft/sec
-	l_pocket = /obj/item/modular_computer/tablet/pda/deputy
+	l_pocket = /obj/item/modular_computer/tablet/pda/preset/deputy
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
@@ -49,3 +50,7 @@
 	desc = "A small card, that when used on an ID, will grant basic security access, and the job title of 'Deputy.'"
 	assignment = JOB_NAME_DEPUTY
 	access = list(ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS)
+
+/obj/item/card/id/pass/deputy/on_applied()
+	ADD_TRAIT(usr.mind, TRAIT_SECURITY, JOB_TRAIT)
+	..()

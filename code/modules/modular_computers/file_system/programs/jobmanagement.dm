@@ -2,13 +2,13 @@
 	filename = "job_manage"
 	filedesc = "Job Manager"
 	category = PROGRAM_CATEGORY_CREW
-	program_icon_state = "id"
+	program_icon_state = "command"
 	extended_desc = "Program for viewing and changing job slot avalibility."
 	transfer_access = list(ACCESS_HEADS)
-	requires_ntnet = 0
 	size = 4
 	tgui_id = "NtosJobManager"
 	program_icon = "address-book"
+	power_consumption = 80 WATT
 
 	var/change_position_cooldown = 30
 
@@ -23,23 +23,33 @@
 	..()
 	change_position_cooldown = CONFIG_GET(number/id_console_jobslot_delay)
 
-/datum/computer_file/program/proc/job_blacklisted(jobtitle)
-	return jobtitle == SSjob.overflow_role ? TRUE : (jobtitle in SSjob.job_manager_blacklisted)
+/datum/computer_file/program/job_management/proc/can_edit_job(datum/job/job)
+	if(!istype(job))
+		return FALSE
+	if(!(job.job_flags & JOB_CREW_MEMBER))
+		return FALSE
+	if(job.job_flags & JOB_CANNOT_OPEN_SLOTS)
+		return FALSE
+	return TRUE
 
 /datum/computer_file/program/job_management/proc/can_open_job(datum/job/job)
-	if(!job_blacklisted(job?.title))
-		if((job.total_positions <= length(GLOB.player_list) * (max_relative_positions / 100)))
-			var/delta = (world.time / 10) - GLOB.time_last_changed_position
-			if((change_position_cooldown < delta) || (opened_positions[job.title] < 0))
-				return TRUE
+	// Always allow reopening positions that were previously closed from this console
+	if(opened_positions[job.title] < 0)
+		return TRUE
+	if((job.get_spawn_position_count() <= length(GLOB.player_list) * (max_relative_positions / 100)))
+		var/delta = (world.time / 10) - GLOB.time_last_changed_position
+		if(change_position_cooldown < delta)
+			return TRUE
 	return FALSE
 
 /datum/computer_file/program/job_management/proc/can_close_job(datum/job/job)
-	if(!job_blacklisted(job?.title))
-		if(job.total_positions > length(GLOB.player_list) * (max_relative_positions / 100))
-			var/delta = (world.time / 10) - GLOB.time_last_changed_position
-			if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
-				return TRUE
+	// Always allow reclosing positions that were previously opened from this console
+	if(opened_positions[job.title] > 0)
+		return TRUE
+	if(job.get_spawn_position_count() > length(GLOB.player_list) * (max_relative_positions / 100))
+		var/delta = (world.time / 10) - GLOB.time_last_changed_position
+		if(change_position_cooldown < delta)
+			return TRUE
 	return FALSE
 
 /datum/computer_file/program/job_management/ui_act(action, params, datum/tgui/ui)
@@ -56,32 +66,32 @@
 		if("PRG_open_job")
 			var/edit_job_target = params["target"]
 			var/datum/job/j = SSjob.GetJob(edit_job_target)
-			if(!j || !can_open_job(j))
+			if(!can_edit_job(j) || !can_open_job(j))
 				return TRUE
 			if(opened_positions[edit_job_target] >= 0)
 				GLOB.time_last_changed_position = world.time / 10
-			j.total_positions++
+			j.total_position_delta++
 			opened_positions[edit_job_target]++
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_close_job")
 			var/edit_job_target = params["target"]
 			var/datum/job/j = SSjob.GetJob(edit_job_target)
-			if(!j || !can_close_job(j))
+			if(!can_edit_job(j) || !can_close_job(j))
 				return TRUE
 			//Allow instant closing without cooldown if a position has been opened before
 			if(opened_positions[edit_job_target] <= 0)
 				GLOB.time_last_changed_position = world.time / 10
-			j.total_positions--
+			j.total_position_delta--
 			opened_positions[edit_job_target]--
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_priority")
 			var/priority_target = params["target"]
 			var/datum/job/j = SSjob.GetJob(priority_target)
-			if(!j)
+			if(!can_edit_job(j))
 				return TRUE
-			if(j.total_positions <= j.current_positions)
+			if(j.get_spawn_position_count() <= j.current_positions)
 				return TRUE
 			if(j in SSjob.prioritized_jobs)
 				SSjob.prioritized_jobs -= j
@@ -108,13 +118,13 @@
 	var/list/pos = list()
 	for(var/j in SSjob.occupations)
 		var/datum/job/job = j
-		if(job_blacklisted(job.title))
+		if(!can_edit_job(job))
 			continue
 
 		pos += list(list(
 			"title" = job.title,
 			"current" = job.current_positions,
-			"total" = job.total_positions,
+			"total" = job.get_spawn_position_count(),
 			"status_open" = authed ? can_open_job(job) : FALSE,
 			"status_close" = authed ? can_close_job(job) : FALSE,
 		))

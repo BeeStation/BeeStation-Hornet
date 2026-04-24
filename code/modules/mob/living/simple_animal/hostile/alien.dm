@@ -29,8 +29,8 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	unique_name = 1
 	gold_core_spawnable = NO_SPAWN
-	deathsound = 'sound/voice/hiss6.ogg'
-	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
+	death_sound = 'sound/voice/hiss6.ogg'
+	death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	chat_color = "#9EE08F"
 	mobchatspan = "alienmobsay"
 
@@ -145,12 +145,12 @@
 /mob/living/simple_animal/hostile/alien/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
 		adjustBruteLoss(2)
-		throw_alert("temp", /atom/movable/screen/alert/cold, 1)
+		throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 1)
 	else if(bodytemperature > maxbodytemp)
 		adjustBruteLoss(20)
-		throw_alert("temp", /atom/movable/screen/alert/hot, 3)
+		throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 3)
 	else
-		clear_alert("temp")
+		clear_alert(ALERT_TEMPERATURE)
 
 /mob/living/simple_animal/hostile/alien/maid
 	name = "lusty xenomorph maid"

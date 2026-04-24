@@ -10,14 +10,10 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "j" = (
-/obj/structure/window{
-	dir = 1
-	},
+/obj/structure/window/spawner/directional/north,
 /obj/item/toy/beach_ball/holoball/dodgeball,
-/obj/structure/window,
-/obj/structure/window{
-	dir = 8
-	},
+/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner/directional/west,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "k" = (
@@ -82,11 +78,9 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "K" = (
-/obj/structure/window{
-	dir = 1
-	},
+/obj/structure/window/spawner/directional/north,
 /obj/item/toy/beach_ball/holoball/dodgeball,
-/obj/structure/window,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "L" = (
@@ -131,14 +125,10 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "T" = (
-/obj/structure/window{
-	dir = 1
-	},
+/obj/structure/window/spawner/directional/north,
 /obj/item/toy/beach_ball/holoball/dodgeball,
-/obj/structure/window,
-/obj/structure/window{
-	dir = 4
-	},
+/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner/directional/east,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "X" = (

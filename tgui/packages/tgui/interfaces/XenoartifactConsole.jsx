@@ -1,11 +1,20 @@
 import { useBackend, useSharedState } from '../backend';
-import { Box, Tabs, Section, Button, BlockQuote, Icon, Collapsible, AnimatedNumber, ProgressBar, Flex, Divider, Table } from '../components';
+import {
+  BlockQuote,
+  Button,
+  Divider,
+  Flex,
+  Icon,
+  Section,
+  Table,
+  Tabs,
+} from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
-export const XenoartifactConsole = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [tab, setTab] = useSharedState(context, 'tab', 'listings');
+export const XenoartifactConsole = (props) => {
+  const { act, data } = useBackend();
+  const [tab, setTab] = useSharedState('tab', 'listings');
   const { stability, money, purchase_radio, solved_radio, current_tab } = data;
   const sellers = data.sellers || [];
   return (
@@ -34,13 +43,22 @@ export const XenoartifactConsole = (props, context) => {
         </Section>
         <Divider />
         <Tabs>
-          <Tabs.Tab onClick={() => setTab('listings')} selected={tab === 'listings'}>
+          <Tabs.Tab
+            onClick={() => setTab('listings')}
+            selected={tab === 'listings'}
+          >
             <Icon name="shopping-cart" /> Listings
           </Tabs.Tab>
-          <Tabs.Tab onClick={() => setTab('requests')} selected={tab === 'requests'}>
+          <Tabs.Tab
+            onClick={() => setTab('requests')}
+            selected={tab === 'requests'}
+          >
             <Icon name="list" /> Requests
           </Tabs.Tab>
-          <Tabs.Tab onClick={() => setTab('history')} selected={tab === 'history'}>
+          <Tabs.Tab
+            onClick={() => setTab('history')}
+            selected={tab === 'history'}
+          >
             <Icon name="search" /> History
           </Tabs.Tab>
         </Tabs>
@@ -53,8 +71,8 @@ export const XenoartifactConsole = (props, context) => {
   );
 };
 
-const XenoartifactConsoleSellerTab = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactConsoleSellerTab = (props) => {
+  const { act, data } = useBackend();
   const { stability, money, purchase_radio, solved_radio, current_tab } = data;
   const sellers = data.sellers || [];
   return (
@@ -66,8 +84,8 @@ const XenoartifactConsoleSellerTab = (props, context) => {
   );
 };
 
-const XenoartifactConsoleSellerEntry = (props, context) => {
-  const { act } = useBackend(context);
+const XenoartifactConsoleSellerEntry = (props) => {
+  const { act } = useBackend();
   const { value } = props;
   const stock = value['stock'] || [];
   return (
@@ -83,11 +101,18 @@ const XenoartifactConsoleSellerEntry = (props, context) => {
             buttons={
               <Button
                 icon={'shopping-cart'}
-                onClick={() => act(`stock_purchase`, { item_id: stock_list['id'], seller_id: value['id'] })}>
+                onClick={() =>
+                  act(`stock_purchase`, {
+                    item_id: stock_list['id'],
+                    seller_id: value['id'],
+                  })
+                }
+              >
                 {`$${stock_list['cost']}`}
               </Button>
             }
-            key={stock_list}>
+            key={stock_list}
+          >
             <BlockQuote>{`${stock_list['description']}`}</BlockQuote>
             <Divider />
           </Section>
@@ -97,8 +122,8 @@ const XenoartifactConsoleSellerEntry = (props, context) => {
   );
 };
 
-const XenoartifactConsoleRequestsTab = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactConsoleRequestsTab = (props) => {
+  const { act, data } = useBackend();
   const requests = data.active_request || [];
   return (
     <Table>
@@ -123,8 +148,8 @@ const XenoartifactConsoleRequestsTab = (props, context) => {
   );
 };
 
-const XenoartifactConsoleHistoryTab = (props, context) => {
-  const { act, data } = useBackend(context);
+const XenoartifactConsoleHistoryTab = (props) => {
+  const { act, data } = useBackend();
   const history = data.history || [];
   return (
     <Flex wrap={'wrap'}>

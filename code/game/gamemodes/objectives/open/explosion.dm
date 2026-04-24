@@ -4,23 +4,24 @@
 	weight = 6
 	var/selected_area
 	var/list/valid_areas = list(
-		"medical" = list(/area/medical),
-		"engineering" = list(/area/engineering, /area/engine),
-		"security" = list(/area/security),
-		"the cargo bay" = list(/area/quartermaster, /area/cargo),
-		"the bridge" = list(/area/bridge),
-		"the communications relay" = list(/area/comms, /area/server, /area/tcommsat),
-		"the science lab" = list(/area/science),
-		"the research division server room" = list(/area/science/server),
+		"medical" = list(/area/station/medical),
+		"engineering" = list(/area/station/engineering, /area/station/engineering),
+		"security" = list(/area/station/security),
+		"the cargo bay" = list(/area/station/cargo, /area/station/cargo),
+		"the bridge" = list(/area/station/command),
+		"the communications relay" = list(/area/station/comms, /area/station/server, /area/station/tcommsat),
+		"the science lab" = list(/area/station/science),
+		"the research division server room" = list(/area/station/science/server),
 		// Anywhere monitored by the AI will do
-		"the AI's facilities" = list(/area/aisat, /area/ai_monitored),
-		"the Captain's office" = list(/area/crew_quarters/heads/captain),
-		"the Head of Personnel's office" = list(/area/crew_quarters/heads/hop)
+		"the AI's facilities" = list(/area/station/ai_monitored/aisat/exterior, /area/station/ai_monitored),
+		"the Captain's office" = list(/area/station/command/heads_quarters/captain),
+		"the Head of Personnel's office" = list(/area/station/command/heads_quarters/hop)
 	)
 	var/success = FALSE
 	var/devistation = 0
 	var/heavy = 0
 	var/light = 0
+	var/turf/generic_track_location
 
 /datum/objective/open/explosion/New(text)
 	. = ..()

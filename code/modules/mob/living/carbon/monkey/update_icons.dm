@@ -3,11 +3,11 @@
 	if(!..())
 		update_body_parts(TRUE)
 		update_hair()
-		update_inv_wear_mask()
-		update_inv_head()
-		update_inv_back()
+		update_worn_mask()
+		update_worn_head()
+		update_worn_back()
 		update_transform()
-		update_inv_w_uniform()
+		update_worn_undersuit()
 
 ////////
 
@@ -33,15 +33,11 @@
 		if(M.flags_inv & HIDEHAIR)
 			hair_hidden = 1
 	if(!hair_hidden)
-		if(!getorgan(/obj/item/organ/brain)) //Applies the debrained overlay if there is no brain
-			overlays_standing[HAIR_LAYER] = mutable_appearance('icons/mob/human_face.dmi', "debrained", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
+		if(!get_organ_by_type(/obj/item/organ/brain)) //Applies the debrained overlay if there is no brain
+			overlays_standing[HAIR_LAYER] = mutable_appearance('icons/mob/human/human_face.dmi', "debrained", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 			apply_overlay(HAIR_LAYER)
 
-
-/mob/living/carbon/monkey/update_fire()
-	..("Monkey_burning")
-
-/mob/living/carbon/monkey/update_inv_legcuffed()
+/mob/living/carbon/monkey/update_worn_legcuffs()
 	remove_overlay(LEGCUFF_LAYER)
 	if(legcuffed)
 		var/mutable_appearance/legcuff_overlay = mutable_appearance('icons/mob/mob.dmi', "legcuff1", CALCULATE_MOB_OVERLAY_LAYER(LEGCUFF_LAYER))
@@ -77,16 +73,16 @@
 		client.screen += I
 
 //Update uniform in compliance with monkey icons
-/mob/living/carbon/monkey/update_inv_w_uniform()
+/mob/living/carbon/monkey/update_worn_undersuit(update_obscured)
 	update_clothing_icons(UNIFORM_LAYER)
 
-/mob/living/carbon/monkey/update_inv_head()
+/mob/living/carbon/monkey/update_worn_head(update_obscured)
 	update_clothing_icons(HEAD_LAYER)
 
-/mob/living/carbon/monkey/update_inv_back()
+/mob/living/carbon/monkey/update_worn_back(update_obscured)
 	update_clothing_icons(BACK_LAYER)
 
-/mob/living/carbon/monkey/update_inv_wear_mask()
+/mob/living/carbon/monkey/update_worn_mask(update_obscured)
 	update_clothing_icons(FACEMASK_LAYER)
 
 //used to handle monkey clothing

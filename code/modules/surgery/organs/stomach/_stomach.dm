@@ -120,17 +120,11 @@
 	if(HAS_TRAIT_FROM(human, TRAIT_FAT, OBESITY))//I share your pain, past coder.
 		if(human.overeatduration < (200 SECONDS))
 			to_chat(human, span_notice("You feel fit again!"))
-			REMOVE_TRAIT(human, TRAIT_FAT, OBESITY)
-			human.remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
-			human.update_inv_w_uniform()
-			human.update_inv_wear_suit()
+			human.remove_traits(list(TRAIT_FAT, TRAIT_OFF_BALANCE_TACKLER), OBESITY)
 	else
 		if(human.overeatduration >= (200 SECONDS))
 			to_chat(human, span_danger("You suddenly feel blubbery!"))
-			ADD_TRAIT(human, TRAIT_FAT, OBESITY)
-			human.add_movespeed_modifier(/datum/movespeed_modifier/obesity)
-			human.update_inv_w_uniform()
-			human.update_inv_wear_suit()
+			human.add_traits(list(TRAIT_FAT, TRAIT_OFF_BALANCE_TACKLER), OBESITY)
 
 	// nutrition decrease and satiety
 	if (human.nutrition > 0 && human.stat != DEAD)
@@ -149,7 +143,7 @@
 		else if(human.satiety < 0)
 			human.satiety++
 			if(DT_PROB(round(-human.satiety/77), delta_time))
-				human.Jitter(5)
+				human.set_jitter_if_lower(10 SECONDS)
 			hunger_rate = 3 * HUNGER_FACTOR
 		hunger_rate *= human.physiology.hunger_mod
 		human.adjust_nutrition(-hunger_rate * delta_time)
@@ -199,31 +193,43 @@
 	else
 		human.remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 
-/obj/item/organ/stomach/get_availability(datum/species/owner_species)
-	return !((TRAIT_NOHUNGER in owner_species.inherent_traits) || (NOSTOMACH in owner_species.species_traits))
+/obj/item/organ/stomach/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantstomach
 
 /obj/item/organ/stomach/proc/handle_disgust(mob/living/carbon/human/disgusted, delta_time, times_fired)
-	if(disgusted.disgust)
+	var/old_disgust = disgusted.old_disgust
+	var/disgust = disgusted.disgust
+
+	if(disgust)
 		var/pukeprob = 2.5 + (0.025 * disgusted.disgust)
 		if(disgusted.disgust >= DISGUST_LEVEL_GROSS)
 			if(DT_PROB(5, delta_time))
-				disgusted.stuttering += 1
-				disgusted.confused += 2
+				disgusted.adjust_stutter(2 SECONDS)
+				disgusted.adjust_confusion(2 SECONDS)
 			if(DT_PROB(5, delta_time) && !disgusted.stat)
 				to_chat(disgusted, span_warning("You feel kind of iffy..."))
-			disgusted.jitteriness = max(disgusted.jitteriness - 3, 0)
+			disgusted.adjust_jitter(-6 SECONDS)
 		if(disgusted.disgust >= DISGUST_LEVEL_VERYGROSS)
 			if(DT_PROB(pukeprob, delta_time)) //iT hAndLeS mOrE ThaN PukInG
-				disgusted.confused += 2.5
-				disgusted.stuttering += 1
-				disgusted.vomit(10, 0, 1, 0, 1, 0)
-			disgusted.Dizzy(5)
+				disgusted.adjust_confusion(2.5 SECONDS)
+				disgusted.adjust_stutter(2 SECONDS)
+				disgusted.vomit(VOMIT_CATEGORY_KNOCKDOWN, distance = 0)
+				disgusted.adjust_disgust(-50)
+			disgusted.set_dizzy_if_lower(10 SECONDS)
 		if(disgusted.disgust >= DISGUST_LEVEL_DISGUSTED)
 			if(DT_PROB(13, delta_time))
-				disgusted.blur_eyes(3) //We need to add more shit down here
+				disgusted.set_eye_blur_if_lower(6 SECONDS) //We need to add more shit down here
 
 		disgusted.adjust_disgust(-0.25 * disgust_metabolism * delta_time)
-	switch(disgusted.disgust)
+
+	// I would consider breaking this up into steps matching the disgust levels
+	// But disgust is used so rarely it wouldn't save a significant amount of time, and it makes the code just way worse
+	// We're in the same state as the last time we processed, so don't bother
+	if(old_disgust == disgust)
+		return
+
+	disgusted.old_disgust = disgust
+	switch(disgust)
 		if(0 to DISGUST_LEVEL_GROSS)
 			disgusted.clear_alert("disgust")
 			SEND_SIGNAL(disgusted, COMSIG_CLEAR_MOOD_EVENT, "disgust")
@@ -294,10 +300,10 @@
 	name = "basic cybernetic stomach"
 	icon_state = "stomach-c"
 	desc = "A basic device designed to mimic the functions of a human stomach"
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 	maxHealth = STANDARD_ORGAN_THRESHOLD * 0.5
 	var/emp_vulnerability = 40
-	metabolism_efficiency = 0.35 // not as good at digestion
+	metabolism_efficiency = 0.035 // not as good at digestion
 
 /obj/item/organ/stomach/cybernetic/tier2
 	name = "cybernetic stomach"
@@ -306,13 +312,14 @@
 	maxHealth = 1.5 * STANDARD_ORGAN_THRESHOLD
 	disgust_metabolism = 2
 	emp_vulnerability = 25
-	metabolism_efficiency = 0.14
+	metabolism_efficiency = 0.07
 
 /obj/item/organ/stomach/cybernetic/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
 	if(!COOLDOWN_FINISHED(src, emp_cooldown)) //So we cant just spam emp to kill people.
+		owner.vomit(vomit_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_HARM))
 		COOLDOWN_START(src, emp_cooldown, 0.05 SECONDS)
 	if(prob(emp_vulnerability/severity))
 		owner.vomit(stun = FALSE)

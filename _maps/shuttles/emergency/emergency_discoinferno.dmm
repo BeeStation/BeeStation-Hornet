@@ -6,7 +6,7 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "c" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/reinforced/plasma,
 /turf/open/floor/plating/elevatorshaft,
 /area/shuttle/escape)
 "d" = (
@@ -185,9 +185,7 @@
 /area/shuttle/escape)
 "M" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/plasma/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/plasma/spawner/directional/north,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "N" = (
@@ -209,9 +207,8 @@
 /turf/open/floor/mineral/plasma,
 /area/shuttle/escape)
 "V" = (
-/obj/machinery/door/airlock/gold{
-	req_access_txt = "19"
-	},
+/obj/machinery/door/airlock/gold,
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape)

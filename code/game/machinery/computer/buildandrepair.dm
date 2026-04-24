@@ -1,16 +1,44 @@
 /obj/structure/frame/computer
 	name = "computer frame"
 	icon_state = "0"
-	state = 0
+	state = FRAME_STATE_EMPTY
 
 /obj/structure/frame/computer/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/simple_rotation)
 
+/obj/structure/frame/computer/add_context_self(datum/screentip_context/context, mob/user)
+	switch(state)
+		if(FRAME_STATE_EMPTY)
+			context.add_left_click_tool_action("[anchored ? "Un" : ""]anchor", TOOL_WRENCH)
+			if(anchored && !circuit)
+				context.add_left_click_item_action("Install board", /obj/item/circuitboard/computer)
+				return
+			else
+				context.add_left_click_tool_action("Unweld frame", TOOL_WELDER)
+			return
+		if(FRAME_COMPUTER_STATE_BOARD_INSTALLED)
+			if(circuit)
+				context.add_left_click_tool_action("Pry out board", TOOL_CROWBAR)
+				context.add_left_click_tool_action("Secure board", TOOL_SCREWDRIVER)
+			return
+		if(FRAME_COMPUTER_STATE_BOARD_SECURED)
+			context.add_left_click_tool_action("Unsecure board", TOOL_SCREWDRIVER)
+			context.add_left_click_item_action("Install cable", /obj/item/stack/cable_coil)
+			return
+		if(FRAME_COMPUTER_STATE_WIRED)
+			context.add_left_click_tool_action("Cut out cable", TOOL_WIRECUTTER)
+			context.add_left_click_item_action("Install panel", /obj/item/stack/sheet/glass)
+			return
+		if(FRAME_COMPUTER_STATE_GLASSED)
+			context.add_left_click_tool_action("Pry out glass", TOOL_CROWBAR)
+			context.add_left_click_tool_action("Complete frame", TOOL_SCREWDRIVER)
+			return
+
 /obj/structure/frame/computer/attackby(obj/item/P, mob/living/user, params)
 	add_fingerprint(user)
 	switch(state)
-		if(0)
+		if(FRAME_STATE_EMPTY)
 			if(P.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, span_notice("You start wrenching the frame into place..."))
 				if(P.use_tool(src, user, 20, volume=50))

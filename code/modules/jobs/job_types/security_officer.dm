@@ -5,9 +5,8 @@
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security, and the head of your assigned department (if applicable)"
-	faction = "Station"
-	total_positions = 5 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
-	spawn_positions = 5 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
+	faction = FACTION_STATION
+	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 840
@@ -17,8 +16,7 @@
 
 	base_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_COURT, ACCESS_WEAPONS,
 					ACCESS_MECH_SECURITY, ACCESS_MINERAL_STOREROOM) // See /datum/job/security_officer/get_access()
-					// NOTE: ACCESS_MAINT_TUNNELS will be given by check_config_for_sec_maint() config
-	extra_access = list(ACCESS_MORGUE, ACCESS_FORENSICS_LOCKERS, ACCESS_MAINT_TUNNELS)
+	// NOTE: ACCESS_MAINT_TUNNELS will be given by check_config_for_sec_maint() config
 
 	/// These accesses will be given in after_spawn()
 	var/list/dept_access_supply = list(ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_AUX_BASE)
@@ -29,9 +27,11 @@
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_HARD)
-	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
+	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_SECURITY)
 
 	display_order = JOB_DISPLAY_ORDER_SECURITY_OFFICER
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Guard"
 
 	species_outfits = list(
@@ -39,12 +39,24 @@
 	)
 	biohazard = 25 //clean your baton, man
 
-	minimal_lightup_areas = list(/area/construction/mining/aux_base)
+	minimal_lightup_areas = list(/area/station/construction/mining/aux_base)
+
+	manuscript_jobs = list(
+		JOB_NAME_SECURITYOFFICER,
+		JOB_NAME_ASSISTANT // they're used to be troubles
+	)
 
 /datum/job/security_officer/get_access()
 	. = ..()
+	LOWPOP_GRANT_ACCESS(JOB_NAME_DETECTIVE, ACCESS_FORENSICS_LOCKERS)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_DETECTIVE, ACCESS_MORGUE)
+	LOWPOP_GRANT_ACCESS(JOB_NAME_BRIGPHYSICIAN, ACCESS_BRIGPHYS)
 	if(check_config_for_sec_maint())
 		. |= ACCESS_MAINT_TUNNELS
+	if (SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
+		. |= ACCESS_MAINT_TUNNELS
+	if (SSjob.is_job_empty(JOB_NAME_WARDEN) && SSjob.is_job_empty(JOB_NAME_HEADOFSECURITY) && SSjob.initial_players_to_assign < COMMAND_POPULATION_MINIMUM)
+		. |= ACCESS_ARMORY
 
 GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, SEC_DEPT_SCIENCE, SEC_DEPT_SUPPLY))
 
@@ -72,7 +84,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			accessory = /obj/item/clothing/accessory/armband/cargo
 			if(!on_dummy)
 				dep_access = dept_access_supply
-				destination = /area/security/checkpoint/supply
+				destination = /area/station/security/checkpoint/supply
 				spawn_point = locate(/obj/effect/landmark/start/depsec/supply) in GLOB.department_security_spawns
 				minimal_lightup_areas |= GLOB.supply_lightup_areas
 		if(SEC_DEPT_MEDICAL)
@@ -80,7 +92,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			accessory =  /obj/item/clothing/accessory/armband/medblue
 			if(!on_dummy)
 				dep_access = dept_access_medical
-				destination = /area/security/checkpoint/medical
+				destination = /area/station/security/checkpoint/medical
 				spawn_point = locate(/obj/effect/landmark/start/depsec/medical) in GLOB.department_security_spawns
 				minimal_lightup_areas |= GLOB.medical_lightup_areas
 		if(SEC_DEPT_SCIENCE)
@@ -88,7 +100,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			accessory = /obj/item/clothing/accessory/armband/science
 			if(!on_dummy)
 				dep_access = dept_access_science
-				destination = /area/security/checkpoint/science
+				destination = /area/station/security/checkpoint/science
 				spawn_point = locate(/obj/effect/landmark/start/depsec/science) in GLOB.department_security_spawns
 				minimal_lightup_areas |= GLOB.science_lightup_areas
 		if(SEC_DEPT_ENGINEERING)
@@ -96,7 +108,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			accessory = /obj/item/clothing/accessory/armband/engine
 			if(!on_dummy)
 				dep_access = dept_access_engineering
-				destination = /area/security/checkpoint/engineering
+				destination = /area/station/security/checkpoint/engineering
 				spawn_point = locate(/obj/effect/landmark/start/depsec/engineering) in GLOB.department_security_spawns
 				minimal_lightup_areas |= GLOB.engineering_lightup_areas
 
@@ -151,19 +163,34 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	head = /obj/item/clothing/head/helmet/sec
 	suit = /obj/item/clothing/suit/armor/vest/alt
 	shoes = /obj/item/clothing/shoes/jackboots
-	l_pocket = /obj/item/modular_computer/tablet/pda/security
-	r_pocket = /obj/item/clothing/accessory/badge/officer
-	suit_store = /obj/item/gun/energy/disabler
+	l_pocket = /obj/item/modular_computer/tablet/pda/preset/security
+	r_pocket = /obj/item/clothing/accessory/badge
+	accessory = /obj/item/clothing/accessory/security_pager
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
 	box = /obj/item/storage/box/survival/security
 
+	backpack_contents = list(
+		/obj/item/mining_voucher/security = 1,
+		/obj/item/ammo_casing/taser = 1,
+		)
+
 	implants = list(/obj/item/implant/mindshield)
 
 	chameleon_extras = list(/obj/item/gun/energy/disabler, /obj/item/clothing/glasses/hud/security/sunglasses, /obj/item/clothing/head/helmet)
 	//The helmet is necessary because /obj/item/clothing/head/helmet/sec is overwritten in the chameleon list by the standard helmet, which has the same name and icon state
+
+/datum/outfit/job/security/mod
+	name = "Security Officer (MODsuit)"
+
+	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/security
+	suit = null
+	head = null
+	mask = /obj/item/clothing/mask/gas/sechailer
+	internals_slot = ITEM_SLOT_SUITSTORE
 
 /datum/outfit/job/security_officer/bulletproof
 	name = "Security Officer (Bulletproof)"

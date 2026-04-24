@@ -18,7 +18,7 @@
 
 /obj/item/food/pie/make_processable()
 	if (slice_type)
-		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, table_required = TRUE, /*screentip_verb = "Slice"*/)
+		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, table_required = TRUE, screentip_verb = "Slice")
 
 /obj/item/food/pieslice
 	name = "pie slice"
@@ -75,7 +75,7 @@
 		if(iscarbon(living_target_getting_hit))
 			is_creamable = !!(living_target_getting_hit.get_bodypart(BODY_ZONE_HEAD)) // maybe you need a head to get pied, yeah?
 		if(is_creamable)
-			living_target_getting_hit.adjust_blurriness(1)
+			living_target_getting_hit.adjust_eye_blur(2 SECONDS)
 		living_target_getting_hit.visible_message(span_warning("[living_target_getting_hit] is creamed by [src]!"), span_userdanger("You've been creamed by [src]!"))
 		playsound(living_target_getting_hit, "desceration", 50, TRUE)
 	if(is_creamable && is_type_in_typecache(hit_atom, GLOB.creamable))

@@ -13,12 +13,12 @@
 	if(!component_parent?.parent)
 		return
 	//Register all the relevant signals we trigger from
-	RegisterSignal(component_parent?.parent, COMSIG_PARENT_EXAMINE, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+	RegisterSignal(component_parent?.parent, COMSIG_ATOM_EXAMINE, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
 
 /datum/xenoartifact_trait/activator/examine/remove_parent(datum/source, pensive)
 	if(!component_parent?.parent)
 		return ..()
-	UnregisterSignal(component_parent?.parent, COMSIG_PARENT_EXAMINE)
+	UnregisterSignal(component_parent?.parent, COMSIG_ATOM_EXAMINE)
 	return ..()
 
 /datum/xenoartifact_trait/activator/examine/translation_type_a(datum/source, atom/target)

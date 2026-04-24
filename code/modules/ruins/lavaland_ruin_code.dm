@@ -3,19 +3,6 @@
 /obj/structure/fans/tiny/invisible //For blocking air in ruin doorways
 	invisibility = INVISIBILITY_ABSTRACT
 
-//lavaland_surface_seed_vault.dmm
-//Seed Vault
-
-/obj/effect/spawner/lootdrop/seed_vault
-	name = "seed vault seeds"
-	lootcount = 1
-
-	loot = list(/obj/item/seeds/gatfruit = 10,
-				/obj/item/seeds/cherry/bomb = 10,
-				/obj/item/seeds/berry/glow = 10,
-				/obj/item/seeds/sunflower/moonflower = 8
-				)
-
 //Free Golems
 
 /obj/item/disk/design_disk/golem_shell
@@ -66,7 +53,6 @@
 		/obj/item/stack/sheet/mineral/abductor	    = /datum/species/golem/alloy,
 		/obj/item/stack/sheet/wood	        		= /datum/species/golem/wood,
 		/obj/item/stack/ore/bluespace_crystal	    = /datum/species/golem/bluespace,
-		/obj/item/stack/sheet/runed_metal	        = /datum/species/golem/runic,
 		/obj/item/stack/medical/gauze	            = /datum/species/golem/cloth,
 		/obj/item/stack/sheet/cotton/cloth			= /datum/species/golem/cloth,
 		/obj/item/stack/sheet/mineral/adamantine	= /datum/species/golem/adamantine,
@@ -99,90 +85,47 @@
 	name = "incomplete servant golem shell"
 	shell_type = /obj/effect/mob_spawn/human/golem/servant
 
-///Syndicate Listening Post
+//Special golem, made by cultists uses soulstones to transfer them into existance
 
-/obj/effect/mob_spawn/human/lavaland_syndicate
-	name = "Syndicate Bioweapon Scientist"
-	roundstart = FALSE
-	death = FALSE
-	random = TRUE
-	icon = 'icons/obj/machines/sleeper.dmi'
-	icon_state = "sleeper_s"
-	short_desc = "You are a syndicate science technician, employed in a top secret research facility developing biological weapons."
-	flavour_text = "Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Continue your research as best you can, and try to keep a low profile."
-	important_info = "The base is rigged with explosives, DO NOT abandon it or let it fall into enemy hands!"
-	outfit = /datum/outfit/lavaland_syndicate
-	assignedrole = "Lavaland Syndicate"
-	use_cooldown = TRUE
-	banType = ROLE_LAVALAND_SYNDICATE
+/obj/item/golem_shell/runic
+	name = "incomplete runic golem shell"
+	desc = "A hollow frame of heavy stone etched with pulsing red runes. It lacks a spark of life."
+	icon_state = "construct"
 
-/obj/effect/mob_spawn/human/lavaland_syndicate/officer
-	name = "Syndicate Officer"
-	short_desc = "You are a syndicate officer, leading a recon team onboard a Syndicate vessel."
-	flavour_text = "Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Continue your reconnaissance as best you can, and try to keep a low profile."
-	important_info = "The base is rigged with explosives, DO NOT abandon it or let it fall into enemy hands!"
-	outfit = /datum/outfit/lavaland_syndicate/officer
-	assignedrole = "Lavaland Syndicate"
+/obj/item/golem_shell/runic/attack_hand(mob/user)
+	to_chat(user, span_warning("The shell is far too heavy to lift."))
+	return TRUE
 
-/obj/effect/mob_spawn/human/lavaland_syndicate/special(mob/living/new_spawn)
-	new_spawn.grant_language(/datum/language/codespeak)
-
-/datum/outfit/lavaland_syndicate
-	name = "Lavaland Syndicate Agent"
-	r_hand = /obj/item/gun/ballistic/sniper_rifle
-	uniform = /obj/item/clothing/under/syndicate
-	suit = /obj/item/clothing/suit/toggle/labcoat
-	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/tackler/combat
-	ears = /obj/item/radio/headset/syndicate/alt
-	back = /obj/item/storage/backpack
-	r_pocket = /obj/item/gun/ballistic/automatic/pistol
-	id = /obj/item/card/id/syndicate/anyone
-	implants = list(/obj/item/implant/weapons_auth)
-
-/datum/outfit/lavaland_syndicate/officer
-	name = "Lavaland Syndicate Officer"
-	r_hand = null
-	uniform = /obj/item/clothing/under/syndicate
-	suit = /obj/item/clothing/suit/armor/vest/capcarapace/syndicate
-	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/combat
-	ears = /obj/item/radio/headset/syndicate/alt
-	belt = /obj/item/storage/belt/sabre
-	back = /obj/item/storage/backpack
-	head = /obj/item/clothing/head/hats/hos/beret/syndicate
-	r_pocket = /obj/item/gun/ballistic/automatic/pistol
-	id = /obj/item/card/id/syndicate/anyone
-	implants = list(/obj/item/implant/weapons_auth)
-
-/datum/outfit/lavaland_syndicate/post_equip(mob/living/carbon/human/H)
-	H.faction |= FACTION_SYNDICATE
-
-/obj/effect/mob_spawn/human/lavaland_syndicate/comms
-	name = "Syndicate Comms Agent"
-	short_desc = "You are a syndicate comms agent, employed in a top secret research facility developing biological weapons."
-	flavour_text = "Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Monitor enemy activity as best you can, and try to keep a low profile. Use the communication equipment to provide support to any field agents, and sow disinformation to throw Nanotrasen off your trail. Do not let the base fall into enemy hands!"
-	important_info = "DO NOT abandon the base."
-	outfit = /datum/outfit/lavaland_syndicate/comms
-
-/obj/effect/mob_spawn/human/lavaland_syndicate/comms/space
-	short_desc = "You are a syndicate agent, assigned to a small listening post station situated near your hated enemy's top secret research facility: Space Station 13."
-	flavour_text = "Monitor enemy activity as best you can, and try to keep a low profile. Monitor enemy activity as best you can, and try to keep a low profile. Use the communication equipment to provide support to any field agents, and sow disinformation to throw Nanotrasen off your trail. Do not let the base fall into enemy hands!"
-	important_info = "DO NOT abandon the base."
-
-/obj/effect/mob_spawn/human/lavaland_syndicate/comms/space/Initialize(mapload)
-	. = ..()
-	if(prob(90)) //only has a 10% chance of existing, otherwise it'll just be a NPC syndie.
-		new /mob/living/simple_animal/hostile/syndicate/ranged(get_turf(src))
-		return INITIALIZE_HINT_QDEL
-
-/datum/outfit/lavaland_syndicate/comms
-	name = "Lavaland Syndicate Comms Agent"
-	r_hand = /obj/item/melee/energy/sword/saber
-	l_hand = /obj/item/megaphone/nospam
-	mask = /obj/item/clothing/mask/chameleon/gps
-	suit = /obj/item/clothing/suit/armor/vest
-
-/obj/item/clothing/mask/chameleon/gps/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/gps, "Encrypted Signal")
+/obj/item/golem_shell/runic/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/stack))
+		to_chat(user, span_warning("The shell refuses the material you are putting on it.")) // Otherwise they could place metal into it and turn it into a regular golem
+		return TRUE
+	if(!istype(O, /obj/item/soulstone))
+		return ..()
+	if(!user || !user.Adjacent(src))
+		return TRUE
+	if(!IS_CULTIST(user))  // You're not a cultist, why are you even trying to place a soulstone
+		to_chat(user, span_warning("The runes refuse to answer your touch."))
+		return TRUE
+	var/obj/item/soulstone/soulshard = O
+	var/mob/living/simple_animal/shade/soul = soulshard.contained_shade
+	if(!soul)
+		to_chat(user, span_warning("The soulstone is empty. The runes remain dormant."))
+		return TRUE
+	if(!soul.mind)
+		to_chat(user, span_warning("The trapped soul is unstable and cannot inhabit the shell."))
+		return TRUE
+	var/old_name = replacetext(soul.real_name, "Shade of ", "") // We dont want a golem called "Shade of William"
+	user.visible_message(
+		span_cult("The runes flare in blood red as the soul is torn from the soulstone and bound into the shell!"))
+	var/mob/living/carbon/human/species/golem/blood_cult/golem = new(get_turf(src))
+	golem.update_body()
+	soul.mind.transfer_to(golem)
+	if(!IS_CULTIST(golem)) // Incase they somehow lost their antag datum, we give it again
+		golem.mind.add_antag_datum(/datum/antagonist/cult)
+	golem.real_name = old_name
+	golem.name = old_name
+	qdel(soul)
+	qdel(soulshard)
+	qdel(src) // Full cleanup
+	return TRUE

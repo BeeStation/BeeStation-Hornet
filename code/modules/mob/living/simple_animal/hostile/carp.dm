@@ -1,5 +1,3 @@
-#define REGENERATION_DELAY 60  // After taking damage, how long it takes for automatic regeneration to begin for megacarps (ty robustin!)
-
 /mob/living/simple_animal/hostile/carp
 	name = "space carp"
 	desc = "A ferocious, fang-bearing creature that resembles a fish."
@@ -9,7 +7,7 @@
 	icon_living = "base"
 	icon_dead = "base_dead"
 	icon_gib = "carp_gib"
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak_chance = 0
 	turns_per_move = 5
 	butcher_results = list(/obj/item/food/fishmeat/carp = 2)
@@ -22,7 +20,6 @@
 	speed = 0
 	maxHealth = 25
 	health = 25
-	spacewalk = TRUE
 
 	obj_damage = 50
 	melee_damage = 20
@@ -56,7 +53,7 @@
 		"swamp" = "#e5e75a",
 		"turquoise" = "#04e1ed",
 		"brown" = "#ca805a",
-		"teal" = "#20e28e",
+		"teal" = COLOR_PALE_GREEN,
 		"lightblue" = "#4d88cc",
 		"rusty" = "#dd5f34",
 		"lightred" = "#fd6767",
@@ -72,10 +69,15 @@
 
 /mob/living/simple_animal/hostile/carp/Initialize(mapload)
 	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	if(random_color)
 		set_greyscale(new_config=/datum/greyscale_config/carp)
 		carp_randomify(rarechance)
 	. = ..()
+	make_tameable()
+
+/mob/living/simple_animal/hostile/carp/proc/make_tameable()
+	AddComponent(/datum/component/tameable, food_types = list(/obj/item/food/meat), tame_chance = 10, bonus_tame_chance = 5)
 
 /**
  * Randomly assigns a color to a carp from either a common or rare color variant lists
@@ -92,13 +94,15 @@
 		our_color = pick(carp_colors)
 		set_greyscale(colors=list(carp_colors[our_color]))
 
-/mob/living/simple_animal/hostile/carp/revive(full_heal = FALSE, admin_revive = FALSE)
+/mob/living/simple_animal/hostile/carp/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
-	if(.)
-		update_greyscale()
-		update_icon()
+	if(!.)
+		return
 
-/mob/living/simple_animal/hostile/carp/proc/tamed(mob/living/tamer)
+	update_greyscale()
+	update_icon()
+
+/mob/living/simple_animal/hostile/carp/tamed(mob/living/tamer, atom/food)
 	can_buckle = TRUE
 	buckle_lying = 0
 	AddElement(/datum/element/ridable, /datum/component/riding/creature/carp)
@@ -110,6 +114,9 @@
 	gold_core_spawnable = NO_SPAWN
 	del_on_death = TRUE
 	random_color = FALSE
+
+/mob/living/simple_animal/hostile/carp/holocarp/make_tameable()
+	return
 
 /mob/living/simple_animal/hostile/carp/megacarp
 	icon = 'icons/mob/broadMobs.dmi'
@@ -130,19 +137,16 @@
 	obj_damage = 80
 	melee_damage = 20
 
-	var/regen_cooldown = 0
-
 /mob/living/simple_animal/hostile/carp/megacarp/Initialize(mapload)
 	. = ..()
 	name = "[pick(GLOB.megacarp_first_names)] [pick(GLOB.megacarp_last_names)]"
 	melee_damage += rand(10,20) //this is on initialize so even with rng the damage will be consistent
 	maxHealth += rand(30,60)
 	move_to_delay = rand(3,7)
+	AddComponent(/datum/component/regenerator)
 
-/mob/living/simple_animal/hostile/carp/megacarp/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
-	. = ..()
-	if(.)
-		regen_cooldown = world.time + REGENERATION_DELAY
+/mob/living/simple_animal/hostile/carp/megacarp/make_tameable()
+	return
 
 /mob/living/simple_animal/hostile/carp/megacarp/Login()
 	. = ..()
@@ -153,11 +157,6 @@
 	can_buckle = TRUE
 	buckle_lying = 0
 
-/mob/living/simple_animal/hostile/carp/megacarp/Life(delta_time = SSMOBS_DT, times_fired)
-	. = ..()
-	if(regen_cooldown < world.time)
-		heal_overall_damage(2 * delta_time)
-
 /mob/living/simple_animal/hostile/carp/cayenne
 	name = "Cayenne"
 	desc = "A failed Syndicate experiment in weaponized space carp technology, it now serves as a lovable mascot."
@@ -165,8 +164,13 @@
 	unique_name = FALSE
 	speak_emote = list("squeaks")
 	gold_core_spawnable = NO_SPAWN
+	rarechance = 100
 	faction = list(FACTION_CARP, FACTION_SYNDICATE)
-	AIStatus = AI_OFF
+	health = 60
+	maxHealth = 60
+	melee_damage = 25
+	//A lil bit faster than a human
+	speed = -0.2
 	/// Keeping track of the nuke disk for the functionality of storing it.
 	var/obj/item/disk/nuclear/disky
 	/// Location of the file storing disk overlays
@@ -178,6 +182,10 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_DISK_VERIFIER, INNATE_TRAIT) //carp can verify disky
 	ADD_TRAIT(src, TRAIT_CAN_USE_NUKE, INNATE_TRAIT)  //carp SMART
+	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, INNATE_TRAIT) //carp SMART
+
+/mob/living/simple_animal/hostile/carp/cayenne/make_tameable()
+	return
 
 /mob/living/simple_animal/hostile/carp/cayenne/death(gibbed)
 	if(disky)
@@ -253,6 +261,12 @@
 	maxHealth = 200
 	random_color = FALSE
 
+/mob/living/simple_animal/hostile/carp/lia/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/pet_bonus, "bloops happily!")
+
+/mob/living/simple_animal/hostile/carp/lia/make_tameable()
+	return
 
 /mob/living/simple_animal/hostile/carp/advanced
 	name = "advanced space carp"
@@ -266,5 +280,3 @@
 	. = ..()
 	if(mind)
 		. += span_notice("This one seems to be self-aware.")
-
-#undef REGENERATION_DELAY

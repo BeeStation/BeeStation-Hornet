@@ -108,7 +108,7 @@
 /datum/nanite_program/heart_stop/on_trigger(comm_message)
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		var/obj/item/organ/heart/heart = C.getorganslot(ORGAN_SLOT_HEART)
+		var/obj/item/organ/heart/heart = C.get_organ_slot(ORGAN_SLOT_HEART)
 		if(heart)
 			if(heart.beating)
 				heart.Stop()
@@ -128,8 +128,8 @@
 	empulse(host_mob, 1, 2)
 
 /datum/nanite_program/pyro/active_effect()
-	host_mob.fire_stacks += 1
-	host_mob.IgniteMob()
+	host_mob.adjust_fire_stacks(1)
+	host_mob.ignite_mob()
 
 /datum/nanite_program/pyro
 	name = "Sub-Dermal Combustion"
@@ -143,8 +143,8 @@
 	return ..()
 
 /datum/nanite_program/pyro/active_effect()
-	host_mob.fire_stacks += 1
-	host_mob.IgniteMob()
+	host_mob.adjust_fire_stacks(1)
+	host_mob.ignite_mob()
 
 /datum/nanite_program/cryo
 	name = "Cryogenic Treatment"

@@ -19,7 +19,7 @@
 	gas_connector.set_init_directions()
 	gas_connector.atmos_init()
 	SSair.add_to_rebuild_queue(gas_connector)
-	RegisterSignal(gas_connector, COMSIG_PARENT_QDELETING, PROC_REF(connector_deleted))
+	RegisterSignal(gas_connector, COMSIG_QDELETING, PROC_REF(connector_deleted))
 
 /datum/gas_machine_connector/Destroy()
 	connected_machine = null
@@ -40,7 +40,7 @@
 	RegisterSignal(connected_machine, COMSIG_MOVABLE_MOVED, PROC_REF(moved_connected_machine))
 	RegisterSignal(connected_machine, COMSIG_MACHINERY_DEFAULT_ROTATE_WRENCH, PROC_REF(wrenched_connected_machine))
 	RegisterSignal(connected_machine, COMSIG_OBJ_DECONSTRUCT, PROC_REF(deconstruct_connected_machine))
-	RegisterSignal(connected_machine, COMSIG_PARENT_QDELETING, PROC_REF(destroy_connected_machine))
+	RegisterSignal(connected_machine, COMSIG_QDELETING, PROC_REF(destroy_connected_machine))
 
 /**
  * Unregister the signals previously registered
@@ -51,7 +51,7 @@
 		COMSIG_MOVABLE_PRE_MOVE,
 		COMSIG_MACHINERY_DEFAULT_ROTATE_WRENCH,
 		COMSIG_OBJ_DECONSTRUCT,
-		COMSIG_PARENT_QDELETING
+		COMSIG_QDELETING
 	))
 
 /**

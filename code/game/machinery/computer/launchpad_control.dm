@@ -22,7 +22,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
 	if(istype(buffer, /obj/machinery/launchpad))
 		if(LAZYLEN(launchpads) < maximum_pads)
 			launchpads |= buffer
-			RegisterSignal(buffer, COMSIG_PARENT_QDELETING, PROC_REF(launchpad_deleted))
+			RegisterSignal(buffer, COMSIG_QDELETING, PROC_REF(launchpad_deleted))
 			FLUSH_BUFFER(buffer_parent)
 			ui_update()
 			to_chat(user, span_notice("You upload the data from the [buffer_parent.name]'s buffer."))

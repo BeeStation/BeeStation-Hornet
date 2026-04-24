@@ -22,6 +22,7 @@
 	categories = list(MAT_CATEGORY_RIGID = TRUE/*, MAT_CATEGORY_BASE_RECIPES = TRUE*/) //Excluding glass for now
 	integrity_modifier = 0.1
 	sheet_type = /obj/item/stack/sheet/glass
+	shard_type = /obj/item/shard
 	value_per_unit = 0.0025
 
 /datum/material/glass/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
@@ -89,11 +90,18 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 
 /datum/material/uranium/on_applied(atom/source, amount, material_flags)
 	. = ..()
-	source.AddComponent(/datum/component/radioactive, amount / 50, source, 0) //half-life of 0 because we keep on going. amount / 50 means 40 radiation per sheet.
+	// Uranium structures should irradiate, but not items, because item irradiation is a lot more annoying.
+	// For example, consider picking up uranium as a miner.
+	if(isitem(source))
+		return
+
+	source.AddElement(/datum/element/radioactive, chance = URANIUM_IRRADIATION_INTENSITY)
 
 /datum/material/uranium/on_removed(atom/source, amount, material_flags)
 	. = ..()
-	qdel(source.GetComponent(/datum/component/radioactive))
+	if(isitem(source))
+		return
+	source.RemoveElement(/datum/element/radioactive, chance = URANIUM_IRRADIATION_INTENSITY)
 
 /datum/material/uranium/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
 	victim.reagents.add_reagent(/datum/reagent/uranium, rand(4, 6))
@@ -149,7 +157,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	name = "bananium"
 	desc = "Material with hilarious properties"
 	color = list(460/255, 464/255, 0, 0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0) //obnoxiously bright yellow
-	greyscale_colors = "#ffff00"
+	greyscale_colors = COLOR_YELLOW
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE)
 	sheet_type = /obj/item/stack/sheet/mineral/bananium
 	value_per_unit = 0.5

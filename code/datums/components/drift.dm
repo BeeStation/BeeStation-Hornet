@@ -27,7 +27,7 @@
 	RegisterSignal(drifting_loop, COMSIG_MOVELOOP_STOP, PROC_REF(drifting_stop))
 	RegisterSignal(drifting_loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, PROC_REF(before_move))
 	RegisterSignal(drifting_loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(after_move))
-	RegisterSignal(drifting_loop, COMSIG_PARENT_QDELETING, PROC_REF(loop_death))
+	RegisterSignal(drifting_loop, COMSIG_QDELETING, PROC_REF(loop_death))
 
 /datum/component/drift/Destroy()
 	inertia_last_loc = null
@@ -69,9 +69,9 @@
 	movable_parent.inertia_moving = TRUE
 	old_dir = movable_parent.dir
 
-/datum/component/drift/proc/after_move(datum/source, succeeded, visual_delay)
+/datum/component/drift/proc/after_move(datum/source, result, visual_delay)
 	SIGNAL_HANDLER
-	if(!succeeded)
+	if(result == MOVELOOP_FAILURE)
 		qdel(src)
 		return
 

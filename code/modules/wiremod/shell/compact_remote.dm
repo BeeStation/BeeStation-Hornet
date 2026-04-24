@@ -8,7 +8,7 @@
 	desc = "A smaller handheld device with one big button."
 	icon = 'icons/obj/wiremod.dmi'
 	icon_state = "setup_small_simple"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 	//worn_icon_state = "electronic"		//remember to change it later lol
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'

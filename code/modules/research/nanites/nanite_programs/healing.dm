@@ -11,7 +11,7 @@
 		return FALSE
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_damaged_bodyparts(TRUE,TRUE, status = BODYTYPE_ORGANIC)
+		var/list/parts = C.get_damaged_bodyparts(TRUE,TRUE, required_bodytype = BODYTYPE_ORGANIC)
 		if(!parts.len)
 			return FALSE
 	return ..()
@@ -19,7 +19,7 @@
 /datum/nanite_program/regenerative/active_effect()
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_damaged_bodyparts(TRUE,TRUE, status = BODYTYPE_ORGANIC)
+		var/list/parts = C.get_damaged_bodyparts(TRUE,TRUE, required_bodytype = BODYTYPE_ORGANIC)
 		if(!parts.len)
 			return
 		for(var/obj/item/bodypart/L in parts)
@@ -118,7 +118,7 @@
 
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_damaged_bodyparts(TRUE, TRUE, status = BODYTYPE_ROBOTIC)
+		var/list/parts = C.get_damaged_bodyparts(TRUE, TRUE, required_bodytype = BODYTYPE_ROBOTIC)
 		if(!parts.len)
 			return FALSE
 	else
@@ -129,7 +129,7 @@
 /datum/nanite_program/repairing/active_effect(mob/living/M)
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_damaged_bodyparts(TRUE, TRUE, status = BODYTYPE_ROBOTIC)
+		var/list/parts = C.get_damaged_bodyparts(TRUE, TRUE, required_bodytype = BODYTYPE_ROBOTIC)
 		if(!parts.len)
 			return
 		var/update = FALSE
@@ -171,24 +171,24 @@
 	name = "Bio-Reconstruction"
 	desc = "The nanites manually repair and replace organic cells, acting much faster than normal regeneration. \
 			However, this program cannot detect the difference between harmed and unharmed, causing it to consume nanites even if it has no effect."
-	use_rate = 5.5
+	use_rate = 3
 	rogue_types = list(/datum/nanite_program/suffocating, /datum/nanite_program/necrotic)
 
 /datum/nanite_program/regenerative_advanced/active_effect()
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		var/list/parts = C.get_damaged_bodyparts(TRUE,TRUE, status = BODYTYPE_ORGANIC)
+		var/list/parts = C.get_damaged_bodyparts(TRUE,TRUE, required_bodytype = BODYTYPE_ORGANIC)
 		if(!parts.len)
 			return
 		var/update = FALSE
 		for(var/obj/item/bodypart/L in parts)
-			if(L.heal_damage(3/parts.len, 3/parts.len, null, BODYTYPE_ORGANIC))
+			if(L.heal_damage(1.5/parts.len, 1.5/parts.len, null, BODYTYPE_ORGANIC))
 				update = TRUE
 		if(update)
 			host_mob.update_damage_overlays()
 	else
-		host_mob.adjustBruteLoss(-3, TRUE)
-		host_mob.adjustFireLoss(-3, TRUE)
+		host_mob.adjustBruteLoss(-1.5, TRUE)
+		host_mob.adjustFireLoss(-1.5, TRUE)
 
 /datum/nanite_program/brain_heal_advanced
 	name = "Neural Reimaging"
@@ -228,15 +228,15 @@
 	if(!iscarbon(host_mob)) //nonstandard biology
 		return FALSE
 	var/mob/living/carbon/C = host_mob
-	if(C.suiciding || C.ishellbound() || HAS_TRAIT(C, TRAIT_HUSK)) //can't revive
+	if(C.suiciding || HAS_TRAIT(C, TRAIT_HUSK)) //can't revive
 		return FALSE
 	if((world.time - C.timeofdeath) > 1800) //too late
 		return FALSE
 	if((C.getBruteLoss() >= MAX_REVIVE_BRUTE_DAMAGE) || (C.getFireLoss() >= MAX_REVIVE_FIRE_DAMAGE) || !C.can_be_revived()) //too damaged
 		return FALSE
-	if(!C.getorgan(/obj/item/organ/heart)) //what are we even shocking
+	if(!C.get_organ_by_type(/obj/item/organ/heart)) //what are we even shocking
 		return FALSE
-	var/obj/item/organ/brain/BR = C.getorgan(/obj/item/organ/brain)
+	var/obj/item/organ/brain/BR = C.get_organ_by_type(/obj/item/organ/brain)
 	if(QDELETED(BR) || BR.brain_death || (BR.organ_flags & ORGAN_FAILING) || BR.suicided)
 		return FALSE
 	if(C.get_ghost())
@@ -251,9 +251,9 @@
 	if(check_revivable())
 		playsound(C, 'sound/machines/defib_success.ogg', 50, FALSE)
 		C.set_heartattack(FALSE)
-		C.revive(full_heal = FALSE, admin_revive = FALSE)
+		C.revive()
 		C.emote("gasp")
-		C.Jitter(100)
+		C.set_jitter(60 SECONDS)
 		SEND_SIGNAL(C, COMSIG_LIVING_MINOR_SHOCK)
 		log_game("[C] has been successfully defibrillated by nanites.")
 	else

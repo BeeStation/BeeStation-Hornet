@@ -52,6 +52,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 		air_update_turf(TRUE, TRUE)
 	ConsumeTile()
 
+/obj/structure/blob/add_context_self(datum/screentip_context/context, mob/user)
+	if (!isovermind(user))
+		return .
+
+	if(istype(src, /obj/structure/blob/normal))
+		context.add_ctrl_click_action("Create strong blob")
+
+	if(istype(src, /obj/structure/blob/shield) && !istype(src, /obj/structure/blob/shield/reflective))
+		context.add_ctrl_click_action("Create reflective blob")
+
+	if(point_return >= 0)
+		context.add_alt_click_action("Remove blob")
+
+
 /obj/structure/blob/proc/creation_action() //When it's created by the overmind, do this.
 	return
 
@@ -70,7 +84,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 /obj/structure/blob/blob_act()
 	return
 
-/obj/structure/blob/Adjacent(var/atom/neighbour)
+/obj/structure/blob/Adjacent(atom/neighbour)
 	. = ..()
 	if(.)
 		var/result = 0
@@ -195,8 +209,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 		if(prob(100 - severity * 30))
 			new /obj/effect/temp_visual/emp(get_turf(src))
 
-/obj/structure/blob/tesla_act(power)
-	..()
+/obj/structure/blob/zap_act(power, zap_flags)
+	. = ..()
 	if(overmind)
 		if(overmind.blobstrain.tesla_reaction(src, power))
 			take_damage(power/400, BURN, ENERGY)

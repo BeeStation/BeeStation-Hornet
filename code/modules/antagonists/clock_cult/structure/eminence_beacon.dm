@@ -9,7 +9,7 @@
 
 /obj/structure/destructible/clockwork/eminence_beacon/attack_hand(mob/user, list/modifiers)
 	. = ..()
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 	if(vote_active)
 		deltimer(vote_timer)
@@ -25,22 +25,33 @@
 		return
 	else if(option == "Yourself")
 		hierophant_message("[user] has elected themselves to become the Eminence. Interact with [src] to object.", span="<span=large_brass>")
-		vote_timer = addtimer(CALLBACK(src, PROC_REF(vote_succeed), user), 600, TIMER_STOPPABLE)
+		vote_timer = addtimer(CALLBACK(src, PROC_REF(vote_succeed), user), 1 MINUTES, TIMER_STOPPABLE)
 	else if(option == "A ghost")
 		hierophant_message("[user] has elected for a ghost to become the Eminence. Interact with [src] to object.")
-		vote_timer = addtimer(CALLBACK(src, PROC_REF(vote_succeed)), 600, TIMER_STOPPABLE)
+		vote_timer = addtimer(CALLBACK(src, PROC_REF(vote_succeed)), 1 MINUTES, TIMER_STOPPABLE)
 	vote_active = TRUE
 
-/obj/structure/destructible/clockwork/eminence_beacon/proc/vote_succeed(mob/eminence)
+/obj/structure/destructible/clockwork/eminence_beacon/proc/vote_succeed(mob/living/eminence)
 	vote_active = FALSE
 	used = TRUE
 	if(!eminence)
-		var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the eminence?", ROLE_SERVANT_OF_RATVAR, /datum/role_preference/antagonist/clock_cultist, 10 SECONDS)
-		if(LAZYLEN(candidates))
-			eminence = pick(candidates)
+		var/datum/poll_config/config = new(
+			role = /datum/role_preference/roundstart/clock_cultist,
+			check_jobban = ROLE_SERVANT_OF_RATVAR,
+			poll_time = 10 SECONDS,
+			jump_target = src,
+			role_name_text = "eminence",
+			alert_pic = /mob/living/simple_animal/eminence,
+			amount_to_pick = 1,
+		)
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
+
+		if(candidate)
+			eminence = candidate
 	else
 		eminence.dust()
-	if(!(eminence?.client))
+
+	if(!eminence?.client)
 		hierophant_message("The Eminence remains in slumber, for now, try waking it again soon.")
 		used = FALSE
 		return

@@ -6,7 +6,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NOBLUDGEON
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
@@ -98,7 +98,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/projected_forcefield)
 	laser = 50
 	energy = 50
 	bomb = 25
-	rad = 100
 	fire = 100
 	acid = 100
 

@@ -6,7 +6,7 @@
 	species = "tobacco"
 	plantname = "Tobacco Plant"
 	product = /obj/item/food/grown/tobacco
-	lifespan = 20
+	lifespan = 80
 	maturation = 5
 	production = 5
 	yield = 10
@@ -20,7 +20,7 @@
 	name = "tobacco leaves"
 	desc = "Dry them out to make some smokes."
 	icon_state = "tobacco_leaves"
-	filling_color = "#008000"
+	filling_color = COLOR_GREEN
 	distill_reagent = /datum/reagent/consumable/ethanol/creme_de_menthe //Menthol, I guess.
 
 // Space Tobacco

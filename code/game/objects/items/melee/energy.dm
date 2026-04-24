@@ -1,4 +1,5 @@
 /obj/item/melee/energy
+	abstract_type = /obj/item/melee/energy
 	icon = 'icons/obj/transforming_energy.dmi'
 	max_integrity = 200
 	armor_type = /datum/armor/transforming_energy
@@ -12,6 +13,7 @@
 	//bare_wound_bonus = 20
 	stealthy_audio = TRUE
 	w_class = WEIGHT_CLASS_SMALL
+	item_flags = ISWEAPON|NO_BLOOD_ON_ITEM
 
 	/// The color of this energy based sword, for use in editing the icon_state.
 	var/sword_color_icon
@@ -22,7 +24,7 @@
 	/// Force while active.
 	var/active_bleedforce = 0
 	/// Sharpness while active.
-	var/active_sharpness = SHARP
+	var/active_sharpness = SHARP_DISMEMBER_EASY
 	/// Hitsound played attacking while active.
 	var/active_hitsound = 'sound/weapons/blade1.ogg'
 	/// Weight class while active.
@@ -85,7 +87,7 @@
 		var/mob/living/carbon/C = user
 		if(C.wear_mask)
 			in_mouth = ", barely missing [C.p_their()] nose"
-	. = span_warning("[user] swings [user.p_their()] [name][in_mouth]. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [A.name] in the process.")
+	. = span_warning("[user] swings [user.p_their()] [name][in_mouth]. [user.p_They()] light[user.p_s()] [user.p_their()] [A.name] in the process.")
 	playsound(loc, hitsound, get_clamped_volume(), TRUE, -1)
 	add_fingerprint(user)
 
@@ -95,10 +97,10 @@
 		return
 	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		icon_state = "[base_icon_state]_on_[sword_color_icon]" // "esword_on_red"
-		item_state = icon_state
+		inhand_icon_state = icon_state
 	else
 		icon_state = base_icon_state
-		item_state = base_icon_state
+		inhand_icon_state = base_icon_state
 
 /**
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
@@ -133,7 +135,7 @@
 	name = "energy axe"
 	desc = "An energized battle axe."
 	icon_state = "axe"
-	item_state = "axe"
+	inhand_icon_state = "axe"
 	base_icon_state = "axe"
 	lefthand_file = 'icons/mob/inhands/weapons/axes_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/axes_righthand.dmi'
@@ -147,7 +149,7 @@
 	armour_penetration = 100
 	sharpness = SHARP
 	w_class = WEIGHT_CLASS_NORMAL
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 
 	active_force = 150
@@ -173,7 +175,7 @@
 	desc = "May the force be within you."
 	icon_state = "e_sword"
 	base_icon_state = "e_sword"
-	item_state = "e_sword"
+	inhand_icon_state = "e_sword"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	hitsound = "swing_hit"
@@ -182,17 +184,17 @@
 	throw_speed = 3
 	throw_range = 5
 	armour_penetration = 35
-	block_level = 1
-	block_upgrade_walk = TRUE
-	block_power = 35
+	canblock = TRUE
+
+	block_power = 50
 	block_sound = 'sound/weapons/egloves.ogg'
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE | BLOCKING_UNBLOCKABLE
 	embedding = list("embed_chance" = 200, "armour_block" = 60, "max_pain_mult" = 15)
 
 	active_throwforce = 35 // Does a lot of damage on throw, but will embed
 	active_bleedforce = BLEED_DEEP_WOUND
 
-/obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(!HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		return FALSE
 	return ..()
@@ -251,7 +253,7 @@
 	active_bleedforce = BLEED_DEEP_WOUND
 	sword_color_icon = null // Stops icon from breaking when turned on.
 
-/obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	return FALSE
 
 /obj/item/melee/energy/sword/esaw/implant //Energy Saw Arm Implant
@@ -335,7 +337,7 @@
 	name = "energy cutlass"
 	desc = "Arrrr matey."
 	icon_state = "e_cutlass"
-	item_state = "e_cutlass"
+	inhand_icon_state = "e_cutlass"
 	base_icon_state = "e_cutlass"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
@@ -379,4 +381,4 @@
 	name = "hardlight blade"
 	desc = "An extremely sharp blade made out of hard light. Packs quite a punch."
 	icon_state = "lightblade"
-	item_state = "lightblade"
+	inhand_icon_state = "lightblade"

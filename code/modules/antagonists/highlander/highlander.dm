@@ -4,7 +4,6 @@
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	can_elimination_hijack = ELIMINATION_ENABLED
-	count_against_dynamic_roll_chance = FALSE
 	banning_key = BAN_ROLE_ALL_ANTAGONISTS
 
 /datum/antagonist/highlander/apply_innate_effects(mob/living/mob_override)
@@ -43,7 +42,7 @@
 	if(!istype(H))
 		return
 
-	for(var/obj/item/I in H.get_equipped_items(TRUE))
+	for(var/obj/item/I in H.get_equipped_items(INCLUDE_POCKETS))
 		qdel(I)
 	for(var/obj/item/I in H.held_items)
 		qdel(I)

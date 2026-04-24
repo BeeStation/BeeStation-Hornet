@@ -35,7 +35,7 @@
 		if(!(organ_flags & ORGAN_FAILING) && !HAS_TRAIT(liver_owner, TRAIT_NOMETABOLISM))//can't process reagents with a failing liver
 
 			var/provide_pain_message = HAS_NO_TOXIN
-			var/obj/belly = liver_owner.getorganslot(ORGAN_SLOT_STOMACH)
+			var/obj/belly = liver_owner.get_organ_slot(ORGAN_SLOT_STOMACH)
 			if(filterToxins && !HAS_TRAIT(owner, TRAIT_TOXINLOVER))
 				//handle liver toxin filtration
 				for(var/datum/reagent/toxin/toxin in liver_owner.reagents.reagent_list)
@@ -64,55 +64,54 @@
 		return
 	return ..()
 
-/obj/item/organ/liver/organ_failure(delta_time)
-
+/obj/item/organ/liver/organ_failure(seconds_per_tick)
 	switch(failure_time/LIVER_FAILURE_STAGE_SECONDS)
 		if(1)
-			to_chat(owner,"<span class='danger'>You feel stabbing pain in your abdomen!</danger>")
+			to_chat(owner, span_userdanger("You feel stabbing pain in your abdomen!"))
 		if(2)
-			to_chat(owner,"<span class='danger'>You feel a burning sensation in your gut!</danger>")
-			owner.vomit()
+			to_chat(owner, span_userdanger("You feel a burning sensation in your gut!"))
+			owner.vomit(VOMIT_CATEGORY_DEFAULT)
 		if(3)
-			to_chat(owner,"<span class='danger'>You feel painful acid in your throat!</danger>")
-			owner.vomit(blood = TRUE)
+			to_chat(owner, span_userdanger("You feel painful acid in your throat!"))
+			owner.vomit(VOMIT_CATEGORY_BLOOD)
 		if(4)
-			to_chat(owner,"<span class='danger'>Overwhelming pain knocks you out!</danger>")
-			owner.vomit(blood = TRUE, distance = rand(1,2))
+			to_chat(owner, span_userdanger("Overwhelming pain knocks you out!"))
+			owner.vomit(VOMIT_CATEGORY_BLOOD, distance = rand(1,2))
 			owner.emote("Scream")
 			owner.AdjustUnconscious(2.5 SECONDS)
 		if(5)
-			to_chat(owner,"<span class='danger'>You feel as if your guts are about to melt!</danger>")
-			owner.vomit(blood = TRUE,distance = rand(1,3))
+			to_chat(owner, span_userdanger("You feel as if your guts are about to melt!"))
+			owner.vomit(VOMIT_CATEGORY_BLOOD, distance = rand(1,3))
 			owner.emote("Scream")
 			owner.AdjustUnconscious(5 SECONDS)
 
 	switch(failure_time)
-			//After 60 seconds we begin to feel the effects
+		//After 60 seconds we begin to feel the effects
 		if(1 * LIVER_FAILURE_STAGE_SECONDS to 2 * LIVER_FAILURE_STAGE_SECONDS - 1)
-			owner.adjustToxLoss(0.2 * delta_time,forced = TRUE)
-			owner.adjust_disgust(0.1 * delta_time)
+			owner.adjustToxLoss(0.2 * seconds_per_tick,forced = TRUE)
+			owner.adjust_disgust(0.1 * seconds_per_tick)
 
 		if(2 * LIVER_FAILURE_STAGE_SECONDS to 3 * LIVER_FAILURE_STAGE_SECONDS - 1)
-			owner.adjustToxLoss(0.4 * delta_time,forced = TRUE)
-			owner.drowsyness += 0.25 * delta_time
-			owner.adjust_disgust(0.3 * delta_time)
+			owner.adjustToxLoss(0.4 * seconds_per_tick,forced = TRUE)
+			owner.adjust_drowsiness(0.5 SECONDS * seconds_per_tick)
+			owner.adjust_disgust(0.3 * seconds_per_tick)
 
 		if(3 * LIVER_FAILURE_STAGE_SECONDS to 4 * LIVER_FAILURE_STAGE_SECONDS - 1)
-			owner.adjustToxLoss(0.6 * delta_time,forced = TRUE)
-			owner.adjustOrganLoss(pick(ORGAN_SLOT_HEART,ORGAN_SLOT_LUNGS,ORGAN_SLOT_STOMACH,ORGAN_SLOT_EYES,ORGAN_SLOT_EARS),0.2 * delta_time)
-			owner.drowsyness += 0.5 * delta_time
-			owner.adjust_disgust(0.6 * delta_time)
+			owner.adjustToxLoss(0.6 * seconds_per_tick,forced = TRUE)
+			owner.adjustOrganLoss(pick(ORGAN_SLOT_HEART,ORGAN_SLOT_LUNGS,ORGAN_SLOT_STOMACH,ORGAN_SLOT_EYES,ORGAN_SLOT_EARS),0.2 * seconds_per_tick)
+			owner.adjust_drowsiness(1 SECONDS * seconds_per_tick)
+			owner.adjust_disgust(0.6 * seconds_per_tick)
 
-			if(DT_PROB(1.5, delta_time))
+			if(DT_PROB(1.5, seconds_per_tick))
 				owner.emote("drool")
 
 		if(4 * LIVER_FAILURE_STAGE_SECONDS to INFINITY)
-			owner.adjustToxLoss(0.8 * delta_time,forced = TRUE)
-			owner.adjustOrganLoss(pick(ORGAN_SLOT_HEART,ORGAN_SLOT_LUNGS,ORGAN_SLOT_STOMACH,ORGAN_SLOT_EYES,ORGAN_SLOT_EARS),0.5 * delta_time)
-			owner.drowsyness += 0.8 * delta_time
-			owner.adjust_disgust(1.2 * delta_time)
+			owner.adjustToxLoss(0.8 * seconds_per_tick,forced = TRUE)
+			owner.adjustOrganLoss(pick(ORGAN_SLOT_HEART,ORGAN_SLOT_LUNGS,ORGAN_SLOT_STOMACH,ORGAN_SLOT_EYES,ORGAN_SLOT_EARS),0.5 * seconds_per_tick)
+			owner.adjust_drowsiness(1.6 SECONDS * seconds_per_tick)
+			owner.adjust_disgust(1.2 * seconds_per_tick)
 
-			if(DT_PROB(3, delta_time))
+			if(DT_PROB(3, seconds_per_tick))
 				owner.emote("drool")
 
 /obj/item/organ/liver/on_owner_examine(datum/source, mob/user, list/examine_list)
@@ -120,7 +119,7 @@
 		return
 
 	var/mob/living/carbon/human/humie_owner = owner
-	if(!humie_owner.getorganslot(ORGAN_SLOT_EYES) || humie_owner.is_eyes_covered())
+	if(!humie_owner.get_organ_slot(ORGAN_SLOT_EYES) || humie_owner.is_eyes_covered())
 		return
 	switch(failure_time)
 		if(0 to 3 * LIVER_FAILURE_STAGE_SECONDS - 1)
@@ -149,8 +148,8 @@
 #undef HAS_PAINFUL_TOXIN
 #undef LIVER_FAILURE_STAGE_SECONDS
 
-/obj/item/organ/liver/get_availability(datum/species/S)
-	return !(TRAIT_NOMETABOLISM in S.species_traits)
+/obj/item/organ/liver/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutantliver
 
 /obj/item/organ/liver/fly
 	name = "insectoid liver"
@@ -160,8 +159,9 @@
 
 /obj/item/organ/liver/plasmaman
 	name = "reagent processing crystal"
-	icon_state = "liver-p"
 	desc = "A large crystal that is somehow capable of metabolizing chemicals, these are found in plasmamen."
+	icon_state = "liver-p"
+	organ_flags = ORGAN_MINERAL
 
 /obj/item/organ/liver/alien
 	name = "alien liver" // doesnt matter for actual aliens because they dont take toxin damage
@@ -174,10 +174,10 @@
 	name = "basic cybernetic liver"
 	icon_state = "liver-c"
 	desc = "A very basic device designed to mimic the functions of a human liver. Handles toxins slightly worse than an organic liver."
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
+	maxHealth = STANDARD_ORGAN_THRESHOLD * 0.5
 	toxTolerance = 2
 	toxLethality = 1.1 * LIVER_DEFAULT_TOX_LETHALITY
-	maxHealth = STANDARD_ORGAN_THRESHOLD*0.5
 
 	var/emp_vulnerability = 60
 
@@ -199,8 +199,6 @@
 	alcohol_tolerance = 0
 	toxTolerance = -1
 	toxLethality = 0
-	status = ORGAN_ROBOTIC
-	emp_vulnerability = 35
 
 /obj/item/organ/liver/cybernetic/tier2/ipc/emp_act(severity)
 	if(. & EMP_PROTECT_SELF)

@@ -19,11 +19,11 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "t" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "G" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "J" = (

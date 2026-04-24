@@ -1,77 +1,61 @@
 GLOBAL_LIST_INIT(command_lightup_areas, typecacheof(list(
-	/area/bridge,
-	/area/gateway,
-	/area/security/brig,
-	/area/teleporter
+	/area/station/command,
+	/area/station/command/gateway,
+	/area/station/security/brig,
+	/area/station/command/teleporter
 )))
 
-GLOBAL_LIST_INIT(engineering_lightup_areas,		\
-	typecacheof(list(							\
-		/area/construction,						\
-		/area/engine,							\
-		/area/security/checkpoint/engineering,	\
-		/area/solar,							\
-		/area/tcommsat,							\
-		/area/vacant_room						\
-	)) - typecacheof(list(						\
-		/area/engine/atmos,						\
-		/area/engine/gravity_generator			\
-	))											\
-)
+GLOBAL_LIST_INIT(engineering_lightup_areas, zebra_typecacheof(list(
+	/area/station/construction = TRUE,
+	/area/station/engineering = TRUE,
+	/area/station/security/checkpoint/engineering = TRUE,
+	/area/station/solars = TRUE,
+	/area/station/tcommsat = TRUE,
+	/area/station/commons/vacant_room = TRUE,
+	/area/station/engineering/atmos = FALSE,
+	/area/station/engineering/gravity_generator = FALSE,
+)))
 
-GLOBAL_LIST_INIT(medical_lightup_areas, 	\
-	typecacheof(list(						\
-		/area/medical,						\
-		/area/security/checkpoint/medical	\
-	)) - typecacheof(list(					\
-		/area/medical/abandoned,			\
-		/area/medical/apothecary,			\
-		/area/medical/chemistry,			\
-		/area/medical/genetics,				\
-		/area/medical/morgue,				\
-		/area/medical/surgery,				\
-		/area/medical/virology				\
-	))										\
-)
+GLOBAL_LIST_INIT(medical_lightup_areas, zebra_typecacheof(list(
+	/area/station/medical = TRUE,
+	/area/station/security/checkpoint/medical = TRUE,
+	/area/station/medical/abandoned = FALSE,
+	/area/station/medical/pharmacy = FALSE,
+	/area/station/medical/chemistry = FALSE,
+	/area/station/medical/genetics = FALSE,
+	/area/station/medical/morgue = FALSE,
+	/area/station/medical/surgery = FALSE,
+	/area/station/medical/virology = FALSE,
+)))
 
-GLOBAL_LIST_INIT(science_lightup_areas, 		\
-	typecacheof(list(							\
-		/area/science,							\
-		/area/security/checkpoint/science		\
-	)) - typecacheof(list(						\
-		/area/science/explab,					\
-		/area/science/misc_lab,					\
-		/area/science/mixing,					\
-		/area/science/nanite,					\
-		/area/science/robotics,					\
-		/area/science/server,					\
-		/area/science/storage,					\
-		/area/science/xenobiology				\
-	))											\
-)
+GLOBAL_LIST_INIT(science_lightup_areas, zebra_typecacheof(list(
+	/area/station/science = TRUE,
+	/area/station/security/checkpoint/science = TRUE,
+	/area/station/science/explab = FALSE,
+	/area/station/science/misc_lab = FALSE,
+	/area/station/science/mixing = FALSE,
+	/area/station/science/nanite = FALSE,
+	/area/station/science/robotics = FALSE,
+	/area/station/science/server = FALSE,
+	/area/station/science/storage = FALSE,
+	/area/station/science/xenobiology = FALSE,
+)))
 
-GLOBAL_LIST_INIT(supply_lightup_areas,			\
-	typecacheof(list(							\
-		/area/cargo,							\
-		/area/quartermaster,					\
-		/area/security/checkpoint/supply		\
-	)) - typecacheof(list(						\
-		/area/quartermaster/exploration_dock,	\
-		/area/quartermaster/exploration_prep,	\
-		/area/quartermaster/qm,					\
-		/area/quartermaster/qm_bedroom			\
-	))											\
-)
+GLOBAL_LIST_INIT(supply_lightup_areas, zebra_typecacheof(list(
+	/area/station/cargo = TRUE,
+	/area/station/cargo = TRUE,
+	/area/station/security/checkpoint/supply = TRUE,
+	/area/station/cargo/exploration_dock = FALSE,
+	/area/station/cargo/exploration_prep = FALSE,
+	/area/station/cargo/qm = FALSE,
+	/area/station/cargo/qm_bedroom = FALSE,
+)))
 
-GLOBAL_LIST_INIT(security_lightup_areas,	\
-	typecacheof(list(						\
-		/area/security						\
-	)) - typecacheof(list(					\
-		/area/security/detectives_office,	\
-		/area/security/nuke_storage,		\
-		/area/security/warden				\
-	))										\
-)
+GLOBAL_LIST_INIT(security_lightup_areas, zebra_typecacheof(list(
+	/area/station/security = TRUE,
+	/area/station/security/detectives_office = FALSE,
+	/area/station/security/warden = FALSE,
+)))
 
 /// Put any removed jobs here so they can still show in playtime listings.
 GLOBAL_LIST_INIT(exp_removed_jobs, list(
@@ -99,7 +83,7 @@ GLOBAL_PROTECT(exp_specialmap)
 
 //this is necessary because antags happen before job datums are handed out, but NOT before they come into existence
 //so I can't simply use job datum.department_head straight from the mind datum, laaaaame.
-/proc/get_department_heads(var/job_title)
+/proc/get_department_heads(job_title)
 	if(!job_title)
 		return list()
 

@@ -1,10 +1,3 @@
-/obj/item/stack/cable_coil/building_checks(datum/stack_recipe/R, multiplier)
-	if(R.result_type == /obj/structure/chair/noose)
-		if(!(locate(/obj/structure/chair) in get_turf(usr)))
-			to_chat(usr, span_warning("You have to be standing on top of a chair to make a noose!"))
-			return FALSE
-	return ..()
-
 /obj/structure/chair/noose //It's a "chair".
 	name = "noose"
 	desc = "Well this just got a whole lot more morbid."
@@ -14,21 +7,19 @@
 	flags_1 = NODECONSTRUCT_1
 	var/mutable_appearance/overlay
 
-/obj/structure/chair/noose/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WIRECUTTER)
-		user.visible_message("[user] cuts the noose.", span_notice("You cut the noose."))
-		if(has_buckled_mobs())
-			for(var/m in buckled_mobs)
-				var/mob/living/buckled_mob = m
-				if(buckled_mob.has_gravity())
-					buckled_mob.visible_message(span_danger("[buckled_mob] falls over and hits the ground!"))
-					to_chat(buckled_mob, span_userdanger("You fall over and hit the ground!"))
-					buckled_mob.adjustBruteLoss(10)
-		var/obj/item/stack/cable_coil/C = new(get_turf(src))
-		C.amount = 25
-		qdel(src)
-		return
-	..()
+/obj/structure/chair/noose/wirecutter_act(mob/living/user, obj/item/tool)
+	user.visible_message("[user] cuts the noose.", span_notice("You cut the noose."))
+	if(has_buckled_mobs())
+		for(var/m in buckled_mobs)
+			var/mob/living/buckled_mob = m
+			if(buckled_mob.has_gravity())
+				buckled_mob.visible_message(span_danger("[buckled_mob] falls over and hits the ground!"))
+				to_chat(buckled_mob, span_userdanger("You fall over and hit the ground!"))
+				buckled_mob.adjustBruteLoss(10)
+	var/obj/item/stack/cable_coil/C = new(get_turf(src))
+	C.amount = 25
+	qdel(src)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/structure/chair/noose/Initialize(mapload)
 	. = ..()

@@ -1,0 +1,208 @@
+2024-05-01:
+  Dejaku51:
+  - rscadd: Added ability to unmark yourself as ready for pAIs
+  Gilgaxx:
+  - bugfix: fixed the AI malfunction "Upgrade Camera Network" power looking horrible
+      for the AI
+2024-05-03:
+  Dejaku51:
+  - tweak: makes delete button in pAI submit interface uppercase like the rest
+  rkz, ArcaneMusic:
+  - code_imp: Adds payment component, a simple & uniform way to charge for the use
+      of something
+  - admin: Logs economy actions. Much much easy to see if people are abusing exploits
+      or the like.
+2024-05-04:
+  XeonMations:
+  - bugfix: fixed the chef's trash disposal piping on metastation
+  rkz:
+  - bugfix: bad food references
+  - bugfix: deathgasping should work more consistently
+  - bugfix: wiki manuals for chef and bartender should function now
+2024-05-07:
+  EvilDragonfiend:
+  - bugfix: fixed some nulls
+  Hardly:
+  - rscadd: Adds an universal enzyme to the lavaland beach biodome, allowing beach
+      bums to make stuff like bread and tofu
+  - bugfix: Adds a griddle to the lavaland beach biodome, allowing beach bums to cook
+      again
+  rkz, haukeschuemann, Rohesie, Timberpoes, zxaber:
+  - refactor: Standardized the entire attack_chain and added stack_traces to detect
+      when & where it fails.
+  - balance: minor buff to telekinesis to use most interact() code. Unlikely to cause
+      major change, just reducing duplicate code where TK would have its own proc
+      for essentially doing the exact same thing
+2024-05-08:
+  DrDuckedGoose:
+  - bugfix: Fix emissives on players
+  - tweak: Add filter compatibility to emissives
+  EvilDragonfiend:
+  - code_imp: Improved textification of the language icon rendering in TGUI.
+  - code_imp: cleaned up religion code into multiple dm files
+  - code_imp: Refactored weather code and fixed weather bad rendering issue.
+  - bugfix: Void Heretic no longer shows void weather where they don't stand on.
+  PowerfulBacon:
+  - bugfix: Fixes 515 compilation issue regarding species cold temperature
+  XeonMations:
+  - bugfix: Fixed blood cultists being able to place structures on survival pods
+  rkz, coiax:
+  - refactor: Refactors step_action to save us from a few thousand useless proccalls
+      per shift
+  rkz, nightred, lemoninthedark:
+  - refactor: refactored temperature stabilization in humans. Split human temperature
+      into core temperature, which is affected by fevers & shivering symptoms and
+      represents the overall temperature range, and Body Temperature which is what
+      is directly affected by environmental factors and projectiles.
+  - rscadd: All species will now receive temperature HUD alerts before receiving damage.
+  - balance: recalculates burn damage based on overall temperature
+2024-05-10:
+  ClownMoff:
+  - rscadd: 'CorgStation: Added 3 oxytans to the security E.V.A room.'
+  - tweak: 'CorgStation: Split the HoS shutter controllers into 2 buttons instead
+      of one, for both the private room and the office.'
+  - tweak: 'CorgStation: Cargo windoor from maints could be opened by everyone. Not
+      anymore.'
+  - tweak: 'CorgStation: Solved a camera and a fire alarm being in a window'
+  - rscdel: 'CorgStation: Deleted an unnecesary shutter from the HoS room'
+  rkz, Qustinnus, AnturK, TiviPlus, ShizCalev, MrMelbert, LemonInTheDark, ghommie:
+  - code_imp: gunlight component
+  - refactor: refactored energy guns to have valid inhands
+  - rscadd: adds automated handling for inhand and worn energy guns
+  - bugfix: addresses possible runtime when qdeleting self-recharging guns with attached
+      bayonets
+  - rscadd: new minigunlight sprite for mini e_guns like the PTSD
+  - code_imp: splits toggleable sec helmets into their own subtype to reduce snowflake
+      code
+2024-05-11:
+  Geatish:
+  - tweak: Made the godeye, monocle, hipster, jamjar and round glasses correct vision
+      for short sightedness
+  - spellcheck: The hipster glasses are now actually called hipster glasses instead
+      of prescription glasses
+  Gilgaxx:
+  - rscadd: Added 5 new slime plushies
+  - rscadd: Added a rainbow flush plush
+  - tweak: Removed dehydrated carps from the plushes crate
+  - rscadd: 'Added a new contraband crate: "Plushie Crate Without Moth Plushies".
+      Dehydrated carps included, moth plushes excluded.'
+  - tweak: Alien phobia now includes slime plushes (it already included slime mobs).
+  - spellcheck: There's no such thing as plushys, they're plushies now.
+  MatiAvanti:
+  - tweak: Harvester can now process corpsess with abiotic items like clothes and
+      handcuffs if upgraded. Emagging it unlocks processing live people.
+  - soundadd: added new sound for harvester.
+  - imageadd: new sprites for harvester.
+  PowerfulBacon:
+  - bugfix: Updates some uses of luminosity internall for lockers and turfs.
+  Tsar-Salat:
+  - bugfix: pka seclite attachment
+  - bugfix: legion cores are not eaten like demonic potatoes, you may apply them normally
+      again and expect the usual healing
+  - bugfix: fixes the flashlight on mini e_guns like the PTSD
+  - rscadd: griddle to corg
+  ? rkz(organized & repathed every clothing sprite), MrMelbert, ShizCalev, ArcaneMusic(code
+    contribution), maxymax13, TaG2e, LordVollkorn, Twaticus(sprite contribution)
+  : - rscadd: A hell of a lot of new belt/back sprites for items
+    - tweak: Lawyer's aristocratic coats are now under premium in vendor
+    - bugfix: All missing sprite icon_states in the game are now accounted for.
+    - bugfix: All missing sprite  worn_states in the game are now accounted for.
+    - code_imp: all offending coders have been taken out back and cried at
+    - code_imp: Implements full missing icon unit test
+    - code_imp: Organizes obj/clothing & mob/clothing by category & typepath
+    - code_imp: hooded cult robes now use hooded typepath instead of being hardsuit
+        subtypes (all stats preserved)
+    - code_imp: hooded carp suit now use hooded typepath instead of being hardsuit
+        subtypes (all stats preserved)
+    - code_imp: adjusts several body_parts_covered flags on different clothes articles
+        to fix worn_icon issues
+  rkz, TastyFish, Mothblocks:
+  - rscadd: adds colored text support for status displays
+  - rscadd: Circuit support for status displays
+  - rscadd: makes newscasters & status displays emissive!
+  - bugfix: fixes hardels with Status Display vis_contents
+  - bugfix: Status display marquee text flows nicer
+2024-05-15:
+  PowerfulBacon:
+  - bugfix: Fixes the hub entry not using the correct character to divide the station
+      name.
+2024-05-16:
+  XeonMations:
+  - bugfix: Fixed the lavaland base's atmosphere alarm going off every shift
+2024-05-17:
+  BeeLover:
+  - spellcheck: fixes a typo when trying to go on land with a lava boat
+2024-05-18:
+  Gilgaxx:
+  - bugfix: Fixed the speed and fireproof slimepotions
+  anturK, rkz:
+  - code_imp: inverted CanReach to default to blocking
+  rkz, Tiviplus, msgerbs, Ghommie, Fikou, necromanceranne:
+  - refactor: mechs are now a vehicle subtype, instead of Winter Wonderland snowflake
+      code
+  - tweak: mechs no longer need to use middle click as a janky override to utilize
+      their equipment.
+  - bugfix: fixed bugs with inconsistent mech equipment balloons/to_chat
+  - bugfix: fixed mechs with ballistics shooting themselves while moving
+2024-05-19:
+  EvilDragonfiend:
+  - bugfix: Jobs will be told when a job is not available to play in a shift.
+  - admin: CentCom console can manage all jobs now. You  can prioritize Captain role.
+  - bugfix: fixed some job code glitches
+  MatiAvanti:
+  - tweak: changed LOBBY_COUNTDOWN from 180 to 300 seconds
+2024-05-21:
+  celotajstg:
+  - admin: added a check to confirm adminheals
+  - admin: tguified a few admin topic procs
+  rkz, TiviPlus, Fikou, Timberpoes, necromanceranne, InvalidArgument3, zxaber, KathrinBailey:
+  - bugfix: Cleaned up mech door bumping
+  - bugfix: mechs no longer explode during destruction (inherited from cars lmao)
+  - bugfix: AIs in mechs can use mech tools again
+  - refactor: cleaned up mining mech tools
+  - bugfix: AI intellicard checks work on mechs again by checking occupants correctly
+  - bugfix: Critical fix with mining mech drills
+  - balance: drills now calculate gib damage by checking the mobs health, rather than
+      assuming every mob's health is 200
+  - balance: Xenos now do claw damage on mechs based on their actual arm damage, rather
+      than a base hardcoded 15
+2024-05-22:
+  Geatish:
+  - tweak: Added the alarm app on the atmos, engineer and CE job disks
+  HowToLoLu:
+  - bugfix: Plasmamen helmets count as an internals mask once again
+2024-05-24:
+  EvilDragonfiend:
+  - bugfix: random maint spawner will spawn items correctly
+  PowerfulBacon:
+  - bugfix: Immovable rods will no longer space the station.
+  rkz:
+  - bugfix: fix clockwork armor error worn_states. No more pink drip
+  - bugfix: bows arent invisible anymore. The code is still ugly, sorry
+  - bugfix: Ion rifles have their emissivity back
+  - code_imp: added a bunch of error icons to clothing icon files. Less invisible
+      stuff, more people wearing ugly stuff for them to report so it can be fixed
+      <3
+  rkz, Rohesie:
+  - refactor: Made actions restraining/handcuffing a carbon into traits. Split into
+      two.
+2024-05-25:
+  Bokkiewokkie:
+  - rscadd: Made it possible to disassemble pool ladders with wrenches and possible
+      to build them with rods.
+  - bugfix: Fixed pool ladders being unanchored.
+2024-05-26:
+  PowerfulBacon:
+  - bugfix: Fixes loading a gun from an ammo box multiple times resulting in the gun
+      being unable to fire.
+2024-05-27:
+  HowToLoLu:
+  - bugfix: Object spawners properly return a QDEL_HINT now.
+2024-05-28:
+  PowerfulBacon:
+  - bugfix: Fixes shards being deleted if you cancel their conversion into a construct.
+  XeonMations:
+  - tweak: Changed telecommunications on all maps to have HT piping.
+2024-05-30:
+  PowerfulBacon:
+  - bugfix: Fix cult construct creation spawning copies of the construct.

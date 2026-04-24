@@ -3,7 +3,7 @@
 	vision_range = 2
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	faction = list(FACTION_MINING)
-	weather_immunities = list("lava","ash")
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	obj_damage = 30
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	minbodytemp = 0
@@ -65,9 +65,9 @@
 /mob/living/simple_animal/hostile/asteroid/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
 		adjustBruteLoss(2)
-		throw_alert("temp", /atom/movable/screen/alert/cold, 1)
+		throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 1)
 	else if(bodytemperature > maxbodytemp)
 		adjustBruteLoss(20)
-		throw_alert("temp", /atom/movable/screen/alert/hot, 3)
+		throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 3)
 	else
-		clear_alert("temp")
+		clear_alert(ALERT_TEMPERATURE)

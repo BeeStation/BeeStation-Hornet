@@ -34,8 +34,8 @@
 	speed = 4
 	move_to_delay = 10
 	mouse_opacity = MOUSE_OPACITY_ICON
-	deathsound = 'sound/magic/repulse.ogg'
-	deathmessage = "'s lights flicker, before its top part falls down."
+	death_sound = 'sound/magic/repulse.ogg'
+	death_message = "'s lights flicker, before its top part falls down."
 	loot_drop = /obj/item/clothing/accessory/pandora_hope
 
 	attack_action_types = list(/datum/action/innate/elite_attack/singular_shot,
@@ -110,7 +110,7 @@
 	var/turf/T = get_step(get_turf(src), dir_to_target)
 	singular_shot_line(sing_shot_length, dir_to_target, T)
 
-/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/singular_shot_line(var/procsleft, var/angleused, var/turf/T)
+/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/singular_shot_line(procsleft, angleused, turf/T)
 	if(procsleft <= 0)
 		return
 	new /obj/effect/temp_visual/hierophant/blast/pandora(T, src)
@@ -134,7 +134,7 @@
 	playsound(source,'sound/machines/airlockopen.ogg', 200, 1)
 	addtimer(CALLBACK(src, PROC_REF(pandora_teleport_2), T, source), 2)
 
-/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/pandora_teleport_2(var/turf/T, var/turf/source)
+/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/pandora_teleport_2(turf/T, turf/source)
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, src)
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(source, src)
 	for(var/t in RANGE_TURFS(1, T))
@@ -146,7 +146,7 @@
 	density = FALSE
 	addtimer(CALLBACK(src, PROC_REF(pandora_teleport_3), T), 2)
 
-/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/pandora_teleport_3(var/turf/T)
+/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/pandora_teleport_3(turf/T)
 	forceMove(T)
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
 	density = TRUE
@@ -159,7 +159,7 @@
 	var/max_size = 2
 	addtimer(CALLBACK(src, PROC_REF(aoe_squares_2), T, 0, max_size), 2)
 
-/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/aoe_squares_2(var/turf/T, var/ring, var/max_size)
+/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/aoe_squares_2(turf/T, ring, max_size)
 	if(ring > max_size)
 		return
 	for(var/t in spiral_range_turfs(ring, T))
@@ -180,13 +180,13 @@
 	icon_state = "hope"
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/accessory/pandora_hope/on_uniform_equip(obj/item/clothing/under/U, user)
-	var/mob/living/L = user
+/obj/item/clothing/accessory/pandora_hope/on_uniform_equip(obj/item/clothing/under/U, mob/living/wearer)
+	var/mob/living/L = wearer
 	if(L && L.mind)
 		SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "hope_lavaland", /datum/mood_event/hope_lavaland)
 
-/obj/item/clothing/accessory/pandora_hope/on_uniform_dropped(obj/item/clothing/under/U, user)
-	var/mob/living/L = user
+/obj/item/clothing/accessory/pandora_hope/on_uniform_dropped(obj/item/clothing/under/U, mob/living/wearer)
+	var/mob/living/L = wearer
 	if(L && L.mind)
 		SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "hope_lavaland")
 

@@ -74,7 +74,6 @@
 "fS" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
-/obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -134,9 +133,7 @@
 /turf/open/floor/iron,
 /area/shuttle/caravan/pirate)
 "hI" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/shuttle/caravan/pirate)
@@ -277,9 +274,7 @@
 /area/shuttle/caravan/pirate)
 "oG" = (
 /obj/structure/table,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/machinery/door/window/southleft{
 	name = "Weapon Storage"
 	},
@@ -537,11 +532,10 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/caravan/pirate)
 "Bi" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
 /obj/machinery/door/poddoor{
 	id = "caravanpirate_bridge"
 	},
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/caravan/pirate)
 "BI" = (
@@ -556,15 +550,13 @@
 "BL" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stack/cable_coil/yellow,
+/obj/item/stack/cable_coil,
 /obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating,
 /area/shuttle/caravan/pirate)
 "Cb" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "Pirate Cutter APC";
@@ -615,9 +607,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/iron/twenty,
 /obj/item/stack/sheet/glass{
@@ -661,9 +651,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/pirate)
 "HO" = (
@@ -712,7 +700,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/iron/white,
 /area/shuttle/caravan/pirate)
@@ -806,9 +793,7 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -885,7 +870,7 @@
 "Xq" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/obj/item/melee/classic_baton/police,
+/obj/item/melee/baton,
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/iron/dark,
 /area/shuttle/caravan/pirate)

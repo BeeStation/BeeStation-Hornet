@@ -26,9 +26,15 @@ export const OutfitManager = (props) => {
                 tooltipPosition="left"
                 onClick={() => act('copy')}
               />
-              <Button icon="plus" tooltip="Create a new outfit" tooltipPosition="left" onClick={() => act('new')} />
+              <Button
+                icon="plus"
+                tooltip="Create a new outfit"
+                tooltipPosition="left"
+                onClick={() => act('new')}
+              />
             </>
-          }>
+          }
+        >
           <Stack vertical>
             {outfits?.map((outfit) => (
               <Stack.Item key={outfit.ref}>
@@ -40,7 +46,8 @@ export const OutfitManager = (props) => {
                       overflow: 'hidden',
                       whiteSpace: 'nowrap',
                       textOverflow: 'ellipsis',
-                    }}>
+                    }}
+                  >
                     <Button
                       fluid
                       style={{

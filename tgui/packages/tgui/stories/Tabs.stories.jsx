@@ -103,15 +103,25 @@ const Story = (props) => {
           vertical={tabProps.vertical}
           fluid={tabProps.fluid}
           fill={tabProps.fill}
-          textAlign={tabProps.leftAligned && 'left'}>
+          textAlign={tabProps.leftAligned && 'left'}
+        >
           {TAB_RANGE.map((text, i) => (
             <Tabs.Tab
               key={i}
               selected={i === tabIndex}
               icon={tabProps.icon && 'info-circle'}
-              leftSlot={tabProps.leftSlot && <Button circular compact color="transparent" icon="times" />}
-              rightSlot={tabProps.rightSlot && <Button circular compact color="transparent" icon="times" />}
-              onClick={() => setTabIndex(i)}>
+              leftSlot={
+                tabProps.leftSlot && (
+                  <Button circular compact color="transparent" icon="times" />
+                )
+              }
+              rightSlot={
+                tabProps.rightSlot && (
+                  <Button circular compact color="transparent" icon="times" />
+                )
+              }
+              onClick={() => setTabIndex(i)}
+            >
               {text}
             </Tabs.Tab>
           ))}

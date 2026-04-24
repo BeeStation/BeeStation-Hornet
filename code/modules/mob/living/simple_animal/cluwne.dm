@@ -36,7 +36,7 @@
 		act = "me"
 	..()
 
-/mob/living/simple_animal/cluwne/UnarmedAttack(atom/A, proximity)
+/mob/living/simple_animal/cluwne/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	playsound(src, 'sound/items/bikehorn.ogg', 20, 2)
 	..()
 
@@ -49,6 +49,6 @@
 	..()
 
 
-/mob/living/simple_animal/cluwne/say(message, bubble_type,var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/simple_animal/cluwne/say(message, bubble_type,list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	message = pick(speak)
 	..()

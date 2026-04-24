@@ -46,7 +46,7 @@
 /atom/movable/openspace/singularity_act()
 	return
 
-/atom/movable/openspace/singularity_pull()
+/atom/movable/openspace/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /atom/movable/openspace/attackby(obj/item/W, mob/user, params)
@@ -59,6 +59,7 @@
 	return
 
 /atom/movable/openspace/mech_melee_attack(obj/vehicle/sealed/mecha/M)
+	..()
 	return 0
 
 /atom/movable/openspace/blob_act(obj/structure/blob/B)
@@ -73,7 +74,7 @@
 /atom/movable/openspace/ex_act(severity, target)
 	return
 
-/atom/movable/openspace/singularity_pull()
+/atom/movable/openspace/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /atom/movable/openspace/singularity_act()
@@ -106,10 +107,15 @@
 
 	return ..()
 
-/atom/movable/openspace/multiplier/proc/copy_lighting(atom/movable/lighting_object/LO, area/A)
-	ASSERT(LO != null)
-	// Underlay lighting stuff, if it gets ported: appearance = LO.current_underlay
-	appearance = LO
+/atom/movable/openspace/multiplier/proc/copy_lighting(atom/movable/lighting_object/lighting_object, area/A, turf/below)
+	if (!lighting_object)
+		icon_state = "transparent"
+		luminosity = 1
+		return
+	icon_state = "dark"
+	luminosity = 0
+	// Underlay lighting stuff, if it gets ported: appearance = lighting_object.current_underlay
+	appearance = lighting_object
 	layer = MIMICKED_LIGHTING_LAYER
 	plane = ZMIMIC_MAX_PLANE
 	blend_mode = BLEND_MULTIPLY

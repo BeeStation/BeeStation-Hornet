@@ -8,8 +8,8 @@
 
 /// Builds the list of crew records for all crew members.
 /datum/manifest/proc/build()
-	for(var/i in GLOB.new_player_list)
-		var/mob/dead/new_player/readied_player = i
+	for(var/i in GLOB.auth_new_player_list)
+		var/mob/dead/new_player/authenticated/readied_player = i
 		if(readied_player.new_character)
 			log_manifest(readied_player.ckey,readied_player.new_character.mind,readied_player.new_character)
 		if(ishuman(readied_player.new_character))
@@ -23,35 +23,42 @@
 	var/static/list/heads
 	if(!heads) // do not do this in pre-runtime.
 		heads = make_associative(SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-	/// Takes a result of each crew data in a format
+
+	// Pre-build in sorted order
 	var/list/manifest_out = list()
+	var/list/dept_to_category = list()
+	for(var/datum/department_group/department as anything in SSdepartment.sorted_department_for_manifest)
+		manifest_out[department.manifest_category_name] = list()
+		dept_to_category[department.dept_id] = department.manifest_category_name
 
 	for(var/datum/record/crew/person_record in GLOB.manifest.general)
 		var/name = person_record.name
 		var/rank = person_record.rank
 		var/hud = person_record.hud
 		var/dept_bitflags = person_record.active_department
+		var/datum/job/job = SSjob.name_occupations[rank]
+		// Skip jobs that aren't flagged for the crew manifest.
+		if(job && !(job.job_flags & JOB_CREW_MANIFEST))
+			continue
 		var/entry = list("name" = name, "rank" = rank, "hud" = hud)
 		if(dept_bitflags)
 			for(var/datum/department_group/department as anything in SSdepartment.get_department_by_bitflag(dept_bitflags))
-				LAZYINITLIST(manifest_out[department.dept_id])
+				var/category = dept_to_category[department.dept_id]
 				// Append to beginning of list if captain or department head
 				var/put_at_top = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN) || (department.dept_id != DEPT_NAME_COMMAND && heads[rank])
-				var/list/_internal = manifest_out[department.dept_id]
+				var/list/_internal = manifest_out[category]
 				_internal.Insert(put_at_top, list(entry))
 		else
-			LAZYINITLIST(manifest_out["Misc"])
 			var/put_at_top = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN) || (heads[rank])
-			var/list/_internal = manifest_out["Misc"]
+			var/list/_internal = manifest_out[dept_to_category[DEPT_NAME_UNASSIGNED]]
 			_internal.Insert(put_at_top, list(entry))
 
-	// 'manifest_out' is not sorted.
-	var/list/sorted_out = list()
-	for(var/datum/department_group/department as anything in SSdepartment.sorted_department_for_manifest)
-		if(isnull(manifest_out[department.dept_id]))
-			continue
-		sorted_out[department.manifest_category_name] = manifest_out[department.dept_id] // this also changes a department name.
-	return sorted_out
+	// Trim empty categories.
+	for(var/category in manifest_out)
+		if(!length(manifest_out[category]))
+			manifest_out -= category
+
+	return manifest_out
 
 /// Returns the manifest as an html.
 /datum/manifest/proc/get_html(monochrome = FALSE)
@@ -84,6 +91,9 @@
 
 /datum/manifest/proc/inject(mob/living/carbon/human/person, nosignal = FALSE)
 	set waitfor = FALSE
+	var/datum/job/job = person.mind?.assigned_role_datum
+	if(job && !(job.job_flags & JOB_CREW_MANIFEST))
+		return
 
 	// We need to compile the overlays now, otherwise we're basically copying an empty icon.
 	COMPILE_OVERLAYS(person)
@@ -105,7 +115,7 @@
 		blood_type = record_dna.blood_type,
 		character_appearance = character_appearance,
 		dna_string = record_dna.unique_enzymes,
-		fingerprint = md5(record_dna.uni_identity),
+		fingerprint = md5(record_dna.unique_identity),
 		gender = gender_string,
 		initial_rank = assignment,
 		name = person.real_name,
@@ -122,7 +132,7 @@
 		blood_type = record_dna.blood_type,
 		character_appearance = character_appearance,
 		dna_string = record_dna.unique_enzymes,
-		fingerprint = md5(record_dna.uni_identity),
+		fingerprint = md5(record_dna.unique_identity),
 		gender = gender_string,
 		initial_rank = assignment,
 		name = person.real_name,

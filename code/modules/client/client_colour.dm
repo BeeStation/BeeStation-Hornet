@@ -156,6 +156,9 @@
 /datum/client_colour/glass_colour/green
 	colour = "#eeffee"
 
+/datum/client_colour/glass_colour/pink
+	colour = "#ffcfe9"
+
 /datum/client_colour/glass_colour/lightgreen
 	colour = "#f5fff5"
 
@@ -205,6 +208,9 @@
 /datum/client_colour/bloodlust/New(mob/_owner)
 	..()
 	addtimer(CALLBACK(src, PROC_REF(update_colour), list(1,0,0,0.8,0.2,0, 0.8,0,0.2,0.1,0,0), 10, SINE_EASING|EASE_OUT), 1)
+
+/datum/client_colour/rave
+	priority = PRIORITY_LOW
 
 #undef PRIORITY_ABSOLUTE
 #undef PRIORITY_HIGH

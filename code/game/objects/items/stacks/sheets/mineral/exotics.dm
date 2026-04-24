@@ -11,7 +11,7 @@ Exotic mineral Sheets
 /obj/item/stack/sheet/mineral/bananium
 	name = "bananium"
 	icon_state = "sheet-bananium"
-	item_state = "sheet-bananium"
+	inhand_icon_state = "sheet-bananium"
 	singular_name = "bananium sheet"
 	sheettype = "bananium"
 	mats_per_unit = list(/datum/material/bananium=MINERAL_MATERIAL_AMOUNT)
@@ -30,7 +30,7 @@ Exotic mineral Sheets
 /obj/item/stack/sheet/mineral/adamantine
 	name = "adamantine"
 	icon_state = "sheet-adamantine"
-	item_state = "sheet-adamantine"
+	inhand_icon_state = "sheet-adamantine"
 	singular_name = "adamantine sheet"
 	mats_per_unit = list(/datum/material/adamantine=MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/liquidadamantine = 10)
@@ -46,7 +46,7 @@ Exotic mineral Sheets
 	name = "alien alloy"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "sheet-abductor"
-	item_state = "sheet-abductor"
+	inhand_icon_state = "sheet-abductor"
 	singular_name = "alien alloy sheet"
 	sheettype = "abductor"
 	mats_per_unit = list(/datum/material/alloy/alien=MINERAL_MATERIAL_AMOUNT)

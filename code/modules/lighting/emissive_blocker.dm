@@ -34,7 +34,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/emissive_blocker)
 /atom/movable/emissive_blocker/singularity_act()
 	return
 
-/atom/movable/emissive_blocker/singularity_pull()
+/atom/movable/emissive_blocker/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /atom/movable/emissive_blocker/blob_act()

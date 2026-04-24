@@ -11,7 +11,7 @@
 	. = ..()
 	master = spider_master
 	if(spider_master)
-		RegisterSignal(spider_master, COMSIG_PARENT_QDELETING, PROC_REF(handle_master_qdel))
+		RegisterSignal(spider_master, COMSIG_QDELETING, PROC_REF(handle_master_qdel))
 		if(length(possible_colors))
 			team_huds[spider_master] = pick_n_take(possible_colors)
 
@@ -49,12 +49,12 @@
 	prevent_roundtype_conversion = FALSE
 	show_to_ghosts = TRUE
 	ui_name = "AntagInfoSpider"
-	required_living_playtime = 2
+	required_living_playtime = 0
 	var/datum/team/spiders/spider_team
 
 /datum/antagonist/spider/create_team(datum/team/spiders/new_team)
 	if(!new_team)
-		for(var/datum/antagonist/spider/spooder in GLOB.antagonists)
+		for(var/datum/antagonist/spider/spooder in GLOB.active_antagonists)
 			if(!spooder.owner || !spooder.spider_team)
 				continue
 			spider_team = spooder.spider_team //if we can find any existing team, use that one

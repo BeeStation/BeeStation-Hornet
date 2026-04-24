@@ -123,7 +123,7 @@
 /obj/item/storage/secure/briefcase
 	name = "secure briefcase"
 	icon_state = "sec-case"
-	item_state = "sec-case"
+	inhand_icon_state = "sec-case"
 	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
 	desc = "A large briefcase with a digital locking system."
@@ -159,7 +159,7 @@
 	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/gun/ballistic/automatic/pistol(src)
 	new /obj/item/suppressor(src)
-	new /obj/item/melee/classic_baton/police/telescopic(src)
+	new /obj/item/melee/baton/telescopic(src)
 	new /obj/item/clothing/mask/balaclava(src)
 	new /obj/item/bodybag(src)
 	new /obj/item/soap/nanotrasen(src)
@@ -230,7 +230,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
 	laser = 100
 	energy = 100
 	bomb = 70
-	rad = 100
 	fire = 80
 	acid = 70
 

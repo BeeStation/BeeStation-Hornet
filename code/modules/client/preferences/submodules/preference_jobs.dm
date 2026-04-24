@@ -1,5 +1,5 @@
 /datum/preferences/proc/set_job_preference_level(datum/job/job, level)
-	if (!job || job.lock_flags)
+	if (!job || !(job.job_flags & JOB_NEW_PLAYER_JOINABLE))
 		return FALSE
 
 	log_preferences("[parent?.ckey]: Set [job.title] preference to level [level].")
@@ -13,10 +13,9 @@
 				// Overflow role needs to go to NEVER, not medium!
 				if(other_job == overflow_role_title)
 					job_preferences[other_job] = null
-					log_preferences("[parent?.ckey]: Set [other_job] preference to level null.")
 				else
 					job_preferences[other_job] = JP_MEDIUM
-					log_preferences("[parent?.ckey]: Set [other_job] preference to level [JP_MEDIUM].")
+				log_preferences("[parent?.ckey]: Set [other_job] preference to level [JP_MEDIUM].")
 
 	if(level == null)
 		job_preferences -= job.title

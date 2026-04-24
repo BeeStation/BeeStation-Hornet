@@ -1,4 +1,5 @@
 /obj/item/food/cheese
+	abstract_type = /obj/item/food/cheese
 	name = "the concept of cheese"
 	desc = "This probably shouldn't exist."
 	tastes = list("cheese" = 1)
@@ -36,4 +37,4 @@
 	AddComponent(/datum/component/food_storage)
 
 /obj/item/food/cheese/wheel/make_processable()
-	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/cheese/wedge, 5, 3 SECONDS, table_required = TRUE, /*screentip_verb = "Slice"*/)
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/cheese/wedge, 5, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")

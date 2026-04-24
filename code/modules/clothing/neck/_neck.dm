@@ -1,4 +1,5 @@
 /obj/item/clothing/neck
+	abstract_type = /obj/item/clothing/neck
 	name = "necklace"
 	icon = 'icons/obj/clothing/neck.dmi'
 	body_parts_covered = NECK
@@ -7,20 +8,23 @@
 	equip_delay_other = 40
 
 /obj/item/clothing/neck/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
-	if(!isinhands)
-		if(body_parts_covered & HEAD)
-			if(damaged_clothes)
-				. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
-			if(HAS_BLOOD_DNA(src))
-				. += mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
+	. = ..()
+	if(isinhands)
+		return
+
+	if(body_parts_covered & HEAD)
+		if(damaged_clothes)
+			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
+		if(GET_ATOM_BLOOD_DNA_LENGTH(src))
+			. += mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
 
 /obj/item/clothing/neck/tie
 	name = "tie"
 	desc = "A neosilk clip-on tie."
 	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "bluetie"
-	item_state = ""	//no inhands
+	inhand_icon_state = ""	//no inhands
+	alternate_worn_layer = LOW_NECK_LAYER // So that it renders below suit jackets, MODsuits, etc
 	worn_icon = 'icons/mob/clothing/neck.dmi'
 	worn_icon_state = "bluetie"
 	w_class = WEIGHT_CLASS_SMALL
@@ -107,8 +111,8 @@
 			var/heart_strength = span_danger("no")
 			var/lung_strength = span_danger("no")
 
-			var/obj/item/organ/heart/heart = M.getorganslot(ORGAN_SLOT_HEART)
-			var/obj/item/organ/lungs/lungs = M.getorganslot(ORGAN_SLOT_LUNGS)
+			var/obj/item/organ/heart/heart = M.get_organ_slot(ORGAN_SLOT_HEART)
+			var/obj/item/organ/lungs/lungs = M.get_organ_slot(ORGAN_SLOT_LUNGS)
 
 			if(!(M.stat == DEAD || (HAS_TRAIT(M, TRAIT_FAKEDEATH))))
 				if(heart && istype(heart))
@@ -136,6 +140,8 @@
 /obj/item/clothing/neck/scarf //Default white color, same functionality as beanies.
 	name = "white scarf"
 	icon_state = "scarf"
+	icon_preview = 'icons/obj/previews.dmi'
+	icon_state_preview = "scarf_cloth"
 	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
 	dog_fashion = /datum/dog_fashion/head
 	custom_price = 10
@@ -221,7 +227,11 @@
 	var/tagname = null
 
 /obj/item/clothing/neck/petcollar/attack_self(mob/user)
-	tagname = stripped_input(user, "Would you like to change the name on the tag?", "Name your new pet", "Spot", MAX_NAME_LEN)
+	tagname = sanitize_name(tgui_input_text(user, "Would you like to change the name on the tag?", "Pet Naming", "Spot", MAX_NAME_LEN))
+	if (!tagname || !length(tagname))
+		name = initial(name)
+		tagname = null
+		return
 	name = "[initial(name)] - [tagname]"
 
 //////////////

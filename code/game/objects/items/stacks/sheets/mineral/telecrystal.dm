@@ -13,8 +13,9 @@
 	if(target == user) //You can't go around smacking people with crystals to find out if they have an uplink or not.
 		for(var/obj/item/implant/uplink/I in target)
 			if(I?.imp_in)
-				var/datum/component/uplink/hidden_uplink = I.GetComponent(/datum/component/uplink)
-				if(hidden_uplink)
+				var/list/uplinks = I.GetComponents(/datum/component/uplink)
+				if(length(uplinks))
+					var/datum/component/uplink/hidden_uplink = uplinks[1]
 					hidden_uplink.telecrystals += amount
 					use(amount)
 					to_chat(user, span_notice("You press [src] onto yourself and charge your hidden uplink."))

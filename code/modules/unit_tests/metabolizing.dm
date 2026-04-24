@@ -48,3 +48,4 @@
 /datum/unit_test/on_mob_end_metabolize/Destroy()
 	SSmobs.ignite()
 	return ..()
+

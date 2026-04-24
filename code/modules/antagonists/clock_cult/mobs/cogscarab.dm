@@ -27,23 +27,25 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 //No you can't go wielding guns like that.
 /mob/living/simple_animal/drone/cogscarab/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NOGUNS, "cogscarab")
+	ADD_TRAIT(src, TRAIT_NOGUNS, INNATE_TRAIT)
 	GLOB.cogscarabs += src
 	add_actionspeed_modifier(/datum/actionspeed_modifier/cogscarab)
 
 /mob/living/simple_animal/drone/cogscarab/death(gibbed)
 	GLOB.cogscarabs -= src
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/drone/cogscarab/Life(seconds, times_fired)
-	if(!is_reebe(z) && !GLOB.ratvar_risen)
+	if(!is_on_reebe(src) && !GLOB.ratvar_risen)
 		var/turf/T = get_turf(pick(GLOB.servant_spawns))
 		try_warp_servant(src, T, FALSE)
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/drone/cogscarab/force_hit_projectile(obj/projectile/projectile)
-	if(isliving(projectile.fired_from) && is_servant_of_ratvar(projectile.fired_from))
-		return FALSE
+	if(isliving(projectile.fired_from))
+		var/mob/living/living_target = projectile.fired_from
+		if(IS_SERVANT_OF_RATVAR(living_target))
+			return FALSE
 	return TRUE
 
 //====Shell====
@@ -56,13 +58,13 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	mob_type = /mob/living/simple_animal/drone/cogscarab
 	short_desc = "You are a cogscarab!"
 	flavour_text = "You are a cogscarab, a tiny building construct of Ratvar. While you're weak and can't leave Reebe, \
-	you have a set of quick tools, as well as a replica fabricator that can create brass for construction. Work with the servants of Ratvar \
-	to construct and maintain defenses at the City of Cogs."
+		you have a set of quick tools, as well as a replica fabricator that can create brass for construction. Work with the servants of Ratvar \
+		to construct and maintain defenses at the City of Cogs."
 
 /obj/effect/mob_spawn/drone/cogscarab/attack_ghost(mob/user)
 	if(is_banned_from(user.ckey, ROLE_SERVANT_OF_RATVAR) || QDELETED(src) || QDELETED(user))
 		return
-	if(!SSticker.mode)
+	if(!SSticker.HasRoundStarted())
 		to_chat(user, "Can't become a cogscarab before the game has started.")
 		return
 	var/be_drone = alert("Become a cogscarab? (Warning, You can no longer be cloned!)",,"Yes","No")

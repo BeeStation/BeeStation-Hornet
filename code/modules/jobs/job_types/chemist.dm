@@ -4,9 +4,8 @@
 	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 2
-	spawn_positions = 2
 	selection_color = "#d4ebf2"
 	// Requires some understanding of medical, but is a relatively
 	// easy role to learn.
@@ -23,6 +22,8 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_CHEMIST
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Alchemist"
 
 	species_outfits = list(
@@ -31,14 +32,14 @@
 	biohazard = 25
 
 	lightup_areas = list(
-		/area/medical/surgery,
-		/area/medical/virology,
-		/area/medical/genetics
+		/area/station/medical/surgery,
+		/area/station/medical/virology,
+		/area/station/medical/genetics
 	)
 	minimal_lightup_areas = list(
-		/area/medical/morgue,
-		/area/medical/chemistry,
-		/area/medical/apothecary
+		/area/station/medical/morgue,
+		/area/station/medical/chemistry,
+		/area/station/medical/pharmacy
 	)
 
 /datum/outfit/job/chemist
@@ -47,7 +48,7 @@
 
 	id = /obj/item/card/id/job/chemist
 	glasses = /obj/item/clothing/glasses/science
-	belt = /obj/item/modular_computer/tablet/pda/chemist
+	belt = /obj/item/modular_computer/tablet/pda/preset/chemist
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/chemist
 	shoes = /obj/item/clothing/shoes/sneakers/white

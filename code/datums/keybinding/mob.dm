@@ -292,7 +292,11 @@
 	return TRUE
 
 /datum/keybinding/mob/toggle_move_intent/up(client/user)
-	if(!user.mob) return
+	. = ..()
+	if(.)
+		return
+	if(!user.mob)
+		return
 	var/mob/M = user.mob
 	M.toggle_move_intent()
 	return TRUE
@@ -330,6 +334,34 @@
 	if(.)
 		return
 	user.movement_locked = FALSE
+
+/datum/keybinding/living/view_pet_data
+	keys = list("Shift")
+	name = "view_pet_commands"
+	full_name = "View Pet Commands"
+	description = "Hold down to see all the commands you can give your pets!"
+	keybind_signal = COMSIG_KB_LIVING_VIEW_PET_COMMANDS
+
+/datum/keybinding/mob/show_extended_screentips
+	keys = list("Shift")
+	name = "show_extended_screentips"
+	full_name = "Show Extended Screentips"
+	description = "While held, screentip information about construction and deconstruction will be shown on the screen."
+	keybind_signal = COMSIG_KB_MOB_EXTENDEDSCREENTIPS_DOWN
+
+/datum/keybinding/mob/show_extended_screentips/down(client/user)
+	. = ..()
+	if (.)
+		return
+	user.show_extended_screentips = TRUE
+	user.mob.refresh_self_screentips()
+
+/datum/keybinding/mob/show_extended_screentips/up(client/user)
+	. = ..()
+	if (.)
+		return
+	user.show_extended_screentips = FALSE
+	user.mob.refresh_self_screentips()
 
 /**
  * ===========================

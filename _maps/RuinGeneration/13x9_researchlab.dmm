@@ -67,7 +67,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "aD" = (
-/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "aM" = (
@@ -80,7 +80,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "aP" = (
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "aV" = (
@@ -125,7 +125,7 @@
 	},
 /obj/structure/table,
 /obj/item/hand_labeler,
-/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -158,8 +158,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/ruinloot/science,
-/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -188,11 +188,9 @@
 	dir = 6
 	},
 /obj/structure/table,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/item/clothing/glasses/science,
-/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -219,8 +217,8 @@
 	pixel_y = 4
 	},
 /obj/item/crowbar,
-/obj/effect/spawner/lootdrop/ruinloot/science,
-/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -230,10 +228,7 @@
 	},
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -280,13 +275,13 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/item/circuitboard/computer/nanite_chamber_control,
 /obj/item/circuitboard/computer/nanite_cloud_controller,
 /obj/item/circuitboard/machine/nanite_chamber,
 /obj/item/circuitboard/machine/nanite_program_hub,
-/obj/effect/spawner/lootdrop/ruinloot/science,
-/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -305,7 +300,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "RM" = (
-/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)

@@ -1,38 +1,44 @@
 /obj/item/bodypart/head/apid
-	static_icon = 'icons/mob/species/apid/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/apid/bodyparts.dmi'
 	icon = null
 	limb_id = SPECIES_APID
 	is_dimorphic = TRUE
 	should_draw_greyscale = FALSE
+	brute_modifier = 0.8
 
 /obj/item/bodypart/chest/apid
-	static_icon = 'icons/mob/species/apid/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/apid/bodyparts.dmi'
 	icon = null
 	limb_id = SPECIES_APID
 	is_dimorphic = TRUE
 	should_draw_greyscale = FALSE
+	brute_modifier = 0.8
 
-/obj/item/bodypart/l_arm/apid
-	static_icon = 'icons/mob/species/apid/bodyparts.dmi'
+/obj/item/bodypart/arm/left/apid
+	icon_static = 'icons/mob/human/species/apid/bodyparts.dmi'
 	icon = null
 	limb_id = SPECIES_APID
 	should_draw_greyscale = FALSE
+	brute_modifier = 0.8
 
 
-/obj/item/bodypart/r_arm/apid
-	static_icon = 'icons/mob/species/apid/bodyparts.dmi'
+/obj/item/bodypart/arm/right/apid
+	icon_static = 'icons/mob/human/species/apid/bodyparts.dmi'
 	icon = null
 	limb_id = SPECIES_APID
 	should_draw_greyscale = FALSE
+	brute_modifier = 0.8
 
-/obj/item/bodypart/l_leg/apid
-	static_icon = 'icons/mob/species/apid/bodyparts.dmi'
+/obj/item/bodypart/leg/left/apid
+	icon_static = 'icons/mob/human/species/apid/bodyparts.dmi'
 	icon = null
 	limb_id = SPECIES_APID
 	should_draw_greyscale = FALSE
+	brute_modifier = 0.8
 
-/obj/item/bodypart/r_leg/apid
-	static_icon = 'icons/mob/species/apid/bodyparts.dmi'
+/obj/item/bodypart/leg/right/apid
+	icon_static = 'icons/mob/human/species/apid/bodyparts.dmi'
 	icon = null
 	limb_id = SPECIES_APID
 	should_draw_greyscale = FALSE
+	brute_modifier = 0.8

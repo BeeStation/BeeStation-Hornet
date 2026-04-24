@@ -156,10 +156,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/vomit/old)
 		var/datum/disease/advance/new_disease = new /datum/disease/advance/random(rand(2, 5), rand(7, 9), 4, infected = src)
 		src.diseases += new_disease
 
-/obj/effect/decal/cleanable/vomit/old/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..()
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., diseases)
-
 /obj/effect/decal/cleanable/chem_pile
 	name = "chemical pile"
 	desc = "A pile of chemicals. You can't quite tell what's inside it."
@@ -263,3 +259,38 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/vomit/old)
 /obj/effect/decal/cleanable/ants/update_overlays()
 	. = ..()
 	. += emissive_appearance(icon, "[icon_state]_light", alpha = src.alpha)
+
+/obj/effect/decal/cleanable/confetti
+	name = "confetti"
+	desc = "Tiny bits of colored paper thrown about for the janitor to enjoy!"
+	icon = 'icons/effects/confetti_and_decor.dmi'
+	icon_state = "confetti"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT //the confetti itself might be annoying enough
+
+/obj/effect/decal/cleanable/pinata
+	name = "pinata shreds"
+	desc = "Torn pieces of papier-mâché, left over from a pinata"
+	icon = 'icons/effects/confetti_and_decor.dmi'
+	icon_state = "pinata_shreds"
+
+/obj/effect/decal/cleanable/pinata/syndie
+	icon_state = "syndie_pinata_shreds"
+
+/obj/effect/decal/cleanable/pinata/donk
+	icon_state = "donk_pinata_shreds"
+
+/obj/effect/decal/cleanable/wrapping
+	name = "wrapping shreds"
+	desc = "Torn pieces of cardboard and paper, left over from a package."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "paper_shreds"
+
+/obj/effect/decal/cleanable/garbage
+	name = "decomposing garbage"
+	desc = "A split open garbage bag, its stinking content seems to be partially liquified. Yuck!"
+	icon = 'icons/obj/debris.dmi'
+	icon_state = "garbage"
+	plane = GAME_PLANE
+	layer = FLOOR_CLEAN_LAYER
+	//beauty = -150
+	clean_type = CLEAN_TYPE_HARD_DECAL

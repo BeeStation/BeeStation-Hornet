@@ -1,4 +1,6 @@
 /* This file contains standalone items for debug purposes. */
+/obj/item/debug
+	abstract_type = /obj/item/debug
 
 /obj/item/debug/human_spawner
 	name = "human spawner"
@@ -19,7 +21,7 @@
 
 /obj/item/debug/human_spawner/attack_self(mob/user)
 	..()
-	var/choice = input("Select a species", "Human Spawner", null) in GLOB.species_list
+	var/choice = tgui_input_list(user, "Select a species", "Human Spawner", GLOB.species_list)
 	selected_species = GLOB.species_list[choice]
 
 /obj/item/debug/omnitool
@@ -152,7 +154,7 @@
 /obj/item/construction/rcd/arcd/debug
 	name = "\improper CentCom Admin RCD"
 	icon_state = "ircd"
-	item_state = "ircd"
+	inhand_icon_state = "ircd"
 	w_class = WEIGHT_CLASS_TINY
 	max_matter = INFINITY
 	matter = INFINITY
@@ -197,6 +199,9 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	geiger_counter = FALSE
 
+/obj/item/clothing/head/helmet/space/hardsuit/debug/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
 
 /datum/armor/hardsuit_debug
 	melee = 300
@@ -205,7 +210,6 @@
 	energy = 300
 	bomb = 300
 	bio = 300
-	rad = 300
 	fire = 300
 	acid = 300
 	stamina = 300
@@ -229,6 +233,9 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
+/obj/item/clothing/suit/space/hardsuit/debug/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
 
 // debug bag
 
@@ -236,7 +243,7 @@
 	name = "bag of portable hole"
 	desc = "A backpack that opens into a localized pocket of nullspace."
 	icon_state = "holdingpack"
-	item_state = "holdingpack"
+	inhand_icon_state = "holdingpack"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	item_flags = NO_MAT_REDEMPTION
 	armor_type = /datum/armor/backpack_debug
@@ -249,13 +256,11 @@
 	energy = 100
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 
 /obj/item/storage/backpack/debug/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
 	atom_storage.allow_big_nesting = TRUE
 	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
 	atom_storage.max_slots = 1000
@@ -276,7 +281,7 @@
 /obj/item/storage/box/debugtools/PopulateContents()
 	var/static/items_inside = list(
 		/obj/item/flashlight/emp/debug=1,
-		/obj/item/modular_computer/tablet/pda=1,
+		/obj/item/modular_computer/tablet/pda/preset=1,
 		/obj/item/modular_computer/tablet/preset/advanced=1,
 		/obj/item/storage/belt/military/abductor/full=1,
 		/obj/item/geiger_counter=1,
@@ -312,7 +317,6 @@
 		TRAIT_SLEEPIMMUNE,
 		TRAIT_STUNIMMUNE,
 		TRAIT_PUSHIMMUNE,
-		TRAIT_CONFUSEIMMUNE,
 		TRAIT_RADIMMUNE,
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_PIERCEIMMUNE,
@@ -339,7 +343,8 @@
 		TRAIT_SECURITY_HUD,
 		TRAIT_BARMASTER,
 		TRAIT_SURGEON,
-		TRAIT_METALANGUAGE_KEY_ALLOWED
+		TRAIT_METALANGUAGE_KEY_ALLOWED,
+		TRAIT_SPACEWALK
 	)
 	var/spacewalk_initial
 
@@ -364,16 +369,11 @@
 	picker.see_override = SEE_INVISIBLE_OBSERVER
 	picker.update_sight()
 
-	spacewalk_initial = user.spacewalk
-	user.spacewalk = TRUE
-
 /obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
 	. = ..()
 	var/obj/item/debug/orb_of_power/orb = locate() in user.get_contents()
 	if(orb)
 		return
-
-	user.spacewalk = spacewalk_initial
 
 	for(var/each in traits_to_give)
 		REMOVE_TRAIT(user, each, "debug")

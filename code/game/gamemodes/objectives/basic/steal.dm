@@ -8,6 +8,25 @@ GLOBAL_LIST_EMPTY(possible_items)
 /datum/objective/steal/get_target()
 	return steal_target
 
+/datum/objective/steal/get_tracking_target(atom/source)
+	var/closest = INFINITY
+	var/turf/source_turf = get_turf(source)
+	var/atom/tracked = null
+	for (var/atom/target in get_trackables_by_type(steal_target, TRUE))
+		var/turf/target_turf = get_turf(target)
+		if (!target_turf)
+			continue
+		// Objectives in incorrect locations are simply not trackable
+		if (!compare_z(source_turf.z, target_turf.z))
+			continue
+		// Prioritise things that are on the same z
+		var/dist = get_dist(target, source) + abs(source_turf.z - target_turf.z) * 1000
+		if (dist > closest)
+			continue
+		closest = dist
+		tracked = target
+	return tracked
+
 /datum/objective/steal/New()
 	..()
 	if(!GLOB.possible_items.len)//Only need to fill the list when it's needed.
@@ -37,7 +56,7 @@ GLOBAL_LIST_EMPTY(possible_items)
 		steal_target = targetinfo.targetitem
 		explanation_text = "Steal [targetinfo.name]"
 		if (length(targetinfo.special_equipment))
-			generate_stash(targetinfo.special_equipment)
+			generate_stash(targetinfo.special_equipment, get_owners())
 		update_explanation_text()
 		return steal_target
 	else
@@ -65,8 +84,9 @@ GLOBAL_LIST_EMPTY(possible_items)
 			return
 		var/obj/item/custom_target = pick_closest_path(custom_path, make_types_fancy(subtypesof(/obj/item)))
 		var/custom_name = initial(custom_target.name)
-		custom_name = stripped_input(admin,"Enter target name:", "Objective target", custom_name)
+		custom_name = tgui_input_text(admin, "Enter target name:", "Objective target", custom_name)
 		if (!custom_name)
+			to_chat(admin, span_warning("You need to enter something!"))
 			return
 		steal_target = custom_target
 		explanation_text = "Steal [custom_name]."

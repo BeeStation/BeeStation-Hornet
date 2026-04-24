@@ -7,7 +7,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractCssPlugin = require('mini-css-extract-plugin');
-const { createBabelConfig } = require('./babel.config.js');
 
 const createStats = (verbose) => ({
   assets: verbose,
@@ -22,6 +21,7 @@ const createStats = (verbose) => ({
   performance: false,
   timings: verbose,
   version: verbose,
+  errorDetails: true,
 });
 
 module.exports = (env = {}, argv) => {
@@ -30,17 +30,20 @@ module.exports = (env = {}, argv) => {
   const config = {
     mode: mode === 'production' ? 'production' : 'development',
     context: path.resolve(__dirname),
-    target: ['web', 'es5', 'browserslist:ie 11'],
+    target: ['web', 'browserslist:edge >= 123'],
     entry: {
-      'tgui': ['./packages/tgui-polyfill', './packages/tgui'],
-      'tgui-panel': ['./packages/tgui-polyfill', './packages/tgui-panel'],
-      'tgui-say': ['./packages/tgui-polyfill', './packages/tgui-say'],
+      tgui: './packages/tgui',
+      'tgui-panel': './packages/tgui-panel',
+      'tgui-say': './packages/tgui-say',
     },
     output: {
-      path: argv.useTmpFolder ? path.resolve(__dirname, './public/.tmp') : path.resolve(__dirname, './public'),
+      path: argv.useTmpFolder
+        ? path.resolve(__dirname, './public/.tmp')
+        : path.resolve(__dirname, './public'),
       filename: '[name].bundle.js',
       chunkFilename: '[name].bundle.js',
       chunkLoadTimeout: 15000,
+      publicPath: '/',
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.jsx'],
@@ -49,13 +52,25 @@ module.exports = (env = {}, argv) => {
     module: {
       rules: [
         {
-          test: /\.(js(x)?|cjs|ts(x)?)$/,
+          test: /\.([tj]s(x)?|cjs)$/,
+          exclude: /node_modules/,
           use: [
             {
-              loader: require.resolve('babel-loader'),
-              options: createBabelConfig({
-                removeConsole: !bench,
-              }),
+              loader: require.resolve('swc-loader'),
+              options: {
+                jsc: {
+                  parser: {
+                    syntax: 'typescript',
+                    tsx: true,
+                    jsx: true,
+                  },
+                  transform: {
+                    react: {
+                      runtime: 'automatic',
+                    },
+                  },
+                },
+              },
             },
           ],
         },
@@ -122,7 +137,7 @@ module.exports = (env = {}, argv) => {
 
   if (bench) {
     config.entry = {
-      'tgui-bench': ['./packages/tgui-polyfill', './packages/tgui-bench/entrypoint'],
+      'tgui-bench': './packages/tgui-bench/entrypoint',
     };
   }
 
@@ -131,7 +146,6 @@ module.exports = (env = {}, argv) => {
     const { EsbuildPlugin } = require('esbuild-loader');
     config.optimization.minimizer = [
       new EsbuildPlugin({
-        target: 'ie11',
         css: true,
       }),
     ];

@@ -1,11 +1,6 @@
 /datum/objective/assassinate
-	name = "assasinate"
+	name = "assassinate"
 	var/target_role_type=FALSE
-
-/datum/objective/assassinate/find_target_by_role(role, role_type=FALSE,invert=FALSE)
-	if(!invert)
-		target_role_type = role_type
-	..()
 
 /datum/objective/assassinate/check_completion()
 	return ..() || (!considered_alive(target) || considered_afk(target))
@@ -19,6 +14,9 @@
 
 /datum/objective/assassinate/admin_edit(mob/admin)
 	admin_simple_target_pick(admin)
+
+/datum/objective/assassinate/get_tracking_target(atom/source)
+	return target?.current
 
 /datum/objective/assassinate/internal
 	var/stolen = 0 		//Have we already eliminated this target?

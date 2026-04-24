@@ -1,0 +1,200 @@
+2025-06-02:
+  DrDuckedGoose:
+  - bugfix: Fix artifact bestialized trait gibbing people
+  wikimody:
+  - rscadd: Add a new chemical Nooartrium. It lets you ignore death and death related
+      effects at massive cost to your heart
+  - code_imp: No-crit traits disable the crit screen effects. No longer are you blinded
+      when you aren't ment to be
+2025-06-03:
+  mrmanlikesbt:
+  - balance: syndicate turrets shoot cyborgs by default now
+  wikimody:
+  - balance: Infective exolocomotion will no longer override other nanites
+2025-06-06:
+  PowerfulBacon:
+  - bugfix: Fixes movement keys being stuck
+  wikimody:
+  - rscadd: Shadow sect finishing update
+  - rscadd: Grand rituals (all increase damage and healing shadow people get from
+      light)
+  - rscadd: 'First: Gives shadow people coms and eliminates hunger, obelisks bless
+      tiles in darkness'
+  - rscadd: 'Second: Gives shadow people partial invisibility and 1/2 chance for shots
+      to miss them in dark, obelisks heal shadow people and holy people'
+  - rscadd: 'Third: Gives shadow people nightmare revive (around 33% slower) and high
+      movement speed boost in darkness, obelisk can now buckled people into shadow
+      people and let shadow people teleport between them'
+  - rscadd: Three new hearts focused around shadows (and sprites for them)
+  - imageadd: Thanks kie_katz for sprites
+2025-06-07:
+  BarteG44:
+  - rscadd: Added new siding decals
+  - tweak: Reworked Card Station's botany
+  - tweak: Reworked Card Station's public garden
+  - bugfix: fixed a few missing items on Cardinal Station
+  - bugfix: fixed chasms getting created when tiles in the garden get destroyed
+  ClownMoff:
+  - balance: You can no longer tell if someone has cellular damage by just using 'Examine',
+      you need a health scanner.
+  Nakalon:
+  - rscadd: Added a Box for Detective equipment and put it inside the Detective locker
+  - tweak: Detective lockers will now all have the same items available regardless
+      of the station its in
+  - tweak: Removed Detective equipment added directly trough mapping, favoring coding
+      additions instead
+  - tweak: Removed clutter inside the Detective locker including clothing already
+      available in the Det vendor
+  - bugfix: There is no longer an ERROR item in the Detective locker.
+2025-06-10:
+  HowToLoLu, rkz, Y0SH1M4S73R:
+  - rscadd: species features are now editable in the DNA console
+2025-06-11:
+  VmpOS2NHSkhkejA9:
+  - bugfix: fix xenomorph hunters being permanently offset downwards by a tile after
+      leaping
+2025-06-13:
+  VmpOS2NHSkhkejA9:
+  - bugfix: fixed lights from bioluminescent plants being massively offset
+  rkz, A.C.M.O., Kapu1178, tralezab, ZephyrTFA, Timberpoes, 00Steven:
+  - bugfix: fixed luminescent and stargazer abilities
+  - bugfix: fixes dexterity loss during ongoing round
+  - refactor: refactors organ insertion and removal
+  - bugfix: Fixed a large quantity of hard-deletes which were being caused by organs
+      and cybernetic organs.
+  - bugfix: Fixed many organs which were applying side-effects regardless of whether
+      or not the insertion failed.
+  - bugfix: regenerate_organs wont delete prosthetic limbs
+  - code_imp: unit tests for organs
+2025-06-14:
+  Tsar-Salat:
+  - rscdel: disables shadowsect 3rd grand ritual
+2025-06-15:
+  Absolucy, ShadowLarkens, S34N:
+  - bugfix: Fixed chat rapidly flickering in BYOND 516.
+  TsunamiAnt:
+  - tweak: tweaked some of the alert announcements.
+  mrmanlikesbt:
+  - tweak: fake radiation storms now set the station status displays to the radiation
+      symbol
+2025-06-16:
+  ? ''
+  : - tweak: Moved the evidence storage on Box and Meta away from the core of brig,
+        allowing for a bit easier access to them.
+  Isaac, Cursedkiller:
+  - rscdel: Removes the old Science Outpost
+  - rscadd: A new Engineering related Wing
+  - rscadd: A new structure near the old Science Outpost, related to mainly farming
+      lavaland gasses
+  - bugfix: Lavaland Toxins Test Site Camera facing the wrong way
+  - bugfix: Mining Base Injector not working due to it not being connected to the
+      main area
+  - tweak: Lavaland Atmos, providing 0.25 moles of plasma
+  - tweak: Ashwalkers Lungs so they dont die from the small quantities of plasma
+  VmpOS2NHSkhkejA9:
+  - bugfix: fixed the names and access requirements of kilostation security office
+      doors
+  - balance: echostation is now more resilient against fires; the holodeck is now
+      surrounded by firelocks, more departmental front desks have firelocks and a
+      few areas are now broken up by windows and firelocks.
+2025-06-18:
+  BriggsIDP:
+  - rscadd: You can now walk though any tree, but with a short slow down
+  - tweak: updated some open turf thermal code, so heating and cooling should be a
+      bit slower
+  - tweak: removed radio from random parrots
+  Rukofamicom:
+  - tweak: Shadow sect obelisks have less intense lighting effects
+  - tweak: Various other aspects of the shadow sect have been improved on the backend
+      with minimal front-end changes.
+  - tweak: Shadow sect favor is earned at a steady rate per obelisk, with a bonus
+      depending on how many grand rituals are completed - it will no longer compound
+      with the current darkness as this made the snowballing effect too strong.
+  - bugfix: The server should no longer shit itself during the third grand ritual
+      of the shadow sect
+  - bugfix: Night vision and extra healing from shadow obelisks no longer work through
+      walls
+  VmpOS2NHSkhkejA9:
+  - bugfix: fixed blob being announced instantly on spawning
+2025-06-19:
+  PowerfulBacon:
+  - tweak: The recommended ghost role cooldown has been reduced to 60 seconds.
+2025-06-20:
+  VmpOS2NHSkhkejA9:
+  - bugfix: networked fibers blobs can no longer move and attack with nodes for free,
+      along with properly leaving a trail behind moving nodes.
+  mrmanlikesbt:
+  - bugfix: fixed the lavaland syndicate base turrets shooting the pet rabbit
+2025-06-21:
+  BarteG44:
+  - rscadd: Added platform ledges
+  - rscadd: Added more railings
+  - rscadd: Added directional window corners
+  - tweak: Reworked CardStation's Bridge
+  VmpOS2NHSkhkejA9:
+  - tweak: Completely overhaul random AI names. This also affects syndicate saboteur
+      cyborgs, since they use the same random names AI do.
+  mrmanlikesbt:
+  - bugfix: fixed 516 clients throwing a runtime when joining
+2025-06-22:
+  ClownMoff:
+  - imageadd: added a stack icon for the checker subtype called "alternate"
+  - imageadd: replaced the checker tile with a less saturated one
+  - tweak: Standarized and moved around some names and icons from the the checker
+      tiles in the .dmi and .dm files
+  Tsar-Salat:
+  - bugfix: fix attack interactions from and against xenos
+  - balance: removes erroneous hardstun from xenos, they use normal disarm() proc
+      now
+2025-06-24:
+  BarteG44:
+  - bugfix: fixed Cardstation's SM
+  - bugfix: fixed conveyors' layer
+2025-06-26:
+  DrDuckedGoose:
+  - bugfix: Fix sentience spawner spam
+  - bugfix: Fix artifact pricing
+  - bugfix: Fix artifact label examine text
+  Gilgax:
+  - bugfix: Fixed hostile mobs (like blob spore zombies) keeping their AI for a few
+      seconds when taking control of them.
+  Nakalon:
+  - tweak: Replaced the Detective Equipment box with a duffel bag
+  - tweak: Further reduced clutter in detective locker
+  - tweak: Added ties to the Det Vendor and reorganized it
+  Programs-The-Station:
+  - bugfix: Roasting Sticks work again
+  - tweak: Roasting sticks can now roast more than just sausages over things.
+  distributivgesetz, Gboster:
+  - code_imp: added defines for slime colors, making new crossbreeds a bit less painfull
+      to code
+  mrmanlikesbt, absolucy, marksuckerberg:
+  - rscadd: looc shows up in runechat now
+2025-06-28:
+  'mrmanlikesbt, 13spacemen, Absolucy, Flleeppyy, Timberpoes, Ghommie, vinylspiders, SmArtKar, ':
+  - refactor: refactored ghost polling to use alerts instead of a tgui popup
+  rkz, Ryll/Shaps, Bumtickley00, san7890:
+  - rscadd: adds a revamped and restyled medical analyzer UI
+  - refactor: refactors admin antag chat
+  - bugfix: fixes examine_more
+2025-06-29:
+  Bieyes, Vexylius, Aliejar:
+  - rscadd: Added two new lawnmowers!
+  PowerfulBacon:
+  - bugfix: Fixes antagonist roles being assigned to players on the main menu if they
+      did not have any valid jobs available.
+  itsmeow:
+  - bugfix: Re-added menu bar for non-fullscreen 516 clients
+  - server: Added a new Discord-based authentication system.
+  - code_imp: Cleaned up many processes related to client login and guest connections.
+  mrmanlikesbt:
+  - bugfix: fixed an occasional wallmed deletion runtime on roundstart
+2025-06-30:
+  itsmeow:
+  - bugfix: Fixed preauth Guests showing in Orbit panel
+  - bugfix: Fixed authenticating BYOND keys getting kicked after signing in with Discord.
+  - bugfix: Mitigated security vulnerability related to servers pretending to be BeeStation
+      on the hub being able to issue valid session tokens for a malicious IP address.
+  - server: Added SS13_session_creation_nonce table
+  mrmanlikesbt:
+  - bugfix: fixed the runechat looc preference not showing up sometimes

@@ -21,7 +21,7 @@
 	if(_max_mobs)
 		max_mobs=_max_mobs
 
-	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(stop_spawning))
+	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(stop_spawning))
 	START_PROCESSING(SSprocessing, src)
 
 /datum/component/spawner/process()
@@ -40,9 +40,9 @@
 /datum/component/spawner/proc/try_spawn_mob()
 	var/atom/P = parent
 	if(spawned_mobs.len >= max_mobs)
-		return 0
+		return
 	if(spawn_delay > world.time)
-		return 0
+		return
 	spawn_delay = world.time + spawn_time
 	var/chosen_mob_type = pick(mob_types)
 	var/mob/living/simple_animal/L = new chosen_mob_type(P.loc)

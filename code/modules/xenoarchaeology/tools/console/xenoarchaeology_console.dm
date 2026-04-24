@@ -214,15 +214,15 @@
 				bonus -= 1
 				attempted_bonus = TRUE
 	//Calculate success rate
-	var/success_rate = score / (max(max_score, 1))
-	var/bonus_rate = max(1, 2*(bonus/max(max_score, 1)))
+	var/success_rate = clamp(score / max(max_score, 1), 0, 1)
+	var/bonus_rate = clamp(2 * (bonus / max(max_bonus, 1)), 1, INFINITY)
 	//Rewards
 		//Research Points
-	var/rnd_reward = round(max(0, (artifact.custom_price*artifact_component.artifact_material.rnd_rate)*success_rate) * bonus_rate, 1)
+	var/rnd_reward = round(max(0, (artifact.item_price*artifact_component.artifact_material.rnd_rate)*success_rate) * bonus_rate, 1)
 		//Discovery Points
-	var/dp_reward = round(max(0, (artifact.custom_price*artifact_component.artifact_material.dp_rate)*success_rate) * bonus_rate, 1)
+	var/dp_reward = round(max(0, (artifact.item_price*artifact_component.artifact_material.dp_rate)*success_rate) * bonus_rate, 1)
 		//Money
-	var/monetary_reward = round(FLOOR(((artifact.custom_price * success_rate * 1.5)^1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate, 1), 1)
+	var/monetary_reward = round(FLOOR(((artifact.item_price * success_rate * 1.5)^1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate, 1), 1)
 	//Alloctae
 	if(is_main_console)
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_GENERIC, rnd_reward)

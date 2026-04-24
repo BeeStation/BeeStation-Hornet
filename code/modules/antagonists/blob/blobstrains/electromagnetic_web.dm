@@ -22,7 +22,7 @@
 	name = "Electromagnetic Web"
 	taste_description = "pop rocks"
 	color = "#83ECEC"
-	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
 /datum/reagent/blob/electromagnetic_web/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	reac_volume = ..()

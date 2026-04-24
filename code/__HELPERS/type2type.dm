@@ -194,72 +194,56 @@
 		if(BODY_ZONE_R_LEG)
 			return LEG_RIGHT|FOOT_RIGHT
 
-/// Converts an RGB color to an HSL color
-/proc/rgb2hsl(red, green, blue)
-	red /= 255;green /= 255;blue /= 255;
-	var/max = max(red,green,blue)
-	var/min = min(red,green,blue)
-	var/range = max-min
+//Turns a Body_parts_covered bitfield into a list of organ/limb names.
+//(I challenge you to find a use for this) -I found a use for it!! | So did I!.
+/proc/cover_flags2body_zones(bpc)
+	var/list/covered_parts = list()
 
-	var/hue=0;var/saturation=0;var/lightness=0;
-	lightness = (max + min)/2
-	if(range != 0)
-		if(lightness < 0.5)
-			saturation = range/(max+min)
-		else
-			saturation = range/(2-max-min)
+	if(!bpc)
+		return 0
 
-		var/dred = ((max-red)/(6*max)) + 0.5
-		var/dgreen = ((max-green)/(6*max)) + 0.5
-		var/dblue = ((max-blue)/(6*max)) + 0.5
+	if(bpc == FULL_BODY)
+		covered_parts |= list(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM,BODY_ZONE_HEAD,BODY_ZONE_CHEST,BODY_ZONE_L_LEG,BODY_ZONE_R_LEG)
 
-		if(max==red)
-			hue = dblue - dgreen
-		else if(max==green)
-			hue = dred - dblue + (1/3)
-		else
-			hue = dgreen - dred + (2/3)
-		if(hue < 0)
-			hue++
-		else if(hue > 1)
-			hue--
-
-	return list(hue, saturation, lightness)
-
-/// Converts an HSL color to an RGB color
-/proc/hsl2rgb(hue, saturation, lightness)
-	var/red;var/green;var/blue;
-	if(saturation == 0)
-		red = lightness * 255
-		green = red
-		blue = red
 	else
-		var/a;var/b;
-		if(lightness < 0.5)
-			b = lightness*(1+saturation)
+		if(bpc & HEAD)
+			covered_parts |= list(BODY_ZONE_HEAD)
+		if(bpc & CHEST)
+			covered_parts |= list(BODY_ZONE_CHEST)
+		if(bpc & GROIN)
+			covered_parts |= list(BODY_ZONE_CHEST)
+
+		if(bpc & ARMS)
+			covered_parts |= list(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM)
 		else
-			b = (lightness+saturation) - (saturation*lightness)
-		a = 2*lightness - b
+			if(bpc & ARM_LEFT)
+				covered_parts |= list(BODY_ZONE_L_ARM)
+			if(bpc & ARM_RIGHT)
+				covered_parts |= list(BODY_ZONE_R_ARM)
 
-		red = round(255 * hue2rgb(a, b, hue+(1/3)))
-		green = round(255 * hue2rgb(a, b, hue))
-		blue = round(255 * hue2rgb(a, b, hue-(1/3)))
+		if(bpc & HANDS)
+			covered_parts |= list(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM)
+		else
+			if(bpc & HAND_LEFT)
+				covered_parts |= list(BODY_ZONE_L_ARM)
+			if(bpc & HAND_RIGHT)
+				covered_parts |= list(BODY_ZONE_R_ARM)
 
-	return list(red, green, blue)
+		if(bpc & LEGS)
+			covered_parts |= list(BODY_ZONE_L_LEG,BODY_ZONE_R_LEG)
+		else
+			if(bpc & LEG_LEFT)
+				covered_parts |= list(BODY_ZONE_L_LEG)
+			if(bpc & LEG_RIGHT)
+				covered_parts |= list(BODY_ZONE_R_LEG)
 
-/// Converts an ABH color to an RGB color
-/proc/hue2rgb(a, b, hue)
-	if(hue < 0)
-		hue++
-	else if(hue > 1)
-		hue--
-	if(6*hue < 1)
-		return (a+(b-a)*6*hue)
-	if(2*hue < 1)
-		return b
-	if(3*hue < 2)
-		return (a+(b-a)*((2/3)-hue)*6)
-	return a
+		if(bpc & FEET)
+			covered_parts |= list(BODY_ZONE_L_LEG,BODY_ZONE_R_LEG)
+		else
+			if(bpc & FOOT_LEFT)
+				covered_parts |= list(BODY_ZONE_L_LEG)
+			if(bpc & FOOT_RIGHT)
+				covered_parts |= list(BODY_ZONE_R_LEG)
 
 /// Very ugly, BYOND doesn't support unix time and rounding errors make it really hard to convert it to BYOND time. returns "YYYY-MM-DD" by default
 /proc/unix2date(timestamp, seperator = "-")
@@ -418,19 +402,19 @@
 /// Converts a text color like "red" to a hex color ("#FF0000")
 /proc/color2hex(color)	//web colors
 	if(!color)
-		return "#000000"
+		return COLOR_BLACK
 
 	switch(color)
 		if("white")
-			return "#FFFFFF"
+			return COLOR_WHITE
 		if("black")
-			return "#000000"
+			return COLOR_BLACK
 		if("gray")
-			return "#808080"
+			return COLOR_GRAY
 		if("brown")
 			return "#A52A2A"
 		if("red")
-			return "#FF0000"
+			return COLOR_RED
 		if("darkred")
 			return "#8B0000"
 		if("crimson")
@@ -438,27 +422,27 @@
 		if("orange")
 			return "#FFA500"
 		if("yellow")
-			return "#FFFF00"
+			return COLOR_YELLOW
 		if("green")
-			return "#008000"
+			return COLOR_GREEN
 		if("lime")
-			return "#00FF00"
+			return COLOR_VIBRANT_LIME
 		if("darkgreen")
 			return "#006400"
 		if("cyan")
-			return "#00FFFF"
+			return COLOR_CYAN
 		if("blue")
-			return "#0000FF"
+			return COLOR_BLUE
 		if("navy")
-			return "#000080"
+			return COLOR_NAVY
 		if("teal")
-			return "#008080"
+			return COLOR_TEAL
 		if("purple")
-			return "#800080"
+			return COLOR_PURPLE
 		if("indigo")
 			return "#4B0082"
 		else
-			return "#FFFFFF"
+			return COLOR_WHITE
 
 /**
 This is a weird one: It returns a list of all var names found in the string. These vars must be in the [var_name] format
@@ -466,7 +450,7 @@ It's only a proc because it's used in more than one place
 
 Takes a string and a datum. The string is well, obviously the string being checked. The datum is used as a source for var names, to check validity. Otherwise every single word could technically be a variable!
 */
-/proc/string2listofvars(var/t_string, var/datum/var_source)
+/proc/string2listofvars(t_string, datum/var_source)
 	if(!t_string || !var_source)
 		return list()
 
@@ -498,14 +482,15 @@ Takes a string and a datum. The string is well, obviously the string being check
 	var/length = length(string)
 	if((length != 7 && length != 9) || length != length_char(string))
 		return color_matrix_identity()
-	var/r = hex2num(copytext(string, 2, 4))/255
-	var/g = hex2num(copytext(string, 4, 6))/255
-	var/b = hex2num(copytext(string, 6, 8))/255
+	// For runtime safety
+	. = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1, 0,0,0,0)
+	var/list/color = rgb2num(string)
+	var/r = color[1] / 255
+	var/g = color[2] / 255
+	var/b = color[3] / 255
 	var/a = 1
-	if(length == 9)
-		a = hex2num(copytext(string, 8, 10))/255
-	if(!isnum_safe(r) || !isnum_safe(g) || !isnum_safe(b) || !isnum_safe(a))
-		return color_matrix_identity()
+	if(length(color) == 4)
+		a = color[4] / 255
 	return list(r,0,0,0, 0,g,0,0, 0,0,b,0, 0,0,0,a, 0,0,0,0)
 
 /// Will drop all values not on the diagonal

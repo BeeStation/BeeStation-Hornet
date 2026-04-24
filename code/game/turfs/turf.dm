@@ -4,11 +4,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 CREATION_TEST_IGNORE_SELF(/turf)
 
 /turf
+	abstract_type = /turf
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
-	flags_1 = CAN_BE_DIRTY_1
 	uses_integrity = TRUE
-
 
 	///what /mob/oranges_ear instance is already assigned to us as there should only ever be one.
 	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
@@ -87,6 +86,10 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	/// but is now destroyed, this will preserve the value.
 	/// See __DEFINES/construction.dm for RCD_MEMORY_*.
 	var/rcd_memory
+
+	/// How pathing algorithm will check if this turf is passable by itself (not including content checks). By default it's just density check.
+	/// WARNING: Currently to use a density shortcircuiting this does not support dense turfs with special allow through function
+	var/pathing_pass_method = TURF_PATHING_PASS_DENSITY
 
 	///whether or not this turf forces movables on it to have no gravity (unless they themselves have forced gravity)
 	var/force_no_gravity = FALSE
@@ -171,12 +174,13 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	for(var/atom/movable/content as anything in src)
 		Entered(content, null)
 
-	var/area/A = loc
-	if(fullbright_type && IS_DYNAMIC_LIGHTING(A))
-		if (fullbright_type == FULLBRIGHT_STARLIGHT)
+	// Same optimization principle used in /atom/movable/Initialize()
+	var/area/our_area = loc
+	if(fullbright_type)
+		if(fullbright_type == FULLBRIGHT_STARLIGHT && !our_area.has_starlight_overlay)
 			add_overlay(GLOB.starlight_overlay)
-		else
-			add_overlay(GLOB.fullbright_overlay)
+	else if(!our_area.area_has_base_lighting)
+		add_overlay(GLOB.fullbright_overlay)
 
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src, KILL_EXCITED)
@@ -201,8 +205,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 
 		custom_materials = null //Null the list to prepare for applying the materials properly
 		set_custom_materials(temp_list)
-
-	ComponentInitialize()
 
 	if(uses_integrity)
 		atom_integrity = max_integrity
@@ -274,9 +276,11 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		return
 
 	//move the turf
-	old_area.turfs_to_uncontain += src
+	LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, z, list())
+	LISTASSERTLEN(new_area.turfs_by_zlevel, z, list())
+	old_area.turfs_to_uncontain_by_zlevel[z] += src
+	new_area.turfs_by_zlevel[z] += src
 	new_area.contents += src
-	new_area.contained_turfs += src
 
 	//changes to make after turf has moved
 	on_change_area(old_area, new_area)
@@ -303,20 +307,42 @@ CREATION_TEST_IGNORE_SELF(/turf)
  * * exclude_mobs - If TRUE, ignores dense mobs on the turf.
  * * source_atom - If this is not null, will check whether any contents on the turf can block this atom specifically. Also ignores itself on the turf.
  * * ignore_atoms - Check will ignore any atoms in this list. Useful to prevent an atom from blocking itself on the turf.
+ * * type_list - are we checking for types of atoms to ignore and not physical atoms
  */
-/turf/proc/is_blocked_turf(exclude_mobs = FALSE, source_atom = null, list/ignore_atoms)
+/turf/proc/is_blocked_turf(exclude_mobs = FALSE, source_atom = null, list/ignore_atoms, type_list = FALSE)
 	if(density)
 		return TRUE
 
 	for(var/atom/movable/movable_content as anything in contents)
-		// We don't want to block ourselves or consider any ignored atoms.
-		if((movable_content == source_atom) || (movable_content in ignore_atoms))
+		// We don't want to block ourselves
+		if((movable_content == source_atom))
 			continue
+		// don't consider ignored atoms or their types
+		if(length(ignore_atoms))
+			if(!type_list && (movable_content in ignore_atoms))
+				continue
+			else if(type_list && is_type_in_list(movable_content, ignore_atoms))
+				continue
+
 		// If the thing is dense AND we're including mobs or the thing isn't a mob AND if there's a source atom and
 		// it cannot pass through the thing on the turf,  we consider the turf blocked.
 		if(movable_content.density && (!exclude_mobs || !ismob(movable_content)))
 			if(source_atom && movable_content.CanPass(source_atom, get_dir(src, source_atom)))
 				continue
+			return TRUE
+	return FALSE
+
+/**
+ * Checks whether the specified turf is blocked by something dense inside it, but ignores anything with the climbable trait
+ *
+ * Works similar to is_blocked_turf(), but ignores climbables and has less options. Primarily added for jaunting checks
+ */
+/turf/proc/is_blocked_turf_ignore_climbable()
+	if(density)
+		return TRUE
+
+	for(var/atom/movable/atom_content as anything in contents)
+		if(atom_content.density && !(atom_content.flags_1 & ON_BORDER_1) && !HAS_TRAIT(atom_content, TRAIT_CLIMBABLE))
 			return TRUE
 	return FALSE
 
@@ -328,17 +354,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		if(A.density && A.anchored)
 			return 1
 	return 0
-
-/turf/proc/handleRCL(obj/item/rcl/C, mob/user)
-	if(C.loaded)
-		for(var/obj/structure/cable/LC in src)
-			if(!LC.d1 || !LC.d2)
-				LC.handlecable(C, user)
-				return
-		C.loaded.place_turf(src, user)
-		if(C.wiring_gui_menu)
-			C.wiringGuiUpdate(user)
-		C.is_empty(user)
 
 //There's a lot of QDELETED() calls here if someone can figure out how to optimize this but not runtime when something gets deleted by a Bump/CanPass/Cross call, lemme know or go ahead and fix this mess - kevinz000
 /turf/Enter(atom/movable/mover)
@@ -352,19 +367,21 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	if(canPassSelf || (mover.movement_type & PHASING))
 		for(var/atom/movable/thing as anything in contents)
 			if(QDELETED(mover))
-				return FALSE		//We were deleted, do not attempt to proceed with movement.
+				return FALSE //We were deleted, do not attempt to proceed with movement.
 			if(thing == mover || thing == mover.loc) // Multi tile objects and moving out of other objects
 				continue
 			if(!thing.Cross(mover))
-				if(QDELETED(mover))		//Mover deleted from Cross/CanPass, do not proceed.
+				if(QDELETED(mover)) //Mover deleted from Cross/CanPass, do not proceed.
 					return FALSE
 				if((mover.movement_type & PHASING))
 					mover.Bump(thing)
+					if(QDELETED(mover)) //deleted from Bump()
+						return FALSE
 					continue
 				else
 					if(!firstbump || ((thing.layer > firstbump.layer || thing.flags_1 & ON_BORDER_1) && !(firstbump.flags_1 & ON_BORDER_1)))
 						firstbump = thing
-	if(QDELETED(mover))					//Mover deleted from Cross/CanPass/Bump, do not proceed.
+	if(QDELETED(mover)) //Mover deleted from Cross/CanPass/Bump, do not proceed.
 		return FALSE
 	if(!canPassSelf)	//Even if mover is unstoppable they need to bump us.
 		firstbump = src
@@ -444,7 +461,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 //////////////////////////////
 
 //Distance associates with all directions movement
-/turf/proc/Distance(var/turf/T)
+/turf/proc/Distance(turf/T)
 	return get_dist(src,T)
 
 //  This Distance proc assumes that only cardinal movement is
@@ -537,7 +554,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		clear_reagents_to_vomit_pool(M, V, purge)
 
 /proc/clear_reagents_to_vomit_pool(mob/living/carbon/M, obj/effect/decal/cleanable/vomit/V, purge = FALSE)
-	var/obj/item/organ/stomach/belly = M.getorganslot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/stomach/belly = M.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(!belly?.reagents.total_volume)
 		return
 	var/chemicals_lost = M.reagents.total_volume / 10
@@ -557,19 +574,21 @@ CREATION_TEST_IGNORE_SELF(/turf)
  * Returns adjacent turfs to this turf that are reachable, in all cardinal directions
  *
  * Arguments:
- * * pathfinding_atom: The movable, if one exists, being used for mobility checks to see what tiles it can reach
- * * ID: An ID card that decides if we can gain access to doors that would otherwise block a turf
+ * * requester: The movable, if one exists, being used for mobility checks to see what tiles it can reach
+ * * access: A list that decides if we can gain access to doors that would otherwise block a turf
  * * simulated_only: Do we only worry about turfs with simulated atmos, most notably things that aren't space?
+ * * no_id: When true, doors with public access will count as impassible
 */
-/turf/proc/reachableAdjacentTurfs(pathfinding_atom, ID, simulated_only)
+/turf/proc/reachableAdjacentTurfs(atom/movable/requester, list/access, simulated_only, no_id = FALSE)
 	var/static/space_type_cache = typecacheof(/turf/open/space)
 	. = list()
 
+	var/datum/can_pass_info/pass_info = new(requester, access, no_id)
 	for(var/iter_dir in GLOB.cardinals)
 		var/turf/turf_to_check = get_step(src,iter_dir)
 		if(!turf_to_check || (simulated_only && space_type_cache[turf_to_check.type]))
 			continue
-		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, pathfinding_atom, ID))
+		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, pass_info))
 			continue
 		. += turf_to_check
 
@@ -590,7 +609,10 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	var/location_sanity = 0
 	while(spawned < to_spawn && location_sanity < 100)
 		var/precision = pick(5, 15 * max_amount)
-		var/turf/chosen_location = pick(get_safe_random_station_turfs())
+		var/turf/chosen_location = get_safe_random_station_turfs()
+		if(!chosen_location)
+			location_sanity++
+			continue
 		if(centered)
 			chosen_location = get_teleport_turf(src, precision) //Using the random teleportation logic here to find a destination turf
 		// We don't want them close to each other - at least 1 tile of seperation
@@ -610,7 +632,8 @@ CREATION_TEST_IGNORE_SELF(/turf)
 /turf/proc/is_holy()
 	if(locate(/obj/effect/blessing) in src)
 		return TRUE
-	if(istype(loc, /area/chapel))
+	if(istype(loc,
+/area/station/service/chapel))
 		return TRUE
 	return FALSE
 
@@ -662,16 +685,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 			continue
 		movable_content.wash(clean_types)
 
-/**
- * Checks whether the specified turf is blocked by something dense inside it, but ignores anything with the climbable trait
- *
- * Works similar to is_blocked_turf(), but ignores climbables and has less options. Primarily added for jaunting checks
- */
-/turf/proc/is_blocked_turf_ignore_climbable()
-	if(density)
-		return TRUE
-
-	for(var/atom/movable/atom_content as anything in contents)
-		if(atom_content.density && !(atom_content.flags_1 & ON_BORDER_1) && !HAS_TRAIT(atom_content, TRAIT_CLIMBABLE))
-			return TRUE
-	return FALSE
+/// Returns whether it is safe for an atom to move across this turf
+/turf/proc/can_cross_safely(atom/movable/crossing)
+	return TRUE

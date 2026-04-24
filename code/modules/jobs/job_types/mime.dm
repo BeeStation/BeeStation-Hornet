@@ -4,14 +4,16 @@
 	department_for_prefs = DEPT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#dddddd"
 
 	outfit = /datum/outfit/job/mime
 
-	base_access = list(ACCESS_THEATRE)
+	base_access = list(
+		ACCESS_THEATRE,
+		ACCESS_SERVICE,
+	)
 	extra_access = list()
 
 	departments = DEPT_BITFLAG_SRV
@@ -19,13 +21,21 @@
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
 
 	display_order = JOB_DISPLAY_ORDER_MIME
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Fool"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/mime
 	)
 
-	minimal_lightup_areas = list(/area/crew_quarters/theatre)
+	minimal_lightup_areas = list(
+/area/station/service/theater)
+
+	manuscript_jobs = list(
+		JOB_NAME_MIME,
+		JOB_NAME_COOK // the cultural power of french cuisine
+	)
 
 /datum/job/mime/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
@@ -41,7 +51,7 @@
 	jobtype = /datum/job/mime
 
 	id = /obj/item/card/id/job/mime
-	belt = /obj/item/modular_computer/tablet/pda/mime
+	belt = /obj/item/modular_computer/tablet/pda/preset/mime
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/mime
 	mask = /obj/item/clothing/mask/gas/mime
@@ -58,17 +68,16 @@
 	satchel = /obj/item/storage/backpack/mime
 
 
-/datum/outfit/job/mime/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/mime/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 	// Start our mime out with a vow of silence and the ability to break (or make) it
 	if(H.mind)
 		var/datum/action/spell/vow_of_silence/vow = new(H.mind)
 		vow.Grant(H)
-		H.mind.miming = 1
 
 /obj/item/book/mimery
 	name = "Guide to Dank Mimery"
@@ -123,7 +132,7 @@
 		return FALSE
 	if(!user.is_holding(src))
 		return FALSE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	if(!user.mind)
 		return FALSE

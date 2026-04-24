@@ -9,14 +9,13 @@
  *
  */
 /datum/heretic_knowledge
+	abstract_type = /datum/heretic_knowledge
 	/// Name of the knowledge, shown to the heretic.
 	var/name = "Basic knowledge"
 	/// Description of the knowledge, shown to the heretic. Describes what it unlocks / does.
 	var/desc = "Basic knowledge of forbidden arts."
 	/// What's shown to the heretic when the knowledge is aquired
 	var/gain_text
-	/// The abstract parent type of the knowledge, used in determine mutual exclusivity in some cases
-	var/datum/heretic_knowledge/abstract_parent_type = /datum/heretic_knowledge
 	/// The knowledge this unlocks next after learning.
 	var/list/next_knowledge = list()
 	/// What knowledge is incompatible with this. Knowledge in this list cannot be researched with this current knowledge.
@@ -157,7 +156,7 @@
  * A knowledge subtype that grants the heretic a certain spell.
  */
 /datum/heretic_knowledge/spell
-	abstract_parent_type = /datum/heretic_knowledge/spell
+	abstract_type = /datum/heretic_knowledge/spell
 	/// Spell path we add to the heretic. Type-path.
 	var/datum/action/spell/spell_to_add
 	/// The spell we actually created.
@@ -185,6 +184,7 @@
  * created at once.
  */
 /datum/heretic_knowledge/limited_amount
+	abstract_type = /datum/heretic_knowledge/limited_amount
 	/// The limit to how many items we can create at once.
 	var/limit = 1
 	/// A list of weakrefs to all items we've created.
@@ -232,6 +232,7 @@
  * A knowledge subtype lets the heretic curse someone with a ritual.
  */
 /datum/heretic_knowledge/curse
+	abstract_type = /datum/heretic_knowledge/curse
 	/// The duration of the curse
 	var/duration = 5 MINUTES
 	/// Cache list of fingerprints (actual fingerprint strings) we have from our current ritual
@@ -240,7 +241,7 @@
 /datum/heretic_knowledge/curse/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	fingerprints = list()
 	for(var/atom/requirements as anything in atoms)
-		fingerprints[requirements.return_fingerprints()] = 1
+		fingerprints[GET_ATOM_FINGERPRINTS(requirements)] = 1
 	list_clear_nulls(fingerprints)
 
 	// No fingerprints? No ritual
@@ -258,7 +259,7 @@
 		if(!istype(carbon_to_check, /mob/living/carbon/human))
 			continue
 		var/mob/living/carbon/human/human_to_check = carbon_to_check
-		if(fingerprints[md5(human_to_check.dna.uni_identity)])
+		if(fingerprints[md5(human_to_check.dna.unique_identity)])
 			compiled_list |= human_to_check.real_name
 			compiled_list[human_to_check.real_name] = human_to_check
 
@@ -295,6 +296,7 @@
  * A knowledge subtype lets the heretic summon a monster with the ritual.
  */
 /datum/heretic_knowledge/summon
+	abstract_type = /datum/heretic_knowledge/summon
 	/// Typepath of a mob to summon when we finish the recipe.
 	var/mob/living/mob_to_summon
 
@@ -308,23 +310,30 @@
 	animate(summoned, 10 SECONDS, alpha = 155)
 
 	message_admins("A [summoned.name] is being summoned by [ADMIN_LOOKUPFLW(user)] in [ADMIN_COORDJMP(summoned)].")
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a [summoned.real_name]?", ROLE_HERETIC, null, 10 SECONDS, summoned)
-	if(!LAZYLEN(candidates))
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_HERETIC,
+		poll_time = 10 SECONDS,
+		jump_target = summoned,
+		role_name_text = summoned.real_name,
+		alert_pic = summoned,
+		amount_to_pick = 1,
+	)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
+	if(!candidate)
 		loc.balloon_alert(user, "Ritual failed, no ghosts")
 		animate(summoned, 0.5 SECONDS, alpha = 0)
 		QDEL_IN(summoned, 0.6 SECONDS)
 		return FALSE
 
-	var/mob/dead/observer/picked_candidate = pick(candidates)
 	// Ok let's make them an interactable mob now, since we got a ghost
 	summoned.alpha = 255
 	summoned.notransform = FALSE
 	summoned.move_resist = initial(summoned.move_resist)
 
 	summoned.ghostize(FALSE)
-	summoned.key = picked_candidate.key
+	summoned.key = candidate.key
 
-	log_game("[key_name(user)] created a [summoned.name], controlled by [key_name(picked_candidate)].")
+	log_game("[key_name(user)] created a [summoned.name], controlled by [key_name(candidate)].")
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a [summoned.name], [ADMIN_LOOKUPFLW(summoned)].")
 
 	var/datum/antagonist/heretic_monster/heretic_monster = summoned.mind.add_antag_datum(/datum/antagonist/heretic_monster)
@@ -430,6 +439,7 @@
  * The special final tier of knowledges that unlocks ASCENSION.
  */
 /datum/heretic_knowledge/final
+	abstract_type = /datum/heretic_knowledge/final
 	cost = 2
 	priority = MAX_KNOWLEDGE_PRIORITY + 1 // Yes, the final ritual should be ABOVE the max priority.
 	required_atoms = list(/mob/living/carbon/human = 3)
@@ -456,6 +466,7 @@
 /datum/heretic_knowledge/final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	if(!can_be_invoked(heretic_datum))
+		to_chat(user, span_warning("You need at least 3 sacrifices to invoke this ritual!"))
 		return FALSE
 
 	// Remove all non-dead humans from the atoms list.

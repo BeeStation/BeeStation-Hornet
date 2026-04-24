@@ -24,11 +24,11 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 ))
 
 //Converts a list of turfs into TGM file format
-/proc/convert_map_to_tgm(var/list/map,\
-						var/save_flag = SAVE_ALL, \
-						var/shuttle_area_flag = SAVE_SHUTTLEAREA_DONTCARE, \
-						var/list/vars_to_save = list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount"),\
-						var/list/obj_blacklist = list())
+/proc/convert_map_to_tgm(list/map,\
+						save_flag = SAVE_ALL, \
+						shuttle_area_flag = SAVE_SHUTTLEAREA_DONTCARE, \
+						list/vars_to_save = list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount"),\
+						list/obj_blacklist = list())
 	//Calculate the bounds
 	var/minx = 1024
 	var/miny = 1024
@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 				location = /area/template_noop
 				objects = list()
 			//Ignore things in space, must be a space turf and the area has to be empty space
-			else if(istype(place, /turf/open/space) && istype(AR, /area/space) && !(save_flag & SAVE_SPACE))
+			else if(istype(place, /turf/open/space) && istype(AR, /area/misc/space) && !(save_flag & SAVE_SPACE))
 				place = /turf/template_noop
 				location = /area/template_noop
 			//Stuff to add
@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	return "[header][contents]"
 
 //Sorts maps in terms of their positions, so scrambled / odd shaped maps can be saved
-/proc/sort_map(var/list/map, minx, miny, maxx, maxy)
+/proc/sort_map(list/map, minx, miny, maxx, maxy)
 	var/width = maxx - minx + 1
 	var/height = maxy - miny + 1
 	var/allTurfs = new/list(width, height)
@@ -140,7 +140,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	return allTurfs
 
 //vars_to_save = list() to save all vars
-/proc/generate_tgm_metadata(var/atom/O, var/list/vars_to_save = list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount"))
+/proc/generate_tgm_metadata(atom/O, list/vars_to_save = list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount"))
 	var/dat = ""
 	var/data_to_add = list()
 	for(var/V in O.vars)

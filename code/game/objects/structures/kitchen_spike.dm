@@ -48,6 +48,10 @@
 	max_integrity = 250
 	move_resist = MOVE_FORCE_STRONG
 
+/obj/structure/kitchenspike/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_DANGEROUS_BUCKLE, INNATE_TRAIT)
+
 /obj/structure/kitchenspike/attack_paw(mob/user)
 	return attack_hand(user)
 
@@ -84,7 +88,6 @@
 			m180.Turn(180)
 			animate(L, transform = m180, time = 3)
 			L.pixel_y = L.base_pixel_y + PIXEL_Y_OFFSET_LYING
-			ADD_TRAIT(user, TRAIT_MOVE_UPSIDE_DOWN, REF(src))
 	else if (has_buckled_mobs())
 		for(var/mob/living/L in buckled_mobs)
 			user_unbuckle_mob(L, user)
@@ -130,7 +133,6 @@
 	m180.Turn(180)
 	animate(M, transform = m180, time = 3)
 	M.pixel_y = M.base_pixel_y + PIXEL_Y_OFFSET_LYING
-	REMOVE_TRAIT(M, TRAIT_MOVE_UPSIDE_DOWN, REF(src))
 	M.adjustBruteLoss(30)
 	src.visible_message(span_danger("[M] falls free of [src]!"))
 	unbuckle_mob(M,force=1)

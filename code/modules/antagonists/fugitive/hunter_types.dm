@@ -37,4 +37,4 @@ GLOBAL_LIST_INIT(hunter_types, list(
 	greet_message = span_bold("You are a bounty hunter, chasing profits through the capture of dangerous and desired people across the galaxy.") + "\n" +\
 	span_bold("You've been tracking this bounty for a while, and you've nearly caught up to them. Now's your chance!")
 	ship_type = /datum/map_template/shuttle/hunter/bounty
-	outfit = list(/datum/outfit/bounty/armor, /datum/outfit/bounty/hook, /datum/outfit/bounty/synth)
+	outfit = list(/datum/outfit/bounty/operative, /datum/outfit/bounty/gunner, /datum/outfit/bounty/technician)

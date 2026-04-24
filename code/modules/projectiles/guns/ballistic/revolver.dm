@@ -16,6 +16,7 @@
 	fire_rate = 1.5 //slower than normal guns due to the damage factor
 	var/spin_delay = 10
 	var/recent_spin = 0
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/gun/ballistic/revolver/chamber_round(spin_cylinder = TRUE)
 	if(spin_cylinder)
@@ -106,6 +107,7 @@
 		"The Peacemaker" = "detective_peacemaker",
 		"Black Panther" = "detective_panther"
 	)
+	trade_flags = NONE
 
 /obj/item/gun/ballistic/revolver/detective/cowboy
 	name = "sheriff's revolver"
@@ -134,7 +136,7 @@
 	. = ..()
 
 /obj/item/gun/ballistic/revolver/detective/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
-	if(magazine.caliber != initial(magazine.caliber))
+	if (chambered && chambered.caliber == "357")
 		if(prob(70 - (magazine.ammo_count() * 10)))	//minimum probability of 10, maximum of 60
 			playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
 			to_chat(user, span_userdanger("[src] blows up in your face!"))
@@ -147,7 +149,7 @@
 /obj/item/gun/ballistic/revolver/detective/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
 		return TRUE
-	if(magazine.caliber == "38")
+	if("38" in magazine.caliber)
 		to_chat(user, span_notice("You begin to reinforce the barrel of [src]..."))
 		if(magazine.ammo_count())
 			afterattack(user, user)	//you know the drill
@@ -157,7 +159,7 @@
 			if(magazine.ammo_count())
 				to_chat(user, span_warning("You can't modify it!"))
 				return TRUE
-			magazine.caliber = "357"
+			magazine.caliber = list("357")
 			src.caliber = magazine.caliber
 			fire_rate = 1 //worse than a nromal .357
 			fire_sound = 'sound/weapons/revolver357shot.ogg'
@@ -173,7 +175,7 @@
 			if(magazine.ammo_count())
 				to_chat(user, span_warning("You can't modify it!"))
 				return
-			magazine.caliber = "38"
+			magazine.caliber = list("38")
 			src.caliber = magazine.caliber
 			fire_rate = initial(fire_rate)
 			fire_sound = 'sound/weapons/revolver38shot.ogg'
@@ -213,6 +215,7 @@
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism requiring you to spin the chamber before each trigger pull."
 	icon_state = "russianrevolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rus357
+	trade_flags = NONE
 	var/spun = FALSE
 
 /obj/item/gun/ballistic/revolver/russian/do_spin()
@@ -286,6 +289,8 @@
 /obj/item/gun/ballistic/revolver/russian/soul
 	name = "cursed Russian revolver"
 	desc = "To play with this revolver requires wagering your very soul."
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/gun/ballistic/revolver/russian/soul/shoot_self(mob/living/user)
 	..()
@@ -323,6 +328,7 @@
 	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
+	can_gunpoint = FALSE
 
 /obj/item/gun/ballistic/revolver/mime/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, span_warning("Your fingergun is out of ammo!"))
@@ -333,4 +339,5 @@
 
 //The Lethal Version from Advanced Mimery
 /obj/item/gun/ballistic/revolver/mime/magic
+	can_gunpoint = TRUE
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/mime/lethal

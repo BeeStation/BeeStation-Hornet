@@ -12,13 +12,14 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb_continuous = list("warns", "cautions", "smashes")
 	attack_verb_simple = list("warn", "caution", "smash")
+	custom_price = 15
 
 /obj/item/choice_beacon
 	name = "choice beacon"
 	desc = "Hey, why are you viewing this?!! Please let CentCom know about this odd occurrence."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-blue"
-	item_state = "radio"
+	inhand_icon_state = "radio"
 	var/uses = 1
 
 /obj/item/choice_beacon/attack_self(mob/user)
@@ -39,7 +40,7 @@
 	var/list/display_names = generate_display_names()
 	if(!display_names.len)
 		return
-	var/choice = input(M,"Which item would you like to order?","Select an Item") as null|anything in sort_list(display_names)
+	var/choice = tgui_input_list(M,"Which item would you like to order?","Select an Item", sort_list(display_names))
 	if(!choice || !M.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 
@@ -81,7 +82,7 @@
 	if(!item_list.len)
 		return
 	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE, tooltips = TRUE)
-	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated && in_range(M,src))
 		var/list/temp_list = typesof(/obj/item/storage/box/hero)
 		for(var/V in temp_list)
 			var/atom/A = V
@@ -123,6 +124,19 @@
 	new /obj/item/clothing/under/rank/civilian/curator/treasure_hunter(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/melee/curator_whip(src)
+
+/obj/item/storage/box/hero/witchhunter // I SWEAR this isn't just the chaplains stuff!!!!
+	name = "Monster-Hunter Kit - 1735"
+	item_icon_state = "witchhunter"
+	info_text = "Monster-Hunter Kit - 1735. \n" + span_notice("The garb can hold a variety of relevant items.\nComes with a crucifix that wards against hexes, and a few premium stakes.")
+
+/obj/item/storage/box/hero/witchhunter/PopulateContents()
+	new /obj/item/clothing/suit/armor/monsterhunter(src)
+	new /obj/item/clothing/head/helmet/monsterhunter_hat(src)
+	new /obj/item/clothing/neck/crucifix(src)
+	new	/obj/item/stake/hardened/silver(src)
+	new /obj/item/stake/hardened/silver(src)
+	new /obj/item/reagent_containers/cup/glass/bottle/garlic_extract(src)
 
 /obj/item/storage/box/hero/astronaut
 	name = "First Man on the Moon - 1960's."
@@ -216,7 +230,7 @@
 	if(!item_list.len)
 		return
 	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE, tooltips = TRUE)
-	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated && in_range(M,src))
 		var/list/temp_list = typesof(/obj/item/storage/box/magic)
 		for(var/V in temp_list)
 			var/atom/A = V
@@ -352,7 +366,7 @@
 	return ..()
 
 /obj/item/clothing/head/hats/tophat/bluespace/container_resist(mob/living/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		to_chat(user, span_warning("You can't get out while you're restrained like this!"))
 		return
 	user.changeNext_move(CLICK_CD_BREAKOUT)
@@ -374,6 +388,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb_continuous = list("skubs")
 	attack_verb_simple = list("skub")
+	custom_price = 15 // Useless fucking thing, this should be removed
 
 /obj/item/skub/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] has declared themself as anti-skub! The skub tears them apart!"))
@@ -401,7 +416,7 @@
 	name = "Upgrade Wand"
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "nothingwand"
-	item_state = "wand"
+	inhand_icon_state = "wand"
 	w_class = WEIGHT_CLASS_SMALL
 	var/used = FALSE
 
@@ -412,8 +427,12 @@
 	var/mob_choice = /mob/living/basic/pet/dog/corgi/exoticcorgi
 
 /obj/item/choice_beacon/pet/generate_options(mob/living/M)
-	var/input_name = stripped_input(M, "What would you like your new pet to be named?", "New Pet Name", default_name, MAX_NAME_LEN)
-	if(!input_name)
+	var/input_name = tgui_input_text(M, "What would you like your new pet to be named?", "New Pet Name", default_name, MAX_NAME_LEN)
+	if(!input_name) // no input
+		to_chat(M, span_warning("You must enter a name for your pet!"))
+		return
+	if(CHAT_FILTER_CHECK(input_name)) // check for forbidden words
+		to_chat(M, span_warning("Your pet name contains a forbidden word."))
 		return
 	spawn_mob(M,input_name)
 	uses--
@@ -439,12 +458,12 @@
 /obj/item/choice_beacon/pet/cat
 	name = "cat delivery beacon"
 	default_name = "Tom"
-	mob_choice = /mob/living/simple_animal/pet/cat
+	mob_choice = /mob/living/basic/pet/cat
 
 /obj/item/choice_beacon/pet/mouse
 	name = "mouse delivery beacon"
 	default_name = "Jerry"
-	mob_choice = /mob/living/simple_animal/mouse
+	mob_choice = /mob/living/basic/mouse
 
 /obj/item/choice_beacon/pet/corgi
 	name = "corgi delivery beacon"
@@ -464,7 +483,7 @@
 /obj/item/choice_beacon/pet/ems
 	name = "emotional support animal delivery beacon"
 	default_name = "Hugsie"
-	mob_choice = /mob/living/simple_animal/pet/cat/kitten
+	mob_choice = /mob/living/basic/pet/cat/kitten
 
 /obj/item/choice_beacon/pet/pingu
 	name = "penguin delivery beacon"

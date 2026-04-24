@@ -8,15 +8,15 @@
 #define SEC_LEVEL_YELLOW 2
 // Security level is cyan. (station is undergoing stupid virologist syndrome)
 #define SEC_LEVEL_CYAN 3
-/// Security level is red. (hostile threats)
+/// Security level is red. (active threat to the station's function)
 #define SEC_LEVEL_RED 4
+// Security level is black. (full Mobilisation / boarding / hostile takeover imminent)
+#define SEC_LEVEL_BLACK 5
 
 // From this point on, the security level cannot be lowered by station personnel. (only admins can change it)
 
-// Security level is gamma. (ERT enroute, station is in a critical situation)
-#define SEC_LEVEL_GAMMA 5
-// Security level is black. (under attack)
-#define SEC_LEVEL_BLACK 6
+// Security level is gamma. (Centcom takeover)
+#define SEC_LEVEL_GAMMA 6
 // Security level is epsilon. (you fucked up, centcom is angry)
 #define SEC_LEVEL_EPSILON 7
 // Security level is lambda. (heretic ascension, cult win, magic shit won)

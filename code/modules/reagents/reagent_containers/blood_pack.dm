@@ -4,7 +4,7 @@
 	icon = 'icons/obj/bloodpack.dmi'
 	icon_state = "bloodpack"
 	volume = 400
-	var/blood_type = null
+	var/datum/blood_type/blood_type = null
 	var/unique_blood = null
 	var/labelled = 0
 	reagent_flags = TRANSPARENT | ABSOLUTELY_GRINDABLE | INJECTABLE | DRAWABLE
@@ -13,7 +13,7 @@
 /obj/item/reagent_containers/blood/Initialize(mapload)
 	. = ..()
 	if(blood_type != null)
-		reagents.add_reagent(unique_blood ? unique_blood : /datum/reagent/blood, 400, list("viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"resistances"=null,"trace_chem"=null))
+		reagents.add_reagent(unique_blood ? unique_blood : /datum/reagent/blood, 400, list("viruses"=null,"blood_DNA"=null,"blood_type"=get_blood_type(blood_type),"resistances"=null,"trace_chem"=null))
 		update_icon()
 
 /obj/item/reagent_containers/blood/examine(mob/user)
@@ -39,7 +39,7 @@
 /obj/item/reagent_containers/blood/proc/update_pack_name()
 	if(!labelled)
 		if(blood_type)
-			name = "blood pack - [blood_type]"
+			name = "blood pack[blood_type ? " - [unique_blood ? blood_type : blood_type.name]" : null]"
 		else
 			name = "blood pack"
 
@@ -48,35 +48,35 @@
 
 /obj/item/reagent_containers/blood/random/Initialize(mapload)
 	icon_state = "bloodpack"
-	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-", "L")
+	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-", "L", "E", "Coolant")
 	return ..()
 
-/obj/item/reagent_containers/blood/APlus
+/obj/item/reagent_containers/blood/a_plus
 	blood_type = "A+"
 
-/obj/item/reagent_containers/blood/AMinus
+/obj/item/reagent_containers/blood/a_minus
 	blood_type = "A-"
 
-/obj/item/reagent_containers/blood/BPlus
+/obj/item/reagent_containers/blood/b_plus
 	blood_type = "B+"
 
-/obj/item/reagent_containers/blood/BMinus
+/obj/item/reagent_containers/blood/b_minus
 	blood_type = "B-"
 
-/obj/item/reagent_containers/blood/OPlus
+/obj/item/reagent_containers/blood/o_plus
 	blood_type = "O+"
 
-/obj/item/reagent_containers/blood/OMinus
+/obj/item/reagent_containers/blood/o_minus
 	blood_type = "O-"
 
 /obj/item/reagent_containers/blood/lizard
 	blood_type = "L"
 
 /obj/item/reagent_containers/blood/ethereal
-	labelled = 1
-	name = "blood pack - LE"
-	blood_type = "LE"
-	unique_blood = /datum/reagent/consumable/liquidelectricity
+	blood_type = "E"
+
+/obj/item/reagent_containers/blood/synthetic
+	blood_type = "Coolant"
 
 /obj/item/reagent_containers/blood/oozeling
 	labelled = 1
@@ -88,7 +88,7 @@
 	blood_type = "U"
 
 /obj/item/reagent_containers/blood/attackby(obj/item/I, mob/user, params)
-	if (istype(I, /obj/item/pen) || istype(I, /obj/item/toy/crayon))
+	if(istype(I, /obj/item/pen) || istype(I, /obj/item/toy/crayon))
 		if(!user.is_literate())
 			to_chat(user, span_notice("You scribble illegibly on the label of [src]!"))
 			return
@@ -105,3 +105,58 @@
 			update_pack_name()
 	else
 		return ..()
+
+/obj/item/reagent_containers/blood/attack(mob/living/victim, mob/living/attacker, params)
+	if(!can_drink(victim, attacker))
+		return
+
+	var/to_feed = reagents.total_volume
+
+	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(victim)
+
+	if(victim != attacker)
+		attacker.visible_message(
+			span_notice("[attacker] puts \the [src] up to [victim]'s mouth."),
+			span_notice("You put \the [src] up to [victim]'s mouth."))
+		if(!do_after(attacker, 5 SECONDS, victim))
+			return
+		attacker.visible_message(
+			span_notice("[attacker] forces [victim] to drink from \the [src]."),
+			span_notice("You force [victim] to drink from \the [src]."))
+
+		reagents.trans_to(victim, to_feed, transfered_by = attacker, method = INGEST)
+
+		// I would add more flavor, but I don't want to make this an antag check
+		if(vampiredatum?.my_clan?.blood_drink_type != VAMPIRE_DRINK_SNOBBY)
+			vampiredatum?.adjust_vitae(to_feed / 4)
+		playsound(victim.loc, 'sound/items/drink.ogg', 30, 1)
+		return TRUE
+
+	if(vampiredatum?.my_clan?.blood_drink_type == VAMPIRE_DRINK_SNOBBY)
+		balloon_alert(victim, "Eugh. Not fresh!")
+		return TRUE
+
+	attacker.visible_message(
+			span_notice("[victim] puts \the [src] up to [victim.p_their()] mouth."),
+			span_notice("You put \the [src] up to your mouth."))
+
+	if(!do_after(victim, 5 SECONDS, attacker, timed_action_flags = IGNORE_USER_LOC_CHANGE, extra_checks = CALLBACK(src, PROC_REF(can_drink), victim, attacker)))
+		return
+
+	victim.visible_message(
+		span_notice("[victim] sucks the contents out of \the [src]!"),
+		span_notice("You feed from \the [src]."))
+
+	reagents.trans_to(victim, to_feed, transfered_by = attacker, method = INGEST)
+	vampiredatum?.adjust_vitae(to_feed / 4)
+	playsound(victim.loc, 'sound/items/drink.ogg', 30, 1)
+
+	return TRUE
+
+/obj/item/reagent_containers/blood/proc/can_drink(mob/living/victim, mob/living/attacker)
+	if(!canconsume(victim, attacker))
+		return FALSE
+	if(!reagents?.total_volume)
+		to_chat(victim, span_warning("[src] is empty!"))
+		return FALSE
+	return TRUE

@@ -1,10 +1,6 @@
 /datum/language/machine
 	name = "Encoded Audio Language"
 	desc = "An efficient language of encoded tones developed by synthetics and cyborgs."
-	speech_verb = "whistles"
-	ask_verb = "chirps"
-	exclaim_verb = "whistles loudly"
-	sing_verb = "whistles melodically"
 	spans = list(SPAN_ROBOT)
 	key = "6"
 	flags = NO_STUTTER
@@ -14,7 +10,16 @@
 
 	icon_state = "eal"
 
-/datum/language/machine/get_random_name()
+/datum/language/machine/get_random_name(
+	gender = NEUTER,
+	name_count = 2,
+	syllable_min = 2,
+	syllable_max = 4,
+	unique = FALSE,
+	force_use_syllables = FALSE,
+)
+	if(force_use_syllables)
+		return ..()
 	if(prob(70))
 		return "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"
 	return pick(GLOB.ai_names)

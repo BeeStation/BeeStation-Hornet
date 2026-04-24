@@ -47,8 +47,8 @@ SUBSYSTEM_DEF(parallax)
 		queued = temp
 		current_run_pointer = 1
 		//Check client count
-		throttle_ghosts = throttle_ghost_pop && length(GLOB.clients) >= throttle_ghost_pop
-		throttle_all = throttle_all_pop && length(GLOB.clients) >= throttle_all_pop
+		throttle_ghosts = throttle_ghost_pop && length(GLOB.clients_unsafe) >= throttle_ghost_pop
+		throttle_all = throttle_all_pop && length(GLOB.clients_unsafe) >= throttle_all_pop
 	//Begin processing the processing queue
 	while(current_run_pointer <= length(currentrun))
 		//Use a pointer, less wasted processing than removing from the list
@@ -86,9 +86,8 @@ SUBSYSTEM_DEF(parallax)
 	update_client_parallax(moving_mob.client)
 
 //We need a client var for optimisation purposes
-/client
-	var/parallax_update_queued = FALSE
-	var/last_parallax_update_tick
+/client/var/parallax_update_queued = FALSE
+/client/var/last_parallax_update_tick
 
 /datum/controller/subsystem/parallax/proc/update_client_parallax(client/updater, force = FALSE)
 	//Already queued for update
@@ -111,5 +110,5 @@ SUBSYSTEM_DEF(parallax)
 	if (!random_colour_assigned)
 		random_parallax_color = pick(COLOR_TEAL, COLOR_GREEN, COLOR_SILVER, COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE, COLOR_PURPLE)//Special color for random_layer1. Has to be done here so everyone sees the same color.
 		random_colour_assigned = TRUE
-		set_starlight_colour(color_lightness_max(random_parallax_color, 0.75), 0)
+		set_starlight_colour(color_lightness_max(random_parallax_color, 7.5), 0)
 	return random_parallax_color

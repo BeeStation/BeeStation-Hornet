@@ -50,6 +50,15 @@
 /datum/effect_system/spark_spread
 	effect_type = /obj/effect/particle_effect/sparks
 
+/obj/effect/particle_effect/sparks/red // Dark Red light for fun!
+	name = "red sparks"
+	icon_state = "sparks_white"
+	light_color = COLOR_RED_LIGHT
+
+/obj/effect/particle_effect/sparks/blue // Dark Red light for fun!
+	name = "blue sparks"
+	icon_state = "sparks_white"
+	light_color = LIGHT_COLOR_LIGHT_CYAN
 
 //electricity
 
@@ -68,7 +77,7 @@
 /obj/effect/particle_effect/sparks/shield/Initialize(mapload)
 	. = ..()
 	// every particle has a little different color
-	var/generator/gen_color = generator("color", LIGHT_COLOR_WHITE, LIGHT_COLOR_ELECTRIC_CYAN)
+	var/generator/gen_color = generator("color", COLOR_WHITE, LIGHT_COLOR_ELECTRIC_CYAN)
 	var/rand_color = gen_color.Rand()
 	color = rand_color
 	set_light_color(rand_color)

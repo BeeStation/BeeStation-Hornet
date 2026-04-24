@@ -48,7 +48,6 @@
 		damage *= 1.1
 	damage = round(damage / 2) // borgs receive half damage
 	adjustBruteLoss(damage)
-	updatehealth()
 
 	return
 
@@ -70,7 +69,7 @@
 
 /mob/living/silicon/robot/fire_act()
 	if(!on_fire) //Silicons don't gain stacks from hotspots, but hotspots can ignite them
-		IgniteMob()
+		ignite_mob()
 
 
 /mob/living/silicon/robot/emp_act(severity)
@@ -98,7 +97,7 @@
 		for(var/obj/O in held_items)
 			if(prob(60))
 				uneq_module(O)
-				activate_module(pick(module.modules))
+				activate_module(pick(model.modules))
 
 		//Randomizes locked state and compounds it with cover potentially swinging open for an overall 25% chance for cover to fly open
 		if(!opened)
@@ -148,7 +147,7 @@
 	addtimer(CALLBACK(src, PROC_REF(after_emag), user), 1)
 
 /mob/living/silicon/robot/proc/after_emag(mob/user)
-	if(connected_ai?.mind && connected_ai.mind.has_antag_datum(/datum/antagonist/traitor))
+	if(connected_ai?.mind && connected_ai.mind.has_antag_datum(/datum/antagonist/malf_ai))
 		to_chat(src, span_danger("ALERT: Foreign software execution prevented."))
 		logevent("ALERT: Foreign software execution prevented.")
 		to_chat(connected_ai, span_danger("ALERT: Cyborg unit \[[src]] successfully defended against subversion."))
@@ -168,7 +167,7 @@
 	message_admins("[ADMIN_LOOKUPFLW(user)] emagged cyborg [ADMIN_LOOKUPFLW(src)].  Laws overridden.")
 	log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
-	GLOB.lawchanges.Add("[time] <B>:</B> [user.name]([user.key]) emagged [name]([key])")
+	GLOB.lawchanges.Add("[time] <B>:</B> [key_name(user)] emagged [name]([key])")
 	to_chat(src, span_danger("ALERT: Foreign software detected."))
 	logevent("ALERT: Foreign software detected.")
 	sleep(0.5 SECONDS)
@@ -193,7 +192,7 @@
 	create_access_card(get_all_syndicate_access())
 
 /mob/living/silicon/robot/proc/after_emag_shell(mob/user)
-	ResetModule()
+	ResetModel()
 	Stun(12 SECONDS, TRUE)
 
 /mob/living/silicon/robot/blob_act(obj/structure/blob/B)
@@ -217,29 +216,8 @@
 			if (stat != DEAD)
 				adjustBruteLoss(30)
 
-/mob/living/silicon/robot/bullet_act(var/obj/projectile/Proj, def_zone)
+/mob/living/silicon/robot/bullet_act(obj/projectile/Proj, def_zone)
 	. = ..()
 	updatehealth()
 	if(prob(75) && Proj.damage > 0)
 		spark_system.start()
-
-/mob/living/silicon/robot/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
-	. = ..()
-	if(isnull(.))
-		return
-	if(. <= (maxHealth * 0.5))
-		if(getOxyLoss() > (maxHealth * 0.5))
-			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-	else if(getOxyLoss() <= (maxHealth * 0.5))
-		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-
-
-/mob/living/silicon/robot/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
-	. = ..()
-	if(isnull(.))
-		return
-	if(. <= (maxHealth * 0.5))
-		if(getOxyLoss() > (maxHealth * 0.5))
-			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
-	else if(getOxyLoss() <= (maxHealth * 0.5))
-		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)

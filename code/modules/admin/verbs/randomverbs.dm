@@ -83,7 +83,7 @@
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Headset Message") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_mod_antag_rep(client/C in GLOB.clients, var/operation)
+/client/proc/cmd_admin_mod_antag_rep(client/C in GLOB.clients, operation)
 	set category = "Adminbus"
 	set name = "Modify Antagonist Reputation"
 
@@ -188,7 +188,7 @@
 		to_chat(M, msg)
 
 	log_admin("LocalNarrate: [key_name(usr)] at [AREACOORD(A)]: [msg]")
-	message_admins(span_adminnotice("<b> LocalNarrate: [key_name_admin(usr)] at [ADMIN_VERBOSEJMP(A)]:</b> [msg]<BR>"))
+	message_admins(span_adminnotice("<b>LocalNarrate: [key_name_admin(usr)] at [ADMIN_VERBOSEJMP(A)]:</b> [msg]<BR>"))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Local Narrate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_godmode(mob/M in GLOB.mob_list)
@@ -197,14 +197,18 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	M.status_flags ^= GODMODE
-	to_chat(usr, span_adminnotice("Toggled [(M.status_flags & GODMODE) ? "ON" : "OFF"]"))
+	if(HAS_TRAIT_FROM(M, TRAIT_GODMODE, "adminabuse"))
+		REMOVE_TRAIT(M, TRAIT_GODMODE, "adminabuse")
+	else
+		ADD_TRAIT(M, TRAIT_GODMODE, "adminabuse")
 
-	log_admin("[key_name(usr)] has toggled [key_name(M)]'s nodamage to [(M.status_flags & GODMODE) ? "On" : "Off"]")
-	var/msg = "[key_name_admin(usr)] has toggled [ADMIN_LOOKUPFLW(M)]'s nodamage to [(M.status_flags & GODMODE) ? "On" : "Off"]"
+	to_chat(usr, span_adminnotice("Toggled [(HAS_TRAIT(M, TRAIT_GODMODE)) ? "ON" : "OFF"]"))
+
+	log_admin("[key_name(usr)] has toggled [key_name(M)]'s nodamage to [(HAS_TRAIT(M, TRAIT_GODMODE)) ? "On" : "Off"]")
+	var/msg = "[key_name_admin(usr)] has toggled [ADMIN_LOOKUPFLW(M)]'s nodamage to [(HAS_TRAIT(M, TRAIT_GODMODE)) ? "On" : "Off"]"
 	message_admins(msg)
 	admin_ticket_log(M, msg)
-	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Godmode", "[M.status_flags & GODMODE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Godmode", "[HAS_TRAIT(M, TRAIT_GODMODE) ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 /proc/cmd_admin_mute(whom, mute_type, automute = FALSE)
@@ -247,11 +251,11 @@
 	else
 		return
 
-	var/datum/preferences/P
+	var/datum/player_details/P
 	if(C)
-		P = C.prefs
+		P = C.player_details
 	else
-		P = GLOB.preferences_datums[whom]
+		P = GLOB.player_details[whom]
 
 	if(!P)
 		return
@@ -299,7 +303,7 @@
 		for(var/mob/M in GLOB.player_list)
 			if(M.stat != DEAD)
 				continue	//we are not dead!
-			if(!M.client?.should_include_for_role(ROLE_ALIEN, /datum/role_preference/midround_ghost/xenomorph))
+			if(!M.client?.should_include_for_role(ROLE_ALIEN))
 				continue	//we don't want to be an alium
 			if(M.client.is_afk())
 				continue	//we are afk
@@ -429,10 +433,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.gender = record_found.gender
 		new_character.age = record_found.age
 		var/datum/dna/found_dna = record_found.weakref_dna.resolve()
-		new_character.hardset_dna(found_dna.uni_identity, record_found.dna_string, null, record_found.name, record_found.blood_type, new record_found.species, found_dna.features)
+		new_character.hardset_dna(found_dna.unique_identity, record_found.dna_string, null, record_found.name, record_found.blood_type, new record_found.species, found_dna.features)
 	else
 		randomize_human(new_character)
-		new_character.real_name = new_character.dna.species.random_name(new_character.gender, TRUE)
+		//Whats the point of this?
+		//new_character.real_name = new_character.dna.species.random_name(new_character.gender, TRUE)
 		new_character.name = new_character.real_name
 		new_character.dna.update_dna_identity()
 
@@ -443,7 +448,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		new_character.mind_initialize()
 	if(!new_character.mind.assigned_role)
-		new_character.mind.assigned_role = JOB_NAME_ASSISTANT//If they somehow got a null assigned role.
+		new_character.mind.set_assigned_role(JOB_NAME_ASSISTANT)//If they somehow got a null assigned role.
 
 	new_character.key = G_found.key
 
@@ -529,8 +534,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/datum/round_event/ion_storm/add_law_only/ion = new()
 	ion.announceChance = announce_ion_laws
-	ion.ionMessage = input
-	ion.lawsource = "Admin fuckery by [key_name(usr)]"
+	ion.ion_message = input
+	ion.law_source = "Admin fuckery by [key_name(usr)]"
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Add Custom AI Law") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -549,7 +554,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	// We query the admin who sent the adminheal if they are sure
 	if(tgui_alert(usr, "A full adminheal was called on [src], approve or deny?", "Aheal Query", buttons = list("Approve", "Deny")) != "Approve")
 		return
-	M.revive(full_heal = TRUE, admin_revive = TRUE)
+	M.revive(ADMIN_HEAL_ALL)
 
 	log_admin("[key_name(usr)] healed / revived [key_name(M)]")
 	var/msg = span_danger("Admin [key_name_admin(usr)] healed / revived [ADMIN_LOOKUPFLW(M)]!")
@@ -676,7 +681,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		return
 
-/client/proc/cmd_admin_gib(mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_gib(mob/victim in GLOB.mob_list)
 	set category = "Adminbus"
 	set name = "Gib"
 
@@ -687,19 +692,23 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(confirm == "Cancel" || !confirm)
 		return
 	//Due to the delay here its easy for something to have happened to the mob
-	if(!M)
+	if(!victim)
 		return
 
-	log_admin("[key_name(usr)] has gibbed [key_name(M)]")
-	message_admins("[key_name_admin(usr)] has gibbed [key_name_admin(M)]")
+	log_admin("[key_name(usr)] has gibbed [key_name(victim)]")
+	message_admins("[key_name_admin(usr)] has gibbed [key_name_admin(victim)]")
 
-	if(isobserver(M))
-		new /obj/effect/gibspawner/generic(get_turf(M))
+	if(isobserver(victim))
+		new /obj/effect/gibspawner/generic(get_turf(victim))
 		return
-	if(confirm == "Yes")
-		M.gib()
-	else
-		M.gib(1)
+
+	var/mob/living/living_victim = victim
+	if (istype(living_victim))
+		if(confirm == "Yes")
+			living_victim.gib()
+		else
+			living_victim.gib(TRUE)
+
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Gib") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_gib_self()
@@ -711,7 +720,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		log_admin("[key_name(usr)] used gibself.")
 		message_admins(span_adminnotice("[key_name_admin(usr)] used gibself."))
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Gib Self") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		mob.gib(1, 1, 1)
+
+		var/mob/living/ourself = mob
+		if (istype(ourself))
+			ourself.gib(TRUE, TRUE, TRUE)
 
 /client/proc/cmd_admin_check_contents(mob/living/M in GLOB.mob_list)
 	set category = "Adminbus"
@@ -1043,8 +1055,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /datum/admins/proc/modify_goals()
 	var/dat = ""
-	for(var/datum/station_goal/S in SSticker.mode.station_goals)
-		dat += "[S.name] - <a href='byond://?src=[REF(S)];[HrefToken()];announce=1'>Announce</a> | <a href='byond://?src=[REF(S)];[HrefToken()];remove=1'>Remove</a><br>"
+	for(var/datum/station_goal/goal as anything in SSstation.get_station_goals())
+		dat += "[goal.name] - <a href='byond://?src=[REF(goal)];[HrefToken()];announce=1'>Announce</a> | <a href='byond://?src=[REF(goal)];[HrefToken()];remove=1'>Remove</a><br>"
 	dat += "<br><a href='byond://?src=[REF(src)];[HrefToken()];add_station_goal=1'>Add New Goal</a>"
 	var/datum/browser/browser = new(usr, "goals", "Modify Goals", 400, 400)
 	browser.set_content(dat)
@@ -1103,11 +1115,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	admin_ticket_log(whom, msg)
 	log_admin("[key_name(src)] punished [key_name(whom)] with [punishment].")
 
-/mob/living/carbon/proc/give_cookie(var/client/admin_client)
+/mob/living/carbon/proc/give_cookie(client/admin_client)
 	var/obj/item/food/cookie/cookie = new(src)
 	if(src.put_in_hands(cookie))
 		if(ishuman(src))
-			src.update_inv_hands()
+			src.update_held_items()
 		log_admin("[key_name(src)] got their cookie, spawned by [key_name(admin_client)].")
 		message_admins("[key_name_admin(src)] got their cookie, spawned by [ADMIN_LOOKUPFLW(admin_client)].")
 		to_chat(src, span_adminnotice("Your prayers have been answered!! You received the <b>best cookie</b>!"))
@@ -1189,7 +1201,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!D)
 		return
 
-	var/add_or_remove = input("Remove/Add?", "Trait Remove/Add") as null|anything in list("Add","Remove")
+	var/add_or_remove = tgui_input_list(usr, "Remove/Add?", "Trait Remove/Add", list("Add", "Remove"))
 	if(!add_or_remove)
 		return
 	var/list/available_traits = list()
@@ -1206,7 +1218,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				var/name = GLOB.trait_name_map[trait] || trait
 				available_traits[name] = trait
 
-	var/chosen_trait = input("Select trait to modify", "Trait") as null|anything in available_traits
+	var/chosen_trait = tgui_input_list(usr, "Select trait to modify", "Trait", sort_list(available_traits))
 	if(!chosen_trait)
 		return
 	chosen_trait = available_traits[chosen_trait]
@@ -1218,17 +1230,17 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				D.AddElement(/datum/element/movetype_handler)
 			ADD_TRAIT(D,chosen_trait,source)
 		if("Remove")
-			var/specific = input("All or specific source ?", "Trait Remove/Add") as null|anything in list("All","Specific")
+			var/specific = tgui_input_list(usr, "All or specific source ?", "Trait Remove/Add", list("All", "Specific"))
 			if(!specific)
 				return
 			switch(specific)
 				if("All")
 					source = null
 				if("Specific")
-					source = input("Source to be removed","Trait Remove/Add") as null|anything in D.status_traits[chosen_trait]
+					source = tgui_input_list(usr, "Source to be removed", "Trait Remove/Add", D.status_traits[chosen_trait])
 					if(!source)
 						return
-			REMOVE_TRAIT(D,chosen_trait,source)
+			REMOVE_TRAIT(D, chosen_trait, source)
 
 /client/proc/spawnhuman()
 	set name = "Spawn human"

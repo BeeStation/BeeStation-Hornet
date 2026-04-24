@@ -24,7 +24,7 @@
 			if(DT_PROB(2.5, delta_time))
 				affected_mob.emote("cough")
 		if(2)
-			var/obj/item/organ/appendix/A = affected_mob.getorgan(/obj/item/organ/appendix)
+			var/obj/item/organ/appendix/A = affected_mob.get_organ_by_type(/obj/item/organ/appendix)
 			if(A)
 				A.inflamed = 1
 				A.update_appearance()
@@ -32,14 +32,14 @@
 				to_chat(affected_mob, span_warning("You feel a stabbing pain in your abdomen!"))
 				affected_mob.adjustOrganLoss(ORGAN_SLOT_APPENDIX, 5)
 				affected_mob.Stun(rand(40, 60))
-				affected_mob.adjustToxLoss(1, FALSE)
+				affected_mob.adjustToxLoss(1, forced = TRUE)
 		if(3)
 			if(DT_PROB(0.5, delta_time))
 				affected_mob.vomit(95)
 				affected_mob.adjustOrganLoss(ORGAN_SLOT_APPENDIX, 15)
 
 /datum/disease/appendicitis/cure(add_resistance)
-	var/obj/item/organ/appendix/A = affected_mob.getorgan(/obj/item/organ/appendix)
+	var/obj/item/organ/appendix/A = affected_mob.get_organ_by_type(/obj/item/organ/appendix)
 	if(A)
 		A.inflamed = FALSE
 		A.update_icon()

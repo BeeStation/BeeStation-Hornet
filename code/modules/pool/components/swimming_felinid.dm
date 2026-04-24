@@ -14,10 +14,9 @@
 			to_chat(parent, span_userdanger("You can't touch the bottom!"))
 			L.emote("scream")
 		if(5 to 7)
-			if(L.confused < 5)
-				L.confused += 1
+			L.adjust_confusion_up_to(1 SECONDS, 5 SECONDS)
 		if(8 to 12)
-			L.Jitter(10)
+			L.set_jitter_if_lower(20 SECONDS)
 		if(13 to 14)
 			shake_camera(L, 15, 1)
 			L.emote("whimper")

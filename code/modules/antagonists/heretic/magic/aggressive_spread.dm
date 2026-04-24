@@ -1,8 +1,8 @@
 /datum/action/spell/aoe/rust_conversion
 	name = "Aggressive Spread"
 	desc = "Spreads rust onto nearby surfaces."
-	background_icon_state = "bg_ecult"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	background_icon_state = "bg_heretic"
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "corrode"
 	sound = 'sound/items/welder.ogg'
 

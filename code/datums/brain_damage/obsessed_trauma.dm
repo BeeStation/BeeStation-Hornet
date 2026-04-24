@@ -71,7 +71,8 @@
 
 /datum/brain_trauma/special/obsessed/on_lose()
 	..()
-	UnregisterSignal(obsession, COMSIG_MIND_CRYOED)
+	if(obsession)
+		UnregisterSignal(obsession, COMSIG_MIND_CRYOED)
 	antagonist?.trauma = null
 	owner.mind.remove_antag_datum(/datum/antagonist/obsessed)
 

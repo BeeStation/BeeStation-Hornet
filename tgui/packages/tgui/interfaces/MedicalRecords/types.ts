@@ -3,6 +3,7 @@ import { BooleanLike } from 'common/react';
 export type MedicalRecordData = {
   character_preview_view: string;
   authenticated: BooleanLike;
+  is_silicon: BooleanLike;
   physical_statuses: string[];
   mental_statuses: string[];
   records: MedicalRecord[];

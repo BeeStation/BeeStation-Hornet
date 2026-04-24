@@ -6,8 +6,7 @@
 	antagpanel_category = "Fugitives"
 	show_to_ghosts = TRUE
 	prevent_roundtype_conversion = FALSE
-	count_against_dynamic_roll_chance = FALSE
-	required_living_playtime = 1
+	required_living_playtime = 0
 	var/datum/team/fugitive/fugitive_team
 	var/is_captured = FALSE
 	var/living_on_capture = TRUE
@@ -36,7 +35,7 @@
 
 /datum/antagonist/fugitive/create_team(datum/team/fugitive/new_team)
 	if(!new_team)
-		for(var/datum/antagonist/fugitive/H in GLOB.antagonists)
+		for(var/datum/antagonist/fugitive/H in GLOB.active_antagonists)
 			if(!H.owner)
 				continue
 			if(H.fugitive_team)
@@ -103,12 +102,12 @@
 	survive.team = src
 	objectives += survive
 
-/datum/antagonist/fugitive/proc/update_fugitive_icons_added(var/mob/living/carbon/human/fugitive)
+/datum/antagonist/fugitive/proc/update_fugitive_icons_added(mob/living/carbon/human/fugitive)
 	var/datum/atom_hud/antag/fughud = GLOB.huds[ANTAG_HUD_FUGITIVE]
 	fughud.join_hud(fugitive)
 	set_antag_hud(fugitive, "fugitive")
 
-/datum/antagonist/fugitive/proc/update_fugitive_icons_removed(var/mob/living/carbon/human/fugitive)
+/datum/antagonist/fugitive/proc/update_fugitive_icons_removed(mob/living/carbon/human/fugitive)
 	var/datum/atom_hud/antag/fughud = GLOB.huds[ANTAG_HUD_FUGITIVE]
 	fughud.leave_hud(fugitive)
 	set_antag_hud(fugitive, null)

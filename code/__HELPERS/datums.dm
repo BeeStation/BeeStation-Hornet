@@ -14,6 +14,6 @@
 //Returns: 1 if found, 0 if not.
 /proc/hasvar(datum/A, varname)
 	if(A.vars.Find(LOWER_TEXT(varname)))
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE

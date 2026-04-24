@@ -1,4 +1,5 @@
 /obj/item/food/cake
+	abstract_type = /obj/item/food/cake
 	name = "Cake Parent"
 	desc = "You either spawned this erroneously, or a coder did. Either way, someone messed up."
 	icon = 'icons/obj/food/piecake.dmi'
@@ -23,9 +24,10 @@
 
 /obj/item/food/cake/make_processable()
 	if (slice_type)
-		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE)
+		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 
 /obj/item/food/cakeslice
+	abstract_type = /obj/item/food/cakeslice
 	name = "Cakeslice Parent"
 	desc = "You either spawned this erroneously, or a coder did. Either way, someone messed up."
 	icon = 'icons/obj/food/piecake.dmi'

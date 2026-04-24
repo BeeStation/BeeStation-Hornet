@@ -4,9 +4,8 @@
 	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 2
-	spawn_positions = 2
 	selection_color = "#d4ebf2"
 	exp_requirements = 180
 	exp_type = EXP_TYPE_MEDICAL
@@ -21,6 +20,8 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_VIROLOGIST
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Plague Doctor"
 
 	species_outfits = list(
@@ -29,13 +30,13 @@
 	biohazard = 75 //duh
 
 	lightup_areas = list(
-		/area/medical/morgue,
-		/area/medical/surgery,
-		/area/medical/genetics,
-		/area/medical/chemistry,
-		/area/medical/apothecary
+		/area/station/medical/morgue,
+		/area/station/medical/surgery,
+		/area/station/medical/genetics,
+		/area/station/medical/chemistry,
+		/area/station/medical/pharmacy
 	)
-	minimal_lightup_areas = list(/area/medical/virology)
+	minimal_lightup_areas = list(/area/station/medical/virology)
 
 /datum/job/virologist/config_check()
 	return CONFIG_GET(flag/allow_virologist)
@@ -45,14 +46,13 @@
 	jobtype = /datum/job/virologist
 
 	id = /obj/item/card/id/job/virologist
-	belt = /obj/item/extrapolator
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/virologist
 	mask = /obj/item/clothing/mask/surgical
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	suit =  /obj/item/clothing/suit/toggle/labcoat/virologist
 	suit_store =  /obj/item/flashlight/pen
-	r_pocket = /obj/item/modular_computer/tablet/pda/virologist
+	r_pocket = /obj/item/modular_computer/tablet/pda/preset/virologist
 
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel/vir

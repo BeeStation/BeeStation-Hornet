@@ -5,13 +5,14 @@
 	species = "nettle"
 	plantname = "Nettles"
 	product = /obj/item/food/grown/nettle
-	lifespan = 30
+	lifespan = 120
 	endurance = 40 // tuff like a toiger
 	yield = 4
 	growthstages = 5
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/plant_type/weed_hardy)
 	mutatelist = list(/obj/item/seeds/nettle/death)
 	reagents_add = list(/datum/reagent/toxin/acid = 0.25)
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/seeds/nettle/death
 	name = "pack of death-nettle seeds"
@@ -35,10 +36,11 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "nettle"
 	bite_consumption_mod = 2
+	trade_flags = TRADE_CONTRABAND
 	lefthand_file = 'icons/mob/inhands/weapons/plants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/plants_righthand.dmi'
 	damtype = BURN
-	force = 15
+	force = 5 //These should be doing damage through their ability to sting, not hardcoded damage.
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	throwforce = 5
 	w_class = WEIGHT_CLASS_TINY

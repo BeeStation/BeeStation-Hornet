@@ -10,6 +10,7 @@
 #define SHUTTLE_RECHARGING		"recharging"
 #define SHUTTLE_PREARRIVAL		"landing"
 
+#define EMERGENCY_CALLED (SSshuttle.emergency && SSshuttle.emergency.mode == SHUTTLE_CALL)
 #define EMERGENCY_IDLE_OR_RECALLED (SSshuttle.emergency && ((SSshuttle.emergency.mode == SHUTTLE_IDLE) || (SSshuttle.emergency.mode == SHUTTLE_RECALL)))
 #define EMERGENCY_ESCAPED_OR_ENDGAMED (SSshuttle.emergency && ((SSshuttle.emergency.mode == SHUTTLE_ESCAPE) || (SSshuttle.emergency.mode == SHUTTLE_ENDGAME)))
 #define EMERGENCY_AT_LEAST_DOCKED (SSshuttle.emergency && SSshuttle.emergency.mode != SHUTTLE_IDLE && SSshuttle.emergency.mode != SHUTTLE_RECALL && SSshuttle.emergency.mode != SHUTTLE_CALL)
@@ -54,9 +55,9 @@
 #define ENGINE_DEFAULT_MAXSPEED_ENGINES 5
 
 // Alert level related
-#define ALERT_COEFF_AUTOEVAC_NORMAL 2.5
-#define ALERT_COEFF_GREEN 2
-#define ALERT_COEFF_BLUE 1
+#define ALERT_COEFF_AUTOEVAC_NORMAL 1
+#define ALERT_COEFF_GREEN 1
+#define ALERT_COEFF_BLUE 0.75
 #define ALERT_COEFF_RED 0.5
 #define ALERT_COEFF_AUTOEVAC_CRITICAL 0.4
 #define ALERT_COEFF_DELTA 0.25
@@ -85,7 +86,7 @@
 
 //Shuttle defaults
 #define SHUTTLE_DEFAULT_SHUTTLE_AREA_TYPE /area/shuttle
-#define SHUTTLE_DEFAULT_UNDERLYING_AREA /area/space
+#define SHUTTLE_DEFAULT_UNDERLYING_AREA /area/misc/space
 
 //Shuttle unlocks
 #define SHUTTLE_UNLOCK_BUBBLEGUM "bubblegum"

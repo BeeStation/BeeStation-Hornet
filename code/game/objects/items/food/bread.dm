@@ -1,5 +1,6 @@
 
 /obj/item/food/bread
+	abstract_type = /obj/item/food/bread
 	name = "bread?"
 	desc = "This shouldn't exist, report to codermonkeys"
 	icon = 'icons/obj/food/burgerbread.dmi'
@@ -20,10 +21,11 @@
 
 /obj/item/food/bread/make_processable()
 	if (slice_type)
-		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE)
-		AddElement(/datum/element/processable, TOOL_SAW, slice_type, yield, 4 SECONDS, table_required = TRUE)
+		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
+		AddElement(/datum/element/processable, TOOL_SAW, slice_type, yield, 4 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 
 /obj/item/food/breadslice
+	abstract_type = /obj/item/food/breadslice
 	name = "breadslice?"
 	desc = "This shouldn't exist, report to codermonkeys"
 	icon = 'icons/obj/food/burgerbread.dmi'
@@ -293,7 +295,7 @@
 	desc = "Bon appetit!"
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "baguette"
-	item_state = null
+	inhand_icon_state = null
 	worn_icon_state = "baguette"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 8,
@@ -323,7 +325,7 @@
 	desc = "Alas, it is limited."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "garlicbread"
-	item_state = null
+	inhand_icon_state = null
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 10,
 		/datum/reagent/consumable/nutriment/vitamin = 6,
@@ -363,6 +365,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_2
 
-/obj/item/food/butterdog/ComponentInitialize()
+/obj/item/food/butterdog/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/slippery, 8 SECONDS)

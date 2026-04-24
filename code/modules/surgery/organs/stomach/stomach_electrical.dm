@@ -2,28 +2,27 @@
 	name = "PARENT electric stomach"
 	icon_state = "stomach-p"
 	desc = "You spawned the parent, dumbass"
+	abstract_type = /obj/item/organ/stomach/electrical
 	organ_traits = list(TRAIT_NOHUNGER) // We have our own hunger mechanic.
-	/*
-	 * The normal charge at roundstart. DO NOT use this as the upper limit, DO NOT override.
-	 * Our charge is allowed to be higher than this, but it won't under most circumstances.
-	 * Its preferable to just check if crystal_charge = ETHEREAL_CHARGE_FULL.
-	 */
-	VAR_PRIVATE/normal_full_charge = ETHEREAL_CHARGE_FULL
-	///current 'satiety'
-	var/crystal_charge = ETHEREAL_CHARGE_FULL
+	/// Where the energy of the stomach is stored.
+	var/obj/item/stock_parts/cell/cell
 	//Boolean so we can avoid ten morbillion typechecks between Ethereal or IPC
 	var/biological = TRUE
 
-/obj/item/organ/stomach/electrical/proc/get_full_charge()
-	SHOULD_BE_PURE(TRUE)
-	return normal_full_charge
+/obj/item/organ/stomach/electrical/Initialize(mapload)
+	. = ..()
+	cell = new /obj/item/stock_parts/cell/ethereal(null)
+
+/obj/item/organ/stomach/electrical/Destroy()
+	QDEL_NULL(cell)
+	return ..()
 
 /obj/item/organ/stomach/electrical/on_life(delta_time, times_fired)
 	. = ..()
-	adjust_charge(-ETHEREAL_CHARGE_FACTOR * delta_time)
+	adjust_charge(-ETHEREAL_DISCHARGE_RATE * delta_time)
 	handle_charge(owner, delta_time, times_fired)
 
-/obj/item/organ/stomach/electrical/Insert(mob/living/carbon/carbon, special = 0)
+/obj/item/organ/stomach/electrical/Insert(mob/living/carbon/carbon, special = 0, drop_if_replaced)
 	. = ..()
 	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
@@ -38,18 +37,24 @@
 	return ..()
 
 /obj/item/organ/stomach/electrical/handle_hunger_slowdown(mob/living/carbon/human/human)
-	human.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = (1.5 * (1 - crystal_charge / 100)))
+	human.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = (1.5 * (1 - cell.charge / 100)))
 
 /obj/item/organ/stomach/electrical/proc/charge(datum/source, amount, repairs)
 	SIGNAL_HANDLER
 	adjust_charge(amount / 3.5)
 
+/**Changes the energy of the crystal stomach.
+* Args:
+* - amount: The change of the energy, in joules.
+* Returns: The amount of energy that actually got changed in joules.
+**/
 /obj/item/organ/stomach/electrical/proc/adjust_charge(amount)
-	crystal_charge = clamp(crystal_charge + amount, ETHEREAL_CHARGE_NONE, ETHEREAL_CHARGE_DANGEROUS)
+	var/amount_changed = clamp(amount, ETHEREAL_CHARGE_NONE - cell.charge, ETHEREAL_CHARGE_DANGEROUS - cell.charge)
+	return cell.change(amount_changed)
 
 /obj/item/organ/stomach/electrical/proc/handle_charge(mob/living/carbon/carbon, delta_time, times_fired)
 	var/damage_taken = biological ? TOX : BURN
-	switch(crystal_charge)
+	switch(cell.charge)
 		if(-INFINITY to ETHEREAL_CHARGE_NONE)
 			carbon.throw_alert("ethereal_charge", /atom/movable/screen/alert/emptycell/ethereal)
 			if(carbon.health > 10.5)
@@ -89,10 +94,11 @@
 
 		playsound(carbon, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
 		carbon.cut_overlay(overcharge)
-		tesla_zap(carbon, 2, crystal_charge*2.5, TESLA_OBJ_DAMAGE | TESLA_ALLOW_DUPLICATES)
-		adjust_charge(ETHEREAL_CHARGE_FULL - crystal_charge)
-		to_chat(carbon, span_warning("You violently discharge energy!"))
-		carbon.visible_message(span_danger("[carbon] violently discharges energy!"))
+		// Only a small amount of the energy gets discharged as the zap. The rest dissipates as heat. Keeps the damage and energy from the zap the same regardless of what STANDARD_CELL_CHARGE is.
+		var/discharged_energy = -adjust_charge(ETHEREAL_CHARGE_FULL - cell.charge) * min(7500 / STANDARD_CELL_CHARGE, 1)
+		tesla_zap(source = carbon, zap_range = 2, power = discharged_energy, cutoff = 1 MEGAWATT, zap_flags = ZAP_OBJ_DAMAGE | ZAP_LOW_POWER_GEN | ZAP_ALLOW_DUPLICATES)
+		adjust_charge(ETHEREAL_CHARGE_FULL - discharged_energy)
+		carbon.visible_message(span_danger("[carbon] violently discharges energy!"), span_warning("You violently discharge energy!"))
 
 		if(prob(10)) //chance of developing heart disease to dissuade overcharging oneself
 			var/datum/disease/D = new /datum/disease/heart_failure
@@ -120,8 +126,7 @@
 	attack_verb_continuous = list("assault and batteries")
 	attack_verb_simple = list("assault and battery")
 	desc = "A micro-cell, for IPC use. Do not swallow."
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 	biological = FALSE
 
 /obj/item/organ/stomach/electrical/ipc/emp_act(severity)

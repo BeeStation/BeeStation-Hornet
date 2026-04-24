@@ -1,13 +1,24 @@
+import {
+  Box,
+  Button,
+  LabeledList,
+  NoticeBox,
+  ProgressBar,
+  Section,
+} from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, NoticeBox, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 export const PortableGenerator = (props) => {
   const { act, data } = useBackend();
   const { stack_percent } = data;
-  const stackPercentState = (stack_percent > 50 && 'good') || (stack_percent > 15 && 'average') || 'bad';
+  const stackPercentState =
+    (stack_percent > 50 && 'good') ||
+    (stack_percent > 15 && 'average') ||
+    'bad';
   return (
-    <Window>
+    <Window width={450} height={340}>
       <Window.Content scrollable>
         {!data.anchored && <NoticeBox>Generator not anchored.</NoticeBox>}
         <Section title="Status">
@@ -16,16 +27,22 @@ export const PortableGenerator = (props) => {
               <Button
                 icon={data.active ? 'power-off' : 'times'}
                 onClick={() => act('toggle_power')}
-                disabled={!data.ready_to_boot}>
+                disabled={!data.ready_to_boot}
+              >
                 {data.active ? 'On' : 'Off'}
               </Button>
             </LabeledList.Item>
-            <LabeledList.Item label={data.sheet_name + ' sheets'}>
+            <LabeledList.Item label={`${data.sheet_name} sheets`}>
               <Box inline color={stackPercentState}>
                 {data.sheets}
               </Box>
               {data.sheets >= 1 && (
-                <Button ml={1} icon="eject" disabled={data.active} onClick={() => act('eject')}>
+                <Button
+                  ml={1}
+                  icon="eject"
+                  disabled={data.active}
+                  onClick={() => act('eject')}
+                >
                   Eject
                 </Button>
               )}
@@ -40,26 +57,41 @@ export const PortableGenerator = (props) => {
                 }}
               />
             </LabeledList.Item>
-            <LabeledList.Item label="Heat level">
-              {data.current_heat < 100 ? (
-                <Box inline color="good">
-                  Nominal
-                </Box>
-              ) : data.current_heat < 200 ? (
-                <Box inline color="average">
-                  Caution
-                </Box>
-              ) : (
-                <Box inline color="bad">
-                  DANGER
-                </Box>
-              )}
+            <LabeledList.Item label="Operating temperature">
+              <Box
+                inline
+                color={
+                  data.current_heat < data.max_temperature * 0.7
+                    ? 'good'
+                    : data.current_heat < data.max_temperature * 0.9
+                      ? 'average'
+                      : 'bad'
+                }
+              >
+                {data.current_heat}°C / {data.max_temperature}°C
+              </Box>
             </LabeledList.Item>
+            {data.overheat_percent > 0 && (
+              <LabeledList.Item label="Overheat warning">
+                <ProgressBar
+                  value={data.overheat_percent / 100}
+                  ranges={{
+                    good: [-Infinity, 0.3],
+                    average: [0.3, 0.7],
+                    bad: [0.7, Infinity],
+                  }}
+                >
+                  {data.overheat_percent}% - REDUCE POWER!
+                </ProgressBar>
+              </LabeledList.Item>
+            )}
           </LabeledList>
         </Section>
         <Section title="Output">
           <LabeledList>
-            <LabeledList.Item label="Current output">{data.power_output}</LabeledList.Item>
+            <LabeledList.Item label="Current output">
+              {data.power_output}
+            </LabeledList.Item>
             <LabeledList.Item label="Adjust output">
               <Button icon="minus" onClick={() => act('lower_power')}>
                 {data.power_generated}

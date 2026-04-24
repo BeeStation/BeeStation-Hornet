@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		if(use_id in used_ids)
 			WARNING("Loadout - ID Already Exists: [G], with ID:[use_id], Conflicts with: [used_ids[use_id]]")
 			continue
-		if(!initial(G.cost))
+		if(initial(G.cost) < 0 || isnull(initial(G.cost)))
 			WARNING("Loadout - Missing cost: [G]")
 			continue
 		if(!initial(G.path) && use_category != "OOC") //OOC category does not contain actual items
@@ -76,7 +76,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		var/obj/O = skirt_path
 		skirt_description = initial(O.desc)
 
-/datum/gear/proc/purchase(var/client/C) //Called when the gear is first purchased
+/datum/gear/proc/purchase(client/C) //Called when the gear is first purchased
 	SHOULD_NOT_SLEEP(TRUE)
 	return
 

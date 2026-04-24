@@ -6,14 +6,9 @@
 	icon_state = "rare_pepe"
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ABSTRACT
-	var/clockwork_desc = "A fabled artifact from beyond the stars. Contains concentrated meme essence." //Shown to clockwork cultists instead of the normal description
+	var/clockwork_desc = span_brass("A fabled artifact from beyond the stars. Contains concentrated meme essence.") //Shown to clockwork cultists instead of the normal description
 
 /obj/item/clockwork/examine(mob/user)
-	. = list("[get_examine_string(user, TRUE)].")
-
-	if(is_servant_of_ratvar(user) && clockwork_desc)
+	. = ..()
+	if(IS_SERVANT_OF_RATVAR(user) && clockwork_desc)
 		. += clockwork_desc
-	else if(desc)
-		. += desc
-
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)

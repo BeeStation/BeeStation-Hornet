@@ -3,13 +3,13 @@
 	desc = "A tool for inductively charging internal power cells. It is ruggedized for frequent use."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "inducer-engi"
-	item_state = "inducer-engi"
+	inhand_icon_state = "inducer-engi"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	force = 7
-	var/powertransfer = 1000
+	var/transfer_coef = 2
 	var/opened = FALSE
-	var/cell_type = /obj/item/stock_parts/cell/high
+	var/cell_type = /obj/item/stock_parts/cell/high/plus
 	var/obj/item/stock_parts/cell/cell
 	var/recharging = FALSE
 
@@ -19,9 +19,9 @@
 		cell = new cell_type
 
 /obj/item/inducer/proc/induce(obj/item/stock_parts/cell/target, coefficient)
-	var/totransfer = min(cell.charge,(powertransfer * coefficient))
-	var/transferred = target.give(totransfer)
-	cell.use(transferred)
+	var/totransfer = min(cell.charge, cell.chargerate) * transfer_coef
+	target.give(totransfer * POWER_TRANSFER_LOSS)
+	cell.use(totransfer)
 	cell.update_icon()
 	target.update_icon()
 
@@ -99,52 +99,55 @@
 		return FALSE
 	if(recharging)
 		return TRUE
-	else
-		recharging = TRUE
+	recharging = TRUE
+
+	if(istype(A, /obj/item/gun/energy) || istype(A, /obj/item/clothing/suit/space))
+		to_chat(user, span_alert("Error unable to interface with device."))
+		recharging = FALSE
+		return FALSE
+
 	var/obj/item/stock_parts/cell/powercell = A.get_cell()
 	var/obj/O
-	var/coefficient = 1
 	var/obj/item/organ/stomach/electrical/biobattery
-	if(istype(A, /obj/item/gun/energy))
-		to_chat(user, span_alert("Error unable to interface with device."))
-		return FALSE
-	if(istype(A, /obj/item/clothing/suit/space))
-		to_chat(user, span_alert("Error unable to interface with device."))
-		return FALSE
+
 	if(istype(A, /obj))
 		O = A
 	else if(iscarbon(A))
 		var/mob/living/carbon/human_target = A
-		biobattery = human_target.getorganslot(ORGAN_SLOT_STOMACH)
+		biobattery = human_target.get_organ_slot(ORGAN_SLOT_STOMACH)
 		if(!istype(biobattery))
 			to_chat(user, span_alert("Error unable to interface with this entity."))
-			return
-
-	var/maxcharge = biobattery?.get_full_charge() || powercell?.maxcharge
-	if(powercell || biobattery)
-		var/done_any = FALSE
-		if((biobattery?.crystal_charge || powercell.charge) >= maxcharge)
-			to_chat(user, span_notice("[A] is fully charged!"))
 			recharging = FALSE
-			return TRUE
-		user.visible_message("[user] starts recharging [A] with [src].",span_notice("You start recharging [A] with [src]."))
-		while((biobattery?.crystal_charge || powercell.charge) < maxcharge)
-			if(do_after(user, 10, target = user) && cell.charge)
-				done_any = TRUE
-				if(biobattery)
-					biobattery.adjust_charge(min(cell.charge,250))
-				else
-					induce(powercell, coefficient)
-				do_sparks(1, FALSE, A)
-				if(O)
-					O.update_icon()
-			else
-				break
-		if(done_any) // Only show a message if we succeeded at least once
-			user.visible_message("[user] recharged [A]!",span_notice("You recharged [A]!"))
+			return FALSE
+
+	if(!powercell && !biobattery)
+		recharging = FALSE
+		return FALSE
+
+	var/maxcharge = biobattery?.cell.maxcharge || powercell?.maxcharge
+	if((biobattery?.cell.charge || powercell.charge) >= maxcharge)
+		to_chat(user, span_notice("[A] is fully charged!"))
 		recharging = FALSE
 		return TRUE
+
+	user.visible_message("[user] starts recharging [A] with [src].", span_notice("You start recharging [A] with [src]."))
+	var/done_any = FALSE
+	while((biobattery?.cell.charge || powercell.charge) < maxcharge)
+		if(!do_after(user, 10, target = user) || !cell.charge)
+			break
+		done_any = TRUE
+		if(biobattery)
+			biobattery.adjust_charge(min(cell.charge, 250))
+		else
+			induce(powercell)
+		do_sparks(1, FALSE, A)
+		if(O)
+			O.update_icon()
+
+	if(done_any) // Only show a message if we succeeded at least once
+		user.visible_message("[user] recharged [A]!", span_notice("You recharged [A]!"))
 	recharging = FALSE
+	return TRUE
 
 
 /obj/item/inducer/attack(mob/M, mob/living/user)
@@ -173,7 +176,7 @@
 /obj/item/inducer/examine(mob/living/M)
 	. = ..()
 	if(cell)
-		. += span_notice("Its display shows: [display_energy(cell.charge)].")
+		. += span_notice("Its display shows: [display_power(cell.charge)].")
 	else
 		. += span_notice("Its display is dark.")
 	if(opened)
@@ -200,12 +203,16 @@
 /obj/item/inducer/sci
 	name = "inducer"
 	icon_state = "inducer-sci"
-	item_state = "inducer-sci"
+	inhand_icon_state = "inducer-sci"
 	desc = "A tool for inductively charging internal power cells. This one has a science color scheme, and is less potent than its engineering counterpart."
 	cell_type = null
-	powertransfer = 500
+	transfer_coef = 1
 	opened = TRUE
 
 /obj/item/inducer/sci/Initialize(mapload)
 	. = ..()
 	update_icon()
+
+/obj/item/inducer/sci/with_cell
+	cell_type = /obj/item/stock_parts/cell/high
+	opened = FALSE

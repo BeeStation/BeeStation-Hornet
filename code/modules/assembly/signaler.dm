@@ -2,7 +2,7 @@
 	name = "remote signaling device"
 	desc = "Used to remotely activate devices. Allows for syncing when using a secure signaler on another."
 	icon_state = "signaller"
-	item_state = "signaler"
+	inhand_icon_state = "signaler"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	custom_materials = list(/datum/material/iron=400, /datum/material/glass=120)
@@ -187,7 +187,7 @@
 	name = "anomaly core"
 	desc = "The neutralized core of an anomaly. It'd probably be valuable for research."
 	icon_state = "anomaly_core"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	resistance_flags = FIRE_PROOF
@@ -220,48 +220,64 @@
 	desc = "The neutralized core of a pyroclastic anomaly. It feels warm to the touch. It'd probably be valuable for research."
 	icon_state = "pyro_core"
 	anomaly_type = /obj/effect/anomaly/pyro
+	custom_price = 750
 
 /obj/item/assembly/signaler/anomaly/grav
 	name = "\improper gravitational anomaly core"
 	desc = "The neutralized core of a gravitational anomaly. It feels much heavier than it looks. It'd probably be valuable for research."
 	icon_state = "grav_core"
 	anomaly_type = /obj/effect/anomaly/grav
+	custom_price = 500
 
 /obj/item/assembly/signaler/anomaly/flux
 	name = "\improper flux anomaly core"
 	desc = "The neutralized core of a flux anomaly. Touching it makes your skin tingle. It'd probably be valuable for research."
 	icon_state = "flux_core"
 	anomaly_type = /obj/effect/anomaly/flux
+	custom_price = 500
 
 /obj/item/assembly/signaler/anomaly/bluespace
 	name = "\improper bluespace anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
 	icon_state = "anomaly_core"
 	anomaly_type = /obj/effect/anomaly/bluespace
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/assembly/signaler/anomaly/vortex
 	name = "\improper vortex anomaly core"
 	desc = "The neutralized core of a vortex anomaly. It won't sit still, as if some invisible force is acting on it. It'd probably be valuable for research."
 	icon_state = "vortex_core"
 	anomaly_type = /obj/effect/anomaly/bhole
+	custom_price = 15000
 
 /obj/item/assembly/signaler/anomaly/bioscrambler
 	name = "\improper bioscrambler anomaly core"
 	desc = "The neutralized core of a bioscrambler anomaly. It's squirming, as if moving. It'd probably be valuable for research."
 	icon_state = "bioscrambler_core"
 	anomaly_type = /obj/effect/anomaly/bioscrambler
+	custom_price = 1000
 
 /obj/item/assembly/signaler/anomaly/hallucination
 	name = "\improper hallucination anomaly core"
 	desc = "The neutralized core of a hallucination anomaly. It seems to be moving, but it's probably your imagination. It'd probably be valuable for research."
 	icon_state = "hallucination_core"
 	anomaly_type = /obj/effect/anomaly/hallucination
+	custom_price = 250
 
 /obj/item/assembly/signaler/anomaly/blood
 	name = "\improper blood anomaly core"
 	desc = "The neutralized core of a blood anomaly. You feel your blood running through your veins when you are around it. It'd probably be valuable for research."
 	icon_state = "hallucination_core"
 	anomaly_type = /obj/effect/anomaly/blood
+	custom_price = 5000
+
+/obj/item/assembly/signaler/anomaly/insanity
+	name = "\improper insanity pulse anomaly core"
+	desc = "The neutralized core of a insanity pulse anomaly. Ah."
+	icon_state = "hallucination_core"
+	anomaly_type = /obj/effect/anomaly/insanity_pulse
+	custom_price = 1000
 
 /obj/item/assembly/signaler/anomaly/attack_self()
 	return
