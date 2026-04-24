@@ -1,4 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/turf/open/space/basic,
+/area/misc/space)
 "ac" = (
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/space/has_grav/powered)
@@ -161,8 +164,17 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
+"aK" = (
+/obj/machinery/light,
+/obj/item/knife/butcher,
+/turf/open/floor/iron/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
 "aL" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
+/turf/open/floor/iron/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
+"aM" = (
+/obj/machinery/light,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aN" = (
@@ -210,6 +222,14 @@
 /obj/machinery/vending/boozeomat/all_access,
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
+"aX" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/reagent_dispensers/beerkeg,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
 "aY" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/food/egg_smudge,
@@ -222,8 +242,20 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
+"bb" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/iron/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
 "bc" = (
 /obj/structure/chair/stool/bar,
+/turf/open/floor/iron/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
+"bd" = (
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "be" = (
@@ -383,6 +415,12 @@
 /obj/item/food/butter/on_a_stick,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
+"bL" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
 "bM" = (
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
@@ -428,6 +466,13 @@
 /obj/structure/chair/stool/bar,
 /obj/item/toy/figure/ian,
 /turf/open/floor/carpet,
+/area/ruin/space/has_grav/powered/macspace)
+"bV" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bW" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -674,6 +719,11 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
+"cY" = (
+/obj/machinery/light,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
 "cZ" = (
 /obj/item/toy/figure/cargotech,
 /obj/structure/chair/wood/wings{
@@ -853,30 +903,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
-"dJ" = (
-/obj/machinery/light,
-/obj/item/knife/butcher,
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/has_grav/powered/macspace)
-"dQ" = (
-/turf/open/space/basic,
-/area/misc/space)
 "ea" = (
 /obj/structure/chair/wood/wings{
 	dir = 4
 	},
 /obj/item/toy/figure/cmo,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/powered/macspace)
-"fU" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/has_grav/powered/macspace)
-"fY" = (
-/obj/structure/sink/kitchen/directional/south,
-/turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "iO" = (
 /obj/structure/chair/wood/wings{
@@ -912,25 +944,12 @@
 /obj/structure/table/wood/fancy/blue,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
-"nX" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/toy/mecha/honk,
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/has_grav/powered/macspace)
 "rA" = (
 /obj/structure/chair/wood/wings{
 	dir = 4
 	},
 /obj/item/toy/figure/chemist,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/powered/macspace)
-"tb" = (
-/obj/machinery/light,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "tG" = (
 /obj/item/food/bearsteak,
@@ -945,23 +964,12 @@
 /obj/item/toy/figure/virologist,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
-"zC" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/reagent_dispensers/beerkeg,
-/obj/effect/decal/cleanable/dirt/dust,
+"wq" = (
+/obj/structure/sink/kitchen/directional/south,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "Av" = (
 /obj/item/toy/plush/snakeplushie,
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/has_grav/powered/macspace)
-"Bx" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "EZ" = (
@@ -987,21 +995,17 @@
 /obj/structure/table/wood/fancy/blue,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
-"Pv" = (
-/obj/structure/table/wood/fancy/red,
-/obj/item/food/fishfingers,
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/has_grav/powered/macspace)
-"Sq" = (
+"Nd" = (
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/toy/mecha/honk,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
-"VH" = (
-/obj/machinery/light{
-	dir = 4
-	},
+"Pv" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/food/fishfingers,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "VJ" = (
@@ -1009,74 +1013,70 @@
 /obj/structure/table/wood/fancy/blue,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
-"WF" = (
-/obj/machinery/light,
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/has_grav/powered/macspace)
 "Xp" = (
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/space/has_grav/powered/macspace)
 
 (1,1,1) = {"
-dQ
-dQ
-dQ
+aa
+aa
+aa
 ac
 ac
 ac
 ac
-dQ
-dQ
-dQ
-dQ
+aa
+aa
+aa
+aa
 ac
 ac
-dQ
-dQ
-dQ
-dQ
+aa
+aa
+aa
+aa
 ac
-dQ
-dQ
-dQ
-dQ
-dQ
-dQ
-dQ
-dQ
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 "}
 (2,1,1) = {"
-dQ
-dQ
-dQ
+aa
+aa
+aa
 ac
 ac
 ac
 ac
-dQ
-dQ
-ac
-ac
-ac
-ac
-ac
-dQ
-dQ
+aa
+aa
 ac
 ac
 ac
 ac
 ac
-dQ
-dQ
-dQ
-dQ
-dQ
+aa
+aa
+ac
+ac
+ac
+ac
+ac
+aa
+aa
+aa
+aa
+aa
 "}
 (3,1,1) = {"
-dQ
-dQ
-dQ
+aa
+aa
+aa
 ac
 ac
 ac
@@ -1096,13 +1096,13 @@ ac
 ac
 ac
 ac
-dQ
-dQ
-dQ
-dQ
+aa
+aa
+aa
+aa
 "}
 (4,1,1) = {"
-dQ
+aa
 Xp
 ac
 ac
@@ -1124,13 +1124,13 @@ ae
 ac
 ac
 ac
-dQ
-dQ
-dQ
-dQ
+aa
+aa
+aa
+aa
 "}
 (5,1,1) = {"
-dQ
+aa
 Xp
 ac
 ac
@@ -1138,14 +1138,14 @@ ae
 am
 aF
 ag
-nX
+Nd
 bj
 bw
-Sq
+bL
 ag
 cf
 bw
-Sq
+bL
 ag
 ag
 ae
@@ -1153,12 +1153,12 @@ ac
 ac
 ac
 ac
-dQ
-dQ
-dQ
+aa
+aa
+aa
 "}
 (6,1,1) = {"
-dQ
+aa
 ac
 Xp
 ac
@@ -1181,12 +1181,12 @@ ac
 ac
 ac
 ac
-dQ
-dQ
-dQ
+aa
+aa
+aa
 "}
 (7,1,1) = {"
-dQ
+aa
 ac
 Xp
 ac
@@ -1211,10 +1211,10 @@ ac
 ac
 ac
 ac
-dQ
+aa
 "}
 (8,1,1) = {"
-dQ
+aa
 ac
 ac
 Xp
@@ -1242,7 +1242,7 @@ ac
 ac
 "}
 (9,1,1) = {"
-dQ
+aa
 ac
 ac
 ac
@@ -1259,7 +1259,7 @@ ci
 bN
 bM
 aP
-WF
+aM
 ae
 ad
 ad
@@ -1278,7 +1278,7 @@ ae
 ap
 aJ
 aJ
-VH
+bb
 bc
 mo
 bB
@@ -1351,7 +1351,7 @@ de
 db
 de
 de
-dQ
+aa
 "}
 (13,1,1) = {"
 ac
@@ -1359,7 +1359,7 @@ ac
 ac
 ac
 ae
-fY
+wq
 ag
 ae
 aZ
@@ -1371,7 +1371,7 @@ cl
 cv
 bM
 ag
-WF
+aM
 ae
 df
 de
@@ -1379,7 +1379,7 @@ de
 ae
 ds
 de
-dQ
+aa
 "}
 (14,1,1) = {"
 ac
@@ -1407,7 +1407,7 @@ de
 dr
 de
 de
-dQ
+aa
 "}
 (15,1,1) = {"
 ac
@@ -1416,9 +1416,9 @@ ac
 ad
 ae
 at
-dJ
+aK
 ae
-fU
+bd
 ag
 bo
 bQ
@@ -1435,7 +1435,7 @@ de
 dr
 de
 de
-dQ
+aa
 "}
 (16,1,1) = {"
 ac
@@ -1455,7 +1455,7 @@ bN
 bN
 bM
 ag
-tb
+cY
 ae
 df
 de
@@ -1463,7 +1463,7 @@ de
 ae
 de
 de
-dQ
+aa
 "}
 (17,1,1) = {"
 ac
@@ -1491,7 +1491,7 @@ de
 db
 de
 de
-dQ
+aa
 "}
 (18,1,1) = {"
 ac
@@ -1519,7 +1519,7 @@ dp
 ae
 ds
 de
-dQ
+aa
 "}
 (19,1,1) = {"
 ad
@@ -1547,7 +1547,7 @@ dq
 ae
 ds
 de
-dQ
+aa
 "}
 (20,1,1) = {"
 ad
@@ -1556,7 +1556,7 @@ aE
 ag
 ae
 ag
-WF
+aM
 ae
 ag
 bt
@@ -1567,7 +1567,7 @@ bM
 bM
 bW
 ag
-WF
+aM
 ae
 dk
 dk
@@ -1671,7 +1671,7 @@ aB
 ag
 ae
 ay
-VH
+bb
 ag
 bB
 lS
@@ -1679,7 +1679,7 @@ mB
 VJ
 bM
 ag
-WF
+aM
 ae
 ac
 ac
@@ -1687,10 +1687,10 @@ ac
 ac
 ac
 ac
-dQ
+aa
 "}
 (25,1,1) = {"
-dQ
+aa
 ac
 ac
 ac
@@ -1712,10 +1712,10 @@ ae
 ac
 ac
 ac
-dQ
+aa
 ac
-dQ
-dQ
+aa
+aa
 "}
 (26,1,1) = {"
 ac
@@ -1725,7 +1725,7 @@ ac
 ae
 aC
 aN
-zC
+aX
 ag
 cm
 ae
@@ -1740,13 +1740,13 @@ ae
 ac
 ac
 ac
-dQ
+aa
 ac
-dQ
-dQ
+aa
+aa
 "}
 (27,1,1) = {"
-dQ
+aa
 ac
 ac
 ac
@@ -1770,8 +1770,8 @@ ac
 ac
 ac
 ac
-dQ
-dQ
+aa
+aa
 "}
 (28,1,1) = {"
 ac
@@ -1791,18 +1791,18 @@ co
 cA
 bh
 bh
-WF
+aM
 ae
 ac
 ac
 ac
 ac
-dQ
-dQ
-dQ
+aa
+aa
+aa
 "}
 (29,1,1) = {"
-dQ
+aa
 ac
 ac
 ad
@@ -1813,11 +1813,11 @@ aD
 bn
 bv
 ae
-Bx
+bV
 EZ
 dC
 cp
-VH
+bb
 ag
 ag
 ae
@@ -1825,12 +1825,12 @@ ac
 ac
 ac
 ac
-dQ
-dQ
-dQ
+aa
+aa
+aa
 "}
 (30,1,1) = {"
-dQ
+aa
 ac
 ad
 ad
@@ -1851,15 +1851,15 @@ ae
 ae
 ac
 ac
-dQ
-dQ
-dQ
-dQ
-dQ
+aa
+aa
+aa
+aa
+aa
 "}
 (31,1,1) = {"
-dQ
-dQ
+aa
+aa
 ac
 ac
 ad
@@ -1878,38 +1878,38 @@ ad
 ad
 ac
 ac
-dQ
-dQ
-dQ
-dQ
-dQ
-dQ
+aa
+aa
+aa
+aa
+aa
+aa
 "}
 (32,1,1) = {"
-dQ
-dQ
-dQ
+aa
+aa
+aa
 ac
 ad
 ac
 ac
 ac
 ac
-dQ
-dQ
-dQ
-dQ
-dQ
+aa
+aa
+aa
+aa
+aa
 ac
 ac
 ac
-dQ
-dQ
-dQ
-dQ
-dQ
-dQ
-dQ
-dQ
-dQ
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 "}

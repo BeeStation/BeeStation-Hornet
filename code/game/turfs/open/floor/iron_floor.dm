@@ -108,8 +108,8 @@
 	base_icon_state = "diagonal"
 	floor_tile = /obj/item/stack/tile/iron/diagonal
 
-/turf/open/floor/iron/diagonal/lavaland
-	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
+/turf/open/floor/iron/diagonal/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/herringbone
 	icon_state = "herringbone"
@@ -205,13 +205,13 @@
 	base_icon_state = "textured_dark_corner"
 	floor_tile = /obj/item/stack/tile/iron/dark/textured_corner
 
-/turf/open/floor/iron/dark/textured_large/get_turf_texture()
-	return GLOB.turf_texture_iron_nonsegmented
-
 /turf/open/floor/iron/dark/textured_large
 	icon_state = "textured_dark_large"
 	base_icon_state = "textured_dark_large"
 	floor_tile = /obj/item/stack/tile/iron/dark/textured_large
+
+/turf/open/floor/iron/dark/textured_large/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/dark/small
 	icon_state = "dark_small"
@@ -222,6 +222,9 @@
 	icon_state = "dark_diagonal"
 	base_icon_state = "dark_diagonal"
 	floor_tile = /obj/item/stack/tile/iron/dark/diagonal
+
+/turf/open/floor/iron/dark/diagonal/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/dark/herringbone
 	icon_state = "dark_herringbone"
@@ -348,6 +351,9 @@
 	base_icon_state = "white_diagonal"
 	floor_tile = /obj/item/stack/tile/iron/white/diagonal
 
+/turf/open/floor/iron/white/diagonal/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/white/herringbone
 	icon_state = "white_herringbone"
 	base_icon_state = "white_herringbone"
@@ -430,6 +436,9 @@
 	base_icon_state = "terracotta_diagonal"
 	floor_tile = /obj/item/stack/tile/iron/terracotta/diagonal
 
+/turf/open/floor/iron/terracotta/diagonal/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/terracotta/herringbone
 	icon_state = "terracotta_herringbone"
 	base_icon_state = "terracotta_herringbone"
@@ -449,6 +458,9 @@
 	icon_state = "kitchen_diagonal"
 	base_icon_state = "kitchen_diagonal"
 	floor_tile = /obj/item/stack/tile/iron/kitchen/diagonal
+
+/turf/open/floor/iron/kitchen/diagonal/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/kitchen/herringbone
 	icon_state = "kitchen_herringbone"
@@ -494,15 +506,15 @@
 	base_icon_state = "freezer_half"
 	floor_tile = /obj/item/stack/tile/iron/freezer/half
 
-/turf/open/floor/iron/freezer/corner
-	icon_state = "freezer_corner"
-	base_icon_state = "freezer_corner"
-	floor_tile = /obj/item/stack/tile/iron/freezer/corner
-
 /turf/open/floor/iron/freezer/large
 	icon_state = "freezer_large"
 	base_icon_state = "freezer_large"
 	floor_tile = /obj/item/stack/tile/iron/freezer/large
+
+/turf/open/floor/iron/freezer/corner
+	icon_state = "freezer_corner"
+	base_icon_state = "freezer_corner"
+	floor_tile = /obj/item/stack/tile/iron/freezer/corner
 
 /turf/open/floor/iron/freezer/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -510,6 +522,16 @@
 /turf/open/floor/iron/kitchen_coldroom
 	name = "cold room floor"
 	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
+
+/turf/open/floor/iron/kitchen_coldroom/dark
+	icon_state = "darkfull"
+	base_icon_state = "darkfull"
+	floor_tile = /obj/item/stack/tile/iron/dark
+
+/turf/open/floor/iron/kitchen_coldroom/dark/textured
+	icon_state = "textured_dark"
+	base_icon_state = "textured_dark"
+	floor_tile = /obj/item/stack/tile/iron/dark/textured
 
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor
 	icon_state = "freezer"
@@ -521,7 +543,6 @@
 	base_icon_state = "grimy"
 	tiled_dirt = FALSE
 	floor_tile = /obj/item/stack/tile/iron/grimy
-
 
 /turf/open/floor/cult
 	name = "engraved floor"

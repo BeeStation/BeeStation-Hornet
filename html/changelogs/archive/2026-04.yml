@@ -199,3 +199,8 @@
       appear as an 'armored jacket'
   - rscadd: adds mantles for every head of staff, a form of shortcloak meant to make
       ones uniform more visible than the longcloaks
+2026-04-24:
+  mrmanlikesbt, EOBGames:
+  - rscadd: Diagonal, herringbone, and small variants of iron floors have been added
+      to the game (including dark and white floors)
+  - rscadd: Added kitchen and terracotta floors

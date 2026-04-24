@@ -43,18 +43,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/airless,
 /area/shuttle/caravan/freighter1)
-"bR" = (
-/obj/structure/toilet{
-	dir = 4
-	},
-/obj/structure/sink/directional/north,
-/obj/machinery/light/small,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/showroomfloor{
-	initial_gas_mix = "TEMP=2.7"
-	},
-/area/shuttle/caravan/freighter1)
 "ct" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden{
@@ -87,6 +75,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark/airless,
+/area/shuttle/caravan/freighter1)
+"dJ" = (
+/obj/structure/lattice,
+/obj/structure/broken_flooring/singular/directional/south,
+/turf/template_noop,
 /area/shuttle/caravan/freighter1)
 "dL" = (
 /obj/machinery/light/small,
@@ -562,11 +555,6 @@
 "Fv" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/caravan/freighter1)
-"Fx" = (
-/obj/structure/lattice,
-/obj/structure/broken_flooring/singular/directional/south,
-/turf/template_noop,
-/area/shuttle/caravan/freighter1)
 "FS" = (
 /obj/effect/turf_decal/box/white/corners{
 	dir = 1
@@ -711,6 +699,18 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark{
+	initial_gas_mix = "TEMP=2.7"
+	},
+/area/shuttle/caravan/freighter1)
+"JL" = (
+/obj/structure/toilet{
+	dir = 4
+	},
+/obj/structure/sink/directional/north,
+/obj/machinery/light/small,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/showroomfloor{
 	initial_gas_mix = "TEMP=2.7"
 	},
 /area/shuttle/caravan/freighter1)
@@ -1129,7 +1129,7 @@ eP
 El
 cx
 El
-bR
+JL
 El
 ap
 VN
@@ -1160,7 +1160,7 @@ rF
 LX
 Bu
 Id
-Fx
+dJ
 fD
 Eo
 "}

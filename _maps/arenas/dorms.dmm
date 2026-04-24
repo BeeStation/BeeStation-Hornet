@@ -1,10 +1,122 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aR" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/sink/directional/north,
+"aa" = (
+/obj/structure/bookcase,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"ab" = (
+/obj/structure/table,
+/obj/machinery/computer/libraryconsole/bookmanagement,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"ac" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"ah" = (
+/obj/machinery/seed_extractor,
 /turf/open/floor/plating,
 /area/centcom/tdome/arena)
-"cp" = (
+"aj" = (
+/obj/machinery/vending/sustenance,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"ak" = (
+/obj/effect/spawner/random/vending/colavend,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"al" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"am" = (
+/turf/open/floor/plating,
+/area/centcom/tdome/arena)
+"an" = (
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"ao" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"ap" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/item/plant_analyzer,
+/obj/item/cultivator,
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"at" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/machinery/biogenerator,
+/turf/open/floor/plating,
+/area/centcom/tdome/arena)
+"au" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"av" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/storage/box/cups,
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"aw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"ax" = (
+/obj/structure/chair/stool,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"ay" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 2;
+	pixel_y = 1
+	},
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"az" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/machinery/microwave{
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"aA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"aB" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"aC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/toy/cards/deck/cas,
@@ -14,183 +126,7 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
-"cy" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"cI" = (
-/obj/machinery/seed_extractor,
-/turf/open/floor/plating,
-/area/centcom/tdome/arena)
-"dl" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/machinery/biogenerator,
-/turf/open/floor/plating,
-/area/centcom/tdome/arena)
-"dJ" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/washing_machine,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/cafeteria,
-/area/centcom/tdome/arena)
-"ew" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"gc" = (
-/obj/machinery/vending/sustenance,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"lN" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/cafeteria,
-/area/centcom/tdome/arena)
-"me" = (
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"mR" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/reagent_dispensers/water_cooler,
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"nK" = (
-/obj/structure/chair/stool/directional/west,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"pk" = (
-/obj/machinery/washing_machine,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/cafeteria,
-/area/centcom/tdome/arena)
-"pW" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/cafeteria,
-/area/centcom/tdome/arena)
-"qe" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/storage/box/cups,
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"rq" = (
-/obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"uE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/entertainment/arcade,
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"va" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted,
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"yc" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"yG" = (
-/obj/structure/chair/stool,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"zc" = (
-/obj/structure/bookcase,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"zf" = (
-/obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"By" = (
-/turf/open/floor/iron/freezer,
-/area/centcom/tdome/arena)
-"Cs" = (
-/obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"CE" = (
-/obj/structure/table,
-/obj/structure/bedsheetbin,
-/obj/item/toy/dummy,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/cafeteria,
-/area/centcom/tdome/arena)
-"DK" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/item/plant_analyzer,
-/obj/item/cultivator,
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"EQ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"FV" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"FY" = (
-/obj/structure/chair/stool/directional/south,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"GX" = (
+"aD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -204,51 +140,32 @@
 /obj/item/pen,
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
-"It" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"IC" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/turf/open/floor/iron/freezer,
-/area/centcom/tdome/arena)
-"Ng" = (
-/obj/effect/spawner/random/vending/colavend,
+"aE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner,
+/obj/structure/table,
+/obj/item/toy/cards/deck,
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
-"Op" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/sink/directional/north,
-/turf/open/floor/plating,
-/area/centcom/tdome/arena)
-"OI" = (
+"aF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/storage/pill_bottle/dice,
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
-"RP" = (
+"aG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"Sm" = (
-/obj/structure/table,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"Sv" = (
-/obj/machinery/shower{
-	dir = 1
-	},
 /turf/open/floor/iron/freezer,
 /area/centcom/tdome/arena)
-"TC" = (
+"aH" = (
+/turf/open/floor/iron/freezer,
+/area/centcom/tdome/arena)
+"aI" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/iron/freezer,
+/area/centcom/tdome/arena)
+"aM" = (
 /obj/machinery/shower{
 	dir = 1
 	},
@@ -257,212 +174,295 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/centcom/tdome/arena)
-"Uk" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+"aN" = (
+/obj/machinery/shower{
+	dir = 1
 	},
 /turf/open/floor/iron/freezer,
 /area/centcom/tdome/arena)
-"UT" = (
-/obj/structure/table,
-/obj/machinery/computer/libraryconsole/bookmanagement,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"Vl" = (
+"aO" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/shower{
 	dir = 1
 	},
 /turf/open/floor/iron/freezer,
 /area/centcom/tdome/arena)
-"Vp" = (
+"aP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/toy/cards/deck,
+/obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
-"WT" = (
+"aQ" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/stool,
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"aU" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 2;
-	pixel_y = 1
+/obj/structure/bedsheetbin,
+/obj/item/toy/dummy,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
 	},
+/turf/open/floor/iron/cafeteria,
+/area/centcom/tdome/arena)
+"aW" = (
+/obj/structure/chair/stool/directional/south,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
-"Xq" = (
+"aX" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/washing_machine,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria,
+/area/centcom/tdome/arena)
+"aY" = (
+/obj/structure/chair/stool/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"gO" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
 /area/centcom/tdome/arena)
-"Xw" = (
+"hK" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool,
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"Yd" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/machinery/microwave{
-	pixel_x = -3;
-	pixel_y = 6
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
-"YA" = (
+"kB" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/sink/directional/north,
 /turf/open/floor/plating,
+/area/centcom/tdome/arena)
+"DH" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"FK" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria,
+/area/centcom/tdome/arena)
+"Ls" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"LA" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"MF" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted,
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"OA" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"Pf" = (
+/obj/machinery/washing_machine,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria,
+/area/centcom/tdome/arena)
+"Qf" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/sink/directional/north,
+/turf/open/floor/plating,
+/area/centcom/tdome/arena)
+"VV" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/cafeteria,
 /area/centcom/tdome/arena)
 
 (1,1,1) = {"
-zc
-RP
-RP
-RP
-EQ
-EQ
-Uk
-TC
+aa
+al
+al
+al
+aA
+aA
+aG
+aM
 "}
 (2,1,1) = {"
-UT
-ew
-me
-ew
-ew
-ew
-By
-Sv
+ab
+ac
+an
+ac
+ac
+ac
+aH
+aN
 "}
 (3,1,1) = {"
-ew
-ew
-ew
-me
-me
-ew
-IC
-Vl
+ac
+ac
+ac
+an
+an
+ac
+aI
+aO
 "}
 (4,1,1) = {"
-aR
-YA
-DK
-qe
-me
-me
-ew
-uE
+Qf
+am
+ap
+av
+an
+an
+ac
+aP
 "}
 (5,1,1) = {"
-rq
-YA
-cy
-mR
-me
-ew
-ew
-Xw
+Ls
+am
+LA
+aw
+an
+ac
+ac
+aQ
 "}
 (6,1,1) = {"
-zf
-YA
-yc
-ew
-ew
-nK
-ew
-ew
+OA
+am
+hK
+ac
+ac
+aY
+ac
+ac
 "}
 (7,1,1) = {"
-Cs
-YA
-va
-me
-Sm
-Vp
-ew
-ew
+DH
+am
+MF
+an
+aB
+aE
+ac
+ac
 "}
 (8,1,1) = {"
-cI
-YA
-dl
-yG
-cp
-Sm
-FY
-me
+ah
+am
+at
+ax
+aC
+aB
+aW
+an
 "}
 (9,1,1) = {"
-rq
-YA
-cy
-ew
-GX
-OI
-me
-me
+Ls
+am
+LA
+ac
+aD
+aF
+an
+an
 "}
 (10,1,1) = {"
-zf
-YA
-yc
-ew
-nK
-ew
-ew
-me
+OA
+am
+hK
+ac
+aY
+ac
+ac
+an
 "}
 (11,1,1) = {"
-Cs
-YA
-va
-WT
-ew
-ew
-ew
-Xw
+DH
+am
+MF
+ay
+ac
+ac
+ac
+aQ
 "}
 (12,1,1) = {"
-Op
-YA
-DK
-Yd
-me
-ew
-ew
-uE
+kB
+am
+ap
+az
+an
+ac
+ac
+aP
 "}
 (13,1,1) = {"
-ew
-ew
-ew
-ew
-ew
-me
-Xq
-dJ
+ac
+ac
+ac
+ac
+ac
+an
+gO
+aX
 "}
 (14,1,1) = {"
-gc
-me
-ew
-me
-ew
-me
-lN
-CE
+aj
+an
+ac
+an
+ac
+an
+VV
+aU
 "}
 (15,1,1) = {"
-Ng
-FV
-It
-It
-It
-FV
-pW
-pk
+ak
+ao
+au
+au
+au
+ao
+FK
+Pf
 "}
