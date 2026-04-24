@@ -22,20 +22,6 @@
 
 /obj/structure/broken_flooring/directional/@SUBTYPES : /obj/structure/broken_flooring/corner/directional/@SUBTYPES{@OLD}
 
-# sinks (sink dirs had flipped icons in the .dmi file, hence the "wrong" dir-to-directional-subtype here)
-
-/obj/structure/sink{dir=1} : /obj/structure/sink/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
-/obj/structure/sink{dir=@UNSET} : /obj/structure/sink/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
-/obj/structure/sink{dir=4} : /obj/structure/sink/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
-/obj/structure/sink{dir=8} : /obj/structure/sink/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
-
-# kitchen sinks
-
-/obj/structure/sink/kitchen{dir=1} : /obj/structure/sink/kitchen/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
-/obj/structure/sink/kitchen{dir=@UNSET} : /obj/structure/sink/kitchen/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
-/obj/structure/sink/kitchen{dir=4} : /obj/structure/sink/kitchen/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
-/obj/structure/sink/kitchen{dir=8} : /obj/structure/sink/kitchen/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
-
 # atmos monitor sensor connect
 
 /obj/machinery/atmospherics/components/unary/vent_pump/@SUBTYPES{chamber_id=@ANY} : /obj/machinery/atmospherics/components/unary/vent_pump/@SUBTYPES{@OLD;chamber_id=@SKIP}
