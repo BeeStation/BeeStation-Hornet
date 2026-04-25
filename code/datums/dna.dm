@@ -569,7 +569,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(icon_update)
 		update_hair()
 
-/// Returns carbon's DNA object. For checking whether a mob can mutate - use can_mutate().
+
 /mob/proc/has_dna()
 	return
 
@@ -814,15 +814,11 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /mob/living/carbon/proc/random_mutate(list/candidates, difficulty = 2)
 	if(!has_dna())
 		return
-	if(!can_mutate())
-		return
 	var/mutation = pick(candidates)
 	. = dna.add_mutation(mutation)
 
 /mob/living/carbon/proc/easy_random_mutate(quality = POSITIVE + NEGATIVE + MINOR_NEGATIVE, scrambled = TRUE, sequence = TRUE, exclude_monkey = TRUE)
 	if(!has_dna())
-		return
-	if(!can_mutate())
 		return
 	var/list/mutations = list()
 	if(quality & POSITIVE)
@@ -849,8 +845,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /mob/living/carbon/proc/random_mutate_unique_identity()
 	if(!has_dna())
 		return
-	if(!can_mutate())
-		return
 	var/num = rand(1, DNA_UNI_IDENTITY_BLOCKS)
 	dna.set_uni_feature_block(num, random_string(GET_UI_BLOCK_LEN(num), GLOB.hex_characters))
 	updateappearance(mutations_overlay_update=1)
@@ -858,8 +852,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /mob/living/carbon/proc/random_mutate_unique_features()
 	if(!has_dna())
 		CRASH("[src] does not have DNA")
-	if(!can_mutate())
-		return
 	var/num = rand(1, DNA_FEATURE_BLOCKS)
 	dna.set_uni_feature_block(num, random_string(GET_UF_BLOCK_LEN(num), GLOB.hex_characters))
 	updateappearance(mutcolor_update = TRUE, mutations_overlay_update = TRUE)
@@ -875,8 +867,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 /proc/scramble_dna(mob/living/carbon/M, ui=FALSE, se=FALSE, uf=FALSE, probability)
 	if(!M.has_dna())
-		return FALSE
-	if(!M.can_mutate())
 		return FALSE
 	if(se)
 		for(var/i=1, i<=DNA_MUTATION_BLOCKS, i++)
