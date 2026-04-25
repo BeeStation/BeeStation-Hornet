@@ -168,3 +168,44 @@
       now.
   - refactor: Optimized powernet and cable code
   - rscdel: Removed the rapid cable layer
+2026-04-18:
+  timothymtorres:
+  - server: PRs that don't touch mapping no longer have maplints ran on them
+2026-04-21:
+  rkz, Rohesie, Ghommie, skoglol:
+  - rscadd: 'Bureaucratic overflow event is less boring. The event now has two possibilties:
+      1. A new overflow role is set other than the default assistant job 2. all jobs
+      other than overflow have their available slots adjusted by -2 to 4'
+  - bugfix: roundstart offstation antagonists such as wizards and nuke ops no longer
+      have quirks assigned to them
+  - code_imp: SSeconomy/var/bank_accounts is now an association list of account identifiers
+      and datums and also was renamed to bank_accounts_by_id.
+  - refactor: bank account lists should be faster
+  - refactor: job checks now have a new granular bitflag var named job_flags. This
+      can be relied upon for granular job trait control
+2026-04-22:
+  mrmanlikesbt:
+  - rscdel: Removed the broken debug cyborg crates and lockers.
+  - tweak: Warning signs, blood packs, and AI cores have had their type-paths snake_caseified.
+  - spellcheck: Fixed auxiliary being misspelled as auxilliary across the codebase
+  mrmanlikesbt, grungussuss, kayozz:
+  - code_imp: Cleaned up gravity generator code
+  - bugfix: Fixed the soundloop for pacman generators' being horribly off sync
+  - bugfix: Fixed gravity generators not using any more power than usual when active
+  - balance: Decreased the gravity generator's inactive power usage from 5kW to 1kW
+  rkz, christasmurf, axietheaxolotl:
+  - rscadd: resprites 2 of head of personnel's existing uniforms and adds 4 new ones
+  - rscadd: the head of personnel now spawns with his armor on. It is resprited to
+      appear as an 'armored jacket'
+  - rscadd: adds mantles for every head of staff, a form of shortcloak meant to make
+      ones uniform more visible than the longcloaks
+2026-04-24:
+  mrmanlikesbt, EOBGames:
+  - rscadd: Diagonal, herringbone, and small variants of iron floors have been added
+      to the game (including dark and white floors)
+  - rscadd: Added kitchen and terracotta floors
+2026-04-25:
+  TsunamiAnt:
+  - code_imp: Add midround_max_positive_delta in ssdynamic
+  mrmanlikesbt:
+  - bugfix: Fixed the corgi puppy AI spamming runtimes

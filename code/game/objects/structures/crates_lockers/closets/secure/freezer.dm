@@ -57,8 +57,8 @@
 		new /obj/item/storage/fancy/egg_box(src)
 /// Keeping this here so some Chef can ask an assistant to find him one of these
 
-/obj/structure/closet/secure_closet/freezer/kitchen/mining
-	req_access = list()
+/obj/structure/closet/secure_closet/freezer/kitchen/all_access
+	req_access = null
 
 /obj/structure/closet/secure_closet/freezer/meat
 	name = "meat fridge"

@@ -8,17 +8,14 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "j" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "l" = (
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/item/mop/cyborg,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,

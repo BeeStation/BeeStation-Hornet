@@ -7,7 +7,7 @@
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list(RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_SERVICE)
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ddddff"
 	req_admin_notify = 1
@@ -71,6 +71,8 @@
 		ACCOUNT_SRV_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_PERSONNEL
+
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "Guild Questgiver"
 
 	species_outfits = list(
@@ -110,15 +112,19 @@
 	jobtype = /datum/job/head_of_personnel
 
 	id = /obj/item/card/id/job/head_of_personnel
-	belt = /obj/item/modular_computer/tablet/pda/preset/heads/head_of_personnel
-	l_pocket = /obj/item/dog_bone
-	ears = /obj/item/radio/headset/heads/head_of_personnel
-	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel
-	shoes = /obj/item/clothing/shoes/sneakers/brown
-	head = /obj/item/clothing/head/hats/hopcap
+	uniform = /obj/item/clothing/under/rank/civilian/hop
 	backpack_contents = list(
 		/obj/item/storage/box/ids=1,
 		/obj/item/melee/baton/telescopic=1
 	)
+	belt = /obj/item/modular_computer/tablet/pda/preset/heads/head_of_personnel
+	ears = /obj/item/radio/headset/heads/head_of_personnel
+	head = /obj/item/clothing/head/hats/hopcap
+	l_pocket = /obj/item/dog_bone
+	shoes = /obj/item/clothing/shoes/laceup
+	suit = /obj/item/clothing/suit/armor/vest/hop
 
-	chameleon_extras = list(/obj/item/gun/energy/e_gun, /obj/item/stamp/head_of_personnel)
+	chameleon_extras = list(
+		/obj/item/gun/energy/e_gun,
+		/obj/item/stamp/head_of_personnel
+	)

@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 2
 	selection_color = "#d4ebf2"
 	// Requires a round in medical, this is a decent role for new players but is poorly
@@ -25,6 +25,8 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_GENETICIST
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Genemancer"
 
 	species_outfits = list(

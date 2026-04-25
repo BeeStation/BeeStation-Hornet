@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_CIVILIAN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#dddddd"
 	exp_requirements = 60
@@ -19,6 +19,8 @@
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)
 
 	display_order = JOB_DISPLAY_ORDER_CURATOR
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Veteran Adventurer"
 
 	species_outfits = list(

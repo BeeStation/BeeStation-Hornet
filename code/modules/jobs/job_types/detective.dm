@@ -5,7 +5,7 @@
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
@@ -24,6 +24,8 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_SECURITY)
 
 	display_order = JOB_DISPLAY_ORDER_DETECTIVE
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Thiefcatcher"
 
 	species_outfits = list(

@@ -128,31 +128,35 @@
 	weight = 5
 	cost = STATION_TRAIT_COST_LOW
 	show_in_report = TRUE
-	report_message = "Our workers cleaned out most of the junk in the maintenace areas."
+	report_message = "Our workers cleaned out most of the junk in the maintenance areas."
 	blacklist = list(/datum/station_trait/filled_maint)
 	trait_to_give = STATION_TRAIT_EMPTY_MAINT
 	can_revert = FALSE
 
-/datum/station_trait/overflow_job_bureacracy
-	name = "Overflow bureacracy mistake"
+/datum/station_trait/overflow_job_bureaucracy
+	name = "Overflow bureaucracy mistake"
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 5
 	show_in_report = TRUE
-	var/list/jobs_to_use = list(JOB_NAME_CLOWN, JOB_NAME_BARTENDER, JOB_NAME_COOK, JOB_NAME_BOTANIST, JOB_NAME_CARGOTECHNICIAN, JOB_NAME_MIME, JOB_NAME_JANITOR)
-	var/chosen_job
+	var/chosen_job_name
 
-/datum/station_trait/overflow_job_bureacracy/New()
+/datum/station_trait/overflow_job_bureaucracy/New()
 	. = ..()
-	chosen_job = pick(jobs_to_use)
 	RegisterSignal(SSjob, COMSIG_SUBSYSTEM_POST_INITIALIZE, PROC_REF(set_overflow_job_override))
 
-/datum/station_trait/overflow_job_bureacracy/get_report()
-	return "[name] - It seems for some reason we put out the wrong job-listing for the overflow role this shift...I hope you like [chosen_job]s."
+/datum/station_trait/overflow_job_bureaucracy/get_report()
+	return "[name] - It seems for some reason we put out the wrong job-listing for the overflow role this shift...I hope you like [chosen_job_name]s."
 
-/datum/station_trait/overflow_job_bureacracy/proc/set_overflow_job_override(datum/source, new_overflow_role)
+/datum/station_trait/overflow_job_bureaucracy/proc/set_overflow_job_override(datum/source)
 	SIGNAL_HANDLER
 
-	SSjob.set_overflow_role(chosen_job)
+	var/list/joinable = list()
+	for(var/datum/job/job in SSjob.occupations) //Not ideal, but we dont have a populated alist of joinable occuptions
+		if(job.job_flags & JOB_NEW_PLAYER_JOINABLE)
+			joinable += job
+	var/datum/job/picked_job = pick(joinable)
+	chosen_job_name = LOWER_TEXT(picked_job.title)
+	SSjob.set_overflow_role(picked_job.type)
 
 /datum/station_trait/slow_shuttle
 	name = "Slow Shuttle"

@@ -125,7 +125,7 @@
 	dir = 8
 	},
 /obj/machinery/light/small,
-/obj/structure/sign/warning/nosmoking/circle{
+/obj/structure/sign/warning/no_smoking/circle{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/delivery,
