@@ -121,6 +121,7 @@
 	else if(!was_on_fire && owner.on_fire)
 		owner.throw_alert(ALERT_FIRE, /atom/movable/screen/alert/fire)
 	owner.update_appearance(UPDATE_OVERLAYS)
+	update_particles()
 
 /datum/status_effect/fire_handler/fire_stacks
 	id = "fire_stacks" //fire_stacks and wet_stacks should have different IDs or else has_status_effect won't work
@@ -135,6 +136,8 @@
 	var/obj/effect/dummy/lighting_obj/moblight
 	/// Type of mob light emitter we use when on fire
 	var/moblight_type = /obj/effect/dummy/lighting_obj/moblight/fire
+	/// Cached particle type
+	var/cached_state
 
 /datum/status_effect/fire_handler/fire_stacks/get_examine_text()
 	if(owner.on_fire)
@@ -164,9 +167,33 @@
 
 	deal_damage(seconds_between_ticks)
 
+/datum/status_effect/fire_handler/fire_stacks/update_particles()
+	if (!on_fire)
+		if (cached_state)
+			owner.remove_shared_particles(cached_state)
+		cached_state = null
+		return
+
+	var/particle_type = /particles/embers/minor
+	if(stacks > MOB_BIG_FIRE_STACK_THRESHOLD)
+		particle_type = /particles/embers
+
+	if (cached_state == particle_type)
+		return
+
+	if (cached_state)
+		owner.remove_shared_particles(cached_state)
+	owner.add_shared_particles(particle_type)
+	cached_state = particle_type
+
 /**
  * Proc that handles damage dealing and all special effects
+ *
+ * Arguments:
+ * - seconds_between_ticks
+ *
  */
+
 /datum/status_effect/fire_handler/fire_stacks/proc/deal_damage(delta_time)
 	owner.on_fire_stack(delta_time, src)
 
@@ -179,7 +206,9 @@
  * Arguments:
  * - seconds_between_ticks
  * - no_protection: When set to TRUE, fire will ignore any possible fire protection
+ *
  */
+
 /datum/status_effect/fire_handler/fire_stacks/proc/harm_human(delta_time, no_protection = FALSE)
 	var/mob/living/carbon/human/victim = owner
 	var/thermal_protection = victim.get_thermal_protection()
