@@ -509,6 +509,9 @@
 	if(dead && !QDELETED(owner) && !QDELETED(reagent))
 		need_mob_update += reagent.on_mob_dead(owner, delta_time)
 
+	if(!QDELETED(owner) && !QDELETED(reagent))
+		reagent.metabolize_reagent(owner, delta_time, times_fired)
+
 	return need_mob_update
 
 /// Signals that metabolization has stopped, triggering the end of trait-based effects
