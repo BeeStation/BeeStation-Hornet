@@ -1,10 +1,14 @@
 // Contains procs that can help debuggging
+#define FAILSAFE_THRESHOLD_RECURSIVE 6 //! a threashold that we think it's too recursive
+#define FAILSAFE_THRESHOLD_ARG_LENGTH 25 //! a threshold that we think it's too many
 
-/proc/identify_value(datum/thing)
+/proc/identify_value(datum/thing, loop_manager = 0)
 	if(isnull(thing))
 		return "null"
 	else if(islist(thing))
-		return "/list\[LEN:[length(thing)]\]([identify_args(thing)])"
+		if(loop_manager > FAILSAFE_THRESHOLD_RECURSIVE)
+			return "/list\[LEN:[length(thing)]\](Too deep - force return)"
+		return "/list\[LEN:[length(thing)]\]([identify_args(thing, loop_manager+1)])"
 	else if(istext(thing))
 		return "\"[thing]\""
 	else if(isnum(thing))
@@ -28,13 +32,19 @@
 		return "[src_name]\[[thing.type]\]"
 	return src_name
 
-/proc/identify_args(list/arg_list)
+/proc/identify_args(list/arg_list, loop_manager = 0)
 	var/arg_length = length(arg_list)
 	if(!arg_length)
 		return
 
+	if(arg_length > FAILSAFE_THRESHOLD_ARG_LENGTH)
+		return "Too many - force return"
+
 	var/list/results = list()
 	for(var/idx in 1 to arg_length)
-		results += identify_value(arg_list[idx])
+		results += identify_value(arg_list[idx], loop_manager+1)
 
 	return jointext(results, ", ")
+
+#undef FAILSAFE_THRESHOLD_RECURSIVE
+#undef FAILSAFE_THRESHOLD_ARG_LENGTH
