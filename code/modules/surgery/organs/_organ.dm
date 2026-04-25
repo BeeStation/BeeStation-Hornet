@@ -22,11 +22,12 @@
 	 * Should only ever be modified by apply_organ_damage!
 	 */
 	var/damage = 0
-	///Healing factor and decay factor function on % of maxhealth, and do not work by applying a static number per tick
-	var/healing_factor 	= 0										//fraction of maxhealth healed per on_life(), set to 0 for generic organs
-	var/decay_factor 	= 0										//same as above but when without a living owner, set to 0 for generic organs
-	var/high_threshold	= STANDARD_ORGAN_THRESHOLD * 0.45		//when severe organ damage occurs
-	var/low_threshold	= STANDARD_ORGAN_THRESHOLD * 0.1		//when minor organ damage occurs
+	/// Healing factor and decay factor function on % of maxhealth, and do not work by applying a static number per tick
+	var/healing_factor = 0 //fraction of maxhealth healed per on_life(), set to 0 for generic organs
+	var/decay_factor = 0 //same as above but when without a living owner, set to 0 for generic organs
+	var/high_threshold = STANDARD_ORGAN_THRESHOLD * 0.45 //when severe organ damage occurs
+	var/low_threshold = STANDARD_ORGAN_THRESHOLD * 0.1 //when minor organ damage occurs
+	var/emp_cooldown //cooldown for severe effects, used for synthetic organ emp effects.
 
 	///Organ variables for determining what we alert the owner with when they pass/clear the damage thresholds
 	var/prev_damage = 0
@@ -223,6 +224,10 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 	if(failure_time > 0)
 		failure_time--
+
+	if(organ_flags & ORGAN_EMP)
+		apply_organ_damage(decay_factor * maxHealth * delta_time)
+		return
 
 	if(!damage) // No sense healing if you're not even hurt bro
 		return

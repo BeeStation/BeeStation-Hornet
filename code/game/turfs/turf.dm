@@ -532,26 +532,19 @@ CREATION_TEST_IGNORE_SELF(/turf)
 /turf/AllowDrop()
 	return TRUE
 
-/turf/proc/add_vomit_floor(mob/living/M, toxvomit = NONE, purge = FALSE)
+/turf/proc/add_vomit_floor(mob/living/vomiter, vomit_type = /obj/effect/decal/cleanable/vomit, vomit_flags, purge_ratio = 0.1)
+	var/obj/effect/decal/cleanable/vomit/throw_up = new vomit_type (src, vomiter.get_static_viruses())
 
-	var/obj/effect/decal/cleanable/vomit/V = new /obj/effect/decal/cleanable/vomit(src, M.get_static_viruses())
-
-	//if the vomit combined, apply toxicity and reagents to the old vomit
-	if (QDELETED(V))
-		V = locate() in src
-	if(!V)
+	// if the vomit combined, apply toxicity and reagents to the old vomit
+	if (QDELETED(throw_up))
+		throw_up = locate() in src
+	if(isnull(throw_up))
 		return
-	// Make toxins and blazaam vomit look different
-	if(toxvomit == VOMIT_PURPLE)
-		V.icon_state = "vomitpurp_[pick(1,4)]"
-	else if (toxvomit == VOMIT_TOXIC)
-		V.icon_state = "vomittox_[pick(1,4)]"
-	else if (toxvomit == VOMIT_NANITE)
-		V.name = "metallic slurry"
-		V.desc = "A puddle of metallic slurry that looks vaguely like very fine sand. It almost seems like it's moving..."
-		V.icon_state = "vomitnanite_[pick(1,4)]"
-	if (purge && iscarbon(M))
-		clear_reagents_to_vomit_pool(M, V, purge)
+
+	if(!iscarbon(vomiter) || (purge_ratio == 0))
+		return
+
+	clear_reagents_to_vomit_pool(vomiter, throw_up, purge_ratio)
 
 /proc/clear_reagents_to_vomit_pool(mob/living/carbon/M, obj/effect/decal/cleanable/vomit/V, purge = FALSE)
 	var/obj/item/organ/stomach/belly = M.get_organ_slot(ORGAN_SLOT_STOMACH)

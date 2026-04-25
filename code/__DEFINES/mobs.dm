@@ -642,13 +642,27 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 /// Get the client from the var
 #define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
 
-/// The mob will vomit a green color
-#define VOMIT_TOXIC 1
-/// The mob will vomit a purple color
-#define VOMIT_PURPLE 2
-/// The mob will vomit up nanites
-#define VOMIT_NANITE 3
+// Various flags for carbon mob vomiting
+/// Flag which makes a message send about the vomiting.
+#define MOB_VOMIT_MESSAGE (1<<0)
+/// Flag which makes the mob get stunned upon vomiting.
+#define MOB_VOMIT_STUN (1<<1)
+/// Flag which makes the mob incur damage upon vomiting.
+#define MOB_VOMIT_HARM (1<<2)
+/// Flag which makes the mob vomit blood
+#define MOB_VOMIT_BLOOD (1<<3)
+/// Flag which will make the proc skip certain checks when it comes to forcing a vomit.
+#define MOB_VOMIT_FORCE (1<<4)
 
+/// The default "vomit" color green, which will ultinately give you might typically expect to happen when you vomit.
+#define VOMIT_CATEGORY_DEFAULT (MOB_VOMIT_MESSAGE | MOB_VOMIT_STUN | MOB_VOMIT_HARM)
+/// The green vomit you've all come to know and love, but with a little extra "spice" (blood)
+#define VOMIT_CATEGORY_BLOOD (VOMIT_CATEGORY_DEFAULT | MOB_VOMIT_BLOOD)
+/// Vomiting primarily used to knock the mob down, without brute damage
+#define VOMIT_CATEGORY_KNOCKDOWN (MOB_VOMIT_MESSAGE | MOB_VOMIT_STUN)
+
+/// Vomit type for nanite rejection
+#define VOMIT_NANITE /obj/effect/decal/cleanable/vomit/nanites
 
 /// Messages when (something) lays an egg
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")

@@ -176,16 +176,28 @@
 
 	if(. & EMP_PROTECT_SELF)
 		return
-	if(!COOLDOWN_FINISHED(src, emp_cooldown)) //To fight against two emp guns
-		COOLDOWN_START(src, emp_cooldown, 0.25 SECONDS)
+	var/owner_needs_us = owner?.needs_heart()
+
+	if(owner_needs_us && !COOLDOWN_FINISHED(src, emp_cooldown)) //To fight against two emp guns
+		owner.set_dizzy_if_lower(20 SECONDS)
+		owner.losebreath += 10
+		COOLDOWN_START(src, emp_cooldown, 20 SECONDS)
+
 	if(prob(emp_vulnerability/severity))
+		organ_flags |= ORGAN_EMP
 		Stop()
-		owner.visible_message(span_danger("[owner] clutches at [owner.p_their()] chest as if [owner.p_their()] heart is stopping!"), \
-						span_userdanger("You feel a terrible pain in your chest, as if your heart has stopped!"))
 		addtimer(CALLBACK(src, PROC_REF(Restart)), 10 SECONDS)
+		owner.visible_message(
+			span_danger("[owner] clutches at [owner.p_their()] chest as if [owner.p_their()] heart is stopping!"),
+			span_userdanger("You feel a terrible pain in your chest, as if your heart has stopped!")
+		)
 
 /obj/item/organ/heart/cybernetic/on_life(delta_time, times_fired)
 	. = ..()
+
+	if(organ_flags & ORGAN_EMP)
+		return
+
 	if(dose_available && owner.stat == UNCONSCIOUS && !owner.has_reagent(rid))
 		owner.reagents.add_reagent(rid, ramount)
 		used_dose()

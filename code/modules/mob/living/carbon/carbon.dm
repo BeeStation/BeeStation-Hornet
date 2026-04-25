@@ -425,14 +425,22 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		return 0
 	return ..()
 
-/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, vomit_type = VOMIT_TOXIC, harm = TRUE, force = FALSE, purge_ratio = 0.1)
-	if((HAS_TRAIT(src, TRAIT_NOHUNGER) || HAS_TRAIT(src, TRAIT_TOXINLOVER) || HAS_TRAIT(src, TRAIT_NOVOMIT)))
+/// Proc that compels the mob to throw up. Returns TRUE if the mob actually threw up.
+/mob/living/carbon/proc/vomit(vomit_flags = VOMIT_CATEGORY_DEFAULT, vomit_type = /obj/effect/decal/cleanable/vomit/toxic, lost_nutrition = 10, distance = 1, purge_ratio = 0.1)
+	var/force = (vomit_flags & MOB_VOMIT_FORCE)
+	if((HAS_TRAIT(src, TRAIT_NOHUNGER) || HAS_TRAIT(src, TRAIT_TOXINLOVER)) && !force)
 		return TRUE
 
 	if(!has_mouth())
 		return TRUE
 
-	if(!blood && (nutrition < 100))
+	// cache some stuff that we'll need later (at least multiple times)
+	var/starting_dir = dir
+	var/message = (vomit_flags & MOB_VOMIT_MESSAGE)
+	var/stun = (vomit_flags & MOB_VOMIT_STUN)
+	var/blood = (vomit_flags & MOB_VOMIT_BLOOD)
+
+	if(!force && !blood && (nutrition < 100))
 		if(message)
 			visible_message(
 				span_warning("[src] dry heaves!"),
@@ -472,17 +480,17 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		adjust_nutrition(-lost_nutrition)
 		need_mob_update += adjustToxLoss(-3, updating_health = FALSE)
 
-	for(var/i=0 to distance)
+	for(var/i = 0 to distance)
 		if(blood)
 			if(location)
 				add_splatter_floor(location)
-			if(harm)
+			if(vomit_flags & MOB_VOMIT_HARM)
 				need_mob_update += adjustBruteLoss(3, updating_health = FALSE)
 		else
 			if(location)
-				location.add_vomit_floor(src, vomit_type, purge_ratio) //toxic barf looks different || call purge when doing detoxicfication to pump more chems out of the stomach.
+				location.add_vomit_floor(src, vomit_type, vomit_flags, purge_ratio) // call purge when doing detoxicfication to pump more chems out of the stomach.
 
-		location = get_step(location, dir)
+		location = get_step(location, starting_dir)
 		if (location?.is_blocked_turf())
 			break
 	if(need_mob_update) // so we only have to call updatehealth() once as opposed to n times

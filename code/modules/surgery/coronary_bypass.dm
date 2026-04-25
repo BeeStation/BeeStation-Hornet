@@ -55,26 +55,40 @@
 	time = 90
 
 /datum/surgery_step/coronary_bypass/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_notice("You begin to graft a bypass onto [target]'s heart..."),
-			"[user] begins to graft something onto [target]'s heart!",
-			"[user] begins to graft something onto [target]'s heart!")
+	display_results(
+		user,
+		target,
+		span_notice("You begin to graft a bypass onto [target]'s heart..."),
+		span_notice("[user] begins to graft something onto [target]'s heart!"),
+		span_notice("[user] begins to graft something onto [target]'s heart!"),
+	)
 
 /datum/surgery_step/coronary_bypass/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	target.setOrganLoss(ORGAN_SLOT_HEART, 60)
-	var/obj/item/organ/heart/heart = target.get_organ_slot(ORGAN_SLOT_HEART)
-	if(heart)	//slightly worrying if we lost our heart mid-operation, but that's life
-		heart.operated = TRUE
-	display_results(user, target, span_notice("You successfully graft a bypass onto [target]'s heart."),
-			"[user] finishes grafting something onto [target]'s heart.",
-			"[user] finishes grafting something onto [target]'s heart.")
+	var/obj/item/organ/heart/target_heart = target.get_organ_slot(ORGAN_SLOT_HEART)
+	if(target_heart) //slightly worrying if we lost our heart mid-operation, but that's life
+		target_heart.operated = TRUE
+		if(target_heart.organ_flags & ORGAN_EMP)
+			target_heart.organ_flags &= ~ORGAN_EMP
+	display_results(
+		user,
+		target,
+		span_notice("You successfully graft a bypass onto [target]'s heart."),
+		span_notice("[user] finishes grafting something onto [target]'s heart."),
+		span_notice("[user] finishes grafting something onto [target]'s heart."),
+	)
 	return ..()
 
 /datum/surgery_step/coronary_bypass/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		display_results(user, target, span_warning("You screw up in attaching the graft, and it tears off, tearing part of the heart!"),
+		display_results(
+			user,
+			target,
+			span_warning("You screw up in attaching the graft, and it tears off, tearing part of the heart!"),
 			span_warning("[user] screws up, causing blood to spurt out of [H]'s chest profusely!"),
-			span_warning("[user] screws up, causing blood to spurt out of [H]'s chest profusely!"))
+			span_warning("[user] screws up, causing blood to spurt out of [H]'s chest profusely!"),
+		)
 		H.adjustOrganLoss(ORGAN_SLOT_HEART, 20)
 		H.add_bleeding(BLEED_CRITICAL)
 	return FALSE

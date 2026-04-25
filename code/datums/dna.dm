@@ -947,7 +947,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 				var/list/elligible_organs = list()
 				for(var/obj/item/organ/O in internal_organs) //make sure we dont get an implant or cavity item
 					elligible_organs += O
-				vomit(20, TRUE)
+				vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 10)
 				if(length(elligible_organs))
 					var/obj/item/organ/O = pick(elligible_organs)
 					O.Remove(src)

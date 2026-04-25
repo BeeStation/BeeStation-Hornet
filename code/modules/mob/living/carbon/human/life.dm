@@ -276,7 +276,7 @@
 
 	lastpuke += DT_PROB(30, delta_time)
 	if(lastpuke >= 50) // about 25 second delay I guess // This is actually closer to 150 seconds
-		vomit(20)
+		vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 20)
 		lastpuke = 0
 
 

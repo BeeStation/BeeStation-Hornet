@@ -411,9 +411,10 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	if(!COOLDOWN_FINISHED(src, emp_cooldown)) //To fight against two emp guns
-		COOLDOWN_START(src, emp_cooldown, 0.25 SECONDS)
-	if(prob(emp_vulnerability/severity))
 		owner.losebreath += 10
+		COOLDOWN_START(src, emp_cooldown, 20 SECONDS)
+	if(prob(emp_vulnerability/severity))
+		organ_flags |= ORGAN_EMP
 
 /obj/item/organ/lungs/apid
 	name = "apid lungs"

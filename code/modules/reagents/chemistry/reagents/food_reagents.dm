@@ -383,7 +383,7 @@
 	. = ..()
 	if(iscatperson(affected_mob))
 		to_chat(affected_mob, span_warning("Your insides revolt at the presence of lethal chocolate!"))
-		affected_mob.vomit(20)
+		affected_mob.vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 20)
 
 /datum/reagent/drug/mushroomhallucinogen
 	name = "Mushroom Hallucinogen"

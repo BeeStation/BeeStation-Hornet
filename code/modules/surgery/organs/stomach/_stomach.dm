@@ -13,7 +13,7 @@
 	desc = "Onaka ga suite imasu."
 
 	healing_factor = STANDARD_ORGAN_HEALING
-	decay_factor = STANDARD_ORGAN_DECAY
+	decay_factor = STANDARD_ORGAN_DECAY * 1.15 // ~13 minutes
 
 	low_threshold_passed = span_info("Your stomach flashes with pain before subsiding. Food doesn't seem like a good idea right now.")
 	high_threshold_passed = span_warning("Your stomach flares up with constant pain- you can hardly stomach the idea of food right now!")
@@ -28,7 +28,12 @@
 	var/disgust_metabolism = 1
 
 	///The rate that the stomach will transfer reagents to the body
-	var/metabolism_efficiency = 0.1 // the lowest we should go is 0.05
+	var/metabolism_efficiency = 0.05 // the lowest we should go is 0.05
+
+	/// Multiplier for hunger rate
+	var/hunger_modifier = 1
+	/// Whether the stomach's been repaired with surgery and can be fixed again or not
+	var/operated = FALSE
 
 /obj/item/organ/stomach/Initialize(mapload)
 	. = ..()
@@ -103,13 +108,13 @@
 
 	//The stomach is damage has nutriment but low on theshhold, lo prob of vomit
 	if(DT_PROB(0.0125 * damage * nutri_vol * nutri_vol, delta_time))
-		body.vomit(damage)
+		body.vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = damage)
 		to_chat(body, span_warning("Your stomach reels in pain as you're incapable of holding down all that food!"))
 		return
 
 	// the change of vomit is now high
 	if(damage > high_threshold && DT_PROB(0.05 * damage * nutri_vol * nutri_vol, delta_time))
-		body.vomit(damage)
+		body.vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = damage)
 		to_chat(body, span_warning("Your stomach reels in pain as you're incapable of holding down all that food!"))
 
 /obj/item/organ/stomach/proc/handle_hunger(mob/living/carbon/human/human, delta_time, times_fired)
@@ -145,6 +150,7 @@
 			if(DT_PROB(round(-human.satiety/77), delta_time))
 				human.set_jitter_if_lower(10 SECONDS)
 			hunger_rate = 3 * HUNGER_FACTOR
+		hunger_rate *= hunger_modifier
 		hunger_rate *= human.physiology.hunger_mod
 		human.adjust_nutrition(-hunger_rate * delta_time)
 
@@ -261,40 +267,25 @@
 	if(locate(/datum/reagent/consumable) in reagents.reagent_list)
 		var/mob/living/carbon/body = owner
 		// we do not loss any nutrition as a fly when vomiting out food
-		body.vomit(0, FALSE, FALSE, 2, TRUE, force=TRUE, purge_ratio = 0.67)
+		body.vomit(vomit_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_FORCE | MOB_VOMIT_HARM), lost_nutrition = 0, distance = 2, purge_ratio = 0.67)
 		playsound(get_turf(owner), 'sound/effects/splat.ogg', 50, TRUE)
 		body.visible_message(span_danger("[body] vomits on the floor!"), \
 					span_userdanger("You throw up on the floor!"))
 	return ..()
 
 /obj/item/organ/stomach/bone
+	name = "mass of bones"
 	desc = "You have no idea what this strange ball of bones does."
+	icon_state = "stomach-bone"
 	metabolism_efficiency = 0.025 //very bad
 	organ_traits = list(TRAIT_NOHUNGER)
-	/// How much [BRUTE] damage milk heals every second
-	var/milk_brute_healing = 2.5
-	/// How much [BURN] damage milk heals every second
-	var/milk_burn_healing = 2.5
-
-/obj/item/organ/stomach/bone/on_life(delta_time, times_fired)
-	var/datum/reagent/consumable/milk/milk = locate(/datum/reagent/consumable/milk) in reagents.reagent_list
-	if(milk)
-		var/mob/living/carbon/body = owner
-		if(milk.volume > 50)
-			reagents.remove_reagent(milk.type, milk.volume - 5)
-			to_chat(owner, span_warning("The excess milk is dripping off your bones!"))
-		body.heal_bodypart_damage(milk_brute_healing * REAGENTS_EFFECT_MULTIPLIER * delta_time, milk_burn_healing * REAGENTS_EFFECT_MULTIPLIER * delta_time)
-
-		reagents.remove_reagent(milk.type, milk.metabolization_rate * delta_time)
-	return ..()
 
 /obj/item/organ/stomach/bone/plasmaman
 	name = "digestive crystal"
-	icon_state = "stomach-p"
-	organ_traits = list()
 	desc = "A strange crystal that is responsible for metabolizing the unseen energy force that feeds plasmamen."
+	icon_state = "stomach-p"
 	metabolism_efficiency = 0.06
-	milk_burn_healing = 0
+	organ_traits = null
 
 /obj/item/organ/stomach/cybernetic
 	name = "basic cybernetic stomach"
@@ -302,8 +293,18 @@
 	desc = "A basic device designed to mimic the functions of a human stomach"
 	organ_flags = ORGAN_ROBOTIC
 	maxHealth = STANDARD_ORGAN_THRESHOLD * 0.5
-	var/emp_vulnerability = 40
 	metabolism_efficiency = 0.035 // not as good at digestion
+	var/emp_vulnerability = 80 //Chance of permanent effects if emp-ed.
+
+/obj/item/organ/stomach/cybernetic/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	if(!COOLDOWN_FINISHED(src, emp_cooldown))
+		owner.vomit(vomit_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_HARM))
+		COOLDOWN_START(src, emp_cooldown, 10 SECONDS)
+	if(prob(emp_vulnerability/severity))
+		organ_flags |= ORGAN_EMP
 
 /obj/item/organ/stomach/cybernetic/tier2
 	name = "cybernetic stomach"
@@ -313,16 +314,6 @@
 	disgust_metabolism = 2
 	emp_vulnerability = 25
 	metabolism_efficiency = 0.07
-
-/obj/item/organ/stomach/cybernetic/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	if(!COOLDOWN_FINISHED(src, emp_cooldown)) //So we cant just spam emp to kill people.
-		owner.vomit(vomit_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_HARM))
-		COOLDOWN_START(src, emp_cooldown, 0.05 SECONDS)
-	if(prob(emp_vulnerability/severity))
-		owner.vomit(stun = FALSE)
 
 /obj/item/organ/stomach/diona
 	name = "nutrient vessel"

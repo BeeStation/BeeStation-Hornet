@@ -24,6 +24,7 @@
 	/// Modifies how much damage toxin deals to the liver
 	var/liver_resistance = LIVER_DEFAULT_TOX_RESISTANCE
 	var/filterToxins = TRUE //whether to filter toxins
+	var/operated = FALSE
 
 /obj/item/organ/liver/on_insert(mob/living/carbon/organ_owner, special)
 	. = ..()
@@ -68,15 +69,15 @@
 			owner.vomit()
 		if(3)
 			to_chat(owner, span_userdanger("You feel painful acid in your throat!"))
-			owner.vomit(blood = TRUE)
+			owner.vomit(VOMIT_CATEGORY_BLOOD)
 		if(4)
 			to_chat(owner, span_userdanger("Overwhelming pain knocks you out!"))
-			owner.vomit(blood = TRUE, distance = rand(1,2))
+			owner.vomit(VOMIT_CATEGORY_BLOOD, distance = rand(1,2))
 			owner.emote("Scream")
 			owner.AdjustUnconscious(2.5 SECONDS)
 		if(5)
 			to_chat(owner, span_userdanger("You feel as if your guts are about to melt!"))
-			owner.vomit(blood = TRUE,distance = rand(1,3))
+			owner.vomit(VOMIT_CATEGORY_BLOOD, distance = rand(1,3))
 			owner.emote("Scream")
 			owner.AdjustUnconscious(5 SECONDS)
 
@@ -154,6 +155,17 @@
 	maxHealth = STANDARD_ORGAN_THRESHOLD*0.5
 	toxTolerance = 2
 	liver_resistance = 0.9 * LIVER_DEFAULT_TOX_RESISTANCE // -10%
+	var/emp_vulnerability = 80 //Chance of permanent effects if emp-ed.
+
+/obj/item/organ/liver/cybernetic/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	if(!COOLDOWN_FINISHED(src, emp_cooldown)) //So we cant just spam emp to kill people.
+		owner.adjustToxLoss(10)
+		COOLDOWN_START(src, emp_cooldown, 10 SECONDS)
+	if(prob(emp_vulnerability/severity))
+		organ_flags |= ORGAN_EMP
 
 /obj/item/organ/liver/cybernetic/tier2
 	name = "cybernetic liver"
@@ -163,13 +175,6 @@
 	toxTolerance = 5 //can shrug off up to 5u of toxins
 	liver_resistance = 1.2 * LIVER_DEFAULT_TOX_RESISTANCE // +20%
 	emp_vulnerability = 40
-
-/obj/item/organ/liver/cybernetic/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	if(prob(30/severity))
-		damage += (30/severity)
 
 /obj/item/organ/liver/cybernetic/tier2/ipc
 	name = "substance processor"

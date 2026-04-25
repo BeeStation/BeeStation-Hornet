@@ -2809,7 +2809,7 @@
 		if(DT_PROB(5, delta_time))
 			stored_teleports += rand(2, 6)
 			if(prob(70))
-				affected_mob.vomit(vomit_type = VOMIT_PURPLE)
+				affected_mob.vomit(vomit_flags = VOMIT_CATEGORY_DEFAULT, vomit_type = /obj/effect/decal/cleanable/vomit/purple)
 
 /datum/reagent/consumable/ethanol/planet_cracker
 	name = "Planet Cracker"

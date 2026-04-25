@@ -1418,7 +1418,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		to_chat(source, span_danger("You feel weak."))
 
 	if(intensity > RAD_MOB_VOMIT && DT_PROB(RAD_MOB_VOMIT_PROB, delta_time))
-		source.vomit(10, TRUE)
+		source.vomit(VOMIT_CATEGORY_BLOOD, lost_nutrition = 10)
 
 	if(intensity > RAD_MOB_HAIRLOSS && DT_PROB(RAD_MOB_HAIRLOSS_PROB, delta_time))
 		if(!(source.hair_style == "Bald") && (HAIR in species_traits) && !HAS_TRAIT(source, TRAIT_NOHAIRLOSS))

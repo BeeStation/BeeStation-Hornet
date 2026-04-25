@@ -28,7 +28,7 @@
 		to_chat(host_mob, span_warning("You feel nauseous."))
 		if(iscarbon(host_mob))
 			var/mob/living/carbon/C = host_mob
-			C.vomit(20)
+			C.vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 20)
 
 /datum/nanite_program/memory_leak
 	name = "Memory Leak"

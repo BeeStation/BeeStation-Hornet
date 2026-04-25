@@ -35,7 +35,7 @@
 				affected_mob.adjustToxLoss(1, forced = TRUE)
 		if(3)
 			if(DT_PROB(0.5, delta_time))
-				affected_mob.vomit(95)
+				affected_mob.vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 95)
 				affected_mob.adjustOrganLoss(ORGAN_SLOT_APPENDIX, 15)
 
 /datum/disease/appendicitis/cure(add_resistance)

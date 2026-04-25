@@ -1223,7 +1223,7 @@
 		. = UPDATE_MOB_HEALTH
 
 	if(affected_mob.getToxLoss() && DT_PROB(5, delta_time))
-		affected_mob.vomit(1)
+		affected_mob.vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 1)
 
 	for(var/datum/reagent/toxin/reagent in affected_mob.reagents.reagent_list)
 		affected_mob.reagents.remove_reagent(reagent.type, 1)
@@ -1367,7 +1367,7 @@
 	. = ..()
 	if(DT_PROB(13, delta_time))
 		affected_mob.reagents.remove_reagent(type, metabolization_rate * 15) // ~5 units at a rate of 0.4 but i wanted a nice number in code
-		affected_mob.vomit(20) // nanite safety protocols make your body expel them to prevent harmies
+		affected_mob.vomit(vomit_flags = VOMIT_CATEGORY_DEFAULT, vomit_type = /obj/effect/decal/cleanable/vomit/nanites, lost_nutrition = 20) // nanite safety protocols make your body expel them to prevent harmies
 
 /datum/reagent/medicine/earthsblood //Created by ambrosia gaia plants
 	name = "Earthsblood"

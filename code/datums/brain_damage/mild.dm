@@ -89,7 +89,7 @@
 	if(DT_PROB(2.5, delta_time))
 		switch(rand(1,11))
 			if(1)
-				owner.vomit()
+				owner.vomit(VOMIT_CATEGORY_DEFAULT)
 			if(2,3)
 				owner.adjust_dizzy(20 SECONDS)
 			if(4,5)
