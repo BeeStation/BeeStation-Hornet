@@ -69,7 +69,6 @@
 	if(!istype(L))
 		return
 	L.adjust_wet_stacks(2)
-	L.extinguish_mob()
 
 /obj/effect/particle_effect/foam/metal
 	name = "aluminium foam"

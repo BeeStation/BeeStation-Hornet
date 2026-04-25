@@ -275,7 +275,7 @@
 			to_chat(exposed_mob, span_warning("The water causes you to melt away!"))
 
 	if(method == TOUCH)
-		exposed_mob.extinguish_mob()
+		exposed_mob.extinguish_mob() // extinguish removes all fire stacks
 		exposed_mob.adjust_wet_stacks(reac_volume * WATER_TO_WET_STACKS_FACTOR_TOUCH) // Water makes you wet, at a 50% water-to-wet-stacks ratio. Which, in turn, gives you some mild protection from being set on fire!
 
 	if(method == VAPOR)

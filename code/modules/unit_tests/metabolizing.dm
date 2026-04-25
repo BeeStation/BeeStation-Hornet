@@ -5,7 +5,8 @@
 	var/mob/living/carbon/human/human = allocate(/mob/living/carbon/human/consistent)
 	var/list/blacklisted_reagents = list(
 		/datum/reagent/consumable/ethanol/sarsaparilliansunset,
-		/datum/reagent/corgium
+		/datum/reagent/corgium,
+		/datum/reagent/medicine/carthatoline,
 	)
 	var/list/reagents_to_check = valid_subtypesof(/datum/reagent) - blacklisted_reagents
 	for (var/reagent_type in reagents_to_check)

@@ -84,7 +84,7 @@
 		internal_fire = FALSE
 	H.update_appearance(UPDATE_OVERLAYS)
 
-/datum/species/plasmaman/handle_fire(mob/living/carbon/human/H, delta_time, times_fired, no_protection = FALSE)
+/datum/species/plasmaman/handle_fire(mob/living/carbon/human/H, delta_time, no_protection = FALSE)
 	if(internal_fire)
 		no_protection = TRUE
 	. = ..()
