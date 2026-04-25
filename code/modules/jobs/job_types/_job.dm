@@ -224,7 +224,7 @@
 	if (!player_count)
 		player_count = length(GLOB.clients)
 	// Out of range, and no proxy
-	if (player_count < min_pop && !min_pop_redirect)
+	if (player_count < min_pop && !min_pop_redirect && CONFIG_GET(flag/restricted_lowpop_command_spawns))
 		return 0
 	if (player_count > max_pop)
 		return 0

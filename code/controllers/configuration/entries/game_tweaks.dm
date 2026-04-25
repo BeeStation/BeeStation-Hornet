@@ -19,3 +19,6 @@
 /datum/config_entry/number/brig_timer_preset_long
 	config_entry_value = 5
 	min_val = 1
+
+/datum/config_entry/flag/restricted_lowpop_command_spawns
+	config_entry_value = FALSE
