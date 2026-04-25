@@ -256,7 +256,7 @@
 
 /obj/machinery/computer/security/qm
 	name = "\improper Quartermaster's camera console"
-	desc = "A console with access to the mining, auxillary base and vault camera networks."
+	desc = "A console with access to the mining, auxiliary base and vault camera networks."
 	network = list(CAMERA_NETWORK_MINE, CAMERA_NETWORK_VAULT, CAMERA_NETWORK_AUXBASE)
 	circuit = null
 
@@ -393,8 +393,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertai
 	network = list(CAMERA_NETWORK_PRISON, CAMERA_NETWORK_LABOR)
 
 /obj/machinery/computer/security/telescreen/auxbase
-	name = "auxillary base monitor"
-	desc = "A telescreen that connects to the auxillary base's camera."
+	name = "auxiliary base monitor"
+	desc = "A telescreen that connects to the auxiliary base's camera."
 	network = list(CAMERA_NETWORK_AUXBASE)
 
 /obj/machinery/computer/security/telescreen/mining

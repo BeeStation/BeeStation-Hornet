@@ -3994,10 +3994,7 @@
 /area/ruin/space/ancientstation/sec)
 "It" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	name = "dusty mirror";
 	pixel_x = 26

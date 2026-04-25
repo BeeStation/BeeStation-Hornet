@@ -430,15 +430,6 @@
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
-"jF" = (
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/mob/living/carbon/human/species/monkey,
-/mob/living/simple_animal/pet/hamster/vector{
-	pixel_x = 1;
-	pixel_y = 10
-	},
-/turf/open/floor/iron/grid/steel,
-/area/station/medical/virology)
 "jK" = (
 /obj/effect/landmark/start/detective,
 /turf/open/floor/wood,
@@ -710,6 +701,11 @@
 	},
 /turf/open/floor/iron,
 /area/misc/space)
+"pB" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron/dark,
+/area/station/medical/genetics)
 "pG" = (
 /obj/machinery/requests_console,
 /turf/open/floor/iron/dark,
@@ -1344,11 +1340,6 @@
 /obj/machinery/light_switch,
 /turf/open/floor/iron,
 /area/misc/space)
-"Fa" = (
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron/dark,
-/area/station/medical/genetics)
 "Fh" = (
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
@@ -1387,6 +1378,15 @@
 "FA" = (
 /turf/open/floor/iron/tech/grid,
 /area/misc/space)
+"FH" = (
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/mob/living/carbon/human/species/monkey,
+/mob/living/simple_animal/pet/hamster/vector{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/turf/open/floor/iron/grid/steel,
+/area/station/medical/virology)
 "Gs" = (
 /obj/structure/disposalpipe/sorting/mail/destination/testing_range,
 /turf/open/floor/engine,
@@ -1588,10 +1588,6 @@
 /obj/effect/landmark/start/chaplain,
 /turf/open/floor/carpet/purple,
 /area/station/service/chapel/office)
-"LC" = (
-/obj/structure/sink/kitchen,
-/turf/open/floor/iron/freezer,
-/area/station/service/kitchen)
 "LH" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/door/airlock/medical/glass{
@@ -1720,6 +1716,10 @@
 /obj/machinery/vending/wardrobe/engi_wardrobe,
 /turf/open/floor/iron,
 /area/station/engineering/main)
+"Of" = (
+/obj/structure/sink/kitchen/directional/south,
+/turf/open/floor/iron/freezer,
+/area/station/service/kitchen)
 "Oq" = (
 /obj/machinery/fax/cargo,
 /turf/open/floor/carpet/orange,
@@ -2493,7 +2493,7 @@ QG
 ew
 To
 pY
-Fa
+pB
 oa
 qL
 oa
@@ -2553,7 +2553,7 @@ ee
 cc
 TS
 eL
-jF
+FH
 Qk
 ff
 Qk
@@ -2647,7 +2647,7 @@ XF
 (19,1,1) = {"
 et
 Rq
-LC
+Of
 uo
 Hj
 zM

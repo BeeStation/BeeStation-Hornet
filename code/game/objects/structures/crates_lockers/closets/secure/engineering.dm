@@ -65,6 +65,7 @@
 	new /obj/item/clothing/head/utility/hardhat/welding/white(src)
 	new /obj/item/clothing/head/utility/welding(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
+	new /obj/item/clothing/neck/cloak/ce_mantle(src)
 
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"

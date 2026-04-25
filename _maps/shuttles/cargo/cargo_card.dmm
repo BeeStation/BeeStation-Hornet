@@ -13,7 +13,7 @@
 	dir = 1
 	},
 /obj/machinery/light/directional/east,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/components/tank/plasma{

@@ -2834,6 +2834,7 @@
 #include "code\modules\client\preferences\entries\player\ghost.dm"
 #include "code\modules\client\preferences\entries\player\glasses.dm"
 #include "code\modules\client\preferences\entries\player\hotkeys.dm"
+#include "code\modules\client\preferences\entries\player\inverted_rotation.dm"
 #include "code\modules\client\preferences\entries\player\item_outlines.dm"
 #include "code\modules\client\preferences\entries\player\low_graphics_quality.dm"
 #include "code\modules\client\preferences\entries\player\mod_select.dm"

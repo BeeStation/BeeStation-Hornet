@@ -448,7 +448,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		new_character.mind_initialize()
 	if(!new_character.mind.assigned_role)
-		new_character.mind.assigned_role = JOB_NAME_ASSISTANT//If they somehow got a null assigned role.
+		new_character.mind.set_assigned_role(JOB_NAME_ASSISTANT)//If they somehow got a null assigned role.
 
 	new_character.key = G_found.key
 
