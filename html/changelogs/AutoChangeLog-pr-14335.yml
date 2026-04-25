@@ -1,0 +1,4 @@
+author: TsunamiAnt
+delete-after: true
+changes:
+  - code_imp: Add midround_max_positive_delta in ssdynamic
