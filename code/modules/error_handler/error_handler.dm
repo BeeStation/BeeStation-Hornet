@@ -21,27 +21,28 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 	// Failsafe vars to make runtime tracy won't be broken
 	var/force_break = 0 // a var to detect the loop
 	var/proc_loop_detected = 0 // a var to detect the loop with CATEGORY_NO_RUNTIME_LOOP
+	var/list/result_list = list() // direct string management is too slow in Byond. It's better to put strings into a list, then concat later.
 	try
 		E.desc += "\n ## Proc call chain: \n"
 		var/callee/callee_chain = caller
 		do
-			E.desc += "[callee_chain.src] | [callee_chain.proc]([english_list(callee_chain.args, nothing_text = "", and_text = ", ")])"
-			if(callee_chain.category == CATEGORY_NO_RUNTIME_LOOP)
-				if(proc_loop_detected++ > 4)
-					E.desc += "\n< Notice: \"no loop\" Category detected. Stops the loop. >\n"
-					break
+			result_list += "[identify_src(callee_chain.src)] | [callee_chain.proc]([identify_args(callee_chain.args)])"
+			if(callee_chain.category == CATEGORY_NO_RUNTIME_LOOP && proc_loop_detected++ > 4)
+				result_list += "\n< Notice: \"no loop\" Category detected. Stops the loop. >\n"
+				break
 			if(force_break++ > 100)
-				E.desc += "\n< ERROR: Something is looping. Stops the loop. Please report to the team. >\n"
+				result_list += "\n< ERROR: Something is looping. Stops the loop. Please report to the team. >\n"
 				break
 			callee_chain = callee_chain.caller
 			if(!length("[callee_chain]"))
-				E.desc += "\n< Notice: Null '/callee' detected. Stops trace callee chain. >\n"
+				result_list += "\n< Notice: Null '/callee' detected. Stops trace callee chain. >\n"
 				break
-			E.desc += " | CalledBy: [callee_chain.file]:[callee_chain.line]\n"
+			result_list += " | CalledBy: [callee_chain.file]:[callee_chain.line]\n"
 		while(callee_chain)
 	catch(var/exception/callee_error)
-		E.desc += "\n << CRITICAL ERROR: Please report to the team. >>\n"
-		E.desc += "# Details: [callee_error.name] / [callee_error.desc] / line:[callee_error.line]\n"
+		result_list += "\n << CRITICAL ERROR: Please report to the team. >>\n"
+		result_list += "# Details: [callee_error.name] at line [callee_error.line] / [callee_error.desc]"
+	E.desc += jointext(result_list, "")
 
 	//this is snowflake because of a byond bug (ID:2306577), do not attempt to call non-builtin procs in this if
 	if(copytext(E.name, 1, 32) == "Maximum recursion level reached")//32 == length() of that string + 1

@@ -310,6 +310,7 @@
 #include "code\__DEFINES\traits\macros.dm"
 #include "code\__DEFINES\traits\priorities.dm"
 #include "code\__DEFINES\traits\sources.dm"
+#include "code\__HELPERS\_debug_helpers.dm"
 #include "code\__HELPERS\_extools_api.dm"
 #include "code\__HELPERS\_lists.dm"
 #include "code\__HELPERS\_logging.dm"
