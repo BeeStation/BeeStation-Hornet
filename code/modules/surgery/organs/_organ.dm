@@ -87,7 +87,11 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /obj/item/organ/proc/Insert(mob/living/carbon/receiver, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(!iscarbon(receiver) || owner == receiver)
+	if(!iscarbon(receiver))
+		return FALSE
+
+	if(owner == receiver)
+		stack_trace("Organ receiver is already organ owner")
 		return FALSE
 
 	var/obj/item/organ/replaced = receiver.get_organ_slot(slot)
@@ -113,7 +117,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /// Called after the organ is inserted into a mob.
 /// Adds Traits, Actions, and Status Effects on the mob in which the organ is impanted.
 /// Override this proc to create unique side-effects for inserting your organ. Must be called by overrides.
-/obj/item/organ/proc/on_insert(mob/living/carbon/organ_owner, special)
+/obj/item/organ/proc/on_insert(mob/living/carbon/organ_owner, special = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	moveToNullspace()
@@ -132,6 +136,8 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		organ_owner.hud_used?.update_locked_slots()
 	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, organ_owner)
 	SEND_SIGNAL(organ_owner, COMSIG_CARBON_GAIN_ORGAN, src, special)
+
+	sortTim(owner.internal_organs_slot, GLOBAL_PROC_REF(cmp_organ_slot_asc))
 
 //Special is for instant replacement like autosurgeons
 /obj/item/organ/proc/Remove(mob/living/carbon/organ_owner, special = FALSE, pref_load = FALSE)

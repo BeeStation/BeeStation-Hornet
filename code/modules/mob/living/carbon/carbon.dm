@@ -1036,6 +1036,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		var/obj/item/organ/I = X
 		I.Insert(src)
 
+/proc/cmp_organ_slot_asc(slot_a, slot_b)
+	return GLOB.organ_process_order.Find(slot_a) - GLOB.organ_process_order.Find(slot_b)
+
 /mob/living/carbon/vv_get_dropdown()
 	. = ..()
 	VV_DROPDOWN_OPTION("", "---------")
