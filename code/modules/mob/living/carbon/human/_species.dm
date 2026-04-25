@@ -112,6 +112,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///Does our species have colors for its damage overlays?
 	var/use_damage_color = TRUE
 
+	/// The icon_state of the fire overlay added when sufficently ablaze and standing. see onfire.dmi
+	var/fire_overlay = "human"
+
 	// species-only traits. Can be found in DNA.dm
 	var/list/species_traits = list()
 	/// Generic traits tied to having the species.
