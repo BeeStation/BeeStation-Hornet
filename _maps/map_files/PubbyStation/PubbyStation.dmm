@@ -29180,6 +29180,12 @@
 	},
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
+"kBN" = (
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 4
+	},
+/turf/open/floor/engine,
+/area/station/engineering/supermatter)
 "kBX" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment,
@@ -54704,6 +54710,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /obj/machinery/meter,
 /turf/closed/wall/r_wall,
+/area/station/engineering/supermatter)
+"uOl" = (
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 8
+	},
+/turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "uOn" = (
 /obj/structure/table/glass,
@@ -95463,9 +95475,9 @@ tpP
 ktD
 rNq
 sjE
+uOl
 ngl
-ngl
-ngl
+uOl
 yes
 mjX
 nnx
@@ -97005,9 +97017,9 @@ vdC
 swK
 jKw
 rqB
+kBN
 eIv
-eIv
-eIv
+kBN
 lVK
 mjX
 nnx
