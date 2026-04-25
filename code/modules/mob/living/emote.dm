@@ -149,11 +149,11 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
-		if(H.Togglewings())
-			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings)), wing_time)
-		// play flutter noise if moth/bee wing
+		if(H.Togglewings(silent = TRUE))
+			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings), TRUE), wing_time)
+		// play flutter noise
 		if(istype(wings, /obj/item/organ/wings/moth) || istype(wings, /obj/item/organ/wings/bee))
-			playsound(H, 'sound/emotes/moth/moth_flutter.ogg', 50, TRUE)
+			playsound(H, wings.flapsound, 50, TRUE)
 
 /datum/emote/living/flap/aflap
 	key = "aflap"
