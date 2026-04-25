@@ -417,8 +417,8 @@
 		// skip metabolizing effects for small units of toxins
 		if(toxin && liver && !dead)
 			amount = round(toxin.volume, CHEMICAL_QUANTISATION_LEVEL)
-			//if(belly)
-			//	amount += belly.reagents.get_reagent_amount(toxin.type)
+			if(belly)
+				amount += belly.reagents.get_reagent_amount(toxin.type)
 
 			if(amount <= liver_tolerance)
 				owner.reagents.remove_reagent(toxin.type, toxin.metabolization_rate * owner.metabolism_efficiency * delta_time)
