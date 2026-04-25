@@ -71,9 +71,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/unpowered)
 "D" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 28
-	},
+/obj/structure/sink/kitchen/directional/south,
 /obj/machinery/food_cart,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/unpowered)

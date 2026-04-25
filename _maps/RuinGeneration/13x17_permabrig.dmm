@@ -281,9 +281,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "AM" = (
-/obj/structure/sink{
-	pixel_y = 20
-	},
+/obj/structure/sink/directional/north,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Be" = (
@@ -396,11 +394,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "Qh" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /turf/open/floor/iron/freezer,
 /area/ruin/unpowered)
 "QQ" = (
