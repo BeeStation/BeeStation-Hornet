@@ -27,7 +27,7 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		var/callee/callee_chain = caller
 		do
 			result_list += "[identify_src(callee_chain.src)] | [callee_chain.proc]([identify_args(callee_chain.args)])"
-			if(callee_chain.category == CATEGORY_NO_RUNTIME_LOOP && proc_loop_detected++ > 4)
+			if(callee_chain.category == CATEGORY_NO_RUNTIME_LOOP && proc_loop_detected++ > 6)
 				result_list += "\n< Notice: \"no loop\" Category detected. Stops the loop. >\n"
 				break
 			if(force_break++ > 100)
