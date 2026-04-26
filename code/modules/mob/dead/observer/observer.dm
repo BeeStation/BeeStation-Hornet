@@ -8,7 +8,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	plane = GHOST_PLANE
 	stat = DEAD
 	density = FALSE
-	alpha = 127
+	alpha = 200
 	appearance_flags = KEEP_TOGETHER | PIXEL_SCALE
 	see_invisible = SEE_INVISIBLE_OBSERVER
 	see_in_dark = 100
@@ -67,22 +67,26 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 		/mob/dead/observer/proc/open_spawners_menu,
 		/mob/dead/observer/proc/tray_view))
 
+	//Filters - Do this once on init because it shouldn't matter otherwise
+	add_filter("ghost_desaturation", 1, color_matrix_filter(list(0.5,0.25,0.25, //Colour
+	0.25,0.5,0.25,
+	0.25,0.25,0.5,
+	0,0,0)))
+	add_filter("ghost_outline", 2, outline_filter(1, "#ffffff4f")) //Outline
+	add_filter("ghost_fade", 3, alpha_mask_filter(icon = icon('icons/effects/32x32.dmi', "ghost_fade"))) //Mask / fade
+	//Identity theft
 	var/turf/T
 	var/mob/body = loc
 	if(ismob(body))
 		T = get_turf(body) //Where is the body located?
-
 		// Copy the body's full visual appearance onto the ghost
 		set_appearance(body)
-
 		gender = body.gender
 		if(body.mind && body.mind.name)
 			name = body.mind.ghostname || body.mind.name
 		else
 			name = body.real_name || generate_random_mob_name(gender)
-
 		mind = body.mind	//we don't transfer the mind but we keep a reference to it.
-
 		set_suicide(body.suiciding) // Transfer whether they committed suicide.
 
 	if(!T)
