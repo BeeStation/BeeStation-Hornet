@@ -1819,9 +1819,13 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 
 /mob/living/set_mob_eye_to(atom/A)
 	. = ..()
-	if(!.)
-		return
+	update_eye_features()
+
+/mob/proc/update_eye_features()
 	update_sight()
+	..()
+
+/mob/living/update_eye_features()
 	update_fullscreen()
 	update_pipe_vision()
 

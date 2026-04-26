@@ -556,7 +556,6 @@ Do the things below instead of using reset_perspective()
 
 /// Makes a mob's eye a thing. Typically, a mob themselves.
 /mob/proc/set_mob_eye_to(atom/new_eye)
-	stack_trace("I am checking this")
 	// somewhat tricky. If no client ever used this mob as their eye, this proc is not necessary.
 	// This is necessary because we don't want N number of mobs having 'eye_mobs = list(src)'. not necessary.
 	if(new_eye != MOB_EYE_SELF && isnull(current_mob_eye) && isnull(computer_id)) // "var/lastKnownIP" doesn't work for debug environment

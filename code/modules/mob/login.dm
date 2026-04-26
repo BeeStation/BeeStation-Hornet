@@ -57,12 +57,14 @@
 	// eye, hud, images
 	client.screen = list() //remove hud items just in case
 	client.images = list()
+	client.perspective = EYE_PERSPECTIVE
 	if(!current_mob_eye) // in case when your mob isn't ready for client eye
 		_on_setting_mob_eye(get_my_eye())
-	// set_client_eye_to() is important here, because your eye doesn't know if you're using them as your eye
-	// FALSE when weakref doesn't exist, to prevent using their current eye
-	client.perspective = EYE_PERSPECTIVE
-	client.set_client_eye_to(current_mob_eye)
+	else
+		// set_client_eye_to() is important here, because your eye doesn't know if you're using them as your eye
+		// FALSE when weakref doesn't exist, to prevent using their current eye
+		client.set_client_eye_to(current_mob_eye)
+	update_eye_features()
 	client.set_right_click_menu_mode(shift_to_open_context_menu)
 
 	if(!hud_used)

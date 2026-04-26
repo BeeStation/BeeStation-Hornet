@@ -713,7 +713,9 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define ID_EXAMINE_DISTANCE 3
 
 /// Sets mob eye to themselves. This exists because set_mob_eye_to(src) is a bad idea.
-#define MOB_EYE_SELF 1
+#define MOB_EYE_SELF "mob_eye_self"
+/// Sets mob eye to what they are using - if that does not exist, get their eyes.
+#define MOB_EYE_CURRENT "mob_eye_current"
 
 // a janky code that restricts you using these DM flags. No, you shouldn't use these.
 #define MOB_PERSPECTIVE you_are_doing_something_wrong()

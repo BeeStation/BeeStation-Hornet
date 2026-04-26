@@ -515,7 +515,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /// Sets a client eye into given new eye. This is intended not to be used. You should use 'set_mob_eye_to(thing)'
 /client/proc/set_client_eye_to(atom/new_eye)
-	_on_setting_client_eye(new_eye, eye || src?.eye_weakref?.resolve() || CLIENT_OLD_EYE_NULL)
+	_on_setting_client_eye(new_eye, src?.eye_weakref?.resolve() || CLIENT_OLD_EYE_NULL)
 
 /client/proc/_on_setting_client_eye(atom/new_eye, atom/old_eye)
 	PRIVATE_PROC(TRUE)
