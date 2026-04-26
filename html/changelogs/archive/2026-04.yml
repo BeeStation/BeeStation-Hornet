@@ -209,3 +209,6 @@
   - code_imp: Add midround_max_positive_delta in ssdynamic
   mrmanlikesbt:
   - bugfix: Fixed the corgi puppy AI spamming runtimes
+2026-04-26:
+  St0rmC4st3r:
+  - bugfix: IPCs no longer mutate from radiation.

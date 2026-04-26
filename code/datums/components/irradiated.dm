@@ -147,6 +147,8 @@
 
 /datum/component/irradiated/proc/mutate_human_parent(mob/living/carbon/human/human_parent)
 	COOLDOWN_START(src, irradiated_mutation, rand(45, 120) SECONDS)
+	if(!human_parent.can_mutate())
+		return
 	if(prob(75)) //usually a mutation, sometimes a total appearance change instead
 		human_parent.easy_random_mutate()
 	else
