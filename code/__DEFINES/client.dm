@@ -21,5 +21,5 @@ GLOBAL_VAR_INIT(byond_http, FALSE)
 GLOBAL_LIST_EMPTY(disconnected_mobs)
 GLOBAL_PROTECT(disconnected_mobs)
 
-/// necessary for set_eye() proc. This is used to compare a value. This exists because
+/// necessary for set_eye() proc. This is used to compare a value. This exists because 'null' cannot be actually managed.
 #define CLIENT_OLD_EYE_NULL "client_eye_null_hint"

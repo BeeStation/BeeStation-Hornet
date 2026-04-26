@@ -141,7 +141,7 @@
   * * clears the light object
   */
 /atom/Destroy()
-	if(istype(src, /mob/dead/new_player/pre_auth))
+	if(istype(src, /mob/dead/new_player/pre_auth)) // This mob type is buggy. Only happens when a player logs in.
 		LAZYCLEARLIST(eye_mobs)
 		eye_mobs = null
 		LAZYCLEARLIST(eye_users)
