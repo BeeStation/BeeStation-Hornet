@@ -41,7 +41,7 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		while(callee_chain)
 	catch(var/exception/callee_error)
 		result_list += "\n << CRITICAL ERROR: Please report to the team. >>\n"
-		result_list += "# Details: [callee_error.name] at line [callee_error.line] / [callee_error.desc]"
+		result_list += "# Details: [callee_error.name] at [callee_error.file]:[callee_error.line] / [callee_error.desc]" // just in case when [callee_error.file] is not this 'error_handler.dm'... Maybe.
 	E.desc += jointext(result_list, "")
 
 	//this is snowflake because of a byond bug (ID:2306577), do not attempt to call non-builtin procs in this if
