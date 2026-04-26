@@ -558,8 +558,12 @@ Do the things below instead of using reset_perspective()
 /mob/proc/set_mob_eye_to(atom/new_eye)
 	// somewhat tricky. If no client ever used this mob as their eye, this proc is not necessary.
 	// This is necessary because we don't want N number of mobs having 'eye_mobs = list(src)'. not necessary.
-	if(new_eye != MOB_EYE_SELF && isnull(current_mob_eye) && isnull(computer_id)) // "var/lastKnownIP" doesn't work for debug environment
+	if(new_eye == MOB_EYE_SELF && isnull(current_mob_eye) && isnull(computer_id)) // "var/lastKnownIP" doesn't work for debug environment
 		return
+	// "new_eye == MOB_EYE_SELF" means what they have their eye as themselves. This is not necessary for clientless mob
+	// This rule is broken when "new_eye" is different. i.e.) Closet.
+	// Once this condition is broken, "current_mob_eye" will be no longer null.
+	// For "isnull(computer_id)", it's just an easy way to identify if a mob is clientless.
 
 	if(client && client.perspective != EYE_PERSPECTIVE)
 		stack_trace("something changed client's eye perspective. Current: [client.perspective]")
