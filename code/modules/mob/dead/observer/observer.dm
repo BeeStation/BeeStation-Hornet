@@ -361,8 +361,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(mind.current.key && mind.current.key[1] != "@")	//makes sure we don't accidentally kick any clients
 		to_chat(usr, span_warning("Another consciousness is in your body...It is resisting you."))
 		return
-	if(observetarget) // Removes your observe eye
-		observe()
+	//--------------------------------------
+	// identical to the codes from 'observe()', but calling that proc makes a SpacemanDMM warning
+	if(observetarget) // stop observing.
+		to_chat(src, span_notice("You stopped observing [observetarget]"))
+		LAZYREMOVE(observetarget.observers, src)
+		observetarget = null
+		set_mob_eye_to(MOB_EYE_SELF)
+		if(hud_used)
+			client.screen = list()
+			hud_used.show_hud(hud_used.hud_version)
+	//--------------------------------------
 	client.view_size.resetToDefault(getScreenSize(src))//Let's reset so people can't become allseeing gods //For real this time
 	SStgui.on_transfer(src, mind.current) // Transfer NanoUIs.
 	mind.current.key = key
