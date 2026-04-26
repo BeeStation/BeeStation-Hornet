@@ -1823,9 +1823,9 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 
 /mob/proc/update_eye_features()
 	update_sight()
-	..()
 
 /mob/living/update_eye_features()
+	..()
 	update_fullscreen()
 	update_pipe_vision()
 
