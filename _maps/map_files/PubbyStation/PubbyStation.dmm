@@ -38753,7 +38753,6 @@
 /obj/item/candydispenser/lollipop{
 	pixel_y = 10
 	},
-/obj/item/stack/medical/gauze,
 /turf/open/floor/iron/white/smooth_half,
 /area/station/medical/medbay/central)
 "ovU" = (
