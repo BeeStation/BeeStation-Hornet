@@ -64,20 +64,19 @@
 				. = pod
 
 /proc/grow_clone_from_record(obj/machinery/clonepod/pod, datum/record/cloning/cloning_record, experimental)
-	return pod.growclone(
-		CLONING_STRICT_ARGS(
-			/* 01 */ clonename = cloning_record.name, \
-			/* 02 */ unique_identity = cloning_record.unique_identity, \
-			/* 03 */ mutation_index = cloning_record.datum_dna.mutation_index.Copy(), \
-			/* 04 */ given_mind = cloning_record?.resolve_mind(), \
-			/* 05 */ last_death = cloning_record.last_death, \
-			/* 06 */ mrace = cloning_record.species, \
-			/* 07 */ features = cloning_record.get_copied_dna_features(), \
-			/* 08 */ factions = cloning_record.factions.Copy(), \
-			/* 09 */ insurance = cloning_record.resolve_mind_account_id(), \
-			/* 10 */ traumas = cloning_record.traumas.Copy(), \
-			/* 11 */ body_only = cloning_record.body_only, \
-			/* 12 */ experimental= experimental ))
+	return pod.growclone(CLONING_STRICT_ARGS(
+		/* 01 */ clonename = cloning_record.name,
+		/* 02 */ unique_identity = cloning_record.unique_identity,
+		/* 03 */ mutation_index = cloning_record.datum_dna.mutation_index.Copy(),
+		/* 04 */ given_mind = cloning_record?.resolve_mind(),
+		/* 05 */ last_death = cloning_record.last_death,
+		/* 06 */ mrace = cloning_record.species,
+		/* 07 */ features = cloning_record.get_copied_dna_features(),
+		/* 08 */ factions = cloning_record.factions.Copy(),
+		/* 09 */ insurance = cloning_record.resolve_mind_account_id(),
+		/* 10 */ traumas = cloning_record.traumas.Copy(),
+		/* 11 */ body_only = cloning_record.body_only,
+		/* 12 */ experimental= experimental ))
 
 /obj/machinery/computer/cloning/process()
 	if(!(scanner && LAZYLEN(pods) && autoprocess))
@@ -303,20 +302,19 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			temp = "Warning: Cloning cycle already in progress."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		else
-			var/cloning_attempt_result = pod.growclone(
-				CLONING_STRICT_ARGS(
-					/* 01 */ clonename = found_record.name, \
-					/* 02 */ unique_identity = found_record.unique_identity, \
-					/* 03 */ mutation_index = found_record.datum_dna.mutation_index.Copy(), \
-					/* 04 */ given_mind = found_record.resolve_mind(), \
-					/* 05 */ last_death = found_record.last_death, \
-					/* 06 */ mrace = found_record.species, \
-					/* 07 */ features = found_record.get_copied_dna_features(), \
-					/* 08 */ factions = found_record.factions.Copy(), \
-					/* 09 */ insurance = found_record.resolve_mind_account_id(), \
-					/* 10 */ traumas = found_record.traumas.Copy(), \
-					/* 11 */ body_only = found_record.body_only, \
-					/* 12 */ experimental = experimental ))
+			var/cloning_attempt_result = pod.growclone(CLONING_STRICT_ARGS(
+				/* 01 */ clonename = found_record.name,
+				/* 02 */ unique_identity = found_record.unique_identity,
+				/* 03 */ mutation_index = found_record.datum_dna.mutation_index.Copy(),
+				/* 04 */ given_mind = found_record.resolve_mind(),
+				/* 05 */ last_death = found_record.last_death,
+				/* 06 */ mrace = found_record.species,
+				/* 07 */ features = found_record.get_copied_dna_features(),
+				/* 08 */ factions = found_record.factions.Copy(),
+				/* 09 */ insurance = found_record.resolve_mind_account_id(),
+				/* 10 */ traumas = found_record.traumas.Copy(),
+				/* 11 */ body_only = found_record.body_only,
+				/* 12 */ experimental = experimental ))
 			switch(cloning_attempt_result)
 				if(CLONING_SUCCESS)
 					temp = "Notice: [found_record.name] => Cloning cycle in progress..."
@@ -555,20 +553,19 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		temp = "Cloning cycle already in progress."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 	else
-		pod.growclone(
-			CLONING_STRICT_ARGS(
-				/* 01 */ clonename = mob_occupant.real_name, \
-				/* 02 */ unique_identity = dna.unique_identity, \
-				/* 03 */ mutation_index = dna.mutation_index.Copy(), \
-				/* 04 */ given_mind = null, \
-				/* 05 */ last_death = null, \
-				/* 06 */ mrace = clone_species, \
-				/* 07 */ features = dna.features.Copy(), \
-				/* 08 */ factions = mob_occupant.faction.Copy(), \
-				/* 09 */ insurance = null, \
-				/* 10 */ traumas = null, \
-				/* 11 */ body_only = null, \
-				/* 12 */ experimental = null ))
+		pod.growclone(CLONING_STRICT_ARGS(
+			/* 01 */ clonename = mob_occupant.real_name,
+			/* 02 */ unique_identity = dna.unique_identity,
+			/* 03 */ mutation_index = dna.mutation_index.Copy(),
+			/* 04 */ given_mind = null,
+			/* 05 */ last_death = null,
+			/* 06 */ mrace = clone_species,
+			/* 07 */ features = dna.features.Copy(),
+			/* 08 */ factions = mob_occupant.faction.Copy(),
+			/* 09 */ insurance = null,
+			/* 10 */ traumas = null,
+			/* 11 */ body_only = null,
+			/* 12 */ experimental = null ))
 		temp = "[mob_occupant.real_name] => Cloning data sent to pod."
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 		log_cloning("[user ? key_name(user) : "Unknown"] cloned [key_name(mob_occupant)] with [src] at [AREACOORD(src)].")
@@ -627,23 +624,23 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		return
 
 	var/datum/record/cloning/cloning_record = new(RECORD_CLONE_STRICT_ARGS(
-		RECORD_CLONE_ARG_01 = human_mob.age, \
-		RECORD_CLONE_ARG_02 = dna.blood_type.name, \
-		RECORD_CLONE_ARG_03 = dna.unique_enzymes, \
-		RECORD_CLONE_ARG_04 = dna.unique_identity, \
-		RECORD_CLONE_ARG_05 = md5(dna.unique_identity), \
-		RECORD_CLONE_ARG_06 = mob_occupant.gender, \
-		RECORD_CLONE_ARG_07 = mob_occupant.mind?.assigned_role, \
-		RECORD_CLONE_ARG_08 = mob_occupant.real_name, \
-		RECORD_CLONE_ARG_09 = null /* Species */, \
-		RECORD_CLONE_ARG_10 = dna, \
-		RECORD_CLONE_ARG_11 = WEAKREF(mob_occupant.mind), \
-		RECORD_CLONE_ARG_12 = FALSE, \
-		RECORD_CLONE_ARG_13 = mob_occupant.faction, \
-		RECORD_CLONE_ARG_14 = list(), \
-		RECORD_CLONE_ARG_15 = body_only, \
-		RECORD_CLONE_ARG_16 = null, \
-		RECORD_CLONE_ARG_17 = has_bank_account))
+		age = human_mob.age,
+		blood_type = dna.blood_type.name,
+		unique_enzymes = dna.unique_enzymes,
+		unique_identity = dna.unique_identity,
+		fingerprint = md5(dna.unique_identity),
+		gender = mob_occupant.gender,
+		initial_rank = mob_occupant.mind?.assigned_role,
+		name = mob_occupant.real_name,
+		species = null /* Species */,
+		datum_dna = dna,
+		weakref_mind = WEAKREF(mob_occupant.mind),
+		last_death = FALSE,
+		factions = mob_occupant.faction,
+		traumas = list(),
+		body_only = body_only,
+		implant = null,
+		bank_account = has_bank_account))
 
 	if(dna.species)
 		// We store the instance rather than the path, because some
