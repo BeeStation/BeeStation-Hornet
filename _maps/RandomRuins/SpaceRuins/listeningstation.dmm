@@ -109,10 +109,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/listeningstation)
 "ar" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/toilet{
 	pixel_y = 18
 	},
@@ -428,11 +425,11 @@
 /area/ruin/space/has_grav/listeningstation)
 "bs" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/blood/OMinus{
+/obj/item/reagent_containers/blood/o_minus{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/blood/OMinus,
+/obj/item/reagent_containers/blood/o_minus,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white/side{
 	dir = 9
@@ -482,10 +479,7 @@
 	},
 /area/ruin/space/has_grav/listeningstation)
 "bB" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/iv_drip,
 /obj/machinery/light/small,
 /obj/machinery/airalarm/directional/north,

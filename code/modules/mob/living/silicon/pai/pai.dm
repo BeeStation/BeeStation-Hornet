@@ -247,7 +247,7 @@
 	if(!. || !client)
 		return FALSE
 	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/pAI)
-	mind.assigned_role = JOB_NAME_PAI
+	mind.set_assigned_role(JOB_NAME_PAI)
 	notes_assets.send(client)
 	set_mob_eye_to(holoform ? MOB_EYE_SELF : card)
 

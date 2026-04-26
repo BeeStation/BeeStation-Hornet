@@ -75,7 +75,7 @@
 /area/ruin/space/djstation)
 "aq" = (
 /obj/item/storage/box/lights/mixed,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
 /obj/structure/cable/yellow,
@@ -257,11 +257,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "be" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/light/small,
 /turf/open/floor/iron/freezer,
 /area/ruin/space/djstation)

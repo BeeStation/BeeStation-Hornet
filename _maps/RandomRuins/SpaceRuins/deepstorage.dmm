@@ -408,9 +408,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bc" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 24
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bd" = (
@@ -689,10 +687,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "bR" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "bS" = (
@@ -1027,10 +1022,7 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/deepstorage)
 "cO" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 24
 	},
@@ -2192,7 +2184,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -2222,7 +2214,7 @@
 /obj/machinery/camera/directional/north{
 	c_tag = "Bunker entrance"
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -2248,7 +2240,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 4
 	},
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /turf/open/floor/plating,
@@ -2387,7 +2379,7 @@
 "gr" = (
 /obj/machinery/power/smes/engineering,
 /obj/structure/cable/yellow,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
 /turf/open/floor/plating,
@@ -2418,11 +2410,11 @@
 /area/ruin/space/has_grav/deepstorage/dorm)
 "gy" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/blood/OMinus,
-/obj/item/reagent_containers/blood/OMinus,
-/obj/item/reagent_containers/blood/OMinus,
-/obj/item/reagent_containers/blood/OMinus,
-/obj/item/reagent_containers/blood/OMinus,
+/obj/item/reagent_containers/blood/o_minus,
+/obj/item/reagent_containers/blood/o_minus,
+/obj/item/reagent_containers/blood/o_minus,
+/obj/item/reagent_containers/blood/o_minus,
+/obj/item/reagent_containers/blood/o_minus,
 /obj/item/reagent_containers/blood/random,
 /obj/item/reagent_containers/blood/random,
 /obj/item/reagent_containers/blood/random,

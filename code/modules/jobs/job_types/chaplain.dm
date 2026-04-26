@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_CIVILIAN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#dddddd"
 	exp_requirements = 60
@@ -20,6 +20,8 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_CHAPLAIN
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Paladin"
 
 	species_outfits = list(
