@@ -65,6 +65,13 @@
 #define BRITISH_TALK_FILE "accent_british.json"
 #define SCOTTISH_TALK_FILE "accent_scottish.json"
 #define SWEDISH_TALK_FILE "accent_swedish.json"
+#define CAJUN_TALK_FILE "accent_cajun.json"
+#define TEXAN_TALK_FILE "accent_texan.json"
+#define SOUTHMETRO_TALK_FILE "accent_southmetro.json"
+#define RUSSIAN_TALK_FILE "accent_russian.json"
+#define DUTCH_TALK_FILE "accent_dutch.json"
+#define FINNISH_TALK_FILE "accent_finnish.json"
+#define IRISH_TALK_FILE "accent_irish.json"
 
 /// Force the log directory to be something specific in the data/logs folder
 #define OVERRIDE_LOG_DIRECTORY_PARAMETER "log-directory"

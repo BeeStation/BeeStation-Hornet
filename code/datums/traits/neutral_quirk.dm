@@ -204,8 +204,14 @@
 	var/accent_to_use = null
 
 /datum/quirk/accent/add()
+	var/list/available = GLOB.accents.Copy()
+	if(IS_PATRON(quirk_target.ckey))
+		available += GLOB.accents_donator
 	var/chosen = read_choice_preference(/datum/preference/choiced/quirk/accent)
-	accent_to_use = GLOB.accents[chosen || pick(GLOB.accents)]
+	if(chosen && !available[chosen])
+		to_chat(quirk_target, span_warning("Your chosen accent is only accessible to patrons. A random accent has been selected instead."))
+		chosen = null
+	accent_to_use = available[chosen || pick(available)]
 	RegisterSignal(quirk_target, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/quirk/accent/remove()

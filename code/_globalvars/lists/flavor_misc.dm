@@ -366,6 +366,16 @@ GLOBAL_LIST_INIT(accents, list(
 	"Roadman" = ROADMAN_TALK_FILE,
 ))
 
+GLOBAL_LIST_INIT(accents_donator, list(
+	"Cajun" = CAJUN_TALK_FILE,
+	"Texan" = TEXAN_TALK_FILE,
+	"South Metro" = SOUTHMETRO_TALK_FILE,
+	"Russian" = RUSSIAN_TALK_FILE,
+	"Dutch" = DUTCH_TALK_FILE,
+	"Finnish" = FINNISH_TALK_FILE,
+	"Irish" = IRISH_TALK_FILE,
+))
+
 GLOBAL_LIST_INIT(smoker_cigarettes, list(
 	/obj/item/storage/fancy/cigarettes,
 	/obj/item/storage/fancy/cigarettes/cigpack_midori,
