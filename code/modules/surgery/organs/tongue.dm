@@ -98,7 +98,7 @@
 /obj/item/organ/tongue/proc/should_modify_speech(datum/source, list/speech_args)
 	if(speech_args[SPEECH_LANGUAGE] in languages_native)
 		return FALSE //no changes
-	modify_speech(source, speech_args)
+	return TRUE
 
 /obj/item/organ/tongue/proc/modify_speech(datum/source, list/speech_args)
 	return speech_args[SPEECH_MESSAGE]
