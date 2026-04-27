@@ -27,7 +27,6 @@
 		C.dna.add_mutation(/datum/mutation/cluwne)
 
 /obj/item/clothing/mask/animal/cluwne/handle_speech(datum/source, list/speech_args)
-	SIGNAL_HANDLER
 	if(prob(animal_sounds_alt_probability) && LAZYLEN(animal_sounds_alt))
 		play_laugh3()
 	else
