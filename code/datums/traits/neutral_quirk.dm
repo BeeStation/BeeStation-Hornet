@@ -202,6 +202,8 @@
 	medical_record_text = "Patient has a distinct accent."
 	/// Accent to be used in accent traits
 	var/accent_to_use = null
+	/// Reference to the speechmod component so we can remove it on quirk removal
+	var/datum/component/speechmod/accent_component
 
 /datum/quirk/accent/add()
 	var/list/available = GLOB.accents.Copy()
@@ -209,17 +211,22 @@
 		available += GLOB.accents_donator
 	var/chosen = read_choice_preference(/datum/preference/choiced/quirk/accent)
 	if(chosen && !available[chosen])
-		to_chat(quirk_target, span_warning("Your chosen accent is only accessible to patrons. A random accent has been selected instead."))
+		to_chat(GLOB.directory[quirk_target.ckey], span_warning("Your chosen accent is only accessible to patrons. A random accent has been selected instead."))
 		chosen = null
 	accent_to_use = available[chosen || pick(available)]
-	RegisterSignal(quirk_target, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+	accent_component = quirk_target.AddComponent(/datum/component/speechmod, file_path = accent_to_use)
 
 /datum/quirk/accent/remove()
-	UnregisterSignal(quirk_target, COMSIG_MOB_SAY)
+	if(!isnull(accent_component))
+		qdel(accent_component)
+	accent_component = null
 
-/datum/quirk/accent/proc/handle_speech(datum/source, list/speech_args)
-	SIGNAL_HANDLER
-	handle_accented_speech(speech_args, accent_to_use)
+/datum/quirk/accent/vv_edit_var(vname, vval)
+	. = ..()
+	if(vname == NAMEOF(src, accent_to_use))
+		if(!isnull(accent_component))
+			qdel(accent_component)
+		accent_component = quirk_target.AddComponent(/datum/component/speechmod, file_path = accent_to_use)
 
 /datum/quirk/shifty_eyes
 	name = "Shifty Eyes"

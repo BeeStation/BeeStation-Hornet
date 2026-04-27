@@ -370,6 +370,7 @@ GLOBAL_LIST_INIT(accents_donator, list(
 	"Cajun" = CAJUN_TALK_FILE,
 	"Texan" = TEXAN_TALK_FILE,
 	"South Metro" = SOUTHMETRO_TALK_FILE,
+	"Big Apple" = BIGAPPLE_TALK_FILE,
 	"Russian" = RUSSIAN_TALK_FILE,
 	"Dutch" = DUTCH_TALK_FILE,
 	"Finnish" = FINNISH_TALK_FILE,
