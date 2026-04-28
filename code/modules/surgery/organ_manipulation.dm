@@ -136,12 +136,12 @@
 		if(istype(target_organ, /obj/item/organ/brain/positron))
 			var/obj/item/bodypart/affected = target.get_bodypart(check_zone(target_organ.zone))
 			if(!affected)
-				return -1
+				return SURGERY_STEP_FAIL
 			if(IS_ORGANIC_LIMB(affected))
 				to_chat(user, span_notice("You can't put [target_organ] into a meat enclosure!"))
-				return -1
+				return SURGERY_STEP_FAIL
 			if(!IS_ROBOTIC_LIMB(affected))
-				to_chat()
+				to_chat(user, span_notice("[target] does not have the proper connectors to interface with [target_organ]."))
 				return SURGERY_STEP_FAIL
 		var/obj/item/organ/meatslab = tool
 		if(!meatslab.useable)
