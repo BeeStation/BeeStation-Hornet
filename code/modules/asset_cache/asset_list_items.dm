@@ -577,7 +577,7 @@
 /datum/asset/simple/body_zones
 
 /datum/asset/simple/body_zones/register()
-	assets["body_zones.base.png"] = icon('icons/mob/screen_midnight.dmi', "zone_sel")
+	assets["body_zones.base_midnight.png"] = icon('icons/hud/style/screen_midnight.dmi', "zone_sel")
 
 	add_limb(BODY_ZONE_HEAD)
 	add_limb(BODY_ZONE_CHEST)
@@ -592,7 +592,7 @@
 	return ..()
 
 /datum/asset/simple/body_zones/proc/add_limb(limb)
-	assets[SANITIZE_FILENAME("body_zones.[limb].png")] = icon('icons/mob/screen_gen.dmi', limb)
+	assets[SANITIZE_FILENAME("body_zones.[limb].png")] = icon('icons/hud/screen_gen.dmi', limb)
 
 /datum/asset/spritesheet_batched/fish
 	name = "fish"

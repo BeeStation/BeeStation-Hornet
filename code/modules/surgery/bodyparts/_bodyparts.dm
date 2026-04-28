@@ -79,7 +79,7 @@
 	var/burn_modifier = 1
 	/// Stamina damage gets multiplied by this on receive_damage()
 	var/stamina_modifier = 1
-	
+
 	// Damage reduction variables for damage handled on the limb level. Handled after worn armor.
 	/// Amount subtracted from brute damage inflicted on the limb.
 	var/brute_reduction = 0
@@ -324,7 +324,7 @@
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
 //Damage will not exceed max_damage using this proc
 //Cannot apply negative damage
-/obj/item/bodypart/proc/receive_damage(brute = 0, burn = 0, stamina = 0, blocked = 0, updating_health = TRUE, forced = FALSE, required_bodytype = null, sharpness = NONE, attack_direction = null, damage_source)
+/obj/item/bodypart/proc/receive_damage(brute = 0, burn = 0, stamina = 0, blocked = 0, updating_health = TRUE, forced = FALSE, required_bodytype = null, wound_bonus = 0, sharpness = NONE, attack_direction = null, damage_source)
 	SHOULD_CALL_PARENT(TRUE)
 
 	var/hit_percent = (100-blocked)/100

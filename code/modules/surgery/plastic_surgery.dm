@@ -1,12 +1,13 @@
 /datum/surgery/plastic_surgery
-	name = "plastic surgery"
+	name = "Plastic surgery"
+	surgery_flags = SURGERY_REQUIRE_RESTING | SURGERY_REQUIRE_LIMB | SURGERY_REQUIRES_REAL_LIMB
+	possible_locs = list(BODY_ZONE_HEAD)
 	steps = list(
 		/datum/surgery_step/incise,
 		/datum/surgery_step/retract_skin,
 		/datum/surgery_step/reshape_face,
-		/datum/surgery_step/close
+		/datum/surgery_step/close,
 	)
-	possible_locs = list(BODY_ZONE_HEAD)
 
 //reshape_face
 /datum/surgery_step/reshape_face

@@ -1,6 +1,7 @@
-import { Component, createRef } from 'inferno';
-import { resolveAsset } from '../assets';
-import { Box } from './Box';
+import { Component, createRef } from 'react';
+import { Image } from 'tgui-core/components';
+
+import { resolveAsset } from '../../assets';
 
 export enum BodyZone {
   Head = 'head',
@@ -14,7 +15,7 @@ export enum BodyZone {
   Groin = 'groin',
 }
 
-const bodyZonePixelToZone: (x: number, y: number) => BodyZone | null = (x, y) => {
+function bodyZonePixelToZone(x: number, y: number): BodyZone | null {
   // TypeScript translation of /atom/movable/screen/zone_sel/proc/get_zone_at
   if (y < 1) {
     return null;
@@ -51,19 +52,23 @@ const bodyZonePixelToZone: (x: number, y: number) => BodyZone | null = (x, y) =>
   }
 
   return null;
-};
+}
 
 type BodyZoneSelectorProps = {
   onClick?: (zone: BodyZone) => void;
   scale?: number;
   selectedZone: BodyZone | null;
+  theme?: string;
 };
 
 type BodyZoneSelectorState = {
   hoverZone: BodyZone | null;
 };
 
-export class BodyZoneSelector extends Component<BodyZoneSelectorProps, BodyZoneSelectorState> {
+export class BodyZoneSelector extends Component<
+  BodyZoneSelectorProps,
+  BodyZoneSelectorState
+> {
   ref = createRef<HTMLDivElement>();
   state: BodyZoneSelectorState = {
     hoverZone: null,
@@ -71,7 +76,7 @@ export class BodyZoneSelector extends Component<BodyZoneSelectorProps, BodyZoneS
 
   render() {
     const { hoverZone } = this.state;
-    const { scale = 3, selectedZone } = this.props;
+    const { scale = 3, selectedZone, theme = 'midnight' } = this.props;
 
     return (
       <div
@@ -80,10 +85,10 @@ export class BodyZoneSelector extends Component<BodyZoneSelectorProps, BodyZoneS
           width: `${32 * scale}px`,
           height: `${32 * scale}px`,
           position: 'relative',
-        }}>
-        <Box
-          as="img"
-          src={resolveAsset('body_zones.base.png')}
+        }}
+      >
+        <Image
+          src={resolveAsset(`body_zones.base_${theme}.png`)}
           onClick={() => {
             const onClick = this.props.onClick;
             if (onClick && this.state.hoverZone) {
@@ -108,38 +113,33 @@ export class BodyZoneSelector extends Component<BodyZoneSelectorProps, BodyZoneS
             });
           }}
           style={{
-            '-ms-interpolation-mode': 'nearest-neighbor',
-            'position': 'absolute',
-            'width': `${32 * scale}px`,
-            'height': `${32 * scale}px`,
+            position: 'absolute',
+            width: `${32 * scale}px`,
+            height: `${32 * scale}px`,
           }}
         />
 
         {selectedZone && (
-          <Box
-            as="img"
+          <Image
             src={resolveAsset(`body_zones.${selectedZone}.png`)}
             style={{
-              '-ms-interpolation-mode': 'nearest-neighbor',
-              'pointer-events': 'none',
-              'position': 'absolute',
-              'width': `${32 * scale}px`,
-              'height': `${32 * scale}px`,
+              pointerEvents: 'none',
+              position: 'absolute',
+              width: `${32 * scale}px`,
+              height: `${32 * scale}px`,
             }}
           />
         )}
 
         {hoverZone && hoverZone !== selectedZone && (
-          <Box
-            as="img"
+          <Image
             src={resolveAsset(`body_zones.${hoverZone}.png`)}
             style={{
-              '-ms-interpolation-mode': 'nearest-neighbor',
-              'opacity': 0.5,
-              'pointer-events': 'none',
-              'position': 'absolute',
-              'width': `${32 * scale}px`,
-              'height': `${32 * scale}px`,
+              opacity: '0.5',
+              pointerEvents: 'none',
+              position: 'absolute',
+              width: `${32 * scale}px`,
+              height: `${32 * scale}px`,
             }}
           />
         )}

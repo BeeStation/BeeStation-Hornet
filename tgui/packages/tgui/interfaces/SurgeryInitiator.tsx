@@ -1,11 +1,12 @@
 import { sortBy } from 'common/collections';
 import { KEY_DOWN, KEY_ENTER, KEY_UP } from 'common/keycodes';
 import { BooleanLike } from 'common/react';
-import { Component } from 'inferno';
+import { Component } from 'react';
+
 import { useBackend } from '../backend';
 import { Button, KeyListener, Stack } from '../components';
-import { BodyZone, BodyZoneSelector } from '../components/BodyZoneSelector';
 import { Window } from '../layouts';
+import { BodyZone, BodyZoneSelector } from './common/BodyZoneSelector';
 
 type Surgery = {
   name: string;
@@ -18,7 +19,8 @@ type SurgeryInitiatorData = {
   target_name: string;
 };
 
-const sortSurgeries = sortBy((surgery: Surgery) => surgery.name);
+const sortSurgeries = (array: Surgery[]) =>
+  sortBy(array, (surgery) => surgery.name);
 
 type SurgeryInitiatorInnerState = {
   selectedSurgeryIndex: number;
@@ -63,7 +65,7 @@ class SurgeryInitiatorInner extends Component<SurgeryInitiatorData, SurgeryIniti
   }
 
   render() {
-    const { act } = useBackend<SurgeryInitiatorData>(this.context);
+    const { act } = useBackend<SurgeryInitiatorData>();
     const { selected_zone, surgeries, target_name } = this.props;
 
     return (
@@ -138,8 +140,8 @@ class SurgeryInitiatorInner extends Component<SurgeryInitiatorData, SurgeryIniti
   }
 }
 
-export const SurgeryInitiator = (props, context) => {
-  const { data } = useBackend<SurgeryInitiatorData>(context);
+export const SurgeryInitiator = (props) => {
+  const { data } = useBackend<SurgeryInitiatorData>();
 
   return (
     <SurgeryInitiatorInner

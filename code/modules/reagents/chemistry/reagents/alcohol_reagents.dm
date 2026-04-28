@@ -85,7 +85,7 @@
 			var/mob/living/carbon/exposed_carbon = exposed_mob
 			var/power_multiplier = boozepwr / 65 // Weak alcohol has less sterilizing power
 
-			for(var/datum/surgery/surgery in exposed_carbon.surgeries)
+			for(var/datum/surgery/surgery as anything in exposed_carbon.surgeries)
 				surgery.speed_modifier = max(0.1 * power_multiplier, surgery.speed_modifier)
 				// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
 

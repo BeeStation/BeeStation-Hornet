@@ -259,7 +259,7 @@
  *
  * It automatically updates health status
  */
-/mob/living/carbon/take_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_bodytype, check_armor = FALSE, sharpness = NONE)
+/mob/living/carbon/take_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_bodytype, check_armor = FALSE, wound_bonus = 0, sharpness = NONE)
 	. = FALSE
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
@@ -269,7 +269,7 @@
 
 	var/obj/item/bodypart/picked = pick(parts)
 	var/damage_calculator = picked.get_damage(TRUE)
-	if(picked.receive_damage(abs(brute), abs(burn), abs(stamina), check_armor ? run_armor_check(picked, (brute ? MELEE : burn ? FIRE : stamina ? STAMINA : null)) : FALSE, sharpness = sharpness))
+	if(picked.receive_damage(abs(brute), abs(burn), abs(stamina), check_armor ? run_armor_check(picked, (brute ? MELEE : burn ? FIRE : stamina ? STAMINA : null)) : FALSE, wound_bonus = wound_bonus, sharpness = sharpness))
 		update_damage_overlays()
 	return (damage_calculator - picked.get_damage(TRUE))
 

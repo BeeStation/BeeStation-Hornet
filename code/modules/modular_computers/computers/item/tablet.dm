@@ -12,7 +12,7 @@
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	has_light = TRUE //LED flashlight!
 	comp_light_luminosity = 3 //not the same as the PDA
-	interaction_flags_atom = INTERACT_ATOM_ALLOW_USER_LOCATION
+	interaction_flags_atom = INTERACT_ATOM_ALLOW_USER_LOCATION | INTERACT_ATOM_IGNORE_MOBILITY
 	can_save_id = TRUE
 	saved_auto_imprint = TRUE
 	var/list/contained_item = list(/obj/item/pen, /obj/item/toy/crayon, /obj/item/lipstick, /obj/item/flashlight/pen, /obj/item/clothing/mask/cigarette)

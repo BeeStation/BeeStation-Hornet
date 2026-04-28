@@ -46,7 +46,7 @@
 
 	for(var/i_one in target.surgeries)
 		var/datum/surgery/surgeryloop = i_one
-		if(surgeryloop.location == user.zone_selected)
+		if(surgeryloop.location == user.get_combat_bodyzone(precise = TRUE))
 			current_surgery = surgeryloop
 			break
 
@@ -57,7 +57,7 @@
 	var/list/available_surgeries = get_available_surgeries(user, target)
 
 	if(!length(available_surgeries))
-		if (target.body_position == LYING_DOWN)
+		if (target.body_position == LYING_DOWN || !(target.mobility_flags & MOBILITY_LIEDOWN))
 			target.balloon_alert(user, "no surgeries available!")
 		else
 			target.balloon_alert(user, "make them lie down!")
@@ -77,53 +77,49 @@
 /datum/component/surgery_initiator/proc/get_available_surgeries(mob/user, mob/living/target)
 	var/list/available_surgeries = list()
 
-	var/mob/living/carbon/carbon_target
-	var/obj/item/bodypart/affecting
-	if (iscarbon(target))
-		carbon_target = target
-		affecting = carbon_target.get_bodypart(check_zone(user.zone_selected))
+	var/obj/item/bodypart/affecting = target.get_bodypart(user.get_combat_bodyzone())
 
 	for(var/datum/surgery/surgery as anything in GLOB.surgeries_list)
-		if(!surgery.possible_locs.Find(user.zone_selected))
+		if(!surgery.possible_locs.Find(user.get_combat_bodyzone(precise = TRUE)))
 			continue
-		if(affecting)
-			if(!surgery.requires_bodypart)
+		if(!is_type_in_list(target, surgery.target_mobtypes))
+			continue
+		if(user == target && !(surgery.surgery_flags & SURGERY_SELF_OPERABLE))
+			continue
+
+		if(isnull(affecting))
+			if(surgery.surgery_flags & SURGERY_REQUIRE_LIMB)
 				continue
+		else
 			if(surgery.requires_bodypart_type && !(affecting.bodytype & surgery.requires_bodypart_type))
 				continue
-			if(surgery.requires_real_bodypart && affecting.is_pseudopart)
+			if((surgery.surgery_flags & SURGERY_REQUIRES_REAL_LIMB) && (affecting.bodypart_flags & BODYPART_PSEUDOPART))
 				continue
-		else if(carbon_target && surgery.requires_bodypart) //mob with no limb in surgery zone when we need a limb
-			continue
-		if(surgery.lying_required && target.body_position != LYING_DOWN)
+
+		if(IS_IN_INVALID_SURGICAL_POSITION(target, surgery))
 			continue
 		if(!surgery.can_start(user, target))
 			continue
-		for(var/path in surgery.target_mobtypes)
-			if(istype(target, path))
-				available_surgeries += surgery
-				break
+
+		available_surgeries += surgery
 
 	return available_surgeries
 
 /// Does the surgery de-initiation.
 /datum/component/surgery_initiator/proc/attempt_cancel_surgery(datum/surgery/the_surgery, mob/living/patient, mob/user)
-	var/selected_zone = user.zone_selected
+	var/selected_zone = user.get_combat_bodyzone(precise = TRUE)
 
 	if(the_surgery.status == 1)
 		patient.surgeries -= the_surgery
 		//REMOVE_TRAIT(patient, TRAIT_ALLOWED_HONORBOUND_ATTACK, type)
 		user.visible_message(
-			span_notice("[user] removes [parent] from [patient]'s [parse_zone(selected_zone)]."),
-			span_notice("You remove [parent] from [patient]'s [parse_zone(selected_zone)]."),
+			span_notice("[user] removes [parent] from [patient]'s [patient.parse_zone_with_bodypart(selected_zone)]."),
+			span_notice("You remove [parent] from [patient]'s [patient.parse_zone_with_bodypart(selected_zone)]."),
 		)
 
-		patient.balloon_alert(user, "stopped work on [parse_zone(selected_zone)]")
+		patient.balloon_alert(user, "stopped work on [patient.parse_zone_with_bodypart(selected_zone)]")
 
 		qdel(the_surgery)
-		return
-
-	if(!the_surgery.can_cancel)
 		return
 
 	var/required_tool_type = TOOL_CAUTERY
@@ -151,11 +147,11 @@
 	//REMOVE_TRAIT(patient, TRAIT_ALLOWED_HONORBOUND_ATTACK, ELEMENT_TRAIT(type))
 
 	user.visible_message(
-		span_notice("[user] closes [patient]'s [parse_zone(selected_zone)] with [close_tool] and removes [parent]."),
-		span_notice("You close [patient]'s [parse_zone(selected_zone)] with [close_tool] and remove [parent]."),
+		span_notice("[user] closes [patient]'s [patient.parse_zone_with_bodypart(selected_zone)] with [close_tool] and removes [parent]."),
+		span_notice("You close [patient]'s [patient.parse_zone_with_bodypart(selected_zone)] with [close_tool] and remove [parent]."),
 	)
 
-	patient.balloon_alert(user, "closed up [parse_zone(selected_zone)]")
+	patient.balloon_alert(user, "closed up [patient.parse_zone_with_bodypart(selected_zone)]")
 
 	qdel(the_surgery)
 
@@ -164,11 +160,13 @@
 
 	var/mob/living/last_user = last_user_ref.resolve()
 
-	if (surgery_location != last_user.zone_selected)
+	if (isnull(last_user))
 		return
 
-	if (!isnull(last_user))
-		source.balloon_alert(last_user, "someone else started a surgery!")
+	if (surgery_location != last_user.get_combat_bodyzone(precise = TRUE))
+		return
+
+	source.balloon_alert(last_user, "someone else started a surgery!")
 
 	ui_close()
 
@@ -240,7 +238,7 @@
 			surgeries += list(surgery_info)
 
 	return list(
-		"selected_zone" = user.zone_selected,
+		"selected_zone" = user.get_combat_bodyzone(precise = TRUE),
 		"target_name" = surgery_target?.name,
 		"surgeries" = surgeries,
 	)
@@ -275,7 +273,7 @@
 
 	// While we were choosing, another surgery was started at the same location
 	for (var/datum/surgery/surgery in target.surgeries)
-		if (surgery.location == user.zone_selected)
+		if (surgery.location == user.get_combat_bodyzone(precise = TRUE))
 			return FALSE
 
 	return TRUE
@@ -287,27 +285,19 @@
 		target.balloon_alert(user, "can't start the surgery!")
 		return
 
-	var/obj/item/bodypart/affecting_limb
+	var/selected_zone = user.get_combat_bodyzone(precise = TRUE)
+	var/obj/item/bodypart/affecting_limb = target.get_bodypart(check_zone(selected_zone))
 
-	var/selected_zone = user.zone_selected
-
-	if (iscarbon(target))
-		var/mob/living/carbon/carbon_target = target
-		affecting_limb = carbon_target.get_bodypart(check_zone(selected_zone))
-
-	if (surgery.requires_bodypart == isnull(affecting_limb))
-		if (surgery.requires_bodypart)
-			target.balloon_alert(user, "patient has no [parse_zone(selected_zone)]!")
-		else
-			target.balloon_alert(user, "patient has \a [parse_zone(selected_zone)]!")
-
+	if ((surgery.surgery_flags & SURGERY_REQUIRE_LIMB) && isnull(affecting_limb))
+		target.balloon_alert(user, "patient has no [parse_zone(selected_zone)]!")
 		return
 
-	if (!isnull(affecting_limb) && surgery.requires_bodypart_type && !(affecting_limb.bodytype & surgery.requires_bodypart_type))
-		target.balloon_alert(user, "not the right type of limb!")
-		return
+	if (!isnull(affecting_limb))
+		if(surgery.requires_bodypart_type && !(affecting_limb.bodytype & surgery.requires_bodypart_type))
+			target.balloon_alert(user, "not the right type of limb!")
+			return
 
-	if (surgery.lying_required && target.body_position != LYING_DOWN)
+	if (IS_IN_INVALID_SURGICAL_POSITION(target, surgery))
 		target.balloon_alert(user, "patient is not lying down!")
 		return
 
@@ -316,7 +306,7 @@
 		return
 
 	if (surgery_needs_exposure(surgery, target))
-		target.balloon_alert(user, "expose [target.p_their()] [parse_zone(selected_zone)]!")
+		target.balloon_alert(user, "expose [target.p_their()] [target.parse_zone_with_bodypart(selected_zone)]!")
 		return
 
 	ui_close()
@@ -324,11 +314,11 @@
 	var/datum/surgery/procedure = new surgery.type(target, selected_zone, affecting_limb)
 	//ADD_TRAIT(target, TRAIT_ALLOWED_HONORBOUND_ATTACK, type)
 
-	target.balloon_alert(user, "starting \"[lowertext(procedure.name)]\"")
+	target.balloon_alert(user, "starting \"[LOWER_TEXT(procedure.name)]\"")
 
 	user.visible_message(
-		"<span class='notice'>[user] drapes [parent] over [target]'s [parse_zone(selected_zone)] to prepare for surgery.</span>",
-		"<span class='notice'>You drape [parent] over [target]'s [parse_zone(selected_zone)] to prepare for \an [procedure.name].</span>",
+		span_notice("[user] drapes [parent] over [target]'s [target.parse_zone_with_bodypart(selected_zone)] to prepare for surgery."),
+		span_notice("You drape [parent] over [target]'s [target.parse_zone_with_bodypart(selected_zone)] to prepare for \an [procedure.name]."),
 	)
 
 	log_combat(user, target, "operated on", null, "(OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
@@ -337,5 +327,7 @@
 	var/mob/living/user = last_user_ref?.resolve()
 	if (isnull(user))
 		return FALSE
+	if(surgery.surgery_flags & SURGERY_IGNORE_CLOTHES)
+		return FALSE
 
-	return !surgery.ignore_clothes && !get_location_accessible(target, user.zone_selected)
+	return !get_location_accessible(target, user.get_combat_bodyzone(precise = TRUE))

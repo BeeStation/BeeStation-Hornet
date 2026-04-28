@@ -22,6 +22,7 @@
 	/// Scaling factor for how much damage toxins deal to the liver
 	var/toxLethality = LIVER_DEFAULT_TOX_LETHALITY
 	var/filterToxins = TRUE //whether to filter toxins
+	var/operated = FALSE
 
 #define HAS_SILENT_TOXIN 0 //don't provide a feedback message if this is the only toxin present
 #define HAS_NO_TOXIN 1
