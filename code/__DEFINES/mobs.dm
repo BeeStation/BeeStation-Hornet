@@ -714,10 +714,32 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 /// Sets mob eye to themselves. This exists because set_mob_eye_to(src) is a bad idea.
 #define MOB_EYE_SELF "mob_eye_self"
-/// Sets mob eye to what they are using - if that does not exist, get their eyes.
-#define MOB_EYE_CURRENT "mob_eye_current"
 
 // a janky code that restricts you using these DM flags. No, you shouldn't use these.
-#define MOB_PERSPECTIVE you_are_doing_something_wrong()
-#define EDGE_PERSPECTIVE you_are_doing_something_wrong()
-// "EYE_PERSPECTIVE" is the thing we only use.
+#define MOB_PERSPECTIVE __do_not_use_this__use_EYE_PERSPECTIVE() //! MOB_PERSPECTIVE is not used in this codebase. Please use "EYE_PERSPECTIVE"
+#define EDGE_PERSPECTIVE __do_not_use_this__use_EYE_PERSPECTIVE() //! EDGE_PERSPECTIVE is not used in this codebase. Please use "EYE_PERSPECTIVE"
+// /client/var/perspective has three options: MOB_PERSPECTIVE, EDGE_PERSPECTIVE, EYE_PERSPECTIVE
+// If your client eye is your mob, and you use EYE_PERSPECTIVE, it is identical MOB_PERSPECTIVE
+// Instead of checking which perspective your client use, it's easy to manage to make everything is EYE_PERSPECTIVE
+
+/// [WARNING] This is a deprecated proc in Beestation. Do not use this. Use `set_mob_eye_to(THING)` instead.
+/// If you are not sure how to replace this proc, consult EvilDragon.
+#define reset_perspective(...) __DO_NOT_USE_reset_perspective___USE_set_mob_eye_to()
+/* 		Instruction of porting:
+Do the things below instead of using reset_perspective()
+------------------------------------
+/mob/proc/makes_my_eye_different()
+	DO NOT  : reset_perspective()
+	DO NOT  : reset_perspective(null)
+	DO NOT  : reset_perspective(src)
+	DO NOT  : set_mob_eye_to(src)
+	DO THIS : set_mob_eye_to(MOB_EYE_SELF)
+
+	DO NOT  : reset_perspective(camera)
+	DO THIS : set_mob_eye_to(camera)
+
+/obj/proc/some_item_proc(mob/user)
+	DO NOT  : user.reset_perspective(src)
+	DO THIS : user.set_mob_eye_to(src)
+	// This is the only case where 'src' is allowed (because it's /obj)
+------------------------------------*/

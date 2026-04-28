@@ -535,26 +535,7 @@
 	storage.atom_storage.attempt_insert(item_to_equip)
 	return storage
 
-/mob/proc/get_my_eye()
-	return src
 
-/// We do not use this version : use 'set_mob_eye_to(MOB_EYE_SELF)' proc instead.
-/// This proc still exists to warn coders.
-/mob/proc/reset_perspective()
-	PRIVATE_PROC(TRUE) // NO. DO NOT USE THIS. YOU ARE DOING A PORT WRONG.
-	SHOULD_NOT_OVERRIDE(TRUE)
-	set_mob_eye_to(MOB_EYE_SELF) // just in case
-
-/* 		Instruction of porting:
-Do the things below instead of using reset_perspective()
-------------------------------------
-/mob/proc/makes_my_eye_different()
-	reset_perspective() => set_mob_eye_to(MOB_EYE_SELF)
-	reset_perspective(null) => set_mob_eye_to(MOB_EYE_SELF)
-	reset_perspective(camera) => set_mob_eye_to(camera)
-------------------------------------*/
-
-/// Makes a mob's eye a thing. Typically, a mob themselves.
 /mob/proc/set_mob_eye_to(atom/new_eye)
 	// somewhat tricky. If no client ever used this mob as their eye, this proc is not necessary.
 	// This is necessary because we don't want N number of mobs having 'eye_mobs = list(src)'. not necessary.
@@ -591,7 +572,7 @@ Do the things below instead of using reset_perspective()
 	SEND_SIGNAL(src, COMSIG_MOB_SET_MOB_EYE, new_eye, old_eye)
 	return TRUE
 
-
+/// internal usage only proc
 /mob/proc/_on_setting_mob_eye(atom/new_eye, atom/old_eye)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	PROTECTED_PROC(TRUE)
@@ -605,6 +586,11 @@ Do the things below instead of using reset_perspective()
 
 	if(isatom(new_eye))
 		LAZYADD(new_eye.eye_mobs, src)
+
+// In certain situations, you should not use "src" to get your mob's eye.
+// For example, Dullahan would see the things from their head(/obj/item/item/bodypart/head) rather than their body(src as /mob)
+/mob/proc/get_my_eye()
+	return src
 
 /**
   * Examine a mob
