@@ -212,3 +212,9 @@
 2026-04-26:
   St0rmC4st3r:
   - bugfix: IPCs no longer mutate from radiation.
+2026-04-28:
+  mrmanlikesbt:
+  - bugfix: Fixed SMESs not connecting to the cable below them when constructed
+  - bugfix: Fixed cutting a cable sometimes not unlinking 6its connected machinery
+  - bugfix: Fixed a cable sometimes not correctly updating its has_power_node var
+      when update_power_node() was called

@@ -1,7 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: Fixed SMESs not connecting to the cable below them when constructed
-  - bugfix: Fixed cutting a cable sometimes not unlinking 6its connected machinery
-  - bugfix: Fixed a cable sometimes not correctly updating its has_power_node var
-      when update_power_node() was called
