@@ -41400,7 +41400,7 @@
 /obj/item/clothing/suit/hooded/ian_costume,
 /obj/item/clothing/suit/hooded/carp_costume,
 /obj/item/clothing/suit/hooded/bee_costume,
-/obj/item/clothing/mask/rat/bee,
+/obj/item/clothing/mask/animal/small/bee,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/fore)
 "maa" = (

@@ -53,7 +53,7 @@
 /area/template_noop)
 "m" = (
 /obj/structure/rack,
-/obj/item/clothing/mask/horsehead,
+/obj/item/clothing/mask/animal/horsehead,
 /obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plating,
 /area/template_noop)

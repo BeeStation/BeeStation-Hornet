@@ -13423,15 +13423,15 @@
 /turf/closed/wall/r_wall/rust,
 /area/station/command/teleporter)
 "eVm" = (
-/obj/item/clothing/mask/rat{
+/obj/item/clothing/mask/animal/small/rat{
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/clothing/mask/rat/bear{
+/obj/item/clothing/mask/animal/small/bear{
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/clothing/mask/pig{
+/obj/item/clothing/mask/animal/pig{
 	pixel_x = -7;
 	pixel_y = -3
 	},
