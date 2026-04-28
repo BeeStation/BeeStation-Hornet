@@ -1,7 +1,24 @@
 //LISTS - CAN NOT DO VV_DO_TOPIC BECAUSE LISTS AREN'T DATUMS :(
 /client/proc/vv_do_list(list/target, href_list)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, span_adminprefix("Advanced ProcCall detected - You shouldn't call /vv_do_list() directly."))
+		return
 	var/target_index = text2num(GET_VV_VAR_TARGET)
 	if(check_rights(R_VAREDIT))
+		var/dmlist_varname = href_list["dmlist_varname"]
+		if(dmlist_varname)
+			var/dmlist_secure_level = GLOB.vv_special_lists[dmlist_varname]
+			if(isnull(dmlist_secure_level)) // href protection to make sure
+				log_admin("[key_name(src)] attempted to edit a special list ([dmlist_varname]), but this doesn't exist.")
+				return
+			else if(dmlist_secure_level == VV_LIST_EDITABLE)
+				log_world("### vv_do_list() called: [src] attempted to edit a special list ([dmlist_varname]) Security-level:[dmlist_secure_level](allowed)")
+				log_admin("[key_name(src)] attempted to edit a special list ([dmlist_varname]) Security-level:[dmlist_secure_level](allowed)")
+			else // fuck you exploiters
+				log_world("### vv_do_list() called: [src] attempted to edit a special list ([dmlist_varname]), but denied due to the Security-level:[dmlist_secure_level]")
+				log_admin("[key_name(src)] attempted to edit a special list ([dmlist_varname]), but denied due to the Security-level:[dmlist_secure_level]")
+				message_admins("[key_name_admin(src)] attempted to edit a special list ([dmlist_varname]), but denied due to the Security-level:[dmlist_secure_level]. Bonk this guy.")
+				return
 		if(target_index)
 			if(href_list[VV_HK_LIST_EDIT])
 				mod_list(target, null, "list", "contents", target_index, autodetect_class = TRUE)

@@ -41,7 +41,6 @@ As the Captain, you have absolute access and control over the station, but this 
 As the Captain, you can purchase a new emergency shuttle using a communications console. Some require cash, while others give you cash in exchange. Keep in mind that purchasing dangerous shuttles may instigate the ire of your crew.
 As the Chief Medical Officer, your hypospray is like a refillable instant injection syringe that can hold 30 units as opposed to the standard 15.
 As the Chief Medical Officer, coordinate and communicate with your doctors, chemists, and geneticists during a nuclear emergency, blob infestation, or some other crisis to keep people alive and fighting.
-As the Chief Medical Officer, your hardsuit can hold an entire medkit in its suit storage!
 As a Medical Doctor, while both heal toxin damage, the difference between charcoal and antitoxin is that charcoal will actively remove all other reagents from one's body, while antitoxin is more effective under 50 toxin damage - but can overdose.
 As a Medical Doctor, you can surgically implant or extract things from people's chests. This can range from putting in a bomb to pulling out an alien larva.
 As a Medical Doctor, you must target the correct limb and be on help intent when trying to perform surgery on someone. Using disarm attempt will intentionally fail the surgery step.
@@ -85,14 +84,14 @@ As an Explorer, you can use the Newscaster units to message the station if you e
 As an Explorer, you can find technology disks which will unlock new tech nodes when delievered back to R&D!
 As a Roboticist, keep an ear out for anomaly announcements. If you get your hands on an anomaly core, you can build a Phazon mech!
 As a Roboticist, you can repair your cyborgs with a welding tool. If they have taken burn damage, you can remove their battery, expose the wiring with a screwdriver and replace their wires with a cable coil.
-As a Roboticist, you can reset a cyborg's module by cutting and mending the reset wire with a wire cutter.
+As a Roboticist, you can reset a cyborg's model by cutting and mending the reset wire with a wire cutter.
 As a Roboticist, you can use a multitool on an assembled endoskeleton to enter debugging mode. Here you can change its name, master AI and a couple of other settings.
 As a Roboticist, you can greatly help out Shaft Miners by building a Firefighter APLU equipped with a hydraulic clamp and plasma cutter. The mech is ash storm proof and can even walk across lava!
 As a Roboticist, you can augment people with cyborg limbs. Augmented limbs can easily be repaired with cables and welders.
 As the AI, you can click on people's names to look at them. This only works if there are cameras that can see them, they aren't wearing agent IDs and aren't using digital camouflage as changelings.
 As the AI, you can quickly open and close doors by holding shift while clicking them, bolt them when holding ctrl, and even shock them while holding alt.
 As the AI, you can take pictures with your camera and upload them to newscasters.
-As a Cyborg, choose your module carefully, as only cutting and mending your reset wire will let you repick it. If possible, refrain from choosing a module until a situation that requires one occurs.
+As a Cyborg, choose your model carefully, as only cutting and mending your reset wire will let you repick it. If possible, refrain from choosing a model until a situation that requires one occurs.
 As a Cyborg, you are immune to most forms of stunning, and excel at almost everything far better than humans. However, flashes and laser pointers can easily stunlock you and you cannot do any precision work as you lack hands.
 As a Cyborg, you are extremely vulnerable to EMPs as EMPs both stun you and damage you. The ion rifle in the armory or a traitor with an EMP kit can kill you in seconds.
 As a Service Cyborg, your spray can knocks people down. However, it is blocked by masks and glasses.
@@ -100,9 +99,7 @@ As an Engineering Cyborg, you can attach air alarm/fire alarm/APC/camera frames 
 As a Medical Cyborg, you can fully perform surgery and even augment people.
 As a Janitor Cyborg, you are the bane of all slaughter demons and even Bubblegum himself. Cleaning up blood stains will severely gimp them.
 As the Chief Engineer, you can rename areas or create entirely new ones using your station blueprints.
-As the Chief Engineer, your hardsuit is significantly better than everybody else's. It has the best features of both engineering and atmospherics hardsuits - boasting nigh-invulnerability to radiation and all atmospheric conditions, in addition to an integrated jetpack.
 As the Chief Engineer, you can spy on and even forge PDA communications with the message monitor console! The key is in your office.
-As the Chief Engineer, your locker contains a jetpack upgrade that can be attached to hardsuits.
 As the Chief Engineer, the power flow control console in your office will show you APC info and lets you control them remotely.
 As an Engineer, the supermatter shard is an extremely dangerous piece of equipment: touching it will disintegrate you. So will touching it with telepathy.
 As an Engineer, you can electrify grilles by placing wire "nodes" beneath them: the big seemingly unconnected bulges from a half completed wiring job.
@@ -260,6 +257,7 @@ As a Morph, you can talk while disguised, but your words have a chance of being 
 As a Drone, you can ping other drones to alert them of areas in the station in need of repair.
 As a Ghost, you can see the inside of a container on the ground by clicking on it.
 As a Ghost, you can double click on just about anything to follow it. Or just warp around!
+As a Heretic, you can locate an influence by dreaming about random objects around it when you sleep.
 You can swap floor tiles by holding a crowbar in one hand and a stack of tiles in the other.
 When hacking doors, cutting and mending a "test light wire" will restore power to the door.
 When crafting most items, you can either manually combine parts or use the crafting menu.
@@ -281,3 +279,5 @@ You can put holy water in darts to make them more effective against cultists. Or
 Don't know what a word means? https://wiki.beestation13.com/view/Terminology
 You are able to block with most weapons! Being on any intent but harm and walking speed allows almost anything to block. More info: https://wiki.beestation13.com/view/Guide_to_Combat#Blocking
 Embedded items can be removed safely using a hemostat. If you don't have one on hand, try using a screwdriver or wirecutters; get creative!
+In a pinch, stripping yourself naked will give you a sizeable resistance to being tackled. What do you value more, your freedom or your dignity?
+Wearing riot armor makes you significantly more effective at performing tackle takedowns, but will use extra stamina with each leap! It will also significantly protect you from other tackles!

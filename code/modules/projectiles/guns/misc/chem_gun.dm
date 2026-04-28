@@ -4,7 +4,7 @@
 	name = "reagent gun"
 	desc = "A Nanotrasen syringe gun, modified to automatically synthesise chemical darts, and instead hold reagents."
 	icon_state = "chemgun"
-	item_state = "chemgun"
+	inhand_icon_state = "chemgun"
 	w_class = WEIGHT_CLASS_LARGE
 	throw_speed = 3
 	throw_range = 7
@@ -30,10 +30,10 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/gun/chem/can_shoot()
-	return syringes_left
+	return syringes_left && ..()
 
-/obj/item/gun/chem/process_chamber()
-	if(chambered && !chambered.BB && syringes_left)
+/obj/item/gun/chem/on_chamber_fired()
+	if(syringes_left)
 		chambered.newshot()
 
 /obj/item/gun/chem/process()
@@ -41,7 +41,7 @@
 		return
 	if(world.time < last_synth+time_per_syringe)
 		return
-	to_chat(loc, "<span class='warning'>You hear a click as [src] synthesizes a new dart.</span>")
+	to_chat(loc, span_warning("You hear a click as [src] synthesizes a new dart."))
 	syringes_left++
 	if(chambered && !chambered.BB)
 		chambered.newshot()
@@ -51,7 +51,7 @@
 	name = "bee gun"
 	desc = "An odd piece of BLF tech, which fires bees filled with whatever reagents may be in the gun's reservoir, or venom if there are none."
 	icon_state = "beegun"
-	item_state = "chemgun"
+	inhand_icon_state = "chemgun"
 	fire_sound = 'sound/creatures/bee.ogg'
 	automatic = 1
 	fire_rate = 5

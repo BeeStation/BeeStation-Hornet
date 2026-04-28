@@ -19,7 +19,7 @@
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/drone/update_inv_hands()
+/mob/living/simple_animal/drone/update_held_items()
 	remove_overlay(DRONE_HANDS_LAYER)
 	var/list/hands_overlays = list()
 
@@ -30,7 +30,7 @@
 
 	if(r_hand)
 
-		var/r_state = r_hand.item_state
+		var/r_state = r_hand.inhand_icon_state
 		if(!r_state)
 			r_state = r_hand.icon_state
 
@@ -47,7 +47,7 @@
 
 	if(l_hand)
 
-		var/l_state = l_hand.item_state
+		var/l_state = l_hand.inhand_icon_state
 		if(!l_state)
 			l_state = l_hand.icon_state
 
@@ -74,17 +74,16 @@
 		client.screen += internal_storage
 
 
-/mob/living/simple_animal/drone/update_inv_head()
+/mob/living/simple_animal/drone/update_worn_head(update_obscured)
 	remove_overlay(DRONE_HEAD_LAYER)
 
 	if(head)
 		if(client && hud_used && hud_used.hud_shown)
 			head.screen_loc = ui_drone_head
 			client.screen += head
-		var/used_head_icon = 'icons/mob/clothing/head.dmi'
+		var/used_head_icon = 'icons/mob/clothing/head/utility.dmi'
 		if(istype(head, /obj/item/clothing/mask))
-			used_head_icon = 'icons/mob/mask.dmi'
-
+			used_head_icon = 'icons/mob/clothing/mask.dmi'
 		var/mutable_appearance/head_overlay = head.build_worn_icon(src, default_layer = DRONE_HEAD_LAYER, default_icon_file = used_head_icon)
 		head_overlay.pixel_y -= 15
 
@@ -92,14 +91,14 @@
 
 	apply_overlay(DRONE_HEAD_LAYER)
 
-/mob/living/simple_animal/drone/update_inv_wear_mask()
-	update_inv_head()
+/mob/living/simple_animal/drone/update_worn_mask(update_obscured)
+	update_worn_head()
 
 /mob/living/simple_animal/drone/regenerate_icons()
 	// Drones only have 4 slots, which in this specific instance
 	// is a small blessing.
-	update_inv_hands()
-	update_inv_head()
+	update_held_items()
+	update_worn_head()
 	update_inv_internal_storage()
 
 

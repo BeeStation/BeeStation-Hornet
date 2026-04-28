@@ -94,7 +94,7 @@
 		COMSIG_ATOM_ATTACK_HAND,
 		COMSIG_ATOM_ATTACK_PAW,
 	), PROC_REF(consume_attack))
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(consume_attackby))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(consume_attackby))
 
 	RegisterSignal(parent, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(moved))
 	RegisterSignal(parent, COMSIG_ATOM_BUMPED, PROC_REF(consume))
@@ -129,7 +129,7 @@
 		COMSIG_ATOM_BULLET_ACT,
 		COMSIG_ATOM_BUMPED,
 		COMSIG_MOVABLE_PRE_MOVE,
-		COMSIG_PARENT_ATTACKBY,
+		COMSIG_ATOM_ATTACKBY,
 	))
 
 /datum/component/singularity/process(delta_time)
@@ -161,7 +161,7 @@
 	consume(source, user)
 
 // Will there be an impact? Who knows.  Will we see it? No.
-/datum/component/singularity/proc/consume_bullets(obj/projectile/projectile)
+/datum/component/singularity/proc/consume_bullets(datum/source, obj/projectile/projectile)
 	SIGNAL_HANDLER
 	qdel(projectile)
 

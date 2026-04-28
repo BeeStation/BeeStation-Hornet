@@ -13,22 +13,44 @@ const noticestyle = {
   color: 'lightblue',
 };
 
-export const AntagInfoMorph = (_props, _context) => {
+export const AntagInfoMorph = (_props) => {
   return (
-    <Window width={620} height={170} theme="abductor">
+    <Window width={620} height={310} theme="abductor">
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item fontSize="25px">You are a morph...</Stack.Item>
           <Stack.Item>
             <BlockQuote>
-              ...a shapeshifting abomination that can eat almost anything. You may take the form of anything you can see by{' '}
-              <span style={noticestyle}>shift-clicking</span> it.
-              <span style={badstyle}>&ensp;This process will alert any nearby observers.</span> While morphed, you move faster,
-              but are unable to attack creatures or eat anything. In addition,
-              <span style={badstyle}>&ensp;anyone within three tiles will note an uncanny wrongness if examining you.</span> You
-              can attack any item or dead creature to consume it -
-              <span style={goodstyle}>&ensp;creatures will restore your health.</span> Finally, you can restore yourself to your
-              original form while morphed by <span style={noticestyle}>shift-clicking</span> yourself.
+              ...a shapeshifting abomination that can eat almost anything.
+              <br />
+              <br />
+              You may take the form of anything you can see by{' '}
+              <span style={noticestyle}>shift-clicking</span> it. Disguising
+              yourself will alert nearby observers and your{' '}
+              <span style={badstyle}>disguise will be broken </span>
+              for 20 seconds if you are attacked or perform an attack. You may
+              also willingly drop your disguise by{' '}
+              <span style={noticestyle}>shift-clicking</span> yourself.
+              <br />
+              <br />
+              You move slower while morphed, but can surprise creatures with an{' '}
+              <span style={goodstyle}>ambush attack </span>
+              by clicking on them or by fooling them with a tempting disguise
+              that convinces them to willingly interact with you using an open
+              hand. Ambushes will cause your victim to drop anything they are
+              holding and knock them down. If they attempted to interact with
+              you using an open hand it will also{' '}
+              <span style={goodstyle}>inject a debilitating venom </span>
+              making them easy prey for consumption. <br />
+              <br />
+              You can consume any dead or dying creatures as well as loose items
+              by clicking them. Digesting anything will
+              <span style={goodstyle}> restore your health</span>, but dead
+              creatures and food will restore more.
+              <br />
+              <br />
+              You can crawl through the station&apos;s vents and scrubbers by{' '}
+              <span style={noticestyle}>alt-clicking</span> them.
             </BlockQuote>
           </Stack.Item>
         </Stack>

@@ -3,45 +3,42 @@
 	desc = "A basic hybrid energy gun with two settings: disable and kill."
 	icon_state = "energy"
 	w_class = WEIGHT_CLASS_BULKY	//powergaming is kill
-	item_state = null	//so the human update icon uses the icon_state instead.
+	inhand_icon_state = null	//so the human update icon uses the icon_state instead.
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	modifystate = 1
-	can_flashlight = TRUE
 	ammo_x_offset = 3
-	flight_x_offset = 15
-	flight_y_offset = 10
 	weapon_weight = WEAPON_MEDIUM
 	dual_wield_spread = 60
+	custom_price = 300
+
+/obj/item/gun/energy/e_gun/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 15, \
+		overlay_y = 10)
 
 /obj/item/gun/energy/e_gun/mini
 	name = "miniature energy gun"
 	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: disable and kill."
 	icon_state = "mini"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	w_class = WEIGHT_CLASS_SMALL
-	gun_charge = 600
+	gun_charge = 6000 WATT
 	ammo_x_offset = 2
 	charge_sections = 3
-	can_flashlight = FALSE // Can't attach or detach the flashlight, and override it's icon update
 	weapon_weight = WEAPON_LIGHT
+	single_shot_type_overlay = FALSE
 
-/obj/item/gun/energy/e_gun/mini/heads
-	name = "Personal Tiny Self Defense Gun"
-	desc = "The PTSD gun has a built-in flashlight and the ability to recharge itself in two minutes. PTSD is standard issue for leadership within Nanotrasen. It has two settings: disable and kill."
-	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser) ///uses the hos disabler rounds to slightly weaken the disabler count and also to avoid encountering a visual bug where the gun is out of charge but displays that it has one enough for another shot.
-	selfcharge = 1
-	charge_delay = 20
-	can_charge = FALSE 			///Not compatible with fast charging stations, must recharge slowly.
-	icon_state = "personal"
-	item_state = "gun"
-	ammo_x_offset = 2
-	charge_sections = 2
-	flight_x_offset = 13
-	flight_y_offset = 12
-
-/obj/item/gun/energy/e_gun/mini/Initialize(mapload)
-	set_gun_light(new /obj/item/flashlight/seclite(src))
-	return ..()
+/obj/item/gun/energy/e_gun/mini/add_seclight_point()
+	// The mini energy gun's light comes attached but is unremovable.
+	AddComponent(/datum/component/seclite_attachable, \
+		starting_light = new /obj/item/flashlight/seclite(src), \
+		is_light_removable = FALSE, \
+		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
+		light_overlay = "mini-light", \
+		overlay_x = 19, \
+		overlay_y = 13)
 
 /obj/item/gun/energy/e_gun/stun
 	name = "tactical energy gun"
@@ -66,7 +63,7 @@
 /obj/item/gun/energy/e_gun/hos
 	name = "\improper X-01 MultiPhase Energy Gun"
 	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
-	gun_charge = 1200
+	gun_charge = 12000 WATT
 	icon_state = "hoslaser"
 	w_class = WEIGHT_CLASS_LARGE
 	force = 10
@@ -78,18 +75,31 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/gun/energy/e_gun/hos/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
+
+/obj/item/gun/energy/e_gun/hos/contents_explosion(severity, target)
+	if (!ammo_type || !cell)
+		name = "\improper Broken X-01 MultiPhase Energy Gun"
+		desc = "This is an expensive, modern recreation of an antique laser gun. This gun had several unique firemodes, but lacked the ability to recharge over time. Seems too be damaged to the point of not functioning, but still valuable."
+		icon_state = "hoslaser_broken"
+		update_icon()
+
 /obj/item/gun/energy/e_gun/dragnet
 	name = "\improper DRAGnet"
 	desc = "The \"Dynamic Rapid-Apprehension of the Guilty\" net is a revolution in law enforcement technology."
 	icon_state = "dragnet"
-	item_state = "dragnet"
+	inhand_icon_state = "dragnet"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	ammo_type = list(/obj/item/ammo_casing/energy/net, /obj/item/ammo_casing/energy/trap)
-	can_flashlight = FALSE
 	ammo_x_offset = 1
 	fire_rate = 1.5
 	w_class = WEIGHT_CLASS_LARGE
+
+/obj/item/gun/energy/e_gun/dragnet/add_seclight_point()
+	return
 
 /obj/item/gun/energy/e_gun/dragnet/snare
 	name = "Energy Snare Launcher"
@@ -100,23 +110,25 @@
 	name = "hybrid turret gun"
 	desc = "A heavy hybrid energy cannon with two settings: Stun and kill."
 	icon_state = "turretlaser"
-	item_state = "turretlaser"
+	inhand_icon_state = "turretlaser"
 	slot_flags = null
 	w_class = WEIGHT_CLASS_HUGE
-	gun_charge = 10000
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
+	gun_charge = 100 KILOWATT
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/turret, /obj/item/ammo_casing/energy/laser)
 	weapon_weight = WEAPON_HEAVY
-	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
 	automatic = 1
 	fire_rate = 5
 
+/obj/item/gun/energy/e_gun/turret/add_seclight_point()
+	return
+
 /obj/item/gun/energy/e_gun/nuclear
 	name = "advanced energy gun"
 	desc = "An energy gun with an experimental miniaturized nuclear reactor that automatically charges the internal power cell."
 	icon_state = "nucgun"
-	item_state = "nucgun"
+	inhand_icon_state = "nucgun"
 	charge_delay = 10
 	pin = null
 	can_charge = FALSE
@@ -132,7 +144,7 @@
 		fail_tick -= delta_time * 0.5
 	..()
 
-/obj/item/gun/energy/e_gun/nuclear/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
+/obj/item/gun/energy/e_gun/nuclear/after_live_shot_fired(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	failcheck()
 	update_icon()
 	..()
@@ -143,13 +155,13 @@
 		switch(fail_tick)
 			if(0 to 200)
 				fail_tick += (2*(fail_chance))
-				M.rad_act(40)
-				to_chat(M, "<span class='userdanger'>Your [name] feels warmer.</span>")
+				M.adjustFireLoss(3)
+				to_chat(M, span_userdanger("Your [name] feels warmer."))
 			if(201 to INFINITY)
 				SSobj.processing.Remove(src)
-				M.rad_act(80)
+				M.adjustFireLoss(10)
 				reactor_overloaded = TRUE
-				to_chat(M, "<span class='userdanger'>Your [name]'s reactor overloads!</span>")
+				to_chat(M, span_userdanger("Your [name]'s reactor overloads!"))
 
 /obj/item/gun/energy/e_gun/nuclear/emp_act(severity)
 	. = ..()

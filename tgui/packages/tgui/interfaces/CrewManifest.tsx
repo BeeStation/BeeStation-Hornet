@@ -1,14 +1,22 @@
-import { sortBy } from '../../common/collections';
 import { classes } from 'common/react';
+
+import { sortBy } from '../../common/collections';
 import { useBackend } from '../backend';
-import { Box, Icon, CollapsibleSection, Table, Tooltip, Flex } from '../components';
+import {
+  Box,
+  CollapsibleSection,
+  Flex,
+  Icon,
+  Table,
+  Tooltip,
+} from '../components';
 import { Window } from '../layouts';
 
 type DepartmentCrew = { [department: string]: ManifestEntry[] };
 type JobOrdering = { [job: string]: number };
 
 const sortSpecific = (entries: ManifestEntry[], chain: JobOrdering) =>
-  sortBy<ManifestEntry>((entry) => chain[entry.hud] ?? Object.keys(chain).length + 1)(entries);
+  sortBy(entries, (entry) => chain[entry.hud] ?? Object.keys(chain).length + 1);
 
 type ManifestEntry = {
   /** The name of this crew member. */
@@ -41,42 +49,63 @@ type CrewManifestData = {
   user_theme?: string;
 };
 
-export const CrewManifest = (_props, context) => {
+export const CrewManifest = (_props) => {
   const {
     data: { command, order, manifest, user_theme },
-  } = useBackend<CrewManifestData>(context);
+  } = useBackend<CrewManifestData>();
 
   return (
     <Window title="Crew Manifest" width={450} height={500} theme={user_theme}>
       <Window.Content scrollable>
         {Object.entries(manifest).map(([dept, crew]) => {
-          const sorted_jobs = dept === command.dept ? sortSpecific(crew, command.order) : sortSpecific(crew, order);
+          const sorted_jobs =
+            dept === command.dept
+              ? sortSpecific(crew, command.order)
+              : sortSpecific(crew, order);
           return (
             <CollapsibleSection
               className={classes(['CrewManifest', `CrewManifest--${dept}`])}
               key={dept}
               sectionKey={dept}
-              title={dept}>
+              title={dept}
+            >
               <Table>
                 {Object.entries(sorted_jobs).map(([crewIndex, crewMember]) => {
-                  const is_command = command.huds.includes(crewMember.hud) || command.jobs.includes(crewMember.rank);
+                  const is_command =
+                    command.huds.includes(crewMember.hud) ||
+                    command.jobs.includes(crewMember.rank);
                   return (
-                    <Table.Row key={crewIndex} className="candystripe" height="16px">
-                      <Table.Cell className={'CrewManifest__Cell'} bold={is_command} pl={0.5}>
-                        <Flex direction="row" style={{ 'align-items': 'center' }}>
+                    <Table.Row
+                      key={crewIndex}
+                      className="candystripe"
+                      height="16px"
+                    >
+                      <Table.Cell
+                        className={'CrewManifest__Cell'}
+                        bold={is_command}
+                        pl={0.5}
+                      >
+                        <Flex direction="row" style={{ alignItems: 'center' }}>
                           <Flex.Item>
                             <Box
                               inline
                               mr={0.5}
                               ml={-0.5}
-                              style={{ 'vertical-align': 'middle' }}
+                              style={{ verticalAlign: 'middle' }}
                               className={`job-icon16x16 job-icon-hud${crewMember.hud}`}
                             />
                           </Flex.Item>
                           <Flex.Item grow>{crewMember.name}</Flex.Item>
                         </Flex>
                       </Table.Cell>
-                      <Table.Cell className={classes(['CrewManifest__Cell', 'CrewManifest__Cell--Rank'])} collapsing pr={1}>
+                      <Table.Cell
+                        className={classes([
+                          'CrewManifest__Cell',
+                          'CrewManifest__Cell--Rank',
+                        ])}
+                        collapsing
+                        pr={1}
+                      >
                         {is_command && (
                           <Tooltip content="Head of Staff" position="bottom">
                             <Icon

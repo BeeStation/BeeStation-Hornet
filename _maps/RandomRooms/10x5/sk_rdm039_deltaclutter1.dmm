@@ -98,7 +98,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/template_noop)
 "r" = (
@@ -138,9 +138,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "z" = (
-/obj/structure/chair/stool/bar{
-	dir = 8
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/wood,
 /area/template_noop)
 "A" = (
@@ -163,15 +161,14 @@
 /area/template_noop)
 "F" = (
 /obj/structure/table/wood,
-/obj/machinery/airalarm{
-	dir = 4;
+/obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
 /obj/machinery/light_switch{
 	pixel_y = -26
 	},
-/obj/item/stack/cable_coil/white,
-/obj/item/stack/cable_coil/white,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
 /obj/item/stack/sheet/glass,
 /obj/item/stack/sheet/glass,
 /obj/item/circuitboard/machine/microwave,
@@ -197,7 +194,7 @@
 "N" = (
 /obj/structure/table/wood,
 /obj/item/clothing/neck/tie/red,
-/obj/item/clothing/head/that,
+/obj/item/clothing/head/hats/tophat,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/template_noop)
@@ -226,7 +223,7 @@
 "Y" = (
 /obj/structure/table/wood,
 /obj/item/electronics/airalarm,
-/obj/item/circuitboard/computer/med_data,
+/obj/item/circuitboard/computer/records/medical,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/template_noop)

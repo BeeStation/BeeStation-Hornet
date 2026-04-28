@@ -41,4 +41,3 @@ cp -r tgui/packages/tgfont/dist/* $1/tgui/packages/tgfont/dist/
 
 #dlls on windows
 cp rust_g* $1/ || true
-cp auxtools/*auxmos.* $1/auxtools/ || true

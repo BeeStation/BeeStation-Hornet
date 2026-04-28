@@ -35,7 +35,13 @@ SUBSYSTEM_DEF(zclear)
 
 /datum/controller/subsystem/zclear/New()
 	. = ..()
-	ignored_atoms = typecacheof(list(/mob/dead, /mob/camera, /mob/dview, /atom/movable/lighting_object, /atom/movable/mirage_holder))
+	ignored_atoms = typecacheof(list(
+		/mob/dead,
+		/mob/camera,
+		/mob/dview,
+		/atom/movable/lighting_object,
+		/atom/movable/mirage_holder
+	))
 
 /datum/controller/subsystem/zclear/Recover()
 	if(!islist(autowipe)) autowipe = list()
@@ -222,7 +228,7 @@ SUBSYSTEM_DEF(zclear)
 			LAZYREMOVE(processing_levels, cleardata)
 			//Finalize area
 			SSair.unpause_z(cleardata.zvalue)
-			var/area/spaceA = GLOB.areas_by_type[/area/space]
+			var/area/misc/spaceA = GLOB.areas_by_type[/area/misc/space]
 			spaceA.reg_in_areas_in_z()	//<< Potentially slow proc
 			if(cleardata.completion_callback)
 				cleardata.completion_callback.Invoke(cleardata.zvalue)
@@ -232,7 +238,7 @@ SUBSYSTEM_DEF(zclear)
 				var/nullspaced_mob_names = ""
 				var/valid = FALSE
 				for(var/mob/M as() in nullspaced_mobs)
-					if(M.key || M.get_ghost(FALSE, TRUE))
+					if(M.key || !M.get_ghost(FALSE, TRUE))
 						nullspaced_mob_names += " - [M.name]\n"
 						valid = TRUE
 				if(valid)
@@ -270,7 +276,7 @@ SUBSYSTEM_DEF(zclear)
 							//Since the wiping takes 90 seconds they could potentially still be on the z-level as it is wiping if they reconnect in time
 							random_teleport_atom(M)
 							M.Knockdown(5)
-							to_chat(M, "<span class='warning'>You feel sick as your body lurches through space and time, the ripples of the starship that brought you here eminate no more and you get the horrible feeling that you have been left behind.</span>")
+							to_chat(M, span_warning("You feel sick as your body lurches through space and time, the ripples of the starship that brought you here emanate no more and you get the horrible feeling that you have been left behind."))
 					else
 						delete_atom(thing)
 				else
@@ -334,10 +340,10 @@ SUBSYSTEM_DEF(zclear)
 		else
 			newT = T.ChangeTurf(/turf/open/space, /turf/baseturf_bottom, flags = CHANGETURF_IGNORE_AIR | CHANGETURF_DEFER_CHANGE)
 		var/area/old_area = newT.loc
-		if(!istype(newT.loc, /area/space))
-			var/area/newA = GLOB.areas_by_type[/area/space]
+		if(!istype(newT.loc, /area/misc/space))
+			var/area/newA = GLOB.areas_by_type[/area/misc/space]
 			newT.change_area(old_area, newA)
-		newT.flags_1 &= ~NO_RUINS_1
+		newT.turf_flags &= ~NO_RUINS
 		new_turfs += newT
 	return new_turfs
 
@@ -348,3 +354,6 @@ SUBSYSTEM_DEF(zclear)
 	var/tracking
 	//Callback when completed, z value passed as parameters
 	var/datum/callback/completion_callback
+
+#undef CLEAR_TURF_PROCESSING_TIME
+#undef CHECK_ZLEVEL_TICKS

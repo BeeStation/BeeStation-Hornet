@@ -57,7 +57,7 @@
 /area/ruin/unpowered)
 "k" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/pizzaparty,
+/obj/effect/spawner/random/food_or_drink/pizzaparty,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
@@ -68,7 +68,7 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/pizzaparty,
+/obj/effect/spawner/random/food_or_drink/pizzaparty,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/wood{
@@ -89,13 +89,6 @@
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
-"o" = (
-/obj/item/trash/plate,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/wood{
-	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
-	},
-/area/ruin/unpowered)
 "p" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
@@ -106,17 +99,6 @@
 "q" = (
 /obj/item/chair/wood/wings,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/wood{
-	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
-	},
-/area/ruin/unpowered)
-"r" = (
-/obj/structure/chair/wood/wings,
-/obj/effect/decal/remains/human,
-/obj/item/clothing/head/festive{
-	desc = "A festive party hat with the name 'timmy' scribbled on the front.";
-	name = "party hat"
-	},
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -153,14 +135,7 @@
 /area/ruin/unpowered)
 "x" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/pizzaparty,
-/turf/open/floor/wood{
-	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
-	},
-/area/ruin/unpowered)
-"y" = (
-/obj/structure/table/wood,
-/obj/item/trash/plate,
+/obj/effect/spawner/random/food_or_drink/pizzaparty,
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -173,28 +148,12 @@
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
-"A" = (
-/obj/structure/table/wood,
-/obj/item/trash/plate,
-/obj/item/kitchen/fork,
-/turf/open/floor/wood{
-	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
-	},
-/area/ruin/unpowered)
 "C" = (
 /obj/structure/chair/wood/wings{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
-	},
-/area/ruin/unpowered)
-"D" = (
-/obj/structure/table/wood,
-/obj/item/food/pizzaslice/margherita,
-/obj/item/trash/plate,
-/turf/open/floor/wood{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
@@ -285,6 +244,47 @@
 /area/ruin/unpowered)
 "Q" = (
 /turf/open/floor/plating{
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
+	},
+/area/ruin/unpowered)
+"R" = (
+/obj/item/plate,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood{
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
+	},
+/area/ruin/unpowered)
+"U" = (
+/obj/structure/table/wood,
+/obj/item/plate,
+/obj/item/kitchen/fork,
+/turf/open/floor/wood{
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
+	},
+/area/ruin/unpowered)
+"X" = (
+/obj/structure/chair/wood/wings,
+/obj/effect/decal/remains/human,
+/obj/item/clothing/head/costume/festive{
+	desc = "A festive party hat with the name 'timmy' scribbled on the front.";
+	name = "party hat"
+	},
+/turf/open/floor/wood{
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
+	},
+/area/ruin/unpowered)
+"Y" = (
+/obj/structure/table/wood,
+/obj/item/food/pizzaslice/margherita,
+/obj/item/plate,
+/turf/open/floor/wood{
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
+	},
+/area/ruin/unpowered)
+"Z" = (
+/obj/structure/table/wood,
+/obj/item/plate,
+/turf/open/floor/wood{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
@@ -416,7 +416,7 @@ b
 b
 d
 g
-o
+R
 h
 h
 C
@@ -439,7 +439,7 @@ h
 p
 q
 x
-D
+Y
 K
 M
 d
@@ -457,8 +457,8 @@ c
 e
 i
 h
-r
-y
+X
+Z
 E
 h
 h
@@ -498,7 +498,7 @@ e
 e
 h
 t
-A
+U
 G
 q
 h
@@ -540,7 +540,7 @@ h
 u
 s
 s
-o
+R
 n
 d
 b

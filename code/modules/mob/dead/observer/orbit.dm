@@ -67,7 +67,7 @@
 				//If we have an ID, use that
 				var/obj/item/card/id/identification_card = M.get_idcard()
 				if (identification_card)
-					serialized["role_icon"] = "hud[ckey(identification_card.GetJobIcon())]"
+					serialized["role_icon"] = "hud[ckey(identification_card.get_item_job_icon())]"
 				else if(SSjob.name_occupations[mind.assigned_role])
 					//If we have no ID, use the mind job
 					var/located_job_hud = get_hud_by_jobname(mind.assigned_role, returns_unknown=FALSE)
@@ -120,4 +120,6 @@
 	transform.scale(16, 16)
 
 	for (var/icon_state_name in icon_states('icons/mob/hud.dmi'))
-		insert_icon("job-icon-[icon_state_name]", uni_icon('icons/mob/hud.dmi', icon_state_name, transform=transform))
+		var/datum/universal_icon/job_icon = uni_icon('icons/mob/hud.dmi', icon_state_name)
+		job_icon.transform = transform
+		insert_icon("job-icon-[icon_state_name]", job_icon)

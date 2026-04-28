@@ -70,7 +70,7 @@
 /datum/disease/advance/Destroy()
 	if(affected_mob)
 		SEND_SIGNAL(affected_mob, COMSIG_DISEASE_END, GetDiseaseID())
-		UnregisterSignal(affected_mob, COMSIG_MOB_DEATH)
+		UnregisterSignal(affected_mob, COMSIG_LIVING_DEATH)
 	if(processing)
 		for(var/datum/symptom/S in symptoms)
 			S.End(src)
@@ -107,7 +107,7 @@
 
 /datum/disease/advance/after_add()
 	if(affected_mob)
-		RegisterSignal(affected_mob, COMSIG_MOB_DEATH, PROC_REF(on_mob_death))
+		RegisterSignal(affected_mob, COMSIG_LIVING_DEATH, PROC_REF(on_mob_death))
 
 /datum/disease/advance/proc/on_mob_death()
 	SIGNAL_HANDLER
@@ -116,28 +116,33 @@
 		S.OnDeath(src)
 
 // Randomly pick a symptom to activate.
-/datum/disease/advance/stage_act()
+/datum/disease/advance/stage_act(delta_time, times_fired)
 	if(dormant)
 		return
-	..()
-	if(carrier)
+	. = ..()
+	if(!.)
 		return
 
-	if(symptoms?.len)
+	if(!length(symptoms))
+		return
 
-		if(!processing)
-			processing = TRUE
-			for(var/datum/symptom/S in symptoms)
-				S.Start(src)
+	if(!processing)
+		processing = TRUE
+		for(var/s in symptoms)
+			var/datum/symptom/symptom_datum = s
+			if(symptom_datum.Start(src)) //this will return FALSE if the symptom is neutered
+				symptom_datum.next_activation = world.time + rand(symptom_datum.symptom_delay_min SECONDS, symptom_datum.symptom_delay_max SECONDS)
+			symptom_datum.on_stage_change(src)
 
-		for(var/datum/symptom/S in symptoms)
-			S.Activate(src)
+	for(var/s in symptoms)
+		var/datum/symptom/symptom_datum = s
+		symptom_datum.Activate(src)
 
 // Tell symptoms stage changed
 /datum/disease/advance/update_stage(new_stage)
 	..()
 	for(var/datum/symptom/S as() in symptoms)
-		S.on_stage_change(new_stage, src)
+		S.on_stage_change(src)
 
 // Compares type then ID.
 /datum/disease/advance/IsSame(datum/disease/advance/D)
@@ -239,6 +244,10 @@
 /datum/disease/advance/proc/Refresh(new_name = FALSE)
 	GenerateProperties()
 	AssignProperties()
+	if(processing && symptoms && symptoms.len)
+		for(var/datum/symptom/S in symptoms)
+			S.Start(src)
+			S.on_stage_change(src)
 	if(!keepid)
 		id = null
 	var/the_id = GetDiseaseID()
@@ -295,9 +304,9 @@
 		visibility_flags &= ~HIDDEN_SCANNER
 
 	SetSpread()
-	permeability_mod = max(CEILING(0.4 * transmission, 1), 1)
-	cure_chance = 15 - clamp(resistance, -5, 5) // can be between 10 and 20
-	stage_prob = max(stage_rate, 2)
+	spreading_modifier = max(CEILING(0.4 * transmission, 1), 1)
+	cure_chance = clamp(7.5 - (0.5 * resistance), 5, 10) // can be between 5 and 10
+	stage_prob = max(stage_rate, 1)
 	SetDanger(severity)
 	GenerateCure()
 	symptoms = sort_list(symptoms, GLOBAL_PROC_REF(cmp_advdisease_symptomid_asc))
@@ -505,7 +514,7 @@
 		var/datum/disease/advance/D2 = pick(diseases)
 		D2.Mix(D1)
 
-	 // Should be only 1 entry left, but if not let's only return a single entry
+	// Should be only 1 entry left, but if not let's only return a single entry
 	var/datum/disease/advance/to_return = pick(diseases)
 	to_return.dormant = FALSE
 	to_return.Refresh(new_name = TRUE)
@@ -536,7 +545,7 @@
 	symptoms += SSdisease.list_symptoms.Copy()
 	do
 		if(user)
-			var/symptom = input(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom") in sort_list(symptoms, GLOBAL_PROC_REF(cmp_typepaths_asc))
+			var/symptom = tgui_input_list(user, "Choose a symptom to add, [i] remaining (Select \"Done\" at the end of the list to finalize early):", "Choose a Symptom", sort_list(symptoms, GLOBAL_PROC_REF(cmp_typepaths_asc)))
 			if(isnull(symptom))
 				return
 			else if(istext(symptom))
@@ -544,36 +553,56 @@
 			else if(ispath(symptom))
 				var/datum/symptom/S = new symptom
 				if(!D.HasSymptom(S))
-					D.symptoms += S
+					D.AddSymptom(S)
 					i -= 1
 	while(i > 0)
 
 	if(D.symptoms.len > 0)
 
-		var/new_name = stripped_input(user, "Name your new disease.", "New Name")
+		var/new_name = tgui_input_text(user, "Name your new disease.", "New Name")
 		if(!new_name)
+			to_chat(user, span_warning("No name was given, using random name instead."))
+			new_name = D.random_disease_name()
+		if(tgui_alert(user, "Create Virus ([new_name]) as is?", "Confirmation", list("Yes", "No")) != "Yes")
 			return
-		D.AssignName(new_name)
 		D.Refresh()
+		D.AssignName(new_name) //Updates the master copy
+		D.name = new_name //Updates our copy
 		D.Finalize()
 
 		for(var/datum/disease/advance/AD in SSdisease.active_diseases)
 			AD.Refresh()
 
-		for(var/mob/living/carbon/human/H in shuffle(GLOB.alive_mob_list))
-			if(!is_station_level(H.z))
-				continue
-			if(!H.HasDisease(D))
+		var/list/targets = list("Random")
+		targets += sort_names(GLOB.human_list)
+		var/target = input(user, "Pick a viable human target for the disease.", "Disease Target") as null|anything in targets
+
+		var/mob/living/carbon/human/H
+		if(!target)
+			return
+		if(target == "Random")
+			for(var/human in shuffle(GLOB.human_list))
+				H = human
+				var/found = FALSE
+				if(!is_station_level(H.z))
+					continue
+				if(!H.HasDisease(D))
+					found = H.ForceContractDisease(D)
+					break
+				if(!found)
+					to_chat(user, "Could not find a valid target for the disease.")
+		else
+			H = target
+			if(istype(H) && D.infectable_biotypes & H.mob_biotypes)
 				H.ForceContractDisease(D)
-				break
+			else
+				to_chat(user, "Target could not be infected. Check mob biotype compatibility or resistances.")
+				return
 
-		var/list/name_symptoms = list()
-		for(var/datum/symptom/S in D.symptoms)
-			name_symptoms += S.name
-		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.admin_details()]")
-		log_virus("[key_name(user)] has triggered a custom virus outbreak of [D.admin_details()]!")
+		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.admin_details()] in [ADMIN_LOOKUPFLW(H)]")
+		log_virus("[key_name(user)] has triggered a custom virus outbreak of [D.admin_details()] in [H]!")
 
-/datum/disease/advance/infect(var/mob/living/infectee, make_copy = TRUE)
+/datum/disease/advance/infect(mob/living/infectee, make_copy = TRUE)
 	var/datum/disease/advance/A = make_copy ? Copy() : src
 	if(!initial && A.mutable && (spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS))
 		var/minimum = 1
@@ -603,7 +632,7 @@
 	log_virus("[key_name(infectee)] was infected by virus: [src.admin_details()] at [loc_name(source_turf)]")
 
 
-/datum/disease/advance/proc/random_disease_name(var/atom/diseasesource)//generates a name for a disease depending on its symptoms and where it comes from
+/datum/disease/advance/proc/random_disease_name(atom/diseasesource)//generates a name for a disease depending on its symptoms and where it comes from
 	// If this just has 1 symptom, use that symptom's name.
 	if(length(symptoms) == 1)
 		var/datum/symptom/main_symptom = symptoms[1]
@@ -677,7 +706,7 @@
 			if(/obj/effect/decal/cleanable)
 				prefixes += list("Bloody ", "Maintenance ")
 				bodies += list("Maint")
-			if(/mob/living/simple_animal/mouse)
+			if(/mob/living/basic/mouse)
 				prefixes += list("Vermin ", "Zoo", "Maintenance ")
 				bodies += list("Rat", "Maint")
 			if(/obj/item/reagent_containers/syringe)
@@ -701,7 +730,7 @@
 		if(3)
 			return "[pick(bodies)][pick(suffixes)]"
 
-/datum/disease/advance/proc/logchanges(datum/reagents/holder, var/modification_type)
+/datum/disease/advance/proc/logchanges(datum/reagents/holder, modification_type)
 	if(holder?.my_atom?.fingerprintslast)
 		last_modified_by = holder.my_atom.fingerprintslast
 	else

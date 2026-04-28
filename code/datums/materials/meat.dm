@@ -13,7 +13,7 @@
 	turf_sound_override = FOOTSTEP_MEAT
 	texture_layer_icon_state = "meat"
 
-/datum/material/meat/on_removed(atom/source, material_flags)
+/datum/material/meat/on_removed(atom/source, amount, material_flags)
 	. = ..()
 	qdel(source.GetComponent(/datum/component/edible))
 
@@ -29,4 +29,4 @@
 /datum/material/meat/proc/make_edible(atom/source, amount, material_flags)
 	var/nutriment_count = 3 * (amount / MINERAL_MATERIAL_AMOUNT)
 	var/oil_count = 2 * (amount / MINERAL_MATERIAL_AMOUNT)
-	source.AddComponent(/datum/component/edible, list(/datum/reagent/consumable/nutriment = nutriment_count, /datum/reagent/consumable/cooking_oil = oil_count), null, RAW | MEAT | GORE, null, 30, list("Fleshy"))
+	source.AddComponent(/datum/component/edible, list(/datum/reagent/consumable/nutriment = nutriment_count, /datum/reagent/consumable/nutriment/fat/oil = oil_count), null, RAW | MEAT | GORE, null, 30, list("Fleshy"))

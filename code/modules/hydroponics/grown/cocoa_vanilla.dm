@@ -6,7 +6,7 @@
 	species = "cocoapod"
 	plantname = "Cocao Tree"
 	product = /obj/item/food/grown/cocoapod
-	lifespan = 20
+	lifespan = 80
 	maturation = 5
 	production = 5
 	yield = 2
@@ -58,7 +58,7 @@
 	species = "bungotree"
 	plantname = "Bungo Tree"
 	product = /obj/item/food/grown/bungofruit
-	lifespan = 30
+	lifespan = 120
 	maturation = 4
 	yield = 3
 	production = 7
@@ -79,7 +79,7 @@
 	bite_consumption_mod = 2
 	trash_type = /obj/item/food/grown/bungopit
 	foodtypes = FRUIT
-	juice_results = list(/datum/reagent/consumable/bungojuice = 0)
+	juice_typepath = /datum/reagent/consumable/bungojuice
 	tastes = list("bungo" = 2, "tropical fruitiness" = 1)
 	distill_reagent = null
 	discovery_points = 300

@@ -17,7 +17,6 @@
 	var/menu = 1 //Which menu screen to display
 	var/use_records = TRUE	//set this to false if you don't want the console to use records
 	var/list/records = list()
-	var/datum/data/record/active_record
 	var/obj/item/disk/data/diskette //Incompatible format to genetics machine
 	//select which parts of the diskette to load
 	var/include_se = FALSE //mutations
@@ -37,15 +36,14 @@
 
 /obj/machinery/computer/cloning/Destroy()
 	if(pods)
-		for(var/P in pods)
-			DetachCloner(P)
+		for(var/pod in pods)
+			DetachCloner(pod)
 		pods = null
 	return ..()
 
 /obj/machinery/computer/cloning/proc/GetAvailablePod(mind = null)
 	if(pods)
-		for(var/P in pods)
-			var/obj/machinery/clonepod/pod = P
+		for(var/obj/machinery/clonepod/pod as anything in pods)
 			if(pod.occupant && pod.clonemind == mind)
 				return null
 			if(pod.is_operational && !(pod.occupant || pod.mess))
@@ -53,22 +51,20 @@
 
 /obj/machinery/computer/cloning/proc/HasEfficientPod()
 	if(pods)
-		for(var/P in pods)
-			var/obj/machinery/clonepod/pod = P
+		for(var/obj/machinery/clonepod/pod as anything in pods)
 			if(pod.is_operational && pod.efficiency > 5)
 				return TRUE
 
 /obj/machinery/computer/cloning/proc/GetAvailableEfficientPod(mind = null)
 	if(pods)
-		for(var/P in pods)
-			var/obj/machinery/clonepod/pod = P
+		for(var/obj/machinery/clonepod/pod as anything in pods)
 			if(pod.occupant && pod.clonemind == mind)
 				return pod
 			else if(!. && pod.is_operational && !(pod.occupant || pod.mess) && pod.efficiency > 5)
 				. = pod
 
-/proc/grow_clone_from_record(obj/machinery/clonepod/pod, datum/data/record/R, experimental)
-	return pod.growclone(R.fields["name"], R.fields["UI"], R.fields["SE"], R.fields["mindref"], R.fields["last_death"], R.fields["mrace"], R.fields["features"], R.fields["factions"], R.fields["bank_account"], R.fields["traumas"], R.fields["body_only"], experimental)
+/proc/grow_clone_from_record(obj/machinery/clonepod/pod, datum/record/cloning/cloning_record, experimental)
+	return pod.growclone(cloning_record.name, cloning_record.uni_identity, cloning_record.SE, cloning_record.resolve_mind(), cloning_record.last_death, cloning_record.species, cloning_record.resolve_dna_features(), cloning_record.factions, cloning_record.resolve_mind_account_id(), cloning_record.traumas, cloning_record.body_only, experimental)
 
 /obj/machinery/computer/cloning/process()
 	if(!(scanner && LAZYLEN(pods) && autoprocess))
@@ -78,8 +74,8 @@
 		scan_occupant(scanner.occupant)
 		ui_update()
 
-	for(var/datum/data/record/R in records)
-		var/obj/machinery/clonepod/pod = GetAvailableEfficientPod(R.fields["mindref"])
+	for(var/datum/record/cloning/cloning_record in records)
+		var/obj/machinery/clonepod/pod = GetAvailableEfficientPod(cloning_record.resolve_mind())
 
 		if(!pod)
 			return
@@ -87,13 +83,13 @@
 		if(pod.occupant)
 			break
 
-		var/result = grow_clone_from_record(pod, R, experimental)
+		var/result = grow_clone_from_record(pod, cloning_record, experimental)
 		if(result & CLONING_SUCCESS)
-			temp = "[R.fields["name"]] => Cloning cycle in progress..."
-			log_cloning("Cloning of [key_name(R.fields["mindref"])] automatically started via autoprocess - [src] at [AREACOORD(src)]. Pod: [pod] at [AREACOORD(pod)].")
+			temp = "[cloning_record.name] => Cloning cycle in progress..."
+			log_cloning("Cloning of [key_name(cloning_record.resolve_mind())] automatically started via autoprocess - [src] at [AREACOORD(src)]. Pod: [pod] at [AREACOORD(pod)].")
 			SStgui.update_uis(src)
 		if(result & CLONING_DELETE_RECORD)
-			records -= R
+			records -= cloning_record
 			ui_update()
 
 
@@ -156,13 +152,13 @@
 	pod.connected = null
 	LAZYREMOVE(pods, pod)
 
-/obj/machinery/computer/cloning/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/disk/data)) //INSERT SOME DISKETTES
+/obj/machinery/computer/cloning/attackby(obj/item/used_item, mob/user, params)
+	if(istype(used_item, /obj/item/disk/data)) //INSERT SOME DISKETTES
 		if (!diskette)
-			if (!user.transferItemToLoc(W,src))
+			if (!user.transferItemToLoc(used_item,src))
 				return
-			diskette = W
-			to_chat(user, "<span class='notice'>You insert [W].</span>")
+			diskette = used_item
+			to_chat(user, span_notice("You insert [used_item]."))
 			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	else
 		return ..()
@@ -183,7 +179,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	else
 		if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 			to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
-	return COMPONENT_BUFFER_RECIEVED
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/computer/cloning/AltClick(mob/user)
 	. = ..()
@@ -195,20 +191,20 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	if(diskette)
 		scantemp = "Disk Ejected"
 		diskette.forceMove(drop_location())
-		usr.put_in_active_hand(diskette)
+		user.put_in_active_hand(diskette)
 		diskette = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 		. = TRUE
 
 /obj/machinery/computer/cloning/proc/Save(mob/user, target)
-	var/datum/data/record/GRAB = null
-	for(var/datum/data/record/record in records)
-		if(record.fields["id"] == target)
-			GRAB = record
+	var/datum/record/cloning/cloning_record_copy = null
+	for(var/datum/record/cloning/record in records)
+		if(record.id == target)
+			cloning_record_copy = record
 			break
 		else
 			continue
-	if(!GRAB || !GRAB.fields)
+	if(!cloning_record_copy)
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		scantemp = "Failed saving to disk: Data Corruption"
 		return FALSE
@@ -216,29 +212,32 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		scantemp = !diskette ? "Failed saving to disk: No disk." : "Failed saving to disk: Disk refuses override attempt."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
-	diskette.fields = GRAB.fields.Copy()
-	diskette.name = "data disk - '[src.diskette.fields["name"]]'"
+
+	diskette.data = new()
+	diskette.data.copy_to(cloning_record_copy)
+
+	diskette.name = "data disk - '[src.diskette.data.name]'"
 	scantemp = "Saved to disk successfully."
 	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 	return TRUE
 
 /obj/machinery/computer/cloning/proc/DeleteRecord(mob/user, target)
-	var/datum/data/record/GRAB = null
-	for(var/datum/data/record/record in records)
-		if(record.fields["id"] == target)
-			GRAB = record
+	var/datum/record/cloning/cloning_record_copy = null
+	for(var/datum/record/cloning/record in records)
+		if(record.id == target)
+			cloning_record_copy = record
 			break
 		else
 			continue
-	if(!GRAB)
+	if(!cloning_record_copy)
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		scantemp = "Cannot delete: Data Corrupted."
 		return FALSE
 	var/obj/item/card/id/C = usr.get_idcard(hand_first = TRUE)
 	if(istype(C) || istype(C, /obj/item/modular_computer/tablet))
 		if(check_access(C))
-			scantemp = "[GRAB.fields["name"]] => Record deleted."
-			records.Remove(GRAB)
+			scantemp = "[cloning_record_copy.name] => Record deleted."
+			records.Remove(cloning_record_copy)
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 			var/obj/item/circuitboard/computer/cloning/board = circuit
 			board.records = records
@@ -247,19 +246,18 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 
 /obj/machinery/computer/cloning/proc/Load(mob/user)
-	if(!diskette || !istype(diskette.fields) || !diskette.fields["name"] || !diskette.fields)
+	if(!diskette || !diskette.data.name || !diskette.data)
 		scantemp = "Failed loading: Load error."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
-	for(var/datum/data/record/R in records)
-		if(R.fields["id"] == diskette.fields["id"])
+	for(var/datum/record/cloning/cloning_record in records)
+		if(cloning_record.id == diskette.data.id)
 			scantemp = "Failed loading: Data already exists!"
 			return FALSE
-	var/datum/data/record/R = new(src)
-	for(var/each in diskette.fields)
-		R.fields[each] = diskette.fields[each]
+	var/datum/record/cloning/cloning_record = new()
+	cloning_record.copy_to(diskette.data)
 
-	records += R
+	records += cloning_record
 	scantemp = "Loaded into internal storage successfully."
 	var/obj/item/circuitboard/computer/cloning/board = circuit
 	board.records = records
@@ -267,9 +265,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	return TRUE
 
 /obj/machinery/computer/cloning/proc/Clone(mob/user, target)
-	var/datum/data/record/C = find_record("id", target, records)
+	var/datum/record/cloning/clone_record
+	for(var/datum/record/cloning/record in records)
+		if(record.id == target)
+			clone_record = record
 	//Look for that player! They better be dead!
-	if(C)
+	if(clone_record)
 		var/obj/machinery/clonepod/pod = GetAvailablePod()
 		//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
 		if(!LAZYLEN(pods))
@@ -285,15 +286,16 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			temp = "Warning: Cloning cycle already in progress."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		else
-			switch(pod.growclone(C.fields["name"], C.fields["UI"], C.fields["SE"], C.fields["mindref"], C.fields["last_death"], C.fields["mrace"], C.fields["features"], C.fields["factions"], C.fields["bank_account"], C.fields["traumas"], C.fields["body_only"], experimental))
+			var/cloning_attempt_result = pod.growclone(clone_record.name, clone_record.uni_identity, clone_record.SE, clone_record.resolve_mind(), clone_record.last_death, clone_record.species, clone_record.resolve_dna_features(), clone_record.factions, clone_record.resolve_mind_account_id(), clone_record.traumas, clone_record.body_only, experimental)
+			switch(cloning_attempt_result)
 				if(CLONING_SUCCESS)
-					temp = "Notice: [C.fields["name"]] => Cloning cycle in progress..."
+					temp = "Notice: [clone_record.name] => Cloning cycle in progress..."
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
-					if(!C.fields["body_only"])
-						records.Remove(C)
+					if(!clone_record.body_only)
+						records.Remove(clone_record)
 					return TRUE
 				if(CLONING_SUCCESS_EXPERIMENTAL)
-					temp = "Notice: [C.fields["name"]] => Experimental cloning cycle in progress..."
+					temp = "Notice: [clone_record.name] => Experimental cloning cycle in progress..."
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 					return TRUE
 				if(ERROR_NO_SYNTHFLESH)
@@ -309,30 +311,28 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 					temp = "Error [ERROR_MISSING_EXPERIMENTAL_POD]: Experimental pod is not detected."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_NOT_MIND)
-					temp = "Error [ERROR_NOT_MIND]: [C.fields["name"]]'s lack of their mind."
+					temp = "Error [ERROR_NOT_MIND]: [clone_record.name]'s lack of their mind."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_PRESAVED_CLONE)
-					temp = "Error [ERROR_PRESAVED_CLONE]: [C.fields["name"]]'s clone record is presaved."
+					temp = "Error [ERROR_PRESAVED_CLONE]: [clone_record.name]'s clone record is presaved."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_OUTDATED_CLONE)
-					temp = "Error [ERROR_OUTDATED_CLONE]: [C.fields["name"]]'s clone record is outdated."
+					temp = "Error [ERROR_OUTDATED_CLONE]: [clone_record.name]'s clone record is outdated."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_ALREADY_ALIVE)
-					temp = "Error [ERROR_ALREADY_ALIVE]: [C.fields["name"]] already alive."
+					temp = "Error [ERROR_ALREADY_ALIVE]: [clone_record.name] already alive."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_COMMITED_SUICIDE)
-					temp = "Error [ERROR_COMMITED_SUICIDE]: [C.fields["name"]] commited a suicide."
+					temp = "Error [ERROR_COMMITED_SUICIDE]: [clone_record.name] commited a suicide."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_SOUL_DEPARTED)
-					temp = "Error [ERROR_SOUL_DEPARTED]: [C.fields["name"]]'s soul had departed."
+					temp = "Error [ERROR_SOUL_DEPARTED]: [clone_record.name]'s soul had departed."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_SUICIDED_BODY)
-					temp = "Error [ERROR_SUICIDED_BODY]: Failed to capture [C.fields["name"]]'s mind from a suicided body."
+					temp = "Error [ERROR_SUICIDED_BODY]: Failed to capture [clone_record.name]'s mind from a suicided body."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(ERROR_SOUL_DAMNED)
-					temp = "Err#^ [ERROR_SOUL_DAMNED]: #$%SGFG$#their@soul&is$mine@#%# => 1(i*i@%i$(t!0n $A!l^r#."
 				if(ERROR_UNCLONABLE)
-					temp = "Error [ERROR_UNCLONABLE]: [C.fields["name"]] is not clonable."
+					temp = "Error [ERROR_UNCLONABLE]: [clone_record.name] is not clonable."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				else
 					temp = "Error unknown => Initialisation failure."
@@ -383,33 +383,33 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		if(scanner && HasEfficientPod() && scanner.scan_level >= AUTOCLONING_MINIMAL_LEVEL)
 			data["hasAutoprocess"] = TRUE
 		if(length(records))
-			for(var/datum/data/record/R in records)
+			for(var/datum/record/cloning/cloning_record in records)
 				var/list/record_entry = list()
-				record_entry["name"] = "[R.fields["name"]]"
-				record_entry["id"] = "[R.fields["id"]]"
-				var/obj/item/implant/health/H = locate(R.fields["imp"])
+				record_entry["name"] = "[cloning_record.name]"
+				record_entry["id"] = "[cloning_record.id]"
+				var/obj/item/implant/health/H = cloning_record.implant
 				if(H && istype(H))
 					record_entry["damages"] = H.sensehealth(TRUE)
 				else
 					record_entry["damages"] = FALSE
-				record_entry["UI"] = "[R.fields["UI"]]"
-				record_entry["UE"] = "[R.fields["UE"]]"
-				record_entry["blood_type"] = "[R.fields["blood_type"]]"
-				record_entry["last_death"] = R.fields["last_death"]
-				record_entry["body_only"] = R.fields["body_only"]
+				record_entry["UI"] = "[cloning_record.uni_identity]"
+				record_entry["UE"] = "[cloning_record.dna_string]"
+				record_entry["blood_type"] = "[cloning_record.blood_type]"
+				record_entry["last_death"] = cloning_record.last_death
+				record_entry["body_only"] = cloning_record.body_only
 				records_to_send += list(record_entry)
 			data["records"] = records_to_send
 		else
 			data["records"] = list()
-		if(diskette && diskette.fields)
+		if(diskette && diskette.data)
 			var/list/disk_data = list()
-			disk_data["name"] = "[diskette.fields["name"]]"
-			disk_data["id"] = "[diskette.fields["id"]]"
-			disk_data["UI"] = "[diskette.fields["UI"]]"
-			disk_data["UE"] = "[diskette.fields["UE"]]"
-			disk_data["blood_type"] = "[diskette.fields["blood_type"]]"
-			disk_data["last_death"] = diskette.fields["last_death"]
-			disk_data["body_only"] = diskette.fields["body_only"]
+			disk_data["name"] = "[diskette.data.name]"
+			disk_data["id"] = "[diskette.data.id]"
+			disk_data["UI"] = "[diskette.data.uni_identity]"
+			disk_data["UE"] = "[diskette.data.dna_string]"
+			disk_data["blood_type"] = "[diskette.data.blood_type]"
+			disk_data["last_death"] = diskette.data.last_death
+			disk_data["body_only"] = diskette.data.body_only
 			data["diskData"] = disk_data
 		else
 			data["diskData"] = list()
@@ -438,6 +438,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	data["hasOccupant"] = scanner?.occupant
 	data["recordsLength"] = "View Records ([length(records)])"
 	data["experimental"] = experimental
+	data["diskette"] = diskette
 	return data
 
 /obj/machinery/computer/cloning/ui_act(action, params)
@@ -480,14 +481,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
-/obj/machinery/computer/cloning/proc/finish_scan(mob/living/L, mob/user, prev_locked, body_only)
-	if(!scanner || !L)
+/obj/machinery/computer/cloning/proc/finish_scan(mob/living/carbon_mob, mob/user, prev_locked, body_only)
+	if(!scanner || !carbon_mob)
 		return
-	src.add_fingerprint(usr)
+	add_fingerprint(user)
 	if(use_records)
-		scan_occupant(L, user, body_only)
+		scan_occupant(carbon_mob, user, body_only)
 	else
-		clone_occupant(L, user)
+		clone_occupant(carbon_mob, user)
 
 	loading = FALSE
 	scanner.locked = prev_locked
@@ -499,11 +500,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	var/mob/living/mob_occupant = get_mob_or_brainmob(occupant)
 	var/datum/dna/dna
 	if(ishuman(mob_occupant))
-		var/mob/living/carbon/C = mob_occupant
-		dna = C.has_dna()
+		var/mob/living/carbon/carbon_mob = mob_occupant
+		dna = carbon_mob.has_dna()
 	if(isbrain(mob_occupant))
-		var/mob/living/brain/B = mob_occupant
-		dna = B.stored_dna
+		var/mob/living/brain/human_brain = mob_occupant
+		dna = human_brain.stored_dna
 	if(!can_scan(dna, mob_occupant))
 		return
 	var/clone_species
@@ -524,7 +525,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		temp = "Cloning cycle already in progress."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 	else
-		pod.growclone(mob_occupant.real_name, dna.uni_identity, dna.mutation_index, null, null, clone_species, dna.blood_type, mob_occupant.faction)
+		pod.growclone(mob_occupant.real_name, dna.unique_identity, dna.mutation_index, null, null, clone_species, dna.blood_type, mob_occupant.faction)
 		temp = "[mob_occupant.real_name] => Cloning data sent to pod."
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 		log_cloning("[user ? key_name(user) : "Unknown"] cloned [key_name(mob_occupant)] with [src] at [AREACOORD(src)].")
@@ -534,7 +535,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		scantemp = "Unable to locate valid genetic data."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return FALSE
-	if(NO_DNA_COPY in dna.species.species_traits)
+	if(HAS_TRAIT(mob_occupant, TRAIT_NO_DNA_COPY))
 		scantemp = "The DNA of this lifeform could not be read due to an unknown error!"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return FALSE
@@ -547,7 +548,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 		return FALSE
 	if(!experimental)
-		if(!body_only && (mob_occupant.suiciding || mob_occupant.ishellbound()))
+		if(!body_only && mob_occupant.suiciding)
 			scantemp = "Subject's brain is not responding to scanning stimuli."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 			return FALSE
@@ -568,79 +569,79 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	var/datum/bank_account/has_bank_account
 
 	// Do not use unless you know what they are.
-	var/mob/living/carbon/C = mob_occupant
-	var/mob/living/brain/B = mob_occupant
+	var/mob/living/carbon/human/human_mob = mob_occupant
+	var/mob/living/brain/human_brain = mob_occupant
 
 	if(ishuman(mob_occupant))
-		dna = C.has_dna()
-		var/obj/item/card/id/I = C.get_idcard(TRUE)
-		if(I)
-			has_bank_account = I.registered_account
+		dna = human_mob.has_dna()
+		var/obj/item/card/id/human_id_card = human_mob.get_idcard(TRUE)
+		if(human_id_card)
+			has_bank_account = human_id_card.registered_account
 	if(isbrain(mob_occupant))
-		dna = B.stored_dna
+		dna = human_brain.stored_dna
 
 	if(!can_scan(dna, mob_occupant, has_bank_account, body_only))
 		return
 
-	var/datum/data/record/R = new()
+	var/datum/record/cloning/cloning_record = new(null, 18, dna.blood_type.name, dna.unique_enzymes, md5(dna.unique_identity), mob_occupant.gender, mob_occupant.mind?.assigned_role, mob_occupant.real_name, null, WEAKREF(dna), dna.unique_identity, dna.mutation_index, WEAKREF(mob_occupant.mind), FALSE, mob_occupant.faction, list(), body_only, null, dna.unique_enzymes, has_bank_account)
+
 	if(dna.species)
 		// We store the instance rather than the path, because some
 		// species (abductors, slimepeople) store state in their
 		// species datums
 		dna.delete_species = FALSE
-		R.fields["mrace"] = dna.species
+		cloning_record.species = dna.species
 	else
 		return //no dna info for species? you're not allowed to clone them. Don't harass xeno, don't try xeno farm.
 		//Note: if you want to clone unusual species, you need to check 'carbon/human' rather than 'dna.species'
 
-	R.fields["name"] = mob_occupant.real_name
+	cloning_record.name = mob_occupant.real_name
 	if(experimental) //even if you have the same identity, this will give you different id based on your mind. body_only gets β at their id.
-		R.fields["id"] =  copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 10)+"β+" //beta plus
+		cloning_record.id =  copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 10)+"β+" //beta plus
 	else if(body_only)
-		R.fields["id"] = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 10)+"β" //beta
+		cloning_record.id = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 10)+"β" //beta
 	else
-		R.fields["id"] = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 7)+copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.mind), -4)
-	R.fields["UE"] = dna.unique_enzymes
-	R.fields["UI"] = dna.uni_identity
-	R.fields["SE"] = dna.mutation_index
-	R.fields["blood_type"] = dna.blood_type
-	R.fields["features"] = dna.features
-	R.fields["factions"] = mob_occupant.faction
-	R.fields["traumas"] = list()
+		cloning_record.id = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 7)+copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.mind), -4)
 
 	if(isbrain(mob_occupant)) //We'll detect the brain first because trauma is from the brain, not from the body.
-		R.fields["traumas"] = B.get_traumas()
+		cloning_record.traumas = human_brain.get_traumas()
 	else if(ishuman(mob_occupant))
-		R.fields["traumas"] = C.get_traumas()
+		cloning_record.traumas = human_mob.get_traumas()
 	//Traumas will be overriden if the brain transplant is made because '/obj/item/organ/brain/Insert' does that thing. This should be done since we want a monkey yelling to people with 'God voice syndrome'
 
-	R.fields["bank_account"] = has_bank_account
+	cloning_record.bank_account = has_bank_account
 	if(!experimental)
-		R.fields["mindref"] = "[REF(mob_occupant.mind)]"
-		R.fields["last_death"] = (mob_occupant.stat == DEAD && mob_occupant.mind) ? mob_occupant.mind.last_death : -1
-		R.fields["body_only"] = body_only
+		cloning_record.weakref_mind = WEAKREF(mob_occupant.mind)
+		cloning_record.last_death = (mob_occupant.stat == DEAD && mob_occupant.mind) ? mob_occupant.mind.last_death : -1
+		cloning_record.body_only = body_only
 	else
-		R.fields["last_death"] = 0
-		R.fields["body_only"] = 0
+		cloning_record.last_death = FALSE
+		cloning_record.body_only = FALSE
 
 	if(!body_only || experimental && mob_occupant.stat != DEAD)
-	    //Add an implant if needed
-		var/obj/item/implant/health/imp
-		for(var/obj/item/implant/health/HI in mob_occupant.implants)
-			imp = HI
+		//Add an implant if needed
+		var/obj/item/implant/health/implant
+		for(var/obj/item/implant/health/health_implant in mob_occupant.implants)
+			implant = health_implant
 			break
-		if(!imp)
-			imp = new /obj/item/implant/health(mob_occupant)
-			imp.implant(mob_occupant)
-		R.fields["imp"] = "[REF(imp)]"
+		if(!implant)
+			implant = new /obj/item/implant/health(mob_occupant)
+			implant.implant(mob_occupant)
+		cloning_record.implant = "[REF(implant)]"
 
-	var/datum/data/record/old_record = find_record("id", R.fields["id"], records)
-	if(old_record)
-		records -= old_record
+	var/found_old_record = null
+	for(var/datum/record/cloning/old_record as anything in records)
+		if(old_record.id == cloning_record.id)
+			found_old_record = old_record
+
+
+	if(found_old_record)
+		records -= found_old_record
 		scantemp = "Record updated."
 	else
 		scantemp = "Subject successfully scanned."
-	records += R
+
+	records += cloning_record
 
 	if(!experimental)
 		log_cloning("[user ? key_name(user) : "Autoprocess"] added the [body_only ? "body-only " : ""]record of [key_name(mob_occupant)] to [src] at [AREACOORD(src)].")
@@ -658,3 +659,5 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	circuit = /obj/item/circuitboard/computer/cloning/prototype
 	clonepod_type = /obj/machinery/clonepod/experimental
 	experimental = TRUE
+
+#undef AUTOCLONING_MINIMAL_LEVEL

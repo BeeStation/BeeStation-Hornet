@@ -9,7 +9,6 @@
 	verb_say = "states coldly"
 	var/cooldown = 10
 	var/next_announce = 0
-	var/integrated = FALSE
 	var/max_dist = 150
 	/// Number which will be part of the name of the next record, increased by one for each already created record
 	var/record_number = 1
@@ -23,13 +22,12 @@
 	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, PROC_REF(sense_explosion))
 	RegisterSignal(src, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(power_change))
 	printer_ready = world.time + PRINTER_TIMEOUT
+	// Alt clicking when unwrenched does not rotate. (likely from UI not returning the mouse click)
+	// Also there is no sprite change for rotation dir, this shouldn't even have a rotate component tbh
+	AddComponent(/datum/component/simple_rotation, AfterRotation = CALLBACK(src, PROC_REF(RotationMessage)))
 
-/obj/machinery/doppler_array/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE,null,null,CALLBACK(src,PROC_REF(rot_message)))
-
-/datum/data/tachyon_record
-	name = "Log Recording"
+/datum/tachyon_record
+	var/name = "Log Recording"
 	var/timestamp
 	var/coordinates = ""
 	var/displacement = 0
@@ -49,19 +47,19 @@
 /obj/machinery/doppler_array/ui_data(mob/user)
 	var/list/data = list()
 	data["records"] = list()
-	for(var/datum/data/tachyon_record/R in records)
+	for(var/datum/tachyon_record/record in records)
 		var/list/record_data = list(
-			name = R.name,
-			timestamp = R.timestamp,
-			coordinates = R.coordinates,
-			displacement = R.displacement,
-			factual_epicenter_radius = R.factual_radius["epicenter_radius"],
-			factual_outer_radius = R.factual_radius["outer_radius"],
-			factual_shockwave_radius = R.factual_radius["shockwave_radius"],
-			theory_epicenter_radius = R.theory_radius["epicenter_radius"],
-			theory_outer_radius = R.theory_radius["outer_radius"],
-			theory_shockwave_radius = R.theory_radius["shockwave_radius"],
-			ref = REF(R)
+			name = record.name,
+			timestamp = record.timestamp,
+			coordinates = record.coordinates,
+			displacement = record.displacement,
+			factual_epicenter_radius = record.factual_radius["epicenter_radius"],
+			factual_outer_radius = record.factual_radius["outer_radius"],
+			factual_shockwave_radius = record.factual_radius["shockwave_radius"],
+			theory_epicenter_radius = record.theory_radius["epicenter_radius"],
+			theory_outer_radius = record.theory_radius["outer_radius"],
+			theory_shockwave_radius = record.theory_radius["shockwave_radius"],
+			ref = REF(record)
 		)
 		data["records"] += list(record_data)
 	return data
@@ -72,31 +70,33 @@
 
 	switch(action)
 		if("delete_record")
-			var/datum/data/tachyon_record/record = locate(params["ref"]) in records
+			var/datum/tachyon_record/record = locate(params["ref"]) in records
 			if(!records || !(record in records))
 				return
 			records -= record
 			. = TRUE
 		if("print_record")
-			var/datum/data/tachyon_record/record  = locate(params["ref"]) in records
+			var/datum/tachyon_record/record  = locate(params["ref"]) in records
 			if(!records || !(record in records))
 				return
 			print(usr, record)
 			. = TRUE
 
-/obj/machinery/doppler_array/proc/print(mob/user, datum/data/tachyon_record/record)
+/obj/machinery/doppler_array/proc/print(mob/user, datum/tachyon_record/record)
 	if(!record)
 		return
 	if(printer_ready < world.time)
 		printer_ready = world.time + PRINTER_TIMEOUT
 		new /obj/item/paper/record_printout(loc, record)
 	else if(user)
-		to_chat(user, "<span class='warning'>[src] is busy right now.</span>")
+		to_chat(user, span_warning("[src] is busy right now."))
 
 /obj/item/paper/record_printout
 	name = "paper - Log Recording"
 
-/obj/item/paper/record_printout/Initialize(mapload, datum/data/tachyon_record/record)
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
+
+/obj/item/paper/record_printout/Initialize(mapload, datum/tachyon_record/record)
 	. = ..()
 
 	if(record)
@@ -121,20 +121,22 @@
 	if(I.tool_behaviour == TOOL_WRENCH)
 		if(!anchored && !isinspace())
 			set_anchored(TRUE)
-			to_chat(user, "<span class='notice'>You fasten [src].</span>")
+			to_chat(user, span_notice("You fasten [src]."))
 		else if(anchored)
 			set_anchored(FALSE)
-			to_chat(user, "<span class='notice'>You unfasten [src].</span>")
+			to_chat(user, span_notice("You unfasten [src]."))
 		I.play_tool_sound(src)
 		return
 	return ..()
 
-/obj/machinery/doppler_array/proc/rot_message(mob/user)
-	to_chat(user, "<span class='notice'>You adjust [src]'s dish to face to the [dir2text(dir)].</span>")
+/obj/machinery/doppler_array/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+
+/obj/machinery/doppler_array/proc/RotationMessage(mob/user)
+	to_chat(user, span_notice("You adjust [src]'s dish to face to the [dir2text(dir)]."))
 	playsound(src, 'sound/items/screwdriver2.ogg', 50, 1)
 
-/obj/machinery/doppler_array/proc/sense_explosion(datum/source,turf/epicenter,devastation_range,heavy_impact_range,light_impact_range,
-												  took,orig_dev_range,orig_heavy_range,orig_light_range)
+/obj/machinery/doppler_array/proc/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range, explosion_index)
 	SIGNAL_HANDLER
 
 	if(machine_stat & NOPOWER)
@@ -152,34 +154,34 @@
 
 	if(distance > max_dist)
 		return FALSE
-	if(!(direct & dir) && !integrated)
+	if(!(direct & dir))
 		return FALSE
 
-	var/datum/data/tachyon_record/R = new /datum/data/tachyon_record()
-	R.name = "Log Recording #[record_number]"
-	R.timestamp = station_time_timestamp()
-	R.coordinates = "[epicenter.x], [epicenter.y]"
-	R.displacement = took
-	R.factual_radius["epicenter_radius"] = devastation_range
-	R.factual_radius["outer_radius"] = heavy_impact_range
-	R.factual_radius["shockwave_radius"] = light_impact_range
+	var/datum/tachyon_record/new_record = new /datum/tachyon_record()
+	new_record.name = "Log Recording #[record_number]"
+	new_record.timestamp = station_time_timestamp()
+	new_record.coordinates = "[epicenter.x], [epicenter.y]"
+	new_record.displacement = took
+	new_record.factual_radius["epicenter_radius"] = devastation_range
+	new_record.factual_radius["outer_radius"] = heavy_impact_range
+	new_record.factual_radius["shockwave_radius"] = light_impact_range
 
 	var/list/messages = list("Explosive disturbance detected.",
-							 "Epicenter at: grid ([epicenter.x], [epicenter.y]). Temporal displacement of tachyons: [took] seconds.",
-							 "Factual: Epicenter radius: [devastation_range]. Outer radius: [heavy_impact_range]. Shockwave radius: [light_impact_range].")
+							"Epicenter at: grid ([epicenter.x], [epicenter.y]). Temporal displacement of tachyons: [took] seconds.",
+							"Factual: Epicenter radius: [devastation_range]. Outer radius: [heavy_impact_range]. Shockwave radius: [light_impact_range].")
 
 	// If the bomb was capped, say its theoretical size.
 	if(devastation_range < orig_dev_range || heavy_impact_range < orig_heavy_range || light_impact_range < orig_light_range)
 		messages += "Theoretical: Epicenter radius: [orig_dev_range]. Outer radius: [orig_heavy_range]. Shockwave radius: [orig_light_range]."
-		R.theory_radius["epicenter_radius"] = orig_dev_range
-		R.theory_radius["outer_radius"] = orig_heavy_range
-		R.theory_radius["shockwave_radius"] = orig_light_range
+		new_record.theory_radius["epicenter_radius"] = orig_dev_range
+		new_record.theory_radius["outer_radius"] = orig_heavy_range
+		new_record.theory_radius["shockwave_radius"] = orig_light_range
 
 	for(var/message in messages)
 		say(message)
 
 	record_number++
-	records += R
+	records += new_record
 	//Update to viewers
 	ui_update()
 
@@ -202,20 +204,43 @@
 	else
 		icon_state = "[initial(icon_state)]-off"
 
-//Portable version, built into EOD equipment. It simply provides an explosion's three damage levels.
-/obj/machinery/doppler_array/integrated
-	name = "integrated tachyon-doppler module"
-	integrated = TRUE
-	max_dist = 21 //Should detect most explosions in hearing range.
-	use_power = NO_POWER_USE
-
 /obj/machinery/doppler_array/research
 	name = "tachyon-doppler research array"
 	desc = "A specialized tachyon-doppler bomb detection array that uses the results of the highest yield of explosions for research."
 	var/datum/techweb/linked_techweb
 
-/obj/machinery/doppler_array/research/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range,
-		took, orig_dev_range, orig_heavy_range, orig_light_range) //probably needs a way to ignore admin explosives later on
+//Portable version, built into EOD equipment. It simply provides an explosion's three damage levels.
+/obj/machinery/doppler_array/integrated
+	name = "integrated tachyon-doppler module"
+	max_dist = 21
+	use_power = NO_POWER_USE
+	var/obj/item/clothing/head/helmet/space/hardsuit/suit
+
+/obj/machinery/doppler_array/integrated/New(hardsuit)
+	. = ..()
+	suit = hardsuit
+
+/obj/machinery/doppler_array/integrated/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range, explosion_index)
+	var/turf/zone = suit.loc
+	if(!zone || zone?.get_virtual_z_level() != epicenter.get_virtual_z_level())
+		return FALSE
+
+	if(next_announce > world.time)
+		return FALSE
+	next_announce = world.time + cooldown
+
+	var/distance = get_dist(epicenter, zone)
+	if(distance > max_dist)
+		return FALSE
+
+	var/list/messages = list("Explosive disturbance detected.",
+							"Epicenter at: grid ([epicenter.x], [epicenter.y]). Temporal displacement of tachyons: [took] seconds.",
+							"Factual: Epicenter radius: [devastation_range]. Outer radius: [heavy_impact_range]. Shockwave radius: [light_impact_range].")
+	for(var/message in messages)
+		say(message)
+
+//probably needs a way to ignore admin explosives later on
+/obj/machinery/doppler_array/research/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
 	. = ..()
 	if(!.)
 		return

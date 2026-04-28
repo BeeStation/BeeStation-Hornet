@@ -5,7 +5,7 @@
 /area/template_noop)
 "d" = (
 /obj/structure/table/wood,
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
@@ -43,11 +43,11 @@
 /area/template_noop)
 "p" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -8;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/food/snacks/mint{
+/obj/item/food/mint{
 	pixel_x = 6;
 	pixel_y = 5
 	},
@@ -113,7 +113,7 @@
 /area/template_noop)
 "G" = (
 /obj/structure/table/wood,
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
@@ -153,7 +153,7 @@
 	pixel_x = 5;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/glass/beaker{
+/obj/item/reagent_containers/cup/beaker{
 	pixel_x = -6;
 	pixel_y = 4
 	},
@@ -169,7 +169,7 @@
 /area/template_noop)
 "Q" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/enzyme{
+/obj/item/reagent_containers/condiment/enzyme{
 	pixel_x = -6;
 	pixel_y = 19
 	},

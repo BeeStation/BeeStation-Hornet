@@ -17,7 +17,7 @@
 	dir = 8;
 	pixel_x = 27
 	},
-/obj/item/trash/plate,
+/obj/item/plate,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
@@ -39,7 +39,7 @@
 	},
 /obj/structure/table,
 /obj/item/stack/sheet/mineral/copper,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (

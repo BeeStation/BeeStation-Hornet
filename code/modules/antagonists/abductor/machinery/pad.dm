@@ -7,16 +7,16 @@
 
 /obj/machinery/abductor/pad/proc/Warp(mob/living/target)
 	if(!target.buckled)
-		do_teleport(target, get_turf(src), no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, teleport_mode = TELEPORT_MODE_ABDUCTORS)
+		do_teleport(target, get_turf(src), no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, teleport_mode = TELEPORT_ALLOW_ABDUCTORS)
 
 /obj/machinery/abductor/pad/proc/Send()
 	if(teleport_target == null)
 		teleport_target = GLOB.teleportlocs[pick(GLOB.teleportlocs)]
 	flick("alien-pad", src)
 	for(var/mob/living/target in loc)
-		do_teleport(target, teleport_target, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, teleport_mode = TELEPORT_MODE_ABDUCTORS)
+		do_teleport(target, teleport_target, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, teleport_mode = TELEPORT_ALLOW_ABDUCTORS)
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
-		to_chat(target, "<span class='warning'>The instability of the warp leaves you disoriented!</span>")
+		to_chat(target, span_warning("The instability of the warp leaves you disoriented!"))
 		target.SetSleeping(60)
 		//If the target is wearing an abductor vest, increase the stimulant cooldown
 		if (ishuman(target))
@@ -33,7 +33,7 @@
 
 /obj/machinery/abductor/pad/proc/doMobToLoc(place, atom/movable/target)
 	flick("alien-pad", src)
-	do_teleport(target, place, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, teleport_mode = TELEPORT_MODE_ABDUCTORS)
+	do_teleport(target, place, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, teleport_mode = TELEPORT_ALLOW_ABDUCTORS)
 	new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
 
 /obj/machinery/abductor/pad/proc/MobToLoc(place,mob/living/target)
@@ -43,7 +43,7 @@
 /obj/machinery/abductor/pad/proc/doPadToLoc(place)
 	flick("alien-pad", src)
 	for(var/mob/living/target in get_turf(src))
-		do_teleport(target, place, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, teleport_mode = TELEPORT_MODE_ABDUCTORS)
+		do_teleport(target, place, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, teleport_mode = TELEPORT_ALLOW_ABDUCTORS)
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
 
 /obj/machinery/abductor/pad/proc/PadToLoc(place)

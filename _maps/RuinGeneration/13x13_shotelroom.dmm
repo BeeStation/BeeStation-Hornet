@@ -19,7 +19,7 @@
 /area/ruin/unpowered)
 "d" = (
 /obj/structure/table/wood/fancy/purple,
-/obj/item/reagent_containers/food/drinks/bottle/orangejuice{
+/obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice{
 	pixel_x = 2;
 	pixel_y = 7
 	},
@@ -163,14 +163,14 @@
 /area/ruin/unpowered)
 "J" = (
 /obj/structure/table/wood/fancy/purple,
-/obj/item/reagent_containers/food/drinks/drinkingglass/filled/soda{
+/obj/item/reagent_containers/cup/glass/drinkingglass/filled/soda{
 	pixel_x = -5;
 	pixel_y = 5
 	},
 /turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
 "K" = (
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/records/medical/laptop,
 /obj/structure/table/glass,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
@@ -221,7 +221,7 @@
 	pixel_y = -1
 	},
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/britcup{
+/obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = -8;
 	pixel_y = -1
 	},
@@ -259,7 +259,7 @@
 /area/ruin/unpowered)
 "Z" = (
 /obj/structure/table/wood/fancy/purple,
-/obj/item/reagent_containers/food/drinks/bottle/applejack{
+/obj/item/reagent_containers/cup/glass/bottle/applejack{
 	pixel_y = 2
 	},
 /turf/open/floor/carpet/orange,

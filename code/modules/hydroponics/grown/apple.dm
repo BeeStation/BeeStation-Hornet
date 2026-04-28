@@ -6,7 +6,7 @@
 	species = "apple"
 	plantname = "Apple Tree"
 	product = /obj/item/food/grown/apple
-	lifespan = 55
+	lifespan = 220
 	endurance = 35
 	yield = 5
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
@@ -23,7 +23,7 @@
 	icon_state = "apple"
 	bite_consumption_mod = 100 // Always eat apples in one bite
 	foodtypes = FRUIT
-	juice_results = list(/datum/reagent/consumable/applejuice = 0)
+	juice_typepath = /datum/reagent/consumable/applejuice
 	tastes = list("apple" = 1)
 	distill_reagent = /datum/reagent/consumable/ethanol/hcider
 

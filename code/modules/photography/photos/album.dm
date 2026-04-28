@@ -5,7 +5,7 @@
 	name = "photo album"
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "album"
-	item_state = "briefcase"
+	inhand_icon_state = "briefcase"
 	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
 	resistance_flags = FLAMMABLE
@@ -15,10 +15,9 @@
 
 /obj/item/storage/photo_album/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.can_hold = typecacheof(list(/obj/item/photo))
-	STR.max_combined_w_class = 42
-	STR.max_items = 21
+	atom_storage.set_holdable(list(/obj/item/photo))
+	atom_storage.max_total_storage = 42
+	atom_storage.max_slots = 21
 	LAZYADD(SSpersistence.photo_albums, src)
 
 /obj/item/storage/photo_album/Destroy()
@@ -41,7 +40,7 @@
 
 //Manual loading, DO NOT USE FOR HARDCODED/MAPPED IN ALBUMS. This is for if an album needs to be loaded mid-round from an ID.
 /obj/item/storage/photo_album/proc/persistence_load()
-	var/list/data = SSpersistence.GetPhotoAlbums()
+	var/list/data = SSpersistence.get_photo_albums()
 	if(data[persistence_id])
 		populate_from_id_list(data[persistence_id])
 
@@ -52,7 +51,7 @@
 			continue
 		var/obj/item/photo/P = load_photo_from_disk(i)
 		if(istype(P))
-			if(!SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, P, null, TRUE, TRUE))
+			if(!atom_storage?.attempt_insert(P, override = TRUE))
 				qdel(P)
 
 /obj/item/storage/photo_album/HoS

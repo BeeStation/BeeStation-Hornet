@@ -7,7 +7,6 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	max_occurrences = 1
 	min_players = 20
 	earliest_start = 30 MINUTES //deadchat sink, lets not even consider it early on.
-	gamemode_blacklist = list("nuclear")
 	cannot_spawn_after_shuttlecall = TRUE
 
 /datum/round_event/ghost_role/fugitives
@@ -22,13 +21,18 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 		return MAP_ERROR
 	var/list/possible_spawns = list()//Some xeno spawns are in some spots that will instantly kill the refugees, like atmos
 	for(var/turf/X in GLOB.xeno_spawn)
-		if(istype(X.loc, /area/maintenance))
+		if(istype(X.loc, /area/station/maintenance))
 			possible_spawns += X
 	if(!length(possible_spawns))
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 	var/turf/landing_turf = pick(possible_spawns)
-	var/list/candidates = get_candidates(ROLE_FUGITIVE, /datum/role_preference/midround_ghost/fugitive)
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_FUGITIVE,
+		role_name_text = "fugitive",
+		alert_pic = /obj/item/clothing/mask/gas/tiki_mask,
+	)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(config)
 	var/result = spawn_fugitives(landing_turf, candidates, spawned_mobs)
 	if(result != SUCCESSFUL_SPAWN)
 		return result
@@ -79,7 +83,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	player_mind.active = TRUE
 	var/mob/living/carbon/human/S = new(landing_turf)
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = ROLE_FUGITIVE
+	player_mind.set_assigned_role(ROLE_FUGITIVE)
 	player_mind.special_role = ROLE_FUGITIVE
 	var/datum/antagonist/fugitive/A = new()
 	A.backstory = backstory
@@ -97,7 +101,14 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 /proc/spawn_hunters()
 	set waitfor = FALSE
 	var/datum/fugitive_type/hunter/backstory = GLOB.hunter_types[admin_select_backstory(GLOB.hunter_types)]
-	var/list/candidates = poll_ghost_candidates("The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?", ROLE_FUGITIVE_HUNTER, /datum/role_preference/midround_ghost/fugitive_hunter, 15 SECONDS)
+	var/datum/poll_config/config = new(
+		question = "The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?",
+		check_jobban = ROLE_FUGITIVE_HUNTER,
+		poll_time = 15 SECONDS,
+		role_name_text = backstory.name,
+		alert_pic = /obj/item/melee/baton,
+	)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(config)
 	var/datum/map_template/shuttle/ship = new backstory.ship_type
 	var/x = rand(TRANSITIONEDGE,world.maxx - TRANSITIONEDGE - ship.width)
 	var/y = rand(TRANSITIONEDGE,world.maxy - TRANSITIONEDGE - ship.height)
@@ -138,7 +149,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 /proc/admin_select_backstory(list/backstory_keys)
 	GLOB.fugitive_backstory_selection = backstory_keys
 	message_admins("Choosing random fugitive backstory in 20 seconds. \
-		<a href='?_src_=holder;[HrefToken(TRUE)];backstory_select=[REF(backstory_keys)]'>SELECT MANUALLY</a>")
+		<a href='byond://?_src_=holder;[HrefToken(TRUE)];backstory_select=[REF(backstory_keys)]'>SELECT MANUALLY</a>")
 	play_sound_to_all_admins('sound/effects/admin_alert.ogg')
 	sleep(20 SECONDS)
 	return pick(GLOB.fugitive_backstory_selection)

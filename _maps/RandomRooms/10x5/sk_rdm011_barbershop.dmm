@@ -71,13 +71,13 @@
 /obj/item/tank/internals/anesthetic,
 /obj/structure/closet/cardboard,
 /obj/item/cautery,
-/obj/effect/spawner/lootdrop/teratoma/major,
+/obj/effect/spawner/random/medical/teratoma/major,
 /obj/item/surgical_drapes,
 /obj/item/storage/firstaid,
 /obj/item/storage/firstaid/toxin,
 /obj/item/storage/box/syringes,
-/obj/item/reagent_containers/glass/bottle/morphine,
-/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/morphine,
 /obj/item/stack/sheet/mineral/silver{
 	amount = 2
 	},
@@ -131,7 +131,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "r" = (
-/obj/structure/window/spawner/west,
+/obj/structure/window/spawner/directional/west,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet{
 	icon_state = "carpetsymbol"
@@ -153,7 +153,7 @@
 /turf/open/floor/monotile,
 /area/template_noop)
 "v" = (
-/obj/structure/window/spawner/west,
+/obj/structure/window/spawner/directional/west,
 /obj/structure/table/wood,
 /obj/item/kirbyplants{
 	icon_state = "plant-18";
@@ -182,25 +182,25 @@
 /obj/structure/closet/crate/freezer{
 	name = "refreshment cooler"
 	},
-/obj/effect/spawner/lootdrop/teratoma/minor,
-/obj/effect/spawner/lootdrop/teratoma/minor,
-/obj/effect/spawner/lootdrop/teratoma/minor,
-/obj/item/reagent_containers/food/drinks/beer/light,
-/obj/item/reagent_containers/food/drinks/soda_cans/sodawater,
-/obj/item/reagent_containers/food/drinks/soda_cans/shamblers,
-/obj/item/reagent_containers/food/drinks/soda_cans/shamblers,
-/obj/item/reagent_containers/food/drinks/soda_cans/grey_bull,
-/obj/item/reagent_containers/food/drinks/soda_cans/grey_bull,
-/obj/item/reagent_containers/food/drinks/soda_cans/air,
-/obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb,
-/obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb,
-/obj/item/reagent_containers/food/drinks/soda_cans/cola,
-/obj/item/reagent_containers/food/drinks/soda_cans/cola,
-/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game,
-/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game,
-/obj/item/reagent_containers/food/drinks/soda_cans/space_up,
-/obj/item/reagent_containers/food/drinks/soda_cans/space_up,
-/obj/item/reagent_containers/food/drinks/soda_cans/starkist,
+/obj/effect/spawner/random/medical/teratoma/minor,
+/obj/effect/spawner/random/medical/teratoma/minor,
+/obj/effect/spawner/random/medical/teratoma/minor,
+/obj/item/reagent_containers/cup/glass/bottle/beer/light,
+/obj/item/reagent_containers/cup/soda_cans/sodawater,
+/obj/item/reagent_containers/cup/soda_cans/shamblers,
+/obj/item/reagent_containers/cup/soda_cans/shamblers,
+/obj/item/reagent_containers/cup/soda_cans/grey_bull,
+/obj/item/reagent_containers/cup/soda_cans/grey_bull,
+/obj/item/reagent_containers/cup/soda_cans/air,
+/obj/item/reagent_containers/cup/soda_cans/dr_gibb,
+/obj/item/reagent_containers/cup/soda_cans/dr_gibb,
+/obj/item/reagent_containers/cup/soda_cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/pwr_game,
+/obj/item/reagent_containers/cup/soda_cans/pwr_game,
+/obj/item/reagent_containers/cup/soda_cans/space_up,
+/obj/item/reagent_containers/cup/soda_cans/space_up,
+/obj/item/reagent_containers/cup/soda_cans/starkist,
 /obj/item/storage/pill_bottle/happy,
 /turf/open/floor/carpet{
 	icon_state = "carpetsymbol"

@@ -1,3 +1,8 @@
+/// Define that just has the current in-universe year for use in whatever context you might want to display that in. (For example, 2022 -> 2562 given a 540 year offset)
+#define CURRENT_STATION_YEAR (GLOB.year_integer + STATION_YEAR_OFFSET)
+
+/// Amount of years from the current year to offset in-universe
+#define STATION_YEAR_OFFSET 540
 
 #define DECISECONDS_IN_DAY 864000	//number of deciseconds in a day
 #define MIDNIGHT_ROLLOVER		864000	//number of deciseconds in a day
@@ -33,13 +38,17 @@ When using time2text(), please use "DDD" to find the weekday. Refrain from using
 
 */
 
-#define MONDAY		"Mon"
-#define TUESDAY	"Tue"
-#define WEDNESDAY	"Wed"
-#define THURSDAY	"Thu"
-#define FRIDAY		"Fri"
-#define SATURDAY	"Sat"
-#define SUNDAY		"Sun"
+#define MONDAY "Mon"
+#define TUESDAY "Tue"
+#define WEDNESDAY "Wed"
+#define THURSDAY "Thu"
+#define FRIDAY "Fri"
+#define SATURDAY "Sat"
+#define SUNDAY "Sun"
+
+#define MILLISECONDS *0.01
+
+#define DECISECONDS *1 //the base unit all of these defines are scaled by, because byond uses that as a unit of measurement for some fucking reason
 
 #define SECONDS *10
 
@@ -49,8 +58,6 @@ When using time2text(), please use "DDD" to find the weekday. Refrain from using
 
 #define TICKS *world.tick_lag
 
-#define MILLISECONDS * 0.01
-
 #define DS2TICKS(DS) ((DS)/world.tick_lag)
 
 #define TICKS2DS(T) ((T) TICKS)
@@ -58,7 +65,4 @@ When using time2text(), please use "DDD" to find the weekday. Refrain from using
 #define MS2DS(T) ((T) MILLISECONDS)
 
 #define DS2MS(T) ((T) * 100)
-
-/// Amount of years from the current year to offset in-universe
-#define YEAR_OFFSET 540
 

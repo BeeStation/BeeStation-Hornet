@@ -5,13 +5,13 @@
 	icon = 'icons/obj/machines/stasis.dmi'
 	icon_state = "stasis"
 	density = FALSE
+	obj_flags = BLOCKS_CONSTRUCTION
 	can_buckle = TRUE
 	buckle_lying = 90
 	circuit = /obj/item/circuitboard/machine/stasis
 	idle_power_usage = 50
 	active_power_usage = 500
 	fair_market_price = 10
-	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	var/stasis_enabled = TRUE
 	var/last_stasis_sound = FALSE
 	var/stasis_can_toggle = 0
@@ -20,7 +20,7 @@
 	var/obj/machinery/computer/operating/op_computer
 
 // dir check for buckle_lying state
-/obj/machinery/stasis/Initialize()
+/obj/machinery/stasis/Initialize(mapload)
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
 	dir_changed(new_dir = dir)
 	. = ..()
@@ -34,11 +34,11 @@
 
 /obj/machinery/stasis/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to [stasis_enabled ? "turn off" : "turn on"] the machine.</span>"
+	. += span_notice("Alt-click to [stasis_enabled ? "turn off" : "turn on"] the machine.")
 	if(op_computer)
-		. += "<span class='notice'>[src] is <b>linked</b> to an operating computer to the [dir2text(get_dir(src, op_computer))].</span>"
+		. += span_notice("[src] is <b>linked</b> to an operating computer to the [dir2text(get_dir(src, op_computer))].")
 	else
-		. += "<span class='notice'>[src] is <b>NOT linked</b> to an operating computer.</span>"
+		. += span_notice("[src] is <b>NOT linked</b> to an operating computer.")
 
 /obj/machinery/stasis/proc/initial_link()
 	if(!QDELETED(op_computer))
@@ -108,10 +108,10 @@
 		return
 	icon_state = "stasis"
 
-/obj/machinery/stasis/obj_break(damage_flag)
+/obj/machinery/stasis/atom_break(damage_flag)
 	. = ..()
-	play_power_sound()
-	update_icon()
+	if(.)
+		play_power_sound()
 
 /obj/machinery/stasis/power_change()
 	. = ..()
@@ -122,14 +122,17 @@
 		return
 	var/freq = rand(24750, 26550)
 	playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 2, frequency = freq)
-	target.apply_status_effect(STATUS_EFFECT_STASIS, STASIS_MACHINE_EFFECT)
-	target.ExtinguishMob()
-	use_power = ACTIVE_POWER_USE
+	//we could check inherent_traits, but thats too many var defines. KISS principle.
+	if(HAS_TRAIT(target, TRAIT_NOSTASIS))
+		return
+	target.apply_status_effect(/datum/status_effect/grouped/stasis, STASIS_MACHINE_EFFECT)
+	target.extinguish_mob()
+	update_use_power(ACTIVE_POWER_USE)
 
 /obj/machinery/stasis/proc/thaw_them(mob/living/target)
-	target.remove_status_effect(STATUS_EFFECT_STASIS, STASIS_MACHINE_EFFECT)
+	target.remove_status_effect(/datum/status_effect/grouped/stasis, STASIS_MACHINE_EFFECT)
 	if(target == occupant)
-		use_power = IDLE_POWER_USE
+		update_use_power(IDLE_POWER_USE)
 
 /obj/machinery/stasis/post_buckle_mob(mob/living/L)
 	if(!can_be_occupant(L))
@@ -146,8 +149,8 @@
 	update_icon()
 
 /obj/machinery/stasis/process()
-	if( !( occupant && isliving(occupant) && check_nap_violations() ) )
-		use_power = IDLE_POWER_USE
+	if(!(occupant && isliving(occupant) && check_nap_violations()))
+		update_use_power(IDLE_POWER_USE)
 		return
 	var/mob/living/L_occupant = occupant
 	if(stasis_running())
@@ -167,17 +170,17 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/stasis)
 
 DEFINE_BUFFER_HANDLER(/obj/machinery/stasis)
 	if(!panel_open)
-		to_chat(user, "<span class='warning'>\The [src]'s panel must be open in order to add it to \the [buffer_parent]'s buffer.</span>")
+		to_chat(user, span_warning("\The [src]'s panel must be open in order to add it to \the [buffer_parent]'s buffer."))
 		return NONE
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, "<span class='notice'>You store the linking data of \the [src] in \the [buffer_parent]'s buffer. Use it on an operating computer to complete linking.</span>")
+		to_chat(user, span_notice("You store the linking data of \the [src] in \the [buffer_parent]'s buffer. Use it on an operating computer to complete linking."))
 		balloon_alert(user, "saved in buffer")
-		return COMPONENT_BUFFER_RECIEVED
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/stasis/wrench_act(mob/living/user, obj/item/I) //We want to rotate, but we need to do it in 180 degree rotations.
 	if(panel_open && has_buckled_mobs())
-		to_chat(user, "<span class='notice'>\The [src] is too heavy to rotate while someone is buckled to it!</span>")
+		to_chat(user, span_notice("\The [src] is too heavy to rotate while someone is buckled to it!"))
 		return TRUE
 	. = default_change_direction_wrench(user, I, 2)
 

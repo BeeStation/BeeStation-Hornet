@@ -6,7 +6,7 @@
 	desc = "A rather dull rock for a stone."
 	icon = 'icons/obj/stacks/minerals.dmi'
 	icon_state = "ore"
-	item_state = "ore"
+	inhand_icon_state = "ore"
 	full_w_class = WEIGHT_CLASS_BULKY
 	singular_name = "ore chunk"
 	material_flags = MATERIAL_EFFECTS
@@ -60,6 +60,8 @@
 		else
 			new refined_type(drop_location(),amountrefined)
 			qdel(src)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/ore)
 
 /obj/item/stack/ore/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()

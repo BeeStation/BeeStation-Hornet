@@ -18,7 +18,7 @@
 
 /area/planet
 	icon_state = "Unknown Planet"
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
 	sound_environment = SOUND_AREA_LAVALAND
 	always_unpowered = TRUE
@@ -31,6 +31,6 @@
 	outdoors = TRUE
 	max_ambience_cooldown = 220 SECONDS
 	area_flags = NONE
-	lighting_overlay_colour = "#93c3cf"
-	lighting_overlay_opacity = 60
+	base_lighting_color = "#93c3cf"
+	base_lighting_alpha = 60
 	luminosity = 1

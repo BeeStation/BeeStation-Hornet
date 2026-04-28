@@ -8,9 +8,9 @@
 /mob/living/simple_animal/hostile/holoparasite/proc/manifest(forced = FALSE)
 	if(parent_holder.locked)
 		balloon_alert(src, "locked", show_in_chat = FALSE)
-		to_chat(src, "<span class='warning holoparasite'>Your summoner has <b>locked</b> you, preventing you from manifesting!</span>")
+		to_chat(src, span_warningholoparasite("Your summoner has <b>locked</b> you, preventing you from manifesting!"))
 		return FALSE
-	if(is_summoner_dead() || !can_be_manifested() || (!forced && !COOLDOWN_FINISHED(src, manifest_cooldown)))
+	if(is_summoner_dead() || !can_be_manifested() || isnull(summoner.current.loc) || (!forced && !COOLDOWN_FINISHED(src, manifest_cooldown)))
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_HOLOPARA_MANIFEST, forced) & COMPONENT_OVERRIDE_HOLOPARA_MANIFEST)
 		return TRUE
@@ -32,7 +32,7 @@
 			mr_hud?.begin_timer(HOLOPARASITE_MANIFEST_COOLDOWN)
 		playsound(loc, 'sound/creatures/holopara_summon.ogg', vol = 45, extrarange = HOLOPARA_MANIFEST_SOUND_EXTRARANGE, frequency = 1)
 		add_filter("holopara_manifest", 1, gauss_blur_filter(size = 4))
-		transition_filter("holopara_manifest", 1.2 SECONDS, list("size" = 0), easing = SINE_EASING, loop = FALSE)
+		transition_filter("holopara_manifest", 1.2 SECONDS, list("size" = 0), easing = SINE_EASING, loop = 0)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, remove_filter), "holopara_manifest"), 1.25 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		SEND_SIGNAL(src, COMSIG_HOLOPARA_POST_MANIFEST, forced)
 		return TRUE

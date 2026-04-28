@@ -1,6 +1,8 @@
 SUBSYSTEM_DEF(icon_smooth)
 	name = "Icon Smoothing"
-	init_order = INIT_ORDER_ICON_SMOOTHING
+	dependencies = list(
+		/datum/controller/subsystem/atoms
+	)
 	wait = 1
 	priority = FIRE_PRIOTITY_SMOOTHING
 	flags = SS_TICKER
@@ -51,7 +53,7 @@ SUBSYSTEM_DEF(icon_smooth)
 		var/turf/item_loc = movable_item.loc
 		item_loc.add_blueprints(movable_item)
 
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/icon_smooth/proc/add_to_queue(atom/thing)
 	if(thing.smoothing_flags & SMOOTH_QUEUED)

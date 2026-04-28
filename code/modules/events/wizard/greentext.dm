@@ -39,24 +39,25 @@
 	SSticker.OnRoundend(roundend_callback)
 
 /obj/item/greentext/equipped(mob/living/user as mob)
-	to_chat(user, "<font color='green'>So long as you leave this place with greentext in hand you know you will be happy...</font>")
-	var/list/other_objectives = user.mind.get_all_antag_objectives()
-	if(user.mind && other_objectives.len > 0)
-		to_chat(user, "<span class='warning'>... so long as you still perform your other objectives that is!</span>")
+	if (user.mind)
+		to_chat(user, "<font color='green'>So long as you leave this place with greentext in hand you know you will be happy...</font>")
+		var/list/other_objectives = user.mind.get_all_antag_objectives()
+		if(user.mind && other_objectives.len > 0)
+			to_chat(user, span_warning("... so long as you still perform your other objectives that is!"))
 	new_holder = user
 	if(!last_holder)
 		last_holder = user
 	if(!(user in color_altered_mobs))
 		color_altered_mobs += user
-	user.add_atom_colour("#00FF00", ADMIN_COLOUR_PRIORITY)
+	user.add_atom_colour(COLOR_VIBRANT_LIME, ADMIN_COLOUR_PRIORITY)
 	START_PROCESSING(SSobj, src)
 	..()
 
 /obj/item/greentext/dropped(mob/living/user as mob)
 	..()
 	if(user in color_altered_mobs)
-		to_chat(user, "<span class='warning'>A sudden wave of failure washes over you...</span>")
-		user.add_atom_colour("#FF0000", ADMIN_COLOUR_PRIORITY) //ya blew it
+		to_chat(user, span_warning("A sudden wave of failure washes over you..."))
+		user.add_atom_colour(COLOR_RED, ADMIN_COLOUR_PRIORITY) //ya blew it
 	last_holder 	= null
 	new_holder 		= null
 	STOP_PROCESSING(SSobj, src)
@@ -75,8 +76,8 @@
 
 /obj/item/greentext/process()
 	if(last_holder && last_holder != new_holder) //Somehow it was swiped without ever getting dropped
-		to_chat(last_holder, "<span class='warning'>A sudden wave of failure washes over you...</span>")
-		last_holder.add_atom_colour("#FF0000", ADMIN_COLOUR_PRIORITY)
+		to_chat(last_holder, span_warning("A sudden wave of failure washes over you..."))
+		last_holder.add_atom_colour(COLOR_RED, ADMIN_COLOUR_PRIORITY)
 		last_holder = new_holder //long live the king
 
 /obj/item/greentext/Destroy(force)
@@ -90,7 +91,7 @@
 		var/message = "<span class='warning'>A dark temptation has passed from this world"
 		if(M in color_altered_mobs)
 			message += " and you're finally able to forgive yourself"
-			if(M.color == "#FF0000" || M.color == "#00FF00")
+			if(M.color == COLOR_RED || M.color == COLOR_VIBRANT_LIME)
 				M.remove_atom_colour(ADMIN_COLOUR_PRIORITY)
 		message += "...</span>"
 		// can't skip the mob check as it also does the decolouring

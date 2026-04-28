@@ -1,0 +1,463 @@
+2023-10-02:
+  Absolucy:
+  - bugfix: Fix broken dropdown buttons in the tgui chat settings.
+  DrDuckedGoose:
+  - rscadd: Adds color correction to areas
+  PowerfulBacon:
+  - balance: Atmosbots have been given a larger area of effect but have had the amount
+      of gasses they transfer in a single tick reduced.
+  RKz, necromanceranne, Spookydonut:
+  - code_imp: adds linting for equipped()
+2023-10-03:
+  AMonekyThatCodes, Kylerace, tralezab, Ryll/Shaps, Melbert, ported by mystery3525:
+  - rscadd: Basic Mobs. Newer, better simple_mobs now with datumized AI behavior,
+      allowing more interesting behavior.
+  - rscadd: Mothroach web eating mechanic, with a 25 second cooldown
+  - code_imp: Refactored petting certain pets into a general element, atmos_requirements
+      element, and death_drops element
+  Harranhall:
+  - rscadd: Added a vignette that appears momentarily when your laws are changed as
+      AI.
+  - imageadd: added the "law_change" fullscreen vignette.
+2023-10-04:
+  PowerfulBacon:
+  - bugfix: Fixes exploration breaching charges failing to detonate if you have some
+      that are linked but not planted.
+  benbot16:
+  - bugfix: Fixes integrated hardsuit jetpacks not activating.
+  itsmeow:
+  - bugfix: Fixed AI not being disabled on certain ghost role simplemobs when a player
+      takes control, such as blob zombies.
+  - bugfix: Fixed runtime in the portrait printer modPC app.
+2023-10-05:
+  CydiaLamiales:
+  - rscadd: Added the ability to hack an express supply console board with a multitool
+      to enable contraband
+  - rscdel: Removed the ability to fix an emagged express supply console board by
+      using a multitool on it
+  EvilDragonfiend:
+  - rscadd: chat-light-theme.scss, chat-dark-theme.scss. These are preferable more
+      than goon folder chat scss files.
+  - code_imp: BB implant chat colour and carp wavespeak char color are now more reliably
+      darker/lighter based on your current background theme. If you use a light theme,
+      these will be darker, and vice versa for vice versa.
+  rkz:
+  - bugfix: wall-mounted sparkers work again
+  rkz, itseasytosee:
+  - code_imp: repathed knives, removing unecessary nesting
+2023-10-06:
+  Absolucy:
+  - bugfix: Fix html encoding (which messed up apostrophes and such) with brainwashing
+      objectives in the tgui popup
+  PowerfulBacon:
+  - balance: Xeno eggs, Changeling eggs and Zombie tumours are no longer slowed by
+      stasis beds.
+  - bugfix: Fixes stat panel buttons overrunning the screen on the MC tab.
+  - bugfix: Enforces permission requirement on stat button presses.
+  - rscadd: Adds support for multi-row stat buttons which have sub-buttons.
+  RKz, Rohesie:
+  - code_imp: SStimers wont runtime out of bounds if you change world.fps
+  rkz, ninjanomnom:
+  - bugfix: hiding action_buttons will no longer clear all overlays
+2023-10-07:
+  Absolucy:
+  - bugfix: All action mutations now properly take energy chromosomes (which reduce
+      ability cooldowns) rather than synchronizer chromosomes.
+  - bugfix: "Cat Claws and Strengthened Wings now properly accept power chromosomes\
+      \ \u2014 they already had code that took the power chromosome into account,\
+      \ but couldn't actually have said chromosome applied to them."
+  - rscadd: Shock touch, cryokinesis, and chameleon can now accept power chromosomes
+      to improve their respective powers.
+  - rscadd: Acid hands can take a power or sync chromosome, to increase the acid power
+      or decrease the blood loss respectively.
+  - soundadd: Cat Claws now changes your attack sound to slashing noises, similar
+      to moths or lizards.
+  - tweak: Upgrading a DNA scanner will accordingly update any cooldowns (joker and
+      injector) for linked genetics consoles.
+  - rscadd: Inserting a genetics diskette into a genetics console will now actually
+      mark any mutations on said disk as discovered. This likely won't change anything
+      during actual rounds, but this will be useful during debugging or perhaps adminbus.
+  - tweak: You won't waste shock touch charges accidentally clicking on the floor
+      or a wall anymore.
+  - code_imp: Cleaned up the code of a lot of mutations quite a bit.
+  - bugfix: You can no longer obtain a negative temporary blindness duration, which
+      would lead to permanent blindness. As a result, healing holoparas don't blind
+      people anymore.
+  BeeLover66:
+  - bugfix: Glass of chocolate milk now looks different from glass of (normal) milk
+  CydiaLamiales:
+  - bugfix: fixed a runtime in godhand.dm
+  PestoVerde322:
+  - bugfix: fixed Reinforced tables' wrong inner corner icons.
+  PowerfulBacon:
+  - rscadd: Adds in unit testing for MC stat panels.
+  mystery3525:
+  - balance: Abductors can no longer permanently brainwash victims via surgery.
+2023-10-09:
+  DrDuckedGoose:
+  - bugfix: Fix color correction runtiming
+  HowToLoLu:
+  - bugfix: The Particles shot out of the Particle Accelerator no longer phase through
+      machines
+  - code_imp: In Projectiles, Piercing behaviour is now prioritized over Phasing behaviour
+      (the difference between the two is whether it deals damage as it's passing through)
+  Penwin0:
+  - rscdel: Removed Deputy from preferences menu
+  PowerfulBacon:
+  - rscdel: Reverts changes to clown farting
+  Rukofamicom:
+  - rscadd: The server repo has officially reached 10,000 pull requests. Thank you
+      everyone for all the contributions you make to the game!
+  - rscadd: To honor this momentous occasion, clowns struggling to fart when they
+      shouldn't be able to may now occasionally fart a random organ out instead. This
+      may be lethal.
+  WhereAmI, RaveRadbury, Inept, softcerv:
+  - rscadd: Adds Tarot Cards, for any thematic fortune tellings you might require!
+      Find them in the General loadout tab or Fun Vendor.
+  - rscadd: Radial Menu for Cards, easier to navigate while playing!
+  XeonMations:
+  - rscadd: Added the ability to choose the direction of any office chair you are
+      sitting in by moving
+  rkz:
+  - bugfix: fix nanite cloud controllers disappearing (my fault)
+2023-10-10:
+  BeeLover66:
+  - bugfix: Duplicate spell burger recipe has been removed
+  PowerfulBacon:
+  - bugfix: Fixes the MC tab breaking in stat again due to a null returned stat entry.
+  rkz, Mothblocks:
+  - rscadd: Suit Storage Units now use radials!
+  - rscadd: All engineer Suit Storage Units now start with magboots in them.
+  - rscadd: SSU radials
+  - code_imp: convert SSU code to update_appearance
+2023-10-12:
+  EvilDragonfiend:
+  - bugfix: Input box (the thing that's used in naming things) now accepts Enter and
+      Esc.
+  Impish_Delights:
+  - bugfix: Oozelings no longer autocannibalize inorganic limbs while at low blood
+  Penwin0:
+  - bugfix: Fland loads again
+  Rukofamicom:
+  - tweak: Goliaths no longer stun with tendril attacks, instead tripping the victim.
+      They move faster and can more frequently use their tendril attacks instead.
+  - tweak: Damaging zombie tumors deal brain damage instead of toxin damage.
+  - tweak: Hostile zombies now heal brain damage over time as well, and fully heal
+      brain damage upon conversion
+  - tweak: Brain damage progresses twice as fast as toxin damage so patients die sooner
+      (this is done because brain damage cannot cause crit)
+  - tweak: The delay between death and resurrection as a zombie has been increased
+      by 50% to make up for the lack of time spent in crit.
+  XeonMations:
+  - bugfix: Fixes metastation's duplicate bulletproof armour
+  rkz:
+  - code_imp: Death upon ye, ancient math!
+  rkz, Arkatos1, ShizCalev:
+  - code_imp: adds proc to update an item's action_buttons, removes duplicate code
+2023-10-14:
+  Impish_Delights:
+  - rscadd: Mosin Obrez! Sawn-off Mosin Nagant; has innate & wild spread, kicks like
+      a mule, and can be fired 1-handed
+  - tweak: Any saw type item (and plasmacutters) can be used to saw guns short
+  - tweak: Energy saws can be used as saws now (similar to chainsaws)
+  - tweak: You cannot add multiple slings to an improvised shotgun, and it shows on
+      examine text now
+  - balance: Mosin Nagant and Obrez require 2-hands to cycle the bolt (up from 1-hand)
+  - imageadd: Added icon and in-hand sprites for Mosin Obrez
+  - refactor: removed redundant sawoff code for shotguns, now part of the parent gun/ballistic
+      item
+  - code_imp: rewrites some boltaction code to make it less weird for item interactions/attaching
+      bayonets
+  - code_imp: sawing checks for TOOL_SAW instead of using bespoke items, is an innate
+      ballistic gun function, and is more configurable.
+  Penwin0:
+  - balance: Excommunicates can no longer purchase syndicate communication keys or
+      implants
+2023-10-15:
+  HowToLoLu:
+  - bugfix: Pizzaboxes now accept pizza being put in once again
+  Impish_Delights:
+  - rscadd: Combat shotguns can now be toggled in-hand to function like manual pump-action
+      shotguns
+  - rscadd: Combat shotguns will 'click' when cycling firing modes.
+  - bugfix: Compact combat shotgun will now cycle properly when fired one-handed
+  - code_imp: Fixes runtime when firing a ballistic gun without a magazine installed
+  - code_imp: Removes unneeded proc for automatic shotguns, functionally the same
+  - code_imp: Retypes bulldog to be a child of shotgun/automatic
+2023-10-16:
+  HowToLoLu:
+  - imageadd: Modular Console on/off icon states are now separated into body and keyboard
+      states instead of being combined
+  - code_imp: Added another bitflag for smoothing, SMOOTH_BITMASK_SKIP_CORNERS
+  - bugfix: Modular Consoles no longer look fully broken when only the CPU is broken
+  - bugfix: Fixed computers becoming invisible in certain arrangements
+  - bugfix: Some computers with special icons no longer become invisible
+  - bugfix: Computers now handle smoothing properly when acted on by Narsie or Ratvar
+  - bugfix: Broken computers now show up properly
+  Programs-The-Station:
+  - bugfix: Fixes the Sabotage and Explosives Objective for "the telecommunications
+      relay".
+2023-10-17:
+  BeeLover66:
+  - bugfix: Some recipes that wouldn't get reagents from their ingredients now do
+  PowerfulBacon:
+  - rscadd: Gun cooldown crosshair.
+  RKz, Rohesie:
+  - code_imp: unconsciousness is now a trait, cleaned up its usage in mobility and
+      stat, which should make it perform a lot quicker and generate less edge-cases
+  - bugfix: being woken up from unconsciousness should always clear trauma-induced
+      monochromatic vision
+  - bugfix: moves a sleeping check in regenerative coma a few lines ahead. It's intended
+      use in code that voluntarily sleeping provides less healing benefit than entering
+      a coma through trauma/medicine.
+  - balance: Which... now technically makes it a balance change. It was always intended,
+      but using the sleep verb will now heal you less than involuntary unconciousness,
+      in terms of the regen rate of the regenerative coma
+2023-10-18:
+  HowToLoLu:
+  - bugfix: Simple animals are no longer immortal
+  Impish_Delights:
+  - rscadd: New outfit preset; Bulletproof SecOff. Can be chosen via the select equipment
+      menu, and through chameleon clothing
+  - balance: Mosin Nagant deals less damage (40 down from 60) but has armor penetration
+      (30% AP)
+  - balance: Nagant Revolver deals less damage (55 down from 60) but has armor penetration
+      (10% AP)
+  PowerfulBacon:
+  - bugfix: Light mode stat panel atom tab will now be readable (Text when you alt
+      click a tile)
+  Programs-The-Station:
+  - bugfix: Fixes the Index Table Component not outputting the values of the table
+      row.
+2023-10-19:
+  Absolucy, stylemistake:
+  - rscadd: AFK players will now have flavor text indicating that they're AFK when
+      examined.
+  - bugfix: AFK detection now works properly again.
+  XeonMations:
+  - bugfix: Replaced metastation's medbay post's radio implant with a radio
+  itsmeow:
+  - code_imp: Cleaned up preference serialization and error handling. Cleaned up guest/databaseless
+      default value generation.
+  - rscadd: Added logging to preference loading, saving, and edits for better debugging.
+2023-10-20:
+  PowerfulBacon:
+  - bugfix: Objective stashes may no longer spawn in the bathrooms of head's offices.
+  RKz, Timberpoes, MrMelbert:
+  - refactor: machine components are now stored inside the machines themselves, instead
+      of sent to a magical nullspace and creating errors
+  - rscadd: As a result of making circuitboards components, you can now do things
+      like place a bomb on circuitboard, build it in a machine, and it will blow up
+      like you expect it to!
+  - bugfix: machines no longer vend their own components accidentally
+  - bugfix: machines that are supposed to eject contents should actually do so more,
+      and those that shouldn't, should do so less
+  itsmeow:
+  - code_imp: Added code support for the ability to view playtime of removed jobs.
+  rkz, Tattle:
+  - admin: added investigate deaths to shed some more light on unusual demises, dustings,
+      and gibbings
+2023-10-21:
+  Absolucy:
+  - rscadd: The Obsessed trauma now disguises itself to scanners as monophobia until
+      a certain amount of time has been spent near the obsession.
+  AgentCitrus:
+  - tweak: Oozelings no longer lose hair from radiation or alopecia
+  DarnTheMarn:
+  - rscadd: Adds SOP books for each department, found by the techfab and the respective
+      head's room. Extras can be printed at the library.
+  Penwin0:
+  - code_imp: The game compiles again
+  - bugfix: fixed damage overlays
+  PowerfulBacon:
+  - balance: Increased durathread bullet armour (40 from armour, 15 from jumpsuit;
+      49 total bullet protection from both)
+  - rscdel: Reverts AFK players showing up as SSD on examine.
+  'Varo; @FuryMcFlurry ':
+  - rscadd: new moth wing sprites
+  - rscadd: new moth open wing sprites
+  mystery3525:
+  - tweak: Vent crawling now has a 1% chance every 3 seconds of constant movement
+      of giving notice to everyone nearby that can hear it, meaning once per 5 minutes
+      of vent crawling does it play a sound to hearing mobs.
+  - balance: Closed/broken/offline atmospherics machinery now prevents creatures from
+      vent-crawling through them, though vents/scrubbers remain unchanged and require
+      being welded still.
+  rkz:
+  - refactor: converted random vendors into a spawner, less garbage.dm del horrors.
+  - bugfix: nightmares can actually utilize their pocket, belt, and ID slots. It was
+      checking for a jumpsuit on a race that cant wear jumpsuits
+  - balance: removed restriction prohibiting nightmares from wearing masks
+  rkz, MrPerson:
+  - bugfix: Rechargers now have a panel_open state when you screwdriver them! I fixed
+      it on accident, woops.
+  - code_imp: converts a few dozen update_icons into their respective update_overlays
+      or update_icon_states. Adds parent calls. Modernizes them all to update_appearance.
+  rkz, Rohesie, RandomGamer123:
+  - code_imp: Immobilization is now a trait. Cleaned up its usage in mobility which
+      should make it perform a lot quicker and generate less edge-cases
+  - code_imp: grabbed states and buckled states now have signals we can append to
+      or check for
+2023-10-22:
+  Absolucy, XDTM:
+  - rscadd: Added Nanite Protocols, special programs that allow for you to 'upgrade'
+      some part of your nanites, usually with some tradeoff or downside.
+  - rscadd: Added Blood Sensor and Nutrition Sensor nanite programs.
+  - rscadd: Added the Nanite Blade program to nanites, which allows you to manifest
+      an armblade similar to the xenobio one, locked behind illegal tech.
+  - rscadd: Added the Vampiric Synthesis program to nanites, which allows you to generate
+      nanite volume using your own blood volume. This WILL suck you dry if you let
+      it, please use this with a blood sensor or something! No, you can't cheese it
+      with Blood Regeneration.
+  - rscadd: Added the Remote Signaler program to nanites, which functions similarly
+      to, well, a remote signaler!
+  - rscadd: Added the Remote Signal Receiver program to nanites, which allows you
+      to receive remote signaler signals and translate them into nanite signals!
+  - rscadd: Added the Dermal Toggle program to nanites, which is similar to a dermal
+      button, but it's an on/off toggle instead.
+  - rscadd: You can now combine nanite rules, for more advanced logic!
+  - rscadd: Nanite Cloud Controllers now have neat lil' popup bubbles whenever you
+      do an action on 'em.
+  - balance: Researching harmonic nanite tech now provides a 0.1/sec passive regen
+      rate boost to all nanites!
+  - tweak: Metabolic Synthesis no longer has a built in-limiter, and can consume ALL
+      your nutrition if you allow it to.
+  - balance: Infective exo-locomotion shouldn't be completely useless anymore.
+  - rscadd: Nanite communication remotes, which can send text communications to certain
+      nanite programs, are now actually buildable
+  DarnTheMarn:
+  - rscadd: Adds a new reagent, maltodextrin.
+  - rscadd: Adds maltodextrin to donk pockets and vendor food.
+  - rscdel: Removed donuts and their references from the SecTech
+  HowToLoLu:
+  - bugfix: The engineering security office of BoxStation no longer is filled with
+      cold air roundstart
+  - bugfix: The air in the control room of Box's Telecomms is no longer filled with
+      cold air either
+  PowerfulBacon:
+  - bugfix: Ventcrawling works again
+  RKz, MrStonedOne:
+  - server: adds stack overflow detection for the Master Controller
+  Rukofamicom:
+  - tweak: Cryptographic Sequencers (Emags) no longer cause permanent damage to airlocks.
+      They will still bolt doors open and cause them to completely lose power indefinitely
+      (which means no silicon access). Pulse or cut/repair power wires to fix emagged
+      doors.
+  - tweak: Removes the smoking panel message from airlocks that have been emagged,
+      since they are no longer permanently damaged
+  - tweak: Pulsing power wires now resets the time before power comes back on.
+2023-10-23:
+  DrDuckedGoose:
+  - rscadd: Added the ability to carve Pumpkin People's heads
+  - tweak: Pumpkin People are now pseudo-mute until carved
+  rkz:
+  - bugfix: Whoever made all the batongs into pool noodles has been shot! (fixed immobilization
+      not applying through stamcrit)
+2023-10-24:
+  Penwin0:
+  - bugfix: Firefighter helmet now mechanically covers your face, as show by the sprite
+  RKz, Mothblocks:
+  - tweak: teleporter machinery now autolinks.
+  - code_imp: adds unit test to ensure this does not regress
+2023-10-25:
+  PowerfulBacon:
+  - balance: Lighteater can now destroy glowing decals.
+  Rkz, AlinaStarkova:
+  - rscadd: Adds new mapping helper for multi-directional airlock cycelinks. Changed
+      three airlocks on Meta as a proof-of-concept.
+  Varo:
+  - tweak: 'tweaked the following open wing sprites: monarch, luna,, whitefly, firewatch,
+      deathhead, poison, ragged, moonfly, snow and witch wing'
+2023-10-26:
+  BeeLover66:
+  - code_imp: Square root of 2 is now only written as sqrt(2) in the code
+  Penwin0:
+  - code_imp: Fixes spiderlings initializing twice
+  - bugfix: Blind people can't be flashed anymore
+  PowerfulBacon:
+  - balance: Equipping guns will now provide a brief period where you are slowed and
+      cannot fire the gun, represented by teh crosshair timer. (This is 2-4 seconds
+      depending on the gun).
+  itsmeow:
+  - bugfix: Fixed a typo in preference logging.
+  tontyGH:
+  - tweak: spawning characters will now have their quirks assigned regardless of what
+      mob type they are
+  - bugfix: roundstart cyborgs should now keep the DNA and quirks of their character
+2023-10-27:
+  HowToLoLu:
+  - bugfix: The chaplain Fireproof ritual now fireproofs hoods in hooded clothing
+      again.
+  - rscadd: Integrated hardsuit helmets now can be fireproofed in the fireproof ritual.
+  Varo:
+  - rscadd: 'Added a new drink to the coffee vendor: Bubble tea.'
+  - bugfix: Capitalized the R in "Robust coffee"
+  rkz, Rohesie:
+  - code_imp: Traitifies instances where a mob would be forced to the floor
+  rkz, mothblocks, nightred, kriskog:
+  - rscadd: Added new proc that checks for adjacency when giving items to mobs.
+  - bugfix: Suit Storage Units will no longer bend space and time to deposit items
+      in the AI's "hands".
+  - bugfix: SSU radial menus close when you walk away
+  - code_imp: cleaned up beaker swapping code
+2023-10-28:
+  rkz, Timberpoes:
+  - rscadd: adds diagnostic hud support for checking bot battery level, and adds it
+      to mulebots
+  - refactor: cleans up bot run_over code to suck less
+  - refactor: bot movement code sucks maybe 20% less
+2023-10-29:
+  ro5490:
+  - rscadd: Shadow Sect - Expand the darkness across the station, and convert people
+      to the dark.
+  - rscadd: Shadow Obelisk for the sect that eminates dark light
+  - rscadd: Shadow-Person race change rite on the altar, for the shadow sect
+  - rscadd: New Altar sprite
+  - rscadd: Shadow person mutator autoinjector - Antag item bought from uplink for
+      5tc, Chaplain Only
+2023-10-30:
+  EvilDragonfiend:
+  - bugfix: Saying a codeword to radio uplink accepts a message before it gets treated.
+      Lizardpeople can use it now!
+  Rukofamicom:
+  - bugfix: Donk pockets now have an appropriate amount of omnizine and no protein
+      again
+  rkz, ArcaneMusic:
+  - rscadd: converts pastries to newfood
+  - tweak: moves several foods around under their appropriate recipes. Egg wraps are
+      under the egg recipes, rather than the miscellaneous recipes.
+  ro5490:
+  - bugfix: fixed a small bug with shadow sect eye-granting rite's granting text
+2023-10-31:
+  Absolucy:
+  - bugfix: Properly buffer holoparasite builder to avoid rate limits
+  CydiaLamiales:
+  - bugfix: Fixed a runtime associated with stopping pulling things
+  Dejaku51:
+  - bugfix: Fixed BCI overlays not removing when pulsing signal
+  - bugfix: Fixed BCI overlays not removing when getting rid of the BCI
+  - bugfix: Bar overlay now has all required ports to work
+  - tweak: BCI shell doesn't have 3 action components by default now
+  - code_imp: add_alt_appearance proc now returns created alt appearance
+  JixS4v:
+  - bugfix: Trying to fulton into a walled area no longer softlocks you invisibly
+  PowerfulBacon:
+  - rscdel: Reverts the 2 new moth plushies due to violating code policy.
+  RKz, esaine, LemonInTheDark, magatsuchi:
+  - refactor: Reworked /turf/var/intact into variables which don't conflate underfloor
+      visibility, underfloor interactability, and overfloor presence
+  - bugfix: things that are supposed to affect things under tiles do, things that
+      arent wont
+  Rukofamicom:
+  - balance: Maltodextrin's overall power has been substantially reduced. When fully
+      processed, maltodextrin will leave you with about the same hunger you had before
+      eating junk food instead of substantially hungrier than you were before eating.
+  - tweak: Maltodextrin's effect is now gradual instead of instantaneous and players
+      should no longer experience sudden, crippling starvation as a result.
+  - tweak: The amount of maltodextrin in junk foods has been adjusted in accordance
+      with the above changes.
+  Varo:
+  - rscadd: 'New moth plushie: Witch Wing'
+  - rscadd: 'New moth plushie: Medical Moff'
+  itsmeow:
+  - bugfix: Clockcult is no longer royally broken by disconnections during Reebe load.

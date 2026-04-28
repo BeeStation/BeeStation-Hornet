@@ -250,3 +250,5 @@ GLOBAL_LIST_INIT(master_particle_info, list())
 /atom/movable/proc/transition_particle(time, list/new_params, easing, loop)
 	if(particles)
 		animate(particles, new_params, time = time, easing = easing, loop = loop)
+
+#undef TEXT_TO_MACRO

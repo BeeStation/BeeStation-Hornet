@@ -7,8 +7,10 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	/turf/baseturf_bottom,
 	/turf/open/space,
 	/turf/open/lava,
-	/turf/open/floor/dock/drydock
+	/turf/open/floor/dock/drydock,
 )))
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 
 //NORTH default dir
 /obj/docking_port
@@ -59,13 +61,13 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	else
 		return QDEL_HINT_LETMELIVE
 
-/obj/docking_port/has_gravity(turf/T)
-	return FALSE
+/obj/docking_port/has_gravity(turf/current_turf)
+	return TRUE
 
-/obj/docking_port/take_damage()
+/obj/docking_port/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	return
 
-/obj/docking_port/singularity_pull()
+/obj/docking_port/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 /obj/docking_port/singularity_act()
 	return 0
@@ -95,7 +97,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		)
 
 //returns the dwidth, dheight, width, and height in that order of the union bounds of all shuttles relative to our shuttle.
-/obj/docking_port/proc/return_union_bounds(var/list/obj/docking_port/others)
+/obj/docking_port/proc/return_union_bounds(list/obj/docking_port/others)
 	var/list/coords =  return_union_coords(others, 0, 0, NORTH)
 	var/X0 = min(coords[1],coords[3]) //This will be the negative dwidth of the combined bounds
 	var/Y0 = min(coords[2],coords[4]) //This will be the negative dheight of the combined bounds
@@ -104,7 +106,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	return list(-X0, -Y0, X1-X0+1,Y1-Y0+1)
 
 //Returns the the bounding box fully containing all provided docking ports
-/obj/docking_port/proc/return_union_coords(var/list/obj/docking_port/others, _x, _y, _dir)
+/obj/docking_port/proc/return_union_coords(list/obj/docking_port/others, _x, _y, _dir)
 	if(_dir == null)
 		_dir = dir
 	if(_x == null)
@@ -129,7 +131,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		)
 
 //Returns the bounding box containing only the intersection of all provided docking ports
-/obj/docking_port/proc/return_intersect_coords(var/list/obj/docking_port/others, _x, _y, _dir)
+/obj/docking_port/proc/return_intersect_coords(list/obj/docking_port/others, _x, _y, _dir)
 	if(_dir == null)
 		_dir = dir
 	if(_x == null)
@@ -241,7 +243,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 	if(mapload)
 		for(var/turf/T in return_turfs())
-			T.flags_1 |= NO_RUINS_1
+			T.turf_flags |= NO_RUINS
 
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#f00")
@@ -263,7 +265,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 /obj/docking_port/stationary/proc/load_roundstart()
 	if(json_key)
-		var/sid = SSmapping.config.shuttles[json_key]
+		var/sid = SSmapping.current_map.shuttles[json_key]
 		roundstart_template = SSmapping.shuttle_templates[sid]
 		if(!roundstart_template)
 			CRASH("json_key:[json_key] value \[[sid]\] resulted in a null shuttle template for [src]")
@@ -309,6 +311,8 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 	var/list/shuttle_areas
 
+	///Speed multiplier based on station alert level
+	var/alert_coeff = ALERT_COEFF_BLUE
 	///used as a timer (if you want time left to complete move, use timeLeft proc)
 	var/timer
 	var/last_timer_length
@@ -386,7 +390,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 /obj/docking_port/mobile/is_in_shuttle_bounds(atom/A)
 	return shuttle_areas[get_area(A)]
 
-/obj/docking_port/mobile/proc/add_turf(var/turf/T, var/area/shuttle/A)
+/obj/docking_port/mobile/proc/add_turf(turf/T, area/shuttle/A)
 	if(!shuttle_areas[A]) //Invalid area
 		return TRUE
 
@@ -427,7 +431,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	current_area.contents -= T
 	T.change_area(current_area, A)
 
-/obj/docking_port/mobile/proc/remove_turf(var/turf/T)
+/obj/docking_port/mobile/proc/remove_turf(turf/T)
 
 	var/area/shuttle/A = get_area(T)
 	var/area/shuttle/new_area = underlying_turf_area[T]
@@ -592,7 +596,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 // Called after the shuttle is loaded from template
 /obj/docking_port/mobile/proc/linkup(datum/map_template/shuttle/template, obj/docking_port/stationary/dock)
-	var/list/static/shuttle_id = list()
+	var/static/list/shuttle_id = list()
 	var/idnum = ++shuttle_id[template]
 	if(idnum > 1)
 		if(id == initial(id))
@@ -773,7 +777,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		var/turf/T = t
 		for(var/mob/living/M in T.GetAllContents())
 			// If they have a mind and they're not in the brig, they escaped
-			if(M.mind && !istype(t, /turf/open/floor/iron/shuttle/red) && !istype(t, /turf/open/floor/mineral/plastitanium/red/brig))
+			if(M.mind && !istype(t, /turf/open/floor/mineral/plastitanium/red/brig))
 				M.mind.force_escaped = TRUE
 			// Ghostize them and put them in nullspace stasis (for stat & possession checks)
 			M.notransform = TRUE
@@ -937,6 +941,20 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		return
 	time_remaining *= multiple
 	last_timer_length *= multiple
+	setTimer(time_remaining)
+
+/obj/docking_port/mobile/proc/alert_coeff_change(new_coeff)
+	if(isnull(new_coeff))
+		return
+
+	var/time_multiplier = new_coeff / alert_coeff
+	var/time_remaining = timer - world.time
+	if(time_remaining < 0 || !last_timer_length)
+		return
+
+	time_remaining *= time_multiplier
+	last_timer_length *= time_multiplier
+	alert_coeff = new_coeff
 	setTimer(time_remaining)
 
 /obj/docking_port/mobile/proc/invertTimer()
@@ -1185,3 +1203,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 /obj/docking_port/mobile/emergency/on_emergency_dock()
 	return
+
+#ifdef TESTING
+#undef DOCKING_PORT_HIGHLIGHT
+#endif

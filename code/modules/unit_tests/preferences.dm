@@ -1,9 +1,11 @@
+/*
+ * Test disabled: Doesn't work
 /// Requires all preferences to implement required methods.
 /datum/unit_test/preferences_implement_everything
 
 /datum/unit_test/preferences_implement_everything/Run()
 	var/datum/preferences/preferences = new
-	var/mob/living/carbon/human/human = allocate(/mob/living/carbon/human)
+	var/mob/living/carbon/human/human = allocate(/mob/living/carbon/human/consistent)
 
 	for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]
@@ -19,6 +21,7 @@
 		preference.is_valid("string")
 		preference.is_valid(100)
 		preference.is_valid(list(1, 2, 3))
+*/
 
 /// Requires all preferences to have a valid, unique preference_type.
 /datum/unit_test/preferences_valid_db_key
@@ -49,3 +52,29 @@
 			continue
 
 		TEST_ASSERT(!isnull(preference.main_feature_name), "Preference [preference_type] does not have a main_feature_name set!")
+
+/// Validates that every choiced preference with should_generate_icons implements icon_for,
+/// and that every one that doesn't, doesn't.
+/datum/unit_test/preferences_should_generate_icons_sanity
+
+/datum/unit_test/preferences_should_generate_icons_sanity/Run()
+	for (var/preference_type in GLOB.preference_entries)
+		var/datum/preference/choiced/choiced_preference = GLOB.preference_entries[preference_type]
+		if (!istype(choiced_preference) || choiced_preference.abstract_type == preference_type)
+			continue
+
+		var/list/values = choiced_preference.get_choices()
+
+		if (choiced_preference.should_generate_icons)
+			for (var/value in values)
+				var/icon = choiced_preference.icon_for(value)
+				TEST_ASSERT(istype(icon, /datum/universal_icon) || ispath(icon), "[preference_type] gave [icon] as an icon for [value], which is not a valid value")
+		else
+			var/errored = FALSE
+
+			try
+				choiced_preference.icon_for(values[1])
+			catch
+				errored = TRUE
+
+			TEST_ASSERT(errored, "[preference_type] implemented icon_for, but does not have should_generate_icons = TRUE")

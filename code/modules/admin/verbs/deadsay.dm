@@ -7,8 +7,8 @@
 		return
 	if(!mob)
 		return
-	if(prefs.muted & MUTE_DEADCHAT)
-		to_chat(src, "<span class='danger'>You cannot send DSAY messages (muted).</span>")
+	if(player_details.muted & MUTE_DEADCHAT)
+		to_chat(src, span_danger("You cannot send DSAY messages (muted)."))
 		return
 
 	if (handle_spam_prevention(msg,MUTE_DEADCHAT))
@@ -25,7 +25,7 @@
 	if(holder.fakekey)
 		rank_name = pick(strings(DSAY_NICKNAME_FILE, "ranks", CONFIG_DIRECTORY))
 		admin_name = pick(strings(DSAY_NICKNAME_FILE, "names", CONFIG_DIRECTORY))
-	var/rendered = "<span class='game deadsay'><span class='prefix'>DEAD:</span> <span class='name'>[rank_name]([admin_name])</span> says, <span class='message'>\"[emoji_parse(msg)]\"</span></span>"
+	var/rendered = span_gamedeadsay("[span_prefix("DEAD:")] [span_name("[rank_name]([admin_name])")] says, [span_message("\"[emoji_parse(msg)]\"")]")
 	send_chat_to_discord(CHAT_TYPE_DEADCHAT, "[rank_name]([admin_name])", msg)
 
 	for (var/mob/M in GLOB.player_list)

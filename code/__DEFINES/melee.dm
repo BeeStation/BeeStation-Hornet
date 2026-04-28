@@ -10,3 +10,6 @@
 #define MARTIALART_PLASMAFIST "plasma fist"
 #define MARTIALART_KARATE "karate"
 #define MARTIALART_TRIBALCLAW "tribal claw"
+
+/// The number of hits required to crit a target
+#define HITS_TO_CRIT(damage) CEILING((100 / damage), 1)

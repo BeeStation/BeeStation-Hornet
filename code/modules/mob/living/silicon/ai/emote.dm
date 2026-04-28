@@ -1,4 +1,5 @@
 /datum/emote/ai
+	abstract_type = /datum/emote/ai
 	mob_type_allowed_typecache = /mob/living/silicon/ai
 	mob_type_blacklist_typecache = list()
 
@@ -9,13 +10,10 @@
 
 /datum/emote/ai/emotion_display/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(!.)
-		return
 	var/mob/living/silicon/ai/ai = user
 	var/turf/ai_turf = get_turf(ai)
 
-	for(var/_display in GLOB.ai_status_displays)
-		var/obj/machinery/status_display/ai/ai_display = _display
+	for(var/obj/machinery/status_display/ai/ai_display as anything in GLOB.ai_status_displays)
 		var/turf/display_turf = get_turf(ai_display)
 
 		// Derelict AIs can't affect station displays.
@@ -81,9 +79,6 @@
 
 /datum/emote/ai/emotion_display/friend_computer/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(!.)
-		return
-
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(FREQ_STATUS_DISPLAYS)
 
 	if(!frequency)

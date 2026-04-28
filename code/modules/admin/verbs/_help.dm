@@ -265,6 +265,11 @@
 		type = STAT_BUTTON,
 		action = "browsetickets",
 	)
+	tab_data["Requests"] = list(
+		text = "Open Requests Browser",
+		type = STAT_BUTTON,
+		action = "browserequests",
+	)
 	return tab_data
 
 //Reassociate still open ticket if one exists
@@ -402,7 +407,7 @@
 		return FALSE
 	var/datum/help_ticket/active_ticket = data_glob.get_active_ticket(initiator)
 	if(active_ticket)
-		to_chat(initiator, "<span class='warning'>Your ticket could not be transferred because you already have a ticket of the same type open. Please make another ticket at a later time, or bring up whatever the issue was in your current ticket.</span>", type = message_type)
+		to_chat(initiator, span_warning("Your ticket could not be transferred because you already have a ticket of the same type open. Please make another ticket at a later time, or bring up whatever the issue was in your current ticket."), type = message_type)
 		old_ticket.message_ticket_managers("<span class='[old_ticket.span_class]'>Could not transfer Ticket [old_ticket.TicketHref("#[old_ticket.id]")], [old_ticket.key_name_ticket(old_ticket.initiator)] already has a ticket open of the same type.</span>")
 		ticket_counter--
 		qdel(src)
@@ -589,9 +594,9 @@
 	return
 
 //Reopen a closed ticket
-/datum/help_ticket/proc/Reopen()
+/datum/help_ticket/proc/Reopen(re_opener = usr)
 	if(state <= TICKET_ACTIVE)
-		to_chat(usr, "<span class='warning'>This ticket is already open.</span>")
+		to_chat(usr, span_warning("This ticket is already open."))
 		return
 
 	var/datum/help_tickets/data_glob = get_data_glob()
@@ -599,7 +604,7 @@
 		return
 
 	if(data_glob.CKey2ActiveTicket(initiator_ckey))
-		to_chat(usr, "<span class='warning'>This user already has an active ticket, cannot reopen this one.</span>")
+		to_chat(usr, span_warning("This user already has an active ticket, cannot reopen this one."))
 		return
 
 	data_glob.active_tickets += src
@@ -615,12 +620,19 @@
 	if(initiator)
 		data_glob.set_active_ticket(initiator, src)
 
-	AddInteraction("purple", "Reopened by [key_name_ticket(usr)]")
-	var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] reopened by [key_name_ticket(usr)].</span>"
-	message_ticket_managers(msg)
-	log_admin_private(msg)
-	blackbox_feedback(1, "reopened")
+	ticket_interaction("purple", "reopened", re_opener)
 	TicketPanel()	//can only be done from here, so refresh it
+
+/datum/help_ticket/proc/ticket_interaction(color, action, user, interaction_note="", silent=FALSE, hide_interaction=FALSE, blackbox_override=null)
+	var/key_name = istext(user) ? user : key_name(user)
+	var/key_name_ticket = istext(user) ? user : key_name_ticket(user)
+	var/cap_action = capitalize(action)
+	if(!hide_interaction)
+		AddInteraction(color, "[cap_action] by [key_name][interaction_note]")
+	if(!silent)
+		message_ticket_managers("<span class='[span_class]'>Ticket [TicketHref("#[id]")] [action] by [key_name_ticket].</span>")
+	log_admin_private("Ticket #[id] [action] by [key_name].")
+	blackbox_feedback(1, blackbox_override ? blackbox_override : action)
 
 /// Don't call this, internal use only. Use Close/Resolve instead
 /datum/help_ticket/proc/RemoveActive()
@@ -637,7 +649,7 @@
 	if(initiator && data_glob.get_active_ticket(initiator) == src)
 		data_glob.set_active_ticket(initiator, null)
 
-/datum/help_ticket/proc/Claim(key_name = key_name_ticket(usr), silent = FALSE)
+/datum/help_ticket/proc/Claim(silent = FALSE)
 	if(claimee == usr)
 		return
 	if(initiator && !claimee && !silent)
@@ -650,20 +662,12 @@
 		state = TICKET_ACTIVE
 		data_glob.ListInsert(src)
 	var/updated = claimee?.ckey
-	if(updated)
-		AddInteraction("blue", "Claimed by [key_name] (Overwritten from [updated])")
-	else
-		AddInteraction("blue", "Claimed by [key_name]")
 	claimee = usr
 	claimee_key_name = usr.ckey
-	if(!silent && !updated)
-		blackbox_feedback(1, "claimed")
-		var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] claimed by [key_name].</span>"
-		message_ticket_managers(msg)
-		log_admin_private(msg)
+	ticket_interaction("blue", "claimed", usr, updated ? " (Overwritten from [updated])" : null, silent || updated)
 
 /// Mark open ticket as closed/meme
-/datum/help_ticket/proc/Close(key_name = key_name_ticket(usr), silent = FALSE, hide_interaction = FALSE)
+/datum/help_ticket/proc/Close(closer = usr, silent = FALSE, hide_interaction = FALSE)
 	if(state > TICKET_ACTIVE)
 		return
 	if(!claimee)
@@ -674,16 +678,10 @@
 	if(!istype(data_glob))
 		return
 	data_glob.ListInsert(src)
-	if(!hide_interaction)
-		AddInteraction("red", "Closed by [key_name].")
-	if(!silent)
-		blackbox_feedback(1, "closed")
-		var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] closed by [key_name].</span>"
-		message_ticket_managers(msg)
-		log_admin_private(msg)
+	ticket_interaction("red", "closed", closer, silent = silent, hide_interaction = hide_interaction)
 
 /// Mark open ticket as resolved/legitimate, returns ahelp verb
-/datum/help_ticket/proc/Resolve(key_name = key_name_ticket(usr), silent = FALSE)
+/datum/help_ticket/proc/Resolve(resolver = usr, silent = FALSE)
 	if(state > TICKET_ACTIVE)
 		return
 	if(!claimee)
@@ -695,16 +693,12 @@
 		return
 	data_glob.ListInsert(src)
 
-	AddInteraction("green", "Resolved by [key_name].")
+	ticket_interaction("green", "resolved", resolver, silent = silent)
 	if(!silent)
 		resolve_message()
-		blackbox_feedback(1, "resolved")
-		var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] resolved by [key_name]</span>"
-		message_ticket_managers(msg)
-		log_admin_private(msg)
 
 /// Close and return ahelp verb, use if ticket is incoherent
-/datum/help_ticket/proc/Reject(key_name = key_name_ticket(usr), extra_text)
+/datum/help_ticket/proc/Reject(rejecter = usr, extra_text)
 	if(state > TICKET_ACTIVE)
 		return
 	if(!claimee)
@@ -713,29 +707,23 @@
 		SEND_SOUND(initiator, sound(reply_sound))
 		resolve_message(status = "Rejected!", message = "The [handling_name]s could not resolve your ticket.</b> The [verb_name] verb has been returned to you so that you may try again.<br /> \
 		Please try to be calm, clear, and descriptive in your [verb_name], do not assume the [handling_name] has seen any related events[extra_text].")
-	blackbox_feedback(1, "rejected")
-	var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] rejected by [key_name]</span>"
-	message_ticket_managers(msg)
-	log_admin_private(msg)
-	AddInteraction("red", "Rejected by [key_name].")
+	ticket_interaction("red", "rejected", rejecter)
 	Close(silent = TRUE)
 
-/datum/help_ticket/proc/Retitle(key_name = key_name_ticket(usr))
+/datum/help_ticket/proc/Retitle(retitler = usr)
 	var/new_title = capped_input(usr, "Enter a title for the ticket", "Rename Ticket", name)
 	if(new_title)
 		name = new_title
 		//not saying the original name cause it could be a long ass message
-		var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] titled [name] by [key_name]</span>"
-		message_ticket_managers(msg)
-		log_admin_private(msg)
+		ticket_interaction("N/A", "titled [name]", retitler, hide_interaction=TRUE, blackbox_override="retitled")
 	TicketPanel()	//we have to be here to do this
 
 /datum/help_ticket/proc/resolve_message(status = "Resolved", message = null, extratext = "")
-	var/output = "<span class='[span_class]_conclusion'><span class='big'><b>[verb_name] [status]</b></span><br />"
+	var/output = "<span class='[span_class]_conclusion'>[span_big("<b>[verb_name] [status]</b>")]<br />"
 	output += message || "\A [handling_name] has handled your ticket.[extratext]<br />\
 		Thank you for creating a ticket, the [verb_name] verb will be returned to you shortly."
 	if(claimee)
-		output += "<br />Your ticket was handled by: <span class='adminooc'>[claimee.ckey]</span></span>"
+		output += "<br />Your ticket was handled by: [span_adminooc(claimee.ckey)]</span>"
 	to_chat(initiator, output, type = message_type)
 
 //
@@ -879,14 +867,14 @@
 							if(!ai_found && isAI(found))
 								ai_found = 1
 							var/is_antag = 0
-							if(found.mind?.special_role)
+							if(is_special_character(found))
 								is_antag = 1
 							founds[++founds.len] = list("name" = found.name,
-								            "real_name" = found.real_name,
-								            "ckey" = found.ckey,
-								            "key" = found.key,
-								            "antag" = is_antag)
-							msg += "[original_word]<font size='1' color='[is_antag ? "red" : "black"]'>(<A HREF='?_src_=holder;[HrefToken(TRUE)];adminmoreinfo=[REF(found)]'>?</A>|<A HREF='?_src_=holder;[HrefToken(TRUE)];adminplayerobservefollow=[REF(found)]'>F</A>)</font> "
+											"real_name" = found.real_name,
+											"ckey" = found.ckey,
+											"key" = found.key,
+											"antag" = is_antag)
+							msg += "[original_word]<font size='1' color='[is_antag ? "red" : "black"]'>(<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];adminmoreinfo=[REF(found)]'>?</A>|<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];adminplayerobservefollow=[REF(found)]'>F</A>)</font> "
 							continue
 		msg += "[original_word] "
 	if(external)

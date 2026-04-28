@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(abductor_gear, subtypesof(/datum/abductor_gear))
 	description = "A quad-mode baton used for incapacitation and restraining of specimens."
 	id = "advanced_baton"
 	cost = 2
-	build_path = /obj/item/abductor/baton
+	build_path = /obj/item/melee/baton/abductor
 
 /datum/abductor_gear/agent_id
 	name = "Agent ID"

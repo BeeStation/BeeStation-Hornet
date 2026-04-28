@@ -6,10 +6,12 @@
 	max_integrity = 100
 	layer = BELOW_OBJ_LAYER
 	desc = "A massive brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
-	break_message = "<span class='warning'>The gear breaks apart into shards of alloy!</span>"
-	debris = list(/obj/item/clockwork/alloy_shards/large = 1, \
-	/obj/item/clockwork/alloy_shards/medium = 4, \
-	/obj/item/clockwork/alloy_shards/small = 2) //slightly more debris than the default, totals 26 alloy
+	break_message = span_warning("The gear breaks apart into shards of alloy!")
+	debris = list(
+		/obj/item/clockwork/alloy_shards/large = 1,
+		/obj/item/clockwork/alloy_shards/medium = 4,
+		/obj/item/clockwork/alloy_shards/small = 2,
+	) //slightly more debris than the default, totals 26 alloy
 
 /obj/structure/destructible/clockwork/wall_gear/displaced
 	anchored = FALSE
@@ -28,29 +30,29 @@
 		return 1
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(anchored)
-			to_chat(user, "<span class='warning'>[src] needs to be unsecured to disassemble it!</span>")
+			to_chat(user, span_warning("[src] needs to be unsecured to disassemble it!"))
 		else
-			user.visible_message("<span class='warning'>[user] starts to disassemble [src].</span>", "<span class='notice'>You start to disassemble [src]...</span>")
+			user.visible_message(span_warning("[user] starts to disassemble [src]."), span_notice("You start to disassemble [src]..."))
 			if(I.use_tool(src, user, 30, volume=100) && !anchored)
-				to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+				to_chat(user, span_notice("You disassemble [src]."))
 				deconstruct(TRUE)
 		return 1
 	else if(istype(I, /obj/item/stack/sheet/brass))
 		var/obj/item/stack/sheet/brass/W = I
 		if(W.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
+			to_chat(user, span_warning("You need one brass sheet to do this!"))
 			return
 		var/turf/T = get_turf(src)
 		if(iswallturf(T))
-			to_chat(user, "<span class='warning'>There is already a wall present!</span>")
+			to_chat(user, span_warning("There is already a wall present!"))
 			return
 		if(!isfloorturf(T))
-			to_chat(user, "<span class='warning'>A floor must be present to build a [anchored ? "false ":""]wall!</span>")
+			to_chat(user, span_warning("A floor must be present to build a [anchored ? "false ":""]wall!"))
 			return
 		if(locate(/obj/structure/falsewall) in T.contents)
-			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
+			to_chat(user, span_warning("There is already a false wall present!"))
 			return
-		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
+		to_chat(user, span_notice("You start adding [W] to [src]..."))
 		if(do_after(user, 20, target = src))
 			var/brass_floor = FALSE
 			if(istype(T, /turf/open/floor/clockwork)) //if the floor is already brass, costs less to make(conservation of masssssss)
@@ -63,7 +65,7 @@
 					new /obj/structure/falsewall/brass(T)
 				qdel(src)
 			else
-				to_chat(user, "<span class='warning'>You need more brass to make a [anchored ? "false ":""]wall!</span>")
+				to_chat(user, span_warning("You need more brass to make a [anchored ? "false ":""]wall!"))
 		return 1
 	return ..()
 

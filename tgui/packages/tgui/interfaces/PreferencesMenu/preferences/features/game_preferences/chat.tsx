@@ -1,5 +1,6 @@
 import { multiline } from 'common/string';
-import { FeatureToggle, CheckboxInput } from '../base';
+
+import { CheckboxInput, FeatureToggle } from '../base';
 
 export const chat_bankcard: FeatureToggle = {
   name: 'Enable Income Updates',
@@ -27,6 +28,7 @@ export const chat_ghostears: FeatureToggle = {
     When disabled, you will only be able to hear nearby speech.
   `,
   component: CheckboxInput,
+  important: true,
 };
 
 export const chat_ghostlaws: FeatureToggle = {
@@ -59,6 +61,7 @@ export const chat_ghostsight: FeatureToggle = {
   subcategory: 'Chat',
   description: 'When enabled, see all emotes as a ghost.',
   component: CheckboxInput,
+  important: true,
 };
 
 export const chat_ghostwhisper: FeatureToggle = {
@@ -70,6 +73,7 @@ export const chat_ghostwhisper: FeatureToggle = {
     When disabled, you will only be able to hear nearby whispers.
   `,
   component: CheckboxInput,
+  important: true,
 };
 
 export const chat_ooc: FeatureToggle = {
@@ -95,6 +99,7 @@ export const chat_dead: FeatureToggle = {
   subcategory: 'Chat',
   description: 'Hear all deadchat while adminned.',
   component: CheckboxInput,
+  important: true,
 };
 
 export const chat_prayer: FeatureToggle = {
@@ -102,6 +107,7 @@ export const chat_prayer: FeatureToggle = {
   category: 'ADMIN',
   subcategory: 'Chat',
   component: CheckboxInput,
+  important: true,
 };
 
 export const chat_radio: FeatureToggle = {
@@ -109,5 +115,22 @@ export const chat_radio: FeatureToggle = {
   category: 'ADMIN',
   subcategory: 'Chat',
   description: 'Hear all radio messages while adminned.',
+  component: CheckboxInput,
+  important: true,
+};
+
+export const examine_messages: FeatureToggle = {
+  name: 'Enable Examine Messages',
+  category: 'CHAT',
+  subcategory: 'IC',
+  description: "Receive 'player examined x' examine messages in chat.",
+  component: CheckboxInput,
+};
+
+export const whole_word_examine_links: FeatureToggle = {
+  name: 'Whole Word Examine Links',
+  category: 'CHAT',
+  subcategory: 'IC',
+  description: 'Use whole word examine links instead of an appended [?].',
   component: CheckboxInput,
 };

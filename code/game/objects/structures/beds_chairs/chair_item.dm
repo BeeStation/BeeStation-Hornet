@@ -5,15 +5,14 @@
 	desc = "Basic brawl essential."
 	icon = 'icons/obj/beds_chairs/chairs.dmi'
 	icon_state = "chair_toppled"
-	item_state = "chair"
+	inhand_icon_state = "chair"
 	lefthand_file = 'icons/mob/inhands/misc/chairs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/chairs_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ISWEAPON
 	force = 8
 	throwforce = 10
-	block_upgrade_walk = 1
-	block_power = 20
+
 	throw_range = 3
 	hitsound = 'sound/items/trayhit1.ogg'
 	custom_materials = list(/datum/material/iron = 2000)
@@ -21,7 +20,7 @@
 	var/obj/structure/chair/origin_type = /obj/structure/chair
 
 /obj/item/chair/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins hitting [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins hitting [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(src,hitsound,50,1)
 	return BRUTELOSS
 
@@ -36,13 +35,13 @@
 /obj/item/chair/proc/plant(mob/user)
 	for(var/obj/A in get_turf(loc))
 		if(istype(A, /obj/structure/chair))
-			to_chat(user, "<span class='danger'>There is already a chair here.</span>")
+			to_chat(user, span_danger("There is already a chair here."))
 			return
 		if(A.density && !(A.flags_1 & ON_BORDER_1))
-			to_chat(user, "<span class='danger'>There is already something here.</span>")
+			to_chat(user, span_danger("There is already something here."))
 			return
 
-	user.visible_message("<span class='notice'>[user] rights \the [src.name].</span>", "<span class='notice'>You right \the [name].</span>")
+	user.visible_message(span_notice("[user] rights \the [src.name]."), span_notice("You right \the [name]."))
 	var/obj/structure/chair/C = new origin_type(get_turf(loc))
 	C.set_custom_materials(custom_materials)
 	TransferComponents(C)
@@ -67,7 +66,7 @@
 	if(!proximity)
 		return
 	if(prob(break_chance))
-		user.visible_message("<span class='danger'>[user] smashes \the [src] to pieces against \the [target]</span>")
+		user.visible_message(span_danger("[user] smashes \the [src] to pieces against \the [target]"))
 		if(iscarbon(target))
 			var/mob/living/carbon/C = target
 			if(C.health < C.maxHealth*0.5)
@@ -78,7 +77,7 @@
 	name = "fancy chair"
 	desc = "Meeting brawl essential."
 	icon_state = "chair_fancy_toppled"
-	item_state = "chair_fancy"
+	inhand_icon_state = "chair_fancy"
 	hitsound = 'sound/items/trayhit2.ogg'
 	custom_materials = list(/datum/material/iron = 3000)
 	origin_type = /obj/structure/chair/fancy
@@ -91,7 +90,7 @@
 	name = "stool"
 	desc = "The last line of defense."
 	icon_state = "stool_toppled"
-	item_state = "stool"
+	inhand_icon_state = "stool"
 	origin_type = /obj/structure/chair/stool
 	break_chance = 0 //It's too sturdy.
 
@@ -99,14 +98,14 @@
 	name = "bar stool"
 	desc = "Bar brawl essential."
 	icon_state = "bar_toppled"
-	item_state = "stool_bar"
+	inhand_icon_state = "stool_bar"
 	origin_type = /obj/structure/chair/stool/bar
 
 /obj/item/chair/stool/bamboo
 	name = "bamboo stool"
 	desc = "The apex of the bar brawl experience."
 	icon_state = "bamboo_stool_toppled"
-	item_state = "stool_bamboo"
+	inhand_icon_state = "stool_bamboo"
 	hitsound = 'sound/weapons/genhit1.ogg'
 	origin_type = /obj/structure/chair/stool/bamboo
 	custom_materials = null
@@ -119,7 +118,7 @@
 	name = "wooden chair"
 	desc = "Fancy brawl essential."
 	icon_state = "wooden_chair_toppled"
-	item_state = "woodenchair"
+	inhand_icon_state = "woodenchair"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	hitsound = 'sound/weapons/genhit1.ogg'
@@ -140,11 +139,10 @@
 	name = "plastic chair"
 	desc = "Be the reclaimer of your name." //bury the light deep withiiiiiiiiiiiiiiiiin
 	icon_state = "plastic_chair_toppled"
-	item_state = "plastic_chair"
+	inhand_icon_state = "plastic_chair"
 	force = 3//have you ever been hit by a plastic chair? those aren't as bad as a metal or a wood one!
 	throwforce = 6
-	block_upgrade_walk = 1
-	block_power = 10
+
 	throw_range = 4
 	origin_type = /obj/structure/chair/fancy/plastic
 	hitsound = 'sound/weapons/genhit1.ogg'

@@ -3,10 +3,10 @@
 	if(get_turf(user) != src)
 		return
 	var/list/tool_list = list()
-	var/turf/above = above()
+	var/turf/above = GET_TURF_ABOVE(src)
 	if(above)
 		tool_list["Up"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTH)
-	var/turf/below = below()
+	var/turf/below = GET_TURF_BELOW(src)
 	if(below)
 		tool_list["Down"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTH)
 
@@ -21,10 +21,10 @@
 			return
 		if("Up")
 			if(user.zMove(UP, TRUE))
-				to_chat(user, "<span class='notice'>You move upwards.</span>")
+				to_chat(user, span_notice("You move upwards."))
 		if("Down")
 			if(user.zMove(DOWN, TRUE))
-				to_chat(user, "<span class='notice'>You move down.</span>")
+				to_chat(user, span_notice("You move down."))
 
 /// Moves a mob, any buckled mobs, and pulled mobs between Zs
 /turf/proc/travel_z(mob/user, turf/target, dir)

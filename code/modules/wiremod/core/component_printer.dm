@@ -6,7 +6,7 @@
 	circuit = /obj/item/circuitboard/machine/component_printer
 
 	remote_materials = TRUE
-	auto_link = TRUE
+	auto_link = FALSE
 	can_sync = TRUE
 
 	//Quick.
@@ -16,8 +16,7 @@
 
 	categories = WIREMODE_CATEGORIES
 
-/obj/machinery/component_printer/crowbar_act(mob/living/user, obj/item/tool)
-
+/obj/machinery/modular_fabricator/component_printer/crowbar_act(mob/living/user, obj/item/tool)
 	if(..())
 		return TRUE
 	return default_deconstruction_crowbar(tool)
@@ -27,6 +26,18 @@
 		return TRUE
 	return default_deconstruction_screwdriver(user, "fab-o", "fab-idle", tool)
 
+/obj/machinery/modular_fabricator/component_printer/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
+	. = ..()
+	var/datum/material/M = id_inserted
+	add_overlay("fab-load-[M.name]")
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, cut_overlay), "fab-load-[M.name]"), 10)
+
+/obj/machinery/modular_fabricator/component_printer/set_default_sprite()
+	cut_overlay("fab-active")
+
+/obj/machinery/modular_fabricator/component_printer/set_working_sprite()
+	add_overlay("fab-active")
+
 /obj/item/circuitboard/machine/component_printer
 	name = "\improper Component Printer (Machine Board)"
 	icon_state = "science"
@@ -34,7 +45,7 @@
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/reagent_containers/glass/beaker = 2,
+		/obj/item/reagent_containers/cup/beaker = 2, //this doesn't make any sense, yet i wasn't allowed to fix it.
 	)
 
 /// Module duplicator, allows you to save and recreate module components.
@@ -257,5 +268,5 @@
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/reagent_containers/glass/beaker = 2,
+		/obj/item/reagent_containers/cup/beaker = 2,
 	)

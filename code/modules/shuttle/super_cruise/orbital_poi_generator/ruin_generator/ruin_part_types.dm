@@ -157,11 +157,6 @@
 	weight = 4
 	max_occurrences = 1
 
-/datum/map_template/ruin_part/gateway
-	file_name = "5x9_gateway"
-	weight = 1
-	max_occurrences = 1
-
 /datum/map_template/ruin_part/shower
 	file_name = "5x5_shower"
 	weight = 2
@@ -426,11 +421,6 @@
 
 /datum/map_template/ruin_part/charliestation_mini
 	file_name = "17x17_charliecrew"
-	weight = 1
-	max_occurrences = 1
-
-/datum/map_template/ruin_part/corgasteroid
-	file_name = "41x41_corgasteroid"
 	weight = 1
 	max_occurrences = 1
 

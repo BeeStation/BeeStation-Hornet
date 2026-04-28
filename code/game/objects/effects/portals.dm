@@ -75,7 +75,7 @@
 	if(HAS_TRAIT(mover, TRAIT_NO_TELEPORT))
 		return TRUE
 
-/obj/effect/portal/attack_hand(mob/user)
+/obj/effect/portal/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -85,6 +85,8 @@
 /obj/effect/portal/attack_robot(mob/living/user)
 	if(Adjacent(user))
 		teleport(user)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/portal)
 
 /obj/effect/portal/Initialize(mapload, _creator, _lifespan = 0, obj/effect/portal/_linked, automatic_link = FALSE, turf/hard_target_override, atmos_link_override)
 	. = ..()
@@ -102,7 +104,7 @@
 	if(isturf(hard_target_override))
 		hard_target = hard_target_override
 
-/obj/effect/portal/singularity_pull()
+/obj/effect/portal/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/portal/singularity_act()
@@ -136,16 +138,16 @@
 		return FALSE
 	atmos_source.atmos_adjacent_turfs[atmos_destination] = TRUE
 	atmos_destination.atmos_adjacent_turfs[atmos_source] = TRUE
-	atmos_source.air_update_turf(FALSE)
-	atmos_destination.air_update_turf(FALSE)
+	atmos_source.air_update_turf(FALSE, FALSE)
+	atmos_destination.air_update_turf(FALSE, FALSE)
 
 /obj/effect/portal/proc/unlink_atmos()
 	if(istype(atmos_source))
-		if(istype(atmos_destination) && !atmos_source.Adjacent(atmos_destination) && !CANATMOSPASS(atmos_destination, atmos_source))
+		if(istype(atmos_destination) && !atmos_source.Adjacent(atmos_destination) && !CANATMOSPASS(atmos_destination, atmos_source, FALSE))
 			LAZYREMOVE(atmos_source.atmos_adjacent_turfs, atmos_destination)
 		atmos_source = null
 	if(istype(atmos_destination))
-		if(istype(atmos_source) && !atmos_destination.Adjacent(atmos_source) && !CANATMOSPASS(atmos_source, atmos_destination))
+		if(istype(atmos_source) && !atmos_destination.Adjacent(atmos_source) && !CANATMOSPASS(atmos_source, atmos_destination, FALSE))
 			LAZYREMOVE(atmos_destination.atmos_adjacent_turfs, atmos_source)
 		atmos_destination = null
 
@@ -207,6 +209,8 @@
 	desc = "An unwavering portal that will never fade."
 	var/id // var edit or set id in map editor
 	hardlinked = FALSE // dont qdel my portal nerd
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/portal/permanent)
 
 /obj/effect/portal/permanent/Initialize(mapload, _creator, _lifespan = 0, obj/effect/portal/_linked, automatic_link = FALSE, turf/hard_target_override, atmos_link_override)
 	. = ..()

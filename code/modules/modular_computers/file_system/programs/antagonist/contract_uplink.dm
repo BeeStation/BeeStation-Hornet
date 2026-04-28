@@ -8,9 +8,10 @@
 	requires_ntnet = 0
 	available_on_ntnet = 0
 	unsendable = 1
-	undeletable = 1
+	undeletable = TRUE // Antag datum is baked directly into the SSD that spawns with the Contractor Tablet. Changing this will cause runtimes whenever the program is transfered into another drive.
 	tgui_id = "SyndContractor"
 	program_icon = "tasks"
+	power_consumption = 0
 	var/error = ""
 	var/info_screen = TRUE
 	var/assigned = FALSE
@@ -22,7 +23,7 @@
 
 	var/mob/living/user = usr
 	var/obj/item/computer_hardware/hard_drive/small/syndicate/hard_drive = computer.all_components[MC_HDD]
-
+	program_icon_state = "assign"
 	switch(action)
 		if("PRG_contract-accept")
 			var/contract_id = text2num(params["contract_id"])
@@ -49,10 +50,8 @@
 				// Stops any topic exploits such as logging in multiple times on a single system.
 				if (!assigned)
 					traitor_data.contractor_hub.create_contracts(traitor_data.owner)
-
 					hard_drive.traitor_data = traitor_data
-
-					program_icon_state = "contracts"
+					program_icon_state = "uplink_load"
 					assigned = TRUE
 			else
 				error = "UNAUTHORIZED USER"
@@ -88,9 +87,9 @@
 				if(ishuman(user))
 					var/mob/living/carbon/human/H = user
 					if(H.put_in_hands(crystals))
-						to_chat(H, "<span class='notice'>Your payment materializes into your hands!</span>")
+						to_chat(H, span_notice("Your payment materializes into your hands!"))
 					else
-						to_chat(user, "<span class='notice'>Your payment materializes onto the floor.</span>")
+						to_chat(user, span_notice("Your payment materializes onto the floor."))
 
 				hard_drive.traitor_data.contractor_hub.contract_TC_payed_out += hard_drive.traitor_data.contractor_hub.contract_TC_to_redeem
 				hard_drive.traitor_data.contractor_hub.contract_TC_to_redeem = 0
@@ -120,7 +119,6 @@
 /datum/computer_file/program/contract_uplink/ui_data(mob/user)
 	var/list/data = list()
 	var/obj/item/computer_hardware/hard_drive/small/syndicate/hard_drive = computer.all_components[MC_HDD]
-	var/screen_to_be = null
 
 	data["first_load"] = first_load
 
@@ -129,10 +127,10 @@
 
 		if (traitor_data.contractor_hub.current_contract)
 			data["ongoing_contract"] = TRUE
-			screen_to_be = "single_contract"
+			program_icon_state = "single_contract"
 			if (traitor_data.contractor_hub.current_contract.status == CONTRACT_STATUS_EXTRACTING)
 				data["extraction_enroute"] = TRUE
-				screen_to_be = "extracted"
+				program_icon_state = "extracted"
 			else
 				data["extraction_enroute"] = FALSE
 		else
@@ -198,6 +196,5 @@
 	else
 		data["logged_in"] = FALSE
 
-	program_icon_state = screen_to_be
 	update_computer_icon()
 	return data

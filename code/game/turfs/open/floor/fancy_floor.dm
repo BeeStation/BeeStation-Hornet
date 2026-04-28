@@ -26,12 +26,11 @@
 
 /turf/open/floor/bamboo/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
+	. += span_notice("There's a <b>small crack</b> on the edge of it.")
 
 /turf/open/floor/wood
 	desc = "Stylish dark wood."
 	icon_state = "wood"
-	variants = list("wood", "wood1", "wood2", "wood3", "wood4", "wood5", "wood6")
 	floor_tile = /obj/item/stack/tile/wood
 	footstep = FOOTSTEP_WOOD
 	barefootstep = FOOTSTEP_WOOD_BAREFOOT
@@ -39,23 +38,27 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
 	max_integrity = 100
+	variant_probability = 85
+	variant_states = 6
 
 /turf/open/floor/wood/broken_states()
 	return GLOB.wood_turf_damage
 
 /turf/open/floor/wood/broken
 	broken = TRUE
+	variant_states = 0
 
 /turf/open/floor/wood/big
 	icon_state = "wood_big"
-	variants = list("wood_big", "wood_big1", "wood_big2", "wood_big3", "wood_big4")
+	variant_probability = 80
+	variant_states = 4
 
 /turf/open/floor/wood/big/broken_states()
 	return GLOB.wood_big_turf_damage
 
 /turf/open/floor/wood/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There's a few <b>screws</b> and a <b>small crack</b> visible.</span>"
+	. += span_notice("There's a few <b>screws</b> and a <b>small crack</b> visible.")
 
 /turf/open/floor/wood/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
@@ -84,20 +87,20 @@
 		broken = 0
 		burnt = 0
 		if(user && !silent)
-			to_chat(user, "<span class='notice'>You remove the broken planks.</span>")
+			to_chat(user, span_notice("You remove the broken planks."))
 	else
 		if(make_tile)
 			if(user && !silent)
-				to_chat(user, "<span class='notice'>You unscrew the planks.</span>")
+				to_chat(user, span_notice("You unscrew the planks."))
 			if(floor_tile)
 				new floor_tile(src)
 		else
 			if(user && !silent)
-				to_chat(user, "<span class='notice'>You forcefully pry off the planks, destroying them in the process.</span>")
+				to_chat(user, span_notice("You forcefully pry off the planks, destroying them in the process."))
 	return make_plating()
 
 /turf/open/floor/wood/cold
-	initial_temperature = 255.37
+	temperature = 255.37
 
 /turf/open/floor/wood/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -126,6 +129,7 @@
 	transform = MAP_SWITCH(TRANSLATE_MATRIX(-9, -9), matrix())
 
 /turf/open/floor/grass/no_border
+	layer = TURF_LAYER
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	smoothing_flags = NONE
@@ -138,10 +142,10 @@
 /turf/open/floor/grass/attackby(obj/item/C, mob/user, params)
 	if((C.tool_behaviour == TOOL_SHOVEL) && params)
 		new ore_type(src, 2)
-		user.visible_message("[user] digs up [src].", "<span class='notice'>You [turfverb] [src].</span>")
+		user.visible_message("[user] digs up [src].", span_notice("You [turfverb] [src]."))
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
-	else if(C.sharpness != IS_BLUNT)
+	else if(C.sharpness != BLUNT)
 		QUEUE_SMOOTH(src)
 		QUEUE_SMOOTH_NEIGHBORS(src)
 		icon_state = "grass"
@@ -160,20 +164,20 @@
 	floor_tile = /obj/item/stack/tile/fairygrass
 	light_range = 2
 	light_power = 0.80
-	light_color = "#33CCFF"
-	color = "#33CCFF"
+	light_color = COLOR_BLUE_LIGHT
+	color = COLOR_BLUE_LIGHT
 
 /turf/open/floor/grass/fairy/white
 	name = "white fairygrass patch"
 	floor_tile = /obj/item/stack/tile/fairygrass/white
-	light_color = "#FFFFFF"
-	color = "#FFFFFF"
+	light_color = COLOR_WHITE
+	color = COLOR_WHITE
 
 /turf/open/floor/grass/fairy/red
 	name = "red fairygrass patch"
 	floor_tile = /obj/item/stack/tile/fairygrass/red
-	light_color = "#FF3333"
-	color = "#FF3333"
+	light_color = COLOR_RED_LIGHT
+	color = COLOR_RED_LIGHT
 
 /turf/open/floor/grass/fairy/orange
 	name = "orange fairygrass patch"
@@ -265,6 +269,9 @@
 	slowdown = 1.5
 	planetary_atmos = FALSE
 
+/turf/open/floor/grass/snow/safe/nocold
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+
 
 /turf/open/floor/grass/fakebasalt //Heart is not a real planeteer power
 	name = "aesthetic volcanic flooring"
@@ -313,7 +320,7 @@
 
 /turf/open/floor/carpet/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
+	. += span_notice("There's a <b>small crack</b> on the edge of it.")
 
 /turf/open/floor/carpet/Initialize(mapload)
 	. = ..()
@@ -325,6 +332,15 @@
 	if(!broken && !burnt)
 		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 			QUEUE_SMOOTH(src)
+
+/turf/open/floor/carpet/lone
+	icon_state = "carpetsymbol"
+	smoothing_flags = NONE
+	floor_tile = /obj/item/stack/tile/carpet/symbol
+
+/turf/open/floor/carpet/lone/star
+	icon_state = "carpetstar"
+	floor_tile = /obj/item/stack/tile/carpet/star
 
 /turf/open/floor/carpet/black
 	icon = 'icons/turf/floors/carpet_black.dmi'
@@ -382,6 +398,14 @@
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_RED)
 	floor_tile = /obj/item/stack/tile/carpet/red
 
+/turf/open/floor/carpet/olive
+	icon = 'icons/turf/floors/carpet_olive.dmi'
+	icon_state = "carpet_olive-255"
+	base_icon_state = "carpet_olive"
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_CARPET_OLIVE)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET_OLIVE)
+	floor_tile = /obj/item/stack/tile/carpet/olive
+
 /turf/open/floor/carpet/royalblack
 	icon = 'icons/turf/floors/carpet_royalblack.dmi'
 	icon_state = "carpet_royalblack-255"
@@ -424,16 +448,16 @@
 			A.narsie_act()
 
 /turf/open/floor/carpet/break_tile()
-    broken = TRUE
-    make_plating()
-    if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
-        QUEUE_SMOOTH_NEIGHBORS(src)
+	broken = TRUE
+	make_plating()
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/open/floor/carpet/burn_tile()
-    burnt = TRUE
-    make_plating()
-    if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
-        QUEUE_SMOOTH_NEIGHBORS(src)
+	burnt = TRUE
+	make_plating()
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/open/floor/carpet/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE
@@ -447,6 +471,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_TURF_CHASM)
 	icon = 'icons/turf/floors/Chasms.dmi'
 	icon_state = "chasms-0"
+	floor_tile = /obj/item/stack/tile/fakepit
 	tiled_dirt = FALSE
 	max_integrity = 100
 
@@ -494,7 +519,6 @@
 	name = "concrete"
 	icon_state = "conc_smooth"
 	desc = "Cement Das Conk Creet Baybee."
-	footstep = FOOTSTEP_GENERIC_HEAVY
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY

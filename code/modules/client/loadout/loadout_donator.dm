@@ -29,6 +29,18 @@
 	display_name = "runtime catpack"
 	path = /obj/item/storage/backpack/runtime
 
+/datum/gear/donator/backpack/syndiassault_borg_bag
+	display_name = "suspiscious assault cyborg bag"
+	path = /obj/item/storage/backpack/syndiassault_borg_bag
+
+/datum/gear/donator/backpack/syndimed_borg_bag
+	display_name = "suspiscious medical cyborg bag"
+	path = /obj/item/storage/backpack/syndimed_borg_bag
+
+/datum/gear/donator/backpack/syndieng_borg_bag
+	display_name = "suspiscious engineering cyborg bag"
+	path = /obj/item/storage/backpack/syndieng_borg_bag
+
 //SUIT
 
 /datum/gear/donator/suit
@@ -37,11 +49,11 @@
 
 /datum/gear/donator/suit/delinquent
 	display_name = "deliquent jacket"
-	path = /obj/item/clothing/suit/delinquent
+	path = /obj/item/clothing/suit/costume/delinquent
 
 /datum/gear/donator/suit/madsci
 	display_name = "mad scientist labcoat"
-	path = /obj/item/clothing/suit/madsci
+	path = /obj/item/clothing/suit/costume/madsci
 
 /datum/gear/donator/suit/renault_costume
 	display_name = "renault costume"
@@ -49,7 +61,7 @@
 
 /datum/gear/donator/suit/retro_jacket
 	display_name = "retro jacket"
-	path = /obj/item/clothing/suit/retro_jacket
+	path = /obj/item/clothing/suit/jacket/retro_jacket
 
 //UNIFORM/UNDER
 /datum/gear/donator/uniform
@@ -70,11 +82,11 @@
 
 /datum/gear/donator/uniform/gangster
 	display_name = "gangster suit"
-	path = /obj/item/clothing/under/gangster
+	path = /obj/item/clothing/under/costume/gangster
 
 /datum/gear/donator/uniform/gangster_purple
 	display_name = "purple gangster suit"
-	path = /obj/item/clothing/under/gangster/purple
+	path = /obj/item/clothing/under/costume/gangster/purple
 
 //HEAD
 
@@ -84,19 +96,19 @@
 
 /datum/gear/donator/head/gangster_wig
 	display_name = "gangster wig"
-	path = /obj/item/clothing/head/gangsterwig
+	path = /obj/item/clothing/head/costume/gangsterwig
 
 /datum/gear/donator/head/oldhat
 	display_name = "old man hat"
-	path = /obj/item/clothing/head/oldhat
+	path = /obj/item/clothing/head/costume/oldhat
 
 /datum/gear/donator/head/marine
 	display_name = "mariner hat"
-	path = /obj/item/clothing/head/marine
+	path = /obj/item/clothing/head/costume/marine
 
 /datum/gear/donator/suit/retro_chicken_head
 	display_name = "retro chicken head"
-	path = /obj/item/clothing/head/chicken_head_retro
+	path = /obj/item/clothing/head/costume/chicken_head_retro
 
 //NECK
 /datum/gear/donator/neck
@@ -133,4 +145,3 @@
 /datum/gear/donator/item/plush_opa
 	display_name = "metal opa plushie"
 	path = /obj/item/toy/plush/opa
-

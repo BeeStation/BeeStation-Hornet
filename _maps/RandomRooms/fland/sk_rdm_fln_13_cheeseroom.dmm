@@ -5,17 +5,17 @@
 "b" = (
 /obj/item/food/butterdog,
 /obj/effect/decal/cleanable/crayon,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/table/wood/fancy/black,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/vaporwave,
 /area/template_noop)
 "e" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/vaporwave,
 /area/template_noop)
 "g" = (
@@ -41,19 +41,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/template_noop)
-"o" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 6
-	},
-/turf/open/floor/iron/vaporwave,
-/area/template_noop)
-"q" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
-/turf/open/floor/iron/vaporwave,
-/area/template_noop)
 "r" = (
 /turf/closed/wall,
 /area/template_noop)
@@ -62,7 +49,7 @@
 /obj/effect/decal/cleanable/crayon,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/table/wood/fancy/black,
 /turf/open/floor/plating{
 	broken = 1
@@ -110,8 +97,8 @@
 /area/template_noop)
 "H" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/template_noop,
 /area/template_noop)
 "J" = (
@@ -169,12 +156,12 @@ a
 (2,1,1) = {"
 Y
 F
-o
+d
 d
 b
 w
 d
-q
+e
 e
 H
 "}

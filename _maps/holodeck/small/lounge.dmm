@@ -3,8 +3,7 @@
 /obj/machinery/door/window{
 	base_state = "right";
 	dir = 4;
-	icon_state = "right";
-	layer = 3
+	icon_state = "right"
 	},
 /turf/open/floor/holofloor{
 	dir = 9;
@@ -24,27 +23,23 @@
 	},
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
-"h" = (
-/obj/structure/table/wood/bar,
-/obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
-	},
-/obj/item/reagent_containers/food/drinks/shaker{
-	pixel_x = 4
-	},
-/obj/item/book/manual/wiki/barman_recipes{
-	pixel_x = -6;
-	pixel_y = 3
-	},
+"f" = (
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
 	},
 /area/template_noop)
+"g" = (
+/obj/effect/spawner/structure/random_piano,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
 "i" = (
 /obj/structure/table/wood/bar,
-/obj/item/reagent_containers/glass/rag{
+/obj/item/reagent_containers/cup/rag{
 	pixel_x = 10;
 	pixel_y = 1
 	},
@@ -57,21 +52,15 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
-"j" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+"k" = (
+/obj/structure/table/wood/bar,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/item/reagent_containers/cup/glass/shaker{
+	pixel_x = 4
 	},
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
-"l" = (
-/obj/structure/chair/stool/bar,
-/obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+/obj/item/book/manual/wiki/barman_recipes{
+	pixel_x = -6;
+	pixel_y = 3
 	},
 /turf/open/floor/holofloor{
 	dir = 9;
@@ -86,11 +75,7 @@
 	},
 /area/template_noop)
 "n" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -129,18 +114,7 @@
 	},
 /area/template_noop)
 "v" = (
-/obj/structure/chair/stool/bar{
-	dir = 8
-	},
-/turf/open/floor/holofloor/carpet,
-/area/template_noop)
-"w" = (
-/obj/structure/musician/piano{
-	icon_state = "piano"
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "z" = (
@@ -160,7 +134,6 @@
 "C" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
-	layer = 3.3;
 	pixel_x = -6;
 	pixel_y = 13
 	},
@@ -187,6 +160,14 @@
 "F" = (
 /turf/open/floor/holofloor{
 	icon_state = "stairs-r"
+	},
+/area/template_noop)
+"G" = (
+/obj/structure/chair/stool/bar,
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
 	},
 /area/template_noop)
 "H" = (
@@ -300,9 +281,9 @@ n
 z
 u
 z
-j
-l
-h
+f
+G
+k
 c
 "}
 (3,1,1) = {"
@@ -310,7 +291,7 @@ m
 U
 o
 e
-w
+g
 p
 J
 "}

@@ -2,9 +2,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 
 /// Client Stuff
 
-/client
-	var/adminhelptimerid = 0	//a timer id for returning the ahelp verb
-	var/datum/help_ticket/current_adminhelp_ticket	//the current ticket the (usually) not-admin client is dealing with
+/client/var/adminhelptimerid = 0	//a timer id for returning the ahelp verb
+/client/var/datum/help_ticket/current_adminhelp_ticket	//the current ticket the (usually) not-admin client is dealing with
 
 /client/proc/openTicketManager()
 	set name = "Ticket Manager"
@@ -30,31 +29,27 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 /client/proc/giveadminhelpverb()
 	if(!src)
 		return
-	src.add_verb(/client/verb/adminhelp)
+	src.add_verb(/client/proc/adminhelp)
 	deltimer(adminhelptimerid)
 	adminhelptimerid = 0
 
-// Used for methods where input via arg doesn't work
-/client/proc/get_adminhelp()
-	var/msg = tgui_input_text(src, "Please describe your problem concisely and an admin will help as soon as they're able. Include the names of the people you are ahelping against if applicable.", "Adminhelp contents", multiline = TRUE, encode = FALSE) // we don't encode/sanitize here bc it's done for us later
-	adminhelp(msg)
-
-/client/verb/adminhelp(msg as message)
+AUTH_CLIENT_VERB(adminhelp)
 	set category = "Admin"
 	set name = "Adminhelp"
+	var/msg
 
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
-		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
+		to_chat(usr, span_danger("Speech is currently admin-disabled."))
 		return
 
 	//handle muting and automuting
-	if(prefs.muted & MUTE_ADMINHELP)
-		to_chat(src, "<span class='danger'>Error: Admin-PM: You cannot send adminhelps (Muted).</span>")
+	if(prefs && player_details.muted & MUTE_ADMINHELP)
+		to_chat(src, span_danger("Error: Admin-PM: You cannot send adminhelps (Muted)."))
 		return
 	if(handle_spam_prevention(msg,MUTE_ADMINHELP))
 		return
 
-	msg = trim(msg)
+	msg = trim(tgui_input_text(src, "Please describe your problem concisely and an admin will help as soon as they're able. Include the names of the people you are ahelping against if applicable.", "Adminhelp contents", multiline = TRUE, encode = FALSE))
 
 	if(!msg)
 		return
@@ -67,7 +62,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 				current_adminhelp_ticket.TimeoutVerb()
 				return
 			else
-				to_chat(usr, "<span class='warning'>Ticket not found, creating new one...</span>")
+				to_chat(usr, span_warning("Ticket not found, creating new one..."))
 		else
 			current_adminhelp_ticket.AddInteraction("yellow", "[usr] opened a new ticket.")
 			current_adminhelp_ticket.Close()
@@ -147,7 +142,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		var/admin_number_present = send2tgs_adminless_only(initiator_ckey, "Ticket #[id]: [msg]")
 		log_admin_private("Ticket #[id]: [key_name(initiator)]: [name] - heard by [admin_number_present] non-AFK admins who have +BAN.")
 		if(admin_number_present <= 0)
-			to_chat(initiator, "<span class='notice'>No active admins are online, your adminhelp was sent through TGS to admins who are available. This may use IRC or Discord.</span>", type = message_type)
+			to_chat(initiator, span_notice("No active admins are online, your adminhelp was sent through TGS to admins who are available. This may use IRC or Discord."), type = message_type)
 			heard_by_no_admins = TRUE
 
 	bwoink = is_bwoink
@@ -163,7 +158,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	var/admin_number_present = send2tgs_adminless_only(initiator_ckey, "Ticket #[id]: [initial_msg]")
 	log_admin_private("Ticket #[id]: [key_name(initiator)]: [name] - heard by [admin_number_present] non-AFK admins who have +BAN.")
 	if(admin_number_present <= 0)
-		to_chat(initiator, "<span class='notice'>No active admins are online, your adminhelp was sent through TGS to admins who are available. This may use IRC or Discord.</span>")
+		to_chat(initiator, span_notice("No active admins are online, your adminhelp was sent through TGS to admins who are available. This may use IRC or Discord."))
 		heard_by_no_admins = TRUE
 	sendadminhelp2ext("**ADMINHELP: (#[id]) [initiator.key]: ** \"[initial_msg]\" [heard_by_no_admins ? "**(NO ADMINS)**" : "" ]")
 	return TRUE
@@ -175,7 +170,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	..()
 
 /datum/help_ticket/admin/TimeoutVerb()
-	initiator.remove_verb(/client/verb/adminhelp)
+	initiator.remove_verb(/client/proc/adminhelp)
 	initiator.adminhelptimerid = addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, giveadminhelpverb)), 1200, TIMER_STOPPABLE)
 
 /datum/help_ticket/admin/get_ticket_additional_data(mob/user, list/data)
@@ -198,7 +193,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	var/sanitized_msg = sanitized ? msg : sanitize(msg)
 
 	//Message to be sent to all admins
-	var/admin_msg = "<span class='adminnotice'><span class='adminhelp'>Ticket [TicketHref("#[id]", ref_src)]</span><b>: [LinkedReplyName(ref_src)] [FullMonty(ref_src)]:</b> <span class='linkify'>[keywords_lookup(sanitized_msg)]</span></span>"
+	var/admin_msg = span_adminnotice("[span_adminhelp("Ticket [TicketHref("#[id]", ref_src)]")]<b>: [LinkedReplyName(ref_src)] [FullMonty(ref_src)]:</b> [span_linkify("[keywords_lookup(sanitized_msg)]")]")
 
 	if(add_to_ticket)
 		AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Administrator")
@@ -217,7 +212,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	if(add_to_ticket)
 		to_chat(initiator,
 			type = message_type,
-			html = "<span class='adminnotice'>PM to-<b>Admins</b>: <span class='linkify'>[sanitized_msg]</span></span>")
+			html = span_adminnotice("PM to-<b>Admins</b>: [span_linkify("[sanitized_msg]")]"))
 
 
 /datum/help_ticket/admin/proc/FullMonty(ref_src)
@@ -230,27 +225,27 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 /datum/help_ticket/admin/proc/ClosureLinks(ref_src)
 	if(!ref_src)
 		ref_src = "[REF(src)]"
-	. = " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=reject'>REJT</A>)"
-	. += " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=icissue'>IC</A>)"
-	. += " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=close'>CLOSE</A>)"
-	. += " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=resolve'>RSLVE</A>)"
-	. += " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=mhelp'>MHELP</A>)"
+	. = " (<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=reject'>REJT</A>)"
+	. += " (<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=icissue'>IC</A>)"
+	. += " (<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=close'>CLOSE</A>)"
+	. += " (<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=resolve'>RSLVE</A>)"
+	. += " (<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=mhelp'>MHELP</A>)"
 
 /datum/help_ticket/admin/LinkedReplyName(ref_src)
 	if(!ref_src)
 		ref_src = "[REF(src)]"
-	return "<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=reply'>[initiator_key_name]</A>"
+	return "<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=reply'>[initiator_key_name]</A>"
 
 /datum/help_ticket/admin/TicketHref(msg, ref_src, action = "ticket")
 	if(!ref_src)
 		ref_src = "[REF(src)]"
-	return "<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=[action]'>[msg]</A>"
+	return "<A HREF='BYOND://?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=[action]'>[msg]</A>"
 
 /datum/help_ticket/admin/blackbox_feedback(increment, data)
 	SSblackbox.record_feedback("tally", "ahelp_stats", increment, data)
 
 /// Resolve ticket with IC Issue message
-/datum/help_ticket/admin/proc/ICIssue(key_name = key_name_ticket(usr))
+/datum/help_ticket/admin/proc/ICIssue(ic_marker = usr)
 	if(state > TICKET_ACTIVE)
 		return
 
@@ -264,17 +259,13 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		For further resolution, you should pursue options that are in character, such as filing a report with security or a head of staff.<br />\
 		Thank you for creating a ticket, the adminhelp verb will be returned to you shortly.")
 
-	blackbox_feedback(1, "IC")
-	var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] marked as IC by [key_name]</span>"
-	message_admins(msg)
-	log_admin_private(msg)
-	AddInteraction("red", "Marked as IC issue by [key_name]")
+	ticket_interaction("red", "marked as IC", ic_marker, blackbox_override="IC")
 	Resolve(silent = TRUE)
 
 	if(!bwoink)
-		sendadminhelp2ext("Ticket #[id] marked as IC by [key_name(usr, include_link = FALSE)]")
+		sendadminhelp2ext("Ticket #[id] marked as IC by [istext(ic_marker) ? ic_marker : key_name(ic_marker, include_link = FALSE)]")
 
-/datum/help_ticket/admin/proc/MHelpThis(key_name = key_name_ticket(usr))
+/datum/help_ticket/admin/proc/MHelpThis(mhelp_marker = usr)
 	if(state > TICKET_ACTIVE)
 		return
 
@@ -286,17 +277,13 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		SEND_SOUND(initiator, sound(reply_sound))
 		resolve_message(status = "De-Escalated to Mentorhelp!", message = "This question may regard <b>game mechanics or how-tos</b>. Such questions should be asked with <b>Mentorhelp</b>.")
 
-	blackbox_feedback(1, "mhelp this")
-	var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] transferred to mentorhelp by [key_name]</span>"
-	AddInteraction("red", "Transferred to mentorhelp by [key_name].")
+	ticket_interaction("red", "transferred to mentorhelp", mhelp_marker, blackbox_override="mhelp this")
 	if(!bwoink)
-		sendadminhelp2ext("Ticket #[id] transferred to mentorhelp by [key_name(usr, include_link = FALSE)]")
+		sendadminhelp2ext("Ticket #[id] transferred to mentorhelp by [istext(mhelp_marker) ? mhelp_marker : key_name(mhelp_marker, include_link = FALSE)]")
 	Close(silent = TRUE, hide_interaction = TRUE)
-	if(initiator.prefs.muted & MUTE_MHELP)
-		message_admins(src, "<span class='danger'>Attempted de-escalation to mentorhelp failed because [initiator_key_name] is mhelp muted.</span>")
+	if(initiator.player_details.muted & MUTE_MHELP)
+		message_admins(span_danger("Attempted de-escalation to mentorhelp failed because [initiator_key_name] is mhelp muted."))
 		return
-	message_admins(msg)
-	log_admin_private(msg)
 	var/datum/help_ticket/mentor/ticket = new(initiator)
 	ticket.NewFrom(src)
 
@@ -323,28 +310,28 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		if("mhelp")
 			MHelpThis()
 
-/datum/help_ticket/admin/Claim(key_name = key_name_ticket(usr), silent = FALSE)
+/datum/help_ticket/admin/Claim(silent = FALSE)
 	..()
 	if(!bwoink && !silent && !claimee)
 		sendadminhelp2ext("Ticket #[id] is being investigated by [key_name(usr, include_link = FALSE)]")
 
-/datum/help_ticket/admin/Close(key_name = key_name_ticket(usr), silent = FALSE, hide_interaction = FALSE)
+/datum/help_ticket/admin/Close(closer = usr, silent = FALSE, hide_interaction = FALSE)
 	..()
 	if(!bwoink && !silent)
-		sendadminhelp2ext("Ticket #[id] closed by [key_name(usr, include_link = FALSE)]")
+		sendadminhelp2ext("Ticket #[id] closed by [istext(closer) ? closer : key_name(closer, include_link = FALSE)]")
 
-/datum/help_ticket/admin/Resolve(key_name = key_name_ticket(usr), silent = FALSE)
+/datum/help_ticket/admin/Resolve(resolver = usr, silent = FALSE)
 	..()
 	addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, giveadminhelpverb)), 5 SECONDS)
 	if(!bwoink)
-		sendadminhelp2ext("Ticket #[id] resolved by [key_name(usr, include_link = FALSE)]")
+		sendadminhelp2ext("Ticket #[id] resolved by [istext(resolver) ? resolver : key_name(resolver, include_link = FALSE)]")
 
-/datum/help_ticket/admin/Reject(key_name = key_name_ticket(usr), extra_text = ", and clearly state the names of anybody you are reporting")
+/datum/help_ticket/admin/Reject(rejecter = usr, extra_text = ", and clearly state the names of anybody you are reporting")
 	..()
 	if(initiator)
 		initiator.giveadminhelpverb()
 	if(!bwoink)
-		sendadminhelp2ext("Ticket #[id] rejected by [key_name(usr, include_link = FALSE)]")
+		sendadminhelp2ext("Ticket #[id] rejected by [istext(rejecter) ? rejecter : key_name(rejecter, include_link = FALSE)]")
 
 /datum/help_ticket/admin/resolve_message(status = "Resolved", message = null, extratext = " If your ticket was a report, then the appropriate action has been taken where necessary.")
 	..()

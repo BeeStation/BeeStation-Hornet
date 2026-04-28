@@ -23,12 +23,12 @@
 /area/template_noop)
 "g" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/effect/spawner/random/maintenance/four,
 /turf/open/floor/wood,
 /area/template_noop)
 "i" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/template_noop)
 "j" = (

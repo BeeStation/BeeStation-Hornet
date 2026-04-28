@@ -3,11 +3,12 @@
 	desc = "A computer system running a deep neural network that processes arbitrary information to produce data useable in the development of new technologies. In layman's terms, it makes research points."
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "RD-server-on"
+	circuit = /obj/item/circuitboard/machine/rdserver
+
+	idle_power_usage = 5 // having servers online uses a little bit of power
+	active_power_usage = 50 // mining uses a lot of power
+
 	var/datum/techweb/stored_research
-	//Code for point mining here.
-	var/overheated = FALSE
-	var/working = TRUE
-	var/research_disabled = FALSE
 	var/server_id = 0
 	var/heat_gen = 1
 	// some notes on this number
@@ -17,24 +18,12 @@
 	// 7.40./2 = 3.70 (note, all these values are rounded).  This is howw this number was found.
 	var/base_mining_income = 3.70
 
-	// Heating is weird.  Since  the servers are stored in a room that sucks air in one vent, into a pipe network, to a
-	// T1 freezer, then out another vent at standard presure, the rooms temps could vary as wieldy as 100K.  The T1 freezer
-	// has 10000 heat power at the start, so each of the servers produce that but only heat a quarter of the turf
-	// This allows the servers to rapidly heat up in under 5 min to the shut off point and make it annoying to cool back
-	// down, giving time for RD to fire the guy who shut off the cooler
-
-	var/heating_power = 10000		// Changed the value from 40000.  Just enough for a T1 freezer to keep up with 2 of them
-	var/heating_effecency = 0.25
-	var/temp_tolerance_low = T0C
-	var/temp_tolerance_high = T20C
-	var/temp_tolerance_damage = T0C + 200		// Most CPUS get up to 200C they start breaking.  TODO: Start doing damage to the server?
-	var/temp_penalty_coefficient = 0.5	//1 = -1 points per degree above high tolerance. 0.5 = -0.5 points per degree above high tolerance.
-	var/current_temp = -1
 	req_access = list(ACCESS_RD_SERVER) //ONLY THE R&D, AND WHO HAVE THE ACCESS TO CAN CHANGE SERVER SETTINGS.
+	var/datum/component/server/server_component
 
 /obj/machinery/rnd/server/Initialize(mapload)
 	. = ..()
-
+	server_component = AddComponent(/datum/component/server)
 	server_id = 0
 	while(server_id == 0)
 		var/test_id = rand(1,65535)
@@ -47,10 +36,9 @@
 	name += " [uppertext(num2hex(server_id, -1))]" //gives us a random four-digit hex number as part of the name. Y'know, for fluff.
 	SSresearch.servers |= src
 	stored_research = SSresearch.science_tech
-	// The +10 is so the sparks work
-	RefreshParts()
 
 /obj/machinery/rnd/server/Destroy()
+	server_component = null
 	SSresearch.servers -= src
 	return ..()
 
@@ -58,7 +46,7 @@
 	var/tot_rating = 0
 	for(var/obj/item/stock_parts/SP in src)
 		tot_rating += SP.rating
-	heat_gen = initial(src.heat_gen) / max(1, tot_rating)
+	active_power_usage = initial(src.active_power_usage) / max(1, tot_rating)
 
 /obj/machinery/rnd/server/update_icon()
 	if (panel_open)
@@ -67,95 +55,37 @@
 	if (machine_stat & EMPED || machine_stat & NOPOWER)
 		icon_state = "RD-server-off"
 		return
-	if (research_disabled || overheated)
+	if (machine_stat & (TURNED_OFF|OVERHEATED))
 		icon_state = "RD-server-halt"
 		return
 	icon_state = "RD-server-on"
 
-/obj/machinery/rnd/server/power_change()
-	. = ..()
-	refresh_working()
-	return
-
-/obj/machinery/rnd/server/process()
-	if(!working)
-		current_temp = -1
-		return
-	var/turf/L = get_turf(src)
-	var/datum/gas_mixture/env
-	if(istype(L))
-		env = L.return_air()
-		// This is from the RD server code.  It works well enough but I need to move over the
-		// sspace heater code so we can caculate power used per tick as well and making this both
-		// exothermic and an endothermic component
-		if(env)
-			var/perc = max((get_env_temp() - temp_tolerance_high), 0) * temp_penalty_coefficient / base_mining_income
-
-			env.adjust_heat(heating_power * perc * heat_gen)
-			air_update_turf()
-			src.air_update_turf()
-		else
-			current_temp = env ? env.return_temperature() : -1
-
-/obj/machinery/rnd/server/proc/get_env_temp()
-	// if we are on and ran though one tick
-	if(working && current_temp >= 0)
-		return current_temp
-	else
-		// otherwise we get the temp from the turf
-		var/turf/L = get_turf(src)
-		var/datum/gas_mixture/env
-		if(istype(L))
-			env = L.return_air()
-		return env ? env.return_temperature() : T20C			// env might be null at round start.  This stops runtimes
-
-/obj/machinery/rnd/server/proc/refresh_working()
-	var/current_temp  = get_env_temp()
-
-	// Once we go over the damage temp, the breaker is flipped
-	// Power is still going to the server
-	if(!overheated && current_temp >= temp_tolerance_damage)
-		investigate_log("[src] overheated!", INVESTIGATE_RESEARCH)		// Do we need this?
-		overheated = TRUE
-
-	// If we are over heated, the server will not restart till
-	// eveything is at a safe temp
-	if(overheated && current_temp <= temp_tolerance_low)
-		overheated = FALSE
-
-	// If we are overheateed, start shooting out sparks
-	// don't shoot them if we have no power
-	if(overheated && !(machine_stat & NOPOWER) && prob(40))
-		do_sparks(5, FALSE, src)
-
-	if(overheated || research_disabled || machine_stat & EMPED || machine_stat & NOPOWER)
-		working = FALSE
-	else
-		working = TRUE
-
-	update_icon()
-
-/obj/machinery/rnd/server/emp_act()
-	. = ..()
-	refresh_working()
-
-/obj/machinery/rnd/server/emp_reset()
-	..()
-	refresh_working()
 
 /obj/machinery/rnd/server/proc/toggle_disable()
-	research_disabled = !research_disabled
-	refresh_working()
+	set_machine_stat(machine_stat ^ TURNED_OFF)
 
 /obj/machinery/rnd/server/proc/mine()
-	// Cheap way to refresh if we are operational or not.  mine() is run on the tech web
-	// subprocess.  This saves us having to run our own subprocess
-	refresh_working()
-	if(working)
-		var/penalty = max((get_env_temp() - temp_tolerance_high), 0) * temp_penalty_coefficient
-		return list(TECHWEB_POINT_TYPE_GENERIC = max(base_mining_income - penalty, 0))
-	else
-		return list(TECHWEB_POINT_TYPE_GENERIC = 0)
+	use_power(active_power_usage, power_channel)
+	var/efficiency = get_efficiency()
+	if(!powered() || efficiency <= 0 || machine_stat)
+		return null
+	return list(TECHWEB_POINT_TYPE_GENERIC = max(base_mining_income * efficiency, 0))
+
+/obj/machinery/rnd/server/proc/get_temperature()
+	return server_component.temperature
+
+/obj/machinery/rnd/server/proc/get_overheat_temperature()
+	return server_component.overheated_temp
+
+/obj/machinery/rnd/server/proc/get_warning_temperature()
+	return server_component.warning_temp
+
+/obj/machinery/rnd/server/proc/get_efficiency()
+	return server_component.efficiency
+
+/obj/machinery/rnd/server/on_set_machine_stat(old_value)
+	. = ..()
+	update_appearance()
 
 /obj/machinery/computer/rdservercontrol
 	name = "R&D Server Controller"
@@ -182,11 +112,11 @@
 		servers += list(list(
 			"name" = S.name,
 			"server_id" = S.server_id,
-			"temperature" = S.get_env_temp(),
-			"temperature_warning" = S.temp_tolerance_high,
-			"temperature_max" = S.temp_tolerance_damage,
-			"enabled" = !S.research_disabled,
-			"overheated" = S.overheated,
+			"temperature" = S.get_temperature(),
+			"temperature_warning" = S.get_warning_temperature(),
+			"temperature_max" = S.get_overheat_temperature(),
+			"enabled" = !(S.machine_stat & TURNED_OFF), // displays state of the power button as you can turn on/off servers using this console
+			"overheated" = (S.machine_stat & OVERHEATED),
 		))
 	data["servers"] = servers
 
@@ -210,7 +140,7 @@
 	if(..())
 		return
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		return
 	switch(action)
 		if("enable_server")
@@ -222,11 +152,11 @@
 				if(S.server_id == test_id)
 					S.toggle_disable()
 
-					investigate_log("[S.name] was turned [S.research_disabled ? "off" : "on"] by [key_name(usr)]", INVESTIGATE_RESEARCH)
+					investigate_log("[S.name] was turned [(S.machine_stat & TURNED_OFF) ? "off" : "on"] by [key_name(usr)]", INVESTIGATE_RESEARCH)
 					. = TRUE
 					break
 
 /obj/machinery/computer/rdservercontrol/on_emag(mob/user)
 	..()
 	playsound(src, "sparks", 75, 1)
-	to_chat(user, "<span class='notice'>You disable the security protocols.</span>")
+	to_chat(user, span_notice("You disable the security protocols."))

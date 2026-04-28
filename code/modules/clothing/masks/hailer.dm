@@ -6,7 +6,7 @@
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device. Plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you tase them. Do not tamper with the device."
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust)
 	icon_state = "sechailer"
-	item_state = "sechailer"
+	inhand_icon_state = "sechailer"
 	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
 	flags_inv = HIDEFACIALHAIR | HIDEFACE | HIDESNOUT
 	w_class = WEIGHT_CLASS_SMALL
@@ -29,23 +29,40 @@
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
 	actions_types = list(/datum/action/item_action/halt)
 	icon_state = "swat"
-	item_state = "swat"
+	inhand_icon_state = "swat"
 	aggressiveness = 3
 	flags_inv = HIDEFACIALHAIR | HIDEFACE | HIDEEYES | HIDEEARS | HIDEHAIR | HIDESNOUT
 	visor_flags_inv = 0
-	armor = list(MELEE = 10,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 20, ACID = 40, STAMINA = 30)
+	armor_type = /datum/armor/sechailer_swat
+
+
+/datum/armor/sechailer_swat
+	melee = 10
+	bullet = 5
+	laser = 5
+	energy = 5
+	bio = 50
+	fire = 20
+	acid = 40
+	stamina = 30
+	bleed = 30
+
+/obj/item/clothing/mask/gas/sechailer/swat/emagged
+	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. This one seems to have the safety toggled off..."
+	safety = FALSE
 
 /obj/item/clothing/mask/gas/sechailer/swat/spacepol
 	name = "spacepol mask"
 	desc = "A close-fitting tactical mask created in cooperation with a certain megacorporation, comes with an especially aggressive Compli-o-nator 3000."
 	icon_state = "spacepol"
-	item_state = "spacepol"
+	inhand_icon_state = "spacepol"
 
 /obj/item/clothing/mask/gas/sechailer/cyborg
 	name = "security hailer"
 	desc = "A set of recognizable pre-recorded messages for cyborgs to use when apprehending criminals."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_idle"
+	slot_flags = null
 	aggressiveness = 1 //Borgs are nicecurity!
 	actions_types = list(/datum/action/item_action/halt)
 
@@ -54,21 +71,21 @@
 		return TRUE
 	switch(aggressiveness)
 		if(1)
-			to_chat(user, "<span class='notice'>You set the restrictor to the middle position.</span>")
+			to_chat(user, span_notice("You set the restrictor to the middle position."))
 			aggressiveness = 2
 		if(2)
-			to_chat(user, "<span class='notice'>You set the restrictor to the last position.</span>")
+			to_chat(user, span_notice("You set the restrictor to the last position."))
 			aggressiveness = 3
 		if(3)
-			to_chat(user, "<span class='notice'>You set the restrictor to the first position.</span>")
+			to_chat(user, span_notice("You set the restrictor to the first position."))
 			aggressiveness = 1
 		if(4)
-			to_chat(user, "<span class='danger'>You adjust the restrictor but nothing happens, probably because it's broken.</span>")
+			to_chat(user, span_danger("You adjust the restrictor but nothing happens, probably because it's broken."))
 	return TRUE
 
 /obj/item/clothing/mask/gas/sechailer/wirecutter_act(mob/living/user, obj/item/I)
 	if(aggressiveness != 4)
-		to_chat(user, "<span class='danger'>You broke the restrictor!</span>")
+		to_chat(user, span_danger("You broke the restrictor!"))
 		aggressiveness = 4
 	return TRUE
 
@@ -87,7 +104,7 @@
 /obj/item/clothing/mask/gas/sechailer/on_emag(mob/user)
 	..()
 	safety = FALSE
-	to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.</span>")
+	to_chat(user, span_warning("You silently fry [src]'s vocal circuit with the cryptographic sequencer."))
 
 /obj/item/clothing/mask/gas/sechailer/verb/halt()
 	set category = "Object"
@@ -98,7 +115,7 @@
 	if(!can_use(usr))
 		return
 	if(broken_hailer)
-		to_chat(usr, "<span class='warning'>\The [src]'s hailing system is broken.</span>")
+		to_chat(usr, span_warning("\The [src]'s hailing system is broken."))
 		return
 
 	var/phrase = 0	//selects which phrase to use
@@ -113,12 +130,12 @@
 
 		switch(recent_uses)
 			if(3)
-				to_chat(usr, "<span class='warning'>\The [src] is starting to heat up.</span>")
+				to_chat(usr, span_warning("\The [src] is starting to heat up."))
 			if(4)
-				to_chat(usr, "<span class='userdanger'>\The [src] is heating up dangerously from overuse!</span>")
+				to_chat(usr, span_userdanger("\The [src] is heating up dangerously from overuse!"))
 			if(5) //overload
 				broken_hailer = 1
-				to_chat(usr, "<span class='userdanger'>\The [src]'s power modulator overloads and breaks.</span>")
+				to_chat(usr, span_userdanger("\The [src]'s power modulator overloads and breaks."))
 				return
 
 		switch(aggressiveness)		// checks if the user has unlocked the restricted phrases
@@ -196,3 +213,27 @@
 		playsound(src.loc, "sound/voice/complionator/[phrase_sound].ogg", 100, 0, 4)
 		cooldown = world.time
 		cooldown_special = world.time
+
+/datum/action/item_action/halt
+	name = "HALT!"
+
+/obj/item/clothing/mask/party_horn
+	name = "party horn"
+	desc = "A paper tube used at parties that makes a noise when blown into."
+	icon_state = "party_horn"
+	inhand_icon_state = null
+	w_class = WEIGHT_CLASS_SMALL
+	actions_types = list(/datum/action/item_action/toot)
+
+	COOLDOWN_DECLARE(horn_cooldown)
+
+/obj/item/clothing/mask/party_horn/ui_action_click(mob/user, action)
+	if(!COOLDOWN_FINISHED(src, horn_cooldown))
+		return
+
+	COOLDOWN_START(src, horn_cooldown, 10 SECONDS)
+	playsound(src, 'sound/items/party_horn.ogg', 75, FALSE)
+	flick("party_horn_animated", src)
+
+/datum/action/item_action/toot
+	name = "TOOT!"

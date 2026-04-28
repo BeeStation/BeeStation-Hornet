@@ -5,9 +5,9 @@
 	layer = ABOVE_MOB_LAYER
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 
-/obj/effect/projectile/singularity_pull()
+/obj/effect/projectile/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/projectile/singularity_act()
@@ -54,6 +54,8 @@
 
 /obj/effect/projectile_lighting
 	var/owner
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/projectile_lighting)
 
 /obj/effect/projectile_lighting/Initialize(mapload, color, range, intensity, owner_key)
 	. = ..()

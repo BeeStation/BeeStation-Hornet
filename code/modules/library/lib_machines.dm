@@ -42,10 +42,10 @@
 	switch(screenstate)
 		if(0)
 			dat += "<h2>Search Settings</h2><br>"
-			dat += "<A href='?src=[REF(src)];settitle=1'>Filter by Title: [title]</A><BR>"
-			dat += "<A href='?src=[REF(src)];setcategory=1'>Filter by Category: [category]</A><BR>"
-			dat += "<A href='?src=[REF(src)];setauthor=1'>Filter by Author: [author]</A><BR>"
-			dat += "<A href='?src=[REF(src)];search=1'>\[Start Search\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];settitle=1'>Filter by Title: [title]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];setcategory=1'>Filter by Category: [category]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];setauthor=1'>Filter by Author: [author]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];search=1'>\[Start Search\]</A><BR>"
 		if(1)
 			if (!SSdbcore.Connect())
 				dat += "<font color=red><b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.</font><BR>"
@@ -79,7 +79,7 @@
 					var/pagecount = 1
 					var/list/pagelist = list()
 					while(bookcount > 0)
-						pagelist += "<a href='?src=[REF(src)];bookpagecount=[pagecount - 1]'>[pagecount == search_page + 1 ? "<b>\[[pagecount]\]</b>" : "\[[pagecount]\]"]</a>"
+						pagelist += "<a href='byond://?src=[REF(src)];bookpagecount=[pagecount - 1]'>[pagecount == search_page + 1 ? "<b>\[[pagecount]\]</b>" : "\[[pagecount]\]"]</a>"
 						bookcount -= booksperpage
 						pagecount++
 					dat += pagelist.Join(" | ")
@@ -106,7 +106,7 @@
 				if(QDELETED(user))
 					return
 				dat += "</table><BR>"
-			dat += "<A href='?src=[REF(src)];back=1'>\[Go Back\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];back=1'>\[Go Back\]</A><BR>"
 	var/datum/browser/popup = new(user, "publiclibrary", name, 600, 400)
 	popup.set_content(jointext(dat, ""))
 	popup.open()
@@ -234,7 +234,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 		if (libcomp_menu.len < page)
 			libcomp_menu.len = page
 			libcomp_menu[page] = ""
-		libcomp_menu[page] += "<tr><td>[C.author]</td><td>[C.title]</td><td>[C.category]</td><td><A href='?src=[REF(src)];targetid=[C.id]'>\[Order\]</A></td></tr>\n"
+		libcomp_menu[page] += "<tr><td>[C.author]</td><td>[C.title]</td><td>[C.category]</td><td><A href='byond://?src=[REF(src)];targetid=[C.id]'>\[Order\]</A></td></tr>\n"
 
 /obj/machinery/computer/libraryconsole/bookmanagement/Initialize(mapload)
 	. = ..()
@@ -248,15 +248,15 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	switch(screenstate)
 		if(0)
 			// Main Menu
-			dat += "<A href='?src=[REF(src)];switchscreen=1'>1. View General Inventory</A><BR>"
-			dat += "<A href='?src=[REF(src)];switchscreen=2'>2. View Checked Out Inventory</A><BR>"
-			dat += "<A href='?src=[REF(src)];switchscreen=3'>3. Check out a Book</A><BR>"
-			dat += "<A href='?src=[REF(src)];switchscreen=4'>4. Connect to External Archive</A><BR>"
-			dat += "<A href='?src=[REF(src)];switchscreen=5'>5. Upload New Title to Archive</A><BR>"
-			dat += "<A href='?src=[REF(src)];switchscreen=6'>6. Upload Scanned Title to Newscaster</A><BR>"
-			dat += "<A href='?src=[REF(src)];switchscreen=7'>7. Print Corporate Materials</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];switchscreen=1'>1. View General Inventory</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];switchscreen=2'>2. View Checked Out Inventory</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];switchscreen=3'>3. Check out a Book</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];switchscreen=4'>4. Connect to External Archive</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];switchscreen=5'>5. Upload New Title to Archive</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];switchscreen=6'>6. Upload Scanned Title to Newscaster</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];switchscreen=7'>7. Print Corporate Materials</A><BR>"
 			if(obj_flags & EMAGGED)
-				dat += "<A href='?src=[REF(src)];switchscreen=8'>8. Access the Forbidden Lore Vault</A><BR>"
+				dat += "<A href='byond://?src=[REF(src)];switchscreen=8'>8. Access the Forbidden Lore Vault</A><BR>"
 			if(src.arcanecheckout)
 				print_forbidden_lore(user)
 				src.arcanecheckout = 0
@@ -264,8 +264,8 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			// Inventory
 			dat += "<H3>Inventory</H3><BR>"
 			for(var/obj/item/book/b in inventory)
-				dat += "[b.name] <A href='?src=[REF(src)];delbook=[REF(b)]'>(Delete)</A><BR>"
-			dat += "<A href='?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
+				dat += "[b.name] <A href='byond://?src=[REF(src)];delbook=[REF(b)]'>(Delete)</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
 		if(2)
 			// Checked Out
 			dat += "<h3>Checked Out Books</h3><BR>"
@@ -280,20 +280,20 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 				else
 					timedue = round(timedue)
 				dat += "\"[b.bookname]\", Checked out to: [b.mobname]<BR>--- Taken: [timetaken] minutes ago, Due: in [timedue] minutes<BR>"
-				dat += "<A href='?src=[REF(src)];checkin=[REF(b)]'>(Check In)</A><BR><BR>"
-			dat += "<A href='?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
+				dat += "<A href='byond://?src=[REF(src)];checkin=[REF(b)]'>(Check In)</A><BR><BR>"
+			dat += "<A href='byond://?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
 		if(3)
 			// Check Out a Book
 			dat += "<h3>Check Out a Book</h3><BR>"
 			dat += "Book: [src.buffer_book] "
-			dat += "<A href='?src=[REF(src)];editbook=1'>\[Edit\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];editbook=1'>\[Edit\]</A><BR>"
 			dat += "Recipient: [src.buffer_mob] "
-			dat += "<A href='?src=[REF(src)];editmob=1'>\[Edit\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];editmob=1'>\[Edit\]</A><BR>"
 			dat += "Checkout Date : [world.time/600]<BR>"
 			dat += "Due Date: [(world.time + checkoutperiod)/600]<BR>"
-			dat += "(Checkout Period: [checkoutperiod] minutes) (<A href='?src=[REF(src)];increasetime=1'>+</A>/<A href='?src=[REF(src)];decreasetime=1'>-</A>)"
-			dat += "<A href='?src=[REF(src)];checkout=1'>(Commit Entry)</A><BR>"
-			dat += "<A href='?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
+			dat += "(Checkout Period: [checkoutperiod] minutes) (<A href='byond://?src=[REF(src)];increasetime=1'>+</A>/<A href='byond://?src=[REF(src)];decreasetime=1'>-</A>)"
+			dat += "<A href='byond://?src=[REF(src)];checkout=1'>(Commit Entry)</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
 		if(4)
 			dat += "<h3>External Archive</h3>"
 			build_library_menu()
@@ -301,13 +301,13 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			if(!GLOB.cachedbooks)
 				dat += "<font color=red><b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.</font>"
 			else
-				dat += "<A href='?src=[REF(src)];orderbyid=1'>(Order book by SS<sup>13</sup>BN)</A><BR><BR>"
+				dat += "<A href='byond://?src=[REF(src)];orderbyid=1'>(Order book by SS<sup>13</sup>BN)</A><BR><BR>"
 				dat += "<table>"
 				dat += "<tr><td>AUTHOR</td><td>TITLE</td><td>CATEGORY</td><td></td></tr>"
 				dat += libcomp_menu[clamp(page,1,libcomp_menu.len)]
-				dat += "<tr><td><A href='?src=[REF(src)];page=[(max(1,page-1))]'>&lt;&lt;&lt;&lt;</A></td> <td></td> <td></td> <td><span style='text-align:right'><A href='?src=[REF(src)];page=[(min(libcomp_menu.len,page+1))]'>&gt;&gt;&gt;&gt;</A></span></td></tr>"
+				dat += "<tr><td><A href='byond://?src=[REF(src)];page=[(max(1,page-1))]'>&lt;&lt;&lt;&lt;</A></td> <td></td> <td></td> <td><span style='text-align:right'><A href='byond://?src=[REF(src)];page=[(min(libcomp_menu.len,page+1))]'>&gt;&gt;&gt;&gt;</A></span></td></tr>"
 				dat += "</table>"
-			dat += "<BR><A href='?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
+			dat += "<BR><A href='byond://?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
 		if(5)
 			dat += "<H3>Upload a New Title</H3>"
 			if(!scanner)
@@ -321,10 +321,10 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 				dat += "<TT>Title: </TT>[scanner.cache.name]<BR>"
 				if(!scanner.cache.author)
 					scanner.cache.author = "Anonymous"
-				dat += "<TT>Author: </TT><A href='?src=[REF(src)];setauthor=1'>[scanner.cache.author]</A><BR>"
-				dat += "<TT>Category: </TT><A href='?src=[REF(src)];setcategory=1'>[upload_category]</A><BR>"
-				dat += "<A href='?src=[REF(src)];upload=1'>\[Upload\]</A><BR>"
-			dat += "<A href='?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
+				dat += "<TT>Author: </TT><A href='byond://?src=[REF(src)];setauthor=1'>[scanner.cache.author]</A><BR>"
+				dat += "<TT>Category: </TT><A href='byond://?src=[REF(src)];setcategory=1'>[upload_category]</A><BR>"
+				dat += "<A href='byond://?src=[REF(src)];upload=1'>\[Upload\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
 		if(6)
 			dat += "<h3>Post Title to Newscaster</h3>"
 			if(!scanner)
@@ -335,27 +335,27 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 				dat += "<FONT color=red>No data found in scanner memory.</FONT><BR>"
 			else
 				dat += "<TT>Post [scanner.cache.name] to station newscasters?</TT>"
-				dat += "<A href='?src=[REF(src)];newspost=1'>\[Post\]</A><BR>"
-			dat += "<A href='?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
+				dat += "<A href='byond://?src=[REF(src)];newspost=1'>\[Post\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
 		if(7)
 			dat += "<h3>NTGanda(tm) Universal Printing Module</h3>"
 			dat += "What would you like to print?<BR>"
-			dat += "<A href='?src=[REF(src)];printbible=1'>\[Bible\]</A><BR>"
-			dat += "<A href='?src=[REF(src)];printspacelaw=1'>\[Space Law\]</A><BR>"
-			dat += "<A href='?src=[REF(src)];printposter=1'>\[Poster\]</A><BR>"
-			dat += "<A href='?src=[REF(src)];printsopcmd=1'>\[Command SOP\]</A><BR>"
-			dat += "<A href='?src=[REF(src)];printsopsec=1'>\[Security SOP\]</A><BR>"
-			dat += "<A href='?src=[REF(src)];printsopeng=1'>\[Engineering SOP\]</A><BR>"
-			dat += "<A href='?src=[REF(src)];printsopsup=1'>\[Supply SOP\]</A><BR>"
-			dat += "<A href='?src=[REF(src)];printsopsci=1'>\[Science SOP\]</A><BR>"
-			dat += "<A href='?src=[REF(src)];printsopmed=1'>\[Medical SOP\]</A><BR>"
-			dat += "<A href='?src=[REF(src)];printsopsvc=1'>\[Service SOP\]</A><BR>"
-			dat += "<A href='?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];printbible=1'>\[Bible\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];printspacelaw=1'>\[Space Law\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];printposter=1'>\[Poster\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];printsopcmd=1'>\[Command SOP\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];printsopsec=1'>\[Security SOP\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];printsopeng=1'>\[Engineering SOP\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];printsopsup=1'>\[Supply SOP\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];printsopsci=1'>\[Science SOP\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];printsopmed=1'>\[Medical SOP\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];printsopsvc=1'>\[Service SOP\]</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
 		if(8)
 			dat += "<h3>Accessing Forbidden Lore Vault v 1.3</h3>"
 			dat += "Are you absolutely sure you want to proceed? EldritchRelics Inc. takes no responsibilities for loss of sanity resulting from this action.<p>"
-			dat += "<A href='?src=[REF(src)];arccheckout=1'>Yes.</A><BR>"
-			dat += "<A href='?src=[REF(src)];switchscreen=0'>No.</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];arccheckout=1'>Yes.</A><BR>"
+			dat += "<A href='byond://?src=[REF(src)];switchscreen=0'>No.</A><BR>"
 
 	var/datum/browser/popup = new(user, "library", name, 600, 400)
 	popup.set_content(dat)
@@ -368,13 +368,13 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	switch(rand(1,3))
 		if(1)
 			new /obj/item/melee/cultblade/dagger(get_turf(src))
-			to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a sinister dagger sitting on the desk. You don't even remember where it came from...</span>")
+			to_chat(user, span_warning("Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a sinister dagger sitting on the desk. You don't even remember where it came from..."))
 		if(2)
 			new /obj/item/clockwork/clockwork_slab(get_turf(src))
-			to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a strange metal tablet sitting on the desk. You don't even remember where it came from...</span>")
+			to_chat(user, span_warning("Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a strange metal tablet sitting on the desk. You don't even remember where it came from..."))
 		if(3)
 			new /obj/item/codex_cicatrix(get_turf(src))
-			to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is an ominous book, bound by a chain, sitting on the desk. You don't even remember where it came from...</span>")
+			to_chat(user, span_warning("Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is an ominous book, bound by a chain, sitting on the desk. You don't even remember where it came from..."))
 	user.visible_message("[user] stares at the blank screen for a few moments, [user.p_their()] expression frozen in fear. When [user.p_they()] finally awaken[user.p_s()] from it, [user.p_they()] look[user.p_s()] a lot older.", 2)
 
 /obj/machinery/computer/libraryconsole/bookmanagement/attackby(obj/item/W, mob/user, params)
@@ -534,9 +534,9 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	if(href_list["printbible"])
 		if(cooldown < world.time)
 			var/obj/item/storage/book/bible/B = new /obj/item/storage/book/bible(src.loc)
-			if(GLOB.bible_icon_state && GLOB.bible_item_state)
+			if(GLOB.bible_icon_state && GLOB.bible_inhand_icon_state)
 				B.icon_state = GLOB.bible_icon_state
-				B.item_state = GLOB.bible_item_state
+				B.inhand_icon_state = GLOB.bible_inhand_icon_state
 				B.name = GLOB.bible_name
 				B.deity_name = GLOB.deity
 			cooldown = world.time + PRINTER_COOLDOWN
@@ -624,7 +624,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	else
 		return ..()
 
-/obj/machinery/libraryscanner/attack_hand(mob/user)
+/obj/machinery/libraryscanner/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -634,9 +634,9 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 		dat += "<FONT color=#005500>Data stored in memory.</FONT><BR>"
 	else
 		dat += "No data stored in memory.<BR>"
-	dat += "<A href='?src=[REF(src)];scan=1'>\[Scan\]</A>"
+	dat += "<A href='byond://?src=[REF(src)];scan=1'>\[Scan\]</A>"
 	if(cache)
-		dat += "       <A href='?src=[REF(src)];clear=1'>\[Clear Memory\]</A><BR><BR><A href='?src=[REF(src)];eject=1'>\[Remove Book\]</A>"
+		dat += "       <A href='byond://?src=[REF(src)];clear=1'>\[Clear Memory\]</A><BR><BR><A href='byond://?src=[REF(src)];eject=1'>\[Remove Book\]</A>"
 	else
 		dat += "<BR>"
 	var/datum/browser/popup = new(user, "scanner", name, 600, 400)
@@ -686,7 +686,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	if(machine_stat)
 		return
 	if(busy)
-		to_chat(user, "<span class='warning'>The book binder is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, span_warning("The book binder is busy. Please wait for completion of previous operation."))
 		return
 	if(!user.transferItemToLoc(P, src))
 		return
@@ -701,7 +701,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			var/obj/item/book/B = new(src.loc)
 			var/raw_content = ""
 			for(var/datum/paper_input/text_input as anything in P.raw_text_inputs)
-				raw_content += text_input.raw_text
+				raw_content += sanitize(text_input.raw_text)
 
 			B.dat = trim(raw_content, MAX_PAPER_LENGTH)
 			B.name = "Print Job #" + "[rand(100, 999)]"
@@ -709,3 +709,5 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			qdel(P)
 		else
 			P.forceMove(drop_location())
+
+#undef PRINTER_COOLDOWN

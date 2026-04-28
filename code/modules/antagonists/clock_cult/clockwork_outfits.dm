@@ -10,7 +10,7 @@
 	belt = /obj/item/storage/belt/utility/servant
 	var/weapon = null
 
-/datum/outfit/clockcult/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/clockcult/post_equip(mob/living/carbon/human/H, visuals_only)
 	. = ..()
 	if(weapon)
 		var/weapon_to_spawn = new weapon(get_turf(H))

@@ -1,7 +1,8 @@
-GLOBAL_LIST_EMPTY(antagonists)
+GLOBAL_LIST_EMPTY(active_antagonists)
 GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist
+	abstract_type = /datum/antagonist
 	var/tips
 	var/name = "Antagonist"
 	var/roundend_category = "other antagonists"				//Section of roundend report, datums with same category will be displayed together, also default header for the section
@@ -22,11 +23,14 @@ GLOBAL_LIST(admin_antag_list)
 	var/antag_memory = ""//These will be removed with antag datum
 	var/antag_moodlet //typepath of moodlet that the mob will gain with their status
 	var/ui_name = "AntagInfoGeneric"
+	/// What faction does the antag belong to, used to determine if faction specific items
+	/// such as uplinks can detect this datum's objectives for the cases where a syndicate
+	/// gets new objectives due to conversion.
+	var/faction = null
 
 	var/can_elimination_hijack = ELIMINATION_NEUTRAL //If these antags are alone when a shuttle elimination happens.
 	/// If above 0, this is the multiplier for the speed at which we hijack the shuttle. Do not directly read, use hijack_speed().
 	var/hijack_speed = 0
-	var/count_against_dynamic_roll_chance = TRUE
 	//Antag panel properties
 	var/show_in_antagpanel = TRUE	//This will hide adding this antag type in antag panel, use only for internal subtypes that shouldn't be added directly but still show if possessed by mind
 	var/antagpanel_category = "Uncategorized"	//Antagpanel will display these together, REQUIRED
@@ -35,6 +39,18 @@ GLOBAL_LIST(admin_antag_list)
 
 	/// Weakref to button to access antag interface
 	var/datum/weakref/info_button_ref
+
+	/// The action that we should perform when the antagonist
+	/// needs to leave the game. You cannot force someone to continue
+	/// playing, so the game needs to handle someone leaving as best
+	/// as it can.
+	var/leave_behaviour = ANTAGONIST_LEAVE_OFFER
+
+	/// If this antagonist was created through dynamic, then this is the ruleset whose execution
+	/// led to its creation. This may be null in cases where an antagonist was not introduced via
+	/// dynamic, for example, rulesets which create antagonist spawners or conversion antagonists
+	/// will not have this variable set, as they were not directly created from ruleset execution.
+	var/datum/dynamic_ruleset/spawning_ruleset = null
 
 /datum/antagonist/proc/show_tips(fileid)
 	if(!owner || !owner.current || !owner.current.client)
@@ -51,11 +67,13 @@ GLOBAL_LIST(admin_antag_list)
 	return SSassets.transport.get_asset_url(match)
 
 /datum/antagonist/New()
-	GLOB.antagonists += src
+	GLOB.active_antagonists += src
+	// Note : "GLOB.antag_prototypes += src" is executed in antag_panel.dm
 	typecache_datum_blacklist = typecacheof(typecache_datum_blacklist)
 
 /datum/antagonist/Destroy()
-	GLOB.antagonists -= src
+	GLOB.active_antagonists -= src
+	GLOB.antag_prototypes -= src // Removing that just in case
 	if(owner)
 		LAZYREMOVE(owner.antag_datums, src)
 	owner = null
@@ -80,7 +98,7 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	SHOULD_CALL_PARENT(TRUE)
 	remove_innate_effects(old_body)
-	if(old_body.stat != DEAD && !LAZYLEN(old_body.mind?.antag_datums))
+	if(old_body?.stat != DEAD && !LAZYLEN(old_body.mind?.antag_datums))
 		old_body.remove_from_current_living_antags()
 	var/datum/action/antag_info/info_button = info_button_ref?.resolve()
 	if(info_button)
@@ -88,8 +106,9 @@ GLOBAL_LIST(admin_antag_list)
 		info_button.Grant(new_body)
 	apply_innate_effects(new_body)
 	give_antag_moodies()
-	if(count_against_dynamic_roll_chance && new_body.stat != DEAD)
+	if(new_body.stat != DEAD)
 		new_body.add_to_current_living_antags()
+	new_body.update_action_buttons()
 
 //This handles the application of antag huds/special abilities
 /datum/antagonist/proc/apply_innate_effects(mob/living/mob_override)
@@ -112,21 +131,22 @@ GLOBAL_LIST(admin_antag_list)
 		CRASH("[src] ran on_gain() on a mind without a mob")
 	var/datum/action/antag_info/info_button = make_info_button()
 	if(!silent)
+		greet()
 		if(tips)
 			show_tips(tips)
 		if(info_button)
-			to_chat(owner.current, "<span class='boldnotice'>For more info, read the panel. \
-				You can always come back to it using the button in the top left.</span>")
-			info_button?.Trigger()
-		greet()
+			to_chat(owner.current, span_boldnotice("For more info, read the panel. \
+				You can always come back to it using the button in the top left."))
+			info_button?.trigger()
 	apply_innate_effects()
 	give_antag_moodies()
 	if(is_banned(owner.current) && replace_banned)
 		replace_banned_player()
 	else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.read_player_preference(/datum/preference/toggle/deadmin_antagonist)))
 		owner.current.client.holder.auto_deadmin()
-	if(count_against_dynamic_roll_chance && owner.current.stat != DEAD && owner.current.client)
+	if(owner.current.stat != DEAD && owner.current.client)
 		owner.current.add_to_current_living_antags()
+	owner.current.update_action_buttons()
 
 //in the future, this should entirely replace greet.
 /datum/antagonist/proc/make_info_button()
@@ -139,22 +159,30 @@ GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
+		stack_trace("Called is_banned without a mob. This shouldn't happen.")
 		return FALSE
 	. = (is_banned_from(M.ckey, banning_key) || QDELETED(M))
 
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
 
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a [name]?", banning_key, null, 7.5 SECONDS, owner.current, ignore_category = FALSE)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
-		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(owner)]) to replace a jobbanned player.")
+	var/datum/poll_config/config = new(
+		check_jobban = banning_key,
+		poll_time = 10 SECONDS,
+		jump_target = owner.current,
+		role_name_text = name,
+		amount_to_pick = 1,
+	)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = owner.current)
+	if(candidate)
 		owner.current.ghostize(FALSE)
-		owner.current.key = C.key
+		owner.current.key = candidate.key
+
+		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
+		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(owner)]) to replace a jobbanned player.")
 	else
 		owner.current.playable_bantype = banning_key
-		owner.current.ghostize(FALSE,SENTIENCE_FORCE)
+		owner.current.ghostize(FALSE, SENTIENCE_FORCE)
 
 ///Called by the remove_antag_datum() and remove_all_antag_datums() mind procs for the antag datum to handle its own removal and deletion.
 /datum/antagonist/proc/on_removal()
@@ -169,6 +197,7 @@ GLOBAL_LIST(admin_antag_list)
 			owner.current.remove_from_current_living_antags()
 		if(!silent && owner.current)
 			farewell()
+		owner.current.update_action_buttons()
 	var/datum/team/team = get_team()
 	if(team)
 		team.remove_member(owner)
@@ -196,7 +225,8 @@ GLOBAL_LIST(admin_antag_list)
 
 //Returns the team antagonist belongs to if any.
 /datum/antagonist/proc/get_team()
-	return
+	RETURN_TYPE(/datum/team)
+	return null
 
 //Individual roundend report
 /datum/antagonist/proc/roundend_report()
@@ -216,15 +246,15 @@ GLOBAL_LIST(admin_antag_list)
 				break
 
 	if(objectives.len == 0 || objectives_complete)
-		report += "<span class='greentext big'>The [name] was successful!</span>"
+		report += span_greentextbig("The [name] was successful!")
 	else
-		report += "<span class='redtext big'>The [name] has failed!</span>"
+		report += span_redtextbig("The [name] has failed!")
 
 	return report.Join("<br>")
 
 //Displayed at the start of roundend_category section, default to roundend_category header
 /datum/antagonist/proc/roundend_report_header()
-	return 	"<span class='header'>The [roundend_category] were:</span><br>"
+	return 	"[span_header("The [roundend_category] were:")]<br>"
 
 //Displayed at the end of roundend_category section
 /datum/antagonist/proc/roundend_report_footer()
@@ -245,8 +275,6 @@ GLOBAL_LIST(admin_antag_list)
 	return ..()
 
 /datum/antagonist/ui_state(mob/user)
-	if(owner?.current)
-		return GLOB.self_state
 	return GLOB.always_state
 
 ///generic helper to send objectives as data through tgui.
@@ -290,8 +318,18 @@ GLOBAL_LIST(admin_antag_list)
 	message_admins("[key_name_admin(user)] has removed [name] antagonist status from [key_name_admin(owner)].")
 	log_admin("[key_name(user)] has removed [name] antagonist status from [key_name(owner)].")
 	on_removal()
-
-//gamemode/proc/is_mode_antag(antagonist/A) => TRUE/FALSE
+	if (spawning_ruleset && spawning_ruleset.can_convert())
+		spawning_ruleset.convert_ruleset()
+		tgui_alert_async(user, "Dynamic will attempt to re-introduce an appropriate antagonist when possible as this antagonist was managed by dynamic. \
+		You do not need to introduce a new antagonist to replace this one.", "Dynamic - Will reinject")
+	else if (!spawning_ruleset)
+		tgui_alert_async(user, "This antagonist was not created through dynamic, no action will be taken to compensate for its removal from the round.", "Dynamic - No reinjection")
+	else if (spawning_ruleset.ruleset_flags & NO_TRANSFER_RULESET)
+		tgui_alert_async(user, "This antagonist cannot be transferred by the system, no action will be taken to compensate for its removal from the round.", "Dynamic - No reinjection")
+	else if (spawning_ruleset.ruleset_flags & NO_CONVERSION_TRANSFER_RULESET)
+		tgui_alert_async(user, "Dynamic will not create a new antagonist to compensate for the removal of this one as other antagonists of the same type exist within the round, no action will be taken to compensate for its removal from the round.", "Dynamic - No reinjection")
+	else
+		tgui_alert_async(user, "This antagonist was created from a ruleset that spawned multiple antagonists, no action will be taken to compensate for its removal from the round. You may want to introduce a new antagonist to compensate, transfer control of this player, or take no action.", "Dynamic - No reinjection")
 
 //Additional data to display in antagonist panel section
 //nuke disk code, genome count, etc
@@ -337,6 +375,7 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/custom
 	antagpanel_category = "Custom"
 	show_name_in_check_antagonists = TRUE //They're all different
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 	var/datum/team/custom_team
 
 /datum/antagonist/custom/create_team(datum/team/team)
@@ -346,7 +385,7 @@ GLOBAL_LIST(admin_antag_list)
 	return custom_team
 
 /datum/antagonist/custom/admin_add(datum/mind/new_owner,mob/admin)
-	var/custom_name = stripped_input(admin, "Custom antagonist name:", "Custom antag", "Antagonist")
+	var/custom_name = tgui_input_text(admin, "Custom antagonist name:", "Custom antag", "Antagonist")
 	if(custom_name)
 		name = custom_name
 	else
@@ -360,7 +399,6 @@ GLOBAL_LIST(admin_antag_list)
 		/datum/antagonist/traitor,
 		/datum/antagonist/blob,
 		/datum/antagonist/changeling,
-		/datum/antagonist/devil,
 		/datum/antagonist/ninja,
 		/datum/antagonist/nukeop,
 		/datum/antagonist/wizard,
@@ -388,35 +426,31 @@ GLOBAL_LIST(admin_antag_list)
 	var/mob/living/carbon/C = mob_override
 	if(C && istype(C) && C.has_dna() && owner.assigned_role == JOB_NAME_CLOWN)
 		if(removing) // They're a clown becoming an antag, remove clumsy
-			C.dna.remove_mutation(CLOWNMUT)
+			C.dna.remove_mutation(/datum/mutation/clumsy)
 			if(!silent && message)
-				to_chat(C, "<span class='boldnotice'>[message]</span>")
+				to_chat(C, span_boldnotice("[message]"))
 		else
-			C.dna.add_mutation(CLOWNMUT) // We're removing their antag status, add back clumsy
+			C.dna.add_mutation(/datum/mutation/clumsy) // We're removing their antag status, add back clumsy
 
 //button for antags to review their descriptions/info
 /datum/action/antag_info
 	name = "Open Special Role Information:"
 	button_icon_state = "round_end"
 
-/datum/action/antag_info/New(Target)
+/datum/action/antag_info/New(master)
 	. = ..()
-	name = "Open [target] Information"
+	name = "Open [master] Information"
 
-/datum/action/antag_info/Trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return
-
+/datum/action/antag_info/on_activate(mob/user, atom/target)
 	target.ui_interact(owner)
 
-/datum/action/antag_info/IsAvailable(feedback = FALSE)
-	if(!target)
+/datum/action/antag_info/is_available(feedback = FALSE)
+	if(!master)
 		stack_trace("[type] was used without a target antag datum!")
 		return FALSE
 	. = ..()
 	if(!.)
 		return
-	if(!owner.mind || !(target in owner.mind.antag_datums))
+	if(!owner.mind || !(master in owner.mind.antag_datums))
 		return FALSE
 	return TRUE

@@ -15,9 +15,9 @@
 	var/netspeed = 0
 	var/phagecounter = 10
 	threshold_desc = "<b>Stage Speed:</b>The higher the stage speed, the more frequently phages will burst from the host.<br>\
-                      <b>Resistance:</b>The higher the resistance, the more health phages will have, and the more damage they will do.<br>\
-					  <b>Transmission 10:</b>Phages can be larger, more aggressive, and able to pierce thick clothing, with some effort.<br>\
-                      <b>Transmission 12:</b>Phages will carry all diseases within the host, instead of only diseases containing their own symptom"
+						<b>Resistance:</b>The higher the resistance, the more health phages will have, and the more damage they will do.<br>\
+						<b>Transmission 10:</b>Phages can be larger, more aggressive, and able to pierce thick clothing, with some effort.<br>\
+						<b>Transmission 12:</b>Phages will carry all diseases within the host, instead of only diseases containing their own symptom"
 
 
 
@@ -40,10 +40,10 @@
 	switch(A.stage)
 		if(1-3)
 			if(M.stat != DEAD)
-				to_chat(M, "<span class='notice'>Your skin crawls.</span>")
+				to_chat(M, span_notice("Your skin crawls."))
 		if(4)
-			M.visible_message("<span class='danger'>Lumps form on [M]'s skin!</span>", \
-								  "<span class='userdanger'>You cringe in pain as lumps form and move around on your skin!</span>")
+			M.visible_message(span_danger("Lumps form on [M]'s skin!"), \
+									span_userdanger("You cringe in pain as lumps form and move around on your skin!"))
 		if(5)
 			phagecounter -= max(2, A.stage_rate)
 			if(gigagerms && phagecounter <= 0) //only ever spawn one big germ
@@ -53,7 +53,7 @@
 				phagecounter += 5
 				Burst(A, M)
 
-/datum/symptom/macrophage/proc/Burst(datum/disease/advance/A, var/mob/living/M, var/gigagerms = FALSE)
+/datum/symptom/macrophage/proc/Burst(datum/disease/advance/A, mob/living/M, gigagerms = FALSE)
 	var/mob/living/simple_animal/hostile/macrophage/phage
 	if(gigagerms)
 		phage = new /mob/living/simple_animal/hostile/macrophage/aggro(M.loc)
@@ -75,6 +75,6 @@
 			if(D == A)
 				continue
 			phage.infections += D
-	M.visible_message("<span class='danger'>A strange creature bursts out of [M]!</span>", \
-	  "<span class='userdanger'>A slimy creature bursts forth from your flesh!</span>")
+	M.visible_message(span_danger("A strange creature bursts out of [M]!"), \
+		span_userdanger("A slimy creature bursts forth from your flesh!"))
 	addtimer(CALLBACK(phage, TYPE_PROC_REF(/mob/living/simple_animal/hostile/macrophage, shrivel)), 3000)

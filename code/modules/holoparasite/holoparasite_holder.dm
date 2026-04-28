@@ -48,7 +48,7 @@
 	stop_delayed_death()
 	if(!QDELETED(team_monitor))
 		team_monitor.hide_hud(owner.current)
-		team_monitor.RemoveComponent()
+		team_monitor.ClearFromParent()
 		QDEL_NULL(team_monitor)
 	if(!QDELETED(monitor_holder))
 		QDEL_NULL(monitor_holder)
@@ -142,7 +142,7 @@
 		holopara.faction = new_body.faction.Copy()
 		if(holopara.stat == DEAD)
 			holopara.revive()
-		to_chat(holopara, "<span class='notice'>You manifest into existence, as your master's soul appears in a new body!</span>")
+		to_chat(holopara, span_notice("You manifest into existence, as your master's soul appears in a new body!"))
 
 /**
  * Handles the mind transferring bodies, unregistering our signals from the old body, and registering them with the new one.
@@ -201,22 +201,21 @@
 		new_body.adjustToxLoss(rand(40, 55), updating_health = FALSE, forced = TRUE)
 	else
 		new_body.adjustCloneLoss(rand(40, 55), updating_health = FALSE)
-	var/obj/item/organ/brain/brain = new_body.getorganslot(ORGAN_SLOT_BRAIN)
+	var/obj/item/organ/brain/brain = new_body.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(!istype(brain) || brain.decoy_override)
-		var/obj/item/organ/heart = new_body.getorganslot(ORGAN_SLOT_HEART)
+		var/obj/item/organ/heart = new_body.get_organ_slot(ORGAN_SLOT_HEART)
 		if(!heart)
 			// damn you, heartless bastard!!
 			for(var/obj/item/organ/organ in new_body.internal_organs)
-				organ.applyOrganDamage(rand(20, 40), organ.maxHealth - 1)
+				organ.apply_organ_damage(rand(20, 40), organ.maxHealth - 1)
 		else
-			heart.applyOrganDamage(rand(20, 40), heart.maxHealth - 1)
+			heart.apply_organ_damage(rand(20, 40), heart.maxHealth - 1)
 	else
-		brain.applyOrganDamage(rand(20, 40), HOLOPARA_MAX_BRAIN_DAMAGE)
+		brain.apply_organ_damage(rand(20, 40), HOLOPARA_MAX_BRAIN_DAMAGE)
 	// straight to stamcrit with you!!
 	new_body.take_overall_damage(stamina = rand(new_body.maxHealth * 1.1, new_body.maxHealth * 1.5), updating_health = TRUE)
-	if(new_body.confused < 120)
-		new_body.confused = 120
-	to_chat(owner, "<span class='userdanger'>The process of moving your mind and its manifestations to a new body greatly strains both your mind and body!</span>")
+	new_body.set_confusion_if_lower(2 MINUTES)
+	to_chat(owner, span_userdanger("The process of moving your mind and its manifestations to a new body greatly strains both your mind and body!"))
 
 /**
  * Handles the mind joining an antag HUD, adding their antag HUD to all of their holoparasites.
@@ -252,7 +251,7 @@
 	var/holopara_amt = length(holoparasites)
 	if(!holopara_amt)
 		return
-	to_chat(source, "<span class='big holoparasite'>You can use :[MODE_KEY_HOLOPARASITE] or .[MODE_KEY_HOLOPARASITE] to privately communicate with your holoparasite[holopara_amt > 1 ? "s" : ""]!</span>")
+	to_chat(source, span_bigholoparasite("You can use :[MODE_KEY_HOLOPARASITE] or .[MODE_KEY_HOLOPARASITE] to privately communicate with your holoparasite[holopara_amt > 1 ? "s" : ""]!"))
 
 /**
  * Handles the owner's body dying, which usually results in them being dusted
@@ -394,18 +393,18 @@
 	remove_all_tracking_huds()
 	if(!QDELETED(team_monitor))
 		team_monitor.hide_hud(body)
-		team_monitor.RemoveComponent()
+		team_monitor.ClearFromParent()
 		QDEL_NULL(team_monitor)
 	if(!QDELETED(monitor_holder))
 		QDEL_NULL(monitor_holder)
-	to_chat(body, "<span class='userdanger'>As your life fades away, you feel your body begin to crumple into dust, no longer able to sustain the manifestation[length(holoparasites) > 1 ? "s" : ""] of [english_holoparasite_list()]!</span>")
+	to_chat(body, span_userdanger("As your life fades away, you feel your body begin to crumple into dust, no longer able to sustain the manifestation[length(holoparasites) > 1 ? "s" : ""] of [english_holoparasite_list()]!"))
 	if(!already_dead)
 		if(ishuman(body))
 			var/mob/living/carbon/human/human_body = body
 			var/scream_sound = human_body?.dna?.species?.get_scream_sound(human_body)
 			if(scream_sound)
 				playsound(human_body, scream_sound, vol = 100, vary = TRUE, frequency = 0.5)
-		body.visible_message("<span class='danger'><span class='name'>[body]</span> lets out a pained, agonizing wail, [body.p_their()] expression consumed with fear, as [body.p_their()] body rapidly crumbles to dust!</span>", blind_message = "<i>You hear a pained, agonizing wail...</i>")
+		body.visible_message(span_danger("[span_name("[body]")] lets out a pained, agonizing wail, [body.p_their()] expression consumed with fear, as [body.p_their()] body rapidly crumbles to dust!"), blind_message = "<i>You hear a pained, agonizing wail...</i>")
 		var/traumatized = 0
 		for(var/mob/living/viewer in viewers(world.view, body))
 			if(viewer == body || (viewer in holoparasites) || viewer.is_blind())

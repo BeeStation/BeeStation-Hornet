@@ -5,14 +5,17 @@
 	desc = "It's a cape that can be worn around your neck."
 	icon = 'icons/obj/clothing/cloaks.dmi'
 	icon_state = "qmcloak"
-	item_state = "qmcloak"
+	inhand_icon_state = "qmcloak"
 	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDESUITSTORAGE
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo/cloak
+
+/obj/item/clothing/neck/cloak/Initialize(mapload)
+	. = ..()
+	create_storage(storage_type = /datum/storage/pockets/exo/cloak)
 
 /obj/item/clothing/neck/cloak/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
 /obj/item/clothing/neck/cloak/hos
@@ -50,31 +53,63 @@
 	desc = "Worn by the Head of Personnel. It smells faintly of bureaucracy."
 	icon_state = "hopcloak"
 
+/obj/item/clothing/suit/hooded/cloak
+	icon = 'icons/obj/clothing/suits/armor.dmi'
+	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
+
+/obj/item/clothing/head/hooded/cloakhood
+	icon = 'icons/obj/clothing/head/helmet.dmi'
+	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
+
 /obj/item/clothing/suit/hooded/cloak/goliath
 	name = "goliath cloak"
 	icon_state = "goliath_cloak"
 	desc = "A staunch, practical cape made out of numerous monster materials, it is coveted amongst exiles & hermits."
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/spear, /obj/item/spear/bonespear, /obj/item/organ/regenerative_core/legion, /obj/item/knife/combat/bone, /obj/item/knife/combat/survival)
-	armor = list(MELEE = 50,  BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 30) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
+	armor_type = /datum/armor/cloak_goliath
 	hoodtype = /obj/item/clothing/head/hooded/cloakhood/goliath
 	body_parts_covered = CHEST|GROIN|ARMS
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/cloak_goliath
+	melee = 50
+	bullet = 10
+	laser = 25
+	energy = 10
+	bomb = 25
+	fire = 60
+	acid = 60
+	stamina = 30
+	bleed = 20
 
 /obj/item/clothing/head/hooded/cloakhood/goliath
 	name = "goliath cloak hood"
 	icon_state = "golhood"
 	desc = "A protective & concealing hood."
-	armor = list(MELEE = 50,  BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 30)
+	armor_type = /datum/armor/cloakhood_goliath
 	flags_inv = HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
 	transparent_protection = HIDEMASK
 	resistance_flags = FIRE_PROOF
+
+
+/datum/armor/cloakhood_goliath
+	melee = 50
+	bullet = 10
+	laser = 25
+	energy = 10
+	bomb = 25
+	fire = 60
+	acid = 60
+	stamina = 30
+	bleed = 30
 
 /obj/item/clothing/suit/hooded/cloak/drake
 	name = "drake armour"
 	icon_state = "dragon"
 	desc = "A suit of armour fashioned from the remains of an ash drake."
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/spear)
-	armor = list(MELEE = 70,  BULLET = 30, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 30)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/recharge/kinetic_accelerator, /obj/item/pickaxe, /obj/item/spear)
+	armor_type = /datum/armor/cloak_drake
 	hoodtype = /obj/item/clothing/head/hooded/cloakhood/drake
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
@@ -82,39 +117,97 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDEJUMPSUIT|HIDESHOES
 	high_pressure_multiplier = 0.4
+	custom_price = 10000
+	max_demand = 10
+
+
+/datum/armor/cloak_drake
+	melee = 70
+	bullet = 30
+	laser = 50
+	energy = 40
+	bomb = 70
+	bio = 60
+	fire = 100
+	acid = 100
+	stamina = 30
+	bleed = 50
 
 /obj/item/clothing/head/hooded/cloakhood/drake
 	name = "drake helm"
 	icon_state = "dragon"
 	desc = "The skull of a dragon."
-	armor = list(MELEE = 70,  BULLET = 30, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 30)
+	armor_type = /datum/armor/cloakhood_drake
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	high_pressure_multiplier = 0.4
 
+
+/datum/armor/cloakhood_drake
+	melee = 70
+	bullet = 30
+	laser = 50
+	energy = 40
+	bomb = 70
+	bio = 60
+	fire = 100
+	acid = 100
+	stamina = 30
+	bleed = 50
+
 /obj/item/clothing/suit/hooded/cloak/bone
-	name = "Heavy bone armor"
+	name = "heavy bone armor"
 	icon_state = "hbonearmor"
 	desc = "A tribal armor plate, crafted from animal bone. A heavier variation of standard bone armor."
-	armor = list(MELEE = 40,  BULLET = 25, LASER = 30, ENERGY = 30, BOMB = 30, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 20)
+	armor_type = /datum/armor/cloak_bone
 	hoodtype = /obj/item/clothing/head/hooded/cloakhood/bone
-	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS
-	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
+	heat_protection = CHEST | GROIN | LEGS | FEET | ARMS
+	body_parts_covered = CHEST | GROIN | LEGS | FEET | ARMS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDEJUMPSUIT|HIDESHOES
+	transparent_protection = HIDEGLOVES | HIDESUITSTORAGE | HIDEJUMPSUIT | HIDESHOES
+	allowed = list(
+		/obj/item/spear/bonespear,
+		/obj/item/claymore/bone,
+		/obj/item/fireaxe/boneaxe,
+		/obj/item/knife/combat/bone,
+		/obj/item/gun/ballistic/bow/ashen,
+	)
+
+/datum/armor/cloak_bone
+	melee = 40
+	bullet = 25
+	laser = 30
+	energy = 30
+	bomb = 30
+	fire = 50
+	acid = 50
+	stamina = 20
+	bleed = 70
 
 /obj/item/clothing/head/hooded/cloakhood/bone
 	name = "bone helmet"
 	icon_state = "hskull"
 	desc = "An intimidating tribal helmet, it doesn't look very comfortable."
-	armor = list(MELEE = 35,  BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 20)
+	armor_type = /datum/armor/cloakhood_bone
 	heat_protection = HEAD
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES
+
+
+/datum/armor/cloakhood_bone
+	melee = 35
+	bullet = 25
+	laser = 25
+	energy = 10
+	bomb = 25
+	fire = 50
+	acid = 50
+	stamina = 20
+	bleed = 50
 
 /obj/item/clothing/neck/cloak/chap/bishop
 	name = "bishop's cloak"
@@ -124,3 +217,89 @@
 /obj/item/clothing/neck/cloak/chap/bishop/black
 	name = "black bishop's cloak"
 	icon_state = "blackbishopcloak"
+
+/obj/item/clothing/neck/cloak/fakehalo //I made it a cloak so you can wear spooky hats, also because the hat version kept removing hair and I'm lazy.
+	name = "toy halo"
+	desc = "A cheap plastic replica of a cult halo. Produced by THE ARM Toys, Inc.\nDisclaimer - This item may get you prematurely lynched by trigger happy security, wear at your own risk."
+	icon = 'icons/obj/cult.dmi'
+	icon_state = "fakehalo"
+
+/obj/item/clothing/neck/cloak/fakehalo/mob_can_equip(mob/living/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
+	if(iscarbon(M))
+		var/mob/living/carbon/carbon_wearer = M
+		if(carbon_wearer.overlays_standing[HALO_LAYER])
+			to_chat(carbon_wearer, span_warning("You already have a halo!"))
+			return FALSE
+	return ..()
+
+/obj/item/clothing/neck/cloak/fakehalo/equipped(mob/user, slot, initial = FALSE)
+	if(iscarbon(user))
+		var/mob/living/carbon/carbon_user = user
+		if(slot == ITEM_SLOT_NECK)
+			if(carbon_user.overlays_standing[HALO_LAYER])
+				to_chat(carbon_user, span_warning("You already have a halo!"))
+				return
+			carbon_user.overlays_standing[HALO_LAYER] = mutable_appearance('icons/effects/32x64.dmi', "halo_static", CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER))
+			carbon_user.apply_overlay(HALO_LAYER)
+	return ..()
+
+/obj/item/clothing/neck/cloak/fakehalo/dropped(mob/user, silent = FALSE)
+	. = ..()
+	if(iscarbon(user))
+		var/mob/living/carbon/carbon_user = user
+		var/datum/antagonist/cult/cultist = IS_CULTIST(carbon_user)
+		if(!cultist?.cult_team?.cult_ascendent && carbon_user.overlays_standing[HALO_LAYER])
+			carbon_user.remove_overlay(HALO_LAYER)
+
+///Mantles
+/obj/item/clothing/neck/cloak/mantle
+	name = "mantle"
+	desc = "A heavy quilted mantle, for keeping your shoulders warm and stylish."
+	icon_state = "mantle"
+
+/obj/item/clothing/neck/cloak/regal
+	name = "regal shawl"
+	desc = "A fancy shawl for nobility, made from high quality materials."
+	icon_state = "regal_mantle"
+
+/obj/item/clothing/neck/cloak/old
+	name = "old wrap"
+	desc = "A tattered fabric wrap, faded over the years. Smells faintly of cigars."
+	icon_state = "old_mantle"
+
+/obj/item/clothing/neck/cloak/captain_mantle
+	name = "captain's mantle"
+	desc = "A piece of fashion for the ruling elite."
+	icon_state = "capmantle"
+
+/obj/item/clothing/neck/cloak/hos_mantle
+	name = "head of security's shawl"
+	desc = "An unarmored shawl, worn by the Head of Security. Do you dare take up their mantle?"
+	icon_state = "hosmantle"
+
+/obj/item/clothing/neck/cloak/hop_mantle
+	name = "head of personnel's shawl"
+	desc = "A shawl for the Head of Personnel. It's remarkably well kept."
+	icon_state = "hopmantle"
+
+/obj/item/clothing/neck/cloak/ce_mantle
+	name = "chief engineer's mantle"
+	desc = "A slick, authoritative mantle designed for the Chief Engineer."
+	icon_state = "cemantle"
+
+/obj/item/clothing/neck/cloak/cmo_mantle
+	name = "chief medical officer's mantle"
+	desc = "An absorbent, clean cover found around the neck of the Chief Medical Officer."
+	icon_state = "cmomantle"
+
+/obj/item/clothing/neck/cloak/qm_mantle
+	name = "quartermaster's mantle"
+	desc = "A shawl for the quartermaster. Keeps the breeze from the vents away from your neck."
+	icon_state = "qmmantle"
+	inhand_icon_state = "mantle"
+
+/obj/item/clothing/neck/cloak/rd_mantle
+	name = "research director's mantle"
+	desc = "A tweed mantle, worn by the Research Director. Smells like science."
+	icon_state = "rdmantle"
+

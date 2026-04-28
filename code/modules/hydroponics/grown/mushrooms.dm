@@ -3,6 +3,8 @@
 	bite_consumption_mod = 3
 	foodtypes = VEGETABLES
 	wine_power = 40
+	/// Default mushroom icon for recipes that need any mushroom
+	icon_state = "plumphelmet"
 
 // Reishi
 /obj/item/seeds/reishi
@@ -12,7 +14,8 @@
 	species = "reishi"
 	plantname = "Reishi"
 	product = /obj/item/food/grown/mushroom/reishi
-	lifespan = 35
+	lifespan = 140
+	trade_flags = TRADE_CONTRABAND
 	endurance = 35
 	maturation = 10
 	production = 5
@@ -28,6 +31,7 @@
 	name = "reishi"
 	desc = "<I>Ganoderma lucidum</I>: A special fungus known for its medicinal and stress relieving properties."
 	icon_state = "reishi"
+	trade_flags = TRADE_CONTRABAND
 
 // Fly Amanita
 /obj/item/seeds/amanita
@@ -37,7 +41,8 @@
 	species = "amanita"
 	plantname = "Fly Amanitas"
 	product = /obj/item/food/grown/mushroom/amanita
-	lifespan = 50
+	lifespan = 200
+	trade_flags = TRADE_CONTRABAND
 	endurance = 35
 	maturation = 10
 	production = 5
@@ -53,6 +58,7 @@
 	name = "fly amanita"
 	desc = "<I>Amanita Muscaria</I>: Learn poisonous mushrooms by heart. Only pick mushrooms you know."
 	icon_state = "amanita"
+	trade_flags = TRADE_CONTRABAND
 
 // Destroying Angel
 /obj/item/seeds/angel
@@ -62,7 +68,7 @@
 	species = "angel"
 	plantname = "Destroying Angels"
 	product = /obj/item/food/grown/mushroom/angel
-	lifespan = 50
+	lifespan = 200
 	endurance = 35
 	maturation = 12
 	production = 5
@@ -90,6 +96,7 @@
 	species = "liberty"
 	plantname = "Liberty-Caps"
 	product = /obj/item/food/grown/mushroom/libertycap
+	trade_flags = TRADE_CONTRABAND
 	maturation = 7
 	production = 1
 	yield = 5
@@ -105,6 +112,7 @@
 	desc = "<I>Psilocybe Semilanceata</I>: Liberate yourself!"
 	icon_state = "libertycap"
 	wine_power = 80
+	trade_flags = TRADE_CONTRABAND
 
 // Plump Helmet
 /obj/item/seeds/plump
@@ -114,6 +122,7 @@
 	species = "plump"
 	plantname = "Plump-Helmet Mushrooms"
 	product = /obj/item/food/grown/mushroom/plumphelmet
+	trade_flags = TRADE_CONTRABAND
 	maturation = 8
 	production = 1
 	yield = 4
@@ -130,6 +139,7 @@
 	desc = "<I>Plumus Hellmus</I>: Plump, soft and s-so inviting~"
 	icon_state = "plumphelmet"
 	distill_reagent = /datum/reagent/consumable/ethanol/manly_dorf
+	trade_flags = TRADE_CONTRABAND
 
 // Walking Mushroom
 /obj/item/seeds/plump/walkingmushroom
@@ -139,7 +149,7 @@
 	species = "walkingmushroom"
 	plantname = "Walking Mushrooms"
 	product = /obj/item/food/grown/mushroom/walkingmushroom
-	lifespan = 30
+	lifespan = 120
 	endurance = 30
 	maturation = 5
 	yield = 1
@@ -165,7 +175,7 @@
 	M.move_to_delay -= round(seed.production / 50)
 	M.health = M.maxHealth
 	qdel(src)
-	to_chat(user, "<span class='notice'>You plant the walking mushroom.</span>")
+	to_chat(user, span_notice("You plant the walking mushroom."))
 
 
 // Chanterelle
@@ -176,7 +186,7 @@
 	species = "chanter"
 	plantname = "Chanterelle Mushrooms"
 	product = /obj/item/food/grown/mushroom/chanterelle
-	lifespan = 35
+	lifespan = 140
 	endurance = 20
 	maturation = 7
 	production = 1
@@ -202,7 +212,7 @@
 	species = "jupitercup"
 	plantname = "Jupiter Cups"
 	product = /obj/item/food/grown/mushroom/jupitercup
-	lifespan = 40
+	lifespan = 160
 	production = 4
 	endurance = 8
 	yield = 4
@@ -210,6 +220,8 @@
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/reagent/liquidelectricity, /datum/plant_gene/trait/plant_type/carnivory)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.1)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/chanter/jupitercup)
 
 /obj/item/seeds/chanter/jupitercup/Initialize(mapload,nogenes)
 	. = ..()
@@ -232,7 +244,8 @@
 	species = "glowshroom"
 	plantname = "Glowshrooms"
 	product = /obj/item/food/grown/mushroom/glowshroom
-	lifespan = 100 //ten times that is the delay
+	lifespan = 400 //ten times that is the delay
+	trade_flags = TRADE_CONTRABAND
 	endurance = 30
 	maturation = 15
 	production = 1
@@ -253,12 +266,13 @@
 	var/effect_path = /obj/structure/glowshroom
 	wine_power = 50
 	discovery_points = 300
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/food/grown/mushroom/glowshroom/attack_self(mob/user)
 	if(isspaceturf(user.loc))
 		return FALSE
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You need more space to plant [src].</span>")
+		to_chat(user, span_warning("You need more space to plant [src]."))
 		return FALSE
 	var/count = 0
 	var/maxcount = 1
@@ -269,10 +283,10 @@
 	for(var/obj/structure/glowshroom/G in user.loc)
 		count++
 	if(count >= maxcount)
-		to_chat(user, "<span class='warning'>There are too many shrooms here to plant [src].</span>")
+		to_chat(user, span_warning("There are too many shrooms here to plant [src]."))
 		return FALSE
 	new effect_path(user.loc, seed)
-	to_chat(user, "<span class='notice'>You plant [src].</span>")
+	to_chat(user, span_notice("You plant [src]."))
 	qdel(src)
 	return TRUE
 

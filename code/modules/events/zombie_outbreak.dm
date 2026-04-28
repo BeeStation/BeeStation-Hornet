@@ -1,7 +1,7 @@
 /datum/round_event_control/zombie_outbreak
 	name = "Zombie Outbreak"
 	typepath = /datum/round_event/zombie_outbreak
-	weight = 5
+	weight = 0
 	max_occurrences = 1
 	min_players = 30
 
@@ -17,13 +17,13 @@
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.player_list))
 		if(H.stat == DEAD)
 			continue
-		if(!SSjob.GetJob(H.mind.assigned_role) || (H.mind.assigned_role in GLOB.nonhuman_positions))
+		if(!H.mind.assigned_role_datum || (H.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON)))
 			continue
-		if(!H.getorgan(/obj/item/organ/brain))
+		if(!H.get_organ_by_type(/obj/item/organ/brain))
 			continue
-		if(!(MOB_ORGANIC in H.mob_biotypes))
+		if(!(H.mob_biotypes & MOB_ORGANIC))
 			continue
-		if(!H.getorganslot(ORGAN_SLOT_ZOMBIE))
+		if(!H.get_organ_slot(ORGAN_SLOT_ZOMBIE))
 			var/obj/item/organ/zombie_infection/ZI = new()
 			ZI.Insert(H)
 		announce_to_ghosts(H)

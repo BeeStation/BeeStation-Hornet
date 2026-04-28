@@ -13,6 +13,8 @@
 	var/exit_delay = 1
 	var/enter_delay = 0
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/transit_tube)
+
 /obj/structure/transit_tube/Initialize(mapload, newdirection)
 	. = ..()
 	if(newdirection)
@@ -26,7 +28,7 @@
 		P.deconstruct(FALSE)
 	return ..()
 
-/obj/structure/transit_tube/singularity_pull(S, current_size)
+/obj/structure/transit_tube/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct(FALSE)
@@ -35,11 +37,11 @@
 	if(W.tool_behaviour == TOOL_WRENCH)
 		if(tube_construction)
 			for(var/obj/structure/transit_tube_pod/pod in src.loc)
-				to_chat(user, "<span class='warning'>Remove the pod first!</span>")
+				to_chat(user, span_warning("Remove the pod first!"))
 				return
-			user.visible_message("<span class='notice'>[user] starts to detach \the [src].</span>", "<span class='notice'>You start to detach the [name]...</span>")
+			user.visible_message(span_notice("[user] starts to detach \the [src]."), span_notice("You start to detach the [name]..."))
 			if(W.use_tool(src, user, 2 SECONDS, volume=50))
-				to_chat(user, "<span class='notice'>You detach the [name].</span>")
+				to_chat(user, span_notice("You detach the [name]."))
 				var/obj/structure/c_transit_tube/R = new tube_construction(loc)
 				R.setDir(dir)
 				transfer_fingerprints_to(R)

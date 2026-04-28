@@ -79,9 +79,12 @@
 
 /datum/award/achievement/on_unlock(mob/user)
 	. = ..()
-	for(var/client/C in GLOB.clients)
-		to_chat(C, "<span class='greenannounce'><B>[user.client.key] earned the achievement: [name]</B></span>")
-	user.client.inc_metabalance(reward, reason="Earned an achievement!")
+	var/client/C = user?.client
+	if(!C)
+		return
+	for(var/client/other_client in GLOB.clients)
+		to_chat(other_client, span_greenannounce("<B>[C.key] earned the achievement: [name]</B>"))
+	C.inc_metabalance(reward, reason="Earned an achievement!")
 
 ///Scores are for leaderboarded things, such as killcount of a specific boss
 /datum/award/score

@@ -1,0 +1,12 @@
+/obj/effect/mapping_helpers/airlock:
+  required_neighbors:
+  - /obj/machinery/door
+
+/obj/effect/mapping_helpers/apc:
+  required_neighbors:
+  - /obj/machinery/power/apc
+
+/obj/effect/mapping_helpers/foodpreserver:
+  required_neighbors:
+  - /obj/item/food
+  - /obj/structure/closet

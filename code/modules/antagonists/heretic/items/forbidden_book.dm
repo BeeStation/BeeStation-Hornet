@@ -3,7 +3,7 @@
 	name = "Codex Cicatrix"
 	desc = "This book describes the secrets of the veil between worlds."
 	icon = 'icons/obj/heretic.dmi'
-	item_state = "book"
+	inhand_icon_state = "book"
 	icon_state = "book"
 	worn_icon_state = "book"
 	w_class = WEIGHT_CLASS_SMALL
@@ -19,8 +19,8 @@
 	if(!IS_HERETIC(user))
 		return
 
-	. += "<span class='notice'>Can be used to tap influences for additional knowledge points.</span>"
-	. += "<span class='notice'>Can also be used to draw or remove transmutation runes with ease.</span>"
+	. += span_notice("Can be used to tap influences for additional knowledge points.")
+	. += span_notice("Can also be used to draw or remove transmutation runes with ease.")
 
 /obj/item/codex_cicatrix/attack_self(mob/user, modifiers)
 	. = ..()
@@ -46,8 +46,8 @@
  * Plays a little animation that shows the book opening and closing.
  */
 /obj/item/codex_cicatrix/proc/open_animation()
-	icon_state = "[item_state]_open"
-	flick("[item_state]_opening", src)
+	icon_state = "[inhand_icon_state]_open"
+	flick("[inhand_icon_state]_opening", src)
 
 	addtimer(CALLBACK(src, PROC_REF(close_animation)), 5 SECONDS)
 
@@ -55,5 +55,5 @@
  * Plays a closing animation and resets the icon state.
  */
 /obj/item/codex_cicatrix/proc/close_animation()
-	icon_state = item_state
-	flick("[item_state]_closing", src)
+	icon_state = inhand_icon_state
+	flick("[inhand_icon_state]_closing", src)

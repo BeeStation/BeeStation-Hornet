@@ -9,30 +9,35 @@
 	held_state = "lizard"
 	footstep_type = FOOTSTEP_MOB_CLAW
 	can_be_held = TRUE
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST, MOB_REPTILE)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST |  MOB_REPTILE
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE | PASSMOB
-	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
 	see_in_dark     = 5
 	speak_chance    = 1
 	turns_per_move  = 3
-	response_help   = "pets"
-	response_disarm = "shoos"
-	response_harm   = "stomps"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "shoos"
+	response_disarm_simple = "shoo"
+	response_harm_continuous = "stomps on"
+	response_harm_simple = "stomp on"
 	speak = list("Hissssss!", "Squeak!")
 	speak_emote = list("hisses", "squeaks")
 	speak_language = /datum/language/metalanguage
 	emote_hear = list("hisses", "squeaks")
 	emote_see = list("pounces")
-	faction = list("Lizard")
+	faction = list(FACTION_LIZARD)
 	health = 15
 	maxHealth = 15
 	minbodytemp = 50
 	maxbodytemp = 800
-	var/turns_since_scan = 0
 	var/obj/item/food/movement_target
 	mobchatspan = "centcom"
+
+/mob/living/simple_animal/kalo/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/kalo/Destroy()
 	movement_target = null
@@ -114,7 +119,7 @@
 
 /mob/living/simple_animal/kalo/attack_hand(mob/living/carbon/human/M)
 	..()
-	if (M.a_intent == "help")
+	if (!M.combat_mode)
 		if(prob(20))
 			//yes lizards chirp I googled it it must be true
 			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("chirps","squeaks"))

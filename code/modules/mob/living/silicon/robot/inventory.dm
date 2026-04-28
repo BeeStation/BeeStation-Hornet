@@ -17,7 +17,7 @@
 		sight_mode &= ~S.sight_mode
 		update_sight()
 	else if(istype(O, /obj/item/storage/bag/tray/))
-		SEND_SIGNAL(O, COMSIG_TRY_STORAGE_QUICK_EMPTY)
+		O.atom_storage.remove_all(loc)
 	if(client)
 		client.screen -= O
 	observer_screen_update(O,FALSE)
@@ -37,7 +37,7 @@
 	if(O.item_flags & DROPDEL)
 		O.item_flags &= ~DROPDEL //we shouldn't HAVE things with DROPDEL_1 in our modules, but better safe than runtiming horribly
 
-	O.forceMove(module) //Return item to module so it appears in its contents, so it can be taken out again.
+	O.forceMove(model) //Return item to module so it appears in its contents, so it can be taken out again.
 	O.cyborg_unequip(src)
 
 	hud_used.update_robot_modules_display()
@@ -45,10 +45,10 @@
 
 /mob/living/silicon/robot/proc/activate_module(obj/item/O)
 	. = FALSE
-	if(!(O in module.modules))
+	if(!(O in model.modules))
 		return
 	if(activated(O))
-		to_chat(src, "<span class='warning'>That module is already activated.</span>")
+		to_chat(src, span_warning("That module is already activated."))
 		return
 	if(!held_items[1])
 		held_items[1] = O
@@ -63,7 +63,7 @@
 		O.screen_loc = inv3.screen_loc
 		. = TRUE
 	else
-		to_chat(src, "<span class='warning'>You need to disable a module first!</span>")
+		to_chat(src, span_warning("You need to disable a module first!"))
 	if(.)
 		O.equipped(src, ITEM_SLOT_HANDS)
 		O.mouse_opacity = initial(O.mouse_opacity)
@@ -121,7 +121,7 @@
 			return TRUE
 	return FALSE
 
-//get_selected_module() - Returns the slot number of the currently selected module.  Returns 0 if no modules are selected.
+//get_selected_module() - Returns the slot number of the currently selected module. Returns 0 if no modules are selected.
 /mob/living/silicon/robot/proc/get_selected_module()
 	if(module_active)
 		return held_items.Find(module_active)
@@ -213,3 +213,7 @@
 
 /mob/living/silicon/robot/swap_hand()
 	cycle_modules()
+	refresh_self_screentips()
+
+/mob/living/silicon/robot/can_hold_items(obj/item/I)
+	return (I && (I in model.modules)) //Only if it's part of our module.

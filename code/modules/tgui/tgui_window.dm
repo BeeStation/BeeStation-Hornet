@@ -25,6 +25,8 @@
 	var/initial_inline_js
 	var/initial_inline_css
 
+	var/list/oversized_payloads = list()
+
 /**
  * public
  *
@@ -83,6 +85,8 @@
 	var/html = SStgui.basehtml
 	html = replacetextEx(html, "\[tgui:windowId]", id)
 	html = replacetextEx(html, "\[tgui:strictMode]", strict_mode)
+	html = replacetextEx(html, "\[tgui:byondMajor\]", client.byond_version)
+	html = replacetextEx(html, "\[tgui:byondMinor\]", client.byond_build)
 	// Inject assets
 	var/inline_assets_str = ""
 	for(var/datum/asset/asset in assets)
@@ -368,20 +372,46 @@
 			client << link(href_list["url"])
 		if("cacheReloaded")
 			reinitialize()
-		if("byondui_update")
-			update_byondui(payload["id"], payload["mounting"])
-
-/**
- * Respond to a ByondUi element mounting or unmounting.
- * This is used by the prefs menu to avoid https://www.byond.com/forum/post/2873835 in 514.
- * This is no longer necessary for clients above 515.1609
- */
-/datum/tgui_window/proc/update_byondui(id, mounting)
-	if(findtext(id, "character_preview")) // this is a character preview byondui
-		// HACK: Without this the character starts out really tiny because of https://www.byond.com/forum/post/2873835
-		// You can fix it by updating the atom's appearance (in any way), so let's just do something unexpensive and change its name!
-		client?.prefs?.character_preview_view?.rename_byond_bug_moment()
-
+		if("oversizedPayloadRequest")
+			var/payload_id = payload["id"]
+			var/chunk_count = payload["chunkCount"]
+			var/permit_payload = chunk_count <= CONFIG_GET(number/tgui_max_chunk_count)
+			if(permit_payload)
+				create_oversized_payload(payload_id, payload["type"], chunk_count)
+			send_message("oversizePayloadResponse", list("allow" = permit_payload, "id" = payload_id))
+		if("payloadChunk")
+			var/payload_id = payload["id"]
+			append_payload_chunk(payload_id, payload["chunk"])
+			send_message("acknowledgePayloadChunk", list("id" = payload_id))
 
 /datum/tgui_window/vv_edit_var(var_name, var_value)
 	return var_name != NAMEOF(src, id) && ..()
+
+/datum/tgui_window/proc/create_oversized_payload(payload_id, message_type, chunk_count)
+	if(oversized_payloads[payload_id])
+		stack_trace("Attempted to create oversized tgui payload with duplicate ID.")
+		return
+	oversized_payloads[payload_id] = list(
+		"type" = message_type,
+		"count" = chunk_count,
+		"chunks" = list(),
+		"timeout" = addtimer(CALLBACK(src, PROC_REF(remove_oversized_payload), payload_id), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
+	)
+
+/datum/tgui_window/proc/append_payload_chunk(payload_id, chunk)
+	var/list/payload = oversized_payloads[payload_id]
+	if(!payload)
+		return
+	var/list/chunks = payload["chunks"]
+	chunks += chunk
+	if(length(chunks) >= payload["count"])
+		deltimer(payload["timeout"])
+		var/message_type = payload["type"]
+		var/final_payload = chunks.Join()
+		remove_oversized_payload(payload_id)
+		on_message(message_type, json_decode(final_payload), list("type" = message_type, "payload" = final_payload, "tgui" = TRUE, "window_id" = id))
+	else
+		payload["timeout"] = addtimer(CALLBACK(src, PROC_REF(remove_oversized_payload), payload_id), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
+
+/datum/tgui_window/proc/remove_oversized_payload(payload_id)
+	oversized_payloads -= payload_id

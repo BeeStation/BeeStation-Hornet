@@ -78,7 +78,7 @@
 /area/template_noop)
 "L" = (
 /obj/structure/reagent_dispensers/watertank/high,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/effect/turf_decal/tile/dark_green/fourcorners,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
@@ -121,9 +121,9 @@
 "W" = (
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/delivery,
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
 /obj/effect/turf_decal/tile/dark_green/fourcorners,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)

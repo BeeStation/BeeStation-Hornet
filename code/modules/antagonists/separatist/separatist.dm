@@ -7,6 +7,7 @@
 	show_name_in_check_antagonists = TRUE
 	var/datum/team/nation/nation
 	banning_key = BAN_ROLE_ALL_ANTAGONISTS
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/antagonist/separatist/create_team(datum/team/nation/new_team)
 	if(!new_team)

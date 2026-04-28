@@ -1,33 +1,31 @@
 //node2, air2, network2 correspond to input
 //node1, air1, network1 correspond to output
-#define CIRCULATOR_HOT 0
-#define CIRCULATOR_COLD 1
 
 /obj/machinery/atmospherics/components/binary/circulator
 	name = "circulator/heat exchanger"
 	desc = "A gas circulator pump and heat exchanger."
 	icon_state = "circ-off-0"
-
-	var/active = FALSE
-
-	var/last_pressure_delta = 0
 	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
-
+	vent_movement = VENTCRAWL_CAN_SEE
 	density = TRUE
-
 	circuit = /obj/item/circuitboard/machine/circulator
 
+	var/active = FALSE
+	var/last_pressure_delta = 0
 	var/flipped = 0
 	var/mode = CIRCULATOR_HOT
 	var/obj/machinery/power/generator/generator
 
+/obj/machinery/atmospherics/components/binary/circulator/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/simple_rotation)
+
+/obj/machinery/atmospherics/components/binary/circulator/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+
 //default cold circ for mappers
 /obj/machinery/atmospherics/components/binary/circulator/cold
 	mode = CIRCULATOR_COLD
-
-/obj/machinery/atmospherics/components/binary/circulator/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS )
 
 /obj/machinery/atmospherics/components/binary/circulator/Destroy()
 	if(generator)
@@ -51,7 +49,7 @@
 	if(air2.return_temperature()>0)
 		var/pressure_delta = (input_starting_pressure - output_starting_pressure)/2
 
-		var/transfer_moles = pressure_delta*air1.return_volume()/(air2.return_temperature() * R_IDEAL_GAS_EQUATION)
+		var/transfer_moles = (pressure_delta*air1.return_volume())/(air2.return_temperature() * R_IDEAL_GAS_EQUATION)
 
 		last_pressure_delta = pressure_delta
 
@@ -87,7 +85,7 @@
 	I.play_tool_sound(src)
 	if(generator)
 		disconnectFromGenerator()
-	to_chat(user, "<span class='notice'>You [anchored?"secure":"unsecure"] [src].</span>")
+	to_chat(user, span_notice("You [anchored?"secure":"unsecure"] [src]."))
 
 
 	var/obj/machinery/atmospherics/node1 = nodes[1]
@@ -96,35 +94,37 @@
 	if(node1)
 		node1.disconnect(src)
 		nodes[1] = null
-		nullifyPipenet(parents[1])
+		if(parents[1])
+			nullify_pipenet(parents[1])
 	if(node2)
 		node2.disconnect(src)
 		nodes[2] = null
-		nullifyPipenet(parents[2])
+		if(parents[2])
+			nullify_pipenet(parents[2])
 
 	if(anchored)
-		SetInitDirections()
-		atmosinit()
+		set_init_directions()
+		atmos_init()
 		node1 = nodes[1]
 		if(node1)
-			node1.atmosinit()
-			node1.addMember(src)
+			node1.atmos_init()
+			node1.add_member(src)
 		node2 = nodes[2]
 		if(node2)
-			node2.atmosinit()
-			node2.addMember(src)
+			node2.atmos_init()
+			node2.add_member(src)
 		SSair.add_to_rebuild_queue(src)
 
 	return TRUE
 
-/obj/machinery/atmospherics/components/binary/circulator/SetInitDirections()
+/obj/machinery/atmospherics/components/binary/circulator/set_init_directions()
 	switch(dir)
 		if(NORTH, SOUTH)
 			initialize_directions = EAST|WEST
 		if(EAST, WEST)
 			initialize_directions = NORTH|SOUTH
 
-/obj/machinery/atmospherics/components/binary/circulator/getNodeConnects()
+/obj/machinery/atmospherics/components/binary/circulator/get_node_connects()
 	if(flipped)
 		return list(turn(dir, 270), turn(dir, 90))
 	return list(turn(dir, 90), turn(dir, 270))
@@ -138,7 +138,7 @@
 	if(generator)
 		disconnectFromGenerator()
 	mode = !mode
-	to_chat(user, "<span class='notice'>You set [src] to [mode?"cold":"hot"] mode.</span>")
+	to_chat(user, span_notice("You set [src] to [mode?"cold":"hot"] mode."))
 	return TRUE
 
 /obj/machinery/atmospherics/components/binary/circulator/screwdriver_act(mob/user, obj/item/I)
@@ -146,7 +146,7 @@
 		return TRUE
 	panel_open = !panel_open
 	I.play_tool_sound(src)
-	to_chat(user, "<span class='notice'>You [panel_open?"open":"close"] the panel on [src].</span>")
+	to_chat(user, span_notice("You [panel_open?"open":"close"] the panel on [src]."))
 	return TRUE
 
 /obj/machinery/atmospherics/components/binary/circulator/crowbar_act(mob/user, obj/item/I)
@@ -165,7 +165,7 @@
 	generator.update_icon()
 	generator = null
 
-/obj/machinery/atmospherics/components/binary/circulator/setPipingLayer(new_layer)
+/obj/machinery/atmospherics/components/binary/circulator/set_piping_layer(new_layer)
 	..()
 	pixel_x = 0
 	pixel_y = 0
@@ -179,9 +179,9 @@
 		return
 
 	if(anchored)
-		to_chat(usr, "<span class='danger'>[src] is anchored!</span>")
+		to_chat(usr, span_danger("[src] is anchored!"))
 		return
 
 	flipped = !flipped
-	to_chat(usr, "<span class='notice'>You flip [src].</span>")
+	to_chat(usr, span_notice("You flip [src]."))
 	update_icon()

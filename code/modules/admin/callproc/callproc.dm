@@ -20,7 +20,7 @@
 				return
 			target = value["value"]
 			if(!istype(target))
-				to_chat(usr, "<span class='danger'>Invalid target.</span>")
+				to_chat(usr, span_danger("Invalid target."))
 				return
 		if("No")
 			target = null
@@ -38,14 +38,22 @@
 	var/procname = proclist[proclist.len]
 	var/proctype = ("verb" in proclist) ? "verb" :"proc"
 
+	// absolutely not
+	if(findtextEx(trim(LOWER_TEXT(procname)), "rustg"))
+		var/html_strip = html_encode(procname)
+		message_admins(span_userdanger("[key_name_admin(src)] attempted to proc call rust-g procs([html_strip]). Inform the host <u>at once</u>."))
+		log_admin("[key_name(src)] attempted to proc call rust-g procs([html_strip]). Inform the host at once.")
+		send2tgs("SECURITY ALERT", "[key_name(src)] attempted to proc call rustg things([html_strip]). Inform the host at once.")
+		return
+
 	if(targetselected)
 		if(!hascall(target, procname))
-			to_chat(usr, "<span class='warning'>Error: callproc(): type [target.type] has no [proctype] named [procpath].</span>")
+			to_chat(usr, span_warning("Error: callproc(): type [target.type] has no [proctype] named [procpath]."))
 			return
 	else
 		procpath = "/[proctype]/[procname]"
 		if(!text2path(procpath))
-			to_chat(usr, "<span class='warning'>Error: callproc(): [procpath] does not exist.</span>")
+			to_chat(usr, span_warning("Error: callproc(): [procpath] does not exist."))
 			return
 
 	var/list/lst = get_callproc_args()
@@ -98,7 +106,7 @@ GLOBAL_PROTECT(LastAdminCalledProc)
 		CRASH("WrapAdminProcCall with no ckey: [target] [procname] [english_list(arguments)]")
 
 	if(current_caller && current_caller != ckey)
-		to_chat(usr, "<span class='adminnotice'>Another set of admin called procs are still running. Try again later.</span>")
+		to_chat(usr, span_adminnotice("Another set of admin called procs are still running. Try again later."))
 		return
 	GLOB.LastAdminCalledProc = procname
 	if(target != GLOBAL_PROC)
@@ -144,7 +152,7 @@ GLOBAL_PROTECT(LastAdminCalledProc)
 		return
 
 	if(!A || !is_valid_src(A))
-		to_chat(usr, "<span class='warning'>Error: callproc_datum(): owner of proc no longer exists.</span>")
+		to_chat(usr, span_warning("Error: callproc_datum(): owner of proc no longer exists."))
 		return
 	log_admin("[key_name(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
 	var/msg = "[key_name(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]."

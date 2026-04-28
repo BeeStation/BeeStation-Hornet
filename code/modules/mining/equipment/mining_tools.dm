@@ -3,33 +3,44 @@
 	name = "pickaxe"
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "pickaxe"
-	flags_1 = CONDUCT_1
+	inhand_icon_state = "pickaxe"
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	attack_weight = 2
 	force = 15
 	throwforce = 10
-	item_state = "pickaxe"
-	worn_icon_state = "pickaxe"
 	lefthand_file = 'icons/mob/inhands/equipment/mining_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/mining_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	custom_materials = list(/datum/material/iron=2000) //one sheet, but where can you make them?
 	tool_behaviour = TOOL_MINING
-	toolspeed = 1
+	toolspeed = 0.5
+	var/stamina_use = 5
 	usesound = list('sound/effects/picaxe1.ogg', 'sound/effects/picaxe2.ogg', 'sound/effects/picaxe3.ogg')
-	attack_verb = list("hit", "pierced", "sliced", "attacked")
+	attack_verb_continuous = list("hits", "pierces", "slices", "attacks")
+	attack_verb_simple = list("hit", "pierce", "slice", "attack")
+
+/obj/item/pickaxe/use_tool(atom/target, mob/living/user, delay, amount, volume, datum/callback/extra_checks)
+	if(user.getStaminaLoss() < 75)
+		. = ..()
+	else
+		to_chat(user, span_danger("You quickly stop picking. You are too tired to work!"))
+		return
+	user.adjustStaminaLoss(stamina_use)
+	return
 
 /obj/item/pickaxe/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] begins digging into [user.p_their()] chest!  It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins digging into [user.p_their()] chest!  It looks like [user.p_theyre()] trying to commit suicide!"))
 	if(use_tool(user, user, 30, volume=50))
 		return BRUTELOSS
-	user.visible_message("<span class='suicide'>[user] couldn't do it!</span>")
+	user.visible_message(span_suicide("[user] couldn't do it!"))
 	return SHAME
 
 /obj/item/pickaxe/mini
 	name = "compact pickaxe"
 	desc = "A smaller, compact version of the standard pickaxe."
 	icon_state = "minipick"
+	worn_icon_state = "pickaxe"
 	force = 10
 	throwforce = 7
 	slot_flags = ITEM_SLOT_BELT
@@ -39,28 +50,31 @@
 /obj/item/pickaxe/silver
 	name = "silver-plated pickaxe"
 	icon_state = "spickaxe"
-	item_state = "spickaxe"
+	inhand_icon_state = "spickaxe"
 	worn_icon_state = "spickaxe"
-	toolspeed = 0.5 //mines faster than a normal pickaxe, bought from mining vendor
+	toolspeed = 0.5
+	stamina_use = 3 //costs less stamina because silver is lighter??
 	desc = "A silver-plated pickaxe that mines slightly faster than standard-issue."
 	force = 17
 
 /obj/item/pickaxe/diamond
 	name = "diamond-tipped pickaxe"
 	icon_state = "dpickaxe"
-	item_state = "dpickaxe"
+	inhand_icon_state = "dpickaxe"
 	worn_icon_state = "dpickaxe"
 	toolspeed = 0.3
+	stamina_use = 3
 	desc = "A pickaxe with a diamond pick head. Extremely robust at cracking rock walls and digging up dirt."
 	force = 19
 
 /obj/item/pickaxe/drill
 	name = "mining drill"
 	icon_state = "handdrill"
-	item_state = "jackhammer"
+	inhand_icon_state = "jackhammer"
 	worn_icon_state = "jackhammer"
 	slot_flags = ITEM_SLOT_BELT
-	toolspeed = 0.6 //available from roundstart, faster than a pickaxe.
+	toolspeed = 0.5
+	stamina_use = 0//available from roundstart, faster than a pickaxe. doesn't use stamina because it's an automatic drill
 	usesound = 'sound/weapons/drill.ogg'
 	hitsound = 'sound/weapons/drill.ogg'
 	desc = "An electric mining drill for the especially scrawny."
@@ -88,7 +102,7 @@
 /obj/item/pickaxe/drill/jackhammer
 	name = "sonic jackhammer"
 	icon_state = "jackhammer"
-	item_state = "jackhammer"
+	inhand_icon_state = "jackhammer"
 	worn_icon_state = "jackhammer"
 	toolspeed = 0.1 //the epitome of powertools. extremely fast mining, laughs at puny walls
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
@@ -100,40 +114,40 @@
 	desc = "A large tool for digging and moving dirt."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "shovel"
+	inhand_icon_state = "shovel"
 	lefthand_file = 'icons/mob/inhands/equipment/mining_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/mining_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
-	force = 8
+	force = 12
 	tool_behaviour = TOOL_SHOVEL
 	toolspeed = 1
 	usesound = 'sound/effects/shovel_dig.ogg'
 	throwforce = 4
-	item_state = "shovel"
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_materials = list(/datum/material/iron=50)
-	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")
-	sharpness = IS_SHARP
+	attack_verb_continuous = list("bashes", "batters", "bludgeons", "whacks")
+	attack_verb_simple = list("bash", "batter", "bludgeon", "whack")
+	sharpness = SHARP
 
 /obj/item/shovel/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 150, 40) //it's sharp, so it works, but barely.
 
 /obj/item/shovel/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] begins digging their own grave!  It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins digging their own grave!  It looks like [user.p_theyre()] trying to commit suicide!"))
 	if(use_tool(user, user, 30, volume=50))
 		return BRUTELOSS
-	user.visible_message("<span class='suicide'>[user] couldn't do it!</span>")
+	user.visible_message(span_suicide("[user] couldn't do it!"))
 	return SHAME
 
 /obj/item/shovel/spade
 	name = "spade"
 	desc = "A small tool for digging and moving dirt."
 	icon_state = "spade"
-	item_state = "spade"
-	worn_icon_state = "spade"
+	inhand_icon_state = "spade"
 	lefthand_file = 'icons/mob/inhands/equipment/hydroponics_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
-	force = 5
+	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL

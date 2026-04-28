@@ -3,7 +3,7 @@
 	desc = "A terrible, terrible thing. It's really awful!"
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "riotgun"
-	item_state = "riotgun"
+	inhand_icon_state = "riotgun"
 	w_class = WEIGHT_CLASS_BULKY
 	throw_speed = 2
 	throw_range = 7
@@ -25,17 +25,17 @@
 			if(!user.transferItemToLoc(I, src))
 				return
 			grenades += I
-			to_chat(user, "<span class='notice'>You put the grenade in the grenade launcher.</span>")
-			to_chat(user, "<span class='notice'>[grenades.len] / [max_grenades] Grenades.</span>")
+			to_chat(user, span_notice("You put the grenade in the grenade launcher."))
+			to_chat(user, span_notice("[grenades.len] / [max_grenades] Grenades."))
 		else
-			to_chat(usr, "<span class='danger'>The grenade launcher cannot hold more grenades.</span>")
+			to_chat(usr, span_danger("The grenade launcher cannot hold more grenades."))
 
 /obj/item/gun/grenadelauncher/can_shoot()
-	return grenades.len
+	return grenades.len && ..()
 
-/obj/item/gun/grenadelauncher/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
-	user.visible_message("<span class='danger'>[user] fired a grenade!</span>", \
-						"<span class='danger'>You fire the grenade launcher!</span>")
+/obj/item/gun/grenadelauncher/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+	user.visible_message(span_danger("[user] fired a grenade!"), \
+						span_danger("You fire the grenade launcher!"))
 	var/obj/item/grenade/F = grenades[1] //Now with less copypasta!
 	grenades -= F
 	F.forceMove(user.loc)

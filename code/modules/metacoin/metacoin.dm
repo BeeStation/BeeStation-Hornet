@@ -2,27 +2,20 @@
 /client/var/metabalance_cached = null
 
 /client/proc/process_endround_metacoin()
-	if(!mob)
+	if(!mob?.mind || isnewplayer(mob))
 		return
-	var/mob/M = mob
-	if(M.mind && !isnewplayer(M))
-		if(M.stat != DEAD && !isbrain(M))
-			if(EMERGENCY_ESCAPED_OR_ENDGAMED)
-				if(!M.onCentCom() && !M.onSyndieBase())
-					var/reward_type = ((isAI(M)|| iscyborg(M) ? METACOIN_ESCAPE_REWARD : METACOIN_SURVIVE_REWARD))
-					inc_metabalance(reward_type, reason="Survived the shift.")
-				else
-					inc_metabalance(METACOIN_ESCAPE_REWARD, reason="Survived the shift and escaped!")
-			else
-				inc_metabalance(METACOIN_ESCAPE_REWARD, reason="Survived the shift.")
+
+	if(mob.stat == DEAD)
+		inc_metabalance(METACOIN_NOTSURVIVE_REWARD, reason = "You tried.")
+		return
+	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
+		if(!mob.onCentCom() && !mob.onSyndieBase())
+			var/reward_type = (isAI(mob) || iscyborg(mob) ? METACOIN_ESCAPE_REWARD : METACOIN_SURVIVE_REWARD)
+			inc_metabalance(reward_type, reason = "Survived the shift.")
 		else
-			inc_metabalance(METACOIN_NOTSURVIVE_REWARD, reason="You tried.")
-
-/client/proc/process_greentext()
-	src.give_award(/datum/award/achievement/misc/greentext, src.mob)
-
-/client/proc/process_ten_minute_living()
-	inc_metabalance(METACOIN_TENMINUTELIVING_REWARD, FALSE)
+			inc_metabalance(METACOIN_ESCAPE_REWARD, reason = "Survived the shift and escaped!")
+	else
+		inc_metabalance(METACOIN_ESCAPE_REWARD, reason = "Survived the shift.")
 
 /// Never-blocking method to retrieve cached metabalance. This CAN be null and runtimes if it is.
 /// Use get_metabalance_db() for a more accurate measure. Never use this in modifying calculations.
@@ -32,6 +25,9 @@
 	if(metabalance_cached == null)
 		CRASH("Metacoin amount fetched before value initialized")
 	return metabalance_cached
+
+/client/proc/get_metabalance_async()
+	return metabalance_cached || get_metabalance_db()
 
 /// Gets the user's metabalance from the DB. Blocking.
 /client/proc/get_metabalance_db()
@@ -57,7 +53,7 @@
 		CRASH("Metacoin amount adjusted before value initialized")
 	metabalance_cached = mc_count
 	if(ann)
-		to_chat(src, "<span class='rose bold'>Your new metacoin balance is [mc_count]!</span>")
+		to_chat(src, span_rosebold("Your new metacoin balance is [mc_count]!"))
 	INVOKE_ASYNC(src, PROC_REF(db_set_metabalance), mc_count)
 
 /// Increases metabalance in the local cache, then invokes a database update.
@@ -67,16 +63,17 @@
 /client/proc/inc_metabalance(mc_count, ann=TRUE, reason=null)
 	SHOULD_NOT_SLEEP(TRUE)
 	if(mc_count >= 0 && !CONFIG_GET(flag/grant_metacurrency))
-		return
+		return FALSE
 	if(metabalance_cached == null)
 		CRASH("Metacoin amount adjusted before value initialized")
 	metabalance_cached += mc_count
 	if(ann)
 		if(reason)
-			to_chat(src, "<span class='rose bold'>[abs(mc_count)] [CONFIG_GET(string/metacurrency_name)]\s have been [mc_count >= 0 ? "deposited to" : "withdrawn from"] your account! Reason: [reason]</span>")
+			to_chat(src, span_rosebold("[abs(mc_count)] [CONFIG_GET(string/metacurrency_name)]\s have been [mc_count >= 0 ? "deposited to" : "withdrawn from"] your account! Reason: [reason]"))
 		else
-			to_chat(src, "<span class='rose bold'>[abs(mc_count)] [CONFIG_GET(string/metacurrency_name)]\s have been [mc_count >= 0 ? "deposited to" : "withdrawn from"] your account!</span>")
+			to_chat(src, span_rosebold("[abs(mc_count)] [CONFIG_GET(string/metacurrency_name)]\s have been [mc_count >= 0 ? "deposited to" : "withdrawn from"] your account!"))
 	INVOKE_ASYNC(src, PROC_REF(db_inc_metabalance), mc_count)
+	return TRUE
 
 /client/proc/db_inc_metabalance(mc_count)
 	var/datum/db_query/query_set_metacoins = SSdbcore.NewQuery(

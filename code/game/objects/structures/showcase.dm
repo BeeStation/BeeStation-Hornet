@@ -77,8 +77,8 @@
 /obj/structure/showcase/machinery/microwave
 	name = "\improper Nanotrasen-brand microwave"
 	desc = "The famous Nanotrasen-brand microwave, the multi-purpose cooking appliance every station needs! This one appears to be drawn onto a cardboard box."
-	icon = 'icons/obj/kitchen.dmi'
-	icon_state = "mw"
+	icon = 'icons/obj/machines/microwave.dmi'
+	icon_state = "map_icon"
 
 /obj/structure/showcase/machinery/cloning_pod
 	name = "cloning pod exhibit"
@@ -89,6 +89,7 @@
 /obj/structure/showcase/perfect_employee
 	name = "'Perfect Man' employee exhibit"
 	desc = "A stand with a model of the perfect Nanotrasen Employee bolted to it. Signs indicate it is robustly genetically engineered, as well as being ruthlessly loyal."
+	layer = ABOVE_MOB_LAYER //needed for a specific mapping scenario but it shouldn't cause any issues in other situations
 
 /obj/structure/showcase/machinery/tv
 	name = "\improper Nanotrasen corporate newsfeed"
@@ -111,17 +112,17 @@
 /obj/structure/showcase/attackby(obj/item/W, mob/user)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER && !anchored)
 		if(deconstruction_state == SHOWCASE_SCREWDRIVERED)
-			to_chat(user, "<span class='notice'>You screw the screws back into the showcase.</span>")
+			to_chat(user, span_notice("You screw the screws back into the showcase."))
 			W.play_tool_sound(src, 100)
 			deconstruction_state = SHOWCASE_CONSTRUCTED
 		else if (deconstruction_state == SHOWCASE_CONSTRUCTED)
-			to_chat(user, "<span class='notice'>You unscrew the screws.</span>")
+			to_chat(user, span_notice("You unscrew the screws."))
 			W.play_tool_sound(src, 100)
 			deconstruction_state = SHOWCASE_SCREWDRIVERED
 
 	if(W.tool_behaviour == TOOL_CROWBAR && deconstruction_state == SHOWCASE_SCREWDRIVERED)
 		if(W.use_tool(src, user, 20, volume=100))
-			to_chat(user, "<span class='notice'>You start to crowbar the showcase apart...</span>")
+			to_chat(user, span_notice("You start to crowbar the showcase apart..."))
 			new /obj/item/stack/sheet/iron(drop_location(), 4)
 			qdel(src)
 
@@ -140,3 +141,6 @@
 			. += "The showcase has its screws loosened."
 		else
 			. += "If you see this, something is wrong."
+
+#undef SHOWCASE_CONSTRUCTED
+#undef SHOWCASE_SCREWDRIVERED

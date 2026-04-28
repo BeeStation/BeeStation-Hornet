@@ -11,6 +11,8 @@
 	..()
 
 /datum/wires/suit_storage_unit/interactable(mob/user)
+	if(!..())
+		return FALSE
 	var/obj/machinery/suit_storage_unit/SSU = holder
 	if(SSU.panel_open)
 		return TRUE
@@ -34,7 +36,7 @@
 				SSU.shock(usr)
 	ui_update()
 
-/datum/wires/suit_storage_unit/on_cut(wire, mend)
+/datum/wires/suit_storage_unit/on_cut(wire, mob/user, mend)
 	var/obj/machinery/suit_storage_unit/SSU = holder
 	switch(wire)
 		if(WIRE_HACK)
@@ -42,6 +44,6 @@
 		if(WIRE_SAFETY)
 			SSU.safeties = mend
 		if(WIRE_ZAP)
-			if(usr)
-				SSU.shock(usr)
+			if(user)
+				SSU.shock(user)
 	ui_update()

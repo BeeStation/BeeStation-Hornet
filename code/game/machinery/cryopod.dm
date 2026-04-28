@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 /obj/machinery/computer/cryopod
 	name = "cryogenic oversight console"
 	desc = "An interface between crew and the cryogenic storage oversight systems."
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "cellconsole_1"
 
 	base_icon_state = null
@@ -43,8 +43,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	GLOB.cryopod_computers -= src
 	..()
 
-/obj/machinery/computer/cryopod/attack_ai()
-	attack_hand()
+/obj/machinery/computer/cryopod/attack_silicon()
+	return attack_hand()
 
 /obj/machinery/computer/cryopod/attack_hand(mob/user = usr)
 	if(machine_stat & (NOPOWER|BROKEN))
@@ -57,13 +57,13 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	dat += "<hr/><br/><b>[storage_name]</b><br/>"
 	dat += "<i>Welcome, [user.real_name].</i><br/><br/><hr/>"
-	dat += "<a href='?src=[REF(src)];log=1'>View storage log</a>.<br>"
+	dat += "<a href='byond://?src=[REF(src)];log=1'>View storage log</a>.<br>"
 	if(allow_items)
-		dat += "<a href='?src=[REF(src)];view=1'>View objects</a>.<br>"
-		dat += "<a href='?src=[REF(src)];item=1'>Recover object</a>.<br>"
-		dat += "<a href='?src=[REF(src)];allitems=1'>Recover all objects</a>.<br>"
+		dat += "<a href='byond://?src=[REF(src)];view=1'>View objects</a>.<br>"
+		dat += "<a href='byond://?src=[REF(src)];item=1'>Recover object</a>.<br>"
+		dat += "<a href='byond://?src=[REF(src)];allitems=1'>Recover all objects</a>.<br>"
 
-	user << browse(dat, "window=cryopod_console")
+	user << browse(HTML_SKELETON(dat), "window=cryopod_console")
 	onclose(user, "cryopod_console")
 
 /obj/machinery/computer/cryopod/Topic(href, href_list)
@@ -81,7 +81,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			dat += "[person]<br/>"
 		dat += "<hr/>"
 
-		user << browse(dat, "window=cryolog")
+		user << browse(HTML_SKELETON(dat), "window=cryolog")
 
 	if(href_list["view"])
 		if(!allow_items) return
@@ -91,16 +91,16 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			dat += "[I.name]<br/>"
 		dat += "<hr/>"
 
-		user << browse(dat, "window=cryoitems")
+		user << browse(HTML_SKELETON(dat), "window=cryoitems")
 
 	else if(href_list["item"])
 		if(!allowed(user))
-			to_chat(user, "<span class='warning'>Access Denied.</span>")
+			to_chat(user, span_warning("Access Denied."))
 			return
 		if(!allow_items) return
 
 		if(frozen_items.len == 0)
-			to_chat(user, "<span class='notice'>There is nothing to recover from storage.</span>")
+			to_chat(user, span_notice("There is nothing to recover from storage."))
 			return
 
 		var/obj/item/I = input(user, "Please choose which object to retrieve.","Object recovery",null) as null|anything in frozen_items
@@ -108,25 +108,25 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			return
 
 		if(!(I in frozen_items))
-			to_chat(user, "<span class='notice'>\The [I] is no longer in storage.</span>")
+			to_chat(user, span_notice("\The [I] is no longer in storage."))
 			return
 
-		visible_message("<span class='notice'>The console beeps happily as it disgorges \the [I].</span>")
+		visible_message(span_notice("The console beeps happily as it disgorges \the [I]."))
 
 		I.forceMove(get_turf(src))
 		frozen_items -= I
 
 	else if(href_list["allitems"])
 		if(!allowed(user))
-			to_chat(user, "<span class='warning'>Access Denied.</span>")
+			to_chat(user, span_warning("Access Denied."))
 			return
 		if(!allow_items) return
 
 		if(frozen_items.len == 0)
-			to_chat(user, "<span class='notice'>There is nothing to recover from storage.</span>")
+			to_chat(user, span_notice("There is nothing to recover from storage."))
 			return
 
-		visible_message("<span class='notice'>The console beeps happily as it disgorges the desired objects.</span>")
+		visible_message(span_notice("The console beeps happily as it disgorges the desired objects."))
 
 		for(var/obj/item/I in frozen_items)
 			I.forceMove(get_turf(src))
@@ -135,7 +135,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	updateUsrDialog()
 	return
 /* Should more cryos be buildable?
-    /obj/item/circuitboard/cryopodcontrol
+	/obj/item/circuitboard/cryopodcontrol
 	name = "Circuit board (Cryogenic Oversight Console)"
 	build_path = "/obj/machinery/computer/cryopod"
 	origin_tech = "programming=1"
@@ -154,8 +154,9 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	var/on_store_name = "Cryogenic Oversight"
 
 	// 5 minutes-ish safe period before being despawned.
-	var/time_till_despawn = 5 * 600 // This is reduced to 30 seconds if a player manually enters cryo
-	var/despawn_world_time = null          // Used to keep track of the safe period.
+	var/time_till_despawn = 5 MINUTES // Players are ghosted immediately if they manually chose to enter cryo
+	var/despawn_world_time = null // Used to keep track of the safe period.
+	var/ghost_offering = FALSE //Sets to true when the occupant is currently being offered to ghosts, to pause despawning them
 
 	var/datum/weakref/control_computer_weakref
 	var/last_no_computer_message = 0
@@ -166,7 +167,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		/obj/item/card/id/captains_spare,
 		/obj/item/aicard,
 		/obj/item/mmi,
-		/obj/item/paicard,
+		/obj/item/pai_card,
 		/obj/item/gun,
 		/obj/item/pinpointer,
 		/obj/item/clothing/shoes/magboots,
@@ -219,48 +220,93 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		..(user)
 		var/mob/living/mob_occupant = occupant
 		if(mob_occupant && mob_occupant.stat != DEAD)
-			to_chat(occupant, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
-		if(mob_occupant.client)//if they're logged in
-			despawn_world_time = world.time + (time_till_despawn * 0.1) // This gives them 30 seconds
+			to_chat(occupant, span_boldnotice("You feel cool air surround you. You go numb as your senses turn inward."))
+		if(mob_occupant.client)
+			despawn_world_time = world.time //If they are logged in and actively chose to cryo themselves, they are immediately offered
 		else
 			despawn_world_time = world.time + time_till_despawn
 	icon_state = "cryopod"
 
 /obj/machinery/cryopod/open_machine()
 	..()
+	ghost_offering = FALSE
 	icon_state = "cryopod-open"
 	set_density(TRUE)
 	name = initial(name)
 
 /obj/machinery/cryopod/container_resist(mob/living/user)
-	visible_message("<span class='notice'>[occupant] emerges from [src]!</span>",
-		"<span class='notice'>You climb out of [src]!</span>")
+	visible_message(span_notice("[occupant] emerges from [src]!"),
+		span_notice("You climb out of [src]!"))
 	open_machine()
 
 /obj/machinery/cryopod/relaymove(mob/user)
 	container_resist(user)
 
 /obj/machinery/cryopod/process()
-	if(!occupant)
+	if(!occupant || ghost_offering)
 		return
 
 	var/mob/living/mob_occupant = occupant
 	if(mob_occupant)
-		// Eject dead people
-		if(mob_occupant.stat == DEAD)
+		// Eject people that are incapacitated
+		if(mob_occupant.stat)
 			open_machine()
 
+		//The grace period isn't up yet
 		if(!(world.time > despawn_world_time))
 			return
 
-		if(!mob_occupant.client && mob_occupant.stat < 2) //Occupant is living and has no client.
-			if(!control_computer_weakref)
-				find_control_computer(urgent = TRUE)//better hope you found it this time
-
+		if (!mob_occupant.mind)
 			despawn_occupant()
+			return
+
+		//Offer special roles to ghosts and pause processing while we do
+		var/highest_leave = ANTAGONIST_LEAVE_DESPAWN
+		for (var/datum/antagonist/antagonist_datum in mob_occupant.mind.antag_datums)
+			highest_leave = max(highest_leave, antagonist_datum.leave_behaviour)
+		// Determine how we should handle our leaving
+		ghost_offering = TRUE
+		switch (highest_leave)
+			if (ANTAGONIST_LEAVE_DESPAWN)
+				INVOKE_ASYNC(src, PROC_REF(leave_game), mob_occupant)
+			if (ANTAGONIST_LEAVE_OFFER)
+				INVOKE_ASYNC(src, PROC_REF(offering_to_ghosts), mob_occupant)
+			if (ANTAGONIST_LEAVE_KEEP)
+				INVOKE_ASYNC(src, PROC_REF(persistent_offer_to_ghosts), mob_occupant)
+
+/obj/machinery/cryopod/proc/persistent_offer_to_ghosts(mob/living/target)
+	if(target.client && tgui_alert(target, "Would you like to leave the game? Your character will be automatically offered to other players.", "Leave Game", list("Yes", "No")) != "Yes")
+		if (target.client)
+			open_machine()
+			return
+	target.ghostize(FALSE)
+	offer_control_persistently(target)
+
+/obj/machinery/cryopod/proc/offering_to_ghosts(mob/living/target)
+	if(target.client && tgui_alert(target, "Would you like to leave the game? Your character will be automatically offered to other players.", "Leave Game", list("Yes", "No")) != "Yes")
+		if (target.client)
+			open_machine()
+			return
+	target.ghostize(FALSE)
+	if(offer_control(target))
+		open_machine()
+	else
+		despawn_occupant()
+
+/obj/machinery/cryopod/proc/leave_game(mob/living/target)
+	if(target.client && tgui_alert(target, "Would you like to leave the game? You will immediately be ghosted.", "Leave Game", list("Yes", "No")) != "Yes")
+		if (target.client)
+			open_machine()
+			return
+	despawn_occupant()
 
 // This function can not be undone; do not call this unless you are sure
 /obj/machinery/cryopod/proc/despawn_occupant()
+	ghost_offering = FALSE
+	//Last chance to find this computer if it exists
+	if(!control_computer_weakref)
+		find_control_computer(urgent = TRUE)
+
 	var/mob/living/mob_occupant = occupant
 
 	if(mob_occupant.mind && mob_occupant.mind.assigned_role)
@@ -268,23 +314,18 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		var/job = mob_occupant.mind.assigned_role
 		SSjob.FreeRole(job)
 
-	// Delete them from datacore.
+	// Delete them from manifest.
 
 	var/announce_rank = null
-	for(var/datum/data/record/R as() in GLOB.data_core.medical)
-		if((R.fields["name"] == mob_occupant.real_name))
+	for(var/datum/record/crew/R as() in GLOB.manifest.general)
+		if((R.name == mob_occupant.real_name))
+			announce_rank = R.rank
 			qdel(R)
-	for(var/datum/data/record/T as() in GLOB.data_core.security)
-		if((T.fields["name"] == mob_occupant.real_name))
-			qdel(T)
-	for(var/datum/data/record/G as() in GLOB.data_core.general)
-		if((G.fields["name"] == mob_occupant.real_name))
-			announce_rank = G.fields["rank"]
-			qdel(G)
+
 
 	for(var/obj/machinery/computer/cloning/cloner in GLOB.machines)
-		for(var/datum/data/record/R as() in cloner.records)
-			if(R.fields["name"] == mob_occupant.real_name)
+		for(var/datum/record/R as() in cloner.records)
+			if(R.name == mob_occupant.real_name)
 				cloner.records.Remove(R)
 
 	//Make an announcement and log the person entering storage.
@@ -300,7 +341,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			minor_announce("[JOB_NAME_CAPTAIN] [mob_occupant.real_name] has entered cryogenic storage.")  // for when the admins do a stupid british gimmick that makes 0 sense cough
 		else
 			announcer.announce("CRYOSTORAGE", mob_occupant.real_name, announce_rank, list())
-		visible_message("<span class='notice'>\The [src] hums and hisses as it moves [mob_occupant.real_name] into storage.</span>")
+		visible_message(span_notice("\The [src] hums and hisses as it moves [mob_occupant.real_name] into storage."))
 
 
 	for(var/obj/item/W in mob_occupant.GetAllContents())
@@ -339,58 +380,51 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	// Ghost and delete the mob.
 	if(!mob_occupant.get_ghost(TRUE))
-		if(world.time < 15 * 600)//before the 15 minute mark
+		if(world.time - SSticker.round_start_time < 15 MINUTES)//before the 15 minute mark
 			mob_occupant.ghostize(FALSE,SENTIENCE_ERASE) // Players despawned too early may not re-enter the game
 		else
 			mob_occupant.ghostize(TRUE,SENTIENCE_ERASE)
 	if(mob_occupant.mind)
 		mob_occupant.mind.cryoed = TRUE
 		SEND_SIGNAL(mob_occupant.mind, COMSIG_MIND_CRYOED)
+
+	// This is stupid, I know
+	var/mob/dead/observer/ghost = mob_occupant.get_ghost(TRUE)
+	if (ghost)
+		ghost.remove_from_current_dead_players()
+		ghost.started_as_observer = TRUE
+		ghost.add_to_current_dead_players()
+
 	QDEL_NULL(occupant)
 	open_machine()
 	name = initial(name)
 
 /obj/machinery/cryopod/MouseDrop_T(mob/living/target, mob/user)
-	if(!istype(target) || user.incapacitated() || !target.Adjacent(user) || !Adjacent(user) || !ismob(target) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
+	if(!istype(target) || user.incapacitated || !target.Adjacent(user) || !Adjacent(user) || !ismob(target) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
 		return
 
 	if(!target.mind)
-		to_chat(user, "<span class='notice'>[target] is not a player controlled mob.</span>")
+		to_chat(user, span_notice("[target] is not a player controlled mob."))
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The cryo pod is already occupied!</span>")
+		to_chat(user, span_boldnotice("The cryo pod is already occupied!"))
 		return
 
 	if(target.stat == DEAD)
-		to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
+		to_chat(user, span_notice("Dead people can not be put into cryo."))
 		return
 
 	if(target.client && user != target)
 		if(iscyborg(target))
-			to_chat(user, "<span class='danger'>You can't put [target] into [src]. They're online.</span>")
+			to_chat(user, span_danger("You can't put [target] into [src]. They're online."))
 		else
-			to_chat(user, "<span class='danger'>You can't put [target] into [src]. They're conscious.</span>")
+			to_chat(user, span_danger("You can't put [target] into [src]. They're conscious."))
 		return
 	else if(target.client)
 		if(alert(target,"Would you like to enter cryosleep?",,"Yes","No") != "Yes")
 			return
 
-	var/generic_plsnoleave_message = " Please adminhelp before leaving the round, even if there are no administrators online!"
-
-	if(target == user && world.time - target.client.cryo_warned > 5 MINUTES)//if we haven't warned them in the last 5 minutes
-		var/caught = FALSE
-		var/datum/antagonist/A = target.mind.has_antag_datum(/datum/antagonist)
-		if(target.mind.assigned_role in GLOB.command_positions)
-			alert("You're a Head of Staff![generic_plsnoleave_message]")
-			caught = TRUE
-		if(A)
-			alert("You're a [A.name]![generic_plsnoleave_message]")
-			caught = TRUE
-		if(caught)
-			target.client.cryo_warned = world.time
-			return
-
-	if(!target || user.incapacitated() || !target.Adjacent(user) || !Adjacent(user) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
+	if(!target || user.incapacitated || !target.Adjacent(user) || !Adjacent(user) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
 		return
 		//rerun the checks in case of shenanigans
 
@@ -400,17 +434,15 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		visible_message("[user] starts putting [target] into the cryo pod.")
 
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
+		to_chat(user, span_boldnotice("\The [src] is in use."))
 		return
 	close_machine(target)
 
-	to_chat(target, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
-	name = "[name] ([occupant.name])"
 	if((world.time - SSticker.round_start_time) < 5 MINUTES)
-		message_admins("<span class='danger'>[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a></span>)")
+		message_admins("[span_danger("[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='BYOND://?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>")])")
 	else
-		message_admins("[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-	log_admin("<span class='notice'>[key_name(target)], the [target.job] entered a stasis pod.</span>")
+		message_admins("[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='BYOND://?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	log_admin(span_notice("[key_name(target)], the [target.job] entered a stasis pod."))
 	add_fingerprint(target)
 
 //Attacks/effects.

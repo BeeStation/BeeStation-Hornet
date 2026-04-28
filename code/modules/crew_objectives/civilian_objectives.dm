@@ -98,7 +98,7 @@
 	. = ..()
 	if(prob(1))
 		hardmode = TRUE
-	var/list/blacklistnormal = list(typesof(/area/space) - - typesof(/area/lavaland) - typesof(/area/mine) - typesof(/area/maintenance) - typesof(/area/ai_monitored/turret_protected) - typesof(/area/tcommsat))
+	var/list/blacklistnormal = list(typesof(/area/misc/space) - - typesof(/area/lavaland) - typesof(/area/mine) - typesof(/area/station/maintenance) - typesof(/area/station/ai_monitored/turret_protected) - typesof(/area/station/tcommsat))
 	var/list/blacklisthard = list(typesof(/area/lavaland) - typesof(/area/mine))
 	var/list/possibleareas = list()
 	if(hardmode)
@@ -159,7 +159,7 @@
 	if(..())
 		return TRUE
 	var/num_mice = 0
-	for(var/mob/living/simple_animal/mouse/M in GLOB.alive_mob_list)
+	for(var/mob/living/basic/mouse/M in GLOB.alive_mob_list)
 		if((M.z in SSmapping.levels_by_trait(ZTRAIT_STATION)))
 			num_mice++
 	return num_mice <= target_amount
@@ -190,7 +190,7 @@
 	if(!owner?.current)
 		return FALSE
 	var/list/uniqueslips = list()
-	for(var/obj/item/modular_computer/tablet/pda/clown/PDA in owner.current.get_contents())
+	for(var/obj/item/modular_computer/tablet/pda/preset/clown/PDA in owner.current.get_contents())
 		for(var/H in PDA.slip_victims)
 			uniqueslips |= H
 	return length(uniqueslips) >= target_amount
@@ -233,7 +233,7 @@
 	jobs = JOB_NAME_MIME
 
 /datum/objective/crew/nothingreallymatterstome/check_completion()
-	return ..() || owner?.current?.check_contents_for(/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing)
+	return ..() || owner?.current?.check_contents_for(/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing)
 
 /datum/objective/crew/nullrod
 	explanation_text = "Don't lose your nullrod. You can still transform it into another item."
@@ -283,7 +283,7 @@
 
 /datum/objective/crew/pwrgame/New()
 	. = ..()
-	var/list/possible_targets = list(/obj/item/clothing/mask/gas, /obj/item/clothing/head/welding, /obj/item/clothing/head/ushanka, /obj/item/clothing/gloves/color/yellow, /obj/item/clothing/mask/gas/owl_mask)
+	var/list/possible_targets = list(/obj/item/clothing/mask/gas, /obj/item/clothing/head/utility/welding, /obj/item/clothing/head/costume/ushanka, /obj/item/clothing/gloves/color/yellow, /obj/item/clothing/mask/gas/owl_mask)
 	if(prob(10))
 		possible_targets += list(/obj/item/clothing/suit/space)
 	clothing_target = pick(possible_targets)
@@ -332,8 +332,8 @@
 	if(!owner?.current)
 		return FALSE
 	for(var/datum/mind/M in SSticker.minds)
-		if(!istype(M.current) || !(M.assigned_role in GLOB.security_positions))
+		if(!istype(M.current) || !(M.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY)))
 			continue
-		if(istype(get_area(M.current), /area/security/prison))
+		if(istype(get_area(M.current), /area/station/security/prison))
 			return FALSE
 	return TRUE

@@ -19,7 +19,7 @@
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/decal/remains/human,
 /obj/effect/trap/nexus/trickyspawner/spookyskeleton,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
@@ -69,7 +69,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/window/reinforced/fulltile/indestructable,
+/obj/structure/window/reinforced/fulltile,
 /turf/open/floor/carpet/grimy,
 /area/template_noop)
 "J" = (

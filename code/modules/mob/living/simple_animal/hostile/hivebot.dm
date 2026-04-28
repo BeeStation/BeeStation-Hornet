@@ -10,16 +10,17 @@
 	icon_living = "basic"
 	icon_dead = "basic"
 	gender = NEUTER
-	mob_biotypes = list(MOB_ROBOTIC)
+	mob_biotypes = MOB_ROBOTIC
 	health = 15
 	maxHealth = 15
 	healable = 0
 	melee_damage = 3
-	attacktext = "claws"
+	attack_verb_continuous = "claws"
+	attack_verb_simple = "claw"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	projectilesound = 'sound/weapons/gunshot.ogg'
 	projectiletype = /obj/projectile/hivebotbullet
-	faction = list("hivebot")
+	faction = list(FACTION_HIVEBOT)
 	check_friendly_fire = 1
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -29,11 +30,8 @@
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 
 	footstep_type = FOOTSTEP_MOB_CLAW
+	death_message = "blows apart!"
 	hardattacks = TRUE
-
-/mob/living/simple_animal/hostile/hivebot/Initialize(mapload)
-	. = ..()
-	deathmessage = "[src] blows apart!"
 
 /mob/living/simple_animal/hostile/hivebot/range
 	name = "hivebot"

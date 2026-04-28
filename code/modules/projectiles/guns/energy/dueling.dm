@@ -24,7 +24,7 @@
 	var/mob/living/A = get_duelist(gun_A)
 	var/mob/living/B = get_duelist(gun_B)
 	if(!A || !B)
-		message_duelists("<span class='warning'>To begin the duel, both participants need to be holding paired dueling pistols.</span>")
+		message_duelists(span_warning("To begin the duel, both participants need to be holding paired dueling pistols."))
 		return
 	begin()
 
@@ -34,7 +34,7 @@
 	fired.Cut()
 	countdown_step = countdown_length
 
-	message_duelists("<span class='notice'>Set your gun setting and move [required_distance] steps away from your opponent.</span>")
+	message_duelists(span_notice("Set your gun setting and move [required_distance] steps away from your opponent."))
 
 	START_PROCESSING(SSobj,src)
 
@@ -56,7 +56,7 @@
 	return G == gun_A ? gun_B : gun_A
 
 /datum/duel/proc/end()
-	message_duelists("<span class='notice'>Duel finished. Re-engaging safety.</span>")
+	message_duelists(span_notice("Duel finished. Re-engaging safety."))
 	STOP_PROCESSING(SSobj,src)
 	state = DUEL_IDLE
 
@@ -83,26 +83,26 @@
 
 
 /datum/duel/proc/back_to_prep()
-	message_duelists("<span class='notice'>Positions invalid. Please move to valid positions [required_distance] steps aways from each other to continue.</span>")
+	message_duelists(span_notice("Positions invalid. Please move to valid positions [required_distance] steps aways from each other to continue."))
 	state = DUEL_PREPARATION
 	confirmations.Cut()
 	countdown_step = countdown_length
 
 /datum/duel/proc/confirm_positioning()
-	message_duelists("<span class='notice'>Position confirmed. Confirm readiness by pulling the trigger once.</span>")
+	message_duelists(span_notice("Position confirmed. Confirm readiness by pulling the trigger once."))
 	state = DUEL_READY
 
 /datum/duel/proc/confirm_ready()
-	message_duelists("<span class='notice'>Readiness confirmed. Starting countdown. Commence firing at zero mark.</span>")
+	message_duelists(span_notice("Readiness confirmed. Starting countdown. Commence firing at zero mark."))
 	state = DUEL_COUNTDOWN
 
 /datum/duel/proc/countdown_step()
 	countdown_step--
 	if(countdown_step == 0)
 		state = DUEL_FIRING
-		message_duelists("<span class='userdanger'>Fire!</span>")
+		message_duelists(span_userdanger("Fire!"))
 	else
-		message_duelists("<span class='userdanger'>[countdown_step]!</span>")
+		message_duelists(span_userdanger("[countdown_step]!"))
 
 /datum/duel/proc/check_fired()
 	if(fired.len == 2)
@@ -123,7 +123,7 @@
 		return FALSE
 	if(get_dist(A,B) != required_distance)
 		return FALSE
-	for(var/turf/T in getline(get_turf(A),get_turf(B)))
+	for(var/turf/T in get_line(get_turf(A),get_turf(B)))
 		if(T.is_blocked_turf(TRUE))
 			return FALSE
 	return TRUE
@@ -132,7 +132,7 @@
 	name = "dueling pistol"
 	desc = "High-tech dueling pistol. Launches chaff and projectile according to preset settings."
 	icon_state = "dueling_pistol"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	ammo_x_offset = 2
 	w_class = WEIGHT_CLASS_SMALL
 	ammo_type = list(/obj/item/ammo_casing/energy/duel)
@@ -166,7 +166,7 @@
 			setting = DUEL_SETTING_C
 		if(DUEL_SETTING_C)
 			setting = DUEL_SETTING_A
-	to_chat(user,"<span class='notice'>You switch [src] setting to [setting] mode.")
+	to_chat(user,span_notice("You switch [src] setting to [setting] mode."))
 	update_icon()
 
 /obj/item/gun/energy/dueling/update_overlays()
@@ -192,7 +192,7 @@
 		if(DUEL_READY)
 			return .
 		else
-			to_chat(user,"<span class='warning'>[src] is locked. Wait for FIRE signal before shooting.</span>")
+			to_chat(user,span_warning("[src] is locked. Wait for FIRE signal before shooting."))
 			return FALSE
 
 /obj/item/gun/energy/dueling/proc/is_duelist(mob/living/L)
@@ -202,17 +202,17 @@
 		return FALSE
 	return TRUE
 
-/obj/item/gun/energy/dueling/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+/obj/item/gun/energy/dueling/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	if(duel.state == DUEL_READY)
 		duel.confirmations[src] = TRUE
-		to_chat(user,"<span class='notice'>You confirm your readiness.</span>")
-		return
+		to_chat(user,span_notice("You confirm your readiness."))
+		return FALSE
 	else if(!is_duelist(target)) //I kinda want to leave this out just to see someone shoot a bystander or missing.
-		to_chat(user,"<span class='warning'>[src] safety system prevents shooting anyone but your designated opponent.</span>")
-		return
+		to_chat(user,span_warning("[src] safety system prevents shooting anyone but your designated opponent."))
+		return FALSE
 	else
 		duel.fired[src] = TRUE
-		. = ..()
+		return ..()
 
 /obj/item/gun/energy/dueling/before_firing(target,user)
 	var/obj/item/ammo_casing/energy/duel/D = chambered
@@ -237,7 +237,7 @@
 //Casing
 
 /obj/item/ammo_casing/energy/duel
-	e_cost = 0
+	e_cost = 0 WATT
 	projectile_type = /obj/projectile/energy/duel
 	var/setting
 
@@ -247,7 +247,7 @@
 	D.setting = setting
 	D.update_icon()
 
-/obj/item/ammo_casing/energy/duel/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, spread_multiplier = 1, atom/fired_from)
+/obj/item/ammo_casing/energy/duel/fire_casing(atom/target, mob/living/user, params, spread, quiet, zone_override, atom/fired_from)
 	. = ..()
 	var/obj/effect/temp_visual/dueling_chaff/C = new(get_turf(user))
 	C.setting = setting
@@ -301,17 +301,16 @@
 	name = "dueling pistol case"
 	desc = "Let's solve this like gentlespacemen."
 	icon_state = "medalbox+l"
-	item_state = "medalbox+l"
+	inhand_icon_state = "medalbox+l"
 	base_icon_state = "medalbox"
 	w_class = WEIGHT_CLASS_LARGE
 	req_access = list(ACCESS_CAPTAIN)
 
-/obj/item/storage/lockbox/dueling/ComponentInitialize()
+/obj/item/storage/lockbox/dueling/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_SMALL
-	STR.max_items = 2
-	STR.can_hold = typecacheof(list(/obj/item/gun/energy/dueling))
+	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
+	atom_storage.max_slots = 2
+	atom_storage.set_holdable(list(/obj/item/gun/energy/dueling))
 
 /obj/item/storage/lockbox/dueling/PopulateContents()
 	. = ..()
@@ -322,3 +321,12 @@
 	gun_B.duel = D
 	D.gun_A = gun_A
 	D.gun_B = gun_B
+
+#undef DUEL_IDLE
+#undef DUEL_PREPARATION
+#undef DUEL_READY
+#undef DUEL_COUNTDOWN
+#undef DUEL_FIRING
+#undef DUEL_SETTING_A
+#undef DUEL_SETTING_B
+#undef DUEL_SETTING_C

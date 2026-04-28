@@ -2,11 +2,6 @@
 "aa" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"ab" = (
-/obj/structure/window/shuttle,
-/obj/structure/grille,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ac" = (
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium,
@@ -100,7 +95,7 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sunnybush,
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /turf/open/floor/grass,
 /area/shuttle/escape)
 "aH" = (
@@ -159,23 +154,23 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat";
 	pixel_y = 9
 	},
@@ -188,7 +183,7 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/fernybush,
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /turf/open/floor/grass,
 /area/shuttle/escape)
 "aJ" = (
@@ -345,7 +340,7 @@
 /obj/item/folder/yellow,
 /obj/item/pen,
 /obj/item/hand_labeler_refill,
-/obj/structure/sign/warning/nosmoking/circle{
+/obj/structure/sign/warning/no_smoking/circle{
 	pixel_x = -32
 	},
 /obj/item/radio/intercom{
@@ -393,17 +388,13 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "bs" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/shuttle/engine/heater,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "bt" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/shuttle/engine/heater,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
@@ -434,9 +425,9 @@
 /area/shuttle/escape)
 "fg" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Holding Area";
-	req_access_txt = "2"
+	name = "Holding Area"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -496,9 +487,9 @@
 /area/shuttle/escape)
 "sC" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Cockpit";
-	req_access_txt = "19"
+	name = "Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -548,9 +539,8 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "Dr" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /obj/structure/grille,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Eg" = (
@@ -595,9 +585,9 @@
 /area/shuttle/escape)
 "Ls" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
+	name = "Emergency Shuttle Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -675,9 +665,9 @@
 /area/shuttle/escape)
 "Rm" = (
 /obj/machinery/door/airlock/command{
-	name = "Emergency Recovery Airlock";
-	req_access_txt = "19"
+	name = "Emergency Recovery Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -763,7 +753,7 @@ aa
 ad
 ak
 al
-ab
+Dr
 az
 aD
 aJ
@@ -771,7 +761,7 @@ aJ
 aJ
 aD
 az
-ab
+Dr
 az
 bd
 bj
@@ -805,7 +795,7 @@ Dr
 ae
 al
 al
-ab
+Dr
 RT
 aF
 aK
@@ -826,7 +816,7 @@ aa
 af
 al
 ar
-ab
+Dr
 RT
 aG
 aL
@@ -834,7 +824,7 @@ aI
 aM
 aG
 eC
-ab
+Dr
 aY
 bg
 bm
@@ -844,9 +834,9 @@ bv
 "}
 (6,1,1) = {"
 ac
-ab
+Dr
 Rm
-ab
+Dr
 aw
 uy
 aH
@@ -857,7 +847,7 @@ aH
 Sv
 aU
 aZ
-ab
+Dr
 aZ
 aZ
 br
@@ -868,7 +858,7 @@ aa
 rd
 Bj
 qB
-ab
+Dr
 RT
 aI
 aM
@@ -876,7 +866,7 @@ aG
 aL
 aI
 eC
-ab
+Dr
 nP
 sO
 mG
@@ -910,7 +900,7 @@ Dr
 Sa
 Bj
 Pn
-ab
+Dr
 RT
 Tg
 Tg
@@ -939,7 +929,7 @@ aF
 aF
 aF
 aS
-ab
+Dr
 HX
 KO
 LO

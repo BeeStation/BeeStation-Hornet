@@ -47,13 +47,13 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	icon_state = "swarmer_console"
 	health = 375
 	maxHealth = 375 //""""low-ish"""" HP because it's a passive boss, and the swarm itself is the real foe
-	mob_biotypes = list(MOB_ROBOTIC)
+	mob_biotypes = MOB_ROBOTIC
 	gps_name = "Hungry Signal"
 	achievement_type = /datum/award/achievement/boss/swarmer_beacon_kill
 	crusher_achievement_type = /datum/award/achievement/boss/swarmer_beacon_crusher
 	score_achievement_type = /datum/award/score/swarmer_beacon_score
-	faction = list("mining", "boss", "swarmer")
-	weather_immunities = list("lava","ash")
+	faction = list(FACTION_MINING, FACTION_BOSS, FACTION_SWARMER)
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	stop_automated_movement = TRUE
 	wander = FALSE
 	layer = BELOW_MOB_LAYER
@@ -75,7 +75,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 		step(R, ddir) //Step the swarmers, instead of spawning them there, incase the turf is solid
 
 
-/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/Life()
+/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
 	if(.)
 		var/createtype = GetUncappedAISwarmerType()
@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 			new createtype(loc)
 
 
-/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = ..()
 	if(. > 0 && world.time > call_help_cooldown)
 		call_help_cooldown = world.time + call_help_cooldown_amt
@@ -98,9 +98,11 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	health = 20
 	maxHealth = 20
 	wander = TRUE
-	faction = list("swarmer", "mining")
-	weather_immunities = list("ash") //wouldn't be fun otherwise
+	faction = list(FACTION_SWARMER, FACTION_MINING)
+	weather_immunities = list(TRAIT_ASHSTORM_IMMUNE)
 	AIStatus = AI_ON
+	ranged_cooldown_time = 20
+	melee_damage = 15
 
 /mob/living/simple_animal/hostile/swarmer/ai/Initialize(mapload)
 	. = ..()
@@ -168,7 +170,11 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	search_objects = 1
 	attack_all_objects = TRUE //attempt to nibble everything
 	lose_patience_timeout = 150
-	var/static/list/sharedWanted = typecacheof(list(/turf/closed/mineral, /turf/closed/wall)) //eat rocks and walls
+	//eat rocks and walls
+	var/static/list/sharedWanted = typecacheof(list(
+		/turf/closed/mineral,
+		/turf/closed/wall,
+	))
 	var/static/list/sharedIgnore = list()
 
 //This handles viable things to eat/attack
@@ -241,7 +247,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 /mob/living/simple_animal/hostile/swarmer/ai/ranged_combat
 	icon_state = "swarmer_ranged"
 	icon_living = "swarmer_ranged"
-	projectiletype = /obj/projectile/beam/laser
+	projectiletype = /obj/projectile/beam/laser/lesslethal
 	projectilesound = 'sound/weapons/laser.ogg'
 	check_friendly_fire = TRUE //you're supposed to protect the resource swarmers, you poop
 	retreat_distance = 3
@@ -271,9 +277,9 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 			StartAction(30)
 			DisperseTarget(target)
 		else
-			var/mob/living/L = target
-			L.attack_animal(src)
-			L.electrocute_act(10, src, flags = SHOCK_NOGLOVES)
+			var/mob/living/mob = target
+			mob.attack_animal(src)
+			mob.adjustStaminaLoss(40) // Why did it use shocking, that's ass
 		return TRUE
 	else
 		return ..()
@@ -287,5 +293,5 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	name = "swarmer catwalk"
 	desc = "A catwalk-like mesh, produced by swarmers to allow them to navigate hostile terrain."
 	icon = 'icons/obj/smooth_structures/catwalks/swarmer_catwalk.dmi'
-	icon_state = "swarmer_catwalk"
+	icon_state = "swarmer_catwalk-0"
 	base_icon_state = "swarmer_catwalk"

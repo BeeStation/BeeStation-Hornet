@@ -5,8 +5,8 @@
 	prevent_roundtype_conversion = FALSE
 	replace_banned = FALSE
 	var/datum/mind/date
-	count_against_dynamic_roll_chance = FALSE
 	banning_key = UNBANNABLE_ANTAGONIST
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/antagonist/valentine/proc/forge_objectives()
 	var/datum/objective/protect/protect_objective = new
@@ -22,7 +22,7 @@
 	forge_objectives()
 	if(isliving(owner.current) && isliving(date.current))
 		var/mob/living/L = owner.current
-		L.apply_status_effect(STATUS_EFFECT_INLOVE, date.current)
+		L.apply_status_effect(/datum/status_effect/in_love, date.current)
 		//Faction assignation
 		L.faction |= "[REF(date.current)]"
 		L.faction |= date.current.faction
@@ -36,11 +36,11 @@
 	. = ..()
 	if(isliving(owner.current))
 		var/mob/living/L = owner.current
-		L.remove_status_effect(STATUS_EFFECT_INLOVE)
+		L.remove_status_effect(/datum/status_effect/in_love)
 		L.faction -= "[REF(date.current)]"
 
 /datum/antagonist/valentine/greet()
-	to_chat(owner, "<span class='big bold clown'>You're on a date with [date.name]! Protect [date.current.p_them()] at all costs. This takes priority over all other loyalties, you may do whatever you can to help and protect them.</span>")
+	to_chat(owner, span_bigboldclown("You're on a date with [date.name]! Protect [date.current.p_them()] at all costs. This takes priority over all other loyalties, you may do whatever you can to help and protect them."))
 
 //Squashed up a bit
 /datum/antagonist/valentine/roundend_report()
@@ -52,9 +52,9 @@
 				break
 
 	if(objectives_complete)
-		return "<span class='greentext big'>[owner.name] protected their date, [date.name]!</span>"
+		return span_greentextbig("[owner.name] protected their date, [date.name]!")
 	else
-		return "<span class='redtext big'>[owner.name] failed to protect their date, [date.name]!</span>"
+		return span_redtextbig("[owner.name] failed to protect their date, [date.name]!")
 
 /datum/antagonist/valentine/apply_innate_effects(mob/living/mob_override)
 	. = ..()

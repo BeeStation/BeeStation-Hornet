@@ -8,6 +8,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_OPEN_FLOOR, SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_LATTICE)
 	canSmoothWith = list(SMOOTH_GROUP_CATWALK)
 	z_flags = Z_BLOCK_OUT_DOWN | Z_BLOCK_IN_UP
+	number_of_rods = 2
 	//Negates the effect of space and openspace.
 	//Shouldn't be placed above anything else.
 	FASTDMM_PROP(\
@@ -15,7 +16,7 @@
 	)
 
 /obj/structure/lattice/catwalk/over
-	layer = CATWALK_LAYER
+	layer = CATWALK_LATTICE
 	plane = GAME_PLANE
 
 /obj/structure/lattice/catwalk/ratvar_act()

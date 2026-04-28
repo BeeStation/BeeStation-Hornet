@@ -41,7 +41,7 @@
 
 /turf/open/chasm/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	if(passed_mode == RCD_FLOORWALL)
-		to_chat(user, "<span class='notice'>You build a floor.</span>")
+		to_chat(user, span_notice("You build a floor."))
 		log_attack("[key_name(user)] has constructed a floor over a chasm at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 		PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 		return TRUE
@@ -59,12 +59,12 @@
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(!L)
 			if(R.use(1))
-				to_chat(user, "<span class='notice'>You construct a lattice.</span>")
+				to_chat(user, span_notice("You construct a lattice."))
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				// Create a lattice, without reverting to our baseturf
 				new /obj/structure/lattice(src)
 			else
-				to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
+				to_chat(user, span_warning("You need one rod to build a lattice."))
 			return
 	if(istype(C, /obj/item/stack/tile/iron))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
@@ -73,18 +73,21 @@
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, "<span class='notice'>You build a floor.</span>")
+				to_chat(user, span_notice("You build a floor."))
 				// Create a floor, which has this chasm underneath it
 				PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 			else
-				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
+				to_chat(user, span_warning("You need one floor tile to build a floor!"))
 		else
-			to_chat(user, "<span class='warning'>The plating is going to need some support! Place iron rods first.</span>")
+			to_chat(user, span_warning("The plating is going to need some support! Place iron rods first."))
 
 /// Lets people walk into chasms.
 /turf/open/chasm/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	return TRUE
+
+/turf/open/chasm/can_cross_safely(atom/movable/crossing)
+	return /*HAS_TRAIT(src, TRAIT_CHASM_STOPPED) || */HAS_TRAIT(crossing, TRAIT_MOVE_FLYING)
 
 // Chasms for Lavaland, with planetary atmos and lava glow
 /turf/open/chasm/lavaland

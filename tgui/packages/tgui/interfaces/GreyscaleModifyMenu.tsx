@@ -1,5 +1,17 @@
 import { useBackend } from '../backend';
-import { Box, Button, ColorBox, Flex, Stack, Icon, Input, LabeledList, Section, Table, Divider } from '../components';
+import {
+  Box,
+  Button,
+  ColorBox,
+  Divider,
+  Flex,
+  Icon,
+  Input,
+  LabeledList,
+  Section,
+  Stack,
+  Table,
+} from '../components';
 import { Window } from '../layouts';
 
 type ColorEntry = {
@@ -54,8 +66,8 @@ const DirectionAbbreviation: Record<Direction, string> = {
   [Direction.NorthWest]: 'NW',
 };
 
-const ConfigDisplay = (props, context) => {
-  const { act, data } = useBackend<GreyscaleMenuData>(context);
+const ConfigDisplay = (props) => {
+  const { act, data } = useBackend<GreyscaleMenuData>();
   return (
     <Section title="Designs">
       <LabeledList>
@@ -63,7 +75,9 @@ const ConfigDisplay = (props, context) => {
           <Button icon="cogs" onClick={() => act('select_config')} />
           <Input
             value={data.greyscale_config}
-            onChange={(_, value) => act('load_config_from_string', { config_string: value })}
+            onChange={(_, value) =>
+              act('load_config_from_string', { config_string: value })
+            }
           />
         </LabeledList.Item>
       </LabeledList>
@@ -71,21 +85,31 @@ const ConfigDisplay = (props, context) => {
   );
 };
 
-const ColorDisplay = (props, context) => {
-  const { act, data } = useBackend<GreyscaleMenuData>(context);
+const ColorDisplay = (props) => {
+  const { act, data } = useBackend<GreyscaleMenuData>();
   const colors = data.colors || [];
   return (
     <Section title="Colors">
       <LabeledList>
         <LabeledList.Item label="Full Color String">
-          <Button icon="dice" onClick={() => act('random_all_colors')} tooltip="Randomizes all color groups." />
+          <Button
+            icon="dice"
+            onClick={() => act('random_all_colors')}
+            tooltip="Randomizes all color groups."
+          />
           <Input
             value={colors.map((item) => item.value).join('')}
-            onChange={(_, value) => act('recolor_from_string', { color_string: value })}
+            onChange={(_, value) =>
+              act('recolor_from_string', { color_string: value })
+            }
           />
         </LabeledList.Item>
         {colors.map((item) => (
-          <LabeledList.Item key={`colorgroup${item.index}${item.value}`} label={`Color Group ${item.index}`} color={item.value}>
+          <LabeledList.Item
+            key={`colorgroup${item.index}${item.value}`}
+            label={`Color Group ${item.index}`}
+            color={item.value}
+          >
             <ColorBox color={item.value} />{' '}
             <Button
               icon="palette"
@@ -100,7 +124,9 @@ const ColorDisplay = (props, context) => {
             <Input
               value={item.value}
               width={7}
-              onChange={(_, value) => act('recolor', { color_index: item.index, new_color: value })}
+              onChange={(_, value) =>
+                act('recolor', { color_index: item.index, new_color: value })
+              }
             />
           </LabeledList.Item>
         ))}
@@ -109,8 +135,8 @@ const ColorDisplay = (props, context) => {
   );
 };
 
-const PreviewCompassSelect = (props, context) => {
-  const { act, data } = useBackend<GreyscaleMenuData>(context);
+const PreviewCompassSelect = (props) => {
+  const { act, data } = useBackend<GreyscaleMenuData>();
   return (
     <Box>
       <Stack vertical>
@@ -138,9 +164,9 @@ const PreviewCompassSelect = (props, context) => {
   );
 };
 
-const SingleDirection = (props, context) => {
+const SingleDirection = (props) => {
   const { dir } = props;
-  const { data, act } = useBackend<GreyscaleMenuData>(context);
+  const { data, act } = useBackend<GreyscaleMenuData>();
   return (
     <Flex.Item grow={1} basis={0}>
       <Button
@@ -157,8 +183,8 @@ const SingleDirection = (props, context) => {
   );
 };
 
-const IconStatesDisplay = (props, context) => {
-  const { data, act } = useBackend<GreyscaleMenuData>(context);
+const IconStatesDisplay = (props) => {
+  const { data, act } = useBackend<GreyscaleMenuData>();
   return (
     <Section title="Icon States">
       <Flex>
@@ -177,8 +203,8 @@ const IconStatesDisplay = (props, context) => {
   );
 };
 
-const PreviewDisplay = (props, context) => {
-  const { data } = useBackend<GreyscaleMenuData>(context);
+const PreviewDisplay = (props) => {
+  const { data } = useBackend<GreyscaleMenuData>();
   return (
     <Section title={`Preview (${data.sprites_dir})`}>
       <Table>
@@ -190,23 +216,22 @@ const PreviewDisplay = (props, context) => {
             <Table.Cell>
               <Box
                 as="img"
-                src={data.sprites.finished}
                 m={0}
-                width="75%"
                 mx="10%"
-                style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+                src={data.sprites.finished}
+                width="75%"
               />
             </Table.Cell>
           ) : (
             <Table.Cell>
-              <Box grow>
-                <Icon name="image" ml="25%" size={5} style={{ '-ms-interpolation-mode': 'nearest-neighbor' }} />
+              <Box>
+                <Icon name="image" ml="25%" size={5} />
               </Box>
             </Table.Cell>
           )}
         </Table.Row>
       </Table>
-      {!!data.generate_full_preview && `Time Spent: ${data.sprites.time_spent}ms`}
+      {!!data.unlocked && `Time Spent: ${data.sprites.time_spent}ms`}
       <Divider />
       {!data.refreshing && (
         <Table>
@@ -227,7 +252,9 @@ const PreviewDisplay = (props, context) => {
             data.sprites.steps !== null &&
             data.sprites.steps.map((item) => (
               <Table.Row key={`${item.result}|${item.layer}`}>
-                <Table.Cell verticalAlign="middle">{item.config_name}</Table.Cell>
+                <Table.Cell verticalAlign="middle">
+                  {item.config_name}
+                </Table.Cell>
                 <Table.Cell>
                   <SingleSprite source={item.layer} />
                 </Table.Cell>
@@ -244,7 +271,17 @@ const PreviewDisplay = (props, context) => {
 
 const SingleSprite = (props) => {
   const { source } = props;
-  return <Box as="img" src={source} width="100%" style={{ '-ms-interpolation-mode': 'nearest-neighbor' }} />;
+  return (
+    <Box
+      as="img"
+      src={source}
+      width="100%"
+      style={{
+        msInterpolationMode: 'nearest-neighbor',
+        imageRendering: 'pixelated',
+      }}
+    />
+  );
 };
 
 const LoadingAnimation = () => {
@@ -255,22 +292,55 @@ const LoadingAnimation = () => {
   );
 };
 
-export const GreyscaleModifyMenu = (props, context) => {
-  const { act, data } = useBackend<GreyscaleMenuData>(context);
+export const GreyscaleModifyMenu = (props) => {
+  const { act, data } = useBackend<GreyscaleMenuData>();
   return (
-    <Window title="Color Configuration" width={325} height={800}>
+    <Window title="Color Configuration" width={325} height={470}>
       <Window.Content scrollable>
         <ConfigDisplay />
         <ColorDisplay />
         <IconStatesDisplay />
-        {!!data.unlocked && <Button content="Refresh Icon File" onClick={() => act('refresh_file')} />}
-        <Button content="Apply" onClick={() => act('apply')} mx={1} />
-        <Button.Checkbox
-          content="Full Preview"
-          disabled={!data.generate_full_preview && !data.unlocked}
-          checked={data.generate_full_preview}
-          onClick={() => act('toggle_full_preview')}
-        />
+        <Flex direction="column">
+          {!!data.unlocked && (
+            <Flex.Item justify="flex-start">
+              <Button
+                content={
+                  <Icon name="file-image-o" spin={data.monitoring_files} />
+                }
+                tooltip="Continuously checks files for changes and reloads when necessary. WARNING: Very expensive"
+                selected={data.monitoring_files}
+                onClick={() => act('toggle_mass_refresh')}
+                width={1.9}
+                mr={-0.2}
+              />
+              <Button
+                content="Refresh Icon File"
+                tooltip="Loads the json configuration and icon file fresh from disk. This is useful to avoid restarting the server to see changes. WARNING: Expensive"
+                onClick={() => act('refresh_file')}
+              />
+              <Button
+                content="Save Icon File"
+                tooltip="Saves the icon to a temp file in tmp/. This is useful if you want to use a generated icon elsewhere or just view a more accurate representation"
+                onClick={() => act('save_dmi')}
+              />
+            </Flex.Item>
+          )}
+          <Flex.Item>
+            <Button
+              content="Apply"
+              tooltip="Applies changes made to the object this menu was created from."
+              color="red"
+              onClick={() => act('apply')}
+            />
+            <Button.Checkbox
+              content="Full Preview"
+              tooltip="Generates and displays the full sprite generation process instead of just the final output."
+              disabled={!data.generate_full_preview && !data.unlocked}
+              checked={data.generate_full_preview}
+              onClick={() => act('toggle_full_preview')}
+            />
+          </Flex.Item>
+        </Flex>
         <PreviewDisplay />
         {!!data.refreshing && <LoadingAnimation />}
       </Window.Content>

@@ -3,13 +3,12 @@
 	desc = "A pipe welded onto a gun stock, with a mechanical trigger. The pipe has an opening near the top, and there seems to be a spring loaded wheel in the hole."
 	icon_state = "empty_blastcannon"
 	var/icon_state_loaded = "loaded_blastcannon"
-	item_state = "blastcannon_empty"
+	inhand_icon_state = "blastcannon_empty"
 	w_class = WEIGHT_CLASS_LARGE
 	force = 10
 	fire_sound = 'sound/weapons/blastcannon.ogg'
 	item_flags = NONE
 	clumsy_check = FALSE
-	randomspread = FALSE
 
 	var/hugbox = TRUE
 	var/max_power = INFINITY
@@ -39,7 +38,7 @@
 	if(bomb)
 		bomb.forceMove(user.loc)
 		user.put_in_hands(bomb)
-		user.visible_message("<span class='warning'>[user] detaches [bomb] from [src].</span>")
+		user.visible_message(span_warning("[user] detaches [bomb] from [src]."))
 		bomb = null
 	update_icon()
 	return ..()
@@ -54,24 +53,25 @@
 		name = initial(name)
 		desc = initial(desc)
 
-/obj/item/gun/blastcannon/attackby(obj/O, mob/user)
-	if(istype(O, /obj/item/transfer_valve))
-		var/obj/item/transfer_valve/T = O
-		if(!T.tank_one || !T.tank_two)
-			to_chat(user, "<span class='warning'>What good would an incomplete bomb do?</span>")
-			return FALSE
-		if(!user.transferItemToLoc(T, src))
-			to_chat(user, "<span class='warning'>[T] seems to be stuck to your hand!</span>")
-			return FALSE
-		user.visible_message("<span class='warning'>[user] attaches [T] to [src]!</span>")
-		bomb = T
-		update_icon()
-		return TRUE
-	return ..()
+/obj/item/gun/blastcannon/attackby(obj/item/transfer_valve/bomb_to_attach, mob/user)
+	if(!istype(bomb_to_attach))
+		return ..()
+
+	if(!bomb_to_attach.ready())
+		to_chat(user, span_warning("What good would an incomplete bomb do?"))
+		return FALSE
+	if(!user.transferItemToLoc(bomb_to_attach, src))
+		to_chat(user, span_warning("[bomb_to_attach] seems to be stuck to your hand!"))
+		return FALSE
+
+	user.visible_message(span_warning("[user] attaches [bomb_to_attach] to [src]!"))
+	bomb = bomb_to_attach
+	update_icon()
+	return TRUE
 
 //returns the third value of a bomb blast
 /obj/item/gun/blastcannon/proc/calculate_bomb()
-	if(!istype(bomb) || !istype(bomb.tank_one) || !istype(bomb.tank_two))
+	if(!istype(bomb) || !bomb.ready())
 		return 0
 	var/datum/gas_mixture/temp = new(max(reaction_volume_mod, 0))
 	bomb.merge_gases(temp)
@@ -83,12 +83,11 @@
 	for(var/i in 1 to reaction_cycles)
 		temp.react(src)
 	var/pressure = temp.return_pressure()
-	qdel(temp)
 	if(pressure < TANK_FRAGMENT_PRESSURE)
 		return 0
 	return ((pressure - TANK_FRAGMENT_PRESSURE) / TANK_FRAGMENT_SCALE)
 
-/obj/item/gun/blastcannon/afterattack(atom/target, mob/user, flag, params)
+/obj/item/gun/blastcannon/pull_trigger(atom/target, mob/living/user, params, aimed)
 	if((!bomb && bombcheck) || (!target) || (get_dist(get_turf(target), get_turf(user)) <= 2))
 		return ..()
 	var/power = bomb? calculate_bomb() : debug_power
@@ -98,7 +97,7 @@
 	var/heavy = power * 0.25
 	var/medium = power * 0.5
 	var/light = power
-	user.visible_message("<span class='danger'>[user] opens [bomb] on [user.p_their()] [name] and fires a blast wave at [target]!</span>","<span class='danger'>You open [bomb] on your [name] and fire a blast wave at [target]!</span>")
+	user.visible_message(span_danger("[user] opens [bomb] on [user.p_their()] [name] and fires a blast wave at [target]!"),span_danger("You open [bomb] on your [name] and fire a blast wave at [target]!"))
 	playsound(user, "explosion", 100, 1)
 	var/turf/starting = get_turf(user)
 	var/turf/targturf = get_turf(target)
@@ -106,7 +105,8 @@
 	log_game("Blast wave fired from [AREACOORD(starting)] at [AREACOORD(targturf)] ([target.name]) by [key_name(user)] with power [heavy]/[medium]/[light].")
 	var/obj/projectile/blastwave/BW = new(loc, heavy, medium, light)
 	BW.hugbox = hugbox
-	BW.preparePixelProjectile(target, get_turf(src), params, 0)
+	var/modifiers = params2list(params)
+	BW.preparePixelProjectile(target, get_turf(src), modifiers, 0)
 	BW.fire()
 
 /obj/projectile/blastwave
@@ -121,6 +121,8 @@
 	var/lightr = 0
 	var/hugbox = TRUE
 	range = 150
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/blastwave)
 
 /obj/projectile/blastwave/Initialize(mapload, _h, _m, _l)
 	heavyr = _h

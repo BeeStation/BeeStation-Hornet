@@ -1,7 +1,8 @@
-import { useBackend, useLocalState } from '../backend';
-import { Section, Stack, Box, Tabs, Button, BlockQuote } from '../components';
-import { Window } from '../layouts';
 import { BooleanLike } from 'common/react';
+
+import { useBackend, useLocalState } from '../backend';
+import { BlockQuote, Box, Button, Section, Stack, Tabs } from '../components';
+import { Window } from '../layouts';
 
 const hereticRed = {
   color: '#e03c3c',
@@ -89,7 +90,8 @@ const FlavorSection = () => {
             <span style={hereticBlue}>shimmer</span>
             &nbsp;around you, as a realization of something&nbsp;
             <span style={hereticRed}>strange</span>
-            &nbsp;in the air unfolds. You look inwards and discover something that will change your life.
+            &nbsp;in the air unfolds. You look inwards and discover something
+            that will change your life.
           </i>
         </Stack.Item>
         <Stack.Item>
@@ -112,48 +114,67 @@ const GuideSection = () => {
           <span style={hereticPurple}>influences</span>
           &nbsp;around the station invisible to the normal eye and&nbsp;
           <b>left click</b> on them to harvest them for&nbsp;
-          <span style={hereticBlue}>knowledge points</span>. Tapping them makes them visible to all after a short time.
+          <span style={hereticBlue}>knowledge points</span>. Tapping them
+          visible to all after a short time.
+          <span style={hereticPurple}>
+            {' '}
+            You can dream to discover influences with a 5 minute delay
+          </span>
         </Stack.Item>
         <Stack.Item>
           - Use your&nbsp;
           <span style={hereticRed}>Living Heart action</span>
           &nbsp;to track down&nbsp;
-          <span style={hereticRed}>sacrifice targets</span>, but be careful: Pulsing it will produce a heartbeat sound that
-          nearby people may hear. This action is tied to your <b>heart</b> - if you lose it, you must complete a ritual to
-          regain it.
+          <span style={hereticRed}>sacrifice targets</span>, but be careful:
+          Pulsing it will produce a heartbeat sound that nearby people may hear.
+          This action is tied to your <b>heart</b> - if you lose it, you must
+          complete a ritual to regain it.
         </Stack.Item>
         <Stack.Item>
           - Draw a&nbsp;
-          <span style={hereticGreen}>transmutation rune</span> by using a drawing tool (a pen or crayon) on the floor while
-          having&nbsp;
+          <span style={hereticGreen}>transmutation rune</span> by using a
+          drawing tool (a pen or crayon) on the floor while having&nbsp;
           <span style={hereticGreen}>Mansus Grasp</span>
-          &nbsp;active in your other hand. This rune allows you to complete rituals and sacrifices.
+          &nbsp;active in your other hand. This rune allows you to complete
+          rituals and sacrifices.
         </Stack.Item>
         <Stack.Item>
-          - Follow your <span style={hereticRed}>Living Heart</span> to find your targets. Bring them back to a&nbsp;
-          <span style={hereticGreen}>transmutation rune</span> to&nbsp;
+          - Follow your <span style={hereticRed}>Living Heart</span> to find
+          your targets. Bring them back to a&nbsp;
+          <span style={hereticGreen}>transmutation rune</span> in critical&nbsp;
+          or worse condition to&nbsp;
           <span style={hereticRed}>sacrifice</span> them for&nbsp;
-          <span style={hereticBlue}>knowledge points</span>. The Mansus <b>ONLY</b> accepts targets pointed to by the&nbsp;
+          <span style={hereticBlue}>knowledge points</span>. The Mansus{' '}
+          <b>ONLY</b> accepts targets pointed to by the&nbsp;
           <span style={hereticRed}>Living Heart</span>.
         </Stack.Item>
         <Stack.Item>
-          - Create an item to use as a&nbsp;<span style={hereticYellow}>focus</span> for your&nbsp;
-          <span style={hereticGreen}>spells</span>. You start with the&nbsp;
-          <span style={hereticYellow}>Amber Focus</span> already researched, but other&nbsp;
-          <span style={hereticBlue}>knowledge</span> may also allow you to&nbsp;
-          <span style={hereticGreen}>transmutate</span> a new&nbsp;<span style={hereticYellow}>focus</span> item.
+          - Make yourself a <span style={hereticYellow}>focus</span> to be&nbsp;
+          able to cast various advanced spells to assist you in acquire&nbsp;
+          harder and harder sacrifices.
         </Stack.Item>
         <Stack.Item>
-          - Accomplish all of your objectives to be able to learn the <span style={hereticYellow}>final ritual</span>. Complete
-          the ritual to become all powerful!
+          - Create an item to use as a&nbsp;
+          <span style={hereticYellow}>focus</span> for your&nbsp;
+          <span style={hereticGreen}>spells</span>. You start with the&nbsp;
+          <span style={hereticYellow}>Amber Focus</span> already researched, but
+          other&nbsp;
+          <span style={hereticBlue}>knowledge</span> may also allow you to&nbsp;
+          <span style={hereticGreen}>transmutate</span> a new&nbsp;
+          <span style={hereticYellow}>focus</span> item.
+        </Stack.Item>
+        <Stack.Item>
+          - Accomplish all of your objectives to be able to learn the{' '}
+          <span style={hereticYellow}>final ritual</span>. Complete the ritual
+          to become all powerful!
         </Stack.Item>
       </Stack>
     </Stack.Item>
   );
 };
 
-const InformationSection = (props, context) => {
-  const { data } = useBackend<Info>(context);
+const InformationSection = (props) => {
+  const { data } = useBackend<Info>();
   const { charges, total_sacrifices, ascended } = data;
   return (
     <Stack.Item>
@@ -173,7 +194,10 @@ const InformationSection = (props, context) => {
         )}
         <Stack.Item>
           You have <b>{charges || 0}</b>&nbsp;
-          <span style={hereticBlue}>knowledge point{charges !== 1 ? 's' : ''}</span>.
+          <span style={hereticBlue}>
+            knowledge point{charges !== 1 ? 's' : ''}
+          </span>
+          .
         </Stack.Item>
         <Stack.Item>
           You have made a total of&nbsp;
@@ -185,13 +209,15 @@ const InformationSection = (props, context) => {
   );
 };
 
-const ObjectivePrintout = (props, context) => {
-  const { data } = useBackend<Info>(context);
+const ObjectivePrintout = (props) => {
+  const { data } = useBackend<Info>();
   const { objectives } = data;
   return (
     <Stack.Item>
       <Stack vertical fill>
-        <Stack.Item bold>In order to ascend, you have these tasks to fulfill:</Stack.Item>
+        <Stack.Item bold>
+          In order to ascend, you have these tasks to fulfill:
+        </Stack.Item>
         <Stack.Item>
           {(!objectives && 'None!') ||
             objectives.map((objective) => (
@@ -205,8 +231,8 @@ const ObjectivePrintout = (props, context) => {
   );
 };
 
-const ResearchedKnowledge = (props, context) => {
-  const { data } = useBackend<KnowledgeInfo>(context);
+const ResearchedKnowledge = (props) => {
+  const { data } = useBackend<KnowledgeInfo>();
   const { learnedKnowledge } = data;
 
   return (
@@ -230,8 +256,8 @@ const ResearchedKnowledge = (props, context) => {
   );
 };
 
-const KnowledgeShop = (props, context) => {
-  const { data, act } = useBackend<KnowledgeInfo>(context);
+const KnowledgeShop = (props) => {
+  const { data, act } = useBackend<KnowledgeInfo>();
   const { learnableKnowledge } = data;
 
   return (
@@ -265,8 +291,8 @@ const KnowledgeShop = (props, context) => {
   );
 };
 
-const ResearchInfo = (props, context) => {
-  const { data } = useBackend<Info>(context);
+const ResearchInfo = (props) => {
+  const { data } = useBackend<Info>();
   const { charges } = data;
 
   return (
@@ -275,7 +301,10 @@ const ResearchInfo = (props, context) => {
         <Stack vertical height="100%">
           <Stack.Item fontSize="20px" textAlign="center">
             You have <b>{charges || 0}</b>&nbsp;
-            <span style={hereticBlue}>knowledge point{charges !== 1 ? 's' : ''}</span> to spend.
+            <span style={hereticBlue}>
+              knowledge point{charges !== 1 ? 's' : ''}
+            </span>{' '}
+            to spend.
           </Stack.Item>
           <Stack.Item grow>
             <Stack height="100%">
@@ -289,35 +318,44 @@ const ResearchInfo = (props, context) => {
   );
 };
 
-export const AntagInfoHeretic = (props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoHeretic = (props) => {
+  const { data } = useBackend<Info>();
   const { ascended } = data;
 
-  const [currentTab, setTab] = useLocalState(context, 'currentTab', 0);
+  const [currentTab, setTab] = useLocalState('currentTab', 0);
 
   return (
-    <Window width={675} height={600}>
+    <Window width={675} height={625} theme="neutral">
       <Window.Content
         style={{
-          // 'font-family': 'Times New Roman',
-          // 'fontSize': '20px',
-          'background-image': 'none',
-          'background': ascended
+          backgroundImage: 'none',
+          background: ascended
             ? 'radial-gradient(circle, rgba(24,9,9,1) 54%, rgba(31,10,10,1) 60%, rgba(46,11,11,1) 80%, rgba(47,14,14,1) 100%);'
             : 'radial-gradient(circle, rgba(9,9,24,1) 54%, rgba(10,10,31,1) 60%, rgba(21,11,46,1) 80%, rgba(24,14,47,1) 100%);',
-        }}>
+        }}
+      >
         <Stack vertical fill>
           <Stack.Item>
             <Tabs fluid>
-              <Tabs.Tab icon="info" selected={currentTab === 0} onClick={() => setTab(0)}>
+              <Tabs.Tab
+                icon="info"
+                selected={currentTab === 0}
+                onClick={() => setTab(0)}
+              >
                 Information
               </Tabs.Tab>
-              <Tabs.Tab icon={currentTab === 1 ? 'book-open' : 'book'} selected={currentTab === 1} onClick={() => setTab(1)}>
+              <Tabs.Tab
+                icon={currentTab === 1 ? 'book-open' : 'book'}
+                selected={currentTab === 1}
+                onClick={() => setTab(1)}
+              >
                 Research
               </Tabs.Tab>
             </Tabs>
           </Stack.Item>
-          <Stack.Item grow>{(currentTab === 0 && <IntroductionSection />) || <ResearchInfo />}</Stack.Item>
+          <Stack.Item grow>
+            {(currentTab === 0 && <IntroductionSection />) || <ResearchInfo />}
+          </Stack.Item>
         </Stack>
       </Window.Content>
     </Window>

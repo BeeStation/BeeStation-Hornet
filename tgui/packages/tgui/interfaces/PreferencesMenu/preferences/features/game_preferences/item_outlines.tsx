@@ -1,4 +1,9 @@
-import { CheckboxInput, FeatureToggle, FeatureColorInput, Feature } from '../base';
+import {
+  CheckboxInput,
+  Feature,
+  FeatureColorInput,
+  FeatureToggle,
+} from '../base';
 
 export const itemoutline_pref: FeatureToggle = {
   name: 'Item outlines',
@@ -14,4 +19,5 @@ export const outline_color: Feature<string> = {
   subcategory: 'HUD',
   description: 'The color of that hovered items will outline with.',
   component: FeatureColorInput,
+  important: true,
 };

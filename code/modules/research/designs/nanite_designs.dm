@@ -265,13 +265,6 @@
 	program_type = /datum/nanite_program/conductive
 	category = list("Augmentation Nanites")
 
-/datum/design/nanites/mindshield
-	name = "Mental Barrier"
-	desc = "The nanites form a protective membrane around the host's brain, shielding them from abnormal influences while they're active."
-	id = "mindshield_nanites"
-	program_type = /datum/nanite_program/mindshield
-	category = list("Augmentation Nanites")
-
 /datum/design/nanites/adrenaline
 	name = "Adrenaline Burst"
 	desc = "The nanites cause a burst of adrenaline when triggered, waking the host from stuns and temporarily increasing their speed."
@@ -621,13 +614,6 @@
 	program_type = /datum/nanite_program/protocol/offline
 	category = list("Protocols_Nanites")
 
-/datum/design/nanites/hive
-	name = "Hive Protocol"
-	desc = "Storage Protocol: the nanites use a more efficient grid arrangment for volume storage, increasing maximum volume in a host."
-	id = "hive_nanites"
-	program_type = /datum/nanite_program/protocol/hive
-	category = list("Protocols_Nanites")
-
 /datum/design/nanites/zip
 	name = "Zip Protocol"
 	desc = "Storage Protocol: the nanites are disassembled and compacted when unused, greatly increasing the maximum volume while in a host. However, the process slows down the replication rate slightly."
@@ -649,3 +635,11 @@
 	id = "unsafe_storage_nanites"
 	program_type = /datum/nanite_program/protocol/unsafe_storage
 	category = list("Protocols_Nanites")
+
+////////////////////NANITE CLASSIFIED//////////////////////////////////////
+/datum/design/nanites/mindshield
+	name = "Mental Barrier"
+	desc = "The nanites form a protective membrane around the host's brain, shielding them from abnormal influences while they're active."
+	id = "mindshield_nanites"
+	program_type = /datum/nanite_program/mindshield
+	category = list("Classified_Nanites")

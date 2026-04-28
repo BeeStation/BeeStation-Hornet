@@ -13,7 +13,6 @@
 	anchored = FALSE
 	health = 25
 	maxHealth = 25
-	spacewalk = TRUE
 
 	radio_key = /obj/item/encryptionkey/headset_eng
 	radio_channel = RADIO_CHANNEL_ENGINEERING
@@ -33,7 +32,7 @@
 
 	var/speech_cooldown = 0
 	var/detected_cooldown = 0
-	var/foam_cooldown = 0
+	COOLDOWN_DECLARE(foam_cooldown)
 
 	var/extinguish_people = TRUE
 	var/extinguish_fires = TRUE
@@ -41,6 +40,7 @@
 
 /mob/living/simple_animal/bot/firebot/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	update_icon()
 
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
@@ -48,6 +48,8 @@
 	prev_access = access_card.access.Copy()
 
 	create_extinguisher()
+
+	AddElement(/datum/element/atmos_sensitive)
 
 /mob/living/simple_animal/bot/firebot/bot_reset()
 	create_extinguisher()
@@ -59,8 +61,10 @@
 	internal_ext.max_water = INFINITY
 	internal_ext.refill()
 
-/mob/living/simple_animal/bot/firebot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/firebot/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(!on)
+		return
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(internal_ext)
 		internal_ext.afterattack(A, src)
@@ -103,29 +107,20 @@
 	text_dehack = "You detect errors in [name] and reset his programming."
 	text_dehack_fail = "[name] is not responding to reset commands!"
 
-/mob/living/simple_animal/bot/firebot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<TT><B>Mobile Fire Extinguisher v1.0</B></TT><BR><BR>"
-	dat += "Status: <A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A><BR>"
-	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
-
-	dat += "Behaviour controls are [locked ? "locked" : "unlocked"]<BR>"
+/mob/living/simple_animal/bot/firebot/ui_data(mob/user)
+	var/list/data = ..()
 	if(!locked || issilicon(user) || IsAdminGhost(user))
-		dat += "Extinguish Fires: <A href='?src=[REF(src)];operation=extinguish_fires'>[extinguish_fires ? "Yes" : "No"]</A><BR>"
-		dat += "Extinguish People: <A href='?src=[REF(src)];operation=extinguish_people'>[extinguish_people ? "Yes" : "No"]</A><BR>"
-		dat += "Patrol Station: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
-		dat += "Stationary Mode: <a href='?src=[REF(src)];operation=stationary_mode'>[stationary_mode ? "Yes" : "No"]</a><br>"
-
-	return dat
+		data["custom_controls"]["extinguish_fires"] = extinguish_fires
+		data["custom_controls"]["extinguish_people"] = extinguish_people
+		data["custom_controls"]["stationary_mode"] = stationary_mode
+	return data
 
 /mob/living/simple_animal/bot/firebot/on_emag(atom/target, mob/user)
 	..()
 	if(emagged == 2)
 		if(user)
-			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
-		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
+			to_chat(user, span_danger("[src] buzzes and beeps."))
+		audible_message(span_danger("[src] buzzes oddly!"))
 		playsound(src, "sparks", 75, TRUE)
 		if(user)
 			old_target_fire = user
@@ -140,19 +135,16 @@
 		internal_ext.max_water = INFINITY
 		internal_ext.refill()
 
-/mob/living/simple_animal/bot/firebot/Topic(href, href_list)
+/mob/living/simple_animal/bot/firebot/ui_act(action, params)
 	if(..())
 		return TRUE
-
-	switch(href_list["operation"])
+	switch(action)
 		if("extinguish_fires")
 			extinguish_fires = !extinguish_fires
 		if("extinguish_people")
 			extinguish_people = !extinguish_people
 		if("stationary_mode")
 			stationary_mode = !stationary_mode
-
-	update_controls()
 	update_icon()
 
 /mob/living/simple_animal/bot/firebot/proc/is_burning(atom/target)
@@ -197,12 +189,14 @@
 		target_fire = null
 		var/scan_range = (stationary_mode ? 1 : DEFAULT_SCAN_RANGE)
 
+		var/list/things_to_extinguish = list()
 		if(extinguish_people)
-			target_fire = scan(/mob/living, old_target_fire, scan_range) // Scan for burning humans first
+			things_to_extinguish += list(/mob/living)
 
 		if(target_fire == null && extinguish_fires)
-			target_fire = scan(/turf/open, old_target_fire, scan_range) // Scan for burning turfs second
+			things_to_extinguish += list(/turf/open)
 
+		target_fire = scan(things_to_extinguish, old_target_fire, scan_range) // Scan for burning turfs second
 		old_target_fire = target_fire
 
 	// Target reached ENGAGE WATER CANNON
@@ -233,7 +227,7 @@
 
 	if(target_fire && (get_dist(src, target_fire) > 2))
 
-		path = get_path_to(src, target_fire, 30, 1, id=access_card)
+		path = get_path_to(src, target_fire, max_distance=30, mintargetdist=1, access=access_card.GetAccess())
 		mode = BOT_MOVING
 		if(!path.len)
 			soft_reset()
@@ -272,11 +266,13 @@
 
 	return result
 
-/mob/living/simple_animal/bot/firebot/temperature_expose(datum/gas_mixture/air, temperature, volume)
-	if((temperature > T0C + 200 || temperature < BODYTEMP_COLD_DAMAGE_LIMIT) && foam_cooldown + FOAM_INTERVAL < world.time)
+/mob/living/simple_animal/bot/firebot/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return (exposed_temperature > T0C + 200 || exposed_temperature < BODYTEMP_COLD_DAMAGE_LIMIT)
+
+/mob/living/simple_animal/bot/firebot/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	if(COOLDOWN_FINISHED(src, foam_cooldown))
 		new /obj/effect/particle_effect/foam/firefighting(loc)
-		foam_cooldown = world.time
-	..()
+		COOLDOWN_START(src, foam_cooldown, FOAM_INTERVAL)
 
 /mob/living/simple_animal/bot/firebot/proc/spray_water(atom/target, mob/user)
 	if(stationary_mode)
@@ -299,12 +295,12 @@
 
 /mob/living/simple_animal/bot/firebot/explode()
 	on = FALSE
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	visible_message(span_boldannounce("[src] blows apart!"))
 
 	var/atom/Tsec = drop_location()
 
 	new /obj/item/assembly/prox_sensor(Tsec)
-	new /obj/item/clothing/head/hardhat/red(Tsec)
+	new /obj/item/clothing/head/utility/hardhat/red(Tsec)
 
 	var/turf/T = get_turf(Tsec)
 

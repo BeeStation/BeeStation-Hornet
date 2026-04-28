@@ -2,7 +2,6 @@
 	name = "shuttle component"
 	desc = "Something for shuttles."
 	density = TRUE
-	obj_integrity = 250
 	max_integrity = 250
 	icon = 'icons/turf/shuttle.dmi'
 	icon_state = "burst_plasma"

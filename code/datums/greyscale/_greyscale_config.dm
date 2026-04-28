@@ -189,9 +189,9 @@
 
 /// Reads layer configurations to take out some useful overall information
 /datum/greyscale_config/proc/ReadMetadata()
-	var/icon/source = icon(icon_file)
-	height = source.Height()
-	width = source.Width()
+	var/list/icon_dimensions = get_icon_dimensions(icon_file)
+	height = icon_dimensions["width"]
+	width = icon_dimensions["height"]
 
 	var/list/datum/greyscale_layer/all_layers = list()
 	for(var/state in icon_states)
@@ -281,8 +281,9 @@
 	for(var/datum/greyscale_layer/layer as anything in group)
 		var/icon/layer_icon
 		if(islist(layer))
+			var/list/layer_list = layer
 			layer_icon = GenerateLayerGroup(colors, layer, render_steps, new_icon || last_external_icon)
-			layer = layer[1] // When there are multiple layers in a group like this we use the first one's blend mode
+			layer = layer_list[1] // When there are multiple layers in a group like this we use the first one's blend mode
 		else
 			layer_icon = layer.Generate(colors, render_steps, new_icon || last_external_icon)
 
@@ -308,11 +309,15 @@
 	output["icon"] = GenerateBundle(colors, debug_steps)
 	return output
 
-/datum/greyscale_config/proc/Generate_entry(color_string, target_bundle_state, datum/universal_icon/last_external_icon)
-	return GenerateBundle_entry(color_string, target_bundle_state, last_external_icon=last_external_icon)
+// ===============
+// Universal Icons
+// ===============
+
+/datum/greyscale_config/proc/GenerateUniversalIcon(color_string, target_bundle_state, datum/universal_icon/last_external_icon)
+	return GenerateBundleUniversalIcon(color_string, target_bundle_state, last_external_icon=last_external_icon)
 
 /// Handles the actual icon manipulation to create the spritesheet
-/datum/greyscale_config/proc/GenerateBundle_entry(list/colors, target_bundle_state, datum/universal_icon/last_external_icon)
+/datum/greyscale_config/proc/GenerateBundleUniversalIcon(list/colors, target_bundle_state, datum/universal_icon/last_external_icon)
 	if(!istype(colors))
 		colors = SSgreyscale.ParseColorString(colors)
 	if(length(colors) != expected_colors)
@@ -321,25 +326,27 @@
 	if(!(target_bundle_state in icon_states))
 		CRASH("Invalid target bundle icon_state \"[target_bundle_state]\"! Valid icon_states: [icon_states.Join(", ")]")
 
-	var/datum/universal_icon/icon_bundle = GenerateLayerGroup_entry(colors, icon_states[target_bundle_state], last_external_icon) || uni_icon('icons/effects/effects.dmi', "nothing")
+	var/datum/universal_icon/icon_bundle = GenerateLayerGroupUniversalIcon(colors, icon_states[target_bundle_state], last_external_icon) || uni_icon('icons/effects/effects.dmi', "nothing")
 	icon_bundle.scale(width, height)
 	return icon_bundle
 
 /// Internal recursive proc to handle nested layer groups
-/datum/greyscale_config/proc/GenerateLayerGroup_entry(list/colors, list/group, datum/universal_icon/last_external_icon)
+/datum/greyscale_config/proc/GenerateLayerGroupUniversalIcon(list/colors, list/group, datum/universal_icon/last_external_icon)
 	var/datum/universal_icon/new_icon
 	for(var/datum/greyscale_layer/layer as anything in group)
 		var/datum/universal_icon/layer_icon
 		if(islist(layer))
-			layer_icon = GenerateLayerGroup_entry(colors, layer, new_icon || last_external_icon)
-			layer = layer[1] // When there are multiple layers in a group like this we use the first one's blend mode
+			layer_icon = GenerateLayerGroupUniversalIcon(colors, layer, new_icon || last_external_icon)
+			var/list/layer_list = layer
+			layer = layer_list[1] // When there are multiple layers in a group like this we use the first one's blend mode
 		else
-			layer_icon = layer.Generate_entry(colors, new_icon || last_external_icon)
+			layer_icon = layer.GenerateUniversalIcon(colors, new_icon || last_external_icon)
 
 		if(!new_icon)
 			new_icon = layer_icon
 		else
 			new_icon.blend_icon(layer_icon, layer.blend_mode)
 	return new_icon
+
 
 #undef MAX_SANE_LAYERS

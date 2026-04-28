@@ -10,7 +10,7 @@
 
 	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(z_check))
 	RegisterSignal(parent, COMSIG_MOVABLE_SECLUDED_LOCATION, PROC_REF(relocate))
-	RegisterSignal(parent, COMSIG_PARENT_PREQDELETED, PROC_REF(check_deletion))
+	RegisterSignal(parent, COMSIG_PREQDELETED, PROC_REF(check_deletion))
 	RegisterSignal(parent, COMSIG_ITEM_IMBUE_SOUL, PROC_REF(check_soul_imbue))
 	RegisterSignal(parent, COMSIG_ITEM_MARK_RETRIEVAL, PROC_REF(check_mark_retrieval))
 	src.inform_admins = inform_admins
@@ -37,7 +37,7 @@
 
 	var/atom/movable/AM = parent
 	AM.forceMove(targetturf)
-	to_chat(get(parent, /mob), "<span class='danger'>You can't help but feel that you just lost something back there...</span>")
+	to_chat(get(parent, /mob), span_danger("You can't help but feel that you just lost something back there..."))
 	// move the disc, so ghosts remain orbiting it even if it's "destroyed"
 	return targetturf
 
@@ -55,19 +55,29 @@
 		if(inform_admins)
 			message_admins("[parent] has been moved out of bounds in [ADMIN_VERBOSEJMP(currentturf)]. Moving it to [ADMIN_VERBOSEJMP(targetturf)].")
 
-/datum/component/stationloving/proc/check_soul_imbue()
+/datum/component/stationloving/proc/check_soul_imbue(datum/source)
 	SIGNAL_HANDLER
 
 	return disallow_soul_imbue
 
-/datum/component/stationloving/proc/check_mark_retrieval()
+/datum/component/stationloving/proc/check_mark_retrieval(datum/source)
 	SIGNAL_HANDLER
 
 	return COMPONENT_BLOCK_MARK_RETRIEVAL
 
 /datum/component/stationloving/proc/in_bounds(is_retrying = FALSE)
-	var/static/list/allowed_shuttles = typecacheof(list(/area/shuttle/syndicate, /area/shuttle/escape, /area/shuttle/pod_1, /area/shuttle/pod_2, /area/shuttle/pod_3, /area/shuttle/pod_4))
-	var/static/list/disallowed_centcom_areas = typecacheof(list(/area/abductor_ship, /area/awaymission/errorroom))
+	var/static/list/allowed_shuttles = typecacheof(list(
+		/area/shuttle/syndicate,
+		/area/shuttle/escape,
+		/area/shuttle/pod_1,
+		/area/shuttle/pod_2,
+		/area/shuttle/pod_3,
+		/area/shuttle/pod_4,
+	))
+	var/static/list/disallowed_centcom_areas = typecacheof(list(
+		/area/centcom/abductor_ship,
+		/area/awaymission/errorroom,
+	))
 	var/turf/T = get_turf(parent)
 	if(!T)
 		return FALSE

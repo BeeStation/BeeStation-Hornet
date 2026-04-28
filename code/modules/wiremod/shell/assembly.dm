@@ -8,11 +8,9 @@
 	name = "modular assembly"
 	desc = "a modified remote signalling device with its wiring removed and adapted for integrated circuitry."
 	icon_state = "wiremod"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-
-	securable = FALSE //This item should only ever be used as an assembly and the shell datum uses screwdriver_act, might as well make it permanently unsecured
 
 	light_system = MOVABLE_LIGHT
 	light_range = 6

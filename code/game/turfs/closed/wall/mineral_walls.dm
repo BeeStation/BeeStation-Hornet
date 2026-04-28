@@ -1,4 +1,5 @@
 /turf/closed/wall/mineral
+	abstract_type = /turf/closed/wall/mineral
 	name = "mineral wall"
 	desc = "This shouldn't exist"
 	icon_state = "wall-0"
@@ -35,7 +36,6 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_SILVER_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_SILVER_WALLS)
-	custom_materials = list(/datum/material/silver = 4000)
 	max_integrity = 600
 
 /turf/closed/wall/mineral/copper
@@ -105,30 +105,35 @@
 	canSmoothWith = list(SMOOTH_GROUP_URANIUM_WALLS)
 	max_integrity = 500
 
+	COOLDOWN_DECLARE(radiate_cooldown)
 
 /turf/closed/wall/mineral/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event+15)
-			active = 1
-			radiation_pulse(src, 40)
-			for(var/turf/closed/wall/mineral/uranium/T in (RANGE_TURFS(1,src)-src))
-				T.radiate()
-			last_event = world.time
-			active = null
-			return
-	return
+	if(!COOLDOWN_FINISHED(src, radiate_cooldown))
+		return
 
-/turf/closed/wall/mineral/uranium/attack_hand(mob/user)
-	radiate()
-	. = ..()
+	COOLDOWN_START(src, radiate_cooldown, 1.5 SECONDS)
+	radiation_pulse(
+		src,
+		max_range = 2,
+		threshold = RAD_LIGHT_INSULATION,
+		intensity = URANIUM_IRRADIATION_INTENSITY,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
+	)
 
-/turf/closed/wall/mineral/uranium/attackby(obj/item/W, mob/user, params)
+	for(var/turf/closed/wall/mineral/uranium/uranium_wall in (RANGE_TURFS(1, src) - src))
+		uranium_wall.radiate()
+
+/turf/closed/wall/mineral/uranium/attack_hand(mob/user, list/modifiers)
 	radiate()
-	..()
+	return ..()
+
+/turf/closed/wall/mineral/uranium/attackby(obj/item/attacking_item, mob/user, params)
+	radiate()
+	return ..()
 
 /turf/closed/wall/mineral/uranium/Bumped(atom/movable/AM)
 	radiate()
-	..()
+	return ..()
 
 /turf/closed/wall/mineral/plasma
 	name = "plasma wall"
@@ -142,16 +147,17 @@
 	canSmoothWith = list(SMOOTH_GROUP_PLASMA_WALLS)
 	max_integrity = 400
 
-/turf/closed/wall/mineral/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
-		if(plasma_ignition(6))
-			new /obj/structure/girder/displaced(loc)
-	..()
+/turf/closed/wall/mineral/plasma/attackby(obj/item/attacking_item, mob/user, params)
+	if(attacking_item.get_temperature() > 300 && plasma_ignition(6))//If the temperature of the object is over 300, then ignite
+		new /obj/structure/girder/displaced(loc)
+	return ..()
 
-/turf/closed/wall/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
-	if(exposed_temperature > 300)
-		if(plasma_ignition(6))
-			new /obj/structure/girder/displaced(loc)
+/turf/closed/wall/mineral/plasma/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 300
+
+/turf/closed/wall/mineral/plasma/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	if(plasma_ignition(6))
+		new /obj/structure/girder/displaced(loc)
 
 /turf/closed/wall/mineral/plasma/bullet_act(obj/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)
@@ -171,12 +177,11 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WOOD_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WOOD_WALLS)
-	custom_materials = list(/datum/material/wood = 4000)
 	max_integrity = 200
 	damage_deflection = 0
 
 /turf/closed/wall/mineral/wood/attackby(obj/item/W, mob/user)
-	if(W.is_sharp() && W.force)
+	if(W.get_sharpness() && W.force)
 		var/duration = (48/W.force) * 2 //In seconds, for now.
 		if(istype(W, /obj/item/hatchet) || istype(W, /obj/item/fireaxe))
 			duration /= 4 //Much better with hatchets and axes.
@@ -354,10 +359,26 @@
 	icon_state = "map-overspace"
 	fixed_underlay = list("space"=1)
 
+/////////////////////Lavaland Base Syndicate Explosive Walls /////////////////////
+
+/turf/closed/wall/mineral/plastitanium/explosive
+	///Ensures the payload can only go off once, because of shenanigans where it didn't
+	var/payload_active = TRUE
+
+/turf/closed/wall/mineral/plastitanium/explosive/proc/try_detonate()
+	if(payload_active)
+		payload_active = FALSE
+		var/devastation_range = 12
+		var/heavy_impact_range = 16
+		var/light_impact_range = 20
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), src, devastation_range, heavy_impact_range, light_impact_range), 1 SECONDS)
+
 /turf/closed/wall/mineral/plastitanium/explosive/ex_act(severity)
-	var/obj/item/bombcore/large/bombcore = new(get_turf(src))
-	bombcore.installed = TRUE
-	bombcore.detonate()
+	try_detonate()
+	..()
+
+/turf/closed/wall/mineral/plastitanium/explosive/dismantle_wall()
+	try_detonate()
 	..()
 
 //have to copypaste this code

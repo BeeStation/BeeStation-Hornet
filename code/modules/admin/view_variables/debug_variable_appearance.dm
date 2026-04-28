@@ -8,6 +8,8 @@
 #define ADD_UNUSED_VAR(varlist, thing, varname) if(NAMEOF(##thing, ##varname)) ##varlist += #varname
 #define RESULT_VARIABLE_NOT_FOUND "_switch_result_variable_not_found"
 
+CREATION_TEST_IGNORE_SELF(/image/appearance)
+
 /// An alias datum that allows us to access and view the variables of an appearance by keeping certain known, yet undocumented, variables that we can access and read in a datum for debugging purposes.
 /// Kindly do not use this outside of a debugging context.
 /image/appearance
@@ -40,9 +42,9 @@
 
 	// we have no reason to show these, right?
 	ADD_UNUSED_VAR(unused_var_names, nameof_reference, active_timers)
-	ADD_UNUSED_VAR(unused_var_names, nameof_reference, comp_lookup)
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, _listen_lookup)
 	ADD_UNUSED_VAR(unused_var_names, nameof_reference, datum_components)
-	ADD_UNUSED_VAR(unused_var_names, nameof_reference, signal_procs)
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, _signal_procs)
 	ADD_UNUSED_VAR(unused_var_names, nameof_reference, status_traits)
 	ADD_UNUSED_VAR(unused_var_names, nameof_reference, gc_destroyed)
 	ADD_UNUSED_VAR(unused_var_names, nameof_reference, stat_tabs)

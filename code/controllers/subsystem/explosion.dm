@@ -1,9 +1,11 @@
 #define EXPLOSION_THROW_SPEED 4
+/// Max amount of explosions that we accept in a row from the same turf
+#define SMALL_EXPLOSION_TICK_LIMIT 20
+
 GLOBAL_LIST_EMPTY(explosions)
 
 SUBSYSTEM_DEF(explosions)
 	name = "Explosions"
-	init_order = INIT_ORDER_EXPLOSIONS
 	priority = FIRE_PRIORITY_EXPLOSIONS
 	wait = 1
 	flags = SS_TICKER|SS_NO_INIT
@@ -31,10 +33,14 @@ SUBSYSTEM_DEF(explosions)
 	var/list/med_mov_atom = list()
 	var/list/high_mov_atom = list()
 
-	var/list/explosions = list()
+	// Track how many explosions have happened.
+	var/explosion_index = 0
 
-	var/currentpart = SSAIR_REBUILD_PIPENETS
+	var/currentpart = SSEXPLOSIONS_TURFS
 
+	var/explosion_count = 0
+	var/queued_index = 1
+	var/list/queued = list()
 
 /datum/controller/subsystem/explosions/stat_entry(msg)
 	msg += "C:{"
@@ -66,10 +72,6 @@ SUBSYSTEM_DEF(explosions)
 	msg += "} "
 	return ..()
 
-
-#define SSEX_TURF "turf"
-#define SSEX_OBJ "obj"
-
 /datum/controller/subsystem/explosions/proc/is_exploding()
 	return (lowturf.len || medturf.len || highturf.len || flameturf.len || throwturf.len || low_mov_atom.len || med_mov_atom.len || high_mov_atom.len)
 
@@ -84,7 +86,7 @@ SUBSYSTEM_DEF(explosions)
 	set name = "Check Bomb Impact"
 	set category = "Debug"
 
-	var/newmode = alert("Use reactionary explosions?","Check Bomb Impact", "Yes", "No")
+	var/newmode = tgui_alert(usr, "Use reactionary explosions?","Check Bomb Impact", list("Yes", "No"))
 	var/turf/epicenter = get_turf(mob)
 	if(!epicenter)
 		return
@@ -92,8 +94,7 @@ SUBSYSTEM_DEF(explosions)
 	var/dev = 0
 	var/heavy = 0
 	var/light = 0
-	var/list/choices = list("Small Bomb","Medium Bomb","Big Bomb","Custom Bomb")
-	var/choice = input("Bomb Size?") in choices
+	var/choice = tgui_input_list(usr, "Bomb Size?", "", list("Small Bomb","Medium Bomb","Big Bomb","Custom Bomb"))
 	switch(choice)
 		if(null)
 			return 0
@@ -110,9 +111,12 @@ SUBSYSTEM_DEF(explosions)
 			heavy = 5
 			light = 7
 		if("Custom Bomb")
-			dev = input("Devastation range (Tiles):") as num
-			heavy = input("Heavy impact range (Tiles):") as num
-			light = input("Light impact range (Tiles):") as num
+			dev = tgui_input_number(usr, "Devastation range (Tiles):")
+			heavy = tgui_input_number(usr, "Heavy impact range (Tiles):")
+			light = tgui_input_number(usr, "Light impact range (Tiles):")
+			if(dev > 256 || heavy > 256 || light > 256) // I totally didn't almost kill my computer when trying a 10000 tile explosion, why do you ask?
+				if(tgui_alert(usr, "One or more of the ranges are over 256 tiles and may cause stupid ammounts of lag, are you sure you want to continue?", "", list("Yes", "No")) == "No")
+					return
 
 	var/max_range = max(dev, heavy, light)
 	var/x0 = epicenter.x
@@ -183,6 +187,11 @@ SUBSYSTEM_DEF(explosions)
 #define FREQ_LOWER 25 //The lower of the above.
 
 /datum/controller/subsystem/explosions/proc/explode(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, explosion_type, magic, holy, cap_modifier, explode_z = TRUE)
+	if (devastation_range <= 2 && heavy_impact_range <= 5)
+		if (explosion_count >= SMALL_EXPLOSION_TICK_LIMIT)
+			queued += list(args)
+			return
+	explosion_count ++
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
 		return
@@ -220,7 +229,7 @@ SUBSYSTEM_DEF(explosions)
 		message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [ADMIN_VERBOSEJMP(epicenter)]")
 		log_game("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [loc_name(epicenter)]")
 		if(is_station_level(epicenter.z))
-			deadchat_broadcast("<span class='ghostalert'>Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [get_area(epicenter)]!</span>", turf_target = epicenter)
+			deadchat_broadcast("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [get_area(epicenter)]!", turf_target = epicenter)
 
 	var/x0 = epicenter.x
 	var/y0 = epicenter.y
@@ -300,7 +309,7 @@ SUBSYSTEM_DEF(explosions)
 	//flash mobs
 	if(flash_range)
 		for(var/mob/living/L in viewers(flash_range, epicenter))
-			if(L.anti_magic_check(magic, holy))
+			if(L.can_block_magic((magic ? MAGIC_RESISTANCE : 0) | (holy ? MAGIC_RESISTANCE_HOLY : 0), 0))
 				continue
 			L.flash_act()
 
@@ -349,7 +358,7 @@ SUBSYSTEM_DEF(explosions)
 				//Ignore magic protected things.
 				if(ismob(A))
 					var/mob/M = A
-					if(M.anti_magic_check(magic, holy, TRUE, TRUE))
+					if(M.can_block_magic((magic ? MAGIC_RESISTANCE : 0) | (holy ? MAGIC_RESISTANCE_HOLY : 0)))
 						continue
 				if (length(A.contents) && !(A.flags_1 & PREVENT_CONTENTS_EXPLOSION_1)) //The atom/contents_explosion() proc returns null if the contents ex_acting has been handled by the atom, and TRUE if it hasn't.
 					items += A.GetAllContents(ignore_flag_1 = PREVENT_CONTENTS_EXPLOSION_1)
@@ -369,7 +378,7 @@ SUBSYSTEM_DEF(explosions)
 		if(magic || holy)
 			var/divine_protection = FALSE
 			for(var/mob/living/L in T.contents)
-				if(L.anti_magic_check(magic, holy, TRUE))
+				if(L.can_block_magic((magic ? MAGIC_RESISTANCE : 0) | (holy ? MAGIC_RESISTANCE_HOLY : 0)))
 					divine_protection = TRUE
 					break
 			if(divine_protection)
@@ -435,7 +444,9 @@ SUBSYSTEM_DEF(explosions)
 	if(GLOB.Debug2)
 		log_world("## DEBUG: Explosion([x0],[y0],[z0])(d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds.")
 
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_EXPLOSION, epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
+	explosion_index += 1
+
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_EXPLOSION, epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range, explosion_index)
 
 #undef CREAK_DELAY
 #undef DEVASTATION_PROB
@@ -513,6 +524,17 @@ SUBSYSTEM_DEF(explosions)
 /datum/controller/subsystem/explosions/fire(resumed = 0)
 	if (!is_exploding())
 		return
+
+	explosion_count = 0
+	if (queued_index > length(queued))
+		queued.Cut()
+		queued_index = 1
+
+	// Run the next explosions, until the tick limit
+	while (queued_index <= length(queued) && explosion_count < SMALL_EXPLOSION_TICK_LIMIT && MC_TICK_CHECK)
+		var/list/current = queued[queued_index++]
+		explosion(arglist(current))
+
 	var/timer
 	Master.current_ticklimit = TICK_LIMIT_RUNNING //force using the entire tick if we need it.
 
@@ -557,9 +579,6 @@ SUBSYSTEM_DEF(explosions)
 				var/turf/T = thing
 				new /obj/effect/hotspot(T) //Mostly for ambience!
 		cost_flameturf = MC_AVERAGE(cost_flameturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
-
-		if (low_turf.len || med_turf.len || high_turf.len)
-			Master.laggy_byond_map_update_incoming()
 
 	if(currentpart == SSEXPLOSIONS_MOVABLES)
 		currentpart = SSEXPLOSIONS_THROWS
@@ -623,4 +642,5 @@ SUBSYSTEM_DEF(explosions)
 
 	currentpart = SSEXPLOSIONS_TURFS
 
-#undef SSAIR_REBUILD_PIPENETS
+#undef EXPLOSION_THROW_SPEED
+#undef SMALL_EXPLOSION_TICK_LIMIT

@@ -43,11 +43,10 @@
 			return
 	CRASH("We couldn't assign an ID!")
 
-// Called when processing of the advance disease, which holds this symptom, starts.
+// Called when processing of the advance disease that holds this symptom infects a host and upon each Refresh() of that advance disease.
 /datum/symptom/proc/Start(datum/disease/advance/A)
 	if(neutered)
 		return FALSE
-	next_activation = world.time + rand(symptom_delay_min * 10, symptom_delay_max * 10) //so it doesn't instantly activate on infection
 	return TRUE
 
 //called when a disease first tries to infect someone.
@@ -71,7 +70,7 @@
 		next_activation = world.time + rand(symptom_delay_min * 10, symptom_delay_max * 10)
 		return TRUE
 
-/datum/symptom/proc/on_stage_change(new_stage, datum/disease/advance/A)
+/datum/symptom/proc/on_stage_change(datum/disease/advance/A)
 	if(neutered || stopped)
 		return FALSE
 	return TRUE

@@ -2,6 +2,8 @@
 // We define it explicitly here to ensure that it shows up on the highest possible plane (while giving off a verbose icon) to aide mappers in resolving these conflicts.
 // DO NOT USE THIS IN NORMAL MAPPING!!! Linters WILL fail.
 
+CREATION_TEST_IGNORE_SELF(/obj/merge_conflict_marker)
+
 /obj/merge_conflict_marker
 	name = "Merge Conflict Marker - DO NOT USE"
 	icon = 'icons/effects/mapping_helpers.dmi'
@@ -13,5 +15,5 @@
 	. = ..()
 	var/msg = "HEY, LISTEN!!! Merge Conflict Marker detected at [AREACOORD(src)]! Please manually address all potential merge conflicts!!!"
 	log_mapping(msg)
-	to_chat(world, ("<span class='boldannounce'>[msg]</span>"))
+	to_chat(world, (span_boldannounce("[msg]")))
 	warning(msg)

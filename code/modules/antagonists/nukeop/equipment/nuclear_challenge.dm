@@ -1,13 +1,12 @@
-#define CHALLENGE_TELECRYSTALS 280
 #define CHALLENGE_TIME_LIMIT 5 MINUTES
-#define CHALLENGE_MIN_PLAYERS 50
+#define CHALLENGE_MIN_PLAYERS 30
 #define CHALLENGE_SHUTTLE_DELAY 35 MINUTES	//35 minutes, giving nukies at least 20 minutes to enact their assault.
 
 /obj/item/nuclear_challenge
 	name = "Declaration of War (Challenge Mode)"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-red"
-	item_state = "radio"
+	inhand_icon_state = "radio"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	desc = "Use to send a declaration of hostilities to the target, delaying your shuttle departure for 20 minutes while they prepare for your assault.  \
@@ -34,7 +33,7 @@
 	var/war_declaration = "[user.real_name] has declared [user.p_their()] intent to utterly destroy [station_name()] with a nuclear device, and dares the crew to try and stop [user.p_them()]."
 
 	declaring_war = TRUE
-	var/custom_threat = alert(user, "Do you want to customize your declaration?", "Customize?", "Yes", "No")
+	var/custom_threat = tgui_alert(user, "Do you want to customize your declaration?", "Customize?", list("Yes", "No"))
 	declaring_war = FALSE
 
 	if(!check_allowed(user))
@@ -42,7 +41,7 @@
 
 	if(custom_threat == "Yes")
 		declaring_war = TRUE
-		war_declaration = stripped_input(user, "Insert your custom declaration", "Declaration")
+		war_declaration = tgui_input_text(user, "Insert your custom declaration", "Declaration", war_declaration)
 		declaring_war = FALSE
 
 	if(!check_allowed(user) || !war_declaration)
@@ -51,10 +50,9 @@
 	declare_war(user, war_declaration)
 
 /obj/item/nuclear_challenge/proc/declare_war(mob/user, war_declaration)
-	set_dynamic_high_impact_event("nuclear operatives have declared war")
 	priority_announce(war_declaration, "Declaration of War", 'sound/machines/alarm.ogg',  has_important_message = TRUE)
-
-	play_soundtrack_music(/datum/soundtrack_song/bee/future_perception)
+	SSsecurity_level.set_level(SEC_LEVEL_BLACK)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(play_soundtrack_music), /datum/soundtrack_song/bee/future_perception), 7 SECONDS)
 
 	if(user && check_pop())
 		to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
@@ -81,29 +79,9 @@
 	CONFIG_SET(number/shuttle_refuel_delay, max(CONFIG_GET(number/shuttle_refuel_delay), CHALLENGE_SHUTTLE_DELAY))
 	SSblackbox.record_feedback("amount", "nuclear_challenge_mode", 1)
 
-	if(!check_pop())
-		qdel(src)
-		return
-
-	var/tc_to_distribute = CHALLENGE_TELECRYSTALS
-	var/tc_per_nukie = round(tc_to_distribute / (length(orphans)+length(uplinks)))
-	for (var/datum/component/uplink/uplink in uplinks)
-		uplink.telecrystals += tc_per_nukie
-		tc_to_distribute -= tc_per_nukie
-
-
-	for (var/mob/living/L in orphans)
-		var/TC = new /obj/item/stack/sheet/telecrystal(L.drop_location(), tc_per_nukie)
-		to_chat(L, "<span class='warning'>Your uplink could not be found so your share of the team's bonus telecrystals has been bluespaced to your [L.put_in_hands(TC) ? "hands" : "feet"].</span>")
-		tc_to_distribute -= tc_per_nukie
-
-	if (tc_to_distribute > 0) // What shall we do with the remainder...
-		for (var/mob/living/simple_animal/hostile/carp/cayenne/C in GLOB.mob_living_list)
-			if (C.stat != DEAD)
-				var/obj/item/stack/sheet/telecrystal/TC = new(C.drop_location(), tc_to_distribute)
-				TC.throw_at(get_step(C, C.dir), 3, 3)
-				C.visible_message("<span class='notice'>[C] coughs up a half-digested telecrystal</span>","<span class='usernotice'>You cough up a half-digested telecrystal!</span>")
-				break
+	if(check_pop())
+		for (var/datum/component/uplink/uplink in uplinks)
+			uplink.telecrystals += GLOB.joined_player_list.len / 2
 
 	qdel(src)
 
@@ -132,7 +110,6 @@
 /obj/item/nuclear_challenge/clownops
 	uplink_type = /obj/item/uplink/clownop
 
-#undef CHALLENGE_TELECRYSTALS
 #undef CHALLENGE_TIME_LIMIT
 #undef CHALLENGE_MIN_PLAYERS
 #undef CHALLENGE_SHUTTLE_DELAY

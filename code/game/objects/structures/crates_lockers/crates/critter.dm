@@ -33,7 +33,7 @@
 /obj/structure/closet/crate/critter/update_icon()
 	. = ..()
 
-/obj/structure/closet/crate/critter/animate_door(var/closing = FALSE)
+/obj/structure/closet/crate/critter/animate_door(closing = FALSE)
 	if(!door_anim_time)
 		return
 	if(!door_obj) door_obj = new
@@ -69,7 +69,7 @@
 
 /obj/structure/closet/crate/critter/return_air()
 	if(tank)
-		return tank.air_contents
+		return tank.return_air()
 	else
 		return loc.return_air()
 

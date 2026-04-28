@@ -1,6 +1,0 @@
-02:47:01 [mob_243] (168,154,2) || Anna Polson has been dusted by the supermatter crystal.<br>
-02:47:01 [mob_243] (168,154,2) || Anna Polson has died at (Supermatter Engine (168, 154, 2)).<br>BRUTE: 0 BURN: 0 TOX: 0 OXY: 0 CLONE: 0 STAM: 0<br><b>Brain damage</b>: 0<br><b>Blood volume</b>: 560cl (100%)<br><b>Reagents</b>:<br>Blood:<br>
-02:55:35 [mob_252] (141,126,2) || Anna Polson (as Central Command) has died at (Bar (141, 126, 2)).<br>BRUTE: 97 BURN: 0 TOX: 0 OXY: 0 CLONE: 0 STAM: 0<br><b>Brain damage</b>: 0<br><b>Blood volume</b>: 560cl (100%)<br><b>Reagents</b>:<br>Blood:<br>79.6 units of Nutriment<br>42.8 units of Mint Toxin<br>
-02:56:38 [mob_255] (107,143,2) || Central Command has died at (Central Primary Hallway (107, 143, 2)).<br>BRUTE: 160 BURN: 0 TOX: 0 OXY: 66.7 CLONE: 0 STAM: 0<br><b>Brain damage</b>: 0<br><b>Blood volume</b>: 555.84cl (99.3%)<br><b>Reagents</b>:<br>Blood:<br>
-02:56:38 [mob_255] (107,143,2) || Central Command has succumbed to death.<br>
-

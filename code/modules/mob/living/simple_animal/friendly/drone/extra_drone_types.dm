@@ -27,28 +27,31 @@
 	"2. Kill.\n"+\
 	"3. Destroy."
 	default_storage = /obj/item/uplink
-	default_hatmask = /obj/item/clothing/head/helmet/space/hardsuit/syndi
+	default_hatmask = /obj/item/clothing/head/helmet/swat
 	hacked = TRUE
 	flavortext = null
 
 /mob/living/simple_animal/drone/syndrone/Initialize(mapload)
 	. = ..()
-	var/datum/component/uplink/hidden_uplink = internal_storage.GetComponent(/datum/component/uplink)
+	var/datum/component/uplink/hidden_uplink = internal_storage.GetComponents(/datum/component/uplink)[1]
 	hidden_uplink.telecrystals = 10
+	hidden_uplink.directive_flags = NONE
 
 /mob/living/simple_animal/drone/syndrone/Login()
-	..()
-	to_chat(src, "<span class='notice'>You can kill and eat other drones to increase your health!</span>" )
+	. = ..()
+	if(!. || !client)
+		return FALSE
+	to_chat(src, span_notice("You can kill and eat other drones to increase your health!") )
 
 /mob/living/simple_animal/drone/syndrone/badass
 	name = "Badass Syndrone"
-	default_hatmask = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
 	default_storage = /obj/item/uplink/nuclear
 
 /mob/living/simple_animal/drone/syndrone/badass/Initialize(mapload)
 	. = ..()
-	var/datum/component/uplink/hidden_uplink = internal_storage.GetComponent(/datum/component/uplink)
+	var/datum/component/uplink/hidden_uplink = internal_storage.GetComponents(/datum/component/uplink)[1]
 	hidden_uplink.telecrystals = 30
+	hidden_uplink.directive_flags = NONE
 	var/obj/item/implant/weapons_auth/W = new/obj/item/implant/weapons_auth(src)
 	W.implant(src, force = TRUE)
 
@@ -109,4 +112,4 @@
 
 /mob/living/simple_animal/drone/derelict
 	name = "derelict drone"
-	default_hatmask = /obj/item/clothing/head/ushanka
+	default_hatmask = /obj/item/clothing/head/costume/ushanka

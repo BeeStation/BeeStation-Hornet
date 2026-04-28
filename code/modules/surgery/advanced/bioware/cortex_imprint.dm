@@ -8,63 +8,53 @@
 		/datum/surgery_step/saw,
 		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/incise,
-		/datum/surgery_step/imprint_cortex,
+		/datum/surgery_step/apply_bioware/imprint_cortex,
 		/datum/surgery_step/close,
 	)
+	status_effect_gained = /datum/status_effect/bioware/cortex/imprinted
 
-	bioware_target = BIOWARE_CORTEX
-
-/datum/surgery/advanced/bioware/cortex_imprint/can_start(mob/user, mob/living/carbon/target, target_zone)
-	var/obj/item/organ/brain/target_brain = target.getorganslot(ORGAN_SLOT_BRAIN)
+/datum/surgery/advanced/bioware/cortex_imprint/can_start(mob/user, mob/living/carbon/target)
+	var/obj/item/organ/brain/target_brain = target.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(!target_brain)
 		return FALSE
 	return ..()
 
-/datum/surgery_step/imprint_cortex
+/datum/surgery_step/apply_bioware/imprint_cortex
 	name = "imprint cortex (hand)"
-	accept_hand = TRUE
-	time = 125
 
-/datum/surgery_step/imprint_cortex/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/apply_bioware/imprint_cortex/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(
 		user,
 		target,
-		"<span class='notice'>You start carving [target]'s outer cerebral cortex into a self-imprinting pattern.</span>",
-		"<span class='notice'>[user] starts carving [target]'s outer cerebral cortex into a self-imprinting pattern.</span>",
-		"<span class='notice'>[user] begins to perform surgery on [target]'s brain.</span>",
+		span_notice("You start carving [target]'s outer cerebral cortex into a self-imprinting pattern."),
+		span_notice("[user] starts carving [target]'s outer cerebral cortex into a self-imprinting pattern."),
+		span_notice("[user] begins to perform surgery on [target]'s brain."),
 	)
 
-/datum/surgery_step/imprint_cortex/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
+/datum/surgery_step/apply_bioware/imprint_cortex/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
+	. = ..()
+	if(!.)
+		return
+
 	display_results(
 		user,
 		target,
-		"<span class='notice'>You reshape [target]'s outer cerebral cortex into a self-imprinting pattern!</span>",
-		"<span class='notice'>[user] reshapes [target]'s outer cerebral cortex into a self-imprinting pattern!</span>",
-		"<span class='notice'>[user] completes the surgery on [target]'s brain.</span>",
+		span_notice("You reshape [target]'s outer cerebral cortex into a self-imprinting pattern!"),
+		span_notice("[user] reshapes [target]'s outer cerebral cortex into a self-imprinting pattern!"),
+		span_notice("[user] completes the surgery on [target]'s brain."),
 	)
-	new /datum/bioware/cortex_imprint(target)
-	return ..()
 
-/datum/surgery_step/imprint_cortex/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
-	if(target.getorganslot(ORGAN_SLOT_BRAIN))
+/datum/surgery_step/apply_bioware/imprint_cortex/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(target.get_organ_slot(ORGAN_SLOT_BRAIN))
 		display_results(
 			user,
 			target,
-			"<span class='warning'>You screw up, damaging the brain!</span>",
-			"<span class='warning'>[user] screws up, damaging the brain!</span>",
-			"<span class='notice'>[user] completes the surgery on [target]'s brain.</span>",
+			span_warning("You screw up, damaging the brain!"),
+			span_warning("[user] screws up, damaging the brain!"),
+			span_notice("[user] completes the surgery on [target]'s brain."),
 		)
 		target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 60)
 		target.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_LOBOTOMY)
 	else
-		user.visible_message("<span class='warning'>[user] suddenly notices that the brain [user.p_they()] [user.p_were()] working on is not there anymore.</span>", "<span class='warning'>You suddenly notice that the brain you were working on is not there anymore.</span>")
+		user.visible_message(span_warning("[user] suddenly notices that the brain [user.p_they()] [user.p_were()] working on is not there anymore."), span_warning("You suddenly notice that the brain you were working on is not there anymore."))
 	return FALSE
-
-/datum/bioware/cortex_imprint
-	name = "Cortex Imprint"
-	desc = "The cerebral cortex has been reshaped into a redundant neural pattern, making the brain able to bypass impediments caused by minor brain traumas."
-	mod_type = BIOWARE_CORTEX
-	can_process = TRUE
-
-/datum/bioware/cortex_imprint/process()
-	owner.cure_trauma_type(resilience = TRAUMA_RESILIENCE_BASIC)

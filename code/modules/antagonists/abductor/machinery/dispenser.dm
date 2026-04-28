@@ -95,6 +95,7 @@
 	active_power_usage = 0
 	max_n_of_items = 1000
 	tgui_theme = "abductor"
+	opacity = FALSE
 	var/repair_rate = 0
 	var/allowed_to_everyone = FALSE
 
@@ -139,7 +140,7 @@
 	var/obj/item/organ/heart/gland/organ = gone
 	organ.organ_flags &= ~ORGAN_FROZEN
 	organ.organ_flags &= ~ORGAN_FAILING
-	organ.setOrganDamage(-200)
+	organ.set_organ_damage(-200)
 	organ.name = initial(organ.name)
 
 /obj/machinery/smartfridge/abductor/update_icon()

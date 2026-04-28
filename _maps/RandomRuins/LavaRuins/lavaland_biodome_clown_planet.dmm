@@ -47,7 +47,7 @@
 /turf/closed/wall/r_wall,
 /area/ruin/powered/clownplanet)
 "aw" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
@@ -274,7 +274,7 @@
 	},
 /area/ruin/powered/clownplanet)
 "bL" = (
-/obj/item/reagent_containers/food/drinks/trophy/gold_cup,
+/obj/item/reagent_containers/cup/glass/trophy/gold_cup,
 /obj/structure/table/glass,
 /turf/open/floor/carpet,
 /area/ruin/powered/clownplanet)
@@ -303,12 +303,7 @@
 /area/ruin/powered/clownplanet)
 "bQ" = (
 /obj/structure/table/glass,
-/obj/item/grown/bananapeel/bluespace,
-/turf/open/floor/carpet,
-/area/ruin/powered/clownplanet)
-"bR" = (
-/obj/structure/table/glass,
-/obj/item/clothing/shoes/clown_shoes/banana_shoes,
+/obj/item/fuel_rod/material/bananium,
 /turf/open/floor/carpet,
 /area/ruin/powered/clownplanet)
 "bS" = (
@@ -324,6 +319,7 @@
 "bT" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/spray/waterflower/superlube,
+/obj/item/grown/bananapeel/bluespace,
 /turf/open/floor/carpet,
 /area/ruin/powered/clownplanet)
 "bU" = (
@@ -333,6 +329,7 @@
 "bV" = (
 /obj/structure/table/glass,
 /obj/item/gun/magic/staff/honk,
+/obj/item/clothing/shoes/clown_shoes/banana_shoes,
 /turf/open/floor/carpet,
 /area/ruin/powered/clownplanet)
 "bW" = (
@@ -1524,7 +1521,7 @@ xf
 XS
 cc
 bM
-bR
+bQ
 bV
 bM
 cc

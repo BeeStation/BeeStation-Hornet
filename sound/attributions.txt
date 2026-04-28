@@ -2,3 +2,23 @@ sound/items/handling/standard_stamp.ogg is adapted from tom_woysky's "Stamp.wav"
 sound/ambience/antag/abductee.ogg is from "Warp SFX" https://freesound.org/people/Breviceps/sounds/453391 (CC0)
 sound/ambience/antag/brainwash.ogg is from "nog.wav" https://freesound.org/people/_NOMINAL_/sounds/124602 (CC-BY 3.0)
 sound/ambience/antag/hypnosis.ogg is from "Flashback.wav" https://freesound.org/people/Sclolex/sounds/342103 (CC0)
+sound/effects/tail_swipe1.ogg is from TGMC https://github.com/tgstation/TerraGov-Marine-Corps (CC-BY-NC-3.0)
+sound/effects/tail_swipe2.ogg is from TGMC https://github.com/tgstation/TerraGov-Marine-Corps (CC-BY-NC-3.0)
+sound/machines/paper_insert.ogg is from "Printer" by dersuperanton https://freesound.org/people/dersuperanton/sounds/166690/ (CC-BY 4.0)
+sound/misc/prompt.ogg by Flleeppyy (https://github.com/Flleeppyy), originally for https://github.com/Monkestation/Monkestation2.0/pull/2621
+
+sound/soundtrack/tearofveil.ogg is from "Tear of veil" https://www.youtube.com/watch?v=NqNHKfTAvcw (CC-BY 3.0)
+
+modified by grungussuss:
+male_sneeze2.ogg: https://freesound.org/people/InspectorJ/sounds/352177/ , license: CC BY 4.0 DEED
+female_cough_4.ogg: https://freesound.org/people/OwlStorm/sounds/151213/ , license: CC0 1.0 DEED
+female_cough_5.ogg: https://freesound.org/people/thatkellytrna/sounds/425777/ , license: CC0 1.0 DEED
+female_cough_6.ogg: https://freesound.org/people/DarkNightPrincess/sounds/625322/ , license: CC0 1.0 DEED
+female_cough_7.ogg: https://freesound.org/people/drotzruhn/sounds/405206/ , license: CC BY 4.0 DEED
+whistle1.ogg: https://freesound.org/people/taure/sounds/411638/ , license: CC0 1.0 DEED
+
+sound/effects/roaring_fire.ogg made from: 10835 big fire loop.wav by Robinhood76 -- https://freesound.org/s/612277/ -- License: Attribution NonCommercial 4.0
+sound/effects/fire_puff.ogg made from: Bonfire Being Lit by samararaine -- https://freesound.org/s/186374/ -- License: Creative Commons 0
+
+crimescenealarm.ogg uses:
+alarm2.wav by bumpelsnake -- https://freesound.org/s/456566/ -- License: Attribution 4.0

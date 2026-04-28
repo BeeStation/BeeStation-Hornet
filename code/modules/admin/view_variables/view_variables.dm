@@ -1,6 +1,13 @@
 #define ICON_STATE_CHECKED 1 /// this dmi is checked. We don't check this one anymore.
 #define ICON_STATE_NULL 2 /// this dmi has null-named icon_state, allowing it to show a sprite on vv editor.
 
+// defines of hints for how a proc should build output data
+#define STYLE_DATUM (1)
+#define STYLE_APPEARANCE (2)
+#define STYLE_READ_ONLY_LIST (3)
+#define STYLE_LIST (4)
+#define STYLE_SPECIAL_LIST (5)
+
 /client/proc/debug_variables(datum/thing in world)
 	set category = "Debug"
 	set name = "View Variables"
@@ -8,7 +15,7 @@
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
 	if(!usr.client || !usr.client.holder) //This is usr because admins can call the proc on other clients, even if they're not admins, to show them VVs.
-		to_chat(usr, "<span class='danger'>You need to be an administrator to access this.</span>")
+		to_chat(usr, span_danger("You need to be an administrator to access this."))
 		return
 
 	if(!thing)
@@ -17,17 +24,95 @@
 	var/datum/asset/asset_cache_datum = get_asset_datum(/datum/asset/simple/vv)
 	asset_cache_datum.send(usr)
 
-	var/isappearance = isappearance(thing)
-	var/islist = islist(thing) || (!isdatum(thing) && hascall(thing, "Cut")) // Some special lists dont count as lists, but can be detected by if they have list procs
+
+	// --------------------------------------------------------------
+	// ------------         Preparation part             ------------
+	// --------------------------------------------------------------
+
+	// vv_ghost part. exotique abyss code.
+	var/static/datum/vv_ghost/vv_spectre = new() /// internal purpose
+	var/special_list_secure_level /// secure level of a special list
+	if(thing == GLOB.vv_ghost)
+		if(GLOB.vv_ghost.dmlist_origin_ref)
+			thing = vv_spectre.deliver_special()
+			special_list_secure_level = GLOB.vv_special_lists[vv_spectre.dmlist_varname]
+			if(special_list_secure_level == VV_LIST_PROTECTED) // investigating this is not recommended. force return.
+				vv_spectre.reset()
+				return
+		else if(GLOB.vv_ghost.list_holder)
+			thing = vv_spectre.deliver_list()
+		else
+			return // vv_ghost is not meant to be vv'ed
+
+
+	// Prepares often-used-values into variables
+	var/isappearance = isappearance(thing) // TG has a version of handling /appearance stuff, by mirroring the appearance. Our version is accessing /appearance directly. Just be noted.
+	var/islist = islist(thing) || special_list_secure_level // dm internal special list isn't detectable by 'islist()', but having 'secure_level' means it's detected
+
 	if(!islist && !isdatum(thing) && !isappearance)
 		return
 
-	var/title = ""
 	var/refid = REF(thing)
-	var/icon/sprite
-	var/hash
 
-	var/type = islist? /list : (isappearance ? "/appearance" : thing.type)
+	// Prepares '/fake_type' for better readibility.
+	var/type = \
+		isappearance ? "/appearance" \
+		: vv_spectre.dmlist_varname ? "/special_list ([vv_spectre.dmlist_varname])" \
+		: islist ? /list \
+		: thing.type
+
+	// special_list flag
+	var/read_only_special_list = (special_list_secure_level && (special_list_secure_level <= VV_LIST_READ_ONLY))
+
+	// Hints how this debug proc will write output data
+	var/debug_output_style = \
+		isappearance ? STYLE_APPEARANCE \
+		: read_only_special_list ? STYLE_READ_ONLY_LIST \
+		: special_list_secure_level ? STYLE_SPECIAL_LIST \
+		: islist ? STYLE_LIST \
+		: STYLE_DATUM
+
+
+	// ------------------------------------------------------
+	// ------------    Building output data   ---------------
+	// ------------------------------------------------------
+
+	// Builds text: basic info
+	var/title = "[thing] ([refid]) = [type]"
+	var/formatted_type = replacetext("[type]", "/", "<wbr>/")
+	var/ref_line = "@[copytext(refid, 2, -1)]" // get rid of the brackets, add a @ prefix for copy pasting in asay
+
+	var/list/header
+	switch(debug_output_style)
+		if(STYLE_DATUM)
+			header = thing.vv_get_header()
+		if(STYLE_APPEARANCE)
+			header = vv_get_header_appearance(thing)
+		if(STYLE_LIST, STYLE_SPECIAL_LIST, STYLE_READ_ONLY_LIST)
+			header = list("<b>/list</b>")
+
+	// Builds text: tells if a datum we're editing has some flags
+	var/marked_line
+	var/tagged_line
+	if(holder)
+		if(holder.marked_datum && holder.marked_datum == thing)
+			marked_line = VV_MSG_MARKED
+		if(LAZYFIND(holder.tagged_datums, thing))
+			var/tag_index = LAZYFIND(holder.tagged_datums, thing)
+			tagged_line = VV_MSG_TAGGED(tag_index)
+
+	var/varedited_line
+	var/deleted_line
+	if(!islist)
+		if(thing.datum_flags & DF_VAR_EDITED)
+			varedited_line = VV_MSG_EDITED
+		if(thing.gc_destroyed)
+			deleted_line = VV_MSG_DELETED
+
+
+	// ------------------------------------------------------
+	// Builds icon info: shows icon image on vv window
+	var/icon/sprite
 	var/no_icon = FALSE
 
 	if(isatom(thing))
@@ -40,6 +125,7 @@
 		// This list remembers which dmi has null icon_state, to determine if icon_state=null should display a sprite
 		// (NOTE: icon_state="" is correct, but saying null is obvious)
 		var/static/list/dmi_nullstate_checklist = list()
+
 		var/image/image_object = thing
 		var/icon_filename_text = "[image_object.icon]" // "icon(null)" type can exist. textifying filters it.
 		if(icon_filename_text)
@@ -56,84 +142,112 @@
 				if(dmi_nullstate_checklist[icon_filename_text] == ICON_STATE_NULL)
 					sprite = icon(image_object.icon, image_object.icon_state)
 
+	var/sprite_hash
 	var/sprite_text
 	if(sprite)
-		hash = md5(sprite)
-		src << browse_rsc(sprite, "vv[hash].png")
-		sprite_text = no_icon ? "\[NO ICON\]" : "<img src='vv[hash].png'></td><td>"
+		sprite_hash = md5(sprite)
+		src << browse_rsc(sprite, "vv[sprite_hash].png")
+		sprite_text = no_icon ? "\[NO ICON\]" : "<img src='vv[sprite_hash].png'></td><td>"
 
-	title = "[thing] ([REF(thing)]) = [type]"
-	var/formatted_type = replacetext("[type]", "/", "<wbr>/")
 
-	var/list/header = islist ? list("<b>/list</b>") : (isappearance ? vv_get_header_appearance(thing) : thing.vv_get_header())
-
-	var/ref_line = "@[copytext(refid, 2, -1)]" // get rid of the brackets, add a @ prefix for copy pasting in asay
-
-	var/marked_line
-	if(holder && holder.marked_datum && holder.marked_datum == thing)
-		marked_line = VV_MSG_MARKED
-	var/tagged_line
-	if(holder && LAZYFIND(holder.tagged_datums, thing))
-		var/tag_index = LAZYFIND(holder.tagged_datums, thing)
-		tagged_line = VV_MSG_TAGGED(tag_index)
-	var/varedited_line
-	if(!islist && (thing.datum_flags & DF_VAR_EDITED))
-		varedited_line = VV_MSG_EDITED
-	var/deleted_line
-	if(!islist && thing.gc_destroyed)
-		deleted_line = VV_MSG_DELETED
-
-	var/list/dropdownoptions
-	if (islist)
-		dropdownoptions = list(
-			"---",
-			"Add Item" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_ADD),
-			"Remove Nulls" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_ERASE_NULLS),
-			"Remove Dupes" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_ERASE_DUPES),
-			"Set len" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_SET_LENGTH),
-			"Shuffle" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_SHUFFLE),
-			"Show VV To Player" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_EXPOSE),
-			"---"
+	// ------------------------------------------------------
+	// Builds dropdown-options
+	var/list/dropdown_options
+	switch(debug_output_style)
+		if(STYLE_DATUM)
+			dropdown_options = thing.vv_get_dropdown()
+		if(STYLE_APPEARANCE)
+			dropdown_options = vv_get_dropdown_appearance(thing)
+		if(STYLE_READ_ONLY_LIST)
+			dropdown_options = list(
+				"---",
+				"Show VV To Player" = VV_HREF_SPECIAL_MENU(vv_spectre.dmlist_origin_ref, VV_HK_EXPOSE, vv_spectre.dmlist_varname),
+				"---"
 			)
-		for(var/i in 1 to length(dropdownoptions))
-			var/name = dropdownoptions[i]
-			var/link = dropdownoptions[name]
-			dropdownoptions[i] = "<option value[link? "='[link]'":""]>[name]</option>"
-	else if(isappearance)
-		dropdownoptions = vv_get_dropdown_appearance(thing)
-	else
-		dropdownoptions = thing.vv_get_dropdown()
+		if(STYLE_SPECIAL_LIST)
+			dropdown_options = list(
+				"---",
+				"Add Item" = VV_HREF_SPECIAL_MENU(vv_spectre.dmlist_origin_ref, VV_HK_LIST_ADD, vv_spectre.dmlist_varname),
+				"Remove Nulls" = VV_HREF_SPECIAL_MENU(vv_spectre.dmlist_origin_ref, VV_HK_LIST_ERASE_NULLS, vv_spectre.dmlist_varname),
+				"Show VV To Player" = VV_HREF_SPECIAL_MENU(vv_spectre.dmlist_origin_ref, VV_HK_EXPOSE, vv_spectre.dmlist_varname),
+				"---"
+			)
+		if(STYLE_LIST)
+			dropdown_options = list(
+				"---",
+				"Add Item" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_ADD),
+				"Remove Nulls" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_ERASE_NULLS),
+				"Remove Dupes" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_ERASE_DUPES),
+				"Set len" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_SET_LENGTH),
+				"Shuffle" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_SHUFFLE),
+				"Show VV To Player" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_EXPOSE),
+				"---"
+			)
+	// Finalize dropdown-options for /list
+	if(islist)
+		for(var/idx in 1 to length(dropdown_options))
+			var/assoc_key = dropdown_options[idx]
+			var/assoc_val = dropdown_options[assoc_key]
+			var/href_string = assoc_val ? "value='[assoc_val]'" : null
+			dropdown_options[idx] = "<option [href_string]>[assoc_key]</option>"
 
-	var/list/names = list()
-	if(isappearance)
-		var/static/list/virtual_appearance_vars = build_virtual_appearance_vars()
-		names = virtual_appearance_vars.Copy()
-	else if(!islist)
-		for(var/varname in thing.vars)
-			names += varname
+
+	// ------------------------------------------------------
+	// Builds var-name list: gathers names of each variable in the thing you're editing.
+	var/list/varname_list = list()
+	switch(debug_output_style)
+		if(STYLE_DATUM)
+			for(var/each_varname in thing.vars)
+				varname_list += each_varname
+		if(STYLE_APPEARANCE)
+			var/static/list/virtual_appearance_vars = build_virtual_appearance_vars()
+			varname_list = virtual_appearance_vars.Copy()
+		// Does nothing to LIST STYLE defines
 
 	sleep(1 TICKS)
 
 	var/list/variable_html = list()
-	if(islist)
-		var/list/list_value = thing
-		for(var/i in 1 to list_value.len)
-			var/key = list_value[i]
-			var/value
-			if(IS_NORMAL_LIST(list_value) && IS_VALID_ASSOC_KEY(key))
-				value = list_value[key]
-			variable_html += debug_variable(i, value, 0, list_value)
-	else if(isappearance)
-		names = sort_list(names)
-		for(var/varname in names)
-			variable_html += debug_variable_appearance(varname, thing)
-	else
-		names = sort_list(names)
-		for(var/varname in names)
-			if(thing.can_vv_get(varname))
-				variable_html += thing.vv_get_var(varname)
+	switch(debug_output_style)
+		if(STYLE_DATUM)
+			varname_list = sort_list(varname_list)
+			for(var/each_varname in varname_list)
+				if(thing.can_vv_get(each_varname))
+					variable_html += thing.vv_get_var(each_varname)
+		if(STYLE_APPEARANCE)
+			varname_list = sort_list(varname_list)
+			for(var/each_varname in varname_list)
+				variable_html += debug_variable_appearance(each_varname, thing)
+		if(STYLE_LIST, STYLE_SPECIAL_LIST, STYLE_READ_ONLY_LIST)
+			// There is only VV_READ_ONLY for now
+			var/list_flags = (read_only_special_list ? VV_READ_ONLY : null)
+			// If TRUE, instead of sending actual '/special_list' instance, we send 'vv_spectre' which delegates that /special_list
+			var/should_delegate_list = (special_list_secure_level ? TRUE : FALSE)
 
+			var/list/list_value = thing
+			for(var/i in 1 to list_value.len)
+				var/key = list_value[i]
+				var/value
+				if(IS_NORMAL_LIST(list_value) && IS_VALID_ASSOC_KEY(key))
+					value = list_value[key]
+				variable_html += debug_variable(i, value, 0, (should_delegate_list ? vv_spectre : thing), display_flags = list_flags)
+
+	// ------------------------------------------------------
+	// Builds text: 'href string' based on the existence of 'vv_spectre' (which remembers actual refID of a special list)
+	var/href_reference_string = \
+		vv_spectre.dmlist_varname \
+		? "dmlist_origin_ref=[vv_spectre.dmlist_origin_ref];dmlist_varname=[vv_spectre.dmlist_varname]" \
+		: "Vars=[refid]"
+	/*
+		href key "Vars" only does refreshing. I hate that name because it's contextless.
+		"dmlist_origin_ref" and "dmlist_varname" must exist at the same time, to access a special list directly, because such special list is not possible to be accessed through 'locate(refID)'
+		You can't access /client/images (internal variable) by 'locate(that_client_images_list_ref)'. Yes, This sucks
+	*/
+
+
+	// ------------------------------------------------------
+	// Builds html text - finalization
 	var/html = {"
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
@@ -261,14 +375,13 @@
 					</td>
 					<td width='50%'>
 						<div align='center'>
-							<a id='refresh_link' href='?_src_=vars;
-datumrefresh=[refid];[HrefToken()]'>Refresh</a>
+							<a id='refresh_link' href='byond://?_src_=vars;[HrefToken()];[href_reference_string]'>Refresh</a>
 							<form>
 								<select name="file" size="1"
 									onchange="handle_dropdown(this)"
 									onmouseclick="this.focus()">
 									<option value selected>Select option</option>
-									[dropdownoptions.Join()]
+									[dropdown_options.Join()]
 								</select>
 							</form>
 						</div>
@@ -307,6 +420,9 @@ datumrefresh=[refid];[HrefToken()]'>Refresh</a>
 	</body>
 </html>
 "}
+
+	// Resets vv_spectre, and shows it to user
+	vv_spectre.reset()
 	src << browse(html, "window=variables[refid];size=475x650")
 
 /client/proc/vv_update_display(datum/thing, span, content)
@@ -314,3 +430,9 @@ datumrefresh=[refid];[HrefToken()]'>Refresh</a>
 
 #undef ICON_STATE_CHECKED
 #undef ICON_STATE_NULL
+
+#undef STYLE_DATUM
+#undef STYLE_APPEARANCE
+#undef STYLE_READ_ONLY_LIST
+#undef STYLE_LIST
+#undef STYLE_SPECIAL_LIST

@@ -4,7 +4,7 @@
 	for(var/I in overlays_standing)
 		add_overlay(I)
 
-	var/asleep = IsSleeping()
+	var/are_we_drooling = istype(click_intercept, /datum/action/alien/acid)
 	if(stat == DEAD)
 		//If we mostly took damage from fire
 		if(getFireLoss() > 125)
@@ -12,20 +12,20 @@
 		else
 			icon_state = "alien[caste]_dead"
 
-	else if((stat == UNCONSCIOUS && !asleep) || stat == HARD_CRIT || stat == SOFT_CRIT || IsParalyzed())
+	else if((stat == UNCONSCIOUS && !IsSleeping()) || stat == HARD_CRIT || stat == SOFT_CRIT || IsParalyzed())
 		icon_state = "alien[caste]_unconscious"
 	else if(leap_on_click)
 		icon_state = "alien[caste]_pounce"
 
-	else if(!(mobility_flags & MOBILITY_STAND))
+	else if(body_position == LYING_DOWN)
 		icon_state = "alien[caste]_sleep"
 	else if(mob_size == MOB_SIZE_LARGE)
 		icon_state = "alien[caste]"
-		if(drooling)
+		if(are_we_drooling)
 			add_overlay("alienspit_[caste]")
 	else
 		icon_state = "alien[caste]"
-		if(drooling)
+		if(are_we_drooling)
 			add_overlay("alienspit")
 
 	if(leaping)
@@ -43,8 +43,8 @@
 			alt_icon = old_icon
 	pixel_x = base_pixel_x + body_position_pixel_x_offset
 	pixel_y = base_pixel_y + body_position_pixel_y_offset
-	update_inv_hands()
-	update_inv_handcuffed()
+	update_held_items()
+	update_worn_handcuffs()
 
 /mob/living/carbon/alien/humanoid/regenerate_icons()
 	if(!..())
@@ -55,7 +55,7 @@
 	. = ..()
 	update_icons()
 
-/mob/living/carbon/alien/humanoid/update_inv_handcuffed()
+/mob/living/carbon/alien/humanoid/update_worn_handcuffs()
 	remove_overlay(HANDCUFF_LAYER)
 	var/cuff_icon = "aliencuff"
 	var/dmi_file = 'icons/mob/alien.dmi'
@@ -69,21 +69,21 @@
 		apply_overlay(HANDCUFF_LAYER)
 
 //Royals have bigger sprites, so inhand things must be handled differently.
-/mob/living/carbon/alien/humanoid/royal/update_inv_hands()
+/mob/living/carbon/alien/humanoid/royal/update_held_items()
 	..()
 	remove_overlay(HANDS_LAYER)
 	var/list/hands = list()
 
 	var/obj/item/l_hand = get_item_for_held_index(1)
 	if(l_hand)
-		var/itm_state = l_hand.item_state
+		var/itm_state = l_hand.inhand_icon_state
 		if(!itm_state)
 			itm_state = l_hand.icon_state
 		hands += mutable_appearance(alt_inhands_file, "[itm_state][caste]_l", CALCULATE_MOB_OVERLAY_LAYER(HANDS_LAYER))
 
 	var/obj/item/r_hand = get_item_for_held_index(2)
 	if(r_hand)
-		var/itm_state = r_hand.item_state
+		var/itm_state = r_hand.inhand_icon_state
 		if(!itm_state)
 			itm_state = r_hand.icon_state
 		hands += mutable_appearance(alt_inhands_file, "[itm_state][caste]_r", CALCULATE_MOB_OVERLAY_LAYER(HANDS_LAYER))

@@ -1,9 +1,9 @@
 /* Cards
  * Contains:
- *		DATA CARD
- *		ID CARD
- *		FINGERPRINT CARD HOLDER
- *		FINGERPRINT CARD
+ *	DATA CARD
+ *	ID CARD
+ *	FINGERPRINT CARD HOLDER
+ *	FINGERPRINT CARD
  */
 
 
@@ -18,11 +18,20 @@
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = ISWEAPON
 
-	var/list/files = list()
+	/// Cached icon that has been built for this card. Intended to be displayed in chat. Cardboards IDs and actual IDs use it.
+	var/icon/cached_flat_icon
 
 /obj/item/card/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins to swipe [user.p_their()] neck with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins to swipe [user.p_their()] neck with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
+
+/obj/item/card/update_overlays()
+	. = ..()
+	cached_flat_icon = null
+
+/// Called to get what name this card represents
+/obj/item/card/proc/get_displayed_name(honorifics = FALSE)
+	return null
 
 /obj/item/card/data
 	name = "data card"
@@ -32,7 +41,7 @@
 	var/function = "storage"
 	var/data = "null"
 	var/special = null
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	var/detail_color = COLOR_ASSEMBLY_ORANGE
@@ -64,7 +73,7 @@
 	desc = "It is an ID card, the magnetic strip is exposed and attached to some circuitry."
 	name = "cryptographic sequencer"
 	icon_state = "emag"
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON | ISWEAPON
@@ -118,11 +127,11 @@
 	. = ..()
 	switch(charges)
 		if(2 to INFINITY)
-			. += "<span class='notice'>It has [charges] charges remaining.</span>"
+			. += span_notice("It has [charges] charges remaining.")
 		if(1)
-			. += "<span class='notice'>It has [charges] charge remaining.</span>"
+			. += span_notice("It has [charges] charge remaining.")
 		if(-INFINITY to 0)
-			. += "<span class='warning'>It's out of charges!</span>"
+			. += span_warning("It's out of charges!")
 
 /obj/item/card/emag/update_overlays()
 	. = ..()
@@ -147,7 +156,7 @@
 	desc = "It is an ID card, the magnetic strip is exposed and attached to some circuitry. Closer inspection shows that this card is a poorly made replica, with a \"DonkCo\" logo stamped on the back."
 	name = "cryptographic sequencer"
 	icon_state = "emag"
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 
@@ -159,28 +168,49 @@
 	name = "identification card"
 	desc = "A card used to provide ID and determine access across the station."
 	icon_state = "id"
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	worn_icon_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	slot_flags = ITEM_SLOT_ID
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor_type = /datum/armor/card_id
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	var/list/access = list()
-	var/registered_name// The name registered_name on the card
-	var/assignment
-	var/hud_state = JOB_HUD_UNKNOWN
-	var/access_txt // mapping aid
+	trade_flags = TRADE_NOT_SELLABLE
+
+	/// The name registered on the card (for example: Dr Bryan See)
+	var/registered_name = null
+	/// Registered owner's age.
+	var/registered_age = 30
+
+	/// Linked bank account.
 	var/datum/bank_account/registered_account
+	/// Linked holopay.
 	var/obj/machinery/paystand/my_store
+
+	/// The job name registered on the card (for example: Assistant).
+	var/assignment
+
+	/// Access levels held by this card.
+	var/list/access = list()
+	/// Mapping aid for access
+	var/access_txt
+
+	/// The HUD given to our wearer
+	var/hud_state = JOB_HUD_UNKNOWN
+
 	/// controls various things, disable to make it have no bank account, ineditable in id machines, etc
 	var/electric = TRUE  // removes account info from examine
+
+/datum/armor/card_id
+	fire = 100
+	acid = 100
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
 	if(mapload && access_txt)
 		access = text2access(access_txt)
-	//RegisterSignal(src, COMSIG_ATOM_UPDATED_ICON, PROC_REFupdate_in_wallet))
+
+	RegisterSignal(src, COMSIG_ATOM_UPDATED_ICON, PROC_REF(update_in_wallet))
 
 /obj/item/card/id/Destroy()
 	if (registered_account)
@@ -198,8 +228,23 @@
 
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))
-		user.visible_message("<span class='notice'>[user] shows you: [icon2html(src, viewers(user))] [src.name].</span>", "<span class='notice'>You show \the [src.name].</span>")
+		var/id_href = "<a href='byond://?src=[REF(user)];see_id=1;id_ref=[REF(src)];id_name=[registered_name];examine_time=[world.time]'>[src.name]</a>"
+		user.visible_message(
+			span_notice("[user] shows you [id_href]"),
+			span_notice("You show \the [id_href]."),
+		)
 	add_fingerprint(user)
+
+/obj/item/card/id/Topic(href, href_list)
+	. = ..()
+	if(!usr.canUseTopic(src, BE_CLOSE))
+		return
+
+	if(href_list["look_at_id"])
+		if(!usr.can_examine_in_detail(src))
+			return
+		usr.examinate(src)
+		return TRUE
 
 /obj/item/card/id/vv_edit_var(var_name, var_value)
 	. = ..()
@@ -243,34 +288,38 @@
 		var/money_added = mass_insert_money(money_contained, user)
 
 		if (money_added)
-			to_chat(user, "<span class='notice'>You stuff the contents into the card! They disappear in a puff of bluespace smoke, adding [money_added] worth of credits to the linked account.</span>")
+			to_chat(user, span_notice("You stuff the contents into the card! They disappear in a puff of bluespace smoke, adding [money_added] worth of credits to the linked account."))
 		return
 	else
 		return ..()
 
+/obj/item/card/id/get_id_examine_strings(mob/user)
+	. = ..()
+	. += list("[icon2html(src, user, extra_classes = "hugeicon idicon")]")
+
 /obj/item/card/id/proc/insert_money(obj/item/I, mob/user)
 	if(!registered_account)
-		to_chat(user, "<span class='warning'>[src] doesn't have a linked account to deposit [I] into!</span>")
+		to_chat(user, span_warning("[src] doesn't have a linked account to deposit [I] into!"))
 		return
 	var/cash_money = I.get_item_credit_value()
 	if(!cash_money)
-		to_chat(user, "<span class='warning'>[I] doesn't seem to be worth anything!</span>")
+		to_chat(user, span_warning("[I] doesn't seem to be worth anything!"))
 		return
 
 	registered_account.adjust_money(cash_money)
 	SSblackbox.record_feedback("amount", "credits_inserted", cash_money)
 	log_econ("[cash_money] credits were inserted into [src] owned by [src.registered_name]")
 	if(istype(I, /obj/item/stack/spacecash) || istype(I, /obj/item/coin))
-		to_chat(user, "<span class='notice'>You stuff [I] into [src]. It disappears in a small puff of bluespace smoke, adding [cash_money] credits to the linked account.</span>")
+		to_chat(user, span_notice("You stuff [I] into [src]. It disappears in a small puff of bluespace smoke, adding [cash_money] credits to the linked account."))
 	else
-		to_chat(user, "<span class='notice'>You insert [I] into [src], adding [cash_money] credits to the linked account.</span>")
+		to_chat(user, span_notice("You insert [I] into [src], adding [cash_money] credits to the linked account."))
 
-	to_chat(user, "<span class='notice'>The linked account now reports a balance of $[registered_account.account_balance].</span>")
+	to_chat(user, span_notice("The linked account now reports a balance of $[registered_account.account_balance]."))
 	qdel(I)
 
 /obj/item/card/id/proc/mass_insert_money(list/money, mob/user)
 	if(!registered_account)
-		to_chat(user, "<span class='warning'>[src] doesn't have a linked account to deposit into!</span>")
+		to_chat(user, span_warning("[src] doesn't have a linked account to deposit into!"))
 		return FALSE
 
 	if (!money || !money.len)
@@ -307,25 +356,24 @@
 	if(!alt_click_can_use_id(user))
 		return
 	if(!new_bank_id || new_bank_id < 111111 || new_bank_id > 999999)
-		to_chat(user, "<span class='warning'>The account ID number needs to be between 111111 and 999999.</span>")
+		to_chat(user, span_warning("The account ID number needs to be between 111111 and 999999."))
 		return
 	if (registered_account && registered_account.account_id == new_bank_id)
-		to_chat(user, "<span class='warning'>The account ID was already assigned to this card.</span>")
+		to_chat(user, span_warning("The account ID was already assigned to this card."))
 		return
 
-	for(var/A in SSeconomy.bank_accounts)
-		var/datum/bank_account/B = A
-		if(B.account_id == new_bank_id)
-			if (old_account)
-				old_account.bank_cards -= src
+	var/datum/bank_account/B = SSeconomy.bank_accounts_by_id["[new_bank_id]"]
+	if(B)
+		if (old_account)
+			old_account.bank_cards -= src
 
-			B.bank_cards += src
-			registered_account = B
-			to_chat(user, "<span class='notice'>The provided account has been linked to this ID card.</span>")
+		B.bank_cards += src
+		registered_account = B
+		to_chat(user, span_notice("The provided account has been linked to this ID card."))
 
-			return TRUE
+		return TRUE
 
-	to_chat(user, "<span class='warning'>The account ID number provided is invalid.</span>")
+	to_chat(user, span_warning("The account ID number provided is invalid."))
 	return
 
 /obj/item/card/id/AltClick(mob/living/user)
@@ -337,26 +385,26 @@
 		return
 
 	if (world.time < registered_account.withdrawDelay)
-		registered_account.bank_card_talk("<span class='warning'>ERROR: UNABLE TO LOGIN DUE TO SCHEDULED MAINTENANCE. MAINTENANCE IS SCHEDULED TO COMPLETE IN [(registered_account.withdrawDelay - world.time)/10] SECONDS.</span>", TRUE)
+		registered_account.bank_card_talk(span_warning("ERROR: UNABLE TO LOGIN DUE TO SCHEDULED MAINTENANCE. MAINTENANCE IS SCHEDULED TO COMPLETE IN [(registered_account.withdrawDelay - world.time)/10] SECONDS."), TRUE)
 		return
 
-	var/amount_to_remove =  FLOOR(input(user, "How much do you want to withdraw? Current Balance: [registered_account.account_balance]", "Withdraw Funds", 5) as num, 1)
+	//var/current_balance = registered_account.account_balance
+	var/amount_to_remove = round(tgui_input_number(user, "How much do you want to withdraw? Current: [registered_account.account_balance] cr", "Withdraw Funds", 0, registered_account.account_balance, 0))
 
-	if(!amount_to_remove || amount_to_remove < 0)
-		to_chat(user, "<span class='warning'>You're pretty sure that's not how money works.</span>")
+	if(isnull(amount_to_remove) || amount_to_remove <= 0)
 		return
 	if(!alt_click_can_use_id(user))
 		return
 	if(registered_account.adjust_money(-amount_to_remove))
 		var/obj/item/holochip/holochip = new (user.drop_location(), amount_to_remove)
 		user.put_in_hands(holochip)
-		to_chat(user, "<span class='notice'>You withdraw [amount_to_remove] credits into a holochip.</span>")
+		to_chat(user, span_notice("You withdraw [amount_to_remove] credits into a holochip."))
 		SSblackbox.record_feedback("amount", "credits_removed", amount_to_remove)
 		log_econ("[amount_to_remove] credits were removed from [src] owned by [src.registered_name]")
 		return
 	else
 		var/difference = amount_to_remove - registered_account.account_balance
-		registered_account.bank_card_talk("<span class='warning'>ERROR: The linked account requires [difference] more credit\s to perform that withdrawal.</span>", TRUE)
+		registered_account.bank_card_talk(span_warning("ERROR: The linked account requires [difference] more credit\s to perform that withdrawal."), TRUE)
 
 /obj/item/card/id/examine(mob/user)
 	. = ..()
@@ -386,12 +434,12 @@
 					. += "The [B.account_holder] reports a balance of $[B.account_balance]."
 
 
-		. += "<span class='info'>Alt-Click the ID to pull money from the linked account in the form of holochips.</span>"
-		. += "<span class='info'>You can insert credits into the linked account by pressing holochips, cash, or coins against the ID.</span>"
+		. += span_info("Alt-Click the ID to pull money from the linked account in the form of holochips.")
+		. += span_info("You can insert credits into the linked account by pressing holochips, cash, or coins against the ID.")
 		if(registered_account.account_holder == user.real_name)
-			. += "<span class='boldnotice'>If you lose this ID card, you can reclaim your account by Alt-Clicking a blank ID card while holding it and entering your account ID number.</span>"
+			. += span_boldnotice("If you lose this ID card, you can reclaim your account by Alt-Clicking a blank ID card while holding it and entering your account ID number.")
 	else
-		. += "<span class='info'>There is no registered account linked to this card. Alt-Click to add one.</span>"
+		. += span_info("There is no registered account linked to this card. Alt-Click to add one.")
 
 /obj/item/card/id/GetAccess()
 	return access
@@ -402,7 +450,6 @@
 /obj/item/card/id/RemoveID()
 	return src
 
-/*
 /// Called on COMSIG_ATOM_UPDATED_ICON. Updates the visuals of the wallet this card is in.
 /obj/item/card/id/proc/update_in_wallet()
 	SIGNAL_HANDLER
@@ -412,7 +459,6 @@
 		if(powergaming.front_id == src)
 			powergaming.update_label()
 			powergaming.update_appearance()
-*/
 
 /*
 Usage:
@@ -433,7 +479,7 @@ update_label("John Doe", "Clowny")
 	name = "silver identification card"
 	desc = "A silver ID card, issued to positions which require honour and dedication."
 	icon_state = "silver"
-	item_state = "silver_id"
+	inhand_icon_state = "silver_id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	hud_state = JOB_HUD_RAWCENTCOM
@@ -449,7 +495,7 @@ update_label("John Doe", "Clowny")
 	name = "gold identification card"
 	desc = "A golden ID card. issued to positions which wield power and might."
 	icon_state = "gold"
-	item_state = "gold_id"
+	inhand_icon_state = "gold_id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	hud_state = JOB_HUD_RAWCOMMAND
@@ -479,6 +525,7 @@ update_label("John Doe", "Clowny")
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE)
 	icon_state = "syndicate"
 	hud_state = JOB_HUD_SYNDICATE
+	trade_flags = TRADE_NOT_SELLABLE | TRADE_CONTRABAND
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -517,8 +564,10 @@ update_label("John Doe", "Clowny")
 		/obj/item/card/id/away/deep_storage,
 		/obj/item/card/id/changeling,
 		/obj/item/card/id/golem,
-		/obj/item/card/id/pass), only_root_path = TRUE)
+		/obj/item/card/id/pass,
+	), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
+	add_item_action(chameleon_action)
 
 /obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity)
 	if(!proximity)
@@ -529,7 +578,7 @@ update_label("John Doe", "Clowny")
 		log_id("[key_name(user)] copied all avaliable access from [I] to agent ID [src] at [AREACOORD(user)].")
 		if(isliving(user) && user.mind)
 			if(user.mind.special_role || anyone)
-				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over the ID, copying its access.</span>")
+				to_chat(usr, span_notice("The card's microscanners activate as you pass it over the ID, copying its access."))
 
 /obj/item/card/id/syndicate/attack_self(mob/user)
 	if(chameleon_action.hidden)
@@ -542,10 +591,10 @@ update_label("John Doe", "Clowny")
 			else
 				return ..()
 
-		var/popup_input = alert(user, "Choose Action", "Agent ID", "Show", "Forge", "Change Account ID")
-		if(user.incapacitated())
+		var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change Account ID"))
+		if(user.incapacitated)
 			return
-		if(popup_input == "Forge")
+		if(popup_input == "Forge/Reset")
 			if(!assignment)
 				assignment = "Assistant"
 
@@ -579,7 +628,7 @@ update_label("John Doe", "Clowny")
 				var/mob/living/carbon/human/H = user
 				H.sec_hud_set_ID()
 			update_label()
-			to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
+			to_chat(user, span_notice("You successfully forge the ID card."))
 			log_game("[key_name(user)] has forged \the [initial(name)] with name \"[registered_name]\" and occupation \"[assignment]\"[target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"].")
 
 			// First time use automatically sets the account id to the user.
@@ -587,18 +636,16 @@ update_label("John Doe", "Clowny")
 				if(ishuman(user))
 					var/mob/living/carbon/human/accountowner = user
 
-					for(var/bank_account in SSeconomy.bank_accounts)
-						var/datum/bank_account/account = bank_account
-						if(account.account_id == accountowner.mind?.account_id)
-							account.bank_cards += src
-							registered_account = account
-							to_chat(user, "<span class='notice'>Your account number has been automatically assigned.</span>")
+					var/datum/bank_account/account = SSeconomy.bank_accounts_by_id["[accountowner.mind?.account_id]"]
+					if(account)
+						account.bank_cards += src
+						registered_account = account
+						to_chat(user, span_notice("Your account number has been automatically assigned."))
 			return
 		else if (popup_input == "Change Account ID")
 			set_new_account(user)
 			return
 	return ..()
-
 
 /obj/item/card/id/syndicate/emp_act(severity)
 	. = ..()
@@ -673,7 +720,7 @@ update_label("John Doe", "Clowny")
 	name = "captain's spare ID"
 	desc = "The spare ID of the High Lord himself."
 	icon_state = "gold"
-	item_state = "gold_id"
+	inhand_icon_state = "gold_id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	registered_name = JOB_NAME_CAPTAIN
@@ -737,21 +784,21 @@ update_label("John Doe", "Clowny")
 	access = get_all_accesses()+get_ert_access("med")-ACCESS_CHANGE_IDS
 	. = ..()
 
-/obj/item/card/id/ert/chaplain
-	registered_name = JOB_ERT_CHAPLAIN
-	assignment = JOB_ERT_CHAPLAIN
-	icon_state = "ert"
-
-/obj/item/card/id/ert/chaplain/Initialize(mapload)
-	access = get_all_accesses()+get_ert_access("sec")-ACCESS_CHANGE_IDS
-	. = ..()
-
 /obj/item/card/id/ert/Janitor
 	registered_name = JOB_ERT_JANITOR
 	assignment = JOB_ERT_JANITOR
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Janitor/Initialize(mapload)
+	access = get_all_accesses()
+	. = ..()
+
+/obj/item/card/id/ert/clown
+	registered_name = JOB_ERT_CLOWN
+	assignment = JOB_ERT_CLOWN
+	icon_state = "ert"
+
+/obj/item/card/id/ert/clown/Initialize(mapload)
 	access = get_all_accesses()
 	. = ..()
 
@@ -769,6 +816,16 @@ update_label("John Doe", "Clowny")
 	assignment = "CentCom Attorney"
 	icon_state = "centcom"
 
+/// Trim for Bounty Hunters hired by centcom.
+/obj/item/card/id/ert/bounty
+	registered_name = "Bounty Hunter"
+	assignment = "Bounty Hunter"
+	icon_state = "ert"
+
+/obj/item/card/id/ert/bounty/Initialize(mapload)
+	. = ..()
+	access = list(ACCESS_CENT_GENERAL)
+
 /obj/item/card/id/ert/lawyer/Initialize(mapload)
 	. = ..()
 	access = list(ACCESS_CENT_GENERAL, ACCESS_COURT, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS)
@@ -777,7 +834,7 @@ update_label("John Doe", "Clowny")
 	name = "prisoner ID card"
 	desc = "You are a number, you are not a free man."
 	icon_state = "orange"
-	item_state = "orange-id"
+	inhand_icon_state = "orange-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	var/goal = 0 //How far from freedom?
@@ -789,10 +846,10 @@ update_label("John Doe", "Clowny")
 	. = ..()
 
 	if(!permanent)
-		. += "<span class='notice'>A little display on the card reads: You have accumulated [points] out of the [goal] points you need for freedom.</span>"
+		. += span_notice("A little display on the card reads: You have accumulated [points] out of the [goal] points you need for freedom.")
 
 	else
-		. += "<span class='notice'>The mark on the ID indicates the sentence is permanent.</span>"
+		. += span_notice("The mark on the ID indicates the sentence is permanent.")
 
 /obj/item/card/id/gulag/one
 	name = "Prisoner #13-001"
@@ -849,37 +906,34 @@ update_label("John Doe", "Clowny")
 	name = "paper nametag"
 	desc = "Some spare papers taped into a vague card shape, with a name scribbled on it. Seems trustworthy."
 	icon_state = "paper"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 0)
+	armor_type = /datum/armor/id_paper
 	resistance_flags = null  // removes all resistance because its a piece of paper
 	access = list()
 	assignment = "Unknown"
 	hud_state = JOB_HUD_PAPER
 	electric = FALSE
 
+/datum/armor/id_paper
+	acid = 50
+
 /obj/item/card/id/paper/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
-		var/target_name = stripped_input(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
+		var/target_name = tgui_input_text(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
 		registered_name = target_name || registered_name  // in case they hit cancel
-		assignment = "Unknown"
-		to_chat(user, "<span class='notice'>You scribble the name [target_name] onto the slip.</span>")
+		to_chat(user, span_notice("You scribble the name [target_name] onto the slip."))
+		var/target_job = tgui_input_text(user, "What job would you like to be displayed on the card?", "Assignment:", assignment || "Assistant", MAX_MESSAGE_LEN)
+		assignment = target_job || assignment
+		to_chat(user, span_notice("You scribble the name [target_job] onto the slip."))
 		update_label()
 
 /obj/item/card/id/paper/alt_click_can_use_id(mob/living/user)
-	to_chat(user, "<span class='warning'>There's no money circuitry in here!</span>")
+	to_chat(user, span_warning("There's no money circuitry in here!"))
 
 /obj/item/card/id/paper/insert_money(obj/item/I, mob/user, physical_currency)
-	to_chat(user, "<span class='warning'>You can't insert money into a slip!</span>")  // not sure if this is triggerable but just as a safeclip
+	to_chat(user, span_warning("You can't insert money into a slip!"))  // not sure if this is triggerable but just as a safeclip
 
 /obj/item/card/id/paper/GetAccess()
 	return list()
-
-/obj/item/card/id/paper/update_label(newname, newjob)
-	if(newname || newjob)
-		name = "[(!newname)	? "paper slip identifier": "[newname]'s paper slip"]"
-		return
-
-	name = "[(!registered_name)	? "paper slip identifier": "[registered_name]'s paper slip"]"
-
 
 /obj/item/card/id/away
 	name = "\proper a perfectly generic identification card"
@@ -1287,11 +1341,18 @@ update_label("John Doe", "Clowny")
 	icon_state = "rawsecurity"
 	hud_state = JOB_HUD_RAWSECURITY
 
- // ---- ???? ----
+// ---- ???? ----
 /obj/item/card/id/job/unknown
 	name = "Job card - unassigned"
 	icon_state = "id"
 	hud_state = JOB_HUD_UNKNOWN
+
+/obj/item/card/id/job/prisoner
+	name = "Prisoner Identification Card"
+	desc = "A rugged plastized ID card designed for use by prisoners. Purely to facilitate the convenience of digitalised currency."
+	icon_state = "orange"
+	assignment = JOB_NAME_PRISONER
+	hud_state = JOB_HUD_PRISONER
 
 /obj/item/card/id/gold/vip
 	name = "important gold identification card"
@@ -1302,7 +1363,6 @@ update_label("John Doe", "Clowny")
 	name = "their majesty's gold identification card"
 	assignment = JOB_NAME_KING
 	hud_state = JOB_HUD_KING
-
 
 /obj/item/card/id/pass
 	name = "promotion pass"
@@ -1319,7 +1379,7 @@ update_label("John Doe", "Clowny")
 	var/obj/item/card/id/idcard = target
 	if(istype(idcard))
 		if(!idcard.electric)
-			to_chat(user, to_chat(user, "<span class='warning'>You swipe the id card. Nothing happens. </span>"))
+			to_chat(user, to_chat(user, span_warning("You swipe the id card. Nothing happens. ")))
 			return
 		for(var/give_access in access)
 			idcard.access |= give_access
@@ -1327,6 +1387,10 @@ update_label("John Doe", "Clowny")
 			idcard.assignment = assignment
 		if(name!=initial(name))
 			idcard.name = name
-		to_chat(user, "You upgrade your [idcard] with the [name].")
-		log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
-		qdel(src)
+
+		on_applied(target, user, idcard)
+
+/obj/item/card/id/pass/proc/on_applied(atom/target, mob/user, obj/item/card/id/idcard)
+	to_chat(user, "You upgrade your [idcard] with the [name].")
+	log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
+	qdel(src)

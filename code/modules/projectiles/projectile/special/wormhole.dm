@@ -7,7 +7,7 @@
 	pass_flags = PASSTRANSPARENT | PASSTABLE | PASSGRILLE | PASSMOB
 	//Weakref to the thing that shot us
 	var/datum/weakref/gun
-	color = "#33CCFF"
+	color = COLOR_BLUE_LIGHT
 	tracer_type = /obj/effect/projectile/tracer/wormhole
 	impact_type = /obj/effect/projectile/impact/wormhole
 	muzzle_type = /obj/effect/projectile/muzzle/wormhole
@@ -17,6 +17,8 @@
 /obj/projectile/beam/wormhole/orange
 	name = "orange bluespace beam"
 	color = "#FF6600"
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/beam/wormhole)
 
 /obj/projectile/beam/wormhole/Initialize(mapload, obj/item/ammo_casing/energy/wormhole/casing)
 	. = ..()

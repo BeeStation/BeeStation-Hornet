@@ -39,7 +39,7 @@
 	},
 /area/template_noop)
 "f" = (
-/obj/effect/spawner/lootdrop/organ_spawner,
+/obj/effect/spawner/random/medical/organs,
 /obj/effect/trap/nexus/trickyspawner/catbutcher,
 /turf/open/floor/plating{
 	broken = 1
@@ -60,7 +60,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -99,17 +99,17 @@
 "p" = (
 /obj/structure/table/glass,
 /obj/item/weldingtool/mini,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating{
 	burnt = 1
 	},
 /area/template_noop)
 "q" = (
-/obj/effect/spawner/lootdrop/trap/reusable,
+/obj/effect/spawner/random/unsorted/trap/reusable,
 /turf/open/floor/plating,
 /area/template_noop)
 "r" = (
-/obj/effect/spawner/lootdrop/organ_spawner,
+/obj/effect/spawner/random/medical/organs,
 /obj/structure/closet/crate,
 /turf/open/floor/plating{
 	broken = 1

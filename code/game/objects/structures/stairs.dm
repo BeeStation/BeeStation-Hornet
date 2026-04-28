@@ -3,7 +3,7 @@
 #define STAIR_TERMINATOR_YES 2
 
 // dir determines the direction of travel to go upwards
-// stairs require /turf/open/openspace as the tile above them to work, unless your stairs have 'force_open_above' set to TRUE
+// stairs require /turf/open/transparentopenspace as the tile above them to work, unless your stairs have 'force_open_above' set to TRUE
 // multiple stair objects can be chained together; the Z level transition will happen on the final stair object in the chain
 
 /obj/structure/stairs
@@ -18,6 +18,7 @@
 
 
 /obj/structure/stairs/Initialize(mapload)
+	GLOB.stairs += src
 	if(force_open_above)
 		force_open_above()
 		build_signal_listener()
@@ -33,6 +34,7 @@
 
 /obj/structure/stairs/Destroy()
 	listeningTo = null
+	GLOB.stairs -= src
 	return ..()
 
 /obj/structure/stairs/Move()			//Look this should never happen but...
@@ -42,7 +44,7 @@
 	update_surrounding()
 
 // Passthrough for 0G travel
-/obj/structure/stairs/attack_hand(mob/user)
+/obj/structure/stairs/attack_hand(mob/user, list/modifiers)
 	var/turf/T = get_turf(src)
 	T.attack_hand(user)
 
@@ -77,10 +79,14 @@
 	var/turf/checking = get_step_multiz(get_turf(src), UP)
 	if(!istype(checking))
 		return
-	if(!checking.zPassIn(AM, UP, get_turf(src)))
+	// I'm only interested in if the pass is unobstructed, not if the mob will actually make it
+	// Use atom's can_zTravel to forward to turf zPassOut/zPassIn checks. The original call
+	// allowed buckled movement via ZMOVE_ALLOW_BUCKLED; can_zTravel doesn't take that flag
+	// so we call it with the destination first and direction second (matching its signature).
+	if(!AM.can_zTravel(checking, UP))
 		return
 	var/turf/target = get_step_multiz(get_turf(src), (dir|UP))
-	if(istype(target) && !target.can_zFall(AM, null, get_step_multiz(target, DOWN)))			//Don't throw them into a tile that will just dump them back down.
+	if(istype(target) && !target.can_zFall(AM, null, get_step_multiz(target, DOWN))) //Don't throw them into a tile that will just dump them back down.
 		AM.Move(target, (dir | UP))
 
 /obj/structure/stairs/vv_edit_var(var_name, var_value)
@@ -138,3 +144,7 @@
 
 /obj/structure/stairs/attack_ghost(mob/user)
 	stair_ascend(user)
+
+#undef STAIR_TERMINATOR_AUTOMATIC
+#undef STAIR_TERMINATOR_NO
+#undef STAIR_TERMINATOR_YES

@@ -7,23 +7,21 @@
 	if(!istype(_owner))
 		CRASH("Attempted to initialize holoparasite HUD on non-holoparasite!")
 	owner = _owner
-	healths = new /atom/movable/screen/healths
-	healths.hud = src
+	healths = new /atom/movable/screen/healths(null, src)
 	infodisplay += healths
 
-	pull_icon = new /atom/movable/screen/pull
+	pull_icon = new /atom/movable/screen/pull(null, src)
 	pull_icon.icon = ui_style
 	pull_icon.update_icon()
 	pull_icon.screen_loc = owner.dextrous ? ui_holopara_pull_dex : ui_holopara_pull
-	pull_icon.hud = src
 	static_inventory += pull_icon
 
 	var/list/huds_to_add = list(
-		new /atom/movable/screen/holoparasite/info(null, owner),
-		new /atom/movable/screen/holoparasite/communicate(null, owner),
-		new /atom/movable/screen/holoparasite/manifest_recall(null, owner),
-		new /atom/movable/screen/holoparasite/toggle_light(null, owner),
-		new /atom/movable/screen/holoparasite/set_battlecry(null, owner)
+		new /atom/movable/screen/holoparasite/info(null, src, owner),
+		new /atom/movable/screen/holoparasite/communicate(null, src, owner),
+		new /atom/movable/screen/holoparasite/manifest_recall(null, src, owner),
+		new /atom/movable/screen/holoparasite/toggle_light(null, src, owner),
+		new /atom/movable/screen/holoparasite/set_battlecry(null, src, owner)
 	)
 	build_hand_slots()
 	SEND_SIGNAL(owner, COMSIG_HOLOPARA_SETUP_HUD, src, huds_to_add)
@@ -54,7 +52,6 @@
 	for(var/atom/movable/screen/hud_object in huds)
 		if(hud_object in static_inventory)
 			continue
-		hud_object.hud = src
 		hud_object.screen_loc = ui_holopara_button(hud_loc)
 		hud_loc++
 		static_inventory |= hud_object
@@ -71,41 +68,38 @@
 	var/hands = length(owner.held_items)
 	var/hand_loc = -(hands / 2) + 1
 	for(var/i in 1 to hands)
-		hand_box = new
+		hand_box = new(null, src)
 		hand_box.name = owner.get_held_index_name(i)
 		hand_box.icon = ui_style
 		hand_box.icon_state = "hand_[owner.held_index_to_dir(i)]"
 		hand_box.screen_loc = ui_holopara_hand(hand_loc)
 		hand_box.held_index = i
 		hand_slots["[i]"] = hand_box
-		hand_box.hud = src
 		static_inventory += hand_box
 		hand_box.update_icon()
 		hand_loc++
 
-	var/atom/movable/screen/swap_hand/swap_hand = new
+	var/atom/movable/screen/swap_hand/swap_hand = new(null, src)
 	swap_hand.icon = ui_style
 	swap_hand.icon_state = "swap_1_m"
 	swap_hand.screen_loc = ui_holopara_swap_l
-	swap_hand.hud = src
 	static_inventory += swap_hand
 
-	swap_hand = new
+	swap_hand = new(null, src)
 	swap_hand.icon = ui_style
 	swap_hand.icon_state = "swap_2"
 	swap_hand.screen_loc = ui_holopara_swap_r
-	swap_hand.hud = src
 	static_inventory += swap_hand
 
 	owner.client.screen = list()
 	for(var/atom/movable/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
-			inv.hud = src
 			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
 			inv.update_icon()
 
 /atom/movable/screen/holoparasite
 	icon = 'icons/mob/holoparasite.dmi'
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/mob/living/simple_animal/hostile/holoparasite/owner
 	var/can_toggle = FALSE
 	var/last_params
@@ -117,7 +111,9 @@
 	var/static/list/mutable_appearance/timer_fraction_overlays
 	COOLDOWN_DECLARE(timer)
 
-/atom/movable/screen/holoparasite/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner)
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite)
+
+/atom/movable/screen/holoparasite/Initialize(mapload, datum/hud/hud_owner, mob/living/simple_animal/hostile/holoparasite/_owner)
 	. = ..()
 	if(!istype(_owner))
 		CRASH("Tried to create a holoparasite HUD element without a parent holoparasite!")
@@ -150,6 +146,7 @@
 	return ..()
 
 /atom/movable/screen/holoparasite/MouseEntered(location, control, params)
+	..()
 	if(QDELETED(src))
 		return
 	if(usr == owner)

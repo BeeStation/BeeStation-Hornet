@@ -1,7 +1,5 @@
+/// Anything above a lattice should go here.
 /turf/open/floor
-	//NOTE: Floor code has been refactored, many procs were removed and refactored
-	//- you should use istype() if you want to find out whether a floor has a certain type
-	//- floor_tile is now a path, and not a tile obj
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
 	base_icon_state = "floor"
@@ -12,28 +10,39 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	turf_flags = CAN_BE_DIRTY_1
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
-	thermal_conductivity = 0.04
-	heat_capacity = 10000
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+
+	thermal_conductivity = 0.02
+	heat_capacity = 20000
 	tiled_dirt = TRUE
 
 	overfloor_placed = TRUE
 
 	var/icon_plating = "plating"
-	var/floor_tile = null //tile that this floor drops
+	/// Path of the tile that this floor drops
+	var/floor_tile = null
+
+	/// Number of variant states
+	var/variant_states = 0
+	/// Probability of a variant occuring
+	var/variant_probability = 0
 
 /turf/open/floor/Initialize(mapload)
 	. = ..()
+
+	if (variant_probability && prob(variant_probability))
+		icon_state = "[icon_state][rand(1, variant_states)]"
+
 	if(mapload && prob(33))
 		MakeDirty()
+
 	if(is_station_level(z))
 		GLOB.station_turfs += src
-
-	//Choose a variant
-	if(variants)
-		icon_state = pick_weight(variants)
 
 /turf/open/floor/Destroy()
 	if(is_station_level(z))
@@ -41,8 +50,8 @@
 	return ..()
 
 /turf/open/floor/is_shielded()
-	for(var/obj/structure/A in contents)
-		return 1
+	for(var/obj/structure/thing in contents)
+		return TRUE
 
 /turf/open/floor/update_icon()
 	. = ..()
@@ -50,6 +59,13 @@
 
 /turf/open/floor/attack_paw(mob/user)
 	return attack_hand(user)
+
+/turf/open/floor/attack_hand(mob/user, list/modifiers)
+	. = ..()
+	if(.)
+		return
+
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user, modifiers)
 
 /turf/open/floor/after_damage(damage_amount, damage_type, damage_flag)
 	if (broken || burnt)
@@ -67,12 +83,17 @@
 		return
 	T.break_tile()
 
+/// Things seem to rely on this actually returning plating. Override it if you have other baseturfs.
 /turf/open/floor/proc/make_plating()
 	//Remove previous damage overlays
 	for(var/i in damage_overlays)
 		remove_filter(i)
 		damage_overlays -= i
 	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
+
+///For when the floor is placed under heavy load. Calls break_tile(), but exists to be overridden by floor types that should resist crushing force.
+/turf/open/floor/proc/crush()
+	break_tile()
 
 /turf/open/floor/ChangeTurf(path, new_baseturf, flags)
 	if(!isfloorturf(src))
@@ -102,7 +123,7 @@
 		return TRUE
 
 /turf/open/floor/proc/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
-	if(T.turf_type == type)
+	if(T.turf_type == type && T.turf_dir == dir)
 		return
 	var/obj/item/CB = user.is_holding_tool_quality(TOOL_CROWBAR)
 	if(!CB)
@@ -121,10 +142,10 @@
 		broken = 0
 		burnt = 0
 		if(user && !silent)
-			to_chat(user, "<span class='notice'>You remove the broken plating.</span>")
+			to_chat(user, span_notice("You remove the broken plating."))
 	else
 		if(user && !silent)
-			to_chat(user, "<span class='notice'>You remove the floor tile.</span>")
+			to_chat(user, span_notice("You remove the floor tile."))
 		if(floor_tile && make_tile)
 			spawn_tile()
 	return make_plating()
@@ -137,25 +158,25 @@
 		return null
 	return new floor_tile(src)
 
-/turf/open/floor/singularity_pull(S, current_size)
+/turf/open/floor/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
-	if(current_size == STAGE_THREE)
-		if(prob(30))
+	var/sheer = FALSE
+	switch(current_size)
+		if(STAGE_THREE)
+			if(prob(30))
+				sheer = TRUE
+		if(STAGE_FOUR)
+			if(prob(50))
+				sheer = TRUE
+		if(STAGE_FIVE to INFINITY)
 			if(floor_tile)
-				new floor_tile(src)
-				make_plating()
-	else if(current_size == STAGE_FOUR)
-		if(prob(50))
-			if(floor_tile)
-				new floor_tile(src)
-				make_plating()
-	else if(current_size >= STAGE_FIVE)
-		if(floor_tile)
-			if(prob(70))
-				new floor_tile(src)
-				make_plating()
-		else if(prob(50))
-			ReplaceWithLattice()
+				if(prob(70))
+					sheer = TRUE
+			else if(prob(50) && (/turf/open/space in baseturfs))
+				ReplaceWithLattice()
+	if(sheer)
+		if(has_tile())
+			remove_tile(null, TRUE, TRUE, TRUE)
 
 /turf/open/floor/narsie_act(force, ignore_mobs, probability = 20)
 	. = ..()
@@ -173,7 +194,13 @@
 /turf/open/floor/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)
 		if(RCD_FLOORWALL)
-			return list("mode" = RCD_FLOORWALL, "delay" = 20, "cost" = 16)
+			var/obj/structure/girder/girder = locate() in src
+			if(girder)
+				return girder.rcd_vals(user, the_rcd)
+			return rcd_result_with_memory(
+				list("mode" = RCD_FLOORWALL, "delay" = 2 SECONDS, "cost" = 16),
+				src, RCD_MEMORY_WALL,
+			)
 		if(RCD_LADDER)
 			return list("mode" = RCD_LADDER, "delay" = 25, "cost" = 16)
 		if(RCD_AIRLOCK)
@@ -184,7 +211,10 @@
 		if(RCD_DECONSTRUCT)
 			return list("mode" = RCD_DECONSTRUCT, "delay" = 50, "cost" = 33)
 		if(RCD_WINDOWGRILLE)
-			return list("mode" = RCD_WINDOWGRILLE, "delay" = 10, "cost" = 4)
+			return rcd_result_with_memory(
+				list("mode" = RCD_WINDOWGRILLE, "delay" = 1 SECONDS, "cost" = 4),
+				src, RCD_MEMORY_WINDOWGRILLE,
+			)
 		if(RCD_MACHINE)
 			return list("mode" = RCD_MACHINE, "delay" = 20, "cost" = 25)
 		if(RCD_COMPUTER)
@@ -196,7 +226,10 @@
 /turf/open/floor/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_FLOORWALL)
-			to_chat(user, "<span class='notice'>You build a wall.</span>")
+			var/obj/structure/girder/girder = locate() in src
+			if(girder)
+				return girder.rcd_act(user, the_rcd, passed_mode)
+			to_chat(user, span_notice("You build a wall."))
 			log_attack("[key_name(user)] has constructed a wall at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			var/overlapping_lattice = locate(/obj/structure/lattice) in get_turf(src)
 			if(overlapping_lattice)
@@ -204,15 +237,18 @@
 			PlaceOnTop(/turf/closed/wall)
 			return TRUE
 		if(RCD_LADDER)
-			to_chat(user, "<span class='notice'>You build a ladder.</span>")
+			to_chat(user, span_notice("You build a ladder."))
 			var/obj/structure/ladder/L = new(src)
 			L.set_anchored(TRUE)
 			return TRUE
 		if(RCD_AIRLOCK)
-			if(locate(/obj/machinery/door/airlock) in src || locate(/obj/machinery/door/window) in src)
+			for(var/obj/machinery/door/door in src)
+				if(door.sub_door)
+					continue
+				to_chat(user, span_notice("There is another door here!"))
 				return FALSE
 			if(ispath(the_rcd.airlock_type, /obj/machinery/door/window))
-				to_chat(user, "<span class='notice'>You build a windoor.</span>")
+				to_chat(user, span_notice("You build a windoor."))
 				var/obj/machinery/door/window/new_window = new the_rcd.airlock_type(src, user.dir, the_rcd.airlock_electronics?.unres_sides)
 				if(the_rcd.airlock_electronics)
 					new_window.name = the_rcd.airlock_electronics.passed_name || initial(new_window.name)
@@ -223,7 +259,7 @@
 				new_window.autoclose = TRUE
 				new_window.update_icon()
 				return TRUE
-			to_chat(user, "<span class='notice'>You build an airlock.</span>")
+			to_chat(user, span_notice("You build an airlock."))
 			log_attack("[key_name(user)] has constructed an airlock at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			var/obj/machinery/door/airlock/new_airlock = new the_rcd.airlock_type(src)
 			new_airlock.electronics = new /obj/item/electronics/airlock(new_airlock)
@@ -251,13 +287,13 @@
 			var/previous_turf = initial(name)
 			if(!ScrapeAway(flags = CHANGETURF_INHERIT_AIR))
 				return FALSE
-			to_chat(user, "<span class='notice'>You deconstruct [previous_turf].</span>")
+			to_chat(user, span_notice("You deconstruct [previous_turf]."))
 			log_attack("[key_name(user)] has deconstructed [previous_turf] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			return TRUE
 		if(RCD_WINDOWGRILLE)
 			if(locate(/obj/structure/grille) in src)
 				return FALSE
-			to_chat(user, "<span class='notice'>You construct the grille.</span>")
+			to_chat(user, span_notice("You construct the grille."))
 			log_attack("[key_name(user)] has constructed a grille at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			var/obj/structure/grille/new_grille = new(src)
 			new_grille.set_anchored(TRUE)
@@ -286,15 +322,6 @@
 			return TRUE
 
 	return FALSE
-
-///Autogenerates the variant list from 1 > max (name, name1, name2, name3)
-/turf/open/floor/proc/auto_gen_variants(max)
-	if(!max)
-		return
-	if(icon_state && icon_state != "")
-		variants += list("[icon_state]" = 1)
-	for(var/i in 1 to max)
-		variants += list("[icon_state][i]" = 1)
 
 /turf/open/floor/material
 	name = "floor"

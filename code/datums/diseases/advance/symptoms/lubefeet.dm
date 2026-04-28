@@ -14,7 +14,7 @@
 	var/morelube = FALSE
 	var/clownshoes = FALSE
 	threshold_desc = "<b>Transmission 10:</b> The host sweats even more profusely, lubing almost every tile they walk over<br>\
-					  <b>Resistance 14:</b> The host's feet turn into a pair of clown shoes."
+						<b>Resistance 14:</b> The host's feet turn into a pair of clown shoes."
 
 /datum/symptom/lubefeet/severityset(datum/disease/advance/A)
 	. = ..()
@@ -22,7 +22,7 @@
 		severity += 1
 	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
 		threshold_desc = "<b>Transmission 8:</b> The host sweats even more profusely, lubing almost every tile they walk over<br>\
-					  <b>Resistance 8:</b> The host's feet turn into a pair of clown shoes."
+						<b>Resistance 8:</b> The host's feet turn into a pair of clown shoes."
 
 /datum/symptom/lubefeet/Start(datum/disease/advance/A)
 	if(!..())
@@ -39,10 +39,10 @@
 	switch(A.stage)
 		if(1, 2)
 			if(prob(15) && M.stat != DEAD)
-				to_chat(M, "<span class='notice'>Your feet begin to sweat profusely...</span>")
+				to_chat(M, span_notice("Your feet begin to sweat profusely..."))
 		if(3, 4)
 			if(M.stat != DEAD)
-				to_chat(M, "<span class='danger'>You slide about inside your shoes!</span>")
+				to_chat(M, span_danger("You slide about inside your shoes!"))
 			if(A.stage == 4 || A.stage == 5)
 				if(morelube)
 					makelube(M, 40)
@@ -50,7 +50,7 @@
 					makelube(M, 20)
 		if(5)
 			if(M.stat != DEAD)
-				to_chat(M, "<span class='danger'>You slide about inside your shoes!</span>")
+				to_chat(M, span_danger("You slide about inside your shoes!"))
 			if(A.stage == 4 || A.stage == 5)
 				if(morelube)
 					makelube(M, 80)
@@ -65,7 +65,7 @@
 		var/turf/open/OT = get_turf(M)
 		if(istype(OT))
 			if(M.stat != DEAD)
-				to_chat(M, "<span class='danger'>The lube pools into a puddle!</span>")
+				to_chat(M, span_danger("The lube pools into a puddle!"))
 			OT.MakeSlippery(TURF_WET_LUBE, min_wet_time = 20 SECONDS, wet_time_to_add = 10 SECONDS)
 
 /datum/symptom/lubefeet/End(datum/disease/advance/A)

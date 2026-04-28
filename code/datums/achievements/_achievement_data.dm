@@ -63,6 +63,8 @@
 
 ///Unlocks an achievement of a specific type.
 /datum/achievement_data/proc/unlock(achievement_type, mob/user)
+	set waitfor = FALSE
+
 	var/datum/award/A = SSachievements.awards[achievement_type]
 	if(!A)	//SSachievements wasn't initialized or we don't have those enabled
 		return FALSE
@@ -77,7 +79,7 @@
 	var/datum/award/score/A = SSachievements.awards[achievement_type]
 	get_data(achievement_type) //Get the current status first if necessary
 	if(length(A.high_scores) == 0 || A.high_scores[A.high_scores[1]] < value)
-		to_chat(world, "<span class='greenannounce'><B>[user.client.key] set a new high score in [A.name]: [value]</B></span>")
+		to_chat(world, span_greenannounce("<B>[user.client.key] set a new high score in [A.name]: [value]</B>"))
 	if(!data[achievement_type] || value > data[achievement_type])
 		data[achievement_type] = value
 
@@ -142,12 +144,13 @@
 			continue
 		.["highscore"] += list(list("name" = S.name,"scores" = S.high_scores))
 
-/client/verb/checkachievements()
+AUTH_CLIENT_VERB(checkachievements)
 	set category = "OOC"
 	set name = "Check Achievements"
 	set desc = "See all of your achievements!"
 
-	player_details.achievements.ui_interact(usr)
+	if(player_details?.achievements)
+		player_details.achievements.ui_interact(usr)
 
-/mob/verb/gimme_jackpot()
-	client.give_award(/datum/award/achievement/misc/time_waste,src)
+AUTH_CLIENT_VERB(gimme_jackpot)
+	src.give_award(/datum/award/achievement/misc/time_waste,src.mob)

@@ -33,13 +33,13 @@
 
 /obj/structure/geyser/plunger_act(obj/item/plunger/P, mob/living/user, _reinforced)
 	if(!_reinforced)
-		to_chat(user, "<span class='warning'>The [P.name] isn't strong enough!</span>")
+		to_chat(user, span_warning("The [P.name] isn't strong enough!"))
 		return
 	if(activated)
-		to_chat(user, "<span class='warning'>The [name] is already active!")
+		to_chat(user, span_warning("The [name] is already active!"))
 		return
 
-	to_chat(user, "<span class='notice'>You start vigorously plunging [src]!")
+	to_chat(user, span_notice("You start vigorously plunging [src]!"))
 	if(do_after(user, 50*P.plunge_mod, target = src) && !activated)
 		start_chemming()
 
@@ -60,7 +60,7 @@
 	var/plunge_mod = 1 //time*plunge_mod = total time we take to plunge an object
 	var/reinforced = FALSE //whether we do heavy duty stuff like geysers
 
-/obj/item/plunger/attack_obj(obj/O, mob/living/user)
+/obj/item/plunger/attack_atom(obj/O, mob/living/user)
 	if(!O.plunger_act(src, user, reinforced))
 		return ..()
 

@@ -1,10 +1,13 @@
 /obj/effect/anomaly/flux
 	name = "flux wave anomaly"
-	icon_state = "electricity2"
+	icon_state = "flux"
 	density = TRUE
+	anomaly_core = /obj/item/assembly/signaler/anomaly/flux
 	var/canshock = FALSE
 	var/shockdamage = 20
 	var/explosive = ANOMALY_FLUX_EXPLOSIVE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly/flux)
 
 /obj/effect/anomaly/flux/Initialize(mapload, new_lifespan, drops_core = TRUE, explosive = ANOMALY_FLUX_EXPLOSIVE)
 	. = ..()

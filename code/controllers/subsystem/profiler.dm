@@ -7,7 +7,7 @@ GLOBAL_REAL_VAR(world_init_maptick_profiler) = world.Profile(PROFILE_RESTART, ty
 
 SUBSYSTEM_DEF(profiler)
 	name = "Profiler"
-	init_order = INIT_ORDER_PROFILER
+	init_stage = INITSTAGE_FIRST
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	wait = 3000
 	var/fetch_cost = 0
@@ -23,7 +23,7 @@ SUBSYSTEM_DEF(profiler)
 		StartProfiling()
 	else
 		StopProfiling() //Stop the early start from world/New
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/profiler/fire()
 	if(CONFIG_GET(flag/auto_profile))
@@ -83,3 +83,6 @@ SUBSYSTEM_DEF(profiler)
 #endif
 	write_cost = MC_AVERAGE(write_cost, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 #endif
+
+#undef PROFILER_FILENAME
+#undef SENDMAPS_FILENAME

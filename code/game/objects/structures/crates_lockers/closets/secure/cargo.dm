@@ -17,7 +17,7 @@
 	new /obj/item/clothing/under/rank/cargo/quartermaster/turtleneck/skirt(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 	new /obj/item/radio/headset/headset_quartermaster(src)
-	new /obj/item/clothing/suit/fire/firefighter(src)
+	new /obj/item/clothing/suit/utility/fire/firefighter(src)
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/megaphone/cargo(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
@@ -29,3 +29,4 @@
 	new /obj/item/storage/photo_album/QM(src)
 	new /obj/item/circuitboard/machine/ore_silo(src)
 	new /obj/item/storage/box/radiokey/car(src)
+	new /obj/item/clothing/neck/cloak/qm_mantle(src)

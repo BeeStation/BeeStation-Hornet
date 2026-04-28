@@ -13,7 +13,7 @@
 	if(randomdir)
 		setDir(pick(GLOB.cardinals))
 
-	timerid = QDEL_IN(src, duration)
+	timerid = QDEL_IN_STOPPABLE(src, duration)
 
 /obj/effect/temp_visual/Destroy()
 	. = ..()
@@ -22,14 +22,13 @@
 /obj/effect/temp_visual/singularity_act()
 	return
 
-/obj/effect/temp_visual/singularity_pull()
-	return
-
-/obj/effect/temp_visual/ex_act()
+/obj/effect/temp_visual/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/temp_visual/dir_setting
 	randomdir = FALSE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting)
 
 /obj/effect/temp_visual/dir_setting/Initialize(mapload, set_dir)
 	if(set_dir)

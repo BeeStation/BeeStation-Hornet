@@ -1,6 +1,7 @@
 /obj/item/ammo_casing/magic
 	name = "magic casing"
 	desc = "I didn't even know magic needed ammo..."
+	slot_flags = null
 	projectile_type = /obj/projectile/magic
 	firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/magic
 	heavy_metal = FALSE
@@ -11,27 +12,35 @@
 /obj/item/ammo_casing/magic/animate
 	projectile_type = /obj/projectile/magic/animate
 
+/obj/item/ammo_casing/magic/burger
+	projectile_type = /obj/projectile/magic/burger
+
 /obj/item/ammo_casing/magic/heal
-	projectile_type = /obj/projectile/magic/resurrection
+	projectile_type = /obj/projectile/magic/healing
 	harmful = FALSE
 
-/obj/item/ammo_casing/magic/death
-	projectile_type = /obj/projectile/magic/death
+/obj/item/ammo_casing/magic/potential
+	projectile_type = /obj/projectile/magic/potential
+
+/obj/item/ammo_casing/magic/dismember
+	projectile_type = /obj/projectile/magic/dismember
+
+/obj/item/ammo_casing/magic/drain
+	projectile_type = /obj/projectile/magic/drain
+
+/obj/item/ammo_casing/magic/icy_blast
+	projectile_type = /obj/projectile/magic/icy_blast
 
 /obj/item/ammo_casing/magic/teleport
 	projectile_type = /obj/projectile/magic/teleport
-	harmful = FALSE
-
-/obj/item/ammo_casing/magic/safety
-	projectile_type = /obj/projectile/magic/safety
 	harmful = FALSE
 
 /obj/item/ammo_casing/magic/door
 	projectile_type = /obj/projectile/magic/door
 	harmful = FALSE
 
-/obj/item/ammo_casing/magic/fireball
-	projectile_type = /obj/projectile/magic/fireball
+/obj/item/ammo_casing/magic/firebolt
+	projectile_type = /obj/projectile/magic/firebolt
 
 /obj/item/ammo_casing/magic/chaos
 	projectile_type = /obj/projectile/magic
@@ -65,3 +74,7 @@
 
 /obj/item/ammo_casing/magic/wipe
 	projectile_type = /obj/projectile/magic/wipe
+
+//debug item
+/obj/item/ammo_casing/magic/nuclear
+	projectile_type = /obj/projectile/energy/nuclear_particle

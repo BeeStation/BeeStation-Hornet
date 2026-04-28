@@ -45,6 +45,46 @@
 	minimum = 2
 	linear_scaling_rate = 0.6
 
+/obj/effect/loot_jobscale/armoury/pistols
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "sec"
+	loot = list(/obj/item/gun/ballistic/automatic/pistol/security, /obj/item/storage/belt/sabre/carbon_fiber)
+	fan_out_items = TRUE
+	minimum = 1
+	linear_scaling_rate = 0.5
+
+/obj/effect/loot_jobscale/armoury/pistol_ammo
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "sec"
+	loot = list(/obj/item/ammo_box/magazine/x200law)
+	fan_out_items = TRUE
+	minimum = 2
+	linear_scaling_rate = 1
+
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "sec"
+	loot = list(/obj/item/ammo_box/x200law)
+	fan_out_items = TRUE
+	minimum = 1
+	linear_scaling_rate = 0.5
+
+/obj/effect/loot_jobscale/armoury/tasers
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "taser"
+	loot = list(/obj/item/gun/ballistic/taser)
+	fan_out_items = TRUE
+	minimum = 2
+	linear_scaling_rate = 1
+
+/obj/effect/loot_jobscale/armoury/taser_ammo_box
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "taser"
+	loot = list(/obj/item/ammo_box/taser)
+	fan_out_items = TRUE
+	minimum = 1
+	linear_scaling_rate = 0.4
+
 /obj/effect/loot_jobscale/armoury/dragnet
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "dragnet"
@@ -54,7 +94,7 @@
 	linear_scaling_rate = 0.2
 
 /obj/effect/loot_jobscale/armoury/bulletproof_vest
-	icon = 'icons/obj/clothing/suits.dmi'
+	icon = 'icons/obj/clothing/suits/armor.dmi'
 	icon_state = "bulletproof"
 	loot = list(/obj/item/clothing/suit/armor/bulletproof)
 	fan_out_items = TRUE
@@ -62,7 +102,7 @@
 	linear_scaling_rate = 0.5
 
 /obj/effect/loot_jobscale/armoury/bulletproof_helmet
-	icon = 'icons/obj/clothing/hats.dmi'
+	icon = 'icons/obj/clothing/head/helmet.dmi'
 	icon_state = "helmetalt"
 	loot = list(/obj/item/clothing/head/helmet/alt)
 	fan_out_items = TRUE
@@ -70,7 +110,7 @@
 	linear_scaling_rate = 0.5
 
 /obj/effect/loot_jobscale/armoury/riot_suit
-	icon = 'icons/obj/clothing/suits.dmi'
+	icon = 'icons/obj/clothing/suits/armor.dmi'
 	icon_state = "riot"
 	loot = list(/obj/item/clothing/suit/armor/riot)
 	fan_out_items = TRUE
@@ -78,9 +118,9 @@
 	linear_scaling_rate = 0.4
 
 /obj/effect/loot_jobscale/armoury/riot_helmet
-	icon = 'icons/obj/clothing/hats.dmi'
+	icon = 'icons/obj/clothing/head/helmet.dmi'
 	icon_state = "riot"
-	loot = list(/obj/item/clothing/head/helmet/riot)
+	loot = list(/obj/item/clothing/head/helmet/toggleable/riot)
 	fan_out_items = TRUE
 	minimum = 1
 	linear_scaling_rate = 0.4

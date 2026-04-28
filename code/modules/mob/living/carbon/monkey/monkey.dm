@@ -2,24 +2,29 @@
 	name = "monkey"
 	verb_say = "chimpers"
 	initial_language_holder = /datum/language_holder/monkey
-	possible_a_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_HARM)
 	icon = 'icons/mob/monkey.dmi'
-	icon_state = null
+	icon_state = "monkey1"
 	gender = NEUTER
 	pass_flags = PASSTABLE
-	ventcrawler = VENTCRAWLER_NUDE
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	butcher_results = list(/obj/item/food/meat/slab/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
 	type_of_meat = /obj/item/food/meat/slab/monkey
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
 	unique_name = TRUE
-	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
-	bodyparts = list(/obj/item/bodypart/chest/monkey, /obj/item/bodypart/head/monkey, /obj/item/bodypart/l_arm/monkey,
-					/obj/item/bodypart/r_arm/monkey, /obj/item/bodypart/r_leg/monkey, /obj/item/bodypart/l_leg/monkey)
+	// Managed by the limb overlay system
+	blocks_emissive = EMISSIVE_BLOCK_NONE
+	bodyparts = list(
+		/obj/item/bodypart/chest/monkey,
+		/obj/item/bodypart/head/monkey,
+		/obj/item/bodypart/arm/left/monkey,
+		/obj/item/bodypart/arm/right/monkey,
+		/obj/item/bodypart/leg/right/monkey,
+		/obj/item/bodypart/leg/left/monkey
+	)
 	hud_type = /datum/hud/monkey
 	mobchatspan = "monkeyhive"
 	ai_controller = /datum/ai_controller/monkey
-	faction = list("neutral", "monkey")
+	faction = list(FACTION_NEUTRAL, FACTION_MONKEY)
 	/// Whether it can be made into a human with mutadone
 	var/natural = TRUE
 	///Item reference for jumpsuit
@@ -37,9 +42,11 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	/datum/strippable_item/mob_item_slot/neck
 )))
 
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
+
 /mob/living/carbon/monkey/Initialize(mapload, cubespawned=FALSE, mob/spawner)
 	add_verb(/mob/living/proc/mob_sleep)
-	add_verb(/mob/living/proc/lay_down)
+	add_verb(/mob/living/proc/toggle_resting)
 
 	icon_state = null
 
@@ -51,13 +58,15 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	create_bodyparts()
 	create_internal_organs()
 
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_NUDE, INNATE_TRAIT)
+
 	. = ..()
 
 	if (cubespawned)
 		var/cap = CONFIG_GET(number/max_cube_monkeys)
 		if (LAZYLEN(SSmobs.cubemonkeys) > cap)
 			if (spawner)
-				to_chat(spawner, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [cap] monkeys on the station at one time!</span>")
+				to_chat(spawner, span_warning("Bluespace harmonics prevent the spawning of more than [cap] monkeys on the station at one time!"))
 			return INITIALIZE_HINT_QDEL
 		SSmobs.cubemonkeys += src
 
@@ -121,8 +130,8 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	if(client && mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
-			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.chem_storage]")
-			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbedcount]")
+			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.total_chem_storage]")
+			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbed_count]")
 	return tab_data
 
 
@@ -136,6 +145,8 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	return FALSE
 
 /mob/living/carbon/monkey/canBeHandcuffed()
+	if(num_hands < 2)
+		return FALSE
 	return TRUE
 
 /mob/living/carbon/monkey/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null)
@@ -174,18 +185,8 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 
 	return threatcount
 
-/mob/living/carbon/monkey/IsVocal()
-	if(!getorganslot(ORGAN_SLOT_LUNGS))
-		return 0
-	return 1
-
 /mob/living/carbon/monkey/can_use_guns(obj/item/G)
 	return TRUE
-
-/mob/living/carbon/monkey/IsAdvancedToolUser()
-	if(HAS_TRAIT(src, TRAIT_DISCOORDINATED)) //Obtainable with Brain trauma
-		return FALSE
-	return TRUE //Something about an infinite amount of monkeys on typewriters writing Shakespeare...
 
 /mob/living/carbon/monkey/angry
 	ai_controller = /datum/ai_controller/monkey/angry
@@ -193,7 +194,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 /mob/living/carbon/monkey/angry/Initialize(mapload)
 	. = ..()
 	if(prob(10))
-		var/obj/item/clothing/head/helmet/justice/escape/helmet = new(src)
+		var/obj/item/clothing/head/helmet/toggleable/justice/escape/helmet = new(src)
 		equip_to_slot_or_del(helmet,ITEM_SLOT_HEAD)
 		helmet.attack_self(src) // todo encapsulate toggle
 
@@ -219,11 +220,26 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	initial_language_holder = /datum/language_holder/monkey
 	icon = 'icons/mob/monkey.dmi'
 	icon_state = null
-	butcher_results = list(/obj/effect/spawner/lootdrop/teratoma/minor = 5, /obj/effect/spawner/lootdrop/teratoma/major = 1)
-	type_of_meat = /obj/effect/spawner/lootdrop/teratoma/minor
-	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
-					/obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
+	butcher_results = list(/obj/effect/spawner/random/medical/teratoma/minor = 5, /obj/effect/spawner/random/medical/teratoma/major = 1)
+	type_of_meat = /obj/effect/spawner/random/medical/teratoma/minor
+	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/arm/left/monkey/teratoma,
+					/obj/item/bodypart/arm/right/monkey/teratoma, /obj/item/bodypart/leg/right/monkey/teratoma, /obj/item/bodypart/leg/left/monkey/teratoma)
 	ai_controller = null
+	var/creator_key = null
+
+/mob/living/carbon/monkey/tumor/death(gibbed)
+	. = ..()
+	for (var/mob/living/creator in GLOB.player_list)
+		if (creator.key != creator_key)
+			continue
+		if (creator.stat == DEAD)
+			return
+		if (!creator.mind)
+			return
+		if (!creator.mind.has_antag_datum(/datum/antagonist/changeling))
+			return
+		to_chat(creator, span_warning("We gain the energy to birth another Teratoma..."))
+		return
 
 /datum/dna/tumor
 	species = new /datum/species/teratoma
@@ -231,21 +247,29 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 /datum/species/teratoma
 	name = "Teratoma"
 	id = "teratoma"
-	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
-	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE)	//Made of mutated cells
-	default_features = list("mcolor" = "FFF", "wings" = "None")
+	species_traits = list(EYECOLOR, HAIR, FACEHAIR, LIPS)
+	inherent_traits = list(
+		TRAIT_NOHUNGER,
+		TRAIT_RADIMMUNE,
+		TRAIT_BADDNA,
+		TRAIT_CHUNKYFINGERS,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NOT_TRANSMORPHIC,
+	) //Made of mutated cells
 	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	changesource_flags = MIRROR_BADMIN
-	mutant_brain = /obj/item/organ/brain/tumor
+	mutantbrain = /obj/item/organ/brain/tumor
 	mutanttongue = /obj/item/organ/tongue/teratoma
 
-	species_chest = /obj/item/bodypart/chest/monkey/teratoma
-	species_head = /obj/item/bodypart/head/monkey/teratoma
-	species_l_arm = /obj/item/bodypart/l_arm/monkey/teratoma
-	species_r_arm = /obj/item/bodypart/r_arm/monkey/teratoma
-	species_l_leg = /obj/item/bodypart/l_leg/monkey/teratoma
-	species_r_leg = /obj/item/bodypart/r_leg/monkey/teratoma
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/monkey/teratoma,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/monkey/teratoma,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/monkey/teratoma,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/monkey/teratoma,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/monkey/teratoma,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/monkey/teratoma
+	)
 
 /obj/item/organ/brain/tumor
 	name = "teratoma brain"
@@ -256,9 +280,6 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	if(!QDELETED(src))
 		qdel(src)
 
-/mob/living/carbon/monkey/tumor/handle_mutations_and_radiation()
-	return
-
 /mob/living/carbon/monkey/tumor/has_dna()
 	return FALSE
 
@@ -267,3 +288,16 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	//Give us the juicy mutant organs
 	dna.species.on_species_gain(src, null, FALSE)
 	dna.species.regenerate_organs(src, replace_current = TRUE)
+
+/mob/living/carbon/monkey/get_fire_overlay(stacks, on_fire)
+	var/fire_icon = "monkey_[stacks > MOB_BIG_FIRE_STACK_THRESHOLD ? "big_fire" : "small_fire"]"
+
+	if(!GLOB.fire_appearances[fire_icon])
+		GLOB.fire_appearances[fire_icon] = mutable_appearance(
+			'icons/mob/effects/onfire.dmi',
+			fire_icon,
+			-HIGHEST_LAYER,
+			appearance_flags = RESET_COLOR | KEEP_APART,
+		)
+
+	return GLOB.fire_appearances[fire_icon]

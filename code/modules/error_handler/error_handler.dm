@@ -11,6 +11,13 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		log_world("uncaught runtime error: [E]")
 		return ..()
 
+	// a trick that helps /proc/stack_trace()
+	if(E.name == GLOB.runtime_helper["runtime_message"])
+		E.file = GLOB.runtime_helper["file"]
+		E.line = GLOB.runtime_helper["line"]
+		E.desc += " ## STACK TRACE INFO: [E.file], line [E.line]. Proc: [GLOB.runtime_helper["procname"]] / Type: [GLOB.runtime_helper["error_type"] || "null"]"
+		GLOB.runtime_helper["runtime_message"] = STACK_TRACE_NULL_HINT
+
 	//this is snowflake because of a byond bug (ID:2306577), do not attempt to call non-builtin procs in this if
 	if(copytext(E.name, 1, 32) == "Maximum recursion level reached")//32 == length() of that string + 1
 		//log to world while intentionally triggering the byond bug.
@@ -64,12 +71,12 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		configured_error_limit = CONFIG_GET(number/error_limit)
 		configured_error_silence_time = CONFIG_GET(number/error_silence_time)
 	else
-		var/datum/config_entry/CE = /datum/config_entry/number/error_cooldown
-		configured_error_cooldown = initial(CE.config_entry_value)
-		CE = /datum/config_entry/number/error_limit
-		configured_error_limit = initial(CE.config_entry_value)
-		CE = /datum/config_entry/number/error_silence_time
-		configured_error_silence_time = initial(CE.config_entry_value)
+		var/datum/config_entry/config_entry = /datum/config_entry/number/error_cooldown
+		configured_error_cooldown = initial(config_entry.config_entry_value)
+		config_entry = /datum/config_entry/number/error_limit
+		configured_error_limit = initial(config_entry.config_entry_value)
+		config_entry = /datum/config_entry/number/error_silence_time
+		configured_error_silence_time = initial(config_entry.config_entry_value)
 
 
 	//Each occurrence of a unique error adds to its cooldown time...
@@ -129,13 +136,15 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 #ifdef UNIT_TESTS
 	if(GLOB.current_test)
 		//good day, sir
-		GLOB.current_test.Fail("[main_line]\n[desclines.Join("\n")]")
+		GLOB.current_test.Fail("[main_line]\n[desclines.Join("\n")]", file = E.file, line = E.line)
 #endif
 
 	if (Debugger?.enabled)
-		to_chat(world, "<span class='alertwarning'>[main_line]</span>", MESSAGE_TYPE_DEBUG)
+		to_chat(world, span_alertwarning("[main_line]"), MESSAGE_TYPE_DEBUG)
 
 
 	// This writes the regular format (unwrapping newlines and inserting timestamps as needed).
 	log_runtime("runtime error: [E.name]\n[E.desc]")
 #endif
+
+#undef ERROR_USEFUL_LEN

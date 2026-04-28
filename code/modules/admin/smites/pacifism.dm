@@ -6,4 +6,4 @@
 	. = ..()
 
 	ADD_TRAIT(target, TRAIT_PACIFISM, "adminabuse")
-	to_chat(target, "<span class='danger'>You feel repulsed by the thought of violence!</span>")
+	to_chat(target, span_danger("You feel repulsed by the thought of violence!"))

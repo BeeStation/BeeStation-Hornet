@@ -1,11 +1,3 @@
-#define DEPT_ALL 0
-#define DEPT_GEN 1
-#define DEPT_SEC 2
-#define DEPT_MED 3
-#define DEPT_SCI 4
-#define DEPT_ENG 5
-#define DEPT_SUP 6
-
 #define NEW_BANK_ACCOUNT_COST 1000
 
 //Keeps track of the time for the ID console. Having it as a global variable prevents people from dismantling/reassembling it to
@@ -21,7 +13,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	circuit = /obj/item/circuitboard/computer/card
 	var/mode = 0
 	var/printing = null
-	var/target_dept = DEPT_ALL //Which department this computer has access to.
+	var/department_bitflag = NONE // NONE = All department, or department bitflag. Only access for that department will be shown
 	var/available_paycheck_departments = list()
 	var/target_paycheck = ACCOUNT_SRV_ID
 
@@ -29,60 +21,45 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	//if set to -1: No cooldown... probably a bad idea
 	//if set to 0: Not able to close "original" positions. You can only close positions that you have opened before
 	var/change_position_cooldown = 30
-	//Jobs you cannot open new positions for
-	var/list/blacklisted = list(
-		JOB_NAME_AI,
-		JOB_NAME_ASSISTANT,
-		JOB_NAME_CYBORG,
-		JOB_NAME_CAPTAIN,
-		JOB_NAME_HEADOFPERSONNEL,
-		JOB_NAME_HEADOFSECURITY,
-		JOB_NAME_CHIEFENGINEER,
-		JOB_NAME_RESEARCHDIRECTOR,
-		JOB_NAME_CHIEFMEDICALOFFICER,
-		JOB_NAME_BRIGPHYSICIAN,
-		JOB_NAME_DEPUTY)
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
 
 	//This is used to keep track of opened positions for jobs to allow instant closing
 	//Assoc array: "JobName" = (int)<Opened Positions>
-	var/list/opened_positions = list();
+	var/list/opened_positions = list()
 	var/obj/item/card/id/inserted_scan_id
 	var/obj/item/card/id/inserted_modify_id
-	var/list/region_access = null
-	var/region_access_payment = NONE
+	var/accessible_region_bitflag = NONE
+	var/accessible_dept_payment_bitflag = NONE
 	var/list/head_subordinates = null
+	var/is_centcom = FALSE
 
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/machinery/computer/card/Initialize(mapload)
 	. = ..()
 	change_position_cooldown = CONFIG_GET(number/id_console_jobslot_delay)
-	for(var/G in typesof(/datum/job/gimmick))
-		var/datum/job/gimmick/J = new G
-		blacklisted += J.title
 
 	// This determines which department payment list the console will show to you.
-	if(!target_dept)
+	if((department_bitflag & DEPT_BITFLAG_COM) || !department_bitflag)
 		available_paycheck_departments |= list(ACCOUNT_COM_ID)
-	if((target_dept == DEPT_GEN) || !target_dept)
+	if((department_bitflag & DEPT_BITFLAG_SRV) || !department_bitflag)
 		available_paycheck_departments |= list(ACCOUNT_CIV_ID, ACCOUNT_SRV_ID, ACCOUNT_CAR_ID)
-	if((target_dept == DEPT_ENG) || !target_dept)
+	if((department_bitflag & DEPT_BITFLAG_ENG) || !department_bitflag)
 		available_paycheck_departments |= list(ACCOUNT_ENG_ID)
-	if((target_dept == DEPT_SCI) || !target_dept)
+	if((department_bitflag & DEPT_BITFLAG_SCI) || !department_bitflag)
 		available_paycheck_departments |= list(ACCOUNT_SCI_ID)
-	if((target_dept == DEPT_MED) || !target_dept)
+	if((department_bitflag & DEPT_BITFLAG_MED) || !department_bitflag)
 		available_paycheck_departments |= list(ACCOUNT_MED_ID)
-	if((target_dept == DEPT_SEC) || !target_dept)
+	if((department_bitflag & DEPT_BITFLAG_SEC) || !department_bitflag)
 		available_paycheck_departments |= list(ACCOUNT_SEC_ID)
 
 
 /obj/machinery/computer/card/examine(mob/user)
 	. = ..()
 	if(inserted_scan_id || inserted_modify_id)
-		. += "<span class='notice'>Alt-click to eject the ID card.</span>"
+		. += span_notice("Alt-click to eject the ID card.")
 
 /obj/machinery/computer/card/attackby(obj/I, mob/user, params)
 	if(isidcard(I))
@@ -125,33 +102,49 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		inserted_modify_id.forceMove(drop_location())
 		inserted_modify_id = null
 
-//Check if you can't open a new position for a certain job
-/obj/machinery/computer/card/proc/job_blacklisted(jobtitle)
-	return (jobtitle in blacklisted)
+//Check if a job's slots can be edited from this console
+/obj/machinery/computer/card/proc/can_edit_job(datum/job/job)
+	if(!istype(job))
+		return FALSE
+	if(!(job.job_flags & JOB_CREW_MEMBER))
+		return FALSE
+	if(job.job_flags & JOB_CANNOT_OPEN_SLOTS)
+		return FALSE
+	return TRUE
+
+// CentCom is powerful - can edit any crew job except the overflow role
+/obj/machinery/computer/card/centcom/can_edit_job(datum/job/job)
+	if(!istype(job))
+		return FALSE
+	return job.type != SSjob.overflow_role
 
 //Logic check for Topic() if you can open the job
 /obj/machinery/computer/card/proc/can_open_job(datum/job/job)
-	if(job)
-		if(!job_blacklisted(job.title))
-			if((job.total_positions <= GLOB.player_list.len * (max_relative_positions / 100)))
-				var/delta = (world.time / 10) - GLOB.time_last_changed_position
-				if((change_position_cooldown < delta) || (opened_positions[job.title] < 0))
-					return 1
-				return -2
-			return -1
-	return 0
+	if(!can_edit_job(job))
+		return 0
+	// Always allow reopening positions that were previously closed from this console
+	if(opened_positions[job.title] < 0)
+		return 1
+	if((job.get_spawn_position_count() <= GLOB.player_list.len * (max_relative_positions / 100)))
+		var/delta = (world.time / 10) - GLOB.time_last_changed_position
+		if(change_position_cooldown < delta)
+			return 1
+		return -2
+	return -1
 
 //Logic check for Topic() if you can close the job
 /obj/machinery/computer/card/proc/can_close_job(datum/job/job)
-	if(job)
-		if(!job_blacklisted(job.title))
-			if(job.total_positions > job.current_positions)
-				var/delta = (world.time / 10) - GLOB.time_last_changed_position
-				if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
-					return 1
-				return -2
-			return -1
-	return 0
+	if(!can_edit_job(job))
+		return 0
+	// Always allow reclosing positions that were previously opened from this console
+	if(opened_positions[job.title] > 0)
+		return 1
+	if(job.get_spawn_position_count() > job.current_positions)
+		var/delta = (world.time / 10) - GLOB.time_last_changed_position
+		if(change_position_cooldown < delta)
+			return 1
+		return -2
+	return -1
 
 /obj/machinery/computer/card/proc/id_insert(mob/user, obj/item/inserting_item, obj/item/target)
 	var/obj/item/card/id/card_to_insert = inserting_item
@@ -170,15 +163,15 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		else
 			id_eject(user, target)
 
-	user.visible_message("<span class='notice'>[user] inserts \the [card_to_insert] into \the [src].</span>",
-						"<span class='notice'>You insert \the [card_to_insert] into \the [src].</span>")
+	user.visible_message(span_notice("[user] inserts \the [card_to_insert] into \the [src]."),
+						span_notice("You insert \the [card_to_insert] into \the [src]."))
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	updateUsrDialog()
 	return TRUE
 
 /obj/machinery/computer/card/proc/id_eject(mob/user, obj/target)
 	if(!target)
-		to_chat(user, "<span class='warning'>That slot is empty!</span>")
+		to_chat(user, span_warning("That slot is empty!"))
 		return FALSE
 	else
 		if(target == inserted_modify_id)
@@ -186,14 +179,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		target.forceMove(drop_location())
 		if(!issilicon(user) && Adjacent(user))
 			user.put_in_hands(target)
-		user.visible_message("<span class='notice'>[user] gets \the [target] from \the [src].</span>", \
-							"<span class='notice'>You get \the [target] from \the [src].</span>")
+		user.visible_message(span_notice("[user] gets \the [target] from \the [src]."), \
+							span_notice("You get \the [target] from \the [src]."))
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 		updateUsrDialog()
 		return TRUE
 
 /obj/machinery/computer/card/proc/update_modify_manifest()
-	GLOB.data_core.manifest_modify(inserted_modify_id.registered_name, inserted_modify_id.assignment, inserted_modify_id.hud_state)
+	GLOB.manifest.modify(inserted_modify_id.registered_name, inserted_modify_id.assignment, inserted_modify_id.hud_state)
 
 /obj/machinery/computer/card/AltClick(mob/user)
 	..()
@@ -218,38 +211,38 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return
 	if (mode == 1) // accessing crew manifest
 		var/crew = ""
-		for(var/datum/data/record/t in sort_record(GLOB.data_core.general))
-			crew += t.fields["name"] + " - " + t.fields["rank"] + "<br>"
-		dat = "<tt><b>Crew Manifest:</b><br>Please use security record computer to modify entries.<br><br>[crew]<a href='?src=[REF(src)];choice=print'>Print</a><br><br><a href='?src=[REF(src)];choice=mode;mode_target=0'>Return</a><br></tt>"
+		for(var/datum/record/crew/record in sort_record(GLOB.manifest.general))
+			crew += record.name + " - " + record.rank + "<br>"
+		dat = "<tt><b>Crew Manifest:</b><you dbr>Please use security record computer to modify entries.<br><br>[crew]<a href='byond://?src=[REF(src)];choice=print'>Print</a><br><br><a href='byond://?src=[REF(src)];choice=mode;mode_target=0'>Return</a><br></tt>"
 
 	else if(mode == 2)
 		// JOB MANAGEMENT
-		dat = "<a href='?src=[REF(src)];choice=return'>Return</a>"
+		dat = "<a href='byond://?src=[REF(src)];choice=return'>Return</a>"
 		dat += " || Confirm Identity: "
 		var/S
 		if(inserted_scan_id)
 			S = html_encode(inserted_scan_id.name)
 		else
 			S = "--------"
-		dat += "<a href='?src=[REF(src)];choice=inserted_scan_id'>[S]</a>"
+		dat += "<a href='byond://?src=[REF(src)];choice=inserted_scan_id'>[S]</a>"
 		dat += "<table>"
 		dat += "<tr><td style='width:25%'><b>Job</b></td><td style='width:5%'><b>Slots</b></td><td style='width:20%'><b>Open job</b></td><td style='width:20%'><b>Close job</b><td style='width:20%'><b>Prioritize</b></td></td></tr>"
 		var/ID
-		if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && !target_dept)
+		if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && !department_bitflag)
 			ID = 1
 		else
 			ID = 0
 		for(var/datum/job/job in SSjob.occupations)
 			dat += "<tr>"
-			if(job.title in blacklisted)
+			if(!can_edit_job(job))
 				continue
 			dat += "<td>[job.title]</td>"
-			dat += "<td>[job.current_positions]/[job.total_positions]</td>"
+			dat += "<td>[job.current_positions]/[job.get_spawn_position_count()]</td>"
 			dat += "<td>"
 			switch(can_open_job(job))
 				if(1)
 					if(ID)
-						dat += "<a href='?src=[REF(src)];choice=make_job_available;job=[job.title]'>Open Position</a><br>"
+						dat += "<a href='byond://?src=[REF(src)];choice=make_job_available;job=[job.title]'>Open Position</a><br>"
 					else
 						dat += "Open Position"
 				if(-1)
@@ -265,7 +258,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			switch(can_close_job(job))
 				if(1)
 					if(ID)
-						dat += "<a href='?src=[REF(src)];choice=make_job_unavailable;job=[job.title]'>Close Position</a>"
+						dat += "<a href='byond://?src=[REF(src)];choice=make_job_unavailable;job=[job.title]'>Close Position</a>"
 					else
 						dat += "Close Position"
 				if(-1)
@@ -278,16 +271,16 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(0)
 					dat += "Denied"
 			dat += "</td><td>"
-			switch(job.total_positions)
+			switch(job.get_spawn_position_count())
 				if(0)
 					dat += "Denied"
 				else
 					if(ID)
 						if(job in SSjob.prioritized_jobs)
-							dat += "<a href='?src=[REF(src)];choice=prioritize_job;job=[job.title]'>Deprioritize</a>"
+							dat += "<a href='byond://?src=[REF(src)];choice=prioritize_job;job=[job.title]'>Deprioritize</a>"
 						else
 							if(SSjob.prioritized_jobs.len < 5)
-								dat += "<a href='?src=[REF(src)];choice=prioritize_job;job=[job.title]'>Prioritize</a>"
+								dat += "<a href='byond://?src=[REF(src)];choice=prioritize_job;job=[job.title]'>Prioritize</a>"
 							else
 								dat += "Denied"
 					else
@@ -298,52 +291,52 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		dat += "</table>"
 	else if(mode == 3)
 		//PAYCHECK MANAGEMENT
-		dat = "<a href='?src=[REF(src)];choice=return'>Return</a>"
+		dat = "<a href='byond://?src=[REF(src)];choice=return'>Return</a>"
 		dat += " || Confirm Identity: "
 		var/S
 		var/list/paycheck_departments = list()
 		if(inserted_scan_id)
 			S = html_encode(inserted_scan_id.name)
 			//Checking all the accesses and their corresponding departments
-			if((ACCESS_HOP in inserted_scan_id.access) && ((target_dept==DEPT_GEN) || !target_dept))
+			if((ACCESS_HOP in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SRV) || !department_bitflag))
 				paycheck_departments |= ACCOUNT_SRV_ID
 				paycheck_departments |= ACCOUNT_CIV_ID
 				paycheck_departments |= ACCOUNT_CAR_ID //Currently no seperation between service/civillian and supply
-			if((ACCESS_HOS in inserted_scan_id.access) && ((target_dept==DEPT_SEC) || !target_dept))
+			if((ACCESS_HOS in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SEC) || !department_bitflag))
 				paycheck_departments |= ACCOUNT_SEC_ID
-			if((ACCESS_CMO in inserted_scan_id.access) && ((target_dept==DEPT_MED) || !target_dept))
+			if((ACCESS_CMO in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_MED) || !department_bitflag))
 				paycheck_departments |= ACCOUNT_MED_ID
-			if((ACCESS_RD in inserted_scan_id.access) && ((target_dept==DEPT_SCI) || !target_dept))
+			if((ACCESS_RD in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SCI) || !department_bitflag))
 				paycheck_departments |= ACCOUNT_SCI_ID
-			if((ACCESS_CE in inserted_scan_id.access) && ((target_dept==DEPT_ENG) || !target_dept))
+			if((ACCESS_CE in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_ENG) || !department_bitflag))
 				paycheck_departments |= ACCOUNT_ENG_ID
 		else
 			S = "--------"
-		dat += "<a href='?src=[REF(src)];choice=inserted_scan_id'>[S]</a><br>"
+		dat += "<a href='byond://?src=[REF(src)];choice=inserted_scan_id'>[S]</a><br>"
 		dat += "<td>target department: "
 		if(length(paycheck_departments))
 			for(var/P in available_paycheck_departments)
 				if(SSeconomy.is_nonstation_account(P))
 					continue
 				var/colourful = "[P == target_paycheck ? "<font color=\"6bc473\">" : "" ]"
-				dat += "<a href='?src=[REF(src)];choice=set_paycheck_department;paytype=[P]'>[colourful][P][colourful ? "</font>" : ""]</a> "
+				dat += "<a href='byond://?src=[REF(src)];choice=set_paycheck_department;paytype=[P]'>[colourful][P][colourful ? "</font>" : ""]</a> "
 		dat += "</td>"
 		dat += "<table>"
 		dat += "<tr><td style='width:30%'><b>Name</b></td><td style='width:20%'><b>Job</b></td><td style='width:20%'><b>Department</b></td><td style='width:15%'><b>Paycheck</b></td><td style='width:15%'><b>Pay Bonus</b></td></tr>"
 
 		if(length(paycheck_departments))
-			for(var/datum/bank_account/B in SSeconomy.bank_accounts)
-				var/datum/data/record/R = find_record("name", B.account_holder, GLOB.data_core.general)
+			for(var/datum/bank_account/B in flatten_list(SSeconomy.bank_accounts_by_id))
+				var/datum/record/crew/record = find_record(B.account_holder, GLOB.manifest.general)
 				dat += "<tr>"
 				dat += "<td>[B.account_holder] [B.suspended ? "(Account closed)" : ""]</td>"
-				dat += "<td>[R ? R.fields["rank"] : "(No data)"]</td>"
+				dat += "<td>[record ? record.rank : "(No data)"]</td>"
 				if(!(target_paycheck in paycheck_departments))
 					dat += "<td>(Auth-denied)</td>"
 				else
 					if(B.active_departments & SSeconomy.get_budget_acc_bitflag(target_paycheck))
-						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;bank_account=[B.account_id];check_card=1'><font color=\"6bc473\">Free Vendor Access</font></a></td>"
+						dat += "<td><a href='byond://?src=[REF(src)];choice=turn_on_off_department_bank;bank_account=[B.account_id];check_card=1'><font color=\"6bc473\">Free Vendor Access</font></a></td>"
 					else
-						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;bank_account=[B.account_id];check_card=1;paycheck_t=[target_paycheck]'>No Free Vendor Access</a></td>"
+						dat += "<td><a href='byond://?src=[REF(src)];choice=turn_on_off_department_bank;bank_account=[B.account_id];check_card=1;paycheck_t=[target_paycheck]'>No Free Vendor Access</a></td>"
 				if(B.suspended)
 					dat += "<td>Closed</td>"
 					dat += "<td>$0</td>"
@@ -351,8 +344,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					dat += "<td>$[B.payment_per_department[target_paycheck]] (Auth-denied)</td>"
 					dat += "<td>$[B.bonus_per_department[target_paycheck]]</td>"
 				else
-					dat += "<td><a href='?src=[REF(src)];choice=adjust_pay;paycheck_t=[target_paycheck];bank_account=[B.account_id]'>$[B.payment_per_department[target_paycheck]]</a></td>"
-					dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;paycheck_t=[target_paycheck];bank_account=[B.account_id]'>$[B.bonus_per_department[target_paycheck]]</a></td>"
+					dat += "<td><a href='byond://?src=[REF(src)];choice=adjust_pay;paycheck_t=[target_paycheck];bank_account=[B.account_id]'>$[B.payment_per_department[target_paycheck]]</a></td>"
+					dat += "<td><a href='byond://?src=[REF(src)];choice=adjust_bonus;paycheck_t=[target_paycheck];bank_account=[B.account_id]'>$[B.bonus_per_department[target_paycheck]]</a></td>"
 				dat += "</tr>"
 	else
 		var/header = ""
@@ -364,37 +357,28 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if(!authenticated)
 			header += "<br><i>Please insert the cards into the slots</i><br>"
-			header += "Target: <a href='?src=[REF(src)];choice=inserted_modify_id'>[target_name]</a><br>"
-			header += "Confirm Identity: <a href='?src=[REF(src)];choice=inserted_scan_id'>[scan_name]</a><br>"
+			header += "Target: <a href='byond://?src=[REF(src)];choice=inserted_modify_id'>[target_name]</a><br>"
+			header += "Confirm Identity: <a href='byond://?src=[REF(src)];choice=inserted_scan_id'>[scan_name]</a><br>"
 		else
 			header += "<div align='center'><br>"
-			header += "<a href='?src=[REF(src)];choice=inserted_modify_id'>Remove [target_name]</a> || "
-			header += "<a href='?src=[REF(src)];choice=inserted_scan_id'>Remove [scan_name]</a> <br> "
-			header += "<a href='?src=[REF(src)];choice=mode;mode_target=1'>Access Crew Manifest</a> <br> "
-			header += "<a href='?src=[REF(src)];choice=logout'>Log Out</a></div>"
+			header += "<a href='byond://?src=[REF(src)];choice=inserted_modify_id'>Remove [target_name]</a> || "
+			header += "<a href='byond://?src=[REF(src)];choice=inserted_scan_id'>Remove [scan_name]</a> <br> "
+			header += "<a href='byond://?src=[REF(src)];choice=mode;mode_target=1'>Access Crew Manifest</a> <br> "
+			header += "<a href='byond://?src=[REF(src)];choice=logout'>Log Out</a></div>"
 
 		header += "<hr>"
 
-		var/jobs_all = ""
-		var/list/alljobs = list("Unassigned")
-		alljobs += (istype(src, /obj/machinery/computer/card/centcom)? get_all_centcom_jobs() : get_all_jobs()) + "Custom"
-		for(var/job in alljobs)
-			if(job == JOB_NAME_ASSISTANT)
-				jobs_all += "<br/>* Service: "
-			if(job == JOB_NAME_QUARTERMASTER)
-				jobs_all += "<br/>* Cargo: "
-			if(job == JOB_NAME_RESEARCHDIRECTOR)
-				jobs_all += "<br/>* R&D: "
-			if(job == JOB_NAME_CHIEFENGINEER)
-				jobs_all += "<br/>* Engineering: "
-			if(job == JOB_NAME_CHIEFMEDICALOFFICER)
-				jobs_all += "<br/>* Medical: "
-			if(job == JOB_NAME_HEADOFSECURITY)
-				jobs_all += "<br/>* Security: "
-			if(job == "Custom")
-				jobs_all += "<br/>"
-			// these will make some separation for the department.
-			jobs_all += "<a href='?src=[REF(src)];choice=assign;assign_target=[job]'>[replacetext(job, " ", "&nbsp")]</a> " //make sure there isn't a line break in the middle of a job
+		var/jobs_all = "<a href='byond://?src=[REF(src)];choice=assign;assign_target=Unassigned'>Unassigned</a> "
+		for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
+			if(!length(each_dept.jobs) || each_dept.access_filter) // no centcom jobs for now
+				continue
+			jobs_all += "<br/>* [each_dept.dept_name]: "
+			for(var/each_job in each_dept.jobs)
+				if(each_job in SSjob.all_job_exceptions)
+					continue
+				jobs_all += "<a href='byond://?src=[REF(src)];choice=assign;assign_target=[each_job]'>[each_job]</a> " //make sure there isn't a line break in the middle of a job
+		jobs_all += "<br/>"
+		jobs_all += "<a href='byond://?src=[REF(src)];choice=assign;assign_target=Custom'>Custom</a> "
 
 
 		var/body
@@ -415,14 +399,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 									}
 									function showAll(){
 										var allJobsSlot = document.getElementById('alljobsslot');
-										allJobsSlot.innerHTML = "<a href='#' onclick='hideAll()'>hide</a><br>"+ "[jobs_all]";
+										allJobsSlot.innerHTML = "<a href='#' onclick='hideAll()'>hide</a>"+ "[jobs_all]";
 									}
 									function hideAll(){
 										var allJobsSlot = document.getElementById('alljobsslot');
 										allJobsSlot.innerHTML = "<a href='#' onclick='showAll()'>show</a>";
 									}
 								</script>"}
-				carddesc += "<form name='cardcomp' action='?src=[REF(src)]' method='get'>"
+				carddesc += "<form name='cardcomp' action='byond://?src=[REF(src)]' method='get'>"
 				carddesc += "<input type='hidden' name='src' value='[REF(src)]'>"
 				carddesc += "<input type='hidden' name='choice' value='reg'>"
 				carddesc += "<b>registered name:</b> <input type='text' id='namefield' name='reg' value='[target_owner]' style='width:250px; background-color:white;' onchange='markRed()'>"
@@ -434,7 +418,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 			else
 				carddesc += "<b>registered_name:</b> [target_owner]</span>"
-				jobs += "<b>Assignment:</b> [target_rank] (<a href='?src=[REF(src)];choice=demote'>Demote</a>)</span>"
+				jobs += "<b>Assignment:</b> [target_rank] (<a href='byond://?src=[REF(src)];choice=demote'>Demote</a>)</span>"
 
 			var/banking = ""
 			banking += "<b>Department active & Bank account status:</b>"
@@ -442,15 +426,15 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			// Department active status
 			banking += "<tr>"
 			banking += "<td><b>Active Department Manifest:</b></td>"
-			var/datum/data/record/R = find_record("name", inserted_modify_id.registered_name, GLOB.data_core.general)
-			if(R)
+			var/datum/record/crew/record = find_record(inserted_modify_id.registered_name, GLOB.manifest.general)
+			if(record)
 				for(var/each in available_paycheck_departments)
-					if(!(SSeconomy.get_budget_acc_bitflag(each) & region_access_payment))
+					if(!(SSeconomy.get_budget_acc_bitflag(each) & accessible_dept_payment_bitflag))
 						continue
-					if(R.fields["active_dept"] & SSeconomy.get_budget_acc_bitflag(each))
-						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[SSeconomy.get_budget_acc_bitflag(each)]'><font color=\"6bc473\">[each]</a></font></td>"
+					if(record.active_department & SSeconomy.get_budget_acc_bitflag(each))
+						banking += "<td><a href='byond://?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[SSeconomy.get_budget_acc_bitflag(each)]'><font color=\"6bc473\">[each]</a></font></td>"
 					else
-						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[SSeconomy.get_budget_acc_bitflag(each)]'>[each]</a></td>"
+						banking += "<td><a href='byond://?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[SSeconomy.get_budget_acc_bitflag(each)]'>[each]</a></td>"
 			else
 				banking += "<td colspan=\"8\"><b>Error: Cannot locate user entry in data core</b></td>"
 			banking += "</tr>"
@@ -461,23 +445,23 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				banking += "<tr>"
 				banking += "<td><b>Free Vendor Access:</b></td>"
 				for(var/each in available_paycheck_departments)
-					if(!(SSeconomy.get_budget_acc_bitflag(each) & region_access_payment))
+					if(!(SSeconomy.get_budget_acc_bitflag(each) & accessible_dept_payment_bitflag))
 						continue
 					if(B.active_departments & SSeconomy.get_budget_acc_bitflag(each))
-						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[each]'><font color=\"6bc473\">[each]</a></font></td>"
+						banking += "<td><a href='byond://?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[each]'><font color=\"6bc473\">[each]</a></font></td>"
 					else
-						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[each]'>[each]</a></td>"
+						banking += "<td><a href='byond://?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[each]'>[each]</a></td>"
 				banking += "</tr>"
 				// Payment status
 				banking += "<tr>"
 				banking += "<td><b>Payment per department:</b></td>"
 				for(var/each in available_paycheck_departments)
-					if(!(SSeconomy.get_budget_acc_bitflag(each) & region_access_payment))
+					if(!(SSeconomy.get_budget_acc_bitflag(each) & accessible_dept_payment_bitflag))
 						continue
 					if(SSeconomy.is_nonstation_account(each))
 						banking += "<td>$[B.payment_per_department[each]]</td>"
 						continue
-					banking += "<td><a href='?src=[REF(src)];choice=adjust_pay;paycheck_t=[each]'>$[B.payment_per_department[each]]</a></td>"
+					banking += "<td><a href='byond://?src=[REF(src)];choice=adjust_pay;paycheck_t=[each]'>$[B.payment_per_department[each]]</a></td>"
 				banking += "</tr>"
 			else
 				banking += "<td><b>Banking information:</b></td>"
@@ -486,44 +470,40 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			banking += "<br>"
 
 			var/accesses = ""
-			if(istype(src, /obj/machinery/computer/card/centcom))
-				accesses += "<h5>Central Command:</h5>"
-				for(var/A in get_all_centcom_access())
-					if(A in inserted_modify_id.access)
-						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=0'><font color=\"6bc473\">[replacetext(get_access_desc(A), " ", "&nbsp")]</font></a> "
+			accesses += "<div align='center'><b>Access</b></div>"
+			accesses += "<table style='width:100%'>"
+			accesses += "<tr>"
+			for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
+				if(authenticated == 1 && !(each_dept.dept_bitflag & accessible_region_bitflag))
+					continue
+				if(!length(each_dept.access_list) || (!is_centcom && each_dept.access_filter))
+					continue
+				accesses += "<td style='width:14%'><b>[each_dept.access_group_name]:</b></td>"
+			accesses += "</tr><tr>"
+			for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
+				if(authenticated == 1 && !(each_dept.dept_bitflag & accessible_region_bitflag))
+					continue
+				if(!length(each_dept.access_list) || (!is_centcom && each_dept.access_filter))
+					continue
+				accesses += "<td style='width:14%' valign='top'>"
+				for(var/each_access in each_dept.access_list)
+					if(each_access in inserted_modify_id.access)
+						accesses += "<a href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=0'><font color=\"6bc473\">[replacetext(get_access_desc(each_access), " ", "&nbsp")]</font></a> "
 					else
-						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=1'>[replacetext(get_access_desc(A), " ", "&nbsp")]</a> "
-			else
-				accesses += "<div align='center'><b>Access</b></div>"
-				accesses += "<table style='width:100%'>"
-				accesses += "<tr>"
-				for(var/i = 1; i <= 7; i++)
-					if(authenticated == 1 && !(i in region_access))
-						continue
-					accesses += "<td style='width:14%'><b>[get_region_accesses_name(i)]:</b></td>"
-				accesses += "</tr><tr>"
-				for(var/i = 1; i <= 7; i++)
-					if(authenticated == 1 && !(i in region_access))
-						continue
-					accesses += "<td style='width:14%' valign='top'>"
-					for(var/A in get_region_accesses(i))
-						if(A in inserted_modify_id.access)
-							accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=0'><font color=\"6bc473\">[replacetext(get_access_desc(A), " ", "&nbsp")]</font></a> "
-						else
-							accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=1'>[replacetext(get_access_desc(A), " ", "&nbsp")]</a> "
-						accesses += "<br>"
-					accesses += "</td>"
-				accesses += "</tr></table>"
+						accesses += "<a href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=1'>[replacetext(get_access_desc(each_access), " ", "&nbsp")]</a> "
+					accesses += "<br>"
+				accesses += "</td>"
+			accesses += "</tr></table>"
 			body = "[carddesc]<br>[jobs]<br>[banking]<br>[accesses]" //CHECK THIS
 
 		else
-			body = "<a href='?src=[REF(src)];choice=auth'>{Log in}</a> <br><hr>"
-			body += "<a href='?src=[REF(src)];choice=mode;mode_target=1'>Access Crew Manifest</a>"
-			if(!target_dept)
-				body += "<br><hr><a href = '?src=[REF(src)];choice=mode;mode_target=2'>Job Management</a>"
-			body += "<a href='?src=[REF(src)];choice=mode;mode_target=3'>Paycheck Management</a>"
-			if(target_dept == DEPT_ALL) // currently locked in HoP console only. other console can make bank account with their own budget if this lock is removed
-				body += "<a href='?src=[REF(src)];choice=open_new_account'>Open a new bank account</a>"
+			body = "<a href='byond://?src=[REF(src)];choice=auth'>{Log in}</a> <br><hr>"
+			body += "<a href='byond://?src=[REF(src)];choice=mode;mode_target=1'>Access Crew Manifest</a>"
+			if(!department_bitflag)
+				body += "<br><hr><a href='byond://?src=[REF(src)];choice=mode;mode_target=2'>Job Management</a>"
+			body += "<a href='byond://?src=[REF(src)];choice=mode;mode_target=3'>Paycheck Management</a>"
+			if(!department_bitflag) // currently locked in HoP console only. other console can make bank account with their own budget if this lock is removed
+				body += "<a href='byond://?src=[REF(src)];choice=open_new_account'>Open a new bank account</a>"
 
 		dat = "<tt>[header][body]<hr><br></tt>"
 	var/datum/browser/popup = new(user, "id_com", src.name, 1150, 720)
@@ -568,49 +548,40 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if ("auth")
 			if ((!( authenticated ) && (inserted_scan_id || issilicon(usr)) && (inserted_modify_id || mode)))
 				if (check_access(inserted_scan_id))
-					region_access = list()
-					region_access_payment = NONE
-					head_subordinates = list()
+					accessible_region_bitflag = NONE
+					accessible_dept_payment_bitflag = NONE
 					if(ACCESS_CHANGE_IDS in inserted_scan_id.access)
-						if(target_dept)
-							head_subordinates = get_all_jobs()
-							region_access |= target_dept
-							region_access_payment = ALL
+						if(department_bitflag)
+							accessible_region_bitflag |= department_bitflag
+							accessible_dept_payment_bitflag = ALL
 							authenticated = 1
 						else
-							region_access_payment = ALL
+							accessible_dept_payment_bitflag = ALL
 							authenticated = 2
 						playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
 
 					else
-						if((ACCESS_HOP in inserted_scan_id.access) && ((target_dept==DEPT_GEN) || !target_dept))
-							region_access |= DEPT_GEN
-							region_access |= DEPT_SUP //Currently no seperation between service/civillian and supply
-							region_access_payment |= ACCOUNT_COM_BITFLAG | ACCOUNT_CIV_BITFLAG | ACCOUNT_SRV_BITFLAG | ACCOUNT_CAR_BITFLAG
-							get_subordinates(JOB_NAME_HEADOFPERSONNEL)
-						if((ACCESS_HOS in inserted_scan_id.access) && ((target_dept==DEPT_SEC) || !target_dept))
-							region_access |= DEPT_SEC
-							region_access_payment |= ACCOUNT_SEC_BITFLAG
-							get_subordinates(JOB_NAME_HEADOFSECURITY)
-						if((ACCESS_CMO in inserted_scan_id.access) && ((target_dept==DEPT_MED) || !target_dept))
-							region_access |= DEPT_MED
-							region_access_payment |= ACCOUNT_MED_BITFLAG
-							get_subordinates(JOB_NAME_CHIEFMEDICALOFFICER)
-						if((ACCESS_RD in inserted_scan_id.access) && ((target_dept==DEPT_SCI) || !target_dept))
-							region_access |= DEPT_SCI
-							region_access_payment |= ACCOUNT_SCI_BITFLAG
-							get_subordinates(JOB_NAME_RESEARCHDIRECTOR)
-						if((ACCESS_CE in inserted_scan_id.access) && ((target_dept==DEPT_ENG) || !target_dept))
-							region_access |= DEPT_ENG
-							region_access_payment |= ACCOUNT_ENG_BITFLAG
-							get_subordinates(JOB_NAME_CHIEFENGINEER)
-						if(region_access)
+						if((ACCESS_HOP in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SRV) || !department_bitflag))
+							accessible_region_bitflag |= DEPT_BITFLAG_SRV | DEPT_BITFLAG_CIV | DEPT_BITFLAG_CAR
+							accessible_dept_payment_bitflag |= ACCOUNT_COM_BITFLAG | ACCOUNT_CIV_BITFLAG | ACCOUNT_SRV_BITFLAG | ACCOUNT_CAR_BITFLAG
+						if((ACCESS_HOS in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SEC) || !department_bitflag))
+							accessible_region_bitflag |= DEPT_BITFLAG_SEC
+							accessible_dept_payment_bitflag |= ACCOUNT_SEC_BITFLAG
+						if((ACCESS_CMO in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_MED) || !department_bitflag))
+							accessible_region_bitflag |= DEPT_BITFLAG_MED
+							accessible_dept_payment_bitflag |= ACCOUNT_MED_BITFLAG
+						if((ACCESS_RD in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SCI) || !department_bitflag))
+							accessible_region_bitflag |= DEPT_BITFLAG_SCI
+							accessible_dept_payment_bitflag |= ACCOUNT_SCI_BITFLAG
+						if((ACCESS_CE in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_ENG) || !department_bitflag))
+							accessible_region_bitflag |= DEPT_BITFLAG_ENG
+							accessible_dept_payment_bitflag |= ACCOUNT_ENG_BITFLAG
+						if(accessible_region_bitflag)
 							authenticated = 1
 			else if ((!( authenticated ) && issilicon(usr)) && (!inserted_modify_id))
-				to_chat(usr, "<span class='warning'>You can't modify an ID without an ID inserted to modify! Once one is in the modify slot on the computer, you can log in.</span>")
+				to_chat(usr, span_warning("You can't modify an ID without an ID inserted to modify! Once one is in the modify slot on the computer, you can log in."))
 		if ("logout")
-			region_access = null
-			head_subordinates = null
+			accessible_region_bitflag = NONE
 			authenticated = 0
 			playsound(src, 'sound/machines/terminal_off.ogg', 50, FALSE)
 
@@ -619,17 +590,20 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(authenticated)
 					var/access_type = text2num(href_list["access_target"])
 					var/access_allowed = text2num(href_list["allowed"])
-					if(access_type in (istype(src, /obj/machinery/computer/card/centcom)?get_all_centcom_access() : get_all_accesses()))
+					if(!is_centcom && (access_type in get_all_centcom_admin_access()))
+						log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](CentCom access) of [inserted_modify_id] using [inserted_scan_id] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on...")
+						return
+					if(access_allowed == 1)
+						inserted_modify_id.access |= access_type
+						log_id("[key_name(usr)] added [get_access_desc(access_type)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
+					else
 						inserted_modify_id.access -= access_type
 						log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
-						if(access_allowed == 1)
-							inserted_modify_id.access |= access_type
-							log_id("[key_name(usr)] added [get_access_desc(access_type)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
-						playsound(src, "terminal_type", 50, FALSE)
+					playsound(src, "terminal_type", 50, FALSE)
 		if ("assign")
 			if (authenticated == 2)
 				var/datum/bank_account/B = inserted_modify_id?.registered_account
-				var/datum/data/record/R = find_record("name", inserted_modify_id.registered_name, GLOB.data_core.general)
+				var/datum/record/crew/record = find_record(inserted_modify_id.registered_name, GLOB.manifest.general)
 				var/t1 = href_list["assign_target"]
 				if(t1 == "Custom")
 					var/newJob = reject_bad_text(stripped_input("Enter a custom job assignment.", "Assignment", inserted_modify_id ? inserted_modify_id.assignment : "Unassigned"), MAX_NAME_LEN)
@@ -650,31 +624,25 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							B.bonus_per_department[each] = 0   // your bonus for each department is 0
 						B.active_departments &= ~SSeconomy.get_budget_acc_bitflag(ACCOUNT_COM_ID) // micromanagement. Command bitflag should be removed manually, because 'for/each' didn't remove it.
 						B.payment_per_department[ACCOUNT_CIV_ID] = PAYCHECK_MINIMAL // for the love of god, let them have minimal payment from Civ budget... to be a real assistant.
-					if(R)
+					if(record)
 						for(var/each in B.payment_per_department)
 							if(SSeconomy.is_nonstation_account(each)) // do not touch VIP/Command flag
 								continue
-							R.fields["active_dept"] &= ~SSeconomy.get_budget_acc_bitflag(each) // turn off all bitflag for each department except for VIP/Command. *note: this actually shouldn't use `get_budget_acc_bitflag()` proc, because bitflags are the same but these have a different purpose.
-						R.fields["active_dept"] &= ~DEPT_BITFLAG_COM  // micromanagement2. the reason is the same. Command should be removed manually.
+							record.active_department &= ~SSeconomy.get_budget_acc_bitflag(each) // turn off all bitflag for each department except for VIP/Command. *note: this actually shouldn't use `get_budget_acc_bitflag()` proc, because bitflags are the same but these have a different purpose.
+						record.active_department &= ~DEPT_BITFLAG_COM  // micromanagement2. the reason is the same. Command should be removed manually.
 
 
 					log_id("[key_name(usr)] unassigned and stripped all access from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 
 				else
-					var/datum/job/jobdatum
-					if(!istype(src, /obj/machinery/computer/card/centcom)) // station level
-						jobdatum = SSjob.GetJob(t1)
-						if(!jobdatum)
-							to_chat(usr, "<span class='warning'>No log exists for this job.</span>")
-							stack_trace("bad job string '[t1]' is given through HoP console by '[ckey(usr)]'")
-							updateUsrDialog()
-							return
-
-						inserted_modify_id.access -= get_all_accesses()
-						inserted_modify_id.access |= jobdatum.get_access()
-					else // centcom level
-						inserted_modify_id.access -= get_all_centcom_access()
-						inserted_modify_id.access |= get_centcom_access(t1)
+					var/datum/job/jobdatum = SSjob.GetJob(t1)
+					if(!jobdatum)
+						to_chat(usr, span_warning("No log exists for this job."))
+						stack_trace("bad job string '[t1]' is given through HoP console by '[ckey(usr)]'")
+						updateUsrDialog()
+						return
+					inserted_modify_id.access -= get_all_accesses()
+					inserted_modify_id.access |= jobdatum.get_access()
 
 					// Step 1: reseting theirs first
 					if(B && jobdatum) // 1-A: reseting bank payment
@@ -685,13 +653,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							B.payment_per_department[each] = 0
 							B.bonus_per_department[each] = 0
 						B.active_departments &= ~SSeconomy.get_budget_acc_bitflag(ACCOUNT_COM_ID) // micromanagement
-					if(R && jobdatum) // 1-B: reseting crew manifest
+					if(record && jobdatum) // 1-B: reseting crew manifest
 						for(var/each in available_paycheck_departments)
 							if(SSeconomy.is_nonstation_account(each))
 								continue
-							R.fields["active_dept"] &= ~SSeconomy.get_budget_acc_bitflag(each)
-						R.fields["active_dept"] &= ~DEPT_BITFLAG_COM  // micromanagement2
-						// Note: `fields["active_dept"] = NONE` is a bad idea because you should keep VIP_BITFLAG.
+							record.active_department &= ~SSeconomy.get_budget_acc_bitflag(each)
+						record.active_department &= ~DEPT_BITFLAG_COM  // micromanagement2
+						// Note: `active_department = NONE` is a bad idea because you should keep VIP_BITFLAG.
 					// Step 2: giving the job info into their bank and record
 					if(B && jobdatum) // 2-A: setting bank payment
 						for(var/each in jobdatum.payment_per_department)
@@ -699,8 +667,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 								continue
 							B.payment_per_department[each] = jobdatum.payment_per_department[each]
 						B.active_departments |= jobdatum.bank_account_department
-					if(R && jobdatum) // 2-B: setting crew manifest
-						R.fields["active_dept"] |= jobdatum.departments
+					if(record && jobdatum) // 2-B: setting crew manifest
+						record.active_department |= jobdatum.departments
 
 					log_id("[key_name(usr)] assigned [jobdatum || t1] job to [inserted_modify_id], manipulating it to the default access of the job using [inserted_scan_id] at [AREACOORD(usr)].")
 
@@ -709,13 +677,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 				update_modify_manifest()
 
-		if ("demote")
-			if(inserted_modify_id.assignment in head_subordinates || inserted_modify_id.assignment == "Assistant")
-				inserted_modify_id.assignment = "Demoted"
-				log_id("[key_name(usr)] demoted [inserted_modify_id], unassigning the card without affecting access, using [inserted_scan_id] at [AREACOORD(usr)].")
-				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
-			else
-				to_chat(usr, "<span class='error'>You are not authorized to demote this position.</span>")
+		if ("demote") // for now, every head can demote anyone... it's better than shitcode
+			inserted_modify_id.assignment = "Demoted"
+			log_id("[key_name(usr)] demoted [inserted_modify_id], unassigning the card without affecting access, using [inserted_scan_id] at [AREACOORD(usr)].")
+			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			update_modify_manifest()
 
 		if ("reg")
@@ -733,7 +698,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						inserted_modify_id.registered_name = new_name
 						playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 					else
-						to_chat(usr, "<span class='error'>Invalid name entered.</span>")
+						to_chat(usr, span_error("Invalid name entered."))
 						updateUsrDialog()
 						return
 		if ("mode")
@@ -746,7 +711,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if("make_job_available")
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
-			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && !target_dept)
+			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && !department_bitflag)
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(edit_job_target)
 				if(!j)
@@ -757,13 +722,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					return 0
 				if(opened_positions[edit_job_target] >= 0)
 					GLOB.time_last_changed_position = world.time / 10
-				j.total_positions++
+				j.total_position_delta++
 				opened_positions[edit_job_target]++
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 
 		if("make_job_unavailable")
 			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
-			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && !target_dept)
+			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && !department_bitflag)
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(edit_job_target)
 				if(!j)
@@ -775,13 +740,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				//Allow instant closing without cooldown if a position has been opened before
 				if(opened_positions[edit_job_target] <= 0)
 					GLOB.time_last_changed_position = world.time / 10
-				j.total_positions--
+				j.total_position_delta--
 				opened_positions[edit_job_target]--
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 
 		if ("prioritize_job")
 			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
-			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && !target_dept)
+			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && !department_bitflag)
 				var/priority_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(priority_target)
 				if(!j)
@@ -791,13 +756,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(j in SSjob.prioritized_jobs)
 					SSjob.prioritized_jobs -= j
 					priority = FALSE
-				else if(j.total_positions <= j.current_positions)
-					to_chat(usr, "<span class='notice'>[j.title] has had all positions filled. Open up more slots before prioritizing it.</span>")
+				else if(j.get_spawn_position_count() <= j.current_positions)
+					to_chat(usr, span_notice("[j.title] has had all positions filled. Open up more slots before prioritizing it."))
 					updateUsrDialog()
 					return
 				else
 					SSjob.prioritized_jobs += j
-				to_chat(usr, "<span class='notice'>[j.title] has been successfully [priority ?  "prioritized" : "unprioritized"]. Potential employees will notice your request.</span>")
+				to_chat(usr, span_notice("[j.title] has been successfully [priority ?  "prioritized" : "unprioritized"]. Potential employees will notice your request."))
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 
 		if ("set_paycheck_department")
@@ -831,7 +796,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				updateUsrDialog()
 				return
 			if(new_pay < 0)
-				to_chat(usr, "<span class='warning'>Paychecks cannot be negative.</span>")
+				to_chat(usr, span_warning("Paychecks cannot be negative."))
 				updateUsrDialog()
 				return
 			B.payment_per_department[paycheck_t] = new_pay
@@ -876,15 +841,15 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("turn_on_off_department_manifest")
 			var/target_bitflag = text2num(href_list["target_bitflag"])
-			var/datum/data/record/R = find_record("name", inserted_modify_id.registered_name, GLOB.data_core.general)
-			if(!R)
+			var/datum/record/crew/record = find_record(inserted_modify_id.registered_name, GLOB.manifest.general)
+			if(!record)
 				updateUsrDialog()
 				return
 
-			if(R.fields["active_dept"] & target_bitflag)
-				R.fields["active_dept"] &= ~target_bitflag // turn off
+			if(record.active_department & target_bitflag)
+				record.active_department &= ~target_bitflag // turn off
 			else
-				R.fields["active_dept"] |= target_bitflag // turn on
+				record.active_department |= target_bitflag // turn on
 
 		if ("print")
 			if (!( printing ))
@@ -893,8 +858,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				sleep(50)
 				var/obj/item/paper/P = new /obj/item/paper( loc )
 				var/t1 = "<B>Crew Manifest:</B><BR>"
-				for(var/datum/data/record/t in sort_record(GLOB.data_core.general))
-					t1 += t.fields["name"] + " - " + t.fields["rank"] + "<br>"
+				for(var/datum/record/crew/t in sort_record(GLOB.manifest.general))
+					t1 += t.name + " - " + t.rank + "<br>"
 				P.default_raw_text = t1
 				P.name = "paper- 'Crew Manifest'"
 				printing = null
@@ -909,7 +874,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				say("Insufficient access to create a new bank account.")
 				return
 			var/datum/bank_account/B = SSeconomy.get_budget_account(initial(target_paycheck))
-			switch(alert("Would you like to open a new bank account?\nIt will cost 1,000 credits in [lowertext(initial(target_paycheck))] budget.","Open a new account","Yes","No"))
+			switch(alert("Would you like to open a new bank account?\nIt will cost 1,000 credits in [LOWER_TEXT(initial(target_paycheck))] budget.","Open a new account","Yes","No"))
 				if("No")
 					return
 				if("Yes")
@@ -946,11 +911,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		inserted_modify_id.update_label()
 	updateUsrDialog()
 
-/obj/machinery/computer/card/proc/get_subordinates(rank)
-	for(var/datum/job/job in SSjob.occupations)
-		if(rank in job.department_head)
-			head_subordinates += job.title
-
 /// Returns if auth id has head access that is eligible to adjust payment
 /obj/machinery/computer/card/proc/check_auth_payment()
 	for(var/each in list(ACCESS_HEADS, ACCESS_CHANGE_IDS, ACCESS_HOP, ACCESS_CMO, ACCESS_RD, ACCESS_CE))
@@ -962,6 +922,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	name = "\improper CentCom identification console"
 	circuit = /obj/item/circuitboard/computer/card/centcom
 	req_access = list(ACCESS_CENT_CAPTAIN)
+	is_centcom = TRUE
 
 /obj/machinery/computer/card/minor
 	name = "department management console"
@@ -972,45 +933,40 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/minor/Initialize(mapload)
 	. = ..()
 	var/obj/item/circuitboard/computer/card/minor/typed_circuit = circuit
-	if(target_dept)
-		typed_circuit.target_dept = target_dept
+	if(department_bitflag)
+		for(var/i in 1 to length(typed_circuit.dept_list))
+			if(department_bitflag == typed_circuit.dept_list[i])
+				typed_circuit.counting = i
+				break
 	else
-		target_dept = typed_circuit.target_dept
-	var/list/dept_list = list("general","security","medical","science","engineering")
-	name = "[dept_list[target_dept]] department console"
+		department_bitflag = typed_circuit.dept_list[typed_circuit.counting]
+	name = "[LOWER_TEXT(typed_circuit.dept_list_name[typed_circuit.counting])] department console"
 
 /obj/machinery/computer/card/minor/hos
-	target_dept = DEPT_SEC
+	department_bitflag = DEPT_BITFLAG_SEC
 	target_paycheck = ACCOUNT_SEC_ID
 	icon_screen = "idhos"
 
 	light_color = LIGHT_COLOR_RED
 
 /obj/machinery/computer/card/minor/cmo
-	target_dept = DEPT_MED
+	department_bitflag = DEPT_BITFLAG_MED
 	target_paycheck = ACCOUNT_MED_ID
 	icon_screen = "idcmo"
 
 /obj/machinery/computer/card/minor/rd
-	target_dept = DEPT_SCI
+	department_bitflag = DEPT_BITFLAG_SCI
 	target_paycheck = ACCOUNT_SCI_ID
 	icon_screen = "idrd"
 
 	light_color = LIGHT_COLOR_PINK
 
 /obj/machinery/computer/card/minor/ce
-	target_dept = DEPT_ENG
+	department_bitflag = DEPT_BITFLAG_ENG
 	target_paycheck = ACCOUNT_ENG_ID
 	icon_screen = "idce"
 
 	light_color = LIGHT_COLOR_DIM_YELLOW
 
-#undef DEPT_ALL
-#undef DEPT_GEN
-#undef DEPT_SEC
-#undef DEPT_MED
-#undef DEPT_SCI
-#undef DEPT_ENG
-#undef DEPT_SUP
 
 #undef NEW_BANK_ACCOUNT_COST

@@ -15,13 +15,15 @@
 	gender = NEUTER
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper"
-	item_state = "paper"
+	inhand_icon_state = "paper"
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
+	worn_icon_state = "paper"
 	custom_fire_overlay = "paper_onfire_overlay"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = ISWEAPON
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
-	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
 	throw_range = 1
 	throw_speed = 1
 	pressure_resistance = 0
@@ -67,8 +69,9 @@
 
 /obj/item/paper/Initialize(mapload)
 	. = ..()
-	pixel_y = rand(-8, 8)
-	pixel_x = rand(-9, 9)
+	if (!mapload)
+		pixel_y = rand(-8, 8)
+		pixel_x = rand(-9, 9)
 
 	if(default_raw_text)
 		add_raw_text(default_raw_text)
@@ -147,7 +150,7 @@
 	new_paper.raw_stamp_data = copy_raw_stamps()
 	new_paper.stamp_cache = stamp_cache?.Copy()
 	new_paper.update_icon_state()
-	copy_overlays(new_paper, TRUE)
+	new_paper.copy_overlays(src)
 	return new_paper
 
 /**
@@ -160,14 +163,16 @@
  * * text - The text to append to the paper.
  * * font - The font to use.
  * * color - The font color to use.
- * * bold - Whether this text should be rendered completely bold.
+ * * bold - Whether this text should be rendered completely bold
+ * * advanced_html - Boolean that is true when the writer has R_FUN permission, which sanitizes less HTML (such as images) from the new paper_input.
  */
-/obj/item/paper/proc/add_raw_text(text, font, color, bold)
+/obj/item/paper/proc/add_raw_text(text, font, color, bold, advanced_html)
 	var/new_input_datum = new /datum/paper_input(
 		text,
 		font,
 		color,
 		bold,
+		advanced_html,
 	)
 
 	input_field_count += get_input_field_count(text)
@@ -195,8 +200,17 @@
 	var/datum/paper_field/field_data_datum = null
 
 	var/is_signature = ((text == "%sign") || (text == "%s"))
+	var/is_date = ((text == "%date") || (text == "%d"))
+	var/is_time = ((text == "%time") || (text == "%t"))
 
-	var/field_text = is_signature ? signature_name : text
+	var/field_text = text
+	if(is_signature)
+		field_text = signature_name
+	else if(is_date)
+		field_text = "[time2text(world.timeofday, "DD/MM")]/[CURRENT_STATION_YEAR]"
+	else if(is_time)
+		field_text = station_time_timestamp()
+
 	var/field_font = is_signature ? SIGNATURE_FONT : font
 
 	for(var/datum/paper_field/field_input in raw_field_input_data)
@@ -225,8 +239,8 @@
 		bold,
 	)
 
-	field_data_datum.field_data = new_input_datum;
-	field_data_datum.is_signature = is_signature;
+	field_data_datum.field_data = new_input_datum
+	field_data_datum.is_signature = is_signature
 
 	return TRUE
 
@@ -244,15 +258,16 @@
  * * stamp_y - Y coordinate to render the stamp in tgui.
  * * rotation - Degrees of rotation for the stamp to be rendered with in tgui.
  * * stamp_icon_state - Icon state for the stamp as part of overlay rendering.
+* * stamp_icon_state - An alternate Icon file can be passed for the stamp as part of overlay rendering if desired
  */
-/obj/item/paper/proc/add_stamp(stamp_class, stamp_x, stamp_y, rotation, stamp_icon_state)
+/obj/item/paper/proc/add_stamp(stamp_class, stamp_x, stamp_y, rotation, stamp_icon_state, stamp_icon = 'icons/obj/bureaucracy.dmi')
 	var/new_stamp_datum = new /datum/paper_stamp(stamp_class, stamp_x, stamp_y, rotation)
-	LAZYADD(raw_stamp_data, new_stamp_datum);
+	LAZYADD(raw_stamp_data, new_stamp_datum)
 
 	if(LAZYLEN(stamp_cache) > MAX_PAPER_STAMPS_OVERLAYS)
 		return
 
-	var/mutable_appearance/stamp_overlay = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_[stamp_icon_state]")
+	var/mutable_appearance/stamp_overlay = mutable_appearance(stamp_icon, "paper_[stamp_icon_state]", appearance_flags = KEEP_APART | RESET_COLOR)
 	stamp_overlay.pixel_x = rand(-2, 2)
 	stamp_overlay.pixel_y = rand(-3, 2)
 	add_overlay(stamp_overlay)
@@ -272,65 +287,69 @@
 	if(contact_poison && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/clothing/gloves/G = H.gloves
-		if(!istype(G) || G.transfer_prints)
+		if(!istype(G) || !(G.body_parts_covered & HANDS) || HAS_TRAIT(G, TRAIT_FINGERPRINT_PASSTHROUGH) || HAS_TRAIT(H, TRAIT_FINGERPRINT_PASSTHROUGH))
 			H.reagents.add_reagent(contact_poison,contact_poison_volume)
 			contact_poison = null
 	..()
 
 /obj/item/paper/update_icon_state()
-	. = ..()
 	if(LAZYLEN(raw_text_inputs) && show_written_words)
 		icon_state = "[initial(icon_state)]_words"
+	else
+		icon_state = initial(icon_state)
+	return ..()
 
 /obj/item/paper/verb/rename()
 	set name = "Rename paper"
 	set category = "Object"
 	set src in usr
 
-	if(!usr.can_read(src) || usr.incapacitated(TRUE, TRUE) || (isobserver(usr) && !IsAdminGhost(usr)))
+	if(!usr.can_read(src) || INCAPACITATED_IGNORING(usr, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB) || (isobserver(usr) && !IsAdminGhost(usr)))
 		return
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
 		if(HAS_TRAIT(H, TRAIT_CLUMSY) && prob(25))
-			to_chat(H, "<span class='warning'>You cut yourself on the paper! Ahhhh! Ahhhhh!</span>")
+			to_chat(H, span_warning("You cut yourself on the paper! Ahhhh! Ahhhhh!"))
 			H.damageoverlaytemp = 9001
 			H.update_damage_hud()
 			return
 	var/n_name = stripped_input(usr, "What would you like to label the paper?", "Paper Labelling", null, MAX_NAME_LEN)
+	if(isnull(n_name) || n_name == "")
+		return
 	if(((loc == usr || istype(loc, /obj/item/clipboard)) && usr.stat == CONSCIOUS))
 		name = "paper[(n_name ? "- '[n_name]'" : null)]"
 	add_fingerprint(usr)
 	update_static_data()
 
 /obj/item/paper/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] scratches a grid on [user.p_their()] wrist with the paper! It looks like [user.p_theyre()] trying to commit sudoku...</span>")
+	user.visible_message(span_suicide("[user] scratches a grid on [user.p_their()] wrist with the paper! It looks like [user.p_theyre()] trying to commit sudoku..."))
 	return BRUTELOSS
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
 	if(!in_range(user, src) && !isobserver(user))
-		. += "<span class='warning'>You're too far away to read it!</span>"
+		. += span_warning("You're too far away to read it!")
 		return
 	if(user.can_read(src))
 		ui_interact(user)
 		return
-	. += "<span class='warning'>You cannot read it!</span>"
+	. += span_warning("You cannot read it!")
 
-/obj/item/paper/ui_status(mob/user,/datum/ui_state/state)
+/obj/item/paper/ui_status(mob/user, /datum/ui_state/state)
 		// Are we on fire?  Hard ot read if so
 	if(resistance_flags & ON_FIRE)
 		return UI_CLOSE
 	if(camera_holder && can_show_to_mob_through_camera(user) || request_state)
 		return UI_UPDATE
-	if(!in_range(user,src))
+	if(!in_range(user, src))
 		return UI_CLOSE
-	if(user.incapacitated(TRUE, TRUE) || (isobserver(user) && !IsAdminGhost(user)))
+	if(INCAPACITATED_IGNORING(user, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB) || (isobserver(user) && !IsAdminGhost(user)))
 		return UI_UPDATE
 	// Even harder to read if your blind...braile? humm
 	// .. or if you cannot read
 	if(!user.can_read(src))
 		return UI_CLOSE
-	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/item/clipboard))
+	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/item/clipboard) || in_contents_of(/obj/item/sticker/sticky_note) || in_contents_of(/obj/item/folder))
 		return UI_INTERACTIVE
 	return ..()
 
@@ -352,12 +371,12 @@
 		return
 	. = TRUE
 	if(!bypass_clumsy && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10) && Adjacent(user))
-		user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
-							"<span class='userdanger'>You miss [src] and accidentally light yourself on fire!</span>")
+		user.visible_message(span_warning("[user] accidentally ignites [user.p_them()]self!"), \
+							span_userdanger("You miss [src] and accidentally light yourself on fire!"))
 		if(user.is_holding(I)) //checking if they're holding it in case TK is involved
 			user.dropItemToGround(I)
 		user.adjust_fire_stacks(1)
-		user.IgniteMob()
+		user.ignite_mob()
 		return
 
 	if(user.is_holding(src)) //no TK shit here.
@@ -385,7 +404,7 @@
 
 	if(writing_stats["interaction_mode"] == MODE_WRITING)
 		if(get_total_length() >= MAX_PAPER_LENGTH)
-			to_chat(user, "<span class='warning'>This sheet of paper is full!</span>")
+			to_chat(user, span_warning("This sheet of paper is full!"))
 			return
 
 		ui_interact(user)
@@ -393,13 +412,43 @@
 
 	// Handle stamping items.
 	if(writing_stats["interaction_mode"] == MODE_STAMPING)
-		to_chat(user, "<span class='notice'>You ready your stamp over the paper! </span>")
-		ui_interact(user)
-		return
+		to_chat(user, span_notice("You ready your stamp over the paper! "))
+		if(!user.can_read(src))
+			//The paper's stampable window area is assumed approx 300x400
+			add_stamp(writing_stats["stamp_class"], rand(0, 300), rand(0, 400), rand(0, 360), writing_stats["stamp_icon_state"], stamp_icon = writing_stats["stamp_icon"])
+			user.visible_message(span_notice("[user] blindly stamps [src] with \the [attacking_item]!"))
+			playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
+		else
+			to_chat(user, span_notice("You ready your stamp over the paper! "))
+			ui_interact(user)
+
+		return /// Normaly you just stamp, you don't need to read the thing
+	else
+		// cut paper?  the sky is the limit!
+		ui_interact(user) // The other ui will be created with just read mode outside of this
 
 	ui_interact(user)
 	return ..()
 
+/// Secondary right click interaction to quickly stamp things
+/obj/item/paper/attackby_secondary(obj/item/tool, mob/living/user, list/modifiers)
+	var/list/writing_stats = tool.get_writing_implement_details()
+
+	if(!length(writing_stats))
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	if(writing_stats["interaction_mode"] != MODE_STAMPING)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	if(!user.can_read(src)) // Just leftclick instead
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+	add_stamp(writing_stats["stamp_class"], rand(1, 300), rand(1, 400), stamp_icon_state = writing_stats["stamp_icon_state"], stamp_icon = writing_stats["stamp_icon"])
+	user.visible_message(
+		span_notice("[user] quickly stamps [src] with [tool] without looking."),
+		span_notice("You quickly stamp [src] with [tool] without looking."),
+	)
+	playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
+
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN // Stop the UI from opening.
 /**
  * Attempts to ui_interact the paper to the given user, with some sanity checking
  * to make sure the camera still exists via the weakref and that this paper is still
@@ -431,7 +480,8 @@
 
 /obj/item/paper/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/simple/paper),
+		get_asset_datum(/datum/asset/spritesheet/simple/stamps),
+		get_asset_datum(/datum/asset/simple/logos),
 	)
 
 /obj/item/paper/ui_interact(mob/user, datum/tgui/ui)
@@ -440,7 +490,6 @@
 		ui = new(user, src, "PaperSheet", name)
 		ui.open()
 		ui.set_autoupdate(TRUE)
-
 
 /obj/item/paper/ui_static_data(mob/user)
 	var/list/static_data = list()
@@ -468,7 +517,7 @@
 	static_data["default_pen_color"] = COLOR_BLACK
 	static_data["signature_font"] = FOUNTAIN_PEN_FONT
 
-	return static_data;
+	return static_data
 
 /obj/item/paper/ui_data(mob/user)
 	var/list/data = list()
@@ -477,7 +526,9 @@
 	// Use a clipboard's pen, if applicable
 	if(istype(loc, /obj/item/clipboard))
 		var/obj/item/clipboard/clipboard = loc
-		if(clipboard.pen)
+		// This is just so you can still use a stamp if you're holding one. Otherwise, it'll
+		// use the clipboard's pen, if applicable.
+		if(!istype(holding, /obj/item/stamp) && clipboard.pen)
 			holding = clipboard.pen
 
 	data["held_item_details"] = istype(holding) ? holding.get_writing_implement_details() : null
@@ -501,10 +552,10 @@
 			var/obj/item/holding = user.get_active_held_item()
 			var/stamp_info = holding?.get_writing_implement_details()
 			if(!stamp_info || (stamp_info["interaction_mode"] != MODE_STAMPING))
-				to_chat(src, "<span class='warning'>You can't stamp with the [holding]!</span>")
+				to_chat(src, span_warning("You can't stamp with the [holding]!"))
 				return TRUE
 
-			var/stamp_class = stamp_info["stamp_class"];
+			var/stamp_class = stamp_info["stamp_class"]
 
 			// If the paper is on an unwritable noticeboard, this usually shouldn't be possible.
 			if(istype(loc, /obj/structure/noticeboard))
@@ -520,13 +571,14 @@
 			//var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
 			var/stamp_rotation = text2num(params["rotation"])
 			var/stamp_icon_state = stamp_info["stamp_icon_state"]
+			var/stamp_icon = stamp_info["stamp_icon"]
 
 			if (LAZYLEN(raw_stamp_data) >= MAX_PAPER_STAMPS)
-				to_chat(usr, pick("You try to stamp but you miss!", "There is no where else you can stamp!"))
+				to_chat(usr, pick("You try to stamp but you miss!", "There is nowhere else you can stamp!"))
 				return TRUE
 
-			add_stamp(stamp_class, stamp_x, stamp_y, stamp_rotation, stamp_icon_state)
-			user.visible_message("<span class='notice'>[user] stamps [src] with \the [holding.name]!</span>", "<span class='notice'>You stamp [src] with \the [holding.name]!</span>")
+			add_stamp(stamp_class, stamp_x, stamp_y, stamp_rotation, stamp_icon_state, stamp_icon)
+			user.visible_message(span_notice("[user] stamps [src] with \the [holding.name]!"), span_notice("You stamp [src] with \the [holding.name]!"))
 			playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 			update_appearance()
 			update_static_data_for_all_viewers()
@@ -537,7 +589,7 @@
 			var/this_input_length = length_char(paper_input)
 
 			if(this_input_length == 0)
-				to_chat(user, pick("Writing block strikes again!", "You forgot to write anthing!"))
+				to_chat(user, pick("Writing block strikes again!", "You forgot to write anything!"))
 				return TRUE
 
 			// If the paper is on an unwritable noticeboard, this usually shouldn't be possible.
@@ -567,10 +619,10 @@
 			// Safe to assume there are writing implement details as user.can_write(...) fails with an invalid writing implement.
 			var/writing_implement_data = holding.get_writing_implement_details()
 
-			add_raw_text(paper_input, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"])
+			add_raw_text(paper_input, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], check_rights_for(user?.client, R_FUN))
 
 			log_paper("[key_name(user)] wrote to [name]: \"[paper_input]\"")
-			to_chat(user, "You have added to your paper masterpiece!");
+			to_chat(user, "You have added to your paper masterpiece!")
 
 			update_static_data_for_all_viewers()
 			update_appearance()
@@ -651,15 +703,18 @@
 	var/colour = ""
 	/// Whether to render the font bold or not.
 	var/bold = FALSE
+	/// Whether the creator has R_FUN permission, which allows for less sanitised HTML.
+	var/advanced_html = FALSE
 
-/datum/paper_input/New(_raw_text, _font, _colour, _bold)
+/datum/paper_input/New(_raw_text, _font, _colour, _bold, _advanced_html)
 	raw_text = _raw_text
 	font = _font
 	colour = _colour
 	bold = _bold
+	advanced_html = _advanced_html
 
 /datum/paper_input/proc/make_copy()
-	return new /datum/paper_input(raw_text, font, colour, bold);
+	return new /datum/paper_input(raw_text, font, colour, bold, advanced_html)
 
 /datum/paper_input/proc/to_list()
 	return list(
@@ -667,6 +722,7 @@
 		font = font,
 		color = colour,
 		bold = bold,
+		advanced_html = advanced_html,
 	)
 
 /// A single instance of a saved stamp on paper.
@@ -747,14 +803,109 @@
 	name = "beer-stained note"
 
 /obj/item/paper/crumpled/beernuke/Initialize(mapload)
-	. = ..()
 	var/code
 	for(var/obj/machinery/nuclearbomb/beer/beernuke in GLOB.nuke_list)
 		if(beernuke.r_code == "ADMIN")
 			beernuke.r_code = random_code(5)
 		code = beernuke.r_code
 	default_raw_text = "important party info, DONT FORGET: <b>[code]</b>"
+	return ..()
 
 /obj/item/paper/troll
 	name = "very special note"
-	default_raw_text = "<span style=color:'black';font-family:'Verdana';><p>░░░░░▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄░░░░░░░<br>░░░░░█░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░▀▀▄░░░░<br>░░░░█░░░▒▒▒▒▒▒░░░░░░░░▒▒▒░░█░░░<br>░░░█░░░░░░▄██▀▄▄░░░░░▄▄▄░░░░█░░<br>░▄▀▒▄▄▄▒░█▀▀▀▀▄▄█░░░██▄▄█░░░░█░<br>█░▒█▒▄░▀▄▄▄▀░░░░░░░░█░░░▒▒▒▒▒░█<br>█░▒█░█▀▄▄░░░░░█▀░░░░▀▄░░▄▀▀▀▄▒█<br>░█░▀▄░█▄░█▀▄▄░▀░▀▀░▄▄▀░░░░█░░█░<br>░░█░░░▀▄▀█▄▄░█▀▀▀▄▄▄▄▀▀█▀██░█░░<br>░░░█░░░░██░░▀█▄▄▄█▄▄█▄████░█░░░<br>░░░░█░░░░▀▀▄░█░░░█░█▀██████░█░░<br>░░░░░▀▄░░░░░▀▀▄▄▄█▄█▄█▄█▄▀░░█░░<br>░░░░░░░▀▄▄░▒▒▒▒░░░░░░░░░░▒░░░█░<br>░░░░░░░░░░▀▀▄▄░▒▒▒▒▒▒▒▒▒▒░░░░█░<br>░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░░░░█░░</p> </span>"
+	default_raw_text = "<p>░░░░░▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄░░░░░░░<br>░░░░░█░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░▀▀▄░░░░<br>░░░░█░░░▒▒▒▒▒▒░░░░░░░░▒▒▒░░█░░░<br>░░░█░░░░░░▄██▀▄▄░░░░░▄▄▄░░░░█░░<br>░▄▀▒▄▄▄▒░█▀▀▀▀▄▄█░░░██▄▄█░░░░█░<br>█░▒█▒▄░▀▄▄▄▀░░░░░░░░█░░░▒▒▒▒▒░█<br>█░▒█░█▀▄▄░░░░░█▀░░░░▀▄░░▄▀▀▀▄▒█<br>░█░▀▄░█▄░█▀▄▄░▀░▀▀░▄▄▀░░░░█░░█░<br>░░█░░░▀▄▀█▄▄░█▀▀▀▄▄▄▄▀▀█▀██░█░░<br>░░░█░░░░██░░▀█▄▄▄█▄▄█▄████░█░░░<br>░░░░█░░░░▀▀▄░█░░░█░█▀██████░█░░<br>░░░░░▀▄░░░░░▀▀▄▄▄█▄█▄█▄█▄▀░░█░░<br>░░░░░░░▀▄▄░▒▒▒▒░░░░░░░░░░▒░░░█░<br>░░░░░░░░░░▀▀▄▄░▒▒▒▒▒▒▒▒▒▒░░░░█░<br>░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░░░░█░░</p>"
+
+/obj/item/paper/tablet_guide
+	color = COLOR_OFF_WHITE
+	name = "Assembly Instructions"
+	desc = "Instructions for the assembly of a Tablet computer."
+
+/obj/item/paper/tablet_guide/Initialize(mapload)
+	default_raw_text = {"Congratulations on acquiring your very own 'Tablets for Dummies' kit. You now have everything you need to build your own Tablet!
+
+	Within this kit you will find the following:
+
+		- A Tablet (void of any components).
+		- A Power Cell Controler.
+		- A small Battery.
+		- A Processor Unit.
+		- A micro Solid State Drive.
+		- A Network Card.
+		- A Primary Card Slot.
+		- An Identifier.
+		- And a Screwdriver.
+
+		To begin, please insert the provided Power Cell Controler onto the PDA. Doing so will allow you to now attach a Battery to it. Insert, now, the Battery.
+
+		Without a Battery (and a Power Cell Controler to attach it to), a CPU and a Drive the Tablet will be unable to start. Please ensure these three items are inserted well into the machines' body.
+
+		Congratulations, your Tablet may start now, but we have provided you with 3 bonus components you may find useful.
+
+		A Network Card will allow you to download programs from the web, and may even allow you to chat with other users "online".
+
+		A Primary Card Slot will allow you to insert your ID into your newly constructed tablet.
+
+		The Identifier will allow you to imprint your inserted ID into the machine, serving as your form of identification "online".
+
+		We now believe that you are ready and able to build your own tablet without aid in the future. If you'd like to retrieve the components, simply use the screwdriver provided to you to dislodge them from the body of your Tablet.
+
+		We wish you good luck and happy tinkering!"}
+
+	return ..()
+
+/obj/item/paper/manualhacking_guide
+	color = COLOR_OFF_WHITE
+	name = "Hacking GUIDE"
+	desc = "Instructions on how to be a very cool hacker."
+	trade_flags = TRADE_CONTRABAND
+
+/obj/item/paper/manualhacking_guide/Initialize(mapload)
+	default_raw_text = {"Greetings initiate. I am xX_Benita_Xx of the Hellraiser team and I will be guiding you on the art of manual hacking.
+
+	Firstly, a warning.
+	Hacking is quite fickle. Expect processes to change and evolve as NT attempts to combat our combined efforts.
+	In this kit you will find:
+
+		1 - A Screwdriver.
+
+		Screwdrivers are essential for opening the components up for manipulation.
+		They are also able to alter the power consumption of components, should that ever be of use.
+
+		2 - A Multitool.
+
+		The Multitool is the second part of your essential tool couple, so to speak.
+		The Multitool is able to preform a disgnostical reading of different components.
+		This will reveal relevant information. It is also used to bypass
+		internal component security, this is what we call "manual hacking".
+
+		3 - A collection of portable disks.
+
+		We have trough some effort hidden special programing inside the portable disks
+		issued to your station. Such programs can be accessed trough the manual hacking of the disks.
+
+
+		To begin, select a portable disk and open it with the screwdriver.
+		Next, utilize the multitool to bypass security.
+		After some time, the disk is now hacked.
+		Insert the disk inside a computer to acess its progamms.
+		A readme.txt file is included inside each disk with instructions regarding use.
+
+
+		However. Do not expect all parts to operate like this.
+		For example:
+
+		An hacked power cell controler has the ability to detonate its battery, under the right conditions.
+		On movement, an hacked CPU creates tears in bluespace fabric.
+		Hacked job disks not only allow the copying of their stored programs
+		but they also unlock advertisement restrictions on your hard drive.
+		An hacked primary ID port may now accept the... "less than eletronic" cards.
+
+
+		There are more parts with interesting behaviour changes that we have discovered.
+		However, we understand that there is fun in experimenting them all for yourself.
+
+		Enjoy yourself. And make sure NT pays an hefty price for their hubris.
+
+		xX_Benita_Xx out."}
+
+	return ..()

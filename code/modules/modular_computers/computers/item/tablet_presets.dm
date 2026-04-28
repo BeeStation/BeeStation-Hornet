@@ -6,7 +6,7 @@
 /obj/item/modular_computer/tablet/preset/cheap/Initialize(mapload)
 	. = ..()
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer/micro))
+	install_component(new /obj/item/computer_hardware/battery/small)
 	install_component(new /obj/item/computer_hardware/hard_drive/small)
 	install_component(new /obj/item/computer_hardware/network_card)
 
@@ -14,7 +14,7 @@
 /obj/item/modular_computer/tablet/preset/advanced/Initialize(mapload)
 	. = ..()
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
+	install_component(new /obj/item/computer_hardware/battery/standard)
 	install_component(new /obj/item/computer_hardware/hard_drive/small)
 	install_component(new /obj/item/computer_hardware/network_card)
 	install_component(new /obj/item/computer_hardware/card_slot)
@@ -31,7 +31,7 @@
 	. = ..()
 	var/obj/item/computer_hardware/hard_drive/small/hard_drive = new
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
+	install_component(new /obj/item/computer_hardware/battery/standard)
 	install_component(hard_drive)
 	install_component(new /obj/item/computer_hardware/card_slot)
 	install_component(new /obj/item/computer_hardware/network_card)
@@ -42,7 +42,7 @@
 	. = ..()
 	var/obj/item/computer_hardware/hard_drive/small/hard_drive = new
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
+	install_component(new /obj/item/computer_hardware/battery/standard)
 	install_component(hard_drive)
 	install_component(new /obj/item/computer_hardware/card_slot)
 	install_component(new /obj/item/computer_hardware/network_card)
@@ -71,7 +71,7 @@
 	hard_drive.store_file(uplink)
 
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
+	install_component(new /obj/item/computer_hardware/battery/standard)
 	install_component(hard_drive)
 	install_component(new /obj/item/computer_hardware/network_card)
 	install_component(new /obj/item/computer_hardware/card_slot)
@@ -81,12 +81,12 @@
 /obj/item/modular_computer/tablet/nukeops/Initialize(mapload)
 	. = ..()
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
+	install_component(new /obj/item/computer_hardware/battery/standard)
 	install_component(new /obj/item/computer_hardware/hard_drive/small/nukeops)
 	install_component(new /obj/item/computer_hardware/network_card)
 
 //Borg Built-in tablet
-/obj/item/modular_computer/tablet/integrated/Initialize()
+/obj/item/modular_computer/tablet/integrated/Initialize(mapload)
 	. = ..()
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
 	install_component(new /obj/item/computer_hardware/recharger/cyborg)

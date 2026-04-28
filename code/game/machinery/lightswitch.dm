@@ -6,10 +6,13 @@
 	desc = "Make dark."
 	power_channel = AREA_USAGE_LIGHT
 	layer = ABOVE_WINDOW_LAYER
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	/// Set this to a string, path, or area instance to control that area
 	/// instead of the switch's location.
 	var/area/area = null
 	var/screwdrivered = FALSE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 
 /obj/machinery/light_switch/Initialize(mapload)
 	. = ..()
@@ -64,7 +67,7 @@
 /obj/machinery/light_switch/interact(mob/user)
 	. = ..()
 	if(screwdrivered)
-		to_chat(user, "<span class='notice'>You flick the switch but nothing happens!</span>")
+		to_chat(user, span_notice("You flick the switch but nothing happens!"))
 		return
 	area.lightswitch = !area.lightswitch
 	play_click_sound("button")
@@ -78,14 +81,14 @@
 /obj/machinery/light_switch/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		screwdrivered = !screwdrivered
-		user.visible_message("<span class='notice'>[user] [screwdrivered ? "un" : ""]secures [name].</span>", \
-		"<span class='notice'>You [screwdrivered ? "un" : ""]secure [name].</span>")
+		user.visible_message(span_notice("[user] [screwdrivered ? "un" : ""]secures [name]."), \
+		span_notice("You [screwdrivered ? "un" : ""]secure [name]."))
 		I.play_tool_sound(src)
 		update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 		return
 	if(I.tool_behaviour == TOOL_CROWBAR && screwdrivered)
 		I.play_tool_sound(src)
-		user.visible_message("<span class='notice'>[user] pries [name] off the wall.</span>","<span class='notice'>You pry [name] off the wall.</span>")
+		user.visible_message(span_notice("[user] pries [name] off the wall."),span_notice("You pry [name] off the wall."))
 		new /obj/item/wallframe/light_switch(loc)
 		qdel(src)
 		return
@@ -104,17 +107,17 @@
 
 /obj/machinery/light_switch/eminence_act(mob/living/simple_animal/eminence/eminence)
 	. = ..()
-	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
+	to_chat(usr, span_brass("You begin manipulating [src]!"))
 	if(do_after(eminence, 20, target=get_turf(eminence)))
 		interact(eminence)
 
 /obj/machinery/light_switch/tcomms
 	name = "Server Room light switch"
-	area = /area/tcommsat/server
+	area = /area/station/tcommsat/server
 
 /obj/item/wallframe/light_switch
 	name = "light switch frame"
 	desc = "Used for building wall-mounted light switches."
 	icon_state = "lightswitch"
 	result_path = /obj/machinery/light_switch
-	pixel_shift = -26
+	pixel_shift = 26

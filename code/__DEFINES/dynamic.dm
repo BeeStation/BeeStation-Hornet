@@ -1,42 +1,68 @@
-/// This is the only ruleset that should be picked this round, used by admins and should not be on rulesets in code.
-#define ONLY_RULESET (1 << 0)
+/// Disables playtime requirements when being drafted for rulesets
+//#define TESTING_DYNAMIC
 
-/// Only one ruleset with this flag will be picked.
-#define HIGH_IMPACT_RULESET (1 << 1)
+#if defined(TESTING_DYNAMIC) && defined(CIBUILDING)
+	#error TESTING_DYNAMIC is enabled, disable this!
+#endif
 
-/// This ruleset can only be picked once. Anything that does not have a scaling_cost MUST have this.
-#define LONE_RULESET (1 << 2)
+// If this is defined, then any storyteller configs which do not have
+// a 'Version' tag that match this value will not be loaded.
+// #define STORYTELLER_VERSION "GamemodeAntagonists"
 
-/// This ruleset can't execute alongside ANY other roundstart ruleset.
-#define NO_OTHER_ROUNDSTARTS_RULESET (1 << 3)
+#define DYNAMIC_STORYTELLERS_DIRECTORY "[global.config.directory]/dynamic/"
 
-/// This ruleset should only be rolled if the station is mostly intact, i.e the crew is not mostly dead and the station isn't full of holes.
-/// Only used for midround/latejoin rolling.
-#define INTACT_STATION_RULESET (1 << 4)
+#define DYNAMIC_CATEGORY_GAMEMODE "Gamemode"
+#define DYNAMIC_CATEGORY_SUPPLEMENTARY "Supplementary"
+#define DYNAMIC_CATEGORY_MIDROUND "Midround"
+#define DYNAMIC_CATEGORY_LATEJOIN "Latejoin"
 
-/// This ruleset will be logged in persistence, to reduce the chances of it repeatedly rolling several rounds in a row.
-#define PERSISTENT_RULESET (1 << 5)
+/// For relatively small antagonists (Sleeper Agent, Obsessed, Fugitives, etc.)
+#define DYNAMIC_MIDROUND_LIGHT (1 << 0)
+/// For round disruptive antagonists (Abductors, Malf AI, Slaughter Demon, etc.)
+#define DYNAMIC_MIDROUND_MEDIUM (1 << 1)
+/// For round ending antagonists (Wizard, Lone Operative, Blob, etc.)
+#define DYNAMIC_MIDROUND_HEAVY (1 << 2)
 
-/// Can this ruleset be executed once we consider the round to be in the late game context?
-/// We generally want lategame rulesets to be chaotic and antagonists which do not require a long setup in order to get started.
-/// These are rulesets that should push the round to a close
-#define LATEGAME_RULESET (1 << 6)
+/// Only one ruleset with this flag will be picked
+#define HIGH_IMPACT_RULESET (1 << 0)
+/// This ruleset can only be picked once
+#define CANNOT_REPEAT (1 << 1)
+/// Dynamic will call rule_process each tick if this is set
+#define SHOULD_PROCESS_RULESET (1 << 2)
+/// Should the chosen candidate(s) be picked based off of their antagonist reputation
+#define SHOULD_USE_ANTAG_REP (1 << 3)
+/// If this flag is enabled no other rulesets can be executed
+#define NO_OTHER_RULESETS (1 << 4)
+/// Latejoining as this ruleset is not allowed, used for supplementary rulesets
+/// and for when a gamemode ruleset could not be executed at roundstart.
+#define NO_LATE_JOIN (1 << 5)
+/// Is this ruleset obvious? We will only show 1 obvious ruleset in the
+/// roundstart security report.
+#define IS_OBVIOUS_RULESET (1 << 6)
+/// If antagonists spawned by this ruleset are admin-removed, then this flag will make
+/// it so that dynamic does not attempt to re-introduce an antagonist role to compensate
+/// for the removal.
+#define NO_TRANSFER_RULESET (1 << 7)
+/// If an antagonist spawned by this role is admin-removed, do not attempt to re-introduce
+/// it unless there are no other remaining antagonists of the same type, required for conversion
+/// antagonists which may create more antagonists that are not associated with a spawned
+/// ruleset. Not required for rulesets which pass on their spawning ruleset to any converts.
+/// Because it is difficult to track conversion in modes like clockcult, we don't try to associate
+/// antagonists to a single ruleset, and just assume that if an antagonist exists it is because of
+/// us.
+#define NO_CONVERSION_TRANSFER_RULESET (1 << 8)
+/// If this flag is set, then minimum player count cares about total pop rather than
+/// crew counts.
+#define REQUIRED_POP_ALLOW_UNREADY (1 << 9)
 
-/// This is a "heavy" midround ruleset, and should be run later into the round
-#define MIDROUND_RULESET_STYLE_HEAVY "Heavy"
-
-/// This is a "light" midround ruleset, and should be run early into the round
-#define MIDROUND_RULESET_STYLE_LIGHT "Light"
-
-/// No round event was hijacked this cycle
-#define HIJACKED_NOTHING "HIJACKED_NOTHING"
-
-/// This cycle, a round event was hijacked when the last midround event was too recent.
-#define HIJACKED_TOO_RECENT "HIJACKED_TOO_RECENT"
-
-/// Requirements when something needs a lot of threat to run, but still possible at low-pop
-#define REQUIREMENTS_VERY_HIGH_THREAT_NEEDED list(90,90,90,80,60,50,40,40,40,40)
-
-#define DYNAMIC_EXECUTE_SUCCESS 1
-#define DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS 2
 #define DYNAMIC_EXECUTE_FAILURE 0
+#define DYNAMIC_EXECUTE_SUCCESS 1
+#define DYNAMIC_EXECUTE_WAITING 2
+
+#define DYNAMIC_EXECUTE_STRINGIFY(state) (state == DYNAMIC_EXECUTE_FAILURE ? "FAIL" : (state == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "WAITING"))
+
+#define RULESET_STOP_PROCESSING 1
+
+// If this is defined, then any storyteller configs which do not have
+// a 'Version' tag that match this value will not be loaded.
+//#define STORYTELLER_VERSION "GamemodeAntagonists"

@@ -10,11 +10,7 @@
 /obj/effect/landmark/singularity_act()
 	return
 
-// Please stop bombing the Observer-Start landmark.
-/obj/effect/landmark/ex_act()
-	return
-
-/obj/effect/landmark/singularity_pull()
+/obj/effect/landmark/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 INITIALIZE_IMMEDIATE(/obj/effect/landmark)
@@ -68,6 +64,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/janitor
 	name = "Janitor"
 	icon_state = "Janitor"
+
+/obj/effect/landmark/start/prisoner
+	name = "Prisoner"
+	icon_state = "prisoner"
+	jobspawn_override = TRUE
+	delete_after_roundstart = FALSE
 
 /obj/effect/landmark/start/cargo_technician
 	name = "Cargo Technician"
@@ -202,7 +204,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/ai/after_round_start()
 	if(latejoin_active && !used)
-		new /obj/structure/AIcore/latejoin_inactive(loc)
+		new /obj/structure/ai_core/latejoin_inactive(loc)
 	return ..()
 
 /obj/effect/landmark/start/ai/secondary
@@ -223,7 +225,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	..()
 	var/datum/job/J = SSjob.GetJob(job)
 	J.total_positions += 1
-	J.spawn_positions += 1
+	J.job_flags &= ~JOB_CANNOT_OPEN_SLOTS
 
 /obj/effect/landmark/start/randommaint/backalley_doc
 	name = "Barber"
@@ -332,7 +334,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 
 /obj/effect/landmark/prisonspawn
 	name = "prisonspawn"
+	icon_state = "error"
+	/* Milviu's sin
 	icon_state = "prison_spawn"
+	*/
 
 /obj/effect/landmark/prisonspawn/Initialize(mapload)
 	..()
@@ -343,6 +348,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/carpspawn
 	name = "carpspawn"
 	icon_state = "carp_spawn"
+
+/obj/effect/landmark/loneops
+	name = "lone ops"
+	icon_state = "lone_ops"
 
 //observer start
 /obj/effect/landmark/observer_start
@@ -484,6 +493,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/ruin
 	var/datum/map_template/ruin/ruin_template
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
+
 /obj/effect/landmark/ruin/Initialize(mapload, my_ruin_template)
 	. = ..()
 	name = "ruin_[GLOB.ruin_landmarks.len + 1]"
@@ -508,14 +519,125 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/spawner/hangover_spawn
 	name = "hangover spawner"
 
+	/// A list of everything this hangover spawn created as part of the hangover station trait
+	var/list/hangover_debris = list()
+
+	/// A list of everything this hangover spawn created as part of the birthday station trait
+	var/list/party_debris = list()
+
 /obj/effect/spawner/hangover_spawn/Initialize(mapload)
-	..()
-	if(prob(60))
-		new /obj/effect/decal/cleanable/vomit(get_turf(src))
-	if(prob(70))
-		var/bottle_count = pick(10;1, 5;2, 2;3)
-		for(var/index in 1 to bottle_count)
-			var/obj/item/reagent_containers/food/drinks/beer/almost_empty/B = new(get_turf(src))
-			B.pixel_x += rand(-6, 6)
-			B.pixel_y += rand(-6, 6)
-	return INITIALIZE_HINT_QDEL
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/spawner/hangover_spawn/LateInitialize()
+	. = ..()
+	// Birthday
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_BIRTHDAY))
+		party_debris += new /obj/effect/decal/cleanable/confetti(get_turf(src))
+		var/list/bonus_confetti = GLOB.alldirs
+		for(var/confettis in bonus_confetti)
+			var/party_turf_to_spawn_on = get_step(src, confettis)
+			if(!isopenturf(party_turf_to_spawn_on))
+				continue
+			var/dense_object = FALSE
+			for(var/atom/content in party_turf_to_spawn_on)
+				if(content.density)
+					dense_object = TRUE
+					break
+			if(dense_object)
+				continue
+			if(prob(50))
+				party_debris += new /obj/effect/decal/cleanable/confetti(party_turf_to_spawn_on)
+			if(prob(10))
+				party_debris += new /obj/item/toy/balloon(party_turf_to_spawn_on)
+	// Hangover
+	else if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
+		if(prob(60))
+			hangover_debris += new /obj/effect/decal/cleanable/vomit(get_turf(src))
+		if(prob(70))
+			var/bottle_count = rand(1, 3)
+			for(var/index in 1 to bottle_count)
+				var/turf/turf_to_spawn_on = get_step(src, pick(GLOB.alldirs))
+				if(!isopenturf(turf_to_spawn_on))
+					continue
+				var/dense_object = FALSE
+				for(var/atom/content in turf_to_spawn_on.contents)
+					if(content.density)
+						dense_object = TRUE
+						break
+				if(dense_object)
+					continue
+				hangover_debris += new /obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty(turf_to_spawn_on)
+
+	qdel(src)
+
+/obj/effect/spawner/hangover_spawn/Destroy()
+	hangover_debris = null
+	party_debris = null
+	return ..()
+
+//Landmark that creates destinations for the navigate verb to path to
+/obj/effect/landmark/navigate_destination
+	name = "navigate verb destination"
+	icon_state = "navigate"
+	layer = OBJ_LAYER
+
+	/// navigation_id automatically sets to its area name (Bridge, Hydroponics, etc)
+	/// If you want to use a dedicated name for a specific area, set this value in DMM.
+	/// example) navigation_id = "Bartender's storage"
+	var/navigation_id
+
+	// Note: if multiple area needs a standard name, use "navigation_area_name"
+
+/obj/effect/landmark/navigate_destination/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/landmark/navigate_destination/LateInitialize()
+	. = ..()
+
+	if(!navigation_id)
+		var/area/linked_area = get_area(loc)
+		if(!isarea(linked_area))
+			stack_trace("The navigation landmark failed to get an area.")
+			qdel(src)
+			return
+		navigation_id = linked_area.get_navigation_area_name()
+	if(!navigation_id)
+		navigation_id = "Unnamed area"
+
+	var/fail_assoc_count
+	var/actual_key = navigation_id
+	while(GLOB.navigate_destinations[actual_key])
+		actual_key = "[navigation_id] ([++fail_assoc_count])"
+	GLOB.navigate_destinations[actual_key] = src
+
+/// Checks if this destination is available to a user.
+/obj/effect/landmark/navigate_destination/proc/is_available_to_user(mob/user)
+	if(!isatom(src) || !compare_z_with(user) || get_dist(get_turf(src), user) > MAX_NAVIGATE_RANGE)
+		return FALSE
+	return TRUE
+
+/// Checks if each z of this destination and a user.
+/// * FALSE: target destination doesn't exist, or z-groups are different (i.e. Station to Lavaland)
+/// * 1: very exactly same z
+/// * 16 (UP): target destination is above the user
+/// * 32 (DOWN): target destination is below the user
+/obj/effect/landmark/navigate_destination/proc/compare_z_with(mob/user)
+	var/turf/target_turf = get_turf(src)
+	if(!target_turf)
+		return FALSE
+
+	var/target_z = src.get_virtual_z_level()
+	var/user_z = user.get_virtual_z_level()
+	if(!compare_z(target_z, user_z)) // gets null or FALSE: z-level groups are different
+		return FALSE
+
+	if(target_z == user_z)
+		return 1 // same z
+	return target_z > user_z ? UP : DOWN // returns direction from user to target
+
+
+/obj/effect/landmark/navigate_destination/Destroy()
+	. = ..()
+	GLOB.navigate_destinations -= navigation_id

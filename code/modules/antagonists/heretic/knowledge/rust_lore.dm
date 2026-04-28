@@ -50,25 +50,21 @@
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	route = HERETIC_PATH_RUST
 
-/datum/heretic_knowledge/limited_amount/base_rust/on_research(mob/user)
-	. = ..()
-	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
-	our_heretic.heretic_path = route
-
 /datum/heretic_knowledge/rust_fist
 	name = "Grasp of Rust"
 	desc = "Your Mansus Grasp will deal 500 damage to non-living matter and rust any surface it touches. \
-		Already rusted surfaces are destroyed. Surfaces and structures can only be rusted while in Help, Disarm or Grab intent."
+		Already rusted surfaces are destroyed. Surfaces and structures can only be rusted by using Right-Click."
 	gain_text = "On the ceiling of the Mansus, rust grows as moss does on a stone."
 	next_knowledge = list(/datum/heretic_knowledge/rust_regen)
 	cost = 1
 	route = HERETIC_PATH_RUST
 
-/datum/heretic_knowledge/rust_fist/on_gain(mob/user)
+/datum/heretic_knowledge/rust_fist/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
+	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, PROC_REF(on_secondary_mansus_grasp))
 
-/datum/heretic_knowledge/rust_fist/on_lose(mob/user)
-	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
+/datum/heretic_knowledge/rust_fist/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
+	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY))
 
 /datum/heretic_knowledge/rust_fist/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
@@ -78,13 +74,24 @@
 		/mob/living/simple_animal/bot,
 		/obj/item/storage/secure/safe/caps_spare,
 		/obj/machinery/door,
-		/obj/mecha
+		/obj/vehicle/sealed/mecha,
 	))
 	// The reason this is not simply an isturf is because we likely don't want to hit random machinery like holopads and such!
-	if(source.a_intent == INTENT_HARM && !is_type_in_typecache(target, always_hit_typecache))
+	if(source.combat_mode && !is_type_in_typecache(target, always_hit_typecache))
 		return
 	return target.rust_heretic_act()
 
+/datum/heretic_knowledge/rust_fist/proc/on_secondary_mansus_grasp(mob/living/source, atom/target)
+	SIGNAL_HANDLER
+
+	// Rusting an airlock causes it to lose power, mostly to prevent the airlock from shocking you.
+	// This is a bit of a hack, but fixing this would require the enture wire cut/pulse system to be reworked.
+	if(istype(target, /obj/machinery/door/airlock))
+		var/obj/machinery/door/airlock/airlock = target
+		airlock.loseMainPower()
+
+	target.rust_heretic_act()
+	return COMPONENT_USE_HAND
 
 /datum/heretic_knowledge/rust_regen
 	name = "Leeching Walk"
@@ -99,11 +106,11 @@
 	cost = 1
 	route = HERETIC_PATH_RUST
 
-/datum/heretic_knowledge/rust_regen/on_gain(mob/user)
+/datum/heretic_knowledge/rust_regen/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 
-/datum/heretic_knowledge/rust_regen/on_lose(mob/user)
+/datum/heretic_knowledge/rust_regen/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, list(COMSIG_MOVABLE_MOVED, COMSIG_LIVING_LIFE))
 
 /*
@@ -116,10 +123,10 @@
 
 	var/turf/mover_turf = get_turf(source)
 	if(HAS_TRAIT(mover_turf, TRAIT_RUSTY))
-		ADD_TRAIT(source, TRAIT_STUNRESISTANCE, type)
+		ADD_TRAIT(source, TRAIT_BATON_RESISTANCE, type)
 		return
 
-	REMOVE_TRAIT(source, TRAIT_STUNRESISTANCE, type)
+	REMOVE_TRAIT(source, TRAIT_BATON_RESISTANCE, type)
 
 /**
  * Signal proc for [COMSIG_LIVING_LIFE].
@@ -134,12 +141,17 @@
 	if(!HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		return
 
-	source.adjustBruteLoss(-2, FALSE)
-	source.adjustFireLoss(-2, FALSE)
-	source.adjustToxLoss(-2, FALSE, forced = TRUE)
-	source.adjustOxyLoss(-0.5, FALSE)
-	source.adjustStaminaLoss(-2)
-	source.AdjustAllImmobility(-5)
+	// Heals all damage + Stamina
+	var/need_mob_update = FALSE
+	need_mob_update += source.adjustBruteLoss(-2, updating_health = FALSE)
+	need_mob_update += source.adjustFireLoss(-2, updating_health = FALSE)
+	need_mob_update += source.adjustToxLoss(-2, updating_health = FALSE, forced = TRUE) // Slimes are people too
+	need_mob_update += source.adjustOxyLoss(-0.5, updating_health = FALSE)
+	need_mob_update += source.adjustStaminaLoss(-2, updating_stamina = FALSE)
+	if(need_mob_update)
+		source.updatehealth()
+	// Reduces duration of stuns/etc
+	source.AdjustAllImmobility(-0.5 SECONDS)
 
 /datum/heretic_knowledge/rust_mark
 	name = "Mark of Rust"
@@ -155,11 +167,11 @@
 	cost = 2
 	route = HERETIC_PATH_RUST
 
-/datum/heretic_knowledge/rust_mark/on_gain(mob/user)
+/datum/heretic_knowledge/rust_mark/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 
-/datum/heretic_knowledge/rust_mark/on_lose(mob/user)
+/datum/heretic_knowledge/rust_mark/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_BLADE_ATTACK))
 
 /datum/heretic_knowledge/rust_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
@@ -196,7 +208,7 @@
 		/datum/heretic_knowledge/curse/corrosion,
 		/datum/heretic_knowledge/crucible,
 	)
-	spell_to_add = /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
+	spell_to_add = /datum/action/spell/aoe/rust_conversion
 	cost = 1
 	route = HERETIC_PATH_RUST
 
@@ -214,10 +226,10 @@
 	cost = 2
 	route = HERETIC_PATH_RUST
 
-/datum/heretic_knowledge/rust_blade_upgrade/on_gain(mob/user)
+/datum/heretic_knowledge/rust_blade_upgrade/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 
-/datum/heretic_knowledge/rust_blade_upgrade/on_lose(mob/user)
+/datum/heretic_knowledge/rust_blade_upgrade/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK)
 
 /datum/heretic_knowledge/rust_blade_upgrade/proc/on_eldritch_blade(mob/living/user, mob/living/target)
@@ -238,7 +250,7 @@
 		/datum/heretic_knowledge/final/rust_final,
 		/datum/heretic_knowledge/summon/rusty,
 	)
-	spell_to_add = /obj/effect/proc_holder/spell/cone/staggered/entropic_plume
+	spell_to_add = /datum/action/spell/cone/staggered/entropic_plume
 	cost = 1
 	route = HERETIC_PATH_RUST
 
@@ -251,11 +263,13 @@
 		and becoming immune to many effects and dangers."
 	gain_text = "Champion of rust. Corruptor of steel. Fear the dark, for the RUSTBRINGER has come! \
 		The Blacksmith forges ahead! Rusted Hills, CALL MY NAME! WITNESS MY ASCENSION!"
+	announcement_text = "Fear the decay, for the Rustbringer, %USER% has ascended! None shall escape the corrosion!"
+	announcement_sound = 'sound/ambience/antag/heretic/ascend_rust.ogg'
 	route = HERETIC_PATH_RUST
 	/// If TRUE, then immunities are currently active.
 	var/immunities_active = FALSE
 	/// A typepath to an area that we must finish the ritual in.
-	var/area/ritual_location = /area/bridge
+	var/area/ritual_location = /area/station/command
 	/// A static list of traits we give to the heretic when on rust.
 	var/static/list/conditional_immunities = list(
 		TRAIT_STUNIMMUNE,
@@ -280,7 +294,7 @@
 			return FALSE
 	return ..()
 
-/datum/heretic_knowledge/final/rust_final/on_research(mob/user)
+/datum/heretic_knowledge/final/rust_final/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	// This map doesn't have a Bridge, for some reason??
 	// Let them complete the ritual anywhere
@@ -289,10 +303,13 @@
 
 /datum/heretic_knowledge/final/rust_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	priority_announce("[generate_heretic_text()] Fear the decay, for the Rustbringer, [user.real_name] has ascended! None shall escape the corrosion! [generate_heretic_text()]","[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
 	new /datum/rust_spread(loc)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
+	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
+
+/datum/heretic_knowledge/final/rust_final/on_lose(mob/user)
+	SSsecurity_level.set_level(SEC_LEVEL_BLUE)
 
 /**
  * Signal proc for [COMSIG_MOVABLE_MOVED].
@@ -329,11 +346,14 @@
 	if(!HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		return
 
-	source.adjustBruteLoss(-4, FALSE)
-	source.adjustFireLoss(-4, FALSE)
-	source.adjustToxLoss(-4, FALSE, forced = TRUE)
-	source.adjustOxyLoss(-4, FALSE)
-	source.adjustStaminaLoss(-20)
+	var/need_mob_update = FALSE
+	need_mob_update += source.adjustBruteLoss(-4, updating_health = FALSE)
+	need_mob_update += source.adjustFireLoss(-4, updating_health = FALSE)
+	need_mob_update += source.adjustToxLoss(-4, updating_health = FALSE, forced = TRUE)
+	need_mob_update += source.adjustOxyLoss(-4, updating_health = FALSE)
+	need_mob_update += source.adjustStaminaLoss(-20, updating_stamina = FALSE)
+	if(need_mob_update)
+		source.updatehealth()
 
 /**
  * #Rust spread datum
@@ -357,7 +377,7 @@
 		/turf/closed/indestructible,
 		/turf/open/space,
 		/turf/open/lava,
-		/turf/open/chasm
+		/turf/open/chasm,
 	))
 
 /datum/rust_spread/New(loc)
@@ -402,10 +422,10 @@
 		max_dist = max(max_dist, get_dist(found_turf, centre) + 1)
 
 	for(var/turf/nearby_turf as anything in spiral_range_turfs(max_dist, centre, FALSE))
-		if(nearby_turf in rusted_turfs || is_type_in_typecache(nearby_turf, blacklisted_turfs))
+		if((nearby_turf in rusted_turfs) || is_type_in_typecache(nearby_turf, blacklisted_turfs))
 			continue
 
-		for(var/turf/line_turf as anything in getline(nearby_turf, centre))
+		for(var/turf/line_turf as anything in get_line(nearby_turf, centre))
 			if(get_dist(nearby_turf, line_turf) <= 1)
 				edge_turfs |= nearby_turf
 		CHECK_TICK

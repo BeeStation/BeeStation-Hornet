@@ -23,6 +23,7 @@ Dockerfile @crossedfall
 # crossedfall (explicitly disowned)
 
 /tools/UpdatePaths/Scripts/
+/tools/maplint/lints/
 
 # powerfulbacon
 
@@ -32,19 +33,18 @@ Dockerfile @crossedfall
 
 # itsmeow
 
-/code/game/gamemodes/dynamic @itsmeow
 /tools/MapTileAggregator.py @itsmeow
 /code/modules/admin/player_panel.dm @itsmeow
-/code/modules/tgui/ @itsmeow
 /code/modules/tgui_input/ @itsmeow
-/code/modules/tgui_panel/ @itsmeow
-/tgui/ @itsmeow
 /tgui/packages/tgui/interfaces/PlayerPanel.js @itsmeow
-/code/modules/multiz @itsmeow
+/code/modules/multiz/ @itsmeow
+/code/modules/client/login/ @itsmeow
+/code/modules/client/preferences/ @itsmeow
 
 # itsmeow (explicitly disowned)
 
-/tgui/packages/tgui/interfaces/
-/tgui/packages/tgui/styles/interfaces/
-/tgui/packages/tgui-panel/styles/goon/chat-dark.scss
-/tgui/packages/tgui-panel/styles/goon/chat-light.scss
+/code/modules/client/preferences/entries/
+
+# mrmanlikesbt
+
+/code/controllers/subsystem/dynamic @mrmanlikesbt

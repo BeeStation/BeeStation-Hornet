@@ -27,6 +27,8 @@
 	///Associated texture
 	var/datum/turf_texture/parent_texture
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/turf_texture)
+
 /atom/movable/turf_texture/Initialize(mapload, datum/turf_texture/_texture)
 	. = ..()
 	var/datum/turf_texture/texture = new _texture()
@@ -39,6 +41,10 @@
 //Subtle hallway wear & tear
 /datum/turf_texture/hallway
 	icon_state = "hallway"
+	alpha = 55
+
+/datum/turf_texture/hallway_nonsegmented
+	icon_state = "hallway_nonsegmented"
 	alpha = 55
 
 //Deep maint use

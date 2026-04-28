@@ -17,3 +17,6 @@
 #define MEDBOT_SKIN_RADIATION "rad"
 #define MEDBOT_SKIN_SYNDI "syndi"
 #define MEDBOT_SKIN_BEZERK "bezerk"
+
+//Not technically bot, but uses bot pathing
+#define MAX_NAVIGATE_RANGE 125

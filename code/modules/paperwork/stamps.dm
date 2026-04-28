@@ -3,26 +3,28 @@
 	desc = "A rubber stamp for stamping important documents."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "stamp-ok"
-	item_state = "stamp"
+	inhand_icon_state = "stamp"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
 	custom_materials = list(/datum/material/iron=60)
 	pressure_resistance = 2
-	attack_verb = list("stamped")
+	attack_verb_continuous = list("stamps")
+	attack_verb_simple = list("stamp")
 	dye_color = DYE_GREEN
 
 /obj/item/stamp/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead.</span>")
+	user.visible_message(span_suicide("[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead."))
 	playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 	return OXYLOSS
 
 /obj/item/stamp/get_writing_implement_details()
-	var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
+	var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet/simple/stamps)
 	return list(
 		interaction_mode = MODE_STAMPING,
 		stamp_icon_state = icon_state,
+		stamp_icon = icon,
 		stamp_class = sheet.icon_class_name(icon_state)
 	)
 

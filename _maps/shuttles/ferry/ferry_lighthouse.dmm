@@ -44,13 +44,6 @@
 /obj/structure/grille/broken,
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
-"an" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/vending/autodrobe,
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/transport)
 "ao" = (
 /obj/structure/mirror/magic/badmin{
 	pixel_x = 30
@@ -59,13 +52,6 @@
 /area/shuttle/transport)
 "ap" = (
 /turf/closed/wall,
-/area/shuttle/transport)
-"aq" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/vending/clothing,
-/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "ar" = (
 /obj/structure/chair/fancy/shuttle,
@@ -86,25 +72,10 @@
 /obj/machinery/door/airlock/wood,
 /turf/open/floor/wood,
 /area/shuttle/transport)
-"aw" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/transport)
-"az" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/transport)
 "aB" = (
 /obj/structure/grille/broken,
 /obj/structure/window/fulltile,
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/transport)
-"aC" = (
-/obj/structure/table/wood,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/open/floor/wood,
 /area/shuttle/transport)
 "aD" = (
 /turf/open/floor/carpet,
@@ -145,12 +116,6 @@
 /area/shuttle/transport)
 "aM" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
-/area/shuttle/transport)
-"aN" = (
-/obj/machinery/power/grounding_rod{
-	anchored = 1
-	},
-/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "aO" = (
 /obj/machinery/door/airlock/titanium,
@@ -219,22 +184,6 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/transport)
-"bb" = (
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "garbage";
-	layer = 2.5
-	},
-/turf/open/floor/wood,
-/area/shuttle/transport)
-"bc" = (
-/obj/structure/table/wood,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/item/vending_refill/snack,
-/turf/open/floor/wood,
-/area/shuttle/transport)
 "bd" = (
 /obj/item/kirbyplants/dead{
 	desc = "It doesn't look very healthy...";
@@ -275,6 +224,39 @@
 "bj" = (
 /obj/structure/shuttle/engine/propulsion/right,
 /turf/open/floor/plating/airless,
+/area/shuttle/transport)
+"cD" = (
+/obj/structure/table/wood,
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/wood,
+/area/shuttle/transport)
+"gO" = (
+/obj/effect/spawner/structure/window/reinforced/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/transport)
+"sQ" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/vending/autodrobe,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/transport)
+"xL" = (
+/obj/structure/table/wood,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/item/vending_refill/snack,
+/turf/open/floor/wood,
+/area/shuttle/transport)
+"yj" = (
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/transport)
+"yW" = (
+/obj/effect/spawner/structure/window/reinforced/shuttle,
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/transport)
+"Aw" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/vending/clothing,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 
 (1,1,1) = {"
@@ -336,8 +318,8 @@ ac
 af
 bh
 bh
-an
-aq
+sQ
+Aw
 as
 aB
 as
@@ -415,7 +397,7 @@ au
 au
 aR
 au
-bb
+ba
 bg
 ad
 aa
@@ -429,11 +411,11 @@ aa
 ap
 ap
 av
-aC
-aC
+cD
+cD
 aS
-aC
-bc
+cD
+xL
 aM
 ad
 aa
@@ -502,7 +484,7 @@ aa
 aa
 ap
 aE
-aN
+yj
 aE
 aM
 ad
@@ -518,9 +500,9 @@ aa
 aa
 aa
 aa
-aw
+yW
 aE
-aN
+yj
 aE
 ad
 aa
@@ -536,7 +518,7 @@ aa
 aa
 aa
 aa
-aw
+yW
 aE
 aE
 aE
@@ -576,7 +558,7 @@ ad
 aF
 aE
 aT
-aw
+yW
 aa
 aa
 aa
@@ -626,11 +608,11 @@ aa
 aa
 aa
 aa
-az
+gO
 aI
 aE
 aW
-az
+gO
 aa
 aa
 aa
@@ -698,11 +680,11 @@ aa
 aa
 aa
 aa
-az
+gO
 aJ
 aE
 aW
-az
+gO
 aa
 aa
 aa
@@ -753,9 +735,9 @@ aa
 aa
 aa
 ad
-az
+gO
 aO
-az
+gO
 ad
 aa
 aa

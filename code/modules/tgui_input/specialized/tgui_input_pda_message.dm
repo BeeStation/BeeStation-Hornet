@@ -19,7 +19,7 @@
 		qdel(pda_input)
 		return
 	if(istype(signal_source) && usr.default_can_use_topic(signal_source) != UI_INTERACTIVE)
-		to_chat(usr, "<span class='warning'>Out of range! Message not sent!</span>")
+		to_chat(usr, span_warning("Out of range! Message not sent!"))
 		qdel(pda_input)
 		return
 	// If we are impersonating someone, we should match their computer in the (Reply) href
@@ -143,14 +143,14 @@
 				devices["Everyone"] = "Everyone"
 			var/choice = input(usr, "Select PDA to send message to.", "Select PDA.", null) as null|anything in devices
 			if(istype(target))
-				UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+				UnregisterSignal(target, COMSIG_QDELETING)
 				target = null
 			if(can_send_all && choice == "Everyone")
 				send_all = TRUE
 			else if(choice in devices)
 				send_all = FALSE
 				target = devices[choice]
-				RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(target_deleting))
+				RegisterSignal(target, COMSIG_QDELETING, PROC_REF(target_deleting))
 			else
 				target = null
 				send_all = FALSE

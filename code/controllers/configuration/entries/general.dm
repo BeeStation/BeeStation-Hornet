@@ -56,6 +56,8 @@
 
 /datum/config_entry/flag/log_game	// log game events
 
+/datum/config_entry/flag/log_dynamic	// log what dynamic is doing
+
 /datum/config_entry/flag/log_objective	// log antag objectives
 
 /datum/config_entry/flag/log_mecha	// log mech data
@@ -102,11 +104,14 @@
 
 /datum/config_entry/flag/allow_admin_asaycolor //Allows admins with relevant permissions to have a personalized asay color
 
-/datum/config_entry/flag/allow_vote_restart	// allow votes to restart
+/// Allow players to vote to restart the server
+/datum/config_entry/flag/allow_vote_restart
 
-/datum/config_entry/flag/allow_vote_mode	// allow votes to change mode
+/// Allow players to vote to change the map mid-round
+/datum/config_entry/flag/allow_vote_map
 
-/datum/config_entry/flag/allow_vote_map	// allow votes to change map
+/// Allow players to vote to change the dynamic storyteller, this vote
+/datum/config_entry/flag/allow_vote_storyteller
 
 /datum/config_entry/number/vote_delay	// minimum time between voting sessions (deciseconds, 10 minute default)
 	config_entry_value = 6000
@@ -118,13 +123,15 @@
 	integer = FALSE
 	min_val = 0
 
-/datum/config_entry/flag/default_no_vote	// vote does not default to nochange/norestart
+/// If disabled, no-voters will automatically have their votes added to certain vote options
+/// (For example: restart votes will default to "no restart", map votes will default to their preferred map / default map)
+/datum/config_entry/flag/default_no_vote
 
-/datum/config_entry/flag/no_dead_vote	// dead people can't vote
+/// Prevents dead people from voting.
+/datum/config_entry/flag/no_dead_vote
 
-/datum/config_entry/flag/allow_metadata	// Metadata is supported.
-
-/datum/config_entry/flag/popup_admin_pm	// adminPMs to non-admins show in a pop-up 'reply' window when set
+/// Admin PMs to non-admins show in a pop-up 'reply' window when set
+/datum/config_entry/flag/popup_admin_pm
 
 /datum/config_entry/number/fps
 	config_entry_value = 20
@@ -162,11 +169,6 @@
 
 /datum/config_entry/flag/allow_holidays
 
-/datum/config_entry/number/tick_limit_mc_init	//SSinitialization throttling
-	config_entry_value = TICK_LIMIT_MC_INIT_DEFAULT
-	min_val = 0 //oranges warned us
-	integer = FALSE
-
 /datum/config_entry/flag/mc_diagnostics
 
 /datum/config_entry/flag/mc_diagnostics/ValidateAndSet(str_val)
@@ -187,12 +189,33 @@
 /datum/config_entry/flag/enable_localhost_rank	//Gives the !localhost! rank to any client connecting from 127.0.0.1 or ::1
 	protection = CONFIG_ENTRY_LOCKED
 
+/datum/config_entry/flag/localhost_auth_bypass	//Allows any client connecting from 127.0.0.1 or ::1 to skip CKEY authentication
+	protection = CONFIG_ENTRY_LOCKED
+
 /datum/config_entry/flag/load_legacy_ranks_only	//Loads admin ranks only from legacy admin_ranks.txt, while enabled ranks are mirrored to the database
 	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/string/hostedby
 
-/datum/config_entry/flag/norespawn
+/// Determines if a player can respawn after dying.
+/// 0 / RESPAWN_FLAG_DISABLED = Cannot respawn (default)
+/// 1 / RESPAWN_FLAG_FREE = Can respawn
+/// 2 / RESPAWN_FLAG_NEW_CHARACTER = Can respawn if choosing a different character
+/datum/config_entry/flag/allow_respawn
+	default = RESPAWN_FLAG_DISABLED
+
+/datum/config_entry/flag/allow_respawn/ValidateAndSet(str_val)
+	if(!VASProcCallGuard(str_val))
+		return FALSE
+	var/val_as_num = text2num(str_val)
+	if(val_as_num in list(RESPAWN_FLAG_DISABLED, RESPAWN_FLAG_FREE, RESPAWN_FLAG_NEW_CHARACTER))
+		config_entry_value = val_as_num
+		return TRUE
+	return FALSE
+
+/// Determines how long before a player is allowed to respawn.
+/datum/config_entry/number/respawn_delay
+	default = 5 MINUTES
 
 /datum/config_entry/flag/guest_jobban
 
@@ -257,6 +280,22 @@
 
 /datum/config_entry/flag/guest_ban
 
+/datum/config_entry/flag/enable_guest_external_auth
+	protection = CONFIG_ENTRY_LOCKED
+
+/datum/config_entry/flag/force_byond_external_auth
+	protection = CONFIG_ENTRY_LOCKED
+
+/datum/config_entry/keyed_list/external_auth_method
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_TEXT
+	protection = CONFIG_ENTRY_LOCKED
+
+/datum/config_entry/keyed_list/external_auth_method/ValidateListEntry(key_name, key_value)
+	if(key_name != "discord" || (!findtext(key_value, "https://", 1, 9) && !findtext(key_value, "http://localhost", 1, 17)))
+		return FALSE
+	return ..()
+
 /datum/config_entry/number/id_console_jobslot_delay
 	config_entry_value = 30
 	integer = FALSE
@@ -318,20 +357,6 @@
 	integer = FALSE
 
 /datum/config_entry/flag/manual_note_expiry //Notes can only have expiration times added after creation, not during. Will also prevent automatic notes from expiring.
-
-/datum/config_entry/flag/maprotation
-
-/datum/config_entry/flag/automapvote
-
-/datum/config_entry/number/automapvote_threshold
-	config_entry_value = null
-	min_val = 0
-
-/datum/config_entry/number/maprotatechancedelta
-	config_entry_value = 0.75
-	min_val = 0
-	max_val = 1
-	integer = FALSE
 
 /datum/config_entry/number/soft_popcap
 	config_entry_value = null
@@ -423,6 +448,33 @@
 	return value
 
 /datum/config_entry/flag/preference_map_voting
+
+/// Automatically start a map vote at the end of each round
+/datum/config_entry/flag/automapvote
+
+/// The minimum number of tallies a map vote entry can have.
+/datum/config_entry/number/map_vote_minimum_tallies
+	config_entry_value = 1
+	min_val = 0
+	max_val = 50
+
+/// The flat amount all maps get by default
+/datum/config_entry/number/map_vote_flat_bonus
+	config_entry_value = 0
+	min_val = 0
+	max_val = INFINITY
+
+/// The maximum number of tallies a map vote entry can have.
+/datum/config_entry/number/map_vote_maximum_tallies
+	config_entry_value = 200
+	min_val = 0
+	max_val = INFINITY
+
+/// The number of tallies that are carried over between rounds.
+/datum/config_entry/number/map_vote_tally_carryover_percentage
+	config_entry_value = 100
+	min_val = 0
+	max_val = 100
 
 /datum/config_entry/number/client_warn_version
 	config_entry_value = null
@@ -521,7 +573,7 @@
 
 /datum/config_entry/flag/resume_after_initializations/ValidateAndSet(str_val)
 	. = ..()
-	if(. && Master.current_runlevel)
+	if(. && MC_RUNNING())
 		world.sleep_offline = !config_entry_value
 
 /datum/config_entry/number/rounds_until_hard_restart
@@ -596,17 +648,19 @@
 /datum/config_entry/string/redirect_address
 	config_entry_value = ""
 
-/datum/config_entry/flag/vote_autotransfer_enabled //toggle for autotransfer system
+///toggle for autotransfer system
+/datum/config_entry/flag/vote_autotransfer_enabled
 
-/datum/config_entry/number/vote_autotransfer_initial //length of time before the first autotransfer vote is called (deciseconds, default 2 hours)
-	config_entry_value = 72000
-	integer = FALSE
-	min_val = 0
+///How often are transfer votes called?
+/datum/config_entry/number/vote_autotransfer_interval
+	config_entry_value = 20 MINUTES
+	integer = TRUE
+	min_val = 2 MINUTES //System only fires every other minute
 
-/datum/config_entry/number/vote_autotransfer_interval //length of time to wait before subsequent autotransfer votes (deciseconds, default 30 minutes)
-	config_entry_value = 18000
-	integer = FALSE
-	min_val = 0
+///When a round reaches this length, the shuttle calls automatically
+/datum/config_entry/number/vote_autotransfer_override
+	config_entry_value = 0
+	integer = TRUE
 
 /datum/config_entry/flag/respect_upstream_bans
 
@@ -628,3 +682,11 @@
 /datum/config_entry/flag/enable_mrat
 
 /datum/config_entry/string/discord_ooc_tag
+
+
+/**
+ * Tgui ui_act payloads larger than 2kb are split into chunks a maximum of 1kb in size.
+ * This flag represents the maximum chunk count the server is willing to receive.
+ */
+/datum/config_entry/number/tgui_max_chunk_count
+	config_entry_value = 32

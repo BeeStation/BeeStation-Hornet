@@ -3,7 +3,7 @@
 	desc = "A glass case containing an implant."
 	icon = 'icons/obj/syringe.dmi'
 	icon_state = "implantcase-0"
-	item_state = "implantcase"
+	inhand_icon_state = "implantcase"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throw_speed = 2
@@ -21,7 +21,7 @@
 /obj/item/implantcase/attackby(obj/item/used_item, mob/living/user, params)
 	if(istype(used_item, /obj/item/pen))
 		if(!user.is_literate())
-			to_chat(user, "<span class='notice'>You scribble illegibly on the side of [src]!</span>")
+			to_chat(user, span_notice("You scribble illegibly on the side of [src]!"))
 			return
 		var/new_name = stripped_input(user, "What would you like the label to be?", name, null)
 		if(user.get_active_held_item() != used_item)

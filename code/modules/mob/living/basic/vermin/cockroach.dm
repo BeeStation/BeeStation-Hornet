@@ -4,14 +4,14 @@
 	icon_state = "cockroach"
 	icon_dead = "cockroach" //Make this work
 	density = FALSE
-	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	mob_size = MOB_SIZE_TINY
 	health = 1
 	maxHealth = 1
 	speed = 1.25
+	can_be_held = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	pass_flags = PASSTABLE | PASSMOB
-	ventcrawler = VENTCRAWLER_ALWAYS
 
 	verb_say = "chitters"
 	verb_ask = "chitters inquisitively"
@@ -24,29 +24,41 @@
 	speak_emote = list("chitters")
 
 	basic_mob_flags = DEL_ON_DEATH
-	faction = list("hostile")
+	faction = list(FACTION_HOSTILE, FACTION_MAINT_CREATURES)
 
 	ai_controller = /datum/ai_controller/basic_controller/cockroach
 
-/mob/living/basic/cockroach/Initialize()
+	///Are we squashable
+	var/is_squashable = TRUE
+
+/mob/living/basic/cockroach/strong
+	is_squashable = FALSE
+
+/mob/living/basic/cockroach/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/death_drops, list(/obj/effect/decal/cleanable/insectguts))
 	// AddElement(/datum/element/swabable, CELL_LINE_TABLE_COCKROACH, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 7) //Bee edit: No swabable elements
-	AddElement(/datum/element/basic_body_temp_sensetive, 270, INFINITY)
-	AddComponent(/datum/component/squashable, squash_chance = 50, squash_damage = 1)
+	AddElement(/datum/element/basic_body_temp_sensitive, 270, INFINITY)
+	if(is_squashable)
+		AddComponent(/datum/component/squashable, squash_chance = 50, squash_damage = 1)
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/basic/cockroach/death(gibbed)
-	if(SSticker.mode?.station_was_nuked) //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
+	if(GLOB.station_was_nuked) //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
 		return
 	..()
 
 /mob/living/basic/cockroach/ex_act() //Explosions are a terrible way to handle a cockroach.
 	return FALSE
 
-
 /datum/ai_controller/basic_controller/cockroach
 	blackboard = list(
-		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic()
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_PET_TARGETING_STRATEGY = /datum/targeting_strategy/basic/not_friends,
+		BB_OWNER_SELF_HARM_RESPONSES = list(
+			"*me waves its antennae in disapproval.",
+			"*me chitters sadly."
+		)
 	)
 
 	ai_traits = STOP_MOVING_WHEN_PULLED

@@ -8,7 +8,7 @@
 /mob/living/simple_animal/hostile/jungle/seedling
 	name = "seedling"
 	desc = "This oversized, predatory flower conceals what can only be described as an organic energy cannon, and it will not die until its hidden vital organs are sliced out. \
-	 The concentrated streams of energy it sometimes produces require its full attention, attacking it during this time will prevent it from finishing its attack."
+		The concentrated streams of energy it sometimes produces require its full attention, attacking it during this time will prevent it from finishing its attack."
 	icon = 'icons/mob/jungle/seedling.dmi'
 	icon_state = "seedling"
 	icon_living = "seedling"
@@ -62,10 +62,10 @@
 
 /datum/status_effect/seedling_beam_indicator
 	id = "seedling beam indicator"
-	duration = 30
+	duration = 3 SECONDS
 	status_type = STATUS_EFFECT_MULTIPLE
 	alert_type = null
-	tick_interval = 1
+	tick_interval = 0.2 SECONDS
 	var/atom/movable/screen/seedling/seedling_screen_object
 	var/atom/target
 
@@ -158,7 +158,7 @@
 			K.transform = final
 			living_target.adjustFireLoss(30)
 			living_target.adjust_fire_stacks(0.2)//Just here for the showmanship
-			living_target.IgniteMob()
+			living_target.ignite_mob()
 			playsound(living_target,'sound/weapons/sear.ogg', 50, 1)
 			addtimer(CALLBACK(src, PROC_REF(AttackRecovery)), 5)
 			return
@@ -199,7 +199,7 @@
 		update_icons()
 		Goto(target, move_to_delay, minimum_distance)
 
-/mob/living/simple_animal/hostile/jungle/seedling/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/jungle/seedling/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = ..()
 	if(combatant_state == SEEDLING_STATE_ACTIVE && beam_debuff_target)
 		beam_debuff_target.remove_status_effect(/datum/status_effect/seedling_beam_indicator)

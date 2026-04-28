@@ -16,8 +16,7 @@ Special ranks:
 //Global list of badges
 GLOBAL_LIST_EMPTY(badge_data)
 
-/client
-	var/list/cached_badges = null
+/client/var/list/cached_badges = null
 
 //Loads the badge ranks
 /proc/load_badge_ranks()
@@ -39,6 +38,8 @@ GLOBAL_LIST_EMPTY(badge_data)
 /client/proc/get_badges()
 	//No badges
 	if(!CONFIG_GET(flag/badges))
+		if(key_is_external && istype(external_method))
+			return list(external_method.get_badge_id())
 		return
 	//Send cached badges
 	if(islist(cached_badges))
@@ -60,6 +61,9 @@ GLOBAL_LIST_EMPTY(badge_data)
 	//Add the donator rank
 	if(IS_PATRON(ckey) && GLOB.badge_data["Donator"])
 		badges += GLOB.badge_data["Donator"]
+	//Add external auth tag
+	if(key_is_external && istype(external_method))
+		badges += external_method.get_badge_id()
 	cached_badges = badges
 	return badges
 
@@ -74,6 +78,16 @@ GLOBAL_LIST_EMPTY(badge_data)
 	var/first_badge = TRUE
 
 	if(!CONFIG_GET(flag/badges))
+		if(!CONFIG_GET(flag/enable_guest_external_auth))
+			return ""
+		for(var/method_id in GLOB.login_methods)
+			var/datum/external_login_method/method = GLOB.login_methods[method_id]
+			if(!istype(method))
+				continue
+			var/badge_id = method.get_badge_id()
+			if(badge_id in badges)
+				// This is a must
+				return "[output]<span class='chat16x16 badge-badge_[badge_id]'></span></font> "
 		return ""
 
 	for(var/badge in badges)

@@ -2,12 +2,6 @@
 "a" = (
 /turf/closed/wall/mineral/titanium/survival,
 /area/shuttle/mining)
-"b" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/shuttle/mining)
 "c" = (
 /obj/structure/table,
 /turf/open/floor/pod/dark,
@@ -51,16 +45,9 @@
 /area/shuttle/mining)
 "j" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "k" = (
@@ -74,12 +61,6 @@
 "q" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/shuttle/mining)
-"F" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/shuttle/mining)
 "K" = (
 /turf/open/floor/pod/light,
 /area/shuttle/mining)
@@ -90,9 +71,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "X" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 8
-	},
+/obj/effect/spawner/structure/window/survival_pod,
 /turf/open/floor/plating,
 /area/shuttle/mining)
 
@@ -115,7 +94,7 @@ i
 q
 "}
 (3,1,1) = {"
-b
+X
 d
 Q
 K
@@ -135,9 +114,9 @@ q
 (5,1,1) = {"
 a
 q
-F
+X
 h
-F
+X
 q
 a
 "}

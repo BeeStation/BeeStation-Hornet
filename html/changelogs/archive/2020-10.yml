@@ -1,0 +1,292 @@
+2020-10-01:
+  EdgeLordExe:
+  - bugfix: 'hopefully fixes heretics :agony:'
+  TheChaser212:
+  - bugfix: Bee infestation honey threshold is actually 12 now
+2020-10-02:
+  Sarchutar:
+  - rscadd: Crew manifest available for cyborgs under "Robot Commands"
+  park66665:
+  - bugfix: stim_ball reaction now properly consumes plasma
+2020-10-03:
+  Moccha-Bee:
+  - balance: nerfed insta teleport from pandora.
+  Victor239:
+  - rscadd: 'Adds 3 new chameleon items to the traitor uplink: Chameleon Bangproof
+      Headset, Chameleon Flashproof Glasses and Chameleon Combat Gloves.'
+  - tweak: Chameleon plasmaman envirohelmet is no longer permanently flashproof.
+  francinum:
+  - config: Dynamic is now continuous.
+2020-10-04:
+  Archanial:
+  - bugfix: You can now paste longer songs again.
+  Phil Smith:
+  - rscadd: New incursion icon
+  - imageadd: Added a new hud icon for incursion
+  PowerfulBacon:
+  - code_imp: Players who don't want to be a heretic will no longer lose antag rep
+      if selected as a heretic due to low pop
+  - tweak: Abusable circuit components have been given a limit to how many can be
+      out in a circuit.
+  - rscdel: removed FASTDMM_PROP from advanced airlock controllers.
+  Time-Green, Tlaltecuhtli, arcanemagician, TMTIME:
+  - rscadd: Grinding machine
+  - rscadd: Message when trying to rotate anchored plumbing machines
+  - bugfix: Plumbing pipes nolonger appear disconnected
+  - bugfix: Reactions that leave no chemicals don't break the reaction chamber now
+  park66665:
+  - tweak: supermatter has a power-ceiling of 1 million
+  qwertyquerty:
+  - refactor: Refactors ambient sounds completely to be less bad code wise and better
+      IC and immersion wise
+  zeskorion:
+  - tweak: piercing syringes now inject past thick clothing when not shot from a syringe
+      gun as well
+  - balance: syringe guns no longer instantly inject their reagents, instead injecting
+      them over time
+  - rscadd: syringes can be embedded on harm intent, also injecting reagents over
+      time, but at a slower rate
+  - bugfix: explosive chem mixes no longer purge chems if an explosion is not triggered
+2020-10-06:
+  ATHATH, ArcaneDefence:
+  - rscadd: Moth plushie, found in arcade machines as a reward. Commiting suicide
+      with it is ill advised.
+2020-10-07:
+  Chessus:
+  - rscadd: Filter Blood Surgery
+  - rscadd: Adds item Blood filter
+  - rscadd: Added Blood filter to maps in surgery area and Med surgery duffle bag
+      and sec surgery duffle bag. Removed from sec deptuty bag from original pr.
+  - rscadd: Added Blood filter to tool debug item
+  - rscadd: Can be created in prolathe. Removed from autolathe inline with no surgical
+      tools in autolathes
+  - tweak: The blood filter can now be put in medical belts, medical aid kits and
+      backpacks
+  - tweak: The surgery is automatically repeatable similar to tend wounds
+2020-10-10:
+  Phil Smith:
+  - tweak: Hyposprays can now have their dosages changed and can also be emptied
+  - soundadd: Adds hypospray noise from TGMC
+  TheChaser212:
+  - bugfix: advanced injectors no longer get an extra 'expended' added for each mutation
+  - bugfix: only filled activators will give chromosomes
+  - tweak: chromosomes will always go into the dna console if possible
+  - tweak: telekinesis works on dna consoles
+  - spellcheck: fixed some genetics typos
+  zeskorion:
+  - bugfix: syringe stuff
+2020-10-11:
+  Dennok:
+  - tweak: Custom shuttle get name that you give it on construction.
+  MNarath1:
+  - bugfix: fixes circuit input size so you can put longer circuits again
+  SomeAngryMiner:
+  - rscadd: New supermatter sprites!
+  St0rmC4st3r:
+  - rscadd: The lavaland outpost construction project has been postponed due to misuse
+      of funding by the previous research director.
+  Zesko, thatguythere03:
+  - tweak: cluwne rune changes
+  - imageadd: new cluwne rune sprite
+  qwertyquerty:
+  - bugfix: 4 random runtimes, including gibs not always spawning on human death
+2020-10-12:
+  Autisem:
+  - bugfix: Felinds are supposed to like getting thrown on tables
+  BeloneX:
+  - rscadd: Added the corporate security uniform to the secdrobe, you can finally
+      have your black security clothes.
+  - rscadd: Added a captains jacket to the captains locker.
+  PowerfulBacon:
+  - rscadd: Atmosbot
+  Victor239:
+  - rscadd: Most armoured suits and helmets' thick reinforced materials now prevent
+      syringes, parapens and hypos.
+  - balance: Shotguns have new, bigger sprites for inhands and back slot.
+  - balance: Riot shotguns have a slightly slower fire rate, and combat shotguns are
+      now faster.
+  - balance: Shotgun lethal ammo is slightly weaker, moreso against armoured targets.
+  eeSPee:
+  - rscadd: Deputy access upgrades in warden's and HoS's locker.
+2020-10-13:
+  TheChaser212:
+  - tweak: Crew monitors and pinpointers now work with multi-z maps
+  yorii:
+  - code_imp: tiny renaming of a runtime error datum
+2020-10-14:
+  Cenrus:
+  - tweak: The NT Salvage Ship has been adapted for fastmos.
+  amidoingitright:
+  - rscadd: magic immunity to chaplain armor
+2020-10-17:
+  Cenrus:
+  - tweak: Mech occupants can now cycle airlocks
+  Victor239:
+  - tweak: Standardised the contraband locker on all stations.
+  eeSPee:
+  - rscdel: Razor from service cyborg
+  - rscdel: Tray from service cyborg
+  - rscadd: service beaker aparatus replaced with a grasper aparatus, that can also
+      carry food items, cigs, etc
+  - rscdel: Enzime bottle from service cyborg
+  - rscadd: cyborg shaker can synthesize its own enzime
+  - rscdel: cookie synthesizer from service cyborg
+  - rscadd: emagged RSF can dispense plasma cigs
+  - rscadd: 'Jungle Fever: Added advanced huds to all monkeys and gorillas.'
+  - tweak: 'Jungle Fever: 4% chance to turn into a gorilla instead of regular momke'
+  - tweak: Jungle Fever Transformation always fullheals monkeys.
+  park66665:
+  - bugfix: Fusion no longer dies to 2.7K. Instead, the fusion just stops, waiting
+      eagerly for a fate other than 2.7K.
+  super12pl:
+  - rscadd: Paramedics now have medical doctor's role-specific traitor items
+  zeskorion:
+  - rscadd: readds metabolic boost viro symptom
+2020-10-18:
+  Dennok:
+  - tweak: Custom shuttle delete starting port after takeoff
+  Phil Smith:
+  - bugfix: IPCs no longer take brute and burn after death.
+  Victor239:
+  - balance: DRAGnet teleport no longer has random variance.
+  - tweak: You now must be both in an aggro grab and grab intent to fireman carry
+      or piggyback.
+  r1ks-iwnl:
+  - rscadd: Adds Airlock Charge to traitor uplinks
+  super12pl:
+  - rscdel: Removed broken absorb changeling objective
+2020-10-19:
+  Phil Smith:
+  - tweak: changed the color of the blood bro hud icon
+  Victor239:
+  - rscadd: Added security gas masks to SecDrobe
+  - rscadd: HOS gun is full-auto again.
+  Xoxeyos:
+  - spellcheck: servent is now servant.
+  eeSPee:
+  - rscadd: smartfridges will automatically load items off conveyor belts, or items
+      thrown at them.
+2020-10-20:
+  BeloneX:
+  - config: The Syndicate have purchased new encryption equipment, Central Command
+      can no longer intercept their Communications.
+  LastCrusader105:
+  - rscadd: Showers to Boxstation
+  Victor239:
+  - bugfix: You can fireman carry from neck or kill grabs again.
+  - bugfix: You can't piggyback to get out of neck or kill grabs.
+  eeSPee:
+  - bugfix: RSF not working properly
+2020-10-21:
+  Archanial:
+  - bugfix: Held mobs no longer lose their sprites if they were resting.
+2020-10-22:
+  Naevii:
+  - tweak: Captain cloak has a new sprite!
+  - tweak: QM cloak has a new sprite!
+  Phil Smith:
+  - imageadd: Mansus grasp is now green
+2020-10-23:
+  Archanial:
+  - bugfix: misc_food no longer shows up twice.
+  - tweak: SM sliver appears on the SM again.
+  - tweak: Lipid extractor has slightly different recipe.
+  - bugfix: Spawned lipid extractor will now correctly deconstruct.
+  Fyodor Litke:
+  - bugfix: fixed tags for Chaplain's adept hood
+  Moccha-Bee:
+  - rscadd: Added pod walls and windows in the mining shuttles
+  eeSPee:
+  - rscadd: Eldritch toys because you want to get beaten up by security
+  qwertyquerty:
+  - rscadd: Added a single storage slot to potted plants
+  super12pl:
+  - rscadd: Adds defib, RPED and freezer board to syndicate lavaland base
+2020-10-24:
+  Dennok:
+  - tweak: Custom ship navigation computer now get offsets and view range depends
+      on ship size.
+  eeSPee:
+  - tweak: stam imunity to flesh path ghouls
+  - tweak: stun+stam imunity to mute ghouls
+  r1ks-iwnl:
+  - rscadd: Medical cyborgs have the new blood filter.
+2020-10-25:
+  BeloneX:
+  - bugfix: Megafauna once again gibs immortal miners
+  That0nePerson:
+  - rscadd: Added an emag act to the mech-mounted disabler, emag to make it lethal
+  - tweak: Moved mech weapons from mech fabricator to sec protolathe
+  eeSPee:
+  - tweak: firelocks open 60% faster.
+  - tweak: halved the time it takes to open a firelock by crowbar.
+  - tweak: reduced the time it takes for a firelock to close automatically
+  - rscadd: You can now pry open the firelocks with your bare hand.
+  ritea:
+  - bugfix: Plating no longer disappears when you build walls with spells!
+  zeskorion:
+  - rscadd: sentient gorillas can now break stuff whilst on harm intent, but cant
+      pick stuff up and such
+  - balance: hyperperspiration thresholds lowered, new threshold added.
+  - tweak: ducatopod now synthesizes lube
+2020-10-26:
+  Dennok:
+  - tweak: Now you can set transit  fly direction for custom shuttle
+  MNarath1:
+  - rscadd: Makes locker doors animated
+  qwertyquerty:
+  - bugfix: Ambience sometimes just not playing fixed
+  - bugfix: Putting items in plants by just clicking the plant
+2020-10-27:
+  Moccha-Bee:
+  - rscadd: Added several new donk pocket types, and boxes, including sprites for
+      each of course. Spicy-Pocket,Teriyaki-Pocket, Pizza-Pocket,Honk-Pocket,Gondola-Pocket
+      and Berry-Pocket. This includes re-organizing them from the OTHER section in
+      snacks_pastry.dm to a donk pocket section. Thanks to Farquaar for the box icons
+      and some of the code! As well as latots for the donk pocket icons.
+  - rscadd: Added a Donk Pocket Variety crate, for 2000 credits, which includes 3
+      randomly selected donk pocket box types, excluding Gondola-Pocket.
+  - rscadd: Added a recipe for each new Donk Pocket type.
+  - rscadd: Added the new Donk Pocket types to the maint loot table.
+  - rscadd: Donk Pocket loot spawner object, credit to TheVekter for that, which was
+      then added into the kitchens of all the main maps.
+  - tweak: All Donk Pockets now follow the same naming scheme of X-Pocket.
+  - rscadd: Added craftable Donk Pocket boxes.
+  St0rmC4st3r:
+  - balance: Resonators now detonate all their sonic blasts on use.
+  - balance: Plasma cutters consume more plasma now.
+  That0nePerson:
+  - rscadd: Added plasma cutter module for mining cyborgs
+  eeSPee:
+  - tweak: the cost and resistances of ling armor; it is now a loud anti projectile
+      defense.
+  qwertyquerty:
+  - rscadd: Coder Socks
+2020-10-28:
+  PowerfulBacon:
+  - bugfix: Syndicate medical defib padels can now be equipped
+  - tweak: Tweaked lootbox TC allocation algorithm and added in funny roll 1 message
+  - bugfix: Runtime on TGUI failing to load.
+  park66665:
+  - tweak: fusion is no longer caused by hotspot react()
+  - bugfix: fire probably became a tiny tiny bit faster
+2020-10-29:
+  Crossedfall:
+  - config: Kilo is back in rotation
+  - rscadd: Added Gamepad bindings
+  Dingo-Dongler:
+  - imageadd: new phasic scanner sprite.
+  PowerfulBacon:
+  - rscadd: Adds a 5-minute cooldown to non antagonist related ghost roles if the
+      client has more than 2 deaths or has committed suicide.
+  - code_imp: Replaces spaces in hilbert's hotel with tabs
+  ike709:
+  - rscadd: Bee downstreams can now decide to automatically block you from joining
+      if you're banned from bee.
+  thelaughingbomb:
+  - bugfix: borg cutters work now and cant weld.
+2020-10-30:
+  ike709:
+  - bugfix: Circuits can no longer be exploited to make super bombs.
+  super12pl:
+  - rscadd: Adds blood filter to lavaland syndicate base

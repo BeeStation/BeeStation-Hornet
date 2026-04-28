@@ -7,6 +7,7 @@
 /obj/item/circuit_component/pop
 	display_name = "Pop Component"
 	desc = "Removes the last or first entry of a list and returns it."
+	category = "List"
 
 	//The list port
 	var/datum/port/input/list_port
@@ -23,7 +24,7 @@
 		COMP_POP_POP,
 		COMP_POP_DEQUEUE
 	)
-	options_port = add_option_port("Mode", options, COMP_POP_POP)
+	options_port = add_option_port("Mode", options, 0, COMP_POP_POP)
 
 
 /obj/item/circuit_component/pop/populate_ports()

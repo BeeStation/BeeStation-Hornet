@@ -184,10 +184,10 @@
 "UU" = (
 /obj/structure/table/wood/fancy,
 /obj/item/clothing/suit/chaplainsuit/nun,
-/obj/item/clothing/head/nun_hood,
+/obj/item/clothing/head/chaplain/nun_hood,
 /obj/item/clothing/suit/chaplainsuit/holidaypriest,
 /obj/item/clothing/suit/judgerobe,
-/obj/item/clothing/head/powdered_wig,
+/obj/item/clothing/head/costume/powdered_wig,
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},

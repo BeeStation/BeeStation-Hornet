@@ -15,25 +15,23 @@
 	desc = "It's an emergency medical kit for those serious boo-boos."
 	icon = 'icons/obj/storage/medkit.dmi'
 	icon_state = "firstaid"
+	inhand_icon_state = "firstaid"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throw_speed = 3
 	throw_range = 7
 	w_class = WEIGHT_CLASS_LARGE
 	var/skin_type = MEDBOT_SKIN_DEFAULT
-	var/empty = FALSE
 
 /obj/item/storage/firstaid/regular
 	icon_state = "firstaid"
 	desc = "A first aid kit with the ability to heal common types of injuries."
 
 /obj/item/storage/firstaid/regular/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins giving [user.p_them()]self aids with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins giving [user.p_them()]self aids with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/storage/firstaid/regular/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 1,
 		/obj/item/stack/medical/bruise_pack = 2,
@@ -48,8 +46,6 @@
 	w_class = WEIGHT_CLASS_NORMAL //Intended to be used by ERTs or other uncommon roles
 
 /obj/item/storage/firstaid/compact/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 1,
 		/obj/item/stack/medical/bruise_pack = 2,
@@ -61,24 +57,25 @@
 /obj/item/storage/firstaid/medical
 	name = "doctor's bag"
 	icon_state = "firstaid-surgeryalt"
-	item_state = "firstaid-surgeryalt"
+	inhand_icon_state = "firstaid-surgeryalt"
+	worn_icon = 'icons/mob/clothing/belt.dmi'
+	worn_icon_state = "firstaid_surgeryalt"
 	desc = "A fancy high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
 	skin_type = null
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BELT
 
-/obj/item/storage/firstaid/medical/ComponentInitialize()
+/obj/item/storage/firstaid/medical/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_BULKY //holds the same equipment as a medibelt
-	STR.max_items = 12
-	STR.max_combined_w_class = 24
-	STR.can_hold = typecacheof(list(
+	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY //holds the same equipment as a medibelt
+	atom_storage.max_slots = 12
+	atom_storage.max_total_storage = 24
+	atom_storage.set_holdable(list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/glass/beaker,
-		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/medspray,
@@ -124,8 +121,6 @@
 		))
 
 /obj/item/storage/firstaid/medical/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 1,
 		/obj/item/stack/medical/bruise_pack = 2,
@@ -138,6 +133,93 @@
 		/obj/item/cautery = 1)
 	generate_items_inside(items_inside,src)
 
+/obj/item/storage/firstaid/medical/paramedic
+	name = "paramedics medical bag"
+	icon_state = "firstaid-surgeryalt"
+	inhand_icon_state = "firstaid-surgeryalt"
+	worn_icon = 'icons/mob/clothing/belt.dmi'
+	worn_icon_state = "firstaid_surgeryalt"
+	desc = "A not-so fancy high capacity aid kit for paramedics, filled with 'top of the line' medical supplies."
+	skin_type = null
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BELT
+
+/obj/item/storage/firstaid/medical/paramedic/Initialize(mapload)
+	. = ..()
+	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY //holds the same equipment as a medibelt
+	atom_storage.max_slots = 12
+	atom_storage.max_total_storage = 24
+	atom_storage.set_holdable(list(
+		/obj/item/healthanalyzer,
+		/obj/item/dnainjector,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
+		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/reagent_containers/medspray,
+		/obj/item/lighter,
+		/obj/item/weldingtool/mini,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/storage/pill_bottle,
+		/obj/item/stack/medical,
+		/obj/item/flashlight/pen,
+		/obj/item/extinguisher/mini,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/sensor_device,
+		/obj/item/radio,
+		/obj/item/clothing/gloves,
+		/obj/item/clothing/mask/surgical,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/breath/medical,
+		/obj/item/geiger_counter,
+		/obj/item/clothing/neck/stethoscope,
+		/obj/item/stamp,
+		/obj/item/clothing/glasses,
+		/obj/item/wrench/medical,
+		/obj/item/clothing/mask/muzzle,
+		/obj/item/reagent_containers/blood,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/implantcase,
+		/obj/item/implant,
+		/obj/item/implanter,
+		/obj/item/pinpointer/crew,
+		/obj/item/holosign_creator/medical,
+		/obj/item/rollerbed
+		))
+
+
+/obj/item/storage/firstaid/medical/paramedic/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/stack/medical/gauze = 1,
+		/obj/item/stack/medical/bruise_pack = 1,
+		/obj/item/stack/medical/ointment = 1,
+		/obj/item/healthanalyzer = 1,
+		/obj/item/reagent_containers/cup/bottle/formaldehyde = 1,
+		/obj/item/reagent_containers/syringe = 1,
+		/obj/item/rollerbed = 1,
+		/obj/item/weldingtool/mini = 1, // stopping IPC bleeding while delivering them to robotics (STOP DELIVERING IPCS TO MEDBAY I SWEAR TO GOD) -doc
+		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
+		/obj/item/reagent_containers/hypospray/medipen = 2,
+		/obj/item/reagent_containers/hypospray/medipen/atropine = 1
+		)
+	generate_items_inside(items_inside,src)
+
+/obj/item/storage/firstaid/medical/physician
+	name = "brig physicians bag"
+	desc = "A specialized doctors bag, specifically meant for healing security when they get beaten to death by a unarmed prisoner."
+
+/obj/item/storage/firstaid/medical/physician/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/stack/medical/gauze = 2,
+		/obj/item/stack/medical/bruise_pack = 2,
+		/obj/item/stack/medical/ointment = 2,
+		/obj/item/reagent_containers/hypospray/medipen/ = 2,
+		/obj/item/storage/pill_bottle/kelotane = 1,
+		/obj/item/storage/pill_bottle/bicaridine = 1,
+		/obj/item/healthanalyzer = 1,)
+	generate_items_inside(items_inside,src)
+
 //First Aid kit (ancient)
 /obj/item/storage/firstaid/ancient
 	icon_state = "firstaid-old"
@@ -145,8 +227,6 @@
 	skin_type = null
 
 /obj/item/storage/firstaid/ancient/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 2,
 		/obj/item/stack/medical/bruise_pack = 3,
@@ -159,11 +239,11 @@
 	name = "burn treatment kit"
 	desc = "A specialized medical kit for when the toxins lab <i>-spontaneously-</i> burns down."
 	icon_state = "firstaid-burn"
-	item_state = "firstaid-burn"
+	inhand_icon_state = "firstaid-burn"
 	skin_type = MEDBOT_SKIN_BURN
 
 /obj/item/storage/firstaid/fire/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins rubbing \the [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to start a fire!</span>")
+	user.visible_message(span_suicide("[user] begins rubbing \the [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to start a fire!"))
 	return FIRELOSS
 
 /obj/item/storage/firstaid/fire/Initialize(mapload)
@@ -171,8 +251,6 @@
 	icon_state = pick("firstaid-burn","firstaid-burnalt")
 
 /obj/item/storage/firstaid/fire/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/reagent_containers/pill/patch/silver_sulf = 4,
 		/obj/item/storage/pill_bottle/kelotane = 1,
@@ -185,11 +263,11 @@
 	name = "toxin treatment kit"
 	desc = "Used to treat toxic blood content and radiation poisoning."
 	icon_state = "firstaid-toxin"
-	item_state = "firstaid-toxin"
+	inhand_icon_state = "firstaid-toxin"
 	skin_type = MEDBOT_SKIN_TOXIN
 
 /obj/item/storage/firstaid/toxin/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins licking the lead paint off \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins licking the lead paint off \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return TOXLOSS
 
 /obj/item/storage/firstaid/toxin/Initialize(mapload)
@@ -212,16 +290,14 @@
 	name = "radiation treatment kit"
 	desc = "Used to treat minor toxic blood content and major radiation poisoning."
 	icon_state = "firstaid-rad"
-	item_state = "firstaid-rad"
+	inhand_icon_state = "firstaid-rad"
 	skin_type = MEDBOT_SKIN_RADIATION
 
 /obj/item/storage/firstaid/radbgone/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins licking the lead paint off \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins licking the lead paint off \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return TOXLOSS
 
 /obj/item/storage/firstaid/radbgone/PopulateContents()
-	if(empty)
-		return
 	var/static/items_inside = list(
 		/obj/item/reagent_containers/pill/antirad_plus = 2,
 		/obj/item/reagent_containers/pill/antirad = 2,
@@ -239,10 +315,10 @@
 	name = "oxygen deprivation treatment kit"
 	desc = "A box full of oxygen goodies."
 	icon_state = "firstaid-o2"
-	item_state = "firstaid-o2"
+	inhand_icon_state = "firstaid-o2"
 
 /obj/item/storage/firstaid/o2/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins hitting [user.p_their()] neck with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins hitting [user.p_their()] neck with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
 /obj/item/storage/firstaid/o2/PopulateContents()
@@ -264,11 +340,11 @@
 	name = "brute trauma treatment kit"
 	desc = "A first aid kit for when you get toolboxed."
 	icon_state = "firstaid-brute"
-	item_state = "firstaid-brute"
+	inhand_icon_state = "firstaid-brute"
 	skin_type = MEDBOT_SKIN_BRUTE
 
 /obj/item/storage/firstaid/brute/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins beating [user.p_them()]self over the head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins beating [user.p_them()]self over the head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/storage/firstaid/brute/PopulateContents()
@@ -291,7 +367,7 @@
 	name = "advanced first aid kit"
 	desc = "An advanced kit to help deal with advanced wounds."
 	icon_state = "firstaid-advanced"
-	item_state = "firstaid-advanced"
+	inhand_icon_state = "firstaid-advanced"
 	custom_premium_price = 600
 	skin_type = MEDBOT_SKIN_ADVANCED
 
@@ -320,13 +396,12 @@
 	name = "mystery medical kit"
 	desc = "Are you feeling lucky today?"
 	icon_state = "firstaid-mystery"
-	item_state = "firstaid-mystery"
+	inhand_icon_state = "firstaid-mystery"
 	skin_type = NONE
 
-/obj/item/storage/firstaid/random/ComponentInitialize()
+/obj/item/storage/firstaid/random/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/firstaid/random/PopulateContents()
 	if(empty)
@@ -364,7 +439,7 @@
 	name = "combat medical kit"
 	desc = "I hope you've got insurance."
 	icon_state = "firstaid-combat"
-	item_state = "firstaid-combat"
+	inhand_icon_state = "firstaid-combat"
 	skin_type = MEDBOT_SKIN_SYNDI
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -372,20 +447,19 @@
 	. = ..()
 	icon_state = pick("firstaid-combat","firstaid-combatalt")
 
-/obj/item/storage/firstaid/tactical/ComponentInitialize()
+/obj/item/storage/firstaid/tactical/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_LARGE
-	STR.max_items = 7
-	STR.max_combined_w_class = 56 //any combination of allowed items
+	atom_storage.max_specific_storage = WEIGHT_CLASS_LARGE
+	atom_storage.max_slots = 7
+	atom_storage.max_total_storage = 56 //any combination of allowed items
 
 	//Surgical tools, medkit supplies, compact defibrillator and a few odds and ends but not as much as medbelt
-	var/static/list/can_hold = typecacheof(list(
+	atom_storage.set_holdable(list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/glass/beaker,
-		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/medspray,
@@ -411,7 +485,6 @@
 		/obj/item/pinpointer/crew,
 		/obj/item/defibrillator/compact
 		))
-	STR.can_hold = can_hold
 
 
 /obj/item/storage/firstaid/tactical/PopulateContents()
@@ -425,18 +498,39 @@
 		/obj/item/clothing/glasses/hud/health/night = 1)
 	generate_items_inside(items_inside,src)
 
+//infiltrator kit, buyable by traitors
+/obj/item/storage/firstaid/infiltrator
+	name = "infiltrator medical kit"
+	desc = "(Un)fortunately for you, the Syndicate has a good medical plan."
+	icon_state = "firstaid-combat"
+	inhand_icon_state = "firstaid-combat"
+	skin_type = MEDBOT_SKIN_SYNDI
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/firstaid/infiltrator/PopulateContents()
+	if(empty)
+		return
+	var/static/items_inside = list(
+		/obj/item/reagent_containers/pill/patch/synthflesh = 2,
+		/obj/item/storage/pill_bottle/kelotane = 1,
+		/obj/item/storage/pill_bottle/bicaridine = 1,
+		/obj/item/storage/pill_bottle/charcoal = 1,
+		/obj/item/stack/medical/gauze = 1,
+		/obj/item/healthanalyzer = 1)
+	generate_items_inside(items_inside,src)
+
 //medibot assembly
 /obj/item/storage/firstaid/attackby(obj/item/bodypart/S, mob/user, params)
-	if((!istype(S, /obj/item/bodypart/l_arm/robot)) && (!istype(S, /obj/item/bodypart/r_arm/robot)))
+	if((!istype(S, /obj/item/bodypart/arm/left/robot)) && (!istype(S, /obj/item/bodypart/arm/right/robot)))
 		return ..()
 
 	//Making a medibot!
 	if(contents.len >= 1)
-		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
+		to_chat(user, span_warning("You need to empty [src] out first!"))
 		return
 
 	if(!src.skin_type)
-		to_chat(user, "<span class='warning'>[src] cannot be used to make a medibot!</span>")
+		to_chat(user, span_warning("[src] cannot be used to make a medibot!"))
 		return
 
 	var/obj/item/bot_assembly/medbot/A = new
@@ -444,7 +538,7 @@
 
 
 	user.put_in_hands(A)
-	to_chat(user, "<span class='notice'>You add [S] to [src].</span>")
+	to_chat(user, span_notice("You add [S] to [src]."))
 	A.robot_arm = S.type
 	A.firstaid = type
 	qdel(S)
@@ -459,7 +553,7 @@
 	desc = "It's an airtight container for storing medication."
 	icon_state = "pill_canister_0"
 	icon = 'icons/obj/medicine_containers.dmi'
-	item_state = "contsolid"
+	inhand_icon_state = "contsolid"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -472,15 +566,11 @@
 	if(prob(pill_variance))
 		icon_state = "[pill_type][rand(0,6)]"
 
-/obj/item/storage/pill_bottle/ComponentInitialize()
-	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.allow_quick_gather = TRUE
-	STR.click_gather = TRUE
-	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/pill, /obj/item/dice))
+	atom_storage.allow_quick_gather = TRUE
+	atom_storage.set_holdable(list(/obj/item/reagent_containers/pill))
 
 /obj/item/storage/pill_bottle/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is trying to get the cap off [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is trying to get the cap off [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return TOXLOSS
 
 /obj/item/storage/pill_bottle/charcoal

@@ -48,7 +48,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "x" = (
-/obj/item/trash/can/food/beans,
+/obj/item/trash/canned/beans,
 /turf/open/floor/plating,
 /area/template_noop)
 "z" = (
@@ -56,7 +56,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "B" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/template_noop)
 "H" = (

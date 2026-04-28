@@ -49,13 +49,11 @@
 	. = EXPORT_CARGO
 	if(contraband)
 		. |= EXPORT_CONTRABAND
-	if(obj_flags & EMAGGED)
-		. |= EXPORT_EMAG
 
 /obj/machinery/computer/cargo/on_emag(mob/user)
 	..()
-	user?.visible_message("<span class='warning'>[user] swipes a suspicious card through [src]!</span>",
-		"<span class='notice'>You adjust [src]'s routing and receiver spectrum, unlocking special supplies and contraband.</span>")
+	user?.visible_message(span_warning("[user] swipes a suspicious card through [src]!"),
+		span_notice("You adjust [src]'s routing and receiver spectrum, unlocking special supplies and contraband."))
 
 	contraband = TRUE
 
@@ -217,7 +215,7 @@
 				if(!reason)
 					return
 				if(CHAT_FILTER_CHECK(reason))
-					to_chat(usr, "<span class='warning'>You cannot send a message that contains a word prohibited in IC chat!</span>")
+					to_chat(usr, span_warning("You cannot send a message that contains a word prohibited in IC chat!"))
 					return
 
 			var/turf/T = get_turf(src)

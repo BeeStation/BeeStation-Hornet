@@ -1,5 +1,5 @@
 /atom/movable/screen/alien
-	icon = 'icons/mob/screen_alien.dmi'
+	icon = 'icons/hud/screen_alien.dmi'
 
 /atom/movable/screen/alien/leap
 	name = "toggle leap"
@@ -11,21 +11,21 @@
 		AH.toggle_leap()
 
 /atom/movable/screen/alien/plasma_display
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "power_display2"
 	name = "plasma stored"
 	screen_loc = ui_alienplasmadisplay
 
 
 /atom/movable/screen/alien/alien_queen_finder
-	icon = 'icons/mob/screen_alien.dmi'
+	icon = 'icons/hud/screen_alien.dmi'
 	icon_state = "queen_finder"
 	name = "queen sense"
 	desc = "Allows you to sense the general direction of your Queen."
 	screen_loc = ui_alien_queen_finder
 
 /datum/hud/alien
-	ui_style = 'icons/mob/screen_alien.dmi'
+	ui_style = 'icons/hud/screen_alien.dmi'
 
 /datum/hud/alien/New(mob/living/carbon/alien/humanoid/owner)
 	..()
@@ -39,85 +39,76 @@
 
 //begin buttons
 
-	using = new /atom/movable/screen/swap_hand()
+	using = new /atom/movable/screen/swap_hand(null, src)
 	using.icon = ui_style
 	using.icon_state = "swap_1"
 	using.screen_loc = ui_swaphand_position(owner,1)
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/swap_hand()
+	using = new /atom/movable/screen/swap_hand(null, src)
 	using.icon = ui_style
 	using.icon_state = "swap_2"
 	using.screen_loc = ui_swaphand_position(owner,2)
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/act_intent/alien()
-	using.icon_state = mymob.a_intent
-	using.hud = src
-	static_inventory += using
-	action_intent = using
+	action_intent = new /atom/movable/screen/combattoggle/flashy(null, src)
+	action_intent.icon = ui_style
+	action_intent.screen_loc = ui_combat_toggle
+	static_inventory += action_intent
 
 	if(isalienhunter(mymob))
 		var/mob/living/carbon/alien/humanoid/hunter/H = mymob
-		H.leap_icon = new /atom/movable/screen/alien/leap()
+		H.leap_icon = new /atom/movable/screen/alien/leap(null, src)
 		H.leap_icon.screen_loc = ui_alien_storage_r
 		static_inventory += H.leap_icon
 
-	using = new/atom/movable/screen/language_menu
+	using = new/atom/movable/screen/language_menu(null, src)
 	using.screen_loc = ui_alien_language_menu
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/drop()
+	using = new /atom/movable/screen/navigate(null, src)
+	using.screen_loc = ui_alien_navigate_menu
+	static_inventory += using
+
+	using = new /atom/movable/screen/drop(null, src)
 	using.icon = ui_style
 	using.screen_loc = ui_drop_throw
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/resist()
+	using = new /atom/movable/screen/resist(null, src)
 	using.icon = ui_style
 	using.screen_loc = ui_above_movement
-	using.hud = src
 	hotkeybuttons += using
 
-	throw_icon = new /atom/movable/screen/throw_catch()
+	throw_icon = new /atom/movable/screen/throw_catch(null, src)
 	throw_icon.icon = ui_style
 	throw_icon.screen_loc = ui_drop_throw
-	throw_icon.hud = src
 	hotkeybuttons += throw_icon
 
-	pull_icon = new /atom/movable/screen/pull()
+	pull_icon = new /atom/movable/screen/pull(null, src)
 	pull_icon.icon = ui_style
 	pull_icon.update_icon()
 	pull_icon.screen_loc = ui_above_movement
-	pull_icon.hud = src
 	static_inventory += pull_icon
 
 //begin indicators
 
-	healths = new /atom/movable/screen/healths/alien()
-	healths.hud = src
+	healths = new /atom/movable/screen/healths/alien(null, src)
 	infodisplay += healths
 
-	alien_plasma_display = new /atom/movable/screen/alien/plasma_display()
-	alien_plasma_display.hud = src
+	alien_plasma_display = new /atom/movable/screen/alien/plasma_display(null, src)
 	infodisplay += alien_plasma_display
 
 	if(!isalienqueen(mymob))
-		alien_queen_finder = new /atom/movable/screen/alien/alien_queen_finder
-		alien_queen_finder.hud = src
+		alien_queen_finder = new /atom/movable/screen/alien/alien_queen_finder(null, src)
 		infodisplay += alien_queen_finder
 
-	zone_select = new /atom/movable/screen/zone_sel/alien()
-	zone_select.hud = src
+	zone_select = new /atom/movable/screen/zone_sel/alien(null, src)
 	zone_select.update_icon()
 	static_inventory += zone_select
 
 	for(var/atom/movable/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
-			inv.hud = src
 			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
 			inv.update_icon()
 

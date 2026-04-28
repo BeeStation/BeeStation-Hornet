@@ -1,27 +1,27 @@
 /datum/job/chaplain
 	title = JOB_NAME_CHAPLAIN
-	flag = CHAPLAIN
 	description = "Tend to the spiritual well-being of the crew, conduct rites and rituals in your Chapel, exorcise evil spirits and other supernatural beings."
-	department_for_prefs = DEPT_BITFLAG_CIV
+	department_for_prefs = DEPT_NAME_CIVILIAN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#dddddd"
-
+	exp_requirements = 60
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/chaplain
 
-	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_THEATRE)
-	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_THEATRE)
+	base_access = list(ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MORGUE, ACCESS_THEATRE)
+	extra_access = list()
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)
 
 
 	display_order = JOB_DISPLAY_ORDER_CHAPLAIN
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Paladin"
 
 	species_outfits = list(
@@ -29,9 +29,16 @@
 	)
 
 	minimal_lightup_areas = list(
-		/area/chapel,
-		/area/medical/morgue,
-		/area/crew_quarters/theatre
+
+/area/station/service/chapel,
+		/area/station/medical/morgue,
+
+/area/station/service/theater
+	)
+
+	manuscript_jobs = list(
+		JOB_NAME_CHAPLAIN,
+		JOB_NAME_BOTANIST // in a sense of religion
 	)
 
 /datum/job/chaplain/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
@@ -46,7 +53,7 @@
 		B.deity_name = GLOB.deity
 		B.name = GLOB.bible_name
 		B.icon_state = GLOB.bible_icon_state
-		B.item_state = GLOB.bible_item_state
+		B.inhand_icon_state = GLOB.bible_inhand_icon_state
 		to_chat(H, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
 		H.equip_to_slot_or_del(B, ITEM_SLOT_BACKPACK)
 		GLOB.religious_sect?.on_conversion(H)
@@ -58,7 +65,7 @@
 
 	B.deity_name = new_deity
 
-	switch(lowertext(new_religion))
+	switch(LOWER_TEXT(new_religion))
 		if("christianity") // DEFAULT_RELIGION
 			B.name = pick("The Holy Bible","The Dead Sea Scrolls")
 		if("buddhism")
@@ -104,7 +111,7 @@
 		if("weeaboo","kawaii")
 			B.name = pick("Fanfiction Compendium","Japanese for Dummies","The Manganomicon","Establishing Your O.T.P")
 		else
-			B.name = "The Holy Book of [new_religion]"
+			B.name = preference_source?.prefs?.read_character_preference(/datum/preference/name/bible) || "The Holy Book of [new_religion]"
 
 	GLOB.religion = new_religion
 	GLOB.bible_name = B.name
@@ -120,7 +127,7 @@
 	jobtype = /datum/job/chaplain
 
 	id = /obj/item/card/id/job/chaplain
-	belt = /obj/item/modular_computer/tablet/pda/chaplain
+	belt = /obj/item/modular_computer/tablet/pda/preset/chaplain
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chaplain
 	backpack_contents = list(

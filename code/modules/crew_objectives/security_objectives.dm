@@ -45,9 +45,9 @@
 	if(!owner?.current)
 		return FALSE
 	for(var/datum/mind/M in SSticker.minds)
-		if(!istype(M.current) || (M.assigned_role in GLOB.security_positions))
+		if(!istype(M.current) || (M.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY)))
 			continue
-		if(istype(get_area(M.current), /area/security/prison))
+		if(istype(get_area(M.current), /area/station/security/prison))
 			return FALSE
 	return TRUE
 
@@ -58,7 +58,13 @@
 /datum/objective/crew/justicemed/check_completion()
 	if(..())
 		return TRUE
-	var/list/security_areas = typecacheof(list(/area/security, /area/security/brig, /area/security/main, /area/security/prison, /area/security/processing))
+	var/list/security_areas = typecacheof(list(
+		/area/station/security,
+		/area/station/security/brig,
+		/area/station/security/office,
+		/area/station/security/prison,
+		/area/station/security/processing,
+	))
 	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
 		var/area/A = get_area(H)
 		if(H.stat == DEAD && is_station_level(H.z) && is_type_in_typecache(A, security_areas)) // If person is dead and corpse is in one of these areas

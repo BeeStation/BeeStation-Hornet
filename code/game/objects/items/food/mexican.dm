@@ -10,6 +10,7 @@
 	tastes = list("tortilla" = 1)
 	foodtypes = GRAIN
 	w_class = WEIGHT_CLASS_TINY
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/burrito
 	name = "burrito"
@@ -23,6 +24,7 @@
 	tastes = list("tortilla" = 2, "beans" = 3)
 	foodtypes = GRAIN
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/cheesyburrito
 	name = "cheesy burrito"
@@ -36,6 +38,7 @@
 	tastes = list("tortilla" = 2, "beans" = 3, "cheese" = 1)
 	foodtypes = GRAIN | DAIRY
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/carneburrito
 	name = "carne asada burrito"
@@ -50,6 +53,7 @@
 	tastes = list("tortilla" = 2, "meat" = 4)
 	foodtypes = GRAIN | MEAT
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_4
 
 /obj/item/food/fuegoburrito
 	name = "fuego plasma burrito"
@@ -65,6 +69,7 @@
 	tastes = list("tortilla" = 2, "beans" = 3, "hot peppers" = 1)
 	foodtypes = GRAIN
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/nachos
 	name = "nachos"
@@ -78,6 +83,7 @@
 	tastes = list("nachos" = 1)
 	foodtypes = GRAIN | FRIED
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/cheesynachos
 	name = "cheesy nachos"
@@ -92,6 +98,7 @@
 	tastes = list("nachos" = 2, "cheese" = 1)
 	foodtypes = GRAIN | FRIED | DAIRY
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/cubannachos
 	name = "Cuban nachos"
@@ -106,6 +113,7 @@
 	tastes = list("nachos" = 2, "hot pepper" = 1)
 	foodtypes = VEGETABLES | FRIED | DAIRY
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/taco
 	name = "classic taco"
@@ -120,6 +128,7 @@
 	tastes = list("taco" = 4, "meat" = 2, "cheese" = 2, "lettuce" = 1)
 	foodtypes = MEAT | DAIRY | GRAIN | VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/taco/plain
 	name = "plain taco"
@@ -132,6 +141,7 @@
 	)
 	tastes = list("taco" = 4, "meat" = 2, "cheese" = 2)
 	foodtypes = MEAT | DAIRY | GRAIN
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/enchiladas
 	name = "enchiladas"
@@ -148,10 +158,12 @@
 	tastes = list("hot peppers" = 1, "meat" = 3, "cheese" = 1, "sour cream" = 1)
 	foodtypes = MEAT | GRAIN
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/stuffedlegion
 	name = "stuffed legion"
 	desc = "The former skull of a damned human, filled with goliath meat. It has a decorative lava pool made of ketchup and hotsauce."
+	icon = 'icons/obj/food/mexican.dmi'
 	icon_state = "stuffed_legion"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
@@ -162,3 +174,4 @@
 	tastes = list("death" = 2, "rock" = 1, "meat" = 1, "hot peppers" = 1)
 	foodtypes = MEAT
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_5

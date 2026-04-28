@@ -10,10 +10,11 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ash"
 	mergeable_decal = FALSE
+	decal_reagent = /datum/reagent/ash
+	reagent_amount = 30
 
 /obj/effect/decal/cleanable/ash/Initialize(mapload)
 	. = ..()
-	reagents.add_reagent(/datum/reagent/ash, 30)
 	pixel_x = base_pixel_x + rand(-5, 5)
 	pixel_y = base_pixel_y + rand(-5, 5)
 
@@ -24,10 +25,8 @@
 /obj/effect/decal/cleanable/ash/large
 	name = "large pile of ashes"
 	icon_state = "big_ash"
-
-/obj/effect/decal/cleanable/ash/large/Initialize(mapload)
-	. = ..()
-	reagents.add_reagent(/datum/reagent/ash, 30) //double the amount of ash.
+	decal_reagent = /datum/reagent/ash
+	reagent_amount = 60
 
 /obj/effect/decal/cleanable/glass
 	name = "tiny shards"
@@ -83,9 +82,13 @@
 /obj/effect/decal/cleanable/greenglow/ex_act()
 	return
 
+/obj/effect/decal/cleanable/greenglow/filled
+	decal_reagent = /datum/reagent/uranium
+	reagent_amount = 5
+
 /obj/effect/decal/cleanable/greenglow/filled/Initialize(mapload)
+	decal_reagent = pick(/datum/reagent/uranium, /datum/reagent/uranium/radium)
 	. = ..()
-	reagents.add_reagent(pick(/datum/reagent/uranium, /datum/reagent/uranium/radium), 5)
 
 /obj/effect/decal/cleanable/greenglow/ecto
 	name = "ectoplasmic puddle"
@@ -125,7 +128,7 @@
 	icon_state = "vomit_1"
 	random_icon_states = list("vomit_1", "vomit_2", "vomit_3", "vomit_4")
 
-/obj/effect/decal/cleanable/vomit/attack_hand(mob/user)
+/obj/effect/decal/cleanable/vomit/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -133,7 +136,7 @@
 		var/mob/living/carbon/human/H = user
 		if(isflyperson(H))
 			playsound(get_turf(src), 'sound/items/drink.ogg', 50, 1) //slurp
-			H.visible_message("<span class='alert'>[H] extends a small proboscis into the vomit pool, sucking it with a slurping sound.</span>")
+			H.visible_message(span_alert("[H] extends a small proboscis into the vomit pool, sucking it with a slurping sound."))
 			H.adjust_nutrition(20) //This wasn't working before, it was very complex, I made it painfully simple so it just WORKS.
 			qdel(src)
 
@@ -141,6 +144,8 @@
 	name = "crusty dried vomit"
 	desc = "You try not to look at the chunks, and fail."
 	var/list/datum/disease/diseases = list()
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/vomit/old)
 
 /obj/effect/decal/cleanable/vomit/old/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
@@ -150,10 +155,6 @@
 	if(prob(95))//vomit is much more likely to be diseased than blood is
 		var/datum/disease/advance/new_disease = new /datum/disease/advance/random(rand(2, 5), rand(7, 9), 4, infected = src)
 		src.diseases += new_disease
-
-/obj/effect/decal/cleanable/vomit/old/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..()
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., diseases)
 
 /obj/effect/decal/cleanable/chem_pile
 	name = "chemical pile"
@@ -211,3 +212,85 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "xfloor1"
 	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
+
+/obj/effect/decal/cleanable/ants
+	name = "space ants"
+	desc = "A small colony of space ants. They're normally used to the vacuum of space, so they can't climb too well."
+	icon = 'icons/obj/debris.dmi'
+	icon_state = "ants"
+	//beauty = -150
+	plane = GAME_PLANE
+	layer = LOW_OBJ_LAYER
+	decal_reagent = /datum/reagent/ants
+	reagent_amount = 5
+	/// Sound the ants make when biting
+	var/bite_sound = 'sound/weapons/bite.ogg'
+
+/obj/effect/decal/cleanable/ants/Initialize(mapload)
+	reagent_amount = rand(3, 5)
+	. = ..()
+	update_ant_damage()
+
+/obj/effect/decal/cleanable/ants/handle_merge_decal(obj/effect/decal/cleanable/merger)
+	. = ..()
+	var/obj/effect/decal/cleanable/ants/ants = merger
+	ants.update_ant_damage()
+
+/obj/effect/decal/cleanable/ants/proc/update_ant_damage()
+	var/ant_bite_damage = min(10, round((reagents.get_reagent_amount(/datum/reagent/ants) * 0.1),0.1)) // 100u ants = 10 max_damage
+
+	var/ant_flags = (CALTROP_NOCRAWL | CALTROP_NOSTUN) /// Small amounts of ants won't be able to bite through shoes.
+	if(ant_bite_damage > 1)
+		ant_flags = (CALTROP_NOCRAWL | CALTROP_NOSTUN | CALTROP_BYPASS_SHOES)
+
+	switch(ant_bite_damage)
+		if(0 to 1)
+			icon_state = initial(icon_state)
+		if(1.1 to 4)
+			icon_state = "[initial(icon_state)]_2"
+		if(4.1 to 7)
+			icon_state = "[initial(icon_state)]_3"
+		if(7.1 to 10)
+			icon_state = "[initial(icon_state)]_4"
+
+	AddComponent(/datum/component/caltrop, min_damage = 0.1, max_damage = ant_bite_damage, flags = ant_flags, soundfile = bite_sound)
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/effect/decal/cleanable/ants/update_overlays()
+	. = ..()
+	. += emissive_appearance(icon, "[icon_state]_light", alpha = src.alpha)
+
+/obj/effect/decal/cleanable/confetti
+	name = "confetti"
+	desc = "Tiny bits of colored paper thrown about for the janitor to enjoy!"
+	icon = 'icons/effects/confetti_and_decor.dmi'
+	icon_state = "confetti"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT //the confetti itself might be annoying enough
+
+/obj/effect/decal/cleanable/pinata
+	name = "pinata shreds"
+	desc = "Torn pieces of papier-mâché, left over from a pinata"
+	icon = 'icons/effects/confetti_and_decor.dmi'
+	icon_state = "pinata_shreds"
+
+/obj/effect/decal/cleanable/pinata/syndie
+	icon_state = "syndie_pinata_shreds"
+
+/obj/effect/decal/cleanable/pinata/donk
+	icon_state = "donk_pinata_shreds"
+
+/obj/effect/decal/cleanable/wrapping
+	name = "wrapping shreds"
+	desc = "Torn pieces of cardboard and paper, left over from a package."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "paper_shreds"
+
+/obj/effect/decal/cleanable/garbage
+	name = "decomposing garbage"
+	desc = "A split open garbage bag, its stinking content seems to be partially liquified. Yuck!"
+	icon = 'icons/obj/debris.dmi'
+	icon_state = "garbage"
+	plane = GAME_PLANE
+	layer = FLOOR_CLEAN_LAYER
+	//beauty = -150
+	clean_type = CLEAN_TYPE_HARD_DECAL

@@ -2,13 +2,13 @@
 /// - whom: a CKEY, a Stealth Key, or a client
 /// - msg: the message to send
 /client/proc/cmd_mentor_pm(whom, msg, html_encoded = FALSE)
-	if(prefs.muted & MUTE_MHELP)
-		to_chat(src, "<span class='danger'>Error: Mentor-PM: You are unable to use mentor PM-s (muted).</span>", type = MESSAGE_TYPE_MENTORPM)
+	if(player_details.muted & MUTE_MHELP)
+		to_chat(src, span_danger("Error: Mentor-PM: You are unable to use mentor PM-s (muted)."), type = MESSAGE_TYPE_MENTORPM)
 		return
 
 	if(!GLOB.mentor_datums[ckey] && !current_mentorhelp_ticket)	//no ticket? https://www.youtube.com/watch?v=iHSPf6x1Fdo
-		to_chat(src, "<span class='danger'>You can no longer reply to this ticket, please open another one by using the Mentorhelp verb if need be.</span>", type = MESSAGE_TYPE_MENTORPM)
-		to_chat(src, "<span class='notice'>Message: [msg]</span>", type = MESSAGE_TYPE_MENTORPM)
+		to_chat(src, span_danger("You can no longer reply to this ticket, please open another one by using the Mentorhelp verb if need be."), type = MESSAGE_TYPE_MENTORPM)
+		to_chat(src, span_notice("Message: [msg]"), type = MESSAGE_TYPE_MENTORPM)
 		return
 
 	var/client/recipient
@@ -21,7 +21,7 @@
 
 	if(!recipient)
 		if(GLOB.mentor_datums[ckey])
-			to_chat(src, "<span class='danger'>Error: Mentor-PM: Client not found.</span>", type = MESSAGE_TYPE_MENTORPM)
+			to_chat(src, span_danger("Error: Mentor-PM: Client not found."), type = MESSAGE_TYPE_MENTORPM)
 			if(msg)
 				to_chat(src, msg)
 			return
@@ -37,13 +37,13 @@
 		// we need to not HTML encode again or you get &#39;s instead of 's
 		html_encoded = TRUE
 
-		if(prefs.muted & MUTE_MHELP)
-			to_chat(src, "<span class='danger'>Error: Mentor-PM: You are unable to use mentor PM-s (muted).</span>", type = MESSAGE_TYPE_MENTORPM)
+		if(player_details.muted & MUTE_MHELP)
+			to_chat(src, span_danger("Error: Mentor-PM: You are unable to use mentor PM-s (muted)."), type = MESSAGE_TYPE_MENTORPM)
 			return
 
 		if(!recipient)
 			if(holder)
-				to_chat(src, "<span class='danger'>Error: Mentor-PM: Client not found.</span>", type = MESSAGE_TYPE_MENTORPM)
+				to_chat(src, span_danger("Error: Mentor-PM: Client not found."), type = MESSAGE_TYPE_MENTORPM)
 			else
 				current_mentorhelp_ticket.MessageNoRecipient(msg, sanitized = TRUE)
 			return
@@ -68,80 +68,36 @@
 
 	if(recipient.is_mentor())
 		if(is_mentor())//both are mentors
-			to_chat(recipient, "<span class='mentorfrom'>Mentor PM from-<b>[key_name_mentor(src, recipient)]</b>: [msg]</span>", type = MESSAGE_TYPE_MENTORPM)
-			to_chat(src, "<span class='mentorto'>Mentor PM to-<b>[key_name_mentor(recipient, recipient)]</b>: [msg]</span>", type = MESSAGE_TYPE_MENTORPM)
+			to_chat(recipient, span_mentorfrom("Mentor PM from-<b>[key_name_mentor(src, recipient)]</b>: [msg]"), type = MESSAGE_TYPE_MENTORPM)
+			to_chat(src, span_mentorto("Mentor PM to-<b>[key_name_mentor(recipient, recipient)]</b>: [msg]"), type = MESSAGE_TYPE_MENTORPM)
 			admin_ticket_log(src, msg, key_name_mentor(src, recipient), key_name_mentor(recipient, src), color="teal", isSenderAdmin = TRUE, safeSenderLogged = TRUE, is_admin_ticket = FALSE)
 			if(recipient != src)
 				admin_ticket_log(recipient, msg, key_name_mentor(src, recipient), key_name_mentor(recipient, src), color="teal", isSenderAdmin = TRUE, safeSenderLogged = TRUE, is_admin_ticket = FALSE)
 
 		else		//recipient is an mentor but sender is not
-			to_chat(recipient, "<span class='mentorfrom'>Reply PM from-<b>[key_name_mentor(src, recipient)]</b>: [msg]</span>", type = MESSAGE_TYPE_MENTORPM)
-			to_chat(src, "<span class='mentorto'>Mentor PM to-<b>Mentors</b>: [msg]</span>", type = MESSAGE_TYPE_MENTORPM)
+			to_chat(recipient, span_mentorfrom("Reply PM from-<b>[key_name_mentor(src, recipient)]</b>: [msg]"), type = MESSAGE_TYPE_MENTORPM)
+			to_chat(src, span_mentorto("Mentor PM to-<b>Mentors</b>: [msg]"), type = MESSAGE_TYPE_MENTORPM)
 			admin_ticket_log(src, msg, key_name_mentor(src, recipient, TRUE), null, "white", isSenderAdmin = TRUE, safeSenderLogged = TRUE, is_admin_ticket = FALSE)
 
 	else
 		if(is_mentor())	//sender is an mentor but recipient is not.
-			to_chat(recipient, "<span class='mentorfrom'>Mentor PM from-<b>[key_name_mentor(src, recipient)]</b>: [msg]</span>", type = MESSAGE_TYPE_MENTORPM)
-			to_chat(src, "<span class='mentorto'>Mentor PM to-<b>[key_name_mentor(recipient, recipient)]</b>: [msg]</span>", type = MESSAGE_TYPE_MENTORPM)
+			to_chat(recipient, span_mentorfrom("Mentor PM from-<b>[key_name_mentor(src, recipient)]</b>: [msg]"), type = MESSAGE_TYPE_MENTORPM)
+			to_chat(src, span_mentorto("Mentor PM to-<b>[key_name_mentor(recipient, recipient)]</b>: [msg]"), type = MESSAGE_TYPE_MENTORPM)
 			admin_ticket_log(recipient, msg, key_name_mentor(src), null, "purple", safeSenderLogged = TRUE, is_admin_ticket = FALSE)
 
 	log_mentor("Mentor PM: [key_name(src)]->[key_name(recipient)]: [rawmsg]")
 	for(var/client/X in GLOB.mentors | GLOB.admins)
 		if(X.key!=key && X.key!=recipient.key)	//check client/X is an Mentor and isn't the sender or recipient
-			to_chat(X, "<B><span class='mentorto'>Mentor PM: [key_name_mentor(src, !!X)]-&gt;[key_name_mentor(recipient, !!X)]:</B> <span class='mentorhelp'>[msg]</span>", type = MESSAGE_TYPE_MENTORPM) //inform X
+			to_chat(X, "<B>[span_mentorto("Mentor PM: [key_name_mentor(src, !!X)]-&gt;[key_name_mentor(recipient, !!X)]:</B> [span_mentorhelp(msg)]")]", type = MESSAGE_TYPE_MENTORPM) //inform X
 
 /// Basically the same thing as key_name_admin but with the mentorPM key instead
-/proc/key_name_mentor(var/whom, var/include_link = null)
-	var/mob/M
-	var/client/C
-	var/key
-	var/ckey
-
-	if(!whom)
-		return "*null*"
-	if(istype(whom, /client))
-		C = whom
-		M = C.mob
-		key = C.key
-		ckey = C.ckey
-	else if(ismob(whom))
-		M = whom
-		C = M.client
-		key = M.key
-		ckey = M.ckey
-	else if(istext(whom))
-		key = whom
-		ckey = ckey(whom)
-		C = GLOB.directory[ckey]
-		if(C)
-			M = C.mob
-	else
-		return "*invalid*"
-
-	. = ""
-
-	if(!ckey)
-		include_link = FALSE
-
-	if(key)
-		if(include_link)
-			. += "<a href='?_src_=mentor;mentor_msg=[ckey];'>"
-		if(C && C.holder && C.holder.fakekey)
-			. += "Administrator"
-		else
-			. += key
-		if(!C)
-			. += "\[DC\]"
-		if(include_link)
-			. += "</a>"
-	else
-		. += "*no key*"
-	return .
+/proc/key_name_mentor(whom, include_link = null)
+	return key_name(whom, include_link = include_link, include_name = FALSE, href="_src_=mentor;mentor_msg", include_external_name = TRUE)
 
 /// Used when Reply is clicked for a ticket in chat - informs other mentors when you start typing.
 /client/proc/cmd_mhelp_reply(whom)
-	if(prefs.muted & MUTE_MHELP)
-		to_chat(src, "<span class='danger'>Error: Mentor-PM: You are unable to use mentor PM-s (muted).</span>", type = MESSAGE_TYPE_MENTORPM)
+	if(player_details.muted & MUTE_MHELP)
+		to_chat(src, span_danger("Error: Mentor-PM: You are unable to use mentor PM-s (muted)."), type = MESSAGE_TYPE_MENTORPM)
 		return
 	var/client/C
 	if(istext(whom))
@@ -152,7 +108,7 @@
 		C = whom
 	if(!C)
 		if(holder)
-			to_chat(src, "<span class='danger'>Error: Mentor-PM: Client not found.</span>", type = MESSAGE_TYPE_MENTORPM)
+			to_chat(src, span_danger("Error: Mentor-PM: Client not found."), type = MESSAGE_TYPE_MENTORPM)
 		return
 
 	var/datum/help_ticket/AH = C.current_mentorhelp_ticket
@@ -168,8 +124,8 @@
 
 /// Use when PMing from a ticket
 /client/proc/cmd_mhelp_reply_instant(whom, msg)
-	if(prefs.muted & MUTE_MHELP)
-		to_chat(src, "<span class='danger'>Error: Mentor-PM: You are unable to use mentor PM-s (muted).</span>", type = MESSAGE_TYPE_MENTORPM)
+	if(player_details.muted & MUTE_MHELP)
+		to_chat(src, span_danger("Error: Mentor-PM: You are unable to use mentor PM-s (muted)."), type = MESSAGE_TYPE_MENTORPM)
 		return
 	var/client/C
 	if(istext(whom))
@@ -180,7 +136,7 @@
 		C = whom
 	if(!C)
 		if(holder)
-			to_chat(src, "<span class='danger'>Error: Mentor-PM: Client not found.</span>", type = MESSAGE_TYPE_MENTORPM)
+			to_chat(src, span_danger("Error: Mentor-PM: Client not found."), type = MESSAGE_TYPE_MENTORPM)
 		return
 
 	if (!msg)
@@ -189,6 +145,6 @@
 
 /// Send a message to all mentors (MENTOR LOG:)
 /proc/message_mentors(msg, client/target)
-	msg = "<span class='mentor'><span class='prefix'>MENTOR LOG:</span> <span class='message linkify'>[msg]</span></span>"
+	msg = span_mentor("[span_prefix("MENTOR LOG:")] [span_messagelinkify("[msg]")]")
 	for(var/client/client in GLOB.mentors | GLOB.admins)
 		to_chat(client, msg, type = MESSAGE_TYPE_MENTORLOG, avoid_highlighting = client == target)

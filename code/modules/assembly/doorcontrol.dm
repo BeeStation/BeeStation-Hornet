@@ -3,21 +3,39 @@
 	desc = "A small electronic device able to control a blast door remotely."
 	icon_state = "control"
 	attachable = TRUE
+	/// The ID of the blast door electronics to match to the ID of the blast door being used.
 	var/id = null
-	var/can_change_id = 0
-	var/cooldown = FALSE //Door cooldowns
+	/// Cooldown of the door's controller. Updates when pressed (activate())
+	var/cooldown = FALSE
+	/// Should we toggle open/close of doors based on their current state
 	var/sync_doors = TRUE
 
 /obj/item/assembly/control/examine(mob/user)
 	. = ..()
-	if(id)
-		. += "<span class='notice'>Its channel ID is '[id]'.</span>"
+	if (!isnull(id)) // We check for null here instead of just the value so 0 displays as a valid ID
+		. += span_notice("Its channel ID is '[id]'.")
+	else
+		. += span_notice("It has no channel ID set. You can set it with a multitool or by scanning another controller.")
 
-/obj/item/assembly/control/multitool_act(mob/living/user)
-	var/change_id = input("Set the shutters/blast door controller's ID. It must be a number between 1 and 100.", "ID", id) as num|null
-	if(change_id)
-		id = clamp(round(change_id, 1), 1, 100)
-		to_chat(user, "<span class='notice'>You change the ID to [id].</span>")
+/obj/item/assembly/control/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_left_click_item_action("Copy ID", /obj/item/assembly/control)
+
+/obj/item/assembly/control/attackby(obj/item/attacking_item, mob/user, params)
+	. = ..()
+	if (istype(attacking_item, /obj/item/assembly/control))
+		var/obj/item/assembly/control/other_controller = attacking_item
+		if(!isnull(other_controller.id))
+			id = other_controller.id
+			balloon_alert(user, "id changed to [id]")
+			return TRUE
+
+/obj/item/assembly/control/multitool_act(mob/living/user, obj/item/tool)
+	var/change_id = tgui_input_number(user, "Set the shutters/blast door controller's ID. It must be a number between 1 and 100.", "Controller ID", min_value = 1, max_value = 100)
+	if (isnull(change_id) || QDELETED(src) || QDELETED(user))
+		return
+
+	id = change_id
+	balloon_alert(user, "id changed to [id]")
 
 /obj/item/assembly/control/activate()
 	var/openclose
@@ -43,6 +61,7 @@
 				4= bolts (BOLTS)
 				8= shock (SHOCK)
 				16= door safties (SAFE)
+				32= emergency mode (EMERGENCY)
 	*/
 
 /obj/item/assembly/control/airlock/activate()
@@ -70,6 +89,9 @@
 					D.set_electrified(MACHINE_NOT_ELECTRIFIED, usr)
 			if(specialfunctions & SAFE)
 				D.safe = !D.safe
+			if(specialfunctions & EMERGENCY)
+				D.emergency = !D.emergency
+				D.update_icon()
 
 	for(var/D in open_or_close)
 		INVOKE_ASYNC(D, doors_need_closing ? TYPE_PROC_REF(/obj/machinery/door/airlock, close) : TYPE_PROC_REF(/obj/machinery/door/airlock, open))
@@ -152,3 +174,20 @@
 			C.cremate(usr)
 
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 50)
+
+/obj/item/assembly/control/shieldwallgen
+	name = "holofield controller"
+	desc = "A small device used to remotely operate holofield generators."
+
+/obj/item/assembly/control/shieldwallgen/activate()
+	if(cooldown)
+		return
+	cooldown = TRUE
+	for(var/obj/machinery/power/shieldwallgen/machine in GLOB.machines)
+		if(machine.id == src.id)
+			INVOKE_ASYNC(machine, TYPE_PROC_REF(/obj/machinery/power/shieldwallgen, toggle))
+
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 20)
+
+/obj/item/assembly/control/shieldwallgen/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock)
+	id = "[REF(port)][id]"

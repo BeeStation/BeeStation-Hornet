@@ -14,7 +14,7 @@
 	var/datum/techweb/linked_techweb
 	light_color = LIGHT_COLOR_BLUE
 
-/obj/machinery/computer/operating/Initialize()
+/obj/machinery/computer/operating/Initialize(mapload)
 	. = ..()
 	linked_techweb = SSresearch.science_tech
 	link_with_table()
@@ -28,9 +28,9 @@
 
 /obj/machinery/computer/operating/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/disk/surgery))
-		user.visible_message("[user] begins to load \the [O] in \the [src]...",
-			"You begin to load a surgery protocol from \the [O]...",
-			"You hear the chatter of a floppy drive.")
+		user.visible_message(span_notice("[user] begins to load \the [O] in \the [src]..."), \
+			span_notice("You begin to load a surgery protocol from \the [O]..."), \
+			span_hear("You hear the chatter of a floppy drive."))
 		var/obj/item/disk/surgery/D = O
 		if(do_after(user, 10, target = src))
 			advanced_surgeries |= D.surgeries
@@ -38,6 +38,8 @@
 	return ..()
 
 /obj/machinery/computer/operating/proc/sync_surgeries()
+	if(!linked_techweb)
+		return
 	for(var/i in linked_techweb.researched_designs)
 		var/datum/design/surgery/D = SSresearch.techweb_design_by_id(i)
 		if(!istype(D))
@@ -80,14 +82,13 @@
 
 /obj/machinery/computer/operating/ui_data(mob/user)
 	var/list/data = list()
-	var/list/surgeries = list()
-	for(var/X in advanced_surgeries)
-		var/datum/surgery/S = X
+	var/list/all_surgeries = list()
+	for(var/datum/surgery/surgeries as anything in advanced_surgeries)
 		var/list/surgery = list()
-		surgery["name"] = initial(S.name)
-		surgery["desc"] = initial(S.desc)
-		surgeries += list(surgery)
-	data["surgeries"] = surgeries
+		surgery["name"] = initial(surgeries.name)
+		surgery["desc"] = initial(surgeries.desc)
+		all_surgeries += list(surgery)
+	data["surgeries"] = all_surgeries
 
 	//If there's no patient just hop to it yeah?
 	if(!table && !sbed)
@@ -102,18 +103,18 @@
 			return data
 		data["patient"] = list()
 		patient = table.patient
-	else
-		if(sbed)
-			data["table"] = sbed
-			if(!ishuman(sbed.occupant) &&  !ismonkey(sbed.occupant))
-				return data
-			data["patient"] = list()
-			if(isliving(sbed.occupant))
-				var/mob/living/live = sbed.occupant
-				patient = live
-		else
-			data["patient"] = null
+	else if(sbed)
+		data["table"] = sbed
+		if(!ishuman(sbed.occupant) &&  !ismonkey(sbed.occupant))
 			return data
+		data["patient"] = list()
+		if(isliving(sbed.occupant))
+			var/mob/living/live = sbed.occupant
+			patient = live
+	else
+		data["patient"] = null
+		return data
+
 	switch(patient.stat)
 		if(CONSCIOUS)
 			data["patient"]["stat"] = "Conscious"
@@ -128,7 +129,9 @@
 			data["patient"]["stat"] = "Dead"
 			data["patient"]["statstate"] = "bad"
 	data["patient"]["health"] = patient.health
-	data["patient"]["blood_type"] = patient.dna.blood_type
+
+	data["patient"]["blood_type"] = patient.dna.blood_type.name
+
 	data["patient"]["maxHealth"] = patient.maxHealth
 	data["patient"]["minHealth"] = HEALTH_THRESHOLD_DEAD
 	data["patient"]["bruteLoss"] = patient.getBruteLoss()
@@ -159,7 +162,8 @@
 	return data
 
 /obj/machinery/computer/operating/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	switch(action)
 		if("sync")
@@ -170,19 +174,19 @@
 REGISTER_BUFFER_HANDLER(/obj/machinery/computer/operating)
 DEFINE_BUFFER_HANDLER(/obj/machinery/computer/operating)
 	if(!istype(buffer, /obj/machinery/stasis))
-		to_chat(user, "<span class='warning'>You cannot link \the [buffer] to \the [src].</span>")
+		to_chat(user, span_warning("You cannot link \the [buffer] to \the [src]."))
 		return NONE
 	var/obj/machinery/stasis/new_stasis_bed = buffer
 	if(get_dist(src, new_stasis_bed) > 3)
-		to_chat(user, "<span class='warning'>\The [src] is too far away from \the [new_stasis_bed] to link!</span>")
+		to_chat(user, span_warning("\The [src] is too far away from \the [new_stasis_bed] to link!"))
 		return NONE
 	balloon_alert(user, "linked to \the [new_stasis_bed]")
 	if(sbed)
 		sbed.op_computer = null
 	new_stasis_bed.op_computer = src
 	sbed = new_stasis_bed
-	to_chat(user, "<span class='notice'>You link \the [src] with \the [new_stasis_bed] to its [dir2text(get_dir(src, new_stasis_bed))].</span>")
-	return COMPONENT_BUFFER_RECIEVED
+	to_chat(user, span_notice("You link \the [src] with \the [new_stasis_bed] to its [dir2text(get_dir(src, new_stasis_bed))]."))
+	return COMPONENT_BUFFER_RECEIVED
 
 #undef MENU_OPERATION
 #undef MENU_SURGERIES

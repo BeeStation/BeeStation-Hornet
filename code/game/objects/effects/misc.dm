@@ -15,7 +15,7 @@
 /obj/effect/beam/singularity_act()
 	return
 
-/obj/effect/beam/singularity_pull()
+/obj/effect/beam/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/spawner
@@ -32,6 +32,11 @@
 /obj/effect/spawner/Destroy(force)
 	SHOULD_CALL_PARENT(FALSE)
 	moveToNullspace()
+	return QDEL_HINT_QUEUE
+
+/// Override to define loot blacklist behavior
+/obj/effect/spawner/proc/can_spawn(atom/loot)
+	return TRUE
 
 /obj/effect/list_container
 	name = "list container"
@@ -46,7 +51,7 @@
 	name = "thermite"
 	desc = "Looks hot."
 	icon = 'icons/effects/fire.dmi'
-	icon_state = "2" //what?
+	icon_state = "medium" //what?
 	anchored = TRUE
 	opacity = FALSE
 	density = FALSE
@@ -64,18 +69,7 @@
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.adjust_fire_stacks(5)
-		L.IgniteMob()
-
-//Makes a tile fully lit no matter what
-/obj/effect/fullbright
-	icon = 'icons/effects/alphacolors.dmi'
-	icon_state = "white"
-	plane = LIGHTING_PLANE
-	blend_mode = BLEND_ADD
-
-/obj/effect/fullbright/starlight
-	plane = STARLIGHT_PLANE
-	transform = matrix(2, 0, 0, 0, 2, 0)
+		L.ignite_mob()
 
 /obj/effect/abstract/marker
 	name = "marker"
@@ -95,31 +89,5 @@
 /obj/effect/abstract/marker/at
 	name = "active turf marker"
 
-
-/obj/effect/dummy/lighting_obj
-	name = "lighting fx obj"
-	desc = "Tell a coder if you're seeing this."
-	icon_state = "nothing"
-	light_color = "#FFFFFF"
-	light_system = MOVABLE_LIGHT
-	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+/obj/effect/abstract/directional_lighting
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/obj/effect/dummy/lighting_obj/Initialize(mapload, _range, _power, _color, _duration)
-	. = ..()
-	if(!isnull(_range))
-		set_light_range(_range)
-	if(!isnull(_power))
-		set_light_power(_power)
-	if(!isnull(_color))
-		set_light_color(_color)
-	if(_duration)
-		QDEL_IN(src, _duration)
-
-/obj/effect/dummy/lighting_obj/moblight
-	name = "mob lighting fx"
-
-/obj/effect/dummy/lighting_obj/moblight/Initialize(mapload, _color, _range, _power, _duration)
-	. = ..()
-	if(!ismob(loc))
-		return INITIALIZE_HINT_QDEL

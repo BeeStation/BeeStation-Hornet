@@ -3,9 +3,11 @@
 #define CACHE_WAIT "wait"
 #define CACHE_INVALID TRUE
 #define CACHE_VALID FALSE
+/// This is used to invalidate the cache if something changes on the DM side. For example, if the CSS generator was changed.
+#define SPRITESHEET_SYSTEM_VERSION 1
 
 /datum/asset/spritesheet_batched
-	_abstract = /datum/asset/spritesheet_batched
+	abstract_type = /datum/asset/spritesheet_batched
 	var/name
 	/// list("32x32")
 	var/list/sizes = list()
@@ -74,6 +76,14 @@
 		if(cached_rustg_version != rustg_version)
 			log_asset("Invalidated cache for spritesheet_[name] due to rustg updating from [cached_rustg_version] to [rustg_version].")
 			return CACHE_INVALID
+		// Invalidate cache if the DM version changes
+		var/cached_dm_version = cache_json["dm_version"]
+		if(isnull(cached_dm_version))
+			log_asset("Cache for spritesheet_[name] did not contain a dm_version!")
+			return CACHE_INVALID
+		if(cached_dm_version != SPRITESHEET_SYSTEM_VERSION)
+			log_asset("Invalidated cache for spritesheet_[name] due to DM spritesheet system updating from [cached_dm_version] to [SPRITESHEET_SYSTEM_VERSION].")
+			return CACHE_INVALID
 		cache_sizes_data = cache_json["sizes"]
 		cache_sprites_data = cache_json["sprites"]
 		cache_input_hash = cache_json["input_hash"]
@@ -115,6 +125,8 @@
 /datum/asset/spritesheet_batched/proc/insert_icon(sprite_name, datum/universal_icon/entry)
 	if(!istext(sprite_name) || !length(sprite_name))
 		CRASH("Invalid sprite_name \"[sprite_name]\" given to insert_icon()! Providing non-strings will break icon generation.")
+	if(!istype(entry))
+		CRASH("Invalid type provided to insert_icon()! Value: [entry] (type: [entry?.type])")
 	entries[sprite_name] = entry.to_list()
 
 /datum/asset/spritesheet_batched/register()
@@ -136,7 +148,6 @@
 
 /// Call insert_icon or insert_all_icons here, building a spritesheet!
 /datum/asset/spritesheet_batched/proc/create_spritesheets()
-	SHOULD_CALL_PARENT(FALSE)
 	CRASH("create_spritesheets() not implemented for [type]!")
 
 /datum/asset/spritesheet_batched/proc/insert_all_icons(prefix, icon/I, list/directions, prefix_with_dirs = TRUE)
@@ -178,10 +189,12 @@
 	var/data_out
 	if(yield || !isnull(job_id))
 		if(isnull(job_id))
-			job_id = rustg_iconforge_generate_async("data/spritesheets/", name, entries_json, do_cache)
+			SSasset_loading.assets_generating++
+			job_id = rustg_iconforge_generate_async("data/spritesheets/", name, entries_json, do_cache, FALSE, TRUE)
 		UNTIL((data_out = rustg_iconforge_check(job_id)) != RUSTG_JOB_NO_RESULTS_YET)
+		SSasset_loading.assets_generating--
 	else
-		data_out = rustg_iconforge_generate("data/spritesheets/", name, entries_json, do_cache)
+		data_out = rustg_iconforge_generate("data/spritesheets/", name, entries_json, do_cache, FALSE, TRUE)
 	if (data_out == RUSTG_JOB_ERROR)
 		CRASH("Spritesheet [name] JOB PANIC")
 	else if(!findtext(data_out, "{", 1, 2))
@@ -215,7 +228,7 @@
 		CRASH("Error during spritesheet generation for [name]: [data["error"]]")
 
 /datum/asset/spritesheet_batched/queued_generation()
-	realize_spritesheets(yield = TRUE)
+	INVOKE_ASYNC(src, PROC_REF(realize_spritesheets), TRUE) // The proc is called inside a subsystem and waits with an UNTIL
 
 /datum/asset/spritesheet_batched/ensure_ready()
 	if(!fully_generated)
@@ -246,7 +259,7 @@
 		var/size_split = splittext(size_id, "x")
 		var/width = text2num(size_split[1])
 		var/height = text2num(size_split[2])
-		out += ".[name][size_id]{display:inline-block;width:[width]px;height:[height]px;background:url('[get_background_url("[name]_[size_id].png")]') no-repeat;}"
+		out += ".[name][size_id]{display:inline-block;width:[width]px;height:[height]px;background-image:url('[get_background_url("[name]_[size_id].png")]');background-repeat: no-repeat;}"
 
 	for (var/sprite_id in sprites)
 		var/sprite = sprites[sprite_id]
@@ -293,7 +306,8 @@
 		"dmi_hashes" = dmi_hashes,
 		"sizes" = sizes,
 		"sprites" = sprites,
-		"rustg_version" = rustg_get_version()
+		"rustg_version" = rustg_get_version(),
+		"dm_version" = SPRITESHEET_SYSTEM_VERSION,
 	)
 	rustg_file_write(json_encode(cache_data), "[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[name].json")
 
@@ -340,3 +354,4 @@
 #undef CACHE_WAIT
 #undef CACHE_INVALID
 #undef CACHE_VALID
+#undef SPRITESHEET_SYSTEM_VERSION

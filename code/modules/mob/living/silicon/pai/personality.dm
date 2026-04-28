@@ -13,7 +13,7 @@
 
 /datum/pai_candidate/proc/save(mob/user)
 	if(IS_GUEST_KEY(user.key))
-		to_chat(usr, "<span class='boldnotice'>You cannot save pAI information as a guest.</span>")
+		to_chat(usr, span_boldnotice("You cannot save pAI information as a guest."))
 		return FALSE
 	if(!user.client)
 		return FALSE
@@ -21,7 +21,7 @@
 	user.client.prefs.pai_description = description
 	user.client.prefs.pai_comment = comments
 	user.client.prefs.mark_undatumized_dirty_player()
-	to_chat(usr, "<span class='boldnotice'>You have saved pAI information.</span>")
+	to_chat(usr, span_boldnotice("You have saved pAI information."))
 	return TRUE
 
 // loads the savefile corresponding to the mob's ckey

@@ -4,7 +4,7 @@
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	banning_key = BAN_ROLE_ALL_ANTAGONISTS
-
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/antagonist/heartbreaker/proc/forge_objectives()
 	if(prob(30)) // rare chance to get martyr, really ruin those dates!
@@ -31,7 +31,7 @@
 	. = ..()
 
 /datum/antagonist/heartbreaker/greet()
-	to_chat(owner, "<span class='big bold warning'>You didn't get a date! They're all having fun without you! you'll show them though...</span>")
+	to_chat(owner, span_bigboldwarning("You didn't get a date! They're all having fun without you! you'll show them though..."))
 	owner.announce_objectives()
 
 /datum/antagonist/heartbreaker/apply_innate_effects(mob/living/mob_override)

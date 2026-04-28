@@ -4,7 +4,6 @@
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	can_elimination_hijack = ELIMINATION_ENABLED
-	count_against_dynamic_roll_chance = FALSE
 	banning_key = BAN_ROLE_ALL_ANTAGONISTS
 
 /datum/antagonist/highlander/apply_innate_effects(mob/living/mob_override)
@@ -32,19 +31,18 @@
 	. = ..()
 
 /datum/antagonist/highlander/greet()
-	to_chat(owner, "<span class='boldannounce'>Your [sword.name] cries out for blood. Claim the lives of others, and your own will be restored!\n\
-	Activate it in your hand, and it will lead to the nearest target. Attack the nuclear authentication disk with it, and you will store it.</span>")
+	to_chat(owner, span_boldannounce("Your [sword.name] cries out for blood. Claim the lives of others, and your own will be restored!\n\
+	Activate it in your hand, and it will lead to the nearest target. Attack the nuclear authentication disk with it, and you will store it."))
 
 	owner.announce_objectives()
-	owner.current.client?.tgui_panel?.give_antagonist_popup("Highlander",
-		"Locate victims to fall to your sword and claim the nuclear authentication disk for yourself.")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Highlander", "Locate victims to fall to your sword and claim the nuclear authentication disk for yourself.")
 
 /datum/antagonist/highlander/proc/give_equipment()
 	var/mob/living/carbon/human/H = owner.current
 	if(!istype(H))
 		return
 
-	for(var/obj/item/I in H.get_equipped_items(TRUE))
+	for(var/obj/item/I in H.get_equipped_items(INCLUDE_POCKETS))
 		qdel(I)
 	for(var/obj/item/I in H.held_items)
 		qdel(I)

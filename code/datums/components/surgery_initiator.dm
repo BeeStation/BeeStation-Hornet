@@ -57,7 +57,7 @@
 	var/list/available_surgeries = get_available_surgeries(user, target)
 
 	if(!length(available_surgeries))
-		if (!(target.mobility_flags & MOBILITY_STAND))
+		if (target.body_position == LYING_DOWN)
 			target.balloon_alert(user, "no surgeries available!")
 		else
 			target.balloon_alert(user, "make them lie down!")
@@ -95,7 +95,7 @@
 				continue
 		else if(carbon_target && surgery.requires_bodypart) //mob with no limb in surgery zone when we need a limb
 			continue
-		if(surgery.lying_required && (target.mobility_flags & MOBILITY_STAND))
+		if(surgery.lying_required && target.body_position != LYING_DOWN)
 			continue
 		if(!surgery.can_start(user, target))
 			continue
@@ -109,15 +109,16 @@
 /// Does the surgery de-initiation.
 /datum/component/surgery_initiator/proc/attempt_cancel_surgery(datum/surgery/the_surgery, mob/living/patient, mob/user)
 	var/selected_zone = user.zone_selected
+
 	if(the_surgery.status == 1)
 		patient.surgeries -= the_surgery
 		//REMOVE_TRAIT(patient, TRAIT_ALLOWED_HONORBOUND_ATTACK, type)
 		user.visible_message(
-			"<span class='notice'>[user] removes [parent] from [patient]'s [parse_zone(the_surgery.location)].</span>",
-			"<span class='notice'>You remove [parent] from [patient]'s [parse_zone(the_surgery.location)].</span>",
+			span_notice("[user] removes [parent] from [patient]'s [parse_zone(selected_zone)]."),
+			span_notice("You remove [parent] from [patient]'s [parse_zone(selected_zone)]."),
 		)
 
-		patient.balloon_alert(user, "stopped work on [parse_zone(the_surgery.location)]")
+		patient.balloon_alert(user, "stopped work on [parse_zone(selected_zone)]")
 
 		qdel(the_surgery)
 		return
@@ -143,18 +144,18 @@
 
 	/*
 	if(the_surgery.operated_bodypart)
-		the_surgery.operated_bodypart.generic_bleedstacks -= 5
+		the_surgery.operated_bodypart.adjustBleedStacks(-5)
 	*/
 
 	patient.surgeries -= the_surgery
 	//REMOVE_TRAIT(patient, TRAIT_ALLOWED_HONORBOUND_ATTACK, ELEMENT_TRAIT(type))
 
 	user.visible_message(
-		"<span class='notice'>[user] closes [patient]'s [parse_zone(the_surgery.location)] with [close_tool] and removes [parent].</span>",
-		"<span class='notice'>You close [patient]'s [parse_zone(the_surgery.location)] with [close_tool] and remove [parent].<span>",
+		span_notice("[user] closes [patient]'s [parse_zone(selected_zone)] with [close_tool] and removes [parent]."),
+		span_notice("You close [patient]'s [parse_zone(selected_zone)] with [close_tool] and remove [parent]."),
 	)
 
-	patient.balloon_alert(user, "closed up [parse_zone(the_surgery.location)]")
+	patient.balloon_alert(user, "closed up [parse_zone(selected_zone)]")
 
 	qdel(the_surgery)
 
@@ -306,7 +307,7 @@
 		target.balloon_alert(user, "not the right type of limb!")
 		return
 
-	if (surgery.lying_required && (target.mobility_flags & MOBILITY_STAND))
+	if (surgery.lying_required && target.body_position != LYING_DOWN)
 		target.balloon_alert(user, "patient is not lying down!")
 		return
 

@@ -1,5 +1,5 @@
 /// Helper define that can only be used in /obj/item/circuit_component/input_received()
-#define COMPONENT_TRIGGERED_BY(trigger, port) (trigger.value && trigger == port)
+#define COMPONENT_TRIGGERED_BY(trigger, port) (trigger?.value && trigger == port)
 
 /// Define to be placed at any proc that is triggered by a port.
 #define CIRCUIT_TRIGGER SHOULD_NOT_SLEEP(TRUE)
@@ -39,6 +39,8 @@
 
 #define COMPONENT_DEFAULT_NAME "component"
 
+#define COMPONENT_DEFAULT_CATEGORY "Unassigned"
+
 /// The minimum position of the x and y co-ordinates of the component in the UI
 #define COMPONENT_MIN_RANDOM_POS 200
 /// The maximum position of the x and y co-ordinates of the component in the UI
@@ -70,7 +72,7 @@
 // Shells
 
 /// Whether a circuit is stuck on a shell and cannot be removed (by a user)
-#define SHELL_FLAG_CIRCUIT_FIXED (1<<0)
+#define SHELL_FLAG_CIRCUIT_UNREMOVABLE (1<<0)
 
 /// Whether the shell needs to be anchored for the circuit to be on.
 #define SHELL_FLAG_REQUIRE_ANCHOR (1<<1)
@@ -80,6 +82,9 @@
 
 /// Whether the shell allows actions to be peformed on a shell if the action fails. This will additionally block the messages from being displayed.
 #define SHELL_FLAG_ALLOW_FAILURE_ACTION (1<<3)
+
+/// Whether a circuit is not able to be modified
+#define SHELL_FLAG_CIRCUIT_UNMODIFIABLE (1<<5)
 
 // Shell capacities. These can be converted to configs very easily later
 #define SHELL_CAPACITY_SMALL 25
@@ -101,6 +106,8 @@
 #define CIRCUIT_FLAG_HIDDEN (1<<2)
 /// This circuit component has been marked as a component that has instant execution and will show up in the UI as so. This will only cause a visual change.
 #define CIRCUIT_FLAG_INSTANT (1<<3)
+/// This circuit component cannot be inserted into the same circuit multiple times. Only use this for major headaches.
+#define CIRCUIT_NO_DUPLICATES (1<<6)
 
 // Datatype flags
 /// The datatype supports manual inputs
@@ -195,15 +202,6 @@
 #define COMP_SOUND_WARN "Warn"
 #define COMP_SOUND_SLOWCLAP "Slow Clap"
 
-// Security Arrest Console
-#define COMP_STATE_ARREST "*Arrest*"
-#define COMP_STATE_PRISONER "Incarcerated"
-#define COMP_STATE_PAROL "Paroled"
-#define COMP_STATE_DISCHARGED "Discharged"
-#define COMP_STATE_NONE "None"
-
-#define COMP_SECURITY_ARREST_AMOUNT_TO_FLAG 10
-
 #define WIREMOD_CIRCUITRY "Circuitry"
 #define WIREMOD_CORE "Core"
 #define WIREMOD_SHELLS "Shells"
@@ -212,12 +210,14 @@
 #define WIREMOD_MATH_COMPONENTS "Math Components"
 #define WIREMOD_TIME_COMPONENTS "Time Components"
 #define WIREMOD_LOGIC_COMPONENTS "Logic Components"
+#define WIREMOD_GATE_COMPONENTS "Gate Components"
 #define WIREMOD_LIST_COMPONENTS "List Components"
 #define WIREMOD_MEMORY_COMPONENTS "Memory Components"
 #define WIREMOD_CONVERSION_COMPONENTS "Conversion Components"
 #define WIREMOD_STRING_COMPONENTS "String Components"
 #define WIREMOD_REFERENCE_COMPONENTS "Reference Components"
 #define WIREMOD_BCI_COMPONENTS "BCI Components"
+#define WIREMOD_TEMPLATES "Professor's Circuits"
 
 #define WIREMODE_CATEGORIES list(\
 	WIREMOD_CIRCUITRY,\
@@ -228,5 +228,7 @@
 	WIREMOD_MATH_COMPONENTS,\
 	WIREMOD_TIME_COMPONENTS,\
 	WIREMOD_LOGIC_COMPONENTS,\
-	WIREMOD_BCI_COMPONENTS\
+	WIREMOD_GATE_COMPONENTS,\
+	WIREMOD_BCI_COMPONENTS,\
+	WIREMOD_TEMPLATES,\
 	)

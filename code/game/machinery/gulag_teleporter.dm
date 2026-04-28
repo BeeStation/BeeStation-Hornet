@@ -22,6 +22,7 @@ The console is located at computer/gulag_teleporter.dm
 	var/jumpsuit_type = /obj/item/clothing/under/rank/prisoner
 	var/shoes_type = /obj/item/clothing/shoes/sneakers/orange
 	var/obj/machinery/gulag_item_reclaimer/linked_reclaimer
+	/// makes more sense to give prisoners older models of masks
 	var/static/list/telegulag_required_items = typecacheof(list(
 		/obj/item/implant,
 		/obj/item/clothing/suit/space/eva/plasmaman,
@@ -29,7 +30,8 @@ The console is located at computer/gulag_teleporter.dm
 		/obj/item/clothing/head/helmet/space/plasmaman,
 		/obj/item/tank/internals,
 		/obj/item/clothing/mask/breath,
-		/obj/item/clothing/mask/gas/old))	//makes more sense to give prisoners older models of masks
+		/obj/item/clothing/mask/gas/old,
+	))
 
 /obj/machinery/gulag_teleporter/Initialize(mapload)
 	. = ..()
@@ -43,7 +45,7 @@ The console is located at computer/gulag_teleporter.dm
 /obj/machinery/gulag_teleporter/interact(mob/user)
 	. = ..()
 	if(locked)
-		to_chat(user, "<span class='warning'>[src] is locked!</span>")
+		to_chat(user, span_warning("[src] is locked!"))
 		return
 	toggle_open(user)
 
@@ -82,13 +84,13 @@ The console is located at computer/gulag_teleporter.dm
 		return
 
 
-/obj/machinery/gulag_teleporter/relaymove(mob/user)
+/obj/machinery/gulag_teleporter/relaymove(mob/living/user, direction)
 	if(user.stat != CONSCIOUS)
 		return
 	if(locked)
 		if(message_cooldown <= world.time)
 			message_cooldown = world.time + 50
-			to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")
+			to_chat(user, span_warning("[src]'s door won't budge!"))
 		return
 	open_machine()
 
@@ -98,15 +100,15 @@ The console is located at computer/gulag_teleporter.dm
 		return
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
-	user.visible_message("<span class='notice'>You see [user] kicking against the door of [src]!</span>", \
-		"<span class='notice'>You lean on the back of [src] and start pushing the door open... (this will take about [DisplayTimeText(breakout_time)].)</span>", \
-		"<span class='italics'>You hear a metallic creaking from [src].</span>")
+	user.visible_message(span_notice("You see [user] kicking against the door of [src]!"), \
+		span_notice("You lean on the back of [src] and start pushing the door open... (this will take about [DisplayTimeText(breakout_time)].)"), \
+		span_italics("You hear a metallic creaking from [src]."))
 	if(do_after(user, breakout_time, target = src))
 		if(!user || user.stat != CONSCIOUS || user.loc != src || state_open || !locked)
 			return
 		locked = FALSE
-		user.visible_message("<span class='warning'>[user] successfully broke out of [src]!</span>", \
-			"<span class='notice'>You successfully break out of [src]!</span>")
+		user.visible_message(span_warning("[user] successfully broke out of [src]!"), \
+			span_notice("You successfully break out of [src]!"))
 		open_machine()
 
 /obj/machinery/gulag_teleporter/proc/locate_reclaimer()
@@ -116,7 +118,7 @@ The console is located at computer/gulag_teleporter.dm
 
 /obj/machinery/gulag_teleporter/proc/toggle_open(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, span_notice("Close the maintenance panel first."))
 		return
 
 	if(state_open)
@@ -139,14 +141,13 @@ The console is located at computer/gulag_teleporter.dm
 					continue
 				if(linked_reclaimer)
 					linked_reclaimer.stored_items[mob_occupant] += W
-					linked_reclaimer.contents += W
 					W.forceMove(linked_reclaimer)
 				else
 					W.forceMove(src)
 	if(linked_reclaimer)
 		linked_reclaimer.ui_update()
 
-/obj/machinery/gulag_teleporter/proc/handle_prisoner(obj/item/id, datum/data/record/R)
+/obj/machinery/gulag_teleporter/proc/handle_prisoner(obj/item/id, datum/record/crew/R)
 	if(!ishuman(occupant))
 		return
 	strip_occupant()
@@ -158,7 +159,7 @@ The console is located at computer/gulag_teleporter.dm
 	if(id)
 		prisoner.equip_to_appropriate_slot(id)
 	if(R)
-		R.fields["criminal"] = "Incarcerated"
+		R.set_wanted_status(src, WANTED_PRISONER)
 
 /obj/item/circuitboard/machine/gulag_teleporter
 	name = "labor camp teleporter (Machine Board)"

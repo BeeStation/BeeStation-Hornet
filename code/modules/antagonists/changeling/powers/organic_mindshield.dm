@@ -10,12 +10,12 @@
 /datum/action/changeling/organic_mindshield/sting_action(mob/living/user)
 	..()
 
-	if(!user.has_status_effect(STATUS_EFFECT_CHANGELING_MINDSHIELD))
-		user.apply_status_effect(STATUS_EFFECT_CHANGELING_MINDSHIELD)
+	if(!user.has_status_effect(/datum/status_effect/changeling/mindshield))
+		user.apply_status_effect(/datum/status_effect/changeling/mindshield)
 	else
-		user.remove_status_effect(STATUS_EFFECT_CHANGELING_MINDSHIELD)
+		user.remove_status_effect(/datum/status_effect/changeling/mindshield)
 	return TRUE
 
 /datum/action/changeling/organic_mindshield/Remove(mob/living/user)
-	user.remove_status_effect(STATUS_EFFECT_CHANGELING_MINDSHIELD)
+	user.remove_status_effect(/datum/status_effect/changeling/mindshield)
 	..()

@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use 'sass:color';
 @use '../base.scss';
 @use '../colors.scss';
 @use '../functions.scss' as *;
 
 $color-default: colors.bg(colors.$primary) !default;
-$color-disabled: #999999 !default;
+$color-disabled: hsl(0, 0%, 60%) !default;
 $color-selected: colors.bg(colors.$green) !default;
 $color-caution: colors.bg(colors.$yellow) !default;
 $color-danger: colors.bg(colors.$red) !default;
@@ -19,24 +20,36 @@ $bg-map: colors.$bg-map !default;
 @mixin button-color($color) {
   // Adapt text color to background luminance to ensure high contast
   $luminance: luminance($color);
-  $text-color: if($luminance > 0.4, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+  $text-color: best-fg(base.$color-dark, base.$color-light, $color);
 
-  transition: color 50ms, background-color 50ms;
+  transition:
+    color 50ms,
+    background-color 50ms;
   background-color: $color;
   color: $text-color;
 
+  @if needs-bold($text-color, $color) {
+    font-weight: bold;
+  }
+
   &:hover {
-    transition: color 0ms, background-color 0ms;
+    transition:
+      color 0ms,
+      background-color 0ms;
   }
 
   &:focus {
-    transition: color 100ms, background-color 100ms;
+    transition:
+      color 100ms,
+      background-color 100ms;
   }
 
-  &:hover,
-  &:focus {
-    background-color: if($luminance > 0.6, darken($color, 15%), lighten($color, 30%));
-    color: $text-color;
+  &:hover {
+    background-color: if(
+      $luminance > 0.6,
+      color.adjust($color, $lightness: -15%),
+      color.adjust($color, $lightness: 20%)
+    );
   }
 }
 
@@ -67,6 +80,12 @@ $bg-map: colors.$bg-map !default;
     min-width: 1.333em;
     text-align: center;
   }
+}
+
+.Button--dropdown {
+  line-height: base.em(16px);
+  height: base.em(22px);
+  padding: 0.2rem 0.5rem;
 }
 
 .Button--hasContent {

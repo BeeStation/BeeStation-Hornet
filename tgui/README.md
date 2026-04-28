@@ -16,12 +16,11 @@ If you are completely new to frontend and prefer to **learn by doing**, start wi
 
 ### Guides
 
-This project uses **Inferno** - a very fast UI rendering engine with a similar API to React. Take your time to read these guides:
+This project uses React. Take your time to read the guide:
 
-- [React guide](https://reactjs.org/docs/hello-world.html)
-- [Inferno documentation](https://infernojs.org/docs/guides/components) - highlights differences with React.
+- [React guide](https://react.dev/learn)
 
-If you were already familiar with an older, Ractive-based tgui, and want to translate concepts between old and new tgui, read this [interface conversion guide](docs/converting-old-tgui-interfaces.md).
+If you were already familiar with an older, Ractive-based tgui and want to translate concepts between old and new tgui, read this [interface conversion guide](docs/converting-old-tgui-interfaces.md).
 
 ### Other Documentation
 
@@ -74,6 +73,7 @@ If you are using the tooling provided in this repo, everything is included! Feel
 - `tools/build/build tgui-clean` - Clean up tgui folder.
 
 > With Juke Build, you can run multiple targets together, e.g.:
+>
 > ```
 > tools/build/build tgui tgui-lint tgui-tsc tgui-test
 > ```
@@ -102,6 +102,11 @@ Run `yarn install` once to install tgui dependencies.
 Remember to always run a full build of tgui before submitting a PR, because it comes with the full suite of CI checks, and runs much faster on your computer than on GitHub servers. It will save you some time and possibly a few broken commits! Address the issues that are reported by the tooling as much as possible, because maintainers will beat you with a ruler and force you to address them anyway (unless it's a false positive or something unfixable).
 
 ## Troubleshooting
+
+**Development server isn't attaching to the game**
+
+Make sure that you have a tgui window open before you run the dev server. Then,
+once it's running, you may need to press F5 to refresh the page.
 
 **Development server is crashing**
 
@@ -133,24 +138,33 @@ When developing with `tgui-dev-server`, you will have access to certain developm
 
 **Kitchen Sink**. Press `F12` to open the KitchenSink interface. This interface is a playground to test various tgui components.
 
-**Layout Debugger**. Press `F11` to toggle the *layout debugger*. It will show outlines of all tgui elements, which makes it easy to understand how everything comes together, and can reveal certain layout bugs which are not normally visible.
+**Layout Debugger.**
+Press `F11` to toggle the _layout debugger_. It will show outlines of
+all tgui elements, which makes it easy to understand how everything comes
+together, and can reveal certain layout bugs which are not normally visible.
+
+## Browser Developer Tools
+
+WebView2 is chromium based, so you can access the dev tools much easier than its
+predecessor. Simply go to debug tab in your stat panel and click "Allow Browser
+Inspection". You can then f12 to open the standard chrome dev tools.
 
 ## Project Structure
 
 - `/packages` - Each folder here represents a self-contained Node module.
 - `/packages/common` - Helper functions that are used throughout all packages.
-- `/packages/tgui/index.js` - Application entry point.
+- `/packages/tgui/index.ts` - Application entry point.
 - `/packages/tgui/components` - Basic UI building blocks.
 - `/packages/tgui/interfaces` - Actual in-game interfaces.
 - `/packages/tgui/layouts` - Root level UI components, that affect the final look and feel of the browser window. These hold various window elements, like the titlebar and resize handlers, and control the UI theme.
-- `/packages/tgui/routes.js` - This is where tgui decides which interface to pull and render.
+- `/packages/tgui/routes.ts` - This is where tgui decides which interface to pull and render.
 - `/packages/tgui/styles/main.scss` - CSS entry point.
 - `/packages/tgui/styles/functions.scss` - Useful SASS functions. Stuff like `lighten`, `darken`, `luminance` are defined here.
 - `/packages/tgui/styles/atomic` - Atomic CSS classes. These are very simple, tiny, reusable CSS classes which you can use and combine to change appearance of your elements. Keep them small.
 - `/packages/tgui/styles/components` - CSS classes which are used in UI components. These stylesheets closely follow the [BEM](https://en.bem.info/methodology/) methodology.
 - `/packages/tgui/styles/interfaces` - Custom stylesheets for your interfaces. Add stylesheets here if you really need a fine control over your UI styles.
 - `/packages/tgui/styles/layouts` - Layout-related styles.
-- `/packages/tgui/styles/themes` - Contains themes that you can use in tgui. Each theme must be registered in `/packages/tgui/index.js` file.
+- `/packages/tgui/styles/themes` - Contains themes that you can use in tgui. Each theme must be registered in `/packages/tgui/index.ts` file.
 
 ## License
 

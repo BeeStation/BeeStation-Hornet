@@ -20,12 +20,11 @@
 
 	var/datum/reagents/splash_holder = new/datum/reagents(total_reagents*threatscale)
 	splash_holder.my_atom = override_atom ? override_atom : epicenter // For some reason this is setting my_atom to null, and causing runtime errors.
-	var/total_temp = 0
 
 	for(var/datum/reagents/R in reactants)
 		R.trans_to(splash_holder, R.total_volume, threatscale, 1, 1)
-		total_temp += R.chem_temp
-	splash_holder.chem_temp = (total_temp/reactants.len) + extra_heat // Average temperature of reagents + extra heat.
+
+	splash_holder.chem_temp = max(splash_holder.chem_temp + extra_heat, TCMB) // Average temperature of reagents + extra heat.
 	splash_holder.handle_reactions() // React them now.
 
 	if(splash_holder.total_volume && affected_range >= 0)	//The possible reactions didnt use up all reagents, so we spread it around.
@@ -45,7 +44,7 @@
 			for(var/turf/T as() in turflist)
 				if(accessible[T])
 					continue
-				for(var/thing in T.GetAtmosAdjacentTurfs(alldir = TRUE))
+				for(var/thing in T.get_atmos_adjacent_turfs(alldir = TRUE))
 					var/turf/NT = thing
 					if(!(NT in accessible))
 						continue
@@ -66,7 +65,7 @@
 		for(var/atom/A as() in reactable)
 			var/distance = max(1,get_dist(A, epicenter))
 			var/fraction = 0.5/(2 ** distance) //50/25/12/6... for a 200u splash, 25/12/6/3... for a 100u, 12/6/3/1 for a 50u
-			splash_holder.reaction(A, TOUCH, fraction)
+			splash_holder.expose(A, TOUCH, fraction)
 
 	qdel(splash_holder)
 	return 1

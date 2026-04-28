@@ -35,12 +35,11 @@
 /proc/cmp_datum_text_dsc(datum/a, datum/b, variable)
 	return sorttext(a.vars[variable], b.vars[variable])
 
-GLOBAL_VAR_INIT(cmp_field, "name")
-/proc/cmp_records_asc(datum/data/record/a, datum/data/record/b)
-	return sorttext(b.fields[GLOB.cmp_field], a.fields[GLOB.cmp_field])
+/proc/cmp_records_asc(datum/record/a, datum/record/b)
+	return sorttext(b.name, a.name)
 
-/proc/cmp_records_dsc(datum/data/record/a, datum/data/record/b)
-	return sorttext(a.fields[GLOB.cmp_field], b.fields[GLOB.cmp_field])
+/proc/cmp_records_dsc(datum/record/a, datum/record/b)
+	return sorttext(a.name, b.name)
 
 /proc/cmp_ckey_asc(client/a, client/b)
 	return sorttext(b.ckey, a.ckey)
@@ -49,7 +48,10 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 	return sorttext(a.ckey, b.ckey)
 
 /proc/cmp_subsystem_init(datum/controller/subsystem/a, datum/controller/subsystem/b)
-	return initial(b.init_order) - initial(a.init_order)	//uses initial() so it can be used on types
+	return a.init_order - b.init_order
+
+/proc/cmp_subsystem_init_stage(datum/controller/subsystem/a, datum/controller/subsystem/b)
+	return initial(a.init_stage) - initial(b.init_stage)
 
 /proc/cmp_subsystem_display(datum/controller/subsystem/a, datum/controller/subsystem/b)
 	return sorttext(b.name, a.name)
@@ -65,6 +67,12 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 
 /proc/cmp_ruincost_priority(datum/map_template/ruin/A, datum/map_template/ruin/B)
 	return initial(A.cost) - initial(B.cost)
+
+/proc/cmp_list_size_asc(list/A, list/B)
+	return length(A) - length(B)
+
+/proc/cmp_list_size_dsc(list/A, list/B)
+	return length(B) - length(A)
 
 /proc/cmp_qdel_item_time(datum/qdel_item/A, datum/qdel_item/B)
 	. = B.hard_delete_time - A.hard_delete_time
@@ -102,8 +110,8 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 	return sorttext(B.id, A.id)
 
 /proc/cmp_quirk_asc(datum/quirk/A, datum/quirk/B)
-	var/a_sign = SIGN(initial(A.value) * -1)
-	var/b_sign = SIGN(initial(B.value) * -1)
+	var/a_sign = SIGN(initial(A.quirk_value) * -1)
+	var/b_sign = SIGN(initial(B.quirk_value) * -1)
 
 	// Neutral traits go last.
 	if(a_sign == 0)
@@ -140,6 +148,10 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 /proc/cmp_mob_realname_dsc(mob/A,mob/B)
 	return sorttext(A.real_name,B.real_name)
 
+/// Orders bodyparts by their body_part value, ascending.
+/proc/cmp_bodypart_by_body_part_asc(obj/item/bodypart/limb_one, obj/item/bodypart/limb_two)
+	return limb_one.body_part - limb_two.body_part
+
 /// Orders by integrated circuit weight
 /proc/cmp_port_order_asc(datum/port/compare1, datum/port/compare2)
 	return compare1.order - compare2.order
@@ -151,7 +163,7 @@ GLOBAL_VAR_INIT(cmp_field, "name")
   * This prevents any reagent_containers from being consumed before the reagents they contain, which can
   * lead to runtimes and item duplication when it happens.
   */
-/proc/cmp_crafting_req_priority(var/A, var/B)
+/proc/cmp_crafting_req_priority(A, B)
 	var/lhs
 	var/rhs
 

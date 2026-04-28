@@ -6,43 +6,30 @@
 
 	can_unwrench = TRUE
 	hide = TRUE
-	interacts_with_air = TRUE
 	layer = GAS_SCRUBBER_LAYER
 	shift_underlay_only = FALSE
 
 	pipe_state = "pvent"
+	vent_movement = VENTCRAWL_ALLOWED | VENTCRAWL_CAN_SEE | VENTCRAWL_ENTRANCE_ALLOWED
 
 /obj/machinery/atmospherics/components/unary/passive_vent/update_icon_nopipes()
 	cut_overlays()
 	if(showpipe)
-		var/image/cap = getpipeimage(icon, "vent_cap", initialize_directions)
+		var/image/cap = get_pipe_image(icon, "vent_cap", initialize_directions, pipe_color)
 		add_overlay(cap)
 	icon_state = "passive_vent"
 
 /obj/machinery/atmospherics/components/unary/passive_vent/process_atmos()
-	..()
-	if(isclosedturf(loc))
+	var/turf/location = get_turf(loc)
+	if(isclosedturf(location))
 		return
 
-	var/active = FALSE
-	var/datum/gas_mixture/external = loc.return_air()
+	var/datum/gas_mixture/external = location.return_air()
 	var/datum/gas_mixture/internal = airs[1]
-	var/external_pressure = external.return_pressure()
-	var/internal_pressure = internal.return_pressure()
-	var/pressure_delta = abs(external_pressure - internal_pressure)
 
-	if(pressure_delta > 0.5)
-		equalize_all_gases_in_list(list(internal,external))
-		active = TRUE
-
-	active = internal.temperature_share(external, OPEN_HEAT_TRANSFER_COEFFICIENT) || active
-
-	if(active)
-		air_update_turf()
+	if(internal.equalize(external))
+		air_update_turf(FALSE, FALSE)
 		update_parents()
-
-/obj/machinery/atmospherics/components/unary/passive_vent/can_crawl_through()
-	return TRUE // we don't care about power or being broken
 
 /obj/machinery/atmospherics/components/unary/passive_vent/layer2
 	piping_layer = 2

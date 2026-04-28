@@ -7,10 +7,10 @@
 	return ..()
 
 /datum/buildmode_mode/smite/show_help(client/user)
-	to_chat(user, "<span class='notice'>***********************************************************\n\
+	to_chat(user, span_notice("***********************************************************\n\
 		Right Mouse Button on buildmode button = Select smite to use.\n\
 		Left Mouse Button on mob/living = Smite the mob.\n\
-		***********************************************************</span>")
+		***********************************************************"))
 
 /datum/buildmode_mode/smite/change_settings(client/user)
 	var/punishment = tgui_input_list(user, "Choose a punishment", "DIVINE SMITING", GLOB.smite_list)
@@ -34,7 +34,7 @@
 		return
 
 	if (selected_smite == null)
-		to_chat(user, "<span class='notice'>No smite selected.</span>")
+		to_chat(user, span_notice("No smite selected."))
 		return
 
 	selected_smite.effect(user, object)

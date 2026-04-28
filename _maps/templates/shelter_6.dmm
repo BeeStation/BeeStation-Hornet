@@ -12,40 +12,42 @@
 /area/template_noop)
 "d" = (
 /turf/closed/wall/mineral/titanium/survival,
-/area/survivalpod)
+/area/misc/survivalpod)
 "e" = (
 /obj/item/gps/computer,
-/turf/closed/wall/mineral/titanium/survival,
-/area/survivalpod)
+/turf/open/floor/pod/light,
+/area/misc/survivalpod)
 "g" = (
-/obj/machinery/smartfridge/survival_pod,
-/turf/closed/wall/mineral/titanium/survival,
-/area/survivalpod)
+/obj/machinery/stasis/survival_pod,
+/turf/open/floor/pod/light,
+/area/misc/survivalpod)
 "h" = (
+/obj/machinery/smartfridge/survival_pod/preloaded,
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "i" = (
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "j" = (
 /obj/machinery/door/airlock/survival_pod/glass,
 /obj/structure/fans/tiny,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "k" = (
 /obj/structure/table/survival_pod,
 /obj/item/storage/firstaid,
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "l" = (
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/fans,
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "m" = (
 /obj/machinery/power/solar,
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/template_noop)
 "n" = (
 /obj/structure/bed/pod,
@@ -53,11 +55,11 @@
 	dir = 4
 	},
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "D" = (
 /obj/structure/sign/mining/survival,
 /turf/closed/wall/mineral/titanium/survival,
-/area/survivalpod)
+/area/misc/survivalpod)
 
 (1,1,1) = {"
 a
@@ -72,8 +74,8 @@ a
 "}
 (2,1,1) = {"
 a
-m
-m
+a
+a
 c
 b
 c
@@ -83,10 +85,10 @@ a
 "}
 (3,1,1) = {"
 a
-m
+a
 d
 d
-j
+d
 D
 d
 a
@@ -95,9 +97,9 @@ a
 (4,1,1) = {"
 a
 c
-e
+d
 l
-i
+g
 k
 d
 c
@@ -106,8 +108,8 @@ a
 (5,1,1) = {"
 b
 b
-j
-i
+d
+e
 i
 i
 j
@@ -117,7 +119,7 @@ b
 (6,1,1) = {"
 a
 c
-g
+d
 h
 i
 n
@@ -133,7 +135,7 @@ D
 j
 d
 d
-a
+m
 a
 "}
 (8,1,1) = {"
@@ -143,8 +145,8 @@ a
 c
 b
 c
-a
-a
+m
+m
 a
 "}
 (9,1,1) = {"

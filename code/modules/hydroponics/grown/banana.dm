@@ -6,7 +6,7 @@
 	species = "banana"
 	plantname = "Banana Tree"
 	product = /obj/item/food/grown/banana
-	lifespan = 50
+	lifespan = 200
 	endurance = 30
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_dead = "banana-dead"
@@ -19,11 +19,11 @@
 	name = "banana"
 	desc = "It's an excellent prop for a clown."
 	icon_state = "banana"
-	item_state = "banana"
+	inhand_icon_state = "banana"
 	trash_type = /obj/item/grown/bananapeel
 	bite_consumption_mod = 3
 	foodtypes = FRUIT
-	juice_results = list(/datum/reagent/consumable/banana = 0)
+	juice_typepath = /datum/reagent/consumable/banana
 	distill_reagent = /datum/reagent/consumable/ethanol/bananahonk
 	dying_key = DYE_REGISTRY_BANANA
 
@@ -33,11 +33,11 @@
 	var/obj/item/grown/bananapeel/peel = .
 	if(istype(peel))
 		peel.grind_results = list(/datum/reagent/medicine/coagulant/banana_peel = seed.potency * 0.2)
-		peel.juice_results = list(/datum/reagent/medicine/coagulant/banana_peel = seed.potency * 0.2)
+		peel.juice_typepath = /datum/reagent/medicine/coagulant/banana_peel
 */
 
-/obj/item/food/grown/banana/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is aiming [src] at [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+/obj/item/food/grown/banana/suicide_act(mob/living/user)
+	user.visible_message(span_suicide("[user] is aiming [src] at [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)
 	sleep(25)
 	if(!user)
@@ -57,7 +57,7 @@
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
 	icon_state = "banana_peel"
-	item_state = "banana_peel"
+	inhand_icon_state = "banana_peel"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0
 	throw_speed = 3
@@ -65,7 +65,7 @@
 	dying_key = DYE_REGISTRY_PEEL
 
 /obj/item/grown/bananapeel/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is deliberately slipping on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is deliberately slipping on [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
 	return BRUTELOSS
 
@@ -97,7 +97,7 @@
 	name = "mimana peel"
 	desc = "A mimana peel."
 	icon_state = "mimana_peel"
-	item_state = "mimana_peel"
+	inhand_icon_state = "mimana_peel"
 
 // Bluespace Banana
 /obj/item/seeds/banana/bluespace
@@ -117,7 +117,7 @@
 	seed = /obj/item/seeds/banana/bluespace
 	name = "bluespace banana"
 	icon_state = "banana_blue"
-	item_state = "bluespace_peel"
+	inhand_icon_state = "bluespace_peel"
 	trash_type = /obj/item/grown/bananapeel/bluespace
 	tastes = list("banana" = 1)
 	wine_power = 60
@@ -135,6 +135,6 @@
 	name = "synthesized banana peel"
 	desc = "A synthetic banana peel."
 
-/obj/item/grown/bananapeel/specialpeel/ComponentInitialize()
+/obj/item/grown/bananapeel/specialpeel/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/slippery, 40)

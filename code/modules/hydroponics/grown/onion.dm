@@ -5,7 +5,7 @@
 	species = "onion"
 	plantname = "Onion Sprouts"
 	product = /obj/item/food/grown/onion
-	lifespan = 20
+	lifespan = 80
 	maturation = 3
 	production = 4
 	yield = 6
@@ -25,7 +25,7 @@
 	wine_power = 30
 
 /obj/item/food/grown/onion/make_processable()
-	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/onion_slice, 2, 15)
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/onion_slice, 2, 15, screentip_verb = "Cut")
 
 /obj/item/seeds/onion/red
 	name = "pack of red onion seeds"
@@ -45,8 +45,8 @@
 	wine_power = 60
 	discovery_points = 300
 
-/obj/item/food/grown/onion/make_processable()
-	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/onion_slice/red, 2, 15)
+/obj/item/food/grown/onion/red/make_processable()
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/onion_slice/red, 2, 15, screentip_verb = "Cut")
 
 /obj/item/food/grown/onion/UsedforProcessing(mob/living/user, obj/item/I, list/chosen_option)
 	var/datum/effect_system/smoke_spread/chem/S = new	//Since the onion is destroyed when it's sliced,
@@ -68,6 +68,9 @@
 	gender = PLURAL
 	w_class = WEIGHT_CLASS_TINY
 	microwaved_type = /obj/item/food/onionrings
+
+/obj/item/food/onion_slice/make_bakeable()
+	AddComponent(/datum/component/bakeable, /obj/item/food/onionrings, rand(15 SECONDS, 20 SECONDS), TRUE, TRUE)
 
 /*
 /obj/item/food/onion_slice/make_microwaveable()

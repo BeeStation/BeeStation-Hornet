@@ -47,11 +47,11 @@
 		MA.pixel_y = 12
 		add_overlay(H)
 
-/obj/structure/headpike/attack_hand(mob/user)
+/obj/structure/headpike/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
-	to_chat(user, "<span class='notice'>You take down [src].</span>")
+	to_chat(user, span_notice("You take down [src]."))
 	if(victim)
 		victim.forceMove(drop_location())
 		victim = null

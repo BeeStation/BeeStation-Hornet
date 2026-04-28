@@ -14,16 +14,21 @@
 //Mapping preset - Primary Elevator
 /obj/structure/elevator_segment/primary
 	id = "primary"
-	base_turf = /turf/open/floor/iron/elevatorshaft
+	base_turf = /turf/open/floor/plating/elevatorshaft
 
 // Glowstation
 /obj/structure/elevator_segment/secure
 	id = "secure"
-	base_turf = /turf/open/floor/iron/elevatorshaft
+	base_turf = /turf/open/floor/plating/elevatorshaft
 
 /obj/structure/elevator_segment/Initialize(mapload)
 	music_files = list('sound/effects/turbolift/elevatormusic.ogg' = 45, 'sound/effects/turbolift/elevator_loop.ogg' = 25)
-	move_blacklist = typecacheof(list(/atom/movable/lighting_object, /obj/structure/cable, /obj/structure/disposalpipe, /obj/machinery/atmospherics/pipe))
+	move_blacklist = typecacheof(list(
+		/atom/movable/lighting_object,
+		/obj/structure/cable,
+		/obj/structure/disposalpipe,
+		/obj/machinery/atmospherics/pipe,
+	))
 
 	var/turf/T = get_turf(src)
 	//Technical vanity

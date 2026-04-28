@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM beestation/byond:514.1589 as base
+FROM beestation/byond:515.1642 as base
 
 # Install the tools needed to compile our rust dependencies
 FROM base as rust-build
@@ -27,15 +27,6 @@ RUN git init \
     && git checkout FETCH_HEAD \
     && cargo build --release --all-features --target i686-unknown-linux-gnu
 
-# Build auxmos
-FROM rust-build as auxmos
-RUN git init \
-    && git remote add origin https://github.com/BeeStation/auxmos \
-    && /bin/bash -c "source dependencies.sh \
-    && git fetch --depth 1 origin \$AUXMOS_VERSION" \
-    && git checkout FETCH_HEAD \
-    && cargo rustc --target=i686-unknown-linux-gnu --release --features=trit_fire_hook,plasma_fire_hook,generic_fire_hook
-
 # Install nodejs which is required to deploy BeeStation
 FROM base as node
 COPY dependencies.sh .
@@ -51,7 +42,6 @@ ENV TG_BOOTSTRAP_NODE_LINUX=1
 WORKDIR /dm-build
 COPY . .
 # Required to satisfy our compile_options
-COPY --from=auxmos /build/target/i686-unknown-linux-gnu/release/libauxmos.so /dm-build/auxtools/libauxmos.so
 RUN tools/build/build \
     && tools/deploy.sh /deploy \
     && apt-get autoremove curl -y \

@@ -1,21 +1,23 @@
 /obj/item/computer_hardware/printer
 	name = "printer"
 	desc = "Computer-integrated printer with paper recycling module."
-	power_usage = 100
+	power_usage = 50 // Watts per second
 	icon_state = "printer"
 	w_class = WEIGHT_CLASS_NORMAL
 	device_type = MC_PRINT
 	expansion_hw = TRUE
 	var/stored_paper = 20
 	var/max_paper = 30
+	can_hack = FALSE
+	custom_price = PAYCHECK_MEDIUM * 2
 
-/obj/item/computer_hardware/printer/diagnostics(mob/living/user)
-	..()
-	to_chat(user, "Paper level: [stored_paper]/[max_paper].")
+/obj/item/computer_hardware/printer/diagnostics()
+	. = ..()
+	. += "Paper level: [stored_paper]/[max_paper]."
 
 /obj/item/computer_hardware/printer/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Paper level: [stored_paper]/[max_paper].</span>"
+	. += span_notice("Paper level: [stored_paper]/[max_paper].")
 
 
 /obj/item/computer_hardware/printer/proc/can_print()
@@ -70,22 +72,62 @@
 /obj/item/computer_hardware/printer/try_insert(obj/item/I, mob/living/user = null)
 	if(istype(I, /obj/item/paper))
 		if(stored_paper >= max_paper)
-			to_chat(user, "<span class='warning'>You try to add \the [I] into [src], but its paper bin is full!</span>")
+			to_chat(user, span_warning("You try to add \the [I] into [src], but its paper bin is full!"))
+			balloon_alert(user, "printer bin is full!")
+			return FALSE
+		if(user && !user.temporarilyRemoveItemFromInventory(I))
+			balloon_alert(user, "can't insert!")
 			return FALSE
 
-		if(user && !user.temporarilyRemoveItemFromInventory(I))
-			return FALSE
-		to_chat(user, "<span class='notice'>You insert \the [I] into [src]'s paper recycler.</span>")
+		playsound(src, 'sound/machines/paper_insert.ogg', 40, vary = TRUE)
+		to_chat(user, span_notice("You insert \the [I] into [src]'s paper recycler."))
+		balloon_alert(user, "inserted paper!")
 		qdel(I)
 		stored_paper++
 		return TRUE
+
+	if(istype(I, /obj/item/paper_bin))
+		var/obj/item/paper_bin/bin = I
+		if(!length(bin.papers))
+			balloon_alert(user, "empty bin!")
+			return FALSE
+
+		if(stored_paper >= max_paper)
+			balloon_alert(user, "printer bin is full!")
+			return FALSE
+
+		/// Number of sheets we're adding
+		var/num_to_add = 0
+		for(var/obj/item/paper/the_paper as anything in bin.papers) // Search for the first blank sheet of paper, then toss it in
+			if(stored_paper >= max_paper)
+				break
+			if(the_paper.get_total_length()) // Uh oh, paper has words!
+				continue
+			num_to_add++
+			stored_paper++
+			bin.papers.Remove(the_paper)
+			qdel(the_paper)
+
+		bin.update_appearance()
+
+		if(!num_to_add)
+			balloon_alert(user, "everything is written on!")
+			return FALSE
+
+		playsound(src, 'sound/machines/paper_insert.ogg', 40, vary = TRUE)
+		to_chat(user, span_notice("Added in [num_to_add] new sheets. You now have [stored_paper] / [max_paper] printing paper stored."))
+		balloon_alert(user, "added in [num_to_add] new sheets!")
+		bin.update_appearance()
+		return TRUE
+
 	return FALSE
 
 /obj/item/computer_hardware/printer/mini
 	name = "miniprinter"
 	desc = "A small printer with paper recycling module."
-	power_usage = 50
+	power_usage = 2
 	icon_state = "printer_mini"
 	w_class = WEIGHT_CLASS_TINY
 	stored_paper = 5
 	max_paper = 15
+	custom_price = PAYCHECK_MEDIUM

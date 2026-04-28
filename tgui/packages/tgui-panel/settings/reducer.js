@@ -4,9 +4,18 @@
  * @license MIT
  */
 
-import { changeSettingsTab, loadSettings, openChatSettings, toggleSettings, updateSettings, addHighlightSetting, removeHighlightSetting, updateHighlightSetting } from './actions';
+import {
+  addHighlightSetting,
+  changeSettingsTab,
+  loadSettings,
+  openChatSettings,
+  removeHighlightSetting,
+  toggleSettings,
+  updateHighlightSetting,
+  updateSettings,
+} from './actions';
+import { FONTS, MAX_HIGHLIGHT_SETTINGS, SETTINGS_TABS } from './constants';
 import { createDefaultHighlightSetting } from './model';
-import { SETTINGS_TABS, FONTS, MAX_HIGHLIGHT_SETTINGS } from './constants';
 
 const defaultHighlightSetting = createDefaultHighlightSetting();
 
@@ -15,7 +24,7 @@ const initialState = {
   fontSize: 13,
   fontFamily: FONTS[0],
   lineHeight: 1.2,
-  theme: 'light',
+  theme: 'blue',
   statSize: 40,
   adminMusicVolume: 0.5,
   highContrast: false,
@@ -55,16 +64,28 @@ export const settingsReducer = (state = initialState, action) => {
     // Lazy init the list for compatibility reasons
     if (!nextState.highlightSettings) {
       nextState.highlightSettings = [defaultHighlightSetting.id];
-      nextState.highlightSettingById[defaultHighlightSetting.id] = defaultHighlightSetting;
+      nextState.highlightSettingById[defaultHighlightSetting.id] =
+        defaultHighlightSetting;
     }
     // Compensating for mishandling of default highlight settings
     else if (!nextState.highlightSettingById[defaultHighlightSetting.id]) {
-      nextState.highlightSettings = [defaultHighlightSetting.id, ...nextState.highlightSettings];
-      nextState.highlightSettingById[defaultHighlightSetting.id] = defaultHighlightSetting;
+      nextState.highlightSettings = [
+        defaultHighlightSetting.id,
+        ...nextState.highlightSettings,
+      ];
+      nextState.highlightSettingById[defaultHighlightSetting.id] =
+        defaultHighlightSetting;
     }
+    // Migrate old highlights to include enabled: true
+    Object.keys(nextState.highlightSettingById).forEach((key) => {
+      if (nextState.highlightSettingById[key].enabled === undefined) {
+        nextState.highlightSettingById[key].enabled = true;
+      }
+    });
     // Update the highlight settings for default highlight
     // settings compatibility
-    const highlightSetting = nextState.highlightSettingById[defaultHighlightSetting.id];
+    const highlightSetting =
+      nextState.highlightSettingById[defaultHighlightSetting.id];
     highlightSetting.highlightColor = nextState.highlightColor;
     highlightSetting.highlightText = nextState.highlightText;
     return nextState;
@@ -122,13 +143,17 @@ export const settingsReducer = (state = initialState, action) => {
       },
     };
     if (id === defaultHighlightSetting.id) {
-      nextState.highlightSettings[defaultHighlightSetting.id] = defaultHighlightSetting;
+      nextState.highlightSettings[defaultHighlightSetting.id] =
+        defaultHighlightSetting;
     } else {
       delete nextState.highlightSettingById[id];
-      nextState.highlightSettings = nextState.highlightSettings.filter((sid) => sid !== id);
+      nextState.highlightSettings = nextState.highlightSettings.filter(
+        (sid) => sid !== id,
+      );
       if (!nextState.highlightSettings.length) {
         nextState.highlightSettings.push(defaultHighlightSetting.id);
-        nextState.highlightSettingById[defaultHighlightSetting.id] = defaultHighlightSetting;
+        nextState.highlightSettingById[defaultHighlightSetting.id] =
+          defaultHighlightSetting;
       }
     }
     return nextState;

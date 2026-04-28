@@ -2,7 +2,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	name = "tank transfer valve"
 	icon_state = "valve_1"
-	item_state = "ttv"
+	inhand_icon_state = "ttv"
 	lefthand_file = 'icons/mob/inhands/weapons/bombs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/bombs_righthand.dmi'
 	desc = "Regulates the transfer of air between two tanks."
@@ -26,19 +26,19 @@
 /obj/item/transfer_valve/attackby(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/tank))
 		if(tank_one && tank_two)
-			to_chat(user, "<span class='warning'>There are already two tanks attached, remove one first!</span>")
+			to_chat(user, span_warning("There are already two tanks attached, remove one first!"))
 			return
 
 		if(!tank_one)
 			if(!user.transferItemToLoc(item, src))
 				return
 			tank_one = item
-			to_chat(user, "<span class='notice'>You attach the tank to the transfer valve.</span>")
+			to_chat(user, span_notice("You attach the tank to the transfer valve."))
 		else if(!tank_two)
 			if(!user.transferItemToLoc(item, src))
 				return
 			tank_two = item
-			to_chat(user, "<span class='notice'>You attach the tank to the transfer valve.</span>")
+			to_chat(user, span_notice("You attach the tank to the transfer valve."))
 
 		if(tank_one && tank_two)
 			message_admins("[ADMIN_LOOKUPFLW(user)] has added two tanks to \the [src] at [ADMIN_VERBOSEJMP(src)]!")
@@ -49,17 +49,17 @@
 	else if(isassembly(item))
 		var/obj/item/assembly/A = item
 		if(A.secured)
-			to_chat(user, "<span class='notice'>The device is secured.</span>")
+			to_chat(user, span_notice("The device is secured."))
 			return
 		if(attached_device)
-			to_chat(user, "<span class='warning'>There is already a device attached to the valve, remove it first!</span>")
+			to_chat(user, span_warning("There is already a device attached to the valve, remove it first!"))
 			return
 		if(!user.transferItemToLoc(item, src))
 			return
 		attached_device = A
-		to_chat(user, "<span class='notice'>You attach the [item] to the valve controls and secure it.</span>")
-		A.on_attach()
+		to_chat(user, span_notice("You attach the [item] to the valve controls and secure it."))
 		A.holder = src
+		A.on_attach()
 		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
 		log_bomber(user, "attached a [item.name] to a ttv -", src, null, FALSE)
 		attacher = user
@@ -126,64 +126,77 @@
 			if(sensor.on && sensor.visible)
 				add_overlay("proxy_beam")
 
-/obj/item/transfer_valve/proc/merge_gases(datum/gas_mixture/target, change_volume = TRUE)
-	var/target_self = FALSE
-	if(!target || (target == tank_one.air_contents))
-		target = tank_two.air_contents
-	if(target == tank_two.air_contents)
-		target_self = TRUE
+/// Merge both gases into a single tank. Combine the volume by default. If target tank isn't specified default to tank_two
+/obj/item/transfer_valve/proc/merge_gases(obj/item/tank/target, change_volume = TRUE)
+	if(!target)
+		target = tank_two
+
+	if(!istype(target) || (target != tank_one && target != tank_two))
+		return FALSE
+
+	// Throw both tanks into processing queue
+	var/datum/gas_mixture/target_mix = target.return_air()
+	var/datum/gas_mixture/other_mix
+	other_mix = (target == tank_one ? tank_two : tank_one).return_air()
+
 	if(change_volume)
-		if(!target_self)
-			target.set_volume(target.return_volume() + tank_two.air_contents.return_volume())
-		target.set_volume(target.return_volume() + tank_one.air_contents.return_volume())
-	tank_one.air_contents.transfer_ratio_to(target, 1)
-	if(!target_self)
-		tank_two.air_contents.transfer_ratio_to(target, 1)
+		target_mix.volume += other_mix.volume
+
+	target_mix.merge(other_mix.remove_ratio(1))
+	return TRUE
 
 /obj/item/transfer_valve/proc/split_gases()
 	if (!valve_open || !tank_one || !tank_two)
 		return
-	var/ratio1 = tank_one.air_contents.return_volume()/tank_two.air_contents.return_volume()
-	tank_two.air_contents.transfer_ratio_to(tank_one.air_contents, ratio1)
-	tank_two.air_contents.set_volume(tank_two.air_contents.return_volume() - tank_one.air_contents.return_volume())
+	var/datum/gas_mixture/mix_one = tank_one.return_air()
+	var/datum/gas_mixture/mix_two = tank_two.return_air()
+
+	var/volume_ratio = mix_one.volume/mix_two.volume
+	var/datum/gas_mixture/temp
+	temp = mix_two.remove_ratio(volume_ratio)
+	mix_one.merge(temp)
+	mix_two.volume -= mix_one.volume
 
 	/*
 	Exadv1: I know this isn't how it's going to work, but this was just to check
 	it explodes properly when it gets a signal (and it does).
 	*/
 
-/obj/item/transfer_valve/proc/toggle_valve(manual = FALSE)
+/obj/item/transfer_valve/proc/toggle_valve(obj/item/tank/target, change_volume = TRUE)
 	if(!valve_open && tank_one && tank_two)
-		valve_open = TRUE
 		var/turf/bombturf = get_turf(src)
 
 		var/attachment
 		if(attached_device)
 			var/obj/item/assembly/signaler/attached = attached_device
 			if(istype(attached))
-				attachment = "<A HREF='?_src_=holder;[HrefToken()];secrets=list_signalers'>[attached]</A> (frequency: [format_frequency(attached.frequency)]/[attached.code])"
+				attachment = "<A HREF='BYOND://?_src_=holder;[HrefToken()];secrets=list_signalers'>[attached]</A> (frequency: [format_frequency(attached.frequency)]/[attached.code])"
 			else
 				attachment = attached_device
 
 		var/admin_attachment_message
 		var/attachment_message
-		if(attachment && !manual)
-			admin_attachment_message = " with [attachment] attached by [attacher ? ADMIN_LOOKUPFLW(attacher) : "Unknown CKEY"]"
-			attachment_message = " with [attachment] attached by [attacher ? key_name_admin(attacher) : "Unknown CKEY"]"
+		if(attachment)
+			admin_attachment_message = "The bomb had [attachment], which was attached by [attacher ? ADMIN_LOOKUPFLW(attacher) : "Unknown"]"
+			attachment_message = " with [attachment] attached by [attacher ? key_name_admin(attacher) : "Unknown"]"
 
 		var/mob/bomber = get_mob_by_ckey(fingerprintslast)
 		var/admin_bomber_message
 		var/bomber_message
 		if(bomber)
-			admin_bomber_message = " - Last touched by: [ADMIN_LOOKUPFLW(bomber)]"
+			admin_bomber_message = "The bomb's most recent set of fingerprints indicate it was last touched by [ADMIN_LOOKUPFLW(bomber)]"
 			bomber_message = " - Last touched by: [key_name_admin(bomber)]"
+			bomber.log_message("opened bomb valve", LOG_GAME, log_globally = FALSE)
 
-		var/admin_bomb_message = "Bomb valve opened [manual ? "manually" : ""] in [ADMIN_VERBOSEJMP(bombturf)][admin_attachment_message][admin_bomber_message]"
+		var/admin_bomb_message = "Bomb valve opened in [ADMIN_VERBOSEJMP(bombturf)]<br>[admin_attachment_message]<br>[admin_bomber_message]<br>"
 		GLOB.bombers += admin_bomb_message
 		message_admins(admin_bomb_message)
-		log_game("Bomb valve opened [manual ? "manually " : ""]in [AREACOORD(bombturf)][attachment_message][bomber_message]")
+		log_game("Bomb valve opened in [AREACOORD(bombturf)][attachment_message][bomber_message]")
 
-		merge_gases()
+		valve_open = merge_gases(target, change_volume)
+
+		if(!valve_open)
+			stack_trace("TTV gas merging failed.")
 		for(var/i in 1 to 6)
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 20 + (i - 1) * 10)
 
@@ -235,7 +248,7 @@
 				tank_two = null
 				. = TRUE
 		if("toggle")
-			toggle_valve(TRUE)
+			toggle_valve()
 			. = TRUE
 		if("device")
 			if(attached_device)
@@ -249,3 +262,9 @@
 
 	ui_update()
 	update_icon()
+
+/**
+ * Returns if this is ready to be detonated. Checks if both tanks are in place.
+ */
+/obj/item/transfer_valve/proc/ready()
+	return tank_one && tank_two

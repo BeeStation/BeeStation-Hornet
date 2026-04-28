@@ -111,7 +111,9 @@
 	return antag_bans
 
 /datum/preference_middleware/antags/proc/get_antag_living_playtime_hours_left()
-	if(!preferences.parent)
+	if(!preferences.parent || preferences.parent.holder)
+		return list()
+	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights_for(preferences.parent, R_ADMIN))
 		return list()
 	var/list/antag_living_playtime_hours_left = list()
 
@@ -133,7 +135,6 @@
 /datum/asset/spritesheet/antagonists
 	name = "antagonists"
 	early = TRUE
-	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/antagonists/create_spritesheets()
 	var/list/generated_icons = list()
@@ -171,4 +172,4 @@
 /// Serializes an antag name to be used for preferences UI
 /proc/serialize_antag_name(antag_name)
 	// These are sent through CSS, so they need to be safe to use as class names.
-	return lowertext(sanitize_css_class_name(replacetext(antag_name, "/", "_")))
+	return LOWER_TEXT(sanitize_css_class_name(replacetext(antag_name, "/", "_")))

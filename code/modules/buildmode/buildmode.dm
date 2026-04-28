@@ -140,7 +140,7 @@
 	dirbutton.update_icon()
 	return 1
 
-/datum/buildmode/proc/InterceptClickOn(mob/user, params, atom/object)
+/datum/buildmode/InterceptClickOn(mob/user, params, atom/object)
 	mode.handle_click(user.client, params, object)
 	return TRUE // no doing underlying actions
 

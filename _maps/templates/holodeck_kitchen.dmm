@@ -8,11 +8,6 @@
 "b" = (
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"c" = (
-/obj/structure/table/reinforced,
-/obj/item/trash/plate,
-/turf/open/floor/holofloor/white,
-/area/template_noop)
 "d" = (
 /obj/machinery/door/window{
 	dir = 1
@@ -25,17 +20,15 @@
 /area/template_noop)
 "f" = (
 /obj/structure/table/reinforced,
-/obj/structure/window{
-	dir = 1
-	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/structure/window/spawner/directional/north,
+/obj/item/reagent_containers/condiment/saltshaker{
 	list_reagents = list()
 	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "g" = (
 /obj/structure/table/reinforced,
-/obj/structure/window,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "h" = (
@@ -49,9 +42,7 @@
 /area/template_noop)
 "i" = (
 /obj/structure/table/reinforced,
-/obj/structure/window{
-	dir = 1
-	},
+/obj/structure/window/spawner/directional/north,
 /obj/machinery/microwave,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
@@ -59,14 +50,6 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
-"k" = (
-/obj/structure/table/wood,
-/obj/item/trash/plate,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -82,7 +65,7 @@
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "n" = (
-/obj/structure/window,
+/obj/structure/window/spawner/directional/south,
 /obj/structure/closet/crate/freezer,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
@@ -93,11 +76,24 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
-"p" = (
-/obj/structure/window,
+"B" = (
+/obj/structure/table/wood,
+/obj/item/plate,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"K" = (
+/obj/structure/table/reinforced,
+/obj/item/plate,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"M" = (
+/obj/structure/window/spawner/directional/south,
 /obj/structure/rack,
-/obj/item/clothing/head/chefhat,
-/obj/item/clothing/head/chefhat,
+/obj/item/clothing/head/utility/chefhat,
+/obj/item/clothing/head/utility/chefhat,
 /obj/item/clothing/suit/apron/chef,
 /obj/item/clothing/suit/apron/chef,
 /obj/item/storage/bag/tray,
@@ -129,16 +125,16 @@ a
 h
 "}
 (3,1,1) = {"
-k
+B
 a
 f
-c
-c
-c
-c
+K
+K
+K
+K
 g
 a
-k
+B
 "}
 (4,1,1) = {"
 j
@@ -172,21 +168,21 @@ b
 b
 b
 b
-p
+M
 a
 h
 "}
 (7,1,1) = {"
-k
+B
 a
 f
-c
-c
-c
-c
+K
+K
+K
+K
 g
 a
-k
+B
 "}
 (8,1,1) = {"
 j

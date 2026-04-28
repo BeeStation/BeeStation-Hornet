@@ -3,7 +3,7 @@
 	desc = "A sterile automatic implant injector."
 	icon = 'icons/obj/syringe.dmi'
 	icon_state = "implanter0"
-	item_state = "syringe_0"
+	inhand_icon_state = "syringe_0"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throw_speed = 3
@@ -20,29 +20,28 @@
 /obj/item/implanter/attack(mob/living/M, mob/user)
 	if(!istype(M))
 		return
-
 	if(user && imp)
 		if(M != user)
-			M.visible_message("<span class='warning'>[user] is attempting to implant [M].</span>", \
-				"<span class='userdanger'>[user] is trying to implant you with [src]!</span>")
+			M.visible_message(span_warning("[user] is attempting to implant [M]."), \
+				span_userdanger("[user] is trying to implant you with [src]!"))
 
 		var/turf/T = get_turf(M)
 		if(T && (M == user || do_after(user, 5 SECONDS, M)))
 			if(src && imp)
 				if(imp.implant(M, user))
 					if (M == user)
-						to_chat(user, "<span class='notice'>You implant yourself.</span>")
+						to_chat(user, span_notice("You implant yourself."))
 					else
-						M.visible_message("[user] has implanted [M].", "<span class='notice'>[user] implants you.</span>")
+						M.visible_message("[user] has implanted [M].", span_notice("[user] implants you."))
 					imp = null
 					update_icon()
 				else
-					to_chat(user, "<span class='warning'>[src] fails to implant [M].</span>")
+					to_chat(user, span_warning("[src] fails to implant [M]."))
 
 /obj/item/implanter/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
 		if(!user.is_literate())
-			to_chat(user, "<span class='notice'>You prod at [src] with [W]!</span>")
+			to_chat(user, span_notice("You prod at [src] with [W]!"))
 			return
 		var/t = stripped_input(user, "What would you like the label to be?", name, null)
 		if(user.get_active_held_item() != W)

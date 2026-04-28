@@ -30,7 +30,7 @@ Bonus
 	bodies = list("Heart")
 	var/heartattack = FALSE
 	threshold_desc = "<b>Transmission 10:</b> When the victim has a heart attack, their heart will pop right out of their chest, and attack!.<br>\
-					  <b>Stealth 2:</b> The disease is somewhat less noticeable to the host."
+						<b>Stealth 2:</b> The disease is somewhat less noticeable to the host."
 
 /datum/symptom/heartattack/severityset(datum/disease/advance/A)
 	. = ..()
@@ -53,23 +53,23 @@ Bonus
 		return
 	if(suppress_warning && M.can_heartattack())
 		if(prob(2))
-			to_chat(M, "<span class='warning'>[pick("Your chest aches.", "You need to sit down.", "You feel out of breath.")]</span>")
+			to_chat(M, span_warning("[pick("Your chest aches.", "You need to sit down.", "You feel out of breath.")]"))
 	else if(prob(2) && M.can_heartattack())
-		to_chat(M, "<span class='userdanger'>[pick("Your chest hurts!.", "You feel like your heart skipped a beat!")]</span>")
+		to_chat(M, span_userdanger("[pick("Your chest hurts!.", "You feel like your heart skipped a beat!")]"))
 	if(A.stage == 5)
-		if(M.getorgan(/obj/item/organ/heart) && M.can_heartattack())
+		if(M.get_organ_by_type(/obj/item/organ/heart) && M.can_heartattack())
 			if(prob(1) && prob(50))
 				M.set_heartattack(TRUE)
-				to_chat(M, "<span class='userdanger'>Your heart stops!</span>")
+				to_chat(M, span_userdanger("Your heart stops!"))
 				if(heartattack)
 					heartattack(M, A)
 
 /datum/symptom/heartattack/proc/heartattack(mob/living/M, datum/disease/advance/A)
-	var/obj/item/organ/heart/heart = M.getorganslot(ORGAN_SLOT_HEART)
-	if(M.getorgan(/obj/item/organ/heart))
+	var/obj/item/organ/heart/heart = M.get_organ_slot(ORGAN_SLOT_HEART)
+	if(M.get_organ_by_type(/obj/item/organ/heart))
 		heart.Remove(M)
 		qdel(heart)
-		to_chat(M, "<span class='userdanger'>Your heart bursts out of your chest! It looks furious!</span>")
+		to_chat(M, span_userdanger("Your heart bursts out of your chest! It looks furious!"))
 		new /mob/living/simple_animal/hostile/heart(M.loc)
 
 

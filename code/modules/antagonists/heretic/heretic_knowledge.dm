@@ -9,6 +9,7 @@
  *
  */
 /datum/heretic_knowledge
+	abstract_type = /datum/heretic_knowledge
 	/// Name of the knowledge, shown to the heretic.
 	var/name = "Basic knowledge"
 	/// Description of the knowledge, shown to the heretic. Describes what it unlocks / does.
@@ -37,14 +38,15 @@
  * This is only ever called once per heretic.
  *
  * Arguments
- * * user - the heretic who researched something
+ * * user - The heretic who researched something
+ * * our_heretic - The antag datum of who researched us. This should never be null.
  */
-/datum/heretic_knowledge/proc/on_research(mob/user)
+/datum/heretic_knowledge/proc/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(gain_text)
-		to_chat(user, "<span class='warning'>[gain_text]</span>")
-	on_gain(user)
+		to_chat(user, span_warning("[gain_text]"))
+	on_gain(user, our_heretic)
 
 /**
  * Called when the knowledge is applied to a mob.
@@ -54,8 +56,8 @@
  * Arguments
  * * user - the heretic which we're applying things to
  */
-/datum/heretic_knowledge/proc/on_gain(mob/user)
-
+/datum/heretic_knowledge/proc/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
+	return
 /**
  * Called when the knowledge is removed from a mob,
  * either due to a heretic being de-heretic'd or bodyswap memery.
@@ -63,8 +65,8 @@
  * Arguments
  * * user - the heretic which we're removing things from
  */
-/datum/heretic_knowledge/proc/on_lose(mob/user)
-
+/datum/heretic_knowledge/proc/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
+	return
 /**
  * Determines if a heretic can actually attempt to invoke the knowledge as a ritual.
  * By default, we can only invoke knowledge with rituals associated.
@@ -154,23 +156,27 @@
  * A knowledge subtype that grants the heretic a certain spell.
  */
 /datum/heretic_knowledge/spell
-	/// The proc holder spell we add to the heretic. Type-path, becomes an instance via on_research().
-	var/obj/effect/proc_holder/spell/spell_to_add
+	abstract_type = /datum/heretic_knowledge/spell
+	/// Spell path we add to the heretic. Type-path.
+	var/datum/action/spell/spell_to_add
+	/// The spell we actually created.
+	var/datum/weakref/created_spell_ref
 
-/datum/heretic_knowledge/spell/Destroy(force, ...)
-	if(istype(spell_to_add))
-		QDEL_NULL(spell_to_add)
+/datum/heretic_knowledge/spell/Destroy()
+	QDEL_NULL(created_spell_ref)
 	return ..()
 
-/datum/heretic_knowledge/spell/on_research(mob/user)
-	spell_to_add = new spell_to_add()
-	return ..()
+/datum/heretic_knowledge/spell/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
+	// Added spells are tracked on the body, and not the mind,
+	// because we handle heretic mind transfers
+	// via the antag datum (on_gain and on_lose).
+	var/datum/action/spell/created_spell = created_spell_ref?.resolve() || new spell_to_add(user)
+	created_spell.Grant(user)
+	created_spell_ref = WEAKREF(created_spell)
 
-/datum/heretic_knowledge/spell/on_gain(mob/user)
-	user.mind.AddSpell(spell_to_add)
-
-/datum/heretic_knowledge/spell/on_lose(mob/user)
-	user.mind.RemoveSpell(spell_to_add)
+/datum/heretic_knowledge/spell/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
+	var/datum/action/spell/created_spell = created_spell_ref?.resolve()
+	created_spell?.Remove(user)
 
 /*
  * A knowledge subtype for knowledge that can only
@@ -178,6 +184,7 @@
  * created at once.
  */
 /datum/heretic_knowledge/limited_amount
+	abstract_type = /datum/heretic_knowledge/limited_amount
 	/// The limit to how many items we can create at once.
 	var/limit = 1
 	/// A list of weakrefs to all items we've created.
@@ -225,6 +232,7 @@
  * A knowledge subtype lets the heretic curse someone with a ritual.
  */
 /datum/heretic_knowledge/curse
+	abstract_type = /datum/heretic_knowledge/curse
 	/// The duration of the curse
 	var/duration = 5 MINUTES
 	/// Cache list of fingerprints (actual fingerprint strings) we have from our current ritual
@@ -233,7 +241,7 @@
 /datum/heretic_knowledge/curse/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	fingerprints = list()
 	for(var/atom/requirements as anything in atoms)
-		fingerprints[requirements.return_fingerprints()] = 1
+		fingerprints[GET_ATOM_FINGERPRINTS(requirements)] = 1
 	list_clear_nulls(fingerprints)
 
 	// No fingerprints? No ritual
@@ -251,7 +259,7 @@
 		if(!istype(carbon_to_check, /mob/living/carbon/human))
 			continue
 		var/mob/living/carbon/human/human_to_check = carbon_to_check
-		if(fingerprints[md5(human_to_check.dna.uni_identity)])
+		if(fingerprints[md5(human_to_check.dna.unique_identity)])
 			compiled_list |= human_to_check.real_name
 			compiled_list[human_to_check.real_name] = human_to_check
 
@@ -288,6 +296,7 @@
  * A knowledge subtype lets the heretic summon a monster with the ritual.
  */
 /datum/heretic_knowledge/summon
+	abstract_type = /datum/heretic_knowledge/summon
 	/// Typepath of a mob to summon when we finish the recipe.
 	var/mob/living/mob_to_summon
 
@@ -301,23 +310,30 @@
 	animate(summoned, 10 SECONDS, alpha = 155)
 
 	message_admins("A [summoned.name] is being summoned by [ADMIN_LOOKUPFLW(user)] in [ADMIN_COORDJMP(summoned)].")
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a [summoned.real_name]?", ROLE_HERETIC, null, 10 SECONDS, summoned)
-	if(!LAZYLEN(candidates))
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_HERETIC,
+		poll_time = 10 SECONDS,
+		jump_target = summoned,
+		role_name_text = summoned.real_name,
+		alert_pic = summoned,
+		amount_to_pick = 1,
+	)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
+	if(!candidate)
 		loc.balloon_alert(user, "Ritual failed, no ghosts")
 		animate(summoned, 0.5 SECONDS, alpha = 0)
 		QDEL_IN(summoned, 0.6 SECONDS)
 		return FALSE
 
-	var/mob/dead/observer/picked_candidate = pick(candidates)
 	// Ok let's make them an interactable mob now, since we got a ghost
 	summoned.alpha = 255
 	summoned.notransform = FALSE
 	summoned.move_resist = initial(summoned.move_resist)
 
 	summoned.ghostize(FALSE)
-	summoned.key = picked_candidate.key
+	summoned.key = candidate.key
 
-	log_game("[key_name(user)] created a [summoned.name], controlled by [key_name(picked_candidate)].")
+	log_game("[key_name(user)] created a [summoned.name], controlled by [key_name(candidate)].")
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a [summoned.name], [ADMIN_LOOKUPFLW(summoned)].")
 
 	var/datum/antagonist/heretic_monster/heretic_monster = summoned.mind.add_antag_datum(/datum/antagonist/heretic_monster)
@@ -385,18 +401,18 @@
 	// 1 uncommon item.
 	required_atoms[pick(potential_uncommoner_items)] += 1
 
-/datum/heretic_knowledge/knowledge_ritual/on_research(mob/user)
+/datum/heretic_knowledge/knowledge_ritual/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 
 	var/list/requirements_string = list()
 
-	to_chat(user, "<span class='hierophant'>The [name] requires the following:</span>")
+	to_chat(user, span_hierophant("The [name] requires the following:"))
 	for(var/obj/item/path as anything in required_atoms)
 		var/amount_needed = required_atoms[path]
-		to_chat(user, "<span class='hypnophrase'>[amount_needed] [initial(path.name)]\s...</span>")
+		to_chat(user, span_hypnophrase("[amount_needed] [initial(path.name)]\s..."))
 		requirements_string += "[amount_needed == 1 ? "":"[amount_needed] "][initial(path.name)]\s"
 
-	to_chat(user, "<span class='hierophant'>Completing it will reward you [KNOWLEDGE_RITUAL_POINTS] knowledge points. You can check the knowledge in your Researched Knowledge to be reminded.</span>")
+	to_chat(user, span_hierophant("Completing it will reward you [KNOWLEDGE_RITUAL_POINTS] knowledge points. You can check the knowledge in your Researched Knowledge to be reminded."))
 
 	desc = "Allows you to transmute [english_list(requirements_string)] for [KNOWLEDGE_RITUAL_POINTS] bonus knowledge points. This can only be completed once."
 
@@ -412,8 +428,8 @@
 	was_completed = TRUE
 
 	var/drain_message = pick(strings(HERETIC_INFLUENCE_FILE, "drain_message"))
-	to_chat(user, "<span class='boldnotice'>[name] completed!</span>")
-	to_chat(user, "<span class='hypnophrase'><span class='big>[drain_message]</span></span>")
+	to_chat(user, span_boldnotice("[name] completed!"))
+	to_chat(user, span_hypnophrase(span_big(drain_message)))
 	desc += " (Completed!)"
 	return TRUE
 
@@ -423,15 +439,19 @@
  * The special final tier of knowledges that unlocks ASCENSION.
  */
 /datum/heretic_knowledge/final
+	abstract_type = /datum/heretic_knowledge/final
 	cost = 2
 	priority = MAX_KNOWLEDGE_PRIORITY + 1 // Yes, the final ritual should be ABOVE the max priority.
 	required_atoms = list(/mob/living/carbon/human = 3)
+	/// The announcement text. %USER% is replaced with the user's real name.
+	var/announcement_text
+	/// The sound to use for the announcement.
+	var/announcement_sound
 
-/datum/heretic_knowledge/final/on_research(mob/user)
+/datum/heretic_knowledge/final/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
-	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	var/total_points = 0
-	for(var/datum/heretic_knowledge/knowledge as anything in flatten_list(heretic_datum.researched_knowledge))
+	for(var/datum/heretic_knowledge/knowledge as anything in flatten_list(our_heretic.researched_knowledge))
 		total_points += knowledge.cost
 
 /datum/heretic_knowledge/final/can_be_invoked(datum/antagonist/heretic/invoker)
@@ -446,6 +466,7 @@
 /datum/heretic_knowledge/final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	if(!can_be_invoked(heretic_datum))
+		to_chat(user, span_warning("You need at least 3 sacrifices to invoke this ritual!"))
 		return FALSE
 
 	// Remove all non-dead humans from the atoms list.
@@ -468,10 +489,19 @@
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	heretic_datum.ascended = TRUE
 
+	// Show the cool red gradiant in our UI
+	heretic_datum.update_static_data(user)
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		human_user.physiology.brute_mod *= 0.5
 		human_user.physiology.burn_mod *= 0.5
+
+	priority_announce(
+		text = "[generate_heretic_text()] [replacetext_char(announcement_text, "%USER%", "[user.real_name]")] [generate_heretic_text()]",
+		title = "[generate_heretic_text()]",
+		sound = announcement_sound,
+	)
 
 	return TRUE
 

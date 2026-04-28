@@ -313,6 +313,7 @@
 
 	if(expanded_x || expanded_y || expanded_z)
 		world.refresh_atmos_grid()
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_EXPANDED_WORLD_BOUNDS, expanded_x, expanded_y)
 
 	#ifdef TESTING
 	if(turfsSkipped)
@@ -832,8 +833,10 @@ GLOBAL_LIST_EMPTY(map_model_default)
 
 		if(!new_z)
 			var/area/old_area = crds.loc
-			old_area.turfs_to_uncontain += crds
-			area_instance.contained_turfs.Add(crds)
+			LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, crds.z, list())
+			LISTASSERTLEN(area_instance.turfs_by_zlevel, crds.z, list())
+			old_area.turfs_to_uncontain_by_zlevel[crds.z] += crds
+			area_instance.turfs_by_zlevel[crds.z] += crds
 		area_instance.contents.Add(crds)
 
 		if(GLOB.use_preloader)
@@ -990,3 +993,9 @@ GLOBAL_LIST_EMPTY(map_model_default)
 	grid_models.Cut()
 	gridSets.Cut()
 	return QDEL_HINT_HARDDEL_NOW
+
+#undef MAP_DMM
+#undef MAP_TGM
+#undef MAP_UNKNOWN
+#undef TRIM_TEXT
+#undef MAPLOADING_CHECK_TICK

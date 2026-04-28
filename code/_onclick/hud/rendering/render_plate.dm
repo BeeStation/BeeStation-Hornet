@@ -80,6 +80,7 @@
 	relay.mouse_opacity = mouse_opacity
 	relay.name = render_target
 	if (mymob)
+		relay.screen_loc = (mymob.client?.byond_version > 515) ? "1,1" : "CENTER"
 		mymob.client.screen += relay
 	if(blend_mode != BLEND_MULTIPLY) //internal beyond snowflake do not touch
 		blend_mode = BLEND_DEFAULT

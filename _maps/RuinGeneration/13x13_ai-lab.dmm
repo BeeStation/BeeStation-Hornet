@@ -29,11 +29,11 @@
 /area/ruin/unpowered)
 "ew" = (
 /obj/structure/table/glass,
-/obj/item/stack/cable_coil/blue{
+/obj/item/stack/cable_coil{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "eH" = (
@@ -56,7 +56,7 @@
 /area/ruin/unpowered)
 "iT" = (
 /obj/structure/table/reinforced,
-/obj/item/paicard{
+/obj/item/pai_card{
 	desc = "A real Nanotrasen success, these personal AIs provide all of the companionship of an AI without any law related red-tape.";
 	name = "Nanotrasen-brand personal AI device exhibit"
 	},
@@ -88,7 +88,7 @@
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "py" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "qg" = (
@@ -163,15 +163,31 @@
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "vv" = (
-/obj/structure/AIcore{
+/obj/structure/ai_core{
 	name = "\broken AI core"
 	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "vX" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/reinforced/plasma,
 /obj/machinery/door/poddoor/shutters/preopen,
 /turf/open/floor/iron/tech/grid,
+/area/ruin/unpowered)
+"wO" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	dir = 1;
+	icon_state = "rightsecure";
+	name = "Primary AI Core Access";
+	atom_integrity = 300;
+	req_access_txt = "16"
+	},
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
+/turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "za" = (
 /obj/item/kirbyplants/photosynthetic{
@@ -183,14 +199,12 @@
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "AP" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = 24
 	},
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "BT" = (
@@ -198,7 +212,7 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "AI Core shutters";
-	name = "AI core shutters"
+	name = "AI Core Shutters"
 	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
@@ -225,7 +239,7 @@
 /area/ruin/unpowered)
 "GZ" = (
 /obj/effect/decal/cleanable/blood/tracks,
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "Ib" = (
@@ -266,23 +280,8 @@
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "KU" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
-/area/ruin/unpowered)
-"Lx" = (
-/obj/effect/decal/cleanable/robot_debris/old,
-/obj/machinery/camera{
-	c_tag = "Telecomms - Server Room - Aft-Port";
-	dir = 9;
-	network = list("ss13","tcomms")
-	},
-/obj/effect/decal/cleanable/blood/tracks,
-/obj/item/ammo_casing/c9mm{
-	dir = 8;
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "MV" = (
 /obj/structure/rack,
@@ -292,7 +291,7 @@
 	pixel_y = 3
 	},
 /obj/item/storage/toolbox/mechanical/old,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "NP" = (
@@ -309,23 +308,22 @@
 /area/ruin/unpowered)
 "Pw" = (
 /obj/structure/table/glass,
-/obj/item/aiModule/core/full/damaged{
+/obj/item/ai_module/core/full/damaged{
 	pixel_x = 5;
 	pixel_y = 5
 	},
 /obj/item/aicard{
 	pixel_x = -10
 	},
-/obj/item/borg/upgrade/transform/borgi,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "Qa" = (
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "Qo" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "RT" = (
@@ -335,25 +333,23 @@
 "SV" = (
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
-"WV" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/door/window{
-	base_state = "rightsecure";
-	dir = 1;
-	icon_state = "rightsecure";
-	name = "Primary AI Core Access";
-	obj_integrity = 300;
-	req_access_txt = "16"
+"TP" = (
+/obj/effect/decal/cleanable/robot_debris/old,
+/obj/machinery/camera{
+	c_tag = "Telecomms - Server Room - Aft-Port";
+	dir = 6
 	},
 /obj/effect/decal/cleanable/blood/tracks,
-/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
+/obj/item/ammo_casing/c9mm{
+	dir = 8;
+	pixel_x = 3;
+	pixel_y = 3
+	},
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "WX" = (
 /obj/machinery/door/airlock/grunge{
-	name = "AI research room"
+	name = "AI Research Room"
 	},
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
@@ -538,8 +534,8 @@ tO
 KU
 za
 SV
-WV
-Lx
+wO
+TP
 nN
 JS
 "}

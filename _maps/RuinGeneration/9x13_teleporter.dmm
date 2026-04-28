@@ -1,15 +1,12 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
 /turf/open/floor/iron/airless{
-	icon_state = "damaged3"
+	broken = 1
 	},
 /area/ruin/unpowered)
 "c" = (
 /obj/structure/table,
-/obj/item/stock_parts/cell{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell,
 /turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "e" = (
@@ -50,11 +47,6 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
-"T" = (
-/turf/open/floor/iron/airless{
-	icon_state = "damaged2"
-	},
-/area/ruin/unpowered)
 "X" = (
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered)
@@ -153,7 +145,7 @@ q
 q
 Q
 X
-T
+b
 X
 g
 g
@@ -169,7 +161,7 @@ q
 q
 X
 X
-T
+b
 X
 g
 g

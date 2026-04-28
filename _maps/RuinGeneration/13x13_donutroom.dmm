@@ -9,7 +9,6 @@
 /area/ruin/unpowered)
 "o" = (
 /obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "s" = (
@@ -31,7 +30,7 @@
 /turf/template_noop,
 /area/template_noop)
 "G" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "J" = (
@@ -43,7 +42,7 @@
 /turf/template_noop,
 /area/template_noop)
 "Q" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "R" = (

@@ -1,11 +1,8 @@
-import { linkEvent } from 'inferno';
+import type { ReactNode } from 'react';
 import { Button } from 'tgui/components';
 import { createRenderer } from 'tgui/renderer';
-import type { InfernoNode } from 'inferno';
 
 const render = createRenderer();
-
-const handleClick = () => undefined;
 
 export const SingleButton = () => {
   const node = <Button>Hello world!</Button>;
@@ -17,13 +14,8 @@ export const SingleButtonWithCallback = () => {
   render(node);
 };
 
-export const SingleButtonWithLinkEvent = () => {
-  const node = <Button onClick={linkEvent(null, handleClick)}>Hello world!</Button>;
-  render(node);
-};
-
 export const ListOfButtons = () => {
-  const nodes: InfernoNode[] = [];
+  const nodes: ReactNode[] = [];
   for (let i = 0; i < 100; i++) {
     const node = <Button key={i}>Hello world! {i}</Button>;
     nodes.push(node);
@@ -32,7 +24,7 @@ export const ListOfButtons = () => {
 };
 
 export const ListOfButtonsWithCallback = () => {
-  const nodes: InfernoNode[] = [];
+  const nodes: ReactNode[] = [];
   for (let i = 0; i < 100; i++) {
     const node = (
       <Button key={i} onClick={() => undefined}>
@@ -44,21 +36,8 @@ export const ListOfButtonsWithCallback = () => {
   render(<div>{nodes}</div>);
 };
 
-export const ListOfButtonsWithLinkEvent = () => {
-  const nodes: InfernoNode[] = [];
-  for (let i = 0; i < 100; i++) {
-    const node = (
-      <Button key={i} onClick={linkEvent(null, handleClick)}>
-        Hello world! {i}
-      </Button>
-    );
-    nodes.push(node);
-  }
-  render(<div>{nodes}</div>);
-};
-
 export const ListOfButtonsWithIcons = () => {
-  const nodes: InfernoNode[] = [];
+  const nodes: ReactNode[] = [];
   for (let i = 0; i < 100; i++) {
     const node = (
       <Button key={i} icon={'arrow-left'}>
@@ -71,7 +50,7 @@ export const ListOfButtonsWithIcons = () => {
 };
 
 export const ListOfButtonsWithTooltips = () => {
-  const nodes: InfernoNode[] = [];
+  const nodes: ReactNode[] = [];
   for (let i = 0; i < 100; i++) {
     const node = (
       <Button key={i} tooltip={'Hello world!'}>

@@ -5,7 +5,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/random/ruinloot/armory,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "b" = (
@@ -20,18 +20,17 @@
 /obj/structure/rack,
 /obj/item/storage/box/sec_barricades,
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "e" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = -32
 	},
 /turf/template_noop,
 /area/template_noop)
 "f" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "j" = (
@@ -51,7 +50,7 @@
 "l" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/secure_closet,
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/random/ruinloot/armory,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "m" = (
@@ -71,7 +70,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "p" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /turf/template_noop,
@@ -121,7 +120,7 @@
 	req_access_txt = "3"
 	},
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/random/ruinloot/armory,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "A" = (
@@ -134,7 +133,7 @@
 "B" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/random/ruinloot/armory,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "E" = (
@@ -154,7 +153,7 @@
 "I" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "J" = (
@@ -164,7 +163,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "K" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 32
 	},
 /turf/template_noop,
@@ -208,9 +207,9 @@
 "W" = (
 /obj/machinery/door/airlock/security{
 	name = "Armory";
-	req_access_txt = "3";
 	security_level = 6
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -220,7 +219,7 @@
 "X" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/random/ruinloot/armory,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)

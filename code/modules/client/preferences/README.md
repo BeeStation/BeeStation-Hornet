@@ -168,14 +168,18 @@ Choiced preferences can generate icons. This is how the clothing/species prefere
 	db_key = "favorite_drink"
 	should_generate_icons = TRUE // NEW! This is necessary.
 
-// Instead of returning a flat list, this now returns an assoc list
-// of values to icons.
 /datum/preference/choiced/favorite_drink/init_possible_values()
-	return list(
-		"Milk" = icon('drinks.dmi', "milk"),
-		"Cola" = icon('drinks.dmi', "cola"),
-		"Water" = icon('drinks.dmi', "water"),
-	)
+	return list("Milk", "Cola", "Water")
+
+// New! This proc will get called for every value.
+/datum/preference/choiced/favorite_drink/icon_for(value)
+	switch (value)
+		if ("Milk")
+			return icon('drinks.dmi', "milk")
+		if ("Cola")
+			return icon('drinks.dmi', "cola")
+		if ("Water")
+			return icon('drinks.dmi', "water")
 ```
 
 Then, change your `.tsx` file to look like:
@@ -497,8 +501,7 @@ Middleware can hijack actions by specifying `action_delegations`:
 	)
 
 /datum/preference_middleware/congratulations/proc/congratulate_me(list/params, mob/user)
-	to_chat(user, span_notice("Wow, you did a great job learning about middleware!"))
-
+	to_chat(user, ("<span class='notice'>Wow, you did a great job learning about middleware!</span>"))
 	return TRUE
 ```
 
@@ -511,7 +514,7 @@ Middleware can inject its own data at several points, such as providing new UI a
 Role preferences are separate from antagonist datums and ban roles, but are connected. You can define a new role preference easily:
 
 ```
-/datum/role_preference/antagonist/changeling
+/datum/role_preference/roundstart/changeling
 	name = "Changeling"
 	description = "A highly intelligent alien predator that is capable of altering their \
 	shape to flawlessly resemble a human.\n\
@@ -526,9 +529,9 @@ Defining a `preview_outfit` with an outfit typepath will make the icon preview a
 
 You can also override `get_preview_icon()` to set a specific icon, look at other examples for more.
 
-Using this preference is a simple matter of checking `client.role_preference_enabled(/datum/role_preference/antagonist/changeling)`
+Using this preference is a simple matter of checking `client.role_preference_enabled(/datum/role_preference/roundstart/changeling)`
 
-The parent type (`/datum/role_preference/antagonist`) determines what category it will show under. See `GLOB.role_preference_categories` for a list of categories.
+The parent type (`/datum/role_preference/roundstart`) determines what category it will show under. See `GLOB.role_preference_categories` for a list of categories.
 
 ## Species
 

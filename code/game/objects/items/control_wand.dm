@@ -4,7 +4,7 @@
 
 /obj/item/door_remote
 	icon_state = "gangtool-white"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	icon = 'icons/obj/device.dmi'
@@ -12,30 +12,18 @@
 	desc = "Remotely controls airlocks."
 	w_class = WEIGHT_CLASS_TINY
 	var/mode = WAND_OPEN
-	var/region_access = 1 //See access.dm
+	/// based on the given bitflag, gets the full access list of a relevant department
+	var/department_bitflag = DEPT_BITFLAG_SRV //See department.dm
+	/// a list of access that the door remote can control
 	var/list/access_list
-	network_id = NETWORK_DOOR_REMOTES
 
 /obj/item/door_remote/Initialize(mapload)
 	. = ..()
-	access_list = get_region_accesses(region_access)
-	RegisterSignal(src, COMSIG_COMPONENT_NTNET_NAK, PROC_REF(bad_signal))
-	RegisterSignal(src, COMSIG_COMPONENT_NTNET_ACK, PROC_REF(good_signal))
-
-/obj/item/door_remote/proc/bad_signal(datum/source, datum/netdata/data, error_code)
-	if(QDELETED(data.user))
-		return // can't send a message to a missing user
-	if(error_code == NETWORK_ERROR_UNAUTHORIZED)
-		to_chat(data.user, "<span class='notice'>This remote is not authorized to modify this door.</span>")
+	if(department_bitflag)
+		for(var/datum/department_group/dept_datum as anything in SSdepartment.get_department_by_bitflag(department_bitflag))
+			LAZYADD(access_list, dept_datum.access_list)
 	else
-		to_chat(data.user, "<span class='notice'>Error: [error_code]</span>")
-
-
-/obj/item/door_remote/proc/good_signal(datum/source, datum/netdata/data, error_code)
-	if(QDELETED(data.user))
-		return
-	var/toggled = data.data["data"]
-	to_chat(data.user, "<span class='notice'>Door [toggled] toggled</span>")
+		CRASH("the item [src.type] has no department_bitflag - cannot grant access!")
 
 /obj/item/door_remote/attack_self(mob/user)
 	var/static/list/desc = list(WAND_OPEN = "Open Door", WAND_BOLT = "Toggle Bolts", WAND_EMERGENCY = "Toggle Emergency Access")
@@ -46,69 +34,102 @@
 			mode = WAND_EMERGENCY
 		if(WAND_EMERGENCY)
 			mode = WAND_OPEN
-	balloon_alert(user, "You set the mode to [desc[mode]].")
+	balloon_alert(user, "mode: [desc[mode]].")
 
 // Airlock remote works by sending NTNet packets to whatever it's pointed at.
-/obj/item/door_remote/afterattack(atom/A, mob/user)
+/obj/item/door_remote/afterattack(atom/target, mob/user)
 	. = ..()
-	var/datum/component/ntnet_interface/target_interface = A.GetComponent(/datum/component/ntnet_interface)
 
-	if(!target_interface)
+	var/obj/machinery/door/door
+
+	if (istype(target, /obj/machinery/door))
+		door = target
+
+		if (!door.opens_with_door_remote)
+			return
+	else
+		for (var/obj/machinery/door/door_on_turf in get_turf(target))
+			if (door_on_turf.opens_with_door_remote)
+				door = door_on_turf
+				break
+
+		if (isnull(door))
+			return
+
+	if (!door.check_access_list(access_list) || door.id_scan_hacked())
+		target.balloon_alert(user, "can't access!")
 		return
-	if(!SSnetworks.station_network.check_function(NTNET_SYSTEMCONTROL, get_virtual_z_level()))
-		to_chat(user, "<span class='warning'>red light flashes on the remote! Looks like NTNET is down!</span>")
+
+	var/obj/machinery/door/airlock/airlock = door
+
+	if (!door.hasPower() || (istype(airlock) && !airlock.canAIControl()))
+		target.balloon_alert(user, mode == WAND_OPEN ? "it won't budge!" : "nothing happens!")
 		return
-	user.set_machine(src)
-	// Generate a control packet.
-	var/datum/netdata/data = new(list("data" = mode,"data_secondary" = "toggle"))
-	data.receiver_id = target_interface.hardware_id
-	data.passkey = access_list
-	data.user = user // for responce message
 
-	ntnet_send(data)
+	switch (mode)
+		if (WAND_OPEN)
+			if (door.density)
+				door.open()
+			else
+				door.close()
+		if (WAND_BOLT)
+			if (!istype(airlock))
+				target.balloon_alert(user, "only airlocks!")
+				return
 
+			if (airlock.locked)
+				airlock.unbolt()
+			else
+				airlock.bolt()
+		if (WAND_EMERGENCY)
+			if (!istype(airlock))
+				target.balloon_alert(user, "only airlocks!")
+				return
+
+			airlock.emergency = !airlock.emergency
+			airlock.update_appearance(UPDATE_ICON)
 
 /obj/item/door_remote/omni
 	name = "omni door remote"
 	desc = "This control wand can access any door on the station."
 	icon_state = "gangtool-yellow"
-	region_access = 0
+	department_bitflag = DEPT_BITFLAG_STATIONS
 
 /obj/item/door_remote/captain
 	name = "command door remote"
 	icon_state = "gangtool-yellow"
-	region_access = 7
+	department_bitflag = DEPT_BITFLAG_STATIONS
 
 /obj/item/door_remote/chief_engineer
 	name = "engineering door remote"
 	icon_state = "gangtool-orange"
-	region_access = 5
+	department_bitflag = DEPT_BITFLAG_ENG
 
 /obj/item/door_remote/research_director
 	name = "research door remote"
 	icon_state = "gangtool-purple"
-	region_access = 4
+	department_bitflag = DEPT_BITFLAG_SCI
 
 /obj/item/door_remote/head_of_security
 	name = "security door remote"
 	icon_state = "gangtool-red"
-	region_access = 2
+	department_bitflag = DEPT_BITFLAG_SEC
 
 /obj/item/door_remote/quartermaster
 	name = "supply door remote"
 	desc = "Remotely controls airlocks. This remote has additional Vault access."
 	icon_state = "gangtool-green"
-	region_access = 6
+	department_bitflag = DEPT_BITFLAG_CAR
 
 /obj/item/door_remote/chief_medical_officer
 	name = "medical door remote"
 	icon_state = "gangtool-blue"
-	region_access = 3
+	department_bitflag = DEPT_BITFLAG_MED
 
 /obj/item/door_remote/civillian
 	name = "civilian door remote"
 	icon_state = "gangtool-white"
-	region_access = 1
+	department_bitflag = DEPT_BITFLAG_SRV | DEPT_BITFLAG_CAR
 
 #undef WAND_OPEN
 #undef WAND_BOLT

@@ -5,7 +5,7 @@
 	icon_state = "grievous"
 	health = 150
 	maxHealth = 150
-	baton_type = /obj/item/melee/transforming/energy/sword/saber
+	baton_type = /obj/item/melee/energy/sword/saber
 	base_speed = 4 //he's a fast fucker
 	var/obj/item/weapon
 	var/block_chance = 50
@@ -26,7 +26,7 @@
 	noloot = TRUE
 	faction = list(FACTION_SYNDICATE)
 
-/mob/living/simple_animal/bot/secbot/grievous/nullcrate/ComponentInitialize()
+/mob/living/simple_animal/bot/secbot/grievous/nullcrate/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_CONTENTS | EMP_PROTECT_WIRES)
 
@@ -142,7 +142,7 @@
 
 /mob/living/simple_animal/bot/secbot/grievous/explode()
 
-	visible_message("<span class='boldannounce'>[src] lets out a huge cough as it blows apart!</span>")
+	visible_message(span_boldannounce("[src] lets out a huge cough as it blows apart!"))
 	var/atom/Tsec = drop_location()
 
 	var/obj/item/bot_assembly/secbot/Sa = new (Tsec)

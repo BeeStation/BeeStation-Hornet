@@ -4,12 +4,13 @@
 	category = PROGRAM_CATEGORY_MISC
 	program_icon_state = "hostile"
 	extended_desc = "This advanced script can perform denial of service attacks against NTNet quantum relays. The system administrator will probably notice this. Multiple devices can run this program together against same relay for increased effect"
-	size = 20
+	size = 12
 	requires_ntnet = TRUE
 	available_on_ntnet = FALSE
 	available_on_syndinet = TRUE
 	tgui_id = "NtosNetDos"
 	program_icon = "satellite-dish"
+	power_consumption = 300 WATT
 
 
 
@@ -26,6 +27,8 @@
 		if(2)
 			dos_speed = NTNETSPEED_HIGHSIGNAL * 10
 		if(3)
+			dos_speed = NTNETSPEED_ETHERNET * 10
+		if(4)
 			dos_speed = NTNETSPEED_ETHERNET * 10
 	if(target && executed)
 		target.dos_overload += dos_speed
@@ -47,9 +50,9 @@
 		return
 	switch(action)
 		if("PRG_target_relay")
-			for(var/obj/machinery/ntnet_relay/R in SSnetworks.relays)
-				if(R.uid == params["targid"])
-					target = R
+			for(var/obj/machinery/ntnet_relay/relays as anything in GLOB.ntnet_relays)
+				if(relays.uid == params["targid"])
+					target = relays
 					break
 			return TRUE
 		if("PRG_reset")
@@ -63,16 +66,13 @@
 			if(target)
 				executed = TRUE
 				target.dos_sources.Add(src)
-				if(SSnetworks.station_network.intrusion_detection_enabled)
+				if(SSmodular_computers.intrusion_detection_enabled)
 					var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
-					SSnetworks.add_log("IDS WARNING - Excess traffic flood targeting relay [target.uid] detected from device: [network_card.get_network_tag()]")
-					SSnetworks.station_network.intrusion_detection_alarm = TRUE
+					SSmodular_computers.add_log("IDS WARNING - Excess traffic flood targeting relay [target.uid] detected from device: [network_card.get_network_tag()]")
+					SSmodular_computers.intrusion_detection_alarm = TRUE
 			return TRUE
 
 /datum/computer_file/program/ntnet_dos/ui_data(mob/user)
-	if(!SSnetworks.station_network)
-		return
-
 	var/list/data = list()
 
 	data["error"] = error
@@ -85,8 +85,8 @@
 	else
 		data["target"] = FALSE
 		data["relays"] = list()
-		for(var/obj/machinery/ntnet_relay/R in SSnetworks.relays)
-			data["relays"] += list(list("id" = R.uid))
+		for(var/obj/machinery/ntnet_relay/relays as anything in GLOB.ntnet_relays)
+			data["relays"] += list(list("id" = relays.uid))
 		data["focus"] = target ? target.uid : null
 
 	return data

@@ -33,7 +33,7 @@
 	if(!COOLDOWN_FINISHED(src, spatial_rending_cooldown) || owner.Adjacent(target) || !isturf(owner.loc))
 		return
 	if(!in_view_range(owner, target))
-		to_chat(owner, "<span class='warning'>You cannot pull something so far away!</span>")
+		to_chat(owner, span_warning("You cannot pull something so far away!"))
 		return
 	var/turf/hand_turf = get_step(owner, get_dir(owner, target))
 	var/things_pulled = 0
@@ -55,7 +55,7 @@
 		var/datum/beam/beam = target_turf.Beam(hand_turf, "bsa_beam_greyscale", time = 1.5 SECONDS)
 		for(var/obj/effect/ebeam/beam_part in beam.elements)
 			beam_part.add_atom_colour(owner.accent_color, FIXED_COLOUR_PRIORITY)
-		owner.visible_message("<span class='danger'>[owner.color_name] compresses space, bringing the objects on [target_turf] directly to it!</span>")
+		owner.visible_message(span_danger("[owner.color_name] compresses space, bringing the objects on [target_turf] directly to it!"))
 		owner.balloon_alert(owner, "pulled [things_pulled] things", show_in_chat = FALSE)
 		COOLDOWN_START(src, spatial_rending_cooldown, cooldown_length)
 		SSblackbox.record_feedback("amount", "holoparasite_spatial_things_pulled", things_pulled)

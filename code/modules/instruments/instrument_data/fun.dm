@@ -23,3 +23,20 @@
 	id = "mothscream"
 	real_samples = list("60"='sound/voice/moth/scream_moth.ogg')
 	admin_only = TRUE
+
+/datum/instrument/fun/meowsynth
+	name = "MeowSynth"
+	id = "meowsynth"
+	real_samples = list("36"='sound/instruments/synthesis_samples/meowsynth/c2.ogg',
+				   "48"='sound/instruments/synthesis_samples/meowsynth/c3.ogg',
+				   "60"='sound/instruments/synthesis_samples/meowsynth/c4.ogg',
+				   "72"='sound/instruments/synthesis_samples/meowsynth/c5.ogg',
+				   "84"='sound/instruments/synthesis_samples/meowsynth/c6.ogg')
+
+/datum/instrument/fun/spaceman
+	name = "Spaceman"
+	id = "spaceman"
+	real_samples = list("36"='sound/instruments/synthesis_samples/spaceman/c2.ogg',
+				   "48"='sound/instruments/synthesis_samples/spaceman/c3.ogg',
+				   "60"='sound/instruments/synthesis_samples/spaceman/c4.ogg',
+				   "72"='sound/instruments/synthesis_samples/spaceman/c5.ogg')

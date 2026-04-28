@@ -1,6 +1,5 @@
 
-/mob
-	var/list/screens = list()
+/mob/var/list/screens = list()
 
 /mob/proc/overlay_fullscreen(category, type, severity)
 	var/atom/movable/screen/fullscreen/screen = screens[category]
@@ -27,7 +26,7 @@
 
 	screens -= category
 
-	if(animated)
+	if(!QDELETED(src) && animated)
 		animate(screen, alpha = 0, time = animated)
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen_after_animate), screen), animated, TIMER_CLIENT_TIME)
 	else
@@ -61,7 +60,7 @@
 				client.screen -= screen
 
 /atom/movable/screen/fullscreen
-	icon = 'icons/mob/screen_full.dmi'
+	icon = 'icons/hud/fullscreen/screen_full.dmi'
 	icon_state = "default"
 	screen_loc = "CENTER-7,CENTER-7"
 	layer = FULLSCREEN_LAYER
@@ -112,9 +111,9 @@
 	plane = FULLSCREEN_PLANE
 
 /atom/movable/screen/fullscreen/law_change
-    icon_state = "law_change"
-    layer = BLIND_LAYER
-    plane = FULLSCREEN_PLANE
+	icon_state = "law_change"
+	layer = BLIND_LAYER
+	plane = FULLSCREEN_PLANE
 
 /atom/movable/screen/fullscreen/curse
 	icon_state = "curse"
@@ -135,45 +134,46 @@
 	icon_state = "impairedoverlay"
 
 /atom/movable/screen/fullscreen/flash
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "flash"
 
 /atom/movable/screen/fullscreen/flash/black
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "black"
 
 /atom/movable/screen/fullscreen/flash/static
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "noise"
 
 /atom/movable/screen/fullscreen/high
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "druggy"
 
 /atom/movable/screen/fullscreen/color_vision
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "flash"
 	alpha = 80
 
 /atom/movable/screen/fullscreen/color_vision/green
-	color = "#00ff00"
+	color = COLOR_VIBRANT_LIME
 
 /atom/movable/screen/fullscreen/color_vision/red
-	color = "#ff0000"
+	color = COLOR_RED
 
 /atom/movable/screen/fullscreen/color_vision/blue
-	color = "#0000ff"
+	color = COLOR_BLUE
 
 /atom/movable/screen/fullscreen/lighting_backdrop
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "flash"
 	transform = matrix(200, 0, 0, 0, 200, 0)
 	plane = LIGHTING_PLANE
+	layer = LIGHTING_ABOVE_ALL
 	blend_mode = BLEND_OVERLAY
 	show_when_dead = TRUE
 
@@ -196,8 +196,10 @@
 	show_when_dead = TRUE
 
 /atom/movable/screen/fullscreen/see_through_darkness
+	invisibility = INVISIBILITY_LIGHTING
 	icon_state = "nightvision"
 	plane = LIGHTING_PLANE
+	layer = LIGHTING_ABOVE_ALL
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
 
@@ -216,7 +218,7 @@
 
 /atom/movable/screen/fullscreen/blind_context_disable/Initialize(mapload)
 	. = ..()
-	var/icon/mask = icon('icons/mob/psychic.dmi', "click_mask")
+	var/icon/mask = icon('icons/hud/fullscreen/psychic.dmi', "click_mask")
 	add_filter("click_mask", 1, alpha_mask_filter(icon = mask, flags = MASK_INVERSE))
 
 /atom/movable/screen/fullscreen/blind_context_disable/Destroy()

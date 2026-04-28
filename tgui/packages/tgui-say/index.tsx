@@ -1,19 +1,20 @@
 import './styles/main.scss';
-import { createRenderer } from 'tgui/renderer';
+
+import { createRoot, Root } from 'react-dom/client';
+
 import { TguiSay } from './interfaces/TguiSay';
 
 // Uncomment to enable hot-reloading
 // import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
 
-const renderApp = createRenderer(() => {
-  return <TguiSay />;
-});
+let reactRoot: Root | null = null;
 
-const setupApp = () => {
-  // Delay setup
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupApp);
-    return;
+document.onreadystatechange = function () {
+  if (document.readyState !== 'complete') return;
+
+  if (!reactRoot) {
+    const root = document.getElementById('react-root');
+    reactRoot = createRoot(root!);
   }
 
   // Uncomment to enable hot-reloading
@@ -21,7 +22,5 @@ const setupApp = () => {
   //  setupHotReloading();
   // }
 
-  renderApp();
+  reactRoot.render(<TguiSay />);
 };
-
-setupApp();

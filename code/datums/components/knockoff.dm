@@ -32,7 +32,7 @@
 	if(!wearer.dropItemToGround(I))
 		return
 
-	wearer.visible_message("<span class='warning'>[attacker] knocks off [wearer]'s [I.name]!</span>","<span class='userdanger'>[attacker] knocks off your [I.name]!</span>")
+	wearer.visible_message(span_warning("[attacker] knocks off [wearer]'s [I.name]!"),span_userdanger("[attacker] knocks off your [I.name]!"))
 
 /datum/component/knockoff/proc/OnEquipped(datum/source, mob/living/carbon/human/H,slot)
 	SIGNAL_HANDLER

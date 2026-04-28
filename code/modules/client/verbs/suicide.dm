@@ -9,7 +9,7 @@
 
 /mob/living/carbon/set_suicide(suicide_state) //you thought that box trick was pretty clever, didn't you? well now hardmode is on, boyo.
 	. = ..()
-	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
+	var/obj/item/organ/brain/B = get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(B)
 		B.suicided = suicide_state
 
@@ -25,7 +25,7 @@
 	return
 
 /mob/living/carbon/human/virtual_reality/canSuicide()
-	to_chat(src, "<span class='warning'>I'm sorry [first_name()], I'm afraid you can't do that.</span>")
+	to_chat(src, span_warning("I'm sorry [first_name()], I'm afraid you can't do that."))
 	return
 
 /mob/living/carbon/human/verb/suicide()
@@ -91,27 +91,18 @@
 
 		var/suicide_message
 
-		if(a_intent == INTENT_DISARM)
-			if(prob(25))
-				disarm_suicide()	// Snowflake suicide for a tired joke.
-				return	//above proc handles logging and death
-			suicide_message = pick("[src] is attempting to push [p_their()] own head off [p_their()] shoulders! It looks like [p_theyre()] trying to commit suicide.", \
-								"[src] is pushing [p_their()] thumbs into [p_their()] eye sockets! It looks like [p_theyre()] trying to commit suicide.")
-		else if(a_intent == INTENT_GRAB)
-			suicide_message = pick("[src] is attempting to pull [p_their()] own head off! It looks like [p_theyre()] trying to commit suicide.", \
-									"[src] is aggressively grabbing [p_their()] own neck! It looks like [p_theyre()] trying to commit suicide.", \
-									"[src] is pulling [p_their()] eyes out of their sockets! It looks like [p_theyre()] trying to commit suicide.")
-		else if(a_intent == INTENT_HELP)
-			suicide_message = pick("[src] is hugging [p_them()]self to death! It looks like [p_theyre()] trying to commit suicide.", \
-									"[src] is high-fiving [p_them()]self to death! It looks like [p_theyre()] trying to commit suicide.", \
-									"[src] is getting too high on life! It looks like [p_theyre()] trying to commit suicide.")
+		if(!combat_mode)
+			suicide_message = pick(
+				"[src] is hugging [p_them()]self to death! It looks like [p_theyre()] trying to commit suicide.", \
+				"[src] is high-fiving [p_them()]self to death! It looks like [p_theyre()] trying to commit suicide.", \
+				"[src] is getting too high on life! It looks like [p_theyre()] trying to commit suicide.")
 		else
 			suicide_message = pick("[src] is attempting to bite [p_their()] tongue off! It looks like [p_theyre()] trying to commit suicide.", \
-								"[src] is jamming [p_their()] thumbs into [p_their()] eye sockets! It looks like [p_theyre()] trying to commit suicide.", \
-								"[src] is twisting [p_their()] own neck! It looks like [p_theyre()] trying to commit suicide.", \
-								"[src] is holding [p_their()] breath! It looks like [p_theyre()] trying to commit suicide.")
+				"[src] is jamming [p_their()] thumbs into [p_their()] eye sockets! It looks like [p_theyre()] trying to commit suicide.", \
+				"[src] is twisting [p_their()] own neck! It looks like [p_theyre()] trying to commit suicide.", \
+				"[src] is holding [p_their()] breath! It looks like [p_theyre()] trying to commit suicide.")
 
-		visible_message("<span class='danger'>[suicide_message]</span>", "<span class='userdanger'>[suicide_message]</span>")
+		visible_message(span_danger("[suicide_message]"), span_userdanger("[suicide_message]"))
 
 		suicide_log()
 
@@ -128,8 +119,8 @@
 		return
 	if(confirm == "Yes")
 		set_suicide(TRUE)
-		visible_message("<span class='danger'>[src]'s brain is growing dull and lifeless. [p_they(TRUE)] look[p_s()] like [p_theyve()] lost the will to live.</span>", \
-						"<span class='userdanger'>[src]'s brain is growing dull and lifeless. [p_they(TRUE)] look[p_s()] like [p_theyve()] lost the will to live.</span>")
+		visible_message(span_danger("[src]'s brain is growing dull and lifeless. [p_They()] look[p_s()] like [p_theyve()] lost the will to live."), \
+						span_userdanger("[src]'s brain is growing dull and lifeless. [p_They()] look[p_s()] like [p_theyve()] lost the will to live."))
 
 		suicide_log()
 
@@ -145,8 +136,8 @@
 		return
 	if(confirm == "Yes")
 		set_suicide(TRUE)
-		visible_message("<span class='danger'>[src] is attempting to bite [p_their()] tongue. It looks like [p_theyre()] trying to commit suicide.</span>", \
-				"<span class='userdanger'>[src] is attempting to bite [p_their()] tongue. It looks like [p_theyre()] trying to commit suicide.</span>")
+		visible_message(span_danger("[src] is attempting to bite [p_their()] tongue. It looks like [p_theyre()] trying to commit suicide."), \
+				span_userdanger("[src] is attempting to bite [p_their()] tongue. It looks like [p_theyre()] trying to commit suicide."))
 
 		suicide_log()
 
@@ -163,8 +154,8 @@
 		return
 	if(confirm == "Yes")
 		set_suicide(TRUE)
-		visible_message("<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>", \
-				"<span class='userdanger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
+		visible_message(span_danger("[src] is powering down. It looks like [p_theyre()] trying to commit suicide."), \
+				span_userdanger("[src] is powering down. It looks like [p_theyre()] trying to commit suicide."))
 
 		suicide_log()
 
@@ -182,8 +173,8 @@
 		return
 	if(confirm == "Yes")
 		set_suicide(TRUE)
-		visible_message("<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>", \
-				"<span class='userdanger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
+		visible_message(span_danger("[src] is powering down. It looks like [p_theyre()] trying to commit suicide."), \
+				span_userdanger("[src] is powering down. It looks like [p_theyre()] trying to commit suicide."))
 
 		suicide_log()
 
@@ -197,8 +188,8 @@
 	var/confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
 	if(confirm == "Yes")
 		var/turf/T = get_turf(src.loc)
-		T.visible_message("<span class='notice'>[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\"</span>", null, \
-		 "<span class='notice'>[src] bleeps electronically.</span>")
+		T.visible_message(span_notice("[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\""), null, \
+			span_notice("[src] bleeps electronically."))
 
 		suicide_log()
 
@@ -216,9 +207,9 @@
 		return
 	if(confirm == "Yes")
 		set_suicide(TRUE)
-		visible_message("<span class='danger'>[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide.</span>", \
-				"<span class='userdanger'>[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide.</span>", \
-				"<span class='italics'>You hear thrashing.</span>")
+		visible_message(span_danger("[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide."), \
+				span_userdanger("[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide."), \
+				span_italics("You hear thrashing."))
 
 		suicide_log()
 
@@ -236,8 +227,8 @@
 		return
 	if(confirm == "Yes")
 		set_suicide(TRUE)
-		visible_message("<span class='danger'>[src] begins to fall down. It looks like [p_theyve()] lost the will to live.</span>", \
-						"<span class='userdanger'>[src] begins to fall down. It looks like [p_theyve()] lost the will to live.</span>")
+		visible_message(span_danger("[src] begins to fall down. It looks like [p_theyve()] lost the will to live."), \
+						span_userdanger("[src] begins to fall down. It looks like [p_theyve()] lost the will to live."))
 
 		suicide_log()
 
@@ -278,7 +269,7 @@
 			return
 		if(world.time < (SSticker.round_start_time + (15 MINUTES)))
 			var/timeleft = ((SSticker.round_start_time + (15 MINUTES)) - world.time)
-			to_chat(src, "<span class='boldannounce'>Committing suicide at the start of the round is not allowed. Time until suicide is possible: [DisplayTimeText(timeleft)].</span>")
+			to_chat(src, span_boldannounce("Committing suicide at the start of the round is not allowed. Time until suicide is possible: [DisplayTimeText(timeleft)]."))
 			if(src.job)
 				message_admins("[key_name(src)] (job: [src.job]) attempted to commit suicide at [AREACOORD(src)]. Time until suicide is possible: [DisplayTimeText(timeleft)].")
 			return

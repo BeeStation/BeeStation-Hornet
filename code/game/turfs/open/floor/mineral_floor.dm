@@ -40,15 +40,17 @@
 	icons = list("plasma","plasma_dam")
 	max_integrity = 200
 
-/turf/open/floor/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > 300)
+/turf/open/floor/mineral/plasma/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 300
+
+/turf/open/floor/mineral/plasma/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 		PlasmaBurn(exposed_temperature)
 
 /turf/open/floor/mineral/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
+	if(W.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("Plasma flooring was ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(src)]")
 		log_game("Plasma flooring was ignited by [key_name(user)] in [AREACOORD(src)]")
-		ignite(W.is_hot())
+		ignite(W.get_temperature())
 		return
 	..()
 
@@ -126,40 +128,41 @@
 /turf/open/floor/mineral/titanium/purple/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/floor/mineral/titanium/alt
+// OLD TITANIUM
+/turf/open/floor/mineral/titanium/tiled
 	name = "titanium floor"
 	icon_state = "titanium_alt"
-	floor_tile = /obj/item/stack/tile/mineral/titanium/alt
+	floor_tile = /obj/item/stack/tile/mineral/titanium/tiled
 
-/turf/open/floor/mineral/titanium/alt/airless
+/turf/open/floor/mineral/titanium/tiled/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/floor/mineral/titanium/alt/yellow
-	icon_state = "titanium_yellow_alt"
-	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/yellow
+/turf/open/floor/mineral/titanium/tiled/yellow
+	icon_state = "titanium_alt_yellow"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/tiled/yellow
 
-/turf/open/floor/mineral/titanium/alt/yellow/airless
+/turf/open/floor/mineral/titanium/tiled/yellow/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/floor/mineral/titanium/alt/blue
-	icon_state = "titanium_blue_alt"
-	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/blue
+/turf/open/floor/mineral/titanium/tiled/blue
+	icon_state = "titanium_alt_blue"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/tiled/blue
 
-/turf/open/floor/mineral/titanium/alt/blue/airless
+/turf/open/floor/mineral/titanium/tiled/blue/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/floor/mineral/titanium/alt/white
-	icon_state = "titanium_white_alt"
-	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/white
+/turf/open/floor/mineral/titanium/tiled/white
+	icon_state = "titanium_alt_white"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/tiled/white
 
-/turf/open/floor/mineral/titanium/alt/white/airless
+/turf/open/floor/mineral/titanium/tiled/white/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/floor/mineral/titanium/alt/purple
-	icon_state = "titanium_purple_alt"
-	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/purple
+/turf/open/floor/mineral/titanium/tiled/purple
+	icon_state = "titanium_alt_purple"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/tiled/purple
 
-/turf/open/floor/mineral/titanium/alt/purple/airless
+/turf/open/floor/mineral/titanium/tiled/purple/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
 //PLASTITANIUM (syndieshuttle)
@@ -173,6 +176,7 @@
 
 /turf/open/floor/mineral/plastitanium/red
 	icon_state = "plastitanium_red"
+	floor_tile = /obj/item/stack/tile/mineral/plastitanium/red
 
 /turf/open/floor/mineral/plastitanium/red/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -204,7 +208,7 @@
 	if(!.)
 		honk()
 
-/turf/open/floor/mineral/bananium/attack_hand(mob/user)
+/turf/open/floor/mineral/bananium/attack_hand(mob/user, list/modifiers)
 	.=..()
 	if(!.)
 		honk()
@@ -247,8 +251,8 @@
 	icons = list("uranium","uranium_dam")
 	max_integrity = 75
 	damage_deflection = 0
-	var/last_event = 0
-	var/active = null
+
+	COOLDOWN_DECLARE(radiate_cooldown)
 
 /turf/open/floor/mineral/uranium/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
@@ -257,31 +261,36 @@
 	if(isliving(arrived))
 		radiate()
 
-/turf/open/floor/mineral/uranium/attackby(obj/item/W, mob/user, params)
-	.=..()
+/turf/open/floor/mineral/uranium/attackby(obj/item/attacking_item, mob/user, params)
+	. = ..()
 	if(!.)
 		radiate()
 
-/turf/open/floor/mineral/uranium/attack_hand(mob/user)
-	.=..()
+/turf/open/floor/mineral/uranium/attack_hand(mob/user, list/modifiers)
+	. = ..()
 	if(!.)
 		radiate()
 
 /turf/open/floor/mineral/uranium/attack_paw(mob/user)
-	.=..()
+	. = ..()
 	if(!.)
 		radiate()
 
 /turf/open/floor/mineral/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event+15)
-			active = 1
-			radiation_pulse(src, 10)
-			for(var/turf/open/floor/mineral/uranium/T in (RANGE_TURFS(1,src)-src))
-				T.radiate()
-			last_event = world.time
-			active = 0
-			return
+	if(!COOLDOWN_FINISHED(src, radiate_cooldown))
+		return
+
+	COOLDOWN_START(src, radiate_cooldown, 1.5 SECONDS)
+	radiation_pulse(
+		src,
+		max_range = 2,
+		threshold = RAD_LIGHT_INSULATION,
+		intensity = URANIUM_IRRADIATION_INTENSITY,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
+	)
+
+	for(var/turf/open/floor/mineral/uranium/uranium_floor in (RANGE_TURFS(1, src) - src))
+		uranium_floor.radiate()
 
 // ALIEN ALLOY
 /turf/open/floor/mineral/abductor

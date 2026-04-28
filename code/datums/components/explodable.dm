@@ -10,23 +10,25 @@
 	var/delete_after
 	/// For items, lets us determine where things should be hit.
 	var/equipped_slot
-	/// it won't explode again if cooldown is on. This is necessary because explosion() proc through SSexplosion doesn't tell if it's exploded
-	COOLDOWN_DECLARE(explosion_cooling)
 
 /datum/component/explodable/Initialize(devastation_range, heavy_impact_range, light_impact_range, flash_range, uncapped = FALSE, delete_after = EXPLODABLE_DELETE_PARENT)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(explodable_attack))
-	RegisterSignal(parent, COMSIG_TRY_STORAGE_INSERT, PROC_REF(explodable_insert_item))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(explodable_attack))
 	RegisterSignal(parent, COMSIG_ATOM_EX_ACT, PROC_REF(detonate))
 	if(ismovable(parent))
 		RegisterSignal(parent, COMSIG_MOVABLE_IMPACT, PROC_REF(explodable_impact))
 		RegisterSignal(parent, COMSIG_MOVABLE_BUMP, PROC_REF(explodable_bump))
 		if(isitem(parent))
-			RegisterSignals(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ, COMSIG_ITEM_HIT_REACT), PROC_REF(explodable_attack))
-			RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
-			RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
+			RegisterSignals(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_ATOM, COMSIG_ITEM_HIT_REACT), PROC_REF(explodable_attack))
+			if(isclothing(parent))
+				RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
+				RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
+
+	var/atom/atom_parent = parent
+	if(atom_parent.atom_storage)
+		RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(explodable_insert_item))
 
 	if (devastation_range)
 		src.devastation_range = devastation_range
@@ -39,8 +41,10 @@
 	src.uncapped = uncapped
 	src.delete_after = delete_after
 
-/datum/component/explodable/proc/explodable_insert_item(datum/source, obj/item/I, mob/M, silent = FALSE, force = FALSE)
+/datum/component/explodable/proc/explodable_insert_item(datum/source, obj/item/I)
 	SIGNAL_HANDLER
+	if(!(I.item_flags & IN_STORAGE))
+		return
 
 	check_if_detonate(I)
 
@@ -61,13 +65,16 @@
 	check_if_detonate(target)
 
 ///Called when you attack a specific body part of the thing this is equipped on. Useful for exploding pants.
-/datum/component/explodable/proc/explodable_attack_zone(datum/source, damage, damagetype, def_zone)
+/datum/component/explodable/proc/explodable_attack_zone(datum/source, damage, damagetype, def_zone, ...)
 	SIGNAL_HANDLER
 
 	if(!def_zone)
 		return
 	if(damagetype != BURN) //Don't bother if it's not fire.
 		return
+	if(isbodypart(def_zone))
+		var/obj/item/bodypart/hitting = def_zone
+		def_zone = hitting.body_zone
 	if(!is_hitting_zone(def_zone)) //You didn't hit us! ha!
 		return
 	detonate()
@@ -75,12 +82,12 @@
 /datum/component/explodable/proc/on_equip(datum/source, mob/equipper, slot)
 	SIGNAL_HANDLER
 
-	RegisterSignal(equipper, COMSIG_MOB_APPLY_DAMGE,  PROC_REF(explodable_attack_zone), TRUE)
+	RegisterSignal(equipper, COMSIG_MOB_APPLY_DAMAGE,  PROC_REF(explodable_attack_zone), TRUE)
 
 /datum/component/explodable/proc/on_drop(datum/source, mob/user)
 	SIGNAL_HANDLER
 
-	UnregisterSignal(user, COMSIG_MOB_APPLY_DAMGE)
+	UnregisterSignal(user, COMSIG_MOB_APPLY_DAMAGE)
 
 /// Checks if we're hitting the zone this component is covering
 /datum/component/explodable/proc/is_hitting_zone(def_zone)
@@ -117,7 +124,7 @@
 	if(!isitem(target))
 		return
 	var/obj/item/I = target
-	if(!I.is_hot())
+	if(!I.get_temperature())
 		return
 	detonate() //If we're touching a hot item we go boom
 
@@ -125,9 +132,6 @@
 /// Expldoe and remove the object
 /datum/component/explodable/proc/detonate()
 	SIGNAL_HANDLER
-	if(!COOLDOWN_FINISHED(src, explosion_cooling))
-		return // If we don't do this and this doesn't delete it can lock the MC into only processing Input, Timers, and Explosions.
-	COOLDOWN_START(src, explosion_cooling, 1)
 
 	var/atom/bomb = parent
 	explosion(bomb, devastation_range, heavy_impact_range, light_impact_range, flash_range, uncapped) //epic explosion time

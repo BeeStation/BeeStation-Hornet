@@ -14,7 +14,7 @@
 	prefixes = list("Hive ")
 	bodies = list("Bees", "Hive")
 	threshold_desc = "<b>Resistance 12:</b> The bees become symbiotic with the host, synthesizing honey and no longer stinging the stomach lining, and no longer attacking the host. Bees will also contain honey, unless transmission exceeds 10.<br>\
-					  <b>Transmission 8:</b> Bees now contain a completely random toxin."
+						<b>Transmission 8:</b> Bees now contain a completely random toxin."
 
 /datum/symptom/beesease/severityset(datum/disease/advance/A)
 	. = ..()
@@ -40,39 +40,39 @@
 	switch(A.stage)
 		if(2)
 			if(prob(2))
-				to_chat(M, "<span class='notice'>You taste honey in your mouth.</span>")
+				to_chat(M, span_notice("You taste honey in your mouth."))
 		if(3)
 			if(prob(15))
-				to_chat(M, "<span class='notice'>Your stomach tingles.</span>")
+				to_chat(M, span_notice("Your stomach tingles."))
 			if(prob(15))
 				if(honey)
-					to_chat(M, "<span class='notice'>You can't get the taste of honey out of your mouth!.</span>")
+					to_chat(M, span_notice("You can't get the taste of honey out of your mouth!."))
 					M.reagents.add_reagent(/datum/reagent/consumable/honey, 2)
 				else
-					to_chat(M, "<span class='danger'>Your stomach stings painfully.</span>")
+					to_chat(M, span_danger("Your stomach stings painfully."))
 					M.adjustToxLoss(5)
 					M.updatehealth()
 		if(4, 5)
 			if(honey)
 				ADD_TRAIT(M, TRAIT_BEEFRIEND, DISEASE_TRAIT)
 			if(prob(15))
-				to_chat(M, "<span class='notice'>Your stomach squirms.</span>")
+				to_chat(M, span_notice("Your stomach squirms."))
 			if(prob(25))
 				if(honey)
-					to_chat(M, "<span class='notice'>You can't get the taste of honey out of your mouth!.</span>")
-					M.reagents.add_reagent_list(list(/datum/reagent/consumable/honey = 10, /datum/reagent/consumable/honey/special = 5, /datum/reagent/medicine/insulin = 5)) //insulin prevents hyperglycemic shock
+					to_chat(M, span_notice("You can't get the taste of honey out of your mouth!."))
+					M.reagents.add_reagent_list(list(/datum/reagent/consumable/honey = 10, /datum/reagent/consumable/honey = 5, /datum/reagent/medicine/insulin = 5)) //insulin prevents hyperglycemic shock
 				else
-					to_chat(M, "<span class='danger'>Your stomach stings painfully.</span>")
+					to_chat(M, span_danger("Your stomach stings painfully."))
 					M.adjustToxLoss(5)
 					M.updatehealth()
 			if(prob(10))
-				M.visible_message("<span class='danger'>[M] buzzes.</span>", \
-								  "<span class='userdanger'>Your stomach buzzes violently!</span>")
+				M.visible_message(span_danger("[M] buzzes."), \
+									span_userdanger("Your stomach buzzes violently!"))
 			if(prob(15))
-				to_chat(M, "<span class='danger'>You feel something moving in your throat.</span>")
+				to_chat(M, span_danger("You feel something moving in your throat."))
 			if(prob(10))
-				M.visible_message("<span class='danger'>[M] coughs up a bee!</span>", \
-								  "<span class='userdanger'>You cough up a bee!</span>")
+				M.visible_message(span_danger("[M] coughs up a bee!"), \
+									span_userdanger("You cough up a bee!"))
 				if(toxic_bees)
 					new /mob/living/simple_animal/hostile/poison/bees/toxin(M.loc)
 				else if(honey)

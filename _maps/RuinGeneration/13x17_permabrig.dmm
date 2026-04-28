@@ -1,20 +1,13 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ad" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "aW" = (
 /turf/template_noop,
 /area/template_noop)
-"bv" = (
-/obj/structure/chair/stool{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/ruin/unpowered)
 "bO" = (
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -25,7 +18,7 @@
 /area/ruin/unpowered)
 "dn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "dG" = (
@@ -48,16 +41,14 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/unpowered)
 "gN" = (
-/obj/structure/chair/stool{
-	dir = 4
-	},
+/obj/structure/chair/stool/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "hq" = (
 /obj/structure/table,
 /obj/item/pen,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "hu" = (
@@ -72,7 +63,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "jj" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/hydroponics/soil,
 /obj/item/cultivator,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
@@ -80,9 +71,7 @@
 /area/ruin/unpowered)
 "jn" = (
 /obj/machinery/washing_machine,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -115,19 +104,19 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "mv" = (
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /obj/machinery/hydroponics/soil,
 /obj/item/plant_analyzer,
-/obj/machinery/camera/autoname,
+/obj/machinery/camera/directional/north,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "mW" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -140,12 +129,10 @@
 /area/ruin/unpowered)
 "pO" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Long-Term Cell 1";
-	req_access_txt = "2"
+	name = "Long-Term Cell 1"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/structure/cable/yellow,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
@@ -200,14 +187,14 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "su" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/hydroponics/soil,
 /obj/item/cultivator,
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -232,11 +219,11 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "vY" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "xe" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/potato,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
@@ -248,7 +235,7 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/unpowered)
 "xP" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/grass,
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -271,9 +258,7 @@
 /area/ruin/unpowered)
 "zd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/freezer,
 /area/ruin/unpowered)
 "zp" = (
@@ -296,9 +281,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "AM" = (
-/obj/structure/sink{
-	pixel_y = 20
-	},
+/obj/structure/sink/directional/north,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Be" = (
@@ -307,8 +290,8 @@
 /area/ruin/unpowered)
 "BT" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/ruinloot/security,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "CC" = (
@@ -345,9 +328,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "Gr" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -369,12 +350,11 @@
 /area/ruin/unpowered)
 "Le" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "My" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "MX" = (
@@ -395,9 +375,9 @@
 /area/ruin/unpowered)
 "NZ" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Long-Term Cell 2";
-	req_access_txt = "2"
+	name = "Long-Term Cell 2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
@@ -414,11 +394,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "Qh" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /turf/open/floor/iron/freezer,
 /area/ruin/unpowered)
 "QQ" = (
@@ -431,7 +407,7 @@
 /area/ruin/unpowered)
 "Ra" = (
 /obj/machinery/washing_machine,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -449,7 +425,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "SX" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "TT" = (
@@ -457,14 +433,14 @@
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "UG" = (
-/mob/living/simple_animal/mouse/brown/Tom,
+/mob/living/basic/mouse/brown/tom,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "VE" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Long-Term Cell 3";
-	req_access_txt = "2"
+	name = "Long-Term Cell 3"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
@@ -533,7 +509,7 @@ KP
 Nf
 xe
 NR
-bv
+gN
 NR
 VL
 dn
@@ -628,7 +604,7 @@ NR
 jz
 NR
 NR
-bv
+gN
 NR
 NR
 NR

@@ -22,8 +22,10 @@
 	html = "[html]"
 	text = "[text]"
 
-	if(!target || (!html && !text))
+	if(!target)
 		return
+	if(!html && !text)
+		CRASH("Empty or null string in to_chat proc call.")
 	if(target == world)
 		target = GLOB.clients
 
@@ -59,7 +61,7 @@
 	handle_whitespace = TRUE,
 	trailing_newline = TRUE
 )
-	if(isnull(Master) || !Master.current_runlevel)
+	if(isnull(Master) || !SSchat?.initialized || !MC_RUNNING(SSchat.init_stage))
 		to_chat_immediate(target, html, type, text, avoid_highlighting, allow_linkify)
 		return
 
@@ -67,8 +69,10 @@
 	html = "[html]"
 	text = "[text]"
 
-	if(!target || (!html && !text))
+	if(!target)
 		return
+	if(!html && !text)
+		CRASH("Empty or null string in to_chat proc call.")
 	if(target == world)
 		target = GLOB.clients
 

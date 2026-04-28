@@ -4,7 +4,7 @@
 	desc = "A cable that can connect integrated circuits to anything with a USB port, such as computers and machines."
 	icon = 'icons/obj/wiremod.dmi'
 	icon_state = "usb_cable"
-	item_state = "coil"
+	inhand_icon_state = "coil"
 	w_class = WEIGHT_CLASS_TINY
 	custom_materials = list(/datum/material/iron = 75)
 	var/usb_range = USB_CABLE_MAX_RANGE
@@ -25,8 +25,8 @@
 	. = ..()
 
 	if (!isnull(attached_circuit))
-		. += "<span class='notice'>It is attached to [attached_circuit.shell || attached_circuit].</span>"
-	. += "<span class='notice'>Max range: [usb_range].</span>"
+		. += span_notice("It is attached to [attached_circuit.shell || attached_circuit].")
+	. += span_notice("Max range: [usb_range].")
 
 // Look, I'm not happy about this either, but moving an object doesn't call Moved if it's inside something else.
 // There's good reason for this, but there's no element or similar yet to track it as far as I know.
@@ -81,18 +81,18 @@
 	return ..()
 
 /obj/item/usb_cable/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is wrapping [src] around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
 /obj/item/usb_cable/proc/register_circuit_signals()
 	RegisterSignal(attached_circuit, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
-	RegisterSignal(attached_circuit, COMSIG_PARENT_QDELETING, PROC_REF(on_circuit_qdeling))
+	RegisterSignal(attached_circuit, COMSIG_QDELETING, PROC_REF(on_circuit_qdeling))
 	RegisterSignal(attached_circuit.shell, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 
 /obj/item/usb_cable/proc/unregister_circuit_signals(obj/item/integrated_circuit/old_circuit)
 	UnregisterSignal(attached_circuit, list(
 		COMSIG_MOVABLE_MOVED,
-		COMSIG_PARENT_QDELETING,
+		COMSIG_QDELETING,
 	))
 
 	UnregisterSignal(attached_circuit.shell, COMSIG_MOVABLE_MOVED)

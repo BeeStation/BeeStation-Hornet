@@ -37,10 +37,11 @@
 
 ///Gets a random drink excluding the blocked type
 /proc/get_random_drink()
-	var/list/blocked = list(/obj/item/reagent_containers/food/drinks/soda_cans,
-		/obj/item/reagent_containers/food/drinks/bottle
+	var/list/blocked = list(
+		/obj/item/reagent_containers/cup/soda_cans,
+		/obj/item/reagent_containers/cup/glass/bottle
 		)
-	return pick(subtypesof(/obj/item/reagent_containers/food/drinks) - blocked)
+	return pick(subtypesof(/obj/item/reagent_containers/cup/glass) - blocked)
 
 /// Picks a string of symbols to display as the law number for hacked or ion laws
 /proc/ion_num()
@@ -52,3 +53,14 @@
 	while(length(str) < 5)
 		str = "0" + str
 	. = str
+
+/proc/get_random_seed()
+	var/list/blocked = list(
+		/obj/item/seeds/banana/bombanana,
+		/obj/item/seeds/lavaland,
+		/obj/item/seeds/flower,
+		/obj/item/seeds/sample,
+		/obj/item/seeds/sample/alienweed,
+		/obj/item/seeds/cherry/bomb
+		)
+	return pick(subtypesof(/obj/item/seeds) - blocked)

@@ -57,7 +57,7 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 ///signal handler for COMSIG_MOVABLE_POST_THROW that shatters our target after impacting after a throw
 /datum/element/frozen/proc/shatter_on_throw(datum/target)
 	var/obj/obj_target = target
-	obj_target.visible_message("<span class='danger'>[obj_target] shatters into a million pieces!</span>")
+	obj_target.visible_message(span_danger("[obj_target] shatters into a million pieces!"))
 	obj_target.flags_1 |= NODECONSTRUCT_1	// disable item spawning
 	obj_target.deconstruct(FALSE)			// call pre-deletion specialized code -- internals release gas etc
 

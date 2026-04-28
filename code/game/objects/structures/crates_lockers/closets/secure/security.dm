@@ -15,7 +15,7 @@
 	new /obj/item/storage/backpack/duffelbag/captain(src)
 	new	/obj/item/clothing/suit/armor/vest/capcarapace/jacket(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace(src)
-	new /obj/item/clothing/suit/armor/vest/capcarapace/alt(src)
+	new /obj/item/clothing/suit/armor/vest/capcarapace/captains_formal(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/captain(src)
 	new /obj/item/clothing/suit/captunic(src)
 	new /obj/item/clothing/gloves/color/captain(src)
@@ -40,7 +40,8 @@
 	new /obj/item/clothing/neck/cloak/cap(src)
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/storage/belt/sabre(src)
-	new /obj/item/gun/energy/e_gun/mini/heads(src)
+	new /obj/item/gun/ballistic/automatic/pistol/service/captain(src)
+	new /obj/item/ammo_box/magazine/recharge/service(src)
 
 /obj/item/storage/box/suitbox/cap
 	name = "compression box of captain outfits"
@@ -49,10 +50,11 @@
 	new /obj/item/clothing/under/rank/captain(src)
 	new /obj/item/clothing/under/rank/captain/skirt(src)
 	new /obj/item/clothing/under/rank/captain/parade(src)
-	new /obj/item/clothing/head/caphat(src)
-	new /obj/item/clothing/head/beret/captain(src)
-	new /obj/item/clothing/head/caphat/parade(src)
-	new /obj/item/clothing/head/crown/fancy(src)
+	new /obj/item/clothing/neck/cloak/captain_mantle(src)
+	new /obj/item/clothing/head/hats/caphat(src)
+	new /obj/item/clothing/head/hats/caphat/beret(src)
+	new /obj/item/clothing/head/hats/caphat/parade(src)
+	new /obj/item/clothing/head/costume/crown/fancy(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 
 /obj/structure/closet/secure_closet/hop
@@ -66,6 +68,7 @@
 
 /obj/structure/closet/secure_closet/hop/PopulateContents()
 	..()
+	new /obj/item/dog_bone(src)
 	new /obj/item/storage/box/suitbox/hop(src)
 	new /obj/item/radio/headset/heads/head_of_personnel(src)
 
@@ -90,19 +93,30 @@
 	new /obj/item/clothing/glasses/sunglasses/advanced(src)
 	new /obj/item/clothing/suit/armor/vest/alt(src)
 	new /obj/item/megaphone/command(src)
-	new /obj/item/gun/energy/e_gun/mini/heads(src)
-
+	new /obj/item/gun/ballistic/automatic/pistol/service/hop(src)
+	new /obj/item/ammo_box/magazine/recharge/service(src)
 
 /obj/item/storage/box/suitbox/hop
 	name = "compression box of head of personnel outfits"
 
 /obj/item/storage/box/suitbox/hop/PopulateContents()
-	new /obj/item/clothing/under/rank/civilian/head_of_personnel(src)
-	new /obj/item/clothing/under/rank/civilian/head_of_personnel/skirt(src)
-	new /obj/item/clothing/under/rank/civilian/head_of_personnel/alt(src)
-	new /obj/item/clothing/under/rank/civilian/head_of_personnel/alt/skirt(src)
-	new /obj/item/clothing/head/hopcap(src)
+	new /obj/item/clothing/head/hats/hopcap(src)
+	new /obj/item/clothing/head/hats/hopcap/beret(src)
+	new /obj/item/clothing/neck/cloak/hop_mantle(src)
+	new /obj/item/clothing/suit/armor/vest(src)
+	new /obj/item/clothing/suit/armor/vest/hop(src)
+	new /obj/item/clothing/under/rank/civilian/hop(src)
+	new /obj/item/clothing/under/rank/civilian/hop/skirt(src)
+	new /obj/item/clothing/under/rank/civilian/hop/dress(src)
+	new /obj/item/clothing/under/rank/civilian/hop/formal(src)
+	new /obj/item/clothing/under/rank/civilian/hop/oldman(src)
+	new /obj/item/clothing/under/rank/civilian/hop/turtleneck(src)
+	new /obj/item/clothing/under/suit/black(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
+	new /obj/item/clothing/shoes/sneakers/black(src)
+	new /obj/item/clothing/shoes/laceup(src)
+	new /obj/item/clothing/shoes/sneakers/white(src)
+	new /obj/item/clothing/glasses/sunglasses(src)
 
 /obj/structure/closet/secure_closet/brig_physician
 	name = "\proper brig physician's locker"
@@ -112,18 +126,18 @@
 /obj/structure/closet/secure_closet/brig_physician/PopulateContents()
 	..()
 	new /obj/item/defibrillator/loaded(src)
-	new /obj/item/blood_filter(src)
 	new /obj/item/radio/headset/headset_medsec(src)
 	new	/obj/item/storage/firstaid/regular(src)
-	new	/obj/item/storage/firstaid/fire(src)
-	new	/obj/item/storage/firstaid/toxin(src)
-	new	/obj/item/storage/firstaid/o2(src)
-	new	/obj/item/storage/firstaid/brute(src)
+	new /obj/item/storage/firstaid/toxin(src)
+	new /obj/item/storage/firstaid/o2(src)
+	new /obj/item/storage/firstaid/brute(src)
+	new /obj/item/storage/firstaid/fire(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/under/rank/brig_physician(src)
 	new /obj/item/clothing/under/rank/brig_physician/skirt(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/brigphys(src)
+	new /obj/item/wallframe/defib_mount(src)
 
 /obj/structure/closet/secure_closet/hos
 	name = "\proper head of security's locker"
@@ -154,14 +168,14 @@
 	new /obj/item/storage/box/command_keys(src)
 	new /obj/item/megaphone/sec(src)
 	new /obj/item/computer_hardware/hard_drive/role/hos(src)
-	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/storage/box/deputy(src)
 	new /obj/item/storage/lockbox/medal/sec(src)
 	new /obj/item/storage/lockbox/loyalty(src)
-	new /obj/item/flashlight/seclite(src)
 	new /obj/item/circuitboard/machine/techfab/department/security(src)
 
 	new /obj/item/paper_reader(src)
+
+	new /obj/item/clothing/gloves/tackler/combat(src)
 
 	// prioritized items
 	new /obj/item/clothing/neck/cloak/hos(src)
@@ -169,6 +183,8 @@
 	new /obj/item/clothing/suit/armor/hos/trenchcoat(src)
 	new /obj/item/shield/riot/tele(src)
 	new /obj/item/storage/belt/security/full(src)
+	new /obj/item/gun/ballistic/automatic/pistol/service/hos(src)
+	new /obj/item/ammo_box/magazine/recharge/service(src)
 
 /obj/item/storage/box/suitbox/hos
 	name = "compression box of head of security outfits"
@@ -179,9 +195,11 @@
 	new /obj/item/clothing/under/rank/security/head_of_security/alt(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/alt/skirt(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/white(src)
+	new /obj/item/clothing/under/rank/security/head_of_security/grey(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/parade/female(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/parade(src)
-	new /obj/item/clothing/head/HoS(src)
+	new /obj/item/clothing/neck/cloak/hos_mantle(src)
+	new /obj/item/clothing/head/hats/hos(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "\proper warden's locker"
@@ -190,15 +208,19 @@
 
 /obj/structure/closet/secure_closet/warden/PopulateContents()
 	..()
+	new /obj/item/dog_bone(src)
 	new /obj/item/radio/headset/headset_sec(src)
 	new /obj/item/clothing/suit/armor/vest/warden(src)
-	new /obj/item/clothing/head/warden(src)
-	new /obj/item/clothing/head/warden/drill(src)
+	new /obj/item/clothing/head/hats/warden(src)
+	new /obj/item/clothing/head/hats/warden/red(src)
+	new /obj/item/clothing/head/hats/warden/drill(src)
 	new /obj/item/clothing/head/beret/sec/navywarden(src)
 	new /obj/item/clothing/head/beret/corpwarden(src)
 	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
 	new /obj/item/clothing/under/rank/security/warden/formal(src)
 	new /obj/item/clothing/under/rank/security/warden(src)
+	new /obj/item/clothing/under/rank/security/warden/white(src)
+	new /obj/item/clothing/under/rank/security/warden/grey(src)
 	new /obj/item/clothing/under/rank/security/warden/skirt(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
@@ -211,6 +233,7 @@
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/gun/ballistic/shotgun/automatic/combat/compact(src)
 	new /obj/item/storage/box/deputy(src)
+	new /obj/item/storage/box/vouchers(src)
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
@@ -273,19 +296,11 @@
 
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()
-	new /obj/item/storage/box/evidence(src)
-	new /obj/item/radio/headset/headset_sec(src)
-	new /obj/item/detective_scanner(src)
-	new /obj/item/flashlight/seclite(src)
-	new /obj/item/reagent_containers/peppercloud_deployer(src)
+	new /obj/item/storage/backpack/duffelbag/sec/detective(src)
 	new /obj/item/clothing/suit/armor/vest/det_suit(src)
 	new /obj/item/clothing/accessory/holster/detective(src)
-	new /obj/item/pinpointer/crew(src)
-	new /obj/item/binoculars(src)
-	new /obj/item/clothing/neck/tie/red(src)
-	new	/obj/item/clothing/neck/tie/black(src)
-	new /obj/item/clothing/neck/tie/detective(src)
-	new /obj/item/storage/box/rxglasses/spyglasskit(src)
+	new /obj/item/radio/headset/headset_sec(src)
+	new /obj/item/clothing/glasses/hud/security(src)
 
 /obj/structure/closet/secure_closet/deputy
 	name = "deputy's locker"
@@ -332,8 +347,8 @@
 	for(var/i in 1 to 3)
 		new /obj/item/paper/fluff/jobs/security/court_judgment (src)
 	new /obj/item/pen (src)
-	new /obj/item/clothing/suit/judgerobe (src)
-	new /obj/item/clothing/head/powdered_wig (src)
+	new /obj/item/clothing/suit/costume/judgerobe (src)
+	new /obj/item/clothing/head/costume/powdered_wig (src)
 	new /obj/item/storage/briefcase(src)
 
 /obj/structure/closet/secure_closet/contraband/armory
@@ -360,7 +375,7 @@
 	for(var/i in 1 to 3)
 		new /obj/item/clothing/suit/armor/riot(src)
 	for(var/i in 1 to 3)
-		new /obj/item/clothing/head/helmet/riot(src)
+		new /obj/item/clothing/head/helmet/toggleable/riot(src)
 	for(var/i in 1 to 3)
 		new /obj/item/shield/riot(src)
 

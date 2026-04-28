@@ -84,20 +84,6 @@
 	text_dehack = "You reboot [name] and restore the sound control system."
 	text_dehack_fail = "[name] refuses to accept your authority!"
 
-/mob/living/simple_animal/bot/honkbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<TT><B>Honkomatic Bike Horn Unit v1.0.7 controls</B></TT><BR>"
-	dat += "<BR>Status: <A href='?src=[REF(src)];power=[TRUE]'>[on ? "On" : "Off"]</A>"
-	dat += "<BR>Behaviour controls are [locked ? "locked" : "unlocked"]"
-	dat += "<BR>Maintenance panel panel is [open ? "opened" : "closed"]"
-
-	if(!locked || issilicon(user) || IsAdminGhost(user))
-		dat += "<BR>"
-		dat += "<BR> Auto Patrol: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>"
-	return	dat
-
 /mob/living/simple_animal/bot/honkbot/proc/judgment_criteria()
 	var/final = NONE
 	if(check_records)
@@ -115,7 +101,7 @@
 		mode = BOT_HUNT
 
 /mob/living/simple_animal/bot/honkbot/attack_hand(mob/living/carbon/human/H)
-	if(H.a_intent == "harm")
+	if(H.combat_mode)
 		retaliate(H)
 		addtimer(CALLBACK(src, PROC_REF(react_buzz)), 5)
 	return ..()
@@ -131,9 +117,9 @@
 	..()
 	if(emagged == 2)
 		if(user)
-			user << "<span class='danger'>You short out [src]'s sound control system. It gives out an evil laugh!!</span>"
+			user << span_danger("You short out [src]'s sound control system. It gives out an evil laugh!!")
 			oldtarget_name = user.name
-		audible_message("<span class='danger'>[src] gives out an evil laugh!</span>")
+		audible_message(span_danger("[src] gives out an evil laugh!"))
 		playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, 1, -1) // evil laughter
 		update_icon()
 
@@ -142,8 +128,10 @@
 		retaliate(Proj.firer)
 	return ..()
 
-/mob/living/simple_animal/bot/honkbot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/honkbot/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(!on)
+		return
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
@@ -195,9 +183,11 @@
 		sensor_blink()
 	if(spam_flag == 0)
 		if(ishuman(C))
-			C.stuttering = 20
-			C.adjustEarDamage(0, 5) //far less damage than the H.O.N.K.
-			C.Jitter(50)
+			C.set_stutter_if_lower(40 SECONDS)
+			var/obj/item/organ/ears/target_ears = C.get_organ_slot(ORGAN_SLOT_EARS)
+			if(target_ears && !HAS_TRAIT(C, TRAIT_DEAF))
+				target_ears.adjustEarDamage(0, 5) //far less damage than the H.O.N.K.
+			C.set_jitter_if_lower(100 SECONDS)
 			C.Paralyze(60)
 			var/mob/living/carbon/human/H = C
 			if(client) //prevent spam from players..
@@ -213,10 +203,10 @@
 
 			log_combat(src,C,"honked", src)
 
-			C.visible_message("<span class='danger'>[src] has honked [C]!</span>",\
-					"<span class='userdanger'>[src] has honked you!</span>")
+			C.visible_message(span_danger("[src] has honked [C]!"),\
+					span_userdanger("[src] has honked you!"))
 		else
-			C.stuttering = 20
+			C.set_stutter_if_lower(40 SECONDS)
 			C.Paralyze(80)
 			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntime)
 
@@ -322,7 +312,7 @@
 				continue
 
 /mob/living/simple_animal/bot/honkbot/explode()
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	visible_message(span_boldannounce("[src] blows apart!"))
 	var/atom/Tsec = drop_location()
 	//doesn't drop cardboard nor its assembly, since its a very frail material.
 	if(prob(50))
@@ -337,7 +327,7 @@
 	new /obj/effect/decal/cleanable/oil(loc)
 	..()
 
-/mob/living/simple_animal/bot/honkbot/attack_alien(var/mob/living/carbon/alien/user as mob)
+/mob/living/simple_animal/bot/honkbot/attack_alien(mob/living/carbon/alien/user as mob)
 	..()
 	if(!isalien(target))
 		target = user
@@ -351,13 +341,7 @@
 			var/mob/living/carbon/C = AM
 			if(!istype(C) || !C || in_range(src, target))
 				return
-			C.visible_message("<span class='warning'>[pick( \
-						  	"[C] dives out of [src]'s way!", \
-						  	"[C] stumbles over [src]!", \
-						  	"[C] jumps out of [src]'s path!", \
-						  	"[C] trips over [src] and falls!", \
-						  	"[C] topples over [src]!", \
-						  	"[C] leaps out of [src]'s way!")]</span>")
+			C.visible_message(span_warning(pick("[C] dives out of [src]'s way!", "[C] stumbles over [src]!", "[C] jumps out of [src]'s path!", "[C] trips over [src] and falls!", "[C] topples over [src]!", "[C] leaps out of [src]'s way!")))
 			C.Paralyze(10)
 			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 1, -1)
 			if(!client)

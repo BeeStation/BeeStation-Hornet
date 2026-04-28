@@ -23,28 +23,37 @@
 	return (levels * 15) ** 1.4
 
 /// Called when a successful zimpact (landing) occurs
-/mob/living/proc/ZImpactDamage(turf/T, levels)
-	apply_general_zimpact_damage(T, levels)
+/mob/living/proc/ZImpactDamage(turf/impacted_turf, levels)
+	. = SEND_SIGNAL(src, COMSIG_LIVING_Z_IMPACT, levels, impacted_turf)
+	if(. & NO_Z_IMPACT_DAMAGE)
+		return
+	apply_general_zimpact_damage(impacted_turf, levels)
 
 /// Generic proc for most living things taking fall damage. Will attempt splitting between legs, if the mob has any.
 /mob/living/proc/apply_general_zimpact_damage(turf/T, levels)
-	visible_message("<span class='danger'>[src] falls [levels] level\s into [T] with a sickening noise!</span>")
+	visible_message(span_danger("[src] falls [levels] level\s into [T] with a sickening noise!"), \
+					span_userdanger("You fall [levels] level\s, hitting [T] with a sickening noise!"))
 	var/amount_total = get_distributed_zimpact_damage(levels)
 	var/total_damage_percent_left = 1
 	var/obj/item/bodypart/left_leg = get_bodypart(BODY_ZONE_L_LEG)
 	var/obj/item/bodypart/right_leg = get_bodypart(BODY_ZONE_R_LEG)
-	if(left_leg && !left_leg.disabled)
+	if(left_leg && !left_leg.bodypart_disabled)
 		total_damage_percent_left -= 0.45
 		apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_L_LEG)
-	if(right_leg && !right_leg.disabled)
+	if(right_leg && !right_leg.bodypart_disabled)
 		total_damage_percent_left -= 0.45
 		apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_R_LEG)
 	adjustBruteLoss(amount_total * total_damage_percent_left)
 	Knockdown(levels * 50)
 
 // Let the species handle it instead
-/mob/living/carbon/human/ZImpactDamage(turf/T, levels)
+/mob/living/carbon/human/ZImpactDamage(turf/impacted_turf, levels)
 	var/datum/species/species_datum = dna?.species
 	if(!istype(species_datum))
 		return ..()
-	species_datum.z_impact_damage(src, T, levels)
+
+	. = SEND_SIGNAL(src, COMSIG_LIVING_Z_IMPACT, levels, impacted_turf)
+	if(. & NO_Z_IMPACT_DAMAGE)
+		return
+
+	species_datum.z_impact_damage(src, impacted_turf, levels)

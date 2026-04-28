@@ -1,29 +1,36 @@
 /datum/job/paramedic
 	title = JOB_NAME_PARAMEDIC
-	flag = PARAMEDIC
 	description = "Retrieve the gravely injured and dead people from around the station, deliver medicine for minor wounds, and keep a close eye on the Crew Monitor in your free time."
-	department_for_prefs = DEPT_BITFLAG_MED
+	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 2
-	spawn_positions = 1
 	selection_color = "#d4ebf2"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/paramedic
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM,
-					ACCESS_MAINT_TUNNELS, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_AUX_BASE)
-	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS,
-					ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_AUX_BASE)
 
-	department_flag = MEDSCI
+	base_access = list(
+		ACCESS_MEDICAL,
+		ACCESS_MORGUE,
+		ACCESS_CLONING,
+		ACCESS_MECH_MEDICAL,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_EVA,
+		ACCESS_EXTERNAL_AIRLOCKS,
+		ACCESS_AUX_BASE
+	)
+	extra_access = list(ACCESS_SURGERY, ACCESS_MINERAL_STOREROOM, ACCESS_VIROLOGY)
+
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_MEDICAL_DOCTOR
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Corpse Runner"
 
 	species_outfits = list(
@@ -31,11 +38,16 @@
 	)
 	biohazard = 50//deal with sick like MDS, but also muck around in maint and get into the thick of it
 
-	lightup_areas = list(/area/medical/surgery)
+	lightup_areas = list(/area/station/medical/surgery)
 	minimal_lightup_areas = list(
-		/area/storage/eva,
-		/area/medical/morgue,
-		/area/medical/genetics/cloning
+		/area/station/ai_monitored/command/storage/eva,
+		/area/station/medical/morgue,
+		/area/station/medical/genetics/cloning
+	)
+
+	manuscript_jobs = list(
+		JOB_NAME_PARAMEDIC,
+		JOB_NAME_BRIGPHYSICIAN  // They're somewhat identical
 	)
 
 /datum/outfit/job/paramedic
@@ -43,8 +55,9 @@
 	jobtype = /datum/job/paramedic
 
 	id = /obj/item/card/id/job/paramedic
-	belt = /obj/item/modular_computer/tablet/pda/paramedic
+	belt = /obj/item/modular_computer/tablet/pda/preset/paramedic
 	ears = /obj/item/radio/headset/headset_med
+	glasses = /obj/item/clothing/glasses/hud/health/sunglasses/degraded
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
 	shoes = /obj/item/clothing/shoes/sneakers/white
@@ -52,10 +65,11 @@
 	suit =  /obj/item/clothing/suit/toggle/labcoat/paramedic
 	l_pocket = /obj/item/pinpointer/crew
 	r_pocket = /obj/item/sensor_device
-	suit_store = /obj/item/storage/firstaid/medical
+	suit_store = /obj/item/storage/firstaid/medical/paramedic
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
 
+	box = /obj/item/storage/box/survival/medical
 	chameleon_extras = /obj/item/gun/syringe

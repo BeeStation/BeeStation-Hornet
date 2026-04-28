@@ -23,18 +23,20 @@
 	var/egged = 0
 
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
-	if(!istype(user) || opened || move_delay || user.incapacitated() || !isturf(loc) || !has_gravity(loc))
+	if(opened || move_delay || user.incapacitated || !isturf(loc) || !has_gravity(loc))
 		return
 	move_delay = TRUE
-	if(step(src, direction))
+	var/oldloc = loc
+	step(src, direction)
+	if(oldloc != loc)
 		addtimer(CALLBACK(src, PROC_REF(ResetMoveDelay)), CONFIG_GET(number/movedelay/walk_delay) * move_speed_multiplier)
 	else
-		ResetMoveDelay()
+		move_delay = FALSE
 
 /obj/structure/closet/cardboard/proc/ResetMoveDelay()
 	move_delay = FALSE
 
-/obj/structure/closet/cardboard/open()
+/obj/structure/closet/cardboard/open(mob/living/user, force = FALSE, special_effects)
 	if(opened || !can_open())
 		return 0
 	var/list/alerted = null
@@ -50,16 +52,18 @@
 		egged = world.time + SNAKE_SPAM_TICKS
 		for(var/mob/living/L in alerted)
 			if(!L.stat)
-				if(!L.incapacitated(ignore_restraints = 1))
+				if(!INCAPACITATED_IGNORING(L, INCAPABLE_RESTRAINTS))
 					L.face_atom(src)
-				L.do_alert_animation(L)
+				L.do_alert_animation()
 		playsound(loc, 'sound/machines/chime.ogg', 50, FALSE, -5)
 
-/mob/living/proc/do_alert_animation(atom/A)
-	var/image/I = image('icons/obj/storage/closet.dmi', A, "cardboard_special", A.layer+1)
-	flick_overlay_view(I, A, 8)
-	I.alpha = 0
-	animate(I, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)
+/// Does the MGS ! animation
+/atom/proc/do_alert_animation()
+	var/mutable_appearance/alert = mutable_appearance('icons/obj/storage/closet.dmi', "cardboard_special")
+	alert.plane = ABOVE_LIGHTING_PLANE
+	var/atom/movable/flick_visual/exclamation = flick_overlay_view(alert, 1 SECONDS)
+	exclamation.alpha = 0
+	animate(exclamation, pixel_z = 32, alpha = 255, time = 0.5 SECONDS, easing = ELASTIC_EASING)
 
 
 /obj/structure/closet/cardboard/metal
@@ -77,14 +81,3 @@
 	close_sound_volume = 50
 	material_drop = /obj/item/stack/sheet/plasteel
 #undef SNAKE_SPAM_TICKS
-
-/obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
-	if(!istype(user) || opened || move_delay || user.incapacitated() || !isturf(loc) || !has_gravity(loc))
-		return
-	move_delay = TRUE
-	var/oldloc = loc
-	step(src, direction)
-	if(oldloc != loc)
-		addtimer(CALLBACK(src, PROC_REF(ResetMoveDelay)), CONFIG_GET(number/movedelay/walk_delay) * move_speed_multiplier)
-	else
-		move_delay = FALSE

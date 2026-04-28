@@ -6,10 +6,7 @@
 /turf/closed/mineral,
 /area/shuttle/escape/meteor)
 "c" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/plating/asteroid,
 /area/shuttle/escape/meteor)
 "d" = (
@@ -47,9 +44,7 @@
 /turf/open/floor/plating/asteroid,
 /area/shuttle/escape/meteor)
 "m" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/shuttle/engine/heater,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape/meteor)

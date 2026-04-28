@@ -31,7 +31,7 @@
 /area/shuttle/supply)
 "d" = (
 /obj/structure/shuttle/engine/heater,
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "e" = (
@@ -216,7 +216,7 @@
 /area/shuttle/supply)
 "B" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "C" = (
@@ -314,7 +314,6 @@
 	},
 /obj/machinery/button/door{
 	id = "QMLoaddoor2";
-	layer = 4;
 	name = "Loading Doors";
 	pixel_x = 33;
 	pixel_y = 5;
@@ -322,7 +321,6 @@
 	},
 /obj/machinery/button/door{
 	id = "QMLoaddoor";
-	layer = 4;
 	name = "Loading Doors";
 	pixel_x = 33;
 	pixel_y = -5;
@@ -381,7 +379,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/supply)
 "S" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "T" = (

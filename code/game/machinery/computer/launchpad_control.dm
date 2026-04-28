@@ -13,7 +13,7 @@
 	var/maximum_pads = 4
 
 /obj/machinery/computer/launchpad/attack_paw(mob/user)
-	to_chat(user, "<span class='warning'>You are too primitive to use this computer!</span>")
+	to_chat(user, span_warning("You are too primitive to use this computer!"))
 	return
 
 REGISTER_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
@@ -22,13 +22,13 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
 	if(istype(buffer, /obj/machinery/launchpad))
 		if(LAZYLEN(launchpads) < maximum_pads)
 			launchpads |= buffer
-			RegisterSignal(buffer, COMSIG_PARENT_QDELETING, PROC_REF(launchpad_deleted))
+			RegisterSignal(buffer, COMSIG_QDELETING, PROC_REF(launchpad_deleted))
 			FLUSH_BUFFER(buffer_parent)
 			ui_update()
-			to_chat(user, "<span class='notice'>You upload the data from the [buffer_parent.name]'s buffer.</span>")
+			to_chat(user, span_notice("You upload the data from the [buffer_parent.name]'s buffer."))
 		else
-			to_chat(user, "<span class='warning'>[src] cannot handle any more connections!</span>")
-		return COMPONENT_BUFFER_RECIEVED
+			to_chat(user, span_warning("[src] cannot handle any more connections!"))
+		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
 /obj/machinery/computer/launchpad/proc/launchpad_deleted(datum/source)
@@ -53,7 +53,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
 /obj/machinery/computer/launchpad/proc/teleport_checks(obj/machinery/launchpad/pad)
 	if(QDELETED(pad))
 		return "ERROR: Launchpad not responding. Check launchpad integrity."
-	if(!pad.isAvailable())
+	if(!pad.is_available())
 		return "ERROR: Launchpad not operative. Make sure the launchpad is ready and powered."
 	if(pad.teleporting)
 		return "ERROR: Launchpad busy."
@@ -74,10 +74,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
 
 /obj/machinery/computer/launchpad/proc/teleport(mob/user, obj/machinery/launchpad/pad, sending)
 	if(QDELETED(pad))
-		to_chat(user, "<span class='warning'>ERROR: Launchpad not responding. Check launchpad integrity.</span>")
+		to_chat(user, span_warning("ERROR: Launchpad not responding. Check launchpad integrity."))
 		return
-	if(!pad.isAvailable())
-		to_chat(user, "<span class='warning'>ERROR: Launchpad not operative. Make sure the launchpad is ready and powered.</span>")
+	if(!pad.is_available())
+		to_chat(user, span_warning("ERROR: Launchpad not operative. Make sure the launchpad is ready and powered.</span>"))
 		return
 	pad.doteleport(user, sending)
 

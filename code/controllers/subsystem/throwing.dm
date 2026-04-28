@@ -52,7 +52,7 @@ SUBSYSTEM_DEF(throwing)
 	var/init_dir
 	var/maxrange
 	var/speed
-	var/mob/thrower
+	var/datum/weakref/thrower
 	var/diagonals_first
 	var/dist_travelled = 0
 	var/start_time
@@ -72,14 +72,15 @@ SUBSYSTEM_DEF(throwing)
 /datum/thrownthing/New(thrownthing, target, init_dir, maxrange, speed, thrower, diagonals_first, force, callback, target_zone)
 	. = ..()
 	src.thrownthing = thrownthing
-	RegisterSignal(thrownthing, COMSIG_PARENT_QDELETING, PROC_REF(on_thrownthing_qdel))
+	RegisterSignal(thrownthing, COMSIG_QDELETING, PROC_REF(on_thrownthing_qdel))
 	src.target_turf = get_turf(target)
 	if(target_turf != target)
 		src.initial_target = WEAKREF(target)
 	src.init_dir = init_dir
 	src.maxrange = maxrange
 	src.speed = speed
-	src.thrower = thrower
+	if(thrower)
+		src.thrower = WEAKREF(thrower)
 	src.diagonals_first = diagonals_first
 	src.force = force
 	src.callback = callback
@@ -104,6 +105,11 @@ SUBSYSTEM_DEF(throwing)
 
 	qdel(src)
 
+/// Returns the mob thrower, or null
+/datum/thrownthing/proc/get_thrower()
+	. = thrower?.resolve()
+	if(isnull(.))
+		thrower = null
 
 /datum/thrownthing/proc/tick()
 	var/atom/movable/AM = thrownthing
@@ -116,10 +122,11 @@ SUBSYSTEM_DEF(throwing)
 		return
 
 	var/atom/movable/actual_target = initial_target?.resolve()
+	var/mob/mob_thrower = get_thrower()
 
 	if(dist_travelled) //to catch sneaky things moving on our tile while we slept
 		for(var/atom/movable/obstacle as anything in get_turf(thrownthing))
-			if (obstacle == thrownthing || (obstacle == thrower && !ismob(thrownthing)))
+			if (obstacle == thrownthing || (obstacle == mob_thrower && !ismob(thrownthing)))
 				continue
 			if(obstacle.pass_flags_self & LETPASSTHROW)
 				continue
@@ -152,7 +159,7 @@ SUBSYSTEM_DEF(throwing)
 			finalize()
 			return
 
-		if(!AM.Move(step, get_dir(AM, step))) // we hit something during our move...
+		if(!AM.Move(step, get_dir(AM, step), DELAY_TO_GLIDE_SIZE(1 / speed))) // we hit something during our move...
 			if(AM.throwing) // ...but finalize() wasn't called on Bump() because of a higher level definition that doesn't always call parent.
 				finalize()
 			return
@@ -207,3 +214,6 @@ SUBSYSTEM_DEF(throwing)
 		thrownthing.movement_type &= ~THROWN
 
 	qdel(src)
+
+#undef MAX_THROWING_DIST
+#undef MAX_TICKS_TO_MAKE_UP

@@ -49,7 +49,7 @@
 /area/template_noop)
 "hp" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/radio/intercom{
 	pixel_y = 26
 	},
@@ -57,8 +57,8 @@
 /area/template_noop)
 "iC" = (
 /obj/structure/closet,
-/obj/structure/window/reinforced/tinted/frosted,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/south,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "kk" = (
@@ -129,7 +129,7 @@
 /area/template_noop)
 "qP" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind{
+/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind{
 	pixel_x = 4;
 	pixel_y = 7
 	},
@@ -176,7 +176,7 @@
 /area/template_noop)
 "AU" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb{
+/obj/item/reagent_containers/cup/soda_cans/dr_gibb{
 	pixel_x = -4;
 	pixel_y = 5
 	},
@@ -200,10 +200,8 @@
 "GN" = (
 /obj/structure/closet,
 /obj/item/storage/pill_bottle/floorpill,
-/obj/structure/window/reinforced/tinted/frosted,
-/obj/structure/window/reinforced/tinted/frosted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/south,
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/east,
 /obj/item/clothing/under/costume/jabroni,
 /obj/item/stack/spacecash/c20,
 /turf/open/floor/monotile/steel,
@@ -246,7 +244,7 @@
 /area/template_noop)
 "NR" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "Pf" = (
@@ -259,20 +257,20 @@
 /area/template_noop)
 "Qx" = (
 /obj/structure/closet,
-/obj/structure/window/reinforced/tinted/frosted,
-/obj/item/reagent_containers/food/drinks/bottle/tequila{
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/south,
+/obj/item/reagent_containers/cup/glass/bottle/tequila{
 	pixel_x = -6;
 	pixel_y = 4
 	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "QK" = (
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /turf/open/floor/plating,
 /area/template_noop)
 "TC" = (
 /obj/structure/closet,
-/obj/structure/window/reinforced/tinted/frosted,
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/south,
 /obj/item/storage/box,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
@@ -281,13 +279,13 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "UQ" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "Vd" = (
@@ -310,7 +308,7 @@
 /area/template_noop)
 "Yy" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "YL" = (
@@ -322,7 +320,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "Zs" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/template_noop)
 

@@ -1,17 +1,15 @@
 //Anomalies, used for events. Note that these DO NOT work by themselves; their procs are called by the event datum.
 
-/// Chance of taking a step per second
-#define ANOMALY_MOVECHANCE 45
-
 /obj/effect/anomaly
 	name = "anomaly"
 	desc = "A mysterious anomaly, seen commonly only in the region of space that the station orbits..."
-	icon_state = "bhole3"
+	icon = 'icons/effects/anomalies.dmi'
+	icon_state = "vortex"
 	density = FALSE
 	anchored = TRUE
 	light_range = 3
 
-	var/obj/item/assembly/signaler/anomaly/aSignal = /obj/item/assembly/signaler/anomaly
+	var/obj/item/assembly/signaler/anomaly/anomaly_core = /obj/item/assembly/signaler/anomaly
 	var/area/impact_area
 
 	var/lifespan = 990
@@ -25,6 +23,8 @@
 	///How many harvested pierced realities do we spawn on destruction
 	var/max_spawned_faked = 2
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly)
+
 /obj/effect/anomaly/Initialize(mapload, new_lifespan, spawned_fake_harvested)
 	. = ..()
 
@@ -33,15 +33,15 @@
 	START_PROCESSING(SSobj, src)
 	impact_area = get_area(src)
 
-	aSignal = new(src)
-	aSignal.name = "[name] core"
-	aSignal.code = rand(1,100)
-	aSignal.anomaly_type = type
+	anomaly_core = new anomaly_core(src)
+	anomaly_core.name = "[name] core"
+	anomaly_core.code = rand(1,100)
+	anomaly_core.anomaly_type = type
 
 	var/frequency = rand(MIN_FREE_FREQ, MAX_FREE_FREQ)
 	if(ISMULTIPLE(frequency, 2))//signaller frequencies are always uneven!
 		frequency++
-	aSignal.set_frequency(frequency)
+	anomaly_core.set_frequency(frequency)
 
 	if(new_lifespan)
 		lifespan = new_lifespan
@@ -90,6 +90,4 @@
 
 /obj/effect/anomaly/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_ANALYZER)
-		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code].</span>")
-
-#undef ANOMALY_MOVECHANCE
+		to_chat(user, span_notice("Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(anomaly_core.frequency)], code [anomaly_core.code]."))

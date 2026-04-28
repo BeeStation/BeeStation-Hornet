@@ -69,7 +69,6 @@
 
 /obj/machinery/door/airlock/glass/incinerator
 	autoclose = FALSE
-	frequency = FREQ_AIRLOCK_CONTROL
 	heat_proof = TRUE
 	req_access = list(ACCESS_SYNDICATE)
 
@@ -108,7 +107,6 @@
 
 /obj/machinery/door/airlock/research/glass/incinerator
 	autoclose = FALSE
-	frequency = FREQ_AIRLOCK_CONTROL
 	heat_proof = TRUE
 	req_access = list(ACCESS_TOX)
 
@@ -196,18 +194,26 @@
 	name = "uranium airlock"
 	icon = 'icons/obj/doors/airlocks/station/uranium.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
-	var/last_event = 0
+
+	COOLDOWN_DECLARE(radiate_cooldown)
 
 /obj/machinery/door/airlock/uranium/process(delta_time)
-	if(world.time > last_event+20)
-		if(DT_PROB(50, delta_time))
-			radiate()
-		last_event = world.time
-	..()
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, radiate_cooldown))
+		return
+
+	if(DT_PROB(50, delta_time))
+		radiate()
+	COOLDOWN_START(src, radiate_cooldown, 2 SECONDS)
 
 /obj/machinery/door/airlock/uranium/proc/radiate()
-	radiation_pulse(get_turf(src), 150)
-	return
+	radiation_pulse(
+		src,
+		max_range = 2,
+		threshold = RAD_LIGHT_INSULATION,
+		intensity = URANIUM_IRRADIATION_INTENSITY,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
+	)
 
 /obj/machinery/door/airlock/uranium/glass
 	opacity = FALSE
@@ -219,16 +225,20 @@
 	icon = 'icons/obj/doors/airlocks/station/plasma.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_plasma
 
-/obj/machinery/door/airlock/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > 300)
-		if(plasma_ignition(6))
-			PlasmaBurn()
+/obj/machinery/door/airlock/plasma/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
 
 /obj/machinery/door/airlock/plasma/bullet_act(obj/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)
 		if(plasma_ignition(6, Proj?.firer))
 			PlasmaBurn()
 	. = ..()
+/obj/machinery/door/airlock/plasma/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return (exposed_temperature > 300)
+
+/obj/machinery/door/airlock/plasma/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	PlasmaBurn()
 
 /obj/machinery/door/airlock/plasma/proc/PlasmaBurn()
 	var/obj/structure/door_assembly/DA
@@ -240,11 +250,8 @@
 	DA.update_icon()
 	DA.update_name()
 
-/obj/machinery/door/airlock/plasma/BlockThermalConductivity() //we don't stop the heat~
-	return 0
-
 /obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)
-	if(C.is_hot() > 300)//If the temperature of the object is over 300, then ignite
+	if(C.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		if(plasma_ignition(6, user))
 			PlasmaBurn()
 	else
@@ -304,7 +311,7 @@
 	anim_parts = "left=-13,0;right=13,0"
 	normal_integrity = 150
 	damage_deflection = 5
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/none
 
 /obj/machinery/door/airlock/bronze/seethru
 	assemblytype = /obj/structure/door_assembly/door_assembly_bronze/seethru
@@ -326,7 +333,6 @@
 
 /obj/machinery/door/airlock/public/glass/incinerator
 	autoclose = FALSE
-	frequency = FREQ_AIRLOCK_CONTROL
 	heat_proof = TRUE
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS)
 
@@ -499,7 +505,7 @@
 	new openingoverlaytype(loc)
 
 /obj/machinery/door/airlock/cult/canAIControl(mob/user)
-	return (iscultist(user) && !isAllPowerCut())
+	return (IS_CULTIST(user) && !isAllPowerCut())
 
 /obj/machinery/door/airlock/cult/on_break()
 	if(!panel_open)
@@ -511,23 +517,32 @@
 /obj/machinery/door/airlock/cult/hasPower()
 	return TRUE
 
-/obj/machinery/door/airlock/cult/allowed(mob/living/L)
+/obj/machinery/door/airlock/cult/allowed(mob/living/creature)
 	if(!density)
-		return 1
-	if(friendly || iscultist(L) || istype(L, /mob/living/simple_animal/shade) || isconstruct(L))
+		return TRUE
+
+	if(friendly || IS_CULTIST(creature) || isshade(creature) || isconstruct(creature))
 		if(!stealthy)
 			new openingoverlaytype(loc)
-		return 1
-	else
-		if(!stealthy)
+		return TRUE
+	return FALSE
+
+/obj/machinery/door/airlock/cult/Bumped(atom/movable/bumper)
+	. = ..()
+	if(!density)
+		return
+
+	if(isliving(bumper))
+		var/mob/living/victim = bumper
+		if(!allowed(victim))
+			if(stealthy)
+				return
 			new /obj/effect/temp_visual/cult/sac(loc)
-			var/atom/throwtarget
-			throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
-			SEND_SOUND(L, sound(pick('sound/hallucinations/turn_around1.ogg','sound/hallucinations/turn_around2.ogg'),0,1,50))
-			flash_color(L, flash_color="#960000", flash_time=20)
-			L.Paralyze(40)
-			L.throw_at(throwtarget, 5, 1,src)
-		return 0
+			var/atom/throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(victim, src)))
+			SEND_SOUND(victim, sound(pick('sound/hallucinations/turn_around1.ogg','sound/hallucinations/turn_around2.ogg'),0,1,50))
+			flash_color(victim, flash_color="#960000", flash_time=20)
+			victim.Knockdown(4 SECONDS) // This will still stun you if you hit a wall
+			victim.throw_at(throwtarget, 5, 1, src)
 
 /obj/machinery/door/airlock/cult/proc/conceal()
 	icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
@@ -582,7 +597,7 @@
 	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
 	normal_integrity = 150
 	damage_deflection = 5
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	armor_type = /datum/armor/none
 
 //////////////////////////////////
 /*

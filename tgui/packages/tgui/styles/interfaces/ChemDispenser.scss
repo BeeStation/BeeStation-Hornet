@@ -1,0 +1,219 @@
+@use '../colors.scss';
+@use 'sass:color';
+
+.chem_dispenser {
+  .root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .discover_count {
+    margin-top: 3px;
+  }
+
+  .grow {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    width: 100%;
+  }
+
+  .recipe_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-basis: 0;
+    width: 100%;
+  }
+
+  .recipe_title {
+    margin-bottom: 3px;
+    user-select: none;
+
+    &.create {
+      color: rgb(248, 233, 214);
+    }
+  }
+
+  .recipe_box {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-direction: column;
+    background-color: color.adjust(colors.$primary, $alpha: -0.9);
+    margin: 2px;
+    padding: 4px;
+    align-items: center;
+    border-radius: 4px;
+    border: 1px solid colors.$primary;
+    transition:
+      background-color 0.3s,
+      box-shadow 0.3s,
+      border-color 0.3s;
+    min-width: 0%;
+    max-width: 100%;
+
+    @media screen and (min-width: 0px) and (max-width: 500px) {
+      width: 99%;
+    }
+    @media screen and (min-width: 500px) and (max-width: 700px) {
+      width: 45%;
+    }
+    @media screen and (min-width: 700px) and (max-width: 900px) {
+      width: 30%;
+    }
+    @media screen and (min-width: 900px) {
+      width: 24%;
+    }
+
+    &:hover {
+      background-color: color.adjust(colors.$primary, $alpha: -0.7);
+      box-shadow: inset 0px 0px 3px colors.$primary;
+    }
+
+    &.craftable {
+      background-color: color.adjust(colors.$good, $alpha: -0.9);
+      border: 1px solid colors.$good;
+
+      &:hover {
+        background-color: color.adjust(colors.$good, $alpha: -0.7);
+        box-shadow: inset 0px 0px 3px colors.$good;
+      }
+
+      .favourite {
+        background-color: color.adjust(colors.$good, $alpha: -0.3);
+
+        &.unfavourited {
+          background-color: color.adjust(
+            colors.$good,
+            $saturation: -10%,
+            $alpha: -0.3
+          );
+        }
+
+        &:hover {
+          background-color: color.adjust(
+            colors.$good,
+            $lightness: 30%,
+            $alpha: -0.3
+          );
+        }
+      }
+    }
+
+    .favourite {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background-color: color.adjust(colors.$primary, $alpha: -0.3);
+      padding: 3px 4px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+
+      &.unfavourited {
+        background-color: color.adjust(
+          colors.$primary,
+          $saturation: -10%,
+          $alpha: -0.3
+        );
+      }
+
+      &:hover {
+        background-color: color.adjust(
+          colors.$primary,
+          $lightness: 30%,
+          $alpha: -0.3
+        );
+      }
+    }
+  }
+
+  .recipe_required {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 100%;
+    justify-content: center;
+  }
+
+  .recipe_ingredient {
+    margin: 0px 2px;
+    background-color: rgb(178, 178, 178);
+    color: rgb(0, 0, 0);
+    padding: 3px 5px;
+    border-radius: 5px;
+    user-select: none;
+    margin-bottom: 2px;
+
+    &.satisfied {
+      background-color: rgb(99, 233, 112);
+    }
+
+    &.catalyst {
+      background-color: rgb(212, 151, 214);
+    }
+
+    &.insertable:not(.satisfied) {
+      background-color: rgb(242, 200, 149);
+    }
+  }
+
+  .beaker_section {
+    flex-basis: 120px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+
+  .beaker_labelled_part {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .beaker_contents {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .beaker_chemical {
+    margin-right: 3px;
+    margin-bottom: 4px;
+    border: 1px solid colors.$primary;
+    padding: 3px 5px;
+    border-radius: 4px;
+  }
+
+  .beaker_label {
+    color: colors.$label;
+  }
+
+  .beaker_label_part {
+    width: 70px;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  .beaker_content_part {
+    flex-grow: 1;
+  }
+
+  .no_recipes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    color: rgb(255, 199, 199);
+  }
+}
+
+.chem_dispenser_filter_modal {
+  background-color: rgba(25, 25, 25, 0.903);
+  padding: 4px;
+  border-radius: 4px;
+}

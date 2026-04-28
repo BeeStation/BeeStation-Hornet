@@ -11,14 +11,17 @@
 	health = 30
 	see_in_dark = 3
 	butcher_results = list(/obj/item/food/meat/slab/killertomato = 2)
-	response_help  = "prods"
-	response_disarm = "pushes aside"
-	response_harm   = "smacks"
+	response_help_continuous = "prods"
+	response_help_simple = "prod"
+	response_disarm_continuous = "pushes aside"
+	response_disarm_simple = "push aside"
+	response_harm_continuous = "smacks"
+	response_harm_simple = "smack"
 	melee_damage = 10
-	attacktext = "slams"
+	attack_verb_continuous = "slams"
+	attack_verb_simple = "slam"
 	attack_sound = 'sound/weapons/punch1.ogg'
-	ventcrawler = VENTCRAWLER_ALWAYS
-	faction = list("plants")
+	faction = list(FACTION_PLANTS)
 
 	mobchatspan = "headofsecurity"
 	discovery_points = 1000
@@ -28,6 +31,10 @@
 	maxbodytemp = 500
 	gold_core_spawnable = HOSTILE_SPAWN
 	var/frenzythreshold = 5 //how many tomatoes can this tomato see on screen before going berserk
+
+/mob/living/simple_animal/hostile/killertomato/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/killertomato/CanAttack(atom/the_target)
 	var/tomatosseen = 0

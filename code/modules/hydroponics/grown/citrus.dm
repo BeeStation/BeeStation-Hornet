@@ -1,5 +1,6 @@
 // Citrus - base type
 /obj/item/food/grown/citrus
+	abstract_type = /obj/item/food/grown/citrus
 	seed = /obj/item/seeds/lime
 	name = "citrus"
 	desc = "It's so sour, your face will twist."
@@ -15,7 +16,7 @@
 	species = "lime"
 	plantname = "Lime Tree"
 	product = /obj/item/food/grown/citrus/lime
-	lifespan = 55
+	lifespan = 220
 	endurance = 50
 	yield = 4
 	potency = 15
@@ -29,7 +30,7 @@
 	name = "lime"
 	desc = "It's so sour, your face will twist."
 	icon_state = "lime"
-	juice_results = list(/datum/reagent/consumable/limejuice = 0)
+	juice_typepath = /datum/reagent/consumable/limejuice
 
 // Orange
 /obj/item/seeds/orange
@@ -39,7 +40,7 @@
 	species = "orange"
 	plantname = "Orange Tree"
 	product = /obj/item/food/grown/citrus/orange
-	lifespan = 60
+	lifespan = 240
 	endurance = 50
 	yield = 5
 	potency = 20
@@ -55,7 +56,7 @@
 	name = "orange"
 	desc = "It's a tangy fruit."
 	icon_state = "orange"
-	juice_results = list(/datum/reagent/consumable/orangejuice = 0)
+	juice_typepath = /datum/reagent/consumable/orangejuice
 	distill_reagent = /datum/reagent/consumable/ethanol/triple_sec
 
 // Lemon
@@ -66,7 +67,7 @@
 	species = "lemon"
 	plantname = "Lemon Tree"
 	product = /obj/item/food/grown/citrus/lemon
-	lifespan = 55
+	lifespan = 220
 	endurance = 45
 	yield = 4
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
@@ -81,7 +82,7 @@
 	name = "lemon"
 	desc = "When life gives you lemons, make lemonade."
 	icon_state = "lemon"
-	juice_results = list(/datum/reagent/consumable/lemonjuice = 0)
+	juice_typepath = /datum/reagent/consumable/lemonjuice
 
 // Combustible lemon
 /obj/item/seeds/firelemon //combustible lemon is too long so firelemon
@@ -95,7 +96,7 @@
 	icon_grow = "lime-grow"
 	icon_dead = "lime-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	lifespan = 55
+	lifespan = 220
 	endurance = 45
 	yield = 4
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05, /datum/reagent/sulfur = 0.1, /datum/reagent/medicine/charcoal = 0.1, /datum/reagent/saltpetre = 0.1)
@@ -110,7 +111,7 @@
 	discovery_points = 300
 
 /obj/item/food/grown/firelemon/attack_self(mob/living/user)
-	user.visible_message("<span class='warning'>[user] primes [src]!</span>", "<span class='userdanger'>You prime [src]!</span>")
+	user.visible_message(span_warning("[user] primes [src]!"), span_userdanger("You prime [src]!"))
 	log_bomber(user, "primed a", src, "for detonation")
 	icon_state = "firelemon_active"
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
@@ -159,7 +160,7 @@
 	species = "orange"
 	plantname = "Extradimensional Orange Tree"
 	product = /obj/item/food/grown/citrus/orange_3d
-	lifespan = 60
+	lifespan = 240
 	endurance = 50
 	yield = 5
 	potency = 20
@@ -175,7 +176,7 @@
 	desc = "You can hardly wrap your head around this thing."
 	icon_state = "orang"
 	bite_consumption_mod = 2
-	juice_results = list(/datum/reagent/consumable/orangejuice = 0)
+	juice_typepath = /datum/reagent/consumable/orangejuice
 	distill_reagent = /datum/reagent/consumable/ethanol/triple_sec
 	tastes = list("polygons" = 1, "oranges" = 1)
 	discovery_points = 300

@@ -2,21 +2,16 @@
 	filename = "crewmani"
 	filedesc = "Crew Manifest"
 	category = PROGRAM_CATEGORY_CREW
-	program_icon_state = "id"
+	program_icon_state = "crew"
 	extended_desc = "Program for viewing and printing the current crew manifest"
-	transfer_access = list(ACCESS_HEADS)
-	requires_ntnet = FALSE
-	size = 0
-	undeletable = TRUE // It comes by default in PDAs, can't be downloaded, takes no space and should obviously not be able to be deleted.
-	available_on_ntnet = FALSE
+	size = 4
 	tgui_id = "NtosCrewManifest"
 	program_icon = "clipboard-list"
-
-
+	power_consumption = 20 WATT
 
 /datum/computer_file/program/crew_manifest/ui_static_data(mob/user)
 	var/list/data = list()
-	data["manifest"] = GLOB.data_core.get_manifest()
+	data["manifest"] = GLOB.manifest.get_manifest()
 	return data
 
 /datum/computer_file/program/crew_manifest/ui_data(mob/user)
@@ -45,10 +40,10 @@
 			if(computer && printer) //This option should never be called if there is no printer
 				var/contents = {"<h4>Crew Manifest</h4>
 								<br>
-								[GLOB.data_core ? GLOB.data_core.get_manifest_html(0) : ""]
+								[GLOB.manifest ? GLOB.manifest.get_html(0) : ""]
 								"}
 				if(!printer.print_text(contents,"crew manifest ([station_time_timestamp()])"))
-					to_chat(usr, "<span class='notice'>Hardware error: Printer was unable to print the file. It may be out of paper.</span>")
+					to_chat(usr, span_notice("Hardware error: Printer was unable to print the file. It may be out of paper."))
 					return
 				else
-					computer.visible_message("<span class='notice'>\The [computer] prints out a paper.</span>")
+					computer.visible_message(span_notice("\The [computer] prints out a paper."))

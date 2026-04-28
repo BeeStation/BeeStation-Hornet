@@ -44,6 +44,8 @@
 	icon_state = "clusterbang_segment"
 	base_state = "clusterbang_segment"
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grenade/clusterbuster/segment)
+
 /obj/item/grenade/clusterbuster/segment/Initialize(mapload, obj/item/grenade/clusterbuster/base)
 	. = ..()
 	if(base)
@@ -74,6 +76,8 @@
 //////////////////////////////////
 //The payload spawner effect
 /////////////////////////////////
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/payload_spawner)
+
 /obj/effect/payload_spawner/Initialize(mapload, type, numspawned)
 	..()
 	spawn_payload(type, numspawned)
@@ -110,7 +114,13 @@
 
 /obj/effect/payload_spawner/random_slime/spawn_payload(type, numspawned)
 	for(var/loop = numspawned ,loop > 0, loop--)
-		var/chosen = pick(subtypesof(/obj/item/slime_extract))
+		var/list/nospawn = list(
+			/obj/item/slime_extract/darkgreen,
+			/obj/item/slime_extract/cobalt,
+			/obj/item/slime_extract/darkgrey,
+			/obj/item/slime_extract/crimson
+		)
+		var/chosen = pick(subtypesof(/obj/item/slime_extract) - nospawn)
 		var/obj/item/slime_extract/P = new chosen(loc)
 		if(volatile)
 			addtimer(CALLBACK(P, TYPE_PROC_REF(/obj/item/slime_extract, activate_slime)), rand(15,60))
@@ -139,6 +149,8 @@
 /obj/item/grenade/clusterbuster/inferno
 	name = "Inferno"
 	payload = /obj/item/grenade/chem_grenade/incendiary
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/grenade/clusterbuster/antiweed
 	name = "RoundDown"

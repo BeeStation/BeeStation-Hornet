@@ -34,12 +34,12 @@
 	set desc = "Offer control of yourself up to ghosts."
 
 	if(being_reset)
-		to_chat(src, "<span class='warning'>You are already in the process of attempting a personality reset!</span>", type = MESSAGE_TYPE_WARNING)
+		to_chat(src, span_warning("You are already in the process of attempting a personality reset!"), type = MESSAGE_TYPE_WARNING)
 		return
 	if(tgui_alert(src, "Are you sure you want to reset yourself? You will be ghosted and a new player will take control of you, if an eligible candidate signs up.", "Reset Confirmation", list("Yes", "No")) != "Yes")
 		return
-	to_chat(src, "<span class='holoparasite bold'>Attempting to reset personality... Please wait.</span>", type = MESSAGE_TYPE_INFO)
-	to_chat(summoner.current, "<span class='holoparasite bold'>[color_name] is requesting a personality reset, please hold!</span>", type = MESSAGE_TYPE_INFO)
+	to_chat(src, span_holoparasitebold("Attempting to reset personality... Please wait."), type = MESSAGE_TYPE_INFO)
+	to_chat(summoner.current, span_holoparasitebold("[color_name] is requesting a personality reset, please hold!"), type = MESSAGE_TYPE_INFO)
 	reset(cooldown = FALSE, self = TRUE)
 
 /**
@@ -51,4 +51,4 @@
 	set desc = "Toggles whether, when you speak while recalled, will talk out loud, or privately with your summoner."
 
 	talk_out_loud = !talk_out_loud
-	to_chat(src, "<span class='holoparasite bold'>You will now talk [talk_out_loud ? "out loud" : "privately with your summoner"] when attempting to speak while recalled.</span>", type = MESSAGE_TYPE_INFO)
+	to_chat(src, span_holoparasitebold("You will now talk [talk_out_loud ? "out loud" : "privately with your summoner"] when attempting to speak while recalled."), type = MESSAGE_TYPE_INFO)

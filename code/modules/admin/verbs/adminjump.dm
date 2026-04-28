@@ -10,10 +10,10 @@
 		return
 
 	var/list/turfs = list()
-	for(var/turf/T in A)
-		if(T.density)
-			continue
-		turfs.Add(T)
+	for (var/list/zlevel_turfs as anything in A.get_zlevel_turf_lists())
+		for (var/turf/area_turf as anything in zlevel_turfs)
+			if(!area_turf.density)
+				turfs.Add(area_turf)
 
 	var/turf/T = safepick(turfs)
 	if(!T)
@@ -150,6 +150,8 @@
 		to_chat(src, "No areas found.")
 		return
 	var/area/A = tgui_input_list(src, "Pick an area", "Send Mob", sorted_areas)
+	if(isnull(A))
+		return
 	if(!istype(A))
 		return
 	if(M.forceMove(safepick(get_area_turfs(A))))

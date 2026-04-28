@@ -1,0 +1,2 @@
+/obj/item/knife/shank : /obj/item/knife/shiv{@OLD}
+/obj/item/knife/carrotshiv : /obj/item/knife/shiv/carrot{@OLD}

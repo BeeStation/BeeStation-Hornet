@@ -1,25 +1,27 @@
 /obj/item/clothing/mask
+	abstract_type = /obj/item/clothing/mask
 	name = "mask"
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_MASK
 	strip_delay = 40
 	equip_delay_other = 40
+	custom_price = 25
 	var/modifies_speech = FALSE
-	var/mask_adjusted = 0
+	var/mask_adjusted = FALSE
 	var/adjusted_flags = null
 	var/voice_change = FALSE //Used to mask/change the user's voice, only specific masks can set this to TRUE
 	var/obj/item/organ/tongue/chosen_tongue = null
 
 /obj/item/clothing/mask/attack_self(mob/user)
-	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
-		TOGGLE_BITFIELD(clothing_flags, VOICEBOX_DISABLED)
-		var/status = !CHECK_BITFIELD(clothing_flags, VOICEBOX_DISABLED)
-		to_chat(user, "<span class='notice'>You turn the voice box in [src] [status ? "on" : "off"].</span>")
+	if((clothing_flags & VOICEBOX_TOGGLABLE))
+		clothing_flags ^= (VOICEBOX_DISABLED)
+		var/status = !(clothing_flags & VOICEBOX_DISABLED)
+		to_chat(user, span_notice("You turn the voice box in [src] [status ? "on" : "off"]."))
 
 /obj/item/clothing/mask/equipped(mob/M, slot)
 	. = ..()
-	if (slot == ITEM_SLOT_MASK && modifies_speech)
+	if (slot == ITEM_SLOT_MASK && (modifies_speech || chosen_tongue))
 		RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	else
 		UnregisterSignal(M, COMSIG_MOB_SAY)
@@ -32,46 +34,54 @@
 	chosen_tongue = null
 	. = ..()
 
-/obj/item/clothing/mask/proc/handle_speech()
+/obj/item/clothing/mask/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
+	if(chosen_tongue)
+		var/mob/living/L = source
+		L.verb_say = pick(initial(chosen_tongue.say_mod))
+		L.verb_ask = pick(initial(chosen_tongue.ask_mod))
+		L.verb_yell = pick(initial(chosen_tongue.yell_mod))
+		L.verb_exclaim = pick(initial(chosen_tongue.exclaim_mod))
 
 /obj/item/clothing/mask/proc/get_name(mob/user, default_name)
 	return default_name
 
 /obj/item/clothing/mask/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
-	if(!isinhands)
-		if(body_parts_covered & HEAD)
-			if(damaged_clothes)
-				. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
-			if(HAS_BLOOD_DNA(src))
-				. += mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
+	. = ..()
+	if(isinhands)
+		return
 
-/obj/item/clothing/mask/update_clothes_damaged_state(damaging = TRUE)
+	if(body_parts_covered & HEAD)
+		if(damaged_clothes)
+			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
+		if(GET_ATOM_BLOOD_DNA_LENGTH(src))
+			var/mutable_appearance/bloody_mask = mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
+			bloody_mask.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+			. += bloody_mask
+
+/obj/item/clothing/mask/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_wear_mask()
+		M.update_worn_mask()
 
 //Proc that moves gas/breath masks out of the way, disabling them and allowing pill/food consumption
 /obj/item/clothing/mask/proc/adjustmask(mob/living/carbon/user)
-	if(user && user.incapacitated())
+	if(user && user.incapacitated)
 		return
 	mask_adjusted = !mask_adjusted
 	if(!mask_adjusted)
 		icon_state = initial(icon_state)
 		gas_transfer_coefficient = initial(gas_transfer_coefficient)
-		permeability_coefficient = initial(permeability_coefficient)
 		clothing_flags |= visor_flags
 		flags_inv |= visor_flags_inv
 		flags_cover |= visor_flags_cover
-		to_chat(user, "<span class='notice'>You push \the [src] back into place.</span>")
+		to_chat(user, span_notice("You push \the [src] back into place."))
 		slot_flags = initial(slot_flags)
 	else
 		icon_state += "_up"
-		to_chat(user, "<span class='notice'>You push \the [src] out of the way.</span>")
+		to_chat(user, span_notice("You push \the [src] out of the way."))
 		gas_transfer_coefficient = null
-		permeability_coefficient = null
 		clothing_flags &= ~visor_flags
 		flags_inv &= ~visor_flags_inv
 		flags_cover &= ~visor_flags_cover
@@ -93,8 +103,8 @@
 		return
 
 	//Start with two sides
-	var/icon/main = icon('icons/mob/mask.dmi', icon_state) //This takes the icon and uses the worn version of the icon
-	var/icon/sub = icon('icons/mob/mask.dmi', icon_state)
+	var/icon/main = icon('icons/mob/clothing/mask.dmi', icon_state) //This takes the icon and uses the worn version of the icon
+	var/icon/sub = icon('icons/mob/clothing/mask.dmi', icon_state)
 
 	//merge the sub side with the main, after masking off the middle pixel line
 	var/icon/mask = new('icons/mob/monkey.dmi', "monkey_mask_right") //masking
@@ -105,7 +115,7 @@
 	main.Blend(sub, ICON_OVERLAY)
 
 	//Flip it facing west, due to a spriting quirk
-	sub = icon('icons/mob/mask.dmi', icon_state, dir = EAST)
+	sub = icon('icons/mob/clothing/mask.dmi', icon_state, dir = EAST)
 	main.Insert(sub, dir = EAST)
 	sub.Flip(WEST)
 	main.Insert(sub, dir = WEST)

@@ -12,12 +12,12 @@
 /area/template_noop)
 "c" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
 /obj/structure/table,
-/obj/item/food/donut,
+/obj/item/food/donut/plain,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (

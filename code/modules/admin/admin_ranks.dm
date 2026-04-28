@@ -113,7 +113,7 @@ GLOBAL_PROTECT(protected_ranks)
 	set waitfor = FALSE
 
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='admin prefix'>Admin rank DB Sync blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_adminprefix("Admin rank DB Sync blocked: Advanced ProcCall detected."))
 		return
 
 	var/list/sql_ranks = list()
@@ -124,7 +124,7 @@ GLOBAL_PROTECT(protected_ranks)
 //load our rank - > rights associations
 /proc/load_admin_ranks(dbfail, no_update)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='admin prefix'>Admin Reload blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_adminprefix("Admin Reload blocked: Advanced ProcCall detected."))
 		return
 	GLOB.admin_ranks.Cut()
 	GLOB.protected_ranks.Cut()
@@ -275,7 +275,7 @@ GLOBAL_PROTECT(protected_ranks)
 	return dbfail
 
 #ifdef TESTING
-/client/verb/changerank(newrank in GLOB.admin_ranks)
+AUTH_CLIENT_VERB(changerank, newrank in GLOB.admin_ranks)
 	if(holder)
 		holder.rank = newrank
 	else
@@ -283,7 +283,7 @@ GLOBAL_PROTECT(protected_ranks)
 	remove_admin_verbs()
 	holder.associate(src)
 
-/client/verb/changerights(newrights as num)
+AUTH_CLIENT_VERB(changerights, newrights as num)
 	if(holder)
 		holder.rank.rights = newrights
 	else

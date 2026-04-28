@@ -16,6 +16,19 @@
 /obj/machinery/mass_driver/notspace
 	drive_range = 50
 
+/obj/machinery/mass_driver/supermatter
+	name = "emergency supermatter ejection pad"
+	id = "smeject"
+	armor_type = /datum/armor/massdriver_supermatter
+	critical_machine = 1
+
+/datum/armor/massdriver_supermatter
+	melee = 10
+	bullet = 10
+	laser = 10
+	fire = 100
+	acid = 70
+
 /obj/machinery/mass_driver/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/mass_driver(src)
@@ -36,7 +49,7 @@
 				continue
 			O_limit++
 			if(O_limit >= 20)
-				audible_message("<span class='notice'>[src] lets out a screech, it doesn't seem to be able to handle the load.</span>")
+				audible_message(span_notice("[src] lets out a screech, it doesn't seem to be able to handle the load."))
 				break
 			use_power(power_per_obj)
 			O.throw_at(target, drive_range * power, power)

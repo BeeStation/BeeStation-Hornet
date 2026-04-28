@@ -1,15 +1,13 @@
 #define MC_TICK_CHECK ( ( TICK_USAGE > Master.current_ticklimit || src.state != SS_RUNNING ) ? pause() : 0 )
 
-#define MC_TICK_REMAINING_MS ((Master.current_ticklimit - TICK_USAGE) * world.tick_lag)
-
 #define MC_SPLIT_TICK_INIT(phase_count) var/original_tick_limit = Master.current_ticklimit; var/split_tick_phases = ##phase_count
 #define MC_SPLIT_TICK \
-    if(split_tick_phases > 1){\
-        Master.current_ticklimit = ((original_tick_limit - TICK_USAGE) / split_tick_phases) + TICK_USAGE;\
-        --split_tick_phases;\
-    } else {\
-        Master.current_ticklimit = original_tick_limit;\
-    }
+	if(split_tick_phases > 1){\
+		Master.current_ticklimit = ((original_tick_limit - TICK_USAGE) / split_tick_phases) + TICK_USAGE;\
+		--split_tick_phases;\
+	} else {\
+		Master.current_ticklimit = original_tick_limit;\
+	}
 
 // Used to smooth out costs to try and avoid oscillation.
 #define MC_AVERAGE_FAST(average, current) (0.7 * (average) + 0.3 * (current))
@@ -25,8 +23,13 @@
 #define STOP_PROCESSING(Processor, Datum) Datum.datum_flags &= ~DF_ISPROCESSING;Processor.processing -= Datum
 
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
-/// Used to trigger object removal from a processing list
-#define PROCESS_KILL 26
+
+/// Returns true if the MC is initialized and running.
+/// Optional argument init_stage controls what stage the mc must have initializted to count as initialized. Defaults to INITSTAGE_MAX if not specified.
+#define MC_RUNNING(INIT_STAGE...) (Master && Master.processing > 0 && Master.current_runlevel && Master.init_stage_completed >= (max(min(INITSTAGE_MAX, ##INIT_STAGE), 1)))
+
+#define MC_LOOP_RTN_NEWSTAGES 1
+#define MC_LOOP_RTN_GRACEFUL_EXIT 2
 
 //! SubSystem flags (Please design any new flags so that the default is off, to make adding flags to subsystems easier)
 
@@ -72,10 +75,17 @@
 #define SS_SLEEPING 4 /// fire() slept.
 #define SS_PAUSING 5 /// in the middle of pausing
 
+// Subsystem init stages
+#define INITSTAGE_FIRST 1
+#define INITSTAGE_EARLY 2 //! Early init stuff that doesn't need to wait for mapload
+#define INITSTAGE_MAIN 3 //! Main init stage
+#define INITSTAGE_LAST 4
+#define INITSTAGE_MAX 4 //! Highest initstage.
+
 #define SUBSYSTEM_DEF(X) GLOBAL_REAL(SS##X, /datum/controller/subsystem/##X);\
 /datum/controller/subsystem/##X/New(){\
-    NEW_SS_GLOBAL(SS##X);\
-    PreInit();\
+	NEW_SS_GLOBAL(SS##X);\
+	PreInit();\
 	ss_id=#X;\
 }\
 /datum/controller/subsystem/##X
@@ -98,11 +108,29 @@
 
 #define PROCESSING_SUBSYSTEM_DEF(X) GLOBAL_REAL(SS##X, /datum/controller/subsystem/processing/##X);\
 /datum/controller/subsystem/processing/##X/New(){\
-    NEW_SS_GLOBAL(SS##X);\
-    PreInit();\
+	NEW_SS_GLOBAL(SS##X);\
+	PreInit();\
 	ss_id="processing_[#X]";\
 }\
 /datum/controller/subsystem/processing/##X
 
 //If the MC goes for longer than 5 seconds, provide a warning for investigation
 #define MASTER_CONTROLLER_DELAY_WARN_TIME 2 SECONDS
+
+#define AI_CONTROLLER_SUBSYSTEM_DEF(X) GLOBAL_REAL(SS##X, /datum/controller/subsystem/ai_controllers/##X);\
+/datum/controller/subsystem/ai_controllers/##X/New(){\
+	NEW_SS_GLOBAL(SS##X);\
+	PreInit();\
+	ss_id=#X;\
+}\
+/datum/controller/subsystem/ai_controllers/##X/fire() {..() /*just so it shows up on the profiler*/} \
+/datum/controller/subsystem/ai_controllers/##X
+
+#define UNPLANNED_CONTROLLER_SUBSYSTEM_DEF(X) GLOBAL_REAL(SS##X, /datum/controller/subsystem/unplanned_controllers/##X);\
+/datum/controller/subsystem/unplanned_controllers/##X/New(){\
+	NEW_SS_GLOBAL(SS##X);\
+	PreInit();\
+	ss_id=#X;\
+}\
+/datum/controller/subsystem/unplanned_controllers/##X/fire() {..() /*just so it shows up on the profiler*/} \
+/datum/controller/subsystem/unplanned_controllers/##X

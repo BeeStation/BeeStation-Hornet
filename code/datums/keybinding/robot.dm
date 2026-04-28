@@ -53,23 +53,6 @@
 	M.toggle_module(3)
 	return TRUE
 
-
-/datum/keybinding/robot/change_intent_robot
-	keys = list("4")
-	name = "change_intent_robot"
-	full_name = "Change Intent"
-	description = "Change your intent as a robot."
-	keybind_signal = COMSIG_KB_SILICON_CYCLEINTENT_DOWN
-
-/datum/keybinding/robot/change_intent_robot/down(client/user)
-	. = ..()
-	if(.)
-		return
-	var/mob/living/silicon/robot/M = user.mob
-	M.a_intent_change(INTENT_HOTKEY_LEFT)
-	return TRUE
-
-
 /datum/keybinding/robot/unequip_module
 	keys = list("Q")
 	name = "unequip_module"

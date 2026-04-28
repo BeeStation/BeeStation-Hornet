@@ -23,11 +23,11 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "q" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "u" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "v" = (
@@ -43,7 +43,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "F" = (
@@ -52,7 +51,6 @@
 "W" = (
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 

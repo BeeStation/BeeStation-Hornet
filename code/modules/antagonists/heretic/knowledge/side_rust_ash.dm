@@ -14,7 +14,7 @@
 		/obj/structure/reagent_dispensers/watertank = 1,
 		/obj/item/shard = 1,
 	)
-	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
+	result_atoms = list(/obj/item/reagent_containers/cup/beaker/eldritch)
 	cost = 1
 	route = HERETIC_PATH_SIDE
 
@@ -39,12 +39,12 @@
 	route = HERETIC_PATH_SIDE
 
 /datum/heretic_knowledge/curse/corrosion/curse(mob/living/carbon/human/chosen_mob)
-	to_chat(chosen_mob, "<span class='danger'>You feel very ill.</span>")
+	to_chat(chosen_mob, span_danger("You feel very ill."))
 	chosen_mob.apply_status_effect(/datum/status_effect/corrosion_curse)
 
 /datum/heretic_knowledge/curse/corrosion/uncurse(mob/living/carbon/human/chosen_mob)
 	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
-	to_chat(chosen_mob, "<span class='notice'>You start to feel better.</span>")
+	to_chat(chosen_mob, span_notice("You start to feel better."))
 
 /datum/heretic_knowledge/spell/cleave
 	name = "Blood Cleave"
@@ -56,6 +56,6 @@
 		/datum/heretic_knowledge/spell/entropic_plume,
 		/datum/heretic_knowledge/spell/flame_birth,
 	)
-	spell_to_add = /obj/effect/proc_holder/spell/pointed/cleave
+	spell_to_add = /datum/action/spell/pointed/cleave
 	cost = 1
 	route = HERETIC_PATH_SIDE

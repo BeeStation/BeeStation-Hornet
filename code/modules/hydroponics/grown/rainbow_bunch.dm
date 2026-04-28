@@ -6,7 +6,7 @@
 	plantname = "Rainbow Bunch"
 	icon_harvest = "rainbowbunch-harvest"
 	product = /obj/item/food/grown/flower/rainbow
-	lifespan = 25
+	lifespan = 100
 	endurance = 10
 	maturation = 6
 	production = 3
@@ -28,7 +28,8 @@
 	throw_range = 3
 	bite_consumption_mod = 0
 	foodtypes = null
-	attack_verb = list("pompfed")
+	attack_verb_continuous = list("pompfs")
+	attack_verb_simple = list("pompf")
 
 /obj/item/food/grown/flower/rainbow/Initialize(mapload)
 	. = ..()
@@ -70,7 +71,7 @@
 			dye_color = DYE_BLACK
 			desc += " This one is in a midnight black color."
 		if(8)
-			color = "#FFFFFF"
+			color = COLOR_WHITE
 			reagents.add_reagent(/datum/reagent/colorful_reagent/powder/white, 3)
 			dye_color = DYE_WHITE
 			desc += " This one is in a pure white color."

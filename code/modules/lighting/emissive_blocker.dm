@@ -16,6 +16,8 @@
 	//Since only render_target handles transform we don't get any applied transform "stacking"
 	appearance_flags = EMISSIVE_APPEARANCE_FLAGS
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/emissive_blocker)
+
 /atom/movable/emissive_blocker/Initialize(mapload, source)
 	. = ..()
 	verbs.Cut() //Cargo culting from lighting object, this maybe affects memory usage?
@@ -32,7 +34,7 @@
 /atom/movable/emissive_blocker/singularity_act()
 	return
 
-/atom/movable/emissive_blocker/singularity_pull()
+/atom/movable/emissive_blocker/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /atom/movable/emissive_blocker/blob_act()

@@ -7,6 +7,7 @@
 	icon = 'icons/obj/musician.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/instruments_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/instruments_righthand.dmi'
+	custom_price = 25
 	/// Our song datum.
 	var/datum/song/handheld/song
 	/// Our allowed list of instrument ids. This is nulled on initialize.
@@ -25,23 +26,17 @@
 	return ..()
 
 /obj/item/instrument/proc/should_stop_playing(mob/user)
-	return user.incapacitated() || !((loc == user) || (isturf(loc) && Adjacent(user)))		// sorry, no more TK playing.
+	return user.incapacitated || !((loc == user) || (isturf(loc) && Adjacent(user)))		// sorry, no more TK playing.
 
 /obj/item/instrument/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/instrument/attack_self(mob/user)
-	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return TRUE
 	interact(user)
 
-/obj/item/instrument/interact(mob/user)
-	ui_interact(user)
-
 /obj/item/instrument/ui_interact(mob/living/user)
-	if(!isliving(user) || user.stat || (user.restrained() && !ispAI(user)))
+	if((!isliving(user) || user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) && !ispAI(user))
 		return
 
 	user.set_machine(src)
@@ -51,7 +46,7 @@
 	name = "space violin"
 	desc = "A wooden musical instrument with four strings and a bow. \"The devil went down to space, he was looking for an assistant to grief.\""
 	icon_state = "violin"
-	item_state = "violin"
+	inhand_icon_state = "violin"
 	hitsound = "swing_hit"
 	allowed_instrument_ids = "violin"
 
@@ -59,14 +54,14 @@
 	name = "golden violin"
 	desc = "A golden musical instrument with four strings and a bow. \"The devil went down to space, he was looking for an assistant to grief.\""
 	icon_state = "golden_violin"
-	item_state = "golden_violin"
+	inhand_icon_state = "golden_violin"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/instrument/piano_synth
 	name = "synthesizer"
 	desc = "An advanced electronic synthesizer that can be used as various instruments."
 	icon_state = "synth"
-	item_state = "synth"
+	inhand_icon_state = "synth"
 	allowed_instrument_ids = "piano"
 
 /obj/item/instrument/piano_synth/Initialize(mapload)
@@ -77,8 +72,9 @@
 	name = "banjo"
 	desc = "A 'Mura' brand banjo. It's pretty much just a drum with a neck and strings."
 	icon_state = "banjo"
-	item_state = "banjo"
-	attack_verb = list("scruggs-styled", "hum-diggitied", "shin-digged", "clawhammered")
+	inhand_icon_state = "banjo"
+	attack_verb_continuous = list("scruggs-styles", "hum-diggitys", "shin-digs", "clawhammers")
+	attack_verb_simple = list("scruggs-style", "hum-diggity", "shin-dig", "clawhammer")
 	hitsound = 'sound/weapons/banjoslap.ogg'
 	allowed_instrument_ids = "banjo"
 
@@ -86,8 +82,9 @@
 	name = "guitar"
 	desc = "It's made of wood and has bronze strings."
 	icon_state = "guitar"
-	item_state = "guitar"
-	attack_verb = list("played metal on", "serenaded", "crashed", "smashed")
+	inhand_icon_state = "guitar"
+	attack_verb_continuous = list("plays metal on", "serenades", "crashes", "smashes")
+	attack_verb_simple = list("play metal on", "serenade", "crash", "smash")
 	hitsound = 'sound/weapons/stringsmash.ogg'
 	allowed_instrument_ids = list("guitar","csteelgt","cnylongt", "ccleangt", "cmutedgt")
 
@@ -95,9 +92,10 @@
 	name = "electric guitar"
 	desc = "Makes all your shredding needs possible."
 	icon_state = "eguitar"
-	item_state = "eguitar"
+	inhand_icon_state = "eguitar"
 	force = 12
-	attack_verb = list("played metal on", "shredded", "crashed", "smashed")
+	attack_verb_continuous = list("plays metal on", "shreds", "crashes", "smashes")
+	attack_verb_simple = list("play metal on", "shred", "crash", "smash")
 	hitsound = 'sound/weapons/stringsmash.ogg'
 	allowed_instrument_ids = "eguitar"
 
@@ -105,30 +103,31 @@
 	name = "glockenspiel"
 	desc = "Smooth metal bars perfect for any marching band."
 	icon_state = "glockenspiel"
-	item_state = "glockenspiel"
+	inhand_icon_state = "glockenspiel"
 	allowed_instrument_ids = list("glockenspiel","crvibr", "sgmmbox", "r3celeste")
 
 /obj/item/instrument/accordion
 	name = "accordion"
 	desc = "Pun-Pun not included."
 	icon_state = "accordion"
-	item_state = "accordion"
+	inhand_icon_state = "accordion"
 	allowed_instrument_ids = list("crack", "crtango", "accordion")
 
 /obj/item/instrument/trumpet
 	name = "trumpet"
 	desc = "To announce the arrival of the king!"
 	icon_state = "trumpet"
-	item_state = "trombone"
+	inhand_icon_state = "trombone"
 	allowed_instrument_ids = "crtrumpet"
 
 /obj/item/instrument/trumpet/spectral
 	name = "spectral trumpet"
 	desc = "Things are about to get spooky!"
 	icon_state = "trumpet"
-	item_state = "trombone"
+	inhand_icon_state = "trombone"
 	force = 0
-	attack_verb = list("played","jazzed","trumpeted","mourned","dooted","spooked")
+	attack_verb_continuous = list("plays", "jazzes", "trumpets", "mourns", "doots", "spooks")
+	attack_verb_simple = list("play", "jazz", "trumpet", "mourn", "doot", "spook")
 
 /obj/item/instrument/trumpet/spectral/Initialize(mapload)
 	. = ..()
@@ -142,17 +141,18 @@
 	name = "saxophone"
 	desc = "This soothing sound will be sure to leave your audience in tears."
 	icon_state = "saxophone"
-	item_state = "saxophone"
+	inhand_icon_state = "saxophone"
 	allowed_instrument_ids = "saxophone"
 
 /obj/item/instrument/saxophone/spectral
 	name = "spectral saxophone"
 	desc = "This spooky sound will be sure to leave mortals in bones."
 	icon_state = "saxophone"
-	item_state = "saxophone"
+	inhand_icon_state = "saxophone"
 	allowed_instrument_ids = "saxophone"
 	force = 0
-	attack_verb = list("played","jazzed","saxxed","mourned","dooted","spooked")
+	attack_verb_continuous = list("plays", "jazzes", "saxxes", "mourns", "doots", "spooks")
+	attack_verb_simple = list("play", "jazz", "sax", "mourn", "doot", "spook")
 
 /obj/item/instrument/saxophone/spectral/Initialize(mapload)
 	. = ..()
@@ -166,16 +166,17 @@
 	name = "trombone"
 	desc = "How can any pool table ever hope to compete?"
 	icon_state = "trombone"
-	item_state = "trombone"
+	inhand_icon_state = "trombone"
 	allowed_instrument_ids = list("crtrombone", "crbrass", "trombone")
 
 /obj/item/instrument/trombone/spectral
 	name = "spectral trombone"
 	desc = "A skeleton's favorite instrument. Apply directly on the mortals."
 	icon_state = "trombone"
-	item_state = "trombone"
+	inhand_icon_state = "trombone"
 	force = 0
-	attack_verb = list("played","jazzed","tromboned","mourned","dooted","spooked")
+	attack_verb_continuous = list("plays", "jazzes", "trombones", "mourns", "doots", "spooks")
+	attack_verb_simple = list("play", "jazz", "trombone", "mourn", "doot", "spook")
 
 /obj/item/instrument/trombone/spectral/Initialize(mapload)
 	. = ..()
@@ -190,14 +191,14 @@
 	desc = "Just like in school, playing ability and all."
 	force = 5
 	icon_state = "recorder"
-	item_state = "recorder"
+	inhand_icon_state = "recorder"
 	allowed_instrument_ids = "recorder"
 
 /obj/item/instrument/harmonica
 	name = "harmonica"
 	desc = "For when you get a bad case of the space blues."
 	icon_state = "harmonica"
-	item_state = "harmonica"
+	inhand_icon_state = "harmonica"
 	allowed_instrument_ids = list("harmonica", "crharmony")
 	slot_flags = ITEM_SLOT_MASK
 	force = 5
@@ -208,7 +209,7 @@
 	SIGNAL_HANDLER
 
 	if(song.playing && ismob(loc))
-		to_chat(loc, "<span class='warning'>You stop playing the harmonica to talk...</span>")
+		to_chat(loc, span_warning("You stop playing the harmonica to talk..."))
 		song.playing = FALSE
 
 /obj/item/instrument/harmonica/equipped(mob/M, slot)
@@ -219,14 +220,26 @@
 	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
+/datum/action/item_action/instrument
+	name = "Use Instrument"
+	desc = "Use the instrument specified"
+
+/datum/action/item_action/instrument/on_activate(mob/user, atom/target)
+	if(istype(target, /obj/item/instrument))
+		var/obj/item/instrument/I = target
+		I.interact(usr)
+		return
+	return ..()
+
 /obj/item/instrument/bikehorn
 	name = "gilded bike horn"
 	desc = "An exquisitely decorated bike horn, capable of honking in a variety of notes."
 	icon_state = "bike_horn"
-	item_state = "bike_horn"
+	inhand_icon_state = "bike_horn"
 	lefthand_file = 'icons/mob/inhands/equipment/horns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/horns_righthand.dmi'
-	attack_verb = list("beautifully honks")
+	attack_verb_continuous = list("beautifully honks")
+	attack_verb_simple = list("beautifully honk")
 	allowed_instrument_ids = list("bikehorn", "honk")
 	w_class = WEIGHT_CLASS_TINY
 	force = 0
@@ -263,7 +276,7 @@
 	if(!item_list.len)
 		return
 	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE)
-	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated && in_range(M,src))
 		for(var/V in instrument_list)
 			var/atom/A = V
 			if(initial(A.name) == choice)
@@ -273,7 +286,7 @@
 					qdel(src)
 				else
 					balloon_alert(M, "[uses] use[uses > 1 ? "s" : ""] remaining")
-					to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+					to_chat(M, span_notice("[uses] use[uses > 1 ? "s" : ""] remaining on the [src]."))
 				return
 
 /obj/item/choice_beacon/radial/music/generate_item_list()
@@ -293,7 +306,8 @@
 	desc = "Despite its popularity, this controversial musical toy was eventually banned due to its unethically sampled sounds of moths screaming in agony."
 	icon_state = "mothsician"
 	allowed_instrument_ids = "mothscream"
-	attack_verb = list("flutter", "flap")
+	attack_verb_continuous = list("flutters", "flaps")
+	attack_verb_simple = list("flutter", "flap")
 	w_class = WEIGHT_CLASS_TINY
 	force = 0
 	hitsound = 'sound/voice/moth/scream_moth.ogg'

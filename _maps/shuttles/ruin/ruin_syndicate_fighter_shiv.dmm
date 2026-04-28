@@ -15,19 +15,15 @@
 	req_access = null;
 	req_access_txt = "150"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /mob/living/simple_animal/hostile/syndicate/ranged/smg/pilot{
 	environment_smash = 0
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/caravan/syndicate1)
 "fh" = (
-/obj/machinery/camera/xray{
+/obj/machinery/camera/xray/directional/west{
 	c_tag = "External View";
-	dir = 4;
-	network = list("caravansyndicate1");
 	pixel_x = 32
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
@@ -57,9 +53,8 @@
 	req_access = null;
 	req_access_txt = "150"
 	},
-/obj/machinery/computer/security{
-	dir = 1;
-	network = list("caravansyndicate1")
+/obj/machinery/computer/security/caravansyndicate{
+	dir = 1
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium/red,
@@ -69,9 +64,9 @@
 /obj/machinery/door/airlock/hatch{
 	id_tag = "caravansyndicate1_bolt";
 	name = "External Airlock";
-	normalspeed = 0;
-	req_access_txt = "150"
+	normalspeed = 0
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/decal/cleanable/dirt,
 /obj/docking_port/mobile{
 	callTime = 50;

@@ -20,9 +20,8 @@
 	var/static/list/allowed_money = typecacheof(list(
 		/obj/item/stack/spacecash,
 		/obj/item/holochip,
-		/obj/item/coin
-		)
-	)
+		/obj/item/coin,
+	))
 
 /datum/component/payment/Initialize(_cost, _target, _style = PAYMENT_CLINICAL)
 	if(istext(_target))
@@ -105,12 +104,12 @@
 
 		if(armless)
 			if(!user.pulling || !iscash(user.pulling) && !istype(user.pulling, /obj/item/card/id))
-				to_chat(user, "<span class='notice'>Try pulling a valid ID, space cash, holochip or coin while using \the [parent]!</span>")
+				to_chat(user, span_notice("Try pulling a valid ID, space cash, holochip or coin while using \the [parent]!"))
 				return FALSE
 		return FALSE
 
 	if(physical_cash_total < total_cost)
-		to_chat(user, "<span class='notice'>Insufficient funds. Aborting.</span>")
+		to_chat(user, span_notice("Insufficient funds. Aborting."))
 		return FALSE
 	for(var/obj/cash_object in counted_money)
 		qdel(cash_object)
@@ -127,7 +126,7 @@
 		else
 			user.pulling = holochange
 	log_econ("[total_cost] credits were spent on [parent] by [user].")
-	to_chat(user, "<span class='notice'>Purchase completed with held credits.</span>")
+	to_chat(user, span_notice("Purchase completed with held credits."))
 	playsound(user, 'sound/effects/cashregister.ogg', 20, TRUE)
 	return TRUE
 
@@ -142,21 +141,21 @@
 	if(!idcard?.registered_account)
 		switch(transaction_style)
 			if(PAYMENT_FRIENDLY)
-				to_chat(user, "<span class='warning'>There's no account detected on your ID, how mysterious!</span>")
+				to_chat(user, span_warning("There's no account detected on your ID, how mysterious!"))
 			if(PAYMENT_ANGRY)
-				to_chat(user, "<span class='warning'>ARE YOU JOKING. YOU DON'T HAVE A BANK ACCOUNT ON YOUR ID YOU IDIOT.</span>")
+				to_chat(user, span_warning("ARE YOU JOKING. YOU DON'T HAVE A BANK ACCOUNT ON YOUR ID YOU IDIOT."))
 			if(PAYMENT_CLINICAL)
-				to_chat(user, "<span class='warning'>ID Card lacks a bank account. Advancing.</span>")
+				to_chat(user, span_warning("ID Card lacks a bank account. Advancing."))
 		return FALSE
 
 	if(!(idcard.registered_account.has_money(total_cost)))
 		switch(transaction_style)
 			if(PAYMENT_FRIENDLY)
-				to_chat(user, "<span class='warning'>I'm so sorry... You don't seem to have enough money.</span>")
+				to_chat(user, span_warning("I'm so sorry... You don't seem to have enough money."))
 			if(PAYMENT_ANGRY)
-				to_chat(user, "<span class='warning'>YOU MORON. YOU ABSOLUTE BUFFOON. YOU INSUFFERABLE TOOL. YOU ARE POOR.</span>")
+				to_chat(user, span_warning("YOU MORON. YOU ABSOLUTE BUFFOON. YOU INSUFFERABLE TOOL. YOU ARE POOR."))
 			if(PAYMENT_CLINICAL)
-				to_chat(user, "<span class='warning'>ID Card lacks funds. Aborting.</span>")
+				to_chat(user, span_warning("ID Card lacks funds. Aborting."))
 		atom_parent.balloon_alert(user, "needs [total_cost] credit\s!")
 		return FALSE
 	target_acc.transfer_money(idcard.registered_account, total_cost)

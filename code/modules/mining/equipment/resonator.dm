@@ -3,11 +3,12 @@
 	name = "resonator"
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "resonator"
-	item_state = "resonator"
+	inhand_icon_state = "resonator"
 	lefthand_file = 'icons/mob/inhands/equipment/mining_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/mining_righthand.dmi'
 	desc = "A handheld device that creates small fields of energy that resonate until they detonate, crushing rock. It does increased damage in low pressure."
 	w_class = WEIGHT_CLASS_NORMAL
+	resistance_flags = FIRE_PROOF
 	force = 15
 	throwforce = 10
 	var/burst_time = 30
@@ -19,7 +20,7 @@
 	name = "upgraded resonator"
 	desc = "An upgraded version of the resonator that can produce more fields at once, as well as having no damage penalty for bursting a resonance field early."
 	icon_state = "resonator_u"
-	item_state = "resonator_u"
+	inhand_icon_state = "resonator_u"
 	fieldlimit = 6
 	quick_burst_mod = 1
 
@@ -28,15 +29,15 @@
 		return
 	if(burst_time == 50)
 		burst_time = 30
-		to_chat(user, "<span class='info'>You set the resonator's fields to detonate after 3 seconds.</span>")
+		to_chat(user, span_info("You set the resonator's fields to detonate after 3 seconds."))
 	else
 		burst_time = 50
-		to_chat(user, "<span class='info'>You set the resonator's fields to detonate after 5 seconds.</span>")
+		to_chat(user, span_info("You set the resonator's fields to detonate after 5 seconds."))
 
 /obj/item/resonator/attack_self(mob/user)
 	if(LAZYLEN(fields) == 0)
 		return
-	to_chat(user, "<span class='info'>You detonate all resonator's active fields.</span>")
+	to_chat(user, span_info("You detonate all resonator's active fields."))
 	for(var/obj/effect/temp_visual/resonance/F in fields)
 		F.damage_multiplier = quick_burst_mod
 		F.burst()
@@ -56,7 +57,7 @@
 /obj/item/resonator/pre_attack(atom/target, mob/user, params)
 	if(check_allowed_items(target, 1))
 		CreateResonance(target, user)
-	return TRUE
+	. = ..()
 
 //resonance field, crushes rock, damages mobs
 /obj/effect/temp_visual/resonance
@@ -69,6 +70,8 @@
 	var/damage_multiplier = 1
 	var/creator
 	var/obj/item/resonator/res
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/resonance)
 
 /obj/effect/temp_visual/resonance/Initialize(mapload, set_creator, set_resonator, set_duration)
 	duration = set_duration
@@ -112,7 +115,7 @@
 	for(var/mob/living/L in T)
 		if(creator)
 			log_combat(creator, L, "used a resonator field on", "resonator")
-		to_chat(L, "<span class='userdanger'>[src] ruptured with you in it!</span>")
+		to_chat(L, span_userdanger("[src] ruptured with you in it!"))
 		L.apply_damage(resonance_damage, BRUTE)
 	qdel(src)
 

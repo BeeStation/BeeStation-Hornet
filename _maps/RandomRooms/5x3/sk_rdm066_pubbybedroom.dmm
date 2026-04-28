@@ -13,10 +13,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 28
-	},
-/obj/item/reagent_containers/glass/beaker,
+/obj/structure/sink/kitchen/directional/south,
+/obj/item/reagent_containers/cup/beaker,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (

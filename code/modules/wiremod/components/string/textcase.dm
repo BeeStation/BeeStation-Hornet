@@ -6,6 +6,7 @@
 /obj/item/circuit_component/textcase
 	display_name = "Text Case"
 	desc = "A component that makes its input uppercase or lowercase."
+	category = "String"
 
 	var/datum/port/input/option/textcase_options
 
@@ -37,7 +38,7 @@
 	var/result
 	switch(textcase_options.value)
 		if(COMP_TEXT_LOWER)
-			result = lowertext(value)
+			result = LOWER_TEXT(value)
 		if(COMP_TEXT_UPPER)
 			result = uppertext(value)
 

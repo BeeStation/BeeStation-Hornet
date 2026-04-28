@@ -6,8 +6,9 @@ Unused icons for new areas are "awaycontent1" ~ "awaycontent30"
 // Away Missions
 /area/awaymission
 	name = "Strange Location"
+	icon = 'icons/area/areas_away_missions.dmi'
 	icon_state = "away"
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	ambience_index = AMBIENCE_AWAY
 	sound_environment = SOUND_ENVIRONMENT_ROOM
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
@@ -15,21 +16,15 @@ Unused icons for new areas are "awaycontent1" ~ "awaycontent30"
 /area/awaymission/beach
 	name = "Beach"
 	icon_state = "away"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = "#FFFFCC"
 	requires_power = FALSE
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
 
 /area/awaymission/errorroom
 	name = "Super Secret Room"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	has_gravity = STANDARD_GRAVITY
-
-/area/awaymission/vr
-	name = "Virtual Reality"
-	icon_state = "awaycontent1"
-	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	var/pacifist = TRUE // if when you enter this zone, you become a pacifist or not
-	var/death = FALSE // if when you enter this zone, you die
-	network_root_id = "VR"
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	default_gravity = STANDARD_GRAVITY

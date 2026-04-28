@@ -6,12 +6,13 @@
 	icon_state = "outlet"
 	density = TRUE
 	anchored = TRUE
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	var/active = FALSE
 	var/turf/target	// this will be where the output objects are 'thrown' to.
 	var/obj/structure/disposalpipe/trunk/trunk // the attached pipe trunk
 	var/start_eject = 0
 	var/eject_range = 2
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposaloutlet)
 
 /obj/structure/disposaloutlet/Initialize(mapload, obj/structure/disposalconstruct/make_from)
 	. = ..()
@@ -61,9 +62,9 @@
 
 	add_fingerprint(user)
 	playsound(src, 'sound/items/welder2.ogg', 100, 1)
-	to_chat(user, "<span class='notice'>You start slicing the floorweld off [src]...</span>")
+	to_chat(user, span_notice("You start slicing the floorweld off [src]..."))
 	if(I.use_tool(src, user, 20))
-		to_chat(user, "<span class='notice'>You slice the floorweld off [src].</span>")
+		to_chat(user, span_notice("You slice the floorweld off [src]."))
 		deconstruct()
 	return TRUE
 

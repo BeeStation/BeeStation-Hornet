@@ -3,7 +3,7 @@
 	desc = "A beacon used by a teleporter."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "beacon"
-	item_state = "beacon"
+	inhand_icon_state = "beacon"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	var/enabled = TRUE
@@ -30,7 +30,7 @@
 	else
 		icon_state = "beacon-off"
 		GLOB.teleportbeacons -= src
-	to_chat(user, "<span class='notice'>You [enabled ? "enable" : "disable"] the beacon.</span>")
+	to_chat(user, span_notice("You [enabled ? "enable" : "disable"] the beacon."))
 	return
 
 /obj/item/beacon/attackby(obj/item/W, mob/user)

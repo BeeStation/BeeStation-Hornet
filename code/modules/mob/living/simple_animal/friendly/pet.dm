@@ -1,7 +1,7 @@
 /mob/living/simple_animal/pet
 	icon = 'icons/mob/pets.dmi'
 	mob_size = MOB_SIZE_SMALL
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/unique_pet = FALSE // if the mob can be renamed
 	var/obj/item/clothing/neck/petcollar/pcollar
@@ -19,7 +19,7 @@
 		return
 	pcollar = P
 	regenerate_icons()
-	to_chat(user, "<span class='notice'>You put the [P] around [src]'s neck.</span>")
+	to_chat(user, span_notice("You put the [P] around [src]'s neck."))
 	if(P.tagname && !unique_pet)
 		fully_replace_character_name(null, "\proper [P.tagname]")
 
@@ -48,12 +48,14 @@
 	QDEL_NULL(pcollar)
 	return ..()
 
-/mob/living/simple_animal/pet/revive(full_heal = 0, admin_revive = 0)
+/mob/living/simple_animal/pet/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
-	if(.)
-		if(collar_type)
-			collar_type = "[initial(collar_type)]"
-		regenerate_icons()
+	if(!.)
+		return
+
+	if(collar_type)
+		collar_type = "[initial(collar_type)]"
+	regenerate_icons()
 
 /mob/living/simple_animal/pet/death(gibbed)
 	..(gibbed)

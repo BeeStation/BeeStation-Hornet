@@ -8,7 +8,7 @@ GLOBAL_LIST(end_titles)
 /proc/RollCredits()
 	set waitfor = FALSE
 	if(!GLOB.end_titles)
-		GLOB.end_titles = SSticker.mode.generate_credit_text()
+		GLOB.end_titles = SSticker.generate_credit_text()
 		GLOB.end_titles += "<br>"
 		GLOB.end_titles += "<br>"
 
@@ -38,7 +38,7 @@ GLOBAL_LIST(end_titles)
 		GLOB.end_titles += "<center><h1>Thanks for playing!</h1>"
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.read_player_preference(/datum/preference/toggle/show_credits))
-			C.screen += new /atom/movable/screen/credit/title_card(null, null, SSticker.mode.title_icon)
+			C.screen += new /atom/movable/screen/credit/title_card(null, null, null)
 	sleep(CREDIT_SPAWN_SPEED * 3)
 	for(var/i in 1 to GLOB.end_titles.len)
 		var/C = GLOB.end_titles[i]
@@ -50,7 +50,7 @@ GLOBAL_LIST(end_titles)
 
 
 /proc/create_credit(credit)
-	new /atom/movable/screen/credit(null, credit)
+	new /atom/movable/screen/credit(null, null, credit)
 
 /atom/movable/screen/credit
 	icon_state = "blank"
@@ -60,7 +60,9 @@ GLOBAL_LIST(end_titles)
 	plane = SPLASHSCREEN_PLANE
 	var/matrix/target
 
-/atom/movable/screen/credit/Initialize(mapload, credited)
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/credit)
+
+/atom/movable/screen/credit/Initialize(mapload, datum/hud/hud_owner, credited)
 	. = ..()
 	maptext = MAPTEXT("<font face='Verdana'>[credited]</font>")
 	maptext_height = world.icon_size * 2
@@ -84,10 +86,12 @@ GLOBAL_LIST(end_titles)
 
 /atom/movable/screen/credit/title_card
 	icon = 'icons/title_cards.dmi'
+	icon_state = "ss13"
 	screen_loc = "4,1"
 
-/atom/movable/screen/credit/title_card/Initialize(mapload, credited, title_icon_state)
-	icon_state = title_icon_state
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/credit/title_card)
+
+/atom/movable/screen/credit/title_card/Initialize(mapload, datum/hud/hud_owner, credited)
 	. = ..()
 	maptext = null
 
@@ -101,3 +105,8 @@ GLOBAL_LIST(end_titles)
 		contribs.Cut(21)
 
 	return contribs
+
+#undef CREDIT_ROLL_SPEED
+#undef CREDIT_SPAWN_SPEED
+#undef CREDIT_ANIMATE_HEIGHT
+#undef CREDIT_EASE_DURATION

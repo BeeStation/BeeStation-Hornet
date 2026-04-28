@@ -17,12 +17,15 @@ Mineral Sheets
 
 /* Sandstone */
 
+/obj/item/stack/sheet/mineral
+	abstract_type = /obj/item/stack/sheet/mineral
+
 /obj/item/stack/sheet/mineral/sandstone
 	name = "sandstone brick"
 	desc = "This appears to be a combination of both sand and stone."
 	singular_name = "sandstone brick"
 	icon_state = "sheet-sandstone"
-	item_state = "sheet-sandstone"
+	inhand_icon_state = "sheet-sandstone"
 	throw_speed = 3
 	throw_range = 5
 	mats_per_unit = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
@@ -38,7 +41,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/diamond
 	name = "diamond"
 	icon_state = "sheet-diamond"
-	item_state = "sheet-diamond"
+	inhand_icon_state = "sheet-diamond"
 	singular_name = "diamond"
 	sheettype = "diamond"
 	mats_per_unit = list(/datum/material/diamond=MINERAL_MATERIAL_AMOUNT)
@@ -56,7 +59,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/uranium
 	name = "uranium"
 	icon_state = "sheet-uranium"
-	item_state = "sheet-uranium"
+	inhand_icon_state = "sheet-uranium"
 	singular_name = "uranium rod"
 	sheettype = "uranium"
 	mats_per_unit = list(/datum/material/uranium=MINERAL_MATERIAL_AMOUNT)
@@ -74,7 +77,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/plasma
 	name = "solid plasma"
 	icon_state = "sheet-plasma"
-	item_state = "sheet-plasma"
+	inhand_icon_state = "sheet-plasma"
 	singular_name = "plasma crystal"
 	sheettype = "plasma"
 	resistance_flags = FLAMMABLE
@@ -87,21 +90,23 @@ Mineral Sheets
 	walltype = /turf/closed/wall/mineral/plasma
 
 /obj/item/stack/sheet/mineral/plasma/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins licking \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins licking \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return TOXLOSS//dont you kids know that stuff is toxic?
 
 /obj/item/stack/sheet/mineral/plasma/get_recipes()
 	return GLOB.plasma_recipes
 
 /obj/item/stack/sheet/mineral/plasma/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
+	if(W.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		plasma_ignition(amount/5, user)
 	else
 		return ..()
 
-/obj/item/stack/sheet/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > 300)
-		plasma_ignition(amount/5)
+/obj/item/stack/sheet/mineral/plasma/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 300
+
+/obj/item/stack/sheet/mineral/plasma/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	plasma_ignition(amount/5)
 
 /obj/item/stack/sheet/mineral/plasma/bullet_act(obj/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)
@@ -113,7 +118,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/gold
 	name = "gold"
 	icon_state = "sheet-gold"
-	item_state = "sheet-gold"
+	inhand_icon_state = "sheet-gold"
 	singular_name = "gold bar"
 	sheettype = "gold"
 	mats_per_unit = list(/datum/material/gold=MINERAL_MATERIAL_AMOUNT)
@@ -131,7 +136,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/silver
 	name = "silver"
 	icon_state = "sheet-silver"
-	item_state = "sheet-silver"
+	inhand_icon_state = "sheet-silver"
 	singular_name = "silver bar"
 	sheettype = "silver"
 	mats_per_unit = list(/datum/material/silver=MINERAL_MATERIAL_AMOUNT)
@@ -150,7 +155,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/copper
 	name = "copper"
 	icon_state = "sheet-copper"
-	item_state = "sheet-copper"
+	inhand_icon_state = "sheet-copper"
 	singular_name = "copper bar"
 	sheettype = "copper"
 	mats_per_unit = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT)
@@ -168,7 +173,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/titanium
 	name = "titanium"
 	icon_state = "sheet-titanium"
-	item_state = "sheet-titanium"
+	inhand_icon_state = "sheet-titanium"
 	singular_name = "titanium sheet"
 	force = 5
 	throwforce = 5
@@ -190,7 +195,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/plastitanium
 	name = "plastitanium"
 	icon_state = "sheet-plastitanium"
-	item_state = "sheet-plastitanium"
+	inhand_icon_state = "sheet-plastitanium"
 	singular_name = "plastitanium sheet"
 	force = 5
 	throwforce = 5
@@ -198,7 +203,8 @@ Mineral Sheets
 	throw_speed = 1
 	throw_range = 3
 	sheettype = "plastitanium"
-	mats_per_unit = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT, /datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/alloy/plastitanium=MINERAL_MATERIAL_AMOUNT)
+	material_type = /datum/material/alloy/plastitanium
 	point_value = 45
 	merge_type = /obj/item/stack/sheet/mineral/plastitanium
 	material_flags = NONE
@@ -219,11 +225,11 @@ Mineral Sheets
 	novariants = TRUE
 
 /obj/item/stack/sheet/mineral/coal/attackby(obj/item/W, mob/user, params)
-	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
+	if(W.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		var/turf/T = get_turf(src)
 		message_admins("Coal ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
 		log_game("Coal ignited by [key_name(user)] in [AREACOORD(T)]")
-		fire_act(W.is_hot())
+		fire_act(W.get_temperature())
 		return TRUE
 	else
 		return ..()

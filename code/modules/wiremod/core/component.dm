@@ -11,11 +11,14 @@
 	name = COMPONENT_DEFAULT_NAME
 	icon = 'icons/obj/module.dmi'
 	icon_state = "component"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 
 	/// The name of the component shown on the UI
 	var/display_name = "Generic"
+
+/// The category of the component in the UI
+	var/category = COMPONENT_DEFAULT_CATEGORY
 
 	/// The colour this circuit component appears in the UI
 	var/ui_color = "blue"
@@ -55,7 +58,7 @@
 	/// Determines the amount of space this circuit occupies in an integrated circuit.
 	var/circuit_size = 1
 
-	/// The UI buttons of this circuit component. An assoc list that has this format: "button_icon" = "action_name"
+	/// The UI buttons of this circuit component. An assoc list that has this format: "background_icon" = "action_name"
 	var/ui_buttons = null
 
 	/// How much this costs by itself. Keep this updated with /datum/design/integrated_circuit
@@ -76,7 +79,7 @@
 /obj/item/circuit_component/Initialize(mapload)
 	. = ..()
 	if(name == COMPONENT_DEFAULT_NAME)
-		name = "[lowertext(display_name)] [COMPONENT_DEFAULT_NAME]"
+		name = "[LOWER_TEXT(display_name)] [COMPONENT_DEFAULT_NAME]"
 	populate_options()
 	populate_ports()
 	if(circuit_flags & CIRCUIT_FLAG_INPUT_SIGNAL)
@@ -177,7 +180,7 @@
 	arguments += args
 	var/datum/port/output/output_port = new(arglist(arguments))
 	output_ports += output_port
-	sortTim(output_ports, /proc/cmp_port_order_asc)
+	sortTim(output_ports, GLOBAL_PROC_REF(cmp_port_order_asc))
 	return output_port
 
 /**
@@ -237,7 +240,7 @@
  * This is to only return false if flow of execution should be stopped because something bad has happened (e.g. no power)
  * Returning no value in input_received() is not an issue because it means flow of execution will continue even if the component failed to execute properly.
  *
- * Return value indicates whether or not a circuit part can recieve input
+ * Return value indicates whether or not a circuit part can receive input
  * Arguments:
  * * port - Can be null. The port that sent the input
  */
@@ -246,14 +249,20 @@
 	if(!parent?.on)
 		return FALSE
 
-	var/obj/item/stock_parts/cell/cell = parent.get_cell()
-	if(!cell?.use(power_usage_per_input))
-		return FALSE
+	var/flags = SEND_SIGNAL(parent, COMSIG_CIRCUIT_PRE_POWER_USAGE, power_usage_per_input)
+	if(!(flags & COMPONENT_OVERRIDE_POWER_USAGE))
+		var/obj/item/stock_parts/cell/cell = parent.get_cell()
+		if(!cell?.use(power_usage_per_input))
+			return FALSE
 
 	if((circuit_flags & CIRCUIT_FLAG_INPUT_SIGNAL) && !COMPONENT_TRIGGERED_BY(trigger_input, port))
 		return FALSE
 
 	return TRUE
+
+/// Called when trying to get the physical location of this object
+/obj/item/circuit_component/proc/get_location()
+	return get_turf(src) || get_turf(parent?.shell)
 
 /// Called before input_received and should_receive_input. Used to perform behaviour that shouldn't care whether the input should be received or not.
 /obj/item/circuit_component/proc/pre_input_received(datum/port/input/port)
@@ -362,3 +371,9 @@
 	. = list()
 	for(var/mat in custom_materials)
 		.[mat] += custom_materials[mat]
+
+/obj/item/circuit_component/attackby(obj/item/attacking_item, mob/living/user, params)
+	. = ..()
+	if(istype(attacking_item, /obj/item/integrated_circuit))
+		var/obj/item/integrated_circuit/circuit = attacking_item
+		circuit.add_component_manually(src, user)

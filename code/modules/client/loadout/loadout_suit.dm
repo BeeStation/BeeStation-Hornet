@@ -138,7 +138,7 @@
 
 /datum/gear/suit/jacket/bomber
 	display_name = "bomber jacket"
-	path = /obj/item/clothing/suit/jacket
+	path = /obj/item/clothing/suit/jacket/bomber
 
 /datum/gear/suit/jacket/softshell
 	display_name = "softshell jacket"
@@ -177,13 +177,13 @@
 
 /datum/gear/suit/jacket/gothic
 	display_name = "gothic coat"
-	path = /obj/item/clothing/suit/gothcoat
+	path = /obj/item/clothing/suit/costume/gothcoat
 	description = "Perfect for those who want stalk in a corner of a bar."
 	cost = 8000
 
 /datum/gear/suit/jacket/joker
 	display_name = "comedian's coat"
-	path = /obj/item/clothing/suit/joker
+	path = /obj/item/clothing/suit/costume/joker
 	description = "You get what you deserve."
 	allowed_roles = list(JOB_NAME_CLOWN)
 	cost = 8000
@@ -211,15 +211,15 @@
 
 /datum/gear/suit/poncho/classic
 	display_name = "poncho, classic"
-	path = /obj/item/clothing/suit/poncho
+	path = /obj/item/clothing/suit/costume/poncho
 
 /datum/gear/suit/poncho/green
 	display_name = "poncho, green"
-	path = /obj/item/clothing/suit/poncho/green
+	path = /obj/item/clothing/suit/costume/poncho/green
 
 /datum/gear/suit/poncho/red
 	display_name = "poncho, red"
-	path = /obj/item/clothing/suit/poncho/red
+	path = /obj/item/clothing/suit/costume/poncho/red
 
 //ROBES
 /datum/gear/suit/robe

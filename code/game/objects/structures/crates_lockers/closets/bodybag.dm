@@ -30,7 +30,7 @@
 /obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
 	if (istype(I, /obj/item/pen) || istype(I, /obj/item/toy/crayon))
 		if(!user.is_literate())
-			to_chat(user, "<span class='notice'>You scribble illegibly on [src]!</span>")
+			to_chat(user, span_notice("You scribble illegibly on [src]!"))
 			return
 		var/t = stripped_input(user, "What would you like the label to be?", name, null, 53)
 		if(user.get_active_held_item() != I)
@@ -40,27 +40,27 @@
 		if(t)
 			name = "body bag - [t]"
 			tagged = 1
-			update_icon()
+			update_appearance()
 		else
 			name = "body bag"
 		return
 	else if(I.tool_behaviour == TOOL_WIRECUTTER)
-		to_chat(user, "<span class='notice'>You cut the tag off [src].</span>")
+		to_chat(user, span_notice("You cut the tag off [src]."))
 		name = "body bag"
 		tagged = 0
-		update_icon()
+		update_appearance()
 
-/obj/structure/closet/body_bag/update_icon()
-	..()
-	if (tagged)
-		add_overlay("bodybag_label")
+/obj/structure/closet/body_bag/update_overlays()
+	. = ..()
+	if(tagged)
+		. += "bodybag_label"
 
-/obj/structure/closet/body_bag/open(mob/living/user)
+/obj/structure/closet/body_bag/open(mob/living/user, force = FALSE, special_effects)
 	. = ..()
 	if(.)
 		mouse_drag_pointer = MOUSE_INACTIVE_POINTER
 
-/obj/structure/closet/body_bag/close()
+/obj/structure/closet/body_bag/close(mob/living/user)
 	. = ..()
 	if(.)
 		set_density(FALSE)
@@ -72,12 +72,12 @@
 		if(!ishuman(usr))
 			return
 		if(opened && !close())
-			to_chat(usr, "<span class='warning'>You wrestle with [src], but it won't fold while unzipped.</span>")
+			to_chat(usr, span_warning("You wrestle with [src], but it won't fold while unzipped."))
 			return
 		if(contents.len)
-			to_chat(usr, "<span class='warning'>There are too many things inside of [src] to fold it up!</span>")
+			to_chat(usr, span_warning("There are too many things inside of [src] to fold it up!"))
 			return
-		visible_message("<span class='notice'>[usr] folds up [src].</span>")
+		visible_message(span_notice("[usr] folds up [src]."))
 		var/obj/item/bodybag/B = foldedbag_instance || new foldedbag_path
 		usr.put_in_hands(B)
 		qdel(src)
@@ -98,19 +98,45 @@
 		if(!ishuman(usr))
 			return
 		if(opened)
-			to_chat(usr, "<span class='warning'>You wrestle with [src], but it won't fold while unzipped.</span>")
+			to_chat(usr, span_warning("You wrestle with [src], but it won't fold while unzipped."))
 			return
 		if(contents.len >= mob_storage_capacity / 2)
-			to_chat(usr, "<span class='warning'>There are too many things inside of [src] to fold it up!</span>")
+			to_chat(usr, span_warning("There are too many things inside of [src] to fold it up!"))
 			return
 		for(var/obj/item/bodybag/bluespace/B in src)
-			to_chat(usr, "<span class='warning'>You can't recursively fold bluespace body bags!</span>" )
+			to_chat(usr, span_warning("You can't recursively fold bluespace body bags!") )
 			return
-		visible_message("<span class='notice'>[usr] folds up [src].</span>")
+		visible_message(span_notice("[usr] folds up [src]."))
 		var/obj/item/bodybag/B = foldedbag_instance || new foldedbag_path
 		usr.put_in_hands(B)
 		for(var/atom/movable/A in contents)
 			A.forceMove(B)
 			if(isliving(A))
-				to_chat(A, "<span class='userdanger'>You're suddenly forced into a tiny, compressed space!</span>")
+				to_chat(A, span_userdanger("You're suddenly forced into a tiny, compressed space!"))
 		qdel(src)
+
+/*
+/obj/structure/closet/body_bag/environmental/hardlight
+	name = "hardlight bodybag"
+	desc = "A hardlight bag for storing bodies. Resistant to space."
+	icon_state = "holobag_med"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	foldedbag_path = null
+	weather_protection = list(TRAIT_VOIDSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE)
+
+/obj/structure/closet/body_bag/environmental/hardlight/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	if(damage_type in list(BRUTE, BURN))
+		playsound(src, 'sound/weapons/egloves.ogg', 80, TRUE)
+
+/obj/structure/closet/body_bag/environmental/prisoner/hardlight
+	name = "hardlight prisoner bodybag"
+	desc = "A hardlight bag for storing bodies. Resistant to space, can be sinched to prevent escape."
+	icon_state = "holobag_sec"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	foldedbag_path = null
+	weather_protection = list(TRAIT_VOIDSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE)
+
+/obj/structure/closet/body_bag/environmental/prisoner/hardlight/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	if(damage_type in list(BRUTE, BURN))
+		playsound(src, 'sound/weapons/egloves.ogg', 80, TRUE)
+*/

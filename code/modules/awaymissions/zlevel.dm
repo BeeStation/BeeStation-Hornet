@@ -6,17 +6,10 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "awaymission
 		return
 
 	if(GLOB.potentialRandomZlevels?.len)
-		to_chat(world, "<span class='boldannounce'>Loading away mission...</span>")
+		to_chat(world, span_boldannounce("Loading away mission..."))
 		var/map = pick(GLOB.potentialRandomZlevels)
 		load_new_z_level(map, "Away Mission")
-		to_chat(world, "<span class='boldannounce'>Away mission loaded.</span>")
-
-/proc/reset_gateway_spawns(reset = FALSE)
-	for(var/obj/machinery/gateway/G in GLOB.machines)
-		if(reset)
-			G.randomspawns = GLOB.awaydestinations
-		else
-			G.randomspawns.Add(GLOB.awaydestinations)
+		to_chat(world, span_boldannounce("Away mission loaded."))
 
 /obj/effect/landmark/awaystart
 	name = "away mission spawn"
@@ -51,10 +44,10 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "awaymission
 		var/name = null
 
 		if (pos)
-			name = lowertext(copytext(t, 1, pos))
+			name = LOWER_TEXT(copytext(t, 1, pos))
 
 		else
-			name = lowertext(t)
+			name = LOWER_TEXT(t)
 
 		if (!name)
 			continue

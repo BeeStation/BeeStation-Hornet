@@ -2,8 +2,6 @@
 	if(istype(character_preview_view))
 		return
 	character_preview_view = new(null, src)
-	if(parent)
-		character_preview_view.register_to_client(parent)
 
 /datum/preferences/proc/render_new_preview_appearance(mob/living/carbon/human/dummy/mannequin)
 	var/datum/job/preview_job = get_highest_priority_job()
@@ -51,6 +49,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 	/// List of clients with this registered to it.
 	var/list/viewing_clients = list()
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/map_view/character_preview_view)
+
 /atom/movable/screen/map_view/character_preview_view/Initialize(mapload, datum/preferences/preferences)
 	. = ..()
 
@@ -76,14 +76,6 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 
 	return ..()
 
-/// I know this looks stupid but it fixes a really important bug. https://www.byond.com/forum/post/2873835
-/// Also the mouse opacity blocks this from being visible ever
-/atom/movable/screen/map_view/character_preview_view/proc/rename_byond_bug_moment()
-	#if MIN_COMPILER_VERSION > 514
-		#warn Remove 514 BYOND bug workaround in preferences character preview
-	#endif
-	name = name == "character_preview" ? "character_preview_1" : "character_preview"
-
 /// Updates the currently displayed body
 /atom/movable/screen/map_view/character_preview_view/proc/update_body()
 	if (isnull(body))
@@ -91,8 +83,6 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 	else
 		body.wipe_state()
 	body.appearance = preferences.render_new_preview_appearance(body)
-	// Force map view to update as well
-	name = name == "character_preview" ? "character_preview_1" : "character_preview"
 
 /atom/movable/screen/map_view/character_preview_view/proc/create_body()
 	vis_contents.Cut()

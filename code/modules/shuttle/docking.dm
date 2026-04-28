@@ -117,7 +117,7 @@
 		var/list/area/all_shuttle_areas = list()
 		for(var/obj/docking_port/mobile/M in get_all_towed_shuttles())
 			all_shuttle_areas |= M.shuttle_areas
-		var/move_mode = old_area.beforeShuttleMove(all_shuttle_areas)											//areas
+		var/move_mode = old_area.beforeShuttleMove(all_shuttle_areas) //areas
 
 		var/list/old_contents = oldT.contents
 		for(var/k in 1 to old_contents.len)
@@ -125,10 +125,10 @@
 			var/atom/movable/moving_atom = old_contents[k]
 			if(moving_atom.loc != oldT) //fix for multi-tile objects
 				continue
-			move_mode = moving_atom.beforeShuttleMove(newT, rotation, move_mode, src)						//atoms
+			move_mode = moving_atom.beforeShuttleMove(newT, rotation, move_mode, src) //atoms
 
-		move_mode = oldT.fromShuttleMove(newT, move_mode)													//turfs
-		move_mode = newT.toShuttleMove(oldT, move_mode, src)												//turfs
+		move_mode = oldT.fromShuttleMove(newT, move_mode) //turfs
+		move_mode = newT.toShuttleMove(oldT, move_mode, src) //turfs
 
 		if(move_mode & MOVE_AREA)
 			areas_to_move[old_area] = TRUE
@@ -141,13 +141,6 @@
 		var/turf/oldT = old_turfs[i]
 		var/turf/newT = new_turfs[i]
 		var/move_mode = old_turfs[oldT]
-		if(move_mode & MOVE_CONTENTS)
-			for(var/k in oldT)
-				var/atom/movable/moving_atom = k
-				if(moving_atom.loc != oldT) //fix for multi-tile objects
-					continue
-				if(moving_atom.onShuttleMove(newT, oldT, movement_force, movement_direction, docked, src, all_towed_shuttles))	//atoms
-					moved_atoms[moving_atom] = oldT
 
 		if(move_mode & MOVE_TURF)
 			var/area/shuttle/A = oldT.loc
@@ -164,7 +157,7 @@
 					break
 
 			if(shuttle_layers > 0)
-				oldT.onShuttleMove(newT, movement_force, movement_direction, shuttle_layers)	//turfs
+				oldT.onShuttleMove(newT, movement_force, movement_direction, shuttle_layers) //turfs
 
 		if(move_mode & MOVE_AREA)
 			var/area/shuttle/shuttle_area = oldT.loc //The area on the shuttle, typecasted for the checks further down
@@ -192,14 +185,20 @@
 				parent_shuttles |= target_area.mobile_port
 
 			underlying_old_area |= new_area
-			shuttle_area.onShuttleMove(oldT, newT, new_area)	//areas
+			shuttle_area.onShuttleMove(oldT, newT, new_area) //areas
 
-
+		if(move_mode & MOVE_CONTENTS)
+			for(var/k in oldT)
+				var/atom/movable/moving_atom = k
+				if(moving_atom.loc != oldT) //fix for multi-tile objects
+					continue
+				if(moving_atom.onShuttleMove(newT, oldT, movement_force, movement_direction, docked, src, all_towed_shuttles))	//atoms
+					moved_atoms[moving_atom] = oldT
 
 /obj/docking_port/mobile/proc/cleanup_runway(obj/docking_port/stationary/new_dock, list/old_turfs, list/new_turfs, list/areas_to_move, list/moved_atoms, rotation, movement_direction, list/area/underlying_old_area, list/all_towed_shuttles)
 	for(var/area/A in underlying_old_area)
 		CHECK_TICK
-		A.afterShuttleMove()
+		A.afterShuttleMove(0)
 
 	// Parallax handling
 	// This needs to be done before the atom after move
@@ -209,7 +208,7 @@
 	for(var/i in 1 to areas_to_move.len)
 		CHECK_TICK
 		var/area/internal_area = areas_to_move[i]
-		internal_area.afterShuttleMove(new_parallax_dir)													//areas
+		internal_area.afterShuttleMove(new_parallax_dir) //areas
 
 	for(var/i in 1 to old_turfs.len)
 		CHECK_TICK
@@ -217,7 +216,7 @@
 			continue
 		var/turf/oldT = old_turfs[i]
 		var/turf/newT = new_turfs[i]
-		newT.afterShuttleMove(oldT, rotation, all_towed_shuttles)																//turfs
+		newT.afterShuttleMove(oldT, rotation, all_towed_shuttles) //turfs
 
 	for(var/i in 1 to moved_atoms.len)
 		CHECK_TICK
@@ -259,4 +258,4 @@
 	for(var/i in 1 to length(turfs))
 		var/turf/open/T = turfs[i]
 		if(istype(T))
-			T.air.copy_from_turf(T)
+			T.air.copy_from(T.air.copy())

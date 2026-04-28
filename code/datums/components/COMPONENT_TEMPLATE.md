@@ -1,7 +1,7 @@
 
 # Template file for your new component
 
-See _component.dm for detailed explanations
+See dcs/flags.dm for detailed explanations
 
 ```dm
 /datum/component/mycomponent

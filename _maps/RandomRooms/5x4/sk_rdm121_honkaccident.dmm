@@ -1,14 +1,12 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
 /turf/open/floor/plating{
-	heat_capacity = 1e+006;
 	burnt = 1
 	},
 /area/template_noop)
 "c" = (
 /obj/item/grown/bananapeel,
 /turf/open/floor/plating{
-	heat_capacity = 1e+006;
 	burnt = 1
 	},
 /area/template_noop)
@@ -16,14 +14,12 @@
 /obj/structure/mecha_wreckage/honker,
 /obj/effect/trap/nexus/darkness,
 /turf/open/floor/plating{
-	heat_capacity = 1e+006;
 	broken = 1
 	},
 /area/template_noop)
 "e" = (
 /obj/effect/decal/cleanable/ash,
 /turf/open/floor/plating{
-	heat_capacity = 1e+006;
 	burnt = 1
 	},
 /area/template_noop)
@@ -33,7 +29,6 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	heat_capacity = 1e+006;
 	burnt = 1
 	},
 /area/template_noop)
@@ -51,9 +46,8 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "l" = (
-/obj/effect/spawner/lootdrop/clowntrap,
+/obj/effect/spawner/random/unsorted/trap/clowntrap,
 /turf/open/floor/plating{
-	heat_capacity = 1e+006;
 	burnt = 1
 	},
 /area/template_noop)
@@ -82,9 +76,8 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "O" = (
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating{
-	heat_capacity = 1e+006;
 	burnt = 1
 	},
 /area/template_noop)

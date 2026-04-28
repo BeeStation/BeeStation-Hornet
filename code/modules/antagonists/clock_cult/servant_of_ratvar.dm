@@ -1,3 +1,21 @@
+GLOBAL_LIST_EMPTY(servants_of_ratvar)	//List of minds in the cult
+GLOBAL_LIST_EMPTY(all_servants_of_ratvar)	//List of minds in the cult
+GLOBAL_LIST_EMPTY(human_servants_of_ratvar)	//Humans in the cult
+GLOBAL_LIST_EMPTY(cyborg_servants_of_ratvar)
+
+GLOBAL_VAR(ratvar_arrival_tick)	//The world.time that Ratvar will arrive if the gateway is not disrupted
+
+GLOBAL_VAR_INIT(installed_integration_cogs, 0)
+
+GLOBAL_VAR(celestial_gateway)	//The celestial gateway
+GLOBAL_VAR_INIT(ratvar_risen, FALSE)	//Has ratvar risen?
+GLOBAL_VAR_INIT(gateway_opening, FALSE)	//Is the gateway currently active?
+
+GLOBAL_VAR_INIT(clockcult_power, 2500)
+GLOBAL_VAR_INIT(clockcult_vitality, 200)
+
+GLOBAL_VAR(clockcult_eminence)
+
 //==========================
 //====  Servant antag   ====
 //==========================
@@ -9,28 +27,29 @@
 	// TODO: ui_name = "AntagInfoClockCult"
 	antag_moodlet = /datum/mood_event/cult
 	banning_key = ROLE_SERVANT_OF_RATVAR
-	required_living_playtime = 4
+	required_living_playtime = 6
 
 	//The class of the servant
 	var/datum/action/innate/clockcult/transmit/transmit_spell
 	var/datum/team/clock_cult/team
 
+	/// Prefix used when using the hierophant transmit action
 	var/prefix = CLOCKCULT_PREFIX_RECRUIT
-
-	var/counts_towards_total = TRUE//Counts towards the total number of servants.
-
+	/// Whether or not this servant counts towards the total number of servants, think abstraction crystal projections
+	var/counts_towards_total = TRUE
+	/// Flavor appearance applied when the gateway is opened
 	var/mutable_appearance/forbearance
 
 /datum/antagonist/servant_of_ratvar/greet()
 	if(!owner.current)
 		return
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/clockcultalr.ogg', vol = 60, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE)
-	to_chat(owner.current, "<span class='heavy_brass'><font size='7'>You feel a flash of light and the world spin around you!</font></span>")
-	to_chat(owner.current, "<span class='brass'><font size='5'>Using your clockwork slab you can invoke a variety of powers to help you complete Ratvar's will.</font></span>")
-	to_chat(owner.current, "<span class='brass'>Use Rat'varian observation consoles to monitor the crew and warp to the station.</span>")
-	to_chat(owner.current, "<span class='brass'>Use your Clockwork Slab to summon integration cogs to unlock more scriptures and siphon power.</span>")
-	to_chat(owner.current, "<span class='brass'>Unlock Kindle to stun targets, Hateful Manacles to restrain them and use a sigil of submission to convert them!</span>")
-	to_chat(owner.current, "<span class='brass'>When you are ready, gather 6 cultists around the Ark and activate it to summon Rat'var, but be prepared to fight for your life.</span>")
+	to_chat(owner.current, span_heavybrass("<font size='7'>You feel a flash of light and the world spin around you!</font>"))
+	to_chat(owner.current, span_brass("<font size='5'>Using your clockwork slab you can invoke a variety of powers to help you complete Ratvar's will.</font>"))
+	to_chat(owner.current, span_brass("Use Rat'varian observation consoles to monitor the crew and warp to the station."))
+	to_chat(owner.current, span_brass("Use your Clockwork Slab to summon integration cogs to unlock more scriptures and siphon power."))
+	to_chat(owner.current, span_brass("Unlock Kindle to stun targets, Hateful Manacles to restrain them and use a sigil of submission to convert them!"))
+	to_chat(owner.current, span_brass("When you are ready, gather 6 cultists around the Ark and activate it to summon Rat'var, but be prepared to fight for your life."))
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Servant of Rat'Var",
 		"Use your clockwork slab to unlock and invoke scriptures.\n\
 		Hijack APCs by placing an integration cog into them.\n\
@@ -56,11 +75,15 @@
 	GLOB.all_servants_of_ratvar -= owner
 	GLOB.human_servants_of_ratvar -= owner
 	GLOB.cyborg_servants_of_ratvar -= owner
+	if(!silent)
+		owner.current.visible_message("[span_deconversionmessage("[owner.current] looks like [owner.current.p_theyve()] just reverted to [owner.current.p_their()] old faith!")]", null, null, null, owner.current)
+		to_chat(owner.current, span_userdanger("An unfamiliar white light flashes through your mind, cleansing the taint of the Clockwork Justicar and all your memories as his servant."))
+		owner.current.log_message("has renounced the cult of Rat'var!", LOG_ATTACK, color="#960000")
 	. = ..()
 
 /datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
 	. = ..()
-	owner.current.faction |= "ratvar"
+	owner.current.faction |= FACTION_RATVAR
 	transmit_spell = new()
 	transmit_spell.Grant(owner.current)
 	if(GLOB.gateway_opening && ishuman(owner.current))
@@ -68,21 +91,21 @@
 		forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
 		owner_mob.add_overlay(forbearance)
 	owner.current.throw_alert("clockinfo", /atom/movable/screen/alert/clockwork/clocksense)
-	SSticker.mode.update_clockcult_icons_added(owner)
+	add_antag_hud(ANTAG_HUD_CLOCKWORK, "clockwork", owner.current)
 	var/datum/language_holder/LH = owner.current.get_language_holder()
-	LH.grant_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
+	LH.grant_language(/datum/language/ratvar, source = LANGUAGE_CULTIST)
 
 /datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
-	owner.current.faction -= "ratvar"
+	owner.current.faction -= FACTION_RATVAR
 	owner.current.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
-	SSticker.mode.update_clockcult_icons_removed(owner)
+	remove_antag_hud(ANTAG_HUD_CLOCKWORK, owner.current)
 	if(forbearance && ishuman(owner.current))
 		var/mob/living/carbon/owner_mob = owner.current
 		owner_mob.remove_overlay(forbearance)
 		qdel(forbearance)
 	var/datum/language_holder/LH = owner.current.get_language_holder()
-	LH.remove_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
+	LH.remove_language(/datum/language/ratvar, source = LANGUAGE_CULTIST)
 	. = ..()
 
 /datum/antagonist/servant_of_ratvar/proc/equip_servant_conversion()
@@ -113,23 +136,32 @@
 	H.uncuff()
 	return FALSE
 
-//Grant access to the clockwork tools.
-//If AI, disconnect all active borgs and make it only able to control converted shells
-/datum/antagonist/servant_of_ratvar/proc/equip_silicon(mob/living/silicon/S)
-	if(isAI(S))
-		var/mob/living/silicon/ai/AI = S
-		AI.disconnect_shell()
-		for(var/mob/living/silicon/robot/R in AI.connected_robots)
-			R.connected_ai = null
+/*
+* Silicons can be converted to clock cultists
+* AIs have all of their robots disconnected and get a flavorful overlay on their sprite
+* Borgs are disconnected from their AI and get special ratvar modules
+*/
+/datum/antagonist/servant_of_ratvar/proc/equip_silicon(mob/living/silicon/silicon)
+	if(isAI(silicon))
+		var/mob/living/silicon/ai/ai = silicon
+
+		// Disconnect borgs
+		ai.disconnect_shell()
+		for(var/mob/living/silicon/robot/robot in ai.connected_robots)
+			robot.connected_ai = null
+
+		// Flavor
 		var/mutable_appearance/ai_clock = mutable_appearance('icons/mob/clockwork_mobs.dmi', "aiframe")
-		AI.add_overlay(ai_clock)
-	else if(iscyborg(S))
-		var/mob/living/silicon/robot/R = S
-		R.connected_ai = null
-		R.SetRatvar(TRUE)
-	S.laws = new /datum/ai_laws/ratvar     //Laws down here so borgs don't instantly resync their laws
-	S.laws.associate(S)
-	S.show_laws()
+		ai.add_overlay(ai_clock)
+	else if(iscyborg(silicon))
+		var/mob/living/silicon/robot/robot = silicon
+		robot.connected_ai = null
+		robot.SetRatvar(TRUE)
+
+	// Give laws
+	silicon.laws = new /datum/ai_laws/ratvar
+	silicon.laws.associate(silicon)
+	silicon.show_laws()
 
 /datum/antagonist/servant_of_ratvar/proc/add_objectives()
 	objectives |= team.objectives
@@ -143,7 +175,7 @@
 		. = is_convertable_to_clockcult(new_owner.current)
 
 /datum/antagonist/servant_of_ratvar/create_team()
-	for(var/datum/antagonist/servant_of_ratvar/H in GLOB.antagonists)
+	for(var/datum/antagonist/servant_of_ratvar/H in GLOB.active_antagonists)
 		if(!H.owner)
 			continue
 		if(H.team)

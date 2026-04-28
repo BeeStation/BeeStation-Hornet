@@ -15,6 +15,8 @@
 	///our reagent goal has been reached, so now we lock our inputs and start emptying
 	var/emptying = FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/reaction_chamber)
+
 /obj/machinery/plumbing/reaction_chamber/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/reaction_chamber, bolt)
@@ -24,6 +26,7 @@
 	if(reagents.total_volume == 0 && emptying) //we were emptying, but now we aren't
 		emptying = FALSE
 		reagents.flags |= NO_REACT
+	ui_update()
 
 /obj/machinery/plumbing/reaction_chamber/power_change()
 	. = ..()
@@ -31,6 +34,7 @@
 		icon_state = initial(icon_state) + "_on"
 	else
 		icon_state = initial(icon_state)
+	ui_update()
 
 
 /obj/machinery/plumbing/reaction_chamber/ui_state(mob/user)
@@ -41,7 +45,6 @@
 	if(!ui)
 		ui = new(user, src, "ChemReactionChamber")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/plumbing/reaction_chamber/ui_data(mob/user)
 	var/list/data = list()
@@ -70,3 +73,4 @@
 				if(input_amount)
 					required_reagents[input_reagent] = input_amount
 					. = TRUE
+	ui_update()

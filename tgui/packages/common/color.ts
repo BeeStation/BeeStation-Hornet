@@ -19,22 +19,56 @@ export class Color {
     this.a = a;
   }
 
-  toString() {
-    return `rgba(${this.r | 0}, ${this.g | 0}, ${this.b | 0}, ${this.a | 0})`;
+  toString(): string {
+    // Alpha component needs to permit fractional values, so cannot use |
+    let alpha = this.a;
+    if (typeof alpha === 'string') {
+      alpha = parseFloat(this.a as any);
+    }
+    if (isNaN(alpha)) {
+      alpha = 1;
+    }
+    return `rgba(${this.r | 0}, ${this.g | 0}, ${this.b | 0}, ${alpha})`;
+  }
+
+  /**  Darkens a color by a given percent. Returns a color, which can have toString called to get it's rgba() css value. */
+  darken(percent: number): Color {
+    percent /= 100;
+    return new Color(
+      this.r - this.r * percent,
+      this.g - this.g * percent,
+      this.b - this.b * percent,
+      this.a,
+    );
+  }
+
+  /** Brightens a color by a given percent. Returns a color, which can have toString called to get it's rgba() css value. */
+  lighten(percent: number): Color {
+    // No point in rewriting code we already have.
+    return this.darken(-percent);
   }
 
   /**
    * Creates a color from the CSS hex color notation.
    */
   static fromHex(hex: string): Color {
-    return new Color(parseInt(hex.substr(1, 2), 16), parseInt(hex.substr(3, 2), 16), parseInt(hex.substr(5, 2), 16));
+    return new Color(
+      parseInt(hex.substr(1, 2), 16),
+      parseInt(hex.substr(3, 2), 16),
+      parseInt(hex.substr(5, 2), 16),
+    );
   }
 
   /**
    * Linear interpolation of two colors.
    */
   static lerp(c1: Color, c2: Color, n: number): Color {
-    return new Color((c2.r - c1.r) * n + c1.r, (c2.g - c1.g) * n + c1.g, (c2.b - c1.b) * n + c1.b, (c2.a - c1.a) * n + c1.a);
+    return new Color(
+      (c2.r - c1.r) * n + c1.r,
+      (c2.g - c1.g) * n + c1.g,
+      (c2.b - c1.b) * n + c1.b,
+      (c2.a - c1.a) * n + c1.a,
+    );
   }
 
   /**
@@ -73,7 +107,11 @@ export class Color {
  * SOFTWARE.
  */
 
-const round = (number: number, digits = 0, base = Math.pow(10, digits)): number => {
+const round = (
+  number: number,
+  digits = 0,
+  base = Math.pow(10, digits),
+): number => {
   return Math.round(base * number) / base;
 };
 
@@ -107,7 +145,13 @@ export interface HsvaColor extends HsvColor {
   a: number;
 }
 
-export type ObjectColor = RgbColor | HslColor | HsvColor | RgbaColor | HslaColor | HsvaColor;
+export type ObjectColor =
+  | RgbColor
+  | HslColor
+  | HsvColor
+  | RgbaColor
+  | HslaColor
+  | HsvaColor;
 
 export type AnyColor = string | ObjectColor;
 
@@ -175,14 +219,19 @@ export const hslaToHsva = ({ h, s, l, a }: HslaColor): HsvaColor => {
   };
 };
 
-export const hsvaToHex = (hsva: HsvaColor): string => rgbaToHex(hsvaToRgba(hsva));
+export const hsvaToHex = (hsva: HsvaColor): string =>
+  rgbaToHex(hsvaToRgba(hsva));
 
 export const hsvaToHsla = ({ h, s, v, a }: HsvaColor): HslaColor => {
   const hh = ((200 - s) * v) / 100;
 
   return {
     h: round(h),
-    s: round(hh > 0 && hh < 200 ? ((s * v) / 100 / (hh <= 100 ? hh : 200 - hh)) * 100 : 0),
+    s: round(
+      hh > 0 && hh < 200
+        ? ((s * v) / 100 / (hh <= 100 ? hh : 200 - hh)) * 100
+        : 0,
+    ),
     l: round(hh / 2),
     a: round(a, 2),
   };
@@ -278,7 +327,9 @@ const format = (number: number) => {
 
 export const rgbaToHex = ({ r, g, b, a }: RgbaColor): string => {
   const alphaHex = a < 1 ? format(round(a * 255)) : '';
-  return '#' + format(round(r)) + format(round(g)) + format(round(b)) + alphaHex;
+  return (
+    '#' + format(round(r)) + format(round(g)) + format(round(b)) + alphaHex
+  );
 };
 
 export const rgbaToHsva = ({ r, g, b, a }: RgbaColor): HsvaColor => {
@@ -341,7 +392,10 @@ export const luminance = (rgb: RgbColor): number => {
   return r * 0.2126 + g * 0.7152 + b * 0.0722;
 };
 
-export const contrast = (foreground: RgbColor, background: RgbColor): number => {
+export const contrast = (
+  foreground: RgbColor,
+  background: RgbColor,
+): number => {
   const foreground_luminance = luminance(foreground);
   const background_luminance = luminance(background);
   return background_luminance < foreground_luminance

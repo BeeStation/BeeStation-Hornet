@@ -1,5 +1,5 @@
-import { Component } from 'inferno';
 import { hexToRgba } from 'common/color';
+import { Component } from 'react';
 
 const toDegrees = function (rad: number): number {
   return (rad / Math.PI) * 180;
@@ -36,16 +36,21 @@ export class RadarChart extends Component<RadarChartProps> {
     this.fillColor = `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, 0.5)`;
     this.strokeColor = areaColor;
 
-    this.axes = typeof axes === 'string' ? axes.split(',').map(trimMap) : (axes as string[]);
-    this.stages = typeof axes === 'string' ? stages.split(',').map(trimMap) : (stages as string[]);
+    this.axes =
+      typeof axes === 'string'
+        ? axes.split(',').map(trimMap)
+        : (axes as string[]);
+    this.stages =
+      typeof axes === 'string'
+        ? stages.split(',').map(trimMap)
+        : (stages as string[]);
     this.values =
       typeof values === 'string'
-        ? values
-          .split(',')
-          .map(trimMap)
-          .map(parseIntMap)
+        ? values.split(',').map(trimMap).map(parseIntMap)
         : (values as number[]);
-    this.values = this.values.map((value: number) => Math.min(value, this.stages.length));
+    this.values = this.values.map((value: number) =>
+      Math.min(value, this.stages.length),
+    );
   }
 
   render() {
@@ -95,10 +100,26 @@ export class RadarChart extends Component<RadarChartProps> {
     );
     elements.push(polygon);
 
-    const innerCircle = <circle cx={midX} cy={midY} r={radarSize} stroke={color} fill={'rgba(0, 0, 0, 0)'} />;
+    const innerCircle = (
+      <circle
+        cx={midX}
+        cy={midY}
+        r={radarSize}
+        stroke={color}
+        fill={'rgba(0, 0, 0, 0)'}
+      />
+    );
     elements.push(innerCircle);
 
-    const outerCircle = <circle cx={midX} cy={midY} r={width / 1.9} stroke={color} fill={'rgba(0, 0, 0, 0)'} />;
+    const outerCircle = (
+      <circle
+        cx={midX}
+        cy={midY}
+        r={width / 1.9}
+        stroke={color}
+        fill={'rgba(0, 0, 0, 0)'}
+      />
+    );
     elements.push(outerCircle);
 
     for (let i = 0; i < axes.length; i++) {
@@ -113,7 +134,8 @@ export class RadarChart extends Component<RadarChartProps> {
           font-family={fontFamily}
           font-size={fontSize}
           text-anchor={'middle'}
-          dominant-baseline={'middle'}>
+          dominant-baseline={'middle'}
+        >
           {stages[values[i] - 1]}
         </text>
       );
@@ -138,7 +160,16 @@ export class RadarChart extends Component<RadarChartProps> {
           font-size={Math.round(fontSize / 1.75)}
           text-anchor={'middle'}
           dominant-baseline={'middle'}
-          transform={'rotate(' + Math.round(Math.ceil(rotation / rounding) * rounding) + ' ' + keyX + ' ' + keyY + ')'}>
+          transform={
+            'rotate(' +
+            Math.round(Math.ceil(rotation / rounding) * rounding) +
+            ' ' +
+            keyX +
+            ' ' +
+            keyY +
+            ')'
+          }
+        >
           {axes[i]}
         </text>
       );
@@ -146,7 +177,9 @@ export class RadarChart extends Component<RadarChartProps> {
 
       const lineX = midX + Math.cos(angle) * radarSize;
       const lineY = midY - Math.sin(angle) * radarSize;
-      const line = <line x1={midX} y1={midY} x2={lineX} y2={lineY} stroke={color} />;
+      const line = (
+        <line x1={midX} y1={midY} x2={lineX} y2={lineY} stroke={color} />
+      );
       elements.push(line);
 
       for (let j = 1; j <= stages.length; j++) {
@@ -157,7 +190,15 @@ export class RadarChart extends Component<RadarChartProps> {
         const tickY1 = tickMidY + Math.sin(crossAngle) * tickWidth;
         const tickX2 = tickMidX + Math.cos(crossAngle) * tickWidth;
         const tickY2 = tickMidY - Math.sin(crossAngle) * tickWidth;
-        const tickLine = <line x1={tickX1} y1={tickY1} x2={tickX2} y2={tickY2} stroke={color} />;
+        const tickLine = (
+          <line
+            x1={tickX1}
+            y1={tickY1}
+            x2={tickX2}
+            y2={tickY2}
+            stroke={color}
+          />
+        );
         elements.push(tickLine);
 
         if (i === 0) {
@@ -171,7 +212,8 @@ export class RadarChart extends Component<RadarChartProps> {
               stroke-width={'0.1'}
               fill={color}
               font-size={fontSize / 2.3}
-              font-family={fontFamily}>
+              font-family={fontFamily}
+            >
               {stages[j - 1]}
             </text>
           );

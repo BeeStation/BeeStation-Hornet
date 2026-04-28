@@ -8,7 +8,7 @@
 	desc = "A device that is able to create sounds."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "radio"
-	item_state = "radio"
+	inhand_icon_state = "radio"
 	w_class = WEIGHT_CLASS_TINY
 	siemens_coefficient = 1
 
@@ -24,9 +24,18 @@
 		"Honk" = "selected_sound=sound/items/bikehorn.ogg&shiftpitch=1&volume=50",
 		"Applause" = "selected_sound=sound/effects/applause.ogg&shiftpitch=1&volume=65",
 		"Laughter" = "selected_sound=sound/effects/laughtrack.ogg&shiftpitch=1&volume=65",
+		"Booing" = "selected_sound=sound/effects/audience-boo.ogg&shiftpitch=0&volume=80",
+		"Awwing" = "selected_sound=sound/effects/audience-aww.ogg&shiftpitch=0&volume=80",
+		"Gasping" = "selected_sound=sound/effects/audience-gasp.ogg&shiftpitch=0&volume=80",
+		"Oohing" = "selected_sound=sound/effects/audience-ooh.ogg&shiftpitch=0&volume=80",
 		"Rimshot" = "selected_sound=sound/effects/rimshot.ogg&shiftpitch=1&volume=65",
 		"Trombone" = "selected_sound=sound/misc/sadtrombone.ogg&shiftpitch=1&volume=50",
 		"Airhorn" = "selected_sound=sound/items/airhorn.ogg&shiftpitch=1&volume=50",
+		"Hiss" = "selected_sound=sound/voice/hiss4.ogg&shiftpitch=0&volume=80",
+		"Tick" = "selected_sound=sound/items/timer.ogg&shiftpitch=0&volume=80",
+		"Primed" = "selected_sound=sound/weapons/armbomb.ogg&shiftpitch=0&volume=80",
+		"Terminal" = "selected_sound=sound/machines/terminal_alert.ogg&shiftpitch=0&volume=80",
+		"Delam" = "selected_sound=sound/machines/engine_alert2.ogg&shiftpitch=0&volume=80",
 		"Alert" = "selected_sound=sound/effects/alert.ogg&shiftpitch=1&volume=50",
 		"Boom" = "selected_sound=sound/effects/explosion1.ogg&shiftpitch=1&volume=50",
 		"Boom from Afar" = "selected_sound=sound/effects/explosionfar.ogg&shiftpitch=1&volume=50",
@@ -38,17 +47,11 @@
 		"Double Beep" = "selected_sound=sound/machines/twobeep.ogg&shiftpitch=1&volume=50",
 		"Flush" = "selected_sound=sound/machines/disposalflush.ogg&shiftpitch=1&volume=40",
 		"Kawaii" = "selected_sound=sound/ai/default/animes.ogg&shiftpitch=0&volume=60",
-		"Startup" = "selected_sound=sound/mecha/nominal.ogg&shiftpitch=0&volume=50",
-		"Welding Noises" = "selected_sound=sound/items/welder.ogg&shiftpitch=1&volume=55",
+		"Welding Noises" = "selected_sound=sound/items/welder2.ogg&shiftpitch=1&volume=55",
 		"Short Slide Whistle" = "selected_sound=sound/effects/slide_whistle_short.ogg&shiftpitch=1&volume=50",
 		"Long Slide Whistle" = "selected_sound=sound/effects/slide_whistle_long.ogg&shiftpitch=1&volume=50",
 		"YEET" = "selected_sound=sound/effects/yeet.ogg&shiftpitch=1&volume=50",
-		"Time Stop" = "selected_sound=sound/magic/timeparadox2.ogg&shiftpitch=0&volume=80",
-		"Click" = "selected_sound=sound/machines/click.ogg&shiftpitch=0&volume=80",
-		"Booing" = "selected_sound=sound/effects/audience-boo.ogg&shiftpitch=0&volume=80",
-		"Awwing" = "selected_sound=sound/effects/audience-aww.ogg&shiftpitch=0&volume=80",
-		"Gasping" = "selected_sound=sound/effects/audience-gasp.ogg&shiftpitch=0&volume=80",
-		"Oohing" = "selected_sound=sound/effects/audience-ooh.ogg&shiftpitch=0&volume=80"
+		"Time Stop" = "selected_sound=sound/magic/timeparadox2.ogg&shiftpitch=0&volume=80"
 	)
 	var/static/list/sounds = list()
 	var/static/list/sound_filenames = list()
@@ -60,7 +63,7 @@
 	var/new_sound = tgui_input_list(usr, "Pick a sound!", "Sound Synthesizer", sounds, default = selected_sound_name)
 	if(!new_sound || !sounds[new_sound])
 		return
-	to_chat(usr, "<span class='notice'>Sound playback set to: <b>[new_sound]</b>!</span>")
+	to_chat(usr, span_notice("Sound playback set to: <b>[new_sound]</b>!"))
 	selected_sound_name = new_sound
 	var/list/sound_info = sounds[new_sound]
 	selected_sound = sound_info["sound"]
@@ -68,7 +71,7 @@
 	volume = sound_info["volume"]
 	SSblackbox.record_feedback("tally", "synth_sound_selected", 1, selected_sound_name)
 
-/obj/item/soundsynth/Initialize()
+/obj/item/soundsynth/Initialize(mapload)
 	. = ..()
 	if(!length(sounds) || !length(sound_filenames))
 		for(var/sound_name in sound_list)
@@ -83,10 +86,10 @@
 
 /obj/item/soundsynth/attack_self(mob/user)
 	if(!selected_sound || !selected_sound_name)
-		to_chat(user, "<span class='warning'>No sound has been selected!</span>")
+		to_chat(user, span_warning("No sound has been selected!"))
 		return
 	if(has_cooldown && !COOLDOWN_FINISHED(src, play_cooldown))
-		to_chat(user, "<span class='warning'>You must wait [DisplayTimeText(COOLDOWN_TIMELEFT(src, play_cooldown))] before you can play another sound!</span>")
+		to_chat(user, span_warning("You must wait [DisplayTimeText(COOLDOWN_TIMELEFT(src, play_cooldown))] before you can play another sound!"))
 		return
 	playsound(user, selected_sound, volume, shiftpitch)
 	SSblackbox.record_feedback("tally", "synth_sound_played", 1, selected_sound_name)
@@ -103,10 +106,10 @@
 		pick_sound()
 		return
 	if(!selected_sound || !selected_sound_name)
-		to_chat(user, "<span class='warning'>No sound has been selected!</span>")
+		to_chat(user, span_warning("No sound has been selected!"))
 		return
 	if(has_cooldown && !COOLDOWN_FINISHED(src, play_cooldown))
-		to_chat(user, "<span class='warning'>You must wait [DisplayTimeText(COOLDOWN_TIMELEFT(src, play_cooldown))] before you can play another sound!</span>")
+		to_chat(user, span_warning("You must wait [DisplayTimeText(COOLDOWN_TIMELEFT(src, play_cooldown))] before you can play another sound!"))
 		return
 	target.playsound_local(get_turf(src), selected_sound, volume, shiftpitch)
 	SSblackbox.record_feedback("tally", "synth_sound_played", 1, selected_sound_name)

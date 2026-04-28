@@ -1,4 +1,7 @@
+CREATION_TEST_IGNORE_SELF(/turf/open)
+
 /turf/open
+	abstract_type = /turf/open
 	plane = FLOOR_PLANE
 	can_hit = FALSE
 	FASTDMM_PROP(\
@@ -27,41 +30,34 @@
 	//Refs to filters, for later removal
 	var/list/damage_overlays
 
-	///The variant tiles we can choose from (name = chance, name = chance, name = chance)
-	var/list/variants
-
 	///Is this floor no-slip?
 	var/traction = FALSE
 
 /turf/open/Initialize(mapload)
 	. = ..()
-	if(broken)
-		break_tile(TRUE)
-	if(burnt)
-		burn_tile(TRUE)
-
-/turf/open/ComponentInitialize()
-	. = ..()
 	if(wet)
 		AddComponent(/datum/component/wet_floor, wet, INFINITY, 0, INFINITY, TRUE)
 
-//direction is direction of travel of A
-/turf/open/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
-	if(direction == DOWN)
-		for(var/obj/O in contents)
-			if(O.z_flags & Z_BLOCK_IN_DOWN)
-				return FALSE
-		return TRUE
-	return FALSE
+/turf/open/examine_descriptor(mob/user)
+	return "floor"
 
 //direction is direction of travel of A
-/turf/open/zPassOut(atom/movable/A, direction, turf/destination, falling = FALSE)
-	if(direction == UP)
-		for(var/obj/O in contents)
-			if(O.z_flags & Z_BLOCK_OUT_UP)
-				return FALSE
-		return TRUE
-	return FALSE
+/turf/open/zPassIn(direction, falling = FALSE)
+	if(direction != DOWN)
+		return FALSE
+	for(var/obj/on_us in contents)
+		if(on_us.z_flags & Z_BLOCK_IN_DOWN)
+			return FALSE
+	return TRUE
+
+//direction is direction of travel of an atom
+/turf/open/zPassOut(direction, falling = FALSE)
+	if(direction != UP)
+		return FALSE
+	for(var/obj/on_us in contents)
+		if(on_us.z_flags & Z_BLOCK_OUT_UP)
+			return FALSE
+	return TRUE
 
 //direction is direction of travel of air
 /turf/open/zAirIn(direction, turf/source)
@@ -70,6 +66,10 @@
 //direction is direction of travel of air
 /turf/open/zAirOut(direction, turf/source)
 	return (direction == UP)
+
+/turf/open/update_icon()
+	. = ..()
+	update_visuals()
 
 /turf/open/indestructible
 	name = "floor"
@@ -100,7 +100,7 @@
 /turf/open/indestructible/sound/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 
-	if(istype(arrived) && !(arrived.movement_type & (FLYING|FLOATING)))
+	if(istype(arrived) && !(arrived.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 		playsound(src,sound,50,1)
 
 /turf/open/indestructible/necropolis
@@ -129,6 +129,7 @@
 	icon = 'icons/turf/boss_floors.dmi'
 	icon_state = "boss"
 	baseturfs = /turf/open/indestructible/boss
+	planetary_atmos = TRUE
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 
 /turf/open/indestructible/boss/air
@@ -136,6 +137,7 @@
 
 /turf/open/indestructible/hierophant
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
+	planetary_atmos = TRUE
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	baseturfs = /turf/open/indestructible/hierophant
 	tiled_dirt = FALSE
@@ -158,7 +160,7 @@
 
 /turf/open/indestructible/binary
 	name = "tear in the fabric of reality"
-	CanAtmosPass = ATMOS_PASS_NO
+	can_atmos_pass = ATMOS_PASS_NO
 	baseturfs = /turf/open/indestructible/binary
 	icon_state = "binary"
 	footstep = FOOTSTEP_PLATING
@@ -169,30 +171,27 @@
 
 /turf/open/indestructible/airblock
 	icon_state = "bluespace"
+	blocks_air = TRUE
+	init_air = FALSE
 	baseturfs = /turf/open/indestructible/airblock
-	CanAtmosPass = ATMOS_PASS_NO
 	init_air = FALSE
 
-/turf/open/Initalize_Atmos(times_fired)
-	if(!istype(air, /datum/gas_mixture/turf))
-		air = new(2500,src)
-	air.copy_from_turf(src)
-	update_air_ref(planetary_atmos ? 1 : 2)
-
+/turf/open/Initalize_Atmos(time)
+	excited = FALSE
 	update_visuals()
 
-	ImmediateCalculateAdjacentTurfs()
+	current_cycle = time
+	init_immediate_calculate_adjacent_turfs()
 
-
-/turf/open/proc/GetHeatCapacity()
+/turf/open/get_heat_capacity()
 	. = air.heat_capacity()
 
-/turf/open/proc/GetTemperature()
-	. = air.return_temperature()
+/turf/open/get_temperature()
+	. = air.temperature
 
-/turf/open/proc/TakeTemperature(temp)
-	air.set_temperature(air.return_temperature() + temp)
-	air_update_turf()
+/turf/open/take_temperature(temp)
+	air.temperature += temp
+	air_update_turf(FALSE, FALSE)
 
 /turf/open/proc/freeze_turf()
 	for(var/obj/I in contents)
@@ -220,7 +219,7 @@
 	return TRUE
 
 /turf/open/handle_slip(mob/living/carbon/slipper, knockdown_amount, obj/O, lube, paralyze_amount, force_drop)
-	if(slipper.movement_type & FLYING)
+	if(slipper.movement_type & (FLOATING|FLYING))
 		return 0
 	if(has_gravity(src))
 		var/obj/buckled_obj
@@ -229,12 +228,12 @@
 			if(!(lube&GALOSHES_DONT_HELP)) //can't slip while buckled unless it's lube.
 				return 0
 		else
-			if(!(lube & SLIP_WHEN_CRAWLING) && (!(slipper.mobility_flags & MOBILITY_STAND) || !(slipper.status_flags & CANKNOCKDOWN))) // can't slip unbuckled mob if they're lying or can't fall.
+			if(!(lube & SLIP_WHEN_CRAWLING) && slipper.body_position == LYING_DOWN || !(slipper.status_flags & CANKNOCKDOWN)) // can't slip unbuckled mob if they're lying or can't fall.
 				return 0
 			if(slipper.m_intent == MOVE_INTENT_WALK && (lube&NO_SLIP_WHEN_WALKING))
 				return 0
 		if(!(lube&SLIDE_ICE))
-			to_chat(slipper, "<span class='notice'>You slipped[ O ? " on the [O.name]" : ""]!</span>")
+			to_chat(slipper, span_notice("You slipped[ O ? " on the [O.name]" : ""]!"))
 			playsound(slipper.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 
 		SEND_SIGNAL(slipper, COMSIG_ADD_MOOD_EVENT, "slipped", /datum/mood_event/slipped)
@@ -277,14 +276,6 @@
 
 /turf/open/proc/ClearWet()//Nuclear option of immediately removing slipperyness from the tile instead of the natural drying over time
 	qdel(GetComponent(/datum/component/wet_floor))
-
-/turf/open/rad_act(pulse_strength)
-	. = ..()
-	if (air.get_moles(GAS_CO2) && air.get_moles(GAS_O2))
-		pulse_strength = min(pulse_strength,air.get_moles(GAS_CO2)*1000,air.get_moles(GAS_O2)*2000) //Ensures matter is conserved properly
-		air.set_moles(GAS_CO2, max(air.get_moles(GAS_CO2)-(pulse_strength/1000),0))
-		air.set_moles(GAS_O2, max(air.get_moles(GAS_O2)-(pulse_strength/2000),0))
-		air.adjust_moles(GAS_PLUOXIUM, pulse_strength/4000)
 
 /turf/open/proc/break_tile(force, allow_base)
 	LAZYINITLIST(damage_overlays)
@@ -335,7 +326,7 @@
 	return GLOB.default_turf_damage
 
 /turf/open/proc/burnt_states()
-	return GLOB.default_turf_burn
+	return GLOB.default_burn_turf
 
 /turf/open/proc/make_traction(add_visual = TRUE)
 	if(add_visual)

@@ -10,6 +10,7 @@ SUBSYSTEM_DEF(mobs)
 	var/static/list/clients_by_zlevel[][]
 	var/static/list/dead_players_by_zlevel[][] = list(list()) // Needs to support zlevel 1 here, MaxZChanged only happens when z2 is created and new_players can login before that.
 	var/static/list/cubemonkeys = list()
+	var/static/list/cheeserats = list()
 
 	var/datum/spawners_menu/spawner_menu
 
@@ -39,6 +40,7 @@ SUBSYSTEM_DEF(mobs)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	var/times_fired = src.times_fired
+	var/delta_time = wait / (1 SECONDS) // TODO: Make this actually responsive to stuff like pausing and resuming
 
 	//Every 10 fires we check for invalid locations and update registered zlevels (if necessary)
 	if(times_fired % 10 == 0)
@@ -71,7 +73,7 @@ SUBSYSTEM_DEF(mobs)
 		var/mob/living/L = currentrun[currentrun.len]
 		currentrun.len--
 		if(L)
-			L.Life(wait * 0.1, times_fired)
+			L.Life(delta_time, times_fired)
 		else
 			GLOB.mob_living_list.Remove(L)
 		if (MC_TICK_CHECK)

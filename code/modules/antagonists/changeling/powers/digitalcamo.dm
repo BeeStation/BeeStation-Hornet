@@ -6,13 +6,13 @@
 	dna_cost = 1
 
 //Prevents AIs tracking you but makes you easily detectable to the human-eye.
-/datum/action/changeling/digitalcamo/sting_action(mob/user)
+/datum/action/changeling/digitalcamo/sting_action(mob/living/user)
 	..()
 	if(active)
-		to_chat(user, "<span class='notice'>We return to normal.</span>")
+		to_chat(user, span_notice("We return to normal."))
 		user.RemoveElement(/datum/element/digital_camo)
 	else
-		to_chat(user, "<span class='notice'> We distort our form to hide from the AI.</span>")
+		to_chat(user, span_notice(" We distort our form to hide from the AI."))
 		user.AddElement(/datum/element/digital_camo)
 	active = !active
 	return TRUE

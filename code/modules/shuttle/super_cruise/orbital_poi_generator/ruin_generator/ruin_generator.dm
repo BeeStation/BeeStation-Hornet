@@ -2,9 +2,6 @@
 //refactor this and make it not so absolutely abysmal to read.
 //This comment has been here since 09/09/2022 and yet still nobody has done this.
 
-#define OPEN_CONNECTION 1
-#define ROOM_CONNECTION 16
-
 /*
  * Generates a random space ruin.
  * Dimensions of maps need to be 4n+1 by 4n+1
@@ -351,17 +348,7 @@
 				valid = FALSE
 		if(valid)
 			new /obj/machinery/door/airlock/hatch(T)
-			switch(placed_room_entrances[door_pos])
-				if(SOUTH, NORTH)
-					var/obj/machinery/door/firedoor/border_only/b1 = new(T)
-					var/obj/machinery/door/firedoor/border_only/b2 = new(T)
-					b1.setDir(NORTH)
-					b2.setDir(SOUTH)
-				if(EAST, WEST)
-					var/obj/machinery/door/firedoor/border_only/b1 = new(T)
-					var/obj/machinery/door/firedoor/border_only/b2 = new(T)
-					b1.setDir(EAST)
-					b2.setDir(WEST)
+			new /obj/machinery/door/firedoor(T)
 
 	//Repopulate areas
 	require_area_resort()
@@ -441,7 +428,7 @@
 	for(var/i in 1 to rand(1, 5))
 		var/objective_turf = pick(floor_turfs)
 		var/split_loc = splittext(objective_turf, "_")
-		new /obj/effect/spawner/lootdrop/ruinloot/important(locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z))
+		new /obj/effect/spawner/random/ruinloot/important(locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z))
 
 	//Spawn dead mosb
 	for(var/mob/M as() in SSzclear.nullspaced_mobs)

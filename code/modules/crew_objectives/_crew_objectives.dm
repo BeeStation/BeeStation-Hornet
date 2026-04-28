@@ -26,10 +26,11 @@
 	newObjective.owner = src
 	src.crew_objectives += newObjective
 	if(!silent)
-		to_chat(src, "<B>As a part of Nanotrasen's anti-tide efforts, you have been assigned an optional objective. It will be checked at the end of the shift. <span class='warning'>Performing traitorous acts in pursuit of your objective may result in termination of your employment.</span></B>")
+		to_chat(src, "<B>As a part of Nanotrasen's anti-tide efforts, you have been assigned an optional objective. It will be checked at the end of the shift. [span_warning("Performing traitorous acts in pursuit of your objective may result in termination of your employment.")]</B>")
 		to_chat(src, "<B>Your objective:</B> [newObjective.explanation_text]")
 
 /datum/objective/crew
+	abstract_type = /datum/objective/crew
 	// Used for showing the roundend report again, instead of checking complete every time it's opened.
 	var/declared_complete = FALSE
 	// List or string of JOB_NAME defines that this applies to.

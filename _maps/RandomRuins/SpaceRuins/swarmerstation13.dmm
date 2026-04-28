@@ -27,9 +27,8 @@
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "i" = (
-/obj/machinery/door/airlock/external{
-	req_access_txt = "150"
-	},
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "j" = (
@@ -57,7 +56,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "p" = (
-/obj/item/clothing/head/beret/vintage,
+/obj/item/clothing/head/beret,
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "q" = (

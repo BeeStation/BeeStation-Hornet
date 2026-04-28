@@ -9,7 +9,7 @@
 /obj/machinery/door/airlock/external,
 /obj/structure/fans/tiny,
 /turf/open/floor/wood{
-	icon_state = "wood-broken2"
+	broken = 1
 	},
 /area/shuttle/escape/luxury)
 "ad" = (
@@ -36,11 +36,6 @@
 "ag" = (
 /turf/open/floor/wood,
 /area/shuttle/escape/luxury)
-"ai" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/shuttle/escape/luxury)
 "aj" = (
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
@@ -55,12 +50,6 @@
 	pixel_y = 32
 	},
 /turf/open/floor/mineral/gold,
-/area/shuttle/escape/luxury)
-"an" = (
-/obj/machinery/light/small,
-/turf/open/floor/wood{
-	icon_state = "wood-broken2"
-	},
 /area/shuttle/escape/luxury)
 "ap" = (
 /obj/structure/toilet{
@@ -82,9 +71,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape/luxury)
 "at" = (
@@ -462,7 +449,7 @@ ab
 (4,1,1) = {"
 ab
 ag
-an
+ex
 ab
 bl
 aj
@@ -557,7 +544,7 @@ ab
 "}
 (10,1,1) = {"
 ab
-ai
+Cx
 ex
 ab
 aj

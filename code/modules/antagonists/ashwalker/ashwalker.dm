@@ -10,7 +10,7 @@
 	prevent_roundtype_conversion = FALSE
 	antagpanel_category = "Ash Walkers"
 	delay_roundend = FALSE
-	count_against_dynamic_roll_chance = FALSE
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 	var/datum/team/ashwalkers/ashie_team
 
 /datum/antagonist/ashwalker/create_team(datum/team/team)

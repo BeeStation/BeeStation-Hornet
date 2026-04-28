@@ -38,7 +38,7 @@
 /area/template_noop)
 "h" = (
 /obj/effect/trap/nexus/trickyspawner/shitsec,
-/obj/effect/spawner/lootdrop/trap/reusable,
+/obj/effect/spawner/random/unsorted/trap/reusable,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "j" = (
@@ -53,7 +53,7 @@
 	pixel_x = 32
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken2"
+	broken = 1
 	},
 /area/template_noop)
 "l" = (
@@ -64,14 +64,14 @@
 /area/template_noop)
 "m" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken2"
+	broken = 1
 	},
 /area/template_noop)
 "n" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/basic/cockroach,
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/template_noop)
 "o" = (
@@ -87,7 +87,7 @@
 "Z" = (
 /obj/structure/table/wood,
 /obj/item/toy/cards/deck,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 

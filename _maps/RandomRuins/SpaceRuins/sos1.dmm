@@ -26,7 +26,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/unpowered)
 "f" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/unpowered)
 "g" = (
@@ -35,8 +35,8 @@
 	},
 /obj/item/storage/pill_bottle/floorpill/full,
 /obj/effect/mob_spawn/human/corpse/assistant,
- /obj/item/storage/secure/briefcase/syndie,
- /obj/item/storage/pod{
+/obj/item/storage/secure/briefcase/syndie,
+/obj/item/storage/pod{
 	pixel_y = -30
 	},
 /turf/open/floor/mineral/titanium/blue,

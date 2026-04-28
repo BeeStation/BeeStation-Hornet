@@ -2,10 +2,43 @@
 	/// A typecache of objects that the holoparasite where, if the holoparasite's summoner is inside of one of these objects, the holoparasite will not be allowed to manifest.
 	var/static/list/no_manifest_locs
 
-/mob/living/simple_animal/hostile/holoparasite/Initialize(_mapload, _key, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/mind/_summoner, datum/holoparasite_stats/_stats)
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
+
+/mob/living/simple_animal/hostile/holoparasite/Initialize(mapload, _key, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/mind/_summoner, datum/holoparasite_stats/_stats)
 	. = ..()
 	if(!no_manifest_locs)
-		no_manifest_locs = typecacheof(list(/obj/effect, /obj/machinery/clonepod)) - typecacheof(list(/obj/effect/abstract/sync_holder, /obj/effect/dummy))
+		no_manifest_locs = zebra_typecacheof(list(
+			/obj/effect = TRUE,
+			/obj/machinery/clonepod = TRUE,
+
+			/obj/effect/abstract/sync_holder = FALSE,
+			/obj/effect/dummy = FALSE,
+		))
+
+/// Signal proc for [COMSIG_LIVING_ON_WABBAJACKED], when our summoner is wabbajacked we should be alerted.
+/mob/living/simple_animal/hostile/holoparasite/proc/on_owner_wabbajacked(mob/living/source, mob/living/new_mob)
+	SIGNAL_HANDLER
+
+	set_summoner(new_mob)
+	to_chat(src, span_holoparasite("Your summoner has changed form!"))
+
+/// Signal proc for [COMSIG_LIVING_SHAPESHIFTED], when our summoner is shapeshifted we should change to the new mob
+/mob/living/simple_animal/hostile/holoparasite/proc/on_owner_shapeshifted(mob/living/source, mob/living/new_shape)
+	SIGNAL_HANDLER
+
+	set_summoner(new_shape)
+	to_chat(src, span_holoparasite("Your summoner has shapeshifted into that of a [new_shape]!"))
+
+/// Signal proc for [COMSIG_LIVING_UNSHAPESHIFTED], when our summoner unshapeshifts go back to that mob
+/mob/living/simple_animal/hostile/holoparasite/proc/on_owner_unshapeshifted(mob/living/source, mob/living/old_summoner)
+	SIGNAL_HANDLER
+
+	set_summoner(old_summoner)
+	to_chat(src, span_holoparasite("Your summoner has shapeshifted back into their normal form!"))
+
+// Ha, no
+/mob/living/simple_animal/hostile/holoparasite/wabbajack(what_to_randomize, change_flags = WABBAJACK)
+	visible_message(span_warning("[src] resists the polymorph!"))
 
 /**
  * Returns whether the holoparasite is allowed to be manifested or not.
@@ -30,7 +63,7 @@
 		return FALSE
 	if(range <= 0)
 		return FALSE
-	return (!permanently && attached_to_summoner) || stats?.range == 1
+	return (!permanently && attached_to_summoner)
 
 /**
  * Returns whether the holoparasite is within range of its summoner or not.

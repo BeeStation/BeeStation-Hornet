@@ -1,35 +1,77 @@
-#define EMOTE_AUDIBLE (1<<0)
-#define EMOTE_ANIMATED (1<<1)
-
+/**
+ * # Emote
+ *
+ * Most of the text that's not someone talking is based off of this.
+ *
+ * Yes, the displayed message is stored on the datum, it would cause problems
+ * for emotes with a message that can vary, but that's handled differently in
+ * run_emote(), so be sure to use can_message_change if you plan to have
+ * different displayed messages from player to player.
+ *
+ */
 /datum/emote
-	var/key = "" //What calls the emote
-	var/key_third_person = "" //This will also call the emote
-	var/message = "" //Message displayed when emote is used
-	var/message_mime = "" //Message displayed if the user is a mime
-	var/message_alien = "" //Message displayed if the user is a grown alien
-	var/message_larva = "" //Message displayed if the user is an alien larva
-	var/message_robot = "" //Message displayed if the user is a robot
-	var/message_AI = "" //Message displayed if the user is an AI
-	var/message_monkey = "" //Message displayed if the user is a monkey
-	var/message_ipc = "" // Message to display if the user is an IPC
-	var/message_insect = "" //Message to display if the user is a moth, apid or flyperson
-	var/message_simple = "" //Message to display if the user is a simple_animal
-	var/message_param = "" //Message to display if a param was given
-	/// Emote flags (EMOTE_AUDIBLE and EMOTE_ANIMATED)
-	var/emote_type = 0
-	var/restraint_check = FALSE //Checks if the mob is restrained before performing the emote
-	var/muzzle_ignore = FALSE //Will only work if the emote is EMOTE_AUDIBLE
-	var/list/mob_type_allowed_typecache = /mob //Types that are allowed to use that emote
-	var/list/mob_type_blacklist_typecache //Types that are NOT allowed to use that emote
+	abstract_type = /datum/emote
+
+	/// What calls the emote.
+	var/key = ""
+	/// This will also call the emote.
+	var/key_third_person = ""
+	/// Needed for more user-friendly emote names, so emotes with keys like "aflap" will show as "flap angry". Defaulted to key.
+	var/name = ""
+	/// Message displayed when emote is used.
+	var/message = ""
+	/// Message displayed if the user is a mime.
+	var/message_mime = ""
+	/// Message displayed if the user is a grown alien.
+	var/message_alien = ""
+	/// Message displayed if the user is an alien larva.
+	var/message_larva = ""
+	/// Message displayed if the user is a robot.
+	var/message_robot = ""
+	/// Message displayed if the user is an AI.
+	var/message_AI = ""
+	/// Message displayed if the user is a monkey.
+	var/message_monkey = ""
+	/// Message displayed if the user is an IPC.
+	var/message_ipc = ""
+	/// Message displayed if the user is an insect (moth, apid, or flyperson).
+	var/message_insect = ""
+	/// Message to display if the user is a simple_animal or basic mob.
+	var/message_animal_or_basic = ""
+	/// Message with %t at the end to allow adding params to the message, like for mobs doing an emote relatively to something else.
+	var/message_param = ""
+	/// Whether the emote is visible and/or audible bitflag
+	var/emote_type = NONE
+	/// Checks if the mob can use its hands before performing the emote.
+	var/hands_use_check = FALSE
+	/// Types that are allowed to use that emote.
+	var/list/mob_type_allowed_typecache = /mob
+	/// Types that are NOT allowed to use that emote.
+	var/list/mob_type_blacklist_typecache
+	/// Types that can use this emote regardless of their state.
 	var/list/mob_type_ignore_stat_typecache
+	/// In which state can you use this emote? (Check stat.dm for a full list of them)
 	var/stat_allowed = CONSCIOUS
 	/// Sound to play when emote is called
 	var/sound
 	/// Volume to play the sound at
 	var/sound_volume = 50
-	/// Whether to vary the pitch of the sound played
+	/// Do we vary the pitch of the sound played
 	var/vary = FALSE
-	var/only_forced_audio = FALSE //can only code call this event instead of the player.
+	/// Can only code call this event instead of the player.
+	var/only_forced_audio = FALSE
+	/// The cooldown between the uses of the emote.
+	var/cooldown = 0.5 SECONDS
+	/// How long is the shared emote cooldown triggered by this emote?
+	var/general_emote_audio_cooldown = 7 SECONDS
+	/// How long is the specific emote cooldown triggered by this emote?
+	var/specific_emote_audio_cooldown = 10 SECONDS
+	/// Every time a emote is made, it increases this counter by one. When the integer equals cooldown_integer_ceiling, the mob is forced into a cooldown period
+	var/cooldown_integer = 0
+	/// Maximum amount of emotes that can be made
+	var/cooldown_integer_ceiling = 3
+	/// Does this emote's sound ignore walls?
+	var/sound_wall_ignore = FALSE
 
 	// Animated emote stuff
 	// ~~~~~~~~~~~~~~~~~~~
@@ -59,97 +101,281 @@
 	mob_type_blacklist_typecache = typecacheof(mob_type_blacklist_typecache)
 	mob_type_ignore_stat_typecache = typecacheof(mob_type_ignore_stat_typecache)
 
+	if(!name)
+		name = key
+
+/**
+ * Handles the modifications and execution of emotes.
+ *
+ * Arguments:
+ * * user - Person that is trying to send the emote.
+ * * params - Parameters added after the emote.
+ * * type_override - Override to the current emote_type.
+ * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
+ *
+ */
 /datum/emote/proc/run_emote(mob/user, params, type_override, intentional = FALSE)
-	if(!can_run_emote(user, TRUE, intentional))
-		return FALSE
+	SHOULD_CALL_PARENT(TRUE)
 
 	if((emote_type & EMOTE_ANIMATED) && emote_length > 0)
-		var/image/I = image(overlay_icon, user, overlay_icon_state, ABOVE_MOB_LAYER, 0, overlay_x_offset, overlay_y_offset)
-		flick_overlay_view(I, user, emote_length)
+		var/mutable_appearance/emote_image = mutable_appearance(overlay_icon, overlay_icon_state, ABOVE_MOB_LAYER)
+		emote_image.pixel_x = overlay_x_offset
+		emote_image.pixel_y = overlay_y_offset
+		user.flick_overlay_view(emote_image, emote_length)
 
 	var/tmp_sound = get_sound(user)
-	if(tmp_sound && (!only_forced_audio || !intentional))
-		playsound(user, tmp_sound, sound_volume, vary)
+	if(tmp_sound && should_play_sound(user, intentional) && !TIMER_COOLDOWN_CHECK(user, "audible_emote_cooldown") && !TIMER_COOLDOWN_CHECK(user, type))
+		run_cooldown_integer(user)
+		playsound(source = user, soundin = tmp_sound, vol = sound_volume, vary = vary, ignore_walls = sound_wall_ignore)
 
-	var/msg = select_message_type(user, intentional)
-	if(params && message_param)
-		msg = select_param(user, params)
+	var/msg = select_message_type(user, message, intentional)
+	if(params)
+		if(message_param)
+			msg = select_param(user, params)
+		else
+			msg = params
 
 	msg = replace_pronoun(user, msg)
 
-	if(isliving(user))
-		var/mob/living/L = user
-		for(var/obj/item/implant/I in L.implants)
-			I.trigger(key, L)
-
 	if(!msg)
+		return
+
+	/// Use the type override if it exists
+	var/running_emote_type = type_override || emote_type
+
+	if(user.client)
+		user.log_message(msg, LOG_EMOTE)
+
+	var/space = should_have_space_before_emote(html_decode(msg)[1]) ? " " : ""
+	msg = punctuate(msg)
+
+	var/is_important = running_emote_type  & EMOTE_IMPORTANT
+	var/is_visual = running_emote_type  & EMOTE_VISIBLE
+	var/is_audible = running_emote_type  & EMOTE_AUDIBLE
+	var/additional_message_flags = get_message_flags(intentional)
+
+	// Emote doesn't get printed to chat, runechat only
+	if(running_emote_type  & EMOTE_RUNECHAT)
+		for(var/mob/viewer as anything in viewers(user))
+			if(isnull(viewer.client))
+				continue
+			if(!is_important && viewer != user && (!is_visual || !is_audible))
+				if(is_audible && !viewer.can_hear())
+					continue
+				if(is_visual && viewer.is_blind())
+					continue
+			if(user.runechat_prefs_check(viewer, EMOTE_MESSAGE))
+				create_chat_message(
+					speaker = user,
+					raw_message = msg,
+					runechat_flags = EMOTE_MESSAGE,
+				)
+			else if(is_important)
+				to_chat(viewer, span_emote("<b>[user]</b> [msg]"))
+			else if(is_audible && is_visual)
+				viewer.show_message(
+					span_emote("<b>[user]</b> [msg]"), MSG_AUDIBLE,
+					span_emote("You see how <b>[user]</b> [msg]"), MSG_VISUAL,
+				)
+			else if(is_audible)
+				viewer.show_message(span_emote("<b>[user]</b> [msg]"), MSG_AUDIBLE)
+			else if(is_visual)
+				viewer.show_message(span_emote("<b>[user]</b> [msg]"), MSG_VISUAL)
+		return // Early exit so no dchat message
+
+	// The emote has some important information, and should always be shown to the user
+	else if(is_important)
+		for(var/mob/viewer as anything in viewers(user))
+			to_chat(viewer, span_emote("<b>[user]</b> [msg]"))
+			if(user.runechat_prefs_check(viewer, EMOTE_MESSAGE))
+				create_chat_message(
+					user,
+					null,
+					list(viewer),
+					msg,
+					null,
+					runechat_flags = EMOTE_MESSAGE,
+				)
+	// Emotes has both an audible and visible component
+	// Prioritize audible, and provide a visible message if the user is deaf
+	else if(is_visual && is_audible)
+		user.audible_message(
+			message = msg,
+			deaf_message = span_emote("You see how <b>[user]</b> [msg]"),
+			self_message = msg,
+			audible_message_flags = EMOTE_MESSAGE|ALWAYS_SHOW_SELF_MESSAGE|additional_message_flags,
+			separation = space
+		)
+	// Emote is entirely audible, no visible component
+	else if(is_audible)
+		user.audible_message(
+			message = msg,
+			self_message = msg,
+			audible_message_flags = EMOTE_MESSAGE|additional_message_flags,
+			separation = space
+		)
+	// Emote is entirely visible, no audible component
+	else if(is_visual)
+		user.visible_message(
+			message = msg,
+			self_message = msg,
+			visible_message_flags = EMOTE_MESSAGE|ALWAYS_SHOW_SELF_MESSAGE|additional_message_flags,
+		)
+	else
+		CRASH("Emote [type] has no valid emote type set!")
+
+	if(!isnull(user.client))
+		var/dchatmsg = "<b>[user]</b> [msg]"
+		for(var/mob/ghost as anything in GLOB.dead_mob_list - viewers(get_turf(user)))
+			if(isnull(ghost.client) || isnewplayer(ghost))
+				continue
+			if(!ghost?.client.prefs?.read_player_preference(/datum/preference/toggle/chat_ghostsight))
+				continue
+			to_chat(ghost, span_emote("[FOLLOW_LINK(ghost, user)] [dchatmsg]"))
+	return
+
+/datum/emote/proc/run_cooldown_integer(mob/user)
+	//If we do one audible emote, then do nothing, we eventually should purge our list
+	cooldown_integer_window(user)
+	cooldown_integer += 1
+	//debug
+	//user.balloon_alert(user, "[cooldown_integer]")
+	check_cooldown_integer(user)
+
+/datum/emote/proc/check_cooldown_integer(mob/user)
+	if(cooldown_integer >= cooldown_integer_ceiling)
+		to_chat(user, span_warning("[name] emote limit reached"))
+		TIMER_COOLDOWN_START(user, type, specific_emote_audio_cooldown)
+		TIMER_COOLDOWN_START(user, "general_emote_audio_cooldown", general_emote_audio_cooldown)
+		//We used up all our usable emotes, now we set the integer back to zero and wait the long wait
+		cooldown_integer = initial(cooldown_integer)
+
+/datum/emote/proc/cooldown_integer_window(mob/user)
+	if(TIMER_COOLDOWN_CHECK(user, COOLDOWN_EMOTE_WINDOW))
+		TIMER_COOLDOWN_START(user, COOLDOWN_EMOTE_WINDOW, 4 SECONDS)
+	else
+		//We did a few emotes, but didnt use them all up, reset our integer
+		cooldown_integer = initial(cooldown_integer)
+
+/**
+ * For handling emote cooldown, return true to allow the emote to happen.
+ *
+ * Arguments:
+ * * user - Person that is trying to send the emote.
+ * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
+ *
+ * Returns FALSE if the cooldown is not over, TRUE if the cooldown is over.
+ */
+/datum/emote/proc/check_cooldown(mob/user, intentional)
+	if(!intentional)
 		return TRUE
 
-	user.log_message(msg, LOG_EMOTE)
+	if(user.emotes_used && user.emotes_used[src] + cooldown > world.time)
+		return FALSE
 
-	var/space = should_have_space_before_emote(html_decode(msg)[1]) ? " " : null
-	var/end = copytext(msg, length(message))
-	if(!(end in list("!", ".", "?", ":", "\"", "-")))
-		msg += "."
+	if(!user.emotes_used)
+		user.emotes_used = list()
 
-	var/dchatmsg = "<b>[user]</b>[space][msg]"
-
-	for(var/mob/M in GLOB.dead_mob_list)
-		if(!M.client || isnewplayer(M))
-			continue
-		var/T = get_turf(user)
-		if(M.stat == DEAD && M?.client.prefs?.read_player_preference(/datum/preference/toggle/chat_ghostsight) && !(M in viewers(T, null)))
-			if(user.mind || M.client.prefs?.read_player_preference(/datum/preference/toggle/chat_followghostmindless))
-				M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
-			else
-				M.show_message("[dchatmsg]")
-
-	if(emote_type & EMOTE_AUDIBLE)
-		user.audible_message(msg, audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE), separation = space)
-	else
-		user.visible_message(msg, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE), separation = space)
+	user.emotes_used[src] = world.time
 	return TRUE
 
 /datum/emote/proc/get_sound(mob/living/user)
 	return sound //by default just return this var.
 
-/datum/emote/proc/replace_pronoun(mob/user, message)
-	if(findtext(message, "their"))
-		message = replacetext(message, "their", user.p_their())
-	if(findtext(message, "them"))
-		message = replacetext(message, "them", user.p_them())
-	if(findtext(message, "%s"))
-		message = replacetext(message, "%s", user.p_s())
-	return message
+/**
+ * To get the flags visible/audible messages for ran by the emote.
+ *
+ * Arguments:
+ * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
+ *
+ * Returns the additional message flags we should be using, if any.
+ */
+/datum/emote/proc/get_message_flags(intentional)
+	// If we did it, we most often already know what's in it, so we try to avoid highlight clutter.
+	return intentional ? BLOCK_SELF_HIGHLIGHT_MESSAGE : NONE
 
-/datum/emote/proc/select_message_type(mob/user, intentional)
-	. = message
-	if(!muzzle_ignore && user.is_muzzled() && (emote_type & EMOTE_AUDIBLE))
-		return "makes a [pick("strong ", "weak ", "")]noise."
-	if(user.mind?.miming && message_mime)
+/**
+ * To replace pronouns in the inputed string with the user's proper pronouns.
+ *
+ * Arguments:
+ * * user - Person that is trying to send the emote.
+ * * msg - The string to modify.
+ *
+ * Returns the modified msg string.
+ */
+/datum/emote/proc/replace_pronoun(mob/user, msg)
+	if(findtext(msg, "their"))
+		msg = replacetext(msg, "their", user.p_their())
+	if(findtext(msg, "them"))
+		msg = replacetext(msg, "them", user.p_them())
+	if(findtext(msg, "they"))
+		msg = replacetext(message, "they", user.p_they())
+	if(findtext(msg, "%s"))
+		msg = replacetext(msg, "%s", user.p_s())
+	return msg
+
+/**
+ * Selects the message type to override the message with.
+ *
+ * Arguments:
+ * * user - Person that is trying to send the emote.
+ * * msg - The string to modify.
+ * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
+ *
+ * Returns the new message, or msg directly, if no change was needed.
+ */
+/datum/emote/proc/select_message_type(mob/user, msg, intentional)
+	// Basically, we don't care that the others can use datum variables, because they're never going to change.
+	. = msg
+	if(!isliving(user))
+		return .
+	var/mob/living/living_user = user
+
+	if(HAS_MIND_TRAIT(user, TRAIT_MIMING) && message_mime)
 		. = message_mime
 	if(isalienadult(user) && message_alien)
 		. = message_alien
 	else if(islarva(user) && message_larva)
 		. = message_larva
-	else if(iscyborg(user) && message_robot)
-		. = message_robot
 	else if(isAI(user) && message_AI)
 		. = message_AI
 	else if(ismonkey(user) && message_monkey)
 		. = message_monkey
+	else if((iscyborg(user) || (living_user.mob_biotypes & MOB_ROBOTIC)) && message_robot)
+		. = message_robot
 	else if(isipc(user) && message_ipc)
 		. = message_ipc
 	else if((ismoth(user) || isapid(user) || isflyperson(user)) && message_insect)
 		. = message_insect
-	else if((isanimal(user) || isbasicmob(user)) && message_simple)
-		. = message_simple
+	else if(isanimal_or_basicmob(user) && message_animal_or_basic)
+		. = message_animal_or_basic
 
+	return .
+
+/**
+ * Replaces the %t in the message in message_param by params.
+ *
+ * Arguments:
+ * * user - Person that is trying to send the emote.
+ * * params - Parameters added after the emote.
+ *
+ * Returns the modified string.
+ */
 /datum/emote/proc/select_param(mob/user, params)
 	return replacetext(message_param, "%t", params)
 
-/datum/emote/proc/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE)
-	. = TRUE
+/**
+ * Check to see if the user is allowed to run the emote.
+ *
+ * Arguments:
+ * * user - Person that is trying to send the emote.
+ * * status_check - Bool that says whether we should check their stat or not.
+ * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
+ * * params - Parameters added after the emote.
+ *
+ * Returns a bool about whether or not the user can run the emote.
+ */
+/datum/emote/proc/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE, params)
 	if(!is_type_in_typecache(user, mob_type_allowed_typecache))
 		return FALSE
 	if(is_type_in_typecache(user, mob_type_blacklist_typecache))
@@ -160,55 +386,84 @@
 				return FALSE
 			switch(user.stat)
 				if(SOFT_CRIT)
-					to_chat(user, "<span class='notice'>You cannot [key] while in a critical condition.</span>")
+					to_chat(user, span_warning("You cannot [key] while in a critical condition!"))
 				if(UNCONSCIOUS, HARD_CRIT)
-					to_chat(user, "<span class='notice'>You cannot [key] while unconscious.</span>")
+					to_chat(user, span_warning("You cannot [key] while unconscious!"))
 				if(DEAD)
-					to_chat(user, "<span class='notice'>You cannot [key] while dead.</span>")
+					to_chat(user, span_warning("You cannot [key] while dead!"))
 			return FALSE
-		if(restraint_check)
-			if(isliving(user))
-				var/mob/living/L = user
-				if(L.IsParalyzed() || L.IsStun())
-					if(!intentional)
-						return FALSE
-					to_chat(user, "<span class='notice'>You cannot [key] while stunned.</span>")
-					return FALSE
-		if(restraint_check && user.restrained())
+		if(hands_use_check && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			if(!intentional)
 				return FALSE
-			to_chat(user, "<span class='notice'>You cannot [key] while restrained.</span>")
+			to_chat(user, span_warning("You cannot use your hands to [key] right now!"))
 			return FALSE
 
-	if(isliving(user))
-		var/mob/living/L = user
-		if(HAS_TRAIT(L, TRAIT_EMOTEMUTE))
-			return FALSE
+	if(HAS_TRAIT(user, TRAIT_EMOTEMUTE))
+		return FALSE
 
-/mob/proc/manual_emote(text) //Just override the song and dance
-	. = TRUE
-	if(stat != CONSCIOUS)
-		return
+	return TRUE
 
-	if(!text)
+/**
+ * Check to see if the user should play a sound when performing the emote.
+ *
+ * Arguments:
+ * * user - Person that is doing the emote.
+ * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
+ *
+ * Returns a bool about whether or not the user should play a sound when performing the emote.
+ */
+/datum/emote/proc/should_play_sound(mob/user, intentional = FALSE)
+	if(emote_type & EMOTE_AUDIBLE && !hands_use_check)
+		if(ishuman(user))
+			var/mob/living/carbon/human/loud_mouth = user
+			if(HAS_MIND_TRAIT(loud_mouth, TRAIT_MIMING)) // vow of silence prevents outloud noises
+				return FALSE
+			if(!loud_mouth.get_organ_slot(ORGAN_SLOT_TONGUE))
+				return FALSE
+
+	if(only_forced_audio && intentional)
+		return FALSE
+	return TRUE
+
+/**
+* Allows the intrepid coder to send a basic emote
+* Takes text as input, sends it out to those who need to know after some light parsing
+* If you need something more complex, make it into a datum emote
+* Arguments:
+* * text - The text to send out
+*
+* Returns TRUE if it was able to run the emote, FALSE otherwise.
+*/
+/atom/proc/manual_emote(text, log_emote = TRUE)
+	if (!text)
 		CRASH("Someone passed nothing to manual_emote(), fix it")
 
-	log_message(text, LOG_EMOTE)
+	if (log_emote)
+		log_message(text, LOG_EMOTE)
+	visible_message(text, visible_message_flags = EMOTE_MESSAGE)
+	return TRUE
 
+/mob/manual_emote(text, log_emote = null)
+	if (stat != CONSCIOUS)
+		return FALSE
+	if (isnull(log_emote))
+		log_emote = !isnull(client)
+	. = ..(text, log_emote)
+	if (!.)
+		return FALSE
+	if (!client)
+		return TRUE
 	var/ghost_text = "<b>[src]</b> [text]"
-
 	var/origin_turf = get_turf(src)
-	if(client)
-		for(var/mob/ghost as anything in GLOB.dead_mob_list)
-			if(!ghost.client || isnewplayer(ghost))
-				continue
-			if(ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostsight) && !(ghost in viewers(origin_turf, null)))
-				if(mind || ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_followghostmindless))
-					ghost.show_message("[FOLLOW_LINK(ghost, src)] [ghost_text]")
-				else
-					ghost.show_message("[ghost_text]")
-
-	visible_message(text, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
+	for(var/mob/ghost as anything in GLOB.dead_mob_list)
+		if(!ghost.client || isnewplayer(ghost))
+			continue
+		if(ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostsight) && !(ghost in viewers(origin_turf, null)))
+			if(mind || ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_followghostmindless))
+				ghost.show_message("[FOLLOW_LINK(ghost, src)] [ghost_text]")
+			else
+				ghost.show_message("[ghost_text]")
+	return TRUE
 
 /**
  * Returns a boolean based on whether or not the string contains a comma or an apostrophe,

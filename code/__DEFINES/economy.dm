@@ -1,22 +1,41 @@
 #define STARTING_PAYCHECKS 5
 
-#define PAYCHECK_ASSISTANT 10
-#define PAYCHECK_MINIMAL 10
-#define PAYCHECK_EASY 15
-#define PAYCHECK_MEDIUM 40
-#define PAYCHECK_HARD 70
-#define PAYCHECK_COMMAND_NT   20 // given from nanotrasen to heads
-#define PAYCHECK_COMMAND_DEPT 80 // given from department budget
+#define PAYCHECK_ASSISTANT 15
+#define PAYCHECK_MINIMAL 30
+#define PAYCHECK_EASY 35
+#define PAYCHECK_MEDIUM 60
+#define PAYCHECK_HARD 90
+// given from nanotrasen to heads
+#define PAYCHECK_COMMAND_NT 20
+// given from department budget
+#define PAYCHECK_COMMAND_DEPT 80
+// Command Total
+#define PAYCHECK_COMMAND 100
 #define PAYCHECK_VIP 2000
 /*	Note: The current intention for crazy amount of money to VIP is that they can be a rich shitter
-		  or be targeted by antags for their money - oh, my, being rich isn't always good.
-		  The first buff to their money was to 2,000 credits. Nerf is fine if you think it's necessary,
-		  but if you decrease their payment too much, they'll be no longer interested.
-		  I recommend to nerf their gimmick spawn chance instead. */
+			or be targeted by antags for their money - oh, my, being rich isn't always good.
+			The first buff to their money was to 2,000 credits. Nerf is fine if you think it's necessary,
+			but if you decrease their payment too much, they'll be no longer interested.
+			I recommend to nerf their gimmick spawn chance instead. */
 
 
 #define PAYCHECK_WELFARE 20 //NEETbucks
 
+/// NT's Tax rate - Currently applies to vending machine sales
+#define TAX_RATE 0.5
+
+/// Economy multiplier. This controls (or hopefully will control) the whole economy as a whole
+#define ECONOMY_MULTIPLIER 1	// Currently applies to automatic item pricing
+
+/// This markup is applied to vendor prices and vendor prices only (DOES NOT APPLY TO PREMIUM PRICE)
+#define PRICE_MARKUP 2
+
+/// Defines an Item that is contraband
+#define TRADE_CONTRABAND (1 << 0)
+/// Defines Items that can not be sold
+#define TRADE_NOT_SELLABLE (1 << 1)
+/// Defines items that, if unsold will be deleted instead of being returned
+#define TRADE_DELETE_UNSOLD (1 << 2)
 
 #define NON_STATION_BUDGET_BASE rand(8888888, 11111111)
 #define BUDGET_RATIO_TYPE_SINGLE 1 // For Service & Civilian budget
@@ -49,7 +68,6 @@
 #define ACCOUNT_ALL_NAME "United Station Budget" // for negative station trait - united budget
 
 // If a vending machine matches its department flag with your bank account's, it gets free.
-#define NO_FREEBIES 0 // used for a vendor selling nothing for free
 #define ACCOUNT_COM_BITFLAG (1<<0) // for Commander only vendor items (i.e. HoP cartridge vendor)
 #define ACCOUNT_CIV_BITFLAG (1<<1)
 #define ACCOUNT_SRV_BITFLAG (1<<2)
@@ -62,11 +80,14 @@
 // this should use the same bitflag values in `\_DEFINES\jobs.dm` to match.
 // It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
 
-/// How much mail the Economy SS will create per minute, regardless of firing time.
-#define MAX_MAIL_PER_MINUTE 3
+/// How much mail the Economy SS can create per minute, regardless of firing time.
+#define MAX_MAIL_PER_MINUTE 1
 /// Probability of using letters of envelope sprites on all letters.
 #define FULL_CRATE_LETTER_ODDS 70
-
+/// Max amount of mail that can be queued
+#define MAX_MAIL_LIMIT 12
+/// Amount of mail required before a mail crate spawns
+#define MAIL_REQUIRED_BEFORE_SPAWN 6
 
 /// used for custom_currency
 #define ACCOUNT_CURRENCY_MINING "mining points"

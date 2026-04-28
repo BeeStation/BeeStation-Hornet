@@ -1,55 +1,24 @@
 
-#define ENGSEC			(1<<0)
+// If the roundstart population was below this value, then jobs
+// will be merged inside their departments. At this population,
+// all roles get shared access to their department.
+// At or below this value, certain jobs may also be disabled.
+#define MINPOP_JOB_LIMIT 9
+/// Minimum roundstart population required for command roles to spawn
+/// Below this population, every member of the department is given
+/// access to their department's command office.
+#define COMMAND_POPULATION_MINIMUM 6
+/// The population at which the station enters into an open mode, where
+/// access restrictions are significantly diminished.
+#define STATION_UNLOCK_POPULATION 6
+// If the roundstart population is below this value, then
+// additional access requirements will be granted if there is nobody that
+// has that access requirement in the department.
+#define LOWPOP_JOB_LIMIT 14
 
-#define CAPTAIN			(1<<0)
-#define HOS				(1<<1)
-#define WARDEN			(1<<2)
-#define DETECTIVE		(1<<3)
-#define OFFICER			(1<<4)
-#define CHIEF			(1<<5)
-#define ENGINEER		(1<<6)
-#define ATMOSTECH		(1<<7)
-#define ROBOTICIST		(1<<8)
-#define AI_JF			(1<<9)
-#define CYBORG			(1<<10)
-#define BRIG_PHYS		(1<<11)
-#define DEPUTY  		(1<<12)
-
-
-#define MEDSCI			(1<<1)
-
-#define RD_JF			(1<<0)
-#define SCIENTIST		(1<<1)
-#define EXPLORATION_CREW (1<<2)
-#define CHEMIST			(1<<3)
-#define CMO_JF			(1<<4)
-#define DOCTOR			(1<<5)
-#define GENETICIST		(1<<6)
-#define VIROLOGIST		(1<<7)
-#define PARAMEDIC		(1<<8)
-
-
-#define CIVILIAN		(1<<2)
-
-#define HOP				(1<<0)
-#define BARTENDER		(1<<1)
-#define BOTANIST		(1<<2)
-#define COOK			(1<<3)
-#define JANITOR			(1<<4)
-#define CURATOR			(1<<5)
-#define QUARTERMASTER	(1<<6)
-#define CARGOTECH		(1<<7)
-#define MINER			(1<<8)
-#define LAWYER			(1<<9)
-#define CHAPLAIN		(1<<10)
-#define CLOWN			(1<<11)
-#define MIME			(1<<12)
-#define ASSISTANT		(1<<13)
-#define GIMMICK 		(1<<14)
-#define BARBER		    (1<<15)
-#define MAGICIAN        (1<<16)
-#define PSYCHIATRIST    (1<<17)
-#define CELEBRITY       (1<<18)
+#define LOWPOP_GRANT_ACCESS(job_name, access) if ((SSjob.is_job_empty(job_name) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT) || SSjob.initial_players_to_assign < MINPOP_JOB_LIMIT) {\
+	. |= access;\
+}
 
 #define JOB_AVAILABLE 0
 #define JOB_UNAVAILABLE_GENERIC 1
@@ -57,6 +26,11 @@
 #define JOB_UNAVAILABLE_PLAYTIME 3
 #define JOB_UNAVAILABLE_ACCOUNTAGE 4
 #define JOB_UNAVAILABLE_SLOTFULL 5
+#define JOB_UNAVAILABLE_LOCKED 6
+
+// Job spawn groups
+// Spawn group representing the primary roles of a department
+#define JOB_SPAWN_GROUP_DEPARTMENT "department"
 
 #define DEFAULT_RELIGION "Christianity"
 #define DEFAULT_DEITY "Space Jesus"
@@ -98,20 +72,7 @@
 #define JOB_DISPLAY_ORDER_BRIG_PHYS 32
 #define JOB_DISPLAY_ORDER_AI 33
 #define JOB_DISPLAY_ORDER_CYBORG 34
-
-
-#define DEPT_BITFLAG_COM (1<<0)
-#define DEPT_BITFLAG_CIV (1<<1)
-#define DEPT_BITFLAG_SRV (1<<2)
-#define DEPT_BITFLAG_CAR (1<<3)
-#define DEPT_BITFLAG_SCI (1<<4)
-#define DEPT_BITFLAG_ENG (1<<5)
-#define DEPT_BITFLAG_MED (1<<6)
-#define DEPT_BITFLAG_SEC (1<<7)
-#define DEPT_BITFLAG_VIP (1<<8)
-#define DEPT_BITFLAG_SILICON  (1<<9)
-#define DEPT_BITFLAG_CAPTAIN (1<<10)
-#define DEPT_BITFLAG_ASSISTANT (1<<11)
+#define JOB_DISPLAY_ORDER_PRISONER 35
 
 // should check the ones in `\_DEFINES\economy.dm`
 // It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
@@ -174,16 +135,17 @@
 // Silicon
 #define JOB_NAME_AI     "AI"
 #define JOB_NAME_CYBORG "Cyborg"
+#define JOB_NAME_POSIBRAIN "Positronic Brain"
 #define JOB_NAME_PAI    "Personal AI"
 
 // ERTs
-#define JOB_ERT_DEATHSQUAD      "Death Commando"
+#define JOB_ERT_DEATHSQUAD 		"Death Commando"
 #define JOB_ERT_COMMANDER       "Emergency Response Team Commander"
 #define JOB_ERT_OFFICER         "Security Response Officer"
 #define JOB_ERT_ENGINEER        "Engineering Response Officer"
 #define JOB_ERT_MEDICAL_DOCTOR  "Medical Response Officer"
-#define JOB_ERT_CHAPLAIN        "Religious Response Officer"
-#define JOB_ERT_JANITOR         "Janitorial Response Officer"
+#define JOB_ERT_JANITOR			"Janitorial Response Officer"
+#define JOB_ERT_CLOWN       	"Morale Response Officer"
 
 // CentCom
 #define JOB_CENTCOM_CENTRAL_COMMAND "Central Command"
@@ -353,3 +315,42 @@
 #define JOB_CHATCOLOR_NOTCENTCOM "#6D6AEC" // i.e. space police
 #define JOB_CHATCOLOR_PRISONER   "#D38A5C"
 #define JOB_CHATCOLOR_UNKNOWN    "#DDA583" // grey hud icon gets this
+
+// reasons why you can't play this job
+#define JOB_LOCK_REASON_ABSTRACT (1<<0)
+#define JOB_LOCK_REASON_MAP (1<<1)
+#define JOB_LOCK_REASON_CONFIG (1<<2)
+
+/* Job datum job_flags */
+/// Whether the mob is announced on arrival.
+#define JOB_ANNOUNCE_ARRIVAL (1<<0)
+/// Whether the mob is added to the crew manifest.
+#define JOB_CREW_MANIFEST (1<<1)
+/// Whether the job is considered a regular crew member of the station. Equipment such as AI and cyborgs not included.
+#define JOB_CREW_MEMBER (1<<2)
+/// Whether this job can be joined through the new_player menu.
+#define JOB_NEW_PLAYER_JOINABLE (1<<3)
+/// If the player with this job can have quirks assigned to him or not. Relevant for new player joinable jobs and roundstart antags.
+#define JOB_ASSIGN_QUIRKS (1<<4)
+/// This job cannot have more slots opened by the Head of Personnel (but admins or other random events can still do this).
+#define JOB_CANNOT_OPEN_SLOTS (1<<5)
+/// This job is a head of staff.
+#define JOB_HEAD_OF_STAFF (1<<6)
+
+DEFINE_BITFIELD(job_flags, list(
+	"JOB_ANNOUNCE_ARRIVAL" = JOB_ANNOUNCE_ARRIVAL,
+	"JOB_CREW_MANIFEST" = JOB_CREW_MANIFEST,
+	"JOB_CREW_MEMBER" = JOB_CREW_MEMBER,
+	"JOB_NEW_PLAYER_JOINABLE" = JOB_NEW_PLAYER_JOINABLE,
+	"JOB_ASSIGN_QUIRKS" = JOB_ASSIGN_QUIRKS,
+	"JOB_CANNOT_OPEN_SLOTS" = JOB_CANNOT_OPEN_SLOTS,
+	"JOB_HEAD_OF_STAFF" = JOB_HEAD_OF_STAFF,
+))
+
+/// Combination flag for jobs which are considered regular crew members of the station.
+#define STATION_JOB_FLAGS (JOB_ANNOUNCE_ARRIVAL|JOB_CREW_MANIFEST|JOB_CREW_MEMBER|JOB_NEW_PLAYER_JOINABLE|JOB_ASSIGN_QUIRKS)
+/// Combination flag for jobs which are considered heads of staff.
+#define HEAD_OF_STAFF_JOB_FLAGS (JOB_CANNOT_OPEN_SLOTS|JOB_HEAD_OF_STAFF)
+
+#define FACTION_NONE "None"
+#define FACTION_STATION "Station"

@@ -6,7 +6,7 @@
 	species = "chili"
 	plantname = "Chili Plants"
 	product = /obj/item/food/grown/chili
-	lifespan = 20
+	lifespan = 80
 	maturation = 5
 	production = 5
 	yield = 4
@@ -35,7 +35,7 @@
 	species = "chiliice"
 	plantname = "Ice Pepper Plants"
 	product = /obj/item/food/grown/icepepper
-	lifespan = 25
+	lifespan = 100
 	maturation = 4
 	production = 4
 	rarity = 20
@@ -79,7 +79,7 @@
 	wine_power = 50
 	discovery_points = 300
 
-/obj/item/food/grown/ghost_chili/attack_hand(mob/user)
+/obj/item/food/grown/ghost_chili/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -94,7 +94,7 @@
 				return
 			held_mob.adjust_bodytemperature(7.5 * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time)
 			if(DT_PROB(5, delta_time))
-				to_chat(held_mob, "<span class='warning'>Your hand holding [src] burns!</span>")
+				to_chat(held_mob, span_warning("Your hand holding [src] burns!"))
 	else
 		held_mob = null
 		..()

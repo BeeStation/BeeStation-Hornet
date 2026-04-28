@@ -9,12 +9,12 @@
 	announceWhen = 50
 	endWhen = 20
 	var/list/area/areasToOpen = list()
-	var/list/potential_areas = list(/area/bridge,
-									/area/engine,
-									/area/medical,
-									/area/security,
-									/area/quartermaster,
-									/area/science)
+	var/list/potential_areas = list(/area/station/command,
+									/area/station/engineering,
+									/area/station/medical,
+									/area/station/security,
+									/area/station/cargo,
+									/area/station/science)
 	var/severity = 1
 
 
@@ -53,7 +53,6 @@
 				if(temp.critical_machine) //Skip doors in critical positions, such as the SM chamber.
 					continue
 				temp.prison_open()
-			else if(istype(O, /obj/machinery/door_timer))
-				var/obj/machinery/door_timer/temp = O
+			else if(istype(O, /obj/machinery/status_display/door_timer))
+				var/obj/machinery/status_display/door_timer/temp = O
 				temp.timer_end(forced = TRUE)
-

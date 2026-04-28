@@ -22,13 +22,17 @@
 	if (isnull(job))
 		return FALSE
 
-	if (job.faction != "Station")
+	if (job.faction != FACTION_STATION)
+		return FALSE
+
+	if(!(job.job_flags & JOB_NEW_PLAYER_JOINABLE))
 		return FALSE
 
 	if (!preferences.set_job_preference_level(job, level))
 		return FALSE
 
 	preferences.character_preview_view?.update_body()
+
 	return TRUE
 
 /datum/preference_middleware/jobs/get_constant_data()
@@ -40,9 +44,12 @@
 	for (var/datum/job/job as anything in SSjob.occupations)
 		if(!job.show_in_prefs)
 			continue
+		if(!(job.job_flags & JOB_NEW_PLAYER_JOINABLE)) // job is locked, check if it's only because of map
+			if(job.lock_flags != JOB_LOCK_REASON_MAP) // not solely map-locked, hide it
+				continue
 
-		var/department_flag = job.department_for_prefs
-		if (isnull(department_flag))
+		var/department_id = job.department_for_prefs
+		if (isnull(department_id))
 			stack_trace("[job] does not have a department set, yet is a joinable occupation!")
 			continue
 
@@ -50,19 +57,21 @@
 			stack_trace("[job] does not have a description set, yet is a joinable occupation!")
 			continue
 
-		var/department_name = GLOB.dept_bitflag_to_name["[department_flag]"]
-		if (isnull(departments[department_name]))
+		var/datum/department_group/dept = SSdepartment.department_assoc[department_id]
+		var/department_name = dept ? dept.dept_name : department_id // a bit of hardcoding. Captain/Assistant department doesn't exist, but it has a fancy theme in TGUI side.
+		if (isnull(departments[department_id]))
 			var/department_head_jobname = job.department_head_for_prefs || job.department_head
 			if(islist(department_head_jobname) && length(department_head_jobname))
 				department_head_jobname = department_head_jobname[1]
 			if(length(department_head_jobname))
-				departments[department_name] = list(
+				departments[department_id] = list(
 					"head" = department_head_jobname,
 				)
 			else
-				departments[department_name] = list()
+				departments[department_id] = list()
 
 		jobs[job.title] = list(
+			"lock_reason" = job.get_lock_reason(),
 			"description" = job.description,
 			"department" = department_name,
 		)

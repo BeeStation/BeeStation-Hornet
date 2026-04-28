@@ -31,7 +31,7 @@
 	return ..()
 
 /datum/component/deadchat_control/proc/deadchat_react(mob/source, message)
-	message = lowertext(message)
+	message = LOWER_TEXT(message)
 	if(!inputs[message])
 		return
 	if(deadchat_mode == ANARCHY_MODE)
@@ -55,11 +55,11 @@
 	var/result = count_democracy_votes()
 	if(!isnull(result))
 		inputs[result].Invoke()
-		var/message = "<span class='deadsay italics bold'>[parent] has done action [result]!<br>New vote started. It will end in [input_cooldown/10] seconds.</span>"
+		var/message = span_deadsayitalicsbold("[parent] has done action [result]!<br>New vote started. It will end in [input_cooldown/10] seconds.")
 		for(var/M in orbiters)
 			to_chat(M, message)
 	else
-		var/message = "<span class='deadsay italics bold'>No votes were cast this cycle.</span>"
+		var/message = span_deadsayitalicsbold("No votes were cast this cycle.")
 		for(var/M in orbiters)
 			to_chat(M, message)
 

@@ -36,14 +36,12 @@
 "j" = (
 /obj/machinery/button/massdriver/indestructible{
 	id = "trektorpedo1";
-	layer = 3.9;
 	name = "photon torpedo button";
 	pixel_x = -5;
 	pixel_y = -5
 	},
 /obj/machinery/button/massdriver/indestructible{
 	id = "trektorpedo2";
-	layer = 3.9;
 	name = "photon torpedo button";
 	pixel_x = 5;
 	pixel_y = -5
@@ -61,16 +59,14 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "l" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/computer/station_alert{
 	dir = 4
 	},
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "n" = (
-/obj/structure/window/reinforced{
-	layer = 2.9
-	},
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -99,18 +95,13 @@
 /obj/structure/rack,
 /obj/item/clothing/under/trek/engsec,
 /obj/item/clothing/under/trek/engsec,
-/obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "t" = (
 /obj/structure/table/glass,
 /obj/item/gun/energy/e_gun/mini/practice_phaser,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/machinery/recharger,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
@@ -127,15 +118,15 @@
 /obj/machinery/computer/atmos_alert{
 	dir = 8
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "B" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/holofloor/hyperspace,
 /area/template_noop)
 "C" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/mass_driver{
 	dir = 1;
 	id = "trektorpedo2";
@@ -147,9 +138,7 @@
 	icon_state = "impact_laser";
 	name = "photon torpedo"
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/holofloor/hyperspace,
 /area/template_noop)
 "E" = (
@@ -163,9 +152,7 @@
 /obj/machinery/computer/station_alert{
 	dir = 4
 	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "G" = (
@@ -177,27 +164,21 @@
 /obj/item/clothing/under/trek/medsci,
 /obj/item/clothing/under/trek/medsci,
 /obj/item/clothing/under/trek/command,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "K" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "L" = (
 /obj/structure/table/glass,
 /obj/item/gun/energy/e_gun/mini/practice_phaser,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "N" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/mass_driver{
 	dir = 1;
 	id = "trektorpedo2";
@@ -209,18 +190,14 @@
 	icon_state = "impact_laser";
 	name = "photon torpedo"
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/holofloor/hyperspace,
 /area/template_noop)
 "R" = (
 /obj/machinery/computer/station_alert{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "S" = (
@@ -238,10 +215,7 @@
 /turf/open/floor/holofloor/hyperspace,
 /area/template_noop)
 "X" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "Y" = (

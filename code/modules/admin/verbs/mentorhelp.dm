@@ -2,9 +2,8 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 
 /// Client Stuff
 
-/client
-	var/mentorhelptimerid = 0	//a timer id for returning the mhelp verb
-	var/datum/help_ticket/current_mentorhelp_ticket	//the current ticket the (usually) not-admin client is dealing with
+/client/var/mentorhelptimerid = 0	//a timer id for returning the mhelp verb
+/client/var/datum/help_ticket/current_mentorhelp_ticket	//the current ticket the (usually) not-admin client is dealing with
 
 /client/proc/openMentorTicketManager()
 	set name = "Mentor Ticket Manager"
@@ -27,31 +26,27 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 /client/proc/givementorhelpverb()
 	if(!src)
 		return
-	src.add_verb(/client/verb/mentorhelp)
+	src.add_verb(/client/proc/mentorhelp)
 	deltimer(mentorhelptimerid)
 	mentorhelptimerid = 0
 
-/// Used for methods where input via arg doesn't work
-/client/proc/get_mentorhelp()
-	var/msg = tgui_input_text(src, "Please describe your problem concisely and a mentor will help as soon as they're able. Remember: Mentors cannot see you or what you're doing. Describe the problem in full detail.", "Mentorhelp contents", multiline = TRUE, encode = FALSE) // we don't encode/sanitize here bc it's done for us later
-	mentorhelp(msg)
-
-/client/verb/mentorhelp(msg as message)
+AUTH_CLIENT_VERB(mentorhelp)
 	set category = "Mentor"
 	set name = "Mentorhelp"
+	var/msg
 
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
-		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
+		to_chat(usr, span_danger("Speech is currently admin-disabled."))
 		return
 
 	//handle muting and automuting
-	if(prefs.muted & MUTE_MHELP)
-		to_chat(src, "<span class='danger'>Error: Mentor-PM: You cannot send mentorhelps (Muted).</span>")
+	if(prefs && player_details.muted & MUTE_MHELP)
+		to_chat(src, span_danger("Error: Mentor-PM: You cannot send mentorhelps (Muted)."))
 		return
 	if(handle_spam_prevention(msg, MUTE_MHELP))
 		return
 
-	msg = trim(msg)
+	msg = trim(tgui_input_text(src, "Please describe your problem concisely and a mentor will help as soon as they're able. Remember: Mentors cannot see you or what you're doing. Describe the problem in full detail.", "Mentorhelp contents", multiline = TRUE, encode = FALSE))
 
 	if(!msg)
 		return
@@ -64,7 +59,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 				current_mentorhelp_ticket.TimeoutVerb()
 				return
 			else
-				to_chat(usr, "<span class='warning'>Ticket not found, creating new one...</span>")
+				to_chat(usr, span_warning("Ticket not found, creating new one..."))
 		else
 			current_mentorhelp_ticket.AddInteraction("yellow", "[usr] opened a new ticket.")
 			current_mentorhelp_ticket.Close()
@@ -141,7 +136,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	return TRUE
 
 /datum/help_ticket/mentor/TimeoutVerb()
-	initiator.remove_verb(/client/verb/mentorhelp)
+	initiator.remove_verb(/client/proc/mentorhelp)
 	initiator.mentorhelptimerid = addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, givementorhelpverb)), 1200, TIMER_STOPPABLE)
 
 /datum/help_ticket/mentor/key_name_ticket(mob/user)
@@ -155,7 +150,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	var/sanitized_msg = sanitized ? msg : sanitize(msg)
 
 	//Message to be sent to all admins
-	var/admin_msg = "<span class='mentornotice'><span class='mentorhelp'>Mentor Ticket [TicketHref("#[id]", ref_src)]</span>: [LinkedReplyName(ref_src)] [ClosureLinks(ref_src)]: <span class='linkify'>[sanitized_msg]</span></span>"
+	var/admin_msg = span_mentornotice("[span_mentorhelp("Mentor Ticket [TicketHref("#[id]", ref_src)]")]: [LinkedReplyName(ref_src)] [ClosureLinks(ref_src)]: [span_linkify("[sanitized_msg]")]")
 
 	if(add_to_ticket)
 		AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Mentor")
@@ -170,32 +165,32 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 
 	//show it to the person adminhelping too
 	if(add_to_ticket)
-		to_chat(initiator, "<span class='mentornotice'>PM to-<b>Mentors</b>: <span class='linkify'>[sanitized_msg]</span></span>", type = message_type)
+		to_chat(initiator, span_mentornotice("PM to-<b>Mentors</b>: [span_linkify("[sanitized_msg]")]"), type = message_type)
 
 /datum/help_ticket/mentor/proc/ClosureLinks(ref_src)
 	if(state > TICKET_ACTIVE)
 		return ""
 	if(!ref_src)
 		ref_src = "[REF(src)]"
-	. = " (<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=reject'>REJT</A>)"
-	. += " (<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=resolve'>RSLVE</A>)"
-	. += " (<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=ahelp'>AHELP</A>)"
+	. = " (<A HREF='BYOND://?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=reject'>REJT</A>)"
+	. += " (<A HREF='BYOND://?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=resolve'>RSLVE</A>)"
+	. += " (<A HREF='BYOND://?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=ahelp'>AHELP</A>)"
 
 /datum/help_ticket/mentor/LinkedReplyName(ref_src)
 	if(!ref_src)
 		ref_src = "[REF(src)]"
-	return "<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=reply'>[initiator_key_name]</A>"
+	return "<A HREF='BYOND://?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=reply'>[initiator_key_name]</A>"
 
 /datum/help_ticket/mentor/TicketHref(msg, ref_src, action = "ticket")
 	if(!ref_src)
 		ref_src = "[REF(src)]"
-	return "<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=[action]'>[msg]</A>"
+	return "<A HREF='BYOND://?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=[action]'>[msg]</A>"
 
 /datum/help_ticket/mentor/blackbox_feedback(increment, data)
 	SSblackbox.record_feedback("tally", "mhelp_stats", increment, data)
 
 /// Close ticket and escalate to adminhelp, auto-converts and creates a new admin ticket with the same history
-/datum/help_ticket/mentor/proc/AHelpThis(key_name = key_name_ticket(usr))
+/datum/help_ticket/mentor/proc/AHelpThis(ahelp_marker = usr)
 	if(state > TICKET_ACTIVE)
 		return
 
@@ -207,16 +202,13 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 		SEND_SOUND(initiator, sound(reply_sound))
 		resolve_message(status = "Escalated to Adminhelp!", message = "This question is for administrators. Such questions should be asked with <b>Adminhelp</b>.")
 
-	blackbox_feedback(1, "ahelp this")
-	var/msg = "<span class='[span_class]'>Mentor Ticket [TicketHref("#[id]")] transferred to adminhelp by [key_name]</span>"
-	AddInteraction("red", "Transferred to adminhelp by [key_name].")
+
+	ticket_interaction("red", "transferred to adminhelp", ahelp_marker, blackbox_override="ahelp this")
 	Close(silent = TRUE, hide_interaction = TRUE)
-	if(initiator.prefs.muted & MUTE_ADMINHELP)
-		message_ticket_managers(src, "<span class='danger'>Attempted escalation to adminhelp failed because [initiator_key_name] is ahelp muted. It's possible the user is attempting to abuse the mhelp system to get around this.</span>")
-		log_admin_private(src, "<span class='danger'>[initiator_ckey] blocked from mhelp escalation (performed by [key_name]) to ahelp due to mute. Possible abuse of mhelp system.</span>")
+	if(initiator.player_details.muted & MUTE_ADMINHELP)
+		message_ticket_managers(span_danger("Attempted escalation to adminhelp failed because [initiator_key_name] is ahelp muted. It's possible the user is attempting to abuse the mhelp system to get around this."))
+		log_admin_private("[initiator_ckey] blocked from mhelp escalation (performed by [istext(ahelp_marker) ? ahelp_marker : key_name(ahelp_marker, include_link = FALSE)]) to ahelp due to mute. Possible abuse of mhelp system.")
 		return
-	message_ticket_managers(msg)
-	log_admin_private(msg)
 	var/datum/help_ticket/admin/ticket = new(initiator)
 	ticket.NewFrom(src)
 
@@ -241,11 +233,11 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 		if("ahelp")
 			AHelpThis()
 
-/datum/help_ticket/mentor/Resolve(key_name = key_name_ticket(usr), silent = FALSE)
+/datum/help_ticket/mentor/Resolve(resolver = usr, silent = FALSE)
 	..()
 	addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, givementorhelpverb)), 50)
 
-/datum/help_ticket/mentor/Reject(key_name = key_name_ticket(usr))
+/datum/help_ticket/mentor/Reject(rejecter = usr, extra_text)
 	..()
 	if(initiator)
 		initiator.givementorhelpverb()

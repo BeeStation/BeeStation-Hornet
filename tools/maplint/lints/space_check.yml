@@ -1,0 +1,26 @@
+help: "Doors and Windows shouldn't have groundless turfs under them (Usually space)."
+/turf/open/space:
+  banned_neighbors:
+  - /obj/machinery/door
+  - /obj/effect/spawner/structure/window
+
+/turf/open/chasm:
+  banned_neighbors:
+  - /obj/machinery/door
+  - /obj/effect/spawner/structure/window
+
+/turf/open/lava:
+  banned_neighbors:
+  - /obj/machinery/door
+  - /obj/effect/spawner/structure/window
+
+/turf/open/water:
+  banned_neighbors:
+  - /obj/machinery/door
+  - /obj/effect/spawner/structure/window
+
+/turf/open/openspace:
+  banned_neighbors:
+  - /obj/machinery/door
+  - /obj/effect/spawner/structure/window
+

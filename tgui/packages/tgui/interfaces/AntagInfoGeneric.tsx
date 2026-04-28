@@ -1,16 +1,16 @@
 import { useBackend } from '../backend';
 import { Stack } from '../components';
 import { Window } from '../layouts';
-import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 import { AntagInfoHeader } from './common/AntagInfoHeader';
+import { Objective, ObjectivesSection } from './common/ObjectiveSection';
 
 type Info = {
   antag_name: string;
   objectives: Objective[];
 };
 
-export const AntagInfoGeneric = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoGeneric = (_props) => {
+  const { data } = useBackend<Info>();
   const { antag_name, objectives } = data;
   return (
     <Window width={620} height={250} theme="neutral">

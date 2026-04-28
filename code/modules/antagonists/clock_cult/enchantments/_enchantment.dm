@@ -1,24 +1,26 @@
 /datum/component/enchantment
-	//Examine text
+	/// Examine text
 	var/examine_description
-	//Maximum enchantment level
+	/// Maximum enchantment level
 	var/max_level = 1
-	//Current enchantment level
+	/// Current enchantment level
 	var/level
 
 /datum/component/enchantment/Initialize()
-	var/obj/item/I = parent
-	if(!istype(I))
+	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
-	//Get random level
+
+	var/obj/item/item = parent
+
+	// Get random level
 	level = rand(1, max_level)
-	//Apply effect
-	apply_effect(I)
-	//Add in examine effect
-	RegisterSignal(I, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	// Apply effect
+	apply_effect(item)
+	// Add in examine effect
+	RegisterSignal(item, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/enchantment/Destroy()
-	UnregisterSignal(parent, COMSIG_PARENT_EXAMINE)
+	UnregisterSignal(parent, COMSIG_ATOM_EXAMINE)
 	return ..()
 
 /datum/component/enchantment/proc/apply_effect(obj/item/target)
@@ -29,9 +31,10 @@
 
 	if(!examine_description)
 		return
-	if(is_servant_of_ratvar(user) || !isliving(user))
-		examine_list += "<span class='neovgre'>[examine_description]</span>"
-		examine_list += "<span class='neovgre'>It's blessing has a power of [level]!</span>"
+
+	if(IS_SERVANT_OF_RATVAR(user) || isobserver(user))
+		examine_list += span_brass(examine_description)
+		examine_list += span_neovgre("It's blessing has a power of [level]!")
 	else
 		examine_list += "It is glowing slightly!"
 		var/mob/living/L = user

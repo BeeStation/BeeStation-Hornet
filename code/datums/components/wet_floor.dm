@@ -68,9 +68,11 @@
 		current_overlay = intended
 		T.clean_turf_texture()
 
-/datum/component/wet_floor/proc/AfterSlip(mob/living/L)
-	if(highest_strength == TURF_WET_LUBE)
-		L.confused = max(L.confused, 8)
+/datum/component/wet_floor/proc/AfterSlip(mob/living/slipped)
+	if(highest_strength != TURF_WET_LUBE)
+		return
+
+	slipped.set_confusion_if_lower(8 SECONDS)
 
 /datum/component/wet_floor/proc/update_flags()
 	var/intensity
@@ -115,7 +117,7 @@
 	var/turf/open/T = parent
 	var/diff = world.time - last_process
 	var/decrease = 0
-	var/t = T.GetTemperature()
+	var/t = T.get_temperature()
 	switch(t)
 		if(-INFINITY to T0C)
 			add_wet(TURF_WET_ICE, max_time_left())			//Water freezes into ice!

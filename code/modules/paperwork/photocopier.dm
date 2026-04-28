@@ -44,6 +44,10 @@
 	var/busy = FALSE
 	/// Variable needed to determine the selected category of forms on Photocopier.js
 	var/category
+	/// Name of the blank chosen
+	var/print_name
+	/// Info of the blank chosen
+	var/list/print_info = list()
 
 /obj/machinery/photocopier/Initialize(mapload)
 	. = ..()
@@ -80,6 +84,8 @@
 	var/list/data = list()
 	data["has_item"] = !copier_empty()
 	data["num_copies"] = num_copies
+	data["isAI"] = istype(user, /mob/living/silicon/ai) || istype(user, /mob/living/silicon/robot)
+	data["can_AI_print"] = toner_cartridge ? toner_cartridge.charges >= PHOTO_TONER_USE : FALSE
 
 	try
 		var/list/blanks = json_decode(file2text("config/blanks.json"))
@@ -95,10 +101,6 @@
 	if(photo_copy)
 		data["is_photo"] = TRUE
 		data["color_mode"] = color_mode
-		data["isAI"] = TRUE
-		data["can_AI_print"] = toner_cartridge ? toner_cartridge.charges >= PHOTO_TONER_USE : FALSE
-	else
-		data["isAI"] = FALSE
 
 	if(toner_cartridge)
 		data["has_toner"] = TRUE
@@ -120,19 +122,15 @@
 		// Copying paper, photos, documents and asses.
 		if("make_copy")
 			if(busy)
-				to_chat(usr, "<span class='warning'>[src] is currently busy copying something. Please wait until it is finished.</span>")
+				to_chat(usr, span_warning("[src] is currently busy copying something. Please wait until it is finished."))
 				return FALSE
 			if(paper_copy)
 				if(!paper_copy.get_total_length())
-					to_chat(usr, "<span class='warning'>An error message flashes across [src]'s screen: \"The supplied paper is blank. Aborting.\"</span>")
+					to_chat(usr, span_warning("An error message flashes across [src]'s screen: \"The supplied paper is blank. Aborting.\""))
 					return FALSE
 				// Basic paper
 				if(istype(paper_copy, /obj/item/paper))
 					do_copy_loop(CALLBACK(src, PROC_REF(make_paper_copy)), usr)
-					return TRUE
-				// Devil contract paper.
-				if(istype(paper_copy, /obj/item/paper/contract/employment))
-					do_copy_loop(CALLBACK(src, PROC_REF(make_devil_paper_copy)), usr)
 					return TRUE
 			// Copying photo.
 			if(photo_copy)
@@ -159,17 +157,17 @@
 				remove_photocopy(document_copy, usr)
 				document_copy = null
 			else if(check_ass())
-				to_chat(ass, "<span class='notice'>You feel a slight pressure on your ass.</span>")
+				to_chat(ass, span_notice("You feel a slight pressure on your ass."))
 			return TRUE
 
 		// AI printing photos from their saved images.
 		if("ai_photo")
 			if(busy)
-				to_chat(usr, "<span class='warning'>[src] is currently busy copying something. Please wait until it is finished.</span>")
+				to_chat(usr, span_warning("[src] is currently busy copying something. Please wait until it is finished."))
 				return FALSE
 			var/mob/living/silicon/ai/tempAI = usr
 			if(!length(tempAI.aicamera.stored))
-				to_chat(usr, "<span class='boldannounce'>No images saved.</span>")
+				to_chat(usr, span_boldannounce("No images saved."))
 				return
 			var/datum/picture/selection = tempAI.aicamera.selectpicture(usr)
 			var/obj/item/photo/photo = new(loc, selection) // AI prints color photos only.
@@ -186,7 +184,7 @@
 		// Remove the toner cartridge from the copier.
 		if("remove_toner")
 			if(busy)
-				to_chat(usr, "span class='warning'>[src] is currently busy copying something. Please wait until it is finished.</span>")
+				to_chat(usr, span_warning("[src] is currently busy copying something. Please wait until it is finished."))
 				return
 			if(issilicon(usr) || (ishuman(usr) && !usr.put_in_hands(toner_cartridge)))
 				toner_cartridge.forceMove(drop_location())
@@ -204,21 +202,16 @@
 		// Called when you press print blank
 		if("print_blank")
 			if(busy)
-				to_chat(usr, "<span class='warning'>[src] is currently busy copying something. Please wait until it is finished.</span>")
+				to_chat(usr, span_warning("[src] is currently busy copying something. Please wait until it is finished."))
 				return FALSE
 			if(toner_cartridge.charges - PAPER_TONER_USE < 0)
-				to_chat(usr, "<span class='warning'>There is not enough toner in [src] to print the form, please replace the cartridge.")
+				to_chat(usr, span_warning("There is not enough toner in [src] to print the form, please replace the cartridge."))
 				return FALSE
+			// Save name/info in machine vars so callback can access them
+			print_name = sanitize(params["name"])
+			print_info = params["info"]
 			do_copy_loop(CALLBACK(src, PROC_REF(make_blank_print)), usr)
-			var/obj/item/paper/printblank = new /obj/item/paper (loc)
-			var/printname = sanitize(params["name"])
-			var/list/printinfo
-			for(var/infoline as anything in params["info"])
-				printinfo += infoline
-			printblank.name = printname
-			printblank.add_raw_text(printinfo)
-			printblank.update_appearance()
-			return printblank
+			return TRUE
 
 /**
  * Determines if the photocopier has enough toner to create `num_copies` amount of copies of the currently inserted item.
@@ -247,7 +240,10 @@
 	for(i in 1 to num_copies)
 		if(!toner_cartridge) //someone removed the toner cartridge during printing.
 			break
-		if(attempt_charge(src, user) & COMPONENT_OBJ_CANCEL_CHARGE)
+		if(attempt_charge(src, user) & COMPONENT_OBJ_CANCEL_CHARGE) // The user has no id, or not suficient funds, or no account.
+			var/mob/living/L = user
+			if(!L.get_idcard(TRUE) && !(istype(L.pulling, /obj/item/card/id)))
+				to_chat(user, span_warning("You need to have a valid ID card equipped or pulled to use the photocopier."))
 			break
 		addtimer(copy_cb, i SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(reset_busy)), i SECONDS)
@@ -269,20 +265,6 @@
 /obj/machinery/photocopier/proc/give_pixel_offset(obj/item/copied_item)
 	copied_item.pixel_x = copied_item.base_pixel_x + rand(-10, 10)
 	copied_item.pixel_y = copied_item.base_pixel_y + rand(-10, 10)
-
-/**
- * Handles the copying of devil contract paper. Transfers all the text, stamps and so on from the old paper, to the copy.
- *
- * Checks first if `paper_copy` exists. Since this proc is called from a timer, it's possible that it was removed.
- * Does not check if it has enough toner because devil contracts cost no toner to print.
- */
-/obj/machinery/photocopier/proc/make_devil_paper_copy()
-	if(!paper_copy)
-		return
-
-	var/obj/item/paper/contract/employment/E = paper_copy
-	var/obj/item/paper/contract/employment/C = new(loc, E.target.current)
-	give_pixel_offset(C)
 
 /**
  * Handles the copying of paper. Transfers all the text, stamps and so on from the old paper, to the copy.
@@ -330,9 +312,15 @@
  * The procedure is called when printing a blank to write off toner consumption.
  */
 /obj/machinery/photocopier/proc/make_blank_print()
-	if(!toner_cartridge)
+	if(!toner_cartridge || toner_cartridge.charges < PAPER_TONER_USE)
 		return
 	toner_cartridge.charges -= PAPER_TONER_USE
+
+	var/obj/item/paper/printblank = new /obj/item/paper(loc)
+	printblank.name = print_name
+	for(var/line as anything in print_info)
+		printblank.add_raw_text(line)
+	printblank.update_appearance()
 
 /**
  * Handles the copying of an ass photo.
@@ -344,7 +332,7 @@
 	if(!check_ass() || !toner_cartridge)
 		return
 	if(ishuman(ass) && (ass.get_item_by_slot(ITEM_SLOT_ICLOTHING) || ass.get_item_by_slot(ITEM_SLOT_OCLOTHING)))
-		to_chat(usr, "<span class='notice'>You feel kind of silly, copying [ass == usr ? "your" : ass][ass == usr ? "" : "\'s"] ass with [ass == usr ? "your" : "[ass.p_their()]"] clothes on.</span>" )
+		to_chat(usr, span_notice("You feel kind of silly, copying [ass == usr ? "your" : ass][ass == usr ? "" : "\'s"] ass with [ass == usr ? "your" : "[ass.p_their()]"] clothes on.") )
 		return
 
 	var/icon/temp_img
@@ -373,7 +361,7 @@
  */
 /obj/machinery/photocopier/proc/do_insertion(obj/item/object, mob/user)
 	object.forceMove(src)
-	to_chat(user, "<span class='notice'>You insert [object] into [src].</span>")
+	to_chat(user, span_notice("You insert [object] into [src]."))
 	flick("photocopier1", src)
 
 /**
@@ -392,7 +380,7 @@
 		user.put_in_hands(object)
 	else
 		object.forceMove(drop_location())
-	to_chat(user, "<span class='notice'>You take [object] out of [src]. [busy ? "The [src] comes to a halt." : ""]</span>")
+	to_chat(user, span_notice("You take [object] out of [src]. [busy ? "The [src] comes to a halt." : ""]"))
 
 /obj/machinery/photocopier/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -402,26 +390,21 @@
 /obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/paper))
 		if(copier_empty())
-			if(istype(O, /obj/item/paper/contract/infernal))
-				to_chat(user, "<span class='warning'>[src] smokes, smelling of brimstone!</span>")
-				resistance_flags |= FLAMMABLE
-				fire_act()
-			else
-				if(!user.temporarilyRemoveItemFromInventory(O))
-					return
-				paper_copy = O
-				do_insertion(O, user)
-		else
-			to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
-
-	else if(istype(O, /obj/item/photo))
-		if(copier_empty())
 			if(!user.temporarilyRemoveItemFromInventory(O))
 				return
 			paper_copy = O
 			do_insertion(O, user)
 		else
-			to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
+			to_chat(user, span_warning("There is already something in [src]!"))
+
+	else if(istype(O, /obj/item/photo))
+		if(copier_empty())
+			if(!user.temporarilyRemoveItemFromInventory(O))
+				return
+			photo_copy = O
+			do_insertion(O, user)
+		else
+			to_chat(user, span_warning("There is already something in [src]!"))
 
 	else if(istype(O, /obj/item/documents))
 		if(copier_empty())
@@ -430,22 +413,22 @@
 			document_copy = O
 			do_insertion(O, user)
 		else
-			to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
+			to_chat(user, span_warning("There is already something in [src]!"))
 
 	else if(istype(O, /obj/item/toner))
 		if(toner_cartridge)
-			to_chat(user, "<span class='warning'>[src] already has a toner cartridge inserted. Remove that one first.</span>")
+			to_chat(user, span_warning("[src] already has a toner cartridge inserted. Remove that one first."))
 			return
 		O.forceMove(src)
 		toner_cartridge = O
-		to_chat(user, "<span class='notice'>You insert [O] into [src].</span>")
+		to_chat(user, span_notice("You insert [O] into [src]."))
 
 	else if(istype(O, /obj/item/areaeditor/blueprints))
-		to_chat(user, "<span class='warning'>The Blueprint is too large to put into the copier. You need to find something else to record the document.</span>")
+		to_chat(user, span_warning("The Blueprint is too large to put into the copier. You need to find something else to record the document."))
 	else
 		return ..()
 
-/obj/machinery/photocopier/obj_break(damage_flag)
+/obj/machinery/photocopier/atom_break(damage_flag)
 	. = ..()
 	if(. && toner_cartridge.charges)
 		new /obj/effect/decal/cleanable/oil(get_turf(src))
@@ -457,35 +440,35 @@
 		return
 	add_fingerprint(user)
 	if(target == user)
-		user.visible_message("[user] starts climbing onto the photocopier!", "<span class='notice'>You start climbing onto the photocopier...</span>")
+		user.visible_message("[user] starts climbing onto the photocopier!", span_notice("You start climbing onto the photocopier..."))
 	else
-		user.visible_message("<span class='warning'>[user] starts putting [target] onto the photocopier!</span>", "<span class='notice'>You start putting [target] onto the photocopier...</span>")
+		user.visible_message(span_warning("[user] starts putting [target] onto the photocopier!"), span_notice("You start putting [target] onto the photocopier..."))
 
 	if(do_after(user, 20, target = src))
 		if(!target || QDELETED(target) || QDELETED(src) || !Adjacent(target)) //check if the photocopier/target still exists.
 			return
 
 		if(target == user)
-			user.visible_message("[user] climbs onto the photocopier!", "<span class='notice'>You climb onto the photocopier.</span>")
+			user.visible_message("[user] climbs onto the photocopier!", span_notice("You climb onto the photocopier."))
 		else
-			user.visible_message("<span class='warning'>[user] puts [target] onto the photocopier!</span>", "<span class='notice'>You put [target] onto the photocopier.</span>")
+			user.visible_message(span_warning("[user] puts [target] onto the photocopier!"), span_notice("You put [target] onto the photocopier."))
 
 		target.forceMove(drop_location())
 		ass = target
 
 		if(photo_copy)
 			photo_copy.forceMove(drop_location())
-			visible_message("<span class='warning'>[photo_copy] is shoved out of the way by [ass]!</span>")
+			visible_message(span_warning("[photo_copy] is shoved out of the way by [ass]!"))
 			photo_copy = null
 
 		else if(paper_copy)
 			paper_copy.forceMove(drop_location())
-			visible_message("<span class='warning'>[paper_copy] is shoved out of the way by [ass]!</span>")
+			visible_message(span_warning("[paper_copy] is shoved out of the way by [ass]!"))
 			paper_copy = null
 
 		else if(document_copy)
 			document_copy.forceMove(drop_location())
-			visible_message("<span class='warning'>[document_copy] is shoved out of the way by [ass]!</span>")
+			visible_message(span_warning("[document_copy] is shoved out of the way by [ass]!"))
 			document_copy = null
 
 /obj/machinery/photocopier/Exited(atom/movable/AM, atom/newloc)
@@ -536,7 +519,7 @@
  */
 /obj/item/toner
 	name = "toner cartridge"
-	desc = "A small, lightweight cartridge of NanoTrasen ValueBrand toner. Fits photocopiers and autopainters alike."
+	desc = "A small, lightweight cartridge of Nanotrasen ValueBrand toner. Fits photocopiers and autopainters alike."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "tonercartridge"
 	grind_results = list(/datum/reagent/iodine = 40, /datum/reagent/iron = 10)
@@ -545,11 +528,11 @@
 
 /obj/item/toner/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The ink level gauge on the side reads [round(charges / max_charges * 100)]%</span>"
+	. += span_notice("The ink level gauge on the side reads [round(charges / max_charges * 100)]%")
 
 /obj/item/toner/large
 	name = "large toner cartridge"
-	desc = "A hefty cartridge of NanoTrasen ValueBrand toner. Fits photocopiers and autopainters alike."
+	desc = "A hefty cartridge of Nanotrasen ValueBrand toner. Fits photocopiers and autopainters alike."
 	grind_results = list(/datum/reagent/iodine = 90, /datum/reagent/iron = 10)
 	charges = 25
 	max_charges = 25

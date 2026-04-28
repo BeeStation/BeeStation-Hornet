@@ -6,6 +6,7 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "chitin"
 	novariants = TRUE
+	merge_type = /obj/item/stack/sheet/xenochitin
 
 /obj/item/xenos_claw
 	name = "alien claw"
@@ -24,7 +25,7 @@
 /obj/item/stack/sheet/bone
 	name = "bones"
 	icon_state = "bone"
-	item_state = "sheet-bone"
+	inhand_icon_state = "sheet-bone"
 	icon = 'icons/obj/stacks/organic.dmi'
 	singular_name = "bone"
 	desc = "Someone's been drinking their milk."
@@ -46,10 +47,11 @@
 	singular_name = "watcher sinew"
 	icon_state = "sinew"
 	novariants = TRUE
+	merge_type = /obj/item/stack/sheet/sinew
 
 
 GLOBAL_LIST_INIT(sinew_recipes, list ( \
-	new/datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/cable/sinew, 1), \
+	new/datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/cable/sinew, 1, crafting_flags = NONE, category = CAT_EQUIPMENT), \
 ))
 
 /obj/item/stack/sheet/sinew/get_recipes()

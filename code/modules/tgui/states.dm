@@ -67,7 +67,7 @@
 	else if(stat)
 		return UI_DISABLED
 	// Update UIs if incapicitated but conscious.
-	else if(incapacitated())
+	else if(incapacitated)
 		return UI_UPDATE
 	return UI_INTERACTIVE
 
@@ -94,29 +94,13 @@
 /**
  * public
  *
- * Check the distance for a living mob.
- * Really only used for checks outside the context of a mob.
- * Otherwise, use shared_living_ui_distance().
- *
- * required src_object The object which owns the UI.
- * required user mob The mob who opened/is using the UI.
- *
- * return UI_state The state of the UI.
- */
-/atom/proc/contents_ui_distance(src_object, mob/living/user)
-	// Just call this mob's check.
-	return user.shared_living_ui_distance(src_object)
-
-/**
- * public
- *
  * Distance versus interaction check.
  *
  * required src_object atom/movable The object which owns the UI.
  *
  * return UI_state The state of the UI.
  */
-/mob/living/proc/shared_living_ui_distance(atom/movable/src_object, viewcheck = TRUE)
+/mob/living/proc/shared_living_ui_distance(atom/movable/src_object, viewcheck = TRUE, allow_tk = TRUE)
 	// If the object is obscured, close it.
 	if(viewcheck && !((src_object in src) || (src in viewers(src_object))))
 		return UI_CLOSE
@@ -133,7 +117,7 @@
 	// Otherwise, we got nothing.
 	return UI_CLOSE
 
-/mob/living/carbon/shared_living_ui_distance(atom/movable/src_object, viewcheck = TRUE)
-	if(has_dna() && dna.check_mutation(TK) && tkMaxRangeCheck(src, src_object))
+/mob/living/carbon/human/shared_living_ui_distance(atom/movable/src_object, viewcheck = TRUE, allow_tk = TRUE)
+	if(allow_tk && dna.check_mutation(/datum/mutation/telekinesis) && tkMaxRangeCheck(src, src_object))
 		return UI_INTERACTIVE
 	return ..()

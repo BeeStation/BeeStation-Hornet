@@ -14,11 +14,11 @@
 /area/template_noop)
 "b" = (
 /obj/structure/table/wood/poker,
-/obj/item/reagent_containers/food/drinks/bottle/rum{
+/obj/item/reagent_containers/cup/glass/bottle/rum{
 	pixel_x = 6;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/cup/glass/bottle/whiskey{
 	pixel_y = 7
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -39,8 +39,8 @@
 /area/template_noop)
 "e" = (
 /obj/structure/table/wood/poker,
-/obj/item/reagent_containers/food/drinks/shaker,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
+/obj/item/reagent_containers/cup/glass/shaker,
+/obj/item/reagent_containers/cup/beaker/cryoxadone,
 /obj/item/reagent_containers/dropper,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -65,9 +65,9 @@
 /area/template_noop)
 "j" = (
 /obj/structure/table/wood/poker,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/template_noop)
 "k" = (
@@ -81,7 +81,7 @@
 "l" = (
 /obj/structure/table/wood/poker,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/wood,
 /area/template_noop)
 "m" = (

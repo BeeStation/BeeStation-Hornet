@@ -1,12 +1,12 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /turf/template_noop,
-/area/space)
+/area/misc/space)
 "ab" = (
 /turf/closed/wall/mineral/abductor,
 /area/shuttle/escape)
 "ac" = (
-/obj/effect/spawner/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "ad" = (
@@ -67,7 +67,7 @@
 "an" = (
 /obj/structure/table/abductor,
 /obj/machinery/recharger,
-/obj/item/abductor/baton{
+/obj/item/melee/baton/abductor{
 	desc = "Even aliens can see the use of a good old fashioned beating stick."
 	},
 /turf/open/floor/plating/abductor,
@@ -284,7 +284,7 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "qB" = (
-/obj/effect/spawner/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
@@ -304,9 +304,9 @@
 /area/shuttle/escape)
 "zQ" = (
 /obj/machinery/door/airlock/abductor{
-	name = "Command Center";
-	req_access_txt = "19"
+	name = "Command Center"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
@@ -322,9 +322,9 @@
 /area/shuttle/escape)
 "Mw" = (
 /obj/machinery/door/airlock/abductor{
-	name = "Holding Facility";
-	req_access_txt = "2"
+	name = "Holding Facility"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)

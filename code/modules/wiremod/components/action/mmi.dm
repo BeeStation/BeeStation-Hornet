@@ -6,6 +6,7 @@
 /obj/item/circuit_component/mmi
 	display_name = "Man-Machine Interface"
 	desc = "A component that allows MMI to enter shells to send output signals."
+	category = "Action"
 
 	/// The message to send to the MMI in the shell.
 	var/datum/port/input/message
@@ -71,15 +72,15 @@
 		if(!target)
 			return
 
-		to_chat(target, "<span class='bold'>You hear a message in your ear: </span>[msg_str]")
+		to_chat(target, "[span_bold("You hear a message in your ear: ")][msg_str]")
 
 
 /obj/item/circuit_component/mmi/register_shell(atom/movable/shell)
 	. = ..()
-	RegisterSignal(shell, COMSIG_PARENT_ATTACKBY, PROC_REF(handle_attack_by))
+	RegisterSignal(shell, COMSIG_ATOM_ATTACKBY, PROC_REF(handle_attack_by))
 
 /obj/item/circuit_component/mmi/unregister_shell(atom/movable/shell)
-	UnregisterSignal(shell, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(shell, COMSIG_ATOM_ATTACKBY)
 	remove_current_brain()
 	return ..()
 
@@ -99,7 +100,7 @@
 	if(to_add.brainmob)
 		update_mmi_mob(to_add, null, to_add.brainmob)
 	brain = to_add
-	RegisterSignal(to_add, COMSIG_PARENT_QDELETING, PROC_REF(remove_current_brain))
+	RegisterSignal(to_add, COMSIG_QDELETING, PROC_REF(remove_current_brain))
 	RegisterSignal(to_add, COMSIG_MOVABLE_MOVED, PROC_REF(mmi_moved))
 
 /obj/item/circuit_component/mmi/proc/mmi_moved(atom/movable/mmi)
@@ -116,7 +117,7 @@
 	if(brain.brainmob)
 		update_mmi_mob(brain, brain.brainmob)
 	UnregisterSignal(brain, list(
-		COMSIG_PARENT_QDELETING,
+		COMSIG_QDELETING,
 		COMSIG_MOVABLE_MOVED
 	))
 	if(brain.loc == src)
@@ -147,14 +148,13 @@
 
 	return TRUE
 
-/obj/item/circuit_component/mmi/proc/handle_mmi_attack(mob/living/source, atom/target, list/mods)
+/obj/item/circuit_component/mmi/proc/handle_mmi_attack(mob/living/source, atom/target, list/modifiers)
 	SIGNAL_HANDLER
-
-	if(source.a_intent == INTENT_HARM)
+	if(modifiers[RIGHT_CLICK])
 		clicked_atom.set_output(target)
 		secondary_attack.set_output(COMPONENT_SIGNAL)
 		. = COMSIG_MOB_CANCEL_CLICKON
-	else
+	else if(modifiers[LEFT_CLICK] && !modifiers[SHIFT_CLICK] && !modifiers[ALT_CLICK] && !modifiers[CTRL_CLICK])
 		clicked_atom.set_output(target)
 		attack.set_output(COMPONENT_SIGNAL)
 		. = COMSIG_MOB_CANCEL_CLICKON
@@ -163,9 +163,9 @@
 	. = ..()
 	if(HAS_TRAIT(add_to, TRAIT_COMPONENT_MMI))
 		return FALSE
-	ADD_TRAIT(add_to, TRAIT_COMPONENT_MMI, src)
+	ADD_TRAIT(add_to, TRAIT_COMPONENT_MMI, type)
 
 /obj/item/circuit_component/mmi/removed_from(obj/item/integrated_circuit/removed_from)
-	REMOVE_TRAIT(removed_from, TRAIT_COMPONENT_MMI, src)
+	REMOVE_TRAIT(removed_from, TRAIT_COMPONENT_MMI, type)
 	remove_current_brain()
 	return ..()

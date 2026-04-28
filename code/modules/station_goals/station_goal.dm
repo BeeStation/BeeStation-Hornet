@@ -6,13 +6,20 @@
 /datum/station_goal
 	var/name = "Generic Goal"
 	var/weight = 1 //In case of multiple goals later.
-	var/required_crew = 10
-	var/list/gamemode_blacklist = list()
 	var/completed = FALSE
 	var/report_message = "Complete this goal."
 
-/datum/station_goal/proc/prepare_report()
-	addtimer(CALLBACK(src, PROC_REF(send_report)), 1200) // 2 min, less than avg 4 for intercept report
+/datum/station_goal/New()
+	if (type in SSstation.goals_by_type)
+		stack_trace("Creating a new station_goal of type [type] when one already exists in SSstation.goals_by_type this is not supported anywhere. I trust you tho")
+	else
+		SSstation.goals_by_type[type] = src
+	return ..()
+
+/datum/station_goal/Destroy(force)
+	if (SSstation.goals_by_type[type] == src)
+		SSstation.goals_by_type -= type
+	return ..()
 
 /datum/station_goal/proc/send_report()
 	priority_announce("Priority Nanotrasen directive received. Project \"[name]\" details inbound.", "Incoming Priority Message", SSstation.announcer.get_rand_report_sound())
@@ -31,17 +38,12 @@
 
 /datum/station_goal/proc/get_result()
 	if(check_completion())
-		return "<li>[name] :  <span class='greentext'>Completed!</span></li>"
+		return "<li>[name] : [span_greentext("Completed!")]</li>"
 	else
-		return "<li>[name] : <span class='redtext'>Failed!</span></li>"
-
-/datum/station_goal/Destroy()
-	SSticker.mode.station_goals -= src
-	. = ..()
+		return "<li>[name] : [span_redtext("Failed!")]</li>"
 
 /datum/station_goal/Topic(href, href_list)
 	..()
-
 	if(!check_rights(R_ADMIN) || !usr.client.holder.CheckAdminHref(href, href_list))
 		return
 
@@ -50,18 +52,3 @@
 		send_report()
 	else if(href_list["remove"])
 		qdel(src)
-
-/*
-//Crew has to create alien intelligence detector
-// Requires a lot of minerals
-// Dish requires a lot of power
-// Needs five? AI's for decoding purposes
-/datum/station_goal/seti
-	name = "SETI Project"
-
-//Crew Sweep
-//Blood samples and special scans of amount of people on roundstart manifest.
-//Should keep sec busy.
-//Maybe after completion you'll get some ling detecting gear or some station wide DNA scan ?
-
-*/

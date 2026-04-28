@@ -1,0 +1,6 @@
+
+/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/n2:/obj/machinery/atmospherics/components/trinary/filter/atmos/n2/flipped{@OLD}
+/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/o2:/obj/machinery/atmospherics/components/trinary/filter/atmos/o2/flipped{@OLD}
+/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/co2:/obj/machinery/atmospherics/components/trinary/filter/atmos/co2/flipped{@OLD}
+/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/n2o:/obj/machinery/atmospherics/components/trinary/filter/atmos/n2o/flipped{@OLD}
+/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/plasma:/obj/machinery/atmospherics/components/trinary/filter/atmos/plasma/flipped{@OLD}

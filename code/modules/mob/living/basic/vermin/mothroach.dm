@@ -9,17 +9,15 @@
 	held_rh = 'icons/mob/pets_held_rh.dmi'
 	head_icon = 'icons/mob/pets_held.dmi'
 	butcher_results = list(/obj/item/food/meat/slab/mothroach = 3, /obj/item/stack/sheet/animalhide/mothroach = 1)
-	density = TRUE
-	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	mob_size = MOB_SIZE_SMALL
-	mobility_flags = MOBILITY_FLAGS_DEFAULT
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	health = 25
 	maxHealth = 25
 	speed = 1.25
 	gold_core_spawnable = FRIENDLY_SPAWN
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
-	ventcrawler = VENTCRAWLER_ALWAYS
 
 	verb_say = "flutters"
 	verb_ask = "flutters inquisitively"
@@ -32,22 +30,25 @@
 	response_help_continuous = "pats"
 	response_help_simple = "pat"
 
-	faction = list("neutral")
+	faction = list(FACTION_NEUTRAL)
 
 	ai_controller = /datum/ai_controller/basic_controller/mothroach
 
 /mob/living/basic/mothroach/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/pet_bonus, "squeaks happily!", emote_sound = 'sound/voice/moth/scream_moth.ogg')
+	add_verb(/mob/living/proc/toggle_resting)
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
-/mob/living/basic/mothroach/update_resting()
+/mob/living/basic/mothroach/toggle_resting()
 	. = ..()
 	if(stat == DEAD)
 		return
-	if(resting)
+	if (resting)
 		icon_state = "[icon_living]_rest"
 	else
 		icon_state = "[icon_living]"
+	regenerate_icons()
 
 /datum/ai_controller/basic_controller/mothroach
 	blackboard = list()

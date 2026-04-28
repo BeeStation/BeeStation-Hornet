@@ -24,7 +24,7 @@
 	go_invisible()
 	SSvis_overlays.add_obj_alpha(src)
 
-/obj/structure/closet/cardboard/agent/open()
+/obj/structure/closet/cardboard/agent/open(mob/living/user, force = FALSE, special_effects)
 	. = ..()
 	qdel(src)
 

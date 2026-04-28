@@ -6,6 +6,7 @@
 /obj/item/circuit_component/iterator
 	display_name = "Iterator"
 	desc = "Iterates through a range of numbers"
+	category = "Utility"
 
 	/// The Initial Value the Loop will start at
 	var/datum/port/input/initial_value

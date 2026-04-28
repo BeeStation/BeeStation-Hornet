@@ -14,18 +14,13 @@
 	icon_state = "pump_map-3"
 	name = "gas pump"
 	desc = "A pump that moves gas by pressure."
-
 	can_unwrench = TRUE
 	shift_underlay_only = FALSE
-
-	var/target_pressure = ONE_ATMOSPHERE
-
-	var/frequency = 0
-	var/id = null
-	var/datum/radio_frequency/radio_connection
-
 	construction_type = /obj/item/pipe/directional
 	pipe_state = "pump"
+	vent_movement = NONE
+	///Pressure that the pump will reach when on
+	var/target_pressure = ONE_ATMOSPHERE
 
 /obj/machinery/atmospherics/components/binary/pump/Initialize(mapload)
 	. = ..()
@@ -33,9 +28,15 @@
 		/obj/item/circuit_component/atmos_pump,
 	))
 
+/obj/machinery/atmospherics/components/binary/pump/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
+	context.add_alt_click_action("Maximize target pressure")
+
 /obj/machinery/atmospherics/components/binary/pump/CtrlClick(mob/user)
 	if(can_interact(user))
 		set_on(!on)
+		balloon_alert(user, "turned [on ? "on" : "off"]")
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
 		ui_update()
 	return ..()
@@ -43,64 +44,25 @@
 /obj/machinery/atmospherics/components/binary/pump/AltClick(mob/user)
 	if(can_interact(user))
 		target_pressure = MAX_OUTPUT_PRESSURE
-		balloon_alert(user, "You set the target pressure to [target_pressure] kPa.")
+		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
+		balloon_alert(user, "pressure output set to [target_pressure] kPa")
 		update_icon()
 		ui_update()
 	return
-
-
-/obj/machinery/atmospherics/components/binary/pump/Destroy()
-	SSradio.remove_object(src,frequency)
-	if(radio_connection)
-		radio_connection = null
-	return ..()
 
 /obj/machinery/atmospherics/components/binary/pump/update_icon_nopipes()
 	icon_state = "pump_[on && is_operational ? "on" : "off"]-[set_overlay_offset(piping_layer)]"
 
 /obj/machinery/atmospherics/components/binary/pump/process_atmos()
-//	..()
 	if(!on || !is_operational)
 		return
-	var/datum/gas_mixture/air1 = airs[1]
-	var/datum/gas_mixture/air2 = airs[2]
-	var/output_starting_pressure = air2.return_pressure()
-	if((target_pressure - output_starting_pressure) < 0.01)
-		//No need to pump gas if target is already reached!
-		return
-	//Calculate necessary moles to transfer using PV=nRT
-	if((air1.total_moles() > 0) && (air1.return_temperature()>0))
-		var/pressure_delta = target_pressure - output_starting_pressure
-		var/transfer_moles = pressure_delta*air2.return_volume()/(air1.return_temperature() * R_IDEAL_GAS_EQUATION)
 
-		air1.transfer_to(air2,transfer_moles)
+	var/datum/gas_mixture/input_air = airs[1]
+	var/datum/gas_mixture/output_air = airs[2]
+	var/datum/gas_mixture/output_pipenet_air = parents[2].air
 
+	if(input_air.pump_gas_to(output_air, target_pressure, output_pipenet_air = output_pipenet_air))
 		update_parents()
-
-/obj/machinery/atmospherics/components/binary/pump/proc/set_on(active)
-	on = active
-	SEND_SIGNAL(src, COMSIG_PUMP_SET_ON, on)
-
-//Radio remote control
-/obj/machinery/atmospherics/components/binary/pump/proc/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, filter = RADIO_ATMOSIA)
-
-/obj/machinery/atmospherics/components/binary/pump/proc/broadcast_status()
-	if(!radio_connection)
-		return
-
-	var/datum/signal/signal = new(list(
-		"tag" = id,
-		"device" = "AGP",
-		"power" = on,
-		"target_output" = target_pressure,
-		"sigtype" = "status"
-	))
-	radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
-
 
 /obj/machinery/atmospherics/components/binary/pump/ui_state(mob/user)
 	return GLOB.default_state
@@ -140,45 +102,18 @@
 	if(.)
 		update_icon()
 
-/obj/machinery/atmospherics/components/binary/pump/atmosinit()
-	..()
-	if(frequency)
-		set_frequency(frequency)
-
-/obj/machinery/atmospherics/components/binary/pump/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
-		return
-
-	var/old_on = on //for logging
-
-	if("power" in signal.data)
-		set_on(text2num(signal.data["power"]))
-
-	if("power_toggle" in signal.data)
-		set_on(!on)
-
-	if("set_output_pressure" in signal.data)
-		target_pressure = clamp(text2num(signal.data["set_output_pressure"]),0,ONE_ATMOSPHERE*50)
-
-	if(on != old_on)
-		investigate_log("was turned [on ? "on" : "off"] by a remote signal", INVESTIGATE_ATMOS)
-
-	if("status" in signal.data)
-		broadcast_status()
-		return
-
-	broadcast_status()
-	update_icon()
-	ui_update()
-
 /obj/machinery/atmospherics/components/binary/pump/can_unwrench(mob/user)
 	. = ..()
 	if(. && on && is_operational)
-		to_chat(user, "<span class='warning'>You cannot unwrench [src], turn it off first!</span>")
+		to_chat(user, span_warning("You cannot unwrench [src], turn it off first!"))
 		return FALSE
 
-/obj/machinery/atmospherics/components/binary/pump/can_crawl_through()
-	return on // If a pump is off, it'll block even when not powered
+/obj/machinery/atmospherics/components/binary/pump/set_on(active)
+	. = ..()
+	if(active)
+		vent_movement |= VENTCRAWL_ALLOWED
+	else
+		vent_movement &= ~VENTCRAWL_ALLOWED
 
 /obj/machinery/atmospherics/components/binary/pump/layer2
 	piping_layer = 2
@@ -253,10 +188,10 @@
 	. = ..()
 	if(istype(shell, /obj/machinery/atmospherics/components/binary/pump))
 		connected_pump = shell
-		RegisterSignal(connected_pump, COMSIG_PUMP_SET_ON, PROC_REF(handle_pump_activation))
+		RegisterSignal(connected_pump, COMSIG_ATMOS_MACHINE_SET_ON, PROC_REF(handle_pump_activation))
 
 /obj/item/circuit_component/atmos_pump/unregister_usb_parent(atom/movable/shell)
-	UnregisterSignal(connected_pump, COMSIG_PUMP_SET_ON)
+	UnregisterSignal(connected_pump, COMSIG_ATMOS_MACHINE_SET_ON)
 	connected_pump = null
 	return ..()
 
@@ -280,11 +215,13 @@
 	if(!connected_pump)
 		return
 	connected_pump.set_on(TRUE)
+	connected_pump.update_icon()
 
 /obj/item/circuit_component/atmos_pump/proc/set_pump_off()
 	if(!connected_pump)
 		return
 	connected_pump.set_on(FALSE)
+	connected_pump.update_icon()
 
 /obj/item/circuit_component/atmos_pump/proc/request_pump_data()
 	if(!connected_pump)

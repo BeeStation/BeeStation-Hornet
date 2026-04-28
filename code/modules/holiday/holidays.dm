@@ -1,4 +1,5 @@
 /datum/holiday
+	abstract_type = /datum/holiday
 	var/name = "Bugsgiving"
 
 	var/begin_day = 1
@@ -70,7 +71,7 @@
 	begin_month = DECEMBER
 	end_day = 2
 	end_month = JANUARY
-	drone_hat = /obj/item/clothing/head/festive
+	drone_hat = /obj/item/clothing/head/costume/festive
 
 /datum/holiday/new_year/getStationPrefix()
 	return pick("Party","New","Hangover","Resolution", "Auld")
@@ -79,7 +80,6 @@
 	name = "Groundhog Day"
 	begin_day = 2
 	begin_month = FEBRUARY
-	drone_hat = /obj/item/clothing/head/helmet/space/chronos
 
 /datum/holiday/groundhog/getStationPrefix()
 	return pick("Deja Vu") //I have been to this place before
@@ -110,7 +110,7 @@
 	name = "Birthday of Space Station 13"
 	begin_day = 16
 	begin_month = FEBRUARY
-	drone_hat = /obj/item/clothing/head/festive
+	drone_hat = /obj/item/clothing/head/costume/festive
 
 /datum/holiday/birthday/greet()
 	var/game_age = text2num(time2text(world.timeofday, "YY")) - 3
@@ -181,9 +181,10 @@
 	begin_month = APRIL
 
 /datum/holiday/april_fools/celebrate()
-	SSjob.set_overflow_role(JOB_NAME_CLOWN)
+	SSjob.set_overflow_role(/datum/job/clown)
 	SSticker.login_music = 'sound/ambience/clown.ogg'
-	for(var/mob/dead/new_player/P in GLOB.mob_list)
+	for(var/i in GLOB.auth_new_player_list)
+		var/mob/dead/new_player/authenticated/P = i
 		if(P.client)
 			P.client.playtitlemusic()
 
@@ -221,13 +222,13 @@
 	name = "Labor Day"
 	begin_day = 1
 	begin_month = MAY
-	drone_hat = /obj/item/clothing/head/hardhat
+	drone_hat = /obj/item/clothing/head/utility/hardhat
 
 /datum/holiday/firefighter
 	name = "Firefighter's Day"
 	begin_day = 4
 	begin_month = MAY
-	drone_hat = /obj/item/clothing/head/hardhat/red
+	drone_hat = /obj/item/clothing/head/utility/hardhat/red
 
 /datum/holiday/firefighter/getStationPrefix()
 	return pick("Burning","Blazing","Plasma","Fire")
@@ -250,7 +251,7 @@
 	name = "Doctor's Day"
 	begin_day = 1
 	begin_month = JULY
-	drone_hat = /obj/item/clothing/head/nursehat
+	drone_hat = /obj/item/clothing/head/costume/nursehat
 
 /datum/holiday/UFO
 	name = "UFO Day"
@@ -317,7 +318,7 @@
 	name = "Talk-Like-a-Pirate Day"
 	begin_day = 19
 	begin_month = SEPTEMBER
-	drone_hat = /obj/item/clothing/head/pirate
+	drone_hat = /obj/item/clothing/head/costume/pirate
 
 /datum/holiday/pirate/greet()
 	return "Ye be talkin' like a pirate today or else ye'r walkin' tha plank, matey!"
@@ -361,13 +362,13 @@
 	name = "Smiling Day"
 	begin_day = 7
 	begin_month = OCTOBER
-	drone_hat = /obj/item/clothing/head/papersack/smiley
+	drone_hat = /obj/item/clothing/head/costume/papersack/smiley
 
 /datum/holiday/boss
 	name = "Boss' Day"
 	begin_day = 16
 	begin_month = OCTOBER
-	drone_hat = /obj/item/clothing/head/that
+	drone_hat = /obj/item/clothing/head/hats/tophat
 
 /datum/holiday/halloween
 	name = HALLOWEEN
@@ -434,7 +435,7 @@
 	begin_week = 4
 	begin_month = NOVEMBER
 	begin_weekday = THURSDAY
-	drone_hat = /obj/item/clothing/head/that //This is the closest we can get to a pilgrim's hat
+	drone_hat = /obj/item/clothing/head/hats/tophat //This is the closest we can get to a pilgrim's hat
 
 /datum/holiday/thanksgiving/canada
 	name = "Thanksgiving in Canada"
@@ -493,7 +494,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 	return FALSE
 
 /datum/holiday/ramadan/getStationPrefix()
-	return pick("Harm","Halaal","Jihad","Muslim")
+	return pick("Harm","Halaal","Eid","Suhur","Iftar","Muslim")
 
 /datum/holiday/ramadan/end
 	name = "End of Ramadan"
@@ -522,7 +523,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 	begin_day = 24
 	begin_month = DECEMBER
 	end_day = 26
-	drone_hat = /obj/item/clothing/head/santa
+	drone_hat = /obj/item/clothing/head/costume/santa
 
 /datum/holiday/xmas/greet()
 	return "Have a merry Christmas!"
@@ -530,16 +531,18 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 /datum/holiday/xmas/celebrate()
 	SSticker.OnRoundstart(CALLBACK(src, PROC_REF(roundstart_celebrate)))
 	GLOB.maintenance_loot += list(
-		/obj/item/toy/xmas_cracker = 3,
-		/obj/item/clothing/head/santa = 1,
-		/obj/item/a_gift/anything = 1
+		list(
+			/obj/item/toy/xmas_cracker = 3,
+			/obj/item/clothing/head/costume/santa = 1,
+			/obj/item/a_gift/anything = 1
+		) = MAINT_HOLIDAY_WEIGHT,
 	)
 
 /datum/holiday/xmas/proc/roundstart_celebrate()
 	for(var/obj/machinery/computer/security/telescreen/entertainment/Monitor in GLOB.machines)
 		Monitor.icon_state_on = "entertainment_xmas"
 
-	for(var/mob/living/simple_animal/pet/dog/corgi/Ian/Ian in GLOB.mob_living_list)
+	for(var/mob/living/basic/pet/dog/corgi/ian/Ian in GLOB.mob_living_list)
 		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat(Ian))
 
 
@@ -548,7 +551,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 	begin_day = 1
 	begin_month = DECEMBER
 	end_day = 31
-	drone_hat = /obj/item/clothing/head/santa
+	drone_hat = /obj/item/clothing/head/costume/santa
 
 /datum/holiday/festive_season/greet()
 	return "Have a nice festive season!"
@@ -571,7 +574,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 
 /datum/holiday/easter
 	name = EASTER
-	drone_hat = /obj/item/clothing/head/rabbitears
+	drone_hat = /obj/item/clothing/head/costume/rabbitears
 	var/const/days_early = 1 //to make editing the holiday easier
 	var/const/days_extra = 1
 
@@ -602,8 +605,11 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 
 /datum/holiday/easter/celebrate()
 	GLOB.maintenance_loot += list(
-		/obj/item/suprise_egg = 15,
-		/obj/item/storage/bag/easterbasket = 15)
+		list(
+			/obj/item/surprise_egg = 15,
+			/obj/item/storage/basket/easter = 15
+		) = MAINT_HOLIDAY_WEIGHT,
+	)
 
 /datum/holiday/easter/greet()
 	return "Greetings! Have a Happy Easter and keep an eye out for Easter Bunnies!"

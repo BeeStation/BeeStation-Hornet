@@ -16,8 +16,9 @@
 	var/spreadIntoAdjacentChance = 60
 	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
 	var/static/list/blacklisted_glowshroom_turfs = typecacheof(list(
-	/turf/open/lava,
-	/turf/open/floor/plating/beach/water))
+		/turf/open/lava,
+		/turf/open/floor/plating/beach/water,
+	))
 
 /obj/structure/glowshroom/glowcap
 	name = "glowcap"
@@ -43,8 +44,8 @@
 		QDEL_NULL(myseed)
 	return ..()
 
-/obj/structure/glowshroom/New(loc, obj/item/seeds/newseed, mutate_stats)
-	..()
+/obj/structure/glowshroom/Initialize(mapload, obj/item/seeds/newseed, mutate_stats)
+	. = ..()
 	if(newseed)
 		myseed = newseed.Copy()
 		myseed.forceMove(src)
@@ -56,7 +57,7 @@
 		myseed.adjust_production(rand(-3,6))
 		myseed.adjust_endurance(rand(-3,6))
 	delay = delay - myseed.production * 100 //So the delay goes DOWN with better stats instead of up. :I
-	obj_integrity = round(myseed.endurance / 2)
+	atom_integrity = round(myseed.endurance / 2)
 	max_integrity = round(myseed.endurance / 2)
 	var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
 	if(ispath(G)) // Seeds were ported to initialize so their genes are still typepaths here, luckily their initializer is smart enough to handle us doing this
@@ -81,29 +82,31 @@
 		icon_state = base_icon_state
 
 	addtimer(CALLBACK(src, PROC_REF(Spread)), delay)
+	AddElement(/datum/element/atmos_sensitive)
 
 /obj/structure/glowshroom/proc/Spread()
 	var/turf/ownturf = get_turf(src)
+	if(!TURF_SHARES(ownturf)) //If we are in a 1x1 room
+		return //Deal with it not now
+
 	var/shrooms_planted = 0
 	for(var/i in 1 to myseed.yield)
 		if(prob(1/(generation * generation) * 100))//This formula gives you diminishing returns based on generation. 100% with 1st gen, decreasing to 25%, 11%, 6, 4, 2...
 			var/list/possibleLocs = list()
-			var/spreadsIntoAdjacent = FALSE
-
-			if(prob(spreadIntoAdjacentChance))
-				spreadsIntoAdjacent = TRUE
 
 			for(var/turf/open/floor/earth in view(3,src))
 				if(is_type_in_typecache(earth, blacklisted_glowshroom_turfs))
 					continue
-				if(!ownturf.CanAtmosPass(earth))
+				if(!TURF_SHARES(earth))
 					continue
-				if(spreadsIntoAdjacent || !locate(/obj/structure/glowshroom) in view(1,earth))
-					possibleLocs += earth
+				possibleLocs += earth
 				CHECK_TICK
 
 			if(!possibleLocs.len)
 				break
+
+			if(!prob(spreadIntoAdjacentChance))
+				return
 
 			var/turf/newLoc = pick(possibleLocs)
 
@@ -163,15 +166,17 @@
 
 /obj/structure/glowshroom/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type == BURN && damage_amount)
-		playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
+		playsound(src, 'sound/items/welder.ogg', 100, 1)
 
-/obj/structure/glowshroom/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > 300)
-		take_damage(5, BURN, 0, 0)
+/obj/structure/glowshroom/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 300
+
+/obj/structure/glowshroom/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	take_damage(5, BURN, 0, 0)
 
 /obj/structure/glowshroom/acid_act(acidpwr, acid_volume)
 	. = 1
-	visible_message("<span class='danger'>[src] melts away!</span>")
+	visible_message(span_danger("[src] melts away!"))
 	var/obj/effect/decal/cleanable/molten_object/I = new (get_turf(src))
 	I.desc = "Looks like this was \an [src] some time ago."
 	qdel(src)

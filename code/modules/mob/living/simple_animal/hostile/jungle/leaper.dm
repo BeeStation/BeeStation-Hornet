@@ -10,7 +10,7 @@
 	icon_state = "leaper"
 	icon_living = "leaper"
 	icon_dead = "leaper_dead"
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	maxHealth = 300
 	health = 300
 	ranged = TRUE
@@ -41,13 +41,18 @@
 
 /obj/projectile/leaper/on_hit(atom/target, blocked = FALSE)
 	..()
+	if (!isliving(target))
+		return
+	var/mob/living/bubbled = target
 	if(iscarbon(target))
-		var/mob/living/carbon/C = target
-		C.reagents.add_reagent(/datum/reagent/toxin/leaper_venom, 5)
+		bubbled.reagents.add_reagent(/datum/reagent/toxin/leaper_venom, 5)
 		return
 	if(isanimal(target))
-		var/mob/living/simple_animal/L = target
-		L.adjustHealth(25)
+		var/mob/living/simple_animal/bubbled_animal = bubbled
+		bubbled_animal.adjustHealth(25)
+		return
+	if (isbasicmob(target))
+		bubbled.adjustBruteLoss(25)
 
 /obj/projectile/leaper/on_range()
 	var/turf/T = get_turf(src)
@@ -81,47 +86,50 @@
 
 /obj/structure/leaper_bubble/Initialize(mapload)
 	. = ..()
-	float(on = TRUE)
 	QDEL_IN(src, 100)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	AddElement(/datum/element/movetype_handler)
+	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, LEAPER_BUBBLE_TRAIT)
 
 /obj/structure/leaper_bubble/Destroy()
 	new /obj/effect/temp_visual/leaper_projectile_impact(get_turf(src))
 	playsound(src,'sound/effects/snap.ogg',50, 1, -1)
 	return ..()
 
-/obj/structure/leaper_bubble/proc/on_entered(datum/source, atom/movable/AM)
+/obj/structure/leaper_bubble/proc/on_entered(datum/source, atom/movable/bubbled)
 	SIGNAL_HANDLER
+	if(!isliving(bubbled) || istype(bubbled, /mob/living/simple_animal/hostile/jungle/leaper))
+		return
+	var/mob/living/bubbled_mob = bubbled
 
-	if(isliving(AM))
-		var/mob/living/L = AM
-		if(!istype(L, /mob/living/simple_animal/hostile/jungle/leaper))
-			playsound(src,'sound/effects/snap.ogg',50, 1, -1)
-			L.Paralyze(50)
-			if(iscarbon(L))
-				var/mob/living/carbon/C = L
-				C.reagents.add_reagent(/datum/reagent/toxin/leaper_venom, 5)
-			if(isanimal(L))
-				var/mob/living/simple_animal/A = L
-				A.adjustHealth(25)
-			qdel(src)
+	playsound(src,'sound/effects/snap.ogg',50, TRUE, -1)
+	bubbled_mob.Paralyze(50)
+	if(iscarbon(bubbled_mob))
+		bubbled_mob.reagents.add_reagent(/datum/reagent/toxin/leaper_venom, 5)
+	else if(isanimal(bubbled_mob))
+		var/mob/living/simple_animal/bubbled_animal = bubbled_mob
+		bubbled_animal.adjustHealth(25)
+	else if(isbasicmob(bubbled_mob))
+		bubbled_mob.adjustBruteLoss(25)
+	qdel(src)
 
 /datum/reagent/toxin/leaper_venom
 	name = "Leaper venom"
 	description = "A toxin spat out by leapers that, while harmless in small doses, quickly creates a toxic reaction if too much is in the body."
 	color = "#801E28" // rgb: 128, 30, 40
-	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 0
 	taste_description = "french cuisine"
 	taste_mult = 1.3
 
-/datum/reagent/toxin/leaper_venom/on_mob_life(mob/living/carbon/M)
+/datum/reagent/toxin/leaper_venom/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	. = ..()
 	if(volume >= 10)
-		M.adjustToxLoss(5, 0)
-	..()
+		if(M.adjustToxLoss(5 * REM * delta_time, updating_health = FALSE))
+			. = UPDATE_MOB_HEALTH
 
 /obj/effect/temp_visual/leaper_crush
 	name = "grim tidings"
@@ -147,7 +155,7 @@
 		return
 	if(isliving(A))
 		var/mob/living/L = A
-		if(L.incapacitated())
+		if(L.incapacitated)
 			BellyFlop()
 			return
 	if(hop_cooldown <= world.time)
@@ -165,17 +173,17 @@
 	if(target)
 		if(isliving(target))
 			var/mob/living/L = target
-			if(L.incapacitated())
+			if(L.incapacitated)
 				BellyFlop()
 				return
 		if(!hopping)
 			Hop()
 
-/mob/living/simple_animal/hostile/jungle/leaper/Life()
+/mob/living/simple_animal/hostile/jungle/leaper/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
 	update_icons()
 
-/mob/living/simple_animal/hostile/jungle/leaper/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/jungle/leaper/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(prob(33) && !ckey)
 		ranged_cooldown = 0 //Keeps em on their toes instead of a constant rotation
 	..()
@@ -188,7 +196,7 @@
 				return
 			if(isliving(target))
 				var/mob/living/L = target
-				if(L.incapacitated())
+				if(L.incapacitated)
 					return //No stunlocking. Hop on them after you stun them, you donk.
 		if(AIStatus == AI_ON && !projectile_ready && !ckey)
 			return
@@ -246,7 +254,7 @@
 				throw_dir = pick(GLOB.alldirs)
 			var/throwtarget = get_edge_target_turf(src, throw_dir)
 			L.throw_at(throwtarget, 3, 1)
-			visible_message("<span class='warning'>[L] is thrown clear of [src]!</span>")
+			visible_message(span_warning("[L] is thrown clear of [src]!"))
 	if(ckey)//Lessens ability to chain stun as a player
 		ranged_cooldown = ranged_cooldown_time + world.time
 		update_icons()

@@ -6,13 +6,14 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "improvised_grenade"
-	item_state = "flashbang"
+	icon_state_preview = "ied_preview"
+	inhand_icon_state = "flashbang"
 	icon_state_preview = "chemg" // a black stick is bad to recognise as a preview
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	throw_speed = 3
 	throw_range = 7
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	active = 0
 	det_time = 50
@@ -34,7 +35,7 @@
 
 /obj/item/grenade/iedcasing/CheckParts(list/parts_list)
 	..()
-	var/obj/item/reagent_containers/food/drinks/soda_cans/can = locate() in contents
+	var/obj/item/reagent_containers/cup/soda_cans/can = locate() in contents
 	if(can)
 		can.pixel_x = 0 //Reset the sprite's position to make it consistent with the rest of the IED
 		can.pixel_y = 0
@@ -47,7 +48,7 @@
 /obj/item/grenade/iedcasing/attack_self(mob/user) //
 	if(!active)
 		if(!botch_check(user))
-			to_chat(user, "<span class='warning'>You light the [name]!</span>")
+			to_chat(user, span_warning("You light the [name]!"))
 			cut_overlay("improvised_grenade_filled")
 			preprime(user, null, FALSE)
 

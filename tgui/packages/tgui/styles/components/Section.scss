@@ -11,6 +11,7 @@
 $title-text-color: base.$color-fg !default;
 $background-color: base.$color-bg-section !default;
 $separator-color: colors.$primary !default;
+$title-background-color: transparent !default;
 
 .Section {
   position: relative;
@@ -28,6 +29,7 @@ $separator-color: colors.$primary !default;
   position: relative;
   padding: 0.5em;
   border-bottom: base.em(2px) solid $separator-color;
+  background-color: $title-background-color;
 }
 
 .Section__titleText {
@@ -41,6 +43,7 @@ $separator-color: colors.$primary !default;
   display: inline-block;
   right: 0.5em;
   margin-top: base.em(-1px);
+  color: $title-text-color;
 }
 
 .Section__rest {
@@ -75,19 +78,6 @@ $separator-color: colors.$primary !default;
   left: 0;
   right: 0;
   bottom: 0;
-}
-
-.Section--fill.Section--iefix {
-  display: table !important;
-  width: 100% !important;
-  height: 100% !important;
-  border-collapse: collapse;
-  border-spacing: 0;
-
-  & > .Section__rest {
-    display: table-row !important;
-    height: 100% !important;
-  }
 }
 
 .Section--scrollable {
@@ -134,6 +124,9 @@ $separator-color: colors.$primary !default;
 }
 
 .section-background-dark {
-  background-color: functions.fake-alpha(rgba(0, 0, 0, 0.2), base.$color-bg) !important;
+  background-color: functions.fake-alpha(
+    rgba(0, 0, 0, 0.2),
+    base.$color-bg
+  ) !important;
   background-color: $background-color !important;
 }

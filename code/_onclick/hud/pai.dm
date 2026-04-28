@@ -1,11 +1,12 @@
-#define PAI_MISSING_SOFTWARE_MESSAGE "<span class='warning'>You must download the required software to use this.</span>"
+#define PAI_MISSING_SOFTWARE_MESSAGE span_warning("You must download the required software to use this.")
 
 /atom/movable/screen/pai
-	icon = 'icons/mob/screen_pai.dmi'
+	icon = 'icons/hud/screen_pai.dmi'
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/required_software
 
 /atom/movable/screen/pai/Click()
-	if(isobserver(usr) || usr.incapacitated())
+	if(isobserver(usr) || usr.incapacitated)
 		return FALSE
 	var/mob/living/silicon/pai/pAI = usr
 	if(required_software && !pAI.software.Find(required_software))
@@ -54,7 +55,7 @@
 	if(!..())
 		return
 	var/mob/living/silicon/pai/pAI = usr
-	pAI.lay_down()
+	pAI.toggle_resting()
 
 /atom/movable/screen/pai/light
 	name = "Toggle Integrated Lights"
@@ -82,15 +83,20 @@
 	icon_state = "host_monitor"
 	required_software = PAI_PROGRAM_HOST_SCAN
 
-/atom/movable/screen/pai/host_monitor/Click()
-	if(!..())
+/atom/movable/screen/pai/host_monitor/Click(location, control, params)
+	. = ..()
+	if(!.)
 		return
 	var/mob/living/silicon/pai/pAI = usr
+	var/list/modifiers = params2list(params)
 	var/mob/living/carbon/holder = get(pAI.card.loc, /mob/living/carbon)
 	if(holder)
-		pAI.hostscan.attack(holder, pAI)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			pAI.hostscan.attack_secondary(holder, pAI)
+		else
+			pAI.hostscan.attack(holder, pAI)
 	else
-		to_chat(usr, "<span class='warning'>You are not being carried by anyone!</span>")
+		to_chat(usr, span_warning("You are not being carried by anyone!"))
 		return 0
 
 /atom/movable/screen/pai/crew_manifest
@@ -168,7 +174,7 @@
 
 /atom/movable/screen/pai/radio
 	name = "radio"
-	icon = 'icons/mob/screen_cyborg.dmi'
+	icon = 'icons/hud/screen_cyborg.dmi'
 	icon_state = "radio"
 
 /atom/movable/screen/pai/radio/Click()
@@ -215,6 +221,11 @@
 // Language menu
 	using = new /atom/movable/screen/language_menu
 	using.screen_loc = ui_borg_language_menu
+	static_inventory += using
+
+// Navigation
+	using = new /atom/movable/screen/navigate
+	using.screen_loc = ui_pai_navigate_menu
 	static_inventory += using
 
 // Host Monitor
@@ -266,6 +277,6 @@
 	var/mob/living/silicon/pai/owner = mymob
 	for(var/atom/movable/screen/pai/button in static_inventory)
 		if(button.required_software)
-			button.color = owner.software.Find(button.required_software) ? null : "#808080"
+			button.color = owner.software.Find(button.required_software) ? null : COLOR_GRAY
 
 #undef PAI_MISSING_SOFTWARE_MESSAGE

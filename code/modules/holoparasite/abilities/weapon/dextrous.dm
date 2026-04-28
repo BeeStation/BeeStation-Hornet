@@ -66,27 +66,29 @@
 /datum/holoparasite_ability/weapon/dextrous/New(datum/holoparasite_stats/master_stats)
 	. = ..()
 	if(!forbidden_guns)
-		forbidden_guns = typecacheof(list(
-			/obj/item/gun/ballistic/automatic/ar,
-			/obj/item/gun/ballistic/automatic/c20r,
-			/obj/item/gun/ballistic/automatic/gyropistol,
-			/obj/item/gun/ballistic/automatic/l6_saw,
-			/obj/item/gun/ballistic/automatic/m90,
-			/obj/item/gun/ballistic/automatic/mini_uzi,
-			/obj/item/gun/ballistic/automatic/proto,
-			/obj/item/gun/ballistic/automatic/tommygun,
-			/obj/item/gun/ballistic/automatic/wt550,
+		forbidden_guns = zebra_typecacheof(list(
+			/obj/item/gun/ballistic/automatic/ar = TRUE,
+			/obj/item/gun/ballistic/automatic/c20r = TRUE,
+			/obj/item/gun/ballistic/automatic/gyropistol = TRUE,
+			/obj/item/gun/ballistic/automatic/l6_saw = TRUE,
+			/obj/item/gun/ballistic/automatic/m90 = TRUE,
+			/obj/item/gun/ballistic/automatic/mini_uzi = TRUE,
+			/obj/item/gun/ballistic/automatic/proto = TRUE,
+			/obj/item/gun/ballistic/automatic/tommygun = TRUE,
+			/obj/item/gun/ballistic/automatic/wt550 = TRUE,
 			/obj/item/gun/ballistic/rocketlauncher,
-			/obj/item/gun/ballistic/shotgun,
-			/obj/item/gun/ballistic/sniper_rifle,
-			/obj/item/gun/blastcannon,
-			/obj/item/gun/energy/beam_rifle,
-			/obj/item/gun/energy/gravity_gun,
-			/obj/item/gun/energy/lasercannon,
-			/obj/item/gun/energy/pulse,
-			/obj/item/gun/grenadelauncher,
-			/obj/item/gun/magic
-		)) - typecacheof(list(/obj/item/gun/magic/staff/honk)) // honestly holopara with honk staff just sounds kinda funny, so I'm just gonna let it happen, until proven otherwise I guess.
+			/obj/item/gun/ballistic/shotgun = TRUE,
+			/obj/item/gun/ballistic/sniper_rifle = TRUE,
+			/obj/item/gun/blastcannon = TRUE,
+			/obj/item/gun/energy/beam_rifle = TRUE,
+			/obj/item/gun/energy/gravity_gun = TRUE,
+			/obj/item/gun/energy/lasercannon = TRUE,
+			/obj/item/gun/energy/pulse = TRUE,
+			/obj/item/gun/grenadelauncher = TRUE,
+			/obj/item/gun/magic = TRUE,
+			// honestly holopara with honk staff just sounds kinda funny, so I'm just gonna let it happen, until proven otherwise I guess.
+			/obj/item/gun/magic/staff/honk = FALSE,
+		))
 
 /datum/holoparasite_ability/weapon/dextrous/apply()
 	max_w_class = master_stats.potential >= 5 ? WEIGHT_CLASS_BULKY : clamp(master_stats.potential, WEIGHT_CLASS_TINY, WEIGHT_CLASS_NORMAL)
@@ -96,8 +98,7 @@
 	if(!can_use_most_guns)
 		add_owner_trait(TRAIT_POOR_AIM)
 	owner.dextrous = TRUE
-	owner.a_intent = INTENT_HELP
-	owner.possible_a_intents = list(INTENT_HELP, INTENT_GRAB, INTENT_HARM)
+	owner.combat_mode = FALSE
 	owner.LoadComponent(/datum/component/personal_crafting)
 	if(!length(owner.held_items))
 		owner.held_items = list(null, null)
@@ -107,26 +108,29 @@
 	owner.ranged = FALSE
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
 		owner.attack_sound = "punch"
-	owner.response_harm = "weakly punches"
-	owner.attacktext = "weakly punches"
+	owner.response_harm_continuous = "weakly punches"
+	owner.response_harm_simple = "weakly punch"
+	owner.attack_verb_continuous = "weakly punches"
+	owner.attack_verb_simple = "weakly punch"
 	owner.environment_smash = NONE
 	. = ..()
 
 /datum/holoparasite_ability/weapon/dextrous/remove()
 	owner.unequip_everything()
 	owner.dextrous = FALSE
-	owner.a_intent = initial(owner.a_intent)
-	owner.possible_a_intents = null
+	owner.combat_mode = initial(owner.combat_mode)
 	var/datum/component/personal_crafting/crafting = owner.GetComponent(/datum/component/personal_crafting)
-	crafting?.RemoveComponent()
+	crafting?.ClearFromParent()
 	owner.melee_damage = initial(owner.melee_damage)
 	owner.obj_damage = initial(owner.obj_damage)
 	owner.armour_penetration = initial(owner.armour_penetration)
 	owner.ranged = initial(owner.ranged)
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
 		owner.attack_sound = initial(owner.attack_sound)
-	owner.response_harm = initial(owner.response_harm)
-	owner.attacktext = initial(owner.attacktext)
+	owner.response_harm_continuous = initial(owner.response_harm_continuous)
+	owner.response_harm_simple = initial(owner.response_harm_simple)
+	owner.attack_verb_continuous = initial(owner.attack_verb_continuous)
+	owner.attack_verb_simple = initial(owner.attack_verb_simple)
 	owner.environment_smash = initial(owner.environment_smash)
 	. = ..()
 
@@ -137,11 +141,11 @@
 	RegisterSignal(owner, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	RegisterSignal(owner, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))
 	RegisterSignal(owner, COMSIG_HOLOPARA_CAN_FIRE_GUN, PROC_REF(can_fire_gun))
-	RegisterSignal(owner, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(owner, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 /datum/holoparasite_ability/weapon/dextrous/unregister_signals()
 	..()
-	UnregisterSignal(owner, list(COMSIG_HOLOPARA_SETUP_HUD, COMSIG_HOLOPARA_PRE_SNAPBACK, COMSIG_HOLOPARA_PRE_RECALL, COMSIG_LIVING_DEATH, COMSIG_TWOHANDED_WIELD, COMSIG_HOLOPARA_CAN_FIRE_GUN, COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(owner, list(COMSIG_HOLOPARA_SETUP_HUD, COMSIG_HOLOPARA_PRE_SNAPBACK, COMSIG_HOLOPARA_PRE_RECALL, COMSIG_LIVING_DEATH, COMSIG_TWOHANDED_WIELD, COMSIG_HOLOPARA_CAN_FIRE_GUN, COMSIG_ATOM_EXAMINE))
 
 /datum/holoparasite_ability/weapon/dextrous/proc/on_hud_setup(datum/_source, datum/hud/holoparasite/hud, list/huds_to_add)
 	SIGNAL_HANDLER
@@ -149,19 +153,18 @@
 	create_misc_hud(hud, huds_to_add)
 
 /datum/holoparasite_ability/weapon/dextrous/proc/create_storage_hud(datum/hud/holoparasite/hud)
-	var/atom/movable/screen/inventory/inv_box = new /atom/movable/screen/inventory()
+	var/atom/movable/screen/inventory/inv_box = new /atom/movable/screen/inventory(null, hud)
 	inv_box.name = "internal storage"
 	inv_box.icon = hud.ui_style
 	inv_box.icon_state = "suit_storage"
 	inv_box.screen_loc = ui_inventory
 	inv_box.slot_id = ITEM_SLOT_DEX_STORAGE
-	inv_box.hud = hud
 	hud.static_inventory |= inv_box
 
 /datum/holoparasite_ability/weapon/dextrous/proc/create_misc_hud(datum/hud/holoparasite/hud, list/huds_to_add)
-	hud.action_intent = new /atom/movable/screen/act_intent
+	hud.action_intent = new /atom/movable/screen/combattoggle/flashy()
 	hud.action_intent.icon = hud.ui_style
-	hud.action_intent.icon_state = owner.a_intent
+	hud.action_intent.screen_loc = ui_combat_toggle
 	huds_to_add += hud.action_intent
 
 	hud.zone_select = new /atom/movable/screen/zone_sel
@@ -169,10 +172,9 @@
 	hud.zone_select.update_icon()
 	huds_to_add += hud.zone_select
 
-	drop = new
+	drop = new(null, hud)
 	drop.icon = hud.ui_style
 	drop.screen_loc = "CENTER-1:9,SOUTH+1:4"
-	drop.hud = hud
 	drop.update_icon()
 	hud.static_inventory += drop
 
@@ -196,7 +198,7 @@
 /datum/holoparasite_ability/weapon/dextrous/proc/on_wield(datum/_source, mob/living/user)
 	SIGNAL_HANDLER
 	if(!can_wield)
-		to_chat(user, "<span class='warning'>You are not strong enough to wield two-handed weapons!</span>")
+		to_chat(user, span_warning("You are not strong enough to wield two-handed weapons!"))
 		return COMPONENT_TWOHANDED_BLOCK_WIELD
 
 /datum/holoparasite_ability/weapon/dextrous/proc/can_fire_gun(datum/_source, obj/item/gun/gun)
@@ -211,17 +213,18 @@
  */
 /datum/holoparasite_ability/weapon/dextrous/proc/on_examine(datum/source, mob/user, text)
 	SIGNAL_HANDLER
-	var/t_they = owner.p_they(TRUE)
+	var/t_they = owner.p_They()
 	var/t_their = owner.p_their()
 	var/t_is = owner.p_are()
 	for(var/obj/item/item in owner.held_items)
-		if(CHECK_BITFIELD(item.item_flags, ABSTRACT | EXAMINE_SKIP))
+		if(item.item_flags & ABSTRACT || HAS_TRAIT(item, TRAIT_EXAMINE_SKIP))
 			continue
-		text += "<span class='notice'>[t_they] [t_is] holding <b>[item.get_examine_string(user)]</b> in [t_their] [owner.get_held_index_name(owner.get_held_index_of_item(item))].</span>"
+
+		text += span_notice("[t_they] [t_is] holding <b>[item.examine_title(user)]</b> in [t_their] [owner.get_held_index_name(owner.get_held_index_of_item(item))].")
 	if(internal_storage)
-		if(CHECK_BITFIELD(internal_storage.item_flags, ABSTRACT | EXAMINE_SKIP))
+		if(internal_storage.item_flags & ABSTRACT || HAS_TRAIT(internal_storage, TRAIT_EXAMINE_SKIP))
 			return
 		if((!owner.has_matching_summoner(user) && !isobserver(user)) && get_dist(owner, user) > HOLOPARA_DEXTROUS_EXAMINE_DISTANCE)
-			text += "<span class='notice'>[t_they] [t_is] holding something in [t_their] internal storage, but you are <b>too far away</b> to see what.</span>"
+			text += span_notice("[t_they] [t_is] holding something in [t_their] internal storage, but you are <b>too far away</b> to see what.")
 			return
-		text += "<span class='notice'>[t_they] [t_is] holding <b>[internal_storage.get_examine_string(user)]</b> in [t_their] internal storage.</span>"
+		text += span_notice("[t_they] [t_is] holding <b>[internal_storage.examine_title(user)]</b> in [t_their] internal storage.")

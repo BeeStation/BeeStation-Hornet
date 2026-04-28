@@ -5,9 +5,13 @@
 	density = FALSE
 	layer = SIGN_LAYER
 	max_integrity = 100
-	armor = list(MELEE = 50,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0)
+	armor_type = /datum/armor/structure_sign
 	var/buildable_sign = 1 //unwrenchable and modifiable
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
+
+/datum/armor/structure_sign
+	melee = 50
+	fire = 50
+	acid = 50
 
 /obj/structure/sign/basic
 	name = "blank sign"
@@ -26,13 +30,13 @@
 
 /obj/structure/sign/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH && buildable_sign)
-		user.visible_message("<span class='notice'>[user] starts removing [src]...</span>", \
-							 "<span class='notice'>You start unfastening [src].</span>")
+		user.visible_message(span_notice("[user] starts removing [src]..."), \
+							span_notice("You start unfastening [src]."))
 		I.play_tool_sound(src)
 		if(I.use_tool(src, user, 40))
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-			user.visible_message("<span class='notice'>[user] unfastens [src].</span>", \
-								 "<span class='notice'>You unfasten [src].</span>")
+			user.visible_message(span_notice("[user] unfastens [src]."), \
+								span_notice("You unfasten [src]."))
 			var/obj/item/sign_backing/SB = new (get_turf(user))
 			SB.icon_state = icon_state
 			SB.sign_path = type
@@ -47,11 +51,11 @@
 			if("Blank")
 				sign_type = /obj/structure/sign/basic
 			if("Secure Area")
-				sign_type = /obj/structure/sign/warning/securearea
+				sign_type = /obj/structure/sign/warning/secure_area
 			if("Biohazard")
 				sign_type = /obj/structure/sign/warning/biohazard
 			if("High Voltage")
-				sign_type = /obj/structure/sign/warning/electricshock
+				sign_type = /obj/structure/sign/warning/electric_shock
 			if("Radiation")
 				sign_type = /obj/structure/sign/warning/radiation
 			if("Hard Vacuum Ahead")
@@ -61,7 +65,7 @@
 			if("Danger: Fire")
 				sign_type = /obj/structure/sign/warning/fire
 			if("No Smoking")
-				sign_type = /obj/structure/sign/warning/nosmoking/circle
+				sign_type = /obj/structure/sign/warning/no_smoking/circle
 			if("Medbay")
 				sign_type = /obj/structure/sign/departments/medbay/alt
 			if("Science")
@@ -103,8 +107,8 @@
 	. = ..()
 	if(isturf(target) && proximity)
 		var/turf/T = target
-		user.visible_message("<span class='notice'>[user] fastens [src] to [T].</span>", \
-							 "<span class='notice'>You attach the sign to [T].</span>")
+		user.visible_message(span_notice("[user] fastens [src] to [T]."), \
+							span_notice("You attach the sign to [T]."))
 		playsound(T, 'sound/items/deconstruct.ogg', 50, 1)
 		var/obj/structure/sign/S = new sign_path(T)
 		S.setDir(dir)

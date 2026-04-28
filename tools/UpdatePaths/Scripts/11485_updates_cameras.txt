@@ -1,0 +1,49 @@
+/obj/machinery/camera/autoname : /obj/machinery/camera{@OLD}
+/obj/machinery/camera/autoname/directional/north : /obj/machinery/camera/directional/north{@OLD}
+/obj/machinery/camera/autoname/directional/south : /obj/machinery/camera/directional/south{@OLD}
+/obj/machinery/camera/autoname/directional/east : /obj/machinery/camera/directional/east{@OLD}
+/obj/machinery/camera/autoname/directional/west : /obj/machinery/camera/directional/west{@OLD}
+/obj/machinery/camera/@SUBTYPES : /obj/machinery/camera/@SUBTYPES{@OLD;network=@SKIP}
+
+/obj/machinery/computer/security/telescreen/turbine : /obj/machinery/computer/security/telescreen/engine{@OLD}
+/obj/machinery/computer/security/telescreen{network = list("xeno")} : /obj/machinery/computer/security/telescreen/research{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("aiupload")} : /obj/machinery/computer/security/telescreen/aiupload{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("ss13")} : /obj/machinery/computer/security/telescreen{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("test")} : /obj/machinery/computer/security/telescreen/research{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("prison")} : /obj/machinery/computer/security/telescreen/prison{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("rd")} : /obj/machinery/computer/security/telescreen/rd{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("science")} : /obj/machinery/computer/security/telescreen/research{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("research")} : /obj/machinery/computer/security/telescreen/research{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("engine")} : /obj/machinery/computer/security/telescreen/engineer{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("medbay")} : /obj/machinery/computer/security/telescreen/cmo{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("medical")} : /obj/machinery/computer/security/telescreen/cmo{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("vault")} : /obj/machinery/computer/security/telescreen/vault{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("toxins")} : /obj/machinery/computer/security/telescreen/toxins{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("interrogation")} : /obj/machinery/computer/security/telescreen/interrogation{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("minisat")} : /obj/machinery/computer/security/telescreen/minisat{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("auxbase")} : /obj/machinery/computer/security/telescreen/auxbase{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("rd","minisat")} : /obj/machinery/computer/security/telescreen/rd{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("singularity")} : /obj/machinery/computer/security/telescreen/engine{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("ss13","labor")} : /obj/machinery/computer/security/telescreen/prison{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("tcomms")} : /obj/machinery/computer/security/telescreen/tcomms{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("turbine")} : /obj/machinery/computer/security/telescreen/engine{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("court")} : /obj/machinery/computer/security/telescreen/court{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("bunker1")} : /obj/machinery/computer/security/telescreen/bunker{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security/telescreen{network = list("mo19x","mo19r")} : @DELETE
+/obj/machinery/computer/security/telescreen{network = list("mo19x")} : @DELETE
+/obj/machinery/computer/security/telescreen{network = list("uo45r")} : @DELETE
+/obj/machinery/computer/security/telescreen/entertainment{network = list("evac")} : /obj/machinery/computer/security/telescreen/evac{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+
+/obj/machinery/computer/security{network = list("security")} : /obj/machinery/computer/security/security{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security{network = list("medbay")} : /obj/machinery/computer/security/medbay{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/obj/machinery/computer/security{network = list("mo19r","mo19")} : @DELETE
+/obj/machinery/computer/security{network = list("uo45")} : @DELETE
+/obj/machinery/computer/security{network = list("caravansyndicate1")} : /obj/machinery/computer/security/caravansyndicate{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+
+/obj/machinery/computer/security : /skip/obj/machinery/computer/security{@OLD}
+/obj/machinery/computer/security/telescreen : /skip/obj/machinery/computer/security/telescreen{@OLD}
+/obj/machinery/computer/security/@SUBTYPES : /obj/machinery/computer/security/@SUBTYPES{@OLD;network=@SKIP;name=@SKIP;desc=@SKIP}
+/skip/obj/machinery/computer/security : /obj/machinery/computer/security{@OLD}
+/skip/obj/machinery/computer/security/telescreen : /obj/machinery/computer/security/telescreen{@OLD}
+
+/obj/machinery/computer/security/telescreen/engineer : /obj/machinery/computer/security/telescreen/engine{@OLD}

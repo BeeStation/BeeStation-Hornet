@@ -2,9 +2,9 @@
 	name = "cyborg chameleon projector"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NOBLUDGEON
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -13,10 +13,11 @@
 	var/active = FALSE
 	var/activationCost = 300
 	var/activationUpkeep = 50
+	var/disguise_name = "Engineering"
 	var/disguise = "engineer"
 	var/mob/listeningTo
 	var/static/list/signalCache = list( // list here all signals that should break the camouflage
-			COMSIG_PARENT_ATTACKBY,
+			COMSIG_ATOM_ATTACKBY,
 			COMSIG_ATOM_ATTACK_HAND,
 			COMSIG_MOVABLE_IMPACT_ZONE,
 			COMSIG_ATOM_BULLET_ACT,
@@ -29,7 +30,7 @@
 
 /obj/item/borg_chameleon/Initialize(mapload)
 	. = ..()
-	friendlyName = pick(GLOB.ai_names)
+	friendlyName = capitalize(pick(GLOB.ai_names))
 
 /obj/item/borg_chameleon/Destroy()
 	listeningTo = null
@@ -48,29 +49,29 @@
 		if (isturf(user.loc))
 			toggle(user)
 		else
-			to_chat(user, "<span class='warning'>You can't use [src] while inside something!</span>")
+			to_chat(user, span_warning("You can't use [src] while inside something!"))
 	else
-		to_chat(user, "<span class='warning'>You need at least [activationCost] charge in your cell to use [src]!</span>")
+		to_chat(user, span_warning("You need at least [activationCost] charge in your cell to use [src]!"))
 
 /obj/item/borg_chameleon/proc/toggle(mob/living/silicon/robot/user)
 	if(active)
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, -6)
-		to_chat(user, "<span class='notice'>You deactivate \the [src].</span>")
+		to_chat(user, span_notice("You deactivate \the [src]."))
 		deactivate(user)
 	else
 		if(animation_playing)
-			to_chat(user, "<span class='notice'>\the [src] is recharging.</span>")
+			to_chat(user, span_notice("\the [src] is recharging."))
 			return
 		animation_playing = TRUE
-		to_chat(user, "<span class='notice'>You activate \the [src].</span>")
+		to_chat(user, span_notice("You activate \the [src]."))
 		playsound(src, 'sound/effects/seedling_chargeup.ogg', 100, TRUE, -6)
 		apply_wibbly_filters(user)
-		if (do_after(user, 50, target=user) && user.cell.use(activationCost))
+		if (do_after(user, 5 SECONDS, target = user, hidden = TRUE) && user.cell.use(activationCost))
 			playsound(src, 'sound/effects/bamf.ogg', 100, 1, -6)
-			to_chat(user, "<span class='notice'>You are now disguised as the Nanotrasen engineering borg \"[friendlyName]\".</span>")
+			to_chat(user, span_notice("You are now disguised as the Nanotrasen engineering borg \"[friendlyName]\"."))
 			activate(user)
 		else
-			to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")
+			to_chat(user, span_warning("The chameleon field fizzles."))
 			do_sparks(3, FALSE, user)
 		remove_wibbly_filters(user)
 		animation_playing = FALSE
@@ -87,7 +88,8 @@
 	src.user = user
 	savedName = user.name
 	user.name = friendlyName
-	user.module.cyborg_base_icon = disguise
+	user.model.name = capitalize(disguise_name)
+	user.model.cyborg_base_icon = disguise
 	user.bubble_icon = "robot"
 	active = TRUE
 	user.update_icons()
@@ -106,7 +108,8 @@
 		listeningTo = null
 	do_sparks(5, FALSE, user)
 	user.name = savedName
-	user.module.cyborg_base_icon = initial(user.module.cyborg_base_icon)
+	user.model.name = initial(user.model.name)
+	user.model.cyborg_base_icon = initial(user.model.cyborg_base_icon)
 	user.bubble_icon = "syndibot"
 	active = FALSE
 	user.update_icons()
@@ -116,5 +119,5 @@
 	SIGNAL_HANDLER
 
 	if(active)
-		to_chat(user, "<span class='danger'>Your chameleon field deactivates.</span>")
+		to_chat(user, span_danger("Your chameleon field deactivates."))
 		deactivate(user)

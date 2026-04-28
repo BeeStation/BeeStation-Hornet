@@ -122,7 +122,7 @@
 	luminosity = 2
 
 /turf/open/floor/holofloor/hyperspace/nograv/check_gravity()
-    return FALSE
+	return FALSE
 
 /turf/open/floor/holofloor/hyperspace/Initialize(mapload)
 	icon_state = "speedspace_ns_[(x + 5*y + (y%2+1)*7)%15+1]"
@@ -156,8 +156,9 @@
 
 /turf/open/floor/holofloor/wood
 	icon_state = "wood"
-	variants = list("wood", "wood1", "wood2", "wood3", "wood4")
 	tiled_dirt = FALSE
+	variant_probability = 80
+	variant_states = 4
 
 /turf/open/floor/holofloor/snow
 	gender = PLURAL
@@ -210,3 +211,11 @@
 	name = "light holotile"
 	desc = "A really big light steel holotile."
 	icon_state = "grey_full"
+
+/turf/open/floor/holofloor/chess_white
+	icon_state = "white_full"
+	color = "#eeeed2"
+
+/turf/open/floor/holofloor/chess_black
+	icon_state = "white_full"
+	color = "#93b570"

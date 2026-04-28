@@ -19,7 +19,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "di" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/railing/corner{
 	dir = 1
 	},
@@ -95,7 +95,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "jR" = (
@@ -137,7 +137,7 @@
 	},
 /obj/item/folder/yellow,
 /obj/structure/fluff/paper,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "mJ" = (
@@ -527,7 +527,7 @@
 	pixel_x = -5;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/britcup,
+/obj/item/reagent_containers/cup/glass/mug/britcup,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "Ra" = (
@@ -593,7 +593,7 @@
 /obj/structure/fluff/paper{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/fluff/paper{
 	dir = 1;
 	icon_state = "paperstack"
@@ -609,7 +609,7 @@
 /obj/structure/fluff/paper{
 	icon_state = "papercorner"
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/wood{
 	broken = 1
 	},
@@ -624,7 +624,7 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/wood{
 	broken = 1
 	},

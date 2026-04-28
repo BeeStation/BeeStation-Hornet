@@ -7,64 +7,30 @@
 // Items
 //
 
-/obj/item/holo
-	damtype = STAMINA
-
-/obj/item/holo/esword
+/obj/item/melee/energy/sword/holographic
 	name = "holographic energy sword"
 	desc = "May the force be with you. Sorta."
-	icon = 'icons/obj/transforming_energy.dmi'
-	icon_state = "sword0"
-	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	force = 3.0
+	damtype = STAMINA
 	throw_speed = 2
-	throw_range = 5
 	throwforce = 0
-	w_class = WEIGHT_CLASS_SMALL
-	hitsound = "swing_hit"
-	armour_penetration = 50
-	var/active = 0
-	var/saber_color
+	bleed_force = 0
+	embedding = null
+	sword_color_icon = null
 
-/obj/item/holo/esword/green/Initialize(mapload)
+	active_throwforce = 0
+	active_sharpness = NONE
+	active_heat = 0
+
+/obj/item/melee/energy/sword/holographic/Initialize(mapload)
 	. = ..()
-	saber_color = "green"
+	if(!sword_color_icon)
+		sword_color_icon = pick("red", "blue", "green", "purple")
 
+/obj/item/melee/energy/sword/holographic/green
+	sword_color_icon = "green"
 
-/obj/item/holo/esword/red/Initialize(mapload)
-	. = ..()
-	saber_color = "red"
-
-/obj/item/holo/esword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(active)
-		return ..()
-	return 0
-
-/obj/item/holo/esword/attack(target as mob, mob/user as mob)
-	..()
-
-/obj/item/holo/esword/Initialize(mapload)
-	. = ..()
-	saber_color = pick("red","blue","green","purple")
-
-/obj/item/holo/esword/attack_self(mob/living/user as mob)
-	active = !active
-	if (active)
-		force = 30
-		icon_state = "sword[saber_color]"
-		w_class = WEIGHT_CLASS_BULKY
-		hitsound = 'sound/weapons/blade1.ogg'
-		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
-		to_chat(user, "<span class='warning'>[src] is now active.</span>")
-	else
-		force = 3
-		icon_state = "sword0"
-		w_class = WEIGHT_CLASS_SMALL
-		hitsound = "swing_hit"
-		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
-		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
-	return
+/obj/item/melee/energy/sword/holographic/red
+	sword_color_icon = "red"
 
 //BASKETBALL OBJECTS
 
@@ -72,14 +38,14 @@
 	name = "basketball"
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "basketball"
-	item_state = "basketball"
+	inhand_icon_state = "basketball"
 	desc = "Here's your chance, do your dance at the Space Jam."
 	w_class = WEIGHT_CLASS_BULKY //Stops people from hiding it in their bags/pockets
 
 /obj/item/toy/beach_ball/holoball/dodgeball
 	name = "dodgeball"
 	icon_state = "dodgeball"
-	item_state = "dodgeball"
+	inhand_icon_state = "dodgeball"
 	desc = "Used for playing the most violent and degrading of childhood games."
 
 /obj/item/toy/beach_ball/holoball/dodgeball/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -90,7 +56,7 @@
 		M.apply_damage(10, STAMINA)
 		if(prob(5))
 			M.Paralyze(60)
-			visible_message("<span class='danger'>[M] is knocked right off [M.p_their()] feet!</span>")
+			visible_message(span_danger("[M] is knocked right off [M.p_their()] feet!"))
 
 //
 // Structures
@@ -107,20 +73,20 @@
 /obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(get_dist(src,user)<2)
 		if(user.transferItemToLoc(W, drop_location()))
-			visible_message("<span class='warning'> [user] dunks [W] into \the [src]!</span>")
+			visible_message(span_warning(" [user] dunks [W] into \the [src]!"))
 
-/obj/structure/holohoop/attack_hand(mob/user)
+/obj/structure/holohoop/attack_hand(mob/living/user)
 	. = ..()
 	if(.)
 		return
-	if(user.pulling && user.a_intent == INTENT_GRAB && isliving(user.pulling))
+	if(user.pulling && isliving(user.pulling))
 		var/mob/living/L = user.pulling
 		if(user.grab_state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+			to_chat(user, span_warning("You need a better grip to do that!"))
 			return
 		L.forceMove(loc)
 		L.Paralyze(100)
-		visible_message("<span class='danger'>[user] dunks [L] into \the [src]!</span>")
+		visible_message(span_danger("[user] dunks [L] into \the [src]!"))
 		user.stop_pulling()
 	else
 		..()
@@ -129,10 +95,10 @@
 	if (isitem(AM) && !istype(AM,/obj/projectile))
 		if(prob(50))
 			AM.forceMove(get_turf(src))
-			visible_message("<span class='warning'>Swish! [AM] lands in [src].</span>")
+			visible_message(span_warning("Swish! [AM] lands in [src]."))
 			return
 		else
-			visible_message("<span class='danger'>[AM] bounces off of [src]'s rim!</span>")
+			visible_message(span_danger("[AM] bounces off of [src]'s rim!"))
 			return ..()
 	else
 		return ..()
@@ -157,63 +123,65 @@
 	active_power_usage = 6
 	power_channel = AREA_USAGE_ENVIRON
 
-/obj/machinery/readybutton/attack_ai(mob/user as mob)
-	to_chat(user, "The station AI is not to interact with these devices.")
+/obj/machinery/readybutton/attack_ai(mob/user)
+	to_chat(user, span_warning("The station AI is not to interact with these devices!"))
 	return
 
-/obj/machinery/readybutton/attack_paw(mob/user as mob)
-	to_chat(user, "<span class='warning'>You are too primitive to use this device!</span>")
+/obj/machinery/readybutton/attack_paw(mob/user, list/modifiers)
+	to_chat(user, span_warning("You are too primitive to use this device!"))
 	return
 
-/obj/machinery/readybutton/attackby(obj/item/W as obj, mob/user as mob, params)
-	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
+/obj/machinery/readybutton/attackby(obj/item/attacking_item, mob/user, params)
+	to_chat(user, span_warning("The device is a solid button, there's nothing you can do with it!"))
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
 	. = ..()
 	if(.)
 		return
 	if(user.stat || machine_stat & (NOPOWER|BROKEN))
-		to_chat(user, "<span class='warning'>This device is not powered!</span>")
+		to_chat(user, span_warning("This device is not powered!"))
 		return
 
-	currentarea = get_area(src.loc)
-	if(!currentarea)
+	currentarea = get_area(src)
+	if(isnull(currentarea))
 		qdel(src)
+		return
 
 	if(eventstarted)
-		to_chat(usr, "<span class='warning'>The event has already begun!</span>")
+		to_chat(usr, span_warning("The event has already begun!"))
 		return
 
 	ready = !ready
 
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
 
 	var/numbuttons = 0
 	var/numready = 0
-	for(var/obj/machinery/readybutton/button in currentarea)
-		numbuttons++
-		if (button.ready)
-			numready++
+	for (var/list/zlevel_turfs as anything in currentarea.get_zlevel_turf_lists())
+		for (var/turf/area_turf as anything in zlevel_turfs)
+			for(var/obj/machinery/readybutton/button in area_turf)
+				numbuttons++
+				if(button.ready)
+					numready++
 
 	if(numbuttons == numready)
 		begin_event()
 
-/obj/machinery/readybutton/update_icon()
-	if(ready)
-		icon_state = "auth_on"
-	else
-		icon_state = "auth_off"
+/obj/machinery/readybutton/update_icon_state()
+	. = ..()
+	icon_state = "auth_[ready ? "on" : "off"]"
 
 /obj/machinery/readybutton/proc/begin_event()
-
 	eventstarted = TRUE
 
-	for(var/obj/structure/window/W in currentarea)
-		if(W.flags_1&NODECONSTRUCT_1) // Just in case: only holo-windows
-			qdel(W)
+	for (var/list/zlevel_turfs as anything in currentarea.get_zlevel_turf_lists())
+		for(var/turf/area_turf as anything in zlevel_turfs)
+			for(var/obj/structure/window/barrier in area_turf)
+				if(barrier.flags_1 & HOLOGRAM_1)// Just in case: only holo-windows
+					qdel(barrier)
 
-	for(var/mob/M in currentarea)
-		to_chat(M, "FIGHT!")
+			for(var/mob/contestant in area_turf)
+				to_chat(contestant, span_userdanger("FIGHT!"))
 
 /obj/machinery/conveyor/holodeck
 

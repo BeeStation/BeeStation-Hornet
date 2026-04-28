@@ -15,7 +15,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/effect/spawner/lootdrop/ruinloot/basic,
+/obj/effect/spawner/random/ruinloot/basic,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "e" = (
@@ -64,7 +64,7 @@
 "q" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/window/spawner,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/grass,
 /area/ruin/unpowered)
 "r" = (
@@ -130,7 +130,7 @@
 /area/ruin/unpowered)
 "D" = (
 /obj/structure/closet/crate/wooden/toy,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -148,11 +148,11 @@
 /obj/item/book/manual/wiki/barman_recipes{
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/shaker{
+/obj/item/reagent_containers/cup/glass/shaker{
 	pixel_x = 6;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/glass/rag{
+/obj/item/reagent_containers/cup/rag{
 	pixel_x = -3;
 	pixel_y = 2
 	},
@@ -160,7 +160,7 @@
 /area/ruin/unpowered)
 "H" = (
 /obj/structure/flora/ausbushes/brflowers,
-/obj/structure/window/spawner,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/grass,
 /area/ruin/unpowered)
 "I" = (
@@ -217,7 +217,7 @@
 /area/ruin/unpowered)
 "V" = (
 /obj/structure/flora/junglebush/b,
-/obj/structure/window/spawner,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/grass,
 /area/ruin/unpowered)
 "W" = (

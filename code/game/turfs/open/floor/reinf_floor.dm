@@ -4,7 +4,7 @@
 	desc = "Extremely sturdy."
 	icon_state = "engine"
 	holodeck_compatible = TRUE
-	thermal_conductivity = 0.025
+	thermal_conductivity = 0.01
 	heat_capacity = INFINITY
 	floor_tile = /obj/item/stack/sheet/iron
 	footstep = FOOTSTEP_PLATING
@@ -19,7 +19,7 @@
 
 /turf/open/floor/engine/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The reinforcement plates are <b>wrenched</b> firmly in place.</span>"
+	. += span_notice("The reinforcement plates are <b>wrenched</b> firmly in place.")
 
 /turf/open/floor/engine/light
 	icon_state = "engine_light"
@@ -48,7 +48,7 @@
 	return
 
 /turf/open/floor/engine/wrench_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>You begin removing plates...</span>")
+	to_chat(user, span_notice("You begin removing plates..."))
 	if(I.use_tool(src, user, 30, volume=80))
 		if(!istype(src, /turf/open/floor/engine))
 			return TRUE
@@ -57,7 +57,7 @@
 		ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 	return TRUE
 
-/turf/open/floor/engine/singularity_pull(S, current_size)
+/turf/open/floor/engine/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		if(floor_tile)
@@ -70,7 +70,7 @@
 /turf/open/floor/engine/attack_paw(mob/user)
 	return attack_hand(user)
 
-/turf/open/floor/engine/attack_hand(mob/user)
+/turf/open/floor/engine/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -130,8 +130,7 @@
 	icon_state = "plating"
 	floor_tile = null
 	var/obj/effect/clockwork/overlay/floor/bloodcult/realappearance
-	CanAtmosPass = ATMOS_PASS_NO
-	CanAtmosPassVertical =	ATMOS_PASS_NO
+	can_atmos_pass = ATMOS_PASS_NO
 
 
 /turf/open/floor/engine/cult/Initialize(mapload)
