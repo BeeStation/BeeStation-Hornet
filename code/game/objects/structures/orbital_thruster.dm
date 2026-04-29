@@ -215,160 +215,137 @@
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
 
-	/// Current visual thrust level
-	var/visual_thrust = 0
-	/// Sound loop for the thruster
+	/// Current thrust level being produced, copied from the linked thruster for easy access.
+	var/thrust = 0
+	/// How many tiles north of the nozzle the linked thruster body sits.
+	var/backend_tile_offset = 4
+	/// How many tiles ahead of the nozzle thrust damage extends.
+	var/thrust_damage_range = 5
+	/// Damage scalar applied to `linked_thruster.thrust_level` when computing per-tile damage.
+	var/thrust_damage_scale = 4
+
+	/// Sound loop for the thruster.
 	var/datum/looping_sound/orbital_thruster/soundloop
 
-	/// The backend thruster piece this nozzle is linked to
-	var/obj/machinery/atmospherics/components/unary/orbital_thruster/back_end_piece
+	/// The backend thruster body this nozzle is linked to.
+	var/obj/machinery/atmospherics/components/unary/orbital_thruster/linked_thruster
 
 /obj/machinery/orbital_thruster_nozzle/Initialize(mapload)
 	. = ..()
 
-	back_end_piece = find_backend()
-	if(!back_end_piece)
-		message_admins("Orbital Thruster Nozzle could not find backend piece! Please inform the mappers.")
-		return
-
-	if(!back_end_piece)
+	linked_thruster = find_backend()
+	if(!linked_thruster)
+		message_admins("Orbital Thruster Nozzle at [AREACOORD(src)] could not find its backend piece! Please inform the mappers.")
 		return
 
 	begin_processing()
 	soundloop = new(src, FALSE)
 
 /obj/machinery/orbital_thruster_nozzle/Destroy()
-	if(visual_thrust > 0)
-		remove_emitter("thruster")
+	remove_emitter("thruster")
 	QDEL_NULL(soundloop)
 	return ..()
 
+/// How hard the linked thruster is firing right now, in 0..20.
+/obj/machinery/orbital_thruster_nozzle/proc/get_current_thrust()
+	if(!linked_thruster?.has_fuel)
+		return 0
+	return abs(linked_thruster.thrust_level)
+
 /obj/machinery/orbital_thruster_nozzle/process()
-	// Get the thrust level
-	var/target_thrust = 0
+	thrust = get_current_thrust()
 
-	// Only show thrust if backend exists and has fuel
-	if(back_end_piece && back_end_piece.has_fuel)
-		target_thrust = abs(back_end_piece.thrust_level) * 2 // Scale from -20 to +20 range to -40 to +40 for visuals
+	if(thrust > 0)
+		// Particles: spawn the emitter if it isn't already up, then size it to current thrust.
+		if(!master_holder?.emitters["thruster"])
+			add_emitter(/obj/emitter/thruster_jet, "thruster")
+		var/obj/emitter/thruster_jet/emitter = master_holder?.emitters["thruster"]
+		if(emitter?.particles)
+			emitter.particles.count = thrust * 50      // 0..1000
+			emitter.particles.spawning = thrust * 0.5  // 0..10
 
-	// Update particles based on thrust level
-	if(target_thrust > 0 && target_thrust != visual_thrust)
-		update_thruster_effect(target_thrust)
-	else if(target_thrust == 0 && visual_thrust > 0)
-		stop_thruster_effect()
-
-	// Update sound loop based on thrust level
-	if(target_thrust > 0)
+		// Sound: 0..20 -> 5..100 volume.
 		if(!soundloop.loop_started)
 			soundloop.start()
-		// Calculate volume based on thrust percentage (0-40 range maps to 5-100 volume)
-		soundloop.volume = clamp(5 + ((target_thrust / 40) * 95), 5, 100)
-	else if(soundloop.loop_started)
-		soundloop.stop()
+		soundloop.volume = round(5 + 95 * thrust / 20)
 
-	visual_thrust = target_thrust
-
-	// Update appearance for glow overlay
-	update_appearance()
-
-	// Apply damage to anything in the thrust direction
-	if(visual_thrust > 0)
 		apply_thrust_damage()
+	else
+		remove_emitter("thruster")
+		if(soundloop.loop_started)
+			soundloop.stop()
+
+	update_appearance()
 
 /obj/machinery/orbital_thruster_nozzle/update_overlays()
 	. = ..()
-	if(visual_thrust > 0)
-		var/mutable_appearance/glow = mutable_appearance('icons/obj/orbital_thrust_effect.dmi', "glow")
-		// Calculate alpha based on thrust level (0-40 range from subsystem)
-		// Scale from 0 to 255 alpha
-		glow.alpha = clamp((visual_thrust / 40) * 255, 0, 255)
-		glow.pixel_x = -32
-		glow.pixel_y = -8
-		glow.layer = ABOVE_OBJ_LAYER
-		. += glow
-
-/obj/machinery/orbital_thruster_nozzle/proc/update_thruster_effect(thrust)
-	// Add or update the thruster effect
-	if(!master_holder || !master_holder.emitters["thruster"])
-		add_emitter(/obj/emitter/thruster_jet, "thruster")
-
-	// Update particle intensity based on thrust level (0-40 range from subsystem)
-	if(master_holder && master_holder.emitters["thruster"])
-		var/obj/emitter/thruster_jet/emitter = master_holder.emitters["thruster"]
-		if(emitter && emitter.particles)
-			// Scale count from 0 to 1000 based on thrust (0-40)
-			emitter.particles.count = clamp(thrust * 25, 0, 1000)
-			// Scale spawning from 1 to 10 based on thrust
-			emitter.particles.spawning = clamp(thrust * 0.25, 1, 10)
-
-/obj/machinery/orbital_thruster_nozzle/proc/stop_thruster_effect()
-	remove_emitter("thruster")
+	if(thrust <= 0)
+		return
+	var/mutable_appearance/glow = mutable_appearance('icons/obj/orbital_thrust_effect.dmi', "glow")
+	glow.alpha = round(255 * thrust / 20)
+	glow.pixel_x = -32
+	glow.pixel_y = -8
+	glow.layer = ABOVE_OBJ_LAYER
+	. += glow
 
 /obj/machinery/orbital_thruster_nozzle/proc/apply_thrust_damage()
-	// Cast a ray 5 tiles in the direction of the thruster
+	if(!linked_thruster)
+		return
+
 	var/turf/current_turf = get_turf(src)
 	if(!current_turf)
 		return
 
-	// Calculate base damage based on thrust level
-	var/base_damage = abs(SSorbital_altitude.thrust * 2)
+	// Damage scales with this nozzle's own thruster
+	var/base_damage = abs(linked_thruster.thrust_level) * thrust_damage_scale
+	if(base_damage <= 0)
+		return
 
-	// Cast ray for 5 tiles
-	for(var/distance = 1 to 5)
+	for(var/distance = 1 to thrust_damage_range)
 		current_turf = get_step(current_turf, dir)
 		if(!current_turf)
 			break
 
-		// Get the current turf and its adjacent turfs
-		var/list/affected_turfs = list(current_turf)
-		affected_turfs += get_adjacent_open_turfs(current_turf)
-
-		// Calculate damage falloff based on distance (100% at tile 1, 20% at tile 5)
-		var/distance_multiplier = 1 - ((distance - 1) * 0.2)
+		// Damage falls off linearly: 100% at tile 1 down to 20% at tile 5.
+		var/distance_multiplier = 1 - ((distance - 1) / thrust_damage_range)
 		var/damage = base_damage * distance_multiplier
 
-		// Track if we played sound this tick for this turf to avoid spam
+		var/list/affected_turfs = list(current_turf) + get_adjacent_open_turfs(current_turf)
+
+		// Play the sizzle sound at most once per ring, not per turf or per victim.
 		var/played_sound = FALSE
-
-		// Apply damage to all affected turfs
 		for(var/turf/affected_turf in affected_turfs)
-			// Damage turfs themselves
-			affected_turf.take_damage(damage)
+			// Don't damage space tiles
+			if(!isspaceturf(affected_turf))
+				affected_turf.take_damage(damage)
 
-			// Apply damage to all mobs in the turf
 			for(var/mob/living/living_mob in affected_turf)
 				living_mob.adjustFireLoss(damage)
 				if(!played_sound)
 					playsound(affected_turf, 'sound/effects/wounds/sizzle1.ogg', 50, vary = TRUE)
 					played_sound = TRUE
 
-			// Also damage objects
 			for(var/obj/damaged_obj in affected_turf)
 				if(damaged_obj.resistance_flags & INDESTRUCTIBLE)
 					continue
 				damaged_obj.take_damage(damage)
-
 				if(!played_sound)
 					playsound(affected_turf, 'sound/effects/wounds/sizzle1.ogg', 50, vary = TRUE)
 					played_sound = TRUE
 
+/// Walk `backend_tile_offset` tiles north of the nozzle and return the first
+/// thruster body found there. Always NORTH because the template is built that way.
 /obj/machinery/orbital_thruster_nozzle/proc/find_backend()
-	// Step 6 tiles north to find the backend piece
 	var/turf/target_turf = get_turf(src)
 	if(!target_turf)
 		return null
 
-	// Step 4 times in the NORTH direction
-	for(var/step_count = 1 to 4)
+	for(var/i in 1 to backend_tile_offset)
 		target_turf = get_step(target_turf, NORTH)
 		if(!target_turf)
 			return null
 
-	// Find the backend piece in the target turf
-	for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/thruster in target_turf)
-		return thruster
-
-	return null
+	return locate(/obj/machinery/atmospherics/components/unary/orbital_thruster) in target_turf
 
 // Dummy Pieces that do nothing but look pretty. Iterate icon_states to get different parts.
 /obj/structure/orbital_thruster_dummy
