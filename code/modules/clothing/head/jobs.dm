@@ -517,11 +517,11 @@
 
 /obj/item/clothing/head/beret/medical/cmo
 	name = "chief medical officer beret"
-	desc = "A baby blue beret with the insignia of Medistan. It smells very sterile."
+	desc = "A beret in a distinct surgical turquoise!"
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
-	greyscale_colors = "#73B1D7#FFFFFF"
+	greyscale_colors = "#5EB8B8#FFFFFF"
 	armor_type = /datum/armor/beret_cmo
 
 /datum/armor/beret_cmo
