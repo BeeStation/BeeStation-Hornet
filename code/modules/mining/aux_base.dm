@@ -6,13 +6,13 @@
 #define BAD_COORDS	3
 #define BAD_TURF	4
 
-/area/shuttle/auxillary_base
-	name = "Auxillary Base"
+/area/shuttle/auxiliary_base
+	name = "auxiliary Base"
 	luminosity = 0 //Lighting gets lost when it lands anyway
 
 
-/obj/machinery/computer/auxillary_base
-	name = "auxillary base management console"
+/obj/machinery/computer/auxiliary_base
+	name = "auxiliary base management console"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "dorm_available"
 	base_icon_state = null
@@ -28,13 +28,13 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	req_one_access = list(ACCESS_AUX_BASE, ACCESS_HEADS)
 	var/possible_destinations
 	clockwork = TRUE
-	circuit = /obj/item/circuitboard/computer/auxillary_base
+	circuit = /obj/item/circuitboard/computer/auxiliary_base
 
-/obj/machinery/computer/auxillary_base/Initialize(mapload)
+/obj/machinery/computer/auxiliary_base/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/gps, "NT_AUX")
 
-/obj/machinery/computer/auxillary_base/ui_interact(mob/user)
+/obj/machinery/computer/auxiliary_base/ui_interact(mob/user)
 	. = ..()
 	var/list/options = params2list(possible_destinations)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
@@ -76,7 +76,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	popup.open()
 
 
-/obj/machinery/computer/auxillary_base/Topic(href, href_list)
+/obj/machinery/computer/auxiliary_base/Topic(href, href_list)
 	if(..())
 		return
 	usr.set_machine(src)
@@ -130,16 +130,16 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 
 	updateUsrDialog()
 
-/obj/machinery/computer/auxillary_base/proc/set_mining_mode()
+/obj/machinery/computer/auxiliary_base/proc/set_mining_mode()
 	if(is_mining_level(z)) //The console switches to controlling the mining shuttle once landed.
 		req_one_access = list()
 		shuttleId = "mining" //The base can only be dropped once, so this gives the console a new purpose.
 		possible_destinations = "mining_home;mining_away;landing_zone_dock;mining_public"
 
-/obj/machinery/computer/auxillary_base/proc/set_landing_zone(turf/T, mob/user, no_restrictions)
-	var/obj/docking_port/mobile/auxillary_base/base_dock = locate(/obj/docking_port/mobile/auxillary_base) in SSshuttle.mobile
+/obj/machinery/computer/auxiliary_base/proc/set_landing_zone(turf/T, mob/user, no_restrictions)
+	var/obj/docking_port/mobile/auxiliary_base/base_dock = locate(/obj/docking_port/mobile/auxiliary_base) in SSshuttle.mobile
 	if(!base_dock) //Not all maps have an Aux base. This object is useless in that case.
-		to_chat(user, span_warning("This station is not equipped with an auxillary base. Please contact your Nanotrasen contractor."))
+		to_chat(user, span_warning("This station is not equipped with an auxiliary base. Please contact your Nanotrasen contractor."))
 		return
 	if(!no_restrictions)
 		var/static/list/disallowed_turf_types = zebra_typecacheof(list(
@@ -190,7 +190,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	desc = "Deploy to designate the landing zone of the auxillary base."
+	desc = "Deploy to designate the landing zone of the auxiliary base."
 	w_class = WEIGHT_CLASS_SMALL
 	shuttle_id = "colony_drop"
 	var/setting = FALSE
@@ -208,14 +208,14 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	setting = FALSE
 
 	var/turf/T = get_turf(user)
-	var/obj/machinery/computer/auxillary_base/AB
+	var/obj/machinery/computer/auxiliary_base/AB
 
-	for (var/obj/machinery/computer/auxillary_base/A in GLOB.machines)
+	for (var/obj/machinery/computer/auxiliary_base/A in GLOB.machines)
 		if(is_station_level(A.z))
 			AB = A
 			break
 	if(!AB)
-		to_chat(user, span_warning("No auxillary base console detected."))
+		to_chat(user, span_warning("No auxiliary base console detected."))
 		return
 
 	switch(AB.set_landing_zone(T, user, no_restrictions))
@@ -236,8 +236,8 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	no_restrictions = TRUE
 
 
-/obj/docking_port/mobile/auxillary_base
-	name = "auxillary base"
+/obj/docking_port/mobile/auxiliary_base
+	name = "auxiliary base"
 	id = "colony_drop"
 	//Reminder to map-makers to set these values equal to the size of your base.
 	dheight = 4
@@ -245,13 +245,13 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	width = 9
 	height = 9
 
-/obj/docking_port/mobile/auxillary_base/Initialize(mapload)
+/obj/docking_port/mobile/auxiliary_base/Initialize(mapload)
 	. = ..()
 	for(var/area/A in shuttle_areas)
 		for(var/turf/T in A.contents)
 			underlying_turf_area[T] = GLOB.areas_by_type[/area/station/construction/mining/aux_base]
 
-/obj/docking_port/mobile/auxillary_base/takeoff(list/old_turfs, list/new_turfs, list/moved_atoms, rotation, movement_direction, old_dock, area/underlying_old_area)
+/obj/docking_port/mobile/auxiliary_base/takeoff(list/old_turfs, list/new_turfs, list/moved_atoms, rotation, movement_direction, old_dock, area/underlying_old_area)
 	for(var/i in new_turfs)
 		var/turf/place = i
 		if(istype(place, /turf/closed/mineral))
@@ -268,7 +268,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 
 /obj/structure/mining_shuttle_beacon
 	name = "mining shuttle beacon"
-	desc = "A bluespace beacon calibrated to mark a landing spot for the mining shuttle when deployed near the auxillary mining base."
+	desc = "A bluespace beacon calibrated to mark a landing spot for the mining shuttle when deployed near the auxiliary mining base."
 	anchored = FALSE
 	density = FALSE
 	var/shuttle_ID = "landing_zone_dock"
@@ -299,13 +299,13 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	if(!is_mining_level(landing_spot.z))
 		to_chat(user, span_warning("This device is only to be used in a mining zone."))
 		return
-	var/obj/machinery/computer/auxillary_base/aux_base_console
-	for(var/obj/machinery/computer/auxillary_base/ABC in GLOB.machines)
+	var/obj/machinery/computer/auxiliary_base/aux_base_console
+	for(var/obj/machinery/computer/auxiliary_base/ABC in GLOB.machines)
 		if(get_dist(landing_spot, ABC) <= console_range)
 			aux_base_console = ABC
 			break
 	if(!aux_base_console) //Needs to be near the base to serve as its dock and configure it to control the mining shuttle.
-		to_chat(user, span_warning("The auxillary base's console must be within [console_range] meters in order to interface."))
+		to_chat(user, span_warning("The auxiliary base's console must be within [console_range] meters in order to interface."))
 		return
 
 //Mining shuttles may not be created equal, so we find the map's shuttle dock and size accordingly.
@@ -315,7 +315,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 
 			Mport = new(landing_spot)
 			Mport.id = "landing_zone_dock"
-			Mport.name = "auxillary base landing site"
+			Mport.name = "auxiliary base landing site"
 			Mport.dwidth = SM.dwidth
 			Mport.dheight = SM.dheight
 			Mport.width = SM.width
@@ -350,7 +350,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 			SSshuttle.stationary.Remove(Mport)
 			qdel(Mport)
 			return
-		if(istype(get_area(L), /area/shuttle/auxillary_base))
+		if(istype(get_area(L), /area/shuttle/auxiliary_base))
 			to_chat(user, span_warning("The mining shuttle must not land within the mining base itself."))
 			SSshuttle.stationary.Remove(Mport)
 			qdel(Mport)

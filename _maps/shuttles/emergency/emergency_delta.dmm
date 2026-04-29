@@ -1602,10 +1602,7 @@
 	},
 /area/shuttle/escape)
 "MY" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
