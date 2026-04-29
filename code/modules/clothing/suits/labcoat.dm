@@ -135,11 +135,6 @@
 	armor_type = /datum/armor/jacket_research_director
 	body_parts_covered = CHEST|GROIN|ARMS
 
-/datum/armor/jacket_research_director
-	bio = 75
-	fire = 75
-	acid = 75
-
 /obj/item/clothing/suit/toggle/labcoat/research_director/Initialize(mapload)
 	. = ..()
 	allowed += list(

@@ -46,6 +46,25 @@
 	icon_state = "scrubscmo"
 	inhand_icon_state = "w_suit"
 
+/obj/item/clothing/under/rank/medical/chief_medical_officer/turtleneck
+	name = "chief medical officer's turtleneck"
+	desc = "A light blue turtleneck and tan khakis, for a chief medical officer with a superior sense of style."
+	icon_state = "cmoturtle"
+	inhand_icon_state = "b_suit"
+	can_adjust = TRUE
+	alt_covers_chest = TRUE
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
+
+/obj/item/clothing/under/rank/medical/chief_medical_officer/turtleneck/skirt
+	name = "chief medical officer's turtleneck skirt"
+	desc = "A light blue turtleneck and tan khaki skirt, for a chief medical officer with a superior sense of style."
+	icon_state = "cmoturtle_skirt"
+	inhand_icon_state = "b_suit"
+	body_parts_covered = CHEST|GROIN|ARMS
+	dying_key = DYE_REGISTRY_JUMPSKIRT
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+
 /obj/item/clothing/under/rank/medical/geneticist
 	desc = "It's made of a special fiber that gives special protection against biohazards. It has a genetics rank stripe on it."
 	name = "geneticist's jumpsuit"
