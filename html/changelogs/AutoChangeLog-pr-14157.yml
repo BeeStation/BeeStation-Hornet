@@ -1,0 +1,11 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: refactored 'reset_perspective()' and eye system. 'reset_perspective()'
+      is no longer is used. you must use 'set_mob_eye_to(the_target_atom_thing)'.
+      Do not touch client eye thing.
+  - code_imp: fixed some bad codes in camera advanced, and ghost observing.
+  - rscadd: ghosts who were automatically observing camera eye will go back to its
+      original mob who started camera observing.
+  - bugfix: camera chunks (camera noises) will be visible to co-observers who's watching
+      for a someone's camera.
