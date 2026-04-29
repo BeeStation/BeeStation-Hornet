@@ -530,4 +530,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///Mobs with these trait do not get italicized/quiet speech when speaking in low pressure
 #define TRAIT_SPEECH_BOOSTER "speech_booster"
 
+/// Applied to mobs whose quirks restrict them to spawning as the overflow role
+#define TRAIT_STOWAWAY "quirk_overflow_only"
+
 // END TRAIT DEFINES

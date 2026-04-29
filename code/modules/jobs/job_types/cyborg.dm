@@ -33,5 +33,5 @@
 	R.updatename(M.client)
 	R.gender = NEUTER
 
-/datum/job/cyborg/radio_help_message(mob/M)
-	to_chat(M, "<b>Prefix your message with :b to speak with other cyborgs and AI.</b>")
+/datum/job/cyborg/get_radio_information()
+	return "<b>Prefix your message with :b to speak with other cyborgs and AI.</b>"

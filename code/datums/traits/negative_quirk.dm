@@ -720,6 +720,7 @@
 	desc = "You snuck onto the station, hiding in a crate during arrival. You have no access to the station's resources, and you need to find a way to survive on your own."
 	icon = "box"
 	quirk_value = -1
+	mob_trait = TRAIT_STOWAWAY
 	gain_text = span_danger("You've awoken to find yourself inside the station without identification! Better find a way to survive on your own!")
 	lose_text = span_notice("You feel like you have access to the station's resources now.")
 	medical_record_text = "Patient is a stowaway and is prone to disregarding customs and regulations."

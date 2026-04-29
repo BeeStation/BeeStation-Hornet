@@ -386,6 +386,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character_preview_view.unregister_from_client(user.client)
 	save_locked = FALSE
 
+/// Stupid getter proc to check the client for a quirk
+/datum/preferences/proc/has_quirk_trait(trait)
+	var/list/quirk_registry = SSquirks.get_quirks()
+	for(var/quirk_name in all_quirks)
+		var/datum/quirk/quirk_type = quirk_registry[quirk_name]
+		if(initial(quirk_type.mob_trait) == trait)
+			return TRUE
+	return FALSE
+
 /datum/preferences/proc/compile_character_preferences(mob/user)
 	var/list/preferences = list()
 
