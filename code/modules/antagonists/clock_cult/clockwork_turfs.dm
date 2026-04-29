@@ -47,7 +47,7 @@
 	max_integrity = 1000
 	damage_deflection = 0
 	var/d_state = INTACT
-	flags_1 = NOJAUNT_1
+	turf_flags = NOJAUNT
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"
@@ -145,8 +145,13 @@
 		return 1
 	return
 
-/turf/closed/wall/clockwork/mech_melee_attack(obj/vehicle/sealed/mecha/M)
-	return
+/turf/closed/wall/clockwork/mech_melee_attack(obj/vehicle/sealed/mecha/mecha_attacker, mob/living/user)
+	SHOULD_CALL_PARENT(FALSE) //Me when I cant call grandparent so I shit out snowflake code hmmnngmg
+	. = 0 // immune
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_MECH, mecha_attacker)
+	mecha_attacker.do_attack_animation(src)
+	playsound(src, 'sound/weapons/tap.ogg', 50, TRUE)
+	mecha_attacker.visible_message(span_warning("[mecha_attacker] bounces off [src]!"), span_warning("You bounce off [src]!"), null, COMBAT_MESSAGE_RANGE)
 
 /turf/closed/wall/clockwork/update_icon()
 	. = ..()
@@ -249,7 +254,7 @@
 /turf/open/floor/clockwork/reebe/Entered(atom/movable/A)
 	. = ..()
 	var/mob/living/M = A
-	if(istype(M) && is_servant_of_ratvar(M))
+	if(istype(M) && IS_SERVANT_OF_RATVAR(M))
 		if(!LAZYLEN(heal_people))
 			START_PROCESSING(SSprocessing, src)
 		LAZYADD(heal_people, M)
@@ -279,7 +284,7 @@
 /obj/structure/lattice/clockwork/Initialize(mapload)
 	. = ..()
 	ratvar_act()
-	if(is_reebe(z))
+	if(is_on_reebe(src))
 		resistance_flags |= INDESTRUCTIBLE
 
 /obj/structure/lattice/clockwork/ratvar_act()
@@ -312,7 +317,7 @@
 	if(!mapload)
 		new /obj/effect/temp_visual/ratvar/floor/catwalk(loc)
 		new /obj/effect/temp_visual/ratvar/beam/catwalk(loc)
-	if(is_reebe(z))
+	if(is_on_reebe(src))
 		resistance_flags |= INDESTRUCTIBLE
 
 /obj/structure/lattice/catwalk/clockwork/ratvar_act()
@@ -385,7 +390,7 @@
 		return ..()
 
 /obj/machinery/door/airlock/clockwork/allowed(mob/M)
-	if(is_servant_of_ratvar(M))
+	if(IS_SERVANT_OF_RATVAR(M))
 		return TRUE
 	return FALSE
 
@@ -461,10 +466,10 @@
 /obj/effect/clockwork/servant_blocker/CanPass(atom/movable/mover, turf/target)
 	if(ismob(mover))
 		var/mob/M = mover
-		if(is_servant_of_ratvar(M))
+		if(IS_SERVANT_OF_RATVAR(M))
 			return FALSE
 	for(var/mob/M in mover.contents)
-		if(is_servant_of_ratvar(M))
+		if(IS_SERVANT_OF_RATVAR(M))
 			return FALSE
 	return ..()
 
@@ -560,9 +565,15 @@
 	bullet = -20
 	bomb = 25
 	bio = 100
-	rad = 100
 	fire = 80
 	acid = 100
+
+/obj/structure/window/reinforced/clockwork/corner
+	icon_state = "clockwork_window_single_corner"
+	density = FALSE
+
+/obj/structure/window/reinforced/clockwork/corner/unanchored
+	anchored = FALSE
 
 /obj/structure/window/reinforced/clockwork/spawnDebris(location)
 	. = list()

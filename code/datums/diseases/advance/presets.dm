@@ -89,7 +89,7 @@
 	name = "Minor Experimental Disease"
 	max_symptoms_override = 4
 
-/datum/disease/advance/random/New(max_symptoms, max_level = 9, min_level = 1, list/guaranteed_symptoms = setsymptom, var/atom/infected, mute = TRUE, special = FALSE)
+/datum/disease/advance/random/New(max_symptoms, max_level = 9, min_level = 1, list/guaranteed_symptoms = setsymptom, atom/infected, mute = TRUE, special = FALSE)
 	if(!max_symptoms)
 		max_symptoms = (2 + rand(1, (VIRUS_SYMPTOM_LIMIT - 2)))
 	if(max_symptoms_override)
@@ -130,12 +130,6 @@
 	name = "Unknown Disease"
 	setsymptom = /datum/symptom/macrophage
 
-
-/datum/disease/advance/random/necropolis
-	name = "Necropolis Seed"
-	setsymptom = /datum/symptom/necroseed
-	randomname = FALSE
-
 /datum/disease/advance/random/blob // had to do it this way due to an odd glitch
 	name = "Blob Spores"
 	setsymptom = /datum/symptom/blobspores
@@ -146,16 +140,16 @@
 	var/sickrisk = 1
 	if(islizard(src) || iscatperson(src))
 		sickrisk += 0.5 //these races like eating diseased mice, ew
-	if(MOB_INORGANIC in mob_biotypes)
+	if(mob_biotypes & MOB_INORGANIC)
 		sickrisk -= 0.5
 		guaranteed_symptoms |= /datum/symptom/inorganic_adaptation
-	else if(MOB_ROBOTIC in mob_biotypes)
+	else if(mob_biotypes & MOB_ROBOTIC)
 		sickrisk -= 0.75
 		guaranteed_symptoms |= /datum/symptom/robotic_adaptation
-	else if(MOB_UNDEAD in mob_biotypes)//this doesnt matter if it's not halloween, but...
+	else if(mob_biotypes & MOB_UNDEAD)//this doesnt matter if it's not halloween, but...
 		sickrisk -= 0.25
 		guaranteed_symptoms |= /datum/symptom/undead_adaptation
-	else if(!(MOB_ORGANIC in mob_biotypes))
+	else if(!(mob_biotypes & MOB_ORGANIC))
 		return //this mob cant be given a disease
 	if(prob(min(100, (biohazard * sickrisk))))
 		var/symptom_amt = rand(min_symptoms, max_symptoms)

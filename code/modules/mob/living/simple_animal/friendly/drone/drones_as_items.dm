@@ -43,7 +43,7 @@
 /obj/effect/mob_spawn/drone/attack_ghost(mob/user)
 	if(is_banned_from(user.ckey, ROLE_DRONE) || QDELETED(src) || QDELETED(user))
 		return
-	if(!SSticker.mode)
+	if(!SSticker.HasRoundStarted())
 		to_chat(user, "Can't become a drone before the game has started.")
 		return
 	var/be_drone = alert("Become a drone? (Warning, You can no longer be cloned!)",,"Yes","No")

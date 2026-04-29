@@ -1,6 +1,6 @@
 /datum/component/enchantment/electricution
 	max_level = 3
-	var/tesla_flags = TESLA_OBJ_DAMAGE
+	var/tesla_flags = ZAP_OBJ_DAMAGE
 	var/zap_range = 1
 	var/power = 10000
 

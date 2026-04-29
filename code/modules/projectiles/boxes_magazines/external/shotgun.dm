@@ -4,7 +4,7 @@
 	icon_state = "m12gb"
 	multiple_sprites = 2
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
-	caliber = "shotgun"
+	caliber = list("shotgun")
 	max_ammo = 8
 
 /obj/item/ammo_box/magazine/m12g/stun
@@ -26,11 +26,6 @@
 	name = "shotgun magazine (12g bioterror)"
 	icon_state = "m12gt"
 	ammo_type = /obj/item/ammo_casing/shotgun/dart/bioterror
-
-/obj/item/ammo_box/magazine/m12g/meteor
-	name = "shotgun magazine (12g meteor slugs)"
-	icon_state = "m12gbc"
-	ammo_type = /obj/item/ammo_casing/shotgun/meteorslug
 
 /obj/item/ammo_box/magazine/m12g/breacher
 	name = "shotgun magazine (12g breaching slugs)"

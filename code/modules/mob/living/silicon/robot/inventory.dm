@@ -37,7 +37,7 @@
 	if(O.item_flags & DROPDEL)
 		O.item_flags &= ~DROPDEL //we shouldn't HAVE things with DROPDEL_1 in our modules, but better safe than runtiming horribly
 
-	O.forceMove(module) //Return item to module so it appears in its contents, so it can be taken out again.
+	O.forceMove(model) //Return item to module so it appears in its contents, so it can be taken out again.
 	O.cyborg_unequip(src)
 
 	hud_used.update_robot_modules_display()
@@ -45,7 +45,7 @@
 
 /mob/living/silicon/robot/proc/activate_module(obj/item/O)
 	. = FALSE
-	if(!(O in module.modules))
+	if(!(O in model.modules))
 		return
 	if(activated(O))
 		to_chat(src, span_warning("That module is already activated."))
@@ -121,7 +121,7 @@
 			return TRUE
 	return FALSE
 
-//get_selected_module() - Returns the slot number of the currently selected module.  Returns 0 if no modules are selected.
+//get_selected_module() - Returns the slot number of the currently selected module. Returns 0 if no modules are selected.
 /mob/living/silicon/robot/proc/get_selected_module()
 	if(module_active)
 		return held_items.Find(module_active)
@@ -216,4 +216,4 @@
 	refresh_self_screentips()
 
 /mob/living/silicon/robot/can_hold_items(obj/item/I)
-	return (I && (I in module.modules)) //Only if it's part of our module.
+	return (I && (I in model.modules)) //Only if it's part of our module.

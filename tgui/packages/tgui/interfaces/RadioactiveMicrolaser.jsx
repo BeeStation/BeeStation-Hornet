@@ -1,17 +1,27 @@
 import { useBackend } from '../backend';
-import { Button, Box, NumberInput, Section, LabeledList } from '../components';
+import { Box, Button, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
 export const RadioactiveMicrolaser = (props) => {
   const { act, data } = useBackend();
-  const { irradiate, stealth, scanmode, intensity, wavelength, on_cooldown, cooldown } = data;
+  const {
+    irradiate,
+    stealth,
+    scanmode,
+    intensity,
+    wavelength,
+    on_cooldown,
+    cooldown,
+  } = data;
   return (
     <Window theme="syndicate" width={320} height={335}>
       <Window.Content>
         <Section>
           <LabeledList>
             <LabeledList.Item label="Laser Status">
-              <Box color={on_cooldown ? 'average' : 'good'}>{on_cooldown ? 'Recharging' : 'Ready'}</Box>
+              <Box color={on_cooldown ? 'average' : 'good'}>
+                {on_cooldown ? 'Recharging' : 'Ready'}
+              </Box>
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -47,8 +57,14 @@ export const RadioactiveMicrolaser = (props) => {
         <Section title="Laser Settings">
           <LabeledList>
             <LabeledList.Item label="Radiation Intensity">
-              <Button icon="fast-backward" onClick={() => act('radintensity', { adjust: -5 })} />
-              <Button icon="backward" onClick={() => act('radintensity', { adjust: -1 })} />{' '}
+              <Button
+                icon="fast-backward"
+                onClick={() => act('radintensity', { adjust: -5 })}
+              />
+              <Button
+                icon="backward"
+                onClick={() => act('radintensity', { adjust: -1 })}
+              />{' '}
               <NumberInput
                 value={Math.round(intensity)}
                 width="40px"
@@ -61,12 +77,24 @@ export const RadioactiveMicrolaser = (props) => {
                   });
                 }}
               />{' '}
-              <Button icon="forward" onClick={() => act('radintensity', { adjust: 1 })} />
-              <Button icon="fast-forward" onClick={() => act('radintensity', { adjust: 5 })} />
+              <Button
+                icon="forward"
+                onClick={() => act('radintensity', { adjust: 1 })}
+              />
+              <Button
+                icon="fast-forward"
+                onClick={() => act('radintensity', { adjust: 5 })}
+              />
             </LabeledList.Item>
             <LabeledList.Item label="Radiation Wavelength">
-              <Button icon="fast-backward" onClick={() => act('radwavelength', { adjust: -5 })} />
-              <Button icon="backward" onClick={() => act('radwavelength', { adjust: -1 })} />{' '}
+              <Button
+                icon="fast-backward"
+                onClick={() => act('radwavelength', { adjust: -5 })}
+              />
+              <Button
+                icon="backward"
+                onClick={() => act('radwavelength', { adjust: -1 })}
+              />{' '}
               <NumberInput
                 value={Math.round(wavelength)}
                 width="40px"
@@ -79,8 +107,14 @@ export const RadioactiveMicrolaser = (props) => {
                   });
                 }}
               />{' '}
-              <Button icon="forward" onClick={() => act('radwavelength', { adjust: 1 })} />
-              <Button icon="fast-forward" onClick={() => act('radwavelength', { adjust: 5 })} />
+              <Button
+                icon="forward"
+                onClick={() => act('radwavelength', { adjust: 1 })}
+              />
+              <Button
+                icon="fast-forward"
+                onClick={() => act('radwavelength', { adjust: 5 })}
+              />
             </LabeledList.Item>
             <LabeledList.Item label="Laser Cooldown">
               <Box inline bold>

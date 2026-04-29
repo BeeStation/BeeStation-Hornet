@@ -41,12 +41,12 @@
 	SIGNAL_HANDLER
 
 	if(slot == ITEM_SLOT_GLOVES)
-		RegisterSignal(equipper, COMSIG_PARENT_ATTACKBY, PROC_REF(catch_attack))
+		RegisterSignal(equipper, COMSIG_ATOM_ATTACKBY, PROC_REF(catch_attack))
 
 /datum/xenoartifact_trait/minor/ringed/proc/drop_action(datum/source, mob/user)
 	SIGNAL_HANDLER
 
-	UnregisterSignal(user, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(user, COMSIG_ATOM_ATTACKBY)
 
 //Foward the attack to our artifact
 /datum/xenoartifact_trait/minor/ringed/proc/catch_attack(datum/source, obj/item, mob/living, params)

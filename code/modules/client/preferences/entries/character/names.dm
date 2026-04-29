@@ -47,12 +47,11 @@
 	target.name = value
 
 /datum/preference/name/real_name/create_informed_default_value(datum/preferences/preferences)
-	var/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
-	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
-
-	var/datum/species/species = new species_type
-
-	return species.random_name(gender, unique = TRUE)
+	return generate_random_name_species_based(
+		preferences.read_character_preference(/datum/preference/choiced/gender),
+		TRUE,
+		preferences.read_character_preference(/datum/preference/choiced/species),
+	)
 
 /datum/preference/name/real_name/deserialize(input, datum/preferences/preferences)
 	var/datum/species/selected_species = preferences.read_character_preference(/datum/preference/choiced/species)
@@ -76,9 +75,7 @@
 	informed = TRUE
 
 /datum/preference/name/backup_human/create_informed_default_value(datum/preferences/preferences)
-	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
-
-	return random_unique_name(gender)
+	return generate_random_name(preferences.read_character_preference(/datum/preference/choiced/gender))
 
 /datum/preference/name/clown
 	db_key = "clown_name"
@@ -122,7 +119,7 @@
 	relevant_job = /datum/job/ai
 
 /datum/preference/name/ai/create_default_value()
-	return pick(GLOB.ai_names)
+	return random_ai_name()
 
 /datum/preference/name/religion
 	db_key = "religion_name"

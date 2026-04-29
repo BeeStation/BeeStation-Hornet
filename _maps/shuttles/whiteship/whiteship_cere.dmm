@@ -61,7 +61,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating/airless,
 /area/shuttle/abandoned)
 "ak" = (
@@ -92,9 +92,7 @@
 /area/shuttle/abandoned)
 "ao" = (
 /obj/machinery/power/terminal,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/open/floor/catwalk_floor,
 /area/shuttle/abandoned)
 "ap" = (
@@ -161,11 +159,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/shuttle/abandoned)
-"av" = (
-/obj/structure/window/plastitanium,
-/obj/structure/grille,
-/turf/open/floor/plating,
 /area/shuttle/abandoned)
 "aw" = (
 /obj/effect/turf_decal/edges/techfloor{
@@ -301,15 +294,11 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned)
 "aI" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "aJ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/computer/monitor/secret{
 	dir = 8
 	},
@@ -331,9 +320,7 @@
 /obj/effect/turf_decal/trimline/dark_red/line{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
 	dir = 1
 	},
@@ -463,9 +450,7 @@
 	},
 /area/shuttle/abandoned)
 "aZ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 5
 	},
@@ -532,9 +517,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "fP" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
 	dir = 8
 	},
@@ -546,9 +529,7 @@
 /turf/open/floor/catwalk_floor,
 /area/shuttle/abandoned)
 "hb" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
 	dir = 4
 	},
@@ -634,9 +615,7 @@
 /obj/machinery/atmospherics/components/tank/air{
 	dir = 1
 	},
-/obj/structure/cable/white{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/pink,
 /obj/machinery/power/apc/syndicate/directional/south,
 /turf/open/floor/iron/ridged/steel{
 	color = "#808080"
@@ -686,7 +665,7 @@
 	pixel_y = 6;
 	default_raw_text = "These screws are so damn locked up that at this rate my plastitanium screwdriver is going to break before I figure out how this vest ticks. Damn you and your cheap rust prone designs Nanotrasen! Fuck!"
 	},
-/obj/item/stack/cable_coil/cut/red{
+/obj/item/stack/cable_coil/cut{
 	pixel_y = 18;
 	pixel_x = -2
 	},
@@ -791,11 +770,13 @@
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/abandoned)
+"KH" = (
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
+/turf/open/floor/plating,
+/area/shuttle/abandoned)
 "Ld" = (
 /obj/effect/turf_decal/stripes/closeup,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
 /obj/machinery/door/airlock/hatch{
 	name = "Probe Access"
@@ -972,7 +953,7 @@ aN
 al
 Nd
 aq
-av
+KH
 aB
 Ao
 aA
@@ -1008,7 +989,7 @@ aN
 zL
 aV
 me
-av
+KH
 au
 aG
 aG
@@ -1018,7 +999,7 @@ aw
 aS
 te
 bb
-av
+KH
 aa
 "}
 (9,1,1) = {"
@@ -1036,7 +1017,7 @@ aT
 aU
 aO
 QF
-av
+KH
 aa
 "}
 (10,1,1) = {"
@@ -1054,7 +1035,7 @@ sb
 DA
 aX
 af
-av
+KH
 aa
 "}
 (11,1,1) = {"
@@ -1071,7 +1052,7 @@ aN
 iQ
 as
 ab
-av
+KH
 aN
 aa
 "}
@@ -1101,8 +1082,8 @@ aa
 ad
 aj
 ab
-av
-av
+KH
+KH
 aN
 aa
 aa

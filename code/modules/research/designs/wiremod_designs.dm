@@ -396,6 +396,13 @@
 	build_path = /obj/item/circuit_component/ntnet_send
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_OUTPUT_COMPONENTS)
 
+/datum/design/component/noop
+	name = "No Operation Component"
+	id = "comp_noop"
+	build_path = /obj/item/circuit_component/noop
+	category = list(WIREMOD_CIRCUITRY)
+
+
 /datum/design/component/list_literal
 	name = "List Literal Component"
 	id = "comp_list_literal"
@@ -408,7 +415,30 @@
 /datum/design/component/bci/bci_action
 	name = "BCI Action Component"
 	id = "comp_bci_action"
-	build_path = /obj/item/circuit_component/bci_action
+	build_path = /obj/item/circuit_component/equipment_action/bci
+
+/datum/design/component/gate/toggle
+	name = "Toggle Gate (T Flip-Flop)"
+	id = "comp_gate_toggle"
+	build_path = /obj/item/circuit_component/gate/toggle
+
+/datum/design/component/gate/toggle
+	name = "Toggle Gate (T Flip-Flop)"
+	id = "comp_gate_toggle"
+	build_path = /obj/item/circuit_component/gate/toggle
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_GATE_COMPONENTS)
+
+/datum/design/component/gate/set_reset
+	name = "Set/Reset Component (RS Latch)"
+	id = "comp_gate_set_reset"
+	build_path = /obj/item/circuit_component/gate/set_reset
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_GATE_COMPONENTS)
+/*
+/datum/design/component/mod_action
+	name = "MOD Action Component"
+	id = "comp_mod_action"
+	build_path = /obj/item/circuit_component/equipment_action/mod
+*/
 
 /datum/design/component/bci/object_overlay
 	name = "Object Overlay Component"
@@ -434,6 +464,16 @@
 	name = "Thought Listener Component"
 	id = "comp_thought_listener"
 	build_path = /obj/item/circuit_component/thought_listener
+
+/datum/design/component/bci/install_detector
+	name = "Install Detector Component"
+	id = "comp_install_detector"
+	build_path = /obj/item/circuit_component/install_detector
+
+/datum/design/component/bci/reagent_injector
+	name = "Reagent Injector Component"
+	id = "comp_reagent_injector"
+	build_path = /obj/item/circuit_component/reagent_injector
 
 /datum/design/compact_remote_shell
 	name = "Compact Remote Shell"
@@ -561,3 +601,12 @@
 	build_path = /obj/item/circuitboard/machine/bci_implanter
 	build_type = IMPRINTER | COMPONENT_PRINTER
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_CORE)
+
+/datum/design/mod_module_shell
+	name = "MOD Module Shell"
+	desc = "A module shell that allows a circuit to be inserted into, and interface with, a MODsuit."
+	id = "module_shell"
+	materials = list(/datum/material/glass = 2000)
+	build_path = /obj/item/mod/module/circuit
+	build_type = MECHFAB | COMPONENT_PRINTER
+	category = list("MOD Modules", WIREMOD_SHELLS)

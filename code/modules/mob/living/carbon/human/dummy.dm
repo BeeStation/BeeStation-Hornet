@@ -1,7 +1,7 @@
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
-	status_flags = GODMODE|CANPUSH
+	status_flags = CANPUSH
 	mouse_drag_pointer = MOUSE_INACTIVE_POINTER
 	visual_only_organs = TRUE
 	var/in_use = FALSE
@@ -11,7 +11,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 /mob/living/carbon/human/dummy/Initialize(mapload)
 	. = ..()
 	remove_from_all_data_huds()
-
+	ADD_TRAIT(src, TRAIT_GODMODE, TRAIT_GENERIC)
 
 // We don't want your dummy floating up and down in the preference menu.
 /mob/living/carbon/human/dummy/mob_negates_gravity()
@@ -35,14 +35,14 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 /mob/living/carbon/human/dummy/proc/harvest_organs()
 	for(var/slot in list(ORGAN_SLOT_BRAIN, ORGAN_SLOT_HEART, ORGAN_SLOT_LUNGS, ORGAN_SLOT_APPENDIX, \
 		ORGAN_SLOT_EYES, ORGAN_SLOT_EARS, ORGAN_SLOT_TONGUE, ORGAN_SLOT_LIVER, ORGAN_SLOT_STOMACH))
-		var/obj/item/organ/current_organ = getorganslot(slot) //Time to cache it lads
+		var/obj/item/organ/current_organ = get_organ_slot(slot) //Time to cache it lads
 		if(current_organ)
 			current_organ.Remove(src, special = TRUE) //Please don't somehow kill our dummy
 			SSwardrobe.stash_object(current_organ)
 
 	var/datum/species/current_species = dna.species
 	for(var/organ_path in current_species.mutant_organs)
-		var/obj/item/organ/current_organ = getorgan(organ_path)
+		var/obj/item/organ/current_organ = get_organ_by_type(organ_path)
 		if(current_organ)
 			current_organ.Remove(src, special = TRUE) //Please don't somehow kill our dummy
 			SSwardrobe.stash_object(current_organ)
@@ -57,7 +57,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 //Instead of just deleting our equipment, we save what we can and reinsert it into SSwardrobe's store
 //Hopefully this makes preference reloading not the worst thing ever
 /mob/living/carbon/human/dummy/delete_equipment()
-	var/list/items_to_check = get_all_slots() + held_items
+	var/list/items_to_check = get_all_worn_items(INCLUDE_HELD)
 	var/list/to_nuke = list() //List of items queued for deletion, can't qdel them before iterating their contents in case they hold something
 	///Travel to the bottom of the contents chain, expanding it out
 	for(var/i = 1; i <= length(items_to_check); i++) //Needs to be a c style loop since it can expand
@@ -172,17 +172,17 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
 	target.create_dna()
-	target.dna.features["body_markings"] = "None"
+	target.dna.features["body_markings"] = SPRITE_ACCESSORY_NONE
 	target.dna.features["ears"] = "Cat"
 	target.dna.features["ethcolor"] = GLOB.color_list_ethereal["Cyan"]
-	target.dna.features["frills"] = "None"
-	target.dna.features["horns"] = "None"
-	target.dna.features["mcolor"] = "4c4"
+	target.dna.features["frills"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["horns"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["mcolor"] = "#44cc44"
 	target.dna.features["moth_antennae"] = "Plain"
-	target.dna.features["moth_markings"] = "None"
+	target.dna.features["moth_markings"] = SPRITE_ACCESSORY_NONE
 	target.dna.features["moth_wings"] = "Plain"
 	target.dna.features["snout"] = "Round"
-	target.dna.features["spines"] = "None"
+	target.dna.features["spines"] = SPRITE_ACCESSORY_NONE
 	target.dna.features["tail_human"] = "Cat"
 	target.dna.features["tail_lizard"] = "Smooth"
 	target.dna.features["apid_stripes"] = "thick"
@@ -190,17 +190,17 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	target.dna.features["apid_antenna"] = "curled"
 	target.dna.features["insect_type"] = "fly"
 	target.dna.features["ipc_screen"] = "BSOD"
-	target.dna.features["ipc_antenna"] = "None"
+	target.dna.features["ipc_antenna"] = SPRITE_ACCESSORY_NONE
 	target.dna.features["ipc_chassis"] = "Morpheus Cyberkinetics (Custom)"
 	target.dna.features["psyphoza_cap"] = "Portobello"
-	target.dna.features["diona_leaves"] = "None"
-	target.dna.features["diona_thorns"] = "None"
-	target.dna.features["diona_flowers"] = "None"
-	target.dna.features["diona_moss"] = "None"
-	target.dna.features["diona_mushroom"] = "None"
-	target.dna.features["diona_antennae"] = "None"
-	target.dna.features["diona_eyes"] = "None"
-	target.dna.features["diona_pbody"] = "None"
+	target.dna.features["diona_leaves"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["diona_thorns"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["diona_flowers"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["diona_moss"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["diona_mushroom"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["diona_antennae"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["diona_eyes"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["diona_pbody"] = SPRITE_ACCESSORY_NONE
 
 /// Provides a dummy that is consistently bald, white, naked, etc.
 /mob/living/carbon/human/dummy/consistent
@@ -216,7 +216,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 
 /mob/living/carbon/human/consistent/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, INSTANT_DO_AFTER, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_INSTANT_DO_AFTER, INNATE_TRAIT)
 
 /mob/living/carbon/human/consistent/setup_human_dna()
 	create_consistent_human_dna(src)

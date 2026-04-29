@@ -39,7 +39,6 @@
 	pixel_z = -8
 	layer = LARGE_MOB_LAYER
 	max_integrity = 600
-	max_hit_damage = 30
 	/// when this gets at this hp, it will run away! oh no!
 	var/next_health_to_teleport
 	var/mob/living/carbon/human/bogdanoff
@@ -177,14 +176,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 	STOP_PROCESSING(SSfastprocess, src)
 	existing_machines--
 	if(!existing_machines)
-		for(var/datum/bank_account/B in SSeconomy.bank_accounts)
+		for(var/datum/bank_account/B in flatten_list(SSeconomy.bank_accounts_by_id))
 			B.withdrawDelay = 0
 	priority_announce("The credit deposit machine at [get_area(src)] has been destroyed. Station funds have stopped draining!", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = "CRAB-17 Protocol", )
 	explosion(src, 0,0,1, flame_range = 2)
 	return ..()
 
 /obj/structure/checkoutmachine/proc/start_dumping()
-	for(var/datum/bank_account/B in SSeconomy.bank_accounts)
+	for(var/datum/bank_account/B in flatten_list(SSeconomy.bank_accounts_by_id))
 		if(protected_accounts["[B.account_id]"])
 			continue
 		B.withdrawDelay = world.time + 4 MINUTES
@@ -197,7 +196,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 	var/datum/bank_account/crab_account = bogdanoff?.get_bank_account()
 	var/total_credits_stolen = 0
 	var/victim_count = 0
-	for(var/datum/bank_account/B in SSeconomy.bank_accounts)
+	for(var/datum/bank_account/B in flatten_list(SSeconomy.bank_accounts_by_id))
 		if(protected_accounts["[B.account_id]"])
 			continue
 		B.withdrawDelay += 30 SECONDS // we apologize for the extended maintenance, but we need to steal your credits
@@ -224,7 +223,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 		crab_account.bank_card_talk("You have stolen [total_credits_stolen] credits, and the machine is located at [get_area(src)].")
 	for(var/M in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(M, src)
-		to_chat(M, span_deadsay("[link] [name] [total_credits_stolen ? "siphons total [total_credits_stolen] credits from [victim_count] bank accounts." : "tried to siphon bank accounts, but there're no victims."] location: [get_area(src)]"))
+		to_chat(M, "[link] [name] [total_credits_stolen ? "siphons total [total_credits_stolen] credits from [victim_count] bank accounts." : "tried to siphon bank accounts, but there're no victims."] location: [get_area(src)]")
 
 	if(atom_integrity>25)
 		next_health_to_teleport -= round(max_integrity/60)
@@ -277,7 +276,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/dumpeetTarget)
 	bogdanoff = user
 	addtimer(CALLBACK(src, PROC_REF(startLaunch)), 100)
 	sound_to_playing_players('sound/items/dump_it.ogg', 20)
-	deadchat_broadcast(span_deadsay("Protocol CRAB-17 has been activated. A space-coin market has been launched at the station!"), turf_target = get_turf(src))
+	deadchat_broadcast("Protocol CRAB-17 has been activated. A space-coin market has been launched at the station!", turf_target = get_turf(src), message_type=DEADCHAT_ANNOUNCEMENT)
 
 /obj/effect/dumpeetTarget/proc/startLaunch()
 	DF = new /obj/effect/dumpeetFall(drop_location())

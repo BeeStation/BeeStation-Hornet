@@ -4,6 +4,7 @@
 // of the trauma.
 
 /datum/brain_trauma
+	abstract_type = /datum/brain_trauma
 	var/name = "Brain Trauma"
 	var/desc = "A trauma caused by brain damage, which causes issues to the patient."
 	var/scan_desc = "generic brain trauma" //description when detected by a health scanner
@@ -18,12 +19,11 @@
 	var/trauma_flags = TRAUMA_DEFAULT_FLAGS
 
 /datum/brain_trauma/Destroy()
-	if(brain?.traumas)
-		brain.traumas -= src
+	// Handles our references with our brain
+	brain?.remove_trauma_from_traumas(src)
 	if(owner)
 		on_lose()
-	brain = null
-	owner = null
+		owner = null
 	return ..()
 
 /datum/brain_trauma/proc/on_clone()
@@ -40,7 +40,8 @@
 
 //Called when given to a mob
 /datum/brain_trauma/proc/on_gain()
-	to_chat(owner, gain_text)
+	if(gain_text)
+		to_chat(owner, gain_text)
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	RegisterSignal(owner, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 

@@ -1,4 +1,5 @@
 /datum/emote/living/carbon
+	abstract_type = /datum/emote/living/carbon
 	mob_type_allowed_typecache = list(/mob/living/carbon)
 
 /datum/emote/living/carbon/airguitar
@@ -23,7 +24,6 @@
 	key = "clap"
 	key_third_person = "claps"
 	message = "claps"
-	muzzle_ignore = TRUE
 	hands_use_check = TRUE
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 	vary = TRUE
@@ -54,7 +54,7 @@
 /datum/emote/living/carbon/eyeroll/can_run_emote(mob/user, status_check = TRUE, intentional)
 	if(!..())
 		return FALSE
-	var/obj/item/organ/eyes/E = user.getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/E = user.get_organ_slot(ORGAN_SLOT_EYES)
 	return istype(E)
 
 /datum/emote/living/carbon/gnarl
@@ -104,7 +104,6 @@
 				'sound/creatures/monkey/monkey_screech_7.ogg')
 
 /datum/emote/living/carbon/snap
-	muzzle_ignore = TRUE
 	hands_use_check = TRUE
 	vary = TRUE
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE

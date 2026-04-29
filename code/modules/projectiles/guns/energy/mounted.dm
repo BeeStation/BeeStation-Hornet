@@ -3,7 +3,7 @@
 	desc = "An arm mounted dual-mode weapon that fires electrodes and disabler shots."
 	icon = 'icons/obj/items_cyborg.dmi'
 	icon_state = "taser"
-	item_state = "armcannonstun4"
+	inhand_icon_state = "armcannonstun4"
 	display_empty = FALSE
 	force = 5
 	selfcharge = 1
@@ -17,7 +17,7 @@
 	desc = "An arm mounted cannon that fires lethal lasers."
 	icon = 'icons/obj/items_cyborg.dmi'
 	icon_state = "laser_cyborg"
-	item_state = "armcannonlase"
+	inhand_icon_state = "armcannonlase"
 	force = 5
 	selfcharge = 1
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL

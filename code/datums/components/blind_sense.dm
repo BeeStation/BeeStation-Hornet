@@ -26,7 +26,7 @@
 	if(iscarbon(parent))
 		var/mob/living/carbon/C = parent
 		ears = locate(/obj/item/organ/ears) in C.internal_organs
-		RegisterSignal(ears, COMSIG_PARENT_QDELETING, PROC_REF(handle_ears))
+		RegisterSignal(ears, COMSIG_QDELETING, PROC_REF(handle_ears))
 
 /datum/component/blind_sense/Destroy(force, silent)
 	owner_client = null
@@ -83,9 +83,8 @@
 	//filter masking
 	if(type == "mob")
 		//Re-use the blind sense location holder for an appearance
-		BS.appearance = target.appearance
-		BS.render_target = "[BS]"
-		BS.color = "#ffffffff" //what the fuck, setting color and plane doesn't work in the actual path definition, fuck off
+		BS.appearance = target.get_blind_appearance()
+		BS.render_target = REF(BS)
 		BS.plane = LOWEST_EVER_PLANE
 		BS.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		M.filters += filter(type = "alpha", render_source = BS.render_target)

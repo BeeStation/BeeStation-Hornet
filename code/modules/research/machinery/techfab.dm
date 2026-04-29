@@ -15,7 +15,6 @@
 								"Weapons",
 								"Ammo",
 								"Firing Pins",
-								"Computer Parts",
 								"AI Modules",
 								"Computer Boards",
 								"Teleportation Machinery",

@@ -1,6 +1,12 @@
-import { NtosWindow } from '../layouts';
 import { useBackend, useLocalState } from '../backend';
-import { Section, BufferedTextArea, Button, Popper, Stack } from '../components';
+import {
+  BufferedTextArea,
+  Button,
+  Popper,
+  Section,
+  Stack,
+} from '../components';
+import { NtosWindow } from '../layouts';
 
 export const NtosNotepad = (props) => {
   const { act, data } = useBackend();
@@ -14,11 +20,10 @@ export const NtosNotepad = (props) => {
           title={'Notes'}
           buttons={
             <Popper
-              options={{
-                placement: 'bottom-start',
-              }}
-              popperContent={
-                (showOptions && (
+              isOpen={showOptions}
+              placement="bottom-start"
+              content={
+                (
                   <div className="options_modal">
                     <Stack vertical>
                       <Button.Input
@@ -52,9 +57,9 @@ export const NtosNotepad = (props) => {
                       )}
                     </Stack>
                   </div>
-                )) ||
-                null
-              }>
+                ) || null
+              }
+            >
               <Button
                 icon="cog"
                 content="File Options"
@@ -66,7 +71,8 @@ export const NtosNotepad = (props) => {
             </Popper>
           }
           fill
-          fitted>
+          fitted
+        >
           <BufferedTextArea
             fluid
             style={{ height: '100%' }}

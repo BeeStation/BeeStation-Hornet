@@ -208,7 +208,7 @@
 			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 			if(I && D.temporarilyRemoveItemFromInventory(I))
 				A.put_in_hands(I)
-			D.Jitter(2)
+			D.set_jitter_if_lower(4 SECONDS)
 			D.apply_damage(5, A.get_attack_type(), blocked = def_check)
 	else
 		D.visible_message("<span class='danger'>[A] fails to disarm [D]!</span>", \
@@ -226,7 +226,8 @@
 ///Subtype of CQC. Only used for the chef.
 /datum/martial_art/cqc/under_siege
 	name = "Close Quarters Cooking"
-	var/list/valid_areas = list(/area/crew_quarters/kitchen)
+	var/list/valid_areas = list(
+/area/station/service/kitchen)
 
 ///Prevents use if the cook is not in the kitchen.
 /datum/martial_art/cqc/under_siege/can_use(mob/living/owner) //this is used to make chef CQC only work in kitchen

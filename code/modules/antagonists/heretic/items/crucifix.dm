@@ -7,14 +7,13 @@
 	worn_icon_state = "cross"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/clothing/neck/crucifix/equipped(mob/living/carbon/human/user, slot)
+/obj/item/clothing/neck/crucifix/Initialize(mapload)
 	. = ..()
-	if(slot == ITEM_SLOT_NECK && istype(user))
-		ADD_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
-
-/obj/item/clothing/neck/crucifix/dropped(mob/user)
-	. = ..()
-	REMOVE_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
+	AddComponent(/datum/component/anti_magic, \
+		_source = src, \
+		inventory_flags = (ITEM_SLOT_HANDS), \
+		antimagic_flags = (MAGIC_RESISTANCE_HOLY) \
+	)
 
 /obj/item/clothing/neck/crucifix/rosary
 	name = "rosary beads"

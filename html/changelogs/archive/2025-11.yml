@@ -1,0 +1,375 @@
+2025-11-01:
+  mrmanlikesbt:
+  - bugfix: Fixed dynamic spawned obsessed
+  - rscdel: Deleted the creep awakening event
+2025-11-02:
+  Varo10, Rukofamicom:
+  - balance: Wizard robes, hardsuit and modsuit can now store ANY item available for
+      purchase from the spellbook in the suit storage slot. Wizard staves have been
+      downgraded from huge to bulky in order to accomodate this change.
+  - balance: Wizard wands now recharge like staves, but take longer per charge and
+      hold less maximum charges.
+  - balance: All wizards and apprentices now start with a wand belt and teleportation
+      spell instead of teleportation scroll. Fully fledged wizards will find their
+      wand belt always contains a healing wand and three random wands.
+  - tweak: While the fully loaded wand belt is no longer available from the spellbook,
+      individual wands may now be acquired for 1 point each.
+  - balance: All wand effects have been reworked except for the teleportation wand.
+      Some of them have entirely new effects, and some of them have weakened versions
+      of their old effects to make up for being pocket sized spell guns that now regenerate.
+      Think of wands as the wizard sidearm to their more powerful spells and staves.
+  - rscadd: Brand new effects have been added to both staves and wands, including
+      a new icy blast that freezes the ground, a life draining effect, the ability
+      to end universal hunger, the ability to mutate your victims, and even one that
+      rips their arms and legs off!
+  - rscdel: Instances where there was both a wand and staff version of a given spell
+      have been eliminated to make room for the new effects mentioned above. No wand
+      or staff effects were actually removed entirely though, just duplicate effects.
+  - rscadd: Adds a new spell, Bolt of Instant Death. The wand of death was turned
+      into a spell with a cooldown instead of being kept in a spammable form now that
+      wands regenerate charges.
+  - rscadd: Adds a new spell, Arcane Prison. This spell acts as a cheaper and shorter
+      lasting version of the spell cast by the locker staff. The prison is also transparent
+      and will cause the victims it releases to be knocked down for a few seconds
+      after bursting.
+  - rscadd: Adds a new spell, Raise Lesser Skeleton. Unlike the necromantic stone
+      this spell does not bind the original soul of its victim to you, instead ripping
+      the skeleton out and offering it to ghosts while leaving the victim otherwise
+      recoverable. Even without available souls this spell will succeed, but will
+      instead create a mindlessly aggressive skeleton ally.
+  - rscadd: Adds the Glasses of Truesight which enable the wearer to see mobs through
+      walls. They do not offer full x-ray vision, only the location of mobs are revealed.
+  - rscadd: Adds the Ring of Translocation, which enables its wearer to swap places
+      with anyone they can see on a short cooldown.
+  - rscadd: Blood Contract has been added to the wizard spellbook as a consumable
+      item.  The Blood Contract can be applied to any target from anywhere, and will
+      drive them to madness - cursed to believe their fellow crew are demons that
+      need to be slaughtered. Crew will be forced to murder anyone under the effect
+      of this contract or else be murdered themselves.
+  - tweak: Warp Whistle is now a small item so you can store it in your pocket. It
+      also now fits in the suit slot for wizard gear as mentioned above.
+  - tweak: Staff of change (and related effects) will now be generally more random
+      in what they select for transformation. 33% chance of a random humanoid species,
+      33% robot, 33% anything else. Xenos, slimes and monkeys are no longer an exceptionally
+      high chance, and syndiborg are no longer on the top of the robot chances.
+  - rscdel: Removes the mutate spell
+  - bugfix: Psyphoza and Lizard exclusive mutations are both actually exclusive to
+      those races now as intended.
+2025-11-03:
+  mrmanlikesbt:
+  - bugfix: Fixed vampire frenzies
+  - bugfix: Fixed half of the kilostation solar panels having their cable node in
+      the wrong direction.
+2025-11-04:
+  PowerfulBacon:
+  - bugfix: Mail can now be delivered to antagonists and dead people, provided they
+      are present on the station's manifest.
+2025-11-05:
+  SunShine214:
+  - rscdel: Removed Air Conditioning mode from Air Alarm TGUI
+  - bugfix: Fixed Air Alarm TGUI
+2025-11-07:
+  Programs-The-Station:
+  - tweak: Removes Slowdown on Platform Stairs
+  mrmanlikesbt:
+  - bugfix: Fixed metabolite reagents runtiming on their final tick
+  - bugfix: Fixed water tanks not bursting into... water when being destroyed
+  - bugfix: Fixed firelocks runtiming when destroyed
+  - bugfix: Fixed the code for the beer nuke not showing up on beer stained notes
+  - bugfix: Fixed the troll paper
+  - bugfix: Fixed water and welding fuel tanks runtiming when examining them
+  - bugfix: Fixed not being able to put chem bags into the chemistry smartfridge
+  - bugfix: Fixed an infrequent runtime when the game loads your screentip preferences
+2025-11-08:
+  mrmanlikesbt, TemporalOrobos:
+  - code_imp: Added zebra typecaches
+  - code_imp: Added better documentation for some list helper procs
+  ? mrmanlikesbt, coiax, Mothblocks, SuperNovaa41, Jacquerel, TimeGreen, Ghommie,
+    tralezab, Krysonism, NamelessFairy, Thunder12345
+  : - rscadd: added Employee Birthday station trait
+    - rscadd: added pinatas, these can be ordered from cargo
+    - refactor: refactored some station trait backend
+    - refactor: station traits are now chosen using a budget system
+    - admin: added a modify station traits verb in the adminbus tab
+    - server: added config values for station trait budgets
+    - code_imp: fixed typo, COMSIG_MOB_APPLY_DAMGE to COMSIG_MOB_APPLY_DAMAGE
+  necromanceranne, lord scrubling:
+  - rscadd: Duct tape! Right-click objects and cyborgs with duct tape to repair them
+      if they have been damaged! Wrap objects in duct tape to make it completely incapable
+      of embedding! Find them in your nearest Vendomat or Engi-Vend vending machines
+      today! They can also be made in Autolathes, the Engineering protolathe, and
+      the Service protolathe!
+  - tweak: the recording tape design in autolathes is now less ambiguously named
+  - bugfix: sticky tapes can no longer be applied at any distance
+  - soundadd: added sounds for tape
+2025-11-09:
+  EvilDragonfiend:
+  - tweak: each type of maints is now spawned only once.
+  mrmanlikesbt:
+  - bugfix: Fixed cargo exports and bounties not working
+  - bugfix: Fixed the contractor kit not spawning with extra items
+  ? mrmanlikesbt, Mothblocks, KittyNoodle, Pickle-Coding, timothymtorres, Krysonism,
+    Tiresoup, ShizCalev, lessthnthree, Lufferly, Ghilker, SyncIt21, vincentiusvin,
+    nevimer, blessedmulligan
+  : - refactor: Refactored radiation
+    - rscdel: Deleted radiation collectors
+    - rscdel: Pluoxium can no longer be produced on radioactive turfs- combine carbon
+        dioxide, oxygen, and tritium
+    - tweak: Gene tampering now causes genetic damage instead of radiation damage
+    - rscadd: The supermatter now produces power through electric shocks
+    - rscadd: The supermatter now features festive lighting during Christmas
+    - rscadd: Improved the supermatter and RBMK UI
+    - refactor: Rewrote much of the internal supermatter logic
+    - bugfix: Fixed the supermatter not pulling people into it as intended- wear your
+        magboots!!!
+2025-11-10:
+  BotTierPC:
+  - tweak: Overhauls Non-Departmental Regions of BoxStation + Janitorial Department.
+      Additionally adjusts and modernizes disposals to work with new changed areas.
+  BotTierPC, BlerpFish:
+  - rscadd: Adds a Service Poster for Mapping Use.
+  Carapan:
+  - bugfix: fixes the cake batter recipe in the sack of flour examine text.
+  Rukofamicom:
+  - bugfix: Fixed an undocumented change that got tacked into the recent wizard tools
+      and spell changes pertaining to the laser scalpel
+  Sarchutar:
+  - bugfix: Engineering borgs can once again not be pulled/moved by the supermatter/pressure
+      differences
+  llol111:
+  - rscadd: Added a centcom stamp to centcom
+  mrmanlikesbt:
+  - code_imp: Deprecated 515
+2025-11-11:
+  BotTierPC:
+  - bugfix: fixed boxstation Garden / Bar Zoning and APC names
+  PowerfulBacon:
+  - bugfix: Huge numbers of small explosions can no longer crash the server.
+  - tweak: Adds server-side support for versioning storytellers.
+  mrmanlikesbt:
+  - bugfix: Fixed the dynamic storyteller vote not being sent at roundstart
+  mrmanlikesbt, Watermelon914:
+  - refactor: Subsystems use dynamically generated init orders now instead of a previously
+      hard-coded list
+2025-11-12:
+  TsunamiAnt:
+  - tweak: tweaked the french accent a bit
+  mrmanlikesbt:
+  - bugfix: Fixed non-standard heretic races not being able to sacrifice their targets
+2025-11-13:
+  BotTierPC, Blerpfish:
+  - rscadd: Added a new Paramedic Department Poster for Mapping
+  mrmanlikesbt:
+  - balance: Vampires can now only feed off of targets that are aggressively grabbed.
+  - balance: Vampires feeding off of people has been made very obvious.
+  - balance: Masquerade infractions are now checked during feeding as a vampire, as
+      apposed to previously only checking at the beginning of feeding. If someone
+      walks in on you, you will receive a masquerade infraction.
+  - bugfix: Fixed vampires being able to chug blood bags
+  r1ks-iwnl, Krausus:
+  - bugfix: Roundend sounds won't be cut off
+  - admin: Set Round End Sound verb now requires a duration input along with your
+      selected sound
+  'rkz, Melbert, Absolucy, Riku, ':
+  - bugfix: Fixes REFRESH-style status effects (goodmusic)
+  - code_imp: Updated some status effect tick code to be more clear of how long is
+      elapsing between ticks. Should not be overtly noticeable.
+  - rscadd: Some alerts, such as Fleshmend's, show their remaining duration on their
+      icon.
+  - bugfix: fix bad assignments of status effect id's
+  - rscadd: adds priority subsystem for important status effects. Important stats
+      like stuns are put higher than others, so they should no longer last longer
+      than normal due to increased server load.
+2025-11-14:
+  mrmanlikesbt, Ryll-Ryll, MrMelbert, Absolucy:
+  - rscadd: Changed examination to (hopefully) look better
+  - rscadd: When examining someone you can click their ID to see basic information
+      about them based off station records
+  - rscadd: Added eye contact
+  - imageadd: Gave wallets a new sprite
+  - bugfix: Fixed heretic items visually appearing when wearing a void cloak
+2025-11-16:
+  BotTierPC:
+  - tweak: Fixes Metastation Service Access by changing mapping_helpers
+  Rukofamicom:
+  - tweak: Supermatter delaminations now scale with how long the crystal has been
+      powered. This means if someone who is still learning messes up during the initial
+      setup, the explosion will be much smaller than if the engine has been running
+      for a while before it went south.
+  - tweak: Supermatter crystal explosions will reach their previous maximum force
+      after being powered for 45 minutes, but they will continue to grow after this
+      point meaning they are only capped in power by the duration of the round.
+  - tweak: Tesla and Singularity delaminations have scaling requirements as well,
+      but these values plateau to their old requirements after the supermatter has
+      been powered for 45 minutes.
+  mrmanlikesbt, JohnFulpWillard, Ben10Omnitrix:
+  - code_imp: Screen objects now have their hud owner set in Initialize()
+2025-11-17:
+  Bisar:
+  - code_imp: optimized heat capacity calculations a bit
+  Rukofamicom:
+  - bugfix: Most martial arts now ignore blocking entirely, with Krav Maga, Boxing
+      and Psychotic Brawling being the exceptions that are still blockable. Don't
+      fight the chef on his turf.
+  - bugfix: Items which block projectiles now correctly report their behavior when
+      examined
+  - bugfix: Blocked projectiles no longer trigger their on_hit effects. They didn't
+      hit after all.
+  - bugfix: Stun batons (and subtypes of them) can now be blocked properly. There
+      was a major refactor to stun baton code, so please report anything unusual you
+      notice.
+  - tweak: Stun Batons (and subtypes) can no longer harm baton. They do either stamina
+      damage when on, or brute when they are off.
+  - tweak: Stun batons (and subtypes) as well as telescopic batons do not deal any
+      stamina or shield damage when successfully blocked. They still trigger the block
+      cooldown, but you're going to need something stronger to break through a shield.
+  - tweak: Teleprods can now be worn on the back and have backsprites
+  Sarchutar:
+  - rscadd: Added a MOD team-tracker module, all Syndicate and ERT MODsuits have it
+  - bugfix: fixed an issue where arrows from team-trackers where permanently stuck
+      on screen when changing the frequency
+  r1ks-iwnl:
+  - bugfix: Summon Cultist rune works again
+  - bugfix: Cultist torch now works again
+  - bugfix: Blood cultists get dusted if Rat'Var wins again
+  - bugfix: Cultist leader's location on death gets announced again
+  - bugfix: Cultists can see eachother's antag HUD icons again
+  - code_imp: Nar'Sie doesn't runtime on spawn
+2025-11-18:
+  Gboster-0:
+  - bugfix: fixed cells not properly updating their sprites on being charged with
+      a yellow slime pylon
+  - bugfix: fixed a message thats supposed to show up when you blow yourself up with
+      the yellow slime pylon
+  Isaac:
+  - bugfix: You can craft ED-209 Robots once again
+  Rukofamicom:
+  - tweak: Supermatter surges can no longer happen before the one-hour mark outside
+      of adminbus
+2025-11-19:
+  Isaac:
+  - bugfix: No more compiler warnings from ED209 fix.
+2025-11-20:
+  Isaac:
+  - rscadd: Weapons Closet can now be made
+  - bugfix: Armory weapons now spawn inside the respective weapon locker rather than
+      ontop of them
+2025-11-21:
+  Isaac:
+  - bugfix: iFixes xenobio extract infinite explosions
+  PowerfulBacon:
+  - bugfix: Changing species now assigns a new name.
+  - bugfix: 'Hotfix: Fixes names being randomised when any preference is changed.'
+2025-11-22:
+  BotTierPC:
+  - rscdel: Deleted a Stray Disposal Pipe outside Boxstation Armory
+  - tweak: Cargo's blood pack crates now contain 15 random blood bags
+  Rukofamicom:
+  - bugfix: Abductor batons turn themselves on automatically when used again. No more
+      accidentally bonking your abduction targets.
+2025-11-23:
+  PowerfulBacon:
+  - balance: Buffs tasers, making them easier to aim, giving them longer range while
+      you are moving, and decreasing the number of things that can fully block the
+      taser.
+  - balance: Once the taser lands, you can no longer walk away from it without attacking
+      the firer or breaking line of sight with the firer.
+  - balance: Removes full pierce protection from all civilian modsuits, including
+      security modsuits. Standard pierce protection is applied when they have a melee
+      or bullet armour of at least 20.
+  Programs-The-Station:
+  - rscadd: Added a No-Operation Wiremod Component which... does nothing except help
+      organize.
+  mrmanlikesbt:
+  - code_imp: Species use bitfields for slots they can't equip to instead of lists
+      now
+  mrmanlikesbt, Pickle-Coding:
+  - rscdel: Volume pumps can no longer be overclocked on closed turfs
+2025-11-24:
+  PowerfulBacon:
+  - balance: Ninja invisibility is now limited to 40 seconds, but that timer increases
+      while in the dark.
+  - balance: Ninja invisibility disables when any other ability is activated.
+  Rukofamicom:
+  - bugfix: Unintentionally buffed bola durations have been reverted to their prior
+      values. Energy bolas will last for 3 seconds and reinforced bolas for 7 seconds,
+      down from being accidentally buffed to 5 and 10 respectively.
+  - tweak: Rather than applying a hardcoded slowdown when hit with a bola, players
+      are knocked down for the intended escape duration and bolas will automatically
+      fall off after the intended duration is up
+  - tweak: Energy bolas are no longer consumed upon hitting a target
+  - tweak: Gonbolas have had their duration reduced from 30 seconds to 10 seconds
+      since they are also knockdown instead of just a pacification tool now.
+  - rscadd: Players will now be regularly given a proper poll for ending the round
+      after a certain amount of time has passed. Only players who participate in the
+      voting system will be counted and a vote of at least 50% is required to call
+      the shuttle no matter how much time has passed.
+  - tweak: The maximum time for the evacuation shuttle is now 10 minutes for both
+      green alert and cases where every option for calling the shuttle is destroyed.
+  - tweak: Blue alert shuttles now take 7.5 minutes.
+  - tweak: Round length is now capped at four hours instead of two, with this value
+      being directly configurable for future tweaks.
+  mrmanlikesbt:
+  - bugfix: fixed tremere vampires being able to level up an infinite amount of times
+  r1ks-iwnl:
+  - tweak: Makes ash drake, space dragon, clf3 and meth fires more visible.
+2025-11-25:
+  PowerfulBacon:
+  - bugfix: Fixes taser continuing to fire even after being put in your backpack.
+  - balance: Fixes tasers unequipping when pulling out items in your second hand.
+  mrmanlikesbt:
+  - bugfix: Fixed mjolnir not being two handed
+  - balance: Set the mjolnir projectile's damage to 30 (this was reverted ~3 years
+      ago)
+2025-11-26:
+  Programs-The-Station:
+  - bugfix: Round start machines now properly link to the Silo once again.
+  Rukofamicom:
+  - tweak: Using stun batons with combat mode active does brute damage again.
+  mrmanlikesbt:
+  - soundadd: Added title0 to the title music pool
+  - sounddel: Removed the clown theme from the title music pool
+  mrmanlikesbt, LemonIntheDark, Jackriip:
+  - tweak: The color of space has been tweaked to look prettier
+  - bugfix: Fixed solar panel arrays being on full bright
+  - bugfix: Fixed glass floors not glowing when above space
+  - server: Removed the starlight config option.
+  mrmanlikesbt, tralezab, MrMelbert:
+  - rscadd: Inventory slots now dim when unavailable
+  - code_imp: Converted the species var "nojumpsuit" to a trait "TRAIT_NO_JUMPSUIT"
+2025-11-27:
+  PowerfulBacon:
+  - bugfix: Fixes player preferences not working.
+  mrmanlikesbt:
+  - bugfix: Fixed the scrubbers and distro pipes being above the floor in the radstation
+      engine room
+2025-11-28:
+  Schoolboy215:
+  - bugfix: Lipid extractor not detecting occupants
+  mrmanlikesbt:
+  - admin: Use of the dynamic panel now checks for debug perms instead of fun perms
+2025-11-29:
+  EvilDragonfiend (credit to r1ks-iwnl for grammar correction):
+  - rscadd: New bounty has been added - Profession manuscript. To write a manuscript,
+      find an empty "manuscript" book first. You can get them from random book shelves
+      with 5% chance, or get one from cargo book ordering, and then click the book
+      with your pen. Antagonist can write a manuscript in any job (but everyone has
+      15 minutes cooldown to write one). There are always assistant bounty, and random
+      3 jobs.
+  - rscadd: a tiny helper code that cargo shuttle only needs short seconds to move
+      when debugging
+  Rukofamicom:
+  - tweak: When an APC loses its powernet connection connection, department lights
+      will switch to emergency mode almost immediately to conserve power to be spent
+      on keeping the area operational for longer.
+  - tweak: An APC without an active connection will now continue to power departmental
+      equipment until it reaches 15% charge, instead of shutting off vital machinery
+      at 50% charge.
+  - tweak: APCs now hold 50% more maximum charge at roundstart, and start with 100%
+      charge instead of 90%.
+  mrmanlikesbt, nemvar, MrMelbert:
+  - code_imp: renamed some misleading vars
+2025-11-30:
+  '@DrDuckedGoose code @aramix273 sleuthing help, feedback, and suggestions':
+  - bugfix: Fixed runtime in artifact trait code, for the porous trait.
+  - tweak: The haunted artifact trait will now exclusively target living mobs.

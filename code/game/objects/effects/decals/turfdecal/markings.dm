@@ -304,7 +304,7 @@
 	icon_state = "siding_thinplating_end"
 
 /obj/effect/turf_decal/siding/thinplating/light
-	color = "#FFFFFF"
+	color = COLOR_WHITE
 
 /obj/effect/turf_decal/siding/thinplating/light/corner
 	icon_state = "siding_thinplating_corner"
@@ -352,7 +352,7 @@
 	icon_state = "siding_wideplating_end"
 
 /obj/effect/turf_decal/siding/wideplating/light
-	color = "#FFFFFF"
+	color = COLOR_WHITE
 
 /obj/effect/turf_decal/siding/wideplating/light/corner
 	icon_state = "siding_wideplating_corner"
@@ -464,6 +464,23 @@
 /obj/effect/turf_decal/numbers/two_nine
 	icon_state = "number_2-9"
 
+/obj/effect/turf_decal/siding/asteroid
+	icon_state = "siding_asteroid_line"
+
+/obj/effect/turf_decal/siding/asteroid/corner
+	icon_state = "siding_asteroid_corner"
+
+/obj/effect/turf_decal/siding/asteroid/end
+	icon_state = "siding_asteroid_end"
+
+/obj/effect/turf_decal/siding/dirt
+	icon_state = "siding_dirt_line"
+
+/obj/effect/turf_decal/siding/dirt/corner
+	icon_state = "siding_dirt_corner"
+
+/obj/effect/turf_decal/siding/dirt/end
+	icon_state = "siding_dirt_end"
 ///Borderfloors
 
 //Plain

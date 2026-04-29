@@ -1,0 +1,382 @@
+2024-09-01:
+  Aramix:
+  - tweak: pacified all pets spawned by Xenobiology's Stabilized Gold
+  MarkusLarsson421:
+  - bugfix: Fixed so that Efficiency Law board can be printed.
+  - tweak: Changed the name of the Crewsimov board from "Default" to "Crewsimov".
+  Penwin0:
+  - bugfix: Plague Doctor hat no longer covers the face and doesn't look like a biohood
+      when held.
+  PowerfulBacon:
+  - rscadd: Adds in a new mapping helper for mapping disposal networks.
+  XeonMations:
+  - tweak: Bodybags can no longer be heirlooms.
+  - tweak: Medical flashlight pens, scalpels and suit sensors can now be heirlooms.
+  rkz:
+  - tweak: 15 base stamina damage is dealt every time a failed jump is attempted on
+      a multi-z map
+2024-09-02:
+  PowerfulBacon:
+  - bugfix: Fixes some mapping issues with DeltaStation.
+  - bugfix: Fixes a bunch of mapping issues with CorgStation
+  Rukofamicom, Fikou:
+  - rscadd: Concussive gauntlets have arrived! Shaft miners will find that the diamond
+      pickaxe can no longer be found in tendril chests, and instead they may find
+      concussive gauntlets!
+  - tweak: Tumor shards will now poll ghosts for control of lavaland elites if the
+      original player has left the body. There is still no guarantee of having a new
+      pet if alternatives are not available.
+  - tweak: Gibtonite fuses are no longer variable so that miners with good timing
+      are more consistently rewarded for risking life and limb to try and defuse it.
+  - balance: PKA modkits have been standardized to cost either 0%, 25%, or 50% capacity.
+      This means it is now possible to utilize 100% of the weapon's potential and
+      up to four impactful mods may now be installed!
+  - balance: PKA modkits that do AoE damage have had their power doubled, but still
+      have an upper limit of 80% normal power. It is now far more practical to install
+      AoE damage mods, but will still weaken the power of the weapon overall in exchange
+      for versatility.
+  - balance: Damage increasing modkits have had their power halved. This was overlooked
+      during the major lavaland rebalance that halved the HP of all fauna and halved
+      the damage of mining tools. Damage modkits are supposed to increase damage by
+      25% of base power, not 50%.
+  - tweak: All modkits are now compatible with mine bots, and the special cooldown
+      reduction mod has been removed since the normal cooldown mod works on them now.
+      Mine bots have the same capacity for mods as a PKA.
+  - tweak: 'Explorer webbing can now hold additional mining tools and items: shovel,
+      survival knife, emergency oxygen tank, PKA and plasma cutters. It can no longer
+      hold kitchen knives.'
+  - code_imp: Cleaned up some variable names and unnecessary code within the kinetic_accelerator
+      file.
+2024-09-03:
+  Geatish:
+  - tweak: Empty blood packs can now be printed from the med lathe
+  - bugfix: health analyzer is no longer printable from a hacked autolathe
+2024-09-04:
+  Programs-The-Station, Rukofamicom:
+  - rscadd: You can now Latejoin directly as an on-station posibrain.
+  - rscadd: Due to Job-code, Positronic Brain is now a job.
+2024-09-05:
+  Varo, Bombyy, PigeonVerde:
+  - tweak: 'BoxStation: Reworked the service area and maintenance'
+  - tweak: 'BoxStation: Reworked the medbay area and maintenance'
+  - rscadd: 'BoxStation: a room for the psychiatrist in medbay'
+  - tweak: 'BoxStation: fixed chaplain backroom having a weird shape'
+  - rscadd: 'BoxStation: Added a new area, apc and air alarm for the captain room'
+  - bugfix: 'BoxStation: Fixes floating cameras and doble pipes and cables errors'
+  - bugfix: 'BoxStation: Fixes stools directions and types'
+2024-09-07:
+  ToasterBiome:
+  - bugfix: Centcom Ban DB is now accessible again through PP
+2024-09-08:
+  Ghommie, XeonMations:
+  - bugfix: Fixed space movement
+  - bugfix: Proper floating animations when in no gravity
+  - bugfix: Possibly fixed an oversight which involved highpop and floating animations
+  Patience:
+  - bugfix: Bandanas can now be worn in the head/neck slots without error texture
+  PowerfulBacon:
+  - bugfix: Fixes flaky tests not running
+  - bugfix: Fixes a race condition in the prison holodeck.
+  - bugfix: Fixes shuttle loading taking 30 seconds.
+  - bugfix: Fixes race condition in atmos processing which results in unit tests failing
+      due to shuttles loading post-roundstart.
+  - bugfix: Fixes a maploading race condition that would result in invalid caches
+      being used while loading maps.
+  Rukofamicom:
+  - tweak: Players are no longer limited to a single positronic brain per round.
+  - tweak: Cyborgs may no longer have duplicate names, unless they are being rebuilt
+      from the same brain that was previously a cyborg - if you are respawning as
+      a fresh cyborg and do not choose a different character profile first, you will
+      be given the default cyborg name instead of becoming a second copy of the same
+      cyborg.
+  - bugfix: Service borg glasses and graspers are no longer covered in industrial
+      glue and can actually be used to serve drinks again
+  - tweak: Service and Medical cyborgs can now synthesize standard, 50u drinking glasses
+      and beakers respectively with their graspers. Simply use their grasping tool
+      with nothing in it to produce one.
+  - tweak: Medical and service cyborgs can both hold a much wider variety of reagent
+      containers now
+  - tweak: Service cyborgs can now synthesize a wider variety of drinks instead of
+      being primarily focused on alcoholic beverages.
+  SuperPantsHero:
+  - bugfix: fixed RCD and RPD upgrades
+2024-09-09:
+  Aramix:
+  - bugfix: fixed nanite comms programs (forced speech, skull echo, hallucination)
+      to work with nanite communication remote
+  PestoVerde322:
+  - bugfix: Fixed repeating categories in the crafting menu.
+  - refactor: Sorted and standardized all the recipes, please DO NOT put the recipes
+      outside of that folder and stick to the format of all the other recipes.
+  - code_imp: Rebalanced the times to craft and interaction of some recipes.
+  PowerfulBacon:
+  - tweak: Holoparasites, Mindslave Lasso and The Blast Cannon are no longer purchasable
+      by wizards or traitors due to being broken.
+  Tsar-Salat:
+  - bugfix: fixes clothing eating checks
+  - tweak: eating clothes is now based on what tongue you have, rather than what species
+      you are
+  rkz, PaxilManiac, Kryson, Qustinnus, nightred, Greniza, junkgle01:
+  - rscadd: Separates plates from food sprites, into their own item. They come in
+      three sizes, and break when thrown!
+  - tweak: Serving Trays can now be attached to belts, anticipating its increased
+      usage.
+  - rscadd: resprites brioche, Vanilla, and ChocolateStrawberry cakes
+  - code_imp: removed duplicate update of plane, when layer is already changed
+2024-09-10:
+  PowerfulBacon, AffectedArc:
+  - server: Enforces warnings in OD lints aggressively.
+  ? SyncIt21, 13spacemen, SuperSayu, ZephyrTFA, MrMelbert, TiviPlus, AnturK, LemonInTheDark,
+    Kylerace, Ghilker, Fikou, Ben10Omintrix, Ghommie, ShizCalev, SyncIt21, Timberpoes,
+    stylemistake, MacBlaze1, robbertapir, timothymtorres, haukeschuemann, JohnFulpWillard,
+    XeonMations
+  : - refactor: Updated assembly code to be more in line with TG"s
+    - refactor: Updated beam datum code to be more in line with TG"s as well
+    - bugfix: Fixed infrared sensors creating two beams when thrown diagonally
+    - rscadd: Added the ability to place assemblies on welding tanks
+  rkz, Tralezab, Timberpoes, Ghommie:
+  - refactor: refactors species.dm organs and features
+  - code_imp: folded default_features into mutant_bodyparts
+  - bugfix: fixed hacky override for lizards, now spines work in the preference menu
+      from the get-go.
+  - tweak: sensory regeneration no longer sprouts new tails
+2024-09-11:
+  HowToLoLu:
+  - bugfix: Fixed a bad del on vending machines due to two unused variables being
+      qdeleted.
+  XeonMations:
+  - tweak: Tapes now hold 20 minutes worth of recordings, 10 on each side.
+  - rscadd: Added more sounds to the universal recorder.
+  rkz, TiviPlus, TemporalOroboros, Timberpoes, MLGTASTICa:
+  - refactor: refactors mech initialization
+  - refactor: refactors medical mech tools
+  - code_imp: adds lazylist support for vehicle occupants
+  - bugfix: Phazons no longer can exponentially increase speed by phasing through
+      certain things...
+2024-09-12:
+  HowToLoLu:
+  - code_imp: Introduces a new mapping linter check for windows and doors on space
+  Rukofamicom:
+  - bugfix: Races with a mutant heart will always spawn with their heart now. This
+      means nightmares are no longer totally heartless. This means nightmares spawn
+      with a light eater again, since this is directly tied to them having a heart.
+      We love spaghetti in coderhaus
+  XeonMations:
+  - bugfix: Fixed the player panel showing an error when opened.
+2024-09-13:
+  Generic DM, PositiveEntropy, Markus Larsson, ClownMoff, XeonMations:
+  - rscadd: Added crate shelves to the game!
+  MarkusLarsson421:
+  - balance: Allows Cyborgs to have their selected module reset via a pulse.
+2024-09-15:
+  DarnTheMarn:
+  - rscdel: Removed an unused AI lawset referencing American politics
+  MarkusLarsson421:
+  - tweak: Changed pre-made AI shells to spawn with a tier 1 cell instead of a null
+      cell.
+  Programs-The-Station:
+  - tweak: Ashwalkers always spawn on Lavaland now.
+2024-09-16:
+  Tsar-Salat:
+  - rscdel: deletes some unused UI assets
+2024-09-17:
+  PowerfulBacon:
+  - rscadd: Implements the ability to lint for required neighbors in maplint.
+2024-09-19:
+  HowToLoLu:
+  - bugfix: Tails and wings now no longer lose their appearance upon emoting or otherwise
+      using them.
+  PestoVerde322:
+  - tweak: The Unholy flask is now a bottle instead of a "bottle" (a beaker disguised
+      as so)
+  - balance: Due to the nature of bottles being breakable, the amount of Unholy water
+      has been raised from 50u to 100u
+  Programs-The-Station:
+  - code_imp: 'Modifies map lint: no glass on groundless turfs.'
+  rkz, cobby:
+  - bugfix: fixes mind nulls upon transformation. Should resolve antag datums leaving
+      lings and mobs losing the ability to speak after transforming
+  - bugfix: regen organs now considers unremovable organs, like heretic hearts. You
+      wont have your heretic heart qdel'd if you are ahealed.
+2024-09-20:
+  PestoVerde322:
+  - refactor: Moved (almost) all the HUD elements into it's own folder.
+  PowerfulBacon:
+  - balance: All living mobs can now see in the darkness around them.
+2024-09-21:
+  Aramix:
+  - bugfix: fixed the electronic paper reader infinitely reading out the first paragraph
+      in a paper
+  Programs-The-Station:
+  - bugfix: The electricians have rewired Echostation's Medbay APC.
+2024-09-22:
+  Aramix, jlsnow301:
+  - rscadd: Bots have received an update to their menus
+  EmoGarbage404, XeonMations, WhereAmIO, DungeonVR, Luxlator, Rukofamicom:
+  - rscadd: Added Dionae to the game, a multi-organism plant person!
+  - tweak: Changed all declarations from podperson to diona
+  - rscadd: 'New species trait: TRAIT_NORADDAMAGE'
+  - rscadd: You can now grow nymphs in botany trays via nymph seeds, which replace
+      podperson plants! Dead nymphs may also be planted to regrow a new one!
+  PowerfulBacon:
+  - bugfix: Security can stun people for long enough to cuff them.
+  - bugfix: Fixes playtime requirements for jobs not working.
+  ktlwjec:
+  - spellcheck: Removed a random period that appeared when examining silicons.
+  rkz, LemonInTheDark, MrMelbert, Mothblocks, NotRanged, Dennok, TemporalOroboros, Timothymtorres, AnturK:
+  - code_imp: removes sleep() from hallucination code
+  - bugfix: fixes infinite bubblegum hallucination
+  - bugfix: fixes xenomorph hallucination shitcode
+  - bugfix: plasmaflood hallucination no longer blocks clicks
+2024-09-23:
+  PestoVerde322:
+  - rscadd: Girders and their reinforced variant are now a smooth structure.
+  - imageadd: Replaced the outdated Walls and girders icons.
+  - code_imp: Put some order in the indestructible walls and gave them their own folder
+      (excluding the Hilbert hotel's unique turfs)
+  - bugfix: Wooden walls and Silver walls are now opaque again
+  PowerfulBacon:
+  - bugfix: Fixes shuttle roundstart loading issues.
+  rkz, Rohesie:
+  - bugfix: you can no longer infinite stamcrit someone by buckling them to stasis
+      bed
+2024-09-24:
+  ? ''
+  : - bugfix: fixes mech teleporter & wormhole jaunter
+2024-09-25:
+  Aramix:
+  - tweak: medbot no longer automatically opens its menu to the user inserting a container
+      into it if the menu wasn't already open
+  - bugfix: as a result, the old and now unused menu is no longer opened, as intended
+  - bugfix: fixed holoparasites with range 1 seeing a barrier
+  - bugfix: fixed holoparasites with range 1 being forced to manifest and unable to
+      recall
+  - tweak: holoparasites, holocarps and guardian decks are now available once again
+      following these fixes
+  Joon, Finger and Dakae:
+  - bugfix: Fixed an error in the calculation for protolathe material costs
+  MarkusLarsson421:
+  - imageadd: Added an offset warning decal.
+  RDS88-beeman:
+  - rscadd: Chaplains now have access to the exotic Rainbow Knife! They may now go
+      gambling on the type of the damage they deal.
+  - rscadd: Science goggles. Night vision. Put them together, now you've got night
+      vision science goggles. Print some at the science lathe.
+  Swatblack:
+  - bugfix: Connected the supermatter's APC to the main power grid
+  - bugfix: Added a powered area on top of the solar control console to make it usable
+  - rscadd: Added a floor light under said solar control console, totally just aesthetic
+      reasons
+  - bugfix: Added wires under 12 solar panels which were missing for some reason
+  - bugfix: Added a powered area to engineering's waste exhaust to make them actually
+      powered and working
+  - bugfix: Changed the air mixer to mix 71% nitrogen and 29% oxygen instead of 71%
+      oxygen and 29% nitrogen
+  - tweak: Made the atmos APC have a tier 3 cell
+  mystery3525:
+  - code_imp: Untangles attack_ai() and attack_robot() code
+2024-09-26:
+  PowerfulBacon:
+  - tweak: Tweaks camera naming and networks to be automatically assigned rather than
+      mapped.
+  Varo:
+  - rscadd: 'Added a bew shuttle: THE RAGE CAGE'
+  - tweak: Gives the Meta and Box shuttles some love and a fresh layer of paint
+  - bugfix: Adds a tiny fan to the Comically Large Escape Pod
+2024-09-27:
+  PestoVerde322:
+  - bugfix: fixed Manual's TGUI not working
+  ktlwjec:
+  - tweak: Obsessed requires 4 hours of playtime to roll, instead of 0.
+  mystery3525:
+  - code_imp: Forgot two early returns which can break things
+2024-09-28:
+  Aramix:
+  - bugfix: all escape pods should now properly arrive to the escape pod shuttle at
+      end of round
+  HowToLoLu:
+  - bugfix: The "Show Borg Panel" admin verb no longer shows AI's, which are incompatible
+      with the Borg Panel
+  - code_imp: Introduced a new global list for cyborgs; cyborg_list
+  - refactor: Cleaned up some uses of silicon related mob lists
+  Mothblocks, ktlwjec:
+  - tweak: You can now see food inside the microwave.
+  PestoVerde322:
+  - rscdel: Removed the Honk Co. Clown shuttle
+  - spellcheck: HonkCo is now Honk Co.
+  - rscadd: Canned foods now have a new icon aswell a dynamic overlay!
+  PowerfulBacon:
+  - balance: Reworks energy shields to be based on integrity rather than charges.
+  - balance: Shielded syndicate hardsuits will now protect against 60 total damage
+      rather than 3 attacks. It regenerates 10 health per second after 20 seconds
+      of not being attacked.
+  - balance: The battlemage suit will grant 300 damage protection, without the ability
+      to recharge the shield over time. Each battlemage shield charge will provide
+      400 shield health.
+  - balance: Cult shielded hardsuits will protect against 100 damage before permanently
+      breaking, but will not defend against melee attacks.
+  - tweak: Saves 1.03s on init times by altering asteroid plating initialisation logic.
+  Therealdoooc:
+  - rscadd: Added 9mm AP, Incendiary, and HP magazines
+  - rscadd: Added the Stechkin APS to the nuclear operative uplink
+  XeonMations:
+  - bugfix: Fixed health analyzers showing bad missing organs list on morgue bodies.
+  ktlwjec:
+  - spellcheck: Fixes punctuation examine issues (sorry).
+  - imageadd: Updates pink and plain donut colors when placed in a donut box.
+  - tweak: Donut boxes start closed.
+  mystery3525:
+  - code_imp: Add check_teleport()
+  - bugfix: Added more cult-related checks for teleports. Cults can no longer teleport
+      holy items, etc.
+  - bugfix: Clockcult teleport now respects blessing internally if it didn't already
+      check
+  rkz, GoldenAlpharex, Haukeschauemann:
+  - rscadd: Adds new female suit cropping.
+  - bugfix: fixes awful sideview on female characters wearing suits.
+  - bugfix: fixes vv refresh with sensors
+  rkz, jlsnow301, Jacquerel, Mothblocks:
+  - rscadd: adds cogbars, a way for players to see others preforming actions
+  - refactor: refactored CPR. You no longer have to click the patient for every pump.
+      The action will repeat, slowly at first until gaining enough speed when your
+      character starts getting in-tune with the Beegee's song.
+  - refactor: refactored the way progressbars display on very large mobs, now they
+      will be centre'd like expected
+  - refactor: do_afters and numerous timed_action_flags
+  - bugfix: npcs do not make progressbars, saves processing
+  rkz, tralezab, coiax:
+  - rscadd: Adds recipe instructions to some cooking materials like dough and batters.
+      Examine to see what they are cooked with and what tools can be used.
+2024-09-29:
+  DrDiasyl, XeonMations:
+  - tweak: Emagged communications console announcements no longer show up as "from
+      the captain".
+  - soundadd: Code Red, Delta, and other extreme emergencies now possess more unique
+      alarm sound effect.
+  - soundadd: Making Captain announcement through emagged console; hijacking or fully
+      corrupting evacuation shuttle now plays more ominous sounds.
+  - soundadd: Making announcements through Requests Console now plays a more noticeable
+      sound.
+  Rukofamicom:
+  - bugfix: Dionae are no longer forced to die in order to split, which prevents players
+      from getting mixed messages. Unless you die as a nymph, you have not actually
+      died and retain your memories, but dying as a nymph is usually permanent so
+      be careful!
+  Therealdoooc:
+  - balance: Replaces the chem sprayer in nukie spetsnaz kit with a flamethrower &
+      2 full plasma tanks
+  - balance: Replaces the syndicate minibomb in the nukie spetsnaz kit with a tactical
+      medkit
+  ktlwjec:
+  - bugfix: Paramedics will spawn in medbay on metastation.
+  rkz, Mothblocks, jacklecroy, kierany9, itseasytosee:
+  - rscadd: Adds a stamina indicator hud
+  - bugfix: fixes 'ghost' item overlays
+2024-09-30:
+  PestoVerde322:
+  - tweak: Beef broth and Beef fizz now taste great for races that likes meat
+  - balance: Lizards drinking Beef fizz will get healed a little if they drink beef
+      fizz
+  Rukofamicom:
+  - bugfix: Mining scanners will no longer interfere with miners' ability to see flashing
+      gibtonite

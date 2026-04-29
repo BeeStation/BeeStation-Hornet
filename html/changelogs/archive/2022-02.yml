@@ -1,0 +1,301 @@
+2022-02-01:
+  KubeRoot:
+  - bugfix: Removing a corgi's hat works again
+2022-02-02:
+  DatBoiTim:
+  - code_imp: Makes two usages of the SECONDS define more consistent
+2022-02-03:
+  DatBoiTim:
+  - bugfix: A weird bug regarding BS bodybags soft-duping
+  Kryyto:
+  - bugfix: Change an error of typo in the use of a health analyser.
+  KubeRoot:
+  - bugfix: Fix a couple rarer runtimes in turbine and atmosbot code.
+  Pirill, UnokiAs, OrionTheFox:
+  - imageadd: added new sprites for all syringes and inhands
+  - imageadd: updated blowgun inhands to match the item sprite
+  Semoro, azizonkg, and Bizzonium. Ported by ike709:
+  - bugfix: Avoid timer scheduling too far events into short queue
+  - bugfix: Fix timers not removing from second queue on init
+  - bugfix: Ported fixes of SStimer subsystem from RU SS220 Paradise
+  - bugfix: fixed potential bucket corruption in timer reset_buckets
+  ike709:
+  - bugfix: Paper with pre-written text will now have the correct icon state
+  - bugfix: Fixed a theoretical paper exploit for injecting fake stamp data
+  - bugfix: Guarantee that paper inputs over the max length will be truncated
+  - refactor: Minor backend optimizations and improvements to paper
+2022-02-04:
+  Crossedfall:
+  - server: BYOND bumped to 514.1575
+  DatBoiTim:
+  - balance: Removed ability for viro reactions to make infinite amounts of blood.
+  KubeRoot, ike709, LemonInTheDark, Mothblocks:
+  - server: Added support for define toggle live ref tracking. Consider using it if
+      you're hunting hard deletes
+  MNarath1:
+  - bugfix: fixes effects and other indistructable non items from generating zlevels
+      when falling out of a shuttle
+2022-02-05:
+  PestoVerde322:
+  - tweak: Converted the auxiliary dock for the whiteship into maint and moved the
+      construction area there, now the whiteship will be able to dock on a dedicated
+      arm westward of the southern arrival arm on Flandstation.
+  - tweak: The teleporter has been moved to where there was the construction area,
+      now it's in a more logical area, in it's place, the library got more maintenance
+      on Flandstation.
+  - tweak: Modified Cargo and Engineering on Flandstation, now they should be slightly
+      better.
+  - tweak: Updated the tech storage, now it should have all the boards needed for
+      a station in case of disaster.
+  - bugfix: Fixed some odd stuff around Flandstation.
+  ivanmixo:
+  - rscadd: Added hair color gradients
+2022-02-06:
+  unit0016:
+  - rscadd: New exploration targets are on the prowl!
+  - rscadd: Several new RuinGeneration modules have been added to rotation.
+  - tweak: Nearly every RuinGeneration module has been brushed up to code, and some
+      have been entirely remapped from the ground up.
+  - bugfix: VIP Missions now fail if the target is dead without a ckey to prevent
+      softlocks.
+  - tweak: VIP Targets can now have custom suits, masks, internals, and more that
+      spawn with them rather than the standardized loadout.
+2022-02-07:
+  ImSynthex:
+  - bugfix: The locks on PA, singulo generator and tesla generator crates now work
+  Kapu1178:
+  - bugfix: World Topic no longer reports erroneous round times
+  MNarath1:
+  - refactor: Refactored guest player detection to be much simpler.
+  PowerfulBacon:
+  - bugfix: fixes ruin artifact defenses playing from the wrong place
+  ike709:
+  - bugfix: Ling can only transform into a headspider on an open turf to prevent badness.
+2022-02-08:
+  Archanial:
+  - bugfix: Combat gloves have their worn sprite again
+  Kapu1178, Quantum_m, Ziiro:
+  - rscadd: Digitigrade legs now support some jumpsuits (more to be added later)
+  - rscadd: Digitigrade legs now support some hardsuits.
+  - rscadd: Almost every unique bodypart sprite is now a whole limb.
+  - rscadd: Limbgrower limbs are now a sickly green
+  - refactor: Digitigrade legs are now full limbs.
+  - refactor: Limbs retain information as they change owners
+  - refactor: Bodypart code is generally less ass
+  - code_imp: Support for bodytype-based clothing.
+  - bugfix: Lizard snoots no longer poke through hardsuit helmets
+  - bugfix: CHANGELING TRANSFORM FUNCTIONS PROPERLY
+  - rscdel: IPC and Super Soldier mutation toxin.
+  - code_imp: Krokodil victims are now a subtype of human
+  - code_imp: adds icon_exists() proc, used to check for the existence of icon states.
+  KubeRoot:
+  - admin: Fixed logging for stripping
+  PowerfulBacon:
+  - tweak: Optimises get_hear and get_hearers_in_view to use dview instead of changing
+      the luminosity of the turf beneath it.
+  TheChaser212:
+  - bugfix: Fixed clothing not covering anything and not hiding gender
+  celotajstg, actioninja, Arkatos1, YakumoChen, lordScrubling:
+  - tweak: alternate_worn_icon is now worn_icon
+  - rscadd: Added worn_icon_state
+  - tweak: skirt jumpsuit are now /obj/item/clothing/under/color/jumpskirt
+  - rscdel: removed instance of color spelled colour (britain stay losing)
+  - rscadd: added gags to jumpsuits, jumpskirts and shoes (sneakers)
+  - tweak: modified build_worn_icon to automatically detect item state
+2022-02-09:
+  ImSynthex:
+  - imageadd: Changed the medical belt sprite
+  KubeRoot:
+  - bugfix: You can now take pictures with cameras again!
+2022-02-10:
+  TheChaser212:
+  - bugfix: Fixed crew objectives not being assigned at roundstart
+  - refactor: Cryopods use signals to handle objectives instead of looping through
+      every objective
+  - code_imp: Many minor improvements to objectives
+  ike709:
+  - tweak: When map rotation decides to rotate the map, it will no longer be able
+      to pick the same map.
+  - code_imp: Removed a pointless proc call from chameleon changing.
+  - bugfix: Chameleon clothing now covers the correct slots of whatever it's mimicking.
+2022-02-11:
+  Kylerace, ported by ike709:
+  - rscdel: For performance reasons, AI detectors no longer see AI static.
+  - bugfix: AI detectors now change appearance when AIs come closer.
+  - bugfix: Fixed AI static intermittently deciding to stop working.
+  - refactor: Generally cleaned up cameranet code and improved maptick significantly.
+  SapphoQueer:
+  - rscadd: Adds suspenders to autodrobe
+2022-02-12:
+  Archanial:
+  - rscdel: Removed deprecated item_color var
+  Bizzonium, ported by ike709:
+  - refactor: Made SSrunechat be a subsystem of SStimer
+  Cyberboss and Mothblocks, ported by ike709:
+  - refactor: Converted a bunch of New() to Initialize().
+  - rscadd: Added a tool to profile atom initialization.
+  Gamer025 and ike709:
+  - code_imp: Failsafe is more robust now and the game can actually recover from a
+      deleted MC
+  - code_imp: Albeit far from perfect, the game will be fairly playable if the Master
+      Controller dies. It beats the alternative by a lot if there's no admin online
+      to reboot the server.
+  dog132:
+  - config: Kilo Station is part of the map rotation
+  - rscadd: Kilo Station comes with an exploration shuttle
+  - rscadd: Kilo Station comes with random maint
+  - rscadd: 4 random maint rooms from Kilo Station
+  - rscdel: Removed old maint rooms from Kilo Station
+  ike709:
+  - bugfix: Fixed plasmamen not actually needing to breathe plasma.
+  - tweak: Updated lung code
+  - tweak: Improved the antag rolling prevention.
+  - admin: Changed how the panic bunker works. Admins can now configure it to make
+      first-time players interview to receive access instead of being blocked.
+  tralezab & Ghilker, ported by ike709:
+  - refactor: Every Initialize() now passes the mapload var.
+  - bugfix: Fixed gasses being invisible.
+2022-02-13:
+  Archanial:
+  - bugfix: fixed alt states of suits
+  - bugfix: fixed durathread jumpsuit not having icons
+  - bugfix: fixed a few lawyer skirts having wrong paths.
+  - rscdel: removed unused psyche jumpsuit
+  MNarath1:
+  - bugfix: fixes another infinite iron duplication exploit
+  - code_imp: removes a redundant list copy
+  MSO, ported by ike709:
+  - code_imp: SSgarbage should be able to clear most of its queue much faster.
+  PestoVerde322:
+  - bugfix: Fixed the murder door by the bar's maintenance on Fland
+  - bugfix: The tables in the bar are no longer doublestacked on Fland
+  St0rmC4st3r:
+  - bugfix: fixed Pubby AI SMES not doing almost anything useful.
+  The-Moon-Itself:
+  - bugfix: Energetic chromosome now properly applies to active mutations and fire
+      breath.
+2022-02-15:
+  Crossedfall:
+  - server: Bumps ajv to 6.12.3
+2022-02-17:
+  Crossedfall:
+  - server: Clients using BYOND version 514.1575 will no longer see instability banner
+  Fresh341:
+  - tweak: Changed the required amount of adamantine to create a golem shell from
+      1 to 25
+  Ivniinvi:
+  - tweak: 'The round end report in #ooc will now show which server''s round has just
+      ended.'
+  St0rmC4st3r:
+  - tweak: Phobias no longer make you be afraid of your kind.
+2022-02-18:
+  Crossedfall:
+  - server: Updates various TGUI sub-dependencies
+  DatBoiTim:
+  - tweak: Tweaked some Ion Law entries to be more RP friendly.
+  - tweak: Altered the spelling of some Ion Law entries to be correct.
+2022-02-21:
+  DatBoiTim:
+  - rscadd: Design to Print Research Disk Locator to Sci Protolathe - Requires T2
+      Research
+  Kryyto:
+  - bugfix: Fixed some genetics area on Delta called "Cryogenic Storage" instead of
+      their usual names.
+  - bugfix: Fixed Delta exploration shuttle's airlocks by adding airlocks helpers.
+  PestoVerde322:
+  - config: Updated the Readme.dm, that's it.
+  TheChaser212:
+  - rscadd: Mutations can be activated/added through the DNA scanner
+  - rscadd: Added wires to the DNA scanner
+  - tweak: Using the DNA scanner requires genetics access (unless hacked or emagged)
+  - tweak: DNA injectors don't show their mutations
+  - code_imp: Discovered mutations are now an associative list
+  dog132:
+  - rscadd: Kilo Station - adds cryopod to Medbay
+  - rscadd: Kilo Station - adds supply request consoles to departments
+  - rscadd: Kilo Station - adds mining scanner and pickaxe to Kilo Exploration Shuttle
+  - bugfix: Kilo Station - the waste injector outside of Atmospherics is powered again
+  zeskorion:
+  - balance: Reproductive extracts now have a 30 second cooldown, and spawn a single
+      baby slime instead of extracts
+2022-02-22:
+  Archanial:
+  - rscdel: removed debtor
+  - rscadd: Hangover spawners can now appear in bar and dorms
+  - refactor: refactored hangover a bit
+  - bugfix: fixed uplinks
+  - bugfix: fixed worn icon of fingerless gloves
+  DatBoiTim:
+  - tweak: Announcement Intern is a negative station trait now.
+  - rscdel: Removes Psychotic Brawling Completely.
+  Ivniinvi:
+  - rscadd: Added 9 new achievements!
+  Kapu1178:
+  - rscadd: All carbon-based species can select Body Size.
+  Kuberoot, Powerfulbacon:
+  - bugfix: Fixes a runtime in the crew monitoring console caused by crew monitoring
+      consoles being inside a virtual z-level.
+  MNarath1:
+  - bugfix: fixed blob spore pathing
+  - tweak: blob spores will keep hunting target mobs until those are out of range
+  - bugfix: Fixes non constant expressions in switch functions
+  - bugfix: Fixes missing trigger for possible input values in switch functions (added
+      else)
+  - bugfix: Replaces || inside if conditions for the switch functions with ,
+  - balance: changes blob spore movement delay from 3 to 6
+  PetMudstone:
+  - tweak: Changed a lot of chemical colors to make them more distinct and indicate
+      relationships better.
+  Pirill, PestoVerde322:
+  - imageadd: New sprites and inhands for briefcases, lockboxes and medalboxes.
+  - refactor: Minor code changes for lockbox sprites and pathing.
+  PowerfulBacon:
+  - bugfix: Fixes pickup() not being called when items were directly forced into your
+      hands.
+  - rscadd: Adds in the gun wielding icon in your off-hand.
+  - bugfix: Magical wands, tentacle arms and cyborg guns no longer require wielding.
+  - bugfix: Fixes a bugged interaction between telekenisis and twohanded component
+      that allows you to drop the offhand object.
+  - code_imp: Overlay light sources can be set to not count towards get_lumcount calculations
+  - code_imp: Lasers and sparks no longer count towards get_lumcount calculations.
+  - balance: Nightmares will now dodge lasers
+  - bugfix: Runechat now properly handles null languages.
+  - bugfix: Fixes roundend not restarting
+  - bugfix: Fixes the inability to drop people.
+  - bugfix: Fixes the inability to perform emotes.
+  lordScrubling, Colorvorat:
+  - rscadd: hats can now be attached to envirohelms cosmetically
+2022-02-24:
+  DatBoiTim:
+  - bugfix: fixed an issue related to medibots being tipped over mid healing
+2022-02-25:
+  Fresh341:
+  - rscadd: Added the F4 hotkey to the hotkey list in the interface.dm
+  KubeRoot:
+  - tweak: Newly added chat filters will be enabled by default in all tabs. This will
+      mess up any custom tabs you have created, requiring you to configure the filters
+      again.
+  - code_imp: Newly created tabs have disabled filters set to false rather than omitted.
+  MNarath1:
+  - code_imp: cleaned up a nasty return
+  Wilchenx:
+  - tweak: detective can be a traitor again
+  - tweak: detective is no longer mindshielded
+  ike709:
+  - bugfix: Fixed the 4,000 playtime hours achievement
+  - bugfix: Fixed the war ops achievement
+  - code_imp: Added a unit test to make sure achievements conform to the DB schema
+  nednaZ:
+  - bugfix: Cargo Manifests will now show the correct station name
+2022-02-27:
+  Kapu1178:
+  - bugfix: All references to dna.features now include body size.
+  Programs-The-Station:
+  - rscadd: Adds a label to the latejoin screen explaining prioritized jobs
+2022-02-28:
+  Blueturbo47:
+  - tweak: Increased The Turbine Space Injector to 200 L/s
+  The-Moon-Itself:
+  - bugfix: Reflectors now rotate on shuttles
+  nednaZ:
+  - bugfix: Adminordrazine no longer causes deafness

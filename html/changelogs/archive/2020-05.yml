@@ -1,0 +1,492 @@
+2020-05-02:
+  Iamgoofball:
+  - bugfix: conveyor belts were definitely not broken, nothing to see here gamers
+  Isy232:
+  - balance: Gygax mech costs gold and silver instead of diamond.
+  JJRcop:
+  - bugfix: Fixed removing brains from changeling husks.
+  Mickyan, actioninja:
+  - rscadd: Skateboards have received a substantial overhaul
+  - rscadd: Bumping into objects will no longer instantly throw you off the skateboard,
+      instead it will cause knockback and a severe amount of stamina damage.
+  - rscadd: Added ollies! Land on a table to do a sick grind! Both actions consume
+      a moderate amount of stamina.
+  - soundadd: Added skateboard jump and roll sounds by actioninja
+  - rscadd: Performing tricks or bumping into things at low stamina will still make
+      you fly off the skateboard!
+  - rscadd: New board types are available at the library's games vendor
+  - rscdel: Skateboard speed can no longer be adjusted
+  Tennessee116:
+  - rscadd: Added apids, also known as bee people.
+  - rscadd: Added a whole lot of shit related to apids.
+  Victor239:
+  - balance: Syndicate Revolver is now 12 TC down from 13. .357 speedloaders are 2
+      TC down from 4.
+  - balance: .357 speedloaders no longer in the autolathe however individual bullets
+      are.
+  jlsnow301:
+  - rscadd: Boxstation now slightly better looking, more resistant to mice.
+  - rscadd: "Boxstation medbay now gets its own Inspector Johnson. It\u2019s time\
+      \ for mandatory inspection!"
+  - bugfix: Boxstation's engi maint is no longer bugged.
+  - tweak: Boxstation AI relocated below the upload, center of station.
+  - tweak: Boxstation grav gen relocated west of tcomms.
+  qwertyquerty:
+  - bugfix: A bunch of small bugfixes
+  zeskorion:
+  - bugfix: fixes severity depending on order symptoms are in
+  - bugfix: fixes severity ramping up when the virus spreads
+  - code_imp: cleans up dynamic severity code
+  - rscadd: new fire rate var for guns
+  - tweak: phases out burstfire on guns that don't specifically need it in favor of
+      true automatic fire
+  - tweak: universal fire rate changes
+  - balance: buffed plasma cutter damage
+  - balance: detective gun blowing up in your hand is now actually quite dangerous,
+      but not lethal, and doesnt destroy the gun
+  - balance: lowered energy cost of temp gun projectiles by 60%
+  - balance: fixed up dual wielding, it's now mostly only useful for handguns and
+      miner's guns
+  - bugfix: dual wielding now takes both offhand and main guns into account, instead
+      of just offhand.
+  - code_imp: fire rate is now tied to gun, and not ammo casing
+  - rscadd: Virus preservation- add cryoxadone to a disease to make it immutable
+  - rscadd: Virus Faltering- add spaceacillin to a disease to make it unable to spread
+  - tweak: some small stat changes to symptoms
+  - tweak: hacked medivends now have one experimental disease bottle
+  - tweak: made uranium virus foods more convenient to mix
+  - rscadd: several new job-related items
+  - rscadd: the "gimmick" job. Enable "gimmick" in preferences to have a chance to
+      roll jobs that spawn randomly in maint. Currently two gimmick jobs are available-
+      Stage Magician and Barber
+  - rscadd: 10 new maint rooms
+  - tweak: meta now has random maint
+  - tweak: disposals chutes no longer take damage when items are tossed into them
+  - tweak: meta maint has been expanded and is no longer anemic as fuck
+  - tweak: doors in maint are less likely to be obstructed
+  - bugfix: fixes box maint being spaced
+  - imageadd: new job related sprites
+2020-05-03:
+  Tennessee116:
+  - bugfix: Fixed Apidite, supposedly.
+  - bugfix: Fixed apid wing sprites.
+  Victor239:
+  - bugfix: Radio implant no longer prevents the headset from sending messages
+  zeskorion:
+  - tweak: felinids no longer take double ear damage, just -2 ear protection. No more
+      excuse to rush earmuffs and a helmet
+  - tweak: flashbangs no longer hardstun everyone on their tile, and deal high deafness
+      and ear damage instead. The flash component confuses instead of stunning, but
+      the bang component is unchanged
+2020-05-05:
+  Victor239:
+  - balance: Mindshields instead of ear protection now protect from cult stun. If
+      they're mindshielded instead it makes them drop items they are currently holding,
+      applies a dizziness effect, a brief knockdown and does some stamina damage.
+2020-05-06:
+  ATHATH:
+  - rscdel: Your wish that the wishgranter grants you can no longer be "To Kill".
+  AyyRobotics and AsphaltEvidence:
+  - rscadd: Added Safety Moth(TM), and Safety Pill(TM?) posters.
+  - imageadd: Updated contraband.dmi to add new poster icons.
+  Crossedfall:
+  - code_imp: Hello Beeple!
+  - bugfix: CLs are properly generated when a PR comes from an external fork.
+  Krysonism, trilbyspaceclone, Granpawalton, ArcaneMusic, Sneeker134, SteelSlayer, Fikou, Twaticus, bobubeu:
+  - rscadd: More cooking content, ribs, cakes, new burgers.
+  - imageadd: Burger resprites
+  - rscadd: Added new craftable Mob, the Butter Bear.
+  - rscadd: Five new plants!
+  - rscadd: Three new plant reagents!
+  - tweak: Plants with high toxicity are now capable of taking pest damage.
+  - balance: High pest levels are more damaging to plants.
+  - imageadd: Added new plants sprites.
+  - code_imp: Coders can now make plant genes unextractable.
+  - code_imp: Adds the dunkable element. Converts items who were using the dunkable
+      var to instead use this element and removes the dunkable var.
+  - code_imp: Adds a new "DUNKABLE" reagent flag for reagent containers. This determines
+      whether or not the container can have items dunked into it.
+  - rscadd: Added lots of new donuts
+  - rscadd: 3 new dishes cooked with the new plants.
+  - rscadd: Added a nugget box. I'm lovin' it (tm)
+  - rscdel: You can no longer make cherry donuts.
+  - tweak: Tea powder is less toxic and tastes better.
+  - rscadd: snowcones
+  - imageadd: snowiest of snow cones
+  - rscadd: Adds the Grill, which can be powered by coal and wood, increases food
+      nutritional value, taste, and adds grill marks.
+  - rscadd: Adds a new drink, Monkey Energy, works as fuel for the grill and increases
+      your speed if you're a monkey, also adds a new reagent, Char, which works the
+      magic in the grill.
+  - tweak: Coal now turns into CO2 at high temperatures and is now a stack
+  - rscadd: Adds a strawberry ice cream sandwich sprite
+  - rscadd: Strawberry ice cream sandwich crafting recipe
+  - rscadd: Strawberry ice cream sandwich cargo bounty
+  Triiodine:
+  - bugfix: Hardhats and Station Engineer specific loadout items now actually get
+      added to your loadout  if selected.
+  - rscadd: Added a whole bunch of items to every tab in the BeeCoin loadout shop.
+  - code_imp: Removed the associated sorting of BeeCoin shop category tabs. Aka things
+      aren't alphabetical anymore.
+  - spellcheck: Changed the description of the alternate armor vest, and large armor
+      vest,
+  jlsnow301:
+  - rscadd: Apids are now given beefriend trait, like flypeople, and are no longer
+      stung by them.
+  zeskorion:
+  - bugfix: HOP cant open gimmick jobs anymore
+2020-05-07:
+  Naksu:
+  - code_imp: Cleaned up saycode
+  PowerfulBacon:
+  - bugfix: Special antagonists no longer randomly spawn mid round.
+  - code_imp: Added code to stop events automatically getting added to the event control
+  qwertyquerty:
+  - bugfix: Optimized radiation a little
+  steamp0rt:
+  - rscadd: Guardians/holoparasites are no longer seperated into types
+  - rscadd: Instead, you get to "build" one, with a limited amount of points, selecting
+      different stats and abilities
+  - rscadd: 'The following major abilities are available to holoparasites: Assassin,
+      Explosive, Frenzy, Gravitokinetic, The Hand, Healing, Predator, Scout, and Time
+      Erasure.'
+  - rscadd: 'The following minor abilities are available to holoparasites: Surveillance
+      Snares, Teleportation Pad'
+  - rscdel: 'Holoparasite types that didn''t make the cut: Toy, Lightning, Protector,
+      Dextrous, Charger, Chaos'
+  zeskorion:
+  - tweak: no more random confusion when hit in the head
+  - tweak: dismemberment now uses a calculation reliant on weapon size, weight, sharpness,
+      and force to determine when a limb is lost, instead of RNG.
+  - tweak: no more RNG on punches! punches now have fixed damage and no stun.
+  - refactor: totally changes up block chance. blocking now relies on items being
+      held in the active hand or not, if you are walking or not, and the direction
+      you are facing. Shields now use durability and all other items deal stamina
+      damage to the arm holding them when blocking. Read the pr for more in-depth
+      info.
+2020-05-08:
+  Iamgoofball:
+  - bugfix: Conveyors work again.
+  PowerfulBacon:
+  - code_imp: Antags can now have the ability to not delay the end of the round
+  - code_imp: removed confusing and poorly named preference type.
+  Victor239:
+  - balance: Plasmamen helmets no longer have flash/welding protection by default.
+      Instead they have a toggleable visor which acts like a normal welding helmet.
+      It being active can be noticed on the sprite.
+2020-05-09:
+  Crossedfall:
+  - tweak: Further tweaks to the automated changelog generator
+  WhyIsCaeciliusTaken:
+  - rscadd: Added ability to move and plant mines, as well as disarm them with a multitool
+  - rscadd: Added ability for mines to be "smart" and detect mindshield implants if
+      a particular mine type
+  - rscadd: Clown and stun mines can now be printed in the service and security protolathes
+      respectively
+  - rscadd: three new mine related tech nodes, and three new printable smart mine
+      types for security
+  - rscadd: Added the exploding rubber duck as a 4TC traitor and clownops item, with
+      a more powerful version available for 10TC.
+  - rscadd: Some mines can be ordered from cargo
+  - tweak: stun mines now do stamina damage instead of a hardstun
+2020-05-10:
+  JDawg1290, zxaber:
+  - code_imp: mech construction refactored
+  - rscadd: You can now replace the scanning modules and capacitors on a mech. Just
+      use your ID on the mech after opening the panel during maintenance procedures
+      to remove the part you want to replace, and then insert the new part afterwards.
+  - tweak: Replacing a power cell on a mech no longer uses a screwdriver, and functions
+      the same as the replacement steps for scanning modules and capacitors.
+  - bugfix: Mechs removed from the game via means other than damage no longer leave
+      a wreckage.
+  PowerfulBacon:
+  - tweak: Shuttles can now be built on lavaland
+  - bugfix: You cannot define other shuttles as a custom shuttle if they fly into
+      the shuttle area before you define it as a shuttle.
+  Trilbyspaceclone:
+  - rscadd: New crafting for Medical patches such as bruise packs and burn ointment.
+      As well as new type of Gauze!
+  - rscadd: Gauze now heal 5 brute, thats it. Makeshift heals 0
+  zeskorion:
+  - rscadd: the upgrade wand, a magician only traitor item that upgrades his gear
+  - balance: lowers teleglove range by 1
+  - balance: bottomless top hat now kidnaps non-carbons faster, and works better on
+      the user
+  - balance: reverts cult stun buff
+  - rscadd: shields can be repaired with a welding tool
+  - tweak: normal briefcases can now block like secure ones can
+  - tweak: fire axe is now worse at blocking, but better at dismemberment and breaking
+      through shields and blocks
+  - tweak: changes up dismemberment calculations to work far better.
+  - tweak: powerfist is no longer snowflake bullshit that fucks the entirety of all
+      melee combat conventions by bypassing shields and armor completely, but it now
+      actually works as a destroyer of shields and the true best melee weapon in the
+      game (not really)(but close)
+  - tweak: penetrating projectiles now bypass shields
+  - balance: projectiles deal full damage to blocks
+  - balance: nerfed toy katana
+  - balance: nerfed chairs
+  - balance: nolimbdisable doesnt let you block forever
+  - balance: stamina healing drugs make you far worse at blocking
+  - balance: cult dagger no longer blocks as if it's a longsword, cult shield is now
+      less durable
+  - bugfix: energy shield is now repaired when you turn it back on after it breaks.
+      However, after breaking, there is a cooldown before you can use it again
+  - bugfix: double esword spin is now less theatrical, making it no longer disrupt
+      your blocks.
+  - bugfix: active blocking now works as intended
+  - bugfix: projectile blocking now works as intended
+2020-05-11:
+  WarlockD:
+  - rscadd: Research Servers now actually generate points, and are sensitive to heat.
+  zeskorion:
+  - rscadd: adds clubs. clubs deal minor brute and stamina damage, but they do a lot
+      of damage to blocks
+  - rscadd: adds clubs to sec belts and starting inventories
+  - rscadd: adds a ghetto club to the crafting menu
+  - tweak: sec belts have one more slot, and can hold clubs
+2020-05-12:
+  Cenrus:
+  - bugfix: Felinid virus works properly again
+  PowerfulBacon:
+  - rscdel: Clockcult.
+  zeskorion:
+  - rscadd: parries. start walking (hold ALT on hotkey mode) to parry attacks you
+      block for 0.5 seconds. this makes you not take stamina damage from blocking
+      and makes you automatically hit an attack against the attacker. No matter what
+      you parry with, the riposte will be done with the item in the active hand, unless
+      the active hand is empty. Parrying ignores restrictions on active blocking.
+  - tweak: beestation is now the dark souls of ss13
+  - soundadd: parry sound, big thanks to GizkaFreeman
+2020-05-13:
+  Sinmero:
+  - imageadd: added autodoc sprite dmi
+  Victor239:
+  - balance: Lots of traitor item costs rebalanced.
+  - balance: Taeclowndo shoes now usable by anyone, but still can only be bought by
+      Clown if not discounted.
+  - balance: Stimpack now uses Pump-Up instead of Stimulants. This makes you immune
+      to damage slowdown, recover 80% faster from stuns/slips/knockdowns and gain
+      80 stamina regen. Also makes you jitter quite a bit.
+  - balance: Player minimum requirement for No-Slips removed.
+  - balance: Contract Kit has it's set of random items tweaked.
+  - balance: Syndi-Kit Special "Bond" kit gets a diversity of magazines and a syndi
+      encryption key.
+  jlsnow301:
+  - rscadd: Podperson cloning is now a bit more efficient
+  - tweak: T1 Cyborg recharging is no longer abysmally slow.
+  - tweak: Ethereal hunger rate reduced.
+  qwertyquerty:
+  - server: Upgrading DMAPI to 5.1.0 for TGS4
+  zeskorion:
+  - tweak: you can only parry while holding an item that can parry
+  - balance: buffs relic water bottle. don't drink it.
+  - rscadd: plasmaman chameleon kit
+  - tweak: plasmaman suits no longer burn off
+  - code_imp: refactored plasmaman fire code a bit. any spaceworthy helmet will function
+      as an envirohelm now.
+  - rscadd: A beegun!  it fires bees. If the gun is filled with reagents, the bees
+      spawn with those reagents
+  - balance: bee syndie kit has a special bee costume that has armor
+2020-05-14:
+  Atlanta Ned:
+  - rscadd: Security can now issue citations! Spot someone committing a minor crime?
+      Fine them for it!
+  - rscadd: Got a citation? You can view and pay it at any security warrant consoles,
+      located near the brig, your local law office, or the courtroom!
+  Kmc2000:
+  - rscadd: Ported full auto from NSV. Guns will continue firing at your cursor's
+      location while you hold left click, assuming they have a full auto mode.
+  steamp0rt:
+  - bugfix: Guardians will no longer accidentally kill their master by slamming into
+      walls after being flashbanged
+  - bugfix: Hopefully fixed guardians being sent to the lobby
+  zeskorion:
+  - rscadd: hobo gimmick job
+  - rscadd: two new maint rooms, both for hobo dens
+  - rscadd: random maint to pubby
+  - rscadd: gloves of the north star make you click 2d spessmens better
+  - bugfix: gloves of the north star no longer yells a battlecry when you fail to
+      hit a mob
+2020-05-15:
+  Nemvar, Wjohnston sprites and Mey Ha Zah for some help getting those sprites into a sane form:
+  - rscadd: The flight potion now works with lizards. Use it as a liz to get cool
+      derg wings.
+  - code_imp: Improved the way factions are applied to species.
+  - bugfix: Shadowpeople no longer get attacked by faithless simplemobs.
+  PowerfulBacon:
+  - bugfix: You can no longer queue hundreds of messages to the other station resulting
+      in the bombardment of everyone onlines ears as 100 simultaneous sounds play.
+2020-05-16:
+  CthulhuOnIce:
+  - spellcheck: fixed my name in the changelog
+  PowerfulBacon:
+  - rscadd: Secret extended re-added
+  ike709:
+  - rscdel: Removed OracleUI. Don't worry about it, you probably didn't know this
+      existed anyways.
+  - bugfix: Reading paper attached to airlocks should work again.
+  - bugfix: Burning paper can no longer be used to lag the server.
+  - bugfix: Combat should no longer be FUBAR. If the bug persists, report it ASAP.
+  zeskorion:
+  - rscdel: parries
+  - tweak: changes up jitters. now, it's noblock, instead of a significant block penalty,
+      but it no longer affects shields
+  - balance: you can't block for a few seconds if you have nolimbdisable or a nodrop
+      item and your block is broken
+  - balance: nerfs toy katana, again
+  - tweak: small changes to some chaplain gear
+  - bugfix: shielded hardsuits work again
+  - bugfix: shields dont take damage from blocking disablers anymore
+  - bugfix: I think this also fixes the bug where blocks randomly stop working
+  - bugfix: automatic guns now use the fire_rate var again
+2020-05-17:
+  PowerfulBacon:
+  - server: Adds in saving areas
+  - admin: TGUI Ticket managing system
+  Sinmero:
+  - balance: Added overdose to Styptic Powder.
+  - balance: Added overdose to Silver Sulfadiazine.
+  Triiodine (Feat. Azlan):
+  - rscadd: Added a standard styled Research Director's jumpsuit and associated labcoat.
+      Comes with one free middle school science fair medal.
+  - spellcheck: Changed the name of the purple bartender's jumpsuit to purple bartender's
+      skirt. Lawyer's blue suit to blue slacks. Lawyer's black suit to black slacks
+  - spellcheck: Changed the description of the CMO's labcoat, blue slacks, and black
+      slacks.
+  - imageadd: Resprited the Medical Doctor's, Chief Medical Officer's, Geneticist's,
+      Chemist's, and Virologist's, jumpsuits and labcoats.
+  - imageadd: Resprited the Mad's green labcoat.
+  - imageadd: Resprited the Chemist's, Virologist's, Scientist's, and Geneticist's
+      backpacks and satchels.
+  - imageadd: Resprited the Medical Doctor's backpack.
+  - tweak: Spriters and coders rejoice, the uniforms mob and object sprite sheets
+      have been sorted and match each other in layout.
+  ike709:
+  - bugfix: If you have a keyboard with F13-F24, you will no longer secretly warn
+      admins when you press one of those keys.
+  qwertyquerty:
+  - bugfix: Ghosts and incapacitated users can no longer interact with machines using
+      control/alt-click
+  steamp0rt:
+  - tweak: You can now reset holoparasites as many times as you'd like.
+  - bugfix: Guardians should always be properly revived with their masters now.
+  - tweak: Guardians obtained via the arrow can name themselves.
+  - balance: Guardian masters in a pocket dimension will no longer be GODMODE. Instead,
+      they can no longer enter crit, pass out, or die while inside.
+  - balance: Healing stands will now only heal half of their full potential if unmanifested.
+2020-05-18:
+  PowerfulBacon:
+  - bugfix: Disconnected clients now have a history
+  - bugfix: Revolution no longer defaults to continuous
+  ike709:
+  - bugfix: Everybody's favorite debug verb can no longer crash the server when spammed,
+      because it can no longer be spammed.
+  tralezab:
+  - rscadd: The mime's PDA messages are silent now!
+  - tweak: Mime's invisible box lasts twice as long.
+2020-05-19:
+  MCterra10:
+  - bugfix: bags of holding function as intended again.
+2020-05-20:
+  MCterra10:
+  - bugfix: can no longer bomb with just a single BoH in the vicinity
+  - bugfix: dead mobs no longer call ghosts for split-personality and imaginary friend
+  YakiAttaki:
+  - rscdel: Removed the pocket dimension stand power.
+  actioninja:
+  - refactor: repathed all under clothing, keep an eye out for errors.
+  ike709:
+  - tweak: The default number of space ruins to load in has been reduced.
+  qwertyquerty:
+  - rscadd: Added new title screens
+  - server: Update DMAPI to 5.2
+2020-05-22:
+  ike709:
+  - rscdel: No more messages with clickable links in OOC unless you're an admin.
+2020-05-24:
+  Archanial:
+  - tweak: Cyborgs and security no longer can become devils.
+  Crossedfall:
+  - config: Disables Sage's midround OOC
+  Kmc2000:
+  - bugfix: You can no longer magdump full auto weapons instantly
+  MCterra10:
+  - rscadd: Automatic Crew Transfer Vote for Sage
+  St0rmC4st3r:
+  - bugfix: Radios in both barbershops are now actual radios instead of implants.
+  Trigg:
+  - bugfix: The title screen no longer occasionally fails to load.
+  - bugfix: R&D Servers no longer look active when their panels are open.
+  - bugfix: The Bluespace Compression Kit can now be properly examined.
+  - bugfix: Construction paper now also comes in red colors, as originally intended.
+  ike709:
+  - bugfix: You can no longer shoot in softcrit.
+  - bugfix: LOOC works again on Sage.
+  zeskorion:
+  - bugfix: oops my shielded hardsuit and such fix broke literally everything, let's
+      try that again
+2020-05-25:
+  PowerfulBacon:
+  - bugfix: Shuttles will now be saved with the correct size vars, meaning you can
+      actually use them
+  SomeAngryMiner:
+  - imageadd: All the spacesuits got a brand new, fresh look! (voidsuits and hardsuits
+      not included)
+  - bugfix: right hand inhands of the blue syndiesuit now properly work
+  - bugfix: the EVA helmets now have proper inhands.
+  ike709:
+  - rscadd: Monstermos from yogs, which significantly improves atmos performance.
+  - tweak: Firedoors are no longer full-tile. This means you can walk though a pair
+      of firedoors without depressurizing a room.
+  - tweak: Space wind is faster and deadlier.
+  - tweak: Windows are significantly stronger, with most having 4x as much health.
+  - tweak: Windows bordering space now have firelock windows to seal breaches.
+  - tweak: You can automatically walk through a closed firedoor if doing so isn't
+      likely to kill you.
+  - tweak: Did I mention atmos is faster? It's way faster. Gas will quickly flood
+      a room.
+  - server: Improved linux support for extools. This means nothing for players, but
+      might be useful for downstream server owners. Some of the code was created by
+      SpaceManiac.
+  - tweak: Air alarms will turn the lights blue in areas with hazardous atmos.
+  - tweak: Lavaland atmos has a higher minimum pressure.
+  - rscadd: Cycling airlocks that don't suck. Ported from Yogs.
+  - rscadd: Players can now easily construct cycling airlocks.
+  - tweak: To make repressurizing airlocks faster, the default distro pressure has
+      been increased to 500 kPa. Atmos Techs can increase repressurization speed further.
+  - tweak: Lavaland scrubbers will scrub BZ and other harmful gasses by default.
+  - tweak: Mechs can open firelocks in some cases. Credit to MacHac at yogs.
+  - rscadd: Your emergency survival box now contains a skinsuit, which is an emergency
+      spacesuit that protects against low pressure (but not against cold!).
+  - rscadd: Unroll the skinsuit to equip it, roll it back up to fit it back in the
+      box.
+  qwertyquerty:
+  - balance: the abductor chem dispenser now has a few extra chems in it
+2020-05-26:
+  covertcorvid:
+  - rscadd: Faster-Than-Live drink from FTL13
+  - imageadd: Sprite for Faster-Than-Liver
+  zeskorion:
+  - bugfix: delta cargo and dorms have been fixed
+  - rscdel: a maint room causing runtimes was commented out
+2020-05-27:
+  covertcorvid:
+  - rscadd: Added multi-z support for pinpointers
+  - imageadd: Added above and below overlays for pinpointers
+2020-05-28:
+  ike709:
+  - rscadd: New contribution guidelines
+  - bugfix: The second worst shuttle should work again. Now stop buying it.
+2020-05-30:
+  PowerfulBacon:
+  - tweak: Ash walkers can no longer use shuttle consoles.
+2020-05-31:
+  Chessus:
+  - rscdel: N2O removed as ingredient for Nitryl Gas
+  - rscadd: Added Pluoxium in place of N2O as Catalyst for Nitryl
+  Mickyan, Bobbahbrown, OnePlusOne, Nickkoranda:
+  - rscadd: Added sharpened mop crafting recipe
+  - rscadd: Added brooms for sweeping, check the JaniDrobe vending machine
+  - imageadd: Caution sign resprited
+  - tweak: You can wear wet floor signs

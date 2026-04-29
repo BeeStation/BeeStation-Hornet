@@ -5,8 +5,8 @@
 
 	sound = 'sound/magic/fireball.ogg'
 	school = SCHOOL_EVOCATION
-	cooldown_time = 6 SECONDS
-	cooldown_reduction_per_rank = 1 SECONDS // 1 second reduction per rank
+	cooldown_time = 12 SECONDS
+	cooldown_reduction_per_rank = 2 SECONDS
 
 	invocation = "ONI SOMA!"
 	invocation_type = INVOCATION_SHOUT

@@ -3,7 +3,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/soap,
 		/obj/item/knife/kitchen,
 		/obj/item/knife/combat,
-		/obj/item/knife/poison,
+		/obj/item/knife/venom,
 		/obj/item/throwing_star,
 		/obj/item/syndie_glue,
 		/obj/item/book_of_babel,
@@ -59,9 +59,9 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/nullrod/tribal_knife,
 		/obj/item/nullrod/fedora,
 		/obj/item/nullrod/godhand,
-		/obj/item/melee/baton/loaded,
+		/obj/item/melee/baton/security/loaded,
 		/obj/item/melee/chainofcommand/tailwhip/kitty,
-		/obj/item/melee/classic_baton,
+		/obj/item/melee/baton,
 		/obj/item/melee/ghost_sword,
 		/obj/item/melee/powerfist,
 		/obj/item/storage/firstaid/advanced,
@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/energy_katana,
 		/obj/item/clothing/suit/space/hardsuit/shielded/syndi,
 		/obj/item/his_grace,
-		/obj/vehicle/sealed/mecha/combat/marauder/mauler/loaded,
+		/obj/vehicle/sealed/mecha/marauder/mauler/loaded,
 		/obj/item/holoparasite_creator/tech,
 		/obj/item/mjolnir,
 		/obj/item/pneumatic_cannon/pie/selfcharge,
@@ -239,7 +239,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	if(living_victims <= 1 && !debug_mode)
 		to_chat(world, span_ratvar("<font size=18>VICTORY ROYALE!!</font>"))
 		if(winner)
-			winner.client?.process_greentext()
+			winner.client?.give_award(/datum/award/achievement/misc/greentext, winner)
 			to_chat(world, span_ratvar("<font size=18>[key_name(winner)] is the winner!</font>"))
 			new /obj/item/melee/supermatter_sword(get_turf(winner))
 		qdel(src)
@@ -283,7 +283,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	//Delay pre-game if we are in it.
 	if(SSticker.current_state == GAME_STATE_PREGAME)
 		//Force people to be not ready and start the game
-		for(var/mob/dead/new_player/player in GLOB.player_list)
+		for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 			to_chat(player, span_greenannounce("You have been forced as an observer. When the prompt to join battle royale comes up, press yes. This is normal and you are still in queue to play."))
 			player.ready = FALSE
 			player.make_me_an_observer(TRUE)
@@ -323,8 +323,16 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	START_PROCESSING(SSprocessing, src)
 
 /datum/battle_royale_controller/proc/titanfall()
-	var/list/participants = poll_ghost_candidates("Would you like to partake in BATTLE ROYALE?")
+	var/datum/poll_config/config = new(
+		question = "Would you like to partake in BATTLE ROYALE?",
+		poll_time = 30 SECONDS,
+		role_name_text = "battle royale player",
+		alert_pic = /obj/item/claymore,
+	)
+	var/list/participants = SSpolling.poll_ghost_candidates(config)
 	var/turf/spawn_turf = get_safe_random_station_turfs()
+	if(!spawn_turf)
+		return
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()
 	players = list()
@@ -333,9 +341,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		//Create a mob and transfer their mind to it.
 		CHECK_TICK
 		var/mob/living/carbon/human/H = new(pod)
-		ADD_TRAIT(H, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
-		ADD_TRAIT(H, TRAIT_DROPS_ITEMS_ON_DEATH, BATTLE_ROYALE_TRAIT)
-		H.status_flags |= GODMODE
+		H.add_traits(list(TRAIT_PACIFISM, TRAIT_DROPS_ITEMS_ON_DEATH, TRAIT_GODMODE), BATTLE_ROYALE_TRAIT)
 		//Assistant gang
 		H.equipOutfit(/datum/outfit/job/assistant)
 		//Give them a spell
@@ -353,14 +359,13 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	to_chat(world, span_boldannounce("[players.len] people remain..."))
 
 	//Start processing our world events
-	addtimer(CALLBACK(src, PROC_REF(end_grace)), 300)
+	addtimer(CALLBACK(src, PROC_REF(end_grace)), 30 SECONDS)
 	generate_basic_loot(150)
 
 /datum/battle_royale_controller/proc/end_grace()
 	for(var/mob/M in GLOB.player_list)
 		knock.Remove(M)
-		M.status_flags -= GODMODE
-		REMOVE_TRAIT(M, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
+		M.remove_traits(list(TRAIT_PACIFISM, TRAIT_DROPS_ITEMS_ON_DEATH, TRAIT_GODMODE), BATTLE_ROYALE_TRAIT)
 		to_chat(M, span_greenannounce("You are no longer a pacifist. Be the last [M.gender == MALE ? "man" : "woman"] standing."))
 
 //==================================
@@ -386,6 +391,8 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	if(!item_path)
 		return
 	var/turf/target = get_safe_random_station_turfs()
+	if(!target)
+		return
 	var/obj/structure/closet/supplypod/battleroyale/pod = new()
 	if(islist(item_path))
 		for(var/thing in item_path)

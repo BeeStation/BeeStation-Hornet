@@ -3,7 +3,7 @@
 /turf/open/floor/circuit,
 /area/template_noop)
 "n" = (
-/obj/effect/spawner/lootdrop/aimodule_harmful,
+/obj/effect/spawner/random/aimodule/harmful,
 /turf/open/floor/circuit,
 /area/template_noop)
 "q" = (
@@ -16,7 +16,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "y" = (
-/obj/effect/spawner/lootdrop/aimodule_neutral,
+/obj/effect/spawner/random/aimodule/neutral,
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -25,7 +25,7 @@
 /turf/open/floor/circuit,
 /area/template_noop)
 "K" = (
-/obj/effect/spawner/lootdrop/aimodule_harmless,
+/obj/effect/spawner/random/aimodule/harmless,
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -34,7 +34,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "T" = (
-/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
 /turf/open/floor/circuit,
 /area/template_noop)
 

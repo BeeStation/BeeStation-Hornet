@@ -43,10 +43,10 @@
 			addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/airalarm, reset), wire), 10 SECONDS)
 		if(WIRE_PANIC) // Toggle panic siphon.
 			if(!A.shorted)
-				if(istype(A.selected_mode, /datum/air_alarm_mode/filtering))
+				if(istype(A.selected_mode, /datum/air_alarm_mode/filtering/automatic))
 					A.select_mode(usr, /datum/air_alarm_mode/panic_siphon)
 				else
-					A.select_mode(usr, /datum/air_alarm_mode/filtering)
+					A.select_mode(usr, /datum/air_alarm_mode/filtering/automatic)
 		if(WIRE_ALARM) // Clear alarms.
 			if(A.alarm_manager.clear_alarm(ALARM_ATMOS))
 				A.danger_level = AIR_ALARM_ALERT_NONE

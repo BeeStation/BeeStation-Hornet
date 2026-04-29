@@ -7,7 +7,7 @@
 	icon_state = "mflash1"
 	max_integrity = 250
 	integrity_failure = 0.4
-	light_color = LIGHT_COLOR_WHITE
+	light_color = COLOR_WHITE
 	light_power = FLASH_LIGHT_POWER
 	layer = ABOVE_WINDOW_LAYER
 	damage_deflection = 10
@@ -208,7 +208,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 	. = ..()
 	. += span_notice("Its channel ID is '[id]'.")
 
-/obj/item/wallframe/flasher/after_attach(var/obj/O)
+/obj/item/wallframe/flasher/after_attach(obj/O)
 	..()
 	var/obj/machinery/flasher/F = O
 	F.id = id

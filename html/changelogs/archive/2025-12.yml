@@ -1,0 +1,247 @@
+2025-12-01:
+  PowerfulBacon:
+  - config: The default (local) config no longer has respawning enabled.
+  Rukofamicom:
+  - tweak: Supermatter crystals now have an upper limit on their explosive force,
+      achieved after 90 minutes of being powered.
+2025-12-02:
+  EvilDragonfiend:
+  - bugfix: fixed the manuscript bounty that it picked the wrong jobs
+  - tweak: made the manuscript bounty's reward credits more consistent.
+  PowerfulBacon:
+  - tweak: All midround ghost roles can only execute once per-round.
+2025-12-04:
+  PowerfulBacon:
+  - tweak: Admins can now bypass antagonist time restrictions when the use_exp_restrictions_admin_bypass
+      flag is set, making local testing easier.
+2025-12-05:
+  PowerfulBacon:
+  - bugfix: Fixes a lag issue caused by reagent containers detonating under certain
+      conditions.
+2025-12-06:
+  mrmanlikesbt:
+  - rscdel: 'Reverted handcuffs to the previous behavior. Which means: you can no
+      longer break your wrists to escape handcuffs and you now must stand completely
+      still for the handcuff''s escape duration to... escape.'
+2025-12-07:
+  Absolucy:
+  - bugfix: Fixed oozeling limb regeneration potentially crashing the server.
+  PowerfulBacon:
+  - refactor: Refactors some logic in the candidate poll system used by dynamic midround
+      events.
+  - tweak: Dynamic will wait until a candidate is available when a ruleset is executed,
+      cancelling any existing polls if a previous event did not find a candidate.
+  - tweak: Upon becoming a ghost, you will gain access to any candidate polls that
+      are currently in progress.
+  - tweak: Midround rulesets can now be selected as an option even if there are no
+      ghosts, as upon execution it will simply wait until enough ghosts sign up before
+      execution. This means that rulesets other than space pirates can execute on
+      lowpop.
+  Programs-The-Station:
+  - bugfix: Inedible food's span is now warning instead of green.
+  mrmanlikesbt:
+  - bugfix: Fixed not being able to escape cuffs while buckled to a chair
+  - spellcheck: Fixed an accidental revert of the black gloves description saying
+      that they are thick
+2025-12-08:
+  BotTierPC:
+  - tweak: Adds the Ventriloquist Dummy to Echo, Rad, and Deltastation and adjusts
+      the rooms slightly to accommodate the new item.
+  mrmanlikesbt:
+  - spellcheck: Fixed the Abandoned Club and Xenobiology Maintenance area names being
+      swapped
+2025-12-09:
+  EvilDragonfiend:
+  - admin: TP panel is better to recognise
+  Programs-The-Station:
+  - tweak: Transfer shuttle will not be called when there are zero votes in the poll.
+2025-12-10:
+  PowerfulBacon:
+  - tweak: The crew monitoring console will now show when someone's sensors have gone
+      offline, if they are in the crew manifest.
+2025-12-11:
+  r1ks-iwnl:
+  - bugfix: Fixed changelings getting round removed by decapitation.
+  - bugfix: Fixed changelings being incapable of using abilities without a brain.
+  - spellcheck: Throwing text for third person uses correct inflection.
+2025-12-13:
+  mrmanlikesbt:
+  - bugfix: Fixed a timestop runtime when freezing a person
+  - bugfix: fixed not being able to dream
+  - code_imp: slightly improved the sleeping status effect code
+  - tweak: slightly adjusted your chance to dream or snore while sleeping
+  - bugfix: fixed monkeys sometimes runtiming when their AI controller is deleted
+2025-12-15:
+  DrDuckedGoose:
+  - tweak: Adds basic parsing flag to web request, removes pause in build process
+  PowerfulBacon:
+  - tweak: The default backpack choice will always be departmental backpack now.
+2025-12-16:
+  mrmanlikesbt:
+  - bugfix: fixed cauterizing someone with a hot item sending a message to the wrong
+      person and not playing a sound effect
+  - balance: gun rechargers now charge twice as fast
+2025-12-18:
+  PowerfulBacon:
+  - bugfix: Characters generated through the strict random generator will no longer
+      spawn with jumpskirts when male.
+  - bugfix: Morphs no longer cause mobs that they eat to drop implants and other items
+      inside of the mob that aren't being worn by the mob.
+  mrmanlikesbt:
+  - bugfix: fixed a runtime when re-aquiring a client's parallax cache
+2025-12-19:
+  Dejaku51:
+  - bugfix: Fixed echo having metal floor instead of water in winter variant
+  Isaac:
+  - bugfix: Thermomachines will not turn themselves off if power goes out
+  MarkusLarsson421:
+  - bugfix: Fixes the construction of titanium windows.
+  PowerfulBacon:
+  - balance: Projectile blocking now respects the blocking cooldown.
+  - balance: Removes projectile blocking from most non-shield weapons, excluding some
+      unique ones (mainly, energy swords and the real katana).
+  - balance: Null rod katana now has the same stats as the regular claymore.
+  mrmanlikesbt, JohnFulpWillard, 00-Steven:
+  - rscadd: shutter frames can now be made with plasteel in-hand instead of having
+      to use the crafting menu
+  - bugfix: fixed some jankiness with constructing shutters and blast doors
+  - bugfix: fixed not being able to deconstruct shutters and blast doors
+  r1ks-iwnl:
+  - bugfix: Fixed death not slowing down bleeding.
+  - bugfix: Fixed blood splatters spawning on every tile when subjected to heavy bleeding.
+  ro5490:
+  - rscadd: Added a toy halo, now you can impersonate your favorite cultist! Disclaimer
+      - This item may get you prematurely lynched by trigger happy security, wear
+      at your own risk.
+2025-12-20:
+  Isaac:
+  - balance: Syndicate Modsuits now have it's full armor, regardless if it's in EVA
+      or Combat
+  - balance: Lone Operative now starts with the modsuit
+  mrmanlikesbt:
+  - bugfix: fixed toy eswords not having an inhand icon
+  - bugfix: fixed a runtime when eating clothes
+  - bugfix: fixed ninja nets destroying mindshields when sent to the hotel area
+2025-12-22:
+  Isaac:
+  - bugfix: Energy Shield Modules not working
+  - bugfix: Wizard Shield not working
+  - bugfix: Wizard battlemage shield can be recharged again by using the "Battlemage
+      shield charges" on the backpack modsuit
+  - rscadd: Energy Shield Module can be purchased from the nukie uplink for 8 TC's
+  - balance: Wizard shield can withstand 600 damage, has to be recharged manually
+  - balance: Syndicate Energy shield can withstand 60 damage, recharges after not
+      being hit for 20 seconds
+  PowerfulBacon:
+  - bugfix: Fixes non-unique randomised humans only ever spawning with white hair.
+  - bugfix: Fixes humans spawning as unique by default, even when not created through
+      unique means.
+2025-12-23:
+  Electronics:
+  - bugfix: Exploding nuclear bombs now correctly gib those that are unfortunate enough
+      to be on the same z-level
+2025-12-24:
+  pixelpoepleman:
+  - bugfix: Meta stationside AI sat access airlocks now cycle.
+  - bugfix: Meta stationside AI sat access air vent now connected to distro
+  - bugfix: A couple stairs in Card now allow you to pass them.
+2025-12-25:
+  r1ks-iwnl:
+  - bugfix: Fixed legion and hierophant, BDM and bubblegum hiscores being the same
+2025-12-26:
+  EvilDragonfiend (credit to the cross job idea to Selfiren):
+  - rscadd: Some jobs can write other job's manuscript rather than theirs. (For example,
+      all heads can write their underlings version.) Curator can now write any job
+      version.
+  - rscadd: Manuscript bounty is now repeatable in 4 minutes after claiming the reward
+  - tweak: Each book shelf in the library now has 15% chance to spawn an empty manuscript
+  ShizCalev:
+  - bugfix: Fixed a runtime when mousing over an object in nullspace
+  mrmanlikesbt:
+  - bugfix: fixed heads sometimes not having extra examine text (soulless)
+  - bugfix: Fixed the italian moustache
+  - bugfix: fixed consistent human dummies runtiming when spewing blood trails
+  - bugfix: fixed energy balls (teslas) not generating power
+  - bugfix: blood freezers are no longer stocked with fake ethereal blood
+  - bugfix: fixed syndicate borgs not starting with syndimov laws
+  - bugfix: playstyle strings are once more properly sent to syndicate borgs
+  r1ks-iwnl:
+  - bugfix: Fixed blushing
+  rkz/tsar-salat, baystation coders:
+  - rscadd: adds per-slot examination of carbon clothing. Un-obscured items can be
+      examined by hrefs appended to them.  Follows obscuration rules.
+  - rscadd: adds visible_message when a mob examines another mob or their clothing,
+      ghosts and the like not included, obviously.
+  - rscadd: adds police badge fluff. Use it inhand(z) to assign your name and job
+      to it, hit people with it to show how important you are.
+  - server: adds examination preferences. Examine messages can be turned off like
+      paychecks (this doesnt affect other people seeing it), adds preference that
+      lets you change how you see links while examining. Either an appended [?] or
+      the full item is highlighted. Go to Game > Chat > IC > Advanced preferences
+      to change
+2025-12-27:
+  Tsar-Salat:
+  - code_imp: reorganized mob spawn files
+  pixelpoepleman:
+  - rscadd: Box RD privacy shutters
+  - rscadd: Box AI sat to main power cable
+  - bugfix: Meta tcomms now connected to scrubnet/distro
+  - bugfix: Meta west service door refusing access to anyone who didnt join as service
+  - tweak: Moved Rad's atmos/southwest solar array console into the turbine
+  rkz, neopythagorean, GoldenAlpharex, Pickle-Coding:
+  - code_imp: converted the last Tcomms machine to TGUI
+  - bugfix: tcomms machines cannot monitor centcom frequencies or CTF teams
+  - bugfix: tcomms use KHz, same as headsets
+  - code_imp: documents tcomms code
+2025-12-28:
+  PowerfulBacon:
+  - bugfix: Fixes linting errors provided by spacemanDMM
+  - bugfix: Supply PDAs no longer run out of power after 10 minutes of use.
+  - bugfix: Fixes the science PDA not getting its components installed correctly.
+  - tweak: All PDAs now last at least 90 minutes without any programs opened.
+  - balance: PDAs will no longer consume power from active programs when not observed.
+  Qustinnus:
+  - rscadd: ethereals now have sound effects when screaming
+  r1ks-iwnl:
+  - bugfix: Fixed traitor and chaplain carp suit not protecting against space.
+2025-12-29:
+  Isaac:
+  - balance: BSA now requires 10 bluespace crystals instead of 20
+  - balance: BSA now has less camera shake and the sound it plays is a lot less loud
+  - balance: DNA Vault requires less plant DNA to be completed
+  - balance: Bluespace Harvester gives 10 points per mining level, compared to the
+      old 4
+  - rscadd: New option for the bluespace harvester, gives a small quantity of materials
+      for 4000 points
+  - balance: Bluespace harvester food option gives 2 food, costing 2000 instead of
+      6000
+  - balance: Bluespace harvester lootpools changed slightly
+  - rscadd: New shelter template, shuttle husk
+  - balance: Shuttle Construction kit now contains the husk of an old exploration
+      shuttle
+  - bugfix: You can now scan animals again with the DNA probe
+  - balance: 2 station objectives will spawn per round, still randomized
+  - balance: lowered the amount of mob spawns from the BSH portals
+  - rscdel: Removed the station shield as an objective, kept the code for the satellite
+      defense
+  mrmanlikesbt:
+  - bugfix: fixed the is_valid_z_level() proc
+  r1ks-iwnl:
+  - bugfix: Fixed changelings being able to copy plasmamen
+  - bugfix: Fixed IPCs not using their backup human character when rolling changeling
+  - bugfix: Fixed species that got forced into their backup human character when rolling
+      an antag having a picture of their old character in sec records
+  - bugfix: Fixed all species changes dropping all of your items
+  rkz:
+  - code_imp: An esteemed 19th century Arkhaelogist has blasted some unused code that
+      laid dormant and unused for 14 years. No museum would take it...
+2025-12-30:
+  PowerfulBacon:
+  - tweak: Adds some documentation to get_virtual_z and fixes the logical z comparisons
+      of nuclear reactors and immovable rods.
+  - bugfix: Fixes immovable rod appearing to not work correctly.
+  Urumasi, Meyhazah, r1ks-iwnl:
+  - rscadd: HECK suit sprite has enhanced customization via spray paint
+  - bugfix: Fixed HECK suit hiding your hand and feet clothing
+  mrmanlikesbt:
+  - config: cults and nuclear operatives now spawn a minimum of two players

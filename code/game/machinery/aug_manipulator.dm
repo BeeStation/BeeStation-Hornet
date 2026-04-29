@@ -109,7 +109,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/aug_manipulator, "Use")
 			return
 		if(!storedpart)
 			return
-		storedpart.static_icon = style_list_icons[augstyle]
+		storedpart.icon_static = style_list_icons[augstyle]
 		eject_part(user)
 
 	else

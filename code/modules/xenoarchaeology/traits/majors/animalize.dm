@@ -41,6 +41,7 @@
 	//Restore every swap holder
 	for(var/mob/living/target in focus)
 		var/mob/living/form = target.loc
+		form.forceMove(get_turf(form))
 		form?.do_unshapeshift()
 		target.Knockdown(2 SECONDS)
 	return ..()
@@ -52,7 +53,7 @@
 
 /datum/xenoartifact_trait/major/animalize/vermin
 	label_name = "Bestialized Δ"
-	possible_animals = list(/mob/living/basic/mothroach, /mob/living/simple_animal/mouse, /mob/living/basic/cockroach/strong)
+	possible_animals = list(/mob/living/basic/mothroach, /mob/living/basic/mouse, /mob/living/basic/cockroach/strong)
 	conductivity = 6
 
 /datum/xenoartifact_trait/major/animalize/vermin/get_dictionary_hint()

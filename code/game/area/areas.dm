@@ -4,9 +4,10 @@
   * A grouping of tiles into a logical space, mostly used by map editors
   */
 /area
+	abstract_type = /area
 	name = "Space"
 	var/navigation_area_name /// when multiple areas should have the same name, set this. get_area_navigation_name() proc will use name variable if this is null
-	icon = 'icons/turf/areas.dmi'
+	icon = 'icons/area/areas_misc.dmi'
 	icon_state = "unknown"
 	layer = AREA_LAYER
 	//Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
@@ -14,18 +15,21 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_LIGHTING
 
-	var/area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
+	var/area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED
 
 	var/clockwork_warp_allowed = TRUE // Can servants warp into this area from Reebe?
 	var/clockwork_warp_fail = "The structure there is too dense for warping to pierce. (This is normal in high-security areas.)"
-	/// List of all turfs currently inside this area. Acts as a filtered bersion of area.contents
-	/// For faster lookup (area.contents is actually a filtered loop over world)
+
+	/// List of all turfs currently inside this area as nested lists indexed by zlevel.
+	/// Acts as a filtered version of area.contents For faster lookup
+	/// (area.contents is actually a filtered loop over world)
 	/// Semi fragile, but it prevents stupid so I think it's worth it
-	var/list/turf/contained_turfs = list()
-	/// Contained turfs is a MASSIVE list, so rather then adding/removing from it each time we have a problem turf
+	var/list/list/turf/turfs_by_zlevel = list()
+	/// turfs_by_z_level can hold MASSIVE lists, so rather then adding/removing from it each time we have a problem turf
 	/// We should instead store a list of turfs to REMOVE from it, then hook into a getter for it
 	/// There is a risk of this and contained_turfs leaking, so a subsystem will run it down to 0 incrementally if it gets too large
-	var/list/turf/turfs_to_uncontain = list()
+	/// This uses the same nested list format as turfs_by_zlevel
+	var/list/list/turf/turfs_to_uncontain_by_zlevel = list()
 
 	///Do we have an active fire alarm?
 	var/fire = FALSE
@@ -105,8 +109,6 @@
 	flags_1 = CAN_BE_DIRTY_1
 
 	var/list/cameras
-	/// typecache to limit the areas that atoms in this area can smooth with, used for shuttles IIRC
-	var/list/canSmoothWithAreas
 
 	/// List of all air vents in the area
 	var/list/obj/machinery/atmospherics/components/unary/vent_pump/air_vents = list()
@@ -126,25 +128,11 @@
 	///Typepath to limit the areas (subtypes included) that atoms in this area can smooth with. Used for shuttles.
 	var/area/area_limited_icon_smoothing
 
-	//Lighting overlay
-	var/obj/effect/lighting_overlay
-	var/lighting_overlay_colour = "#FFFFFF"
-	var/lighting_overlay_opacity = 0
-	var/lighting_overlay_matrix_cr = 0
-	var/lighting_overlay_matrix_cg = 0
-	var/lighting_overlay_matrix_cb = 0
-	var/lighting_overlay_cached_darkening_matrix
-
 	///This datum, if set, allows terrain generation behavior to be ran on Initialize()
 	var/datum/map_generator/map_generator
 
 	///Lazylist that contains additional turfs that map generation should be ran on. This is used for ruins which need a noop turf under non-noop areas so they don't leave genturfs behind.
 	var/list/additional_genturfs
-
-	/// Default network root for this area aka station, lavaland, etc
-	var/network_root_id = null
-	/// Area network id when you want to find all devices hooked up to this area
-	var/network_area_id = null
 
 	/// How hard it is to hack airlocks in this area
 	var/airlock_hack_difficulty = AIRLOCK_SECURITY_NONE
@@ -157,6 +145,10 @@
 
 	/// What networks should cameras in this area belong to?
 	var/list/camera_networks = list()
+
+	/// If true, then air alarm automation will be disabled in this area and it will start with filtering instead
+	/// of automated.
+	var/disable_air_alarm_automation = FALSE
 
 /**
   * A list of teleport locations
@@ -212,7 +204,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   */
 /area/Initialize(mapload)
 	icon_state = ""
-	canSmoothWithAreas = typecacheof(canSmoothWithAreas)
 
 	if(!ambientsounds && ambience_index)
 		ambientsounds = GLOB.ambience_assoc[ambience_index]
@@ -220,76 +211,41 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(!ambientmusic && ambient_music_index)
 		ambientmusic = GLOB.ambient_music_assoc[ambient_music_index]
 
-	if(!requires_power)
+	if(requires_power)
+		set_base_luminosity(src, 0)
+	else
 		power_light = TRUE
 		power_equip = TRUE
 		power_environ = TRUE
 
-	if(dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
-		dynamic_lighting = CONFIG_GET(flag/starlight) ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
-	if(dynamic_lighting == DYNAMIC_LIGHTING_DISABLED)
-		set_base_luminosity(src, 1)
+		if(static_lighting)
+			set_base_luminosity(src, 0)
 
 	. = ..()
 
-	if(!IS_DYNAMIC_LIGHTING(src))
-		blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
-		if (fullbright_type == FULLBRIGHT_STARLIGHT)
-			add_overlay(GLOB.starlight_overlay)
-		else
-			add_overlay(GLOB.fullbright_overlay)
-	else if(lighting_overlay_opacity && lighting_overlay_colour)
-		generate_lighting_overlay()
+	if(!static_lighting)
+		blend_mode = BLEND_MULTIPLY
+
+	if(has_starlight_overlay)
+		add_overlay(GLOB.starlight_overlay)
+
 	reg_in_areas_in_z()
-	if(!mapload)
-		if(!network_root_id)
-			network_root_id = STATION_NETWORK_ROOT // default to station root because this might be created with a blueprint
-		SSnetworks.assign_area_network_id(src)
+
+	update_base_lighting()
 
 	return INITIALIZE_HINT_LATELOAD
 
 /**
-  * Sets machine power levels in the area
-  */
+ * Sets machine power levels in the area
+ */
 /area/LateInitialize()
-	power_change()		// all machines set to current power level, also updates icon
+	power_change() // all machines set to current power level, also updates icon
 
 /area/vv_edit_var(var_name, var_value)
 	// Reference type, so please don't touch
 	if (var_name == NAMEOF(src, camera_networks))
 		return FALSE
 	return ..()
-
-/**
- * Performs initial setup of the lighting overlays.
- */
-/area/proc/generate_lighting_overlay()
-	if(lighting_overlay)
-		//Remove the old lighting overlay
-		cut_overlay(lighting_overlay)
-		//Delete the old lighting overlay object
-		QDEL_NULL(lighting_overlay)
-	//Create the lighting overlay object for this area
-	update_lighting_overlay()
-	//Areas with a lighting overlay should be fully visible, and the tiles adjacent to them should also
-	//be luminous
-	set_base_luminosity(src, 1)
-	//Add the lighting overlay
-	add_overlay(lighting_overlay)
-
-/area/proc/update_lighting_overlay()
-	lighting_overlay = new /obj/effect/fullbright
-	lighting_overlay.color = lighting_overlay_colour
-	lighting_overlay.alpha = lighting_overlay_opacity
-	if(length(lighting_overlay_colour) != 7)
-		return
-	var/r = hex2num(copytext(lighting_overlay_colour, 2, 4))/255
-	var/g = hex2num(copytext(lighting_overlay_colour, 4, 6))/255
-	var/b = hex2num(copytext(lighting_overlay_colour, 6, 8))/255
-	lighting_overlay_matrix_cr = r * (lighting_overlay_opacity/255)
-	lighting_overlay_matrix_cg = g * (lighting_overlay_opacity/255)
-	lighting_overlay_matrix_cb = b * (lighting_overlay_opacity/255)
-	lighting_overlay_cached_darkening_matrix = null // Clear cached list
 
 /area/proc/RunGeneration()
 	if(map_generator)
@@ -312,24 +268,82 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 			additional_genturfs = null
 		map_generator.generate_terrain(turfs, src)
 
-/area/proc/get_contained_turfs()
-	if(length(turfs_to_uncontain))
+/// Returns a nested list of lists with all turfs split by zlevel.
+/// only zlevels with turfs are returned. The order of the list is not guaranteed.
+/area/proc/get_zlevel_turf_lists()
+	if(length(turfs_to_uncontain_by_zlevel))
 		cannonize_contained_turfs()
-	return contained_turfs
+
+	var/list/zlevel_turf_lists = list()
+
+	for (var/list/zlevel_turfs as anything in turfs_by_zlevel)
+		if (length(zlevel_turfs))
+			zlevel_turf_lists += list(zlevel_turfs)
+
+	return zlevel_turf_lists
+
+/// Returns a list with all turfs in this zlevel.
+/area/proc/get_turfs_by_zlevel(zlevel)
+	if (length(turfs_to_uncontain_by_zlevel) >= zlevel && length(turfs_to_uncontain_by_zlevel[zlevel]))
+		cannonize_contained_turfs_by_zlevel(zlevel)
+
+	if (length(turfs_by_zlevel) < zlevel)
+		return list()
+
+	return turfs_by_zlevel[zlevel]
+
+
+/// Merges a list containing all of the turfs zlevel lists from get_zlevel_turf_lists inside one list. Use get_zlevel_turf_lists() or get_turfs_by_zlevel() unless you need all the turfs in one list to avoid generating large lists
+/area/proc/get_turfs_from_all_zlevels()
+	. = list()
+	for (var/list/zlevel_turfs as anything in get_zlevel_turf_lists())
+		. += zlevel_turfs
 
 /// Ensures that the contained_turfs list properly represents the turfs actually inside us
-/area/proc/cannonize_contained_turfs()
+/area/proc/cannonize_contained_turfs_by_zlevel(zlevel_to_clean, _autoclean = TRUE)
 	// This is massively suboptimal for LARGE removal lists
 	// Try and keep the mass removal as low as you can. We'll do this by ensuring
 	// We only actually add to contained turfs after large changes (Also the management subsystem)
-	// Do your damndest to keep turfs out of /area/space as a stepping stone
-	// That sucker gets HUGE and will make this take actual tens of seconds if you stuff turfs_to_uncontain
-	contained_turfs -= turfs_to_uncontain
-	turfs_to_uncontain = list()
+	// Do your damndest to keep turfs out of /area/misc/space as a stepping stone
+	// That sucker gets HUGE and will make this take actual seconds
+	if (zlevel_to_clean <= length(turfs_by_zlevel) && zlevel_to_clean <= length(turfs_to_uncontain_by_zlevel))
+		turfs_by_zlevel[zlevel_to_clean] -= turfs_to_uncontain_by_zlevel[zlevel_to_clean]
+
+	if (!_autoclean) // Removes empty lists from the end of this list
+		turfs_to_uncontain_by_zlevel[zlevel_to_clean] = list()
+		return
+
+	var/new_length = length(turfs_to_uncontain_by_zlevel)
+	// Walk backwards thru the list
+	for (var/i in length(turfs_to_uncontain_by_zlevel) to 0 step -1)
+		if (i && length(turfs_to_uncontain_by_zlevel[i]))
+			break // Stop the moment we find a useful list
+		new_length = i
+
+	if (new_length < length(turfs_to_uncontain_by_zlevel))
+		turfs_to_uncontain_by_zlevel.len = new_length
+
+	if (new_length >= zlevel_to_clean)
+		turfs_to_uncontain_by_zlevel[zlevel_to_clean] = list()
+
+
+/// Ensures that the contained_turfs list properly represents the turfs actually inside us
+/area/proc/cannonize_contained_turfs()
+	for (var/area_zlevel in 1 to length(turfs_to_uncontain_by_zlevel))
+		cannonize_contained_turfs_by_zlevel(area_zlevel, _autoclean = FALSE)
+
+	turfs_to_uncontain_by_zlevel = list()
 
 /// Returns TRUE if we have contained turfs, FALSE otherwise
 /area/proc/has_contained_turfs()
-	return length(contained_turfs) - length(turfs_to_uncontain) > 0
+	for (var/area_zlevel in 1 to length(turfs_by_zlevel))
+		if (length(turfs_to_uncontain_by_zlevel) >= area_zlevel)
+			if (length(turfs_by_zlevel[area_zlevel]) - length(turfs_to_uncontain_by_zlevel[area_zlevel]) > 0)
+				return TRUE
+		else
+			if (length(turfs_by_zlevel[area_zlevel]))
+				return TRUE
+	return FALSE
 
 /**
   * Register this area as belonging to a z level
@@ -374,8 +388,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	air_vents = null
 	air_scrubbers = null
 	//turf cleanup
-	contained_turfs = null
-	turfs_to_uncontain = null
+	turfs_by_zlevel = null
+	turfs_to_uncontain_by_zlevel = null
 	//parent cleanup
 	return ..()
 
@@ -436,7 +450,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /**
  * Update the icon of the area (overridden to always be null for space
  */
-/area/space/update_icon_state()
+/area/misc/space/update_icon_state()
 	SHOULD_CALL_PARENT(FALSE)
 	icon_state = null
 
@@ -465,14 +479,14 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /**
  * Space is not powered ever, so this returns false
  */
-/area/space/powered(chan) //Nope.avi
+/area/misc/space/powered(chan) //Nope.avi
 	return FALSE
 
 /**
-  * Called when the area power status changes
-  *
-  * Updates the area icon, calls power change on all machinees in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
-  */
+ * Called when the area power status changes
+ *
+ * Updates the area icon, calls power change on all machinees in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
+ */
 /area/proc/power_change()
 	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
 	update_appearance()
@@ -522,25 +536,32 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 			power_usage[chan] += amount
 
 /**
-  * Call back when an atom enters an area
-  *
-  * Sends signals COMSIG_AREA_ENTERED and COMSIG_MOVABLE_ENTERED_AREA (to the atom)
-  *
-  * If the area has ambience, then it plays some ambience music to the ambience channel
-  */
+ * Call back when an atom enters an area
+ *
+ * Sends signals COMSIG_AREA_ENTERED and COMSIG_ENTER_AREA (to a list of atoms)
+ */
 /area/Entered(atom/movable/arrived, area/old_area)
 	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
-	SEND_SIGNAL(arrived, COMSIG_MOVABLE_ENTERED_AREA, src) //The atom that enters the area
+
+	if(!arrived.important_recursive_contents?[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+		return
+	for(var/atom/movable/recipient as anything in arrived.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+		SEND_SIGNAL(recipient, COMSIG_ENTER_AREA, src)
 
 /**
   * Called when an atom exits an area
   *
-  * Sends signals COMSIG_AREA_EXITED and COMSIG_MOVABLE_EXITTED_AREA (to the atom)
+  * Sends signals COMSIG_AREA_EXITED and COMSIG_MOVABLE_EXITED_AREA (to the atom)
   */
 /area/Exited(atom/movable/gone, direction)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, gone, direction)
-	SEND_SIGNAL(gone, COMSIG_MOVABLE_EXITTED_AREA, src) //The atom that exits the area
+	SEND_SIGNAL(gone, COMSIG_MOVABLE_EXITED_AREA, src, direction) //The atom that exits the area
+
+	if(!gone.important_recursive_contents?[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+		return
+	for(var/atom/movable/recipient as anything in gone.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+		SEND_SIGNAL(recipient, COMSIG_EXIT_AREA, src)
 
 /**
   * Setup an area (with the given name)
@@ -553,9 +574,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	power_light = FALSE
 	power_environ = FALSE
 	always_unpowered = FALSE
-	area_flags &= ~VALID_TERRITORY
-	area_flags &= ~BLOBS_ALLOWED
+	area_flags &= ~(VALID_TERRITORY|BLOBS_ALLOWED|CULT_PERMITTED)
 	require_area_resort()
+
 /**
   * Set the area size of the area
   *
@@ -566,8 +587,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(outdoors)
 		return FALSE
 	areasize = 0
-	for(var/turf/open/T in get_contained_turfs())
-		areasize++
+	for(var/list/zlevel_turfs as anything in get_zlevel_turf_lists())
+		for(var/turf/open/thisvarisunused in zlevel_turfs)
+			areasize++
 
 /**
   * Causes a runtime error

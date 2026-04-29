@@ -30,13 +30,13 @@
 	var/turf/T = get_turf(component_parent.parent)
 	var/mob/living/M = new summon_type(T)
 	summons += M
-	RegisterSignal(M, COMSIG_MOB_DEATH, PROC_REF(handle_death))
+	RegisterSignal(M, COMSIG_LIVING_DEATH, PROC_REF(handle_death))
 
 /datum/xenoartifact_trait/malfunction/animal/proc/handle_death(datum/source)
 	SIGNAL_HANDLER
 
 	summons -= source
-	UnregisterSignal(source, COMSIG_MOB_DEATH)
+	UnregisterSignal(source, COMSIG_LIVING_DEATH)
 
 //carp variant
 /datum/xenoartifact_trait/malfunction/animal/carp
@@ -80,12 +80,12 @@
 	T.color = component_parent.artifact_material.material_color
 	//Handle limit and hardel
 	summons += T
-	RegisterSignal(T, COMSIG_PARENT_QDELETING, PROC_REF(handle_death))
+	RegisterSignal(T, COMSIG_QDELETING, PROC_REF(handle_death))
 
 /mob/living/simple_animal/hostile/twin
 	name = "evil twin"
 	desc = "It looks so familiar."
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 5
 	speed = 0

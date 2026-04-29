@@ -91,8 +91,9 @@ Slimecrossing Items
 	name = "hypercharged slime core"
 	desc = "A charged yellow slime extract, infused with even more plasma. It almost hurts to touch."
 	rating = 7 //Roughly 1.5 times the original.
-	maxcharge = 10000 //5 times the normal one.
-	chargerate = 300 //3 times the normal one.
+	maxcharge = 100 KILOWATT //5 times the normal one.
+	custom_price = 600
+	max_demand = 5
 
 //Barrier cube - Chilling Grey
 /obj/item/barriercube
@@ -152,7 +153,6 @@ Slimecrossing Items
 	bullet = 50
 	laser = -50
 	energy = -50
-	rad = 100
 	fire = -80
 	acid = 30
 
@@ -178,16 +178,14 @@ Slimecrossing Items
 	if(length(contents))
 		to_chat(user, span_warning("The device already has something inside."))
 		return
-	if(!isanimal(M))
+	if(!isanimal_or_basicmob(M))
 		to_chat(user, span_warning("The capture device only works on simple creatures."))
 		return
 	if(M.mind)
 		INVOKE_ASYNC(src, PROC_REF(offer_entry), M, user)
+	else if(!(FACTION_NEUTRAL in M.faction))
+		to_chat(user, span_warning("This creature is too aggressive to capture."))
 		return
-	else
-		if(istype(M, /mob/living/simple_animal/hostile) && !("neutral" in M.faction))
-			to_chat(user, span_warning("This creature is too aggressive to capture."))
-			return
 	to_chat(user, span_notice("You store [M] in the capture device."))
 	store(M)
 
@@ -212,7 +210,7 @@ Slimecrossing Items
 	else
 		to_chat(user, span_warning("The device is empty..."))
 
-/obj/item/capturedevice/proc/store(var/mob/living/M)
+/obj/item/capturedevice/proc/store(mob/living/M)
 	M.forceMove(src)
 
 /obj/item/capturedevice/proc/release()

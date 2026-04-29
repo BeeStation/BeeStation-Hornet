@@ -1,4 +1,5 @@
 /obj/item/reagent_containers
+	abstract_type = /obj/item/reagent_containers
 	name = "Container"
 	desc = "..."
 	icon = 'icons/obj/chemical.dmi'
@@ -250,10 +251,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	if(label_icon && (name != initial(name) || desc != initial(desc)))
 		var/mutable_appearance/label = mutable_appearance('icons/obj/chemical.dmi', "[label_icon]")
 		. += label
-
-/obj/item/reagent_containers/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	// Always attempt to isolate diseases from reagent containers, if possible.
-	. = ..()
-	EXTRAPOLATOR_ACT_SET(., EXTRAPOLATOR_ACT_PRIORITY_ISOLATE)
-	var/datum/reagent/blood/blood = reagents.get_reagent(/datum/reagent/blood)
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., blood?.get_diseases())

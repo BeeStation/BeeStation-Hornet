@@ -22,7 +22,6 @@
 	refill_canister = /obj/item/vending_refill/cigarette
 	default_price = 5
 	extra_price = 40
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_mask = "cigs-light-mask"
 
 /obj/machinery/vending/cigarette/syndicate
@@ -33,7 +32,9 @@
 					/obj/item/storage/fancy/cigarettes/cigpack_midori = 1,
 					/obj/item/storage/box/matches = 10,
 					/obj/item/lighter/greyscale = 4,
-					/obj/item/storage/fancy/rollingpapers = 5)
+					/obj/item/storage/fancy/rollingpapers = 5
+	)
+	initial_language_holder = /datum/language_holder/syndicate
 
 /obj/machinery/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
 	name = "\improper ShadyCigs Ultra"
@@ -49,9 +50,12 @@
 					/obj/item/storage/box/matches = 10,
 					/obj/item/lighter/greyscale = 4,
 					/obj/item/storage/fancy/rollingpapers = 5)
-	premium = list(/obj/item/storage/fancy/cigarettes/cigpack_mindbreaker = 5,
-					/obj/item/clothing/mask/vape = 5,
-					/obj/item/lighter = 3)
+	premium = list(
+		/obj/item/storage/fancy/cigarettes/cigpack_mindbreaker = 5,
+		/obj/item/clothing/mask/vape = 5,
+		/obj/item/lighter = 3
+	)
+	initial_language_holder = /datum/language_holder/beachbum
 
 /obj/item/vending_refill/cigarette
 	machine_name = "ShadyCigs Deluxe"

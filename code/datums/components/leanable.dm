@@ -41,7 +41,7 @@
 		return FALSE
 	if(!(usr == leaner)) //Are we trying to lean someone else?
 		return FALSE
-	if(leaner.incapacitated(IGNORE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.notransform || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
+	if(INCAPACITATED_IGNORING(leaner, INCAPABLE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.notransform || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
 		return FALSE
 	if(HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, TRAIT_LEANING)) //Are we leaning already?
 		return FALSE
@@ -88,7 +88,7 @@
 		COMSIG_MOB_CLIENT_MOVED,
 		COMSIG_HUMAN_DISARM_HIT,
 		COMSIG_MOVABLE_PULLED,
-		COMSIG_PARENT_QDELETING,
+		COMSIG_QDELETING,
 		COMSIG_LIVING_RESIST, // Pressing B!
 		COMSIG_LIVING_MINOR_SHOCK, //If we are hit by a stunbaton
 		COMSIG_LIVING_RESTING_UPDATED //If we are downed
@@ -106,7 +106,7 @@
 		COMSIG_HUMAN_DISARM_HIT,
 		COMSIG_MOVABLE_PULLED,
 		COMSIG_ATOM_TELEPORT_ACT,
-		COMSIG_PARENT_QDELETING,
+		COMSIG_QDELETING,
 		COMSIG_LIVING_RESIST,
 		COMSIG_LIVING_MINOR_SHOCK,
 		COMSIG_LIVING_RESTING_UPDATED

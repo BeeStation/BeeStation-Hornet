@@ -19,7 +19,8 @@ export const ReconnectButtons = (props) => {
           color="white"
           onClick={() => {
             Byond.command('.reconnect');
-          }}>
+          }}
+        >
           Reconnect
         </Button>
 

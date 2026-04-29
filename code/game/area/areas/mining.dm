@@ -1,11 +1,12 @@
 /**********************Mine areas**************************/
 
 /area/mine
+	icon = 'icons/area/areas_station.dmi'
 	icon_state = "mining"
 	default_gravity = STANDARD_GRAVITY
 	lighting_colour_tube = "#ffe8d2"
 	lighting_colour_bulb = "#ffdcb7"
-	area_flags = VALID_TERRITORY | UNIQUE_AREA | FLORA_ALLOWED
+	area_flags = VALID_TERRITORY | CULT_PERMITTED | UNIQUE_AREA | FLORA_ALLOWED
 	ambient_buzz = 'sound/ambience/magma.ogg'
 	ambient_buzz_vol = 10
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
@@ -25,7 +26,7 @@
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
-	area_flags = VALID_TERRITORY | UNIQUE_AREA
+	area_flags = VALID_TERRITORY
 
 /area/mine/unexplored
 	name = "Mine"
@@ -40,7 +41,7 @@
 	ambience_index = AMBIENCE_MINING
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
-	area_flags = VALID_TERRITORY | UNIQUE_AREA | FLORA_ALLOWED | CAVES_ALLOWED
+	area_flags = VALID_TERRITORY | UNIQUE_AREA | FLORA_ALLOWED | CAVES_ALLOWED | MOB_SPAWN_ALLOWED
 
 /area/mine/lobby
 	name = "Mining Station"
@@ -79,16 +80,28 @@
 //This is a placeholder for the lavaland sci area. Whoever is here after me, I have made you some additional areas to work with.
 //You are free to rename these and change their icons. My job is done here.
 
-/area/mine/science
-	name = "Research Outpost"
-	icon_state = "medresearch"
-	requires_power = TRUE	//Remove this when there will be pre-built APCs in the area.
+/area/mine/atmospost
+	name = "Atmospheric Wing"
+	icon_state = "atmos"
+
+/area/mine/atmosfarmpost
+	name = "Atmospheric Gas Farm"
+	icon_state = "atmos"
+
+/area/mine/atmosposthallway
+	name = "Atmospheric Wing Hallway"
+	icon_state = "engine_hallway"
+
+/area/mine/atmospostengine
+	name = "Atmospheric Wing Engine"
+	icon_state = "atmos_engine"
 
 
 
 /**********************Lavaland Areas**************************/
 
 /area/lavaland
+	icon = 'icons/area/areas_station.dmi'
 	icon_state = "mining"
 	default_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
@@ -131,7 +144,7 @@
 
 /area/lavaland/surface/outdoors/unexplored/danger //megafauna will also spawn here
 	icon_state = "danger"
-	area_flags = VALID_TERRITORY | UNIQUE_AREA | CAVES_ALLOWED | FLORA_ALLOWED | MOB_SPAWN_ALLOWED | MEGAFAUNA_SPAWN_ALLOWED
+	area_flags = parent_type::area_flags | MEGAFAUNA_SPAWN_ALLOWED
 	map_generator = /datum/map_generator/cave_generator/lavaland
 
 /area/lavaland/surface/outdoors/explored

@@ -26,7 +26,7 @@
 
 	screens -= category
 
-	if(animated)
+	if(!QDELETED(src) && animated)
 		animate(screen, alpha = 0, time = animated)
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen_after_animate), screen), animated, TIMER_CLIENT_TIME)
 	else
@@ -160,19 +160,20 @@
 	alpha = 80
 
 /atom/movable/screen/fullscreen/color_vision/green
-	color = "#00ff00"
+	color = COLOR_VIBRANT_LIME
 
 /atom/movable/screen/fullscreen/color_vision/red
-	color = "#ff0000"
+	color = COLOR_RED
 
 /atom/movable/screen/fullscreen/color_vision/blue
-	color = "#0000ff"
+	color = COLOR_BLUE
 
 /atom/movable/screen/fullscreen/lighting_backdrop
 	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "flash"
 	transform = matrix(200, 0, 0, 0, 200, 0)
 	plane = LIGHTING_PLANE
+	layer = LIGHTING_ABOVE_ALL
 	blend_mode = BLEND_OVERLAY
 	show_when_dead = TRUE
 
@@ -198,6 +199,7 @@
 	invisibility = INVISIBILITY_LIGHTING
 	icon_state = "nightvision"
 	plane = LIGHTING_PLANE
+	layer = LIGHTING_ABOVE_ALL
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
 

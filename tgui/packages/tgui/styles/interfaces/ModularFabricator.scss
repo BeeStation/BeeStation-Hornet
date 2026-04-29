@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use '../base.scss';
 @use '../colors.scss';
 @use '../functions.scss' as *;
@@ -31,11 +32,15 @@ $thickness: base.em(2px) !default;
     margin-right: 5px;
     height: 100%;
     overflow-y: scroll;
-    background-color: darken(base.$color-bg, 5%);
+    background-color: color.adjust(base.$color-bg, $lightness: -5%);
     padding: 8px;
   }
 
   .grow {
+    flex-grow: 1;
+  }
+
+  .shrink {
     flex-grow: 1;
   }
 
@@ -63,21 +68,66 @@ $thickness: base.em(2px) !default;
     height: 100%;
   }
 
+  .no_overflow {
+    overflow: hidden;
+
+    & > .Section__rest {
+      overflow-y: hidden;
+      overflow-x: hidden;
+      & > .Section__content {
+        overflow-y: hidden;
+        overflow-x: hidden;
+      }
+    }
+  }
+
+  .scroll_vertically {
+    overflow-y: scroll;
+  }
+
   .item_table {
-    table-layout: fixed;
+    display: flex;
+    flex-direction: column;
     width: 100%;
   }
 
   .item_costs {
     width: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .item_small_button {
     width: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px rgba(255, 255, 255, 0.1) solid;
   }
 
   .item_large_button {
     width: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px rgba(255, 255, 255, 0.1) solid;
+  }
+
+  .item_row {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    align-items: stretch;
+
+    > div {
+      flex-shrink: 1;
+    }
+
+    .item_description {
+      flex-basis: 0px;
+      flex-grow: 1;
+    }
   }
 
   .item_row:nth-child(even) {
@@ -85,13 +135,14 @@ $thickness: base.em(2px) !default;
   }
 
   .item_property_container {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100%;
     border-bottom: 1px rgba(255, 255, 255, 0.1) solid;
     padding-top: 5px;
     padding-bottom: 5px;
+    height: 100%;
   }
 
   .item_name,
@@ -103,7 +154,7 @@ $thickness: base.em(2px) !default;
   }
 
   .item_desc {
-    color: mix(base.$color-bg, base.$color-fg, $weight: 50%);
+    color: color.mix(base.$color-bg, base.$color-fg, $weight: 50%);
     font-size: calc(base.$font-size - 1px);
   }
 

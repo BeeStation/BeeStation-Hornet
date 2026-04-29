@@ -23,18 +23,18 @@
 	spell_type = /datum/action/spell/touch/smite
 	category = "Offensive"
 
+/datum/spellbook_entry/deathbolt
+	name = "Bolt of Death"
+	desc = "Launches an ethereal projectile that will immediately separate the victim's soul from their body on contact."
+	spell_type = /datum/action/spell/pointed/projectile/death
+	category = "Offensive"
+
 /datum/spellbook_entry/blind
 	name = "Blind"
 	desc = "Temporarily blinds a single target."
 	spell_type = /datum/action/spell/pointed/blind
 	category = "Offensive"
 	cost = 1
-
-/datum/spellbook_entry/mutate
-	name = "Mutate"
-	desc = "Causes you to turn into a hulk and gain laser vision for a short while."
-	spell_type = /datum/action/spell/apply_mutations/mutate
-	category = "Offensive"
 
 /datum/spellbook_entry/fleshtostone
 	name = "Flesh to Stone"
@@ -89,6 +89,12 @@
 	item_path = /obj/item/gun/magic/staff/change
 	category = "Offensive"
 
+/datum/spellbook_entry/item/staffdismember
+	name = "Staff of Dismemberment"
+	desc = "An arcane staff capable of shooting bolts of eldritch energy which causes your opponents limbs to come flying off in a most gruesome manner."
+	item_path = /obj/item/gun/magic/staff/dismember
+	category = "Offensive"
+
 /datum/spellbook_entry/item/mjolnir
 	name = "Mjolnir"
 	desc = "A mighty hammer on loan from Thor, God of Thunder. It crackles with barely contained power."
@@ -106,3 +112,17 @@
 	desc = "A sword capable of firing blasts of energy which rip targets limb from limb."
 	item_path = /obj/item/gun/magic/staff/spellblade
 	category = "Offensive"
+
+/datum/spellbook_entry/item/draining_wand
+	name = "Wand of Drain Vitality"
+	desc = "A dark wand that saps the very life force from your target, giving it to you instead"
+	item_path = /obj/item/gun/magic/wand/drain
+	category = "Offensive"
+	cost = 1
+
+/datum/spellbook_entry/item/fire_wand
+	name = "Wand of Fire Bolt"
+	desc = "This wand shoots scorching balls of fire that ignite anyone they hit. Not as powerful as a proper fireball but still very dangerous."
+	item_path = /obj/item/gun/magic/wand/firebolt
+	category = "Offensive"
+	cost = 1

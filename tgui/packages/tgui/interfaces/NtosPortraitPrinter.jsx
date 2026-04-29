@@ -1,6 +1,6 @@
 import { resolveAsset } from '../assets';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Image, Input, NoticeBox, Section, Stack } from '../components';
+import { Button, Input, NoticeBox, Section, Stack } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosPortraitPrinter = (props) => {
@@ -9,8 +9,10 @@ export const NtosPortraitPrinter = (props) => {
   const { paintings, search_string, search_mode } = data;
   const got_paintings = !!paintings.length;
   const current_portrait_title = got_paintings && paintings[listIndex]['title'];
-  const current_portrait_author = got_paintings && 'By ' + paintings[listIndex]['creator'];
-  const current_portrait_asset_name = got_paintings && 'paintings' + '_' + paintings[listIndex]['md5'];
+  const current_portrait_author =
+    got_paintings && 'By ' + paintings[listIndex]['creator'];
+  const current_portrait_asset_name =
+    got_paintings && 'paintings' + '_' + paintings[listIndex]['md5'];
   return (
     <NtosWindow title="Art Galaxy" width={400} height={446}>
       <NtosWindow.Content>
@@ -41,7 +43,12 @@ export const NtosPortraitPrinter = (props) => {
           </Stack.Item>
           <Stack.Item grow={2}>
             <Section fill>
-              <Stack height="100%" align="center" justify="center" direction="column">
+              <Stack
+                height="100%"
+                align="center"
+                justify="center"
+                direction="column"
+              >
                 {got_paintings ? (
                   <>
                     <Stack.Item>
@@ -55,11 +62,15 @@ export const NtosPortraitPrinter = (props) => {
                         }}
                       />
                     </Stack.Item>
-                    <Stack.Item className="Section__titleText">{current_portrait_title}</Stack.Item>
+                    <Stack.Item className="Section__titleText">
+                      {current_portrait_title}
+                    </Stack.Item>
                     <Stack.Item>{current_portrait_author}</Stack.Item>
                   </>
                 ) : (
-                  <Stack.Item className="Section__titleText">No paintings found.</Stack.Item>
+                  <Stack.Item className="Section__titleText">
+                    No paintings found.
+                  </Stack.Item>
                 )}
               </Stack>
             </Section>
@@ -70,10 +81,18 @@ export const NtosPortraitPrinter = (props) => {
                 <Section height="100%">
                   <Stack justify="space-between">
                     <Stack.Item grow={1}>
-                      <Button icon="angle-double-left" disabled={listIndex === 0} onClick={() => setListIndex(0)} />
+                      <Button
+                        icon="angle-double-left"
+                        disabled={listIndex === 0}
+                        onClick={() => setListIndex(0)}
+                      />
                     </Stack.Item>
                     <Stack.Item grow={3}>
-                      <Button disabled={listIndex === 0} icon="chevron-left" onClick={() => setListIndex(listIndex - 1)} />
+                      <Button
+                        disabled={listIndex === 0}
+                        icon="chevron-left"
+                        onClick={() => setListIndex(listIndex - 1)}
+                      />
                     </Stack.Item>
                     <Stack.Item grow={3}>
                       <Button
@@ -105,7 +124,10 @@ export const NtosPortraitPrinter = (props) => {
               </Stack.Item>
             </Stack>
             <Stack.Item mt={1} mb={-1}>
-              <NoticeBox info>Printing a canvas costs 10 paper from the printer installed in your machine.</NoticeBox>
+              <NoticeBox info>
+                Printing a canvas costs 10 paper from the printer installed in
+                your machine.
+              </NoticeBox>
             </Stack.Item>
           </Stack.Item>
         </Stack>

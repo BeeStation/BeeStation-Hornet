@@ -5,9 +5,8 @@
 	department_head_for_prefs = JOB_NAME_QUARTERMASTER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 3
-	spawn_positions = 3
 	selection_color = "#dcba97"
 	// Requires a little bit of game knowledge to play appropriately
 	exp_requirements = 180
@@ -15,28 +14,47 @@
 
 	outfit = /datum/outfit/job/miner
 
-	base_access = list(ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE, ACCESS_GATEWAY)
-	extra_access = list(ACCESS_QM, ACCESS_CARGO, ACCESS_MAINT_TUNNELS)
+	base_access = list(
+		ACCESS_MINING,
+		ACCESS_MECH_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_MAILSORTING,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_AUX_BASE,
+		ACCESS_GATEWAY
+	)
+	extra_access = list(
+		ACCESS_QM,
+		ACCESS_CARGO,
+		ACCESS_MAINT_TUNNELS
+	)
 
 	departments = DEPT_BITFLAG_CAR
 	bank_account_department = ACCOUNT_CAR_BITFLAG
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_HARD)
 
 	display_order = JOB_DISPLAY_ORDER_SHAFT_MINER
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Adventurer"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/shaft_miner
 	)
 
-	minimal_lightup_areas = list(/area/construction/mining/aux_base)
+	minimal_lightup_areas = list(/area/station/construction/mining/aux_base)
+
+	manuscript_jobs = list(
+		JOB_NAME_SHAFTMINER,
+		JOB_NAME_CARGOTECHNICIAN // miner is actually cargo tech.
+	)
 
 /datum/outfit/job/miner
 	name = JOB_NAME_SHAFTMINER
 	jobtype = /datum/job/shaft_miner
 
 	id = /obj/item/card/id/job/shaft_miner
-	belt = /obj/item/modular_computer/tablet/pda/shaft_miner
+	belt = /obj/item/modular_computer/tablet/pda/preset/shaft_miner
 	ears = /obj/item/radio/headset/headset_cargo/shaft_miner
 	shoes = /obj/item/clothing/shoes/workboots/mining
 	gloves = /obj/item/clothing/gloves/color/black
@@ -73,16 +91,18 @@
 
 	l_hand = /obj/item/gun/energy/recharge/kinetic_accelerator
 
-/datum/outfit/job/miner/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/miner/equipped/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
-	if(visualsOnly)
+	if(visuals_only)
 		return
 	if(istype(H.wear_suit, /obj/item/clothing/suit/hooded))
 		var/obj/item/clothing/suit/hooded/S = H.wear_suit
 		S.ToggleHood()
 
-/datum/outfit/job/miner/equipped/hardsuit
-	name = "Shaft Miner (Equipment + Hardsuit)"
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
-	mask = /obj/item/clothing/mask/breath
+/datum/outfit/job/miner/equipped/mod
+	name = "Shaft Miner (Equipment + MODsuit)"
+
+	back = /obj/item/mod/control/pre_equipped/mining
+	suit = null
+	mask = /obj/item/clothing/mask/gas/explorer
 

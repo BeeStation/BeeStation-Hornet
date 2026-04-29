@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/structure/lattice/catwalk/over,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
@@ -26,24 +26,24 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/structure/crate_abandoned,
+/obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/plating,
 /area/template_noop)
 "o" = (
 /obj/structure/lattice/catwalk/over,
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/plating,
 /area/template_noop)
 "p" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/structure/crate_abandoned,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
 "t" = (
@@ -62,14 +62,14 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "y" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/structure/crate_abandoned,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
 "C" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/structure/crate_abandoned,
+/obj/effect/spawner/random/maintenance/three,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -92,8 +92,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "I" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/structure/crate_abandoned,
+/obj/effect/spawner/random/maintenance/three,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -103,11 +103,11 @@
 /turf/closed/wall,
 /area/template_noop)
 "K" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/plating,
 /area/template_noop)
 "L" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /obj/machinery/light/small/broken,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -123,7 +123,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "Z" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /obj/machinery/light/small{
 	dir = 1
 	},

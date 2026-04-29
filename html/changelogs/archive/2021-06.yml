@@ -1,0 +1,411 @@
+2021-06-01:
+  Archanial:
+  - bugfix: Fixed runtime in config related to testmerges
+  Crossedfall:
+  - rscadd: Being on staff grants you access to donor items
+  Mothblocks, froststahr port:
+  - admin: Added the "Check Timer Sources" debug command to help isolate problematic
+      cases of addtimer.
+  ike709:
+  - refactor: Minor optimizations to powernet propagation.
+  jupyterkat:
+  - bugfix: ethereals can charge via borg chargers again
+  steelslayer:
+  - code_imp: Updates various machines, which currently use SSfastprocess, so that
+      they only start processing when it's necessary. Some of these updated machines
+      have been changed so that they don't ever need to process.
+  - refactor: Replaces the speed_process var with two new variables. The processing_flags
+      variable stores bitflags with information about a machine's preferences on when
+      it should start processing. The subsystem_type var holds the path to which type
+      of subsystem that machine should use.
+2021-06-02:
+  jupyterkat:
+  - bugfix: makes machines work as intended again
+2021-06-03:
+  ivanmixo:
+  - tweak: blind people can now feel around themselves to examine stuff
+2021-06-04:
+  Archanial:
+  - tweak: Volume pumps has been replaced by normal pumps in meta's SM.
+  - bugfix: Fixed rare runtime when you die without client
+  - bugfix: fixes equipment not spawning
+  Bokkiewokkie:
+  - rscadd: Makes multi-z pipe adaptors compatible with piping layers.
+  Ivniinvi:
+  - tweak: Updated the Freezer/Heater board, now named Thermomachine board.
+  Kylerace, r1ks-iwnl:
+  - bugfix: Autolathes can't create items for cheaper than what they recycle for.
+  Naevi, ivanmixo:
+  - imageadd: New roboticist enviro and jump suits
+  Penwin0:
+  - rscadd: Gaseous Pores, a new changeling ability
+  PowerfulBacon:
+  - tweak: Head revs now use a normal flash
+  - tweak: When a head rev uses a flash it will gain charges.
+  Vasily2013:
+  - tweak: alters Pubby's SM/TEG setup.
+  - bugfix: engineers should now be capable of not exploding on Pubby even if they're
+      incompetent.
+  ivanmixo:
+  - imageadd: adds an inhand sprite for the hos gun set to stun (tazer) mode
+  - bugfix: skeleton and zombie cloning now works properly
+  - tweak: skeletons and zombies cellular damage from cloning now gets transferred
+      to brute upon forceful ejection
+  kit-katz:
+  - bugfix: when put on your head cats now render 100% of the time
+  - bugfix: normal corgies can now be put on your head not only Ian
+  - bugfix: kittens can now be put on your head
+  kylerace:
+  - rscadd: Added a few more holodecks
+  - refactor: Nanotrasen overhauled much of the holodecks programming so that it didnt
+      have to keep physical copies of the simulations anymore.
+  - code_imp: holodeck uses map templates instead of area_copy
+  r1ks-iwnl:
+  - rscadd: Preference to switch the walk hotkey between held down and a toggle inside
+      the stats menu's preference tab.
+2021-06-05:
+  PowerfulBacon:
+  - bugfix: Recharger animation has been fixed.
+  ivanmixo:
+  - bugfix: fixes robo jumpsuit error
+2021-06-06:
+  MNarath1:
+  - bugfix: fixes airlock alpha filter breaking on 514 clients
+  PowerfulBacon:
+  - rscdel: Reverts the preference to switch walk hotkey toggle
+  - rscadd: Virtual z-levels
+  - tweak: Each shuttle will be treated as a different z-level, meaning things that
+      affect a z-level (Comms, suit sensors, AI upload, explosions, heretic tracking
+      etc.) will no longer be able to track different shuttles while they are in transit.
+  Sarchutar:
+  - bugfix: Syndicate turrets have lost their cover and can fire once again
+  Thatguythere03, Jimmy Brickets:
+  - rscadd: a new clown mask based of Madness Combat's Tricky! (Improbability drive
+      not included)
+  francinum:
+  - bugfix: Storage items now dump their contents before being deconstructed in the
+      autolathe (Or other machines that operate with the same system)
+  - admin: You may see an additional confirmation box when issuing bans. Please actually
+      read it.
+  jupyterkat:
+  - bugfix: fixes a reag explosions runtime
+2021-06-07:
+  Archanial:
+  - admin: Admins can edits expired and removed bans
+  Crossedfall:
+  - code_imp: Max compile version bumped to 514.1556
+  - server: Removed multiple TGS discord commands
+  KazooBard:
+  - config: Player requirement for heretics bumped to 25
+  PowerfulBacon:
+  - rscadd: Corgstation 9x10 holodeck
+  willox,LemonInTheDark:
+  - code_imp: Updates the debugger to use auxtools over extools.
+2021-06-08:
+  Malgover:
+  - bugfix: resprite of riot armor
+  PowerfulBacon:
+  - bugfix: Fixes virtual z-level shuttle issue, and space area issue.
+  ivanmixo:
+  - imageadd: New mime jumpsuit sprite.
+  jupyterkat:
+  - bugfix: fixed breathing
+2021-06-09:
+  jupyterkat:
+  - bugfix: can't make scooters from holodeck skateboards anymore
+2021-06-10:
+  Kapu1178:
+  - tweak: Moves Adrenaline Nanites back to Augmentation tab. (Doesn't change unlock
+      requirement)
+2021-06-11:
+  fira and Watermelon914:
+  - code_imp: Optimized the input subsystem.
+  jupyterkat:
+  - rscadd: tgui notes
+2021-06-12:
+  MCterra10:
+  - rscadd: Rebases to AuStation codebase
+  zeskorion:
+  - rscadd: cat surgeon now announces how many victims he took when he dies
+  - tweak: cat surgeon now starts off weaker, but becomes far more powerful the more
+      victims he claims
+  - tweak: cat surgeon's ai has had major changes. we will see if this works or not.
+      he should now target weaker targets, and keep his distance from targets he can
+      shoot unless they are significantly weakened
+  - balance: cat surgeon trauma is now easier to heal
+  - balance: cat surgeon cant be pulled around, making it harder to cheese him or
+      grief with him
+  - bugfix: cat surgeon's passive healing when not attacking works now
+2021-06-13:
+  Mothblocks,  dragomagol, InsaneRed, Archanial:
+  - rscadd: Balloon alerts - small runechat like pop ups while performing specific
+      actions, which can be toggled in preferences
+  - rscadd: Balloon alerts to some mech actions, door remote and beakers
+  - rscadd: Balloon alerts to storage, guns, energy swords, reagent containers, constructing
+      walls and tools
+  francinum:
+  - admin: Additional data about players can be found in the Player Panel.
+2021-06-14:
+  Froststahr:
+  - bugfix: A couple of recent changes have been reverted, movement should be more
+      consistent again.
+  lordScrubling:
+  - bugfix: showing up as an unknown if you had a nameless id in your second tablet
+      slot
+  - bugfix: magician's invisibility cloak action button not showing up
+2021-06-15:
+  Archanial:
+  - bugfix: Fixed balloon chat pref not saving
+  PowerfulBacon:
+  - balance: Cyborg flash nerfed to 3 charges and auto-recharge every 10 seconds.
+  - tweak: Revolutionary flash changed to 10 charges and auto-recharged every 15 seconds.
+  - balance: Default flashbulbs nerfed from 15 flashes to 10.
+  Qustinnus, That0nePerson:
+  - rscadd: Adds hygiene bot! Will chase you down and shower bloody people, and can
+      be emagged to spit fire.
+  bloons3:
+  - code_imp: Uses more TRUE/FALSE defines in silicon.dm
+  - admin: Adds logging for impacted cyborgs during law changes
+  - admin: Adds additional cyborg logging
+  eeSPee:
+  - tweak: Corgium corgis will now wear your hat. You will get your hat back when
+      you return to human.
+  - bugfix: Corgium corgis will keep your name when they put on a hat
+  - bugfix: Pet beacon pets' real name is now the name you assign them
+  - tweak: Moved holodeck templates from _maps/template to _maps/holodeck.
+  - bugfix: Fixed some maps that were not working properly.
+  - bugfix: Fixed heretic ghouls having reduced max health after being revived after
+      deghouled
+  - tweak: heretic ghouls now have a little moodlet tooltip
+  ike709:
+  - bugfix: Fixed the input subsystem occasionally runtiming and breaking entirely.
+  ivanmixo:
+  - bugfix: Mint toxin now actually works
+  lordScrubling:
+  - rscadd: balloon alerts when alt clicking atmos devices
+2021-06-16:
+  Archanial:
+  - bugfix: Fixes flashlights attached to guns not displaying a message.
+  - bugfix: Fixes shooting someone with syringe not displaying a message.
+  - bugfix: Fixed balloon alerts preference (again). Your preference might've been
+      reset.
+  - refactor: Disease properties are removed, each property has its own var.
+  - refactor: Disease severity is renamed to danger.
+  - refactor: Disease transmittable is renamed to transmission.
+  Mat05usz:
+  - bugfix: 'Pubby: SM no longer delams roundstart'
+  eLeCtrOssSnake:
+  - tweak: make spray cans recyclable again, while preserving the ability to paint
+      autolathe
+  eeSPee:
+  - rscadd: Alteration curse replace paralysis curse, available for Ash and Flesh.
+  - rscadd: Amulet of Digital Invisibility replaces corrosion curse, available to
+      Ash and Rust, craftable from a shard and circuitboard.
+  - rscdel: Paralysis curse and Corrosion curse are now removed.
+  - tweak: Digital camoflage is now a trait.
+  ivanmixo:
+  - rscadd: Civilian Skirts!
+  - rscadd: base for skirts
+  - imageadd: sprites for the civilian skirts
+  lordScrubling:
+  - rscadd: construction bags from tg
+  - rscadd: sheet snatcher crafting recipe
+  - rscadd: atmos holofan in chief engineer's locker
+  - balance: sheet snatcher holds 150 instead of 300 sheets
+  - bugfix: borg sheet snatcher now holds true amount of sheets
+2021-06-17:
+  Archanial:
+  - bugfix: FIXED DISEASES
+  eeSPee:
+  - rscadd: Added new holodeck programs.
+  - bugfix: Fixed some gang items not working properly
+  - bugfix: Fixed gang spray/territory takeover bugging out
+  - bugfix: Fixed reinforcements not working
+  - balance: Gang revival implant no longer aheals/revives
+  ivanmixo:
+  - bugfix: All the lawyer skirts now actually have sprites
+  - rscadd: Adds botany disks, prisoner IDs and a bunch of sinks to Corg
+  - rscadd: Det office starts with sechudglasses
+  - bugfix: The Cell 3 display is now actually connected to Cell 3
+  - bugfix: Captain can now unlock his display case
+  - bugfix: Fixes the floating intercom near turbine
+  - bugfix: Fixes the disposals pipe under holodeck
+  - bugfix: Engi maint is now properly shielded from radstorms
+  - tweak: The experimentor console is closer to the experimentor
+  jupyterkat:
+  - bugfix: operating computers now correctly show surgery procedures on stasis beds
+  lordScrubling:
+  - rscadd: Magboots keep you from being flung by high pressure pipes when unwrenching
+  - bugfix: fixed clown mime and non replacement miner envirohelms using the wrong
+      welding screen sprites
+  - bugfix: fixed drawing a smile on a clown envirosuit helmet using the wrong sprite
+  - rscadd: Laptops eject their ids, data disks, and ai cards if you alt click them
+      while their lid is down now
+  - bugfix: runtime when checking tablet with one id
+2021-06-18:
+  Archanial:
+  - bugfix: Fixed spyglasses doing nothing.
+  KubeRoot:
+  - code_imp: Timer subsystem can now have subtypes
+  PowerfulBacon:
+  - tweak: Teratomas can no longer have DNA and cannot be humanized through mutadone
+      or radiation.
+  - tweak: Radio jammer changed to signal jammer
+  - tweak: Radio jammer price increased from 3 TC to 5 TC
+  - tweak: Signal jammer blocks most outgoing wireless signals.
+  - code_imp: Moves jammer check into a proc on atoms, so it can be overridden and
+      used anywhere.
+  SandPoot, Jupyterkat:
+  - rscadd: Adds a fancy TGUI interface for the cloning computer.
+  - rscadd: Cloning console boards now retain records
+  - rscdel: Destroys the old cloning interface.
+  - tweak: Alt-Click now removes disks from the cloning computer.
+  - refactor: Replaced way too much code for the cloning computer.
+  - refactor: Cloning scan's implant now outputs a list if desired.
+  - refactor: Experimental cloning is no longer a copypasta of cloning
+  covertcorvid:
+  - code_imp: Added two_handed component
+  - refactor: Updated all existing two handed items to use the new component
+  eeSPee:
+  - tweak: Splits Adrenaline Nanites into Adrenaline Nanites and Amphetamine Burst
+  - balance: Adjusted costs of Adrenaline Nanites to compensate for the nerf
+  hatREALLYgoodsodaflavor, StyleMistake, Qustinnus:
+  - rscadd: Implements sound environments into the game. Reverb time.
+  - refactor: Ambience is now in a subsystem, and plays every now and then without
+      you having to move to a new area for it to play
+  ivanmixo:
+  - bugfix: You can no longer steal unstealable shoes
+  - bugfix: Meta's kitchen alarm no longer goes off roundstart
+  - tweak: reverted the gliding on unconscious people
+  - rscadd: Cargo skirts
+  - imageadd: Sprites for cargo skirts
+  jupyterkat:
+  - rscadd: hidden admin music no longer shows a title on the music player.
+  lordScrubling:
+  - bugfix: alarm manager now shows alarm changes from when it was off
+  - bugfix: fire alarms clear when you pull them up now
+  - rscadd: keybind for resting
+  - rscadd: keybind for suit storage quickdraw
+  - rscadd: centcom envirosuits
+  - tweak: moved some job items to left hand
+  - bugfix: plasmamen dying as certain ert roles
+  yorii:
+  - tweak: tweaked the contents of toxin firstaid kits
+2021-06-19:
+  ImSynthex:
+  - rscdel: Removed sausage eatverb "deep throat"
+  covertcorvid:
+  - bugfix: fixed toy DEsword damage
+  - bugfix: fixed icons for twohanded items
+2021-06-20:
+  Sarchutar:
+  - bugfix: Ascend as a Dark Spirit function of the Spirit Realm rune is working correctly
+      again
+  ivanmixo:
+  - bugfix: Debtor martial art no longer bypasses pacifism
+2021-06-21:
+  Archanial:
+  - rscadd: Arming nuke has 5 second cooldown.
+  floyd, amonkeythatcodes, mat05usz:
+  - code_imp: Resisting is now on atom level so it can be used on mobs too
+  jupyterkat:
+  - balance: Ais can't strip now
+2021-06-22:
+  Archanial:
+  - spellcheck: Welders will now be turned on instead of just being on.
+  - bugfix: Fixed spawners menu runtime.
+  KubeRoot:
+  - spellcheck: Plating examine message now reflects rods for catwalks and sheets
+      for reinforcement accurately
+  - bugfix: Mindshield no longer gives duplicate message when implanted
+2021-06-23:
+  Archanial:
+  - rscadd: Cooldown to cargo console
+  - bugfix: Fixed cloning console UI breaking when trying to scan human with no mind.
+  - bugfix: Fixed component runechat runtime (maybe!)
+2021-06-24:
+  Cenrus:
+  - rscadd: Added eighties tiles as an arcade reward
+  - bugfix: Fixed arcade screen overlay sprites
+  - bugfix: You can now skip the old ship arcade event
+  Cenrus, MrDoomBringer:
+  - balance: Reduced recharge time of the syndicate teleporter to 15 seconds (previously
+      20)
+  - rscadd: Added a recharge timer to the syndicate teleporter that is shown on examine
+  - rscadd: Added a sound to indicate that the teleporter has recharged
+  KubeRoot:
+  - bugfix: Fixed shock paddles being insertable in BoHs
+  Naevii, ivanmixo:
+  - rscadd: Head of security, warden, brig physician and detective skirts
+  - rscadd: Sec members' uniforms to their respective lockers
+  SuperNovaa41:
+  - bugfix: lithium no longer make you walk out of a mech
+  francinum:
+  - bugfix: Some sources of hallucination should no longer cause infinite hallucinations.
+  - bugfix: The Crematorium now actually requires access to trigger.
+  jupyterkat:
+  - bugfix: fixed cloning
+  - bugfix: cloning logs stuff correctly again
+  lordScrubling:
+  - rscadd: Tend wounds estimates remaining time, even better with an analyzer in
+      hand
+  mickyan, watermelon914:
+  - bugfix: Bombproof containers should once again protect their contents from being
+      damaged by explosions
+  - bugfix: Fixed explosions delimbing you if they're weaker
+  timberpoes:
+  - tweak: DNA Consoles have received hardware upgrades and have a shiny new interface
+      as a result.
+  - tweak: New hardware has dropped legacy support for reading the genetic sequences
+      of the dead and has only limited support for reading the genetic sequences of
+      monkeys.
+  zxaber:
+  - bugfix: Mechs can move in space if near a wall again.
+  - bugfix: Mech thrusters no longer incorrectly fail if the mech is near a wall.
+2021-06-26:
+  jupyterkat:
+  - bugfix: fixed cloning message
+2021-06-27:
+  eeSPee:
+  - bugfix: Corg cameras in ai sat are now on the ai sat network.
+  lordScrubling:
+  - bugfix: buckling not working when fireman carrying or piggy backing
+2021-06-28:
+  Froststahr:
+  - rscdel: The new soft crit system has been reverted
+  'Stylemistake, Cyberboss, SpaceManiac, other TG coders, Froststahr port. ':
+  - code_imp: TGUI has been upgraded to 4.3 and now includes typescript.
+  - code_imp: Custom SVG icons are now easy to do as well.
+  - bugfix: All tgui windows will resize automatically, and can now be resized as
+      will.
+  - server: TGS will require adaptation.
+  Vexylius:
+  - balance: Wabbajack shuttle is now illegal on Sage
+  francinum:
+  - rscdel: Alt-click no longer provides an icon preview for performance reasons.
+2021-06-29:
+  Archanial:
+  - rscadd: Station traits are config option.
+  Ivniinvi:
+  - spellcheck: fixes a typo on Safety Moth poster
+  Vexylius:
+  - rscadd: Nitrile gloves for MDs and brig phys in the starting loadout
+  - tweak: Corgstation changes around medical
+2021-06-30:
+  Ivniinvi:
+  - spellcheck: fixed a typo in the hos' trenchcoat
+  Naevii, ivanmixo:
+  - rscadd: Science skirts
+  - bugfix: Adds missing hop skirt to hop locker
+  - code_imp: Removed leftover skirts with no sprites and moved robotics suits to
+      the appropriate file
+  PowerfulBacon:
+  - bugfix: Fixes entertainment monitors.
+  eeSPee:
+  - balance: Heretics can no longer get free charges by making new heretic books
+  ike709:
+  - tweak: The (strongly) recommended client version for 514 users is now 1557. Previous
+      versions have severe potential UI bugs.
+  ivanmixo:
+  - balance: The Mosin and WT rifles are now bulky
+  - balance: The mosin now requires a free hand to fire

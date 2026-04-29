@@ -33,11 +33,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/item/blackbox/objective/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/gps, "BLACKBOX #[rand(1000, 9999)]", TRUE)
-	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#ecdf94", TRUE, TRUE)
-
 /obj/item/blackbox/objective/proc/setup_recover(linked_mission)
 	AddComponent(/datum/component/recoverable, linked_mission)
 
@@ -54,12 +49,14 @@
 		return COMPONENT_INCOMPATIBLE
 	linked_obj = _linked_obj
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(attack_self))
+	parent.AddComponent(/datum/component/gps, "BLACKBOX #[rand(1000,9999)]", TRUE)
+	parent.AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#ecdf94", TRUE, TRUE)
 
 /datum/component/recoverable/proc/attack_self(mob/user)
 	var/atom/movable/pA = parent
 	var/turf/T = get_turf(parent)
 	var/area/A = T.loc
-	if(istype(A, /area/bridge) && is_station_level(T.z))
+	if(istype(A, /area/station/command) && is_station_level(T.z))
 		initiate_recovery()
 	else
 		pA.say("Blackbox must be recovered at the station's bridge.")

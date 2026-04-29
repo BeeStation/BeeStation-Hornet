@@ -21,10 +21,10 @@
 /datum/component/simple_rotation/proc/AddSignals()
 	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(RotateLeft))
 	RegisterSignal(parent, COMSIG_CLICK_ALT_SECONDARY, PROC_REF(RotateRight))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(ExamineMessage))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(ExamineMessage))
 
 /datum/component/simple_rotation/proc/RemoveSignals()
-	UnregisterSignal(parent, list(COMSIG_CLICK_ALT, COMSIG_CLICK_ALT_SECONDARY, COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(parent, list(COMSIG_CLICK_ALT, COMSIG_CLICK_ALT_SECONDARY, COMSIG_ATOM_EXAMINE))
 
 /datum/component/simple_rotation/RegisterWithParent()
 	AddSignals()
@@ -50,17 +50,31 @@
 
 /datum/component/simple_rotation/proc/ExamineMessage(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
-	examine_list += "<span class='notice'>Alt + Right-click to rotate it clockwise. Alt + Left-click to rotate it counterclockwise.</span>"
+	var/client_pref_found = user?.client?.prefs?.read_player_preference(/datum/preference/toggle/inverted_rotation)
+	if(client_pref_found)
+		examine_list += span_notice("Alt + Left-click to rotate it clockwise. Alt + Right-click to rotate it counterclockwise.")
+	else
+		examine_list += span_notice("Alt + Right-click to rotate it clockwise. Alt + Left-click to rotate it counterclockwise.")
 	if(rotation_flags & ROTATION_REQUIRE_WRENCH)
-		examine_list += "<span class='notice'>This requires a wrench to be rotated.</span>"
+		examine_list += span_notice("This requires a wrench to be rotated.")
 
 /datum/component/simple_rotation/proc/RotateRight(datum/source, mob/user)
 	SIGNAL_HANDLER
-	Rotate(user, ROTATION_CLOCKWISE)
+	// This pref makes the rotation behaviour inverted. Rotate "right" would be different for each individual.
+	var/client_pref_found = user?.client?.prefs?.read_player_preference(/datum/preference/toggle/inverted_rotation)
+	if(rotation_flags & ROTATION_DIAGONAL)
+		Rotate(user, client_pref_found ? ROTATION_COUNTERCLOCKWISE_DIAGONAL : ROTATION_CLOCKWISE_DIAGONAL)
+	else
+		Rotate(user, client_pref_found ? ROTATION_COUNTERCLOCKWISE : ROTATION_CLOCKWISE)
 
 /datum/component/simple_rotation/proc/RotateLeft(datum/source, mob/user)
 	SIGNAL_HANDLER
-	Rotate(user, ROTATION_COUNTERCLOCKWISE)
+	// This pref makes the rotation behaviour inverted. Rotate "left" would be different for each individual.
+	var/client_pref_found = user?.client?.prefs?.read_player_preference(/datum/preference/toggle/inverted_rotation)
+	if(rotation_flags & ROTATION_DIAGONAL)
+		Rotate(user, client_pref_found ? ROTATION_CLOCKWISE_DIAGONAL : ROTATION_COUNTERCLOCKWISE_DIAGONAL)
+	else
+		Rotate(user, client_pref_found ? ROTATION_CLOCKWISE : ROTATION_COUNTERCLOCKWISE)
 
 /datum/component/simple_rotation/proc/Rotate(mob/user, degrees)
 	if(QDELETED(user))

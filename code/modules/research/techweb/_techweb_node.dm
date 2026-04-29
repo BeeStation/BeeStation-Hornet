@@ -3,6 +3,7 @@
 //USE SSRESEARCH PROCS TO OBTAIN REFERENCES. DO NOT REFERENCE OUTSIDE OF SSRESEARCH OR YOU WILL FUCK UP GC.
 
 /datum/techweb_node
+	abstract_type = /datum/techweb_node
 	var/id
 	var/tech_tier = 0
 	var/display_name = "Errored Node"

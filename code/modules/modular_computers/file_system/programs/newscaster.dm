@@ -2,13 +2,14 @@
 	filename = "newscaster"
 	filedesc = "Newscaster & Bounty Board"
 	category = PROGRAM_CATEGORY_CREW
-	program_icon_state = "computer"
+	program_icon_state = "newscaster"
 	extended_desc = "This program allows any user to access the Newscaster network from anywhere."
 	size = 5
 	requires_ntnet = TRUE
 	available_on_ntnet = TRUE
 	tgui_id = "NtosNewscaster"
 	program_icon = "newspaper"
+	power_consumption = 60 WATT
 	///The UI we use for the newscaster
 	var/obj/machinery/newscaster/newscaster_ui
 

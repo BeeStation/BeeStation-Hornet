@@ -140,7 +140,7 @@
 	var/obj/item/organ/heart/gland/organ = gone
 	organ.organ_flags &= ~ORGAN_FROZEN
 	organ.organ_flags &= ~ORGAN_FAILING
-	organ.setOrganDamage(-200)
+	organ.set_organ_damage(-200)
 	organ.name = initial(organ.name)
 
 /obj/machinery/smartfridge/abductor/update_icon()

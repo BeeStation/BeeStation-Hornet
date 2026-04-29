@@ -1,7 +1,10 @@
 SUBSYSTEM_DEF(job)
 	name = "Jobs"
-	init_order = INIT_ORDER_JOBS
 	flags = SS_NO_FIRE
+	dependencies = list(
+		/datum/controller/subsystem/department,
+		/datum/controller/subsystem/processing/station,
+	)
 
 	var/list/occupations = list()		//List of all jobs
 	var/list/datum/job/name_occupations = list()	//Dict of all jobs, keys are titles
@@ -12,7 +15,7 @@ SUBSYSTEM_DEF(job)
 	var/list/prioritized_jobs = list()
 	var/list/latejoin_trackers = list()	//Don't read this list, use GetLateJoinTurfs() instead
 
-	var/overflow_role = JOB_NAME_ASSISTANT
+	var/overflow_role = /datum/job/assistant
 
 	var/list/level_order = list(JP_HIGH,JP_MEDIUM,JP_LOW)
 
@@ -30,21 +33,12 @@ SUBSYSTEM_DEF(job)
 	var/list/crew_obj_list = list()
 	var/list/crew_obj_jobs = list()
 
-	/// jobs that are not allowed in HoP job manager
-	var/list/job_manager_blacklisted = list(
-		JOB_NAME_AI,
-		JOB_NAME_ASSISTANT,
-		JOB_NAME_CYBORG,
-		JOB_NAME_POSIBRAIN,
-		JOB_NAME_CAPTAIN,
-		JOB_NAME_HEADOFPERSONNEL,
-		JOB_NAME_HEADOFSECURITY,
-		JOB_NAME_CHIEFENGINEER,
-		JOB_NAME_RESEARCHDIRECTOR,
-		JOB_NAME_CHIEFMEDICALOFFICER,
-		JOB_NAME_BRIGPHYSICIAN,
-		JOB_NAME_DEPUTY,
-		JOB_NAME_GIMMICK)
+	/// list of jobs that aren't part of standard jobs - used for job manager
+	var/list/all_job_exceptions = list(
+		JOB_NAME_VIP,
+		JOB_NAME_GIMMICK,
+		JOB_NAME_PRISONER,
+	)
 
 	/// If TRUE, some player has been assigned Captaincy or Acting Captaincy at some point during the shift and has been given the spare ID safe code.
 	var/assigned_captain = FALSE
@@ -93,25 +87,26 @@ SUBSYSTEM_DEF(job)
 	crew_obj_list = SSjob.crew_obj_list
 	crew_obj_jobs = SSjob.crew_obj_jobs
 
-	job_manager_blacklisted = SSjob.job_manager_blacklisted
-
 /datum/controller/subsystem/job/proc/set_overflow_role(new_overflow_role)
-	var/datum/job/new_overflow = GetJob(new_overflow_role)
-	if(!new_overflow || new_overflow.lock_flags)
-		CRASH("[new_overflow_role] was used for an overflow role, but it's not allowed. BITFLAG: [new_overflow?.lock_flags]")
+	var/datum/job/new_overflow = ispath(new_overflow_role) ? GetJobType(new_overflow_role) : GetJob(new_overflow_role)
+	if(!new_overflow)
+		JobDebug("SET_OVRFLW: Failed to set new overflow role: [new_overflow_role]")
+		CRASH("set_overflow_role failed | new_overflow_role: [isnull(new_overflow_role) ? "null" : new_overflow_role]")
 	var/cap = CONFIG_GET(number/overflow_cap)
 
 	new_overflow.allow_bureaucratic_error = FALSE
-	new_overflow.spawn_positions = cap
 	new_overflow.total_positions = cap
+	new_overflow.job_flags |= JOB_CANNOT_OPEN_SLOTS
 
-	if(new_overflow_role != overflow_role)
-		var/datum/job/old_overflow = GetJob(overflow_role)
-		old_overflow.allow_bureaucratic_error = initial(old_overflow.allow_bureaucratic_error)
-		old_overflow.spawn_positions = initial(old_overflow.spawn_positions)
-		old_overflow.total_positions = initial(old_overflow.total_positions)
-		overflow_role = new_overflow_role
-		JobDebug("Overflow role set to : [new_overflow_role]")
+	if(new_overflow.type == overflow_role)
+		return
+	var/datum/job/old_overflow = GetJobType(overflow_role)
+	old_overflow.allow_bureaucratic_error = initial(old_overflow.allow_bureaucratic_error)
+	old_overflow.total_positions = initial(old_overflow.total_positions)
+	if(!(initial(old_overflow.job_flags) & JOB_CANNOT_OPEN_SLOTS))
+		old_overflow.job_flags &= ~JOB_CANNOT_OPEN_SLOTS
+	overflow_role = new_overflow.type
+	JobDebug("SET_OVRFLW: Overflow role set to: [new_overflow.type]")
 
 /datum/controller/subsystem/job/proc/SetupOccupations(faction = "Station")
 	occupations = list()
@@ -133,25 +128,23 @@ SUBSYSTEM_DEF(job)
 
 	return 1
 
+/datum/controller/subsystem/job/proc/is_job_empty(rank)
+	return GetJob(rank)?.current_positions == 0
 
 /datum/controller/subsystem/job/proc/GetJob(rank)
 	RETURN_TYPE(/datum/job)
 	if(!rank)
-		CRASH("proc has taken no job name")
+		return
 	if(!occupations.len)
 		SetupOccupations()
-	if(!name_occupations[rank])
-		CRASH("job name [rank] is not valid")
 	return name_occupations[rank]
 
 /datum/controller/subsystem/job/proc/GetJobType(jobtype)
 	RETURN_TYPE(/datum/job)
 	if(!jobtype)
-		CRASH("proc has taken no job type")
+		return
 	if(!occupations.len)
 		SetupOccupations()
-	if(!type_occupations[jobtype])
-		CRASH("job type [jobtype] is not valid")
 	return type_occupations[jobtype]
 
 /datum/controller/subsystem/job/proc/GetJobActiveDepartment(rank)
@@ -164,28 +157,34 @@ SUBSYSTEM_DEF(job)
 	var/datum/job/J = name_occupations[rank]
 	return J.departments
 
-/datum/controller/subsystem/job/proc/AssignRole(mob/dead/new_player/player, rank, latejoin = FALSE)
+/datum/controller/subsystem/job/proc/AssignRole(mob/dead/new_player/authenticated/player, rank, latejoin = FALSE)
 	JobDebug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
-	if(player?.mind && rank)
-		var/datum/job/job = GetJob(rank)
-		if(!job || job.lock_flags)
-			return FALSE
-		if(QDELETED(player) || is_banned_from(player.ckey, rank))
-			return FALSE
-		if(!job.player_old_enough(player.client))
-			return FALSE
-		if(job.required_playtime_remaining(player.client))
-			return FALSE
-		var/position_limit = job.total_positions
-		if(!latejoin)
-			position_limit = job.spawn_positions
-		JobDebug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]")
-		player.mind.assigned_role = rank
-		unassigned -= player
-		job.current_positions++
-		return TRUE
-	JobDebug("AR has failed, Player: [player], Rank: [rank]")
-	return FALSE
+	if(!player?.mind || !rank)
+		JobDebug("AR has failed, Player: [player], Rank: [rank]")
+		return FALSE
+
+	var/datum/job/job = GetJob(rank)
+	if(!job || !(job.job_flags & JOB_NEW_PLAYER_JOINABLE))
+		return FALSE
+	if(QDELETED(player) || is_banned_from(player.ckey, rank))
+		return FALSE
+	if(!job.player_old_enough(player.client))
+		return FALSE
+	if(job.required_playtime_remaining(player.client))
+		return FALSE
+	var/position_limit = job.get_spawn_position_count()
+	// Unassign our previous job, to prevent double counts
+	if(player.mind.assigned_role)
+		var/datum/job/current_job = player.mind.assigned_role_datum
+		current_job.current_positions--
+		player.mind.set_assigned_role(null)
+	player.mind.set_assigned_role(rank, job)
+	unassigned -= player
+	job.current_positions++
+	if(!latejoin)
+		player.client.inc_metabalance(METACOIN_READY_UP_REWARD, reason = "Joined the station as a roundstart crew member.")
+	JobDebug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]. Group size: [job.count_players_in_group()]")
+	return TRUE
 
 /datum/controller/subsystem/job/proc/FreeRole(rank)
 	if(!rank)
@@ -199,7 +198,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/FindOccupationCandidates(datum/job/job, level)
 	JobDebug("Running FOC, Job: [job], Level: [level]")
 	var/list/candidates = list()
-	for(var/mob/dead/new_player/player in unassigned)
+	for(var/mob/dead/new_player/authenticated/player in unassigned)
 		if(QDELETED(player) || is_banned_from(player.ckey, job.title))
 			JobDebug("FOC isbanned failed, Player: [player]")
 			continue
@@ -217,22 +216,24 @@ SUBSYSTEM_DEF(job)
 			candidates += player
 	return candidates
 
-/datum/controller/subsystem/job/proc/GiveRandomJob(mob/dead/new_player/player)
-	JobDebug("GRJ Giving random job, Player: [player]")
+/datum/controller/subsystem/job/proc/GiveRandomJob(mob/dead/new_player/authenticated/player)
+	JobDebug("GRJ: Giving random job, Player: [player]")
 	. = FALSE
 	for(var/datum/job/job in shuffle(occupations))
-		if(!job || job.lock_flags)
+		if(QDELETED(player))
+			JobDebug("GRJ: Player is deleted, aborting")
+			break
+
+		if(!job || !(job.job_flags & JOB_NEW_PLAYER_JOINABLE))
 			continue
 
-		if(istype(job, GetJob(SSjob.overflow_role))) // We don't want to give him assistant, that's boring!
+		if(istype(job, GetJobType(overflow_role))) // We don't want to give him assistant, that's boring!
+			JobDebug("GRJ: Skipping overflow role, Player: [player], Job: [job]")
 			continue
 
 		if(job.title in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)) //If you want a command position, select it!
+			JobDebug("GRJ: Skipping command role, Player: [player], Job: [job]")
 			continue
-
-		if(QDELETED(player))
-			JobDebug("GRJ isbanned failed, Player deleted")
-			break
 
 		if(is_banned_from(player.ckey, job.title))
 			JobDebug("GRJ isbanned failed, Player: [player], Job: [job.title]")
@@ -250,94 +251,41 @@ SUBSYSTEM_DEF(job)
 			JobDebug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
 
-		if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
+		var/spawn_position_count = job.get_spawn_position_count()
+		if((job.current_positions < spawn_position_count) || (spawn_position_count == -1))
 			JobDebug("GRJ Random job given, Player: [player], Job: [job]")
 			if(AssignRole(player, job.title))
 				return TRUE
 
 /datum/controller/subsystem/job/proc/ResetOccupations()
 	JobDebug("Occupations reset.")
-	for(var/mob/dead/new_player/player in GLOB.player_list)
+	for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 		if((player) && (player.mind))
-			player.mind.assigned_role = null
+			player.mind.set_assigned_role(null)
 			player.mind.special_role = null
 			SSpersistence.antag_rep_change[player.ckey] = 0
 	SetupOccupations()
 	unassigned = list()
+	set_overflow_role(overflow_role)
 	return
-
-
-//This proc is called before the level loop of DivideOccupations() and will try to select a head, ignoring ALL non-head preferences for every level until
-//it locates a head or runs out of levels to check
-//This is basically to ensure that there's atleast a few heads in the round
-/datum/controller/subsystem/job/proc/FillHeadPosition()
-	for(var/level in level_order)
-		for(var/command_position in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-			var/datum/job/job = GetJob(command_position)
-			if(!job)
-				continue
-			if((job.current_positions >= job.total_positions) && job.total_positions != -1)
-				continue
-			var/list/candidates = FindOccupationCandidates(job, level)
-			if(!candidates.len)
-				continue
-			var/mob/dead/new_player/candidate = pick(candidates)
-			if(AssignRole(candidate, command_position))
-				return 1
-	return 0
-
-
-//This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level
-//This is also to ensure we get as many heads as possible
-/datum/controller/subsystem/job/proc/CheckHeadPositions(level)
-	for(var/command_position in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-		var/datum/job/job = GetJob(command_position)
-		if(!job)
-			continue
-		if((job.current_positions >= job.total_positions) && job.total_positions != -1)
-			continue
-		var/list/candidates = FindOccupationCandidates(job, level)
-		if(!candidates.len)
-			continue
-		var/mob/dead/new_player/candidate = pick(candidates)
-		AssignRole(candidate, command_position)
-
-/datum/controller/subsystem/job/proc/FillAIPosition()
-	var/ai_selected = 0
-	var/datum/job/job = GetJob("AI")
-	if(!job)
-		return 0
-	for(var/i = job.total_positions, i > 0, i--)
-		for(var/level in level_order)
-			var/list/candidates = list()
-			candidates = FindOccupationCandidates(job, level)
-			if(candidates.len)
-				var/mob/dead/new_player/candidate = pick(candidates)
-				if(AssignRole(candidate, "AI"))
-					ai_selected++
-					break
-	if(ai_selected)
-		return 1
-	return 0
-
 
 /** Proc DivideOccupations
  *  fills var "assigned_role" for all ready players.
  *  This proc must not have any side effect besides of modifying "assigned_role".
  **/
-/datum/controller/subsystem/job/proc/DivideOccupations(list/required_jobs)
+/datum/controller/subsystem/job/proc/DivideOccupations()
 	//Setup new player list and get the jobs list
 	JobDebug("Running DO")
 
 	//Holder for Triumvirate is stored in the SSticker, this just processes it
 	if(SSticker.triai)
 		for(var/datum/job/ai/A in occupations)
-			A.spawn_positions = 3
+			A.total_positions = 3
 		for(var/obj/effect/landmark/start/ai/secondary/S in GLOB.start_landmarks_list)
 			S.latejoin_active = TRUE
 
 	//Get the players who are ready
-	for(var/mob/dead/new_player/player in GLOB.player_list)
+	for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 		if(player.ready == PLAYER_READY_TO_PLAY && player.mind && !player.mind.assigned_role)
 			if(!player.check_preferences())
 				player.ready = PLAYER_NOT_READY
@@ -348,134 +296,202 @@ SUBSYSTEM_DEF(job)
 
 	JobDebug("DO, Len: [unassigned.len]")
 	if(unassigned.len == 0)
-		return validate_required_jobs(required_jobs)
-
-	//Scale number of open security officer slots to population
-	setup_officer_positions()
-
-	//Jobs will have fewer access permissions if the number of players exceeds the threshold defined in game_options.txt
-	var/mat = CONFIG_GET(number/minimal_access_threshold)
-	if(mat)
-		if(mat > unassigned.len)
-			CONFIG_SET(flag/jobs_have_minimal_access, FALSE)
-		else
-			CONFIG_SET(flag/jobs_have_minimal_access, TRUE)
+		return TRUE
 
 	//Shuffle players and jobs
 	unassigned = shuffle(unassigned)
 
 	HandleFeedbackGathering()
 
-	//People who wants to be the overflow role, sure, go on.
-	JobDebug("DO, Running Overflow Check 1")
-	var/datum/job/overflow = GetJob(SSjob.overflow_role)
-	var/list/overflow_candidates = FindOccupationCandidates(overflow, 3)
-	JobDebug("AC1, Candidates: [overflow_candidates.len]")
-	for(var/mob/dead/new_player/player in overflow_candidates)
-		JobDebug("AC1 pass, Player: [player]")
-		AssignRole(player, SSjob.overflow_role)
-		overflow_candidates -= player
-	JobDebug("DO, AC1 end")
-
-	//Select one head
-	JobDebug("DO, Running Head Check")
-	FillHeadPosition()
-	JobDebug("DO, Head Check end")
-
-	//Check for an AI
-	JobDebug("DO, Running AI Check")
-	FillAIPosition()
-	JobDebug("DO, AI Check end")
-
 	//Other jobs are now checked
 	JobDebug("DO, Running Standard Check")
 
+	// New job giving system by PowerfulBacon
+	// Attempting to create perfect configurations leads to players often getting the same
+	// jobs over and over, since if they have 1 job that nobody else has picked then it will
+	// try to take them (especially with command roles).
+	// This system favours giving out jobs to players who have highly random job selections
+	// first, so that players asking for a random experience aren't given only the jobs that
+	// nobody else wants to do, which you would get with stable-marriage style algorithms
+	//
+	// In these steps, we ignore high priority jobs and instead create a random ordering of
+	// the medium jobs that the player has selected.
+	// Example:
+	// Player A: Job C, Job B, (High priority: E)
+	// Player B: Job A, Job C, Job D (High priority: E)
+	// Player C: Job B, Job D
+	// Player D: Job A, Job E
+	// Step 1: Create random orderings
+	// A: [B, C]
+	// B: [C, D, A]
+	// C: [D, B]
+	// D: [A, E]
+	// Step 2: Sort these by the number of items in the list, sorting it randomly when
+	// the values are equal. The player will get the first job in the array that has not
+	// already been selected by someone previously. This is represented by the *
+	// B: [C*, D, A] (Gets job C because it is untaken)
+	// D: [A*, E] (Gets job A because it is untaken)
+	// A: [C, B*] (Gets job B because C is taken by person B)
+	// C: [D*, B] (Gets job D because it is untaken
+	// Step 3: Find all of the jobs that have additional spaces to allocate
+	// Additional spaces: E
+	// Step 4: Create a random ordering of all players
+	// D, C, B, A
+	// Step 5: Assign any high priority job roles that haven't been taken yet, and recalculate
+	// the random job ordering list.
+	// D: [A*, E]
+	// B: E* -> [C, D, A] (Gets E because it has not been taken yet, which frees up job C)
+	// C: E -> [D*, B] (Keeps job D because job E was taken by B)
+	// A: [C*, B] (Since player B changed from job C to job E, our highest priority job (Job C) is now available, so we switch to that instead)
+	// Step 6: Find all players that do not have a job, and repeat step 1 by including only their low priority job roles (ignoring high priority).
+	//
+	// High popularity jobs will still be less likely to be selected, so it isn't perfectly balanced, however
+	// this system balances the probabilities as much as possible.
+	// High priority jobs are done at the end so that it doesn't disrupt the probability selection for other
+	// players. If a job has a low demand, you will always switch to that if you select it as high priority
+	// but if a job has a high demand, you will only get it if the players who had more job roles selected
+	// wasn't assigned it first (even if you are the only one with it set to high priority, and everyone else
+	// had it set to medium).
 
-	// New job giving system by Donkie
-	// This will cause lots of more loops, but since it's only done once it shouldn't really matter much at all.
-	// Hopefully this will add more randomness and fairness to job giving.
+	// Shuffle the unassigned player list for fairness
+	shuffle_inplace(unassigned)
 
-	// Loop through all levels from high to low
-	var/list/shuffledoccupations = shuffle(occupations)
-	for(var/level in level_order)
-		//Check the head jobs first each level
-		CheckHeadPositions(level)
+	// Firstly, remove any players over the pop-cap
+	for(var/mob/dead/new_player/authenticated/player in unassigned)
+		if(PopcapReached() && !IS_PATRON(player.ckey))
+			RejectPlayer(player)
 
-		// Loop through all unassigned players
-		for(var/mob/dead/new_player/player in unassigned)
-			if(PopcapReached() && !IS_PATRON(player.ckey))
-				RejectPlayer(player)
+	assign_roles(JP_MEDIUM)
+	assign_roles(JP_LOW)
 
-			// Loop through all jobs
-			for(var/datum/job/job in shuffledoccupations) // SHUFFLE ME BABY
-				if(!job || job.lock_flags)
-					continue
-
-				if(is_banned_from(player.ckey, job.title))
-					JobDebug("DO isbanned failed, Player: [player], Job:[job.title]")
-					continue
-
-				if(QDELETED(player))
-					JobDebug("DO player deleted during job ban check")
-					break
-
-				if(!job.player_old_enough(player.client))
-					JobDebug("DO player not old enough, Player: [player], Job:[job.title]")
-					continue
-
-				if(job.required_playtime_remaining(player.client))
-					JobDebug("DO player not enough xp, Player: [player], Job:[job.title]")
-					continue
-
-				if(player.mind && (job.title in player.mind.restricted_roles))
-					JobDebug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
-					continue
-
-				// If the player wants that job on this level, then try give it to him.
-				if(player.client.prefs.job_preferences[job.title] == level || (job.gimmick && player.client.prefs.job_preferences["Gimmick"] == level))
-					// If the job isn't filled
-					if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
-						JobDebug("DO pass, Player: [player], Level:[level], Job:[job.title]")
-						AssignRole(player, job.title)
-						unassigned -= player
-						break
-
-
-	JobDebug("DO, Handling unassigned.")
+	JobDebug("DO: Handle unassigned")
 	// Hand out random jobs to the people who didn't get any in the last check
 	// Also makes sure that they got their preference correct
-	for(var/mob/dead/new_player/player in unassigned)
+	for(var/mob/dead/new_player/authenticated/player in unassigned)
 		HandleUnassigned(player)
+	JobDebug("DO: Ending handle unassigned")
 
-	JobDebug("DO, Handling unrejectable unassigned")
+	JobDebug("DO: Handling unrejectable unassigned")
 	//Mop up people who can't leave.
-	for(var/mob/dead/new_player/player in unassigned) //Players that wanted to back out but couldn't because they're antags (can you feel the edge case?)
+	for(var/mob/dead/new_player/authenticated/player in unassigned) //Players that wanted to back out but couldn't because they're antags (can you feel the edge case?)
 		if(!GiveRandomJob(player))
-			if(!AssignRole(player, SSjob.overflow_role)) //If everything is already filled, make them an assistant
+			if(!AssignRole(player, GetJobType(overflow_role)?.title)) //If everything is already filled, make them an assistant
 				return FALSE //Living on the edge, the forced antagonist couldn't be assigned to overflow role (bans, client age) - just reroll
 
-	return validate_required_jobs(required_jobs)
+	//Scale number of open security officer slots to population
+	setup_officer_positions()
 
-/datum/controller/subsystem/job/proc/validate_required_jobs(list/required_jobs)
-	if(!required_jobs.len)
-		return TRUE
-	for(var/required_group in required_jobs)
-		var/group_ok = TRUE
-		for(var/rank in required_group)
-			var/datum/job/J = GetJob(rank)
-			if(!J)
-				SSticker.mode.setup_error = "Invalid job [rank] in gamemode required jobs."
-				return FALSE
-			if(J.current_positions < required_group[rank])
-				group_ok = FALSE
+	return TRUE
+
+/datum/controller/subsystem/job/proc/assign_roles(priority = JP_MEDIUM)
+	// Create random orderings for all players
+	var/list/sorted_orderings = list()
+	var/list/random_orderings = list()
+	// Step 1: Generate random orderings for the players medium jobs
+	for(var/mob/dead/new_player/authenticated/player in unassigned)
+		var/list/available_jobs = list()
+		// Find all jobs that we are actually able to be
+		for(var/datum/job/job in occupations)
+			if (!is_valid_job(player, job, priority))
+				continue
+			JobDebug("Preparing, Player: [player], Job:[job.title]")
+			available_jobs += job
+		// Create random orderings
+		shuffle_inplace(available_jobs)
+		// Use the same reference, so that we only have to update one
+		sorted_orderings[player] = available_jobs
+		random_orderings[player] = available_jobs
+		JobDebug("DO [player.ckey] was given the job priority list [jointext(available_jobs, ",")]")
+	// Step 2: Sort the list by the number of availble jobs that each person has, keeping it
+	// random when the amount is the same
+	shuffle_inplace(sorted_orderings)
+	shuffle_inplace(random_orderings)
+	sorted_orderings = sortTim(sorted_orderings, GLOBAL_PROC_REF(cmp_list_size_dsc), TRUE)
+	// Step 3: Assign provisional jobs
+	for(var/mob/dead/new_player/authenticated/player in sorted_orderings)
+		// Get the first available job for this player
+		for (var/datum/job/job in sorted_orderings[player])
+			var/job_position_count = job.get_spawn_position_count()
+			if (job.current_positions >= job_position_count && job_position_count != -1)
+				continue
+			// Provisional assignment
+			job.current_positions++
+			player.mind.set_assigned_role(job.title, job)
+			JobDebug("DO [player.ckey] was assigned the provisional job [job.title]")
+			break
+	// Step 4: Create a random ordering of players
+	// The player list is already shuffled, so we will re-use that for player preference
+	// Step 5: Assign high priority job roles
+	if (priority == JP_MEDIUM)
+		for(var/mob/dead/new_player/authenticated/player in sorted_orderings)
+			// Assign high priority jobs
+			for(var/datum/job/job in occupations)
+				if (!is_valid_job(player, job, JP_HIGH))
+					continue
+				var/list/player_job_list = sorted_orderings[player]
+				// Add this job to the start of the player's preferences list
+				player_job_list.Insert(1, job)
+				JobDebug("DO [player.ckey] requested [job.title] as a high priority job. Updated assignment list: [jointext(player_job_list, ",")]")
+	// Until we reach a stable state or the upper bound is reached, repeatedly
+	// try to get a higher priority role
+	var/iteration_limit = 10
+	var/changed = TRUE
+	while (changed && iteration_limit-- > 0)
+		changed = FALSE
+		for(var/mob/dead/new_player/authenticated/player in random_orderings)
+			var/list/player_preferences = random_orderings[player]
+			// Reassign to a new job
+			for (var/datum/job/job in player_preferences)
+				// We already have this job, so don't need to reassign
+				if (player.mind.assigned_role == job.title)
+					break
+				// This job is full, skip
+				var/job_position_count = job.get_spawn_position_count()
+				if (job.current_positions >= job_position_count && job_position_count != -1)
+					continue
+				JobDebug("DO [player.ckey] switched from job [player.mind.assigned_role] to job [job.title]")
+				// Unassign our previous job
+				if (player.mind.assigned_role)
+					var/datum/job/current_job = player.mind.assigned_role_datum
+					current_job.current_positions--
+					player.mind.set_assigned_role(null)
+				// Provisional assignment
+				job.current_positions++
+				player.mind.set_assigned_role(job.title, job)
+				changed = TRUE
 				break
-		if(group_ok)
-			return TRUE
-	SSticker.mode.setup_error = "Required jobs not present."
-	return FALSE
+	// Step 5: Assign job roles that we have so far
+	for(var/mob/dead/new_player/authenticated/player in sorted_orderings)
+		if (!player.mind.assigned_role)
+			JobDebug("DO [player.ckey] has no medium or high priority jobs assigned")
+			continue
+		AssignRole(player, player.mind.assigned_role)
+		unassigned -= player
+
+/datum/controller/subsystem/job/proc/is_valid_job(mob/dead/new_player/authenticated/player, datum/job/job, required_priority)
+	if(!job || !(job.job_flags & JOB_NEW_PLAYER_JOINABLE))
+		return FALSE
+	if(is_banned_from(player.ckey, job.title))
+		JobDebug("DO isbanned failed, Player: [player], Job:[job.title]")
+		return FALSE
+	if(QDELETED(player))
+		JobDebug("DO player deleted during job ban check")
+		return FALSE
+	if(!job.player_old_enough(player.client))
+		JobDebug("DO player not old enough, Player: [player], Job:[job.title]")
+		return FALSE
+	if(job.required_playtime_remaining(player.client))
+		JobDebug("DO player not enough xp, Player: [player], Job:[job.title]")
+		return FALSE
+	if(player.mind && (job.title in player.mind.restricted_roles))
+		JobDebug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
+		return FALSE
+	if(player.client.prefs.job_preferences[job.title] != required_priority && !(job.gimmick && player.client.prefs.job_preferences["Gimmick"] == required_priority))
+		return FALSE
+	return TRUE
 
 //We couldn't find a job from prefs for this guy.
-/datum/controller/subsystem/job/proc/HandleUnassigned(mob/dead/new_player/player)
+/datum/controller/subsystem/job/proc/HandleUnassigned(mob/dead/new_player/authenticated/player)
 	var/jobless_role = player.client.prefs.read_character_preference(/datum/preference/choiced/jobless_role)
 
 	if(PopcapReached() && !IS_PATRON(player.ckey))
@@ -484,7 +500,8 @@ SUBSYSTEM_DEF(job)
 
 	switch (jobless_role)
 		if (BEOVERFLOW)
-			var/datum/job/overflow_role_datum = GetJob(overflow_role)
+			var/datum/job/overflow_role_datum = GetJobType(overflow_role)
+
 			if(!istype(overflow_role_datum))
 				stack_trace("Invalid overflow_role set ([overflow_role]), please make sure it matches a valid job datum.")
 				RejectPlayer(player)
@@ -510,7 +527,7 @@ SUBSYSTEM_DEF(job)
 
 //Gives the player the stuff he should have with his rank
 /datum/controller/subsystem/job/proc/EquipRank(mob/M, rank, joined_late = FALSE)
-	var/mob/dead/new_player/newplayer
+	var/mob/dead/new_player/authenticated/newplayer
 	var/mob/living/living_mob
 
 	if(!joined_late)
@@ -534,7 +551,8 @@ SUBSYSTEM_DEF(job)
 			DropLandAtRandomHallwayPoint(living_mob)
 			spawning_handled = TRUE
 		else if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER) && job.random_spawns_possible)
-			SpawnLandAtRandom(living_mob, (typesof(/area/hallway) | typesof(/area/crew_quarters/bar) | typesof(/area/crew_quarters/dorms)))
+			SpawnLandAtRandom(living_mob, (typesof(/area/station/hallway) | typesof(
+/area/station/service/bar) | typesof(/area/station/commons/dorms)))
 			spawning_handled = TRUE
 		else if(length(GLOB.jobspawn_overrides[rank]))
 			S = pick(GLOB.jobspawn_overrides[rank])
@@ -556,7 +574,7 @@ SUBSYSTEM_DEF(job)
 
 
 	if(living_mob.mind)
-		living_mob.mind.assigned_role = rank
+		living_mob.mind.set_assigned_role(rank, job)
 	to_chat(M, "<b>You are the [rank].</b>")
 	if(job)
 		var/new_mob = job.equip(living_mob, null, null, joined_late , null, M.client)
@@ -569,7 +587,7 @@ SUBSYSTEM_DEF(job)
 		else
 			if(!isnull(new_mob)) //Detect fail condition on equip
 			//if equip() is somehow able to fail, send them back to lobby
-				var/mob/dead/new_player/NP = new()
+				var/mob/dead/new_player/authenticated/NP = new()
 				NP.ckey = M.client.ckey
 				qdel(M)
 				to_chat(M, "Error equipping [rank]. Returning to lobby.</b>")
@@ -585,8 +603,11 @@ SUBSYSTEM_DEF(job)
 		job.radio_help_message(M)
 		if(job.req_admin_notify)
 			to_chat(M, "<b>You are playing a job that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
-		if(CONFIG_GET(number/minimal_access_threshold))
-			to_chat(M, span_notice("<B>As this station was initially staffed with a [CONFIG_GET(flag/jobs_have_minimal_access) ? "full crew, only your job's necessities" : "skeleton crew, additional access may"] have been added to your ID card.</B>"))
+		var/obj/item/id_card = living_mob?.get_idcard()
+		if (SSjob.initial_players_to_assign < job.min_pop && job.min_pop_redirect)
+			to_chat(M, span_noticebig("<b>Due to a lack of station personnel, you additionally have the responsibilities and access of \a [job.min_pop_redirect::title]!</b>"))
+		else if (id_card && length(id_card.GetAccess()) != length(job.base_access))
+			to_chat(M, span_notice("<B>You have been granted with additional access and responsibilities due to a lack of station personnel.</B>"))
 	if(ishuman(living_mob))
 		var/mob/living/carbon/human/wageslave = living_mob
 		if(wageslave.mind?.account_id)
@@ -617,16 +638,8 @@ SUBSYSTEM_DEF(job)
 	if(!J)
 		CRASH("setup_officer_positions(): Security officer job is missing")
 
-	var/ssc = CONFIG_GET(number/security_scaling_coeff)
-	if(ssc > 0)
-		if(J.spawn_positions > 0)
-			var/officer_positions = min(12, max(J.spawn_positions, round(unassigned.len / ssc))) //Scale between configured minimum and 12 officers
-			JobDebug("Setting open security officer positions to [officer_positions]")
-			J.total_positions = officer_positions
-			J.spawn_positions = officer_positions
-
 	//Spawn some extra eqipment lockers if we have more than 5 officers
-	var/equip_needed = J.total_positions
+	var/equip_needed = J.get_spawn_position_count()
 	if(equip_needed < 0) // -1: infinite available slots
 		equip_needed = 12
 	for(var/i=equip_needed-5, i>0, i--)
@@ -643,10 +656,9 @@ SUBSYSTEM_DEF(job)
 	for(var/datum/job/J in occupations)
 		if(J.gimmick) //gimmick job slots are dependant on random maint
 			continue
-		var/regex/jobs = new("[J.title]=(-1|\\d+),(-1|\\d+)")
+		var/regex/jobs = new("[J.title]=(-1|\\d+)")
 		if(jobs.Find(jobstext))
 			J.total_positions = text2num(jobs.group[1])
-			J.spawn_positions = text2num(jobs.group[2])
 		else
 			log_runtime("Error in /datum/controller/subsystem/job/proc/LoadJobs: Failed to locate job of title [J.title] in jobs.txt")
 
@@ -658,8 +670,8 @@ SUBSYSTEM_DEF(job)
 		var/never = 0 //never
 		var/banned = 0 //banned
 		var/young = 0 //account too young
-		for(var/mob/dead/new_player/player in GLOB.player_list)
-			if(job.lock_flags)
+		for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
+			if(!(job.job_flags & JOB_NEW_PLAYER_JOINABLE))
 				continue
 			if(!(player.ready == PLAYER_READY_TO_PLAY && player.mind && !player.mind.assigned_role))
 				continue //This player is not ready
@@ -697,7 +709,7 @@ SUBSYSTEM_DEF(job)
 			return 1
 	return 0
 
-/datum/controller/subsystem/job/proc/RejectPlayer(mob/dead/new_player/player)
+/datum/controller/subsystem/job/proc/RejectPlayer(mob/dead/new_player/authenticated/player)
 	if(player.mind && player.mind.special_role)
 		return
 	if(PopcapReached() && !IS_PATRON(player.ckey))
@@ -730,42 +742,30 @@ SUBSYSTEM_DEF(job)
 		destination.JoinPlayerHere(M, buckle)
 		return
 
-	//bad mojo
+	destination = get_last_resort_spawn_points()
+	destination.JoinPlayerHere(M, buckle)
+
+/datum/controller/subsystem/job/proc/get_last_resort_spawn_points()
 	var/area/shuttle/arrival/arrivals_area = GLOB.areas_by_type[/area/shuttle/arrival]
-	if(arrivals_area)
-		//first check if we can find a chair
-		var/obj/structure/chair/C = locate() in arrivals_area
-		if(C)
-			C.JoinPlayerHere(M, buckle)
-			return
-
-		//last hurrah
+	if(!isnull(arrivals_area))
 		var/list/turf/available_turfs = list()
-		for(var/turf/arrivals_turf in arrivals_area)
-			if(!arrivals_turf.is_blocked_turf(TRUE))
+		for (var/list/zlevel_turfs as anything in arrivals_area.get_zlevel_turf_lists())
+			for (var/turf/arrivals_turf as anything in zlevel_turfs)
+				var/obj/structure/chair/shuttle_chair = locate() in arrivals_turf
+				if(!isnull(shuttle_chair))
+					return shuttle_chair
+				if(arrivals_turf.is_blocked_turf(TRUE))
+					continue
 				available_turfs += arrivals_turf
-		if(available_turfs.len)
-			destination = pick(available_turfs)
-			destination.JoinPlayerHere(M, FALSE)
-			return
 
-	//pick an open spot on arrivals and dump em
-	var/list/arrivals_turfs = shuffle(get_area_turfs(/area/shuttle/arrival))
-	if(arrivals_turfs.len)
-		for(var/turf/T in arrivals_turfs)
-			if(!T.is_blocked_turf(TRUE))
-				T.JoinPlayerHere(M, FALSE)
-				return
-		//last chance, pick ANY spot on arrivals and dump em
-		destination = arrivals_turfs[1]
-		destination.JoinPlayerHere(M, FALSE)
-	else
-		var/msg = "Unable to send mob [M] to late join!"
-		message_admins(msg)
-		CRASH(msg)
+		if(length(available_turfs))
+			return pick(available_turfs)
+
+	stack_trace("Unable to find last resort spawn point.")
+	return GET_ERROR_ROOM
 
 ///Spawns specified mob at a random spot in the hallways
-/datum/controller/subsystem/job/proc/SpawnLandAtRandom(mob/living/living_mob, areas = typesof(/area/hallway))
+/datum/controller/subsystem/job/proc/SpawnLandAtRandom(mob/living/living_mob, areas = typesof(/area/station/hallway))
 	var/turf/spawn_turf = get_safe_random_station_turfs(areas)
 
 	if(!spawn_turf)
@@ -776,7 +776,7 @@ SUBSYSTEM_DEF(job)
 
 ///Lands specified mob at a random spot in the hallways
 /datum/controller/subsystem/job/proc/DropLandAtRandomHallwayPoint(mob/living/living_mob)
-	var/turf/spawn_turf = get_safe_random_station_turfs(typesof(/area/hallway))
+	var/turf/spawn_turf = get_safe_random_station_turfs(typesof(/area/station/hallway))
 
 	if(!spawn_turf)
 		SendToLateJoin(living_mob)
@@ -840,7 +840,7 @@ SUBSYSTEM_DEF(job)
 	name = "Emergency Spare ID Safe Code Requisition"
 	desc = "Proof that nobody has been approved for Captaincy. A skeleton key for a skeleton shift."
 
-/datum/controller/subsystem/job/proc/promote_to_captain(var/mob/dead/new_player/new_captain, acting_captain = FALSE)
+/datum/controller/subsystem/job/proc/promote_to_captain(mob/dead/new_player/authenticated/new_captain, acting_captain = FALSE)
 	var/mob/living/carbon/human/H = new_captain.new_character
 	if(!new_captain)
 		CRASH("Cannot promote [new_captain.ckey], there is no new_character attached to him.")
@@ -875,3 +875,26 @@ SUBSYSTEM_DEF(job)
 	new /obj/effect/pod_landingzone(loc, /obj/structure/closet/supplypod/centcompod, new /obj/item/paper/fluff/spare_id_safe_code/emergency_spare_id_safe_code())
 	safe_code_timer_id = null
 	safe_code_request_loc = null
+
+/**
+ * Check if the station manifest has at least a certain amount of this staff type.
+ * If a matching head of staff is on the manifest, automatically passes (returns TRUE)
+ *
+ * Arguments:
+ * * crew_threshold - amount of crew to meet the requirement
+ * * jobs - a list of jobs that qualify the requirement
+ * * head_jobs - a list of head jobs that qualify the requirement
+ *
+*/
+/datum/controller/subsystem/job/proc/has_minimum_jobs(crew_threshold, list/jobs = list(), list/head_jobs = list())
+	var/employees = 0
+	for(var/datum/record/crew/target in GLOB.manifest.general)
+		if(target.rank in head_jobs)
+			return TRUE
+		if(target.rank in jobs)
+			employees++
+
+	if(employees >= crew_threshold)
+		return TRUE
+
+	return FALSE

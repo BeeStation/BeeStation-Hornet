@@ -87,7 +87,7 @@ export const DmMapsIncludeTarget = new Juke.Target({
 export const DmTarget = new Juke.Target({
   parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
   dependsOn: ({ get }) => [
-    get(DefineParameter).includes('ALL_MAPS') && DmMapsIncludeTarget,
+    get(DefineParameter).includes('ALL_TEMPLATES') && DmMapsIncludeTarget,
   ],
   executes: async ({ get }) => {
     await DreamMaker(`${DME_NAME}.dme`, {
@@ -137,7 +137,7 @@ export const DmTestTarget = new Juke.Target({
 export const AutowikiTarget = new Juke.Target({
   parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
   dependsOn: ({ get }) => [
-    get(DefineParameter).includes('ALL_MAPS') && DmMapsIncludeTarget,
+    get(DefineParameter).includes('ALL_TEMPLATES') && DmMapsIncludeTarget,
   ],
   outputs: [
     'data/autowiki_edits.txt',
@@ -202,10 +202,10 @@ export const TgFontTarget = new Juke.Target({
 export const TguiTarget = new Juke.Target({
   dependsOn: [YarnTarget],
   inputs: [
-    'tgui/.yarn/install-target',
-    'tgui/webpack.config.js',
-    'tgui/**/package.json',
-    'tgui/packages/**/*.+(js|cjs|ts|tsx|jsx|scss)',
+    "tgui/.yarn/install-target",
+    "tgui/webpack.config.js",
+    "tgui/**/package.json",
+    "tgui/packages/**/*.+(js|cjs|ts|tsx|jsx|scss)",
   ],
   outputs: [
     'tgui/public/tgui.bundle.css',

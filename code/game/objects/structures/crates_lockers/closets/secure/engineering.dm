@@ -14,7 +14,6 @@
 	new /obj/item/clothing/suit/hazardvest(src)
 	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/tank/jetpack/suit(src)
 	new /obj/item/radio/headset/heads/chief_engineer(src)
 
 	new /obj/item/clothing/neck/petcollar(src)
@@ -66,6 +65,7 @@
 	new /obj/item/clothing/head/utility/hardhat/welding/white(src)
 	new /obj/item/clothing/head/utility/welding(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
+	new /obj/item/clothing/neck/cloak/ce_mantle(src)
 
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"

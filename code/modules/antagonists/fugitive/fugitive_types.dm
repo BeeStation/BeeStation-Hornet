@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(fugitive_types, list(
 	multiple_name = "Nanotrasen Superjail Escapists"
 	greet_message = span_bold("I can't believe we managed to break out of a Nanotrasen superjail! Sadly though, our work is not done. The emergency teleport at the station logs everyone who uses it, and where they went.") + "\n" + \
 		span_bold("It won't be long until CentCom tracks where we've gone off to. I need to work with my fellow escapees to prepare for the troops Nanotrasen is sending, I'm not going back.")
-	outfit = /datum/outfit/prisoner
+	outfit = /datum/outfit/escapedprisoner
 
 /datum/fugitive_type/cult
 	name = "Cultist of Yalp Elor"

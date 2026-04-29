@@ -2,15 +2,15 @@
 /datum/species/human/felinid
 	name = "\improper Felinid"
 	id = SPECIES_FELINID
-	bodyflag = FLAG_FELINID
 	examine_limb_id = SPECIES_HUMAN
 
-	mutant_bodyparts = list("tail_human" = "Cat", "ears" = "Cat", "wings" = "None", "body_size" = "Normal")
+	mutant_bodyparts = list("tail_human" = "Cat", "ears" = "Cat", "wings" = SPRITE_ACCESSORY_NONE, "body_size" = "Normal")
 	forced_features = list("tail_human" = "Cat", "ears" = "Cat")
 
 	mutantears = /obj/item/organ/ears/cat
 	mutant_organs = list(/obj/item/organ/tail/cat)
 	mutanttongue = /obj/item/organ/tongue/cat
+	inherent_traits = list(TRAIT_HATED_BY_DOGS)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	swimming_component = /datum/component/swimming/felinid
@@ -35,9 +35,9 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(!pref_load)			//Hah! They got forcefully purrbation'd. Force default felinid parts on them if they have no mutant parts in those areas!
-			if(H.dna.features["tail_human"] == "None")
+			if(H.dna.features["tail_human"] == SPRITE_ACCESSORY_NONE)
 				H.dna.features["tail_human"] = "Cat"
-			if(H.dna.features["ears"] == "None")
+			if(H.dna.features["ears"] == SPRITE_ACCESSORY_NONE)
 				H.dna.features["ears"] = "Cat"
 		if(H.dna.features["ears"] == "Cat")
 			var/obj/item/organ/ears/cat/ears = new
@@ -63,7 +63,7 @@
 		if(prob(15))
 			if(locate(/obj/item/organ/stomach) in M.internal_organs)
 				var/obj/item/organ/stomach/cat_stomach = M.internal_organs_slot[ORGAN_SLOT_STOMACH]
-				cat_stomach.applyOrganDamage(15)
+				cat_stomach.apply_organ_damage(15)
 		return FALSE
 	return ..() //second part of this effect is handled elsewhere
 
@@ -109,10 +109,10 @@
 
 /datum/species/human/felinid/prepare_human_for_preview(mob/living/carbon/human/human)
 	human.hair_style = "Hime Cut"
-	human.hair_color = "fcc" // pink
+	human.hair_color = COLOR_PINK
 	human.update_hair()
 
-	var/obj/item/organ/ears/cat/cat_ears = human.getorgan(/obj/item/organ/ears/cat)
+	var/obj/item/organ/ears/cat/cat_ears = human.get_organ_by_type(/obj/item/organ/ears/cat)
 	if (cat_ears)
 		cat_ears.color = human.hair_color
 		human.update_body()

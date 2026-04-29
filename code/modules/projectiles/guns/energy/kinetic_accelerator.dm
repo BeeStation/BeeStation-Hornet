@@ -2,8 +2,9 @@
 	name = "proto-kinetic accelerator"
 	desc = "A self recharging, ranged mining tool that does increased damage in low pressure."
 	icon_state = "kineticgun"
-	item_state = "kineticgun"
+	inhand_icon_state = "kineticgun"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
+	resistance_flags = FIRE_PROOF
 	item_flags = NONE
 	obj_flags = UNIQUE_RENAME
 	weapon_weight = WEAPON_LIGHT
@@ -78,7 +79,7 @@
 /obj/item/gun/energy/recharge/kinetic_accelerator/proc/check_menu(mob/living/carbon/human/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	return TRUE
 
@@ -125,7 +126,7 @@
 /obj/item/ammo_casing/energy/kinetic
 	projectile_type = /obj/projectile/kinetic
 	select_name = "kinetic"
-	e_cost = 500
+	e_cost = 5000 WATT
 	fire_sound = 'sound/weapons/kenetic_accel.ogg' // fine spelling there chap
 
 /obj/item/ammo_casing/energy/kinetic/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
@@ -200,9 +201,9 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
-	require_module = 1
-	module_type = list(/obj/item/robot_module/miner)
-	module_flags = BORG_MODULE_MINER
+	require_model = TRUE
+	model_type = list(/obj/item/robot_model/miner)
+	model_flags = BORG_MODEL_MINER
 	///Should be the type path of mods in the same group
 	var/restricted_mod_type = null
 	///Only used if restricted_mod_type is defined. How many mods of this type are allowed?
@@ -222,11 +223,11 @@
 	else
 		..()
 
-/obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/robot)
 	. = ..()
-	if (.)
-		for(var/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg/H in R.module.modules)
-			return install(H, usr, FALSE)
+	if(.)
+		for(var/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg/kinetic_accelerator in robot.model.modules)
+			return install(kinetic_accelerator, usr, FALSE)
 
 /obj/item/borg/upgrade/modkit/proc/install(obj/item/gun/energy/recharge/kinetic_accelerator/KA, mob/user, transfer_to_loc = TRUE)
 	. = TRUE
@@ -254,11 +255,11 @@
 		to_chat(user, "<span class='notice'>You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar or right click with an empty hand to remove existing modkits.</span>")
 		. = FALSE
 
-/obj/item/borg/upgrade/modkit/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/modkit/deactivate(mob/living/silicon/robot/robot, user = usr)
 	. = ..()
-	if (.)
-		for(var/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg/KA in R.module.modules)
-			uninstall(KA)
+	if(.)
+		for(var/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg/kinetic_accelerator in robot.model.modules)
+			uninstall(kinetic_accelerator)
 
 /obj/item/borg/upgrade/modkit/proc/uninstall(obj/item/gun/energy/recharge/kinetic_accelerator/KA)
 	KA.modkits -= src
@@ -509,14 +510,14 @@
 		KA.name = chassis_name
 		if(iscarbon(KA.loc))
 			var/mob/living/carbon/holder = KA.loc
-			holder.update_inv_hands()
+			holder.update_held_items()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/uninstall(obj/item/gun/energy/recharge/kinetic_accelerator/KA)
 	KA.icon_state = initial(KA.icon_state)
 	KA.name = initial(KA.name)
 	if(iscarbon(KA.loc))
 		var/mob/living/carbon/holder = KA.loc
-		holder.update_inv_hands()
+		holder.update_held_items()
 	..()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/orange
@@ -530,7 +531,7 @@
 	desc = "Causes kinetic accelerator bolts to have a white tracer trail and explosion. Only one may be installed."
 	cost = 0
 	restricted_mod_type = /obj/item/borg/upgrade/modkit/tracer
-	var/bolt_color = "#FFFFFF"
+	var/bolt_color = COLOR_WHITE
 
 /obj/item/borg/upgrade/modkit/tracer/modify_projectile(obj/projectile/kinetic/K)
 	K.icon_state = "ka_tracer"

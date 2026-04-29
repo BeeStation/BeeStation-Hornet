@@ -23,5 +23,8 @@
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	planetary_atmos = FALSE
 
+/turf/open/water/air/station
+	baseturfs = /turf/open/floor/plating
+
 /turf/open/water/jungle
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS

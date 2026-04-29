@@ -6,14 +6,14 @@
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list("Science")
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ffddff"
 	req_admin_notify = 1
 	minimal_player_age = 7
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_SCIENCE
+	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/research_director
 
@@ -31,6 +31,8 @@
 		ACCOUNT_SCI_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR
+
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "Archmagister"
 
 	species_outfits = list(
@@ -39,15 +41,22 @@
 	biohazard = 40
 
 	minimal_lightup_areas = list(
-		/area/crew_quarters/heads/hor,
-		/area/science/explab,
-		/area/science/misc_lab,
-		/area/science/mixing,
-		/area/science/nanite,
-		/area/science/robotics,
-		/area/science/server,
-		/area/science/storage,
-		/area/science/xenobiology
+		/area/station/command/heads_quarters/rd,
+		/area/station/science/explab,
+		/area/station/science/misc_lab,
+		/area/station/science/mixing,
+		/area/station/science/nanite,
+		/area/station/science/robotics,
+		/area/station/science/server,
+		/area/station/science/storage,
+		/area/station/science/xenobiology
+	)
+
+	manuscript_jobs = list(
+		JOB_NAME_RESEARCHDIRECTOR,
+		JOB_NAME_SCIENTIST,
+		JOB_NAME_EXPLORATIONCREW,
+		JOB_NAME_ROBOTICIST
 	)
 
 /datum/outfit/job/research_director
@@ -56,11 +65,11 @@
 
 	id = /obj/item/card/id/job/research_director
 	uniform = /obj/item/clothing/under/rank/rnd/research_director
-	suit = /obj/item/clothing/suit/jacket/research_director
+	suit = /obj/item/clothing/suit/toggle/labcoat/research_director
 	backpack_contents = list(
-		/obj/item/melee/classic_baton/police/telescopic=1
-	)
-	belt = /obj/item/modular_computer/tablet/pda/heads/research_director
+		/obj/item/melee/baton/telescopic = 1,
+		)
+	belt = /obj/item/modular_computer/tablet/pda/preset/heads/research_director
 	head = /obj/item/clothing/head/beret/science
 	ears = /obj/item/radio/headset/heads/research_director
 	shoes = /obj/item/clothing/shoes/jackboots_replica //nerd
@@ -73,11 +82,12 @@
 
 	chameleon_extras = /obj/item/stamp/research_director
 
-/datum/outfit/job/research_director/rig
-	name = "Research Director (Hardsuit)"
+/datum/outfit/job/research_director/mod
+	name = "Research Director (MODsuit)"
 
 	suit_store = /obj/item/tank/internals/oxygen
-	suit = /obj/item/clothing/suit/space/hardsuit/research_director
+	back = /obj/item/mod/control/pre_equipped/research
+	suit = null
 	head = null
 	mask = /obj/item/clothing/mask/breath
 	internals_slot = ITEM_SLOT_SUITSTORE

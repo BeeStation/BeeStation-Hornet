@@ -1,7 +1,19 @@
 import { useBackend, useLocalState } from 'tgui/backend';
+import {
+  Box,
+  Button,
+  Input,
+  NumberInput,
+  Section,
+  Stack,
+} from 'tgui/components';
+
+import {
+  getDefaultPrintDescription,
+  getDefaultPrintHeader,
+  getSecurityRecord,
+} from './helpers';
 import { PRINTOUT, SecurityRecordsData } from './types';
-import { Box, Button, Input, Section, Stack, NumberInput } from 'tgui/components';
-import { getSecurityRecord, getDefaultPrintDescription, getDefaultPrintHeader } from './helpers';
 
 /** Handles printing posters and rapsheets */
 export const RecordPrint = (props) => {
@@ -16,7 +28,10 @@ export const RecordPrint = (props) => {
   const [open, setOpen] = useLocalState<boolean>('printOpen', true);
   const [alias, setAlias] = useLocalState<string>('printAlias', name);
 
-  const [printType, setPrintType] = useLocalState<PRINTOUT>('printType', PRINTOUT.Missing);
+  const [printType, setPrintType] = useLocalState<PRINTOUT>(
+    'printType',
+    PRINTOUT.Missing,
+  );
   const [header, setHeader] = useLocalState<string>('printHeader', '');
   const [description, setDescription] = useLocalState<string>('printDesc', '');
 
@@ -77,14 +92,17 @@ export const RecordPrint = (props) => {
             minValue={1}
             maxValue={10}
             step={1}
-            onChange={(value) => act('set_amount', { new_amount: value, record_ref: record_ref })}
+            onChange={(value) =>
+              act('set_amount', { new_amount: value, record_ref: record_ref })
+            }
           />
           <Button
             icon="question"
             onClick={() => swapTabs(PRINTOUT.Missing)}
             selected={printType === PRINTOUT.Missing}
             tooltip="Prints a poster with mugshot and description."
-            tooltipPosition="bottom">
+            tooltipPosition="bottom"
+          >
             Missing
           </Button>
           <Button
@@ -93,7 +111,8 @@ export const RecordPrint = (props) => {
             onClick={() => swapTabs(PRINTOUT.Rapsheet)}
             selected={printType === PRINTOUT.Rapsheet}
             tooltip={`Prints a standard paper with the record on it.${innocent ? ' (Requires crimes)' : ''}`}
-            tooltipPosition="bottom">
+            tooltipPosition="bottom"
+          >
             Rapsheet
           </Button>
           <Button
@@ -102,7 +121,8 @@ export const RecordPrint = (props) => {
             onClick={() => swapTabs(PRINTOUT.Wanted)}
             selected={printType === PRINTOUT.Wanted}
             tooltip={`Prints a poster with mugshot and crimes.${innocent ? ' (Requires crimes)' : ''}`}
-            tooltipPosition="bottom">
+            tooltipPosition="bottom"
+          >
             Wanted
           </Button>
           <Button color="bad" icon="times" onClick={reset} />
@@ -110,26 +130,53 @@ export const RecordPrint = (props) => {
       }
       fill
       scrollable
-      title="Print Record">
+      title="Print Record"
+    >
       <Stack color="label" fill vertical>
         <Stack.Item>
           <Box>Enter a Header:</Box>
-          <Input onChange={(event, value) => setHeader(value)} maxLength={7} value={header} />
-          <Button icon="sync" onClick={() => clearField('header')} tooltip="Reset" />
+          <Input
+            onChange={(event, value) => setHeader(value)}
+            maxLength={7}
+            value={header}
+          />
+          <Button
+            icon="sync"
+            onClick={() => clearField('header')}
+            tooltip="Reset"
+          />
         </Stack.Item>
         <Stack.Item>
           <Box>Enter an Alias:</Box>
-          <Input onChange={(event, value) => setAlias(value)} maxLength={42} value={alias} width="55%" />
-          <Button icon="sync" onClick={() => clearField('alias')} tooltip="Reset" />
+          <Input
+            onChange={(event, value) => setAlias(value)}
+            maxLength={42}
+            value={alias}
+            width="55%"
+          />
+          <Button
+            icon="sync"
+            onClick={() => clearField('alias')}
+            tooltip="Reset"
+          />
         </Stack.Item>
         <Stack.Item>
           <Box>Enter a Description:</Box>
           <Stack fill>
             <Stack.Item grow>
-              <Input fluid maxLength={150} onChange={(event, value) => setDescription(value)} value={description} />
+              <Input
+                fluid
+                maxLength={150}
+                onChange={(event, value) => setDescription(value)}
+                value={description}
+              />
             </Stack.Item>
             <Stack.Item>
-              <Button icon="sync" onClick={() => clearField('description')} tooltip="Reset" />
+              <Button
+                icon="sync"
+                onClick={() => clearField('description')}
+                tooltip="Reset"
+              />
             </Stack.Item>
           </Stack>
         </Stack.Item>

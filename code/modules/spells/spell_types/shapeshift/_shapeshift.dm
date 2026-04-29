@@ -1,9 +1,13 @@
+/// Helper for checking of someone's shapeshifted currently.
+#define is_shifted(mob) mob.has_status_effect(/datum/status_effect/shapechange_mob/from_spell)
+
 /**
  * Shapeshift spells.
  *
  * Allows the caster to transform to and from a different mob type.
  */
 /datum/action/spell/shapeshift
+	abstract_type = /datum/action/spell/shapeshift
 	name = "Shapeshift Base"
 	button_icon_state = "shapeshift"
 	school = SCHOOL_TRANSMUTATION
@@ -26,6 +30,10 @@
 	/// All possible types we can become.
 	/// This should be implemented even if there is only one choice.
 	var/list/atom/possible_shapes
+
+/datum/action/spell/shapeshift/Remove(mob/remove_from)
+	unshift_owner()
+	return ..()
 
 /datum/action/spell/shapeshift/is_valid_spell(mob/user, atom/target)
 	return isliving(user)
@@ -114,7 +122,7 @@
 	else
 		our_pipenet = pipenets
 
-	to_chat(cast_on, ("<span class='userdanger'>Casting [src] inside of [pipe_you_die_in] quickly turns you into a bloody mush!</span>"))
+	to_chat(cast_on, span_userdanger("Casting [src] inside of [pipe_you_die_in] quickly turns you into a bloody mush!"))
 	var/obj/effect/gib_type = isalien(cast_on) ? /obj/effect/gibspawner/xeno : /obj/effect/gibspawner/generic
 
 	for(var/obj/machinery/atmospherics/components/unary/possible_vent in range(10, get_turf(cast_on)))
@@ -134,7 +142,7 @@
 	if(QDELETED(caster))
 		return FALSE
 
-	return !caster.incapacitated()
+	return !caster.incapacitated
 
 /// Actually does the shapeshift, for the caster.
 /datum/action/spell/shapeshift/proc/do_shapeshift(mob/living/caster)
@@ -142,7 +150,7 @@
 	var/datum/status_effect/shapechange_mob/shapechange = new_shape.apply_status_effect(/datum/status_effect/shapechange_mob/from_spell, caster, src)
 	if(!shapechange)
 		// We failed to shift, maybe because we were already shapeshifted?
-		// Whatver the case, this shouldn't happen, so throw a stack trace.
+		// Whatever the case, this shouldn't happen, so throw a stack trace.
 		to_chat(caster, span_warning("You can't shapeshift in this form!"))
 		stack_trace("[type] do_shapeshift was called when the mob was already shapeshifted (from a spell).")
 		return
@@ -150,6 +158,7 @@
 	// Make sure it's castable even in their new form.
 	pre_shift_requirements = spell_requirements
 	spell_requirements &= ~(SPELL_REQUIRES_HUMAN|SPELL_REQUIRES_WIZARD_GARB)
+	ADD_TRAIT(new_shape, TRAIT_DONT_WRITE_MEMORY, SHAPESHIFT_TRAIT)
 
 	return new_shape
 
@@ -174,3 +183,12 @@
 /// Returns an instance of a living mob. Can be overridden.
 /datum/action/spell/shapeshift/proc/create_shapeshift_mob(atom/loc)
 	return new shapeshift_type(loc)
+
+/// Removes an active shapeshift effect from the owner
+/datum/action/spell/shapeshift/proc/unshift_owner()
+	if (isnull(owner))
+		return
+	if (is_shifted(owner))
+		do_unshapeshift(owner)
+
+#undef is_shifted

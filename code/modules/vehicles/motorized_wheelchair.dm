@@ -3,29 +3,46 @@
 	desc = "A chair with big wheels. It seems to have a motor in it."
 	max_integrity = 150
 	move_resist = MOVE_FORCE_DEFAULT
-	var/speed = 2
-	var/power_efficiency = 1
-	var/power_usage = 25
+	var/speed = 1 //vehicle_move_delay multiplier. this is set in refresh_parts(), the value set here has no impact.
+	var/speed_limit_safe = 1
+	var/speed_limit_unsafe = 0.89
+	var/manip_rating_sum = 0
+	var/power_usage = 25 // power draw per tile moved, same as speed, the value here is not used.
 	var/panel_open = FALSE
 	var/list/required_parts = list(/obj/item/stock_parts/manipulator,
 							/obj/item/stock_parts/manipulator,
 							/obj/item/stock_parts/capacitor)
 	var/obj/item/stock_parts/cell/power_cell
 	var/low_power_alerted = FALSE
+	var/safeties = TRUE
 
-/obj/vehicle/ridden/wheelchair/motorized/make_ridable()
+/obj/vehicle/ridden/wheelchair/motorized/Initialize(mapload)
+	. = ..()
+	//default parts, removed in checkparts if it was actually crafted
+	power_cell = new /obj/item/stock_parts/cell/high(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/capacitor(src)
+	refresh_parts()
+
+/obj/vehicle/ridden/wheelchair/motorized/add_riding_element()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/wheelchair/motorized)
 
 /obj/vehicle/ridden/wheelchair/motorized/CheckParts(list/parts_list)
+	power_cell = null
+	for(var/obj/item/stock_parts/defaultpart in contents)
+		qdel(defaultpart)
 	..()
 	refresh_parts()
 
 /obj/vehicle/ridden/wheelchair/motorized/proc/refresh_parts()
-	speed = 1 // Should never be under 1
+	manip_rating_sum = 0 // Should never be under 1
 	for(var/obj/item/stock_parts/manipulator/M in contents)
-		speed += M.rating
+		manip_rating_sum += M.rating
 	for(var/obj/item/stock_parts/capacitor/C in contents)
-		power_efficiency = C.rating
+		power_usage = LERP(20, 10, (C.rating - 1) / 3) // 20 with worst parts, 10 with best parts
+
+	speed = max(0.8 + (0.2 * ((8 - manip_rating_sum) / 2) ** 2), safeties ? speed_limit_safe : speed_limit_unsafe) //t1 : 2.6 t2: 1.6 t3: 1 t4: 0.6 (clamped to unsafe speed limit at best). lower is better.
 
 /obj/vehicle/ridden/wheelchair/motorized/get_cell()
 	return power_cell
@@ -38,25 +55,22 @@
 	return ..()
 
 /obj/vehicle/ridden/wheelchair/motorized/relaymove(mob/living/user, direction)
+	var/warning
+	var/block_movement = FALSE
 	if(!power_cell)
-		to_chat(user, "<span class='warning'>There seems to be no cell installed in [src].</span>")
-		canmove = FALSE
-		addtimer(VARSET_CALLBACK(src, canmove, TRUE), 2 SECONDS)
-		return FALSE
-	if(power_cell.charge < power_usage / max(power_efficiency, 1))
-		to_chat(user, "<span class='warning'>The display on [src] blinks 'Out of Power'.</span>")
+		warning ="<span class='warning'>There seems to be no cell installed in [src].</span>"
+		block_movement = TRUE
+	if(power_cell && (power_cell.charge < power_usage))
+		warning = "<span class='warning'>The display on [src] blinks 'Out of Power'.</span>"
+		block_movement = TRUE
+	if(block_movement)
+		if(buckle_message_cooldown <= world.time)
+			buckle_message_cooldown = world.time + 50
+			to_chat(user, warning)
 		canmove = FALSE
 		addtimer(VARSET_CALLBACK(src, canmove, TRUE), 2 SECONDS)
 		return FALSE
 	return ..()
-
-/obj/vehicle/ridden/wheelchair/motorized/Moved()
-	. = ..()
-	power_cell.use(power_usage / max(power_efficiency, 1))
-	if(!low_power_alerted && power_cell.charge <= (power_cell.maxcharge / 4))
-		playsound(src, 'sound/machines/twobeep.ogg', 30, 1)
-		say("Warning: Power low!")
-		low_power_alerted = TRUE
 
 /obj/vehicle/ridden/wheelchair/motorized/post_buckle_mob(mob/living/user)
 	. = ..()
@@ -83,6 +97,13 @@
 		return
 	if(!panel_open)
 		return ..()
+
+	if(I.tool_behaviour == TOOL_MULTITOOL)
+		I.play_tool_sound(src)
+		safeties = !safeties
+		user.visible_message(span_notice("[user] [safeties ? "resets" : "overrides"] the speed limiters on [src]."), span_notice("You [panel_open ? "override" : "reset"] the speed limiters on [src]."))
+		refresh_parts()
+		return
 
 	if(istype(I, /obj/item/stock_parts/cell))
 		if(power_cell)
@@ -126,18 +147,22 @@
 
 /obj/vehicle/ridden/wheelchair/motorized/examine(mob/user)
 	. = ..()
-	if(panel_open)
-		. += "There is a small screen on it, [(in_range(user, src) || isobserver(user)) ? "[power_cell ? "it reads:" : "but it is dark."]" : "but you can't see it from here."]"
-	if(!power_cell || (!in_range(user, src) && !isobserver(user)))
+	. += "There is a small screen on it, [(in_range(user, src) || isobserver(user)) ? "[power_cell ? "it reads:" : "but it is dark."]" : "but you can't see it from here."]"
+	if((!in_range(user, src) && !isobserver(user)))
 		return
-	. += "Speed: [speed]"
-	. += "Energy efficiency: [power_efficiency]"
-	. += "Power: [power_cell.charge] out of [power_cell.maxcharge]"
+	if(power_cell)
+		. += "Speed: [round((1 / speed) * 100)]%/[safeties ? "100%" : span_warning("@!ERROR#%")]"
+		. += "Energy Consumption: [power_usage]"
+		. += "Power: [power_cell.charge] out of [power_cell.maxcharge]"
+	if(panel_open)
+		. += span_notice("The hatch is open, you could [safeties ? "override" : "reset"] the speed limit with a [span_bold("multitool")], [power_cell ? "remove the" : "insert a"] [span_bold("power cell")] or close it with a [span_bold("screwdriver")].")
+		return
+	. += span_notice("The hatch is closed. You could open it with a [span_bold("screwdriver")]")
 
 /obj/vehicle/ridden/wheelchair/motorized/Bump(atom/movable/M)
 	. = ..()
 	// If the speed is higher than delay_multiplier throw the person on the wheelchair away
-	if(M.density && speed > delay_multiplier && has_buckled_mobs())
+	if(M.density && speed < speed_limit_safe && has_buckled_mobs())
 		var/mob/living/H = buckled_mobs[1]
 		var/atom/throw_target = get_edge_target_turf(H, pick(GLOB.cardinals))
 		unbuckle_mob(H)

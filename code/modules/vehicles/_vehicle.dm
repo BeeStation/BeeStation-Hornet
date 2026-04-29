@@ -25,10 +25,9 @@
 	var/canmove = TRUE
 	var/list/autogrant_actions_passenger	//plain list of typepaths
 	var/list/autogrant_actions_controller	//assoc list "[bitflag]" = list(typepaths)
-	var/list/mob/occupant_actions			//assoc list mob = list(type = action datum assigned to mob)
+	var/list/list/mob/occupant_actions			//assoc list mob = list(type = action datum assigned to mob)
 	var/obj/vehicle/trailer
 	var/are_legs_exposed = FALSE
-
 
 /datum/armor/obj_vehicle
 	melee = 30
@@ -52,19 +51,41 @@
 	autogrant_actions_controller = list()
 	occupant_actions = list()
 	generate_actions()
+	add_riding_element()
+
+///Vehicles should only ever have one riding element, so this proc should never call parent types.
+/obj/vehicle/proc/add_riding_element()
+	return
+
+/obj/vehicle/Destroy(force)
+	QDEL_NULL(trailer)
+	inserted_key = null
+	return ..()
+
+/obj/vehicle/Exited(atom/movable/gone, direction)
+	if(gone == inserted_key)
+		inserted_key = null
+	return ..()
 
 /obj/vehicle/examine(mob/user)
 	. = ..()
 	if(resistance_flags & ON_FIRE)
 		. += span_warning("It's on fire!")
-	var/healthpercent = atom_integrity/max_integrity * 100
-	switch(healthpercent)
+	. += generate_integrity_message()
+
+/// Returns a readable string of the vehicle's health for examining. Overridden by subtypes who want to be more verbose with their health messages.
+/obj/vehicle/proc/generate_integrity_message()
+	var/examine_text = ""
+	var/integrity = atom_integrity/max_integrity * 100
+	switch(integrity)
 		if(50 to 99)
-			. += "It looks slightly damaged."
+			examine_text = "It looks slightly damaged."
 		if(25 to 50)
-			. += "It appears heavily damaged."
+			examine_text = "It appears heavily damaged."
 		if(0 to 25)
-			. += span_warning("It's falling apart!")
+			examine_text = span_warning("It's falling apart!")
+
+	return examine_text
 
 /obj/vehicle/proc/is_key(obj/item/I)
 	return istype(I, key_type)
@@ -115,9 +136,10 @@
 
 /obj/vehicle/proc/auto_assign_occupant_flags(mob/M)	//override for each type that needs it. Default is assign driver if drivers is not at max.
 	if(driver_amount() < max_drivers)
-		add_control_flags(M, VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_PERMISSION)
+		add_control_flags(M, VEHICLE_CONTROL_DRIVE)
 
 /obj/vehicle/proc/remove_occupant(mob/M)
+	SHOULD_CALL_PARENT(TRUE)
 	if(!istype(M))
 		return FALSE
 	remove_control_flags(M, ALL)

@@ -47,7 +47,7 @@
 	purge_toxins = (master_stats.defense >= 3)
 	heal_amt = CEILING(max(master_stats.potential * 0.8, 2) + 3, 0.5)
 	effect_heal_amt = CEILING(max(master_stats.potential * 0.85, 1), 1)
-	purge_amt = CEILING((master_stats.potential + master_stats.defense) * 0.55 * REAGENTS_EFFECT_MULTIPLIER, 0.5)
+	purge_amt = CEILING((master_stats.potential + master_stats.defense) * 0.55 * REM, 0.5)
 
 /datum/holoparasite_ability/major/healing/remove()
 	..()
@@ -133,7 +133,7 @@
 
 	if(iscarbon(target))
 		var/mob/living/carbon/carbon_target = target
-		if((!carbon_target.dna?.species || !(NOBLOOD in carbon_target.dna.species.species_traits)) && carbon_target.blood_volume < HOLOPARA_MAX_BLOOD_VOLUME_HEAL)
+		if((!carbon_target.dna?.species || !HAS_TRAIT(src, TRAIT_NOBLOOD)) && carbon_target.blood_volume < HOLOPARA_MAX_BLOOD_VOLUME_HEAL)
 			carbon_target.blood_volume = min(carbon_target.blood_volume + actual_heal_amt, HOLOPARA_MAX_BLOOD_VOLUME_HEAL)
 		if(ishuman(carbon_target))
 			var/mob/living/carbon/human/human_target = carbon_target
@@ -157,16 +157,18 @@
 		if(length(reagents_purged))
 			SSblackbox.record_feedback("nested tally", "holoparasite_reagents_purged", 1, reagents_purged)
 	if(heal_debuffs)
-		target.restoreEars()
-		var/obj/item/organ/eyes/eyes = target.getorganslot(ORGAN_SLOT_EYES)
+		var/obj/item/organ/ears/ears = target.get_organ_slot(ORGAN_SLOT_EARS)
+		if(istype(ears))
+			ears.adjustEarDamage(-4, -4)
+		var/obj/item/organ/eyes/eyes = target.get_organ_slot(ORGAN_SLOT_EYES)
 		if(istype(eyes))
-			eyes.applyOrganDamage(-actual_heal_amt)
+			eyes.apply_organ_damage(-actual_heal_amt)
 		target.adjust_blindness(-actual_effect_heal_amt)
-		target.adjust_blurriness(-actual_effect_heal_amt)
+		target.adjust_eye_blur(-actual_effect_heal_amt * 2)
 		target.adjust_disgust(-actual_effect_heal_amt)
-		target.dizziness = max(target.dizziness - actual_effect_heal_amt, 0)
-		target.confused = max(target.confused - actual_effect_heal_amt, 0)
-		target.hallucination = max(target.hallucination - actual_effect_heal_amt, 0)
+		target.adjust_dizzy(-actual_effect_heal_amt * 2) //Status's used to tick every 2 seconds before conversion to status effects, so we double them
+		target.adjust_confusion(-actual_effect_heal_amt * 2)
+		target.adjust_hallucinations(-actual_effect_heal_amt * 2)
 	if(heal_clone)
 		target.adjustCloneLoss(-max(CEILING(actual_heal_amt * 0.75, 0.5), 1), updating_health = FALSE)
 	target.updatehealth()

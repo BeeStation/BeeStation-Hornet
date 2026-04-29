@@ -7,6 +7,7 @@
 /obj/item/circuit_component/arbitrary_input_amount/arithmetic
 	display_name = "Arithmetic"
 	desc = "General arithmetic component with arithmetic capabilities."
+	category = "Math"
 
 	//The type of port
 	input_port_type = PORT_TYPE_NUMBER

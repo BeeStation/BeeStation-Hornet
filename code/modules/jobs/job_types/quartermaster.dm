@@ -4,9 +4,8 @@
 	department_for_prefs = DEPT_NAME_CARGO
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#d7b088"
 	exp_requirements = 600
 	exp_type = EXP_TYPE_SUPPLY
@@ -21,6 +20,8 @@
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_QUARTERMASTER
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Steward"
 
 	species_outfits = list(
@@ -28,10 +29,16 @@
 	)
 
 	minimal_lightup_areas = list(
-		/area/quartermaster/qm,
-		/area/quartermaster/qm_bedroom,
-		/area/quartermaster/exploration_prep,
-		/area/quartermaster/exploration_dock
+		/area/station/cargo/qm,
+		/area/station/cargo/qm_bedroom,
+		/area/station/cargo/exploration_prep,
+		/area/station/cargo/exploration_dock
+	)
+
+	manuscript_jobs = list(
+		JOB_NAME_QUARTERMASTER,
+		JOB_NAME_CARGOTECHNICIAN,
+		JOB_NAME_SHAFTMINER
 	)
 
 /datum/outfit/job/quartermaster
@@ -39,7 +46,7 @@
 	jobtype = /datum/job/quartermaster
 
 	id = /obj/item/card/id/job/quartermaster
-	belt = /obj/item/modular_computer/tablet/pda/quartermaster
+	belt = /obj/item/modular_computer/tablet/pda/preset/quartermaster
 	ears = /obj/item/radio/headset/headset_quartermaster
 	uniform = /obj/item/clothing/under/rank/cargo/quartermaster
 	shoes = /obj/item/clothing/shoes/sneakers/brown

@@ -6,6 +6,7 @@
 /obj/item/circuit_component/switch_case
 	display_name = "Switch Case"
 	desc = "A component that compares an input to an array of values, outputting a signal to the matching index, or a default port if no value matches."
+	category = "Utility"
 
 	/// The values to check against
 	var/list/datum/port/input/case_ports = list()

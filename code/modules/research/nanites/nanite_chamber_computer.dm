@@ -47,7 +47,7 @@
 
 	var/mob/living/L = chamber.occupant
 
-	if(!(MOB_ORGANIC in L.mob_biotypes) && !(MOB_UNDEAD in L.mob_biotypes) && !HAS_TRAIT(L, TRAIT_NANITECOMPATIBLE))
+	if(!(L.mob_biotypes & MOB_ORGANIC) && !(L.mob_biotypes & MOB_UNDEAD) && !HAS_TRAIT(L, TRAIT_NANITECOMPATIBLE))
 		data["status_msg"] = "Occupant not compatible with nanites."
 		return data
 
@@ -104,11 +104,11 @@
 
 /obj/machinery/computer/nanite_chamber_control/proc/set_connected_chamber(new_chamber)
 	if(chamber)
-		UnregisterSignal(chamber, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(chamber, COMSIG_QDELETING)
 	chamber = new_chamber
 	ui_update()
 	if(chamber)
-		RegisterSignal(chamber, COMSIG_PARENT_QDELETING, PROC_REF(react_to_chamber_del))
+		RegisterSignal(chamber, COMSIG_QDELETING, PROC_REF(react_to_chamber_del))
 
 /obj/machinery/computer/nanite_chamber_control/proc/react_to_chamber_del(datum/source)
 	SIGNAL_HANDLER

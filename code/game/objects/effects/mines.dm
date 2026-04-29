@@ -323,8 +323,8 @@
 /obj/effect/mine/pickup/bloodbath
 	name = "Red Orb"
 	desc = "You feel angry just looking at it."
-	duration = 1200 //2min
-	color = "#FF0000"
+	duration = 2 MINUTES
+	color = COLOR_RED
 	var/mob/living/doomslayer
 	var/obj/item/chainsaw/doomslayer/chainsaw
 
@@ -334,22 +334,33 @@
 	to_chat(victim, span_reallybigredtext("RIP AND TEAR"))
 
 	spawn(0)
-		new /datum/hallucination/delusion(victim, TRUE, "demon",duration,0)
+		victim.cause_hallucination( \
+			/datum/hallucination/delusion/preset/demon, \
+			"status effect", \
+			duration = duration, \
+			affects_us = FALSE, \
+			affects_others = TRUE, \
+			skip_nearby = FALSE, \
+			play_wabbajack = FALSE, \
+		)
 
-	chainsaw = new(victim.loc)
+	victim.drop_all_held_items()
+
+	chainsaw = new(get_turf(victim))
 	victim.log_message("entered a blood frenzy", LOG_ATTACK)
 
 	ADD_TRAIT(chainsaw, TRAIT_NODROP, CHAINSAW_FRENZY_TRAIT)
-	victim.drop_all_held_items()
 	victim.put_in_hands(chainsaw, forced = TRUE)
 	chainsaw.attack_self(victim)
-	victim.reagents.add_reagent(/datum/reagent/medicine/adminordrazine,25)
+
+	victim.log_message("entered a blood frenzy", LOG_ATTACK)
+	victim.reagents.add_reagent(/datum/reagent/medicine/adminordrazine, 25)
 	to_chat(victim, span_warning("KILL, KILL, KILL! YOU HAVE NO ALLIES ANYMORE, KILL THEM ALL!"))
 
 	var/datum/client_colour/colour = victim.add_client_colour(/datum/client_colour/bloodlust)
 	QDEL_IN(colour, 11)
 	doomslayer = victim
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(end_blood_frenzy))
+	RegisterSignal(src, COMSIG_QDELETING, PROC_REF(end_blood_frenzy))
 	QDEL_IN(WEAKREF(src), duration)
 
 /obj/effect/mine/pickup/bloodbath/proc/end_blood_frenzy()
@@ -364,18 +375,18 @@
 /obj/effect/mine/pickup/healing
 	name = "Blue Orb"
 	desc = "You feel better just looking at it."
-	color = "#0000FF"
+	color = COLOR_BLUE
 
 /obj/effect/mine/pickup/healing/mineEffect(mob/living/carbon/victim)
 	if(!victim.client || !istype(victim))
 		return
 	to_chat(victim, span_notice("You feel great!"))
-	victim.revive(full_heal = 1, admin_revive = 1)
+	victim.revive(HEAL_ALL)
 
 /obj/effect/mine/pickup/speed
 	name = "Yellow Orb"
 	desc = "You feel faster just looking at it."
-	color = "#FFFF00"
+	color = COLOR_YELLOW
 	duration = 300
 
 /obj/effect/mine/pickup/speed/mineEffect(mob/living/carbon/victim)

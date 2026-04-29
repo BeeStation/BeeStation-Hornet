@@ -1,4 +1,4 @@
-/obj/machinery/vendor/exploration
+/obj/machinery/gear_requisition/exploration
 	name = "exploration equipment vendor"
 	desc = "An equipment vendor for exploration teams. Points are acquired by completing missions and shared between team members."
 	icon = 'icons/obj/machines/mining_machines.dmi'
@@ -11,35 +11,70 @@
 
 	icon_deny = "mining-deny"
 	prize_list = list(
-		new /datum/data/vendor_equipment("1 Marker Beacon",				/obj/item/stack/marker_beacon,										50),
-		new /datum/data/vendor_equipment("10 Marker Beacons",			/obj/item/stack/marker_beacon/ten,									300),
-		new /datum/data/vendor_equipment("30 Marker Beacons",			/obj/item/stack/marker_beacon/thirty,								500),
-		new /datum/data/vendor_equipment("Survival Medipen",			/obj/item/reagent_containers/hypospray/medipen/survival,			2000),
-		new /datum/data/vendor_equipment("Brute Healing Kit",			/obj/item/storage/firstaid/brute,									3000),
-		new /datum/data/vendor_equipment("Burn Healing Kit",			/obj/item/storage/firstaid/fire,									3000),
-		new /datum/data/vendor_equipment("Advanced Healing Kit",		/obj/item/storage/firstaid/advanced,								5000),
-		new /datum/data/vendor_equipment("Explorer's Webbing",			/obj/item/storage/belt/mining,										2000),
-		new /datum/data/vendor_equipment("Breaching Charge",			/obj/item/grenade/exploration,										1000),
-		new /datum/data/vendor_equipment(".38 Prospector Ammo box",		/obj/item/ammo_box/c38/exploration,									1000),
-		new /datum/data/vendor_equipment("Charge Detonator",			/obj/item/exploration_detonator,									10000),
-		new /datum/data/vendor_equipment("Multi-Purpose Energy Gun",	/obj/item/gun/energy/e_gun/mini/exploration,						20000),
-		new /datum/data/vendor_equipment("Expanded E. Oxygen Tank",		/obj/item/tank/internals/emergency_oxygen/engi,						1000),
-		new /datum/data/vendor_equipment("Survival Knife",				/obj/item/knife/combat/survival,									1000),
-		new /datum/data/vendor_equipment("Pizza",						/obj/item/pizzabox/margherita,										200),
-		new /datum/data/vendor_equipment("Whiskey",						/obj/item/reagent_containers/cup/glass/bottle/whiskey,				1000),
-		new /datum/data/vendor_equipment("Absinthe",					/obj/item/reagent_containers/cup/glass/bottle/absinthe/premium,		1000),
-		new /datum/data/vendor_equipment("Cigar",						/obj/item/clothing/mask/cigarette/cigar/havana,						1500),
-		new /datum/data/vendor_equipment("Soap",						/obj/item/soap/nanotrasen,											2000),
-		new /datum/data/vendor_equipment("Laser Pointer",				/obj/item/laser_pointer,											3000),
-		new /datum/data/vendor_equipment("Toy Alien",					/obj/item/clothing/mask/facehugger/toy,								3000),
+		//Equipment
+			new /datum/data/requisition_equipment("Explorer's Webbing", /obj/item/storage/belt/mining, 2000, "Equipment"),
+			new /datum/data/requisition_equipment("Expanded E. Oxygen Tank", /obj/item/tank/internals/emergency_oxygen/engi, 1000, "Equipment"),
+			new /datum/data/requisition_equipment("Survival Knife", /obj/item/knife/combat/survival, 1000, "Equipment"),
+		//Consumables
+			new /datum/data/requisition_equipment("1 Marker Beacon", /obj/item/stack/marker_beacon, 50, "Consumables"),
+			new /datum/data/requisition_equipment("10 Marker Beacons", /obj/item/stack/marker_beacon/ten, 300, "Consumables"),
+			new /datum/data/requisition_equipment("30 Marker Beacons", /obj/item/stack/marker_beacon/thirty, 500, "Consumables"),
+			new /datum/data/requisition_equipment("Survival Medipen", /obj/item/reagent_containers/hypospray/medipen/survival, 2000, "Consumables"),
+			new /datum/data/requisition_equipment("Brute Healing Kit", /obj/item/storage/firstaid/brute, 3000, "Consumables"),
+			new /datum/data/requisition_equipment("Burn Healing Kit", /obj/item/storage/firstaid/fire, 3000, "Consumables"),
+			new /datum/data/requisition_equipment("Advanced Healing Kit", /obj/item/storage/firstaid/advanced, 5000, "Consumables"),
+		//Weapons & Tools
+			new /datum/data/requisition_equipment("Breaching Charge", /obj/item/grenade/exploration, 1000, "Weapons & Tools"),
+			new /datum/data/requisition_equipment(".38 Prospector Ammo box", /obj/item/ammo_box/c38/exploration, 1000, "Weapons & Tools"),
+			new /datum/data/requisition_equipment("Charge Detonator", /obj/item/exploration_detonator, 10000, "Weapons & Tools"),
+			new /datum/data/requisition_equipment("Multi-Purpose Energy Gun", /obj/item/gun/energy/e_gun/mini/exploration, 20000, "Weapons & Tools"),
+		//Novelty
+			new /datum/data/requisition_equipment("Pizza", /obj/item/pizzabox/margherita, 200, "Novelty"),
+			new /datum/data/requisition_equipment("Whiskey", /obj/item/reagent_containers/cup/glass/bottle/whiskey, 1000, "Novelty"),
+			new /datum/data/requisition_equipment("Absinthe", /obj/item/reagent_containers/cup/glass/bottle/absinthe/premium, 1000, "Novelty"),
+			new /datum/data/requisition_equipment("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 1500, "Novelty"),
+			new /datum/data/requisition_equipment("Soap", /obj/item/soap/nanotrasen, 2000, "Novelty"),
+			new /datum/data/requisition_equipment("Laser Pointer", /obj/item/laser_pointer, 3000, "Novelty"),
+			new /datum/data/requisition_equipment("Toy Alien", /obj/item/clothing/mask/facehugger/toy, 3000, "Novelty"),
 	)
 
-/obj/machinery/vendor/exploration/vv_get_dropdown()
+/obj/machinery/gear_requisition/exploration/ui_static_data(mob/user)
+	. = list()
+	.["product_records"] = list()
+	.["categories"] = list()
+
+	// Define exploration-specific categories with their icons
+	.["categories"]["Equipment"] = list("icon" = "toolbox")
+	.["categories"]["Consumables"] = list("icon" = "pills")
+	.["categories"]["Weapons & Tools"] = list("icon" = "bomb")
+	.["categories"]["Novelty"] = list("icon" = "gift")
+
+	for(var/datum/data/requisition_equipment/prize in prize_list)
+		var/list/product_data = list(
+			path = replacetext(replacetext("[prize.equipment_path]", "/obj/item/", ""), "/", "-"),
+			name = prize.equipment_name,
+			price = prize.cost,
+			ref = REF(prize),
+			category = prize.category
+		)
+
+		var/atom/printed = prize.equipment_path
+		// If it's not GAGS and has no innate colors we have to care about, we use DMIcon
+		if(ispath(printed, /atom) \
+			&& (!initial(printed.greyscale_config) || !initial(printed.greyscale_colors)) \
+			&& !initial(printed.color) \
+		)
+			product_data["icon"] = initial(printed.icon)
+			product_data["icon_state"] = initial(printed.icon_state)
+
+		.["product_records"] += list(product_data)
+
+/obj/machinery/gear_requisition/exploration/vv_get_dropdown()
 	. = ..()
 	VV_DROPDOWN_OPTION("", "---------")
 	VV_DROPDOWN_OPTION(VV_ID_GIVE_EXPLO_POINT, "Give Explo Points")
 
-/obj/machinery/vendor/exploration/vv_do_topic(list/href_list)
+/obj/machinery/gear_requisition/exploration/vv_do_topic(list/href_list)
 	. = ..()
 
 	if(href_list[VV_ID_GIVE_EXPLO_POINT])
@@ -51,9 +86,9 @@
 		else
 			to_chat(usr, "Success: [target_value] points have been added. [bound_bank_account.account_holder] now holds [bound_bank_account.report_currency(ACCOUNT_CURRENCY_EXPLO)].")
 
-/obj/machinery/vendor/exploration/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
+/obj/machinery/gear_requisition/exploration/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	var/items = list("Engineering Kit", "Medical Kit", "Scientist Kit", "Gunslinger Kit", "Laser Repeater Kit")
-	if(CONFIG_GET(flag/jobs_have_minimal_access) == FALSE)	//If we are in a skeleton crew, it is likely we only have a single explorer
+	if(SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)	//If we are in a skeleton crew, it is likely we only have a single explorer
 		items += "Ghost Shift Kit"
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in sort_list(items)

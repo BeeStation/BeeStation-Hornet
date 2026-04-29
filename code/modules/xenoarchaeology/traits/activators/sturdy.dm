@@ -14,7 +14,7 @@
 	if(!component_parent?.parent)
 		return
 	//Register all the relevant signals we trigger from
-	RegisterSignal(component_parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
+	RegisterSignal(component_parent?.parent, COMSIG_ATOM_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
 	RegisterSignal(component_parent?.parent, COMSIG_MOVABLE_IMPACT, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
 	RegisterSignal(component_parent?.parent, COMSIG_ITEM_ATTACK_SELF, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
 	RegisterSignal(component_parent?.parent, COMSIG_ITEM_AFTERATTACK, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_c))
@@ -23,7 +23,7 @@
 /datum/xenoartifact_trait/activator/sturdy/remove_parent(datum/source, pensive)
 	if(!component_parent?.parent)
 		return ..()
-	UnregisterSignal(component_parent?.parent, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(component_parent?.parent, COMSIG_ATOM_ATTACKBY)
 	UnregisterSignal(component_parent?.parent, COMSIG_MOVABLE_IMPACT)
 	UnregisterSignal(component_parent?.parent, COMSIG_ITEM_ATTACK_SELF)
 	UnregisterSignal(component_parent?.parent, COMSIG_ITEM_AFTERATTACK)

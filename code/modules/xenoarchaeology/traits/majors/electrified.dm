@@ -31,7 +31,7 @@
 		log_game("[component_parent] in [log_atom] electrocuted [key_name_admin(target)] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 	//If there's an exposed cable below us, charge it
 	var/obj/structure/cable/C = locate(/obj/structure/cable) in get_turf(component_parent.parent)
-	if(C?.invisibility <= UNDERFLOOR_HIDDEN)
+	if(C && C.invisibility <= UNDERFLOOR_HIDDEN)
 		C.powernet?.newavail += max_cable_charge*(component_parent.trait_strength/100)
 	//Get rid of anything else, since we can't interact with it
 	dump_targets()

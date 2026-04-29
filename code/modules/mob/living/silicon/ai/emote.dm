@@ -1,4 +1,5 @@
 /datum/emote/ai
+	abstract_type = /datum/emote/ai
 	mob_type_allowed_typecache = /mob/living/silicon/ai
 	mob_type_blacklist_typecache = list()
 

@@ -27,6 +27,8 @@
 #define DEPT_NAME_OTHER "Other"
 #define DEPT_BITFLAG_OTHER (1<<12)
 
+#define DEPT_BITFLAG_STATIONS (DEPT_BITFLAG_COM + DEPT_BITFLAG_CIV + DEPT_BITFLAG_SRV + DEPT_BITFLAG_CAR + DEPT_BITFLAG_SCI + DEPT_BITFLAG_ENG + DEPT_BITFLAG_MED + DEPT_BITFLAG_SEC)
+
 // not real department. These exist for pref grouping
 #define DEPT_NAME_ASSISTANT "Assistant"
 #define DEPT_NAME_CAPTAIN "Captain"
@@ -48,7 +50,7 @@
 #define DEPT_MANIFEST_ORDER_UNASSIGNED 666 // dummy department for people with no department
 
 
-// used for /mob/dead/new_player/proc/LateChoices()
+// used for /mob/dead/new_player/authenticated/proc/LateChoices()
 #define DEPT_PREF_ORDER_COMMAND 	10
 #define DEPT_PREF_ORDER_SECURITY 	20
 #define DEPT_PREF_ORDER_ENGINEERING 30

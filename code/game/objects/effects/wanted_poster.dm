@@ -12,7 +12,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster/wanted)
 /obj/item/poster/wanted
 	icon_state = "rolled_poster"
 	var/postHeaderText = "WANTED" // MAX 7 Characters
-	var/postHeaderColor = "#FF0000"
+	var/postHeaderColor = COLOR_RED
 	var/background = "wanted_background"
 	var/postName = "wanted poster"
 	var/postDesc = "A wanted poster for"
@@ -21,7 +21,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster/wanted)
 	postName = "missing poster"
 	postDesc = "A missing poster for"
 	postHeaderText = "MISSING" // MAX 7 Characters
-	postHeaderColor = "#0000FF"
+	postHeaderColor = COLOR_BLUE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster/wanted)
 
@@ -37,6 +37,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster/wanted)
 	var/postDesc
 	var/posterHeaderText
 	var/posterHeaderColor
+
+	poster_item_type = /obj/item/poster/wanted
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/poster/wanted)
 
@@ -82,7 +84,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/poster/wanted)
 	var/textLen = min(length(text), 7)
 	var/startX = 16 - (2*textLen)
 	var/i
-	for(i=1; i <= textLen, i++)
+	for(i=1; i <= textLen; i++)
 		var/letter = uppertext(text[i])
 		var/icon/letter_icon = icon("icon" = 'icons/Font_Minimal.dmi', "icon_state" = letter)
 		letter_icon.Shift(EAST, startX) //16 - (2*n)

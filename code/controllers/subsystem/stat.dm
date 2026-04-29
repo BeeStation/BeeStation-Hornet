@@ -5,7 +5,6 @@ SUBSYSTEM_DEF(stat)
 	wait = 1 SECONDS
 	priority = FIRE_PRIORITY_STAT
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME	//RUNLEVEL_INIT doesn't work, so the stat panel will not auto update during this time (But that is good since we don't want to waste processing time during that phase).
-	init_order = INIT_ORDER_STAT
 	flags = SS_NO_INIT | SS_BACKGROUND
 
 	var/list/flat_icon_cache = list()	//Assoc list, datum = flat icon
@@ -21,7 +20,7 @@ SUBSYSTEM_DEF(stat)
 
 /datum/controller/subsystem/stat/fire(resumed = 0)
 	if (!resumed)
-		src.currentrun = GLOB.clients.Copy()
+		src.currentrun = GLOB.clients_unsafe.Copy()
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
@@ -143,12 +142,12 @@ SUBSYSTEM_DEF(stat)
 	return null
 
 /datum/controller/subsystem/stat/proc/send_global_alert(title, message)
-	for(var/client/C in GLOB.clients)
+	for(var/client/C in GLOB.clients_unsafe)
 		if(C?.tgui_panel)
 			C.tgui_panel.give_alert_popup(title, message)
 
 /datum/controller/subsystem/stat/proc/clear_global_alert()
-	for(var/client/C in GLOB.clients)
+	for(var/client/C in GLOB.clients_unsafe)
 		if(C?.tgui_panel)
 			C.tgui_panel.clear_alert_popup()
 

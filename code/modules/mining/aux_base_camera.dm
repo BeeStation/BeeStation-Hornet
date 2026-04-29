@@ -4,15 +4,15 @@
 	move_on_shuttle = 1 //Allows any curious crew to watch the base after it leaves. (This is safe as the base cannot be modified once it leaves)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "construction_drone"
-	var/area/starting_area
+	var/area/misc/starting_area
 
 /mob/camera/ai_eye/remote/base_construction/Initialize(mapload)
 	. = ..()
 	starting_area = get_area(loc)
 
-/mob/camera/ai_eye/remote/base_construction/setLoc(var/t)
+/mob/camera/ai_eye/remote/base_construction/setLoc(t)
 	var/area/curr_area = get_area(t)
-	if(curr_area == starting_area || istype(curr_area, /area/shuttle/auxillary_base))
+	if(curr_area == starting_area || istype(curr_area, /area/shuttle/auxiliary_base))
 		return ..()
 	//While players are only allowed to build in the base area, but consoles starting outside the base can move into the base area to begin work.
 
@@ -43,7 +43,7 @@
 	var/fans_remaining = 0 //Number of fans in stock.
 	var/datum/action/innate/aux_base/install_turret/turret_action //Action for spawning turrets
 	var/turret_stock = 0 //Turrets in stock
-	var/obj/machinery/computer/auxillary_base/found_aux_console //Tracker for the Aux base console, so the eye can always find it.
+	var/obj/machinery/computer/auxiliary_base/found_aux_console //Tracker for the Aux base console, so the eye can always find it.
 
 	icon_screen = "mining"
 	icon_keyboard = "rd_key"
@@ -64,14 +64,16 @@
 	. = ..()
 	if(mapload) //Map spawned consoles have a filled RCD and stocked special structures
 		RCD.matter = RCD.max_matter
+		RCD.mode = RCD_FLOORWALL //Initialize To Floor And Wall Mode
+		RCD.upgrade = RCD_UPGRADE_FRAMES //Fancy Frames
 		fans_remaining = 4
 		turret_stock = 4
 
 /obj/machinery/computer/camera_advanced/base_construction/CreateEye()
 
 	var/spawn_spot
-	for(var/obj/machinery/computer/auxillary_base/ABC in GLOB.machines)
-		if(istype(get_area(ABC), /area/shuttle/auxillary_base))
+	for(var/obj/machinery/computer/auxiliary_base/ABC in GLOB.machines)
+		if(istype(get_area(ABC), /area/shuttle/auxiliary_base))
 			found_aux_console = ABC
 			break
 
@@ -130,7 +132,7 @@
 
 /datum/action/innate/aux_base //Parent aux base action
 	button_icon_state = null
-	icon_icon = 'icons/hud/actions/actions_construction.dmi'
+	button_icon = 'icons/hud/actions/actions_construction.dmi'
 	var/mob/living/C //Mob using the action
 	var/mob/camera/ai_eye/remote/base_construction/remote_eye //Console's eye mob
 	var/obj/machinery/computer/camera_advanced/base_construction/B //Console itself
@@ -149,7 +151,7 @@
 	var/turf/build_target = get_turf(remote_eye)
 	var/area/build_area = get_area(build_target)
 
-	if(!istype(build_area, /area/shuttle/auxillary_base))
+	if(!istype(build_area, /area/shuttle/auxiliary_base))
 		to_chat(owner, span_warning("You can only build within the mining base!"))
 		return FALSE
 
@@ -184,7 +186,7 @@
 			rcd_target = S //If we don't break out of this loop we'll get the last placed thing
 
 	owner.changeNext_move(CLICK_CD_RANGE)
-	B.RCD.afterattack(rcd_target, owner, TRUE) //Activate the RCD and force it to work remotely!
+	B.RCD.rcd_create(rcd_target, owner) //Activate the RCD and force it to work remotely!
 	playsound(target_turf, 'sound/items/deconstruct.ogg', 60, 1)
 
 /datum/action/innate/aux_base/switch_mode
@@ -195,10 +197,13 @@
 	if(..())
 		return
 
-	var/list/buildlist = list("Walls and Floors" = 1,"Airlocks" = 2,"Deconstruction" = 3,"Windows and Grilles" = 4)
-	var/buildmode = tgui_input_list("Set construction mode.", "Base Console", buildlist)
-	B.RCD.mode = buildlist[buildmode]
-	to_chat(owner, "Build mode is now [buildmode].")
+	var/list/buildlist = list("Walls and Floors" = RCD_FLOORWALL,"Airlocks" = RCD_AIRLOCK,"Deconstruction" = RCD_DECONSTRUCT,"Windows and Grilles" = RCD_WINDOWGRILLE, "Machine Frames"= RCD_MACHINE, "Computer Frames"=RCD_COMPUTER)
+	var/buildmode = tgui_input_list(owner, "Set construction mode.", "Base Console", buildlist,  timeout = 0 )
+	if(buildmode)
+		B.RCD.mode = buildlist[buildmode]
+		to_chat(owner, "Build mode is now [buildmode].")
+		if(B.RCD.mode == RCD_COMPUTER)//Bring up the menu to change computer direction
+			B.RCD.change_computer_dir(owner, remote_eye, FALSE)
 
 /datum/action/innate/aux_base/airlock_type
 	name = "Select Airlock Type"
@@ -208,7 +213,7 @@
 	if(..())
 		return
 
-	B.RCD.change_airlock_setting()
+	B.RCD.change_airlock_setting(owner,remote_eye, FALSE)
 
 
 /datum/action/innate/aux_base/window_type
@@ -218,7 +223,7 @@
 /datum/action/innate/aux_base/window_type/on_activate()
 	if(..())
 		return
-	B.RCD.toggle_window_glass()
+	B.RCD.toggle_window_glass(owner)
 
 /datum/action/innate/aux_base/place_fan
 	name = "Place Tiny Fan"

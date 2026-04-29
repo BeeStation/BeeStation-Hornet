@@ -21,6 +21,8 @@
 #define FACTION_CLOWN "clowns"
 /// Headslugs
 #define FACTION_CREATURE "creature"
+/// Cats
+#define FACTION_CAT "cat"
 /// Faithless and shadowpeople
 #define FACTION_FAITHLESS "faithless"
 /// Gondolas
@@ -92,3 +94,6 @@
 #define FACTION_RATVAR "ratvar"
 /// Swarmers & the swarmer beacon.
 #define FACTION_SWARMER "swarmer"
+
+/// Generates a mob faction for the passed owner, used by stabilized pink extracts
+#define FACTION_PINK_EXTRACT(owner) "pink_[owner]"

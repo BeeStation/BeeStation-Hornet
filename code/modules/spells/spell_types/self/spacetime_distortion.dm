@@ -107,7 +107,7 @@
 /obj/effect/cross_action/singularity_act()
 	return
 
-/obj/effect/cross_action/singularity_pull()
+/obj/effect/cross_action/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/cross_action/spacetime_dist/Initialize(mapload, flags = MAGIC_RESISTANCE)

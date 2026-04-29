@@ -27,9 +27,9 @@
 			for(var/obj/item/abductor/gizmo/G in B.contents)
 				console.AddGizmo(G)
 
-/datum/outfit/abductor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/abductor/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
-	if(!visualsOnly)
+	if(!visuals_only)
 		link_to_console(H)
 
 
@@ -52,13 +52,13 @@
 		/obj/item/abductor/gizmo = 1
 		)
 
-/datum/outfit/abductor/scientist/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/abductor/scientist/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
-	if(!visualsOnly)
+	if(!visuals_only)
 		var/obj/item/implant/abductor/beamplant = new /obj/item/implant/abductor(H)
 		beamplant.implant(H)
 
-/datum/outfit/abductor/scientist/onemanteam
+/datum/outfit/abductor/scientist/solo
 	name = "Abductor Scientist (w/ agent gear)"
 	head = /obj/item/clothing/head/helmet/abductor
 	suit = /obj/item/clothing/suit/armor/abductor/vest

@@ -7,13 +7,16 @@
 /mob/living/carbon/alien/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	..(AM, skipcatch = TRUE, hitpush = FALSE)
 
+//You cant knock down aliens through shoving
+/mob/living/carbon/alien/is_shove_knockdown_blocked()
+	return TRUE
 
 /*Code for aliens attacking aliens. Because aliens act on a hivemind, I don't see them as very aggressive with each other.
 As such, they can either help or harm other aliens. Help works like the human help command while harm is a simple nibble.
 In all, this is a lot like the monkey code. /N
 */
 /mob/living/carbon/alien/attack_alien(mob/living/carbon/alien/user, list/modifiers)
-	if(isturf(loc) && istype(loc.loc, /area/start))
+	if(isturf(loc) && istype(loc.loc, /area/misc/start))
 		to_chat(user, "No attacking people at spawn, you jackass.")
 		return
 
@@ -66,20 +69,25 @@ In all, this is a lot like the monkey code. /N
 
 	if(user.combat_mode)
 		if(LAZYACCESS(modifiers, RIGHT_CLICK))
-			if(HAS_TRAIT(user, TRAIT_PACIFISM))
-				to_chat(user, "<span class='notice'>You don't want to hurt [src]!</span>")
-				return
-			playsound(loc, "punch", 25, 1, -1)
-			visible_message("<span class='danger'>[user] punches [src]!</span>", \
-					"<span class='userdanger'>[user] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
-			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
-			apply_damage(user.dna.species.punchdamage, BRUTE, affecting)
-			log_combat(user, src, "attacked", user)
-			user.do_attack_animation(src, ATTACK_EFFECT_DISARM)
+			user.disarm(src)
+			return TRUE
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, span_notice("You don't want to hurt [src]!"))
+			return
+		playsound(loc, "punch", 25, 1, -1)
+		visible_message(span_danger("[user] punches [src]!"), \
+				span_userdanger("[user] punches you!"), null, COMBAT_MESSAGE_RANGE)
+		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
+		apply_damage(user.dna.species.punchdamage, BRUTE, affecting)
+		log_combat(user, src, "attacked", user)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		return TRUE
 	else
-		help_shake_act(user)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			user.disarm(src)
+			return TRUE
+		else
+			help_shake_act(user)
 
 /mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M)
 	if(!..())
@@ -118,23 +126,28 @@ In all, this is a lot like the monkey code. /N
 	if(QDELETED(src))
 		return
 
+	var/obj/item/organ/ears/ears = get_organ_slot(ORGAN_SLOT_EARS)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			gib()
-			return
 
 		if(EXPLODE_HEAVY)
 			take_overall_damage(60, 60)
-			adjustEarDamage(30,120)
+			if(ears)
+				ears.adjustEarDamage(30,120)
 
 		if(EXPLODE_LIGHT)
 			take_overall_damage(30,0)
 			if(prob(50))
 				Unconscious(20)
-			adjustEarDamage(15,60)
+			if(ears)
+				ears.adjustEarDamage(15,60)
 
 /mob/living/carbon/alien/soundbang_act(intensity = 1, stun_pwr = 20, damage_pwr = 5, deafen_pwr = 15)
 	return FALSE
 
 /mob/living/carbon/alien/acid_act(acidpwr, acid_volume)
 	return FALSE//aliens are immune to acid.
+
+/mob/living/carbon/alien/on_fire_stack(delta_time, times_fired, datum/status_effect/fire_handler/fire_stacks/fire_handler)
+	adjust_bodytemperature(BODYTEMP_HEATING_MAX * 0.5 * delta_time)

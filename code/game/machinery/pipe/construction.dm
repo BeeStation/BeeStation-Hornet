@@ -18,6 +18,7 @@ Buildable meters
 	icon_state = "simple"
 	icon_state_preview = "manifold4w"
 	w_class = WEIGHT_CLASS_NORMAL
+	trade_flags = TRADE_NOT_SELLABLE
 	///Piping layer that we are going to be on
 	var/piping_layer = PIPING_LAYER_DEFAULT
 	///Type of pipe-object made, selected from the RPD
@@ -189,7 +190,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 	set name = "Invert Pipe"
 	set src in view(1)
 
-	if(usr.incapacitated() || !isliving(usr))
+	if(usr.incapacitated || !isliving(usr))
 		return
 
 	do_a_flip()

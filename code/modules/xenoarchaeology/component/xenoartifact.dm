@@ -61,7 +61,7 @@
 	//Setup our typing
 	artifact_material = material_type || pick_weight(SSxenoarchaeology.xenoartifact_material_weights)
 	artifact_material = new artifact_material()
-	atom_parent.custom_price = atom_parent.custom_price || artifact_material.custom_price
+	atom_parent.item_price = atom_parent.item_price || artifact_material.custom_price
 
 	//Build appearance from material
 	old_appearance = atom_parent.appearance
@@ -103,7 +103,7 @@
 	//Description
 	material_description = get_material_desc()
 	//Setup description stuff
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examined))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examined))
 
 /datum/component/xenoartifact/Destroy(force, silent)
 	if(!QDELETED(parent))
@@ -214,13 +214,13 @@
 	//Regular target follow through
 	create_beam(target)
 	targets += target
-	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target), TRUE)
+	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(unregister_target), TRUE)
 
 /datum/component/xenoartifact/proc/unregister_target(datum/source)
 	SIGNAL_HANDLER
 
 	targets -= source
-	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(source, COMSIG_QDELETING)
 
 /datum/component/xenoartifact/proc/on_examined(datum/source, mob/user, list/examine_text)
 	SIGNAL_HANDLER
@@ -296,7 +296,7 @@
 	blacklisted_traits += trait.blacklist_traits
 	blacklisted_traits += trait.type
 	//Ant-hardel stuff
-	RegisterSignal(trait, COMSIG_PARENT_QDELETING, PROC_REF(handle_trait))
+	RegisterSignal(trait, COMSIG_QDELETING, PROC_REF(handle_trait))
 
 	return TRUE
 
@@ -312,7 +312,7 @@
 	do_mask = old_mask
 	//States
 	calcified = TRUE
-	atom_parent.custom_price /= 2
+	atom_parent.item_price /= 2
 	//Disable artifact
 	cooldown_override = TRUE
 
@@ -323,7 +323,7 @@
 	var/atom/movable/atom_parent = parent
 	//Stats
 	calibrated = TRUE
-	atom_parent.custom_price *= 2
+	atom_parent.item_price *= 2
 	//Effect
 	calibrated_holder = new(atom_parent)
 	var/obj/emitter/spiral/S = calibrated_holder.add_emitter(/obj/emitter/spiral, "calibration", 11)
@@ -393,7 +393,7 @@
 
 /datum/component/xenoartifact/proc/remove_individual_trait(datum/xenoartifact_trait/trait, destroy = FALSE)
 	traits_catagories[trait.priority] -= trait
-	UnregisterSignal(trait, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(trait, COMSIG_QDELETING)
 	if(destroy)
 		qdel(trait)
 

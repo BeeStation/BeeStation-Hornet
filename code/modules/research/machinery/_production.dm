@@ -98,7 +98,7 @@
 	host_research.copy_research_to(stored_research, TRUE)
 	update_designs()
 
-/obj/machinery/rnd/production/proc/alert_research(datum/source, var/node_id)
+/obj/machinery/rnd/production/proc/alert_research(datum/source, node_id)
 	SIGNAL_HANDLER
 
 	var/datum/techweb_node/node = SSresearch.techweb_node_by_id(node_id)
@@ -202,7 +202,7 @@
 		L += list(build_design(design))
 	return L
 
-/obj/machinery/rnd/production/proc/build_design(var/datum/design/design)
+/obj/machinery/rnd/production/proc/build_design(datum/design/design)
 	return list(
 			name = design.name,
 			description = design.desc,
@@ -214,7 +214,7 @@
 			reagents = build_recipe_reagents(design.reagents_list),
 		)
 
-/obj/machinery/rnd/production/proc/build_recipe_reagents(var/list/reagents)
+/obj/machinery/rnd/production/proc/build_recipe_reagents(list/reagents)
 	var/list/L = list()
 
 	for(var/id in reagents)
@@ -306,7 +306,7 @@
 		new path(get_turf(src))
 	SSblackbox.record_feedback("nested tally", "item_printed", amount, list("[type]", "[path]"))
 
-/obj/machinery/rnd/production/proc/check_mat(datum/design/being_built, var/mat)	// now returns how many times the item can be built with the material
+/obj/machinery/rnd/production/proc/check_mat(datum/design/being_built, mat)	// now returns how many times the item can be built with the material
 	if (!materials.mat_container)  // no connected silo
 		return 0
 	var/list/all_materials = being_built.reagents_list + being_built.materials

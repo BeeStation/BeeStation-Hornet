@@ -9,7 +9,7 @@
 	 */
 	var/notes = ""
 	/// The accent color of the holoparasite being built.
-	var/accent_color = "#FFFFFF"
+	var/accent_color = COLOR_WHITE
 	/// The maximum amount of points the user can spend on the holoparasite.
 	var/max_points = 20
 	/// The current amount of available points the user can spend on the holoparasite.
@@ -195,7 +195,7 @@
 			var/color = params["color"]
 			if(!istext(color) || length(color) != 7)
 				return
-			var/new_accent_color = sanitize_hexcolor(color, desired_format = 6, include_crunch = TRUE, default = (length(accent_color) == 7 && accent_color != initial(accent_color)) ? accent_color : pick(GLOB.color_list_rainbow))
+			var/new_accent_color = sanitize_hexcolor(color, include_crunch = TRUE, default = (length(accent_color) == 7 && accent_color != initial(accent_color)) ? accent_color : pick(GLOB.color_list_rainbow))
 			if(is_color_dark_with_saturation(new_accent_color, HOLOPARA_MAX_ACCENT_LIGHTNESS))
 				to_chat(usr, span_warning("Selected accent color is too dark!"))
 				return
@@ -366,11 +366,14 @@
 	if(debug_mode)
 		candidates = list(user)
 	else
-		candidates = poll_ghost_candidates(
-			"Do you want to play as [holopara_name], [user.mind.name]'s [theme.name]?",
-			jobban_type = ROLE_HOLOPARASITE,
-			poll_time = 30 SECONDS
+		var/datum/poll_config/config = new(
+			check_jobban = ROLE_HOLOPARASITE,
+			poll_time = 30 SECONDS,
+			jump_target = user,
+			role_name_text = "[holopara_name], [user]'s [theme.name]",
+			alert_pic = /mob/living/simple_animal/hostile/holoparasite,
 		)
+		candidates = SSpolling.poll_ghost_candidates(config)
 	waiting = FALSE
 	if(!length(candidates))
 		theme.display_message(user, HOLOPARA_MESSAGE_FAILED)
@@ -433,8 +436,10 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "deck_syndicate_full"
 	obj_flags = USES_TGUI
-	item_flags = EXAMINE_SKIP | NOBLUDGEON | NO_MAT_REDEMPTION
+	item_flags = NOBLUDGEON | NO_MAT_REDEMPTION
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 20000
+	max_demand = 5
 	/// The internal holoparasite builder object, which handles actually, well, building the holoparasite.
 	var/datum/holoparasite_builder/builder
 	/// A typepath to the theme of the holoparasite to create.
@@ -457,6 +462,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holoparasite_creator)
 /obj/item/holoparasite_creator/Initialize(mapload, datum/holoparasite_theme/theme_override)
 	. = ..()
 	builder = new(src, theme_override || theme, max_points, max_level, uses, debug_mode)
+	ADD_TRAIT(src, TRAIT_EXAMINE_SKIP, INNATE_TRAIT)
 
 /obj/item/holoparasite_creator/Destroy()
 	QDEL_NULL(builder)

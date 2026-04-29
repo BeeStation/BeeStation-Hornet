@@ -1,8 +1,8 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-$neutral: #0c0303;
-$accent: #5f0000;
+$neutral: hsl(0, 60%, 2.9%);
+$accent: hsl(0, 100%, 18.6%);
 
 @use '../colors.scss' with (
   $primary: $neutral,
@@ -19,7 +19,10 @@ $accent: #5f0000;
   // Components
   @include meta.load-css(
     '../components/Button.scss',
-    $with: ('color-default': $accent, 'color-transparent-text': rgba(227, 240, 255, 0.75))
+    $with: (
+      'color-default': $accent,
+      'color-transparent-text': rgba(227, 240, 255, 0.75)
+    )
   );
   @include meta.load-css('../components/ProgressBar.scss');
   @include meta.load-css('../components/Section.scss');
@@ -27,7 +30,10 @@ $accent: #5f0000;
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': color.scale($neutral, $lightness: -25%)));
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': color.scale($neutral, $lightness: -25%))
+  );
 
   .Layout__content {
     background-image: none;

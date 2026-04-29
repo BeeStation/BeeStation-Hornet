@@ -17,14 +17,14 @@
 	. = ..()
 	if(!component_parent?.parent)
 		return
-	RegisterSignal(component_parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
+	RegisterSignal(component_parent?.parent, COMSIG_ATOM_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
 	RegisterSignal(component_parent?.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
 	RegisterSignal(component_parent?.parent, COMSIG_ITEM_ATTACK_SELF, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
 
 /datum/xenoartifact_trait/activator/flammable/remove_parent(datum/source, pensive)
 	if(!component_parent?.parent)
 		return ..()
-	UnregisterSignal(component_parent?.parent, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(component_parent?.parent, COMSIG_ATOM_ATTACKBY)
 	UnregisterSignal(component_parent?.parent, COMSIG_ATOM_ATTACK_HAND)
 	UnregisterSignal(component_parent?.parent, COMSIG_ITEM_ATTACK_SELF)
 	return ..()
@@ -36,7 +36,7 @@
 
 /datum/xenoartifact_trait/activator/flammable/translation_type_b(datum/source, atom/item, atom/target)
 	var/obj/item/I = item
-	if(isitem(I) && I.is_hot() && !check_item_safety(item))
+	if(isitem(I) && I.get_temperature() && !check_item_safety(item))
 		if(HAS_TRAIT(item, TRAIT_ARTIFACT_IGNORE))
 			return FALSE
 		if(component_parent.anti_check(target, XENOA_ACTIVATION_TOUCH))

@@ -105,7 +105,7 @@
 	STOP_PROCESSING(SSobj, src)
 	icon_state = initial(icon_state)
 
-/obj/structure/weightmachine/process(seconds_per_tick)
+/obj/structure/weightmachine/process(delta_time)
 	if(!has_buckled_mobs())
 		end_workout()
 		return FALSE
@@ -135,7 +135,7 @@
 	icon_state = "barbell"
 	lefthand_file = 'icons/mob/inhands/equipment/weightlifting.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/weightlifting.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 16
 	throwforce = 16
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
@@ -147,7 +147,7 @@
 	throw_range = 2
 	slowdown = 2
 
-/obj/item/barbell/ComponentInitialize()
+/obj/item/barbell/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, block_power_unwielded=block_power, block_power_wielded=block_power)
 

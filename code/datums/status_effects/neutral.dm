@@ -2,18 +2,18 @@
 
 /datum/status_effect/sigil_mark //allows the affected target to always trigger sigils while mindless
 	id = "sigil_mark"
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 	alert_type = null
 	var/stat_allowed = DEAD //if owner's stat is below this, will remove itself
 
-/datum/status_effect/sigil_mark/tick()
+/datum/status_effect/sigil_mark/tick(seconds_between_ticks)
 	if(owner.stat < stat_allowed)
 		qdel(src)
 
 /datum/status_effect/crusher_damage //tracks the damage dealt to this mob by kinetic crushers
 	id = "crusher_damage"
-	duration = -1
-	tick_interval = -1
+	duration = STATUS_EFFECT_PERMANENT
+	tick_interval = STATUS_EFFECT_NO_TICK
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
 	var/total_damage = 0
@@ -40,7 +40,7 @@
 	if(!QDELETED(reward_target))
 		reward_target.get_kill(owner)
 
-/datum/status_effect/syphon_mark/tick()
+/datum/status_effect/syphon_mark/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		get_kill()
 		qdel(src)
@@ -56,7 +56,7 @@
 
 /datum/status_effect/in_love
 	id = "in_love"
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/in_love
 	var/mob/living/date
@@ -82,15 +82,16 @@
 
 /datum/status_effect/throat_soothed/on_apply()
 	. = ..()
-	ADD_TRAIT(owner, TRAIT_SOOTHED_THROAT, "[STATUS_EFFECT_TRAIT]_[id]")
+	ADD_TRAIT(owner, TRAIT_SOOTHED_THROAT, TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/throat_soothed/on_remove()
 	. = ..()
-	REMOVE_TRAIT(owner, TRAIT_SOOTHED_THROAT, "[STATUS_EFFECT_TRAIT]_[id]")
+	REMOVE_TRAIT(owner, TRAIT_SOOTHED_THROAT, TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/bounty
 	id = "bounty"
 	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
 	var/mob/living/rewarded
 
 /datum/status_effect/bounty/on_creation(mob/living/new_owner, mob/living/caster)
@@ -103,7 +104,7 @@
 	playsound(owner, 'sound/weapons/shotgunpump.ogg', 75, 0)
 	return ..()
 
-/datum/status_effect/bounty/tick()
+/datum/status_effect/bounty/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		rewards()
 		qdel(src)
@@ -115,42 +116,20 @@
 		to_chat(rewarded, span_greentext("You feel a surge of mana flow into you!"))
 		for(var/datum/action/spell/spell in rewarded.actions)
 			spell.reset_spell_cooldown()
-		rewarded.adjustBruteLoss(-25)
-		rewarded.adjustFireLoss(-25)
-		rewarded.adjustToxLoss(-25, FALSE, TRUE)
-		rewarded.adjustOxyLoss(-25)
-		rewarded.adjustCloneLoss(-25)
 
-/datum/status_effect/bugged //Lets another mob hear everything you can
-	id = "bugged"
-	duration = -1
-	status_type = STATUS_EFFECT_MULTIPLE
-	alert_type = null
-	var/mob/living/listening_in
-
-/datum/status_effect/bugged/on_apply(mob/living/new_owner, mob/living/tracker)
-	. = ..()
-	if (.)
-		RegisterSignal(new_owner, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
-
-/datum/status_effect/bugged/on_remove()
-	. = ..()
-	UnregisterSignal(owner, COMSIG_MOVABLE_HEAR)
-
-/datum/status_effect/bugged/proc/handle_hearing(datum/source, list/hearing_args)
-	SIGNAL_HANDLER
-	listening_in.show_message(hearing_args[HEARING_MESSAGE])
-
-
-/datum/status_effect/bugged/on_creation(mob/living/new_owner, mob/living/tracker)
-	. = ..()
-	if(.)
-		listening_in = tracker
+		var/need_mob_update = FALSE
+		need_mob_update += rewarded.adjustBruteLoss(-25, updating_health = FALSE)
+		need_mob_update += rewarded.adjustFireLoss(-25, updating_health = FALSE)
+		need_mob_update += rewarded.adjustToxLoss(-25, updating_health = FALSE)
+		need_mob_update += rewarded.adjustOxyLoss(-25, updating_health = FALSE)
+		need_mob_update += rewarded.adjustCloneLoss(-25, updating_health = FALSE)
+		if(need_mob_update)
+			rewarded.updatehealth()
 
 /datum/status_effect/offering
 	id = "offering"
-	duration = -1
-	tick_interval = -1
+	duration = STATUS_EFFECT_PERMANENT
+	tick_interval = STATUS_EFFECT_NO_TICK
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
 	/// The people who were offered this item at the start
@@ -183,7 +162,7 @@
 		return
 
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(check_owner_in_range))
-	RegisterSignals(offered_item, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_DROPPED), PROC_REF(dropped_item))
+	RegisterSignals(offered_item, list(COMSIG_QDELETING, COMSIG_ITEM_DROPPED), PROC_REF(dropped_item))
 
 /datum/status_effect/offering/Destroy()
 	for(var/mob/living/carbon/removed_taker as anything in possible_takers)
@@ -244,7 +223,7 @@
 /datum/status_effect/caltropped
 	id = "caltropped"
 	duration = 1 SECONDS
-	tick_interval = INFINITY
+	tick_interval = STATUS_EFFECT_NO_TICK
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = null
 
@@ -253,6 +232,7 @@
 	name = "Leaning"
 	desc = "You're leaning on something!"
 	icon_state = "buckled"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/leaning/Click()
 	var/mob/living/L = usr
@@ -264,8 +244,8 @@
 
 /datum/status_effect/leaning
 	id = "leaning"
-	duration = -1
-	tick_interval = -1
+	duration = STATUS_EFFECT_PERMANENT
+	tick_interval = STATUS_EFFECT_NO_TICK
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/leaning
 
@@ -274,3 +254,34 @@
 	if(!.)
 		return
 	new_owner.start_leaning(object, leaning_offset)
+
+/atom/movable/screen/alert/status_effect/morph_cooldown
+	name = "Chameleon Recharge"
+	desc = "Your ability to transform is recovering!"
+	icon_state = "dna_melt"
+
+/datum/status_effect/morph_cooldown
+	id = "morph_cooldown"
+	duration = 20 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/morph_cooldown
+
+/atom/movable/screen/alert/status_effect/cyborg_sentry
+	name = "Sentry-mode Active"
+	desc = "Your armor is active but slowing you down!"
+	icon_state = "sentry"
+
+/datum/status_effect/cyborg_sentry
+	id = "cyborg_sentry"
+	duration = STATUS_EFFECT_PERMANENT
+	alert_type = /atom/movable/screen/alert/status_effect/cyborg_sentry
+
+/datum/status_effect/cyborg_sentry/on_apply(mob/living/new_owner, ...)
+	. = ..()
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/cyborg_sentry)
+	owner.set_armor(/datum/armor/cyborg)
+
+/datum/status_effect/cyborg_sentry/on_remove()
+	. = ..()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/cyborg_sentry)
+	owner.set_armor(/datum/armor/none)
+

@@ -1,0 +1,334 @@
+2026-01-01:
+  PowerfulBacon, RKz:
+  - refactor: Slightly cleans up some examination code to make it easier to override,
+      improving support for things like custom examinations and accessories being
+      shown on uniforms.
+  - bugfix: Fixes security badges having no description.
+  - bugfix: Fixes detective's belt being a proper noun.
+2026-01-03:
+  PowerfulBacon:
+  - bugfix: Fixes players bleeding out 5 times faster than intended when having more
+      than 2.4 bleed.
+  - bugfix: Fixes shield belt not applying its effects when equipped
+2026-01-07:
+  DrDuckedGoose:
+  - bugfix: Fixes plant trays not properly spawning mobs when exposed to Strange Reagent.
+  PowerfulBacon:
+  - bugfix: Fixes agent ID card not functioning correctly, and prevents examination
+      from giving them away.
+  r1ks-iwnl:
+  - bugfix: Fixed examine not correctly assessing the status of a severed head
+2026-01-08:
+  TsunamiAnt:
+  - rscadd: Added security vouchers, redeem at sec vendor
+  - tweak: Moved sabres and pistols from loadouts and lockers into the voucher system.
+  - balance: Made sabre sheaths fit in suit storages
+  mrmanlikesbt:
+  - bugfix: fixed a runtime when right clicking a microwave
+  mrmanlikesbt, MrMelbert, Absolucy:
+  - refactor: Refactored biowares (ligament hook, etc.) to use status effects
+  - admin: biowares are now recorded in SSblackbox
+  rkz, melbert:
+  - refactor: converts confusion into a status effect
+  - rscdel: removed confusion from flipping. It already provides knockdown.
+2026-01-09:
+  Isaac:
+  - bugfix: Captain's beret has armor again
+  - balance: Plasma Cutter now fires at a rate of 0.5
+  - balance: Gravity gun now fires at a rate of 0.2
+  - balance: Advanced Plasma Cutter now fires at a rate of 0.75
+  - balance: Mech Plasma Cutter fires as fast as a regular plasma cutter
+  - balance: Lowers the delimb chance to 10%, 1 out of 10 shots might cut your limb
+  PowerfulBacon:
+  - bugfix: When performing pierce protection checks, simplified targeting will now
+      prefer zones that do not have pierce protection.
+  - bugfix: Pierce protection is now performed after selecting a target zone, correcting
+      bruise pack/ointment behaviour that either incorrect allowed or rejected healing
+      through armour.
+  - tweak: Simplified targeting bodyzone selection now shows if an area of the body
+      is pierce proof.
+  - tweak: Increases contrast for simplified targeting medical alert icons.
+  - bugfix: Changeling transformed IDs will now correctly display their job on the
+      sechud.
+  - tweak: You are no longer prompted to ahelp when leaving as a head of staff or
+      antagonist role.
+  - tweak: The game will automatically handle antagonists leaving via cryo depending
+      on the important of the role.
+  - code_imp: Adds in a unit test that prevents wires with the same colour from crossing
+      without being connected.
+  ? 'rkz, Timberpoes, Mothblocks, Melbert, Mothblocks, andrea-feather, Jolly, timothymtorres,
+    Profakos, vinylspiders, mc-oofert, Ghommie. '
+  : - balance: converted beestation's maintenance loot list into a triple-level weighted
+        list. Loot is broken up by tiers and categories. The previous loot list was
+        considered for its specific parts, but it should not be expected for the new
+        maintenance list to be congruent to it.
+    - refactor: defines pick_weight_recursive()
+    - code_imp: languages can weight syllables. (Fun fact, Galactic Common uses Mandarin
+        Chinese syllables)
+    - code_imp: adds support for converting armories to use mapping spawners rather
+        than manual edits. This PR author would prefer not to step on toes by mass-standardizing
+        armories at the moment.
+    - admin: Added a config that regulates random spawners weights.
+    - bugfix: modsuit maint modules now correctly spawn
+    - bugfix: fake nuke disks no longer have the stationloving component, so they
+        dont break the atom init anymore
+    - rscadd: readds the greytide spear. Its never existed outside of adminspawn,
+        which was a contributor to it being removed. It now has a use inside the maint
+        pool.
+2026-01-10:
+  Isaac:
+  - balance: Mech's cells are drained faster from EMP's
+  - balance: Mech's receive more damage from EMP's
+  - balance: Mech's equipment is disabled for 2x longer when hit by an EMP
+  PowerfulBacon:
+  - bugfix: Mice no longer spawn during unit testing, which breaks cable tests.
+  - bugfix: Fixes TGUI windows lagging the game when opened until you open the preferences
+      screen.
+  - bugfix: Eye-stabbing will now always deal the same damage as a regular attack,
+      and will perform a regular attack if it fails making it behave better while
+      on simplified mode.
+  - bugfix: Fixes eye-stabbing having 100% armour penetration.
+  RKz:
+  - rscadd: 'All drug addictions are now put into 5 categories: Stimulants, Opioids,
+      Alcohol, Hallucinogens, and Maintenance Drugs. All narcotics have been given
+      a category corresponding to their effect.'
+  - bugfix: Narcotics that had clearly addicting effects, yet were missing an addiction
+      call, now properly interface with the new addiction system.
+  - rscadd: new stats have been added to some chemistry reagents that will help medical
+      deal with these new effects. Neurine and Sodium-Thiopetal can be used to alleviate
+      seizures from drug abuse.
+  - tweak: Completely gutted the "threshold" addiction system in favor of a point
+      based system. It progresses much like disease tiers. Addiction is no longer
+      some joke noobtrap that just affects your mood, if you partake in a shitton
+      of drugs, you will feel the consequences.
+  Rukofamicom:
+  - bugfix: Loose power cells mapped into stations no longer have unusual capacities
+  - rscadd: Maps will now lint against changes to charge and maxcharge variables for
+      power cells
+  mrmanlikesbt, Fikou:
+  - tweak: nuclear operative reinforcements are now drop podded in instead of being
+      teleported
+  - refactor: cleaned up the antag spawner item's code
+  - bugfix: the ghost poll for syndicate reinforcements now have the correct poll
+      icon for what is being spawned, previously it would always be the syndicate
+      assault cyborg
+  mrmanlikesbt, Jacquerel, lessthnthree, SmArtKar:
+  - rscadd: Added incident displays. These show how many rounds it has been since
+      a supermatter delamination on your station.
+  rkz, Melbert:
+  - code_imp: drunkeness, dizziness, and speech slurring are now status effects
+  - refactor: slurring speech from drunkeness should have much better ramp-up, rather
+      than making you intelligible immediately
+  - rscadd: adds hereticslurring, rather than copying cultslurring
+  rkz, Mothblocks:
+  - balance: ashlanders and monkeys are hardcoded via brains to be unable to operate
+      mechs
+  - code_imp: adds another carbon trait to brains, the ability to strip others with
+      the stripping menu
+  - code_imp: strip menu unit test
+2026-01-11:
+  Isaacnml:
+  - balance: MOD energy shield can withstand 60 damage and recharges 5 seconds after
+      not being hit, recharging 5 per second, roughly reaching max charge in 16 total
+      seconds of not being hit
+  - rscadd: Mod Energy shield to the traitor uplink
+  PowerfulBacon:
+  - balance: Hacked APCs will now only sometimes flicker their distinctive blue colour.
+      Only players standing near the APC can see this. Malf AIs and ghosts always
+      see hacked APCs as blue.
+2026-01-12:
+  PowerfulBacon:
+  - tweak: Updates some maps for future support of smartwires
+  - bugfix: Crashing caused by dizziness status effect.
+2026-01-13:
+  PowerfulBacon:
+  - tweak: Chemical grenades can now have assemblies attached when completed.
+  - rscadd: Adds screentips to chemical grenades.
+  - tweak: If a chemical grenade does not explode, you can screwdriver it to reset
+      it. You cannot re-use the reagents though as they will be cleared when you remove
+      the beakers from it.
+  - tweak: Edits the TGUI base theme to give the server a more distinct look and feel.
+  - rscadd: Adds the new blue chat theme.
+  mrmanlikesbt:
+  - bugfix: fixed kitty ear spawners spawning fake kitty ears
+  rkz, coiax, ShizCalev, carpotoxin, Rhials, san7890:
+  - refactor: refactor ventcrawling accessing
+  - code_imp: ventcrawling ability is now a trait
+  - rscadd: indicates when a mob is attempting to enter a vent
+  - rscadd: mobs that get stuck in pipes with no exit can force their way out
+  - rscadd: ventcrawling mobs now have a 1 second delay to exiting, to prevent accidental
+      ventcrawl exit
+2026-01-14:
+  'rkz, JohnFulp, Mothblocks, Lemon, Tastyfish, Fikou, AnturK, ':
+  - rscdel: removed ntnet
+  - rscadd: fulfill your discord mod dreams. The captain and RD can grant/remove send-to-all
+      permissions in the messaging app.
+  - refactor: converted like the 4 things that were using it to use generic code instead
+  - refactor: Modular computers NTnet and applications run on its own subsystem, please
+      report any new bugs you may find.
+  - bugfix: Computers are now properly connected to Ethernet, and can use Ntos when
+      Relays are down.
+  - refactor: Removes Ntnet and Ntnet interfaces, which was only used by Ntnet circuits
+      (which now directly checks for a Relay to work) and MULEbots, which did nothing
+      with it.
+  - balance: Wirecarp now properly shuts off NtNet remotely.
+  - balance: Wirecarp now shows the source of a PDA that does an action.
+  - bugfix: Wirecarp can no longer be used to see if Nukies exist through their networks.
+  - rscdel: Removes Software downloading and communication Ntnet networks, as they
+      were pretty worthless.
+  - rscadd: adds element injector mapping helper
+  - rscadd: adds sound injector mapping helper
+  - rscadd: adds icon injector mapping helper
+  - rscadd: adds trait injector mapping helper
+  - refactor: refactors component injectors into atom injectors.
+  rkz, LemonInTheDark, MrStonedOne, AnturK, SmartKar, Capybara, kapu:
+  - bugfix: blob mob ai should get stuck on stuff less
+  - refactor: moves CanAStarPass to the atom level
+  - bugfix: simplebots should no longer lock up during normal duties
+  - refactor: puts JPS on a subsystem. Pathing from bots/simplemobs/players cannot
+      eat into maptick anymore
+  - refactor: pathfinding is roughly 40% faster
+  - rscadd: Adds swarmed pathfinding, trading accuracy for potential optimization
+      of used correctly
+  - bugfix: Bots will no longer take diagonal paths, preventing weirdo looking path
+      visuals
+  - bugfix: Fixed our pathfinding logic getting deeply confused by border objects
+  - admin: Added clientside displayed pathfinding debug tools, give em a go
+2026-01-15:
+  Isaac:
+  - bugfix: Only Shrooms and Moths are able to be the only people to eat raw cloth
+      again.
+  PatienceStPim:
+  - rscadd: Rubber ducks can be purchased from cargo
+  rkz:
+  - rscadd: adds production method for IPC blood
+  rkz, andrea-feather, Melbert, Jacquerel, John Willard, timothytorres, Absolucy:
+  - refactor: Random Name Generation has been refactored. Report any instances of
+      people having weird (or "Unknown") names.
+  - rscadd: 'Adds a negative station trait: Bot Language Matrix Malfunction and Machine
+      Language Malfunction. Apply to their respective bits.'
+  - rscadd: Add language variety to machines that speak. You can also pulse the vendor
+      language wire to make it switch languages or EMP a machine to get the same effect.
+  - rscadd: Shambling cola vendors will now speak a different language each time they
+      talk. Syndicate vendors will now speak codespeak. Beach vendors will now speak
+      beachbum.
+  - refactor: defines a new global proc, pick_weight_recursive()
+  - code_imp: languages can weight syllables, and galactic common's definition is
+      easier to look at
+2026-01-16:
+  BotTierPC, Blerpfish:
+  - rscadd: Adds a new shade of carpet, found in Cargo's Exotic Carpet Crate.
+  Tsar-Salat:
+  - admin: Adds sanity checks to administration banning tool to prevent orphan entries
+      (submission with no player identifiers)
+  - bugfix: fixes species naming
+2026-01-18:
+  TsunamiAnt:
+  - code_imp: changed some code in weather-listener to account for off-lavaland weather
+      soundloops
+2026-01-19:
+  Tsar-Salat:
+  - bugfix: fixes nukeop name assignment
+  mrmanlikesbt:
+  - bugfix: Fixed organ smart fridges runtiming when a non-organ is removed from their
+      contents
+  rkz, SishTis, timothymtorres, Melbert, tralezab:
+  - bugfix: cleans up aphasia and slurring speech when lacking a tongue
+  - bugfix: hivemind languages dont force talking emotes
+  - rscadd: some tongues have a native language, these languages are not affected
+      by the tongue's respective speechmods
+  - refactor: converts silence from a mob stat to a status effect
+2026-01-20:
+  PowerfulBacon:
+  - bugfix: Breaching charges can no longer have their pin pulled as if they were
+      a grenade.
+2026-01-21:
+  mrmanlikesbt:
+  - tweak: Destroyed catwalks now drop 2 iron rods instead of just 1
+  mrmanlikesbt, timothymtorres, Ghommie, SmArtKar, DarthSidiousPalpatine, ShizCalev, Jacquerel, MrMelbert:
+  - refactor: Fire stacks have been refactored into a status effect
+  - refactor: Refactored weather immunities into traits
+  - bugfix: Fixed not being able to jump over lava with jump boots
+  - bugfix: Fixed monkeys having the human burning sprite when on fire
+  - rscadd: When being set on fire, objects in your hands will also be set on fire
+  - balance: Stop dropping and rolling no longer instantly clears fire stacks from
+      you, instead it will gradually remove them over time
+  - code_imp: Renamed IgniteMob() to ignite_mob()
+  - code_imp: Renamed ExtinguishMob() to extinguish_mob()
+  - code_imp: get_equipped_items() now uses bitflags for arguments instead of individual
+      bools
+  - code_imp: All instances of singularity_pull() now have their correct arguments
+  - code_imp: Removed the IS_CARVABLE obj bitflag
+  - spellcheck: Added a missing description to lava
+2026-01-22:
+  mrmanlikesbt:
+  - bugfix: Fixed the language menu using the computer theme
+2026-01-23:
+  BeeLover66:
+  - bugfix: the species menu no longer gives every species the "Native Speaker" trait
+  ClownMoff:
+  - rscadd: Changes the cryopod message as an antagonist when you cryo to be more
+      clear
+  PowerfulBacon:
+  - balance: Shields belts now starts from 0 charge when equipped.
+  - bugfix: Fixes boxstation solars using yellow wires var-edited to red.
+  r1ks-iwnl:
+  - bugfix: Fixed particle acceleration rifle's zoom.
+2026-01-24:
+  Rukofamicom:
+  - admin: The destruction of station objects is now properly logged again
+  mrmanlikesbt:
+  - tweak: Much less artifacts spawn in maintenance now
+2026-01-25:
+  PowerfulBacon:
+  - rscadd: Adds a new security pager accessory which informs the sec channel if someone
+      dies. It does not give specifics on who or where the death occurred at.
+  - tweak: Moves security's custom death sound effect out of masks and into the pager.
+  - bugfix: Fixes boxstation north west solar array not having north facing cables
+  mrmanlikesbt:
+  - bugfix: Fixed a runtime when hitting a turf with a burn weapon
+  - bugfix: Fixed StackCrafting using the computer theme
+  - code_imp: The _traits.dm file has been sorted. When adding to it, make sure you
+      add your traits in the correct category.
+  - admin: The Modify Traits VV now uses a TGUI input instead of HTML.
+2026-01-26:
+  Rukofamicom:
+  - tweak: Players now have a greater chance of being mutated when irradiated
+  - tweak: Mutations from radiation are no longer locked to being negative mutations,
+      you have an equal chance at any mutation
+  - tweak: Mutations from radiation have a lower chance of affecting your appearance
+      instead of giving an easily reversible genetic mutation
+  rkz, Melbert, etherware, Ghommie, Lemon, Sealed101:
+  - bugfix: cleans up gibtonite overlays. The overlay will no longer eat clicks when
+      you are trying to defuse it with a mining scanner
+  - bugfix: flick_overlay is an atom proc. flick_overlay is also faster
+  - bugfix: Taking items from your inventory while flying over lava or a chasm will
+      NOT set them on fire or drop them into chasms ANYMORE
+2026-01-27:
+  mrmanlikesbt:
+  - code_imp: code documentation and cleanup for clockcult
+  - code_imp: added trait helpers to add or remove a list of traits to an atom
+  - code_imp: de-hardcodes max_vials in sleepers
+  - bugfix: fixed kindle spell for clockcult
+  - tweak: a lot of clock cult related things use balloon alerts now
+  - tweak: the tinkerer's cache now uses a radial menu instead of the old html popup
+  - tweak: people killed by a vitality rune are now dusted (before they were husked
+      and made soulless)
+  - balance: the clockcult vitality matrix now heals bleeding
+  - bugfix: Fixed silicons not being able to sign into security/medical records
+2026-01-29:
+  mrmanlikesbt:
+  - bugfix: Fixed the stray bullet hallucination
+2026-01-30:
+  PowerfulBacon:
+  - balance: Examine in detail now only shows mostly static information about objects
+      worn by other people, preventing you from accidentally meta-gaming items which
+      are meant to be hidden. You can still inspect armour values of items worn by
+      other people.
+  - rscadd: Adds a system so that when someone inspects the armour values of an item,
+      it shows faked numbers if it is mimicking another item.
+  - bugfix: Fixes value traits not working.
+2026-01-31:
+  mrmanlikesbt, Mothblocks:
+  - refactor: Optimized emissive generation, saving 140ms of init time.
+  - bugfix: Fixed game crashing when alt-clicking a borg

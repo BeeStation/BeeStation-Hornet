@@ -165,6 +165,30 @@ Turf and target are separate in case you want to teleport some distance from a t
 
 	return locate(x,y,target_atom.z)
 
+/**
+ * Get ranged target turf, but with direct targets as opposed to directions
+ *
+ * Starts at atom starting_atom and gets the exact angle between starting_atom and target
+ * Moves from starting_atom with that angle, Range amount of times, until it stops, bound to map size
+ * Arguments:
+ * * starting_atom - Initial Firer / Position
+ * * target - Target to aim towards
+ * * range - Distance of returned target turf from starting_atom
+ * * offset - Angle offset, 180 input would make the returned target turf be in the opposite direction
+ */
+/proc/get_ranged_target_turf_direct(atom/starting_atom, atom/target, range, offset)
+	var/angle = ATAN2(target.x - starting_atom.x, target.y - starting_atom.y)
+	if(offset)
+		angle += offset
+	var/turf/starting_turf = get_turf(starting_atom)
+	for(var/i in 1 to range)
+		var/turf/check = locate(starting_atom.x + cos(angle) * i, starting_atom.y + sin(angle) * i, starting_atom.z)
+		if(!check)
+			break
+		starting_turf = check
+
+	return starting_turf
+
 /// returns turf relative to target_atom offset in dx and dy tiles, bound to map limits
 /proc/get_offset_target_turf(atom/target_atom, dx, dy)
 	var/x = min(world.maxx, max(1, target_atom.x + dx))
@@ -193,7 +217,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/pixel_y_offset = checked_atom.pixel_y + atom_matrix.get_y_shift()
 
 	//Irregular objects
-	var/list/icon_dimensions = get_icon_dimensions(checked_atom.icon)
+	var/list/icon_dimensions = get_icon_dimensions_pure(checked_atom.icon)
 	var/checked_atom_icon_height = icon_dimensions["width"]
 	var/checked_atom_icon_width = icon_dimensions["height"]
 	if(checked_atom_icon_height != world.icon_size || checked_atom_icon_width != world.icon_size)
@@ -336,7 +360,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 /proc/get_safe_random_station_turfs(list/areas_to_pick_from = GLOB.the_station_areas, amount = 1)
 	var/list/picked_turfs = list()
 	var/list/turf_list = list()
-	for(var/area/A as() in areas_to_pick_from)
+	for(var/area/A as anything in areas_to_pick_from)
 		turf_list += get_area_turfs(A)
 	while(turf_list.len && length(picked_turfs) < amount)
 		var/I = rand(1, length(turf_list))

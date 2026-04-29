@@ -5,6 +5,14 @@
 // /obj/item signals
 ///from base of obj/item/equipped(): (/mob/equipper, slot)
 #define COMSIG_ITEM_EQUIPPED "item_equip"
+/// A mob has just equipped an item. Called on [/mob] from base of [/obj/item/equipped()]: (/obj/item/equipped_item, slot)
+#define COMSIG_MOB_EQUIPPED_ITEM "mob_equipped_item"
+/// A mob has just unequipped an item.
+#define COMSIG_MOB_UNEQUIPPED_ITEM "mob_unequipped_item"
+///called on [/obj/item] before unequip from base of [mob/proc/doUnEquip]: (force, atom/newloc, no_move, invdrop, silent)
+#define COMSIG_ITEM_PRE_UNEQUIP "item_pre_unequip"
+	///only the pre unequip can be cancelled
+	#define COMPONENT_ITEM_BLOCK_UNEQUIP (1<<0)
 ///from base of obj/item/on_grind(): ())
 #define COMSIG_ITEM_ON_GRIND "on_grind"
 ///from base of obj/item/on_juice(): ()
@@ -55,6 +63,8 @@
 //not widely used yet, but has lot of potential
 
 #define COMSIG_ITEM_ATTACK_EFFECT "item_effect_attacked"
+/// Called by /obj/item/proc/worn_overlays(list/overlays, mutable_appearance/standing, isinhands, icon_file)
+#define COMSIG_ITEM_GET_WORN_OVERLAYS "item_get_worn_overlays"
 
 //////////////////////////////
 
@@ -66,10 +76,16 @@
 #define COMSIG_TABLET_CHANGE_RINGTONE "comsig_tablet_change_ringtone"
 	#define COMPONENT_STOP_RINGTONE_CHANGE (1<<0)
 
-
 // /obj/item/radio signals
-#define COMSIG_RADIO_NEW_FREQUENCY "radio_new_frequency"		//! called from base of /obj/item/radio/proc/set_frequency(): (list/args)
-#define COMSIG_RADIO_MESSAGE "radio_message"					//! called from radio subtype procs in /obj/item/radio/talk_into(): (mob/living/user, treated_message, channel, list/message_mods)
+
+///called from base of /obj/item/proc/talk_into(): (atom/movable/speaker, message, channel, list/spans, language, list/message_mods)
+#define COMSIG_ITEM_TALK_INTO "item_talk_into"
+///called from base of /obj/item/radio/proc/set_frequency(): (list/args)
+#define COMSIG_RADIO_NEW_FREQUENCY "radio_new_frequency"
+///called from base of /obj/item/radio/talk_into(): (atom/movable/M, message, channel)
+#define COMSIG_RADIO_MESSAGE "radio_new_message"
+///called from base of /obj/item/radio/proc/on_receive_message(): (list/data)
+#define COMSIG_RADIO_RECEIVE_MESSAGE "radio_receive_message"
 
 // /obj/item/pen signals
 #define COMSIG_PEN_ROTATED "pen_rotated"						//! called after rotation in /obj/item/pen/attack_self(): (rotation, mob/living/carbon/user)
@@ -100,6 +116,9 @@
 /// Sent to a beam when any turf the beam covers changes: (list/datum/callback/post_change_callbacks)
 #define COMSIG_BEAM_TURFS_CHANGED "beam_turfs_changed"
 
+/// from base of /obj/item/slimepotion/speed/afterattack(): (obj/target, /obj/src, mob/user)
+#define COMSIG_SPEED_POTION_APPLIED "speed_potion"
+	#define SPEED_POTION_STOP (1<<0)
 // signals for painting canvases, tools and the /datum/component/palette component
 
 ///from base of /item/proc/set_painting_tool_color(): (chosen_color)
@@ -110,3 +129,6 @@
 
 ///from base of /item/canvas/ui_act(), "change_color" action: (chosen_color, color_index)
 #define COMSIG_PAINTING_TOOL_PALETTE_COLOR_CHANGED "painting_tool_palette_color_changed"
+
+/// Called by poison paper when a user applies it (atom/target, mob/living/user)
+#define COMSIG_POISON_PAPER_APPLIED "posion_paper_applied"

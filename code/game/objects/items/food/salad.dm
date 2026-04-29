@@ -1,6 +1,7 @@
 //this category is very little but I think that it has great potential to grow
 ////////////////////////////////////////////SALAD////////////////////////////////////////////
 /obj/item/food/salad
+	abstract_type = /obj/item/food/salad
 	icon = 'icons/obj/food/soupsalad.dmi'
 	trash_type = /obj/item/reagent_containers/cup/bowl
 	bite_consumption = 3
@@ -164,7 +165,7 @@
 	reagent_flags = OPENCONTAINER
 	custom_materials = list(/datum/material/glass = 500)
 	w_class = WEIGHT_CLASS_NORMAL
-	custom_price = PAYCHECK_EASY * 0.6
+	custom_price = 5 /// Will use this form upon economy rebalance! PAYCHECK_EASY * 0.6
 
 /obj/item/reagent_containers/cup/bowl/Initialize(mapload)
 	. = ..()

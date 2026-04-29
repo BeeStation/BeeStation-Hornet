@@ -1,4 +1,5 @@
 /obj/item/food/meat
+	abstract_type = /obj/item/food/meat
 	custom_materials = list(/datum/material/meat = MINERAL_MATERIAL_AMOUNT * 4)
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/food/meat.dmi'
@@ -19,7 +20,7 @@
 	tastes = list("meat" = 1)
 	foodtypes = MEAT | RAW
 	///Legacy code, handles the coloring of the overlay of the cutlets made from this.
-	var/slab_color = "#FF0000"
+	var/slab_color = COLOR_RED
 
 /obj/item/food/meat/slab/Initialize(mapload)
 	. = ..()
@@ -49,6 +50,9 @@
 
 /obj/item/food/meat/slab/human/make_dryable()
 	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/lean)
+
+/obj/item/food/meat/slab/human/mutant
+	abstract_type = /obj/item/food/meat/slab/human/mutant
 
 /obj/item/food/meat/slab/human/mutant/slime
 	icon_state = "slimemeat"

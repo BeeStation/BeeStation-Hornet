@@ -1,4 +1,5 @@
 /datum/holiday
+	abstract_type = /datum/holiday
 	var/name = "Bugsgiving"
 
 	var/begin_day = 1
@@ -79,7 +80,6 @@
 	name = "Groundhog Day"
 	begin_day = 2
 	begin_month = FEBRUARY
-	drone_hat = /obj/item/clothing/head/helmet/space/chronos
 
 /datum/holiday/groundhog/getStationPrefix()
 	return pick("Deja Vu") //I have been to this place before
@@ -181,9 +181,10 @@
 	begin_month = APRIL
 
 /datum/holiday/april_fools/celebrate()
-	SSjob.set_overflow_role(JOB_NAME_CLOWN)
+	SSjob.set_overflow_role(/datum/job/clown)
 	SSticker.login_music = 'sound/ambience/clown.ogg'
-	for(var/mob/dead/new_player/P in GLOB.mob_list)
+	for(var/i in GLOB.auth_new_player_list)
+		var/mob/dead/new_player/authenticated/P = i
 		if(P.client)
 			P.client.playtitlemusic()
 
@@ -530,16 +531,18 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 /datum/holiday/xmas/celebrate()
 	SSticker.OnRoundstart(CALLBACK(src, PROC_REF(roundstart_celebrate)))
 	GLOB.maintenance_loot += list(
-		/obj/item/toy/xmas_cracker = 3,
-		/obj/item/clothing/head/costume/santa = 1,
-		/obj/item/a_gift/anything = 1
+		list(
+			/obj/item/toy/xmas_cracker = 3,
+			/obj/item/clothing/head/costume/santa = 1,
+			/obj/item/a_gift/anything = 1
+		) = MAINT_HOLIDAY_WEIGHT,
 	)
 
 /datum/holiday/xmas/proc/roundstart_celebrate()
 	for(var/obj/machinery/computer/security/telescreen/entertainment/Monitor in GLOB.machines)
 		Monitor.icon_state_on = "entertainment_xmas"
 
-	for(var/mob/living/basic/pet/dog/corgi/Ian/Ian in GLOB.mob_living_list)
+	for(var/mob/living/basic/pet/dog/corgi/ian/Ian in GLOB.mob_living_list)
 		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat(Ian))
 
 
@@ -602,8 +605,11 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 
 /datum/holiday/easter/celebrate()
 	GLOB.maintenance_loot += list(
-		/obj/item/surprise_egg = 15,
-		/obj/item/storage/basket/easter = 15)
+		list(
+			/obj/item/surprise_egg = 15,
+			/obj/item/storage/basket/easter = 15
+		) = MAINT_HOLIDAY_WEIGHT,
+	)
 
 /datum/holiday/easter/greet()
 	return "Greetings! Have a Happy Easter and keep an eye out for Easter Bunnies!"

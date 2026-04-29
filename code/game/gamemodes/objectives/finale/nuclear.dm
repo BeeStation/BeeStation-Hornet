@@ -4,6 +4,6 @@
 	murderbone_flag = TRUE
 
 /datum/objective/nuclear/check_completion()
-	if(SSticker && SSticker.mode && SSticker.mode.station_was_nuked)
+	if(GLOB.station_was_nuked)
 		return TRUE
 	return ..()

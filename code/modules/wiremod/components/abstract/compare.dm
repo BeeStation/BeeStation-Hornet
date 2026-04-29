@@ -5,6 +5,7 @@
  */
 /obj/item/circuit_component/compare
 	display_name = "Compare"
+	category = "Abstract"
 
 	/// The amount of input ports to have
 	var/input_port_amount = 4

@@ -2,7 +2,6 @@
 // #define QUICKSTART // uncomment this to start the round immidiately when ready and automatically spawn players with debug outfit
 
 // uncomment this for a map you need to use
-// #define FORCE_MAP "corgstation"
 // #define FORCE_MAP "boxstation"
 // #define FORCE_MAP "cardinalstation"
 // #define FORCE_MAP "metastation"
@@ -20,7 +19,6 @@
 	#ifdef ALL_MAPS
 		#include "map_files\Mining\Lavaland.dmm"
 		#include "map_files\debug\runtimestation.dmm"
-		#include "map_files\CorgStation\CorgStation.dmm"
 		#include "map_files\Deltastation\DeltaStation2.dmm"
 		#include "map_files\MetaStation\MetaStation.dmm"
 		#include "map_files\BoxStation\BoxStation.dmm"
@@ -29,9 +27,8 @@
 		#include "map_files\RadStation\RadStation.dmm"
 		#include "map_files\EchoStation\EchoStation.dmm"
 		#include "map_files\CardinalStation\CardinalStation.dmm"
-
-		#ifdef CIBUILDING
-			#include "templates.dm"
-		#endif
+	#endif
+	#ifdef ALL_TEMPLATES
+		#include "templates.dm"
 	#endif
 #endif

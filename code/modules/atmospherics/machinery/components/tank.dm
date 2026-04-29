@@ -186,6 +186,9 @@
 /obj/machinery/atmospherics/components/tank/carbon_dioxide
 	gas_type = /datum/gas/carbon_dioxide
 
+/obj/machinery/atmospherics/components/tank/nitrous_oxide
+	gas_type = /datum/gas/nitrous_oxide
+
 /obj/machinery/atmospherics/components/tank/plasma
 	icon_state = "orange"
 	gas_type = /datum/gas/plasma

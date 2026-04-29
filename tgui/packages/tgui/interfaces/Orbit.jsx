@@ -1,14 +1,16 @@
 import { createSearch } from 'common/string';
-import { resolveAsset } from '../assets';
-import { Box, Button, Input, Icon, Section, Flex } from '../components';
-import { Window } from '../layouts';
-import { useBackend, useLocalState } from '../backend';
 import { CollapsibleSection } from 'tgui/components/CollapsibleSection';
+
+import { resolveAsset } from '../assets';
+import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Flex, Icon, Input, Section } from '../components';
+import { Window } from '../layouts';
 
 const PATTERN_DESCRIPTOR = / \[(?:ghost|dead)\]$/;
 const PATTERN_NUMBER = / \(([0-9]+)\)$/;
 
-const searchFor = (searchText) => createSearch(searchText, (thing) => thing.name);
+const searchFor = (searchText) =>
+  createSearch(searchText, (thing) => thing.name);
 
 const compareString = (a, b) => (a < b ? -1 : a > b);
 
@@ -21,7 +23,11 @@ const compareNumberedText = (a, b) => {
   const aNumberMatch = aName.match(PATTERN_NUMBER);
   const bNumberMatch = bName.match(PATTERN_NUMBER);
 
-  if (aNumberMatch && bNumberMatch && aName.replace(PATTERN_NUMBER, '') === bName.replace(PATTERN_NUMBER, '')) {
+  if (
+    aNumberMatch &&
+    bNumberMatch &&
+    aName.replace(PATTERN_NUMBER, '') === bName.replace(PATTERN_NUMBER, '')
+  ) {
     const aNumber = parseInt(aNumberMatch[1], 10);
     const bNumber = parseInt(bNumberMatch[1], 10);
 
@@ -42,7 +48,8 @@ const OrbitSection = (props) => {
         sectionKey={title}
         title={`${title} - (${source.length})`}
         forceOpen={things.length && searchText}
-        showButton={!searchText}>
+        showButton={!searchText}
+      >
         {things.map((thing) =>
           basic ? (
             <Button
@@ -56,8 +63,14 @@ const OrbitSection = (props) => {
               }
             />
           ) : (
-            <OrbitedButton key={thing.name} color={color} thing={thing} job={thing.role_icon} antag={thing.antag_icon} />
-          )
+            <OrbitedButton
+              key={thing.name}
+              color={color}
+              thing={thing}
+              job={thing.role_icon}
+              antag={thing.antag_icon}
+            />
+          ),
         )}
       </CollapsibleSection>
     )
@@ -76,7 +89,8 @@ const OrbitedButton = (props) => {
         act('orbit', {
           ref: thing.ref,
         })
-      }>
+      }
+    >
       {job && (
         <Box
           inline
@@ -99,7 +113,8 @@ const OrbitedButton = (props) => {
       {thing.orbiters && (
         <Box inline ml={1}>
           {'('}
-          {thing.orbiters} <Box as="img" src={resolveAsset('ghost.png')} opacity={0.7} />
+          {thing.orbiters}{' '}
+          <Box as="img" src={resolveAsset('ghost.png')} opacity={0.7} />
           {')'}
         </Box>
       )}
@@ -127,8 +142,17 @@ export const Orbit = (props) => {
   });
 
   const orbitMostRelevant = (searchText) => {
-    for (const source of [sortedAntagonists.map(([_, antags]) => antags), alive, ghosts, dead, npcs, misc]) {
-      const member = source.filter(searchFor(searchText)).sort(compareNumberedText)[0];
+    for (const source of [
+      sortedAntagonists.map(([_, antags]) => antags),
+      alive,
+      ghosts,
+      dead,
+      npcs,
+      misc,
+    ]) {
+      const member = source
+        .filter(searchFor(searchText))
+        .sort(compareNumberedText)[0];
       if (member !== undefined) {
         act('orbit', { ref: member.ref });
         break;
@@ -156,22 +180,57 @@ export const Orbit = (props) => {
           </Flex>
         </Section>
         {antagonists.length > 0 && (
-          <CollapsibleSection title="Ghost-Visible Antagonists" sectionKey="Ghost-Visible Antagonists" forceOpen={searchText}>
+          <CollapsibleSection
+            title="Ghost-Visible Antagonists"
+            sectionKey="Ghost-Visible Antagonists"
+            forceOpen={searchText}
+          >
             {sortedAntagonists.map(([name, antags]) => (
-              <OrbitSection key={name} title={name} source={antags} searchText={searchText} color="bad" />
+              <OrbitSection
+                key={name}
+                title={name}
+                source={antags}
+                searchText={searchText}
+                color="bad"
+              />
             ))}
           </CollapsibleSection>
         )}
 
-        <OrbitSection title="Alive" source={alive} searchText={searchText} color="good" />
+        <OrbitSection
+          title="Alive"
+          source={alive}
+          searchText={searchText}
+          color="good"
+        />
 
-        <OrbitSection title="Ghosts" source={ghosts} searchText={searchText} basic />
+        <OrbitSection
+          title="Ghosts"
+          source={ghosts}
+          searchText={searchText}
+          basic
+        />
 
-        <OrbitSection title="Dead" source={dead} searchText={searchText} basic />
+        <OrbitSection
+          title="Dead"
+          source={dead}
+          searchText={searchText}
+          basic
+        />
 
-        <OrbitSection title="NPCs" source={npcs} searchText={searchText} basic />
+        <OrbitSection
+          title="NPCs"
+          source={npcs}
+          searchText={searchText}
+          basic
+        />
 
-        <OrbitSection title="Misc" source={misc} searchText={searchText} basic />
+        <OrbitSection
+          title="Misc"
+          source={misc}
+          searchText={searchText}
+          basic
+        />
       </Window.Content>
     </Window>
   );
