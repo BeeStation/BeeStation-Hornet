@@ -1617,9 +1617,8 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		unbuckle_all_mobs(force = TRUE)
 	refresh_gravity()
 	. = ..()
-	if(.)
-		if(client)
-			reset_perspective()
+	if(. && client)
+		reset_perspective()
 
 
 /mob/living/set_stat(new_stat)

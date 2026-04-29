@@ -911,11 +911,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/reset_perspective(atom/new_eye)
 	if(client)
 		if(ismob(client.eye) && (client.eye != src))
-			var/mob/target = client.eye
-			observetarget = null
-			if(target.observers)
-				target.observers -= src
-				UNSETEMPTY(target.observers)
+			cleanup_observe()
 	if(..())
 		if(hud_used)
 			client.screen = list()
@@ -926,6 +922,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 	reset_perspective(null)
 	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
+
+/mob/dead/observer/proc/cleanup_observe()
+	var/mob/target = observetarget
+	observetarget = null
+	client?.perspective = initial(client.perspective)
+	sight = initial(sight)
+	if(target)
+		LAZYREMOVE(target.observers, src)
 
 /mob/dead/observer/verb/observe()
 	set name = "Observe"
@@ -939,10 +943,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/list/possible_destinations = SSpoints_of_interest.get_mob_pois()
 	var/target = null
 
-	target = input("Please, select a player!", "Jump to Mob", null, null) as null|anything in possible_destinations
-
-	if (!target || !isobserver(usr))
+	target = tgui_input_list(usr, "Please, select a player!", "Jump to Mob", possible_destinations)
+	if(isnull(target))
 		return
+	if (!isobserver(usr))
+		return
+
+	reset_perspective(null)
 
 	var/mob/chosen_target = possible_destinations[target]
 
@@ -960,14 +967,21 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		stack_trace("/mob/dead/new_player: \[[mob_eye]\] is being observed by [key_name(src)]. This should never happen and has been blocked.")
 		message_admins("[ADMIN_LOOKUPFLW(src)] attempted to observe someone in the lobby: [ADMIN_LOOKUPFLW(mob_eye)]. This should not be possible and has been blocked.")
 		return
+
+	if(!isnull(observetarget))
+		stack_trace("do_observe called on an observer ([src]) who was already observing something! (observing: [observetarget], new target: [mob_eye])")
+		message_admins("[ADMIN_LOOKUPFLW(src)] attempted to observe someone while already observing someone, \
+			this is a bug (and a past exploit) and should be investigated.")
+		return
+
 	//Istype so we filter out points of interest that are not mobs
 	if(client && mob_eye && istype(mob_eye))
 		client.set_eye(mob_eye)
+		client.perspective = EYE_PERSPECTIVE
 		add_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
 		if(mob_eye.hud_used)
 			client.screen = list()
-			LAZYINITLIST(mob_eye.observers)
-			mob_eye.observers |= src
+			LAZYOR(mob_eye.observers, src)
 			mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
 			observetarget = mob_eye
 

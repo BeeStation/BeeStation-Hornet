@@ -40,13 +40,13 @@
 	if(observers?.len)
 		for(var/mob/dead/observe as anything in observers)
 			observe.reset_perspective(null)
+
 	qdel(hud_used)
-	for(var/cc in client_colours)
-		qdel(cc)
-	client_colours = null
-	ghostize()
+	QDEL_LIST(client_colours)
+	ghostize(can_reenter_corpse = FALSE)
 	if(mind?.current == src) //Let's just be safe yeah? This will occasionally be cleared, but not always. Can't do it with ghostize without changing behavior
 		mind.set_current(null)
+
 	return ..()
 
 /mob/New()
@@ -537,11 +537,6 @@
  */
 /mob/proc/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(TRUE)
-	/*
-	*In the future, this signal may need to be moved to the end of the proc, after the eye has been given a chance to fully updated.
-	*No issues atm, but if one occurs, try that solution first
-	*/
-	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 	if(!client)
 		return
 
@@ -573,6 +568,8 @@
 		else
 			client.perspective = EYE_PERSPECTIVE
 			client.set_eye(loc)
+	/// Signal sent after the eye has been successfully updated, with the client existing.
+	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 	return TRUE
 
 /**

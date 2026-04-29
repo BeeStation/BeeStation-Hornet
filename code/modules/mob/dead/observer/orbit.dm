@@ -31,7 +31,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 			if((ismob(poi) && !SSpoints_of_interest.is_valid_poi(poi, CALLBACK(src, PROC_REF(validate_mob_poi)))) \
 				|| !SSpoints_of_interest.is_valid_poi(poi)
 			)
-				to_chat(usr, "<span class='notice'>That point of interest is no longer valid.</span>")
+				to_chat(usr, span_notice("That point of interest is no longer valid."))
 				return TRUE
 
 			var/mob/dead/observer/user = usr
