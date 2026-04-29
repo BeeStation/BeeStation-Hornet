@@ -31271,7 +31271,7 @@
 /turf/open/floor/plating,
 /area/station/ai_monitored/turret_protected/ai)
 "hsM" = (
-/obj/structure/closet/secure_closet/research_director,
+/obj/structure/closet/secure_closet/RD,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /obj/effect/turf_decal/tile/white{
 	dir = 4
@@ -45416,7 +45416,7 @@
 /area/station/tcommsat/server)
 "kGa" = (
 /obj/structure/closet/secure_closet/brig_physician,
-/obj/item/clothing/under/rank/medical/scrubs/purple{
+/obj/item/clothing/under/rank/medical/doctor/purple{
 	pixel_y = -4
 	},
 /obj/item/clothing/suit/jacket/straight_jacket,
