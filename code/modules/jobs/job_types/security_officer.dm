@@ -172,8 +172,9 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
 	box = /obj/item/storage/box/survival/security
 
+	suit_store = /obj/item/gun/ballistic/automatic/pistol/security
+
 	backpack_contents = list(
-		/obj/item/gun/ballistic/automatic/pistol/security = 1,
 		/obj/item/ammo_casing/taser = 1,
 		)
 
