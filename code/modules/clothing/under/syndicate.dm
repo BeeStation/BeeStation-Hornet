@@ -117,7 +117,7 @@
 	worn_icon = 'icons/mob/clothing/under/medical.dmi'
 	icon_state = "scrubswine"
 	can_adjust = FALSE
-	supports_variations = NONE
+	supports_variations_flags = NONE
 	armor_type = /datum/armor/clothing_under/syndicate_scrubs
 
 /datum/armor/clothing_under/syndicate_scrubs

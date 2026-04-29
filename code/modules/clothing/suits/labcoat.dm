@@ -44,16 +44,22 @@
 	icon_state = "labcoat_cmo"
 	inhand_icon_state = null
 
+/obj/item/clothing/suit/toggle/labcoat/cmo/Initialize(mapload)
+	. = ..()
+	allowed += list(
+		/obj/item/melee/baton/telescopic,
+	)
+
 /obj/item/clothing/suit/toggle/labcoat/paramedic
 	name = "paramedic's jacket"
 	desc = "A dark blue jacket for paramedics with reflective stripes."
 	icon_state = "labcoat_paramedic"
-	item_state = null
+	inhand_icon_state = null
 
 /obj/item/clothing/suit/toggle/labcoat/brig_physician
 	name = "security medic's labcoat"
 	icon_state = "labcoat_sec"
-	item_state = null
+	inhand_icon_state = null
 	armor_type = /datum/armor/labcoat_brig_physician
 
 /datum/armor/labcoat_brig_physician
@@ -121,9 +127,22 @@
 	greyscale_config = /datum/greyscale_config/labcoat
 	greyscale_config_worn = /datum/greyscale_config/labcoat/worn
 	greyscale_colors = "#EEEEEE#88242D#88242D#39393F"
-	
+
 /obj/item/clothing/suit/toggle/labcoat/research_director
 	name = "research director's labcoat"
 	desc = "Popped collar, ancient science fair medal, worn out buttons that barely keep the coat closed? Oh yeah, it's research time. Has expensive plasma-imbued fabric, making it resistant to spills."
 	icon_state = "labcoat_rd"
-	inhand_icon_state = "labcoat_tox"
+	armor_type = /datum/armor/jacket_research_director
+	body_parts_covered = CHEST|GROIN|ARMS
+
+/datum/armor/jacket_research_director
+	bio = 75
+	fire = 75
+	acid = 75
+
+/obj/item/clothing/suit/toggle/labcoat/research_director/Initialize(mapload)
+	. = ..()
+	allowed += list(
+		/obj/item/storage/bag,
+		/obj/item/melee/baton/telescopic,
+	)
