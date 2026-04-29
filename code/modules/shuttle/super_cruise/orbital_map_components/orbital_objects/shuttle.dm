@@ -86,13 +86,20 @@
 	else
 		//If our docking target was deleted, null it to prevent docking interface etc.
 		docking_target = null
-	//I hate that I have to do this, but people keep flying them away.
-	if(position.x > 20000 || position.x < -20000 || position.y > 20000 || position.y < -20000)
+
+	// Anti-runaway: if the shuttle has ended up outside the playable orbital map, drag it back somewhere sane.
+	// We recall to a point near the station so shuttles don't get warped into the star.
+	if(position.x > ORBITAL_RUNAWAY_THRESHOLD || position.x < -ORBITAL_RUNAWAY_THRESHOLD \
+		|| position.y > ORBITAL_RUNAWAY_THRESHOLD || position.y < -ORBITAL_RUNAWAY_THRESHOLD)
 		priority_announce("Bluespace reality fracture detected, source: [name].")
-		MOVE_ORBITAL_BODY(src, rand(-2000, 2000), rand(-2000, 2000))
+		var/datum/orbital_object/recall_anchor = SSorbits.station_instance
+		var/anchor_x = recall_anchor ? recall_anchor.position.x : 0
+		var/anchor_y = recall_anchor ? recall_anchor.position.y : 0
+		MOVE_ORBITAL_BODY(src, anchor_x + rand(-2000, 2000), anchor_y + rand(-2000, 2000))
 		velocity.x = 0
 		velocity.y = 0
 		thrust = 0
+
 	//AUTOPILOT
 	handle_autopilot()
 	//Do thrust
