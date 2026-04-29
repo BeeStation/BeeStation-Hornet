@@ -126,11 +126,3 @@ export const examine_messages: FeatureToggle = {
   description: "Receive 'player examined x' examine messages in chat.",
   component: CheckboxInput,
 };
-
-export const whole_word_examine_links: FeatureToggle = {
-  name: 'Whole Word Examine Links',
-  category: 'CHAT',
-  subcategory: 'IC',
-  description: 'Use whole word examine links instead of an appended [?].',
-  component: CheckboxInput,
-};

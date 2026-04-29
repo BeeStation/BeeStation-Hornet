@@ -998,7 +998,10 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 				SSassets.transport.send_assets(thing2, name)
 			if(sourceonly)
 				return SSassets.transport.get_asset_url(name)
-			return "<img class='[extra_classes] icon icon-misc' src='[SSassets.transport.get_asset_url(name)]'>"
+			var/misc_url = SSassets.transport.get_asset_url(name)
+			if(!misc_url)
+				return null
+			return "<img class='[extra_classes ? "[extra_classes] " : ""]icon icon-misc' src='[misc_url]'>"
 
 		//its either an atom, image, or mutable_appearance, we want its icon var
 		icon2collapse = thing.icon
@@ -1028,7 +1031,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 	var/list/name_and_ref = generate_and_hash_rsc_file(icon2collapse, icon_path)//pretend that tuples exist
 
-	var/rsc_ref = name_and_ref[1] //weird object thats not even readable to the debugger, represents a reference to the icons rsc entry
+	var/rsc_ref = name_and_ref[1] //weird object that's not even readable to the debugger, represents a reference to the icons rsc entry
 	var/file_hash = name_and_ref[2]
 	key = "[name_and_ref[3]].png"
 
@@ -1038,7 +1041,10 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		SSassets.transport.send_assets(client_target, key)
 	if(sourceonly)
 		return SSassets.transport.get_asset_url(key)
-	return "<img class='[extra_classes] icon icon-[icon_state]' src='[SSassets.transport.get_asset_url(key)]'>"
+	var/icon_url = SSassets.transport.get_asset_url(key)
+	if(!icon_url)
+		return null
+	return "<img class='[extra_classes ? "[extra_classes] " : ""]icon icon-[icon_state]' src='[icon_url]'>"
 
 /proc/icon2base64html(thing)
 	if (!thing)
