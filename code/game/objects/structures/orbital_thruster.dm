@@ -14,52 +14,63 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 
-	/// Current thrust level being produced (-20 to +20)
+	/// Current thrust level being produced (-20 to +20). Steps one level/tick toward `requested_thrust`.
 	var/thrust_level = 0
-	/// Requested thrust level from control computer (-20 to +20)
+	/// Requested thrust level from control computer (-20 to +20).
 	var/requested_thrust = 0
-	/// Whether we have sufficient fuel
+	/// Whether the buffer currently holds enough fuel to keep firing.
 	var/has_fuel = FALSE
 
-	/// How many moles of propellant needed per thrust level per tick
+	/// Idle propellant burn (moles/tick) at thrust 0.
+	var/idle_propellant = 0.5
+	/// Additional propellant burn (moles/tick) per unit of |thrust_level|.
 	var/propellant_per_thrust = 0.025
-	/// Target buffer amount for propellant
+	/// Target moles of fuel to keep in the internal buffer.
 	var/buffer_target = 10
-	/// Internal fuel buffer separate from the pipe connection because I cannot fucking get the pipe to stop equalizing
+	/// Volume (L) of the internal buffer. Independent of the pipe network volume.
+	var/buffer_volume = 200
+	/// Buffer fraction below which `has_fuel` flips false (multiplied by `buffer_target`).
+	var/low_fuel_fraction = 0.5
+	/// Internal fuel buffer, separate from the pipe-network gas mixture so that
+	/// fuel we've "claimed" can't be siphoned back out by pipenet equalization.
 	var/datum/gas_mixture/fuel_buffer
 
-	/// Internal radio for broadcasting fault warnings on the engineering channel
+	/// Internal radio for broadcasting fault warnings on the engineering channel.
 	var/obj/item/radio/radio
-	/// The encryption key our internal radio uses
+	/// Encryption key our internal radio uses.
 	var/radio_key = /obj/item/encryptionkey/headset_eng
 
-	/// Whether the thruster is in a fuel fault state (no fuel for over 1 minute)
+	/// Whether the thruster is currently in a fuel-fault state.
 	var/fuel_fault = FALSE
-	/// World time when fuel was last detected in the buffer
+	/// World time when fuel was last detected in the buffer.
 	var/last_fuel_time = 0
-	/// How long without fuel before entering fault state (1 minute)
+	/// How long without fuel before entering fault state.
 	var/fuel_fault_threshold = 1 MINUTES
-	/// Cooldown for periodic fault radio reports
+	/// How often, while in fault, to re-broadcast the warning on radio.
+	var/fuel_fault_report_interval = 10 MINUTES
+	/// Cooldown for periodic fault radio reports.
 	COOLDOWN_DECLARE(fuel_fault_report_cooldown)
 
 /obj/machinery/atmospherics/components/unary/orbital_thruster/Initialize(mapload)
 	. = ..()
-	// Create our isolated internal fuel buffer
+	// Create our isolated internal fuel buffer.
 	fuel_buffer = new
-	fuel_buffer.volume = 200 // Same as default airs volume
+	fuel_buffer.volume = buffer_volume
 	fuel_buffer.temperature = T20C
 
-	// If they MAKE us do this, at least make the pipe very small
-	var/datum/gas_mixture/pipe_connection = airs[1]
-	pipe_connection.volume = 0.1 // Tiny volume for connection only
+	// Shrink our pipe-side gas mixture to a token volume. The pipenet equalizes
+	// across all connected mixtures by volume, so anything we let collect on the
+	// machine side gets sucked back into the network.
+	var/datum/gas_mixture/node_air = airs[1]
+	node_air.volume = 0.1
 
-	// Set up our internal radio for engineering channel warnings
+	// Set up our internal radio for engineering channel warnings.
 	radio = new(src)
 	radio.keyslot = new radio_key
 	radio.set_listening(FALSE)
 	radio.recalculateChannels()
 
-	// Assume fuel was present at initialization (grace period)
+	// Assume fuel is present at spawn so we don't immediately start a fault timer.
 	last_fuel_time = world.time
 	has_fuel = TRUE
 
