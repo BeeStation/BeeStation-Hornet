@@ -189,9 +189,6 @@
 		EQUIP_OUTFIT_ITEM(back, ITEM_SLOT_BACK)
 	if(id)
 		EQUIP_OUTFIT_ITEM(id, ITEM_SLOT_ID)
-	if(suit_store)
-		EQUIP_OUTFIT_ITEM(suit_store, ITEM_SLOT_SUITSTORE)
-
 	if(!visuals_only && user.wear_id)
 		var/obj/item/card/id/id_card = user.wear_id
 		if(!istype(id_card)) //If an ID wasn't found in their ID slot, it's probably something holding their ID like a wallet or PDA
@@ -199,6 +196,9 @@
 
 		if(istype(id_card)) //Make sure that we actually found an ID to modify, otherwise this runtimes and cancels equipping the outfit
 			id_card.registered_age = user.age
+
+	if(suit_store)
+		EQUIP_OUTFIT_ITEM(suit_store, ITEM_SLOT_SUITSTORE)
 
 	if(accessory)
 		var/obj/item/clothing/under/U = user.w_uniform
