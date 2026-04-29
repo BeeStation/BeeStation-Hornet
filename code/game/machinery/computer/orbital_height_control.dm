@@ -147,10 +147,11 @@
 
 // Roughly tell them what they're gonna get out of a can of fuel:
 /obj/item/sticker/sticky_note/orbital_fuel_tutorial
-	custom_text = "Quick heads up on this:\n\n\
-	- One canister has 3750ish moles of fuel.\n\
-	- Gonna last approximately 5 minutes of sustained thrust at full power.\n\
-	- If you set it to cruise at 110km, it's gonna last you like 15 minutes.\n\
-	- Can last a whole lot longer if you go higher, a whole lot shorter if you go lower.\n\
-	Just remember, 5 min of full thrust, 15 min at 110km, and longer if you go higher. That should serve you well. There's a spare canister in engineering storage, they didn't know I put it in your budget, so be quiet about it yeah?\n\n\
+	custom_text = "Heads up on the fuel system: \n\n\
+	**How it works:** Don't leave canisters by the port. Empty them into the station fuel tank (atmos, near this console). The console reads a sensor INSIDE that tank, and the thrusters sip from its pipes. The tank is 3 tiles, so the reading is about a THIRD of what you poured in, that's normal.\n\n\
+	**Fuel use:** One canister = ~5 minutes at FULL burn on the standard 3-thruster setup. But thrust level matters a LOT. On altitude hold around **110 km** a single can easily lasts **15+ minutes**. Higher up (120+ km) it lasts even longer. \n\n\
+	Don't sit on full throttle unless you're climbing. Hint: Altitude hold is stupid and sits on full throttle. A skilled helmsman can fine tune thrust to decay, and run insanely lean.\n\n\
+	**Targets on the console:** \n\
+	- Cruising: keep it above **1000 mol**. Just in case something happens. On altitude hold at 110km, the second the reading hits 1000, you have about 10 minutes before you lose thrusters.\n\
+	- Mining or planning a big climb: Get above **4000 mol** first. Climbing out of mining can burn 15 minutes of full thrust, and running dry mid-ascent ends badly.\n\n\n\
 	- Engineer J."
