@@ -7931,7 +7931,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/medical)
 "cRh" = (
-/obj/item/clothing/under/rank/medical/doctor/green,
+/obj/item/clothing/under/rank/medical/scrubs/green,
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/glass{
 	dir = 1
