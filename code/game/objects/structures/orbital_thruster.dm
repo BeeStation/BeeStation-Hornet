@@ -89,135 +89,104 @@
 	. = ..()
 	generate_unique_name()
 
-/// Generate a unique thruster name based on x-coordinate. Appends -A, -B, etc. if multiple thrusters share the same x.
+/// Generate a unique thruster name based on x-coordinate.
+/// The first thruster on a column is "OT-<x>"; each subsequent thruster on the
+/// same column gets a letter suffix starting at A (so the second is "OT-<x>-A",
+/// the third "OT-<x>-B", and so on, rolling over to AA, AB, ... past Z).
 /obj/machinery/atmospherics/components/unary/orbital_thruster/proc/generate_unique_name()
+	// Prevent the atmospherics base type from clobbering this name in update_name().
+	override_naming = TRUE
+
 	var/base_name = "OT-[x]"
-	// Check for other thrusters at the same x-coordinate
-	var/list/same_x_thrusters = list()
+
+	// Count siblings already on this column.
+	var/sibling_count = 0
 	for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/other in SSorbital_altitude.orbital_thrusters)
 		if(other == src)
 			continue
 		if(other.x == x)
-			same_x_thrusters += other
-	if(length(same_x_thrusters))
-		// There are other thrusters at this x, assign suffixes
-		// First, rename existing ones if they haven't been suffixed yet
-		var/suffix_index = 1
-		for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/other in same_x_thrusters)
-			// Only rename if they still have the unsuffixed base name
-			if(other.name == base_name)
-				var/suffix_letter = ascii2text(64 + suffix_index) // A, B, C...
-				other.name = "[base_name]-[suffix_letter]"
-				suffix_index++
-			else
-				// Already suffixed, find the highest suffix index
-				suffix_index = max(suffix_index, length(same_x_thrusters) + 1)
-		// Now assign our own suffix
-		var/our_suffix = ascii2text(64 + length(same_x_thrusters) + 1)
-		name = "[base_name]-[our_suffix]"
-	else
+			sibling_count++
+
+	if(!sibling_count)
 		name = base_name
-	// Prevent the atmospherics base type from overwriting our name via update_name()
-	override_naming = TRUE
+		return
+
+	name = "[base_name]-[suffix_for_index(sibling_count)]"
+
+/// Convert a 1-based index into a spreadsheet-style letter suffix (1 -> A, 26 -> Z, 27 -> AA, ...).
+/obj/machinery/atmospherics/components/unary/orbital_thruster/proc/suffix_for_index(index)
+	var/result = ""
+	while(index > 0)
+		var/remainder = ((index - 1) % 26)
+		result = "[ascii2text(65 + remainder)][result]"
+		index = round((index - 1) / 26)
+	return result
 
 /obj/machinery/atmospherics/components/unary/orbital_thruster/process()
-	// Gradually step thrust_level toward requested_thrust (one level per tick)
-	// But only if we have fuel
+	// Step thrust_level one unit per tick toward requested_thrust.
 	if(!has_fuel)
-		// No fuel, ramp down immediately to zero
 		thrust_level = 0
 	else if(thrust_level < requested_thrust)
 		thrust_level++
 	else if(thrust_level > requested_thrust)
 		thrust_level--
 
-	// Track fuel fault state
 	update_fuel_fault()
 
-/// Update fuel fault state. Enters fault if no fuel for over 1 minute. Reports on engineering radio every 10 minutes.
+/// Update fuel fault state. Enters fault if no fuel for `fuel_fault_threshold`. Re-broadcasts every `fuel_fault_report_interval`.
 /obj/machinery/atmospherics/components/unary/orbital_thruster/proc/update_fuel_fault()
 	if(has_fuel)
 		last_fuel_time = world.time
 		if(fuel_fault)
 			fuel_fault = FALSE
-			// Notify engineering that the fault has cleared
 			radio.talk_into(src, "Fuel supply restored. Fault condition cleared.", RADIO_CHANNEL_ENGINEERING)
 		return
 
-	// No fuel, check if we've exceeded the fault threshold
+	// Out of fuel: enter fault once we've been dry past the threshold.
 	if(!fuel_fault && (world.time - last_fuel_time >= fuel_fault_threshold))
 		fuel_fault = TRUE
-		// Immediate warning when first entering fault state
-		radio.talk_into(src, "WARNING: No fuel supply detected for over 1 minute. Entering fault state. Restore fuel supply to clear.", RADIO_CHANNEL_ENGINEERING)
-		COOLDOWN_START(src, fuel_fault_report_cooldown, 10 MINUTES)
+		var/threshold_minutes = round(fuel_fault_threshold / (1 MINUTES), 0.1)
+		radio.talk_into(src, "WARNING: No fuel supply detected for over [threshold_minutes] minute(s). Entering fault state. Restore fuel supply to clear.", RADIO_CHANNEL_ENGINEERING)
+		COOLDOWN_START(src, fuel_fault_report_cooldown, fuel_fault_report_interval)
+		return
 
-	// Periodic fault reports every 10 minutes
+	// Periodic fault reminders.
 	if(fuel_fault && COOLDOWN_FINISHED(src, fuel_fault_report_cooldown))
 		var/time_without_fuel = round((world.time - last_fuel_time) / (1 MINUTES), 0.1)
 		radio.talk_into(src, "FAULT: No fuel supply for [time_without_fuel] minutes. Fuel line inspection required.", RADIO_CHANNEL_ENGINEERING)
-		COOLDOWN_START(src, fuel_fault_report_cooldown, 10 MINUTES)
+		COOLDOWN_START(src, fuel_fault_report_cooldown, fuel_fault_report_interval)
 
 /obj/machinery/atmospherics/components/unary/orbital_thruster/process_atmos()
-	// Use our isolated fuel buffer instead of airs[1]
 	if(!fuel_buffer)
 		has_fuel = FALSE
 		update_appearance()
 		return
 
-	// Ensure the gas type exists in our internal buffer
+	// 1) Burn fuel from the internal buffer.
+	// Always burns at least idle_propellant; ramps up with thrust_level.
 	ASSERT_GAS(/datum/gas/hydrogen_fuel, fuel_buffer)
+	var/required_moles = idle_propellant + (abs(thrust_level) * propellant_per_thrust)
+	if(fuel_buffer.gases[/datum/gas/hydrogen_fuel][MOLES] >= required_moles)
+		qdel(fuel_buffer.remove_specific(/datum/gas/hydrogen_fuel, required_moles))
 
-	// Calculate required propellant. Ramp smoothly from 0.5 moles at thrust 0 to 1.0 moles at thrust 20
-	var/required_moles = 0.5 + (abs(thrust_level) * propellant_per_thrust)
-
-	// Now check if we have enough fuel in our internal buffer
-	var/available_fuel = fuel_buffer.gases[/datum/gas/hydrogen_fuel][MOLES]
-
-	// Check if we have enough fuel to maintain thrust
-	if(available_fuel >= required_moles)
-		// Consume the propellant from our internal buffer
-		var/datum/gas_mixture/removed = fuel_buffer.remove_specific(/datum/gas/hydrogen_fuel, required_moles)
-		qdel(removed)
-
-	// Re-assert gas entry exists in buffer after potential removal
-	ASSERT_GAS(/datum/gas/hydrogen_fuel, fuel_buffer)
-
-	// We have used, or may have used, fuel. Now we pull to keep the buffer up.
-	// Get whatever net we are connected to
+	// 2) Top the buffer back up from the connected pipenet, if any.
 	var/datum/pipenet/parent_net = parents[1]
-
-	// If it exists and has contents, proceed
-	if(parent_net && parent_net.air)
-
-		// Ensure the gas type exists in the network
+	if(parent_net?.air)
+		ASSERT_GAS(/datum/gas/hydrogen_fuel, fuel_buffer)
 		ASSERT_GAS(/datum/gas/hydrogen_fuel, parent_net.air)
-
-		// Check how much we have to work with inside the network
+		var/fuel_deficit = buffer_target - fuel_buffer.gases[/datum/gas/hydrogen_fuel][MOLES]
 		var/available_in_network = parent_net.air.gases[/datum/gas/hydrogen_fuel][MOLES]
-
-		// Check how much is inside our buffer.
-		var/current_fuel = fuel_buffer.gases[/datum/gas/hydrogen_fuel][MOLES]
-
-		// Calculate the deficit.
-		var/fuel_deficit = buffer_target - current_fuel
-
-		// Take what is required from the net and add it to our buffer.
 		if(fuel_deficit > 0 && available_in_network > 0)
-			// Pump in fuel to fill the deficit
 			var/fuel_to_pump = min(fuel_deficit, available_in_network)
 			var/datum/gas_mixture/fuel_removed = parent_net.air.remove_specific(/datum/gas/hydrogen_fuel, fuel_to_pump)
 			fuel_buffer.merge(fuel_removed)
 			qdel(fuel_removed)
+			update_parents()
 
-	// Now we set the has_fuel flag.
-	// If our buffer is less than half our target, we do not have fuel.
-	if(fuel_buffer.gases[/datum/gas/hydrogen_fuel][MOLES] < (buffer_target / 2))
-		has_fuel = FALSE
-	else
-		has_fuel = TRUE
+	// 3) Update the has_fuel flag based on the resulting buffer level.
+	ASSERT_GAS(/datum/gas/hydrogen_fuel, fuel_buffer)
+	has_fuel = fuel_buffer.gases[/datum/gas/hydrogen_fuel][MOLES] >= (buffer_target * low_fuel_fraction)
 
-	// Update the pipe network once at the end if we modified anything
-	update_parents()
 	update_appearance()
 
 /obj/machinery/atmospherics/components/unary/orbital_thruster/update_overlays()
