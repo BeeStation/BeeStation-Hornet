@@ -69,7 +69,7 @@
 	unique_id = "ObjID[++created_amount]"
 	. = ..()
 	//Calculate relevant grav range
-	relevant_gravity_range = sqrt((mass * GRAVITATIONAL_CONSTANT) / MINIMUM_EFFECTIVE_GRAVITATIONAL_ACCEELRATION)
+	relevant_gravity_range = sqrt((mass * GRAVITATIONAL_CONSTANT) / MINIMUM_EFFECTIVE_GRAVITATIONAL_ACCELERATION)
 	//Process this
 	if(!static_object)
 		START_PROCESSING(SSorbits, src)
