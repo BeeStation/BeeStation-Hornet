@@ -998,10 +998,11 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 				SSassets.transport.send_assets(thing2, name)
 			if(sourceonly)
 				return SSassets.transport.get_asset_url(name)
-			var/misc_url = SSassets.transport.get_asset_url(name)
-			if(!misc_url)
+			var/datum/asset_cache_item/misc_2 = SSassets.cache[name]
+			if(!misc_2)
+				stack_trace("icon2html(): asset '[name]' missing from cache after registration (thing=[thing], target=[target])")
 				return null
-			return "<img class='[extra_classes ? "[extra_classes] " : ""]icon icon-misc' src='[misc_url]'>"
+			return "<img class='[extra_classes ? "[extra_classes] " : ""]icon icon-misc' src='[SSassets.transport.get_asset_url(name, misc_2)]'>"
 
 		//its either an atom, image, or mutable_appearance, we want its icon var
 		icon2collapse = thing.icon
@@ -1041,10 +1042,11 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		SSassets.transport.send_assets(client_target, key)
 	if(sourceonly)
 		return SSassets.transport.get_asset_url(key)
-	var/icon_url = SSassets.transport.get_asset_url(key)
-	if(!icon_url)
+	var/datum/asset_cache_item/icon_2 = SSassets.cache[key]
+	if(!icon_2)
+		stack_trace("icon2html(): asset '[key]' missing from cache after registration (thing=[thing], target=[target])")
 		return null
-	return "<img class='[extra_classes ? "[extra_classes] " : ""]icon icon-[icon_state]' src='[icon_url]'>"
+	return "<img class='[extra_classes ? "[extra_classes] " : ""]icon icon-[icon_state]' src='[SSassets.transport.get_asset_url(key, icon_2)]'>"
 
 /proc/icon2base64html(thing)
 	if (!thing)
