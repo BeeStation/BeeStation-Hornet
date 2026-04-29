@@ -2,8 +2,8 @@
 						Cyborg Spec Items
 ***********************************************************************/
 /obj/item/borg
+	abstract_type = /obj/item/borg
 	icon = 'icons/mob/robot_items.dmi'
-
 
 /obj/item/borg/stun
 	name = "electrically-charged arm"

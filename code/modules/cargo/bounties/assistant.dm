@@ -1,3 +1,6 @@
+/datum/bounty/item/assistant
+	abstract_type = /datum/bounty/item/assistant
+
 /datum/bounty/item/assistant/scooter
 	name = "Scooter"
 	description = "Nanotrasen has determined walking to be wasteful. Ship a scooter to CentCom to speed operations up."

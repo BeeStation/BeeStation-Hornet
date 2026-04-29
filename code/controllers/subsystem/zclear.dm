@@ -228,7 +228,7 @@ SUBSYSTEM_DEF(zclear)
 			LAZYREMOVE(processing_levels, cleardata)
 			//Finalize area
 			SSair.unpause_z(cleardata.zvalue)
-			var/area/spaceA = GLOB.areas_by_type[/area/space]
+			var/area/misc/spaceA = GLOB.areas_by_type[/area/misc/space]
 			spaceA.reg_in_areas_in_z()	//<< Potentially slow proc
 			if(cleardata.completion_callback)
 				cleardata.completion_callback.Invoke(cleardata.zvalue)
@@ -340,10 +340,10 @@ SUBSYSTEM_DEF(zclear)
 		else
 			newT = T.ChangeTurf(/turf/open/space, /turf/baseturf_bottom, flags = CHANGETURF_IGNORE_AIR | CHANGETURF_DEFER_CHANGE)
 		var/area/old_area = newT.loc
-		if(!istype(newT.loc, /area/space))
-			var/area/newA = GLOB.areas_by_type[/area/space]
+		if(!istype(newT.loc, /area/misc/space))
+			var/area/newA = GLOB.areas_by_type[/area/misc/space]
 			newT.change_area(old_area, newA)
-		newT.flags_1 &= ~NO_RUINS_1
+		newT.turf_flags &= ~NO_RUINS
 		new_turfs += newT
 	return new_turfs
 

@@ -52,3 +52,169 @@
   - bugfix: Fixes lasso functionality
   - rscadd: reenables traitor lassos in uplink
   - rscdel: removes leather lassos
+2026-04-08:
+  EvilDragonfiend:
+  - code_imp: renamed GLOB.antagonists into GLOB.active_antagonists
+  - bugfix: Opening antag panel no longer populates OOC antag list
+  itsmeow, Karshargul:
+  - bugfix: Fixed race conditions in IconForge generation causing occasional runtimes.
+  - bugfix: Fixed errors with IconForge's ability to write files on Linux.
+  - bugfix: Improved the security of BeeAuth session creation nonces by using hardware
+      entropy reducing their guessability.
+  - rscadd: Added many more icon manipulation functions to IconForge, offering near
+      BYOND parity.
+  - tweak: Greatly optimized several icon related functions
+  - code_imp: Cleaned up legacy spritesheets code.
+  - code_imp: Updated names of some IconForge GAGS functions to match newer versions
+      of IconForge.
+  - rscdel: Removed unused PDA icons spritesheet.
+  rkz, mothblocks, GoldenAlpharex, SmArtKar:
+  - bugfix: Flowers now properly display on people with mutant ears, meaning that
+      they no longer hide within cat ears anymore.
+  - bugfix: Welding goggles no longer hide in your hair when you pull them up, they
+      will now properly display above your hair (and mutant body features if you have
+      any).
+  - code_imp: Glasses and headwear can now appear over hair and all mutant body features,
+      meaning that they shouldn't get wrongly hidden anymore.
+  - refactor: Refactored hat stabilizers into a component shared with plasmaman helmets
+  - bugfix: MOD flashlights won't move hats on them when toggling.
+  rkz, son-of-space, jolly:
+  - bugfix: The civilian remote now properly affects service department doors
+  - bugfix: Some areas are now properly affected by ai monitoring
+  - code_imp: The typepath used for station turfs has been changed from /area/* to
+      /area/station/* for clarity and consistency.
+  - code_imp: Space_Station_13_areas.dm had its station specific turf moved to station.dm
+  - imageadd: Some turfs were given icons (which didn't exist prior).
+  - imagedel: Most unused/odd ball turfs were removed (like dk_yellow).
+2026-04-09:
+  SmArtKar, Racc-Off:
+  - bugfix: Fix lasso runtime
+  - bugfix: Hovering over things on the same tile no longer closes the pet command
+      menu
+2026-04-10:
+  mrmanlikesbt, TiviPlus, LemonInTheDark, SyncIt21, MSO:
+  - code_imp: Added a new VISUALIZE_LIGHT_UPDATES define to... I'm sure you can figure
+      it out.
+  - code_imp: Lighting code has been optimized and is now faster
+2026-04-11:
+  mrmanlikesbt, Cyberboss, Ghommie, LikeLakers2, TiviPlus, jlsnow301, san7890, TealSeer, FalloutFalcon:
+  - server: github integration tests are now grouped together
+  - server: the github CI Suite is no longer runs on direct commits to the codebase
+  - server: github integration tests now include what failed in the summary of the
+      action
+  - server: the github CI suite workflows have been moved to their own individual
+      files
+  - server: github integration tests now reuse a single build instead of recompiling
+      for each map
+  - server: fixed an erroneous warning when setting up the database during github
+      integration tests
+  - server: the slowest unit tests are now displayed
+2026-04-12:
+  DrDuckedGoose:
+  - bugfix: Fixes robot eye lights trailing behind them near blind people
+  PowerfulBacon:
+  - code_imp: The UpdatePaths script now supports counters
+  TsunamiAnt:
+  - bugfix: Vampire Daylight notifications can now only appear if there are actually
+      vampires present.
+  - admin: Vampire Daylight notifications are now posted to deadchat, not adminlog.
+2026-04-13:
+  EvilDragonfiend:
+  - code_imp: refactored access system - now it is reliable on the SSdepartment subsystem.
+  - rscadd: centcom console now can edit station access + extra special access (*Bloodcult,
+      syndicate, away station, space police ship, etc)
+  - tweak: HoP console is slightly refactored - Job and Access order has been reworked,
+      and it follows SSdepartment's internal order.
+  - tweak: HoP door remote can now open cargo areas in addition to what it can open
+      already
+  - bugfix: Introducing ACCESS_SERVICE that has been in the game for years but never
+      had been a part of the access list
+  - tweak: Demote now works to everyone - it just changes their job name. For example,
+      if a CMO demotes Captain, they still keeps the access, and the job title just
+      becomes "Demoted". You will need to manually remove their access.
+  - tweak: Psychiatrist is now fully categorised in medical department.
+  - tweak: Stage Magician is now categorised in Service department.
+  MasonMiami:
+  - tweak: You can now use zero as a expression for the cost of loadout items.
+  rkz, Mothblocks:
+  - bugfix: moth preferences generate cleanly
+  - code_imp: splits init_possible_values() in preference code into a values return
+      and an icon image handler
+  - code_imp: nukes deprecated roundstart_ species feature lists
+2026-04-14:
+  mrmanlikesbt, FalloutFalcon:
+  - code_imp: abstract_type is now implemented on the /datum level instead of being
+      scattered across several typepaths
+  - bugfix: fixed the genetics bounty not rolling
+  vinylspiders:
+  - bugfix: fixed a bunch of improper static list declarations
+  - server: added a grep check for var/list/static declarations
+2026-04-15:
+  mrmanlikesbt:
+  - bugfix: Fixed space tiles not properly having their lighting updated when built
+      on top of
+  - bugfix: Fixed holofloors and shuttles having weird lighting
+  - bugfix: Fixed some issues with area luminosity
+  - refactor: All airlocks across all maps have been refactored to use their mapping
+      access helpers and no longer have var-edited access
+  mrmanlikesbt, Y0SH1M4S73R, Absolucy, jlsnow301:
+  - refactor: TGUI no longer supports 515. Goodbye internet explorer!
+  - refactor: Any tgui message that would be too big to send to the server is now
+      split into chunks and sent in sequence. This fixes several issues, such as...
+  - bugfix: It is once again possible to save large amounts of text on paper at once.
+2026-04-17:
+  PowerfulBacon, Pestoverde322, mrmanlikesbt, h42:
+  - rscadd: Added smartwires. For those of you who are unaware, it means cables auto-connect
+      now.
+  - refactor: Optimized powernet and cable code
+  - rscdel: Removed the rapid cable layer
+2026-04-18:
+  timothymtorres:
+  - server: PRs that don't touch mapping no longer have maplints ran on them
+2026-04-21:
+  rkz, Rohesie, Ghommie, skoglol:
+  - rscadd: 'Bureaucratic overflow event is less boring. The event now has two possibilties:
+      1. A new overflow role is set other than the default assistant job 2. all jobs
+      other than overflow have their available slots adjusted by -2 to 4'
+  - bugfix: roundstart offstation antagonists such as wizards and nuke ops no longer
+      have quirks assigned to them
+  - code_imp: SSeconomy/var/bank_accounts is now an association list of account identifiers
+      and datums and also was renamed to bank_accounts_by_id.
+  - refactor: bank account lists should be faster
+  - refactor: job checks now have a new granular bitflag var named job_flags. This
+      can be relied upon for granular job trait control
+2026-04-22:
+  mrmanlikesbt:
+  - rscdel: Removed the broken debug cyborg crates and lockers.
+  - tweak: Warning signs, blood packs, and AI cores have had their type-paths snake_caseified.
+  - spellcheck: Fixed auxiliary being misspelled as auxilliary across the codebase
+  mrmanlikesbt, grungussuss, kayozz:
+  - code_imp: Cleaned up gravity generator code
+  - bugfix: Fixed the soundloop for pacman generators' being horribly off sync
+  - bugfix: Fixed gravity generators not using any more power than usual when active
+  - balance: Decreased the gravity generator's inactive power usage from 5kW to 1kW
+  rkz, christasmurf, axietheaxolotl:
+  - rscadd: resprites 2 of head of personnel's existing uniforms and adds 4 new ones
+  - rscadd: the head of personnel now spawns with his armor on. It is resprited to
+      appear as an 'armored jacket'
+  - rscadd: adds mantles for every head of staff, a form of shortcloak meant to make
+      ones uniform more visible than the longcloaks
+2026-04-24:
+  mrmanlikesbt, EOBGames:
+  - rscadd: Diagonal, herringbone, and small variants of iron floors have been added
+      to the game (including dark and white floors)
+  - rscadd: Added kitchen and terracotta floors
+2026-04-25:
+  TsunamiAnt:
+  - code_imp: Add midround_max_positive_delta in ssdynamic
+  mrmanlikesbt:
+  - bugfix: Fixed the corgi puppy AI spamming runtimes
+2026-04-26:
+  St0rmC4st3r:
+  - bugfix: IPCs no longer mutate from radiation.
+2026-04-28:
+  mrmanlikesbt:
+  - bugfix: Fixed SMESs not connecting to the cable below them when constructed
+  - bugfix: Fixed cutting a cable sometimes not unlinking 6its connected machinery
+  - bugfix: Fixed a cable sometimes not correctly updating its has_power_node var
+      when update_power_node() was called

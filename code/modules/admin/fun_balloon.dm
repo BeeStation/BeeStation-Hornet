@@ -170,7 +170,7 @@
 		B.mineEffect(M)
 
 
-/area/shuttle_arena
+/area/shuttle/shuttle_arena
 	name = "arena"
 	default_gravity = STANDARD_GRAVITY
 	requires_power = FALSE

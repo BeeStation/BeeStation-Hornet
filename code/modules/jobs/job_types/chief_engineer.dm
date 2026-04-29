@@ -6,7 +6,7 @@
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list("Engineering")
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffeeaa"
 	req_admin_notify = 1
@@ -31,13 +31,15 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_ENGINEER
+
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "High Crystallomancer"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chief_engineer
 	)
 
-	minimal_lightup_areas = list(/area/crew_quarters/heads/chief, /area/engine/atmos)
+	minimal_lightup_areas = list(/area/station/command/heads_quarters/chief, /area/station/engineering/atmos)
 
 	manuscript_jobs = list(
 		JOB_NAME_CHIEFENGINEER,

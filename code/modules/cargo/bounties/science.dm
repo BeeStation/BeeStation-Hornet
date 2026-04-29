@@ -1,3 +1,6 @@
+/datum/bounty/item/science
+	abstract_type = /datum/bounty/item/science
+
 /datum/bounty/item/science/genetics
 	name = "Genetics Disability Mutator"
 	description = "Understanding the humanoid genome is the first step to curing many spaceborn genetic defects, and exceeding our basest limits."

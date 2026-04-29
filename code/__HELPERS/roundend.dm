@@ -112,7 +112,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 
 	var/list/greentexters = list()
 
-	for(var/datum/antagonist/A as() in GLOB.antagonists)
+	for(var/datum/antagonist/A as anything in GLOB.active_antagonists)
 		if(!A.owner)
 			continue
 
@@ -263,7 +263,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	//Print a list of antagonists to the server log
 	var/list/total_antagonists = list()
 	//Look into all mobs in world, dead or alive
-	for(var/datum/antagonist/A in GLOB.antagonists)
+	for(var/datum/antagonist/A as anything in GLOB.active_antagonists)
 		if(!A.owner)
 			continue
 		if(!(A.name in total_antagonists))
@@ -525,7 +525,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		/datum/bank_account/department,
 		/datum/bank_account/remote,
 	))
-	for(var/datum/bank_account/current_acc as anything in SSeconomy.bank_accounts)
+	for(var/datum/bank_account/current_acc as anything in flatten_list(SSeconomy.bank_accounts_by_id))
 		if(typecache_bank[current_acc.type])
 			continue
 		station_vault += current_acc.account_balance
@@ -584,7 +584,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 			continue
 		all_teams |= A
 
-	for(var/datum/antagonist/A in GLOB.antagonists)
+	for(var/datum/antagonist/A as anything in GLOB.active_antagonists)
 		if(!A.owner)
 			continue
 		all_antagonists |= A
@@ -832,7 +832,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 
 	// Unaccounted for antagonists
 	var/list/unaccounted_antagonists = list()
-	for (var/datum/antagonist/antagonist as anything in GLOB.antagonists)
+	for (var/datum/antagonist/antagonist as anything in GLOB.active_antagonists)
 		if (antagonist.spawning_ruleset || !antagonist.name || !antagonist.owner)
 			continue
 		if (unaccounted_antagonists[antagonist.name])

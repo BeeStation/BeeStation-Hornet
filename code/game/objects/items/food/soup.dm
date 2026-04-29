@@ -1,4 +1,5 @@
 /obj/item/food/soup
+	abstract_type = /obj/item/food/soup
 	w_class = WEIGHT_CLASS_NORMAL
 	icon = 'icons/obj/food/soupsalad.dmi'
 	trash_type = /obj/item/reagent_containers/cup/bowl

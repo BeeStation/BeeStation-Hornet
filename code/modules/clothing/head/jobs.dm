@@ -74,6 +74,14 @@
 	dog_fashion = /datum/dog_fashion/head/hop
 	dying_key = DYE_REGISTRY_CAP
 
+/obj/item/clothing/head/hats/hopcap/beret
+	name = "head of personnel's beret"
+	desc = "For doing paperwork with style."
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#3e6588#ECF1F8"
+
 //Chaplain
 
 /datum/armor/hats_hopcap

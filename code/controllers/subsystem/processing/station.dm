@@ -89,14 +89,10 @@ PROCESSING_SUBSYSTEM_DEF(station)
 		return
 
 	// Get list of possible traits
-	for (var/datum/station_trait/trait_typepath as anything in subtypesof(/datum/station_trait))
+	for (var/datum/station_trait/trait_typepath as anything in valid_subtypesof(/datum/station_trait))
 		// If forced, (probably debugging), just set it up now, keep it out of the pool.
 		if (initial(trait_typepath.force))
 			setup_trait(trait_typepath)
-			continue
-
-		// Don't add abstract traits
-		if (initial(trait_typepath.abstract_type) == trait_typepath)
 			continue
 
 		// we're on a planet but we can't do planet ;_;

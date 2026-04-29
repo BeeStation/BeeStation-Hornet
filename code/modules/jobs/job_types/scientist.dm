@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_SCIENCE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
-	faction = "Station"
+	faction = FACTION_STATION
 	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#ffeeff"
 	exp_requirements = 120
@@ -21,6 +21,8 @@
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_CREW)
 
 	display_order = JOB_DISPLAY_ORDER_SCIENTIST
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Thaumaturgist"
 
 	species_outfits = list(
@@ -28,14 +30,14 @@
 	)
 	biohazard = 35
 
-	lightup_areas = list(/area/storage/tech, /area/science/robotics)
+	lightup_areas = list(/area/station/engineering/storage/tech, /area/station/science/robotics)
 	minimal_lightup_areas = list(
-		/area/science/explab,
-		/area/science/misc_lab,
-		/area/science/mixing,
-		/area/science/nanite,
-		/area/science/storage,
-		/area/science/xenobiology
+		/area/station/science/explab,
+		/area/station/science/misc_lab,
+		/area/station/science/mixing,
+		/area/station/science/nanite,
+		/area/station/science/storage,
+		/area/station/science/xenobiology
 	)
 
 	manuscript_jobs = list(

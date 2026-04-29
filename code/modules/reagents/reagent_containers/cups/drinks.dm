@@ -2,6 +2,7 @@
 /// Drinks.
 ////////////////////////////////////////////////////////////////////////////////
 /obj/item/reagent_containers/cup/glass
+	abstract_type = /obj/item/reagent_containers/cup/glass
 	name = "drink"
 	desc = "yummy"
 	icon = 'icons/obj/drinks/drinks.dmi'

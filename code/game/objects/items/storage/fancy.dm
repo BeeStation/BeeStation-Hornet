@@ -12,6 +12,7 @@
  */
 
 /obj/item/storage/fancy
+	abstract_type = /obj/item/storage/fancy
 	icon = 'icons/obj/food/containers.dmi'
 	resistance_flags = FLAMMABLE
 	//custom_materials = list(/datum/material/cardboard = 2000)

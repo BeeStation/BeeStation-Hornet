@@ -882,6 +882,11 @@
 	build_path = /obj/item/mod/construction/helmet
 	category = list("MOD Construction")
 
+// Even without a hat stabilizer, hats can be worn - however, they'll fall off very easily
+/obj/item/clothing/head/mod/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/hat_stabilizer, loose_hat = TRUE)
+
 /datum/design/mod_chestplate
 	name = "MOD chestplate"
 	desc = "A 'Nakamura Engineering' designed chestplate for a Modular Suit."

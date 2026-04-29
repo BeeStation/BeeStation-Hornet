@@ -3,7 +3,7 @@
 	description = "As a prisoner your job is to be imprisoned. Play cards or chess, cook some food or grow some plants. Run away when security ain't looking."
 	department_for_prefs = DEPT_NAME_ASSISTANT
 	show_in_prefs = TRUE
-	faction = "Station"
+	faction = FACTION_STATION
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
 	total_positions = 3
@@ -20,6 +20,8 @@
 	bank_account_department = NONE
 
 	display_order = JOB_DISPLAY_ORDER_PRISONER
+
+	job_flags = STATION_JOB_FLAGS | JOB_CANNOT_OPEN_SLOTS
 	rpg_title = "Vagrant"
 	allow_bureaucratic_error = FALSE
 
@@ -29,7 +31,7 @@
 	)
 
 	minimal_lightup_areas = list(
-		/area/security/prison
+		/area/station/security/prison
 	)
 
 	manuscript_jobs = list(

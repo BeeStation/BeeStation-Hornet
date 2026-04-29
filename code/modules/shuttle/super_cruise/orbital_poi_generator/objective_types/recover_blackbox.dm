@@ -56,7 +56,7 @@
 	var/atom/movable/pA = parent
 	var/turf/T = get_turf(parent)
 	var/area/A = T.loc
-	if(istype(A, /area/bridge) && is_station_level(T.z))
+	if(istype(A, /area/station/command) && is_station_level(T.z))
 		initiate_recovery()
 	else
 		pA.say("Blackbox must be recovered at the station's bridge.")

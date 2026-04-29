@@ -3,6 +3,7 @@
 */
 
 /datum/xenoartifact_material
+	abstract_type = /datum/xenoartifact_material
 	var/name = "debugium"
 	///What color we associate with this material
 	var/material_color = "#ff4800"

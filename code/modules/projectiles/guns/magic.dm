@@ -1,4 +1,5 @@
 /obj/item/gun/magic
+	abstract_type = /obj/item/gun/magic
 	name = "staff of nothing"
 	desc = "This staff is boring to watch because even though it came first you've seen everything it can do in other staves for years."
 	icon = 'icons/obj/guns/magic.dmi'
@@ -36,7 +37,7 @@
 /obj/item/gun/magic/can_trigger_gun(mob/living/user)
 	if(no_den_usage)
 		var/area/A = get_area(user)
-		if(istype(A, /area/wizard_station))
+		if(istype(A, /area/centcom/wizard_station))
 			add_fingerprint(user)
 			to_chat(user, span_warning("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
 			return FALSE

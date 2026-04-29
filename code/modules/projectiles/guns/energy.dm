@@ -1,4 +1,5 @@
 /obj/item/gun/energy
+	abstract_type = /obj/item/gun/energy
 	icon_state = "energy"
 	name = "energy gun"
 	desc = "A basic energy-based gun."

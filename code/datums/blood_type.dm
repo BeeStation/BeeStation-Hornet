@@ -1,4 +1,5 @@
 /datum/blood_type
+	abstract_type = /datum/blood_type
 	/// Displayed name of the blood type.
 	var/name = "?"
 	/// Shown color of the blood type.

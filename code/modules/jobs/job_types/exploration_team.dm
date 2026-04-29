@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_SCIENCE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 3
 	minimal_player_age = 3
 	// Requires 1 round as a scientist to unlock, which itself reuqires
@@ -23,6 +23,7 @@
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_CREW)
 
 	display_order = JOB_DISPLAY_ORDER_EXPLORATION
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Sailor"
 
 	species_outfits = list(
@@ -31,11 +32,11 @@
 	biohazard = 40//who knows what you'll find out there that could have nasties on it...
 
 	lightup_areas = list(
-		/area/science/mixing,
-		/area/science/storage,
-		/area/science/xenobiology
+		/area/station/science/mixing,
+		/area/station/science/storage,
+		/area/station/science/xenobiology
 	)
-	minimal_lightup_areas = list(/area/quartermaster/exploration_dock, /area/quartermaster/exploration_prep)
+	minimal_lightup_areas = list(/area/station/cargo/exploration_dock, /area/station/cargo/exploration_prep)
 
 	manuscript_jobs = list(
 		JOB_NAME_EXPLORATIONCREW,

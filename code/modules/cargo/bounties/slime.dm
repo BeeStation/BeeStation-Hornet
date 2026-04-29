@@ -1,4 +1,5 @@
 /datum/bounty/item/slime
+	abstract_type = /datum/bounty/item/slime
 	reward = CARGO_CRATE_VALUE * 6
 
 /datum/bounty/item/slime/New()

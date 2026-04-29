@@ -1,4 +1,5 @@
 /datum/supply_pack
+	abstract_type = /datum/supply_pack
 	var/name = "Crate"
 	var/group = ""
 	var/hidden = FALSE
@@ -71,6 +72,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/emergency
+	abstract_type = /datum/supply_pack/emergency
 	group = "Emergency"
 
 /datum/supply_pack/emergency/vehicle
@@ -386,6 +388,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/security
+	abstract_type = /datum/supply_pack/security
 	group = "Security"
 	access = ACCESS_SECURITY
 	access_budget = ACCESS_SECURITY
@@ -1033,6 +1036,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/engineering
+	abstract_type = /datum/supply_pack/engineering
 	group = "Engineering"
 	crate_type = /obj/structure/closet/crate/engineering
 	access_budget = ACCESS_ENGINE
@@ -1384,6 +1388,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/engine
+	abstract_type = /datum/supply_pack/engine
 	group = "Engine Construction"
 	crate_type = /obj/structure/closet/crate/engineering
 	access_budget = ACCESS_ENGINE
@@ -1550,6 +1555,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/materials
+	abstract_type = /datum/supply_pack/materials
 	group = "Canisters & Materials"
 
 /datum/supply_pack/materials/cardboard50
@@ -1758,6 +1764,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/medical
+	abstract_type = /datum/supply_pack/medical
 	group = "Medical"
 	access_budget = ACCESS_MEDICAL
 	crate_type = /obj/structure/closet/crate/medical
@@ -1900,28 +1907,30 @@
 	desc = "Contains a little bit of everything needed to stock a medbay or to form your own."
 	cost = CARGO_CRATE_VALUE * 4
 	max_supply = 3
-	contains = list(/obj/item/reagent_containers/cup/bottle/charcoal,
-					/obj/item/reagent_containers/cup/bottle/epinephrine,
-					/obj/item/reagent_containers/cup/bottle/morphine,
-					/obj/item/reagent_containers/cup/bottle/toxin,
-					/obj/item/reagent_containers/cup/beaker/large,
-					/obj/item/reagent_containers/pill/insulin,
-					/obj/item/stack/medical/gauze,
-					/obj/item/storage/box/beakers,
-					/obj/item/storage/box/medsprays,
-					/obj/item/storage/box/syringes,
-					/obj/item/storage/box/bodybags,
-					/obj/item/storage/firstaid/regular,
-					/obj/item/storage/firstaid/o2,
-					/obj/item/storage/firstaid/toxin,
-					/obj/item/storage/firstaid/brute,
-					/obj/item/storage/firstaid/fire,
-					/obj/item/defibrillator/loaded,
-					/obj/item/reagent_containers/blood/OMinus,
-					/obj/item/storage/pill_bottle/mining,
-					/obj/item/reagent_containers/pill/neurine,
-					/obj/item/vending_refill/medical,
-					/obj/item/vending_refill/medical/chems)
+	contains = list(
+		/obj/item/reagent_containers/cup/bottle/charcoal,
+		/obj/item/reagent_containers/cup/bottle/epinephrine,
+		/obj/item/reagent_containers/cup/bottle/morphine,
+		/obj/item/reagent_containers/cup/bottle/toxin,
+		/obj/item/reagent_containers/cup/beaker/large,
+		/obj/item/reagent_containers/pill/insulin,
+		/obj/item/stack/medical/gauze,
+		/obj/item/storage/box/beakers,
+		/obj/item/storage/box/medsprays,
+		/obj/item/storage/box/syringes,
+		/obj/item/storage/box/bodybags,
+		/obj/item/storage/firstaid/regular,
+		/obj/item/storage/firstaid/o2,
+		/obj/item/storage/firstaid/toxin,
+		/obj/item/storage/firstaid/brute,
+		/obj/item/storage/firstaid/fire,
+		/obj/item/defibrillator/loaded,
+		/obj/item/reagent_containers/blood/o_minus,
+		/obj/item/storage/pill_bottle/mining,
+		/obj/item/reagent_containers/pill/neurine,
+		/obj/item/vending_refill/medical,
+		/obj/item/vending_refill/medical/chems,
+	)
 	crate_name = "medical supplies crate"
 
 /datum/supply_pack/medical/supplies/fill(obj/structure/closet/crate/C)
@@ -2046,6 +2055,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/science
+	abstract_type = /datum/supply_pack/science
 	group = "Science"
 	access_budget = ACCESS_RESEARCH
 	crate_type = /obj/structure/closet/crate/science
@@ -2103,7 +2113,7 @@
 	max_supply = 4
 	access = ACCESS_ROBOTICS
 	contains = list(/obj/item/stack/sheet/iron/five,
-					/obj/item/stack/cable_coil/random/five,
+					/obj/item/stack/cable_coil,
 					/obj/item/circuitboard/machine/cyborgrecharger,
 					/obj/item/stock_parts/capacitor,
 					/obj/item/stock_parts/cell,
@@ -2215,6 +2225,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/service
+	abstract_type = /datum/supply_pack/service
 	group = "Service"
 
 /datum/supply_pack/service/cargo_supples
@@ -2488,6 +2499,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/organic
+	abstract_type = /datum/supply_pack/organic
 	group = "Food & Hydroponics"
 	crate_type = /obj/structure/closet/crate/freezer
 
@@ -2836,6 +2848,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/critter
+	abstract_type = /datum/supply_pack/critter
 	group = "Livestock"
 	crate_type = /obj/structure/closet/crate/critter
 	max_supply = 4
@@ -3049,6 +3062,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/costumes_toys
+	abstract_type = /datum/supply_pack/costumes_toys
 	group = "Costumes & Toys"
 
 /datum/supply_pack/costumes_toys/randomised
@@ -3505,6 +3519,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/misc
+	abstract_type = /datum/supply_pack/misc
 	group = "Miscellaneous Supplies"
 
 /datum/supply_pack/misc/artsupply

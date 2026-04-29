@@ -1,4 +1,5 @@
 /datum/bounty/virus
+	abstract_type = /datum/bounty/virus
 	reward = CARGO_CRATE_VALUE * 10
 	var/shipped = FALSE
 	var/stat_value = 0

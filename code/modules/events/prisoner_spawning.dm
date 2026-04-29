@@ -58,7 +58,7 @@
 	pod.explosionSize = list(0, 0, 0, 0)
 	S.forceMove(pod)
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = ROLE_PRISONER
+	player_mind.set_assigned_role(ROLE_PRISONER)
 	player_mind.special_role = ROLE_PRISONER
 	var/datum/antagonist/prisoner/A = new()
 	player_mind.add_antag_datum(A)

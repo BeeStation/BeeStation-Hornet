@@ -493,7 +493,6 @@
 		"magboots",
 		"ranged_analyzer",
 		"rcd_loaded",
-		"rcl",
 		"rpd_loaded",
 		"weldingmask",
 		"sheetifier"

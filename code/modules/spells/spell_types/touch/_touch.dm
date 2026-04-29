@@ -18,6 +18,7 @@
  * (generally) inadvisable unless you know what you're doing
  */
 /datum/action/spell/touch
+	abstract_type = /datum/action/spell/touch
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED
 	sound = 'sound/items/welder.ogg'
 	invocation = "High Five!"

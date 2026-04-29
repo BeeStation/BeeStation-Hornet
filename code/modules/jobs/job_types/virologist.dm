@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 2
 	selection_color = "#d4ebf2"
 	exp_requirements = 180
@@ -21,6 +21,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_VIROLOGIST
 
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Plague Doctor"
 
 	species_outfits = list(
@@ -29,13 +30,13 @@
 	biohazard = 75 //duh
 
 	lightup_areas = list(
-		/area/medical/morgue,
-		/area/medical/surgery,
-		/area/medical/genetics,
-		/area/medical/chemistry,
-		/area/medical/apothecary
+		/area/station/medical/morgue,
+		/area/station/medical/surgery,
+		/area/station/medical/genetics,
+		/area/station/medical/chemistry,
+		/area/station/medical/pharmacy
 	)
-	minimal_lightup_areas = list(/area/medical/virology)
+	minimal_lightup_areas = list(/area/station/medical/virology)
 
 /datum/job/virologist/config_check()
 	return CONFIG_GET(flag/allow_virologist)

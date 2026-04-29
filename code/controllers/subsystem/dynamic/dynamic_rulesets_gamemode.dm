@@ -1,8 +1,8 @@
 /datum/dynamic_ruleset/gamemode
+	abstract_type = /datum/dynamic_ruleset/gamemode
 	rule_category = DYNAMIC_CATEGORY_GAMEMODE
 	// Uses antag rep to pick candidates, as we choose from everyone available.
 	ruleset_flags = SHOULD_USE_ANTAG_REP
-	abstract_type = /datum/dynamic_ruleset/gamemode
 	// Sorry, but if you are going to be THE antagonist, you can't be leaving the station and making
 	// the round boring for everyone else.
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_PRISONER, JOB_NAME_SHAFTMINER, JOB_NAME_EXPLORATIONCREW)
@@ -191,13 +191,13 @@
 /datum/dynamic_ruleset/gamemode/wizard/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
 
 /datum/dynamic_ruleset/gamemode/wizard/execute()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.current.forceMove(pick(GLOB.wizardstart))
-		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
 
 /datum/dynamic_ruleset/gamemode/wizard/security_report()
 	return "Unconfirmed rumours suggest that a series of powerful artifacts that possess intricate control over space-time are in the hands \
@@ -310,7 +310,7 @@
 	generate_clockcult_scriptures()
 
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
 
 /datum/dynamic_ruleset/gamemode/clockcult/execute()
 	main_cult = new()
@@ -371,7 +371,7 @@
 /datum/dynamic_ruleset/gamemode/nuclear/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
 
 /datum/dynamic_ruleset/gamemode/nuclear/execute()
 	var/has_made_leader = FALSE
