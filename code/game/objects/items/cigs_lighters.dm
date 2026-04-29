@@ -134,6 +134,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	grind_results = list()
 	heat = 1000
 	item_flags = ISWEAPON
+	actions_types = list(/datum/action/item_action/cigarette_spray)
 	var/dragtime = 10
 	var/nextdragtime = 0
 	var/lit = FALSE
@@ -875,6 +876,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = ISWEAPON
 	custom_price = 30
+	actions_types = list(/datum/action/item_action/vape_spray)
 	var/chem_volume = 100
 	var/vapetime = 0 //this so it won't puff out clouds every tick
 	/// How often we take a drag in seconds
