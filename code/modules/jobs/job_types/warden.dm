@@ -65,7 +65,7 @@
 	backpack = /obj/item/storage/backpack/security
 	backpack_contents = list(
 		/obj/item/dog_bone = 1,
-		/obj/item/mining_voucher/security = 1,
+		/obj/item/gun/ballistic/automatic/pistol/security = 1,
 	)
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
