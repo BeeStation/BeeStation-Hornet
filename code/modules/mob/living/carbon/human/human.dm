@@ -534,7 +534,7 @@
 			return FALSE
 
 		if (target.is_mouth_covered())
-			to_chat(src, span_warning("Remove [p_their()] mask first!"))
+			to_chat(src, span_warning("Remove [target.p_their()] mask first!"))
 			return FALSE
 
 		if (!get_organ_slot(ORGAN_SLOT_LUNGS))
