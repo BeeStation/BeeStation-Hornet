@@ -16,6 +16,13 @@
 #define GATEWAY_STATUS_TOO_HIGH 1
 #define GATEWAY_STATUS_TOO_LOW 2
 
+/// Hysteresis margin (m) added *outside* the gateway operational band before a fault triggers.
+/// The gateway runs whenever altitude is in [MODERATE - DEFAULT] (100 - 110km); we only declare
+/// TOO_HIGH/TOO_LOW once altitude exceeds those by this margin, then return to OK as soon as
+/// it's back inside. Stops the gateway chattering when altitude-hold parks the station right
+/// against a threshold while leaving the whole operational band actually usable.
+#define ORBITAL_GATEWAY_HYSTERESIS 2000
+
 /// Sent on SSorbital_altitude when gateway operational status changes. Args: (new_status)
 #define COMSIG_ORBITAL_GATEWAY_STATUS_CHANGED "orbital_gateway_status_changed"
 

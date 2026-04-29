@@ -109,7 +109,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 	// Average the thrust level
 	summed_thrust /= thruster_count
 
-	thrust = clamp(summed_thrust * 2, -40, 40) // Since thrusters can now range from -20 to +20, and we need -40 to +40 range
+	thrust = clamp(summed_thrust * 2, -40, 40) // Since thrusters can range from -20 to +20, and we need -40 to +40 range
 
 /**
  * Applies the current console thrust setting to all orbital thrusters.
@@ -348,29 +348,49 @@ SUBSYSTEM_DEF(orbital_altitude)
 			"Altitude Normalized")
 
 /**
- * Returns the current gateway operational status based on orbital altitude.
- * GATEWAY_STATUS_OK - altitude is within operational range
- * GATEWAY_STATUS_TOO_HIGH - altitude is above the upper gateway threshold
- * GATEWAY_STATUS_TOO_LOW - altitude is below the lower gateway threshold
+ * Returns the current gateway operational status.
+ *
+ * This is the committed (hysteretic) state, the same one broadcast by
+ * check_gateway_status(). Use this anywhere you need the answer to
+ * "is the gateway allowed to run right now?", so:  examine, toggleon, etc.
  */
 /datum/controller/subsystem/orbital_altitude/proc/get_gateway_status()
-	// Planetary stations don't have orbital gateway restrictions
 	if(SSmapping.current_map.planetary_station)
 		return GATEWAY_STATUS_OK
-	if(orbital_altitude > ORBITAL_ALTITUDE_DEFAULT)
-		return GATEWAY_STATUS_TOO_HIGH
-	if(orbital_altitude < ORBITAL_ALTITUDE_MODERATE)
-		return GATEWAY_STATUS_TOO_LOW
-	return GATEWAY_STATUS_OK
+	return last_gateway_status
 
 /**
- * Checks if gateway status has changed and sends a signal if so.
+ * Recomputes the hysteretic gateway status and broadcasts a signal on change.
+ *
+ * The operational zone is ORBITAL_ALTITUDE_MODERATE - ORBITAL_ALTITUDE_DEFAULT
+ * (100km - 110km). The hysteresis margin sits *outside* that zone, so:
+ *   - TOO_HIGH triggers only at altitudes above DEFAULT + margin
+ *   - TOO_LOW triggers only at altitudes below MODERATE - margin
+ *   - Recovery to OK is immediate as soon as altitude is back inside a good zone.
+ *
  */
 /datum/controller/subsystem/orbital_altitude/proc/check_gateway_status()
-	var/current_status = get_gateway_status()
-	if(current_status != last_gateway_status)
-		last_gateway_status = current_status
-		SEND_SIGNAL(src, COMSIG_ORBITAL_GATEWAY_STATUS_CHANGED, current_status)
+	if(SSmapping.current_map.planetary_station)
+		return
+
+	var/new_status = last_gateway_status
+
+	// Recovery: any return inside the operational band immediately clears a fault.
+	if(last_gateway_status != GATEWAY_STATUS_OK \
+		&& orbital_altitude >= ORBITAL_ALTITUDE_MODERATE \
+		&& orbital_altitude <= ORBITAL_ALTITUDE_DEFAULT)
+		new_status = GATEWAY_STATUS_OK
+
+	// Fault entry: only trigger once we've cleared the threshold by the hysteresis margin.
+	else if(orbital_altitude > ORBITAL_ALTITUDE_DEFAULT + ORBITAL_GATEWAY_HYSTERESIS)
+		new_status = GATEWAY_STATUS_TOO_HIGH
+	else if(orbital_altitude < ORBITAL_ALTITUDE_MODERATE - ORBITAL_GATEWAY_HYSTERESIS)
+		new_status = GATEWAY_STATUS_TOO_LOW
+
+	if(new_status == last_gateway_status)
+		return
+	last_gateway_status = new_status
+	SEND_SIGNAL(src, COMSIG_ORBITAL_GATEWAY_STATUS_CHANGED, new_status)
 
 /**
  * Returns a flight time multiplier for the cargo shuttle based on orbital altitude.
