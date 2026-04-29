@@ -23,7 +23,7 @@
 	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	del_on_death = TRUE
-	deathmessage = "explodes into a cloud of gas!"
+	death_message = "explodes into a cloud of gas!"
 	gold_core_spawnable = HOSTILE_SPAWN
 	/// Size of cloud produced from a dying spore
 	var/death_cloud_size = 1

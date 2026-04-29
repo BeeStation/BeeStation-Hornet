@@ -9,16 +9,16 @@
 	dir = 1
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ac" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ae" = (
 /obj/item/stack/sheet/iron,
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "af" = (
 /obj/structure/fluff/broken_flooring{
 	icon_state = "pile";
@@ -52,7 +52,7 @@
 	},
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "am" = (
 /obj/item/stack/rods,
 /turf/open/floor/plating/airless,
@@ -153,12 +153,12 @@
 /obj/structure/lattice,
 /obj/item/stack/sheet/iron,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "aZ" = (
 /obj/structure/lattice,
 /obj/item/shard,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "be" = (
 /turf/open/floor/plating/airless{
 	broken = 1

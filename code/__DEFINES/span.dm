@@ -27,6 +27,7 @@
 #define span_bighypnophrase(str) ("<span class='big hypnophrase'>" + (str) + "</span>")
 #define span_bignotice(str) ("<span class='big notice'>" + (str) + "</span>")
 #define span_bigslime(str) ("<span class='big slime'>" + (str) + "</span>")
+#define span_binarysay(str) ("<span class='binarysay'>" + (str) + "</span>")
 #define span_blob(str) ("<span class='blob'>" + (str) + "</span>")
 #define span_blobannounce(str) ("<span class='blobannounce'>" + (str) + "</span>")
 #define span_blue(str) ("<span class='blue'>" + (str) + "</span>")
@@ -72,6 +73,7 @@
 #define span_emojibutton(str) ("<span class='emoji_button'>" + (str) + "</span>")
 #define span_emote(str) ("<span class='emote'>" + (str) + "</span>")
 #define span_error(str) ("<span class='error'>" + (str) + "</span>")
+#define span_game(str) ("<span class='game'>" + (str) + "</span>")
 #define span_gamedeadsay(str) ("<span class='game deadsay'>" + (str) + "</span>")
 #define span_gamesay(str) ("<span class='game say'>" + (str) + "</span>")
 #define span_ghostalert(str) ("<span class='ghostalert'>" + (str) + "</span>")
@@ -216,6 +218,7 @@
 #define span_unconscious(str) ("<span class='unconscious'>" + (str) + "</span>")
 #define span_userdanger(str) ("<span class='userdanger'>" + (str) + "</span>")
 #define span_usernotice(str) ("<span class='usernotice'>" + (str) + "</span>")
+#define span_subtlenotice(str) ("<span class='subtlenotice'>" + (str) + "</span>")
 #define span_value(str) ("<span class='value'>" + (str) + "</span>")
 #define span_warn(str) ("<span class='warn'>" + (str) + "</span>")
 #define span_warner(str) ("<span class='warner'>" + (str) + "</span>")
@@ -225,6 +228,7 @@
 #define span_warningholoparasite(str) ("<span class='warning holoparasite'>" + (str) + "</span>")
 #define span_warningitalics(str) ("<span class='warning italics'>" + (str) + "</span>")
 #define span_warningrobot(str) ("<span class='warning robot'>" + (str) + "</span>")
+#define span_awe(str) ("<span class='awe'>" + (str) + "</span>")
 #define span_subtle(str) ("<span class='subtle'>" + (str) + "</span>")
 
 // Spans that use embedded tgui components:

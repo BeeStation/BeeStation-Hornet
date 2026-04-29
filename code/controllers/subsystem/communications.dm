@@ -23,15 +23,16 @@ SUBSYSTEM_DEF(communications)
 		minor_announce(input,"[user.name] Announces:", html_encode = FALSE)
 		COOLDOWN_START(src, silicon_message_cooldown, COMMUNICATION_COOLDOWN_AI)
 	else
+		var/list/message_data = user.treat_message(input)
 		if(emagged)
-			priority_announce(html_decode(user.treat_message(input)), null, 'sound/misc/announce_syndi.ogg', ANNOUNCEMENT_TYPE_SYNDICATE, has_important_message = TRUE)
+			priority_announce(html_decode(message_data["message"]), null, 'sound/misc/announce_syndi.ogg', ANNOUNCEMENT_TYPE_SYNDICATE, has_important_message = TRUE)
 		else
-			priority_announce(html_decode(user.treat_message(input)), null, 'sound/misc/announce.ogg', ANNOUNCEMENT_TYPE_CAPTAIN, has_important_message = TRUE)
+			priority_announce(html_decode(message_data["message"]), null, 'sound/misc/announce.ogg', ANNOUNCEMENT_TYPE_CAPTAIN, has_important_message = TRUE)
 		COOLDOWN_START(src, nonsilicon_message_cooldown, COMMUNICATION_COOLDOWN)
 	user.log_talk(input, LOG_SAY, tag="priority announcement")
 	message_admins("[ADMIN_LOOKUPFLW(user)] has made a priority announcement.")
 
-/datum/controller/subsystem/communications/proc/send_message(datum/comm_message/sending,print = TRUE,unique = FALSE)
+/datum/controller/subsystem/communications/proc/send_message(datum/comm_message/sending, print = TRUE, unique = FALSE, contains_advanced_html = FALSE)
 	for(var/obj/machinery/computer/communications/C in GLOB.machines)
 		if(!(C.machine_stat & (BROKEN|NOPOWER)) && is_station_level(C.z))
 			if(unique)
@@ -42,7 +43,8 @@ SUBSYSTEM_DEF(communications)
 			if(print)
 				var/obj/item/paper/printed_paper = new /obj/item/paper(C.loc)
 				printed_paper.name = "paper - '[sending.title]'"
-				printed_paper.add_raw_text(sending.content)
+				printed_paper.add_raw_text("</center>[sending.content]", advanced_html = contains_advanced_html)
+				printed_paper.color = "#deebff"
 				printed_paper.update_appearance()
 
 /// Called AFTER everyone is equipped with their job
@@ -51,6 +53,12 @@ SUBSYSTEM_DEF(communications)
 
 /datum/controller/subsystem/communications/proc/send_roundstart_report()
 	SSstation.generate_station_goals(CONFIG_GET(number/station_goal_budget))
+
+	. = ""
+	. += "<center><img src='[SSassets.transport.get_asset_url("nanotrasen-logo")]' width='50%'></center><hr>"
+	. += "<center><h2>[command_name()], TCD [time2text(world.realtime, "DDD, MMM DD")], [CURRENT_STATION_YEAR]</h2></center><hr>"
+	. += get_main_report_content()
+
 
 	var/list/datum/station_goal/goals = SSstation.get_station_goals()
 	if(length(goals))
@@ -66,18 +74,20 @@ SUBSYSTEM_DEF(communications)
 			continue
 		trait_list_strings += "[station_trait.get_report()]<BR>"
 	if(length(trait_list_strings))
-		. += "<hr><b>Identified shift divergencies:</b><BR>" + trait_list_strings.Join()
+		. += "<hr><h4>Identified shift divergencies:</h4>" + trait_list_strings.Join()
 
+	. += "<hr><h3>Nanotrasen Department of Intelligence Threat Advisory:</h3>"
 	if(CONFIG_GET(flag/intercept_report))
 		. += generate_security_report(TRUE)
 
-	print_command_report(., "[station_name()] Situation & Security Report")
+	print_command_report(., "[station_name()] Situation & Security Report", contains_advanced_html = TRUE)
 
 /datum/controller/subsystem/communications/proc/generate_security_report(has_hidden_modes)
 	. = ""
 	var/list/gamemodes = list()
 	var/list/blacklisted_types = list()
 	var/obvious_shown = FALSE
+
 	// Add all of the rulesets that did executed
 	for (var/datum/dynamic_ruleset/ruleset in SSdynamic.gamemode_executed_rulesets)
 		gamemodes += ruleset
@@ -121,6 +131,12 @@ SUBSYSTEM_DEF(communications)
 			to be evaluated. Please be aware of any security incidents which are not present on this compilation.<br><br>"
 	. += "It is most likely that the most serious risks to the station have already infiltrated the crew. Additional crew have been screened against some \
 	major risks but new threats may have developed since the screening system was put in place.<br>"
+
+/// Return a random flavor/meme report to use in the command report
+/datum/controller/subsystem/communications/proc/get_main_report_content()
+	if(istype(SSstation.announcer, /datum/centcom_announcer/intern))
+		return pick_list_replacements("flavor_reports.json", "intern_reports")
+	return pick_list_replacements("flavor_reports.json", "reports")
 
 #undef COMMUNICATION_COOLDOWN
 #undef COMMUNICATION_COOLDOWN_AI

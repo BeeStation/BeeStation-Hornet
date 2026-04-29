@@ -67,7 +67,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF | UNACIDABLE
 	canhear_range = -1
 	subspace_transmission = TRUE
-	radio_silent = TRUE
+	radio_noise = FALSE
 
 /obj/item/radio/holoparasite/Initialize(mapload)
 	. = ..()

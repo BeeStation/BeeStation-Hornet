@@ -123,7 +123,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 				A.objectives += O
 				log_objective(O.owner, O.explanation_text)
 		if(assignedrole)
-			M.mind.assigned_role = assignedrole
+			M.mind.set_assigned_role(assignedrole)
 		special(M, name)
 		MM.name = M.real_name
 	if(uses > 0)

@@ -29,7 +29,7 @@
 	var/obj/effect/ctf/flag_reset/reset
 	var/reset_path = /obj/effect/ctf/flag_reset
 	/// Which area we announce updates on the flag to. Should just generally be the area of the arena.
-	var/game_area = /area/ctf
+	var/game_area = /area/centcom/ctf
 
 /obj/item/ctf/Destroy()
 	QDEL_NULL(reset)
@@ -204,7 +204,7 @@
 
 	var/static/arena_reset = FALSE
 	var/static/list/people_who_want_to_play = list()
-	var/game_area = /area/ctf
+	var/game_area = /area/centcom/ctf
 
 	var/static/list/allowed_species = list(
 		/datum/species/lizard,
@@ -770,7 +770,7 @@
 	var/obj/machinery/capture_the_flag/controlling
 	var/team = "none"
 	var/point_rate = 0.5
-	var/game_area = /area/ctf
+	var/game_area = /area/centcom/ctf
 
 /obj/machinery/control_point/process(delta_time)
 	if(controlling)

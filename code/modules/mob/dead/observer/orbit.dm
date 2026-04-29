@@ -75,7 +75,9 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 	transform.scale(16, 16)
 
 	for (var/icon_state_name in icon_states('icons/mob/hud.dmi'))
-		insert_icon("job-icon-[icon_state_name]", uni_icon('icons/mob/hud.dmi', icon_state_name, transform=transform))
+		var/datum/universal_icon/job_icon = uni_icon('icons/mob/hud.dmi', icon_state_name)
+		job_icon.transform = transform
+		insert_icon("job-icon-[icon_state_name]", job_icon)
 
 /datum/orbit_menu/ui_static_data(mob/user)
 	var/list/new_mob_pois = SSpoints_of_interest.get_mob_pois(CALLBACK(src, PROC_REF(validate_mob_poi)), append_dead_role = FALSE)

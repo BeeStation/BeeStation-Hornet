@@ -235,7 +235,7 @@
 
 /datum/dynamic_ruleset/midround/ghost/nuclear_assault/finish_setup(mob/new_character)
 	new_character.mind.special_role = ROLE_NUCLEAR_OPERATIVE
-	new_character.mind.assigned_role = ROLE_NUCLEAR_OPERATIVE
+	new_character.mind.set_assigned_role(ROLE_NUCLEAR_OPERATIVE)
 
 	if(has_made_leader)
 		return ..()
@@ -331,7 +331,7 @@
 
 /datum/dynamic_ruleset/midround/ghost/space_dragon/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/mob/living/simple_animal/hostile/space_dragon/dragon_body = new(pick(spawn_locations))
-	dragon_body.key = chosen_mob
+	dragon_body.key = chosen_mob.key
 
 	playsound(dragon_body, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
 	priority_announce("It appears a lifeform with magical traces is approaching [station_name()], please stand-by.", "Lifesign Alert")
@@ -414,7 +414,7 @@
 
 /datum/dynamic_ruleset/midround/ghost/abductors/finish_setup(mob/new_character)
 	new_character.mind.special_role = ROLE_ABDUCTOR
-	new_character.mind.assigned_role = ROLE_ABDUCTOR
+	new_character.mind.set_assigned_role(ROLE_ABDUCTOR)
 
 	if(!has_made_leader)
 		has_made_leader = TRUE
@@ -445,7 +445,7 @@
 
 /datum/dynamic_ruleset/midround/ghost/lone_abductor/finish_setup(mob/new_character)
 	new_character.mind.special_role = ROLE_ABDUCTOR
-	new_character.mind.assigned_role = ROLE_ABDUCTOR
+	new_character.mind.set_assigned_role(ROLE_ABDUCTOR)
 
 	team = new
 	new_character.mind.add_antag_datum(antag_datum, team, ruleset = src)
@@ -679,7 +679,7 @@
 
 /datum/dynamic_ruleset/midround/ghost/fugitives/get_spawn_locations()
 	for(var/turf/turf in GLOB.xeno_spawn)
-		if(istype(turf.loc, /area/maintenance))
+		if(istype(turf.loc, /area/station/maintenance))
 			spawn_locations += turf
 
 /datum/dynamic_ruleset/midround/ghost/fugitives/execute()

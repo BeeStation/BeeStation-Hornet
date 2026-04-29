@@ -340,7 +340,7 @@
 /obj/item/folder/yellow,
 /obj/item/pen,
 /obj/item/hand_labeler_refill,
-/obj/structure/sign/warning/nosmoking/circle{
+/obj/structure/sign/warning/no_smoking/circle{
 	pixel_x = -32
 	},
 /obj/item/radio/intercom{
@@ -425,9 +425,9 @@
 /area/shuttle/escape)
 "fg" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Holding Area";
-	req_access_txt = "2"
+	name = "Holding Area"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -487,9 +487,9 @@
 /area/shuttle/escape)
 "sC" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Cockpit";
-	req_access_txt = "19"
+	name = "Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -585,9 +585,9 @@
 /area/shuttle/escape)
 "Ls" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
+	name = "Emergency Shuttle Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -665,9 +665,9 @@
 /area/shuttle/escape)
 "Rm" = (
 /obj/machinery/door/airlock/command{
-	name = "Emergency Recovery Airlock";
-	req_access_txt = "19"
+	name = "Emergency Recovery Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},

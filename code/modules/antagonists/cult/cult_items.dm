@@ -46,7 +46,7 @@ Striking a noncultist, however, will tear their flesh."}
 	inhand_icon_state = "cultblade"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
@@ -861,24 +861,25 @@ Striking a noncultist, however, will tear their flesh."}
 
 /obj/item/shield/mirror/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/turf/T = get_turf(hit_atom)
-	var/datum/thrownthing/D = throwingdatum
 	if(isliving(hit_atom))
-		var/mob/living/L = hit_atom
-		if(IS_CULTIST(L))
+		var/mob/living/target = hit_atom
+
+		if(target.can_block_magic(MAGIC_RESISTANCE_HOLY) || IS_CULTIST(target))
+			target.visible_message(span_warning("[src] bounces off of [target], as if repelled by an unseen force!"))
+			return
+		if(IS_CULTIST(target) && target.put_in_active_hand(src))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
-			if(L.put_in_active_hand(src))
-				L.visible_message(span_warning("[L] catches [src] out of the air!"))
-			else
-				L.visible_message(span_warning("[src] bounces off of [L], as if repelled by an unseen force!"))
-		else if(!..())
-			if(!L.can_block_magic(MAGIC_RESISTANCE_HOLY))
-				L.Knockdown(30)
-				if(D?.thrower)
-					for(var/mob/living/Next in orange(2, T))
-						if(!Next.density || IS_CULTIST(Next))
-							continue
-						throw_at(Next, 3, 1, D.thrower)
-						return
-					throw_at(D.thrower, 7, 1, null)
+			target.visible_message(span_warning("[target] catches [src] out of the air!"))
+			return
+		if(!..())
+			target.Knockdown(30)
+			var/mob/living/carbon/thrower = throwingdatum?.get_thrower()
+			if(thrower)
+				for(var/mob/living/Next in orange(2, T))
+					if(!Next.density || IS_CULTIST(Next))
+						continue
+					throw_at(Next, 3, 1, thrower)
+					return
+				throw_at(thrower, 7, 1, null)
 	else
 		..()

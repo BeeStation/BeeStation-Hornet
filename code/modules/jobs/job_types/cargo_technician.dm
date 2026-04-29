@@ -5,7 +5,7 @@
 	department_head_for_prefs = JOB_NAME_QUARTERMASTER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#dcba97"
 
@@ -29,8 +29,9 @@
 	bank_account_department = ACCOUNT_CAR_BITFLAG
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_EASY)
 
-
 	display_order = JOB_DISPLAY_ORDER_CARGO_TECHNICIAN
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Merchantman"
 
 	species_outfits = list(
@@ -38,7 +39,7 @@
 	)
 	biohazard = 25
 
-	lightup_areas = list(/area/quartermaster/qm, /area/quartermaster/qm_bedroom)
+	lightup_areas = list(/area/station/cargo/qm, /area/station/cargo/qm_bedroom)
 
 /datum/job/cargo_technician/get_access()
 	. = ..()

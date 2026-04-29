@@ -160,6 +160,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	AddElement(/datum/element/movetype_handler)
 	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 	ADD_TRAIT(src, TRAIT_SECURITY_HUD, ref(src))
+	ADD_TRAIT(src, TRAIT_HEAR_THROUGH_DARKNESS, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_GOOD_HEARING, INNATE_TRAIT)
 
 	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts) //we only add it when observing
 
@@ -660,14 +662,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	target.faction = list(FACTION_NEUTRAL)
 	return 1
 
-//this is a mob verb instead of atom for performance reasons
-//see /mob/verb/examinate() in mob.dm for more info
-//overridden here and in /mob/living for different point span classes and sanity checks
-/mob/dead/observer/pointed(atom/A as mob|obj|turf in view())
+/mob/dead/observer/_pointed(atom/pointed_at)
 	if(!..())
-		return 0
-	usr.visible_message(span_deadsay("<b>[src]</b> points to [A]."))
-	return 1
+		return FALSE
+
+	usr.visible_message(span_deadsay("<b>[src]</b> points to [pointed_at]."))
 
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"

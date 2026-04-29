@@ -98,7 +98,7 @@
 	projectilesound = 'sound/weapons/taser2.ogg'
 	loot = list(/obj/effect/decal/cleanable/robot_debris, /obj/item/stack/ore/bluespace_crystal)
 	del_on_death = TRUE
-	deathmessage = "explodes with a sharp pop!"
+	death_message = "explodes with a sharp pop!"
 	hud_type = /datum/hud/swarmer
 	speech_span = SPAN_ROBOT
 	hardattacks = TRUE
@@ -274,11 +274,11 @@
 	var/isonshuttle = istype(get_area(src), /area/shuttle)
 	for(var/turf/T as() in RANGE_TURFS(1, src))
 		var/area/A = get_area(T)
-		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
+		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/misc/space))) || (isonshuttle && !istype(A, /area/shuttle)))
 			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.LoseTarget()
 			return FALSE
-		else if(istype(A, /area/engine/supermatter))
+		else if(istype(A, /area/station/engineering/supermatter))
 			to_chat(S, span_warning("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			S.LoseTarget()
 			return FALSE
@@ -354,11 +354,11 @@
 	var/isonshuttle = istype(loc, /area/shuttle)
 	for(var/turf/T as() in RANGE_TURFS(1, src))
 		var/area/A = get_area(T)
-		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
+		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/misc/space))) || (isonshuttle && !istype(A, /area/shuttle)))
 			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.LoseTarget()
 			return TRUE
-		else if(istype(A, /area/engine/supermatter))
+		else if(istype(A, /area/station/engineering/supermatter))
 			to_chat(S, span_warning("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			S.LoseTarget()
 			return TRUE
@@ -368,11 +368,11 @@
 	var/isonshuttle = istype(get_area(src), /area/shuttle)
 	for(var/turf/T as() in RANGE_TURFS(1, src))
 		var/area/A = get_area(T)
-		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
+		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/misc/space))) || (isonshuttle && !istype(A, /area/shuttle)))
 			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.LoseTarget()
 			return TRUE
-		else if(istype(A, /area/engine/supermatter))
+		else if(istype(A, /area/station/engineering/supermatter))
 			to_chat(S, span_warning("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			S.LoseTarget()
 			return TRUE
@@ -725,7 +725,7 @@
 	set_light_on(!light_on)
 
 /mob/living/simple_animal/hostile/swarmer/proc/swarmer_chat(msg)
-	var/rendered = "<B>Swarm communication - [src]</b> [say_quote(msg)]"
+	var/rendered = "<B>Swarm communication - [src]</b> [generate_messagepart(msg)]"
 	for(var/i in GLOB.mob_list)
 		var/mob/M = i
 		if(isswarmer(M))
@@ -770,7 +770,7 @@
 /datum/antagonist/swarmer/create_team(datum/team/swarmer/new_team)
 	if(!new_team)
 		//For now only one swarm at a time
-		for(var/datum/antagonist/swarmer/S in GLOB.antagonists)
+		for(var/datum/antagonist/swarmer/S in GLOB.active_antagonists)
 			if(!S.owner)
 				continue
 			if(S.swarm)
@@ -829,7 +829,7 @@
 			if(istype(new_mob))
 				new_mob.set_combat_mode(TRUE)
 				M.mind.transfer_to(new_mob)
-				new_owner.assigned_role = ROLE_SWARMER
+				new_owner.set_assigned_role(ROLE_SWARMER)
 				new_owner.special_role = ROLE_SWARMER
 			qdel(M)
 	return ..()

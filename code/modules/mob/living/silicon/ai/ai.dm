@@ -83,7 +83,7 @@
 	//Default value of camera acceleration
 	var/acceleration = 0
 
-	var/obj/structure/AIcore/deactivated/linked_core //For exosuit control
+	var/obj/structure/ai_core/deactivated/linked_core //For exosuit control
 	var/mob/living/silicon/robot/deployed_shell = null //For shell control
 	var/datum/action/innate/deploy_shell/deploy_action = new
 	var/datum/action/innate/deploy_last_shell/redeploy_action = new
@@ -105,7 +105,7 @@
 
 	var/atom/movable/screen/ai/modpc/interfaceButton
 	var/obj/effect/overlay/holo_pad_hologram/ai_hologram
-	var/obj/machinery/holopad/current_holopad
+	VAR_FINAL/obj/machinery/holopad/current_holopad
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
@@ -115,7 +115,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	AddElement(/datum/element/trackable)
 	add_sensors()
 	if(!target_ai) //If there is no player/brain inside.
-		new/obj/structure/AIcore/deactivated(loc) //New empty terminal.
+		new/obj/structure/ai_core/deactivated(loc) //New empty terminal.
 		return INITIALIZE_HINT_QDEL //Delete AI.
 
 	if(L && istype(L, /datum/ai_laws))
@@ -380,7 +380,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 /mob/living/silicon/ai/proc/wipe()
 	// We warned you.
-	var/obj/structure/AIcore/latejoin_inactive/inactivecore = new(loc)
+	var/obj/structure/ai_core/latejoin_inactive/inactivecore = new(loc)
 	transfer_fingerprints_to(inactivecore)
 
 	if(GLOB.announcement_systems.len)
@@ -768,7 +768,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			to_chat(user, span_warning("No intelligence patterns detected.")    )
 			return
 		ShutOffDoomsdayDevice()
-		var/obj/structure/AIcore/new_core = new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
+		var/obj/structure/ai_core/new_core = new /obj/structure/ai_core/deactivated(loc)//Spawns a deactivated terminal at AI location.
 		new_core.circuit.battery = battery
 		ai_restore_power()//So the AI initially has power.
 		control_disabled = TRUE //Can't control things remotely if you're stuck in a card!
@@ -795,8 +795,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	var/list/viewscale = getviewsize(client.view)
 	return get_dist(src, A) <= max(viewscale[1]*0.5,viewscale[2]*0.5)
 
-/mob/living/silicon/ai/proc/relay_speech(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
-	var/treated_message = lang_treat(speaker, message_language, raw_message, spans, message_mods)
+/mob/living/silicon/ai/proc/relay_speech(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+	var/raw_translation = translate_language(speaker, message_language, raw_message, spans, message_mods)
+	var/atom/movable/source = speaker.GetSource() || speaker // is the speaker virtual/radio
+	var/treated_message = source.generate_messagepart(raw_translation, spans, message_mods)
+
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
 	var/hrefpart = "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
@@ -832,8 +835,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 // modified version of `relay_speech()` proc, but for better chat through holopad
 /// makes a better chat format for AI when AI takes
-/mob/living/silicon/ai/proc/hear_holocall(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
-	var/treated_message = span_message(say_emphasis(lang_treat(speaker, message_language, raw_message, spans, message_mods)))
+/mob/living/silicon/ai/proc/hear_holocall(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+	var/raw_translation = translate_language(speaker, message_language, raw_message)
+	var/atom/movable/source = speaker.GetSource() || speaker // is the speaker virtual/radio
+	var/treated_message = span_message(apply_message_emphasis(source.generate_messagepart(raw_translation, spans, message_mods)))
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
 	var/hrefpart = "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
@@ -870,7 +875,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			to_chat(each_ghost, "[follow_link] [rendered]")
 		else // ghost removed the language themselves
 			if(!rendered_scrambled_message)
-				rendered_scrambled_message = span_message(each_ghost.say_emphasis(each_ghost.lang_treat(speaker, message_language, raw_message, spans, message_mods)))
+				var/scrambled_translation = each_ghost.translate_language(speaker, message_language, raw_message)
+				rendered_scrambled_message = span_message(each_ghost.apply_message_emphasis(source.generate_messagepart(scrambled_translation, spans, message_mods)))
 				rendered_scrambled_message = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(speaker.GetVoice())]</b> [rendered_scrambled_message]")
 			to_chat(each_ghost, "[follow_link] [rendered_scrambled_message]")
 
@@ -1004,7 +1010,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, TRUE, ignore_walls = FALSE)
 	else
 		var/turf/turf = get_turf(apc)
-		if(istype(get_area(turf), /area/crew_quarters/heads))
+		if(istype(get_area(turf), /area/station/command/heads_quarters))
 			malf_picker.processing_time += 20
 		else
 			malf_picker.processing_time += 10

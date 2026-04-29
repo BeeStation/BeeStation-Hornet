@@ -38,7 +38,7 @@ export const AntagInfoBrainwashed = (porps) => {
                 objectives={data.objectives}
                 objectiveFollowup={
                   <Box bold textColor="red">
-                    This Directive must be followed.
+                    This Directive must be followed immediately.
                   </Box>
                 }
               />

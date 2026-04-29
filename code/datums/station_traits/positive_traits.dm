@@ -14,7 +14,7 @@
 
 	COOLDOWN_START(src, party_cooldown, rand(6 MINUTES, 12 MINUTES))
 
-	var/turf/turf = get_safe_random_station_turfs(pick(GLOB.bar_areas))
+	var/turf/turf = get_safe_random_station_turfs(GLOB.bar_areas)
 	if(!turf)
 		return
 

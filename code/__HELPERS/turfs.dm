@@ -217,7 +217,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/pixel_y_offset = checked_atom.pixel_y + atom_matrix.get_y_shift()
 
 	//Irregular objects
-	var/list/icon_dimensions = get_icon_dimensions(checked_atom.icon)
+	var/list/icon_dimensions = get_icon_dimensions_pure(checked_atom.icon)
 	var/checked_atom_icon_height = icon_dimensions["width"]
 	var/checked_atom_icon_width = icon_dimensions["height"]
 	if(checked_atom_icon_height != world.icon_size || checked_atom_icon_width != world.icon_size)
@@ -360,7 +360,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 /proc/get_safe_random_station_turfs(list/areas_to_pick_from = GLOB.the_station_areas, amount = 1)
 	var/list/picked_turfs = list()
 	var/list/turf_list = list()
-	for(var/area/A as() in areas_to_pick_from)
+	for(var/area/A as anything in areas_to_pick_from)
 		turf_list += get_area_turfs(A)
 	while(turf_list.len && length(picked_turfs) < amount)
 		var/I = rand(1, length(turf_list))

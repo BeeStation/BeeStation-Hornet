@@ -68,9 +68,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 		else
 			H.fully_replace_character_name(null, name)
 	if(has_owner)
-		new_spawn.mind.assigned_role = "Servant Golem"
+		new_spawn.mind.set_assigned_role("Servant Golem")
 	else
-		new_spawn.mind.assigned_role = "Free Golem"
+		new_spawn.mind.set_assigned_role("Free Golem")
 		var/obj/item/card/id/I = new_spawn.get_idcard()
 		if(I)
 			I.registered_name = new_spawn.name

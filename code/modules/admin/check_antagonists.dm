@@ -51,7 +51,7 @@
 
 /datum/team/proc/get_team_antags(antag_type,specific = FALSE)
 	. = list()
-	for(var/datum/antagonist/A in GLOB.antagonists)
+	for(var/datum/antagonist/A as anything in GLOB.active_antagonists)
 		if(A.get_team() == src && (!antag_type || !specific && istype(A,antag_type) || specific && A.type == antag_type))
 			. += A
 
@@ -84,7 +84,7 @@
 	var/list/all_teams = list()
 	var/list/all_antagonists = list()
 
-	for(var/datum/antagonist/A in GLOB.antagonists)
+	for(var/datum/antagonist/A as anything in GLOB.active_antagonists)
 		if(!A.owner)
 			continue
 		all_teams |= A.get_team()

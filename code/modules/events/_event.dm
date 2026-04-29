@@ -2,6 +2,7 @@
 
 //this singleton datum is used by the events controller to dictate how it selects events
 /datum/round_event_control
+	abstract_type = /datum/round_event_control
 	var/name //The human-readable name of the event
 	//var/category //The category of the event
 	//var/description //The description of the event
@@ -107,7 +108,7 @@
 	if(random)
 		log_game("Random Event triggering: [name] ([typepath])")
 	if (alert_observers)
-		deadchat_broadcast(span_deadsay("<b>[name]</b> has just been triggered!")) //STOP ASSUMING IT'S BADMINS!
+		deadchat_broadcast(" has just been triggered!", "<b>[name]</b>", message_type=DEADCHAT_ANNOUNCEMENT) //STOP ASSUMING IT'S BADMINS!
 	return E
 
 //Special admins setup
@@ -115,6 +116,7 @@
 	return
 
 /datum/round_event	//NOTE: Times are measured in master controller ticks!
+	abstract_type = /datum/round_event
 	var/processing = TRUE
 	var/datum/round_event_control/control
 

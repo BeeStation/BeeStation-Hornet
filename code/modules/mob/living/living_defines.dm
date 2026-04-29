@@ -1,4 +1,5 @@
 /mob/living
+	abstract_type = /mob/living
 	see_invisible = SEE_INVISIBLE_LIVING
 	sight = 0
 	see_in_dark = 2
@@ -48,6 +49,11 @@
 
 	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
 	var/timeofdeath = 0
+
+	///A message sent when the mob dies, with the *deathgasp emote
+	var/death_message = ""
+	///A sound sent when the mob dies, with the *deathgasp emote
+	var/death_sound
 
 	/// Helper vars for quick access to firestacks, these should be updated every time firestacks are adjusted
 	var/on_fire = FALSE
@@ -174,3 +180,5 @@
 
 	//If we are currently leaning on something, and what that object is
 	var/atom/leaned_object
+	//to track the last use of say's message arg
+	var/last_say_args_ref

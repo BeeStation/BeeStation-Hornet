@@ -38,8 +38,9 @@
 
 /mob/living/simple_animal/hostile/blob/Initialize(mapload)
 	. = ..()
-	if(!independent) //no pulling people deep into the blob
+	if(!independent || overmind) //no pulling people deep into the blob
 		remove_verb(/mob/living/verb/pulled)
+		GLOB.blob_telepathy_mobs |= src
 	else
 		pass_flags &= ~PASSBLOB
 
@@ -95,19 +96,16 @@
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_range = 7, datum/saymode/saymode = null)
-	if(!overmind)
-		return ..()
-	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, span_warning("Your message contains forbidden words."))
-		return
-	message = treat_message_min(message)
-	log_talk(message, LOG_SAY, tag="blob")
-	var/spanned_message = say_quote(message)
-	var/rendered = "<font color=\"#EE4000\"><b>\[Blob Telepathy\] [real_name]</b> [spanned_message]</font>"
+/mob/living/simple_animal/hostile/blob/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null, message_range = 7, datum/saymode/saymode = null)
 	for(var/M in GLOB.mob_list)
-		if(isovermind(M) || istype(M, /mob/living/simple_animal/hostile/blob))
-			to_chat(M, rendered)
-		if(isobserver(M))
-			var/link = FOLLOW_LINK(M, src)
-			to_chat(M, "[link] [rendered]")
+		INVOKE_ASYNC(src, PROC_REF(send_blob_telepathy), message)
+		return
+
+/mob/living/simple_animal/hostile/blob/proc/send_blob_telepathy(message)
+	var/list/message_mods = list()
+	// Note: check_for_custom_say_emote can sleep.
+	var/adjusted_message = src.check_for_custom_say_emote(message, message_mods)
+	src.log_sayverb_talk(message, message_mods, tag = "blob hivemind telepathy")
+	var/spanned_message = src.generate_messagepart(adjusted_message, message_mods = message_mods)
+	var/rendered = span_blob("<b>\[Blob Telepathy\] [src.real_name]</b> [spanned_message]")
+	relay_to_list_and_observers(rendered, GLOB.blob_telepathy_mobs, src, MESSAGE_TYPE_RADIO)

@@ -6,7 +6,7 @@
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list("Science")
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffddff"
 	req_admin_notify = 1
@@ -31,6 +31,8 @@
 		ACCOUNT_SCI_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR
+
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "Archmagister"
 
 	species_outfits = list(
@@ -39,15 +41,15 @@
 	biohazard = 40
 
 	minimal_lightup_areas = list(
-		/area/crew_quarters/heads/hor,
-		/area/science/explab,
-		/area/science/misc_lab,
-		/area/science/mixing,
-		/area/science/nanite,
-		/area/science/robotics,
-		/area/science/server,
-		/area/science/storage,
-		/area/science/xenobiology
+		/area/station/command/heads_quarters/rd,
+		/area/station/science/explab,
+		/area/station/science/misc_lab,
+		/area/station/science/mixing,
+		/area/station/science/nanite,
+		/area/station/science/robotics,
+		/area/station/science/server,
+		/area/station/science/storage,
+		/area/station/science/xenobiology
 	)
 
 	manuscript_jobs = list(

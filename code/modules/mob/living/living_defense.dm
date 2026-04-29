@@ -291,8 +291,8 @@
 		to_chat(user, "<span class='notice'>You don't want to hurt anyone!</span>")
 		return FALSE
 
-	if(user.is_muzzled() || user.is_mouth_covered(FALSE, TRUE))
-		to_chat(user, "<span class='warning'>You can't bite with your mouth covered!</span>")
+	if(user.is_mouth_covered(ITEM_SLOT_MASK))
+		to_chat(user, span_warning("You can't bite with your mouth covered!"))
 		return FALSE
 	user.do_attack_animation(src, ATTACK_EFFECT_BITE)
 	log_combat(user, src, "attacked")
@@ -358,9 +358,10 @@
 
 ///As the name suggests, this should be called to apply electric shocks.
 /mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags) & COMPONENT_LIVING_BLOCK_SHOCK)
+		return FALSE
 	shock_damage *= siemens_coeff
-	if((flags & SHOCK_TESLA) && (flags_1 & TESLA_IGNORE_1))
+	if((flags & SHOCK_TESLA) && HAS_TRAIT(src, TRAIT_TESLA_SHOCKIMMUNE))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
 		return FALSE
@@ -372,9 +373,9 @@
 		adjustStaminaLoss(shock_damage)
 	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
 		visible_message(
-			span_danger("[src] was shocked by \the [source]!"), \
-			span_userdanger("You feel a powerful shock coursing through your body!"), \
-			span_hear("You hear a heavy electrical crack.") \
+			span_danger("[src] was shocked by \the [source]!"),
+			span_userdanger("You feel a powerful shock coursing through your body!"),
+			span_hear("You hear a heavy electrical crack."),
 		)
 	return shock_damage
 

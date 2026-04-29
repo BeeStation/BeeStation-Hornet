@@ -6,7 +6,7 @@
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list(RADIO_CHANNEL_SECURITY)
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffdddd"
 	req_admin_notify = 1
@@ -47,6 +47,8 @@
 		ACCOUNT_SEC_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_SECURITY
+
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "Guard Leader"
 
 	species_outfits = list(
@@ -54,9 +56,9 @@
 	)
 
 	minimal_lightup_areas = list(
-		/area/crew_quarters/heads/hos,
-		/area/security/detectives_office,
-		/area/security/warden
+		/area/station/command/heads_quarters/hos,
+		/area/station/security/detectives_office,
+		/area/station/security/warden
 	)
 
 	manuscript_jobs = list(

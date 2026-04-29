@@ -4,6 +4,7 @@
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
 	uses_mutcolor = TRUE
+	brute_modifier = 1.25 //ethereal are weak to brute damage
 
 /*
 /obj/item/bodypart/head/ethereal/update_limb(dropping_limb, is_creating)
@@ -20,6 +21,7 @@
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
 	uses_mutcolor = TRUE
+	brute_modifier = 1.25 //ethereal are weak to brute damage
 
 /*
 /obj/item/bodypart/chest/ethereal/update_limb(dropping_limb, is_creating)
@@ -35,6 +37,7 @@
 	limb_id = SPECIES_ETHEREAL
 	dmg_overlay_type = null
 	uses_mutcolor = TRUE
+	brute_modifier = 1.25 //ethereal are weak to brute damage
 
 /*
 /obj/item/bodypart/arm/left/ethereal/update_limb(dropping_limb, is_creating)
@@ -50,6 +53,7 @@
 	limb_id = SPECIES_ETHEREAL
 	dmg_overlay_type = null
 	uses_mutcolor = TRUE
+	brute_modifier = 1.25 //ethereal are weak to brute damage
 
 /*
 /obj/item/bodypart/arm/right/ethereal/update_limb(dropping_limb, is_creating)
@@ -65,6 +69,7 @@
 	limb_id = SPECIES_ETHEREAL
 	dmg_overlay_type = null
 	uses_mutcolor = TRUE
+	brute_modifier = 1.25 //ethereal are weak to brute damage
 
 /*
 /obj/item/bodypart/leg/left/ethereal/update_limb(dropping_limb, is_creating)
@@ -80,6 +85,7 @@
 	limb_id = SPECIES_ETHEREAL
 	dmg_overlay_type = null
 	uses_mutcolor = TRUE
+	brute_modifier = 1.25 //ethereal are weak to brute damage
 
 /*
 /obj/item/bodypart/leg/right/ethereal/update_limb(dropping_limb, is_creating)

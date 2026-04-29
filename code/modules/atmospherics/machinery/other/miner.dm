@@ -5,7 +5,6 @@
 #define GASMINER_POWER_KPA 3
 #define GASMINER_POWER_FULLSCALE 4
 
-
 /obj/machinery/atmospherics/miner
 	name = "gas miner"
 	desc = "Gasses mined from the gas giant below (above?) flow out through this massive vent."

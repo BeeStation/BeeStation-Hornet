@@ -6,9 +6,6 @@
 			continue
 		var/hash = "[object.type][object.dir][object.pixel_x][object.pixel_y]"
 		var/violated = FALSE
-		if (istype(object, /obj/structure/cable))
-			var/obj/structure/cable/cable = object
-			hash = "[hash][min(cable.d1, cable.d2)][max(cable.d1, cable.d2)]"
 		if (istype(object, /obj/machinery/atmospherics))
 			var/obj/machinery/atmospherics/atmosmachine = object
 			// 2 atmosmachines should never be on the same turf with the same layer

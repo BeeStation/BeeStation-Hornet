@@ -6,17 +6,13 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /proc/init_preference_entries()
 	var/list/output = list()
-	for (var/datum/preference/preference_type as anything in subtypesof(/datum/preference))
-		if (initial(preference_type.abstract_type) == preference_type)
-			continue
+	for (var/datum/preference/preference_type as anything in valid_subtypesof(/datum/preference))
 		output[preference_type] = new preference_type
 	return output
 
 /proc/init_preference_entries_by_key()
 	var/list/output = list()
-	for (var/datum/preference/preference_type as anything in subtypesof(/datum/preference))
-		if (initial(preference_type.abstract_type) == preference_type)
-			continue
+	for (var/datum/preference/preference_type as anything in valid_subtypesof(/datum/preference))
 		output[initial(preference_type.db_key)] = GLOB.preference_entries[preference_type]
 	return output
 
@@ -35,6 +31,8 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /// Represents an individual preference.
 /datum/preference
+	abstract_type = /datum/preference
+
 	/// The key inside the database to use.
 	/// This is also sent to the UI.
 	/// Once you pick this, don't change it.
@@ -44,9 +42,6 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// This isn't used for anything other than as a key for UI data.
 	/// It is up to the PreferencesMenu UI itself to interpret it.
 	var/category = "misc"
-
-	/// Do not instantiate if type matches this.
-	var/abstract_type = /datum/preference
 
 	/// What location should this preference be read from?
 	/// Valid values are PREFERENCE_CHARACTER and PREFERENCE_PLAYER.
@@ -297,9 +292,8 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// A preference that is a choice of one option among a fixed set.
 /// Used for preferences such as clothing.
 /datum/preference/choiced
-	/// If this is TRUE, icons will be generated.
-	/// This is necessary for if your `init_possible_values()` override
-	/// returns an assoc list of names to atoms/icons.
+	/// If this is TRUE, an icon will be generated for every value.
+	/// If you implement this, you must implement `icon_for(value)` for every possible value.
 	var/should_generate_icons = FALSE
 
 	var/list/cached_values
@@ -337,25 +331,25 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	var/list/serialized_choices = list()
-	var/choices = get_choices()
 
-	if (should_generate_icons)
-		for (var/choice in choices)
-			serialized_choices[serialize(choice)] = choices[choice]
-	else
-		for (var/choice in choices)
-			serialized_choices += serialize(choice)
+	for (var/choice in get_choices())
+		serialized_choices += serialize(choice)
 
 	return serialized_choices
 
 /// Returns a list of every possible value.
 /// This must be overriden by `/datum/preference/choiced` subtypes.
-/// Return value can be in the form of:
-/// - A flat list of raw values, such as list(MALE, FEMALE, PLURAL).
-/// - An assoc list of raw values to atoms/icons, in which case
-/// icons will be generated.
+/// If `should_generate_icons` is TRUE, then you will also need to implement `icon_for(value)`
+/// for every possible value.
 /datum/preference/choiced/proc/init_possible_values()
 	CRASH("`init_possible_values()` was not implemented for [type]!")
+
+/// When `should_generate_icons` is TRUE, this proc is called for every value.
+/// It can return either an icon or a typepath to an atom to create.
+/datum/preference/choiced/proc/icon_for(value)
+	SHOULD_CALL_PARENT(FALSE)
+	SHOULD_NOT_SLEEP(TRUE)
+	CRASH("`icon_for()` was not implemented for [type], even though should_generate_icons = TRUE!")
 
 /datum/preference/choiced/is_valid(value)
 	return value in get_choices()
@@ -425,49 +419,6 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 			return default
 		return pick(sprite_accessories)
 	return pick(allowed)
-
-/// Takes an assoc list of names to /datum/sprite_accessory and returns a value
-/// fit for `/datum/preference/init_possible_values()`
-/proc/possible_values_for_sprite_accessory_list(list/datum/sprite_accessory/sprite_accessories)
-	var/list/possible_values = list()
-	for (var/name in sprite_accessories)
-		var/datum/sprite_accessory/sprite_accessory = sprite_accessories[name]
-		if (istype(sprite_accessory))
-			possible_values[name] = uni_icon(sprite_accessory.icon, sprite_accessory.icon_state)
-		else
-			// This means it didn't have an icon state
-			possible_values[name] = uni_icon('icons/mob/landmarks.dmi', "x")
-	return possible_values
-
-/// Takes an assoc list of names to /datum/sprite_accessory and returns a value
-/// fit for `/datum/preference/init_possible_values()`
-/// Different from `possible_values_for_sprite_accessory_list` in that it takes a list of layers
-/// such as BEHIND, FRONT, and ADJ.
-/// It also takes a "body part name", such as body_markings, moth_wings, etc
-/// They are expected to be in order from lowest to top.
-/proc/possible_values_for_sprite_accessory_list_for_body_part(
-	list/datum/sprite_accessory/sprite_accessories,
-	body_part,
-	list/layers,
-)
-	var/list/possible_values = list()
-
-	for (var/name in sprite_accessories)
-		var/datum/sprite_accessory/sprite_accessory = sprite_accessories[name]
-
-		var/datum/universal_icon/final_icon
-
-		for (var/layer in layers)
-			var/datum/universal_icon/icon = uni_icon(sprite_accessory.icon, "m_[body_part]_[sprite_accessory.icon_state]_[layer]")
-
-			if (isnull(final_icon))
-				final_icon = icon
-			else
-				final_icon.blend_icon(icon, ICON_OVERLAY)
-
-		possible_values[name] = final_icon
-
-	return possible_values
 
 /// A numeric preference with a minimum and maximum value
 /datum/preference/numeric

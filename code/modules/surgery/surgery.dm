@@ -1,4 +1,5 @@
 /datum/surgery
+	abstract_type = /datum/surgery
 	var/name = "surgery"
 	var/desc = "surgery description"
 	var/status = 1

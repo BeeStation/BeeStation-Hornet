@@ -139,7 +139,7 @@
 /datum/antagonist/nukeop/create_team(datum/team/nuclear/new_team)
 	if(!new_team)
 		if(!always_new_team)
-			for(var/datum/antagonist/nukeop/N in GLOB.antagonists)
+			for(var/datum/antagonist/nukeop/N in GLOB.active_antagonists)
 				if(!N.owner)
 					continue
 				if(N.nuke_team)
@@ -154,7 +154,7 @@
 	nuke_team = new_team
 
 /datum/antagonist/nukeop/admin_add(datum/mind/new_owner,mob/admin)
-	new_owner.assigned_role = ROLE_NUCLEAR_OPERATIVE
+	new_owner.set_assigned_role(ROLE_NUCLEAR_OPERATIVE)
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has nuke op'ed [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has nuke op'ed [key_name(new_owner)].")

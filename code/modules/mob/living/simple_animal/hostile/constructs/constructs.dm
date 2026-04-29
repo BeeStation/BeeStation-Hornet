@@ -34,7 +34,7 @@
 	loot = list(/obj/item/ectoplasm)
 	del_on_death = TRUE
 	initial_language_holder = /datum/language_holder/construct
-	deathmessage = "collapses in a shattered heap."
+	death_message = "collapses in a shattered heap."
 	hardattacks = TRUE
 	/// List of spells that this construct can cast
 	var/list/construct_spells = list()

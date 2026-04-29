@@ -265,8 +265,6 @@ GLOBAL_LIST_INIT(role_preference_entries, init_role_preference_entries())
 
 /proc/init_role_preference_entries()
 	var/list/output = list()
-	for (var/datum/role_preference/preference_type as anything in subtypesof(/datum/role_preference))
-		if (initial(preference_type.abstract_type) == preference_type)
-			continue
+	for (var/datum/role_preference/preference_type as anything in valid_subtypesof(/datum/role_preference))
 		output[preference_type] = new preference_type
 	return output

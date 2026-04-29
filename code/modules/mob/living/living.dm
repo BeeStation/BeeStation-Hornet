@@ -31,6 +31,7 @@
 	gravity_setup()
 	AddElement(/datum/element/movetype_handler)
 
+
 /mob/living/prepare_huds()
 	..()
 	prepare_data_huds()
@@ -424,13 +425,17 @@
 	stop_pulling()
 
 //same as above
-/mob/living/pointed(atom/A as mob|obj|turf in view())
+/mob/living/pointed(atom/A as mob|obj|turf in view(client.view, src))
 	if(incapacitated)
 		return FALSE
+
+	return ..()
+
+/mob/living/_pointed(atom/pointing_at)
 	if(!..())
 		return FALSE
-	visible_message("<b>[src]</b> points at [A].", span_notice("You point at [A]."))
-	return TRUE
+	log_message("points at [pointing_at]", LOG_EMOTE)
+	visible_message(span_infoplain("[span_name("[src]")] points at [pointing_at]."), span_notice("You point at [pointing_at]."))
 
 
 /mob/living/verb/succumb(whispered as null)
@@ -1340,14 +1345,14 @@
 				/mob/living/basic/pet/dog/corgi,
 				/mob/living/simple_animal/crab,
 				/mob/living/basic/pet/dog/pug,
-				/mob/living/simple_animal/pet/cat,
+				/mob/living/basic/pet/cat,
 				/mob/living/basic/mouse,
 				/mob/living/simple_animal/chicken,
 				/mob/living/basic/cow,
 				/mob/living/simple_animal/hostile/lizard,
 				/mob/living/simple_animal/pet/fox,
 				/mob/living/simple_animal/butterfly,
-				/mob/living/simple_animal/pet/cat/cak,
+				/mob/living/basic/pet/cat/cak,
 				/mob/living/simple_animal/chick,
 				/mob/living/simple_animal/slime/random,
 				/mob/living/carbon/monkey,
@@ -1599,6 +1604,9 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 
 /// Called when mob changes from a standing position into a prone while lacking the ability to stand up at the moment.
 /mob/living/proc/on_fall()
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_LIVING_THUD)
+	loc?.handle_fall(src)//it's loc so it doesn't call the mob's handle_fall which does nothing
 	return
 
 /mob/living/forceMove(atom/destination)
@@ -2266,6 +2274,15 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, do_jitter_animation), 10), 5 SECONDS)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, revive), HEAL_ALL, TRUE), 10 SECONDS)
 
+/**
+ * Proc used by different station pets such as Ian and Poly so that some of their data can persist between rounds.
+ * This base definition only contains a trait and comsig to stop memory from being (over)written.
+ * Specific behavior is defined on subtypes that use it.
+ */
+/mob/living/proc/write_memory(dead, gibbed)
+	SHOULD_CALL_PARENT(TRUE)
+	return !HAS_TRAIT(src, TRAIT_DONT_WRITE_MEMORY) //always prevent data from being written.
+
 /// Admin only proc for giving a certain speech impediment to this mob
 /mob/living/proc/admin_give_speech_impediment(mob/admin)
 	if(!admin || !check_rights(NONE))
@@ -2345,3 +2362,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 
 	SEND_SIGNAL(src, COMSIG_LIVING_UNFRIENDED, old_friend)
 	return TRUE
+
+/mob/living/mouse_buckle_handling(mob/living/M, mob/living/user)
+	if(can_buckle && isliving(user) && isliving(M) && !(M in buckled_mobs))
+		return user_buckle_mob(M, user, check_loc = FALSE)
