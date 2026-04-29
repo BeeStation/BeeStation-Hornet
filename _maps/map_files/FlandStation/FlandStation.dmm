@@ -27701,7 +27701,7 @@
 	dir = 4
 	},
 /obj/structure/closet/secure_closet/brig_physician,
-/obj/item/clothing/under/rank/medical/doctor/purple{
+/obj/item/clothing/under/rank/medical/scrubs/purple{
 	pixel_y = -4
 	},
 /obj/effect/turf_decal/bot,
