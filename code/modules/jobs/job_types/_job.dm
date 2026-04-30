@@ -91,6 +91,10 @@
 	var/departments = NONE
 	/// Same as the departments bitflag, but only one is allowed. Used in the preferences menu.
 	var/department_for_prefs = null
+	/// If set, overrides the employer derived from department_for_prefs in
+	/// the character creation / latejoin UI. Leave null for the default
+	/// (department-based) mapping. See SSemployer / employer_groups.dm.
+	var/employer_id_override = null
 	///Is this job affected by weird spawns like the ones from station traits
 	var/random_spawns_possible = TRUE
 	/// Should this job be allowed to be picked for the bureaucratic error event?
@@ -160,6 +164,16 @@
 		job_flags &= ~JOB_NEW_PLAYER_JOINABLE
 	if(!(job_flags & JOB_NEW_PLAYER_JOINABLE) || gimmick)
 		job_flags |= JOB_CANNOT_OPEN_SLOTS
+
+/// Returns the EMPLOYER_ID_* string this job belongs to in the prefs/latejoin UI.
+/// Falls back to the dept > employer mapping registered in SSemployer.
+/// Returns null if neither an override nor a mapping is found
+/datum/job/proc/get_employer_id()
+	if(employer_id_override)
+		return employer_id_override
+	if(department_for_prefs && SSemployer)
+		return SSemployer.get_employer_id_for_department(department_for_prefs)
+	return null
 
 /// Returns true if there are available slots
 /datum/job/proc/has_space()

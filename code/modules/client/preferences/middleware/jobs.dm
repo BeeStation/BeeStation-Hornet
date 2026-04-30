@@ -40,6 +40,15 @@
 
 	var/list/departments = list()
 	var/list/jobs = list()
+	var/list/employers = list()
+	var/list/employer_order = list()
+
+	// Build the employers first so each job can announce which one it
+	// belongs to. Shared with the latejoin TGUI via SSemployer.build_tgui_payload().
+	if(SSemployer)
+		var/list/employer_payload = SSemployer.build_tgui_payload()
+		employers = employer_payload["employers"]
+		employer_order = employer_payload["employer_order"]
 
 	for (var/datum/job/job as anything in SSjob.occupations)
 		if(!job.show_in_prefs)
@@ -74,10 +83,13 @@
 			"lock_reason" = job.get_lock_reason(),
 			"description" = job.description,
 			"department" = department_name,
+			"employer" = job.get_employer_id(),
 		)
 
 	data["departments"] = departments
 	data["jobs"] = jobs
+	data["employers"] = employers
+	data["employer_order"] = employer_order
 
 	return data
 
