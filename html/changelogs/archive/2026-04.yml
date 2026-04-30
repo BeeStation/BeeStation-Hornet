@@ -218,3 +218,13 @@
   - bugfix: Fixed cutting a cable sometimes not unlinking 6its connected machinery
   - bugfix: Fixed a cable sometimes not correctly updating its has_power_node var
       when update_power_node() was called
+2026-04-29:
+  EvilDragonfiend:
+  - code_imp: refactored 'reset_perspective()' and eye system. 'reset_perspective()'
+      is no longer is used. you must use 'set_mob_eye_to(the_target_atom_thing)'.
+      Do not touch client eye thing.
+  - code_imp: fixed some bad codes in camera advanced, and ghost observing.
+  - rscadd: ghosts who were automatically observing camera eye will go back to its
+      original mob who started camera observing.
+  - bugfix: camera chunks (camera noises) will be visible to co-observers who's watching
+      for a someone's camera.
