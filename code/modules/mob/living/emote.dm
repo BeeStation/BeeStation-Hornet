@@ -152,7 +152,7 @@
 		if(H.Togglewings(silent = TRUE))
 			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings), TRUE), wing_time)
 		// play flutter noise
-		if(istype(wings, /obj/item/organ/wings/moth) || istype(wings, /obj/item/organ/wings/bee))
+		if(wings.flapsound)
 			playsound(H, wings.flapsound, 50, TRUE)
 
 /datum/emote/living/flap/aflap
