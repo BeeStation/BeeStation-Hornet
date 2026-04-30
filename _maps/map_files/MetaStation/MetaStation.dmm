@@ -10638,7 +10638,7 @@
 	pixel_y = 12;
 	pixel_x = -8
 	},
-/obj/item/clothing/mask/cigarette{
+/obj/item/cigarette{
 	pixel_y = 14;
 	pixel_x = -1
 	},
@@ -26237,15 +26237,15 @@
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/clothing/mask/cigarette/cigar{
+/obj/item/cigarette/cigar{
 	pixel_x = 4;
 	pixel_y = 1
 	},
-/obj/item/clothing/mask/cigarette/cigar{
+/obj/item/cigarette/cigar{
 	pixel_x = -4;
 	pixel_y = 1
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba,
+/obj/item/cigarette/cigar/cohiba,
 /obj/structure/table/wood,
 /turf/open/floor/carpet/blue,
 /area/station/command/corporate_showroom)
@@ -40153,7 +40153,7 @@
 /area/station/commons/fitness/recreation)
 "ofh" = (
 /obj/structure/table/wood/poker,
-/obj/item/clothing/mask/cigarette/cigar{
+/obj/item/cigarette/cigar{
 	pixel_x = -6;
 	pixel_y = 3
 	},
@@ -47275,7 +47275,7 @@
 	},
 /obj/structure/rack,
 /obj/item/storage/secure/briefcase,
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
@@ -51921,7 +51921,7 @@
 "sgr" = (
 /obj/structure/rack,
 /obj/item/storage/secure/briefcase,
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /obj/machinery/computer/security/telescreen/ce{
 	dir = 1;
 	pixel_y = -30
@@ -54484,7 +54484,7 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /obj/item/reagent_containers/cup/glass/flask/gold,
 /turf/open/floor/carpet/royalblue,
 /area/station/command/heads_quarters/captain/private)
@@ -59639,7 +59639,7 @@
 /area/station/security/prison)
 "uGN" = (
 /obj/structure/table/glass,
-/obj/item/clothing/mask/cigarette/pipe,
+/obj/item/cigarette/pipe,
 /turf/open/floor/carpet/red,
 /area/station/service/bar)
 "uGV" = (

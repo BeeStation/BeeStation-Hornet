@@ -32,8 +32,7 @@
 	//Check for any living mobs trigger hasmob.
 	//hasmob effects whether the package goes to cargo or its tagged destination.
 	for(var/mob/living/M in D)
-		if(M.client)
-			M.reset_perspective(src)
+		M.set_mob_eye_to(src)
 		hasmob = TRUE
 
 	//Checks 1 contents level deep. This means that players can be sent through disposals mail...
@@ -129,7 +128,7 @@
 		AM.forceMove(src)		// move everything in other holder to this one
 		if(ismob(AM))
 			var/mob/M = AM
-			M.reset_perspective(src)	// if a client mob, update eye to follow this holder
+			M.set_mob_eye_to(src)	// if a client mob, update eye to follow this holder
 	qdel(other)
 
 

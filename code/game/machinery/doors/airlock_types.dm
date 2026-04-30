@@ -503,6 +503,7 @@
 /obj/machinery/door/airlock/cult/Initialize(mapload)
 	. = ..()
 	new openingoverlaytype(loc)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/machinery/door/airlock/cult/canAIControl(mob/user)
 	return (IS_CULTIST(user) && !isAllPowerCut())
@@ -561,9 +562,6 @@
 	update_icon()
 
 /obj/machinery/door/airlock/cult/narsie_act()
-	return
-
-/obj/machinery/door/airlock/cult/emp_act(severity)
 	return
 
 /obj/machinery/door/airlock/cult/friendly

@@ -5,6 +5,8 @@
 	appearance_flags = TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 
 	var/last_move = null
+	/// A list containing arguments for Moved().
+	VAR_PRIVATE/tmp/list/active_movement
 	var/last_move_time = 0
 	/// A list containing arguments for Moved().
 	VAR_PRIVATE/tmp/list/active_movement
@@ -70,9 +72,6 @@
 	 * do NOT add channels to this for little reason as it can add considerable memory usage.
 	 */
 	var/list/important_recursive_contents
-	///contains every client mob corresponding to every client eye in this container. lazily updated by SSparallax and is sparse:
-	///only the last container of a client eye has this list assuming no movement since SSparallax's last fire
-	var/list/client_mobs_in_contents
 
 	/// String representing the spatial grid groups we want to be held in.
 	/// acts as a key to the list of spatial grid contents types we exist in via SSspatial_grid.spatial_grid_categories.
@@ -191,8 +190,6 @@
 
 	if(spatial_grid_key)
 		SSspatial_grid.force_remove_from_cell(src)
-
-	LAZYCLEARLIST(client_mobs_in_contents)
 
 	. = ..()
 
@@ -421,7 +418,7 @@
 	if(set_dir_on_move && dir != direction && update_dir)
 		setDir(direction)
 
-	var/is_multi_tile_object = bound_width > 32 || bound_height > 32
+	var/is_multi_tile_object = is_multi_tile_object(src)
 
 	var/list/old_locs
 	if(is_multi_tile_object && isturf(loc))
@@ -435,13 +432,12 @@
 
 	var/list/new_locs
 	if(is_multi_tile_object && isturf(newloc))
+		var/dx = newloc.x
+		var/dy = newloc.y
+		var/dz = newloc.z
 		new_locs = block(
-			newloc,
-			locate(
-				min(world.maxx, newloc.x + CEILING(bound_width / 32, 1)),
-				min(world.maxy, newloc.y + CEILING(bound_height / 32, 1)),
-				newloc.z
-				)
+			dx, dy, dz,
+			dx + ceil(bound_width / ICON_SIZE_X), dy + ceil(bound_height / ICON_SIZE_Y), dz
 		) // If this is a multi-tile object then we need to predict the new locs and check if they allow our entrance.
 		for(var/atom/entering_loc as anything in new_locs)
 			if(!entering_loc.Enter(src))
@@ -627,6 +623,9 @@
 	var/turf/old_turf = get_turf(old_loc)
 	var/turf/new_turf = get_turf(src)
 
+	if (old_turf && new_turf && old_turf.z != new_turf.z)
+		onTransitZ(old_turf.z, new_turf.z)
+
 	if(HAS_SPATIAL_GRID_CONTENTS(src))
 		if(old_turf && new_turf && (old_turf.z != new_turf.z \
 			|| GET_SPATIAL_INDEX(old_turf.x) != GET_SPATIAL_INDEX(new_turf.x) \
@@ -747,7 +746,7 @@
 	RESOLVE_ACTIVE_MOVEMENT
 
 	var/atom/oldloc = loc
-	var/is_multi_tile = bound_width > world.icon_size || bound_height > world.icon_size
+	var/is_multi_tile = bound_width > ICON_SIZE_X || bound_height > ICON_SIZE_Y
 
 	SET_ACTIVE_MOVEMENT(oldloc, NONE, TRUE, null)
 
@@ -765,14 +764,19 @@
 		loc = destination
 
 		if(!same_loc)
+			if(loc == oldloc)
+				// when attempting to move an atom A into an atom B which already contains A, BYOND seems
+				// to silently refuse to move A to the new loc. This can really break stuff (see #77067)
+				stack_trace("Attempt to move [src] to [destination] was rejected by BYOND, possibly due to cyclic contents")
+				return FALSE
+
 			if(is_multi_tile && isturf(destination))
+				var/dx = destination.x
+				var/dy = destination.y
+				var/dz = destination.z
 				var/list/new_locs = block(
-					destination,
-					locate(
-						min(world.maxx, destination.x + ROUND_UP(bound_width / 32)),
-						min(world.maxy, destination.y + ROUND_UP(bound_height / 32)),
-						destination.z
-					)
+					dx, dy, dz,
+					dx + ROUND_UP(bound_width / ICON_SIZE_X), dy + ROUND_UP(bound_height / ICON_SIZE_Y), dz
 				)
 				if(old_area && old_area != destarea)
 					old_area.Exited(src, movement_dir)
