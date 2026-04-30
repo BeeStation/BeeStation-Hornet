@@ -49,8 +49,6 @@
 	/// Associated list of all powers we have evolved / bought from the emporium. [path] = [instance of path]
 	var/list/purchased_powers = list()
 
-	/// The voice we're mimicing via the changeling voice ability.
-	var/mimicing = ""
 	/// Whether we can currently respec in the cellular emporium.
 	var/can_respec = FALSE
 
