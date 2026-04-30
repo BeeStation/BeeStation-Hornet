@@ -17995,7 +17995,6 @@
 /area/station/hallway/secondary/construction)
 "grl" = (
 /obj/item/storage/box/matches,
-/obj/item/clothing/mask/cigarette/cigar,
 /obj/item/razor{
 	pixel_x = -4;
 	pixel_y = 2
@@ -30734,8 +30733,8 @@
 "lcG" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/cigarettes/cigars/havana,
-/obj/item/clothing/mask/cigarette/pipe,
 /obj/machinery/light/directional/south,
+/obj/item/clothing/mask/cigarette/pipe,
 /turf/open/floor/iron/dark,
 /area/station/commons/fitness/recreation/entertainment)
 "lcY" = (
@@ -33509,7 +33508,7 @@
 /area/station/medical/virology)
 "mlc" = (
 /obj/structure/chair,
-/obj/item/clothing/mask/cigarette,
+/obj/item/cigbutt/cigarbutt,
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
@@ -41808,7 +41807,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/item/clothing/mask/cigarette,
+/obj/item/cigbutt/cigarbutt,
 /obj/effect/turf_decal/tile/purple/half{
 	dir = 2
 	},
