@@ -1118,8 +1118,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				accessory_overlay.overlays.Add(emissive_appearance(S.icon, S.emissive_state, CALCULATE_MOB_OVERLAY_LAYER(layer), S.emissive_alpha, filters = H.filters))
 				ADD_LUM_SOURCE(H, LUM_SOURCE_MUTANT_BODYPART)
 
-			if(S.overlay_alpha != 255)
-				accessory_overlay.alpha = S.overlay_alpha
+			accessory_overlay.alpha = S.overlay_alpha
 
 			//A little rename so we don't have to use tail_lizard or tail_human when naming the sprites.
 			if(bodypart == "tail_lizard" || bodypart == "tail_human")
