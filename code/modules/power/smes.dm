@@ -56,6 +56,10 @@
 	terminal.master = src
 	update_appearance(UPDATE_OVERLAYS)
 
+/obj/machinery/power/smes/on_construction(mob/user)
+	. = ..()
+	connect_to_network()
+
 /obj/machinery/power/smes/disconnect_terminal()
 	if(terminal)
 		terminal.master = null

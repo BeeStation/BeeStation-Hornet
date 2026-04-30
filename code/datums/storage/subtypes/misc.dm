@@ -10,7 +10,7 @@
 			/obj/item/stack/spacecash,
 			/obj/item/holochip,
 			/obj/item/card,
-			/obj/item/clothing/mask/cigarette,
+			/obj/item/cigarette,
 			/obj/item/flashlight/pen,
 			/obj/item/seeds,
 			/obj/item/stack/medical,

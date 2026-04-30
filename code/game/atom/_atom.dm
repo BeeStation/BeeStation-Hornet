@@ -119,8 +119,9 @@
 	VAR_PRIVATE/_emissive_count = 0
 
 	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
-	var/list/eye_users
-
+	var/list/eye_users // TO-DO: replace into eye_mobs
+	/// same as 'eye_users', but mobs, instead of client. SHOULD BE USED CAREFULLY
+	var/list/eye_mobs
 	/// Amount of users hovering us, if this is greater than 1 we need to clear references on destroy
 	var/hovered_user_count = 0
 
@@ -131,6 +132,7 @@
   * Top level of the destroy chain for most atoms
   *
   * Cleans up the following:
+  * * Removes eye users who use this, and resets their eye
   * * Removes clients who use this, and resets their eye
   * * Removes alternate apperances from huds that see them
   * * qdels the reagent holder from atoms if it exists
@@ -139,13 +141,22 @@
   * * clears the light object
   */
 /atom/Destroy()
-	for(var/client/each_client as anything in eye_users)
-		eye_users -= each_client
-		if(isnull(each_client.mob))
-			stack_trace("CRITICAL: Failed to recover a client's eye as their mob.")
-			continue
-		each_client.mob.reset_perspective()
-	eye_users = null
+	if(istype(src, /mob/dead/new_player/pre_auth)) // This mob type is buggy. Only happens when a player logs in.
+		LAZYCLEARLIST(eye_mobs)
+		eye_mobs = null
+		LAZYCLEARLIST(eye_users)
+		eye_users = null
+	else
+		for(var/mob/each_mob as anything in eye_mobs)
+			each_mob.set_mob_eye_to(MOB_EYE_SELF)
+		eye_mobs = null
+		for(var/client/each_client as anything in eye_users)
+			eye_users -= each_client
+			if(isnull(each_client.mob))
+				stack_trace("CRITICAL: Failed to recover a client's eye as their mob.")
+				continue
+			each_client.mob.set_mob_eye_to(MOB_EYE_SELF)
+		eye_users = null
 
 	if (chat_messages)
 		for (var/chatmessage in chat_messages)

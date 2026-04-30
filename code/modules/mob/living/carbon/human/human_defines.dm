@@ -44,13 +44,12 @@
 	var/obj/item/l_store = null
 	var/obj/item/s_store = null
 
-	var/special_voice = "" // For changing our voice. Used by a symptom.
+	/// Allows for special overrides of voice
+	var/override_voice = ""
 
 	var/bleed_rate = 0 //how much are we bleeding
 	/// How many "units of blood" we have on our hands
 	var/blood_in_hands = 0
-
-	var/name_override //For temporary visible name changes
 
 	var/datum/physiology/physiology
 

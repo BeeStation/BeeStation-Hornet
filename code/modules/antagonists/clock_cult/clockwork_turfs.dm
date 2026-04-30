@@ -371,6 +371,9 @@
 	. += gear_text
 
 /obj/machinery/door/airlock/clockwork/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 	if(prob(80/severity))
 		open()
 

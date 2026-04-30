@@ -261,7 +261,7 @@
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/tackler/combat
 	belt = /obj/item/storage/belt/military/assault
-	mask = /obj/item/clothing/mask/cigarette/cigar
+	mask = /obj/item/cigarette/cigar
 	head = /obj/item/clothing/head/beret/corpwarden
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch
 	back = /obj/item/storage/backpack/satchel/sec
