@@ -633,7 +633,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	refresh_views()
 
 /// Signal handler for the emp_act() of all contents
-/datum/storage/proc/on_emp_act(datum/source, severity)
+/datum/storage/proc/on_emp_act(datum/source, severity, protection)
 	SIGNAL_HANDLER
 
 	var/obj/item/resolve_location = real_location?.resolve()

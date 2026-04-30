@@ -350,6 +350,9 @@
 					H.revive()
 
 /obj/item/organ/brain/positron/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 	owner.apply_status_effect(/datum/status_effect/ipc_emp)
 	to_chat(owner, span_warning("Alert: Posibrain function disrupted."))
 

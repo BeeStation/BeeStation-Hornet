@@ -104,8 +104,8 @@
 		/obj/item/clothing/gloves/botanic_leather,
 		/obj/item/rollingpaper,//dudeweed
 		/obj/item/lighter,
-		/obj/item/clothing/mask/cigarette/pipe/cobpipe,
-		/obj/item/clothing/mask/cigarette/rollie,//dudeweedlmao
+		/obj/item/cigarette/pipe/cobpipe,
+		/obj/item/cigarette/rollie,//dudeweedlmao
 		/obj/item/gun/energy/floragun
 		))
 

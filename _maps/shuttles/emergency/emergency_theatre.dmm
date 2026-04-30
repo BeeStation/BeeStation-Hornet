@@ -309,104 +309,104 @@
 /area/shuttle/escape)
 "Js" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 1
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = -7
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 8
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = -5;
 	pixel_y = 9
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 1;
 	pixel_y = 7
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = -7
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = -7
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = -7
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = -7
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = -7
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = -7
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = -5;
 	pixel_y = 9
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = -5;
 	pixel_y = 9
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = -5;
 	pixel_y = 9
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = -5;
 	pixel_y = 9
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = -5;
 	pixel_y = 9
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = -5;
 	pixel_y = 9
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 1;
 	pixel_y = 7
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 1;
 	pixel_y = 7
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 1;
 	pixel_y = 7
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 1;
 	pixel_y = 7
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 1;
 	pixel_y = 7
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 1
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 1
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 1
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 1
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 8
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 8
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 8
 	},
 /turf/open/floor/carpet/black,

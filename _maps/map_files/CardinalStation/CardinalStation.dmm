@@ -1329,7 +1329,7 @@
 /area/station/hallway/secondary/exit/departure_lounge)
 "aqS" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/mask/cigarette/cigar{
+/obj/item/cigarette/cigar{
 	pixel_x = 6
 	},
 /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
@@ -1344,7 +1344,7 @@
 	pixel_x = -1;
 	pixel_y = 14
 	},
-/obj/item/clothing/mask/cigarette/cigar{
+/obj/item/cigarette/cigar{
 	pixel_x = -8
 	},
 /obj/machinery/light/small/directional/south,
@@ -15965,10 +15965,7 @@
 	dir = 8;
 	pixel_x = 28
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/iron/grid,
 /area/station/medical/surgery)
 "dPj" = (
@@ -17560,11 +17557,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 10
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -26;
 	pixel_y = 8
@@ -18115,9 +18108,7 @@
 /obj/effect/turf_decal/trimline/brown/warning,
 /obj/effect/turf_decal/trimline/red/warning,
 /obj/effect/turf_decal/trimline/neutral/warning,
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/north,
 /turf/open/floor/iron/dark/textured_half,
 /area/station/service/theater/backstage)
 "epE" = (
@@ -20487,11 +20478,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 4
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11;
-	pixel_y = 5
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/landmark/start/botanist,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
@@ -21123,8 +21110,7 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/sink/kitchen{
-	pixel_y = 28;
+/obj/structure/sink/kitchen/directional/south{
 	name = "chemistry sink"
 	},
 /turf/open/floor/iron/dark/textured_half{
@@ -31611,10 +31597,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/medical/morgue)
 "hwq" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror/directional/east{
 	pixel_x = 24;
 	pixel_y = 4
@@ -33157,10 +33140,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 9
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -11
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/requests_console/auto_name/directional/north,
 /obj/machinery/firealarm{
 	pixel_x = -28;
@@ -39532,10 +39512,7 @@
 /obj/structure/toilet{
 	pixel_y = 13
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/turf_decal/siding/thinplating_new/end{
 	dir = 4
 	},
@@ -41022,10 +40999,7 @@
 /area/station/engineering/atmos)
 "jDc" = (
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -4
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 10
 	},
@@ -50875,7 +50849,7 @@
 	pixel_y = 49;
 	pixel_x = 2
 	},
-/obj/item/clothing/mask/cigarette{
+/obj/item/cigarette{
 	pixel_y = 47;
 	pixel_x = -6
 	},
@@ -56037,10 +56011,7 @@
 /obj/effect/turf_decal/box/corners{
 	dir = 4
 	},
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/south,
 /obj/machinery/light/small/directional/east,
 /obj/structure/sign/poster/official/xenoarchaeology_pearl{
 	pixel_x = 32
@@ -58330,9 +58301,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/north,
 /obj/structure/mirror{
 	pixel_y = 33
 	},
@@ -59596,10 +59565,7 @@
 /area/station/medical/genetics/cloning)
 "nVS" = (
 /obj/structure/mirror/directional/north,
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/south,
 /obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/freezer,
 /area/station/security/prison)
@@ -63532,10 +63498,7 @@
 /turf/open/floor/wood/big,
 /area/station/command/heads_quarters/hop)
 "oPS" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 26
 	},
@@ -67906,9 +67869,7 @@
 	},
 /obj/structure/window/spawner/directional/south,
 /obj/machinery/door/window/eastleft,
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/north,
 /turf/open/floor/iron/dark,
 /area/station/commons/vacant_room/commissary/commissaryRandom)
 "pWf" = (
@@ -68049,10 +68010,7 @@
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_x = -32
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -11
-	},
+/obj/structure/sink/directional/east,
 /obj/item/radio/intercom/directional/south,
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
@@ -73676,10 +73634,7 @@
 /area/station/medical/morgue)
 "rnJ" = (
 /obj/structure/mirror/directional/north,
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/freezer,
@@ -98330,10 +98285,7 @@
 /area/station/construction/mining/aux_base)
 "xdw" = (
 /obj/effect/turf_decal/siding/thinplating_new/light,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/light_switch/directional/east,
 /obj/effect/turf_decal/tile/steelgrid/diagonal{
 	dir = 4;
@@ -103104,9 +103056,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/north,
 /turf/open/floor/iron/tiled,
 /area/station/medical/booth)
 "ylL" = (

@@ -164,7 +164,11 @@
  * If we have the SHOULD_USE_ANTAG_REP flag, take antag_rep into account.
  */
 /datum/dynamic_ruleset/proc/select_player()
-	var/mob/selected_player = CHECK_BITFIELD(ruleset_flags, SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
+	var/mob/selected_player
+	if(ruleset_flags & SHOULD_USE_ANTAG_REP)
+		selected_player = SSdynamic.antag_pick(candidates, role_preference)
+	else
+		selected_player = pick(candidates)
 	candidates -= selected_player
 	return selected_player
 

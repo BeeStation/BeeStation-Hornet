@@ -145,7 +145,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	//Radio freq/name display
 	var/freqpart = radio_freq ? "\[[get_radio_name(radio_freq)]\] " : ""
 	//Speaker name
-	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
+	var/namepart = "[speaker.get_voice()][speaker.get_alt_name()]"
 
 	if(ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
@@ -303,7 +303,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		return "2"
 	return "0"
 
-/atom/movable/proc/GetVoice()
+/atom/movable/proc/get_voice()
 	return "[src]"	//Returns the atom's name, prepended with 'The' if it's not a proper noun
 
 /atom/movable/proc/get_alt_name()
@@ -331,7 +331,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/virtualspeaker)
 	radio = _radio
 	source = M
 	if(istype(M))
-		name = radio.anonymize ? "Unknown" : M.GetVoice()
+		name = radio.anonymize ? "Unknown" : M.get_voice()
 		verb_say = M.get_default_say_verb()
 		verb_ask = M.get_default_say_verb()
 		verb_exclaim = M.get_default_say_verb()

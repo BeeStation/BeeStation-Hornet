@@ -44,7 +44,7 @@
 /area/template_noop)
 "j" = (
 /obj/structure/table,
-/obj/item/clothing/mask/cigarette/pipe,
+/obj/item/cigarette/pipe,
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (

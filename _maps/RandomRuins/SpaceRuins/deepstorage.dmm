@@ -408,9 +408,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bc" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 24
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bd" = (
@@ -689,10 +687,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "bR" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "bS" = (
@@ -1027,10 +1022,7 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/deepstorage)
 "cO" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 24
 	},
