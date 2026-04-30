@@ -30734,7 +30734,7 @@
 /obj/structure/table/wood,
 /obj/item/storage/fancy/cigarettes/cigars/havana,
 /obj/machinery/light/directional/south,
-/obj/item/clothing/mask/cigarette/pipe,
+/obj/item/cigarette/pipe,
 /turf/open/floor/iron/dark,
 /area/station/commons/fitness/recreation/entertainment)
 "lcY" = (
