@@ -1,7 +1,0 @@
-author: mrmanlikesbt, MrMelbert, LemonInTheDark, Kapu1178, Absolucy
-delete-after: true
-changes:
-  - refactor: Refactored chameleon item code
-  - code_imp: Optimized ref-tracking
-  - code_imp: Movement is now canonical
-  - bugfix: Fixed several hard-dels
