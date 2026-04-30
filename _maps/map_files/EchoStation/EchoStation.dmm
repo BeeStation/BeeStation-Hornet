@@ -6601,7 +6601,7 @@
 	},
 /obj/item/clothing/head/utility/beekeeper_head,
 /obj/item/clothing/suit/utility/beekeeper_suit,
-/obj/item/clothing/mask/vape,
+/obj/item/vape,
 /turf/open/floor/plating,
 /area/station/maintenance/department/crew_quarters/bar)
 "ekB" = (
@@ -7156,7 +7156,7 @@
 /obj/item/folder/red{
 	pixel_y = 3
 	},
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /turf/open/floor/iron,
 /area/station/command/bridge)
 "eyw" = (
@@ -28584,7 +28584,7 @@
 	pixel_x = 5;
 	pixel_y = 16
 	},
-/obj/item/clothing/mask/cigarette/cigar{
+/obj/item/cigarette/cigar{
 	pixel_x = -2;
 	pixel_y = 3
 	},
