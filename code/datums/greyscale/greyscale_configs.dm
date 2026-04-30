@@ -222,6 +222,32 @@
 	icon_file = 'icons/obj/plushes.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plushie_snake.json'
 
+//
+// VAPES
+//
+
+/datum/greyscale_config/vape
+	name = "Vape"
+	icon_file = 'icons/obj/cigarettes.dmi'
+	json_config = 'code/datums/greyscale/json_configs/vape.json'
+
+/datum/greyscale_config/vape/worn
+	name = "Vape (Worn)"
+	icon_file = 'icons/mob/clothing/head/mask_cig.dmi'
+	json_config = 'code/datums/greyscale/json_configs/vape_worn.json'
+
+/datum/greyscale_config/vape/open_low
+	name = "Open Vape Low"
+	json_config = 'code/datums/greyscale/json_configs/vapeopen_low.json'
+
+/datum/greyscale_config/vape/open_med
+	name = "Open Vape Medium"
+	json_config = 'code/datums/greyscale/json_configs/vapeopen_med.json'
+
+/datum/greyscale_config/vape/open_high
+	name = "Open Vape High"
+	json_config = 'code/datums/greyscale/json_configs/vapeopen_high.json'
+
 /datum/greyscale_config/beret
 	name = "Beret"
 	icon_file = 'icons/obj/clothing/head/beret.dmi'
