@@ -371,7 +371,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 			if(thing == mover || thing == mover_loc) // Multi tile objects and moving out of other objects
 				continue
 			if(!thing.Cross(mover))
-				if(QDELETED(mover)) //deleted from Cross() (CanPass is pure so it cant delete, Cross shouldnt be doing this either though, but it can happen)
+				if(QDELETED(mover)) //deleted from Cross() (CanPass is pure so it can't delete, Cross shouldn't be doing this either though, but it can happen)
 					return FALSE
 				if(mover_is_phasing)
 					mover.Bump(thing)
