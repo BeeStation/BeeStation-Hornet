@@ -1,0 +1,32 @@
+author: rkz, carlarctg, actioninja, timothymtorres, TemporalOroboros, jacklecroy,
+  ebb-real, dieamond13, Ghommie, MrMelbert, Kokonut/Thgvr
+delete-after: true
+changes:
+  - rscadd: Candy cigarettes! Fun for the whole family. Reports of addiction are punishable
+      by permanent retirement.
+  - tweak: The Carp Classic can have carpotoxin in them. Possibly.
+  - rscadd: joints have more varied names
+  - bugfix: Fixed cigarettes being lit in no-oxygen environments
+  - rscadd: Cigarettes can be injected with oxygen to allow smoking anywhere
+  - code_imp: The cigarette brand 'Space cigarettes' now has oxygen in it's default
+      reagents (allowing it to be smoked in space)
+  - rscadd: Cigarettes heat their contents while they are lit.
+  - balance: Candy cigarettes now caramelize their own sugar. Their temperature has
+      been reduced to ensure they don't charcoalize it too.
+  - refactor: Rolling paper will now use the customizable reagent holder component.
+      This cleans up the code and expands the possibilities for using the component
+      by adding support for dried items.
+  - rscadd: The smoker quirk has new side effects that cause a person's lungs to have
+      25% less max health and healing. They also gain a 50% resistance from lung damage
+      caused from smoking.
+  - bugfix: Fixed Havana cigars running out of nicotine. As a result of increasing
+      the starting nicotine amount, the total chem_volume was increased to allow room
+      for other chems to still be injected.
+  - imageadd: Turned vapes into GAGS making them recolorable from vendors.
+  - imagedel: Removed the massive amount of old icons for vapes.
+  - bugfix: cigarettes and vapes are no longer treated as clothing (eg. They no longer
+      get shredded and need to be repaired with... cloth).
+  - rscadd: Cigarette smoke is now more smokey.
+  - rscadd: Taking a cigarette out of your mouth will let out a big puff of smoke.
+  - imageadd: Updates Cigarette boxes and cigar case sprites to 3/4ths perspective.
+  - imageadd: Updates matches (lit and burnt states)

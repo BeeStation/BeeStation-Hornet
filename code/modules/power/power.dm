@@ -190,15 +190,14 @@ WANTS_POWER_NODE(/obj/machinery/power)
 
 // connect the machine to a powernet if a node cable is present on the turf
 /obj/machinery/power/proc/connect_to_network(turf/turf = loc)
-	var/turf/T = turf
-	if(!T || !istype(T))
+	if(!istype(turf))
 		return FALSE
 
-	var/obj/structure/cable/C = T.get_cable_node() //check if we have a node cable on the machine turf, the first found is picked
-	if(!C || !C.powernet)
+	var/obj/structure/cable/connected_cable = turf.get_cable_node() //check if we have a node cable on the machine turf, the first found is picked
+	if(!connected_cable?.powernet)
 		return FALSE
 
-	C.powernet.add_machine(src)
+	connected_cable.powernet.add_machine(src)
 	return TRUE
 
 // remove and disconnect the machine from its current powernet

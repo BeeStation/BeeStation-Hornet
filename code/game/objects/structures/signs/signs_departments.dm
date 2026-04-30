@@ -1,6 +1,6 @@
 //departmental signs
 
-/obj/structure/sign/departments/examroom
+/obj/structure/sign/departments/exam_room
 	name = "\improper EXAM ROOM"
 	desc = "A guidance sign which reads 'EXAM ROOM'."
 	icon_state = "examroom"

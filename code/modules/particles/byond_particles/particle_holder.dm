@@ -22,11 +22,13 @@
 	///list of all particle emitters
 	var/list/emitters = list()
 
-/obj/effect/abstract/particle_holder/Initialize(mapload)
+/obj/effect/abstract/particle_holder/Initialize(mapload, particle_path = /particles/smoke)
 	. = ..()
 	if(!loc)
 		stack_trace("particle holder was created with no loc!")
 		return INITIALIZE_HINT_QDEL
+
+	particles = new particle_path()
 	if(ismovable(loc))
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(loc, COMSIG_QDELETING, PROC_REF(on_qdel))
@@ -74,3 +76,7 @@
 		particle_mob.vis_contents += src
 	//readd to ourselves
 	attached_to.vis_contents |= src
+
+/// Sets the particles position to the passed coordinates
+/obj/effect/abstract/particle_holder/proc/set_particle_position(x = 0, y = 0, z = 0)
+	particles.position = list(x, y, z)

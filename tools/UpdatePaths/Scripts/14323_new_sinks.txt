@@ -1,0 +1,11 @@
+# these have a flipped dir value to dir subtype because the previous icons had the wrong sprites assigned to each dir
+
+/obj/structure/sink{dir=1} : /obj/structure/sink/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/sink{dir=@UNSET} : /obj/structure/sink/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/sink{dir=4} : /obj/structure/sink/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/sink{dir=8} : /obj/structure/sink/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/structure/sink/kitchen{dir=1} : /obj/structure/sink/kitchen/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/sink/kitchen{dir=@UNSET} : /obj/structure/sink/kitchen/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/sink/kitchen{dir=4} : /obj/structure/sink/kitchen/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/sink/kitchen{dir=8} : /obj/structure/sink/kitchen/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}

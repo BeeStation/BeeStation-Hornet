@@ -23,7 +23,7 @@
 		/obj/item/toy/crayon,
 		/obj/item/lipstick,
 		/obj/item/flashlight/pen,
-		/obj/item/clothing/mask/cigarette,
+		/obj/item/cigarette,
 	)
 	/// The item currently inserted into the PDA
 	var/obj/item/inserted_item

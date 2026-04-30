@@ -183,3 +183,48 @@
   - refactor: bank account lists should be faster
   - refactor: job checks now have a new granular bitflag var named job_flags. This
       can be relied upon for granular job trait control
+2026-04-22:
+  mrmanlikesbt:
+  - rscdel: Removed the broken debug cyborg crates and lockers.
+  - tweak: Warning signs, blood packs, and AI cores have had their type-paths snake_caseified.
+  - spellcheck: Fixed auxiliary being misspelled as auxilliary across the codebase
+  mrmanlikesbt, grungussuss, kayozz:
+  - code_imp: Cleaned up gravity generator code
+  - bugfix: Fixed the soundloop for pacman generators' being horribly off sync
+  - bugfix: Fixed gravity generators not using any more power than usual when active
+  - balance: Decreased the gravity generator's inactive power usage from 5kW to 1kW
+  rkz, christasmurf, axietheaxolotl:
+  - rscadd: resprites 2 of head of personnel's existing uniforms and adds 4 new ones
+  - rscadd: the head of personnel now spawns with his armor on. It is resprited to
+      appear as an 'armored jacket'
+  - rscadd: adds mantles for every head of staff, a form of shortcloak meant to make
+      ones uniform more visible than the longcloaks
+2026-04-24:
+  mrmanlikesbt, EOBGames:
+  - rscadd: Diagonal, herringbone, and small variants of iron floors have been added
+      to the game (including dark and white floors)
+  - rscadd: Added kitchen and terracotta floors
+2026-04-25:
+  TsunamiAnt:
+  - code_imp: Add midround_max_positive_delta in ssdynamic
+  mrmanlikesbt:
+  - bugfix: Fixed the corgi puppy AI spamming runtimes
+2026-04-26:
+  St0rmC4st3r:
+  - bugfix: IPCs no longer mutate from radiation.
+2026-04-28:
+  mrmanlikesbt:
+  - bugfix: Fixed SMESs not connecting to the cable below them when constructed
+  - bugfix: Fixed cutting a cable sometimes not unlinking 6its connected machinery
+  - bugfix: Fixed a cable sometimes not correctly updating its has_power_node var
+      when update_power_node() was called
+2026-04-29:
+  EvilDragonfiend:
+  - code_imp: refactored 'reset_perspective()' and eye system. 'reset_perspective()'
+      is no longer is used. you must use 'set_mob_eye_to(the_target_atom_thing)'.
+      Do not touch client eye thing.
+  - code_imp: fixed some bad codes in camera advanced, and ghost observing.
+  - rscadd: ghosts who were automatically observing camera eye will go back to its
+      original mob who started camera observing.
+  - bugfix: camera chunks (camera noises) will be visible to co-observers who's watching
+      for a someone's camera.

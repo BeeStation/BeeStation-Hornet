@@ -1594,7 +1594,7 @@
 	dir = 8
 	},
 /obj/machinery/recharge_station,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = -32
 	},
 /mob/living/silicon/robot/shell,
@@ -2055,10 +2055,10 @@
 	name = "Vault Door"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/vault,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = -32
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 32
 	},
 /obj/machinery/door/firedoor,
@@ -2119,10 +2119,7 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/hallway)
 "bDS" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 20
-	},
+/obj/structure/sink/directional/south,
 /obj/structure/cable/yellow,
 /turf/open/floor/prison/dark,
 /area/station/security/prison/safe)
@@ -2168,7 +2165,7 @@
 /obj/item/ammo_box/a357,
 /obj/item/gun/ballistic/automatic/pistol/deagle,
 /obj/item/gun/ballistic/revolver/russian,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = -32
 	},
 /turf/open/floor/circuit/green{
@@ -4293,7 +4290,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/commons/cryopods)
 "cSH" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
 /area/station/maintenance/department/engine)
 "cTi" = (
@@ -4973,10 +4970,7 @@
 "dnU" = (
 /obj/structure/closet/crate/freezer/blood,
 /obj/effect/turf_decal/bot,
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 20
-	},
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron,
 /area/station/medical/surgery)
 "doe" = (
@@ -5599,7 +5593,7 @@
 	id = "incineratorturbineLeft";
 	name = "gas turbine left control computer"
 	},
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 1;
 	pixel_y = -32
 	},
@@ -6607,7 +6601,7 @@
 	},
 /obj/item/clothing/head/utility/beekeeper_head,
 /obj/item/clothing/suit/utility/beekeeper_suit,
-/obj/item/clothing/mask/vape,
+/obj/item/vape,
 /turf/open/floor/plating,
 /area/station/maintenance/department/crew_quarters/bar)
 "ekB" = (
@@ -6646,11 +6640,7 @@
 	pixel_x = 8;
 	pixel_y = -31
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 3
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/turf_decal/bot/right,
 /turf/open/floor/iron/white,
 /area/station/science/xenobiology)
@@ -6734,7 +6724,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/station/service/hydroponics)
 "eng" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	desc = "A warning sign which reads 'BOMB RANGE";
 	name = "BOMB RANGE"
 	},
@@ -7166,7 +7156,7 @@
 /obj/item/folder/red{
 	pixel_y = 3
 	},
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /turf/open/floor/iron,
 /area/station/command/bridge)
 "eyw" = (
@@ -8668,7 +8658,7 @@
 /area/station/maintenance/department/medical/morgue)
 "fqi" = (
 /obj/machinery/door/firedoor,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 31;
 	pixel_y = 1
 	},
@@ -9642,7 +9632,7 @@
 /turf/open/floor/plating/asteroid/planetary,
 /area/station/cargo/storage)
 "fWb" = (
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 1
 	},
 /turf/closed/wall,
@@ -10360,7 +10350,7 @@
 	},
 /obj/structure/reagent_dispensers/watertank/high,
 /obj/effect/turf_decal/bot_white,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
 /turf/open/floor/iron/dark/smooth_edge{
@@ -13918,10 +13908,7 @@
 /turf/open/floor/wood,
 /area/station/service/cafeteria)
 "iEA" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 28
-	},
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/showroomfloor,
 /area/station/commons/fitness/recreation)
 "iEV" = (
@@ -14358,7 +14345,7 @@
 /turf/open/floor/plating,
 /area/station/hallway/secondary/service)
 "iPb" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /turf/closed/wall/r_wall,
@@ -14407,7 +14394,7 @@
 	dir = 4;
 	filter_type = list(/datum/gas/nitrogen)
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 30
 	},
 /turf/open/floor/iron/textured_half,
@@ -15288,10 +15275,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/directional/south{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
+	name = "old sink"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -15592,9 +15578,7 @@
 /turf/open/floor/iron,
 /area/station/maintenance/department/bridge)
 "jAe" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 28
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/open/floor/plating,
 /area/station/maintenance/department/chapel)
 "jAw" = (
@@ -15894,7 +15878,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /turf/open/floor/iron/dark/textured_half,
@@ -16741,7 +16725,7 @@
 "klm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/bot,
@@ -18257,11 +18241,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/warning{
 	dir = 1
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 3
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/patients_rooms)
 "ljc" = (
@@ -21782,7 +21762,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/commons/cryopods)
 "nmJ" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	desc = "A warning sign which reads 'BOMB RANGE";
 	name = "BOMB RANGE"
 	},
@@ -23203,7 +23183,7 @@
 /turf/open/floor/carpet/blue,
 /area/station/service/cafeteria)
 "ohd" = (
-/obj/structure/sign/warning/nosmoking/circle,
+/obj/structure/sign/warning/no_smoking/circle,
 /turf/closed/wall/r_wall,
 /area/station/engineering/atmos)
 "ohp" = (
@@ -23766,7 +23746,7 @@
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /turf/open/floor/iron/dark/textured_half,
@@ -24121,9 +24101,7 @@
 	},
 /obj/machinery/camera/directional/north,
 /obj/item/kirbyplants/random,
-/obj/structure/sink/kitchen{
-	pixel_y = 22
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/open/floor/iron,
 /area/station/security/brig)
 "oOV" = (
@@ -24148,7 +24126,7 @@
 /area/station/security/prison)
 "oPN" = (
 /obj/machinery/camera/directional/west,
-/obj/structure/sign/warning/nosmoking/circle{
+/obj/structure/sign/warning/no_smoking/circle{
 	pixel_x = -32
 	},
 /obj/structure/closet/secure_closet/hydroponics{
@@ -24567,7 +24545,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/chapel)
 "oZQ" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	desc = "A warning sign which reads 'BOMB RANGE";
 	name = "BOMB RANGE"
 	},
@@ -25678,10 +25656,7 @@
 /turf/open/floor/iron/white,
 /area/station/commons/fitness/recreation)
 "pDn" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 28
-	},
+/obj/structure/sink/directional/south,
 /obj/effect/turf_decal/tile/blue/half{
 	dir = 8
 	},
@@ -26465,7 +26440,7 @@
 /obj/machinery/porta_turret/ai{
 	dir = 4
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 31;
 	pixel_y = 1
 	},
@@ -28609,7 +28584,7 @@
 	pixel_x = 5;
 	pixel_y = 16
 	},
-/obj/item/clothing/mask/cigarette/cigar{
+/obj/item/cigarette/cigar{
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -29073,7 +29048,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
 /turf/open/floor/circuit/green{
@@ -30879,7 +30854,7 @@
 /obj/machinery/porta_turret/ai{
 	dir = 4
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -31901,9 +31876,7 @@
 /turf/open/floor/iron/dark,
 /area/station/cargo/sorting)
 "trW" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 22
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/aft)
 "tsa" = (
@@ -33934,7 +33907,7 @@
 /turf/open/floor/prison/dark,
 /area/station/security/prison/safe)
 "uEU" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
 /area/station/command/heads_quarters/hop)
 "uFQ" = (
@@ -33999,7 +33972,7 @@
 /obj/machinery/atmospherics/components/trinary/filter/critical{
 	dir = 4
 	},
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 30
 	},
 /obj/structure/cable/yellow,
@@ -34046,10 +34019,9 @@
 /area/station/service/kitchen)
 "uJX" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/directional/south{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
+	name = "old sink"
 	},
 /turf/open/floor/iron/dark,
 /area/station/service/kitchen)
@@ -34845,7 +34817,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/power/smes/engineering,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_x = -31
 	},
 /turf/open/floor/iron/large,
@@ -36971,7 +36943,7 @@
 /turf/open/floor/iron,
 /area/station/security/brig)
 "wpt" = (
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/wall,
 /area/station/medical/surgery)
 "wpE" = (
@@ -38205,7 +38177,7 @@
 	dir = 4
 	},
 /obj/machinery/recharge_station,
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 31;
 	pixel_y = 1
 	},
@@ -38339,11 +38311,7 @@
 /area/station/engineering/main)
 "xfT" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 3
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/requests_console{
 	department = "Janitorial";
 	departmentType = 1;
