@@ -36,7 +36,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 
 			var/mob/dead/observer/user = usr
 			user.check_orbitable(poi)
-			user.reset_perspective(null)
+			user.set_mob_eye_to(MOB_EYE_SELF)
 			user.orbiting_ref = ref
 			if (auto_observe)
 				if (poi != user)
