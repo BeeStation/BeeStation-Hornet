@@ -45,7 +45,7 @@
 		UnregisterSignal(loc, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))
 	if(additional_attached)
 		additional_attached.vis_contents -= src
-	QDEL_NULL(emitters)
+	QDEL_LIST_ASSOC_VAL(emitters)
 	return ..()
 
 ///signal called when parent is moved

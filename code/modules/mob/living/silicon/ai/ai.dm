@@ -800,11 +800,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	var/atom/movable/source = speaker.GetSource() || speaker // is the speaker virtual/radio
 	var/treated_message = source.generate_messagepart(raw_translation, spans, message_mods)
 
-	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
+	var/namepart = "[speaker.get_voice()][speaker.get_alt_name()]"
 	var/hrefpart = "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
 
-	if(!HAS_TRAIT(speaker, TRAIT_UNKNOWN)) //don't fetch the speaker's job in case they have something that conseals their identity completely
+	if(!HAS_TRAIT(speaker, TRAIT_UNKNOWN_VOICE)) //don't fetch the speaker's job in case they have something that conseals their identity completely
 		if(iscarbon(speaker))
 			var/mob/living/carbon/human/living_speaker = speaker
 			if(living_speaker.wear_id)
@@ -839,7 +839,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	var/raw_translation = translate_language(speaker, message_language, raw_message)
 	var/atom/movable/source = speaker.GetSource() || speaker // is the speaker virtual/radio
 	var/treated_message = span_message(apply_message_emphasis(source.generate_messagepart(raw_translation, spans, message_mods)))
-	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
+	var/namepart = "[speaker.get_voice()][speaker.get_alt_name()]"
 	var/hrefpart = "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
 
@@ -865,7 +865,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		includes_ghosts = FALSE) // ghosts already see this except for you...
 
 	// renders message for ghosts
-	rendered = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(speaker.GetVoice())]</b> [treated_message]")
+	rendered = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(speaker.get_voice())]</b> [treated_message]")
 	var/rendered_scrambled_message
 	for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
 		if(!each_ghost.client || !each_ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostradio))
@@ -877,7 +877,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			if(!rendered_scrambled_message)
 				var/scrambled_translation = each_ghost.translate_language(speaker, message_language, raw_message)
 				rendered_scrambled_message = span_message(each_ghost.apply_message_emphasis(source.generate_messagepart(scrambled_translation, spans, message_mods)))
-				rendered_scrambled_message = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(speaker.GetVoice())]</b> [rendered_scrambled_message]")
+				rendered_scrambled_message = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(speaker.get_voice())]</b> [rendered_scrambled_message]")
 			to_chat(each_ghost, "[follow_link] [rendered_scrambled_message]")
 
 
@@ -1140,10 +1140,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
 
 	aicamera.adjust_zoom(src)
 
-/mob/living/silicon/ai/GetVoice()
-	. = ..()
-	if(ai_voicechanger && ai_voicechanger.changing_voice)
+/mob/living/silicon/ai/get_voice()
+	if(ai_voicechanger?.changing_voice)
 		return ai_voicechanger.say_name
-	return
+	return ..()
 
 #undef CALL_BOT_COOLDOWN
