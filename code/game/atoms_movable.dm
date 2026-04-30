@@ -5,8 +5,6 @@
 	appearance_flags = TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 
 	var/last_move = null
-	/// A list containing arguments for Moved().
-	VAR_PRIVATE/tmp/list/active_movement
 	var/last_move_time = 0
 	/// A list containing arguments for Moved().
 	VAR_PRIVATE/tmp/list/active_movement
