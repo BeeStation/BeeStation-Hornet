@@ -7,8 +7,9 @@
 		return "null"
 	else if(islist(thing))
 		if(loop_manager > FAILSAFE_THRESHOLD_RECURSIVE)
-			return "/list\[LEN:[length(thing)]\](Too deep - force return)"
-		return "/list\[LEN:[length(thing)]\]([identify_args(thing, loop_manager+1)])"
+			return "/list\ref[thing].len:[length(thing)](Too deep - force return)"
+		return "/list\ref[thing].len:[length(thing)]([identify_args(thing, loop_manager+1)])"
+		// getting \ref of /list is intended : it's to recognise whether the lists are identical or not.
 	else if(istext(thing))
 		return "\"[thing]\""
 	else if(isnum(thing))
@@ -38,7 +39,7 @@
 		return
 
 	if(arg_length > FAILSAFE_THRESHOLD_ARG_LENGTH)
-		return "Too many - force return"
+		return "Compressed / 1:[identify_value(arg_list[1])], 2:[identify_value(arg_list[2])], 3:[identify_value(arg_list[3])], ..., [arg_length]:[identify_value(arg_list[arg_length])]"
 
 	var/list/results = list()
 	for(var/idx in 1 to arg_length)
