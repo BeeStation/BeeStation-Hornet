@@ -450,9 +450,7 @@ const EmployerInfoBox = () => {
           return null;
         }
 
-        return (
-          <EmployerInfoBoxInner employers={employers} order={order} />
-        );
+        return <EmployerInfoBoxInner employers={employers} order={order} />;
       }}
     />
   );
@@ -502,6 +500,10 @@ const EmployerInfoBoxInner = (props: {
                   icon_state={employer.logo_icon_state}
                   width="128px"
                   height="128px"
+                  // See LateChoices.tsx: DmIcon's underlying <Image> defaults
+                  // to fixBlur=true, which forces image-rendering: pixelated
+                  // and overrides our style. Turn it off for smooth scaling.
+                  {...({ fixBlur: false } as any)}
                   style={{ imageRendering: 'auto' }}
                 />
               ) : (

@@ -78,7 +78,12 @@ export const LateChoices = (_props) => {
   );
 
   return (
-    <Window title="Choose Profession" width={760} height={640} theme="generic-yellow">
+    <Window
+      title="Choose Profession"
+      width={760}
+      height={640}
+      theme="generic-yellow"
+    >
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>
@@ -104,7 +109,14 @@ export const LateChoices = (_props) => {
           */}
           <Stack.Item grow basis={0}>
             <Box position="relative" height="100%">
-              <Box position="absolute" top={0} bottom={0} left={0} right={0} style={{ overflowY: 'auto' }}>
+              <Box
+                position="absolute"
+                top={0}
+                bottom={0}
+                left={0}
+                right={0}
+                style={{ overflowY: 'auto' }}
+              >
                 {visibleDepartments.length > 0 ? (
                   <DepartmentColumns
                     departmentIds={visibleDepartments}
@@ -213,7 +225,14 @@ const EmployerInfoBox = (props: {
                 icon_state={employer.logo_icon_state}
                 width="128px"
                 height="128px"
-                style={{ imageRendering: 'pixelated' }}
+                // The underlying <Image> defaults to fixBlur=true, which forces
+                // image-rendering: pixelated (nearest-neighbor) and overrides
+                // any style we pass. Disable it so the 32x source gets smoothly
+                // scaled up to 128px instead of looking crunchy. fixBlur is a
+                // valid runtime prop on Image but is not declared on DmIcon's
+                // public type, so we spread it via a cast.
+                {...({ fixBlur: false } as any)}
+                style={{ imageRendering: 'auto' }}
               />
             ) : (
               <Box
@@ -360,9 +379,7 @@ const JobButton = (props: { job: LateJob }) => {
       disabled={!job.available}
       bold={job.command}
       color={job.prioritized ? 'good' : undefined}
-      onClick={() =>
-        job.available && act('select_job', { job: job.title })
-      }
+      onClick={() => job.available && act('select_job', { job: job.title })}
       content={`${job.title} (${job.positions})`}
     />
   );
