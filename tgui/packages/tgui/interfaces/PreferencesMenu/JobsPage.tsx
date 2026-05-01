@@ -1,12 +1,14 @@
 import { sortBy } from 'common/collections';
 import { classes } from 'common/react';
 import { PropsWithChildren, ReactNode } from 'react';
-import { Dropdown } from 'tgui-core/components';
+import { DmIcon, Dropdown } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
-import { Box, Button, Flex, Stack, Tooltip } from '../../components';
+import { Box, Button, Flex, Stack, Tabs, Tooltip } from '../../components';
+import { sanitizeText } from '../../sanitize';
 import {
   createSetPreference,
+  Employer,
   Job,
   JoblessRole,
   JobPriority,
@@ -14,6 +16,29 @@ import {
   ServerData,
 } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
+
+// Returns an `rgba(...)` string for the given hex colour at the requested
+// alpha. Accepts #RGB, #RGBA, #RRGGBB, or #RRGGBBAA. Returns the input
+// unchanged if it can't be parsed, so a bad colour never breaks rendering.
+const withAlpha = (hex: string, alpha: number): string => {
+  const match = hex.trim().match(/^#([0-9a-f]{3,8})$/i);
+  if (!match) return hex;
+
+  // Expand shorthand (#RGB -> #RRGGBB, #RGBA -> #RRGGBBAA) by doubling each char.
+  let digits = match[1];
+  if (digits.length === 3 || digits.length === 4) {
+    digits = digits
+      .split('')
+      .map((c) => c + c)
+      .join('');
+  }
+  if (digits.length !== 6 && digits.length !== 8) return hex;
+
+  const r = parseInt(digits.slice(0, 2), 16);
+  const g = parseInt(digits.slice(2, 4), 16);
+  const b = parseInt(digits.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
 
 const sortJobs = (entries: [string, Job][], head?: string) =>
   sortBy(
@@ -134,9 +159,14 @@ const PriorityButtons = (props: {
   );
 };
 
-const JobRow = (props: { className?: string; job: Job; name: string }) => {
+const JobRow = (props: {
+  className?: string;
+  job: Job;
+  name: string;
+  style?: Partial<CSSStyleDeclaration>;
+}) => {
   const { data } = useBackend<PreferencesMenuData>();
-  const { className, job, name } = props;
+  const { className, job, name, style } = props;
 
   const priority = data.job_preferences[name];
 
@@ -194,7 +224,7 @@ const JobRow = (props: { className?: string; job: Job; name: string }) => {
   }
 
   return (
-    <Stack.Item className={className} height="100%" mt={0}>
+    <Stack.Item className={className} height="100%" mt={0} style={style}>
       <Stack fill align="center">
         <Tooltip content={job.description} position="bottom-start">
           <Stack.Item
@@ -218,7 +248,12 @@ const JobRow = (props: { className?: string; job: Job; name: string }) => {
 
 const Department = (props: { department: string } & PropsWithChildren) => {
   const { children, department: name } = props;
-  const className = `PreferencesMenu__Jobs__departments--${name}`;
+  const { data: prefs } = useBackend<PreferencesMenuData>();
+  const selectedEmployer =
+    (prefs.character_preferences.non_contextual.selected_employer as
+      | string
+      | undefined) || '';
+  const className = `PreferencesMenu__Jobs__departments--row`;
 
   return (
     <ServerPreferencesFetcher
@@ -239,24 +274,67 @@ const Department = (props: { department: string } & PropsWithChildren) => {
         }
 
         const jobsForDepartment = sortJobs(
-          Object.entries(jobs).filter(([_, job]) => job.department === name),
+          Object.entries(jobs).filter(
+            ([_, job]) =>
+              job.department === name && job.employer === selectedEmployer,
+          ),
           department.head,
         );
 
+        // No jobs from this department belong to the selected employer. Sad :(
+        if (!jobsForDepartment.length) {
+          return null;
+        }
+
+        const deptColour = department.colour || '#888888';
+        const deptName = department.name || name;
+
+        const headBg = deptColour;
+        const bodyBg = withAlpha(deptColour, 0.45);
+        const borderColor = 'rgba(0, 0, 0, 0.3)';
+
         return (
-          <Box>
+          <Box
+            style={{
+              borderTop: `2px solid ${deptColour}`,
+              marginBottom: '0.2em',
+            }}
+          >
+            <Box
+              bold
+              style={{
+                color: deptColour,
+                padding: '0.2em 0.3em 0.1em',
+                fontSize: '0.9em',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+              }}
+            >
+              {deptName}
+            </Box>
             <Stack vertical fill>
-              {jobsForDepartment.map(([name, job]) => (
-                <JobRow
-                  className={classes([
-                    className,
-                    name === department.head && 'head',
-                  ])}
-                  key={name}
-                  job={job}
-                  name={name}
-                />
-              ))}
+              {jobsForDepartment.map(([jobName, job], index) => {
+                const isHead = jobName === department.head;
+                const border = `2px solid ${borderColor}`;
+                const rowStyle: Partial<CSSStyleDeclaration> = {
+                  background: isHead ? headBg : bodyBg,
+                  border,
+                  // Avoid double borders between adjacent rows: only the
+                  // first row draws a top border; the rest inherit the
+                  // previous row's bottom border.
+                  borderTop: index === 0 ? border : 'none',
+                  color: 'black',
+                };
+                return (
+                  <JobRow
+                    className={classes([className, isHead && 'head'])}
+                    key={jobName}
+                    job={job}
+                    name={jobName}
+                    style={rowStyle}
+                  />
+                );
+              })}
             </Stack>
 
             {children}
@@ -300,14 +378,12 @@ const JoblessRoleDropdown = (props) => {
   )!.displayText;
 
   return (
-    <Box width="30%" style={{ margin: '5px auto' }}>
-      <Dropdown
-        width="100%"
-        selected={selection}
-        onSelected={createSetPreference(act, 'joblessrole')}
-        options={options}
-      />
-    </Box>
+    <Dropdown
+      width="100%"
+      selected={selection}
+      onSelected={createSetPreference(act, 'joblessrole')}
+      options={options}
+    />
   );
 };
 
@@ -315,6 +391,7 @@ const ClearJobsButton = (_) => {
   const { act } = useBackend<PreferencesMenuData>();
   return (
     <Button
+      fluid
       content="Clear All"
       confirm
       onClick={() => act('clear_job_preferences')}
@@ -322,65 +399,208 @@ const ClearJobsButton = (_) => {
   );
 };
 
+const EmployerTabs = (props: {
+  employers: Record<string, Employer>;
+  order: string[];
+}) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
+  const { employers, order } = props;
+  const selectedId =
+    (data.character_preferences.non_contextual.selected_employer as
+      | string
+      | undefined) || order[0];
+
+  return (
+    <Tabs fluid>
+      {order.map((id) => {
+        const opt = employers[id];
+        if (!opt) return null;
+        const selected = id === selectedId;
+        return (
+          <Tabs.Tab
+            key={id}
+            selected={selected}
+            onClick={() =>
+              !selected && createSetPreference(act, 'selected_employer')(id)
+            }
+            style={{
+              borderTop: `3px solid ${opt.colour}`,
+              fontWeight: selected ? 'bold' : undefined,
+            }}
+          >
+            {opt.display_name}
+          </Tabs.Tab>
+        );
+      })}
+    </Tabs>
+  );
+};
+
+// Top-of-page chooser: prominent employer tabs with a lore strip + the
+// jobless / clear controls underneath.
+const EmployerInfoBox = () => {
+  return (
+    <ServerPreferencesFetcher
+      render={(data: ServerData) => {
+        if (!data) {
+          return null;
+        }
+        const { employers, employer_order: order } = data.jobs;
+        if (!order || !order.length) {
+          return null;
+        }
+
+        return (
+          <EmployerInfoBoxInner employers={employers} order={order} />
+        );
+      }}
+    />
+  );
+};
+
+const EmployerInfoBoxInner = (props: {
+  employers: Record<string, Employer>;
+  order: string[];
+}) => {
+  const { data } = useBackend<PreferencesMenuData>();
+  const { employers, order } = props;
+
+  const selectedId =
+    (data.character_preferences.non_contextual.selected_employer as
+      | string
+      | undefined) || order[0];
+  const employer = employers[selectedId] || employers[order[0]];
+
+  return (
+    <Box mb={1}>
+      <EmployerTabs employers={employers} order={order} />
+
+      <Box
+        className="section-background"
+        p={1}
+        style={{
+          borderLeft: `4px solid ${employer.colour}`,
+        }}
+      >
+        <Stack fill align="center">
+          <Stack.Item>
+            <Box
+              width="136px"
+              height="136px"
+              style={{
+                border: `1px solid ${employer.colour}`,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+              }}
+              title={employer.display_name}
+            >
+              {employer.logo_icon && employer.logo_icon_state ? (
+                <DmIcon
+                  icon={employer.logo_icon}
+                  icon_state={employer.logo_icon_state}
+                  width="128px"
+                  height="128px"
+                  style={{ imageRendering: 'auto' }}
+                />
+              ) : (
+                <Box
+                  style={{
+                    fontSize: '1.5em',
+                    fontWeight: 'bold',
+                    color: 'rgba(255, 255, 255, 0.85)',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {employer.display_name.charAt(0)}
+                </Box>
+              )}
+            </Box>
+          </Stack.Item>
+
+          <Stack.Item grow basis={0} ml={1} mr={1}>
+            <Box bold mb={0.25}>
+              {employer.display_name}
+            </Box>
+            <Box
+              style={{
+                fontSize: '0.95em',
+                opacity: 0.9,
+                whiteSpace: 'pre-wrap',
+              }}
+              dangerouslySetInnerHTML={{
+                __html: sanitizeText(employer.lore || '\u00A0'),
+              }}
+            />
+          </Stack.Item>
+
+          <Stack.Item width="240px">
+            <Stack vertical fill>
+              <Stack.Item>
+                <JoblessRoleDropdown />
+              </Stack.Item>
+              <Stack.Item>
+                <ClearJobsButton />
+              </Stack.Item>
+            </Stack>
+          </Stack.Item>
+        </Stack>
+      </Box>
+    </Box>
+  );
+};
+
+// Renders one Department block per department that has at least one job
+// belonging to the currently selected employer. The Department component
+// itself filters by employer; we just have to enumerate every department
+// the jobs payload knows about so events / edge cases keep working.
+const EmployerJobLayout = () => {
+  return (
+    <ServerPreferencesFetcher
+      render={(data: ServerData) => {
+        if (!data) {
+          return null;
+        }
+
+        const { jobs } = data.jobs;
+
+        // Prefer the canonical order shipped from DM, then append any
+        // department only seen in the jobs payload (defensive — keeps
+        // the UI from dropping departments if the order lags behind).
+        // `new Set` preserves insertion order and dedupes for free.
+        const departmentOrder = Array.from(
+          new Set<string>([
+            ...(data.jobs.department_order || []),
+            ...Object.values(jobs).map((job) => job.department),
+          ]),
+        );
+
+        return (
+          <Stack vertical fill className="section-background" p={1}>
+            <Stack.Item>
+              <Stack fill className="PreferencesMenu__Jobs">
+                <Stack.Item grow basis={0}>
+                  {departmentOrder.map((dept) => (
+                    <Department key={dept} department={dept}>
+                      <Gap amount={6} />
+                    </Department>
+                  ))}
+                </Stack.Item>
+              </Stack>
+            </Stack.Item>
+          </Stack>
+        );
+      }}
+    />
+  );
+};
+
 export const JobsPage = () => {
   return (
     <>
-      <Box
-        textAlign="center"
-        className="section-background"
-        p={0.5}
-        pb={1}
-        mb={1}
-      >
-        <JoblessRoleDropdown />
-        <ClearJobsButton />
-      </Box>
-
-      <Stack vertical fill className="section-background" p={1}>
-        <Stack.Item>
-          <Stack fill className="PreferencesMenu__Jobs">
-            <Stack.Item mr={1}>
-              <Department department="Assistant">
-                <Gap amount={6} />
-              </Department>
-
-              <Department department="Engineering">
-                <Gap amount={6} />
-              </Department>
-
-              <Department department="Medical" />
-            </Stack.Item>
-
-            <Stack.Item mr={1}>
-              <Department department="Captain">
-                <Gap amount={6} />
-              </Department>
-
-              <Department department="Civilian">
-                <Gap amount={6} />
-              </Department>
-
-              <Department department="Service">
-                <Gap amount={6} />
-              </Department>
-
-              <Department department="Cargo" />
-            </Stack.Item>
-
-            <Stack.Item>
-              <Department department="Science">
-                <Gap amount={6} />
-              </Department>
-
-              <Department department="Security">
-                <Gap amount={6} />
-              </Department>
-
-              <Department department="Silicon" />
-            </Stack.Item>
-          </Stack>
-        </Stack.Item>
-      </Stack>
+      <EmployerInfoBox />
+      <EmployerJobLayout />
     </>
   );
 };
