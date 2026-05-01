@@ -19430,10 +19430,6 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/science/xenobiology)
 "lVz" = (
-/obj/machinery/power/smes{
-	charge = 5e+006;
-	name = "ai power storage unit"
-	},
 /obj/machinery/flasher{
 	id = "AI";
 	name = "Meatbag Pacifier";
@@ -19445,6 +19441,7 @@
 	pixel_y = 14
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/circuit/red,
 /area/station/ai_monitored/turret_protected/ai)
 "lVJ" = (
@@ -30958,6 +30955,10 @@
 	dir = 4
 	},
 /area/station/hallway/primary/aft)
+"sPE" = (
+/obj/machinery/power/smes/engineering,
+/turf/closed/indestructible/rock/bedrock,
+/area/paradise)
 "sPX" = (
 /obj/machinery/door/morgue{
 	name = "Confession Booth"
@@ -38354,11 +38355,9 @@
 /turf/open/floor/iron,
 /area/station/science/research)
 "xgN" = (
-/obj/machinery/power/smes{
-	charge = 2e+007
-	},
 /obj/structure/cable,
 /obj/machinery/camera/directional/east,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark/telecomms{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
@@ -41109,7 +41108,7 @@ qdb
 qdb
 qdb
 qdb
-qdb
+sPE
 qdb
 mGR
 mGR

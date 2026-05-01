@@ -25139,10 +25139,8 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark,
 /area/station/engineering/gravity_generator)
 "kIT" = (
@@ -45448,10 +45446,8 @@
 /turf/open/floor/catwalk_floor,
 /area/station/cargo/exploration_dock)
 "sUf" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/yellow,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/circuit,
 /area/station/ai_monitored/turret_protected/ai)
 "sUz" = (
@@ -49185,13 +49181,11 @@
 /turf/open/floor/noslip/blue,
 /area/station/commons/dorms)
 "usu" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/structure/cable,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/circuit/telecomms,
 /area/station/tcommsat/server)
 "usy" = (
