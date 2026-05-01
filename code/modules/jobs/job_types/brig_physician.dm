@@ -17,7 +17,7 @@
 	extra_access = list(ACCESS_MEDICAL, ACCESS_SURGERY)
 
 	departments = DEPT_BITFLAG_SEC
-	bank_account_department = ACCOUNT_MED_BITFLAG | ACCOUNT_SEC_BITFLAG
+	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_MEDIUM)
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 

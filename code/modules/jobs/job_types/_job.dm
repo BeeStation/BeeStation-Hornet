@@ -68,8 +68,11 @@
 	///The amount of good boy points playing this role will earn you towards a higher chance to roll antagonist next round can be overridden by antag_rep.txt config
 	var/antag_rep = 10
 
-	///vender will not ask you for credits when you buy a stuff from it as long as department matches
-	var/bank_account_department = ACCOUNT_CIV_BITFLAG
+	///vender will not ask you for credits when you buy a stuff from it as long as department matches.
+	///Default is NONE so that any concrete job which forgets to set this is *visibly* unpaid
+	///instead of silently sliding onto the Stationside Civil Services account. Subtypes MUST
+	///set this explicitly. See code/modules/jobs/employer_groups.dm for the contractor mapping.
+	var/bank_account_department = NONE
 	///your payment per department. geneticist will be a good example for this.
 	var/payment_per_department = list(ACCOUNT_CIV_ID = 0)
 

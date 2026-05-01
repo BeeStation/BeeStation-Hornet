@@ -19,6 +19,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 
 	display_order = JOB_DISPLAY_ORDER_CYBORG
 	departments = DEPT_BITFLAG_SILICON
+	bank_account_department = NONE
 
 	show_in_prefs = FALSE //No reason to show in preferences
 

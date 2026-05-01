@@ -14,6 +14,7 @@
 	exp_type = EXP_TYPE_SILICON
 	display_order = JOB_DISPLAY_ORDER_AI
 	departments = DEPT_BITFLAG_SILICON
+	bank_account_department = NONE
 	random_spawns_possible = FALSE
 	allow_bureaucratic_error = FALSE
 

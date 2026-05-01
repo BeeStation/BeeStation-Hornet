@@ -47,13 +47,13 @@
 	id = EMPLOYER_ID_STATIONSIDE_SERVICES
 	display_name = "Stationside Services"
 	colour = "#7fb368"
+	logo_icon_state = "services"
 	pref_order = EMPLOYER_PREF_ORDER_STATIONSIDE_SERVICES
 	department_ids = list(DEPT_NAME_SERVICE, DEPT_NAME_CIVILIAN, DEPT_NAME_RECREATION)
 	lore = "<b> Stationside Services are hired by, employed by, and contracted to the station. The Head of Personnel has the ultimate say over their operations.</b><br><br>\
 			A loose group of low-ranking civilian personnel renting space on the station to provide necessary services such as catering, gardening, \
 			and entertainment. <br><br>\
 			They are too far below the corporate ladder for company politics to matter, most are just trying to make rent."
-
 
 // ---------------------------------------------------------------------
 //                          Auri Private Security
@@ -81,6 +81,7 @@
 	id = EMPLOYER_ID_ECLIPSE_EXPRESS
 	display_name = "Eclipse Express"
 	colour = "#b48548ff"
+	logo_icon_state = "eclipse"
 	pref_order = EMPLOYER_PREF_ORDER_ECLIPSE_EXPRESS
 	department_ids = list(DEPT_NAME_CARGO)
 	lore = "Eclipse Express runs supply stations across the orbit of Cinis. Thanks to the still-developing nature of the region they enjoy what amounts	to a monopoly over station imports and exports. <br><br>\
@@ -115,6 +116,7 @@
 	id = EMPLOYER_ID_ACRUX_MEDICAL
 	display_name = "Acrux Medical Technologies"
 	colour = "#5fb6c8"
+	logo_icon_state = "acrux"
 	pref_order = EMPLOYER_PREF_ORDER_ACRUX_MEDICAL
 	department_ids = list(DEPT_NAME_MEDICAL)
 	lore = "LORE WIP: Acrux Medical Technologies provides medical services for a wide \
