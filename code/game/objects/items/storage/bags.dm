@@ -405,7 +405,7 @@
 	. = ..()
 	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY
 	atom_storage.set_holdable(list(
-		/obj/item/clothing/mask/cigarette,
+		/obj/item/cigarette,
 		/obj/item/food,
 		/obj/item/kitchen,
 		/obj/item/lighter,

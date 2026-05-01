@@ -752,13 +752,6 @@
 	},
 /turf/open/floor/plating/dirt/planetary,
 /area/template_noop)
-"lW" = (
-/obj/structure/fence{
-	dir = 8
-	},
-/obj/structure/sign/warning/secure_area,
-/turf/open/floor/plating/dirt/planetary,
-/area/template_noop)
 "md" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -851,6 +844,22 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/freezer,
 /area/template_noop)
+"ny" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/obj/item/plant_seeds/preset/carrot,
+/turf/open/floor/wood,
+/area/template_noop)
 "nF" = (
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 1
@@ -919,6 +928,13 @@
 "pA" = (
 /obj/item/trash/syndi_cakes,
 /turf/open/floor/plating/beach/sand,
+/area/template_noop)
+"pD" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "pK" = (
 /obj/structure/cable/yellow,
@@ -1196,22 +1212,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/template_noop)
-"uF" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/carrot,
-/turf/open/floor/wood,
-/area/template_noop)
 "uH" = (
 /obj/structure/cable,
 /turf/open/floor/catwalk_floor/iron_dark,
@@ -1261,6 +1261,13 @@
 /obj/structure/fence/cut/large,
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/plating/dirt/jungle/wasteland,
+/area/template_noop)
+"wa" = (
+/obj/structure/fence{
+	dir = 8
+	},
+/obj/structure/sign/warning/secure_area,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "wi" = (
 /obj/structure/railing,
@@ -1386,6 +1393,13 @@
 	slowdown = 0
 	},
 /area/template_noop)
+"yk" = (
+/obj/structure/fence{
+	dir = 8
+	},
+/obj/structure/sign/warning/electric_shock,
+/turf/open/floor/plating/grass,
+/area/template_noop)
 "yl" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/random/decoration/glowstick/lit,
@@ -1474,22 +1488,6 @@
 /obj/item/storage/basket/easter,
 /obj/item/storage/basket/easter,
 /turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"Ae" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 3
-	},
-/obj/structure/mirror{
-	pixel_x = 32;
-	pixel_y = -1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/freezer,
 /area/template_noop)
 "Ah" = (
 /obj/structure/extinguisher_cabinet{
@@ -1657,12 +1655,8 @@
 /obj/item/pool/rubber_ring,
 /turf/open/floor/plating/beach/water,
 /area/template_noop)
-"Cy" = (
-/obj/structure/fence{
-	dir = 8
-	},
-/obj/structure/sign/warning/electric_shock,
-/obj/effect/turf_decal/sand/plating,
+"Cp" = (
+/obj/item/plant_tray/soil,
 /turf/open/floor/plating/grass,
 /area/template_noop)
 "CF" = (
@@ -1673,6 +1667,14 @@
 	dir = 8
 	},
 /turf/open/floor/noslip/standard,
+/area/template_noop)
+"CH" = (
+/obj/structure/fence{
+	dir = 8
+	},
+/obj/structure/sign/warning/electric_shock,
+/obj/effect/turf_decal/sand/plating,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "CI" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1721,12 +1723,17 @@
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/template_noop)
-"Dq" = (
-/obj/structure/fence{
-	dir = 8
+"Do" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	pixel_x = 32;
+	pixel_y = -1
 	},
-/obj/structure/sign/warning/secure_area,
-/turf/open/floor/plating/grass,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "Du" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta{
@@ -2040,13 +2047,6 @@
 	},
 /turf/open/floor/plating/dirt/planetary,
 /area/template_noop)
-"Jt" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "JF" = (
 /obj/effect/turf_decal/siding/white{
 	alpha = 100;
@@ -2062,14 +2062,6 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/open/floor/plating/grass,
-/area/template_noop)
-"JN" = (
-/obj/structure/fence{
-	dir = 8
-	},
-/obj/structure/sign/warning/secure_area,
-/obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/grass,
 /area/template_noop)
 "JV" = (
@@ -2563,13 +2555,6 @@
 	},
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
-"Sp" = (
-/obj/structure/fence{
-	dir = 8
-	},
-/obj/structure/sign/warning/electric_shock,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "Sq" = (
 /turf/open/floor/mineral/plastitanium,
 /area/template_noop)
@@ -2927,10 +2912,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/beach/sand,
 /area/template_noop)
-"XC" = (
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "XK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
@@ -2979,6 +2960,14 @@
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/planetary,
+/area/template_noop)
+"Yn" = (
+/obj/structure/fence{
+	dir = 8
+	},
+/obj/structure/sign/warning/secure_area,
+/obj/effect/turf_decal/sand/plating,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "Yq" = (
 /obj/effect/turf_decal/stripes/line{
@@ -3047,6 +3036,13 @@
 	dir = 10
 	},
 /turf/open/floor/iron/techmaint/planetary,
+/area/template_noop)
+"Zr" = (
+/obj/structure/fence{
+	dir = 8
+	},
+/obj/structure/sign/warning/secure_area,
+/turf/open/floor/plating/dirt/planetary,
 /area/template_noop)
 "Zt" = (
 /obj/effect/turf_decal/stripes/line{
@@ -6448,9 +6444,9 @@ gf
 gf
 gf
 Kg
-Jt
-XC
-XC
+pD
+Cp
+Cp
 yT
 yT
 yT
@@ -6582,9 +6578,9 @@ gf
 bj
 PO
 HX
-Jt
+pD
 yW
-XC
+Cp
 yT
 yT
 yT
@@ -6716,9 +6712,9 @@ gf
 gf
 gf
 HX
-Jt
-XC
-XC
+pD
+Cp
+Cp
 yT
 yT
 yT
@@ -7117,7 +7113,7 @@ gf
 tf
 sV
 gf
-uF
+ny
 Du
 DS
 yT
@@ -10910,7 +10906,7 @@ VX
 VX
 yb
 rw
-Ae
+Do
 an
 yb
 vy
@@ -11862,7 +11858,7 @@ cE
 sj
 XK
 mk
-Dq
+wa
 Wn
 ew
 mk
@@ -11871,7 +11867,7 @@ af
 mk
 af
 HR
-lW
+Zr
 Gi
 Gi
 Ba
@@ -12932,7 +12928,7 @@ mk
 xd
 FV
 Wn
-Cy
+CH
 dl
 rG
 dl
@@ -13200,7 +13196,7 @@ DR
 xd
 mk
 pt
-Sp
+yk
 VF
 my
 dl
@@ -14139,7 +14135,7 @@ vM
 tX
 WP
 pQ
-JN
+Yn
 DR
 Gu
 af
@@ -14283,7 +14279,7 @@ DR
 YG
 mk
 DR
-Dq
+wa
 yT
 Gi
 Gi

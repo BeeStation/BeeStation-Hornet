@@ -253,7 +253,7 @@
 	. = ..()
 	AddElement(/datum/element/toy_talk)
 
-/obj/item/bodypart/head/GetVoice()
+/obj/item/bodypart/head/get_voice()
 	return "The head of [real_name]"
 
 /obj/item/bodypart/head/monkey

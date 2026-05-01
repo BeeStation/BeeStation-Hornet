@@ -304,22 +304,6 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/centcom/syndicate_mothership/control)
-"aaN" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/effect/decal/cleanable/vomit/old{
-	pixel_x = -5;
-	pixel_y = -3
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron,
-/area/centcom/syndicate_mothership/control)
 "aaO" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
@@ -377,6 +361,23 @@
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/control)
+"aaW" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/sign/warning/no_smoking{
+	pixel_y = 32
+	},
+/obj/structure/sign/warning/fire{
+	pixel_x = -32
+	},
+/turf/open/floor/iron/smooth_large,
+/area/centcom/central_command_areas/evacuation/ship)
 "aaX" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
 /turf/open/floor/iron/stairs,
@@ -555,19 +556,6 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/control)
-"abu" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
-/obj/structure/mirror{
-	pixel_x = -28
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "abv" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/structure/railing{
@@ -607,33 +595,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/tech/grid,
 /area/centcom/syndicate_mothership/control)
-"abz" = (
-/obj/structure/table/wood,
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_x = 6
-	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
-	pixel_x = 2
-	},
-/obj/item/clothing/mask/cigarette/cigar{
-	pixel_x = 4.5
-	},
-/obj/machinery/airalarm/directional/south{
-	pixel_y = -22
-	},
-/obj/effect/turf_decal/siding/thinplating_new{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/smooth_edge,
-/area/centcom/tdome/administration)
 "abA" = (
 /obj/effect/turf_decal/tile/brown/anticorner{
 	dir = 1
@@ -1116,27 +1077,6 @@
 	pixel_y = -22
 	},
 /turf/open/floor/iron/dark/smooth_large,
-/area/centcom/central_command_areas/control)
-"acB" = (
-/obj/structure/table/wood,
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_x = 6
-	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
-	pixel_x = 2
-	},
-/obj/item/clothing/mask/cigarette/cigar{
-	pixel_x = 4.5
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/control)
 "acC" = (
 /obj/structure/sign/barsign{
@@ -2031,6 +1971,20 @@
 /obj/item/taperecorder,
 /turf/open/floor/iron/dark/smooth_edge,
 /area/centcom/central_command_areas/ferry)
+"aeG" = (
+/obj/machinery/power/port_gen/pacman,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/warning/electric_shock{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/bot_white,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/smooth_large,
+/area/centcom/central_command_areas/evacuation/ship)
 "aeI" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/trimline/neutral/warning{
@@ -3250,6 +3204,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/control)
+"ahY" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-10"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/warning/secure_area{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/centcom/central_command_areas/evacuation/ship)
 "aia" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -3486,6 +3451,10 @@
 /area/centcom/central_command_areas/supply)
 "aiH" = (
 /obj/structure/sign/nanotrasen,
+/turf/closed/indestructible/riveted,
+/area/centcom/central_command_areas/prison)
+"aiI" = (
+/obj/structure/sign/warning/secure_area,
 /turf/closed/indestructible/riveted,
 /area/centcom/central_command_areas/prison)
 "aiJ" = (
@@ -5246,22 +5215,13 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/syndicate_mothership/control)
+"anA" = (
+/obj/structure/sign/warning/no_smoking,
+/turf/closed/indestructible/riveted,
+/area/centcom/central_command_areas/ferry)
 "anB" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 6
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/central_command_areas/ferry)
-"anC" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 9
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/centcom/central_command_areas/ferry)
@@ -5477,6 +5437,20 @@
 	},
 /turf/open/floor/catwalk_floor/iron,
 /area/centcom/central_command_areas/supply)
+"aoc" = (
+/obj/machinery/power/port_gen/pacman,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/turf_decal/bot_white,
+/obj/structure/sign/warning/no_smoking{
+	pixel_x = 32
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/smooth_edge,
+/area/centcom/central_command_areas/evacuation/ship)
 "aod" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/fullgrass,
@@ -6070,6 +6044,37 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/syndicate_mothership/control)
+"apw" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/table/reinforced,
+/obj/item/crowbar/red,
+/obj/item/wrench,
+/obj/item/clothing/mask/gas,
+/obj/machinery/computer/auxiliary_base{
+	pixel_y = 32
+	},
+/turf/open/floor/iron/dark/smooth_edge,
+/area/centcom/central_command_areas/supply)
+"apx" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = -28
+	},
+/obj/structure/sign/warning/secure_area{
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/light,
+/turf/open/floor/iron/edge{
+	dir = 8
+	},
+/area/centcom/central_command_areas/ferry)
 "apy" = (
 /obj/machinery/smartfridge,
 /turf/open/floor/wood,
@@ -6740,6 +6745,10 @@
 /obj/structure/barricade/wooden/crude/snow,
 /turf/closed/indestructible/syndicate,
 /area/centcom/syndicate_mothership/control)
+"arz" = (
+/obj/structure/sign/warning/secure_area,
+/turf/closed/indestructible/riveted,
+/area/centcom/central_command_areas/ferry)
 "arA" = (
 /obj/machinery/power/smes/magical,
 /obj/machinery/light{
@@ -7583,6 +7592,10 @@
 	dir = 8
 	},
 /area/centcom/central_command_areas/control)
+"atP" = (
+/obj/structure/sign/warning/secure_area,
+/turf/closed/indestructible/riveted,
+/area/centcom/central_command_areas/control)
 "atQ" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -7690,28 +7703,6 @@
 /obj/structure/bed,
 /obj/item/bedsheet/black,
 /turf/open/floor/wood,
-/area/centcom/central_command_areas/ferry)
-"auh" = (
-/obj/structure/table/wood,
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_x = 6
-	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
-	pixel_x = 2
-	},
-/obj/item/clothing/mask/cigarette/cigar{
-	pixel_x = 4.5
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 10
-	},
-/obj/effect/turf_decal/siding/wood,
-/turf/open/floor/carpet/green,
 /area/centcom/central_command_areas/ferry)
 "auj" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -8031,6 +8022,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/syndicate_mothership/control)
+"auT" = (
+/obj/machinery/airalarm/directional/east,
+/obj/structure/filingcabinet/filingcabinet,
+/obj/machinery/computer/auxiliary_base{
+	pixel_y = 32
+	},
+/turf/open/floor/iron/dark/smooth_edge,
+/area/centcom/central_command_areas/ferry)
 "auU" = (
 /obj/effect/turf_decal/weather/dirt/corner{
 	dir = 1
@@ -11353,15 +11352,6 @@
 "aDR" = (
 /turf/open/floor/iron/white,
 /area/centcom/wizard_station)
-"aDS" = (
-/obj/structure/mirror/magic{
-	pixel_y = 28
-	},
-/obj/structure/sink{
-	pixel_y = 20
-	},
-/turf/open/floor/iron/white,
-/area/centcom/wizard_station)
 "aDT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -12067,14 +12057,6 @@
 /obj/structure/cable/pink,
 /turf/open/floor/iron/textured,
 /area/centcom/central_command_areas/ferry)
-"aFV" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/tdome/observation)
 "aFX" = (
 /turf/open/floor/iron/stairs,
 /area/centcom/central_command_areas/holding)
@@ -12224,6 +12206,10 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/techmaint,
+/area/centcom/tdome/observation)
+"aGw" = (
+/obj/structure/sign/warning/no_smoking,
+/turf/closed/indestructible/riveted,
 /area/centcom/tdome/observation)
 "aGx" = (
 /obj/effect/turf_decal/stripes/closeup,
@@ -12435,6 +12421,13 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/holding)
+"aGZ" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/sign/warning/no_smoking{
+	pixel_x = 32
+	},
+/turf/open/floor/grass,
+/area/centcom/central_command_areas/evacuation/ship)
 "aHa" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
@@ -12448,19 +12441,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/central_command_areas/evacuation/ship)
-"aHb" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
-/obj/structure/mirror{
-	pixel_x = -28
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "aHc" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/blue{
@@ -12499,19 +12479,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/ctf)
-"aHh" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "aHi" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -12558,16 +12525,6 @@
 	},
 /turf/open/floor/grass,
 /area/centcom/central_command_areas/holding)
-"aHn" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
-/obj/structure/mirror{
-	pixel_x = -28
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "aHo" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 6
@@ -12647,16 +12604,6 @@
 /obj/effect/turf_decal/tile/dark_blue,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/control)
-"aHx" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "aHy" = (
 /obj/structure/table/wood,
 /obj/structure/reagent_dispensers/beerkeg,
@@ -12673,19 +12620,6 @@
 /obj/structure/barricade/security/ctf,
 /turf/open/floor/circuit,
 /area/centcom/ctf)
-"aHA" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
-/obj/structure/mirror{
-	pixel_x = -28
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "aHB" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 8
@@ -12706,28 +12640,6 @@
 	dir = 4
 	},
 /area/centcom/tdome/administration)
-"aHE" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/tile/green/half/contrasted,
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
-"aHF" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/tile/green,
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "aHG" = (
 /obj/item/food/egg/rainbow{
 	desc = "I bet you think you're pretty clever... well you are.";
@@ -13500,14 +13412,6 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
-"aJE" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "sink";
-	pixel_y = 28
-	},
-/turf/open/floor/iron/cafeteria,
-/area/centcom/central_command_areas/holding)
 "aJF" = (
 /obj/machinery/computer/camera_advanced/abductor{
 	team_number = 1
@@ -15352,19 +15256,6 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/centcom/central_command_areas/evacuation/ship)
-"aOp" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
-/obj/machinery/button/door/indestructible{
-	id = "lmrestroom";
-	name = "Lock Control";
-	pixel_y = -28
-	},
-/turf/open/floor/iron/white,
-/area/centcom/central_command_areas/holding)
 "aOq" = (
 /obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/stairs{
@@ -15389,15 +15280,6 @@
 	},
 /turf/open/floor/wood/big,
 /area/centcom/syndicate_mothership/control)
-"aOt" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark,
-/area/centcom/tdome/observation)
 "aOu" = (
 /obj/item/storage/box/ids{
 	pixel_x = 3;
@@ -15712,6 +15594,20 @@
 	},
 /turf/open/floor/iron/dark,
 /area/centcom/tdome/observation)
+"aPf" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/warning/no_smoking{
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners,
+/turf/open/floor/iron/dark/textured_large,
+/area/centcom/central_command_areas/evacuation/ship)
 "aPg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -17144,6 +17040,11 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/central_command_areas/control)
+"aSN" = (
+/obj/structure/mop_bucket,
+/obj/item/mop,
+/turf/open/floor/iron/cafeteria,
+/area/centcom/central_command_areas/holding)
 "aSO" = (
 /obj/structure/railing,
 /obj/structure/table,
@@ -17561,6 +17462,11 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/holding)
+"aTL" = (
+/obj/structure/sign/warning/secure_area,
+/obj/item/clothing/accessory/lawyers_badge,
+/turf/closed/indestructible/riveted,
+/area/centcom/central_command_areas/ferry)
 "aTM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/ian{
@@ -18764,15 +18670,6 @@
 	},
 /turf/open/floor/iron/edge,
 /area/centcom/tdome/administration)
-"aWO" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "sink";
-	pixel_y = 28
-	},
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/central_command_areas/holding)
 "aWP" = (
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 8
@@ -20132,13 +20029,15 @@
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
-"chu" = (
-/obj/machinery/airalarm/directional/east,
-/obj/structure/filingcabinet/filingcabinet,
-/obj/machinery/computer/auxiliary_base{
-	pixel_y = 32
+"clC" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	pixel_x = 28
 	},
-/turf/open/floor/iron/dark/smooth_edge,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 9
+	},
+/turf/open/floor/iron/showroomfloor,
 /area/centcom/central_command_areas/ferry)
 "coL" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
@@ -20157,18 +20056,6 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/carpet/black,
 /area/centcom/central_command_areas/holding)
-"cwa" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron,
-/area/centcom/syndicate_mothership/control)
 "cEy" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -20209,6 +20096,13 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/centcom/syndicate_mothership/control)
+"cNk" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "cND" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/module/energy_shield,
@@ -20280,19 +20174,6 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/arena_source)
-"deN" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/table/reinforced,
-/obj/item/crowbar/red,
-/obj/item/wrench,
-/obj/item/clothing/mask/gas,
-/obj/machinery/computer/auxiliary_base{
-	pixel_y = 32
-	},
-/turf/open/floor/iron/dark/smooth_edge,
-/area/centcom/central_command_areas/supply)
 "diw" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner{
 	dir = 1
@@ -20368,29 +20249,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
-"dET" = (
-/obj/machinery/power/port_gen/pacman,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/glass,
-/obj/effect/turf_decal/bot_white,
-/obj/structure/sign/warning/no_smoking{
-	pixel_x = 32
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/iron/smooth_edge,
-/area/centcom/central_command_areas/evacuation/ship)
-"dFu" = (
-/obj/machinery/plant_machine/plant_analyser,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/central_command_areas/holding)
-"dHv" = (
-/obj/structure/sign/warning/secure_area,
-/turf/closed/indestructible/riveted,
-/area/centcom/central_command_areas/prison)
 "dNo" = (
 /obj/machinery/chem_dispenser/drinks/beer/fullupgrade,
 /obj/structure/table/reinforced{
@@ -20435,10 +20293,34 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/rust,
 /area/centcom/syndicate_mothership/control)
+"dXM" = (
+/obj/structure/sink/kitchen/directional/south{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "sink"
+	},
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/centcom/central_command_areas/holding)
 "dZf" = (
 /obj/structure/fluff/iced_abductor,
 /turf/open/floor/grass/snow,
 /area/centcom/syndicate_mothership)
+"edM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/warning/secure_area{
+	pixel_y = 32
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/mob/living/basic/pet/dog/corgi/capybara{
+	name = "Tincho"
+	},
+/obj/structure/bed/dogbed{
+	name = "Tincho's bed"
+	},
+/turf/open/floor/carpet/red,
+/area/centcom/central_command_areas/evacuation/ship)
 "edP" = (
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/grass/snow,
@@ -20449,16 +20331,34 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/centcom/syndicate_mothership)
-"euT" = (
-/obj/item/plant_tray,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/central_command_areas/holding)
+"elL" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/decal/cleanable/vomit/old{
+	pixel_x = -5;
+	pixel_y = -3
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron,
+/area/centcom/syndicate_mothership/control)
 "eDv" = (
 /obj/machinery/igniter/on,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/centcom/tdome/administration)
+"eDy" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror{
+	pixel_x = -28
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "eEN" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/edges/borderfloor/corner1{
@@ -20580,22 +20480,6 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/administration)
-"fyE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/secure_area{
-	pixel_y = 32
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/mob/living/basic/pet/dog/corgi/capybara{
-	name = "Tincho"
-	},
-/obj/structure/bed/dogbed{
-	name = "Tincho's bed"
-	},
-/turf/open/floor/carpet/red,
-/area/centcom/central_command_areas/evacuation/ship)
 "fzn" = (
 /obj/structure/chair{
 	dir = 1
@@ -20623,23 +20507,15 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/techmaint,
 /area/centcom/tdome/administration)
-"fIw" = (
-/obj/structure/reagent_dispensers/fueltank,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
+"fLw" = (
+/obj/structure/sink/directional/east,
+/obj/machinery/button/door/indestructible{
+	id = "lmrestroom";
+	name = "Lock Control";
+	pixel_y = -28
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/decal/cleanable/blood/old,
-/obj/structure/sign/warning/no_smoking{
-	pixel_y = 32
-	},
-/obj/structure/sign/warning/fire{
-	pixel_x = -32
-	},
-/turf/open/floor/iron/smooth_large,
-/area/centcom/central_command_areas/evacuation/ship)
+/turf/open/floor/iron/white,
+/area/centcom/central_command_areas/holding)
 "fNr" = (
 /obj/structure/flora/ausbushes/sparsegrass{
 	pixel_x = 6
@@ -20687,6 +20563,14 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/centcom/syndicate_mothership)
+"gfJ" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/mop_bucket,
+/turf/open/floor/plating/broken,
+/area/centcom/syndicate_mothership/control)
 "ggJ" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner{
 	dir = 1
@@ -20733,23 +20617,11 @@
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
-"gwm" = (
-/obj/item/plant_tray,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/central_command_areas/holding)
 "gxW" = (
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/rust,
 /area/centcom/syndicate_mothership/control)
-"gDf" = (
-/obj/structure/sign/warning/secure_area,
-/turf/closed/indestructible/riveted,
-/area/centcom/central_command_areas/ferry)
 "gFf" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -20757,6 +20629,33 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/centcom/syndicate_mothership/control)
+"gHS" = (
+/obj/structure/table/wood,
+/obj/item/phone{
+	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 6
+	},
+/obj/item/cigarette/cigar/havana{
+	pixel_x = 2
+	},
+/obj/item/cigarette/cigar{
+	pixel_x = 4.5
+	},
+/obj/machinery/airalarm/directional/south{
+	pixel_y = -22
+	},
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/smooth_edge,
+/area/centcom/tdome/administration)
 "gKc" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/west,
@@ -20833,10 +20732,6 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/centcom/syndicate_mothership/control)
-"heP" = (
-/obj/structure/sign/warning/no_smoking,
-/turf/closed/indestructible/riveted,
-/area/centcom/central_command_areas/ferry)
 "hhi" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 4
@@ -21018,10 +20913,6 @@
 /obj/item/mod/module/visor/rave,
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/central_command_areas/control)
-"hIW" = (
-/obj/structure/sign/warning/secure_area,
-/turf/closed/indestructible/riveted,
-/area/centcom/central_command_areas/control)
 "hKH" = (
 /obj/structure/table/reinforced,
 /obj/item/stamp/denied{
@@ -21164,11 +21055,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/broken,
 /area/centcom/syndicate_mothership/control)
-"ipI" = (
-/obj/structure/sign/warning/secure_area,
-/obj/item/clothing/accessory/lawyers_badge,
-/turf/closed/indestructible/riveted,
-/area/centcom/central_command_areas/ferry)
 "itl" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 4;
@@ -21203,6 +21089,13 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/centcom/syndicate_mothership)
+"iyi" = (
+/obj/structure/sink/kitchen/directional/south{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "sink"
+	},
+/turf/open/floor/iron/cafeteria,
+/area/centcom/central_command_areas/holding)
 "ize" = (
 /obj/effect/turf_decal/tile/dark_blue,
 /obj/effect/turf_decal/siding/thinplating_new{
@@ -21377,6 +21270,14 @@
 	},
 /turf/open/floor/plating/broken,
 /area/centcom/syndicate_mothership/control)
+"jAi" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "jDA" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -21439,11 +21340,28 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/central_command_areas/control)
-"kab" = (
-/obj/structure/mop_bucket,
-/obj/item/mop,
-/turf/open/floor/iron/cafeteria,
-/area/centcom/central_command_areas/holding)
+"kaK" = (
+/obj/structure/table/wood,
+/obj/item/phone{
+	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 6
+	},
+/obj/item/cigarette/cigar/havana{
+	pixel_x = 2
+	},
+/obj/item/cigarette/cigar{
+	pixel_x = 4.5
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 10
+	},
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/carpet/green,
+/area/centcom/central_command_areas/ferry)
 "kbc" = (
 /obj/structure/chair{
 	dir = 1
@@ -21538,6 +21456,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
+"kHi" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/tile/green,
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "kIh" = (
 /obj/structure/rack,
 /obj/structure/window/reinforced/spawner/directional/north,
@@ -21662,18 +21588,20 @@
 	dir = 8
 	},
 /area/centcom/tdome/observation)
+"lgr" = (
+/obj/item/plant_tray,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/centcom/central_command_areas/holding)
 "lju" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/broken,
 /area/centcom/syndicate_mothership/control)
-"lkW" = (
-/obj/structure/table/wood/bar,
-/obj/structure/safe/floor,
-/obj/item/plant_seeds/preset/cherry_bomb,
-/turf/open/floor/wood,
-/area/centcom/central_command_areas/holding)
 "llK" = (
 /obj/effect/turf_decal/trimline/neutral/warning{
 	dir = 4
@@ -21709,6 +21637,11 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
+"lpM" = (
+/obj/machinery/seeder,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/centcom/central_command_areas/holding)
 "lun" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -21835,6 +21768,17 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/centcom/central_command_areas/control)
+"mmU" = (
+/obj/structure/table/wood/bar,
+/obj/structure/safe/floor,
+/obj/item/plant_seeds/preset/cherry_bomb,
+/turf/open/floor/wood,
+/area/centcom/central_command_areas/holding)
+"mnB" = (
+/obj/machinery/plant_machine/plant_analyser,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/centcom/central_command_areas/holding)
 "moQ" = (
 /obj/structure/railing/sec{
 	pixel_y = -4
@@ -21895,10 +21839,13 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
-"mAt" = (
-/obj/structure/sign/warning/no_smoking,
-/turf/closed/indestructible/riveted,
-/area/centcom/tdome/observation)
+"mCB" = (
+/obj/structure/table,
+/obj/item/plant_seeds/preset/pumpkin,
+/obj/item/paper/guides/jobs/hydroponics,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/centcom/central_command_areas/holding)
 "mEG" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -22018,6 +21965,13 @@
 	},
 /turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
+"nfO" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror{
+	pixel_x = -28
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "nnf" = (
 /obj/effect/turf_decal/trimline/red/warning,
 /obj/effect/turf_decal/siding/dark,
@@ -22098,6 +22052,16 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/centcom/central_command_areas/control)
+"nKv" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror{
+	pixel_x = -28
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "nMx" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/carpet/black,
@@ -22110,20 +22074,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/broken,
 /area/centcom/syndicate_mothership/control)
-"nPh" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/no_smoking{
-	pixel_x = 32
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners,
-/turf/open/floor/iron/dark/textured_large,
-/area/centcom/central_command_areas/evacuation/ship)
 "nZA" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/trimline/neutral/warning{
@@ -22321,6 +22271,27 @@
 /obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/carpet/purple,
 /area/centcom/syndicate_mothership/control)
+"pdW" = (
+/obj/structure/table/wood,
+/obj/item/phone{
+	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 6
+	},
+/obj/item/cigarette/cigar/havana{
+	pixel_x = 2
+	},
+/obj/item/cigarette/cigar{
+	pixel_x = 4.5
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/centcom/central_command_areas/control)
 "pex" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/weather/dirt{
@@ -22365,24 +22336,11 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/grass/no_border,
 /area/centcom/central_command_areas/evacuation/ship)
-"pBD" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_y = -28
-	},
-/obj/structure/sign/warning/secure_area{
-	pixel_x = 32
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/machinery/light,
-/turf/open/floor/iron/edge{
-	dir = 8
-	},
-/area/centcom/central_command_areas/ferry)
+"pvW" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/iron/white,
+/area/centcom/central_command_areas/holding)
 "pDC" = (
 /obj/effect/turf_decal/trimline/dark_red/mid_joiner,
 /obj/effect/turf_decal/tile/techfloor{
@@ -22400,22 +22358,10 @@
 /obj/item/stamp/law,
 /turf/open/floor/wood/big,
 /area/centcom/central_command_areas/control)
-"pJv" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/sign/warning/no_smoking{
-	pixel_x = 32
-	},
-/turf/open/floor/grass,
-/area/centcom/central_command_areas/evacuation/ship)
 "pMa" = (
 /obj/structure/chair,
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
-"pMB" = (
-/obj/machinery/seeder,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/central_command_areas/holding)
 "pNW" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -22904,17 +22850,6 @@
 /obj/structure/railing/corner,
 /turf/open/floor/plating/broken,
 /area/centcom/syndicate_mothership/control)
-"sTu" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/secure_area{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/centcom/central_command_areas/evacuation/ship)
 "sVt" = (
 /obj/machinery/computer/camera_advanced{
 	dir = 4
@@ -22992,18 +22927,15 @@
 	},
 /turf/open/floor/monotile/dark,
 /area/centcom/syndicate_mothership/control)
+"tuY" = (
+/obj/structure/sink/directional/west,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron/cafeteria,
+/area/centcom/tdome/observation)
 "twU" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/holding)
-"txQ" = (
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/mop_bucket,
-/turf/open/floor/plating/broken,
-/area/centcom/syndicate_mothership/control)
 "tzh" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -23141,13 +23073,12 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/centcom/syndicate_mothership)
-"unE" = (
-/obj/structure/table,
-/obj/item/plant_seeds/preset/pumpkin,
-/obj/item/paper/guides/jobs/hydroponics,
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/centcom/central_command_areas/holding)
+"ukc" = (
+/obj/structure/sink/directional/east,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/dark,
+/area/centcom/tdome/observation)
 "uqg" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced/spawner/directional/west,
@@ -23198,6 +23129,16 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/rust,
 /area/centcom/syndicate_mothership/control)
+"uDv" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "uEO" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/module/constructor,
@@ -23369,20 +23310,6 @@
 /obj/effect/turf_decal/trimline/neutral/warning,
 /turf/open/floor/monotile/dark,
 /area/centcom/syndicate_mothership/control)
-"wod" = (
-/obj/machinery/power/port_gen/pacman,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/electric_shock{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/bot_white,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/iron/smooth_large,
-/area/centcom/central_command_areas/evacuation/ship)
 "wqJ" = (
 /obj/structure/table/reinforced,
 /obj/item/radio{
@@ -23422,6 +23349,13 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/administration)
+"wvp" = (
+/obj/structure/mirror/magic{
+	pixel_y = 28
+	},
+/obj/structure/sink/directional/north,
+/turf/open/floor/iron/white,
+/area/centcom/wizard_station)
 "wGA" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/skin_applier/honkerative,
@@ -23450,6 +23384,16 @@
 /obj/structure/flora/rock/pile/largejungle,
 /turf/open/floor/plating/dirt/jungle/dark,
 /area/centcom/syndicate_mothership/control)
+"wQK" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror{
+	pixel_x = -28
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "wRb" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -23628,6 +23572,15 @@
 	pixel_y = -9
 	},
 /turf/open/floor/monotile/dark,
+/area/centcom/syndicate_mothership/control)
+"xRW" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron,
 /area/centcom/syndicate_mothership/control)
 "yaN" = (
 /obj/effect/turf_decal/trimline/red/filled/mid_joiner,
@@ -31833,7 +31786,7 @@ aqZ
 aqZ
 aqZ
 aqE
-aDS
+wvp
 aEf
 aEo
 aqE
@@ -34339,7 +34292,7 @@ afs
 aaE
 aaE
 aku
-txQ
+gfJ
 nft
 aku
 axA
@@ -43596,8 +43549,8 @@ aku
 vZn
 lNE
 coL
-cwa
-aaN
+xRW
+elL
 aMn
 aku
 aig
@@ -48019,17 +47972,17 @@ aaa
 aaa
 aRk
 aNd
-euT
-euT
-euT
-gwm
-euT
-euT
-euT
+pvW
+pvW
+pvW
+lgr
+pvW
+pvW
+pvW
 aNd
 aQI
 aVA
-aOp
+fLw
 aNd
 aRm
 aTn
@@ -48276,7 +48229,7 @@ aaa
 aaa
 aRk
 aNd
-aWO
+dXM
 aaT
 aaT
 aaT
@@ -49047,9 +49000,9 @@ aaa
 aaa
 aRk
 aNd
-dFu
-unE
-pMB
+mnB
+mCB
+lpM
 aaT
 aXl
 acp
@@ -50080,7 +50033,7 @@ aXk
 rsT
 aMm
 aNd
-aJE
+iyi
 aFh
 aYu
 aNd
@@ -50846,7 +50799,7 @@ aaa
 aaa
 aRk
 aNd
-lkW
+mmU
 aXk
 aYo
 aXk
@@ -52650,7 +52603,7 @@ aXk
 aXx
 aNm
 aNd
-kab
+aSN
 apV
 aTr
 aNd
@@ -54719,7 +54672,7 @@ aaa
 aaa
 aLs
 aKI
-fIw
+aaW
 aow
 aCr
 aWC
@@ -57040,7 +56993,7 @@ aTM
 aKI
 avo
 aKI
-sTu
+ahY
 aIo
 aIo
 aTW
@@ -57554,7 +57507,7 @@ aZy
 aKI
 aGW
 aKI
-fyE
+edM
 auB
 aTv
 aTv
@@ -57568,7 +57521,7 @@ aBT
 cYd
 aiq
 aOZ
-nPh
+aPf
 aON
 aJP
 aBq
@@ -58075,7 +58028,7 @@ nBD
 aSo
 aKI
 aNs
-pJv
+aGZ
 apc
 aGC
 aKI
@@ -59569,7 +59522,7 @@ aaa
 aaa
 aaa
 amD
-chu
+auT
 aMq
 aaz
 aYg
@@ -59578,7 +59531,7 @@ avE
 awt
 axg
 axa
-pBD
+apx
 amD
 apD
 apX
@@ -59859,8 +59812,8 @@ aaa
 aaa
 aLs
 aKI
-wod
-dET
+aeG
+aoc
 aCn
 aWC
 qvI
@@ -61107,7 +61060,7 @@ aaa
 amD
 abh
 aBK
-auh
+kaK
 apI
 aoF
 aqQ
@@ -61120,7 +61073,7 @@ amD
 aWv
 aLj
 aMr
-gDf
+arz
 azA
 aRd
 adE
@@ -61360,7 +61313,7 @@ aaa
 aaa
 amD
 ani
-heP
+anA
 amD
 aLt
 aYO
@@ -61874,7 +61827,7 @@ aaa
 aaa
 amD
 oxo
-anC
+clC
 amD
 aRX
 aDs
@@ -61887,7 +61840,7 @@ hVT
 hKH
 avR
 aQX
-ipI
+aTL
 awz
 aLj
 axR
@@ -62148,7 +62101,7 @@ amD
 acG
 aLj
 acd
-gDf
+arz
 azA
 azB
 aVU
@@ -62426,10 +62379,10 @@ aGb
 xzB
 aEp
 aVq
-aHb
-aHn
-aHA
-abu
+eDy
+nfO
+wQK
+nKv
 aEp
 aHZ
 aIh
@@ -62653,7 +62606,7 @@ amD
 amD
 amD
 amD
-gDf
+arz
 asD
 amD
 anU
@@ -62921,11 +62874,11 @@ aLj
 acd
 amD
 anT
-gDf
+arz
 aAi
 aoJ
 aAi
-gDf
+arz
 anU
 amD
 jUf
@@ -63683,7 +63636,7 @@ amD
 amD
 amD
 amD
-gDf
+arz
 amD
 aoe
 aqR
@@ -63972,7 +63925,7 @@ aFK
 aEp
 aEp
 aEK
-mAt
+aGw
 aEK
 aEp
 hDc
@@ -64698,7 +64651,7 @@ akw
 aPT
 akC
 aiF
-deN
+apw
 aaJ
 alJ
 afu
@@ -64720,11 +64673,11 @@ axh
 awu
 amD
 anT
-gDf
+arz
 amD
 amD
 amD
-gDf
+arz
 anU
 amD
 aio
@@ -64741,7 +64694,7 @@ aEp
 aGH
 aAo
 aGc
-aFV
+tuY
 aGc
 aGc
 aGc
@@ -65493,7 +65446,7 @@ ays
 amR
 azF
 aAm
-hIW
+atP
 aiu
 aio
 aBy
@@ -66300,7 +66253,7 @@ aJI
 aWN
 aWN
 akm
-abz
+gHS
 aIv
 aKA
 aIv
@@ -66793,7 +66746,7 @@ qgJ
 ktc
 hrT
 aGl
-mAt
+aGw
 acU
 acU
 aQF
@@ -68538,7 +68491,7 @@ aaa
 ail
 air
 aiB
-dHv
+aiI
 air
 aiB
 ail
@@ -68550,7 +68503,7 @@ aiB
 ail
 air
 aiB
-dHv
+aiI
 air
 aiB
 ail
@@ -68823,7 +68776,7 @@ alN
 aio
 aio
 aio
-hIW
+atP
 aUO
 aio
 aim
@@ -69367,7 +69320,7 @@ aEp
 aHy
 aSY
 aSY
-aOt
+ukc
 aSY
 aSY
 aSY
@@ -71108,7 +71061,7 @@ aaa
 ail
 air
 aiB
-dHv
+aiI
 air
 aiB
 ail
@@ -71120,7 +71073,7 @@ aiB
 ail
 air
 aiB
-dHv
+aiI
 air
 aiB
 ail
@@ -71678,10 +71631,10 @@ aFS
 aFS
 aEp
 agF
-aHh
-aHx
-aHF
-aHE
+uDv
+cNk
+kHi
+jAi
 aEp
 aIg
 aIr
@@ -74715,7 +74668,7 @@ aaa
 aaa
 aaa
 aim
-acB
+pdW
 aQP
 pEn
 qEt

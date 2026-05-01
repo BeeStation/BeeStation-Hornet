@@ -17,24 +17,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
-"ad" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/sink{
-	pixel_y = 24
-	},
-/turf/open/floor/plating,
-/area/centcom/tdome/arena)
-"ah" = (
-/obj/machinery/seeder,
-/turf/open/floor/plating,
-/area/centcom/tdome/arena)
-"ai" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/sink{
-	pixel_y = 24
-	},
-/turf/open/floor/plating,
-/area/centcom/tdome/arena)
 "aj" = (
 /obj/machinery/vending/sustenance,
 /obj/effect/decal/cleanable/dirt,
@@ -63,14 +45,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"ap" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/item/plant_scanner,
-/obj/item/cultivator,
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
 "at" = (
@@ -245,7 +219,21 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/centcom/tdome/arena)
-"hK" = (
+"jk" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/item/plant_tray/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"nJ" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/sink/directional/north,
+/turf/open/floor/plating,
+/area/centcom/tdome/arena)
+"pX" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/item/plant_tray/soil,
 /obj/effect/decal/cleanable/dirt,
@@ -254,10 +242,29 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
-"DH" = (
+"sD" = (
 /obj/item/plant_tray/soil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"sF" = (
+/obj/machinery/seeder,
+/turf/open/floor/plating,
+/area/centcom/tdome/arena)
+"wk" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/item/plant_tray/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted,
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"FJ" = (
+/obj/item/plant_tray/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -271,37 +278,10 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/centcom/tdome/arena)
-"Ls" = (
-/obj/item/plant_tray/soil,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"LA" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/item/plant_tray/soil,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"MF" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/item/plant_tray/soil,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted,
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"OA" = (
-/obj/item/plant_tray/soil,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
+"FY" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/sink/directional/north,
+/turf/open/floor/plating,
 /area/centcom/tdome/arena)
 "Pf" = (
 /obj/machinery/washing_machine,
@@ -318,6 +298,22 @@
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
+/area/centcom/tdome/arena)
+"Wb" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/item/plant_scanner,
+/obj/item/cultivator,
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"Ww" = (
+/obj/item/plant_tray/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
 /area/centcom/tdome/arena)
 
 (1,1,1) = {"
@@ -351,9 +347,9 @@ aI
 aO
 "}
 (4,1,1) = {"
-ad
+FY
 am
-ap
+Wb
 av
 an
 an
@@ -361,9 +357,9 @@ ac
 aP
 "}
 (5,1,1) = {"
-Ls
+sD
 am
-LA
+jk
 aw
 an
 ac
@@ -371,9 +367,9 @@ ac
 aQ
 "}
 (6,1,1) = {"
-OA
+FJ
 am
-hK
+pX
 ac
 ac
 aY
@@ -381,9 +377,9 @@ ac
 ac
 "}
 (7,1,1) = {"
-DH
+Ww
 am
-MF
+wk
 an
 aB
 aE
@@ -391,7 +387,7 @@ ac
 ac
 "}
 (8,1,1) = {"
-ah
+sF
 am
 at
 ax
@@ -401,9 +397,9 @@ aW
 an
 "}
 (9,1,1) = {"
-Ls
+sD
 am
-LA
+jk
 ac
 aD
 aF
@@ -411,9 +407,9 @@ an
 an
 "}
 (10,1,1) = {"
-OA
+FJ
 am
-hK
+pX
 ac
 aY
 ac
@@ -421,9 +417,9 @@ ac
 an
 "}
 (11,1,1) = {"
-DH
+Ww
 am
-MF
+wk
 ay
 ac
 ac
@@ -431,9 +427,9 @@ ac
 aQ
 "}
 (12,1,1) = {"
-ai
+nJ
 am
-ap
+Wb
 az
 an
 ac

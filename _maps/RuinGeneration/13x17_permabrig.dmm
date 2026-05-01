@@ -73,19 +73,6 @@
 "jz" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"kC" = (
-/obj/machinery/seeder,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/ruin/unpowered)
-"lr" = (
-/obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/glowshroom,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/ruin/unpowered)
 "lv" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
@@ -110,6 +97,11 @@
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
+/area/ruin/unpowered)
+"od" = (
+/obj/machinery/seeder,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "pC" = (
 /obj/structure/table,
@@ -150,15 +142,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
-"rz" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/grass,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/ruin/unpowered)
 "sf" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 1;
@@ -191,17 +174,18 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/unpowered)
-"ut" = (
-/obj/structure/sign/warning/electric_shock{
-	pixel_y = 32
-	},
+"sp" = (
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/item/plant_tray/soil,
-/obj/item/plant_scanner,
-/obj/machinery/camera/directional/north,
+/obj/item/plant_seeds/preset/potato,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 4
+	dir = 8
 	},
 /turf/open/floor/iron,
+/area/ruin/unpowered)
+"uk" = (
+/obj/structure/sink/directional/east,
+/turf/open/floor/iron/freezer,
 /area/ruin/unpowered)
 "ve" = (
 /obj/effect/decal/cleanable/dirt,
@@ -255,12 +239,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/unpowered)
-"AM" = (
-/obj/structure/sink{
-	pixel_y = 20
-	},
-/turf/open/floor/plating,
-/area/ruin/unpowered)
 "Be" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/iron/dark,
@@ -287,22 +265,6 @@
 	pixel_y = 7
 	},
 /obj/item/pen,
-/turf/open/floor/iron,
-/area/ruin/unpowered)
-"Do" = (
-/obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/ambrosia,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/ruin/unpowered)
-"Eh" = (
-/obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/carrot,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 4
-	},
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "Ez" = (
@@ -333,20 +295,39 @@
 /obj/machinery/vending/sustenance,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
+"Jm" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/carrot,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/ruin/unpowered)
 "Le" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/entertainment/arcade,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"Mh" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/grass,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "My" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"MV" = (
+"MU" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/item/plant_tray/soil,
 /obj/item/cultivator,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "MX" = (
@@ -385,22 +366,13 @@
 /obj/structure/bed,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
-"PO" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+"Qy" = (
 /obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/potato,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 8
+/obj/item/plant_seeds/preset/glowshroom,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
-"Qh" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
-/turf/open/floor/iron/freezer,
 /area/ruin/unpowered)
 "QQ" = (
 /obj/structure/table,
@@ -437,9 +409,29 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
+"TW" = (
+/obj/structure/sign/warning/electric_shock{
+	pixel_y = 32
+	},
+/obj/item/plant_tray/soil,
+/obj/item/plant_scanner,
+/obj/machinery/camera/directional/north,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/ruin/unpowered)
 "UG" = (
 /mob/living/basic/mouse/brown/tom,
 /turf/open/floor/plating,
+/area/ruin/unpowered)
+"Vf" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/ambrosia,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "VE" = (
 /obj/machinery/door/airlock/security/glass{
@@ -457,14 +449,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
-"Xc" = (
+"Xf" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/item/plant_tray/soil,
 /obj/item/cultivator,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/iron,
+/area/ruin/unpowered)
+"Yi" = (
+/obj/structure/sink/directional/north,
+/turf/open/floor/plating,
 /area/ruin/unpowered)
 "ZT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -511,9 +505,9 @@ lv
 "}
 (3,1,1) = {"
 EW
-Do
+Vf
 Nf
-PO
+sp
 NR
 gN
 NR
@@ -530,9 +524,9 @@ Be
 "}
 (4,1,1) = {"
 My
-Eh
+Jm
 jz
-rz
+Mh
 NR
 NR
 NR
@@ -568,9 +562,9 @@ lv
 "}
 (6,1,1) = {"
 My
-lr
+Qy
 jz
-Xc
+MU
 NR
 pC
 zq
@@ -587,9 +581,9 @@ lv
 "}
 (7,1,1) = {"
 EW
-ut
+TW
 jz
-MV
+Xf
 RC
 hq
 CE
@@ -625,7 +619,7 @@ lv
 "}
 (9,1,1) = {"
 EW
-AM
+Yi
 SX
 NR
 NR
@@ -664,7 +658,7 @@ lv
 (11,1,1) = {"
 EW
 cK
-kC
+od
 NR
 jn
 si
@@ -691,7 +685,7 @@ EW
 xS
 xh
 fZ
-Qh
+uk
 lG
 lv
 bO

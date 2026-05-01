@@ -365,10 +365,12 @@
 	return ..() + /datum/language/machine + /datum/language/voltaic
 
 /obj/item/organ/tongue/robot/emp_act(severity)
-	if(prob(30/severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	if(prob(30 / severity))
 		owner.emote("scream")
 		owner.apply_status_effect(/datum/status_effect/spanish)
-
 
 /obj/item/organ/tongue/robot/modify_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT

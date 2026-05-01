@@ -31,19 +31,16 @@
 /mob/living/simple_animal/hostile/poison/bees/space,
 /turf/open/floor/wax/airless,
 /area/ruin/unpowered)
-"k" = (
-/obj/item/plant_tray,
-/turf/open/floor/wood/airless,
-/area/ruin/unpowered)
-"m" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/turf/open/floor/wood/airless,
-/area/ruin/unpowered)
 "n" = (
 /obj/structure/closet/secure_closet/hydroponics,
+/turf/open/floor/wood/airless,
+/area/ruin/unpowered)
+"q" = (
+/obj/structure/sink/directional/west,
+/turf/open/floor/wood/airless,
+/area/ruin/unpowered)
+"O" = (
+/obj/item/plant_tray,
 /turf/open/floor/wood/airless,
 /area/ruin/unpowered)
 
@@ -347,8 +344,8 @@ g
 g
 h
 b
-k
-k
+O
+O
 n
 b
 g
@@ -417,9 +414,9 @@ h
 g
 g
 b
-k
-k
-m
+O
+O
+q
 b
 g
 g

@@ -407,12 +407,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/deepstorage/kitchen)
-"bc" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 24
-	},
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/has_grav/deepstorage/kitchen)
 "bd" = (
 /obj/structure/table,
 /obj/machinery/microwave,
@@ -668,13 +662,6 @@
 "bQ" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Hydroponics"
-	},
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/deepstorage/hydroponics)
-"bR" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
@@ -982,17 +969,6 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/deepstorage)
 "cN" = (
-/turf/open/floor/iron/freezer,
-/area/ruin/space/has_grav/deepstorage)
-"cO" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/obj/structure/mirror{
-	pixel_x = 24
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/deepstorage)
 "cP" = (
@@ -2146,6 +2122,22 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
+"fR" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/sign/warning/secure_area{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/deepstorage)
 "fS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -2160,6 +2152,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
+"fU" = (
+/obj/machinery/camera/directional/north{
+	c_tag = "Bunker entrance"
+	},
+/obj/structure/sign/warning/secure_area{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/deepstorage)
 "fV" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
@@ -2169,6 +2174,16 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 4
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/deepstorage/power)
+"fX" = (
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+	dir = 4
+	},
+/obj/structure/sign/warning/electric_shock{
+	pixel_y = 32
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/power)
@@ -2303,6 +2318,14 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/power)
+"gr" = (
+/obj/machinery/power/smes/engineering,
+/obj/structure/cable/yellow,
+/obj/structure/sign/warning/electric_shock{
+	pixel_y = -32
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/deepstorage/power)
 "gu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
@@ -2325,6 +2348,21 @@
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/deepstorage/dorm)
 "gx" = (
+/turf/open/floor/iron/white,
+/area/ruin/space/has_grav/deepstorage/dorm)
+"gy" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/blood/o_minus,
+/obj/item/reagent_containers/blood/o_minus,
+/obj/item/reagent_containers/blood/o_minus,
+/obj/item/reagent_containers/blood/o_minus,
+/obj/item/reagent_containers/blood/o_minus,
+/obj/item/reagent_containers/blood/random,
+/obj/item/reagent_containers/blood/random,
+/obj/item/reagent_containers/blood/random,
+/obj/item/reagent_containers/blood/random,
+/obj/item/reagent_containers/blood/random,
+/obj/item/reagent_containers/blood/random,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/deepstorage/dorm)
 "gz" = (
@@ -2656,22 +2694,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
-"iT" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/sign/warning/secure_area{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/deepstorage)
 "ja" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
@@ -2694,6 +2716,10 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
+"jO" = (
+/obj/structure/sink/directional/west,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/deepstorage/hydroponics)
 "kc" = (
 /obj/structure/chair{
 	dir = 4
@@ -2714,13 +2740,10 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
-"no" = (
+"nJ" = (
 /obj/item/plant_tray,
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 10
+	dir = 4
 	},
 /turf/open/floor/light,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
@@ -2745,14 +2768,13 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
-"vp" = (
-/obj/machinery/power/smes/engineering,
-/obj/structure/cable/yellow,
-/obj/structure/sign/warning/electric_shock{
-	pixel_y = -32
+"tw" = (
+/obj/machinery/seeder,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
+	dir = 4
 	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/deepstorage/power)
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/deepstorage/hydroponics)
 "Bb" = (
 /obj/machinery/conveyor{
 	dir = 10;
@@ -2760,43 +2782,16 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/crusher)
-"By" = (
-/obj/item/plant_tray,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
-	dir = 4
-	},
-/turf/open/floor/light,
-/area/ruin/space/has_grav/deepstorage/hydroponics)
-"Cc" = (
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
-	dir = 4
-	},
-/obj/structure/sign/warning/electric_shock{
-	pixel_y = 32
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/deepstorage/power)
-"Ct" = (
-/obj/item/plant_tray,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 4
-	},
-/turf/open/floor/light,
-/area/ruin/space/has_grav/deepstorage/hydroponics)
-"DG" = (
-/obj/item/plant_tray,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
-	dir = 9
-	},
-/turf/open/floor/light,
-/area/ruin/space/has_grav/deepstorage/hydroponics)
 "FK" = (
 /obj/structure/table,
 /obj/item/kitchen/fork,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
+"ID" = (
+/obj/structure/sink/kitchen/directional/south,
+/turf/open/floor/iron/cafeteria,
+/area/ruin/space/has_grav/deepstorage/kitchen)
 "JW" = (
 /obj/structure/chair{
 	dir = 1
@@ -2807,26 +2802,10 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
-"Lf" = (
-/obj/machinery/seeder,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
-	dir = 4
-	},
-/turf/open/floor/iron,
+"MM" = (
+/obj/item/plant_tray,
+/turf/open/floor/light,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
-"LL" = (
-/obj/machinery/camera/directional/north{
-	c_tag = "Bunker entrance"
-	},
-/obj/structure/sign/warning/secure_area{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/deepstorage)
 "NI" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -2843,38 +2822,13 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
-"OQ" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/blood/o_minus,
-/obj/item/reagent_containers/blood/o_minus,
-/obj/item/reagent_containers/blood/o_minus,
-/obj/item/reagent_containers/blood/o_minus,
-/obj/item/reagent_containers/blood/o_minus,
-/obj/item/reagent_containers/blood/random,
-/obj/item/reagent_containers/blood/random,
-/obj/item/reagent_containers/blood/random,
-/obj/item/reagent_containers/blood/random,
-/obj/item/reagent_containers/blood/random,
-/obj/item/reagent_containers/blood/random,
-/turf/open/floor/iron/white,
-/area/ruin/space/has_grav/deepstorage/dorm)
 "PD" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
-"Rs" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/deepstorage/airlock)
-"RQ" = (
-/obj/structure/table,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/deepstorage)
-"Tn" = (
+"QU" = (
 /obj/item/plant_tray,
 /obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/away_general_access,
@@ -2883,8 +2837,46 @@
 	},
 /turf/open/floor/light,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
-"ZJ" = (
+"Rs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/deepstorage/airlock)
+"Ru" = (
 /obj/item/plant_tray,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
+	dir = 9
+	},
+/turf/open/floor/light,
+/area/ruin/space/has_grav/deepstorage/hydroponics)
+"RQ" = (
+/obj/structure/table,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/deepstorage)
+"Sl" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	pixel_x = 24
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/turf/open/floor/iron/freezer,
+/area/ruin/space/has_grav/deepstorage)
+"TO" = (
+/obj/item/plant_tray,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
+	dir = 4
+	},
+/turf/open/floor/light,
+/area/ruin/space/has_grav/deepstorage/hydroponics)
+"US" = (
+/obj/item/plant_tray,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 10
+	},
 /turf/open/floor/light,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 
@@ -3755,7 +3747,7 @@ cp
 fP
 gg
 gm
-OQ
+gy
 gG
 dB
 ab
@@ -3908,7 +3900,7 @@ cp
 cp
 cp
 cp
-iT
+fR
 fT
 fT
 cp
@@ -4064,7 +4056,7 @@ fh
 fh
 fs
 eq
-LL
+fU
 fT
 gn
 cp
@@ -4204,7 +4196,7 @@ ah
 ar
 aA
 af
-bc
+ID
 bu
 bN
 af
@@ -4261,7 +4253,7 @@ bx
 bO
 af
 cs
-cO
+Sl
 cZ
 dq
 cu
@@ -4272,9 +4264,9 @@ eX
 fk
 fw
 eq
-Cc
+fX
 hp
-vp
+gr
 fp
 gK
 gR
@@ -4572,7 +4564,7 @@ bi
 bC
 bC
 ce
-Lf
+tw
 aQ
 dc
 du
@@ -4622,7 +4614,7 @@ ab
 aQ
 bj
 bC
-bR
+jO
 ce
 cy
 aQ
@@ -4672,11 +4664,11 @@ ab
 ab
 ab
 aQ
-Tn
+QU
 bC
-ZJ
+MM
 ce
-By
+TO
 aQ
 de
 de
@@ -4724,11 +4716,11 @@ ab
 ab
 ab
 aQ
-Ct
+nJ
 bC
-ZJ
+MM
 cf
-DG
+Ru
 aQ
 ab
 ab
@@ -4776,11 +4768,11 @@ ab
 ab
 ab
 aQ
-no
+US
 bD
-ZJ
+MM
 cg
-ZJ
+MM
 aQ
 ab
 ab

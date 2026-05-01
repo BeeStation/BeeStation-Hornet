@@ -76,6 +76,12 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
+"aD" = (
+/obj/structure/frame/machine,
+/obj/item/stack/cable_coil,
+/obj/item/circuitboard/machine/smartfridge,
+/turf/open/floor/iron/white,
+/area/ruin/powered/animal_hospital)
 "aG" = (
 /obj/structure/extinguisher_cabinet,
 /turf/closed/wall/mineral/titanium/nodiagonal,
@@ -651,12 +657,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
-"zj" = (
-/obj/structure/frame/machine,
-/obj/item/stack/cable_coil,
-/obj/item/circuitboard/machine/smartfridge,
-/turf/open/floor/iron/white,
-/area/ruin/powered/animal_hospital)
 "zx" = (
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -874,17 +874,13 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
-"NP" = (
-/obj/item/stack/cable_coil,
-/obj/item/stack/sheet/mineral/titanium{
-	amount = 30
+"OL" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror{
+	pixel_x = -28
 	},
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/iron/twenty,
-/turf/open/floor/plating,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "Pt" = (
 /obj/machinery/light/small{
@@ -918,23 +914,23 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
+"QW" = (
+/obj/item/stack/cable_coil,
+/obj/item/stack/sheet/mineral/titanium{
+	amount = 30
+	},
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/iron/twenty,
+/turf/open/floor/plating,
+/area/ruin/powered/animal_hospital)
 "Rp" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/ruin/powered/animal_hospital)
-"RD" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
-/obj/structure/mirror{
-	pixel_x = -28
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "Sb" = (
 /obj/machinery/light/small{
@@ -1023,18 +1019,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
-"Xi" = (
-/obj/structure/closet/crate/bin,
-/obj/item/trash/pistachios,
-/obj/item/lipstick/random,
-/obj/item/plant_seeds/preset/apple,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/ruin/powered/animal_hospital)
 "Xl" = (
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder,
@@ -1093,6 +1077,18 @@
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
+/area/ruin/powered/animal_hospital)
+"Zl" = (
+/obj/structure/closet/crate/bin,
+/obj/item/trash/pistachios,
+/obj/item/lipstick/random,
+/obj/item/plant_seeds/preset/apple,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "Zx" = (
 /obj/item/stock_parts/matter_bin/bluespace,
@@ -1264,7 +1260,7 @@ ab
 ae
 aj
 Pt
-RD
+OL
 ae
 HP
 HP
@@ -1274,7 +1270,7 @@ oj
 Qm
 zK
 HP
-Xi
+Zl
 hX
 lX
 ae
@@ -1569,7 +1565,7 @@ FD
 HP
 aK
 cm
-NP
+QW
 be
 bk
 ae
@@ -1654,7 +1650,7 @@ ab
 ae
 ar
 aw
-zj
+aD
 ae
 VQ
 kV
