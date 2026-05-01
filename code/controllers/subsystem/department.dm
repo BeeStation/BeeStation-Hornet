@@ -52,9 +52,21 @@ SUBSYSTEM_DEF(department)
 		sorted_department_for_access |= department_assoc[each_dept]
 
 	// I don't like this here, but this globallist can't take proper values on its declaration.
+	// EXP_TYPE_COMMAND must reflect every JOB_HEAD_OF_STAFF role, regardless of which
+	// /datum/department_group they live in (e.g. CMO is in Medical, RD in Science, etc.
+	// after the employer-aligned restructure). SSjob isn't initialized yet at
+	// INITSTAGE_EARLY, so we hardcode the head list rather than querying job_flags.
 	GLOB.exp_jobsmap = list(
 		EXP_TYPE_CREW = 	get_all_jobs(),
-		EXP_TYPE_COMMAND = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND),
+		EXP_TYPE_COMMAND = list(
+			JOB_NAME_CAPTAIN,
+			JOB_NAME_HEADOFPERSONNEL,
+			JOB_NAME_HEADOFSECURITY,
+			JOB_NAME_CHIEFMEDICALOFFICER,
+			JOB_NAME_CHIEFENGINEER,
+			JOB_NAME_RESEARCHDIRECTOR,
+			JOB_NAME_QUARTERMASTER,
+		),
 		EXP_TYPE_ENGINEERING = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING),
 		EXP_TYPE_MEDICAL = 	SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL),
 		EXP_TYPE_SCIENCE = 	SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE),
@@ -188,23 +200,21 @@ SUBSYSTEM_DEF(department)
 			manifest_category_name = dept_name
 
 // ---------------------------------------------------------------------
-//                                COMMAND
+//                          STATION ADMINISTRATION
+//                  (uses DEPT_NAME_COMMAND / DEPT_BITFLAG_COM)
 // ---------------------------------------------------------------------
 /datum/department_group/command
-	dept_name = DEPT_NAME_COMMAND
+	dept_name = "Station Administration"
 	dept_id = DEPT_NAME_COMMAND
 	dept_bitflag = DEPT_BITFLAG_COM
-	dept_colour = "#ddddff"
+	dept_colour = "#5d7dff"
 	dept_radio_channel = FREQ_COMMAND
 	is_station = TRUE
 
 	leaders = list(JOB_NAME_CAPTAIN)
 	jobs = list(JOB_NAME_CAPTAIN,
 				JOB_NAME_HEADOFPERSONNEL,
-				JOB_NAME_RESEARCHDIRECTOR,
-				JOB_NAME_CHIEFENGINEER,
-				JOB_NAME_CHIEFMEDICALOFFICER,
-				JOB_NAME_HEADOFSECURITY,
+				JOB_NAME_LAWYER,
 				)
 
 	access_group_name = "Command"
@@ -223,32 +233,29 @@ SUBSYSTEM_DEF(department)
 		ACCESS_VAULT,
 	)
 
-	pref_category_name = DEPT_NAME_COMMAND
+	pref_category_name = "Station Administration"
 	pref_category_order = DEPT_PREF_ORDER_COMMAND
 
-	manifest_category_name = DEPT_NAME_COMMAND
+	manifest_category_name = "Station Administration"
 	manifest_category_order = DEPT_MANIFEST_ORDER_COMMAND
 
 // ---------------------------------------------------------------------
-//                                SERVICE
+//                           GALLEY OPERATIONS
+//                   (uses DEPT_NAME_SERVICE / DEPT_BITFLAG_SRV)
+// Headless because HoP works for Nanotrasen, not Stationside Services.
 // ---------------------------------------------------------------------
 /datum/department_group/service
-	dept_name = DEPT_NAME_SERVICE
+	dept_name = "Galley Operations"
 	dept_id = DEPT_NAME_SERVICE
 	dept_bitflag = DEPT_BITFLAG_SRV
 	dept_colour = "#bbe291"
 	dept_radio_channel = FREQ_SERVICE
 	is_station = TRUE
 
-	leaders = list(JOB_NAME_HEADOFPERSONNEL)
-	jobs = list(JOB_NAME_HEADOFPERSONNEL,
+	leaders = list()
+	jobs = list(JOB_NAME_COOK,
 				JOB_NAME_BARTENDER,
 				JOB_NAME_BOTANIST,
-				JOB_NAME_COOK,
-				JOB_NAME_JANITOR,
-				JOB_NAME_MIME,
-				JOB_NAME_CLOWN,
-				JOB_NAME_STAGEMAGICIAN,
 				)
 
 	access_group_name = "General"
@@ -267,56 +274,83 @@ SUBSYSTEM_DEF(department)
 	)
 
 
-	pref_category_name = DEPT_NAME_SERVICE
+	pref_category_name = "Galley Operations"
 	pref_category_order = DEPT_PREF_ORDER_SERVICE
 
-	manifest_category_name = DEPT_NAME_SERVICE
+	manifest_category_name = "Galley Operations"
 	manifest_category_order = DEPT_MANIFEST_ORDER_SERVICE
 
 // ---------------------------------------------------------------------
-//                                CIVILIAN
+//                          HABITATION SERVICES
+//                  (uses DEPT_NAME_CIVILIAN / DEPT_BITFLAG_CIV)
+// Headless. Holds Janitor / Assistant / Curator / Barber / Chaplain.
 // ---------------------------------------------------------------------
 /datum/department_group/civilian
-	dept_name = DEPT_NAME_CIVILIAN
+	dept_name = "Habitation Services"
 	dept_id = DEPT_NAME_CIVILIAN
 	dept_bitflag = DEPT_BITFLAG_CIV
 	dept_colour = "#bbe291"
 	is_station = TRUE
 
-	leaders = list(JOB_NAME_HEADOFPERSONNEL)
-	jobs = list(JOB_NAME_ASSISTANT,
-				JOB_NAME_GIMMICK,
-				JOB_NAME_BARBER,
-				JOB_NAME_VIP,
-				JOB_NAME_CHAPLAIN,
+	leaders = list()
+	jobs = list(JOB_NAME_JANITOR,
+				JOB_NAME_ASSISTANT,
 				JOB_NAME_CURATOR,
-				JOB_NAME_LAWYER,
-				JOB_NAME_PRISONER,
+				JOB_NAME_BARBER,
+				JOB_NAME_CHAPLAIN,
+				JOB_NAME_GIMMICK,
 				)
 
 	access_group_name = "Residential" // in case when it's used
 	// access_list = list() // check service
 
-	pref_category_name = DEPT_NAME_CIVILIAN
+	pref_category_name = "Habitation Services"
 	pref_category_order = DEPT_PREF_ORDER_CIVILIAN
 
-	manifest_category_name = DEPT_NAME_CIVILIAN
+	manifest_category_name = "Habitation Services"
 	manifest_category_order = DEPT_MANIFEST_ORDER_CIVILIAN
 
 // ---------------------------------------------------------------------
-//                               SUPPLY (CARGO)
+//                              RECREATION
+//          Display-only department, reuses DEPT_BITFLAG_SRV.
+//          Headless. Holds Clown / Mime / Stage Magician.
+// ---------------------------------------------------------------------
+/datum/department_group/recreation
+	dept_name = DEPT_NAME_RECREATION
+	dept_id = DEPT_NAME_RECREATION
+	// Display-only: shares Service's bitflag/radio so access & comms are unchanged.
+	dept_bitflag = DEPT_BITFLAG_SRV
+	dept_colour = "#cdb4f3"
+	dept_radio_channel = FREQ_SERVICE
+	is_station = TRUE
+
+	leaders = list()
+	jobs = list(JOB_NAME_CLOWN,
+				JOB_NAME_MIME,
+				JOB_NAME_STAGEMAGICIAN,
+				)
+
+	pref_category_name = DEPT_NAME_RECREATION
+	pref_category_order = DEPT_PREF_ORDER_RECREATION
+
+	manifest_category_name = DEPT_NAME_RECREATION
+	manifest_category_order = DEPT_MANIFEST_ORDER_RECREATION
+
+// ---------------------------------------------------------------------
+//                            SUPPLY OPERATIONS
+//                   (uses DEPT_NAME_CARGO / DEPT_BITFLAG_CAR)
+// Quartermaster is treated as the head for sort/display purposes only.
 // ---------------------------------------------------------------------
 /datum/department_group/cargo
-	dept_name = DEPT_NAME_CARGO
+	dept_name = "Supply Operations"
 	dept_id = DEPT_NAME_CARGO
 	dept_bitflag = DEPT_BITFLAG_CAR
 	dept_colour = "#d7b088"
 	dept_radio_channel = FREQ_SUPPLY
 	is_station = TRUE
 
-	leaders = list(JOB_NAME_HEADOFPERSONNEL)
-	jobs = list(JOB_NAME_HEADOFPERSONNEL,
-				JOB_NAME_QUARTERMASTER,
+	leaders = list(JOB_NAME_QUARTERMASTER)
+	jobs = list(JOB_NAME_QUARTERMASTER,
 				JOB_NAME_CARGOTECHNICIAN,
 				JOB_NAME_SHAFTMINER,
 				)
@@ -334,17 +368,18 @@ SUBSYSTEM_DEF(department)
 	)
 
 
-	pref_category_name = DEPT_NAME_CARGO
+	pref_category_name = "Supply Operations"
 	pref_category_order = DEPT_PREF_ORDER_CARGO
 
-	manifest_category_name = DEPT_NAME_CARGO
+	manifest_category_name = "Supply Operations"
 	manifest_category_order = DEPT_MANIFEST_ORDER_CARGO
 
 // ---------------------------------------------------------------------
-//                              SCIENCE
+//                           RESEARCH DIVISION
+//                  (uses DEPT_NAME_SCIENCE / DEPT_BITFLAG_SCI)
 // ---------------------------------------------------------------------
 /datum/department_group/science
-	dept_name = DEPT_NAME_SCIENCE
+	dept_name = "Research Division"
 	dept_id = DEPT_NAME_SCIENCE
 	dept_bitflag = DEPT_BITFLAG_SCI
 	dept_colour = "#ffddff"
@@ -354,8 +389,8 @@ SUBSYSTEM_DEF(department)
 	leaders = list(JOB_NAME_RESEARCHDIRECTOR)
 	jobs = list(JOB_NAME_RESEARCHDIRECTOR,
 				JOB_NAME_SCIENTIST,
-				JOB_NAME_EXPLORATIONCREW,
 				JOB_NAME_ROBOTICIST,
+				JOB_NAME_EXPLORATIONCREW,
 				)
 
 	access_group_name = "Research"
@@ -373,17 +408,18 @@ SUBSYSTEM_DEF(department)
 		ACCESS_RD_SERVER,
 	)
 
-	pref_category_name = DEPT_NAME_SCIENCE
+	pref_category_name = "Research Division"
 	pref_category_order = DEPT_PREF_ORDER_SCIENCE
 
-	manifest_category_name = DEPT_NAME_SCIENCE
+	manifest_category_name = "Research Division"
 	manifest_category_order = DEPT_MANIFEST_ORDER_SCIENCE
 
 // ---------------------------------------------------------------------
-//                            ENGINEERING
+//                          ENGINEERING STAFF
+//                (uses DEPT_NAME_ENGINEERING / DEPT_BITFLAG_ENG)
 // ---------------------------------------------------------------------
 /datum/department_group/engineering
-	dept_name = DEPT_NAME_ENGINEERING
+	dept_name = "Engineering Staff"
 	dept_id = DEPT_NAME_ENGINEERING
 	dept_bitflag = DEPT_BITFLAG_ENG
 	dept_colour = "#ffeeaa"
@@ -412,17 +448,18 @@ SUBSYSTEM_DEF(department)
 		ACCESS_CE,
 	)
 
-	pref_category_name = DEPT_NAME_ENGINEERING
+	pref_category_name = "Engineering Staff"
 	pref_category_order = DEPT_PREF_ORDER_ENGINEERING
 
-	manifest_category_name = DEPT_NAME_ENGINEERING
+	manifest_category_name = "Engineering Staff"
 	manifest_category_order = DEPT_MANIFEST_ORDER_ENGINEERING
 
 // ---------------------------------------------------------------------
-//                               MEDICAL
+//                            MEDICAL STAFF
+//                  (uses DEPT_NAME_MEDICAL / DEPT_BITFLAG_MED)
 // ---------------------------------------------------------------------
 /datum/department_group/medical
-	dept_name = DEPT_NAME_MEDICAL
+	dept_name = "Medical Staff"
 	dept_id = DEPT_NAME_MEDICAL
 	dept_bitflag = DEPT_BITFLAG_MED
 	dept_colour = "#c1e1ec"
@@ -432,11 +469,11 @@ SUBSYSTEM_DEF(department)
 	leaders = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	jobs = list(JOB_NAME_CHIEFMEDICALOFFICER,
 				JOB_NAME_MEDICALDOCTOR,
-				JOB_NAME_PARAMEDIC,
 				JOB_NAME_CHEMIST,
 				JOB_NAME_GENETICIST,
-				JOB_NAME_VIROLOGIST,
+				JOB_NAME_PARAMEDIC,
 				JOB_NAME_PSYCHIATRIST,
+				JOB_NAME_VIROLOGIST,
 				)
 
 	access_group_name = "Medbay"
@@ -452,17 +489,18 @@ SUBSYSTEM_DEF(department)
 		ACCESS_CMO,
 	)
 
-	pref_category_name = DEPT_NAME_MEDICAL
+	pref_category_name = "Medical Staff"
 	pref_category_order = DEPT_PREF_ORDER_MEDICAL
 
-	manifest_category_name = DEPT_NAME_MEDICAL
+	manifest_category_name = "Medical Staff"
 	manifest_category_order = DEPT_MANIFEST_ORDER_MEDICAL
 
 // ---------------------------------------------------------------------
-//                               SECURITY
+//                              ENFORCEMENT
+//                 (uses DEPT_NAME_SECURITY / DEPT_BITFLAG_SEC)
 // ---------------------------------------------------------------------
 /datum/department_group/security
-	dept_name = DEPT_NAME_SECURITY
+	dept_name = "Enforcement"
 	dept_id = DEPT_NAME_SECURITY
 	dept_bitflag = DEPT_BITFLAG_SEC
 	dept_colour = "#ffdddd"
@@ -472,9 +510,7 @@ SUBSYSTEM_DEF(department)
 	leaders = list(JOB_NAME_HEADOFSECURITY)
 	jobs = list(JOB_NAME_HEADOFSECURITY,
 				JOB_NAME_WARDEN,
-				JOB_NAME_DETECTIVE,
 				JOB_NAME_SECURITYOFFICER,
-				JOB_NAME_BRIGPHYSICIAN,
 				JOB_NAME_DEPUTY,
 				)
 
@@ -493,58 +529,95 @@ SUBSYSTEM_DEF(department)
 		ACCESS_HOS,
 	)
 
-	pref_category_name = DEPT_NAME_SECURITY
+	pref_category_name = "Enforcement"
 	pref_category_order = DEPT_PREF_ORDER_SECURITY
 
-	manifest_category_name = DEPT_NAME_SECURITY
+	manifest_category_name = "Enforcement"
 	manifest_category_order = DEPT_MANIFEST_ORDER_SECURITY
 
 // ---------------------------------------------------------------------
-//                               VIP
-//                     Used for: crew manifest
+//                            SUPPORT STAFF
+//          Display-only department, reuses DEPT_BITFLAG_SEC.
+//          Headless. Holds Detective / Brig Physician.
 // ---------------------------------------------------------------------
-// in fact, nobody belongs here even VIPs don't because how system works. This is dummy department actually.
+/datum/department_group/support
+	dept_name = DEPT_NAME_SUPPORT
+	dept_id = DEPT_NAME_SUPPORT
+	// Display-only: shares Security's bitflag/radio so access & comms are unchanged.
+	dept_bitflag = DEPT_BITFLAG_SEC
+	dept_colour = "#ffdddd"
+	dept_radio_channel = FREQ_SECURITY
+	is_station = TRUE
+
+	leaders = list()
+	jobs = list(JOB_NAME_DETECTIVE,
+				JOB_NAME_BRIGPHYSICIAN,
+				)
+
+	pref_category_name = DEPT_NAME_SUPPORT
+	pref_category_order = DEPT_PREF_ORDER_SUPPORT
+
+	manifest_category_name = DEPT_NAME_SUPPORT
+	manifest_category_order = DEPT_MANIFEST_ORDER_SUPPORT
+
+// ---------------------------------------------------------------------
+//                       VISITORS  (was: VIP dummy)
+//   Promoted to a real prefs department. Holds the VIP gimmick role
+//   under the Non-Crew employer.
+// ---------------------------------------------------------------------
 /datum/department_group/vip
-	dept_name = DEPT_NAME_VIP
+	dept_name = "Visitors"
 	dept_id = DEPT_NAME_VIP
 	dept_bitflag = DEPT_BITFLAG_VIP
+	dept_colour = "#dcc77a"
 
-	manifest_category_name = "Very Important People"
+	leaders = list()
+	jobs = list(JOB_NAME_VIP)
+
+	pref_category_name = "Visitors"
+	pref_category_order = DEPT_PREF_ORDER_VIP
+
+	manifest_category_name = "Visitors"
 	manifest_category_order = DEPT_MANIFEST_ORDER_VIP
 
 // ---------------------------------------------------------------------
-//                            Unassigned
-//                     Used for: crew manifest
+//                     FUGITIVES AND MISCREANTS
 // ---------------------------------------------------------------------
-// This is a dummy department for crew manifest of people who have no department assigned
 /datum/department_group/unassigned
-	dept_name = DEPT_NAME_UNASSIGNED
+	dept_name = "Fugitives and Miscreants"
 	dept_id = DEPT_NAME_UNASSIGNED
+	dept_bitflag = DEPT_BITFLAG_UNASSIGNED
+	dept_colour = "#888888"
 
-	manifest_category_name = DEPT_NAME_UNASSIGNED
+	leaders = list()
+	jobs = list(JOB_NAME_PRISONER)
+
+	pref_category_name = "Fugitives and Miscreants"
+	pref_category_order = DEPT_PREF_ORDER_UNASSIGNED
+
+	manifest_category_name = "Fugitives and Miscreants"
 	manifest_category_order = DEPT_MANIFEST_ORDER_UNASSIGNED
 
 // ---------------------------------------------------------------------
-//                              SILICON
-//               Used for: job pref & roundjoin window
-//                 (currently not for crew manifest)
+//                        SILICON INTELLIGENCES
+//                  (uses DEPT_NAME_SILICON / DEPT_BITFLAG_SILICON)
+//             Now owned by Nanotrasen via SSemployer.
 // ---------------------------------------------------------------------
 /datum/department_group/silicon
-	dept_name = DEPT_NAME_SILICON
+	dept_name = "Silicon Intelligences"
 	dept_id = DEPT_NAME_SILICON
 	dept_bitflag = DEPT_BITFLAG_SILICON
 	dept_colour = "#ccffcc"
 	// is_station = TRUE // It's station department, but silicon list... maybe not a good idea using this
 
-	leaders = list()
+	leaders = list(JOB_NAME_AI)
 	jobs = list(JOB_NAME_AI,
 				JOB_NAME_CYBORG)
 
-	pref_category_name = DEPT_NAME_SILICON
+	pref_category_name = "Silicon Intelligences"
 	pref_category_order = DEPT_PREF_ORDER_SILICON
 
-	// currently not used, but just in case
-	manifest_category_name = DEPT_NAME_SILICON
+	manifest_category_name = "Silicon Intelligences"
 	manifest_category_order = DEPT_MANIFEST_ORDER_SILICON
 
 // ---------------------------------------------------------------------

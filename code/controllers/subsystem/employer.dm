@@ -10,6 +10,7 @@ SUBSYSTEM_DEF(employer)
 	name = "Employers"
 	init_stage = INITSTAGE_EARLY
 	flags = SS_NO_FIRE
+	dependents = list(/datum/controller/subsystem/early_assets)
 
 	/// Every successfully-instantiated /datum/employer_group, sorted by pref_order ascending
 	var/list/employer_datums

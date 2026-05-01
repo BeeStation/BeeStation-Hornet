@@ -40,6 +40,11 @@
 		// Skip jobs that aren't flagged for the crew manifest.
 		if(job && !(job.job_flags & JOB_CREW_MANIFEST))
 			continue
+		// active_department mirrors the bank account thingy, which is NONE for
+		// jobs with bank_account_department = NONE (Assistant etc). Fall back to
+		// job.departments so they don't end up sad and crying.
+		if(!dept_bitflags && job)
+			dept_bitflags = job.departments
 		var/entry = list("name" = name, "rank" = rank, "hud" = hud)
 		if(dept_bitflags)
 			for(var/datum/department_group/department as anything in SSdepartment.get_department_by_bitflag(dept_bitflags))

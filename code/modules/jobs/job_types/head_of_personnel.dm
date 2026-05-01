@@ -1,8 +1,7 @@
 /datum/job/head_of_personnel
 	title = JOB_NAME_HEADOFPERSONNEL
 	description = "Second in command on the station, oversee the crew assigned to service and cargo positions, handle department transfer requests by consulting relevant heads. Protect Ian at all costs."
-	department_for_prefs = DEPT_NAME_CAPTAIN
-	employer_id_override = EMPLOYER_ID_NANOTRASEN
+	department_for_prefs = DEPT_NAME_COMMAND
 	department_head_for_prefs = JOB_NAME_CAPTAIN
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)

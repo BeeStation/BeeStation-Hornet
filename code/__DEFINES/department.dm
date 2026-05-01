@@ -29,10 +29,12 @@
 
 #define DEPT_BITFLAG_STATIONS (DEPT_BITFLAG_COM + DEPT_BITFLAG_CIV + DEPT_BITFLAG_SRV + DEPT_BITFLAG_CAR + DEPT_BITFLAG_SCI + DEPT_BITFLAG_ENG + DEPT_BITFLAG_MED + DEPT_BITFLAG_SEC)
 
-// not real department. These exist for pref grouping
-#define DEPT_NAME_ASSISTANT "Assistant"
-#define DEPT_NAME_CAPTAIN "Captain"
-
+// Display-only departments. They reuse an existing DEPT_BITFLAG on their member jobs.
+// They only exist to bucket jobs differently in the prefs/latejoin UI.
+// DEPT_NAME_RECREATION reuses DEPT_BITFLAG_SRV  (Clown, Mime, Stage Magician)
+// DEPT_NAME_SUPPORT reuses DEPT_BITFLAG_SEC  (Detective, Brig Physician)
+#define DEPT_NAME_RECREATION "Recreation"
+#define DEPT_NAME_SUPPORT "Support Staff"
 
 // Crew Manifest will show crew data in this order
 // in favour of our downstreams, sort order is increased by 10, so that they can add anything between these (i.e NSV munition dept)
@@ -40,11 +42,13 @@
 #define DEPT_MANIFEST_ORDER_CENTCOM 13 // generally it won't be used
 #define DEPT_MANIFEST_ORDER_VIP 16
 #define DEPT_MANIFEST_ORDER_SECURITY 20
+#define DEPT_MANIFEST_ORDER_SUPPORT 25
 #define DEPT_MANIFEST_ORDER_ENGINEERING 30
 #define DEPT_MANIFEST_ORDER_MEDICAL 40
 #define DEPT_MANIFEST_ORDER_SCIENCE 50
 #define DEPT_MANIFEST_ORDER_CARGO 60
 #define DEPT_MANIFEST_ORDER_SERVICE 70
+#define DEPT_MANIFEST_ORDER_RECREATION 75
 #define DEPT_MANIFEST_ORDER_CIVILIAN 80
 #define DEPT_MANIFEST_ORDER_SILICON 90
 #define DEPT_MANIFEST_ORDER_UNASSIGNED 666 // dummy department for people with no department
@@ -53,10 +57,14 @@
 // used for /mob/dead/new_player/authenticated/proc/LateChoices()
 #define DEPT_PREF_ORDER_COMMAND 	10
 #define DEPT_PREF_ORDER_SECURITY 	20
+#define DEPT_PREF_ORDER_SUPPORT 	25
 #define DEPT_PREF_ORDER_ENGINEERING 30
 #define DEPT_PREF_ORDER_MEDICAL 	40
 #define DEPT_PREF_ORDER_SCIENCE 	50
 #define DEPT_PREF_ORDER_CARGO 		60
 #define DEPT_PREF_ORDER_SERVICE 	70
+#define DEPT_PREF_ORDER_RECREATION 	75
 #define DEPT_PREF_ORDER_CIVILIAN 	80
 #define DEPT_PREF_ORDER_SILICON 	90
+#define DEPT_PREF_ORDER_UNASSIGNED 	100
+#define DEPT_PREF_ORDER_VIP 		110
