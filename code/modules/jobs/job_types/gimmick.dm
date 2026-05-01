@@ -1,7 +1,7 @@
 /datum/job/gimmick //gimmick var must be set to true for all gimmick jobs BUT the parent
 	title = JOB_NAME_GIMMICK
 	description = "Use your unique position to provide a service or entertain the crew."
-	department_for_prefs = DEPT_NAME_ASSISTANT
+	department_for_prefs = DEPT_NAME_CIVILIAN //Visible in prefs under Habitation Services; the latejoin window only ever lists the concrete subjobs.
 	show_in_prefs = TRUE
 	faction = FACTION_STATION
 	total_positions = 0
@@ -36,6 +36,7 @@
 	supervisors = "the head of personnel"
 	gimmick = TRUE
 	show_in_prefs = FALSE
+	department_for_prefs = DEPT_NAME_CIVILIAN //So latejoin's employer lookup matches our actual department.
 
 	outfit = /datum/outfit/job/gimmick/barber
 
@@ -74,6 +75,7 @@
 	supervisors = "the head of personnel"
 	gimmick = TRUE
 	show_in_prefs = FALSE
+	department_for_prefs = DEPT_NAME_RECREATION //So latejoin's employer lookup matches our actual department.
 
 	outfit = /datum/outfit/job/gimmick/stage_magician
 
@@ -114,6 +116,7 @@
 	supervisors = "the chief medical officer"
 	gimmick = TRUE
 	show_in_prefs = FALSE
+	department_for_prefs = DEPT_NAME_MEDICAL //So latejoin's employer lookup matches our actual department.
 
 	outfit = /datum/outfit/job/gimmick/psychiatrist
 
@@ -149,6 +152,7 @@
 	description = "Flaunt around your wealth, organize posh parties and other high life activities with your near-bottomless budget."
 	gimmick = TRUE
 	show_in_prefs = FALSE
+	department_for_prefs = DEPT_NAME_VIP //So latejoin's employer lookup matches our actual department.
 
 	outfit = /datum/outfit/job/gimmick/vip
 

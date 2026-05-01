@@ -298,7 +298,6 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_CURATOR,
 				JOB_NAME_BARBER,
 				JOB_NAME_CHAPLAIN,
-				JOB_NAME_GIMMICK,
 				)
 
 	access_group_name = "Residential" // in case when it's used

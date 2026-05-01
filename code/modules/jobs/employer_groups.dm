@@ -5,14 +5,9 @@
 	var/id = null
 	/// Player-facing name.
 	var/display_name = "Unknown"
-	/// In-character lore blurb shown in the info box. Plain text.
+	/// In-character lore blurb shown in the info box.
 	var/lore = ""
-	/// Icon file the logo is sourced from. Referenced as a file literal so
-	/// BYOND ships the DMI to the client via the asset cache (the way the
-	/// vampire clan UI does it). Subtypes can override this if they want to
-	/// pull from a different DMI.
 	var/logo_icon = 'icons/ui/employer_logos.dmi'
-	/// Icon state in `logo_icon`.
 	var/logo_icon_state = null
 	/// Accent colour (hex). Used by the info box border / label.
 	var/colour = "#888888"
@@ -28,8 +23,8 @@
 
 // ---------------------------------------------------------------------
 //                              Nanotrasen
-//   Owns: Command, Science. Captain & Head of Personnel are also placed
-//   here via /datum/job.employer_id_override (see _job.dm).
+//   Owns: Station Administration (Command), Research Division (Science),
+//   Silicon Intelligences (Silicon).
 // ---------------------------------------------------------------------
 /datum/employer_group/nanotrasen
 	id = EMPLOYER_ID_NANOTRASEN
@@ -37,80 +32,73 @@
 	colour = "#5d7dff"
 	pref_order = EMPLOYER_PREF_ORDER_NANOTRASEN
 	logo_icon_state = "nanotrasen"
-	department_ids = list(DEPT_NAME_COMMAND, DEPT_NAME_SCIENCE)
-	lore = "LORE WIP: Nanotrasen is an increasingly dominant plasma research corporation \
-	and the direct operator of this station. Command and Science staff are \
-	employed by Nanotrasen itself; classified research and the experimentation \
-	of plasma fall under their direct purview."
-
-
-// ---------------------------------------------------------------------
-//                          Auri Private Security
-//   Owns: Security. Subsidiary of Nanotrasen handling onboard security
-//   because the Tellune government doesn't allow stations to run their own.
-// ---------------------------------------------------------------------
-/datum/employer_group/auri_security
-	id = EMPLOYER_ID_AURI_SECURITY
-	display_name = "Auri Private Security"
-	colour = "#c44d4d"
-	pref_order = EMPLOYER_PREF_ORDER_AURI_SECURITY
-	logo_icon_state = "auri_security"
-	department_ids = list(DEPT_NAME_SECURITY)
-	lore = "LORE WIP: A subsidiary of Nanotrasen, contracted to provide security on \
-	NT stations because the Tellune government forbids station administrations \
-	from running their own security forces. Originally formed to insulate \
-	Nanotrasen's riskier endeavours, APS's executive board still harbours \
-	quiet animosity toward its parent company."
-
+	department_ids = list(DEPT_NAME_COMMAND, DEPT_NAME_SCIENCE, DEPT_NAME_SILICON)
+	lore = "Nanotrasen is a power-house in technology-related industries with several subsidiaries providing anything from defence related technologies, gene-operations, and unproven high-risk research.<br><br>\
+			It is the leading plasma research corporation in the Auri system and the direct operator of this station. Its focus on plasma study, containment, and commercialization drives most on-site operations. <b>Their work is tightly controlled and often classified.</b><br><br>\
+			Nanotrasen's ambition has earned it both influence and enemies, but its reach remains unmatched. Working under its banner means access to cutting-edge discovery, and accepting that corporate goals always come first."
 
 // ---------------------------------------------------------------------
 //                         Stationside Services
-//   Owns: Service, Civilian. Low-ranking civilian personnel renting space
-//   on the station for catering, hydroponics, etc.
+//   Owns: Galley Operations (Service), Habitation Services (Civilian),
+//   Recreation. Low-ranking civilian personnel renting space on the
+//   station; respond to the Head of Personnel via the chain of command.
 // ---------------------------------------------------------------------
 /datum/employer_group/stationside_services
 	id = EMPLOYER_ID_STATIONSIDE_SERVICES
 	display_name = "Stationside Services"
 	colour = "#7fb368"
 	pref_order = EMPLOYER_PREF_ORDER_STATIONSIDE_SERVICES
-	logo_icon_state = "stationside_services"
-	department_ids = list(DEPT_NAME_SERVICE, DEPT_NAME_CIVILIAN)
-	lore = "LORE WIP: A loose group of low-ranking civilian personnel renting space \
-	on the station to provide necessary services such as catering, gardening, \
-	and entertainment. They are too far below the corporate ladder for company \
-	politics to matter, most are just trying to make rent."
+	department_ids = list(DEPT_NAME_SERVICE, DEPT_NAME_CIVILIAN, DEPT_NAME_RECREATION)
+	lore = "<b> Stationside Services are hired by, employed by, and contracted to the station. The Head of Personnel has the ultimate say over their operations.</b><br><br>\
+			A loose group of low-ranking civilian personnel renting space on the station to provide necessary services such as catering, gardening, \
+			and entertainment. <br><br>\
+			They are too far below the corporate ladder for company politics to matter, most are just trying to make rent."
 
 
 // ---------------------------------------------------------------------
+//                          Auri Private Security
+//   Owns: Enforcement (Security), Support Staff. Subsidiary of Nanotrasen
+//   handling onboard security; the Tellune government doesn't allow
+//   stations to run their own.
+// ---------------------------------------------------------------------
+/datum/employer_group/auri_security
+	id = EMPLOYER_ID_AURI_SECURITY
+	display_name = "Auri Private Security"
+	colour = "#8b2f2f"
+	logo_icon_state = "aps"
+	pref_order = EMPLOYER_PREF_ORDER_AURI_SECURITY
+	department_ids = list(DEPT_NAME_SECURITY, DEPT_NAME_SUPPORT)
+	lore = "APS, or AuSec, is a subsidiary of Nanotrasen, contracted to provide security on NT stations because of Telgov regulations concerning the operation of private security forces on a corporation's own vessels. <br><br>\
+	Though the Tellune government would prefer stations to rely on SpacePol for security, the reality of their stretched resources means that private contractors such as APS have become a common necessity.<br><br>\
+	Its board consists of previous Nanotrasen managers and executives 'promoted' to C-suite positions to move them out of Nanotrasen's more important projects. Despite high-levels of performance, this method of political promotion harbours animosity between Nanotrasen and AuSec executives to this day."
+
+// ---------------------------------------------------------------------
 //                            Eclipse Express
-//   Owns: Cargo. Shipping company with a near-monopoly on supply runs
-//   in the Lavaland orbital region.
+//   Owns: Supply Operations (Cargo). Shipping company with a near-monopoly
+//   on supply runs in the Lavaland orbital region.
 // ---------------------------------------------------------------------
 /datum/employer_group/eclipse_express
 	id = EMPLOYER_ID_ECLIPSE_EXPRESS
 	display_name = "Eclipse Express"
-	colour = "#c8924a"
+	colour = "#b48548ff"
 	pref_order = EMPLOYER_PREF_ORDER_ECLIPSE_EXPRESS
-	logo_icon_state = "eclipse_express"
 	department_ids = list(DEPT_NAME_CARGO)
-	lore = "LORE WIP: Eclipse Express runs supply stations across the orbit of Cinis. \
-	Thanks to the still-developing nature of the region they enjoy what amounts \
-	to a monopoly over station imports and exports. Headquartered in Auri \
-	itself, a decision that lets them pull continual returns without waiting \
+	lore = "Eclipse Express runs supply stations across the orbit of Cinis. Thanks to the still-developing nature of the region they enjoy what amounts	to a monopoly over station imports and exports. <br><br>\
+	Headquartered in Auri itself, a decision that lets them pull continual returns without waiting \
 	twenty-three years for a transfer window back to Geminae."
 
 
 // ---------------------------------------------------------------------
 //                          Nakamura Engineering
-//   Owns: Engineering. Half-engineering, half-research contractor that
-//   maintains the station's bespoke supermatter and atmospherics systems.
+//   Owns: Engineering Staff. Half-engineering, half-research contractor
+//   that maintains the station's bespoke supermatter and atmospherics.
 // ---------------------------------------------------------------------
 /datum/employer_group/nakamura_engineering
 	id = EMPLOYER_ID_NAKAMURA_ENGINEERING
 	display_name = "Nakamura Engineering"
 	colour = "#d6c14c"
+	logo_icon_state = "nakamura"
 	pref_order = EMPLOYER_PREF_ORDER_NAKAMURA_ENGINEERING
-	logo_icon_state = "nakamura_engineering"
 	department_ids = list(DEPT_NAME_ENGINEERING)
 	lore = "LORE WIP: A small contracting company, one of the few capable of maintaining \
 	the rare moth-tech supermatter reactors aboard the station. Nakamura \
@@ -120,7 +108,7 @@
 
 // ---------------------------------------------------------------------
 //                       Acrux Medical Technologies
-//   Owns: Medical. Private medical contractor with a flexible-payment
+//   Owns: Medical Staff. Private medical contractor with a flexible-payment
 //   "treat anyone who pays" policy.
 // ---------------------------------------------------------------------
 /datum/employer_group/acrux_medical
@@ -128,7 +116,6 @@
 	display_name = "Acrux Medical Technologies"
 	colour = "#5fb6c8"
 	pref_order = EMPLOYER_PREF_ORDER_ACRUX_MEDICAL
-	logo_icon_state = "acrux_medical"
 	department_ids = list(DEPT_NAME_MEDICAL)
 	lore = "LORE WIP: Acrux Medical Technologies provides medical services for a wide \
 	array of corporate clients. Their stated policy is to work with anyone if \
@@ -137,26 +124,9 @@
 
 
 // ---------------------------------------------------------------------
-//                                Silicons
-//   Owns: Silicon. AI and cyborg roles.
-// ---------------------------------------------------------------------
-/datum/employer_group/silicons
-	id = EMPLOYER_ID_SILICONS
-	display_name = "Silicons"
-	colour = "#a0d99a"
-	pref_order = EMPLOYER_PREF_ORDER_SILICONS
-	logo_icon_state = "silicons"
-	department_ids = list(DEPT_NAME_SILICON)
-	lore = "LORE WIP: Synthetic intelligences bound to lawsets and the cyborg shells they \
-	puppet. Silicons technically belong to whoever owns their core, but they \
-	answer to their laws first."
-
-
-// ---------------------------------------------------------------------
 //                                Non-Crew
-//   Owns: no department_group directly. Prisoner is mapped here via
-//   /datum/job/prisoner.employer_id_override. Reserved for future
-//   non-crew roles (stowaways, etc.).
+//   Owns: Fugitives and Miscreants (Unassigned), Visitors (VIP).
+//   People aboard the station who aren't on the formal crew roster.
 // ---------------------------------------------------------------------
 /datum/employer_group/non_crew
 	id = EMPLOYER_ID_NON_CREW
@@ -164,7 +134,7 @@
 	colour = "#777777"
 	pref_order = EMPLOYER_PREF_ORDER_NON_CREW
 	logo_icon_state = "non_crew"
-	department_ids = list() // jobs reach here only via employer_id_override
+	department_ids = list(DEPT_NAME_UNASSIGNED, DEPT_NAME_VIP)
 	lore = "People aboard the station who aren't on the crew roster: prisoners \
 	working off their sentences, stowaways, drifters, visitors, \
 	and other unlisted bodies."

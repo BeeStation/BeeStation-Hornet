@@ -211,47 +211,24 @@
     }
 
     &__departments {
-      @each $department-name, $color-value in colors.$departments {
-        &--#{$department-name} {
-          &.head {
-            background: $color-value;
-
-            .job-name {
-              font-weight: bold;
-            }
-          }
-
-          background: colors.fg($color-value);
-          border-bottom: 2px solid rgba(0, 0, 0, 0.3);
-          border-left: 2px solid rgba(0, 0, 0, 0.3);
-          border-right: 2px solid rgba(0, 0, 0, 0.3);
-          color: black;
-
-          > * {
-            height: calc(100% + 0.2em);
-            padding-bottom: 0.2em;
-          }
-
-          &:first-child {
-            border-top: 2px solid rgba(0, 0, 0, 0.3);
-          }
-
-          .options {
-            background: rgba(0, 0, 0, 0.2);
-            height: 100%;
-          }
+      // Per-department colours (background, border, head highlight) are
+      // applied inline by JobsPage.tsx using the colour returned from DM
+      // so that any new department/employer added in DM works automatically
+      // without needing a matching SCSS entry. Only structural rules live
+      // here.
+      &--row {
+        &.head .job-name {
+          font-weight: bold;
         }
 
-        &--Captain {
-          &.head {
-            .job-name {
-              font-size: 1.5em;
-            }
-          }
+        > * {
+          height: calc(100% + 0.2em);
+          padding-bottom: 0.2em;
+        }
 
-          .job-name {
-            font-weight: bold;
-          }
+        .options {
+          background: rgba(0, 0, 0, 0.2);
+          height: 100%;
         }
       }
 

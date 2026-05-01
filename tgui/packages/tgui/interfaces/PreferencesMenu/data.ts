@@ -72,11 +72,29 @@ export type Perk = {
 
 export type Department = {
   head?: string;
+  name?: string;
+  colour?: string;
+};
+
+export type Employer = {
+  id: string;
+  display_name: string;
+  lore: string;
+  colour: string;
+  // DMI file path & icon_state for the logo. Sent from DM as a file literal
+  // so the asset cache actually ships the icon to the client. Either may be
+  // null while placeholder art is in flight; the UI must tolerate this.
+  logo_icon: string | null;
+  logo_icon_state: string | null;
+  department_ids: string[];
 };
 
 export type Job = {
   description: string;
   department: string;
+  // EMPLOYER_ID_* the job belongs to in the prefs/latejoin UI.
+  // Resolved from /datum/job/proc/get_employer_id() on the DM side.
+  employer: string | null;
   lock_reason: string;
 };
 
@@ -230,7 +248,10 @@ export type ServerData = {
   };
   jobs: {
     departments: Record<string, Department>;
+    department_order: string[];
     jobs: Record<string, Job>;
+    employers: Record<string, Employer>;
+    employer_order: string[];
   };
   names: {
     types: Record<string, Name>;
