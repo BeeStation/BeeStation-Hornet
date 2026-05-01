@@ -4,11 +4,17 @@
 	can_randomize = FALSE
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
 
+// help why do we runtime
+/datum/preference/choiced/selected_employer/compile_constant_data()
+	return null
+
 /datum/preference/choiced/selected_employer/init_possible_values()
+	// NOTHING FIXES THE RUNTIMES HELP
+	if(!SSemployer || !length(SSemployer.employer_datums))
+		CRASH("selected_employer.init_possible_values() called before SSemployer was initialized")
 	var/list/ids = list()
-	if(SSemployer) // I think initstage early is good for this?
-		for(var/datum/employer_group/employer as anything in SSemployer.employer_datums)
-			ids += employer.id
+	for(var/datum/employer_group/employer as anything in SSemployer.employer_datums)
+		ids += employer.id
 	return ids
 
 /datum/preference/choiced/selected_employer/create_default_value()
