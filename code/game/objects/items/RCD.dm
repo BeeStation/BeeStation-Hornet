@@ -1158,6 +1158,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	/obj/machinery/plumbing/input = 5,
 	/obj/machinery/plumbing/output = 5,
 	/obj/machinery/plumbing/tank = 20,
+	/obj/machinery/plumbing/filter = 5,
 	/obj/item/plant_tray = 15
 )
 
