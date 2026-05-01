@@ -109,10 +109,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/listeningstation)
 "ar" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/toilet{
 	pixel_y = 18
 	},
@@ -482,10 +479,7 @@
 	},
 /area/ruin/space/has_grav/listeningstation)
 "bB" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/iv_drip,
 /obj/machinery/light/small,
 /obj/machinery/airalarm/directional/north,
