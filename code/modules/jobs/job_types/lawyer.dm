@@ -15,7 +15,7 @@
 	base_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_CIV
+	departments = DEPT_BITFLAG_COM
 	bank_account_department = ACCOUNT_COM_BITFLAG
 	payment_per_department = list(ACCOUNT_COM_ID = PAYCHECK_EASY)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
