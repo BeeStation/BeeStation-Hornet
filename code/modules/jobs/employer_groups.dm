@@ -52,8 +52,8 @@
 	department_ids = list(DEPT_NAME_SERVICE, DEPT_NAME_CIVILIAN, DEPT_NAME_RECREATION)
 	lore = "A loose group of low-ranking civilian personnel renting space on the station to provide necessary services such as catering, gardening, \
 			and entertainment. <br><br>\
-			<b><center> Stationside Services are hired by, employed by, and contracted to the station. The Head of Personnel has the ultimate say over their operations.</center></b><br><br>\
-			They are too far below the corporate ladder for company politics to matter, most are just trying to make rent."
+			They are too far below the corporate ladder for company politics to matter, most are just trying to make rent.<br><br>\
+			<b><center> Stationside Services are hired by, employed by, and contracted to the station. The Head of Personnel has the ultimate say over their operations.</center></b>"
 
 // ---------------------------------------------------------------------
 //                          Auri Private Security
@@ -84,10 +84,9 @@
 	logo_icon_state = "eclipse"
 	pref_order = EMPLOYER_PREF_ORDER_ECLIPSE_EXPRESS
 	department_ids = list(DEPT_NAME_CARGO)
-	lore = "Eclipse Express runs supply stations across the orbit of Cinis. Thanks to the still-developing nature of the region they enjoy what amounts	to a monopoly over station imports and exports. <br><br>\
-	Headquartered in Auri itself, a decision that lets them pull continual returns without waiting \
-	twenty-three years for a transfer window back to Geminae."
-
+	lore = "Eclipse Express operates a vast network of supply infrastructure across the auri system, moving cargo between the corporate stations that dot the region. Thanks to the still-developing nature of the system, they enjoy what amounts to a monopoly over station imports and exports, handling the manifests for nearly every operation in the system.<br><br>\
+	Headquartered in Auri itself rather than back in Geminae, the company made the impulsive decision to chase continual returns over waiting out the twenty-three-year gap between transfer windows. A gamble that has, so far, paid off handsomely.<br><br>\
+	<b>The company's loyalties are to the manifest, not the client</b>. If the paperwork is in order and the bill is paid, well. Who's complaining..."
 
 // ---------------------------------------------------------------------
 //                          Nakamura Engineering
@@ -101,11 +100,8 @@
 	logo_icon_state = "nakamura"
 	pref_order = EMPLOYER_PREF_ORDER_NAKAMURA_ENGINEERING
 	department_ids = list(DEPT_NAME_ENGINEERING)
-	lore = "LORE WIP: A small contracting company, one of the few capable of maintaining \
-	the rare moth-tech supermatter reactors aboard the station. Nakamura \
-	didn't build them, but they're trained in their upkeep, and they run \
-	atmospherics and gas research alongside their primary engineering duties."
-
+	lore = "A small research contracting firm, Nakamura is one of the hand-picked companies authorized to research mothish supermatter technology. Only a handful of shards exist, and Nanotrasen recently secured one for Space Station 13; Nakamura was brought in to research it. Trained directly by fleet engineers from the Platshållare, a Nakamura engineer's signed-off training packet is one of the rarer credentials in the industry.<br><br>\
+			The company also runs the phoron gas research and mining operations aboard, fiending for samples of this reality-defying substance much like everyone else. Their contract aboard Space Station 13 is a rare opportunity indeed."
 
 // ---------------------------------------------------------------------
 //                       Acrux Medical Technologies
@@ -119,11 +115,9 @@
 	logo_icon_state = "acrux"
 	pref_order = EMPLOYER_PREF_ORDER_ACRUX_MEDICAL
 	department_ids = list(DEPT_NAME_MEDICAL)
-	lore = "LORE WIP: Acrux Medical Technologies provides medical services for a wide \
-	array of corporate clients. Their stated policy is to work with anyone if \
-	the price is right. Acrux offers tiered health packages: From basic \
-	treatment to full monitoring and recovery, with flexible instalment plans."
-
+	lore = "Acrux Medical Technologies is a private medical contractor providing on-site healthcare for a wide array of corporate clients across the Auri system. Their stated policy is straightforward and openly advertised: They will work with anyone, for any cause, provided the price is right.<br><br>\
+	Acrux offers tiered health packages ranging from basic patch-and-go treatment to full long-term monitoring and recovery, with flexible installment plans for the less affluent patients to boot. On Space Station 13 their staff handle everything from chemistry and surgery to viral research and cryogenic revival, often paid for out of the patient's future paycheck.<br><br>\
+	<b>An Acrux medic's first loyalty is to the company ledger, not the Hippocratic Oath.</b> Treatment is rarely refused outright, but the quality of care a patient receives has a quiet, well-documented correlation to the package they signed up for, and the company has been known to dispatch its own claims agents when an unpaid balance starts to climb."
 
 // ---------------------------------------------------------------------
 //                                Non-Crew
