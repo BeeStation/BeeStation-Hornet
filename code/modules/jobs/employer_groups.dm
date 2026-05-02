@@ -50,9 +50,9 @@
 	logo_icon_state = "services"
 	pref_order = EMPLOYER_PREF_ORDER_STATIONSIDE_SERVICES
 	department_ids = list(DEPT_NAME_SERVICE, DEPT_NAME_CIVILIAN, DEPT_NAME_RECREATION)
-	lore = "<b> Stationside Services are hired by, employed by, and contracted to the station. The Head of Personnel has the ultimate say over their operations.</b><br><br>\
-			A loose group of low-ranking civilian personnel renting space on the station to provide necessary services such as catering, gardening, \
+	lore = "A loose group of low-ranking civilian personnel renting space on the station to provide necessary services such as catering, gardening, \
 			and entertainment. <br><br>\
+			<b><center> Stationside Services are hired by, employed by, and contracted to the station. The Head of Personnel has the ultimate say over their operations.</center></b><br><br>\
 			They are too far below the corporate ladder for company politics to matter, most are just trying to make rent."
 
 // ---------------------------------------------------------------------
