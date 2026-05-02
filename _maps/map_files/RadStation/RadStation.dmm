@@ -6860,6 +6860,10 @@
 "cyF" = (
 /turf/open/floor/iron/dark,
 /area/station/maintenance/department/bridge)
+"cyK" = (
+/obj/structure/cable/yellow,
+/turf/closed/wall,
+/area/station/security/checkpoint/medical)
 "cyQ" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/sign/warning/secure_area{
@@ -27126,6 +27130,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
 "koK" = (
@@ -44376,6 +44381,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/power/apc/auto_name/directional/east,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/tech,
 /area/station/ai_monitored/turret_protected/aisat/service)
 "qHL" = (
@@ -51511,7 +51517,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/holopad,
 /obj/structure/cable/orange,
-/obj/structure/cable/yellow,
 /turf/open/floor/iron/tech,
 /area/station/ai_monitored/turret_protected/aisat/service)
 "tpG" = (
@@ -97947,7 +97952,7 @@ xsn
 fJh
 dvX
 ldz
-aAo
+cyK
 oYl
 chm
 ihl
