@@ -29,7 +29,7 @@
 /datum/employer_group/nanotrasen
 	id = EMPLOYER_ID_NANOTRASEN
 	display_name = "Nanotrasen"
-	colour = "#5d7dff"
+	colour = "#4b75a3"
 	pref_order = EMPLOYER_PREF_ORDER_NANOTRASEN
 	logo_icon_state = "nanotrasen"
 	department_ids = list(DEPT_NAME_COMMAND, DEPT_NAME_SCIENCE, DEPT_NAME_SILICON)
@@ -46,7 +46,7 @@
 /datum/employer_group/stationside_services
 	id = EMPLOYER_ID_STATIONSIDE_SERVICES
 	display_name = "Stationside Services"
-	colour = "#7fb368"
+	colour = "#6cab6a"
 	logo_icon_state = "services"
 	pref_order = EMPLOYER_PREF_ORDER_STATIONSIDE_SERVICES
 	department_ids = list(DEPT_NAME_SERVICE, DEPT_NAME_CIVILIAN, DEPT_NAME_RECREATION)
@@ -64,7 +64,7 @@
 /datum/employer_group/auri_security
 	id = EMPLOYER_ID_AURI_SECURITY
 	display_name = "Auri Private Security"
-	colour = "#8b2f2f"
+	colour = "#8e4f51"
 	logo_icon_state = "aps"
 	pref_order = EMPLOYER_PREF_ORDER_AURI_SECURITY
 	department_ids = list(DEPT_NAME_SECURITY, DEPT_NAME_SUPPORT)
@@ -80,7 +80,7 @@
 /datum/employer_group/eclipse_express
 	id = EMPLOYER_ID_ECLIPSE_EXPRESS
 	display_name = "Eclipse Express"
-	colour = "#b48548ff"
+	colour = "#a06b3a"
 	logo_icon_state = "eclipse"
 	pref_order = EMPLOYER_PREF_ORDER_ECLIPSE_EXPRESS
 	department_ids = list(DEPT_NAME_CARGO)
@@ -97,7 +97,7 @@
 /datum/employer_group/nakamura_engineering
 	id = EMPLOYER_ID_NAKAMURA_ENGINEERING
 	display_name = "Nakamura Engineering"
-	colour = "#d6c14c"
+	colour = "#8e7449"
 	logo_icon_state = "nakamura"
 	pref_order = EMPLOYER_PREF_ORDER_NAKAMURA_ENGINEERING
 	department_ids = list(DEPT_NAME_ENGINEERING)
@@ -115,7 +115,7 @@
 /datum/employer_group/acrux_medical
 	id = EMPLOYER_ID_ACRUX_MEDICAL
 	display_name = "Acrux Medical Technologies"
-	colour = "#5fb6c8"
+	colour = "#4f8ba8"
 	logo_icon_state = "acrux"
 	pref_order = EMPLOYER_PREF_ORDER_ACRUX_MEDICAL
 	department_ids = list(DEPT_NAME_MEDICAL)

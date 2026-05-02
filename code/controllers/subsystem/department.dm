@@ -207,7 +207,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Station Administration"
 	dept_id = DEPT_NAME_COMMAND
 	dept_bitflag = DEPT_BITFLAG_COM
-	dept_colour = "#5d7dff"
+	dept_colour = "#4b75a3"
 	dept_radio_channel = FREQ_COMMAND
 	is_station = TRUE
 
@@ -248,7 +248,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Galley Operations"
 	dept_id = DEPT_NAME_SERVICE
 	dept_bitflag = DEPT_BITFLAG_SRV
-	dept_colour = "#bbe291"
+	dept_colour = "#92b26d"
 	dept_radio_channel = FREQ_SERVICE
 	is_station = TRUE
 
@@ -289,7 +289,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Habitation Services"
 	dept_id = DEPT_NAME_CIVILIAN
 	dept_bitflag = DEPT_BITFLAG_CIV
-	dept_colour = "#bbe291"
+	dept_colour = "#c9b88a"
 	is_station = TRUE
 
 	leaders = list()
@@ -319,7 +319,7 @@ SUBSYSTEM_DEF(department)
 	dept_id = DEPT_NAME_RECREATION
 	// Display-only: shares Service's bitflag/radio so access & comms are unchanged.
 	dept_bitflag = DEPT_BITFLAG_SRV
-	dept_colour = "#cdb4f3"
+	dept_colour = "#b79ec9"
 	dept_radio_channel = FREQ_SERVICE
 	is_station = TRUE
 
@@ -344,7 +344,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Supply Operations"
 	dept_id = DEPT_NAME_CARGO
 	dept_bitflag = DEPT_BITFLAG_CAR
-	dept_colour = "#d7b088"
+	dept_colour = "#b17a4b"
 	dept_radio_channel = FREQ_SUPPLY
 	is_station = TRUE
 
@@ -381,7 +381,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Research Division"
 	dept_id = DEPT_NAME_SCIENCE
 	dept_bitflag = DEPT_BITFLAG_SCI
-	dept_colour = "#ffddff"
+	dept_colour = "#a885a2"
 	dept_radio_channel = FREQ_SCIENCE
 	is_station = TRUE
 
@@ -421,7 +421,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Engineering Staff"
 	dept_id = DEPT_NAME_ENGINEERING
 	dept_bitflag = DEPT_BITFLAG_ENG
-	dept_colour = "#ffeeaa"
+	dept_colour = "#ba9b68"
 	dept_radio_channel = FREQ_ENGINEERING
 	is_station = TRUE
 
@@ -461,7 +461,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Medical Staff"
 	dept_id = DEPT_NAME_MEDICAL
 	dept_bitflag = DEPT_BITFLAG_MED
-	dept_colour = "#c1e1ec"
+	dept_colour = "#8cbcd6"
 	dept_radio_channel = FREQ_MEDICAL
 	is_station = TRUE
 
@@ -502,7 +502,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Enforcement"
 	dept_id = DEPT_NAME_SECURITY
 	dept_bitflag = DEPT_BITFLAG_SEC
-	dept_colour = "#ffdddd"
+	dept_colour = "#af6365"
 	dept_radio_channel = FREQ_SECURITY
 	is_station = TRUE
 
@@ -544,7 +544,7 @@ SUBSYSTEM_DEF(department)
 	dept_id = DEPT_NAME_SUPPORT
 	// Display-only: shares Security's bitflag/radio so access & comms are unchanged.
 	dept_bitflag = DEPT_BITFLAG_SEC
-	dept_colour = "#ffdddd"
+	dept_colour = "#c68a8b"
 	dept_radio_channel = FREQ_SECURITY
 	is_station = TRUE
 
@@ -568,7 +568,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Visitors"
 	dept_id = DEPT_NAME_VIP
 	dept_bitflag = DEPT_BITFLAG_VIP
-	dept_colour = "#dcc77a"
+	dept_colour = "#bfa661"
 
 	leaders = list()
 	jobs = list(JOB_NAME_VIP)
@@ -606,7 +606,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Silicon Intelligences"
 	dept_id = DEPT_NAME_SILICON
 	dept_bitflag = DEPT_BITFLAG_SILICON
-	dept_colour = "#ccffcc"
+	dept_colour = "#d6a8c7"
 	// is_station = TRUE // It's station department, but silicon list... maybe not a good idea using this
 
 	leaders = list(JOB_NAME_AI)
