@@ -223,9 +223,7 @@ const EmployerBox = (props: {
         className="LateChoices__employer-title"
         style={{ color: employer.colour }}
       >
-        {!!employer.fa_icon && (
-          <Icon name={employer.fa_icon} mr={1} />
-        )}
+        {!!employer.fa_icon && <Icon name={employer.fa_icon} mr={1} />}
         {employer.display_name}
       </Box>
       {visibleDepts.map((deptId) => {
@@ -264,9 +262,7 @@ const DepartmentBlock = (props: {
           borderBottom: `1px solid ${department.colour}`,
         }}
       >
-        {!!department.fa_icon && (
-          <Icon name={department.fa_icon} mr={1} />
-        )}
+        {!!department.fa_icon && <Icon name={department.fa_icon} mr={1} />}
         {department.name}
       </Box>
       <Stack vertical className="LateChoices__job-list">
