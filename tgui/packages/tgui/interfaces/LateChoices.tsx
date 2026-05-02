@@ -29,6 +29,7 @@ type Department = {
   id: string;
   name: string;
   colour: string;
+  fa_icon: string | null;
 };
 
 type LateJob = {
@@ -263,6 +264,9 @@ const DepartmentBlock = (props: {
           borderBottom: `1px solid ${department.colour}`,
         }}
       >
+        {!!department.fa_icon && (
+          <Icon name={department.fa_icon} mr={1} />
+        )}
         {department.name}
       </Box>
       <Stack vertical className="LateChoices__job-list">

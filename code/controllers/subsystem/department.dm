@@ -164,6 +164,9 @@ SUBSYSTEM_DEF(department)
 	var/dept_colour = null
 	var/dept_radio_channel = null
 	var/is_station = FALSE
+	/// Same as employer
+	/// department's name in TGUI panels like the latejoin menu. Optional.
+	var/fa_icon = null
 
 	// job related variables
 	/// who's responsible of a department? (this is made as a list just in case)
@@ -210,6 +213,7 @@ SUBSYSTEM_DEF(department)
 	dept_colour = "#4b75a3"
 	dept_radio_channel = FREQ_COMMAND
 	is_station = TRUE
+	fa_icon = "star"
 
 	leaders = list(JOB_NAME_CAPTAIN)
 	jobs = list(JOB_NAME_CAPTAIN,
@@ -251,6 +255,7 @@ SUBSYSTEM_DEF(department)
 	dept_colour = "#92b26d"
 	dept_radio_channel = FREQ_SERVICE
 	is_station = TRUE
+	fa_icon = "utensils"
 
 	leaders = list()
 	jobs = list(JOB_NAME_COOK,
@@ -291,6 +296,7 @@ SUBSYSTEM_DEF(department)
 	dept_bitflag = DEPT_BITFLAG_CIV
 	dept_colour = "#c9b88a"
 	is_station = TRUE
+	fa_icon = "home"
 
 	leaders = list()
 	jobs = list(JOB_NAME_JANITOR,
@@ -322,6 +328,7 @@ SUBSYSTEM_DEF(department)
 	dept_colour = "#b79ec9"
 	dept_radio_channel = FREQ_SERVICE
 	is_station = TRUE
+	fa_icon = "theater-masks"
 
 	leaders = list()
 	jobs = list(JOB_NAME_CLOWN,
@@ -347,6 +354,7 @@ SUBSYSTEM_DEF(department)
 	dept_colour = "#b17a4b"
 	dept_radio_channel = FREQ_SUPPLY
 	is_station = TRUE
+	fa_icon = "box"
 
 	leaders = list(JOB_NAME_QUARTERMASTER)
 	jobs = list(JOB_NAME_QUARTERMASTER,
@@ -384,6 +392,7 @@ SUBSYSTEM_DEF(department)
 	dept_colour = "#a885a2"
 	dept_radio_channel = FREQ_SCIENCE
 	is_station = TRUE
+	fa_icon = "flask"
 
 	leaders = list(JOB_NAME_RESEARCHDIRECTOR)
 	jobs = list(JOB_NAME_RESEARCHDIRECTOR,
@@ -424,6 +433,7 @@ SUBSYSTEM_DEF(department)
 	dept_colour = "#ba9b68"
 	dept_radio_channel = FREQ_ENGINEERING
 	is_station = TRUE
+	fa_icon = "wrench"
 
 	leaders = list(JOB_NAME_CHIEFENGINEER)
 	jobs = list(JOB_NAME_CHIEFENGINEER,
@@ -464,6 +474,7 @@ SUBSYSTEM_DEF(department)
 	dept_colour = "#8cbcd6"
 	dept_radio_channel = FREQ_MEDICAL
 	is_station = TRUE
+	fa_icon = "stethoscope"
 
 	leaders = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	jobs = list(JOB_NAME_CHIEFMEDICALOFFICER,
@@ -505,6 +516,7 @@ SUBSYSTEM_DEF(department)
 	dept_colour = "#af6365"
 	dept_radio_channel = FREQ_SECURITY
 	is_station = TRUE
+	fa_icon = "shield-alt"
 
 	leaders = list(JOB_NAME_HEADOFSECURITY)
 	jobs = list(JOB_NAME_HEADOFSECURITY,
@@ -547,6 +559,7 @@ SUBSYSTEM_DEF(department)
 	dept_colour = "#c68a8b"
 	dept_radio_channel = FREQ_SECURITY
 	is_station = TRUE
+	fa_icon = "search"
 
 	leaders = list()
 	jobs = list(JOB_NAME_DETECTIVE,
@@ -569,6 +582,7 @@ SUBSYSTEM_DEF(department)
 	dept_id = DEPT_NAME_VIP
 	dept_bitflag = DEPT_BITFLAG_VIP
 	dept_colour = "#bfa661"
+	fa_icon = "glass-cheers"
 
 	leaders = list()
 	jobs = list(JOB_NAME_VIP)
@@ -587,6 +601,7 @@ SUBSYSTEM_DEF(department)
 	dept_id = DEPT_NAME_UNASSIGNED
 	dept_bitflag = DEPT_BITFLAG_UNASSIGNED
 	dept_colour = "#888888"
+	fa_icon = "user-slash"
 
 	leaders = list()
 	jobs = list(JOB_NAME_PRISONER)
@@ -607,6 +622,7 @@ SUBSYSTEM_DEF(department)
 	dept_id = DEPT_NAME_SILICON
 	dept_bitflag = DEPT_BITFLAG_SILICON
 	dept_colour = "#d6a8c7"
+	fa_icon = "robot"
 	// is_station = TRUE // It's station department, but silicon list... maybe not a good idea using this
 
 	leaders = list(JOB_NAME_AI)

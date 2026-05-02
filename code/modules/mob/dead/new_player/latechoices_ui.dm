@@ -37,6 +37,7 @@
 			"id" = each_dept.dept_id,
 			"name" = each_dept.pref_category_name,
 			"colour" = each_dept.dept_colour || "#ff46c7",
+			"fa_icon" = each_dept.fa_icon,
 		)
 	data["departments"] = departments
 	data["department_order"] = dept_order
