@@ -4373,7 +4373,6 @@
 	},
 /area/station/science/mixing)
 "bam" = (
-/obj/structure/cable,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -14168,7 +14167,6 @@
 /obj/effect/turf_decal/trimline/yellow/filled/warning{
 	dir = 8
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/smooth,

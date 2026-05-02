@@ -22914,7 +22914,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow,
-/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/side{
 	dir = 4
 	},
