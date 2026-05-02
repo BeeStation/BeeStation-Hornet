@@ -1,0 +1,4 @@
+2026-05-01:
+  TsunamiAnt:
+  - tweak: apid wing sprites are now fancy and work like moth wings
+  - code_imp: add alpha functionality to apid wings and similar
