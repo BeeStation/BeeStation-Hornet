@@ -86,6 +86,7 @@ SUBSYSTEM_DEF(employer)
 			"colour"           = employer.colour,
 			"logo_icon"        = employer.logo_icon ? "[employer.logo_icon]" : null,
 			"logo_icon_state"  = employer.logo_icon_state,
+			"fa_icon"          = employer.fa_icon,
 			"department_ids"   = employer.department_ids.Copy(),
 		)
 

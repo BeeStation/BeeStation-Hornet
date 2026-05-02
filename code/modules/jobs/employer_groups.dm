@@ -9,6 +9,9 @@
 	var/lore = ""
 	var/logo_icon = 'icons/ui/employer_logos.dmi'
 	var/logo_icon_state = null
+	/// Lil mini tgui icon name shown next to the
+	/// employer's name in TGUI panels like the latejoin menu. Optional.
+	var/fa_icon = null
 	/// Accent colour (hex). Used by the info box border / label.
 	var/colour = "#888888"
 
@@ -32,6 +35,7 @@
 	colour = "#4b75a3"
 	pref_order = EMPLOYER_PREF_ORDER_NANOTRASEN
 	logo_icon_state = "nanotrasen"
+	fa_icon = "atom"
 	department_ids = list(DEPT_NAME_COMMAND, DEPT_NAME_SCIENCE, DEPT_NAME_SILICON)
 	lore = "Nanotrasen is a power-house in technology-related industries with several subsidiaries providing anything from defence related technologies, gene-operations, and unproven high-risk research.<br><br>\
 			It is the leading plasma research corporation in the Auri system and the direct operator of this station. Its focus on plasma study, containment, and commercialization drives most on-site operations. <b>Their work is tightly controlled and often classified.</b><br><br>\
@@ -48,6 +52,7 @@
 	display_name = "Stationside Services"
 	colour = "#6cab6a"
 	logo_icon_state = "services"
+	fa_icon = "utensils"
 	pref_order = EMPLOYER_PREF_ORDER_STATIONSIDE_SERVICES
 	department_ids = list(DEPT_NAME_SERVICE, DEPT_NAME_CIVILIAN, DEPT_NAME_RECREATION)
 	lore = "A loose group of low-ranking civilian personnel renting space on the station to provide necessary services such as catering, gardening, \
@@ -66,6 +71,7 @@
 	display_name = "Auri Private Security"
 	colour = "#8e4f51"
 	logo_icon_state = "aps"
+	fa_icon = "shield-alt"
 	pref_order = EMPLOYER_PREF_ORDER_AURI_SECURITY
 	department_ids = list(DEPT_NAME_SECURITY, DEPT_NAME_SUPPORT)
 	lore = "APS, or AuSec, is a subsidiary of Nanotrasen, contracted to provide security on NT stations because of Telgov regulations concerning the operation of private security forces on a corporation's own vessels. <br><br>\
@@ -82,6 +88,7 @@
 	display_name = "Eclipse Express"
 	colour = "#a06b3a"
 	logo_icon_state = "eclipse"
+	fa_icon = "truck"
 	pref_order = EMPLOYER_PREF_ORDER_ECLIPSE_EXPRESS
 	department_ids = list(DEPT_NAME_CARGO)
 	lore = "Eclipse Express operates a vast network of supply infrastructure across the auri system, moving cargo between the corporate stations that dot the region. Thanks to the still-developing nature of the system, they enjoy what amounts to a monopoly over station imports and exports, handling the manifests for nearly every operation in the system.<br><br>\
@@ -98,6 +105,7 @@
 	display_name = "Nakamura Engineering"
 	colour = "#8e7449"
 	logo_icon_state = "nakamura"
+	fa_icon = "wrench"
 	pref_order = EMPLOYER_PREF_ORDER_NAKAMURA_ENGINEERING
 	department_ids = list(DEPT_NAME_ENGINEERING)
 	lore = "A small research contracting firm, Nakamura is one of the hand-picked companies authorized to research mothish supermatter technology. Only a handful of shards exist, and Nanotrasen recently secured one for Space Station 13.<br><br>\
@@ -114,6 +122,7 @@
 	display_name = "Acrux Medical Technologies"
 	colour = "#4f8ba8"
 	logo_icon_state = "acrux"
+	fa_icon = "briefcase-medical"
 	pref_order = EMPLOYER_PREF_ORDER_ACRUX_MEDICAL
 	department_ids = list(DEPT_NAME_MEDICAL)
 	lore = "Acrux Medical Technologies is a private medical contractor providing on-site healthcare for a wide array of corporate clients across the Auri system. Their stated policy is straightforward and openly advertised: They will work with anyone, for any cause, provided the price is right.<br><br>\
@@ -131,6 +140,7 @@
 	colour = "#777777"
 	pref_order = EMPLOYER_PREF_ORDER_NON_CREW
 	logo_icon_state = "non_crew"
+	fa_icon = "user-secret"
 	department_ids = list(DEPT_NAME_UNASSIGNED, DEPT_NAME_VIP)
 	lore = "People aboard the station who aren't on the crew roster: prisoners \
 	working off their sentences, stowaways, drifters, visitors, \

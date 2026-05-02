@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, Section, Stack, Tooltip } from '../components';
+import { Box, Button, Icon, Section, Stack, Tooltip } from '../components';
 import { Window } from '../layouts';
 
 // We fill each column top-to-bottom, so to make it easy to play tetris we define
@@ -21,6 +21,7 @@ type Employer = {
   colour: string;
   logo_icon: string | null;
   logo_icon_state: string | null;
+  fa_icon: string | null;
   department_ids: string[];
 };
 
@@ -221,6 +222,9 @@ const EmployerBox = (props: {
         className="LateChoices__employer-title"
         style={{ color: employer.colour }}
       >
+        {!!employer.fa_icon && (
+          <Icon name={employer.fa_icon} mr={1} />
+        )}
         {employer.display_name}
       </Box>
       {visibleDepts.map((deptId) => {
