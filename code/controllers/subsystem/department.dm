@@ -15,14 +15,21 @@ SUBSYSTEM_DEF(department)
 	/// department datums in a 'job pref' priority order in character selection.
 	var/list/sorted_department_for_latejoin
 	/// department datums in access manipulation - actually manual sort
+	/// Note: display-only departments that share a bitflag with another dept
+	/// (e.g. Recreation -> Service, Support Staff -> Security) are listed
+	/// here so the jobs they own (Clown/Mime/Stage Magician, Detective/Brig
+	/// Physician, etc.) show up in the ID console job assignment menus.
+	/// Their empty access_list means they won't add duplicate access regions.
 	var/list/sorted_department_for_access = list(
 		DEPT_NAME_SERVICE,
+		DEPT_NAME_RECREATION,
 		DEPT_NAME_CIVILIAN,
 		DEPT_NAME_CARGO,
 		DEPT_NAME_MEDICAL,
 		DEPT_NAME_SCIENCE,
 		DEPT_NAME_ENGINEERING,
 		DEPT_NAME_SECURITY,
+		DEPT_NAME_SUPPORT,
 		DEPT_NAME_COMMAND,
 		DEPT_NAME_CENTCOM,
 		DEPT_NAME_OTHER,
