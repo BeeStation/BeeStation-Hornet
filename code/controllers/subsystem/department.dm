@@ -210,7 +210,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Station Administration"
 	dept_id = DEPT_NAME_COMMAND
 	dept_bitflag = DEPT_BITFLAG_COM
-	dept_colour = "#4b75a3"
+	dept_colour = "#2d6cb8"
 	dept_radio_channel = FREQ_COMMAND
 	is_station = TRUE
 	fa_icon = "star"
@@ -252,7 +252,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Galley Operations"
 	dept_id = DEPT_NAME_SERVICE
 	dept_bitflag = DEPT_BITFLAG_SRV
-	dept_colour = "#92b26d"
+	dept_colour = "#7ec84a"
 	dept_radio_channel = FREQ_SERVICE
 	is_station = TRUE
 	fa_icon = "utensils"
@@ -294,7 +294,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Habitation Services"
 	dept_id = DEPT_NAME_CIVILIAN
 	dept_bitflag = DEPT_BITFLAG_CIV
-	dept_colour = "#c9b88a"
+	dept_colour = "#d6b352"
 	is_station = TRUE
 	fa_icon = "home"
 
@@ -325,7 +325,7 @@ SUBSYSTEM_DEF(department)
 	dept_id = DEPT_NAME_RECREATION
 	// Display-only: shares Service's bitflag/radio so access & comms are unchanged.
 	dept_bitflag = DEPT_BITFLAG_SRV
-	dept_colour = "#b79ec9"
+	dept_colour = "#b07acf"
 	dept_radio_channel = FREQ_SERVICE
 	is_station = TRUE
 	fa_icon = "theater-masks"
@@ -351,7 +351,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Supply Operations"
 	dept_id = DEPT_NAME_CARGO
 	dept_bitflag = DEPT_BITFLAG_CAR
-	dept_colour = "#b17a4b"
+	dept_colour = "#c46a1f"
 	dept_radio_channel = FREQ_SUPPLY
 	is_station = TRUE
 	fa_icon = "box"
@@ -389,7 +389,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Research Division"
 	dept_id = DEPT_NAME_SCIENCE
 	dept_bitflag = DEPT_BITFLAG_SCI
-	dept_colour = "#a885a2"
+	dept_colour = "#a356a3"
 	dept_radio_channel = FREQ_SCIENCE
 	is_station = TRUE
 	fa_icon = "flask"
@@ -430,7 +430,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Engineering Staff"
 	dept_id = DEPT_NAME_ENGINEERING
 	dept_bitflag = DEPT_BITFLAG_ENG
-	dept_colour = "#ba9b68"
+	dept_colour = "#d49b32"
 	dept_radio_channel = FREQ_ENGINEERING
 	is_station = TRUE
 	fa_icon = "wrench"
@@ -471,7 +471,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Medical Staff"
 	dept_id = DEPT_NAME_MEDICAL
 	dept_bitflag = DEPT_BITFLAG_MED
-	dept_colour = "#8cbcd6"
+	dept_colour = "#4ab0e0"
 	dept_radio_channel = FREQ_MEDICAL
 	is_station = TRUE
 	fa_icon = "stethoscope"
@@ -513,7 +513,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Enforcement"
 	dept_id = DEPT_NAME_SECURITY
 	dept_bitflag = DEPT_BITFLAG_SEC
-	dept_colour = "#af6365"
+	dept_colour = "#c8383b"
 	dept_radio_channel = FREQ_SECURITY
 	is_station = TRUE
 	fa_icon = "shield-alt"
@@ -556,7 +556,7 @@ SUBSYSTEM_DEF(department)
 	dept_id = DEPT_NAME_SUPPORT
 	// Display-only: shares Security's bitflag/radio so access & comms are unchanged.
 	dept_bitflag = DEPT_BITFLAG_SEC
-	dept_colour = "#c68a8b"
+	dept_colour = "#d96466"
 	dept_radio_channel = FREQ_SECURITY
 	is_station = TRUE
 	fa_icon = "search"
@@ -581,7 +581,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Visitors"
 	dept_id = DEPT_NAME_VIP
 	dept_bitflag = DEPT_BITFLAG_VIP
-	dept_colour = "#bfa661"
+	dept_colour = "#d6b13a"
 	fa_icon = "glass-cheers"
 
 	leaders = list()
@@ -621,7 +621,7 @@ SUBSYSTEM_DEF(department)
 	dept_name = "Silicon Intelligences"
 	dept_id = DEPT_NAME_SILICON
 	dept_bitflag = DEPT_BITFLAG_SILICON
-	dept_colour = "#d6a8c7"
+	dept_colour = "#e088c2"
 	fa_icon = "robot"
 	// is_station = TRUE // It's station department, but silicon list... maybe not a good idea using this
 

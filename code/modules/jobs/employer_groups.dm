@@ -32,7 +32,7 @@
 /datum/employer_group/nanotrasen
 	id = EMPLOYER_ID_NANOTRASEN
 	display_name = "Nanotrasen"
-	colour = "#4b75a3"
+	colour = "#2d6cb8"
 	pref_order = EMPLOYER_PREF_ORDER_NANOTRASEN
 	logo_icon_state = "nanotrasen"
 	fa_icon = "atom"
@@ -50,7 +50,7 @@
 /datum/employer_group/stationside_services
 	id = EMPLOYER_ID_STATIONSIDE_SERVICES
 	display_name = "Stationside Services"
-	colour = "#6cab6a"
+	colour = "#4ba83a"
 	logo_icon_state = "services"
 	fa_icon = "utensils"
 	pref_order = EMPLOYER_PREF_ORDER_STATIONSIDE_SERVICES
@@ -69,7 +69,7 @@
 /datum/employer_group/auri_security
 	id = EMPLOYER_ID_AURI_SECURITY
 	display_name = "Auri Private Security"
-	colour = "#8e4f51"
+	colour = "#b32e30"
 	logo_icon_state = "aps"
 	fa_icon = "shield-alt"
 	pref_order = EMPLOYER_PREF_ORDER_AURI_SECURITY
@@ -86,7 +86,7 @@
 /datum/employer_group/eclipse_express
 	id = EMPLOYER_ID_ECLIPSE_EXPRESS
 	display_name = "Eclipse Express"
-	colour = "#a06b3a"
+	colour = "#c46a1f"
 	logo_icon_state = "eclipse"
 	fa_icon = "truck"
 	pref_order = EMPLOYER_PREF_ORDER_ECLIPSE_EXPRESS
@@ -103,7 +103,7 @@
 /datum/employer_group/nakamura_engineering
 	id = EMPLOYER_ID_NAKAMURA_ENGINEERING
 	display_name = "Nakamura Engineering"
-	colour = "#8e7449"
+	colour = "#d49b32"
 	logo_icon_state = "nakamura"
 	fa_icon = "wrench"
 	pref_order = EMPLOYER_PREF_ORDER_NAKAMURA_ENGINEERING
@@ -120,7 +120,7 @@
 /datum/employer_group/acrux_medical
 	id = EMPLOYER_ID_ACRUX_MEDICAL
 	display_name = "Acrux Medical Technologies"
-	colour = "#4f8ba8"
+	colour = "#1f8fc4"
 	logo_icon_state = "acrux"
 	fa_icon = "briefcase-medical"
 	pref_order = EMPLOYER_PREF_ORDER_ACRUX_MEDICAL
@@ -137,7 +137,7 @@
 /datum/employer_group/non_crew
 	id = EMPLOYER_ID_NON_CREW
 	display_name = "Non-Crew"
-	colour = "#777777"
+	colour = "#9a9a9a"
 	pref_order = EMPLOYER_PREF_ORDER_NON_CREW
 	logo_icon_state = "non_crew"
 	fa_icon = "user-secret"
