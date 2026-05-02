@@ -100,7 +100,8 @@
 	logo_icon_state = "nakamura"
 	pref_order = EMPLOYER_PREF_ORDER_NAKAMURA_ENGINEERING
 	department_ids = list(DEPT_NAME_ENGINEERING)
-	lore = "A small research contracting firm, Nakamura is one of the hand-picked companies authorized to research mothish supermatter technology. Only a handful of shards exist, and Nanotrasen recently secured one for Space Station 13; Nakamura was brought in to research it. Trained directly by fleet engineers from the Platshållare, a Nakamura engineer's signed-off training packet is one of the rarer credentials in the industry.<br><br>\
+	lore = "A small research contracting firm, Nakamura is one of the hand-picked companies authorized to research mothish supermatter technology. Only a handful of shards exist, and Nanotrasen recently secured one for Space Station 13.<br><br>\
+			Nakamura was brought in to research it. Trained directly by fleet engineers from the Platshållare, a Nakamura engineer's signed-off training packet is one of the rarer credentials in the industry.<br><br>\
 			The company also runs the phoron gas research and mining operations aboard, fiending for samples of this reality-defying substance much like everyone else. Their contract aboard Space Station 13 is a rare opportunity indeed."
 
 // ---------------------------------------------------------------------
