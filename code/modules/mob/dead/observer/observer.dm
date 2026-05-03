@@ -72,7 +72,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	0.25,0.5,0.25,
 	0.25,0.25,0.5,
 	0,0,0)))
-	add_filter("ghost_outline", 2, outline_filter(1, "#ffffff4f")) //Outline
 	add_filter("ghost_fade", 3, alpha_mask_filter(icon = icon('icons/effects/32x32.dmi', "ghost_fade"))) //Mask / fade
 	//Identity theft
 	var/turf/T
