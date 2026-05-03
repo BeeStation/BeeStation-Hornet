@@ -198,9 +198,9 @@
 	/// Reference to the gun this action is associated with
 	var/obj/item/gun/energy/e_gun/mini/exploration/cyborg/gun
 
-/datum/action/sentry_toggle/New(obj/item/gun/energy/e_gun/mini/exploration/cyborg/parent_gun)
-	..()
-	gun = parent_gun
+/datum/action/sentry_toggle/New(master)
+	. = ..()
+	gun = master
 
 /datum/action/sentry_toggle/on_activate(mob/user, atom/target)
 	if(!iscyborg(user))
