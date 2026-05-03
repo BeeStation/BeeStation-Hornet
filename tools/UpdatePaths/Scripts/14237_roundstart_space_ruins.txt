@@ -3,7 +3,6 @@
 /obj/item/codespeak_manual : /obj/item/language_manual/codespeak_manual{@OLD}
 /obj/structure/sign/departments/science{icon_state="science2"} : /obj/structure/sign/departments/science/alt{@OLD;icon_state=@SKIP}
 /obj/machinery/door/airlock/arrivals_external : /obj/machinery/door/airlock/external/arrivals{@OLD}
-/obj/item/storage/backpack/satchel/tox : /obj/item/storage/backpack/satchel/science{@OLD}
 /obj/effect/landmark/prisonspawn : @DELETE
 
 # broken flooring
@@ -21,8 +20,3 @@
 /obj/structure/broken_flooring/@SUBTYPES{icon_state="plating"} : /obj/structure/broken_flooring/plating/@SUBTYPES{@OLD;icon_state=@SKIP}
 
 /obj/structure/broken_flooring/directional/@SUBTYPES : /obj/structure/broken_flooring/corner/directional/@SUBTYPES{@OLD}
-
-# atmos monitor sensor connect
-
-/obj/machinery/atmospherics/components/unary/vent_pump/@SUBTYPES{chamber_id=@ANY} : /obj/machinery/atmospherics/components/unary/vent_pump/@SUBTYPES{@OLD;chamber_id=@SKIP}
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/@SUBTYPES{chamber_id=@ANY} : /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/@SUBTYPES{@OLD;chamber_id=@SKIP}
