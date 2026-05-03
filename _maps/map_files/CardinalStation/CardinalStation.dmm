@@ -25124,10 +25124,8 @@
 /turf/open/floor/plating,
 /area/station/medical/virology)
 "fUa" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "fUg" = (
@@ -34999,10 +34997,8 @@
 /area/station/maintenance/department/chapel)
 "ikT" = (
 /obj/effect/turf_decal/siding/dark,
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/pink,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/ai)
 "ikV" = (
@@ -61328,14 +61324,12 @@
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
 "orn" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/orange,
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 5
 	},
 /obj/machinery/airalarm/directional/west,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/plating,
 /area/station/ai_monitored/turret_protected/aisat/service)
 "oro" = (
@@ -103025,13 +103019,11 @@
 /turf/open/floor/iron/edge,
 /area/station/maintenance/disposal/incinerator)
 "ylr" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/orange,
 /obj/effect/turf_decal/trimline/yellow/warning{
 	dir = 5
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/noslip/dark,
 /area/station/engineering/gravity_generator)
 "ylt" = (

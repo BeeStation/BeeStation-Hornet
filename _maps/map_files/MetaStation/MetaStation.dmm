@@ -25631,9 +25631,6 @@
 /turf/open/floor/plating,
 /area/station/maintenance/aft)
 "jqh" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/flasher{
@@ -25642,6 +25639,7 @@
 	pixel_y = 28
 	},
 /obj/machinery/light/small/directional/north,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai)
 "jqi" = (
@@ -32913,11 +32911,9 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
 "lOC" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable,
 /obj/machinery/light/directional/south,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron,
 /area/station/engineering/gravity_generator)
 "lOE" = (
@@ -44839,11 +44835,9 @@
 /turf/open/floor/iron,
 /area/station/science/robotics/lab)
 "pKF" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/command/storage/satellite)
 "pKK" = (
