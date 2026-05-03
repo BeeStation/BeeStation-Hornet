@@ -129,17 +129,16 @@
 	return
 
 /obj/item/gun/energy/e_gun/mini/exploration/cyborg/process(delta_time)
-	//The next process tick after the gun is fully charged, we return disengage sentry mode (unless voluntarily toggled)
-	if(cell.percent() == 100 && !sentry_toggled)
-		var/mob/living/silicon/robot/R
-		if(iscyborg(loc))
-			R = loc
-		else if(iscyborg(loc.loc))
-			R = loc.loc
-		if(R?.has_status_effect(/datum/status_effect/cyborg_sentry))
-			R.remove_status_effect(/datum/status_effect/cyborg_sentry)
-			to_chat(R, span_notice("Your gun has fully recharged. Sentry mode automatically disengaged."))
-			R.balloon_alert(R, "sentry mode auto-OFF")
+	//The next process tick after the gun is fully charged, we disengage sentry mode (unless voluntarily toggled)
+	if(cell.percent() != 100 || sentry_toggled)
+		return ..()
+
+	var/mob/living/silicon/robot/borg = get(loc, /mob/living/silicon/robot)
+
+	if(borg?.has_status_effect(/datum/status_effect/cyborg_sentry))
+		borg.remove_status_effect(/datum/status_effect/cyborg_sentry)
+		to_chat(borg, span_notice("Your gun has fully recharged. Sentry mode automatically disengaged."))
+		borg.balloon_alert(borg, "sentry mode auto-OFF")
 	. = ..()
 
 /obj/item/gun/energy/e_gun/mini/exploration/cyborg/on_chamber_fired()
