@@ -121,31 +121,12 @@
 	use_cyborg_cell = TRUE
 	requires_wielding = FALSE
 	pin = /obj/item/firing_pin
+	actions_types = list(/datum/action/sentry_toggle)
 	/// Whether sentry mode has been voluntarily toggled on by the borg
 	var/sentry_toggled = FALSE
-	/// The action button for toggling sentry mode
-	var/datum/action/sentry_toggle/sentry_action
 
 /obj/item/gun/energy/e_gun/mini/exploration/cyborg/add_seclight_point()
 	return
-
-/obj/item/gun/energy/e_gun/mini/exploration/cyborg/Initialize(mapload)
-	. = ..()
-	sentry_action = new(src)
-
-/obj/item/gun/energy/e_gun/mini/exploration/cyborg/Destroy()
-	QDEL_NULL(sentry_action)
-	return ..()
-
-/// Grants the sentry toggle action to a cyborg
-/obj/item/gun/energy/e_gun/mini/exploration/cyborg/proc/grant_sentry_action(mob/living/silicon/robot/Target)
-	if(sentry_action && Target)
-		sentry_action.Grant(Target)
-
-/// Removes the sentry toggle action from a cyborg
-/obj/item/gun/energy/e_gun/mini/exploration/cyborg/proc/remove_sentry_action(mob/living/silicon/robot/Target)
-	if(sentry_action && Target)
-		sentry_action.Remove(Target)
 
 /obj/item/gun/energy/e_gun/mini/exploration/cyborg/process(delta_time)
 	//The next process tick after the gun is fully charged, we return disengage sentry mode (unless voluntarily toggled)
@@ -195,18 +176,13 @@
 	desc = "Toggle your armor plating on or off. Activating sentry mode grants significant armor at the cost of movement speed. Sentry mode is automatically forced on while your gun is recharging after firing."
 	button_icon = 'icons/hud/screen_alert.dmi'
 	button_icon_state = "sentry"
-	/// Reference to the gun this action is associated with
-	var/obj/item/gun/energy/e_gun/mini/exploration/cyborg/gun
-
-/datum/action/sentry_toggle/New(obj/item/gun/energy/e_gun/mini/exploration/cyborg/parent_gun)
-	..()
-	gun = parent_gun
 
 /datum/action/sentry_toggle/on_activate(mob/user, atom/target)
 	if(!iscyborg(user))
 		return
 	var/mob/living/silicon/robot/our_borgie = user
-	if(!gun)
+	var/obj/item/gun/energy/e_gun/mini/exploration/cyborg/gun = target
+	if(!istype(gun))
 		return
 
 	gun.sentry_toggled = !gun.sentry_toggled

@@ -633,7 +633,10 @@
 	if(!istype(robot))
 		return
 	for(var/obj/item/gun/energy/e_gun/mini/exploration/cyborg/gun in modules)
-		gun.grant_sentry_action(robot)
+		// Ensure the sentry toggle action is granted to the borg, even if the gun is sitting in the inventory
+		// rather than held in a hand slot.
+		for(var/datum/action/sentry_toggle/action in gun.actions)
+			action.Grant(robot)
 
 // --------------------- Deathsquad
 /obj/item/robot_model/deathsquad
