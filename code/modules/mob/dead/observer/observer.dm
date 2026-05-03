@@ -167,8 +167,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 
 /*
  * Copies the full visual appearance of a target mob onto this ghost.
- * Sets icon to null and copies all overlays, producing a translucent
- * clone of the target when combined with alpha and KEEP_TOGETHER.
  */
 /mob/dead/observer/proc/set_appearance(mob/target)
 	transform = null
@@ -207,7 +205,7 @@ Works together with spawning an observer, noted above.
 
 			return ghost
 
-/mob/observer/ghostize() //Sanity override
+/mob/observer/ghostize(can_reenter_corpse) //Sanity override
 	return
 
 /*
@@ -722,8 +720,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		name = real_name
 
 /**
- * Builds a full character appearance from client preferences using a dummy mob,
- * then copies that appearance onto this ghost. Includes loadout items.
+ * Builds character appearance from client preferences using a dummy mob
  */
 /mob/dead/observer/proc/set_ghost_appearance()
 	if(!client?.prefs)
