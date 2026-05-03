@@ -31,7 +31,6 @@
 	icon = 'icons/obj/doors/airlocks/station/maintenanceexternal.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_extmai
 
-
 /obj/machinery/door/airlock/mining
 	name = "mining airlock"
 	icon = 'icons/obj/doors/airlocks/station/mining.dmi'
