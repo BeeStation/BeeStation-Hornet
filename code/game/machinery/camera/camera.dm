@@ -85,7 +85,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 	// Calculate area code
 	var/area/camera_area = get_area(src)
-	if (istype(camera_area, /area/space))
+	if (istype(camera_area, /area/misc/space))
 		var/turf/connected_wall = get_step(src, dir)
 		camera_area = get_area(connected_wall)
 
@@ -203,12 +203,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 			emped = emped+1  //Increase the number of consecutive EMP's
 			update_appearance()
 			thisemp = emped //Take note of which EMP this proc is for
-			for(var/i in GLOB.player_list)
-				var/mob/M = i
-				if (M.client.eye == src)
-					M.unset_machine()
-					M.reset_perspective(null)
-					to_chat(M, "The screen bursts into static.")
+			for(var/mob/each_mob as anything in eye_mobs)
+				each_mob.unset_machine()
+				each_mob.set_mob_eye_to(MOB_EYE_SELF)
+				to_chat(each_mob, "The screen bursts into static.")
 
 /obj/machinery/camera/emp_reset()
 	..()
@@ -477,11 +475,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 	// now disconnect anyone using the camera
 	//Apparently, this will disconnect anyone even if the camera was re-activated.
 	//I guess that doesn't matter since they can't use it anyway?
-	for(var/mob/O in GLOB.player_list)
-		if (O.client && O.client.eye == src)
-			O.unset_machine()
-			O.reset_perspective(null)
-			to_chat(O, "The screen bursts into static.")
+	for(var/mob/each_mob as anything in eye_mobs)
+		each_mob.unset_machine()
+		each_mob.set_mob_eye_to(MOB_EYE_SELF)
+		to_chat(each_mob, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)

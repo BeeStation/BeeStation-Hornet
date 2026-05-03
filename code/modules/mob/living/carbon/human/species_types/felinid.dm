@@ -4,7 +4,7 @@
 	id = SPECIES_FELINID
 	examine_limb_id = SPECIES_HUMAN
 
-	mutant_bodyparts = list("tail_human" = "Cat", "ears" = "Cat", "wings" = "None", "body_size" = "Normal")
+	mutant_bodyparts = list("tail_human" = "Cat", "ears" = "Cat", "wings" = SPRITE_ACCESSORY_NONE, "body_size" = "Normal")
 	forced_features = list("tail_human" = "Cat", "ears" = "Cat")
 
 	mutantears = /obj/item/organ/ears/cat
@@ -35,9 +35,9 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(!pref_load)			//Hah! They got forcefully purrbation'd. Force default felinid parts on them if they have no mutant parts in those areas!
-			if(H.dna.features["tail_human"] == "None")
+			if(H.dna.features["tail_human"] == SPRITE_ACCESSORY_NONE)
 				H.dna.features["tail_human"] = "Cat"
-			if(H.dna.features["ears"] == "None")
+			if(H.dna.features["ears"] == SPRITE_ACCESSORY_NONE)
 				H.dna.features["ears"] = "Cat"
 		if(H.dna.features["ears"] == "Cat")
 			var/obj/item/organ/ears/cat/ears = new

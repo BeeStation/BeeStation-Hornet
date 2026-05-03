@@ -1,4 +1,6 @@
 /datum/dynamic_ruleset
+	abstract_type = /datum/dynamic_ruleset
+
 	/**
 	 * Configurable Variables
 	 */
@@ -37,8 +39,6 @@
 	 * Backend Variables
 	 */
 
-	/// The base abstract path for this subtype.
-	var/abstract_type = /datum/dynamic_ruleset
 	/// List of possible mobs (or minds for roundstart rulesets) for this ruleset to draft.
 	var/list/candidates
 	/// A list of mobs (or minds for roundstart rulesets) chosen for this ruleset.
@@ -52,7 +52,7 @@
 	// Check to see if we just nuked a ruleset
 	var/last_remaining_from_ruleset = TRUE
 	var/last_remaining_of_type = TRUE
-	for (var/datum/antagonist/antagonist in GLOB.antagonists)
+	for (var/datum/antagonist/antagonist as anything in GLOB.active_antagonists)
 		// This antagonist has been removed from its owner
 		if (!antagonist.owner)
 			continue
@@ -164,7 +164,11 @@
  * If we have the SHOULD_USE_ANTAG_REP flag, take antag_rep into account.
  */
 /datum/dynamic_ruleset/proc/select_player()
-	var/mob/selected_player = CHECK_BITFIELD(ruleset_flags, SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
+	var/mob/selected_player
+	if(ruleset_flags & SHOULD_USE_ANTAG_REP)
+		selected_player = SSdynamic.antag_pick(candidates, role_preference)
+	else
+		selected_player = pick(candidates)
 	candidates -= selected_player
 	return selected_player
 

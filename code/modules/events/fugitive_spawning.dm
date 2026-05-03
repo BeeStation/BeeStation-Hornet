@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 		return MAP_ERROR
 	var/list/possible_spawns = list()//Some xeno spawns are in some spots that will instantly kill the refugees, like atmos
 	for(var/turf/X in GLOB.xeno_spawn)
-		if(istype(X.loc, /area/maintenance))
+		if(istype(X.loc, /area/station/maintenance))
 			possible_spawns += X
 	if(!length(possible_spawns))
 		message_admins("No valid spawn locations found, aborting...")
@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	player_mind.active = TRUE
 	var/mob/living/carbon/human/S = new(landing_turf)
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = ROLE_FUGITIVE
+	player_mind.set_assigned_role(ROLE_FUGITIVE)
 	player_mind.special_role = ROLE_FUGITIVE
 	var/datum/antagonist/fugitive/A = new()
 	A.backstory = backstory

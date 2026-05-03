@@ -249,15 +249,11 @@
 					eyes_overlay.color = eyes.eye_color
 
 
-/obj/item/bodypart/head/talk_into(mob/holder, message, channel, spans, datum/language/language, list/message_mods)
-	var/mob/headholder = holder
-	if(istype(headholder))
-		headholder.log_talk(message, LOG_SAY, tag = "beheaded talk")
+/obj/item/bodypart/head/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/toy_talk)
 
-	say(message, language, sanitize = FALSE)
-	return NOPASS
-
-/obj/item/bodypart/head/GetVoice()
+/obj/item/bodypart/head/get_voice()
 	return "The head of [real_name]"
 
 /obj/item/bodypart/head/monkey

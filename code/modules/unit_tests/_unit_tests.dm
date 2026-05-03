@@ -55,6 +55,7 @@
 #include "keybinding_init.dm"
 #include "language_transfer.dm"
 #include "limbsanity.dm"
+#include "mecha_damage.dm"
 #include "merge_type.dm"
 #include "metabolizing.dm"
 #include "mindbound_actions.dm"
@@ -62,6 +63,7 @@
 #include "mob_damage.dm"
 #include "modsuit.dm"
 #include "mouse_bite_cable.dm"
+#include "movement_order_sanity.dm"
 #include "mutant_hands_consistency.dm"
 #include "mutant_organs.dm"
 #include "organs.dm"
@@ -80,6 +82,7 @@
 #include "reagent_id_duplicates.dm"
 #include "reagent_id_typos.dm"
 #include "reagent_recipe_collisions.dm"
+#include "say.dm"
 #include "security_levels.dm"
 #include "serving_tray.dm"
 #include "shuttle_width_height_correctness.dm"
@@ -121,7 +124,7 @@
 #include "mapping\check_disposals.dm"
 #include "mapping\check_light_attachment.dm"
 #include "mapping\check_multiple_objects.dm"
-#include "mapping\check_wire_crossing.dm"
+#include "mapping\check_wires.dm"
 #include "mapping\map_test.dm"
 
 // END_INCLUDE

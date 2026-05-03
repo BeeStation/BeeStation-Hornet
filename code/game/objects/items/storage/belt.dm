@@ -1,4 +1,5 @@
 /obj/item/storage/belt
+	abstract_type = /obj/item/storage/belt
 	name = "belt"
 	desc = "Can hold various things."
 	icon = 'icons/obj/clothing/belts.dmi'
@@ -103,8 +104,8 @@
 		/obj/item/clothing/gloves/botanic_leather,
 		/obj/item/rollingpaper,//dudeweed
 		/obj/item/lighter,
-		/obj/item/clothing/mask/cigarette/pipe/cobpipe,
-		/obj/item/clothing/mask/cigarette/rollie,//dudeweedlmao
+		/obj/item/cigarette/pipe/cobpipe,
+		/obj/item/cigarette/rollie,//dudeweedlmao
 		/obj/item/gun/energy/floragun
 		))
 
@@ -123,7 +124,7 @@
 	SSwardrobe.provide_type(/obj/item/powertool/jaws_of_life, src)
 	SSwardrobe.provide_type(/obj/item/weldingtool/experimental, src)//This can be changed if this is too much
 	SSwardrobe.provide_type(/obj/item/multitool, src)
-	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src, MAXCOIL,pick("red","yellow","orange"))
+	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src, MAXCOIL)
 	SSwardrobe.provide_type(/obj/item/extinguisher/mini, src)
 	SSwardrobe.provide_type(/obj/item/analyzer/ranged, src)
 	//much roomier now that we've managed to remove two tools
@@ -146,7 +147,7 @@
 	SSwardrobe.provide_type(/obj/item/crowbar, src)
 	SSwardrobe.provide_type(/obj/item/wirecutters, src)
 	SSwardrobe.provide_type(/obj/item/multitool, src)
-	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src,MAXCOIL,pick("red","yellow","orange"))
+	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src,MAXCOIL)
 
 /obj/item/storage/belt/utility/full/get_types_to_preload()
 	var/list/to_preload = list() //Yes this is a pain. Yes this is the point
@@ -166,7 +167,7 @@
 	SSwardrobe.provide_type(/obj/item/crowbar, src)
 	SSwardrobe.provide_type(/obj/item/wirecutters, src)
 	SSwardrobe.provide_type(/obj/item/multitool, src)
-	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src, MAXCOIL, pick("red","yellow","orange"))
+	SSwardrobe.provide_type(/obj/item/stack/cable_coil, src, MAXCOIL)
 
 /obj/item/storage/belt/utility/full/engi/get_types_to_preload()
 	var/list/to_preload = list() //Yes this is a pain. Yes this is the point
@@ -264,7 +265,7 @@
 	if(replicator)
 		new replicator(src)
 	else
-		new /obj/item/stack/cable_coil/orange(src)
+		new /obj/item/stack/cable_coil(src)
 	new /obj/item/screwdriver/brass(src)
 	new /obj/item/wirecutters/brass(src)
 	new /obj/item/wrench/brass(src)
@@ -626,7 +627,7 @@
 	new /obj/item/crowbar/abductor(src)
 	new /obj/item/wirecutters/abductor(src)
 	new /obj/item/multitool/abductor(src)
-	new /obj/item/stack/cable_coil/white(src)
+	new /obj/item/stack/cable_coil(src)
 
 //Im pissed off at the amount of times I have to do this. So its a belt now
 /obj/item/storage/belt/military/abductor/med

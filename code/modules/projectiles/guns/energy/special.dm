@@ -5,7 +5,7 @@
 	inhand_icon_state = null //so the human update icon uses the icon_state instead.
 	worn_icon_state = null
 	w_class = WEIGHT_CLASS_HUGE
-	flags_1 =  CONDUCT_1
+	obj_flags =  CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/ion) //Heavy EMP, 15 shots
 	ammo_x_offset = 3
@@ -107,7 +107,7 @@
 	icon_state = "plasmacutter"
 	inhand_icon_state = "plasmacutter"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	attack_verb_continuous = list("attacks", "slashes", "cuts", "slices")
 	attack_verb_simple = list("attack", "slash", "cut", "slice")
 	force = 12
@@ -305,11 +305,9 @@
 	fire_rate = 6
 	requires_wielding = FALSE
 
-/obj/item/gun/energy/printer/update_icon()
-	return
-
-/obj/item/gun/energy/printer/emp_act()
-	return
+/obj/item/gun/energy/printer/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/gun/energy/temperature
 	name = "temperature gun"
@@ -353,8 +351,9 @@
 	inhand_icon_state = "instagibblue"
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill/blue)
 
-/obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
-	return
+/obj/item/gun/energy/laser/instakill/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/gun/energy/gravity_gun
 	name = "one-point bluespace-gravitational manipulator"

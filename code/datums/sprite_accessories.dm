@@ -54,6 +54,8 @@
 	var/gender_specific //Something that can be worn by either gender, but looks different on each
 	var/use_static		//determines if the accessory will be skipped by color preferences
 	var/color_src = MUTCOLORS	//Currently only used by mutantparts so don't worry about hair and stuff. This is the source that this accessory will get its color from. Default is MUTCOLOR, but can also be HAIR, FACEHAIR, EYECOLOR and 0 if none.
+	/// Alpha applied to the overlay when rendered on a mob. 255 = fully opaque.
+	var/overlay_alpha = 255
 	var/hasinner		//Decides if this sprite has an "inner" part, such as the fleshy parts on ears.
 	var/locked = FALSE		//Is this part locked from roundstart selection? Used for parts that apply effects
 	var/dimension_x = 32
@@ -1047,7 +1049,7 @@
 	use_default = FALSE
 
 /datum/sprite_accessory/hair_gradient/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 	use_default = TRUE
 
@@ -1931,7 +1933,7 @@
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
 /datum/sprite_accessory/body_markings/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/body_markings/dtiger
@@ -1988,11 +1990,11 @@
 	icon_state = "spikes"
 
 /datum/sprite_accessory/tails/human/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/tails_animated/human/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/tails/human/cat
@@ -2040,7 +2042,7 @@
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
 /datum/sprite_accessory/horns/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/horns/simple
@@ -2067,7 +2069,7 @@
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
 /datum/sprite_accessory/ears/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/ears/cat
@@ -2077,7 +2079,7 @@
 	color_src = HAIR
 
 /datum/sprite_accessory/wings/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/wings_open
@@ -2120,21 +2122,22 @@
 
 /datum/sprite_accessory/wings/apid
 	name = "Bee"
-	icon = 'icons/mob/apid_accessories/apid_wings.dmi'
+	icon = 'icons/mob/human/species/apid/apid_wings.dmi'
 	icon_state = "apid"
 	color_src = 0
 	dimension_x = 32
 	center = TRUE
 	dimension_y = 32
+	overlay_alpha = 120
 
 /datum/sprite_accessory/wings_open/apid
 	name = "Bee"
-	icon = 'icons/mob/apid_accessories/apid_wings.dmi'
+	icon = 'icons/mob/human/species/apid/apid_wingsopen.dmi'
 	icon_state = "apid"
 	color_src = 0
-	dimension_x = 32
+	dimension_x = 76
 	center = TRUE
-	dimension_y = 32
+	overlay_alpha = 120
 
 /datum/sprite_accessory/wings/robot
 	name = "Robot"
@@ -2156,7 +2159,7 @@
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
 /datum/sprite_accessory/frills/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/frills/simple
@@ -2178,11 +2181,11 @@
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
 /datum/sprite_accessory/spines/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/spines_animated/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/spines/short
@@ -2546,7 +2549,7 @@
 	color_src = null
 
 /datum/sprite_accessory/moth_markings/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/moth_markings/reddish
@@ -2776,7 +2779,7 @@
 	color_src = HAIR
 
 /datum/sprite_accessory/ipc_antennas/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/ipc_antennas/angled
@@ -2929,7 +2932,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_leaves/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_leaves/leaves
@@ -2960,7 +2963,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_thorns/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_thorns/head
@@ -2976,7 +2979,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_flowers/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_flowers/head
@@ -2992,7 +2995,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_moss/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_moss/torso
@@ -3004,7 +3007,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_mushroom/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_mushroom/head
@@ -3016,7 +3019,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_antennae/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_antennae/head
@@ -3028,7 +3031,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_eyes/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_eyes/bug_eyes
@@ -3112,7 +3115,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_pbody/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_pbody/pbody
@@ -3126,7 +3129,7 @@
 //apids
 
 /datum/sprite_accessory/apid_antenna
-	icon = 'icons/mob/apid_accessories/apid_antenna.dmi'
+	icon = 'icons/mob/human/species/apid/apid_antenna.dmi'
 
 /datum/sprite_accessory/apid_antenna/moth
 	name = "Mothlike Antenna"
@@ -3221,7 +3224,7 @@
 	icon_state = "split"
 
 /datum/sprite_accessory/apid_stripes
-	icon = 'icons/mob/apid_accessories/apid_body.dmi'
+	icon = 'icons/mob/human/species/apid/apid_body.dmi'
 	gender_specific = TRUE
 
 /datum/sprite_accessory/apid_stripes/none
@@ -3249,7 +3252,7 @@
 	icon_state = "arachnid"
 
 /datum/sprite_accessory/apid_headstripes
-	icon = 'icons/mob/apid_accessories/apid_head.dmi'
+	icon = 'icons/mob/human/species/apid/apid_head.dmi'
 	gender_specific = TRUE
 
 /datum/sprite_accessory/apid_headstripes/none

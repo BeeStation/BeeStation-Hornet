@@ -39,7 +39,7 @@
 	inhand_icon_state = "bio_suit"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
-	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/cup/glass/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/assembly/flash/handheld, /obj/item/storage/box/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
+	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/cup/glass/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/assembly/flash/handheld, /obj/item/storage/box/matches, /obj/item/lighter, /obj/item/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 
 //Chef
 /obj/item/clothing/suit/toggle/chef
@@ -267,8 +267,20 @@
 	cold_protection = CHEST|ARMS
 	heat_protection = CHEST|ARMS
 
-//Roboticist
+/obj/item/clothing/suit/armor/monsterhunter
+	name = "monster hunter garb"
+	desc = "This worn outfit saw much use back in the day. Internal reinforcements help protect against bites and scratches."
+	allowed = list(/obj/item/storage/book/bible, /obj/item/reagent_containers/cup/glass/bottle/garlic_extract, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/stake, /obj/item/stake/hardened, /datum/crafting_recipe/silver_stake, /obj/item/food/grown/garlic)
+	icon_state = "monsterhunter"
+	inhand_icon_state = null
+	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	armor_type = /datum/armor/jacket_curator
+	strip_delay = 80
+	equip_delay_other = 60
 
+/obj/item/clothing/suit/armor/monsterhunter/Initialize(mapload)
+	. = ..()
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 
 /datum/armor/jacket_curator
 	melee = 25
@@ -279,6 +291,7 @@
 	stamina = 30
 	bleed = 10
 
+//Roboticist
 /obj/item/clothing/suit/hooded/techpriest
 	name = "techpriest robes"
 	desc = "For those who REALLY love their toasters."

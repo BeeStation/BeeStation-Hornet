@@ -1,13 +1,7 @@
-// If this is defined, then any storyteller configs which do not have
-// a 'Version' tag that match this value will not be loaded.
-// #define STORYTELLER_VERSION "GamemodeAntagonists"
-
-
 SUBSYSTEM_DEF(dynamic)
 	name = "Dynamic"
 	runlevels = RUNLEVEL_GAME
 	wait = 1 MINUTES
-
 
 	/**
 	 * Setup variables
@@ -197,6 +191,8 @@ SUBSYSTEM_DEF(dynamic)
 	var/midround_linear_delta = 0.7
 	/// This delta is applied no matter what
 	var/midround_linear_delta_forced = 0.25
+	/// The maximum positive delta that can be added per tick.
+	var/midround_max_positive_delta = INFINITY
 
 	/// How long dynamic will wait to execute another ruleset if it fails to execute the previous one
 	/// Used to mitigate spam and antag rolling
@@ -388,13 +384,18 @@ SUBSYSTEM_DEF(dynamic)
  * Called at roundstart, set roundstart points and choose rulesets
  */
 /datum/controller/subsystem/dynamic/proc/select_roundstart_antagonists()
+	// No configured storyteller, let's pick a random one
+	if(!current_storyteller && length(dynamic_storyteller_jsons))
+		set_storyteller(pick(dynamic_storyteller_jsons))
+
 	set_roundstart_points()
 
+	log_dynamic("Starting a round with the storyteller: \"[current_storyteller?["Name"] || "None"]\"")
 	log_dynamic("ROUNDSTART: Listing [length(supplementary_configured_rulesets)] roundstart rulesets, and [length(roundstart_candidates)] players ready.")
+
 	if(!length(roundstart_candidates))
 		return TRUE
 
-	log_dynamic("Starting a round with the storyteller: \"[current_storyteller?["Name"] || "None"]\"")
 	execute_gamemode_roundstart(gamemode_configured_rulesets)
 	execute_supplementary_roundstart_rulesets(supplementary_configured_rulesets)
 
@@ -486,6 +487,7 @@ SUBSYSTEM_DEF(dynamic)
 			forced_ruleset.minimum_players_required = 0 // lel
 
 			if(!forced_ruleset.allowed())
+				LAZYNULL(forced_ruleset.candidates)
 				log_dynamic("SUPPLEMENTARY: Could not force [forced_ruleset]")
 				message_admins("DYNAMIC: SUPPLEMENTARY: Could not force [forced_ruleset]")
 				continue
@@ -494,7 +496,7 @@ SUBSYSTEM_DEF(dynamic)
 			executed_supplementary_rulesets += new_forced_roundstart_ruleset
 			new_forced_roundstart_ruleset.choose_candidates()
 
-			forced_ruleset.candidates = null
+			LAZYNULL(forced_ruleset.candidates)
 
 			log_dynamic("SUPPLEMENTARY: Forced [new_forced_roundstart_ruleset]")
 			message_admins("DYNAMIC: SUPPLEMENTARY: Forced [new_forced_roundstart_ruleset]")
@@ -539,8 +541,8 @@ SUBSYSTEM_DEF(dynamic)
 				chosen_candidate.special_role = null
 				chosen_candidate.restricted_roles = list()
 
-			ruleset.candidates = null
-			ruleset.chosen_candidates = null
+			LAZYNULL(ruleset.candidates)
+			LAZYNULL(ruleset.chosen_candidates)
 
 			log_dynamic("SUPPLEMENTARY: Cancelling [ruleset] because a ruleset with the 'NO_OTHER_RULESETS' was chosen")
 			executed_supplementary_rulesets -= ruleset
@@ -564,7 +566,9 @@ SUBSYSTEM_DEF(dynamic)
 			log_dynamic("NOT ALLOWED: Ruleset [potential_ruleset.name] had the NO_LATE_JOIN flag set and for_midround was set to TRUE.")
 			continue
 
-		if(!potential_ruleset.allowed(require_drafted = !for_midround))
+		var/is_allowed = potential_ruleset.allowed(require_drafted = !for_midround)
+		LAZYNULL(potential_ruleset.candidates)
+		if(!is_allowed)
 			continue
 
 		if(supplementary_blacklist_forced && (potential_ruleset in supplementary_forced_rulesets))
@@ -613,18 +617,21 @@ SUBSYSTEM_DEF(dynamic)
 		// Check if we are allowed to be executed
 		if(!ruleset.allowed(!ignore_candidates))
 			remaining_to_pick -= ruleset
+			LAZYNULL(ruleset.candidates)
 			log_dynamic("PICK_RULESET: Ruleset [ruleset.name] did not have enough candidates.")
 			continue
 
 		// Not enough points left
 		if(!ignore_points && ruleset.points_cost > supplementary_points)
 			remaining_to_pick -= ruleset
+			LAZYNULL(ruleset.candidates)
 			log_dynamic("PICK_RULESET: Ruleset [ruleset.name] did not have enough points ([supplementary_points]/[ruleset.points_cost]).")
 			continue
 
 		// check_is_ruleset_blocked()
 		if(check_is_ruleset_blocked(ruleset, executed_supplementary_rulesets))
 			remaining_to_pick -= ruleset
+			LAZYNULL(ruleset.candidates)
 			log_dynamic("PICK_RULESET: Ruleset [ruleset.name] was blocked.")
 			continue
 
@@ -642,7 +649,6 @@ SUBSYSTEM_DEF(dynamic)
 
 	log_dynamic("SUPPLEMENTARY: Executed [ruleset] with [supplementary_points] points left")
 
-	ruleset.candidates = null
 	last_executed_supplementary_path = ruleset.type
 
 /**
@@ -717,8 +723,8 @@ SUBSYSTEM_DEF(dynamic)
 		ruleset.success()
 
 	// I would love to keep this logged, but we must avoid hard dels.
-	ruleset.candidates = null
-	ruleset.chosen_candidates = null
+	LAZYNULL(ruleset.candidates)
+	LAZYNULL(ruleset.chosen_candidates)
 
 	return result
 
@@ -791,7 +797,8 @@ SUBSYSTEM_DEF(dynamic)
 			antag_delta += midround_points_per_antag["[antag_datum.type]"]
 
 	// Add points
-	midround_points += max(living_delta + observing_delta + dead_delta + dead_security_delta + antag_delta + midround_linear_delta, 0)
+	var/variable_delta = living_delta + observing_delta + dead_delta + dead_security_delta + antag_delta + midround_linear_delta
+	midround_points += clamp(variable_delta, 0, midround_max_positive_delta)
 	midround_points += midround_linear_delta_forced
 
 	// Log point sources
@@ -872,15 +879,9 @@ SUBSYSTEM_DEF(dynamic)
 		if(check_is_ruleset_blocked(ruleset, midround_executed_rulesets))
 			continue
 
-		ruleset.set_drafted_players_amount()
-		ruleset.get_candidates()
-		ruleset.trim_candidates()
-
-		// Do not require drafted players to exist for the one we pick
-		if(!ruleset.allowed(FALSE))
+		// We don't need to meet the drafted_players_amount minimum for midround rulesets because our poll will wait.
+		if(!ruleset.allowed(require_drafted = FALSE))
 			continue
-
-		ruleset.candidates = null
 
 		possible_rulesets[ruleset] = ruleset.get_weight()
 
@@ -933,7 +934,7 @@ SUBSYSTEM_DEF(dynamic)
 			continue
 		gamemode_executed = TRUE
 	// Check if a gamemode antagonist is in existance, even if not spawned through us
-	for (var/datum/antagonist/antagonist in GLOB.antagonists)
+	for (var/datum/antagonist/antagonist as anything in GLOB.active_antagonists)
 		for (var/datum/dynamic_ruleset/gamemode/gamemode_antagonist as anything in subtypesof(/datum/dynamic_ruleset/gamemode))
 			if (gamemode_antagonist::antag_datum && ispath(antagonist.type, gamemode_antagonist))
 				gamemode_executed = TRUE
@@ -973,6 +974,7 @@ SUBSYSTEM_DEF(dynamic)
 	new_latejoin_ruleset.candidates = list(character)
 	new_latejoin_ruleset.trim_candidates()
 	if (!new_latejoin_ruleset.allowed())
+		LAZYNULL(new_latejoin_ruleset.candidates)
 		log_dynamic("LATEJOIN: Could not run [new_latejoin_ruleset]")
 		message_admins("DYNAMIC: LATEJOIN: Could not run [new_latejoin_ruleset], moving to next joiner")
 		return
@@ -1090,7 +1092,3 @@ SUBSYSTEM_DEF(dynamic)
 	if (flag & DYNAMIC_MIDROUND_HEAVY)
 		texts += "HEAVY"
 	return jointext(texts, " | ")
-
-#ifdef STORYTELLER_VERSION
-#undef STORYTELLER_VERSION
-#endif

@@ -200,8 +200,9 @@
 	tint = INFINITY
 	var/obj/item/flashlight/eyelight/eye
 
-/obj/item/organ/eyes/robotic/flashlight/emp_act(severity)
-	return
+/obj/item/organ/eyes/robotic/flashlight/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/organ/eyes/robotic/flashlight/on_insert(mob/living/carbon/victim)
 	. = ..()
@@ -226,8 +227,9 @@
 	desc = "These reactive micro-shields will protect you from welders and flashes without obscuring your vision."
 	flash_protect = FLASH_PROTECTION_WELDER
 
-/obj/item/organ/eyes/robotic/shield/emp_act(severity)
-	return
+/obj/item/organ/eyes/robotic/shield/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/organ/eyes/robotic/glow
 	name = "High Luminosity Eyes"

@@ -1,4 +1,5 @@
 /obj/item/clothing/mask
+	abstract_type = /obj/item/clothing/mask
 	name = "mask"
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
@@ -9,7 +10,6 @@
 	var/modifies_speech = FALSE
 	var/mask_adjusted = FALSE
 	var/adjusted_flags = null
-	var/voice_change = FALSE //Used to mask/change the user's voice, only specific masks can set this to TRUE
 	var/obj/item/organ/tongue/chosen_tongue = null
 
 /obj/item/clothing/mask/attack_self(mob/user)
@@ -18,37 +18,47 @@
 		var/status = !(clothing_flags & VOICEBOX_DISABLED)
 		to_chat(user, span_notice("You turn the voice box in [src] [status ? "on" : "off"]."))
 
-/obj/item/clothing/mask/equipped(mob/M, slot)
+/obj/item/clothing/mask/equipped(mob/user, slot)
 	. = ..()
-	if (slot == ITEM_SLOT_MASK && modifies_speech)
-		RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-	else
-		UnregisterSignal(M, COMSIG_MOB_SAY)
+	if(!modifies_speech && !chosen_tongue)
+		return
 
-/obj/item/clothing/mask/dropped(mob/M)
-	..()
-	UnregisterSignal(M, COMSIG_MOB_SAY)
+	if (slot == ITEM_SLOT_MASK)
+		RegisterSignal(user, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+	else
+		UnregisterSignal(user, COMSIG_MOB_SAY)
+
+/obj/item/clothing/mask/dropped(mob/user, silent)
+	. = ..()
+	if(modifies_speech || chosen_tongue)
+		UnregisterSignal(user, COMSIG_MOB_SAY)
 
 /obj/item/clothing/mask/Destroy()
 	chosen_tongue = null
-	. = ..()
+	return ..()
 
-/obj/item/clothing/mask/proc/handle_speech()
+/obj/item/clothing/mask/proc/handle_speech(mob/speaker, list/speech_args)
 	SIGNAL_HANDLER
+	if(!chosen_tongue)
+		return
 
-/obj/item/clothing/mask/proc/get_name(mob/user, default_name)
-	return default_name
+	speaker.verb_say = pick(initial(chosen_tongue.say_mod))
+	speaker.verb_ask = pick(initial(chosen_tongue.ask_mod))
+	speaker.verb_yell = pick(initial(chosen_tongue.yell_mod))
+	speaker.verb_exclaim = pick(initial(chosen_tongue.exclaim_mod))
 
 /obj/item/clothing/mask/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
-	if(!isinhands)
-		if(body_parts_covered & HEAD)
-			if(damaged_clothes)
-				. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
-			if(GET_ATOM_BLOOD_DNA_LENGTH(src))
-				var/mutable_appearance/bloody_mask = mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
-				bloody_mask.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
-				. += bloody_mask
+	. = ..()
+	if(isinhands)
+		return
+
+	if(body_parts_covered & HEAD)
+		if(damaged_clothes)
+			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
+		if(GET_ATOM_BLOOD_DNA_LENGTH(src))
+			var/mutable_appearance/bloody_mask = mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
+			bloody_mask.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+			. += bloody_mask
 
 /obj/item/clothing/mask/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()

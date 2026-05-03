@@ -8,7 +8,7 @@
 	supervisors = "the captain"
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#c1e1ec"
 	req_admin_notify = 1
@@ -32,6 +32,8 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_MEDICAL_OFFICER
+
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "High Cleric"
 
 	species_outfits = list(
@@ -40,13 +42,13 @@
 	biohazard = 45
 
 	minimal_lightup_areas = list(
-		/area/crew_quarters/heads/cmo,
-		/area/medical/apothecary,
-		/area/medical/chemistry,
-		/area/medical/genetics,
-		/area/medical/morgue,
-		/area/medical/surgery,
-		/area/storage/eva
+		/area/station/command/heads_quarters/cmo,
+		/area/station/medical/pharmacy,
+		/area/station/medical/chemistry,
+		/area/station/medical/genetics,
+		/area/station/medical/morgue,
+		/area/station/medical/surgery,
+		/area/station/ai_monitored/command/storage/eva
 	)
 
 	manuscript_jobs = list(

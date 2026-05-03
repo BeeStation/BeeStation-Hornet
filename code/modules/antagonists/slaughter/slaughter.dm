@@ -22,7 +22,7 @@
 	status_flags = CANPUSH
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	var/feast_sound = 'sound/magic/demon_consume.ogg'
-	deathsound = 'sound/magic/demon_dies.ogg'
+	death_sound = 'sound/magic/demon_dies.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -54,7 +54,7 @@
 	var/list/consumed_mobs = list()
 	del_on_death = TRUE
 	var/crawl_type = /datum/action/spell/jaunt/bloodcrawl/slaughter_demon
-	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
+	death_message = "screams in anger as it collapses into a puddle of viscera!"
 	discovery_points = 3000
 
 	var/revive_eject = FALSE
@@ -160,13 +160,13 @@
 
 	attack_sound = 'sound/items/bikehorn.ogg'
 	feast_sound = 'sound/spookoween/scary_horn2.ogg'
-	deathsound = 'sound/misc/sadtrombone.ogg'
+	death_sound = 'sound/misc/sadtrombone.ogg'
 
 	icon_state = "honkmon"
 	icon_living = "honkmon"
-	deathmessage = "fades out, as all of its friends are released from its \
+	death_message = "fades out, as all of its friends are released from its \
 		prison of hugs."
-	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
+	loot = list(/mob/living/basic/pet/cat/kitten{name = "Laughter"})
 	crawl_type = /datum/action/spell/jaunt/bloodcrawl/slaughter_demon/funny
 
 	playstyle_string = span_bigbold("You are a laughter demon") + "\

@@ -9,15 +9,15 @@
  */
 /atom/movable/proc/point_at(atom/pointed_atom, params = "" as text, mob/M)
 	if(!isturf(loc))
-		return
+		return FALSE
 
 	if (pointed_atom in src)
 		create_point_bubble(pointed_atom)
-		return
+		return FALSE
 
 	var/turf/tile = get_turf(pointed_atom)
 	if (!tile)
-		return
+		return FALSE
 
 	var/turf/our_tile = get_turf(src)
 	var/obj/visual = new /obj/effect/temp_visual/point(our_tile, invisibility)
@@ -28,7 +28,7 @@
 	var/list/modifiers = params2list(params)
 	if(!length(modifiers) || !LAZYACCESS(modifiers, SCREEN_LOC))
 		animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + pointed_atom.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + pointed_atom.pixel_y, time = 1.7, easing = EASE_OUT)
-		return
+		return TRUE
 	else
 		var/list/actual_view = getviewsize(M.client ? M.client.view : world.view)
 		var/list/split_coords = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
@@ -123,11 +123,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/point)
 	set category = "Object"
 	if(isnewplayer(src))
 		return FALSE
-	if(client && !(A in view(client.view, src)))
-		return FALSE
 	if(istype(A, /obj/effect/temp_visual/point))
 		return FALSE
-	if (SEND_SIGNAL(src, COMSIG_MOB_POINTED, A) & COMSIG_MOB_POINTED_CANCEL)
+
+	INVOKE_ASYNC(src, PROC_REF(_pointed), A, params)
+
+/// possibly delayed verb that finishes the pointing process starting in [/mob/verb/pointed()].
+/mob/proc/_pointed(atom/pointing_at, params)
+	if(client && !(pointing_at in view(client.view, src)))
+		return FALSE
+
+	if (SEND_SIGNAL(src, COMSIG_MOB_POINTED, pointing_at) & COMSIG_MOB_POINTED_CANCEL)
 		return
-	point_at(A, params, usr)
+
+	point_at(pointing_at, params, usr)
 	return TRUE

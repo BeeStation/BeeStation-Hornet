@@ -49,8 +49,6 @@
 	/// Associated list of all powers we have evolved / bought from the emporium. [path] = [instance of path]
 	var/list/purchased_powers = list()
 
-	/// The voice we're mimicing via the changeling voice ability.
-	var/mimicing = ""
 	/// Whether we can currently respec in the cellular emporium.
 	var/can_respec = FALSE
 
@@ -109,7 +107,7 @@
 
 /datum/antagonist/changeling/New()
 	. = ..()
-	for(var/datum/antagonist/changeling/other_ling in GLOB.antagonists)
+	for(var/datum/antagonist/changeling/other_ling in GLOB.active_antagonists)
 		if(!other_ling.owner || other_ling.owner == owner)
 			continue
 		competitive_objectives = TRUE

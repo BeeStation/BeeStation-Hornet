@@ -21,9 +21,12 @@
 /obj/effect/spawner/random/trash/cigbutt
 	name = "cigarette butt spawner"
 	loot = list(
-		/obj/item/cigbutt = 50,
-		/obj/item/cigbutt/roach = 30,
-		/obj/item/cigbutt/cigarbutt = 10,
+		/obj/item/cigbutt = 25,
+		/obj/item/cigbutt/roach = 25,
+		/obj/effect/decal/cleanable/ash = 25,
+		/obj/item/cigbutt/cigarbutt = 15,
+		/obj/item/food/candy_trash = 5,
+		/obj/item/food/candy_trash/nicotine = 5,
 	)
 
 /obj/effect/spawner/random/trash/food_packaging
@@ -120,7 +123,7 @@
 		/obj/item/reagent_containers/cup/rag = 2,
 		/obj/item/reagent_containers/cup/bucket = 2,
 		/obj/effect/decal/cleanable/blood/old = 2,
-		/obj/structure/mopbucket = 2,
+		/obj/structure/mop_bucket = 2,
 	)
 
 /obj/effect/spawner/random/trash/graffiti
@@ -164,7 +167,7 @@
 	spawn_loot_count = 2
 	spawn_loot_double = FALSE
 	loot = list(
-		/obj/structure/mopbucket = 10,
+		/obj/structure/mop_bucket = 10,
 		/obj/item/mop = 5,
 		/obj/item/clothing/suit/caution = 3,
 		/obj/item/reagent_containers/cup/bucket = 1,

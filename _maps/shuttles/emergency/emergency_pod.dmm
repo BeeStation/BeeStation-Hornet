@@ -15,7 +15,7 @@
 /area/shuttle/escape)
 "d" = (
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 "f" = (
 /obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium/blue,

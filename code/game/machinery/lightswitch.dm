@@ -113,7 +113,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 
 /obj/machinery/light_switch/tcomms
 	name = "Server Room light switch"
-	area = /area/tcommsat/server
+	area = /area/station/tcommsat/server
 
 /obj/item/wallframe/light_switch
 	name = "light switch frame"

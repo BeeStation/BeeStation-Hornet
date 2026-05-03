@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#dddddd"
 
@@ -22,13 +22,16 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_CLOWN
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Jester"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/honk
 	)
 
-	minimal_lightup_areas = list(/area/crew_quarters/theatre)
+	minimal_lightup_areas = list(
+/area/station/service/theater)
 
 	manuscript_jobs = list(
 		JOB_NAME_CLOWN,
