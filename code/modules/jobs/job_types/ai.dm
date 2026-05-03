@@ -17,7 +17,7 @@
 	random_spawns_possible = FALSE
 	allow_bureaucratic_error = FALSE
 
-	job_flags = JOB_NEW_PLAYER_JOINABLE | JOB_CANNOT_OPEN_SLOTS
+	job_flags = JOB_NEW_PLAYER_JOINABLE | JOB_EQUIP_RANK | JOB_CANNOT_OPEN_SLOTS
 	var/do_special_check = TRUE
 
 /datum/job/ai/get_access() // no point of calling parent proc
