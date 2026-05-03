@@ -11,6 +11,7 @@
  * 			-> mob._on_setting_mob_eye(camera_eye)
  * 			-> client.set_client_eye_to(camera_eye)
  * 			-> client._on_setting_client_eye(camera_eye)
+ * 		* NOTE: Do not call the procs here, except for set_client_eye_to(). This is the only proc you are ALLOWED to use.
  *
  * From calling set_mob_eye_to() AND set_client_eye_to(), the game stores the eye data into:
  * 		(from /camera_eye)
