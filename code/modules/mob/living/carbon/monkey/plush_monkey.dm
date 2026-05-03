@@ -114,6 +114,7 @@
 
 /datum/antagonist/plush_monkey
 	name = "Plush Kingdom Survivor"
+	banning_key = ROLE_TRAITOR
 	roundend_category = "Plush Kingdom Survivors"
 	antagpanel_category = "Plush Kingdom Survivors"
 	show_to_ghosts = TRUE
