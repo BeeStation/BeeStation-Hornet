@@ -1393,7 +1393,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/storage/backpack/satchel/tox,
+/obj/item/storage/backpack/satchel/science,
 /turf/open/floor/plating,
 /area/station/maintenance/department/science)
 "azz" = (
@@ -63175,7 +63175,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/purple,
 /obj/machinery/firealarm/directional/south,
 /obj/structure/table,
-/obj/item/storage/backpack/satchel/tox,
+/obj/item/storage/backpack/satchel/science,
 /obj/item/hand_labeler{
 	pixel_x = -12
 	},

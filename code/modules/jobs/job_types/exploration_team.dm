@@ -98,7 +98,7 @@
 	)
 
 	backpack = /obj/item/storage/backpack/science
-	satchel = /obj/item/storage/backpack/satchel/tox
+	satchel = /obj/item/storage/backpack/satchel/science
 
 /datum/outfit/job/exploration_crew/medic
 	name = "Exploration Crew (Medical Doctor)"

@@ -69,7 +69,7 @@
 	r_pocket = /obj/item/discovery_scanner
 
 	backpack = /obj/item/storage/backpack/science
-	satchel = /obj/item/storage/backpack/satchel/tox
+	satchel = /obj/item/storage/backpack/satchel/science
 	duffelbag = /obj/item/storage/backpack/duffelbag/science
 
 /datum/outfit/job/scientist/pre_equip(mob/living/carbon/human/H)

@@ -74,7 +74,7 @@
 	backpack_contents = list(/obj/item/melee/baton/telescopic=1)
 
 	backpack = /obj/item/storage/backpack/science
-	satchel = /obj/item/storage/backpack/satchel/tox
+	satchel = /obj/item/storage/backpack/satchel/science
 	duffelbag = /obj/item/storage/backpack/duffelbag/science
 
 	chameleon_extras = /obj/item/stamp/research_director

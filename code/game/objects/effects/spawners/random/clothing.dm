@@ -138,7 +138,7 @@
 		/obj/item/storage/backpack/satchel/vir,
 		/obj/item/storage/backpack/satchel/chem,
 		/obj/item/storage/backpack/satchel/gen,
-		/obj/item/storage/backpack/satchel/tox,
+		/obj/item/storage/backpack/satchel/science,
 		/obj/item/storage/backpack/satchel/hyd,
 		/obj/item/storage/backpack/satchel/sec,
 		/obj/item/storage/backpack/satchel/explorer,
