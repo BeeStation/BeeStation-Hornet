@@ -33,6 +33,15 @@
 /// Sets mob eye to themselves. This exists because set_mob_eye_to(src) is a bad idea. MOB_EYE_SELF will redirect to call 'get_my_eye()' which indicates the true themselves. (i.e. Dullahan's view is not src. Their view is /obj/head.)
 #define MOB_EYE_SELF "mob_eye_self"
 
+
+
+
+
+// -----------------------------------------------------------------------------
+// From this section, these exist to warn people when they use deprecated system.
+// If things are warning you, it means you've been doing something wrong, and you'd need to read what's wrong from below.
+
+
 // a janky code that restricts you using these DM flags. No, you shouldn't use these.
 #define MOB_PERSPECTIVE __do_not_use_this__use_EYE_PERSPECTIVE() //! MOB_PERSPECTIVE is not used in this codebase. Please use "EYE_PERSPECTIVE"
 #define EDGE_PERSPECTIVE __do_not_use_this__use_EYE_PERSPECTIVE() //! EDGE_PERSPECTIVE is not used in this codebase. Please use "EYE_PERSPECTIVE"
