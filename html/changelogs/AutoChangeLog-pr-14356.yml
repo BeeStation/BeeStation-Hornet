@@ -1,0 +1,6 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: Fixed it not being possible for maploaded SMESes to start empty
+  - bugfix: Fixed several SMESes starting with power when they shouldn't have (disconnected
+      part of the lavaland outpost)
