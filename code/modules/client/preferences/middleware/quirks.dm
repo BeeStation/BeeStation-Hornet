@@ -41,7 +41,9 @@
 			"icon" = initial(quirk.icon),
 			"name" = quirk_name,
 			"value" = initial(quirk.quirk_value),
-			"path" = quirk
+			"path" = quirk,
+			"species_whitelist" = initial(quirk.species_whitelist),
+			"restricted_species" = get_quirk_species_ids(quirk),
 		)
 
 	return list(
@@ -55,6 +57,12 @@
 
 /datum/preference_middleware/quirks/proc/give_quirk(list/params, mob/user)
 	var/quirk_name = params["quirk"]
+
+	var/list/all_quirks = SSquirks.get_quirks()
+	var/datum/quirk/quirk = all_quirks[quirk_name]
+	if (!isnull(quirk) && !is_quirk_valid_for_species(quirk, preferences.read_character_preference(/datum/preference/choiced/species)))
+		preferences.update_static_data(user)
+		return TRUE
 
 	var/list/new_quirks = preferences.all_quirks | quirk_name
 	if (SSquirks.filter_invalid_quirks(new_quirks) != new_quirks)
@@ -93,3 +101,21 @@
 		selected_quirks += sanitize_css_class_name(quirk)
 
 	return selected_quirks
+
+/datum/preference_middleware/quirks/proc/is_quirk_valid_for_species(datum/quirk/quirk, species_type)
+	var/restricted_id = initial(quirk.pref_restricted_species_id)
+	if (!restricted_id)
+		return TRUE
+	var/whitelist = initial(quirk.species_whitelist)
+	var/datum/species/species_instance = GLOB.species_prototypes[species_type]
+	if (!species_instance)
+		return TRUE
+	var/is_match = (species_instance.id == restricted_id)
+	return whitelist ? is_match : !is_match
+
+/datum/preference_middleware/quirks/proc/get_quirk_species_ids(datum/quirk/quirk)
+	var/restricted_id = initial(quirk.pref_restricted_species_id)
+	if (!restricted_id)
+		return null
+	return list(restricted_id)
+q

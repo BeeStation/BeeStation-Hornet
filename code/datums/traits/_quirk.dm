@@ -12,6 +12,7 @@
 	var/list/restricted_mobtypes = list(/mob/living/carbon/human) //specifies valid mobtypes, have a good reason to change this
 	var/list/restricted_species //specifies valid species, use /datum/species/
 	var/species_whitelist = TRUE //whether restricted_species is a whitelist or a blacklist
+	var/pref_restricted_species_id //determines which species can see this quirk in the preferences menu.
 	var/gain_text
 	var/lose_text
 	var/medical_record_text //This text will appear on medical records for the quirk.

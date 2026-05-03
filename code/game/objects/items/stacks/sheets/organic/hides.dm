@@ -101,7 +101,15 @@
 	singular_name = "lizard hide"
 	icon_state = "sheet-lizard"
 	inhand_icon_state = "sheet-lizard"
+	color = "#5a8a3c"
 	merge_type = /obj/item/stack/sheet/animalhide/lizard
+
+/* Shed lizard Skin - dropped by lizards with the Shedding quirk */
+
+/obj/item/stack/sheet/animalhide/lizard/shed_lizard_skin
+	name = "shed lizard skin"
+	desc = "A dry, paper like piece of lizard skin. You can almost tell who shed this from the shape of the scales."
+	amount = 1
 
 /* Xeno hide */
 

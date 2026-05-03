@@ -90,13 +90,16 @@
 	var/turf/T = H.loc
 	light_amount = min(1,T.get_lumcount()) - 0.5
 	H.adjust_nutrition(light_amount * 7)
-	if(light_amount > 0.2) //Is there light here?
-		time_spent_in_light++  //If so, how long have we been somewhere with light?
-		if(time_spent_in_light > 5) //More than 5 seconds spent in the light
-			if(H.stat != CONSCIOUS)
-				H.remove_status_effect(/datum/status_effect/planthealing)
-				return
-			H.apply_status_effect(/datum/status_effect/planthealing)
+	if(light_amount > 0.2)
+		if(H.has_quirk(/datum/quirk/shadowsynthesis)) // Shadowsynthesis replaces light healing with dark healing
+			time_spent_in_light = 0
+		else
+			time_spent_in_light++
+			if(time_spent_in_light > 5) // 5 seconds in light starts healing.
+				if(H.stat != CONSCIOUS)
+					H.remove_status_effect(/datum/status_effect/planthealing)
+					return
+				H.apply_status_effect(/datum/status_effect/planthealing)
 
 /datum/species/diona/spec_updatehealth(mob/living/carbon/human/H)
 	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()

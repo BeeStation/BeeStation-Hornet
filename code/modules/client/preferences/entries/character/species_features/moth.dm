@@ -100,3 +100,17 @@
 /datum/preference/choiced/moth_wings/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["moth_wings"] = value
 
+/datum/preference/toggle/moth_burnt_wings
+	db_key = "feature_moth_burnt_wings"
+	preference_type = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	default_value = FALSE
+	relevant_mutant_bodypart = "moth_wings"
+	can_randomize = FALSE
+
+/datum/preference/toggle/moth_burnt_wings/apply_to_human(mob/living/carbon/human/target, value)
+	if(value)
+		ADD_TRAIT(target, TRAIT_MOTH_BURNT, "fire")
+	else
+		REMOVE_TRAIT(target, TRAIT_MOTH_BURNT, "fire")
+
