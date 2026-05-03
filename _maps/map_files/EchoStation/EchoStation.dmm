@@ -19441,7 +19441,9 @@
 	pixel_y = 14
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/smes/engineering{
+	name = "ai power storage unit"
+	},
 /turf/open/floor/circuit/red,
 /area/station/ai_monitored/turret_protected/ai)
 "lVJ" = (
