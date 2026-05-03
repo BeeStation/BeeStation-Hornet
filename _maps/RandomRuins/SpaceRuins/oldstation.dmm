@@ -3014,6 +3014,7 @@
 /obj/item/stack/sheet/iron/fifty,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/mineral/copper/fifty,
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/delta/rnd)
 "of" = (
