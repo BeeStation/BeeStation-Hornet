@@ -150,6 +150,7 @@
 
 /datum/antagonist/plush_king
 	name = "Plush Emperor"
+	banning_key = ROLE_TRAITOR
 	roundend_category = "Plush Kingdom Royalty"
 	antagpanel_category = "Plush Kingdom Royalty"
 	show_to_ghosts = TRUE
