@@ -619,7 +619,7 @@ SUBSYSTEM_DEF(job)
 		mind?.account_id = bank_account.account_id
 		player_client.mob.add_memory("Your account ID is [mind?.account_id].")
 
-	return dress_up_as_job(job = equipping, visual_only = FALSE, player_client = player_client, joined_late = joined_late)
+	. = dress_up_as_job(job = equipping, visual_only = FALSE, player_client = player_client, joined_late = joined_late)
 
 	if(EMERGENCY_PAST_POINT_OF_NO_RETURN && prob(VERY_LATE_ARRIVAL_TOAST_PROB))
 		equip_to_slot_or_del(new /obj/item/food/griddle_toast(src), ITEM_SLOT_MASK)
