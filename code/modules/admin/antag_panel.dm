@@ -1,4 +1,4 @@
-GLOBAL_VAR(antag_prototypes)
+GLOBAL_LIST_EMPTY(antag_prototypes)
 
 //Things to do somewhere in the future (If you're reading this feel free to do any of these)
 //Add HrefTokens to these

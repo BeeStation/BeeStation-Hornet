@@ -122,7 +122,8 @@
 	if(client && hud_used.hud_shown)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(slot) + 1]
 		inv.update_icon()
-		client.screen += U
+		if(U)
+			client.screen += U
 
 	if(U)
 		U.screen_loc = ui

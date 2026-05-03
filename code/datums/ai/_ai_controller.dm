@@ -105,7 +105,7 @@ multiple modular subtrees with behaviors
 	movement_target_source = source
 	current_movement_target = target
 	if(!isnull(current_movement_target))
-		RegisterSignal(current_movement_target, COMSIG_MOVABLE_MOVED, PROC_REF(on_movement_target_move))
+		RegisterSignal(current_movement_target, COMSIG_MOVABLE_MOVED, PROC_REF(on_movement_target_move), override = TRUE)
 		RegisterSignal(current_movement_target, COMSIG_PREQDELETED, PROC_REF(on_movement_target_delete))
 	if(new_movement)
 		change_ai_movement_type(new_movement)
