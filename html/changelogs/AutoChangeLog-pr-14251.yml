@@ -1,6 +1,0 @@
-author: rkz, Ebin-Halcyon
-delete-after: true
-changes:
-  - rscadd: moths can now set mutcolors
-  - rscadd: moth bodyparts use new greyscale sprites
-  - rscadd: adds new moth eye option, and makes it a preference
