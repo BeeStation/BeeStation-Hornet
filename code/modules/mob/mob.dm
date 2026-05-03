@@ -566,8 +566,10 @@
 	var/atom/old_eye = current_mob_eye
 
 	_on_setting_mob_eye(new_eye, old_eye)
-	// SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE, new_eye, old_eye) // wrong signal name
+	// SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE, new_eye, old_eye)
+	// ^DO NOT USE^ : This exists to warn people that they shouldn't use this. Instead, use COMSIG_MOB_SET_MOB_EYE
 	SEND_SIGNAL(src, COMSIG_MOB_SET_MOB_EYE, new_eye, old_eye)
+
 	return TRUE
 
 /// internal usage only proc
