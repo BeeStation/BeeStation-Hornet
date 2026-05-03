@@ -3468,7 +3468,6 @@
 "cuu" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
 	dir = 4;
-	chamber_id = "n2o";
 	name = "Nitrous Oxide Chamber Injector"
 	},
 /turf/open/floor/engine/n2o,
@@ -6485,8 +6484,7 @@
 /area/station/maintenance/disposal/incinerator)
 "egM" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
-	name = "Nitrogen Chamber Injector";
-	chamber_id = "n2"
+	name = "Nitrogen Chamber Injector"
 	},
 /turf/open/floor/engine/n2,
 /area/station/engineering/atmos)
@@ -8651,7 +8649,6 @@
 /area/station/service/library/abandoned)
 "fpJ" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
-	chamber_id = "o2";
 	name = "Oxygen Chamber Injector"
 	},
 /turf/open/floor/engine/o2,
@@ -14424,7 +14421,6 @@
 "iSa" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
 	dir = 4;
-	chamber_id = "plasma";
 	name = "Plasma Chamber Injector"
 	},
 /turf/open/floor/engine/plasma,
@@ -14808,7 +14804,6 @@
 /area/station/engineering/main)
 "jbq" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer2{
-	chamber_id = "air";
 	name = "Air Chamber Injector"
 	},
 /turf/open/floor/engine/air,
@@ -17804,7 +17799,6 @@
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "kVz" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
-	chamber_id = "co2";
 	name = "Carbon Dioxide Chamber Injector"
 	},
 /turf/open/floor/engine/co2,

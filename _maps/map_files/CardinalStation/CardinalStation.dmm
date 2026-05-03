@@ -9689,8 +9689,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/toxins_burn_chamber_input{
-	dir = 8;
-	chamber_id = "toxinsburn2"
+	dir = 8
 	},
 /turf/open/floor/engine,
 /area/station/science/mixing/chamber)
