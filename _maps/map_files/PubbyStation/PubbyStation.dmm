@@ -1968,8 +1968,8 @@
 /area/station/security/detectives_office/private_investigators_office)
 "aGN" = (
 /obj/structure/table,
-/obj/item/pen,
 /obj/item/paper_bin,
+/obj/item/pen,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
