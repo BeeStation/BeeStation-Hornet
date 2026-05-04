@@ -26,7 +26,10 @@ type SurgeryInitiatorInnerState = {
   selectedSurgeryIndex: number;
 };
 
-class SurgeryInitiatorInner extends Component<SurgeryInitiatorData, SurgeryInitiatorInnerState> {
+class SurgeryInitiatorInner extends Component<
+  SurgeryInitiatorData,
+  SurgeryInitiatorInnerState
+> {
   state = {
     selectedSurgeryIndex: 0,
   };
@@ -48,7 +51,9 @@ class SurgeryInitiatorInner extends Component<SurgeryInitiatorData, SurgeryIniti
   }
 
   findSelectedSurgeryAfter(after: number): number | undefined {
-    const foundIndex = this.props.surgeries.findIndex((surgery, index) => index > after && !surgery.blocked);
+    const foundIndex = this.props.surgeries.findIndex(
+      (surgery, index) => index > after && !surgery.blocked,
+    );
 
     return foundIndex === -1 ? undefined : foundIndex;
   }
@@ -73,7 +78,10 @@ class SurgeryInitiatorInner extends Component<SurgeryInitiatorData, SurgeryIniti
         <Window.Content>
           <Stack fill height="100%">
             <Stack.Item width="30%">
-              <BodyZoneSelector onClick={(zone) => act('change_zone', { new_zone: zone })} selectedZone={selected_zone} />
+              <BodyZoneSelector
+                onClick={(zone) => act('change_zone', { new_zone: zone })}
+                selectedZone={selected_zone}
+              />
             </Stack.Item>
 
             <Stack.Item width="95%">
@@ -87,9 +95,12 @@ class SurgeryInitiatorInner extends Component<SurgeryInitiatorData, SurgeryIniti
                     }}
                     disabled={surgery.blocked}
                     selected={index === this.state.selectedSurgeryIndex}
-                    tooltip={surgery.blocked ? 'Their body is covered!' : undefined}
+                    tooltip={
+                      surgery.blocked ? 'Their body is covered!' : undefined
+                    }
                     key={surgery.name}
-                    fluid>
+                    fluid
+                  >
                     {surgery.name}
                   </Button>
                 ))}
@@ -107,7 +118,11 @@ class SurgeryInitiatorInner extends Component<SurgeryInitiatorData, SurgeryIniti
                   this.setState((state) => {
                     return {
                       selectedSurgeryIndex:
-                        this.findSelectedSurgeryAfter(state.selectedSurgeryIndex) || this.findSelectedSurgeryAfter(-1) || 0,
+                        this.findSelectedSurgeryAfter(
+                          state.selectedSurgeryIndex,
+                        ) ||
+                        this.findSelectedSurgeryAfter(-1) ||
+                        0,
                     };
                   });
 
@@ -116,8 +131,12 @@ class SurgeryInitiatorInner extends Component<SurgeryInitiatorData, SurgeryIniti
                   this.setState((state) => {
                     return {
                       selectedSurgeryIndex:
-                        this.findSelectedSurgeryBefore(state.selectedSurgeryIndex - 1) ??
-                        this.findSelectedSurgeryBefore(this.props.surgeries.length - 1) ??
+                        this.findSelectedSurgeryBefore(
+                          state.selectedSurgeryIndex - 1,
+                        ) ??
+                        this.findSelectedSurgeryBefore(
+                          this.props.surgeries.length - 1,
+                        ) ??
                         0,
                     };
                   });
