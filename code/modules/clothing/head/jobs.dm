@@ -619,7 +619,7 @@
 
 /obj/item/clothing/head/utility/surgerycap/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use in hand to [flags_inv & HIDEHAIR ? "loosen" : "tighten"] the strings.</span>"
+	. += span_notice("Use in hand to [flags_inv & HIDEHAIR ? "loosen" : "tighten"] the strings.")
 
 /obj/item/clothing/head/utility/surgerycap/purple
 	name = "burgundy surgery cap"
