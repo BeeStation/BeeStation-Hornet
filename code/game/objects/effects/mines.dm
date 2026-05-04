@@ -302,8 +302,8 @@
 /obj/effect/mine/pickup
 	name = "pickup"
 	desc = "pick me up"
-	icon = 'icons/effects/effects.dmi'
-	icon_state = "electricity2"
+	icon = 'icons/effects/anomalies.dmi'
+	icon_state = "flux"
 	density = FALSE
 	var/duration = 0
 

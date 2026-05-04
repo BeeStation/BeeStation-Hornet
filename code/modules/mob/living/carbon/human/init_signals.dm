@@ -8,12 +8,12 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_TOXIMMUNE), PROC_REF(on_toximmune_trait_gain))
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_GENELESS), PROC_REF(on_geneless_trait_gain))
 
-	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_UNKNOWN), SIGNAL_REMOVETRAIT(TRAIT_UNKNOWN)), PROC_REF(on_unknown_trait))
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_UNKNOWN_APPEARANCE), SIGNAL_REMOVETRAIT(TRAIT_UNKNOWN_APPEARANCE)), PROC_REF(on_unknown_appearance_trait))
 
 	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_FAT), SIGNAL_REMOVETRAIT(TRAIT_FAT)), PROC_REF(on_fat))
 
-/// Gaining or losing [TRAIT_UNKNOWN] updates our name and our sechud
-/mob/living/carbon/human/proc/on_unknown_trait(datum/source)
+/// Gaining or losing [TRAIT_UNKNOWN_APPEARANCE] updates our name and our sechud
+/mob/living/carbon/human/proc/on_unknown_appearance_trait(datum/source)
 	SIGNAL_HANDLER
 
 	name = get_visible_name()

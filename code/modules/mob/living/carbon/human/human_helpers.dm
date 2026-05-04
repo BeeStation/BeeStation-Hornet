@@ -7,7 +7,7 @@
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_assignment(if_no_id = "No id", if_no_job = "No job", hand_first = TRUE)
 	var/obj/item/card/id/id = get_idcard(hand_first)
-	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
 		return if_no_id
 	if(id)
 		. = id.assignment
@@ -24,7 +24,7 @@
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_authentification_name(if_no_id = "Unknown")
 	var/obj/item/card/id/id = get_idcard(FALSE)
-	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
 		return if_no_id
 	if(id)
 		return id.registered_name
@@ -52,7 +52,7 @@
 		return "[real_name][disguse_name == real_name ? "" : " (as [disguse_name])"]"
 
 	// We're just some unknown guy
-	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
 		return "Unknown"
 
 	// We have a face and an ID
@@ -68,7 +68,7 @@
 
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when Fluacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name(if_no_face="Unknown")
-	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
 		return if_no_face //We're Unknown, no face information for you
 	if( wear_mask && (wear_mask.flags_inv&HIDEFACE) )	//Wearing a mask which hides our face, use id-name if possible
 		return if_no_face
@@ -87,7 +87,7 @@
 	var/obj/item/card/id/id = wear_id
 	var/list/identity = list(null, null, null)
 	SEND_SIGNAL(src, COMSIG_HUMAN_GET_FORCED_NAME, identity)
-	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
 		. = if_no_id //You get NOTHING, no id name, good day sir
 		if(identity[VISIBLE_NAME_FORCED])
 			. = identity[VISIBLE_NAME_FACE] // to return forced names when unknown, instead of ID

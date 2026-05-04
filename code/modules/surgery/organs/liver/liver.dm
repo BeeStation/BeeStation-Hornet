@@ -186,7 +186,10 @@
 	toxTolerance = -1
 
 /obj/item/organ/liver/cybernetic/tier2/ipc/emp_act(severity)
-	if(prob(30/severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	if(prob(30 / severity))
 		to_chat(owner, span_warning("Alert: Your Substance Processor has been damaged. An internal chemical leak is affecting performance."))
 		owner.adjustToxLoss(8/severity)
 

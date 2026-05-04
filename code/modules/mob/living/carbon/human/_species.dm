@@ -172,7 +172,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// What bleed status effect should we apply?
 	var/bleed_effect = /datum/status_effect/bleeding
 
-	/// Do we try to prevent reset_perspective() from working?
+	/// Do we try to prevent set_mob_eye_to(MOB_EYE_SELF) from working?
 	var/prevent_perspective_change = FALSE
 
 	//Should we preload this species's organs?
@@ -742,7 +742,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(!E)
 				eye_overlay = mutable_appearance('icons/mob/human/human_face.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 			else
-				eye_overlay = mutable_appearance('icons/mob/human/human_face.dmi', E.eye_icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+				eye_overlay = mutable_appearance(E.eye_icon, E.eye_icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 			if((EYECOLOR in species_traits) && E)
 				eye_overlay.color = H.eye_color
 			if(OFFSET_FACE in H.dna.species.offset_features)
@@ -1100,6 +1100,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if (S.emissive_state)
 				accessory_overlay.overlays.Add(emissive_appearance(S.icon, S.emissive_state, CALCULATE_MOB_OVERLAY_LAYER(layer), S.emissive_alpha, filters = H.filters))
 				ADD_LUM_SOURCE(H, LUM_SOURCE_MUTANT_BODYPART)
+
+			accessory_overlay.alpha = S.overlay_alpha
 
 			//A little rename so we don't have to use tail_lizard or tail_human when naming the sprites.
 			if(bodypart == "tail_lizard" || bodypart == "tail_human")

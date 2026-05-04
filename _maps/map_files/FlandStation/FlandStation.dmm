@@ -5631,7 +5631,7 @@
 /area/station/maintenance/starboard/aft)
 "bLV" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
@@ -8943,7 +8943,7 @@
 /area/station/science/research)
 "cGw" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/pipe,
+/obj/item/cigarette/pipe,
 /turf/open/floor/carpet,
 /area/station/service/bar/atrium)
 "cGy" = (
@@ -10123,7 +10123,7 @@
 /area/station/hallway/primary/starboard)
 "cXa" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /obj/structure/cable/yellow,
 /turf/open/floor/carpet,
 /area/station/service/bar/atrium)
@@ -13312,7 +13312,7 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /obj/item/reagent_containers/cup/glass/flask/gold,
 /turf/open/floor/carpet/royalblue,
 /area/station/command/heads_quarters/captain/private)
@@ -16446,10 +16446,8 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk/over,
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/orange,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
@@ -16843,11 +16841,11 @@
 	dir = 1;
 	pixel_y = -29
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 3
 	},
-/obj/item/clothing/mask/cigarette/cigar,
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar,
+/obj/item/cigarette/cigar/havana{
 	pixel_x = -3
 	},
 /obj/machinery/light/small,
@@ -17509,10 +17507,8 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
 "fkF" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/orange,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/plating,
 /area/drydock)
 "fkG" = (
@@ -30861,13 +30857,13 @@
 /area/station/command/heads_quarters/chief)
 "jcM" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 3
 	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar/havana{
 	pixel_x = -3
 	},
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /obj/machinery/button/door{
 	id = "heads_meeting";
 	name = "Security Shutters";
@@ -31301,10 +31297,8 @@
 /area/station/maintenance/department/medical)
 "jif" = (
 /obj/effect/turf_decal/stripes/full,
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark,
 /area/station/engineering/gravity_generator)
 "jik" = (
@@ -33927,14 +33921,14 @@
 /area/station/medical/medbay/central)
 "jUU" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar/havana{
 	pixel_x = -3
 	},
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold{
 	pixel_x = 8;
 	pixel_y = 8
 	},
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /obj/item/lighter,
 /obj/item/book/manual/wiki/detective{
 	pixel_x = 7;
@@ -37570,12 +37564,10 @@
 /turf/closed/wall/r_wall,
 /area/station/command/heads_quarters/cmo)
 "kTr" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/effect/turf_decal/stripes/box,
 /obj/effect/turf_decal/stripes/red/box,
 /obj/structure/cable,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "kTx" = (
@@ -37928,9 +37920,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/circuit/red,
 /area/station/ai_monitored/turret_protected/ai)
 "kYE" = (
@@ -45052,7 +45042,7 @@
 	pixel_y = 4
 	},
 /obj/item/folder/yellow,
-/obj/item/clothing/mask/cigarette/cigar/cohiba,
+/obj/item/cigarette/cigar/cohiba,
 /obj/item/lighter,
 /obj/effect/turf_decal/bot,
 /obj/item/phone{
@@ -55243,9 +55233,7 @@
 /obj/structure/sign/warning/electric_shock{
 	pixel_x = 32
 	},
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/tech/grid,
 /area/station/ai_monitored/turret_protected/ai_upload_foyer)
 "qic" = (
@@ -71526,10 +71514,8 @@
 /turf/open/floor/iron/techmaint,
 /area/station/service/chapel/office)
 "vch" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/orange,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/plating,
 /area/drydock/security)
 "vco" = (
@@ -80725,11 +80711,9 @@
 /turf/open/floor/iron/grid/steel,
 /area/station/science/research)
 "xNU" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/machinery/camera/directional/east,
 /obj/structure/cable/orange,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/engine{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
@@ -81471,13 +81455,13 @@
 /area/station/maintenance/disposal)
 "xZE" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 6
 	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar/havana{
 	pixel_x = 2
 	},
-/obj/item/clothing/mask/cigarette/cigar{
+/obj/item/cigarette/cigar{
 	pixel_x = 4.5
 	},
 /obj/item/phone{

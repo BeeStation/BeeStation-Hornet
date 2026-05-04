@@ -1623,8 +1623,10 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	refresh_gravity()
 	. = ..()
 	if(.)
-		if(client)
-			reset_perspective()
+		if(isturf(destination))
+			set_mob_eye_to(MOB_EYE_SELF)
+		else
+			set_mob_eye_to(destination)
 
 
 /mob/living/set_stat(new_stat)
@@ -1821,16 +1823,21 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		result += static_virus
 	return result
 
-/mob/living/reset_perspective(atom/A)
-	if(!..())
-		return
+/mob/living/set_mob_eye_to(atom/A)
+	. = ..()
+	update_eye_features()
+
+/mob/proc/update_eye_features()
 	update_sight()
+
+/mob/living/update_eye_features()
+	..()
 	update_fullscreen()
 	update_pipe_vision()
 
-/// Proc used to handle the fullscreen overlay updates, realistically meant for the reset_perspective() proc.
+/// Proc used to handle the fullscreen overlay updates, realistically meant for the set_mob_eye_to(MOB_EYE_SELF) proc.
 /mob/living/proc/update_fullscreen()
-	if(client.eye && client.eye != src)
+	if(client?.eye && client.eye != src)
 		var/atom/client_eye = client.eye
 		client_eye.get_remote_view_fullscreens(src)
 	else

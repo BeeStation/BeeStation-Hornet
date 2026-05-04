@@ -6688,10 +6688,8 @@
 /area/station/science/robotics)
 "cvL" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/power/smes{
-	charge = 2e+007
-	},
 /obj/structure/cable,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/circuit/telecomms/mainframe{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
@@ -30054,7 +30052,7 @@
 /obj/structure/closet/crate/hydroponics,
 /obj/item/clothing/head/utility/beekeeper_head,
 /obj/item/clothing/suit/utility/beekeeper_suit,
-/obj/item/clothing/mask/vape,
+/obj/item/vape,
 /turf/open/floor/iron/grid/steel,
 /area/station/service/hydroponics)
 "luP" = (
@@ -33191,10 +33189,8 @@
 /area/station/maintenance/department/security)
 "mAL" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/yellow,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/ai_monitored/turret_protected/ai)
 "mAM" = (
@@ -49477,10 +49473,8 @@
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
-/obj/machinery/power/smes{
-	charge = 2e+007
-	},
 /obj/structure/cable,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/tech/grid,
 /area/station/engineering/gravity_generator)
 "sHt" = (
@@ -52742,9 +52736,7 @@
 /area/station/medical/genetics)
 "tNk" = (
 /obj/structure/cable/orange,
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/plating,
 /area/station/ai_monitored/turret_protected/aisat/atmos)
 "tNz" = (

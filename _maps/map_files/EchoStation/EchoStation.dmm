@@ -6601,7 +6601,7 @@
 	},
 /obj/item/clothing/head/utility/beekeeper_head,
 /obj/item/clothing/suit/utility/beekeeper_suit,
-/obj/item/clothing/mask/vape,
+/obj/item/vape,
 /turf/open/floor/plating,
 /area/station/maintenance/department/crew_quarters/bar)
 "ekB" = (
@@ -7156,7 +7156,7 @@
 /obj/item/folder/red{
 	pixel_y = 3
 	},
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /turf/open/floor/iron,
 /area/station/command/bridge)
 "eyw" = (
@@ -19430,10 +19430,6 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/science/xenobiology)
 "lVz" = (
-/obj/machinery/power/smes{
-	charge = 5e+006;
-	name = "ai power storage unit"
-	},
 /obj/machinery/flasher{
 	id = "AI";
 	name = "Meatbag Pacifier";
@@ -19445,6 +19441,9 @@
 	pixel_y = 14
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/power/smes/engineering{
+	name = "ai power storage unit"
+	},
 /turf/open/floor/circuit/red,
 /area/station/ai_monitored/turret_protected/ai)
 "lVJ" = (
@@ -28584,7 +28583,7 @@
 	pixel_x = 5;
 	pixel_y = 16
 	},
-/obj/item/clothing/mask/cigarette/cigar{
+/obj/item/cigarette/cigar{
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -30958,6 +30957,10 @@
 	dir = 4
 	},
 /area/station/hallway/primary/aft)
+"sPE" = (
+/obj/machinery/power/smes/engineering,
+/turf/closed/indestructible/rock/bedrock,
+/area/paradise)
 "sPX" = (
 /obj/machinery/door/morgue{
 	name = "Confession Booth"
@@ -38354,11 +38357,9 @@
 /turf/open/floor/iron,
 /area/station/science/research)
 "xgN" = (
-/obj/machinery/power/smes{
-	charge = 2e+007
-	},
 /obj/structure/cable,
 /obj/machinery/camera/directional/east,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark/telecomms{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
@@ -41109,7 +41110,7 @@ qdb
 qdb
 qdb
 qdb
-qdb
+sPE
 qdb
 mGR
 mGR

@@ -137,7 +137,7 @@
 	if(current_integrity == max_integrity)
 		playsound(item_parent, 'sound/machines/ding.ogg', 50, TRUE)
 
-/datum/component/shielded/proc/emp_destruction(datum/source, severity)
+/datum/component/shielded/proc/emp_destruction(datum/source, severity, protection)
 	SIGNAL_HANDLER
 	if (!current_integrity)
 		return

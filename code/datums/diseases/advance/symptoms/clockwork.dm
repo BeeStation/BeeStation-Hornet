@@ -254,6 +254,9 @@
 	organ_flags = ORGAN_ROBOTIC
 
 /obj/item/organ/stomach/clockwork/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 	owner.adjust_nutrition(-200/severity)
 
 /obj/item/organ/tongue/robot/clockwork
@@ -276,6 +279,9 @@
 	var/robust //Set to true if the robustbits causes brain replacement. Because holy fuck is the CLANG CLANG CLANG CLANG annoying
 
 /obj/item/organ/brain/clockwork/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 	switch(severity)
 		if(1)
 			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 75)

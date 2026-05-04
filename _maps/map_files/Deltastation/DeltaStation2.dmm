@@ -3266,10 +3266,8 @@
 /area/station/maintenance/starboard)
 "bmN" = (
 /obj/structure/cable/yellow,
-/obj/machinery/power/smes{
-	charge = 2e+006
-	},
 /obj/machinery/incident_display/delam/directional/south,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/circuit/green,
 /area/station/engineering/atmospherics_engine)
 "bmT" = (
@@ -5931,11 +5929,11 @@
 /obj/structure/table/wood,
 /obj/item/storage/photo_album,
 /obj/item/camera,
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar/havana{
 	pixel_x = -3
 	},
-/obj/item/clothing/mask/cigarette/cigar,
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar,
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 3
 	},
 /turf/open/floor/wood,
@@ -17110,7 +17108,7 @@
 /area/station/security/brig)
 "fXS" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/pipe,
+/obj/item/cigarette/pipe,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/station/service/bar/atrium)
@@ -17497,13 +17495,13 @@
 /area/station/science/test_area)
 "gen" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 3
 	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar/havana{
 	pixel_x = -3
 	},
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /obj/item/clothing/glasses/hud/security/sunglasses,
 /obj/item/reagent_containers/cup/glass/flask/det,
 /turf/open/floor/carpet/red,
@@ -18788,13 +18786,13 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 6
 	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar/havana{
 	pixel_x = 2
 	},
-/obj/item/clothing/mask/cigarette/cigar{
+/obj/item/cigarette/cigar{
 	pixel_x = 4.5
 	},
 /turf/open/floor/carpet/red,
@@ -24999,13 +24997,11 @@
 /turf/open/floor/iron/dark,
 /area/station/security/courtroom)
 "iiG" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/telecomms,
 /area/station/tcommsat/server)
 "iiI" = (
@@ -27381,9 +27377,6 @@
 /turf/open/floor/iron,
 /area/station/maintenance/port/fore)
 "iXj" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/yellow,
 /obj/machinery/light{
 	dir = 1
@@ -27394,6 +27387,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/plating,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "iXk" = (
@@ -31392,9 +31386,6 @@
 /turf/open/floor/plating,
 /area/station/engineering/main)
 "keZ" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
@@ -31404,6 +31395,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai)
 "kfa" = (
@@ -42647,11 +42639,9 @@
 /obj/structure/sign/warning/no_smoking{
 	pixel_x = 32
 	},
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmospherics_engine)
 "nzL" = (
@@ -44825,9 +44815,6 @@
 "ofW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/sign/nanotrasen{
 	pixel_y = 32
 	},
@@ -44836,6 +44823,7 @@
 	},
 /obj/structure/cable,
 /obj/effect/turf_decal/bot,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron,
 /area/station/engineering/gravity_generator)
 "ofX" = (
@@ -62522,13 +62510,13 @@
 /area/station/commons/fitness/recreation)
 "tyf" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 3
 	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar/havana{
 	pixel_x = -3
 	},
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /turf/open/floor/wood,
 /area/station/command/meeting_room/council)
 "tyk" = (
@@ -65707,13 +65695,13 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 6
 	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar/havana{
 	pixel_x = 2
 	},
-/obj/item/clothing/mask/cigarette/cigar{
+/obj/item/cigarette/cigar{
 	pixel_x = 4.5
 	},
 /obj/structure/table/reinforced,
@@ -68770,13 +68758,13 @@
 "voo" = (
 /obj/structure/table/wood,
 /obj/structure/cable/yellow,
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
+/obj/item/cigarette/cigar/cohiba{
 	pixel_x = 3
 	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar/havana{
 	pixel_x = -3
 	},
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /turf/open/floor/carpet/blue,
 /area/station/command/corporate_showroom)
 "vov" = (
