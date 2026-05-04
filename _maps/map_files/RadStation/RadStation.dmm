@@ -54444,7 +54444,7 @@
 /turf/open/floor/grass,
 /area/station/hallway/primary/central)
 "uvD" = (
-/obj/item/clothing/under/rank/medical/doctor/green,
+/obj/item/clothing/under/rank/medical/scrubs/green,
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/glass{
 	dir = 1
