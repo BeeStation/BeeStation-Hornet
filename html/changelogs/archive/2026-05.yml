@@ -7,3 +7,7 @@
   - bugfix: Fixed it not being possible for maploaded SMESes to start empty
   - bugfix: Fixed several SMESes starting with power when they shouldn't have (disconnected
       part of the lavaland outpost)
+  rkz, Ebin-Halcyon:
+  - rscadd: moths can now set mutcolors
+  - rscadd: moth bodyparts use new greyscale sprites
+  - rscadd: adds new moth eye option, and makes it a preference
