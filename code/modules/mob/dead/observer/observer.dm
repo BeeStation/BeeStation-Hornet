@@ -216,7 +216,7 @@ Works together with spawning an observer, noted above.
 
 			return ghost
 
-/mob/observer/ghostize(can_reenter_corpse) //Sanity override
+/mob/dead/observer/ghostize(can_reenter_corpse) //Sanity override
 	return
 
 /*
