@@ -12,7 +12,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	appearance_flags = KEEP_TOGETHER | PIXEL_SCALE
 	see_invisible = SEE_INVISIBLE_OBSERVER
 	see_in_dark = 100
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_alpha = LIGHTING_PLANE_ALPHA_DIMINISHED_VISIBLE
 	invisibility = INVISIBILITY_SPIRIT
 	hud_type = /datum/hud/ghost
 	movement_type = FLYING | FLOATING
@@ -166,18 +166,29 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	. = ..()
 
 /*
- * Copies the full visual appearance of a target mob onto this ghost.
+ * Copies the full visual appearance of a target living mob onto this ghost.
  */
-/mob/dead/observer/proc/set_appearance(mob/target)
+/mob/dead/observer/proc/set_appearance(mob/target, icon_override = null)
 	transform = null
 	cut_overlays()
+
 	if(!target)
 		icon = initial(icon)
 		icon_state = initial(icon_state)
 		has_mob_appearance = FALSE
 		return
+	if(isanimal(target))
+		var/mob/living/simple_animal/animal = target
+		if(animal.icon_living)
+			icon_override = animal.icon_living
+	else if(isbasicmob(target))
+		var/mob/living/basic/basic = target
+		if(basic.icon_living)
+			icon_override = basic.icon_living
+
 	icon = target.icon
-	icon_state = target.icon_state
+	icon_state = icon_override ? icon_override : target.icon_state
+
 	copy_overlays(target, TRUE)
 	has_mob_appearance = TRUE
 
@@ -499,7 +510,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 	switch(lighting_alpha)
 		if (LIGHTING_PLANE_ALPHA_VISIBLE)
-			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+			lighting_alpha = LIGHTING_PLANE_ALPHA_DIMINISHED_VISIBLE
+		if (LIGHTING_PLANE_ALPHA_DIMINISHED_VISIBLE)
+			lighting_alpha =  LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 		if (LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		if (LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
