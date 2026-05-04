@@ -601,6 +601,24 @@
 	construction_time = 400
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_radio
+	name = "Mech Radio"
+	id = "mech_radio"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/radio
+	materials = list(/datum/material/iron=2500)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_air_tank
+	name = "Mech Air Tank"
+	id = "mech_air_tank"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/air_tank
+	materials = list(/datum/material/iron=5000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
 /////////////////////////////////////////
 //////////////Borg Upgrades//////////////
 /////////////////////////////////////////
@@ -864,6 +882,11 @@
 	build_path = /obj/item/mod/construction/helmet
 	category = list("MOD Construction")
 
+// Even without a hat stabilizer, hats can be worn - however, they'll fall off very easily
+/obj/item/clothing/head/mod/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/hat_stabilizer, loose_hat = TRUE)
+
 /datum/design/mod_chestplate
 	name = "MOD chestplate"
 	desc = "A 'Nakamura Engineering' designed chestplate for a Modular Suit."
@@ -1089,14 +1112,12 @@
 	materials = list(/datum/material/iron = 1500)
 	build_path = /obj/item/mod/module/mouthhole
 
-/*
 /datum/design/module/mod_rad_protection
 	name = "MOD Module: Radiation Protection"
 	id = "mod_rad_protection"
 	materials = list(/datum/material/iron = 1000, /datum/material/uranium = 1000)
 	build_path = /obj/item/mod/module/rad_protection
 	department_type = MODULE_ENGINEERING
-*/
 
 /datum/design/module/mod_emp_shield
 	name = "MOD Module: EMP Shield"
@@ -1368,6 +1389,15 @@
 	construction_time = 100
 	category = list("IPC Components")
 
+/datum/design/robotic_heart
+	name = "Coolant Pump"
+	id = "robotic_heart"
+	build_type = MECHFAB
+	build_path = /obj/item/organ/heart/cybernetic/ipc
+	materials = list(/datum/material/iron = 2000, /datum/material/glass = 2000, /datum/material/silver = 500)
+	construction_time = 100
+	category = list("IPC Components")
+
 /datum/design/robotic_stomach
 	name = "Micro-cell"
 	id = "robotic_stomach"
@@ -1432,3 +1462,13 @@
 	materials = list(/datum/material/iron = 2000, /datum/material/diamond = 500)
 	construction_time = 40
 	category = list("Cyborg Upgrade Modules")
+
+/datum/design/clown_car
+	name = "Clown Car"
+	desc = "A small car that the clown can use to take people around the station in style!"
+	id = "clown_car"
+	build_type = MECHFAB
+	build_path = /obj/vehicle/sealed/car/clowncar
+	materials = list(/datum/material/iron = 10000, /datum/material/bananium = 5000, /datum/material/plastic = 2000)
+	construction_time = 100
+	category = list("Misc")

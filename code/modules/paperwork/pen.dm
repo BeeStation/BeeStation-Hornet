@@ -16,7 +16,7 @@
 	name = "pen"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
-	item_state = "pen"
+	inhand_icon_state = "pen"
 	worn_icon_state = "pen"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_EARS
 	throwforce = 0
@@ -55,6 +55,7 @@
 	desc = "It's a fancy four-color ink pen, set to black."
 	name = "four-color pen"
 	colour = "black"
+	custom_price = 20
 
 /obj/item/pen/fourcolor/attack_self(mob/living/carbon/user)
 	switch(colour)
@@ -76,12 +77,14 @@
 	desc = "It's a common fountain pen, with a faux wood body."
 	icon_state = "pen-fountain"
 	font = FOUNTAIN_PEN_FONT
+	custom_price = 50
 
 /obj/item/pen/brush
 	name = "calligraphy brush"
 	desc = "A traditional brush usually used for calligraphy and poems."
 	icon_state = "pen-brush"
 	font = BRUSH_PEN_FONT
+	custom_price = 50
 
 /obj/item/pen/charcoal
 	name = "charcoal stylus"
@@ -236,6 +239,7 @@
 	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts") //these won't show up if the pen is off
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = SHARP
+	item_flags = NO_BLOOD_ON_ITEM
 	/// The real name of our item when extended.
 	var/hidden_name = "energy dagger"
 
@@ -247,7 +251,7 @@
 		throwforce_on = 35, \
 		throw_speed_on = 4, \
 		bleedforce_on = BLEED_CUT, \
-		sharpness_on = SHARP, \
+		sharpness_on = SHARP_DISMEMBER, \
 		w_class_on = WEIGHT_CLASS_NORMAL, \
 		inhand_icon_change = FALSE, \
 	)
@@ -273,14 +277,14 @@
 	if(active)
 		name = hidden_name
 		icon_state = "edagger"
-		item_state = "edagger"
+		inhand_icon_state = "edagger"
 		lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 		righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 		embedding = list(embed_chance = 100) // Rule of cool
 	else
 		name = initial(name)
 		icon_state = initial(icon_state)
-		item_state = initial(item_state)
+		inhand_icon_state = initial(inhand_icon_state)
 		lefthand_file = initial(lefthand_file)
 		righthand_file = initial(righthand_file)
 		embedding = list(embed_chance = EMBED_CHANCE)
@@ -333,4 +337,4 @@
 /obj/item/pen/screwdriver/update_icon_state()
 	. = ..()
 	icon_state = "[initial(icon_state)][HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE) ? "out" : null]"
-	item_state = initial(item_state) //since transforming component switches the icon.
+	inhand_icon_state = initial(inhand_icon_state) //since transforming component switches the icon.

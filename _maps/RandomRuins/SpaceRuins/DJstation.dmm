@@ -16,7 +16,7 @@
 "ae" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "af" = (
 /turf/closed/wall,
 /area/ruin/space/djstation)
@@ -58,15 +58,11 @@
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
 	name = "power storage unit"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
 "ao" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
 "ap" = (
@@ -74,25 +70,15 @@
 	name = "Worn-out APC";
 	pixel_y = -24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
 "aq" = (
 /obj/item/storage/box/lights/mixed,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = -32
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/ruin/space/djstation)
-"ar" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
 "as" = (
@@ -133,7 +119,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aB" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
 "aC" = (
@@ -190,7 +176,7 @@
 /area/ruin/space/djstation)
 "aP" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "aQ" = (
@@ -248,7 +234,7 @@
 "aZ" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating/airless,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "ba" = (
 /turf/open/floor/iron/freezer,
 /area/ruin/space/djstation)
@@ -259,27 +245,19 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "bc" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "bd" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/rack,
 /obj/item/clothing/under/costume/soviet,
 /obj/item/clothing/head/costume/ushanka,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "be" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/light/small,
 /turf/open/floor/iron/freezer,
 /area/ruin/space/djstation)
@@ -317,7 +295,7 @@
 	},
 /obj/structure/disposaloutlet,
 /turf/open/floor/plating/airless,
-/area/space/nearstation)
+/area/misc/space/nearstation)
 "dT" = (
 /obj/structure/chair{
 	dir = 1
@@ -576,7 +554,7 @@ ah
 aj
 an
 ao
-ar
+ao
 at
 aw
 aw

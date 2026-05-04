@@ -67,14 +67,12 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF | UNACIDABLE
 	canhear_range = -1
 	subspace_transmission = TRUE
-	radio_silent = TRUE
+	radio_noise = FALSE
 
 /obj/item/radio/holoparasite/Initialize(mapload)
 	. = ..()
 	keyslot = new /obj/item/encryptionkey/holoparasite
-
-/obj/item/radio/holoparasite/emp_act(severity)
-	return EMP_PROTECT_SELF | EMP_PROTECT_WIRES // This isn't a electronic radio, and therefore is unaffected by EMPs.
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/radio/holoparasite/get_specific_hearers()
 	if(isholopara(loc))

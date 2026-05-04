@@ -5,14 +5,18 @@
 /// opened it up early.
 SUBSYSTEM_DEF(early_assets)
 	name = "Early Assets"
-	init_order = INIT_ORDER_EARLY_ASSETS
+	dependencies = list(
+		/datum/controller/subsystem/processing/greyscale,
+	)
+	dependents = list(
+		/datum/controller/subsystem/mapping,
+		/datum/controller/subsystem/atoms
+	)
+	init_stage = INITSTAGE_EARLY
 	flags = SS_NO_FIRE
 
 /datum/controller/subsystem/early_assets/Initialize()
-	for (var/datum/asset/asset_type as anything in subtypesof(/datum/asset))
-		if (asset_type::_abstract == asset_type)
-			continue
-
+	for (var/datum/asset/asset_type as anything in valid_subtypesof(/datum/asset))
 		if (!asset_type::early)
 			continue
 

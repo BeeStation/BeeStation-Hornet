@@ -1,6 +1,7 @@
 //The effects of weather occur across an entire z-level. For instance, lavaland has periodic ash storms that scorch most unprotected creatures.
 
 /datum/weather
+	abstract_type = /datum/weather
 	var/name = "space wind"
 	var/desc = "Heavy gusts of wind blanket the area, periodically knocking down anyone caught in the open."
 
@@ -22,7 +23,7 @@
 	var/end_sound
 	var/end_overlay
 
-	var/area_type = /area/space //Types of area to affect
+	var/area_type = /area/misc/space //Types of area to affect
 	var/protect_indoors = FALSE // set to TRUE to protect indoor areas
 	/// Areas to be affected by the weather, calculated when the weather begins.
 	/// * If you need to update this list outside of this datum, you might be doing wrong. use update_areas(new_list)
@@ -33,7 +34,8 @@
 	var/overlay_layer = AREA_LAYER //Since it's above everything else, this is the layer used by default. TURF_LAYER is below mobs and walls if you need to use that.
 	var/overlay_plane = AREA_PLANE
 	var/aesthetic = FALSE //If the weather has no purpose other than looks
-	var/immunity_type = "storm" //Used by mobs to prevent them from being affected by the weather
+	/// Used by mobs (or movables containing mobs, such as enviro bags) to prevent them from being affected by the weather.
+	var/immunity_type
 
 	/// The stage of the weather, from 1-4
 	var/stage = END_STAGE
@@ -141,8 +143,8 @@
 	STOP_PROCESSING(SSweather, src)
 	update_areas()
 
-/datum/weather/proc/can_weather_act(mob/living/act_on) //Can this weather impact a mob?
-	var/turf/mob_turf = get_turf(act_on)
+/datum/weather/proc/can_weather_act_mob(mob/living/mob_to_check)
+	var/turf/mob_turf = get_turf(mob_to_check)
 
 	if(!mob_turf)
 		return
@@ -150,14 +152,26 @@
 	if(!(mob_turf.z in impacted_z_levels))
 		return
 
-	if(immunity_type in act_on.weather_immunities)
+	if(!(mob_turf.loc in impacted_areas))
 		return
 
-	if(!(get_area(act_on) in impacted_areas))
-		return
+	var/atom/to_check = mob_to_check
+	while(!isturf(to_check))
+		if(recursive_weather_protection_check(to_check))
+			return
+		to_check = to_check.loc
 	return TRUE
 
-/datum/weather/proc/weather_act(mob/living/L) //What effect does this weather have on the hapless mob?
+/**
+ * Returns TRUE if the atom should protect itself or its contents from weather
+ */
+/datum/weather/proc/recursive_weather_protection_check(atom/to_check)
+	return HAS_TRAIT(to_check, TRAIT_WEATHER_IMMUNE) || (immunity_type && HAS_TRAIT(to_check, immunity_type))
+
+/**
+ * Affects the mob with whatever the weather does
+ */
+/datum/weather/proc/weather_act_mob(mob/living/living)
 	return
 
 /// * [Func A] If list/newly_given_areas = null, It will update area overlays to new weather stage overlay. Typically called by this datum itself.

@@ -3,7 +3,7 @@
 	desc = "A rubber stamp for stamping important documents."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "stamp-ok"
-	item_state = "stamp"
+	inhand_icon_state = "stamp"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
@@ -20,10 +20,11 @@
 	return OXYLOSS
 
 /obj/item/stamp/get_writing_implement_details()
-	var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
+	var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet/simple/stamps)
 	return list(
 		interaction_mode = MODE_STAMPING,
 		stamp_icon_state = icon_state,
+		stamp_icon = icon,
 		stamp_class = sheet.icon_class_name(icon_state)
 	)
 

@@ -29,6 +29,10 @@
 	UnregisterSignal(component_parent?.parent, COMSIG_ITEM_ATTACK_SELF)
 	return ..()
 
+/datum/xenoartifact_trait/activator/flammable/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
 /datum/xenoartifact_trait/activator/flammable/translation_type_a(datum/source, atom/target)
 	lit = FALSE
 	//Indicator hint
@@ -36,7 +40,7 @@
 
 /datum/xenoartifact_trait/activator/flammable/translation_type_b(datum/source, atom/item, atom/target)
 	var/obj/item/I = item
-	if(isitem(I) && I.is_hot() && !check_item_safety(item))
+	if(isitem(I) && I.get_temperature() && !check_item_safety(item))
 		if(HAS_TRAIT(item, TRAIT_ARTIFACT_IGNORE))
 			return FALSE
 		if(component_parent.anti_check(target, XENOA_ACTIVATION_TOUCH))

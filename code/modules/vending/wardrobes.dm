@@ -172,6 +172,9 @@
 		/obj/item/clothing/head/soft/cargo = 3,
 		/obj/item/clothing/head/beret/cargo = 3,
 		/obj/item/radio/headset/headset_cargo = 3,
+		/obj/item/sales_tagger = 3,
+		/obj/item/export_scanner = 3,
+		/obj/item/storage/box/shipping = 2,
 		)
 
 	premium = list(
@@ -462,6 +465,7 @@
 		/obj/item/clothing/suit/jacket/aristocrat/red = 1,
 		/obj/item/clothing/suit/jacket/aristocrat/brown = 1,
 		/obj/item/clothing/suit/jacket/aristocrat/blue = 1,
+		/obj/item/clothing/neck/cloak/regal = 2,
 		)
 	refill_canister = /obj/item/vending_refill/wardrobe/law_wardrobe
 

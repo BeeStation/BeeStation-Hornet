@@ -28,11 +28,6 @@
 #define JOB_UNAVAILABLE_SLOTFULL 5
 #define JOB_UNAVAILABLE_LOCKED 6
 
-// reasons why you can't play this job
-#define JOB_LOCK_REASON_ABSTRACT (1<<0)
-#define JOB_LOCK_REASON_MAP (1<<1)
-#define JOB_LOCK_REASON_CONFIG (1<<2)
-
 // Job spawn groups
 // Spawn group representing the primary roles of a department
 #define JOB_SPAWN_GROUP_DEPARTMENT "department"
@@ -144,13 +139,13 @@
 #define JOB_NAME_PAI    "Personal AI"
 
 // ERTs
-#define JOB_ERT_DEATHSQUAD "Death Commando"
+#define JOB_ERT_DEATHSQUAD 		"Death Commando"
 #define JOB_ERT_COMMANDER       "Emergency Response Team Commander"
 #define JOB_ERT_OFFICER         "Security Response Officer"
 #define JOB_ERT_ENGINEER        "Engineering Response Officer"
 #define JOB_ERT_MEDICAL_DOCTOR  "Medical Response Officer"
-#define JOB_ERT_CHAPLAIN        "Religious Response Officer"
-#define JOB_ERT_JANITOR         "Janitorial Response Officer"
+#define JOB_ERT_JANITOR			"Janitorial Response Officer"
+#define JOB_ERT_CLOWN       	"Morale Response Officer"
 
 // CentCom
 #define JOB_CENTCOM_CENTRAL_COMMAND "Central Command"
@@ -320,3 +315,42 @@
 #define JOB_CHATCOLOR_NOTCENTCOM "#6D6AEC" // i.e. space police
 #define JOB_CHATCOLOR_PRISONER   "#D38A5C"
 #define JOB_CHATCOLOR_UNKNOWN    "#DDA583" // grey hud icon gets this
+
+// reasons why you can't play this job
+#define JOB_LOCK_REASON_ABSTRACT (1<<0)
+#define JOB_LOCK_REASON_MAP (1<<1)
+#define JOB_LOCK_REASON_CONFIG (1<<2)
+
+/* Job datum job_flags */
+/// Whether the mob is announced on arrival.
+#define JOB_ANNOUNCE_ARRIVAL (1<<0)
+/// Whether the mob is added to the crew manifest.
+#define JOB_CREW_MANIFEST (1<<1)
+/// Whether the job is considered a regular crew member of the station. Equipment such as AI and cyborgs not included.
+#define JOB_CREW_MEMBER (1<<2)
+/// Whether this job can be joined through the new_player menu.
+#define JOB_NEW_PLAYER_JOINABLE (1<<3)
+/// If the player with this job can have quirks assigned to him or not. Relevant for new player joinable jobs and roundstart antags.
+#define JOB_ASSIGN_QUIRKS (1<<4)
+/// This job cannot have more slots opened by the Head of Personnel (but admins or other random events can still do this).
+#define JOB_CANNOT_OPEN_SLOTS (1<<5)
+/// This job is a head of staff.
+#define JOB_HEAD_OF_STAFF (1<<6)
+
+DEFINE_BITFIELD(job_flags, list(
+	"JOB_ANNOUNCE_ARRIVAL" = JOB_ANNOUNCE_ARRIVAL,
+	"JOB_CREW_MANIFEST" = JOB_CREW_MANIFEST,
+	"JOB_CREW_MEMBER" = JOB_CREW_MEMBER,
+	"JOB_NEW_PLAYER_JOINABLE" = JOB_NEW_PLAYER_JOINABLE,
+	"JOB_ASSIGN_QUIRKS" = JOB_ASSIGN_QUIRKS,
+	"JOB_CANNOT_OPEN_SLOTS" = JOB_CANNOT_OPEN_SLOTS,
+	"JOB_HEAD_OF_STAFF" = JOB_HEAD_OF_STAFF,
+))
+
+/// Combination flag for jobs which are considered regular crew members of the station.
+#define STATION_JOB_FLAGS (JOB_ANNOUNCE_ARRIVAL|JOB_CREW_MANIFEST|JOB_CREW_MEMBER|JOB_NEW_PLAYER_JOINABLE|JOB_ASSIGN_QUIRKS)
+/// Combination flag for jobs which are considered heads of staff.
+#define HEAD_OF_STAFF_JOB_FLAGS (JOB_CANNOT_OPEN_SLOTS|JOB_HEAD_OF_STAFF)
+
+#define FACTION_NONE "None"
+#define FACTION_STATION "Station"

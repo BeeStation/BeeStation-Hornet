@@ -6,7 +6,7 @@
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list(RADIO_CHANNEL_SECURITY)
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffdddd"
 	req_admin_notify = 1
@@ -47,6 +47,8 @@
 		ACCOUNT_SEC_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_SECURITY
+
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "Guard Leader"
 
 	species_outfits = list(
@@ -54,9 +56,16 @@
 	)
 
 	minimal_lightup_areas = list(
-		/area/crew_quarters/heads/hos,
-		/area/security/detectives_office,
-		/area/security/warden
+		/area/station/command/heads_quarters/hos,
+		/area/station/security/detectives_office,
+		/area/station/security/warden
+	)
+
+	manuscript_jobs = list(
+		JOB_NAME_HEADOFSECURITY,
+		JOB_NAME_WARDEN,
+		JOB_NAME_DETECTIVE,
+		JOB_NAME_SECURITYOFFICER
 	)
 
 /datum/outfit/job/head_of_security
@@ -73,7 +82,8 @@
 	head = /obj/item/clothing/head/hats/hos/beret
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	r_pocket = /obj/item/modular_computer/tablet/pda/preset/heads/head_of_security
-	l_pocket = /obj/item/clothing/accessory/badge/officer/hos
+	l_pocket = /obj/item/clothing/accessory/badge/hos
+	accessory = /obj/item/clothing/accessory/security_pager
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec

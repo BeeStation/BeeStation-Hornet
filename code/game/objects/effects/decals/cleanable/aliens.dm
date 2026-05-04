@@ -11,8 +11,8 @@
 	clean_type = CLEAN_TYPE_BLOOD
 
 /obj/effect/decal/cleanable/xenoblood/Initialize(mapload)
+	add_blood_DNA(list("UNKNOWN DNA" = get_blood_type("X"))) // Needs to happen before ..()
 	. = ..()
-	add_blood_DNA(list("UNKNOWN DNA" = "X*"))
 
 /obj/effect/decal/cleanable/xenoblood/xsplatter
 	random_icon_states = list("xgibbl1", "xgibbl2", "xgibbl3", "xgibbl4", "xgibbl5")
@@ -97,10 +97,6 @@
 	icon_state = "xgiblarvatorso"
 	random_icon_states = list("xgiblarvahead", "xgiblarvatorso")
 
-/obj/effect/decal/cleanable/blood/xtracks
+/obj/effect/decal/cleanable/xenoblood/xtracks
 	icon_state = "xtracks"
 	random_icon_states = null
-
-/obj/effect/decal/cleanable/blood/xtracks/Initialize(mapload)
-	. = ..()
-	add_blood_DNA(list("Unknown DNA" = "X*"))

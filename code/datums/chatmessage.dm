@@ -110,6 +110,8 @@
   * * text - The text content of the overlay
   * * target - The target atom to display the overlay at
   * * owner - The mob that owns this overlay, only this mob will be able to view it
+  * * hearers - The clients that can see this message
+  * * language - The language this message was spoken in
   * * extra_classes - Extra classes to apply to the span that holds the text
   * * lifespan - The lifespan of the message in deciseconds
   */
@@ -232,7 +234,7 @@
 	text = "[prefixes?.Join("&nbsp;")][text]"
 
 	// Approximate text height
-	complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[target.say_emphasis(text)]</span>"
+	complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[target.apply_message_emphasis(text)]</span>"
 	approx_lines = length(text) / MESSAGE_LINE_LENGTH_ESTIMATE
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
@@ -442,7 +444,7 @@
  * * raw_message - The text content of the message
  * * spans - Additional classes to be added to the message
  */
-/proc/create_chat_message(atom/movable/speaker, datum/language/message_language, list/hearers, raw_message, list/spans, list/message_mods)
+/proc/create_chat_message(atom/movable/speaker, datum/language/message_language, list/hearers, raw_message, list/spans, list/message_mods, runechat_flags = NONE)
 	if(!length(hearers))
 		return
 
@@ -458,8 +460,8 @@
 	var/handled_message = raw_message
 
 	// Message language override, if no language was spoken emote 'makes a strange noise'
-	if(!message_language && !message_mods[CHATMESSAGE_EMOTE])
-		message_mods[CHATMESSAGE_EMOTE] = TRUE
+	if(!message_language && !(runechat_flags & EMOTE_MESSAGE))
+		runechat_flags |= EMOTE_MESSAGE
 		handled_message = "makes a strange sound."
 
 	// Check for virtual speakers (aka hearing a message through a radio)
@@ -476,7 +478,7 @@
 		spans -= "italics"
 
 	// Display visual above source
-	if(message_mods.Find(CHATMESSAGE_EMOTE))
+	if(runechat_flags & EMOTE_MESSAGE)
 		var/list/clients = list()
 		for(var/mob/M as() in hearers)
 			if(M?.should_show_chat_message(speaker, message_language, TRUE))
@@ -522,70 +524,6 @@
 		if(LAZYLEN(show_icon_scrambled))
 			new /datum/chatmessage(scrambled_message, speaker, show_icon_scrambled, message_language, spans)
 
-/**
-  * Creates a message overlay at a defined location for a given speaker
-  *
-  * Arguments:
-  * * speaker - The atom who is saying this message
-  * * message_language - The language that the message is said in
-  * * raw_message - The text content of the message
-  * * spans - Additional classes to be added to the message
-  */
-
-
-
-// Tweak these defines to change the available color ranges
-#define CM_COLOR_SAT_MIN	0.6
-#define CM_COLOR_SAT_MAX	0.7
-#define CM_COLOR_LUM_MIN	0.65
-#define CM_COLOR_LUM_MAX	0.75
-
-/**
-  * Gets a color for a name, will return the same color for a given string consistently within a round.atom
-  *
-  * Note that this proc aims to produce pastel-ish colors using the HSL colorspace. These seem to be favorable for displaying on the map.
-  *
-  * Arguments:
-  * * name - The name to generate a color for
-  * * sat_shift - A value between 0 and 1 that will be multiplied against the saturation
-  * * lum_shift - A value between 0 and 1 that will be multiplied against the luminescence
-  */
-/datum/chatmessage/proc/colorize_string(name, sat_shift = 1, lum_shift = 1)
-	// seed to help randomness
-	var/static/rseed = rand(1,26)
-
-	// get hsl using the selected 6 characters of the md5 hash
-	var/hash = copytext(md5(name + GLOB.round_id), rseed, rseed + 6)
-	var/h = hex2num(copytext(hash, 1, 3)) * (360 / 255)
-	var/s = (hex2num(copytext(hash, 3, 5)) >> 2) * ((CM_COLOR_SAT_MAX - CM_COLOR_SAT_MIN) / 63) + CM_COLOR_SAT_MIN
-	var/l = (hex2num(copytext(hash, 5, 7)) >> 2) * ((CM_COLOR_LUM_MAX - CM_COLOR_LUM_MIN) / 63) + CM_COLOR_LUM_MIN
-
-	// adjust for shifts
-	s *= clamp(sat_shift, 0, 1)
-	l *= clamp(lum_shift, 0, 1)
-
-	// convert to rgb
-	var/h_int = round(h/60) // mapping each section of H to 60 degree sections
-	var/c = (1 - abs(2 * l - 1)) * s
-	var/x = c * (1 - abs((h / 60) % 2 - 1))
-	var/m = l - c * 0.5
-	x = (x + m) * 255
-	c = (c + m) * 255
-	m *= 255
-	switch(h_int)
-		if(0)
-			return "#[num2hex(c, 2)][num2hex(x, 2)][num2hex(m, 2)]"
-		if(1)
-			return "#[num2hex(x, 2)][num2hex(c, 2)][num2hex(m, 2)]"
-		if(2)
-			return "#[num2hex(m, 2)][num2hex(c, 2)][num2hex(x, 2)]"
-		if(3)
-			return "#[num2hex(m, 2)][num2hex(x, 2)][num2hex(c, 2)]"
-		if(4)
-			return "#[num2hex(x, 2)][num2hex(m, 2)][num2hex(c, 2)]"
-		if(5)
-			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
-
 /atom/proc/balloon_alert(mob/viewer, text, color = null, show_in_chat = TRUE, offset_x, offset_y)
 	if(!ismob(viewer))
 		return
@@ -614,7 +552,7 @@
 		balloon_alert(hearer, (hearer == src && self_message) || message, show_in_chat = show_in_chat)
 
 /datum/chatmessage/balloon_alert
-	tgt_color = "#ffffff" //default color
+	tgt_color = COLOR_WHITE //default color
 
 /datum/chatmessage/balloon_alert/New(text, atom/target, mob/owner, color, offset_x, offset_y)
 	if (!istype(target))
@@ -731,7 +669,3 @@
 #undef COLOR_CHAT_EMOTE
 #undef COLOR_CHAT_LOOC
 #undef BUCKET_LIMIT
-#undef CM_COLOR_SAT_MIN
-#undef CM_COLOR_SAT_MAX
-#undef CM_COLOR_LUM_MIN
-#undef CM_COLOR_LUM_MAX

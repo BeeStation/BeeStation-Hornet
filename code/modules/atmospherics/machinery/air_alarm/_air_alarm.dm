@@ -82,6 +82,8 @@
 	var/air_sensor_chamber_id = ""
 	/// Whether it is possible to link/unlink this air alarm from a sensor
 	var/allow_link_change = TRUE
+	/// Default mode for the alarm, defaults based on the area setting if null
+	var/default_mode = null
 
 GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
@@ -120,7 +122,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 	my_area = connected_sensor ? get_area(connected_sensor) : get_area(src)
 	alarm_manager = new(src)
-	select_mode(src, /datum/air_alarm_mode/filtering, should_apply = FALSE)
+	select_default_mode()
 
 	AddElement(/datum/element/connect_loc, atmos_connections)
 	AddComponent(/datum/component/usb_port, list(
@@ -132,6 +134,17 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 	GLOB.air_alarms += src
 	check_enviroment()
+
+/obj/machinery/airalarm/proc/select_default_mode()
+	if (default_mode)
+		// Override the standard mode
+		select_mode(src, default_mode, should_apply = FALSE)
+	else if (!my_area.disable_air_alarm_automation)
+		// Use automated
+		select_mode(src, /datum/air_alarm_mode/filtering/automatic, should_apply = FALSE)
+	else
+		// Use manual
+		select_mode(src, /datum/air_alarm_mode/filtering, should_apply = FALSE)
 
 /obj/machinery/airalarm/add_context_self(datum/screentip_context/context, mob/user)
 	if(buildstage == AIR_ALARM_BUILD_NO_WIRES)
@@ -333,7 +346,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 				"external" = vent.external_pressure_bound,
 				"internal" = vent.internal_pressure_bound,
 				"extdefault" = (vent.external_pressure_bound == ONE_ATMOSPHERE),
-				"intdefault" = (vent.internal_pressure_bound == 0)
+				"intdefault" = (vent.internal_pressure_bound == 0),
+				"temperature" = vent.external_temperature
 			))
 		data["scrubbers"] = list()
 		for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/scrubber as anything in my_area.air_scrubbers)
@@ -365,7 +379,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 
 		// forgive me holy father
 		data["panicSiphonPath"] = /datum/air_alarm_mode/panic_siphon
-		data["filteringPath"] = /datum/air_alarm_mode/filtering
+		data["filteringPath"] = /datum/air_alarm_mode/filtering/automatic
 
 	return data
 
@@ -465,6 +479,19 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 			vent.external_pressure_bound = ATMOS_PUMP_MAX_PRESSURE
 			vent.investigate_log("internal pressure was reset by [key_name(user)]", INVESTIGATE_ATMOS)
 			vent.update_icon()
+
+		if ("set_external_temperature")
+			if (isnull(vent))
+				return TRUE
+			vent.external_temperature = clamp(text2num(params["value"]), 0, ATMOS_PUMP_MAX_TEMPERATURE)
+			vent.investigate_log("external temperature was set to [vent.external_temperature] by [key_name(user)]", INVESTIGATE_ATMOS)
+
+		if ("reset_external_temperature")
+			if (isnull(vent))
+				return TRUE
+			vent.external_temperature = T20C
+			vent.investigate_log("external temperature was set to 0 by [key_name(user)]", INVESTIGATE_ATMOS)
+
 		if ("scrubbing")
 			if (isnull(scrubber))
 				return TRUE
@@ -514,28 +541,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 		if ("reset")
 			if (alarm_manager.clear_alarm(ALARM_ATMOS))
 				danger_level = AIR_ALARM_ALERT_NONE
-
-		if("air_conditioning")
-			if(!isnum(params["value"]))
-				return
-			if(params["value"])
-				stop_ac()
-			else
-				start_ac()
-			investigate_log("has had its air conditioning turned [air_conditioning ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
-			. = TRUE
-
-		if("set_ac_target")
-			if(!isnum(params["value"]))
-				return
-			set_ac_target(params["value"])
-			investigate_log("has had its air conditioning target set to [params["value"]] by [key_name(usr)]", INVESTIGATE_ATMOS)
-			. = TRUE
-
-		if("default_ac_target")
-			set_ac_target(initial(ac_temp_target))
-			investigate_log("has had its air conditioning target reset to default by [key_name(usr)]", INVESTIGATE_ATMOS)
-			. = TRUE
 
 		if ("disconnect_sensor")
 			if(allow_link_change)
@@ -624,7 +629,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 			var/moles = environment.gases[gas_path] ? environment.gases[gas_path][MOLES] : 0
 			danger_level = max(danger_level, tlv_collection[gas_path].check_value(pressure * moles / total_moles))
 
-	selected_mode.replace(my_area, pressure, src)
+	selected_mode.replace(my_area, pressure, src, environment)
 
 	if(danger_level)
 		alarm_manager.send_alarm(ALARM_ATMOS)
@@ -755,6 +760,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
 		log_mapping("[src] at [AREACOORD(src)] tried to connect to more than one sensor!")
 		return
 	connect_sensor(sensor)
+	select_default_mode()
 
 ///Used to connect air alarm with a sensor
 /obj/machinery/airalarm/proc/connect_sensor(obj/machinery/air_sensor/sensor)
@@ -790,5 +796,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
 
 	update_appearance()
 	update_name()
+
+/obj/machinery/airalarm/manual
+	default_mode = /datum/air_alarm_mode/filtering
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm/manual, 27)
 
 #undef AIRALARM_WARNING_COOLDOWN

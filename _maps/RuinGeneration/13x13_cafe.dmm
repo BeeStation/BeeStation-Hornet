@@ -15,7 +15,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/effect/spawner/lootdrop/ruinloot/basic,
+/obj/effect/spawner/random/ruinloot/basic,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "e" = (
@@ -64,7 +64,7 @@
 "q" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/window/spawner,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/grass,
 /area/ruin/unpowered)
 "r" = (
@@ -130,7 +130,7 @@
 /area/ruin/unpowered)
 "D" = (
 /obj/structure/closet/crate/wooden/toy,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -160,7 +160,7 @@
 /area/ruin/unpowered)
 "H" = (
 /obj/structure/flora/ausbushes/brflowers,
-/obj/structure/window/spawner,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/grass,
 /area/ruin/unpowered)
 "I" = (
@@ -217,7 +217,7 @@
 /area/ruin/unpowered)
 "V" = (
 /obj/structure/flora/junglebush/b,
-/obj/structure/window/spawner,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/grass,
 /area/ruin/unpowered)
 "W" = (

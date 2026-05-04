@@ -28,7 +28,7 @@
 	if(isliving(parent))
 		host_mob = parent
 
-		if(!(MOB_ORGANIC in host_mob.mob_biotypes) && !(MOB_UNDEAD in host_mob.mob_biotypes) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE)) //Shouldn't happen, but this avoids HUD runtimes in case a silicon gets them somehow.
+		if(!(host_mob.mob_biotypes & MOB_ORGANIC) && !(host_mob.mob_biotypes & MOB_UNDEAD) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE)) //Shouldn't happen, but this avoids HUD runtimes in case a silicon gets them somehow.
 			return COMPONENT_INCOMPATIBLE
 
 		start_time = world.time
@@ -58,7 +58,7 @@
 
 	if(isliving(parent))
 		RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
-		RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_death))
+		RegisterSignal(parent, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 		RegisterSignal(parent, COMSIG_MOB_TRIED_ACCESS, PROC_REF(check_access))
 		RegisterSignal(parent, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_shock))
 		RegisterSignal(parent, COMSIG_LIVING_MINOR_SHOCK, PROC_REF(on_minor_shock))
@@ -83,7 +83,7 @@
 								COMSIG_NANITE_SCAN,
 								COMSIG_NANITE_SYNC,
 								COMSIG_ATOM_EMP_ACT,
-								COMSIG_MOB_DEATH,
+								COMSIG_LIVING_DEATH,
 								COMSIG_MOB_TRIED_ACCESS,
 								COMSIG_LIVING_ELECTROCUTE_ACT,
 								COMSIG_LIVING_MINOR_SHOCK,
@@ -256,7 +256,7 @@
 	nanite_percent = clamp(CEILING(nanite_percent, 10), 10, 100)
 	holder.icon_state = "nanites[nanite_percent]"
 
-/datum/component/nanites/proc/on_emp(datum/source, severity)
+/datum/component/nanites/proc/on_emp(datum/source, severity, protection)
 	SIGNAL_HANDLER
 
 	nanite_volume *= (rand(60, 90) * 0.01)		//Lose 10-40% of nanites
@@ -313,7 +313,7 @@
 /datum/component/nanites/proc/check_viable_biotype()
 	SIGNAL_HANDLER
 
-	if(!(MOB_ORGANIC in host_mob.mob_biotypes) && !(MOB_UNDEAD in host_mob.mob_biotypes) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE))
+	if(!(host_mob.mob_biotypes & MOB_ORGANIC) && !(host_mob.mob_biotypes & MOB_UNDEAD) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE))
 		qdel(src) //bodytype no longer sustains nanites
 
 /datum/component/nanites/proc/check_access(datum/source, obj/O)

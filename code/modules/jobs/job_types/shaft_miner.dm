@@ -5,7 +5,7 @@
 	department_head_for_prefs = JOB_NAME_QUARTERMASTER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 3
 	selection_color = "#dcba97"
 	// Requires a little bit of game knowledge to play appropriately
@@ -34,13 +34,20 @@
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_HARD)
 
 	display_order = JOB_DISPLAY_ORDER_SHAFT_MINER
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Adventurer"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/shaft_miner
 	)
 
-	minimal_lightup_areas = list(/area/construction/mining/aux_base)
+	minimal_lightup_areas = list(/area/station/construction/mining/aux_base)
+
+	manuscript_jobs = list(
+		JOB_NAME_SHAFTMINER,
+		JOB_NAME_CARGOTECHNICIAN // miner is actually cargo tech.
+	)
 
 /datum/outfit/job/miner
 	name = JOB_NAME_SHAFTMINER
@@ -84,9 +91,9 @@
 
 	l_hand = /obj/item/gun/energy/recharge/kinetic_accelerator
 
-/datum/outfit/job/miner/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/miner/equipped/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
-	if(visualsOnly)
+	if(visuals_only)
 		return
 	if(istype(H.wear_suit, /obj/item/clothing/suit/hooded))
 		var/obj/item/clothing/suit/hooded/S = H.wear_suit

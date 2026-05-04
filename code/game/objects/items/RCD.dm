@@ -10,12 +10,13 @@ RLD
 */
 
 /obj/item/construction
+	abstract_type = /obj/item/construction
 	name = "not for ingame use"
 	desc = "A device used to rapidly build and deconstruct. Reload with iron, plasteel, glass or compressed matter cartridges."
 	opacity = FALSE
 	density = FALSE
 	anchored = FALSE
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NOBLUDGEON
 	force = 0
 	throwforce = 10
@@ -195,7 +196,7 @@ RLD
 /obj/item/construction/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated() || !user.Adjacent(src))
+	if(user.incapacitated || !user.Adjacent(src))
 		return FALSE
 	return TRUE
 
@@ -216,6 +217,7 @@ RLD
 	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON
 	has_ammobar = TRUE
 	actions_types = list(/datum/action/item_action/rcd_scan)
+	custom_price = 100
 	var/mode = RCD_FLOORWALL
 	var/construction_mode = RCD_FLOORWALL
 	var/ranged = FALSE
@@ -795,7 +797,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 
 /obj/item/construction/rcd/borg/syndicate
 	icon_state = "ircd"
-	item_state = "ircd"
+	inhand_icon_state = "ircd"
 	energyfactor = 66
 
 /obj/item/construction/rcd/loaded
@@ -804,22 +806,30 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 /obj/item/construction/rcd/combat
 	name = "industrial RCD"
 	icon_state = "ircd"
-	item_state = "ircd"
+	inhand_icon_state = "ircd"
 	max_matter = 500
 	matter = 500
 	canRturf = TRUE
 	item_flags = ISWEAPON
+
+/obj/item/construction/rcd/combat/ert
+	name = "ERT RCD"
+	icon_state = "ircd"
+	inhand_icon_state = "ircd"
+	max_matter = 450
+	matter = 450
 
 /obj/item/rcd_ammo
 	name = "compressed matter cartridge"
 	desc = "Highly compressed matter for the RCD."
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "rcd"
-	item_state = "rcdammo"
+	inhand_icon_state = "rcdammo"
 	w_class = WEIGHT_CLASS_TINY
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	custom_materials = list(/datum/material/iron=12000, /datum/material/glass=8000)
+	custom_price = 60
 	var/ammoamt = 40
 
 /obj/item/rcd_ammo/large
@@ -836,7 +846,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	delay_mod = 0.6
 	ranged = TRUE
 	icon_state = "arcd"
-	item_state = "oldrcd"
+	inhand_icon_state = "oldrcd"
 	has_ammobar = FALSE
 	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS | RCD_UPGRADE_FURNISHING
 
@@ -1037,7 +1047,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	var/list/choices = list()
 	///index, used in the attack self to get the type. stored here since it doesnt change
 	///This list that holds all the plumbing design types the plumberer can construct. Its purpose is to make it easy to make new plumberer subtypes with a different selection of machines.
-	var/list/static/plumbing_design_types
+	var/static/list/plumbing_design_types
 
 	var/list/name_to_type = list()
 	///

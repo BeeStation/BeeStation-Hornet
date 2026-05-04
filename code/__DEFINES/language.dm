@@ -44,7 +44,6 @@
 #define LANGUAGE_CULTIST "cultist"
 #define LANGUAGE_CURATOR "curator"
 #define LANGUAGE_REVENANT "revenant"
-#define LANGUAGE_DEVIL "devil"
 #define LANGUAGE_GLAND "gland"
 #define LANGUAGE_HAT "hat"
 #define LANGUAGE_HIGH "high"
@@ -85,5 +84,4 @@ GLOBAL_LIST_INIT(multilingual_language_list, typecacheof(list(
 	/datum/language/terrum,
 	/datum/language/uncommon,
 	/datum/language/voltaic,
-	/datum/language/vampiric,
 )))

@@ -6,7 +6,7 @@
 	species = "berry"
 	plantname = "Berry Bush"
 	product = /obj/item/food/grown/berries
-	lifespan = 20
+	lifespan = 80
 	maturation = 5
 	production = 5
 	yield = 2
@@ -61,7 +61,7 @@
 	species = "deathberry"
 	plantname = "Death Berry Bush"
 	product = /obj/item/food/grown/berries/death
-	lifespan = 30
+	lifespan = 120
 	potency = 50
 	mutatelist = null
 	reagents_add = list(/datum/reagent/toxin/coniine = 0.08, /datum/reagent/toxin/staminatoxin = 0.1, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
@@ -88,7 +88,7 @@
 	species = "glowberry"
 	plantname = "Glow-Berry Bush"
 	product = /obj/item/food/grown/berries/glow
-	lifespan = 30
+	lifespan = 120
 	endurance = 25
 	mutatelist = list()
 	genes = list(/datum/plant_gene/trait/glow/white, /datum/plant_gene/trait/repeated_harvest)
@@ -115,7 +115,7 @@
 	species = "cherry"
 	plantname = "Cherry Tree"
 	product = /obj/item/food/grown/cherries
-	lifespan = 35
+	lifespan = 140
 	endurance = 35
 	maturation = 5
 	production = 5
@@ -197,7 +197,7 @@
 	species = "grape"
 	plantname = "Grape Vine"
 	product = /obj/item/food/grown/grapes
-	lifespan = 50
+	lifespan = 200
 	endurance = 25
 	maturation = 3
 	production = 5

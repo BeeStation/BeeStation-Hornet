@@ -10,21 +10,20 @@
  */
 /datum/action/vampire/gohome
 	name = "Vanishing Act"
-	desc = "As dawn aproaches, disperse into mist and return directly to your Lair.<br><b>WARNING:</b> You will drop <b>ALL</b> of your possessions if observed by mortals."
+	desc = "As dawn aproaches, disperse into mist and return directly to your lair.<br><b>WARNING:</b> You will drop <b>ALL</b> of your possessions if observed by mortals."
 	button_icon_state = "power_gohome"
 	power_explanation = "Activating Vanishing Act will, after a short delay, teleport you to your Claimed Coffin.\n\
 		Immediately after activating, lights around the user will begin to flicker.\n\
 		Once the user teleports to their coffin, in their place will be a Rat or Bat."
 	power_flags = BP_AM_TOGGLE | BP_AM_SINGLEUSE | BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED
-	purchase_flags = NONE
-	bloodcost = 100
+	vitaecost = 100
 	cooldown_time = 100 SECONDS
 	///What stage of the teleportation are we in
 	var/teleporting_stage = GOHOME_START
 	/// The types of mobs that will drop post-teleportation.
 	var/static/list/spawning_mobs = list(
-		/mob/living/simple_animal/mouse = 3,
+		/mob/living/basic/mouse = 3,
 		/mob/living/simple_animal/hostile/retaliate/bat = 1,
 	)
 
@@ -33,7 +32,7 @@
 	if(!.)
 		return FALSE
 
-	/// Have No Lair (NOTE: You only got this power if you had a lair, so this means it's destroyed)
+	/// Have No haven (NOTE: You only got this power if you had a haven, so this means it's destroyed)
 	if(!vampiredatum_power?.coffin)
 		owner.balloon_alert(owner, "coffin was destroyed!")
 		return FALSE
@@ -44,7 +43,7 @@
 	if(do_after(owner, GOHOME_TELEPORT SECONDS, timed_action_flags=(IGNORE_USER_LOC_CHANGE | IGNORE_INCAPACITATED | IGNORE_HELD_ITEM)))
 		teleport_to_coffin(owner)
 
-/datum/action/vampire/gohome/UsePower()
+/datum/action/vampire/gohome/use_power()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -77,19 +76,20 @@
 	playsound(get_turf(owner), 'sound/effects/singlebeat.ogg', beat_volume, 1)
 
 /datum/action/vampire/gohome/proc/teleport_to_coffin(mob/living/carbon/user)
-	var/turf/current_turf = get_turf(owner)
+	if(QDELETED(user))
+		return
+	var/turf/current_turf = get_turf(user)
 	// If we aren't in the dark, anyone watching us will cause us to drop out stuff
 	if(!QDELETED(current_turf?.lighting_object) && current_turf.get_lumcount() >= 0.2)
-		for(var/mob/living/watcher in viewers(world.view, get_turf(owner)) - owner)
+		for(var/mob/living/watcher in viewers(world.view, current_turf) - user)
 			if(QDELETED(watcher.client) || watcher.client?.is_afk() || watcher.stat != CONSCIOUS)
 				continue
 			if(watcher.has_unlimited_silicon_privilege)
 				continue
 			if(watcher.is_blind())
 				continue
-			if(!IS_VAMPIRE(watcher) && !IS_VASSAL(watcher))
-				for(var/obj/item/item in owner)
-					owner.dropItemToGround(item, TRUE)
+			if(!HAS_MIND_TRAIT(watcher, TRAIT_VAMPIRE_ALIGNED))
+				user.unequip_everything()
 				break
 	user.uncuff()
 
@@ -104,8 +104,8 @@
 	new new_mob(current_turf)
 	/// TELEPORT: Move to Coffin & Close it!
 	user.set_resting(TRUE, TRUE, FALSE)
-	do_teleport(owner, vampiredatum_power.coffin, channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE)
-	vampiredatum_power.coffin.close(owner)
+	do_teleport(user, vampiredatum_power.coffin, channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE)
+	vampiredatum_power.coffin.close(user)
 	vampiredatum_power.coffin.take_contents()
 	playsound(vampiredatum_power.coffin.loc, vampiredatum_power.coffin.close_sound, 15, 1, -3)
 

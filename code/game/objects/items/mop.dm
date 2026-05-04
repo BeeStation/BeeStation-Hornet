@@ -5,7 +5,7 @@
 	icon_state = "mop"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-	force = 8
+	force = 10
 	throwforce = 10
 
 	throw_speed = 3
@@ -77,7 +77,7 @@
 	name = "advanced mop"
 	mopcap = 10
 	icon_state = "advmop"
-	item_state = "advmop"
+	inhand_icon_state = "advmop"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	force = 12

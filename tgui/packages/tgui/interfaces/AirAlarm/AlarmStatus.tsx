@@ -72,18 +72,6 @@ export function AirAlarmStatus(props) {
                 (data.fireAlarm && 'Fire Alarm') ||
                 'Nominal'}
             </LabeledList.Item>
-            <LabeledList.Item
-              label="Air Conditioning Status"
-              color={
-                data.ac.enabled ? (data.ac.active ? 'average' : 'good') : 'gray'
-              }
-            >
-              {data.ac.enabled
-                ? data.ac.active
-                  ? 'Active'
-                  : 'Idle'
-                : 'Disabled'}
-            </LabeledList.Item>
             <LabeledList.Item label="Fault Status" color={areaFault.color}>
               {areaFault.areaFaultText}
             </LabeledList.Item>

@@ -9,6 +9,7 @@
 	can_hack = FALSE
 	/// If this virus bypasses Sending and Receiving being disabled
 	var/sending_bypass = FALSE
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/computer_hardware/hard_drive/role/virus/proc/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	if(!target)
@@ -63,9 +64,9 @@
 	if(prob(30) && !blocked)
 		virus_name = "UNKNOWN"	//If the virus wasn't blocked, lets not be a tattletale (always)!
 	if(!blocked)
-		holder.add_log("SYSnotice :: Network anomaly class: [virus_name]! suspicious transmission detected. Trace: [card.get_network_tag()] → [t_card.get_network_tag()]", log_id = FALSE)
+		holder.add_log("SYSnotice :: Network anomaly class: [virus_name]! suspicious transmission detected. Trace: [card.get_network_tag()] → [t_card.get_network_tag()]")
 	else
-		holder.add_log("ALERT: Threat class [virus_name] suppressed by AV software. Trace: [card.get_network_tag()] → [t_card.get_network_tag()]", log_id = FALSE)
+		holder.add_log("ALERT: Threat class [virus_name] suppressed by AV software. Trace: [card.get_network_tag()] → [t_card.get_network_tag()]")
 
 /obj/item/computer_hardware/hard_drive/role/virus/proc/virus_blocked(obj/item/modular_computer/tablet/target, mob/living/user)
 	charges--
@@ -82,6 +83,7 @@
 	desc = "A data disk for portable microcomputers. It smells vaguely of bananas."
 	icon_state = "cart-clown"
 	virus_class = "HONK::CORE"
+	trade_flags = NONE
 	spam_delay = 3 //For my honkers, spread out your message to everyone on the station.
 
 /obj/item/computer_hardware/hard_drive/role/virus/clown/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
@@ -125,6 +127,7 @@
 /obj/item/computer_hardware/hard_drive/role/virus/mime
 	name = "\improper sound of silence disk"
 	virus_class = "MUTEWORM.VRS"
+	trade_flags = NONE
 
 /obj/item/computer_hardware/hard_drive/role/virus/mime/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	. = ..()
@@ -181,12 +184,8 @@
 		return
 	var/lock_code = "[random_code(3)] [pick(GLOB.phonetic_alphabet)]"
 	to_chat(user, span_notice("The unlock code to the target is: [lock_code]"))
-	var/datum/component/uplink/hidden_uplink = target.GetComponent(/datum/component/uplink)
-	if(!hidden_uplink)
-		hidden_uplink = target.AddComponent(/datum/component/uplink)
-		hidden_uplink.unlock_code = lock_code
-	else
-		hidden_uplink.hidden_crystals += hidden_uplink.telecrystals //Temporarially hide the PDA's crystals, so you can't steal telecrystals.
+	var/datum/component/uplink/hidden_uplink = target.AddComponent(/datum/component/uplink, directive_flags = NONE)
+	hidden_uplink.unlock_code = lock_code
 	hidden_uplink.telecrystals = telecrystals
 	telecrystals = 0
 	hidden_uplink.active = TRUE

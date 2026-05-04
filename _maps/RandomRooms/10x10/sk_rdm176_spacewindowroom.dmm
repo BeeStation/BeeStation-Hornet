@@ -12,12 +12,12 @@
 /area/template_noop)
 "G" = (
 /obj/effect/mapping_helpers/space_window_placer,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/effect/spawner/random/maintenance/four,
 /turf/open/space/basic,
 /area/template_noop)
 "Y" = (
 /obj/effect/mapping_helpers/space_window_placer,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/space/basic,
 /area/template_noop)
 

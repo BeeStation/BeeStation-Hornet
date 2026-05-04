@@ -53,6 +53,9 @@
 	log_combat(user, src, "swatted")
 
 /obj/structure/holosign/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 	take_damage(max_integrity / severity, BRUTE, MELEE, TRUE)
 
 /obj/structure/holosign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -119,7 +122,6 @@
 	name = "engineering holobarrier"
 	desc = "A short engineering holographic barrier used for designating hazardous zones, slightly blocks radiation. Can only be passed by walking."
 	icon_state = "holosign_engi"
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_LIGHT_INSULATION
 
 /obj/structure/holosign/barrier/atmos
@@ -130,7 +132,6 @@
 	anchored = TRUE
 	can_atmos_pass = ATMOS_PASS_NO
 	alpha = 150
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_LIGHT_INSULATION
 
 /obj/structure/holosign/barrier/atmos/proc/clearview_transparency()

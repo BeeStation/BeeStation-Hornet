@@ -1,4 +1,5 @@
 /obj/item/organ/wings
+	abstract_type = /obj/item/organ/wings
 	name = "Pair of wings"
 	desc = "A pair of wings. They look skinny and useless"
 	icon_state = "angelwings"
@@ -9,7 +10,8 @@
 	var/basewings = "wings" //right now, this just determines whether the wings are normal wings or moth wings
 	var/wing_type = "Angel"
 	var/canopen = TRUE
-	var/wingsound = null
+	var/wingsound = null	// Sound played when toggling wings open or closed.
+	var/flapsound = null	// Sound played when flapping wings.
 	var/datum/action/innate/flight/fly
 
 /obj/item/organ/wings/Initialize(mapload)
@@ -51,10 +53,10 @@
 		if(H.movement_type & FLYING)
 			H.dna.species.toggle_flight(H)
 
-/obj/item/organ/wings/proc/toggleopen(mob/living/carbon/human/H) //opening and closing wings are purely cosmetic
+/obj/item/organ/wings/proc/toggleopen(mob/living/carbon/human/H, silent = FALSE) //opening and closing wings are purely cosmetic
 	if(!canopen)
 		return FALSE
-	if(wingsound)
+	if(wingsound && !silent)
 		playsound(H, wingsound, 100, 7)
 	if(basewings == "wings" || basewings == "moth_wings")
 		if(H.dna.species.mutant_bodyparts["wings"])
@@ -82,8 +84,7 @@
 	flight_level = WINGS_FLYING
 	wing_type = "Robot"
 	wingsound = 'sound/items/change_jaws.ogg'
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 
 /obj/item/organ/wings/cybernetic/emp_act(severity)
 	. = ..()
@@ -122,6 +123,7 @@
 	flight_level = WINGS_FLIGHTLESS
 	basewings = "moth_wings"
 	wing_type = "Plain"
+	flapsound = 'sound/emotes/moth/moth_flutter.ogg'
 	canopen = TRUE
 
 /obj/item/organ/wings/moth/Remove(mob/living/carbon/human/H, special, pref_load = FALSE)
@@ -166,9 +168,10 @@
 
 /obj/item/organ/wings/bee
 	name = "pair of bee wings"
-	desc = "A pair of bee wings. They seem tiny and undergrown"
+	desc = "A pair of bee wings."
 	icon_state = "beewings"
 	flight_level = WINGS_COSMETIC
+	flapsound = 'sound/emotes/moth/moth_flutter.ogg'
 	actions_types = list(/datum/action/item_action/organ_action/use/bee_dash)
 	wing_type = "Bee"
 	var/jumpdist = 3
@@ -217,6 +220,9 @@
 	if(L.throw_at(dash_target, jumpdistancemoved, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = crashcallback, force = MOVE_FORCE_WEAK))
 		playsound(L, 'sound/creatures/bee.ogg', 50, 1, 1)
 		L.visible_message(span_warning("[usr] dashes forward into the air!"))
+		// Flap wings during the dash
+		if(L.Togglewings(silent = TRUE))
+			addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living/carbon/human, Togglewings), TRUE), 8 DECISECONDS)
 		start_cooldown()
 	else
 		to_chat(L, span_warning("Something prevents you from dashing forward!"))
@@ -233,7 +239,7 @@
 /datum/action/innate/flight
 	name = "Toggle Flight"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "flight"
 
 /datum/action/innate/flight/on_activate()

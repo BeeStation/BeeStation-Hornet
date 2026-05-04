@@ -19,7 +19,7 @@
 	name = "oar"
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "oar"
-	item_state = "oar"
+	inhand_icon_state = "oar"
 	lefthand_file = 'icons/mob/inhands/misc/lavaland_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/lavaland_righthand.dmi'
 	desc = "Not to be confused with the kind Research hassles you for."
@@ -35,6 +35,8 @@
 	desc = "A tiny ship inside a bottle."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ship_bottle"
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/ship_in_a_bottle/attack_self(mob/user)
 	to_chat(user, "You're not sure how they get the ships in these things, but you're pretty sure you know how to get it out.")

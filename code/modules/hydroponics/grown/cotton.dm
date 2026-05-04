@@ -6,7 +6,7 @@
 	plantname = "Cotton"
 	icon_harvest = "cotton-harvest"
 	product = /obj/item/grown/cotton
-	lifespan = 35
+	lifespan = 140
 	endurance = 25
 	maturation = 15
 	production = 1
@@ -55,7 +55,7 @@
 	plantname = "Durathread"
 	icon_harvest = "durathread-harvest"
 	product = /obj/item/grown/cotton/durathread
-	lifespan = 80
+	lifespan = 240
 	endurance = 50
 	maturation = 15
 	production = 1

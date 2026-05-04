@@ -29,11 +29,11 @@
 /area/ruin/unpowered)
 "ew" = (
 /obj/structure/table/glass,
-/obj/item/stack/cable_coil/blue{
+/obj/item/stack/cable_coil{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "eH" = (
@@ -56,7 +56,7 @@
 /area/ruin/unpowered)
 "iT" = (
 /obj/structure/table/reinforced,
-/obj/item/paicard{
+/obj/item/pai_card{
 	desc = "A real Nanotrasen success, these personal AIs provide all of the companionship of an AI without any law related red-tape.";
 	name = "Nanotrasen-brand personal AI device exhibit"
 	},
@@ -88,7 +88,7 @@
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "py" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "qg" = (
@@ -163,13 +163,13 @@
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "vv" = (
-/obj/structure/AIcore{
+/obj/structure/ai_core{
 	name = "\broken AI core"
 	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "vX" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/reinforced/plasma,
 /obj/machinery/door/poddoor/shutters/preopen,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
@@ -199,14 +199,12 @@
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "AP" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = 24
 	},
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "BT" = (
@@ -241,7 +239,7 @@
 /area/ruin/unpowered)
 "GZ" = (
 /obj/effect/decal/cleanable/blood/tracks,
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "Ib" = (
@@ -282,7 +280,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "KU" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "MV" = (
@@ -293,7 +291,7 @@
 	pixel_y = 3
 	},
 /obj/item/storage/toolbox/mechanical/old,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "NP" = (
@@ -320,12 +318,12 @@
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "Qa" = (
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "Qo" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "RT" = (

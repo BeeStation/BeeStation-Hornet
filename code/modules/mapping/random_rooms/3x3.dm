@@ -48,7 +48,6 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
-	stock = 2
 
 /datum/map_template/random_room/sk_rdm007
 	name = "Maintenance"
@@ -65,7 +64,6 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
-	stock = 2
 
 /datum/map_template/random_room/sk_rdm009
 	name = "Air Refilling Station"
@@ -74,7 +72,6 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
-	stock = 2
 
 /datum/map_template/random_room/sk_rdm010
 	name = "Maintenance HAZMAT"
@@ -99,7 +96,6 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
-	stock = 2
 
 /datum/map_template/random_room/sk_rdm017
 	name = "Box Clutter 3"
@@ -266,7 +262,6 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
-	stock = 2
 
 /datum/map_template/random_room/sk_rdm074
 	name = "Kilo Theatre"

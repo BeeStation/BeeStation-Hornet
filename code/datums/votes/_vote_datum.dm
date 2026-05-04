@@ -28,6 +28,8 @@
 	// Don't mess with these, change the above values / override procs for subtypes.
 	/// An assoc list of [all choices] to [number of votes in the current running vote].
 	VAR_FINAL/list/choices = list()
+	/// An assoc list of [all choices] to [choice description], must be manually set.
+	VAR_FINAL/list/choice_descriptions = list()
 	/// A assoc list of [ckey] to [what they voted for in the current running vote].
 	VAR_FINAL/list/choices_by_ckey = list()
 	/// The world time this vote was started.
@@ -104,13 +106,16 @@
  *
  * Return a string - the text displayed to the world when the vote is initiated.
  */
-/datum/vote/proc/initiate_vote(initiator, duration)
+/datum/vote/proc/initiate_vote(initiator, duration, anonymous)
 	SHOULD_CALL_PARENT(TRUE)
 
 	started_time = world.time
 	time_remaining = round(duration / 10)
 
-	return "[contains_vote_in_name ? "[capitalize(name)]" : "[capitalize(name)] vote"] started by [initiator || "Central Command"]."
+	var/to_display = "[contains_vote_in_name ? "[capitalize(name)]" : "[capitalize(name)] vote"] started by"
+	if(anonymous)
+		message_admins("[to_display] [initiator].")
+	return "[to_display] [anonymous ? "Anonymous" : initiator || "Central Command"]."
 
 /**
  * Gets the result of the vote.
@@ -190,7 +195,7 @@
 		total_votes += choices[option]
 
 	if(total_votes <= 0)
-		return span_bold("Vote Result: Inconclusive - No Votes!")
+		return span_bold("[name] Vote Result: Inconclusive - No Votes!")
 
 	if (display_statistics)
 		returned_text += "\nResults:"

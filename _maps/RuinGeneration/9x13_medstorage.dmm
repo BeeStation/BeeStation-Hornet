@@ -57,19 +57,17 @@
 /obj/machinery/door/window{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/ruinloot/medical,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "C" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "F" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/closet/secure_closet/medical3,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
@@ -83,7 +81,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "N" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/frame/computer{
 	dir = 4
 	},
@@ -113,10 +111,8 @@
 /area/ruin/unpowered)
 "T" = (
 /obj/structure/table/glass,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/effect/spawner/random/ruinloot/medical,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "U" = (
@@ -125,10 +121,8 @@
 /area/ruin/unpowered)
 "W" = (
 /obj/structure/table/glass,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/effect/spawner/random/ruinloot/medical,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "Y" = (

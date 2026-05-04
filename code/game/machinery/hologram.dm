@@ -96,7 +96,7 @@ Possible to do for anyone motivated enough:
 /obj/machinery/holopad/tutorial/attack_hand(mob/user, list/modifiers)
 	if(!istype(user))
 		return
-	if(user.incapacitated() || !is_operational)
+	if(user.incapacitated || !is_operational)
 		return
 	if(replay_mode)
 		replay_stop()
@@ -189,7 +189,7 @@ Possible to do for anyone motivated enough:
 	if(!istype(user))
 		return
 
-	if(outgoing_call || user.incapacitated() || !is_operational)
+	if(outgoing_call || user.incapacitated || !is_operational)
 		return
 
 	user.set_machine(src)
@@ -472,26 +472,26 @@ Possible to do for anyone motivated enough:
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
 For the other part of the code, check silicon say.dm. Particularly robot talk.*/
-/obj/machinery/holopad/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+/obj/machinery/holopad/Hear(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range)
 	. = ..()
 	if(speaker && LAZYLEN(masters) && !radio_freq)//Master is mostly a safety in case lag hits or something. Radio_freq so AIs dont hear holopad stuff through radios.
 		for(var/mob/living/silicon/ai/master in masters)
 			if(master == speaker || master.ai_hologram == speaker) // AI will not hear talks that are spoken from themselves
 				continue
-			master.hear_holocall(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
+			master.hear_holocall(speaker, message_language, raw_message, radio_freq, spans, message_mods)
 
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
 		if(HC.connected_holopad == src && speaker != HC.hologram)
-			HC.user.Hear(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
+			HC.user.Hear(speaker, message_language, raw_message, radio_freq, spans, message_mods, message_range)
 			if(HC.user.should_show_chat_message(speaker, message_language, FALSE, is_heard = TRUE))
 				create_chat_message(speaker, message_language, list(HC.user), raw_message, spans, message_mods)
 
 	if(outgoing_call && speaker == outgoing_call.user)
-		outgoing_call.hologram.say(raw_message)
+		outgoing_call.hologram.say(raw_message, spans = spans, sanitize = FALSE, language = message_language, message_mods = message_mods)
 
 	if(record_mode && speaker == record_user)
-		record_message(speaker,raw_message,message_language)
+		record_message(speaker, raw_message, message_language)
 
 /obj/machinery/holopad/proc/SetLightsAndPower()
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
@@ -560,7 +560,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	return FALSE
 
 /obj/machinery/holopad/proc/validate_user(mob/living/user)
-	if(QDELETED(user) || user.incapacitated() || !user.client)
+	if(QDELETED(user) || user.incapacitated || !user.client)
 		return FALSE
 	return TRUE
 

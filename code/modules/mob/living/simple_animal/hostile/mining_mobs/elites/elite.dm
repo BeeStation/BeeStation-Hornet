@@ -54,18 +54,15 @@
 		M.gets_drilled()
 
 //Elites can't talk (normally)!
-/mob/living/simple_animal/hostile/asteroid/elite/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
-	if(can_talk)
-		. = ..()
-		return TRUE
-	return FALSE
+/mob/living/simple_animal/hostile/asteroid/elite/can_speak(allow_mimes)
+	return can_talk && ..()
 
 /*Basic setup for elite attacks, based on Whoneedspace's megafauna attack setup.
 While using this makes the system rely on OnFire, it still gives options for timers not tied to OnFire, and it makes using attacks consistent across the board for player-controlled elites.*/
 
 /datum/action/innate/elite_attack
 	name = "Elite Attack"
-	icon_icon = 'icons/hud/actions/actions_elites.dmi'
+	button_icon = 'icons/hud/actions/actions_elites.dmi'
 	button_icon_state = null
 	background_icon_state = "bg_default"
 	var/chosen_message
@@ -114,7 +111,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	energy = 100
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 
@@ -139,13 +135,15 @@ While using this makes the system rely on OnFire, it still gives options for tim
 					addtimer(CALLBACK(src, PROC_REF(spawn_elite)), 30)
 					return
 				visible_message(span_boldwarning("Something within [src] stirs..."))
-				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+				var/datum/poll_config/config = new(
 					check_jobban = ROLE_LAVALAND_ELITE,
 					poll_time = 10 SECONDS,
 					jump_target = src,
 					role_name_text = "lavaland elite",
 					alert_pic = src,
+					amount_to_pick = 1,
 				)
+				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 				if(candidate)
 					audible_message(span_boldwarning("The stirring sounds increase in volume!"))
 					candidate.playsound_local(null, 'sound/effects/magic.ogg', 40, 0)
@@ -198,7 +196,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			if(elitehere == mychild && activity == TUMOR_PASSIVE)
 				mychild.adjustHealth(-mychild.maxHealth*0.025*delta_time)
 				var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(mychild))
-				H.color = "#FF0000"
+				H.color = COLOR_RED
 
 /obj/structure/elite_tumor/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -290,7 +288,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	icon_state = "crevice_shard"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	item_state = "screwdriver_head"
+	inhand_icon_state = "screwdriver_head"
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -307,13 +305,15 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		if(!E.key && !using)
 			using = TRUE //No ghost poll spam please.
 			user.visible_message(span_notice("[E] stirs briefly..."))
-			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+			var/datum/poll_config/config = new(
 				check_jobban = ROLE_SENTIENCE,
 				poll_time = 15 SECONDS,
 				jump_target = E,
 				role_name_text = "enslaved lavaland elite",
 				alert_pic = E,
+				amount_to_pick = 1,
 			)
+			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 			if(candidate)
 				E.key = candidate.key
 			else

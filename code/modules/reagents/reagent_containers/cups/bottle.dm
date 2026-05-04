@@ -5,13 +5,14 @@
 	desc = "A small bottle."
 	icon_state = "bottle"
 	fill_icon_state = "bottle"
-	item_state = "atoxinbottle"
+	inhand_icon_state = "atoxinbottle"
 	possible_transfer_amounts = list(5,10,15,25,30)
 	volume = 30
 	fill_icon_thresholds = list(1, 10, 20, 40, 60, 80, 100)
 	label_icon = "label_bottle"
 	isGlass = TRUE
 	throwforce = 10
+	custom_price = 20
 
 /obj/item/reagent_containers/cup/bottle/Initialize(mapload)
 	. = ..()

@@ -6,6 +6,7 @@
  * as much as possible to the components/elements system
  */
 /atom
+	abstract_type = /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
 	appearance_flags = TILE_BOUND|LONG_GLIDE
@@ -36,16 +37,20 @@
 
 	var/list/filter_data //For handling persistent filters
 
-	///Economy cost of item
+	/// Economy cost of item, 0 price items will not be sold and return when sent to CC trough cargo shuttle
 	var/custom_price
-	///Economy cost of item in premium vendor
+	/// Economy cost of item in premium vendor category (Export will use this if it exists even if custom price is defined)
 	var/custom_premium_price
+	/// Maximum demand of the object type for exporting calculations
+	var/max_demand
+	/// Can be: TRADE_CONTRABAND, TRADE_NOT_SELLABLE, TRADE_DELETE_UNSOLD. Important in exporting and other things!
+	var/trade_flags = NONE
+	/// This is the economy price of the item. This is important for exports and imports
+	var/item_price
 
 	//List of datums orbiting this atom
 	var/datum/component/orbiter/orbit_datum
 
-	/// Will move to flags_1 when i can be arsed to (2019, has not done so)
-	var/rad_flags = NONE
 	/// Radiation insulation types
 	var/rad_insulation = RAD_NO_INSULATION
 
@@ -53,6 +58,8 @@
 	var/light_system = STATIC_LIGHT
 	///Boolean variable for toggleable lights. Has no effect without the proper light_system, light_range and light_power values.
 	var/light_on = TRUE
+	/// How many tiles "up" this light is. 1 is typical, should only really change this if it's a floor light
+	var/light_height = LIGHTING_HEIGHT
 	///Bitflags to determine lighting-related atom properties.
 	var/light_flags = NONE
 
@@ -106,20 +113,26 @@
 	/// What is our default level of luminosity, if you want inherent luminosity
 	/// withing an atom's type, set luminosity instead and we will manage it for you.
 	/// Always use set_base_luminosity instead of directly modifying this
-	VAR_PRIVATE/base_luminosity = 0
+	/// If null, defaults to the initial luminosity
+	VAR_PRIVATE/base_luminosity
 	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
 	VAR_PRIVATE/_emissive_count = 0
 
 	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
-	var/list/eye_users
-
+	var/list/eye_users // TO-DO: replace into eye_mobs
+	/// same as 'eye_users', but mobs, instead of client. SHOULD BE USED CAREFULLY
+	var/list/eye_mobs
 	/// Amount of users hovering us, if this is greater than 1 we need to clear references on destroy
 	var/hovered_user_count = 0
+
+	/// Reference to our blindness apperance, essentially just a copy of our apperance but everything is on a specific plane
+	var/mutable_appearance/blind_appearance
 
 /**
   * Top level of the destroy chain for most atoms
   *
   * Cleans up the following:
+  * * Removes eye users who use this, and resets their eye
   * * Removes clients who use this, and resets their eye
   * * Removes alternate apperances from huds that see them
   * * qdels the reagent holder from atoms if it exists
@@ -128,13 +141,22 @@
   * * clears the light object
   */
 /atom/Destroy()
-	for(var/client/each_client as anything in eye_users)
-		eye_users -= each_client
-		if(isnull(each_client.mob))
-			stack_trace("CRITICAL: Failed to recover a client's eye as their mob.")
-			continue
-		each_client.mob.reset_perspective()
-	eye_users = null
+	if(istype(src, /mob/dead/new_player/pre_auth)) // This mob type is buggy. Only happens when a player logs in.
+		LAZYCLEARLIST(eye_mobs)
+		eye_mobs = null
+		LAZYCLEARLIST(eye_users)
+		eye_users = null
+	else
+		for(var/mob/each_mob as anything in eye_mobs)
+			each_mob.set_mob_eye_to(MOB_EYE_SELF)
+		eye_mobs = null
+		for(var/client/each_client as anything in eye_users)
+			eye_users -= each_client
+			if(isnull(each_client.mob))
+				stack_trace("CRITICAL: Failed to recover a client's eye as their mob.")
+				continue
+			each_client.mob.set_mob_eye_to(MOB_EYE_SELF)
+		eye_users = null
 
 	if (chat_messages)
 		for (var/chatmessage in chat_messages)
@@ -152,6 +174,9 @@
 
 	if(reagents)
 		QDEL_NULL(reagents)
+
+	if(forensics)
+		QDEL_NULL(forensics)
 
 	if(atom_storage)
 		QDEL_NULL(atom_storage)
@@ -278,7 +303,7 @@
 	if(!is_centcom_level(T.z))//if not, don't bother
 		return FALSE
 
-	if(istype(T.loc, /area/shuttle/syndicate) || istype(T.loc, /area/syndicate_mothership) || istype(T.loc, /area/shuttle/assault_pod))
+	if(istype(T.loc, /area/shuttle/syndicate) || istype(T.loc, /area/centcom/syndicate_mothership) || istype(T.loc, /area/shuttle/assault_pod))
 		return TRUE
 
 	return FALSE
@@ -430,7 +455,7 @@
 /mob/living/proc/get_blood_dna_list()
 	if(get_blood_id() != /datum/reagent/blood)
 		return
-	return list("ANIMAL DNA" = "Y-")
+	return list("ANIMAL DNA" = get_blood_type("Y-"))
 
 ///Get the mobs dna list
 /mob/living/carbon/get_blood_dna_list()
@@ -440,14 +465,14 @@
 	if(dna)
 		blood_dna[dna.unique_enzymes] = dna.blood_type
 	else
-		blood_dna["UNKNOWN DNA"] = "X*"
+		blood_dna["UNKNOWN DNA"] = get_blood_type("X")
 	return blood_dna
 
 /mob/living/carbon/alien/get_blood_dna_list()
-	return list("UNKNOWN DNA" = "X*")
+	return list("UNKNOWN DNA" = get_blood_type("X"))
 
 /mob/living/silicon/get_blood_dna_list()
-	return list("MOTOR OIL" = "SAE 5W-30") //just a little flavor text.
+	return list("SYNTHETIC COOLANT" = get_blood_type("Coolant"))
 
 ///to add a mob's dna info into an object's blood_dna list.
 /atom/proc/transfer_mob_blood_dna(mob/living/L)
@@ -455,9 +480,9 @@
 	var/new_blood_dna = L.get_blood_dna_list()
 	if(!new_blood_dna)
 		return FALSE
-	var/old_length = blood_DNA_length()
+	var/old_length = GET_ATOM_BLOOD_DNA_LENGTH(src)
 	add_blood_DNA(new_blood_dna)
-	if(blood_DNA_length() == old_length)
+	if(GET_ATOM_BLOOD_DNA_LENGTH(src) == old_length)
 		return FALSE
 	return TRUE
 
@@ -523,6 +548,7 @@
   * Not recommended to use, listen for the COMSIG_ATOM_DIR_CHANGE signal instead (sent by this proc)
   */
 /atom/proc/setDir(newdir)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	. = dir != newdir
 	dir = newdir
@@ -704,22 +730,6 @@
 			stack_trace("Invalid individual logging type: [message_type]. Defaulting to [LOG_GAME] (LOG_GAME).")
 			log_game(log_text)
 
-/// Helper for logging chat messages or other logs with arbitrary inputs (e.g. announcements)
-/atom/proc/log_talk(message, message_type, tag=null, log_globally=TRUE, forced_by=null, custom_say_emote = null)
-	var/prefix = tag ? "([tag]) " : ""
-	var/suffix = forced_by ? " FORCED by [forced_by]" : ""
-	log_message("[prefix][custom_say_emote ? "*[custom_say_emote]*, " : ""]\"[message]\"[suffix]", message_type, log_globally=log_globally)
-
-/// Helper for logging of messages with only one sender and receiver
-/proc/log_directed_talk(atom/source, atom/target, message, message_type, tag)
-	if(!tag)
-		stack_trace("Unspecified tag for private message")
-		tag = "UNKNOWN"
-
-	source.log_talk(message, message_type, tag="[tag] to [key_name(target)]")
-	if(source != target)
-		target.log_talk(message, message_type, tag="[tag] from [key_name(source)]", log_globally=FALSE)
-
 /**
   * Log for crafting items
   *
@@ -813,6 +823,24 @@
 		filters += filter(arglist(arguments))
 	UNSETEMPTY(filter_data)
 
+/** Update a filter's parameter to the new one. If the filter doesn't exist we won't do anything.
+ *
+ * Arguments:
+ * * name - Filter name
+ * * new_params - New parameters of the filter
+ * * overwrite - TRUE means we replace the parameter list completely. FALSE means we only replace the things on new_params.
+ */
+/atom/proc/modify_filter(name, list/new_params, overwrite = FALSE)
+	var/filter = get_filter(name)
+	if(!filter)
+		return
+	if(overwrite)
+		filter_data[name] = new_params
+	else
+		for(var/thing in new_params)
+			filter_data[name][thing] = new_params[thing]
+	update_filters()
+
 /atom/proc/transition_filter(name, time, list/new_params, easing, loop)
 	var/filter = get_filter(name)
 	if(!filter)
@@ -884,6 +912,10 @@
 /atom/proc/setClosed()
 	return
 
+///Called after the atom is 'tamed' for type-specific operations, Usually called by the tameable component but also other things.
+/atom/proc/tamed(mob/living/tamer, obj/item/food)
+	return
+
 /**
   * Used to attempt to charge an object with a payment component.
   *
@@ -891,15 +923,6 @@
   */
 /atom/proc/attempt_charge(atom/sender, atom/target, extra_fees = 0)
 	return SEND_SIGNAL(sender, COMSIG_OBJ_ATTEMPT_CHARGE, target, extra_fees)
-
-/**
-* Instantiates the AI controller of this atom. Override this if you want to assign variables first.
-*
-* This will work fine without manually passing arguments.
-+*/
-/atom/proc/InitializeAIController()
-	if(ai_controller)
-		ai_controller = new ai_controller(src)
 
 ///Setter for the "base_pixel_x" var to append behavior related to it's changing
 /atom/proc/set_base_pixel_x(new_value)
@@ -925,9 +948,10 @@
  * Sends signals [COMSIG_ATOM_HAS_GRAVITY] and [COMSIG_TURF_HAS_GRAVITY], both can force gravity with
  * the forced gravity var.
  *
+ * micro-optimized to hell because this proc is very hot, being called several times per movement every movement.
+ *
  * HEY JACKASS, LISTEN
  * IF YOU ADD SOMETHING TO THIS PROC, MAKE SURE /mob/living ACCOUNTS FOR IT
- *
  * Living mobs treat gravity in an event based manner. We've decomposed this proc into different checks
  * for them to use. If you add more to it, make sure you do that, or things will behave strangely
  *
@@ -1019,6 +1043,22 @@
 		luminosity = max(1, base_luminosity)
 	else
 		luminosity = base_luminosity
+
+/atom/proc/get_blind_appearance()
+	if(blind_appearance)
+		return blind_appearance
+	blind_appearance = mutable_appearance(src.icon, src.icon_state)
+	blind_appearance.plane = LOWEST_EVER_PLANE //KEEP that shit hidden away from our eyes
+	blind_appearance.appearance_flags = KEEP_TOGETHER
+	//Copy the overlays by hand to avoid plane issues
+	for(var/image/overlay as anything in overlays)
+		if(!overlay.icon)
+			continue
+		//Don't copy lighting overlays
+		if(overlay.plane == LIGHTING_PLANE || overlay.plane == LIGHTING_PLANE_ADDITIVE || overlay.plane == ABOVE_LIGHTING_PLANE)
+			continue
+		blind_appearance.add_overlay(icon(overlay.icon, overlay.icon_state))
+	return blind_appearance
 
 /atom/movable/update_luminosity()
 	if (isnull(base_luminosity))

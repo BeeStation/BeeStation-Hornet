@@ -4,6 +4,7 @@
  * A simple base for an modular behavior attached to atom or datum.
  */
 /datum/action
+	abstract_type = /datum/action
 	/// The name of the action
 	var/name = "Generic Action"
 	/// The description of what the action does
@@ -11,7 +12,7 @@
 	/// The datum the action is attached to. If the master datum is deleted, the action is as well.
 	/// Set in New() via the proc link_to().
 	/// DO NOT ASSIGN TO THIS VARIABLE, ASSIGN IT ON /NEW()
-	VAR_PRIVATE/datum/master
+	VAR_FINAL/datum/master
 	/// Where any buttons we create should be by default. Accepts screen_loc and location defines
 	var/default_button_position = SCRN_OBJ_IN_LIST
 	/// This is who currently owns the action, and most often, this is who is using the action if it is triggered
@@ -43,14 +44,18 @@
 	var/buttontooltipstyle = ""
 	/// Whether the button becomes transparent when it can't be used or just reddened
 	var/transparent_when_unavailable = TRUE
-	/// This is the file for the BACKGROUND icon of the button
-	var/button_icon = 'icons/hud/actions/backgrounds.dmi'
-	/// This is the icon state state for the BACKGROUND icon of the button
+
+	/// This is the file for the BACKGROUND underlay icon of the button
+	var/background_icon = 'icons/hud/actions/backgrounds.dmi'
+	/// This is the icon state state for the BACKGROUND underlay icon of the button
+	/// (If set to ACTION_BUTTON_DEFAULT_BACKGROUND, uses the hud's default background)
 	var/background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
+
 	/// This is the file for the icon that appears OVER the button background
-	var/icon_icon = 'icons/hud/actions.dmi'
+	var/button_icon = 'icons/hud/actions.dmi'
 	/// This is the icon state for the icon that appears OVER the button background
 	var/button_icon_state = "default"
+
 	///List of all mobs that are viewing our action button -> A unique movable for them to view.
 	var/list/viewers = list()
 	/// What icon to replace our mouse cursor with when active. Optional, Requires requires_target
@@ -74,7 +79,7 @@
 	/// If the ability is currently active or not
 	VAR_PRIVATE/active = FALSE
 	/// If we require a target and are a toggleable button, we track a reference to the
-	/// object that we are targetting.
+	/// object that we are targeting.
 	VAR_PRIVATE/datum/selected_target = null
 	/// Overlay currently applied to this action
 	VAR_PRIVATE/mutable_appearance/timer_overlay
@@ -346,8 +351,7 @@
 	return TRUE
 
 /datum/action/proc/update_buttons(status_only, force)
-	for(var/datum/hud/hud in viewers)
-		var/atom/movable/screen/movable/button = viewers[hud]
+	for(var/datum/hud/hud, button in viewers)
 		update_button(button, status_only, force)
 
 /datum/action/proc/update_button(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
@@ -363,8 +367,8 @@
 			if(button.icon_state != settings["bg_state"])
 				button.icon_state = settings["bg_state"]
 		else
-			if(button.icon != button_icon)
-				button.icon = button_icon
+			if(button.icon != background_icon)
+				button.icon = background_icon
 			if(button.icon_state != background_icon_state)
 				button.icon_state = background_icon_state
 
@@ -386,9 +390,9 @@
 
 /// Applies our button icon over top the background icon of the action
 /datum/action/proc/apply_icon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
-	if(icon_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
+	if(button_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
 		current_button.cut_overlays(TRUE)
-		current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
+		current_button.add_overlay(mutable_appearance(button_icon, button_icon_state))
 		current_button.button_icon_state = button_icon_state
 
 /datum/action/proc/update_cooldown_icon(atom/movable/screen/movable/action_button/button, force = FALSE)

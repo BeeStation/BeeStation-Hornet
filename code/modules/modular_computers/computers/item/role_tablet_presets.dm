@@ -1,10 +1,14 @@
-/obj/item/modular_computer/tablet/pda/preset	//This needs to exist or else we can't really have empty PDA shells!
+// This needs to exist or else we can't really have empty PDA shells!
+/obj/item/modular_computer/tablet/pda/preset
+	inserted_item = /obj/item/pen
+
+	var/cell_type = /obj/item/computer_hardware/battery/tiny
 
 /obj/item/modular_computer/tablet/pda/preset/Initialize(mapload)
 	. = ..()
 	install_component(new /obj/item/computer_hardware/hard_drive/micro)
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery/tiny)
+	install_component(new cell_type)
 	install_component(new /obj/item/computer_hardware/network_card)
 	install_component(new /obj/item/computer_hardware/card_slot)
 	install_component(new /obj/item/computer_hardware/identifier)
@@ -17,8 +21,9 @@
 		var/obj/item/computer_hardware/hard_drive/portable/disk = new default_disk(src)
 		install_component(disk)
 
-	if(insert_type)
-		inserted_item = new insert_type(src)
+	if(ispath(inserted_item))
+		inserted_item = new inserted_item(src)
+		RegisterSignal(inserted_item, COMSIG_QDELETING, TYPE_PROC_REF(/obj/item/modular_computer/tablet/pda, on_inserted_item_deleted))
 		// show the inserted item
 		update_appearance()
 
@@ -28,7 +33,7 @@
 	note = "Honk!"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/virus/clown
 	icon_state = "pda-clown"
-	insert_type = /obj/item/toy/crayon/rainbow
+	inserted_item = /obj/item/toy/crayon/rainbow
 	/// List of victims (of a very funny joke, that everyone loves!). Stores references to mobs.
 	var/list/slip_victims = list()
 	init_ringtone = "honk"
@@ -51,7 +56,7 @@
 	name = "mime PDA"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. The hardware has been modified for compliance with the vows of silence."
 	default_disk = /obj/item/computer_hardware/hard_drive/role/virus/mime
-	insert_type = /obj/item/toy/crayon/mime
+	inserted_item = /obj/item/toy/crayon/mime
 	init_ringer_on = FALSE
 	init_ringtone = "silence"
 
@@ -134,7 +139,7 @@
 	icon_state = "pda-science"
 	init_ringtone = "boom"
 
-/obj/item/modular_computer/tablet/pda/science/Initialize(mapload)
+/obj/item/modular_computer/tablet/pda/preset/science/Initialize(mapload)
 	. = ..()
 	install_component(new /obj/item/computer_hardware/radio_card)
 
@@ -143,6 +148,7 @@
 	icon_state = "pda-service"
 
 /obj/item/modular_computer/tablet/pda/preset/heads
+	abstract_type = /obj/item/modular_computer/tablet/pda/preset/heads
 	default_disk = /obj/item/computer_hardware/hard_drive/role/head
 	icon_state = "pda-heads"
 	default_virus_defense = ANTIVIRUS_GOOD
@@ -182,7 +188,7 @@
 /obj/item/modular_computer/tablet/pda/preset/heads/research_director
 	name = "research director PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/rd
-	insert_type = /obj/item/pen/fountain
+	inserted_item = /obj/item/pen/fountain
 	icon_state = "pda-rd"
 
 /obj/item/modular_computer/tablet/pda/preset/heads/research_director/Initialize(mapload)
@@ -193,9 +199,17 @@
 	name = "captain PDA"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. The internals are modified to be more tough than the usual."
 	default_disk = /obj/item/computer_hardware/hard_drive/role/captain
-	insert_type = /obj/item/pen/fountain/captain
+	inserted_item = /obj/item/pen/fountain/captain
 	icon_state = "pda-captain"
 	default_virus_defense = ANTIVIRUS_BEST
+
+/obj/item/modular_computer/tablet/pda/preset/heads/captain/Initialize(mapload)
+	. = ..()
+	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
+	if(!drive)
+		return
+	for(var/datum/computer_file/program/messenger/messenger_app in drive.stored_files)
+		messenger_app.spam_mode = TRUE
 
 /obj/item/modular_computer/tablet/pda/preset/cargo_technician
 	name = "cargo technician PDA"
@@ -209,7 +223,7 @@
 /obj/item/modular_computer/tablet/pda/preset/quartermaster
 	name = "quartermaster PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/quartermaster
-	insert_type = /obj/item/pen/fountain
+	inserted_item = /obj/item/pen/fountain
 	icon_state = "pda-qm"
 	default_virus_defense = ANTIVIRUS_BASIC
 
@@ -237,6 +251,8 @@
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 	default_virus_defense = ANTIVIRUS_BEST
+	max_hardware_size = WEIGHT_CLASS_SMALL
+	cell_type = /obj/item/computer_hardware/battery/large
 
 /obj/item/modular_computer/tablet/pda/preset/syndicate/Initialize(mapload)
 	. = ..()
@@ -253,9 +269,17 @@
 /obj/item/modular_computer/tablet/pda/preset/lawyer
 	name = "lawyer PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/lawyer
-	insert_type = /obj/item/pen/fountain
+	inserted_item = /obj/item/pen/fountain
 	icon_state = "pda-lawyer"
 	init_ringtone = "objection"
+
+/obj/item/modular_computer/tablet/pda/preset/lawyer/Initialize(mapload)
+	. = ..()
+	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
+	if(!drive)
+		return
+	for(var/datum/computer_file/program/messenger/messenger_app in drive.stored_files)
+		messenger_app.spam_mode = TRUE
 
 /obj/item/modular_computer/tablet/pda/preset/roboticist
 	name = "roboticist PDA"
@@ -268,7 +292,7 @@
 	note = "Congratulations, your station has chosen the Thinktronic 5290 WGW-11-NTOS Series E-reader and Personal Data Assistant!"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/curator
 	icon_state = "pda-library"
-	insert_type = /obj/item/pen/fountain
+	inserted_item = /obj/item/pen/fountain
 	init_ringtone = "silence"
 	init_ringer_on = FALSE
 
@@ -284,7 +308,7 @@
 
 /obj/item/modular_computer/tablet/pda/preset/bartender
 	name = "bartender PDA"
-	insert_type = /obj/item/pen/fountain
+	inserted_item = /obj/item/pen/fountain
 	icon_state = "pda-bartender"
 
 /obj/item/modular_computer/tablet/pda/preset/atmospheric_technician
@@ -311,9 +335,10 @@
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is a gold-plated 5230-NTOS LRP Series, and probably quite expensive."
 	note = "Congratulations, you have chosen the Thinktronic 5230-NTOS LRP Series Personal Data Assistant Golden Edition!"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/vip
-	insert_type = /obj/item/pen/fountain
+	inserted_item = /obj/item/pen/fountain
 	icon_state = "pda-gold"
 	init_ringtone = "ch-CHING"
+	custom_price = 500
 
 /obj/item/modular_computer/tablet/pda/preset/unlicensed
 	name = "unlicensed PDA"

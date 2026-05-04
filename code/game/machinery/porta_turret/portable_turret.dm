@@ -139,6 +139,8 @@
 	if(!has_cover)
 		INVOKE_ASYNC(src, PROC_REF(pop_up))
 
+	AddElement(/datum/element/hostile_machine)
+
 /obj/machinery/porta_turret/proc/toggle_on(set_to)
 	var/current = on
 	if (!isnull(set_to))
@@ -655,7 +657,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 /datum/action/turret_toggle
 	name = "Toggle Mode"
-	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
+	button_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_cycle_equip_off"
 
 /datum/action/turret_toggle/on_activate(mob/user, atom/target)
@@ -666,7 +668,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 /datum/action/turret_quit
 	name = "Release Control"
-	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
+	button_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_eject"
 
 /datum/action/turret_quit/on_activate(mob/user, atom/target)
@@ -685,7 +687,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	if(!toggle_action)
 		toggle_action = new(src)
 	toggle_action.Grant(remote_controller)
-	remote_controller.reset_perspective(src)
+	remote_controller.set_mob_eye_to(src)
 	remote_controller.click_intercept = src
 	manual_control = TRUE
 	always_up = TRUE
@@ -701,7 +703,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 		quit_action.Remove(remote_controller)
 		toggle_action.Remove(remote_controller)
 		remote_controller.click_intercept = null
-		remote_controller.reset_perspective()
+		remote_controller.set_mob_eye_to(MOB_EYE_SELF)
 	always_up = initial(always_up)
 	manual_control = FALSE
 	remote_controller = null

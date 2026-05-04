@@ -26,7 +26,7 @@
 		TRAIT_NOCLONELOSS,
 		TRAIT_NOBLOOD,
 	)
-	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
+	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	mutanttongue = /obj/item/organ/tongue/bone
 	mutantappendix = null
 	mutantheart = null
@@ -64,8 +64,8 @@
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)
-		H.adjustStaminaLoss(7.5 * REAGENTS_EFFECT_MULTIPLIER * delta_time, 0)
-		H.adjustBruteLoss(0.5 * REAGENTS_EFFECT_MULTIPLIER * delta_time, 0)
+		H.adjustStaminaLoss(7.5 * REM * delta_time, 0)
+		H.adjustBruteLoss(0.5 * REM * delta_time, 0)
 		if(DT_PROB(10, delta_time))
 			switch(rand(1, 3))
 				if(1)

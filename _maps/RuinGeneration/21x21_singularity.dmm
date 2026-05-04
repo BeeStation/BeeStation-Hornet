@@ -29,10 +29,6 @@
 /obj/machinery/field/generator,
 /turf/open/floor/plating,
 /area/template_noop)
-"p" = (
-/obj/machinery/power/rad_collector,
-/turf/open/floor/iron,
-/area/ruin)
 "q" = (
 /obj/structure/sign/warning/radiation{
 	pixel_y = -32
@@ -73,8 +69,8 @@
 	},
 /turf/open/floor/iron,
 /area/ruin)
-"R" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+"P" = (
+/obj/effect/spawner/structure/window/reinforced/plasma,
 /turf/open/floor/plating,
 /area/ruin)
 "S" = (
@@ -168,7 +164,7 @@ c
 c
 c
 c
-p
+c
 c
 c
 c
@@ -194,9 +190,9 @@ c
 c
 c
 c
-p
 c
-p
+c
+c
 c
 c
 c
@@ -213,13 +209,13 @@ c
 c
 C
 C
-R
-R
-R
+P
+P
+P
 C
-R
-R
-R
+P
+P
+P
 C
 C
 c
@@ -257,7 +253,7 @@ c
 c
 c
 c
-R
+P
 a
 o
 t
@@ -267,7 +263,7 @@ S
 t
 o
 a
-R
+P
 E
 c
 c
@@ -280,7 +276,7 @@ c
 c
 c
 c
-R
+P
 t
 t
 t
@@ -290,7 +286,7 @@ a
 t
 t
 t
-R
+P
 E
 W
 c
@@ -303,7 +299,7 @@ c
 c
 c
 c
-R
+P
 a
 S
 a
@@ -313,7 +309,7 @@ S
 a
 S
 a
-R
+P
 E
 c
 c
@@ -349,7 +345,7 @@ c
 c
 c
 c
-R
+P
 a
 S
 a
@@ -359,7 +355,7 @@ S
 a
 S
 a
-R
+P
 E
 c
 c
@@ -372,7 +368,7 @@ c
 c
 c
 c
-R
+P
 t
 t
 t
@@ -382,7 +378,7 @@ a
 t
 t
 t
-R
+P
 E
 W
 c
@@ -395,7 +391,7 @@ c
 c
 c
 c
-R
+P
 a
 o
 t
@@ -405,7 +401,7 @@ S
 t
 o
 a
-R
+P
 E
 c
 c
@@ -443,13 +439,13 @@ c
 c
 C
 C
-R
-R
-R
+P
+P
+P
 C
-R
-R
-R
+P
+P
+P
 C
 C
 c
@@ -467,8 +463,8 @@ c
 c
 c
 c
-p
-p
+c
+c
 c
 c
 c

@@ -1,6 +1,6 @@
 /datum/action/item_action/mod
 	background_icon_state = "bg_mod"
-	icon_icon = 'icons/hud/actions/actions_mod.dmi'
+	button_icon = 'icons/hud/actions/actions_mod.dmi'
 	check_flags = AB_CHECK_CONSCIOUS
 	/// Whether this action is intended for the AI. Stuff breaks a lot if this is done differently.
 	var/ai_action = FALSE
@@ -130,7 +130,7 @@
 		check_flags = NONE
 	name = "Activate [capitalize(format_text(linked_module.name))]"
 	desc = "Quickly activate [linked_module]."
-	icon_icon = linked_module.icon
+	button_icon = linked_module.icon
 	button_icon_state = linked_module.icon_state
 	RegisterSignals(linked_module, list(
 		COMSIG_MODULE_ACTIVATED,

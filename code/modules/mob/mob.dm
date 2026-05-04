@@ -1,29 +1,29 @@
 /**
-  * Delete a mob
-  *
-  * Removes mob from the following global lists
-  * * GLOB.mob_list
-  * * GLOB.dead_mob_list
-  * * GLOB.alive_mob_list
-  * * GLOB.all_clockwork_mobs
-  * * GLOB.mob_directory
-  *
-  * Unsets the focus var
-  *
-  * Clears alerts for this mob
-  *
-  * Resets all the observers perspectives to the tile this mob is on
-  *
-  * qdels any client colours in place on this mob
-  *
-  * Clears any refs to the mob inside its current location
-  *
-  * Ghostizes the client attached to this mob
-  *
-  * If our mind still exists, clear its current var to prevent harddels
-  *
-  * Parent call
-  */
+ * Delete a mob
+ *
+ * Removes mob from the following global lists
+ * * GLOB.mob_list
+ * * GLOB.dead_mob_list
+ * * GLOB.alive_mob_list
+ * * GLOB.all_clockwork_mobs
+ * * GLOB.mob_directory
+ *
+ * Unsets the focus var
+ *
+ * Clears alerts for this mob
+ *
+ * Resets all the observers perspectives to the tile this mob is on
+ *
+ * qdels any client colours in place on this mob
+ *
+ * Clears any refs to the mob inside its current location
+ *
+ * Ghostizes the client attached to this mob
+ *
+ * If our mind still exists, clear its current var to prevent harddels
+ *
+ * Parent call
+ */
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
 	remove_from_mob_list()
 	remove_from_dead_mob_list()
@@ -32,19 +32,19 @@
 	remove_from_disconnected_mob_list()
 
 	focus = null
+	if(length(current_mob_eye?.eye_mobs))
+		LAZYREMOVE(current_mob_eye.eye_mobs, src)
+	current_mob_eye = null
 	if(length(progressbars))
 		stack_trace("[src] destroyed with elements in its progressbars list")
 		progressbars = null
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
-	if(observers?.len)
-		for(var/mob/dead/observe as anything in observers)
-			observe.reset_perspective(null)
+	for(var/mob/dead/observe as anything in observers)
+		observe.set_mob_eye_to(MOB_EYE_SELF)
 	qdel(hud_used)
-	for(var/cc in client_colours)
-		qdel(cc)
-	client_colours = null
-	ghostize()
+	QDEL_LIST(client_colours)
+	ghostize(can_reenter_corpse = FALSE)
 	if(mind?.current == src) //Let's just be safe yeah? This will occasionally be cleared, but not always. Can't do it with ghostize without changing behavior
 		mind.set_current(null)
 	return ..()
@@ -80,6 +80,7 @@
 		add_to_dead_mob_list()
 	else
 		add_to_alive_mob_list()
+	update_incapacitated()
 	set_focus(src)
 	prepare_huds()
 	for(var/v in GLOB.active_alternate_appearances)
@@ -103,6 +104,7 @@
   * This is simply "mob_"+ a global incrementing counter that goes up for every mob
   */
 /mob/GenerateTag()
+	. = ..()
 	tag = "mob_[next_mob_id++]"
 
 /**
@@ -154,7 +156,6 @@
   * Show a message to this mob (visual or audible)
   */
 /mob/proc/show_message(msg, type, alt_msg, alt_type, avoid_highlighting = FALSE, dist)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
-
 	if(!client)
 		return FALSE
 
@@ -188,73 +189,98 @@
 	to_chat(src, msg, avoid_highlighting = avoid_highlighting)
 	return .
 
-
-/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE, separation = " ")
+/**
+ * Generate a visible message from this atom
+ *
+ * Show a message to all player mobs who sees this atom
+ *
+ * Show a message to the src mob (if the src is a mob)
+ *
+ * Use for atoms performing visible actions
+ *
+ * message is output to anyone who can see, e.g. `"The [src] does something!"`
+ *
+ * Vars:
+ * * message is the message output to anyone who can see.
+ * * self_message (optional) is what the src mob sees e.g. "You do something!"
+ * * blind_message (optional) is what blind people will hear e.g. "You hear something!"
+ * * vision_distance (optional) define how many tiles away the message can be seen.
+ * * ignored_mobs (optional) doesn't show any message to any mob in this list.
+ * * visible_message_flags (optional) is the type of message being sent.
+ */
+/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE, allow_inside_usr = FALSE, separation = " ")
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
 
 	if(!islist(ignored_mobs))
 		ignored_mobs = list(ignored_mobs)
-
-	var/list/hearers = hearers(vision_distance, T) //caches the hearers and then removes ignored mobs.
+	var/list/hearers = mob_only_listeners(get_hearers_in_view(vision_distance, src)) //caches the hearers and then removes ignored mobs.
 	hearers -= ignored_mobs
-
-	if(self_message)
-		hearers -= src
 
 	var/raw_msg = message
 	var/is_emote = FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE))
+	if(visible_message_flags & WITH_EMPHASIS_MESSAGE)
+		message = apply_message_emphasis(message)
+	if(visible_message_flags & EMOTE_MESSAGE)
 		message = span_emote("<b>[src]</b>[separation][message]")
 		is_emote = TRUE
 
 	var/list/show_to = list()
 
-	for(var/mob/M as() in hearers)
-		if(!M.client)
+	for(var/mob/hearing_mob as anything in hearers)
+		if(!hearing_mob?.client)
+			continue
+		if(self_message && hearing_mob == src)
 			continue
 
 		var/msg = message
-		if(M.see_invisible < invisibility)//if src is invisible to M
+		var/msg_type = MSG_VISUAL
+
+		if(hearing_mob.see_invisible < invisibility)//if src is invisible to M
 			msg = blind_message
+			msg_type = MSG_AUDIBLE
 		else if(T != loc && T != src) //if src is inside something and not a turf.
-			if(!allow_inside_usr || loc != usr)
+			if(!allow_inside_usr || hearing_mob != loc)
 				msg = blind_message
-		else if(T.lighting_object && T.lighting_object.invisibility <= M.see_invisible && T.is_softly_lit() && !in_range(T,M)) //if it is too dark.
+				msg_type = MSG_AUDIBLE
+		else if(!HAS_TRAIT(hearing_mob, TRAIT_HEAR_THROUGH_DARKNESS) && T.lighting_object && T.lighting_object.invisibility <= hearing_mob.see_invisible && T.is_softly_lit() && !in_range(T,hearing_mob)) //if it is too dark.
 			msg = blind_message
+			msg_type = MSG_AUDIBLE
 		if(!msg)
 			continue
 
-		if(is_emote && M.should_show_chat_message(src, null, TRUE))
-			if(M.is_blind() && get_dist(M, src) > BLIND_TEXT_DIST)
+		if(is_emote && hearing_mob.should_show_chat_message(src, null, TRUE))
+			if(hearing_mob.is_blind() && get_dist(hearing_mob, src) > BLIND_TEXT_DIST)
 				continue
-			show_to += M
+			show_to += hearing_mob
 
-		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE, avoid_highlighting = M == src)
+		hearing_mob.show_message(msg, msg_type, blind_message, MSG_AUDIBLE, avoid_highlighting = hearing_mob == src)
 
 	//Create the chat message
 	if(length(show_to))
-		create_chat_message(src, null, show_to, raw_msg, null, visible_message_flags)
+		create_chat_message(speaker = src, message_language = null, hearers = show_to, raw_message = raw_msg, spans = null, runechat_flags = visible_message_flags)
 
-/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE, separation = " ")
+/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE, allow_inside_usr = FALSE, separation = " ")
 	. = ..()
 	if(!self_message)
 		return
 	var/raw_self_message = self_message
 	var/self_runechat = FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE))
+	var/block_self_highlight = (visible_message_flags & BLOCK_SELF_HIGHLIGHT_MESSAGE)
+	if(visible_message_flags & WITH_EMPHASIS_MESSAGE)
+		self_message = apply_message_emphasis(self_message)
+	if((visible_message_flags & EMOTE_MESSAGE))
 		self_message = span_emote("<b>[src]</b> [self_message]") // May make more sense as "You do x"
 
-	if(LAZYFIND(visible_message_flags, ALWAYS_SHOW_SELF_MESSAGE))
-		to_chat(src, self_message)
+	if(visible_message_flags & ALWAYS_SHOW_SELF_MESSAGE)
+		to_chat(src, self_message, avoid_highlighting = block_self_highlight)
 		self_runechat = TRUE
-
 	else
-		self_runechat = show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE)
+		self_runechat = show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE, avoid_highlighting = block_self_highlight)
 
-	if(self_runechat && (LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && runechat_prefs_check(src, visible_message_flags))
-		create_chat_message(src, null, list(src), raw_message = raw_self_message, message_mods = visible_message_flags)
+	if(self_runechat && ((visible_message_flags & EMOTE_MESSAGE)) && runechat_prefs_check(src, visible_message_flags))
+		create_chat_message(src, null, list(src), raw_message = raw_self_message, runechat_flags = visible_message_flags)
 
 /**
   * Show a message to all mobs in earshot of this atom
@@ -267,25 +293,28 @@
   * * deaf_message (optional) is what deaf people will see.
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
-/atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags, separation = " ")
-	var/list/hearers = get_hearers_in_view(hearing_distance, src, SEE_INVISIBLE_MAXIMUM)
-	if(self_message)
-		hearers -= src
-
+/atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, audible_message_flags = NONE, separation = " ")
+	var/list/hearers = mob_only_listeners(get_hearers_in_view(hearing_distance, src, SEE_INVISIBLE_MAXIMUM))
 	var/raw_msg = message
 	var/is_emote = FALSE
-	if(LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE))
+	if(audible_message_flags & WITH_EMPHASIS_MESSAGE)
+		message = apply_message_emphasis(message)
+	if(audible_message_flags & EMOTE_MESSAGE)
 		is_emote = TRUE
 		message = span_emote("<b>[src]</b>[separation][message]")
 
 	var/list/show_to = list()
-	for(var/mob/M in hearers)
-		if(is_emote && M.should_show_chat_message(src, null, TRUE, is_heard = TRUE))
-			show_to += M
-		M.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+	for(var/mob/hearing_mob as anything in hearers)
+		if(!hearing_mob?.client)
+			continue
+		if(self_message && hearing_mob == src)
+			continue
+		if(is_emote && hearing_mob.should_show_chat_message(src, null, TRUE, is_heard = TRUE))
+			show_to += hearing_mob
+		hearing_mob.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 
 	if(length(show_to))
-		create_chat_message(src, null, show_to, raw_message = raw_msg, spans = list("italics"), message_mods = audible_message_flags)
+		create_chat_message(src, null, show_to, raw_message = raw_msg, spans = list("italics"), runechat_flags = audible_message_flags)
 
 /**
   * Show a message to all mobs in earshot of this one
@@ -298,38 +327,54 @@
   * * deaf_message (optional) is what deaf people will see.
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
-/mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags, separation = " ")
+/mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, audible_message_flags = NONE, separation = " ")
 	. = ..()
 	if(!self_message)
 		return
 
 	var/raw_self_message = self_message
 	var/self_runechat = FALSE
-	if(LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE))
+	var/block_self_highlight = (audible_message_flags & BLOCK_SELF_HIGHLIGHT_MESSAGE)
+	if(audible_message_flags & WITH_EMPHASIS_MESSAGE)
+		self_message = apply_message_emphasis(self_message)
+	if(audible_message_flags & EMOTE_MESSAGE)
 		self_message = span_emote("<b>[src]</b> [self_message]")
-	if(LAZYFIND(audible_message_flags, ALWAYS_SHOW_SELF_MESSAGE))
-		to_chat(src, self_message)
+
+	if(audible_message_flags & ALWAYS_SHOW_SELF_MESSAGE)
+		to_chat(src, self_message, avoid_highlighting = block_self_highlight)
 		self_runechat = TRUE
 	else
-		self_runechat = show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+		self_runechat = show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL, avoid_highlighting = block_self_highlight)
 
-	if(self_runechat && (LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE)) && runechat_prefs_check(src, audible_message_flags))
-		create_chat_message(src, null, list(src), raw_message = raw_self_message, message_mods = audible_message_flags)
+	if(self_runechat && ((audible_message_flags & EMOTE_MESSAGE)) && runechat_prefs_check(src, audible_message_flags))
+		create_chat_message(src, null, list(src), raw_message = raw_self_message, runechat_flags = audible_message_flags)
+
+/// Gets a linked mob, letting atoms act as proxies for actions that rely on hearing sensitivity.
+/// For example, AIs hearing around their holopads, and dullahans hearing around their heads.
+/// Normal say messages are handled by Hear(), this is for other visible/audible messages
+/atom/movable/proc/get_listening_mob()
+	return
+
+/obj/effect/overlay/holo_pad_hologram/get_listening_mob()
+	return Impersonation
+
+/mob/get_listening_mob()
+	return src
 
 ///Returns the client runechat visible messages preference according to the message type.
-/atom/proc/runechat_prefs_check(mob/target, list/visible_message_flags)
+/atom/proc/runechat_prefs_check(mob/target, visible_message_flags = NONE)
 	if(!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 		return FALSE
 	if (!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs))
 		return FALSE
-	if((LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
+	if((visible_message_flags & EMOTE_MESSAGE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
-/mob/runechat_prefs_check(mob/target, list/visible_message_flags)
+/mob/runechat_prefs_check(mob/target, visible_message_flags = NONE)
 	if(!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 		return FALSE
-	if((LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE)) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
+	if((visible_message_flags & EMOTE_MESSAGE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
@@ -345,9 +390,21 @@
 		return ITEM_SLOT_HANDS
 	return null
 
-///Is the mob incapacitated
-/mob/proc/incapacitated(flags)
-	return
+/// Called whenever anything that modifes incapacitated is ran, updates it and sends a signal if it changes
+/// Returns TRUE if anything changed, FALSE otherwise
+/mob/proc/update_incapacitated()
+	SIGNAL_HANDLER
+	var/old_incap = incapacitated
+	incapacitated = build_incapacitated()
+	if(old_incap == incapacitated)
+		return FALSE
+
+	SEND_SIGNAL(src, COMSIG_MOB_INCAPACITATE_CHANGED, old_incap, incapacitated)
+	return TRUE
+
+/// Returns an updated incapacitated bitflag. If a flag is set it means we're incapacitated in that case
+/mob/proc/build_incapacitated()
+	return NONE
 
 /**
   * This proc is called whenever someone clicks an inventory ui slot.
@@ -390,7 +447,7 @@
 /mob/proc/equip_to_slot_if_possible(obj/item/W, slot, qdel_on_fail = FALSE, disable_warning = FALSE, redraw_mob = TRUE, bypass_equip_delay_self = FALSE, initial = FALSE)
 	if(!istype(W))
 		return FALSE
-	if(!W.mob_can_equip(src, null, slot, disable_warning, bypass_equip_delay_self))
+	if(!W.mob_can_equip(src, slot, disable_warning, bypass_equip_delay_self))
 		if(qdel_on_fail)
 			qdel(W)
 		else if(!disable_warning)
@@ -446,82 +503,92 @@
 		)
 
 	for(var/slot in slot_priority)
-		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE, FALSE, FALSE)) //qdel_on_fail = 0; disable_warning = 1; redraw_mob = 1
+		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE, TRUE, FALSE, FALSE)) //qdel_on_fail = FALSE; disable_warning = TRUE; redraw_mob = TRUE;
 			return TRUE
 
 	if(qdel_on_fail)
 		qdel(W)
 	return FALSE
 
-// Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
-// Used in job equipping so shit doesn't pile up at the start loc.
-/mob/living/carbon/human/proc/equip_or_collect(obj/item/W, slot)
-	if(W.mob_can_equip(src, null, slot, TRUE, TRUE))
-		//Mob can equip.  Equip it.
-		equip_to_slot_or_del(W, slot)
-	else
-		//Mob can't equip it.  Put it in a bag B.
-		// Do I have a backpack?
-		var/obj/item/storage/B
-		if(istype(back,/obj/item/storage))
-			//Mob is wearing backpack
-			B = back
-		else
-			//not wearing backpack.  Check if player holding box
-			if(!is_holding_item_of_type(/obj/item/storage/box)) //If not holding box, give box
-				B = new /obj/item/storage/box(null) // Null in case of failed equip.
-				if(!put_in_hands(B))
-					return // box could not be placed in players hands.  I don't know what to do here...
-			//Now, B represents a container we can insert W into.
-			if(B.atom_storage.can_insert(W))
-				B.atom_storage.attempt_insert(W)
-			return B
-
-/**
- * Reset the attached clients perspective (viewpoint)
- *
- * reset_perspective(null) set eye to common default : mob on turf, loc otherwise
- * reset_perspective(thing) set the eye to the thing (if it's equal to current default reset to mob perspective)
- */
-/mob/proc/reset_perspective(atom/new_eye)
-	SHOULD_CALL_PARENT(TRUE)
-	/*
-	*In the future, this signal may need to be moved to the end of the proc, after the eye has been given a chance to fully updated.
-	*No issues atm, but if one occurs, try that solution first
-	*/
-	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
-	if(!client)
+/// Convinience proc. Collects crap that fails to equip either onto the mob's back, or drops it.
+/// Used in job equipping so shit doesn't pile up at the start loc.
+/mob/living/carbon/human/proc/equip_or_collect(obj/item/item_to_equip, slot)
+	// First try and equip the item into the slot
+	if(slot && item_to_equip.mob_can_equip(src, slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
+		equip_to_slot_or_del(item_to_equip, slot)
 		return
 
-	if(new_eye)
-		if(ismovable(new_eye))
-			//Set the new eye unless it's us
-			if(new_eye != src)
-				client.perspective = EYE_PERSPECTIVE
-				client.set_eye(new_eye)
-			else
-				client.set_eye(client.mob)
-				client.perspective = MOB_PERSPECTIVE
-
-		else if(isturf(new_eye))
-			//Set to the turf unless it's our current turf
-			if(new_eye != loc)
-				client.perspective = EYE_PERSPECTIVE
-				client.set_eye(new_eye)
-			else
-				client.set_eye(client.mob)
-				client.perspective = MOB_PERSPECTIVE
-		else
-			return TRUE //no setting eye to stupid things like areas or whatever
+	// Do I have a backpack?
+	var/obj/item/storage/storage
+	if(istype(back, /obj/item/storage))
+		storage = back
 	else
-		//Reset to common defaults: mob if on turf, otherwise current loc
-		if(isturf(loc))
-			client.set_eye(client.mob)
-			client.perspective = MOB_PERSPECTIVE
-		else
-			client.perspective = EYE_PERSPECTIVE
-			client.set_eye(loc)
+		// Not wearing backpack. Check if player holding box
+		storage = is_holding_item_of_type(/obj/item/storage/box)
+		if(isnull(storage))
+			// If not holding box, give box
+			storage = new /obj/item/storage/box(get_turf(src))
+		put_in_hands(storage)
+
+	storage.atom_storage.attempt_insert(item_to_equip)
+	return storage
+
+
+/mob/proc/set_mob_eye_to(atom/new_eye)
+	// somewhat tricky. If no client ever used this mob as their eye, this proc is not necessary.
+	// This is necessary because we don't want N number of mobs having 'eye_mobs = list(src)'. not necessary.
+	if(new_eye == MOB_EYE_SELF && isnull(current_mob_eye) && isnull(computer_id)) // "var/lastKnownIP" doesn't work for debug environment
+		return
+	// "new_eye == MOB_EYE_SELF" means what they have their eye as themselves. This is not necessary for clientless mob
+	// This rule is broken when "new_eye" is different. i.e.) Closet.
+	// Once this condition is broken, "current_mob_eye" will be no longer null.
+	// For "isnull(computer_id)", it's just an easy way to identify if a mob is clientless.
+
+	if(client && client.perspective != EYE_PERSPECTIVE)
+		stack_trace("something changed client's eye perspective. Current: [client.perspective]")
+		client.perspective = EYE_PERSPECTIVE
+
+	if(new_eye == src) // do not use when 'mob == src'
+		stack_trace("The proc received 'new_eye' as src. If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
+		new_eye = get_my_eye()
+	else if(isnull(new_eye))
+		stack_trace("The proc received 'new_eye' as null value. If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
+		new_eye = get_my_eye()
+	else if(new_eye == MOB_EYE_SELF)
+		new_eye = get_my_eye()
+	if(new_eye == current_mob_eye)
+		return // no need to do this
+
+	#define _new_eye_arg 1 // first arg. Unfortunately, there's no way to use arg name.
+	revise_proc_arg_value(_new_eye_arg, new_eye)
+	#undef _new_eye_arg
+
+	var/atom/old_eye = current_mob_eye
+
+	_on_setting_mob_eye(new_eye, old_eye)
+	// SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE, new_eye, old_eye) // wrong signal name
+	SEND_SIGNAL(src, COMSIG_MOB_SET_MOB_EYE, new_eye, old_eye)
 	return TRUE
+
+/// internal usage only proc
+/mob/proc/_on_setting_mob_eye(atom/new_eye, atom/old_eye)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	PROTECTED_PROC(TRUE)
+
+	if(isatom(old_eye)) // admeme vv failproof. /datum can't be their eyes
+		LAZYREMOVE(old_eye.eye_mobs, src)
+
+	current_mob_eye = new_eye
+	if(client)
+		client.set_client_eye_to(current_mob_eye)
+
+	if(isatom(new_eye))
+		LAZYADD(new_eye.eye_mobs, src)
+
+// In certain situations, you should not use "src" to get your mob's eye.
+// For example, Dullahan would see the things from their head(/obj/item/item/bodypart/head) rather than their body(src as /mob)
+/mob/proc/get_my_eye()
+	return src
 
 /**
   * Examine a mob
@@ -534,44 +601,116 @@
 	set name = "Examine"
 	set category = "IC"
 
+	INVOKE_ASYNC(src, PROC_REF(run_examinate), examinify)
+
+/mob/proc/external_examinate(atom/examinify)
+	INVOKE_ASYNC(src, PROC_REF(run_external_examinate), examinify)
+
+/// Examine the atom provided when it is worn by someone else
+/mob/proc/run_external_examinate(atom/examinify)
+	if(QDELETED(examinify))
+		return
+
 	if(isturf(examinify) && !(sight & SEE_TURFS) && !(examinify in view(client ? client.view : world.view, src)))
 		// shift-click catcher may issue examinate() calls for out-of-sight turfs
 		return
 
-	if(is_blind(src) && !blind_examine_check(examinify))
+	if(is_blind() && !blind_examine_check(examinify)) //blind people see things differently (through touch)
 		return
 
 	face_atom(examinify)
-	var/list/result
+
+	// Show nearby mobs that we're examining something
+	if(isliving(src) && stat < UNCONSCIOUS && !istype(examinify, /atom/movable/screen) && examinify.loc != src && examinify.loc && !is_holding(examinify))
+		for(var/mob/viewer in viewers(4, src))
+			if(viewer == src || !viewer.client || viewer.is_blind())
+				continue
+			if(!viewer.client.prefs?.read_player_preference(/datum/preference/toggle/examine_messages))
+				continue
+			to_chat(viewer, span_subtle("<b>\The [src]</b> looks at \the [examinify]."))
+
+	var/list/result = examinify.examine_base(src, TRUE)
+	var/atom_title = examinify.examine_title(src, thats = TRUE)
+	var/rendered = (atom_title ? "[span_slightly_larger(separator_hr("[atom_title]."))]" : "") + jointext(result, "<br>")
+
+	to_chat(src, examine_block(span_infoplain(rendered)))
+
+/mob/proc/run_examinate(atom/examinify)
+	if(QDELETED(examinify))
+		return
+
+	if(isturf(examinify) && !(sight & SEE_TURFS) && !(examinify in view(client ? client.view : world.view, src)))
+		// shift-click catcher may issue examinate() calls for out-of-sight turfs
+		return
+
+	if(is_blind() && !blind_examine_check(examinify)) //blind people see things differently (through touch)
+		return
+
+	face_atom(examinify)
+
+	// Show nearby mobs that we're examining something
+	if(isliving(src) && stat < UNCONSCIOUS && !istype(examinify, /atom/movable/screen) && examinify.loc != src && examinify.loc && !is_holding(examinify))
+		for(var/mob/viewer in viewers(4, src))
+			if(viewer == src || !viewer.client || viewer.is_blind())
+				continue
+			if(!viewer.client.prefs?.read_player_preference(/datum/preference/toggle/examine_messages))
+				continue
+			to_chat(viewer, span_subtle("<b>\The [src]</b> looks at \the [examinify]."))
+
+	var/result_combined
 	if(client)
 		LAZYINITLIST(client.recent_examines)
-		var/ref_to_atom = ref(examinify)
+		var/ref_to_atom = REF(examinify)
 		var/examine_time = client.recent_examines[ref_to_atom]
 		if(examine_time && (world.time - examine_time < EXAMINE_MORE_WINDOW))
-			result = examinify.examine_more(src)
+			var/list/result = examinify.examine_more(src)
 			if(!length(result))
 				result += span_notice("<i>You examine [examinify] closer, but find nothing of interest...</i>")
+			result_combined = jointext(result, "<br>")
+
 		else
-			result = examinify.examine(src)
-			SEND_SIGNAL(src, COMSIG_MOB_EXAMINING, examinify, result)
 			client.recent_examines[ref_to_atom] = world.time // set to when we last normal examine'd them
 			addtimer(CALLBACK(src, PROC_REF(clear_from_recent_examines), ref_to_atom), RECENT_EXAMINE_MAX_WINDOW)
-	else
-		result = examinify.examine(src) // if a tree is examined but no client is there to see it, did the tree ever really exist?
+			handle_eye_contact(examinify)
 
-	if(result.len)
-		for(var/i in 1 to (length(result) - 1))
-			result[i] += "\n"
+	if(!result_combined)
+		var/list/result = examinify.examine(src)
+		var/atom_title = examinify.examine_title(src, thats = TRUE)
+		SEND_SIGNAL(src, COMSIG_MOB_EXAMINING, examinify, result)
+		result_combined = (atom_title ? "[span_slightly_larger(separator_hr("[atom_title]."))]" : "") + jointext(result, "<br>")
 
-	to_chat(src, examine_block("<span class='infoplain'>[result.Join()]</span>"))
+	to_chat(src, examine_block(span_infoplain(result_combined)))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, examinify)
 
-/mob/proc/blind_examine_check(atom/examined_thing)
+//This is a proc for worn item examines. See /obj/item/proc/get_examine_line
+/mob/proc/can_examine_in_detail(atom/examinify, silent = FALSE)
+	var/turf/inspecting_location = get_turf(examinify)
+	if (!inspecting_location)
+		if (!silent)
+			to_chat(src, span_warning("You can't see that!"))
+		return FALSE
+	// Allow examine from up to 4 tiles away
+	if(!(src in viewers(4, inspecting_location)))
+		if(!silent)
+			to_chat(src, span_warning("You are too far away!"))
+		return FALSE
+	if(is_blind())
+		//blind_examine_check has some funky item movement stuff going on, so we just block blind examines
+		if(!silent)
+			to_chat(src, span_warning("You can't make out any of the details!"))
+		return FALSE
+	if(inspecting_location.get_lumcount() < LIGHTING_TILE_IS_DARK && !has_nightvision())
+		if(!silent)
+			to_chat(src, span_warning("You can't make those out!"))
+		return FALSE
 	return TRUE
+
+/mob/proc/blind_examine_check(atom/examined_thing)
+	return TRUE //The non-living will always succeed at this check.
 
 /mob/living/blind_examine_check(atom/examined_thing)
 	//need to be next to something and awake
-	if(!Adjacent(examined_thing) || incapacitated())
+	if(!Adjacent(examined_thing) || incapacitated)
 		to_chat(src, span_warning("Something is there, but you can't see it!"))
 		return FALSE
 
@@ -620,6 +759,51 @@
 	if(!client)
 		return
 	LAZYREMOVE(client.recent_examines, ref_to_clear)
+
+/**
+ * handle_eye_contact() is called when we examine() something. If we examine an alive mob with a mind who has examined us in the last 2 seconds within 5 tiles, we make eye contact!
+ *
+ * Note that if either party has their face obscured, the other won't get the notice about the eye contact
+ * Also note that examine_more() doesn't proc this or extend the timer, just because it's simpler this way and doesn't lose much.
+ * The nice part about relying on examining is that we don't bother checking visibility, because we already know they were both visible to each other within the last second, and the one who triggers it is currently seeing them
+ */
+/mob/proc/handle_eye_contact(mob/living/examined_mob)
+	return
+
+/mob/living/handle_eye_contact(mob/living/examined_mob)
+	if(!istype(examined_mob) || src == examined_mob || examined_mob.stat >= UNCONSCIOUS || !client || is_blind())
+		return
+
+	var/imagined_eye_contact = FALSE
+	if(!LAZYACCESS(examined_mob.client?.recent_examines, REF(src)))
+		// even if you haven't looked at them recently, if you have the shift eyes trait, they may still imagine the eye contact
+		if(HAS_TRAIT(examined_mob, TRAIT_SHIFTY_EYES) && prob(10 - get_dist(src, examined_mob)))
+			imagined_eye_contact = TRUE
+		else
+			return
+
+	if(get_dist(src, examined_mob) > EYE_CONTACT_RANGE)
+		return
+
+	// check to see if their face is blocked or, if not, a signal blocks it
+	if(examined_mob.can_eye_contact() && SEND_SIGNAL(src, COMSIG_MOB_EYECONTACT, examined_mob, TRUE) != COMSIG_BLOCK_EYECONTACT)
+		var/obj/item/clothing/eye_cover = examined_mob.is_eyes_covered()
+		if (!eye_cover || (!eye_cover.tint && !eye_cover.flash_protect))
+			var/msg = span_smallnotice("You make eye contact with [examined_mob].")
+			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), src, msg), 0.3 SECONDS) // so the examine signal has time to fire and this will print after
+
+	if(!imagined_eye_contact && can_eye_contact() && !examined_mob.is_blind() && SEND_SIGNAL(examined_mob, COMSIG_MOB_EYECONTACT, src, FALSE) != COMSIG_BLOCK_EYECONTACT)
+		var/obj/item/clothing/eye_cover = is_eyes_covered()
+		if (!eye_cover || (!eye_cover.tint && !eye_cover.flash_protect))
+			var/msg = span_smallnotice("[src] makes eye contact with you.")
+			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), examined_mob, msg), 0.3 SECONDS)
+
+/// Checks if we can make eye contact or someone can make eye contact with us
+/mob/living/proc/can_eye_contact()
+	return TRUE
+
+/mob/living/carbon/can_eye_contact()
+	return !(wear_mask?.flags_inv & HIDEFACE)
 
 /**
   * Called by using Activate Held Object with an empty hand/limb
@@ -679,7 +863,7 @@
 	if(ismecha(loc))
 		return
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 
 	var/obj/item/I = get_active_held_item()
@@ -727,30 +911,43 @@
   *
   * This sends you back to the lobby creating a new dead mob
   *
-  * Only works if flag/norespawn is allowed in config
+  * Only works if flag/allow_respawn is allowed in config
   */
 /mob/verb/abandon_mob()
 	set name = "Respawn"
 	set category = "OOC"
 	if(isnewplayer(src))
 		return
-	var/alert_yes
 
-	if (CONFIG_GET(flag/norespawn))
-		if(!check_rights_for(client, R_ADMIN))
-			to_chat(usr, span_boldnotice("Respawning is disabled."))
-			return
-		alert_yes = alert(src, "Do you want to use your admin privilege to respawn? (Respawning is currently disabled)", "Options", "Yes", "No")
-		if(alert_yes != "Yes")
-			return
+	switch(CONFIG_GET(flag/allow_respawn))
+		if(RESPAWN_FLAG_NEW_CHARACTER)
+			if(!check_respawn_delay())
+				if(tgui_alert_async(usr, "Note, respawning is only allowed as another character. You have been dead for [DisplayTimeText(usr.get_respawn_time(), 1)] out of a required [DisplayTimeText(CONFIG_GET(number/respawn_delay), 1)].", "Respawn Unavailable", list("Okay"), timeout = 80) != "Respawn")
+					return
+			//Adds a confirmation check to prevent players from accidentally DNRing
+			if(tgui_alert(usr, "Are you sure you want to Respawn? Your old body will become unrevivable, and you must respawn as a new character!", "Respawn", list("Yes", "No")) != "Yes")
+				return
 
+		if(RESPAWN_FLAG_FREE)
+			pass() // Normal respawn
+
+		if(RESPAWN_FLAG_DISABLED)
+			if (!check_rights_for(usr.client, R_ADMIN))
+				to_chat(usr, span_boldnotice("Respawning is not enabled!"))
+				return
+
+	var/mob/M = usr
 	if ((stat != DEAD || !( SSticker )))
-		to_chat(usr, span_boldnotice("You must be dead to use this!"))
+		to_chat(usr, span_boldnotice("You must be a ghost to use this!"))
 		return
 
-	log_game("[key_name(usr)] used abandon mob.")
+	if(!check_respawn_delay())
+		return
 
 	to_chat(usr, span_boldnotice("Please roleplay correctly!"))
+
+	log_game("[key_name(usr)] has used the respawn button to return to the lobby.")
+	message_admins("[key_name(usr)] has used the respawn button to return to the lobby.")
 
 	if(!client)
 		log_game("[key_name(usr)] AM failed due to disconnect.")
@@ -761,19 +958,33 @@
 		log_game("[key_name(usr)] AM failed due to disconnect.")
 		return
 
-	var/mob/dead/new_player/M = new /mob/dead/new_player()
+	var/mob/dead/new_player/authenticated/NP = new()
 	if(!client)
 		log_game("[key_name(usr)] AM failed due to disconnect.")
 		qdel(M)
 		return
-	if(alert_yes)
-		log_admin("[key_name(usr)] has used admin privilege to respawn themselves back to the Lobby.")
-		message_admins("[key_name(usr)] has used admin privilege to respawn themselves back to the Lobby.")
 
-	M.key = key
-//	M.Login()	//wat
+	NP.ckey = usr.ckey
+	qdel(M)
 	return
 
+/// Checks if the mob can respawn yet according to the respawn delay
+/mob/proc/check_respawn_delay()
+	if(!CONFIG_GET(number/respawn_delay))
+		return TRUE
+
+	var/death_delta = world.time - client.player_details.time_of_death
+
+	var/required_delay = CONFIG_GET(number/respawn_delay)
+
+	if(death_delta < required_delay)
+		return FALSE
+	return TRUE
+
+/// Returns how long they've been dead
+/mob/proc/get_respawn_time()
+	var/death_time = world.time - client.player_details.time_of_death
+	return death_time
 
 /**
   * Sometimes helps if the user is stuck in another perspective or camera
@@ -781,7 +992,7 @@
 /mob/verb/cancel_camera()
 	set name = "Cancel Camera View"
 	set category = "OOC"
-	reset_perspective(null)
+	set_mob_eye_to(MOB_EYE_SELF)
 	unset_machine()
 
 //suppress the .click/dblclick macros so people can't use them to identify the location of items or aimbot
@@ -810,10 +1021,6 @@
 		return
 	if(isAI(M))
 		return
-
-///Is the mob muzzled (default false)
-/mob/proc/is_muzzled()
-	return FALSE
 
 /datum/action/proc/get_stat_label()
 	var/label = ""

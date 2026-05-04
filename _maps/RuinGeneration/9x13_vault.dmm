@@ -64,7 +64,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "y" = (
-/obj/item/stack/cable_coil/random/five,
+/obj/item/stack/cable_coil,
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/unpowered)
@@ -121,14 +121,13 @@
 "Q" = (
 /obj/structure/closet/crate/goldcrate,
 /obj/effect/turf_decal/bot_white/right,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark/airless,
 /area/ruin/unpowered)
 "R" = (
-/obj/machinery/door/airlock/vault{
-	req_access_txt = "53"
-	},
+/obj/machinery/door/airlock/vault,
+/obj/effect/mapping_helpers/airlock/access/all/supply/vault,
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,

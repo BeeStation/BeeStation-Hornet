@@ -72,13 +72,11 @@
 /obj/effect/turf_decal/stripes{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/template_noop)
 "q" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -88,7 +86,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "t" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/iron,
 /area/template_noop)
 "u" = (
@@ -126,7 +124,7 @@
 /area/template_noop)
 "B" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
@@ -142,7 +140,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "E" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/template_noop)
 "F" = (
@@ -177,9 +175,7 @@
 /obj/effect/turf_decal/stripes{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/item/trash/can{
 	pixel_x = -10;
 	pixel_y = 11
@@ -194,15 +190,13 @@
 /area/template_noop)
 "S" = (
 /obj/structure/falsewall,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/template_noop)
 "T" = (
 /obj/structure/closet/crate,
 /obj/item/storage/box,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/plating,
 /area/template_noop)
 "U" = (
@@ -214,7 +208,7 @@
 	dir = 8
 	},
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/spawner/random/maintenance/eight,
 /turf/open/floor/plating,
 /area/template_noop)
 "W" = (

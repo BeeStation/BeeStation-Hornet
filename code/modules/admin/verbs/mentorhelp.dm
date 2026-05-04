@@ -40,7 +40,7 @@ AUTH_CLIENT_VERB(mentorhelp)
 		return
 
 	//handle muting and automuting
-	if(prefs && prefs.muted & MUTE_MHELP)
+	if(prefs && player_details.muted & MUTE_MHELP)
 		to_chat(src, span_danger("Error: Mentor-PM: You cannot send mentorhelps (Muted)."))
 		return
 	if(handle_spam_prevention(msg, MUTE_MHELP))
@@ -205,7 +205,7 @@ AUTH_CLIENT_VERB(mentorhelp)
 
 	ticket_interaction("red", "transferred to adminhelp", ahelp_marker, blackbox_override="ahelp this")
 	Close(silent = TRUE, hide_interaction = TRUE)
-	if(initiator.prefs.muted & MUTE_ADMINHELP)
+	if(initiator.player_details.muted & MUTE_ADMINHELP)
 		message_ticket_managers(span_danger("Attempted escalation to adminhelp failed because [initiator_key_name] is ahelp muted. It's possible the user is attempting to abuse the mhelp system to get around this."))
 		log_admin_private("[initiator_ckey] blocked from mhelp escalation (performed by [istext(ahelp_marker) ? ahelp_marker : key_name(ahelp_marker, include_link = FALSE)]) to ahelp due to mute. Possible abuse of mhelp system.")
 		return

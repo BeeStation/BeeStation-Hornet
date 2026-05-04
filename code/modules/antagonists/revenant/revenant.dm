@@ -13,7 +13,7 @@
 	var/icon_stun = "revenant_stun"
 	var/icon_drain = "revenant_draining"
 	var/stasis = FALSE
-	mob_biotypes = list(MOB_SPIRIT)
+	mob_biotypes = MOB_SPIRIT
 	incorporeal_move = INCORPOREAL_MOVE_JAUNT
 	see_invisible = SEE_INVISIBLE_SPIRIT
 	invisibility = INVISIBILITY_SPIRIT
@@ -22,7 +22,6 @@
 	do_not_show_health_on_stat_panel = TRUE // showing their health info is confusing
 	plane = GHOST_PLANE
 	healable = FALSE
-	spacewalk = TRUE
 	sight = SEE_SELF
 	throwforce = 0
 	see_in_dark = NIGHTVISION_FOV_RANGE
@@ -73,6 +72,7 @@
 
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	// more rev abilities are in 'revenant_abilities.dm'
 	// Starting spells
 	var/datum/action/spell/night_vision/revenant/night_vision = new(src)
@@ -92,7 +92,7 @@
 	blight.Grant(src)
 	var/datum/action/spell/aoe/revenant/malfunction/malfunction = new(src)
 	malfunction.Grant(src)
-	random_revenant_name()
+	name = generate_random_mob_name()
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 	grant_all_languages(UNDERSTOOD_LANGUAGE, grant_omnitongue = FALSE, source = LANGUAGE_REVENANT) // rev can understand every langauge
 	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
@@ -109,13 +109,13 @@
 /mob/living/simple_animal/revenant/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, no_hands = FALSE, floor_okay=FALSE)
 	return FALSE
 
-/mob/living/simple_animal/revenant/proc/random_revenant_name()
-	var/built_name = ""
-	built_name += pick(strings(REVENANT_NAME_FILE, "spirit_type"))
-	built_name += " of "
-	built_name += pick(strings(REVENANT_NAME_FILE, "adverb"))
-	built_name += pick(strings(REVENANT_NAME_FILE, "theme"))
-	name = built_name
+/mob/living/simple_animal/revenant/generate_random_mob_name()
+	var/list/built_name_strings = list()
+	built_name_strings += pick(strings(REVENANT_NAME_FILE, "spirit_type"))
+	built_name_strings += " of "
+	built_name_strings += pick(strings(REVENANT_NAME_FILE, "adverb"))
+	built_name_strings += pick(strings(REVENANT_NAME_FILE, "theme"))
+	return built_name_strings.Join("")
 
 /mob/living/simple_animal/revenant/Login()
 	. = ..()
@@ -130,7 +130,7 @@
 	to_chat(src, "<b>Be sure to read <a href=\"[(CONFIG_GET(string/wikiurl)) ? (CONFIG_GET(string/wikiurl)) : "https://wiki.beestation13.com/view"]/Revenant\">the wiki page</a> to learn more.</b>")
 	if(!generated_objectives_and_spells)
 		generated_objectives_and_spells = TRUE
-		mind.assigned_role = ROLE_REVENANT
+		mind.set_assigned_role(ROLE_REVENANT)
 		mind.special_role = ROLE_REVENANT
 		SEND_SOUND(src, sound('sound/effects/ghost.ogg'))
 		mind.add_antag_datum(/datum/antagonist/revenant)
@@ -181,14 +181,24 @@
 /mob/living/simple_animal/revenant/med_hud_set_status()
 	return //we use no hud
 
-/mob/living/simple_animal/revenant/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/simple_animal/revenant/say(
+	message,
+	bubble_type,
+	list/spans = list(),
+	sanitize = TRUE,
+	datum/language/language,
+	ignore_spam = FALSE,
+	forced,
+	filterproof = FALSE,
+	message_range = 7,
+	datum/saymode/saymode,
+	list/message_mods = list(),
+)
 	if(!message)
 		return
 
-	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, span_warning("Your message contains forbidden words."))
-		return
-	message = treat_message_min(message)
+	if(sanitize)
+		message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 	src.log_talk(message, LOG_SAY)
 	var/rendered = span_revennotice("<b>[src]</b> haunts, \"[message]\"")
 	var/rendered_yourself = span_revennotice("You haunt to ghosts: [message]")
@@ -226,9 +236,6 @@
 		return BULLET_ACT_FORCE_PIERCE
 	return ..()
 
-/mob/living/simple_animal/revenant/rad_act(amount)
-	return
-
 //damage, gibbing, and dying
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
 	. = ..()
@@ -244,7 +251,7 @@
 	inhibited = FALSE
 	update_action_buttons_icon()
 
-/mob/living/simple_animal/revenant/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/revenant/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(!forced && !revealed)
 		return FALSE
 	. = amount
@@ -429,7 +436,7 @@
 			reveal(20)
 			stun(20)
 			return
-		if(stepTurf.flags_1 & NOJAUNT_1)
+		if(stepTurf.turf_flags & NOJAUNT)
 			to_chat(src, span_warning("Some strange aura is blocking the way."))
 			return
 		if(stepTurf.is_holy())
@@ -440,7 +447,7 @@
 /mob/living/simple_animal/revenant/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost of malice!"
 
-/mob/living/simple_animal/revenant/set_resting(rest, silent = TRUE)
+/mob/living/simple_animal/revenant/set_resting(new_resting, silent = TRUE, instant = FALSE)
 	to_chat(src, span_warning("You are too restless to rest now!"))
 	return FALSE
 
@@ -508,14 +515,16 @@
 				break
 	if(!key_of_revenant)
 		message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
-		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		var/datum/poll_config/config = new(
 			question = "Do you want to be [revenant.name] (reforming)?",
 			check_jobban = ROLE_REVENANT,
 			poll_time = 10 SECONDS,
 			jump_target = revenant,
 			role_name_text = "revenant",
 			alert_pic = revenant,
+			amount_to_pick = 1,
 		)
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 		if(!candidate)
 			qdel(revenant)
 			message_admins("No candidates were found for the new revenant. Oh well!")

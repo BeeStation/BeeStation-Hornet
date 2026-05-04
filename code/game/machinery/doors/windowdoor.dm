@@ -17,8 +17,8 @@
 	pass_flags_self = PASSTRANSPARENT
 	can_atmos_pass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
-	network_id = NETWORK_DOOR_AIRLOCKS
 	z_flags = NONE // reset zblock
+	opens_with_door_remote = TRUE
 	var/operationdelay = 5
 	var/obj/item/electronics/airlock/electronics = null
 	var/reinf = 0
@@ -35,7 +35,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	laser = 50
 	energy = 50
 	bomb = 10
-	rad = 100
 	fire = 70
 	acid = 100
 
@@ -64,11 +63,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 	)
 
-	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
-
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddElement(/datum/element/atmos_sensitive)
-	AddComponent(/datum/component/ntnet_interface)
 
 /obj/machinery/door/window/Destroy()
 	set_density(FALSE)
@@ -152,8 +148,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 		return TRUE
 
 //used in the AStar algorithm to determinate if the turf the door is on is passable
-/obj/machinery/door/window/CanAStarPass(obj/item/card/id/ID, to_dir)
-	return !density || (dir != to_dir) || (check_access(ID) && hasPower())
+/obj/machinery/door/window/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	return !density || (dir != to_dir) || (check_access_list(pass_info.access) && hasPower() && !pass_info.no_id)
 
 /obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
@@ -229,25 +225,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 			playsound(src, 'sound/items/welder.ogg', 100, 1)
 
 
-/obj/machinery/door/window/deconstruct(disassembled = TRUE)
-	if(!(flags_1 & NODECONSTRUCT_1) && !disassembled)
-		if(shards)
-			drop_amount(/obj/item/shard, shards)
-		if(rods)
-			drop_amount(/obj/item/stack/rods, shards)
-		if(cable)
-			drop_amount(/obj/item/stack/cable_coil, cable)
-	qdel(src)
+/obj/machinery/door/window/on_deconstruction(disassembled)
+	if(disassembled)
+		return
 
-/obj/machinery/door/window/proc/drop_amount(path, amt)
-	if(amt <= 0 || amt > 10) // please no more than 10
-		return
-	if(!ispath(path, /obj))
-		return
-	var/turf/T = get_turf(src)
-	for(var/i in 1 to amt)
-		var/obj/fragment = new path(T)
-		transfer_fingerprints_to(fragment)
+	for(var/i in 1 to shards)
+		drop_debris(new /obj/item/shard(src))
+	if(rods)
+		drop_debris(new /obj/item/stack/rods(src, rods))
+	if(cable)
+		drop_debris(new /obj/item/stack/cable_coil(src, cable))
+
+/obj/machinery/door/window/proc/drop_debris(obj/item/debris)
+	debris.forceMove(loc)
+	transfer_fingerprints_to(debris)
 
 /obj/machinery/door/window/narsie_act()
 	add_atom_colour("#7D1919", FIXED_COLOUR_PRIORITY)
@@ -352,18 +343,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	if(..())
 		autoclose = FALSE
 
-/obj/machinery/door/window/try_to_crowbar(obj/item/crowbar, mob/user)
+/obj/machinery/door/window/try_to_crowbar(obj/item/acting_object, mob/user, forced = FALSE)
 	if(density)
-		if(!HAS_TRAIT(crowbar, TRAIT_DOOR_PRYER) && hasPower())
+		if(!HAS_TRAIT(acting_object, TRAIT_DOOR_PRYER) && hasPower())
 			to_chat(user, span_warning("The windoor's motors resist your efforts to force it!"))
 			return
 		else if(!hasPower())
 			to_chat(user, span_warning("You begin forcing open \the [src], the motors don't resist..."))
-			if(!crowbar.use_tool(src, user, 1 SECONDS))
+			if(!acting_object.use_tool(src, user, 1 SECONDS))
 				return
 		else
 			to_chat(user, span_warning("You begin forcing open \the [src]..."))
-			if(!crowbar.use_tool(src, user, 5 SECONDS))
+			if(!acting_object.use_tool(src, user, 5 SECONDS))
 				return
 		open(2)
 	else
@@ -377,41 +368,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 			flick("[base_state]closing", src)
 		if("deny")
 			flick("[base_state]deny", src)
-
-/obj/machinery/door/window/check_access_ntnet(datum/netdata/data)
-	// Cutting WIRE_IDSCAN grants remote access... or it would, if we could hack windowdoors.
-	return id_scan_hacked() || ..()
-
-/obj/machinery/door/window/proc/ntnet_receive(datum/netdata/data)
-	// Check if the airlock is powered.
-	if(!hasPower())
-		return
-
-	//Check radio signal jamming
-	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
-		return
-
-	// Check packet access level.
-	if(!check_access_ntnet(data))
-		return
-
-	// Handle received packet.
-	var/command = LOWER_TEXT(data.data["data"])
-	var/command_value = LOWER_TEXT(data.data["data_secondary"])
-	switch(command)
-		if("open")
-			if(command_value == "on" && !density)
-				return
-
-			if(command_value == "off" && density)
-				return
-
-			if(density)
-				INVOKE_ASYNC(src, PROC_REF(open))
-			else
-				INVOKE_ASYNC(src, PROC_REF(close))
-		if("touch")
-			INVOKE_ASYNC(src, PROC_REF(open_and_close))
 
 /obj/machinery/door/window/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)
@@ -458,31 +414,38 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	operationdelay = 10
 	var/made_glow = FALSE
 
-
 /datum/armor/window_clockwork
 	bomb = 10
 	bio = 100
-	rad = 100
 	fire = 70
 	acid = 100
 
-/obj/machinery/door/window/clockwork/deconstruct(disassembled)
-	if(!(flags_1 & NODECONSTRUCT_1) && !disassembled)
-		drop_amount(/obj/item/clockwork/alloy_shards/medium/gear_bit/large, 2)
-	return ..()
+/obj/machinery/door/window/clockwork/on_deconstruction(disassembled)
+	if(disassembled)
+		return
+
+	for(var/i in 1 to 2)
+		drop_debris(new /obj/item/clockwork/alloy_shards/medium/gear_bit/large(src))
+	if(rods)
+		drop_debris(new /obj/item/stack/rods(src, rods))
+	if(cable)
+		drop_debris(new /obj/item/stack/cable_coil(src, cable))
 
 /obj/machinery/door/window/clockwork/setDir(direct)
 	if(!made_glow)
-		var/obj/effect/E = new /obj/effect/temp_visual/ratvar/door/window(get_turf(src))
-		E.setDir(direct)
+		var/obj/effect/glow_effect = new /obj/effect/temp_visual/ratvar/door/window(get_turf(src))
+		glow_effect.setDir(direct)
 		made_glow = TRUE
-	..()
+	return ..()
 
 /obj/machinery/door/window/clockwork/Destroy()
 	return ..()
 
 /obj/machinery/door/window/clockwork/emp_act(severity)
-	if(prob(80/severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	if(prob(80 / severity))
 		open()
 
 /obj/machinery/door/window/clockwork/hasPower()

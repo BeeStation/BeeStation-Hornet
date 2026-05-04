@@ -193,7 +193,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/client_image_holder)
 		return
 	regenerate_image()
 
-/obj/effect/client_image_holder/singularity_pull()
+/obj/effect/client_image_holder/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/client_image_holder/singularity_act()

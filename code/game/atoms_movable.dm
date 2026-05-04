@@ -1,10 +1,12 @@
 /atom/movable
+	abstract_type = /atom/movable
 	layer = OBJ_LAYER
 	glide_size = 8
 	appearance_flags = TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 
-	var/move_stacks = 0 //how many times a this movable had movement procs called on it since Moved() was last called
 	var/last_move = null
+	/// A list containing arguments for Moved().
+	VAR_PRIVATE/tmp/list/active_movement
 	var/last_move_time = 0
 	var/anchored = FALSE
 	var/move_resist = MOVE_RESIST_DEFAULT
@@ -15,10 +17,11 @@
 	var/throw_range = 7
 	var/mob/pulledby = null
 	/// What language holder type to init as
-	var/initial_language_holder = /datum/language_holder
+	var/initial_language_holder = /datum/language_holder/atom_basic
 	/// Holds all languages this mob can speak and understand
 	VAR_PRIVATE/datum/language_holder/language_holder
 
+	/// Use get_default_say_verb() in say.dm instead of reading verb_say.
 	var/verb_say = "says"
 	var/verb_ask = "asks"
 	var/verb_exclaim = "exclaims"
@@ -34,8 +37,10 @@
 	var/pass_flags = NONE
 	/// If false makes CanPass call CanPassThrough on this type instead of using default behaviour
 	var/generic_canpass = TRUE
-	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
-	var/atom/movable/moving_from_pull		//attempt to resume grab after moving instead of before.
+	/// 0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
+	var/moving_diagonally = 0
+	/// attempt to resume grab after moving instead of before.
+	var/atom/movable/moving_from_pull
 	///Holds information about any movement loops currently running/waiting to run on the movable. Lazy, will be null if nothing's going on
 	var/datum/movement_packet/move_packet
 	var/list/acted_explosions	//for explosion dodging
@@ -55,8 +60,8 @@
 	var/datum/component/orbiter/orbiting
 	var/can_be_z_moved = TRUE
 
-	/// Either FALSE, [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
-	var/blocks_emissive = FALSE
+	/// Either [EMISSIVE_BLOCK_NONE], [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
+	var/blocks_emissive = EMISSIVE_BLOCK_NONE
 	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
 	var/atom/movable/emissive_blocker/em_block
 	/**
@@ -65,9 +70,12 @@
 	 * do NOT add channels to this for little reason as it can add considerable memory usage.
 	 */
 	var/list/important_recursive_contents
-	///contains every client mob corresponding to every client eye in this container. lazily updated by SSparallax and is sparse:
-	///only the last container of a client eye has this list assuming no movement since SSparallax's last fire
-	var/list/client_mobs_in_contents
+
+	/// String representing the spatial grid groups we want to be held in.
+	/// acts as a key to the list of spatial grid contents types we exist in via SSspatial_grid.spatial_grid_categories.
+	/// We do it like this to prevent people trying to mutate them and to save memory on holding the lists ourselves
+	var/spatial_grid_key
+
 	///Lazylist to keep track on the sources of illumination.
 	var/list/affected_dynamic_lights
 	///Highest-intensity light affecting us, which determines our visibility.
@@ -76,20 +84,62 @@
 	/// Whether this atom should have its dir automatically changed when it moves. Setting this to FALSE allows for things such as directional windows to retain dir on moving without snowflake code all of the place.
 	var/set_dir_on_move = TRUE
 
+/mutable_appearance/emissive_blocker
 
-/atom/movable/Initialize(mapload)
+/mutable_appearance/emissive_blocker/New()
 	. = ..()
-	switch(blocks_emissive)
-		if(EMISSIVE_BLOCK_GENERIC)
-			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, layer, EMISSIVE_PLANE)
-			gen_emissive_blocker.dir = dir
-			gen_emissive_blocker.appearance_flags = EMISSIVE_APPEARANCE_FLAGS
-			gen_emissive_blocker.color = GLOB.em_blocker_matrix
-			add_overlay(list(gen_emissive_blocker))
-		if(EMISSIVE_BLOCK_UNIQUE)
+	// Need to do this here because it's overridden by the parent call
+	// This is a microop which is the sole reason why this child exists, because its static this is a really cheap way to set color without setting or checking it every time we create an atom
+	color = EM_BLOCKER_MATRIX
+
+/atom/movable/Initialize(mapload, ...)
+	. = ..()
+
+#if EMISSIVE_BLOCK_GENERIC != 0
+	#error EMISSIVE_BLOCK_GENERIC is expected to be 0 to facilitate a weird optimization hack where we rely on it being the most common.
+	#error Read the comment in code/game/atoms_movable.dm for details.
+#endif
+
+	// This one is incredible.
+	// `if (x) else { /* code */ }` is surprisingly fast, and it's faster than a switch, which is seemingly not a jump table.
+	// From what I can tell, a switch case checks every single branch individually, although sane, is slow in a hot proc like this.
+	// So, we make the most common `blocks_emissive` value, EMISSIVE_BLOCK_GENERIC, 0, getting to the fast else branch quickly.
+	// If it fails, then we can check over every value it can be (here, EMISSIVE_BLOCK_UNIQUE is the only one that matters).
+	// This saves several hundred milliseconds of init time.
+	if (blocks_emissive)
+		if (blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
 			render_target = ref(src)
-			em_block = new(src, render_target)
-			update_appearance(UPDATE_OVERLAYS)
+			em_block = new(src, src)
+			overlays += em_block
+			if(managed_overlays)
+				if(islist(managed_overlays))
+					managed_overlays += em_block
+				else
+					managed_overlays = list(managed_overlays, em_block)
+			else
+				managed_overlays = em_block
+	else
+		var/static/mutable_appearance/emissive_blocker/blocker = new()
+		blocker.icon = icon
+		blocker.icon_state = icon_state
+		blocker.dir = dir
+		blocker.appearance_flags = EMISSIVE_APPEARANCE_FLAGS
+		blocker.plane = EMISSIVE_PLANE
+		blocker.layer = layer
+		// Ok so this is really cursed, but I want to set with this blocker cheaply while
+		// Still allowing it to be removed from the overlays list later
+		// So I'm gonna flatten it, then insert the flattened overlay into overlays AND the managed overlays list, directly
+		// I'm sorry
+		var/mutable_appearance/flat = blocker.appearance
+		overlays += flat
+		if(managed_overlays)
+			if(islist(managed_overlays))
+				managed_overlays += flat
+			else
+				managed_overlays = list(managed_overlays, flat)
+		else
+			managed_overlays = flat
+
 	if(opacity)
 		AddElement(/datum/element/light_blocking)
 	switch(light_system)
@@ -101,7 +151,6 @@
 	if(isturf(loc))
 		var/turf/T = loc
 		T.update_above() // Z-Mimic
-
 
 /atom/movable/Destroy(force)
 	QDEL_NULL(language_holder)
@@ -137,10 +186,8 @@
 			qdel(move_packet)
 		move_packet = null
 
-	if(important_recursive_contents && (important_recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS] || important_recursive_contents[RECURSIVE_CONTENTS_HEARING_SENSITIVE]))
+	if(spatial_grid_key)
 		SSspatial_grid.force_remove_from_cell(src)
-
-	LAZYCLEARLIST(client_mobs_in_contents)
 
 	. = ..()
 
@@ -271,7 +318,7 @@
 	var/mob/living/old_pulling = pulling
 	pulling = null
 	SEND_SIGNAL(old_pulling, COMSIG_ATOM_NO_LONGER_PULLED, src)
-	//SEND_SIGNAL(src, COMSIG_ATOM_NO_LONGER_PULLING, old_pulling)
+	SEND_SIGNAL(src, COMSIG_ATOM_NO_LONGER_PULLING, old_pulling)
 
 ///Reports the event of the change in value of the pulledby variable.
 /atom/movable/proc/set_pulledby(new_pulledby)
@@ -345,10 +392,11 @@
  * most of the time you want forceMove()
  */
 /atom/movable/proc/abstract_move(atom/new_loc)
+	RESOLVE_ACTIVE_MOVEMENT // This should NEVER happen, but, just in case...
 	var/atom/old_loc = loc
-	move_stacks++
+	var/direction = get_dir(old_loc, new_loc)
 	loc = new_loc
-	Moved(old_loc)
+	Moved(old_loc, direction, TRUE)
 
 ////////////////////////////////////////
 // Here's where we rewrite how byond handles movement except slightly different
@@ -359,13 +407,16 @@
 	if(!newloc || newloc == loc)
 		return
 
+	// A mid-movement... movement... occurred, resolve that first.
+	RESOLVE_ACTIVE_MOVEMENT
+
 	if(!direction)
 		direction = get_dir(src, newloc)
 
 	if(set_dir_on_move && dir != direction && update_dir)
 		setDir(direction)
 
-	var/is_multi_tile_object = bound_width > 32 || bound_height > 32
+	var/is_multi_tile_object = is_multi_tile_object(src)
 
 	var/list/old_locs
 	if(is_multi_tile_object && isturf(loc))
@@ -379,13 +430,12 @@
 
 	var/list/new_locs
 	if(is_multi_tile_object && isturf(newloc))
+		var/dx = newloc.x
+		var/dy = newloc.y
+		var/dz = newloc.z
 		new_locs = block(
-			newloc,
-			locate(
-				min(world.maxx, newloc.x + CEILING(bound_width / 32, 1)),
-				min(world.maxy, newloc.y + CEILING(bound_height / 32, 1)),
-				newloc.z
-				)
+			dx, dy, dz,
+			dx + ceil(bound_width / ICON_SIZE_X), dy + ceil(bound_height / ICON_SIZE_Y), dz
 		) // If this is a multi-tile object then we need to predict the new locs and check if they allow our entrance.
 		for(var/atom/entering_loc as anything in new_locs)
 			if(!entering_loc.Enter(src))
@@ -402,8 +452,8 @@
 	var/atom/oldloc = loc
 	var/area/oldarea = get_area(oldloc)
 	var/area/newarea = get_area(newloc)
-	move_stacks++
 
+	SET_ACTIVE_MOVEMENT(oldloc, direction, FALSE, old_locs)
 	loc = newloc
 
 	. = TRUE
@@ -424,7 +474,7 @@
 	if(oldarea != newarea)
 		newarea.Entered(src, oldarea)
 
-	Moved(oldloc, direction, FALSE, old_locs)
+	RESOLVE_ACTIVE_MOVEMENT
 
 ////////////////////////////////////////
 
@@ -538,20 +588,8 @@
 /atom/movable/proc/Moved(atom/old_loc, movement_dir, forced = FALSE, list/old_locs)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(old_loc)
-		var/turf/old_turf = get_turf(old_loc)
-		var/turf/new_turf = get_turf(src)
-		if(old_turf && new_turf && old_turf.z != new_turf.z)
-			onTransitZ(old_turf.z, new_turf.z)
 	if (!inertia_moving)
 		newtonian_move(movement_dir)
-
-	move_stacks--
-	if(move_stacks > 0) //we want only the first Moved() call in the stack to send this signal, all the other ones have an incorrect old_loc
-		return
-	if(move_stacks < 0)
-		stack_trace("move_stacks is negative in Moved()!")
-		move_stacks = 0 //setting it to 0 so that we dont get every movable with negative move_stacks runtiming on every movement
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, old_loc, movement_dir, forced, old_locs)
 
@@ -568,10 +606,13 @@
 	var/turf/old_turf = get_turf(old_loc)
 	var/turf/new_turf = get_turf(src)
 
+	if (old_turf && new_turf && old_turf.z != new_turf.z)
+		onTransitZ(old_turf.z, new_turf.z)
+
 	if(HAS_SPATIAL_GRID_CONTENTS(src))
 		if(old_turf && new_turf && (old_turf.z != new_turf.z \
-			|| ROUND_UP(old_turf.x / SPATIAL_GRID_CELLSIZE) != ROUND_UP(new_turf.x / SPATIAL_GRID_CELLSIZE) \
-			|| ROUND_UP(old_turf.y / SPATIAL_GRID_CELLSIZE) != ROUND_UP(new_turf.y / SPATIAL_GRID_CELLSIZE)))
+			|| GET_SPATIAL_INDEX(old_turf.x) != GET_SPATIAL_INDEX(new_turf.x) \
+			|| GET_SPATIAL_INDEX(old_turf.y) != GET_SPATIAL_INDEX(new_turf.y)))
 
 			SSspatial_grid.exit_cell(src, old_turf)
 			SSspatial_grid.enter_cell(src, new_turf)
@@ -631,17 +672,17 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 	CRASH("/atom/movable/Uncrossed() was called")
 
-/atom/movable/Bump(atom/A)
-	if(!A)
+/atom/movable/Bump(atom/bumped_atom)
+	if(!bumped_atom)
 		CRASH("Bump was called with no argument.")
-	SEND_SIGNAL(src, COMSIG_MOVABLE_BUMP, A)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_BUMP, bumped_atom)
 	. = ..()
 	if(!QDELETED(throwing))
-		throwing.finalize(hit = TRUE, target = A)
+		throwing.finalize(hit = TRUE, target = bumped_atom)
 		. = TRUE
-		if(QDELETED(A))
+		if(QDELETED(bumped_atom))
 			return
-	A.Bumped(src)
+	bumped_atom.Bumped(src)
 
 ///called when this movable becomes the parent of a storage component that is currently being viewed by a player. uses important_recursive_contents
 /atom/movable/proc/become_active_storage(datum/storage/source)
@@ -685,41 +726,79 @@
 
 /atom/movable/proc/doMove(atom/destination)
 	. = FALSE
-	move_stacks++
+	RESOLVE_ACTIVE_MOVEMENT
+
 	var/atom/oldloc = loc
+	var/is_multi_tile = bound_width > ICON_SIZE_X || bound_height > ICON_SIZE_Y
+
+	SET_ACTIVE_MOVEMENT(oldloc, NONE, TRUE, null)
+
 	if(destination)
 		if(pulledby)
 			pulledby.stop_pulling()
+
 		var/same_loc = oldloc == destination
 		var/area/old_area = get_area(oldloc)
 		var/area/destarea = get_area(destination)
+		var/movement_dir = get_dir(src, destination)
 
 		moving_diagonally = 0
 
 		loc = destination
 
 		if(!same_loc)
-			if(oldloc)
-				oldloc.Exited(src, destination)
+			if(loc == oldloc)
+				// when attempting to move an atom A into an atom B which already contains A, BYOND seems
+				// to silently refuse to move A to the new loc. This can really break stuff (see #77067)
+				stack_trace("Attempt to move [src] to [destination] was rejected by BYOND, possibly due to cyclic contents")
+				return FALSE
+
+			if(is_multi_tile && isturf(destination))
+				var/dx = destination.x
+				var/dy = destination.y
+				var/dz = destination.z
+				var/list/new_locs = block(
+					dx, dy, dz,
+					dx + ROUND_UP(bound_width / ICON_SIZE_X), dy + ROUND_UP(bound_height / ICON_SIZE_Y), dz
+				)
 				if(old_area && old_area != destarea)
-					old_area.Exited(src, destination)
-			destination.Entered(src, oldloc)
-			if(destarea && old_area != destarea)
-				destarea.Entered(src, old_area)
+					old_area.Exited(src, movement_dir)
+				for(var/atom/left_loc as anything in locs - new_locs)
+					left_loc.Exited(src, movement_dir)
+
+				for(var/atom/entering_loc as anything in new_locs - locs)
+					entering_loc.Entered(src, movement_dir)
+
+				if(old_area && old_area != destarea)
+					destarea.Entered(src, movement_dir)
+			else
+				if(oldloc)
+					oldloc.Exited(src, movement_dir)
+					if(old_area && old_area != destarea)
+						old_area.Exited(src, movement_dir)
+				destination.Entered(src, oldloc)
+				if(destarea && old_area != destarea)
+					destarea.Entered(src, old_area)
 
 		. = TRUE
 
 	//If no destination, move the atom into nullspace (don't do this unless you know what you're doing)
 	else
 		. = TRUE
-		loc = null
-		if (oldloc)
-			var/area/old_area = get_area(oldloc)
-			oldloc.Exited(src, null)
-			if(old_area)
-				old_area.Exited(src, null)
 
-	Moved(oldloc, NONE, TRUE)
+		if (oldloc)
+			loc = null
+			var/area/old_area = get_area(oldloc)
+			if(is_multi_tile && isturf(oldloc))
+				for(var/atom/old_loc as anything in locs)
+					old_loc.Exited(src, NONE)
+			else
+				oldloc.Exited(src, NONE)
+
+			if(old_area)
+				old_area.Exited(src, NONE)
+
+	RESOLVE_ACTIVE_MOVEMENT
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
 //And when an object or action applies a force on src, see newtonian_move() below
@@ -984,43 +1063,43 @@
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
 	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform=initial_transform, time = 2, easing=SINE_EASING, flags = ANIMATION_PARALLEL)
 
-/atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item)
-	var/image/I
-	var/obj/effect/icon/temp/attack_animation_object
+/atom/movable/proc/do_item_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item)
+	var/image/attack_image
 	if(visual_effect_icon)
-		I = image('icons/effects/effects.dmi', A, visual_effect_icon, A.layer + 0.1)
-		attack_animation_object = new(get_turf(A), I, 10) //A.loc is an area when A is a turf
+		attack_image = image(icon = 'icons/effects/effects.dmi', icon_state = visual_effect_icon)
 	else if(used_item)
-		I = image(icon = used_item, loc = A, layer = A.layer + 0.1)
-		I.plane = GAME_PLANE
-		I.appearance_flags = NO_CLIENT_COLOR | PIXEL_SCALE
-		attack_animation_object = new(get_turf(A), I, 10)
+		attack_image = image(icon = used_item)
+		attack_image.plane = GAME_PLANE
 
 		// Scale the icon.
-		attack_animation_object.transform *= pick(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55)
+		attack_image.transform *= pick(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55)
+		// The icon should not rotate.
+		attack_image.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
 		// Set the direction of the icon animation.
-		var/direction = get_dir(src, A)
+		var/direction = get_dir(src, attacked_atom)
 		if(direction & NORTH)
-			attack_animation_object.pixel_y = rand(-15,-11)
+			attack_image.pixel_y = rand(-15,-11)
 		else if(direction & SOUTH)
-			attack_animation_object.pixel_y = rand(11,15)
+			attack_image.pixel_y = rand(11,15)
 
 		if(direction & EAST)
-			attack_animation_object.pixel_x = rand(-15,-11)
+			attack_image.pixel_x = rand(-15,-11)
 		else if(direction & WEST)
-			attack_animation_object.pixel_x = rand(11,15)
+			attack_image.pixel_x = rand(11,15)
 
 		if(!direction) // Attacked self?!
-			attack_animation_object.pixel_z = 16
+			attack_image.pixel_z = 16
 
-	if(!I)
+	if(!attack_image)
 		return
 
+	var/atom/movable/flick_visual/attack = attacked_atom.flick_overlay_view(attack_image, 1 SECONDS)
+	var/matrix/copy_transform = new(transform)
 	// And animate the attack!
-	animate(attack_animation_object, alpha = 175, transform = matrix() * 0.75, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
-	animate(time = 1)
-	animate(alpha = 0, time = 3, easing = CIRCULAR_EASING|EASE_OUT)
+	animate(attack, alpha = 175, transform = copy_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 0.3 SECONDS)
+	animate(time = 0.1 SECONDS)
+	animate(alpha = 0, time = 0.3 SECONDS, easing = CIRCULAR_EASING|EASE_OUT)
 
 /// Common proc used by painting tools like spraycans and palettes that can access the entire 24 bits color space.
 /obj/item/proc/pick_painting_tool_color(mob/user, default_color)
@@ -1099,7 +1178,8 @@
 /atom/movable/proc/get_language_holder()
 	RETURN_TYPE(/datum/language_holder)
 	if(QDELING(src))
-		CRASH("get_language_holder() called on a QDELing atom, this will try to re-instantiate the language holder that's about to be deleted, which is bad.")
+		CRASH("get_language_holder() called on a QDELing atom, \
+			this will try to re-instantiate the language holder that's about to be deleted, which is bad.")
 
 	if(!language_holder)
 		language_holder = new initial_language_holder(src)
@@ -1170,6 +1250,35 @@
 
 	return our_holder.get_selected_language() // verifies its validity, returns it if successful.
 
+/**
+ * Randomizes our atom's language to an uncommon language if:
+ * - They are on the station Z level
+ * OR
+ * - They are on the escape shuttle
+ */
+/atom/movable/proc/randomize_language_if_on_station()
+	var/turf/atom_turf = get_turf(src)
+	var/area/atom_area = get_area(src)
+
+	if(!atom_turf) // some machines spawn in nullspace
+		return FALSE
+
+	if(!is_station_level(atom_turf.z) && !istype(atom_area, /area/shuttle/escape))
+		// Why snowflake check for escape shuttle? Well, a lot of shuttles spawn with machines
+		// but docked at centcom, and I wanted those machines to also speak funny languages
+		return FALSE
+	grant_random_uncommon_language()
+	return TRUE
+
+/// Teaches a random non-common language and sets it as the active language
+/atom/movable/proc/grant_random_uncommon_language(source)
+	if (!length(GLOB.uncommon_roundstart_languages))
+		return FALSE
+	var/picked = pick(GLOB.uncommon_roundstart_languages)
+	grant_language(picked, source = source)
+	set_active_language(picked)
+	return TRUE
+
 /* End language procs */
 
 
@@ -1213,16 +1322,18 @@
 			if(. <= GRAB_AGGRESSIVE)
 				ADD_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
 
-/obj/item/proc/do_pickup_animation(atom/target)
+/obj/item/proc/do_pickup_animation(atom/target, turf/source)
 	set waitfor = FALSE
-	if(!istype(loc, /turf))
-		return
-	var/image/pickup_animation = image(icon = src, loc = loc, layer = layer + 0.1)
+	if(!source)
+		if(!istype(loc, /turf))
+			return
+		source = loc
+	var/image/pickup_animation = image(icon = src)
 	pickup_animation.plane = GAME_PLANE
-	pickup_animation.appearance_flags = NO_CLIENT_COLOR | PIXEL_SCALE
+	pickup_animation.transform *= 0.75
+	pickup_animation.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
-	var/turf/current_turf = get_turf(src)
-	var/direction = get_dir(current_turf, target)
+	var/direction = get_dir(source, target)
 	var/to_x = target.base_pixel_x
 	var/to_y = target.base_pixel_y
 
@@ -1238,14 +1349,13 @@
 		to_y += 10
 		pickup_animation.pixel_x += 6 * (prob(50) ? 1 : -1) //6 to the right or left, helps break up the straight upward move
 
-	var/obj/effect/icon/temp/pickup_animation_object = new(loc, pickup_animation, 4)
-	pickup_animation_object.transform *= 0.75
-	var/matrix/animation_matrix = new(pickup_animation_object.transform)
+	var/atom/movable/flick_visual/pickup = source.flick_overlay_view(pickup_animation, 0.4 SECONDS)
+	var/matrix/animation_matrix = new(pickup.transform)
 	animation_matrix.Turn(pick(-30, 30))
 	animation_matrix.Scale(0.65)
 
-	animate(pickup_animation_object, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = animation_matrix, easing = CUBIC_EASING)
-	animate(alpha = 0, transform = matrix().Scale(0.7), time = 1)
+	animate(pickup, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 0.3 SECONDS, transform = animation_matrix, easing = CUBIC_EASING)
+	animate(alpha = 0, transform = matrix().Scale(0.7), time = 0.1 SECONDS)
 
 /obj/item/proc/do_drop_animation(atom/moving_from)
 	set waitfor = FALSE
@@ -1302,35 +1412,54 @@
 /atom/movable/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 
-	if(LAZYLEN(arrived.important_recursive_contents))
-		var/list/nested_locs = get_nested_locs(src) + src
-		for(var/channel in arrived.important_recursive_contents)
-			for(var/atom/movable/location as anything in nested_locs)
-				LAZYORASSOCLIST(location.important_recursive_contents, channel, arrived.important_recursive_contents[channel])
+	if(!LAZYLEN(arrived.important_recursive_contents))
+		return
+	var/list/nested_locs = get_nested_locs(src) + src
+	for(var/channel in arrived.important_recursive_contents)
+		for(var/atom/movable/location as anything in nested_locs)
+			LAZYINITLIST(location.important_recursive_contents)
+			var/list/recursive_contents = location.important_recursive_contents // blue hedgehog velocity
+			LAZYINITLIST(recursive_contents[channel])
+			switch(channel)
+				if(RECURSIVE_CONTENTS_CLIENT_MOBS, RECURSIVE_CONTENTS_HEARING_SENSITIVE)
+					if(!length(recursive_contents[channel]))
+						SSspatial_grid.add_grid_awareness(location, channel)
+			recursive_contents[channel] |= arrived.important_recursive_contents[channel]
 
 /atom/movable/Exited(atom/movable/gone, direction)
 	. = ..()
 
-	if(LAZYLEN(gone.important_recursive_contents))
-		var/list/nested_locs = get_nested_locs(src) + src
-		for(var/channel in gone.important_recursive_contents)
-			for(var/atom/movable/location as anything in nested_locs)
-				LAZYREMOVEASSOC(location.important_recursive_contents, channel, gone.important_recursive_contents[channel])
+	if(!LAZYLEN(gone.important_recursive_contents))
+		return
+	var/list/nested_locs = get_nested_locs(src) + src
+	for(var/channel in gone.important_recursive_contents)
+		for(var/atom/movable/location as anything in nested_locs)
+			var/list/recursive_contents = location.important_recursive_contents // blue hedgehog velocity
+			recursive_contents[channel] -= gone.important_recursive_contents[channel]
+			switch(channel)
+				if(RECURSIVE_CONTENTS_CLIENT_MOBS, RECURSIVE_CONTENTS_HEARING_SENSITIVE)
+					if(!length(recursive_contents[channel]))
+						// This relies on a nice property of the linked recursive and gridmap types
+						// They're defined in relation to each other, so they have the same value
+						SSspatial_grid.remove_grid_awareness(location, channel)
+			ASSOC_UNSETEMPTY(recursive_contents, channel)
+			UNSETEMPTY(location.important_recursive_contents)
 
 ///allows this movable to hear and adds itself to the important_recursive_contents list of itself and every movable loc its in
 /atom/movable/proc/become_hearing_sensitive(trait_source = TRAIT_GENERIC)
-	if(!HAS_TRAIT(src, TRAIT_HEARING_SENSITIVE))
-		for(var/atom/movable/location as anything in get_nested_locs(src) + src)
-			LAZYADDASSOCLIST(location.important_recursive_contents, RECURSIVE_CONTENTS_HEARING_SENSITIVE, src)
-
-		var/turf/our_turf = get_turf(src)
-		if(our_turf && SSspatial_grid.initialized)
-			SSspatial_grid.enter_cell(src, our_turf)
-
-		else if(our_turf && !SSspatial_grid.initialized)//SSspatial_grid isnt init'd yet, add ourselves to the queue
-			SSspatial_grid.enter_pre_init_queue(src, RECURSIVE_CONTENTS_HEARING_SENSITIVE)
-
 	ADD_TRAIT(src, TRAIT_HEARING_SENSITIVE, trait_source)
+	if(!HAS_TRAIT(src, TRAIT_HEARING_SENSITIVE))
+		return
+
+	for(var/atom/movable/location as anything in get_nested_locs(src) + src)
+		LAZYINITLIST(location.important_recursive_contents)
+		var/list/recursive_contents = location.important_recursive_contents // blue hedgehog velocity
+		if(!length(recursive_contents[RECURSIVE_CONTENTS_HEARING_SENSITIVE]))
+			SSspatial_grid.add_grid_awareness(location, SPATIAL_GRID_CONTENTS_TYPE_HEARING)
+		recursive_contents[RECURSIVE_CONTENTS_HEARING_SENSITIVE] += list(src)
+
+	var/turf/our_turf = get_turf(src)
+	SSspatial_grid.add_grid_membership(src, our_turf, SPATIAL_GRID_CONTENTS_TYPE_HEARING)
 
 /**
  * removes the hearing sensitivity channel from the important_recursive_contents list of this and all nested locs containing us if there are no more sources of the trait left
@@ -1346,13 +1475,16 @@
 		return
 
 	var/turf/our_turf = get_turf(src)
-	if(our_turf && SSspatial_grid.initialized)
-		SSspatial_grid.exit_cell(src, our_turf)
-	else if(our_turf && !SSspatial_grid.initialized)
-		SSspatial_grid.remove_from_pre_init_queue(src, RECURSIVE_CONTENTS_HEARING_SENSITIVE)
+	// We get our awareness updated by the important recursive contents stuff, here we remove our membership
+	SSspatial_grid.remove_grid_membership(src, our_turf, SPATIAL_GRID_CONTENTS_TYPE_HEARING)
 
 	for(var/atom/movable/location as anything in get_nested_locs(src) + src)
-		LAZYREMOVEASSOC(location.important_recursive_contents, RECURSIVE_CONTENTS_HEARING_SENSITIVE, src)
+		var/list/recursive_contents = location.important_recursive_contents // blue hedgehog velocity
+		recursive_contents[RECURSIVE_CONTENTS_HEARING_SENSITIVE] -= src
+		if(!length(recursive_contents[RECURSIVE_CONTENTS_HEARING_SENSITIVE]))
+			SSspatial_grid.remove_grid_awareness(location, SPATIAL_GRID_CONTENTS_TYPE_HEARING)
+		ASSOC_UNSETEMPTY(recursive_contents, RECURSIVE_CONTENTS_HEARING_SENSITIVE)
+		UNSETEMPTY(location.important_recursive_contents)
 
 ///allows this movable to know when it has "entered" another area no matter how many movable atoms its stuffed into, uses important_recursive_contents
 /atom/movable/proc/become_area_sensitive(trait_source = TRAIT_GENERIC)
@@ -1375,24 +1507,33 @@
 ///propogates ourselves through our nested contents, similar to other important_recursive_contents procs
 ///main difference is that client contents need to possibly duplicate recursive contents for the clients mob AND its eye
 /mob/proc/enable_client_mobs_in_contents()
-	var/turf/our_turf = get_turf(src)
-
-	if(our_turf && SSspatial_grid.initialized)
-		SSspatial_grid.enter_cell(src, our_turf, RECURSIVE_CONTENTS_CLIENT_MOBS)
-	else if(our_turf && !SSspatial_grid.initialized)
-		SSspatial_grid.enter_pre_init_queue(src, RECURSIVE_CONTENTS_CLIENT_MOBS)
-
 	for(var/atom/movable/movable_loc as anything in get_nested_locs(src) + src)
-		LAZYORASSOCLIST(movable_loc.important_recursive_contents, RECURSIVE_CONTENTS_CLIENT_MOBS, src)
+		LAZYINITLIST(movable_loc.important_recursive_contents)
+		var/list/recursive_contents = movable_loc.important_recursive_contents // blue hedgehog velocity
+		if(!length(recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS]))
+			SSspatial_grid.add_grid_awareness(movable_loc, SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)
+		LAZYINITLIST(recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS])
+		recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS] |= src
+
+	var/turf/our_turf = get_turf(src)
+	/// We got our awareness updated by the important recursive contents stuff, now we add our membership
+	SSspatial_grid.add_grid_membership(src, our_turf, SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)
 
 ///Clears the clients channel of this mob
 /mob/proc/clear_important_client_contents()
 	var/turf/our_turf = get_turf(src)
-
-	if(our_turf && SSspatial_grid.initialized)
-		SSspatial_grid.exit_cell(src, our_turf, RECURSIVE_CONTENTS_CLIENT_MOBS)
-	else if(our_turf && !SSspatial_grid.initialized)
-		SSspatial_grid.remove_from_pre_init_queue(src, RECURSIVE_CONTENTS_CLIENT_MOBS)
+	SSspatial_grid.remove_grid_membership(src, our_turf, SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)
 
 	for(var/atom/movable/movable_loc as anything in get_nested_locs(src) + src)
-		LAZYREMOVEASSOC(movable_loc.important_recursive_contents, RECURSIVE_CONTENTS_CLIENT_MOBS, src)
+		LAZYINITLIST(movable_loc.important_recursive_contents)
+		var/list/recursive_contents = movable_loc.important_recursive_contents // blue hedgehog velocity
+		LAZYINITLIST(recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS])
+		recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS] -= src
+		if(!length(recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS]))
+			SSspatial_grid.remove_grid_awareness(movable_loc, SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)
+		ASSOC_UNSETEMPTY(recursive_contents, RECURSIVE_CONTENTS_CLIENT_MOBS)
+		UNSETEMPTY(movable_loc.important_recursive_contents)
+
+/// Can this mob move between z levels. pre_move is using in /mob/living to dictate is fuel is used based on move delay
+/mob/proc/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
+	return FALSE

@@ -44,7 +44,7 @@
 	var/emergency_mode = FALSE	// if true, the light is in emergency mode
 	var/no_emergency = FALSE	// if true, this light cannot ever have an emergency mode
 	var/bulb_emergency_brightness_mul = 0.25	// multiplier for this light's base brightness in emergency power mode
-	var/bulb_emergency_colour = "#FF3232"	// determines the colour of the light while it's in emergency mode
+	var/bulb_emergency_colour = COLOR_VIVID_RED	// determines the colour of the light while it's in emergency mode
 	var/bulb_emergency_pow_mul = 0.75	// the multiplier for determining the light's power in emergency mode
 	var/bulb_emergency_pow_min = 0.5	// the minimum value for the light's power in emergency mode
 
@@ -379,7 +379,7 @@
 			deconstruct()
 		else
 			to_chat(user, span_userdanger("You stick \the [W] into the light socket!"))
-			if(has_power() && (W.flags_1 & CONDUCT_1))
+			if(has_power() && (W.obj_flags & CONDUCTS_ELECTRICITY))
 				do_sparks(3, TRUE, src)
 				if (prob(75))
 					electrocute_mob(user, get_area(src), src, rand(0.7,1.0), TRUE)
@@ -408,7 +408,7 @@
 				break_light_tube()
 			if(status != LIGHT_EMPTY)
 				drop_light_tube()
-			new /obj/item/stack/cable_coil(loc, 1, "red")
+			new /obj/item/stack/cable_coil(loc, 1)
 		transfer_fingerprints_to(newlight)
 		var/obj/item/stock_parts/cell/real_cell = get_cell()
 		if(!QDELETED(real_cell))
@@ -420,7 +420,7 @@
 /obj/machinery/light/attacked_by(obj/item/I, mob/living/user)
 	..()
 	if(status == LIGHT_BROKEN || status == LIGHT_EMPTY)
-		if(on && (I.flags_1 & CONDUCT_1))
+		if(on && (I.obj_flags & CONDUCTS_ELECTRICITY))
 			if(prob(12))
 				electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 
@@ -635,14 +635,16 @@
 	on = TRUE
 	update()
 
-/obj/machinery/light/tesla_act(power, tesla_flags)
-	if(tesla_flags & TESLA_MACHINE_EXPLOSIVE)
-		//Fire can cause a lot of lag, just do a mini explosion.
-		explosion(src,0,0,1, adminlog = 0)
-		for(var/mob/living/L in range(3, src))
-			L.fire_stacks = max(L.fire_stacks, 3)
-			L.IgniteMob()
-			L.electrocute_act(0, "Tesla Light Zap", flags = SHOCK_TESLA)
+/obj/machinery/light/zap_act(power, zap_flags)
+	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
+		// Fire can cause a lot of lag, just do a mini explosion.
+		explosion(src, 0, 0, 1, adminlog = FALSE)
+
+		for(var/mob/living/person in range(3, src))
+			person.fire_stacks = max(person.fire_stacks, 3)
+			person.ignite_mob()
+			person.electrocute_act(0, "[src]", flags = SHOCK_TESLA)
+
 		qdel(src)
 	else
 		return ..()
@@ -672,6 +674,8 @@
 	base_state = "floor"		// base description and icon_state
 	icon_state = "floor"
 	brightness = 6
+	idle_power_usage = 0.014 KILOWATT
+	active_power_usage = 0.14 KILOWATT // on par with the small lights
 	layer = 2.5
 	light_type = /obj/item/light/bulb
 	fitting = "bulb"

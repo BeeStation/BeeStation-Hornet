@@ -75,11 +75,11 @@
 			if(1)
 				host_mob.adjust_hallucinations(30 SECONDS)
 			if(2)
-				host_mob.confused  += 10
+				host_mob.adjust_confusion(10 SECONDS)
 			if(3)
-				host_mob.drowsyness += 10
+				host_mob.adjust_drowsiness(20 SECONDS)
 			if(4)
-				host_mob.slurring += 10
+				host_mob.adjust_slurring(20 SECONDS)
 
 //Generic skin-affecting programs will decay into this
 /datum/nanite_program/skin_decay
@@ -94,7 +94,7 @@
 	if(prob(5)) //itching
 		var/picked_bodypart = pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 		var/obj/item/bodypart/bodypart = host_mob.get_bodypart(picked_bodypart)
-		var/can_scratch = !host_mob.incapacitated() && get_location_accessible(host_mob, picked_bodypart)
+		var/can_scratch = !host_mob.incapacitated && get_location_accessible(host_mob, picked_bodypart)
 
 		host_mob.visible_message("[can_scratch ? span_warning("[host_mob] scratches [host_mob.p_their()] [bodypart.name].") : ""]",\
 		span_warning("Your [bodypart.name] itches. [can_scratch ? " You scratch it." : ""]"))
@@ -110,7 +110,7 @@
 /datum/nanite_program/nerve_decay/active_effect()
 	if(prob(5))
 		to_chat(host_mob, span_warning("You feel unbalanced!"))
-		host_mob.confused += 10
+		host_mob.adjust_confusion(10 SECONDS)
 	else if(prob(4))
 		to_chat(host_mob, span_warning("You can't feel your hands!"))
 		host_mob.drop_all_held_items()

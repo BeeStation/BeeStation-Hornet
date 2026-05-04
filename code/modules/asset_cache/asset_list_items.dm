@@ -72,41 +72,8 @@
 		"ntosradarpointerS.png"		= 'icons/ui_icons/tgui/ntosradar_pointer_S.png'
 	)
 
-/datum/asset/spritesheet/simple/pda
-	name = "pda"
-	assets = list(
-		"atmos" = 'icons/pda_icons/pda_atmos.png',
-		"back" = 'icons/pda_icons/pda_back.png',
-		"bell" = 'icons/pda_icons/pda_bell.png',
-		"blank" = 'icons/pda_icons/pda_blank.png',
-		"boom" = 'icons/pda_icons/pda_boom.png',
-		"bucket" = 'icons/pda_icons/pda_bucket.png',
-		"medbot" = 'icons/pda_icons/pda_medbot.png',
-		"floorbot" = 'icons/pda_icons/pda_floorbot.png',
-		"cleanbot" = 'icons/pda_icons/pda_cleanbot.png',
-		"crate" = 'icons/pda_icons/pda_crate.png',
-		"cuffs" = 'icons/pda_icons/pda_cuffs.png',
-		"eject" = 'icons/pda_icons/pda_eject.png',
-		"flashlight" = 'icons/pda_icons/pda_flashlight.png',
-		"honk" = 'icons/pda_icons/pda_honk.png',
-		"mail" = 'icons/pda_icons/pda_mail.png',
-		"medical" = 'icons/pda_icons/pda_medical.png',
-		"menu" = 'icons/pda_icons/pda_menu.png',
-		"mule" = 'icons/pda_icons/pda_mule.png',
-		"notes" = 'icons/pda_icons/pda_notes.png',
-		"power" = 'icons/pda_icons/pda_power.png',
-		"rdoor" = 'icons/pda_icons/pda_rdoor.png',
-		"reagent" = 'icons/pda_icons/pda_reagent.png',
-		"refresh" = 'icons/pda_icons/pda_refresh.png',
-		"scanner" = 'icons/pda_icons/pda_scanner.png',
-		"signaler"		= 'icons/pda_icons/pda_signaler.png',
-		"status"		= 'icons/pda_icons/pda_status.png',
-		"dronephone"	= 'icons/pda_icons/pda_dronephone.png',
-		"emoji"			= 'icons/pda_icons/pda_emoji.png'
-	)
-
-/datum/asset/spritesheet/simple/paper
-	name = "paper"
+/datum/asset/spritesheet/simple/stamps
+	name = "stamps"
 	assets = list(
 		"stamp-clown" = 'icons/stamp_icons/large_stamp-clown.png',
 		"stamp-deny" = 'icons/stamp_icons/large_stamp-deny.png',
@@ -126,6 +93,11 @@
 		"stamp-syndicate" = 'icons/stamp_icons/large_stamp-syndicate.png',
 	)
 
+// Contains 256x128 versions of various in game company logos
+/datum/asset/simple/logos
+	assets = list(
+		"nanotrasen-logo" = 'icons/ui/logos/nanotrasen-logo.png',
+	)
 
 /datum/asset/simple/irv
 	assets = list(
@@ -332,11 +304,12 @@
 	for (var/datum/design/D as() in subtypesof(/datum/design))
 		var/icon_file
 		var/icon_state
-		var/datum/icon_transformer/transform = null
+		var/datum/universal_icon/design_uni_icon = null
 
 		if(initial(D.research_icon) && initial(D.research_icon_state)) //If the design has an icon replacement skip the rest
 			icon_file = initial(D.research_icon)
 			icon_state = initial(D.research_icon_state)
+			design_uni_icon = uni_icon(icon_file, icon_state)
 		else
 			// construct the icon and slap it into the resource cache
 			var/atom/item = initial(D.build_path)
@@ -366,22 +339,22 @@
 
 			icon_state = initial(item.icon_state)
 
+			design_uni_icon = uni_icon(icon_file, icon_state)
+
 			if(initial(item.color))
-				transform = color_transform(initial(item.color))
+				design_uni_icon.blend_color(initial(item.color), ICON_MULTIPLY)
 
 			// computers (and snowflakes) get their screen and keyboard sprites
 			if (ispath(item, /obj/machinery/computer) || ispath(item, /obj/machinery/power/solar_control))
-				if(!transform)
-					transform = new()
 				var/obj/machinery/computer/C = item
 				var/all_states = icon_states(icon_file)
 				var/screen = initial(C.icon_screen)
 				var/keyboard = initial(C.icon_keyboard)
 				if (screen && (screen in all_states))
-					transform.blend_icon(uni_icon(icon_file, screen), ICON_OVERLAY)
+					design_uni_icon.blend_icon(uni_icon(icon_file, screen), ICON_OVERLAY)
 				if (keyboard && (keyboard in all_states))
-					transform.blend_icon(uni_icon(icon_file, keyboard), ICON_OVERLAY)
-		insert_icon(initial(D.id), uni_icon(icon_file, icon_state, transform=transform))
+					design_uni_icon.blend_icon(uni_icon(icon_file, keyboard), ICON_OVERLAY)
+		insert_icon(initial(D.id), design_uni_icon)
 
 /datum/asset/spritesheet_batched/vending
 	name = "vending"
@@ -549,6 +522,13 @@
 
 	// Special bee edit to handle Bluespace Crystals
 	insert_icon("polycrystal", uni_icon('icons/obj/stacks/minerals.dmi', "refined_bluespace_crystal_3"))
+
+/datum/asset/spritesheet_batched/mecha_equipment
+	name = "mecha_equipment"
+
+/datum/asset/spritesheet_batched/mecha_equipment/create_spritesheets()
+	insert_all_icons("", 'icons/mob/mecha_equipment.dmi')
+	insert_all_icons("", 'icons/obj/stacks/minerals.dmi')
 
 /datum/asset/simple/pAI
 	assets = list(

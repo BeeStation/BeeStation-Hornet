@@ -1,4 +1,5 @@
 /obj/item/clothing/shoes
+	abstract_type = /obj/item/clothing/shoes
 	name = "shoes"
 	icon = 'icons/obj/clothing/shoes.dmi'
 	desc = "Comfortable-looking shoes."
@@ -38,13 +39,17 @@
 		return BRUTELOSS
 
 /obj/item/clothing/shoes/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
-	if(!isinhands)
+	. = ..()
+	if(isinhands)
+		return
 
-		if(damaged_clothes)
-			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedshoe", item_layer)
-		if(HAS_BLOOD_DNA(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "shoeblood", item_layer)
+	if(damaged_clothes)
+		. += mutable_appearance('icons/effects/item_damage.dmi', "damagedshoe", item_layer)
+	if(GET_ATOM_BLOOD_DNA_LENGTH(src))
+		var/mutable_appearance/bloody_shoes
+		bloody_shoes = mutable_appearance('icons/effects/blood.dmi', "shoeblood", item_layer)
+		bloody_shoes.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+		. += bloody_shoes
 
 /obj/item/clothing/shoes/visual_equipped(mob/user, slot)
 	..()

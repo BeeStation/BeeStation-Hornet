@@ -1,0 +1,4 @@
+/obj/structure/musician/piano{icon_state="piano"} : /obj/structure/musician/piano{@OLD;icon_state=@SKIP}
+/obj/structure/musician/piano{icon_state="minimoog"} : /obj/structure/musician/piano/minimoog{@OLD;icon_state=@SKIP}
+
+/obj/structure/musician/piano : /obj/effect/spawner/structure/random_piano

@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_CIVILIAN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 2
 	selection_color = "#dddddd"
 	var/lawyers = 0 //Counts lawyer amount
@@ -20,13 +20,21 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_LAWYER
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Magistrate"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/lawyer
 	)
 
-	minimal_lightup_areas = list(/area/lawoffice)
+	minimal_lightup_areas = list(/area/station/service/lawoffice)
+
+	manuscript_jobs = list(
+		JOB_NAME_LAWYER,
+		JOB_NAME_DETECTIVE, // a lawyer should also know how to collect evidences
+		JOB_NAME_CURATOR
+	)
 
 /datum/outfit/job/lawyer
 	name = JOB_NAME_LAWYER
@@ -45,8 +53,8 @@
 	chameleon_extras = /obj/item/stamp/law
 
 
-/datum/outfit/job/lawyer/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/job/lawyer/pre_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return ..()
 
 	var/static/use_purple_suit = FALSE //If there is one lawyer, they get the default blue suit. If another lawyer joins the round, they start with a purple suit.

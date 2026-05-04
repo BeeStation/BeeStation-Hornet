@@ -135,9 +135,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
 "ay" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/engine,
 /area/shuttle/escape)
 "az" = (
@@ -227,9 +225,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
 "aS" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
 /area/shuttle/escape)
@@ -257,10 +253,8 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
 "aY" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/engine,
 /area/shuttle/escape)
 "aZ" = (
@@ -271,27 +265,23 @@
 /turf/open/floor/engine,
 /area/shuttle/escape)
 "ba" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/engine,
 /area/shuttle/escape)
 "bb" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/engine,
 /area/shuttle/escape)
 "bc" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "bd" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
@@ -303,18 +293,14 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "bf" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "bg" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
@@ -473,9 +459,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "bK" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/shuttle/engine/heater,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
@@ -524,9 +508,9 @@
 /area/shuttle/escape)
 "hP" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
+	name = "Emergency Shuttle Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -569,17 +553,17 @@
 /area/shuttle/escape)
 "OT" = (
 /obj/machinery/door/airlock/public/glass{
-	name = "Glorious Leaders";
-	req_access_txt = "19"
+	name = "Glorious Leaders"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "SF" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Emergency Shuttle Brig";
-	req_access_txt = "2"
+	name = "Emergency Shuttle Brig"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)

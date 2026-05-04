@@ -80,7 +80,7 @@
 			/obj/item/toy/crayon,
 			/obj/item/lipstick,
 			/obj/item/flashlight/pen,
-			/obj/item/clothing/mask/cigarette
+			/obj/item/cigarette
 		)
 	)
 
@@ -145,5 +145,8 @@
 		/obj/item/reagent_containers/cup/beaker/eldritch,
 	))
 
-	var/static/list/exception_cache = typecacheof(list(/obj/item/bodypart, /obj/item/melee/sickly_blade))
+	var/static/list/exception_cache = typecacheof(list(
+		/obj/item/bodypart,
+		/obj/item/melee/sickly_blade,
+	))
 	exception_hold = exception_cache

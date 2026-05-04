@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Button, Section } from 'tgui-core/components';
 
-import { AirAlarmAirConditioningControls } from './screens/AirConditioning';
 import { AirAlarmControlHome } from './screens/Home';
 import { AirAlarmControlModes } from './screens/Modes';
 import { AirAlarmControlScrubbers } from './screens/Scrubbers';
@@ -21,10 +20,6 @@ export const AIR_ALARM_ROUTES = {
   scrubbers: {
     title: 'Scrubber Controls',
     component: AirAlarmControlScrubbers,
-  },
-  ac: {
-    title: 'Air Conditioning Controls',
-    component: AirAlarmAirConditioningControls,
   },
   modes: {
     title: 'Operating Mode',

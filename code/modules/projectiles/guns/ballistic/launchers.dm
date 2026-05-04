@@ -5,7 +5,7 @@
 	desc = "A break-operated grenade launcher."
 	name = "grenade launcher"
 	icon_state = "dshotgun_sawn"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	w_class = WEIGHT_CLASS_LARGE
@@ -43,12 +43,13 @@
 	automatic = 0
 	actions_types = list()
 	casing_ejector = FALSE
+	custom_price = 300
 
 /obj/item/gun/ballistic/rocketlauncher
 	name = "\improper PML-9"
 	desc = "A reusable rocket propelled grenade launcher. The words \"NT this way\" and an arrow have been written near the barrel."
 	icon_state = "rocketlauncher"
-	item_state = "rocketlauncher"
+	inhand_icon_state = "rocketlauncher"
 	mag_type = /obj/item/ammo_box/magazine/internal/rocketlauncher
 	fire_sound = 'sound/weapons/rocketlaunch.ogg'
 	w_class = WEIGHT_CLASS_BULKY
@@ -93,7 +94,7 @@
 		sleep(5)
 		shoot_with_empty_chamber(user)
 		sleep(20)
-		user.visible_message(span_warning("[user] looks about the room realizing [user.p_theyre()] still there. [user.p_they(TRUE)] proceed to shove [src] down their throat and choke [user.p_them()]self with it!"), \
+		user.visible_message(span_warning("[user] looks about the room realizing [user.p_theyre()] still there. [user.p_They()] proceed to shove [src] down their throat and choke [user.p_them()]self with it!"), \
 			span_userdanger("You look around after realizing you're still here, then proceed to choke yourself to death with [src]!"))
 		sleep(20)
 		return OXYLOSS

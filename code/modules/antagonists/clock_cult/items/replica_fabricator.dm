@@ -5,15 +5,15 @@
 	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "replica_fabricator"
 	desc = "A strange, brass device with many twisting cogs and vents."
-	clockwork_desc = "A device used to rapidly fabricate brass."
+	clockwork_desc = span_brass("A device used to rapidly fabricate brass.")
 
 /obj/item/clockwork/replica_fabricator/examine(mob/user)
 	. = ..()
 	if(IS_SERVANT_OF_RATVAR(user))
-		. += "Use on brass to convert it into power."
-		. += "Use on other materials to convert them into brass."
-		. += "Use on an empty floor to fabricate brass for 10W/sheet"
-		. += "Use on damaged clockwork structures to repair them."
+		. += span_brass("Use on brass to convert it into power.")
+		. += span_brass("Use on other materials to convert them into brass.")
+		. += span_brass("Use on an empty floor to fabricate brass for 10W/sheet")
+		. += span_brass("Use on damaged clockwork structures to repair them.")
 
 /obj/item/clockwork/replica_fabricator/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -67,7 +67,7 @@
 		return
 	GLOB.clockcult_power -= sheets * BRASS_POWER_COST
 	new /obj/item/stack/sheet/brass(target, sheets)
-	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+	playsound(src, 'sound/machines/click.ogg', 50, 1)
 	to_chat(user, span_brass("You fabricate [sheets] brass."))
 
 #undef BRASS_POWER_COST

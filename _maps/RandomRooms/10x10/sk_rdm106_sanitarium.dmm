@@ -76,7 +76,7 @@
 /obj/structure/sign/poster/official/do_not_question{
 	pixel_x = -30
 	},
-/obj/effect/spawner/lootdrop/sanitarium,
+/obj/effect/spawner/random/unsorted/sanitarium,
 /turf/open/floor/plating,
 /area/template_noop)
 "iK" = (
@@ -145,7 +145,7 @@
 /area/template_noop)
 "nO" = (
 /obj/machinery/light,
-/obj/structure/sign/warning/nosmoking/circle{
+/obj/structure/sign/warning/no_smoking/circle{
 	pixel_y = -30
 	},
 /turf/open/floor/carpet/blue,
@@ -420,7 +420,7 @@
 /area/template_noop)
 "RY" = (
 /obj/structure/chair/office,
-/obj/structure/sign/warning/nosmoking/circle{
+/obj/structure/sign/warning/no_smoking/circle{
 	pixel_y = 30
 	},
 /turf/open/floor/iron/white,

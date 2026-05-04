@@ -33,7 +33,7 @@
 	/// Our mouse movement catcher.
 	var/atom/movable/screen/fullscreen/cursor_catcher/kinesis/kinesis_catcher
 	/// The sounds playing while we grabbed an object.
-	var/datum/looping_sound/gravgen/kinesis/soundloop
+	var/datum/looping_sound/grav_gen/kinesis/soundloop
 	/// The cooldown between us hitting objects with kinesis.
 	COOLDOWN_DECLARE(hit_cooldown)
 
@@ -69,7 +69,7 @@
 	clear_grab(playsound = !deleting)
 
 /obj/item/mod/module/anomaly_locked/kinesis/process(delta_time)
-	if(!mod.wearer.client || mod.wearer.incapacitated(IGNORE_GRAB))
+	if(!mod.wearer.client || INCAPACITATED_IGNORING(mod.wearer, INCAPABLE_GRAB))
 		clear_grab()
 		return
 	if(!range_check(grabbed_atom))

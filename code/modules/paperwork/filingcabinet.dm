@@ -186,7 +186,7 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 
 
 /obj/structure/filingcabinet/employment/proc/addFile(mob/living/carbon/human/employee)
-	new /obj/item/paper/contract/employment(src, employee)
+	new /obj/item/paper/employment_contract(src, employee)
 
 /obj/structure/filingcabinet/employment/interact(mob/user)
 	if(!cooldown)

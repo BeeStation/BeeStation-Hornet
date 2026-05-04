@@ -24,7 +24,7 @@ const initialState = {
   fontSize: 13,
   fontFamily: FONTS[0],
   lineHeight: 1.2,
-  theme: 'light',
+  theme: 'blue',
   statSize: 40,
   adminMusicVolume: 0.5,
   highContrast: false,

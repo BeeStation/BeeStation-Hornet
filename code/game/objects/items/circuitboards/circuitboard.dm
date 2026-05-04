@@ -4,10 +4,11 @@
 // Circuitboard
 
 /obj/item/circuitboard
+	abstract_type = /obj/item/circuitboard
 	name = "circuit board"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "id_mod"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	custom_materials = list(/datum/material/glass=1000)
@@ -57,6 +58,7 @@ micro-manipulator, console screen, beaker, Microlaser, matter bin, power cells.
 */
 
 /obj/item/circuitboard/machine
+	abstract_type = /obj/item/circuitboard/machine
 	var/needs_anchored = TRUE // Whether this machine must be anchored to be constructed.
 	var/list/req_components // Components required by the machine.
 							// Example: list(/obj/item/stock_parts/matter_bin = 5)

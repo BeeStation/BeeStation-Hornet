@@ -1,6 +1,9 @@
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
-	init_order = INIT_ORDER_MAPPING
+	dependencies = list(
+		/datum/controller/subsystem/job,
+		/datum/controller/subsystem/processing/station,
+	)
 	runlevels = ALL
 
 	var/list/nuke_tiles = list()
@@ -143,7 +146,7 @@ SUBSYSTEM_DEF(mapping)
 	// Cache for sonic speed
 	var/list/unused_turfs = src.unused_turfs
 	var/list/world_contents = GLOB.areas_by_type[world.area].contents
-	var/list/world_turf_contents = GLOB.areas_by_type[world.area].contained_turfs
+	var/list/world_turf_contents_by_z = GLOB.areas_by_type[world.area].turfs_by_zlevel
 	var/list/lists_to_reserve = src.lists_to_reserve
 	var/index = 0
 	while(index < length(lists_to_reserve))
@@ -158,12 +161,14 @@ SUBSYSTEM_DEF(mapping)
 			LAZYINITLIST(unused_turfs["[T.z]"])
 			unused_turfs["[T.z]"] |= T
 			var/area/old_area = T.loc
-			old_area.turfs_to_uncontain += T
-			T.flags_1 |= UNUSED_RESERVATION_TURF_1
+			LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, T.z, list())
+			old_area.turfs_to_uncontain_by_zlevel[T.z] += T
+			T.turf_flags |= UNUSED_RESERVATION_TURF
 			// reservation turfs are not allowed to interact with atmos at all
 			T.blocks_air = TRUE
 			world_contents += T
-			world_turf_contents += T
+			LISTASSERTLEN(world_turf_contents_by_z, T.z, list())
+			world_turf_contents_by_z[T.z] += T
 			packet.len--
 			packetlen = length(packet)
 
@@ -204,6 +209,10 @@ SUBSYSTEM_DEF(mapping)
 	if(!error)
 		returning += M
 		qdel(T, TRUE)
+
+/// Returns true if the map we're playing on is on a planet
+/datum/controller/subsystem/mapping/proc/is_planetary()
+	return current_map.planetary_station
 
 /* Nuke threats, for making the blue tiles on the station go RED
 	Used by the AI doomsday and the self-destruct nuke.
@@ -298,7 +307,7 @@ SUBSYSTEM_DEF(mapping)
 			errorList |= pm.original_path
 
 	if(!silent)
-		INIT_ANNOUNCE("Loaded [name] in [(REALTIMEOFDAY - start_time)/10]s!")
+		INIT_ANNOUNCE("Loaded [name] in [round((REALTIMEOFDAY - start_time)/10, 0.01)]s!")
 	return parsed_maps
 
 /datum/controller/subsystem/mapping/proc/LoadStationRooms()
@@ -314,7 +323,9 @@ SUBSYSTEM_DEF(mapping)
 				candidate = null
 				continue
 			possibletemplates[candidate] = candidate.weight
-		if(possibletemplates.len)
+		if(!length(possibletemplates))
+			stack_trace("Failed to find a valid random room / Room Info - height: [R.room_height], width: [R.room_width], name: [R.name]")
+		else
 			var/datum/map_template/random_room/template = pick_weight(possibletemplates)
 			template.stock--
 			template.weight = (template.weight / 2)
@@ -375,7 +386,12 @@ SUBSYSTEM_DEF(mapping)
 GLOBAL_LIST_EMPTY(the_station_areas)
 
 /datum/controller/subsystem/mapping/proc/generate_station_area_list()
-	var/static/list/station_areas_blacklist = typecacheof(list(/area/space, /area/mine, /area/ruin, /area/asteroid/nearstation))
+	var/static/list/station_areas_blacklist = typecacheof(list(
+		/area/misc/space,
+		/area/mine,
+		/area/ruin,
+		/area/centcom/asteroid/nearstation,
+	))
 	// if we ever add /area/station (and remove this typecache) scope this loop's type to /area/station please!!
 	for(var/area/station_area in GLOB.areas)
 		if (is_type_in_typecache(station_area, station_areas_blacklist))
@@ -523,7 +539,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		// No need to empty() these, because it's world init and they're
 		// already /turf/open/space/basic.
 		var/turf/T = t
-		T.flags_1 |= UNUSED_RESERVATION_TURF_1
+		T.turf_flags |= UNUSED_RESERVATION_TURF
 		T.blocks_air = TRUE
 	unused_turfs["[z]"] = block
 	reservation_ready["[z]"] = TRUE
@@ -584,12 +600,14 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	// Faster
 	if(space_guaranteed)
 		var/area/global_area = GLOB.areas_by_type[world.area]
-		global_area.contained_turfs += Z_TURFS(z_level)
+		LISTASSERTLEN(global_area.turfs_by_zlevel, z_level, list())
+		global_area.turfs_by_zlevel[z_level] = Z_TURFS(z_level)
 		return
 
 	for(var/turf/to_contain as anything in Z_TURFS(z_level))
 		var/area/our_area = to_contain.loc
-		our_area.contained_turfs += to_contain
+		LISTASSERTLEN(our_area.turfs_by_zlevel, z_level, list())
+		our_area.turfs_by_zlevel[z_level] += to_contain
 
 /datum/controller/subsystem/mapping/proc/calculate_default_z_level_gravities()
 	for(var/z_level in 1 to length(z_list))

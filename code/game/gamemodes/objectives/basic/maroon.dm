@@ -13,3 +13,6 @@
 
 /datum/objective/maroon/admin_edit(mob/admin)
 	admin_simple_target_pick(admin)
+
+/datum/objective/maroon/get_tracking_target(atom/source)
+	return target?.current

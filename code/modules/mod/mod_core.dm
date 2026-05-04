@@ -3,7 +3,7 @@
 	desc = "A non-functional MOD core. Inform the admins if you see this."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
 	icon_state = "mod-core"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	/// MOD unit we are powering.
@@ -362,7 +362,11 @@
 	return NONE
 
 /obj/item/mod/core/plasma/proc/charge_plasma(obj/item/stack/plasma, mob/user)
-	var/charge_given = is_type_in_list(plasma, charger_list)
+	var/charge_given = 0
+	for(var/charger in charger_list)
+		if(istype(plasma, charger))
+			charge_given = charger_list[charger]
+			break
 	if(!charge_given)
 		return FALSE
 	var/uses_needed = min(plasma.amount, ROUND_UP((max_charge_amount() - charge_amount()) / charge_given))

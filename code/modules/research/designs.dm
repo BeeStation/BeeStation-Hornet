@@ -20,7 +20,9 @@ other types of metals and chemistry for reagents).
 //DESIGNS ARE GLOBAL. DO NOT CREATE OR DESTROY THEM AT RUNTIME OUTSIDE OF INIT, JUST REFERENCE THEM TO WHATEVER YOU'RE DOING! //why are you yelling?
 //DO NOT REFERENCE OUTSIDE OF SSRESEARCH. USE THE PROCS IN SSRESEARCH TO OBTAIN A REFERENCE.
 
-/datum/design						//Datum for object designs, used in construction
+/datum/design //Datum for object designs, used in construction
+	abstract_type = /datum/design
+
 	/// Name of the created object
 	var/name = "Name"
 	/// Description of the created object

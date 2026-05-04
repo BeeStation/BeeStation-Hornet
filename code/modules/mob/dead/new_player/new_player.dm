@@ -17,7 +17,7 @@
 /mob/dead/new_player/Initialize(mapload)
 	if(client && SSticker.state == GAME_STATE_STARTUP)
 		var/atom/movable/screen/splash/S = new(null, client, TRUE, TRUE)
-		S.Fade(TRUE)
+		S.fade(TRUE)
 
 	if(length(GLOB.newplayer_start))
 		forceMove(pick(GLOB.newplayer_start))
@@ -216,7 +216,14 @@
 
 	var/this_is_like_playing_right = "Yes"
 	if(!force_observe)
-		this_is_like_playing_right = tgui_alert(src, "Are you sure you wish to observe? You will not be able to play this round!", "Player Setup", list("Yes", "No"))
+		this_is_like_playing_right = tgui_alert(
+			src,
+			"Caution, you are about to observe which will make you unable to play! \
+			Feel free to use the 'mentorhelp' or 'looc' verbs to \
+			get assistance from our friendly community while playing!",
+			"Spectate",
+			list("Yes", "No")
+		)
 
 	if(QDELETED(src) || !src.client)
 		ready = PLAYER_NOT_READY
@@ -232,6 +239,8 @@
 	spawning = TRUE
 
 	observer.started_as_observer = TRUE
+	observer.can_respawn = FALSE
+
 	close_spawn_windows()
 	var/obj/effect/landmark/observer_start/O = locate(/obj/effect/landmark/observer_start) in GLOB.landmarks_list
 	to_chat(src, span_notice("Now teleporting."))
@@ -246,6 +255,7 @@
 	if(observer.client && observer.client.prefs)
 		observer.real_name = observer.client.prefs.read_character_preference(/datum/preference/name/real_name)
 		observer.name = observer.real_name
+		observer.client.player_details.time_of_death = world.time
 	observer.update_icon()
 	observer.stop_sound_channel(CHANNEL_LOBBYMUSIC)
 	QDEL_NULL(mind)
@@ -274,7 +284,7 @@
 	var/datum/job/job = SSjob.GetJob(rank)
 	if(!job)
 		return JOB_UNAVAILABLE_GENERIC
-	if(job.lock_flags)
+	if(!(job.job_flags & JOB_NEW_PLAYER_JOINABLE))
 		return JOB_UNAVAILABLE_LOCKED
 	if(!job.has_space())
 		if(job.title == JOB_NAME_ASSISTANT)
@@ -301,6 +311,32 @@
 	return JOB_AVAILABLE
 
 /mob/dead/new_player/authenticated/proc/AttemptLateSpawn(rank)
+	// Check that they're picking someone new for new character respawning
+	if(CONFIG_GET(flag/allow_respawn) == RESPAWN_FLAG_NEW_CHARACTER)
+
+		//Adding more checks should be somewhat simple. Starting with the character slot itself:
+		if("[client.prefs.default_slot]" in client.player_details.joined_as_slots)
+			//We do not EVER specify what exactly is preventing them from joining. Security through obscurity! Yay!
+			tgui_alert(usr, "You already have played this character in this round!")
+			log_game("[key_name(usr)] has attempted to respawn as a previously played character and was denied based on character slot vetting.")
+			message_admins("[key_name(usr)] has attempted to respawn as a previously played character slot. This is not necessarily evidence of foul play.")
+			return FALSE
+
+		//Names played
+		if("[client.prefs.read_character_preference(/datum/preference/name/real_name)]" in client.player_details.played_names)
+			tgui_alert(usr, "You already have played this character in this round!")
+			log_game("[key_name(usr)] has attempted to respawn with a previously played character name in a NEW slot. and was denied based on character name vetting.")
+			message_admins("ATTENTION! [key_name(usr)] has attempted to respawn with a previously played character name in a new slot. Likely attempting to bypass respawn restrictions.")
+			return FALSE
+
+		var/datum/job/joining_job = SSjob.GetJob(rank)
+
+		//If it's a job we have played previously:
+		if(joining_job in client.player_details.joined_as_jobs)
+			tgui_alert(usr, "You have already played as [rank] this round!")
+			log_game("[key_name(usr)] has attempted to respawn as a previously played job and was denied.")
+			return FALSE
+
 	var/error = IsJobUnavailable(rank)
 	if(error != JOB_AVAILABLE)
 		tgui_alert(src, get_job_unavailable_error_message(error, rank))
@@ -338,7 +374,7 @@
 		SSjob.SendToLateJoin(character)
 		if(!arrivals_docked)
 			var/atom/movable/screen/splash/Spl = new(null, character.client, TRUE)
-			Spl.Fade(TRUE)
+			Spl.fade(TRUE)
 			character.playsound_local(get_turf(character), 'sound/voice/welcomeBee.ogg', 50)
 
 		character.update_parallax_teleport()
@@ -374,7 +410,7 @@
 	if(CONFIG_GET(flag/allow_latejoin_antagonists) && humanc)
 		SSdynamic.on_player_latejoin(humanc)
 
-	if(CONFIG_GET(flag/roundstart_traits))
+	if((job.job_flags & JOB_ASSIGN_QUIRKS) && CONFIG_GET(flag/roundstart_traits))
 		SSquirks.AssignQuirks(character.mind, character.client, TRUE)
 
 	if(humanc)
@@ -446,7 +482,8 @@
 
 	var/mob/living/carbon/human/H = new(loc)
 
-	H.apply_prefs_job(client, SSjob.GetJob(mind.assigned_role))
+	H.apply_prefs_job(client, mind.assigned_role_datum)
+	LAZYADD(client.player_details.joined_as_jobs, mind.assigned_role_datum)
 	if(QDELETED(src) || !client)
 		return // Disconnected while checking for the appearance ban.
 	if(mind)
@@ -457,6 +494,7 @@
 
 	H.name = real_name
 
+	LAZYADD(client.player_details.joined_as_slots, "[client.prefs.default_slot]")
 	. = H
 	new_character = .
 	if(transfer_after)

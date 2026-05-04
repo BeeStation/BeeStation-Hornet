@@ -13,7 +13,9 @@
 	success_sound = 'sound/surgery/hemostat1.ogg'
 
 /datum/surgery_step/extract_implant/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	for(var/obj/item/O in target.implants)
+	for(var/obj/item/implant/O in target.implants)
+		if (O.implant_flags & IMPLANT_HIDDEN)
+			continue
 		I = O
 		break
 	if(I)

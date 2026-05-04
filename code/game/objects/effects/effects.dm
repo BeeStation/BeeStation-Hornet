@@ -2,6 +2,7 @@
 //objects in /obj/effect should never be things that are attackable, use obj/structure instead.
 //Effects are mostly temporary visual effects like sparks, smoke, as well as decals, etc...
 /obj/effect
+	abstract_type = /obj/effect
 	icon = 'icons/effects/effects.dmi'
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	move_resist = INFINITY
@@ -44,7 +45,7 @@
 	qdel(src)
 	return 0
 
-/obj/effect/abstract/singularity_pull()
+/obj/effect/abstract/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/abstract/singularity_act()
@@ -53,7 +54,7 @@
 /obj/effect/abstract/has_gravity(turf/T)
 	return FALSE
 
-/obj/effect/dummy/singularity_pull()
+/obj/effect/dummy/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/dummy/singularity_act()

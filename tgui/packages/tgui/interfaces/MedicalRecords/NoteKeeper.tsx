@@ -20,7 +20,8 @@ export const NoteKeeper = (props) => {
   const foundRecord = getMedicalRecord();
   if (!foundRecord) return <> </>;
 
-  const { act } = useBackend<MedicalRecordData>();
+  const { data, act } = useBackend<MedicalRecordData>();
+  const { is_silicon } = data;
   const { record_ref } = foundRecord;
 
   const [selectedNote, setSelectedNote] = useLocalState<
@@ -62,7 +63,11 @@ export const NoteKeeper = (props) => {
           <LabeledList>
             <LabeledList.Item
               label="Author"
-              buttons={<Button color="bad" icon="trash" onClick={deleteNote} />}
+              buttons={
+                !is_silicon && (
+                  <Button color="bad" icon="trash" onClick={deleteNote} />
+                )
+              }
             >
               {selectedNote.author}
             </LabeledList.Item>
@@ -85,6 +90,9 @@ const NoteTabs = (props) => {
   const foundRecord = getMedicalRecord();
   if (!foundRecord) return <> </>;
   const { medical_notes } = foundRecord;
+
+  const { data } = useBackend<MedicalRecordData>();
+  const { is_silicon } = data;
 
   const [selectedNote, setSelectedNote] = useLocalState<
     MedicalNote | undefined
@@ -116,18 +124,20 @@ const NoteTabs = (props) => {
               onClick={() => setNote(note)}
               selected={selectedNote?.note_ref === note.note_ref}
             >
-              {index + 1}
+              {`Note ${index + 1}`}
             </Tabs.Tab>
           ))
         : null}
-      <Tooltip
-        content={multiline`Add a new note. Press enter or escape to exit view.`}
-        position="bottom"
-      >
-        <Tabs.Tab onClick={composeNew} selected={writing}>
-          <Icon name="plus" /> New
-        </Tabs.Tab>
-      </Tooltip>
+      {!is_silicon && (
+        <Tooltip
+          content={multiline`Add a new note. Press enter or escape to exit view.`}
+          position="bottom"
+        >
+          <Tabs.Tab onClick={composeNew} selected={writing}>
+            <Icon name="plus" /> New
+          </Tabs.Tab>
+        </Tooltip>
+      )}
     </Tabs>
   );
 };

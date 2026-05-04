@@ -5,7 +5,7 @@
 	department_head_for_prefs = JOB_NAME_HEADOFSECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
@@ -13,7 +13,7 @@
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brig_physician
 
-	base_access = list(ACCESS_BRIGPHYS, ACCESS_SEC_DOORS, ACCESS_COURT,  ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE)
+	base_access = list(ACCESS_BRIGPHYS, ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE)
 	extra_access = list(ACCESS_MEDICAL, ACCESS_SURGERY)
 
 	departments = DEPT_BITFLAG_SEC
@@ -22,6 +22,8 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_BRIG_PHYS
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Battle Cleric"
 
 	species_outfits = list(
@@ -29,7 +31,12 @@
 	)
 	biohazard = 25 //still deals with the sick and injured, just less than a medical doctor
 
-	minimal_lightup_areas = list(/area/medical/morgue)
+	minimal_lightup_areas = list(/area/station/medical/morgue)
+
+	manuscript_jobs = list(
+		JOB_NAME_BRIGPHYSICIAN,
+		JOB_NAME_PARAMEDIC // They're somewhat identical
+	)
 
 /datum/outfit/job/brig_physician
 	name = JOB_NAME_BRIGPHYSICIAN

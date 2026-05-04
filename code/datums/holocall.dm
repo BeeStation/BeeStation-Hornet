@@ -4,8 +4,7 @@
 	H?.move_hologram(eye_user, loc)
 
 /obj/machinery/holopad/remove_eye_control(mob/living/user)
-	if(user.client)
-		user.reset_perspective(null)
+	user.set_mob_eye_to(MOB_EYE_SELF)
 	user.remote_control = null
 
 //this datum manages it's own references
@@ -151,8 +150,8 @@
 	eye.eye_user = user
 	eye.name = "Camera Eye ([user.name])"
 	user.remote_control = eye
-	user.reset_perspective(eye)
-	eye.setLoc(answering_holopad.loc)
+	user.set_mob_eye_to(eye)
+	eye.setLoc(get_turf(answering_holopad))
 
 	hangup = new(eye, src)
 	hangup.Grant(user)
@@ -166,7 +165,7 @@
 	if(QDELETED(src))
 		return FALSE
 
-	. = !QDELETED(user) && !user.incapacitated() && !QDELETED(calling_holopad) && calling_holopad.is_operational && user.loc == calling_holopad.loc
+	. = !QDELETED(user) && !user.incapacitated && !QDELETED(calling_holopad) && calling_holopad.is_operational && user.loc == calling_holopad.loc
 
 	if(.)
 		if(!connected_holopad)
@@ -181,7 +180,7 @@
 
 /datum/action/innate/end_holocall
 	name = "End Holocall"
-	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "camera_off"
 	var/datum/holocall/hcall
 

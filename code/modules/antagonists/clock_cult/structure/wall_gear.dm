@@ -7,9 +7,11 @@
 	layer = BELOW_OBJ_LAYER
 	desc = "A massive brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
 	break_message = span_warning("The gear breaks apart into shards of alloy!")
-	debris = list(/obj/item/clockwork/alloy_shards/large = 1, \
-	/obj/item/clockwork/alloy_shards/medium = 4, \
-	/obj/item/clockwork/alloy_shards/small = 2) //slightly more debris than the default, totals 26 alloy
+	debris = list(
+		/obj/item/clockwork/alloy_shards/large = 1,
+		/obj/item/clockwork/alloy_shards/medium = 4,
+		/obj/item/clockwork/alloy_shards/small = 2,
+	) //slightly more debris than the default, totals 26 alloy
 
 /obj/structure/destructible/clockwork/wall_gear/displaced
 	anchored = FALSE
@@ -18,9 +20,7 @@
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/gear(get_turf(src))
 	AddElement(/datum/element/climbable)
-
-/obj/structure/destructible/clockwork/wall_gear/emp_act(severity)
-	return
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/structure/destructible/clockwork/wall_gear/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH)

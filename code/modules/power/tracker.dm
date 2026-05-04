@@ -148,6 +148,7 @@
 
 /obj/item/electronics/tracker
 	name = "tracker electronics"
+	custom_price = 100
 
 #undef TRACKER_Z_OFFSET
 #undef TRACKER_EDGE_Z_OFFSET

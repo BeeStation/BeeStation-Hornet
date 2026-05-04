@@ -5,17 +5,20 @@
 	icon = 'icons/obj/clothing/head/bio.dmi'
 	worn_icon = 'icons/mob/clothing/head/bio.dmi'
 	icon_state = "bio"
-	item_state = "bio_hood"
-	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT
+	inhand_icon_state = "bio_hood"
+	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT | STACKABLE_HELMET_EXEMPT | HEADINTERNALS
 	armor_type = /datum/armor/head_bio_hood
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE|HIDESNOUT
 	resistance_flags = ACID_PROOF
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	custom_price = 50
 
+/obj/item/clothing/head/bio_hood/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/hat_stabilizer, loose_hat = TRUE)
 
 /datum/armor/head_bio_hood
 	bio = 100
-	rad = 80
 	fire = 30
 	acid = 100
 	bleed = 5
@@ -26,7 +29,7 @@
 	icon = 'icons/obj/clothing/suits/bio.dmi'
 	icon_state = "bio"
 	worn_icon = 'icons/mob/clothing/suits/bio.dmi'
-	item_state = "bio_suit"
+	inhand_icon_state = "bio_suit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
@@ -37,11 +40,11 @@
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = ACID_PROOF
+	custom_price = 100
 
 
 /datum/armor/suit_bio_suit
 	bio = 100
-	rad = 80
 	fire = 30
 	acid = 100
 	bleed = 5
@@ -77,7 +80,6 @@
 	energy = 10
 	bomb = 25
 	bio = 100
-	rad = 80
 	fire = 30
 	acid = 100
 	stamina = 20
@@ -97,7 +99,6 @@
 	energy = 10
 	bomb = 25
 	bio = 100
-	rad = 80
 	fire = 30
 	acid = 100
 	stamina = 20
@@ -131,6 +132,6 @@
 	name = "plague doctor suit"
 	desc = "It protected doctors from the Black Death, back then. You bet your arse it's gonna help you against viruses."
 	icon_state = "plaguedoctor"
-	item_state = "bio_suit"
+	inhand_icon_state = "bio_suit"
 	strip_delay = 40
 	equip_delay_other = 20

@@ -21,7 +21,7 @@
 		. += " The station is located at the beacon marked [linked_beacon.name]. Good luck."
 
 /datum/orbital_objective/nuclear_bomb/on_assign(obj/machinery/computer/objective/objective_computer)
-	var/area/A = GLOB.areas_by_type[/area/bridge]
+	var/area/A = GLOB.areas_by_type[/area/station/command]
 	var/turf/open/T = locate() in shuffle(A.contents)
 	nuclear_bomb = new /obj/machinery/nuclearbomb/decomission(T)
 
@@ -120,6 +120,6 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 /obj/machinery/nuclearbomb/decomission/actually_explode()
 	SSticker.roundend_check_paused = FALSE
 	linked_objective.complete_objective()
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(KillEveryoneOnZLevel), target_z)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(kill_everyone_on_z_group), target_z)
 	QDEL_NULL(linked_objective.linked_beacon)
 	qdel(src)

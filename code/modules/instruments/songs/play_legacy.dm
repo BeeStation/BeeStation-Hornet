@@ -82,9 +82,6 @@
 	var/sound/music_played = sound(soundfile)
 	for(var/i in hearing_mobs)
 		var/mob/M = i
-		if(user && HAS_TRAIT(user, TRAIT_MUSICIAN) && isliving(M))
-			var/mob/living/L = M
-			L.apply_status_effect(/datum/status_effect/good_music)
 		if(!M?.client?.prefs?.read_player_preference(/datum/preference/toggle/sound_instruments))
 			continue
 		M.playsound_local(source, null, volume * using_instrument.volume_multiplier, S = music_played)

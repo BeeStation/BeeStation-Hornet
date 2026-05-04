@@ -115,8 +115,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 	eyeobj.eye_user = user
 	eyeobj.name = "Camera Eye ([user.name])"
 	user.remote_control = eyeobj
-	user.reset_perspective(eyeobj)
-	eyeobj.setLoc(eyeobj.loc)
+	user.set_mob_eye_to(eyeobj)
+	eyeobj.setLoc(get_turf(eyeobj))
 	if(!QDELETED(user) && user.client)
 		var/mob/camera/ai_eye/remote/shuttle_docker/the_eye = eyeobj
 		var/list/to_add = list()
@@ -138,8 +138,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 	for(var/V in eyeobj.visibleCameraChunks)
 		var/datum/camerachunk/C = V
 		C.remove(eyeobj)
+	user.set_mob_eye_to(MOB_EYE_SELF)
 	if(user.client)
-		user.reset_perspective(null)
 		if(eyeobj.visible_icon && user.client)
 			user.client.images -= eyeobj.user_image
 
@@ -380,7 +380,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
 
 /datum/action/innate/shuttledocker_rotate
 	name = "Rotate"
-	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
+	button_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_cycle_equip_off"
 
 /datum/action/innate/shuttledocker_rotate/on_activate()
@@ -393,7 +393,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
 
 /datum/action/innate/shuttledocker_place
 	name = "Place"
-	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
+	button_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_zoom_off"
 
 /datum/action/innate/shuttledocker_place/on_activate()

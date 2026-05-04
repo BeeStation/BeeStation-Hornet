@@ -9,6 +9,7 @@ CREATION_TEST_IGNORE_SELF(/mob)
   * Has a lot of the creature game world logic, such as health etc
   */
 /mob
+	abstract_type = /mob
 	density = TRUE
 	layer = MOB_LAYER
 	animate_movement = SLIDE_STEPS
@@ -40,14 +41,25 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	var/cached_multiplicative_actions_slowdown
 	/// List of action hud items the user has
 	var/list/datum/action/actions = list()
-	/// A list of chameleon actions we have specifically
-	/// This can be unified with the actions list
-	var/list/datum/action/item_action/chameleon/chameleon_item_actions
 	///Cursor icon used when holding shift over things
 	var/examine_cursor_icon = 'icons/effects/mouse_pointers/examine_pointer.dmi'
 
 	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak (2019, still here)
 	var/stat = CONSCIOUS
+
+	/**
+	 * Whether and how a mob is incapacitated
+	 *
+	 * Normally being restrained, agressively grabbed, or in stasis counts as incapacitated
+	 * unless there is a flag being used to check if it's ignored
+	 *
+	 * * bitflags: (see code/__DEFINES/status_effects.dm)
+	 * * INCAPABLE_RESTRAINTS - if our mob is in a restraint (handcuffs)
+	 * * INCAPABLE_STASIS - if our mob is in stasis (stasis bed, etc.)
+	 * * INCAPABLE_GRAB - if our mob is being agressively grabbed
+	 *
+	**/
+	VAR_FINAL/incapacitated = NONE
 
 	/* A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.
@@ -79,15 +91,12 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	  */
 	var/notransform = null	//Carbon
 
+	/// used for /client/eye variable. Saving which eye this mob is supposed to use when a client is attached to this mob.
+	var/atom/current_mob_eye
 	/// Is the mob blind
 	var/eye_blind = 0		//Carbon
-	/// Does the mob have blurry sight
-	var/eye_blurry = 0		//Carbon
 	/// What is the mobs real name (name is overridden for disguises etc)
 	var/real_name = null
-
-	/// can this mob move freely in space (should be a trait)
-	var/spacewalk = FALSE
 
 	/**
 	  * back up of the real name during admin possession
@@ -103,12 +112,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	/// Our body temperatue as of the last process, prevents pointless work when handling alerts
 	var/old_bodytemperature = 0
 
-	/// Drowsyness level of the mob
-	var/drowsyness = 0//Carbon
-	/// Dizziness level of the mob
-	var/dizziness = 0//Carbon
-	/// Jitteryness level of the mob
-	var/jitteriness = 0//Carbon
 	/// Hunger level of the mob
 	var/nutrition = NUTRITION_LEVEL_START_MIN // randomised in Initialize
 	/// Satiation level of the mob
@@ -157,7 +160,7 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	/// What job does this mob have
 	var/job = null//Living
 
-	/// A list of factions that this mob is currently in, for hostile mob targetting, amongst other things
+	/// A list of factions that this mob is currently in, for hostile mob targeting, amongst other things
 	var/list/faction = list(FACTION_NEUTRAL)
 
 	/// Can this mob enter shuttles
@@ -179,13 +182,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	///Calls relay_move() to whatever this is set to when the mob tries to move
 	var/atom/movable/remote_control
 
-	/**
-	  * The sound made on death
-	  *
-	  * leave null for no sound. used for *deathgasp
-	  */
-	var/deathsound
-
 	///the current turf being examined in the stat panel
 	var/turf/listed_turf = null
 
@@ -201,7 +197,7 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	///Allows a datum to intercept all click calls this mob is the source of
 	var/datum/click_intercept
 
-	///THe z level this mob is currently registered in
+	///The z level this mob is currently registered in
 	var/registered_z = null
 
 	var/memory_throttle_time = 0

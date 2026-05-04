@@ -4,6 +4,7 @@
 	var/sort_tag = 0
 	var/obj/item/paper/note
 	var/obj/item/barcode/sticker
+	trade_flags = TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 
 /obj/item/delivery/Initialize(mapload)
 	. = ..()
@@ -109,7 +110,7 @@
 			to_chat(user, span_notice("*[tag]*"))
 			sort_tag = dest_tagger.currTag
 			playsound(loc, 'sound/machines/twobeep_high.ogg', 100, TRUE)
-			update_appearance()
+			update_appearance(UPDATE_OVERLAYS)
 
 	else if(istype(item, /obj/item/pen))
 		if(!user.is_literate())
@@ -129,6 +130,7 @@
 		if(wrapping_paper.use(3))
 			user.visible_message(span_notice("[user] wraps the package in festive paper!"))
 			giftwrapped = TRUE
+			update_appearance(UPDATE_ICON_STATE)
 		else
 			to_chat(user, span_warning("You need more paper!"))
 
@@ -141,7 +143,7 @@
 			return
 		user.visible_message(span_notice("[user] attaches [item] to [src]."), span_notice("You attach [item] to [src]."))
 		note = item
-		update_appearance()
+		update_appearance(UPDATE_OVERLAYS)
 
 	else if(istype(item, /obj/item/sales_tagger))
 		var/obj/item/sales_tagger/sales_tagger = item
@@ -164,7 +166,7 @@
 			if(HAS_TRAIT(wrapped_item, TRAIT_NO_BARCODES))
 				continue
 			wrapped_item.AddComponent(/datum/component/pricetag, sticker.payments_acc, sales_tagger.cut_multiplier)
-		update_appearance()
+		update_appearance(UPDATE_OVERLAYS)
 
 	else if(istype(item, /obj/item/barcode))
 		var/obj/item/barcode/stickerA = item
@@ -182,7 +184,7 @@
 			if(HAS_TRAIT(wrapped_item, TRAIT_NO_BARCODES))
 				continue
 			wrapped_item.AddComponent(/datum/component/pricetag, sticker.payments_acc, sticker.cut_multiplier)
-		update_appearance()
+		update_appearance(UPDATE_OVERLAYS)
 
 	else
 		return ..()
@@ -246,10 +248,10 @@
 	var/currTag = 0 //Destinations are stored in code\globalvars\lists\flavor_misc.dm
 	var/locked_destination = FALSE //if true, users can't open the destination tag window to prevent changing the tagger's current destination
 	w_class = WEIGHT_CLASS_TINY
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/dest_tagger/borg
@@ -299,7 +301,7 @@
 	desc = "A scanner that lets you tag wrapped items for sale, splitting the profit between you and cargo."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "salestagger"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
@@ -386,6 +388,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "barcode"
 	w_class = WEIGHT_CLASS_TINY
+	trade_flags = TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 	///All values inheirited from the sales tagger it came from.
 	var/datum/bank_account/payments_acc = null
 	var/cut_multiplier = 0.5

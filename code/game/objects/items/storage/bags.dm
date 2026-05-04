@@ -20,6 +20,7 @@
 
 //  Generic non-item
 /obj/item/storage/bag
+	abstract_type = /obj/item/storage/bag
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/storage/bag/Initialize(mapload)
@@ -36,12 +37,13 @@
 	desc = "It's the heavy-duty black polymer kind. Time to take out the trash!"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
-	item_state = "trashbag"
+	inhand_icon_state = "trashbag"
 	worn_icon_state = "trashbag"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	storage_type = /datum/storage/trash
+	custom_price = 50
 	var/insertable = TRUE
 
 /obj/item/storage/bag/trash/Initialize(mapload)
@@ -84,6 +86,12 @@
 		else
 			icon_state = "[initial(icon_state)]"
 	return ..()
+
+/obj/item/storage/bag/trash/filled/PopulateContents()
+	. = ..()
+	for(var/i in 1 to rand(1, 7))
+		new /obj/effect/spawner/random/trash/garbage(src)
+	update_icon_state()
 
 /obj/item/storage/bag/trash/cyborg
 	insertable = FALSE
@@ -155,7 +163,6 @@
 
 /obj/item/storage/bag/ore/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/rad_insulation, 0.05) //please datum mats no more cancer
 	atom_storage.max_specific_storage = WEIGHT_CLASS_HUGE
 	atom_storage.max_total_storage = 250
 	atom_storage.numerical_stacking = TRUE
@@ -293,7 +300,7 @@
 	actions_types = list(/datum/action/item_action/portaseeder_dissolve)
 
 /obj/item/storage/bag/plants/portaseeder/proc/dissolve_contents()
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return
 	for(var/obj/item/O in contents)
 		seedify(O, 1)
@@ -384,16 +391,15 @@
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
-	custom_price = 10
 	custom_materials = list(/datum/material/iron=3000)
 
 /obj/item/storage/bag/tray/Initialize(mapload)
 	. = ..()
 	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY
 	atom_storage.set_holdable(list(
-		/obj/item/clothing/mask/cigarette,
+		/obj/item/cigarette,
 		/obj/item/food,
 		/obj/item/kitchen,
 		/obj/item/lighter,

@@ -60,7 +60,7 @@
 
 /datum/crafting_recipe/stunprod
 	name = "Stunprod"
-	result = /obj/item/melee/baton/cattleprod
+	result = /obj/item/melee/baton/security/cattleprod
 	time = 4 SECONDS
 	reqs = list(
 		/obj/item/restraints/handcuffs/cable = 1,
@@ -72,7 +72,7 @@
 
 /datum/crafting_recipe/teleprod
 	name = "Teleprod"
-	result = /obj/item/melee/baton/cattleprod/teleprod
+	result = /obj/item/melee/baton/security/cattleprod/teleprod
 	time = 4 SECONDS
 	reqs = list(
 		/obj/item/restraints/handcuffs/cable = 1,

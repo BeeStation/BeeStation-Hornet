@@ -30,6 +30,10 @@
 	if(!.)
 		return .
 	START_PROCESSING(SSobj, src)
+	// Find all antag datums and mark romerol objectives as complete
+	for (var/datum/antagonist/antagonist as anything in GLOB.active_antagonists)
+		for (var/datum/objective/romerol/objective in antagonist.objectives)
+			objective.released = TRUE
 
 /obj/item/organ/zombie_infection/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	. = ..()
@@ -47,7 +51,7 @@
 		return
 	if(!(src in owner.internal_organs))
 		Remove(owner, TRUE)
-	if(MOB_INORGANIC in owner.mob_biotypes)//does not process in inorganic things
+	if(owner.mob_biotypes & MOB_INORGANIC)//does not process in inorganic things
 		return
 	if (causes_damage && !iszombie(owner) && owner.stat != DEAD)
 		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * delta_time)

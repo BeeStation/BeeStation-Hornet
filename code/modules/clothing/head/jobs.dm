@@ -7,7 +7,7 @@
 //Chef
 /obj/item/clothing/head/utility/chefhat
 	name = "chef's hat"
-	item_state = "chefhat"
+	inhand_icon_state = "chefhat"
 	icon_state = "chef"
 	desc = "The commander in chef's head wear."
 	strip_delay = 10
@@ -30,7 +30,7 @@
 	name = "captain's hat"
 	desc = "It's good being the king."
 	icon_state = "captain"
-	item_state = "that"
+	inhand_icon_state = "that"
 	flags_inv = 0
 	armor_type = /datum/armor/hats_caphat
 	strip_delay = 60
@@ -56,7 +56,7 @@
 	icon_state = "capcap"
 	dog_fashion = null
 
-/obj/item/clothing/head/caphat/beret
+/obj/item/clothing/head/hats/caphat/beret
 	name = "captain's beret"
 	desc = "For the Captains known for their sense of fashion."
 	icon_state = "beret_badge"
@@ -73,6 +73,14 @@
 	armor_type = /datum/armor/hats_hopcap
 	dog_fashion = /datum/dog_fashion/head/hop
 	dying_key = DYE_REGISTRY_CAP
+
+/obj/item/clothing/head/hats/hopcap/beret
+	name = "head of personnel's beret"
+	desc = "For doing paperwork with style."
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#3e6588#ECF1F8"
 
 //Chaplain
 
@@ -108,7 +116,7 @@
 	desc = "There's only one man who can sniff out the dirty stench of crime, and he's likely wearing this hat."
 	armor_type = /datum/armor/fedora_det_hat
 	icon_state = "detective"
-	item_state = "det_hat"
+	inhand_icon_state = "det_hat"
 	var/candy_cooldown = 0
 	var/adjusted = FALSE
 	var/adjustable = TRUE
@@ -127,11 +135,9 @@
 	bleed = 20
 
 /obj/item/clothing/head/fedora/det_hat/Initialize(mapload)
-	. = ..()
-
 	create_storage(storage_type = /datum/storage/pockets/small/fedora/detective)
-
 	new /obj/item/reagent_containers/cup/glass/flask/det(src)
+	return ..()
 
 /obj/item/clothing/head/fedora/det_hat/examine(mob/user)
 	. = ..()
@@ -155,7 +161,7 @@
 		flip(user)
 
 /obj/item/clothing/head/fedora/det_hat/proc/flip(mob/user)
-	if(!user.incapacitated() && adjustable == TRUE)
+	if(!user.incapacitated && adjustable == TRUE)
 		adjusted = !adjusted
 		if(adjusted)
 			worn_icon_state = aura_icon_on
@@ -188,7 +194,7 @@
 
 /obj/item/clothing/head/beret/color
 	name = "white beret"
-	greyscale_colors = "#ffffff"
+	greyscale_colors = COLOR_WHITE
 
 /obj/item/clothing/head/beret/rainbow
 	name = "rainbow beret"
@@ -291,7 +297,7 @@
 	name = "warden's campaign hat"
 	desc = "A special armored campaign hat with the security insignia emblazoned on it. Uses reinforced fabric to offer sufficient protection."
 	icon_state = "wardendrill"
-	item_state = null
+	inhand_icon_state = null
 	dog_fashion = null
 	var/mode = DRILL_DEFAULT
 
@@ -393,6 +399,7 @@
 	strip_delay = 60
 	dog_fashion = null
 	flags_1 = NONE
+	custom_price = 50
 
 /datum/armor/beret_sec
 	melee = 35
@@ -519,7 +526,6 @@
 
 /datum/armor/beret_cmo
 	bio = 30
-	rad = 10
 	acid = 20
 
 //Engineering
@@ -534,7 +540,6 @@
 	flags_1 = NONE
 
 /datum/armor/beret_eng
-	rad = 10
 	fire = 10
 
 /obj/item/clothing/head/beret/atmos
@@ -548,7 +553,6 @@
 	flags_1 = NONE
 
 /datum/armor/beret_atmos
-	rad = 10
 	fire = 10
 
 /obj/item/clothing/head/beret/ce
@@ -562,7 +566,6 @@
 	flags_1 = NONE
 
 /datum/armor/beret_ce
-	rad = 20
 	fire = 30
 
 /obj/item/clothing/head/beret/cargo
@@ -581,10 +584,19 @@
 	desc = "You got red text today kid, but it doesn't mean you have to like it."
 	icon_state = "curator"
 
-//Medical
+/obj/item/clothing/head/helmet/monsterhunter_hat
+	name = "monster hunter hat"
+	desc = "This hat saw much use back in the day."
+	icon_state = "monsterhunterhat"
+	inhand_icon_state = null
+	flags_cover = HEADCOVERSEYES
+	flags_inv = HIDEEYES
+	armor_type = /datum/armor/helmet_chaplain
+	strip_delay = 80
+	dog_fashion = null
 
+//Medical
 /datum/armor/beret_supply
-	rad = 10
 	fire = 10
 
 /obj/item/clothing/head/beret/sergeant
@@ -603,7 +615,6 @@
 	energy = 10
 	bomb = 10
 	bio = 5
-	rad = 5
 	fire = 5
 	acid = 30
 	stamina = 30
@@ -618,7 +629,6 @@
 	energy = 30
 	bomb = 15
 	bio = 10
-	rad = 10
 	fire = 10
 	acid = 60
 	stamina = 40

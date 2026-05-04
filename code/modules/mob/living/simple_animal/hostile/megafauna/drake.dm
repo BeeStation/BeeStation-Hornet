@@ -48,7 +48,7 @@ Difficulty: Medium
 	ranged = TRUE
 	pixel_x = -16
 	base_pixel_x = -16
-	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/dragon)
+	loot = list(/obj/effect/spawner/random/unsorted/megafaunaore, /obj/structure/closet/crate/necropolis/dragon)
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/ashdrake = 10)
 	var/swooping = NONE
@@ -57,8 +57,8 @@ Difficulty: Medium
 	achievement_type = /datum/award/achievement/boss/drake_kill
 	crusher_achievement_type = /datum/award/achievement/boss/drake_crusher
 	score_achievement_type = /datum/award/score/drake_score
-	deathmessage = "collapses into a pile of bones, its flesh sloughing away."
-	deathsound = 'sound/magic/demon_dies.ogg'
+	death_message = "collapses into a pile of bones, its flesh sloughing away."
+	death_sound = 'sound/magic/demon_dies.ogg'
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	attack_action_types = list(/datum/action/innate/megafauna_attack/fire_cone,
 							   /datum/action/innate/megafauna_attack/fire_cone_meteors,
@@ -68,28 +68,28 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/fire_cone
 	name = "Fire Cone"
-	icon_icon = 'icons/obj/wizard.dmi'
+	button_icon = 'icons/obj/wizard.dmi'
 	button_icon_state = "fireball"
 	chosen_message = span_colossus("You are now shooting fire at your target.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/fire_cone_meteors
 	name = "Fire Cone With Meteors"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = span_colossus("You are now shooting fire at your target and raining fire around you.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/mass_fire
 	name = "Mass Fire Attack"
-	icon_icon = 'icons/effects/fire.dmi'
-	button_icon_state = "1"
+	button_icon = 'icons/effects/fire.dmi'
+	button_icon_state = "light"
 	chosen_message = span_colossus("You are now shooting mass fire at your target.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/lava_swoop
 	name = "Lava Swoop"
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "lavastaff_warn"
 	chosen_message = span_colossus("You are now swooping and raining lava at your target.")
 	chosen_attack_num = 4
@@ -256,7 +256,7 @@ Difficulty: Medium
 		if(!check)
 			break
 		T = check
-	return (getline(src, T) - get_turf(src))
+	return (get_line(src, T) - get_turf(src))
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_line(list/turfs)
 	SLEEP_CHECK_DEATH(0)
@@ -268,8 +268,8 @@ Difficulty: Medium
 	for(var/turf/T in turfs)
 		if(istype(T, /turf/closed))
 			break
-		new /obj/effect/hotspot(T)
-		T.hotspot_expose(700,50,1)
+		new /obj/effect/hotspot/bright(T)
+		T.hotspot_expose(700, 50, 1)
 		for(var/mob/living/L in T.contents)
 			if((L in hit_list) || L == source)
 				continue
@@ -381,12 +381,12 @@ Difficulty: Medium
 		return
 	..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(!forced && (swooping & SWOOP_INVULNERABLE))
 		return FALSE
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE, separation = " ")
+/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE, allow_inside_usr = FALSE, separation = " ")
 	if(swooping & SWOOP_INVULNERABLE) //to suppress attack messages without overriding every single proc that could send a message saying we got hit
 		return
 	return ..()
@@ -449,7 +449,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/lava_warning)
 	desc = "An ash drakes true flame."
 	name = "Fire Barrier"
 	icon = 'icons/effects/fire.dmi'
-	icon_state = "1"
+	icon_state = "light"
 	anchored = TRUE
 	opacity = FALSE
 	density = TRUE
@@ -472,7 +472,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/lava_warning)
 	layer = BELOW_MOB_LAYER
 	pixel_x = -32
 	pixel_y = -32
-	color = "#FF0000"
+	color = COLOR_RED
 	duration = 10
 
 /obj/effect/temp_visual/dragon_flight
@@ -549,7 +549,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/target)
 		var/turf/closed/mineral/M = T
 		M.gets_drilled()
 	playsound(T, "explosion", 80, 1)
-	new /obj/effect/hotspot(T)
+	new /obj/effect/hotspot/bright(T)
 	T.hotspot_expose(700, 50, 1)
 	for(var/mob/living/L in T.contents)
 		if(istype(L, /mob/living/simple_animal/hostile/megafauna/dragon))

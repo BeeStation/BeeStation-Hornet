@@ -14,15 +14,14 @@
 	var/mode = IV_INJECTING
 	///Internal beaker
 	var/obj/item/reagent_containers/beaker
+	custom_price = 50
 	///Typecache of containers we accept
 	var/static/list/drip_containers = typecacheof(list(
 		/obj/item/reagent_containers/blood,
 		/obj/item/reagent_containers/chem_bag,
 		/obj/item/reagent_containers/cup,
 		/obj/item/food, //Fuck it. You want to stab an IV into that 100u blood tomato? Be my guest.
-		/obj/item/reagent_containers/cup
-		)
-	)
+	))
 	var/can_convert = TRUE // If it can be made into an anesthetic machine or not
 
 /obj/machinery/iv_drip/Initialize(mapload)
@@ -205,7 +204,7 @@
 		return
 	if (!usr.canUseTopic())
 		return
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return
 	if(beaker)
 		beaker.forceMove(drop_location())
@@ -222,7 +221,7 @@
 		return
 	if (!usr.canUseTopic())
 		return
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return
 	mode = !mode
 	to_chat(usr, "The IV drip is now [mode ? "injecting" : "taking blood"].")

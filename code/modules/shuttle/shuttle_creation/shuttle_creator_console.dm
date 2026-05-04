@@ -28,7 +28,7 @@
 	modify_action = new(src)
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/check_eye(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/CreateEye()
@@ -40,7 +40,7 @@
 	if(!isliving(user))
 		return FALSE
 	var/mob/living/L = user
-	if(L.incapacitated())
+	if(L.incapacitated)
 		return FALSE
 	return TRUE
 
@@ -102,4 +102,4 @@
 			eye.source_turf = camera_location
 			eyeobj.setLoc(camera_location)
 		else
-			eyeobj.setLoc(eyeobj.loc)
+			eyeobj.setLoc(get_turf(eyeobj))

@@ -6,27 +6,24 @@
 /// Two mobs one is facing a person, but the other is perpendicular
 #define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR 3 //! Do I win the most informative but also most stupid define award?
 
-/proc/random_blood_type()
-	return pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
-
 /proc/random_eye_color()
 	switch(pick(20;"brown",20;"hazel",20;"grey",15;"blue",15;"green",1;"amber",1;"albino"))
 		if("brown")
-			return "630"
+			return COLOR_BROWNER_BROWN
 		if("hazel")
-			return "542"
+			return "#554422"
 		if("grey")
-			return pick("666","777","888","999","aaa","bbb","ccc")
+			return pick("#666666","#777777","#888888","#999999","#aaaaaa","#bbbbbb","#cccccc")
 		if("blue")
-			return "36c"
+			return "#3366cc"
 		if("green")
-			return "060"
+			return "#006600"
 		if("amber")
-			return "fc0"
+			return COLOR_YELLOW
 		if("albino")
-			return pick("c","d","e","f") + pick("0","1","2","3","4","5","6","7","8","9") + pick("0","1","2","3","4","5","6","7","8","9")
+			return "#" + pick("cc","dd","ee","ff") + pick("00","11","22","33","44","55","66","77","88","99") + pick("00","11","22","33","44","55","66","77","88","99")
 		else
-			return "000"
+			return COLOR_BLACK
 
 /proc/random_underwear(gender)
 	if(!GLOB.underwear_list.len)
@@ -69,12 +66,12 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/body_markings, GLOB.body_markings_list)
 	if(!GLOB.wings_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/wings, GLOB.wings_list)
-	if(!GLOB.moth_wings_roundstart_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_roundstart_list)
-	if(!GLOB.moth_antennae_roundstart_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_antennae, GLOB.moth_antennae_roundstart_list)
-	if(!GLOB.moth_markings_roundstart_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_markings, GLOB.moth_markings_roundstart_list)
+	if(!GLOB.moth_wings_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_list)
+	if(!GLOB.moth_antennae_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_antennae, GLOB.moth_antennae_list)
+	if(!GLOB.moth_markings_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_markings, GLOB.moth_markings_list)
 	if(!GLOB.ipc_screens_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_screens, GLOB.ipc_screens_list)
 	if(!GLOB.ipc_antennas_list.len)
@@ -113,22 +110,22 @@
 	return(
 		list(
 		"body_size" = "Normal",
-		"mcolor" = pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F"),
+		"mcolor" = pick(COLOR_WHITE, "#7F7F7F", "#7FFF7F", "#7F7FFF", "#FF7F7F", "#7FFFFF", "#FF7FFF", "#FFFF7F"),
 		"ethcolor" = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)],
 		"tail_lizard" = pick(GLOB.tails_list_lizard),
-		"tail_human" = "None",
-		"wings" = "None",
+		"tail_human" = SPRITE_ACCESSORY_NONE,
+		"wings" = SPRITE_ACCESSORY_NONE,
 		"snout" = pick(GLOB.snouts_list),
 		"horns" = pick(GLOB.horns_list),
-		"ears" = "None",
+		"ears" = SPRITE_ACCESSORY_NONE,
 		"frills" = pick(GLOB.frills_list),
 		"spines" = pick(GLOB.spines_list),
 		"body_markings" = pick(GLOB.body_markings_list),
 		"legs" = "Normal Legs",
 		"caps" = pick(GLOB.caps_list),
-		"moth_wings" = pick(GLOB.moth_wings_roundstart_list),
-		"moth_antennae" = pick(GLOB.moth_antennae_roundstart_list),
-		"moth_markings" = pick(GLOB.moth_markings_roundstart_list),
+		"moth_wings" = pick(GLOB.moth_wings_list),
+		"moth_antennae" = pick(GLOB.moth_antennae_list),
+		"moth_markings" = pick(GLOB.moth_markings_list),
 		"ipc_screen" = pick(GLOB.ipc_screens_list),
 		"ipc_antenna" = pick(GLOB.ipc_antennas_list),
 		"ipc_chassis" = pick(GLOB.ipc_chassis_list),
@@ -156,81 +153,6 @@
 /proc/random_facial_hair_style(gender)
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.facial_hair_styles_list, required_gender = gender)
 	return picked.name
-
-/proc/random_unique_name(gender, attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		if(gender==FEMALE)
-			. = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
-		else if(gender==MALE)
-			. = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
-		else
-			. = capitalize(pick(GLOB.first_names)) + " " + capitalize(pick(GLOB.last_names))
-
-		if(!findname(.))
-			break
-
-/proc/random_lizard_name(gender, attempts)
-	if(gender == MALE)
-		. = "[pick(GLOB.lizard_names_male)]-[pick(GLOB.lizard_names_male)]"
-	else
-		. = "[pick(GLOB.lizard_names_female)]-[pick(GLOB.lizard_names_female)]"
-
-	if(attempts < 10)
-		if(findname(.))
-			. = .(gender, ++attempts)
-
-//this proc tries to generate an AI name that mimics the way players name AIs and borgs
-/proc/random_ai_name(style, attempts = 1)
-	var/numbers = list("1","2","3","4","5","6","7","8","9","0")
-	var/version_words = list("v", "V", "Version ", "mk", "MK", "Mark ")
-	for(var/i in 1 to attempts)
-
-		if(!style)
-			style = rand(1,2)
-
-		switch(style)
-			if(1) //2-3 random sectors
-				var/sectors = 2 + prob(20) //small chance for 3 sectors
-				for(var/s in 1 to sectors)
-					var/sector
-					var/sector_characters
-					var/breakup_character = "-"
-					var/sectorlength = rand(1,3)
-					switch(rand(1,100))
-						if(1 to 25)//25% chance for both numbers and letters
-							sector_characters = numbers + GLOB.alphabet + GLOB.alphabet //add alphabet twice so that numbers are lower weight
-						if(25 to 75) //50% chance for only letters
-							sector_characters = GLOB.alphabet
-						else //25% chance for only numbers, along with shorter sector length and a different breakup character
-							sector_characters = numbers
-							breakup_character = "."
-							sectorlength = rand(1,3)
-
-					sector = random_string(sectorlength, sector_characters)
-					if(prob(80)) //it's probably going to be uppercase
-						sector = uppertext(sector)
-
-					if(s > 1)
-						. += breakup_character
-					. += sector
-
-			if(2) //random vaguely AI related word with a chance to be followed by a version number or a "mark", such as mk1.2, or v3.6
-				. += pick(GLOB.ai_names)
-				if(prob(max(30 - (LAZYLEN(.)), 10))) //chance to for every character to be capitalized followed by a period. the chance is lower the longer the name is.
-					. = uppertext(replacetextEx(.,regex(@"([a-z](?=[a-z]))","g"),"$1."))
-				else if (prob(50)) //slightly higher chance to just be full uppertext
-					. = uppertext(.)
-				else
-					. = capitalize(.)
-
-				if(prob(33))
-
-					var/version_string = " " + pick(version_words) + num2text(prob(50) ? rand(1, 100) / 10 : rand(1,10))
-
-					. += version_string
-
-/proc/random_skin_tone()
-	return pick(GLOB.skin_tones)
 
 GLOBAL_LIST_INIT(skin_tones, sort_list(list(
 	"albino",
@@ -261,9 +183,6 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 	"latino" = "Light beige",
 	"mediterranean" = "Olive",
 ))
-
-/// An assoc list of species IDs to type paths
-GLOBAL_LIST_EMPTY(species_list)
 
 /proc/age2agedescription(age)
 	switch(age)
@@ -341,7 +260,7 @@ GLOBAL_LIST_EMPTY(species_list)
 
 	delay *= user.cached_multiplicative_actions_slowdown
 
-	if (HAS_TRAIT(user, INSTANT_DO_AFTER))
+	if (HAS_TRAIT(user, TRAIT_INSTANT_DO_AFTER))
 		delay = -1
 
 	var/datum/progressbar/progbar
@@ -353,6 +272,8 @@ GLOBAL_LIST_EMPTY(species_list)
 
 		if(!hidden && delay >= 1 SECONDS)
 			cog = new(user)
+
+	SEND_SIGNAL(user, COMSIG_DO_AFTER_BEGAN)
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
@@ -393,6 +314,7 @@ GLOBAL_LIST_EMPTY(species_list)
 			return
 		// all out, let's clear er out fully
 		LAZYREMOVE(user.do_afters, interaction_key)
+	SEND_SIGNAL(user, COMSIG_DO_AFTER_ENDED)
 
 /// Returns the total amount of do_afters this mob is taking part in
 /mob/proc/do_after_count()
@@ -456,8 +378,11 @@ GLOBAL_LIST_EMPTY(species_list)
 
 	return spawned_mobs
 
-/proc/deadchat_broadcast(message, mob/follow_target=null, turf/turf_target=null, speaker_key=null, message_type=DEADCHAT_REGULAR)
-	message = span_linkify("[message]")
+// Displays a message in deadchat, sent by source. Source is not linkified, message is, to avoid stuff like character names to be linkified.
+// Automatically gives the class deadsay to the whole message (message + source)
+/proc/deadchat_broadcast(message, source=null, mob/follow_target=null, turf/turf_target=null, speaker_key=null, message_type=DEADCHAT_REGULAR)
+	message = span_deadsay("[source][span_linkify(message)]")
+
 	for(var/mob/M in GLOB.player_list)
 		var/death_rattle = TRUE
 		var/arrivals_rattle = TRUE
@@ -573,6 +498,12 @@ GLOBAL_LIST_EMPTY(species_list)
 	. = list()
 	for(var/mob/living/player in GLOB.mob_living_list)
 		if(player.stat != DEAD && player.mind && !is_centcom_level(player.z) && !isnewplayer(player) && !isbrain(player))
+			. |= player
+
+/proc/get_living_connected_crew()
+	. = list()
+	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
+		if(player.stat != DEAD && player.mind && player.client)
 			. |= player
 
 //Gets all sentient humans that are alive

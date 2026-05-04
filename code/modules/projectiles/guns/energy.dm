@@ -1,8 +1,10 @@
 /obj/item/gun/energy
+	abstract_type = /obj/item/gun/energy
 	icon_state = "energy"
 	name = "energy gun"
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/energy.dmi'
+	custom_price = 100 // Adding this here because only SOME guns were covered by export datums
 
 	///What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell
@@ -41,11 +43,13 @@
 
 /obj/item/gun/energy/emp_act(severity)
 	. = ..()
-	if(!(. & EMP_PROTECT_CONTENTS))
-		obj_flags |= OBJ_EMPED
-		update_appearance()
-		addtimer(CALLBACK(src, PROC_REF(emp_reset)), rand(1, 200 / severity))
-		playsound(src, 'sound/machines/capacitor_discharge.ogg', 60, TRUE)
+	if(. & EMP_PROTECT_CONTENTS)
+		return
+
+	obj_flags |= OBJ_EMPED
+	update_appearance()
+	addtimer(CALLBACK(src, PROC_REF(emp_reset)), rand(1, 200 / severity))
+	playsound(src, 'sound/machines/capacitor_discharge.ogg', 60, TRUE)
 
 /obj/item/gun/energy/proc/emp_reset()
 	obj_flags &= ~OBJ_EMPED
@@ -240,7 +244,7 @@
 	update_appearance()
 
 /obj/item/gun/energy/update_icon_state()
-	var/skip_inhand = initial(item_state) //only build if we aren't using a preset inhand icon
+	var/skip_inhand = initial(inhand_icon_state) //only build if we aren't using a preset inhand icon
 	var/skip_worn_icon = initial(worn_icon_state) //only build if we aren't using a preset worn icon
 
 	if(skip_inhand && skip_worn_icon) //if we don't have either, don't do the math.
@@ -259,7 +263,7 @@
 
 	temp_icon_to_use += "[ratio]"
 	if(!skip_inhand)
-		item_state = temp_icon_to_use
+		inhand_icon_state = temp_icon_to_use
 	if(!skip_worn_icon)
 		worn_icon_state = temp_icon_to_use
 	return ..()

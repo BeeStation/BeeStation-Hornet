@@ -4,7 +4,7 @@
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ab" = (
 /obj/machinery/power/emitter/energycannon,
 /obj/effect/turf_decal/box,
@@ -12,20 +12,20 @@
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ac" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ad" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ae" = (
 /obj/structure/reflector/box/anchored{
 	dir = 6
@@ -34,7 +34,7 @@
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "af" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -42,12 +42,12 @@
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ag" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ah" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -55,7 +55,7 @@
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ai" = (
 /obj/structure/reflector/box/anchored{
 	dir = 10
@@ -64,19 +64,19 @@
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aj" = (
 /obj/machinery/power/emitter/energycannon,
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ak" = (
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "al" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -84,17 +84,17 @@
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "am" = (
 /turf/open/floor/circuit/green/anim,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "an" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ap" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 5
@@ -106,21 +106,21 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aq" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/circuit/green/anim,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ar" = (
 /obj/effect/turf_decal/trimline/red/filled/end{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "as" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 1
@@ -128,14 +128,14 @@
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "at" = (
 /obj/effect/turf_decal/trimline/red/filled/end{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "au" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -144,7 +144,7 @@
 	dir = 8
 	},
 /turf/open/floor/circuit/green/anim,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "av" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 9
@@ -154,7 +154,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ax" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 5
@@ -163,7 +163,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ay" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -171,14 +171,14 @@
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "az" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aD" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 5
@@ -190,11 +190,11 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aE" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aF" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 9
@@ -204,18 +204,18 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aK" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aO" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 6
@@ -227,7 +227,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aP" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 10
@@ -239,7 +239,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aR" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 6
@@ -248,19 +248,19 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aS" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /turf/open/floor/circuit/green/anim,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aU" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /turf/open/floor/circuit/green/anim,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aV" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 10
@@ -269,11 +269,11 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aW" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/circuit/green/anim,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aX" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 10
@@ -283,7 +283,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aY" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 6
@@ -293,7 +293,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "aZ" = (
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/trimline/red/filled/corner{
@@ -304,7 +304,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "bb" = (
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/stripes/line,
@@ -315,7 +315,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "bc" = (
 /obj/structure/reflector/box/anchored{
 	dir = 4
@@ -323,7 +323,7 @@
 /obj/effect/turf_decal/box,
 /obj/structure/cable,
 /turf/open/floor/engine,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "bd" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -333,7 +333,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/circuit/green/anim,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "be" = (
 /obj/structure/reflector/box/anchored{
 	dir = 5
@@ -341,7 +341,7 @@
 /obj/effect/turf_decal/box,
 /obj/structure/cable,
 /turf/open/floor/engine,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "bf" = (
 /obj/machinery/power/emitter/energycannon{
 	dir = 1
@@ -352,11 +352,11 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "bg" = (
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "bh" = (
 /obj/machinery/power/emitter/energycannon{
 	dir = 1
@@ -367,7 +367,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "bi" = (
 /obj/structure/reflector/box/anchored{
 	dir = 9
@@ -375,7 +375,7 @@
 /obj/effect/turf_decal/box,
 /obj/structure/cable,
 /turf/open/floor/engine,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "bj" = (
 /obj/structure/reflector/box/anchored{
 	dir = 8
@@ -384,14 +384,14 @@
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "dn" = (
 /obj/effect/turf_decal/trimline/red/filled/corner{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "fl" = (
 /obj/effect/turf_decal/trimline/red/filled/corner{
 	dir = 8
@@ -400,7 +400,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "fw" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
@@ -410,7 +410,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "fU" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 4
@@ -419,11 +419,11 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "kc" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "kK" = (
 /obj/effect/turf_decal/trimline/red/filled/corner{
 	dir = 4
@@ -432,7 +432,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "pr" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 1
@@ -444,7 +444,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "Aq" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 4
@@ -456,7 +456,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "Bv" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 1
@@ -468,14 +468,14 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "By" = (
 /obj/effect/turf_decal/trimline/red/filled/corner,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "BK" = (
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/stripes/line,
@@ -483,14 +483,14 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "RT" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "ZU" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 1
@@ -502,7 +502,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 
 (1,1,1) = {"
 aa

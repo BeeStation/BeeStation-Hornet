@@ -48,9 +48,9 @@ Difficulty: Very Hard
 	achievement_type = /datum/award/achievement/boss/colussus_kill
 	crusher_achievement_type = /datum/award/achievement/boss/colussus_crusher
 	score_achievement_type = /datum/award/score/colussus_score
-	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/colossus)
-	deathmessage = "disintegrates, leaving a glowing core in its wake."
-	deathsound = 'sound/magic/demon_dies.ogg'
+	loot = list(/obj/effect/spawner/random/unsorted/megafaunaore, /obj/structure/closet/crate/necropolis/colossus)
+	death_message = "disintegrates, leaving a glowing core in its wake."
+	death_sound = 'sound/magic/demon_dies.ogg'
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
 							   /datum/action/innate/megafauna_attack/aoe_attack,
 							   /datum/action/innate/megafauna_attack/shotgun,
@@ -64,28 +64,28 @@ Difficulty: Very Hard
 
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = span_colossus("You are now firing in a spiral.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/aoe_attack
 	name = "All Directions"
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "at_shield2"
 	chosen_message = span_colossus("You are now firing in all directions.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/shotgun
 	name = "Shotgun Fire"
-	icon_icon = 'icons/obj/guns/projectile.dmi'
+	button_icon = 'icons/obj/guns/projectile.dmi'
 	button_icon_state = "shotgun"
 	chosen_message = span_colossus("You are now firing shotgun shots where you aim.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/alternating_cardinals
 	name = "Alternating Shots"
-	icon_icon = 'icons/obj/guns/projectile.dmi'
+	button_icon = 'icons/obj/guns/projectile.dmi'
 	button_icon_state = "pistol"
 	chosen_message = span_colossus("You are now firing in alternating cardinal directions.")
 	chosen_attack_num = 4
@@ -467,6 +467,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	use_power = NO_POWER_USE
 	anchored = FALSE
 	density = TRUE
+	custom_price = 40000
+	max_demand = 2
 	var/activation_method
 	var/list/possible_methods = list(ACTIVATE_TOUCH, ACTIVATE_SPEECH, ACTIVATE_HEAT, ACTIVATE_BULLET, ACTIVATE_ENERGY, ACTIVATE_BOMB, ACTIVATE_MOB_BUMP, ACTIVATE_WEAPON, ACTIVATE_MAGIC)
 
@@ -488,8 +490,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		. += observer_desc
 		. += "It is activated by [activation_method]."
 
-/obj/machinery/anomalous_crystal/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, list/message_mods = list())
-	..()
+/obj/machinery/anomalous_crystal/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, spans, list/message_mods = list(), message_range)
+	. = ..()
 	if(isliving(speaker))
 		ActivationReaction(speaker, ACTIVATE_SPEECH)
 
@@ -500,7 +502,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	ActivationReaction(user, ACTIVATE_TOUCH)
 
 /obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, params)
-	if(I.is_hot())
+	if(I.get_temperature())
 		ActivationReaction(user, ACTIVATE_HEAT)
 	else
 		ActivationReaction(user, ACTIVATE_WEAPON)
@@ -722,7 +724,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	density = FALSE
 	is_flying_animal = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	ventcrawler = VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = HOSTILE_SPAWN
 	verb_say = "warps"
@@ -749,6 +750,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	remove_verb(/mob/verb/me_verb)
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
+
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/lightgeist/AttackingTarget()
 	. = ..()
@@ -778,7 +781,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		/obj/item/disk/nuclear,
 		/obj/projectile,
 		/obj/item/spellbook,
-		/obj/item/dice/d20/fate
+		/obj/item/dice/d20/fate,
 	))
 
 /obj/machinery/anomalous_crystal/refresher/ActivationReaction(mob/user, method)
@@ -836,6 +839,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(isanimal_or_basicmob(loc))
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/structure/closet/stasis/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
@@ -862,16 +866,13 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 			L.death(FALSE)
 	..()
 
-/obj/structure/closet/stasis/emp_act()
-	return
-
 /obj/structure/closet/stasis/ex_act()
 	return
 
 /datum/action/exit_possession
 	name = "Exit Possession"
 	desc = "Exits the body you are possessing. They will explode violently when this occurs."
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "exit_possession"
 
 /datum/action/exit_possession/is_available()

@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
-	faction = "Station"
+	faction = FACTION_STATION
 	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#d4ebf2"
 	exp_requirements = 120
@@ -19,6 +19,8 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_MEDICAL_DOCTOR
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Cleric"
 
 	species_outfits = list(
@@ -27,15 +29,20 @@
 	biohazard = 40
 
 	lightup_areas = list(
-		/area/medical/genetics,
-		/area/medical/virology,
-		/area/medical/chemistry,
-		/area/medical/apothecary
+		/area/station/medical/genetics,
+		/area/station/medical/virology,
+		/area/station/medical/chemistry,
+		/area/station/medical/pharmacy
 	)
 	minimal_lightup_areas = list(
-		/area/medical/morgue,
-		/area/medical/surgery,
-		/area/medical/genetics/cloning
+		/area/station/medical/morgue,
+		/area/station/medical/surgery,
+		/area/station/medical/genetics/cloning
+	)
+
+	manuscript_jobs = list(
+		JOB_NAME_MEDICALDOCTOR,
+		JOB_NAME_CHEMIST // why not
 	)
 
 /datum/job/medical_doctor/get_access()

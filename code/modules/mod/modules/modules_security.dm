@@ -19,7 +19,13 @@
 /obj/item/mod/module/magnetic_harness/Initialize(mapload)
 	. = ..()
 	if(!guns_typecache)
-		guns_typecache = typecacheof(list(/obj/item/gun/ballistic, /obj/item/gun/energy, /obj/item/gun/grenadelauncher, /obj/item/gun/chem, /obj/item/gun/syringe))
+		guns_typecache = typecacheof(list(
+			/obj/item/gun/ballistic,
+			/obj/item/gun/energy,
+			/obj/item/gun/grenadelauncher,
+			/obj/item/gun/chem,
+			/obj/item/gun/syringe,
+		))
 
 /obj/item/mod/module/magnetic_harness/on_install()
 	var/obj/item/clothing/suit = mod.get_part_from_slot(ITEM_SLOT_OCLOTHING)
@@ -265,7 +271,7 @@
 	name = "mirage grenade"
 	desc = "A special device that, when activated, produces a holographic copy of the user."
 	icon_state = "mirage"
-	item_state = "flashbang"
+	inhand_icon_state = "flashbang"
 	det_time = 3 SECONDS
 	/// Mob that threw the grenade.
 	var/mob/living/thrower
@@ -394,7 +400,7 @@
 	var/oldgroup = keyed_creatures[creature]
 	var/newgroup = round(get_angle(mod.wearer, creature) / (360 / radar_slices)) + 1
 	if(oldgroup)
-		if(creature.stat == DEAD || get_dist(get_turf(mod.wearer), get_turf(creature)) > world.view)
+		if(creature.stat == DEAD || get_dist(get_turf(mod.wearer), get_turf(creature)) > 7)
 			sorted_creatures[oldgroup] -= creature
 			keyed_creatures -= creature
 			UnregisterSignal(creature, COMSIG_MOVABLE_MOVED)

@@ -23,9 +23,7 @@
 /area/ruin/unpowered)
 "i" = (
 /obj/structure/chair,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/mineral/titanium/blue/airless,
 /area/ruin/unpowered)
 "j" = (
@@ -33,7 +31,7 @@
 /turf/open/floor/mineral/titanium/blue/airless,
 /area/ruin/unpowered)
 "k" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/mineral/titanium/blue/airless,
 /area/ruin/unpowered)
 "l" = (
@@ -71,9 +69,7 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/mineral/titanium/blue/airless,
 /area/ruin/unpowered)
 "s" = (

@@ -111,7 +111,8 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/spawn_floor_cluwne,
 	/client/proc/spawnhuman,
 	/client/proc/debug_spell_requirements,
-	/datum/admins/proc/dynamic_panel,
+	/datum/admins/proc/station_traits_panel,
+	/client/proc/force_directive,
 	))
 GLOBAL_PROTECT(admin_verbs_fun)
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -183,6 +184,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/generate_pipe_spritesheet,
 	/client/proc/clear_dynamic_transit,
 	/client/proc/run_empty_query,
+	/client/proc/test_pathfinding,
 	/client/proc/fucky_wucky,
 	/client/proc/toggle_medal_disable,
 	/client/proc/pump_random_event,
@@ -218,9 +220,10 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/cmd_clear_smart_asset_cache,
 	/client/proc/view_runtimes,
 	/client/proc/debug_hallucination_weighted_list_per_type,
+	/datum/admins/proc/dynamic_panel,
 	)
 
-GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, GLOBAL_PROC_REF(release)))
+GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, GLOBAL_PROC_REF(release_obj)))
 GLOBAL_PROTECT(admin_verbs_possess)
 GLOBAL_LIST_INIT(admin_verbs_permissions, list(/client/proc/edit_admin_permissions, /client/proc/edit_mentors))
 GLOBAL_PROTECT(admin_verbs_permissions)
@@ -279,12 +282,11 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/Debug2,
 	/client/proc/reload_admins,
 	/client/proc/cmd_debug_make_powernets,
-	/client/proc/startSinglo,
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_debug_del_all,
 	/client/proc/enable_debug_verbs,
 	/proc/possess,
-	/proc/release,
+	/proc/release_obj,
 	/client/proc/reload_admins,
 	/client/proc/panicbunker,
 	/client/proc/toggle_interviews,
@@ -388,8 +390,66 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	to_chat(src, span_interface("All of your adminverbs are now visible."))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Adminverbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
-
+/client/proc/force_directive()
+	set category = "Adminbus"
+	set name = "Run Priority Directive"
+	if(!holder)
+		return
+	// Find all the minds
+	var/list/player_minds = list()
+	for (var/datum/mind/player_mind in SSticker.minds)
+		if (!ishuman(player_mind.current) || !is_station_level(player_mind.current.z))
+			continue
+		player_minds += player_mind
+	var/list/options = list()
+	options["Global"] = null
+	for (var/datum/component/uplink/uplink in GLOB.uplinks)
+		options["[uplink.owner?.name]'s [uplink.name] inside of [uplink.parent]"] = uplink
+	var/result = tgui_input_list(usr, "Which uplink would you like to deploy the directive to?", "Force Directive", options, null)
+	if (!result)
+		return
+	var/datum/component/uplink/selected_uplink = options[result]
+	if (!selected_uplink)
+		// Run a global event
+		var/list/types = list()
+		for (var/datum/priority_directive/directive as anything in SSdirectives.directive_types)
+			if (!directive.shared)
+				continue
+			types += directive
+		var/selected_type = tgui_input_list(usr, "Which directive type do you want to run?", "Force Directive", types, null)
+		if (!selected_type)
+			return
+		var/list/filtered_uplinks = list()
+		for (var/datum/component/uplink/uplink in GLOB.uplinks)
+			if (!(uplink.directive_flags & DIRECTIVE_FLAG_COMPETITIVE))
+				continue
+			filtered_uplinks += uplink
+		var/datum/priority_directive/created = new selected_type
+		if (!created.can_run(filtered_uplinks, player_minds))
+			if (!created.can_run(filtered_uplinks, player_minds, TRUE))
+				to_chat(usr, span_warning("Unable to execute directive even when forced."))
+				return
+			to_chat(usr, span_warning("Directive was executed in forced mode, which may result in unexpected behaviour."))
+		created.start(filtered_uplinks)
+		SSdirectives.active_directives += created
+	else
+		var/list/types = list()
+		for (var/datum/priority_directive/directive as anything in SSdirectives.directive_types)
+			if (directive:shared)
+				continue
+			types += directive
+		var/selected_type = tgui_input_list(usr, "Which directive type do you want to run?", "Force Directive", types, null)
+		if (!selected_type)
+			return
+		var/list/uplinks = list(selected_uplink)
+		var/datum/priority_directive/created = new selected_type
+		if (!created.can_run(uplinks, player_minds))
+			if (!created.can_run(uplinks, player_minds, TRUE))
+				to_chat(usr, span_warning("Unable to execute directive even when forced."))
+				return
+			to_chat(usr, span_warning("Directive was executed in forced mode, which may result in unexpected behaviour."))
+		created.start(uplinks)
+		SSdirectives.active_directives += created
 
 /client/proc/admin_ghost()
 	set category = "Adminbus"
@@ -529,30 +589,58 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 /client/proc/stealth()
 	set category = "Admin"
 	set name = "Stealth Mode"
-	if(holder)
-		if(holder.fakekey)
-			holder.fakekey = null
-			reset_badges()
-			if(isobserver(mob))
-				mob.invisibility = initial(mob.invisibility)
-				mob.alpha = initial(mob.alpha)
-				mob.name = initial(mob.name)
-				mob.mouse_opacity = initial(mob.mouse_opacity)
-		else
-			var/new_key = ckeyEx(stripped_input(usr, "Enter your desired display name.", "Fake Key", key, max_length=26))
-			if(!new_key)
-				return
-			holder.fakekey = new_key
-			reset_badges()
-			createStealthKey()
-			if(isobserver(mob))
-				mob.invisibility = INVISIBILITY_MAXIMUM //JUST IN CASE
-				mob.alpha = 0 //JUUUUST IN CASE
-				mob.name = " "
-				mob.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON as [holder.fakekey]" : "OFF"]")
-		message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON as [holder.fakekey]" : "OFF"]")
+	if(!holder)
+		return
+
+	if(holder.fakekey)
+		reset_badges()
+		disable_stealth_mode()
+	else
+		enable_stealth_mode()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stealth Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+
+#define STEALTH_MODE_TRAIT "stealth_mode"
+
+/client/proc/enable_stealth_mode()
+	var/new_key = ckeyEx(stripped_input(usr, "Enter your desired display name.", "Fake Key", key, max_length=26))
+	if(!new_key)
+		return
+	holder.fakekey = new_key
+	reset_badges()
+	createStealthKey()
+	if(isobserver(mob))
+		mob.invisibility = INVISIBILITY_MAXIMUM //JUST IN CASE
+		mob.alpha = 0 //JUUUUST IN CASE
+		mob.name = " "
+		mob.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+	ADD_TRAIT(mob, TRAIT_ORBITING_FORBIDDEN, STEALTH_MODE_TRAIT)
+	QDEL_NULL(mob.orbit_datum)
+
+	log_admin("[key_name(usr)] has turned stealth mode ON")
+	message_admins("[key_name_admin(usr)] has turned stealth mode ON")
+
+/client/proc/disable_stealth_mode()
+	holder.fakekey = null
+	reset_badges()
+	if(isobserver(mob))
+		mob.invisibility = initial(mob.invisibility)
+		mob.alpha = initial(mob.alpha)
+		if(mob.mind)
+			if(mob.mind.ghostname)
+				mob.name = mob.mind.ghostname
+			else
+				mob.name = mob.mind.name
+		else
+			mob.name = mob.real_name
+		mob.mouse_opacity = initial(mob.mouse_opacity)
+
+	REMOVE_TRAIT(mob, TRAIT_ORBITING_FORBIDDEN, STEALTH_MODE_TRAIT)
+	log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON as [holder.fakekey]" : "OFF"]")
+	message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON as [holder.fakekey]" : "OFF"]")
+
+#undef STEALTH_MODE_TRAIT
 
 /client/proc/drop_bomb()
 	set category = "Fun"
@@ -560,12 +648,12 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set desc = "Cause an explosion of varying strength at your location."
 
 	var/list/choices = list("Small Bomb (1, 2, 3, 3)", "Medium Bomb (2, 3, 4, 4)", "Big Bomb (3, 5, 7, 5)", "Maxcap", "Custom Bomb")
-	var/choice = input("What size explosion would you like to produce? NOTE: You can do all this rapidly and in an IC manner (using cruise missiles!) with the Config/Launch Supplypod verb. WARNING: These ignore the maxcap") as null|anything in choices
+	var/choice = tgui_input_list(src, "What size explosion would you like to produce? NOTE: You can do all this rapidly and in an IC manner (using cruise missiles!) with the Config/Launch Supplypod verb. WARNING: These ignore the maxcap", "Drop Bomb", choices)
+	if(isnull(choice))
+		return
 	var/turf/epicenter = mob.loc
 
 	switch(choice)
-		if(null)
-			return 0
 		if("Small Bomb (1, 2, 3, 3)")
 			explosion(epicenter, 1, 2, 3, 3, TRUE, TRUE)
 		if("Medium Bomb (2, 3, 4, 4)")
@@ -588,7 +676,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			if(flash_range == null)
 				return
 			if(devastation_range > GLOB.MAX_EX_DEVESTATION_RANGE || heavy_impact_range > GLOB.MAX_EX_HEAVY_RANGE || light_impact_range > GLOB.MAX_EX_LIGHT_RANGE || flash_range > GLOB.MAX_EX_FLASH_RANGE)
-				if(alert("Bomb is bigger than the maxcap. Continue?",,"Yes","No") != "Yes")
+				if(tgui_alert(usr, "Bomb is bigger than the maxcap. Continue?",,list("Yes","No")) != "Yes")
 					return
 			epicenter = mob.loc //We need to reupdate as they may have moved again
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, TRUE, TRUE)
@@ -746,7 +834,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	var/message = capped_input(usr, "What do you want the message to be?", "Make Sound")
 	if(!message)
 		return
-	O.say(message)
+	O.say(message, sanitize = FALSE)
 	log_admin("[key_name(usr)] made [O] at [AREACOORD(O)] say \"[message]\"")
 	message_admins(span_adminnotice("[key_name_admin(usr)] made [O] at [AREACOORD(O)]. say \"[message]\""))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Object Say") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -809,7 +897,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	log_admin("[src] re-adminned themselves.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Readmin")
 
-/client/proc/populate_world(amount = 50 as num)
+/client/proc/populate_world(amount = 50 as num, give_minds as anything in list("Give minds", "Don't give minds"))
 	set name = "Populate World"
 	set category = "Debug"
 	set desc = "(\"Amount of mobs to create\") Populate the world with test mobs."
@@ -839,6 +927,8 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 						if(tile)
 							var/mob/living/carbon/human/hooman = new(tile)
+							if (give_minds == "Yes")
+								hooman.mind_initialize()
 							hooman.equipOutfit(pick(subtypesof(/datum/outfit)))
 							testing("Spawned test mob at [COORD(tile)]")
 			while(!area && --j > 0)

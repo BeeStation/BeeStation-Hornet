@@ -27,8 +27,7 @@ SUBSYSTEM_DEF(garbage)
 	wait = 2 SECONDS
 	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_NO_INIT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
-	init_order = INIT_ORDER_GARBAGE
-	init_stage = INITSTAGE_EARLY
+	init_stage = INITSTAGE_FIRST
 
 	var/list/collection_timeout = list(GC_FILTER_QUEUE, GC_CHECK_QUEUE, GC_DEL_QUEUE) // deciseconds to wait before moving something up in the queue to the next level
 
@@ -64,7 +63,7 @@ SUBSYSTEM_DEF(garbage)
 	var/list/counts = list()
 	for (var/list/L in queues)
 		counts += length(L)
-	msg += "Q:[counts.Join(",")]|D:[delslasttick]|G:[gcedlasttick]|"
+	msg += "Queue:[counts.Join(",")]|Dels:[delslasttick]|GCs:[gcedlasttick]|"
 	msg += "GR:"
 	if (!(delslasttick+gcedlasttick))
 		msg += "n/a|"
@@ -206,12 +205,13 @@ SUBSYSTEM_DEF(garbage)
 				#ifdef REFERENCE_TRACKING
 				// Decides how many refs to look for (potentially)
 				// Based off the remaining and the ones we can account for
+				var/remaining_refs = refcount(D) - REFS_WE_EXPECT
 				if(reference_find_on_fail[text_ref(D)])
-					INVOKE_ASYNC(D, TYPE_PROC_REF(/datum,find_references))
+					INVOKE_ASYNC(D, TYPE_PROC_REF(/datum,find_references), remaining_refs)
 					ref_searching = TRUE
 				#ifdef GC_FAILURE_HARD_LOOKUP
 				else
-					INVOKE_ASYNC(D, TYPE_PROC_REF(/datum,find_references))
+					INVOKE_ASYNC(D, TYPE_PROC_REF(/datum,find_references), remaining_refs)
 					ref_searching = TRUE
 				#endif
 				reference_find_on_fail -= text_ref(D)
@@ -220,6 +220,7 @@ SUBSYSTEM_DEF(garbage)
 				var/datum/qdel_item/I = items[type]
 
 				var/message = "## TESTING: GC: -- [text_ref(D)] | [type] was unable to be GC'd --"
+				message = "[message] (ref count of [refcount(D)])"
 				log_world(message)
 
 				var/detail = D.dump_harddel_info()
@@ -344,7 +345,12 @@ SUBSYSTEM_DEF(garbage)
 /// Datums passed to this will be given a chance to clean up references to allow the GC to collect them.
 /proc/qdel(datum/to_delete, force = FALSE)
 	if(!istype(to_delete))
-
+		if(isnull(to_delete))
+			return
+		else if(islist(to_delete))
+			stack_trace("Lists should not be directly passed to qdel! You likely want either list.Cut(), QDEL_LIST(list), QDEL_LIST_ASSOC(list), or QDEL_LIST_ASSOC_VAL(list)")
+		else if(to_delete != world)
+			stack_trace("Tried to qdel possibly invalid value: [to_delete]")
 		del(to_delete)
 		return
 

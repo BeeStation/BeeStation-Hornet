@@ -79,7 +79,7 @@
 
 /obj/proc/collision_damage(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	var/amt = max(0, ((force - (move_resist * MOVE_FORCE_CRUSH_RATIO)) / (move_resist * MOVE_FORCE_CRUSH_RATIO)) * 10)
-	take_damage(amt, BRUTE)
+	take_damage(amt, BRUTE, attack_dir = REVERSE_DIR(direction))
 
 /obj/attack_slime(mob/living/simple_animal/slime/user, list/modifiers)
 	if(!user.is_adult)
@@ -151,28 +151,27 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		SSfire_burning.processing -= src
 	deconstruct(FALSE)
 
-/obj/proc/extinguish()
+/obj/extinguish()
+	. = ..()
 	if(resistance_flags & ON_FIRE)
 		resistance_flags &= ~ON_FIRE
 		update_icon()
 		SSfire_burning.processing -= src
 
-/obj/proc/tesla_act(power, tesla_flags, shocked_targets)
-	obj_flags |= BEING_SHOCKED
-	var/power_bounced = power / 2
-	tesla_zap(src, 3, power_bounced, tesla_flags, shocked_targets)
-	addtimer(CALLBACK(src, PROC_REF(reset_shocked)), 10)
+///Called when the obj is hit by a tesla bolt.
+/obj/zap_act(power, zap_flags)
+	if(QDELETED(src))
+		return 0
+	ADD_TRAIT(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED)
+	addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED), 1 SECONDS)
+	return power / 2
 
 //The surgeon general warns that being buckled to certain objects receiving powerful shocks is greatly hazardous to your health
 //Only tesla coils and grounding rods currently call this because mobs are already targeted over all other objects, but this might be useful for more things later.
-/obj/proc/tesla_buckle_check(strength)
+/obj/proc/zap_buckle_check(strength)
 	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			buckled_mob.electrocute_act((clamp(round(strength/400), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
-
-/obj/proc/reset_shocked()
-	obj_flags &= ~BEING_SHOCKED
+		for(var/mob/living/buckled_mob in buckled_mobs)
+			buckled_mob.electrocute_act((clamp(round(strength * 1.25e-3), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
 
 //the obj is deconstructed into pieces, whether through careful disassembly or when destroyed.
 /obj/proc/deconstruct(disassembled = TRUE)

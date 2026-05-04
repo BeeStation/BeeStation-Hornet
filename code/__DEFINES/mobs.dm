@@ -27,7 +27,7 @@
 #define BLEED_TINY 0.1
 #define BLEED_SCRATCH 0.8
 #define BLEED_SURFACE 1.5			// 560 > 506 blood in 75 seconds
-#define BLEED_CUT 2.3				// 560 > 442 blood ni 115 seconds
+#define BLEED_CUT 2.3				// 560 > 442 blood in 115 seconds
 #define BLEED_DEEP_WOUND 2.4		// Crit in 285 seconds, Death in 356 seconds
 #define BLEED_CRITICAL 3.6			// Crit in 190 seconds, Death in 238 seconds
 
@@ -63,32 +63,35 @@
 #define BLOODCRAWL 1
 #define BLOODCRAWL_EAT 2
 
-//Mob bio-types
-#define MOB_ORGANIC 	"organic"
-#define MOB_INORGANIC 	"inorganic"
-#define MOB_ROBOTIC 	"robotic"
-#define MOB_UNDEAD		"undead"
-#define MOB_HUMANOID 	"humanoid"
-#define MOB_BUG 		"bug"
-#define MOB_BEAST		"beast"
-#define MOB_EPIC		"epic" //megafauna
-#define MOB_REPTILE		"reptile"
-#define MOB_SPIRIT		"spirit"
+// Mob bio-type flags
+/// The mob is organic, can heal from medical sutures.
+#define MOB_ORGANIC (1 << 0)
+/// The mob isn't organic. For example, golems and IPCs.
+#define MOB_INORGANIC (1 << 1)
+/// The mob is a synthetic lifeform, like station borgs.
+#define MOB_ROBOTIC (1 << 2)
+/// The mob is an shambling undead corpse. Or a halloween species. Pick your poison.
+#define MOB_UNDEAD (1 << 3)
+/// The mob is a human-sized human-like human-creature.
+#define MOB_HUMANOID (1 << 4)
+/// The mob is a bug/insect/arachnid/some other kind of scuttly thing.
+#define MOB_BUG (1 << 5)
+/// The mob is a wild animal. Domestication may apply.
+#define MOB_BEAST (1 << 6)
+/// The mob is some kind of a creature that should be exempt from certain **fun** interactions for balance reasons, i.e. megafauna
+#define MOB_SPECIAL (1 << 7)
+/// The mob is some kind of a scaly reptile creature
+#define MOB_REPTILE (1 << 8)
+/// The mob is a spooky phantasm or an evil ghast of such nature.
+#define MOB_SPIRIT (1 << 9)
 
-//Organ defines for carbon mobs
-#define ORGAN_ORGANIC 1
-#define ORGAN_ROBOTIC 2
-
-#define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/species/human/bodyparts_greyscale.dmi'
+#define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human/bodyparts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
 
 #define MONKEY_BODYPART "monkey"
 #define TERATOMA_BODYPART "teratoma"
 #define ALIEN_BODYPART "alien"
 #define LARVA_BODYPART "larva"
-
-//Bodypart change blocking flags
-#define BP_BLOCK_CHANGE_SPECIES	(1<<0)
 
 //Bodytype defines for how things can be worn, surgery, and other misc things.
 ///The limb is organic.
@@ -115,6 +118,9 @@
 #define DIGITIGRADE_NEVER 0
 #define DIGITIGRADE_OPTIONAL 1
 #define DIGITIGRADE_FORCED 2
+
+///Digitigrade's prefs, used in features for legs if you're meant to be a Digitigrade.
+#define DIGITIGRADE_LEGS "Digitigrade Legs"
 
 // Health/damage defines
 #define MAX_LIVING_HEALTH 100
@@ -221,13 +227,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define WINGS_FLYING 2 //can generate lift and fly if atmos is present
 #define WINGS_MAGIC 3 //can fly regardless of atmos
 
-//Surgery Defines
-#define BIOWARE_GENERIC "generic"
-#define BIOWARE_NERVES "nerves"
-#define BIOWARE_CIRCULATION "circulation"
-#define BIOWARE_LIGAMENTS "ligaments"
-#define BIOWARE_CORTEX "cortex"
-
 //Health hud screws for carbon mobs
 #define SCREWYHUD_NONE 0
 #define SCREWYHUD_CRIT 1
@@ -332,10 +331,10 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 //Hostile simple animals
 //If you add a new status, be sure to add a list for it to the simple_animals global in _globalvars/lists/mobs.dm
-#define AI_ON		1
-#define AI_IDLE		2
-#define AI_OFF		3
-#define AI_Z_OFF	4
+#define AI_ON 1
+#define AI_IDLE 2
+#define AI_OFF 3
+#define AI_Z_OFF 4
 
 /// An AI hint which tells the AI what it should break.
 /// Note that mobs being able to break walls and r-walls is determined by their attack force.
@@ -360,6 +359,8 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define SHOCK_ILLUSION (1 << 2)
 ///The shock doesn't stun.
 #define SHOCK_NOSTUN (1 << 3)
+/// No default message is sent from the shock
+#define SHOCK_SUPPRESS_MESSAGE (1 << 4)
 
 #define INCORPOREAL_MOVE_BASIC 1
 #define INCORPOREAL_MOVE_SHADOW 2 //!  leaves a trail of shadows
@@ -405,7 +406,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 #define HUNGER_FACTOR 0.05 //factor at which mob nutrition decreases
 #define REAGENTS_METABOLISM 0.2 //How many units of reagent are consumed per second, by default.
-#define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4) // By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
 
 // Eye protection
 // THese values are additive to determine your overall flash protection.
@@ -431,13 +431,11 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define MAX_REVIVE_FIRE_DAMAGE 180
 #define MAX_REVIVE_BRUTE_DAMAGE 180
 
-#define HUMAN_FIRE_STACK_ICON_NUM	3
-
 #define GRAB_PIXEL_SHIFT_PASSIVE 6
 #define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
 #define GRAB_PIXEL_SHIFT_NECK 16
 
-#define PULL_PRONE_SLOWDOWN 4
+#define PULL_PRONE_SLOWDOWN 1.5
 #define HUMAN_CARRY_SLOWDOWN 0.35
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
@@ -457,8 +455,10 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 // Mob Playability Set By Admin Or Ghosting
 #define SENTIENCE_SKIP 0
-#define SENTIENCE_RETAIN 1	//a player ghosting out of the mob will make the mob playable for others, if it was already playable
-#define SENTIENCE_FORCE 2		//the mob will be made playable by force when a player is forcefully ejected from a mob (by admin, for example)
+/// a player ghosting out of the mob will make the mob playable for others, if it was already playable
+#define SENTIENCE_RETAIN 1
+/// the mob will be made playable by force when a player is forcefully ejected from a mob (by admin, for example)
+#define SENTIENCE_FORCE 2
 #define SENTIENCE_ERASE 3
 
 //Flavor Text When Entering A Playable Mob
@@ -523,66 +523,77 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define CALCULATE_MOB_OVERLAY_LAYER(_layer) (FLOAT_LAYER - (_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
 
 // Mob Overlays Indexes
-/// KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
-#define TOTAL_LAYERS 29
+/// Total number of layers for mob overlays
+/// KEEP THIS UP-TO-DATE OR SHIT WILL BREAK
+#define TOTAL_LAYERS 35
 /// Mutations layer - Tk headglows, cold resistance glow, etc
-#define MUTATIONS_LAYER 29
+#define MUTATIONS_LAYER 35
 /// Certain mutantrace features (tail when looking south) that must appear behind the body parts
-#define BODY_BEHIND_LAYER 28
+#define BODY_BEHIND_LAYER 34
+/// Layer for bodyparts that should appear behind every other bodypart - Mostly, legs when facing WEST or EAST
+#define BODYPARTS_LOW_LAYER 33
 /// Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
-#define BODYPARTS_LAYER 27
+#define BODYPARTS_LAYER 32
 /// certain mutantrace features (snout, body markings) that must appear above the body parts
-#define BODY_ADJ_LAYER 26
+#define BODY_ADJ_LAYER 31
 /// underwear, undershirts, socks, eyes, lips(makeup)
-#define BODY_LAYER 25
+#define BODY_LAYER 29
 /// mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
-#define FRONT_MUTATIONS_LAYER 24
+#define FRONT_MUTATIONS_LAYER 28
 /// damage indicators (cuts and burns)
-#define DAMAGE_LAYER 23
+#define DAMAGE_LAYER 27
 /// Jumpsuit clothing layer
-#define UNIFORM_LAYER 22
-/// lmao at the idiot who put both ids and hands on the same layer
-#define ID_LAYER 21
-/// Hands body part layer (or is this for the arm? not sure...)
-#define HANDS_PART_LAYER 20
+#define UNIFORM_LAYER 26
+/// ID card layer
+#define ID_LAYER 25
+/// Layer for bodyparts that should appear above every other bodypart - Currently only used for hands
+#define BODYPARTS_HIGH_LAYER 24
 /// Gloves layer
-#define GLOVES_LAYER 19
+#define GLOVES_LAYER 23
 /// Shoes layer
-#define SHOES_LAYER 18
+#define SHOES_LAYER 22
+/// Layer for masks that are worn below ears and eyes (like Balaclavas) (layers below hair, use flagsinv=HIDEHAIR as needed)
+#define LOW_FACEMASK_LAYER 21
 /// Ears layer (Spessmen have ears? Wow)
-#define EARS_LAYER 17
+#define EARS_LAYER 20
+/// Layer for neck apperal that should appear below the suit slot (like neckties)
+#define LOW_NECK_LAYER 19
 /// Suit layer (armor, coats, etc.)
-#define SUIT_LAYER 16
+#define SUIT_LAYER 18
 /// Glasses layer
-#define GLASSES_LAYER 15
+#define GLASSES_LAYER 17
 /// Belt layer
-#define BELT_LAYER 14 //Possible make this an overlay of somethign required to wear a belt?
+#define BELT_LAYER 16 //Possible make this an overlay of somethign required to wear a belt?
 /// Suit storage layer (tucking a gun or baton underneath your armor)
-#define SUIT_STORE_LAYER 13
+#define SUIT_STORE_LAYER 15
 ///  Neck layer (for wearing ties and bedsheets)
-#define NECK_LAYER 12
+#define NECK_LAYER 14
 /// Back layer (for backpacks and equipment on your back)
-#define BACK_LAYER 11
+#define BACK_LAYER 13
 /// Hair layer (mess with the fro and you got to go!)
-#define HAIR_LAYER 10		//! TODO: make part of head layer?
+#define HAIR_LAYER 12 //TODO: make part of head layer?
 /// Facemask layer (gas masks, breath masks, etc.)
-#define FACEMASK_LAYER 9
+#define FACEMASK_LAYER 11
 /// Head layer (hats, helmets, etc.)
-#define HEAD_LAYER 8
+#define HEAD_LAYER 10
 /// Handcuff layer (when your hands are cuffed)
-#define HANDCUFF_LAYER 7
+#define HANDCUFF_LAYER 9
 /// Legcuff layer (when your feet are cuffed)
-#define LEGCUFF_LAYER 6
+#define LEGCUFF_LAYER 8
 /// Hands layer (for the actual hand, not the arm... I think?)
-#define HANDS_LAYER 5
+#define HANDS_LAYER 7
 /// Body front layer. Usually used for mutant bodyparts that need to be in front of stuff (e.g. cat ears)
-#define BODY_FRONT_LAYER 4
+#define BODY_FRONT_LAYER 6
+// For the special glasses that actually require to be above the hair (e.g. lifted welding goggles)
+#define ABOVE_BODY_FRONT_GLASSES_LAYER 5
+// For the rare cases where something on the head needs to be above everything else (e.g. flowers)
+#define ABOVE_BODY_FRONT_HEAD_LAYER 4
 /// Blood cult ascended halo layer, because there's currently no better solution for adding/removing
 #define HALO_LAYER 3
 /// Typing layer for the typing indicator
 #define TYPING_LAYER 2
-/// Fire layer when you're on fire
-#define FIRE_LAYER 1
+/// The highest most layer for mob overlays
+#define HIGHEST_LAYER 1
 
 //Mob Overlay Index Shortcuts for alternate_worn_layer, layers
 //Because I *KNOW* somebody will think layer+1 means "above"
@@ -622,6 +633,9 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 /// Messages when (something) lays an egg
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
+
+/// How far away you can be to make eye contact with someone while examining
+#define EYE_CONTACT_RANGE 5
 
 /// Returns whether or not the given mob can succumb
 #define CAN_SUCCUMB(target) (HAS_TRAIT(target, TRAIT_CRITICAL_CONDITION) && !HAS_TRAIT(target, TRAIT_NODEATH))
@@ -689,5 +703,43 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 /// Heals everything and is as strong as / is an admin heal
 #define ADMIN_HEAL_ALL ALL
 
-// Species related bitflags go here.
-#define NOT_TRANSMORPHIC (1<<0) // This race can't become a changeling antagonist.
+/// Default minimum body temperature mobs can exist in before taking damage
+#define NPC_DEFAULT_MIN_TEMP 250
+/// Default maximum body temperature mobs can exist in before taking damage
+#define NPC_DEFAULT_MAX_TEMP 350
+
+/// Distance which you can see someone's ID card
+/// Short enough that you can inspect over tables (bartender checking age)
+#define ID_EXAMINE_DISTANCE 3
+
+/// Sets mob eye to themselves. This exists because set_mob_eye_to(src) is a bad idea.
+#define MOB_EYE_SELF "mob_eye_self"
+
+// a janky code that restricts you using these DM flags. No, you shouldn't use these.
+#define MOB_PERSPECTIVE __do_not_use_this__use_EYE_PERSPECTIVE() //! MOB_PERSPECTIVE is not used in this codebase. Please use "EYE_PERSPECTIVE"
+#define EDGE_PERSPECTIVE __do_not_use_this__use_EYE_PERSPECTIVE() //! EDGE_PERSPECTIVE is not used in this codebase. Please use "EYE_PERSPECTIVE"
+// /client/var/perspective has three options: MOB_PERSPECTIVE, EDGE_PERSPECTIVE, EYE_PERSPECTIVE
+// If your client eye is your mob, and you use EYE_PERSPECTIVE, it is identical MOB_PERSPECTIVE
+// Instead of checking which perspective your client use, it's easy to manage to make everything is EYE_PERSPECTIVE
+
+/// [WARNING] This is a deprecated proc in Beestation. Do not use this. Use `set_mob_eye_to(THING)` instead.
+/// If you are not sure how to replace this proc, consult EvilDragon.
+#define reset_perspective(...) __DO_NOT_USE_reset_perspective___USE_set_mob_eye_to()
+/* 		Instruction of porting:
+Do the things below instead of using reset_perspective()
+------------------------------------
+/mob/proc/makes_my_eye_different()
+	DO NOT  : reset_perspective()
+	DO NOT  : reset_perspective(null)
+	DO NOT  : reset_perspective(src)
+	DO NOT  : set_mob_eye_to(src)
+	DO THIS : set_mob_eye_to(MOB_EYE_SELF)
+
+	DO NOT  : reset_perspective(camera)
+	DO THIS : set_mob_eye_to(camera)
+
+/obj/proc/some_item_proc(mob/user)
+	DO NOT  : user.reset_perspective(src)
+	DO THIS : user.set_mob_eye_to(src)
+	// This is the only case where 'src' is allowed (because it's /obj)
+------------------------------------*/
