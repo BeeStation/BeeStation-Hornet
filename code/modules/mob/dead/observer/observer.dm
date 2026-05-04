@@ -8,7 +8,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	plane = GHOST_PLANE
 	stat = DEAD
 	density = FALSE
-	alpha = 200
+	alpha = 180
 	appearance_flags = KEEP_TOGETHER | PIXEL_SCALE
 	see_invisible = SEE_INVISIBLE_OBSERVER
 	see_in_dark = 100
@@ -191,6 +191,11 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 
 	copy_overlays(target, TRUE)
 	has_mob_appearance = TRUE
+
+	//Sanity check if we got a iconset failure (we got gibbed or otherwise are attempting to copy the appearance of a non-mob)
+	//Reset to our base charslot
+	if(isnull(icon_state))
+		set_ghost_appearance()
 
 /*
 Transfer_mind is there to check if mob is being deleted/not going to have a body.
