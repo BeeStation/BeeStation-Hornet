@@ -163,13 +163,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/mixing)
-"agl" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
-	dir = 4;
-	name = "Nitrous Oxide Chamber Injector"
-	},
-/turf/open/floor/engine/n2o,
-/area/station/engineering/atmos)
 "agJ" = (
 /obj/machinery/modular_computer/console/preset/research{
 	dir = 8
@@ -653,6 +646,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/maintenance/department/medical/morgue)
+"aAx" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer2{
+	name = "Air Chamber Injector"
+	},
+/turf/open/floor/engine/air,
+/area/station/engineering/atmos)
 "aAC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
@@ -4009,12 +4008,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
-"cJl" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
-	name = "Carbon Dioxide Chamber Injector"
-	},
-/turf/open/floor/engine/co2,
-/area/station/engineering/atmos)
 "cJp" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -6449,28 +6442,6 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/plating/asteroid/planetary,
 /area/station/engineering/atmos)
-"efG" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/item/folder/red{
-	pixel_x = 5;
-	pixel_y = 16
-	},
-/obj/item/cigarette/cigar{
-	pixel_x = -2;
-	pixel_y = 3
-	},
-/obj/item/lighter{
-	pixel_x = 5;
-	pixel_y = -2
-	},
-/turf/open/floor/iron/dark,
-/area/station/security/brig)
 "egf" = (
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/large,
@@ -6615,6 +6586,15 @@
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/department/security/brig)
+"ekx" = (
+/obj/structure/closet/crate/hydroponics{
+	req_access_txt = "35;28"
+	},
+/obj/item/clothing/head/utility/beekeeper_head,
+/obj/item/clothing/suit/utility/beekeeper_suit,
+/obj/item/vape,
+/turf/open/floor/plating,
+/area/station/maintenance/department/crew_quarters/bar)
 "ekB" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 4
@@ -6665,12 +6645,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/station/ai_monitored/turret_protected/aisat/maint)
-"elj" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer2{
-	name = "Air Chamber Injector"
-	},
-/turf/open/floor/engine/air,
-/area/station/engineering/atmos)
 "elq" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -7159,6 +7133,23 @@
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/department/crew_quarters/dorms)
+"eym" = (
+/obj/machinery/status_display/ai{
+	pixel_x = 32
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/folder/red{
+	pixel_y = 3
+	},
+/obj/item/cigarette/cigar,
+/turf/open/floor/iron,
+/area/station/command/bridge)
 "eyw" = (
 /obj/structure/chair/office,
 /obj/effect/turf_decal/siding/wood{
@@ -8639,6 +8630,12 @@
 /obj/effect/landmark/start/lawyer,
 /turf/open/floor/plating,
 /area/station/service/library/abandoned)
+"fpb" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
+	name = "Oxygen Chamber Injector"
+	},
+/turf/open/floor/engine/o2,
+/area/station/engineering/atmos)
 "fpR" = (
 /turf/closed/wall,
 /area/station/service/library/abandoned)
@@ -8768,12 +8765,6 @@
 /obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron,
 /area/station/maintenance/department/chapel)
-"fta" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
-	name = "Oxygen Chamber Injector"
-	},
-/turf/open/floor/engine/o2,
-/area/station/engineering/atmos)
 "ftA" = (
 /obj/effect/turf_decal/siding/white{
 	alpha = 100;
@@ -9658,6 +9649,23 @@
 	},
 /turf/open/floor/iron/textured_corner,
 /area/station/engineering/atmos)
+"fWF" = (
+/obj/machinery/flasher{
+	id = "AI";
+	name = "Meatbag Pacifier";
+	pixel_x = 23;
+	pixel_y = 22
+	},
+/obj/item/toy/plush/lizard_plushie{
+	pixel_x = 1;
+	pixel_y = 14
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/power/smes/engineering{
+	name = "ai power storage unit"
+	},
+/turf/open/floor/circuit/red,
+/area/station/ai_monitored/turret_protected/ai)
 "fWR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -11580,6 +11588,14 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/openspace/planetary,
 /area/station/maintenance/department/security/brig)
+"hcx" = (
+/obj/structure/cable,
+/obj/machinery/camera/directional/east,
+/obj/machinery/power/smes/engineering,
+/turf/open/floor/iron/dark/telecomms{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
+/area/station/tcommsat/computer)
 "hcD" = (
 /obj/effect/turf_decal/box/white,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
@@ -13249,6 +13265,12 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/station/command/heads_quarters/captain/private)
+"ifY" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
+	name = "Nitrogen Chamber Injector"
+	},
+/turf/open/floor/engine/n2,
+/area/station/engineering/atmos)
 "iga" = (
 /obj/effect/turf_decal/siding/wood/corner,
 /obj/structure/closet/secure_closet/captains,
@@ -14725,6 +14747,12 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/station/commons/dorms)
+"iZg" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
+	name = "Carbon Dioxide Chamber Injector"
+	},
+/turf/open/floor/engine/co2,
+/area/station/engineering/atmos)
 "iZx" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/secure_closet/freezer/kitchen{
@@ -17165,6 +17193,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
+"kzk" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
+	dir = 4;
+	name = "Nitrous Oxide Chamber Injector"
+	},
+/turf/open/floor/engine/n2o,
+/area/station/engineering/atmos)
 "kzZ" = (
 /obj/machinery/teleport/station,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -19067,6 +19102,10 @@
 /obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos)
+"lLK" = (
+/obj/machinery/power/smes/engineering,
+/turf/closed/indestructible/rock/bedrock,
+/area/paradise)
 "lMe" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -19406,24 +19445,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/station/maintenance/department/science/xenobiology)
-"lVz" = (
-/obj/machinery/power/smes{
-	charge = 5e+006;
-	name = "ai power storage unit"
-	},
-/obj/machinery/flasher{
-	id = "AI";
-	name = "Meatbag Pacifier";
-	pixel_x = 23;
-	pixel_y = 22
-	},
-/obj/item/toy/plush/lizard_plushie{
-	pixel_x = 1;
-	pixel_y = 14
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/circuit/red,
-/area/station/ai_monitored/turret_protected/ai)
 "lVJ" = (
 /obj/structure/railing,
 /turf/open/openspace/planetary,
@@ -27570,13 +27591,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
-"qLH" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
-	dir = 4;
-	name = "Plasma Chamber Injector"
-	},
-/turf/open/floor/engine/plasma,
-/area/station/engineering/atmos)
 "qLJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -28556,6 +28570,28 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/station/maintenance/department/engine)
+"rsa" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/folder/red{
+	pixel_x = 5;
+	pixel_y = 16
+	},
+/obj/item/cigarette/cigar{
+	pixel_x = -2;
+	pixel_y = 3
+	},
+/obj/item/lighter{
+	pixel_x = 5;
+	pixel_y = -2
+	},
+/turf/open/floor/iron/dark,
+/area/station/security/brig)
 "rsd" = (
 /obj/structure/railing{
 	dir = 1
@@ -28712,23 +28748,6 @@
 	dir = 1
 	},
 /area/station/engineering/main)
-"ryl" = (
-/obj/machinery/status_display/ai{
-	pixel_x = 32
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 4
-	},
-/obj/structure/table/reinforced,
-/obj/item/folder/red{
-	pixel_y = 3
-	},
-/obj/item/cigarette/cigar,
-/turf/open/floor/iron,
-/area/station/command/bridge)
 "ryT" = (
 /obj/structure/table,
 /obj/item/stock_parts/subspace/treatment,
@@ -29160,6 +29179,13 @@
 /obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/pod/dark,
 /area/station/maintenance/department/science/central)
+"rPb" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
+	dir = 4;
+	name = "Plasma Chamber Injector"
+	},
+/turf/open/floor/engine/plasma,
+/area/station/engineering/atmos)
 "rPu" = (
 /obj/machinery/door/airlock/research/glass/incinerator/toxmix_exterior,
 /obj/effect/mapping_helpers/airlock/locked,
@@ -33291,15 +33317,6 @@
 	},
 /turf/open/floor/engine/plasma,
 /area/station/engineering/atmos)
-"ulV" = (
-/obj/structure/closet/crate/hydroponics{
-	req_access_txt = "35;28"
-	},
-/obj/item/clothing/head/utility/beekeeper_head,
-/obj/item/clothing/suit/utility/beekeeper_suit,
-/obj/item/vape,
-/turf/open/floor/plating,
-/area/station/maintenance/department/crew_quarters/bar)
 "unb" = (
 /obj/effect/turf_decal/tile/dark_red/corner_ramp{
 	alpha = 180;
@@ -35344,12 +35361,6 @@
 /turf/open/floor/iron/dark/textured_half{
 	dir = 8
 	},
-/area/station/engineering/atmos)
-"vyn" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
-	name = "Nitrogen Chamber Injector"
-	},
-/turf/open/floor/engine/n2,
 /area/station/engineering/atmos)
 "vyr" = (
 /obj/machinery/light/small{
@@ -38347,16 +38358,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/science/research)
-"xgN" = (
-/obj/machinery/power/smes{
-	charge = 2e+007
-	},
-/obj/structure/cable,
-/obj/machinery/camera/directional/east,
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
-/area/station/tcommsat/computer)
 "xhe" = (
 /obj/structure/sign/departments/minsky/research/research,
 /turf/closed/wall/r_wall,
@@ -41103,7 +41104,7 @@ qdb
 qdb
 qdb
 qdb
-qdb
+lLK
 qdb
 mGR
 mGR
@@ -46205,10 +46206,10 @@ cVu
 cVu
 cVu
 ixT
-agl
+kzk
 wbD
 ixT
-qLH
+rPb
 doe
 mkc
 cVu
@@ -47230,7 +47231,7 @@ qdb
 qdb
 ixT
 hvk
-cJl
+iZg
 fUH
 nHK
 eTO
@@ -48001,7 +48002,7 @@ hiQ
 mCX
 ixT
 bXd
-fta
+fpb
 iog
 gLF
 lVK
@@ -48772,7 +48773,7 @@ mIi
 ihp
 jXm
 rbT
-vyn
+ifY
 adH
 qMH
 czq
@@ -49286,7 +49287,7 @@ xzS
 duJ
 mkc
 hnw
-elj
+aAx
 rCZ
 bfs
 obU
@@ -116593,7 +116594,7 @@ dJB
 tke
 vJh
 jCQ
-ulV
+ekx
 pcQ
 iBn
 iBn
@@ -118168,7 +118169,7 @@ kwK
 tno
 fTd
 qDy
-xgN
+hcx
 xwg
 due
 akO
@@ -181893,7 +181894,7 @@ puw
 aAF
 kyS
 eAN
-efG
+rsa
 nfa
 mjc
 ssK
@@ -185980,7 +185981,7 @@ usE
 nun
 bRl
 bZK
-lVz
+fWF
 vlP
 glq
 kxT
@@ -189601,7 +189602,7 @@ xCX
 dOw
 gxr
 diO
-ryl
+eym
 uaX
 faV
 wNY

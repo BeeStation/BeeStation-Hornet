@@ -215,14 +215,14 @@
 			return TRUE
 	return FALSE
 
-/mob/living/carbon/proc/Togglewings()
+/mob/living/carbon/proc/Togglewings(silent = FALSE)
 	if(!dna || !dna.species)
 		return FALSE
 	var/obj/item/organ/wings/wings = get_organ_slot(ORGAN_SLOT_WINGS)
 	if(istype(wings))
 		if(ismoth(src) && HAS_TRAIT(src, TRAIT_MOTH_BURNT))
 			return FALSE
-		if(wings.toggleopen(src))
+		if(wings.toggleopen(src, silent))
 			return TRUE
 	return FALSE
 

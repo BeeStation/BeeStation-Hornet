@@ -17,7 +17,7 @@
 	display_order = JOB_DISPLAY_ORDER_CYBORG
 	departments = DEPT_BITFLAG_SILICON
 
-	job_flags = JOB_NEW_PLAYER_JOINABLE | JOB_CANNOT_OPEN_SLOTS
+	job_flags = JOB_NEW_PLAYER_JOINABLE | JOB_EQUIP_RANK | JOB_CANNOT_OPEN_SLOTS
 
 /datum/job/cyborg/get_access() // no point of calling parent proc
 	return list()
@@ -33,5 +33,5 @@
 	R.updatename(M.client)
 	R.gender = NEUTER
 
-/datum/job/cyborg/radio_help_message(mob/M)
-	to_chat(M, "<b>Prefix your message with :b to speak with other cyborgs and AI.</b>")
+/datum/job/cyborg/get_radio_information()
+	return "<b>Prefix your message with :b to speak with other cyborgs and AI.</b>"
