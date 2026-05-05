@@ -8,10 +8,11 @@
 /mob/living/basic/cortical_borer
 	name = "Cortical Borer"
 	desc = "A disgusting grub-like worm. It's body is constantly writhing, as if something inside it is trying to get out."
-	icon = 'icons/mob/borer.dmi'
+	icon = 'icons/cortical_borers/mob.dmi'
 	icon_state = "borer"
 	icon_living = "borer"
 	icon_dead = "borer_dead"
+	hud_type = /datum/hud/borer
 
 	// Attributes and Traits
 	maxHealth = 50
@@ -19,26 +20,19 @@
 	mob_biotypes = MOB_BUG
 	basic_mob_flags = FLAMMABLE_MOB
 	status_flags = CANPUSH
-
-	// SPACE!
-	damage_coeff = list(BRUTE = 1, BURN = 1.5, TOX = 0, STAMINA = 0, OXY = 0)
-	pressure_resistance = 200
-	minimum_survivable_temperature = 0
-	maximum_survivable_temperature = T0C + 100
-	unsuitable_cold_damage = 0
-	habitable_atmos = null
+	// Very hidey
+	layer = ABOVE_NORMAL_TURF_LAYER
 
 	// Movement
 	speed = -0.5
-	/// Make attacks not cause bleeding (carbon defense only adds bleed for BRUTE melee damage)
-	melee_damage_type = STAMINA
 
 	// Damage and Combat
 	combat_mode = TRUE
-	melee_damage = 2
+	melee_damage = 5
 	obj_damage = 5
-	armour_penetration = 100
-	melee_attack_cooldown = CLICK_CD_MELEE
+	armour_penetration = 75
+	melee_damage_type = TOX
+	melee_attack_cooldown = 1 SECONDS
 
 	// Flavor
 	death_message = "slumps into a pile of pulpy mush"
@@ -66,20 +60,22 @@
 
 /mob/living/basic/cortical_borer/Initialize(mapload)
 	. = ..()
-	// Register a short post-attack handler (spider-style) to add toxin directly to the target's reagent container
 	RegisterSignal(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, PROC_REF(do_borer_toxin))
-
 
 /mob/living/basic/cortical_borer/proc/do_borer_toxin(mob/living/element_owner, atom/target, success)
 	SIGNAL_HANDLER
+
 	if(!success || !isliving(target))
 		return
+
 	var/mob/living/living_target = target
 	if(living_target.stat == DEAD)
 		return
+
 	if(!living_target.reagents)
 		return
-	if(islist(toxin_per_attack))
-		living_target.reagents.add_reagent(toxin_type, rand(toxin_per_attack[1], toxin_per_attack[2]))
-	else
-		living_target.reagents.add_reagent(toxin_type, toxin_per_attack)
+
+	if(HAS_TRAIT(living_target, TRAIT_PIERCEIMMUNE))
+		return
+
+	living_target.reagents.add_reagent(toxin_type, rand(0, toxin_per_attack))

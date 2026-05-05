@@ -2384,6 +2384,7 @@
 #include "code\modules\antagonists\cortical_borer\borer_antag.dm"
 #include "code\modules\antagonists\cortical_borer\borer_mob.dm"
 #include "code\modules\antagonists\cortical_borer\borer_toxins.dm"
+#include "code\modules\antagonists\cortical_borer\borer_ui.dm"
 #include "code\modules\antagonists\cult\blood_magic.dm"
 #include "code\modules\antagonists\cult\cult.dm"
 #include "code\modules\antagonists\cult\cult_comms.dm"
