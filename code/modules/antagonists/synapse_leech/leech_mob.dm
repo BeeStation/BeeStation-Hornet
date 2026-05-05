@@ -20,8 +20,6 @@
 	mob_biotypes = MOB_BUG
 	basic_mob_flags = FLAMMABLE_MOB
 	status_flags = CANPUSH
-	// Very hidey
-	layer = ABOVE_NORMAL_TURF_LAYER
 
 	// Movement
 	speed = LEECH_SPEED
@@ -45,7 +43,7 @@
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSMOB | PASSTABLE
 	see_in_dark = NIGHTVISION_FOV_RANGE
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 
 	// AI
 	environment_smash = ENVIRONMENT_SMASH_NONE
@@ -64,16 +62,14 @@
 	/// The type of toxin the leech injects per attack
 	var/toxin_type = /datum/reagent/toxin/leech_toxin
 
+	/// Whether the leech is currently "hiding" (low layer so it slips under objects).
+	var/hidden = FALSE
+
 /mob/living/basic/synapse_leech/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	RegisterSignal(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, PROC_REF(do_leech_toxin))
 	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(on_hud_created))
-
-
-
-	grant_actions_by_list(innate_actions)
-
 
 /// Called when the HUD is first created so we can initialize display values.
 /mob/living/basic/synapse_leech/proc/on_hud_created(datum/source)
