@@ -64,30 +64,21 @@
 		"Party's over. Get back to work.",
 	)
 
-	/// All spawned hangover spots
-	var/list/obj/effect/spawner/hangover_spawn/spawns = list()
-
 /datum/station_trait/hangover/New()
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
-	RegisterSignal(SSmapping, COMSIG_SUBSYSTEM_POST_INITIALIZE, PROC_REF(create_spawners))
 
-/datum/station_trait/hangover/revert()
-	for(var/obj/effect/spawner/hangover_spawn/hangover_spot in spawns)
-		QDEL_LIST(hangover_spot.hangover_debris)
-	return ..()
-
-/datum/station_trait/hangover/proc/create_spawners()
-	SIGNAL_HANDLER
-
+/datum/station_trait/hangover/on_round_start()
+	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(pick_turfs_and_spawn))
-	UnregisterSignal(SSmapping, COMSIG_SUBSYSTEM_POST_INITIALIZE)
 
 /datum/station_trait/hangover/proc/pick_turfs_and_spawn()
-	var/list/turf/turfs = get_safe_random_station_turfs(typesof(/area/station/hallway) | typesof(
-/area/station/service/bar) | typesof(/area/station/commons/dorms), rand(200, 300))
-	for(var/turf/turf as() in turfs)
-		spawns += new /obj/effect/spawner/hangover_spawn(turf)
+	var/list/turf/turfs = get_safe_random_station_turfs(
+		typesof(/area/station/hallway) | typesof(/area/station/service/bar) | typesof(/area/station/commons/dorms),
+		rand(200, 300),
+	)
+	for(var/turf/turf as anything in turfs)
+		new /obj/effect/spawner/hangover_spawn(turf)
 
 /datum/station_trait/hangover/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/living_mob, mob/spawned_mob, joined_late)
 	SIGNAL_HANDLER
@@ -128,31 +119,35 @@
 	weight = 5
 	cost = STATION_TRAIT_COST_LOW
 	show_in_report = TRUE
-	report_message = "Our workers cleaned out most of the junk in the maintenace areas."
+	report_message = "Our workers cleaned out most of the junk in the maintenance areas."
 	blacklist = list(/datum/station_trait/filled_maint)
 	trait_to_give = STATION_TRAIT_EMPTY_MAINT
 	can_revert = FALSE
 
-/datum/station_trait/overflow_job_bureacracy
-	name = "Overflow bureacracy mistake"
+/datum/station_trait/overflow_job_bureaucracy
+	name = "Overflow bureaucracy mistake"
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 5
 	show_in_report = TRUE
-	var/list/jobs_to_use = list(JOB_NAME_CLOWN, JOB_NAME_BARTENDER, JOB_NAME_COOK, JOB_NAME_BOTANIST, JOB_NAME_CARGOTECHNICIAN, JOB_NAME_MIME, JOB_NAME_JANITOR)
-	var/chosen_job
+	var/chosen_job_name
 
-/datum/station_trait/overflow_job_bureacracy/New()
+/datum/station_trait/overflow_job_bureaucracy/New()
 	. = ..()
-	chosen_job = pick(jobs_to_use)
 	RegisterSignal(SSjob, COMSIG_SUBSYSTEM_POST_INITIALIZE, PROC_REF(set_overflow_job_override))
 
-/datum/station_trait/overflow_job_bureacracy/get_report()
-	return "[name] - It seems for some reason we put out the wrong job-listing for the overflow role this shift...I hope you like [chosen_job]s."
+/datum/station_trait/overflow_job_bureaucracy/get_report()
+	return "[name] - It seems for some reason we put out the wrong job-listing for the overflow role this shift...I hope you like [chosen_job_name]s."
 
-/datum/station_trait/overflow_job_bureacracy/proc/set_overflow_job_override(datum/source, new_overflow_role)
+/datum/station_trait/overflow_job_bureaucracy/proc/set_overflow_job_override(datum/source)
 	SIGNAL_HANDLER
 
-	SSjob.set_overflow_role(chosen_job)
+	var/list/joinable = list()
+	for(var/datum/job/job in SSjob.occupations) //Not ideal, but we dont have a populated alist of joinable occuptions
+		if(job.job_flags & JOB_NEW_PLAYER_JOINABLE)
+			joinable += job
+	var/datum/job/picked_job = pick(joinable)
+	chosen_job_name = LOWER_TEXT(picked_job.title)
+	SSjob.set_overflow_role(picked_job.type)
 
 /datum/station_trait/slow_shuttle
 	name = "Slow Shuttle"

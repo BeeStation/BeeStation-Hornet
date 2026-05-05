@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_SILICON
 	department_head_for_prefs = JOB_NAME_AI
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ccffcc"
 	supervisors = "your laws"
@@ -16,6 +16,8 @@
 	departments = DEPT_BITFLAG_SILICON
 	random_spawns_possible = FALSE
 	allow_bureaucratic_error = FALSE
+
+	job_flags = JOB_NEW_PLAYER_JOINABLE | JOB_EQUIP_RANK | JOB_CANNOT_OPEN_SLOTS
 	var/do_special_check = TRUE
 
 /datum/job/ai/get_access() // no point of calling parent proc
@@ -29,8 +31,8 @@
 /datum/job/ai/after_spawn(mob/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
 	if(latejoin)
-		var/obj/structure/AIcore/latejoin_inactive/lateJoinCore
-		for(var/obj/structure/AIcore/latejoin_inactive/P in GLOB.latejoin_ai_cores)
+		var/obj/structure/ai_core/latejoin_inactive/lateJoinCore
+		for(var/obj/structure/ai_core/latejoin_inactive/P in GLOB.latejoin_ai_cores)
 			if(P.is_available())
 				lateJoinCore = P
 				GLOB.latejoin_ai_cores -= P
@@ -53,7 +55,7 @@
 				R.TryConnectToAI()
 
 	if(latejoin)
-		announce(AI)
+		announce_job(AI)
 
 /datum/job/ai/override_latejoin_spawn()
 	return TRUE
@@ -62,16 +64,18 @@
 	if(!do_special_check)
 		return TRUE
 	for(var/i in GLOB.latejoin_ai_cores)
-		var/obj/structure/AIcore/latejoin_inactive/LAI = i
+		var/obj/structure/ai_core/latejoin_inactive/LAI = i
 		if(istype(LAI))
 			if(LAI.is_available())
 				return TRUE
 	return FALSE
 
-/datum/job/ai/announce(mob/living/silicon/ai/AI)
+/datum/job/ai/announce_job(mob/living/silicon/ai/AI)
 	. = ..()
 	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce), "[AI] has been downloaded to an empty bluespace-networked AI core at [AREACOORD(AI)]."))
 
 /datum/job/ai/config_check()
 	return CONFIG_GET(flag/allow_ai)
 
+/datum/job/ai/get_radio_information()
+	return "<b>Prefix your message with :b to speak with cyborgs and other AIs.</b>"

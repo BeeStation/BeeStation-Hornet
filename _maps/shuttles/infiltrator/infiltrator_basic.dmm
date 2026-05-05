@@ -583,8 +583,8 @@
 /area/shuttle/syndicate/bridge)
 "iF" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/cable_coil/white,
-/obj/item/stack/cable_coil/white,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
 /obj/item/crowbar/red,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -746,10 +746,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/armory)
 "Cs" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 30
 	},

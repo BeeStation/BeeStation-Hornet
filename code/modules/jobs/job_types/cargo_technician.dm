@@ -5,7 +5,7 @@
 	department_head_for_prefs = JOB_NAME_QUARTERMASTER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#dcba97"
 
@@ -29,8 +29,9 @@
 	bank_account_department = ACCOUNT_CAR_BITFLAG
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_EASY)
 
-
 	display_order = JOB_DISPLAY_ORDER_CARGO_TECHNICIAN
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Merchantman"
 
 	species_outfits = list(
@@ -60,7 +61,7 @@
 	uniform = /obj/item/clothing/under/rank/cargo/tech
 	l_hand = /obj/item/export_scanner
 
-/datum/outfit/job/cargo_tech/mod
+/datum/outfit/job/cargo_technician/mod
 	name = "Cargo Technician (MODsuit)"
 
 	back = /obj/item/mod/control/pre_equipped/loader

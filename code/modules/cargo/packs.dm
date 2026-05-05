@@ -1919,7 +1919,7 @@
 		/obj/item/storage/firstaid/brute,
 		/obj/item/storage/firstaid/fire,
 		/obj/item/defibrillator/loaded,
-		/obj/item/reagent_containers/blood/OMinus,
+		/obj/item/reagent_containers/blood/o_minus,
 		/obj/item/storage/pill_bottle/mining,
 		/obj/item/reagent_containers/pill/neurine,
 		/obj/item/vending_refill/medical,
@@ -2105,7 +2105,7 @@
 	max_supply = 4
 	access = ACCESS_ROBOTICS
 	contains = list(/obj/item/stack/sheet/iron/five,
-					/obj/item/stack/cable_coil/random/five,
+					/obj/item/stack/cable_coil,
 					/obj/item/circuitboard/machine/cyborgrecharger,
 					/obj/item/stock_parts/capacitor,
 					/obj/item/stock_parts/cell,

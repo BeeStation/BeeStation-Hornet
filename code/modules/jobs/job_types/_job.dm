@@ -7,8 +7,10 @@
 	var/description
 
 	///Job access. The use of minimal_access or access is determined by a config setting: config.jobs_have_minimal_access
-	var/list/base_access = list()  // access list that's basically given to jobs.
-	var/list/extra_access = list() // EXTRA access list that's given in lowpop.
+	// access list that's basically given to jobs.
+	var/list/base_access = list()
+	// EXTRA access list that's given in lowpop.
+	var/list/extra_access = list()
 
 	///Determines who can demote this position
 	var/department_head = list()
@@ -23,9 +25,6 @@
 	/// Determines whether or not late-joining as this role is allowed
 	var/latejoin_allowed = TRUE
 
-	/// flags with the job lock reasons. If this flag exists, it's not available anyway.
-	var/lock_flags = NONE
-
 	/// If this job should show in the preferences menu
 	var/show_in_prefs = TRUE
 
@@ -33,7 +32,7 @@
 	var/department_head_for_prefs
 
 	///Players will be allowed to spawn in as jobs that are set to "Station"
-	var/faction = "None"
+	var/faction = FACTION_NONE
 
 	///How many players can be this job
 	var/total_positions = 0
@@ -99,6 +98,11 @@
 	///how at risk is this occupation at for being a carrier of a dormant disease
 	var/biohazard = 20
 
+	var/job_flags = NONE
+
+	/// flags with the job lock reasons. If this flag exists, it's not available anyway.
+	var/lock_flags = NONE
+
 	///A dictionary of species IDs and a path to the outfit.
 	var/list/species_outfits = null
 
@@ -150,10 +154,12 @@
 
 	if(!config_check())
 		lock_flags |= JOB_LOCK_REASON_CONFIG
+		job_flags &= ~JOB_NEW_PLAYER_JOINABLE
 	if(SSmapping.map_adjustment && (title in SSmapping.map_adjustment.blacklisted_jobs))
 		lock_flags |= JOB_LOCK_REASON_MAP
-	if(lock_flags || gimmick)
-		SSjob.job_manager_blacklisted |= title
+		job_flags &= ~JOB_NEW_PLAYER_JOINABLE
+	if(!(job_flags & JOB_NEW_PLAYER_JOINABLE) || gimmick)
+		job_flags |= JOB_CANNOT_OPEN_SLOTS
 
 /// Returns true if there are available slots
 /datum/job/proc/has_space()
@@ -417,9 +423,11 @@
 /proc/gear_priority_cmp(a, b)
 	return get_slot_priority(a) < get_slot_priority(b)
 
-/datum/job/proc/announce(mob/living/carbon/human/H)
+/// Announce that this job as joined the round to all crew members.
+/// Note the joining mob has no client at this point.
+/datum/job/proc/announce_job(mob/living/joining_mob)
 	if(head_announce)
-		announce_head(H, head_announce)
+		announce_head(joining_mob, head_announce)
 
 /datum/job/proc/override_latejoin_spawn(mob/living/carbon/human/H)		//Return TRUE to force latejoining to not automatically place the person in latejoin shuttle/whatever.
 	return FALSE
@@ -447,10 +455,6 @@
 		if(H.dna.species.id != SPECIES_HUMAN)
 			H.set_species(/datum/species/human)
 			H.apply_pref_name(/datum/preference/name/backup_human, preference_source)
-	if(!visuals_only)
-		var/datum/bank_account/bank_account = new(H.real_name, src)
-		bank_account.payday(STARTING_PAYCHECKS, TRUE)
-		H.mind?.account_id = bank_account.account_id
 
 	//Equip the rest of the gear
 	H.dna.species.before_equip_job(src, H, visuals_only)
@@ -466,7 +470,7 @@
 	H.dna.species.after_equip_job(src, H, visuals_only, preference_source)
 
 	if(!visuals_only && announce)
-		announce(H)
+		announce_job(H)
 	H.give_random_dormant_disease(biohazard, (title == JOB_NAME_CLOWN || title == JOB_NAME_MIME) ? 0 : 4)
 
 /datum/job/proc/get_access()
@@ -568,15 +572,43 @@
 /datum/job/proc/get_lock_reason()
 	if(lock_flags & JOB_LOCK_REASON_ABSTRACT)
 		return "Not a real job"
-	else if(lock_flags & JOB_LOCK_REASON_CONFIG)
+	if(!(initial(job_flags) & JOB_NEW_PLAYER_JOINABLE))
+		return "Not a real job"
+	if(lock_flags & JOB_LOCK_REASON_CONFIG)
 		return "Disabled by server configuration"
-	else if(lock_flags & JOB_LOCK_REASON_MAP)
+	if(lock_flags & JOB_LOCK_REASON_MAP)
 		return "Not available on this map"
-	else if(lock_flags) // somehow flag exists
-		return "Unknown: [lock_flags]"
+	if(!(job_flags & JOB_NEW_PLAYER_JOINABLE))
+		return "Unavailable"
 
-/datum/job/proc/radio_help_message(mob/M)
-	to_chat(M, "<b>Prefix your message with :h to speak on your department's radio. To see other prefixes, look closely at your headset.</b>")
+/// Gets the message that shows up when spawning as this job
+/datum/job/proc/get_spawn_message()
+	SHOULD_NOT_OVERRIDE(TRUE)
+	return examine_block(span_infoplain(jointext(get_spawn_message_information(), "\n&bull; ")))
+
+/// Returns a list of strings that correspond to chat messages sent to this mob when they join the round.
+/datum/job/proc/get_spawn_message_information()
+	SHOULD_CALL_PARENT(TRUE)
+	var/list/info = list()
+	info += "<b>You are the [title].</b>\n"
+	var/radio_info = get_radio_information()
+	if(supervisors)
+		info += "As the [title] you answer directly to [supervisors]. Special circumstances may change this."
+	if(radio_info)
+		info += radio_info
+	if(req_admin_notify)
+		info += "<b>You are playing a job that is important for Game Progression. \
+			If you have to disconnect, please notify the admins via adminhelp.</b>"
+	if(SSjob.initial_players_to_assign < min_pop && min_pop_redirect)
+		info += span_noticebig("<b>Due to a lack of station personnel, you additionally have the responsibilities and access of \a [min_pop_redirect::title]!</b>")
+	if(length(get_access()) != length(base_access))
+		info += span_notice("<b>You have been granted with additional access and responsibilities due to a lack of station personnel.</b>")
+	return info
+
+/// Returns information pertaining to this job's radio.
+/datum/job/proc/get_radio_information()
+	if(job_flags & JOB_CREW_MEMBER)
+		return "<b>Prefix your message with :h to speak on your department's radio. To see other prefixes, look closely at your headset.</b>"
 
 /datum/outfit/job
 	name = "Standard Gear"
@@ -650,13 +682,11 @@
 		card.update_label()
 		card.update_icon()
 
-		for(var/datum/bank_account/account in SSeconomy.bank_accounts)
-			if(!user.mind)
-				continue
-			if(account.account_id == user.mind.account_id)
+		if(user.mind)
+			var/datum/bank_account/account = SSeconomy.bank_accounts_by_id["[user.mind.account_id]"]
+			if(account)
 				card.registered_account = account
 				account.bank_cards += card
-				break
 		user.sec_hud_set_ID()
 
 	var/obj/item/modular_computer/tablet/pda/PDA = user.get_item_by_slot(pda_slot)
@@ -689,6 +719,7 @@
 
 /// Applies the preference options to the spawning mob, taking the job into account. Assumes the client has the proper mind.
 /mob/living/proc/apply_prefs_job(client/player_client, datum/job/job)
+
 
 /mob/living/carbon/human/apply_prefs_job(client/player_client, datum/job/job)
 	var/fully_randomize = is_banned_from(player_client.ckey, "Appearance")

@@ -83,7 +83,7 @@
 	//Default value of camera acceleration
 	var/acceleration = 0
 
-	var/obj/structure/AIcore/deactivated/linked_core //For exosuit control
+	var/obj/structure/ai_core/deactivated/linked_core //For exosuit control
 	var/mob/living/silicon/robot/deployed_shell = null //For shell control
 	var/datum/action/innate/deploy_shell/deploy_action = new
 	var/datum/action/innate/deploy_last_shell/redeploy_action = new
@@ -115,7 +115,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	AddElement(/datum/element/trackable)
 	add_sensors()
 	if(!target_ai) //If there is no player/brain inside.
-		new/obj/structure/AIcore/deactivated(loc) //New empty terminal.
+		new/obj/structure/ai_core/deactivated(loc) //New empty terminal.
 		return INITIALIZE_HINT_QDEL //Delete AI.
 
 	if(L && istype(L, /datum/ai_laws))
@@ -380,7 +380,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 /mob/living/silicon/ai/proc/wipe()
 	// We warned you.
-	var/obj/structure/AIcore/latejoin_inactive/inactivecore = new(loc)
+	var/obj/structure/ai_core/latejoin_inactive/inactivecore = new(loc)
 	transfer_fingerprints_to(inactivecore)
 
 	if(GLOB.announcement_systems.len)
@@ -768,7 +768,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			to_chat(user, span_warning("No intelligence patterns detected.")    )
 			return
 		ShutOffDoomsdayDevice()
-		var/obj/structure/AIcore/new_core = new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
+		var/obj/structure/ai_core/new_core = new /obj/structure/ai_core/deactivated(loc)//Spawns a deactivated terminal at AI location.
 		new_core.circuit.battery = battery
 		ai_restore_power()//So the AI initially has power.
 		control_disabled = TRUE //Can't control things remotely if you're stuck in a card!
@@ -800,11 +800,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	var/atom/movable/source = speaker.GetSource() || speaker // is the speaker virtual/radio
 	var/treated_message = source.generate_messagepart(raw_translation, spans, message_mods)
 
-	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
+	var/namepart = "[speaker.get_voice()][speaker.get_alt_name()]"
 	var/hrefpart = "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
 
-	if(!HAS_TRAIT(speaker, TRAIT_UNKNOWN)) //don't fetch the speaker's job in case they have something that conseals their identity completely
+	if(!HAS_TRAIT(speaker, TRAIT_UNKNOWN_VOICE)) //don't fetch the speaker's job in case they have something that conseals their identity completely
 		if(iscarbon(speaker))
 			var/mob/living/carbon/human/living_speaker = speaker
 			if(living_speaker.wear_id)
@@ -839,7 +839,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	var/raw_translation = translate_language(speaker, message_language, raw_message)
 	var/atom/movable/source = speaker.GetSource() || speaker // is the speaker virtual/radio
 	var/treated_message = span_message(apply_message_emphasis(source.generate_messagepart(raw_translation, spans, message_mods)))
-	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
+	var/namepart = "[speaker.get_voice()][speaker.get_alt_name()]"
 	var/hrefpart = "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
 
@@ -865,7 +865,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		includes_ghosts = FALSE) // ghosts already see this except for you...
 
 	// renders message for ghosts
-	rendered = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(speaker.GetVoice())]</b> [treated_message]")
+	rendered = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(speaker.get_voice())]</b> [treated_message]")
 	var/rendered_scrambled_message
 	for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
 		if(!each_ghost.client || !each_ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostradio))
@@ -877,7 +877,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			if(!rendered_scrambled_message)
 				var/scrambled_translation = each_ghost.translate_language(speaker, message_language, raw_message)
 				rendered_scrambled_message = span_message(each_ghost.apply_message_emphasis(source.generate_messagepart(scrambled_translation, spans, message_mods)))
-				rendered_scrambled_message = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(speaker.GetVoice())]</b> [rendered_scrambled_message]")
+				rendered_scrambled_message = span_srtradioholocall("<b>\[Holocall\] [language_icon][span_name(speaker.get_voice())]</b> [rendered_scrambled_message]")
 			to_chat(each_ghost, "[follow_link] [rendered_scrambled_message]")
 
 
@@ -901,36 +901,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	modules_action = new(malf_picker)
 	modules_action.Grant(src)
 
-/mob/living/silicon/ai/reset_perspective(atom/new_eye)
-	SHOULD_CALL_PARENT(FALSE) // AI needs to work as their own...
-	if(camera_light_on)
-		light_cameras()
-	if(!client)
+/mob/living/silicon/ai/get_my_eye()
+	return multicam_on ? GLOB.ai_camera_room_landmark : eyeobj || src
+
+/mob/living/silicon/ai/set_mob_eye_to(atom/new_eye)
+	. = ..()
+	if(!.)
 		return
 
-	if(ismovable(new_eye))
-		if(new_eye != GLOB.ai_camera_room_landmark)
-			end_multicam()
-		client.perspective = EYE_PERSPECTIVE
-		client.set_eye(new_eye)
-	else
-		end_multicam()
-		if(isturf(loc))
-			if(eyeobj)
-				client.set_eye(eyeobj)
-				client.perspective = EYE_PERSPECTIVE
-			else
-				client.set_eye(client.mob)
-				client.perspective = MOB_PERSPECTIVE
-		else
-			client.perspective = EYE_PERSPECTIVE
-			client.set_eye(loc)
-	update_sight()
-	if(client.eye != src)
-		var/atom/AT = client.eye
-		AT.get_remote_view_fullscreens(src)
-	else
-		clear_fullscreen("remote_view", 0)
+	if(camera_light_on)
+		light_cameras()
 
 /mob/living/silicon/ai/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
@@ -1160,10 +1140,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
 
 	aicamera.adjust_zoom(src)
 
-/mob/living/silicon/ai/GetVoice()
-	. = ..()
-	if(ai_voicechanger && ai_voicechanger.changing_voice)
+/mob/living/silicon/ai/get_voice()
+	if(ai_voicechanger?.changing_voice)
 		return ai_voicechanger.say_name
-	return
+	return ..()
 
 #undef CALL_BOT_COOLDOWN

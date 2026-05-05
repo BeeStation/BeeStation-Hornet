@@ -157,7 +157,7 @@
 			ert_antag.random_names = template.random_names
 
 			ert_operative.mind.add_antag_datum(ert_antag,ert_team)
-			ert_operative.mind.assigned_role = ert_antag.name
+			ert_operative.mind.set_assigned_role(ert_antag.name)
 
 			//Logging and cleanup
 			log_game("[key_name(ert_operative)] has been selected as an [ert_antag.name]")

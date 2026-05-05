@@ -1,14 +1,14 @@
 /datum/job/chief_medical_officer
 	title = JOB_NAME_CHIEFMEDICALOFFICER
-	description = "Oversee paramedics, doctors, chemists, geneticists and the virologist. \
-	Ensure doctors and paramedicts are treating people in a timely manner, request medicine and other concoctions from chemists, \
-	and ensure geneticists and the virologist are following appropriate safety precautions while performing their research."
+	description = "Oversee paramedics, doctors, chemists, and geneticists. \
+		Ensure doctors and paramedics are treating people in a timely manner, request medicine and other concoctions from chemists, \
+		and ensure geneticists are following appropriate safety precautions while performing their research."
 	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#c1e1ec"
 	req_admin_notify = 1
@@ -32,6 +32,8 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_MEDICAL_OFFICER
+
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "High Cleric"
 
 	species_outfits = list(
@@ -64,15 +66,17 @@
 	jobtype = /datum/job/chief_medical_officer
 
 	id = /obj/item/card/id/job/chief_medical_officer
-	belt = /obj/item/modular_computer/tablet/pda/preset/heads/chief_medical_officer
-	l_pocket = /obj/item/pinpointer/crew
-	r_pocket = /obj/item/flashlight/pen
-	ears = /obj/item/radio/headset/heads/cmo
 	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
-	shoes = /obj/item/clothing/shoes/sneakers/brown
 	suit = /obj/item/clothing/suit/toggle/labcoat/cmo
 	suit_store = /obj/item/storage/firstaid/medical
-	backpack_contents = list(/obj/item/melee/baton/telescopic=1)
+	backpack_contents = list(
+		/obj/item/melee/baton/telescopic=1
+		)
+	belt = /obj/item/modular_computer/tablet/pda/preset/heads/chief_medical_officer
+	ears = /obj/item/radio/headset/heads/cmo
+	shoes = /obj/item/clothing/shoes/sneakers/blue
+	l_pocket = /obj/item/pinpointer/crew
+	r_pocket = /obj/item/flashlight/pen
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med
@@ -82,7 +86,7 @@
 	chameleon_extras = list(/obj/item/gun/syringe, /obj/item/stamp/cmo)
 
 /datum/outfit/job/chief_medical_officer/mod
-	name = "Chief Medical Officer (MOD)"
+	name = "Chief Medical Officer (MODsuit)"
 
 	suit_store = /obj/item/tank/internals/oxygen
 	back = /obj/item/mod/control/pre_equipped/rescue
