@@ -1,0 +1,5 @@
+author: TsunamiAnt
+delete-after: true
+changes:
+  - rscadd: Added gps signal to depvend
+  - bugfix: fixed depvend message
