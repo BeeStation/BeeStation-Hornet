@@ -1,7 +1,7 @@
 /**
  * # Synapse Leech
  *
- * The Cortical Borer is a small, grub-like creature that burrows into the skulls of its victims to feed on their brain matter.
+ * The Synapse Leech is a small, grub-like creature that burrows into the skulls of its victims to feed on their brain matter.
  *
  */
 
@@ -15,8 +15,8 @@
 	hud_type = /datum/hud/leech
 
 	// Attributes and Traits
-	maxHealth = 50
-	health = 50
+	maxHealth = LEECH_MAX_HEALTH
+	health = LEECH_MAX_HEALTH
 	mob_biotypes = MOB_BUG
 	basic_mob_flags = FLAMMABLE_MOB
 	status_flags = CANPUSH
@@ -24,13 +24,13 @@
 	layer = ABOVE_NORMAL_TURF_LAYER
 
 	// Movement
-	speed = -0.5
+	speed = LEECH_SPEED
 
 	// Damage and Combat
 	combat_mode = TRUE
-	melee_damage = 5
-	obj_damage = 5
-	armour_penetration = 75
+	melee_damage = LEECH_MELEE_DAMAGE
+	obj_damage = LEECH_MELEE_DAMAGE
+	armour_penetration = LEECH_ARMOUR_PENETRATION
 	melee_damage_type = TOX
 	melee_attack_cooldown = 1 SECONDS
 
@@ -53,32 +53,28 @@
 	faction = list(FACTION_LEECH)
 
 	// Custom
+
+	/// Saturation (We do not use the basic mob satiety)
+	var/saturation = LEECH_INITIAL_SATURATION // We start at half
+
+	/// Basic leech resource.
+	var/max_substrate = LEECH_MAX_SUBSTRATE
+	var/substrate = LEECH_MAX_SUBSTRATE
+
 	/// The type of toxin the leech injects per attack
 	var/toxin_type = /datum/reagent/toxin/leech_toxin
 	/// The amount of toxin the leech injects per attack
-	var/toxin_per_attack = 5
+	var/toxin_per_attack = LEECH_TOXIN_PER_ATTACK
 
 /mob/living/basic/synapse_leech/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, PROC_REF(do_leech_toxin))
+	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(on_hud_created))
 
-/mob/living/basic/synapse_leech/proc/do_leech_toxin(mob/living/element_owner, atom/target, success)
+/// Called when the HUD is first created so we can initialize display values.
+/mob/living/basic/synapse_leech/proc/on_hud_created(datum/source)
 	SIGNAL_HANDLER
-
-	if(!success || !isliving(target))
-		return
-
-	var/mob/living/living_target = target
-	if(living_target.stat == DEAD)
-		return
-
-	if(!living_target.reagents)
-		return
-
-	if(HAS_TRAIT(living_target, TRAIT_PIERCEIMMUNE))
-		return
-
-	living_target.reagents.add_reagent(toxin_type, rand(0, toxin_per_attack))
+	update_leech_hud()
 
 // We do not use combat mode.
 /mob/living/basic/synapse_leech/set_combat_mode(new_mode, silent = TRUE)
