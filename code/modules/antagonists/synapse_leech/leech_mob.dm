@@ -42,7 +42,6 @@
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSMOB | PASSTABLE
 	see_in_dark = NIGHTVISION_FOV_RANGE
-	lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 
 	// AI
 	environment_smash = ENVIRONMENT_SMASH_NONE
@@ -74,6 +73,15 @@
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	RegisterSignal(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, PROC_REF(do_leech_toxin))
 	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(on_hud_created))
+	grant_leech_abilities()
+
+/// Grants the synapse leech's innate ability set. Called once on Initialize.
+/mob/living/basic/synapse_leech/proc/grant_leech_abilities()
+	GRANT_ACTION(/datum/action/leech/toggled/hide)
+	GRANT_ACTION(/datum/action/leech/toggled/nightvision)
+	GRANT_ACTION(/datum/action/leech/targeted/burrow)
+	GRANT_ACTION(/datum/action/leech/targeted/paralyze)
+	GRANT_ACTION(/datum/action/leech/chemical_inject)
 
 /// Called when the HUD is first created so we can initialize display values.
 /mob/living/basic/synapse_leech/proc/on_hud_created(datum/source)
