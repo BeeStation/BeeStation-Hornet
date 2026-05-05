@@ -2,10 +2,6 @@
 
 // Mob Stats
 #define LEECH_MAX_HEALTH 20
-/// Negative = faster movement
-#define LEECH_SPEED -0.5
-#define LEECH_MELEE_DAMAGE 5
-#define LEECH_ARMOUR_PENETRATION 75
 
 // Saturation
 /// Max saturation value (hunger resource)
@@ -38,4 +34,4 @@
 
 // Toxin (per attack)
 /// Max amount of toxin injected per melee hit
-#define LEECH_TOXIN_PER_ATTACK 5
+#define LEECH_TOXIN_PER_ATTACK 10

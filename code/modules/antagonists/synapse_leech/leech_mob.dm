@@ -22,13 +22,12 @@
 	status_flags = CANPUSH
 
 	// Movement
-	speed = LEECH_SPEED
+	speed = -0.5
 
 	// Damage and Combat
 	combat_mode = TRUE
-	melee_damage = LEECH_MELEE_DAMAGE
-	obj_damage = LEECH_MELEE_DAMAGE
-	armour_penetration = LEECH_ARMOUR_PENETRATION
+	melee_damage = 1 // Token amount
+	obj_damage = 5
 	melee_damage_type = TOX
 	melee_attack_cooldown = 1 SECONDS
 
@@ -64,6 +63,11 @@
 
 	/// Whether the leech is currently "hiding" (low layer so it slips under objects).
 	var/hidden = FALSE
+
+	/// The mob we are currently burrowed inside, if any.
+	var/mob/living/carbon/host
+	/// Whether we are currently nested (burrowed) inside a host.
+	var/nested = FALSE
 
 /mob/living/basic/synapse_leech/Initialize(mapload)
 	. = ..()
