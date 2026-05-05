@@ -260,7 +260,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/ResetOccupations()
 	JobDebug("Occupations reset.")
 	for(var/mob/dead/new_player/authenticated/player in GLOB.auth_new_player_list)
-		if(!player?.mind)
+		if(!player.mind)
 			continue
 		player.mind.set_assigned_role(null)
 		player.mind.special_role = null
