@@ -1,5 +1,0 @@
-author: mrmanlikesbt, Arthri
-delete-after: true
-changes:
-  - code_imp: The majority of the functions in collections.ts have been replaced with
-      equivalents from the es-toolkit package
