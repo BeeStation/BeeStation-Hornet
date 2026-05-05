@@ -492,8 +492,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//restart our floating animation after orbit is done.
 	pixel_y = base_pixel_y
 	// if we were autoobserving, reset perspective
-	if (!isnull(client) && !isnull(client.eye))
-		set_mob_eye_to(MOB_EYE_SELF)
+	set_mob_eye_to(MOB_EYE_SELF)
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = "Ghost"
