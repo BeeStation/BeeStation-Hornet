@@ -1271,3 +1271,29 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 		var/area/area = get_area(target)
 		log_mapping("[src] at [AREACOORD(src)] [(area.type)] tried to damage [target] but it's already damaged!")
 	target.take_damage(rand(target.max_integrity * integrity_damage_min, target.max_integrity * integrity_damage_max))
+
+///Gives a cable a forced node
+/obj/effect/mapping_helpers/power_node
+	name = "power node helper"
+	icon_state = "power_node"
+	late = TRUE
+	var/integrity_damage_max = 0.85
+
+/obj/effect/mapping_helpers/power_node/Initialize(mapload)
+	. = ..()
+	if(!mapload)
+		log_mapping("[src] spawned outside of mapload!")
+		return INITIALIZE_HINT_QDEL
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/mapping_helpers/power_node/LateInitialize()
+	var/obj/structure/cable/target = locate(/obj/structure/cable) in loc
+
+	if(isnull(target))
+		var/area/target_area = get_area(src)
+		log_mapping("[src] failed to find a cable at [AREACOORD(src)] ([target_area.type]).")
+		qdel(src)
+		return
+
+	target.add_power_node()
+	qdel(src)

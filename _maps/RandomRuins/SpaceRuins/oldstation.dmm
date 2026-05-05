@@ -4468,6 +4468,7 @@
 "yF" = (
 /obj/item/solar_assembly,
 /obj/structure/cable,
+/obj/effect/mapping_helpers/power_node,
 /turf/open/floor/iron/solarpanel/airless,
 /area/ruin/space/solars/ancientstation/charlie/solars)
 "yG" = (
@@ -7191,7 +7192,6 @@
 "Rv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/effect/mapping_helpers/apc/no_charge,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -7199,6 +7199,7 @@
 	},
 /obj/effect/mapping_helpers/apc/unlocked,
 /obj/effect/mapping_helpers/apc/away_general_access,
+/obj/machinery/atmospherics/pipe/layer_manifold/supply/visible,
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/beta/atmos)
 "Rx" = (
@@ -7567,6 +7568,7 @@
 /area/ruin/space/ancientstation/delta/rnd)
 "Ua" = (
 /obj/structure/cable,
+/obj/effect/mapping_helpers/power_node,
 /turf/open/floor/iron/solarpanel/airless,
 /area/ruin/space/solars/ancientstation/charlie/solars)
 "Ui" = (

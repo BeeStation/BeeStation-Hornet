@@ -4192,6 +4192,7 @@
 "Ei" = (
 /obj/effect/mapping_helpers/broken_floor,
 /obj/structure/cable,
+/obj/effect/mapping_helpers/power_node,
 /turf/open/floor/plating/airless,
 /area/ruin/space/solars/ks13/sb_bow_solars)
 "Ej" = (
