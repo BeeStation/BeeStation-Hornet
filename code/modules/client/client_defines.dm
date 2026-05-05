@@ -133,7 +133,7 @@
 	/// Whether or not this client has standard hotkeys enabled
 	var/hotkeys = TRUE
 
-	/// client/eye is immediately changed, and it makes a lot of errors to track eye change. This eye_weakref helps us what the client's old eye was.
+	/// client/eye is immediately changed, and it makes a lot of errors to track eye change. This eye_weakref helps to track what the client's old eye was.
 	var/datum/weakref/eye_weakref
 
 ///Autoclick list of two elements, first being the clicked thing, second being the parameters.
