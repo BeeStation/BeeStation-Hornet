@@ -160,7 +160,7 @@
 /datum/dynamic_ruleset/gamemode/malf/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		SSjob.AssignRole(chosen_mind.current, JOB_NAME_AI)
+		SSjob.assign_role(chosen_mind.current, JOB_NAME_AI)
 
 /datum/dynamic_ruleset/gamemode/malf/security_report()
 	return "The proximity to multiple stars leads to a risk of ion storms born from constructive wave interference. This has been identified \
