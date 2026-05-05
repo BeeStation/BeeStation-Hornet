@@ -305,6 +305,29 @@
 
 //////////////////////////////////////////////
 //                                          //
+//           Cortical Borer (Light)        //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/ghost/cortical_borer
+	name = "Cortical Borer"
+	severity = DYNAMIC_MIDROUND_LIGHT
+	antag_datum = /datum/antagonist/cortical_borer
+	points_cost = 20
+	weight = 4
+	minimum_players_required = 5
+
+/datum/dynamic_ruleset/midround/ghost/cortical_borer/get_poll_icon()
+	return /mob/living/basic/cortical_borer
+
+/datum/dynamic_ruleset/midround/ghost/cortical_borer/generate_ruleset_body(mob/dead/observer/chosen_mob)
+	var/mob/living/basic/cortical_borer/borer_body = new(pick(spawn_locations))
+	borer_body.key = chosen_mob.key
+
+	return borer_body
+
+//////////////////////////////////////////////
+//                                          //
 //           SPACE DRAGON (HEAVY)           //
 //                                          //
 //////////////////////////////////////////////
