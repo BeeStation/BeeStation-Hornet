@@ -1,0 +1,9 @@
+author: rkz, Rohesie
+delete-after: true
+changes:
+  - bugfix: Fixed roundstart players not getting radio information.
+  - bugfix: fixed crappy cases where coders put job information in radio hints, rather
+      than, y'know, JOB hints.
+  - bugfix: fixes suit storage appearance bug
+  - bugfix: you can make toast again
+  - rscadd: latelatejoiners spawn with toast
