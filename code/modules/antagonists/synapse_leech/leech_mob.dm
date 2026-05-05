@@ -81,5 +81,5 @@
 	living_target.reagents.add_reagent(toxin_type, rand(0, toxin_per_attack))
 
 // We do not use combat mode.
-/mob/living/basic/synapse_leech/set_combat_mode()
+/mob/living/basic/synapse_leech/set_combat_mode(new_mode, silent = TRUE)
 	return
