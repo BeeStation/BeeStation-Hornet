@@ -24,6 +24,9 @@
 	var/see_in_dark = 2
 	var/tint = 0
 	var/eye_color = "" //set to a hex code to override a mob's eye color
+	/// The icon file of that eyes as its applied to the mob
+	var/eye_icon = 'icons/mob/human/human_face.dmi'
+	/// The icon state of that eyes as its applied to the mob
 	var/eye_icon_state = "eyes"
 	var/old_eye_color = COLOR_WHITE
 	var/flash_protect = FLASH_PROTECTION_NONE
@@ -200,8 +203,9 @@
 	tint = INFINITY
 	var/obj/item/flashlight/eyelight/eye
 
-/obj/item/organ/eyes/robotic/flashlight/emp_act(severity)
-	return
+/obj/item/organ/eyes/robotic/flashlight/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/organ/eyes/robotic/flashlight/on_insert(mob/living/carbon/victim)
 	. = ..()
@@ -226,8 +230,9 @@
 	desc = "These reactive micro-shields will protect you from welders and flashes without obscuring your vision."
 	flash_protect = FLASH_PROTECTION_WELDER
 
-/obj/item/organ/eyes/robotic/shield/emp_act(severity)
-	return
+/obj/item/organ/eyes/robotic/shield/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/organ/eyes/robotic/glow
 	name = "High Luminosity Eyes"
@@ -422,10 +427,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
 /obj/item/organ/eyes/moth
 	name = "moth eyes"
 	desc = "These eyes seem to have increased sensitivity to bright light, with a small improvement to low light vision."
-	eye_icon_state = "motheyes"
+	eye_icon = 'icons/mob/human/species/moth/eyes.dmi'
+	eye_icon_state = "eyes"
 	icon_state = "eyeballs-moth"
 	see_in_dark = NIGHTVISION_FOV_RANGE/2 //4 tiles compared to 8 of the apids
 	flash_protect = FLASH_PROTECTION_SENSITIVE
+
+/obj/item/organ/eyes/moth/domestic
+	name = "domestic moth eyes"
+	desc = "A mutation of natural moth eyes present in more gregarious specimens."
+	eye_icon_state = "motheyes"
 
 /obj/item/organ/eyes/snail
 	name = "snail eyes"

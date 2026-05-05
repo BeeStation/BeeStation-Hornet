@@ -105,11 +105,11 @@ RSF
 			use_matter(200, user)
 		if(5)
 			to_chat(user, "Dispensing Cigarette...")
-			new /obj/item/clothing/mask/cigarette(T)
+			new /obj/item/cigarette(T)
 			use_matter(10, user)
 		if(6)
 			to_chat(user, "Dispensing Explosive Cigarette...")
-			new /obj/item/clothing/mask/cigarette/plasma(T)
+			new /obj/item/cigarette/plasma(T)
 			use_matter(20, user)
 
 /obj/item/rsf/proc/use_matter(charge, mob/user)

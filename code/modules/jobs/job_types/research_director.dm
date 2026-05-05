@@ -64,14 +64,17 @@
 	jobtype = /datum/job/research_director
 
 	id = /obj/item/card/id/job/research_director
-	belt = /obj/item/modular_computer/tablet/pda/preset/heads/research_director
-	ears = /obj/item/radio/headset/heads/research_director
 	uniform = /obj/item/clothing/under/rank/rnd/research_director
-	shoes = /obj/item/clothing/shoes/sneakers/brown
 	suit = /obj/item/clothing/suit/toggle/labcoat/research_director
-	l_hand = /obj/item/clipboard
+	backpack_contents = list(
+		/obj/item/melee/baton/telescopic = 1,
+		)
+	belt = /obj/item/modular_computer/tablet/pda/preset/heads/research_director
+	head = /obj/item/clothing/head/beret/science
+	ears = /obj/item/radio/headset/heads/research_director
+	shoes = /obj/item/clothing/shoes/jackboots_replica //nerd
 	l_pocket = /obj/item/laser_pointer
-	backpack_contents = list(/obj/item/melee/baton/telescopic=1)
+	l_hand = /obj/item/clipboard
 
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel/tox

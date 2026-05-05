@@ -313,7 +313,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	. = ..()
 	if(get_dist(get_turf(src), get_turf(user)) <= 1)
 		to_chat(user, span_notice("You peak through the door's bluespace peephole..."))
-		user.reset_perspective(parentSphere)
+		user.set_mob_eye_to(parentSphere)
 		user.set_machine(src)
 		var/datum/action/peepholeCancel/PHC = new
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
@@ -332,7 +332,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 /datum/action/peepholeCancel/on_activate(mob/user, atom/target)
 	to_chat(owner, span_warning("You move away from the peephole."))
-	owner.reset_perspective()
+	owner.set_mob_eye_to(MOB_EYE_SELF)
 	owner.clear_fullscreen("remote_view", 0)
 	qdel(src)
 

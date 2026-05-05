@@ -622,15 +622,15 @@ Contains:
 	max_heat_protection_temperature = 100
 	actions_types = null
 
-
 /datum/armor/hardsuit_skinsuit
 	bio = 100
 	bleed = 10
 
-/obj/item/clothing/head/helmet/space/hardsuit/skinsuit/attack_self(mob/user)
-	return
+/obj/item/clothing/head/helmet/space/hardsuit/skinsuit/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
-/obj/item/clothing/head/helmet/space/hardsuit/skinsuit/emp_act(severity)
+/obj/item/clothing/head/helmet/space/hardsuit/skinsuit/attack_self(mob/user)
 	return
 
 /obj/item/clothing/suit/space/hardsuit/skinsuit

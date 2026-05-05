@@ -1549,7 +1549,7 @@
 /obj/structure/closet/crate/hydroponics,
 /obj/item/clothing/head/utility/beekeeper_head,
 /obj/item/clothing/suit/utility/beekeeper_suit,
-/obj/item/clothing/mask/vape,
+/obj/item/vape,
 /obj/machinery/light_switch{
 	pixel_y = 28
 	},
@@ -4496,7 +4496,7 @@
 /area/station/tcommsat/server)
 "cej" = (
 /obj/structure/closet/secure_closet/brig_physician,
-/obj/item/clothing/under/rank/medical/doctor/purple{
+/obj/item/clothing/under/rank/medical/scrubs/purple{
 	pixel_y = -4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -25139,10 +25139,8 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark,
 /area/station/engineering/gravity_generator)
 "kIT" = (
@@ -35736,7 +35734,7 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/clothing/mask/cigarette/cigar{
+/obj/item/cigarette/cigar{
 	pixel_x = -4
 	},
 /obj/item/lighter{
@@ -44328,10 +44326,10 @@
 	pixel_x = 8;
 	pixel_y = 8
 	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar/havana{
 	pixel_x = -3
 	},
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /obj/item/lighter,
 /obj/machinery/camera/directional/east{
 	c_tag = "Detective's Office"
@@ -45448,10 +45446,8 @@
 /turf/open/floor/catwalk_floor,
 /area/station/cargo/exploration_dock)
 "sUf" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/yellow,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/circuit,
 /area/station/ai_monitored/turret_protected/ai)
 "sUz" = (
@@ -49185,13 +49181,11 @@
 /turf/open/floor/noslip/blue,
 /area/station/commons/dorms)
 "usu" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/structure/cable,
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/circuit/telecomms,
 /area/station/tcommsat/server)
 "usy" = (
@@ -50077,10 +50071,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar{
+/obj/item/cigarette/cigar{
 	pixel_x = 6
 	},
-/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/cigarette/cigar,
 /turf/open/floor/carpet/royalblue,
 /area/station/service/bar/atrium)
 "uLy" = (
@@ -53705,7 +53699,7 @@
 /obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
-/obj/item/clothing/mask/cigarette/cigar{
+/obj/item/cigarette/cigar{
 	icon_state = "cigaron";
 	pixel_x = -12;
 	pixel_y = 6

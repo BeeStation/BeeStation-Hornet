@@ -42,19 +42,8 @@
 /obj/effect/spawner/random/clothing/costume,
 /turf/open/floor/plating,
 /area/template_noop)
-"j" = (
-/obj/structure/table,
-/obj/item/clothing/mask/cigarette/pipe,
-/turf/open/floor/plating,
-/area/template_noop)
 "l" = (
 /obj/item/cigbutt,
-/turf/open/floor/plating,
-/area/template_noop)
-"m" = (
-/obj/structure/rack,
-/obj/item/clothing/mask/animal/horsehead,
-/obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plating,
 /area/template_noop)
 "o" = (
@@ -71,12 +60,23 @@
 /obj/item/toy/plush/beeplushie,
 /turf/open/floor/plating,
 /area/template_noop)
+"u" = (
+/obj/structure/rack,
+/obj/item/clothing/mask/animal/horsehead,
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plating,
+/area/template_noop)
+"I" = (
+/obj/structure/table,
+/obj/item/cigarette/pipe,
+/turf/open/floor/plating,
+/area/template_noop)
 
 (1,1,1) = {"
 a
 h
-j
-m
+I
+u
 "}
 (2,1,1) = {"
 b

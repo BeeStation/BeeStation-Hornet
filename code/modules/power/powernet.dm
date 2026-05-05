@@ -42,6 +42,8 @@
 		M.powernet = null
 
 	SSmachines.powernets -= src
+	if(dirty)
+		SSmachines.dirty_powernets -= src
 	return ..()
 
 /datum/powernet/proc/is_empty()

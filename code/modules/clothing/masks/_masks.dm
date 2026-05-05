@@ -9,7 +9,6 @@
 	custom_price = 25
 	var/mask_adjusted = FALSE
 	var/adjusted_flags = null
-	var/voice_change = FALSE //Used to mask/change the user's voice, only specific masks can set this to TRUE
 	var/obj/item/organ/tongue/chosen_tongue = null
 
 /obj/item/clothing/mask/attack_self(mob/user)
@@ -20,10 +19,9 @@
 
 /obj/item/clothing/mask/Destroy()
 	chosen_tongue = null
-	. = ..()
+	return ..()
 
-/obj/item/clothing/mask/proc/get_name(mob/user, default_name)
-	return default_name
+
 
 /obj/item/clothing/mask/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
