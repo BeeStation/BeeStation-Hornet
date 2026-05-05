@@ -936,10 +936,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/cleanup_observe()
 	var/mob/target = observetarget
 	observetarget = null
-	client?.perspective = initial(client.perspective)
 	sight = initial(sight)
 	if(target)
 		LAZYREMOVE(target.observers, src)
+	set_mob_eye_to(MOB_EYE_SELF)
 
 /mob/dead/observer/verb/observe()
 	set name = "Observe"
@@ -993,7 +993,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//Istype so we filter out points of interest that are not mobs
 	if(client && mob_eye && ismob(mob_eye))
 		observetarget = mob_eye
-		client.perspective = EYE_PERSPECTIVE
 		LAZYOR(observetarget.observers, src)
 		set_mob_eye_to(observetarget)
 		to_chat(src, span_notice("You started observing [observetarget]"))
