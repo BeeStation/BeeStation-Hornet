@@ -23,8 +23,11 @@
  * 			/client/var/eye_weakref = (old eye that was used before camera_eye)
  *
  * 	### Why do you need this?
- * 	This system is robust to keep your eye sanely.
- *  For example, if Dullahan's head is away from their body, they should see things from their head.
+ * 		This system is robust to keep your eye sanely.
+ *		For example, if Dullahan's head is away from their body, they should see things from their head.
+ *  	This should be actively managed even if the dullahan mob is clientless.
+ *  	Once the clientless dullahan becomes client-holder, the player will be able to see things of the changes that made to the head.
+ * 		i.e. You are disconnected. Dullahan eye(head) is sent to another z. You login. You see things at the another z. Your body is still at the station.
 */
 
 /// necessary for set_client_eye_to() proc. This is used to compare a value. This exists because 'null' is occupied other values, and you cannot check if that's true null.
@@ -41,58 +44,54 @@
 // From this section, these exist to warn people when they use deprecated system.
 // If things are warning you, it means you've been doing something wrong, and you'd need to read what's wrong from below.
 
-
 // a janky code that restricts you using these DM flags. No, you shouldn't use these.
 #define MOB_PERSPECTIVE __do_not_use_this__use_EYE_PERSPECTIVE() //! MOB_PERSPECTIVE is not used in this codebase. Please use "EYE_PERSPECTIVE"
 #define EDGE_PERSPECTIVE __do_not_use_this__use_EYE_PERSPECTIVE() //! EDGE_PERSPECTIVE is not used in this codebase. Please use "EYE_PERSPECTIVE"
-// /client/var/perspective has three options: MOB_PERSPECTIVE, EDGE_PERSPECTIVE, EYE_PERSPECTIVE
-// If your client eye is your mob, and you use EYE_PERSPECTIVE, it is identical MOB_PERSPECTIVE
-// Instead of checking which perspective your client use, it's easy to manage to make everything is EYE_PERSPECTIVE
+	// ------- Why do we use EYE_PERSPECTIVE only? -------
+	// /client/var/perspective has three options: MOB_PERSPECTIVE, EDGE_PERSPECTIVE, EYE_PERSPECTIVE
+	// If your client eye is your mob, and you use EYE_PERSPECTIVE, it is identical MOB_PERSPECTIVE
+	// Instead of checking which perspective your client use, it's easy to manage to make everything is EYE_PERSPECTIVE
 
 /// [WARNING] This is a deprecated proc in Beestation. Do not use this. Use `set_mob_eye_to(THING)` instead.
 /// If you are not sure how to replace this proc, consult EvilDragon.
 #define set_eye(...) __DO_NOT_USE_set_eye___USE_set_mob_eye_to()
-/* 		Instruction of porting:
-Do the things below instead of using set_eye()
---------------------------------------------------
-/mob/proc/makes_my_eye_different(camera_eye)
-	DO NOT  : client.set_eye(camera_eye)            // NO: Deprecated proc
-	DO NOT  : client.set_client_eye_to(camera_eye)  // NO: Calling client proc -- set_client_eye_to() IS NOT a public proc. You shouldn't use this in general.
-	DO NOT? : reset_perspective(camera_eye) // NOPE: This is partially correct, but reset_perspective() is deprecated. Check below.
-	DO THIS : set_mob_eye_to(camera_eye)    // Correct
-
-/obj/proc/some_item_proc(mob/user)
-	DO NOT  : user.client.set_eye(src)           // NO: Deprecated proc
-	DO NOT  : user.client.set_client_eye_to(src) // NO: Calling client proc that is PRIVATE
-	DO THIS : user.set_mob_eye_to(src)  // Correct
---------------------------------------------------
-	* Advice : Check the macro definition below about reset_perspective()
-				This describes which proc you should use.
-*/
-
 /// [WARNING] This is a deprecated proc in Beestation. Do not use this. Use `set_mob_eye_to(THING)` instead.
 /// If you are not sure how to replace this proc, consult EvilDragon.
 #define reset_perspective(...) __DO_NOT_USE_reset_perspective___USE_set_mob_eye_to()
-/* 		Instruction of porting:
-Do the things below instead of using reset_perspective()
+
+/* 	---------------- Instruction of porting ----------------
+Do the things below instead of using reset_perspective() , set_eye()
+
 --------------------------------------------------
+
+/client/proc/makes_client_eye_different(camera_eye)
+	DO NOT  :  client.eye = camera_eye               // NEVER: direct value assignment
+	DO NOT  :  client.set_eye(camera_eye)            // NO: Deprecated proc
+	DO NOT  :  client.set_client_eye_to(camera_eye)  // NO: Calling client proc
+		*Warning:  set_client_eye_to() IS NOT a public proc, and shouldn't be used in general. Use "set_mob_eye_to(camera_eye)"
+
+
 /mob/proc/makes_my_eye_different(camera_eye)
-	DO NOT  : reset_perspective()      // NO: Deprecated proc, null value
-	DO NOT  : reset_perspective(null)  // NO: Deprecated proc, null value
-	DO NOT  : reset_perspective(src)   // NO: Deprecated proc, using src
-	DO NOT  : set_mob_eye_to(src)      // NO: using src
-	DO THIS : set_mob_eye_to(MOB_EYE_SELF) // Correct
+	DO NOT  :  reset_perspective()      // NO: Deprecated proc, null value
+	DO NOT  :  reset_perspective(null)  // NO: Deprecated proc, null value
+	DO NOT  :  reset_perspective(src)   // NO: Deprecated proc, using src
+	DO NOT  :  set_mob_eye_to(src)      // NO: using src
+	DO THIS :  set_mob_eye_to(MOB_EYE_SELF) // Correct
 
-	DO NOT  : reset_perspective(camera_eye) // NO: Deprecated proc
-	DO THIS : set_mob_eye_to(camera_eye)    // Correct
+	DO NOT  :  reset_perspective(camera_eye) // NO: Deprecated proc
+	DO THIS :  set_mob_eye_to(camera_eye)    // Correct
 
-	DO NOT  : if(client) {
-					set_mob_eye_to(camera_eye)}   // NO: Checking client
-	DO THIS : set_mob_eye_to(camera_eye)          // Correct
-	* REASON : set_mob_eye_to() proc already manages the client side in backend. If you do "if(client)", this will break the system.
+	DO NOT  :  if(client)     set_mob_eye_to(camera_eye)    // NO: Checking client
+	DO THIS :  set_mob_eye_to(camera_eye)                   // Correct
+		* REASON:  set_mob_eye_to() proc already manages the client side in backend. If you do "if(client)", this will break the system.
 
 /obj/proc/some_item_proc(mob/user)
-	DO NOT  : user.reset_perspective(src)  // NO: Deprecated proc
-	DO THIS : user.set_mob_eye_to(src)     // Correct
-	* REASON : This is the only case where 'src' is allowed (because it's /obj)
+	DO NOT  :  user.client.set_eye(src)     // NO: Deprecated proc
+	DO NOT  :  user.reset_perspective(src)  // NO: Deprecated proc
+	DO THIS :  user.set_mob_eye_to(src)     // Correct
+		* REASON: This is the only case where 'src' is allowed (because it's /obj)
+
+	DO NOT  :  user.set_mob_eye_to(user)          // NO: "user" is yourself.
+	DO THIS :  user.set_mob_eye_to(MOB_EYE_SELF)  // Correct (MOB_EYE_SELF is user)
+
 --------------------------------------------------*/

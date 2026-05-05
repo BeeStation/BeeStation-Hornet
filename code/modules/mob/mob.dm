@@ -533,7 +533,7 @@
 	storage.atom_storage.attempt_insert(item_to_equip)
 	return storage
 
-
+/// Sets a mob eye to "new_eye" in mob wise. This will remember how a mob's eye was changed even if they are clientless.
 /mob/proc/set_mob_eye_to(atom/new_eye)
 	// somewhat tricky. If no client ever used this mob as their eye, this proc is not necessary.
 	// This is necessary because we don't want N number of mobs having 'eye_mobs = list(src)'. not necessary.
@@ -544,12 +544,15 @@
 	// Once this condition is broken, "current_mob_eye" will be no longer null.
 	// For "isnull(computer_id)", it's just an easy way to identify if a mob is clientless.
 
+	// Checks if a client uses incorrect perspective system.
 	if(client && client.perspective != EYE_PERSPECTIVE)
 		stack_trace("something changed client's eye perspective. Current: [client.perspective]")
 		client.perspective = EYE_PERSPECTIVE
 
+	// This part checks what is your true eye through 'get_my_eye()'
+	// This is the reason why we use MOB_EYE_SELF, instead of doing 'set_mob_eye_to(src)'.
 	if(new_eye == src) // do not use when 'mob == src'
-		stack_trace("The proc received 'new_eye' as src. If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
+		stack_trace("The proc received 'new_eye' as src (or it might be 'USER.set_mob_eye_to(USER)'). If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
 		new_eye = get_my_eye()
 	else if(isnull(new_eye))
 		stack_trace("The proc received 'new_eye' as null value. If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
@@ -559,16 +562,20 @@
 	if(new_eye == current_mob_eye)
 		return // no need to do this
 
+	// Changes (atom/new_eye) argument value.
 	#define _new_eye_arg 1 // first arg. Unfortunately, there's no way to use arg name.
 	revise_proc_arg_value(_new_eye_arg, new_eye)
 	#undef _new_eye_arg
 
 	var/atom/old_eye = current_mob_eye
 
+	// Calls internal proc to finalize the eye change.
 	_on_setting_mob_eye(new_eye, old_eye)
+
+	// Sends the signal after completion of the eye change.
+	SEND_SIGNAL(src, COMSIG_MOB_SET_MOB_EYE, new_eye, old_eye)
 	// SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE, new_eye, old_eye)
 	// ^DO NOT USE^ : This exists to warn people that they shouldn't use this. Instead, use COMSIG_MOB_SET_MOB_EYE
-	SEND_SIGNAL(src, COMSIG_MOB_SET_MOB_EYE, new_eye, old_eye)
 
 	return TRUE
 
@@ -581,6 +588,7 @@
 		LAZYREMOVE(old_eye.eye_mobs, src)
 
 	current_mob_eye = new_eye
+	// If client exists, we manage the eye change at the client end as well.
 	if(client)
 		client.set_client_eye_to(current_mob_eye)
 
