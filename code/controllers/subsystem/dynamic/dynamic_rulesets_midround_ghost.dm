@@ -305,26 +305,26 @@
 
 //////////////////////////////////////////////
 //                                          //
-//           Cortical Borer (Light)        //
+//           Synapse Leech (Light)        //
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/midround/ghost/cortical_borer
-	name = "Cortical Borer"
+/datum/dynamic_ruleset/midround/ghost/synapse_leech
+	name = "Synapse Leech"
 	severity = DYNAMIC_MIDROUND_LIGHT
-	antag_datum = /datum/antagonist/cortical_borer
+	antag_datum = /datum/antagonist/synapse_leech
 	points_cost = 20
 	weight = 4
 	minimum_players_required = 5
 
-/datum/dynamic_ruleset/midround/ghost/cortical_borer/get_poll_icon()
-	return /mob/living/basic/cortical_borer
+/datum/dynamic_ruleset/midround/ghost/synapse_leech/get_poll_icon()
+	return /mob/living/basic/synapse_leech
 
-/datum/dynamic_ruleset/midround/ghost/cortical_borer/generate_ruleset_body(mob/dead/observer/chosen_mob)
-	var/mob/living/basic/cortical_borer/borer_body = new(pick(spawn_locations))
-	borer_body.key = chosen_mob.key
+/datum/dynamic_ruleset/midround/ghost/synapse_leech/generate_ruleset_body(mob/dead/observer/chosen_mob)
+	var/mob/living/basic/synapse_leech/leech_body = new(pick(spawn_locations))
+	leech_body.key = chosen_mob.key
 
-	return borer_body
+	return leech_body
 
 //////////////////////////////////////////////
 //                                          //

@@ -1,7 +1,7 @@
-/datum/antagonist/cortical_borer
-	name = "Space Dragon"
-	roundend_category = "space dragons"
-	antagpanel_category = "Space Dragon"
+/datum/antagonist/synapse_leech
+	name = "Synapse Leech"
+	roundend_category = "Synapse Leeches"
+	antagpanel_category = "Synapse Leech"
 	banning_key = ROLE_SPACE_DRAGON
 	show_in_antagpanel = TRUE
 	show_name_in_check_antagonists = TRUE

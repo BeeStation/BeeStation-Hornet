@@ -1,18 +1,18 @@
 /**
- * # Cortical Borer
+ * # Synapse Leech
  *
  * The Cortical Borer is a small, grub-like creature that burrows into the skulls of its victims to feed on their brain matter.
  *
  */
 
-/mob/living/basic/cortical_borer
-	name = "Cortical Borer"
+/mob/living/basic/synapse_leech
+	name = "Synapse Leech"
 	desc = "A disgusting grub-like worm. It's body is constantly writhing, as if something inside it is trying to get out."
-	icon = 'icons/cortical_borers/mob.dmi'
-	icon_state = "borer"
-	icon_living = "borer"
-	icon_dead = "borer_dead"
-	hud_type = /datum/hud/borer
+	icon = 'icons/synapse_leech/mob.dmi'
+	icon_state = "leech"
+	icon_living = "leech"
+	icon_dead = "leech_dead"
+	hud_type = /datum/hud/leech
 
 	// Attributes and Traits
 	maxHealth = 50
@@ -50,19 +50,19 @@
 	// AI
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	ai_controller = /datum/ai_controller/basic_controller/simple_hostile
-	faction = list(FACTION_BORER)
+	faction = list(FACTION_LEECH)
 
 	// Custom
-	/// The type of toxin the borer injects per attack
-	var/toxin_type = /datum/reagent/toxin/borer_toxin
-	/// The amount of toxin the borer injects per attack
+	/// The type of toxin the leech injects per attack
+	var/toxin_type = /datum/reagent/toxin/leech_toxin
+	/// The amount of toxin the leech injects per attack
 	var/toxin_per_attack = 5
 
-/mob/living/basic/cortical_borer/Initialize(mapload)
+/mob/living/basic/synapse_leech/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, PROC_REF(do_borer_toxin))
+	RegisterSignal(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, PROC_REF(do_leech_toxin))
 
-/mob/living/basic/cortical_borer/proc/do_borer_toxin(mob/living/element_owner, atom/target, success)
+/mob/living/basic/synapse_leech/proc/do_leech_toxin(mob/living/element_owner, atom/target, success)
 	SIGNAL_HANDLER
 
 	if(!success || !isliving(target))
@@ -79,3 +79,7 @@
 		return
 
 	living_target.reagents.add_reagent(toxin_type, rand(0, toxin_per_attack))
+
+// We do not use combat mode.
+/mob/living/basic/synapse_leech/set_combat_mode()
+	return
