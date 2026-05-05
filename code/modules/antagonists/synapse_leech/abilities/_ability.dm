@@ -6,9 +6,3 @@
 	button_icon = 'icons/synapse_leech/actions.dmi'
 	background_icon_state = "default"
 	button_icon_state = "default"
-
-// Burrow into a host
-/datum/action/leech/burrow
-	name = "Burrow"
-	desc = "The first ability of a synapse leech."
-	button_icon_state = "burrow"

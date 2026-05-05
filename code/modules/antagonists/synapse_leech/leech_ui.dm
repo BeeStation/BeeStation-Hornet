@@ -2,15 +2,6 @@
 #define ui_leech_health "EAST,CENTER-1:15"
 #define ui_leech_saturation "EAST,CENTER-2:15"
 #define ui_leech_substrate "EAST,CENTER-3:15"
-#define ui_leech_nightvision "EAST-1:28,SOUTH:5"
-#define ui_leech_hide "EAST-2:26,SOUTH:5"
-
-// We will need:
-// - A health display
-// - A saturation display
-// - A substrate display
-// - A nightvision toggle
-// - A hide-layer toggle
 
 // Hud
 /datum/hud/leech
@@ -30,12 +21,6 @@
 
 	substrate_display = new /atom/movable/screen/leech/substrate_display(null, src)
 	infodisplay += substrate_display
-
-	var/atom/movable/screen/leech/nightvision_toggle/nv = new(null, src)
-	static_inventory += nv
-
-	var/atom/movable/screen/leech/hide_toggle/hide = new(null, src)
-	static_inventory += hide
 
 // Screen things
 /atom/movable/screen/leech
@@ -118,45 +103,3 @@
 	update_health_hud()
 	update_saturation_display()
 	update_substrate_display()
-
-// Nightvision toggle. Defaults to OFF (lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE).
-/atom/movable/screen/leech/nightvision_toggle
-	name = "toggle nightvision"
-	icon_state = "nightvision_off"
-	screen_loc = ui_leech_nightvision
-	mouse_over_pointer = MOUSE_HAND_POINTER
-
-/atom/movable/screen/leech/nightvision_toggle/Click()
-	var/mob/living/basic/synapse_leech/leech = usr
-	if(!istype(leech))
-		return
-	leech.toggle_nightvision()
-	update_appearance()
-
-/atom/movable/screen/leech/nightvision_toggle/update_icon_state()
-	var/mob/living/basic/synapse_leech/leech = hud?.mymob
-	if(!istype(leech))
-		return
-	icon_state = (leech.lighting_alpha == LIGHTING_PLANE_ALPHA_VISIBLE) ? "nightvision_off" : "nightvision_on"
-	return ..()
-
-// Hide-layer toggle. Defaults to OFF (layer = MOB_LAYER).
-/atom/movable/screen/leech/hide_toggle
-	name = "toggle hiding"
-	icon_state = "hide_off"
-	screen_loc = ui_leech_hide
-	mouse_over_pointer = MOUSE_HAND_POINTER
-
-/atom/movable/screen/leech/hide_toggle/Click()
-	var/mob/living/basic/synapse_leech/leech = usr
-	if(!istype(leech))
-		return
-	leech.toggle_hide_layer()
-	update_appearance()
-
-/atom/movable/screen/leech/hide_toggle/update_icon_state()
-	var/mob/living/basic/synapse_leech/leech = hud?.mymob
-	if(!istype(leech))
-		return
-	icon_state = leech.hidden ? "hide_on" : "hide_off"
-	return ..()

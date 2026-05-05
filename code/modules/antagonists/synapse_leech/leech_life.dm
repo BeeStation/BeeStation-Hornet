@@ -15,11 +15,6 @@
 
 /// Drains that are not subject to the metabolic limit.
 /mob/living/basic/synapse_leech/proc/process_forced_drains(delta_time)
-	// Hiding burns saturation. Below the min we get yanked back out of cover like the exhausted little worm we are
-	if(hidden)
-		adjust_saturation(-LEECH_HIDE_SATURATION_DRAIN * delta_time)
-		if(saturation <= LEECH_MIN_SATURATION)
-			stop_hiding(forced = TRUE)
 
 /// Runs all passive saturation consumers, sharing a fixed metabolic budget between them.
 /mob/living/basic/synapse_leech/proc/process_passive_drains(delta_time)
