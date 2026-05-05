@@ -12,6 +12,9 @@
   - rscadd: moth bodyparts use new greyscale sprites
   - rscadd: adds new moth eye option, and makes it a preference
 2026-05-05:
+  TsunamiAnt:
+  - rscadd: Added gps signal to depvend
+  - bugfix: fixed depvend message
   rkz, Imaginos16, axietheaxolotl, Jolly, D4C-420:
   - rscadd: resprited labcoats. Gave roboticists their own labcoat
   - rscadd: resprited surgical scrubs. Added new surgical caps to match.
