@@ -1,6 +1,9 @@
 /mob/living/basic/synapse_leech/Life(delta_time, times_fired)
 	. = ..()
 
+	// We very, VERY slowly generate saturation over time. This is purely to make sure the lil guys aren't softlocked.
+	adjust_saturation(SATURATION_GENERATION_SPEED * delta_time)
+
 	// We use saturation to fill substrate.
 	// Each point of saturation consumed produces SUBSTRATE_CONVERSION_RATIO points of substrate.
 	// Cap by: how much saturation we have, and how much substrate space is left (converted back to saturation units).

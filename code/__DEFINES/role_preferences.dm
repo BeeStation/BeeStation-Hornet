@@ -35,6 +35,7 @@
 #define ROLE_HIVE "Hivemind Host"
 #define ROLE_OBSESSED "Obsessed"
 #define ROLE_SPACE_DRAGON "Space Dragon"
+#define ROLE_SPACE_LEECH "Synapse Leech"
 #define ROLE_INTERNAL_AFFAIRS "Internal Affairs Agent"
 #define ROLE_GANG "Gangster"
 #define ROLE_HOLOPARASITE "Holoparasite"

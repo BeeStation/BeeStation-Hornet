@@ -25,4 +25,14 @@
 	if(HAS_TRAIT(living_target, TRAIT_PIERCEIMMUNE))
 		return
 
-	living_target.reagents.add_reagent(toxin_type, rand(0, toxin_per_attack))
+	if(substrate <= 0)
+		return
+
+	// If we are over 5 substrate, we just apply as normal.
+	if(substrate > 5)
+		living_target.reagents.add_reagent(toxin_type, LEECH_TOXIN_PER_ATTACK)
+		adjust_substrate(-LEECH_TOXIN_PER_ATTACK)
+	else
+		// We have more than 0 substrate, but less than 5.
+		living_target.reagents.add_reagent(toxin_type, substrate)
+		adjust_substrate(-substrate)

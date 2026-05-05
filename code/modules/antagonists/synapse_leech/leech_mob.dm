@@ -63,13 +63,17 @@
 
 	/// The type of toxin the leech injects per attack
 	var/toxin_type = /datum/reagent/toxin/leech_toxin
-	/// The amount of toxin the leech injects per attack
-	var/toxin_per_attack = LEECH_TOXIN_PER_ATTACK
 
 /mob/living/basic/synapse_leech/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	RegisterSignal(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, PROC_REF(do_leech_toxin))
 	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(on_hud_created))
+
+
+
+	grant_actions_by_list(innate_actions)
+
 
 /// Called when the HUD is first created so we can initialize display values.
 /mob/living/basic/synapse_leech/proc/on_hud_created(datum/source)
