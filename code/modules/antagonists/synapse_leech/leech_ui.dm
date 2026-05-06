@@ -2,6 +2,9 @@
 #define ui_leech_health "EAST,CENTER-1:15"
 #define ui_leech_saturation "EAST,CENTER-2:15"
 #define ui_leech_substrate "EAST,CENTER-3:15"
+// Toggles
+#define ui_leech_nightvision_toggle "EAST-2:26,SOUTH+1:7"
+#define ui_leech_hide_toggle "EAST-1:28,SOUTH+1:7"
 
 // Hud
 /datum/hud/leech
@@ -9,6 +12,10 @@
 
 	var/atom/movable/screen/leech/substrate_display/substrate_display
 	var/atom/movable/screen/leech/saturation_display/saturation_display
+	/// Nightvision HUD toggle button
+	var/atom/movable/screen/leech/nightvision_toggle/nightvision_button
+	/// Hide HUD toggle button
+	var/atom/movable/screen/leech/hide_toggle/hide_button
 
 /datum/hud/leech/New(mob/owner)
 	..()
@@ -22,9 +29,79 @@
 	substrate_display = new /atom/movable/screen/leech/substrate_display(null, src)
 	infodisplay += substrate_display
 
+	nightvision_button = new /atom/movable/screen/leech/nightvision_toggle(null, src)
+	nightvision_button.screen_loc = ui_leech_nightvision_toggle
+	static_inventory += nightvision_button
+
+	hide_button = new /atom/movable/screen/leech/hide_toggle(null, src)
+	hide_button.screen_loc = ui_leech_hide_toggle
+	static_inventory += hide_button
+
 // Screen things
 /atom/movable/screen/leech
 	icon = 'icons/synapse_leech/hud.dmi'
+
+/**
+ * Nightvision HUD toggle button.
+ * Uses icon states from the standard hud.dmi: nightvision_off / nightvision_on.
+ * Clicking it directly toggles the leech's darkvision; no action datum involved.
+ */
+/atom/movable/screen/leech/nightvision_toggle
+	name = "Toggle Darkvision"
+	icon = 'icons/synapse_leech/hud.dmi'
+	icon_state = "nightvision_off"
+	mouse_over_pointer = MOUSE_HAND_POINTER
+
+/atom/movable/screen/leech/nightvision_toggle/Click()
+	var/mob/living/basic/synapse_leech/leech = usr
+	if(!istype(leech) || leech.stat != CONSCIOUS)
+		return
+
+	if(leech.nightvision_active)
+		leech.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		leech.update_sight()
+		to_chat(leech, span_notice("Your sight pierces the dark."))
+		icon_state = "nightvision_on"
+		leech.nightvision_active = TRUE
+	else
+		leech.lighting_alpha = initial(leech.lighting_alpha)
+		leech.update_sight()
+		to_chat(leech, span_notice("Your eyes settle back into their normal sensitivity."))
+		icon_state = "nightvision_off"
+		leech.nightvision_active = FALSE
+
+/**
+ * Hide HUD toggle button.
+ * Uses icon states from the standard hud.dmi: hide_off / hide_on.
+ * Clicking it directly toggles the leech's hidden state; saturation drain is handled in Life().
+ */
+/atom/movable/screen/leech/hide_toggle
+	name = "Hide"
+	icon = 'icons/synapse_leech/hud.dmi'
+	icon_state = "hide_off"
+	mouse_over_pointer = MOUSE_HAND_POINTER
+
+/atom/movable/screen/leech/hide_toggle/Click()
+	var/mob/living/basic/synapse_leech/leech = usr
+	if(!istype(leech) || leech.stat != CONSCIOUS)
+		return
+
+	if(leech.hidden)
+		leech.layer = ABOVE_NORMAL_TURF_LAYER
+		leech.visible_message(
+			span_notice("[leech] flattens itself against the floor."),
+			span_notice("You flatten yourself against the floor, slipping into the cracks."),
+		)
+		icon_state = "hide_on"
+		leech.hidden = TRUE
+	else
+		leech.layer = initial(leech.layer)
+		leech.visible_message(
+			span_notice("[leech] uncoils back to its full height."),
+			span_notice("You rise back up."),
+		)
+		icon_state = "hide_off"
+		leech.hidden = FALSE
 
 // Health display, works like the basic mob health display, just custom sprites.
 /atom/movable/screen/healths/leech

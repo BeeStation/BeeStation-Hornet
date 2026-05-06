@@ -15,6 +15,22 @@
 
 /// Drains that are not subject to the metabolic limit.
 /mob/living/basic/synapse_leech/proc/process_forced_drains(delta_time)
+	// Hiding drains saturation constantly. If we run out, unhide automatically.
+	if(hidden)
+		if(saturation <= LEECH_MIN_SATURATION)
+			balloon_alert(src, "too hungry!")
+			hidden = FALSE
+			layer = initial(layer)
+			visible_message(
+				span_notice("[src] uncoils back to its full height."),
+				span_notice("You rise back up."),
+			)
+			// Sync the HUD button icon back to off
+			var/datum/hud/leech/leech_hud = hud_used
+			if(leech_hud?.hide_button)
+				leech_hud.hide_button.icon_state = "hide_off"
+		else
+			adjust_saturation(-LEECH_HIDE_SATURATION_DRAIN * delta_time)
 
 /// Runs all passive saturation consumers, sharing a fixed metabolic budget between them.
 /mob/living/basic/synapse_leech/proc/process_passive_drains(delta_time)

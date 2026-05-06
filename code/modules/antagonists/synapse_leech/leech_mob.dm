@@ -62,6 +62,8 @@
 
 	/// Whether the leech is currently "hiding" (low layer so it slips under objects).
 	var/hidden = FALSE
+	/// Whether nightvision is currently active.
+	var/nightvision_active = FALSE
 
 	/// The mob we are currently burrowed inside, if any.
 	var/mob/living/carbon/host
