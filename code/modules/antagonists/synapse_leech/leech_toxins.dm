@@ -86,6 +86,8 @@
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
+#undef LEECH_TOXIN_STAGE_CYCLES
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////Corticolytic Paralytide//////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -184,3 +186,4 @@
 // - - Xyrthropenic Lattice Serum, A muscle stimulant promoting rapid speed, this shimmering, motile distillate threads itself through tendons, provoking erratic bursts of motion.
 // - Chem to silence them and make them look dead
 // - - Somnic Virellate, Puts a victim into a corpse-like slumber, A dormancy‑triggering fungal polymer that collapses movement and respiration into a faint, cadaverous hush.
+
