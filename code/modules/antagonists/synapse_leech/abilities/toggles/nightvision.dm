@@ -9,6 +9,8 @@
 	button_icon_state = "nightvision"
 	cooldown_time = 1 SECONDS
 
+	burrow_usage_flags = LEECH_ABILITY_USABLE_ALWAYS
+
 /datum/action/leech/toggled/nightvision/activate_toggle(mob/living/basic/synapse_leech/leech)
 	leech.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	leech.update_sight()

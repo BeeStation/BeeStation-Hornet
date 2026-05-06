@@ -43,6 +43,12 @@
 		UnregisterSignal(host, list(COMSIG_QDELETING, COMSIG_LIVING_DEATH))
 	host = null
 	nested = FALSE
+	refresh_leech_actions()
+
+/// Refreshes the availability of every leech action we own, Call this whenever something changes that may affect is_available()
+/mob/living/basic/synapse_leech/proc/refresh_leech_actions()
+	for(var/datum/action/leech/leech_action in actions)
+		leech_action.update_buttons()
 
 /// Handles the host being qdeleted while we're inside. Drop us where they were, if possible.
 /mob/living/basic/synapse_leech/proc/on_host_qdel(datum/source)

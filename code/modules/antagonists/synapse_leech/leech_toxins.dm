@@ -1,13 +1,12 @@
-// Leech Toxin. Their primary method of attack and self-defense.
-// Causes intense pain, toxin buildup, dizziness, and eventually unconsciousness and death if untreated.
 //
-// Tuning notes:
-// - Each leech bite injects LEECH_TOXIN_PER_ATTACK of this reagent.
-// - Metabolism is set so a single 5u dose clears in ~30 seconds (one "stage").
-// - SSmobs ticks every 2s, so a stage = 15 cycles. The leech can stack stages
-//   by biting again before the previous dose clears, escalating the victim
-//   from pain (stage 1) -> motor breakdown (stage 2) -> severe failure (stage 3)
-//   -> terminal (stage 4, death by ~2 minutes of sustained envenomation).
+// Leech toxins
+//
+// These are all likely to be very complicated, with multiple stages and a variety of symptoms and effects.
+//
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Nocivorant Mycelotoxin//////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
 /// Number of cycles each toxin "stage" lasts. SSmobs ticks every 2s, so 15 cycles = 30s.
 #define LEECH_TOXIN_STAGE_CYCLES 15
@@ -33,7 +32,7 @@
 	var/need_mob_update = FALSE
 
 	// Constant low-level pain and stamina drain
-	need_mob_update += affected_mob.adjustStaminaLoss(8 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+	need_mob_update += affected_mob.adjustStaminaLoss(10 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
 
 	// Phase 1, Pain & disorientation.
 	if(DT_PROB(12, delta_time))
@@ -56,7 +55,7 @@
 		if(DT_PROB(6, delta_time))
 			affected_mob.drop_all_held_items()
 			to_chat(affected_mob, span_warning("Your fingers refuse to obey you!"))
-		need_mob_update += affected_mob.adjustStaminaLoss(12 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+		need_mob_update += affected_mob.adjustStaminaLoss(20 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
 
 	// Phase 3, Severe neural failure.
 	if(current_cycle >= severe_cycle)
@@ -79,3 +78,92 @@
 
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Corticolytic Paralytide//////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/reagent/toxin/leech_paralytide
+	name = "Corticolytic Paralytide"
+	description = "A nerve-targeting paralytic that collapses motor control and speech in seconds, leaving the victim fully conscious but utterly unable to move or speak."
+	color = "#7d2bdb"
+	reagent_state = LIQUID
+	taste_description = "numb static"
+	toxpwr = 0.2
+	metabolization_rate = 0.3 // 60 seconds at standard dose of 20u
+
+	/// Stamina loss threshold at which silence is pre-emptively applied to prevent screaming into stam crit
+	var/silence_threshold = 70
+	/// Stamina loss threshold at which the collapse is triggered. Should be above silence_threshold
+	/// but below stam crit (mob.maxHealth, typically 100) so the fall is clean and silent.
+	var/collapse_threshold = 85
+	var/collapse_done = FALSE
+	var/collapse_stamina = 100
+
+/datum/reagent/toxin/leech_paralytide/on_mob_add(mob/living/affected_mob, amount)
+	. = ..()
+	// Immediate sensory effects but not full paralysis.
+	to_chat(affected_mob, span_warning("Your hands tremble as your tongue goes numb."))
+	affected_mob.adjust_jitter_up_to(8 SECONDS, 30 SECONDS)
+	affected_mob.adjust_stutter_up_to(8 SECONDS, 30 SECONDS)
+	// Small immediate stamina hit to get them to slow down
+	affected_mob.adjustStaminaLoss(20, updating_stamina = FALSE)
+
+/datum/reagent/toxin/leech_paralytide/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	var/need_mob_update = FALSE
+
+	// While the reagent is building up, the victim is jittery and losing stamina slowly.
+	if(!collapse_done)
+
+		// Apply flavor
+		affected_mob.adjust_jitter_up_to(8 SECONDS * REM * delta_time, 30 SECONDS)
+		affected_mob.adjust_stutter_up_to(8 SECONDS * REM * delta_time, 30 SECONDS)
+
+		// Check for stamina and shut them up if they are about to scream
+		var/current_stam_loss = affected_mob.getStaminaLoss()
+		if(current_stam_loss >= silence_threshold)
+			affected_mob.adjust_silence_up_to(8 SECONDS * REM * delta_time, 30 SECONDS)
+
+		// Apply stam. If they're about to scream from this, we've already silenced them.
+		need_mob_update += affected_mob.adjustStaminaLoss(50 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+
+		// Collapse threshold, the flavor is over, now we fuck them up
+		if(current_stam_loss >= collapse_threshold)
+			collapse_done = TRUE
+			need_mob_update = affected_mob.adjustStaminaLoss(collapse_stamina, updating_stamina = FALSE)
+			to_chat(affected_mob, span_userdanger("Your legs give out and you collapse as pain tears through you!"))
+			affected_mob.Knockdown(6 SECONDS)
+
+	else
+		// After collapse: sustained, heavy paralysis/stun for the rest of the reagent duration.
+		affected_mob.Paralyze(6 SECONDS * REM * delta_time)
+		affected_mob.Knockdown(6 SECONDS * REM * delta_time)
+		affected_mob.adjust_silence_up_to(8 SECONDS * REM * delta_time, 30 SECONDS)
+		affected_mob.adjust_jitter_up_to(4 SECONDS * REM * delta_time, 30 SECONDS)
+		if(DT_PROB(20, delta_time))
+			to_chat(affected_mob, span_warning(pick(
+				"Your body refuses to move!",
+				"You try to scream, but can't even open your mouth!",
+				"You can't feel your legs!",
+			)))
+
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
+
+/// These toxins are still needed:
+
+// --- Healing
+// - Organ Healing (brain focus), also cures brain traumas
+// - Brute/Burn Healing
+// - Toxin/Clone Healing + Poison purge + mutation cure.
+// - Suffocation healing, also like epinephrine it should stop the patient from dying
+// - Bleed clotting + Saline-type stuff that heals bloodloss.
+// - Emergency Panic chem. Makes them jittery and stutter and blurry vision, also dropping items, but they heal quickly, clot quickly.
+
+// --- Buffs
+// - Stamina boost
+// - Speed boost
+// - Chem to silence them and make them look dead
