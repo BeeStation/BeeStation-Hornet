@@ -8,7 +8,8 @@
 
 	burrow_usage_flags = LEECH_ABILITY_USABLE_BURROWED
 
-/datum/action/leech/feed/on_activate(mob/user, atom/target, trigger_flags)
+
+/datum/action/leech/feed/can_use()
 	var/mob/living/basic/synapse_leech/leech = get_leech()
 	var/mob/living/carbon/host = get_host()
 
@@ -18,6 +19,12 @@
 	if(!leech.nested)
 		return FALSE
 
+	return TRUE
+
+/datum/action/leech/feed/activate_leech_power()
+	var/mob/living/basic/synapse_leech/leech = get_leech()
+	var/mob/living/carbon/host = get_host()
+
 	to_chat(leech, span_warning("You begin to feed on your host's brain..."))
 	to_chat(host, span_userdanger("You suddenly get a huge headache..."))
 
@@ -25,7 +32,6 @@
 	leech.playsound_local(leech, 'sound/synapse_leech/feed.ogg', 80, TRUE)
 	host.playsound_local(host, 'sound/synapse_leech/feed.ogg', 80, TRUE)
 
-	// do_after(3 SECONDS)
 	if(!do_after(leech, 3 SECONDS, host))
 		leech.balloon_alert(leech, "interrupted!")
 		return FALSE

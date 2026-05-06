@@ -3,8 +3,8 @@
 #define ui_leech_saturation "EAST,CENTER-2:15"
 #define ui_leech_substrate "EAST,CENTER-3:15"
 // Toggles
-#define ui_leech_nightvision_toggle "EAST-2:26,SOUTH+1:7"
-#define ui_leech_hide_toggle "EAST-1:28,SOUTH+1:7"
+#define ui_leech_nightvision_toggle "EAST-2:26,SOUTH:7"
+#define ui_leech_hide_toggle "EAST-1:28,SOUTH:7"
 
 // Hud
 /datum/hud/leech
@@ -58,17 +58,17 @@
 		return
 
 	if(leech.nightvision_active)
-		leech.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		leech.update_sight()
-		to_chat(leech, span_notice("Your sight pierces the dark."))
-		icon_state = "nightvision_on"
-		leech.nightvision_active = TRUE
-	else
 		leech.lighting_alpha = initial(leech.lighting_alpha)
 		leech.update_sight()
 		to_chat(leech, span_notice("Your eyes settle back into their normal sensitivity."))
 		icon_state = "nightvision_off"
 		leech.nightvision_active = FALSE
+	else
+		leech.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		leech.update_sight()
+		to_chat(leech, span_notice("Your sight pierces the dark."))
+		icon_state = "nightvision_on"
+		leech.nightvision_active = TRUE
 
 /**
  * Hide HUD toggle button.
@@ -87,14 +87,6 @@
 		return
 
 	if(leech.hidden)
-		leech.layer = ABOVE_NORMAL_TURF_LAYER
-		leech.visible_message(
-			span_notice("[leech] flattens itself against the floor."),
-			span_notice("You flatten yourself against the floor, slipping into the cracks."),
-		)
-		icon_state = "hide_on"
-		leech.hidden = TRUE
-	else
 		leech.layer = initial(leech.layer)
 		leech.visible_message(
 			span_notice("[leech] uncoils back to its full height."),
@@ -102,6 +94,14 @@
 		)
 		icon_state = "hide_off"
 		leech.hidden = FALSE
+	else
+		leech.layer = ABOVE_NORMAL_TURF_LAYER
+		leech.visible_message(
+			span_notice("[leech] flattens itself against the floor."),
+			span_notice("You flatten yourself against the floor, slipping into the cracks."),
+		)
+		icon_state = "hide_on"
+		leech.hidden = TRUE
 
 // Health display, works like the basic mob health display, just custom sprites.
 /atom/movable/screen/healths/leech

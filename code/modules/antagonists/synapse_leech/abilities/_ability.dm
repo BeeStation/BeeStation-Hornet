@@ -77,6 +77,31 @@
 		return FALSE
 	return TRUE
 
+/**
+ * Base on_activate for all plain (non-toggled, non-targeted) leech abilities.
+ * Checks costs, calls activate_leech_power(), then pays costs and starts the cooldown on success.
+ * Subclasses should override activate_leech_power() instead of on_activate().
+ */
+/datum/action/leech/on_activate(mob/user, atom/target, trigger_flags)
+	if(!can_pay_cost())
+		return FALSE
+	if(!can_use())
+		return FALSE
+	activate_leech_power()
+	pay_cost()
+	start_cooldown()
+	return TRUE
+
+/// Override this in subclasses to implement the actual ability effect.
+/// Return TRUE on success, FALSE to abort (costs and cooldown will not be applied).
+/datum/action/leech/proc/activate_leech_power()
+	return TRUE
+
+/// Override this in subclasses to implement filtering.
+/// Return TRUE if yes, FALSE to if no.
+/datum/action/leech/proc/can_use()
+	return TRUE
+
 /// Spends the activation costs. Should only be called after can_pay_cost() returns TRUE.
 /datum/action/leech/proc/pay_cost()
 	var/mob/living/basic/synapse_leech/leech = get_leech()

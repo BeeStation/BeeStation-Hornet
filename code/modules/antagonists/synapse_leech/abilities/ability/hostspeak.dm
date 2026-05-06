@@ -9,7 +9,8 @@
 
 	burrow_usage_flags = LEECH_ABILITY_USABLE_BURROWED
 
-/datum/action/leech/hostspeak/on_activate(mob/user, atom/target, trigger_flags)
+
+/datum/action/leech/hostspeak/can_use()
 	var/mob/living/basic/synapse_leech/leech = get_leech()
 	var/mob/living/carbon/host = get_host()
 
@@ -26,6 +27,11 @@
 
 	if(!leech.nested)
 		return FALSE
+
+	return TRUE
+
+/datum/action/leech/hostspeak/activate_leech_power()
+	var/mob/living/carbon/host = get_host()
 
 	var/message = get_message()
 

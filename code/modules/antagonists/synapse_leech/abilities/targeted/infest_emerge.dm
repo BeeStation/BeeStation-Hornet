@@ -63,7 +63,7 @@
 		leech.balloon_alert(leech, "interrupted!")
 		return FALSE
 
-	victim.adjustBruteLoss(10)
+	victim.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
 	victim.add_bleeding(BLEED_SURFACE)
 
 	if(!burrow_target_still_valid(leech, victim))
@@ -83,7 +83,7 @@
 		leech.balloon_alert(leech, "interrupted!")
 		return FALSE
 
-	victim.adjustBruteLoss(20)
+	victim.apply_damage(20, BRUTE, BODY_ZONE_HEAD)
 	victim.add_bleeding(BLEED_CRITICAL)
 	victim.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 
@@ -100,7 +100,7 @@
 
 	playsound(victim, 'sound/surgery/organ2.ogg', 80, TRUE)
 
-	victim.adjustBruteLoss(10)
+	victim.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
 	victim.adjustOrganLoss(ORGAN_SLOT_BRAIN, 30)
 
 	if(!do_after(leech, burrow_stage_time, victim))
@@ -180,7 +180,7 @@
 		span_userdanger("[leech] bursts out of [host]'s skull in a spray of gore!"),
 		span_userdanger("[leech] tears its way out of your head!"),
 	)
-	host.adjustBruteLoss(40)
+	host.apply_damage(40, BRUTE, BODY_ZONE_HEAD)
 	host.adjustOrganLoss(ORGAN_SLOT_BRAIN, 100)
 	host.add_bleeding(BLEED_CRITICAL)
 
