@@ -77,11 +77,11 @@
 
 /// Grants the synapse leech's innate ability set. Called once on Initialize.
 /mob/living/basic/synapse_leech/proc/grant_leech_abilities()
-	GRANT_ACTION(/datum/action/leech/toggled/hide)
-	GRANT_ACTION(/datum/action/leech/toggled/nightvision)
-	GRANT_ACTION(/datum/action/leech/targeted/infest_emerge)
-	GRANT_ACTION(/datum/action/leech/targeted/paralyze)
-	GRANT_ACTION(/datum/action/leech/chemical_inject)
+	for(var/action_type in subtypesof(/datum/action/leech))
+		var/datum/action/leech/dummy = action_type
+		if(initial(dummy.abstract_type) == action_type)
+			continue // skip abstract intermediaries
+		GRANT_ACTION(action_type)
 
 /// Called when the HUD is first created so we can initialize display values.
 /mob/living/basic/synapse_leech/proc/on_hud_created(datum/source)

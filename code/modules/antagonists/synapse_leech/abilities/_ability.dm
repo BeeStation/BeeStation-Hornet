@@ -42,6 +42,11 @@
 /datum/action/leech/proc/get_leech()
 	return istype(owner, /mob/living/basic/synapse_leech) ? owner : null
 
+/// Convenience: returns the leech's host, or null.
+/datum/action/leech/proc/get_host()
+	var/mob/living/basic/synapse_leech/leech = get_leech()
+	return leech ? leech.host : null
+
 /// Builds the description string from the ability's costs and explanation.
 /datum/action/leech/proc/update_desc()
 	var/list/parts = list()
