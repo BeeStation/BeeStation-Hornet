@@ -79,7 +79,7 @@
 /mob/living/basic/synapse_leech/proc/grant_leech_abilities()
 	GRANT_ACTION(/datum/action/leech/toggled/hide)
 	GRANT_ACTION(/datum/action/leech/toggled/nightvision)
-	GRANT_ACTION(/datum/action/leech/targeted/burrow)
+	GRANT_ACTION(/datum/action/leech/targeted/infest_emerge)
 	GRANT_ACTION(/datum/action/leech/targeted/paralyze)
 	GRANT_ACTION(/datum/action/leech/chemical_inject)
 
