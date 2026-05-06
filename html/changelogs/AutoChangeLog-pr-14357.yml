@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: Elaborated the client eye system with code comments. Also contained
-      the defines in client_eye.dm

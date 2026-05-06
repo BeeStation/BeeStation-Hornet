@@ -38,6 +38,9 @@
   - bugfix: you can make toast again
   - rscadd: latelatejoiners spawn with toast
 2026-05-06:
+  EvilDragonfiend:
+  - code_imp: Elaborated the client eye system with code comments. Also contained
+      the defines in client_eye.dm
   rkz, Shizcalev, Smartkar:
   - rscadd: Adds 8 new accents for Bee Donors/Byond Patrons
   - bugfix: tongue speechmods won't occur when speaking native languages.
