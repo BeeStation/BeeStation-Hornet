@@ -37,3 +37,13 @@
   - bugfix: fixes suit storage appearance bug
   - bugfix: you can make toast again
   - rscadd: latelatejoiners spawn with toast
+2026-05-06:
+  rkz, Shizcalev, Smartkar:
+  - rscadd: Adds 8 new accents for Bee Donors/Byond Patrons
+  - bugfix: tongue speechmods won't occur when speaking native languages.
+  - refactor: refactored speechmods
+  - code_imp: accents can now be set via file vv edit, rather than relying on strings.
+      Gameadmins can now make custom accents, they need only a json to upload to the
+      accent quirk.
+  - rscadd: adds more animal masks, makes their code less terrible
+  - rscadd: cluwne masks are now animal mask subtype
