@@ -91,3 +91,47 @@
 // We do not use combat mode.
 /mob/living/basic/synapse_leech/set_combat_mode(new_mode, silent = TRUE)
 	return
+
+/**
+ * Synapse leeches cannot speak out loud, ever. While nested they can whisper telepathically to
+ * their host (and only their host); outside of a host, anything they "say" is silently swallowed
+ * with feedback explaining why.
+ */
+/mob/living/basic/synapse_leech/say(message, bubble_type, list/spans, sanitize = TRUE, datum/language/language, ignore_spam, forced, filterproof = FALSE, message_range = 7, datum/saymode/saymode, list/message_mods = list())
+	if(sanitize)
+		message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
+	if(!length(message))
+		return
+	// Outside of a host, we have no medium to project our voice through.
+	if(!nested || !host || QDELETED(host))
+		return
+	leech_speak_to_host(message)
+
+/// Sends a private telepathic message
+/mob/living/basic/synapse_leech/proc/leech_speak_to_host(message)
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(src, span_warning("Your message contains forbidden words."))
+		return
+	if(!host || QDELETED(host))
+		return
+	var/leech_text = "[span_bolditalics("[span_name("[src]")] -> [span_name("[host.name]")]:")] [span_notice(message)]"
+	var/host_text = "[span_bolditalics("[span_name("[src]")]:")] [span_notice(message)]"
+	host.balloon_alert(host, "You hear a voice in your head...")
+	to_chat(src, leech_text, type = MESSAGE_TYPE_RADIO, avoid_highlighting = TRUE)
+	to_chat(host, host_text, type = MESSAGE_TYPE_RADIO)
+	log_talk(message, LOG_SAY, tag = "synapse leech ([key_name(src)] -> [key_name(host)])")
+
+/// No interacting while inside the host. This is likely to be wrong, please review
+/mob/living/basic/synapse_leech/ClickOn(atom/A, params)
+	if(nested)
+		/// Everything but these
+		if(istype(A, /atom/movable/screen))
+			return ..()
+		// What the fuck are we doing here
+		var/list/modifiers = params2list(params)
+		if(check_click_intercept(params, A))
+			return
+		if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, modifiers) & COMSIG_MOB_CANCEL_CLICKON)
+			return
+		return
+	return ..()

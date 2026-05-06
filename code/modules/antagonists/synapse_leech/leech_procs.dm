@@ -36,3 +36,23 @@
 		// We have more than 0 substrate, but less than 5.
 		living_target.reagents.add_reagent(toxin_type, substrate)
 		adjust_substrate(-substrate)
+
+/// Cleans up host references and signals. Call when emerging, or if the host is destroyed.
+/mob/living/basic/synapse_leech/proc/clear_host_state()
+	if(host)
+		UnregisterSignal(host, list(COMSIG_QDELETING, COMSIG_LIVING_DEATH))
+	host = null
+	nested = FALSE
+
+/// Handles the host being qdeleted while we're inside. Drop us where they were, if possible.
+/mob/living/basic/synapse_leech/proc/on_host_qdel(datum/source)
+	SIGNAL_HANDLER
+	var/turf/exit = get_turf(source)
+	if(exit)
+		forceMove(exit)
+	clear_host_state()
+
+/// Handles the host dying while we're inside.
+/mob/living/basic/synapse_leech/proc/on_host_death(datum/source)
+	SIGNAL_HANDLER
+	to_chat(src, span_userdanger("Your host has died. Their nervous system is going cold around you."))
