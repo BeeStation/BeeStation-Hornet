@@ -45,8 +45,10 @@
 
 //Register the signal to the mob and mechs will listen for when CI is toggled, then call the parent proc, then turn on CI if the mob had CI on.
 /obj/vehicle/sealed/add_occupant(mob/occupant_entering, control_flags)
-	RegisterSignal(occupant_entering, COMSIG_MOB_CI_TOGGLED, PROC_REF(mob_toggled_ci))
 	. = ..()
+	if(!.)
+		return
+	RegisterSignal(occupant_entering, COMSIG_MOB_CI_TOGGLED, PROC_REF(mob_toggled_ci))
 	handle_ci_migration(occupant_entering)
 
 //Unregister the signal then disable CI if the vehicle has no other drivers within it.
