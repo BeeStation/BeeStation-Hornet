@@ -1,9 +1,0 @@
-author: rkz, Kapu1178(movement refactor), SomeRandomOwl(Nova CI), Kylerace(movement
-  refactor)
-delete-after: true
-changes:
-  - rscadd: Combat Indicators! These are indicators that tie directly into a mob's
-      combat state. This is meant to provide a way for players that they are intending
-      to perform an aggressive action, or even intimidate others!
-  - rscadd: Combat mode(and its indicator) will both automatically disable upon unconsciousness,
-      or when the mob surrenders!
