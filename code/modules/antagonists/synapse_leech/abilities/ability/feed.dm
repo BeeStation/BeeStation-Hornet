@@ -4,7 +4,7 @@
 	power_explanation = "Use to gain satiety."
 	button_icon_state = "feed"
 
-	cooldown_time = 20 SECONDS
+	cooldown_time = 10 SECONDS
 
 	burrow_usage_flags = LEECH_ABILITY_USABLE_BURROWED
 

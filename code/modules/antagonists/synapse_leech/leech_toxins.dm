@@ -171,30 +171,36 @@
 
 /datum/reagent/medicine/leech_organheal
 	name = "Gliostatic Myelostim"
-	description = "A regenerative stimulant that forces accelerated myelin sheath regrowth, repairing trauma-induced signal loss with unnerving efficiency."
+	description = "A regenerative stimulant that forces accelerated myelin sheath regrowth, repairing trauma-induced signal loss with unnerving accuracy."
 	color = "#a0e8c0"
 	reagent_state = LIQUID
 	taste_description = "cold metal and moss"
 	chemical_flags = CHEMICAL_NOT_SYNTH
+	// Slow trickle metabolism - one unit lingers for a long time.
+	metabolization_rate = 0.05
+	/// Per-second heal applied to the brain.
+	var/brain_heal_rate = 0.25
+	/// Per-second heal applied to other valid organs.
+	var/organ_heal_rate = 0.1
 
 /datum/reagent/medicine/leech_organheal/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	var/need_mob_update = FALSE
 
-	for(var/obj/item/organ/organ in affected_mob.internal_organs)
-		if(affected_organ_flags && !(organ.organ_flags & affected_organ_flags))
+	if(!length(affected_mob.internal_organs))
+		return
+
+	for(var/obj/item/organ/organ as anything in affected_mob.internal_organs)
+		// Skip robotic / frozen organs
+		if(organ.organ_flags & (ORGAN_ROBOTIC | ORGAN_FROZEN))
 			continue
-		// Brain heals faster than everything else
-		var/heal_amount
-		if(organ.slot == ORGAN_SLOT_BRAIN)
-			heal_amount = -3 * delta_time
-		else
-			heal_amount = -1.5 * delta_time
-		if(organ.apply_organ_damage(heal_amount))
+		if(organ.damage <= 0)
+			continue
+		var/heal_rate = (organ.slot == ORGAN_SLOT_BRAIN) ? brain_heal_rate : organ_heal_rate
+		if(affected_mob.adjustOrganLoss(organ.slot, -heal_rate * delta_time))
 			need_mob_update = TRUE
 
-	// Chance to cure a brain trauma. The worm knows it's way around brains, so it's medicine can handle serious damage
-	if(DT_PROB(5, delta_time))
+	if(DT_PROB(2, delta_time))
 		affected_mob.cure_trauma_type(resilience = TRAUMA_RESILIENCE_LOBOTOMY, special_method = TRUE)
 
 	if(need_mob_update)
@@ -216,8 +222,8 @@
 	. = ..()
 	var/need_mob_update = FALSE
 
-	need_mob_update += affected_mob.adjustBruteLoss(-3 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
-	need_mob_update += affected_mob.adjustFireLoss(-3 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+	need_mob_update += affected_mob.adjustBruteLoss(-1 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+	need_mob_update += affected_mob.adjustFireLoss(-1 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
 
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
@@ -238,8 +244,8 @@
 	. = ..()
 	var/need_mob_update = FALSE
 
-	need_mob_update += affected_mob.adjustToxLoss(-3 * delta_time, forced = TRUE, updating_health = FALSE, required_biotype = affected_biotype)
-	need_mob_update += affected_mob.adjustCloneLoss(-2 * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+	need_mob_update += affected_mob.adjustToxLoss(-1 * delta_time, forced = TRUE, updating_health = FALSE, required_biotype = affected_biotype)
+	need_mob_update += affected_mob.adjustCloneLoss(-1 * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 
 	// Purge toxin reagents from the bloodstream
 	for(var/datum/reagent/toxin/toxin in holder.reagent_list)
@@ -279,8 +285,8 @@
 
 	// Stabilize someone dying in crit similar to epinephrine
 	if(affected_mob.health <= affected_mob.crit_threshold)
-		need_mob_update += affected_mob.adjustBruteLoss(-1 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
-		need_mob_update += affected_mob.adjustFireLoss(-1 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+		need_mob_update += affected_mob.adjustBruteLoss(-0.5 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+		need_mob_update += affected_mob.adjustFireLoss(-0.5 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
 
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
@@ -302,24 +308,24 @@
 	var/need_mob_update = FALSE
 
 	// Restore blood volume
-	affected_mob.blood_volume = min(BLOOD_VOLUME_NORMAL, affected_mob.blood_volume + (5 * delta_time))
+	affected_mob.blood_volume = min(BLOOD_VOLUME_NORMAL, affected_mob.blood_volume + (2 * delta_time))
 
 	// Continuous clotting
 	affected_mob.cauterise_wounds(BLEED_TINY * delta_time)
 
 	// Minor brute healing
-	need_mob_update += affected_mob.adjustBruteLoss(-1 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+	need_mob_update += affected_mob.adjustBruteLoss(-0.25 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
 
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////Hyphovariant Reanimant//////////////////////////////////////////
+/////////////////////////////////Hypovariant Oligomers//////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/reagent/medicine/leech_reanimant
-	name = "Hyphovariant Reanimant"
-	description = "A last-resort volatile endocrine shock that floods the body with unstable energy, boosting clotting and regeneration at the cost of coordination."
+	name = "Hypovariant Oligomers"
+	description = "A last-resort volatile endocrine compound that floods the body with all manners of psychosomatic hormones, boosting clotting and regeneration at the cost of coordination."
 	color = "#ff8040"
 	reagent_state = LIQUID
 	taste_description = "burning plastic and mushroom"
@@ -335,25 +341,25 @@
 	affected_mob.set_jitter_if_lower(15 SECONDS)
 	affected_mob.set_stutter_if_lower(10 SECONDS)
 	affected_mob.set_eye_blur_if_lower(10 SECONDS)
-	// Drop held items - body is spasming
+	// Drop held items
 	affected_mob.drop_all_held_items()
 	// Immediate clotting burst
 	if(iscarbon(affected_mob))
 		var/mob/living/carbon/carbon_mob = affected_mob
-		carbon_mob.cauterise_wounds(10)
+		carbon_mob.suppress_bloodloss(10)
 		carbon_mob.blood_volume = min(BLOOD_VOLUME_NORMAL, carbon_mob.blood_volume + 50)
 
 /datum/reagent/medicine/leech_reanimant/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	var/need_mob_update = FALSE
 
-	// Fast multi-type healing
-	need_mob_update += affected_mob.adjustBruteLoss(-5 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
-	need_mob_update += affected_mob.adjustFireLoss(-5 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
-	need_mob_update += affected_mob.adjustToxLoss(-3 * delta_time, forced = TRUE, updating_health = FALSE, required_biotype = affected_biotype)
-	need_mob_update += affected_mob.adjustOxyLoss(-3 * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+	// Fast all healing
+	need_mob_update += affected_mob.adjustBruteLoss(-1 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+	need_mob_update += affected_mob.adjustFireLoss(-1 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+	need_mob_update += affected_mob.adjustToxLoss(-1 * delta_time, forced = TRUE, updating_health = FALSE, required_biotype = affected_biotype)
+	need_mob_update += affected_mob.adjustOxyLoss(-2 * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 	affected_mob.blood_volume = min(BLOOD_VOLUME_NORMAL, affected_mob.blood_volume + (3 * delta_time))
-	affected_mob.cauterise_wounds(2 * delta_time)
+	affected_mob.cauterise_wounds(BLEED_TINY * delta_time)
 
 	// Debuffs
 	affected_mob.adjust_jitter_up_to(10 SECONDS * delta_time, 15 SECONDS)
@@ -415,8 +421,8 @@
 
 /datum/reagent/medicine/leech_speedboost/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	// Mild stamina drain
-	affected_mob.adjustStaminaLoss(1 * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+	// stamina drain
+	affected_mob.adjustStaminaLoss(5 * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////Somnic Virellate////////////////////////////////////////////////
@@ -443,5 +449,4 @@
 
 /datum/reagent/toxin/leech_fakedeath/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	// Suppresses vocalisation
 	affected_mob.set_silence_if_lower(6 SECONDS)
