@@ -946,16 +946,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/station/maintenance/department/science/central)
-"aLj" = (
-/obj/structure/closet/secure_closet/personal,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/item/clothing/mask/rat/bear,
-/obj/item/hand_labeler,
-/turf/open/floor/carpet/green,
-/area/station/service/cafeteria)
 "aLu" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/tile/red{
@@ -6559,6 +6549,16 @@
 "ejh" = (
 /turf/closed/wall,
 /area/station/maintenance/department/crew_quarters/dorms)
+"ejm" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/clothing/mask/animal/small/bear,
+/obj/item/hand_labeler,
+/turf/open/floor/carpet/green,
+/area/station/service/cafeteria)
 "ejA" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -6595,15 +6595,6 @@
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/department/security/brig)
-"ekx" = (
-/obj/structure/closet/crate/hydroponics{
-	req_access_txt = "35;28"
-	},
-/obj/item/clothing/head/utility/beekeeper_head,
-/obj/item/clothing/suit/utility/beekeeper_suit,
-/obj/item/vape,
-/turf/open/floor/plating,
-/area/station/maintenance/department/crew_quarters/bar)
 "ekB" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 4
@@ -7142,23 +7133,6 @@
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/department/crew_quarters/dorms)
-"eym" = (
-/obj/machinery/status_display/ai{
-	pixel_x = 32
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 4
-	},
-/obj/structure/table/reinforced,
-/obj/item/folder/red{
-	pixel_y = 3
-	},
-/obj/item/cigarette/cigar,
-/turf/open/floor/iron,
-/area/station/command/bridge)
 "eyw" = (
 /obj/structure/chair/office,
 /obj/effect/turf_decal/siding/wood{
@@ -7412,6 +7386,28 @@
 /obj/machinery/atmospherics/pipe/smart/simple/purple,
 /turf/closed/wall,
 /area/station/maintenance/disposal/incinerator)
+"eEL" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/folder/red{
+	pixel_x = 5;
+	pixel_y = 16
+	},
+/obj/item/cigarette/cigar{
+	pixel_x = -2;
+	pixel_y = 3
+	},
+/obj/item/lighter{
+	pixel_x = 5;
+	pixel_y = -2
+	},
+/turf/open/floor/iron/dark,
+/area/station/security/brig)
 "eEW" = (
 /obj/effect/landmark/start/assistant,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -16550,6 +16546,15 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/station/service/library/abandoned)
+"kgE" = (
+/obj/structure/closet/crate/hydroponics{
+	req_access_txt = "35;28"
+	},
+/obj/item/clothing/head/utility/beekeeper_head,
+/obj/item/clothing/suit/utility/beekeeper_suit,
+/obj/item/vape,
+/turf/open/floor/plating,
+/area/station/maintenance/department/crew_quarters/bar)
 "khe" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -19151,6 +19156,23 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plating,
 /area/station/maintenance/department/bridge)
+"lNl" = (
+/obj/machinery/status_display/ai{
+	pixel_x = 32
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/folder/red{
+	pixel_y = 3
+	},
+/obj/item/cigarette/cigar,
+/turf/open/floor/iron,
+/area/station/command/bridge)
 "lNw" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -19429,24 +19451,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/station/maintenance/department/science/xenobiology)
-"lVz" = (
-/obj/machinery/power/smes{
-	charge = 5e+006;
-	name = "ai power storage unit"
-	},
-/obj/machinery/flasher{
-	id = "AI";
-	name = "Meatbag Pacifier";
-	pixel_x = 23;
-	pixel_y = 22
-	},
-/obj/item/toy/plush/lizard_plushie{
-	pixel_x = 1;
-	pixel_y = 14
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/circuit/red,
-/area/station/ai_monitored/turret_protected/ai)
 "lVJ" = (
 /obj/structure/railing,
 /turf/open/openspace/planetary,
@@ -20179,6 +20183,14 @@
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/department/engine)
+"msm" = (
+/obj/structure/cable,
+/obj/machinery/camera/directional/east,
+/obj/machinery/power/smes/engineering,
+/turf/open/floor/iron/dark/telecomms{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
+/area/station/tcommsat/computer)
 "msK" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/spider/stickyweb,
@@ -21593,6 +21605,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/hallway)
+"nhc" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/clothing/mask/animal/frog,
+/obj/item/melee/skateboard,
+/turf/open/floor/carpet/green,
+/area/station/service/cafeteria)
 "nhq" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -22054,6 +22076,10 @@
 "nwF" = (
 /turf/open/floor/grass/no_border,
 /area/station/hallway/primary/aft)
+"nwG" = (
+/obj/machinery/power/smes/engineering,
+/turf/closed/indestructible/rock/bedrock,
+/area/paradise)
 "nxr" = (
 /turf/closed/wall/rust,
 /area/station/science/server)
@@ -22163,16 +22189,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/station/medical/morgue)
-"nAT" = (
-/obj/structure/closet/secure_closet/personal,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/item/clothing/mask/frog,
-/obj/item/melee/skateboard,
-/turf/open/floor/carpet/green,
-/area/station/service/cafeteria)
 "nBe" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -28572,28 +28588,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/station/maintenance/department/engine)
-"rsa" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/item/folder/red{
-	pixel_x = 5;
-	pixel_y = 16
-	},
-/obj/item/cigarette/cigar{
-	pixel_x = -2;
-	pixel_y = 3
-	},
-/obj/item/lighter{
-	pixel_x = 5;
-	pixel_y = -2
-	},
-/turf/open/floor/iron/dark,
-/area/station/security/brig)
 "rsd" = (
 /obj/structure/railing{
 	dir = 1
@@ -35246,6 +35240,23 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
+"vuI" = (
+/obj/machinery/flasher{
+	id = "AI";
+	name = "Meatbag Pacifier";
+	pixel_x = 23;
+	pixel_y = 22
+	},
+/obj/item/toy/plush/lizard_plushie{
+	pixel_x = 1;
+	pixel_y = 14
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/power/smes/engineering{
+	name = "ai power storage unit"
+	},
+/turf/open/floor/circuit/red,
+/area/station/ai_monitored/turret_protected/ai)
 "vuN" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/rack,
@@ -38353,16 +38364,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/science/research)
-"xgN" = (
-/obj/machinery/power/smes{
-	charge = 2e+007
-	},
-/obj/structure/cable,
-/obj/machinery/camera/directional/east,
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
-/area/station/tcommsat/computer)
 "xhe" = (
 /obj/structure/sign/departments/minsky/research/research,
 /turf/closed/wall/r_wall,
@@ -41109,7 +41110,7 @@ qdb
 qdb
 qdb
 qdb
-qdb
+nwG
 qdb
 mGR
 mGR
@@ -54145,8 +54146,8 @@ xad
 efu
 efu
 xad
-nAT
-aLj
+nhc
+ejm
 xad
 ybz
 rcl
@@ -116599,7 +116600,7 @@ dJB
 tke
 vJh
 jCQ
-ekx
+kgE
 pcQ
 iBn
 iBn
@@ -118174,7 +118175,7 @@ kwK
 tno
 fTd
 qDy
-xgN
+msm
 xwg
 due
 akO
@@ -181899,7 +181900,7 @@ puw
 aAF
 kyS
 eAN
-rsa
+eEL
 nfa
 mjc
 ssK
@@ -185986,7 +185987,7 @@ usE
 nun
 bRl
 bZK
-lVz
+vuI
 vlP
 glq
 kxT
@@ -189607,7 +189608,7 @@ xCX
 dOw
 gxr
 diO
-eym
+lNl
 uaX
 faV
 wNY

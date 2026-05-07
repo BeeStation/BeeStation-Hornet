@@ -1,14 +1,13 @@
 {
-	
-	"spurdo": {
-		"epic": "ebin",
-		"c": "g", 
+	"words": {
+		"epic": "ebin"
+	},
+	"syllables": {
 		"ck": "gg",
+		"c": "g",
 		"k": "g",
 		"t": "d",
 		"p": "b",
 		"x": "gs"
-		}
-	
-	
+	}
 }

@@ -1,0 +1,52 @@
+2026-05-01:
+  TsunamiAnt:
+  - tweak: apid wing sprites are now fancy and work like moth wings
+  - code_imp: add alpha functionality to apid wings and similar
+2026-05-03:
+  mrmanlikesbt:
+  - bugfix: Fixed it not being possible for maploaded SMESes to start empty
+  - bugfix: Fixed several SMESes starting with power when they shouldn't have (disconnected
+      part of the lavaland outpost)
+  rkz, Ebin-Halcyon:
+  - rscadd: moths can now set mutcolors
+  - rscadd: moth bodyparts use new greyscale sprites
+  - rscadd: adds new moth eye option, and makes it a preference
+2026-05-05:
+  EvilDragonfiend:
+  - balance: Quadra-oxymix is now "Perfluorodecalin 50u, Dexalin 20u, Dexalin Plus
+      20u, Salbutamol 20u, with 100u of Saline-Glucose Solution". This change has
+      been made in the late follow-up of the basic chem nerf. 5u of Antitoxin will
+      be enough to manage the perfluo downside.
+  TsunamiAnt:
+  - rscadd: Added gps signal to depvend
+  - bugfix: fixed depvend message
+  mrmanlikesbt, Arthri:
+  - code_imp: The majority of the functions in collections.ts have been replaced with
+      equivalents from the es-toolkit package
+  rkz, Imaginos16, axietheaxolotl, Jolly, D4C-420:
+  - rscadd: resprited labcoats. Gave roboticists their own labcoat
+  - rscadd: resprited surgical scrubs. Added new surgical caps to match.
+  - rscadd: gave the RD a jacket/labcoat hybrid
+  - rscadd: recolored the CMO to contrast regular doctors and surgical gear more.
+      More in-line with CMO's original Star Trek reference(though how little that
+      matters)
+  rkz, Rohesie:
+  - bugfix: Fixed roundstart players not getting radio information.
+  - bugfix: fixed crappy cases where coders put job information in radio hints, rather
+      than, y'know, JOB hints.
+  - bugfix: fixes suit storage appearance bug
+  - bugfix: you can make toast again
+  - rscadd: latelatejoiners spawn with toast
+2026-05-06:
+  EvilDragonfiend:
+  - code_imp: Elaborated the client eye system with code comments. Also contained
+      the defines in client_eye.dm
+  rkz, Shizcalev, Smartkar:
+  - rscadd: Adds 8 new accents for Bee Donors/Byond Patrons
+  - bugfix: tongue speechmods won't occur when speaking native languages.
+  - refactor: refactored speechmods
+  - code_imp: accents can now be set via file vv edit, rather than relying on strings.
+      Gameadmins can now make custom accents, they need only a json to upload to the
+      accent quirk.
+  - rscadd: adds more animal masks, makes their code less terrible
+  - rscadd: cluwne masks are now animal mask subtype

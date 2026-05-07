@@ -27,13 +27,14 @@
 // this is specifically made as an example for a sleeper feature that uses a chem bag at roundstart.
 /obj/item/reagent_containers/chem_bag/oxy_mix
 	name = "Quadra-oxymix Medicines Bag"
-	desc = "a small note on it says: Perfluorodecalin 70u, Dexalin 10u, Dexalin Plus 10u, Salbutamol 10u."
+	desc = "a small note on it says: Perfluorodecalin 50u, Dexalin 20u, Dexalin Plus 20u, Salbutamol 20u, with 100u of Saline-Glucose Solution."
 	label_name = "Quadra-oxymix Medicines"
 	list_reagents = list(
-		/datum/reagent/medicine/perfluorodecalin = 70,
-		/datum/reagent/medicine/dexalin = 10,
-		/datum/reagent/medicine/dexalinp = 10,
-		/datum/reagent/medicine/salbutamol = 10
+		/datum/reagent/medicine/perfluorodecalin = 50,
+		/datum/reagent/medicine/dexalin = 20,
+		/datum/reagent/medicine/dexalinp = 20,
+		/datum/reagent/medicine/salbutamol = 20,
+		/datum/reagent/medicine/salglu_solution = 100,
 		) // you are welcome to change the chem contents here
 
 /obj/item/reagent_containers/chem_bag/epi
