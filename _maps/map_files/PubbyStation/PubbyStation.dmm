@@ -110,8 +110,8 @@
 /area/station/cargo/office)
 "abG" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/paper_bin,
 /turf/open/floor/carpet,
 /area/station/command/heads_quarters/captain)
 "abI" = (
@@ -1968,8 +1968,8 @@
 /area/station/security/detectives_office/private_investigators_office)
 "aGN" = (
 /obj/structure/table,
-/obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/paper_bin,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
@@ -18241,8 +18241,8 @@
 /turf/open/floor/iron/dark/textured,
 /area/station/security/execution/education)
 "gvS" = (
-/obj/structure/table/glass,
 /obj/item/pen,
+/obj/structure/table/glass,
 /obj/item/paper_bin,
 /turf/open/floor/iron,
 /area/station/engineering/main)
@@ -31832,8 +31832,8 @@
 /area/station/command/bridge)
 "lAc" = (
 /obj/structure/table/wood/fancy/green,
-/obj/item/folder/blue,
 /obj/item/pen,
+/obj/item/folder/blue,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
@@ -37199,8 +37199,6 @@
 "nKl" = (
 /obj/structure/closet/secure_closet/security/sec,
 /obj/effect/turf_decal/bot,
-/obj/item/clothing/under/syndicate/camo,
-/obj/item/clothing/head/helmet/rus_helmet,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/brig)
 "nKm" = (
