@@ -254,7 +254,7 @@
 	host_mob.set_hud_image_state(DIAG_NANITE_FULL_HUD, "nanites[nanite_percent]")
 	host_mob.set_hud_image_active(DIAG_NANITE_FULL_HUD)
 
-/datum/component/nanites/proc/on_emp(datum/source, severity)
+/datum/component/nanites/proc/on_emp(datum/source, severity, protection)
 	SIGNAL_HANDLER
 
 	nanite_volume *= (rand(60, 90) * 0.01)		//Lose 10-40% of nanites

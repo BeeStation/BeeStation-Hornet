@@ -125,7 +125,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	new_dna.update_body_size() //Must come after features.Copy()
 	// Mutations aren't gc managed, but they still aren't templates
 	// Let's do a proper copy
-	for(var/datum/mutation/human/mutation in mutations)
+	for(var/datum/mutation/mutation in mutations)
 		new_dna.add_mutation(mutation, mutation.class, mutation.timeout)
 
 /datum/dna/proc/compare_dna(datum/dna/other)

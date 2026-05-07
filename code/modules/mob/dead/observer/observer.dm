@@ -273,7 +273,7 @@ Transfer_mind is there to check if mob is being deleted/not going to have a body
 Works together with spawning an observer, noted above.
 */
 
-/mob/proc/ghostize(can_reenter_corpse = TRUE,sentience_retention = SENTIENCE_SKIP)
+/mob/proc/ghostize(can_reenter_corpse = TRUE, sentience_retention = SENTIENCE_SKIP)
 	if(key)
 		if(key[1] != "@") // Skip aghosts.
 			stop_sound_channel(CHANNEL_HEARTBEAT) //Stop heartbeat sounds because You Are A Ghost Now
@@ -363,6 +363,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(mind.current.key && mind.current.key[1] != "@")	//makes sure we don't accidentally kick any clients
 		to_chat(usr, span_warning("Another consciousness is in your body...It is resisting you."))
 		return
+	//--------------------------------------
+	// identical to the codes from 'observe()', but calling that proc makes a SpacemanDMM warning
+	if(observetarget) // stop observing.
+		to_chat(src, span_notice("You stopped observing [observetarget]"))
+		LAZYREMOVE(observetarget.observers, src)
+		observetarget = null
+		set_mob_eye_to(MOB_EYE_SELF)
+		if(hud_used)
+			client.screen = list()
+			hud_used.show_hud(hud_used.hud_version)
+	//--------------------------------------
 	client.view_size.resetToDefault(getScreenSize(src))//Let's reset so people can't become allseeing gods //For real this time
 	SStgui.on_transfer(src, mind.current) // Transfer NanoUIs.
 	mind.current.key = key
@@ -847,32 +858,36 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(NAMEOF(src, can_respawn))
 			create_mob_hud()
 
-/mob/dead/observer/reset_perspective(atom/new_eye)
-	if(client)
-		if(ismob(client.eye) && (client.eye != src))
-			var/mob/target = client.eye
-			observetarget = null
-			if(target.observers)
-				target.observers -= src
-				UNSETEMPTY(target.observers)
-	if(..())
+/mob/dead/observer/verb/cancel_camera_ghosts()
+	set name = "Cancel Camera View"
+	set category = "Ghost"
+
+	if(observetarget) // stop observing
+		to_chat(src, span_notice("You stopped observing [observetarget]"))
+		LAZYREMOVE(observetarget.observers, src)
+		observetarget = null
+		set_mob_eye_to(MOB_EYE_SELF)
 		if(hud_used)
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
 
-/mob/dead/observer/verb/cancel_camera_ghosts()
-	set name = "Cancel Camera View"
-	set category = "Ghost"
-	reset_perspective(null)
 	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
 
 /mob/dead/observer/verb/observe()
 	set name = "Observe"
 	set category = "Ghost"
 
-	var/list/creatures = getpois()
+	if(observetarget) // stop observing
+		to_chat(src, span_notice("You stopped observing [observetarget]"))
+		LAZYREMOVE(observetarget.observers, src)
+		observetarget = null
+		set_mob_eye_to(MOB_EYE_SELF)
+		if(hud_used)
+			client.screen = list()
+			hud_used.show_hud(hud_used.hud_version)
+		return
 
-	reset_perspective(null)
+	var/list/creatures = getpois()
 
 	var/eye_name = null
 
@@ -883,15 +898,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/mob/mob_eye = creatures[eye_name]
 	//Istype so we filter out points of interest that are not mobs
-	if(client && mob_eye && istype(mob_eye))
-		client.set_eye(mob_eye)
-		add_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
-		if(mob_eye.hud_used)
+	if(client && mob_eye && ismob(mob_eye))
+		observetarget = mob_eye
+		LAZYOR(observetarget.observers, src)
+		set_mob_eye_to(observetarget)
+		to_chat(src, span_notice("You started observing [observetarget]"))
+		if(observetarget.hud_used)
 			client.screen = list()
-			LAZYINITLIST(mob_eye.observers)
-			mob_eye.observers |= src
-			mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
-			observetarget = mob_eye
+			observetarget.hud_used.show_hud(observetarget.hud_used.hud_version, src)
 
 /mob/dead/observer/verb/register_pai_candidate()
 	set category = "Ghost"

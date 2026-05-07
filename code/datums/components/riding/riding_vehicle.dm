@@ -357,7 +357,8 @@
 		our_chair.say("Warning: Power low!")
 		our_chair.low_power_alerted = TRUE
 
-/datum/component/riding/vehicle/proc/on_emp_act(datum/source, severity)
+
+/datum/component/riding/vehicle/proc/on_emp_act(datum/source, severity, protection)
 	SIGNAL_HANDLER
 
 	if(!empable)

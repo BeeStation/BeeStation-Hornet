@@ -218,8 +218,10 @@
 
 /mob/living/carbon/human/proc/sec_hud_set_ID()
 	var/sechud_icon_state = "hudno_id"
-	if(wear_id?.GetID() && !HAS_TRAIT(src, TRAIT_UNKNOWN))
-		sechud_icon_state = "hud[ckey(wear_id.get_item_job_icon())]"
+	var/obj/item/id_to_look_at = wear_id?.GetID()
+
+	if(id_to_look_at && !HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
+		sechud_icon_state = "hud[id_to_look_at.get_item_job_icon()]"
 
 	set_hud_image_state(ID_HUD, sechud_icon_state)
 	sec_hud_set_security_status()

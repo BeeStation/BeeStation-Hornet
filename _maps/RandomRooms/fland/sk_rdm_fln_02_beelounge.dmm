@@ -76,9 +76,7 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/obj/structure/sink{
-	pixel_y = 30
-	},
+/obj/structure/sink/directional/north,
 /turf/open/floor/noslip/standard,
 /area/template_noop)
 "G" = (

@@ -510,7 +510,7 @@
 	RETURN_TYPE(/datum/armor)
 	if (ismob(loc) && loc != examiner && HAS_TRAIT(src, TRAIT_VALUE_MIMIC_PATH))
 		var/atom/mimic_path = GET_TRAIT_VALUE(src, TRAIT_VALUE_MIMIC_PATH)
-		return get_armor_by_type(mimic_path:armor_type)
+		return get_armor_by_type(mimic_path::armor_type)
 	return get_armor()
 
 /**

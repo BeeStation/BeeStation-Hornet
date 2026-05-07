@@ -836,6 +836,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(isanimal_or_basicmob(loc))
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/structure/closet/stasis/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
@@ -859,9 +860,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 			L.investigate_log("has died from [src].", INVESTIGATE_DEATHS)
 			L.death(FALSE)
 	..()
-
-/obj/structure/closet/stasis/emp_act()
-	return
 
 /obj/structure/closet/stasis/ex_act()
 	return

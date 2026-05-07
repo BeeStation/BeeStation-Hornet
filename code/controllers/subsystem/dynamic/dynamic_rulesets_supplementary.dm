@@ -61,6 +61,7 @@
 
 		chosen_mind.special_role = initial(antag_datum.banning_key)
 		chosen_mind.restricted_roles = restricted_roles
+	LAZYNULL(candidates)
 
 /datum/dynamic_ruleset/supplementary/execute()
 	. = ..()

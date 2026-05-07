@@ -136,10 +136,10 @@
 	/// Whether or not this client has the combo HUD enabled
 	var/combo_hud_enabled = FALSE
 
-	/// client/eye is immediately changed, and it makes a lot of errors to track eye change
+	/// client/eye is immediately changed, and it makes a lot of errors to track eye change. This eye_weakref helps to track what the client's old eye was.
 	var/datum/weakref/eye_weakref
 
-///Autoclick list of two elements, first being the clicked thing, second being the parameters.
+	///Autoclick list of two elements, first being the clicked thing, second being the parameters.
 	var/list/atom/selected_target[2]
 	///Used in MouseDrag to preserve the original mouse click parameters
 	var/mouseParams = ""

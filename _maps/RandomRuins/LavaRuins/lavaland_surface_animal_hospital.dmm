@@ -382,6 +382,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
+"ea" = (
+/obj/item/rag,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/ruin/powered/animal_hospital)
 "fx" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#354562";
@@ -568,19 +576,19 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
-"vL" = (
-/obj/item/rag,
-/obj/item/reagent_containers/spray/cleaner,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/ruin/powered/animal_hospital)
 "vZ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/bed/roller,
 /turf/open/floor/iron/white,
+/area/ruin/powered/animal_hospital)
+"we" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror{
+	pixel_x = -28
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "wl" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -936,18 +944,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
-"RD" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
-/obj/structure/mirror{
-	pixel_x = -28
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/ruin/powered/animal_hospital)
 "Sb" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -1264,7 +1260,7 @@ ab
 ae
 aj
 Pt
-RD
+we
 ae
 HP
 HP
@@ -1633,7 +1629,7 @@ xo
 Xe
 Xe
 Xe
-vL
+ea
 HP
 Xe
 Ny

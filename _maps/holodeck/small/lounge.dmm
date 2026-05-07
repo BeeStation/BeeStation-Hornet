@@ -1,4 +1,19 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/table/wood/bar,
+/obj/item/rag{
+	pixel_x = 10;
+	pixel_y = 1
+	},
+/obj/item/storage/box/cups{
+	pixel_x = -7;
+	pixel_y = 1
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
 "c" = (
 /obj/machinery/door/window{
 	base_state = "right";
@@ -37,21 +52,6 @@
 	},
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
-"i" = (
-/obj/structure/table/wood/bar,
-/obj/item/rag{
-	pixel_x = 10;
-	pixel_y = 1
-	},
-/obj/item/storage/box/cups{
-	pixel_x = -7;
-	pixel_y = 1
-	},
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
 "k" = (
 /obj/structure/table/wood/bar,
 /obj/structure/window/reinforced/spawner/directional/east,
@@ -69,17 +69,6 @@
 /area/template_noop)
 "m" = (
 /obj/structure/chair/wood,
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
-"n" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -107,6 +96,14 @@
 /area/template_noop)
 "q" = (
 /turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"s" = (
+/obj/structure/table/wood/poker,
+/obj/item/cigarette/pipe,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
 /area/template_noop)
 "u" = (
 /obj/structure/chair/wood{
@@ -147,15 +144,6 @@
 	dir = 9;
 	icon_state = "wood"
 	},
-/area/template_noop)
-"D" = (
-/obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/pipe,
-/obj/effect/holodeck_effect/random_book,
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
-	},
-/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "E" = (
 /obj/effect/turf_decal/siding/wood,
@@ -226,6 +214,15 @@
 	},
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
+"P" = (
+/obj/structure/table/wood,
+/obj/item/cigarette/pipe,
+/obj/effect/holodeck_effect/random_book,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
 "Q" = (
 /obj/structure/table/wood,
 /obj/effect/holodeck_effect/random_book,
@@ -248,14 +245,6 @@
 	},
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
-"T" = (
-/obj/structure/table/wood/poker,
-/obj/item/clothing/mask/cigarette/pipe,
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
 "U" = (
 /obj/structure/table/wood/poker,
 /obj/item/storage/pill_bottle/dice,
@@ -271,6 +260,13 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
+"Z" = (
+/obj/structure/sink/directional/east,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
 
 (1,1,1) = {"
 C
@@ -278,8 +274,8 @@ z
 z
 z
 V
-i
-n
+a
+Z
 "}
 (2,1,1) = {"
 z
@@ -310,7 +306,7 @@ R
 "}
 (5,1,1) = {"
 m
-T
+s
 o
 F
 q
@@ -333,5 +329,5 @@ z
 N
 S
 H
-D
+P
 "}

@@ -185,7 +185,7 @@
 
 /datum/outfit/cat_butcher
 	name = "Cat Butcher Uniform"
-	uniform = /obj/item/clothing/under/rank/medical/doctor/green
+	uniform = /obj/item/clothing/under/rank/medical/scrubs/green
 	suit = /obj/item/clothing/suit/apron/surgical
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
@@ -208,7 +208,7 @@
 	belt = /obj/item/storage/belt/fannypack/yellow/bee_terrorist
 	id = /obj/item/card/id
 	l_pocket = /obj/item/paper/fluff/bee_objectives
-	mask = /obj/item/clothing/mask/rat/bee
+	mask = /obj/item/clothing/mask/animal/small/bee
 
 /obj/effect/mob_spawn/human/corpse/psychost
 	name = "Psycho"
@@ -261,7 +261,7 @@
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/tackler/combat
 	belt = /obj/item/storage/belt/military/assault
-	mask = /obj/item/clothing/mask/cigarette/cigar
+	mask = /obj/item/cigarette/cigar
 	head = /obj/item/clothing/head/beret/corpwarden
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch
 	back = /obj/item/storage/backpack/satchel/sec
