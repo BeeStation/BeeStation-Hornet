@@ -1,0 +1,8 @@
+author: mrmanlikesbt, SyncIt21, loganuk, vinylspiders
+delete-after: true
+changes:
+  - refactor: refactored how air sensors & atmos monitors connect to each other. Please
+      report any atmos computers that have missing input valves/output ports on their
+      connected air sensors or those that don't list any air sensors at all on github
+  - code_imp: Atmos pipes should use less GPU to render their gas overlays now
+  - bugfix: Fixed a division by zero error with passive vents
