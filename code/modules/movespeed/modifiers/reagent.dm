@@ -46,3 +46,7 @@
 
 /datum/movespeed_modifier/reagent/staminatoxin
 	multiplicative_slowdown = 1
+
+/datum/movespeed_modifier/reagent/xyrthropenic_lattice
+	multiplicative_slowdown = -0.4
+	blacklisted_movetypes = (FLYING|FLOATING)

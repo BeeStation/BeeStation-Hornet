@@ -18,6 +18,7 @@
 	reagent_state = LIQUID
 	taste_description = "rotting fungus"
 	toxpwr = 0.5
+	chemical_flags = CHEMICAL_NOT_SYNTH
 
 	metabolization_rate = 0.15
 	/// Cycle threshold at which motor symptoms (drops, blur, jitter) begin.
@@ -81,7 +82,7 @@
 		// Not going to wake up from this one.
 		affected_mob.SetSleeping(5 SECONDS)
 
-		need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10 * delta_time)
+		need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10 * delta_time, required_organ_flag = affected_organ_flags)
 
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
@@ -92,7 +93,7 @@
 /////////////////////////////////Corticolytic Paralytide//////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-/datum/reagent/toxin/leech_paralytide
+/datum/reagent/toxin/leech_stun
 	name = "Corticolytic Paralytide"
 	description = "A nerve-targeting paralytic that collapses motor control and speech in seconds, leaving the victim fully conscious but utterly unable to move or speak."
 	color = "#7d2bdb"
@@ -100,12 +101,13 @@
 	taste_description = "numb static"
 	toxpwr = 0.2
 	metabolization_rate = 0.4
+	chemical_flags = CHEMICAL_NOT_SYNTH
 
 	/// Stamina loss threshold at which the collapse is triggered.
 	var/collapse_threshold = 85
 	var/collapse_done = FALSE
 
-/datum/reagent/toxin/leech_paralytide/on_mob_add(mob/living/affected_mob, amount)
+/datum/reagent/toxin/leech_stun/on_mob_add(mob/living/affected_mob, amount)
 	. = ..()
 	// Immediate sensory effects but not full paralysis.
 	to_chat(affected_mob, span_warning("Your hands tremble as your tongue goes numb."))
@@ -119,7 +121,7 @@
 	// Small immediate stamina hit to get them to slow down
 	affected_mob.adjustStaminaLoss(20, updating_stamina = FALSE)
 
-/datum/reagent/toxin/leech_paralytide/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+/datum/reagent/toxin/leech_stun/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	var/need_mob_update = FALSE
 
@@ -163,27 +165,283 @@
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
-/// These toxins are still needed:
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Gliostatic Myelostim////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
-// --- Healing
-// - Organ Healing (brain focus), also cures brain traumas
-// - - Gliostatic Myelostim, Heals all organs, but especially neuronal tissue, with a chance to cure brain traumas. A regenerative stimulant that forces accelerated myelin sheath regrowth, repairing trauma‑induced signal loss with unnerving efficiency.
-// - Brute/Burn Healing
-// - - Hematodermic Fibrilase, Heals Brute/Burn wounds. A viscous gel that infiltrates ruptured tissue and forces accelerated fibroblast division, knitting muscle and skin in minutes.
-// - Toxin/DNA Healing + Poison purge + mutation cure.
-// - - Xenotrophic Neutralysin, Heals and purges toxins and mutations, A cell‑cleansing compound that forces corrupted cells into apoptosis, flushing toxins and halting mutation cascades.
-// - Suffocation healing, also like epinephrine it should stop the patient from dying
-// - - Adrenalic Surge Polymer, Heals suffocation and halts crit-death. A synthetic adrenal analogue that spreads through the endocrine system, restoring consciousness and increasing oxygen absorption.
-// - Bleed clotting + Saline-type stuff that heals bloodloss.
-// - - Coagulant Myelofroth, Healing bloodloss and clotting bleeding wounds, A frothing agent that expands into a dense clotting foam, plugging internal and external bleeds with uncanny precision. It rapidly degenerates into inert oxygen-carrying blood substrate when not under shock.
-// - Emergency Panic chem. Makes them jittery and stutter and blurry vision, also dropping items, but they heal quickly, clot quickly.
-// - - Hyphovariant Reanimant, Rapidly heals at the cost of manual dexterity. A last resort, it's a volatile endocrine shock that floods the body with unstable energy, boosting clotting and regeneration at the cost of coordination.
+/datum/reagent/medicine/leech_organheal
+	name = "Gliostatic Myelostim"
+	description = "A regenerative stimulant that forces accelerated myelin sheath regrowth, repairing trauma-induced signal loss with unnerving efficiency."
+	color = "#a0e8c0"
+	reagent_state = LIQUID
+	taste_description = "cold metal and moss"
+	chemical_flags = CHEMICAL_NOT_SYNTH
 
-// --- Buffs
-// - Stamina boost
-// - - Heliothene Substrate, Rendering a person near-immune to stuns, this pale, waxy secretion thickens into nerve‑sheathing filaments, muting external trauma and shocks.
-// - Speed boost
-// - - Xyrthropenic Lattice Serum, A muscle stimulant promoting rapid speed, this shimmering, motile distillate threads itself through tendons, provoking erratic bursts of motion.
-// - Chem to silence them and make them look dead
-// - - Somnic Virellate, Puts a victim into a corpse-like slumber, A dormancy‑triggering fungal polymer that collapses movement and respiration into a faint, cadaverous hush.
+/datum/reagent/medicine/leech_organheal/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	var/need_mob_update = FALSE
 
+	for(var/obj/item/organ/organ in affected_mob.internal_organs)
+		if(affected_organ_flags && !(organ.organ_flags & affected_organ_flags))
+			continue
+		// Brain heals faster than everything else
+		var/heal_amount
+		if(organ.slot == ORGAN_SLOT_BRAIN)
+			heal_amount = -3 * delta_time
+		else
+			heal_amount = -1.5 * delta_time
+		if(organ.apply_organ_damage(heal_amount))
+			need_mob_update = TRUE
+
+	// Chance to cure a brain trauma. The worm knows it's way around brains, so it's medicine can handle serious damage
+	if(DT_PROB(5, delta_time))
+		affected_mob.cure_trauma_type(resilience = TRAUMA_RESILIENCE_LOBOTOMY, special_method = TRUE)
+
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Hematodermic Fibrilase//////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/reagent/medicine/leech_bruteburn
+	name = "Hematodermic Fibrilase"
+	description = "A viscous gel that infiltrates ruptured tissue and forces accelerated fibroblast division, knitting muscle and skin in minutes."
+	color = "#e8b87a"
+	reagent_state = LIQUID
+	taste_description = "copper and warm wax"
+	chemical_flags = CHEMICAL_NOT_SYNTH
+
+/datum/reagent/medicine/leech_bruteburn/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	var/need_mob_update = FALSE
+
+	need_mob_update += affected_mob.adjustBruteLoss(-3 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+	need_mob_update += affected_mob.adjustFireLoss(-3 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Xenotrophic Neutralysin/////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/reagent/medicine/leech_toxpurge
+	name = "Xenotrophic Neutralysin"
+	description = "A cell-cleansing compound that forces corrupted cells into apoptosis, flushing toxins and halting mutation cascades."
+	color = "#c0f0e0"
+	reagent_state = LIQUID
+	taste_description = "bitter herbs and bleach"
+	chemical_flags = CHEMICAL_NOT_SYNTH
+
+/datum/reagent/medicine/leech_toxpurge/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	var/need_mob_update = FALSE
+
+	need_mob_update += affected_mob.adjustToxLoss(-3 * delta_time, forced = TRUE, updating_health = FALSE, required_biotype = affected_biotype)
+	need_mob_update += affected_mob.adjustCloneLoss(-2 * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+
+	// Purge toxin reagents from the bloodstream
+	for(var/datum/reagent/toxin/toxin in holder.reagent_list)
+		if(toxin == src)
+			continue
+		holder.remove_reagent(toxin.type, 1 * delta_time)
+
+	// Remove mutations
+	if(affected_mob.has_dna())
+		affected_mob.dna.remove_all_mutations(mutadone = TRUE)
+
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Adrenalic Surge Polymer/////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/reagent/medicine/leech_oxyfix
+	name = "Adrenalic Surge Polymer"
+	description = "A synthetic adrenal analogue that spreads through the endocrine system, restoring consciousness and increasing oxygen absorption."
+	color = "#f0d060"
+	reagent_state = LIQUID
+	taste_description = "sharp citrus and electricity"
+	chemical_flags = CHEMICAL_NOT_SYNTH
+	metabolized_traits = list(TRAIT_NOCRITDAMAGE)
+
+/datum/reagent/medicine/leech_oxyfix/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	var/need_mob_update = FALSE
+
+	need_mob_update += affected_mob.adjustOxyLoss(-4 * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+
+	// Reduce suffocation and clear stun to keep the patient functional
+	affected_mob.losebreath = max(0, affected_mob.losebreath - (2 * delta_time))
+	affected_mob.AdjustAllImmobility(-40 * delta_time)
+
+	// Stabilize someone dying in crit similar to epinephrine
+	if(affected_mob.health <= affected_mob.crit_threshold)
+		need_mob_update += affected_mob.adjustBruteLoss(-1 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+		need_mob_update += affected_mob.adjustFireLoss(-1 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Coagulant Myelofroth////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/reagent/medicine/leech_bloodclot
+	name = "Coagulant Myelofroth"
+	description = "A frothing agent that expands into a dense clotting foam, plugging internal and external bleeds with uncanny precision. It rapidly degenerates into an inert, oxygen-carrying blood substrate."
+	color = "#f8f0e0"
+	reagent_state = LIQUID
+	taste_description = "chalk and iron"
+	chemical_flags = CHEMICAL_NOT_SYNTH
+
+/datum/reagent/medicine/leech_bloodclot/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	var/need_mob_update = FALSE
+
+	// Restore blood volume
+	affected_mob.blood_volume = min(BLOOD_VOLUME_NORMAL, affected_mob.blood_volume + (5 * delta_time))
+
+	// Continuous clotting
+	affected_mob.cauterise_wounds(BLEED_TINY * delta_time)
+
+	// Minor brute healing
+	need_mob_update += affected_mob.adjustBruteLoss(-1 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Hyphovariant Reanimant//////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/reagent/medicine/leech_reanimant
+	name = "Hyphovariant Reanimant"
+	description = "A last-resort volatile endocrine shock that floods the body with unstable energy, boosting clotting and regeneration at the cost of coordination."
+	color = "#ff8040"
+	reagent_state = LIQUID
+	taste_description = "burning plastic and mushroom"
+	chemical_flags = CHEMICAL_NOT_SYNTH
+	metabolization_rate = REAGENTS_METABOLISM * 1.25
+
+/datum/reagent/medicine/leech_reanimant/on_mob_add(mob/living/affected_mob, amount)
+	. = ..()
+	to_chat(affected_mob, span_userdanger("An explosive surge of heat rushes through your body!"))
+
+	affected_mob.emote("gasp")
+
+	affected_mob.set_jitter_if_lower(15 SECONDS)
+	affected_mob.set_stutter_if_lower(10 SECONDS)
+	affected_mob.set_eye_blur_if_lower(10 SECONDS)
+	// Drop held items - body is spasming
+	affected_mob.drop_all_held_items()
+	// Immediate clotting burst
+	if(iscarbon(affected_mob))
+		var/mob/living/carbon/carbon_mob = affected_mob
+		carbon_mob.cauterise_wounds(10)
+		carbon_mob.blood_volume = min(BLOOD_VOLUME_NORMAL, carbon_mob.blood_volume + 50)
+
+/datum/reagent/medicine/leech_reanimant/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	var/need_mob_update = FALSE
+
+	// Fast multi-type healing
+	need_mob_update += affected_mob.adjustBruteLoss(-5 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+	need_mob_update += affected_mob.adjustFireLoss(-5 * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+	need_mob_update += affected_mob.adjustToxLoss(-3 * delta_time, forced = TRUE, updating_health = FALSE, required_biotype = affected_biotype)
+	need_mob_update += affected_mob.adjustOxyLoss(-3 * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+	affected_mob.blood_volume = min(BLOOD_VOLUME_NORMAL, affected_mob.blood_volume + (3 * delta_time))
+	affected_mob.cauterise_wounds(2 * delta_time)
+
+	// Debuffs
+	affected_mob.adjust_jitter_up_to(10 SECONDS * delta_time, 15 SECONDS)
+	if(DT_PROB(15, delta_time))
+		affected_mob.set_eye_blur_if_lower(6 SECONDS)
+		affected_mob.emote("gasp")
+	if(DT_PROB(10, delta_time))
+		affected_mob.drop_all_held_items()
+		affected_mob.emote("cough")
+
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Heliothene Substrate////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/reagent/medicine/leech_stunshield
+	name = "Heliothene Substrate"
+	description = "A pale, waxy secretion that thickens into nerve-sheathing filaments, muting external trauma and shocks."
+	color = "#f0f0c8"
+	reagent_state = LIQUID
+	taste_description = "wax and warm salt"
+	chemical_flags = CHEMICAL_NOT_SYNTH
+	metabolized_traits = list(TRAIT_STUNIMMUNE)
+
+/datum/reagent/medicine/leech_stunshield/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	var/need_mob_update = FALSE
+
+	// Drain existing stun states
+	affected_mob.AdjustAllImmobility(-60 * delta_time)
+
+	// Stamina regeneration
+	need_mob_update += affected_mob.adjustStaminaLoss(-8 * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Xyrthropenic Lattice Serum//////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/reagent/medicine/leech_speedboost
+	name = "Xyrthropenic Lattice Serum"
+	description = "A shimmering, motile distillate that threads itself through tendons, provoking erratic bursts of exceptional speed."
+	color = "#80d8ff"
+	reagent_state = LIQUID
+	taste_description = "cold static and tin"
+	chemical_flags = CHEMICAL_NOT_SYNTH
+
+/datum/reagent/medicine/leech_speedboost/on_mob_metabolize(mob/living/affected_mob)
+	. = ..()
+	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/xyrthropenic_lattice)
+
+/datum/reagent/medicine/leech_speedboost/on_mob_end_metabolize(mob/living/affected_mob)
+	. = ..()
+	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/xyrthropenic_lattice)
+
+/datum/reagent/medicine/leech_speedboost/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	// Mild stamina drain
+	affected_mob.adjustStaminaLoss(1 * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Somnic Virellate////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/reagent/toxin/leech_fakedeath
+	name = "Somnic Virellate"
+	description = "A dormancy-triggering fungal polymer that collapses movement and respiration into a faint, cadaverous hush."
+	color = "#604060"
+	reagent_state = LIQUID
+	taste_description = "earthy sweetness and cold"
+	toxpwr = 0
+	chemical_flags = CHEMICAL_NOT_SYNTH
+	metabolized_traits = list(TRAIT_FAKEDEATH)
+
+/datum/reagent/toxin/leech_fakedeath/on_mob_add(mob/living/affected_mob, amount)
+	. = ..()
+	to_chat(affected_mob, span_warning("A cloying numbness spreads through your limbs..."))
+	affected_mob.fakedeath(type)
+
+/datum/reagent/toxin/leech_fakedeath/on_mob_end_metabolize(mob/living/affected_mob)
+	. = ..()
+	affected_mob.cure_fakedeath(type)
+
+/datum/reagent/toxin/leech_fakedeath/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	// Suppresses vocalisation
+	affected_mob.set_silence_if_lower(6 SECONDS)

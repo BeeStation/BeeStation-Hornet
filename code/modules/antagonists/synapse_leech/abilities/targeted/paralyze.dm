@@ -31,5 +31,5 @@
 	if(!victim.reagents)
 		return FALSE
 	to_chat(target, span_warning("You feel a tiny prick!"))
-	victim.reagents.add_reagent(/datum/reagent/toxin/leech_paralytide, paralytide_dose)
+	victim.reagents.add_reagent(/datum/reagent/toxin/leech_stun, paralytide_dose)
 	return TRUE
