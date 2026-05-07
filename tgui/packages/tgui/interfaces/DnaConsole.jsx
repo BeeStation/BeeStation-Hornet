@@ -1,6 +1,7 @@
-import { filter, uniqBy } from 'common/collections';
 import { classes } from 'common/react';
 import { capitalize } from 'common/string';
+import { uniqBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { Dropdown } from 'tgui-core/components';
 
 import { resolveAsset } from '../assets';

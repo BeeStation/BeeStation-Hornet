@@ -1,6 +1,7 @@
-import { filter, sortBy } from 'common/collections';
 import { BooleanLike, classes } from 'common/react';
 import { createSearch } from 'common/string';
+import { sortBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { useState } from 'react';
 
 import { useBackend } from '../backend';
@@ -194,10 +195,9 @@ export const PersonalCrafting = (props) => {
   const [activeType, setFoodType] = useState(
     Object.keys(craftability).length ? 'Can Make' : data.foodtypes[0],
   );
-  const material_occurences = sortBy(
-    data.material_occurences,
+  const material_occurences = sortBy(data.material_occurences, [
     (material) => -material.occurences,
-  );
+  ]);
   const [activeMaterial, setMaterial] = useState(
     material_occurences[0].atom_id,
   );
@@ -224,11 +224,12 @@ export const PersonalCrafting = (props) => {
             Boolean(craftability[recipe.ref])) ||
             recipe.category === activeCategory))),
   );
-  recipes = sortBy(recipes, (recipe) => [
-    activeCategory === 'Can Make'
-      ? 99 - Object.keys(recipe.reqs).length
-      : Number(craftability[recipe.ref]),
-    recipe.name.toLowerCase(),
+  recipes = sortBy(recipes, [
+    (recipe) =>
+      activeCategory === 'Can Make'
+        ? 99 - Object.keys(recipe.reqs).length
+        : Number(craftability[recipe.ref]),
+    (recipe) => recipe.name.toLowerCase(),
   ]);
   if (searchText.length > 0) {
     recipes = filter(recipes, searchName);

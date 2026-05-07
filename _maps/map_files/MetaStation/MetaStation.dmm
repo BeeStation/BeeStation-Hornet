@@ -42699,7 +42699,7 @@
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/mask/surgical,
 /obj/item/reagent_containers/spray/cleaner,
-/obj/item/clothing/under/rank/medical/doctor/purple{
+/obj/item/clothing/under/rank/medical/scrubs/purple{
 	pixel_y = -4
 	},
 /obj/item/stack/medical/gauze,

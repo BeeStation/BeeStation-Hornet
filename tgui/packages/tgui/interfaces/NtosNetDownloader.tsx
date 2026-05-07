@@ -1,7 +1,8 @@
-import { filter, sortBy } from 'common/collections';
 import { scale, toFixed } from 'common/math';
 import { BooleanLike } from 'common/react';
 import { createSearch } from 'common/string';
+import { sortBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { useState } from 'react';
 
 import { useBackend } from '../backend';
@@ -77,11 +78,10 @@ export const NtosNetDownloader = (props) => {
         ? programs
         : filter(programs, (program) => program.category === selectedCategory);
   // This sorts all programs in the lists by name and compatibility
-  items = sortBy(
-    items,
+  items = sortBy(items, [
     (program: ProgramData) => !program.compatible,
     (program: ProgramData) => program.filedesc,
-  );
+  ]);
   if (!emagged) {
     // This filters the list to only contain verified programs
     items = filter(items, (program) => program.verifiedsource === 1);
