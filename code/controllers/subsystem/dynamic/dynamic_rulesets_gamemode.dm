@@ -91,6 +91,7 @@
 	antag_datum = /datum/antagonist/traitor
 	weight = 16
 	recent_weight_recovery_linear = 1
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 
 /datum/dynamic_ruleset/gamemode/traitor/security_report()
 	return "Intercepted communications between neighboring orbital stations suggest that Syndicate activity, as always, remains a potential threat."
@@ -125,6 +126,7 @@
 	antag_datum = /datum/antagonist/heretic
 	weight = 8
 	ruleset_flags = SHOULD_USE_ANTAG_REP | REQUIRED_POP_ALLOW_UNREADY
+	restricted_roles = list(JOB_NAME_PRISONER)
 	minimum_players_required = 14
 
 /datum/dynamic_ruleset/gamemode/heretic/security_report()
@@ -214,7 +216,7 @@
 	name = "Blood Cult"
 	role_preference = /datum/role_preference/roundstart/blood_cultist
 	antag_datum = /datum/antagonist/cult
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_PRISONER)
 	drafted_players_amount = 2
 	weight = 8
 	minimum_players_required = 24
@@ -290,7 +292,7 @@
 	name = "Clockwork Cult"
 	role_preference = /datum/role_preference/roundstart/clock_cultist
 	antag_datum = /datum/antagonist/servant_of_ratvar
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_PRISONER)
 	drafted_players_amount = 4
 	weight = 8
 	minimum_players_required = 30
@@ -463,7 +465,7 @@
 	name = "Revolution"
 	role_preference = /datum/role_preference/roundstart/revolutionary
 	antag_datum = /datum/antagonist/rev/head
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_PRISONER)
 	drafted_players_amount = 3
 	weight = 0	// Temporarily disabled: We need to refactor this so that it executes after round-start, and rolls into a different gamemode if it fails to execute.
 	minimum_players_required = 24
