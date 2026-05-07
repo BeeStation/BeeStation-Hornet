@@ -407,11 +407,11 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/equip_characters()
 	var/captainless = TRUE
-
 	var/highest_rank = length(SSjob.chain_of_command) + 1
 	var/list/spare_id_candidates = list()
 	var/enforce_coc = CONFIG_GET(flag/spare_enforce_coc)
 
+	// Collect all eligible players
 	for(var/mob/dead/new_player/authenticated/player in GLOB.auth_new_player_list)
 		var/mob/living/carbon/human/new_character = player.new_character
 		if(!istype(new_character) || !new_character.mind?.assigned_role)
@@ -447,7 +447,41 @@ SUBSYSTEM_DEF(ticker)
 		else
 			SSjob.promote_to_captain(pick(spare_id_candidates), captainless)
 		CHECK_TICK
+	else
+		// No captain or head, panic.
+		var/list/eligible = list()
+		var/list/security = list(JOB_NAME_WARDEN, JOB_NAME_SECURITYOFFICER)
+		var/list/all_players = list()
 
+		// Collect all players
+		for(var/mob/dead/new_player/authenticated/player in GLOB.auth_new_player_list)
+
+			// Get our buddy for ease of use
+			var/mob/living/carbon/human/new_character = player.new_character
+
+			if(!istype(new_character) || !new_character.mind?.assigned_role)
+				continue
+
+			// NO ANTAGS!!
+			if(new_character.mind.has_antag_datum(/datum/antagonist))
+				continue
+
+			all_players += player
+
+			if(new_character.mind.assigned_role in security)
+				eligible += player	// All seccies are eligible first
+
+		if(!length(eligible))
+			eligible = all_players // No seccies? Damn. Gotta lower our standards.
+
+		if(length(eligible))
+			eligible = shuffle(eligible)
+			var/mob/dead/new_player/authenticated/winner = eligible[1]
+			SSjob.promote_to_captain(winner, TRUE) // Where is the party horn
+		else
+			// No one eligible, delete the spare ID safe
+			for(var/obj/item/storage/secure/safe/caps_spare/safe in world)
+				qdel(safe)
 
 /datum/controller/subsystem/ticker/proc/transfer_characters()
 	var/list/livings = list()

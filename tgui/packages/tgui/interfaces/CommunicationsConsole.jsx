@@ -638,9 +638,6 @@ const ConditionalTooltip = (props) => {
 export const CommunicationsConsole = (props) => {
   const { act, data } = useBackend();
   const {
-    canRequestSafeCode,
-    safeCodeDeliveryWait,
-    safeCodeDeliveryArea,
     authenticated,
     authorizeName,
     canLogOut,
@@ -660,27 +657,6 @@ export const CommunicationsConsole = (props) => {
             flexDirection: 'column',
           }}
         >
-          {(canRequestSafeCode ? (
-            <Flex.Item>
-              <Section title="Emergency Safe Code">
-                <Button
-                  icon="key"
-                  content="Request Safe Code"
-                  color="good"
-                  onClick={() => act('requestSafeCodes')}
-                />
-              </Section>
-            </Flex.Item>
-          ) : null) ||
-            (safeCodeDeliveryWait ? (
-              <Flex.Item>
-                <Section title="Emergency Safe Code Delivery">
-                  {`Drop pod to ${safeCodeDeliveryArea} in \
-            ${Math.round(safeCodeDeliveryWait / 10)}s`}
-                </Section>
-              </Flex.Item>
-            ) : null)}
-
           {authenticated ? (
             <Flex.Item grow>
               <Stack fill>
