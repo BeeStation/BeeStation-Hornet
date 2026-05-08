@@ -64,30 +64,21 @@
 		"Party's over. Get back to work.",
 	)
 
-	/// All spawned hangover spots
-	var/list/obj/effect/spawner/hangover_spawn/spawns = list()
-
 /datum/station_trait/hangover/New()
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
-	RegisterSignal(SSmapping, COMSIG_SUBSYSTEM_POST_INITIALIZE, PROC_REF(create_spawners))
 
-/datum/station_trait/hangover/revert()
-	for(var/obj/effect/spawner/hangover_spawn/hangover_spot in spawns)
-		QDEL_LIST(hangover_spot.hangover_debris)
-	return ..()
-
-/datum/station_trait/hangover/proc/create_spawners()
-	SIGNAL_HANDLER
-
+/datum/station_trait/hangover/on_round_start()
+	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(pick_turfs_and_spawn))
-	UnregisterSignal(SSmapping, COMSIG_SUBSYSTEM_POST_INITIALIZE)
 
 /datum/station_trait/hangover/proc/pick_turfs_and_spawn()
-	var/list/turf/turfs = get_safe_random_station_turfs(typesof(/area/station/hallway) | typesof(
-/area/station/service/bar) | typesof(/area/station/commons/dorms), rand(200, 300))
-	for(var/turf/turf as() in turfs)
-		spawns += new /obj/effect/spawner/hangover_spawn(turf)
+	var/list/turf/turfs = get_safe_random_station_turfs(
+		typesof(/area/station/hallway) | typesof(/area/station/service/bar) | typesof(/area/station/commons/dorms),
+		rand(200, 300),
+	)
+	for(var/turf/turf as anything in turfs)
+		new /obj/effect/spawner/hangover_spawn(turf)
 
 /datum/station_trait/hangover/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/living_mob, mob/spawned_mob, joined_late)
 	SIGNAL_HANDLER

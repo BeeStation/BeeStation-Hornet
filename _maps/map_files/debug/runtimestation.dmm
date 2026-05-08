@@ -984,16 +984,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/security/brig)
-"ic" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
-/obj/structure/cable,
-/turf/open/floor/iron,
-/area/station/engineering/gravity_generator)
 "ij" = (
 /obj/structure/closet/secure_closet/chemical/heisenberg{
 	locked = 0
@@ -1609,13 +1599,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/station/engineering/gravity_generator)
-"wj" = (
-/obj/machinery/computer/rdconsole/unlocked,
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/station/science)
 "wl" = (
 /obj/machinery/door/airlock{
 	name = "Engineering"
@@ -2180,6 +2163,14 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
+"HA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/structure/cable,
+/obj/machinery/power/smes/engineering,
+/turf/open/floor/iron,
+/area/station/engineering/gravity_generator)
 "HP" = (
 /obj/structure/table,
 /obj/item/card/emag,
@@ -2197,6 +2188,13 @@
 /obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall/r_wall,
 /area/station/hallway/secondary/entry)
+"HX" = (
+/obj/machinery/computer/rdconsole/unlocked,
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/station/science)
 "Ih" = (
 /obj/machinery/door/airlock,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -6461,7 +6459,7 @@ bc
 kO
 ZD
 ah
-wj
+HX
 OU
 wD
 bD
@@ -7836,7 +7834,7 @@ aa
 ad
 NB
 ak
-ic
+HA
 YG
 pd
 mL

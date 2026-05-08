@@ -1185,11 +1185,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/space/ancientstation/rnd)
-"eA" = (
-/obj/machinery/computer/rdconsole/unlocked,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/white,
-/area/ruin/space/ancientstation/rnd)
 "eB" = (
 /obj/machinery/rnd/destructive_analyzer,
 /obj/effect/decal/cleanable/dirt,
@@ -3992,18 +3987,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/ancientstation/sec)
-"It" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/obj/structure/mirror{
-	name = "dusty mirror";
-	pixel_x = 26
-	},
-/turf/open/floor/iron/white,
-/area/ruin/space/ancientstation)
 "IM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/glass,
@@ -4251,6 +4234,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white,
 /area/ruin/space/ancientstation)
+"OK" = (
+/obj/machinery/computer/rdconsole/unlocked,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/white,
+/area/ruin/space/ancientstation/rnd)
 "OL" = (
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
@@ -4381,6 +4369,15 @@
 /obj/structure/mirror{
 	name = "dusty mirror";
 	pixel_x = -26
+	},
+/turf/open/floor/iron/white,
+/area/ruin/space/ancientstation)
+"SU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	name = "dusty mirror";
+	pixel_x = 26
 	},
 /turf/open/floor/iron/white,
 /area/ruin/space/ancientstation)
@@ -6633,7 +6630,7 @@ aa
 aa
 aG
 sD
-It
+SU
 bc
 Qp
 Ym
@@ -7603,7 +7600,7 @@ cD
 dc
 dy
 dZ
-eA
+OK
 dZ
 fu
 dZ

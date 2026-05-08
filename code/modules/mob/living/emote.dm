@@ -149,11 +149,11 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
-		if(H.Togglewings())
-			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings)), wing_time)
-		// play moth flutter noise if moth wing
-		if(istype(wings, /obj/item/organ/wings/moth))
-			playsound(H, 'sound/emotes/moth/moth_flutter.ogg', 50, TRUE)
+		if(H.Togglewings(silent = TRUE))
+			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings), TRUE), wing_time)
+		// play flutter noise
+		if(wings.flapsound)
+			playsound(H, wings.flapsound, 50, TRUE)
 
 /datum/emote/living/flap/aflap
 	key = "aflap"
@@ -382,12 +382,14 @@
 	key_third_person = "surrenders"
 	message = "puts their hands on their head and falls to the ground, surrendering"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	stat_allowed = SOFT_CRIT
 
-/datum/emote/living/surrender/run_emote(mob/user, params, type_override, intentional)
+/datum/emote/living/surrender/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()
 	if(isliving(user) && intentional)
 		var/mob/living/living = user
 		living.Paralyze(20 SECONDS)
+		living.set_combat_mode(FALSE)
 
 /datum/emote/living/sway
 	key = "sway"

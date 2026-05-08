@@ -76,7 +76,7 @@
 				visible_message(span_danger("[src] crashes into [H]!"))
 				playsound(src, 'sound/effects/bang.ogg', 50, 1)
 
-/obj/vehicle/ridden/space/speedwagon/Moved()
+/obj/vehicle/ridden/space/speedwagon/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!has_buckled_mobs())
 		return

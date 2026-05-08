@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(machines)
 		dirty_stop_index = length(dirty_powernets)
 
 	// Start processing dirty powernets
-	while (dirty_powernets.len && dirty_index <= dirty_stop_index && dirty_index <= length(dirty_powernets))
+	while (length(dirty_powernets) && dirty_index <= dirty_stop_index && dirty_index <= length(dirty_powernets))
 		// Get the element to process
 		var/datum/powernet/first_powernet = dirty_powernets[dirty_index]
 		// Move the last element to our current position in the queue

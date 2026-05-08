@@ -467,23 +467,7 @@
 	name = "chameleon thermals"
 	desc = "A pair of thermal optic goggles with an onboard chameleon generator."
 	flash_protect = FLASH_PROTECTION_SENSITIVE
-
-	var/datum/action/item_action/chameleon/change/chameleon_action
-
-/obj/item/clothing/glasses/thermal/syndi/Initialize(mapload)
-	. = ..()
-	chameleon_action = new(src)
-	chameleon_action.chameleon_type = /obj/item/clothing/glasses
-	chameleon_action.chameleon_name = "Glasses"
-	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/glasses/changeling, only_root_path = TRUE)
-	chameleon_action.initialize_disguises()
-	add_item_action(chameleon_action)
-
-/obj/item/clothing/glasses/thermal/syndi/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	chameleon_action.emp_randomise()
+	actions_types = list(/datum/action/item_action/chameleon/change/glasses)
 
 /obj/item/clothing/glasses/thermal/monocle
 	name = "thermoncle"

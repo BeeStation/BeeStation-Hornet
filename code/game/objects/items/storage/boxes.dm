@@ -125,10 +125,10 @@
 	if(HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		alpha = 255
 
-/obj/item/storage/box/mime/Moved(oldLoc, dir)
-	if (iscarbon(oldLoc))
+/obj/item/storage/box/mime/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	if (iscarbon(old_loc))
 		alpha = 0
-	..()
+	return ..()
 
 //Disk boxes
 

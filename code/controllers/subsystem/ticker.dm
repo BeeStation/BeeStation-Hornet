@@ -433,9 +433,9 @@ SUBSYSTEM_DEF(ticker)
 						highest_rank = spare_id_priority
 					else if(spare_id_priority == highest_rank)
 						spare_id_candidates += player
-		if(mind.assigned_role != mind.special_role)
-			SSjob.EquipRank(player, mind.assigned_role, FALSE)
 		var/datum/job/job = mind.assigned_role_datum
+		if(job?.job_flags & JOB_EQUIP_RANK)
+			SSjob.EquipRank(player, mind.assigned_role, FALSE)
 		if((job?.job_flags & JOB_ASSIGN_QUIRKS) && CONFIG_GET(flag/roundstart_traits))
 			SSquirks.AssignQuirks(mind, player.client, TRUE)
 		CHECK_TICK

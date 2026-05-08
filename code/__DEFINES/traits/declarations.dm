@@ -385,6 +385,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_GRABWEAKNESS		"grab_weakness"
 #define TRAIT_BRAIN_TUMOR		"brain_tumor"
 #define TRAIT_PROSKATER			"pro_skater"
+#define TRAIT_SMOKER "smoker"
 #define TRAIT_COMPUTER_WHIZ		"computer_whiz"
 
 ///Trait for dryable items
@@ -478,7 +479,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_INSTANT_DO_AFTER "TRAIT_INSTANT_DO_AFTER"
 
 /// The person with this trait always appears as 'unknown'.
-#define TRAIT_UNKNOWN "unknown"
+#define TRAIT_UNKNOWN_APPEARANCE "unknown_appearance"
+/// The person with this trait always talks as 'unknown'
+#define TRAIT_UNKNOWN_VOICE "unknown_voice"
+/// Spoken voice always matches any worn ID. If no worn ID, defaults to actual name.
+#define TRAIT_VOICE_MATCHES_ID "voice_matches_id"
 
 /// We are ignoring gravity
 #define TRAIT_IGNORING_GRAVITY "ignores_gravity"
