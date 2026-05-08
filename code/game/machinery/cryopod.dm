@@ -335,7 +335,9 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	else
 		control_computer.frozen_crew += "[mob_occupant.real_name]"
 
-	if(mob_occupant.job == JOB_NAME_CAPTAIN)
+	if(issilicon(mob_occupant))
+		aas_config_announce(/datum/aas_config_entry/intelligence_storage, list("SILICON" = mob_occupant.real_name))
+	else if(mob_occupant.job == JOB_NAME_CAPTAIN)
 		// for when the admins do a stupid british gimmick that makes 0 sense cough
 		minor_announce("[JOB_NAME_CAPTAIN] [mob_occupant.real_name] has entered cryogenic storage.")
 	else

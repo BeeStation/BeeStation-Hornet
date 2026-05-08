@@ -1,5 +1,6 @@
-import { filter, sortBy } from 'common/collections';
 import type { BooleanLike } from 'common/react';
+import { sortBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { useState } from 'react';
 import {
   Button,
@@ -61,10 +62,10 @@ export const AutomatedAnnouncement = (props) => {
 
   const sorted = sortBy(
     filter(config_entries, (entry) => isEntryMatch(entry, search)),
-    (entry) => entry.name,
+    [(entry) => entry.name],
   );
   return (
-    <Window title="Automated Announcement System" width={500} height={400}>
+    <Window title="Automated Announcement System" width={600} height={400}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
@@ -103,6 +104,7 @@ export const AutomatedAnnouncement = (props) => {
                               .join('\n')
                           }
                           tooltipPosition="left"
+                          style={{ margin: '0 auto' }}
                         />
                         <Button
                           icon={entry.enabled ? 'power-off' : 'times'}
@@ -110,7 +112,7 @@ export const AutomatedAnnouncement = (props) => {
                           disabled={!entry.modifiable}
                           tooltip={
                             !entry.modifiable
-                              ? 'Editing disabled by CentCom!'
+                              ? 'Modification disabled by CentCom'
                               : undefined
                           }
                           onClick={() =>

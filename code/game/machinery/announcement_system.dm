@@ -366,7 +366,7 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 
 	announcement_lines_map["Message"] = pick(
 		"ERR)#R: PERSONALITY MATRIX NOT RESPONDING.",
-		"UNIT HAS BEEN SENT TO ANDROID HELL.", // GLaDOS
+		"%SILICON HAS BEEN SENT TO ANDROID HELL.", // GLaDOS
 		"Attempting to reboot %SILICON, please standby... F#TAL ERR()%!",
 	)
 
@@ -439,5 +439,5 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 	announcement_lines_map = list(
 		"Message" = "The arrivals shuttle has been damaged. Docking for repairs...",
 	)
-	general_tooltip = "Broadcasted, when arrivals shuttle docks for repairs. No replaceable variables provided."
+	general_tooltip = "Broadcasted when the arrivals shuttle docks for repairs. No replaceable variables provided."
 	modifiable = FALSE
