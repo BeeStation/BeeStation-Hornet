@@ -1727,8 +1727,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/support/horse
 	name = "Syndicate Horse Kit"
-	desc = "A kit containing a beacon that to order a premium war-horse plus an apple to tame it, as seen from the consortium catalogue! 
-		The horse is extremely tough, can survive in space, and will trample anyone in its path."
+	desc = "A kit containing a beacon to order a premium war-horse plus an apple to tame it!, as seen from the consortium catalogue.The horse is extremely tough, can survive in space, and will trample anyone in its path."
 	item = /obj/item/storage/box/syndie_kit/horse
 	cost = 7
 	purchasable_from = UPLINK_TRAITORS | UPLINK_NUKE_OPS
