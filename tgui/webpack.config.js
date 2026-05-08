@@ -94,9 +94,22 @@ module.exports = (env = {}, argv) => {
             },
           ],
         },
+
         {
-          test: /\.(png|jpg|svg)$/,
+          test: /\.(cur|png|jpg)$/,
           type: 'asset/resource',
+        },
+        {
+          test: /.svg$/,
+          oneOf: [
+            {
+              issuer: /\.(s)?css$/,
+              type: 'asset/inline',
+            },
+            {
+              type: 'asset/resource',
+            },
+          ],
         },
       ],
     },
