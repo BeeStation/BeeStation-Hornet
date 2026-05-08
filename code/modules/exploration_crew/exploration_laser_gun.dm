@@ -167,7 +167,7 @@
 	max_duration = 30 SECONDS
 	tase_stamina = 30
 	piercing = TRUE
-	range = 6	// We give the potential victim a single tile of visibility, so you could still cheese a static borg.
+	range = 6	// We give the victim a single tile of visibility, so you could still cheese a static borg.
 
 // Sentry Mode Toggle Action
 /datum/action/sentry_toggle
