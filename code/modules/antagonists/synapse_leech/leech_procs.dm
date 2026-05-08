@@ -1,6 +1,6 @@
 /// Adjusts saturation by an amount and updates the HUD display.
 /mob/living/basic/synapse_leech/proc/adjust_saturation(amount)
-	saturation = clamp(saturation + amount, 0, LEECH_MAX_SATURATION)
+	saturation = clamp(saturation + amount, 0, max_saturation)
 	update_saturation_display()
 
 /// Adjusts substrate by an amount and updates the HUD display.
@@ -58,7 +58,20 @@
 		forceMove(exit)
 	clear_host_state()
 
-/// Handles the host dying while we're inside.
+/// Handles the host dying while we're inside. Why is this being called twice?
 /mob/living/basic/synapse_leech/proc/on_host_death(datum/source)
 	SIGNAL_HANDLER
+	if(!COOLDOWN_FINISHED(src, host_death_warning))
+		return
 	to_chat(src, span_userdanger("Your host has died. Their nervous system is going cold around you."))
+	COOLDOWN_START(src, host_death_warning, 5 SECONDS)
+
+/mob/living/basic/synapse_leech/proc/reach_full_maturity(datum/source)
+	to_chat(src, span_warning("Your carapace crackles and reforms, you feel stronger and more resilient. You have reached full maturity."))
+	maturity = 100
+	matured = TRUE
+	icon_state = "mature"
+	icon_living = "mature"
+	icon_dead = "mature_dead"
+	if(host) // How would we get here without a host? Just in case, I guess.
+		to_chat(host, span_userdanger("You feel a sudden surge of pain."))

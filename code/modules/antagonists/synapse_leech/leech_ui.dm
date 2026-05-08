@@ -128,9 +128,9 @@
 	if(!leech_hud.saturation_display)
 		return
 	// Clamp to 8 tiers: saturation0 (empty) through saturation7 (full), matching mob health display
-	var/tier = 7 - clamp(round(saturation / (LEECH_MAX_SATURATION / 7)), 0, 7)
+	var/tier = 7 - clamp(round(saturation / (max_saturation / 7)), 0, 7)
 	leech_hud.saturation_display.icon_state = "health[tier]"
-	leech_hud.saturation_display.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='yellow'>[round(saturation)]</font></div>")
+	leech_hud.saturation_display.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='yellow'>[round(saturation)]/[round(max_saturation)]</font></div>")
 
 /// Updates the substrate HUD icon state based on current substrate value.
 /mob/living/basic/synapse_leech/proc/update_substrate_display()
@@ -142,7 +142,7 @@
 	// Clamp to 8 tiers: substrate0 (empty) through substrate7 (full), matching mob health display
 	var/tier = 7 - clamp(round(substrate / (max_substrate / 7)), 0, 7)
 	leech_hud.substrate_display.icon_state = "health[tier]"
-	leech_hud.substrate_display.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='cyan'>[round(substrate)]</font></div>")
+	leech_hud.substrate_display.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='cyan'>[round(substrate)]/[round(max_substrate)]</font></div>")
 
 /// Updates the health HUD icon state and applies a hurt-screen overlay scaled by missing health.
 /mob/living/basic/synapse_leech/update_health_hud()

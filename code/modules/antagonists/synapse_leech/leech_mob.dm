@@ -15,8 +15,8 @@
 	hud_type = /datum/hud/leech
 
 	// Attributes and Traits
-	maxHealth = LEECH_MAX_HEALTH
-	health = LEECH_MAX_HEALTH
+	maxHealth = 20
+	health = 20
 	mob_biotypes = MOB_BUG
 	basic_mob_flags = FLAMMABLE_MOB
 	status_flags = CANPUSH
@@ -50,8 +50,15 @@
 
 	// Custom
 
+	/// Affects health, resource pools, poison yield when attacking, speed, as well as whether we use the mature sprite or the juvenile one.
+	/// Raises over time while nested, with a modifier from the host's health and our satiety.
+	var/maturity = 0
+	/// have we reached full maturity?
+	var/matured = FALSE
+
 	/// Saturation (We do not use the basic mob satiety)
-	var/saturation = LEECH_INITIAL_SATURATION // We start at half
+	var/max_saturation = 50
+	var/saturation = 50
 
 	/// Basic leech resource.
 	var/max_substrate = LEECH_MAX_SUBSTRATE
@@ -69,6 +76,10 @@
 	var/mob/living/carbon/host
 	/// Whether we are currently nested (burrowed) inside a host.
 	var/nested = FALSE
+
+	// So we don't spam the leechy
+	COOLDOWN_DECLARE(host_death_warning)
+	COOLDOWN_DECLARE(maturity_update_cooldown)
 
 /mob/living/basic/synapse_leech/Initialize(mapload)
 	. = ..()
@@ -137,3 +148,54 @@
 			return
 		return
 	return ..()
+
+/**
+ * # Leech Familiarity
+ *
+ * A hidden status effect representing how accustomed a host has become to having a leech in their head.
+ * Gained passively while parasitized, from leech abilities being used on them, and from leech chemicals in their system.
+ */
+/datum/status_effect/leech_familiarity
+	id = "leech_familiarity"
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null // Hidden from the host
+	tick_interval = 1 SECONDS
+
+	/// How familiar the host is with having a leech. Higher = more used to it. Caps at 100%
+	var/strength = 0
+
+/datum/status_effect/leech_familiarity/on_apply()
+	return TRUE
+
+/datum/status_effect/leech_familiarity/tick(seconds_between_ticks)
+	var/mob/living/carbon/host = owner
+
+	// Leech present
+	var/mob/living/basic/synapse_leech/leech = locate(/mob/living/basic/synapse_leech) in host
+	if(leech?.nested && leech.host == host)
+		strength += 0.1 * seconds_between_ticks
+
+	// Leech chemicals
+	if(host.reagents)
+		for(var/datum/reagent/reagent as anything in host.reagents.reagent_list)
+			if(reagent.chemical_flags & CHEMICAL_LEECH)
+				strength += 0.05 * reagent.volume * seconds_between_ticks
+
+	// No leech present
+	strength -= 0.5 * seconds_between_ticks
+
+	switch(strength)
+		if(0 to 50)
+			to_chat(host, "0 to 50")
+		if(51 to 75)
+			to_chat(host, "51 to 75")
+		if(76 to INFINITY)
+			to_chat(host, "76 to 100")
+
+
+/datum/status_effect/leech_familiarity/on_remove()
+	return
+
+/// Call this on the host's familiarity effect when a leech uses an ability on them.
+/datum/status_effect/leech_familiarity/proc/on_ability_used()
+	strength += 0.5

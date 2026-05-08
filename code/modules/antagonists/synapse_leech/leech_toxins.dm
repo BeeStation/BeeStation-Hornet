@@ -18,7 +18,7 @@
 	reagent_state = LIQUID
 	taste_description = "rotting fungus"
 	toxpwr = 0.5
-	chemical_flags = CHEMICAL_NOT_SYNTH
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_LEECH
 
 	metabolization_rate = 0.15
 	/// Cycle threshold at which motor symptoms (drops, blur, jitter) begin.
@@ -101,7 +101,7 @@
 	taste_description = "numb static"
 	toxpwr = 0.2
 	metabolization_rate = 0.4
-	chemical_flags = CHEMICAL_NOT_SYNTH
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_LEECH
 
 	/// Stamina loss threshold at which the collapse is triggered.
 	var/collapse_threshold = 85
@@ -175,7 +175,7 @@
 	color = "#a0e8c0"
 	reagent_state = LIQUID
 	taste_description = "cold metal and moss"
-	chemical_flags = CHEMICAL_NOT_SYNTH
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_LEECH
 	// Slow trickle metabolism - one unit lingers for a long time.
 	metabolization_rate = 0.05
 	/// Per-second heal applied to the brain.
@@ -216,7 +216,7 @@
 	color = "#e8b87a"
 	reagent_state = LIQUID
 	taste_description = "copper and warm wax"
-	chemical_flags = CHEMICAL_NOT_SYNTH
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_LEECH
 
 /datum/reagent/medicine/leech_bruteburn/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -238,7 +238,7 @@
 	color = "#c0f0e0"
 	reagent_state = LIQUID
 	taste_description = "bitter herbs and bleach"
-	chemical_flags = CHEMICAL_NOT_SYNTH
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_LEECH
 
 /datum/reagent/medicine/leech_toxpurge/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -270,7 +270,7 @@
 	color = "#f0d060"
 	reagent_state = LIQUID
 	taste_description = "sharp citrus and electricity"
-	chemical_flags = CHEMICAL_NOT_SYNTH
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_LEECH
 	metabolized_traits = list(TRAIT_NOCRITDAMAGE)
 
 /datum/reagent/medicine/leech_oxyfix/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -301,7 +301,7 @@
 	color = "#f8f0e0"
 	reagent_state = LIQUID
 	taste_description = "chalk and iron"
-	chemical_flags = CHEMICAL_NOT_SYNTH
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_LEECH
 
 /datum/reagent/medicine/leech_bloodclot/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -329,7 +329,7 @@
 	color = "#ff8040"
 	reagent_state = LIQUID
 	taste_description = "burning plastic and mushroom"
-	chemical_flags = CHEMICAL_NOT_SYNTH
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_LEECH
 	metabolization_rate = REAGENTS_METABOLISM * 1.25
 
 /datum/reagent/medicine/leech_reanimant/on_mob_add(mob/living/affected_mob, amount)
@@ -383,7 +383,7 @@
 	color = "#f0f0c8"
 	reagent_state = LIQUID
 	taste_description = "wax and warm salt"
-	chemical_flags = CHEMICAL_NOT_SYNTH
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_LEECH
 	metabolized_traits = list(TRAIT_STUNIMMUNE)
 
 /datum/reagent/medicine/leech_stunshield/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -409,7 +409,7 @@
 	color = "#80d8ff"
 	reagent_state = LIQUID
 	taste_description = "cold static and tin"
-	chemical_flags = CHEMICAL_NOT_SYNTH
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_LEECH
 
 /datum/reagent/medicine/leech_speedboost/on_mob_metabolize(mob/living/affected_mob)
 	. = ..()
@@ -435,7 +435,7 @@
 	reagent_state = LIQUID
 	taste_description = "earthy sweetness and cold"
 	toxpwr = 0
-	chemical_flags = CHEMICAL_NOT_SYNTH
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_LEECH
 	metabolized_traits = list(TRAIT_FAKEDEATH)
 
 /datum/reagent/toxin/leech_fakedeath/on_mob_add(mob/living/affected_mob, amount)

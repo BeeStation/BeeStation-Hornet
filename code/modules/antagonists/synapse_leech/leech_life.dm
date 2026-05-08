@@ -13,6 +13,12 @@
 	process_forced_drains(delta_time)
 	process_passive_drains(delta_time)
 
+	if(nested && host)
+		process_host_effects(delta_time)
+
+	if(!matured)
+		process_maturity(delta_time)
+
 /// Drains that are not subject to the metabolic limit.
 /mob/living/basic/synapse_leech/proc/process_forced_drains(delta_time)
 	// Hiding drains saturation constantly. If we run out, unhide automatically.
@@ -97,3 +103,56 @@
 
 	adjust_saturation(-saturation_to_spend)
 	adjust_health(-saturation_to_spend * LEECH_HEAL_PER_SATURATION)
+
+/mob/living/basic/synapse_leech/proc/process_host_effects(delta_time)
+	// If the leech is burrowed it has various effects. Mature leeches are more impactful.
+	if(nested && host)
+
+		switch(maturity)
+			if(0 to 25)
+				// Host feels a faint tingling sensation, but it quickly fades.
+
+			if(26 to 50)
+				// Host feels a persistent itch, like something is crawling under their skin. It's distracting, but not debilitating.
+
+			if(51 to 75)
+				// Host feels a strong discomfort, like something is gnawing at their insides. It's hard to focus on anything else.
+
+			if(76 to INFINITY)
+				// Host is in agony, feeling like their insides are being torn apart. They can barely function.
+
+		return
+
+
+/mob/living/basic/synapse_leech/proc/process_maturity(delta_time)
+	if(nested && host)
+		// Both can give up to 1 point bonus
+		var/saturation_factor = saturation / max_saturation
+		var/host_health_factor = host.health / host.maxHealth
+
+		// Max is 0.1 maturity per second. This math actually has a max of 0.1111~, which would lead to exactly 15 minutes with perfect conditions.
+		var/maturity_gain = clamp((saturation_factor + host_health_factor / 18) * delta_time, 0, 0.1)
+
+		maturity += maturity_gain
+		if(maturity >= 100)
+			reach_full_maturity()
+
+	// We have a cooldown just to make sure we don't spam this.
+	if(COOLDOWN_FINISHED(src, maturity_update_cooldown))
+
+		// First, we update max health.
+		// A lil leech at 0 maturity has 20 max HP, and a fully mature leech has 50 max HP.
+		var/calculated_max_health = 20 + (30 * (maturity / 100))
+		if(maxHealth != calculated_max_health)
+			var/health_percent = health / maxHealth
+			maxHealth = calculated_max_health
+			health = maxHealth * health_percent
+
+		// Next is saturation
+		// A lil leech at 0 maturity has 50 max saturation, and a fully mature leech has 200 max saturation.
+		var/calculated_max_saturation = 50 + (150 * (maturity / 100))
+		if(max_saturation != calculated_max_saturation)
+			max_saturation = calculated_max_saturation
+
+		update_leech_hud()
+		COOLDOWN_START(src, maturity_update_cooldown, 5 SECONDS)

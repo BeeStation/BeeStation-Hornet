@@ -1,13 +1,6 @@
 // Synapse Leech Constants
 
-// Mob Stats
-#define LEECH_MAX_HEALTH 20
-
 // Saturation
-/// Max saturation value (hunger resource)
-#define LEECH_MAX_SATURATION 100
-/// Starting saturation value (half full)
-#define LEECH_INITIAL_SATURATION 50
 /// Saturation drained per second while hiding (forced drain, ignores metabolic limit)
 #define LEECH_HIDE_SATURATION_DRAIN 0.5
 /// Many abilities won't work below this saturation
