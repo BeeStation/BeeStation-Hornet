@@ -202,7 +202,7 @@
 /obj/item/melee/energy/sword/esaw //Energy Saw on it's own
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/surgery.dmi'
 	icon_state = "esaw"
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -238,7 +238,7 @@
 /obj/item/melee/energy/sword/cyborg/saw //Used by medical Syndicate cyborgs
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/surgery.dmi'
 	icon_state = "implant-esaw"
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	force = 18
