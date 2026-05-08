@@ -874,6 +874,14 @@
 	},
 /turf/open/floor/iron,
 /area/station/maintenance/aft)
+"aqD" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/dark,
+/area/station/ai_monitored/aisat/exterior)
 "aqL" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 4
@@ -8109,6 +8117,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/cmo)
+"cVC" = (
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/station/maintenance/department/medical/central)
 "cVN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -21987,6 +22000,7 @@
 	name = "ai camera";
 	start_active = 1
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/aisat/exterior)
 "hoC" = (
@@ -32143,7 +32157,6 @@
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai)
 "kpf" = (
@@ -59060,6 +59073,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/aisat/exterior)
 "stk" = (
@@ -64626,12 +64640,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/maintenance/starboard)
-"uek" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/auto_name/directional/north,
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
-/area/station/maintenance/department/medical/central)
 "uev" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
@@ -87028,7 +87036,7 @@ ihQ
 rKK
 rKK
 kpe
-vGq
+lVo
 lbp
 lVo
 rKK
@@ -89864,8 +89872,8 @@ tlc
 kbG
 che
 vQa
-oMN
-oMN
+aqD
+aqD
 hoB
 stj
 fJj
@@ -123816,7 +123824,7 @@ ufW
 pHy
 qqW
 fYw
-uek
+dnK
 mGV
 rIP
 dnK
@@ -124587,7 +124595,7 @@ nVq
 gVP
 utJ
 fYw
-fzi
+cVC
 gDD
 qoD
 qoD
