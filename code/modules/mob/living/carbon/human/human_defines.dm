@@ -21,9 +21,13 @@
 	var/facial_hair_color = COLOR_BLACK
 	///Facial hair style
 	var/facial_hair_style = "Shaved"
+
 	//Eye colour
-	var/eye_color = COLOR_BLACK
-	var/skin_tone = "caucasian1"	//Skin tone
+	var/eye_color_left = COLOR_BLACK
+	var/eye_color_right = COLOR_BLACK
+	var/eye_color_heterochromatic = FALSE
+
+	var/skin_tone = "caucasian1" //Skin tone
 	var/lip_style = null	//no lipstick by default- arguably misleading, as it could be used for general makeup
 	var/lip_color = "white"
 	var/age = 30		//Player's age
