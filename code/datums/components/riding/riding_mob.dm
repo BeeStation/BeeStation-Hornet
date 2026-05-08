@@ -365,3 +365,136 @@
 	set_vehicle_dir_layer(NORTH, OBJ_LAYER)
 	set_vehicle_dir_layer(EAST, OBJ_LAYER)
 	set_vehicle_dir_layer(WEST, OBJ_LAYER)
+
+
+/datum/component/riding/creature/horse
+	var/base_move_delay = 1.0
+	var/max_speed_delay = 0.4
+	var/acceleration_per_tile = 0.02
+	var/current_move_delay = 1.0
+	var/last_direction = NONE
+	var/tiles_in_direction = 0
+	var/last_gallop_time = 0
+	var/gallop_cooldown = 5
+	var/crash_speed_threshold = 0.7
+	var/crash_damage = 10
+
+/datum/component/riding/creature/horse/handle_specials()
+	. = ..()
+	var/list/offsets = list(
+		TEXT_NORTH = list(16, 32),
+		TEXT_SOUTH = list(16, 32),
+		TEXT_EAST = list(20, 26),
+		TEXT_WEST = list(14, 26),
+	)
+
+	var/mob/living/simple_animal/horse/horse_parent = parent
+	if(istype(horse_parent))
+		switch(horse_parent.base_icon)
+			if("Horse-Brown")
+				offsets = list(
+					TEXT_NORTH = list(15, 32),
+					TEXT_SOUTH = list(16, 32),
+					TEXT_EAST = list(12, 26),
+					TEXT_WEST = list(16, 26),
+				)
+			if("Horse-Spotted")
+				offsets = list(
+					TEXT_NORTH = list(16, 32),
+					TEXT_SOUTH = list(16, 32),
+					TEXT_EAST = list(12, 26),
+					TEXT_WEST = list(16, 26),
+				)
+			if("Horse-Grey")
+				offsets = list(
+					TEXT_NORTH = list(17, 32),
+					TEXT_SOUTH = list(16, 32),
+					TEXT_EAST = list(14, 26),
+					TEXT_WEST = list(14, 26),
+				)
+
+	set_riding_offsets(RIDING_OFFSET_ALL, offsets)
+	set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
+	set_vehicle_dir_layer(NORTH, OBJ_LAYER)
+	set_vehicle_dir_layer(EAST, OBJ_LAYER)
+	set_vehicle_dir_layer(WEST, OBJ_LAYER)
+	vehicle_move_delay = base_move_delay
+	current_move_delay = base_move_delay
+
+/datum/component/riding/creature/horse/Initialize(mob/living/riding_mob, force = FALSE, ride_check_flags = NONE, potion_boost = FALSE)
+	. = ..()
+	vehicle_move_multiplier = 1
+	ride_check_flags |= RIDER_NEEDS_ARMS
+
+/datum/component/riding/creature/horse/ride_check(mob/living/rider, consequences = TRUE)
+	var/mob/living/simple_animal/horse/horse_parent = parent
+	if(istype(horse_parent) && horse_parent.jumping)
+		return TRUE
+	. = ..()
+	if(!.)
+		return
+
+	if(iscarbon(rider))
+		var/mob/living/carbon/carbon_rider = rider
+		if(carbon_rider.get_active_held_item() && carbon_rider.get_inactive_held_item())
+			. = FALSE
+
+	if(. || !consequences)
+		return
+
+	var/mob/living/living_parent = parent
+	rider.apply_damage(10, BRUTE)
+	rider.visible_message(
+		span_warning("[rider] falls off of [living_parent]!"),
+		span_warning("You lose your grip and fall off of [living_parent]!")
+	)
+	rider.Paralyze(1 SECONDS)
+	rider.Knockdown(4 SECONDS)
+	living_parent.unbuckle_mob(rider)
+
+/datum/component/riding/creature/horse/driver_move(atom/movable/movable_parent, mob/living/user, direction)
+	if(!COOLDOWN_FINISHED(src, vehicle_move_cooldown))
+		return COMPONENT_DRIVER_BLOCK_MOVE
+	if(!keycheck(user))
+		if(ispath(keytype, /obj/item))
+			var/obj/item/key = keytype
+			to_chat(user, span_warning("You need a [initial(key.name)] to ride [movable_parent]!"))
+		return COMPONENT_DRIVER_BLOCK_MOVE
+
+	if(direction != last_direction)
+		tiles_in_direction = 0
+		current_move_delay = min(base_move_delay, current_move_delay + 0.075)
+		last_direction = direction
+	else
+		tiles_in_direction++
+
+	current_move_delay = max(max_speed_delay, base_move_delay - (tiles_in_direction * acceleration_per_tile))
+	vehicle_move_delay = current_move_delay
+
+	var/mob/living/living_parent = parent
+	var/turf/next = get_step(living_parent, direction)
+	step(living_parent, direction)
+	last_move_diagonal = ((direction & (direction - 1)) && (living_parent.loc == next))
+	COOLDOWN_START(src, vehicle_move_cooldown, (last_move_diagonal? 2 : 1) * vehicle_move_delay * vehicle_move_multiplier)
+
+	var/mob/living/simple_animal/horse/horse_parent = parent
+	if(istype(horse_parent) && length(horse_parent.buckled_mobs))
+		var/gallop_chance = 25
+		if(current_move_delay <= 0.7)
+			gallop_chance = 50
+		else if(current_move_delay <= 0.6)
+			gallop_chance = 75
+		var/current_time = world.time
+		if(current_time - last_gallop_time >= gallop_cooldown && prob(gallop_chance))
+			last_gallop_time = current_time
+			playsound(horse_parent, horse_parent.gallop_sound, 40, TRUE)
+
+	return ..()
+
+/datum/component/riding/creature/horse/vehicle_bump(atom/movable/movable_parent, obj/machinery/door/possible_bumped_door)
+	if(current_move_delay <= crash_speed_threshold)
+		if(possible_bumped_door.density && !isliving(possible_bumped_door) && !istype(possible_bumped_door, /obj/machinery/door))
+			var/mob/living/simple_animal/horse/H = parent
+			if(istype(H))
+				H.crash_into_wall(possible_bumped_door)
+	return ..()

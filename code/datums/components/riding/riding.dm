@@ -45,6 +45,12 @@
 	/// For telling someone they can't drive
 	COOLDOWN_DECLARE(vehicle_move_cooldown)
 
+	// *** JOUSTING CHARGE TRACKING ***
+	/// Jousting charge counter – increases while moving in the same direction with a rider.
+	var/joust_charge = 0
+	var/joust_direction = NONE
+	var/joust_timer
+
 /datum/component/riding/Initialize(mob/living/riding_mob, force = FALSE, buckle_mob_flags= NONE, potion_boost = FALSE)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -119,6 +125,16 @@
 	for (var/m in movable_parent.buckled_mobs)
 		var/mob/buckled_mob = m
 		ride_check(buckled_mob)
+		// --- Joust charge tracking ---
+		if(dir != joust_direction)
+			joust_charge = 0
+			joust_direction = dir
+		if(joust_charge < 12)
+			joust_charge++
+		if(joust_timer)
+			deltimer(joust_timer)
+		joust_timer = addtimer(CALLBACK(src, PROC_REF(reset_joust)), 1 SECONDS, TIMER_STOPPABLE)
+
 	if(QDELETED(src))
 		return // runtimed with piggy's without this, look into this more
 	handle_vehicle_offsets(dir)
@@ -247,3 +263,6 @@
 		else
 			qdel(O)
 	return TRUE
+
+/datum/component/riding/proc/reset_joust()
+	joust_charge = 0
