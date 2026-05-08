@@ -176,6 +176,10 @@
 	button_icon = 'icons/hud/screen_alert.dmi'
 	button_icon_state = "sentry"
 
+/datum/action/sentry_toggle/New(master)
+	. = ..()
+	gun = master
+
 /datum/action/sentry_toggle/on_activate(mob/user, atom/target)
 	if(!iscyborg(user))
 		return
