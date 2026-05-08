@@ -5,6 +5,7 @@
 	button_icon_state = "feed"
 
 	cooldown_time = 10 SECONDS
+	grants_familiarity = FALSE
 
 	burrow_usage_flags = LEECH_ABILITY_USABLE_BURROWED
 

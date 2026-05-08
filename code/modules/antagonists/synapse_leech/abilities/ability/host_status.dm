@@ -171,7 +171,7 @@ GLOBAL_LIST_INIT(leech_injectable_chems, list(
 
 	// Always include leech state so the inject panel can render even if host is gone.
 	data["substrate"] = leech ? leech.substrate : 0
-	data["max_substrate"] = leech ? leech.max_substrate : LEECH_MAX_SUBSTRATE
+	data["max_substrate"] = leech.max_substrate
 
 	if(!host)
 		data["host_present"] = FALSE

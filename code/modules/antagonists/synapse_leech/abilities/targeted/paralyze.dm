@@ -12,7 +12,7 @@
 
 	target_range = 1
 	cooldown_time = 60 SECONDS
-	substrate_cost = 80
+	substrate_cost = 20
 	prefire_message = "Select a victim to sting..."
 
 	/// How much paralytide we inject per sting.

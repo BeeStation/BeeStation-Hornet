@@ -52,7 +52,7 @@
 		return
 
 	// Total saturation that passive systems are allowed to spend this tick.
-	var/total_budget = LEECH_METABOLIC_LIMIT * delta_time
+	var/total_budget = (0.5 + (maturity / 200)) * delta_time
 	// Don't let passive drains push us below the minimum saturation.
 	total_budget = min(total_budget, saturation - LEECH_MIN_SATURATION)
 	if(total_budget <= 0)
@@ -106,23 +106,24 @@
 
 /mob/living/basic/synapse_leech/proc/process_host_effects(delta_time)
 	// If the leech is burrowed it has various effects. Mature leeches are more impactful.
-	if(nested && host)
+	var/datum/status_effect/leech_familiarity/familiarity = host.has_status_effect(/datum/status_effect/leech_familiarity)
+	if(!familiarity)
+		familiarity = host.apply_status_effect(/datum/status_effect/leech_familiarity)
 
-		switch(maturity)
-			if(0 to 25)
-				// Host feels a faint tingling sensation, but it quickly fades.
-
-			if(26 to 50)
-				// Host feels a persistent itch, like something is crawling under their skin. It's distracting, but not debilitating.
-
-			if(51 to 75)
-				// Host feels a strong discomfort, like something is gnawing at their insides. It's hard to focus on anything else.
-
-			if(76 to INFINITY)
-				// Host is in agony, feeling like their insides are being torn apart. They can barely function.
-
-		return
-
+	switch(maturity)
+		if(0 to 25)
+			// Host feels a faint tingling sensation, but it quickly fades.
+			if(DT_PROB(10,delta_time))
+				to_chat(host, "Weee")
+		if(26 to 50)
+			// Host feels a persistent itch, like something is crawling under their skin. It's distracting, but not debilitating.
+			return
+		if(51 to 75)
+			// Host feels a strong discomfort, like something is gnawing at their insides. It's hard to focus on anything else.
+			return
+		if(76 to 100)
+			// Host is in agony, feeling like their insides are being torn apart. They can barely function.
+			return
 
 /mob/living/basic/synapse_leech/proc/process_maturity(delta_time)
 	if(nested && host)
@@ -130,8 +131,8 @@
 		var/saturation_factor = saturation / max_saturation
 		var/host_health_factor = host.health / host.maxHealth
 
-		// Max is 0.1 maturity per second. This math actually has a max of 0.1111~, which would lead to exactly 15 minutes with perfect conditions.
-		var/maturity_gain = clamp((saturation_factor + host_health_factor / 18) * delta_time, 0, 0.1)
+		// Max is 0.05 per second, which leads to approximately 30 minutes with perfect conditions.
+		var/maturity_gain = clamp((saturation_factor + host_health_factor / 36) * delta_time, 0, 0.05)
 
 		maturity += maturity_gain
 		if(maturity >= 100)
@@ -148,11 +149,17 @@
 			maxHealth = calculated_max_health
 			health = maxHealth * health_percent
 
-		// Next is saturation
+		// Saturation
 		// A lil leech at 0 maturity has 50 max saturation, and a fully mature leech has 200 max saturation.
 		var/calculated_max_saturation = 50 + (150 * (maturity / 100))
 		if(max_saturation != calculated_max_saturation)
 			max_saturation = calculated_max_saturation
+
+		// Substrate
+		// 0 maturity has 20 max, fully mature leech has 100 max.
+		var/calculated_max_substrate = 20 + (80 * (maturity / 100))
+		if(max_substrate != calculated_max_substrate)
+			max_substrate = calculated_max_substrate
 
 		update_leech_hud()
 		COOLDOWN_START(src, maturity_update_cooldown, 5 SECONDS)

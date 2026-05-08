@@ -25,15 +25,15 @@
 	if(HAS_TRAIT(living_target, TRAIT_PIERCEIMMUNE))
 		return
 
-	if(substrate <= 0)
-		return
+	// Calculate the amount of toxin based on maturity. 0 maturity, 5 toxin. 100 maturity, 15 toxin.
+	var/toxin_amount = 5 + ((maturity / 100) * 10)
 
-	// If we are over 5 substrate, we just apply as normal.
-	if(substrate > 5)
-		living_target.reagents.add_reagent(toxin_type, LEECH_TOXIN_PER_ATTACK)
-		adjust_substrate(-LEECH_TOXIN_PER_ATTACK)
+	// If we are over the amount, we just apply as normal.
+	if(substrate > toxin_amount)
+		living_target.reagents.add_reagent(toxin_type, toxin_amount)
+		adjust_substrate(-toxin_amount)
 	else
-		// We have more than 0 substrate, but less than 5.
+		// We have more than 0 substrate, but less than the toxin amount.
 		living_target.reagents.add_reagent(toxin_type, substrate)
 		adjust_substrate(-substrate)
 

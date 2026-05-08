@@ -1,7 +1,7 @@
 /**
  * # Synapse Leech Abilities
  *
- * The base action class for all synapse leech abilities. Modeled loosely on the vampire power
+* The base action class for all synapse leech abilities. Modeled loosely on the vampire power
  * system, but stripped down to fit my tiny smooth brain
  *
  * Abilities should:
@@ -33,6 +33,9 @@
 	 * If the leech's current state is not allowed, the button is greyed out
 	 */
 	var/burrow_usage_flags = LEECH_ABILITY_USABLE_UNBURROWED
+
+	/// If TRUE, successfully using this ability will increase the host's leech familiarity.
+	var/grants_familiarity = TRUE
 
 /datum/action/leech/New(Target)
 	. = ..()
@@ -111,6 +114,13 @@
 		leech.adjust_substrate(-substrate_cost)
 	if(saturation_cost > 0)
 		leech.adjust_saturation(-saturation_cost)
+	if(grants_familiarity)
+		var/mob/living/carbon/host = get_host()
+		if(host)
+			var/datum/status_effect/leech_familiarity/familiarity = host.has_status_effect(/datum/status_effect/leech_familiarity)
+			if(!familiarity)
+				familiarity = host.apply_status_effect(/datum/status_effect/leech_familiarity)
+			familiarity?.on_ability_used()
 
 /// Override of the action availability check. We want to additionally require a leech owner.
 /datum/action/leech/is_available(feedback = FALSE)

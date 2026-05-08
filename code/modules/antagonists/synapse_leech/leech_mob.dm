@@ -61,8 +61,8 @@
 	var/saturation = 50
 
 	/// Basic leech resource.
-	var/max_substrate = LEECH_MAX_SUBSTRATE
-	var/substrate = LEECH_MAX_SUBSTRATE
+	var/max_substrate = 20
+	var/substrate = 20
 
 	/// The type of toxin the leech injects per attack
 	var/toxin_type = /datum/reagent/toxin/leech_toxin
@@ -189,7 +189,7 @@
 			to_chat(host, "0 to 50")
 		if(51 to 75)
 			to_chat(host, "51 to 75")
-		if(76 to INFINITY)
+		if(76 to 100)
 			to_chat(host, "76 to 100")
 
 

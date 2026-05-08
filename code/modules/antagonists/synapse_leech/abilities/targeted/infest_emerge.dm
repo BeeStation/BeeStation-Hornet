@@ -11,6 +11,7 @@
 	// This ability doubles as the "emerge" button while we are nested, so it must
 	// be usable regardless of state.
 	burrow_usage_flags = LEECH_ABILITY_USABLE_ALWAYS
+	grants_familiarity = FALSE
 
 	/// How long each of the three stages takes.
 	var/burrow_stage_time = 5 SECONDS
