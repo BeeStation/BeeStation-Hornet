@@ -1725,7 +1725,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /datum/uplink_item/device_tools
 	category = "Misc. Gadgets"
 
-/datum/uplink_item/support/horse
+/datum/uplink_item/device_tools/horse
 	name = "Syndicate Horse Kit"
 	desc = "A kit containing a beacon to order a premium war-horse plus an apple to tame it!, as seen from the consortium catalogue.The horse is extremely tough, can survive in space, and will trample anyone in its path."
 	item = /obj/item/storage/box/syndie_kit/horse
