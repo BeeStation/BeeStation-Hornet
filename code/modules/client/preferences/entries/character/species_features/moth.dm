@@ -14,8 +14,8 @@
 
 	if (isnull(moth_head))
 		moth_head = uni_icon('icons/mob/human/species/moth/bodyparts.dmi', "moth_head")
-		moth_head.blend_icon(uni_icon('icons/mob/human/human_face.dmi', "motheyes_l"), ICON_OVERLAY)
-		moth_head.blend_icon(uni_icon('icons/mob/human/human_face.dmi', "motheyes_r"), ICON_OVERLAY)
+		moth_head.blend_icon(uni_icon('icons/mob/human/species/moth/eyes.dmi', "eyes_l"), ICON_OVERLAY)
+		moth_head.blend_icon(uni_icon('icons/mob/human/species/moth/eyes.dmi', "eyes_r"), ICON_OVERLAY)
 
 	var/datum/sprite_accessory/antennae = GLOB.moth_antennae_list[value]
 
@@ -58,8 +58,8 @@
 			var/dimorphic_suffix = initial(body_part.is_dimorphic) ? "_m" : ""
 			moth_body.blend_icon(uni_icon('icons/mob/human/species/moth/bodyparts.dmi', "[limb_id]_[body_zone][dimorphic_suffix]"), ICON_OVERLAY)
 
-		moth_body.blend_icon(uni_icon('icons/mob/human/human_face.dmi', "motheyes_l"), ICON_OVERLAY)
-		moth_body.blend_icon(uni_icon('icons/mob/human/human_face.dmi', "motheyes_r"), ICON_OVERLAY)
+		moth_body.blend_icon(uni_icon('icons/mob/human/species/moth/eyes.dmi', "eyes_l"), ICON_OVERLAY)
+		moth_body.blend_icon(uni_icon('icons/mob/human/species/moth/eyes.dmi', "eyes_r"), ICON_OVERLAY)
 
 	var/datum/sprite_accessory/markings = GLOB.moth_markings_list[value]
 	var/datum/universal_icon/icon_with_markings = moth_body.copy()
@@ -100,3 +100,18 @@
 /datum/preference/choiced/moth_wings/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["moth_wings"] = value
 
+/datum/preference/choiced/moth_eyes
+	db_key = "feature_moth_eyes"
+	preference_type = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	main_feature_name = "Eye Type"
+	relevant_mutant_bodypart = "moth_eyes"
+
+/datum/preference/choiced/moth_eyes/init_possible_values()
+	return list("Default", "Domestic")
+
+/datum/preference/choiced/moth_eyes/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["moth_eyes"] = value
+
+/datum/preference/choiced/moth_eyes/create_default_value()
+	return "Default"
