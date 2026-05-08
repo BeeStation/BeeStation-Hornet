@@ -3034,7 +3034,7 @@
 /datum/supply_pack/critter/horse
 	name = "Horse Crate"
 	desc = "Contains a presaddled horse, best suited for parades or smooth getaways. Apples not included."
-	cost = 3000
+	cost = 6000
 	max_supply = 2
 	contains = list(/mob/living/simple_animal/horse)
 	crate_name = "horse crate"
