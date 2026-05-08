@@ -192,10 +192,12 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	copy_overlays(target, TRUE)
 	has_mob_appearance = TRUE
 
-	//Sanity check if we got a iconset failure (we got gibbed or otherwise are attempting to copy the appearance of a non-mob)
-	//Reset to our base charslot
+	// Sanity, icon_state null means the target was gibbed or has no base icon state.
 	if(isnull(icon_state))
-		set_ghost_appearance()
+		icon = initial(icon)
+		icon_state = initial(icon_state)
+		cut_overlays()
+		has_mob_appearance = FALSE
 
 /*
 Transfer_mind is there to check if mob is being deleted/not going to have a body.
@@ -211,6 +213,10 @@ Works together with spawning an observer, noted above.
 
 			ghost.can_reenter_corpse = can_reenter_corpse
 			ghost.key = key
+
+			// Client is now available, if appearance wasn't set, fall back to charslot appearance
+			if(!ghost.has_mob_appearance)
+				ghost.set_ghost_appearance()
 
 			var/recordable_time = world.time
 			var/mob/living/former_mob = ghost.mind?.current
@@ -754,6 +760,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	COMPILE_OVERLAYS(mannequin)
 
 	set_appearance(mannequin)
+	// copy_overlays() inside set_appearance() only queues overlays for SSoverlays.
+	// For lobby observers (created outside Initialize), SSoverlays may not process
+	// the queue before the client first renders the ghost. Compile immediately.
+	COMPILE_OVERLAYS(src)
 	unset_busy_human_dummy("ghost_appearance")
 
 /mob/dead/observer/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
