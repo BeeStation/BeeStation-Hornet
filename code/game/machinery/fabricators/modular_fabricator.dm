@@ -89,8 +89,7 @@
 	print_sound = new(src, FALSE)
 
 	if(ispath(stored_research) && !use_station_research)
-		if(!GLOB.autounlock_techwebs[stored_research])
-			GLOB.autounlock_techwebs[stored_research] = new stored_research()
+		GLOB.autounlock_techwebs[stored_research] ||= new stored_research()
 		stored_research = GLOB.autounlock_techwebs[stored_research]
 
 	if(accepts_disks)

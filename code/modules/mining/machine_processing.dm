@@ -234,8 +234,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
 		/datum/material/bluespace,
 	)
 	AddComponent(/datum/component/material_container, allowed_materials, INFINITY, MATCONTAINER_EXAMINE|BREAKDOWN_FLAGS_ORE_PROCESSOR, /obj/item/stack)
-	if(!GLOB.autounlock_techwebs[/datum/techweb/autounlocking/smelter])
-		GLOB.autounlock_techwebs[/datum/techweb/autounlocking/smelter] = new /datum/techweb/autounlocking/smelter
+	GLOB.autounlock_techwebs[/datum/techweb/autounlocking/smelter] ||= new /datum/techweb/autounlocking/smelter()
 	stored_research = GLOB.autounlock_techwebs[/datum/techweb/autounlocking/smelter]
 	selected_material = SSmaterials.GetMaterialRef(/datum/material/iron)
 

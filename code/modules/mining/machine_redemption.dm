@@ -26,8 +26,7 @@
 
 /obj/machinery/mineral/ore_redemption/Initialize(mapload)
 	. = ..()
-	if(!GLOB.autounlock_techwebs[/datum/techweb/autounlocking/smelter])
-		GLOB.autounlock_techwebs[/datum/techweb/autounlocking/smelter] = new /datum/techweb/autounlocking/smelter
+	GLOB.autounlock_techwebs[/datum/techweb/autounlocking/smelter] ||= new /datum/techweb/autounlocking/smelter()
 	stored_research = GLOB.autounlock_techwebs[/datum/techweb/autounlocking/smelter]
 	materials = AddComponent(/datum/component/remote_materials, "orm", mapload, mat_container_flags=BREAKDOWN_FLAGS_ORM)
 

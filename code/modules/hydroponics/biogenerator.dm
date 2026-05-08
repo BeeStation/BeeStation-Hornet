@@ -28,8 +28,7 @@
 
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
-	if(!GLOB.autounlock_techwebs[/datum/techweb/autounlocking/biogenerator])
-		GLOB.autounlock_techwebs[/datum/techweb/autounlocking/biogenerator] = new /datum/techweb/autounlocking/biogenerator
+	GLOB.autounlock_techwebs[/datum/techweb/autounlocking/biogenerator] ||= new /datum/techweb/autounlocking/biogenerator()
 	stored_research = GLOB.autounlock_techwebs[/datum/techweb/autounlocking/biogenerator]
 	create_reagents(1000)
 
