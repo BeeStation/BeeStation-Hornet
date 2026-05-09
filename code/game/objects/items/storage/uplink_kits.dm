@@ -636,12 +636,3 @@
 	new /obj/item/pinata/syndie(src)
 	new /obj/item/storage/belt/grenade(src)
 	new /obj/item/storage/belt/military/snack(src)
-
-/obj/item/storage/box/syndie_kit/horse
-	name = "Syndicate Horse Kit"
-	desc = "A sleek box containing a horse beacon and a fresh apple."
-	icon_state = "syndiebox"
-
-/obj/item/storage/box/syndie_kit/horse/PopulateContents()
-	new /obj/item/horse_beacon(src)
-	new /obj/item/food/grown/apple(src)
