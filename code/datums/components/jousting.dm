@@ -131,3 +131,24 @@
 				if(S.density)
 					return FALSE
 	return TRUE
+
+// Weapon Joustables
+/obj/item/spear/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/jousting)
+
+/obj/item/nullrod/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/jousting)
+
+/obj/item/pitchfork/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/jousting)
+
+/obj/item/mop/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/jousting)
+
+/obj/item/pushbroom/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/jousting)
