@@ -58251,7 +58251,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/rack,
-/obj/item/storage/backpack/satchel/tox,
+/obj/item/storage/backpack/satchel/science,
 /obj/item/analyzer,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/fore)
@@ -60694,7 +60694,7 @@
 /obj/structure/closet{
 	name = "exploration locker"
 	},
-/obj/item/storage/backpack/satchel/tox,
+/obj/item/storage/backpack/satchel/science,
 /obj/item/analyzer,
 /obj/item/clothing/under/rank/cargo/exploration,
 /obj/item/clothing/under/rank/cargo/exploration,
