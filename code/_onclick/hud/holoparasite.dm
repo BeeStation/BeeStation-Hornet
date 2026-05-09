@@ -183,7 +183,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite)
 		stop_timer()
 		return PROCESS_KILL
 	cut_overlays()
-	text_overlay.maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[FLOOR(COOLDOWN_TIMELEFT(src, timer) * 0.1, 1)]s</span></center>"
+	text_overlay.maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[floor(COOLDOWN_TIMELEFT(src, timer) * 0.1)]s</span></center>"
 	update_icon()
 
 /atom/movable/screen/holoparasite/Click()
@@ -207,7 +207,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite)
 		text_overlay.maptext_x = -16
 		text_overlay.maptext_y = 2
 		text_overlay.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-		text_overlay.maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[FLOOR(length * 0.1, 1)]s</span></center>"
+		text_overlay.maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[floor(length * 0.1)]s</span></center>"
 	if(owner.client)
 		owner.client.images |= text_overlay
 	timer_length = length

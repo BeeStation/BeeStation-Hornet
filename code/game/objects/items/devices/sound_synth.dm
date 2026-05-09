@@ -130,7 +130,7 @@
 			// Just in case something goes fucky wucky, don't cache a bad result.
 			if(!isnum_safe(sound.len) || sound.len <= 0)
 				continue
-			var/sound_len = CEILING(sound.len * 10, 1)
+			var/sound_len = ceil(sound.len * 10)
 			sound_lengths[sound_name] = sound_len
 			if(sound_name == selected_sound_name)
 				. = sound_len

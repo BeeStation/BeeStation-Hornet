@@ -406,7 +406,7 @@
 		timer_overlay.maptext_height = 64
 		timer_overlay.maptext_x = -8
 		timer_overlay.maptext_y = -6
-	var/new_maptext = "<center><span class='maptext' style='font-weight: bold;color: #eeeeee;'>[FLOOR((next_use_time - world.time)/10, 1)]</span></center>"
+	var/new_maptext = "<center><span class='maptext' style='font-weight: bold;color: #eeeeee;'>[floor((next_use_time - world.time)/10)]</span></center>"
 	if (new_maptext != timer_overlay.maptext || force)
 		button.cut_overlay(timer_overlay)
 		timer_overlay.maptext = new_maptext

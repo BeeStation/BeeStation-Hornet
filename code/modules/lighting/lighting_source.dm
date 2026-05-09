@@ -289,8 +289,8 @@
 
 	if (source_turf)
 		var/oldlum = source_turf.luminosity
-		source_turf.luminosity = CEILING(light_range, 1)
-		for(var/turf/T in view(CEILING(light_range, 1), source_turf))
+		source_turf.luminosity = ceil(light_range)
+		for(var/turf/T in view(ceil(light_range), source_turf))
 			if(IS_OPAQUE_TURF(T))
 				continue
 			if (!T.lighting_corners_initialised)

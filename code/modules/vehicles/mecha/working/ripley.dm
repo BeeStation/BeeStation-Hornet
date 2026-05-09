@@ -140,7 +140,7 @@
 /obj/vehicle/sealed/mecha/ripley/mining/Initialize(mapload)
 	. = ..()
 	if(cell)
-		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge
+		cell.charge = floor(cell.charge * 0.25) //Starts at very low charge
 	if(prob(70)) //Maybe add a drill
 		if(prob(15)) //Possible diamond drill... Feeling lucky?
 			var/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill/D = new

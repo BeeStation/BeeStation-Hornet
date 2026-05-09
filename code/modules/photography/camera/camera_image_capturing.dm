@@ -57,8 +57,8 @@
 
 
 	var/list/sorted = sortTim(images, GLOBAL_PROC_REF(cmp_atom_layer_asc))
-	var/xcomp = FLOOR(psize_x / 2, 1) - 15
-	var/ycomp = FLOOR(psize_y / 2, 1) - 15
+	var/xcomp = floor(psize_x / 2) - 15
+	var/ycomp = floor(psize_y / 2) - 15
 
 
 	if(!skip_normal) //these are not clones
@@ -90,7 +90,7 @@
 						img.Scale(base_w * abs(decompose.scale_x), base_h * decompose.scale_y)
 						if(decompose.scale_x < 0)
 							img.Flip(EAST)
-						xo -= base_w * (decompose.scale_x - SIGN(decompose.scale_x)) / 2 * SIGN(decompose.scale_x)
+						xo -= base_w * (decompose.scale_x - sign(decompose.scale_x)) / 2 * sign(decompose.scale_x)
 						yo -= base_h * (decompose.scale_y - 1) / 2
 
 					if(!clone.is_orbiting)
