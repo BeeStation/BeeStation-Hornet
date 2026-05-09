@@ -420,28 +420,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/used = FALSE
 
-/obj/item/horse_beacon
-	name = "syndicate horse beacon"
-	desc = "A device that calls in a fully trained syndicate war horse, Propety of the Consortium, Handle with care."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "gangtool-red"
-	w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/horse_beacon/attack_self(mob/user)
-	if(!isturf(user.loc))
-		to_chat(user, span_warning("You need to be on solid ground to call the horse."))
-		return
-
-	to_chat(user, span_notice("You press the button on the beacon. A Terrible screeching fills the room."))
-	playsound(user, 'sound/effects/phasein.ogg', 50, TRUE)
-
-	var/obj/structure/closet/supplypod/extractionpod/pod = new()
-	new /mob/living/simple_animal/horse/syndicate(pod)
-	pod.explosionSize = list(0,0,0,0)
-
-	new /obj/effect/pod_landingzone(get_turf(user), pod)
-	qdel(src)
-
 /obj/item/choice_beacon/pet
 	name = "animal delivery beacon"
 	desc = "There are no faster ways, only more humane."
