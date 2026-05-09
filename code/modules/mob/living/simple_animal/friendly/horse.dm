@@ -413,6 +413,7 @@
 /datum/action/horse_jump
 	name = "Jump"
 	desc = "Leap over obstacles!"
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "barn"
 
 /datum/action/horse_jump/on_activate(mob/user, atom/target)
