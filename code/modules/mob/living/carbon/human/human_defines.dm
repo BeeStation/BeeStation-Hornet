@@ -22,17 +22,21 @@
 	var/facial_hair_style = "Shaved"
 	//Eye colour
 	var/eye_color = COLOR_BLACK
-	var/skin_tone = "caucasian1"	//Skin tone
-	var/lip_style = null	//no lipstick by default- arguably misleading, as it could be used for general makeup
-	var/lip_color = "white"
-	var/age = 30		//Player's age
+
+	var/skin_tone = "caucasian1" //Skin tone
+
+	var/lip_style = null //no lipstick by default- arguably misleading, as it could be used for general makeup
+	var/lip_color = COLOR_WHITE
+
+	var/age = 30 //Player's age
+
 	//consider updating /mob/living/carbon/human/copy_clothing_prefs() if adding more of these
-	var/underwear = "Nude"	//Which underwear the player wants
+	var/underwear = "Nude" //Which underwear the player wants
 	var/underwear_color = COLOR_BLACK
 	var/undershirt = "Nude" //Which undershirt the player wants
 	var/socks = "Nude" //Which socks the player wants
-	var/backbag = DBACKPACK		//Which backpack type the player has chosen.
-	var/jumpsuit_style = PREF_SUIT		//suit/skirt
+	var/backpack = DBACKPACK //Which backpack type the player has chosen.
+	var/jumpsuit_style = PREF_SUIT //suit/skirt
 
 	//Equipment slots
 	var/obj/item/clothing/wear_suit = null

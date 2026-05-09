@@ -6,7 +6,6 @@
 	icon_door = "black"
 
 /obj/structure/closet/gmcloset/PopulateContents()
-	..()
 	var/static/items_inside = list(
 		/obj/item/clothing/head/hats/tophat = 2,
 		/obj/item/radio/headset/headset_srv = 2,
@@ -21,8 +20,9 @@
 		/obj/item/circuitboard/machine/dish_drive = 1,
 		/obj/item/clothing/glasses/sunglasses/advanced/reagent = 1,
 		/obj/item/clothing/neck/petcollar = 1,
-		/obj/item/storage/belt/bandolier = 1)
-	generate_items_inside(items_inside,src)
+		/obj/item/storage/belt/bandolier = 1,
+	)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/chefcloset
 	name = "\proper chef's closet"
@@ -30,7 +30,6 @@
 	icon_door = "black"
 
 /obj/structure/closet/chefcloset/PopulateContents()
-	..()
 	var/static/items_inside = list(
 		/obj/item/clothing/under/suit/waiter = 2,
 		/obj/item/radio/headset/headset_srv = 2,
@@ -42,8 +41,9 @@
 		/obj/item/clothing/suit/toggle/chef = 1,
 		/obj/item/clothing/under/rank/civilian/chef = 1,
 		/obj/item/clothing/head/utility/chefhat = 1,
-		/obj/item/rag = 1)
-	generate_items_inside(items_inside,src)
+		/obj/item/rag = 1,
+	)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/jcloset
 	name = "custodial closet"
@@ -51,7 +51,6 @@
 	icon_door = "mixed"
 
 /obj/structure/closet/jcloset/PopulateContents()
-	..()
 	new /obj/item/clothing/under/rank/civilian/janitor(src)
 	new /obj/item/computer_hardware/hard_drive/role/janitor(src)
 	new /obj/item/clothing/gloves/color/black(src)
@@ -76,7 +75,6 @@
 	icon_door = "blue"
 
 /obj/structure/closet/lawcloset/PopulateContents()
-	..()
 	new /obj/item/clothing/under/rank/civilian/lawyer/female(src)
 	new /obj/item/clothing/under/rank/civilian/lawyer/black(src)
 	new /obj/item/clothing/under/rank/civilian/lawyer/red(src)
@@ -108,7 +106,6 @@
 	new /obj/item/storage/backpack/cultpack(src)
 	new /obj/item/storage/fancy/candle_box(src)
 	new /obj/item/storage/fancy/candle_box(src)
-	return
 
 /obj/structure/closet/wardrobe/red
 	name = "security wardrobe"
@@ -120,14 +117,15 @@
 		/obj/item/storage/backpack/security = 1,
 		/obj/item/storage/backpack/satchel/sec = 1,
 		/obj/item/storage/backpack/duffelbag/sec = 2,
+		/obj/item/storage/backpack/messenger/sec = 1,
 		/obj/item/clothing/under/rank/security/officer = 3,
 		/obj/item/clothing/under/rank/security/officer/skirt = 2,
 		/obj/item/clothing/shoes/jackboots = 3,
 		/obj/item/clothing/head/beret/sec = 3,
 		/obj/item/clothing/head/soft/sec = 3,
-		/obj/item/clothing/mask/bandana/red = 2)
-	generate_items_inside(items_inside,src)
-	return
+		/obj/item/clothing/mask/bandana/red = 2,
+	)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/wardrobe/cargotech
 	name = "cargo wardrobe"
@@ -141,8 +139,9 @@
 		/obj/item/clothing/shoes/sneakers/black = 3,
 		/obj/item/clothing/gloves/fingerless = 3,
 		/obj/item/clothing/head/soft = 3,
-		/obj/item/radio/headset/headset_cargo = 1)
-	generate_items_inside(items_inside,src)
+		/obj/item/radio/headset/headset_cargo = 1,
+	)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/wardrobe/atmospherics_yellow
 	name = "atmospherics wardrobe"
@@ -154,10 +153,10 @@
 		/obj/item/storage/backpack/duffelbag/engineering = 1,
 		/obj/item/storage/backpack/satchel/eng = 1,
 		/obj/item/storage/backpack/industrial = 1,
-		/obj/item/storage/box/suitbox/wardrobe/atmospherics_yellow = 3
+		/obj/item/storage/backpack/messenger/eng = 1,
+		/obj/item/storage/box/suitbox/wardrobe/atmospherics_yellow = 3,
 	)
-	generate_items_inside(items_inside,src)
-	return
+	generate_items_inside(items_inside, src)
 
 /obj/item/storage/box/suitbox/wardrobe/atmospherics_yellow
 	name = "compression box of atmospherics uniforms"
@@ -167,7 +166,7 @@
 		/obj/item/clothing/under/rank/engineering/atmospheric_technician,
 		/obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt,
 		/obj/item/clothing/shoes/sneakers/black,
-		/obj/item/clothing/head/beret/atmos
+		/obj/item/clothing/head/beret/atmos,
 	)
 
 /obj/structure/closet/wardrobe/engineering_yellow
@@ -180,10 +179,10 @@
 		/obj/item/storage/backpack/duffelbag/engineering = 1,
 		/obj/item/storage/backpack/industrial = 1,
 		/obj/item/storage/backpack/satchel/eng = 1,
-		/obj/item/storage/box/suitbox/wardrobe/engineering = 3
+		/obj/item/storage/backpack/messenger/eng = 1,
+		/obj/item/storage/box/suitbox/wardrobe/engineering = 3,
 	)
-	generate_items_inside(items_inside,src)
-	return
+	generate_items_inside(items_inside, src)
 
 /obj/item/storage/box/suitbox/wardrobe/engineering
 	name = "compression box of engineering uniforms"
@@ -195,7 +194,7 @@
 		/obj/item/clothing/suit/hazardvest,
 		/obj/item/clothing/shoes/workboots,
 		/obj/item/clothing/head/utility/hardhat,
-		/obj/item/clothing/head/beret/engi
+		/obj/item/clothing/head/beret/engi,
 	)
 
 /obj/structure/closet/wardrobe/white/medical
@@ -207,6 +206,7 @@
 		/obj/item/storage/backpack/duffelbag/med = 1,
 		/obj/item/storage/backpack/medic = 1,
 		/obj/item/storage/backpack/satchel/med = 1,
+		/obj/item/storage/backpack/messenger/med = 1,
 		/obj/item/clothing/suit/hooded/wintercoat/medical = 1,
 		/obj/item/clothing/under/rank/medical/doctor/nurse = 1,
 		/obj/item/clothing/head/costume/nursehat = 1,
@@ -217,9 +217,9 @@
 		/obj/item/clothing/suit/toggle/labcoat/paramedic = 3,
 		/obj/item/clothing/shoes/sneakers/white = 3,
 		/obj/item/clothing/head/soft/paramedic = 3,
-		/obj/item/clothing/head/beret/medical = 3)
-	generate_items_inside(items_inside,src)
-	return
+		/obj/item/clothing/head/beret/medical = 3,
+	)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/wardrobe/robotics_black
 	name = "robotics wardrobe"
@@ -233,14 +233,13 @@
 		/obj/item/clothing/shoes/sneakers/black = 2,
 		/obj/item/clothing/gloves/fingerless = 2,
 		/obj/item/clothing/head/soft/black = 2,
-		/obj/item/clothing/head/beret/science = 2)
-	generate_items_inside(items_inside,src)
+		/obj/item/clothing/head/beret/science = 2,
+	)
+	generate_items_inside(items_inside, src)
 	if(prob(40))
 		new /obj/item/clothing/mask/bandana/skull/black(src)
 	if(prob(40))
 		new /obj/item/clothing/mask/bandana/skull/black(src)
-	return
-
 
 /obj/structure/closet/wardrobe/chemistry_white
 	name = "chemistry wardrobe"
@@ -253,10 +252,10 @@
 		/obj/item/clothing/suit/toggle/labcoat/chemist = 2,
 		/obj/item/storage/backpack/chemistry = 2,
 		/obj/item/storage/backpack/satchel/chem = 2,
-		/obj/item/storage/bag/chemistry = 2)
-	generate_items_inside(items_inside,src)
-	return
-
+		/obj/item/storage/backpack/messenger/chem = 2,
+		/obj/item/storage/bag/chemistry = 2,
+	)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/wardrobe/genetics_white
 	name = "genetics wardrobe"
@@ -268,10 +267,10 @@
 		/obj/item/clothing/shoes/sneakers/white = 2,
 		/obj/item/clothing/suit/toggle/labcoat/genetics = 2,
 		/obj/item/storage/backpack/genetics = 2,
-		/obj/item/storage/backpack/satchel/gen = 2)
-	generate_items_inside(items_inside,src)
-	return
-
+		/obj/item/storage/backpack/satchel/gen = 2,
+		/obj/item/storage/backpack/messenger/gen = 2,
+	)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/wardrobe/virology_white
 	name = "virology wardrobe"
@@ -285,9 +284,10 @@
 		/obj/item/clothing/mask/surgical = 2,
 		/obj/item/storage/backpack/virology = 2,
 		/obj/item/storage/backpack/satchel/vir = 2,
-		/obj/item/clothing/head/beret/medical = 2)
-	generate_items_inside(items_inside,src)
-	return
+		/obj/item/storage/backpack/messenger/vir = 2,
+		/obj/item/clothing/head/beret/medical = 2,
+	)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/wardrobe/science_white
 	name = "science wardrobe"
@@ -297,16 +297,16 @@
 	var/static/items_inside = list(
 		/obj/item/clothing/accessory/pocketprotector = 1,
 		/obj/item/storage/backpack/science = 2,
-		/obj/item/storage/backpack/satchel/tox = 2,
+		/obj/item/storage/backpack/satchel/science = 2,
 		/obj/item/clothing/suit/hooded/wintercoat/science = 1,
 		/obj/item/clothing/under/rank/rnd/scientist = 3,
 		/obj/item/clothing/suit/toggle/labcoat/science = 3,
 		/obj/item/clothing/shoes/sneakers/white = 3,
 		/obj/item/radio/headset/headset_sci = 2,
 		/obj/item/clothing/mask/gas = 3,
-		/obj/item/clothing/head/beret/science = 3)
-	generate_items_inside(items_inside,src)
-	return
+		/obj/item/clothing/head/beret/science = 3,
+	)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/wardrobe/botanist
 	name = "botanist wardrobe"
@@ -316,12 +316,14 @@
 	var/static/items_inside = list(
 		/obj/item/storage/backpack/botany = 2,
 		/obj/item/storage/backpack/satchel/hyd = 2,
+		/obj/item/storage/backpack/messenger/hyd = 2,
 		/obj/item/clothing/suit/hooded/wintercoat/hydro = 1,
 		/obj/item/clothing/suit/apron = 2,
 		/obj/item/clothing/suit/apron/overalls = 2,
 		/obj/item/clothing/under/rank/civilian/hydroponics = 3,
-		/obj/item/clothing/mask/bandana/striped/botany = 3)
-	generate_items_inside(items_inside,src)
+		/obj/item/clothing/mask/bandana/striped/botany = 3,
+	)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/wardrobe/curator
 	name = "treasure hunting wardrobe"
@@ -333,4 +335,4 @@
 	new /obj/item/clothing/under/rank/civilian/curator/treasure_hunter(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/storage/backpack/satchel/explorer(src)
-
+	new /obj/item/storage/backpack/messenger/explorer(src)
