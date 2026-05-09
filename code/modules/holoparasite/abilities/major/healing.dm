@@ -46,7 +46,7 @@
 	heal_debuffs = (master_stats.potential >= 3)
 	purge_toxins = (master_stats.defense >= 3)
 	heal_amt = CEILING(max(master_stats.potential * 0.8, 2) + 3, 0.5)
-	effect_heal_amt = ceil(max(master_stats.potential * 0.85), 1)
+	effect_heal_amt = ceil(max(master_stats.potential * 0.85, 1))
 	purge_amt = CEILING((master_stats.potential + master_stats.defense) * 0.55 * REM, 0.5)
 
 /datum/holoparasite_ability/major/healing/remove()
@@ -115,8 +115,8 @@
 	var/actual_purge_amt = purge_amt
 	if(!owner.is_manifested())
 		actual_heal_amt = CEILING(max(heal_amt * 0.5, 2), 0.5)
-		actual_effect_heal_amt = ceil(max(effect_heal_amt * 0.45), 1)
-		actual_purge_amt = ceil(max(purge_amt * 0.5), 0.5)
+		actual_effect_heal_amt = ceil(max(effect_heal_amt * 0.45, 1))
+		actual_purge_amt = CEILING(max(purge_amt * 0.5, 1), 0.5)
 	else if(target.stat && !owner.has_matching_summoner(target))
 		actual_heal_amt = CEILING(heal_amt * 1.25, 0.5)
 		actual_effect_heal_amt = ceil(heal_amt * 1.25)
@@ -170,7 +170,7 @@
 		target.adjust_confusion(-actual_effect_heal_amt * 2)
 		target.adjust_hallucinations(-actual_effect_heal_amt * 2)
 	if(heal_clone)
-		target.adjustCloneLoss(-max(ceil(actual_heal_amt * 0.75, 0.5)), updating_health = FALSE)
+		target.adjustCloneLoss(-max(CEILING(actual_heal_amt * 0.75, 0.5), 1), updating_health = FALSE)
 	target.updatehealth()
 	if(old_health > target.health)
 		SSblackbox.record_feedback("associative", "holoparasite_mob_damage_healed", 1, list(
