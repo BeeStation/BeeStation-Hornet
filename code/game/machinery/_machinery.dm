@@ -174,10 +174,11 @@
 
 /obj/machinery/Initialize(mapload)
 	. = ..()
-	GLOB.machines += src
+	SSmachines.register_machine(src)
 
 	if(ispath(circuit, /obj/item/circuitboard))
 		circuit = new circuit(src)
+	if(istype(circuit))
 		circuit.apply_default_parts(src)
 
 	if(processing_flags & START_PROCESSING_ON_INIT)
@@ -215,8 +216,9 @@
 	setup_area_power_relationship()
 
 /obj/machinery/Destroy()
-	GLOB.machines.Remove(src)
+	SSmachines.unregister_machine(src)
 	end_processing()
+
 	dump_inventory_contents()
 	QDEL_LIST(component_parts)
 	QDEL_NULL(circuit)
@@ -290,15 +292,6 @@
 /obj/machinery/proc/end_processing()
 	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
 	STOP_PROCESSING(subsystem, src)
-
-/obj/machinery/Destroy()
-	GLOB.machines.Remove(src)
-	if(datum_flags & DF_ISPROCESSING) // A sizeable portion of machines stops processing before qdel
-		end_processing()
-	dump_inventory_contents()
-	QDEL_LIST(component_parts)
-	QDEL_NULL(circuit)
-	return ..()
 
 /obj/machinery/proc/locate_machinery()
 	return

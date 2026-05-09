@@ -439,7 +439,7 @@
 
 /datum/dynamic_ruleset/gamemode/nuclear/clown_ops/execute()
 	. = ..()
-	for(var/obj/machinery/nuclearbomb/syndicate/nuke in GLOB.nuke_list)
+	for(var/obj/machinery/nuclearbomb/syndicate/nuke as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb/syndicate))
 		var/turf/turf = get_turf(nuke)
 		if(turf)
 			var/obj/machinery/nuclearbomb/syndicate/bananium/new_nuke = new(turf)

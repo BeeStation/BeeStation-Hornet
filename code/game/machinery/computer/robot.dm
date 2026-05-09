@@ -101,7 +101,7 @@
 
 
 	data["uploads"] = list()
-	for(var/obj/machinery/computer/upload/upload as() in GLOB.uploads_list)
+	for(var/obj/machinery/computer/upload/upload as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/upload))
 		if(machine_stat & (NOPOWER|BROKEN))
 			continue
 		if(!(is_station_level(src.z) && is_station_level(upload.z)))
