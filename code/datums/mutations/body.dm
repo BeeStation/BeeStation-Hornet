@@ -89,23 +89,22 @@
 	locked = TRUE    // Default intert species for now, so locked from regular pool.
 
 /datum/mutation/dwarfism/on_acquiring(mob/living/carbon/owner)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	ADD_TRAIT(owner, TRAIT_DWARF, GENETIC_MUTATION)
-	owner.resize = 0.8
-	owner.update_transform()
+	owner.update_transform(0.8)
 	passtable_on(owner, GENETIC_MUTATION)
 	owner.visible_message(span_danger("[owner] suddenly shrinks!"), span_notice("Everything around you seems to grow.."))
 
 /datum/mutation/dwarfism/on_losing(mob/living/carbon/owner)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	REMOVE_TRAIT(owner, TRAIT_DWARF, GENETIC_MUTATION)
-	owner.resize = 1.25
-	owner.update_transform()
+	owner.update_transform(1.25)
 	passtable_off(owner, GENETIC_MUTATION)
 	owner.visible_message(span_danger("[owner] suddenly grows!"), span_notice("Everything around you seems to shrink.."))
-
 
 //Clumsiness has a very large amount of small drawbacks depending on item.
 /datum/mutation/clumsy
@@ -129,13 +128,10 @@
 				owner.emote("twitch")
 			if(2 to 3)
 				owner.say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]", forced="tourette's syndrome")
-		var/x_offset_old = owner.pixel_x
-		var/y_offset_old = owner.pixel_y
-		var/x_offset = owner.pixel_x + rand(-2, 2)
-		var/y_offset = owner.pixel_y + rand(-1, 1)
-		animate(owner, pixel_x = x_offset, pixel_y = y_offset, time = 1)
-		animate(owner, pixel_x = x_offset_old, pixel_y = y_offset_old, time = 1)
-
+		var/x_offset = rand(-2, 2)
+		var/y_offset = rand(-1, 1)
+		animate(owner, pixel_x = x_offset, pixel_y = y_offset, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+		animate(owner, pixel_x = -x_offset, pixel_y = -y_offset, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
 
 //Deafness makes you deaf.
 /datum/mutation/deaf
@@ -313,19 +309,19 @@
 	conflicts = list(/datum/mutation/dwarfism)
 
 /datum/mutation/gigantism/on_acquiring(mob/living/carbon/owner)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	ADD_TRAIT(owner, TRAIT_GIANT, GENETIC_MUTATION)
-	owner.resize = 1.25
-	owner.update_transform()
+	owner.update_transform(1.25)
 	owner.visible_message(span_danger("[owner] suddenly grows!"), span_notice("Everything around you seems to shrink.."))
 
 /datum/mutation/gigantism/on_losing(mob/living/carbon/owner)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	REMOVE_TRAIT(owner, TRAIT_GIANT, GENETIC_MUTATION)
-	owner.resize = 0.8
-	owner.update_transform()
+	owner.update_transform(0.8)
 	owner.visible_message(span_danger("[owner] suddenly shrinks!"), span_notice("Everything around you seems to grow.."))
 
 /datum/mutation/spastic

@@ -100,14 +100,18 @@
 ///from /obj/item/hand_item/slapper/attack(): (source=mob/living/slapper, mob/living/slapped)
 #define COMSIG_LIVING_SLAPPED "living_slapped"
 
-#define COMSIG_LIVING_STATUS_STAGGERED "living_staggered"		///from base of mob/living/Stagger() (amount, ignore_canstun)
+///from base of mob/living/Stagger() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_STAGGERED "living_staggered"
 
-#define COMSIG_LIVING_ENTER_STASIS	"living_enter_stasis"		//! sent when a mob is put into stasis.
-#define COMSIG_LIVING_EXIT_STASIS	"living_exit_stasis"		//! sent when a mob exits stasis.
+#define COMSIG_LIVING_ENTER_STASIS "living_enter_stasis" //! sent when a mob is put into stasis.
+#define COMSIG_LIVING_EXIT_STASIS "living_exit_stasis" //! sent when a mob exits stasis.
 
 // basic mob signals
 /// Called on /basic when updating its speed, from base of /mob/living/basic/update_basic_mob_varspeed(): ()
 #define POST_BASIC_MOB_UPDATE_VARSPEED "post_basic_mob_update_varspeed"
+
+///from base of mob/living/update_transform()
+#define COMSIG_LIVING_POST_UPDATE_TRANSFORM "living_post_update_transform"
 
 /// from /datum/status_effect/incapacitating/stamcrit/on_apply()
 #define COMSIG_LIVING_ENTER_STAMCRIT "living_enter_stamcrit"
@@ -176,6 +180,9 @@
 /// from /mob/proc/change_mob_type() : ()
 #define COMSIG_PRE_MOB_CHANGED_TYPE "mob_changed_type"
 	#define COMPONENT_BLOCK_MOB_CHANGE (1<<0)
+
+/// From /mob/living/update_offsets(animate) : (new_x, new_y, new_w, new_z, animate)
+#define COMSIG_LIVING_UPDATE_OFFSETS "living_update_offsets"
 
 ///from mob/living/befriend()
 #define COMSIG_LIVING_MADE_NEW_FRIEND "made_new_friend"

@@ -109,11 +109,19 @@
 
 // RNG part - having this flag will allow the RNG system to put in.
 // if a reagent hasn't a relevant flag, it wouldn't come out from RNG theme - i.e.) maint pill
-#define CHEMICAL_BASIC_ELEMENT (1<<1)  // basic chemicals in chemistry - currently used in botany RNG (not yet - refactored for prepration)
-#define CHEMICAL_BASIC_DRINK (1<<2)  // basic chemicals in bartending - currently used in botany RNG (not yet - refactored for prepration)
-#define CHEMICAL_RNG_GENERAL (1<<3)  // it spawns in general stuff - i.e.) vent, abductor gland
-#define CHEMICAL_RNG_FUN (1<<4)  // it spawns in maint pill or something else nasty. This usually has a dramatically interesting list including admin stuff minus some lame ones.
-#define CHEMICAL_RNG_BOTANY (1<<5)  // it spawns in botany strange seeds
+
+// basic chemicals in chemistry - currently used in botany RNG (not yet - refactored for prepration)
+#define CHEMICAL_BASIC_ELEMENT (1<<1)
+// basic chemicals in bartending - currently used in botany RNG (not yet - refactored for prepration)
+#define CHEMICAL_BASIC_DRINK (1<<2)
+/// it spawns in general stuff - i.e: vent, abductor gland
+#define CHEMICAL_RNG_GENERAL (1<<3)
+/// it spawns in maint pill or something else nasty. This usually has a dramatically interesting list including admin stuff minus some lame ones.
+#define CHEMICAL_RNG_FUN (1<<4)
+/// it spawns in botany strange seeds
+#define CHEMICAL_RNG_BOTANY (1<<5)
+/// Does this reagent clean things?
+#define REAGENT_CLEANS (1<<6)
 
 // crew objective part - having this flag will allow an objective having a reagent
 // Note: to be not disruptive for adding another rng define, goal flags starts at (1<<23) and reversed. (because 23 is max)

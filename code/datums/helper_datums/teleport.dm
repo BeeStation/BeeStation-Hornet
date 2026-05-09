@@ -188,11 +188,8 @@
 		var/turf/open/floor/F = random_location
 		if(!is_turf_safe(F))
 			continue
-		if(extended_safety_checks)
-			if(islava(F)) //chasms aren't /floor, and so are pre-filtered
-				var/turf/open/lava/L = F
-				if(!L.is_safe())
-					continue
+		if(extended_safety_checks && islava(F) && !HAS_TRAIT(F, TRAIT_LAVA_STOPPED)) //chasms aren't /floor, and so are pre-filtered
+			continue
 		// Check that we're not warping onto a table or window
 		if(!dense_atoms)
 			var/density_found = FALSE
@@ -266,7 +263,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	hud_possible = list(DIAG_WAKE_HUD)
+	hud_possible = list(BLUESPACE_WAKE_HUD)
 	var/turf/destination
 	var/has_hud_icon = FALSE
 
@@ -282,9 +279,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 	. = ..()
 	src.destination = destination
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
-	var/image/holder = hud_list[DIAG_WAKE_HUD]
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
+	var/image/holder = hud_list[BLUESPACE_WAKE_HUD]
 	var/mutable_appearance/MA = new /mutable_appearance()
 	MA.icon = 'icons/effects/effects.dmi'
 	MA.icon_state = "bluestream"
@@ -295,8 +292,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 
 /obj/effect/temp_visual/teleportation_wake/Destroy()
 	if (has_hud_icon)
-		for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-			diag_hud.remove_from_hud(src)
+		var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+		diag_hud.remove_atom_from_hud(src)
 	return ..()
 
 /obj/effect/temp_visual/portal_opening

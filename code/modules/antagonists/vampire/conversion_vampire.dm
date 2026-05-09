@@ -27,7 +27,7 @@
 		return FALSE
 
 #ifndef VAMPIRE_TESTING
-	if(!conversion_target.ckey)
+	if(!conversion_target.client)
 		living_vampire.balloon_alert(living_vampire, "can't be vassalized.")
 		return FALSE
 #endif

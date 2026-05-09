@@ -145,11 +145,9 @@
 		if("medical_hud")
 			medHUD = !medHUD
 			if(medHUD)
-				var/datum/atom_hud/med = GLOB.huds[med_hud]
-				med.add_hud_to(src)
+				ADD_TRAIT(src, TRAIT_MEDICAL_HUD, SILICON_HUD_TRAIT)
 			else
-				var/datum/atom_hud/med = GLOB.huds[med_hud]
-				med.remove_hud_from(src)
+				REMOVE_TRAIT(src, TRAIT_MEDICAL_HUD, SILICON_HUD_TRAIT)
 		if("newscaster")
 			newscaster.ui_interact(src)
 		if("photography_module")
@@ -173,11 +171,9 @@
 		if("security_hud")
 			secHUD = !secHUD
 			if(secHUD)
-				var/datum/atom_hud/sec = GLOB.huds[sec_hud]
-				sec.add_hud_to(src)
+				ADD_TRAIT(src, TRAIT_SECURITY_HUD, SILICON_HUD_TRAIT)
 			else
-				var/datum/atom_hud/sec = GLOB.huds[sec_hud]
-				sec.remove_hud_from(src)
+				REMOVE_TRAIT(src, TRAIT_SECURITY_HUD, SILICON_HUD_TRAIT)
 		if("universal_translator")
 			if(!languages_granted)
 				grant_all_languages(source = LANGUAGE_SOFTWARE)

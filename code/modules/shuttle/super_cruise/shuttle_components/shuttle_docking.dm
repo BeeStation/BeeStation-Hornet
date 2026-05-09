@@ -216,7 +216,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 	if(current_user.client)
 		current_user.client.images -= the_eye.placed_images
 
-	QDEL_LIST(the_eye.placed_images)
+	LAZYCLEARLIST(the_eye.placed_images)
 
 	for(var/V in the_eye.placement_images)
 		var/image/I = V
@@ -355,8 +355,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 /mob/camera/ai_eye/remote/shuttle_docker
 	visible_icon = FALSE
 	use_static = FALSE
-	var/list/placement_images = list()
-	var/list/placed_images = list()
+	var/list/image/placement_images = list()
+	var/list/image/placed_images = list()
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
 

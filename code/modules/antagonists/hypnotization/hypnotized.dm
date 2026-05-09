@@ -29,6 +29,7 @@
 	roundend_category = "hypnotized victims"
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
+	antag_hud_name = "hypnotized"
 	show_name_in_check_antagonists = TRUE
 	required_living_playtime = 0
 
@@ -54,25 +55,6 @@
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Hypnotized",
 		"You have been hypnotized!\n\
 		These strange words echo through your mind over and over.")
-
-/datum/antagonist/hypnotized/farewell()
-	owner.announce_objectives()
-
-/datum/antagonist/hypnotized/apply_innate_effects(mob/living/mob_override)
-	. = ..()
-	//Give traitor appearance on hud (If they are not an antag already)
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_HYPNOTIZED]
-	traitorhud.join_hud(owner.current)
-	if(!owner.antag_hud_icon_state)
-		set_antag_hud(owner.current, "hypnotized")
-
-/datum/antagonist/hypnotized/remove_innate_effects(mob/living/mob_override)
-	. = ..()
-	//Clear the hud if they haven't become something else and had the hud overwritten
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_HYPNOTIZED]
-	traitorhud.leave_hud(owner.current)
-	if(owner.antag_hud_icon_state == "hypnotized")
-		set_antag_hud(owner.current, null)
 
 /datum/antagonist/hypnotized/admin_add(datum/mind/new_owner,mob/admin)
 	var/mob/living/carbon/C = new_owner.current

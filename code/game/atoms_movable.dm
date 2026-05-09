@@ -236,7 +236,7 @@
 	var/static/list/careful_edits = list("bound_x", "bound_y", "bound_width", "bound_height")
 	if(var_name in banned_edits)
 		return FALSE	//PLEASE no.
-	if((var_name in careful_edits) && (var_value % world.icon_size) != 0)
+	if((var_name in careful_edits) && (var_value % ICON_SIZE_ALL) != 0)
 		return FALSE
 
 	switch(var_name)
@@ -271,10 +271,10 @@
 			return FALSE
 	return ..()
 
-/atom/movable/proc/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
-	if(QDELETED(AM))
+/atom/movable/proc/start_pulling(atom/movable/pulled_atom, state, force = move_force, supress_message = FALSE)
+	if(QDELETED(pulled_atom))
 		return FALSE
-	if(!(AM.can_be_pulled(src, state, force)))
+	if(!(pulled_atom.can_be_pulled(src, force)))
 		return FALSE
 
 	// If we're pulling something then drop what we're currently pulling and pull this instead.
@@ -283,26 +283,28 @@
 			stop_pulling()
 			return FALSE
 		// Are we trying to pull something we are already pulling? Then enter grab cycle and end.
-		if(AM == pulling)
+		if(pulled_atom == pulling)
 			setGrabState(state)
-			if(istype(AM,/mob/living))
-				var/mob/living/AMob = AM
-				AMob.grabbedby(src)
+			if(isliving(pulled_atom))
+				var/mob/living/pulled_mob = pulled_atom
+				pulled_mob.grabbedby(src)
 			return TRUE
 		stop_pulling()
 
-	if(AM.pulledby)
-		log_combat(AM, AM.pulledby, "pulled from", src, important = FALSE)
-		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
-	pulling = AM
-	AM.set_pulledby(src)
+	if(pulled_atom.pulledby)
+		log_combat(pulled_atom, pulled_atom.pulledby, "pulled from", src)
+		pulled_atom.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
+	pulling = pulled_atom
+	pulled_atom.set_pulledby(src)
 	setGrabState(state)
-	if(ismob(AM))
-		var/mob/M = AM
-		log_combat(src, M, "grabbed", addition="passive grab", important = FALSE)
+	if(ismob(pulled_atom))
+		var/mob/pulled_mob = pulled_atom
+		log_combat(src, pulled_mob, "grabbed", addition = "passive grab", important = FALSE)
 		if(!supress_message)
-			M.visible_message(span_warning("[src] grabs [M] passively."), \
-				span_danger("[src] grabs you passively."))
+			pulled_mob.visible_message(
+				span_warning("[src] grabs [pulled_mob] passively."),
+				span_danger("[src] grabs you passively."),
+			)
 	SEND_SIGNAL(pulling, COMSIG_MOVABLE_PULLED)
 	return TRUE
 
@@ -348,33 +350,27 @@
 		return FALSE
 	pulling.Move(get_step(pulling.loc, move_dir), move_dir, glide_size)
 
-/mob/living/Move_Pulled(atom/A)
+/mob/living/Move_Pulled(atom/moving_atom)
 	. = ..()
-	if(!. || !isliving(A))
+	if(!. || !isliving(moving_atom))
 		return
-	var/mob/living/L = A
-	set_pull_offsets(L, grab_state)
+	var/mob/living/pulled_mob = moving_atom
+	set_pull_offsets(pulled_mob, grab_state, animate = FALSE)
 
 /atom/movable/proc/check_pulling()
 	if(pulling)
-		var/atom/movable/pullee = pulling
-		if(pullee && get_dist(src, pullee) > 1)
+		if(get_dist(src, pulling) > 1)
 			stop_pulling()
-			return
-		if(!isturf(loc))
+		else if(!isturf(loc))
 			stop_pulling()
-			return
-		if(pullee && !isturf(pullee.loc) && pullee.loc != loc) //to be removed once all code that changes an object's loc uses forceMove().
-			log_game("DEBUG:[src]'s pull on [pullee] wasn't broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
+		else if(pulling && !isturf(pulling.loc) && pulling.loc != loc) //to be removed once all code that changes an object's loc uses forceMove().
+			log_game("DEBUG:[src]'s pull on [pulling] wasn't broken despite [pulling] being in [pulling.loc]. Pull stopped manually.")
 			stop_pulling()
-			return
-		if(pulling.anchored || pulling.move_resist > move_force)
+		else if(pulling.anchored || pulling.move_resist > move_force)
 			stop_pulling()
-			return
-		if (HAS_TRAIT(pulling, TRAIT_NO_MOVE_PULL))
+		else if (HAS_TRAIT(pulling, TRAIT_NO_MOVE_PULL))
 			stop_pulling()
-			return
-	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
+	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1) //separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
 
 /atom/movable/proc/set_glide_size(target = 8)
@@ -602,6 +598,11 @@
 		newtonian_move(movement_dir)
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, old_loc, movement_dir, forced, old_locs, momentum_change)
+
+	if(old_loc)
+		SEND_SIGNAL(old_loc, COMSIG_ATOM_ABSTRACT_EXITED, src, movement_dir)
+	if(loc)
+		SEND_SIGNAL(loc, COMSIG_ATOM_ABSTRACT_ENTERED, src, old_loc, old_locs)
 
 	if(old_loc)
 		SEND_SIGNAL(old_loc, COMSIG_ATOM_ABSTRACT_EXITED, src, movement_dir)
@@ -981,10 +982,9 @@
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc, direct, glide_size_override)
 	for(var/mob/buckled_mob as anything in buckled_mobs)
-		if(!buckled_mob.Move(newloc, direct, glide_size_override))
+		if(!buckled_mob.Move(newloc, direct, glide_size_override)) //If a mob buckled to us can't make the same move as us
 			Move(buckled_mob.loc, direct) //Move back to its location
 			last_move = buckled_mob.last_move
-			last_move_time = world.time
 			return FALSE
 	return TRUE
 
@@ -1103,7 +1103,7 @@
 			attack_image.pixel_x = rand(11,15)
 
 		if(!direction) // Attacked self?!
-			attack_image.pixel_z = 16
+			attack_image.pixel_y = 16
 
 	if(!attack_image)
 		return
@@ -1111,7 +1111,7 @@
 	var/atom/movable/flick_visual/attack = attacked_atom.flick_overlay_view(attack_image, 1 SECONDS)
 	var/matrix/copy_transform = new(transform)
 	// And animate the attack!
-	animate(attack, alpha = 175, transform = copy_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 0.3 SECONDS)
+	animate(attack, alpha = 175, transform = copy_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, time = 0.3 SECONDS)
 	animate(time = 0.1 SECONDS)
 	animate(alpha = 0, time = 0.3 SECONDS, easing = CIRCULAR_EASING|EASE_OUT)
 

@@ -411,7 +411,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 					to_chat(user, span_warning("You need more space cleaner!"))
 				return TRUE
 
-			else if(istype(W, /obj/item/soap) || istype(W, /obj/item/reagent_containers/cup/rag))
+			else if(istype(W, /obj/item/soap) || istype(W, /obj/item/rag))
 				var/cleanspeed = 50
 				if(istype(W, /obj/item/soap))
 					var/obj/item/soap/used_soap = W

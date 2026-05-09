@@ -158,7 +158,7 @@
 			if(JOB_NAME_BOTANIST)
 				heirloom_type = pick(/obj/item/cultivator, /obj/item/reagent_containers/cup/bucket, /obj/item/storage/bag/plants, /obj/item/toy/plush/beeplushie)
 			if(JOB_NAME_BARTENDER)
-				heirloom_type = pick(/obj/item/reagent_containers/cup/rag, /obj/item/clothing/head/hats/tophat, /obj/item/reagent_containers/cup/glass/shaker)
+				heirloom_type = pick(/obj/item/rag, /obj/item/clothing/head/hats/tophat, /obj/item/reagent_containers/cup/glass/shaker)
 			if(JOB_NAME_CURATOR)
 				heirloom_type = pick(/obj/item/pen/fountain, /obj/item/storage/pill_bottle/dice)
 			if(JOB_NAME_CHAPLAIN)
@@ -343,7 +343,7 @@
 		return //we're tied with the dark, so we don't get scared of it; don't cleanse outright to avoid cheese
 	var/turf/T = get_turf(quirk_target)
 	if(T.get_lumcount() <= LIGHTING_TILE_IS_DARK)
-		if(quirk_target.m_intent == MOVE_INTENT_RUN)
+		if(quirk_target.move_intent == MOVE_INTENT_RUN)
 			to_chat(quirk_target, span_warning("Easy, easy, take it slow... you're in the dark..."))
 			quirk_target.toggle_move_intent()
 		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "nyctophobia", /datum/mood_event/nyctophobia)

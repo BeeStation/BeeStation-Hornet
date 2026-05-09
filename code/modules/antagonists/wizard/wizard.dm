@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	var/strip = TRUE //strip before equipping
 	var/allow_rename = TRUE
-	var/hud_version = "wizard"
+	antag_hud_name = "wizard"
 	var/datum/team/wizard/wiz_team //Only created if wizard summons apprentices
 	var/move_to_lair = TRUE
 	var/outfit_type = /datum/outfit/wizard
@@ -53,7 +53,6 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	wiz_team = new(owner)
 	wiz_team.name = "Wizard team No.[++count]" // it will be only displayed to admins
 	wiz_team.master_wizard = src
-	update_wiz_icons_added(owner.current)
 
 /datum/antagonist/wizard/proc/send_to_lair()
 	if(!owner || !owner.current)
@@ -179,15 +178,13 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	wiz_mob.fully_replace_character_name(wiz_mob.real_name, newname)
 
 /datum/antagonist/wizard/apply_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_wiz_icons_added(M, wiz_team ? TRUE : FALSE) //Don't bother showing the icon if you're solo wizard
-	M.faction |= FACTION_WIZARD
+	var/mob/living/current_mob = mob_override || owner.current
+	add_team_hud(current_mob)
+	current_mob.faction |= FACTION_WIZARD
 
 /datum/antagonist/wizard/remove_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_wiz_icons_removed(M)
-	M.faction -= FACTION_WIZARD
-
+	var/mob/living/current_mob = mob_override || owner.current
+	current_mob.faction |= FACTION_WIZARD
 
 /datum/antagonist/wizard/get_admin_commands()
 	. = ..()
@@ -198,7 +195,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 
 /datum/antagonist/wizard/apprentice
 	name = "Wizard Apprentice"
-	hud_version = "apprentice"
+	antag_hud_name = "apprentice"
 	var/datum/mind/master
 	var/school = APPRENTICE_DESTRUCTION
 	outfit_type = /datum/outfit/wizard/apprentice
@@ -340,17 +337,6 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	teleport.Grant(H)
 	var/datum/action/spell/teleport/radius_turf/blink/blink = new(owner)
 	blink.Grant(H)
-
-/datum/antagonist/wizard/proc/update_wiz_icons_added(mob/living/wiz,join = TRUE)
-	var/datum/atom_hud/antag/wizhud = GLOB.huds[ANTAG_HUD_WIZ]
-	wizhud.join_hud(wiz)
-	set_antag_hud(wiz, hud_version)
-
-/datum/antagonist/wizard/proc/update_wiz_icons_removed(mob/living/wiz)
-	var/datum/atom_hud/antag/wizhud = GLOB.huds[ANTAG_HUD_WIZ]
-	wizhud.leave_hud(wiz)
-	set_antag_hud(wiz, null)
-
 
 /datum/antagonist/wizard/academy
 	name = "Academy Teacher"

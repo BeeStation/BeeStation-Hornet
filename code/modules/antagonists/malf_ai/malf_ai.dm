@@ -6,6 +6,7 @@
 	roundend_category = "traitors"
 	antagpanel_category = "Malfunctioning AI"
 	banning_key = ROLE_MALF
+	antag_hud_name = "traitor"
 	ui_name = "AntagInfoMalf"
 	required_living_playtime = 8
 	///the name of the antag flavor this traitor has.
@@ -42,7 +43,7 @@
 	owner.current.grant_language(/datum/language/codespeak, source = LANGUAGE_MALF)
 
 	var/datum/atom_hud/data/hackyhud = GLOB.huds[DATA_HUD_HACKED_APC]
-	hackyhud.add_hud_to(owner.current)
+	hackyhud.show_to(owner.current)
 
 	return ..()
 
@@ -111,8 +112,6 @@
 	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_phrase_regex, "blue", src)
 	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_response_regex, "red", src)
 
-	add_antag_hud(ANTAG_HUD_TRAITOR, "traitor", datum_owner)
-
 /datum/antagonist/malf_ai/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 
@@ -123,8 +122,6 @@
 
 	for(var/datum/component/codeword_hearing/component as anything in datum_owner.GetComponents(/datum/component/codeword_hearing))
 		component.delete_if_from_source(src)
-
-	remove_antag_hud(ANTAG_HUD_TRAITOR, datum_owner)
 
 /// Outputs this shift's codewords and responses to the antag's chat and copies them to their memory.
 /datum/antagonist/malf_ai/proc/give_codewords()

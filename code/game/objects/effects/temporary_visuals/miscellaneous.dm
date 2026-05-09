@@ -452,9 +452,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/love_heart/invisible)
 /obj/effect/temp_visual/love_heart/invisible/Initialize(mapload, mob/seer)
 	. = ..()
 	var/image/I = image(icon = 'icons/effects/effects.dmi', icon_state = "heart", layer = ABOVE_MOB_LAYER, loc = src)
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, "heart", I, seer)
 	I.alpha = 255
 	I.appearance_flags = RESET_ALPHA
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, "heart", I, null, seer)
 	animate(I, alpha = 0, time = duration)
 
 /obj/effect/temp_visual/bleed
@@ -471,8 +471,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/bleed)
 	var/size_matrix = matrix()
 	if(size_calc_target)
 		layer = size_calc_target.layer + 0.01
-		var/icon/I = icon(size_calc_target.icon, size_calc_target.icon_state, size_calc_target.dir)
-		size_matrix = matrix() * (I.Height()/world.icon_size)
+		size_matrix = matrix() * (size_calc_target.get_visual_height() / ICON_SIZE_Y)
 		transform = size_matrix //scale the bleed overlay's size based on the target's icon size
 	var/matrix/M = transform
 	if(shrink)

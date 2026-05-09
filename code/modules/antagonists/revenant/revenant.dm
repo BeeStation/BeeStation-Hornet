@@ -3,6 +3,9 @@
 //Don't hear deadchat and are NOT normal ghosts
 //Admin-spawn or random event
 
+/// Source for a trait we get when we're stunned
+#define REVENANT_STUNNED_TRAIT "revenant_got_stunned"
+
 /mob/living/simple_animal/revenant
 	name = "revenant"
 	desc = "A malevolent spirit."
@@ -47,7 +50,6 @@
 	pass_flags = PASSTABLE | PASSMOB
 	speed = 1
 	unique_name = TRUE
-	hud_possible = list(ANTAG_HUD)
 	hud_type = /datum/hud/revenant
 
 	chat_color = "#9A5ACB"
@@ -149,7 +151,7 @@
 		to_chat(src, span_revenboldnotice("You are once more concealed."))
 	if(unstun_time && world.time >= unstun_time)
 		unstun_time = 0
-		notransform = FALSE
+		REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_STUNNED_TRAIT)
 		to_chat(src, span_revenboldnotice("You can move again!"))
 	if(essence_regenerating && !inhibited && essence < essence_regen_cap) //While inhibited, essence will not regenerate
 		essence = min(essence + (essence_regen_amount * delta_time), essence_regen_cap)
@@ -272,7 +274,7 @@
 		return 0
 	stasis = TRUE
 	to_chat(src, span_revendanger("NO! No... it's too late, you can feel your essence [pick("breaking apart", "drifting away")]..."))
-	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_STUNNED_TRAIT)
 	revealed = TRUE
 	invisibility = 0
 	playsound(src, 'sound/effects/screech.ogg', 100, 1)
@@ -334,7 +336,7 @@
 		return
 	if(time <= 0)
 		return
-	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_STUNNED_TRAIT)
 	if(!unstun_time)
 		to_chat(src, span_revendanger("You cannot move!"))
 		unstun_time = world.time + time
@@ -345,7 +347,7 @@
 
 /mob/living/simple_animal/revenant/proc/update_spooky_icon()
 	if(revealed)
-		if(notransform)
+		if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 			if(draining)
 				icon_state = icon_drain
 			else
@@ -402,7 +404,7 @@
 /mob/living/simple_animal/revenant/proc/death_reset()
 	revealed = FALSE
 	unreveal_time = 0
-	notransform = 0
+	REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_STUNNED_TRAIT)
 	unstun_time = 0
 	inhibited = FALSE
 	draining = FALSE
@@ -581,9 +583,9 @@
 		return ..()
 	return TRUE
 
-/datum/objective/revenantFluff
+/datum/objective/revenant_fluff
 
-/datum/objective/revenantFluff/New()
+/datum/objective/revenant_fluff/New()
 	var/list/explanationTexts = list("Assist and exacerbate existing threats at critical moments.", \
 									"Avoid killing in plain sight.", \
 									"Cause as much chaos and anger as you can without being killed.", \
@@ -598,5 +600,7 @@
 	explanation_text = pick(explanationTexts)
 	..()
 
-/datum/objective/revenantFluff/check_completion()
+/datum/objective/revenant_fluff/check_completion()
 	return TRUE
+
+#undef REVENANT_STUNNED_TRAIT

@@ -288,7 +288,7 @@
 /obj/item/gun/syringe{
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/cup/rag{
+/obj/item/rag{
 	pixel_x = -7;
 	pixel_y = 13
 	},

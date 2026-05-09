@@ -1,6 +1,4 @@
 //suit sensors: sensor_mode defines
-/// Suit sensor was not changed by user
-#define SENSOR_NOT_SET -1
 /// Suit sensor is turned off
 #define SENSOR_OFF 0
 /// Suit sensor displays the mob as alive or dead

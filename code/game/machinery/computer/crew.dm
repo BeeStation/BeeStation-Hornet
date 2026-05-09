@@ -1,5 +1,5 @@
 /// How often the sensor data updates.
-#define SENSORS_UPDATE_PERIOD 1 MINUTES
+#define SENSORS_UPDATE_PERIOD (1 MINUTES)
 
 /// The job sorting ID associated with otherwise unknown jobs
 #define UNKNOWN_JOB_ID	81
@@ -218,7 +218,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 	var/list/valid_refs = list()
 
-	for(var/mob/living/carbon/human/tracked_human as () in GLOB.suit_sensors_list)
+	for(var/mob/living/carbon/human/tracked_human as anything in GLOB.suit_sensors_list)
 		if(!tracked_human)
 			stack_trace("Null reference in suit sensors list")
 			GLOB.suit_sensors_list -= tracked_human
@@ -243,19 +243,20 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 		// Determine if this person is using nanites for sensors,
 		// in which case the sensors are always set to full detail
-		var/nanite_sensors = HAS_TRAIT(tracked_human, TRAIT_NANITE_SENSORS)
+		var/nanite_sensors = HAS_TRAIT_FROM(tracked_human, TRAIT_TRACKED_SENSORS, NANITES_TRAIT)
 
 		// Check for a uniform if not using nanites
 		var/obj/item/clothing/under/uniform = tracked_human.w_uniform
 
-		if (!nanite_sensors && !istype(uniform))
-			stack_trace("Human without a suit sensors compatible uniform is in suit_sensors_list: [tracked_human] ([tracked_human.type]) ([uniform?.type])")
-			continue
+		if (!nanite_sensors)
+			if(!istype(uniform))
+				stack_trace("Human without a suit sensors compatible uniform is in suit_sensors_list: [tracked_human] ([tracked_human.type]) ([uniform?.type])")
+				continue
 
-		// Are the suit sensors on?
-		if (!nanite_sensors && (uniform?.has_sensor <= NO_SENSORS || !uniform?.sensor_mode))
-			stack_trace("Human without active nanite and suit sensors is in suit_sensors_list: [tracked_human] ([tracked_human.type]) ([uniform.type])")
-			continue
+			// Are the suit sensors on?
+			if (uniform?.has_sensor <= NO_SENSORS || uniform?.sensor_mode == SENSOR_OFF)
+				stack_trace("Human without active nanite or suit sensors is in suit_sensors_list: [tracked_human] ([tracked_human.type]) ([uniform.type])")
+				continue
 
 		// Radio transmitters are jammed
 		if(tracked_human.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))

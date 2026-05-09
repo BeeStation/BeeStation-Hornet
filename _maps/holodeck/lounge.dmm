@@ -1,15 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/structure/table/wood/bar,
-/obj/item/reagent_containers/cup/rag{
-	pixel_x = 10;
-	pixel_y = 1
-	},
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
 "b" = (
 /obj/structure/closet/crate/bin,
 /turf/open/floor/holofloor{
@@ -35,6 +24,12 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
+"e" = (
+/obj/structure/table/wood,
+/obj/item/cigarette/pipe,
+/obj/effect/holodeck_effect/random_book,
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
 "f" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
@@ -43,15 +38,20 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
-"h" = (
-/obj/structure/table/wood,
-/obj/item/cigarette/pipe,
-/obj/effect/holodeck_effect/random_book,
-/turf/open/floor/holofloor/carpet,
-/area/template_noop)
 "i" = (
 /obj/structure/table/wood/bar,
 /obj/item/reagent_containers/cup/glass/shaker,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"j" = (
+/obj/structure/table/wood/bar,
+/obj/item/rag{
+	pixel_x = 10;
+	pixel_y = 1
+	},
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -169,6 +169,13 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
+"B" = (
+/obj/structure/sink/directional/west,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
 "C" = (
 /obj/structure/chair/stool/bar,
 /turf/open/floor/holofloor/carpet,
@@ -192,8 +199,9 @@
 	icon_state = "stairs-r"
 	},
 /area/template_noop)
-"H" = (
-/obj/structure/sink/directional/west,
+"G" = (
+/obj/structure/table/wood/poker,
+/obj/item/cigarette/pipe,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -265,14 +273,6 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
-"T" = (
-/obj/structure/table/wood/poker,
-/obj/item/cigarette/pipe,
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
 "U" = (
 /obj/structure/table/wood/poker,
 /obj/item/storage/pill_bottle/dice,
@@ -298,8 +298,8 @@ z
 z
 V
 t
-H
-a
+B
+j
 "}
 (2,1,1) = {"
 f
@@ -352,7 +352,7 @@ p
 (6,1,1) = {"
 m
 P
-T
+G
 o
 z
 F
@@ -395,5 +395,5 @@ O
 q
 E
 E
-h
+e
 "}

@@ -28,6 +28,7 @@ GLOBAL_VAR(clockcult_eminence)
 	antag_moodlet = /datum/mood_event/cult
 	banning_key = ROLE_SERVANT_OF_RATVAR
 	required_living_playtime = 6
+	antag_hud_name = "clockwork"
 
 	//The class of the servant
 	var/datum/action/innate/clockcult/transmit/transmit_spell
@@ -79,34 +80,33 @@ GLOBAL_VAR(clockcult_eminence)
 		owner.current.visible_message("[span_deconversionmessage("[owner.current] looks like [owner.current.p_theyve()] just reverted to [owner.current.p_their()] old faith!")]", null, null, null, owner.current)
 		to_chat(owner.current, span_userdanger("An unfamiliar white light flashes through your mind, cleansing the taint of the Clockwork Justicar and all your memories as his servant."))
 		owner.current.log_message("has renounced the cult of Rat'var!", LOG_ATTACK, color="#960000")
-	. = ..()
+	return ..()
 
-/datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
-	. = ..()
-	owner.current.faction |= FACTION_RATVAR
+/datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/mob_override)
+	var/mob/living/current_mob = mob_override || owner.current
+	current_mob.faction |= FACTION_RATVAR
 	transmit_spell = new()
-	transmit_spell.Grant(owner.current)
-	if(GLOB.gateway_opening && ishuman(owner.current))
-		var/mob/living/carbon/owner_mob = owner.current
+	transmit_spell.Grant(current_mob)
+	if(GLOB.gateway_opening && iscarbon(current_mob))
+		var/mob/living/carbon/owner_mob = current_mob
 		forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
 		owner_mob.add_overlay(forbearance)
-	owner.current.throw_alert("clockinfo", /atom/movable/screen/alert/clockwork/clocksense)
-	add_antag_hud(ANTAG_HUD_CLOCKWORK, "clockwork", owner.current)
-	var/datum/language_holder/LH = owner.current.get_language_holder()
+	current_mob.throw_alert("clockinfo", /atom/movable/screen/alert/clockwork/clocksense)
+	add_team_hud(current_mob)
+	var/datum/language_holder/LH = current_mob.get_language_holder()
 	LH.grant_language(/datum/language/ratvar, source = LANGUAGE_CULTIST)
 
-/datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
-	owner.current.faction -= FACTION_RATVAR
-	owner.current.clear_alert("clockinfo")
+/datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/mob_override)
+	var/mob/living/current_mob = mob_override || owner.current
+	current_mob.faction -= FACTION_RATVAR
+	current_mob.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
-	remove_antag_hud(ANTAG_HUD_CLOCKWORK, owner.current)
-	if(forbearance && ishuman(owner.current))
-		var/mob/living/carbon/owner_mob = owner.current
+	if(forbearance && iscarbon(current_mob))
+		var/mob/living/carbon/owner_mob = current_mob
 		owner_mob.remove_overlay(forbearance)
 		qdel(forbearance)
-	var/datum/language_holder/LH = owner.current.get_language_holder()
+	var/datum/language_holder/LH = current_mob.get_language_holder()
 	LH.remove_language(/datum/language/ratvar, source = LANGUAGE_CULTIST)
-	. = ..()
 
 /datum/antagonist/servant_of_ratvar/proc/equip_servant_conversion()
 	//Equipment apply

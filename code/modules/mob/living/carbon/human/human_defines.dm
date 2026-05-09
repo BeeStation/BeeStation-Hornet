@@ -1,8 +1,7 @@
 /mob/living/carbon/human
-	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPLOYAL_HUD,IMPCHEM_HUD,IMPTRACK_HUD, NANITE_HUD, DIAG_NANITE_FULL_HUD,ANTAG_HUD,GLAND_HUD,SENTIENT_DISEASE_HUD)
+	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPLOYAL_HUD,IMPCHEM_HUD,IMPTRACK_HUD, NANITE_HUD, DIAG_NANITE_FULL_HUD,GLAND_HUD)
 	hud_type = /datum/hud/human
 	pressure_resistance = 25
-	can_buckle = TRUE
 	buckle_lying = 0
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	/// build_worn_icon is reponsible for building this, as each bodypart may be emissive and clothes
@@ -53,13 +52,6 @@
 
 	var/datum/physiology/physiology
 
-	/// What types of mobs are allowed to ride/buckle to this mob
-	var/static/list/can_ride_typecache = typecacheof(list(
-		/mob/living/carbon/human,
-		/mob/living/simple_animal/slime,
-		/mob/living/simple_animal/parrot,
-		/mob/living/carbon/monkey,
-	))
 	var/lastpuke = 0
 
 	/// The core temperature of the human compaired to the skin temp of the body

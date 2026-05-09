@@ -139,7 +139,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 	var/list/icon_dimensions = get_icon_dimensions(icon)
 
 	var/orbitsize = (icon_dimensions["width"] + icon_dimensions["height"]) * rand(40, 80) * 0.01
-	orbitsize -= (orbitsize / world.icon_size) * (world.icon_size * 0.25)
+	orbitsize -= (orbitsize / ICON_SIZE_X) * (ICON_SIZE_Y * 0.25)
 
 	EB.orbit(src, orbitsize, pick(FALSE, TRUE), rand(10, 25), pick(3, 4, 5, 6, 36))
 

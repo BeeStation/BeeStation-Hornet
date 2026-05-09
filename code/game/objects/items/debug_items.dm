@@ -310,7 +310,7 @@
 	icon_state = "sp_green"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	var/traits_to_give = list(
+	var/static/list/traits_to_give = list(
 		TRAIT_MADNESS_IMMUNE,
 		TRAIT_FEARLESS,
 		TRAIT_SHOCKIMMUNE,
@@ -344,29 +344,26 @@
 		TRAIT_BARMASTER,
 		TRAIT_SURGEON,
 		TRAIT_METALANGUAGE_KEY_ALLOWED,
-		TRAIT_SPACEWALK
+		TRAIT_SPACEWALK,
+		TRAIT_MEDICAL_HUD,
+		TRAIT_SECURITY_HUD,
+		TRAIT_DIAGNOSTIC_HUD,
+		TRAIT_BOT_PATH_HUD,
 	)
-	var/spacewalk_initial
+	var/previous_see_invisible
 
 /obj/item/debug/orb_of_power/pickup(mob/user)
 	. = ..()
-	for(var/each in traits_to_give)
-		ADD_TRAIT(user, each, "debug")
+	user.add_traits(traits_to_give, "debug")
 	grant_all_languages(source = "debug")
 	user.grant_language(/datum/language/metalanguage, source = "debug")
-
-	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	hud.add_hud_to(user)
-	hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	hud.add_hud_to(user)
-	hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-	hud.add_hud_to(user)
 
 	if(!isliving(user))
 		user.update_sight()
 		return
 	var/mob/living/picker = user
-	picker.see_override = SEE_INVISIBLE_OBSERVER
+	previous_see_invisible = picker.see_invisible
+	picker.see_invisible = SEE_INVISIBLE_OBSERVER
 	picker.update_sight()
 
 /obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
@@ -375,21 +372,12 @@
 	if(orb)
 		return
 
-	for(var/each in traits_to_give)
-		REMOVE_TRAIT(user, each, "debug")
+	user.remove_traits(traits_to_give, "debug")
 	user.remove_all_languages("debug")
 	user.remove_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
-	user.see_override = initial(user.see_override)
+	user.see_invisible = previous_see_invisible
+	previous_see_invisible = null
 	user.update_sight()
-
-	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-	hud.remove_hud_from(user)
-	if(!HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
-		hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-		hud.remove_hud_from(user)
-	if(!HAS_TRAIT(user, TRAIT_SECURITY_HUD))
-		hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-		hud.remove_hud_from(user)
 
 // kinda works like hilbert, but not really
 /obj/item/map_template_diver

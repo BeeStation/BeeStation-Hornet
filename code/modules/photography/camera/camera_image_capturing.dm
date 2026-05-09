@@ -64,8 +64,8 @@
 	if(!skip_normal) //these are not clones
 		for(var/Adummy in sorted)
 			var/image/photo/A = Adummy
-			var/xo = (A.x - center.x) * world.icon_size + A.pixel_x + xcomp + A._step_x
-			var/yo = (A.y - center.y) * world.icon_size + A.pixel_y + ycomp + A._step_y
+			var/xo = (A.x - center.x) * ICON_SIZE_X + A.pixel_x + xcomp + A._step_x
+			var/yo = (A.y - center.y) * ICON_SIZE_Y + A.pixel_y + ycomp + A._step_y
 			var/icon/img = getFlatIcon(A)
 			if(img)
 				res.Blend(img, blendMode2iconMode(A.blend_mode), xo, yo)
@@ -75,9 +75,9 @@
 		for(var/Adummy in sorted) //these are clones
 			var/image/photo/clone = Adummy
 			// Center of the image in X
-			var/xo = (clone.x - center.x) * world.icon_size + clone.pixel_x + xcomp + clone._step_x
+			var/xo = (clone.x - center.x) * ICON_SIZE_X + clone.pixel_x + xcomp + clone._step_x
 			// Center of the image in Y
-			var/yo = (clone.y - center.y) * world.icon_size + clone.pixel_y + ycomp + clone._step_y
+			var/yo = (clone.y - center.y) * ICON_SIZE_Y + clone.pixel_y + ycomp + clone._step_y
 			var/icon/img = getFlatIcon(clone, no_anim = TRUE)
 			if(img)
 				if(clone.transform) // getFlatIcon doesn't give a snot about transforms.

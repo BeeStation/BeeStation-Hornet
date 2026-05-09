@@ -22,7 +22,7 @@
 	var/designation = ""
 	var/radiomod = "" //Radio character used before state laws/arrivals announce to allow department transmissions, default, or none at all.
 	var/obj/item/camera/siliconcam/aicamera = null //photography
-	hud_possible = list(ANTAG_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_TRACK_HUD)
+	hud_possible = list(DIAG_STAT_HUD, DIAG_HUD, DIAG_TRACK_HUD)
 
 	var/obj/item/radio/borg/radio = null ///If this is a path, this gets created as an object in Initialize.
 
@@ -36,9 +36,7 @@
 
 	/// Are our siliconHUDs on? TRUE for yes, FALSE for no.
 	var/sensors_on = TRUE
-	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
-	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
-	var/d_hud = DATA_HUD_DIAGNOSTIC_BASIC //Determines the diag hud to use
+	var/list/silicon_huds = list(TRAIT_MEDICAL_HUD, TRAIT_SECURITY_HUD, TRAIT_DIAGNOSTIC_HUD)
 
 	var/law_change_counter = 0
 	var/obj/machinery/camera/builtInCamera = null
@@ -62,8 +60,8 @@
 	faction += FACTION_SILICON
 	if(ispath(radio))
 		radio = new radio(src)
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
 	diag_hud_set_status()
 	diag_hud_set_health()
 	create_access_card(default_access_list)
@@ -398,20 +396,10 @@
 	return -10
 
 /mob/living/silicon/proc/remove_sensors()
-	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
-	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
-	var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
-	secsensor.remove_hud_from(src)
-	medsensor.remove_hud_from(src)
-	diagsensor.remove_hud_from(src)
+	remove_traits(silicon_huds, SILICON_HUD_TRAIT)
 
 /mob/living/silicon/proc/add_sensors()
-	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
-	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
-	var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
-	secsensor.add_hud_to(src)
-	medsensor.add_hud_to(src)
-	diagsensor.add_hud_to(src)
+	add_traits(silicon_huds, SILICON_HUD_TRAIT)
 
 /mob/living/silicon/proc/toggle_sensors()
 	if(incapacitated)
@@ -423,18 +411,6 @@
 		return
 	add_sensors()
 	to_chat(src, "Sensor overlay activated.")
-
-/mob/living/silicon/update_transform()
-	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
-	var/changed = 0
-	if(resize != RESIZE_DEFAULT_SIZE)
-		changed++
-		ntransform.Scale(resize)
-		resize = RESIZE_DEFAULT_SIZE
-
-	if(changed)
-		animate(src, transform = ntransform, time = 2,easing = EASE_IN|EASE_OUT)
-	return ..()
 
 /mob/living/silicon/is_literate()
 	return TRUE

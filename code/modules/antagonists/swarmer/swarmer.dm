@@ -74,7 +74,7 @@
 	melee_damage = 35
 	melee_damage_type = STAMINA
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	hud_possible = list(ANTAG_HUD, DIAG_STAT_HUD, DIAG_HUD)
+	hud_possible = list(DIAG_STAT_HUD, DIAG_HUD)
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	attack_verb_continuous = "shocks"
@@ -109,25 +109,18 @@
 /mob/living/simple_animal/hostile/swarmer/Initialize(mapload)
 	. = ..()
 	remove_verb(/mob/living/verb/pulled)
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
 
 /mob/living/simple_animal/hostile/swarmer/mind_initialize()
 	. = ..()
-	var/datum/antagonist/swarmer/S = new()
-	mind.add_antag_datum(S)
+	mind.add_antag_datum(/datum/antagonist/swarmer)
 
 /mob/living/simple_animal/hostile/swarmer/med_hud_set_health()
-	var/image/holder = hud_list[DIAG_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
-	holder.icon_state = "huddiag[RoundDiagBar(health/maxHealth)]"
+	set_hud_image_state(DIAG_HUD, "huddiag[RoundDiagBar(health/maxHealth)]")
 
 /mob/living/simple_animal/hostile/swarmer/med_hud_set_status()
-	var/image/holder = hud_list[DIAG_STAT_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
-	holder.icon_state = "hudstat"
+	set_hud_image_state(DIAG_STAT_HUD, "hudstat")
 
 /mob/living/simple_animal/hostile/swarmer/get_stat_tab_status()
 	var/list/tab_data = ..()
@@ -247,7 +240,7 @@
 	return FALSE
 
 /turf/open/lava/swarmer_act()
-	if(!is_safe())
+	if(!HAS_TRAIT(src, TRAIT_LAVA_STOPPED))
 		new /obj/structure/lattice/catwalk/swarmer_catwalk(src)
 	return FALSE
 
@@ -450,7 +443,6 @@
 		var/obj/effect/temp_visual/swarmer/integrate/I = new /obj/effect/temp_visual/swarmer/integrate(get_turf(target))
 		I.pixel_x = target.pixel_x
 		I.pixel_y = target.pixel_y
-		I.pixel_z = target.pixel_z
 		if(istype(target, /obj/item/stack))
 			var/obj/item/stack/S = target
 			S.use(1)
@@ -518,7 +510,6 @@
 	var/obj/effect/temp_visual/swarmer/dismantle/D = new /obj/effect/temp_visual/swarmer/dismantle(get_turf(target))
 	D.pixel_x = target.pixel_x
 	D.pixel_y = target.pixel_y
-	D.pixel_z = target.pixel_z
 	if(do_after(src, 10 SECONDS, target))
 		to_chat(src, span_info("Dismantling complete."))
 		var/atom/Tsec = target.drop_location()
@@ -528,7 +519,6 @@
 		var/obj/effect/temp_visual/swarmer/disintegration/N = new /obj/effect/temp_visual/swarmer/disintegration(get_turf(target))
 		N.pixel_x = target.pixel_x
 		N.pixel_y = target.pixel_y
-		N.pixel_z = target.pixel_z
 		target.dump_contents()
 		if(istype(target, /obj/machinery/computer))
 			var/obj/machinery/computer/C = target
@@ -742,6 +732,7 @@
 	antagpanel_category = "Swarmer"
 	show_to_ghosts = TRUE
 	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
+	antag_hud_name = "swarmer"
 	var/datum/team/swarmer/swarm
 
 /datum/antagonist/swarmer/on_gain()
@@ -799,26 +790,12 @@
 	return ..()
 
 /datum/antagonist/swarmer/apply_innate_effects(mob/living/mob_override)
-	. = ..()
-	//Give swarmer appearance on hud (If they are not an antag already)
-	var/datum/atom_hud/antag/swarmerhud = GLOB.huds[ANTAG_HUD_SWARMER]
-	swarmerhud.join_hud(owner.current)
-	if(!owner.antag_hud_icon_state)
-		set_antag_hud(owner.current, "swarmer")
-
-/datum/antagonist/swarmer/remove_innate_effects(mob/living/mob_override)
-	. = ..()
-	//Clear the hud if they haven't become something else and had the hud overwritten
-	var/datum/atom_hud/antag/swarmerhud = GLOB.huds[ANTAG_HUD_SWARMER]
-	swarmerhud.leave_hud(owner.current)
-	if(owner.antag_hud_icon_state == "swarmer")
-		set_antag_hud(owner.current, null)
+	add_team_hud(mob_override || owner.current)
 
 /datum/antagonist/swarmer/admin_add(datum/mind/new_owner,mob/admin)
 	var/mob/living/M = new_owner.current
 	if(alert(admin,"Transform the player into a swarmer?","Species Change","Yes","No") == "Yes")
-		if(!QDELETED(M) && !M.notransform)
-			M.notransform = 1
+		if(!QDELETED(M))
 			M.unequip_everything()
 			var/mob/living/new_mob = new /mob/living/simple_animal/hostile/swarmer(M.loc)
 			if(istype(new_mob))

@@ -64,14 +64,6 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/powered/beach)
-"ao" = (
-/obj/structure/sink/directional/west,
-/obj/effect/turf_decal/sand,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/turf/open/floor/plating,
-/area/ruin/powered/beach)
 "ap" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/beach/sand,
@@ -429,6 +421,13 @@
 	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered/beach)
+"dL" = (
+/obj/structure/table/wood,
+/obj/item/book/manual/wiki/barman_recipes,
+/obj/item/reagent_containers/cup/glass/shaker,
+/obj/item/rag,
+/turf/open/floor/wood,
+/area/ruin/powered/beach)
 "gg" = (
 /obj/structure/table,
 /obj/item/storage/box/drinkingglasses,
@@ -569,12 +568,13 @@
 /obj/effect/turf_decal/sand,
 /turf/open/floor/pod/dark,
 /area/ruin/powered/beach)
-"NQ" = (
-/obj/structure/table/wood,
-/obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/cup/glass/shaker,
-/obj/item/reagent_containers/cup/rag,
-/turf/open/floor/wood,
+"Ic" = (
+/obj/structure/sink/directional/west,
+/obj/effect/turf_decal/sand,
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/turf/open/floor/plating,
 /area/ruin/powered/beach)
 "QS" = (
 /obj/effect/turf_decal/sand,
@@ -1027,7 +1027,7 @@ at
 ax
 hY
 aC
-NQ
+dL
 aW
 aK
 sy
@@ -1246,7 +1246,7 @@ aa
 (21,1,1) = {"
 aa
 bW
-ao
+Ic
 au
 ay
 aK

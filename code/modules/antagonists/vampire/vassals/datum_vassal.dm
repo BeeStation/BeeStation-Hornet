@@ -2,10 +2,9 @@
 	name = "\improper Vassal"
 	roundend_category = "Vassal"
 	antagpanel_category = "Vampire"
+	antag_hud_name = "vassal"
 	banning_key = ROLE_VAMPIRE
 	show_in_roundend = FALSE
-
-	var/vassal_hud_name = "vassal"
 
 	/// The Master Vampire's antag datum.
 	var/datum/antagonist/vampire/master
@@ -19,21 +18,25 @@
 /datum/antagonist/vassal/antag_panel_data()
 	return "Master : [master.owner.name]"
 
+/datum/antagonist/vassal/get_team()
+	return vampire_team
+
 /datum/antagonist/vassal/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 
-	RegisterSignal(current_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(current_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_examined))
 
 	// Tracking
 	setup_monitor(current_mob)
-	current_mob.grant_language(/datum/language/vampiric)
+	current_mob.grant_language(/datum/language/vampiric, source = REF(src))
 
 	// Team
 	vampire_team = master.vampire_team
 	vampire_team.add_member(current_mob.mind)
-	add_antag_hud(ANTAG_HUD_VAMPIRE, vassal_hud_name, current_mob)
 	current_mob.faction |= FACTION_VAMPIRE
+
+	add_team_hud(current_mob, /datum/antagonist/vassal)
 
 /datum/antagonist/vassal/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -43,7 +46,7 @@
 
 	// Tracking
 	QDEL_NULL(monitor)
-	current_mob.remove_language(/datum/language/vampiric)
+	current_mob.remove_language(/datum/language/vampiric, source = REF(src))
 
 	// Remove traits
 	for(var/vampire_trait in owner.current.status_traits)
@@ -53,8 +56,6 @@
 	vampire_team.remove_member(current_mob.mind)
 	vampire_team = null
 	current_mob.faction -= FACTION_VAMPIRE
-
-	remove_antag_hud(ANTAG_HUD_VAMPIRE, current_mob)
 
 /datum/antagonist/vassal/on_gain()
 	. = ..()
@@ -175,7 +176,7 @@
 	monitor.add_to_tracking_network(master.tracker.tracking_beacon)
 	monitor.show_hud(target)
 
-/datum/antagonist/vassal/proc/on_examine(datum/source, mob/examiner, list/examine_text)
+/datum/antagonist/vassal/proc/on_examined(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
 
 	var/text = "<img class='icon' src='\ref['icons/vampires/vampiric.dmi']?state=vassal'> "

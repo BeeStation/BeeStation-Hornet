@@ -110,9 +110,7 @@
 	var/mob/living/carbon/alien/larva/new_xeno = new(xeno_loc)
 	new_xeno.key = candidate.key
 	SEND_SOUND(new_xeno, sound('sound/voice/hiss5.ogg',0,0,0,100))	//To get the player's attention
-	ADD_TRAIT(new_xeno, TRAIT_IMMOBILIZED, type) //so we don't move during the bursting animation
-	ADD_TRAIT(new_xeno, TRAIT_HANDS_BLOCKED, type)
-	new_xeno.notransform = 1
+	new_xeno.add_traits(list(TRAIT_HANDS_BLOCKED, TRAIT_IMMOBILIZED, TRAIT_NO_TRANSFORM), REF(src)) //so we don't move during the bursting animation
 	new_xeno.invisibility = INVISIBILITY_MAXIMUM
 
 	sleep(6)
@@ -122,9 +120,8 @@
 		CRASH("AttemptGrow failed due to the early qdeletion of source or owner.")
 
 	if(new_xeno)
-		REMOVE_TRAIT(new_xeno, TRAIT_IMMOBILIZED, type)
-		REMOVE_TRAIT(new_xeno, TRAIT_HANDS_BLOCKED, type)
-		new_xeno.notransform = 0
+		new_xeno.remove_traits(list(TRAIT_HANDS_BLOCKED, TRAIT_IMMOBILIZED, TRAIT_NO_TRANSFORM), REF(src))
+
 		new_xeno.invisibility = 0
 
 	var/mob/living/carbon/host = owner
@@ -150,9 +147,8 @@ Des: Adds the infection image to all aliens for this embryo
 ----------------------------------------*/
 /obj/item/organ/body_egg/alien_embryo/AddInfectionImages()
 	for(var/mob/living/carbon/alien/alien in GLOB.player_list)
-		if(alien.client)
-			var/I = image('icons/mob/alien.dmi', loc = owner, icon_state = "infected[stage]")
-			alien.client.images += I
+		var/I = image('icons/mob/alien.dmi', loc = owner, icon_state = "infected[stage]")
+		alien.client?.images += I
 
 /*----------------------------------------
 Proc: RemoveInfectionImage(C)
@@ -160,9 +156,9 @@ Des: Removes all images from the mob infected by this embryo
 ----------------------------------------*/
 /obj/item/organ/body_egg/alien_embryo/RemoveInfectionImages()
 	for(var/mob/living/carbon/alien/alien in GLOB.player_list)
-		if(alien.client)
-			for(var/image/I in alien.client.images)
-				var/searchfor = "infected"
-				if(I.loc == owner && findtext(I.icon_state, searchfor, 1, length(searchfor) + 1))
-					alien.client.images -= I
-					qdel(I)
+		var/list/image/to_remove = list()
+		for(var/image/client_image in alien.client?.images)
+			var/searchfor = "infected"
+			if(client_image.loc == owner && findtext(client_image.icon_state, searchfor, 1, length(searchfor) + 1))
+				to_remove += client_image
+		alien.client?.images -= to_remove

@@ -1,3 +1,5 @@
+#define CINEMATIC_SOURCE "cinematic"
+
 // Use to play cinematics.
 // Watcher can be world,mob, or a list of mobs
 // Blocks until sequence is done.
@@ -28,13 +30,20 @@
 
 /datum/cinematic
 	var/id = CINEMATIC_DEFAULT
-	var/list/watching = list() //List of clients watching this
-	var/list/locked = list() //Who had notransform set during the cinematic
-	var/is_global = FALSE //Global cinematics will override mob-specific ones
+	/// A list of all clients watching the cinematic
+	var/list/client/watching = list()
+	/// A list of all mobs who have TRAIT_NO_TRANSFORM set while watching the cinematic
+	var/list/datum/weakref/locked = list()
+	/// Whether the cinematic is a global cinematic or not
+	var/is_global = FALSE
+	/// Refernce to the cinematic screen shown to everyohne
 	var/atom/movable/screen/cinematic/screen
-	var/datum/callback/special_callback //For special effects synced with animation (explosions after the countdown etc)
-	var/cleanup_time = 300 //How long for the final screen to remain
-	var/stop_ooc = TRUE //Turns off ooc when played globally.
+	/// Callbacks passed that occur during the animation
+	var/datum/callback/special_callback
+	/// How long for the final screen remains shown
+	var/cleanup_time = 30 SECONDS
+	/// Whether the cinematic turns off ooc when played globally.
+	var/stop_ooc = TRUE
 
 /datum/cinematic/New()
 	screen = new(src)
@@ -48,11 +57,8 @@
 	watching = null
 	QDEL_NULL(screen)
 	QDEL_NULL(special_callback)
-	for(var/MM in locked)
-		if(!MM)
-			continue
-		var/mob/M = MM
-		M.notransform = FALSE
+	for(var/mob/M in locked)
+		REMOVE_TRAIT(M, TRAIT_NO_TRANSFORM, CINEMATIC_SOURCE)
 	locked = null
 	return ..()
 
@@ -73,8 +79,7 @@
 		toggle_ooc(FALSE)
 
 	//Place /atom/movable/cinematic into everyone's screens, prevent them from moving
-	for(var/MM in watchers)
-		var/mob/M = MM
+	for(var/mob/M as anything in watchers)
 		show_to(M, M.client)
 		RegisterSignal(M, COMSIG_MOB_CLIENT_LOGIN, PROC_REF(show_to))
 		//Close watcher ui's
@@ -91,9 +96,9 @@
 		toggle_ooc(TRUE)
 
 /datum/cinematic/proc/show_to(mob/M, client/C)
-	if(!M.notransform)
+	if(!HAS_TRAIT_FROM(M, TRAIT_NO_TRANSFORM, CINEMATIC_SOURCE))
 		locked += M
-		M.notransform = TRUE //Should this be done for non-global cinematics or even at all ?
+		ADD_TRAIT(M, TRAIT_NO_TRANSFORM, CINEMATIC_SOURCE)
 	if(!C)
 		return
 	watching += C
@@ -265,3 +270,5 @@ Nuke.Explosion()
 Narsie()
 	-> Cinematic(CULT,world)
 */
+
+#undef CINEMATIC_SOURCE

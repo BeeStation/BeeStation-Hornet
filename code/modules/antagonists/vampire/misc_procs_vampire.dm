@@ -31,7 +31,8 @@
 	to_chat(owner.current, span_userdanger("You have broken the Masquerade!"))
 	to_chat(owner.current, span_warning("Vampire Tip: When you break the Masquerade, you become open for termination by fellow Vampires, and your vassals are no longer completely loyal to you, as other Vampires can steal them for themselves!"))
 
-	set_antag_hud(owner.current, "masquerade_broken")
+	antag_hud_name = "masquerade_broken"
+	add_team_hud(owner.current)
 
 	SEND_GLOBAL_SIGNAL(COMSIG_VAMPIRE_BROKE_MASQUERADE, src)
 	GLOB.masquerade_breakers.Add(src)

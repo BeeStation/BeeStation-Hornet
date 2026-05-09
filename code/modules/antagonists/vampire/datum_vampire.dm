@@ -4,6 +4,7 @@
 	antagpanel_category = "Vampire"
 	banning_key = ROLE_VAMPIRE
 	required_living_playtime = 4
+	antag_hud_name = "vampire"
 	ui_name = "AntagInfoVampire"
 	hijack_speed = 0.5
 
@@ -63,7 +64,7 @@
 	/// Powers currently owned
 	var/list/datum/action/vampire/powers = list()
 	/// Frenzy Grab Martial art given to Vampires in a Frenzy
-	var/datum/martial_art/frenzygrab/frenzygrab = new
+	var/datum/martial_art/frenzygrab/frenzygrab = new()
 
 	/// Vassals under my control. Periodically remove the dead ones.
 	var/list/datum/antagonist/vassal/vassals = list()
@@ -145,17 +146,6 @@
 	var/list/humanity_trackgain_petted = list()
 	var/list/humanity_trackgain_art = list()
 
-/datum/antagonist/vampire/proc/create_vampire_team()
-	vampire_team = new(owner)
-	vampire_team.name = "[ADMIN_LOOKUP(owner.current)]'s vampire team" // only displayed to admins
-	vampire_team.master_vampire = src
-
-/datum/team/vampire
-	name = "vampire team"
-	var/datum/antagonist/vampire/master_vampire
-
-/datum/team/vampire/roundend_report()
-	return
 /**
  * Apply innate effects is everything given to the mob
  * When a body is tranferred, this is called on the new mob
@@ -165,7 +155,7 @@
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 	RegisterSignal(current_mob, COMSIG_LIVING_LIFE, PROC_REF(life_tick))
-	RegisterSignal(current_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(current_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_examined))
 	RegisterSignal(current_mob, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	RegisterSignal(current_mob, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(current_mob, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(on_update_sight))
@@ -177,9 +167,7 @@
 
 	current_mob.update_sight()
 
-	create_vampire_team()
-
-	add_antag_hud(ANTAG_HUD_VAMPIRE, "vampire", current_mob)
+	add_team_hud(current_mob)
 
 	current_mob.faction |= FACTION_VAMPIRE
 
@@ -230,8 +218,6 @@
 		QDEL_NULL(vamprank_display)
 		QDEL_NULL(sunlight_display)
 		QDEL_NULL(humanity_display)
-
-	remove_antag_hud(ANTAG_HUD_VAMPIRE, current_mob)
 
 	current_mob.faction -= FACTION_VAMPIRE
 
@@ -499,7 +485,7 @@
 
 	// Tongue & Language
 	user.grant_all_languages(ALL, TRUE, LANGUAGE_VAMPIRE)
-	user.grant_language(/datum/language/vampiric)
+	user.grant_language(/datum/language/vampiric, source = REF(src))
 
 	/// Clear Disabilities & Organs
 	heal_vampire_organs()
@@ -527,7 +513,7 @@
 		remove_power(all_powers)
 
 	/// Stats
-	if(ishuman(owner.current))
+	if(ishuman(user))
 		var/datum/species/user_species = user.dna.species
 		var/mob/living/carbon/human/human_user = user
 		user_species.species_traits -= TRAIT_DRINKSBLOOD
@@ -541,7 +527,7 @@
 
 	// Language
 	user.remove_all_languages(LANGUAGE_VAMPIRE, TRUE)
-	user.remove_language(/datum/language/vampiric)
+	user.remove_language(/datum/language/vampiric, source = REF(src))
 
 	// Heart
 	var/obj/item/organ/heart/newheart = user.get_organ_slot(ORGAN_SLOT_HEART)
@@ -644,7 +630,7 @@
 
 // Taken directly from changeling.dm
 /datum/antagonist/vampire/proc/check_blacklisted_species()
-	var/mob/living/carbon/carbon_owner = owner.current	//only carbons have dna now, so we have to typecaste
+	var/mob/living/carbon/carbon_owner = owner.current //only carbons have dna now, so we have to typecast
 	if(HAS_TRAIT(carbon_owner, TRAIT_NOT_TRANSMORPHIC))
 		carbon_owner.set_species(/datum/species/human)
 		carbon_owner.fully_replace_character_name(carbon_owner.real_name, carbon_owner.client.prefs.read_character_preference(/datum/preference/name/backup_human))
@@ -657,7 +643,7 @@
 				//Not using carbon_owner.appearance because it might not update in time at roundstart
 				record.character_appearance = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
 
-/datum/antagonist/vampire/proc/on_examine(datum/source, mob/examiner, list/examine_text)
+/datum/antagonist/vampire/proc/on_examined(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
 	var/text
 	if(prince)
@@ -698,6 +684,19 @@
 		return
 
 	tracker?.tracking_beacon?.update_position()
+
+/datum/antagonist/vampire/create_team()
+	vampire_team = new(owner)
+	vampire_team.name = "[owner.current]'s vampire team" // only displayed to admins
+
+/datum/antagonist/vampire/get_team()
+	return vampire_team
+
+/datum/team/vampire
+	name = "vampire team"
+
+/datum/team/vampire/roundend_report()
+	return
 
 /datum/antagonist/vampire/proc/on_update_sight(mob/user)
 	SIGNAL_HANDLER

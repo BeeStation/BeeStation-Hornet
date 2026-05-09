@@ -38,7 +38,7 @@ BONUS
 		if(H.dna.species.use_skintones)
 			cachedcolor = H.skin_tone
 		else if(MUTCOLORS in H.dna.species.species_traits)
-			cachedcolor	= H.dna.features["mcolor"]
+			cachedcolor = H.dna.features["mcolor"]
 
 /datum/symptom/vitiligo/Activate(datum/disease/advance/A)
 	if(!..())

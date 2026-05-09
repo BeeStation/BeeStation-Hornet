@@ -10,6 +10,7 @@ SUBSYSTEM_DEF(icon_smooth)
 	var/list/blueprint_queue = list()
 	var/list/smooth_queue = list()
 	var/list/deferred = list()
+
 /datum/controller/subsystem/icon_smooth/fire()
 	var/list/smooth_queue_cache = smooth_queue
 	while(length(smooth_queue_cache))

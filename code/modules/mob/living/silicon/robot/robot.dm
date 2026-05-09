@@ -760,15 +760,15 @@
 	if(!connected_ai)
 		return
 	switch(notifytype)
-		if(NEW_BORG) //New Cyborg
+		if(AI_NOTIFICATION_NEW_BORG) //New Cyborg
 			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - New cyborg connection detected: <a href='byond://?src=[REF(connected_ai)];track=[html_encode(name)]'>[name]</a>")]<br>")
-		if(NEW_MODEL) //New Model
+		if(AI_NOTIFICATION_NEW_MODEL) //New Model
 			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - Cyborg model change detected: [name] has loaded the [designation] model.")]<br>")
-		if(RENAME) //New Name
+		if(AI_NOTIFICATION_CYBORG_RENAMED) //New Name
 			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].")]<br>")
-		if(AI_SHELL) //New Shell
+		if(AI_NOTIFICATION_AI_SHELL) //New Shell
 			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - New cyborg shell detected: <a href='byond://?src=[REF(connected_ai)];track=[html_encode(name)]'>[name]</a>")]<br>")
-		if(DISCONNECT) //Tampering with the wires
+		if(AI_NOTIFICATION_CYBORG_DISCONNECTED) //Tampering with the wires
 			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - Remote telemetry lost with [name].")]<br>")
 
 /mob/living/silicon/robot/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
@@ -842,9 +842,7 @@
 		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
 		see_in_dark = max(see_in_dark, 8)
 
-	if(see_override)
-		see_invisible = see_override
-	sync_lighting_plane_alpha()
+	return ..()
 
 /mob/living/silicon/robot/update_stat()
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
@@ -873,7 +871,7 @@
 		builtInCamera.toggle_cam(src, 0)
 	if(full_heal_flags & HEAL_ADMIN)
 		locked = TRUE
-	notify_ai(NEW_BORG)
+	notify_ai(AI_NOTIFICATION_NEW_BORG)
 	toggle_headlamp(FALSE, TRUE) //This will reenable borg headlamps if doomsday is currently going on still.
 	wires.ui_update()
 	return TRUE
@@ -881,7 +879,7 @@
 /mob/living/silicon/robot/fully_replace_character_name(oldname, newname)
 	..()
 	if(oldname != real_name)
-		notify_ai(RENAME, oldname, newname)
+		notify_ai(AI_NOTIFICATION_CYBORG_RENAMED, oldname, newname)
 	if(!QDELETED(builtInCamera))
 		builtInCamera.c_tag = real_name
 		modularInterface.saved_identification = real_name
@@ -896,9 +894,8 @@
 		hud_used.update_robot_modules_display()
 
 	if (hasExpanded)
-		resize = 0.5
 		hasExpanded = FALSE
-		update_transform()
+		update_transform(0.5)
 	logevent("Chassis configuration has been reset.")
 	model.transform_to(/obj/item/robot_model)
 
@@ -1023,7 +1020,7 @@
 	if(!QDELETED(builtInCamera))
 		builtInCamera.c_tag = real_name	//update the camera name too
 	diag_hud_set_aishell()
-	notify_ai(AI_SHELL)
+	notify_ai(AI_NOTIFICATION_AI_SHELL)
 
 /mob/living/silicon/robot/proc/revert_shell()
 	if(!shell)
@@ -1114,27 +1111,21 @@
 	if(can_buckle && isliving(user) && isliving(M) && !(M in buckled_mobs) && ((user != src) || (!combat_mode)))
 		return user_buckle_mob(M, user, check_loc = FALSE)
 
-/mob/living/silicon/robot/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, buckle_mob_flags= RIDER_NEEDS_ARM)
-	if(!is_type_in_typecache(M, can_ride_typecache))
-		M.visible_message(span_warning("[M] really can't seem to mount [src]..."))
-		return
-
-	if(stat || incapacitated)
-		return
+/mob/living/silicon/robot/is_buckle_possible(mob/living/target, force, check_loc)
+	if(incapacitated)
+		return FALSE
+	if(!HAS_TRAIT(target, TRAIT_CAN_MOUNT_CYBORGS))
+		target.visible_message(span_warning("[target] really can't seem to mount [src]..."))
+		return FALSE
 	if(model && !model.allow_riding)
-		M.visible_message(span_boldwarning("Unfortunately, [M] just can't seem to hold onto [src]!"))
-		return
+		target.visible_message(span_boldwarning("Unfortunately, [target] just can't seem to hold onto [src]!"))
+		return FALSE
 
-	buckle_mob_flags = RIDER_NEEDS_ARM // just in case
 	return ..()
 
-/mob/living/silicon/robot/unbuckle_mob(mob/user, force=FALSE)
-	if(iscarbon(user))
-		var/datum/component/riding/riding_datum = GetComponent(/datum/component/riding)
-		if(istype(riding_datum))
-			riding_datum.unequip_buckle_inhands(user)
-			riding_datum.restore_position(user)
-	. = ..(user)
+/mob/living/silicon/robot/buckle_mob(mob/living/M, force, check_loc, buckle_mob_flags)
+	buckle_mob_flags = RIDER_NEEDS_ARM // just in case
+	return ..()
 
 /mob/living/silicon/robot/proc/TryConnectToAI()
 	connected_ai = select_active_ai_with_fewest_borgs()

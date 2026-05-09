@@ -2271,7 +2271,7 @@
 					/obj/item/clothing/suit/caution,
 					/obj/item/storage/bag/trash,
 					/obj/item/reagent_containers/spray/cleaner,
-					/obj/item/reagent_containers/cup/rag,
+					/obj/item/rag,
 					/obj/item/grenade/chem_grenade/cleaner,
 					/obj/item/grenade/chem_grenade/cleaner,
 					/obj/item/grenade/chem_grenade/cleaner)

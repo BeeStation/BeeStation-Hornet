@@ -69,8 +69,8 @@
 		return FALSE
 	if(!new_loc || !direct)
 		return FALSE
-	if(mob.notransform)
-		return FALSE	//This is sota the goto stop mobs from moving var
+	if(HAS_TRAIT(mob, TRAIT_NO_TRANSFORM))
+		return FALSE //This is sota the goto stop mobs from moving var
 	if(mob.control_object)
 		return Move_object(direct)
 	if(!isliving(mob))
@@ -113,7 +113,10 @@
 
 	//We are now going to move
 	var/add_delay = mob.cached_multiplicative_slowdown
-	mob.set_glide_size(DELAY_TO_GLIDE_SIZE(add_delay * ( (NSCOMPONENT(direct) && EWCOMPONENT(direct)) ? sqrt(2) : 1 ) )) // set it now in case of pulled objects
+	var/glide_delay = add_delay
+	if(NSCOMPONENT(direct) && EWCOMPONENT(direct))
+		glide_delay = FLOOR(glide_delay * sqrt(2), world.tick_lag)
+	mob.set_glide_size(DELAY_TO_GLIDE_SIZE(glide_delay)) // set it now in case of pulled objects
 	//If the move was recent, count using old_move_delay
 	//We want fractional behavior and all
 	if(old_move_delay + world.tick_lag > world.time)
@@ -130,7 +133,7 @@
 	. = ..()
 
 	if((direct & (direct - 1)) && mob.loc == new_loc) //moved diagonally successfully
-		add_delay *= sqrt(2)
+		add_delay = FLOOR(add_delay * sqrt(2), world.tick_lag)
 	// Record any time that we gained due to sub-tick slowdown
 	var/move_delta = move_delay - floored_move_delay
 	if(visual_delay)
@@ -506,22 +509,24 @@ AUTH_CLIENT_VERB(toggle_walk_run)
 	set name = "toggle-walk-run"
 	set hidden = TRUE
 	set instant = TRUE
-	if(mob)
-		mob.toggle_move_intent(usr)
+	if(isliving(mob))
+		var/mob/living/living_mob = mob
+		living_mob.toggle_move_intent()
 
 /**
-  * Toggle the move intent of the mob
-  *
-  * triggers an update the move intent hud as well
-  */
-/mob/proc/toggle_move_intent(mob/user)
-	if(m_intent == MOVE_INTENT_RUN)
-		m_intent = MOVE_INTENT_WALK
+ * Toggle the move intent of the mob
+ *
+ * triggers an update the move intent hud as well
+ */
+/mob/living/proc/toggle_move_intent()
+	if(move_intent == MOVE_INTENT_RUN)
+		move_intent = MOVE_INTENT_WALK
 	else
-		m_intent = MOVE_INTENT_RUN
-	if(hud_used && hud_used.static_inventory)
+		move_intent = MOVE_INTENT_RUN
+	if(hud_used?.static_inventory)
 		for(var/atom/movable/screen/mov_intent/selector in hud_used.static_inventory)
-			selector.update_icon()
+			selector.update_appearance()
+	update_move_intent_slowdown()
 
 ///Moves a mob upwards in z level
 /mob/verb/up()
@@ -557,10 +562,8 @@ AUTH_CLIENT_VERB(toggle_walk_run)
 			to_chat(feedback_to, span_warning("You couldn't move there!"))
 		return FALSE
 	if(!ventcrawling) //let this be handled in atmosmachinery.dm
-		forceMove(target)
+		return Move(target)
 	else
 		var/obj/machinery/atmospherics/pipe = loc
 		pipe.relaymove(src, dir)
 	return TRUE
-
-

@@ -7,67 +7,66 @@
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	force = 10
 	throwforce = 10
-
 	throw_speed = 3
 	throw_range = 7
 	w_class = WEIGHT_CLASS_MEDIUM
 	attack_verb_continuous = list("mops", "bashes", "bludgeons", "whacks")
 	attack_verb_simple = list("mop", "bash", "bludgeon", "whack")
 	resistance_flags = FLAMMABLE
-	var/mopping = 0
-	var/mopcount = 0
-	var/mopcap = 15
-	var/mopspeed = 15
 	force_string = "robust... against germs"
-	var/insertable = TRUE
 	canblock = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_UNBALANCE
+	var/max_reagent_volume = 15
+	var/mopspeed = 1.5 SECONDS
+	var/insertable = TRUE
+	var/static/list/clean_blacklist = typecacheof(list(
+		/obj/item/reagent_containers/cup/bucket,
+		/obj/structure/janitorialcart,
+		/obj/structure/mop_bucket,
+	))
 
 /obj/item/mop/Initialize(mapload)
 	. = ..()
-	create_reagents(mopcap)
+	AddComponent(/datum/component/cleaner, mopspeed, pre_clean_callback=CALLBACK(src, PROC_REF(should_clean)), on_cleaned_callback=CALLBACK(src, PROC_REF(apply_reagents)))
+	create_reagents(max_reagent_volume)
 	GLOB.janitor_devices += src
 
 /obj/item/mop/Destroy()
 	GLOB.janitor_devices -= src
 	return ..()
 
-/obj/item/mop/proc/clean(turf/A, mob/living/cleaner)
-	if(reagents.has_reagent(/datum/reagent/water, 1) || reagents.has_reagent(/datum/reagent/water/holywater, 1) || reagents.has_reagent(/datum/reagent/consumable/ethanol/vodka, 1) || reagents.has_reagent(/datum/reagent/space_cleaner, 1))
-		A.wash(CLEAN_SCRUB)
-	reagents.expose(A, TOUCH, 10)	//Needed for proper floor wetting.
-	reagents.remove_any(1)			//reaction() doesn't use up the reagents
+///Checks whether or not we should clean.
+/obj/item/mop/proc/should_clean(datum/cleaning_source, atom/atom_to_clean, mob/living/cleaner)
+	if(clean_blacklist[atom_to_clean.type])
+		return CLEAN_BLOCKED
+	if(reagents.total_volume < 0.1)
+		cleaner.balloon_alert(cleaner, "mop is dry!")
+		return CLEAN_BLOCKED
+	if(reagents.has_reagent(amount = 1, chemical_flags = REAGENT_CLEANS))
+		return CLEAN_ALLOWED
+	return CLEAN_ALLOWED|CLEAN_NO_WASH
 
-
-/obj/item/mop/afterattack(atom/A, mob/user, proximity)
-	. = ..()
-	if(!proximity)
+/**
+ * Applies reagents to the cleaned floor and removes them from the mop.
+ *
+ * Arguments
+ * * cleaning_source: the source of the cleaning
+ * * cleaned_atom: the atom that is being cleaned
+ * * cleaner: the mob that is doing the cleaning
+ */
+/obj/item/mop/proc/apply_reagents(datum/cleaning_source, atom/cleaned_atom, mob/living/cleaner, clean_succeeded)
+	if(!clean_succeeded)
 		return
-
-	if(reagents.total_volume < 1)
-		to_chat(user, span_warning("Your mop is dry!"))
-		return
-
-	var/turf/T = get_turf(A)
-
-	if(istype(A, /obj/item/reagent_containers/cup/bucket) || istype(A, /obj/structure/janitorialcart))
-		return
-
-	if(T)
-		user.visible_message("[user] begins to clean \the [T] with [src].", span_notice("You begin to clean \the [T] with [src]..."))
-
-		if(do_after(user, src.mopspeed, target = T))
-			to_chat(user, span_notice("You finish mopping."))
-			clean(T)
+	reagents.expose(cleaned_atom, TOUCH, 10) //Needed for proper floor wetting.
+	reagents.remove_all(1) //reaction() doesn't use up the reagents
 
 /obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	if(insertable)
-		J.put_in_cart(src, user)
-		J.mymop=src
-		J.update_icon()
-	else
+	if(!insertable)
 		to_chat(user, span_warning("You are unable to fit your [name] into the [J.name]."))
 		return
+	J.put_in_cart(src, user)
+	J.mymop=src
+	J.update_icon()
 
 /obj/item/mop/cyborg
 	insertable = FALSE
@@ -75,7 +74,6 @@
 /obj/item/mop/advanced
 	desc = "The most advanced tool in a custodian's arsenal, complete with a condenser for self-wetting! Just think of all the viscera you will clean up with this!"
 	name = "advanced mop"
-	mopcap = 10
 	icon_state = "advmop"
 	inhand_icon_state = "advmop"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
@@ -83,7 +81,8 @@
 	force = 12
 	throwforce = 14
 	throw_range = 4
-	mopspeed = 8
+	max_reagent_volume = 10
+	mopspeed = 0.8 SECONDS
 	var/refill_enabled = TRUE //Self-refill toggle for when a janitor decides to mop with something other than water.
 	/// Amount of reagent to refill per second
 	var/refill_rate = 0.5
@@ -103,7 +102,7 @@
 	playsound(user, 'sound/machines/click.ogg', 30, 1)
 
 /obj/item/mop/advanced/process(delta_time)
-	var/amadd = min(mopcap - reagents.total_volume, refill_rate * delta_time)
+	var/amadd = min(max_reagent_volume - reagents.total_volume, refill_rate * delta_time)
 	if(amadd > 0)
 		reagents.add_reagent(refill_reagent, amadd)
 
