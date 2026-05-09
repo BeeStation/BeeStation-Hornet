@@ -1,0 +1,6 @@
+/obj/machinery/computer/rdconsole/production : @DELETE
+/obj/machinery/computer/rdconsole/@SUBTYPES : /obj/machinery/computer/rdconsole/unlocked{@OLD}
+
+/obj/item/disk/design_disk/adv/@SUBTPYES : /obj/item/disk/design_disk/@SUBTYPES{@OLD}
+
+/obj/machinery/doppler_array/research/science : /obj/machinery/doppler_array/research{@OLD}

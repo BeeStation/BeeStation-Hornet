@@ -9,53 +9,25 @@
 	active_power_usage = 5000
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/machine/mechfab
-
 	output_direction = SOUTH
-
 	remote_materials = TRUE
-	can_sync = TRUE
-	can_print_category = TRUE
+	can_print_entire_categories = TRUE
+	use_station_research = TRUE
+	allowed_buildtypes = MECHFAB
 
-	categories = list(
-		"Cyborg",
-		"Ripley",
-		"Odysseus",
-		"Clarke",
-		"Gygax",
-		"Durand",
-		"H.O.N.K",
-		"Phazon",
-		"Exosuit Equipment",
-		"Exosuit Ammunition",
-		"Cyborg Upgrade Modules",
-		"IPC Components",
-		"Cybernetics",
-		"Implants",
-		"Control Interfaces",
-		"MOD Construction",
-		"MOD Modules",
-		"Misc"
-	)
-
-	stored_research_type = /datum/techweb/specialized/autounlocking/exofab
-
-/obj/machinery/modular_fabricator/exosuit_fab/screwdriver_act(mob/living/user, obj/item/I)
-	if(..())
-		return TRUE
-	if(being_built)
+/obj/machinery/modular_fabricator/exosuit_fab/screwdriver_act(mob/living/user, obj/item/tool)
+	if(operating)
 		to_chat(user, span_warning("\The [src] is currently processing! Please wait until completion."))
-		return FALSE
-	return default_deconstruction_screwdriver(user, "fab-o", "fab-idle", I)
+		return
+	return default_deconstruction_screwdriver(user, "fab-o", "fab-idle", tool)
 
-/obj/machinery/modular_fabricator/exosuit_fab/crowbar_act(mob/living/user, obj/item/I)
-	if(..())
-		return TRUE
-	if(being_built)
+/obj/machinery/modular_fabricator/exosuit_fab/crowbar_act(mob/living/user, obj/item/tool)
+	if(operating)
 		to_chat(user, span_warning("\The [src] is currently processing! Please wait until completion."))
-		return FALSE
-	return default_deconstruction_crowbar(I)
+		return
+	return default_deconstruction_crowbar(tool)
 
-/obj/machinery/modular_fabricator/exosuit_fab/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
+/obj/machinery/modular_fabricator/exosuit_fab/after_material_insert(type_inserted, id_inserted, amount_inserted)
 	. = ..()
 	var/datum/material/M = id_inserted
 	add_overlay("fab-load-[M.name]")

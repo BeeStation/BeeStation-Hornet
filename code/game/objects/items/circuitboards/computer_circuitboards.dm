@@ -1,35 +1,36 @@
 /obj/item/circuitboard/computer
 	abstract_type = /obj/item/circuitboard/computer
+	name_extension = "(Computer Board)"
 
 //Command boards
 
 /obj/item/circuitboard/computer/aiupload
-	name = "AI upload (Computer Board)"
+	name = "AI Upload"
 	icon_state = "command"
 	build_path = /obj/machinery/computer/upload/ai
 
 /obj/item/circuitboard/computer/borgupload
-	name = "cyborg upload (Computer Board)"
+	name = "Cyborg Upload"
 	icon_state = "command"
 	build_path = /obj/machinery/computer/upload/borg
 
 /obj/item/circuitboard/computer/bsa_control
-	name = "bluespace artillery controls (Computer Board)"
+	name = "Bluespace Artillery Controls"
 	icon_state = "command"
 	build_path = /obj/machinery/computer/bsa_control
 
 /obj/item/circuitboard/computer/card
-	name = "ID console (Computer Board)"
+	name = "ID Console"
 	icon_state = "command"
 	build_path = /obj/machinery/computer/card
 
 /obj/item/circuitboard/computer/card/centcom
-	name = "CentCom ID console (Computer Board)"
+	name = "CentCom ID Console"
 	icon_state = "command"
 	build_path = /obj/machinery/computer/card/centcom
 
 /obj/item/circuitboard/computer/card/minor
-	name = "department management console (Computer Board)"
+	name = "Department Management Console"
 	icon_state = "command"
 	build_path = /obj/machinery/computer/card/minor
 	var/counting = 1
@@ -46,117 +47,107 @@
 		"Science",
 		"Engineering")
 
-/obj/item/circuitboard/computer/card/minor/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		counting = (counting == dept_list.len) ? 1 : (counting + 1)
-		to_chat(user, span_notice("You set the board to \"[dept_list_name[counting]]\"."))
-	else
-		return ..()
+/obj/item/circuitboard/computer/card/minor/screwdriver_act(mob/living/user, obj/item/tool)
+	counting = (counting == length(dept_list)) ? 1 : (counting + 1)
+	to_chat(user, span_notice("You set the board to \"[dept_list_name[counting]]\"."))
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/item/circuitboard/computer/card/minor/examine(user)
 	. = ..()
-	. += "Currently set to \"[dept_list[counting]]\"."
+	. += span_info("Currently set to \"[dept_list[counting]]\".")
 
 /obj/item/circuitboard/computer/communications
-	name = "communications console (Computer Board)"
+	name = "Communications Console"
 	icon_state = "command"
 	desc = "Can be modified using a screwdriver."
 	build_path = /obj/machinery/computer/communications
 	var/insecure = FALSE // Forbids shuttles that are set as illegal.
 
-/obj/item/circuitboard/computer/communications/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		insecure = !insecure
-		if(insecure)
-			desc = "Tampering has removed some safety features from this circuit board. A screwdriver can undo this."
-			to_chat(user, span_notice("You disable the shuttle safety features of the board."))
-		else
-			desc = "Can be modified using a screwdriver."
-			to_chat(user, span_notice("You re-enable the shuttle safety features of the board."))
+/obj/item/circuitboard/computer/communications/screwdriver_act(mob/living/user, obj/item/tool)
+	insecure = !insecure
+	if(insecure)
+		desc = "Tampering has removed some safety features from this circuit board. A screwdriver can undo this."
+		to_chat(user, span_notice("You disable the shuttle safety features of the board."))
 	else
-		return ..()
-
-//obj/item/circuitboard/computer/shield
-//	name = "Shield Control (Computer Board)"
-//	build_path = /obj/machinery/computer/stationshield
-
+		desc = "Can be modified using a screwdriver."
+		to_chat(user, span_notice("You re-enable the shuttle safety features of the board."))
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 //Engineering
 
-
 /obj/item/circuitboard/computer/apc_control
-	name = "power flow control console (Computer Board)"
+	name = "Power Flow Control Console"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/apc_control
 
 /obj/item/circuitboard/computer/atmos_alert
-	name = "atmospheric alert console (Computer Board)"
+	name = "Atmospheric Alert Console"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/atmos_alert
 
 /obj/item/circuitboard/computer/atmos_control
-	name = "Atmospheric Control (Computer Board)"
+	name = "Atmospheric Control"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/atmos_control
 
 /obj/item/circuitboard/computer/atmos_control/nocontrol
-	name = "Atmospheric Monitor (Computer Board)"
+	name = "Atmospheric Monitor"
 	build_path = /obj/machinery/computer/atmos_control/nocontrol
 
 /obj/item/circuitboard/computer/atmos_control/noreconnect
-	name = "Atmospheric Control (Computer Board)"
+	name = "Atmospheric Control"
 	build_path = /obj/machinery/computer/atmos_control/noreconnect
 
 /obj/item/circuitboard/computer/atmos_control/fixed
-	name = "Atmospheric Monitor (Computer Board)"
+	name = "Atmospheric Monitor"
 	build_path = /obj/machinery/computer/atmos_control/fixed
 
 /obj/item/circuitboard/computer/atmos_control/nocontrol/master
-	name = "Station Atmospheric Monitor (Computer Board)"
+	name = "Station Atmospheric Monitor"
 	build_path = /obj/machinery/computer/atmos_control/nocontrol/master
 
 /obj/item/circuitboard/computer/atmos_control/nocontrol/incinerator
-	name = "Incinerator Chamber Monitor (Computer Board)"
+	name = "Incinerator Chamber Monitor"
 	build_path = /obj/machinery/computer/atmos_control/nocontrol/incinerator
 
 /obj/item/circuitboard/computer/atmos_control/toxinsmix
-	name = "Toxins Chamber Monitor (Computer Board)"
+	name = "Toxins Chamber Monitor"
 	build_path = /obj/machinery/computer/atmos_control/toxinsmix
 
 /obj/item/circuitboard/computer/atmos_control/oxygen_tank
-	name = "Oxygen Supply Control (Computer Board)"
+	name = "Oxygen Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/oxygen_tank
 
 /obj/item/circuitboard/computer/atmos_control/plasma_tank
-	name = "Plasma Supply Control (Computer Board)"
+	name = "Plasma Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/plasma_tank
 
 /obj/item/circuitboard/computer/atmos_control/air_tank
-	name = "Mixed Air Supply Control (Computer Board)"
+	name = "Mixed Air Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/air_tank
 
 /obj/item/circuitboard/computer/atmos_control/mix_tank
-	name = "Gas Mix Supply Control (Computer Board)"
+	name = "Gas Mix Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/mix_tank
 
 /obj/item/circuitboard/computer/atmos_control/nitrous_tank
-	name = "Nitrous Oxide Supply Control (Computer Board)"
+	name = "Nitrous Oxide Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/nitrous_tank
 
 /obj/item/circuitboard/computer/atmos_control/nitrogen_tank
-	name = "Nitrogen Supply Control (Computer Board)"
+	name = "Nitrogen Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/nitrogen_tank
 
 /obj/item/circuitboard/computer/atmos_control/carbon_tank
-	name = "Carbon Dioxide Supply Control (Computer Board)"
+	name = "Carbon Dioxide Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/carbon_tank
 
 /obj/item/circuitboard/computer/atmos_control/bz_tank
-	name = "BZ Supply Control (Computer Board)"
+	name = "BZ Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/bz_tank
 
 /obj/item/circuitboard/computer/atmos_control/hypernoblium_tank
-	name = "Hypernoblium Supply Control (Computer Board)"
+	name = "Hypernoblium Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/hypernoblium_tank
 
 /obj/item/circuitboard/computer/atmos_control/nitrium_tank
@@ -164,164 +155,161 @@
 	build_path = /obj/machinery/computer/atmos_control/nitrium_tank
 
 /obj/item/circuitboard/computer/atmos_control/pluoxium_tank
-	name = "Pluoxium Supply Control (Computer Board)"
+	name = "Pluoxium Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/pluoxium_tank
 
 /obj/item/circuitboard/computer/atmos_control/tritium_tank
-	name = "Tritium Supply Control (Computer Board)"
+	name = "Tritium Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/tritium_tank
 
 /obj/item/circuitboard/computer/atmos_control/water_vapor
-	name = "Water Vapor Supply Control (Computer Board)"
+	name = "Water Vapor Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/water_vapor
 
 /obj/item/circuitboard/computer/auxiliary_base
-	name = "auxiliary base management console (Computer Board)"
+	name = "Auxiliary Base Management Console"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/auxiliary_base
 
 /obj/item/circuitboard/computer/base_construction
-	name = "aux mining base construction console (Computer Board)"
+	name = "Auxiliary Mining Base Construction Console"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/camera_advanced/base_construction
 
 /obj/item/circuitboard/computer/comm_monitor
-	name = "telecommunications monitor (Computer Board)"
+	name = "Telecommunications Monitor"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/telecomms/monitor
 
 /obj/item/circuitboard/computer/comm_server
-	name = "telecommunications server monitor (Computer Board)"
+	name = "Telecommunications Server Monitor"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/telecomms/server
 
 /obj/item/circuitboard/computer/message_monitor
-	name = "message monitor (Computer Board)"
+	name = "Message Monitor"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/message_monitor
 
 /obj/item/circuitboard/computer/powermonitor
-	name = "power monitor (Computer Board)"  //name fixed 250810
+	name = "Power Monitor" //name fixed 250810
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/monitor
 
 /obj/item/circuitboard/computer/powermonitor/secret
-	name = "outdated power monitor (Computer Board)" //Variant used on ruins to prevent them from showing up on PDA's.
+	name = "Outdated Power Monitor" //Variant used on ruins to prevent them from showing up on PDA's.
 	build_path = /obj/machinery/computer/monitor/secret
 
 /obj/item/circuitboard/computer/sat_control
-	name = "satellite network control (Computer Board)"
+	name = "Satellite Network Control"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/sat_control
 
 /obj/item/circuitboard/computer/solar_control
-	name = "solar control (Computer Board)"  //name fixed 250810
+	name = "Solar Control"  //name fixed 250810
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/solar_control
 	custom_price = 150
 
 /obj/item/circuitboard/computer/stationalert
-	name = "station alerts console (Computer Board)"
+	name = "Station Alerts Console"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/station_alert
 
 /obj/item/circuitboard/computer/teleporter
-	name = "teleporter console (Computer Board)"
+	name = "Teleporter Console"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/teleporter
 
 /obj/item/circuitboard/computer/turbine_computer
-	name = "turbine computer (Computer Board)"
+	name = "Turbine Computer"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/turbine_computer
 
 /obj/item/circuitboard/computer/turbine_control
-	name = "turbine control (Computer Board)"
+	name = "Turbine Control"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/turbine_computer
 
 /obj/item/circuitboard/computer/control_rods
-	name = "rbmk reactor control rod console (Computer Board)"
+	name = "RBMK Reactor Control Rod Console"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/reactor/control_rods
 
 //Generic
 
-
 /obj/item/circuitboard/computer/advanced_camera
-	name = "advanced camera console (Computer Board)"
+	name = "Advanced Camera Console"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/camera_advanced/syndie
 
 /obj/item/circuitboard/computer/advanced_camera/cyan
-	name = "advanced camera console: cyan (Computer Board)"
+	name = "Advanced Camera Console: Cyan"
 	build_path = /obj/machinery/computer/camera_advanced/bounty_hunter
 
 /obj/item/circuitboard/computer/advanced_camera/darkblue
-	name = "advanced camera console: darkblue (Computer Board)"
+	name = "Advanced Camera Console: Dark Blue"
 	build_path = /obj/machinery/computer/camera_advanced/wizard
 
 /obj/item/circuitboard/computer/arcade/amputation
-	name = "Mediborg's Amputation Adventure (Computer Board)"
+	name = "Mediborg's Amputation Adventure"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/arcade/amputation
 
 /obj/item/circuitboard/computer/arcade/battle
-	name = "arcade battle (Computer Board)"
+	name = "Arcade Battle"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/arcade/battle
 
 /obj/item/circuitboard/computer/arcade/orion_trail
-	name = "Orion Trail (Computer Board)"
+	name = "Orion Trail"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/arcade/orion_trail
 
-/obj/item/circuitboard/computer/holodeck// Not going to let people get this, but it's just here for future
-	name = "holodeck control (Computer Board)"
+/obj/item/circuitboard/computer/holodeck // Not going to let people get this, but it's just here for future
+	name = "Holodeck Control"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/holodeck
 
 /obj/item/circuitboard/computer/libraryconsole
-	name = "library visitor console (Computer Board)"
+	name = "Library Visitor Console"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/libraryconsole
 
-/obj/item/circuitboard/computer/libraryconsole/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		if(build_path == /obj/machinery/computer/libraryconsole/bookmanagement)
-			name = "Library Visitor Console (Computer Board)"
-			build_path = /obj/machinery/computer/libraryconsole
-			to_chat(user, span_notice("Defaulting access protocols."))
-		else
-			name = "Book Inventory Management Console (Computer Board)"
-			build_path = /obj/machinery/computer/libraryconsole/bookmanagement
-			to_chat(user, span_notice("Access protocols successfully updated."))
+/obj/item/circuitboard/computer/libraryconsole/screwdriver_act(mob/living/user, obj/item/tool)
+	if(build_path == /obj/machinery/computer/libraryconsole/bookmanagement)
+		name = "Library Visitor Console [name_extension]"
+		build_path = /obj/machinery/computer/libraryconsole
+		to_chat(user, span_notice("Defaulting access protocols."))
 	else
-		return ..()
+		name = "Book Inventory Management Console [name_extension]"
+		build_path = /obj/machinery/computer/libraryconsole/bookmanagement
+		to_chat(user, span_notice("Access protocols successfully updated."))
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/item/circuitboard/computer/olddoor
-	name = "DoorMex (Computer Board)"
+	name = "DoorMex"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/pod/old
 
 /obj/item/circuitboard/computer/pod
-	name = "mass driver launch control (Computer Board)"
+	name = "Massdriver control"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/pod
 
 /obj/item/circuitboard/computer/slot_machine
-	name = "slot machine (Computer Board)"
+	name = "Slot Machine"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/slot_machine
 
 /obj/item/circuitboard/computer/swfdoor
-	name = "Magix (Computer Board)"
+	name = "Magix"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/pod/old/swf
 
 //Not inhereting the hackability from shuttle subtypes
 /obj/item/circuitboard/computer/syndicate_shuttle
-	name = "syndicate shuttle console (Computer Board)"
+	name = "Syndicate Shuttle Console"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle_flight/syndicate
 	var/challenge = FALSE
@@ -336,182 +324,212 @@
 	return ..()
 
 /obj/item/circuitboard/computer/syndicatedoor
-	name = "ProComp Executive (Computer Board)"
+	name = "ProComp Executive"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/pod/old/syndicate
 
 //Medical
 
 /obj/item/circuitboard/computer/cloning
-	name = "cloning console (Computer Board)"
+	name = "Cloning Console"
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/cloning
-	var/list/records = list()
 
 /obj/item/circuitboard/computer/crew
-	name = "crew monitoring console (Computer Board)"
+	name = "Crew Monitoring Console"
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/crew
 
 /obj/item/circuitboard/computer/records/medical
-	name = "medical records console (Computer Board)"
+	name = "Medical Records Console"
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/records/medical
 
 /obj/item/circuitboard/computer/operating
-	name = "operating computer (Computer Board)"
+	name = "Operating Computer"
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/operating
 
 /obj/item/circuitboard/computer/pandemic
-	name = "PanD.E.M.I.C. 2200 (Computer Board)"
+	name = "PanD.E.M.I.C. 2200"
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/pandemic
 
 /obj/item/circuitboard/computer/cloning/prototype
-	name = "prototype cloning console (Computer Board)"
+	name = "Prototype Cloning Console"
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/cloning/prototype
 
 /obj/item/circuitboard/computer/scan_consolenew
-	name = "DNA machine (Computer Board)"
+	name = "DNA Machine"
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/scan_consolenew
 
-
 //Science
 
-
 /obj/item/circuitboard/computer/aifixer
-	name = "AI integrity restorer console (Computer Board)"
+	name = "AI Integrity Restorer"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/aifixer
 
 /obj/item/circuitboard/computer/launchpad_console
-	name = "launchpad control console (Computer Board)"
+	name = "Launchpad Control"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/launchpad
 
 /obj/item/circuitboard/computer/mech_bay_power_console
-	name = "mech bay power control console (Computer Board)"
+	name = "Mech Bay Power Control"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/mech_bay_power_console
 
 /obj/item/circuitboard/computer/mecha_control
-	name = "exosuit control console (Computer Board)"
+	name = "Exosuit Control"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/mecha
 
 /obj/item/circuitboard/computer/nanite_chamber_control
-	name = "nanite chamber control (Computer Board)"
+	name = "Nanite Chamber Control"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/nanite_chamber_control
 
 /obj/item/circuitboard/computer/nanite_cloud_controller
-	name = "nanite cloud control (Computer Board)"
+	name = "Nanite Cloud Controller"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/nanite_cloud_controller
 
 /obj/item/circuitboard/computer/rdconsole
-	name = "R&D console (Computer Board)"
+	name = "R&D Console"
 	icon_state = "science"
-	build_path = /obj/machinery/computer/rdconsole/core
+	build_path = /obj/machinery/computer/rdconsole
+	req_access = list(ACCESS_TOX)
 
-/obj/item/circuitboard/computer/rdconsole/production
-	name = "R&D console - production only (Computer Board)"
-	build_path = /obj/machinery/computer/rdconsole/production
+	/// If FALSE, techweb nodes researched from this console are broadcasted to their respective radio channels.
+	var/silence_announcements = FALSE
+	/// Whether or not the console is locked. This var doesn't exist on the console level and is checked here.
+	var/locked = TRUE
 
-/obj/item/circuitboard/computer/rdconsole/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		if(build_path == /obj/machinery/computer/rdconsole/core)
-			name = "R&D Console - Robotics (Computer Board)"
-			build_path = /obj/machinery/computer/rdconsole/robotics
-			to_chat(user, span_notice("Access protocols successfully updated."))
-		else
-			name = "R&D Console (Computer Board)"
-			build_path = /obj/machinery/computer/rdconsole/core
-			to_chat(user, span_notice("Defaulting access protocols."))
-	else
+/obj/item/circuitboard/computer/rdconsole/unlocked
+	locked = FALSE
+
+/obj/item/circuitboard/computer/rdconsole/examine(mob/user)
+	. = ..()
+	. += span_info("The board is configured to [silence_announcements ? "silence" : "announce"] researched nodes on radio.")
+	. += span_notice("The board mode can be changed with a <b>multitool</b>.")
+	. += span_notice("The board is [locked ? "locked" : "unlocked"], and can be [locked ? "unlocked" : "locked"] with an ID that has research access.")
+
+/obj/item/circuitboard/computer/rdconsole/multitool_act(mob/living/user, obj/item/tool)
+	if(obj_flags & EMAGGED)
+		balloon_alert(user, "board mode is broken!")
+		return
+	silence_announcements = !silence_announcements
+	balloon_alert(user, "announcements [silence_announcements ? "enabled" : "disabled"]")
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
+/obj/item/circuitboard/computer/rdconsole/on_emag(mob/user)
+	if (locked)
+		to_chat(user, span_notice("You magnetically trigger the locking mechanism, causing it to unlock."))
+		locked = FALSE
+
+	silence_announcements = FALSE
+	if (!(obj_flags & EMAGGED)) // the check in question checks for the EMAGGED bitflag. no need to repeat messages
+		to_chat(user, span_notice("You overload the node announcement chip, forcing every node to be announced on the common channel."))
+	return ..()
+
+/obj/item/circuitboard/computer/rdconsole/attackby(obj/item/attacking_item, mob/living/user, params)
+	if (user.combat_mode || !isidcard(attacking_item))
 		return ..()
+	if (!check_access(attacking_item))
+		balloon_alert(user, "no access!")
+		return
+
+	locked = !locked
+	balloon_alert(user, locked ? "locked" : "unlocked")
+	user.visible_message(
+		message = span_notice("[user] unlocks \the [src] with \the [attacking_item]."),
+		self_message = span_notice("You unlock \the [src] with \the [attacking_item]."),
+		blind_message = span_hear("You hear a soft beep."),
+	)
 
 /obj/item/circuitboard/computer/rdservercontrol
-	name = "R&D server control (Computer Board)"
+	name = "R&D Server Control"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/rdservercontrol
 
 /obj/item/circuitboard/computer/research
-	name = "research monitor (Computer Board)"
+	name = "Research Monitor"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/security/research
 
 /obj/item/circuitboard/computer/robotics
-	name = "robotics control (Computer Board)"
+	name = "Robotics Control"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/robotics
 
 /obj/item/circuitboard/computer/xenobiology
-	name = "xenobiology console (Computer Board)"
+	name = "Xenobiology Console"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/camera_advanced/xenobio
-
 
 //Security
 
 /obj/item/circuitboard/computer/gulag_teleporter_console
-	name = "labor camp teleporter console (Computer Board)"
+	name = "Labor Camp Teleporter Console"
 	icon_state = "security"
 	build_path = /obj/machinery/computer/prisoner/gulag_teleporter_computer
 
 /obj/item/circuitboard/computer/prisoner
-	name = "prisoner management console (Computer Board)"
+	name = "Prisoner Management Console"
 	icon_state = "security"
 	build_path = /obj/machinery/computer/prisoner
 
 /obj/item/circuitboard/computer/records/security
-	name = "security records console (Computer Board)"
+	name = "Security Records Console"
 	icon_state = "security"
 	build_path = /obj/machinery/computer/records/security
 
 /obj/item/circuitboard/computer/security
-	name = "security camera console (Computer Board)"
+	name = "Security Camera Console"
 	icon_state = "security"
 	build_path = /obj/machinery/computer/security
 
 /obj/item/circuitboard/computer/warrant
-	name = "security warrant console (Computer Board)"
+	name = "Security Warrant Console"
 	icon_state = "security"
 	build_path = /obj/machinery/computer/warrant
 
 //Service
 
+// there's nothing here :(
 
 //Supply
 
 /obj/item/circuitboard/computer/objective
-	name = "Nanotrasen objective console (Computer Board)"
+	name = "Nanotrasen Objective Console"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/objective
 
 /obj/item/circuitboard/computer/bounty
-	name = "Nanotrasen bounty console (Computer Board)"
+	name = "Nanotrasen Bounty Console"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/bounty
 
 /obj/item/circuitboard/computer/cargo
-	name = "supply console (Computer Board)"
+	name = "Supply Console"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/cargo
 	var/contraband = FALSE
 
-/obj/item/circuitboard/computer/cargo/multitool_act(mob/living/user)
-	if(!(obj_flags & EMAGGED))
-		contraband = !contraband
-		to_chat(user, span_notice("Receiver spectrum set to [contraband ? "Broad" : "Standard"]."))
-	else
+/obj/item/circuitboard/computer/cargo/multitool_act(mob/living/user, obj/item/tool)
+	if(obj_flags & EMAGGED)
 		to_chat(user, span_notice("The spectrum chip is unresponsive."))
+		return
+
+	contraband = !contraband
+	to_chat(user, span_notice("Receiver spectrum set to [contraband ? "Broad" : "Standard"]."))
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/item/circuitboard/computer/cargo/on_emag(mob/user)
-	..()
+	. = ..()
 	contraband = TRUE
 	to_chat(user, span_notice("You adjust [src]'s routing and receiver spectrum, unlocking special supplies and contraband."))
 
@@ -526,21 +544,21 @@
 		machine.obj_flags &= ~EMAGGED
 
 /obj/item/circuitboard/computer/cargo/express
-	name = "express supply console (Computer Board)"
+	name = "Express Supply Console"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/cargo/express
 
 /obj/item/circuitboard/computer/cargo/express/on_emag(mob/user)
-	..()
+	. = ..()
 	to_chat(user, span_notice("You change the routing protocols, allowing the Drop Pod to land anywhere on the station."))
 
 /obj/item/circuitboard/computer/cargo/request
-	name = "supply request console (Computer Board)"
+	name = "Supply Request Console"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/cargo/request
 
 /obj/item/circuitboard/computer/mining
-	name = "outpost status display (Computer Board)"
+	name = "Outpost Status Display"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/security/mining
 
@@ -549,66 +567,64 @@
 /obj/item/circuitboard/computer/shuttle
 	var/hacked = FALSE
 
-/obj/item/circuitboard/computer/shuttle/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_MULTITOOL)
-		hacked = !hacked
-		if(hacked)
-			to_chat(user, span_notice("You disable the circuitboard's ID scanning protocols."))
-		else
-			to_chat(user, span_notice("You reset the circuitboard's ID scanning protocols."))
-		return
-	. = ..()
+/obj/item/circuitboard/computer/shuttle/multitool_act(mob/living/user, obj/item/tool)
+	hacked = !hacked
+	if(hacked)
+		to_chat(user, span_notice("You disable the circuitboard's ID scanning protocols."))
+	else
+		to_chat(user, span_notice("You reset the circuitboard's ID scanning protocols."))
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/item/circuitboard/computer/shuttle/white_ship
-	name = "white ship control (Computer Board)"
+	name = "White Ship Control"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle_flight/white_ship
 
 /obj/item/circuitboard/computer/shuttle/white_ship/pod
-	name = "salvage pod control (Computer Board)"
+	name = "Salvage Pod Control"
 	build_path = /obj/machinery/computer/shuttle_flight/white_ship/pod
 
 /obj/item/circuitboard/computer/shuttle/white_ship/pod/recall
-	name = "salvage pod recall control (Computer Board)"
+	name = "Salvage Pod Recall Control"
 	build_path = /obj/machinery/computer/shuttle_flight/white_ship/pod/recall
 
 /obj/item/circuitboard/computer/shuttle/flight_control
-	name = "shuttle flight control (Computer Board)"
+	name = "Shuttle Flight Control"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle_flight/custom_shuttle
 
 /obj/item/circuitboard/computer/shuttle/labor_shuttle
-	name = "labor shuttle console (Computer Board)"
+	name = "Labor Shuttle Console"
 	icon_state = "security"
 	build_path = /obj/machinery/computer/shuttle_flight/labor
 
 /obj/item/circuitboard/computer/shuttle/labor_shuttle/one_way
-	name = "prisoner shuttle console (Computer Board)"
+	name = "Prisoner Shuttle Console"
 	build_path = /obj/machinery/computer/shuttle_flight/labor/one_way
 
 /obj/item/circuitboard/computer/ferry
-	name = "transport ferry control (Computer Board)"
+	name = "Transport Ferry Control"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/shuttle_flight/ferry
 
 /obj/item/circuitboard/computer/ferry/request
-	name = "transport ferry console (Computer Board)"
+	name = "Transport Ferry Console"
 	build_path = /obj/machinery/computer/shuttle_flight/ferry/request
 
 /obj/item/circuitboard/computer/shuttle/mining_shuttle
-	name = "mining shuttle console (Computer Board)"
+	name = "Mining Shuttle Console"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/shuttle_flight/mining
 
 /obj/item/circuitboard/computer/shuttle/science_shuttle
-	name = "science shuttle console (Computer Board)"
+	name = "Science Shuttle Console"
 	build_path = /obj/machinery/computer/shuttle_flight/science
 
 /obj/item/circuitboard/computer/shuttle/exploration_shuttle
-	name = "exploration shuttle console (Computer Board)"
+	name = "Exploration Shuttle Console"
 	build_path = /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration
 
 /obj/item/circuitboard/computer/shuttle/monastery_shuttle
-	name = "monastery shuttle console (Computer Board)"
+	name = "Monastery Shuttle Console"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle_flight/monastery_shuttle

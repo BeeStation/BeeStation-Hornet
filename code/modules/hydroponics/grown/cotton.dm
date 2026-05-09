@@ -79,4 +79,4 @@
 	attack_verb_simple = list("bash", "batter", "bludgeon", "whack")
 	cotton_type = /obj/item/stack/sheet/cotton/durathread
 	cotton_name = "raw durathread"
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS

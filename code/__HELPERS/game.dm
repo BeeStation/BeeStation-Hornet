@@ -325,21 +325,15 @@
 
 	return A.loc
 
-///Send a message in common radio when a player arrives
-/proc/AnnounceArrival(mob/living/carbon/human/character, rank)
+/proc/announce_arrival(mob/living/carbon/human/character, rank)
 	if(!SSticker.IsRoundInProgress() || QDELETED(character))
 		return
 	var/area/player_area = get_area(character)
 	deadchat_broadcast(span_game(" has arrived at the station at [span_name(player_area.name)]."), span_game("[span_name(character.real_name)] ([rank])"), follow_target = character, message_type=DEADCHAT_ARRIVALRATTLE)
-	if(!character.mind)
-		return
-	if(!GLOB.announcement_systems.len)
-		return
-	if(!(character.mind.assigned_role_datum?.job_flags & JOB_ANNOUNCE_ARRIVAL))
-		return
+	if(character.mind && (character.mind.assigned_role_datum?.job_flags & JOB_ANNOUNCE_ARRIVAL))
+		aas_config_announce(/datum/aas_config_entry/arrival, list("PERSON" = character.real_name,"RANK" = rank))
 
-	var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-	announcer.announce("ARRIVAL", character.real_name, rank, list()) //make the list empty to make it announce it in common
+	aas_config_announce(/datum/aas_config_entry/arrival, list("PERSON" = character.real_name, "RANK" = rank))
 
 /proc/lavaland_equipment_pressure_check(turf/T)
 	. = FALSE

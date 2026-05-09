@@ -8,6 +8,7 @@
 /obj/machinery/telecomms/processor
 	name = "processor unit"
 	icon_state = "processor"
+	base_icon_state = "processor"
 	desc = "This machine is used to process large quantities of information."
 	telecomms_type = /obj/machinery/telecomms/processor
 	density = TRUE

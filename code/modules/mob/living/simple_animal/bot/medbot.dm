@@ -137,7 +137,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_MEDICALDOCTOR)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
-	linked_techweb = SSresearch.science_tech
 
 	if(mapload)
 		reagent_glass = new /obj/item/reagent_containers/chem_bag/epi
@@ -153,6 +152,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		pre_tipped_callback = CALLBACK(src, PROC_REF(pre_tip_over)), \
 		post_tipped_callback = CALLBACK(src, PROC_REF(after_tip_over)), \
 		post_untipped_callback = CALLBACK(src, PROC_REF(after_righted)))
+
+	return INITIALIZE_HINT_LATELOAD
+
+/mob/living/simple_animal/bot/medbot/LateInitialize()
+	. = ..()
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
 
 /mob/living/simple_animal/bot/medbot/bot_reset()
 	..()
@@ -178,6 +184,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 /mob/living/simple_animal/bot/medbot/attack_paw(mob/user)
 	return attack_hand(user)
+
+REGISTER_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
+DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
+	if(istype(buffer, /datum/techweb))
+		balloon_alert(user, "techweb connected")
+		linked_techweb = buffer
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE
 
 /mob/living/simple_animal/bot/medbot/ui_data(mob/user)
 	var/list/data = ..()
@@ -230,6 +244,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		if("synth_epi")
 			synth_epi = !synth_epi
 		if("sync_tech")
+			if(!linked_techweb)
+				to_chat(usr, span_notice("No research techweb connected."))
+				return
 			var/old_eff = efficiency
 			var/tech_boosters
 			for(var/i in linked_techweb.researched_designs)

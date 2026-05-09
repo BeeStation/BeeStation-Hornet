@@ -18,38 +18,38 @@
 		return TRUE
 
 /datum/wires/autolathe/get_status()
-	var/obj/machinery/modular_fabricator/autolathe/A = holder
-	var/list/status = list()
-	status += "The red light is [A.disabled ? "on" : "off"]."
-	status += "The blue light is [A.hacked ? "on" : "off"]."
-	return status
+	var/obj/machinery/modular_fabricator/autolathe/autolathe = holder
+	return list(
+		"The red light is [autolathe.disabled ? "on" : "off"].",
+		"The blue light is [autolathe.hacked ? "on" : "off"].",
+	)
 
 /datum/wires/autolathe/on_pulse(wire)
-	var/obj/machinery/modular_fabricator/autolathe/A = holder
+	var/obj/machinery/modular_fabricator/autolathe/autolathe = holder
 	switch(wire)
 		if(WIRE_HACK)
-			A.adjust_hacked(!A.hacked)
-			addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/modular_fabricator/autolathe, reset), wire), 60)
+			autolathe.hacked = !autolathe.hacked
+			addtimer(CALLBACK(autolathe, TYPE_PROC_REF(/obj/machinery/modular_fabricator/autolathe, reset), wire), 6 SECONDS)
 		if(WIRE_SHOCK)
-			A.shocked = !A.shocked
-			addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/modular_fabricator/autolathe, reset), wire), 60)
+			autolathe.shocked = !autolathe.shocked
+			addtimer(CALLBACK(autolathe, TYPE_PROC_REF(/obj/machinery/modular_fabricator/autolathe, reset), wire), 6 SECONDS)
 		if(WIRE_DISABLE)
-			A.disabled = !A.disabled
-			addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/modular_fabricator/autolathe, reset), wire), 60)
+			autolathe.disabled = !autolathe.disabled
+			addtimer(CALLBACK(autolathe, TYPE_PROC_REF(/obj/machinery/modular_fabricator/autolathe, reset), wire), 6 SECONDS)
 		if(WIRE_ACTIVATE)
-			A.begin_process()
+			autolathe.begin_process()
 	ui_update()
 
 /datum/wires/autolathe/on_cut(wire, mob/user, mend)
-	var/obj/machinery/modular_fabricator/autolathe/A = holder
+	var/obj/machinery/modular_fabricator/autolathe/autolathe = holder
 	switch(wire)
 		if(WIRE_HACK)
-			A.adjust_hacked(!mend)
+			autolathe.hacked = !mend
 		if(WIRE_SHOCK)
-			A.shocked = !mend
+			autolathe.shocked = !mend
 		if(WIRE_DISABLE)
-			A.disabled = !mend
+			autolathe.disabled = !mend
 		if(WIRE_ZAP)
 			if (user)
-				A.shock(user, 50)
+				autolathe.shock(user, 50)
 	ui_update()

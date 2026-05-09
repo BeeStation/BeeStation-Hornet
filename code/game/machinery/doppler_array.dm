@@ -209,6 +209,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	desc = "A specialized tachyon-doppler bomb detection array that uses the results of the highest yield of explosions for research."
 	var/datum/techweb/linked_techweb
 
+/obj/machinery/doppler_array/research/LateInitialize()
+	. = ..()
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
+
 //Portable version, built into EOD equipment. It simply provides an explosion's three damage levels.
 /obj/machinery/doppler_array/integrated
 	name = "integrated tachyon-doppler module"
@@ -233,9 +238,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	if(distance > max_dist)
 		return FALSE
 
-	var/list/messages = list("Explosive disturbance detected.",
-							"Epicenter at: grid ([epicenter.x], [epicenter.y]). Temporal displacement of tachyons: [took] seconds.",
-							"Factual: Epicenter radius: [devastation_range]. Outer radius: [heavy_impact_range]. Shockwave radius: [light_impact_range].")
+	var/list/messages = list(
+		"Explosive disturbance detected.",
+		"Epicenter at: grid ([epicenter.x], [epicenter.y]). Temporal displacement of tachyons: [took] seconds.",
+		"Factual: Epicenter radius: [devastation_range]. Outer radius: [heavy_impact_range]. Shockwave radius: [light_impact_range].",
+	)
 	for(var/message in messages)
 		say(message)
 
@@ -247,45 +254,50 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	if(!istype(linked_techweb))
 		say("Warning: No linked research system!")
 		return
-
-	var/general_point_gain = 0
-	var/discovery_point_gain = 0
-
-	/*****The Point Calculator*****/
-
 	if(orig_light_range < 10)
 		say("Explosion not large enough for research calculations.")
 		return
-	else if(orig_light_range < 4500)
-		general_point_gain = (83300 * orig_light_range) / (orig_light_range + 3000)
-	else
-		general_point_gain = TECHWEB_BOMB_POINTCAP
-
-	/*****The Point Capper*****/
-	if(general_point_gain > linked_techweb.largest_bomb_value)
-		if(general_point_gain <= TECHWEB_BOMB_POINTCAP || linked_techweb.largest_bomb_value < TECHWEB_BOMB_POINTCAP)
-			var/old_tech_largest_bomb_value = linked_techweb.largest_bomb_value //held so we can pull old before we do math
-			linked_techweb.largest_bomb_value = general_point_gain
-			general_point_gain -= old_tech_largest_bomb_value
-			general_point_gain = min(general_point_gain,TECHWEB_BOMB_POINTCAP)
-		else
-			linked_techweb.largest_bomb_value = TECHWEB_BOMB_POINTCAP
-			general_point_gain = 1000
-		var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
-		if(D)
-			D.adjust_money(general_point_gain)
-			discovery_point_gain = general_point_gain * 0.5
-			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, general_point_gain)
-			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, discovery_point_gain)
-
-			say("Explosion details and mixture analyzed and sold to the highest bidder for $[general_point_gain], with a reward of [general_point_gain] General Research points and [discovery_point_gain] Discovery Research points.")
-
-	else //you've made smaller bombs
+	if(orig_light_range <= linked_techweb.largest_bomb_value)
 		say("Data already captured. Aborting.")
 		return
 
-/obj/machinery/doppler_array/research/science/Initialize(mapload)
-	. = ..()
-	linked_techweb = SSresearch.science_tech
+	var/prev_largest_bomb_value = linked_techweb.largest_bomb_value
+	linked_techweb.largest_bomb_value = orig_light_range
+
+	/***** The Point Calculator *****/
+
+	var/general_point_gain = 0
+	var/money_gain = 0
+	if(orig_light_range < 4500)
+		general_point_gain = round((833 * orig_light_range) / (orig_light_range + 30))
+		money_gain = round((83300 * orig_light_range) / (orig_light_range + 3000))
+	else
+		general_point_gain = TECHWEB_BOMB_POINTCAP
+		money_gain = TECHWEB_BOMB_MONEYCAP
+
+	var/prev_general_point_gain = 0
+	var/prev_money_gain = 0
+	if(prev_largest_bomb_value) // prevent division by zero
+		if(prev_largest_bomb_value < 4500)
+			prev_general_point_gain = (833 * prev_largest_bomb_value) / (prev_largest_bomb_value + 30)
+			prev_money_gain = (83300 * prev_largest_bomb_value) / (prev_largest_bomb_value + 3000)
+		else
+			prev_general_point_gain = TECHWEB_BOMB_POINTCAP
+			prev_money_gain = TECHWEB_BOMB_MONEYCAP
+
+	general_point_gain -= prev_general_point_gain
+	money_gain -= prev_money_gain
+
+	/***** Give Points and $$$ *****/
+
+	var/discovery_point_gain = general_point_gain
+	linked_techweb.add_point_type(TECHWEB_POINT_TYPE_GENERIC, general_point_gain)
+	linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, discovery_point_gain)
+
+	var/datum/bank_account/science_bank = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
+	science_bank?.adjust_money(money_gain)
+
+	say("Explosion details and mixture analyzed [science_bank ? "and sold to the highest bidder for [money_gain]cr, " : ""]\
+		with a reward of [general_point_gain] [TECHWEB_POINT_TYPE_GENERIC] and [discovery_point_gain] [TECHWEB_POINT_TYPE_DISCOVERY].")
 
 #undef PRINTER_TIMEOUT
