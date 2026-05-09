@@ -2574,7 +2574,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
 	dir = 1
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/dark/telecomms,
 /area/station/science/server)
 "bhq" = (
 /obj/machinery/power/apc/auto_name/directional/north,
@@ -22008,7 +22008,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
-/turf/open/floor/circuit,
+/turf/open/floor/circuit/telecomms/mainframe,
 /area/station/science/server)
 "ikx" = (
 /obj/effect/turf_decal/stripes/line{
@@ -30750,7 +30750,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
-/turf/open/floor/circuit/green,
+/turf/open/floor/circuit/green/telecomms/mainframe,
 /area/station/science/server)
 "lbn" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -62521,7 +62521,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/iron/dark/telecomms,
 /area/station/science/server)
 "vEO" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -67774,7 +67774,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
-/turf/open/floor/circuit,
+/turf/open/floor/circuit/telecomms/mainframe,
 /area/station/science/server)
 "xwb" = (
 /obj/structure/disposalpipe/segment{

@@ -2220,9 +2220,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 5
 	},
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "aNK" = (
 /turf/open/floor/iron/white,
@@ -3147,9 +3145,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "bft" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -5678,9 +5674,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/circuit/telecomms/mainframe{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/circuit,
 /area/station/tcommsat/computer)
 "cbg" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -10061,9 +10055,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "dOv" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -21371,9 +21363,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable,
 /obj/machinery/power/smes/engineering,
-/turf/open/floor/circuit/telecomms/mainframe{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/circuit,
 /area/station/tcommsat/computer)
 "ibp" = (
 /obj/structure/cable/yellow,
@@ -30593,9 +30583,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 4
 	},
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "lDb" = (
 /obj/machinery/door/window/brigdoor{
@@ -30753,9 +30741,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "lFJ" = (
 /obj/effect/turf_decal/tile/dark_green/anticorner/contrasted{
@@ -36408,9 +36394,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 1
 	},
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "nEG" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
@@ -40077,9 +40061,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/general/hidden{
 	dir = 4
 	},
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "oZp" = (
 /obj/structure/window/reinforced/spawner/directional/north,
@@ -42380,9 +42362,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 4
 	},
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "pTZ" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
@@ -42669,9 +42649,7 @@
 	dir = 8;
 	initialize_directions = 8
 	},
-/turf/open/floor/circuit/telecomms/mainframe{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/circuit,
 /area/station/tcommsat/computer)
 "pZY" = (
 /obj/structure/chair,
@@ -45229,9 +45207,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "qTP" = (
 /obj/structure/dresser,
@@ -46476,9 +46452,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 6
 	},
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "rty" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -49456,9 +49430,7 @@
 	dir = 8
 	},
 /obj/machinery/blackbox_recorder,
-/turf/open/floor/circuit/telecomms/mainframe{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/circuit,
 /area/station/tcommsat/computer)
 "sGL" = (
 /obj/structure/window/reinforced/spawner/directional/east,
@@ -51876,9 +51848,7 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/turf/open/floor/circuit/telecomms/mainframe{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/circuit,
 /area/station/tcommsat/computer)
 "tvE" = (
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -54822,9 +54792,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/circuit/telecomms/mainframe{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/circuit,
 /area/station/tcommsat/computer)
 "uEk" = (
 /obj/structure/rack,

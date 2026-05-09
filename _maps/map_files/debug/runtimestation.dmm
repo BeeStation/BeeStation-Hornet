@@ -1673,9 +1673,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/telecomms/allinone{
-	network = "tcommsat"
-	},
+/obj/machinery/telecomms/allinone/no_heat,
 /turf/open/floor/iron,
 /area/station/engineering/gravity_generator)
 "xN" = (

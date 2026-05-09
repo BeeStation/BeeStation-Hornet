@@ -87,7 +87,7 @@
 /obj/machinery/rnd/multitool_act(mob/living/user, obj/item/multitool/tool)
 	if(panel_open)
 		wires.interact(user)
-		return TRUE
+		return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/rnd/multitool_act_secondary(mob/living/user, obj/item/tool)
 	return multitool_act(user, tool)
@@ -95,7 +95,7 @@
 /obj/machinery/rnd/wirecutter_act(mob/living/user, obj/item/tool)
 	if(panel_open)
 		wires.interact(user)
-		return TRUE
+		return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/rnd/wirecutter_act_secondary(mob/living/user, obj/item/tool)
 	return wirecutter_act(user, tool)

@@ -49,7 +49,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdservercontrol)
 				"server_enabled" = (server.powered() && !server.machine_stat),
 				"server_efficiency" = server.get_efficiency(),
 				"server_temperature" = server.get_temperature(),
-				"server_temperature_warning" = server.get_warning_temperature(),
+				"server_temperature_warning" = T0C + 50,
 				"server_temperature_overheat" = server.get_overheat_temperature(),
 				"server_ref" = REF(server),
 			))

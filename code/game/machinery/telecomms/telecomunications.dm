@@ -11,7 +11,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	icon = 'icons/obj/machines/telecomms.dmi'
 	critical_machine = TRUE
 	light_color = LIGHT_COLOR_CYAN
-	/// /// list of machines this machine is linked to
+	/// list of machines this machine is linked to
 	var/list/links = list()
 	/**
 	 * associative lazylist list of the telecomms_type of linked telecomms machines and a list of said machines.
@@ -43,11 +43,13 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	/// Is it a hidden machine?
 	var/hide = FALSE
 
+	/// Ref to the server component
 	var/datum/component/server/server_component
+	/// Whether or not the server component should be made.
+	var/generates_heat = TRUE
 
 /// relay signal to all linked machinery that are of type [filter]. If signal has been sent [amount] times, stop sending
 /obj/machinery/telecomms/proc/relay_information(datum/signal/subspace/signal, filter, copysig, amount = 20)
-
 	if(!on)
 		return
 
@@ -60,7 +62,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	if(netlag > signal.data["slow"])
 		signal.data["slow"] = netlag
 
-	// Aply some lag from throttling
+	// Apply some lag from throttling
 	var/efficiency = get_efficiency()
 	var/throttling = (10 - 10 * efficiency)
 	signal.data["slow"] += throttling
@@ -107,33 +109,39 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 
 /obj/machinery/telecomms/Initialize(mapload)
 	. = ..()
-	server_component = AddComponent(/datum/component/server) // they generate heat
+	if(generates_heat)
+		server_component = AddComponent(/datum/component/server)
 	GLOB.telecomms_list += src
-	if(mapload && autolinkers.len)
-		return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/telecomms/LateInitialize()
-	..()
-	for(var/obj/machinery/telecomms/telecomms_machine in GLOB.telecomms_list)
+	. = ..()
+	if(!length(autolinkers))
+		return
+	for(var/obj/machinery/telecomms/telecomms_machine as anything in GLOB.telecomms_list)
 		if (long_range_link || IN_GIVEN_RANGE(src, telecomms_machine, 20))
 			add_automatic_link(telecomms_machine)
 
 /obj/machinery/telecomms/Destroy()
 	server_component = null
 	GLOB.telecomms_list -= src
-	for(var/obj/machinery/telecomms/comm in GLOB.telecomms_list)
+	for(var/obj/machinery/telecomms/comm as anything in GLOB.telecomms_list)
 		remove_link(comm)
-	links = list()
+	links = null
 	return ..()
 
 /obj/machinery/telecomms/proc/get_temperature()
-	return server_component.temperature
-
-/obj/machinery/telecomms/proc/get_efficiency()
-	return server_component.efficiency
+	if(server_component)
+		return server_component.temperature
+	else
+		var/turf/open/our_turf = get_turf(src)
+		if(istype(our_turf))
+			return our_turf.temperature
 
 /obj/machinery/telecomms/proc/get_overheat_temperature()
-	return server_component.overheated_temp
+	return isnull(server_component) ? T0C + 100 : server_component.overheat_temp
+
+/obj/machinery/telecomms/proc/get_efficiency()
+	return isnull(server_component) ? 1 : server_component.efficiency
 
 /// Handles the automatic linking of another machine to this one.
 /obj/machinery/telecomms/proc/add_automatic_link(obj/machinery/telecomms/machine_to_link)
@@ -151,17 +159,9 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 				add_new_link(machine_to_link)
 				return
 
-/obj/machinery/telecomms/update_icon()
-	if(on)
-		if(panel_open)
-			icon_state = "[initial(icon_state)]_o"
-		else
-			icon_state = initial(icon_state)
-	else
-		if(panel_open)
-			icon_state = "[initial(icon_state)]_o_off"
-		else
-			icon_state = "[initial(icon_state)]_off"
+/obj/machinery/telecomms/update_icon_state()
+	. = ..()
+	icon_state = "[base_icon_state][panel_open ? "_o" : ""][on ? "" : "_off"]"
 
 /**
  * Handles updating the power state of the machine, modifying its `on`
@@ -169,33 +169,27 @@ GLOBAL_LIST_EMPTY(telecomms_list)
  * or it's EMP'd. Handles updating appearance based on that power change.
  */
 /obj/machinery/telecomms/proc/update_power()
-	var/newState = on
+	var/old_on = on
 
 	if(toggled)
 		if(machine_stat & (BROKEN|NOPOWER|EMPED|OVERHEATED)) // if powered, on. if not powered, off. if too damaged, off
-			newState = FALSE
+			old_on = FALSE
 		else
-			newState = TRUE
+			old_on = TRUE
 	else
-		newState = FALSE
+		old_on = FALSE
 
-	if(newState != on)
-		on = newState
+	if(old_on != on)
+		on = old_on
 		ui_update()
+		update_appearance(UPDATE_ICON_STATE)
 		set_light(on)
 
 /obj/machinery/telecomms/process(delta_time)
 	update_power()
 
-	// Update the icon
-	update_icon()
-
 	if(traffic > 0)
 		traffic -= netspeed * delta_time
-
-/obj/machinery/telecomms/atom_break(damage_flag)
-	. = ..()
-	update_power()
 
 /obj/machinery/telecomms/power_change()
 	..()

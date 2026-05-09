@@ -36,11 +36,12 @@
 
 /obj/machinery/rnd/server/RefreshParts()
 	var/tot_rating = 0
-	for(var/obj/item/stock_parts/part in src)
+	for(var/obj/item/stock_parts/part in contents)
 		tot_rating += part.rating
-	active_power_usage = initial(src.active_power_usage) / max(1, tot_rating)
+	active_power_usage = initial(active_power_usage) / max(1, tot_rating)
 
 /obj/machinery/rnd/server/update_icon_state()
+	. = ..()
 	if (panel_open)
 		icon_state = "[base_icon_state]-on_t"
 	else if (machine_stat & EMPED || machine_stat & NOPOWER)
@@ -49,7 +50,6 @@
 		icon_state = "[base_icon_state]-halt"
 	else
 		icon_state = "[base_icon_state]-on"
-	return ..()
 
 /obj/machinery/rnd/server/proc/toggle_disable(mob/user)
 	set_machine_stat(machine_stat ^ TURNED_OFF)
@@ -68,7 +68,7 @@
 
 	return "Nominal"
 
-// Can't use DEFINE_BUFFER_HANDLER because our parent uses it already
+// Can't use DEFINE_BUFFER_HANDLER() because our parent uses it already
 /obj/machinery/rnd/server/_buffer_handler(datum/source, mob/user, atom/buffer, obj/item/buffer_parent)
 	if(!stored_research)
 		return NONE
@@ -78,10 +78,10 @@
 	return NONE
 
 /obj/machinery/rnd/server/proc/mine()
-	use_power(active_power_usage, power_channel)
 	var/efficiency = get_efficiency()
 	if(!powered() || efficiency <= 0 || machine_stat)
-		return null
+		return
+	use_power(active_power_usage, power_channel)
 	return list(TECHWEB_POINT_TYPE_GENERIC = max(base_mining_income * efficiency, 0))
 
 /obj/machinery/rnd/server/proc/get_temperature()
@@ -93,17 +93,14 @@
 			return our_turf.temperature
 
 /obj/machinery/rnd/server/proc/get_overheat_temperature()
-	return generates_heat ? server_component.overheated_temp : T0C + 100
-
-/obj/machinery/rnd/server/proc/get_warning_temperature()
-	return generates_heat ? server_component.warning_temp : T0C + 50
+	return isnull(server_component) ? T0C + 100 : server_component.overheat_temp
 
 /obj/machinery/rnd/server/proc/get_efficiency()
-	return generates_heat ? server_component.efficiency : 1
+	return isnull(server_component) ? 1 : server_component.efficiency
 
 /obj/machinery/rnd/server/on_set_machine_stat(old_value)
+	. = ..()
 	update_appearance(UPDATE_ICON_STATE)
-	return ..()
 
 /obj/machinery/rnd/server/no_heat
 	generates_heat = FALSE

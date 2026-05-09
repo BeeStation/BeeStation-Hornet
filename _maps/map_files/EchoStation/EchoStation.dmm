@@ -5229,9 +5229,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/turf/open/floor/circuit/telecomms/mainframe{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/circuit,
 /area/station/tcommsat/computer)
 "dul" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -6360,9 +6358,7 @@
 	},
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on,
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "eda" = (
 /obj/structure/cable/yellow,
@@ -11647,9 +11643,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 4
 	},
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "hfO" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -22579,9 +22573,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 4
 	},
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "nMQ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -28417,9 +28409,7 @@
 /obj/structure/cable,
 /obj/machinery/camera/directional/east,
 /obj/machinery/power/smes/engineering,
-/turf/open/floor/iron/dark/telecomms{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "rkP" = (
 /obj/structure/table/wood,
@@ -36605,9 +36595,7 @@
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/machinery/blackbox_recorder,
-/turf/open/floor/circuit/telecomms/mainframe{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/circuit,
 /area/station/tcommsat/computer)
 "wfR" = (
 /obj/structure/stairs,
@@ -37518,9 +37506,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/circuit/telecomms/mainframe{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/circuit,
 /area/station/tcommsat/computer)
 "wFC" = (
 /obj/structure/ladder,
@@ -38807,9 +38793,7 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/turf/open/floor/circuit/telecomms/mainframe{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/circuit,
 /area/station/tcommsat/computer)
 "xwo" = (
 /obj/machinery/door/poddoor/incinerator_atmos_aux,

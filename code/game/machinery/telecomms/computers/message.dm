@@ -52,10 +52,6 @@
 		return
 	to_chat(user, span_warning("Brute-force completed! The decryption key is '[linked_server.decryptkey]'."))
 
-/obj/machinery/computer/message_monitor/New()
-	..()
-	GLOB.telecomms_list += src
-
 /obj/machinery/computer/message_monitor/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
@@ -81,7 +77,6 @@
 	set_linked_server(null)
 
 /obj/machinery/computer/message_monitor/Destroy()
-	GLOB.telecomms_list -= src
 	set_linked_server(null)
 	return ..()
 
@@ -285,12 +280,11 @@
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/monitorkey)
 
 /obj/item/paper/monitorkey/Initialize(mapload, obj/machinery/telecomms/message_server/server)
-	..()
+	. = ..()
 	if (server)
 		print(server)
 		return INITIALIZE_HINT_NORMAL
-	else
-		return INITIALIZE_HINT_LATELOAD
+	return INITIALIZE_HINT_LATELOAD
 
 
 /**

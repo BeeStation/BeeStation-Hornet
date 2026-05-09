@@ -15041,7 +15041,9 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
-/turf/open/floor/iron/techmaint,
+/turf/open/floor/iron/techmaint{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/station/science/server)
 "euW" = (
 /obj/structure/window/reinforced/spawner/directional/south,
@@ -23012,7 +23014,9 @@
 "gQy" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/turf/open/floor/iron/techmaint,
+/turf/open/floor/iron/techmaint{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/station/science/server)
 "gQB" = (
 /obj/machinery/meter,
@@ -24279,7 +24283,9 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
-/turf/open/floor/iron/techmaint,
+/turf/open/floor/iron/techmaint{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/station/science/server)
 "hkc" = (
 /obj/structure/cable/yellow,
@@ -28297,7 +28303,9 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
-/turf/open/floor/iron/techmaint,
+/turf/open/floor/iron/techmaint{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/station/science/server)
 "ipS" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -31227,7 +31235,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
 	dir = 8
 	},
-/turf/open/floor/circuit/green,
+/turf/open/floor/circuit/green/telecomms/mainframe,
 /area/station/science/server)
 "jhj" = (
 /obj/machinery/power/apc/auto_name/directional/south,
@@ -32385,7 +32393,9 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
-/turf/open/floor/iron/techmaint,
+/turf/open/floor/iron/techmaint{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
 /area/station/science/server)
 "jvS" = (
 /obj/machinery/disposal/bin,
@@ -64940,7 +64950,7 @@
 /area/station/command/bridge)
 "tgn" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/turf/open/floor/circuit/green,
+/turf/open/floor/circuit/green/telecomms/mainframe,
 /area/station/science/server)
 "tgs" = (
 /obj/item/storage/fancy/cigarettes/cigars{
