@@ -26,7 +26,6 @@
 
 /obj/machinery/air_sensor/Initialize(mapload)
 	id_tag = assign_random_name()
-
 	return ..()
 
 /obj/machinery/air_sensor/LateInitialize()
@@ -152,6 +151,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/air_sensor)
 			to_chat(user, span_notice("[src] has connected [buffer] to its [port]."))
 	to_chat(user, span_notice("[src] has been added to multitool buffer."))
 	TRY_STORE_IN_BUFFER(buffer_parent, src)
+	return COMPONENT_BUFFER_RECEIVED
 
 /**
  * A portable version of the /obj/machinery/air_sensor

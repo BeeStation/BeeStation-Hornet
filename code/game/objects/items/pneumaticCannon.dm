@@ -356,8 +356,8 @@
 	atom_storage.max_total_storage = atom_storage.max_specific_storage * atom_storage.max_slots
 	atom_storage.numerical_stacking = TRUE
 	atom_storage.set_holdable(list(
-		/obj/item/throwing_star/magspear
-		))
+		/obj/item/throwing_star/magspear,
+	))
 
 /obj/item/storage/backpack/magspear_quiver/PopulateContents()
 	for(var/i in 1 to 30)

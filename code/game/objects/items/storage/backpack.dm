@@ -16,6 +16,7 @@
 	worn_icon = 'icons/mob/clothing/back/backpack.dmi'
 	icon_state = "backpack"
 	inhand_icon_state = "backpack"
+	worn_icon = 'icons/mob/clothing/back/backpack.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
@@ -24,6 +25,10 @@
 	max_integrity = 300
 	custom_price = 50
 	storage_type = /datum/storage/backpack
+
+/*
+ * Backpack Types
+ */
 
 /obj/item/storage/backpack/holding
 	name = "bag of holding"
@@ -48,9 +53,9 @@
 /obj/item/storage/backpack/holding/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is jumping into [src]! It looks like [user.p_theyre()] trying to commit suicide."))
 	user.dropItemToGround(src, TRUE)
-	user.Stun(100, ignore_canstun = TRUE)
-	sleep(20)
-	playsound(src, "rustle", 50, 1, -5)
+	user.Stun(10 SECONDS, ignore_canstun = TRUE)
+	sleep(2 SECONDS)
+	playsound(src, "rustle", 50, TRUE, -5)
 	user.suicide_log()
 	qdel(user)
 
@@ -194,12 +199,7 @@
 	icon_state = "ert_commander"
 	inhand_icon_state = "securitypack"
 	resistance_flags = FIRE_PROOF
-
-/obj/item/storage/backpack/ert/Initialize(mapload)
-	. = ..()
-	atom_storage.max_slots = 30
-	atom_storage.max_specific_storage = WEIGHT_CLASS_HUGE
-	atom_storage.max_total_storage = 30
+	storage_type = /datum/storage/backpack/ert
 
 /obj/item/storage/backpack/ert/security
 	name = "emergency response team security backpack"
@@ -452,10 +452,7 @@
 	inhand_icon_state = "duffel"
 	slowdown = 1
 	custom_price = 50
-
-/obj/item/storage/backpack/duffelbag/Initialize(mapload)
-	. = ..()
-	atom_storage.max_total_storage = 40
+	storage_type = /datum/storage/backpack/duffelbag
 
 /obj/item/storage/backpack/duffelbag/captain
 	name = "captain's duffel bag"
@@ -607,10 +604,7 @@
 	inhand_icon_state = "duffel-syndieammo"
 	slowdown = 0
 	resistance_flags = FIRE_PROOF
-
-/obj/item/storage/backpack/duffelbag/syndie/Initialize(mapload)
-	. = ..()
-	atom_storage.silent = TRUE
+	storage_type = /datum/storage/backpack/duffelbag/silent
 
 /obj/item/storage/backpack/duffelbag/syndie/hitman
 	desc = "A large duffel bag for holding extra things. There is a Nanotrasen logo on the back."
@@ -773,10 +767,9 @@
 	new /obj/item/storage/firstaid/tactical(src)
 
 // For ClownOps.
-/obj/item/storage/backpack/duffelbag/clown/syndie/Initialize(mapload)
-	. = ..()
+/obj/item/storage/backpack/duffelbag/clown/syndie
 	slowdown = 0
-	atom_storage.silent = TRUE
+	storage_type = /datum/storage/backpack/duffelbag/silent
 
 /obj/item/storage/backpack/duffelbag/clown/syndie/PopulateContents()
 	new /obj/item/modular_computer/tablet/pda/preset/clown(src)
@@ -814,13 +807,7 @@
 	desc = "A sterile messenger bag well loved by medics for its portability and sleek profile."
 	icon_state = "messenger_medical"
 	inhand_icon_state = "messenger_medical"
-/*
-/obj/item/storage/backpack/messenger/chief_medic
-	name = "chief medical officer's messenger bag"
-	desc = "A slim messenger bag appreciated by chief medical officers for staying out of their way while working - unlike their chemists."
-	icon_state = "messenger_chiefmedical"
-	inhand_icon_state = "messenger_medical"
-*/
+
 /obj/item/storage/backpack/messenger/vir
 	name = "virologist messenger bag"
 	desc = "A sterile messenger bag with virologist colours, useful for deploying biohazards in record times."
@@ -832,13 +819,7 @@
 	desc = "A sterile messenger bag with chemist colours, good for getting to your alleyway deals on time."
 	icon_state = "messenger_chemistry"
 	inhand_icon_state = "messenger_chemistry"
-/*
-/obj/item/storage/backpack/messenger/coroner
-	name = "coroner messenger bag"
-	desc = "A messenger bag used to sneak your way out of graveyards at a good pace."
-	icon_state = "messenger_coroner"
-	inhand_icon_state = "messenger_coroner"
-*/
+
 /obj/item/storage/backpack/messenger/gen
 	name = "geneticist messenger bag"
 	desc = "A sterile messenger bag with geneticist colours, making a remarkably cute accessory for hulks."

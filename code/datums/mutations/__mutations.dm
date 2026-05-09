@@ -22,10 +22,6 @@
 	var/class           //Decides player accesibility, sorta
 	var/list/conflicts //any mutations that might conflict. put mutation typepath defines in here. make sure to enter it both ways (so that A conflicts with B, and B with A)
 	var/allow_transfer  //Do we transfer upon cloning?
-		/// Message given to the user upon gaining this mutation
-	var/text_gain_indication = ""
-	/// Message given to the user upon losing this mutation
-	var/text_lose_indication = ""
 	//MUT_NORMAL - A mutation that can be activated and deactived by completing a sequence
 	//MUT_EXTRA - A mutation that is in the mutations tab, and can be given and taken away through though the DNA console. Has a 0 before it's name in the mutation section of the dna console
 	//MUT_OTHER Cannot be interacted with by players through normal means. I.E. wizards mutate
@@ -73,8 +69,7 @@
 	owner = C
 	dna = C.dna
 	dna.mutations += src
-	if(text_gain_indication)
-		to_chat(owner, text_gain_indication)
+	SEND_SIGNAL(src, COMSIG_MUTATION_GAINED, C)
 	if(length(visual_indicators))
 		var/list/mut_overlay = list(get_visual_indicator())
 		for (var/mutable_appearance/ma in mut_overlay)
@@ -109,26 +104,25 @@
 	return
 
 /datum/mutation/proc/on_losing(mob/living/carbon/owner)
-	if(istype(owner) && (owner.dna.mutations.Remove(src)))
-		if(text_lose_indication && owner.stat != DEAD)
-			to_chat(owner, text_lose_indication)
-		if(length(visual_indicators))
-			var/list/mut_overlay = list()
-			if(owner.overlays_standing[layer_used])
-				mut_overlay = owner.overlays_standing[layer_used]
-			owner.remove_overlay(layer_used)
-			mut_overlay.Remove(get_visual_indicator())
-			owner.overlays_standing[layer_used] = mut_overlay
-			owner.apply_overlay(layer_used)
-		if(power_path)
-			// Any powers we made are linked to our mutation datum,
+	if(!istype(owner) || !(owner.dna.mutations.Remove(src)))
+		return TRUE
+	SEND_SIGNAL(src, COMSIG_MUTATION_LOST, owner)
+	if(length(visual_indicators))
+		var/list/mut_overlay = list()
+		if(owner.overlays_standing[layer_used])
+			mut_overlay = owner.overlays_standing[layer_used]
+		owner.remove_overlay(layer_used)
+		mut_overlay.Remove(get_visual_indicator())
+		owner.overlays_standing[layer_used] = mut_overlay
+		owner.apply_overlay(layer_used)
+	if(power_path)
+		// Any powers we made are linked to our mutation datum,
 		// so deleting ourself will also delete it and remove it
 		// ...Why don't all mutations delete on loss? Not sure.
-			qdel(src)
-		UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
-		REMOVE_TRAITS_IN(owner, "[type]")
-		return FALSE
-	return TRUE
+		qdel(src)
+	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
+	REMOVE_TRAITS_IN(owner, "[type]")
+	return FALSE
 
 /mob/living/carbon/proc/update_mutations_overlay()
 	if(!has_dna())

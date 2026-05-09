@@ -1,4 +1,4 @@
-import { filter, map } from 'common/collections';
+import { filter, map } from 'es-toolkit/compat';
 import { useState } from 'react';
 import { Dropdown } from 'tgui-core/components';
 
@@ -562,7 +562,7 @@ const TechwebDesignDisk = (props) => {
     designOptions,
     (id, idx) => `${design_cache[id].name} [${idx}]`,
   );
-  designOptions = sortBy(designOptions, (x) => x);
+  designOptions = sortBy(designOptions, [(x) => x]);
 
   return (
     <>

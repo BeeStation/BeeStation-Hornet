@@ -92,9 +92,13 @@
 /obj/item/organ/tongue/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
+	if(should_modify_speech(source, speech_args))
+		modify_speech(source, speech_args)
+
+/obj/item/organ/tongue/proc/should_modify_speech(datum/source, list/speech_args)
 	if(speech_args[SPEECH_LANGUAGE] in languages_native)
 		return FALSE //no changes
-	modify_speech(source, speech_args)
+	return TRUE
 
 /obj/item/organ/tongue/proc/modify_speech(datum/source, list/speech_args)
 	return speech_args[SPEECH_MESSAGE]
@@ -157,23 +161,11 @@
 	languages_native = list(/datum/language/draconic)
 	disliked_foodtypes = GRAIN | DAIRY | CLOTH | GROSS
 	liked_foodtypes = GORE | MEAT
+	var/static/list/speech_replacements = list(new /regex("s+", "g") = "sss", new /regex("S+", "g") = "SSS", new /regex(@"(\w)x", "g") = "$1kss", new /regex(@"(\w)X", "g") = "$1KSSS", new /regex(@"\bx([\-|r|R]|\b)", "g") = "ecks$1", new /regex(@"\bX([\-|r|R]|\b)", "g") = "ECKS$1")
 
-/obj/item/organ/tongue/lizard/modify_speech(datum/source, list/speech_args)
-	var/static/regex/lizard_hiss = new("s+", "g")
-	var/static/regex/lizard_hiSS = new("S+", "g")
-	var/static/regex/lizard_kss = new(@"(\w)x", "g")
-	var/static/regex/lizard_kSS = new(@"(\w)X", "g")
-	var/static/regex/lizard_ecks = new(@"\bx([-rR]|\b)", "g")
-	var/static/regex/lizard_eckS = new(@"\bX([-rR]|\b)", "g")
-	var/message = speech_args[SPEECH_MESSAGE]
-	if(message[1] != "*")
-		message = lizard_hiss.Replace(message, "sss")
-		message = lizard_hiSS.Replace(message, "SSS")
-		message = lizard_kss.Replace(message, "$1kss")
-		message = lizard_kSS.Replace(message, "$1KSS")
-		message = lizard_ecks.Replace(message, "ecks$1")
-		message = lizard_eckS.Replace(message, "ECKS$1")
-	speech_args[SPEECH_MESSAGE] = message
+/obj/item/organ/tongue/lizard/New(class, timer, datum/mutation/copymut)
+	. = ..()
+	AddComponent(/datum/component/speechmod, replacements = speech_replacements, should_modify_speech = CALLBACK(src, PROC_REF(should_modify_speech)))
 
 /obj/item/organ/tongue/fly
 	name = "proboscis"
@@ -186,15 +178,11 @@
 	liked_foodtypes = GROSS | RAW | GORE // Limit how much food they actually like. They already have carte blanche on like 90% of food
 	disliked_foodtypes = NONE
 	toxic_foodtypes = NONE
+	var/static/list/speech_replacements = list(new /regex("z+", "g") = "zzz", new /regex("Z+", "g") = "ZZZ", "s" = "z", "S" = "Z")
 
-/obj/item/organ/tongue/fly/modify_speech(datum/source, list/speech_args)
-	var/static/regex/fly_buzz = new("z+", "g")
-	var/static/regex/fly_buZZ = new("Z+", "g")
-	var/message = speech_args[SPEECH_MESSAGE]
-	if(message[1] != "*")
-		message = fly_buzz.Replace(message, "zzz")
-		message = fly_buZZ.Replace(message, "ZZZ")
-	speech_args[SPEECH_MESSAGE] = message
+/obj/item/organ/tongue/fly/New(class, timer, datum/mutation/copymut)
+	. = ..()
+	AddComponent(/datum/component/speechmod, replacements = speech_replacements, should_modify_speech = CALLBACK(src, PROC_REF(should_modify_speech)))
 
 /obj/item/organ/tongue/abductor
 	name = "superlingual matrix"

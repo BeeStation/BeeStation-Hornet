@@ -118,9 +118,9 @@
 	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
 	VAR_PRIVATE/_emissive_count = 0
 
-	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
-	var/list/eye_users // TO-DO: replace into eye_mobs
-	/// same as 'eye_users', but mobs, instead of client. SHOULD BE USED CAREFULLY
+	/// list of '/client' that using this atom as their eye. SHOULD BE USED CAREFULLY
+	var/list/eye_users // TO-DO: replace into eye_mobs (maybe not)
+	/// list of '/mob' that using this atom as their eye. SHOULD BE USED CAREFULLY
 	var/list/eye_mobs
 	/// Amount of users hovering us, if this is greater than 1 we need to clear references on destroy
 	var/hovered_user_count = 0

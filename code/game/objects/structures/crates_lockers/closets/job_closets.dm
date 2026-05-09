@@ -6,7 +6,6 @@
 	icon_door = "black"
 
 /obj/structure/closet/gmcloset/PopulateContents()
-	..()
 	var/static/items_inside = list(
 		/obj/item/clothing/head/hats/tophat = 2,
 		/obj/item/radio/headset/headset_srv = 2,
@@ -23,7 +22,7 @@
 		/obj/item/clothing/neck/petcollar = 1,
 		/obj/item/storage/belt/bandolier = 1,
 	)
-	generate_items_inside(items_inside,src)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/chefcloset
 	name = "\proper chef's closet"
@@ -31,7 +30,6 @@
 	icon_door = "black"
 
 /obj/structure/closet/chefcloset/PopulateContents()
-	..()
 	var/static/items_inside = list(
 		/obj/item/clothing/under/suit/waiter = 2,
 		/obj/item/radio/headset/headset_srv = 2,
@@ -43,8 +41,9 @@
 		/obj/item/clothing/suit/toggle/chef = 1,
 		/obj/item/clothing/under/rank/civilian/chef = 1,
 		/obj/item/clothing/head/utility/chefhat = 1,
-		/obj/item/reagent_containers/cup/rag = 1)
-	generate_items_inside(items_inside,src)
+		/obj/item/reagent_containers/cup/rag = 1,
+	)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/jcloset
 	name = "custodial closet"
@@ -52,7 +51,6 @@
 	icon_door = "mixed"
 
 /obj/structure/closet/jcloset/PopulateContents()
-	..()
 	new /obj/item/clothing/under/rank/civilian/janitor(src)
 	new /obj/item/computer_hardware/hard_drive/role/janitor(src)
 	new /obj/item/clothing/gloves/color/black(src)
@@ -77,7 +75,6 @@
 	icon_door = "blue"
 
 /obj/structure/closet/lawcloset/PopulateContents()
-	..()
 	new /obj/item/clothing/under/rank/civilian/lawyer/female(src)
 	new /obj/item/clothing/under/rank/civilian/lawyer/black(src)
 	new /obj/item/clothing/under/rank/civilian/lawyer/red(src)
@@ -109,7 +106,6 @@
 	new /obj/item/storage/backpack/cultpack(src)
 	new /obj/item/storage/fancy/candle_box(src)
 	new /obj/item/storage/fancy/candle_box(src)
-	return
 
 /obj/structure/closet/wardrobe/red
 	name = "security wardrobe"
@@ -129,8 +125,7 @@
 		/obj/item/clothing/head/soft/sec = 3,
 		/obj/item/clothing/mask/bandana/red = 2,
 	)
-	generate_items_inside(items_inside,src)
-	return
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/wardrobe/cargotech
 	name = "cargo wardrobe"
@@ -146,7 +141,7 @@
 		/obj/item/clothing/head/soft = 3,
 		/obj/item/radio/headset/headset_cargo = 1,
 	)
-	generate_items_inside(items_inside,src)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/wardrobe/atmospherics_yellow
 	name = "atmospherics wardrobe"
@@ -161,8 +156,7 @@
 		/obj/item/storage/backpack/messenger/eng = 1,
 		/obj/item/storage/box/suitbox/wardrobe/atmospherics_yellow = 3,
 	)
-	generate_items_inside(items_inside,src)
-	return
+	generate_items_inside(items_inside, src)
 
 /obj/item/storage/box/suitbox/wardrobe/atmospherics_yellow
 	name = "compression box of atmospherics uniforms"
@@ -188,8 +182,7 @@
 		/obj/item/storage/backpack/messenger/eng = 1,
 		/obj/item/storage/box/suitbox/wardrobe/engineering = 3,
 	)
-	generate_items_inside(items_inside,src)
-	return
+	generate_items_inside(items_inside, src)
 
 /obj/item/storage/box/suitbox/wardrobe/engineering
 	name = "compression box of engineering uniforms"
@@ -226,7 +219,7 @@
 		/obj/item/clothing/head/soft/paramedic = 3,
 		/obj/item/clothing/head/beret/medical = 3,
 	)
-	generate_items_inside(items_inside,src)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/wardrobe/robotics_black
 	name = "robotics wardrobe"
@@ -242,7 +235,7 @@
 		/obj/item/clothing/head/soft/black = 2,
 		/obj/item/clothing/head/beret/science = 2,
 	)
-	generate_items_inside(items_inside,src)
+	generate_items_inside(items_inside, src)
 	if(prob(40))
 		new /obj/item/clothing/mask/bandana/skull/black(src)
 	if(prob(40))
@@ -262,7 +255,7 @@
 		/obj/item/storage/backpack/messenger/chem = 2,
 		/obj/item/storage/bag/chemistry = 2,
 	)
-	generate_items_inside(items_inside,src)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/wardrobe/genetics_white
 	name = "genetics wardrobe"
@@ -277,7 +270,7 @@
 		/obj/item/storage/backpack/satchel/gen = 2,
 		/obj/item/storage/backpack/messenger/gen = 2,
 	)
-	generate_items_inside(items_inside,src)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/wardrobe/virology_white
 	name = "virology wardrobe"
@@ -294,7 +287,7 @@
 		/obj/item/storage/backpack/messenger/vir = 2,
 		/obj/item/clothing/head/beret/medical = 2,
 	)
-	generate_items_inside(items_inside,src)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/wardrobe/science_white
 	name = "science wardrobe"
@@ -313,7 +306,7 @@
 		/obj/item/clothing/mask/gas = 3,
 		/obj/item/clothing/head/beret/science = 3,
 	)
-	generate_items_inside(items_inside,src)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/wardrobe/botanist
 	name = "botanist wardrobe"
@@ -330,7 +323,7 @@
 		/obj/item/clothing/under/rank/civilian/hydroponics = 3,
 		/obj/item/clothing/mask/bandana/striped/botany = 3,
 	)
-	generate_items_inside(items_inside,src)
+	generate_items_inside(items_inside, src)
 
 /obj/structure/closet/wardrobe/curator
 	name = "treasure hunting wardrobe"
@@ -343,4 +336,3 @@
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/storage/backpack/satchel/explorer(src)
 	new /obj/item/storage/backpack/messenger/explorer(src)
-

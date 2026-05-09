@@ -65,7 +65,9 @@
 	satchel = /obj/item/storage/backpack/satchel/eng
 	duffelbag = /obj/item/storage/backpack/duffelbag/engineering
 	messenger = /obj/item/storage/backpack/messenger/eng
+
 	box = /obj/item/storage/box/survival/engineer
+
 	pda_slot = ITEM_SLOT_LPOCKET
 	chameleon_extras = /obj/item/stamp/chief_engineer
 

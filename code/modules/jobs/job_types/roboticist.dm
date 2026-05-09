@@ -56,6 +56,7 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel/science
 	duffelbag = /obj/item/storage/backpack/duffelbag/science
+	messenger = /obj/item/storage/backpack/messenger/science
 
 	pda_slot = ITEM_SLOT_LPOCKET
 

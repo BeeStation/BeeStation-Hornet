@@ -4,6 +4,17 @@
 	max_total_storage = 28
 	max_slots = 25
 
+/datum/storage/backpack/ert
+	max_slots = 30
+	max_specific_storage = WEIGHT_CLASS_HUGE
+	max_total_storage = 30
+
+/datum/storage/backpack/duffelbag
+	max_total_storage = 40
+
+/datum/storage/backpack/duffelbag/silent
+	silent = TRUE
+
 /// Satchel flat
 /datum/storage/backpack/satchel_flat
 	max_total_storage = 15
