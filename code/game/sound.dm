@@ -335,6 +335,16 @@
 				soundin = pick('sound/machines/terminal_button01.ogg', 'sound/machines/terminal_button02.ogg', 'sound/machines/terminal_button03.ogg', \
 								'sound/machines/terminal_button04.ogg', 'sound/machines/terminal_button05.ogg', 'sound/machines/terminal_button06.ogg', \
 								'sound/machines/terminal_button07.ogg', 'sound/machines/terminal_button08.ogg')
+			if("keyboard_clicks")
+				soundin = pick(
+					'sound/machines/computer/keyboard_clicks_1.ogg',
+					'sound/machines/computer/keyboard_clicks_2.ogg',
+					'sound/machines/computer/keyboard_clicks_3.ogg',
+					'sound/machines/computer/keyboard_clicks_4.ogg',
+					'sound/machines/computer/keyboard_clicks_5.ogg',
+					'sound/machines/computer/keyboard_clicks_6.ogg',
+					'sound/machines/computer/keyboard_clicks_7.ogg',
+				)
 			if ("desecration")
 				soundin = pick('sound/misc/desecration-01.ogg', 'sound/misc/desecration-02.ogg', 'sound/misc/desecration-03.ogg')
 			if ("im_here")

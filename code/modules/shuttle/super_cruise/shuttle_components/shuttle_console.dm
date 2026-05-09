@@ -88,6 +88,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 	return GLOB.default_state
 
 /obj/machinery/computer/shuttle_flight/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	if(!allowed(user) && !isobserver(user))
 		say("Insufficient access rights.")
 		return
@@ -103,6 +104,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 	ui.set_autoupdate(FALSE)
 
 /obj/machinery/computer/shuttle_flight/ui_close(mob/user, datum/tgui/tgui)
+	. = ..()
 	SSorbits.open_orbital_maps -= tgui
 
 /obj/machinery/computer/shuttle_flight/ui_static_data(mob/user)
