@@ -435,8 +435,8 @@
 	to_chat(user, span_notice("You press the button on the beacon. A Terrible screeching fills the room."))
 	playsound(user, 'sound/effects/phasein.ogg', 50, TRUE)
 
-	/obj/structure/closet/supplypod/extractionpod/pod = new()
-	var/mob/living/simple_animal/horse/syndicate/H = new /mob/living/simple_animal/horse/syndicate(pod)
+	var/obj/structure/closet/supplypod/extractionpod/pod = new()
+	new /mob/living/simple_animal/horse/syndicate(pod)
 	pod.explosionSize = list(0,0,0,0)
 
 	new /obj/effect/pod_landingzone(get_turf(user), pod)
