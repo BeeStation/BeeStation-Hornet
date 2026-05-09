@@ -305,7 +305,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		whisper_range = MESSAGE_RANGE - WHISPER_RANGE
 		is_speaker_whispering = TRUE
 
-	var/list/in_view = get_hearers_in_view(message_range + whisper_range, source, SEE_INVISIBLE_MAXIMUM)
+	var/list/in_view = get_hearers_in_view(message_range + whisper_range, source)
 	var/list/listening = get_hearers_in_range(message_range + whisper_range, source)
 
 	// Pre-process listeners to account for line-of-sight
@@ -321,10 +321,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				continue
 			if(player_mob.get_virtual_z_level() != get_virtual_z_level() || get_dist(player_mob, src) > 7 ) //they're out of range of normal hearing
 				if(player_mob.client?.prefs && is_speaker_whispering && !player_mob.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostwhisper)) //they're whispering and we have hearing whispers at any range off
-					listening -= player_mob // remove (added by SEE_INVISIBLE_MAXIMUM)
+					listening -= player_mob
 					continue
 				if(player_mob.client?.prefs && !player_mob.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostears)) //they're talking normally and we have hearing at any range off
-					listening -= player_mob // remove (added by SEE_INVISIBLE_MAXIMUM)
+					listening -= player_mob
 					continue
 			listening |= player_mob
 
