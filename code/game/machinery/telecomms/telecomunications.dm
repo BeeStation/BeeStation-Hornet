@@ -170,17 +170,15 @@ GLOBAL_LIST_EMPTY(telecomms_list)
  */
 /obj/machinery/telecomms/proc/update_power()
 	var/old_on = on
-
 	if(toggled)
 		if(machine_stat & (BROKEN|NOPOWER|EMPED|OVERHEATED)) // if powered, on. if not powered, off. if too damaged, off
-			old_on = FALSE
+			on = FALSE
 		else
-			old_on = TRUE
+			on = TRUE
 	else
-		old_on = FALSE
+		on = FALSE
 
 	if(old_on != on)
-		on = old_on
 		ui_update()
 		update_appearance(UPDATE_ICON_STATE)
 		set_light(on)
