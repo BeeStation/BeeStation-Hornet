@@ -231,6 +231,10 @@
 #define span_awe(str) ("<span class='awe'>" + (str) + "</span>")
 #define span_subtle(str) ("<span class='subtle'>" + (str) + "</span>")
 
+// Debug span
+#define span_value(str) ("<span class='value'>" + (str) + "</span>")
+#define span_value_top(str) ("<span class='value align_top'>" + (str) + "</span>")
+
 // Spans that use embedded tgui components:
 // Sorted alphabetically
 #define span_tooltip(tip, main_text) ("<span data-component=\"Tooltip\" data-content=\"" + tip + "\" class=\"tooltip\">" + main_text + "</span>")

@@ -7,6 +7,9 @@ body {
 	font-size: 8pt;
 	display: inline-block;
 }
+.align_top {
+	vertical-align: top;
+}
 .value .colorbox {
 	font-size: 7pt;
 	border: 1px solid black;
@@ -39,4 +42,35 @@ table.matrixbrak td.rbrak {
 		border-bottom: solid 0.25ex black;
 		border-right: solid 0.5ex black;
 		border-left: none;
+}
+
+
+
+
+
+.data-column {
+    flex-direction: column;
+    position: relative;
+    padding: 5px 15px 5px 30px;
+    margin: 0px 0px 2px 5px;
+}
+
+.data-column::before,
+.data-column::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+    border: 1.5px solid black;
+}
+
+.data-column::before {
+    left: 0;
+    border-right: none;
+}
+
+.data-column::after {
+    right: 0;
+    border-left: none;
 }
