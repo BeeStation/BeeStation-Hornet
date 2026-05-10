@@ -11711,7 +11711,6 @@
 /area/station/medical/morgue)
 "faM" = (
 /obj/structure/grille,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/plating/rust,
 /area/station/maintenance/starboard/fore)
 "fbl" = (
@@ -15681,15 +15680,6 @@
 	},
 /turf/open/floor/plating,
 /area/station/engineering/atmos)
-"gMy" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/structure/disposalpipe/sorting/mail/destination/hydroponics{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/station/maintenance/starboard/fore)
 "gMC" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/shoes/swagshoes,
@@ -19251,7 +19241,6 @@
 "iiZ" = (
 /obj/effect/turf_decal/tile/green/opposingcorners,
 /obj/effect/mapping_helpers/tile_breaker,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/station/maintenance/starboard/fore)
 "ijb" = (
@@ -99003,7 +98992,7 @@ eDG
 xgF
 vzz
 vzz
-gMy
+aRm
 faM
 iiZ
 hnC
