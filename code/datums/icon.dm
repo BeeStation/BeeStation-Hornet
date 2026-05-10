@@ -11,10 +11,11 @@
 /icon/New(icon/icon, icon_state, dir, frame, moving)
 	. = ..()
 	if(isicon_datum(icon) && icon.file_reference)
-		revise_count = icon.revise_count+1
+		revise_count = icon.revise_count+1 // when /icon was created through an /icon, we might want to check the loop
 		file_reference = icon.file_reference || "UNKNOWN"
 		state_reference = "<li>[CHECK_NULL(icon_state)]</li><li>[CHECK_NULL(dir)]</li><li>[CHECK_NULL(frame)]</li><li>[CHECK_NULL(moving)]</li>"
-	else if(icon_state || dir || frame || moving)
+	else if(icon_state || dir || frame || moving) // If any of these value is given, DM refuses to save 'something
+dmi', and it decides to make a new /icon instance.
 		file_reference = "[icon]"
 		state_reference = "<li>[CHECK_NULL(icon_state)]</li><li>[CHECK_NULL(dir)]</li><li>[CHECK_NULL(frame)]</li><li>[CHECK_NULL(moving)]</li>"
 
