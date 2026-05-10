@@ -2016,9 +2016,13 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/dark,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow,
+/obj/machinery/chem_master/condimaster{
+	desc = "Used to separate out liquids - useful for purifying botanical extracts. Also dispenses condiments.";
+	name = "BrewMaster 2199"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/wood/big,
 /area/station/service/hydroponics)
 "ayj" = (
@@ -4899,14 +4903,16 @@
 /turf/open/floor/noslip/dark,
 /area/station/command/gateway)
 "bjq" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
 /obj/effect/decal/fakestairs/newstairs/left{
 	dir = 1
 	},
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -4982,12 +4988,12 @@
 	pixel_y = -26;
 	pixel_x = -6
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow,
 /obj/structure/extinguisher_cabinet/directional/south{
 	pixel_x = 6
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/wood/big,
 /area/station/service/hydroponics)
 "bjR" = (
@@ -7432,11 +7438,6 @@
 	dir = 4;
 	alpha = 255
 	},
-/obj/structure/table,
-/obj/machinery/smartfridge/disks{
-	pixel_y = 3;
-	pixel_x = 2
-	},
 /obj/machinery/light/dim/directional/east,
 /obj/machinery/firealarm{
 	dir = 8;
@@ -8640,6 +8641,9 @@
 	},
 /turf/open/floor/plating,
 /area/station/command/heads_quarters/chief)
+"ceR" = (
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/station/service/hydroponics)
 "ceS" = (
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
@@ -12035,8 +12039,8 @@
 	},
 /obj/machinery/holopad,
 /obj/effect/turf_decal/box,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/landmark/event_spawn,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "cTj" = (
@@ -16327,8 +16331,6 @@
 	},
 /obj/effect/turf_decal/siding/dark,
 /obj/machinery/light/small/directional/south,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/camera/directional/south,
 /obj/structure/cable/yellow,
 /obj/machinery/requests_console{
@@ -16336,6 +16338,8 @@
 	departmentType = 2;
 	pixel_y = -30
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/wood/big,
 /area/station/service/hydroponics)
 "dSS" = (
@@ -18681,7 +18685,6 @@
 /turf/open/space/basic,
 /area/misc/space/nearstation)
 "ewT" = (
-/obj/item/plant_tray,
 /obj/structure/railing/perspective/gray/corner,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/service/hydroponics)
@@ -25801,9 +25804,9 @@
 /turf/open/floor/iron/sepia,
 /area/station/service/lawoffice)
 "gas" = (
-/obj/item/plant_tray,
 /obj/machinery/camera/directional/east,
 /obj/machinery/airalarm/directional/east,
+/obj/item/plant_tray,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/service/hydroponics)
 "gaD" = (
@@ -29229,13 +29232,9 @@
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
 	},
-/obj/item/toy/figure/botanist{
-	pixel_x = -1
-	},
-/obj/item/food/grown/flower/harebell{
-	pixel_y = 8;
-	pixel_x = -7
-	},
+/obj/item/wrench,
+/obj/item/construction/plumbing/botany,
+/obj/item/construction/plumbing/botany,
 /turf/open/floor/prison/dark,
 /area/station/service/hydroponics)
 "gSS" = (
@@ -31675,6 +31674,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "hxb" = (
@@ -32516,7 +32516,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
 	},
-/obj/structure/flora/bigplant,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood/big,
 /area/station/service/hydroponics)
 "hFF" = (
@@ -32633,7 +32633,11 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 4
 	},
-/obj/structure/sink/directional/west,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11;
+	pixel_y = 5
+	},
 /obj/effect/landmark/start/botanist,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
@@ -33974,11 +33978,11 @@
 	},
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/machinery/door/airlock{
-	name = "Hydroponics"
+	name = "Hydroponics";
+	req_access_txt = "35"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/textured_half,
 /area/station/service/hydroponics)
 "hYt" = (
@@ -35636,8 +35640,8 @@
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "irj" = (
@@ -35801,8 +35805,8 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "ite" = (
@@ -37487,13 +37491,9 @@
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
 	},
-/obj/item/storage/box/syringes{
-	pixel_y = 8;
-	pixel_x = -15
-	},
-/obj/item/storage/fancy/rollingpapers{
-	pixel_y = 6;
-	pixel_x = 3
+/obj/item/plant_scanner,
+/obj/item/plant_scanner{
+	pixel_y = 7
 	},
 /turf/open/floor/prison/dark,
 /area/station/service/hydroponics)
@@ -37662,6 +37662,9 @@
 	},
 /obj/effect/decal/fakestairs/newstairs/left{
 	dir = 4
+	},
+/obj/structure/platform/black/stair_cutoff{
+	dir = 1
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/station/service/hydroponics)
@@ -40576,6 +40579,15 @@
 /obj/effect/turf_decal/trimline/neutral/warning_offset,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
+"jwy" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/color_correction{
+	color_correction = /datum/client_colour/area_color/warm_yellow
+	},
+/turf/open/floor/iron/dark,
+/area/station/service/hydroponics)
 "jwI" = (
 /obj/structure/disposalpipe/junction,
 /obj/effect/turf_decal/tile/dark/half{
@@ -46271,7 +46283,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/wood/big,
 /area/station/service/hydroponics)
@@ -48769,6 +48783,7 @@
 /obj/effect/decal/fakestairs/newstairs/right{
 	dir = 4
 	},
+/obj/structure/platform/black,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/service/hydroponics)
 "ltQ" = (
@@ -49225,19 +49240,10 @@
 	alpha = 255
 	},
 /obj/structure/table,
-/obj/machinery/reagentgrinder{
-	desc = "Used to grind things up into raw materials and liquids.";
-	pixel_y = 14;
-	pixel_x = -5
+/obj/machinery/computer/plant_machine_controller{
+	pixel_y = 3
 	},
-/obj/item/grenade/chem_grenade/antiweed{
-	pixel_y = 9;
-	pixel_x = 16
-	},
-/obj/item/grenade/chem_grenade/antiweed{
-	pixel_y = 4;
-	pixel_x = 8
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
 "lzP" = (
@@ -49266,10 +49272,10 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/siding/dark/corner,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow,
 /obj/effect/landmark/start/botanist,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/wood/big,
 /area/station/service/hydroponics)
 "lAc" = (
@@ -51536,12 +51542,14 @@
 /turf/open/floor/iron/dark,
 /area/station/hallway/secondary/service)
 "mcC" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
 /obj/machinery/holopad{
 	pixel_y = -16;
 	pixel_x = 16
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/wood/big,
 /area/station/service/hydroponics)
 "mcY" = (
@@ -54927,9 +54935,9 @@
 /turf/open/floor/iron/techmaint,
 /area/station/maintenance/department/medical/central)
 "mRn" = (
-/obj/item/plant_tray,
 /obj/machinery/light/dim/directional/east,
 /obj/structure/sign/poster/official/random/directional/east,
+/obj/item/plant_tray,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/service/hydroponics)
 "mRp" = (
@@ -55063,6 +55071,7 @@
 	},
 /obj/effect/turf_decal/siding/dark,
 /obj/structure/reagent_dispensers/watertank/high,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "mSo" = (
@@ -63059,6 +63068,13 @@
 	dir = 1
 	},
 /obj/item/hatchet,
+/obj/item/toy/figure/botanist{
+	pixel_x = -1
+	},
+/obj/item/substrate_bag/dirt,
+/obj/item/substrate_bag/clay,
+/obj/item/substrate_bag/debris,
+/obj/item/substrate_bag/sand,
 /turf/open/floor/wood/big,
 /area/station/service/hydroponics)
 "oLG" = (
@@ -63660,7 +63676,6 @@
 /obj/effect/turf_decal/siding/dark/end{
 	dir = 4
 	},
-/obj/machinery/seeder,
 /turf/open/floor/iron/smooth_half,
 /area/station/service/hydroponics)
 "oTO" = (
@@ -76846,9 +76861,9 @@
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/wood/big,
 /area/station/service/hydroponics)
 "scw" = (
@@ -84998,7 +85013,9 @@
 /turf/open/floor/plating,
 /area/station/medical/exam_room)
 "tZn" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/textured_edge{
 	dir = 4
@@ -86610,9 +86627,9 @@
 	alpha = 255
 	},
 /obj/structure/sign/poster/official/random/directional/north,
-/obj/machinery/chem_master/condimaster{
-	desc = "Used to separate out liquids - useful for purifying botanical extracts. Also dispenses condiments.";
-	name = "BrewMaster 2199"
+/obj/structure/table,
+/obj/machinery/plant_machine/plant_analyser{
+	pixel_y = 5
 	},
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
@@ -87789,6 +87806,26 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/misc/space/nearstation)
+"uFI" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/dark,
+/obj/structure/cable/yellow,
+/obj/structure/table,
+/obj/machinery/reagentgrinder{
+	desc = "Used to grind things up into raw materials and liquids.";
+	pixel_y = 14;
+	pixel_x = -5
+	},
+/obj/item/storage/box/syringes{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/wood/big,
+/area/station/service/hydroponics)
 "uFW" = (
 /obj/structure/curtain,
 /obj/machinery/shower{
@@ -87807,11 +87844,14 @@
 	alpha = 255
 	},
 /obj/structure/table,
-/obj/machinery/plant_machine/plant_analyser{
-	pixel_y = 8;
-	pixel_x = 1
+/obj/machinery/plant_machine/seed_editor{
+	pixel_y = 7;
+	pixel_x = -7
 	},
-/obj/machinery/newscaster/directional/north,
+/obj/machinery/smartfridge/disks{
+	pixel_y = 14;
+	pixel_x = 4
+	},
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
 "uGw" = (
@@ -89821,9 +89861,9 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/wood/big,
 /area/station/service/hydroponics)
 "vfS" = (
@@ -91599,8 +91639,9 @@
 	dir = 4;
 	alpha = 255
 	},
-/obj/machinery/chem_dispenser/mutagensaltpetersmall,
 /obj/machinery/light_switch/directional/west,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/plant_machine/plant_mutator,
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
 "vCL" = (
@@ -95416,7 +95457,9 @@
 	color = "#3a3b3b";
 	alpha = 255
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
@@ -96340,6 +96383,7 @@
 	alpha = 255
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/refraction_catalogue,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -97375,8 +97419,8 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/wood/big,
 /area/station/service/hydroponics)
 "wVT" = (
@@ -101957,6 +102001,8 @@
 	color = "#909090";
 	dir = 10
 	},
+/obj/machinery/seeder,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
 "xZi" = (
@@ -136171,13 +136217,13 @@ vji
 vRr
 bwg
 xgb
-agV
+ceR
 oVk
 agV
 dZG
-agV
+ceR
 wbs
-agV
+ceR
 xUK
 gSO
 xPI
@@ -136428,7 +136474,7 @@ vji
 vBH
 bwg
 jPE
-agV
+ceR
 kOx
 agV
 uQx
@@ -136687,9 +136733,9 @@ bwg
 jLT
 agV
 meX
-agV
+ceR
 oTI
-agV
+ceR
 mQe
 ewT
 jwg
@@ -137209,7 +137255,7 @@ hQJ
 lRX
 hHU
 orC
-ayf
+uFI
 iDD
 jVg
 hIV
@@ -137716,7 +137762,7 @@ vCJ
 dBz
 hwZ
 nUZ
-nUZ
+jwy
 nUZ
 mSk
 lpM
@@ -138490,7 +138536,7 @@ wwQ
 pxe
 gas
 mRn
-agV
+ceR
 bwg
 btX
 cic
