@@ -24,3 +24,7 @@
 /obj/item/plant_seeds/preset/soya : /obj/item/plant_seeds/preset/soybean{@OLD}
 /obj/item/plant_seeds/preset/redbeet : /obj/item/plant_seeds/preset/whitebeet{@OLD}
 /obj/item/plant_seeds/preset/random : /obj/item/plant_seeds/random{@OLD}
+
+/obj/item/circuitboard/machine/hydroponics : @DELETE
+/obj/item/circuitboard/machine/seed_extractor : /obj/item/circuitboard/machine/seeder{@OLD}
+

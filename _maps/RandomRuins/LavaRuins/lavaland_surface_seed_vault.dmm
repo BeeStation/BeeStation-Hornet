@@ -92,10 +92,7 @@
 	pixel_x = 4;
 	pixel_y = 7
 	},
-/obj/item/circuitboard/machine/hydroponics{
-	pixel_x = 8;
-	pixel_y = -4
-	},
+null,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
@@ -137,7 +134,7 @@
 /area/ruin/powered/seedvault)
 "gX" = (
 /obj/structure/table,
-/obj/item/circuitboard/machine/seed_extractor{
+/obj/item/circuitboard/machine/seeder{
 	pixel_x = -2;
 	pixel_y = 6
 	},
@@ -567,17 +564,9 @@
 /area/ruin/powered/seedvault)
 "yR" = (
 /obj/structure/table,
-/obj/item/circuitboard/machine/hydroponics{
-	pixel_x = 1
-	},
-/obj/item/circuitboard/machine/hydroponics{
-	pixel_x = 3;
-	pixel_y = 8
-	},
-/obj/item/circuitboard/machine/hydroponics{
-	pixel_x = -6;
-	pixel_y = -3
-	},
+null,
+null,
+null,
 /obj/item/circuitboard/machine/smartfridge{
 	pixel_x = -15;
 	pixel_y = 4
