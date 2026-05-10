@@ -13,7 +13,7 @@
 	/// Fastest possible Delay (lower = faster)
 	var/max_speed_delay = 0.8
 	/// Speed gained per tile when moving in the same direction (dif from vehicle)
-	var/acceleration_per_tile = 0.05
+	var/acceleration_per_tile = 0.03
 	/// starts at base, changes with acceleration
 	var/current_move_delay = 2
 	/// Last direction moved (used to track acceleration/resets)
