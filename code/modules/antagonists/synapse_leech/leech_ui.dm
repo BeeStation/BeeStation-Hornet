@@ -112,10 +112,17 @@
 		icon_state = "hide_on"
 		leech.hidden = TRUE
 
-// Health display, works like the basic mob health display, just custom sprites.
+// Health display.
 /atom/movable/screen/healths/leech
 	icon = 'icons/synapse_leech/hud_big.dmi'
+	icon_state = "health_container"
 	screen_loc = ui_leech_health
+	appearance_flags = KEEP_TOGETHER
+
+/atom/movable/screen/healths/leech/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	// Clip everything (base + overlays) to the bottle silhouette.
+	add_filter("bottle_mask", 1, alpha_mask_filter(icon = icon('icons/synapse_leech/hud_big.dmi', "health_container")))
 
 // Host brain health display; brain0 (healthy) to brain7 (dead/no host)
 /atom/movable/screen/leech/brain_health_display
@@ -181,36 +188,42 @@
 	var/tier = clamp(round(brain_damage / (BRAIN_DAMAGE_DEATH / 7)), 0, 7)
 	leech_hud.brain_health_display.icon_state = "brain[tier]"
 
-/// Updates the health HUD icon state and applies a hurt-screen overlay scaled by missing health.
+/// Updates the health HUD using magic sponsored by racc-off
+/// Render order (bottom to top), all on a KEEP_TOGETHER base, clipped by an alpha-mask filter:
+///   1. `health_container` - the bottle silhouette (base icon_state, also the mask source)
+///   2. `health_fill`      - 64x64 red square, BLEND_MULTIPLY so the glass tint shows through,
+///                           pixel_y offset by health %
+///   3. `health_shine`     - glass stuff, drawn on top of the liquid
+///   4. `health_border`    - frame, rendered OUTSIDE the mask so it can extend past
+///                           the silhouette, unused for now
 /mob/living/basic/synapse_leech/update_health_hud()
 	if(!hud_used?.healths)
 		return
 
-	var/severity = 0
-	if(stat != DEAD)
-		var/healthpercent = (health / maxHealth) * 100
-		switch(healthpercent)
-			if(100 to INFINITY)
-				severity = 0
-			if(80 to 100)
-				severity = 1
-			if(60 to 80)
-				severity = 2
-			if(40 to 60)
-				severity = 3
-			if(20 to 40)
-				severity = 4
-			if(1 to 20)
-				severity = 5
-			else
-				severity = 6
-	else
-		severity = 7
+	var/healthpercent = (stat == DEAD) ? 0 : clamp(health / maxHealth, 0, 1)
 
-	hud_used.healths.icon_state = "health[severity]"
+	hud_used.healths.cut_overlays()
 
-	// Hurt screen overlay reuses the standard brute damage fullscreen
-	if(severity > 0 && severity < 7)
+	// Liquid fill is a red square, multiplied through the glass tint and clipped by the mask filter.
+	// Visible fill height ranges from 0px (empty) to 56px (full), the top of the bottle
+	// is reserved for the neck
+	var/mutable_appearance/fill = mutable_appearance('icons/synapse_leech/hud_big.dmi', "health_fill")
+	fill.blend_mode = BLEND_MULTIPLY
+	fill.pixel_y = -(12 + round(52 * (1 - healthpercent)))
+	hud_used.healths.add_overlay(fill)
+
+	// Glass shine. Default blend, draws on top of the liquid, still clipped by the mask.
+	hud_used.healths.add_overlay(mutable_appearance('icons/synapse_leech/hud_big.dmi', "health_shine"))
+
+	// Decorative border/frame. i think keep apart is meant for this?
+	var/mutable_appearance/border = mutable_appearance('icons/synapse_leech/hud_big.dmi', "health_border")
+	border.appearance_flags = KEEP_APART
+	hud_used.healths.add_overlay(border)
+
+	// Hurt screen overlay scaled by damage amount
+	var/missing = 1 - healthpercent
+	if(stat != DEAD && missing > 0)
+		var/severity = clamp(round(missing * 6) + 1, 1, 6)
 		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 	else
 		clear_fullscreen("brute")
