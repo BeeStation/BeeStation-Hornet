@@ -347,6 +347,7 @@
 	desc = "A quiver for holding magspears."
 	icon_state = "quiver"
 	inhand_icon_state = "quiver"
+	worn_icon = 'icons/mob/clothing/back.dmi'
 
 /obj/item/storage/backpack/magspear_quiver/Initialize(mapload)
 	. = ..()
@@ -355,8 +356,8 @@
 	atom_storage.max_total_storage = atom_storage.max_specific_storage * atom_storage.max_slots
 	atom_storage.numerical_stacking = TRUE
 	atom_storage.set_holdable(list(
-		/obj/item/throwing_star/magspear
-		))
+		/obj/item/throwing_star/magspear,
+	))
 
 /obj/item/storage/backpack/magspear_quiver/PopulateContents()
 	for(var/i in 1 to 30)

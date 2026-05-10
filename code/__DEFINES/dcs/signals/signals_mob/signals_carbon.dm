@@ -81,3 +81,8 @@
 
 ///Called when you want to update a carbon's height with the height_filter element - update_displacement(intensity, dir_override)
 #define COMSIG_CARBON_HEIGHT_UPDATE "COMSIG_CARBON_HEIGHT_UPDATE"
+
+///Called from on_acquiring(mob/living/carbon/human/acquirer)
+#define COMSIG_MUTATION_GAINED "mutation_gained"
+///Called from on_losing(mob/living/carbon/human/owner)
+#define COMSIG_MUTATION_LOST "mutation_lost"
