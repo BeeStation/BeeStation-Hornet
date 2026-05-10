@@ -74,7 +74,7 @@
 		return span_value("null")
 
 	if(iscolortext(value))
-		return span_value("\"[value]\" <span class='colorbox' style='background-color:[("#" in value) ? "" : "#"][value]'>_________</span>")
+		return span_value("\"[value]\" <span class='colorbox' style='background-color:[("#" == value[1]) ? "" : "#"][value];'>_________</span>")
 
 	if(istext(value))
 		return span_value("\"[VV_HTML_ENCODE(value)]\"")
