@@ -219,7 +219,6 @@
 #define span_userdanger(str) ("<span class='userdanger'>" + (str) + "</span>")
 #define span_usernotice(str) ("<span class='usernotice'>" + (str) + "</span>")
 #define span_subtlenotice(str) ("<span class='subtlenotice'>" + (str) + "</span>")
-#define span_value(str) ("<span class='value'>" + (str) + "</span>")
 #define span_warn(str) ("<span class='warn'>" + (str) + "</span>")
 #define span_warner(str) ("<span class='warner'>" + (str) + "</span>")
 #define span_warning(str) ("<span class='warning'>" + (str) + "</span>")
