@@ -2401,6 +2401,16 @@
 	},
 /turf/open/floor/iron/grid,
 /area/station/commons/toilet/restrooms)
+"aMc" = (
+/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/head/costume/kitty/genuine,
+/obj/item/clothing/suit/hooded/renault_costume,
+/obj/item/clothing/suit/hooded/ian_costume,
+/obj/item/clothing/suit/hooded/carp_costume,
+/obj/item/clothing/suit/hooded/bee_costume,
+/obj/item/clothing/mask/animal/small/bee,
+/turf/open/floor/plating,
+/area/station/maintenance/starboard/fore)
 "aMe" = (
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -22
@@ -27672,17 +27682,6 @@
 "ihz" = (
 /turf/closed/wall,
 /area/station/commons/vacant_room/commissary/commissary2)
-"ihC" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 4
-	},
-/obj/structure/closet/secure_closet/brig_physician,
-/obj/item/clothing/under/rank/medical/doctor{
-	pixel_y = -4
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/white,
-/area/station/security/office)
 "ihI" = (
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 8
@@ -41307,16 +41306,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/station/service/bar/atrium)
-"lZU" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/head/costume/kitty/genuine,
-/obj/item/clothing/suit/hooded/renault_costume,
-/obj/item/clothing/suit/hooded/ian_costume,
-/obj/item/clothing/suit/hooded/carp_costume,
-/obj/item/clothing/suit/hooded/bee_costume,
-/obj/item/clothing/mask/animal/small/bee,
-/turf/open/floor/plating,
-/area/station/maintenance/starboard/fore)
 "maa" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/wood{
@@ -45364,18 +45353,6 @@
 	},
 /turf/open/floor/carpet,
 /area/station/hallway/primary/aft)
-"nmd" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/structure/rack,
-/obj/item/storage/backpack/satchel/science,
-/obj/item/analyzer,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/station/science/shuttledock)
 "nml" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
@@ -62300,6 +62277,17 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron,
 /area/station/security/checkpoint/medical)
+"stB" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/obj/structure/closet/secure_closet/brig_physician,
+/obj/item/clothing/under/rank/medical/doctor{
+	pixel_y = -4
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/white,
+/area/station/security/office)
 "stH" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 4
@@ -73524,6 +73512,18 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter)
+"vIC" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/structure/rack,
+/obj/item/storage/backpack/satchel/science,
+/obj/item/analyzer,
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/station/science/shuttledock)
 "vIF" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark/side,
@@ -112690,7 +112690,7 @@ uIG
 xqK
 xqK
 jYc
-nmd
+vIC
 jNP
 tYE
 wqD
@@ -116973,7 +116973,7 @@ col
 kaa
 nVj
 wsq
-ihC
+stB
 wKp
 pJb
 dWa
@@ -134965,7 +134965,7 @@ gXX
 niN
 edz
 kRt
-lZU
+aMc
 kRt
 edz
 edz

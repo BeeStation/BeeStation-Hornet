@@ -635,6 +635,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/maintenance/department/medical/morgue)
+"aAh" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
+	name = "Nitrogen Chamber Injector";
+	
+	},
+/turf/open/floor/engine/n2,
+/area/station/engineering/atmos)
 "aAC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
@@ -935,16 +942,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/station/maintenance/department/science/central)
-"aLj" = (
-/obj/structure/closet/secure_closet/personal,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/item/clothing/mask/animal/small/bear,
-/obj/item/hand_labeler,
-/turf/open/floor/carpet/green,
-/area/station/service/cafeteria)
 "aLu" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/tile/red{
@@ -3439,13 +3436,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos)
-"cuu" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
-	dir = 4;
-	name = "Nitrous Oxide Chamber Injector"
-	},
-/turf/open/floor/engine/n2o,
-/area/station/engineering/atmos)
 "cuQ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile,
@@ -3760,6 +3750,16 @@
 "cBH" = (
 /turf/closed/wall,
 /area/station/command/bridge)
+"cCr" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/clothing/mask/animal/small/bear,
+/obj/item/hand_labeler,
+/turf/open/floor/carpet/green,
+/area/station/service/cafeteria)
 "cCG" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
 	alpha = 180
@@ -6448,13 +6448,6 @@
 /obj/structure/sign/warning/radiation/rad_area,
 /turf/closed/wall/r_wall,
 /area/station/maintenance/disposal/incinerator)
-"egM" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
-	name = "Nitrogen Chamber Injector";
-	
-	},
-/turf/open/floor/engine/n2,
-/area/station/engineering/atmos)
 "egS" = (
 /obj/effect/spawner/room/fivexfour,
 /turf/open/floor/plating,
@@ -8577,12 +8570,6 @@
 /obj/effect/landmark/start/lawyer,
 /turf/open/floor/plating,
 /area/station/service/library/abandoned)
-"fpJ" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
-	name = "Oxygen Chamber Injector"
-	},
-/turf/open/floor/engine/o2,
-/area/station/engineering/atmos)
 "fpR" = (
 /turf/closed/wall,
 /area/station/service/library/abandoned)
@@ -14373,13 +14360,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
-"iSa" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
-	dir = 4;
-	name = "Plasma Chamber Injector"
-	},
-/turf/open/floor/engine/plasma,
-/area/station/engineering/atmos)
 "iSg" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -14757,12 +14737,6 @@
 "jbc" = (
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/station/engineering/main)
-"jbq" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer2{
-	name = "Air Chamber Injector"
-	},
-/turf/open/floor/engine/air,
-/area/station/engineering/atmos)
 "jbV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/navbeacon{
@@ -16129,6 +16103,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
 /area/station/cargo/storage)
+"jRx" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
+	name = "Oxygen Chamber Injector"
+	},
+/turf/open/floor/engine/o2,
+/area/station/engineering/atmos)
 "jRV" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
@@ -17769,12 +17749,6 @@
 	},
 /turf/open/floor/plating,
 /area/station/ai_monitored/turret_protected/aisat_interior)
-"kVz" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
-	name = "Carbon Dioxide Chamber Injector"
-	},
-/turf/open/floor/engine/co2,
-/area/station/engineering/atmos)
 "kVT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -26338,6 +26312,13 @@
 	dir = 5
 	},
 /area/station/science/lab)
+"pXA" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
+	dir = 4;
+	name = "Plasma Chamber Injector"
+	},
+/turf/open/floor/engine/plasma,
+/area/station/engineering/atmos)
 "pXB" = (
 /turf/closed/wall,
 /area/station/science/test_area)
@@ -29658,6 +29639,13 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/carpet/blue,
 /area/station/service/cafeteria)
+"sbB" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
+	dir = 4;
+	name = "Nitrous Oxide Chamber Injector"
+	},
+/turf/open/floor/engine/n2o,
+/area/station/engineering/atmos)
 "sbM" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -35526,6 +35514,12 @@
 	dir = 1
 	},
 /area/station/hallway/primary/central)
+"vCo" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer4{
+	name = "Carbon Dioxide Chamber Injector"
+	},
+/turf/open/floor/engine/co2,
+/area/station/engineering/atmos)
 "vCw" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -39683,6 +39677,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/service/kitchen)
+"xYx" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/layer2{
+	name = "Air Chamber Injector"
+	},
+/turf/open/floor/engine/air,
+/area/station/engineering/atmos)
 "xYG" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/bodycontainer/morgue{
@@ -46206,10 +46206,10 @@ cVu
 cVu
 cVu
 ixT
-cuu
+sbB
 wbD
 ixT
-iSa
+pXA
 doe
 mkc
 cVu
@@ -47231,7 +47231,7 @@ qdb
 qdb
 ixT
 hvk
-kVz
+vCo
 fUH
 nHK
 eTO
@@ -48002,7 +48002,7 @@ hiQ
 mCX
 ixT
 bXd
-fpJ
+jRx
 iog
 gLF
 lVK
@@ -48773,7 +48773,7 @@ mIi
 ihp
 jXm
 rbT
-egM
+aAh
 adH
 qMH
 czq
@@ -49287,7 +49287,7 @@ xzS
 duJ
 mkc
 hnw
-jbq
+xYx
 rCZ
 bfs
 obU
@@ -54141,7 +54141,7 @@ efu
 efu
 xad
 nAT
-aLj
+cCr
 xad
 ybz
 rcl

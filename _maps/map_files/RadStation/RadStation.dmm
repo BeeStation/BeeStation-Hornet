@@ -1385,19 +1385,6 @@
 /obj/item/plant_seeds/preset/wheat,
 /turf/open/floor/iron/techmaint,
 /area/station/security/prison)
-"azq" = (
-/obj/effect/turf_decal/tile/neutral/anticorner{
-	dir = 6
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/storage/backpack/satchel/science,
-/turf/open/floor/plating,
-/area/station/maintenance/department/science)
 "azz" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/drinks{
@@ -12171,6 +12158,48 @@
 /obj/effect/turf_decal/siding/wood/corner,
 /turf/open/floor/carpet,
 /area/station/service/library)
+"eyo" = (
+/obj/item/clothing/mask/animal/small/rat{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/clothing/mask/animal/small/bear{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/clothing/mask/animal/pig{
+	pixel_x = -7;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas/clown_hat{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/structure/rack,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/item/clothing/mask/rat{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/clothing/mask/animal/small/bear{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/clothing/mask/pig{
+	pixel_x = -7;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas/clown_hat{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/structure/rack,
+/turf/open/floor/carpet/grimy,
+/area/station/maintenance/central)
 "eyq" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/disposal/bin,
@@ -13437,26 +13466,6 @@
 "eVc" = (
 /turf/closed/wall/r_wall/rust,
 /area/station/command/teleporter)
-"eVm" = (
-/obj/item/clothing/mask/animal/small/rat{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/clothing/mask/animal/small/bear{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/clothing/mask/animal/pig{
-	pixel_x = -7;
-	pixel_y = -3
-	},
-/obj/item/clothing/mask/gas/clown_hat{
-	pixel_x = 6;
-	pixel_y = -6
-	},
-/obj/structure/rack,
-/turf/open/floor/carpet/grimy,
-/area/station/maintenance/central)
 "eVn" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/decal/cleanable/blood/footprints,
@@ -18786,6 +18795,16 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/engineering/supermatter)
+"hdM" = (
+/obj/effect/turf_decal/guideline/guideline_edge/purple,
+/obj/machinery/firealarm/directional/south,
+/obj/structure/table,
+/obj/item/storage/backpack/satchel/science,
+/obj/item/hand_labeler{
+	pixel_x = -12
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/station/science/shuttledock)
 "hdW" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /obj/machinery/meter,
@@ -54470,14 +54489,6 @@
 /obj/item/toy/figure/mime,
 /turf/open/floor/grass,
 /area/station/hallway/primary/central)
-"uvD" = (
-/obj/item/clothing/under/rank/medical/doctor,
-/obj/structure/table_frame,
-/obj/effect/decal/cleanable/glass{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/station/maintenance/starboard/aft)
 "uvU" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
@@ -62403,6 +62414,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/station/maintenance/solars/starboard/fore)
+"xAv" = (
+/obj/effect/turf_decal/tile/neutral/anticorner{
+	dir = 6
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/storage/backpack/satchel/science,
+/turf/open/floor/plating,
+/area/station/maintenance/department/science)
 "xAZ" = (
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
@@ -63171,16 +63195,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
-"xPK" = (
-/obj/effect/turf_decal/guideline/guideline_edge/purple,
-/obj/machinery/firealarm/directional/south,
-/obj/structure/table,
-/obj/item/storage/backpack/satchel/science,
-/obj/item/hand_labeler{
-	pixel_x = -12
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/station/science/shuttledock)
 "xPL" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 10
@@ -63689,6 +63703,14 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/hallway/primary/central)
+"xZf" = (
+/obj/item/clothing/under/rank/medical/doctor,
+/obj/structure/table_frame,
+/obj/effect/decal/cleanable/glass{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/station/maintenance/starboard/aft)
 "xZr" = (
 /obj/machinery/computer/security/telescreen/minisat{
 	pixel_y = 33
@@ -87275,7 +87297,7 @@ xij
 fYD
 snx
 miX
-xPK
+hdM
 qhm
 cpe
 mzX
@@ -87514,7 +87536,7 @@ cIr
 pTf
 gNq
 lyy
-azq
+xAv
 cPD
 nph
 pIq
@@ -94933,7 +94955,7 @@ lZW
 rzn
 lZW
 lZW
-eVm
+eyo
 tTY
 bVv
 bBl
@@ -106030,7 +106052,7 @@ uva
 uva
 vnp
 elU
-uvD
+xZf
 oEy
 vnp
 uva
