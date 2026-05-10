@@ -7,7 +7,7 @@
 	/// Used to track when something did icon(icon(icon(icon('some.dmi'))))
 	var/revise_count
 
-// Usually, this is not a good idea to do this, but it's for putting a hint when /icon is revised.
+// Usually, this is not a good idea to do this, but it's for putting a hint when /icon is created, so that we can investigate what /icon a thing holds.
 /icon/New(icon/icon, icon_state, dir, frame, moving)
 	. = ..()
 	if(isicon_datum(icon) && icon.file_reference)
