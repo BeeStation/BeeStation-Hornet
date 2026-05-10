@@ -1395,7 +1395,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/storage/backpack/satchel/tox,
+/obj/item/storage/backpack/satchel/science,
 /turf/open/floor/plating,
 /area/station/maintenance/department/science)
 "azz" = (
@@ -13442,7 +13442,7 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/clothing/mask/rat/bear{
+/obj/item/clothing/mask/animal/small/bear{
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -54471,7 +54471,7 @@
 /turf/open/floor/grass,
 /area/station/hallway/primary/central)
 "uvD" = (
-/obj/item/clothing/under/rank/medical/doctor/green,
+/obj/item/clothing/under/rank/medical/doctor,
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/glass{
 	dir = 1
@@ -63175,7 +63175,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/purple,
 /obj/machinery/firealarm/directional/south,
 /obj/structure/table,
-/obj/item/storage/backpack/satchel/tox,
+/obj/item/storage/backpack/satchel/science,
 /obj/item/hand_labeler{
 	pixel_x = -12
 	},
