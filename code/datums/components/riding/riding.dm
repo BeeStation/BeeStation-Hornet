@@ -11,7 +11,7 @@
 
 	var/last_move_diagonal = FALSE
 	///tick delay between movements, lower = faster, higher = slower
-	var/vehicle_move_delay = 2
+	var/vehicle_move_delay = 1.5
 
 	var/vehicle_move_multiplier
 
@@ -45,11 +45,15 @@
 	/// For telling someone they can't drive
 	COOLDOWN_DECLARE(vehicle_move_cooldown)
 
-	// *** JOUSTING CHARGE TRACKING ***
 	/// Jousting charge counter – increases while moving in the same direction with a rider.
 	var/joust_charge = 0
 	var/joust_direction = NONE
 	var/joust_timer
+
+	/// Chance to dismount the rider when crashing alongside dmg+Cooldown
+	var/crash_dismount_chance = 30
+	var/crash_damage = 10
+	COOLDOWN_DECLARE(crash_cooldown)
 
 /datum/component/riding/Initialize(mob/living/riding_mob, force = FALSE, buckle_mob_flags= NONE, potion_boost = FALSE)
 	if(!ismovable(parent))
@@ -129,7 +133,7 @@
 		if(dir != joust_direction)
 			joust_charge = 0
 			joust_direction = dir
-		if(joust_charge < 12)
+		if(joust_charge < 18)
 			joust_charge++
 		if(joust_timer)
 			deltimer(joust_timer)
@@ -240,6 +244,15 @@
 /// So we can check all occupants when we bump a door to see if anyone has access
 /datum/component/riding/proc/vehicle_bump(atom/movable/movable_parent, obj/machinery/door/possible_bumped_door)
 	SIGNAL_HANDLER
+
+	// CRASH SPEED ,First 6 FREE (charge >= 12)
+	if(joust_charge >= 10 && possible_bumped_door.density && !isliving(possible_bumped_door) && !istype(possible_bumped_door, /obj/machinery/door))
+		if(!COOLDOWN_FINISHED(src, crash_cooldown))
+			return
+		crash_into_wall(possible_bumped_door)
+		return
+
+	// Normal door bumping
 	if(!istype(possible_bumped_door))
 		return
 	for(var/occupant in movable_parent.buckled_mobs)
@@ -266,3 +279,34 @@
 
 /datum/component/riding/proc/reset_joust()
 	joust_charge = 0
+
+// WALL CRASHING STUFF
+/datum/component/riding/proc/crash_into_wall(atom/wall)
+	if(!COOLDOWN_FINISHED(src, crash_cooldown))
+		return
+	COOLDOWN_START(src, crash_cooldown, 2 SECONDS)
+
+	var/atom/movable/movable_parent = parent
+	movable_parent.visible_message(span_danger("[movable_parent] smashes into [wall]!"))
+	playsound(movable_parent, 'sound/effects/bang.ogg', 50, TRUE)
+
+	for(var/mob/living/rider in movable_parent.buckled_mobs)
+		rider.apply_damage(crash_damage, BRUTE)
+		if(prob(crash_dismount_chance))
+			rider.Paralyze(2 SECONDS)
+			rider.Knockdown(4 SECONDS)
+			movable_parent.unbuckle_mob(rider)
+			rider.visible_message(
+				span_danger("[rider] is thrown violently from [movable_parent]!"),
+				span_userdanger("You're thrown from [movable_parent] as it crashes into [wall]!")
+			)
+		else
+			rider.visible_message(
+				span_bolddanger("[rider] is jolted violently on [movable_parent]!"),
+				span_userdanger("You're jolted violently as [movable_parent] hits the wall!")
+			)
+
+	joust_charge = 0
+	joust_direction = NONE
+	if(joust_timer)
+		deltimer(joust_timer)
