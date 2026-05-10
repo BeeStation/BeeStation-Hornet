@@ -8683,7 +8683,6 @@
 "dRv" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow,
 /turf/open/floor/catwalk_floor,
 /area/station/maintenance/starboard/fore)
 "dRQ" = (
@@ -25694,6 +25693,15 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/engineering/main)
+"kPo" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/station/maintenance/starboard/fore)
 "kPA" = (
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/iron/showroomfloor,
@@ -32269,7 +32277,7 @@
 /obj/effect/mapping_helpers/tile_breaker,
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron,
-/area/station/maintenance/starboard/fore)
+/area/station/service/hydroponics)
 "nqC" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "testlab";
@@ -43893,6 +43901,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron,
 /area/station/maintenance/starboard/fore)
 "sjw" = (
@@ -52945,6 +52954,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
+"vQe" = (
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/disposalpipe/sorting/mail/destination/hydroponics{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/station/maintenance/starboard/fore)
 "vQi" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/bot,
@@ -100788,11 +100806,11 @@ jem
 oJR
 hyV
 sZk
-jem
-jem
+rQq
+rQq
 cUK
-jem
-jem
+rQq
+rQq
 rQq
 rQq
 rQq
@@ -101299,9 +101317,9 @@ jem
 jtg
 tnr
 jtg
-avm
-gZd
-kGD
+vQe
+esl
+kPo
 esl
 uds
 nmG
