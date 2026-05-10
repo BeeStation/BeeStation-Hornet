@@ -9,6 +9,7 @@
 	key = "cry"
 	key_third_person = "cries"
 	message = "cries"
+	message_mime = "sobs silently."
 	emote_type = EMOTE_VISIBLE //Cry in silence as you should.
 
 /datum/emote/living/carbon/human/cry/run_emote(mob/user, params, type_override, intentional)
