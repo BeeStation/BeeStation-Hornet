@@ -62,7 +62,6 @@
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/holy_role = NONE //is this person a chaplain or admin role allowed to use bibles, Any rank besides 'NONE' allows for this.
-	var/isAntagTarget = FALSE
 	var/no_cloning_at_all = FALSE
 
 	var/datum/mind/enslaved_to //If this mind's master is another mob (i.e. adamantine golems)

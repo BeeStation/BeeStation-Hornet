@@ -101,16 +101,17 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 	for(var/A in dupe_search_range)
 		var/list/objectives_to_compare
-		if(istype(A,/datum/mind))
+		if(istype(A, /datum/mind))
 			var/datum/mind/M = A
 			objectives_to_compare = M.get_all_objectives()
-		else if(istype(A,/datum/antagonist))
+		else if(istype(A, /datum/antagonist))
 			var/datum/antagonist/G = A
 			objectives_to_compare = G.objectives
-		else if(istype(A,/datum/team))
+		else if(istype(A, /datum/team))
 			var/datum/team/T = A
 			objectives_to_compare = T.objectives
-		for(var/datum/objective/O as() in objectives_to_compare)
+
+		for(var/datum/objective/O as anything in objectives_to_compare)
 			if(istype(O, type) && O.get_target() == possible_target)
 				return FALSE
 	return TRUE
@@ -120,11 +121,11 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/proc/set_target(datum/mind/new_target)
 	if(target)
-		UnregisterSignal(target, COMSIG_MIND_CRYOED)
+		UnregisterSignal(target, list(COMSIG_QDELETING, COMSIG_MIND_CRYOED))
 	target = new_target
 	if(istype(target, /datum/mind))
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(on_target_cryo))
 		RegisterSignal(target, COMSIG_MIND_CRYOED, PROC_REF(on_target_cryo))
-		target.isAntagTarget = TRUE
 
 /datum/objective/proc/get_crewmember_minds()
 	. = list()
@@ -284,22 +285,23 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	SIGNAL_HANDLER
 
 	find_target(null, list(target))
-	if(!target)
-		if(team)
-			team.objectives -= src
-		for(var/datum/mind/own as() in get_owners())
-			for(var/datum/antagonist/A as() in own.antag_datums)
-				A.objectives -= src
-			own.crew_objectives -= src
-
-			to_chat(own.current, "<BR>[span_userdanger("Your target is no longer within reach. Objective removed!")]")
-			own.announce_objectives()
-		qdel(src)
-	else
+	if(target)
 		update_explanation_text()
-		for(var/datum/mind/own as() in get_owners())
+		for(var/datum/mind/own as anything in get_owners())
 			to_chat(own.current, "<BR>[span_userdanger("You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!")]")
 			own.announce_objectives()
+		return
+
+	// Couldn't find a new target, just remove the objective
+	team?.objectives -= src
+	for(var/datum/mind/own as anything in get_owners())
+		for(var/datum/antagonist/antag as anything in own.antag_datums)
+			antag.objectives -= src
+		own.crew_objectives -= src
+
+		to_chat(own.current, span_userdanger("Your target is no longer within reach. Objective removed!"))
+		own.announce_objectives()
+	qdel(src)
 
 /// Get the tracking target for this objective
 /datum/objective/proc/get_tracking_target(atom/source)
