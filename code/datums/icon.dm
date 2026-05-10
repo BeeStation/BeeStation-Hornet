@@ -1,6 +1,6 @@
 #define CHECK_NULL(thing) isnull(thing) ? #thing+" = null" : #thing+" = [istext(thing) ? "\"[thing]\"" : thing]"
 /icon
-	/// Just used for reference purpose when an icon does not save value
+	/// Just used for reference purpose to record which dmi file /icon used uppn creation
 	var/file_reference
 	/// Just used to record which state the /icon was made with
 	var/state_reference
