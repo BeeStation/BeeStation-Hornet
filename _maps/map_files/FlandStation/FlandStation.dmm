@@ -27677,7 +27677,7 @@
 	dir = 4
 	},
 /obj/structure/closet/secure_closet/brig_physician,
-/obj/item/clothing/under/rank/medical/doctor/purple{
+/obj/item/clothing/under/rank/medical/doctor{
 	pixel_y = -4
 	},
 /obj/effect/turf_decal/bot,
@@ -41314,7 +41314,7 @@
 /obj/item/clothing/suit/hooded/ian_costume,
 /obj/item/clothing/suit/hooded/carp_costume,
 /obj/item/clothing/suit/hooded/bee_costume,
-/obj/item/clothing/mask/rat/bee,
+/obj/item/clothing/mask/animal/small/bee,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/fore)
 "maa" = (
@@ -45369,7 +45369,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/rack,
-/obj/item/storage/backpack/satchel/tox,
+/obj/item/storage/backpack/satchel/science,
 /obj/item/analyzer,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
