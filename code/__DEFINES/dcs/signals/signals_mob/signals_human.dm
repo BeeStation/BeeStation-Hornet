@@ -6,6 +6,12 @@
 #define COMSIG_HUMAN_DISARM_HIT	"human_disarm_hit"	//! Hit by successful disarm attack (mob/living/carbon/human/attacker,zone_targeted)
 #define COMSIG_HUMAN_ATTACKED "carbon_attacked"					//hit by something that checks shields.
 
+// Mob transformation signals
+///Called when a human turns into a monkey, from /mob/living/carbon/proc/finish_monkeyize()
+#define COMSIG_HUMAN_MONKEYIZE "human_monkeyize"
+///Called when a monkey turns into a human, from /mob/living/carbon/proc/finish_humanize(species)
+#define COMSIG_MONKEY_HUMANIZE "monkey_humanize"
+
 ///From mob/living/carbon/human/suicide()
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
 
