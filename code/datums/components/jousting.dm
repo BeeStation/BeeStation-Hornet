@@ -1,8 +1,10 @@
 /datum/component/jousting
-	var/mounted_damage_boost_per_tile = 4
-	var/unmounted_damage_boost_per_tile = 1
-	var/mounted_knockdown_chance_per_tile = 6
-	var/mounted_knockdown_time = 20
+	var/mounted_damage_boost_per_tile = 2
+	var/unmounted_damage_boost_per_tile = 1.2
+	var/mounted_knockdown_chance_per_tile = 5
+	var/unmounted_knockdown_chance_per_tile = 5
+	var/mounted_knockdown_time = 15
+	var/unmounted_knockdown_time = 15
 	var/reach = 2
 	var/unmounted_target_damage_multiplier = 1.3
 	var/mob/current_holder
@@ -28,7 +30,7 @@
 		return 0
 	var/atom/movable/mount = user.buckled
 	var/datum/component/riding/riding = mount.GetComponent(/datum/component/riding)
-	if(!riding || riding.joust_charge < 2)
+	if(!riding || riding.joust_charge < 4)
 		return 0
 	return riding.joust_charge
 
@@ -47,17 +49,24 @@
 	target.apply_damage(damage, BRUTE, user.get_combat_bodyzone(target), I.armour_penetration)
 
 	var/was_buckled = target.buckled
-	if(was_buckled && target_buckled)
-		var/knockdown_chance = min(72, mounted_knockdown_chance_per_tile * charge)
-		if(prob(knockdown_chance))
+	var/knockdown_chance_per_tile = target_buckled ? mounted_knockdown_chance_per_tile : unmounted_knockdown_chance_per_tile
+	var/knockdown_time = target_buckled ? mounted_knockdown_time : unmounted_knockdown_time
+	var/knockdown_chance = min(90, knockdown_chance_per_tile * charge)
+	if(prob(knockdown_chance))
+		if(target_buckled)
 			target.buckled.unbuckle_mob(target)
-			target.Paralyze(mounted_knockdown_time)
-			target.Knockdown(2 SECONDS)
+		target.Paralyze(knockdown_time)
+		target.Knockdown(2 SECONDS)
 
 	if(was_buckled && !target.buckled)
 		user.visible_message(
 			span_bolddanger("[user] charges through [target] with [I], sending them flying!"),
 			span_bolddanger("You charge through [target] with [I], sending them flying!")
+		)
+	else if(!was_buckled && prob(knockdown_chance))
+		user.visible_message(
+			span_bolddanger("[user] charges through [target] with [I], knocking them to the ground!"),
+			span_bolddanger("You charge through [target] with [I], knocking them to the ground!")
 		)
 	else
 		user.visible_message(
@@ -91,22 +100,29 @@
 	living_target.apply_damage(damage, BRUTE, user.get_combat_bodyzone(living_target), I.armour_penetration)
 
 	var/was_buckled = living_target.buckled
-	if(was_buckled && target_buckled)
-		var/knockdown_chance = min(72, mounted_knockdown_chance_per_tile * charge)
-		if(prob(knockdown_chance))
+	var/knockdown_chance_per_tile = target_buckled ? mounted_knockdown_chance_per_tile : unmounted_knockdown_chance_per_tile
+	var/knockdown_time = target_buckled ? mounted_knockdown_time : unmounted_knockdown_time
+	var/knockdown_chance = min(90, knockdown_chance_per_tile * charge)
+	if(prob(knockdown_chance))
+		if(target_buckled)
 			living_target.buckled.unbuckle_mob(living_target)
-			living_target.Paralyze(mounted_knockdown_time)
-			living_target.Knockdown(2 SECONDS)
+		living_target.Paralyze(knockdown_time)
+		living_target.Knockdown(2 SECONDS)
 
 	if(was_buckled && !living_target.buckled)
 		user.visible_message(
 			span_bolddanger("[user] thrusts [I] at [living_target], throwing them to the ground!"),
 			span_bolddanger("You thrust [I] at [living_target], throwing them off their mount!")
 		)
+	else if(!was_buckled && prob(knockdown_chance))
+		user.visible_message(
+			span_bolddanger("[user] thrusts [I] at [living_target], knocking them to the ground!"),
+			span_bolddanger("You thrust [I] at [living_target], knocking them to the ground!")
+		)
 	else
 		user.visible_message(
 			span_danger("[user] thrusts [I] at [living_target] from a distance."),
-			span_notice("You thrust [I] at [living_target].")
+			span_danger("You thrust [I] at [living_target].")
 		)
 	user.changeNext_move(CLICK_CD_MELEE * 1.5)
 
@@ -132,7 +148,7 @@
 					return FALSE
 	return TRUE
 
-// Weapon Joustables
+// ADD SMELLY JOUSTABLE WEAPONS HERE!!!
 /obj/item/spear/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/jousting)
