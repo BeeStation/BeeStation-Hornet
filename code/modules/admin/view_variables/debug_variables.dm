@@ -74,7 +74,8 @@
 		return span_value("null")
 
 	if(iscolortext(value))
-		return span_value("\"[value]\" <span class='colorbox' style='background-color:[("#" in value) ? "" : "#"][value]'>_________</span>")
+		var/colortext = value // linter blames using 'datum/value' from parameter
+		return span_value("\"[colortext]\" <span class='colorbox' style='background-color:[("#" == colortext[1]) ? "" : "#"][colortext];'>_________</span>")
 
 	if(istext(value))
 		return span_value("\"[VV_HTML_ENCODE(value)]\"")
