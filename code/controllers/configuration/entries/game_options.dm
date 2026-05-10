@@ -74,17 +74,6 @@
 	integer = FALSE
 	min_val = 0
 
-/datum/config_entry/number/midround_antag_time_check	// How late (in minutes you want the midround antag system to stay on, setting this to 0 will disable the system)
-	config_entry_value = 60
-	integer = FALSE
-	min_val = 0
-
-/datum/config_entry/number/midround_antag_life_check	// A ratio of how many people need to be alive in order for the round not to immediately end in midround antagonist
-	config_entry_value = 0.7
-	integer = FALSE
-	min_val = 0
-	max_val = 1
-
 /datum/config_entry/number/shuttle_refuel_delay
 	config_entry_value = 12000
 	integer = FALSE
