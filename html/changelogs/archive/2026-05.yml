@@ -50,3 +50,24 @@
       accent quirk.
   - rscadd: adds more animal masks, makes their code less terrible
   - rscadd: cluwne masks are now animal mask subtype
+2026-05-07:
+  mrmanlikesbt, SyncIt21, loganuk, vinylspiders:
+  - refactor: refactored how air sensors & atmos monitors connect to each other. Please
+      report any atmos computers that have missing input valves/output ports on their
+      connected air sensors or those that don't list any air sensors at all on github
+  - code_imp: Atmos pipes should use less GPU to render their gas overlays now
+  - bugfix: Fixed a division by zero error with passive vents
+  rkz, Kapu1178(movement refactor), SomeRandomOwl(Nova CI), Kylerace(movement refactor):
+  - rscadd: Combat Indicators! These are indicators that tie directly into a mob's
+      combat state. This is meant to provide a way for players that they are intending
+      to perform an aggressive action, or even intimidate others!
+  - rscadd: Combat mode(and its indicator) will both automatically disable upon unconsciousness,
+      or when the mob surrenders!
+2026-05-09:
+  Nerev4r:
+  - rscadd: Messenger bags have been added to the game! These can be chosen in your
+      preferences or found in various job vendors
+  mrmanlikesbt:
+  - tweak: Several instances of redundant cable connections have been removed. This
+      is most noticeable by the supermatter across all maps
+  - bugfix: speech synthesizers have been reimplemented in positronic brains and MMIs

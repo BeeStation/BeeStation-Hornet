@@ -2655,7 +2655,6 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "CS" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored{
-	chamber_id = "syndie_lavaland_inc_in";
 	dir = 1
 	},
 /obj/structure/sign/warning/vacuum/external{

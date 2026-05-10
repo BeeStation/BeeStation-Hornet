@@ -242,8 +242,8 @@
 /obj/item/storage/backpack/debug
 	name = "bag of portable hole"
 	desc = "A backpack that opens into a localized pocket of nullspace."
-	icon_state = "holdingpack"
-	inhand_icon_state = "holdingpack"
+	icon_state = "bag_of_holding"
+	inhand_icon_state = "bag_of_holding"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	item_flags = NO_MAT_REDEMPTION
 	armor_type = /datum/armor/backpack_debug
