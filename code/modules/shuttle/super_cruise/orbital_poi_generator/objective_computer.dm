@@ -1,5 +1,3 @@
-GLOBAL_LIST_EMPTY(objective_computers)
-
 /obj/machinery/computer/objective
 	name = "station objective console"
 	desc = "A networked console that downloads and displays currently assigned station objectives."
@@ -11,17 +9,6 @@ GLOBAL_LIST_EMPTY(objective_computers)
 	var/list/viewing_mobs = list()
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/objective)
-
-/obj/machinery/computer/objective/Initialize(mapload, obj/item/circuitboard/C)
-	. = ..()
-	GLOB.objective_computers += src
-
-/obj/machinery/computer/objective/Destroy()
-	GLOB.objective_computers -= src
-	. = ..()
-
-/obj/machinery/computer/objective/ui_state(mob/user)
-	return GLOB.default_state
 
 /obj/machinery/computer/objective/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
