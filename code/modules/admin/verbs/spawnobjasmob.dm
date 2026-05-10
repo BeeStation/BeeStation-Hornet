@@ -30,7 +30,14 @@
 	)
 	)
 
-	var/list/prefreturn = presentpreflikepicker(usr,"Customize mob", "Customize mob", Button1="Ok", width = 450, StealFocus = 1,Timeout = 0, settings=settings)
+	var/list/prefreturn = present_pref_like_picker(
+		user = usr,
+		message = "Customize mob",
+		title = "Customize mob",
+		timeout = 0,
+		settings = settings,
+		width = 450,
+	)
 	if (prefreturn["button"] == 1)
 		settings = prefreturn["settings"]
 		var/mainsettings = settings["mainsettings"]

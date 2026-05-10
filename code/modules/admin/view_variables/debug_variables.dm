@@ -155,17 +155,18 @@
 
 			return "[a_open][list_type] ([length(list_value)])[a_close]<ul>[items.Join()]</ul>"
 
-	if(name in GLOB.bitfields)
-		var/list/flags = list()
-		for (var/i in GLOB.bitfields[name])
-			if (value & GLOB.bitfields[name][i])
-				flags += i
-		if(length(flags))
-			return "[VV_HTML_ENCODE(jointext(flags, ", "))]"
-		else
-			return "NONE"
-	else
+	// if it's a number, is it a bitflag?
+	var/list/valid_bitflags = get_valid_bitflags(name)
+	if(!length(valid_bitflags))
 		return span_value("[VV_HTML_ENCODE(value)]")
+
+	var/list/flags = list()
+	for (var/bit_name in valid_bitflags)
+		if (value & valid_bitflags[bit_name])
+			flags += bit_name
+	if(length(flags))
+		return "[VV_HTML_ENCODE(flags.Join(", "))]"
+	return "NONE"
 
 /datum/proc/debug_variable_value(name, level, datum/owner, sanitize, display_flags)
 	if("[src]" != "[type]") // If we have a name var, let's use it.

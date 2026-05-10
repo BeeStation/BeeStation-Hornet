@@ -43,7 +43,7 @@
  * Handles a timeout from telemetry (usually, the client has lost connection or is actively refusing to send telemetry)
  */
 /datum/tgui_panel/proc/handle_telemetry_timeout()
-	if(client && !QDELETED(client) && !telemetry_analyzed_at && telemetry_status <= TGUI_TELEMETRY_STAT_AWAITING && !broken)
+	if(!QDELETED(client) && !telemetry_analyzed_at && telemetry_status <= TGUI_TELEMETRY_STAT_AWAITING && !broken)
 		telemetry_status = TGUI_TELEMETRY_STAT_MISSING
 		var/msg = "[key_name(client)] has timed out on the telemetry request. It's possible they are using a hacked client. Kicking them from the server."
 		message_admins(msg)
