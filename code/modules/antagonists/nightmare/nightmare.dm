@@ -32,7 +32,7 @@
 	if(owner.antag_hud_icon_state == "nightmare")
 		set_antag_hud(owner.current, null)
 
-/datum/antagonist/nightmare/proc/forge_objectives()
+/datum/antagonist/nightmare/forge_objectives()
 	var/datum/objective/smash_lights/nolight = new
 	nolight.owner = owner
 	objectives += nolight

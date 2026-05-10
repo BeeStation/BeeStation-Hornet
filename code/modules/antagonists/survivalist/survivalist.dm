@@ -6,7 +6,7 @@
 	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 	var/greet_message = ""
 
-/datum/antagonist/survivalist/proc/forge_objectives()
+/datum/antagonist/survivalist/forge_objectives()
 	if(!give_objectives)
 		return
 	var/datum/objective/survive/survive = new

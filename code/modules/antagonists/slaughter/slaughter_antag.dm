@@ -18,7 +18,7 @@
 /datum/antagonist/slaughter/get_antag_name() // makes laughter demon in the same category with slaughter demon in orbit panel
 	return "Slaughter demon"
 
-/datum/antagonist/slaughter/proc/forge_objectives()
+/datum/antagonist/slaughter/forge_objectives()
 	if(summoner)
 		var/datum/objective/assassinate/new_objective = new /datum/objective/assassinate
 		new_objective.owner = owner

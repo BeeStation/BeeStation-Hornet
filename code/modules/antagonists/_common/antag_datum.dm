@@ -371,6 +371,10 @@ GLOBAL_LIST(admin_antag_list)
 	var/datum/objective/hijack/H = locate() in objectives
 	return H?.hijack_speed_override || hijack_speed
 
+/// Used to create objectives for the antagonist.
+/datum/antagonist/proc/forge_objectives()
+	return
+
 //This one is created by admin tools for custom objectives
 /datum/antagonist/custom
 	antagpanel_category = "Custom"

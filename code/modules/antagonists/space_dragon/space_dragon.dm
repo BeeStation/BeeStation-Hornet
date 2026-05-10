@@ -33,7 +33,7 @@
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Space Dragon",
 		"You've existed for so long, you have forgotten your purpose. The sight of an intruder in your endless claim of the void of space re-kindles the magic within you. Place rifts and summon an army to snuff out another light intruding in your domain.")
 
-/datum/antagonist/space_dragon/proc/forge_objectives()
+/datum/antagonist/space_dragon/forge_objectives()
 	// Areas that will prove challenging for the dragon and provocative to the crew.
 	var/list/area/allowed_areas = typecacheof(list(
 		/area/station/command/heads_quarters/captain,

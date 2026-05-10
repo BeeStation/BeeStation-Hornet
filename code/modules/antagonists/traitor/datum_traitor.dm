@@ -47,9 +47,6 @@
 	objectives += O
 	log_objective(owner, O.explanation_text)
 
-/datum/antagonist/traitor/proc/remove_objective(datum/objective/O)
-	objectives -= O
-
 /datum/antagonist/traitor/greet()
 	var/list/msg = list()
 

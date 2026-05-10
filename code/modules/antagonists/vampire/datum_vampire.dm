@@ -597,7 +597,7 @@
  * Hedonism: Indulge in bad things that feel all too right.
  * Survival: Survive. Obviously.
  */
-/datum/antagonist/vampire/proc/forge_objectives()
+/datum/antagonist/vampire/forge_objectives()
 	var/datum/objective/vampire/extra_objective
 
 	if(get_max_vassals() >= 1) // Two trees for if we can make vassals or not.
