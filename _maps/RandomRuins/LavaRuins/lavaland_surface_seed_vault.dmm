@@ -92,7 +92,7 @@
 	pixel_x = 4;
 	pixel_y = 7
 	},
-/obj/item/construction/plumbing/botany{
+/obj/item/circuitboard/machine/hydroponics{
 	pixel_x = 8;
 	pixel_y = -4
 	},
@@ -137,7 +137,7 @@
 /area/ruin/powered/seedvault)
 "gX" = (
 /obj/structure/table,
-/obj/machinery/seeder{
+/obj/item/circuitboard/machine/seed_extractor{
 	pixel_x = -2;
 	pixel_y = 6
 	},
@@ -264,9 +264,7 @@
 /area/lavaland/surface/outdoors)
 "lE" = (
 /obj/structure/table,
-/obj/item/plant_scanner{
-	pixel_y = 1
-	},
+/obj/item/plant_scanner,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "lF" = (
@@ -569,14 +567,14 @@
 /area/ruin/powered/seedvault)
 "yR" = (
 /obj/structure/table,
-/obj/item/construction/plumbing/botany{
+/obj/item/circuitboard/machine/hydroponics{
 	pixel_x = 1
 	},
-/obj/item/construction/plumbing/botany{
+/obj/item/circuitboard/machine/hydroponics{
 	pixel_x = 3;
 	pixel_y = 8
 	},
-/obj/item/construction/plumbing/botany{
+/obj/item/circuitboard/machine/hydroponics{
 	pixel_x = -6;
 	pixel_y = -3
 	},
@@ -1005,6 +1003,10 @@
 /obj/item/storage/fancy/rollingpapers{
 	pixel_x = -9;
 	pixel_y = 2
+	},
+/obj/item/food/grown/random{
+	pixel_x = 5;
+	pixel_y = 5
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)

@@ -8,7 +8,7 @@
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "d" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"

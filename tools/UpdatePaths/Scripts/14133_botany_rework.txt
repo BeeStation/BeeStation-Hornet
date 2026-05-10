@@ -1,0 +1,22 @@
+/obj/item/seeds/@SUBTYPES : /obj/item/plant_seeds/preset/@SUBTYPES{@OLD}
+
+/obj/machinery/hydroponics : /obj/item/plant_tray
+/obj/machinery/hydroponics/soil : /obj/item/plant_tray/soil
+/obj/machinery/hydroponics/constructable : /obj/item/plant_tray
+
+/obj/item/plant_analyzer : /obj/item/plant_scanner{@OLD}
+
+/obj/machinery/seed_extractor : /obj/machinery/seeder{@OLD}
+/obj/item/circuitboard/machine/plantgenes : /obj/item/circuitboard/machine/plant_analyser{@OLD}
+/obj/machinery/plantgenes/seedvault : /obj/machinery/plant_machine/plant_analyser{@OLD}
+
+/obj/structure/flora/ash/strange : /obj/item/plant_tray/pot/random
+/obj/item/kirbyplants/random : /obj/item/plant_tray/pot/random
+
+/obj/item/plant_seeds/preset/cocoapod : /obj/item/plant_seeds/preset/cocoa{@OLD}
+/obj/item/plant_seeds/preset/cherry/bomb : /obj/item/plant_seeds/preset/cherry_bomb{@OLD}
+/obj/item/plant_seeds/preset/carrot/parsnip : /obj/item/plant_seeds/preset/whitebeet{@OLD}
+/obj/item/plant_seeds/preset/tobacco/lavaland : /obj/item/plant_seeds/preset/tobacco{@OLD}
+/obj/item/plant_seeds/preset/plump/walkingmushroom : /obj/item/plant_seeds/preset/walking{@OLD}
+/obj/item/plant_seeds/preset/flower/@SUBTYPES : /obj/item/plant_seeds/preset/@SUBTYPES{@OLD}
+/obj/item/plant_seeds/preset/pumpkin/blumpkin : /obj/item/plant_seeds/preset/pumpkin{@OLD}

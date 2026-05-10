@@ -23,7 +23,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "D" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "F" = (

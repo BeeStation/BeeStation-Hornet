@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -21,7 +21,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "g" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
@@ -47,7 +47,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "n" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
@@ -135,10 +135,7 @@
 /area/template_noop)
 "W" = (
 /obj/structure/table,
-/obj/item/plant_seeds/preset/lily{
-	pixel_x = 4;
-	pixel_y = 4
-	},
+/obj/item/plant_seeds/preset/lily,
 /obj/item/plant_seeds/preset/geranium,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/food/grown/wheat,

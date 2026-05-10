@@ -445,7 +445,7 @@
 /turf/open/floor/pod/light,
 /area/centcom/syndicate_mothership/control)
 "abg" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24
 	},
@@ -1185,7 +1185,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/control)
 "acT" = (
@@ -1444,7 +1444,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/ferry)
 "adw" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/control)
 "adx" = (
@@ -1698,7 +1698,7 @@
 /obj/machinery/status_display/ai{
 	pixel_y = 32
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/ferry)
 "aee" = (
@@ -2309,7 +2309,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron,
 /area/centcom/central_command_areas/supply)
 "afs" = (
@@ -3504,7 +3504,7 @@
 /area/centcom/central_command_areas/supply)
 "aiQ" = (
 /obj/structure/railing,
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/large,
 /area/centcom/central_command_areas/supply)
 "aiR" = (
@@ -3569,7 +3569,7 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/control)
 "aja" = (
@@ -4414,7 +4414,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/control)
 "ald" = (
@@ -5705,7 +5705,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/control)
 "aoJ" = (
@@ -6265,7 +6265,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/tdome/observation)
 "aqe" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light_switch{
 	pixel_y = -24
 	},
@@ -6718,7 +6718,7 @@
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/ferry)
 "arv" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -7545,7 +7545,7 @@
 /turf/open/floor/plating,
 /area/centcom/central_command_areas/ferry)
 "atJ" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/brown/anticorner{
 	dir = 1
 	},
@@ -7584,7 +7584,7 @@
 	},
 /area/centcom/central_command_areas/control)
 "atO" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/red/anticorner{
 	dir = 4
 	},
@@ -7612,7 +7612,7 @@
 /turf/closed/indestructible/riveted,
 /area/centcom/central_command_areas/evacuation/ship)
 "atS" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -8327,7 +8327,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 1
 	},
@@ -8875,7 +8875,7 @@
 /turf/open/floor/plating,
 /area/centcom/central_command_areas/ferry)
 "axi" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/centcom/central_command_areas/ferry)
@@ -8957,7 +8957,7 @@
 /turf/open/floor/plating,
 /area/centcom/central_command_areas/evacuation/ship)
 "axs" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -9455,7 +9455,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/control)
 "aza" = (
@@ -9925,7 +9925,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/ctf)
 "aAm" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/red/anticorner{
 	dir = 8
 	},
@@ -9943,7 +9943,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/centcom/tdome/observation)
 "aAp" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/blue/anticorner,
 /turf/open/floor/iron/corner{
 	dir = 1
@@ -10190,7 +10190,7 @@
 /turf/open/floor/iron/large,
 /area/centcom/central_command_areas/evacuation/ship)
 "aBa" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/large,
 /area/centcom/central_command_areas/evacuation/ship)
@@ -11951,7 +11951,7 @@
 /area/centcom/tdome/observation)
 "aFG" = (
 /obj/effect/turf_decal/tile/red,
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/corner,
 /area/centcom/tdome/observation)
 "aFI" = (
@@ -11995,7 +11995,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/corner{
 	dir = 4
 	},
@@ -12019,7 +12019,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/corner{
 	dir = 8
 	},
@@ -12119,7 +12119,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/corner{
 	dir = 1
 	},
@@ -12169,7 +12169,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/corner{
 	dir = 4
 	},
@@ -12392,7 +12392,7 @@
 	},
 /area/centcom/tdome/administration)
 "aGU" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/ferry)
 "aGV" = (
@@ -12483,7 +12483,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/corner{
 	dir = 1
 	},
@@ -12811,7 +12811,7 @@
 /area/centcom/syndicate_mothership/control)
 "aHZ" = (
 /obj/effect/turf_decal/tile/neutral,
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/corner,
 /area/centcom/tdome/observation)
 "aIa" = (
@@ -12868,7 +12868,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/corner{
 	dir = 8
 	},
@@ -13905,7 +13905,7 @@
 /turf/open/floor/iron/tech,
 /area/centcom/central_command_areas/ferry)
 "aKM" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/ferry)
 "aKN" = (
@@ -13916,7 +13916,7 @@
 /area/centcom/syndicate_mothership/control)
 "aKO" = (
 /obj/effect/turf_decal/tile/red/half,
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/edge{
 	dir = 4
 	},
@@ -14059,7 +14059,7 @@
 /obj/effect/turf_decal/tile/green/half{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/edge{
 	dir = 1
 	},
@@ -16563,7 +16563,7 @@
 /obj/structure/railing{
 	dir = 5
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/edge{
 	dir = 1
 	},
@@ -17504,7 +17504,7 @@
 	dir = 1;
 	pixel_y = -26
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 1
 	},
@@ -18808,7 +18808,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light,
 /turf/open/floor/iron/edge{
 	dir = 4
@@ -19129,7 +19129,7 @@
 /obj/structure/railing{
 	dir = 9
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/edge{
 	dir = 1
 	},
@@ -19544,7 +19544,7 @@
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/holding)
 "aZb" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
@@ -20756,7 +20756,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced/spawner/directional/south,
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
@@ -23411,7 +23411,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced/spawner/directional/south,
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},

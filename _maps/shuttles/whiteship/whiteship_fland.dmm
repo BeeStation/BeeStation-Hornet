@@ -251,7 +251,7 @@
 /turf/open/floor/iron/smooth_edge,
 /area/shuttle/abandoned)
 "nV" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/structure/railing{

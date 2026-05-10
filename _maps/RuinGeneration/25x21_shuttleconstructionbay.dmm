@@ -288,7 +288,7 @@
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "Ps" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},

@@ -127,7 +127,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "qh" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},

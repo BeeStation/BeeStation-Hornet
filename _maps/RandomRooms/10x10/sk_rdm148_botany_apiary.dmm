@@ -117,7 +117,7 @@
 /area/template_noop)
 "E" = (
 /obj/item/plant_tray/soil,
-/obj/item/plant_seeds/preset/diona_pod,
+/obj/item/plant_seeds/preset/dionapod,
 /turf/open/floor/grass,
 /area/template_noop)
 "G" = (

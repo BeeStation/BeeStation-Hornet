@@ -40,7 +40,7 @@
 	},
 /area/ruin/unpowered)
 "gn" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/carpet/royalblack,
 /area/ruin/unpowered)
 "hf" = (
