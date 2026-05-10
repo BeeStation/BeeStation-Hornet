@@ -267,6 +267,9 @@
 		set_vehicle_dir_layer(i, BELOW_MOB_LAYER)
 
 /datum/component/riding/vehicle/speedwagon/vehicle_bump(atom/movable/movable_parent, obj/machinery/door/possible_bumped_door)
+	if(istype(possible_bumped_door))
+		for(var/occupant in movable_parent.buckled_mobs)
+			INVOKE_ASYNC(possible_bumped_door, TYPE_PROC_REF(/obj/machinery/door, bumpopen), occupant)	
 	return
 
 /datum/component/riding/vehicle/wheelchair
