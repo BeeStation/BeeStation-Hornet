@@ -66,6 +66,10 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
+"ar" = (
+/obj/structure/sink/kitchen/directional/south,
+/turf/open/floor/iron/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
 "as" = (
 /obj/machinery/processor,
 /turf/open/floor/iron/cafeteria,
@@ -964,10 +968,6 @@
 /obj/item/toy/figure/virologist,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
-"wq" = (
-/obj/structure/sink/kitchen/directional/south,
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/has_grav/powered/macspace)
 "Av" = (
 /obj/item/toy/plush/snakeplushie,
 /turf/open/floor/iron/cafeteria,
@@ -1359,7 +1359,7 @@ ac
 ac
 ac
 ae
-wq
+ar
 ag
 ae
 aZ

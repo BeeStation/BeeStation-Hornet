@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 
 // TURF FLAGS
 /// If a turf can't be jaunted through.
-#define NO_JAUNT (1<<0)
+#define NOJAUNT (1<<0)
 /// If a turf is an unused reservation turf awaiting assignment
 #define UNUSED_RESERVATION_TURF (1<<1)
 /// Blocks lava rivers being generated on the turf.

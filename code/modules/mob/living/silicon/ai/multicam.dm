@@ -87,7 +87,7 @@
 	name = ""
 	icon = 'icons/misc/pic_in_pic.dmi'
 	icon_state = "room_background"
-	turf_flags = NO_JAUNT
+	turf_flags = NOJAUNT
 
 /area/ai_multicam_room
 	name = "ai_multicam_room"

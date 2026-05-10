@@ -48,9 +48,35 @@
 /obj/machinery/iv_drip,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
+"at" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/powered/ancient_shuttle)
+"au" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/ruin/space/has_grav/powered/ancient_shuttle)
 "av" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/ruin/space/has_grav/powered/ancient_shuttle)
+"az" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
@@ -61,6 +87,9 @@
 "aB" = (
 /turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
+"aC" = (
+/turf/open/floor/plating/airless,
+/area/misc/space/nearstation)
 "aD" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 8
@@ -106,9 +135,28 @@
 /obj/machinery/door/airlock/research/glass,
 /turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
+"aM" = (
+/obj/structure/broken_flooring/plating/directional/west{
+	name = "broken plating"
+	},
+/turf/template_noop,
+/area/misc/space/nearstation)
 "aN" = (
 /obj/item/book/random,
 /turf/open/floor/iron,
+/area/ruin/space/has_grav/powered/ancient_shuttle)
+"aO" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/bookcase/random/fiction,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/powered/ancient_shuttle)
+"aP" = (
+/obj/structure/table/glass,
+/obj/machinery/light,
+/obj/structure/bedsheetbin,
+/turf/open/floor/iron/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
 "aQ" = (
 /obj/structure/table/glass,
@@ -131,6 +179,14 @@
 "aT" = (
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
+"aU" = (
+/turf/open/floor/plating/airless{
+	broken = 1
+	},
+/area/misc/space/nearstation)
+"aV" = (
+/turf/closed/wall/r_wall/rust,
+/area/misc/space/nearstation)
 "aW" = (
 /obj/structure/chair{
 	dir = 1
@@ -160,30 +216,8 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"cM" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/bookcase/random/fiction,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/powered/ancient_shuttle)
 "ez" = (
 /obj/effect/decal/cleanable/vomit/old,
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/ruin/space/has_grav/powered/ancient_shuttle)
-"fH" = (
-/turf/closed/wall/r_wall/rust,
-/area/misc/space/nearstation)
-"jj" = (
-/turf/open/floor/plating/airless,
-/area/misc/space/nearstation)
-"jw" = (
-/obj/machinery/computer/cloning/prototype,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/item/paper/fluff/ruins/exp_cloning/manual,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
@@ -192,30 +226,6 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"qB" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/ruin/space/has_grav/powered/ancient_shuttle)
-"qK" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/ruin/space/has_grav/powered/ancient_shuttle)
-"AJ" = (
-/obj/structure/broken_flooring/plating/directional/west{
-	name = "broken plating"
-	},
-/turf/template_noop,
-/area/misc/space/nearstation)
 "Cn" = (
 /obj/structure/table,
 /obj/item/pen,
@@ -223,23 +233,18 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"Kh" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/bed,
-/obj/item/bedsheet/medical,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/powered/ancient_shuttle)
 "Pu" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"Rs" = (
-/obj/structure/table/glass,
-/obj/machinery/light,
-/obj/structure/bedsheetbin,
+"Pw" = (
+/obj/machinery/computer/cloning/prototype,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/paper/fluff/ruins/exp_cloning/manual,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
 "Tg" = (
@@ -247,11 +252,6 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"ZD" = (
-/turf/open/floor/plating/airless{
-	broken = 1
-	},
-/area/misc/space/nearstation)
 
 (1,1,1) = {"
 aa
@@ -312,9 +312,9 @@ aa
 aa
 aa
 ad
-Kh
+at
 aE
-cM
+aO
 ad
 aa
 aa
@@ -356,7 +356,7 @@ aa
 aa
 ab
 ab
-qB
+au
 aI
 aI
 ac
@@ -391,7 +391,7 @@ ad
 kS
 aZ
 aJ
-Rs
+aP
 ab
 aa
 aa
@@ -399,7 +399,7 @@ aa
 (14,1,1) = {"
 aa
 ab
-jw
+Pw
 aW
 aJ
 aQ
@@ -433,7 +433,7 @@ aa
 aa
 ad
 Pu
-qK
+az
 aJ
 aJ
 ad
@@ -457,8 +457,8 @@ af
 ao
 aB
 ap
-jj
-fH
+aC
+aV
 aa
 aa
 "}
@@ -467,9 +467,9 @@ aa
 af
 ap
 ap
-jj
-ZD
-AJ
+aC
+aU
+aM
 aa
 aa
 "}
@@ -477,9 +477,9 @@ aa
 aa
 ad
 aq
-jj
-ZD
-AJ
+aC
+aU
+aM
 aa
 aa
 aa
@@ -489,7 +489,7 @@ aa
 aa
 ab
 af
-AJ
+aM
 aa
 aa
 aa

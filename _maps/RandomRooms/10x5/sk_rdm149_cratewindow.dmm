@@ -2,9 +2,9 @@
 "a" = (
 /turf/open/floor/plating,
 /area/template_noop)
-"d" = (
+"b" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/lattice,
 /turf/open/space/basic,
 /area/misc/space)
 "e" = (
@@ -27,47 +27,43 @@
 /obj/effect/spawner/random/maintenance/eight,
 /turf/open/floor/plating,
 /area/template_noop)
-"j" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/south,
-/turf/open/space/basic,
-/area/misc/space)
 "k" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
 /area/template_noop)
+"l" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/space/basic,
+/area/misc/space)
 "m" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/plating{
 	broken = 1
 	},
 /area/template_noop)
+"n" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
 "o" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating,
 /area/template_noop)
-"r" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+"p" = (
+/obj/structure/lattice,
 /turf/open/space/basic,
 /area/misc/space)
 "s" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating,
 /area/template_noop)
-"t" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/template_noop)
-"u" = (
-/obj/machinery/light,
-/turf/open/floor/plating,
-/area/template_noop)
-"x" = (
+"v" = (
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/lattice,
 /turf/open/space/basic,
 /area/misc/space)
 "z" = (
@@ -76,6 +72,19 @@
 	broken = 1
 	},
 /area/template_noop)
+"B" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/space/basic,
+/area/misc/space)
+"D" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/north,
+/turf/open/space/basic,
+/area/misc/space)
+"E" = (
+/obj/structure/window/reinforced/spawner/directional/north,
+/turf/open/space/basic,
+/area/misc/space)
 "F" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plating,
@@ -88,6 +97,15 @@
 	broken = 1
 	},
 /area/template_noop)
+"H" = (
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/space/basic,
+/area/misc/space)
+"K" = (
+/obj/machinery/light,
+/turf/open/floor/plating,
+/area/template_noop)
 "L" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/closet/crate,
@@ -98,21 +116,6 @@
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/plating,
 /area/template_noop)
-"N" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/misc/space)
-"P" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/east,
-/turf/open/space/basic,
-/area/misc/space)
-"Q" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/misc/space)
 "U" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/reagent_dispensers/watertank,
@@ -127,12 +130,9 @@
 	burnt = 1
 	},
 /area/template_noop)
-"W" = (
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/misc/space)
-"Y" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+"Z" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/space/basic,
 /area/misc/space)
 
@@ -144,60 +144,60 @@ a
 a
 "}
 (2,1,1) = {"
-t
+n
 i
 G
 L
-u
+K
 "}
 (3,1,1) = {"
 s
-x
-N
-j
+D
+v
+l
 M
 "}
 (4,1,1) = {"
 V
-Y
-W
-r
+E
+p
+B
 M
 "}
 (5,1,1) = {"
 e
-Y
-W
-r
+E
+p
+B
 M
 "}
 (6,1,1) = {"
 s
-Y
-W
-r
+E
+p
+B
 m
 "}
 (7,1,1) = {"
 z
-Y
-W
-r
+E
+p
+B
 M
 "}
 (8,1,1) = {"
 s
-P
-Q
-d
+H
+b
+Z
 M
 "}
 (9,1,1) = {"
-t
+n
 k
 U
 g
-u
+K
 "}
 (10,1,1) = {"
 a

@@ -169,6 +169,13 @@
 /obj/item/pen,
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
+"aI" = (
+/obj/structure/mirror{
+	pixel_x = -32
+	},
+/obj/structure/sink/directional/east,
+/turf/open/indestructible/hoteltile,
+/area/misc/hilbertshotel)
 "aJ" = (
 /obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/window/reinforced/tinted/spawner/directional/north,
@@ -222,6 +229,12 @@
 /obj/structure/window/reinforced/tinted/spawner/directional/south,
 /turf/open/indestructible/hoteltile,
 /area/misc/hilbertshotel)
+"aT" = (
+/obj/structure/table/reinforced,
+/obj/structure/sink/kitchen/directional/south,
+/obj/machinery/light/small,
+/turf/open/indestructible/hotelwood,
+/area/misc/hilbertshotel)
 "aU" = (
 /obj/structure/bed,
 /obj/item/bedsheet/random,
@@ -259,6 +272,14 @@
 "ba" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
+/turf/open/indestructible/hoteltile,
+/area/misc/hilbertshotel)
+"bb" = (
+/obj/structure/mirror{
+	pixel_x = -32
+	},
+/obj/structure/sink/directional/east,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/hoteltile,
 /area/misc/hilbertshotel)
 "bc" = (
@@ -322,27 +343,6 @@
 /obj/structure/table/reinforced,
 /obj/item/paper/crumpled/bloody/docsdeathnote,
 /turf/open/indestructible/hotelwood,
-/area/misc/hilbertshotel)
-"fy" = (
-/obj/structure/mirror{
-	pixel_x = -32
-	},
-/obj/structure/sink/directional/east,
-/turf/open/indestructible/hoteltile,
-/area/misc/hilbertshotel)
-"iQ" = (
-/obj/structure/table/reinforced,
-/obj/structure/sink/kitchen/directional/south,
-/obj/machinery/light/small,
-/turf/open/indestructible/hotelwood,
-/area/misc/hilbertshotel)
-"DJ" = (
-/obj/structure/mirror{
-	pixel_x = -32
-	},
-/obj/structure/sink/directional/east,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/indestructible/hoteltile,
 /area/misc/hilbertshotel)
 
 (1,1,1) = {"
@@ -426,7 +426,7 @@ aY
 bl
 ad
 aL
-iQ
+aT
 ab
 aa
 "}
@@ -491,9 +491,9 @@ ad
 au
 az
 aC
-DJ
+bb
 bh
-fy
+aI
 bj
 ab
 aa

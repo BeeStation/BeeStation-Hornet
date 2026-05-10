@@ -1,4 +1,11 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/space,
+/area/misc/space)
+"b" = (
+/obj/structure/lattice,
+/turf/open/space,
+/area/misc/space/nearstation)
 "c" = (
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/airless,
@@ -20,10 +27,13 @@
 /obj/effect/overlay/palmtree_r,
 /turf/open/floor/holofloor/beach,
 /area/ruin/space/has_grav/powered/aesthetic)
-"i" = (
-/obj/structure/lattice,
-/turf/open/space,
-/area/misc/space/nearstation)
+"j" = (
+/obj/structure/chair/stool,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/iron/vaporwave,
+/area/ruin/space/has_grav/powered/aesthetic)
 "k" = (
 /turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
@@ -46,19 +56,12 @@
 	},
 /turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
-"o" = (
-/turf/open/space,
-/area/misc/space)
 "p" = (
 /obj/effect/overlay/palmtree_l,
 /turf/open/floor/holofloor/beach,
 /area/ruin/space/has_grav/powered/aesthetic)
 "q" = (
 /turf/open/floor/holofloor/beach,
-/area/ruin/space/has_grav/powered/aesthetic)
-"r" = (
-/obj/machinery/light/small,
-/turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
 "s" = (
 /obj/structure/table/reinforced,
@@ -179,7 +182,21 @@
 /obj/structure/window/spawner/directional/east,
 /turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
-"Q" = (
+"O" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/iron/vaporwave,
+/area/ruin/space/has_grav/powered/aesthetic)
+"P" = (
+/obj/machinery/light/small,
+/turf/open/floor/iron/vaporwave,
+/area/ruin/space/has_grav/powered/aesthetic)
+"R" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -192,23 +209,6 @@
 /obj/structure/window/spawner/directional/west,
 /turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
-"V" = (
-/obj/structure/chair/stool,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/iron/vaporwave,
-/area/ruin/space/has_grav/powered/aesthetic)
-"W" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666";
-	dir = 8
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/iron/vaporwave,
-/area/ruin/space/has_grav/powered/aesthetic)
 "X" = (
 /obj/effect/spawner/structure/random_piano,
 /obj/structure/window/spawner/directional/west,
@@ -216,44 +216,44 @@
 /area/ruin/space/has_grav/powered/aesthetic)
 
 (1,1,1) = {"
-o
-o
-o
-o
-o
-o
-i
-o
-o
-o
-o
-o
-o
-o
-o
+a
+a
+a
+a
+a
+a
+b
+a
+a
+a
+a
+a
+a
+a
+a
 "}
 (2,1,1) = {"
-o
-o
-o
-o
-o
+a
+a
+a
+a
+a
 d
 c
 d
-o
-i
-o
-o
-o
-o
-o
+a
+b
+a
+a
+a
+a
+a
 "}
 (3,1,1) = {"
-o
-o
-o
-o
+a
+a
+a
+a
 d
 d
 c
@@ -262,14 +262,14 @@ d
 c
 d
 d
-o
-o
-o
+a
+a
+a
 "}
 (4,1,1) = {"
-o
-o
-o
+a
+a
+a
 d
 d
 d
@@ -280,13 +280,13 @@ e
 d
 d
 d
-o
-o
+a
+a
 "}
 (5,1,1) = {"
-o
-o
-o
+a
+a
+a
 d
 f
 f
@@ -298,11 +298,11 @@ g
 A
 d
 d
-o
+a
 "}
 (6,1,1) = {"
-o
-o
+a
+a
 c
 d
 f
@@ -312,14 +312,14 @@ h
 u
 y
 f
-Q
+R
 d
 d
-o
+a
 "}
 (7,1,1) = {"
-o
-i
+a
+b
 c
 e
 g
@@ -335,16 +335,16 @@ d
 d
 "}
 (8,1,1) = {"
-o
-o
+a
+a
 d
 d
 f
-V
+j
 k
 k
 v
-r
+P
 f
 C
 I
@@ -352,8 +352,8 @@ A
 d
 "}
 (9,1,1) = {"
-o
-o
+a
+a
 d
 d
 f
@@ -369,8 +369,8 @@ I
 d
 "}
 (10,1,1) = {"
-o
-o
+a
+a
 d
 c
 f
@@ -386,8 +386,8 @@ E
 I
 "}
 (11,1,1) = {"
-o
-o
+a
+a
 d
 c
 g
@@ -403,16 +403,16 @@ E
 I
 "}
 (12,1,1) = {"
-o
-o
+a
+a
 d
 c
 g
-W
+O
 n
 k
 w
-r
+P
 g
 F
 I
@@ -420,8 +420,8 @@ A
 A
 "}
 (13,1,1) = {"
-i
-i
+b
+b
 c
 e
 f
@@ -437,8 +437,8 @@ d
 d
 "}
 (14,1,1) = {"
-o
-o
+a
+a
 d
 d
 g
@@ -448,14 +448,14 @@ p
 u
 y
 g
-Q
+R
 d
 d
-o
+a
 "}
 (15,1,1) = {"
-o
-o
+a
+a
 d
 d
 f
@@ -468,12 +468,12 @@ g
 A
 d
 d
-o
+a
 "}
 (16,1,1) = {"
-o
-o
-o
+a
+a
+a
 d
 d
 d
@@ -484,15 +484,15 @@ e
 d
 d
 d
-o
-o
+a
+a
 "}
 (17,1,1) = {"
-o
-o
-o
-o
-o
+a
+a
+a
+a
+a
 d
 c
 d
@@ -501,40 +501,40 @@ c
 d
 d
 d
-o
-o
+a
+a
 "}
 (18,1,1) = {"
-o
-o
-o
-o
-o
-o
-i
+a
+a
+a
+a
+a
+a
+b
 d
 d
 d
 d
-o
-o
-o
-o
+a
+a
+a
+a
 "}
 (19,1,1) = {"
-o
-o
-o
-o
-o
-o
-i
-o
-o
-o
-o
-o
-o
-o
-o
+a
+a
+a
+a
+a
+a
+b
+a
+a
+a
+a
+a
+a
+a
+a
 "}

@@ -17,8 +17,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
+"ad" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/sink/directional/north,
+/turf/open/floor/plating,
+/area/centcom/tdome/arena)
 "ah" = (
 /obj/machinery/seed_extractor,
+/turf/open/floor/plating,
+/area/centcom/tdome/arena)
+"ai" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/sink/directional/north,
 /turf/open/floor/plating,
 /area/centcom/tdome/arena)
 "aj" = (
@@ -240,11 +250,6 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
-"kB" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/sink/directional/north,
-/turf/open/floor/plating,
-/area/centcom/tdome/arena)
 "DH" = (
 /obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/dirt,
@@ -304,11 +309,6 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/centcom/tdome/arena)
-"Qf" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/sink/directional/north,
-/turf/open/floor/plating,
-/area/centcom/tdome/arena)
 "VV" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -347,7 +347,7 @@ aI
 aO
 "}
 (4,1,1) = {"
-Qf
+ad
 am
 ap
 av
@@ -427,7 +427,7 @@ ac
 aQ
 "}
 (12,1,1) = {"
-kB
+ai
 am
 ap
 az

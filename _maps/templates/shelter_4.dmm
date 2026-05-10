@@ -18,6 +18,10 @@
 "ae" = (
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/misc/survivalpod)
+"af" = (
+/obj/structure/sink/directional/north,
+/turf/closed/wall/mineral/titanium/survival/pod,
+/area/misc/survivalpod)
 "ag" = (
 /turf/closed/wall/mineral/titanium/survival,
 /area/misc/survivalpod)
@@ -321,10 +325,6 @@
 	},
 /turf/open/floor/pod/light,
 /area/misc/survivalpod)
-"Er" = (
-/obj/structure/sink/directional/north,
-/turf/closed/wall/mineral/titanium/survival/pod,
-/area/misc/survivalpod)
 "QN" = (
 /obj/machinery/gear_requisition/mining,
 /turf/open/floor/pod/light,
@@ -368,7 +368,7 @@ aa
 "}
 (3,1,1) = {"
 aa
-Er
+af
 ak
 as
 ae

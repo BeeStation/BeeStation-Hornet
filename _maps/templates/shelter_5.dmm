@@ -1,116 +1,116 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"m" = (
+"a" = (
+/turf/closed/wall/mineral/titanium/survival,
+/area/misc/survivalpod)
+"c" = (
 /obj/machinery/vending/wallmed/survival_pod,
 /turf/closed/wall/mineral/titanium/survival,
 /area/misc/survivalpod)
-"w" = (
-/obj/machinery/chem_master,
-/turf/open/floor/iron/grid,
-/area/misc/survivalpod)
-"x" = (
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/grid,
-/area/misc/survivalpod)
-"y" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/structure/fans/tiny,
-/turf/open/floor/pod/light,
-/area/misc/survivalpod)
-"z" = (
-/obj/structure/sign/departments/medbay/alt,
-/obj/structure/sign/departments/minsky/medical/medical2,
-/obj/structure/sign/departments/medbay/alt2,
-/turf/closed/wall/mineral/titanium/survival,
-/area/misc/survivalpod)
-"A" = (
+"d" = (
 /obj/machinery/stasis/survival_pod,
 /turf/open/floor/iron/grid,
 /area/misc/survivalpod)
-"C" = (
-/obj/structure/table,
-/obj/item/storage/firstaid,
-/obj/item/holosign_creator/medical,
-/turf/open/floor/iron/grid,
-/area/misc/survivalpod)
-"D" = (
-/obj/structure/sign/departments/medbay/alt,
-/turf/closed/wall/mineral/titanium/survival,
-/area/misc/survivalpod)
-"H" = (
+"e" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/iron/grid,
 /area/misc/survivalpod)
-"I" = (
+"f" = (
+/turf/open/floor/pod/light,
+/area/misc/survivalpod)
+"g" = (
 /turf/open/floor/iron/grid,
 /area/misc/survivalpod)
-"K" = (
-/turf/closed/wall/mineral/titanium/survival,
+"h" = (
+/obj/structure/table,
+/obj/item/storage/firstaid,
+/obj/item/holosign_creator/medical,
+/turf/open/floor/iron/grid,
 /area/misc/survivalpod)
-"O" = (
+"i" = (
 /obj/machinery/light,
 /turf/open/floor/iron/grid,
 /area/misc/survivalpod)
-"X" = (
+"j" = (
+/obj/machinery/chem_master,
+/turf/open/floor/iron/grid,
+/area/misc/survivalpod)
+"B" = (
 /obj/machinery/sleeper/survival_pod,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
 	},
 /turf/open/floor/iron/grid,
 /area/misc/survivalpod)
-"Y" = (
+"F" = (
+/obj/structure/sign/departments/medbay/alt,
+/turf/closed/wall/mineral/titanium/survival,
+/area/misc/survivalpod)
+"N" = (
+/obj/structure/sign/departments/medbay/alt,
+/obj/structure/sign/departments/minsky/medical/medical2,
+/obj/structure/sign/departments/medbay/alt2,
+/turf/closed/wall/mineral/titanium/survival,
+/area/misc/survivalpod)
+"S" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/grid,
+/area/misc/survivalpod)
+"U" = (
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/structure/fans/tiny,
 /turf/open/floor/pod/light,
 /area/misc/survivalpod)
 
 (1,1,1) = {"
-K
-K
-y
-D
-K
+a
+a
+U
+F
+a
 "}
 (2,1,1) = {"
-z
-A
-Y
-X
-K
+N
+d
+f
+B
+a
 "}
 (3,1,1) = {"
-K
-H
-Y
-x
-K
+a
+e
+f
+S
+a
 "}
 (4,1,1) = {"
-y
-Y
-Y
-Y
-y
+U
+f
+f
+f
+U
 "}
 (5,1,1) = {"
-m
-I
-Y
-O
-K
+c
+g
+f
+i
+a
 "}
 (6,1,1) = {"
-K
-C
-Y
-w
-z
+a
+h
+f
+j
+N
 "}
 (7,1,1) = {"
-K
-D
-y
-K
-K
+a
+F
+U
+a
+a
 "}

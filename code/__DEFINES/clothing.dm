@@ -24,29 +24,3 @@
 #define ADD_CLOTHING_TRAIT(mob, trait) ADD_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[REF(src)]")
 /// Wrapper for removing clothing based traits
 #define REMOVE_CLOTHING_TRAIT(mob, trait) REMOVE_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[REF(src)]")
-
-//Suit/Skirt
-/// Preference: Jumpsuit
-#define PREF_SUIT "Jumpsuit"
-/// Preference: Jumpskirt
-#define PREF_SKIRT "Jumpskirt"
-
-// Types of backpack
-/// Backpack type: Department themed backpack
-#define DBACKPACK "Department Backpack"
-/// Backpack type: Department themed duffelbag
-#define DDUFFELBAG "Department Duffel Bag"
-/// Backpack type: Department themed satchel
-#define DSATCHEL "Department Satchel"
-/// Backpack type: Department themed messenger bag
-#define DMESSENGER "Department Messenger Bag"
-/// Backpack type: Grey backpack
-#define GBACKPACK "Grey Backpack"
-/// Backpack type: Grey duffelbag
-#define GDUFFELBAG "Grey Duffel Bag"
-/// Backpack type: Grey satchel
-#define GSATCHEL "Grey Satchel"
-/// Backpack type: Grey messenger bag
-#define GMESSENGER "Grey Messenger Bag"
-/// Backpack type: Leather satchel
-#define LSATCHEL "Leather Satchel"

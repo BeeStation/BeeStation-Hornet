@@ -10,55 +10,55 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
-"f" = (
-/obj/structure/sign/mining/survival,
+"d" = (
 /turf/closed/wall/mineral/titanium/survival,
 /area/misc/survivalpod)
-"m" = (
-/obj/machinery/power/solar,
-/turf/open/floor/iron/solarpanel/airless,
-/area/template_noop)
-"t" = (
+"e" = (
 /obj/item/gps/computer,
 /turf/open/floor/pod/light,
 /area/misc/survivalpod)
-"x" = (
-/turf/closed/wall/mineral/titanium/survival,
-/area/misc/survivalpod)
-"z" = (
+"g" = (
 /obj/machinery/stasis/survival_pod,
 /turf/open/floor/pod/light,
 /area/misc/survivalpod)
-"C" = (
+"h" = (
 /obj/machinery/smartfridge/survival_pod/preloaded,
 /turf/open/floor/pod/dark,
 /area/misc/survivalpod)
-"G" = (
+"i" = (
 /turf/open/floor/pod/light,
 /area/misc/survivalpod)
-"K" = (
-/obj/structure/bed/pod,
-/obj/machinery/light{
-	dir = 4
-	},
+"j" = (
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/structure/fans/tiny,
+/turf/open/floor/pod/light,
+/area/misc/survivalpod)
+"k" = (
+/obj/structure/table/survival_pod,
+/obj/item/storage/firstaid,
 /turf/open/floor/pod/dark,
 /area/misc/survivalpod)
-"P" = (
+"l" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/structure/fans,
 /turf/open/floor/pod/dark,
 /area/misc/survivalpod)
-"S" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/structure/fans/tiny,
-/turf/open/floor/pod/light,
-/area/misc/survivalpod)
-"T" = (
-/obj/structure/table/survival_pod,
-/obj/item/storage/firstaid,
+"m" = (
+/obj/machinery/power/solar,
+/turf/open/floor/iron/solarpanel/airless,
+/area/template_noop)
+"n" = (
+/obj/structure/bed/pod,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/pod/dark,
+/area/misc/survivalpod)
+"D" = (
+/obj/structure/sign/mining/survival,
+/turf/closed/wall/mineral/titanium/survival,
 /area/misc/survivalpod)
 
 (1,1,1) = {"
@@ -86,55 +86,55 @@ a
 (3,1,1) = {"
 a
 a
-x
-x
-x
-f
-x
+d
+d
+d
+D
+d
 a
 a
 "}
 (4,1,1) = {"
 a
 c
-x
-P
-z
-T
-x
+d
+l
+g
+k
+d
 c
 a
 "}
 (5,1,1) = {"
 b
 b
-x
-t
-G
-G
-S
+d
+e
+i
+i
+j
 b
 b
 "}
 (6,1,1) = {"
 a
 c
-x
-C
-G
-K
-x
+d
+h
+i
+n
+d
 c
 a
 "}
 (7,1,1) = {"
 a
 a
-x
-f
-S
-x
-x
+d
+D
+j
+d
+d
 m
 a
 "}
