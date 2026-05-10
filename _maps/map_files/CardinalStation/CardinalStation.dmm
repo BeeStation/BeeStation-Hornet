@@ -87807,7 +87807,7 @@
 	alpha = 255
 	},
 /obj/structure/table,
-/obj/machinery/plantgenes{
+/obj/machinery/plant_machine/plant_analyser{
 	pixel_y = 8;
 	pixel_x = 1
 	},

@@ -40718,7 +40718,7 @@
 /area/station/security/prison)
 "obA" = (
 /obj/structure/table/glass,
-/obj/machinery/plantgenes{
+/obj/machinery/plant_machine/plant_analyser{
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
@@ -45278,7 +45278,7 @@
 /area/station/medical/medbay/central)
 "pIh" = (
 /obj/structure/table/glass,
-/obj/item/plant_seeds/preset/random,
+/obj/item/plant_seeds/random,
 /obj/item/plant_seeds/preset/wheat,
 /obj/item/plant_seeds/preset/sugarcane,
 /obj/item/plant_seeds/preset/potato,

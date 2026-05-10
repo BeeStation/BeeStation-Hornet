@@ -872,7 +872,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "asv" = (
-/obj/machinery/plantgenes{
+/obj/machinery/plant_machine/plant_analyser{
 	pixel_y = 6
 	},
 /obj/structure/table,

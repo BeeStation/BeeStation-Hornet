@@ -1377,7 +1377,7 @@
 /obj/item/plant_seeds/preset/corn,
 /obj/item/plant_seeds/preset/onion,
 /obj/item/plant_seeds/preset/potato,
-/obj/item/plant_seeds/preset/soya,
+/obj/item/plant_seeds/preset/soybean,
 /obj/item/plant_seeds/preset/cabbage,
 /obj/item/plant_seeds/preset/wheat,
 /turf/open/floor/iron/techmaint,
@@ -43891,7 +43891,7 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/machinery/plantgenes{
+/obj/machinery/plant_machine/plant_analyser{
 	pixel_y = 7
 	},
 /turf/open/floor/iron/grid/steel,

@@ -15054,7 +15054,7 @@
 /obj/structure/table/reinforced,
 /obj/item/plant_seeds/preset/cotton,
 /obj/item/plant_seeds/preset/carrot,
-/obj/item/plant_seeds/preset/soya,
+/obj/item/plant_seeds/preset/soybean,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/prison,
 /area/station/security/prison)
@@ -32725,7 +32725,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/machinery/plantgenes{
+/obj/machinery/plant_machine/plant_analyser{
 	pixel_y = 7
 	},
 /obj/machinery/newscaster/directional/east,

@@ -9,6 +9,7 @@
 /obj/machinery/seed_extractor : /obj/machinery/seeder{@OLD}
 /obj/item/circuitboard/machine/plantgenes : /obj/item/circuitboard/machine/plant_analyser{@OLD}
 /obj/machinery/plantgenes/seedvault : /obj/machinery/plant_machine/plant_analyser{@OLD}
+/obj/machinery/plantgenes : /obj/machinery/plant_machine/plant_analyser{@OLD}
 
 /obj/structure/flora/ash/strange : /obj/item/plant_tray/pot/random
 /obj/item/kirbyplants/random : /obj/item/plant_tray/pot/random
@@ -20,3 +21,6 @@
 /obj/item/plant_seeds/preset/plump/walkingmushroom : /obj/item/plant_seeds/preset/walking{@OLD}
 /obj/item/plant_seeds/preset/flower/@SUBTYPES : /obj/item/plant_seeds/preset/@SUBTYPES{@OLD}
 /obj/item/plant_seeds/preset/pumpkin/blumpkin : /obj/item/plant_seeds/preset/pumpkin{@OLD}
+/obj/item/plant_seeds/preset/soya : /obj/item/plant_seeds/preset/soybean{@OLD}
+/obj/item/plant_seeds/preset/redbeet : /obj/item/plant_seeds/preset/whitebeet{@OLD}
+/obj/item/plant_seeds/preset/random : /obj/item/plant_seeds/random{@OLD}

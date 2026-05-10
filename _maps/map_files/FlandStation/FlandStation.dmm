@@ -38243,7 +38243,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/plantgenes{
+/obj/machinery/plant_machine/plant_analyser{
 	pixel_y = 6
 	},
 /obj/effect/turf_decal/delivery,

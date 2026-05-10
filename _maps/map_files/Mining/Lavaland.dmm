@@ -6240,7 +6240,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/item/plant_tray,
-/obj/item/plant_seeds/preset/redbeet,
+/obj/item/plant_seeds/preset/whitebeet,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -7010,7 +7010,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/item/plant_tray,
-/obj/item/plant_seeds/preset/soya,
+/obj/item/plant_seeds/preset/soybean,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
 	},

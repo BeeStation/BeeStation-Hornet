@@ -54878,7 +54878,7 @@
 	pixel_x = 26;
 	pixel_y = 8
 	},
-/obj/machinery/plantgenes{
+/obj/machinery/plant_machine/plant_analyser{
 	pixel_y = 6
 	},
 /obj/machinery/camera/directional/east{
