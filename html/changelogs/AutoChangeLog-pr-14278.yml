@@ -1,0 +1,9 @@
+author: TsunamiAnt
+delete-after: true
+changes:
+  - rscadd: Added visual and audio effects to guardian module sentry mode.
+  - rscadd: Added harm alarm to guardian module.
+  - balance: Switched Guardian module disabler for a custom taser.
+  - balance: Switched Guardian module anti-creature laser for a slightly weaker normal
+      one.
+  - bugfix: fixed a runtime related to cyborg weapon re-equipping due to signals.
