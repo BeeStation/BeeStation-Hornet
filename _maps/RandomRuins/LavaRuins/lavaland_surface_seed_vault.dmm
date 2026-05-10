@@ -92,7 +92,6 @@
 	pixel_x = 4;
 	pixel_y = 7
 	},
-null,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
@@ -564,9 +563,6 @@ null,
 /area/ruin/powered/seedvault)
 "yR" = (
 /obj/structure/table,
-null,
-null,
-null,
 /obj/item/circuitboard/machine/smartfridge{
 	pixel_x = -15;
 	pixel_y = 4
@@ -992,10 +988,6 @@ null,
 /obj/item/storage/fancy/rollingpapers{
 	pixel_x = -9;
 	pixel_y = 2
-	},
-/obj/item/food/grown/random{
-	pixel_x = 5;
-	pixel_y = 5
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
