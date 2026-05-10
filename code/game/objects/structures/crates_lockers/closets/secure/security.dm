@@ -13,6 +13,7 @@
 	new /obj/item/storage/backpack/captain(src)
 	new /obj/item/storage/backpack/satchel/cap(src)
 	new /obj/item/storage/backpack/duffelbag/captain(src)
+	new /obj/item/storage/backpack/messenger/cap(src)
 	new	/obj/item/clothing/suit/armor/vest/capcarapace/jacket(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace/captains_formal(src)
