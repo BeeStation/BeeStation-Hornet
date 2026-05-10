@@ -1,12 +1,11 @@
 /datum/component/jousting
 	var/mounted_damage_boost_per_tile = 2
-	var/unmounted_damage_boost_per_tile = 1.2
+	var/unmounted_damage_boost_per_tile = 1.3
 	var/mounted_knockdown_chance_per_tile = 5
 	var/unmounted_knockdown_chance_per_tile = 5
 	var/mounted_knockdown_time = 15
 	var/unmounted_knockdown_time = 15
 	var/reach = 2
-	var/unmounted_target_damage_multiplier = 1.3
 	var/mob/current_holder
 
 /datum/component/jousting/Initialize()
@@ -43,8 +42,6 @@
 		return
 	var/target_buckled = target.buckled ? TRUE : FALSE
 	var/damage = (target_buckled ? mounted_damage_boost_per_tile : unmounted_damage_boost_per_tile) * charge
-	if(!target_buckled)
-		damage *= unmounted_target_damage_multiplier
 	var/obj/item/I = parent
 	target.apply_damage(damage, BRUTE, user.get_combat_bodyzone(target), I.armour_penetration)
 
@@ -94,8 +91,6 @@
 
 	var/target_buckled = living_target.buckled ? TRUE : FALSE
 	var/damage = (target_buckled ? mounted_damage_boost_per_tile : unmounted_damage_boost_per_tile) * charge
-	if(!target_buckled)
-		damage *= unmounted_target_damage_multiplier
 	damage += I.force
 	living_target.apply_damage(damage, BRUTE, user.get_combat_bodyzone(living_target), I.armour_penetration)
 
