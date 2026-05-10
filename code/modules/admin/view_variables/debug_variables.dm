@@ -79,7 +79,6 @@
 	if(istext(value))
 		return span_value("\"[VV_HTML_ENCODE(value)]\"")
 
-	if(isicon(value))
 	// if(isicon(value))
 	// Warning - This doesn't do things correctly
 	// isicon('some.dmi') = TRUE
