@@ -7,6 +7,20 @@
 	var/can_use_abilities = FALSE
 	var/list/shared_action_buttons = list()
 
+	// MAIN SPEED SYSTEM THINGIE
+	/// The creature's Global Speed
+	var/base_move_delay = 2
+	/// Fastest possible Delay (lower = faster)
+	var/max_speed_delay = 0.8
+	/// Speed gained per tile when moving in the same direction (dif from vehicle)
+	var/acceleration_per_tile = 0.05
+	/// starts at base, changes with acceleration
+	var/current_move_delay = 2
+	/// Last direction moved (used to track acceleration/resets)
+	var/last_direction = NONE
+	/// Tiles moved in the current direction without turning (18 Max mobs/ Inf Vehicle)
+	var/tiles_in_direction = 0
+
 /datum/component/riding/creature/Initialize(mob/living/riding_mob, force = FALSE, ride_check_flags = NONE, potion_boost = FALSE)
 	if(!isliving(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -24,6 +38,10 @@
 	if(isanimal(parent))
 		var/mob/living/simple_animal/simple_parent = parent
 		simple_parent.stop_automated_movement = TRUE
+
+	// Store the original speed as base
+	base_move_delay = vehicle_move_delay
+	current_move_delay = vehicle_move_delay
 
 /datum/component/riding/creature/Destroy(force, silent)
 	unequip_buckle_inhands(parent)
@@ -99,6 +117,17 @@
 			var/obj/item/key = keytype
 			to_chat(user, span_warning("You need a [initial(key.name)] to ride [movable_parent]!"))
 		return COMPONENT_DRIVER_BLOCK_MOVE
+
+	if(direction != last_direction)
+		tiles_in_direction = 0
+		current_move_delay = min(base_move_delay, current_move_delay + 0.15)
+		last_direction = direction
+	else
+		tiles_in_direction++
+
+	current_move_delay = max(max_speed_delay, base_move_delay - (tiles_in_direction * acceleration_per_tile))
+	vehicle_move_delay = current_move_delay
+
 	var/mob/living/living_parent = parent
 	var/turf/next = get_step(living_parent, direction)
 	step(living_parent, direction)
