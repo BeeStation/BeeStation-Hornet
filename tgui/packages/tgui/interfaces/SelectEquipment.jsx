@@ -1,5 +1,6 @@
-import { filter, map, sortBy, uniq } from 'common/collections';
 import { createSearch } from 'common/string';
+import { sortBy, uniq } from 'es-toolkit';
+import { filter, map } from 'es-toolkit/compat';
 
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Icon, Input, Section, Stack, Tabs } from '../components';
@@ -43,9 +44,11 @@ export const SelectEquipment = (props) => {
       filter(outfits, (entry) => entry.category === tab),
       searchFilter,
     ),
-    (entry) => !entry.favorite,
-    (entry) => !entry.priority,
-    (entry) => entry.name,
+    [
+      (entry) => !entry.favorite,
+      (entry) => !entry.priority,
+      (entry) => entry.name,
+    ],
   );
 
   const getOutfitEntry = (current_outfit) =>

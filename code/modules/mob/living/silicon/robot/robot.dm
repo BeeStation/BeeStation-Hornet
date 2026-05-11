@@ -569,6 +569,9 @@
 		eye_lights.icon = icon
 		add_overlay(eye_lights)
 
+	if(combat_indicator)
+		vis_contents += GLOB.combat_indicator_vis
+
 	if(opened)
 		if(wiresexposed)
 			add_overlay("[model.special_cover_key]-opencover +w")
@@ -580,6 +583,10 @@
 		var/mutable_appearance/head_overlay = hat.build_worn_icon(default_layer = 20, default_icon_file = 'icons/mob/clothing/head/default.dmi')
 		head_overlay.pixel_y += hat_offset
 		add_overlay(head_overlay)
+	// Re-add the sentry shield overlay if the status effect is active, since cut_overlays() removes it
+	var/datum/status_effect/cyborg_sentry/sentry_effect = has_status_effect(/datum/status_effect/cyborg_sentry)
+	if(sentry_effect?.shield_overlay)
+		add_overlay(sentry_effect.shield_overlay)
 	update_appearance(UPDATE_OVERLAYS)
 
 /mob/living/silicon/robot/proc/self_destruct(mob/user)

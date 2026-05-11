@@ -19,7 +19,9 @@
 	H.undershirt = random_undershirt(H.undershirt)
 	H.underwear_color = "#[random_color()]"
 	H.skin_tone = pick(GLOB.skin_tones)
-	H.eye_color = random_eye_color()
+	var/random_eye_color = random_eye_color()
+	H.eye_color_left = random_eye_color
+	H.eye_color_right = random_eye_color
 	H.dna.blood_type = random_blood_type()
 
 	// Things that we should be more careful about to make realistic characters
