@@ -75,6 +75,9 @@ Handles equipping/unequipping and pointing with the parent weapon.
 /datum/component/aiming/proc/on_parent_equip(datum/source, mob/equipper, slot)
 	SIGNAL_HANDLER
 	if(slot == ITEM_SLOT_HANDS)
+		// Apparently cyborgs are being snowflakey, so clean up before re-registering
+		if(user)
+			UnregisterSignal(user, COMSIG_MOB_POINTED)
 		RegisterSignal(equipper, COMSIG_MOB_POINTED, PROC_REF(do_aim))
 		user = equipper
 	else // Putting a weapon into storage/direct storage equip by loadout
