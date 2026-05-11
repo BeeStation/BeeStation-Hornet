@@ -15,12 +15,25 @@
 	growth_time = PLANT_BODY_GROWTH_FAST
 	seeds = 2
 
+/datum/plant_feature/body/bush_vine/catch_planted(datum/source, atom/destination)
+	. = ..()
+	//Some bullshit to fix an edge case with visuals, lives further down in the growth step too
+	var/obj/item/plant_tray/tray = parent.plant_item.loc
+	if(istype(tray))
+		parent.plant_item.pixel_y = current_stage < growth_stages ? tray.plant_offset[2]+2 : tray.plant_offset[2]
+
 /datum/plant_feature/body/bush_vine/growth_step(step)
 	. = ..()
 	playsound(parent.plant_item, 'sound/effects/rustle.ogg', 30, TRUE)
 	parent.plant_item.add_emitter(/obj/emitter/confetti/leaves, "leaves", 10, lifespan = 20)
 	parent.plant_item.add_emitter(/obj/emitter/plant_dust, "dust", 10, lifespan = 20)
-	draw_below_water = step >= growth_stages ? initial(draw_below_water) : TRUE
+	if(step >= growth_stages)
+		draw_below_water = initial(draw_below_water)
+	else
+		draw_below_water = TRUE
+	var/obj/item/plant_tray/tray = parent.plant_item.loc
+	if(istype(tray))
+		parent.plant_item.pixel_y = step < growth_stages ? tray.plant_offset[2]+2 : tray.plant_offset[2]
 	update_water_render()
 
 /datum/plant_feature/body/bush_vine/chili

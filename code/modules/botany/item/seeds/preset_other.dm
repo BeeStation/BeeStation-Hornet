@@ -201,3 +201,9 @@
 	name_override = "omega cannabis bush"
 	plant_features = list(/datum/plant_feature/roots, /datum/plant_feature/body/bush_vine/cannabis, /datum/plant_feature/fruit/cannabis/omega)
 	trade_flags = TRADE_CONTRABAND
+
+//Charr
+/obj/item/plant_seeds/preset/charr
+	name = "charr spores"
+	name_override = "charr shroom"
+	plant_features = list(/datum/plant_feature/roots/hyphae, /datum/plant_feature/body/mushroom, /datum/plant_feature/fruit/mushroom/mess)

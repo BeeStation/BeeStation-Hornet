@@ -36,6 +36,9 @@
 	. = ..()
 	color = pick(list("#FF4848", "#5DFF5D", "#FFFF00", "#66FFFF"))
 
+/mob/living/simple_animal/friendly_fruit/proc/splat()
+	apply_damage(maxHealth, BRUTE)
+
 /mob/living/simple_animal/friendly_fruit/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
 	var/static/rotation_dir = 1

@@ -440,6 +440,7 @@
 /obj/item/knife/combat/bone{
 	pixel_y = 11
 	},
+/obj/item/plant_seeds/preset/charr,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "tl" = (
@@ -452,6 +453,7 @@
 "ui" = (
 /obj/item/plant_tray/soil,
 /obj/structure/stone_tile/block/cracked,
+/obj/item/plant_seeds/preset/charr,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "up" = (

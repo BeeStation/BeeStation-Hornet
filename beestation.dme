@@ -2732,6 +2732,7 @@
 #include "code\modules\botany\plant_features\mushroom_fruit\ember_shroom.dm"
 #include "code\modules\botany\plant_features\mushroom_fruit\glowshroom.dm"
 #include "code\modules\botany\plant_features\mushroom_fruit\liberty.dm"
+#include "code\modules\botany\plant_features\mushroom_fruit\meatshroom.dm"
 #include "code\modules\botany\plant_features\mushroom_fruit\plump.dm"
 #include "code\modules\botany\plant_features\mushroom_fruit\reishi.dm"
 #include "code\modules\botany\plant_features\mushroom_fruit\tower.dm"
