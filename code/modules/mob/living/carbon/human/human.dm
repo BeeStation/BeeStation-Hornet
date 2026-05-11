@@ -101,7 +101,7 @@
 		if(changeling)
 			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.total_chem_storage]")
 			tab_data["Absorbed Genomes"] = GENERATE_STAT_TEXT("[changeling.absorbed_genomes]")
-			tab_data["Absorbed People"] = GENERATE_STAT_TEXT("[changeling.absorbed_people]")
+			tab_data["Absorbed Humans"] = GENERATE_STAT_TEXT("[changeling.absorbed_people]")
 	return tab_data
 
 // called when something steps onto a human
