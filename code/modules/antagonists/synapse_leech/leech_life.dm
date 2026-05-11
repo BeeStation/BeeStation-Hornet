@@ -13,6 +13,8 @@
 	process_forced_drains(delta_time)
 	process_passive_drains(delta_time)
 
+	hunger(delta_time)
+
 	if(nested && host)
 		process_host_effects(delta_time)
 
@@ -46,6 +48,11 @@
 	// Decide which passive systems intend to run this tick.
 	var/wants_substrate = (substrate < max_substrate)
 	var/wants_healing = (health < maxHealth)
+
+	// Deltatime is my new best friend.
+	if(regen_delay > 0)
+		regen_delay = max(0, regen_delay - delta_time)
+		wants_healing = FALSE
 
 	var/active_count = wants_substrate + wants_healing
 	if(!active_count)
@@ -163,3 +170,13 @@
 
 		update_leech_hud()
 		COOLDOWN_START(src, maturity_update_cooldown, 5 SECONDS)
+
+
+// Slowly get hungry.
+// If no saturation, slowly take damage. More mature leeches get hungry faster.
+/mob/living/basic/synapse_leech/proc/hunger(delta_time)
+	if(saturation > 0)
+		adjust_saturation(maturity / 100 * 0.1 * delta_time)
+	else
+		// If we have no saturation left, we start taking damage instead.
+		adjust_health(-0.5 * delta_time)

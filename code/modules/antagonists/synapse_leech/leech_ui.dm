@@ -131,7 +131,7 @@
 	name = "Host Brain Health"
 	screen_loc = ui_leech_brain_health
 
-// Saturation(hunger) works like health, from saturation0 to saturation7 at 100 saturation
+// Saturation(hunger), from saturation0 to saturation7 at 100 saturation
 /atom/movable/screen/leech/saturation_display
 	icon_state = "saturation0"
 	name = "Hunger"

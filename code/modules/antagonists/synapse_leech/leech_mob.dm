@@ -72,6 +72,9 @@
 	/// Whether nightvision is currently active.
 	var/nightvision_active = FALSE
 
+	/// Seconds remaining before passive health regeneration can begin after taking damage.
+	var/regen_delay = 0
+
 	/// The mob we are currently burrowed inside, if any.
 	var/mob/living/carbon/host
 	/// Whether we are currently nested (burrowed) inside a host.
@@ -104,6 +107,14 @@
 // We do not use combat mode.
 /mob/living/basic/synapse_leech/set_combat_mode(new_mode, silent = TRUE)
 	return
+
+/// Reset the regen delay whenever we take actual damage.
+/mob/living/basic/synapse_leech/apply_damage(damage, damagetype, def_zone, blocked, forced, spread_damage, sharpness, attack_direction, attacking_item)
+	. = ..()
+	if(. > 0)
+		regen_delay = 10 // seconds before healing kicks in
+
+// We do not use combat mode.
 
 /**
  * Synapse leeches cannot speak out loud, ever. While nested they can whisper telepathically to
