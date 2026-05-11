@@ -142,6 +142,7 @@
 
 	if (tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now a monkey.</B>")
+	SEND_SIGNAL(src, COMSIG_HUMAN_MONKEYIZE)
 	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
 
 	for(var/A in loc.vars)
@@ -459,6 +460,7 @@
 	if (tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now \a [O.dna.species]].</B>")
 
+	SEND_SIGNAL(src, COMSIG_HUMAN_MONKEYIZE)
 	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
 
 	transfer_observers_to(O, TRUE)

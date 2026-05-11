@@ -4,8 +4,6 @@
 	quality = POSITIVE
 	difficulty = 12
 	locked = TRUE
-	text_gain_indication = span_notice("Your throat is burning!")
-	text_lose_indication = span_notice("Your throat is cooling down.")
 	power_path = /datum/action/spell/cone/staggered/fire_breath
 	instability = 30
 	energy_coeff = 1

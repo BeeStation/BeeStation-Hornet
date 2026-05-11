@@ -1,7 +1,7 @@
 /obj/item/glove_box
 	name = "box of latex gloves"
 	desc = "A box of latex gloves, useful for quick cleanup after surgery."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/surgery.dmi'
 	icon_state = "latex_glove_box"
 	inhand_icon_state = "deliverypackage"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
