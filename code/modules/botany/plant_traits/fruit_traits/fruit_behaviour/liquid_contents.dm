@@ -28,11 +28,11 @@
 	fruit_parent.visible_message(span_warning("[fruit_parent] has been squashed."), span_italics("You hear a smack."))
 	//Cough on the actual target, if there is one
 	if(hit_atom)
-		fruit_parent.reagents.expose(hit_atom)
+		fruit_parent.reagents.expose(hit_atom, TOUCH)
 	//Cough on everything in the turf we just hit
 	var/turf/T = get_turf(fruit_parent)
 	for(var/victim in T)
-		fruit_parent.reagents.expose(victim)
+		fruit_parent.reagents.expose(victim, TOUCH)
 	//koos
 	if(impact_del)
 		qdel(fruit_parent)
@@ -43,7 +43,7 @@
 	fruit_parent.visible_message(span_warning("[fruit_parent] has been squashed."), span_italics("You hear a smack."))
 	var/turf/T = get_turf(fruit_parent)
 	for(var/victim in T)
-		fruit_parent.reagents.expose(victim)
+		fruit_parent.reagents.expose(victim, TOUCH)
 	if(!QDELING(src) && impact_del)
 		qdel(src)
 

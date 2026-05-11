@@ -1,3 +1,5 @@
+#define OXALIX_MAX_RANGE 4
+
 /*
 	The body throws fruits at nearby  mobs
 	Just overwrite a bunch of shit from thorns since they share enough logic
@@ -17,7 +19,7 @@
 	addtimer(CALLBACK(src, PROC_REF(finish_setup)), 1 SECONDS)
 
 /datum/plant_trait/body/thorns/thrower/proc/finish_setup()
-	turf_range = turf_range * parent.trait_power
+	turf_range = min(turf_range * parent.trait_power, OXALIX_MAX_RANGE)
 	fruit_feature = locate(/datum/plant_feature/fruit) in parent.parent.plant_features
 
 /datum/plant_trait/body/thorns/thrower/catch_entered(datum/source, atom/movable/entering)
@@ -39,9 +41,10 @@
 //Throw that mf
 	var/obj/lobbed = pick(fruit_feature.fruits)
 	lobbed.forceMove(get_turf(plant_item))
-	lobbed.throw_at(victim, turf_range, 1*parent.trait_power)
+	lobbed.throw_at(victim, max(turf_range-1, 1), parent.trait_power)
 //Cleanup
 	fruit_feature.fruits -= lobbed
 	if(!length(fruit_feature?.fruits))
 		SEND_SIGNAL(parent.parent, COMSIG_PLANT_ACTION_HARVEST)
 
+#undef OXALIX_MAX_RANGE

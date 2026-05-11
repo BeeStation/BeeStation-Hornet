@@ -80,7 +80,6 @@
 	parent = null
 	UnregisterSignal(source, COMSIG_QDELETING)
 
-
 //use this to give randomized traits unique IDs, mostly for reagent traits
 /datum/plant_trait/proc/get_id()
 	return "[type]"

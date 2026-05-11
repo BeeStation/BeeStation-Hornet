@@ -170,6 +170,8 @@
 /obj/machinery/plant_machine/plant_mutator/ui_act(action, params)
 	if(..())
 		return
+	if(working)
+		return
 	playsound(controller, get_sfx("keyboard"), 30, TRUE)
 	switch(action)
 		if("select_feature")

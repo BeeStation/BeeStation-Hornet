@@ -11,11 +11,11 @@
 	///Remember our old tray for signal cleanup
 	var/atom/strangle_loc
 
-/datum/plant_trait/roots/strangling/Destroy(force, ...)
-	. = ..()
+/datum/plant_trait/roots/strangling/catch_parent_qdel(datum/source)
 	var/obj/item/plant_tray/tray = plant_item?.loc
 	if(istype(tray))
 		tray.remove_feature_indicator(src, parent, tray.problem_features)
+	return ..()
 
 /datum/plant_trait/roots/strangling/setup_component_parent(datum/source)
 	. = ..()
@@ -27,9 +27,12 @@
 	//Reset our strangle loc
 	RegisterSignal(plant_item, COMSIG_MOVABLE_MOVED, PROC_REF(setup_strangle))
 
-/datum/plant_trait/roots/strangling/proc/setup_strangle(datum/source)
+/datum/plant_trait/roots/strangling/proc/setup_strangle(datum/source, atom/OldLoc, Dir, Forced = FALSE)
 	SIGNAL_HANDLER
 
+	var/obj/item/plant_tray/tray = OldLoc
+	if(istype(tray))
+		tray.remove_feature_indicator(src, parent, tray.problem_features)
 	if(strangle_loc)
 		UnregisterSignal(strangle_loc, COMSIG_PLANT_NEEDS_PAUSE)
 		UnregisterSignal(strangle_loc, COMSIG_QDELETING)

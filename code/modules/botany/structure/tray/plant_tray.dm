@@ -8,6 +8,7 @@
 	layer = OBJ_LAYER
 	pass_flags_self = PASSSTRUCTURE
 	pass_flags = NONE
+	interaction_flags_item = NONE
 	///Reagents volume
 	var/buffer = 200
 	///Do we want the plumbing shit?

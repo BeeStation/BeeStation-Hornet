@@ -52,6 +52,7 @@
 /datum/component/plant/Destroy(force, silent)
 	SEND_SIGNAL(src, COMSIG_PLANT_UPROOTED,  null, null, plant_item.loc)
 	for(var/feature as anything in plant_features)
+		plant_features -= feature
 		qdel(feature)
 	return ..()
 

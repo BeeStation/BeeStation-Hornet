@@ -6,10 +6,9 @@
 	Juts uses NO_REACT flags
 */
 
-/datum/plant_trait/seperated_contents
+/datum/plant_trait/fruit/seperated_contents
 	name = "Seperated Contents"
 	desc = "The fruit's chemical reagent's are seperated until triggered."
-	plant_feature_compat = /datum/plant_feature/fruit
 
 /datum/plant_trait/seperated_contents/setup_component_parent(datum/source)
 	. = ..()
