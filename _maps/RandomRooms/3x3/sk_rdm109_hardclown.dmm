@@ -28,7 +28,7 @@
 "e" = (
 /obj/machinery/suit_storage_unit{
 	name = "odd storage unit";
-	suit_type = /obj/item/clothing/suit/space/hardsuit/clown
+	mod = /obj/item/mod/control/pre_equipped/responsory/clown
 	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/spawner/random/unsorted/trap/clowntrap,

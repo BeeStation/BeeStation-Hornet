@@ -223,7 +223,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/randommaint/New() //automatically opens up a job slot when the job's spawner loads in
 	..()
-	var/datum/job/J = SSjob.GetJob(job)
+	var/datum/job/J = SSjob.get_job(job)
 	J.total_positions += 1
 	J.job_flags &= ~JOB_CANNOT_OPEN_SLOTS
 

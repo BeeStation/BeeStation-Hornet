@@ -171,7 +171,7 @@
 				if(minor)
 					return
 				var/datum/job/jobdatum
-				jobdatum = SSjob.GetJob(target)
+				jobdatum = SSjob.get_job(target)
 				if(!jobdatum)
 					to_chat(usr, span_warning("No log exists for this job."))
 					stack_trace("bad job string '[target]' is given through a portable ID console program by '[ckey(usr)]'")
@@ -252,10 +252,10 @@
 
 	data["jobs"] = list()
 	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-		if(!length(each_dept.jobs) || each_dept.access_filter) // no centcom jobs in this code for now
+		if(!length(each_dept.department_jobs) || each_dept.access_filter) // no centcom jobs in this code for now
 			continue
 		var/list/department_jobs = list()
-		for(var/each_job in each_dept.jobs)
+		for(var/each_job in each_dept.department_jobs)
 			if(each_job in SSjob.all_job_exceptions)
 				continue
 			department_jobs += list(list(
@@ -263,12 +263,12 @@
 				"job" = each_job
 			))
 		if(length(department_jobs))
-			data["jobs"][each_dept.dept_name] = department_jobs
+			data["jobs"][each_dept.department_name] = department_jobs
 
 
 	var/list/regions = list()
 	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-		if((minor || department_bitflag) && !(each_dept.dept_bitflag & accessible_region_bitflag))
+		if((minor || department_bitflag) && !(each_dept.department_bitflags & accessible_region_bitflag))
 			continue
 		if(!length(each_dept.access_list) || (each_dept.access_filter && !is_centcom))
 			continue
@@ -283,7 +283,7 @@
 
 		regions += list(list(
 			"name" = each_dept.access_group_name,
-			"regid" = each_dept.dept_bitflag,
+			"regid" = each_dept.department_bitflags,
 			"accesses" = accesses
 		))
 

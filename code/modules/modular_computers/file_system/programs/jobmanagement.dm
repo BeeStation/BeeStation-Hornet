@@ -65,7 +65,7 @@
 	switch(action)
 		if("PRG_open_job")
 			var/edit_job_target = params["target"]
-			var/datum/job/j = SSjob.GetJob(edit_job_target)
+			var/datum/job/j = SSjob.get_job(edit_job_target)
 			if(!can_edit_job(j) || !can_open_job(j))
 				return TRUE
 			if(opened_positions[edit_job_target] >= 0)
@@ -76,7 +76,7 @@
 			return TRUE
 		if("PRG_close_job")
 			var/edit_job_target = params["target"]
-			var/datum/job/j = SSjob.GetJob(edit_job_target)
+			var/datum/job/j = SSjob.get_job(edit_job_target)
 			if(!can_edit_job(j) || !can_close_job(j))
 				return TRUE
 			//Allow instant closing without cooldown if a position has been opened before
@@ -88,7 +88,7 @@
 			return TRUE
 		if("PRG_priority")
 			var/priority_target = params["target"]
-			var/datum/job/j = SSjob.GetJob(priority_target)
+			var/datum/job/j = SSjob.get_job(priority_target)
 			if(!can_edit_job(j))
 				return TRUE
 			if(j.get_spawn_position_count() <= j.current_positions)
@@ -116,8 +116,7 @@
 	data["authed"] = authed
 
 	var/list/pos = list()
-	for(var/j in SSjob.occupations)
-		var/datum/job/job = j
+	for(var/datum/job/job as anything in SSjob.joinable_occupations)
 		if(!can_edit_job(job))
 			continue
 

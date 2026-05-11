@@ -326,7 +326,7 @@
 	return A.loc
 
 ///Send a message in common radio when a player arrives
-/proc/AnnounceArrival(mob/living/carbon/human/character, rank)
+/proc/announce_arrival(mob/living/carbon/human/character, rank)
 	if(!SSticker.IsRoundInProgress() || QDELETED(character))
 		return
 	var/area/player_area = get_area(character)
@@ -335,7 +335,7 @@
 		return
 	if(!GLOB.announcement_systems.len)
 		return
-	if(!(character.mind.assigned_role_datum?.job_flags & JOB_ANNOUNCE_ARRIVAL))
+	if(!(character.mind.assigned_role.job_flags & JOB_ANNOUNCE_ARRIVAL))
 		return
 
 	var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)

@@ -54,7 +54,7 @@
 	if (is_special_character(viewer))
 		to_chat(viewer, span_notice("[moods.antag_notification]"))
 		SEND_SIGNAL(viewer, COMSIG_ADD_MOOD_EVENT, moods.mood_category, moods.antag_mood)
-	else if ((viewer.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)) || (viewer.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY)))
+	else if ((viewer.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND)) || (viewer.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY)))
 		to_chat(viewer, span_notice("[moods.authority_notification]"))
 		SEND_SIGNAL(viewer, COMSIG_ADD_MOOD_EVENT, moods.authority_mood)
 	else

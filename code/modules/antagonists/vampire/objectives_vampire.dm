@@ -44,11 +44,11 @@
 	var/target_department
 	///List of all departments that can be selected for the objective.
 	var/static/list/possible_departments = list(
-		"engineering" = DEPT_BITFLAG_ENG,
-		"medical" = DEPT_BITFLAG_MED,
-		"science" = DEPT_BITFLAG_SCI,
-		"cargo" = DEPT_BITFLAG_CAR,
-		"service" = DEPT_BITFLAG_SRV,
+		"engineering" = /datum/department_group/engineering,
+		"medical" = /datum/department_group/medical,
+		"science" = /datum/department_group/science,
+		"cargo" = /datum/department_group/cargo,
+		"service" = /datum/department_group/service,
 	)
 
 /datum/objective/vampire/ego/department_vassal/New()
@@ -73,17 +73,17 @@
 		var/datum/mind/vassal_mind = vassal_datum.owner
 
 		// Mind Assigned
-		if(vassal_mind.assigned_role_datum)
-			all_vassal_jobs += vassal_mind.assigned_role_datum
+		if(!is_unassigned_job(vassal_mind.assigned_role))
+			all_vassal_jobs += vassal_mind.assigned_role
 			continue
 		// Mob Assigned
 		if(vassal_mind.current?.job)
-			all_vassal_jobs += SSjob.GetJob(vassal_mind.current.job)
+			all_vassal_jobs += SSjob.get_job(vassal_mind.current.job)
 			continue
 		// PDA Assigned
 		if(ishuman(vassal_mind.current))
 			var/mob/living/carbon/human/human_vassal = vassal_mind.current
-			all_vassal_jobs += SSjob.GetJob(human_vassal.get_assignment())
+			all_vassal_jobs += SSjob.get_job(human_vassal.get_assignment())
 			continue
 
 	return all_vassal_jobs
@@ -92,7 +92,7 @@
 	var/list/vassal_jobs = get_vassal_occupations()
 	var/converted_count = 0
 	for(var/datum/job/checked_job in vassal_jobs)
-		if(checked_job.departments & target_department)
+		if(target_department in checked_job.departments_list)
 			converted_count++
 	if(converted_count >= target_amount)
 		return TRUE

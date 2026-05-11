@@ -241,14 +241,14 @@
 	.=..()
 	if(!static_roles)
 		static_roles = list(
-			"command" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND),
-			"security" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY),
-			"engineering" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING),
-			"medical" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL),
-			"science" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE),
-			"supply" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO),
-			"silicon" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON),
-			"civilian" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN),
+			"command" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND),
+			"security" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY),
+			"engineering" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_ENGINEERING),
+			"medical" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_MEDICAL),
+			"science" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SCIENCE),
+			"supply" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_CARGO),
+			"silicon" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SILICON),
+			"civilian" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_CIVILIAN),
 			"gimmick" = list(JOB_NAME_CLOWN,JOB_NAME_MIME,JOB_NAME_GIMMICK,JOB_NAME_ASSISTANT), //Hardcoded since it's not a real category but handy for rolebans
 			"antagonist_positions" = list(BAN_ROLE_ALL_ANTAGONISTS) + GLOB.antagonist_bannable_roles,
 			"forced_antagonist_positions" = list(BAN_ROLE_FORCED_ANTAGONISTS) + GLOB.forced_bannable_roles,
@@ -1255,49 +1255,41 @@
 				banned_from += query_get_banned_roles.item[1]
 			qdel(query_get_banned_roles)
 		var/break_counter = 0
-		var/fancy_tgui = usr.client.prefs.read_player_preference(/datum/preference/toggle/tgui_fancy)
-		output += "<div class='row'><div class='column'><label class='rolegroup command'><input type='checkbox' name='Command' class='hidden' [fancy_tgui ? " onClick='toggle_checkboxes(this, \"_dep\")'" : ""]>Command</label><div class='content'>"
-		//all heads are listed twice so have a javascript call to toggle both their checkboxes when one is pressed
-		//for simplicity this also includes the captain even though it doesn't do anything
-		for(var/job in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-			if(break_counter > 0 && (break_counter % 3 == 0))
-				output += "<br>"
-			output += {"<label class='inputlabel checkbox'>[job]
-						<input type='checkbox' id='[job]_com' name='[job]' class='Command' value='1'[fancy_tgui ? " onClick='toggle_head(this, \"_dep\")'" : ""]>
-						<div class='inputbox[(job in banned_from) ? " banned" : ""]'></div></label>
-			"}
-			break_counter++
-		output += "</div></div>"
-		//standard departments all have identical handling
-		var/list/job_lists = list("Security" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY),
-							"Engineering" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING),
-							"Medical" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL),
-							"Science" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE),
-							"Supply" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO))
-		for(var/department in job_lists)
-			//the first element is the department head so they need the same javascript call as above
-			output += "<div class='column'><label class='rolegroup [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' [fancy_tgui ? " onClick='toggle_checkboxes(this, \"_com\")'" : ""]>[department]</label><div class='content'>"
-			output += {"<label class='inputlabel checkbox'>[job_lists[department][1]]
-						<input type='checkbox' id='[job_lists[department][1]]_dep' name='[job_lists[department][1]]' class='[department]' value='1'[fancy_tgui ? " onClick='toggle_head(this, \"_com\")'" : ""]>
-						<div class='inputbox[(job_lists[department][1] in banned_from) ? " banned" : ""]'></div></label>
-			"}
-			break_counter = 1
-			for(var/job in job_lists[department] - job_lists[department][1]) //skip the first element since it's already been done
-				if(break_counter % 3 == 0)
+		output += "<div class='row'>"
+
+		for(var/datum/department_group/department as anything in SSjob.joinable_departments)
+			var/label_class = department.label_class
+			var/department_name = department.department_name
+			output += "<div class='column'><label class='rolegroup [label_class]'>[department_name]</label><div class='content'>"
+			for(var/datum/job/job_datum as anything in department.department_jobs)
+				if(break_counter > 0 && (break_counter % 3 == 0))
 					output += "<br>"
-				output += {"<label class='inputlabel checkbox'>[job]
-							<input type='checkbox' name='[job]' class='[department]' value='1'>
-							<div class='inputbox[(job in banned_from) ? " banned" : ""]'></div></label>
-				"}
 				break_counter++
+				var/job_name = job_datum.title
+				if(length(job_datum.departments_list) > 1) //This job is in multiple departments, so we need to check all the boxes.
+					// Clicking this will also toggle all the other boxes, minus this one.
+					var/department_index = job_datum.departments_list.Find(department.type)
+					if(!department_index)
+						stack_trace("Failed to find a department index for [department.type] in the departments_list of [job_datum.type]")
+					output += {"<label class='inputlabel checkbox'>[job_name]
+						<input type='checkbox' id='[job_name]_[department_index]' name='[job_name]' class='[label_class]' value='1'[tgui_fancy ? " onClick='toggle_other_checkboxes(this, \"[length(job_datum.departments_list)]\", \"[department_index]\")'" : ""]>
+						<div class='inputbox[(job_name in banned_from) ? " banned" : ""]'></div></label>
+						"}
+				else
+					output += {"<label class='inputlabel checkbox'>[job_name]
+							<input type='checkbox' name='[job_name]' class='[label_class]' value='1'>
+							<div class='inputbox[(job_name in banned_from) ? " banned" : ""]'></div></label>
+							"}
 			output += "</div></div>"
-		//departments/groups that don't have command staff would throw a javascript error since there's no corresponding reference for toggle_head()
-		var/list/headless_job_lists = list("Silicon" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON),
-										"Abstract" = list("Appearance", "Emote", "OOC", "DSAY"))
-		for(var/department in headless_job_lists)
-			output += "<div class='column'><label class='rolegroup [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' [fancy_tgui ? " onClick='toggle_checkboxes(this, \"_com\")'" : ""]>[department]</label><div class='content'>"
 			break_counter = 0
-			for(var/job in headless_job_lists[department])
+
+		var/list/other_job_lists = list(
+			"Abstract" = list("Appearance", "Emote", "Deadchat", "OOC"),
+			)
+		for(var/department in other_job_lists)
+			output += "<div class='column'><label class='rolegroup [ckey(department)]'>[department]</label><div class='content'>"
+			break_counter = 0
+			for(var/job in other_job_lists[department])
 				if(break_counter > 0 && (break_counter % 3 == 0))
 					output += "<br>"
 				output += {"<label class='inputlabel checkbox'>[job]
@@ -1307,7 +1299,6 @@
 				break_counter++
 			output += "</div></div>"
 		var/list/long_job_lists = list(
-			"Civilian" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN) | JOB_NAME_GIMMICK,
 			"Antagonist Positions" = list(BAN_ROLE_ALL_ANTAGONISTS) + GLOB.antagonist_bannable_roles,
 			"Forced Antagonist Positions" = list(BAN_ROLE_FORCED_ANTAGONISTS) + GLOB.forced_bannable_roles,
 			"Ghost Roles" = list(BAN_ROLE_ALL_GHOST) + GLOB.ghost_role_bannable_roles,
@@ -1315,7 +1306,7 @@
 		)
 
 		for(var/department in long_job_lists)
-			output += "<div class='column'><label class='rolegroup long [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' [fancy_tgui ? " onClick='toggle_checkboxes(this, \"_com\")'" : ""]>[department]</label><div class='content'>"
+			output += "<div class='column'><label class='rolegroup long [ckey(department)]'>[department]</label><div class='content'>"
 			break_counter = 0
 			for(var/job in long_job_lists[department])
 				if(break_counter > 0 && (break_counter % 10 == 0))
@@ -1328,7 +1319,7 @@
 			output += "</div></div>"
 		output += "</div>"
 	output += "</form>"
-	panel.set_content(jointext(output, ""))
+	panel.set_content(output.Join())
 	panel.open()
 
 #undef MAX_ADMINBANS_PER_ADMIN

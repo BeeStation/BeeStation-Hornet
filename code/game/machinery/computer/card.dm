@@ -232,7 +232,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			ID = 1
 		else
 			ID = 0
-		for(var/datum/job/job in SSjob.occupations)
+		for(var/datum/job/job in SSjob.all_occupations)
 			dat += "<tr>"
 			if(!can_edit_job(job))
 				continue
@@ -370,10 +370,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		var/jobs_all = "<a href='byond://?src=[REF(src)];choice=assign;assign_target=Unassigned'>Unassigned</a> "
 		for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-			if(!length(each_dept.jobs) || each_dept.access_filter) // no centcom jobs for now
+			if(!length(each_dept.department_jobs) || each_dept.access_filter) // no centcom jobs for now
 				continue
-			jobs_all += "<br/>* [each_dept.dept_name]: "
-			for(var/each_job in each_dept.jobs)
+			jobs_all += "<br/>* [each_dept.department_name]: "
+			for(var/each_job in each_dept.department_jobs)
 				if(each_job in SSjob.all_job_exceptions)
 					continue
 				jobs_all += "<a href='byond://?src=[REF(src)];choice=assign;assign_target=[each_job]'>[each_job]</a> " //make sure there isn't a line break in the middle of a job
@@ -474,14 +474,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			accesses += "<table style='width:100%'>"
 			accesses += "<tr>"
 			for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-				if(authenticated == 1 && !(each_dept.dept_bitflag & accessible_region_bitflag))
+				if(authenticated == 1 && !(each_dept.department_bitflags & accessible_region_bitflag))
 					continue
 				if(!length(each_dept.access_list) || (!is_centcom && each_dept.access_filter))
 					continue
 				accesses += "<td style='width:14%'><b>[each_dept.access_group_name]:</b></td>"
 			accesses += "</tr><tr>"
 			for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-				if(authenticated == 1 && !(each_dept.dept_bitflag & accessible_region_bitflag))
+				if(authenticated == 1 && !(each_dept.department_bitflags & accessible_region_bitflag))
 					continue
 				if(!length(each_dept.access_list) || (!is_centcom && each_dept.access_filter))
 					continue
@@ -635,7 +635,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					log_id("[key_name(usr)] unassigned and stripped all access from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 
 				else
-					var/datum/job/jobdatum = SSjob.GetJob(t1)
+					var/datum/job/jobdatum = SSjob.get_job(t1)
 					if(!jobdatum)
 						to_chat(usr, span_warning("No log exists for this job."))
 						stack_trace("bad job string '[t1]' is given through HoP console by '[ckey(usr)]'")
@@ -668,7 +668,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							B.payment_per_department[each] = jobdatum.payment_per_department[each]
 						B.active_departments |= jobdatum.bank_account_department
 					if(record && jobdatum) // 2-B: setting crew manifest
-						record.active_department |= jobdatum.departments
+						record.active_department |= jobdatum.departments_bitflags
 
 					log_id("[key_name(usr)] assigned [jobdatum || t1] job to [inserted_modify_id], manipulating it to the default access of the job using [inserted_scan_id] at [AREACOORD(usr)].")
 
@@ -713,7 +713,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
 			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && !department_bitflag)
 				var/edit_job_target = href_list["job"]
-				var/datum/job/j = SSjob.GetJob(edit_job_target)
+				var/datum/job/j = SSjob.get_job(edit_job_target)
 				if(!j)
 					updateUsrDialog()
 					return 0
@@ -730,7 +730,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
 			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && !department_bitflag)
 				var/edit_job_target = href_list["job"]
-				var/datum/job/j = SSjob.GetJob(edit_job_target)
+				var/datum/job/j = SSjob.get_job(edit_job_target)
 				if(!j)
 					updateUsrDialog()
 					return 0
@@ -748,7 +748,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
 			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && !department_bitflag)
 				var/priority_target = href_list["job"]
-				var/datum/job/j = SSjob.GetJob(priority_target)
+				var/datum/job/j = SSjob.get_job(priority_target)
 				if(!j)
 					updateUsrDialog()
 					return 0
@@ -892,7 +892,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					printing = null
 					return
 
-				B = new /datum/bank_account(target_name, SSjob.GetJob(JOB_NAME_ASSISTANT))
+				B = new /datum/bank_account(target_name, SSjob.get_job(JOB_NAME_ASSISTANT))
 				for(var/each in B.payment_per_department)
 					B.payment_per_department[each] = 0
 				say("Printing...")

@@ -11,7 +11,7 @@
 	short_desc = "You're a prisoner, sentenced to hard work in one of Nanotrasen's labor camps, but it seems as \
 	though fate has other plans for you."
 	flavour_text = "Good. It seems as though your ship crashed. You remember that you were convicted of "
-	assignedrole = "Escaped Prisoner"
+	spawner_job_path = /datum/job/escaped_prisoner
 	use_cooldown = TRUE
 	banType = ROLE_LAVALAND_ESCAPED_PRISONER
 

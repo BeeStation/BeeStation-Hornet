@@ -1,20 +1,22 @@
 /datum/job/chaplain
 	title = JOB_NAME_CHAPLAIN
 	description = "Tend to the spiritual well-being of the crew, conduct rites and rituals in your Chapel, exorcise evil spirits and other supernatural beings."
-	department_for_prefs = DEPT_NAME_CIVILIAN
+	department_for_prefs = DEPARTMENT_NAME_CIVILIAN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#dddddd"
 	exp_requirements = 60
-	exp_type = EXP_TYPE_CREW
+	exp_granted_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/chaplain
 
 	base_access = list(ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MORGUE, ACCESS_THEATRE)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_CIV
+	departments_list = list(
+		/datum/department_group/service,
+		)
 	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)
 
@@ -41,15 +43,16 @@
 		JOB_NAME_BOTANIST // in a sense of religion
 	)
 
-/datum/job/chaplain/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
+/datum/job/chaplain/after_spawn(mob/living/spawned, client/player_client)
 	. = ..()
-	if(!M.client || on_dummy)
+	if(!ishuman(spawned))
 		return
-
+	var/mob/living/carbon/human/H = spawned
 	var/obj/item/storage/book/bible/booze/B = new
 
 	if(GLOB.religion)
-		H.mind?.holy_role = HOLY_ROLE_PRIEST
+		if(H.mind)
+			H.mind.holy_role = HOLY_ROLE_PRIEST
 		B.deity_name = GLOB.deity
 		B.name = GLOB.bible_name
 		B.icon_state = GLOB.bible_icon_state
@@ -58,13 +61,14 @@
 		H.equip_to_slot_or_del(B, ITEM_SLOT_BACKPACK)
 		GLOB.religious_sect?.on_conversion(H)
 		return
-	H.mind?.holy_role = HOLY_ROLE_HIGHPRIEST
+	if(H.mind)
+		H.mind.holy_role = HOLY_ROLE_HIGHPRIEST
 
-	var/new_religion = preference_source?.prefs?.read_character_preference(/datum/preference/name/religion) || DEFAULT_RELIGION
-	var/new_deity = preference_source?.prefs?.read_character_preference(/datum/preference/name/deity) || DEFAULT_DEITY
+	var/new_religion = player_client?.prefs?.read_character_preference(/datum/preference/name/religion) || DEFAULT_RELIGION
+	var/new_deity = player_client?.prefs?.read_character_preference(/datum/preference/name/deity) || DEFAULT_DEITY
+	var/new_bible = player_client?.prefs?.read_preference(/datum/preference/name/bible) || DEFAULT_BIBLE
 
 	B.deity_name = new_deity
-
 	switch(LOWER_TEXT(new_religion))
 		if("christianity") // DEFAULT_RELIGION
 			B.name = pick("The Holy Bible","The Dead Sea Scrolls")
@@ -111,7 +115,10 @@
 		if("weeaboo","kawaii")
 			B.name = pick("Fanfiction Compendium","Japanese for Dummies","The Manganomicon","Establishing Your O.T.P")
 		else
-			B.name = preference_source?.prefs?.read_character_preference(/datum/preference/name/bible) || "The Holy Book of [new_religion]"
+			if(new_bible == DEFAULT_BIBLE)
+				new_bible = DEFAULT_BIBLE_REPLACE(new_bible)
+
+	B.name = new_bible
 
 	GLOB.religion = new_religion
 	GLOB.bible_name = B.name

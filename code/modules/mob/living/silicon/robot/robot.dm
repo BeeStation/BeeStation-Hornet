@@ -61,24 +61,22 @@
 		make_shell(board)
 		add_to_upgrades(board)
 
-	//MMI stuff. Held togheter by magic. ~Miauw
-	else if(!mmi || !mmi.brainmob)
-		mmi = new (src)
-		mmi.brain = new /obj/item/organ/brain(mmi)
-		mmi.brain.organ_flags |= ORGAN_FROZEN
-		mmi.brain.name = "[real_name]'s brain"
-		mmi.name = "[initial(mmi.name)]: [real_name]"
-		mmi.set_brainmob(new /mob/living/brain(mmi))
-		mmi.brainmob.name = src.real_name
-		mmi.brainmob.real_name = src.real_name
-		mmi.brainmob.container = mmi
-		mmi.update_icon()
-
-	updatename()
+	else
+		//MMI stuff. Held togheter by magic. ~Miauw
+		if(!mmi || !mmi.brainmob)
+			mmi = new (src)
+			mmi.brain = new /obj/item/organ/brain(mmi)
+			mmi.brain.organ_flags |= ORGAN_FROZEN
+			mmi.brain.name = "[real_name]'s brain"
+			mmi.name = "[initial(mmi.name)]: [real_name]"
+			mmi.set_brainmob(new /mob/living/brain(mmi))
+			mmi.brainmob.name = src.real_name
+			mmi.brainmob.real_name = src.real_name
+			mmi.brainmob.container = mmi
+			mmi.update_appearance()
 
 	blacklisted_hats = typecacheof(blacklisted_hats)
 
-	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
 	aicamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	toner = tonermax
 	diag_hud_set_borgcell()
@@ -190,28 +188,37 @@
 	model.transform_to(model_list[input_model])
 
 
-/mob/living/silicon/robot/proc/updatename(client/C)
+/// Used to setup the a basic and (somewhat) unique name for the robot.
+/mob/living/silicon/robot/proc/setup_default_name()
+	var/new_name
+	if(custom_name)
+		new_name = custom_name
+	else
+		new_name = get_standard_name()
+	if(new_name != real_name)
+		fully_replace_character_name(real_name, new_name)
+
+
+/// Updates the borg name taking the client preferences into account.
+/mob/living/silicon/robot/proc/updatename(client/pref_source)
 	if(shell)
 		return
-	if(!C)
-		C = client
+	if(!pref_source)
+		pref_source = client
 	var/changed_name = ""
 	if(custom_name)
 		changed_name = custom_name
-	if(changed_name == "" && C && C.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
-		if(check_cyborg_name(C, mmi))
-			if(apply_pref_name(/datum/preference/name/cyborg, C))
+	else if(pref_source && pref_source.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
+		if(check_cyborg_name(pref_source, mmi))
+			if(apply_pref_name(/datum/preference/name/cyborg, pref_source))
 				return //built in camera handled in proc
 		else
 			//Failed the vibe check on name theft, time to randomize it
 			changed_name = get_standard_name()
-	if(!changed_name)
+	else
 		changed_name = get_standard_name()
 
-	real_name = changed_name
-	name = real_name
-	if(!QDELETED(builtInCamera))
-		builtInCamera.c_tag = real_name	//update the camera name too
+	fully_replace_character_name(real_name, changed_name)
 
 /mob/living/silicon/robot/proc/get_standard_name()
 	return "[(designation ? "[designation] " : "")][mmi.braintype]-[ident]"
@@ -875,14 +882,17 @@
 	wires.ui_update()
 	return TRUE
 
+
 /mob/living/silicon/robot/fully_replace_character_name(oldname, newname)
-	..()
-	if(oldname != real_name)
-		notify_ai(RENAME, oldname, newname)
+	. = ..()
+	if(!.)
+		return
+	notify_ai(RENAME, oldname, newname)
 	if(!QDELETED(builtInCamera))
 		builtInCamera.c_tag = real_name
 		modularInterface.saved_identification = real_name
 	custom_name = newname
+
 
 
 /mob/living/silicon/robot/proc/ResetModel()

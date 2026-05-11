@@ -14,7 +14,7 @@
 	show_flavour = FALSE //Flavour only exists for spawners menu
 	short_desc = "You are a space pirate."
 	flavour_text = "The station refused to pay for your protection, protect the ship, siphon the credits from the station and raid it for even more loot."
-	assignedrole = ROLE_SPACE_PIRATE
+	spawner_job_path = /datum/job/space_pirate
 	banType = ROLE_SPACE_PIRATE
 	is_antagonist = TRUE
 	var/rank = "Mate"
@@ -35,7 +35,7 @@
 /obj/effect/mob_spawn/human/pirate/captain
 	rank = "Captain"
 	outfit = /datum/outfit/pirate/space/captain
-	assignedrole = "Space Pirate Captain"
+	spawner_job_path = /datum/job/space_pirate/captain
 
 /obj/effect/mob_spawn/human/pirate/captain/special(mob/living/new_spawn)
 	new_spawn.fully_replace_character_name(new_spawn.real_name,generate_pirate_name())

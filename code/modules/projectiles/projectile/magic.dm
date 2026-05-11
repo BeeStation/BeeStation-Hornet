@@ -660,8 +660,8 @@
 	var/datum/brain_trauma/special/imaginary_friend/trapped_owner/trauma = M.gain_trauma(/datum/brain_trauma/special/imaginary_friend/trapped_owner)
 	var/poll_message = "Do you want to play as [M.real_name]?"
 	var/ban_key = BAN_ROLE_ALL_ANTAGONISTS
-	if(M.mind?.assigned_role)
-		poll_message = "[poll_message] Job:[M.mind.assigned_role]."
+	if(M.mind && !is_unassigned_job(M.mind.assigned_role))
+		poll_message = "[poll_message] Job:[M.mind.assigned_role.title]."
 	if(M.mind?.special_role)
 		poll_message = "[poll_message] Status:[M.mind.special_role]."
 	else if(M.mind)

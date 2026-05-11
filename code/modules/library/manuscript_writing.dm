@@ -54,7 +54,7 @@
 		if(!(user.mind?.assigned_role in valid_jobs))
 			to_chat(user, span_notice("Your job knowledge doesn't seem to be describable in writing."))
 			return ..()
-		writer_job = user.mind?.assigned_role_datum
+		writer_job = user.mind?.assigned_role
 
 	var/list/jobs_with_knowledge = \
 		is_antag ? valid_jobs \
@@ -66,7 +66,7 @@
 		writer_job = tgui_input_list(user, "Choose a job", "Manuscript", jobs_with_knowledge)
 		if(!writer_job)
 			return ..()
-		writer_job = SSjob.GetJob(writer_job)
+		writer_job = SSjob.get_job_type(writer_job)
 
 	bookwriting(attacking_item, user, writer_job, is_antag ? 10 SECONDS : 20 SECONDS) // antag can write fast... it will look less suspicious
 	return ..()

@@ -66,7 +66,7 @@
 
 /datum/station_trait/hangover/New()
 	. = ..()
-	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
+	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, PROC_REF(on_job_after_spawn))
 
 /datum/station_trait/hangover/on_round_start()
 	. = ..()
@@ -80,13 +80,13 @@
 	for(var/turf/turf as anything in turfs)
 		new /obj/effect/spawner/hangover_spawn(turf)
 
-/datum/station_trait/hangover/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/living_mob, mob/spawned_mob, joined_late)
+/datum/station_trait/hangover/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned_mob)
 	SIGNAL_HANDLER
 
-	if(joined_late || !iscarbon(living_mob))
+	if(!iscarbon(spawned_mob))
 		return
 
-	var/mob/living/carbon/spawned_carbon = living_mob
+	var/mob/living/carbon/spawned_carbon = spawned_mob
 	spawned_carbon.set_resting(TRUE, silent = TRUE)
 	if(prob(50))
 		spawned_carbon.adjust_drugginess(rand(10 SECONDS, 20 SECONDS))
@@ -95,8 +95,17 @@
 	spawned_carbon.adjust_disgust(rand(5, 55)) //How hungover are you?
 
 	if(prob(35) && !spawned_carbon.head)
-		var/obj/item/hat = pick(list(/obj/item/clothing/head/costume/sombrero, /obj/item/clothing/head/fedora, /obj/item/clothing/mask/balaclava, /obj/item/clothing/head/costume/ushanka, /obj/item/clothing/head/costume/cardborg, /obj/item/clothing/head/costume/pirate, /obj/item/clothing/head/cone))
-		hat = new hat(spawned_mob)
+		var/list/hat_types = list(
+			/obj/item/clothing/head/costume/sombrero/green,
+			/obj/item/clothing/head/fedora,
+			/obj/item/clothing/mask/balaclava,
+			/obj/item/clothing/head/costume/ushanka,
+			/obj/item/clothing/head/costume/cardborg,
+			/obj/item/clothing/head/costume/pirate,
+			/obj/item/clothing/head/cone,
+		)
+		var/hat_type = pick(hat_types)
+		var/obj/item/hat = new hat_type(spawned_mob)
 		spawned_mob.equip_to_slot(hat, ITEM_SLOT_HEAD)
 
 /datum/station_trait/blackout
@@ -140,13 +149,8 @@
 
 /datum/station_trait/overflow_job_bureaucracy/proc/set_overflow_job_override(datum/source)
 	SIGNAL_HANDLER
-
-	var/list/joinable = list()
-	for(var/datum/job/job in SSjob.occupations) //Not ideal, but we dont have a populated alist of joinable occuptions
-		if(job.job_flags & JOB_NEW_PLAYER_JOINABLE)
-			joinable += job
-	var/datum/job/picked_job = pick(joinable)
-	chosen_job_name = LOWER_TEXT(picked_job.title)
+	var/datum/job/picked_job = pick(SSjob.get_valid_overflow_jobs())
+	chosen_job_name = LOWER_TEXT(picked_job.title) // like Chief Engineers vs like chief engineers
 	SSjob.set_overflow_role(picked_job.type)
 
 /datum/station_trait/slow_shuttle

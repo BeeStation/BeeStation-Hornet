@@ -18,31 +18,31 @@
 
 /obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
 	. = ..()
-	if((slot == ITEM_SLOT_GLOVES) && (user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY)))
+	if((slot == ITEM_SLOT_GLOVES) && (user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY)))
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_black_gloves", /datum/mood_event/sec_black_gloves)
 
 /obj/item/clothing/gloves/color/black/dropped(mob/living/carbon/user)
 	..()
 	if(user.gloves != src)
 		return
-	if(user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
+	if(user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_black_gloves")
 
 /obj/item/clothing/gloves/color/yellow/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_GLOVES)
-		if(user.mind?.assigned_role == JOB_NAME_ASSISTANT)
+		if(is_assistant_job(user.mind?.assigned_role))
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "assistant_insulated_gloves", /datum/mood_event/assistant_insulated_gloves)
-		if(user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
+		if(user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_insulated_gloves", /datum/mood_event/sec_insulated_gloves)
 
 /obj/item/clothing/gloves/color/yellow/dropped(mob/living/carbon/user)
 	..()
 	if(user.gloves != src)
 		return
-	if(user.mind?.assigned_role == JOB_NAME_ASSISTANT)
+	if(is_assistant_job(user.mind?.assigned_role))
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "assistant_insulated_gloves")
-	if(user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
+	if(user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_insulated_gloves")
 
 

@@ -1,7 +1,6 @@
 /datum/controller/subsystem/job/proc/give_crew_objective(datum/mind/crewMind, mob/M)
 	if(CONFIG_GET(flag/allow_crew_objectives) && (M?.client?.prefs.read_player_preference(/datum/preference/toggle/crew_objectives) || crewMind?.current?.client?.prefs.read_player_preference(/datum/preference/toggle/crew_objectives)))
 		generate_individual_objectives(crewMind)
-	return
 
 /datum/controller/subsystem/job/proc/generate_individual_objectives(datum/mind/crewMind)
 	if(!(CONFIG_GET(flag/allow_crew_objectives)))
@@ -10,7 +9,7 @@
 		return
 	if(!crewMind.current || crewMind.special_role)
 		return
-	if(!crewMind.assigned_role)
+	if(is_unassigned_job(crewMind.assigned_role))
 		return
 	var/list/valid_objs = crew_obj_jobs["[crewMind.assigned_role]"]
 	if(!length(valid_objs))

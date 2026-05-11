@@ -664,10 +664,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("infinite_sec")
 			if(!check_rights(R_DEBUG))
 				return
-			var/datum/job/J = SSjob.GetJob(JOB_NAME_SECURITYOFFICER)
-			if(!J)
-				return
-			J.total_positions = -1
+			var/datum/job/sec_job = SSjob.get_job_type(/datum/job/security_officer)
+			sec_job.total_positions = -1
 			message_admins("[key_name_admin(usr)] has removed the cap on security officers.")
 
 		if("ctfbutton")

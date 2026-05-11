@@ -1,7 +1,7 @@
 /datum/job/chief_engineer
 	title = JOB_NAME_CHIEFENGINEER
 	description = "Oversee the engineers and atmospheric technicians, keep a watchful eye on the station's engine, gravity generator, and telecomms. Send your staff to repair hull breaches and damaged equipment as necessary."
-	department_for_prefs = DEPT_NAME_ENGINEERING
+	department_for_prefs = DEPARTMENT_NAME_ENGINEERING
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
@@ -9,10 +9,12 @@
 	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffeeaa"
-	req_admin_notify = 1
+	req_admin_notify = TRUE
 	minimal_player_age = 7
 	exp_requirements = 1200
-	exp_type = EXP_TYPE_ENGINEERING
+	exp_required_type = EXP_TYPE_CREW
+	exp_required_type_department = EXP_TYPE_ENGINEERING
+	exp_granted_type = EXP_TYPE_ENGINEERING
 	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/chief_engineer
@@ -23,7 +25,10 @@
 						ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINERAL_STOREROOM, ACCESS_WEAPONS)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_ENG | DEPT_BITFLAG_COM
+	departments_list = list(
+		/datum/department_group/engineering,
+		/datum/department_group/command,
+		)
 	bank_account_department = ACCOUNT_ENG_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
@@ -46,6 +51,9 @@
 		JOB_NAME_STATIONENGINEER,
 		JOB_NAME_ATMOSPHERICTECHNICIAN
 	)
+
+/datum/job/chief_engineer/get_captaincy_announcement(mob/living/captain)
+	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
 
 /datum/outfit/job/chief_engineer
 	name = JOB_NAME_CHIEFENGINEER

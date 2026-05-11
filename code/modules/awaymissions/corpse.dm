@@ -28,7 +28,8 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	var/burn_damage = 0
 	var/datum/disease/disease = null //Do they start with a pre-spawned disease?
 	var/mob_color //Change the mob's color
-	var/assignedrole
+	/// Typepath indicating the kind of job datum this ert member will have.
+	var/spawner_job_path = /datum/job/ghost_role
 	var/show_flavour = TRUE
 	var/banType
 	var/ghost_usable = TRUE
@@ -122,8 +123,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 				O.owner = MM
 				A.objectives += O
 				log_objective(O.owner, O.explanation_text)
-		if(assignedrole)
-			M.mind.set_assigned_role(assignedrole)
+		M.mind.set_assigned_role(SSjob.get_job_type(spawner_job_path))
 		special(M, name)
 		MM.name = M.real_name
 	if(uses > 0)
@@ -143,7 +143,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	var/id_job = null			//Such as JOB_NAME_CLOWN or "Chef." This just determines what the ID reads as, not their access
 	var/id_access = null		//This is for access. See access.dm for which jobs give what access. Use JOB_NAME_CAPTAIN if you want it to be all access.
 	var/id_access_list = null	//Allows you to manually add access to an ID card.
-	assignedrole = "Ghost Role"
+	spawner_job_path = /datum/job/ghost_role
 
 	var/husk = null
 	//these vars are for lazy mappers to override parts of the outfit
@@ -223,7 +223,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	var/obj/item/card/id/W = H.wear_id
 	if(W)
 		if(id_access)
-			for(var/datum/job/J in SSjob.occupations)
+			for(var/datum/job/J in SSjob.all_occupations)
 				if(J.title == id_access)
 					W.access = J.get_access()
 					break

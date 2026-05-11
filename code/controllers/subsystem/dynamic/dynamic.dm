@@ -376,7 +376,7 @@ SUBSYSTEM_DEF(dynamic)
 	if (CONFIG_GET(flag/protect_assistant_from_antagonist))
 		ruleset.restricted_roles |= JOB_NAME_ASSISTANT
 	if (CONFIG_GET(flag/protect_heads_from_antagonist))
-		ruleset.restricted_roles |= SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
+		ruleset.restricted_roles |= SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND)
 
 	return ruleset
 
@@ -445,10 +445,20 @@ SUBSYSTEM_DEF(dynamic)
  * A randomized divergence is then applied so rounds are less predictable
  */
 /datum/controller/subsystem/dynamic/proc/set_roundstart_points()
+	SSjob.DivideOccupations(pure = TRUE, allow_all = TRUE)
 	for(var/mob/dead/new_player/authenticated/player as anything in GLOB.auth_new_player_list)
 		// Add to candidates if ready
 		if(player.ready == PLAYER_READY_TO_PLAY && player.check_preferences())
-			roundstart_candidates += player
+			if(player.mind && is_unassigned_job(player.mind.assigned_role))
+				var/list/job_data = list()
+				var/job_prefs = player.client.prefs.job_preferences
+				for(var/job in job_prefs)
+					var/priority = job_prefs[job]
+					job_data += "[job]: [SSjob.job_priority_level_to_string(priority)]"
+				to_chat(player, span_danger("You were unable to qualify for any roundstart antagonist role because you could not qualify for any of the roundstart jobs you were trying to qualify for, along with 'return to lobby if job is unavailable' enabled."))
+				log_admin("[player.ckey] failed to qualify for any job and has [length(player.client.prefs.role_preferences_global) + length(player.client.prefs.role_preferences)] antag preferences enabled. They will be unable to qualify for any roundstart antagonist role. These are their job preferences - [job_data.Join(" | ")]")
+			else
+				roundstart_candidates += player
 
 		if(!roundstart_points_override)
 			if(player.ready == PLAYER_READY_TO_PLAY && player.check_preferences())
@@ -458,6 +468,7 @@ SUBSYSTEM_DEF(dynamic)
 			else if(player.ready == PLAYER_READY_TO_OBSERVE)
 				supplementary_points += supplementary_points_per_observer
 
+	SSjob.reset_occupations()
 	supplementary_point_divergence = rand() * ((roundstart_divergence_percent_upper) - (roundstart_divergence_percent_lower)) + (roundstart_divergence_percent_lower)
 	supplementary_points = round(supplementary_points * supplementary_point_divergence)
 

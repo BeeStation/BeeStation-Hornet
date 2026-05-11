@@ -167,6 +167,12 @@
 	firstname.Find(real_name)
 	return firstname.match
 
+/// Find the last name of a mob from the real name with regex
+/mob/proc/last_name()
+	var/static/regex/lasttname = new("\[^\\s-\]+$") //First word before whitespace or "-"
+	lasttname.Find(real_name)
+	return lasttname.match
+
 ///Checks if the mob is able to see or not. eye_blind is temporary blindness, the trait is if they're permanently blind.
 /mob/proc/is_blind()
 	SHOULD_BE_PURE(TRUE)
@@ -333,14 +339,14 @@
 /proc/offer_control_get_config(mob/M)
 	var/poll_message = "Do you want to play as [M.real_name]?"
 	var/ban_key = BAN_ROLE_ALL_ANTAGONISTS
-	if(M.mind && M.mind.assigned_role)
-		poll_message = "[poll_message] Job:[M.mind.assigned_role]."
-	if(M.mind && M.mind.special_role)
-		poll_message = "[poll_message] Status:[M.mind.special_role]."
-	else if(M.mind)
-		var/datum/antagonist/A = M.mind.has_antag_datum(/datum/antagonist)
-		if(A)
-			poll_message = "[poll_message] Status:[A.name]."
+	if(M.mind)
+		poll_message = "[poll_message] Job: [M.mind.assigned_role.title]."
+		if(M.mind.special_role)
+			poll_message = "[poll_message] Status: [M.mind.special_role]."
+		else
+			var/datum/antagonist/A = M.mind.has_antag_datum(/datum/antagonist/)
+			if(A)
+				poll_message = "[poll_message] Status: [A.name]."
 			ban_key = A.banning_key
 	var/datum/poll_config/config = new(
 		question = poll_message,
