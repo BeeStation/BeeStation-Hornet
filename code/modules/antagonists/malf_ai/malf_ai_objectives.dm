@@ -4,7 +4,7 @@
 /datum/antagonist/malf_ai/forge_objectives()
 	var/datum/mind/assassination_target
 
-	if(length(GLOB.joined_player_list) >= CONFIG_GET(number/murderbone_min_pop) && prob(MURDERBONE_PROB))
+	if(length(GLOB.joined_player_list) >= CONFIG_GET(number/murderbone_objectives_min_pop) && prob(MURDERBONE_PROB))
 		var/special_pick = rand(1, 3)
 		switch(special_pick)
 			if(1)

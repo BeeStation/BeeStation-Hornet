@@ -3,7 +3,7 @@
 #define AI_MURDER_PROB 33
 
 /datum/antagonist/changeling/forge_objectives()
-	if(length(GLOB.joined_player_list) >= CONFIG_GET(number/murderbone_min_pop) && prob(MURDERBONE_PROB))
+	if(length(GLOB.joined_player_list) >= CONFIG_GET(number/murderbone_objectives_min_pop) && prob(MURDERBONE_PROB))
 		var/datum/objective/survival_of_the_fittest/cull_objective = new()
 		cull_objective.generate_amount()
 		add_objective(cull_objective)
