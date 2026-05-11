@@ -7,15 +7,13 @@
 	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/antagonist/wishgranter/forge_objectives()
-	var/datum/objective/elimination/highlander/elimination_objective = new
-	elimination_objective.owner = owner
-	objectives += elimination_objective
-	log_objective(owner, elimination_objective.explanation_text)
+	add_objective(new /datum/objective/elimination/highlander())
 
 /datum/antagonist/wishgranter/on_gain()
-	owner.special_role = "Avatar of the Wish Granter"
-	forge_objectives()
 	. = ..()
+	owner.special_role = "Avatar of the Wish Granter"
+	if(give_objectives)
+		forge_objectives()
 	give_powers()
 
 /datum/antagonist/wishgranter/greet()

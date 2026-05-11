@@ -71,24 +71,26 @@
 		chosen_rift_areas += chosen_rift_area
 		area_names += initial(chosen_rift_area.name)
 
-	var/datum/objective/summon_carp/summon = new()
-	objectives += summon
+	var/datum/objective/summon_carp/summon_objective = new()
 	summon.dragon = src
-
 	summon.explanation_text = "Summon 3 rifts in order to flood the station with carp. Your possible rift locations are:\n - [english_list(area_names, "ERROR", "\n - ", "\n - ")]."
-	log_objective(owner, summon.explanation_text)
+	add_objective(summon_objective)
 
 /datum/antagonist/space_dragon/on_gain()
-	forge_objectives()
 	. = ..()
-	rift_ability = new
+	if(give_objectives)
+		forge_objectives()
+
+	rift_ability = new()
 	rift_ability.Grant(owner.current)
-	wavespeak_ability = new
+	wavespeak_ability = new()
 	wavespeak_ability.Grant(owner.current)
+
 	owner.current.faction |= FACTION_CARP
 	RegisterSignal(owner.current, COMSIG_LIVING_LIFE, PROC_REF(rift_checks))
 	RegisterSignal(owner.current, COMSIG_LIVING_DEATH, PROC_REF(destroy_rifts))
 	RegisterSignal(owner.current, COMSIG_QDELETING, PROC_REF(destroy_rifts))
+
 	if(istype(owner.current, /mob/living/simple_animal/hostile/space_dragon))
 		var/mob/living/simple_animal/hostile/space_dragon/S = owner.current
 		S.can_summon_rifts = TRUE

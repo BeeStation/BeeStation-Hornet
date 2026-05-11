@@ -200,7 +200,7 @@
 	if(sanitize)
 		message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 	src.log_talk(message, LOG_SAY)
-	var/rendered = span_revennotice("<b>[src]</b> haunts, \"[message]\"")
+	var/rendered = span_revennotice("<b>[src]</b> haunts,"[message]\"")
 	var/rendered_yourself = span_revennotice("You haunt to ghosts: [message]")
 	var/list/hearers = list()
 	for(var/mob/M in GLOB.mob_list)
@@ -240,8 +240,8 @@
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
 	. = ..()
 	if(istype(W, /obj/item/nullrod))
-		visible_message(span_warning("[src] violently flinches!"), \
-						span_revendanger("As \the [W] passes through you, you feel your essence draining away!"))
+		visible_message(span_warning("[src] violently flinches!"),
+						span_revendanger("Asthe [W] passes through you, you feel your essence draining away!"))
 		adjustBruteLoss(25) //hella effective
 		inhibited = TRUE
 		update_action_buttons_icon()
@@ -482,7 +482,7 @@
 /obj/item/ectoplasm/revenant/attack_self(mob/user)
 	if(!reforming || inert)
 		return ..()
-	user.visible_message(span_notice("[user] scatters [src] in all directions."), \
+	user.visible_message(span_notice("[user] scatters [src] in all directions."),
 						span_notice("You scatter [src] across the area. The particles slowly fade away."))
 	user.dropItemToGround(src)
 	scatter()
@@ -581,22 +581,23 @@
 		return ..()
 	return TRUE
 
-/datum/objective/revenantFluff
+/datum/objective/revenant_fluff
 
-/datum/objective/revenantFluff/New()
-	var/list/explanationTexts = list("Assist and exacerbate existing threats at critical moments.", \
-									"Avoid killing in plain sight.", \
-									"Cause as much chaos and anger as you can without being killed.", \
-									"Damage and render as much of the station rusted and unusable as possible.", \
-									"Disable and cause malfunctions in as many machines as possible.", \
-									"Ensure that any holy weapons are rendered unusable.", \
-									"Hinder the crew while attempting to avoid being noticed.", \
-									"Make the crew as miserable as possible.", \
-									"Make the clown as miserable as possible.", \
-									"Make the captain as miserable as possible.", \
-									"Prevent the use of energy weapons where possible.")
-	explanation_text = pick(explanationTexts)
-	..()
+/datum/objective/revenant_fluff/New()
+	. = ..()
+	explanation_text = pick(
+		"Assist and exacerbate existing threats at critical moments.",
+		"Avoid killing in plain sight.",
+		"Cause as much chaos and anger as you can without being killed.",
+		"Damage and render as much of the station rusted and unusable as possible.",
+		"Disable and cause malfunctions in as many machines as possible.",
+		"Ensure that any holy weapons are rendered unusable.",
+		"Hinder the crew while attempting to avoid being noticed.",
+		"Make the crew as miserable as possible.",
+		"Make the clown as miserable as possible.",
+		"Make the captain as miserable as possible.",
+		"Prevent the use of energy weapons where possible.",
+	)
 
-/datum/objective/revenantFluff/check_completion()
+/datum/objective/revenant_fluff/check_completion()
 	return TRUE

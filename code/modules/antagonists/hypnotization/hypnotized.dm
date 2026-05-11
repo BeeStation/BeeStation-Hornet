@@ -15,9 +15,7 @@
 	hypno_alert.desc = "\"[hypnotic_phrase]\"... your mind seems to be fixated on this concept."
 	var/datum/mind/M = victim.mind
 	var/datum/antagonist/hypnotized/B = new()
-	var/datum/objective/hypnotized/objective = new(hypnotic_phrase)
-	B.objectives += objective
-	log_objective(M, objective.explanation_text)
+	B.add_objective(new /datum/objective/hypnotized(hypnotic_phrase))
 	M.add_antag_datum(B)
 	var/rendered = span_deadsay("<b>[victim]</b> has been hypnotized with the following phrase: <b>[hypnotic_phrase]</b>.")
 	deadchat_broadcast(rendered, follow_target = victim, turf_target = get_turf(victim), message_type=DEADCHAT_REGULAR)

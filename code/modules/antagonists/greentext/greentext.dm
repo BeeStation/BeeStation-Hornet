@@ -5,13 +5,12 @@
 	banning_key = UNBANNABLE_ANTAGONIST
 	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
-/datum/antagonist/greentext/forge_objectives()
-	var/datum/objective/O = new /datum/objective("Succeed")
-	O.completed = TRUE //YES!
-	O.owner = owner
-	objectives += O
-	log_objective(owner, O.explanation_text)
-
 /datum/antagonist/greentext/on_gain()
-	forge_objectives()
 	. = ..()
+	if(give_objectives)
+		forge_objectives()
+
+/datum/antagonist/greentext/forge_objectives()
+	var/datum/objective/winner_objective = new("Succeed")
+	winner_objective.completed = TRUE
+	add_objective(winner_objective)

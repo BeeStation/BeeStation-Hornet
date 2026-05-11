@@ -17,7 +17,6 @@
 	//Protect will always succeed when someone suicides
 	return (human_check && brain_target) ? brain_target.suicided : FALSE
 
-
 /datum/objective/protect/update_explanation_text()
 	..()
 	if(target && target.current)

@@ -51,17 +51,18 @@
 //Shared by few objective types
 /datum/objective/proc/admin_simple_target_pick(mob/admin)
 	var/list/possible_targets = list()
-	var/def_value
-	for(var/datum/mind/possible_target as() in SSticker.minds)
-		if ((possible_target != src) && ishuman(possible_target.current))
-			possible_targets += possible_target.current
+	var/def_value = target?.current
 
-
-	if(target?.current)
-		def_value = target.current
+	var/list/datum/mind/objective_owners = get_owners()
+	for(var/datum/mind/possible_target as anything in SSticker.minds)
+		if(possible_target in objective_owners)
+			continue
+		if(!ishuman(possible_target.current))
+			continue
+		possible_targets += possible_target.current
 
 	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in (sort_names(possible_targets) | list("Free objective","Random"))
-	if (!new_target)
+	if (isnull(new_target))
 		return
 
 	if (new_target == "Free objective")

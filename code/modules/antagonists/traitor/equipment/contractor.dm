@@ -30,15 +30,10 @@
 			owner.current.client.tgui_panel?.give_antagonist_popup("Contractor Support Unit", "Follow your contractor's orders.")
 
 /datum/antagonist/contractor_support/forge_objectives()
-	var/datum/objective/generic_objective = new
-
-	generic_objective.name = "Follow Contractor's Orders"
+	var/datum/objective/generic_objective = new("Follow Contractor's Orders")
 	generic_objective.explanation_text = "Follow your orders. Assist agents in this mission area."
-
 	generic_objective.completed = TRUE
-
-	objectives += generic_objective
-	log_objective(owner, generic_objective.explanation_text)
+	add_objective(generic_objective)
 
 /datum/contractor_hub
 	var/contract_rep = 0

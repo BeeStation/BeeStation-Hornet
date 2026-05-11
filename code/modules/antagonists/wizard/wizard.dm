@@ -336,10 +336,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	exiled.implant(living_current)
 
 /datum/antagonist/wizard/academy/forge_objectives()
-	var/datum/objective/new_objective = new("Protect Wizard Academy from the intruders")
-	new_objective.owner = owner
-	objectives += new_objective
-	log_objective(owner, new_objective.explanation_text)
+	add_objective(new /datum/objective("Protect Wizard Academy from the intruders"))
 
 //Solo wizard report
 /datum/antagonist/wizard/roundend_report()
