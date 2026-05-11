@@ -1,6 +1,8 @@
 /datum/objective/debrain
 	name = "debrain"
-	var/target_special_role
+	admin_grantable = TRUE
+
+	var/target_special_role = FALSE
 
 /datum/objective/debrain/check_completion()
 	if(!target)//If it's a free objective.

@@ -1,6 +1,8 @@
 /datum/objective/maroon
 	name = "maroon"
-	var/target_special_role=FALSE
+	admin_grantable = TRUE
+
+	var/target_special_role = FALSE
 
 /datum/objective/maroon/check_completion()
 	return ..() || !target || !considered_alive(target) || (!target.current.onCentCom() && !target.current.onSyndieBase())

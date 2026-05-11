@@ -1,5 +1,7 @@
 /datum/objective/download
 	name = "download"
+	admin_grantable = TRUE
+
 	var/amount = 0
 
 /datum/objective/download/proc/gen_amount_goal()

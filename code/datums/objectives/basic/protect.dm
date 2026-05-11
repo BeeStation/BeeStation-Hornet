@@ -1,6 +1,8 @@
 //The opposite of killing a dude.
 /datum/objective/protect
 	name = "protect"
+	admin_grantable = TRUE
+
 	var/target_special_role = FALSE
 	var/human_check = TRUE
 

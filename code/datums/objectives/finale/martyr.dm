@@ -2,6 +2,7 @@
 	name = "martyr"
 	explanation_text = "Die a glorious death."
 	murderbone_flag = TRUE
+	admin_grantable = TRUE
 
 /datum/objective/martyr/check_completion()
 	for(var/datum/mind/M as anything in get_owners())

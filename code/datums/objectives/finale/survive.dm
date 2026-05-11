@@ -1,6 +1,7 @@
 /datum/objective/survive
 	name = "survive"
 	explanation_text = "Stay alive until the end."
+	admin_grantable = TRUE
 
 /datum/objective/survive/check_completion()
 	for(var/datum/mind/objective_owner as anything in get_owners())

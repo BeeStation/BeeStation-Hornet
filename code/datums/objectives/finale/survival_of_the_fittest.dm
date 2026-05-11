@@ -2,6 +2,8 @@
 	name = "survival of the fittest"
 	explanation_text = "Exfiltrate the station while culling the population of humanoids; ensuring that at most %GOAL% non-changeling humanoids escape on board the escape shuttle."
 	murderbone_flag = TRUE
+	admin_grantable = TRUE
+
 	var/amount = 0
 
 /datum/objective/survival_of_the_fittest/proc/generate_amount()

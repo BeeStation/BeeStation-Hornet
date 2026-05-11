@@ -1,6 +1,8 @@
 /datum/objective/assassinate
 	name = "assassinate"
-	var/target_special_role=FALSE
+	admin_grantable = TRUE
+
+	var/target_special_role = FALSE
 
 /datum/objective/assassinate/check_completion()
 	return ..() || (!considered_alive(target) || considered_afk(target))

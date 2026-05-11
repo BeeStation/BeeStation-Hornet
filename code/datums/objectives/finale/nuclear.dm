@@ -2,6 +2,7 @@
 	name = "nuclear"
 	explanation_text = "Destroy the station with a nuclear device."
 	murderbone_flag = TRUE
+	admin_grantable = TRUE
 
 /datum/objective/nuclear/check_completion()
 	if(GLOB.station_was_nuked)

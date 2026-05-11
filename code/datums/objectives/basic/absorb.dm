@@ -1,6 +1,6 @@
 /datum/objective/absorb
 	name = "absorb"
-	explanation_text = "Absorb %AMOUNT genetically compatible crew members."
+	explanation_text = "Absorb genetically compatible crew-members."
 
 /datum/objective/absorb/proc/set_absorb_amount()
 	// 1 full absorption per 10 players
@@ -9,7 +9,7 @@
 
 /datum/objective/absorb/update_explanation_text()
 	. = ..()
-	explanation_text = "Absorb [target_amount] genetically compatible crew members."
+	explanation_text = "Absorb [target_amount] genetically compatible crew-member[target_amount == 1 ? "" : "s"]."
 
 /datum/objective/absorb/admin_edit(mob/admin)
 	var/count = tgui_input_number(admin, "How many people to absorb?", "Absorb Amount", target_amount)

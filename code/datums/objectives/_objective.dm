@@ -21,6 +21,8 @@
 	var/optional = FALSE
 	/// Used to check if obj owner can buy murderbone stuff
 	var/murderbone_flag = FALSE
+	/// If this objective can be granted in the traitor panel
+	var/admin_grantable = FALSE
 
 /datum/objective/New(text)
 	. = ..()
