@@ -2,6 +2,8 @@
 #define YANDERE_PROB 50
 
 /datum/antagonist/malf_ai/forge_objectives()
+	var/datum/mind/assassination_target
+
 	if(length(GLOB.joined_player_list) >= CONFIG_GET(number/murderbone_min_pop) && prob(MURDERBONE_PROB))
 		var/special_pick = rand(1, 3)
 		switch(special_pick)
@@ -12,12 +14,15 @@
 			if(3)
 				add_objective(new /datum/objective/robot_army())
 	else
-		add_objective(new /datum/objective/assassinate(), find_target = TRUE)
+		var/datum/objective/assassinate/assassinate_objective = new()
+		add_objective(assassinate_objective, find_target = TRUE)
+		assassination_target = assassinate_objective.get_target()
 
 	// 50% chance to protect & maroon someone. Should hopefully make for some fun scenarios
 	if(prob(YANDERE_PROB))
 		var/datum/objective/protect/yandere_one = new()
-		add_objective(yandere_one, find_target = TRUE)
+		yandere_one.find_target(blacklist = list(assassination_target))
+		add_objective(yandere_one)
 
 		var/datum/objective/maroon/yandere_two = new()
 		yandere_two.target = yandere_one.target

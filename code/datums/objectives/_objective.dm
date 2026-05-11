@@ -137,19 +137,21 @@
 /datum/objective/proc/find_target(list/dupe_search_range, list/blacklist)
 	if(!dupe_search_range)
 		dupe_search_range = get_owners()
-	var/list/prefered_targets = list()
-	var/list/possible_targets = list()
+
 	var/try_target_late_joiners = FALSE
 	var/owner_is_exploration_crew = FALSE
 	var/owner_is_shaft_miner = FALSE
-	for(var/datum/mind/O as() in get_owners())
-		if(O.late_joiner)
+	for(var/datum/mind/objective_owner as anything in get_owners())
+		if(objective_owner.late_joiner)
 			try_target_late_joiners = TRUE
-		if(O.assigned_role == "Exploration Crew")
+		if(objective_owner.assigned_role == JOB_NAME_EXPLORATIONCREW)
 			owner_is_exploration_crew = TRUE
-		if(O.assigned_role == "Shaft Miner")
+		if(objective_owner.assigned_role == JOB_NAME_SHAFTMINER)
 			owner_is_shaft_miner = TRUE
-	for(var/datum/mind/possible_target as() in get_crewmember_minds())
+
+	var/list/preferred_targets = list()
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target as anything in get_crewmember_minds())
 		if(!is_valid_target(possible_target))
 			continue
 		if(!is_unique_objective(possible_target,dupe_search_range))
@@ -157,36 +159,42 @@
 		if(possible_target in blacklist)
 			continue
 
-		if(possible_target.assigned_role == "Exploration Crew")
+		if(possible_target.assigned_role == JOB_NAME_EXPLORATIONCREW)
 			if(owner_is_exploration_crew)
-				prefered_targets += possible_target
+				preferred_targets += possible_target
 			else
 				//Reduced chance to get people off station
 				if(prob(70) && !owner_is_shaft_miner)
 					continue
-		else if(possible_target.assigned_role == "Shaft Miner")
+		else if(possible_target.assigned_role == JOB_NAME_SHAFTMINER)
 			if(owner_is_shaft_miner)
-				prefered_targets += possible_target
+				preferred_targets += possible_target
 			else
 				//Reduced chance to get people off station
 				if(prob(70) && !owner_is_exploration_crew)
 					continue
 
 		possible_targets += possible_target
+
+	// If we were a latejoiner, target other latejoiners first
 	if(try_target_late_joiners)
 		var/list/all_possible_targets = possible_targets.Copy()
-		for(var/datum/mind/PT as() in all_possible_targets)
-			if(!PT.late_joiner)
-				possible_targets -= PT
-		if(!possible_targets.len)
+		for(var/datum/mind/possible_target as anything in all_possible_targets)
+			if(possible_target.late_joiner)
+				continue
+			possible_targets -= possible_target
+
+		if(!length(possible_targets))
 			possible_targets = all_possible_targets
-	//30% chance to go for a prefered target
-	if(prefered_targets.len > 0 && prob(30))
-		set_target(pick(prefered_targets))
-	else if(possible_targets.len > 0)
+
+	// 30% chance to go for a prefered target
+	if(length(preferred_targets) > 0 && prob(30))
+		set_target(pick(preferred_targets))
+	else if(length(possible_targets) > 0)
 		set_target(pick(possible_targets))
 	else
 		set_target(null)
+
 	update_explanation_text()
 	return target
 

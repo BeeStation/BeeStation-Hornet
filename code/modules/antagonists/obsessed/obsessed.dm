@@ -55,8 +55,8 @@
 
 /datum/antagonist/obsessed/Destroy()
 	if(trauma)
-		qdel(trauma)
-	. = ..()
+		QDEL_NULL(trauma)
+	return ..()
 
 /datum/antagonist/obsessed/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/current = mob_override || owner.current
