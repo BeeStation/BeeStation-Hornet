@@ -22,8 +22,8 @@
 /datum/antagonist/slaughter/forge_objectives()
 	if(summoner)
 		var/datum/objective/assassinate/assassinate_objective = new()
-		new_objective.set_target(summoner)
-		new_objective.explanation_text = "[objective_verb] [summoner.name], the one who summoned you."
+		assassinate_objective.set_target(summoner)
+		assassinate_objective.explanation_text = "[objective_verb] [summoner.name], the one who summoned you."
 		add_objective(assassinate_objective)
 
 	add_objective(new /datum/objective("[objective_verb] everyone[summoner ? " else while you're at it":""]."))

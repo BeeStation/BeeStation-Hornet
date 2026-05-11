@@ -200,7 +200,7 @@
 	if(sanitize)
 		message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 	src.log_talk(message, LOG_SAY)
-	var/rendered = span_revennotice("<b>[src]</b> haunts,"[message]\"")
+	var/rendered = span_revennotice("<b>[src]</b> haunts, \"[message]\"")
 	var/rendered_yourself = span_revennotice("You haunt to ghosts: [message]")
 	var/list/hearers = list()
 	for(var/mob/M in GLOB.mob_list)
@@ -241,7 +241,7 @@
 	. = ..()
 	if(istype(W, /obj/item/nullrod))
 		visible_message(span_warning("[src] violently flinches!"),
-						span_revendanger("Asthe [W] passes through you, you feel your essence draining away!"))
+						span_revendanger("As \the [W] passes through you, you feel your essence draining away!"))
 		adjustBruteLoss(25) //hella effective
 		inhibited = TRUE
 		update_action_buttons_icon()

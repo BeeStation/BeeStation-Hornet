@@ -66,10 +66,7 @@
 				add_objective(steal_objective)
 
 			if(3) //kill
-				if(!length(possible_targets))
-					continue
-
-				var/list/datum/mind/possible_targets = list()
+				var/list/datum/mind/potential_targets = list()
 				for(var/datum/mind/potential_target as anything in get_crewmember_minds())
 					if(!ishuman(potential_target.current))
 						continue
@@ -77,11 +74,12 @@
 						continue
 					potential_targets += potential_target
 
-				if(!length(possible_targets))
+				if(!length(potential_targets))
 					continue
 
 				var/datum/objective/assassinate/assassinate_objective = new()
-				assassinate_objective.set_target(pick(potential_targets))
+				var/datum/mind/person_to_kill = pick(potential_targets)
+				assassinate_objective.set_target(person_to_kill)
 				assassinate_objective.explanation_text = "Slay [person_to_kill.current.real_name], the [person_to_kill.assigned_role]."
 				add_objective(assassinate_objective)
 			if(4) //capture

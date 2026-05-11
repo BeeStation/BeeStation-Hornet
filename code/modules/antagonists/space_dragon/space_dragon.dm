@@ -72,8 +72,8 @@
 		area_names += initial(chosen_rift_area.name)
 
 	var/datum/objective/summon_carp/summon_objective = new()
-	summon.dragon = src
-	summon.explanation_text = "Summon 3 rifts in order to flood the station with carp. Your possible rift locations are:\n - [english_list(area_names, "ERROR", "\n - ", "\n - ")]."
+	summon_objective.dragon = src
+	summon_objective.explanation_text = "Summon 3 rifts in order to flood the station with carp. Your possible rift locations are:\n - [english_list(area_names, "ERROR", "\n - ", "\n - ")]."
 	add_objective(summon_objective)
 
 /datum/antagonist/space_dragon/on_gain()
