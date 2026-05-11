@@ -39838,6 +39838,11 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
+"oWd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/janitor,
+/turf/open/floor/iron,
+/area/station/service/janitor)
 "oWi" = (
 /obj/item/flashlight/lamp,
 /obj/structure/table/glass,
@@ -90011,7 +90016,7 @@ xAI
 stN
 nly
 nwg
-stN
+oWd
 ygh
 vfS
 vvZ
