@@ -305,13 +305,11 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "bJ" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/techmaint,
 /area/mine/production)
 "bL" = (
@@ -921,10 +919,7 @@
 /turf/open/floor/iron,
 /area/mine/atmospost)
 "fD" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -2260,10 +2255,7 @@
 /turf/open/floor/iron,
 /area/mine/laborcamp)
 "nJ" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 26
 	},
@@ -4350,10 +4342,7 @@
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "Bj" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/iron,
 /area/mine/production)
 "Bl" = (
@@ -4894,10 +4883,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Es" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/iron/grid/steel,
 /area/mine/laborcamp)
 "Ew" = (

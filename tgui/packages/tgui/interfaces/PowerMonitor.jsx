@@ -1,6 +1,7 @@
-import { map, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
+import { sortBy } from 'es-toolkit';
+import { map } from 'es-toolkit/compat';
 
 import { useBackend, useLocalState } from '../backend';
 import {
@@ -52,16 +53,15 @@ export const PowerMonitorContent = (props) => {
         // Generate a unique id
         id: area.name + i,
       })),
-    sortByField === 'name' && ((areas) => sortBy(areas, (area) => area.name)),
+    sortByField === 'name' && ((areas) => sortBy(areas, [(area) => area.name])),
     sortByField === 'charge' &&
-      ((areas) => sortBy(areas, (area) => -area.charge)),
+      ((areas) => sortBy(areas, [(area) => -area.charge])),
     sortByField === 'draw' &&
       ((areas) =>
-        sortBy(
-          areas,
+        sortBy(areas, [
           (area) => -powerRank(area.load),
           (area) => -parseFloat(area.load),
-        )),
+        ])),
   ])(data.areas);
   return (
     <>

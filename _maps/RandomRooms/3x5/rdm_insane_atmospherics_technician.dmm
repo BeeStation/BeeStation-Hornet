@@ -191,7 +191,7 @@
 	pixel_x = -5;
 	pixel_y = -6
 	},
-/obj/item/clothing/mask/cigarette{
+/obj/item/cigarette{
 	starts_lit = 1;
 	pixel_x = -7
 	},

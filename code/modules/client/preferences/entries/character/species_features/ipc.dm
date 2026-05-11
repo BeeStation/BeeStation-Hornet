@@ -46,12 +46,12 @@
 /datum/preference/color/ipc_screen_color/apply_to_human(mob/living/carbon/human/target, value)
 	if(!isipc(target))
 		return
-	target.eye_color = value
+	target.eye_color_left = value
 	var/obj/item/organ/eyes/eyes_organ = target.get_organ_by_type(/obj/item/organ/eyes)
 	if (istype(eyes_organ))
-		if (!initial(eyes_organ.eye_color))
-			eyes_organ.eye_color = value
-		eyes_organ.old_eye_color = value
+		if (!initial(eyes_organ.eye_color_left))
+			eyes_organ.eye_color_left = value
+		eyes_organ.old_eye_color_left = value
 
 /datum/preference/color/ipc_screen_color/create_default_value()
 	return COLOR_WHITE

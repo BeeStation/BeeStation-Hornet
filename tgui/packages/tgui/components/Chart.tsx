@@ -4,7 +4,8 @@
  * @license MIT
  */
 
-import { map, zip } from 'common/collections';
+import { zip } from 'es-toolkit';
+import { map } from 'es-toolkit/compat';
 import { Component, createRef, RefObject } from 'react';
 
 import { Box, BoxProps } from './Box';

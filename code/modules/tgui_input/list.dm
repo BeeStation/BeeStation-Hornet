@@ -117,8 +117,9 @@
 
 /datum/tgui_list_input/Destroy(force, ...)
 	SStgui.close_uis(src)
-	QDEL_NULL(items)
-	. = ..()
+	items?.Cut()
+	items_map?.Cut()
+	return ..()
 
 /**
  * Waits for a user's response to the tgui_list_input's prompt before returning. Returns early if

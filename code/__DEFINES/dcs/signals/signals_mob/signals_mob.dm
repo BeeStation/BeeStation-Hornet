@@ -43,8 +43,10 @@
 	#define MOVE_ARG_DIRECTION 2
 /// From base of /client/Move()
 #define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"
-/// From base of /mob/proc/reset_perspective() : ()
-#define COMSIG_MOB_RESET_PERSPECTIVE "mob_reset_perspective"
+/// From base of /mob/proc/set_mob_eye_to() : (atom/new_eye, atom/old_eye)
+#define COMSIG_MOB_SET_MOB_EYE "mob_set_mob_eye_to"
+/// This is a failsafe macro to warn someone when they port things incorrectly.
+#define COMSIG_MOB_RESET_PERSPECTIVE __do_not_use_COMSIG_MOB_RESET_PERSPECTIVE___use_COMSIG_MOB_SET_MOB_EYE()
 ///from base of obj/allowed(mob/M): (/obj) returns ACCESS_ALLOWED if mob has id access to the obj
 #define COMSIG_MOB_TRIED_ACCESS "tried_access"
 	#define ACCESS_ALLOWED (1<<0)
@@ -161,3 +163,6 @@
 
 /// Signal sent when a blackboard key is cleared
 #define COMSIG_AI_BLACKBOARD_KEY_CLEARED(blackboard_key) "ai_blackboard_key_clear_[blackboard_key]"
+
+///Fired in combat_indicator.dm, used for syncing CI between mech and pilot
+#define COMSIG_MOB_CI_TOGGLED "mob_ci_toggled"

@@ -42,10 +42,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/listeningstation)
 "er" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/iv_drip,
 /obj/machinery/light/small,
 /obj/machinery/airalarm/directional/north,
@@ -353,10 +350,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/listeningstation)
 "tf" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/toilet{
 	pixel_y = 18
 	},

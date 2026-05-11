@@ -19,11 +19,14 @@
 		TRAIT_FAST_CUFF_REMOVAL
 	)
 
+/datum/mutation/hulk/New(class, timer, datum/mutation/copymut)
+	. = ..()
+	AddComponent(/datum/component/speechmod, replacements = list("." = "!"), end_string = "!!", uppercase = TRUE)
+
 /datum/mutation/hulk/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "hulk", /datum/mood_event/hulk)
-	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	ADD_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
 	for(var/obj/item/bodypart/part as anything in owner.bodyparts)
 		part.variable_color = "#00aa00"
@@ -44,20 +47,7 @@
 		return
 	SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "hulk")
 	REMOVE_TRAIT(owner, TRAIT_CHUNKYFINGERS, TRAIT_HULK)
-	UnregisterSignal(owner, COMSIG_MOB_SAY)
 	REMOVE_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
 	for(var/obj/item/bodypart/part as anything in owner.bodyparts)
 		part.variable_color = null
 	owner.update_body_parts()
-
-/datum/mutation/hulk/proc/handle_speech(datum/source, list/speech_args)
-	SIGNAL_HANDLER
-
-	var/message = speech_args[SPEECH_MESSAGE]
-	if(message)
-		message = "[replacetext(message, ".", "!")]!!"
-	speech_args[SPEECH_MESSAGE] = message
-
-	// the reason we don't just uppertext(message) in this proc is so that our hulk speech
-	// can uppercase all other speech moidifiers after they are done (by returning COMPONENT_UPPERCASE_SPEECH)
-	return COMPONENT_UPPERCASE_SPEECH
