@@ -32014,6 +32014,11 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
+"lEO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/janitor,
+/turf/open/floor/iron,
+/area/station/service/janitor)
 "lFs" = (
 /obj/machinery/computer/security{
 	dir = 1
@@ -39838,11 +39843,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
-"oWd" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/janitor,
-/turf/open/floor/iron,
-/area/station/service/janitor)
 "oWi" = (
 /obj/item/flashlight/lamp,
 /obj/structure/table/glass,
@@ -50717,9 +50717,6 @@
 	pixel_y = -26
 	},
 /obj/effect/turf_decal/trimline/brown/line,
-/obj/structure/railing/sec{
-	dir = 1
-	},
 /turf/open/floor/iron/smooth_large,
 /area/station/cargo/storage)
 "thU" = (
@@ -90016,7 +90013,7 @@ xAI
 stN
 nly
 nwg
-oWd
+lEO
 ygh
 vfS
 vvZ
