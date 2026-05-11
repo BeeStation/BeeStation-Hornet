@@ -308,7 +308,7 @@
 	if(!(obscured & ITEM_SLOT_EYES) )
 		if(glasses  && !HAS_TRAIT(glasses, TRAIT_EXAMINE_SKIP))
 			. += "[t_He] [t_has] [glasses.examine_title(user)] covering [t_his] eyes."
-		else if(HAS_TRAIT(src, CULT_EYES))
+		else if(HAS_TRAIT(src, TRAIT_UNNATURAL_RED_GLOWY_EYES))
 			. += span_boldwarning("[t_His] eyes are glowing with an unnatural red aura!")
 		else if(HAS_TRAIT(src, TRAIT_BLOODSHOT_EYES))
 			. += span_boldwarning("[t_His] eyes are bloodshot!")
@@ -342,7 +342,7 @@
 	if(!(obscured & ITEM_SLOT_EYES) )
 		if(glasses  && !HAS_TRAIT(glasses, TRAIT_EXAMINE_SKIP))
 			. += "[t_He] [t_has] [glasses.examine_worn_title(src, user)] covering [t_his] eyes."
-		else if(HAS_TRAIT(src, CULT_EYES))
+		else if(HAS_TRAIT(src, TRAIT_UNNATURAL_RED_GLOWY_EYES))
 			. += span_boldwarning("[t_His] eyes are glowing with an unnatural red aura!")
 		else if(HAS_TRAIT(src, TRAIT_BLOODSHOT_EYES))
 			. += span_boldwarning("[t_His] eyes are bloodshot!")

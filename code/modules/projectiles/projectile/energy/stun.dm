@@ -436,6 +436,12 @@
 		return
 	if(!istype(taser, /obj/item))
 		return
+	// Cyborgs can't have their guns thrown away, so just end the tase,
+	// though im not sure how we would reach this? Better safe than sorry.
+	if(iscyborg(source))
+		owner.visible_message(span_warning("[attacker] disarms [source], disrupting the taser connection!"))
+		end_tase()
+		return
 	var/obj/item/taser_object = taser
 	taser_object.forceMove(get_turf(taser_object))
 	taser_object.throw_at(get_edge_target_turf(source, get_dir(attacker.loc, source.loc)), 2, 1, spin = TRUE)
@@ -447,6 +453,11 @@
 	if(!istype(taser, /obj/item))
 		return
 	if (!weapon.force)
+		return
+	// Cyborgs can't have their guns thrown away, so just end the tase
+	if(iscyborg(source))
+		owner.visible_message(span_warning("[attacker] smashes the [weapon] into [source], disrupting the taser connection!"))
+		end_tase()
 		return
 	var/obj/item/taser_object = taser
 	taser_object.forceMove(get_turf(taser_object))
