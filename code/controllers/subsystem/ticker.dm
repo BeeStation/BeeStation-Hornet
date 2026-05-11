@@ -453,7 +453,8 @@ SUBSYSTEM_DEF(ticker)
 			for(var/mob/dead/new_player/authenticated/candidate in spare_id_candidates)
 				SSjob.promote_to_captain(candidate.new_character, captainless)
 		else
-			SSjob.promote_to_captain(pick(spare_id_candidates).new_character, captainless)
+			var/mob/dead/new_player/authenticated/candidate = pick(spare_id_candidates)
+			SSjob.promote_to_captain(candidate.new_character, captainless)
 
 	for(var/mob/dead/new_player/authenticated/new_player_mob as anything in GLOB.auth_new_player_list)
 		if(QDELETED(new_player_mob) || !isliving(new_player_mob.new_character))
