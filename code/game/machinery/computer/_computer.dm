@@ -9,7 +9,7 @@
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50 WATT
-	active_power_usage = 300 WATT // Code does not care for this at all yet
+	active_power_usage = 300 WATT
 	max_integrity = 200
 	integrity_failure = 0.5
 	armor_type = /datum/armor/machinery_computer
