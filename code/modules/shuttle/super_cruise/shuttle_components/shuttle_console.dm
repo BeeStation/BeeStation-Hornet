@@ -47,7 +47,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 
 /obj/machinery/computer/shuttle_flight/Destroy()
 	. = ..()
-	SSorbits.open_orbital_maps -= SStgui.get_all_open_uis(src)
+	if(LAZYLEN(open_uis))
+		SSorbits.open_orbital_maps -= open_uis
 	shuttleObject = null
 	//De-link the port
 	if(my_port)

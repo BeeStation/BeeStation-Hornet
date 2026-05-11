@@ -61,6 +61,7 @@
 
 /obj/machinery/vending/deputy/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/gps, "DepVend")
 	radio = new /obj/item/radio(src)
 	radio.set_listening(FALSE)
 	radio.set_frequency(FREQ_COMMON)
@@ -118,8 +119,9 @@
 
 		if(!..())
 			return FALSE
+
 		playsound(src, 'sound/effects/startup.ogg', 100, FALSE)
-		radio.talk_into(src, "[buyer], [get_area(src)], has just enlisted for Auri Private Security's volunteer deputy program! APS thanks you for your service, and reminds all crew members: **Unauthorized enforcement is strictly prohibited!** Remember; Compliance is a team effort!")
+		radio.talk_into(src, "[buyer] has just enlisted for Auri Private Security's volunteer deputy program! APS thanks you for your service, and reminds all crew members: **Unauthorized enforcement is strictly prohibited!** Remember; Compliance is a team effort!")
 		return TRUE
 
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)

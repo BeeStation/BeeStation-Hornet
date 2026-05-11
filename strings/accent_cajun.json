@@ -1,0 +1,56 @@
+{
+	"words": {
+		"hello": ["hey cher", "hey ya"],
+		"hi": "hey cher",
+		"goodbye": ["à plus", "later cher"],
+		"yes": ["yeah", "mais yeah"],
+		"no": "naw",
+		"okay": "c'est bon",
+		"ok": "c'est bon",
+		"thanks": "merci",
+		"thank you": "merci",
+		"of course": "mais yeah",
+		"friend": "cher",
+		"bro": "cher",
+		"very": "real",
+		"really": "real",
+		"great": "magnifique",
+		"good": "bien",
+		"fun": "bon temps",
+		"party": "fais do-do",
+		"food": "grub",
+		"let's go": "allons",
+		"come on": "allons",
+		"captain": "capitaine",
+		"bar": "cabaret",
+		"security": "les flics",
+		"sec": "les flics",
+		"shitsec": "les flics",
+		"shitcurity": "les flics",
+		"secoff": "flic",
+		"officer": "flic",
+		"hos": "chef",
+		"head of security": "chef",
+		"traitor": "traître",
+		"changeling": "rougarou",
+		"brig": "le cachot",
+		"prison": "le cachot",
+		"perma": "le cachot",
+		"wizard": "traiteur",
+		"id": "papiers"
+	},
+	"start": {
+		"th": "d"
+	},
+	"end": {
+		"ing": "in'"
+	},
+	"syllables": {
+		"th": "d",
+		"oi": "aw"
+	},
+	"appends": [
+		"cher.",
+		"mais."
+	]
+}
