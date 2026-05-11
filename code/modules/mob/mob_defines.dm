@@ -93,8 +93,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 
 	/// used for /client/eye variable. Saving which eye this mob is supposed to use when a client is attached to this mob.
 	var/atom/current_mob_eye
-	/// Is the mob blind
-	var/eye_blind = 0		//Carbon
 	/// What is the mobs real name (name is overridden for disguises etc)
 	var/real_name = null
 

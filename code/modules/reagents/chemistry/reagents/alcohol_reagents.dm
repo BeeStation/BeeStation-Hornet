@@ -3120,5 +3120,8 @@
 		shake_camera(affected_mob, 15)
 		affected_mob.playsound_local(affected_mob.loc, "sound/effects/hyperspace_end.ogg", 50)
 		affected_mob.become_nearsighted("ftliver")
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/carbon, cure_nearsighted), "ftliver"), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(delayed_cure_nearsighted), affected_mob), 5 SECONDS)
 
+/datum/reagent/consumable/ethanol/ftliver/proc/delayed_cure_nearsighted(mob/living/carbon/target)
+	if(target && !QDELETED(target))
+		target.cure_nearsighted("ftliver")

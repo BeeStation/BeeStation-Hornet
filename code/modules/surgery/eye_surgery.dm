@@ -47,11 +47,9 @@
 		span_notice("[user] successfully fixes [target]'s eyes!"),
 		span_notice("[user] completes the surgery on [target]'s eyes."),
 	)
-	target.cure_blind(list(EYE_DAMAGE))
-	target.set_blindness(0)
-	target.cure_nearsighted(list(EYE_DAMAGE))
+	target.remove_status_effect(/datum/status_effect/temporary_blindness)
 	target.set_eye_blur_if_lower(70 SECONDS) //this will fix itself slowly.
-	E.set_organ_damage(0)
+	E.set_organ_damage(0) // heals nearsightedness and blindness from eye damage
 	return ..()
 
 /datum/surgery_step/fix_eyes/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

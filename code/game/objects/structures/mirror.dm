@@ -132,6 +132,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 	. = ..()
 	if(.)
 		return
+		
 	if(!ishuman(user))
 		return
 

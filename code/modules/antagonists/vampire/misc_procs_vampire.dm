@@ -342,7 +342,7 @@
 		return FALSE
 	if(watcher.stat != CONSCIOUS)
 		return FALSE
-	if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
+	if(watcher.is_blind() || watcher.is_nearsighted_currently())
 		return FALSE
 	if(watcher in owner.current?.holoparasites())
 		return FALSE

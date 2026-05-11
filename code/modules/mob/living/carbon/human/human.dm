@@ -57,7 +57,7 @@
 /// Gaining said organs removes these effects
 /mob/living/carbon/human/proc/setup_organless_effects()
 	// All start without eyes, and get them via set species
-	//become_blind(NO_EYES)
+	become_blind(NO_EYES)
 	// Mobs cannot taste anything without a tongue; the tongue organ removes this on Insert
 	ADD_TRAIT(src, TRAIT_AGEUSIA, NO_TONGUE_TRAIT)
 
@@ -618,7 +618,7 @@
 	if(!is_mouth_covered() && clean_lips())
 		. = TRUE
 
-	if(glasses && is_eyes_covered(FALSE, TRUE, TRUE) && glasses.wash(clean_types))
+	if(glasses && is_eyes_covered(ITEM_SLOT_MASK|ITEM_SLOT_HEAD) && glasses.wash(clean_types))
 		update_worn_glasses()
 		. = TRUE
 
@@ -718,11 +718,6 @@
 	if(locked_record)
 		locked_record.name = newname
 
-/mob/living/carbon/human/get_total_tint()
-	. = ..()
-	if(glasses)
-		. += glasses.tint
-
 /mob/living/carbon/human/update_health_hud()
 	if(!client || !hud_used)
 		return
@@ -785,9 +780,6 @@
 		heat_exposure_stacks = 0
 
 	return ..()
-
-/mob/living/carbon/human/is_literate()
-	return TRUE
 
 /mob/living/carbon/human/vomit(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, toxic = 0)
 	if(blood && HAS_TRAIT(src, TRAIT_NOBLOOD))
