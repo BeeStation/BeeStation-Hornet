@@ -32,7 +32,7 @@
 
 /datum/antagonist/traitor/on_removal()
 	if(!silent && owner.current)
-		to_chat(owner.current,span_userdanger(" You are no longer the [special_role]! "))
+		to_chat(owner.current, span_userdanger(" You are no longer the [special_role]! "))
 	owner.special_role = null
 	..()
 
@@ -42,10 +42,6 @@
 	message = GLOB.syndicate_code_phrase_regex.Replace(message, span_blue("$1"))
 	message = GLOB.syndicate_code_response_regex.Replace(message, span_red("$1"))
 	hearing_args[HEARING_RAW_MESSAGE] = message
-
-/datum/antagonist/traitor/proc/add_objective(datum/objective/O)
-	objectives += O
-	log_objective(owner, O.explanation_text)
 
 /datum/antagonist/traitor/greet()
 	var/list/msg = list()
@@ -213,8 +209,8 @@
 
 /// Proc detailing contract kit buys/completed contracts/additional info
 /datum/antagonist/traitor/proc/contractor_round_end()
-	var result = ""
-	var total_spent_rep = 0
+	var/result = ""
+	var/total_spent_rep = 0
 
 	var/completed_contracts = 0
 	var/tc_total = contractor_hub.contract_TC_payed_out + contractor_hub.contract_TC_to_redeem
@@ -254,7 +250,6 @@
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	var message = "<br><b>The code phrases were:</b> [span_bluetext("[phrases]")]<br>\
-					<b>The code responses were:</b> [span_redtext("[responses]")]<br>"
+	var/message = "<br><b>The code phrases were:</b> [span_bluetext(phrases)]<br><b>The code responses were:</b> [span_redtext(responses)]<br>"
 
 	return message

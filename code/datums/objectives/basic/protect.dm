@@ -1,7 +1,7 @@
 //The opposite of killing a dude.
 /datum/objective/protect
 	name = "protect"
-	var/target_role_type = FALSE
+	var/target_special_role = FALSE
 	var/human_check = TRUE
 
 /datum/objective/protect/check_completion()
@@ -19,7 +19,7 @@
 /datum/objective/protect/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Protect [target.name], the [!target_role_type ? target.assigned_role : target.special_role]."
+		explanation_text = "Protect [target.name], the [!target_special_role ? target.assigned_role : target.special_role]."
 	else
 		explanation_text = "Free Objective"
 

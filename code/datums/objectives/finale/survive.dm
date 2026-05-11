@@ -3,8 +3,8 @@
 	explanation_text = "Stay alive until the end."
 
 /datum/objective/survive/check_completion()
-	for(var/datum/mind/M as() in get_owners())
-		if(!considered_alive(M))
+	for(var/datum/mind/objective_owner as anything in get_owners())
+		if(!considered_alive(objective_owner))
 			return ..()
 	return TRUE
 
@@ -13,8 +13,7 @@
 	explanation_text = "Prevent your own deactivation"
 
 /datum/objective/survive/malf/check_completion()
-	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/mindobj in owners)
-		if(!iscyborg(mindobj) && !considered_alive(mindobj, FALSE)) //Shells (and normal borgs for that matter) are considered alive for Malf
-			return FALSE
+	for(var/datum/mind/objective_owner as anything in get_owners())
+		if(!iscyborg(objective_owner) && !considered_alive(objective_owner, FALSE)) //Shells (and normal borgs for that matter) are considered alive for Malf
+			return ..()
 		return TRUE

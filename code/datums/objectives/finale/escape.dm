@@ -5,22 +5,10 @@
 
 /datum/objective/escape/check_completion()
 	// Require all owners escape safely.
-	for(var/datum/mind/M as() in get_owners())
-		if(!considered_escaped(M))
+	for(var/datum/mind/objective_owner as anything in get_owners())
+		if(!considered_escaped(objective_owner))
 			return ..()
 	return TRUE
-
-/datum/objective/escape/single
-	name = "escape"
-	explanation_text = "Escape on the shuttle or an escape pod alive and without being in custody."
-	team_explanation_text = "Have at least one of your members escape on the shuttle or escape pod alive and without being in custody."
-
-/datum/objective/escape/single/check_completion()
-	// Require all owners escape safely.
-	for(var/datum/mind/M as() in get_owners())
-		if(considered_escaped(M))
-			return TRUE
-	return ..()
 
 /datum/objective/escape/escape_with_identity
 	name = "escape with identity"
@@ -28,38 +16,39 @@
 	var/target_missing_id
 
 /datum/objective/escape/escape_with_identity/is_valid_target(datum/mind/possible_target)
-	for(var/datum/mind/M as() in get_owners())
-		var/datum/antagonist/changeling/C = M.has_antag_datum(/datum/antagonist/changeling)
-		if(!C)
+	for(var/datum/mind/objective_owner as anything in get_owners())
+		var/datum/antagonist/changeling/ling = objective_owner.has_antag_datum(/datum/antagonist/changeling)
+		if(!ling)
 			continue
-		var/datum/mind/T = possible_target
-		if(!istype(T) || !C.can_absorb_dna(T.current, verbose=FALSE))
+
+		if(!istype(possible_target) || !ling.can_absorb_dna(possible_target.current, verbose = FALSE, ignore_duplicates = TRUE))
 			return FALSE
 	return ..()
 
 /datum/objective/escape/escape_with_identity/update_explanation_text()
-	if(target && target.current)
-		target_real_name = target.current.real_name
-		explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role]"
-		var/mob/living/carbon/human/H
-		if(ishuman(target.current))
-			H = target.current
-		if(H && H.get_id_name() != target_real_name)
-			target_missing_id = 1
-		else
-			explanation_text += " while wearing their identification card"
-		explanation_text += "." //Proper punctuation is important!
-	else
+	if(!target?.current)
 		explanation_text = "Free Objective."
+		return
+
+	target_real_name = target.current.real_name
+	explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role]"
+	var/mob/living/carbon/human/H
+	if(ishuman(target.current))
+		H = target.current
+	if(H && H.get_id_name() != target_real_name)
+		target_missing_id = 1
+	else
+		explanation_text += " while wearing their identification card"
+	explanation_text += "." //Proper punctuation is important!
 
 /datum/objective/escape/escape_with_identity/check_completion()
 	if(!target || !target_real_name)
 		return TRUE
-	for(var/datum/mind/M as() in get_owners())
-		if(!ishuman(M.current) || !considered_escaped(M))
+	for(var/datum/mind/objective_owner as anything in get_owners())
+		if(!ishuman(objective_owner.current) || !considered_escaped(objective_owner))
 			continue
-		var/mob/living/carbon/human/H = M.current
-		if(H.dna.real_name == target_real_name && (H.get_id_name() == target_real_name || target_missing_id))
+		var/mob/living/carbon/human/human_owner = objective_owner.current
+		if(human_owner.dna.real_name == target_real_name && (human_owner.get_id_name() == target_real_name || target_missing_id))
 			return TRUE
 	return ..()
 

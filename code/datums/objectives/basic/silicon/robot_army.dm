@@ -1,20 +1,22 @@
 /datum/objective/robot_army
 	name = "robot army"
 	explanation_text = "Have at least eight active cyborgs synced to you."
-	martyr_compatible = FALSE
-	var/counter = 0
+
+	var/cyborgs_synced = 0
 
 /datum/objective/robot_army/check_completion()
-	counter = 0
-	for(var/datum/mind/M as() in get_owners())
-		if(!M.current || !isAI(M.current))
+	cyborgs_synced = 0
+	for(var/datum/mind/objective_owner as anything in get_owners())
+		if(!isAI(objective_owner.current))
 			continue
-		var/mob/living/silicon/ai/A = M.current
-		for(var/mob/living/silicon/robot/R as() in A.connected_robots)
-			if(R.stat != DEAD)
-				counter++
-	return (counter >= 8) || ..()
+
+		var/mob/living/silicon/ai/ai = objective_owner.current
+		for(var/mob/living/silicon/robot/connected_borg as anything in ai.connected_robots)
+			if(connected_borg.stat != DEAD)
+				cyborgs_synced++
+
+	return (cyborgs_synced >= 8) || ..()
 
 /datum/objective/robot_army/get_completion_message()
-	var/span = check_completion() ? "grentext" : "redtext"
-	return "[explanation_text] <span class='[span]'>[counter] cyborgs synced!</span>"
+	var/span = check_completion() ? "greentext" : "redtext"
+	return "[explanation_text] <span class='[span]'>[cyborgs_synced] cyborgs synced!</span>"

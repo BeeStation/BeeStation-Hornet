@@ -415,9 +415,16 @@
  */
 /datum/config_entry/number/random_loot_weight_modifier
 	integer = FALSE
-	default = 1
+	config_entry_value = 1
 	min_val = 0.05
 
 /datum/config_entry/flag/common_radio_audio
-	config_entry_value = 1
-	default = 1
+	config_entry_value = TRUE
+
+/// Murderbone objectives for normal antags cannot be rolled below this pop
+/// Pop here refers to the amount of people who have joined the round, not connected clients
+/// Some antags like nukie, wizard, and malf AI will always be murderbone
+/datum/config_entry/number/murderbone_min_pop
+	min_val = 0
+	config_entry_value = 15
+

@@ -746,16 +746,15 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		. += borg
 
 /// Returns a list of AI's
-/proc/active_ais(check_mind=FALSE)
+/proc/active_ais(check_mind = FALSE)
 	. = list()
 	for(var/mob/living/silicon/ai/ai as anything in GLOB.ai_list)
 		if(ai.stat == DEAD)
 			continue
 		if(ai.control_disabled)
 			continue
-		if(check_mind)
-			if(!ai.mind)
-				continue
+		if(check_mind && !ai.mind)
+			continue
 		. += ai
 
 /// Find an active ai with the least borgs. VERBOSE PROCNAME HUH!

@@ -379,8 +379,6 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!SSticker.HasRoundStarted())
 				tgui_alert(usr, "The game hasn't started yet!")
 				return
-			if(!GLOB.admin_objective_list)
-				generate_admin_objective_list()
 			if(!GLOB.admin_antag_list)
 				generate_admin_antag_list()
 			//Get Antag Type

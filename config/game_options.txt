@@ -555,3 +555,8 @@ RANDOM_LOOT_WEIGHT_MODIFIER 1
 
 ## Whether talking on the common channel makes radio noises
 COMMON_RADIO_AUDIO
+
+# Murderbone objectives for normal antags cannot be rolled below this pop
+# Pop here refers to the amount of people who have joined the round, not connected clients
+# Some antags like nukie, wizard, and malf AI will always be murderbone
+MURDERBONE_MIN_POP 15

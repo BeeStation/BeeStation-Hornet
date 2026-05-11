@@ -1,5 +1,4 @@
 /datum/objective/vampire
-	martyr_compatible = TRUE
 
 /datum/objective/vampire/New()
 	update_explanation_text()

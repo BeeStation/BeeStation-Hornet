@@ -368,8 +368,16 @@ GLOBAL_LIST(admin_antag_list)
 
 /// Gets how fast we can hijack the shuttle, return 0 for can not hijack. Defaults to hijack_speed var, override for custom stuff like buffing hijack speed for hijack objectives or something.
 /datum/antagonist/proc/hijack_speed()
-	var/datum/objective/hijack/H = locate() in objectives
-	return H?.hijack_speed_override || hijack_speed
+	var/datum/objective/hijack/hijack_objective = locate() in objectives
+	return hijack_objective?.hijack_speed_override || hijack_speed
+
+/// Helper proc to more easily add an objective
+/datum/antagonist/proc/add_objective(datum/objective/new_objective, find_target = FALSE)
+	new_objective.owner = owner
+	if(find_target)
+		new_objective.find_target()
+	objectives += new_objective
+	log_objective(owner, new_objective.explanation_text)
 
 /// Used to create objectives for the antagonist.
 /datum/antagonist/proc/forge_objectives()

@@ -1,5 +1,3 @@
-GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
-
 /datum/objective
 	abstract_type = /datum/objective
 
@@ -19,32 +17,31 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/target_amount = 0
 	/// If the objective is to be marked as completed, regardless of any conditions. Currently only used for custom objectives.
 	var/completed = FALSE
-	/// If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
-	var/martyr_compatible = TRUE
 	/// Whether the objective should show up as optional in the roundend screen
 	var/optional = FALSE
 	/// Used to check if obj owner can buy murderbone stuff
 	var/murderbone_flag = FALSE
 
 /datum/objective/New(text)
+	. = ..()
 	if(text)
 		explanation_text = text
 
 //Apparently objectives can be qdel'd. Learn a new thing every day
 /datum/objective/Destroy()
 	set_target(null)
-	if(team)
-		team.objectives -= src
-	for(var/datum/mind/own as() in get_owners())
-		for(var/datum/antagonist/A as() in own.antag_datums)
-			A.objectives -= src
-		own.crew_objectives -= src
+	team?.objectives -= src
+	for(var/datum/mind/objective_owner as anything in get_owners())
+		for(var/datum/antagonist/antag_datum as anything in objective_owner.antag_datums)
+			antag_datum.objectives -= src
+		objective_owner.crew_objectives -= src
 	return ..()
 
 /datum/objective/proc/get_owners() // Combine owner and team into a single list.
-	. = (team && team.members) ? team.members.Copy() : list()
+	var/list/owners = team?.members?.Copy() || list()
 	if(owner)
-		. += owner
+		owners += owner
+	return owners
 
 /datum/objective/proc/admin_edit(mob/admin)
 	return
@@ -92,7 +89,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	return completed
 
 /datum/objective/proc/get_completion_message()
-	return check_completion() ? "[explanation_text] [span_greentext("Success!")]" : "[explanation_text] [span_redtext("Fail.")]"
+	return "[explanation_text] [check_completion() ? span_greentext("Success!") : span_redtext("Fail.")]"
 
 /datum/objective/proc/is_unique_objective(possible_target, list/dupe_search_range)
 	if(!islist(dupe_search_range))

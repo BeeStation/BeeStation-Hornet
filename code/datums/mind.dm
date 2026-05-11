@@ -474,9 +474,6 @@
 						else
 							target_antag = target
 
-		if(!GLOB.admin_objective_list)
-			generate_admin_objective_list()
-
 		if(old_objective)
 			if(old_objective.name in GLOB.admin_objective_list)
 				def_value = old_objective.name
@@ -603,8 +600,8 @@
 /datum/mind/proc/is_murderbone()
 	if(enslaved_to?.is_murderbone())
 		return TRUE
-	for(var/datum/objective/O as() in get_all_objectives())
-		if(O.murderbone_flag)
+	for(var/datum/objective/objective as anything in get_all_objectives())
+		if(objective.murderbone_flag)
 			return TRUE
 	return FALSE
 

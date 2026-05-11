@@ -64,7 +64,7 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	if(c.chem_charges < chemical_cost)
 		to_chat(user, span_warning("We require at least [chemical_cost] unit\s of chemicals to do that!"))
 		return FALSE
-	if(c.absorbed_count < req_dna)
+	if(c.absorbed_genomes < req_dna)
 		to_chat(user, span_warning("We require at least [req_dna] sample\s of compatible DNA."))
 		return FALSE
 	if((HAS_TRAIT(user, TRAIT_DEATHCOMA)) && (!ignores_fakedeath))
