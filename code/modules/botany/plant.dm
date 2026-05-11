@@ -73,13 +73,13 @@
 	if(do_after(user, 2.5 SECONDS, plant_item.loc) && !length(item.contents)) //Check contents twice cuz time frame changes
 		//Remove the plant from it's old home
 		var/atom/movable/AM = plant_item.loc
-		if(istype(AM))
+		if(istype(AM) || isturf(AM))
 			AM.vis_contents -= plant_item
 		//Move to new home
 		SEND_SIGNAL(src, COMSIG_PLANT_UPROOTED, user, item, plant_item.loc)
 		plant_item.forceMove(item)
 		plant_item.vis_flags = VIS_INHERIT_ID | VIS_INHERIT_LAYER | VIS_INHERIT_PLANE
-		item.vis_contents += plant_item
+		item.vis_contents |= plant_item
 		RegisterSignal(item, COMSIG_ITEM_PRE_ATTACK, PROC_REF(catch_spade_attack))
 		RegisterSignal(plant_item, COMSIG_MOVABLE_MOVED, PROC_REF(catch_moved))
 		spading = FALSE
@@ -117,7 +117,7 @@
 	SEND_SIGNAL(src, COMSIG_PLANT_PLANTED, target)
 	plant_item.forceMove(target)
 	plant_item.vis_flags = plant_item::vis_flags
-	target.vis_contents += plant_item
+	target.vis_contents |= plant_item
 	spade.vis_contents -= plant_item
 
 /datum/component/plant/proc/catch_moved(datum/source, atom/movable/old_loc, dir)

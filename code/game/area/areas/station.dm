@@ -15,7 +15,7 @@
 	ambience_index = AMBIENCE_MAINT
 	ambient_buzz = 'sound/ambience/source_corridor2.ogg'
 	ambient_buzz_vol = 20
-	area_flags = HIDDEN_STASH_LOCATION | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED
+	area_flags = HIDDEN_STASH_LOCATION | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED | MAINT_FLORA
 	rare_ambient_sounds = list(
 		'sound/machines/airlock.ogg',
 		'sound/effects/snap.ogg',

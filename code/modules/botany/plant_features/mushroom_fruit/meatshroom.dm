@@ -8,6 +8,7 @@
 	fruit_product = /obj/item/food/badrecipe
 	total_volume = PLANT_FRUIT_VOLUME_MICRO
 	growth_time = PLANT_FRUIT_GROWTH_FAST
+	genetic_budget = 3
 	fast_reagents = list(/datum/reagent/drug/space_drugs = PLANT_REAGENT_SMALL)
 	mutations = list(/datum/plant_feature/fruit/mushroom/mess/meat)
 

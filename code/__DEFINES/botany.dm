@@ -3,6 +3,10 @@
 #define PLANT_FEATURE_BODY (1<<1)
 #define PLANT_FEATURE_ROOTS (1<<2)
 
+///random seed categories
+#define SEED_RANDOM_KIRBY (1<<0)
+#define SEED_RANDOM_MAINT (1<<2)
+
 ///Plant data format
 #define PLANT_DATA(title, data) list("data_title" = title, "data_field" = data)
 

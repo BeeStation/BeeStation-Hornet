@@ -3,6 +3,8 @@
 */
 /obj/item/plant_seeds/preset/kirby
 	name = "designer seeds"
+	random_flags = SEED_RANDOM_KIRBY
+	abstract_type = /obj/item/plant_seeds/preset/kirby
 
 /*
 	Traditional Kirbies

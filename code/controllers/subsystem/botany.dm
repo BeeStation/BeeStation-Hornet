@@ -1,3 +1,6 @@
+//How many turfs are required to generate atleast 1 maint flora
+#define MAINT_FLORA_COST 30
+
 SUBSYSTEM_DEF(botany)
 	name = "Botany"
 	flags = SS_NO_FIRE
@@ -30,6 +33,7 @@ SUBSYSTEM_DEF(botany)
 
 //Random seeds
 	///List of all random seeds
+	//TODO: this organmizes seed by flag, but seeds with multiple flags appear in a new list instead of both - Racc
 	var/list/random_seeds = list()
 	///List of unused random seeds
 	var/list/unused_random_seeds = list()
@@ -55,8 +59,11 @@ SUBSYSTEM_DEF(botany)
 		if(initial(need.overdraw_need))
 			overdraw_needs += need
 //Build random seeds lists
-	for(var/obj/item/plant_seeds/preset/kirby/seed as anything in subtypesof(/obj/item/plant_seeds/preset/kirby))
-		random_seeds += seed
+	for(var/obj/item/plant_seeds/preset/kirby/seed as anything in subtypesof(/obj/item/plant_seeds/preset))
+		if(!initial(seed.random_flags) || seed == initial(seed.abstract_type))
+			continue
+		random_seeds["[initial(seed.random_flags)]"] ||= list()
+		random_seeds["[initial(seed.random_flags)]"] += seed
 //Build random traits
 	for(var/datum/plant_trait/trait as anything in valid_subtypesof(/datum/plant_trait))
 		if(!initial(trait.random_trait))
@@ -149,15 +156,15 @@ SUBSYSTEM_DEF(botany)
 			dictionary_links[link_feature] = dictionary_links[link_feature] || list()
 			dictionary_links[link_feature] += "[REF(seeds)]"
 
-/datum/controller/subsystem/botany/proc/get_seed(consider_unused = TRUE)
+/datum/controller/subsystem/botany/proc/get_seed(flags = SEED_RANDOM_KIRBY, consider_unused = TRUE)
 	if(!consider_unused)
-		return pick(random_seeds)
-	if(!length(unused_random_seeds))
-		var/list/copy_list = random_seeds
-		unused_random_seeds = copy_list.Copy()
-	var/trait = pick(unused_random_seeds)
-	unused_random_seeds -= trait
-	return trait
+		return pick(random_seeds["[flags]"])
+	if(!length(unused_random_seeds["[flags]"]))
+		var/list/copy_list = random_seeds["[flags]"]
+		unused_random_seeds["[flags]"] = copy_list.Copy()
+	var/seed = pick(unused_random_seeds["[flags]"])
+	unused_random_seeds -= seed
+	return seed
 
 /datum/controller/subsystem/botany/proc/get_random_need()
 	return pick(overdraw_needs)
@@ -179,6 +186,44 @@ SUBSYSTEM_DEF(botany)
 		fast_reagents["[reagent.name][reagent.volume_percentage]"] = reagent
 		SSbotany.chapters["traits"] = SSbotany.chapters["traits"] || list() //Race condition weirdness
 		SSbotany.chapters["traits"] += reagent
+
+/datum/controller/subsystem/botany/proc/generate_maint_flora(area/maint)
+//Pick a turf
+	var/list/turfs = maint.get_turfs_from_all_zlevels()
+	var/amount = round(maint.areasize / MAINT_FLORA_COST)
+	if(amount <= 0)
+		return
+	var/list/choosen = list()
+	for(var/index in 1 to amount)
+		var/turf/choosen_turf = pick(turfs-choosen)
+		if(istype(choosen_turf, /turf/closed))
+			continue
+		choosen += choosen_turf
+//Add planter components
+		var/datum/component/planter/planter = choosen_turf.AddComponent(/datum/component/planter, _layer_upset = -0.5, _gain_weeds = FALSE)
+		planter.set_substrate(/datum/plant_subtrate/fairy)
+		planter.allow_substrate_change = FALSE
+//plant flora
+		var/obj/item/plant_seeds/preset/seed = SSbotany.get_seed(SEED_RANDOM_MAINT)
+		seed = new seed(src)
+		var/datum/component/plant/plant_component = seed.plant(choosen_turf, logic = TRUE)
+		plant_component.skip_growth = TRUE
+
+		//Add some bonus traits to it
+		for(var/datum/plant_feature/feature as anything in plant_component.plant_features)
+			//Remove possible duplicates - kind of a fucked up way of doing it tbh
+			for(var/datum/plant_trait/trait as anything in feature.plant_traits)
+				if(trait.allow_multiple)
+					continue
+				//Essentially just remove ourselves from the pool of possible random traits - Don't worry, this gets refilled!
+				if(!SSbotany.unused_random_traits["[feature.trait_type_shortcut]"]) //For nectar, and any other weirdo future traits
+					continue
+				SSbotany.unused_random_traits["[feature.trait_type_shortcut]"] -= trait.type
+			var/datum/plant_trait/trait = SSbotany.get_random_trait("[feature.trait_type_shortcut]")
+			trait = new trait(feature)
+			feature.plant_traits += trait
+		//Update species ID to reflect new traits
+		plant_component.compile_species_id()
 
 //Formatted like "[feature](trait-types)-[feature](trait-types)-[feature](trait-types)"
 ///Use this to generate a species ID based on our feature's and their traits
@@ -206,3 +251,5 @@ SUBSYSTEM_DEF(botany)
 	SEND_SIGNAL(fruit, COMSIG_PLANT_GET_GENES, genes)
 	var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in genes[PLANT_GENE_INDEX_FEATURES]
 	return fruit_feature?.trait_power
+
+#undef MAINT_FLORA_COST

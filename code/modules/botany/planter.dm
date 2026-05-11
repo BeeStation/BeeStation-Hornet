@@ -189,6 +189,8 @@
 	var/plant_comp = exiting.GetComponent(/datum/component/plant)
 	if(!plant_comp)
 		return
+	if(!(plant_comp in plants))
+		return
 	exiting.layer -= layer_upset
 	exiting.pixel_x -= visual_upset[1]
 	exiting.pixel_y -= visual_upset[2]

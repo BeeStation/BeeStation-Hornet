@@ -14,6 +14,7 @@
 	plant_traits = list(/datum/plant_trait/fruit/biolight/green)
 	fast_reagents = list(/datum/reagent/uranium/radium = PLANT_REAGENT_SMALL, /datum/reagent/phosphorus = PLANT_REAGENT_SMALL)
 	mutations = list(/datum/plant_feature/fruit/mushroom/glowshroom/glowcap)
+	genetic_budget = 3
 
 /datum/plant_feature/fruit/mushroom/glowshroom/New(datum/component/plant/_parent)
 	. = ..()

@@ -8,6 +8,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	tool_behaviour = TOOL_SEED
+	///Are these seeds elligible for a random selection
+	var/random_flags = NONE
 	///Species ID
 	var/species_id
 	///List of plant features for the plant we're... planting
@@ -108,7 +110,7 @@
 		to_chat(user, "<span class='notice'>You begin to plant [src] into [target].</span>")
 	if(!logic && !do_after(user, 2.3 SECONDS, target))
 		return
-	var/obj/item/plant/plant = new(get_turf(target), plant_features, species_id, (name_override || get_species_name(plant_features)))
+	var/obj/item/plant/plant = new(null, plant_features, species_id, (name_override || get_species_name(plant_features)))
 	var/datum/component/plant/plant_component = plant.GetComponent(/datum/component/plant)
 	. = plant_component
 //Name & Desc special treatment

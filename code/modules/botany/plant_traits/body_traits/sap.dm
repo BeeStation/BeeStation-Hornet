@@ -15,6 +15,9 @@
 	if(!istype(plant_comp))
 		plant_comp = null
 		return
+	if(istype(parent, /datum/plant_feature/body/mushroom))
+		qdel(src)
+		return
 	RegisterSignal(plant_comp, COMSIG_PLANT_BEE_BUFF, PROC_REF(catch_bee))
 
 /datum/plant_trait/body/sap/proc/catch_bee(datum/source)

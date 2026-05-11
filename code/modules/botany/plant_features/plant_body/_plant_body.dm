@@ -224,7 +224,7 @@
 /datum/plant_feature/body/proc/apply_fruit_overlay(obj/effect/fruit_effect, offset_x, offset_y)
 	fruit_effect.pixel_x += offset_x-17
 	fruit_effect.pixel_y += offset_y-16
-	parent.plant_item.vis_contents += fruit_effect
+	parent.plant_item.vis_contents |= fruit_effect
 	fruit_overlays += fruit_effect
 
 /datum/plant_feature/body/proc/catch_harvest(datum/source, mob/user, list/temp_fruits, dummy_harvest = FALSE)

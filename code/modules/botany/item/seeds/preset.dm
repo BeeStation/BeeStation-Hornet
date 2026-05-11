@@ -232,6 +232,7 @@
 	name_override = "glowshroom"
 	icon_state = "mycelium-glowshroom"
 	plant_features = list(/datum/plant_feature/roots/hyphae, /datum/plant_feature/body/mushroom, /datum/plant_feature/fruit/mushroom/glowshroom)
+	random_flags = SEED_RANDOM_MAINT
 
 //Liberty
 /obj/item/plant_seeds/preset/liberty

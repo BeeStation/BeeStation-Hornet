@@ -207,3 +207,4 @@
 	name = "charr spores"
 	name_override = "charr shroom"
 	plant_features = list(/datum/plant_feature/roots/hyphae, /datum/plant_feature/body/mushroom, /datum/plant_feature/fruit/mushroom/mess)
+	random_flags = SEED_RANDOM_MAINT
