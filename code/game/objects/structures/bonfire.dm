@@ -192,3 +192,5 @@
 /obj/structure/bonfire/unbuckle_mob(mob/living/buckled_mob, force=FALSE)
 	if(..())
 		buckled_mob.pixel_y -= 13
+
+#undef BONFIRE_FIRE_STACK_STRENGTH
