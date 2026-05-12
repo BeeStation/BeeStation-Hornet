@@ -5,7 +5,7 @@
 /datum/plant_feature/fruit/grass
 	species_name = "gramen viridis"
 	name = "grass"
-	icon_state = "grass"
+	icon_state = "grass_matt"
 	seed_icon_state = "seed-grass"
 	fruit_product = /obj/item/food/grown/grass
 	total_volume = 0
@@ -20,7 +20,7 @@
 /datum/plant_feature/fruit/grass/carpet
 	species_name = "gramen otium"
 	name = "carpet"
-	icon_state = "carpet"
+	icon_state = "carpet_matt"
 	seed_icon_state = "seed-carpet"
 	fruit_product = /obj/item/food/grown/grass/carpet
 	mutations = list(/datum/plant_feature/fruit/grass/shamrock)
@@ -31,7 +31,7 @@
 /datum/plant_feature/fruit/grass/shamrock
 	species_name = "gramen trifolium"
 	name = "shamrock"
-	icon_state = "shamrock"
+	icon_state = "shamrock_matt"
 	seed_icon_state = "seed-shamrock"
 	fruit_product = /obj/item/food/grown/grass/shamrock
 	mutations = list(/datum/plant_feature/fruit/grass/fairy = 5)
@@ -42,7 +42,7 @@
 /datum/plant_feature/fruit/grass/fairy
 	species_name = "gramen mediocris"
 	name = "fairy grass"
-	icon_state = "fairy_grass"
+	icon_state = "fairy_matt"
 	seed_icon_state = "seed-fairygrass"
 	plant_traits = list(/datum/plant_trait/fruit/biolight/pink)
 	fruit_product = /obj/item/food/grown/grass/fairy

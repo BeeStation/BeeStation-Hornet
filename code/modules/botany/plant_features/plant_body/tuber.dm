@@ -40,14 +40,33 @@
 	Grass Tuber
 */
 /datum/plant_feature/body/tuber/grass
-	overlay_positions = list(list(16, 2))
 	seeds = 1
 	do_mask = FALSE
 	yields = PLANT_BODY_YIELD_FOREVER
 	yield_cooldown_time = PLANT_BODY_YIELD_TIME_FAST
 	slot_size = PLANT_BODY_SLOT_SIZE_MICRO
 	use_mouse_offset = FALSE
-	layer_offset = 0
+	draw_below_water = TRUE
+	layer_offset = -0.001
 	genetic_budget = 1
 	whitelist_features = list(/datum/plant_feature/fruit/grass, /datum/plant_feature/roots)
 	dictionary_override = /datum/plant_feature/body/tuber
+
+/datum/plant_feature/body/tuber/grass/catch_planted(datum/source, atom/destination)
+	. = ..()
+	parent.plant_item.pixel_x = 0
+	parent.plant_item.pixel_y = 0
+	//Filter visuals
+	var/obj/item/plant_tray/tray = parent.plant_item.loc
+	if(!istype(tray))
+		return
+	parent.plant_item.add_filter("grass_mask", 1, alpha_mask_filter(icon = icon(tray.icon, "[tray.icon_state]_grass_mask")))
+
+/datum/plant_feature/body/tuber/grass/catch_uprooted(datum/source, mob/user, obj/item/tool, atom/old_loc)
+	. = ..()
+	parent.plant_item.remove_filter("grass_mask")
+
+/datum/plant_feature/body/tuber/grass/apply_fruit_overlay(obj/effect/fruit_effect, offset_x, offset_y)
+	. = ..()
+	fruit_effect.pixel_x = 0
+	fruit_effect.pixel_y = 0

@@ -16,7 +16,7 @@ export const PlantScanner = (props) => {
           {render_rule === 'RENDER_RULE_PLANTSEED' ? <SeedRule /> : null}
           {render_rule === 'RENDER_RULE_FRUIT' ? <FruitRule /> : null}
           {render_rule === 'RENDER_RULE_TRAY' ? <TrayRule /> : null}
-          {buffer.length ? null : 'buffer cleared 0x0000'}
+          {render_rule ? null : 'buffer cleared 0x0000'}
         </Section>
         {/* World building fluff top banner */}
         <Box height={'8px'} />

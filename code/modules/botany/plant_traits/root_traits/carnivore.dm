@@ -3,6 +3,13 @@
 	desc = "This gene causes roots to develop pesticide secretions. Plants with this trait will destroy nearby pests."
 	genetic_cost = 2
 
+/datum/plant_trait/roots/carnivore/setup_parent(_parent)
+	. = ..()
+	if(istype(parent, /datum/plant_feature/roots/hyphae))
+		parent = null
+		qdel(src)
+		return
+
 /datum/plant_trait/roots/carnivore/setup_component_parent(datum/source)
 	. = ..()
 	if(!parent || !parent.parent)

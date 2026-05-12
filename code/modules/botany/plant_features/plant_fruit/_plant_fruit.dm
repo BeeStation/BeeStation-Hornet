@@ -246,4 +246,16 @@
 	SEND_SIGNAL(parent, COMSIG_PLANT_ACTION_HARVEST, user, temp_fruits, FALSE)
 	return TRUE
 
+/datum/plant_feature/fruit/proc/force_drop_fruit()
+	if(!length(fruits))
+		return
+	var/list/temp_fruits = list()
+	var/turf/T = get_turf(parent.plant_item)
+	for(var/obj/item/fruit as anything in fruits)
+		fruits -= fruit
+		temp_fruits += fruit
+		fruit.forceMove(T)
+	SEND_SIGNAL(parent, COMSIG_PLANT_ACTION_HARVEST, null, temp_fruits, FALSE)
+	return TRUE
+
 #undef FRUIT_MINIMUM_BITES

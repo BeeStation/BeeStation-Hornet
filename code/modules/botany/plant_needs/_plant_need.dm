@@ -71,7 +71,7 @@
 		parent.parent?.plant_item.vis_contents |= buff_appearance
 		parent.parent?.plant_item.add_filter("buff_outline", 1, outline_filter(1, "#fbffc1cb"))
 		var/outline_filter = parent.parent?.plant_item.get_filter("buff_outline")
-		animate(outline_filter, color = "#fbffc11a", time = 1.3 SECONDS, loop = -1, flags = ANIMATION_PARALLEL)
+		animate(outline_filter, color = "#fbffc11a", time = 1.3 SECONDS, loop = -1)
 		animate(color = "#fbffc1cb", time = 1.3 SECONDS)
 	return
 
@@ -107,5 +107,5 @@
 	add_filter("mask", 2, alpha_mask_filter(0, 0, ray_mask, null, MASK_INVERSE))
 
 	var/ray_filter = get_filter("rays")
-	animate(ray_filter, offset = 100, time = 100 SECONDS, loop = -1, flags = ANIMATION_PARALLEL)
+	animate(ray_filter, offset = 100, time = 100 SECONDS, loop = -1)
 	animate(offset = 0, time = 0)

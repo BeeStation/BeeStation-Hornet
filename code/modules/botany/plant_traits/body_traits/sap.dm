@@ -9,14 +9,18 @@
 	///Quick reference to our parent's component parent
 	var/datum/component/plant/plant_comp
 
+/datum/plant_trait/body/sap/setup_parent(_parent)
+	. = ..()
+	if(istype(parent, /datum/plant_feature/body/mushroom))
+		parent = null
+		qdel(src)
+		return
+
 /datum/plant_trait/body/sap/setup_component_parent(datum/source)
 	. = ..()
 	plant_comp = source
 	if(!istype(plant_comp))
 		plant_comp = null
-		return
-	if(istype(parent, /datum/plant_feature/body/mushroom))
-		qdel(src)
 		return
 	RegisterSignal(plant_comp, COMSIG_PLANT_BEE_BUFF, PROC_REF(catch_bee))
 

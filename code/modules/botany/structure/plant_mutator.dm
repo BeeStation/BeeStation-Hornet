@@ -245,7 +245,7 @@
 						new_feature.plant_traits += new_trait
 			//In case there's fruit on us and we're mutating a non-fruit feature
 			var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in plant_component.plant_features
-			fruit_feature?.catch_attack_hand()
+			fruit_feature?.force_drop_fruit()
 			//Out with the old, in with the new
 			plant_component.plant_features -= feature
 			if(!QDELING(new_feature))
