@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 	/// Current orbital altitude in meters
 	var/orbital_altitude = ORBITAL_ALTITUDE_DEFAULT
 
-	/// Velocity index for display purposes (-10 to +10)
+	/// Velocity index for display purposes (-10 to +10).
 	var/velocity_index = 0
 
 	/// Current thrust applied to the station (from engines)
