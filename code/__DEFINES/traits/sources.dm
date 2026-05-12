@@ -52,7 +52,10 @@
 #define GLASSES_TRAIT "glasses"
 #define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"
+/// Trait from [/datum/element/rust]. Its rusty and should be applying a special overlay to denote this.
 #define TRAIT_RUSTY "rust_trait"
+/// Trait from being under the floor in some manner
+#define TRAIT_UNDERFLOOR "underfloor"
 #define ACTION_TRAIT "action_trait"
 #define TRAIT_LEANING "leaning"
 #define TRAIT_REGEN_COMA "regencoma"
