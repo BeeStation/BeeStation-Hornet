@@ -12,7 +12,6 @@
 		TRAIT_NOHUNGER,
 		TRAIT_NOBREATH,
 		TRAIT_NOBLOOD,
-		TRAIT_NO_DEBRAIN_OVERLAY,
 	)
 	mutanttongue = /obj/item/organ/tongue/abductor
 	mutantstomach = null

@@ -109,8 +109,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOHUNGER "no_hunger"
 ///This carbon doesn't bleed
 #define TRAIT_NOBLOOD "noblood"
-///This carbon doesn't show an overlay when they have no brain
-#define TRAIT_NO_DEBRAIN_OVERLAY "no_debrain_overlay"
 /// Carbons with this trait can't have their DNA copied by diseases nor changelings
 #define TRAIT_NO_DNA_COPY "no_dna_copy"
 // This race can't become a vampire, changeling antagonist or be copied by a changeling.
@@ -520,15 +518,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// is meant to look like the item with that path, which might affect how you show
 /// this item to players (such as through armour readouts).
 #define TRAIT_VALUE_MIMIC_PATH "mimic_path"
-
-/// some trait sources dirived from bodyparts BODYPART_TRAIT is generic.
-#define BODYPART_TRAIT "bodypart"
-#define HEAD_TRAIT "head"
-#define CHEST_TRAIT "chest"
-#define RIGHT_ARM_TRAIT "right_arm"
-#define LEFT_ARM_TRAIT "left_arm"
-#define RIGHT_LEG_TRAIT "right_leg"
-#define LEFT_LEG_TRAIT "left_leg"
 
 ///without a human having this trait, they speak as if they have no tongue.
 #define TRAIT_SPEAKS_CLEARLY "speaks_clearly"

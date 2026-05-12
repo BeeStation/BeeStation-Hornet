@@ -25,7 +25,6 @@
 		TRAIT_XENO_IMMUNE,
 		TRAIT_NOCLONELOSS,
 		TRAIT_NOBLOOD,
-		TRAIT_NO_DEBRAIN_OVERLAY,
 	)
 	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	mutanttongue = /obj/item/organ/tongue/bone
