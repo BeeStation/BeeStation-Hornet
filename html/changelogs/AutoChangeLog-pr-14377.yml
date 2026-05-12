@@ -1,5 +1,0 @@
-author: mrmanlikesbt, jslnow301
-delete-after: true
-changes:
-  - rscdel: url-loader has been removed from tgui dependencies as it comes included
-      with webpack

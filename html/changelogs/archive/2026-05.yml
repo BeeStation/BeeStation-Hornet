@@ -105,3 +105,7 @@
 2026-05-11:
   DrDuckedGoose:
   - bugfix: Fix particles smoking
+2026-05-12:
+  mrmanlikesbt, jslnow301:
+  - rscdel: url-loader has been removed from tgui dependencies as it comes included
+      with webpack
