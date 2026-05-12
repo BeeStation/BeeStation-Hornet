@@ -6,6 +6,8 @@
 	organ_traits = list(TRAIT_NOHUNGER) // We have our own hunger mechanic.
 	/// Where the energy of the stomach is stored.
 	var/obj/item/stock_parts/cell/cell
+	/// Spam limiter for APC interactions.
+	var/drain_time = 0
 	//Boolean so we can avoid ten morbillion typechecks between Ethereal or IPC
 	var/biological = TRUE
 
@@ -142,5 +144,3 @@
 	name = "biological battery"
 	icon_state = "stomach-p" //Welp. At least it's more unique in functionaliy.
 	desc = "A crystal-like organ that stores the electric charge of ethereals."
-	///used to keep ethereals from spam draining power sources
-	var/drain_time = 0

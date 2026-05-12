@@ -147,86 +147,73 @@
 	var/mob/living/carbon/human/H = user
 	var/obj/item/organ/stomach/electrical/battery = H.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(!battery)
-		to_chat(H, span_warning("You try to siphon energy from \the [target], but your power cell is gone!"))
+		balloon_alert(H, "power cell is gone!")
 		return
-
-	if(istype(H) && H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
-		to_chat(user, span_warning("You are already fully charged!"))
+	if(battery.drain_time > world.time)
 		return
 
 	if(istype(target, /obj/machinery/power/apc))
 		var/obj/machinery/power/apc/A = target
-		if(A?.cell?.charge > A.cell.maxcharge/4)
-			powerdraw_loop(A, H, TRUE)
+		if(isnull(A.cell))
+			balloon_alert(H, "no cell in apc!")
 			return
-		else
-			to_chat(user, span_warning("There is not enough charge to draw from that APC."))
-			return
+		A.charge_stomach_from_apc(H, battery)
+		return
 
 	if(isethereal(target))
 		var/mob/living/carbon/human/target_ethereal = target
 		var/obj/item/organ/stomach/electrical/target_battery = target_ethereal.get_organ_slot(ORGAN_SLOT_STOMACH)
-		if(target_ethereal.nutrition > 0 && target_battery)
-			powerdraw_loop(target_battery, H, FALSE)
+		if(!target_battery || target_battery.cell.charge <= 0)
+			balloon_alert(H, "not enough charge!")
 			return
-		else
-			to_chat(user, span_warning("There is not enough charge to draw from that being!"))
-			return
+		draw_from_stomach(H, target_battery)
 
-/obj/item/apc_powercord/proc/powerdraw_loop(atom/target, mob/living/carbon/human/H, apc_target)
-	H.visible_message(span_notice("[H] inserts a power connector into [target]."), span_notice("You begin to draw power from the [target]."))
+/obj/item/apc_powercord/afterattack_secondary(atom/target, mob/living/user, proximity_flag, click_parameters)
+	if(!istype(target, /obj/machinery/power/apc) || !ishuman(user) || !proximity_flag)
+		return ..()
+	user.changeNext_move(CLICK_CD_MELEE)
+	var/mob/living/carbon/human/H = user
 	var/obj/item/organ/stomach/electrical/battery = H.get_organ_slot(ORGAN_SLOT_STOMACH)
-	if(apc_target)
-		var/obj/machinery/power/apc/A = target
-		if(!istype(A))
-			return
-		while(do_after(H, 10, target = A))
-			if(!battery)
-				to_chat(H, span_warning("You need a battery to recharge!"))
-				break
-			if(loc != H)
-				to_chat(H, span_warning("You must keep your connector out while charging!"))
-				break
-			if(A.cell.charge <= A.cell.maxcharge/4)
-				to_chat(H, span_warning("The [A] doesn't have enough charge to spare."))
-				break
-			A.charging = 1
-			if(A.cell.charge > A.cell.maxcharge/4 + 250)
-				battery.adjust_charge(250)
-				A.cell.charge -= 250
-				to_chat(H, span_notice("You siphon off some of the stored charge for your own use."))
-			else
-				battery.adjust_charge(A.cell.charge - A.cell.maxcharge/4)
-				A.cell.charge = A.cell.maxcharge/4
-				to_chat(H, span_notice("You siphon off as much as the [A] can spare."))
-				break
-			if(battery.cell.charge >= ETHEREAL_CHARGE_FULL)
-				to_chat(H, span_notice("You are now fully charged."))
-				break
-	else
-		var/obj/item/organ/stomach/electrical/A = target
-		if(!istype(A))
-			return
-		var/charge_amt
-		while(do_after(H, 10, target = A.owner))
-			if(!battery)
-				to_chat(H, span_warning("You need a battery to recharge!"))
-				break
-			if(loc != H)
-				to_chat(H, span_warning("You must keep your connector out while charging!"))
-				break
-			if(A.cell.charge == 0)
-				to_chat(H, span_warning("[A] is completely drained!"))
-				break
-			charge_amt = A.cell.charge <= 50 ? A.cell.charge : 50
-			A.adjust_charge(-1 * charge_amt)
-			battery.adjust_charge(charge_amt)
-			if(battery.cell.charge >= ETHEREAL_CHARGE_FULL)
-				to_chat(H, span_notice("You are now fully charged."))
-				break
+	if(!battery)
+		balloon_alert(H, "power cell is gone!")
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	if(battery.drain_time > world.time)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	var/obj/machinery/power/apc/A = target
+	if(isnull(A.cell))
+		balloon_alert(H, "no cell in apc!")
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	A.discharge_stomach_to_apc(H, battery, ETHEREAL_CHARGE_NORMAL)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-	H.visible_message(span_notice("[H] unplugs from the [target]."), span_notice("You unplug from the [target]."))
-	return
+/obj/item/apc_powercord/proc/draw_from_stomach(mob/living/carbon/human/H, obj/item/organ/stomach/electrical/target_battery)
+	var/obj/item/organ/stomach/electrical/our_battery = H.get_organ_slot(ORGAN_SLOT_STOMACH)
+	var/mob/living/carbon/human/target_ethereal = target_battery.owner
+	H.visible_message(span_notice("[H] inserts a power connector into [target_ethereal]."), span_notice("You begin to draw power from [target_ethereal]."))
+	our_battery.drain_time = world.time + ELECTRICAL_APC_DRAIN_TIME
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), H, "draining power..."), ELECTRICAL_APC_ALERT_DELAY)
+	while(do_after(H, ELECTRICAL_APC_DRAIN_TIME, target = target_ethereal))
+		our_battery = H.get_organ_slot(ORGAN_SLOT_STOMACH)
+		if(!our_battery)
+			balloon_alert(H, "power cell is gone!")
+			break
+		if(loc != H)
+			balloon_alert(H, "connector dropped!")
+			break
+		if(isnull(target_battery) || target_battery != target_ethereal.get_organ_slot(ORGAN_SLOT_STOMACH))
+			balloon_alert(H, "target lost!")
+			break
+		if(target_battery.cell.charge <= 0)
+			balloon_alert(H, "target depleted!")
+			break
+		if(our_battery.cell.used_charge() <= 0)
+			balloon_alert(H, "charge is full!")
+			break
+		var/potential_charge = min(target_battery.cell.charge, our_battery.cell.used_charge())
+		var/to_drain = min(ELECTRICAL_APC_POWER_GAIN, potential_charge)
+		var/energy_drained = target_battery.adjust_charge(-to_drain)
+		our_battery.adjust_charge(-energy_drained)
+	H.visible_message(span_notice("[H] disconnects from [target_ethereal]."), span_notice("You disconnect from [target_ethereal]."))
 
 /datum/species/ipc/proc/mechanical_revival(mob/living/carbon/human/H)
 

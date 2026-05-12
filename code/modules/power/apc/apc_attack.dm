@@ -1,10 +1,4 @@
-// Ethereals:
-/// How long it takes an ethereal to drain or charge APCs. Also used as a spam limiter.
-#define ETHEREAL_APC_DRAIN_TIME (3 SECONDS)
-/// How much power ethereals gain/drain from APCs.
-#define ETHEREAL_APC_POWER_GAIN (0.1 * STANDARD_ETHEREAL_CHARGE)
-/// Delay between ethereal action and balloon alert, to avoid colliding with previously queued balloon alerts.
-#define ETHEREAL_APC_ALERT_DELAY (0.75 SECONDS)
+// Ethereals/IPCs: timing constants are in code/__DEFINES/mobs.dm as ELECTRICAL_APC_*
 
 /obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
 
@@ -190,27 +184,26 @@
 	if(used_stomach.drain_time > world.time)
 		return
 	if(user.combat_mode)
-		discharge_to_ethereal(user, used_stomach)
+		charge_stomach_from_apc(user, used_stomach)
 	else
-		charge_from_ethereal(user, used_stomach)
+		discharge_stomach_to_apc(user, used_stomach)
 
-/// Handles discharging our internal cell to an ethereal and their stomach
-/obj/machinery/power/apc/proc/discharge_to_ethereal(mob/living/carbon/human/user, obj/item/organ/stomach/electrical/ethereal/used_stomach)
+/// Charges an electrical stomach from this APC. Stops when the APC drops below half charge.
+/obj/machinery/power/apc/proc/charge_stomach_from_apc(mob/living/carbon/human/user, obj/item/organ/stomach/electrical/used_stomach)
 	var/half_max_charge = cell.maxcharge / 2
-	// Ethereals can't drain APCs under half charge, so that they are forced to look to alternative power sources if the station is running low
 	if(cell.charge < half_max_charge)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), user, "safeties prevent draining!"), ETHEREAL_APC_ALERT_DELAY)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), user, "safeties prevent charging!"), ELECTRICAL_APC_ALERT_DELAY)
 		return
 
 	var/obj/item/stock_parts/cell/stomach_cell = used_stomach.cell
-	used_stomach.drain_time = world.time + ETHEREAL_APC_DRAIN_TIME
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), user, "draining power..."), ETHEREAL_APC_ALERT_DELAY)
-	while(do_after(user, ETHEREAL_APC_DRAIN_TIME, target = src))
+	used_stomach.drain_time = world.time + ELECTRICAL_APC_DRAIN_TIME
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), user, "drawing power..."), ELECTRICAL_APC_ALERT_DELAY)
+	while(do_after(user, ELECTRICAL_APC_DRAIN_TIME, target = src))
 		if(isnull(used_stomach) || (used_stomach != user.get_organ_slot(ORGAN_SLOT_STOMACH)))
-			balloon_alert(user, "stomach removed!?")
+			balloon_alert(user, "cell removed!?")
 			return
 		if(isnull(cell))
-			balloon_alert(user, "cell removed!")
+			balloon_alert(user, "apc cell removed!")
 			return
 		if(cell.charge < half_max_charge)
 			balloon_alert(user, "safeties kicked in!")
@@ -219,49 +212,54 @@
 		var/our_available_charge = cell.charge - half_max_charge
 		var/stomach_used_charge = stomach_cell.used_charge()
 		var/potential_charge = min(our_available_charge, stomach_used_charge)
-		var/to_drain = min(ETHEREAL_APC_POWER_GAIN, potential_charge)
-		var/energy_drained = cell.use(to_drain, force = TRUE)
-		used_stomach.adjust_charge(energy_drained)
+		var/to_transfer = min(ELECTRICAL_APC_POWER_GAIN, potential_charge)
+		cell.use(to_transfer, force = TRUE)
+		used_stomach.adjust_charge(to_transfer)
 
 		if(stomach_cell.used_charge() <= 0)
-			balloon_alert(user, "your charge is full!")
+			balloon_alert(user, "charge is full!")
 			return
 		if(cell.charge <= 0)
 			balloon_alert(user, "apc is empty!")
 			return
 
-/// Handles charging our internal cell from an ethereal and their stomach
-/obj/machinery/power/apc/proc/charge_from_ethereal(mob/living/carbon/human/user, obj/item/organ/stomach/electrical/ethereal/used_stomach)
+/**
+ * Drains an electrical stomach into this APC
+ *
+ * safety_floor: minimum stomach charge to leave untouched (default 0).
+ * Pass ETHEREAL_CHARGE_NORMAL for species that take damage below that threshold.
+ */
+/obj/machinery/power/apc/proc/discharge_stomach_to_apc(mob/living/carbon/human/user, obj/item/organ/stomach/electrical/used_stomach, safety_floor = 0)
 	if(cell.charge >= cell.maxcharge)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), user, "apc full!"), ETHEREAL_APC_ALERT_DELAY)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), user, "apc full!"), ELECTRICAL_APC_ALERT_DELAY)
 		return
 	var/obj/item/stock_parts/cell/stomach_cell = used_stomach.cell
-	if(stomach_cell.charge <= 0)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), user, "charge is too low!"), ETHEREAL_APC_ALERT_DELAY)
+	if(stomach_cell.charge <= safety_floor)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), user, "charge too low!"), ELECTRICAL_APC_ALERT_DELAY)
 		return
 
-	used_stomach.drain_time = world.time + ETHEREAL_APC_DRAIN_TIME
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), user, "transferring power..."), ETHEREAL_APC_ALERT_DELAY)
-	if(!do_after(user, ETHEREAL_APC_DRAIN_TIME, target = src))
+	used_stomach.drain_time = world.time + ELECTRICAL_APC_DRAIN_TIME
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), user, "transferring power..."), ELECTRICAL_APC_ALERT_DELAY)
+	if(!do_after(user, ELECTRICAL_APC_DRAIN_TIME, target = src))
 		return
 	if(isnull(used_stomach) || (used_stomach != user.get_organ_slot(ORGAN_SLOT_STOMACH)))
-		balloon_alert(user, "stomach removed!?")
+		balloon_alert(user, "cell removed!?")
 		return
 	if(isnull(cell))
-		balloon_alert(user, "cell removed!")
+		balloon_alert(user, "apc cell removed!")
 		return
 
-	var/stomach_charge = stomach_cell.charge
+	var/stomach_available = stomach_cell.charge - safety_floor
 	var/our_used_charge = cell.used_charge()
-	var/potential_charge = min(stomach_charge, our_used_charge)
-	var/to_drain = min(ETHEREAL_APC_POWER_GAIN, potential_charge)
+	var/potential_charge = min(stomach_available, our_used_charge)
+	var/to_drain = min(ELECTRICAL_APC_POWER_GAIN, potential_charge)
 	var/energy_drained = used_stomach.adjust_charge(-to_drain)
 	cell.give(-energy_drained)
 
 	if(cell.used_charge() <= 0)
 		balloon_alert(user, "apc is full!")
 		return
-	if(stomach_cell.charge <= 0)
+	if(stomach_cell.charge <= safety_floor)
 		balloon_alert(user, "out of charge!")
 
 /obj/machinery/power/apc/atom_break(damage_flag)
@@ -323,6 +321,3 @@
 	else
 		return 0
 
-#undef ETHEREAL_APC_DRAIN_TIME
-#undef ETHEREAL_APC_POWER_GAIN
-#undef ETHEREAL_APC_ALERT_DELAY
