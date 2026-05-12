@@ -12,6 +12,7 @@
 /obj/item/organ/stomach/electrical/Initialize(mapload)
 	. = ..()
 	cell = new /obj/item/stock_parts/cell/ethereal(null)
+	cell.charge = ETHEREAL_CHARGE_ALMOSTFULL
 
 /obj/item/organ/stomach/electrical/Destroy()
 	QDEL_NULL(cell)
