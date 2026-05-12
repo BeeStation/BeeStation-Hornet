@@ -24,7 +24,7 @@
 	data["target_filter_data"] = target.filter_data
 	return data
 
-/datum/filter_editor/ui_act(action, list/params)
+/datum/filter_editor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
@@ -53,7 +53,7 @@
 			target.change_filter_priority(params["name"], new_priority)
 			. = TRUE
 		if("transition_filter_value")
-			target.transition_filter(params["name"], 4, params["new_data"])
+			target.transition_filter(params["name"], params["new_data"], 4)
 			. = TRUE
 		if("modify_filter_value")
 			var/list/old_filter_data = target.filter_data[params["name"]]
@@ -67,9 +67,9 @@
 			target.add_filter(params["name"], old_filter_data["priority"], new_filter_data)
 			. = TRUE
 		if("modify_color_value")
-			var/new_color = tgui_color_picker(usr, "Pick new filter color", "Filteriffic Colors!")
+			var/new_color = input(usr, "Pick new filter color", "Filteriffic Colors!") as color|null
 			if(new_color)
-				target.transition_filter(params["name"], 4, list("color" = new_color))
+				target.transition_filter(params["name"], list("color" = new_color), 4)
 				. = TRUE
 		if("modify_icon_value")
 			var/icon/new_icon = input("Pick icon:", "Icon") as null|icon
@@ -95,4 +95,5 @@
 					count += 1
 			message_admins("LOCAL CLOWN [usr.ckey] JUST MASS FILTER EDITED [count] WITH PATH OF [params["path"]]!")
 			log_admin("LOCAL CLOWN [usr.ckey] JUST MASS FILTER EDITED [count] WITH PATH OF [params["path"]]!")
-	ui_update()
+
+
