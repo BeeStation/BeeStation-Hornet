@@ -7,7 +7,8 @@
 
 /datum/orbital_map_tgui/Destroy(force, ...)
 	. = ..()
-	SSorbits.open_orbital_maps -= SStgui.get_all_open_uis(src)
+	if(LAZYLEN(open_uis))
+		SSorbits.open_orbital_maps -= open_uis
 
 /datum/orbital_map_tgui/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

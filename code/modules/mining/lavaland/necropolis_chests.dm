@@ -1036,7 +1036,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 				"body_markings" = "Dark Tiger Body",
 				"legs" = DIGITIGRADE_LEGS,
 			)
-			H.eye_color = "fee5a3"
+			H.eye_color_left = "#FEE5A3"
+			H.eye_color_right = "#FEE5A3"
 			H.set_species(/datum/species/lizard)
 		if(2)
 			to_chat(user, span_danger("Your flesh begins to melt! Miraculously, you seem fine otherwise."))

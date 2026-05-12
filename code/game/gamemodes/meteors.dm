@@ -160,11 +160,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 		if(!QDELETED(holder))
 			qdel(holder)
 	. = ..()
-/obj/effect/meteor/Moved(atom/OldLoc, Dir, Forced = FALSE)
+
+/obj/effect/meteor/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(QDELETED(src))
 		return
-	if(OldLoc != loc)//If did move, ram the turf we get in
+
+	if(old_loc != loc)//If did move, ram the turf we get in
 		var/turf/T = get_turf(loc)
 		ram_turf(T)
 
@@ -175,10 +177,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 		qdel(src)
 		return
 
-/obj/effect/meteor/Process_Spacemove()
+/obj/effect/meteor/Process_Spacemove(movement_dir = 0)
 	return TRUE //Keeps us from drifting for no reason
 
 /obj/effect/meteor/Bump(atom/A)
+	. = ..()
 	if(A)
 		ram_turf(get_turf(A))
 		playsound(src.loc, meteorsound, 40, 1)
