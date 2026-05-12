@@ -131,7 +131,7 @@
 		return
 	var/mob/living/carbon/human/H = owner
 	H.dna.features["ipc_screen"] = screen_choice
-	H.eye_color = sanitize_hexcolor(color_choice)
+	H.eye_color_left = sanitize_hexcolor(color_choice)
 	H.update_body()
 
 /obj/item/apc_powercord
