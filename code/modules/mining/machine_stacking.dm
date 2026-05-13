@@ -22,7 +22,7 @@
 
 // Only called if mappers set an ID
 /obj/machinery/mineral/stacking_unit_console/LateInitialize()
-	for(var/obj/machinery/mineral/stacking_machine/SM in GLOB.machines)
+	for(var/obj/machinery/mineral/stacking_machine/SM as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/mineral/stacking_machine))
 		if(SM.link_id == link_id)
 			machine = SM
 			machine.console = src

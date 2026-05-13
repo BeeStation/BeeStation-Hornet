@@ -5,8 +5,17 @@ SUBSYSTEM_DEF(machines)
 	)
 	flags = SS_KEEP_TIMING
 	wait = 2 SECONDS
+
+	/// Assosciative list of all machines that exist.
+	VAR_PRIVATE/list/machines_by_type = list()
+
+	/// All machines, not just those that are processing.
+	VAR_PRIVATE/list/all_machines = list()
+
 	var/list/processing = list()
+
 	var/list/currentrun = list()
+
 	var/list/powernets = list()
 	var/list/dirty_powernets = list()
 	var/dirty_index = 1
@@ -18,28 +27,16 @@ SUBSYSTEM_DEF(machines)
 	fire()
 	return SS_INIT_SUCCESS
 
+/datum/controller/subsystem/machines/stat_entry(msg)
+	msg = "M:[length(processing)]|PN:[length(powernets)]"
+	return ..()
+
 /datum/controller/subsystem/machines/get_metrics()
 	. = ..()
 	var/list/cust = list()
 	cust["processing"] = length(processing)
 	cust["powernets"] = length(powernets)
 	.["custom"] = cust
-
-/datum/controller/subsystem/machines/proc/makepowernets()
-	for(var/datum/powernet/power_network as anything in powernets)
-		qdel(power_network)
-	powernets.Cut()
-
-	var/datum/powernet/new_powernet = new()
-	for(var/obj/structure/cable/cable as anything in GLOB.cable_list)
-		new_powernet.add_cable(cable)
-	new_powernet.repropogate_cables()
-	new_powernet.dirty = FALSE
-	dirty_powernets.len = 0
-
-/datum/controller/subsystem/machines/stat_entry(msg)
-	msg = "M:[length(processing)]|PN:[length(powernets)]"
-	return ..()
 
 /datum/controller/subsystem/machines/fire(resumed = FALSE)
 	if (!resumed)
@@ -86,6 +83,18 @@ SUBSYSTEM_DEF(machines)
 		if (MC_TICK_CHECK)
 			return
 
+/datum/controller/subsystem/machines/proc/makepowernets()
+	for(var/datum/powernet/power_network as anything in powernets)
+		qdel(power_network)
+	powernets.Cut()
+
+	var/datum/powernet/new_powernet = new()
+	for(var/obj/structure/cable/cable as anything in GLOB.cable_list)
+		new_powernet.add_cable(cable)
+	new_powernet.repropogate_cables()
+	new_powernet.dirty = FALSE
+	dirty_powernets.len = 0
+
 /datum/controller/subsystem/machines/proc/setup_template_powernets(list/cables)
 	var/obj/structure/cable/cable
 	var/datum/powernet/new_powernet = new()
@@ -107,3 +116,42 @@ SUBSYSTEM_DEF(machines)
 		return
 	dirty_powernets += powernet
 	powernet.dirty = TRUE
+
+/// Registers a machine with the machine subsystem; should only be called by the machine itself during its creation.
+/datum/controller/subsystem/machines/proc/register_machine(obj/machinery/machine)
+	LAZYADD(machines_by_type[machine.type], machine)
+	all_machines |= machine
+
+/// Removes a machine from the machine subsystem; should only be called by the machine itself inside Destroy.
+/datum/controller/subsystem/machines/proc/unregister_machine(obj/machinery/machine)
+	var/list/existing = machines_by_type[machine.type]
+	existing -= machine
+	if(!length(existing))
+		machines_by_type -= machine.type
+	all_machines -= machine
+
+/// Gets a list of all machines that are either the passed type or a subtype.
+/datum/controller/subsystem/machines/proc/get_machines_by_type_and_subtypes(obj/machinery/machine_type)
+	if(!ispath(machine_type))
+		machine_type = machine_type.type
+	if(!ispath(machine_type, /obj/machinery))
+		CRASH("called get_machines_by_type_and_subtypes with a non-machine type [machine_type]")
+	var/list/machines = list()
+	for(var/next_type in typesof(machine_type))
+		var/list/found_machines = machines_by_type[next_type]
+		if(found_machines)
+			machines += found_machines
+	return machines
+
+/// Gets a list of all machines that are the exact passed type.
+/datum/controller/subsystem/machines/proc/get_machines_by_type(obj/machinery/machine_type)
+	if(!ispath(machine_type))
+		machine_type = machine_type.type
+	if(!ispath(machine_type, /obj/machinery))
+		CRASH("called get_machines_by_type with a non-machine type [machine_type]")
+
+	var/list/machines = machines_by_type[machine_type]
+	return machines?.Copy() || list()
+
+/datum/controller/subsystem/machines/proc/get_all_machines()
+	return all_machines.Copy()
