@@ -94,7 +94,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 	. = ..()
 	update_move_direction()
 
-/obj/machinery/conveyor/Moved(atom/OldLoc, Dir)
+/obj/machinery/conveyor/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!.)
 		return

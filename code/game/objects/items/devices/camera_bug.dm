@@ -49,7 +49,7 @@
 
 /obj/item/camera_bug/ui_interact(mob/user = usr)
 	. = ..()
-	var/datum/browser/popup = new(user, "camerabug","Camera Bug",nref=src)
+	var/datum/browser/popup = new(user, "camerabug", "Camera Bug", source = src)
 	popup.set_content(menu(get_cameras()))
 	popup.open()
 
@@ -69,13 +69,14 @@
 		user.unset_machine()
 		return 0
 	return 1
+
 /obj/item/camera_bug/on_unset_machine(mob/user)
 	user.set_mob_eye_to(MOB_EYE_SELF)
 
 /obj/item/camera_bug/proc/get_cameras()
 	if( world.time > (last_net_update + 100))
 		bugged_cameras = list()
-		for(var/obj/machinery/camera/camera in GLOB.cameranet.cameras)
+		for(var/obj/machinery/camera/camera as anything in GLOB.cameranet.cameras)
 			if(camera.machine_stat || !camera.can_use())
 				continue
 			if(length(list("ss13","mine", "rd", "labor", "toxins", "minisat") & camera.network))

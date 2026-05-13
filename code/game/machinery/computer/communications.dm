@@ -270,7 +270,6 @@
 			if (newState == STATE_BUYING_SHUTTLE && can_buy_shuttles(usr) != TRUE)
 				return
 			set_state(usr, newState)
-			playsound(src, "terminal_type", 50, FALSE)
 			. = TRUE
 		if ("setStatusMessage")
 			if (!authenticated(usr))
@@ -281,7 +280,6 @@
 			log_game("[key_name(usr)] changed the Status Message to - [line_one], [line_two] - From a Communications Console.")
 			post_status("message", line_one, line_two)
 			last_status_display = list(line_one, line_two)
-			playsound(src, "terminal_type", 50, FALSE)
 			. = TRUE
 		if ("setStatusPicture")
 			if (!authenticated(usr))
@@ -304,7 +302,6 @@
 							post_status("alert", "greenalert")
 				else
 					post_status("alert", picture)
-			playsound(src, "terminal_type", 50, FALSE)
 			. = TRUE
 		if ("toggleAuthentication")
 			// Log out if we're logged in
@@ -486,7 +483,7 @@
 	return data
 
 /obj/machinery/computer/communications/ui_interact(mob/user, datum/tgui/ui)
-	play_click_sound(user)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
 		ui = new(user, src, "CommunicationsConsole")

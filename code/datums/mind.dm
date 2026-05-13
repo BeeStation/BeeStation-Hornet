@@ -671,10 +671,6 @@
 			if(istype(O,objective_type))
 				return TRUE
 
-/mob/proc/sync_mind()
-	mind_initialize() //updates the mind (or creates and initializes one if one doesn't exist)
-	mind.active = TRUE //indicates that the mind is currently synced with a client
-
 /datum/mind/proc/has_martialart(string)
 	if(martial_art && martial_art.id == string)
 		return martial_art
@@ -705,6 +701,22 @@
 	//second argument was not filled, take string and find job datum. If there is no associated job-datum, it will be null anyway
 	else
 		assigned_role_datum = SSjob.GetJob(assigned_role)
+
+/// Sets us to the passed job datum, then greets them to their new job.
+/// Use this one for when you're assigning this mind to a new job for the first time,
+/// or for when someone's receiving a job they'd really want to be greeted to.
+/datum/mind/proc/set_assigned_role_with_greeting(role_title, datum/job/new_role, client/incoming_client)
+	. = set_assigned_role(role_title = role_title, job_datum = new_role)
+	if(assigned_role_datum != new_role)
+		return
+
+	var/intro_message = new_role.get_spawn_message()
+	if(incoming_client && intro_message)
+		to_chat(incoming_client, intro_message)
+
+/mob/proc/sync_mind()
+	mind_initialize() //updates the mind (or creates and initializes one if one doesn't exist)
+	mind.active = TRUE //indicates that the mind is currently synced with a client
 
 /mob/dead/new_player/sync_mind()
 	return

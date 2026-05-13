@@ -58,7 +58,7 @@
 	//Update the explanation text
 	update_explanation_text()
 	// Registered signals will be cleared automatically on destroy
-	for (var/obj/machinery/machine in GLOB.machines)
+	for (var/obj/machinery/machine as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery))
 		var/area/machine_area = get_area(machine)
 		var/list/target_area_types = valid_areas[selected_area]
 		for (var/area_zone in target_area_types)

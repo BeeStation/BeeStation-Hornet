@@ -862,11 +862,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("[key_name_admin(usr)] changed the security level to [level]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Security Level [capitalize(level)]") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/toggle_nuke(obj/machinery/nuclearbomb/N in GLOB.nuke_list)
+/client/proc/toggle_nuke()
 	set name = "Toggle Nuke"
 	set category = "Fun"
 	set popup_menu = 0
 	if(!check_rights(R_DEBUG))
+		return
+
+	var/obj/machinery/nuclearbomb/N = tgui_input_list(usr, "", "Toggle Nuke", SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb))
+	if (isnull(N))
 		return
 
 	if(!N.timing)
@@ -920,7 +924,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set name = "Shuttle Manipulator"
 	set desc = "Opens the shuttle manipulator UI."
 
-	for(var/obj/machinery/shuttle_manipulator/M in GLOB.machines)
+	for(var/obj/machinery/shuttle_manipulator/M as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/shuttle_manipulator))
 		M.ui_interact(usr)
 
 /client/proc/run_weather()

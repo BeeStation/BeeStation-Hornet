@@ -74,11 +74,8 @@
 			"supply" = P.current_supply
 		))
 
-
-/obj/machinery/computer/cargo/express/ui_state(mob/user)
-	return GLOB.default_state
-
-/obj/machinery/computer/cargo/express/ui_interact(mob/user, datum/tgui/ui) // Remember to use the appropriate state.
+/obj/machinery/computer/cargo/express/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CargoExpress")

@@ -17,7 +17,7 @@
 	random_spawns_possible = FALSE
 	allow_bureaucratic_error = FALSE
 
-	job_flags = JOB_NEW_PLAYER_JOINABLE | JOB_CANNOT_OPEN_SLOTS
+	job_flags = JOB_NEW_PLAYER_JOINABLE | JOB_EQUIP_RANK | JOB_CANNOT_OPEN_SLOTS
 	var/do_special_check = TRUE
 
 /datum/job/ai/get_access() // no point of calling parent proc
@@ -55,7 +55,7 @@
 				R.TryConnectToAI()
 
 	if(latejoin)
-		announce(AI)
+		announce_job(AI)
 
 /datum/job/ai/override_latejoin_spawn()
 	return TRUE
@@ -70,10 +70,12 @@
 				return TRUE
 	return FALSE
 
-/datum/job/ai/announce(mob/living/silicon/ai/AI)
+/datum/job/ai/announce_job(mob/living/silicon/ai/AI)
 	. = ..()
 	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce), "[AI] has been downloaded to an empty bluespace-networked AI core at [AREACOORD(AI)]."))
 
 /datum/job/ai/config_check()
 	return CONFIG_GET(flag/allow_ai)
 
+/datum/job/ai/get_radio_information()
+	return "<b>Prefix your message with :b to speak with cyborgs and other AIs.</b>"

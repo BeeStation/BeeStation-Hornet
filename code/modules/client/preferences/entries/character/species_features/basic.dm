@@ -27,13 +27,26 @@
 /datum/preference/color/eye_color/apply_to_human(mob/living/carbon/human/target, value)
 	if(isipc(target))
 		return
-	target.eye_color = value
+	var/hetero = target.eye_color_heterochromatic
+	target.eye_color_left = value
+	if(!hetero)
+		target.eye_color_right = value
 
 	var/obj/item/organ/eyes/eyes_organ = target.get_organ_by_type(/obj/item/organ/eyes)
-	if (istype(eyes_organ))
-		if (!initial(eyes_organ.eye_color))
-			eyes_organ.eye_color = value
-		eyes_organ.old_eye_color = value
+	if (!eyes_organ || !istype(eyes_organ))
+		return
+
+	if (!initial(eyes_organ.eye_color_left))
+		eyes_organ.eye_color_left = value
+	eyes_organ.old_eye_color_left = value
+
+	if(hetero) // Don't override the snowflakes please
+		return
+
+	if (!initial(eyes_organ.eye_color_right))
+		eyes_organ.eye_color_right = value
+	eyes_organ.old_eye_color_right = value
+	eyes_organ.refresh()
 
 /datum/preference/color/eye_color/create_default_value()
 	return random_eye_color()

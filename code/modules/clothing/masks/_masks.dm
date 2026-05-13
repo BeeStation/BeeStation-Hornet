@@ -7,7 +7,6 @@
 	strip_delay = 40
 	equip_delay_other = 40
 	custom_price = 25
-	var/modifies_speech = FALSE
 	var/mask_adjusted = FALSE
 	var/adjusted_flags = null
 	var/obj/item/organ/tongue/chosen_tongue = null
@@ -18,34 +17,11 @@
 		var/status = !(clothing_flags & VOICEBOX_DISABLED)
 		to_chat(user, span_notice("You turn the voice box in [src] [status ? "on" : "off"]."))
 
-/obj/item/clothing/mask/equipped(mob/user, slot)
-	. = ..()
-	if(!modifies_speech && !chosen_tongue)
-		return
-
-	if (slot == ITEM_SLOT_MASK)
-		RegisterSignal(user, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-	else
-		UnregisterSignal(user, COMSIG_MOB_SAY)
-
-/obj/item/clothing/mask/dropped(mob/user, silent)
-	. = ..()
-	if(modifies_speech || chosen_tongue)
-		UnregisterSignal(user, COMSIG_MOB_SAY)
-
 /obj/item/clothing/mask/Destroy()
 	chosen_tongue = null
 	return ..()
 
-/obj/item/clothing/mask/proc/handle_speech(mob/speaker, list/speech_args)
-	SIGNAL_HANDLER
-	if(!chosen_tongue)
-		return
 
-	speaker.verb_say = pick(initial(chosen_tongue.say_mod))
-	speaker.verb_ask = pick(initial(chosen_tongue.ask_mod))
-	speaker.verb_yell = pick(initial(chosen_tongue.yell_mod))
-	speaker.verb_exclaim = pick(initial(chosen_tongue.exclaim_mod))
 
 /obj/item/clothing/mask/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()

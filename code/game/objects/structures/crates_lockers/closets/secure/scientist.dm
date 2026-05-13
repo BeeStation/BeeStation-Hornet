@@ -12,7 +12,7 @@
 /obj/structure/closet/secure_closet/RD/PopulateContents()
 	..()
 	new /obj/item/storage/box/suitbox/rd(src)
-	new /obj/item/clothing/suit/toggle/labcoat/research_director(src)
+	new /obj/item/clothing/suit/jacket/research_director(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/radio/headset/heads/research_director(src)
 

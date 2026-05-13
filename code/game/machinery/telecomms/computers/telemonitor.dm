@@ -12,6 +12,7 @@
 	network_id = "tcommsat"
 
 /obj/machinery/computer/telecomms/monitor/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Telemonitor")

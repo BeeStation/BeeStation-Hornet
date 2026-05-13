@@ -63,12 +63,15 @@
 	accessory = /obj/item/clothing/accessory/security_pager
 
 	backpack = /obj/item/storage/backpack/security
+	suit_store = /obj/item/gun/ballistic/automatic/pistol/security
+
 	backpack_contents = list(
 		/obj/item/dog_bone = 1,
-		/obj/item/mining_voucher/security = 1,
 	)
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
+	messenger = /obj/item/storage/backpack/messenger/sec
+
 	box = /obj/item/storage/box/survival/security
 
 	implants = list(/obj/item/implant/mindshield)

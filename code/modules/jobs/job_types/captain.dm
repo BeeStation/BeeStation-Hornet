@@ -54,9 +54,13 @@
 /datum/job/captain/get_access()
 	return get_all_accesses()
 
-/datum/job/captain/announce(mob/living/carbon/human/H)
+/datum/job/captain/announce_job(mob/living/carbon/human/H)
 	..()
 	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce), "Captain [H.real_name] on deck!"))
+
+/datum/job/captain/get_radio_information()
+	. = ..()
+	. += "\nYou have access to all radio channels, but they are not automatically tuned. Check your radio for more information."
 
 /datum/outfit/job/captain
 	name = JOB_NAME_CAPTAIN
@@ -76,6 +80,7 @@
 	backpack = /obj/item/storage/backpack/captain
 	satchel = /obj/item/storage/backpack/satchel/cap
 	duffelbag = /obj/item/storage/backpack/duffelbag/captain
+	messenger = /obj/item/storage/backpack/messenger/cap
 
 	implants = list(/obj/item/implant/mindshield)
 	accessory = /obj/item/clothing/accessory/medal/gold/captain

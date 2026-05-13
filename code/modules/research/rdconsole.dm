@@ -191,7 +191,8 @@ Nothing else in the console has ID requirements.
 	var/print = linked_imprinter && linked_imprinter.multitool_act(user, I)
 	return lathe || print
 
-/obj/machinery/computer/rdconsole/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/computer/rdconsole/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
 		ui = new(user, src, "Techweb", name)

@@ -51,11 +51,12 @@
 	l_pocket = /obj/item/modular_computer/tablet/pda/preset/roboticist
 	ears = /obj/item/radio/headset/headset_sci
 	uniform = /obj/item/clothing/under/rank/rnd/roboticist
-	suit = /obj/item/clothing/suit/toggle/labcoat
+	suit = /obj/item/clothing/suit/toggle/labcoat/roboticist
 
 	backpack = /obj/item/storage/backpack/science
-	satchel = /obj/item/storage/backpack/satchel/tox
+	satchel = /obj/item/storage/backpack/satchel/science
 	duffelbag = /obj/item/storage/backpack/duffelbag/science
+	messenger = /obj/item/storage/backpack/messenger/science
 
 	pda_slot = ITEM_SLOT_LPOCKET
 

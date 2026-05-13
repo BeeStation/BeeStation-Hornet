@@ -16,6 +16,7 @@
 	can_save_id = TRUE
 	saved_auto_imprint = TRUE
 	can_store_pai = TRUE
+	looping_sound = FALSE
 
 	/// The typepaths we are allowed to store
 	var/static/list/contained_item = list(

@@ -13,26 +13,24 @@
 	key_third_person = "blushes"
 	message = "blushes"
 	emote_type = EMOTE_VISIBLE
-	/// Timer for the blush visual to wear off
 
 /datum/emote/living/blush/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(ishuman(user)) // Give them a visual blush effect if they're human
 		var/mob/living/carbon/human/human_user = user
 		ADD_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
-		human_user.update_body()
+		human_user.update_body_parts()
 
 		// Use a timer to remove the blush effect after the BLUSH_DURATION has passed
 		var/list/key_emotes = GLOB.emote_list["blush"]
 		for(var/datum/emote/living/blush/living_emote in key_emotes)
-
 			// The existing timer restarts if it is already running
 			addtimer(CALLBACK(living_emote, PROC_REF(end_blush), human_user), BLUSH_DURATION, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /datum/emote/living/blush/proc/end_blush(mob/living/carbon/human/human_user)
 	if(!QDELETED(human_user))
 		REMOVE_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
-		human_user.update_body()
+		human_user.update_body_parts()
 
 #undef BLUSH_DURATION
 
@@ -149,11 +147,11 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
-		if(H.Togglewings())
-			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings)), wing_time)
-		// play moth flutter noise if moth wing
-		if(istype(wings, /obj/item/organ/wings/moth))
-			playsound(H, 'sound/emotes/moth/moth_flutter.ogg', 50, TRUE)
+		if(H.Togglewings(silent = TRUE))
+			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings), TRUE), wing_time)
+		// play flutter noise
+		if(wings.flapsound)
+			playsound(H, wings.flapsound, 50, TRUE)
 
 /datum/emote/living/flap/aflap
 	key = "aflap"
@@ -382,12 +380,14 @@
 	key_third_person = "surrenders"
 	message = "puts their hands on their head and falls to the ground, surrendering"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	stat_allowed = SOFT_CRIT
 
-/datum/emote/living/surrender/run_emote(mob/user, params, type_override, intentional)
+/datum/emote/living/surrender/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()
 	if(isliving(user) && intentional)
 		var/mob/living/living = user
 		living.Paralyze(20 SECONDS)
+		living.set_combat_mode(FALSE)
 
 /datum/emote/living/sway
 	key = "sway"

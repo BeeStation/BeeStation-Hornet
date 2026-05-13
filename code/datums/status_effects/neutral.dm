@@ -254,6 +254,40 @@
 	if(!.)
 		return
 	new_owner.start_leaning(object, leaning_offset)
+//this effect gives the user an alert they can use to surrender quickly
+/datum/status_effect/grouped/surrender
+	id = "surrender"
+	duration = -1
+	tick_interval = -1
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /atom/movable/screen/alert/status_effect/surrender
+
+/atom/movable/screen/alert/status_effect/surrender
+	name = "Surrender"
+	desc = "Looks like you're in trouble now, bud. Click here to surrender. (Warning: You will be incapacitated.)"
+	icon_state = "surrender"
+
+/atom/movable/screen/alert/status_effect/surrender/Click(location, control, params)
+	. = ..()
+	if(!.)
+		return
+
+	owner.emote("surrender")
+
+///For when you need to make someone be prompted for surrender, but not forever
+/datum/status_effect/surrender_timed
+	id = "surrender_timed"
+	duration = 30 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+
+/datum/status_effect/surrender_timed/on_apply()
+	owner.apply_status_effect(/datum/status_effect/grouped/surrender, REF(src))
+	return ..()
+
+/datum/status_effect/surrender_timed/on_remove()
+	owner.remove_status_effect(/datum/status_effect/grouped/surrender, REF(src))
+	return ..()
 
 /atom/movable/screen/alert/status_effect/morph_cooldown
 	name = "Chameleon Recharge"
@@ -267,20 +301,34 @@
 
 /atom/movable/screen/alert/status_effect/cyborg_sentry
 	name = "Sentry-mode Active"
-	desc = "Your armor is active but slowing you down!"
+	desc = "Your armor plating is engaged, granting you significant damage resistance but reducing your movement speed. Use the Toggle Sentry Mode action to control this."
 	icon_state = "sentry"
 
 /datum/status_effect/cyborg_sentry
 	id = "cyborg_sentry"
 	duration = STATUS_EFFECT_PERMANENT
 	alert_type = /atom/movable/screen/alert/status_effect/cyborg_sentry
+	/// The shield overlay shown on the cyborg while sentry mode is active
+	var/mutable_appearance/shield_overlay
 
 /datum/status_effect/cyborg_sentry/on_apply(mob/living/new_owner, ...)
 	. = ..()
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/cyborg_sentry)
 	owner.set_armor(/datum/armor/cyborg)
 
+	shield_overlay = mutable_appearance('icons/effects/effects.dmi', "shield-old", MOB_SHIELD_LAYER)
+	shield_overlay.alpha = 160
+	owner.add_overlay(shield_overlay)
+	playsound(owner, 'sound/mecha/mech_shield_raise.ogg', 50, TRUE)
+	owner.visible_message(span_warning("[owner]'s armor plating locks into place!"))
+
 /datum/status_effect/cyborg_sentry/on_remove()
+
+	if(shield_overlay)
+		owner.cut_overlay(shield_overlay)
+		shield_overlay = null
+	playsound(owner, 'sound/mecha/mech_shield_drop.ogg', 50, TRUE)
+	owner.visible_message(span_notice("[owner]'s armor plating retracts."))
 	. = ..()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/cyborg_sentry)
 	owner.set_armor(/datum/armor/none)

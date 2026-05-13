@@ -684,7 +684,7 @@ There are several things that need to be remembered:
 
 /mob/living/carbon/human/proc/update_hud_s_store(obj/item/worn_item)
 	worn_item.screen_loc = ui_sstore1
-	if((client && hud_used) && (hud_used.inventory_shown && hud_used.hud_shown))
+	if(client && hud_used?.hud_shown)
 		client.screen += worn_item
 	update_observer_view(worn_item,TRUE)
 
@@ -882,18 +882,15 @@ generate/load female uniform sprites matching all previously decided variables
 
 		// eyes
 		if(!(NOEYESPRITES in dna.species.species_traits))
-			var/obj/item/organ/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
-			var/mutable_appearance/eye_overlay
-			if(!E)
-				eye_overlay = mutable_appearance('icons/mob/human/human_face.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+			var/obj/item/organ/eyes/parent_eyes = get_organ_slot(ORGAN_SLOT_EYES)
+			if(parent_eyes)
+				add_overlay(parent_eyes.generate_body_overlay(src))
 			else
-				eye_overlay = mutable_appearance('icons/mob/human/human_face.dmi', E.eye_icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-			if((EYECOLOR in dna.species.species_traits) && E)
-				eye_overlay.color = eye_color
-			if(OFFSET_FACE in dna.species.offset_features)
-				eye_overlay.pixel_x += dna.species.offset_features[OFFSET_FACE][1]
-				eye_overlay.pixel_y += dna.species.offset_features[OFFSET_FACE][2]
-			add_overlay(eye_overlay)
+				var/mutable_appearance/missing_eyes = mutable_appearance('icons/mob/human/human_eyes.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+				if(OFFSET_FACE in dna.species.offset_features)
+					missing_eyes.pixel_x += dna.species.offset_features[OFFSET_FACE][1]
+					missing_eyes.pixel_y += dna.species.offset_features[OFFSET_FACE][2]
+				add_overlay(missing_eyes)
 
 	dna.species.handle_hair(src)
 

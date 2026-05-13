@@ -73,7 +73,7 @@
 
 // Only called if mappers set ID
 /obj/machinery/mineral/processing_unit_console/LateInitialize()
-	for(var/obj/machinery/mineral/processing_unit/PU in GLOB.machines)
+	for(var/obj/machinery/mineral/processing_unit/PU as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/mineral/processing_unit))
 		if(PU.link_id == link_id)
 			machine = PU
 			machine.console = src

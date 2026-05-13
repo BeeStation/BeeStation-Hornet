@@ -8,8 +8,10 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	new/datum/stack_recipe("white bandana", /obj/item/clothing/mask/bandana/white, 2, category = CAT_CLOTHING), \
 	new/datum/stack_recipe("white hoodie", /obj/item/clothing/suit/hooded/hoodie, 5, time = 4 SECONDS, category = CAT_CLOTHING), \
 	null, \
-	new/datum/stack_recipe("backpack", /obj/item/storage/backpack, 4, category = CAT_CONTAINERS), \
-	new/datum/stack_recipe("duffel bag", /obj/item/storage/backpack/duffelbag, 6, category = CAT_CONTAINERS), \
+	new/datum/stack_recipe("backpack", /obj/item/storage/backpack, 4, crafting_flags = NONE, category = CAT_CONTAINERS), \
+	new/datum/stack_recipe("satchel", /obj/item/storage/backpack/satchel, 4, crafting_flags = NONE, category = CAT_CONTAINERS), \
+	new/datum/stack_recipe("messenger bag", /obj/item/storage/backpack/messenger, 4, crafting_flags = NONE, category = CAT_CONTAINERS), \
+	new/datum/stack_recipe("duffel bag", /obj/item/storage/backpack/duffelbag, 6, crafting_flags = NONE, category = CAT_CONTAINERS), \
 	null, \
 	new/datum/stack_recipe("plant bag", /obj/item/storage/bag/plants, 4, time = 4 SECONDS, category = CAT_CONTAINERS), \
 	new/datum/stack_recipe("book bag", /obj/item/storage/bag/books, 4, time = 4 SECONDS, category = CAT_CONTAINERS), \

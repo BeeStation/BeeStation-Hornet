@@ -25,7 +25,14 @@
 		),
 	)
 
-	var/list/prefreturn = presentpreflikepicker(usr,"Customize ERT", "Customize ERT", Button1="Ok", width = 600, StealFocus = 1,Timeout = 0, settings=settings)
+	var/list/prefreturn = present_pref_like_picker(
+		user = usr,
+		message = "Customize ERT",
+		title = "Customize ERT",
+		timeout = 0,
+		settings = settings,
+		width = 600,
+	)
 
 	if (isnull(prefreturn))
 		return FALSE
@@ -162,7 +169,7 @@
 
 		//Open the Armory doors
 		if(template.opendoors)
-			for(var/obj/machinery/door/poddoor/ert/door in GLOB.airlocks)
+			for(var/obj/machinery/door/poddoor/ert/door as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/poddoor/ert))
 				door.open()
 				CHECK_TICK
 		return TRUE

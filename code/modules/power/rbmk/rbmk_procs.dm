@@ -506,7 +506,7 @@ Arguments:
 			to_chat(player_mob, span_userdanger("You hear a horrible metallic hissing."))
 			SEND_SIGNAL(player_mob, COMSIG_ADD_MOOD_EVENT, "delam", /datum/mood_event/delam) //Might as well use the same moodlet since its essentialy the same thing happening
 
-	for(var/obj/machinery/power/apc/apc in GLOB.apcs_list)
+	for(var/obj/machinery/power/apc/apc as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/apc))
 		if(prob(70) && compare_z(rbmkzlevel, apc.get_virtual_z_level()))
 			apc.overload_lighting()
 	var/datum/gas_mixture/coolant_input = linked_input.airs[1]

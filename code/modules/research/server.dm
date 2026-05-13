@@ -95,10 +95,8 @@
 	req_access = list(ACCESS_RD_SERVER)
 	circuit = /obj/item/circuitboard/computer/rdservercontrol
 
-/obj/machinery/computer/rdservercontrol/ui_state(mob/user)
-	return GLOB.default_state
-
 /obj/machinery/computer/rdservercontrol/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "RDConsole")

@@ -55,7 +55,6 @@
 	set_init_door_layer()
 	update_freelook_sight()
 	air_update_turf(TRUE, TRUE)
-	GLOB.airlocks += src
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
 
@@ -90,7 +89,6 @@
 
 /obj/machinery/door/Destroy()
 	update_freelook_sight()
-	GLOB.airlocks -= src
 	if(spark_system)
 		qdel(spark_system)
 		spark_system = null

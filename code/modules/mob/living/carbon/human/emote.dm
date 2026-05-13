@@ -9,6 +9,7 @@
 	key = "cry"
 	key_third_person = "cries"
 	message = "cries"
+	message_mime = "sobs silently."
 	emote_type = EMOTE_VISIBLE //Cry in silence as you should.
 
 /datum/emote/living/carbon/human/cry/run_emote(mob/user, params, type_override, intentional)
@@ -215,14 +216,14 @@
 			return TRUE
 	return FALSE
 
-/mob/living/carbon/proc/Togglewings()
+/mob/living/carbon/proc/Togglewings(silent = FALSE)
 	if(!dna || !dna.species)
 		return FALSE
 	var/obj/item/organ/wings/wings = get_organ_slot(ORGAN_SLOT_WINGS)
 	if(istype(wings))
 		if(ismoth(src) && HAS_TRAIT(src, TRAIT_MOTH_BURNT))
 			return FALSE
-		if(wings.toggleopen(src))
+		if(wings.toggleopen(src, silent))
 			return TRUE
 	return FALSE
 

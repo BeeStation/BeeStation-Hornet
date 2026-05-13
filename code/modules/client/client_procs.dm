@@ -497,22 +497,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	..()
 
-/// USE "mob.set_mob_eye_to(MOB_EYE_SELF)" - YOU HAVE NO REASON TO USE THIS.
-/// BeeStation eye system is different. You always use 'set_mob_eye_to(MOB_EYE_SELF)' proc.
-/// This proc still exists to warn coders.
-/client/proc/set_eye(atom/new_eye)
-	PRIVATE_PROC(TRUE) // NO. DO NOT USE THIS. Check below:
-/* 		Instruction of porting:
-------------------------------------
-/mob/proc/something(mob/target)
-	client.set_eye(target) => this is wrong
-	client.mob.set_mob_eye_to(target) => this is half-alright (will be broken if there's no client)
-	client.set_client_eye_to(target) => you shouldn't use this too
-
-	set_mob_eye_to(target) => this is correct
-	src.set_mob_eye_to(target) => same thing
------------------------------------- */
-
 /// Sets a client eye into given new eye. This is intended not to be used. You should use 'set_mob_eye_to(thing)'
 /client/proc/set_client_eye_to(atom/new_eye)
 	_on_setting_client_eye(new_eye, src?.eye_weakref?.resolve() || CLIENT_OLD_EYE_NULL)

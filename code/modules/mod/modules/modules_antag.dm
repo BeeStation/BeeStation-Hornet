@@ -520,8 +520,8 @@
 /obj/item/mod/module/infiltrator/on_part_activation()
 	mod.wearer.add_traits(traits_to_add, REF(src))
 	RegisterSignal(mod.wearer, COMSIG_TRY_MODIFY_SPEECH, PROC_REF(on_speech_modification))
-	//var/obj/item/organ/tongue/user_tongue = mod.wearer.get_organ_slot(ORGAN_SLOT_TONGUE)
-	//user_tongue.temp_say_mod = "states"
+	var/obj/item/organ/tongue/user_tongue = mod.wearer.get_organ_slot(ORGAN_SLOT_TONGUE)
+	user_tongue.temp_say_mod = "states"
 	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD)
 	if(istype(head_cover))
 		head_cover.flash_protect = FLASH_PROTECTION_WELDER_HYPER_SENSITIVE
@@ -529,8 +529,8 @@
 /obj/item/mod/module/infiltrator/on_part_deactivation(deleting = FALSE)
 	mod.wearer.remove_traits(traits_to_add, REF(src))
 	UnregisterSignal(mod.wearer, COMSIG_TRY_MODIFY_SPEECH)
-	//var/obj/item/organ/tongue/user_tongue = mod.wearer.get_organ_slot(ORGAN_SLOT_TONGUE)
-	//user_tongue.temp_say_mod = initial(user_tongue.temp_say_mod)
+	var/obj/item/organ/tongue/user_tongue = mod.wearer.get_organ_slot(ORGAN_SLOT_TONGUE)
+	user_tongue.temp_say_mod = initial(user_tongue.temp_say_mod)
 	if(deleting)
 		return
 	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD)

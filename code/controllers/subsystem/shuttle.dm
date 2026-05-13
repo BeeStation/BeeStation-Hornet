@@ -638,8 +638,7 @@ SUBSYSTEM_DEF(shuttle)
 	hidden_shuttle_turf_images -= remove_images
 	hidden_shuttle_turf_images += add_images
 
-	for(var/V in GLOB.navigation_computers)
-		var/obj/machinery/computer/shuttle_flight/C = V
+	for(var/obj/machinery/computer/shuttle_flight/C as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/shuttle_flight))
 		C.update_hidden_docking_ports(remove_images, add_images)
 
 	QDEL_LIST(remove_images)

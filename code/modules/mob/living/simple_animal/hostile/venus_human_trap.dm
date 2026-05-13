@@ -175,7 +175,7 @@
 	playsound(src.loc, 'sound/creatures/venus_trap_hurt.ogg', 50, 1)
 	adjustHealth(maxHealth*0.15)
 
-/mob/living/simple_animal/hostile/venus_human_trap/Moved(atom/OldLoc, Dir)
+/mob/living/simple_animal/hostile/venus_human_trap/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	pixel_x = base_pixel_x + (dir & (NORTH|WEST) ? 2 : -2)
 

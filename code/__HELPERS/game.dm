@@ -384,11 +384,12 @@
 	return pick(possible_loc)
 
 /proc/power_fail(duration_min, duration_max)
-	for(var/P in GLOB.apcs_list)
-		var/obj/machinery/power/apc/C = P
-		if(C.cell && SSmapping.level_trait(C.z, ZTRAIT_STATION))
-			var/area/A = C.area
-			if(GLOB.typecache_powerfailure_safe_areas[A.type])
-				continue
+	for(var/obj/machinery/power/apc/current_apc as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/apc))
+		if(!current_apc.cell || SSmapping.level_trait(current_apc.z, ZTRAIT_STATION))
+			continue
+		var/area/apc_area = current_apc.area
+		if(is_type_in_typecache(apc_area, GLOB.typecache_powerfailure_safe_areas))
+			continue
 
-			C.energy_fail(rand(duration_min,duration_max))
+		var/duration = rand(duration_min,duration_max)
+		current_apc.energy_fail(duration)

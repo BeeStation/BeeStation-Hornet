@@ -117,6 +117,7 @@
 
 	if (HAS_TRAIT(human_parent, TRAIT_RADHEALER))
 		intensity = max(intensity - RAD_HEALER_DECREASE_PER_SECOND * delta_time, 0)
+		return
 
 	if (intensity >= RADIATION_BURN_THRESHOLD && !trying_to_burn)
 		start_burn_splotch_timer()

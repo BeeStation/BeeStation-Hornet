@@ -125,10 +125,10 @@
 	if(HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		alpha = 255
 
-/obj/item/storage/box/mime/Moved(oldLoc, dir)
-	if (iscarbon(oldLoc))
+/obj/item/storage/box/mime/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	if (iscarbon(old_loc))
 		alpha = 0
-	..()
+	return ..()
 
 //Disk boxes
 
@@ -1302,16 +1302,6 @@
 	for(var/i in 1 to 4)
 		new /obj/item/clothing/accessory/armband/deputy(src)
 		new /obj/item/card/id/pass/deputy(src)
-
-/obj/item/storage/box/vouchers
-	name = "box of security vouchers"
-	desc = "To be issued to new recruits only."
-	icon_state = "secbox"
-	illustration = "writing_syndie"
-
-/obj/item/storage/box/vouchers/PopulateContents()
-	for(var/i in 1 to 4)
-		new /obj/item/mining_voucher/security(src)
 
 /obj/item/storage/box/radiokey
 	name = "box of generic radio keys"

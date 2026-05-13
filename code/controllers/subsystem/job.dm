@@ -259,11 +259,12 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/proc/ResetOccupations()
 	JobDebug("Occupations reset.")
-	for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
-		if((player) && (player.mind))
-			player.mind.set_assigned_role(null)
-			player.mind.special_role = null
-			SSpersistence.antag_rep_change[player.ckey] = 0
+	for(var/mob/dead/new_player/authenticated/player in GLOB.auth_new_player_list)
+		if(!player.mind)
+			continue
+		player.mind.set_assigned_role(null)
+		player.mind.special_role = null
+		SSpersistence.antag_rep_change[player.ckey] = 0
 	SetupOccupations()
 	unassigned = list()
 	set_overflow_role(overflow_role)
@@ -551,8 +552,7 @@ SUBSYSTEM_DEF(job)
 			DropLandAtRandomHallwayPoint(living_mob)
 			spawning_handled = TRUE
 		else if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER) && job.random_spawns_possible)
-			SpawnLandAtRandom(living_mob, (typesof(/area/station/hallway) | typesof(
-/area/station/service/bar) | typesof(/area/station/commons/dorms)))
+			SpawnLandAtRandom(living_mob, (typesof(/area/station/hallway) | typesof(/area/station/service/bar) | typesof(/area/station/commons/dorms)))
 			spawning_handled = TRUE
 		else if(length(GLOB.jobspawn_overrides[rank]))
 			S = pick(GLOB.jobspawn_overrides[rank])
@@ -574,10 +574,9 @@ SUBSYSTEM_DEF(job)
 
 
 	if(living_mob.mind)
-		living_mob.mind.set_assigned_role(rank, job)
-	to_chat(M, "<b>You are the [rank].</b>")
+		living_mob.mind.set_assigned_role_with_greeting(rank, job, M.client)
 	if(job)
-		var/new_mob = job.equip(living_mob, null, null, joined_late , null, M.client)
+		var/new_mob = living_mob.on_job_equipping(job, joined_late, M.client)
 		if(ismob(new_mob))
 			living_mob = new_mob
 			if(!joined_late)
@@ -599,19 +598,7 @@ SUBSYSTEM_DEF(job)
 				M.client.holder.auto_deadmin()
 			else
 				handle_auto_deadmin_roles(M.client, rank)
-		to_chat(M, "<b>As the [rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
-		job.radio_help_message(M)
-		if(job.req_admin_notify)
-			to_chat(M, "<b>You are playing a job that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
-		var/obj/item/id_card = living_mob?.get_idcard()
-		if (SSjob.initial_players_to_assign < job.min_pop && job.min_pop_redirect)
-			to_chat(M, span_noticebig("<b>Due to a lack of station personnel, you additionally have the responsibilities and access of \a [job.min_pop_redirect::title]!</b>"))
-		else if (id_card && length(id_card.GetAccess()) != length(job.base_access))
-			to_chat(M, span_notice("<B>You have been granted with additional access and responsibilities due to a lack of station personnel.</B>"))
-	if(ishuman(living_mob))
-		var/mob/living/carbon/human/wageslave = living_mob
-		if(wageslave.mind?.account_id)
-			living_mob.add_memory("Your account ID is [wageslave.mind.account_id].")
+
 	if(job && living_mob)
 		job.after_spawn(living_mob, M, joined_late, M.client) // note: this happens before the mob has a key! M will always have a client, living_mob might not.
 
@@ -619,6 +606,32 @@ SUBSYSTEM_DEF(job)
 		give_crew_objective(living_mob.mind, M)
 
 	return living_mob
+
+/mob/living/proc/on_job_equipping(datum/job/job, joined_late, client/player_client)
+	return
+
+#define VERY_LATE_ARRIVAL_TOAST_PROB 20
+
+/mob/living/carbon/human/on_job_equipping(datum/job/equipping, joined_late, client/player_client)
+	if(equipping.bank_account_department)
+		var/datum/bank_account/bank_account = new(real_name, equipping)
+		bank_account.payday(STARTING_PAYCHECKS, TRUE)
+		mind?.account_id = bank_account.account_id
+		player_client.mob.add_memory("Your account ID is [mind?.account_id].")
+
+	. = dress_up_as_job(job = equipping, visual_only = FALSE, player_client = player_client, joined_late = joined_late)
+
+	if(EMERGENCY_PAST_POINT_OF_NO_RETURN && prob(VERY_LATE_ARRIVAL_TOAST_PROB))
+		equip_to_slot_or_del(new /obj/item/food/griddle_toast(src), ITEM_SLOT_MASK)
+
+#undef VERY_LATE_ARRIVAL_TOAST_PROB
+
+/mob/living/proc/dress_up_as_job(datum/job/job, visual_only = FALSE, client/player_client, joined_late = FALSE)
+	return
+
+/mob/living/carbon/human/dress_up_as_job(datum/job/job, visual_only = FALSE, client/player_client, joined_late = FALSE)
+	return job.equip(H = src, visuals_only = visual_only, announce = TRUE, latejoin = joined_late, outfit_override = null, preference_source = player_client)
+
 
 /datum/controller/subsystem/job/proc/handle_auto_deadmin_roles(client/C, rank)
 	if(!C?.holder)

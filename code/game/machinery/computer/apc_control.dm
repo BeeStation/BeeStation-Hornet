@@ -49,9 +49,8 @@
 			dat += "<b>Name:</b> <a href='byond://?src=[REF(src)];name_filter=1'>[result_filters["Name"] ? result_filters["Name"] : "None set"]</a><br>"
 			dat += "<b>Charge:</b> <a href='byond://?src=[REF(src)];above_filter=1'>\>[result_filters["Charge Above"] ? result_filters["Charge Above"] : "NaN"]%</a> and <a href='byond://?src=[REF(src)];below_filter=1'>\<[result_filters["Charge Below"] ? result_filters["Charge Below"] : "NaN"]%</a><br>"
 			dat += "<b>Accessible:</b> <a href='byond://?src=[REF(src)];access_filter=1'>[result_filters["Responsive"] ? "Non-Responsive Only" : "All"]</a><br><br>"
-			for(var/A in GLOB.apcs_list)
-				if(check_apc(A))
-					var/obj/machinery/power/apc/APC = A
+			for(var/obj/machinery/power/apc/APC as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/apc))
+				if(check_apc(APC))
 					if(result_filters["Name"] && !findtext(APC.name, result_filters["Name"]) && !findtext(APC.area.name, result_filters["Name"]))
 						continue
 					if(result_filters["Charge Above"] && (!APC.cell || (APC.cell && (APC.cell.charge / APC.cell.maxcharge) < result_filters["Charge Above"] / 100)))
@@ -60,7 +59,7 @@
 						continue
 					if(result_filters["Responsive"] && !APC.aidisabled)
 						continue
-					dat += "<a href='byond://?src=[REF(src)];access_apc=[REF(APC)]'>[A]</a><br>\
+					dat += "<a href='byond://?src=[REF(src)];access_apc=[REF(APC)]'>[APC]</a><br>\
 					<b>Charge:</b> [APC.cell ? "[display_power(APC.cell.charge)] / [display_power(APC.cell.maxcharge)] ([round((APC.cell.charge / APC.cell.maxcharge) * 100)]%)" : "No power cell installed."]<br>\
 					<b>Area:</b> [APC.area]<br>\
 					[APC.aidisabled || APC.panel_open ? "<font color='#FF0000'>APC does not respond to interface query.</font>" : "<font color='#00FF00'>APC responds to interface query.</font>"]<br><br>"
@@ -109,7 +108,7 @@
 		LAZYADD(logs, "<b>-=- Logging restored to full functionality at this point -=-</b>")
 	if(href_list["access_apc"])
 		playsound(src, "terminal_type", 50, 0)
-		var/obj/machinery/power/apc/APC = locate(href_list["access_apc"]) in GLOB.apcs_list
+		var/obj/machinery/power/apc/APC = locate(href_list["access_apc"]) in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/apc)
 		if(!APC || APC.aidisabled || APC.panel_open || QDELETED(APC))
 			to_chat(usr, span_robotdanger("[icon2html(src, usr)] APC does not return interface request. Remote access may be disabled."))
 			return
