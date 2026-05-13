@@ -11,6 +11,7 @@
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/objective)
 
 /obj/machinery/computer/objective/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Objective")
@@ -18,6 +19,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/objective)
 	viewing_mobs += user
 
 /obj/machinery/computer/objective/ui_close(mob/user, datum/tgui/tgui)
+	. = ..()
 	viewing_mobs -= user
 
 /obj/machinery/computer/objective/ui_static_data(mob/user)

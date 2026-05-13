@@ -85,11 +85,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
 	var/obj/machinery/launchpad/pad = launchpads[number]
 	return pad
 
-
-/obj/machinery/computer/launchpad/ui_state(mob/user)
-	return GLOB.default_state
-
 /obj/machinery/computer/launchpad/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "LaunchpadConsole")
