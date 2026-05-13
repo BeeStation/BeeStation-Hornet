@@ -1,7 +1,0 @@
-author: mrmanlikesbt, ZephyrTFA
-delete-after: true
-changes:
-  - code_imp: GLOB.machines has been removed and replaced with the new SSmachines.get_machines_by_type_and_subtypes()
-      and SSmachines.get_machines_by_type() procs. This should improve performance
-      across the codebase because now instead of looping through a list of 15,000
-      machines, we only have to search through a few hundred at most.
