@@ -76,11 +76,6 @@
 	var/matrix/o_transform = plant_item.transform
 	animate(plant_item, time = 1.5, loop = 0, transform = matrix().Scale(1.07, 0.9))
 	animate(time = 2, transform = o_transform)
-//Logging
-	var/turf/T = get_turf(victim)
-	victim.investigate_log("has been pricked by [plant_item] at [AREACOORD(T)] injecting themselves with [parent.trait_power*BASE_REAGENT_TRANSFER] % of [holder.log_list()]. \
-	Last fingerprint: [plant_item.fingerprintslast].", INVESTIGATE_BOTANY)
-	log_combat(victim, plant_item, "activated the", null, "injecting them with [parent.trait_power*BASE_REAGENT_TRANSFER]% of [holder.log_list()]. Last fingerprint: [plant_item.fingerprintslast].")
 //Reagents
 	var/datum/reagents/holder = plant_item.loc.reagents
 	if(!holder)
@@ -90,5 +85,10 @@
 	holder.expose(victim, INJECT, fraction)
 	holder.trans_to(victim, fraction)
 	to_chat(victim, span_danger("You are pricked by [plant_item]!"))
+//Logging
+	var/turf/T = get_turf(victim)
+	victim.investigate_log("has been pricked by [plant_item] at [AREACOORD(T)] injecting themselves with [parent.trait_power*BASE_REAGENT_TRANSFER] % of [holder.log_list()]. \
+	Last fingerprint: [plant_item.fingerprintslast].", INVESTIGATE_BOTANY)
+	log_combat(victim, plant_item, "activated the", null, "injecting them with [parent.trait_power*BASE_REAGENT_TRANSFER]% of [holder.log_list()]. Last fingerprint: [plant_item.fingerprintslast].")
 
 #undef BASE_REAGENT_TRANSFER
