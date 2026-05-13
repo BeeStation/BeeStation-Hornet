@@ -11,7 +11,9 @@
 
 /datum/plant_trait/body/sap/setup_parent(_parent)
 	. = ..()
+	//Special case to deny mushrooms
 	if(istype(parent, /datum/plant_feature/body/mushroom))
+		parent.plant_traits -= src
 		parent = null
 		qdel(src)
 		return

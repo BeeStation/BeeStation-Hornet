@@ -16,6 +16,15 @@
 	///Range of turfs we GAF about
 	var/turf_range = 1
 
+/datum/plant_trait/body/thorns/setup_parent(_parent)
+	. = ..()
+	//Special case to deny mushrooms
+	if(istype(parent, /datum/plant_feature/body/mushroom))
+		parent.plant_traits -= src
+		parent = null
+		qdel(src)
+		return
+
 /datum/plant_trait/body/thorns/setup_component_parent(datum/source)
 	. = ..()
 	if(!parent)
@@ -56,9 +65,6 @@
 	var/mob/living/victim = entering
 	if(!isliving(victim) || !victim.reagents || !victim.can_inject(null, 0))
 		return
-	var/datum/reagents/holder = plant_item.loc.reagents
-	if(!holder)
-		return
 //Counters
 	//Gloves will allow us to push past unharmed
 	var/mob/living/carbon/C = victim
@@ -76,6 +82,9 @@
 	Last fingerprint: [plant_item.fingerprintslast].", INVESTIGATE_BOTANY)
 	log_combat(victim, plant_item, "activated the", null, "injecting them with [parent.trait_power*BASE_REAGENT_TRANSFER]% of [holder.log_list()]. Last fingerprint: [plant_item.fingerprintslast].")
 //Reagents
+	var/datum/reagents/holder = plant_item.loc.reagents
+	if(!holder)
+		return
 	var/injecting_amount = (parent.trait_power*BASE_REAGENT_TRANSFER)*0.01
 	var/fraction = max(holder.maximum_volume*injecting_amount, 1)
 	holder.expose(victim, INJECT, fraction)
