@@ -1,13 +1,3 @@
-/datum/preference/toggle/tgui_fancy
-	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
-	db_key = "tgui_fancy"
-	preference_type = PREFERENCE_PLAYER
-
-/datum/preference/toggle/tgui_fancy/apply_to_client(client/client, value)
-	for (var/datum/tgui/tgui as anything in client.mob?.tgui_open_uis)
-		// Force it to reload either way
-		tgui.update_static_data(client.mob)
-
 /// Changes layout in some UI's, like Vending, Smartfridge etc. Making it list or grid
 /datum/preference/choiced/tgui_layout
 	db_key = "tgui_layout"

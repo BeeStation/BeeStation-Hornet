@@ -27,7 +27,7 @@
 			. = TRUE
 
 /obj/machinery/computer/sat_control/proc/toggle(id)
-	for(var/obj/machinery/satellite/S in GLOB.machines)
+	for(var/obj/machinery/satellite/S as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/satellite))
 		if(S.id == id && S.get_virtual_z_level() == get_virtual_z_level())
 			S.toggle()
 
@@ -35,7 +35,7 @@
 	var/list/data = list()
 
 	data["satellites"] = list()
-	for(var/obj/machinery/satellite/S in GLOB.machines)
+	for(var/obj/machinery/satellite/S as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/satellite))
 		data["satellites"] += list(list(
 			"id" = S.id,
 			"active" = S.active,

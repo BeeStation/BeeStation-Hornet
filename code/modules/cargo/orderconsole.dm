@@ -35,15 +35,11 @@
 /obj/machinery/computer/cargo/Initialize(mapload)
 	. = ..()
 	radio = new /obj/item/radio/headset/headset_cargo(src)
-	RegisterSignal(SSdcs, COMSIG_GLOB_RESUPPLY, PROC_REF(update_static_ui))
+	RegisterSignal(SSdcs, COMSIG_GLOB_RESUPPLY, TYPE_PROC_REF(/datum, update_static_data_for_all_viewers))
 
 /obj/machinery/computer/cargo/Destroy()
 	QDEL_NULL(radio)
 	return ..()
-
-/obj/machinery/computer/cargo/proc/update_static_ui()
-	for (var/datum/tgui/open_window as() in SStgui.get_all_open_uis(src))
-		update_static_data(null, open_window)
 
 /obj/machinery/computer/cargo/proc/get_export_categories()
 	. = EXPORT_CARGO

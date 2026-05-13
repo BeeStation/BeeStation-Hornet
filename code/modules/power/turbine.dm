@@ -319,7 +319,7 @@
 
 /obj/machinery/computer/turbine_computer/locate_machinery()
 	if(id)
-		for(var/obj/machinery/power/compressor/C in GLOB.machines)
+		for(var/obj/machinery/power/compressor/C as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/compressor))
 			if(C.comp_id == id)
 				compressor = C
 				return
