@@ -1,0 +1,4 @@
+author: Tyfightercats
+delete-after: true
+changes:
+  - bugfix: Fixed Diona taking damage and gaining random mutations from radiation.
