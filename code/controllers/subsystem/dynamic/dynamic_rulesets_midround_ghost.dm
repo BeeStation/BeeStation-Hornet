@@ -293,7 +293,7 @@
 	return new_xeno
 
 /datum/dynamic_ruleset/midround/ghost/xenomorph_infestation/get_spawn_locations()
-	for(var/obj/machinery/atmospherics/components/unary/vent_pump/vent in GLOB.machines)
+	for(var/obj/machinery/atmospherics/components/unary/vent_pump/vent as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/atmospherics/components/unary/vent_pump))
 		if(QDELETED(vent))
 			continue
 
@@ -528,7 +528,7 @@
 	spider_antag.set_spider_team(team)
 
 /datum/dynamic_ruleset/midround/ghost/spiders/get_spawn_locations()
-	for(var/obj/machinery/atmospherics/components/unary/vent_pump/vent in GLOB.machines)
+	for(var/obj/machinery/atmospherics/components/unary/vent_pump/vent as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/atmospherics/components/unary/vent_pump))
 		if(QDELETED(vent))
 			continue
 

@@ -307,7 +307,7 @@
 		add_raw_text("<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[random_code(4)]...'")
 		return ..()
 	var/code = random_code(5)
-	for(var/obj/machinery/nuclearbomb/selfdestruct/nuke in GLOB.nuke_list)
+	for(var/obj/machinery/nuclearbomb/selfdestruct/nuke as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb/selfdestruct))
 		if(nuke)
 			if(nuke.r_code == "ADMIN")
 				nuke.r_code = code
