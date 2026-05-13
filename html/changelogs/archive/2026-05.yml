@@ -110,6 +110,10 @@
   - rscdel: url-loader has been removed from tgui dependencies as it comes included
       with webpack
 2026-05-13:
+  Tyfightercats:
+  - bugfix: Fixed Diona taking damage and gaining random mutations from radiation.
+  mrmanlikesbt, Kapu1178, Qustinnus, Cheshify, grungussuss, timothymtorres, TiviPlus, vinylspiders:
+  - code_imp: Sounds and hearing have been optimized a bit
   mrmanlikesbt, ZephyrTFA:
   - code_imp: GLOB.machines has been removed and replaced with the new SSmachines.get_machines_by_type_and_subtypes()
       and SSmachines.get_machines_by_type() procs. This should improve performance
