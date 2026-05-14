@@ -137,10 +137,9 @@
 		patient.balloon_alert(user, "need a [is_robotic ? "screwdriver": "cautery"] in your inactive hand to stop the surgery!")
 		return
 
-	/*
-	if(the_surgery.operated_bodypart)
-		the_surgery.operated_bodypart.adjustBleedStacks(-5)
-	*/
+	//Ideally, we add bleeding to the specific part that is being operated on "the_surgery.operated_bodypart.adjustBleedStacks"
+	//Unfortunately, all our bleeding is stuck on mob status effects. That sucks.
+	the_surgery.target.bleed(BLEED_SURFACE)
 
 	patient.surgeries -= the_surgery
 
