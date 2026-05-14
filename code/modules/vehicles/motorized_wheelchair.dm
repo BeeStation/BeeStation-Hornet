@@ -3,11 +3,11 @@
 	desc = "A chair with big wheels. It seems to have a motor in it."
 	max_integrity = 150
 	move_resist = MOVE_FORCE_DEFAULT
-	var/speed = 1
+	var/speed = 1 //vehicle_move_delay multiplier. this is set in refresh_parts(), the value set here has no impact.
 	var/speed_limit_safe = 1
 	var/speed_limit_unsafe = 0.89
 	var/manip_rating_sum = 0
-	var/power_usage = 25
+	var/power_usage = 25 // power draw per tile moved, same as speed, the value here is not used.
 	var/panel_open = FALSE
 	var/list/required_parts = list(/obj/item/stock_parts/manipulator,
 							/obj/item/stock_parts/manipulator,
@@ -18,6 +18,7 @@
 
 /obj/vehicle/ridden/wheelchair/motorized/Initialize(mapload)
 	. = ..()
+	//default parts, removed in checkparts if it was actually crafted
 	power_cell = new /obj/item/stock_parts/cell/high(src)
 	new /obj/item/stock_parts/manipulator(src)
 	new /obj/item/stock_parts/manipulator(src)
@@ -35,13 +36,13 @@
 	refresh_parts()
 
 /obj/vehicle/ridden/wheelchair/motorized/proc/refresh_parts()
-	manip_rating_sum = 0
+	manip_rating_sum = 0 // Should never be under 1
 	for(var/obj/item/stock_parts/manipulator/M in contents)
 		manip_rating_sum += M.rating
 	for(var/obj/item/stock_parts/capacitor/C in contents)
-		power_usage = LERP(20, 10, (C.rating - 1) / 3)
+		power_usage = LERP(20, 10, (C.rating - 1) / 3) // 20 with worst parts, 10 with best parts
 
-	speed = max(0.6 + (0.1 * ((8 - manip_rating_sum) / 2) ** 2), safeties ? speed_limit_safe : speed_limit_unsafe)
+	speed = max(0.8 + (0.2 * ((8 - manip_rating_sum) / 2) ** 2), safeties ? speed_limit_safe : speed_limit_unsafe) //t1 : 2.6 t2: 1.6 t3: 1 t4: 0.6 (clamped to unsafe speed limit at best). lower is better.
 
 /obj/vehicle/ridden/wheelchair/motorized/get_cell()
 	return power_cell
@@ -160,6 +161,7 @@
 
 /obj/vehicle/ridden/wheelchair/motorized/Bump(atom/movable/M)
 	. = ..()
+	// If the speed is higher than delay_multiplier throw the person on the wheelchair away
 	if(M.density && speed < speed_limit_safe && has_buckled_mobs())
 		var/mob/living/H = buckled_mobs[1]
 		var/atom/throw_target = get_edge_target_turf(H, pick(GLOB.cardinals))
@@ -167,7 +169,7 @@
 		H.throw_at(throw_target, 2, 3)
 		var/multiplier = 1
 		if(HAS_TRAIT(H, TRAIT_PROSKATER))
-			multiplier = 0.7
+			multiplier = 0.7 //30% reduction
 		H.Knockdown(100 * multiplier)
 		H.adjustStaminaLoss(40 * multiplier)
 		if(isliving(M))
@@ -180,3 +182,4 @@
 		else
 			visible_message(span_danger("[src] crashes into [M], sending [H] flying!"))
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
+
