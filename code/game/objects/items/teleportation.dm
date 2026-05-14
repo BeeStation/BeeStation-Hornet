@@ -151,7 +151,7 @@
 		return
 	// Add on teleport targets
 	var/list/L = list()
-	for(var/obj/machinery/computer/teleporter/com in GLOB.machines)
+	for(var/obj/machinery/computer/teleporter/com as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/teleporter))
 		var/atom/target = com.target_ref?.resolve()
 		if(!target)
 			com.target_ref = null

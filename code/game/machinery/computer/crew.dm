@@ -86,6 +86,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/crew)
 	icon_keyboard = "syndie_key"
 
 /obj/machinery/computer/crew/ui_interact(mob/user)
+	. = ..()
 	GLOB.crewmonitor.show(user,src)
 
 GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
