@@ -38,7 +38,7 @@
 	ADD_TRAIT(C, TRAIT_PSYCHIC_SENSE, SPECIES_TRAIT)
 
 /datum/species/psyphoza/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
-	C.cure_blind()
+	C.cure_blind("psyphoza_species")
 	. = ..()
 	REMOVE_TRAIT(C, TRAIT_PSYCHIC_SENSE, SPECIES_TRAIT)
 	PH = null
