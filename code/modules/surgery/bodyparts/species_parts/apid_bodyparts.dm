@@ -5,6 +5,7 @@
 	is_dimorphic = TRUE
 	should_draw_greyscale = FALSE
 	brute_modifier = 0.8
+	head_flags = NONE
 
 /obj/item/bodypart/chest/apid
 	icon_static = 'icons/mob/human/species/apid/bodyparts.dmi'

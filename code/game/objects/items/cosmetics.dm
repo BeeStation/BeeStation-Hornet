@@ -156,7 +156,7 @@
 			else
 				return
 		else
-			if(!(FACEHAIR in H.dna.species.species_traits))
+			if(!(FACIAL_HAIR_COLOR in H.dna.species.species_traits))
 				to_chat(user, span_warning("There is no facial hair to shave!"))
 				return
 			if(!get_location_accessible(H, location))
@@ -186,7 +186,7 @@
 			INVOKE_ASYNC(src, PROC_REF(new_hairstyle), H, user)
 			return
 		else
-			if(!(HAIR in H.dna.species.species_traits))
+			if(!(HAIR_COLOR in H.dna.species.species_traits))
 				to_chat(user, span_warning("There is no hair to shave!"))
 				return
 			if(!get_location_accessible(H, location))

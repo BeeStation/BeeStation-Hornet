@@ -408,6 +408,8 @@
 
 /obj/item/card/id/examine(mob/user)
 	. = ..()
+	if(!user.can_read(src))
+		return
 	if(!electric)  // forces off bank info for paper slip
 		return .
 	if(registered_account)

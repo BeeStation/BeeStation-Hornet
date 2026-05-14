@@ -5,6 +5,7 @@
 	dmg_overlay_type = null
 	uses_mutcolor = TRUE
 	brute_modifier = 1.25 //ethereal are weak to brute damage
+	head_flags = HEAD_EYESPRITES|HEAD_EYEHOLES
 
 /*
 /obj/item/bodypart/head/ethereal/update_limb(dropping_limb, is_creating)

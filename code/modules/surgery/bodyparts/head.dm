@@ -27,7 +27,11 @@
 	var/show_organs_on_examine = TRUE
 
 	//Limb appearance info:
-	var/real_name = "" //Replacement name
+	/// Replacement name
+	var/real_name = ""
+	/// Flags related to appearance, such as hair, lips, etc
+	var/head_flags = HEAD_ALL_FEATURES
+
 
 	/// Hair style
 	var/hair_style = "Bald"
@@ -179,7 +183,7 @@
 	var/datum/species/S = H.dna.species
 
 	//Facial hair
-	if(H.facial_hair_style && (FACEHAIR in S.species_traits))
+	if(H.facial_hair_style && (FACIAL_HAIR_COLOR in S.species_traits))
 		facial_hair_style = H.facial_hair_style
 		if(S.hair_color)
 			if(S.hair_color == "mutcolor")
@@ -196,7 +200,7 @@
 		facial_hair_color = COLOR_BLACK
 		hair_alpha = 255
 	//Hair
-	if(H.hair_style && (HAIR in S.species_traits))
+	if(H.hair_style && (HAIR_COLOR in S.species_traits))
 		hair_style = H.hair_style
 		if(S.hair_color)
 			if(S.hair_color == "mutcolor")
@@ -241,7 +245,7 @@
 
 		if(IS_ORGANIC_LIMB(src)) //having a robotic head hides certain features.
 			//facial hair
-			if(facial_hair_style && (FACEHAIR in species_flags_list))
+			if(facial_hair_style && (FACIAL_HAIR_COLOR in species_flags_list))
 				var/datum/sprite_accessory/sprite = GLOB.facial_hair_styles_list[facial_hair_style]
 				if(sprite?.icon_state)
 					var/image/facial_overlay = image(sprite.icon, "[sprite.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), SOUTH)
@@ -249,17 +253,12 @@
 					facial_overlay.alpha = hair_alpha
 					. += facial_overlay
 
-			if(!eyes && !(NOEYEHOLES in species_flags_list) && !(NOEYESPRITES in species_flags_list))
-				var/image/no_eyes = image('icons/mob/human/human_eyes.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
-				worn_glasses_offset?.apply_offset(no_eyes)
-				. += no_eyes
-
 			//Applies the debrained overlay if there is no brain
 			if(!brain)
 				. += get_debrain_overlay(can_rotate = FALSE)
 			else
 				var/datum/sprite_accessory/sprite2 = GLOB.hair_styles_list[hair_style]
-				if(sprite2?.icon_state && (HAIR in species_flags_list))
+				if(sprite2?.icon_state && (HAIR_COLOR in species_flags_list))
 					var/image/hair_overlay = image(sprite2.icon, "[sprite2.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), SOUTH)
 					hair_overlay.color = hair_color
 					hair_overlay.alpha = hair_alpha
@@ -269,19 +268,26 @@
 		if(lip_style)
 			var/image/lips_overlay = image('icons/mob/human/human_face.dmi', "lips_[lip_style]", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
 			lips_overlay.color = lip_color
+			worn_face_offset?.apply_offset(lips_overlay)
 			. += lips_overlay
 
 		// eyes
-		if(eyes && eyes.eye_icon_state && !(NOEYESPRITES in species_flags_list)) // This is a bit of copy/paste code from eyes.dm:generate_body_overlay
+		if(eyes?.eye_icon_state && (head_flags & HEAD_EYESPRITES))
 			var/image/eye_left = image(eyes.eye_icon, "[eyes.eye_icon_state]_l", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
 			var/image/eye_right = image(eyes.eye_icon, "[eyes.eye_icon_state]_r", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
-			if(eyes.eye_color_left)
-				eye_left.color = eyes.eye_color_left
-			if(eyes.eye_color_right)
-				eye_right.color = eyes.eye_color_right
+			if(head_flags & HEAD_EYECOLOR)
+				if(eyes.eye_color_left)
+					eye_left.color = eyes.eye_color_left
+				if(eyes.eye_color_right)
+					eye_right.color = eyes.eye_color_right
 			. += eye_left
 			. += eye_right
+		else if(!eyes && (head_flags & HEAD_EYEHOLES))
+			var/image/no_eyes = image('icons/mob/human/human_eyes.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
+			worn_face_offset?.apply_offset(no_eyes)
+			. += no_eyes
 
+	return
 
 /// Returns an appropriate debrained icon state
 /obj/item/bodypart/head/proc/get_debrain_overlay(can_rotate = TRUE)
@@ -321,10 +327,12 @@
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = SPECIES_MONKEY
 	is_dimorphic = FALSE
+	head_flags = NONE
 
 /obj/item/bodypart/head/monkey/teratoma
 	icon_state = "teratoma_head"
 	limb_id = "teratoma"
+	head_flags = HEAD_EYECOLOR
 
 /obj/item/bodypart/head/alien
 	icon = 'icons/mob/human/species/alien/bodyparts.dmi'

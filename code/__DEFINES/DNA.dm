@@ -87,10 +87,6 @@
 #define CLONER_MATURE_CLONE "mature"
 
 //! ## species traits for mutantraces
-#define MUTCOLORS 1
-#define HAIR 2
-#define FACEHAIR 3
-#define EYECOLOR 4
 #define LIPS 5
 #define NOZOMBIE 8
 #define NO_UNDERWEAR 9
@@ -100,8 +96,6 @@
 #define DYNCOLORS 12
 // No sex!
 #define AGENDER 13
-// Do not draw eyes or eyeless overlay
-#define NOEYESPRITES 14
 // DO NOT PROCESS REAGENTS
 #define NOREAGENTS 15
 // Will revive on heal when healing and total HP > 0.

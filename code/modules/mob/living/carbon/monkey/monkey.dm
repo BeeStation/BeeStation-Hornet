@@ -245,7 +245,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 /datum/species/teratoma
 	name = "Teratoma"
 	id = "teratoma"
-	species_traits = list(EYECOLOR, HAIR, FACEHAIR, LIPS)
+	species_traits = list(HAIR_COLOR, FACIAL_HAIR_COLOR, LIPS)
 	inherent_traits = list(
 		TRAIT_NOHUNGER,
 		TRAIT_RADIMMUNE,

@@ -13,6 +13,7 @@
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_color = COLOR_LIGHT_ORANGE
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
@@ -21,36 +22,45 @@
 	var/sound_on = 'sound/items/flashlight_on.ogg'
 	/// The sound the light makes when it's turned off
 	var/sound_off = 'sound/items/flashlight_off.ogg'
-	/// Is the light turned on or off currently
-	var/on = FALSE
+	/// Should the flashlight start turned on?
+	var/start_on = FALSE
 
 /obj/item/flashlight/Initialize(mapload)
 	. = ..()
-	if(icon_state == "[initial(icon_state)]-on")
-		on = TRUE
+	if(start_on)
+		set_light_on(TRUE)
 	update_brightness()
 
-/obj/item/flashlight/proc/update_brightness(mob/user)
-	if(on)
+/obj/item/flashlight/update_icon_state()
+	. = ..()
+	if(light_on)
 		icon_state = "[initial(icon_state)]-on"
-		if(sound_on)
-			playsound(src, sound_on, 25, 1)
+		if(!isnull(inhand_icon_state))
+			inhand_icon_state = "[initial(inhand_icon_state)]-on"
 	else
 		icon_state = initial(icon_state)
-		if(sound_off)
-			playsound(src, sound_off, 25, 1)
-	set_light_on(on)
+		if(!isnull(inhand_icon_state))
+			inhand_icon_state = initial(inhand_icon_state)
+
+/obj/item/flashlight/proc/update_brightness()
+	update_appearance(UPDATE_ICON)
 	if(light_system == STATIC_LIGHT)
 		update_light()
 
-/obj/item/flashlight/proc/toggle_lights(mob/user)
-	on = !on
-	playsound(user, on ? sound_on : sound_off, 40, TRUE)
-	update_brightness(user)
+/obj/item/flashlight/proc/toggle_light(mob/user)
+	playsound(src, light_on ? sound_off : sound_on, 40, TRUE)
+	var/old_light_on = light_on
+	set_light_on(!light_on)
+	update_brightness()
 	update_action_buttons()
+	return light_on != old_light_on // If the value of light_on didn't change, return false. Otherwise true.
 
 /obj/item/flashlight/attack_self(mob/user)
-	toggle_lights(user)
+	return toggle_light(user)
+
+/obj/item/flashlight/attack_hand_secondary(mob/user, list/modifiers)
+	attack_self(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/flashlight/suicide_act(mob/living/carbon/human/user)
 	if (user.is_blind())
@@ -61,7 +71,7 @@
 
 /obj/item/flashlight/attack(mob/living/carbon/M, mob/living/carbon/human/user)
 	add_fingerprint(user)
-	if (!istype(M) || !on || !user.is_zone_selected(BODY_ZONE_HEAD, precise = FALSE))
+	if (!istype(M) || !light_on || !user.is_zone_selected(BODY_ZONE_HEAD, precise = FALSE))
 		return ..()
 
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || HAS_TRAIT(user, TRAIT_DUMB)) && prob(50))	//too dumb to use flashlight properly
@@ -176,6 +186,10 @@
 
 	to_chat(user, examine_block(jointext(results, "\n")))
 
+/obj/item/flashlight/equipped(mob/user, slot, initial)
+	. = ..()
+	SEND_SIGNAL(user, COMSIG_ATOM_DIR_CHANGE, user.dir, user.dir)
+
 /obj/item/flashlight/pen
 	name = "penlight"
 	desc = "A pen-sized light, used by medical staff. It can also be used to create a hologram to alert people of incoming medical assistance."
@@ -241,7 +255,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	w_class = WEIGHT_CLASS_BULKY
 	obj_flags = CONDUCTS_ELECTRICITY
 	custom_materials = null
-	on = TRUE
+	start_on = TRUE
 
 
 // green-shaded desk lamp
@@ -296,20 +310,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 /obj/item/flashlight/flare/process(delta_time)
 	open_flame(heat)
 	fuel = max(fuel -= delta_time, 0)
-	if(fuel <= 0 || !on)
+
+	if(!fuel || !light_on)
 		turn_off()
-		if(!fuel)
-			icon_state = "[initial(icon_state)]-empty"
 		STOP_PROCESSING(SSobj, src)
 
+		if(!fuel)
+			icon_state = "[initial(icon_state)]-empty"
+
 /obj/item/flashlight/flare/ignition_effect(atom/A, mob/user)
-	if(fuel && on)
+	if(fuel && light_on)
 		. = span_notice("[user] lights [A] with [src] like a real badass.")
 	else
 		. = ""
 
 /obj/item/flashlight/flare/proc/turn_off()
-	on = FALSE
+	light_on = FALSE
 	force = initial(src.force)
 	damtype = initial(src.damtype)
 	if(ismob(loc))
@@ -324,11 +340,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 /obj/item/flashlight/flare/attack_self(mob/user)
 
 	// Usual checks
-	if(fuel <= 0)
+	if(!fuel)
 		if(user)
 			balloon_alert(user, "out of fuel!")
 		return
-	if(on)
+	if(light_on)
 		if(user)
 			balloon_alert(user, "already lit!")
 		return
@@ -345,7 +361,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 		START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/flare/get_temperature()
-	return on * heat
+	return light_on * heat
 
 /obj/item/flashlight/flare/torch
 	name = "torch"
@@ -418,7 +434,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	return TRUE
 
 /obj/item/flashlight/emp/attack(mob/living/M, mob/living/user)
-	if(on && (user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) || user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH, precise_only = TRUE))) // call original attack when examining organs
+	if(light_on && (user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) || user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH, precise_only = TRUE))) // call original attack when examining organs
 		..()
 	return
 
@@ -483,26 +499,26 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 		update_icon()
 
 /obj/item/flashlight/glowstick/proc/turn_off()
-	on = FALSE
+	set_light_on(FALSE)
 	update_appearance()
 
 /obj/item/flashlight/glowstick/update_appearance(updates=ALL)
 	. = ..()
-	if(fuel <= 0)
+	if(!fuel)
 		set_light_on(FALSE)
 		return
-	if(on)
+	if(light_on)
 		set_light_on(TRUE)
 		return
 
 /obj/item/flashlight/glowstick/update_icon_state()
 	icon_state = "[base_icon_state][(fuel <= 0) ? "-empty" : ""]"
-	inhand_icon_state = "[base_icon_state][((fuel > 0) && on) ? "-on" : ""]"
+	inhand_icon_state = "[base_icon_state][(fuel && light_on) ? "-on" : ""]"
 	return ..()
 
 /obj/item/flashlight/glowstick/update_overlays()
 	. = ..()
-	if(fuel <= 0 && !on)
+	if(!fuel && !light_on)
 		return
 
 	var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
@@ -511,7 +527,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 
 /obj/item/flashlight/glowstick/pickup(mob/user)
 	..()
-	if(burn_pickup && on)
+	if(burn_pickup && light_on)
 		burn_pickup = FALSE
 		START_PROCESSING(SSobj, src)
 
@@ -519,7 +535,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	if(fuel <= 0)
 		to_chat(user, span_notice("[src] is spent."))
 		return
-	if(on)
+	if(light_on)
 		to_chat(user, span_notice("[src] is already lit."))
 		return
 
@@ -574,13 +590,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	light_power = 10
 	alpha = 0
 	layer = 0
-	on = TRUE
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	///Boolean that switches when a full color flip ends, so the light can appear in all colors.
 	var/even_cycle = FALSE
 	///Base light_range that can be set on Initialize to use in smooth light range expansions and contractions.
 	var/base_light_range = 4
+	start_on = TRUE
 
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/flashlight/spotlight)
@@ -595,7 +611,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/flashlight/spotlight)
 	if(!isnull(_light_color))
 		set_light_color(_light_color)
 
-
 /obj/item/flashlight/flashdark
 	name = "flashdark"
 	desc = "A strange device manufactured with mysterious elements that somehow emits darkness. Or maybe it just sucks in light? Nobody knows for sure."
@@ -607,7 +622,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/flashlight/spotlight)
 	var/dark_light_range = 2.5
 	///Variable to preserve old lighting behavior in flashlights, to handle darkness.
 	var/dark_light_power = -3
-
+	var/on = FALSE
 
 /obj/item/flashlight/flashdark/update_brightness(mob/user)
 	. = ..()
@@ -615,7 +630,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/flashlight/spotlight)
 		set_light(dark_light_range, dark_light_power)
 	else
 		set_light(0)
-
 
 /obj/item/flashlight/eyelight
 	name = "eyelight"
@@ -626,3 +640,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/flashlight/spotlight)
 	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = DROPDEL
 	actions_types = list()
+
+/obj/item/flashlight/eyelight/glow
+	light_system = MOVABLE_LIGHT_BEAM
+	light_range = 4
+	light_power = 2

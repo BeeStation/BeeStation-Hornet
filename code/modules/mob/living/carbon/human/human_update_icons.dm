@@ -864,25 +864,6 @@ generate/load female uniform sprites matching all previously decided variables
 	my_head.update_limb(is_creating = update_limb_data)
 
 	add_overlay(my_head.get_limb_icon())
-	update_damage_overlays()
-
-	if(my_head && !(HAS_TRAIT(src, TRAIT_HUSK)))
-		// lipstick
-		if(lip_style && (LIPS in dna.species.species_traits))
-			var/mutable_appearance/lip_overlay = mutable_appearance('icons/mob/human/human_face.dmi', "lips_[lip_style]", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-			lip_overlay.color = lip_color
-			my_head.worn_face_offset?.apply_offset(lip_overlay)
-			add_overlay(lip_overlay)
-
-		// eyes
-		if(!(NOEYESPRITES in dna.species.species_traits))
-			var/obj/item/organ/eyes/parent_eyes = get_organ_slot(ORGAN_SLOT_EYES)
-			if(parent_eyes)
-				add_overlay(parent_eyes.generate_body_overlay(src))
-			else
-				var/mutable_appearance/missing_eyes = mutable_appearance('icons/mob/human/human_eyes.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-				my_head.worn_face_offset?.apply_offset(missing_eyes)
-				add_overlay(missing_eyes)
 
 	dna.species.handle_hair(src)
 

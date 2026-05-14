@@ -672,7 +672,7 @@
 		skin_tone = ""
 
 	use_damage_color = owner_species.use_damage_color
-	if(((MUTCOLORS in owner_species.species_traits) || (DYNCOLORS in owner_species.species_traits)) && uses_mutcolor) //Ethereal code. Motherfuckers.
+	if(((MUTANT_COLOR in owner_species.species_traits) || (DYNCOLORS in owner_species.species_traits)) && uses_mutcolor) //Ethereal code. Motherfuckers.
 		if(owner_species.fixed_mut_color)
 			species_color = owner_species.fixed_mut_color
 		else

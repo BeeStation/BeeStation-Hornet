@@ -21,7 +21,7 @@
 
 	organ_traits = list(
 		TRAIT_ADVANCEDTOOLUSER,
-		//TRAIT_LITERATE,
+		TRAIT_LITERATE,
 		TRAIT_CAN_STRIP
 	)
 
@@ -487,7 +487,18 @@
 		qdel(pick(traumas))
 
 /obj/item/organ/brain/proc/cure_all_traumas(resilience = TRAUMA_RESILIENCE_BASIC, special_method = FALSE)
+	var/amount_cured = 0
 	var/list/traumas = get_traumas_type(resilience = resilience, special_method = special_method)
 	for(var/X in traumas)
 		qdel(X)
+		amount_cured++
+	return amount_cured
 
+/obj/item/organ/brain/apply_organ_damage(damage_amount, maximum = maxHealth, required_organ_flag = NONE)
+	. = ..()
+	if(!owner)
+		return FALSE
+	if(damage >= 60)
+		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "brain_damage", /datum/mood_event/brain_damage)
+	else
+		SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")

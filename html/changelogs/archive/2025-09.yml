@@ -340,7 +340,7 @@
       power.
   - balance: PDA batteries charge slightly faster.
   mrmanlikesbt:
-  - code_imp: Renamed the applyOrganDamage() proc to apply_organ_damage()
+  - code_imp: Renamed the apply_organ_damage() proc to apply_organ_damage()
   - bugfix: Fixed canister connectors always having a pipe overlay on the south
   - bugfix: fixed some small mistakes on MetaStation
   mrmanlikesbt, ZephyrTFA, Jacquerel, jlsnow301:

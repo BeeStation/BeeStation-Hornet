@@ -12,7 +12,7 @@
 	species_traits = list(
 		LIPS,
 		HAS_MARKINGS,
-		MUTCOLORS,
+		MUTANT_COLOR,
 	)
 	inherent_traits = list(
 		TRAIT_TACKLING_WINGED_ATTACKER

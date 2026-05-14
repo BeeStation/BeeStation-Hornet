@@ -1,6 +1,6 @@
 //Here are the procs used to modify status effects of a mob.
 //The effects include: stun, knockdown, unconscious, sleeping, resting, jitteriness, dizziness,
-// eye damage, eye_blind, eye_blurry, druggy, TRAIT_BLIND trait, and TRAIT_NEARSIGHT trait.
+// eye damage, blindness (status_effect/grouped/blindness), temporary blindness, nearsightedness, and drugginess.
 
 
 ////////////////////////////// STUN ////////////////////////////////////
@@ -454,30 +454,6 @@
 	return src.mind?.has_quirk(quirktype)
 
 /////////////////////////////////// TRAIT PROCS ////////////////////////////////////
-
-/mob/living/proc/cure_blind(source, can_see = TRUE)
-	if(!can_see)
-		return
-	REMOVE_TRAIT(src, TRAIT_BLIND, source)
-	if(!is_blind())
-		update_blindness()
-
-/mob/living/proc/become_blind(source, overlay, add_color)
-	if(!HAS_TRAIT(src, TRAIT_BLIND)) // not blind already, add trait then overlay
-		ADD_TRAIT(src, TRAIT_BLIND, source)
-		update_blindness(overlay, add_color)
-	else
-		ADD_TRAIT(src, TRAIT_BLIND, source)
-
-/mob/living/proc/cure_nearsighted(source)
-	REMOVE_TRAIT(src, TRAIT_NEARSIGHT, source)
-	if(!HAS_TRAIT(src, TRAIT_NEARSIGHT))
-		clear_fullscreen("nearsighted")
-
-/mob/living/proc/become_nearsighted(source)
-	if(!HAS_TRAIT(src, TRAIT_NEARSIGHT))
-		overlay_fullscreen("nearsighted", /atom/movable/screen/fullscreen/impaired, 1)
-	ADD_TRAIT(src, TRAIT_NEARSIGHT, source)
 
 /mob/living/proc/cure_husk(source)
 	REMOVE_TRAIT(src, TRAIT_HUSK, source)

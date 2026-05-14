@@ -117,7 +117,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	if(IS_CULTIST(user))
 		to_chat(user, span_bigbrass("You shouldn't be playing with my toys..."))
 		user.Stun(6 SECONDS)
-		user.adjust_blindness(15 SECONDS)
+		user.adjust_temp_blindness(15 SECONDS)
 		user.electrocute_act(10, name)
 		return
 	// Non clock-cultist reaction

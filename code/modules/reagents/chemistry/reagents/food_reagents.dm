@@ -327,7 +327,7 @@
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
 			victim.emote("cry")
 			victim.set_eye_blur_if_lower(10 SECONDS) // 10 seconds
-			victim.adjust_blindness(3) // 6 seconds
+			victim.adjust_temp_blindness(6 SECONDS)
 			victim.set_confusion_if_lower(10 SECONDS)
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
@@ -651,7 +651,7 @@
 		else
 			if(!exposed_mob.has_status_effect(/datum/status_effect/eye_blur))
 				to_chat(exposed_mob, span_warning("Tears well up in your eyes!"))
-			exposed_mob.adjust_blindness(2)
+			exposed_mob.adjust_temp_blindness(4 SECONDS)
 			exposed_mob.set_eye_blur_if_lower(10 SECONDS)
 
 /datum/reagent/consumable/tearjuice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -660,7 +660,7 @@
 		affected_mob.set_eye_blur_if_lower(8 SECONDS * REM * delta_time)
 		if(DT_PROB(5, delta_time))
 			to_chat(affected_mob, span_warning("Your eyes sting!"))
-			affected_mob.adjust_blindness(2)
+			affected_mob.adjust_temp_blindness(4 SECONDS)
 
 /datum/reagent/consumable/nutriment/stabilized
 	name = "Stabilized Nutriment"

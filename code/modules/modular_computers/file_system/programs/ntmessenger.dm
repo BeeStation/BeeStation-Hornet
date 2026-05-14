@@ -426,10 +426,15 @@
 	else if(computer)
 		L = get(computer, /mob/living/silicon)
 
-	if(L && (L.stat == CONSCIOUS || L.stat == SOFT_CRIT))
+	if(L)
+		if(L.stat >= UNCONSCIOUS)
+			continue
+		if(!L.is_literate())
+			continue
 		var/reply = "(<a href='byond://?src=[REF(src)];choice=Message;skiprefresh=1;target=[signal.data["ref"]]'>Reply</a>)"
 		var/hrefstart
 		var/hrefend
+
 		if (isAI(L))
 			hrefstart = "<a href='byond://?src=[REF(L)];track=[html_encode(signal.data["name"])]'>"
 			hrefend = "</a>"
@@ -442,7 +447,6 @@
 			inbound_message = emoji_parse(inbound_message)
 
 		to_chat(L, span_infoplain("[icon2html(src)] <b>PDA message from [hrefstart][signal.data["name"]] ([signal.data["job"]])[hrefend], </b>[inbound_message] [reply]"))
-
 
 	if (ringer_status)
 		computer.ring(ringtone)

@@ -3,7 +3,7 @@
 	plural_form = "Psyphoza"
 	id = SPECIES_PSYPHOZA
 	meat = /obj/item/food/meat/slab/human/mutant/psyphoza
-	species_traits = list(NOEYESPRITES, AGENDER, MUTCOLORS, NOEYEHOLES)
+	species_traits = list(AGENDER, MUTANT_COLOR)
 	sexes = FALSE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/psyphoza
@@ -38,7 +38,7 @@
 	ADD_TRAIT(C, TRAIT_PSYCHIC_SENSE, SPECIES_TRAIT)
 
 /datum/species/psyphoza/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
-	C.cure_blind()
+	C.cure_blind("psyphoza_species")
 	. = ..()
 	REMOVE_TRAIT(C, TRAIT_PSYCHIC_SENSE, SPECIES_TRAIT)
 	PH = null

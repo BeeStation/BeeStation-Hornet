@@ -1,6 +1,5 @@
 //Here are the procs used to modify status effects of a mob.
-//The effects include: stun, knockdown, unconscious, sleeping, resting, jitteriness, dizziness, ear damage,
-//eye_blind, eye_blurry, druggy, TRAIT_BLIND trait, TRAIT_NEARSIGHT trait, and TRAIT_HUSK trait.
+//The effects include: stun, knockdown, unconscious, sleeping, resting
 
 
 /mob/living/carbon/IsParalyzed(include_stamcrit = TRUE)
@@ -66,8 +65,3 @@
 	var/obj/item/organ/brain/B = get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(B)
 		. = B.cure_all_traumas(resilience, special_method)
-
-/mob/living/carbon/update_blindness(overlay = /atom/movable/screen/fullscreen/blind, add_color, can_see = TRUE)
-	var/obj/item/organ/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
-	can_see = E?.can_see
-	return ..()

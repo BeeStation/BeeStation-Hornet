@@ -487,7 +487,7 @@
 				if ("albino")
 					human.skin_tone = "caucasian1"
 
-		if(MUTCOLORS in human.dna.species.species_traits) //take current alien color and darken it slightly
+		if(MUTANT_COLOR in human.dna.species.species_traits) //take current alien color and darken it slightly
 			var/list/existing_color = rgb2num(human.dna.features["mcolor"])
 			var/list/darkened_color = list()
 			// Reduces each part of the color by 16
@@ -511,11 +511,11 @@
 		affected_human.facial_hair_style = "Shaved"
 		affected_human.facial_hair_color = COLOR_BLACK
 		affected_human.hair_color = COLOR_BLACK
-		if(!(HAIR in affected_human.dna.species.species_traits)) //No hair? No problem!
-			affected_human.dna.species.species_traits += HAIR
+		if(!(HAIR_COLOR in affected_human.dna.species.species_traits)) //No hair? No problem!
+			affected_human.dna.species.species_traits += HAIR_COLOR
 		if(affected_human.dna.species.use_skintones)
 			affected_human.skin_tone = "orange"
-		else if(MUTCOLORS in affected_human.dna.species.species_traits) //Aliens with custom colors simply get turned orange
+		else if(MUTANT_COLOR in affected_human.dna.species.species_traits) //Aliens with custom colors simply get turned orange
 			affected_human.dna.features["mcolor"] = COLOR_ORANGE
 		affected_human.regenerate_icons()
 
