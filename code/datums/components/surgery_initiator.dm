@@ -44,8 +44,7 @@
 /datum/component/surgery_initiator/proc/do_initiate_surgery_moment(mob/living/target, mob/user)
 	var/datum/surgery/current_surgery
 
-	for(var/i_one in target.surgeries)
-		var/datum/surgery/surgeryloop = i_one
+	for(var/datum/surgery/surgeryloop as anything in target.surgeries)
 		if(surgeryloop.location == user.get_combat_bodyzone(precise = TRUE))
 			current_surgery = surgeryloop
 			break
@@ -144,7 +143,6 @@
 	*/
 
 	patient.surgeries -= the_surgery
-	//REMOVE_TRAIT(patient, TRAIT_ALLOWED_HONORBOUND_ATTACK, ELEMENT_TRAIT(type))
 
 	user.visible_message(
 		span_notice("[user] closes [patient]'s [patient.parse_zone_with_bodypart(selected_zone)] with [close_tool] and removes [parent]."),
@@ -312,7 +310,6 @@
 	ui_close()
 
 	var/datum/surgery/procedure = new surgery.type(target, selected_zone, affecting_limb)
-	//ADD_TRAIT(target, TRAIT_ALLOWED_HONORBOUND_ATTACK, type)
 
 	target.balloon_alert(user, "starting \"[LOWER_TEXT(procedure.name)]\"")
 
