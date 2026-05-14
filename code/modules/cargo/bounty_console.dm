@@ -35,6 +35,7 @@
 	update_appearance()
 
 /obj/machinery/computer/bounty/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	if(!GLOB.bounties_list.len)
 		setup_bounties()
 

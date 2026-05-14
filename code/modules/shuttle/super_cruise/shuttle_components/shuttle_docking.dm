@@ -36,12 +36,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
-	GLOB.navigation_computers += src
 	whitelist_turfs = typecacheof(whitelist_turfs)
-
-/obj/machinery/computer/shuttle_flight/Destroy()
-	. = ..()
-	GLOB.navigation_computers -= src
 
 /obj/machinery/computer/shuttle_flight/proc/GrantActions(mob/living/user)
 	if(off_action)
