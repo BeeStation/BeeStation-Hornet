@@ -46,5 +46,7 @@
 #define HEAD_EYESPRITES (1<<1)
 /// Head will have colored eye sprites
 #define HEAD_EYECOLOR (1<<2)
+/// Head can have eyeholes when missing eyes
+#define HEAD_EYEHOLES (1<<3)
 /// All head flags, default for most heads
-#define HEAD_ALL_FEATURES (HEAD_EYESPRITES|HEAD_EYECOLOR)
+#define HEAD_ALL_FEATURES (HEAD_EYESPRITES|HEAD_EYECOLOR|HEAD_EYEHOLES)

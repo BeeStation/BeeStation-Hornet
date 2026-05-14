@@ -37,7 +37,7 @@ BONUS
 		var/mob/living/carbon/human/H = M
 		if(H.dna.species.use_skintones)
 			cachedcolor = H.skin_tone
-		else if(MUTCOLORS in H.dna.species.species_traits)
+		else if(MUTANT_COLOR in H.dna.species.species_traits)
 			cachedcolor	= H.dna.features["mcolor"]
 
 /datum/symptom/vitiligo/Activate(datum/disease/advance/A)
@@ -54,7 +54,7 @@ BONUS
 			if(5)
 				if(H.dna.species.use_skintones)
 					H.skin_tone = "albino"
-				else if(MUTCOLORS in H.dna.species.species_traits)
+				else if(MUTANT_COLOR in H.dna.species.species_traits)
 					H.dna.features["mcolor"] = COLOR_VERY_LIGHT_GRAY
 				H.regenerate_icons()
 			else
@@ -67,7 +67,7 @@ BONUS
 		var/mob/living/carbon/human/H = M
 		if(H.dna.species.use_skintones)
 			H.skin_tone = cachedcolor
-		else if(MUTCOLORS in H.dna.species.species_traits)
+		else if(MUTANT_COLOR in H.dna.species.species_traits)
 			H.dna.features["mcolor"] = cachedcolor
 		H.regenerate_icons()
 
@@ -109,7 +109,7 @@ BONUS
 		var/mob/living/carbon/human/H = M
 		if(H.dna.species.use_skintones)
 			cachedcolor = H.skin_tone
-		else if(MUTCOLORS in H.dna.species.species_traits)
+		else if(MUTANT_COLOR in H.dna.species.species_traits)
 			cachedcolor = H.dna.features["mcolor"]
 
 /datum/symptom/revitiligo/Activate(datum/disease/advance/A)
@@ -126,7 +126,7 @@ BONUS
 			if(5)
 				if(H.dna.species.use_skintones)
 					H.skin_tone = "african2"
-				else if(MUTCOLORS in H.dna.species.species_traits)
+				else if(MUTANT_COLOR in H.dna.species.species_traits)
 					H.dna.features["mcolor"] = COLOR_BLACK
 				H.regenerate_icons()
 			else
@@ -139,7 +139,7 @@ BONUS
 		var/mob/living/carbon/human/H = M
 		if(H.dna.species.use_skintones)
 			H.skin_tone = cachedcolor
-		else if(MUTCOLORS in H.dna.species.species_traits)
+		else if(MUTANT_COLOR in H.dna.species.species_traits)
 			H.dna.features["mcolor"] = cachedcolor
 		H.regenerate_icons()
 

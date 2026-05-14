@@ -49,13 +49,6 @@
 
 /obj/item/flashlight/proc/toggle_light(mob/user)
 	playsound(src, light_on ? sound_off : sound_on, 40, TRUE)
-	if(!COOLDOWN_FINISHED(src, disabled_time))
-		if(user)
-			balloon_alert(user, "disrupted!")
-		set_light_on(FALSE)
-		update_brightness()
-		update_action_buttons()
-		return FALSE
 	var/old_light_on = light_on
 	set_light_on(!light_on)
 	update_brightness()
@@ -316,7 +309,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 
 /obj/item/flashlight/flare/process(delta_time)
 	open_flame(heat)
-	fuel = max(fuel -= delta_time * (1 SECONDS), 0)
+	fuel = max(fuel -= delta_time, 0)
 
 	if(!fuel || !light_on)
 		turn_off()
@@ -520,12 +513,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 
 /obj/item/flashlight/glowstick/update_icon_state()
 	icon_state = "[base_icon_state][(fuel <= 0) ? "-empty" : ""]"
-	inhand_icon_state = "[base_icon_state][(!fuel && light_on) ? "-on" : ""]"
+	inhand_icon_state = "[base_icon_state][(fuel && light_on) ? "-on" : ""]"
 	return ..()
 
 /obj/item/flashlight/glowstick/update_overlays()
 	. = ..()
-	if(fuel <= 0 && !light_on)
+	if(!fuel && !light_on)
 		return
 
 	var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
@@ -534,7 +527,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 
 /obj/item/flashlight/glowstick/pickup(mob/user)
 	..()
-	if(burn_pickup && on)
+	if(burn_pickup && light_on)
 		burn_pickup = FALSE
 		START_PROCESSING(SSobj, src)
 
@@ -542,7 +535,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	if(fuel <= 0)
 		to_chat(user, span_notice("[src] is spent."))
 		return
-	if(on)
+	if(light_on)
 		to_chat(user, span_notice("[src] is already lit."))
 		return
 
@@ -597,13 +590,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	light_power = 10
 	alpha = 0
 	layer = 0
-	on = TRUE
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	///Boolean that switches when a full color flip ends, so the light can appear in all colors.
 	var/even_cycle = FALSE
 	///Base light_range that can be set on Initialize to use in smooth light range expansions and contractions.
 	var/base_light_range = 4
+	start_on = TRUE
 
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/flashlight/spotlight)
@@ -618,7 +611,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/flashlight/spotlight)
 	if(!isnull(_light_color))
 		set_light_color(_light_color)
 
-
 /obj/item/flashlight/flashdark
 	name = "flashdark"
 	desc = "A strange device manufactured with mysterious elements that somehow emits darkness. Or maybe it just sucks in light? Nobody knows for sure."
@@ -630,21 +622,26 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/flashlight/spotlight)
 	var/dark_light_range = 2.5
 	///Variable to preserve old lighting behavior in flashlights, to handle darkness.
 	var/dark_light_power = -3
-
+	var/on = FALSE
 
 /obj/item/flashlight/flashdark/update_brightness(mob/user)
 	. = ..()
-	set_light(dark_light_range, dark_light_power)
-
+	if(on)
+		set_light(dark_light_range, dark_light_power)
+	else
+		set_light(0)
 
 /obj/item/flashlight/eyelight
 	name = "eyelight"
 	desc = "This shouldn't exist outside of someone's head, how are you seeing this?"
+	light_system = MOVABLE_LIGHT
+	light_range = 15
+	light_power = 1
 	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = DROPDEL
 	actions_types = list()
 
 /obj/item/flashlight/eyelight/glow
-	light_system = OVERLAY_LIGHT_BEAM
+	light_system = MOVABLE_LIGHT_BEAM
 	light_range = 4
 	light_power = 2

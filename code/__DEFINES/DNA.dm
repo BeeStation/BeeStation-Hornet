@@ -87,9 +87,6 @@
 #define CLONER_MATURE_CLONE "mature"
 
 //! ## species traits for mutantraces
-#define MUTCOLORS 1
-#define HAIR 2
-#define FACEHAIR 3
 #define LIPS 5
 #define NOZOMBIE 8
 #define NO_UNDERWEAR 9

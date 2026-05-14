@@ -4,7 +4,7 @@
 	id = SPECIES_DIONA
 	sexes = 0 //no sex for bug/plant people!
 	species_traits = list(
-		MUTCOLORS,
+		MUTANT_COLOR,
 		AGENDER,
 		NOHUSK,
 		NO_UNDERWEAR,

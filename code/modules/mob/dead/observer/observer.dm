@@ -112,10 +112,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 
 		if(ishuman(body))
 			var/mob/living/carbon/human/body_human = body
-			if(HAIR in body_human.dna.species.species_traits)
+			if(HAIR_COLOR in body_human.dna.species.species_traits)
 				hair_style = body_human.hair_style
 				hair_color = ghostify_color(body_human.hair_color)
-			if(FACEHAIR in body_human.dna.species.species_traits)
+			if(FACIAL_HAIR_COLOR in body_human.dna.species.species_traits)
 				facial_hair_style = body_human.facial_hair_style
 				facial_hair_color = ghostify_color(body_human.facial_hair_color)
 
@@ -843,11 +843,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/species_type = client.prefs.read_character_preference(/datum/preference/choiced/species)
 	var/datum/species/species = GLOB.species_prototypes[species_type]
 
-	if(HAIR in species.species_traits)
+	if(HAIR_COLOR in species.species_traits)
 		hair_style = client.prefs.read_character_preference(/datum/preference/choiced/hairstyle)
 		hair_color = ghostify_color(client.prefs.read_character_preference(/datum/preference/color/hair_color))
 
-	if(FACEHAIR in species.species_traits)
+	if(FACIAL_HAIR_COLOR in species.species_traits)
 		facial_hair_style = client.prefs.read_character_preference(/datum/preference/choiced/facial_hairstyle)
 		facial_hair_color = ghostify_color(client.prefs.read_character_preference(/datum/preference/color/facial_hair_color))
 

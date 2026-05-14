@@ -159,7 +159,7 @@
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.4
 	brute_modifier = 1.4
-	head_flags = HEAD_EYESPRITES
+	head_flags = HEAD_EYESPRITES|HEAD_EYEHOLES
 
 /obj/item/bodypart/chest/fly
 	limb_id = SPECIES_FLYPERSON

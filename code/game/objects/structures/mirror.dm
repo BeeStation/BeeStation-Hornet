@@ -132,7 +132,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 	. = ..()
 	if(.)
 		return
-		
+
 	if(!ishuman(user))
 		return
 
@@ -178,7 +178,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 					H.skin_tone = new_s_tone
 					H.dna.update_ui_block(DNA_SKIN_TONE_BLOCK)
 
-			if(MUTCOLORS in H.dna.species.species_traits)
+			if(MUTANT_COLOR in H.dna.species.species_traits)
 				var/new_mutantcolor = tgui_color_picker(user, "Choose your skin color:", "Race change", H.dna.features["mcolor"])
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return

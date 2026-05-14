@@ -3,9 +3,8 @@
 	name = "Golem"
 	id = SPECIES_GOLEM
 	species_traits = list(
-		MUTCOLORS,
+		MUTANT_COLOR,
 		NO_UNDERWEAR,
-		NOEYEHOLES,
 	)
 	inherent_traits = list(
 		TRAIT_RESISTHEAT,

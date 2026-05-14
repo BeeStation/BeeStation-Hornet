@@ -5,11 +5,11 @@
 	sexes = FALSE
 	species_traits = list(
 		NOZOMBIE,
-		MUTCOLORS,
+		MUTANT_COLOR,
 		REVIVESBYHEALING,
 		NOHUSK,
 		NOMOUTH,
-		MUTCOLORS
+		MUTANT_COLOR
 	)
 	inherent_traits = list(
 		TRAIT_BLOOD_COOLANT,

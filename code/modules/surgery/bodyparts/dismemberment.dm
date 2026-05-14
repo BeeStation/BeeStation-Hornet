@@ -294,7 +294,7 @@
 	return TRUE
 
 
-/obj/item/bodypart/head/try_attach_limb(mob/living/carbon/new_head_owner, special = FALSE, abort = FALSE)
+/obj/item/bodypart/head/try_attach_limb(mob/living/carbon/new_head_owner, special = FALSE)
 	var/real_name = src.real_name
 
 	. = ..()

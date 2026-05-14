@@ -8,9 +8,9 @@
 	plural_form = "Slimepeople"
 	id = SPECIES_SLIMEPERSON
 	species_traits = list(
-		MUTCOLORS,
-		HAIR,
-		FACEHAIR,
+		MUTANT_COLOR,
+		HAIR_COLOR,
+		FACIAL_HAIR_COLOR,
 	)
 	inherent_traits = list(
 		TRAIT_TOXINLOVER,

@@ -2,9 +2,9 @@
 	name = "\improper Oozeling"
 	id = SPECIES_OOZELING
 	species_traits = list(
-		MUTCOLORS,
-		HAIR,
-		FACEHAIR,
+		MUTANT_COLOR,
+		HAIR_COLOR,
+		FACIAL_HAIR_COLOR,
 		NOAUGMENTS
 	)
 	inherent_traits = list(
