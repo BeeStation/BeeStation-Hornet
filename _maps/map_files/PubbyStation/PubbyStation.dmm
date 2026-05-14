@@ -56448,7 +56448,7 @@
 /area/station/maintenance/fore/lesser)
 "vva" = (
 /obj/machinery/door/window/brigdoor/security/cell/southleft{
-	id = "cell2";
+	id = "cell";
 	name = "Standard Cell";
 	req_access_txt = null;
 	req_one_access_txt = "1;4";
