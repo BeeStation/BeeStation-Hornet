@@ -228,7 +228,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 	set_doors(closed = TRUE)
 
 /obj/machinery/computer/arena/proc/get_spawn(team)
-	for(var/obj/machinery/arena_spawn/A in GLOB.machines)
+	for(var/obj/machinery/arena_spawn/A as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/arena_spawn))
 		if(A.arena_id == arena_id && A.team == team)
 			return A
 
@@ -262,7 +262,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 
 
 /obj/machinery/computer/arena/proc/set_doors(closed = FALSE)
-	for(var/obj/machinery/door/poddoor/D in GLOB.machines) //I really dislike pathing of these
+	for(var/obj/machinery/door/poddoor/D as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/poddoor)) //I really dislike pathing of these
 		if(D.id != arena_id)
 			continue
 		if(closed)
@@ -404,7 +404,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 /obj/machinery/arena_spawn/proc/get_controller()
 	if(_controller && !QDELETED(_controller) && _controller.arena_id == arena_id)
 		return _controller
-	for(var/obj/machinery/computer/arena/A in GLOB.machines)
+	for(var/obj/machinery/computer/arena/A as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/arena))
 		if(A.arena_id == arena_id)
 			_controller = A
 			return _controller

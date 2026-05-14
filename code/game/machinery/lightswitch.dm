@@ -52,7 +52,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 			return
 	area.lightswitch = FALSE //All checks failed, department is not staffed, lights get turned off
 
-	for(var/obj/machinery/light_switch/L in GLOB.machines)
+	for(var/obj/machinery/light_switch/L as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light_switch))
 		if(L.area == area)
 			L.update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 	area.power_change()
@@ -72,7 +72,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 	area.lightswitch = !area.lightswitch
 	play_click_sound("button")
 
-	for(var/obj/machinery/light_switch/L in GLOB.machines)
+	for(var/obj/machinery/light_switch/L as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light_switch))
 		if(L.area == area)
 			L.update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 

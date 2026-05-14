@@ -812,7 +812,7 @@
 
 /obj/item/paper/crumpled/beernuke/Initialize(mapload)
 	var/code
-	for(var/obj/machinery/nuclearbomb/beer/beernuke in GLOB.nuke_list)
+	for(var/obj/machinery/nuclearbomb/beer/beernuke as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb/beer))
 		if(beernuke.r_code == "ADMIN")
 			beernuke.r_code = random_code(5)
 		code = beernuke.r_code

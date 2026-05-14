@@ -15,9 +15,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	light_on = FALSE
 
 	// Whether the computer is turned on.
-	var/enabled = 0
+	var/enabled = FALSE
 	// Whether the computer is active/opened/it's screen is on.
-	var/screen_on = 1
+	var/screen_on = TRUE
 	/// If it's bypassing the set icon state
 	var/bypass_state = FALSE
 	/// Whether or not the computer can be upgraded
@@ -107,6 +107,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// People looking at the computer
 	var/list/computer_users = list()
 
+	/// Looping sound for when the computer is on.
+	var/datum/looping_sound/computer/soundloop
+	/// Whether or not this modular computer uses the looping sound
+	var/looping_sound = TRUE
+
 /datum/armor/item_modular_computer
 	bullet = 20
 	laser = 20
@@ -120,6 +125,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		physical = src
 	set_light_color(comp_light_color)
 	set_light_range(comp_light_luminosity)
+	if(looping_sound)
+		soundloop = new(src, enabled)
 	idle_threads = list()
 	update_id_display()
 	if(has_light)
@@ -149,8 +156,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
 
 /obj/item/modular_computer/Destroy()
-	kill_program(forced = TRUE)
 	STOP_PROCESSING(SSobj, src)
+	kill_program(forced = TRUE)
+	if(soundloop)
+		QDEL_NULL(soundloop)
+	looping_sound = FALSE // Necessary to stop a possible runtime trying to call soundloop.stop() when soundloop has been qdel'd
 	all_components?.Cut()
 	if(istype(stored_pai_card))
 		qdel(stored_pai_card)
@@ -382,18 +392,22 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	// If we have a recharger, enable it automatically. Lets computer without a battery work.
 	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGER]
 	if(recharger)
-		recharger.enabled = 1
+		recharger.enabled = TRUE
 
 	if(all_components[MC_CPU] && use_power()) // use_power() checks if the PC is powered
-		if(issynth)
-			to_chat(user, span_notice("You send an activation signal to \the [src], turning it on."))
+		if(looping_sound)
+			soundloop.start()
 		else
-			to_chat(user, span_notice("You press the power button and start up \the [src]."))
-		enabled = 1
-		playsound(src, 'sound/machines/terminal_on.ogg', 50, TRUE)
+			playsound(src, 'sound/machines/terminal_on.ogg', 50, TRUE)
+		enabled = TRUE
 		update_appearance()
-		if(open_ui)
-			ui_interact(user)
+		if(user)
+			if(issynth)
+				to_chat(user, span_notice("You send an activation signal to \the [src], turning it on."))
+			else
+				to_chat(user, span_notice("You press the power button and start up \the [src]."))
+			if(open_ui)
+				ui_interact(user)
 		return TRUE
 	else // Unpowered
 		if(issynth)
@@ -639,8 +653,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 
 /obj/item/modular_computer/proc/shutdown_computer(loud = 1)
-	playsound(src, 'sound/machines/terminal_off.ogg', 50, TRUE)
 	kill_program(forced = TRUE)
+	if(looping_sound)
+		soundloop.stop()
+	else
+		playsound(src, 'sound/machines/terminal_off.ogg', 50, TRUE)
 	for(var/datum/computer_file/program/P in idle_threads)
 		P.kill_program(forced = TRUE)
 		idle_threads.Remove(P)

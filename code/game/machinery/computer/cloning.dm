@@ -474,6 +474,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			. = EjectDisk(usr)
 
 /obj/machinery/computer/cloning/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	updatemodules(TRUE)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
