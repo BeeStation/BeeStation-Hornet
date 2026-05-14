@@ -5,7 +5,6 @@
 	id = SPECIES_LIZARD
 	species_traits = list(
 		MUTCOLORS,
-		EYECOLOR,
 		LIPS
 	)
 	inherent_traits = list()
@@ -107,7 +106,6 @@
 	examine_limb_id = SPECIES_LIZARD
 	species_traits = list(
 		MUTCOLORS,
-		EYECOLOR,
 		LIPS,
 		NO_UNDERWEAR
 	)

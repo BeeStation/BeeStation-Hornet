@@ -9,7 +9,6 @@
 	id = SPECIES_SLIMEPERSON
 	species_traits = list(
 		MUTCOLORS,
-		EYECOLOR,
 		HAIR,
 		FACEHAIR,
 	)

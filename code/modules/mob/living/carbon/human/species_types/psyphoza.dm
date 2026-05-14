@@ -3,7 +3,7 @@
 	plural_form = "Psyphoza"
 	id = SPECIES_PSYPHOZA
 	meat = /obj/item/food/meat/slab/human/mutant/psyphoza
-	species_traits = list(NOEYESPRITES, AGENDER, MUTCOLORS, NOEYEHOLES)
+	species_traits = list(AGENDER, MUTCOLORS)
 	sexes = FALSE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/psyphoza

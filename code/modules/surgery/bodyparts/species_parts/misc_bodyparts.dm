@@ -30,6 +30,7 @@
 	limb_id = SPECIES_ABDUCTOR
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	head_flags = NONE
 
 /obj/item/bodypart/chest/abductor
 	limb_id = SPECIES_ABDUCTOR
@@ -57,6 +58,7 @@
 	limb_id = SPECIES_SLIMEPERSON
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
+	head_flags = HEAD_EYECOLOR | HEAD_EYESPRITES
 
 /obj/item/bodypart/chest/slime
 	limb_id = SPECIES_SLIMEPERSON
@@ -157,6 +159,7 @@
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.4
 	brute_modifier = 1.4
+	head_flags = HEAD_EYESPRITES
 
 /obj/item/bodypart/chest/fly
 	limb_id = SPECIES_FLYPERSON
@@ -194,6 +197,7 @@
 	limb_id = SPECIES_SHADOW
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	head_flags = NONE
 
 /obj/item/bodypart/chest/shadow
 	limb_id = SPECIES_SHADOW
@@ -255,6 +259,7 @@
 	limb_id = SPECIES_GOLEM
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
+	head_flags = NONE
 
 /obj/item/bodypart/chest/golem
 	acceptable_bodytype = BODYTYPE_GOLEM
@@ -707,6 +712,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.25
+	head_flags = HEAD_EYECOLOR
 	///Carved overlay
 	var/image/carved_overlay
 

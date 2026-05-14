@@ -3,6 +3,7 @@
 	limb_id = SPECIES_LIZARD
 	uses_mutcolor = TRUE
 	is_dimorphic = FALSE
+	head_flags = HEAD_EYESPRITES|HEAD_EYECOLOR
 
 /obj/item/bodypart/chest/lizard
 	icon_greyscale = 'icons/mob/human/species/lizard/bodyparts.dmi'

@@ -27,7 +27,11 @@
 	var/show_organs_on_examine = TRUE
 
 	//Limb appearance info:
-	var/real_name = "" //Replacement name
+	/// Replacement name
+	var/real_name = ""
+	/// Flags related to appearance, such as hair, lips, etc
+	var/head_flags = HEAD_ALL_FEATURES
+
 
 	/// Hair style
 	var/hair_style = "Bald"
@@ -272,16 +276,18 @@
 			. += lips_overlay
 
 		// eyes
-		if(eyes && eyes.eye_icon_state && !(NOEYESPRITES in species_flags_list)) // This is a bit of copy/paste code from eyes.dm:generate_body_overlay
+		if(eyes?.eye_icon_state && (head_flags & HEAD_EYESPRITES))
 			var/image/eye_left = image(eyes.eye_icon, "[eyes.eye_icon_state]_l", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
 			var/image/eye_right = image(eyes.eye_icon, "[eyes.eye_icon_state]_r", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
-			if(eyes.eye_color_left)
-				eye_left.color = eyes.eye_color_left
-			if(eyes.eye_color_right)
-				eye_right.color = eyes.eye_color_right
+			if(head_flags & HEAD_EYECOLOR)
+				if(eyes.eye_color_left)
+					eye_left.color = eyes.eye_color_left
+				if(eyes.eye_color_right)
+					eye_right.color = eyes.eye_color_right
 			. += eye_left
 			. += eye_right
 
+	return
 
 /// Returns an appropriate debrained icon state
 /obj/item/bodypart/head/proc/get_debrain_overlay(can_rotate = TRUE)
@@ -321,10 +327,12 @@
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = SPECIES_MONKEY
 	is_dimorphic = FALSE
+	head_flags = NONE
 
 /obj/item/bodypart/head/monkey/teratoma
 	icon_state = "teratoma_head"
 	limb_id = "teratoma"
+	head_flags = HEAD_EYECOLOR
 
 /obj/item/bodypart/head/alien
 	icon = 'icons/mob/human/species/alien/bodyparts.dmi'

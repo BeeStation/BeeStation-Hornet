@@ -5,9 +5,7 @@
 	sexes = 0
 	meat = /obj/item/food/pieslice/pumpkin
 	species_traits = list(
-		NOEYESPRITES,
 		MUTCOLORS,
-		EYECOLOR
 	)
 	inherent_traits = list(
 		TRAIT_BEEFRIEND,

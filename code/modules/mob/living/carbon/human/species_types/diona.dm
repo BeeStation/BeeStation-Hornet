@@ -5,12 +5,10 @@
 	sexes = 0 //no sex for bug/plant people!
 	species_traits = list(
 		MUTCOLORS,
-		EYECOLOR,
 		AGENDER,
 		NOHUSK,
 		NO_UNDERWEAR,
 		NOSOCKS,
-		NOEYESPRITES,
 	)
 	inherent_traits = list(
 		TRAIT_BEEFRIEND,
