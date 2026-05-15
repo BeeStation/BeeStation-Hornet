@@ -363,9 +363,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	else
 		if(stat == DEAD && surgeries.len)
 			if(!M.combat_mode || LAZYACCESS(modifiers, RIGHT_CLICK))
-				for(var/datum/surgery/S in surgeries)
-					if(S.next_step(M, modifiers))
-						return 1
+				for(var/datum/surgery/operations as anything in surgeries)
+					if(operations.next_step(M, modifiers))
+						return TRUE
 		if(..()) //successful attack
 			attacked += 10
 
@@ -379,8 +379,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	if(stat == DEAD && surgeries.len)
 		var/list/modifiers = params2list(params)
 		if(!user.combat_mode || (LAZYACCESS(modifiers, RIGHT_CLICK)))
-			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, modifiers))
+			for(var/datum/surgery/operations as anything in surgeries)
+				if(operations.next_step(user, modifiers))
 					return 1
 	if(istype(W, /obj/item/stack/sheet/mineral/plasma) && !stat) //Let's you feed slimes plasma.
 		add_friendship(user, 1)

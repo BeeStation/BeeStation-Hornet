@@ -63,15 +63,13 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	else
 		mode() // Activate held item
 
-/mob/living/carbon/attackby(obj/item/I, mob/living/user, params)
-	for(var/datum/surgery/operations as anything in surgeries)
-		if(user.combat_mode)
-			break
-		if(body_position == LYING_DOWN || !operations.lying_required)
-			var/list/modifiers = params2list(params)
-			if((operations.self_operable || user != src))
-				if(operations.next_step(user, modifiers))
-					return TRUE
+/mob/living/carbon/attackby(obj/item/item, mob/living/user, params)
+
+	if(can_perform_surgery(user, params))
+		return TRUE
+
+	//Wounds tending goes here
+
 	return ..()
 
 /mob/living/carbon/CtrlShiftClick(mob/user)
