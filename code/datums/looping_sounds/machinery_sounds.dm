@@ -131,8 +131,11 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/looping_sound/rbmk
+	mid_sounds = list('sound/effects/rbmk/alarm.ogg' = 1)
 	volume = 100
+	extra_range = 10
 	mid_length = 5.8 SECONDS
+	ignore_walls = TRUE
 
 /datum/looping_sound/rbmk_ambience
 	mid_sounds = list('sound/effects/rbmk/ambience.ogg' = 1)
