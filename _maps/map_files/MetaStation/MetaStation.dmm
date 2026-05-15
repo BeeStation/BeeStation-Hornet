@@ -30180,7 +30180,6 @@
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "kOR" = (
-/obj/machinery/airalarm/directional/east,
 /obj/effect/turf_decal/tile/neutral,
 /obj/structure/disposalpipe/segment{
 	dir = 2
@@ -59720,6 +59719,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
 "uGH" = (
