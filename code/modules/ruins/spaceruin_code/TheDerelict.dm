@@ -91,7 +91,7 @@ WANTS_POWER_NODE(/obj/machinery/computer/vaultcontroller)
 	var/obj/machinery/door/airlock/first_airlock = door1?.resolve()
 	var/obj/machinery/door/airlock/second_airlock = door2?.resolve()
 
-	for(var/obj/machinery/door/airlock/airlock in GLOB.machines)
+	for(var/obj/machinery/door/airlock/airlock as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/airlock))
 		if(airlock.id_tag != door_id)
 			continue
 		if(isnull(first_airlock))
