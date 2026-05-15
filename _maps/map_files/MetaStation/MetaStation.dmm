@@ -2081,6 +2081,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "aUn" = (
@@ -13546,6 +13549,9 @@
 "fcu" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "fcw" = (
@@ -18839,15 +18845,15 @@
 /area/station/security/checkpoint/supply)
 "gXl" = (
 /obj/structure/cable/yellow,
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=13.2-Tcommstore";
-	location = "13.3-Engineering-Central"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=14-Starboard-Central";
+	location = "13.3-Engineering-Central"
+	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "gXm" = (
@@ -41786,9 +41792,6 @@
 /area/station/commons/dorms)
 "oGs" = (
 /obj/effect/landmark/event_spawn,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/bar,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -56498,10 +56501,6 @@
 /turf/open/floor/iron/chapel,
 /area/station/service/chapel)
 "tEj" = (
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=14-Starboard-Central";
-	location = "13.3-Engineering-Central"
-	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
@@ -57430,16 +57429,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/construction/storage_wing)
-"tUU" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/structure/cable/yellow,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/station/hallway/primary/starboard)
 "tVi" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -63383,9 +63372,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white,
 /area/station/medical/virology)
-"vVM" = (
-/turf/open/floor/iron,
-/area/station/hallway/primary/starboard)
 "vVO" = (
 /obj/structure/table,
 /obj/item/folder/white{
@@ -109366,7 +109352,7 @@ qyO
 sgr
 fah
 tEj
-tUU
+eCg
 qsG
 hdB
 hdB
@@ -109624,7 +109610,7 @@ xHx
 fah
 fcu
 fGt
-vVM
+wme
 wTh
 pgh
 kDm
@@ -110136,9 +110122,9 @@ iCD
 eOE
 ixE
 uHN
-vVM
+wci
 aTR
-vVM
+wci
 wci
 vwK
 kIM
