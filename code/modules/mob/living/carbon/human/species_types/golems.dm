@@ -5,6 +5,7 @@
 	species_traits = list(
 		MUTCOLORS,
 		NO_UNDERWEAR,
+		NOEYEHOLES,
 	)
 	inherent_traits = list(
 		TRAIT_RESISTHEAT,

@@ -72,6 +72,7 @@
 
 /obj/item/debug/omnitool/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/surgery_initiator)
 
 	if(!abstract_tools)
 		abstract_tools = list()
@@ -114,8 +115,6 @@
 
 /obj/item/debug/omnitool/attack(mob/living/M, mob/living/user)
 	switch(tool_behaviour)
-		if("drapes")
-			attempt_initiate_surgery(src, M, user)
 		if("debug_placeholder") // QoL. put anything you need. - pre_attack() is preffered.
 			pass()
 	. = ..()

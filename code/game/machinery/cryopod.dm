@@ -323,7 +323,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			qdel(R)
 
 
-	for(var/obj/machinery/computer/cloning/cloner in GLOB.machines)
+	for(var/obj/machinery/computer/cloning/cloner as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/cloning))
 		for(var/datum/record/R as() in cloner.records)
 			if(R.name == mob_occupant.real_name)
 				cloner.records.Remove(R)

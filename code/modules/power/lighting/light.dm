@@ -678,7 +678,7 @@ GLOBAL_VAR_INIT(s_flickering_lights, FALSE)
 	GLOB.s_flickering_lights = TRUE
 	spawn(0)
 		GLOB.s_flickering_lights = FALSE
-		for(var/obj/machinery/light/L in GLOB.machines)
+		for(var/obj/machinery/light/L as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light))
 			if(is_station_level(L.z))
 				addtimer(CALLBACK(L, TYPE_PROC_REF(/obj/machinery/light, flicker), rand(3, 6)), rand(0, 15))
 

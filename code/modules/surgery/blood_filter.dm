@@ -1,18 +1,14 @@
 /datum/surgery/blood_filter
 	name = "Filter Blood"
 	desc = "A surgical procedure that filters toxins from the patient's blood."
+	possible_locs = list(BODY_ZONE_CHEST)
 	steps = list(
 		/datum/surgery_step/incise,
 		/datum/surgery_step/retract_skin,
 		/datum/surgery_step/incise,
 		/datum/surgery_step/filter_blood,
-		/datum/surgery_step/close
+		/datum/surgery_step/close,
 	)
-
-	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
-	possible_locs = list(BODY_ZONE_CHEST)
-	requires_bodypart_type = TRUE
-	ignore_clothes = FALSE
 	replaced_by = /datum/surgery/blood_filter/upgraded
 	var/antispam = FALSE
 	var/filtering_step_type
@@ -46,20 +42,24 @@
 	var/limited_healing = 100 // Cant heal toxin damage under this treshold
 	var/antispam_two = TRUE
 
-
 /datum/surgery_step/filter_blood/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery,/datum/surgery/blood_filter))
 		var/datum/surgery/blood_filter/the_surgery = surgery
 		if(!the_surgery.antispam)
-			display_results(user, target, span_notice("You begin filtering [target]'s blood..."),
-			span_notice("[user] uses [tool] to filtering your blood."),
-			span_notice("[user] uses [tool] on [target]'s chest."))
+			display_results(
+				user,
+				target,
+				span_notice("You begin filtering [target]'s blood..."),
+				span_notice("[user] uses [tool] to filter [target]'s blood."),
+				span_notice("[user] uses [tool] on [target]'s chest."),
+			)
 
 /datum/surgery_step/filter_blood/initiate(mob/living/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
-	if(..())
-		while(target.reagents.total_volume || (tox_heal_factor > 0 && target.getToxLoss() > 0))
-			if(!..())
-				break
+	if(!..())
+		return
+	while(target.reagents.total_volume || (tox_heal_factor > 0 && target.getToxLoss() > 0))
+		if(!..())
+			break
 
 /datum/surgery_step/filter_blood/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/tox_loss = target.getToxLoss()
@@ -85,22 +85,34 @@
 			if(target.reagents.total_volume)
 				remaining += "<font color='[COLOR_MAGENTA]'>[round(target.reagents.total_volume, 0.1)]u</font> of reagents"
 		var/umsg = length(remaining) ? " [english_list(remaining)] remaining." : ""
-		display_results(user, target, span_notice("[tool] pings as it filters [target]'s blood.[umsg]"),
-				span_notice("[user] pumps [target]'s blood with [tool]."),
-				"[tool] pings as it pumps.")
+		display_results(
+			user,
+			target,
+			span_notice("\The [tool] completes a cycle filtering [target]'s blood.[umsg]"),
+			span_notice("\The [tool] whirrs as it filters [target]'s blood."),
+			span_notice("\The [tool] whirrs as it pumps."),
+		)
 	else
-		display_results(user, target, span_notice("[tool] flashes, [target]'s blood is clean."),
+		display_results(
+			user,
+			target,
+			span_notice("\The [tool] flashes, [target]'s blood is clean."),
 			span_notice("[user] finishes pumping [target]'s blood with [tool]"),
-			"[tool] has no chemicals or toxins to filter.")
+			span_notice("\The [tool] has no chemicals or toxins to filter.")
+		)
 	if(istype(surgery, /datum/surgery/blood_filter))
 		var/datum/surgery/blood_filter/the_surgery = surgery
 		the_surgery.antispam = TRUE
 	return TRUE
 
 /datum/surgery_step/filter_blood/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_warning("You screw up, brusing [target]'s chest!"),
+	display_results(
+		user,
+		target,
+		span_warning("You screw up, bruising [target]'s chest!"),
 		span_warning("[user] screws up, brusing [target]'s chest!"),
-		span_warning("[user] screws up!"))
+		span_warning("[user] screws up!"),
+	)
 	target.adjustBruteLoss(5)
 
 /datum/surgery/blood_filter/upgraded

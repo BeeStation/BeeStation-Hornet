@@ -1039,7 +1039,7 @@
 	var/mob/living/carbon/exposed_carbon = exposed_mob
 
 	if(method in list(TOUCH, VAPOR, PATCH))
-		for(var/datum/surgery/surgery in exposed_carbon.surgeries)
+		for(var/datum/surgery/surgery as anything in exposed_carbon.surgeries)
 			surgery.speed_modifier = max(0.2, surgery.speed_modifier)
 			// +20% surgery speed on each step, useful while operating in less-than-perfect conditions
 

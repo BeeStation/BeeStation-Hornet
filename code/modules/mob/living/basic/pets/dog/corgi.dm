@@ -397,6 +397,14 @@
 		write_memory(TRUE)
 	return ..()
 
+/mob/living/basic/pet/dog/corgi/ian/revive(full_heal_flags, excess_healing, force_grab_ghost)
+	. = ..()
+	if (!.)
+		return
+	if (!istype(inventory_head, /obj/item/clothing/glasses/eyepatch))
+		inventory_head?.forceMove(drop_location())
+	place_on_head(new /obj/item/clothing/glasses/eyepatch)
+
 /mob/living/basic/pet/dog/corgi/ian/narsie_act()
 	playsound(src, 'sound/magic/demon_dies.ogg', 75, TRUE)
 	var/mob/living/basic/pet/dog/corgi/narsie/narsIan = new(loc)

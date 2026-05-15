@@ -235,46 +235,45 @@
 /mob/living/carbon/update_body()
 	update_body_parts()
 
+///Checks to see if any bodyparts need to be redrawn, then does so. update_limb_data = TRUE redraws the limbs to conform to the owner.
 /mob/living/carbon/proc/update_body_parts(update_limb_data)
-	//Check the cache to see if it needs a new sprite
 	update_damage_overlays()
 	var/list/needs_update = list()
 	var/limb_count_update = FALSE
-	for(var/obj/item/bodypart/BP as() in bodyparts)
-		BP.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
-		var/old_key = icon_render_keys?[BP.body_zone]
-		icon_render_keys[BP.body_zone] = (BP.is_husked) ? generate_husk_key(BP) : generate_icon_key(BP)
-		if(!(icon_render_keys[BP.body_zone] == old_key))
-			needs_update += BP
+	for(var/obj/item/bodypart/limb as anything in bodyparts)
+		limb.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
 
+		var/old_key = icon_render_keys?[limb.body_zone]
+		icon_render_keys[limb.body_zone] = (limb.is_husked) ? generate_husk_key(limb) : generate_icon_key(limb)
+
+		if(icon_render_keys[limb.body_zone] != old_key) //If the keys match, that means the limb doesn't need to be redrawn
+			needs_update += limb
 
 	var/list/missing_bodyparts = get_missing_limbs()
-	if(((dna ? dna.species.max_bodypart_count : 6) - icon_render_keys.len) != missing_bodyparts.len)
+	if(((dna ? dna.species.max_bodypart_count : BODYPARTS_DEFAULT_MAXIMUM) - icon_render_keys.len) != missing_bodyparts.len) //Checks to see if the target gained or lost any limbs.
 		limb_count_update = TRUE
-		for(var/X in missing_bodyparts)
-			icon_render_keys -= X
+		for(var/missing_limb in missing_bodyparts)
+			icon_render_keys -= missing_limb
 
 	if(!needs_update.len && !limb_count_update)
 		return
 
-	remove_overlay(BODYPARTS_LAYER)
-
-
 	//GENERATE NEW LIMBS
 	var/list/new_limbs = list()
-	for(var/obj/item/bodypart/BP as() in bodyparts)
-		if(BP in needs_update)
-			var/bp_icon = BP.get_limb_icon()
-			new_limbs += bp_icon
-			limb_icon_cache[icon_render_keys[BP.body_zone]] = bp_icon
+	for(var/obj/item/bodypart/limb as anything in bodyparts)
+		if(limb in needs_update)
+			var/bodypart_icon = limb.get_limb_icon()
+			new_limbs += bodypart_icon
+			limb_icon_cache[icon_render_keys[limb.body_zone]] = bodypart_icon
 		else
-			new_limbs += limb_icon_cache[icon_render_keys[BP.body_zone]]
+			new_limbs += limb_icon_cache[icon_render_keys[limb.body_zone]]
+
+	remove_overlay(BODYPARTS_LAYER)
 
 	if(new_limbs.len)
 		overlays_standing[BODYPARTS_LAYER] = new_limbs
 
 	apply_overlay(BODYPARTS_LAYER)
-
 
 /////////////////////////
 // Limb Icon Cache 2.0 //
