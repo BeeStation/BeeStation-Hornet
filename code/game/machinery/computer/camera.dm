@@ -66,6 +66,7 @@
 	. = ..()
 
 /obj/machinery/computer/security/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	// Update UI
 	ui = SStgui.try_update_ui(user, src, ui)
 
@@ -125,8 +126,6 @@
 	if(action == "switch_camera")
 		var/obj/machinery/camera/selected_camera = locate(params["camera"]) in GLOB.cameranet.cameras
 		active_camera = selected_camera
-		ui_update()
-		playsound(src, get_sfx("terminal_type"), 25, FALSE)
 
 		if(isnull(active_camera))
 			return TRUE
@@ -171,6 +170,7 @@
 	cam_background.fill_rect(1, 1, size_x, size_y)
 
 /obj/machinery/computer/security/ui_close(mob/user, datum/tgui/tgui)
+	. = ..()
 	var/user_ref = REF(user)
 	var/is_living = isliving(user)
 	// Living creature or not, we remove you anyway.
@@ -191,7 +191,7 @@
 // Returns the list of cameras accessible from this computer
 /obj/machinery/computer/security/proc/get_available_cameras()
 	var/list/camlist = list()
-	for(var/obj/machinery/camera/cam as() in GLOB.cameranet.cameras)
+	for(var/obj/machinery/camera/cam as anything in GLOB.cameranet.cameras)
 		if((is_away_level(z) || is_away_level(cam.z)) && (cam.get_virtual_z_level() != get_virtual_z_level()))//if on away mission, can only receive feed from same z_level cameras
 			continue
 		if(!islist(cam.network))

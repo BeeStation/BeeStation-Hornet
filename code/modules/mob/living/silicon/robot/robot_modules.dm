@@ -583,6 +583,7 @@
 		/obj/item/gps/cyborg,
 		/obj/item/borg/charger,
 		/obj/item/extinguisher/mini,
+		/obj/item/harmalarm,
 		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/crowbar/cyborg,
 		/obj/item/borg/lollipop,
@@ -600,10 +601,10 @@
 
 //Aside from bomb and acid, not actually a lot of armor
 /datum/armor/cyborg
-	melee = 30
-	bullet = 30
-	laser = 30
-	energy = 30
+	melee = 50
+	bullet = 50
+	laser = 50
+	energy = 50
 	bomb = 50
 	acid = 100
 
@@ -625,6 +626,17 @@
 		else
 			return FALSE
 	. = ..()
+
+/obj/item/robot_model/guard/rebuild_modules()
+	. = ..()
+	var/mob/living/silicon/robot/robot = loc
+	if(!istype(robot))
+		return
+	for(var/obj/item/gun/energy/e_gun/mini/exploration/cyborg/gun in modules)
+		// Ensure the sentry toggle action is granted to the borg, even if the gun is sitting in the inventory
+		// rather than held in a hand slot.
+		for(var/datum/action/sentry_toggle/action in gun.actions)
+			action.Grant(robot)
 
 // --------------------- Deathsquad
 /obj/item/robot_model/deathsquad

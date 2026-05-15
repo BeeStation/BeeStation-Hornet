@@ -71,3 +71,54 @@
   - tweak: Several instances of redundant cable connections have been removed. This
       is most noticeable by the supermatter across all maps
   - bugfix: speech synthesizers have been reimplemented in positronic brains and MMIs
+2026-05-10:
+  EvilDragonfiend:
+  - code_imp: Fixed colour debug was not working.
+  TsunamiAnt:
+  - rscadd: Added visual and audio effects to guardian module sentry mode.
+  - rscadd: Added harm alarm to guardian module.
+  - balance: Switched Guardian module disabler for a custom taser.
+  - balance: Switched Guardian module anti-creature laser for a slightly weaker normal
+      one.
+  - bugfix: fixed a runtime related to cyborg weapon re-equipping due to signals.
+  - rscdel: Removed sectech voucher system
+  mrmanlikesbt:
+  - admin: The server revision log now displays BeeStation instead of /tg/
+  mrmanlikesbt, Cyberboss, LemonInTheDark, AnturK, Aylong, jlsnow301, Kashargul:
+  - tweak: Tweaked title bars to be less awful
+  - code_imp: The compiler will now error if multiple bitfields are defined
+  - refactor: UI references have been moved off of the tgui subsystem and onto individual
+      datums
+  - bugfix: Fixed the TGUI error screen not displaying the correct in-game year
+  - rscdel: The fancy TGUI preference has been removed seeing as nobody is on IE8
+      anymore
+  rkz, SuperNovaa41, ZephyrTFA, tralezab, smartKar, lizardqueenlexi:
+  - bugfix: Implemented "jelly eyes" to make jellypeople and stargazers use the proper
+      eyes sprite.
+  - bugfix: You can no longer delete your cult eyes or halo by transforming into a
+      monkey, and then into a human.
+  - bugfix: You can no longer delete your cult eyes or halo by transforming as a changeling.
+  - bugfix: Simplemobs now receive glowing eyes and a cult halo.
+  - refactor: Turns cult eyes and cult halos into elements, and improves the code
+      a touch.
+  - refactor: Eyes now support having two different colors for each eye
+2026-05-11:
+  DrDuckedGoose:
+  - bugfix: Fix particles smoking
+2026-05-12:
+  mrmanlikesbt, jslnow301:
+  - rscdel: url-loader has been removed from tgui dependencies as it comes included
+      with webpack
+2026-05-13:
+  Tyfightercats:
+  - bugfix: Fixed Diona taking damage and gaining random mutations from radiation.
+  mrmanlikesbt, Kapu1178, Qustinnus, Cheshify, grungussuss, timothymtorres, TiviPlus, vinylspiders:
+  - code_imp: Sounds and hearing have been optimized a bit
+  mrmanlikesbt, ZephyrTFA:
+  - code_imp: GLOB.machines has been removed and replaced with the new SSmachines.get_machines_by_type_and_subtypes()
+      and SSmachines.get_machines_by_type() procs. This should improve performance
+      across the codebase because now instead of looping through a list of 15,000
+      machines, we only have to search through a few hundred at most.
+2026-05-14:
+  rkz, jacquerel:
+  - refactor: refactors worn offsets

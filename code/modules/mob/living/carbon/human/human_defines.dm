@@ -21,8 +21,11 @@
 	var/facial_hair_color = COLOR_BLACK
 	///Facial hair style
 	var/facial_hair_style = "Shaved"
+
 	//Eye colour
-	var/eye_color = COLOR_BLACK
+	var/eye_color_left = COLOR_BLACK
+	var/eye_color_right = COLOR_BLACK
+	var/eye_color_heterochromatic = FALSE
 
 	var/skin_tone = "caucasian1" //Skin tone
 

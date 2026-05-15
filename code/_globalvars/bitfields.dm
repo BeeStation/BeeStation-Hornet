@@ -16,6 +16,17 @@ GLOBAL_LIST_INIT(bitfields, generate_bitfields())
 		bitfields[bitfield.variable] = bitfield.flags
 	return bitfields
 
+/// Returns an associative list of bitflag name -> number for all valid bitflags in the passed in field
+/proc/get_valid_bitflags(var_name)
+	return GLOB.bitfields[var_name] || list()
+
+/proc/get_random_bitflag(var_name)
+	var/list/flags = get_valid_bitflags(var_name)
+	if(!length(flags))
+		return
+	var/name = pick(flags)
+	return flags[name]
+
 DEFINE_BITFIELD(appearance_flags, list(
 	"LONG_GLIDE" = LONG_GLIDE,
 	"RESET_COLOR" = RESET_COLOR,
@@ -330,23 +341,6 @@ DEFINE_BITFIELD(trauma_flags, list(
 	"NOT_RANDOM" = TRAUMA_NOT_RANDOM,
 ))
 
-DEFINE_BITFIELD(internal_damage, list(
-	"MECHA_INT_FIRE" = MECHA_INT_FIRE,
-	"MECHA_INT_TEMP_CONTROL" = MECHA_INT_TEMP_CONTROL,
-	"MECHA_CABIN_AIR_BREACH" = MECHA_CABIN_AIR_BREACH,
-	"MECHA_INT_CONTROL_LOST" = MECHA_INT_CONTROL_LOST,
-	"MECHA_INT_SHORT_CIRCUIT" = MECHA_INT_SHORT_CIRCUIT,
-))
-
-DEFINE_BITFIELD(mecha_flags, list(
-	"ID_LOCK_ON" = ID_LOCK_ON,
-	"CAN_STRAFE" = CAN_STRAFE,
-	"LIGHTS_ON" = LIGHTS_ON,
-	"SILICON_PILOT" = SILICON_PILOT,
-	"IS_ENCLOSED" = IS_ENCLOSED,
-	"HAS_LIGHTS" = HAS_LIGHTS,
-))
-
 DEFINE_BITFIELD(mob_biotypes, list(
 	"MOB_ORGANIC" = MOB_ORGANIC,
 	"MOB_INORGANIC" = MOB_INORGANIC,
@@ -374,21 +368,6 @@ DEFINE_BITFIELD(emote_flags, list(
 	"EMOTE_VISIBLE" = EMOTE_VISIBLE,
 	"EMOTE_IMPORTANT" = EMOTE_IMPORTANT,
 	"EMOTE_ANIMATED" = EMOTE_ANIMATED,
-))
-
-DEFINE_BITFIELD(flags_inv, list(
-	"HIDEEARS" = HIDEEARS,
-	"HIDEEYES" = HIDEEYES,
-	"HIDEFACE" = HIDEFACE,
-	"HIDEFACIALHAIR" = HIDEFACIALHAIR,
-	"HIDEGLOVES" = HIDEGLOVES,
-	"HIDEHAIR" = HIDEHAIR,
-	"HIDEJUMPSUIT" = HIDEJUMPSUIT,
-	"HIDEMASK" = HIDEMASK,
-	"HIDENECK" = HIDENECK,
-	"HIDESHOES" = HIDESHOES,
-	"HIDESNOUT" = HIDESNOUT,
-	"HIDESUITSTORAGE" = HIDESUITSTORAGE,
 ))
 
 DEFINE_BITFIELD(machine_stat, list(
