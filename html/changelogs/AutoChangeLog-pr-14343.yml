@@ -1,0 +1,8 @@
+author: rkz, ATH1909, Mothblocks, JohnFulpWillard, LT3, flowercuco, Jacquerel, Majkl-J,
+  Melbert, ariaworld
+delete-after: true
+changes:
+  - rscadd: adds new surgery initiation UI
+  - refactor: cleans up a lot of surgery code
+  - tweak: revive surgery is roundstart
+  - tweak: revive surgery can revive more mobtypes
