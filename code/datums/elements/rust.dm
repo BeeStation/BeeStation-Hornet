@@ -19,7 +19,7 @@
 	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(handle_examine))
 	RegisterSignals(target, list(COMSIG_ATOM_TOOL_ACT(TOOL_WELDER), COMSIG_ATOM_TOOL_ACT(TOOL_RUSTSCRAPER)), PROC_REF(secondary_tool_act))
 	// Unfortunately registering with parent sometimes doesn't cause an overlay update
-	target.update_icon()
+	target.update_appearance()
 
 /datum/element/rust/Detach(atom/source)
 	. = ..()
@@ -27,7 +27,7 @@
 	UnregisterSignal(source, COMSIG_ATOM_EXAMINE)
 	UnregisterSignal(source, list(COMSIG_ATOM_TOOL_ACT(TOOL_WELDER), COMSIG_ATOM_TOOL_ACT(TOOL_RUSTSCRAPER)))
 	REMOVE_TRAIT(source, TRAIT_RUSTY, REF(src))
-	source.update_icon()
+	source.update_appearance()
 
 /datum/element/rust/proc/handle_examine(datum/source, mob/user, list/examine_text)
 	SIGNAL_HANDLER
@@ -35,7 +35,8 @@
 
 /datum/element/rust/proc/apply_rust_overlay(atom/parent_atom, list/overlays)
 	SIGNAL_HANDLER
-	overlays += rust_overlay
+	if(rust_overlay)
+		overlays += rust_overlay
 
 /// Because do_after sleeps we register the signal here and defer via an async call
 /datum/element/rust/proc/secondary_tool_act(atom/source, mob/user, obj/item/item)

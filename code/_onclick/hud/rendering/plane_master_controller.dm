@@ -63,7 +63,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/plane_master_controller)
 	. = ..()
 	for(var/i in controlled_planes)
 		var/atom/movable/screen/plane_master/pm_iterator = controlled_planes[i]
-		pm_iterator.transition_filter(name, time, new_params, easing, loop)
+		pm_iterator.transition_filter(name, new_params, time, easing, loop)
 
 ///Full override so we can just use filterrific
 /atom/movable/plane_master_controller/add_atom_colour(coloration, colour_priority)

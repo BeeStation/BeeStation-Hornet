@@ -36,7 +36,7 @@
 	var/colour_second = rgb((proportion * good[1] + (1 - proportion) * bad[1]) * 0.8, (proportion * good[2] + (1 - proportion) * bad[2]) * 0.8, (proportion * good[3] + (1 - proportion) * bad[3]) * 0.8, 70)
 	wearer.add_filter("shield_filter", 10, outline_filter(2, colour_first))
 	// Do the animation
-	wearer.transition_filter("shield_filter", 2 SECONDS, list(size = 2, color = colour_second), easing = SINE_EASING, loop = -1)
+	wearer.transition_filter("shield_filter", list(size = 2, color = colour_second), 2 SECONDS, easing = SINE_EASING, loop = -1)
 	animate(time = 2 SECONDS, color = colour_first, easing = SINE_EASING, loop = -1)
 
 /// Intercept outgoing gunfire

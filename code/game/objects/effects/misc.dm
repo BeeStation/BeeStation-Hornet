@@ -47,30 +47,6 @@
 
 	var/list/container = list(  )
 
-/obj/effect/overlay/thermite
-	name = "thermite"
-	desc = "Looks hot."
-	icon = 'icons/effects/fire.dmi'
-	icon_state = "medium" //what?
-	anchored = TRUE
-	opacity = FALSE
-	density = FALSE
-	layer = FLY_LAYER
-
-/obj/effect/overlay/thermite/Initialize(mapload)
-	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
-
-/obj/effect/overlay/thermite/proc/on_entered(datum/source, atom/movable/AM)
-	SIGNAL_HANDLER
-	if(isliving(AM))
-		var/mob/living/L = AM
-		L.adjust_fire_stacks(5)
-		L.ignite_mob()
-
 /obj/effect/abstract/marker
 	name = "marker"
 	icon = 'icons/effects/effects.dmi'

@@ -144,6 +144,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_EXAMINE_SKIP "examine_skip"
 /// Gives you the Shifty Eyes quirk, rarely making people who examine you think you examined them back even when you didn't
 #define TRAIT_SHIFTY_EYES "shifty_eyes"
+/// Tells us that the mob currently has the fire_handler/wet_stacks status effect
+#define TRAIT_IS_WET "is_wet"
 
 /// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
 #define TRAIT_NO_GLIDE "no_glide"

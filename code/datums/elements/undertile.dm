@@ -52,6 +52,8 @@
 	if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 		source.plane = FLOOR_PLANE // We do this so that turfs that allow you to see what's underneath them don't have to be on the game plane (which causes ambient occlusion weirdness)
 
+		ADD_TRAIT(source, TRAIT_UNDERFLOOR, REF(src))
+
 		if(tile_overlay)
 			T.add_overlay(tile_overlay)
 
@@ -67,6 +69,8 @@
 
 	else
 		source.plane = initial(source.plane)
+
+		REMOVE_TRAIT(source, TRAIT_UNDERFLOOR, REF(src))
 
 		if(invisibility_trait)
 			REMOVE_TRAIT(source, invisibility_trait, ELEMENT_TRAIT(type))
