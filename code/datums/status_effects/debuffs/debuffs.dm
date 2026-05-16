@@ -955,7 +955,7 @@
 	switch(chance)
 		if(0 to 10)
 			message = span_warning("You feel a lump build up in your throat.")
-			human_owner.vomit()
+			human_owner.vomit(VOMIT_CATEGORY_DEFAULT)
 		if(20 to 30)
 			message = span_warning("You feel feel very well.")
 			human_owner.set_dizzy_if_lower(100 SECONDS)

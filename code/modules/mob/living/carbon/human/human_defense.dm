@@ -693,7 +693,7 @@
 			else if(oxyloss > 30)
 				combined_msg += span_danger("You're choking!")
 
-	if(!HAS_TRAIT(src, TRAIT_NOHUNGER) && !HAS_TRAIT(src, TRAIT_POWERHUNGRY))
+	if(!HAS_TRAIT(src, TRAIT_NOHUNGER))
 		switch(nutrition)
 			if(NUTRITION_LEVEL_FULL to INFINITY)
 				combined_msg += span_info("You're completely stuffed!")
@@ -704,7 +704,7 @@
 			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
 				combined_msg += span_info("You could use a bite to eat.")
 			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				combined_msg += span_info("You feel quite hungry.")
+				combined_msg += span_info("You feel quite hungry.") //Look, Henry's come to see us!
 			if(0 to NUTRITION_LEVEL_STARVING)
 				combined_msg += span_danger("You're starving!")
 

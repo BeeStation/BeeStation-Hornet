@@ -49,12 +49,12 @@
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
-/datum/species/moth/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
+/datum/species/moth/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(chem.type == /datum/reagent/toxin/pestkiller)
-		H.adjustToxLoss(3 * REM * delta_time)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
-		return FALSE
-	return ..()
+		affected.adjustToxLoss(3 * REM * delta_time)
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load)
 	if(human_who_gained_species.dna?.features["moth_eyes"] == "Domestic")
@@ -93,6 +93,7 @@
 	QDEL_NULL(cocoon_action)
 
 /datum/species/moth/spec_life(mob/living/carbon/human/H)
+	. = ..()
 	if(cocoon_action)
 		cocoon_action.update_buttons()
 

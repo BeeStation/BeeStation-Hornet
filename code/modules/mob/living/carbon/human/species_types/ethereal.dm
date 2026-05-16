@@ -5,7 +5,7 @@
 	attack_sound = 'sound/weapons/etherealhit.ogg'
 	miss_sound = 'sound/weapons/etherealmiss.ogg'
 	meat = /obj/item/food/meat/slab/human/mutant/ethereal
-	mutantstomach = /obj/item/organ/stomach/battery/ethereal
+	mutantstomach = /obj/item/organ/stomach/electrical/ethereal
 	mutanttongue = /obj/item/organ/tongue/ethereal
 	mutantheart = /obj/item/organ/heart/ethereal
 	exotic_bloodtype = "E"
@@ -18,7 +18,6 @@
 	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/ethereal
-	inherent_traits = list(TRAIT_POWERHUNGRY)
 	sexes = FALSE //no fetish content allowed
 
 	// Body temperature for ethereals is much higher then humans as they like hotter environments
@@ -44,8 +43,6 @@
 	var/default_color
 	var/EMPeffect = FALSE
 	var/emageffect = FALSE
-	//this is shit but how do i fix it? no clue.
-	var/drain_time = 0 //used to keep ethereals from spam draining power sources
 	var/obj/effect/dummy/lighting_obj/ethereal_light
 
 /datum/species/ethereal/Destroy(force)
@@ -150,27 +147,6 @@
 	spec_updatehealth(H)
 	H.visible_message(span_danger("[H] stops flickering and goes back to their normal state!"))
 
-/datum/species/ethereal/handle_charge(mob/living/carbon/human/H)
-	H.physiology.brute_mod = 1.25
-	if(HAS_TRAIT(H, TRAIT_NOHUNGER))
-		return
-	switch(H.nutrition)
-		if(NUTRITION_LEVEL_FED to INFINITY)
-			H.clear_alert("nutrition")
-		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_FED)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 1)
-			H.physiology.brute_mod = 1.5
-		if(1 to NUTRITION_LEVEL_STARVING)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 2)
-			if(H.health > 10.5)
-				H.apply_damage(0.65, TOX, null, null, H)
-			H.physiology.brute_mod = 1.75
-		else
-			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 3)
-			if(H.health > 10.5)
-				H.apply_damage(1, TOX, null, null, H)
-			H.physiology.brute_mod = 2
-
 /datum/species/ethereal/get_cough_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_COUGH_SOUND(user)
 
@@ -213,6 +189,12 @@
 	var/list/to_add = list()
 
 	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "bolt",
+			SPECIES_PERK_NAME = "Shockingly Tasty",
+			SPECIES_PERK_DESC = "Ethereals can feed on electricity from APCs and powercells to restore their charge; and do not otherwise need to eat.",
+		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "lightbulb",

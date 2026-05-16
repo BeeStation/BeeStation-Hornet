@@ -214,7 +214,7 @@
   * * show_message - passed through to [/datum/reagents/proc/expose_single]
   * * round_robin - if round_robin=TRUE, so transfer 5 from 15 water, 15 sugar and 15 plasma becomes 10, 15, 15 instead of 13.3333, 13.3333 13.3333. Good if you hate floating point errors
   */
-/datum/reagents/proc/trans_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE, mob/transfered_by, remove_blacklisted = FALSE, method = null, show_message = TRUE, round_robin = FALSE)
+/datum/reagents/proc/trans_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE, mob/transfered_by, remove_blacklisted = FALSE, method = null, show_message = TRUE, round_robin = FALSE, ignore_stomach = FALSE)
 	var/list/cached_reagents = reagent_list
 	if(!target || !total_volume)
 		return
@@ -227,10 +227,19 @@
 		R = target
 		target_atom = R.my_atom
 	else
-		if(!target.reagents)
+		if(!ignore_stomach && (method & INGEST) && istype(target, /mob/living/carbon))
+			var/mob/living/carbon/eater = target
+			var/obj/item/organ/stomach/belly = eater.get_organ_slot(ORGAN_SLOT_STOMACH)
+			if(!belly)
+				eater.expel_ingested(my_atom, amount)
+				return
+			R = belly.reagents
+			target_atom = belly
+		else if(!target.reagents)
 			return
-		R = target.reagents
-		target_atom = target
+		else
+			R = target.reagents
+			target_atom = target
 
 	amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
 	var/trans_data = null
@@ -247,7 +256,10 @@
 			if(!R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = TRUE)) //we only handle reaction after every reagent has been transfered.
 				continue
 			if(method)
-				R.expose_single(T, target_atom, method, part, show_message)
+				if(istype(target_atom, /obj/item/organ))
+					R.expose_single(T, target, method, transfer_amount, show_message)
+				else
+					R.expose_single(T, target_atom, method, transfer_amount, show_message)
 				T.on_transfer(target_atom, method, transfer_amount * multiplier)
 			remove_reagent(T.type, transfer_amount)
 			transfer_log[T.type] = transfer_amount
@@ -268,7 +280,10 @@
 				continue
 			to_transfer = max(to_transfer - transfer_amount , 0)
 			if(method)
-				R.expose_single(T, target_atom, method, transfer_amount, show_message)
+				if(istype(target_atom, /obj/item/organ))
+					R.expose_single(T, target, method, transfer_amount, show_message)
+				else
+					R.expose_single(T, target_atom, method, transfer_amount, show_message)
 				T.on_transfer(target_atom, method, transfer_amount * multiplier)
 			remove_reagent(T.type, transfer_amount)
 			transfer_log[T.type] = transfer_amount
@@ -361,58 +376,143 @@
 	R.handle_reactions()
 	return amount
 
+#define HAS_SILENT_TOXIN 0 //don't provide a feedback message if this is the only toxin present
+#define HAS_NO_TOXIN 1
+#define HAS_PAINFUL_TOXIN 2
+#define MAX_TOXIN_LIVER_DAMAGE 2 //the max damage the liver can receive per second (~1 min at max damage will destroy liver)
+
 /**
-  * Triggers metabolizing the reagents in this holder
-  *
-  * Arguments:
-  * * mob/living/carbon/C - The mob to metabolize in, if null it uses [/datum/reagents/var/my_atom]
-  * * can_overdose - Allows overdosing
-  * * liverless - Stops reagents that aren't set as [/datum/reagent/var/self_consuming] from metabolizing
-  */
-/datum/reagents/proc/metabolize(mob/living/carbon/owner, delta_time, times_fired, can_overdose = FALSE, liverless = FALSE)
+ * Triggers metabolizing for all the reagents in this holder
+ *
+ * Arguments:
+ * * mob/living/carbon/carbon - The mob to metabolize in, if null it uses [/datum/reagents/var/my_atom]
+ * * delta_time - the time in server seconds between proc calls (when performing normally it will be 2)
+ * * times_fired - the number of times the owner's life() tick has been called aka The number of times SSmobs has fired
+ * * can_overdose - Allows overdosing
+ * * liverless - Stops reagents that aren't set as [/datum/reagent/var/self_consuming] from metabolizing
+ */
+/datum/reagents/proc/metabolize(mob/living/carbon/owner, delta_time, times_fired, can_overdose = FALSE, liverless = FALSE, dead = FALSE)
 	if(owner?.dna?.species && (NOREAGENTS in owner.dna.species.species_traits))
 		return 0
 	var/list/cached_reagents = reagent_list
 	if(owner)
 		expose_temperature(owner.bodytemperature, 0.25)
-	var/need_mob_update = 0
-	for(var/reagent in cached_reagents)
-		var/datum/reagent/R = reagent
-		if(QDELETED(R.holder))
-			continue
 
-		if(!owner)
-			owner = R.holder.my_atom
+	var/need_mob_update = FALSE
+	var/obj/item/organ/stomach/belly = owner.get_organ_slot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/liver/liver = owner.get_organ_slot(ORGAN_SLOT_LIVER)
+	var/liver_tolerance = 0
+	var/liver_damage = 0
+	var/provide_pain_message
+	var/amount
+	if(liver)
+		var/liver_health_percent = (liver.maxHealth - liver.damage) / liver.maxHealth
+		liver_tolerance = liver.toxTolerance * liver_health_percent
+		provide_pain_message = HAS_NO_TOXIN
 
-		if(owner && R)
-			if(owner.reagent_check(R, delta_time, times_fired)) //Most relevant to Humans, this handles species-specific chem interactions.
-				return
-			if(liverless && !R.self_consuming) //need to be metabolized
+	for(var/datum/reagent/reagent as anything in cached_reagents)
+		var/datum/reagent/toxin/toxin
+		if(istype(reagent, /datum/reagent/toxin))
+			toxin = reagent
+		// skip metabolizing effects for small units of toxins
+		if(toxin && liver && !dead)
+			amount = round(toxin.volume, CHEMICAL_QUANTISATION_LEVEL)
+			if(belly)
+				amount += belly.reagents.get_reagent_amount(toxin.type)
+
+			if(amount <= liver_tolerance)
+				owner.reagents.remove_reagent(toxin.type, toxin.metabolization_rate * owner.metabolism_efficiency * delta_time)
 				continue
 
-			if(!R.metabolizing)
-				R.metabolizing = TRUE
-				R.on_mob_metabolize(owner)
+		need_mob_update += metabolize_reagent(owner, reagent, delta_time, times_fired, can_overdose, liverless, dead)
 
-			if(can_overdose)
-				if(R.overdose_threshold)
-					if(R.volume >= R.overdose_threshold && !R.overdosed)
-						R.overdosed = TRUE
-						need_mob_update += R.overdose_start(owner)
-						log_game("[key_name(owner)] has started overdosing on [R.name] at [R.volume] units.")
+		// If applicable, calculate any toxin-related liver damage
+		// Note: we have to do this AFTER metabolize_reagent, because we want handle_reagent to run before we make the determination.
+		// The order is really important unfortunately.
+		if(toxin && liver && liver.filterToxins && !HAS_TRAIT(owner, TRAIT_TOXINLOVER))
+			if(toxin.affected_organ_flags && !(liver.organ_flags & toxin.affected_organ_flags)) //this particular toxin does not affect this type of organ
+				continue
 
-					for(var/addiction in R.addiction_types)
-						owner.mind?.add_addiction_points(addiction, R.addiction_types[addiction] * REAGENTS_METABOLISM)
+			// a 15u syringe is a nice baseline to scale lethality by
+			liver_damage += ((amount/15) * toxin.toxpwr * toxin.liver_damage_multiplier) / liver.liver_resistance
 
-				if(R.overdosed)
-					need_mob_update += R.overdose_process(owner, delta_time, times_fired)
+			if(provide_pain_message != HAS_PAINFUL_TOXIN)
+				provide_pain_message = toxin.silent_toxin ? HAS_SILENT_TOXIN : HAS_PAINFUL_TOXIN
 
-			need_mob_update += R.on_mob_life(owner, delta_time, times_fired)
+	// if applicable, apply our liver damage and display the accompanying pain message
+	if(liver_damage)
+		liver.apply_organ_damage(min(liver_damage * delta_time , MAX_TOXIN_LIVER_DAMAGE * delta_time))
+
+	if(provide_pain_message && liver.damage > 10 && DT_PROB(liver.damage/6, delta_time)) //the higher the damage the higher the probability
+		to_chat(owner, span_warning("You feel a dull pain in your abdomen."))
 
 	if(owner && need_mob_update) //some of the metabolized reagents had effects on the mob that requires some updates.
 		owner.updatehealth()
 		owner.update_stamina()
 	update_total()
+
+#undef HAS_SILENT_TOXIN
+#undef HAS_NO_TOXIN
+#undef HAS_PAINFUL_TOXIN
+#undef MAX_TOXIN_LIVER_DAMAGE
+
+/*
+ * Metabolises a single reagent for a target owner carbon mob. See above.
+ *
+ * Arguments:
+ * * mob/living/carbon/owner - The mob to metabolize in, if null it uses [/datum/reagents/var/my_atom]
+ * * delta_time - the time in server seconds between proc calls (when performing normally it will be 2)
+ * * times_fired - the number of times the owner's life() tick has been called aka The number of times SSmobs has fired
+ * * can_overdose - Allows overdosing
+ * * liverless - Stops reagents that aren't set as [/datum/reagent/var/self_consuming] from metabolizing
+ */
+/datum/reagents/proc/metabolize_reagent(mob/living/carbon/owner, datum/reagent/reagent, delta_time, times_fired, can_overdose = FALSE, liverless = FALSE, dead = FALSE)
+	if(QDELETED(reagent.holder))
+		return FALSE
+
+	if(!owner)
+		owner = reagent.holder.my_atom
+
+	if(!owner || !reagent || (dead && !(reagent.chemical_flags & REAGENT_DEAD_PROCESS)))
+		return FALSE
+
+	if(!owner.reagent_check(reagent, delta_time, times_fired) != TRUE)
+		return FALSE
+
+	if(liverless && !reagent.self_consuming) //need to be metabolized
+		return FALSE
+
+	var/need_mob_update = FALSE
+	if(!reagent.metabolizing)
+		reagent.metabolizing = TRUE
+		reagent.on_mob_metabolize(owner)
+
+	var/metabolized_volume = reagent.compute_metabolization(owner, delta_time)
+
+	if(can_overdose)
+		if(reagent.overdose_threshold && reagent.volume >= reagent.overdose_threshold && !reagent.overdosed)
+			reagent.overdosed = TRUE
+			need_mob_update += reagent.overdose_start(owner)
+			log_game("[key_name(owner)] has started overdosing on [reagent.name] at [reagent.volume] units.")
+
+		for(var/addiction, threshold in reagent.addiction_types)
+			var/datum/addiction/addiction_type = addiction
+			// point gain is scaled based on how much we metabolized per second
+			owner.mind?.add_addiction_points(addiction, addiction_type::addiction_gain_threshold / (threshold / metabolized_volume))
+
+		if(reagent.overdosed)
+			need_mob_update += reagent.overdose_process(owner, delta_time, times_fired)
+
+	reagent.current_cycle++
+	need_mob_update += reagent.on_mob_life(owner, delta_time, times_fired)
+
+	if(dead && !QDELETED(owner) && !QDELETED(reagent))
+		need_mob_update += reagent.on_mob_dead(owner, delta_time)
+
+	if(!QDELETED(owner) && !QDELETED(reagent))
+		reagent.metabolize_reagent(owner, delta_time, times_fired)
+
+	return need_mob_update
 
 /// Signals that metabolization has stopped, triggering the end of trait-based effects
 /datum/reagents/proc/end_metabolization(mob/living/carbon/C, keep_liverless = TRUE)
@@ -602,19 +702,11 @@
 	for(var/_reagent in cached_reagents)
 		var/datum/reagent/R = _reagent
 		if(R.type == reagent)
-			var/mob/living/mob_consumer
-
-			if (isliving(my_atom))
-				mob_consumer = my_atom
-			else if (istype(my_atom, /obj/item/organ))
-				var/obj/item/organ/organ = my_atom
-				mob_consumer = organ.owner
-
-			if (mob_consumer)
+			if(isliving(my_atom))
 				if(R.metabolizing)
 					R.metabolizing = FALSE
-					R.on_mob_end_metabolize(mob_consumer)
-				R.on_mob_delete(mob_consumer)
+					R.on_mob_end_metabolize(my_atom)
+				R.on_mob_delete(my_atom)
 
 			//Clear from relevant lists
 			reagent_list -= R
@@ -629,7 +721,7 @@
 	var/list/cached_reagents = reagent_list
 	total_volume = 0
 	for(var/datum/reagent/reagent as anything in cached_reagents)
-		if(reagent.volume < 0.1)
+		if(reagent.volume < 0.05)
 			del_reagent(reagent.type)
 		else
 			total_volume += reagent.volume
@@ -880,14 +972,16 @@
 	return FALSE
 
 /**
- * Check if this holder contains this reagent.
- * Reagent takes a PATH to a reagent.
- * Amount checks for having a specific amount of that chemical.
- * Needs metabolizing takes into consideration if the chemical is metabolizing when it's checked.
+ * Returns a reagent from this holder if it matches all the specified arguments
+ * Arguments
+ *
+ * * [target_reagent][datum/reagent] - the reagent typepath to check for. can be null to return any reagent
+ * * amount - checks for having a specific amount of that chemical
+ * * needs_metabolizing - takes into consideration if the chemical is metabolizing when it's checked.
  */
 /datum/reagents/proc/has_reagent(datum/reagent/target_reagent, amount = -1, needs_metabolizing = FALSE)
-	if(!ispath(target_reagent))
-		stack_trace("invalid reagent path passed to has reagent [target_reagent]")
+	if(!isnull(target_reagent) && !ispath(target_reagent))
+		stack_trace("invalid reagent path passed to has_reagent [target_reagent]")
 		return FALSE
 
 	var/list/cached_reagents = reagent_list
@@ -895,17 +989,15 @@
 		if (holder_reagent.type == target_reagent)
 			if(!amount)
 				if(needs_metabolizing && !holder_reagent.metabolizing)
-					return
+					return FALSE
 				return holder_reagent
 			else
 				if(FLOOR(holder_reagent.volume, CHEMICAL_QUANTISATION_LEVEL) >= amount)
 					if(needs_metabolizing && !holder_reagent.metabolizing)
-						return
+						return FALSE
 					return holder_reagent
-				else
-					return
 
-	return
+	return FALSE
 
 /**
  * Get the amount of this reagent or the sum of all its subtypes if specified
@@ -1201,7 +1293,7 @@
 /datum/reagents/proc/parse_addictions(datum/reagent/reagent)
 	var/addict_text = list()
 	for(var/entry in reagent.addiction_types)
-		var/datum/addiction/ref = SSaddiction.all_addictions[entry]
+		var/datum/addiction/ref = GLOB.addictions[entry]
 		switch(reagent.addiction_types[entry])
 			if(-INFINITY to 0)
 				continue

@@ -158,7 +158,7 @@
 
 /obj/item/organ/heart/gland/slime/activate()
 	to_chat(owner, span_warning("You feel nauseated!"))
-	owner.vomit(20)
+	owner.vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 20)
 
 	var/mob/living/simple_animal/slime/Slime = new(get_turf(owner), "grey")
 	Slime.set_friends(list(owner))
@@ -371,4 +371,4 @@
 	var/turf/open/T = get_turf(owner)
 	if(istype(T))
 		T.atmos_spawn_air("plasma=50;TEMP=[T20C]")
-	owner.vomit()
+	owner.vomit(VOMIT_CATEGORY_DEFAULT)

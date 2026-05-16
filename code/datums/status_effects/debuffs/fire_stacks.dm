@@ -135,6 +135,7 @@
 	var/obj/effect/dummy/lighting_obj/moblight
 	/// Type of mob light emitter we use when on fire
 	var/moblight_type = /obj/effect/dummy/lighting_obj/moblight/fire
+	/// Cached particle type
 
 /datum/status_effect/fire_handler/fire_stacks/get_examine_text()
 	if(owner.on_fire)
@@ -166,7 +167,12 @@
 
 /**
  * Proc that handles damage dealing and all special effects
+ *
+ * Arguments:
+ * - seconds_between_ticks
+ *
  */
+
 /datum/status_effect/fire_handler/fire_stacks/proc/deal_damage(delta_time)
 	owner.on_fire_stack(delta_time, src)
 
@@ -179,7 +185,9 @@
  * Arguments:
  * - seconds_between_ticks
  * - no_protection: When set to TRUE, fire will ignore any possible fire protection
+ *
  */
+
 /datum/status_effect/fire_handler/fire_stacks/proc/harm_human(delta_time, no_protection = FALSE)
 	var/mob/living/carbon/human/victim = owner
 	var/thermal_protection = victim.get_thermal_protection()

@@ -182,3 +182,7 @@
 	foodtypes = GRAIN | MEAT //Ketchup is not a vegetable
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_3
+
+// Used for unit tests, do not delete
+/obj/item/food/hotdog/debug
+	eat_time = 0

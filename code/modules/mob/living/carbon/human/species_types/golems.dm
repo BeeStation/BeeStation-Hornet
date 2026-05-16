@@ -367,6 +367,7 @@
 
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	. = ..()
 	if(H.stat == DEAD)
 		return
 	H.heal_overall_damage(2,2, 0, BODYTYPE_ORGANIC)
@@ -407,6 +408,7 @@
 	)
 
 /datum/species/golem/wood/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	. = ..()
 	if(H.stat == DEAD)
 		return
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
@@ -424,12 +426,12 @@
 	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.take_overall_damage(brute = 2, required_bodytype = BODYTYPE_ORGANIC)
 
-/datum/species/golem/wood/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
+/datum/species/golem/wood/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(chem.type == /datum/reagent/toxin/plantbgone)
-		H.adjustToxLoss(3 * REM * delta_time)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
-		return TRUE
-	return ..()
+		affected.adjustToxLoss(3 * REM * delta_time)
 
 //Radioactive
 /datum/species/golem/uranium
@@ -781,18 +783,16 @@
 	QDEL_NULL(dominate)
 	return ..()
 
-/datum/species/golem/runic/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
+/datum/species/golem/runic/handle_chemical(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(istype(chem, /datum/reagent/water/holywater))
 		H.adjustFireLoss(4 * REM * delta_time)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
-		return TRUE
 
 	if(chem.type == /datum/reagent/fuel/unholywater)
 		H.adjustBruteLoss(-4 * REM * delta_time)
 		H.adjustFireLoss(-4 * REM * delta_time)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
-		return TRUE
-	return ..()
 
 /datum/species/golem/clockwork
 	name = "Clockwork Golem"
@@ -1273,6 +1273,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	species_traits = list(NO_UNDERWEAR,NOEYESPRITES,NOFLASH)
 	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	mutanttongue = /obj/item/organ/tongue/bone
+	mutantstomach = /obj/item/organ/stomach/bone
 	sexes = FALSE
 	fixed_mut_color = null
 	inherent_traits = list(
@@ -1303,7 +1304,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	)
 
 /datum/species/golem/bone/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	..()
+	. = ..()
 	if(ishuman(C))
 		bonechill = new
 		bonechill.Grant(C)
@@ -1312,21 +1313,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	if(bonechill)
 		bonechill.Remove(C)
 	..()
-
-/datum/species/golem/bone/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
-	if(chem.type == /datum/reagent/consumable/milk)
-		if(chem.volume >= 6)
-			H.reagents.remove_reagent(chem.type, chem.volume - 5)
-			to_chat(H, span_warning("The excess milk is dripping off your bones!"))
-		H.heal_bodypart_damage(1.5,0, 0)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
-		return TRUE
-
-	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)
-		H.adjustBruteLoss(0.5, 0)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
-		return TRUE
-	return ..()
 
 /datum/action/innate/bonechill
 	name = "Bone Chill"

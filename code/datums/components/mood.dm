@@ -204,7 +204,7 @@
 	var/mob/living/owner = parent
 	if(owner.stat == DEAD)
 		return //updating sanity during death leads to people getting revived and being completely insane for simply being dead for a long time
-	switch(sanity)
+	switch(mood_level)
 		if(SANITY_GREAT-1 to INFINITY)
 			setSanity(sanity+sanity_modifier*delta_time*mood-0.4)
 		if(SANITY_NEUTRAL-1 to SANITY_GREAT-1)
@@ -217,29 +217,19 @@
 			setSanity(sanity+sanity_modifier*delta_time*mood+0.6)
 		if(SANITY_INSANE-1 to SANITY_CRAZY)
 			setSanity(sanity+sanity_modifier*delta_time*mood+0.9)
-		if (-INFINITY to SANITY_INSANE) //prevents it from going below 0. This caused issues.
-			setSanity(0)
-	HandleNutrition(owner)
+	HandleNutrition()
 
-/datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_GREAT)
-	var/mob/living/owner = parent
-
-	if(owner.stat == DEAD) // deadman can't feel mood
-		return
-
-	if(amount == sanity)
-		return
-	// If we're out of the acceptable minimum-maximum range move back towards it in steps of 0.5
+///Sets sanity to the specified amount and applies effects.
+/datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_GREAT, override = FALSE)
+	// If we're out of the acceptable minimum-maximum range move back towards it in steps of 0.7
 	// If the new amount would move towards the acceptable range faster then use it instead
-	if(sanity < minimum && amount < sanity + 0.5)
-		amount = sanity + 0.5
-
-	// Disturbed stops you from getting any more sane
-	if(HAS_TRAIT(owner, TRAIT_UNSTABLE))
-		sanity = min(amount,sanity)
-	else
-		sanity = amount
-
+	if(amount < minimum)
+		amount += clamp(minimum - amount, 0, 0.7)
+	if((!override && HAS_TRAIT(parent, TRAIT_UNSTABLE)) || amount > maximum)
+		amount = min(sanity, amount)
+	if(amount == sanity) //Prevents stuff from flicking around.
+		return
+	sanity = amount
 	switch(sanity)
 		if(SANITY_INSANE to SANITY_CRAZY)
 			setInsanityEffect(MAJOR_INSANITY_PEN)
@@ -364,12 +354,12 @@
 
 	print_mood(user)
 
-/datum/component/mood/proc/HandleNutrition(mob/living/L)
+/datum/component/mood/proc/HandleNutrition()
+	var/mob/living/L = parent
+	if(istype(L.get_organ_slot(ORGAN_SLOT_STOMACH), /obj/item/organ/stomach/electrical))
+		HandleCharge(L)
 	if(HAS_TRAIT(L, TRAIT_NOHUNGER))
 		return FALSE //no mood events for nutrition
-	if(HAS_TRAIT(L, TRAIT_POWERHUNGRY))
-		HandleCharge(L)
-		return
 	switch(L.nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
 			if (!HAS_TRAIT(L, TRAIT_VORACIOUS))
@@ -415,7 +405,7 @@
 	if(!full_heal)
 		return
 	remove_temp_moods()
-	setSanity(initial(sanity))
+	setSanity(initial(sanity), override = TRUE)
 
 #undef MOOD_SOURCE
 #undef MINOR_INSANITY_PEN
@@ -437,5 +427,5 @@
 		return
 
 	for(var/addiction_type in affected_carbon.mind.addiction_points)
-		var/datum/addiction/addiction_to_remove = SSaddiction.all_addictions[type]
+		var/datum/addiction/addiction_to_remove = GLOB.addictions[type]
 		affected_carbon.mind.remove_addiction_points(type, addiction_to_remove.high_sanity_addiction_loss) //If true was returned, we lost the addiction!

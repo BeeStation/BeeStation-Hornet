@@ -25,7 +25,7 @@
 
 /datum/reagent/consumable/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(!ishuman(affected_mob) || HAS_TRAIT(affected_mob, TRAIT_NOHUNGER) || HAS_TRAIT(affected_mob, TRAIT_POWERHUNGRY))
+	if(!ishuman(affected_mob) || HAS_TRAIT(affected_mob, TRAIT_NOHUNGER))
 		return
 
 	var/mob/living/carbon/human/affected_human = affected_mob
@@ -105,6 +105,11 @@
 	counterlist_normalise(taste_amounts)
 
 	data = taste_amounts
+
+/datum/reagent/consumable/nutriment/organ_tissue
+	name = "Organ Tissue"
+	description = "Natural tissues that make up the bulk of organs, providing many vitamins and minerals."
+	taste_description = "rich earthy pungent"
 
 /datum/reagent/consumable/nutriment/vitamin
 	name = "Vitamin"
@@ -378,7 +383,7 @@
 	. = ..()
 	if(iscatperson(affected_mob))
 		to_chat(affected_mob, span_warning("Your insides revolt at the presence of lethal chocolate!"))
-		affected_mob.vomit(20)
+		affected_mob.vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 20)
 
 /datum/reagent/drug/mushroomhallucinogen
 	name = "Mushroom Hallucinogen"
@@ -765,15 +770,23 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "pure electrictiy"
 
+/datum/reagent/consumable/liquidelectricity/expose_mob(mob/living/exposed_mob, method=TOUCH, reac_volume) //can't be on life because of the way blood works.
+	. = ..()
+	if(!(method & (INGEST|INJECT|PATCH)) || !iscarbon(exposed_mob))
+		return
+
+	var/mob/living/carbon/exposed_carbon = exposed_mob
+	var/obj/item/organ/stomach/electrical/ethereal/stomach = exposed_carbon.get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(istype(stomach))
+		stomach.adjust_charge(reac_volume * 30 * ETHEREAL_DISCHARGE_RATE)
+
 /datum/reagent/consumable/liquidelectricity/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(HAS_TRAIT(affected_mob, TRAIT_POWERHUNGRY))
-		var/obj/item/organ/stomach/battery/stomach = affected_mob.get_organ_slot(ORGAN_SLOT_STOMACH)
-		if(istype(stomach))
-			stomach.adjust_charge(40 * REM)
-	else if(DT_PROB(1.5, delta_time)) //scp13 optimization
-		affected_mob.electrocute_act(rand(3,5), "Liquid Electricity in their body", 1) //lmao at the newbs who eat energy bars
-		playsound(affected_mob, "sparks", 50, 1)
+	if(isethereal(affected_mob))
+		affected_mob.blood_volume += 1 * delta_time
+	else if(DT_PROB(10, delta_time)) //lmao at the newbs who eat energy bars
+		affected_mob.electrocute_act(rand(5,10), "Liquid Electricity in their body", 1, SHOCK_NOGLOVES) //the shock is coming from inside the house
+		playsound(affected_mob, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /datum/reagent/consumable/chlorophyll
 	name = "Liquid Chlorophyll"

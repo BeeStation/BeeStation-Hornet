@@ -8,8 +8,12 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness"
 	taste_mult = 1.2
-	/// How much toxin we deal
+	///The amount of toxin damage this will cause when metabolized (also used to calculate liver damage)
 	var/toxpwr = 1.5
+	///The amount to multiply the liver damage this toxin does by (Handled solely in liver code)
+	var/liver_damage_multiplier = 1
+	///The multiplier of the liver toxin tolerance, below which any amount toxin will be simply metabolized out with no effect.
+	var/liver_tolerance_multiplier = 1
 	/// Won't produce a pain message when processed by liver/life() if there isn't another non-silent toxin present.
 	var/silent_toxin = FALSE
 	///The afflicted must be above this health value in order for the toxin to deal damage
@@ -79,6 +83,15 @@
 		holder.remove_reagent(/datum/reagent/medicine/epinephrine, 2 * REM * delta_time)
 	affected_mob.adjustPlasma(20 * REM * delta_time)
 
+/datum/reagent/toxin/plasma/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	if(HAS_TRAIT(affected_mob, TRAIT_PLASMA_LOVER_METABOLISM)) // sometimes mobs can temporarily metabolize plasma (e.g. plasma fixation disease symptom)
+		toxpwr = 0
+
+/datum/reagent/toxin/plasma/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	toxpwr = initial(toxpwr)
+
 /datum/reagent/toxin/plasma/expose_turf(turf/exposed_turf, volume)
 	. = ..()
 	if(!istype(exposed_turf))
@@ -112,6 +125,14 @@
 		var/mob/living/carbon/human/human = affected_mob
 		human.adjust_coretemperature(-7 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
+/datum/reagent/toxin/hot_ice/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	if(HAS_TRAIT(affected_mob, TRAIT_PLASMA_LOVER_METABOLISM))
+		toxpwr = 0
+
+/datum/reagent/toxin/hot_ice/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	toxpwr = initial(toxpwr)
 
 /datum/reagent/toxin/lexorin
 	name = "Lexorin"
@@ -225,7 +246,7 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 0
 	taste_description = "sourness"
-	addiction_types = list(/datum/addiction/hallucinogens = 18) //7.2 per 2 seconds
+	addiction_types = list(/datum/addiction/hallucinogens = 60)
 	metabolized_traits = list(TRAIT_HALLUCINATION_SUPPRESSED)
 
 /datum/reagent/toxin/mindbreaker/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -785,7 +806,12 @@
 /datum/reagent/toxin/spewium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(current_cycle >= 11 && DT_PROB(min(30, current_cycle), delta_time))
-		affected_mob.vomit(10, prob(10), prob(50), rand(0, 4), TRUE, prob(30))
+		var/constructed_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_HARM)
+		if(prob(10))
+			constructed_flags |= MOB_VOMIT_BLOOD
+		if(prob(50))
+			constructed_flags |= MOB_VOMIT_STUN
+		affected_mob.vomit(vomit_flags = constructed_flags, distance = rand(0,4))
 		for(var/datum/reagent/toxin/toxin in holder.reagent_list)
 			if(toxin == src)
 				continue
@@ -796,7 +822,7 @@
 	. = ..()
 	if(current_cycle >= 33 && DT_PROB(7.5, delta_time))
 		affected_mob.spew_organ()
-		affected_mob.vomit(0, TRUE, TRUE, 4)
+		affected_mob.vomit(VOMIT_CATEGORY_BLOOD, lost_nutrition = 0, distance = 4)
 		to_chat(affected_mob, span_userdanger("You feel something lumpy come up as you vomit."))
 
 /datum/reagent/toxin/curare
@@ -1102,7 +1128,12 @@
 	affected_mob.adjustToxLoss(min(0.5 * current_cycle, 5))
 	affected_mob.adjustOxyLoss(min(0.5 * current_cycle, 5))
 	if (current_cycle > 20 && DT_PROB(10, delta_time))
-		affected_mob.vomit(10, prob(10), prob(50), 1, TRUE)
+		var/constructed_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_HARM)
+		if(prob(10))
+			constructed_flags |= MOB_VOMIT_BLOOD
+		if(prob(50))
+			constructed_flags |= MOB_VOMIT_STUN
+		affected_mob.vomit(vomit_flags = constructed_flags, distance = rand(0,4))
 	// You die
 	if (current_cycle > 50)
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_LUNGS, 5)

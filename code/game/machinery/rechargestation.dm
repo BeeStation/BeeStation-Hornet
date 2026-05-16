@@ -19,19 +19,20 @@
 	update_icon()
 
 /obj/machinery/recharge_station/RefreshParts()
+	. = ..()
 	recharge_speed = 0
 	repairs = 0
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_speed += (C.rating * 100) + 66 // Starting boost, but inconsequential at t4
+		recharge_speed += 5e-3 * C.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		repairs += M.rating - 1
 	for(var/obj/item/stock_parts/cell/C in component_parts)
-		recharge_speed *= C.maxcharge / 10000
+		recharge_speed *= C.maxcharge
 
 /obj/machinery/recharge_station/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += span_notice("The status display reads: Recharging <b>[recharge_speed]J</b> per cycle.")
+		. += span_notice("The status display reads: Recharging: <b>[display_power(recharge_speed)]</b>.")
 		if(repairs)
 			. += span_notice("[src] has been upgraded to support automatic repairs.")
 

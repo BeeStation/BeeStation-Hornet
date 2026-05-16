@@ -40,30 +40,6 @@
 	SEND_SOUND(owner, sound('sound/magic/summon_karp.ogg', volume = 25))
 	owner.adjustBruteLoss(3)
 
-/datum/status_effect/cyborg_power_regen
-	id = "power_regen"
-	duration = 100
-	alert_type = /atom/movable/screen/alert/status_effect/power_regen
-	var/power_to_give = 0 //how much power is gained each tick
-
-/datum/status_effect/cyborg_power_regen/on_creation(mob/living/new_owner, new_power_per_tick)
-	. = ..()
-	if(. && isnum_safe(new_power_per_tick))
-		power_to_give = new_power_per_tick
-
-/atom/movable/screen/alert/status_effect/power_regen
-	name = "Power Regeneration"
-	desc = "You are quickly regenerating power!"
-	icon_state = "power_regen"
-
-/datum/status_effect/cyborg_power_regen/tick()
-	var/mob/living/silicon/robot/cyborg = owner
-	if(!istype(cyborg) || !cyborg.cell)
-		qdel(src)
-		return
-	playsound(cyborg, 'sound/effects/light_flicker.ogg', 50, 1)
-	cyborg.cell.give(power_to_give)
-
 /datum/status_effect/his_grace
 	id = "his_grace"
 	duration = STATUS_EFFECT_PERMANENT

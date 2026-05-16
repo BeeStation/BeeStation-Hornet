@@ -51,7 +51,7 @@
 		regenerate_limbs.Grant(C)
 
 /datum/species/oozeling/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
-	..()
+	. = ..()
 	if(H.stat == DEAD) //can't farm slime jelly from a dead slime/jelly person indefinitely
 		return
 
@@ -167,15 +167,15 @@
 		return
 	to_chat(H, span_warning("...but there is not enough of you to go around! You must attain more blood volume to heal!"))
 
-/datum/species/oozeling/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/oozeling/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, seconds_per_tick, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(chem.type == /datum/reagent/water)
 		if(chem.volume > 10)
-			H.reagents.remove_reagent(chem.type, chem.volume - 10)
-			to_chat(H, span_warning("The water you consumed is melting away your insides!"))
-		H.blood_volume -= 25
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
-	return ..()
+			affected.reagents.remove_reagent(chem.type, chem.volume - 5)
+			to_chat(affected, span_warning("The water you consumed is melting away your insides!"))
+		affected.blood_volume -= 25
 
 /datum/species/oozeling/z_impact_damage(mob/living/carbon/human/H, turf/T, levels)
 	// Splat!

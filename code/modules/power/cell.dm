@@ -1,3 +1,8 @@
+#define ETHEREAL_CELL_DRAIN_TIME (3.5 SECONDS)
+#define ETHEREAL_CELL_POWER_DRAIN (0.75 * STANDARD_CELL_CHARGE)
+/// The factor by which we multiply drain to get how much we gain
+#define ETHEREAL_CELL_POWER_GAIN_FACTOR 0.08
+
 /obj/item/stock_parts/cell
 	name = "power cell"
 	desc = "A rechargeable electrochemical power cell."
@@ -14,7 +19,7 @@
 	/// note %age converted to actual charge in New
 	var/charge = 0
 	/// Maximum charge possible in Aur
-	var/maxcharge = 10 KILOWATT
+	var/maxcharge = STANDARD_CELL_CHARGE
 	custom_materials = list(/datum/material/iron=700, /datum/material/glass=50)
 	grind_results = list(/datum/reagent/lithium = 15, /datum/reagent/iron = 5, /datum/reagent/silicon = 5)
 	/// If the cell has been booby-trapped by injecting it with plasma. Chance on use() to explode.
@@ -113,6 +118,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	charge += power_used
 	return power_used
 
+/**
+ * Changes the charge of the cell.
+ * Args:
+ * - amount: The energy to give to the cell (can be negative).
+ * Returns: The energy that was given to the cell (can be negative).
+ */
+/obj/item/stock_parts/cell/proc/change(amount)
+	var/energy_used = clamp(amount, -charge, maxcharge - charge)
+	charge += energy_used
+	if(rigged && energy_used)
+		explode()
+	return energy_used
+
+/**
+ * Returns the amount of charge used on the cell.
+ */
+/obj/item/stock_parts/cell/proc/used_charge()
+	return maxcharge - charge
+
 /obj/item/stock_parts/cell/examine(mob/user)
 	. = ..()
 	if(rigged)
@@ -179,44 +203,46 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 					corrupt()
 
 /obj/item/stock_parts/cell/attack_self(mob/user)
-	if(isethereal(user))
-		var/mob/living/carbon/human/H = user
-		var/datum/species/ethereal/E = H.dna.species
-		if(E.drain_time > world.time)
-			return
-		var/obj/item/organ/stomach/battery/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
-		if(!istype(stomach))
-			to_chat(H, span_warning("You can't receive charge!"))
-			return
-		if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
-			to_chat(user, span_warning("You are already fully charged!"))
+	if(!ishuman(user))
+		return
+
+	var/mob/living/carbon/human/human_user = user
+	var/obj/item/organ/stomach/electrical/ethereal/maybe_stomach = human_user.get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(!istype(maybe_stomach))
+		return
+	if(maybe_stomach.drain_time > world.time)
+		return
+
+	ethereal_drain(human_user, maybe_stomach)
+
+/obj/item/stock_parts/cell/proc/ethereal_drain(mob/living/carbon/human/user, obj/item/organ/stomach/electrical/ethereal/used_stomach)
+	if(charge <= 0)
+		balloon_alert(user, "out of charge!")
+		return
+
+	var/obj/item/stock_parts/cell/stomach_cell = used_stomach.cell
+	used_stomach.drain_time = world.time + ETHEREAL_CELL_DRAIN_TIME
+	to_chat(user, span_notice("You begin clumsily channeling power from [src] into your body."))
+
+	while(do_after(user, ETHEREAL_CELL_DRAIN_TIME, target = src))
+		if(isnull(used_stomach) || (used_stomach != user.get_organ_slot(ORGAN_SLOT_STOMACH)))
+			balloon_alert(user, "stomach removed!?")
 			return
 
-		to_chat(H, span_notice("You clumsily channel power through the [src] and into your body, wasting some in the process."))
-		E.drain_time = world.time + 25
-		while(do_after(user, 20, target = src))
-			if(!istype(stomach))
-				to_chat(H, span_warning("You can't receive charge!"))
-				return
-			E.drain_time = world.time + 25
-			if(charge > 300)
-				stomach.adjust_charge(75)
-				charge -= 300 //you waste way more than you receive, so that ethereals cant just steal one cell and forget about hunger
-				to_chat(H, span_notice("You receive some charge from the [src]."))
-			else
-				stomach.adjust_charge(charge/4)
-				charge = 0
-				to_chat(H, span_notice("You drain the [src]."))
-				E.drain_time = 0
-				return
+		var/our_charge = charge
+		var/scaled_stomach_used_charge = stomach_cell.used_charge() / ETHEREAL_CELL_POWER_GAIN_FACTOR
+		var/potential_charge = min(our_charge, scaled_stomach_used_charge)
+		var/to_drain = min(ETHEREAL_CELL_POWER_DRAIN, potential_charge)
+		var/energy_drained = use(to_drain, force = TRUE)
+		used_stomach.adjust_charge(energy_drained * ETHEREAL_CELL_POWER_GAIN_FACTOR)
+		update_appearance(UPDATE_OVERLAYS)
 
-			if(stomach.charge >= stomach.max_charge)
-				to_chat(H, span_notice("You are now fully charged."))
-				E.drain_time = 0
-				return
-		to_chat(H, span_warning("You fail to receive charge from the [src]!"))
-		E.drain_time = 0
-	return
+		if(stomach_cell.used_charge() <= 0)
+			balloon_alert(user, "your charge is full!")
+			return
+		if(charge <= 0)
+			balloon_alert(user, "out of charge!")
+			return
 
 /obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
 	SSexplosions.high_mov_atom += src
@@ -326,13 +352,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"
 	icon_state = "icell"
-	maxcharge = 300 KILOWATT
+	maxcharge = INFINITY
 	custom_materials = list(/datum/material/glass=1000)
 	rating = 100
 	chargerate_divide = 1
 
-/obj/item/stock_parts/cell/infinite/use()
-	return 1
+/obj/item/stock_parts/cell/infinite/use(used, force = FALSE)
+	return TRUE
 
 /obj/item/stock_parts/cell/infinite/abductor
 	name = "void core"
@@ -379,3 +405,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	var/area/A = get_area(src)
 	if(!A.lightswitch || !A.light_power)
 		charge = 0 //For naturally depowered areas, we start with no power
+
+/obj/item/stock_parts/cell/ethereal
+	name = "ahelp it"
+	desc = "you shouldn't see this"
+	maxcharge = ETHEREAL_CHARGE_DANGEROUS
+	charge = ETHEREAL_CHARGE_FULL
+	icon_state = null
+	custom_materials = null
+	grind_results = null
+
+/obj/item/stock_parts/cell/ethereal/examine(mob/user)
+	. = ..()
+	CRASH("[src.type] got examined by [user]")
+
+#undef ETHEREAL_CELL_DRAIN_TIME
+#undef ETHEREAL_CELL_POWER_DRAIN
+#undef ETHEREAL_CELL_POWER_GAIN_FACTOR

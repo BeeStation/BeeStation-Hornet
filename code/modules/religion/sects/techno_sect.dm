@@ -17,10 +17,10 @@
 /datum/religion_sect/technophile/sect_bless(mob/living/target, mob/living/chap)
 	if(iscyborg(target))
 		var/mob/living/silicon/robot/R = target
-		var/charge_amt = 50
+		var/charge_amount = 0.05 * STANDARD_CELL_CHARGE
 		if(target.mind?.holy_role == HOLY_ROLE_HIGHPRIEST)
-			charge_amt *= 2
-		R.cell?.charge += charge_amt
+			charge_amount *= 2
+		R.cell?.charge += charge_amount
 		R.visible_message(span_notice("[chap] charges [R] with the power of [GLOB.deity]!"))
 		to_chat(R, span_boldnotice("You are charged by the power of [GLOB.deity]!"))
 		SEND_SIGNAL(R, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
@@ -32,9 +32,9 @@
 
 	//first we determine if we can charge them
 	var/did_we_charge = FALSE
-	var/obj/item/organ/stomach/battery/ethereal/eth_stomach = blessed.get_organ_slot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/stomach/electrical/ethereal/eth_stomach = blessed.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(istype(eth_stomach))
-		eth_stomach.adjust_charge(60)
+		eth_stomach.adjust_charge(0.06 * STANDARD_CELL_CHARGE)
 		did_we_charge = TRUE
 
 	//if we're not targeting a robot part we stop early

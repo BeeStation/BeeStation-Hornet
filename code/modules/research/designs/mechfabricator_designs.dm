@@ -1366,7 +1366,7 @@
 	name = "Substance Processor"
 	id = "robotic_liver"
 	build_type = MECHFAB
-	build_path = /obj/item/organ/liver/cybernetic/upgraded/ipc
+	build_path = /obj/item/organ/liver/cybernetic/tier2/ipc
 	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1000)
 	construction_time = 100
 	category = list("IPC Components")
@@ -1402,7 +1402,7 @@
 	name = "Micro-cell"
 	id = "robotic_stomach"
 	build_type = MECHFAB
-	build_path = /obj/item/organ/stomach/battery/ipc
+	build_path = /obj/item/organ/stomach/electrical/ipc
 	materials = list(/datum/material/iron = 2000, /datum/material/glass = 2000, /datum/material/plasma = 200)
 	construction_time = 100
 	category = list("IPC Components")

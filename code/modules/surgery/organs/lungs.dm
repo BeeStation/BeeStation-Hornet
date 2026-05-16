@@ -373,6 +373,7 @@
 	name = "plasma filter"
 	desc = "A spongy rib-shaped mass for filtering plasma from the air."
 	icon_state = "lungs-plasma"
+	organ_traits = list(TRAIT_NOHUNGER) // A fresh breakfast of plasma is a great start to any morning.
 
 	breathing_class = BREATH_PLASMA
 
@@ -409,13 +410,7 @@
 	safe_breath_min = 13
 	safe_breath_max = 100
 
-/obj/item/organ/lungs/cybernetic/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	if(prob(30/severity))
-		owner.losebreath += 10
-
+	var/emp_vulnerability = 60
 
 /obj/item/organ/lungs/cybernetic/upgraded
 	name = "upgraded cybernetic lungs"
@@ -432,6 +427,18 @@
 	cold_level_1_threshold = 200
 	cold_level_2_threshold = 140
 	cold_level_3_threshold = 100
+
+	emp_vulnerability = 40
+
+/obj/item/organ/lungs/cybernetic/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	if(!COOLDOWN_FINISHED(src, emp_cooldown)) //To fight against two emp guns
+		owner.losebreath += 10
+		COOLDOWN_START(src, emp_cooldown, 20 SECONDS)
+	if(prob(emp_vulnerability/severity))
+		organ_flags |= ORGAN_EMP
 
 /obj/item/organ/lungs/apid
 	name = "apid lungs"

@@ -67,6 +67,7 @@
 	var/informed_nymph = FALSE //If the user was informed that they can release a nymph via food.
 
 /datum/species/diona/spec_life(mob/living/carbon/human/H)
+	. = ..()
 	if(H.fire_stacks < 1)
 		H.adjust_fire_stacks(1) //VERY flammable
 	if(H.nutrition < NUTRITION_LEVEL_STARVING)
@@ -111,21 +112,17 @@
 		source.adjustToxLoss(-2 * delta_time)
 		source.adjustOxyLoss(-1 * delta_time)
 
-/datum/species/diona/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/diona/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(chem.type == /datum/reagent/toxin/plantbgone)
-		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
+		affected.adjustToxLoss(1.5 * REM * delta_time)
 	if(chem.type == /datum/reagent/toxin/mutagen)
-		H.adjustToxLoss(-3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
+		affected.adjustToxLoss(-1.5 * REM * delta_time)
 	if(chem.type == /datum/reagent/plantnutriment)
-		H.adjustBruteLoss(-1)
-		H.adjustFireLoss(-1)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
-	return ..()
+		affected.adjustBruteLoss(-0.5 * REM * delta_time)
+		affected.adjustFireLoss(-0.5 * REM * delta_time)
 
 /datum/species/diona/on_hit(obj/projectile/P, mob/living/carbon/human/H)
 	if(P.type == (/obj/projectile/energy/floramut || /obj/projectile/energy/florayield))

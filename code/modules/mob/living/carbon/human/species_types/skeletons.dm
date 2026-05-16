@@ -28,9 +28,10 @@
 	)
 	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	mutanttongue = /obj/item/organ/tongue/bone
+	mutantstomach = /obj/item/organ/stomach/bone
 	mutantappendix = null
 	mutantheart = null
-	mutantliver = null
+	mutantliver = /obj/item/organ/liver/bone
 	mutantlungs = null
 	//They can technically be in an ERT
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
@@ -51,42 +52,6 @@
 
 /datum/species/skeleton/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
-		return TRUE
-	return ..()
-
-//Can still metabolize milk through meme magic
-/datum/species/skeleton/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
-	if(chem.type == /datum/reagent/consumable/milk)
-		if(chem.volume > 10)
-			H.reagents.remove_reagent(chem.type, chem.volume - 10)
-			to_chat(H, span_warning("The excess milk is dripping off your bones!"))
-		H.heal_bodypart_damage(1,1, 0)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
-	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)
-		H.adjustStaminaLoss(7.5 * REM * delta_time, 0)
-		H.adjustBruteLoss(0.5 * REM * delta_time, 0)
-		if(DT_PROB(10, delta_time))
-			switch(rand(1, 3))
-				if(1)
-					H.say(pick("oof.", "ouch.", "my bones.", "oof ouch.", "oof ouch my bones."), forced = /datum/reagent/toxin/bonehurtingjuice)
-				if(2)
-					H.emote("me", 1, pick("oofs silently.", "looks like their bones hurt.", "grimaces, as though their bones hurt."))
-				if(3)
-					to_chat(H, span_warning("Your bones hurt!"))
-		if(chem.overdosed)
-			if(DT_PROB(2, delta_time) && iscarbon(H)) //big oof
-				var/selected_part = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG) //God help you if the same limb gets picked twice quickly.
-				var/obj/item/bodypart/bp = H.get_bodypart(selected_part) //We're so sorry skeletons, you're so misunderstood
-				if(bp)
-					playsound(H, get_sfx("desecration"), 50, TRUE, -1) //You just want to socialize
-					H.visible_message(span_warning("[H] rattles loudly and flails around!!"), span_danger("Your bones hurt so much that your missing muscles spasm!!"))
-					H.say("OOF!!", forced=/datum/reagent/toxin/bonehurtingjuice)
-					bp.receive_damage(200, 0, 0) //But I don't think we should
-				else
-					to_chat(H, span_warning("Your missing arm aches from wherever you left it."))
-					H.emote("sigh")
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate * delta_time)
 		return TRUE
 	return ..()
 

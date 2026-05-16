@@ -94,56 +94,60 @@
 
 	return ..()
 
-/obj/item/inducer/proc/recharge(atom/movable/A, mob/user)
+/obj/item/inducer/proc/recharge(atom/movable/A, mob/living/user)
 	if(!isturf(A) && user.loc == A)
 		return FALSE
 	if(recharging)
 		return TRUE
-	else
-		recharging = TRUE
-	var/obj/item/stock_parts/cell/C = A.get_cell()
+	recharging = TRUE
+
+	if(istype(A, /obj/item/gun/energy) || istype(A, /obj/item/clothing/suit/space))
+		to_chat(user, span_alert("Error unable to interface with device."))
+		recharging = FALSE
+		return FALSE
+
+	var/obj/item/stock_parts/cell/powercell = A.get_cell()
 	var/obj/O
-	var/obj/item/organ/stomach/battery/battery
-	if(istype(A, /obj/item/gun/energy))
-		to_chat(user, span_alert("Error unable to interface with device."))
-		return FALSE
-	if(istype(A, /obj/item/clothing/suit/space))
-		to_chat(user, span_alert("Error unable to interface with device."))
-		return FALSE
+	var/obj/item/organ/stomach/electrical/biobattery
+
 	if(istype(A, /obj))
 		O = A
-	if(iscarbon(A))
+	else if(iscarbon(A))
 		var/mob/living/carbon/human_target = A
-		if(HAS_TRAIT(human_target, TRAIT_POWERHUNGRY))
-			battery = human_target.get_organ_slot(ORGAN_SLOT_STOMACH)
-			if(!istype(battery))
-				return
-
-	var/maxcharge = battery?.max_charge || C?.maxcharge
-	if(C || battery)
-		var/done_any = FALSE
-		if((battery?.charge || C.charge) >= maxcharge)
-			to_chat(user, span_notice("[A] is fully charged!"))
+		biobattery = human_target.get_organ_slot(ORGAN_SLOT_STOMACH)
+		if(!istype(biobattery))
+			to_chat(user, span_alert("Error unable to interface with this entity."))
 			recharging = FALSE
-			return TRUE
-		user.visible_message("[user] starts recharging [A] with [src].",span_notice("You start recharging [A] with [src]."))
-		while((battery?.charge || C.charge) < maxcharge)
-			if(do_after(user, 10, target = user) && cell.charge)
-				done_any = TRUE
-				if(battery)
-					battery.adjust_charge(min(cell.charge,250))
-				else
-					induce(C)
-				do_sparks(1, FALSE, A)
-				if(O)
-					O.update_icon()
-			else
-				break
-		if(done_any) // Only show a message if we succeeded at least once
-			user.visible_message("[user] recharged [A]!",span_notice("You recharged [A]!"))
+			return FALSE
+
+	if(!powercell && !biobattery)
+		recharging = FALSE
+		return FALSE
+
+	var/maxcharge = biobattery?.cell.maxcharge || powercell?.maxcharge
+	if((biobattery?.cell.charge || powercell.charge) >= maxcharge)
+		to_chat(user, span_notice("[A] is fully charged!"))
 		recharging = FALSE
 		return TRUE
+
+	user.visible_message("[user] starts recharging [A] with [src].", span_notice("You start recharging [A] with [src]."))
+	var/done_any = FALSE
+	while((biobattery?.cell.charge || powercell.charge) < maxcharge)
+		if(!do_after(user, 10, target = user) || !cell.charge)
+			break
+		done_any = TRUE
+		if(biobattery)
+			biobattery.adjust_charge(min(cell.charge, 250))
+		else
+			induce(powercell)
+		do_sparks(1, FALSE, A)
+		if(O)
+			O.update_icon()
+
+	if(done_any) // Only show a message if we succeeded at least once
+		user.visible_message("[user] recharged [A]!", span_notice("You recharged [A]!"))
 	recharging = FALSE
+	return TRUE
 
 
 /obj/item/inducer/attack(mob/M, mob/living/user)

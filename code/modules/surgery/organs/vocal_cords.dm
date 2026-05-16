@@ -272,7 +272,7 @@
 	else if((findtext(message, vomit_words)))
 		cooldown = COOLDOWN_DAMAGE
 		for(var/mob/living/carbon/C in listeners)
-			C.vomit(10 * power_multiplier, stun = FALSE, distance = power_multiplier)
+			C.vomit(vomit_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_HARM), lost_nutrition = (power_multiplier * 10), distance = power_multiplier)
 
 	//SILENCE
 	else if((findtext(message, silence_words)))

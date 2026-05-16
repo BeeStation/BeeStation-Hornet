@@ -75,8 +75,8 @@
 	affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
 	affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
 
-	if(affected_mob.reagents.has_reagent(/datum/reagent/toxin/mindbreaker))
-		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
+	if(holder.has_reagent(/datum/reagent/toxin/mindbreaker))
+		holder.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
 
 	affected_mob.adjust_hallucinations(-20 SECONDS * REM * delta_time)
 	if(DT_PROB(16, delta_time))
@@ -90,12 +90,12 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/medicine/synaphydramine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
-	if(affected_mob.reagents.has_reagent(/datum/reagent/toxin/mindbreaker))
-		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
-	if(affected_mob.reagents.has_reagent(/datum/reagent/toxin/histamine))
-		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/histamine, 5 * REM * delta_time)
 	. = ..()
+	affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
+	if(holder.has_reagent(/datum/reagent/toxin/mindbreaker))
+		holder.remove_reagent(/datum/reagent/toxin/mindbreaker, 5 * REM * delta_time)
+	if(holder.has_reagent(/datum/reagent/toxin/histamine))
+		holder.remove_reagent(/datum/reagent/toxin/histamine, 5 * REM * delta_time)
 	affected_mob.adjust_hallucinations(-20 SECONDS * REM * delta_time)
 	if(DT_PROB(16, delta_time))
 		if(affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype))
@@ -751,7 +751,7 @@
 	if(DT_PROB(5, delta_time))
 		affected_mob.adjust_drowsiness(2 SECONDS)
 	affected_mob.adjust_jitter(-2 SECONDS * REM * delta_time)
-	affected_mob.reagents.remove_reagent(/datum/reagent/toxin/histamine, 3 * REM * delta_time)
+	holder.remove_reagent(/datum/reagent/toxin/histamine, 3 * REM * delta_time)
 
 /datum/reagent/medicine/morphine
 	name = "Morphine"
@@ -967,11 +967,16 @@
 
 /datum/reagent/medicine/neurine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.reagents.has_reagent(/datum/reagent/consumable/ethanol/neurotoxin))
-		affected_mob.reagents.remove_reagent(/datum/reagent/consumable/ethanol/neurotoxin, 5 * REM * delta_time)
+	if(holder.has_reagent(/datum/reagent/consumable/ethanol/neurotoxin))
+		holder.remove_reagent(/datum/reagent/consumable/ethanol/neurotoxin, 5 * REM * delta_time)
 
 	if(DT_PROB(8, delta_time))
 		affected_mob.cure_trauma_type(resilience = TRAUMA_RESILIENCE_BASIC)
+
+/datum/reagent/medicine/neurine/on_mob_dead(mob/living/carbon/affected_mob, delta_time)
+	. = ..()
+	if(affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1 * REM * delta_time, required_organ_flag = affected_organ_flags))
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/mutadone
 	name = "Mutadone"
@@ -1095,7 +1100,7 @@
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.AdjustSleeping(-20 * REM * delta_time)
-	affected_mob.reagents.remove_reagent(/datum/reagent/consumable/sugar, 3 * REM * delta_time)
+	holder.remove_reagent(/datum/reagent/consumable/sugar, 3 * REM * delta_time)
 
 //Trek Chems, used primarily by medibots. Only heals a specific damage type, but is very efficient.
 /datum/reagent/medicine/bicaridine
@@ -1115,8 +1120,8 @@
 
 /datum/reagent/medicine/bicaridine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.reagents.add_reagent(metabolite, 1)
-	affected_mob.reagents.remove_reagent(/datum/reagent/medicine/bicaridine, 1)
+	holder.add_reagent(metabolite, 1)
+	holder.remove_reagent(/datum/reagent/medicine/bicaridine, 1)
 	if(affected_mob.adjustOrganLoss(ORGAN_SLOT_LIVER, 1 * REM * delta_time))
 		return UPDATE_MOB_HEALTH
 
@@ -1218,7 +1223,7 @@
 		. = UPDATE_MOB_HEALTH
 
 	if(affected_mob.getToxLoss() && DT_PROB(5, delta_time))
-		affected_mob.vomit(1)
+		affected_mob.vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 1)
 
 	for(var/datum/reagent/toxin/reagent in affected_mob.reagents.reagent_list)
 		affected_mob.reagents.remove_reagent(reagent.type, 1)
@@ -1362,7 +1367,7 @@
 	. = ..()
 	if(DT_PROB(13, delta_time))
 		affected_mob.reagents.remove_reagent(type, metabolization_rate * 15) // ~5 units at a rate of 0.4 but i wanted a nice number in code
-		affected_mob.vomit(20) // nanite safety protocols make your body expel them to prevent harmies
+		affected_mob.vomit(vomit_flags = VOMIT_CATEGORY_DEFAULT, vomit_type = /obj/effect/decal/cleanable/vomit/nanites, lost_nutrition = 20) // nanite safety protocols make your body expel them to prevent harmies
 
 /datum/reagent/medicine/earthsblood //Created by ambrosia gaia plants
 	name = "Earthsblood"
@@ -1530,13 +1535,15 @@
 
 /datum/reagent/medicine/modafinil/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(!overdosed) // We do not want any effects on OD
-		overdose_threshold = overdose_threshold + ((rand(-10, 10) / 10) * REM * delta_time) // for extra fun
-		affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
-		affected_mob.adjustStaminaLoss(-15 * REM * delta_time, updating_stamina = FALSE)
-		affected_mob.set_jitter_if_lower(1 SECONDS * REM * delta_time)
-		metabolization_rate = 0.005 * REAGENTS_METABOLISM * rand(5, 20) // randomizes metabolism between 0.02 and 0.08 per second
-		return UPDATE_MOB_HEALTH
+	if(overdosed) // We do not want any effects on OD
+		return
+
+	overdose_threshold = overdose_threshold + ((rand(-10, 10) / 10) * REM * delta_time) // for extra fun
+	affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
+	affected_mob.adjustStaminaLoss(-15 * REM * delta_time, updating_stamina = FALSE)
+	affected_mob.set_jitter_if_lower(1 SECONDS * REM * delta_time)
+	metabolization_rate = 0.005 * REAGENTS_METABOLISM * rand(5, 20) // randomizes metabolism between 0.02 and 0.08 per second
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/modafinil/overdose_start(mob/living/affected_mob)
 	to_chat(affected_mob, span_userdanger("You feel awfully out of breath and jittery!"))

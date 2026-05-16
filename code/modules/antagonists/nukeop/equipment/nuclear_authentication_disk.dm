@@ -84,6 +84,17 @@
 	if(isobserver(user) || HAS_MIND_TRAIT(user, TRAIT_DISK_VERIFIER))
 		. += span_warning("The serial numbers on [src] are incorrect.")
 
+/*
+ * You can't accidentally eat the nuke disk, bro
+ */
+/obj/item/disk/nuclear/on_accidental_consumption(mob/living/carbon/M, mob/living/carbon/user, obj/item/source_item, discover_after = TRUE)
+	M.visible_message(
+		span_warning("[M] looks like [M.p_theyve()] just bitten into something important."),
+		span_warning("Wait, is this the nuke disk?")
+	)
+
+	return discover_after
+
 /obj/item/disk/nuclear/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/claymore/highlander) && !fake)
 		var/obj/item/claymore/highlander/H = I

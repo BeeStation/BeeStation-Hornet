@@ -423,14 +423,22 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		return 0
 	return ..()
 
-/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, toxic = VOMIT_TOXIC, purge = FALSE)
-	if((HAS_TRAIT(src, TRAIT_NOHUNGER) || HAS_TRAIT(src, TRAIT_TOXINLOVER) || HAS_TRAIT(src, TRAIT_NOVOMIT)))
+/// Proc that compels the mob to throw up. Returns TRUE if the mob actually threw up.
+/mob/living/carbon/proc/vomit(vomit_flags = VOMIT_CATEGORY_DEFAULT, vomit_type = /obj/effect/decal/cleanable/vomit/toxic, lost_nutrition = 10, distance = 1, purge_ratio = 0.1)
+	var/force = (vomit_flags & MOB_VOMIT_FORCE)
+	if((HAS_TRAIT(src, TRAIT_NOHUNGER) || HAS_TRAIT(src, TRAIT_TOXINLOVER)) && !force)
 		return TRUE
 
 	if(!has_mouth())
-		return 1
+		return TRUE
 
-	if(!blood && (nutrition < 100))
+	// cache some stuff that we'll need later (at least multiple times)
+	var/starting_dir = dir
+	var/message = (vomit_flags & MOB_VOMIT_MESSAGE)
+	var/stun = (vomit_flags & MOB_VOMIT_STUN)
+	var/blood = (vomit_flags & MOB_VOMIT_BLOOD)
+
+	if(!force && !blood && (nutrition < 100))
 		if(message)
 			visible_message(
 				span_warning("[src] dry heaves!"),
@@ -439,7 +447,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		if(stun)
 			Paralyze(30)
 			Knockdown(180)
-		return 1
+		return TRUE
 
 	if(is_mouth_covered()) //make this add a blood/vomit overlay later it'll be hilarious
 		if(message)
@@ -470,26 +478,43 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		adjust_nutrition(-lost_nutrition)
 		need_mob_update += adjustToxLoss(-3, updating_health = FALSE)
 
-	for(var/i=0 to distance)
+	for(var/i = 0 to distance)
 		if(blood)
 			if(location)
 				add_splatter_floor(location)
-			if(stun)
+			if(vomit_flags & MOB_VOMIT_HARM)
 				need_mob_update += adjustBruteLoss(3, updating_health = FALSE)
-		else if(src.reagents.has_reagent(/datum/reagent/consumable/ethanol/blazaam, needs_metabolizing = TRUE))
-			if(location)
-				location.add_vomit_floor(src, toxic || VOMIT_PURPLE, purge)
 		else
 			if(location)
-				location.add_vomit_floor(src, toxic, purge)//toxic barf looks different
+				location.add_vomit_floor(src, vomit_type, vomit_flags, purge_ratio) // call purge when doing detoxicfication to pump more chems out of the stomach.
 
-		location = get_step(location, dir)
+		location = get_step(location, starting_dir)
 		if (location?.is_blocked_turf())
 			break
 	if(need_mob_update) // so we only have to call updatehealth() once as opposed to n times
 		updatehealth()
 
 	return TRUE
+
+/**
+ * Expel the reagents you just tried to ingest
+ *
+ * When you try to ingest reagents but you do not have a stomach
+ * you will spew the reagents on the floor.
+ *
+ * Vars:
+ * * bite: /atom the reagents to expel
+ * * amount: int The amount of reagent
+ */
+/mob/living/carbon/proc/expel_ingested(atom/bite, amount)
+	visible_message(
+		span_danger("[src] throws up all over [p_them()]self!"),
+		span_userdanger("You are unable to keep the [bite] down without a stomach!")
+	)
+
+	var/turf/floor = get_turf(src)
+	var/obj/effect/decal/cleanable/vomit/spew = new(floor, get_static_viruses())
+	bite.reagents.trans_to(spew, amount, transfered_by = src)
 
 /mob/living/carbon/proc/spew_organ(power = 5, amt = 1)
 	for(var/i in 1 to amt)
@@ -881,7 +906,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		return FALSE
 
 	// And we can't heal them if they're missing their liver
-	if(!HAS_TRAIT(src, TRAIT_NOMETABOLISM) && !isnull(dna?.species.mutantliver) && !get_organ_slot(ORGAN_SLOT_LIVER))
+	if(!HAS_TRAIT(src, TRAIT_LIVERLESS_METABOLISM) && !isnull(dna?.species.mutantliver) && !get_organ_slot(ORGAN_SLOT_LIVER))
 		return FALSE
 
 	// We don't want walking husks god no
@@ -910,9 +935,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(heal_flags & HEAL_TRAUMAS)
 		cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
 		// Addictions are like traumas
-		if(mind)
-			for(var/addiction_type in subtypesof(/datum/addiction))
-				mind.remove_addiction_points(addiction_type, MAX_ADDICTION_POINTS) //Remove the addiction!
+		for(var/addiction_type in GLOB.addictions)
+			mind?.remove_addiction_points(addiction_type, MAX_ADDICTION_POINTS) //Remove the addiction!
 
 	if(heal_flags & HEAL_RESTRAINTS)
 		QDEL_NULL(handcuffed)
@@ -1010,6 +1034,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	for(var/X in internal_organs)
 		var/obj/item/organ/I = X
 		I.Insert(src)
+
+/proc/cmp_organ_slot_asc(slot_a, slot_b)
+	return GLOB.organ_process_order.Find(slot_a) - GLOB.organ_process_order.Find(slot_b)
 
 /mob/living/carbon/vv_get_dropdown()
 	. = ..()

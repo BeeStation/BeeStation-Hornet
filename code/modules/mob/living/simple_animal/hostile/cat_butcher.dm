@@ -128,7 +128,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/human/C = target
 		if(C.get_organ_by_type(/obj/item/organ/ears/cat) && C.get_organ_by_type(/obj/item/organ/tail/cat) && C.has_trauma_type(/datum/brain_trauma/severe/pacifism))//he wont attack his creations
-			if(C.stat && (!HAS_TRAIT(C, TRAIT_NOMETABOLISM) || !isipc(C))) //unless they need healing
+			if(C.stat && (!HAS_TRAIT(C, TRAIT_LIVERLESS_METABOLISM) || !isipc(C))) //unless they need healing
 				return ..()
 			return FALSE
 	return ..()

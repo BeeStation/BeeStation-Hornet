@@ -127,7 +127,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//Breathing! Most changes are in mutantlungs, though
 	var/breathid = GAS_O2
 
-	//Do NOT remove by setting to null. use OR make a RESPECTIVE TRAIT (removing stomach? add the NOSTOMACH trait to your species)
+	//Do NOT remove by setting to null. use OR make an ASSOCIATED TRAIT.
 	//why does it work this way? because traits also disable the downsides of not having an organ, removing organs but not having the trait will make your species die
 
 	///Replaces default brain with a different organ
@@ -464,11 +464,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/C, datum/species/old_species, pref_load)
 	SHOULD_CALL_PARENT(TRUE)
-	if((AGENDER in species_traits))
-		C.gender = PLURAL
 
-	if(inherent_biotypes & MOB_INORGANIC && !(old_species.inherent_biotypes & MOB_INORGANIC)) // if the mob was previously not of the MOB_INORGANIC biotype when changing to MOB_INORGANIC
-		C.adjustToxLoss(-C.getToxLoss(), forced = TRUE) // clear the organic toxin damage upon turning into a MOB_INORGANIC, as they are now immune
+	if(AGENDER in species_traits)
+		C.gender = PLURAL
 
 	C.mob_biotypes = inherent_biotypes
 
@@ -491,23 +489,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	for(var/X in inherent_traits)
 		ADD_TRAIT(C, X, SPECIES_TRAIT)
 
-	if(TRAIT_VIRUSIMMUNE in inherent_traits)
-		for(var/datum/disease/A in C.diseases)
-			A.cure(FALSE)
-
 	//if we can't have the disease, dont keep it
 	for(var/datum/disease/disease in C.diseases)
 		if(!(disease.infectable_biotypes & inherent_biotypes))
 			disease.cure(FALSE)
-
-	if(TRAIT_TOXIMMUNE in inherent_traits)
-		C.setToxLoss(0, TRUE, TRUE)
-
-	if(TRAIT_NOMETABOLISM in inherent_traits)
-		C.reagents.end_metabolization(C, keep_liverless = TRUE)
-
-	if(TRAIT_GENELESS in inherent_traits)
-		C.dna.remove_all_mutations() // Radiation immune mobs can't get mutations normally
 
 	if(inherent_factions)
 		for(var/i in inherent_factions)
@@ -530,8 +515,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	SHOULD_CALL_PARENT(TRUE)
-	if(C.dna.species.exotic_bloodtype)
-		C.dna.blood_type = random_blood_type()
 
 	if(NOMOUTH in species_traits)
 		for(var/obj/item/bodypart/head/head in C.bodyparts)
@@ -1174,13 +1157,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 
 /datum/species/proc/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
-	if(HAS_TRAIT(H, TRAIT_NOBREATH))
-		H.setOxyLoss(0)
-		H.losebreath = 0
+	SHOULD_CALL_PARENT(TRUE)
+	if(H.stat == DEAD)
+		return
+	if(HAS_TRAIT(H, TRAIT_NOBREATH) && (H.health < H.crit_threshold) && !HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
+		H.adjustBruteLoss(0.5 * delta_time)
 
-		var/takes_crit_damage = (!HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
-		if((H.health <= H.crit_threshold) && takes_crit_damage)
-			H.adjustBruteLoss(0.5 * delta_time)
 	if(H.get_organ_by_type(/obj/item/organ/wings))
 		handle_flight(H)
 
@@ -1365,27 +1347,37 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.update_mutant_bodyparts()
 
 /**
- * Handling special reagent types.
+ * Handling special reagent interactions.
  *
- * Return False to run the normal on_mob_life() for that reagent.
- * Return True to not run the normal metabolism effects.
- * NOTE: If you return TRUE, that reagent will not be removed liike normal! You must handle it manually.
- */
-/datum/species/proc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
+ * Return null continue running the normal on_mob_life() for that reagent.
+ * Return COMSIG_MOB_STOP_REAGENT_CHECK to not run the normal metabolism effects.
+ *
+ * NOTE: If you return COMSIG_MOB_STOP_REAGENT_CHECK, that reagent will not be removed liike normal! You must handle it manually.
+ **/
+/datum/species/proc/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	SHOULD_CALL_PARENT(TRUE)
 	if(chem.type == exotic_blood)
-		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
-		H.reagents.del_reagent(chem.type)
-		return TRUE
+		affected.blood_volume = min(affected.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
+		affected.reagents.del_reagent(chem.type)
+		return COMSIG_MOB_STOP_REAGENT_CHECK
+	if(!chem.overdosed && chem.overdose_threshold && chem.volume >= chem.overdose_threshold)
+		chem.overdosed = TRUE
+		chem.overdose_start(affected)
+		log_game("[key_name(affected)] has started overdosing on [chem.name] at [chem.volume] units.")
+	process_out_reagents(chem, affected)
+	return SEND_SIGNAL(affected, COMSIG_SPECIES_HANDLE_CHEMICAL, chem, delta_time, times_fired)
+
+/datum/species/proc/process_out_reagents(datum/reagent/chem, mob/living/carbon/human/affected)
 	//This handles dumping unprocessable reagents.
 	var/dump_reagent = TRUE
-	if((chem.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYNTHETIC))		//SYNTHETIC-oriented reagents require PROCESS_SYNTHETIC
+	//SYNTHETIC-oriented reagents require PROCESS_SYNTHETIC
+	if((chem.process_flags & SYNTHETIC) && (affected.dna.species.reagent_tag & PROCESS_SYNTHETIC))
 		dump_reagent = FALSE
-	if((chem.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORGANIC))		//ORGANIC-oriented reagents require PROCESS_ORGANIC
+	//ORGANIC-oriented reagents require PROCESS_ORGANIC
+	if((chem.process_flags & ORGANIC) && (affected.dna.species.reagent_tag & PROCESS_ORGANIC))
 		dump_reagent = FALSE
 	if(dump_reagent)
 		chem.holder.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
-	return FALSE
 
 /**
  * Equip the outfit required for life. Replaces items currently worn.
@@ -1397,129 +1389,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/datum/outfit/outfit = new outfit_important_for_life()
 	outfit.equip(human_to_equip)
 	qdel(outfit)
-
-////////
-//LIFE//
-////////
-
-/datum/species/proc/handle_digestion(mob/living/carbon/human/H, delta_time, times_fired)
-	if(HAS_TRAIT(H, TRAIT_NOHUNGER))
-		return //hunger is for BABIES
-
-	//The fucking TRAIT_FAT mutation is the dumbest shit ever. It makes the code so difficult to work with
-	if(HAS_TRAIT_FROM(H, TRAIT_FAT, OBESITY))//I share your pain, past coder.
-		if(H.overeatduration < (200 SECONDS))
-			to_chat(H, "<span class='notice'>You feel fit again!</span>")
-			REMOVE_TRAIT(H, TRAIT_FAT, OBESITY)
-			REMOVE_TRAIT(H, TRAIT_OFF_BALANCE_TACKLER, OBESITY)
-			H.remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
-			H.update_worn_undersuit()
-			H.update_worn_oversuit()
-	else
-		if(H.overeatduration >= (200 SECONDS))
-			to_chat(H, "<span class='danger'>You suddenly feel blubbery!</span>")
-			ADD_TRAIT(H, TRAIT_FAT, OBESITY)
-			ADD_TRAIT(H, TRAIT_OFF_BALANCE_TACKLER, OBESITY)
-			H.add_movespeed_modifier(/datum/movespeed_modifier/obesity)
-			H.update_worn_undersuit()
-			H.update_worn_oversuit()
-
-	// nutrition decrease and satiety
-	if (H.nutrition > 0 && H.stat != DEAD && !HAS_TRAIT(H, TRAIT_NOHUNGER))
-		// THEY HUNGER
-		var/hunger_rate = HUNGER_FACTOR
-		var/datum/component/mood/mood = H.GetComponent(/datum/component/mood)
-		if(mood && mood.sanity > SANITY_DISTURBED)
-			hunger_rate *= max(1 - 0.002 * mood.sanity, 0.5) //0.85 to 0.75
-		// Whether we cap off our satiety or move it towards 0
-		if(H.satiety > MAX_SATIETY)
-			H.satiety = MAX_SATIETY
-		else if(H.satiety > 0)
-			H.satiety--
-		else if(H.satiety < -MAX_SATIETY)
-			H.satiety = -MAX_SATIETY
-		else if(H.satiety < 0)
-			H.satiety++
-			if(DT_PROB(round(-H.satiety/77), delta_time))
-				H.set_jitter_if_lower(10 SECONDS)
-			hunger_rate = 3 * HUNGER_FACTOR
-		hunger_rate *= H.physiology.hunger_mod
-		H.adjust_nutrition(-hunger_rate * delta_time)
-
-	if(H.nutrition > NUTRITION_LEVEL_FULL)
-		if(H.overeatduration < 20 MINUTES) //capped so people don't take forever to unfat
-			H.overeatduration = min(H.overeatduration + (1 SECONDS * delta_time), 20 MINUTES)
-	else
-		if(H.overeatduration > 0)
-			H.overeatduration = max(H.overeatduration - (2 SECONDS * delta_time), 0) //doubled the unfat rate
-
-	//metabolism change
-	if(H.nutrition > NUTRITION_LEVEL_FAT)
-		H.metabolism_efficiency = 1
-	else if(H.nutrition > NUTRITION_LEVEL_FED && H.satiety > 80)
-		if(H.metabolism_efficiency != 1.25 && !HAS_TRAIT(H, TRAIT_NOHUNGER))
-			to_chat(H, span_notice("You feel vigorous."))
-			H.metabolism_efficiency = 1.25
-	else if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
-		if(H.metabolism_efficiency != 0.8)
-			to_chat(H, span_notice("You feel sluggish."))
-		H.metabolism_efficiency = 0.8
-	else
-		if(H.metabolism_efficiency == 1.25)
-			to_chat(H, span_notice("You no longer feel vigorous."))
-		H.metabolism_efficiency = 1
-
-	if(HAS_TRAIT(H, TRAIT_POWERHUNGRY))
-		handle_charge(H)
-	else
-		switch(H.nutrition)
-			if(NUTRITION_LEVEL_FULL to INFINITY)
-				H.throw_alert("nutrition", /atom/movable/screen/alert/fat)
-				H.remove_movespeed_modifier(MOVESPEED_ID_VISIBLE_HUNGER)
-				H.remove_actionspeed_modifier(ACTIONSPEED_ID_SATIETY)
-			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_FULL)
-				H.clear_alert("nutrition")
-				H.remove_movespeed_modifier(MOVESPEED_ID_VISIBLE_HUNGER)
-				H.add_actionspeed_modifier(/datum/actionspeed_modifier/well_fed)
-			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-				H.clear_alert("nutrition")
-				H.remove_movespeed_modifier(MOVESPEED_ID_VISIBLE_HUNGER)
-				H.remove_actionspeed_modifier(ACTIONSPEED_ID_SATIETY)
-			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				H.throw_alert("nutrition", /atom/movable/screen/alert/hungry)
-				H.add_movespeed_modifier(/datum/movespeed_modifier/visible_hunger/hungry)
-				H.add_actionspeed_modifier(/datum/actionspeed_modifier/starving)
-			if(0 to NUTRITION_LEVEL_STARVING)
-				H.throw_alert("nutrition", /atom/movable/screen/alert/starving)
-				H.add_movespeed_modifier(/datum/movespeed_modifier/visible_hunger/starving)
-				H.add_actionspeed_modifier(/datum/actionspeed_modifier/starving)
-
-/datum/species/proc/handle_charge(mob/living/carbon/human/H)
-	switch(H.nutrition)
-		if(NUTRITION_LEVEL_FED to INFINITY)
-			H.clear_alert("nutrition")
-			H.remove_movespeed_modifier(MOVESPEED_ID_VISIBLE_HUNGER)
-			H.add_actionspeed_modifier(/datum/actionspeed_modifier/well_fed)
-		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 1)
-			H.remove_movespeed_modifier(MOVESPEED_ID_VISIBLE_HUNGER)
-			H.remove_actionspeed_modifier(ACTIONSPEED_ID_SATIETY)
-		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 2)
-			H.add_movespeed_modifier(/datum/movespeed_modifier/visible_hunger/hungry)
-			H.add_actionspeed_modifier(/datum/actionspeed_modifier/starving)
-		if(1 to NUTRITION_LEVEL_STARVING)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 3)
-			H.add_movespeed_modifier(/datum/movespeed_modifier/visible_hunger/starving)
-			H.add_actionspeed_modifier(/datum/actionspeed_modifier/starving)
-		else
-			H.add_movespeed_modifier(/datum/movespeed_modifier/visible_hunger/starving)
-			H.add_actionspeed_modifier(/datum/actionspeed_modifier/starving)
-			var/obj/item/organ/stomach/battery/battery = H.get_organ_slot(ORGAN_SLOT_STOMACH)
-			if(!istype(battery))
-				H.throw_alert("nutrition", /atom/movable/screen/alert/nocell)
-			else
-				H.throw_alert("nutrition", /atom/movable/screen/alert/emptycell)
 
 /**
  * Species based handling for irradiation
@@ -1537,7 +1406,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		to_chat(source, span_danger("You feel weak."))
 
 	if(intensity > RAD_MOB_VOMIT && DT_PROB(RAD_MOB_VOMIT_PROB, delta_time))
-		source.vomit(10, TRUE)
+		source.vomit(VOMIT_CATEGORY_BLOOD, lost_nutrition = 10)
 
 	if(intensity > RAD_MOB_HAIRLOSS && DT_PROB(RAD_MOB_HAIRLOSS_PROB, delta_time))
 		if(!(source.hair_style == "Bald") && (HAIR in species_traits) && !HAS_TRAIT(source, TRAIT_NOHAIRLOSS))
@@ -1834,14 +1703,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	// called before a projectile hit
 	return 0
-
-/////////////
-//BREATHING//
-/////////////
-
-/datum/species/proc/breathe(mob/living/carbon/human/H)
-	if(HAS_TRAIT(H, TRAIT_NOBREATH))
-		return TRUE
 
 //////////////////////////
 // ENVIRONMENT HANDLERS //
@@ -2151,7 +2012,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 // FIRE //
 //////////
 
-/datum/species/proc/handle_fire(mob/living/carbon/human/H, delta_time, times_fired, no_protection = FALSE)
+/datum/species/proc/handle_fire(mob/living/carbon/human/H, delta_time, no_protection = FALSE)
 	return no_protection
 
 
@@ -2806,14 +2667,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_ICON = "syringe",
 			SPECIES_PERK_NAME = "Tough Skin",
 			SPECIES_PERK_DESC = "[plural_form] have tough skin, blocking piercing and embedding of sharp objects, including needles.",
-		))
-
-	if(TRAIT_POWERHUNGRY in inherent_traits)
-		to_add += list(list(
-			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "bolt",
-			SPECIES_PERK_NAME = "Shockingly Tasty",
-			SPECIES_PERK_DESC = "[plural_form] can feed on electricity from APCs and powercells; and do not otherwise need to eat.",
 		))
 
 	return to_add
