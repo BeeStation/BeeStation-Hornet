@@ -64,6 +64,10 @@ SUBSYSTEM_DEF(department)
 		EXP_TYPE_SILICON = 	SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON)
 	)
 
+	if(SSmapping.map_adjustment)
+		SSmapping.map_adjustment.on_department_init()
+		log_world("Applied '[SSmapping.map_adjustment.map_file_name]' map adjustment: on_department_init()")
+
 	return SS_INIT_SUCCESS
 
 /// Puts department datums into a list in a desired sort priority. Only called once in subsystem Initialize.
