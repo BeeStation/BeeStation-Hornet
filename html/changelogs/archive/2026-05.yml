@@ -131,3 +131,5 @@
 2026-05-16:
   EvilDragonfiend:
   - code_imp: Our minimum DM version(for compiling) is now 516.1666
+  Tsar-Salat:
+  - bugfix: fix self surgery on organ manip and IPC mulligan surgery

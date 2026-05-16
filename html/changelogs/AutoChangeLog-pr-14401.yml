@@ -1,4 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - bugfix: fix self surgery on organ manip and IPC mulligan surgery
