@@ -2175,8 +2175,8 @@ Basically, we fill the time between now and 2s from now with hands based off the
 /datum/reagent/helgrasp/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	spawn_hands(affected_mob)
-	lag_remainder += delta_time - FLOOR(delta_time, 1)
-	delta_time = FLOOR(delta_time, 1)
+	lag_remainder += delta_time - floor(delta_time)
+	delta_time = floor(delta_time)
 	if(lag_remainder >= 1)
 		delta_time += 1
 		lag_remainder -= 1

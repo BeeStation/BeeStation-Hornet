@@ -59,7 +59,7 @@
 
 	if(loot?.len)
 		var/loot_spawned = 0
-		var/pixel_divider = FLOOR(16 / spawn_loot_split_pixel_offsets, 1) // 16 pixels offsets is max that should be allowed in any direction
+		var/pixel_divider = floor(16 / spawn_loot_split_pixel_offsets) // 16 pixels offsets is max that should be allowed in any direction
 		while((spawn_loot_count-loot_spawned) && loot.len)
 			var/lootspawn = pick_weight_recursive(loot)
 			if(!can_spawn(lootspawn))
@@ -86,7 +86,7 @@
 					spawned_loot.pixel_y = rand(-16, 16)
 				else if (spawn_loot_split)
 					if (loot_spawned)
-						var/column = FLOOR(loot_spawned / pixel_divider, 1)
+						var/column = floor(loot_spawned / pixel_divider)
 						spawned_loot.pixel_x = spawn_loot_split_pixel_offsets * (loot_spawned % pixel_divider) + (column * spawn_loot_split_pixel_offsets)
 						spawned_loot.pixel_y = spawn_loot_split_pixel_offsets * (loot_spawned % pixel_divider)
 			loot_spawned++

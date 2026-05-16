@@ -121,7 +121,7 @@
 	var/icon/I = icon(owner.icon, owner.icon_state, owner.dir)
 	var/icon_height = I.Height()
 	status_overlay.pixel_x = -owner.pixel_x
-	status_overlay.pixel_y = FLOOR(icon_height * 0.25, 1)
+	status_overlay.pixel_y = floor(icon_height * 0.25)
 	status_overlay.transform = matrix() * (icon_height/world.icon_size) //scale the status's overlay size based on the target's icon size
 	status_underlay.pixel_x = -owner.pixel_x
 	status_underlay.transform = matrix() * (icon_height/world.icon_size) * 3

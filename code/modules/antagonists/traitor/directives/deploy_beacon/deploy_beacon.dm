@@ -95,7 +95,7 @@
 
 /datum/priority_directive/deploy_beacon/proc/update_time(time_left)
 	end_at = world.time + time_left
-	var/time_update = FLOOR(time_left / (30 SECONDS), 1)
+	var/time_update = floor(time_left / (30 SECONDS))
 	if (time_update < last_time_update)
 		mission_update("Beacon activation in [DisplayTimeText(time_left)].")
 		last_time_update = time_update

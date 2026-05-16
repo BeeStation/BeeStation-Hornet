@@ -142,7 +142,7 @@
 				if (isnull(bomb_timer))
 					return
 
-				bomb_timer = clamp(CEILING(bomb_timer, 1), bomb_timer_min, bomb_timer_max)
+				bomb_timer = clamp(ceil(bomb_timer), bomb_timer_min, bomb_timer_max)
 				bomb_defused = FALSE
 				wires.ui_update()
 

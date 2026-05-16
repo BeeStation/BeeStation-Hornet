@@ -95,7 +95,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		return ..()
 	//Moved more than 10 tiles in 1 move.
 	var/cur_dist = get_dist(src, destination)
-	if((get_virtual_z_level() != z_original) || (loc == destination) || (FLOOR(cur_dist - previous_distance, 1) > 10))
+	if((get_virtual_z_level() != z_original) || (loc == destination) || (floor(cur_dist - previous_distance) > 10))
 		qdel(src)
 	previous_distance = cur_dist
 	if(special_target && loc == get_turf(special_target))

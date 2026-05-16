@@ -310,7 +310,7 @@
 			if(HAS_AI_CONTROLLER_TYPE(possible_enemy, /datum/ai_controller/monkey) && !controller.blackboard[BB_MONKEY_TARGET_MONKEYS]) //Do not target poor monkes
 				continue
 		// Weighted list, so the closer they are the more likely they are to be chosen as the enemy
-		valids[possible_enemy] = CEILING(100 / (get_dist(controller.pawn, possible_enemy) || 1), 1)
+		valids[possible_enemy] = ceil(100 / (get_dist(controller.pawn, possible_enemy) || 1))
 
 	if(!length(valids))
 		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED

@@ -38,7 +38,7 @@
 	var/view_distance = max(getviewsize(world.view)[1], getviewsize(world.view)[2])
 	cooldown_length = round((0.2 SECONDS * (5 - master_stats.potential)) + 2, 5) // 2 to 3 seconds
 	rush_knockback = master_stats.potential > 3
-	knockback_distance = clamp(CEILING(master_stats.damage * 1.75, 1), 2, view_distance)
+	knockback_distance = clamp(ceil(master_stats.damage * 1.75), 2, view_distance)
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/holopara_frenzy/lesser)
 
 /datum/holoparasite_ability/major/frenzy/remove()

@@ -77,7 +77,7 @@
 	if(powered)
 		. += "[initial(icon_state)]-powered"
 		var/ratio = cell.charge / cell.maxcharge
-		ratio = CEILING(ratio*4, 1) * 25
+		ratio = ceil(ratio*4) * 25
 		. += "[initial(icon_state)]-charge[ratio]"
 	if(!cell)
 		. += "[initial(icon_state)]-nocell"

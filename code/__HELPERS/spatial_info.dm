@@ -237,7 +237,7 @@
 		if(Y1==Y2)
 			return TRUE //Light cannot be blocked on same tile
 		else
-			var/s = SIGN(Y2-Y1)
+			var/s = sign(Y2-Y1)
 			Y1+=s
 			while(Y1!=Y2)
 				T=locate(X1,Y1,Z)
@@ -247,8 +247,8 @@
 	else
 		var/m=(32*(Y2-Y1)+(PY2-PY1))/(32*(X2-X1)+(PX2-PX1))
 		var/b=(Y1+PY1/32-0.015625)-m*(X1+PX1/32-0.015625) //In tiles
-		var/signX = SIGN(X2-X1)
-		var/signY = SIGN(Y2-Y1)
+		var/signX = sign(X2-X1)
+		var/signY = sign(Y2-Y1)
 		if(X1<X2)
 			b+=m
 		while(X1!=X2 || Y1!=Y2)
