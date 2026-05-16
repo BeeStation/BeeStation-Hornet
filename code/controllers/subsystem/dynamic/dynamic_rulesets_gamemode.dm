@@ -108,7 +108,7 @@
 	role_preference = /datum/role_preference/roundstart/changeling
 	antag_datum = /datum/antagonist/changeling
 	weight = 8
-	ruleset_flags = SHOULD_USE_ANTAG_REP | REQUIRED_POP_ALLOW_UNREADY
+	ruleset_flags = SHOULD_USE_ANTAG_REP
 	minimum_players_required = 8
 
 /datum/dynamic_ruleset/gamemode/changeling/security_report()
@@ -126,7 +126,7 @@
 	role_preference = /datum/role_preference/roundstart/heretic
 	antag_datum = /datum/antagonist/heretic
 	weight = 8
-	ruleset_flags = SHOULD_USE_ANTAG_REP | REQUIRED_POP_ALLOW_UNREADY
+	ruleset_flags = SHOULD_USE_ANTAG_REP
 	restricted_roles = list(JOB_NAME_PRISONER)
 	minimum_players_required = 14
 
@@ -148,7 +148,7 @@
 	weight = 8
 	minimum_players_required = 20
 	restricted_roles = list(JOB_NAME_CYBORG)
-	ruleset_flags = SHOULD_USE_ANTAG_REP | CANNOT_REPEAT | REQUIRED_POP_ALLOW_UNREADY
+	ruleset_flags = SHOULD_USE_ANTAG_REP | CANNOT_REPEAT
 
 /datum/dynamic_ruleset/gamemode/malf/trim_candidates()
 	. = ..()
@@ -180,7 +180,7 @@
 	antag_datum = /datum/antagonist/wizard
 	weight = 8
 	minimum_players_required = 20
-	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN | NO_CONVERSION_TRANSFER_RULESET | REQUIRED_POP_ALLOW_UNREADY
+	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN | NO_CONVERSION_TRANSFER_RULESET
 
 /datum/dynamic_ruleset/gamemode/wizard/allowed(require_drafted = TRUE)
 	if(!length(GLOB.wizardstart))
@@ -218,7 +218,7 @@
 	drafted_players_amount = 2
 	weight = 8
 	minimum_players_required = 24
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | NO_LATE_JOIN | NO_CONVERSION_TRANSFER_RULESET | REQUIRED_POP_ALLOW_UNREADY
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | NO_LATE_JOIN | NO_CONVERSION_TRANSFER_RULESET
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/gamemode/clockcult,
 	)
@@ -294,7 +294,7 @@
 	drafted_players_amount = 4
 	weight = 8
 	minimum_players_required = 30
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN | NO_CONVERSION_TRANSFER_RULESET | REQUIRED_POP_ALLOW_UNREADY
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN | NO_CONVERSION_TRANSFER_RULESET
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/gamemode/bloodcult,
 	)
@@ -360,7 +360,7 @@
 	drafted_players_amount = 3
 	weight = 8
 	minimum_players_required = 24
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN | REQUIRED_POP_ALLOW_UNREADY
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN
 
 	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
 	var/datum/team/nuclear/nuke_team
@@ -467,7 +467,7 @@
 	drafted_players_amount = 3
 	weight = 0	// Temporarily disabled: We need to refactor this so that it executes after round-start, and rolls into a different gamemode if it fails to execute.
 	minimum_players_required = 24
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_CONVERSION_TRANSFER_RULESET | REQUIRED_POP_ALLOW_UNREADY
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_CONVERSION_TRANSFER_RULESET
 
 	var/datum/team/revolution/team
 	var/finished = FALSE
