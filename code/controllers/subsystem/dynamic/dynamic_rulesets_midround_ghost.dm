@@ -305,6 +305,40 @@
 
 //////////////////////////////////////////////
 //                                          //
+//           Synapse Leech (Light)        //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/ghost/synapse_leech
+	name = "Synapse Leech"
+	severity = DYNAMIC_MIDROUND_LIGHT
+	antag_datum = /datum/antagonist/synapse_leech
+	points_cost = 20
+	weight = 4
+	minimum_players_required = 10
+	drafted_players_amount = 1
+
+/datum/dynamic_ruleset/midround/ghost/synapse_leech/get_poll_icon()
+	return /mob/living/basic/synapse_leech
+
+/// Spawn 1 leech baseline, 2 once the round has a healthy population.
+/datum/dynamic_ruleset/midround/ghost/synapse_leech/set_drafted_players_amount()
+	drafted_players_amount = (length(GLOB.player_list) >= 30) ? 2 : 1
+
+/// Pull spawn turfs from the same xeno spawn pool other midrounds use, but only the ones in maintenance.
+/datum/dynamic_ruleset/midround/ghost/synapse_leech/get_spawn_locations()
+	for(var/turf/potential_spawn in GLOB.xeno_spawn)
+		if(istype(potential_spawn.loc, /area/station/maintenance))
+			spawn_locations += potential_spawn
+
+/datum/dynamic_ruleset/midround/ghost/synapse_leech/generate_ruleset_body(mob/dead/observer/chosen_mob)
+	var/mob/living/basic/synapse_leech/leech_body = new(pick(spawn_locations))
+	leech_body.key = chosen_mob.key
+
+	return leech_body
+
+//////////////////////////////////////////////
+//                                          //
 //           SPACE DRAGON (HEAVY)           //
 //                                          //
 //////////////////////////////////////////////

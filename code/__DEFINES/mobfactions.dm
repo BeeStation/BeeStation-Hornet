@@ -15,6 +15,8 @@
 #define FACTION_BOSS "boss"
 /// CARPS
 #define FACTION_CARP "carp"
+/// LEECH FACTION
+#define FACTION_LEECH "leech"
 /// Creatures summoned by chemical reactions
 #define FACTION_CHEMICAL_SUMMON "chemical_summon"
 /// Clown creatures and the Clown themselves
