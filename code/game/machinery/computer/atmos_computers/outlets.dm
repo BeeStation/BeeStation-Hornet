@@ -10,6 +10,11 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/plasma_output
 	name = "plasma tank output inlet"
 
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/fuelsupply_output
+	name = "formulated hydrogen fuel tank output inlet"
+	chamber_id = ATMOS_GAS_MONITOR_FUELSUPPLY
+	internal_pressure_bound = 100
+
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/oxygen_output
 	name = "oxygen tank output inlet"
 

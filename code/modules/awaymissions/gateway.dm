@@ -46,9 +46,14 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	/// Cooldown for says and buzz-sigh
 	COOLDOWN_DECLARE(telegraph_cooldown)
 
+/obj/machinery/gateway/Initialize(mapload)
+	. = ..()
+	RegisterSignal(SSorbital_altitude, COMSIG_ORBITAL_GATEWAY_STATUS_CHANGED, PROC_REF(on_gateway_status_changed))
+
 /obj/machinery/gateway/Destroy()
 	if(GLOB.the_gateway == src)
 		GLOB.the_gateway = null
+	UnregisterSignal(SSorbital_altitude, COMSIG_ORBITAL_GATEWAY_STATUS_CHANGED)
 	if(linked_gateway)
 		linked_gateway.linked_gateway = null
 		linked_gateway = null
@@ -56,10 +61,46 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 		QDEL_NULL(bumper)
 	return ..()
 
+/// TRUE if either end of this gateway sits on the station; only those care about altitude.
+/obj/machinery/gateway/proc/is_station_linked()
+	return istype(src, /obj/machinery/gateway/station) || istype(linked_gateway, /obj/machinery/gateway/station)
+
+/// Called when orbital altitude gateway status changes
+/obj/machinery/gateway/proc/on_gateway_status_changed(datum/source, new_status)
+	SIGNAL_HANDLER
+	if(new_status == GATEWAY_STATUS_OK)
+		return
+
+	if(!active)
+		return
+
+	// Only care about gateways linked to the station
+	if(!is_station_linked())
+		return
+
+	// Force shutdown
+	toggleoff()
+	switch(new_status)
+		if(GATEWAY_STATUS_TOO_HIGH)
+			say("ALIGNMENT ERROR: Tunnel lost. Station altitude is out of alignment range. Shutting down.")
+		if(GATEWAY_STATUS_TOO_LOW)
+			say("STABILITY ERROR: Tunnel lost. Too much atmospheric interference at this altitude. Shutting down.")
+
+	playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
+
 /obj/machinery/gateway/examine(mob/user)
 	. = ..()
 
 	. += span_info("It appears to be [active ? (istype(linked_gateway) ? "on, and connected to a destination" : "on, but not linked") : "off"].")
+
+	// Show altitude warnings for gateways linked to the station.
+	if(is_station_linked())
+		. += span_info("This gateway operates when the station is between [ORBITAL_ALTITUDE_MODERATE / 1000]km and [ORBITAL_ALTITUDE_DEFAULT / 1000]km altitude.")
+		switch(SSorbital_altitude.get_gateway_status())
+			if(GATEWAY_STATUS_TOO_HIGH)
+				. += span_warning("The gateway's alignment indicators are flickering erratically. The station seems too far from the target beacon.")
+			if(GATEWAY_STATUS_TOO_LOW)
+				. += span_danger("The gateway's alignment indicators are glowing dark red. Something in the atmosphere is interfering with it.")
 
 	if(active)
 		. += ""
@@ -148,7 +189,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 // Silicons can turn it on and off however they please
 /obj/machinery/gateway/attack_silicon(mob/user)
 	if(active ? toggleoff(telegraph = TRUE) : toggleon(user))
-		to_chat(user, span_notice("You turn send a [active ? "startup" : "shutdown"] signal to [src]."))
+		to_chat(user, span_notice("You send a [active ? "startup" : "shutdown"] signal to [src]."))
 		visible_message(span_notice("[src] turns on."), ignored_mobs = list(user))
 		return TRUE
 	return ..()
@@ -165,17 +206,38 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 
 /obj/machinery/gateway/proc/toggleon(mob/user)
 	if(!powered())
-		to_chat(user, span_warning("It has no power!"))
+		if(user)
+			to_chat(user, span_warning("It has no power!"))
 		return FALSE
 	if(!linked_gateway)
-		to_chat(user, span_warning("No destination found!"))
+		if(user)
+			to_chat(user, span_warning("No destination found!"))
 		return FALSE
+
+	// Block reactivation while the orbital subsystem still considers us locked out.
+	// get_gateway_status() returns the hysteretic value, so the lockout persists
+	// until altitude has recovered into the operational band, otherwise altitude-hold's
+	// natural bobbing around the threshold lets a player just spam-toggle the gateway
+	// right back on the moment it slams shut.
+	if(is_station_linked())
+		switch(SSorbital_altitude.get_gateway_status())
+			if(GATEWAY_STATUS_TOO_HIGH)
+				say("ALIGNMENT ERROR: Unable to form tunnel. Station is too far from the target beacon at this altitude.")
+				playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
+				return FALSE
+			if(GATEWAY_STATUS_TOO_LOW)
+				say("STABILITY ERROR: Unable to form tunnel. Atmospheric conditions at this altitude are too unstable.")
+				playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
+				return FALSE
 
 	active = TRUE
 	use_power = ACTIVE_POWER_USE
 	update_icon()
 	bumper = new(get_turf(src))
 	bumper.parent_gateway = src
+	// Try to activate the linked gateway too
+	if(linked_gateway && !linked_gateway.active)
+		linked_gateway.toggleon()
 	return TRUE
 
 /obj/machinery/gateway/proc/toggleoff(telegraph = FALSE)

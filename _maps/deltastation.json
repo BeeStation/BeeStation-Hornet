@@ -3,6 +3,7 @@
 	"map_link": "deltastation",
 	"map_path": "map_files/Deltastation",
 	"map_file": "DeltaStation2.dmm",
+	"reentry_direction": "WEST",
 	"shuttles": {
 		"emergency": "emergency_delta",
 		"ferry": "ferry_standard",

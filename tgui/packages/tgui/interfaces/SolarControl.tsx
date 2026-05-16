@@ -24,6 +24,7 @@ type Data = {
   tracking_state: number;
   connected_panels: number;
   connected_tracker: BooleanLike;
+  orbital_efficiency: number;
   history: History;
 };
 
@@ -43,6 +44,7 @@ export const SolarControl = (props) => {
     tracking_state,
     connected_panels,
     connected_tracker,
+    orbital_efficiency,
     history,
   } = data;
   const supplyData = history.supply.map((value, i) => [i, value]);
@@ -111,6 +113,18 @@ export const SolarControl = (props) => {
                   color={connected_tracker ? 'good' : 'bad'}
                 >
                   {connected_tracker ? 'OK' : 'N/A'}
+                </LabeledList.Item>
+                <LabeledList.Item
+                  label="Orbital efficiency"
+                  color={
+                    orbital_efficiency >= 1
+                      ? 'good'
+                      : orbital_efficiency > 0
+                        ? 'average'
+                        : 'bad'
+                  }
+                >
+                  {Math.round(orbital_efficiency * 100) + '%'}
                 </LabeledList.Item>
               </LabeledList>
             </Stack.Item>

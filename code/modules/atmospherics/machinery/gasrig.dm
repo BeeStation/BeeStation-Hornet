@@ -6,26 +6,27 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	move_resist = INFINITY
 	layer = HIGH_OBJ_LAYER
+	override_naming = TRUE
 
 /obj/machinery/atmospherics/gasrig/core
 	/// Machine starts idle unless you want it to always start active
 	use_power = IDLE_POWER_USE
 	/// What we expend when NOT harvesting gasses
 	idle_power_usage = 2 KILOWATT
-	/// Power draw when harvesting gas (increases according to depth at Y x Depth / 200) (This will always be power usage at 200 depth)
+	/// Power draw when harvesting gas (scales with extension: 25 kW at max extension of 10000m)
 	active_power_usage = 25 KILOWATT
 	density = TRUE
 
-	var/depth = 0
+	var/extension = 0
 
-	/// the desired depth to approach
-	var/set_depth = 0
+	/// the desired extension of the nozzle from the station (how far the nozzle should be extended)
+	var/set_extension = 10
 	var/shield_strength = GASRIG_MAX_SHIELD_STRENGTH
 	/// used for displaying the shield strength delta
 	var/shield_strength_change = 0
 
 	var/mode = GASRIG_MODE_NORMAL
-	var/active = TRUE
+	var/active = FALSE
 	var/overpressure = FALSE
 
 	var/health = GASRIG_MAX_HEALTH
@@ -53,6 +54,19 @@
 	init_processing = TRUE
 
 	var/datum/looping_sound/gas_rig/soundloop
+
+	/// Our internal radio for broadcasting warnings on engineering channel
+	var/obj/item/radio/radio
+	/// The key our internal radio uses
+	var/radio_key = /obj/item/encryptionkey/headset_eng
+	/// Cooldown for shield warning messages over the radio
+	COOLDOWN_DECLARE(shield_warning_cooldown)
+	/// Cooldown for health warning messages over the radio
+	COOLDOWN_DECLARE(health_warning_cooldown)
+	/// Whether we've already warned about 50% shields (reset when shields recover above 60%)
+	var/warned_shield_half = FALSE
+	/// Whether we've already warned about health dropping below 75% (reset when fully repaired)
+	var/warned_health_damage = FALSE
 
 	var/obj/machinery/atmospherics/components/unary/gasrig/shielding_input/shielding_input
 
@@ -92,13 +106,13 @@
 	offset_loc = locate(x + 1, y - 1, z)
 	dummies += new /obj/machinery/atmospherics/gasrig/dummy(offset_loc, src, "gasrig_d5")
 
-
-
 /obj/machinery/atmospherics/gasrig/core/Initialize(mapload)
 	. = ..()
 	soundloop = new(src)
-	soundloop.volume = 10 //depth starts at zero so init at minimum volume
-	soundloop.start() //start immediately as it starts on
+	radio = new(src)
+	radio.keyslot = new radio_key
+	radio.set_listening(FALSE)
+	radio.recalculateChannels()
 	init_inputs()
 	init_dummies()
 	update_pipenets()
@@ -112,6 +126,7 @@
 		QDEL_NULL(gas_output)
 	QDEL_LIST(dummies)
 	QDEL_NULL(soundloop)
+	QDEL_NULL(radio)
 	STOP_PROCESSING(SSmachines, src)
 	return ..()
 
@@ -119,6 +134,7 @@
 	display_mols_produced = list() // this is here to ensure the list is empty if mols arnt being produced
 	get_shield_damage(shielding_input.airs[1])
 	get_damage(delta_time)
+	check_warnings()
 	if(machine_stat & NOPOWER)
 		update_pipenets()
 		return
@@ -176,10 +192,20 @@
 	aver_gas_modifier = clamp(aver_gas_modifier, 0.1, 1) //clamp the gas modifier so shielding power of a gas is never zero
 
 	var/temp_shield = (((gas_power) * log(10, total_moles * GASRIG_SHIELD_MOL_LOG_MULTIPLER)) * aver_gas_modifier) + GASRIG_NATURAL_SHIELD_RECOVERY
-	display_shield_efficiency = temp_shield
-	shield_strength_change = temp_shield - (get_depth() * GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER)
-	shield_strength = clamp(shield_strength + shield_strength_change, 0, GASRIG_MAX_SHIELD_STRENGTH)
+	temp_shield *= 10
 
+	display_shield_efficiency = temp_shield
+
+	// Only apply depth-based shield damage when tip depth is below 100000 (in the operating range)
+	var/depth_damage = 0
+	var/current_depth = get_depth()
+	if(current_depth < 100000)
+		// Scale damage based on how deep we are into the operating range (80000-100000)
+		// At 100000 depth, no damage. At 80000 depth, maximum damage (20000 * multiplier)
+		depth_damage = (100000 - current_depth) * GASRIG_DEPTH_SHIELD_DAMAGE_MULTIPLIER
+
+	shield_strength_change = temp_shield - depth_damage
+	shield_strength = clamp(shield_strength + shield_strength_change, 0, GASRIG_MAX_SHIELD_STRENGTH)
 
 /obj/machinery/atmospherics/gasrig/core/proc/produce_gases(datum/gas_mixture/air, delta_time)
 	var/efficiency = get_fracking_efficiency(fracking_input.airs[1])
@@ -193,10 +219,11 @@
 		calculate_gas_to_output(gas_references[gas_datum], gas_datum, air, efficiency, delta_time)
 
 /obj/machinery/atmospherics/gasrig/core/proc/calculate_power_use()
-	var/depth = get_depth()
-	var/temp_power_usage = max(initial(active_power_usage) * (depth / 200), 2 KILOWATT)
+	var/extension_amt = get_extension()
+	// Scale power usage based on extension: at max extension (10000), use full active_power_usage (25 kW)
+	var/temp_power_usage = max(initial(active_power_usage) * (extension_amt / GASRIG_MAX_EXTENSION), 2 KILOWATT)
 	if (active_power_usage != temp_power_usage)
-		active_power_usage = temp_power_usage // 100 depth is 12.5 kW/s 200 depth is 25 300 is 37.5, 1000 is 125 kW.
+		active_power_usage = temp_power_usage // At 5000 extension: 12.5 kW, at 10000 extension: 25 kW
 		update_current_power_usage()
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_fracking_efficiency(datum/gas_mixture/air)
@@ -208,11 +235,20 @@
 	return temp_eff
 
 /obj/machinery/atmospherics/gasrig/core/proc/change_health(amount)
+	// Prevent taking damage when nozzle is retracted below 10 map units
+	if (amount < 0 && get_extension() < 10)
+		return
+
 	health = clamp(health + amount, 0, GASRIG_MAX_HEALTH)
 
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_damage(delta_time)
-	if(shield_strength > 0)
+	// Don't take damage at all if the nozzle/extension is retracted below 10 units
+	if (get_extension() < 10)
+		return
+
+	// Only take damage if shields are down AND we're in the operating depth range (below 100000)
+	if(shield_strength > 0 || get_depth() >= 100000)
 		return
 
 	change_health(-5)
@@ -223,22 +259,60 @@
 	if (health <= 0)
 		update_mode(GASRIG_MODE_REPAIR)
 
+/// Checks shield strength and health thresholds and broadcasts warnings over engineering radio, similar to the supermatter.
+/obj/machinery/atmospherics/gasrig/core/proc/check_warnings()
+	if(!active || get_extension() < 10)
+		// Reset warning flags when not operating
+		warned_shield_half = FALSE
+		warned_health_damage = FALSE
+		return
+
+	// Reset warning flags when conditions recover
+	if(shield_strength > GASRIG_MAX_SHIELD_STRENGTH * 0.85)
+		warned_shield_half = FALSE
+	if(health >= GASRIG_MAX_HEALTH)
+		warned_health_damage = FALSE
+
+	// Warning: Shield strength has dropped.
+	if(!warned_shield_half && shield_strength <= GASRIG_MAX_SHIELD_STRENGTH * 0.75)
+		warned_shield_half = TRUE
+		if(COOLDOWN_FINISHED(src, shield_warning_cooldown))
+			COOLDOWN_START(src, shield_warning_cooldown, 30 SECONDS)
+			radio.talk_into(src, "Warning! AGR shielding has dropped below 75%! Current shield integrity: [round((shield_strength / GASRIG_MAX_SHIELD_STRENGTH) * 100, 0.1)]%. Increase shielding gas supply to prevent nozzle damage.", RADIO_CHANNEL_ENGINEERING)
+			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
+
+	// Critical warning: Nozzle health has dropped.
+	if(!warned_health_damage && health < GASRIG_MAX_HEALTH * 0.9)
+		warned_health_damage = TRUE
+		if(COOLDOWN_FINISHED(src, health_warning_cooldown))
+			COOLDOWN_START(src, health_warning_cooldown, 30 SECONDS)
+			radio.talk_into(src, "DANGER! AGR nozzle is taking structural damage! Integrity: [round((health / GASRIG_MAX_HEALTH) * 100, 0.1)]%. Retract nozzle or restore shielding immediately!", RADIO_CHANNEL_ENGINEERING)
+			playsound(src, 'sound/machines/engine_alert2.ogg', 100)
+
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_output_pressure(fracking_efficiency)
 	return max(GASRIG_DEFAULT_OUTPUT_PRESSURE, fracking_efficiency * GASRIG_FRACKING_PRESSURE_MULTIPLER)
 
 /obj/machinery/atmospherics/gasrig/core/proc/approach_set_depth(delta_time)
-	var/temp_depth = get_depth()
-	if (temp_depth != set_depth)
-		if (temp_depth < set_depth && !needs_repairs)
-			depth += min(GASRIG_DEPTH_CHANGE_SPEED * delta_time, set_depth - temp_depth)
-		if (temp_depth > set_depth)
-			depth += max(-GASRIG_DEPTH_CHANGE_SPEED * delta_time, set_depth - temp_depth)
-		soundloop.volume = max(10, floor((temp_depth / GASRIG_MAX_DEPTH) * 75))
+	if(!active)
+		return
+
+	var/cur_extension = get_extension()
+	if (cur_extension != set_extension)
+		if (cur_extension < set_extension && !needs_repairs)
+			extension += min(GASRIG_DEPTH_CHANGE_SPEED * delta_time, set_extension - cur_extension)
+		if (cur_extension > set_extension)
+			extension += max(-GASRIG_DEPTH_CHANGE_SPEED * delta_time, set_extension - cur_extension)
+		soundloop.volume = max(10, floor((get_extension() / GASRIG_MAX_EXTENSION) * 75))
 
 //for potential station altitude updates.
 /obj/machinery/atmospherics/gasrig/core/proc/get_depth()
-	return depth
+	// tip depth equals station orbital altitude plus how far the nozzle is extended
+	return SSorbital_altitude.orbital_altitude - extension
+
+// Return how far the nozzle is extended from the station (non-negative)
+/obj/machinery/atmospherics/gasrig/core/proc/get_extension()
+	return extension
 
 /obj/machinery/atmospherics/gasrig/core/update_icon_state()
 	. = ..()
@@ -282,17 +356,30 @@
 			update_appearance()
 
 /obj/machinery/atmospherics/gasrig/core/proc/set_active(to_set)
+	// Prevent turning the rig OFF while the nozzle is extended beyond a safe threshold
+	if(!to_set && get_extension() > 20)
+		// Block the request
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 80, 1)
+		balloon_alert_to_viewers("The nozzle is extended too far. Please retract it before turning off")
+		return FALSE
+
 	active = to_set
 	if(!active)
 		soundloop.stop()
-		return
+		extension = 0
+		playsound(src, 'sound/machines/AGR_reel_in.ogg', 80, 1)
+		return TRUE
+
+	set_extension = rand(10, 20)
 	soundloop.start()
+	return TRUE
 
 /obj/machinery/atmospherics/gasrig/core/welder_act(mob/living/user, obj/item/tool)
 	if(health >= GASRIG_MAX_HEALTH)
 		balloon_alert(user, "No repairs needed!")
 		return TRUE
-	if(get_depth() > 0)
+	// disallow repairs if nozzle is extended from the station
+	if(get_extension() > 0)
 		balloon_alert(user, "The rig needs to be raised to repair it!")
 		return TRUE
 	if(needs_repairs)
@@ -309,7 +396,8 @@
 		if(!needs_repairs)
 			balloon_alert(user, "No repairs needed!")
 			return
-		if(get_depth() > 0)
+		// disallow repairing while nozzle is extended
+		if(get_extension() > 0)
 			balloon_alert(user, "The rig needs to be raised to repair it!")
 			return
 		if(plasteel_sheets.get_amount() >= 10)
@@ -346,14 +434,14 @@
 	data["trit_constants"] = GASRIG_TRIT
 	data["max_health"] = GASRIG_MAX_HEALTH
 	data["max_shield"] = GASRIG_MAX_SHIELD_STRENGTH
-	data["max_depth"] = GASRIG_MAX_DEPTH
+	data["max_extension"] = GASRIG_MAX_EXTENSION
 	return data
-
 
 /obj/machinery/atmospherics/gasrig/core/ui_data(mob/user)
 	var/list/data = list()
-	data["depth"] = depth
-	data["set_depth"] = set_depth
+	data["depth"] = get_depth()
+	data["extension"] = get_extension()
+	data["set_extension"] = set_extension
 	data["shield_strength"] = shield_strength
 	data["shield_strength_change"] = shield_strength_change
 	data["fracking_eff"] = display_efficiency
@@ -377,19 +465,24 @@
 	. = ..()
 	if(.)
 		return
-	ui_act_base(action, params)
-
+	. = ui_act_base(action, params)
 
 /obj/machinery/atmospherics/gasrig/core/proc/ui_act_base(action, params)
 	if(machine_stat & NOPOWER)
 		return
 	switch(action)
-		if("set_depth")
-			set_depth = text2num(params["set_depth"])
+		if("set_extension")
+			// Prevent changing the desired extension while the rig is powered off
+			if(!active)
+				. = FALSE
+				playsound(src, 'sound/machines/buzz-sigh.ogg', 80, 1)
+				balloon_alert_to_viewers("Cannot reel without power.")
+				return
+			// desired extension in map units
+			set_extension = clamp(text2num(params["set_extension"]), 10, GASRIG_MAX_EXTENSION)
 			. = TRUE
 		if("active")
-			set_active(!active)
-			. = TRUE
+			. = set_active(!active)
 	update_appearance()
 
 /obj/machinery/atmospherics/gasrig/core/proc/add_gas_to_output(datum/gas/to_add, datum/gas_mixture/air, amount, temp)
@@ -407,7 +500,9 @@
 	var/percent_falling = ((gas_constant[2] - get_depth()) / (difference/2))
 	var/gas_produced = gas_constant[3] * min(percent_falling, percent_rising) * efficiency
 	display_mols_produced += list(gas_type.name, gas_produced / delta_time)
-	add_gas_to_output(gas_type, air, gas_produced, depth * GASRIG_DEPTH_TEMP_MULTIPLER)
+
+	var/depth_temp = clamp(500 + (get_depth() - 80000) * 0.075, 500, 2000)
+	add_gas_to_output(gas_type, air, gas_produced, depth_temp)
 
 /obj/machinery/atmospherics/gasrig/core/proc/update_pipenets()
 	shielding_input.update_parents()
@@ -418,6 +513,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	density = TRUE
 	move_resist = INFINITY
+	override_naming = TRUE
 	var/obj/machinery/atmospherics/gasrig/core/parent
 
 /obj/machinery/atmospherics/components/unary/gasrig/Initialize(mapload, obj/machinery/atmospherics/gasrig/core/gas_rig)
@@ -447,7 +543,7 @@
 	. = ..()
 	if(.)
 		return
-	parent.ui_act_base(action, params)
+	. = parent.ui_act_base(action, params)
 
 /obj/machinery/atmospherics/components/unary/gasrig/ui_data(mob/user)
 	return parent.ui_data(user)
@@ -526,5 +622,5 @@
 	. = ..()
 	if(.)
 		return
-	parent.ui_act_base(action, params)
+	. = parent.ui_act_base(action, params)
 

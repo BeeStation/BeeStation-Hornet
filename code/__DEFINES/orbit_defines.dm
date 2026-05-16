@@ -1,8 +1,42 @@
+// Technically unrelated but they use "orbits" too so:
+// Orbital altitude thresholds in meters (single source of truth)
+// Listed from highest to lowest altitude
+#define ORBITAL_ALTITUDE_CEILING 140000 // 140km - Cannot go higher than this (also: double solar power)
+#define ORBITAL_ALTITUDE_UPPER_CRITICAL 130000 // 130km - Upper critical threshold (radiation danger)
+#define ORBITAL_ALTITUDE_UPPER 120000 // 120km - Upper normal threshold (normal solar power)
+#define ORBITAL_ALTITUDE_DEFAULT 110000 // 110km - Default stable altitude (gateway upper limit)
+#define ORBITAL_ALTITUDE_MODERATE 100000 // 100km - Moderate threshold (gateway lower limit, cargo normal, solar cutoff)
+#define ORBITAL_ALTITUDE_LOWER 95000 // 95km - Lower warning threshold (visual effects & erosion start)
+#define ORBITAL_ALTITUDE_LOWER_CRITICAL 90000 // 90km - Lower critical threshold (structural damage begins)
+#define ORBITAL_ALTITUDE_LOWER_SEVERE 85000 // 85km - Severe re-entry (maximum erosion damage)
+#define ORBITAL_ALTITUDE_FLOOR 80000 // 80km - Cannot go lower than this (cargo max delay)
 
+// Gateway status return values
+#define GATEWAY_STATUS_OK 0
+#define GATEWAY_STATUS_TOO_HIGH 1
+#define GATEWAY_STATUS_TOO_LOW 2
+
+/// Hysteresis margin (m) added *outside* the gateway operational band before a fault triggers.
+/// The gateway runs whenever altitude is in [MODERATE - DEFAULT] (100 - 110km); we only declare
+/// TOO_HIGH/TOO_LOW once altitude exceeds those by this margin, then return to OK as soon as
+/// it's back inside. Stops the gateway chattering when altitude-hold parks the station right
+/// against a threshold while leaving the whole operational band actually usable.
+#define ORBITAL_GATEWAY_HYSTERESIS 2000
+
+/// Sent on SSorbital_altitude when gateway operational status changes. Args: (new_status)
+#define COMSIG_ORBITAL_GATEWAY_STATUS_CHANGED "orbital_gateway_status_changed"
+
+// Cargo shuttle max flight time multiplier at floor altitude
+#define CARGO_SHUTTLE_MAX_MULTIPLIER 10
+
+// Proper orbital defines
 #define GRAVITATIONAL_CONSTANT 1
 
 //Once the acceleration towards this object is smaller than this value, it will be ignored.
-#define MINIMUM_EFFECTIVE_GRAVITATIONAL_ACCEELRATION 0.0001
+#define MINIMUM_EFFECTIVE_GRAVITATIONAL_ACCELERATION 0.0001
+
+/// Threshold for when a shuttle is considered to have flown too far
+#define ORBITAL_RUNAWAY_THRESHOLD 1500000
 
 #define ORBITAL_UPDATE_RATE (1 SECONDS)	//10 stupidseconds
 #define ORBITAL_UPDATE_RATE_SECONDS 1	//1 second

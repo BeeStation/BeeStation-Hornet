@@ -22,6 +22,9 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/mix_input
 	name = "mix tank input injector"
 
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/fuelsupply_input
+	name = "formulated hydrogen fuel tank input injector"
+
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitrous_input
 	name = "nitrous oxide tank input injector"
 

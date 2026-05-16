@@ -253,7 +253,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 	if(sunfrac <= 0)
 		return
 
-	var/sgen = SOLAR_GEN_RATE * sunfrac * power_tier
+	var/sgen = SOLAR_GEN_RATE * sunfrac * power_tier * SSorbital_altitude.get_solar_efficiency()
 	add_avail(sgen)
 	if(control)
 		control.gen += sgen
@@ -469,6 +469,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 	history["supply"] = list()
 	history["capacity"] = list()
 
+/obj/machinery/power/solar_control/examine(mob/user)
+	. = ..()
+	var/efficiency = SSorbital_altitude.get_solar_efficiency()
+	if(efficiency <= 0)
+		. += span_boldwarning("The orbital efficiency readout shows 0%. Atmospheric interference is blocking all solar input.")
+	else if(efficiency < 1)
+		. += span_warning("Atmospheric interference is reducing solar output to [round(efficiency * 100)]%.")
+	else if(efficiency > 1)
+		. += span_notice("Reduced atmospheric filtering is boosting solar output to [round(efficiency * 100)]%.")
+
 /obj/machinery/power/solar_control/Destroy()
 	QUEUE_SMOOTH_NEIGHBORS(src)
 
@@ -545,6 +555,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 	data["tracking_state"] = track
 	data["connected_panels"] = connected_panels.len
 	data["connected_tracker"] = (connected_tracker ? TRUE : FALSE)
+	data["orbital_efficiency"] = SSorbital_altitude.get_solar_efficiency()
 	data["history"] = history
 	return data
 

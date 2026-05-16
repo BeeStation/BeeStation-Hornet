@@ -68,6 +68,8 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	var/purchaseable = FALSE
 	///How does a single mole of this gas sell for? Formula to calculate maximum value is in code\modules\cargo\exports\large_objects.dm.
 	var/base_value = 0
+	///If TRUE, demand is always treated as maximum when calculating export value. So, plasma, for example, is always in demand, and its price doesn't fluctuate based on how much of it is currently in stock.
+	var/fixed_demand = FALSE
 	//Description
 	var/desc
 	///RGB code for use when a generic color representing the gas is needed. Colors taken from contants.ts
@@ -118,7 +120,8 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	gasrig_shielding_modifier = 0.4
 	dangerous = TRUE
 	rarity = 800
-	base_value = 1.5
+	base_value = 3
+	fixed_demand = TRUE
 	desc = "A flammable gas with many other curious properties. Its research is one of NT's primary objective."
 	primary_color = "#ffc0cb"
 
@@ -220,6 +223,20 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	base_value = 2.5
 	desc = "A gas that could supply even more oxygen to the bloodstream when inhaled, without being an oxidizer."
 	primary_color = "#7b68ee"
+
+/datum/gas/hydrogen_fuel
+	id = GAS_HYDROGEN_FUEL
+	specific_heat = 150
+	name = "LX-212 Formulated Hydrogen Fuel"
+	gas_overlay = "freon"
+	moles_visible = MOLES_GAS_VISIBLE
+	gasrig_shielding_power = 1
+	gasrig_shielding_modifier = 0.5
+	dangerous = TRUE
+	rarity = 100
+	base_value = 3
+	desc = "A specialized hydrogen-based fuel formulation designed for orbital maneuvering systems. Highly flammable and self-oxidizing. Keep away from open flames, this stuff will burn even in a vacuum."
+	primary_color = COLOR_CYAN
 
 /obj/effect/overlay/gas
 	icon = 'icons/effects/atmospherics.dmi'

@@ -49,9 +49,14 @@ SUBSYSTEM_DEF(demand)
 		return 0
 	// Grab demand state for this gas type
 	var/datum/demand_state/state = SSdemand.get_demand_state(current_gas)
-	var/demand = state.current_demand / state.max_demand
 	var/base_value = current_gas.base_value
-	var/demand_ratio = max(demand, state.min_price_factor)
+	// If fixed_demand is set, always sell at full price regardless of stock
+	var/demand_ratio
+	if(current_gas.fixed_demand)
+		demand_ratio = 1
+	else
+		var/demand = state.current_demand / state.max_demand
+		demand_ratio = max(demand, state.min_price_factor)
 
 	var/total_value = round(base_value * moles * demand_ratio) // 0.2 * 20 * 0.2
 
