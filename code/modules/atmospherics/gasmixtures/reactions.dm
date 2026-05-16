@@ -702,4 +702,49 @@
 			air.temperature = clamp(thermal_energy/new_heat_capacity, TCMB, INFINITY) //THIS SHOULD STAY OR FUSION WILL EAT YOUR FACE
 		return REACTING
 
+
+/**
+ * Toxic Gas Neutralization:
+ *
+ * Neutralize Toxic gas into CO2 and N2 with the application of N2O
+ * The reaction rate is dependent on the temperature of the gasmix.
+ * May produce either tritium or carbon dioxide and water vapor depending on the fuel/oxydizer ratio of the gasmix.
+ */
+/datum/gas_reaction/toxic_neutralization
+	priority_group = PRIORITY_FORMATION
+	name = "Toxic Neutralization"
+	id = "toxic_neutralization"
+	desc = "Neutralizes toxic gas into Nitrogen and CO2."
+
+/datum/gas_reaction/toxic_neutralization/init_reqs()
+	requirements = list(
+		/datum/gas/toxic = MINIMUM_MOLE_COUNT,
+		/datum/gas/nitrous_oxide = MINIMUM_MOLE_COUNT,
+	)
+
+/datum/gas_reaction/toxic_neutralization/react(datum/gas_mixture/air, datum/holder)
+	var/list/cached_gases = air.gases
+	var/produced_amount = min(TOXIC_NEUTRALIZATION_MAX_RATE, cached_gases[/datum/gas/toxic][MOLES], cached_gases[/datum/gas/nitrous_oxide][MOLES])
+	if (produced_amount <= 0 || cached_gases[/datum/gas/toxic][MOLES] - produced_amount < 0 || cached_gases[/datum/gas/nitrous_oxide][MOLES] - produced_amount < 0 )
+		return NO_REACTION
+
+	var/old_heat_capacity = air.heat_capacity()
+	cached_gases[/datum/gas/toxic][MOLES] -= produced_amount
+	cached_gases[/datum/gas/nitrous_oxide][MOLES] -= produced_amount
+	ASSERT_GAS(/datum/gas/carbon_dioxide, air)
+	ASSERT_GAS(/datum/gas/nitrogen, air)
+	cached_gases[/datum/gas/carbon_dioxide][MOLES] += produced_amount
+	cached_gases[/datum/gas/nitrogen][MOLES] += produced_amount
+	//ASSERT_GAS(/datum/gas/hydrogen, air)
+	//cached_gases[/datum/gas/hydrogen][MOLES] += produced_amount * 0.01
+
+	SET_REACTION_RESULTS(produced_amount)
+	var/energy_released = produced_amount * TOXIC_NEUTRALIZATION_ENERGY
+	var/new_heat_capacity = air.heat_capacity()
+	if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+		air.temperature = max((air.temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB)
+	return REACTING
+
+
+
 #undef SET_REACTION_RESULTS

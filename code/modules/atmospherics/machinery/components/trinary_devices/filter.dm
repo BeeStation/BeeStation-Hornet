@@ -128,7 +128,8 @@
 	data["filter_types"] = list()
 	for(var/path in GLOB.meta_gas_info)
 		var/list/gas = GLOB.meta_gas_info[path]
-		data["filter_types"] += list(list("gas_id" = gas[META_GAS_ID], "enabled" = (path in filter_type)))
+		if(gas[META_GAS_FILTERABLE])
+			data["filter_types"] += list(list("gas_id" = gas[META_GAS_ID], "enabled" = (path in filter_type)))
 
 	return data
 
@@ -159,11 +160,15 @@
 			if(!gas_id2path(params["val"]))
 				return TRUE
 			filter_type ^= gas_id2path(params["val"])
+			var/list/meta_information = GLOB.meta_gas_info[gas_id2path(params["val"])]
 			var/change
 			if(gas_id2path(params["val"]) in filter_type)
 				change = "added"
+				filter_type += meta_information[META_GAS_MASQUERADED_BY]
 			else
 				change = "removed"
+				filter_type -= meta_information[META_GAS_MASQUERADED_BY]
+
 			var/gas_name = GLOB.meta_gas_info[gas_id2path(params["val"])][META_GAS_NAME]
 			investigate_log("[key_name(usr)] [change] [gas_name] from the filter type.", INVESTIGATE_ATMOS)
 			. = TRUE

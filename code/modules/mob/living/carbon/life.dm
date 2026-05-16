@@ -159,15 +159,18 @@
 
 	var/safe_oxy_min = 16
 	var/safe_co2_max = 10
-	var/safe_tox_max = 0.05
+	var/safe_plasma_max = 0.05
+	var/safe_toxic_max = 0.5
+	var/toxic_gas_damage_lungs = 4
 	var/SA_para_min = 1
 	var/SA_sleep_min = 5
 	var/oxygen_used = 0
 	var/moles = breath.total_moles()
 	var/breath_pressure = (moles*R_IDEAL_GAS_EQUATION*breath.return_temperature())/BREATH_VOLUME
 	var/O2_partialpressure = ((GET_MOLES(/datum/gas/oxygen, breath)/moles)*breath_pressure) + (((GET_MOLES(/datum/gas/pluoxium, breath)*8)/moles)*breath_pressure)
-	var/Toxins_partialpressure = (GET_MOLES(/datum/gas/plasma, breath)/moles)*breath_pressure
+	var/plasma_partialpressure = (GET_MOLES(/datum/gas/plasma, breath)/moles)*breath_pressure
 	var/CO2_partialpressure = (GET_MOLES(/datum/gas/carbon_dioxide, breath)/moles)*breath_pressure
+	var/toxic_partialpressure = (GET_MOLES(/datum/gas/toxic, breath)/moles)*breath_pressure
 
 
 	//OXYGEN
@@ -209,13 +212,13 @@
 	else
 		co2overloadtime = 0
 
-	//TOXINS/PLASMA
-	if(Toxins_partialpressure > safe_tox_max)
-		var/ratio = (GET_MOLES(/datum/gas/plasma, breath)/safe_tox_max) * 10
+	//PLASMA
+	if(plasma_partialpressure > safe_plasma_max)
+		var/ratio = (GET_MOLES(/datum/gas/plasma, breath)/safe_plasma_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
-		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_plas)
+		throw_alert("too_much_plasma", /atom/movable/screen/alert/too_much_plas)
 	else
-		clear_alert("too_much_tox")
+		clear_alert("too_much_plasma")
 
 	//NITROUS OXIDE
 	if(GET_MOLES(/datum/gas/nitrous_oxide, breath))
@@ -246,6 +249,17 @@
 			adjustFireLoss(nitrium_partialpressure * 0.15)
 		if(nitrium_partialpressure > 5)
 			adjustToxLoss(nitrium_partialpressure * 0.05)
+
+	//TOXIC
+	if(toxic_partialpressure > safe_toxic_max)
+		adjustToxLoss(30+rand(-10,10)) //Flat heavy damage. This gas is intended to kill quickly and force internals. Should bring to crit in about 4 breaths (8 seconds?)
+		if(toxic_partialpressure > toxic_gas_damage_lungs) //Do we start to get messages in chat?
+			if(prob(40))
+				to_chat(src, span_userdanger("[pick("Your head hurts!", "You feel a pressure on your chest!", "Your throat burns!")]"))
+				adjustOrganLoss(ORGAN_SLOT_LUNGS, 40)
+		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_toxic)
+	else
+		clear_alert("too_much_tox")
 
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)

@@ -354,7 +354,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 			var/list/filter_types = list()
 			for (var/path in GLOB.meta_gas_info)
 				var/list/gas = GLOB.meta_gas_info[path]
-				filter_types += list(list("gas_id" = gas[META_GAS_ID], "gas_name" = gas[META_GAS_NAME], "enabled" = (path in scrubber.filter_types)))
+				if(gas[META_GAS_FILTERABLE])
+					filter_types += list(list("gas_id" = gas[META_GAS_ID], "gas_name" = gas[META_GAS_NAME], "enabled" = (path in scrubber.filter_types)))
 			data["scrubbers"] += list(list(
 				"refID" = REF(scrubber),
 				"long_name" = sanitize(scrubber.name),

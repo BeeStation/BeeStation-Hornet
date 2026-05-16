@@ -111,10 +111,13 @@
 		var/translated_gas = istext(gas_to_filter) ? gas_id2path(gas_to_filter) : gas_to_filter
 
 		if(ispath(translated_gas, /datum/gas))
+			var/list/meta_information = GLOB.meta_gas_info[translated_gas]
 			if(translated_gas in filter_types)
 				filter_types -= translated_gas
+				filter_types -= meta_information[META_GAS_MASQUERADED_BY]
 			else
 				filter_types |= translated_gas
+				filter_types |= meta_information[META_GAS_MASQUERADED_BY]
 
 	atmos_conditions_changed()
 	return TRUE

@@ -34,6 +34,13 @@
 #define META_GAS_RIG_SHIELDING_POWER 13
 ///Gas advanced gas rig shielding modifier
 #define META_GAS_RIG_SHIELDING_MODIFIER 14
+///This gas can be directly filtered by scrubbers and filters
+#define META_GAS_FILTERABLE 15
+///The gasses that masquerade as this gas
+#define META_GAS_MASQUERADED_BY 16
+
+//The length of the list of gas meta properties. If more gas properties are added, make sure to increase this constant.
+#define META_GAS_LIST_LENGTH (META_GAS_MASQUERADED_BY + 1)
 
 //ATMOS
 //stuff you should probably leave well alone!

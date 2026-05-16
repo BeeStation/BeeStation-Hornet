@@ -16,5 +16,6 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 		GAS_TRITIUM = /obj/machinery/portable_atmospherics/canister/tritium,
 		GAS_HYPER_NOBLIUM = /obj/machinery/portable_atmospherics/canister/nob,
 		GAS_PLUOXIUM = /obj/machinery/portable_atmospherics/canister/pluoxium,
+		GAS_TOXIC =  /obj/machinery/portable_atmospherics/canister/toxic,
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 	))

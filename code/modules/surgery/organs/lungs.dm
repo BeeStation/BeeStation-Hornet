@@ -57,6 +57,8 @@
 	var/BZ_trip_balls_min = 0.1 //BZ gas
 	var/BZ_brain_damage_min = 1
 	var/gas_stimulation_min = 0.002 //nitrium and Freon
+	var/toxic_gas_damage_min 	  = 0.5 //Toxic Gas Damage Threshold
+	var/toxic_gas_damage_lungs 	  = 4 //Toxic Gas Lung Damage
 
 	var/cold_message = "your face freezing and an icicle forming"
 	var/cold_level_1_threshold = 260
@@ -299,6 +301,20 @@
 			H.reagents.add_reagent(/datum/reagent/nitrium, 2) //Triggers overdose message primarily, so players aren't stuck in extreme slowdown for too long.
 
 		REMOVE_MOLES(/datum/gas/nitrium, breath, gas_breathed)
+
+	//TOXIC
+		var/toxic_partialpressure = PP(breath, /datum/gas/toxic)
+		if(toxic_partialpressure > toxic_gas_damage_min)
+			//var/ratio = (GET_MOLES(/datum/gas/toxic, breath)/toxic_gas_damage_min) * 20
+			H.adjustToxLoss(30+rand(-10,10)) //Flat heavy damage. This gas is intended to kill quickly and force internals. Should bring to crit in about 4 breaths (8 seconds?)
+			if(toxic_partialpressure > toxic_gas_damage_lungs) //Do we start to get messages in chat?
+				if(prob(40))
+					to_chat(H, span_userdanger("[pick("Your head hurts!", "You feel a pressure on your chest!", "Your throat burns!")]"))
+					H.adjustOrganLoss(ORGAN_SLOT_LUNGS, 40)
+			H.throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_toxic)
+		else
+			H.clear_alert("too_much_tox")
+
 
 		handle_breath_temperature(breath, H)
 
