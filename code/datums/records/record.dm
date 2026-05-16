@@ -5,25 +5,27 @@
  * Record datum. Used for crew records and admin locked records.
  */
 /datum/record
-	/// Age of the character
+	/// Age of the character (Alternatively : age)
 	var/age
-	/// Their blood type
+	/// Their blood type (Alternatively : blood_type)
 	var/blood_type
 	/// Character appearance
 	var/mutable_appearance/character_appearance
-	/// DNA string
-	var/dna_string
-	/// Fingerprint string (md5)
+	/// As known as "DNA string" (Alternatively : unique_enzymes)
+	var/unique_enzymes
+	/// The characeter's DNA id (Alternatively : unique_identity)
+	var/unique_identity
+	/// Fingerprint string (md5) based on unique identity (Alternatively : fingerprint)
 	var/fingerprint
-	/// The character's gender
+	/// The character's gender (Alternatively : gender)
 	var/gender
-	/// The character's initial rank at roundstart
+	/// The character's initial rank at roundstart (Alternatively : initial_rank)
 	var/initial_rank
-	/// The character's name
+	/// The character's name (Alternatively : name)
 	var/name = "Unknown"
 	/// The character's rank
 	var/rank
-	/// The character's species
+	/// The character's species (Alternatively : species)
 	var/species
 	/// The character's HUD icon
 	var/hud
@@ -31,48 +33,47 @@
 	var/active_department
 
 /datum/record/New(
-	age = 18,
-	blood_type = "?",
-	character_appearance,
-	dna_string = "Unknown",
-	fingerprint = "?????",
-	gender = "Other",
-	initial_rank = "Unassigned",
-	name = "Unknown",
-	rank = "Unassigned",
-	active_department = NONE,
-	species = "Human",
-	hud = "None"
-)
+	RECORD_GENERAL_STRICT_ARGS(
+		age = 18,
+		blood_type = "?",
+		character_appearance = null,
+		unique_enzymes = "Unknown",
+		unique_identity = "Unknown",
+		fingerprint = "?????",
+		gender = "Other",
+		initial_rank = "Unassigned",
+		name = "Unknown",
+		rank = "Unassigned",
+		species = "Human",
+		hud = "None",
+		active_department = NONE ))
+
 	src.age = age
 	src.blood_type = blood_type
 	src.character_appearance = character_appearance
-	src.dna_string = dna_string
+	src.unique_enzymes = unique_enzymes
+	src.unique_identity = unique_identity
 	src.fingerprint = fingerprint
 	src.gender = gender
-	src.initial_rank = rank
+	src.initial_rank = initial_rank
 	src.name = name
 	src.rank = rank
+	src.species = species
 	src.hud = hud
 	src.active_department = active_department
-	src.species = species
 
 /**
  * Crew record datum
  */
 /datum/record/crew
-	/// List of citations
-	var/list/citations = list()
-	/// List of crimes
-	var/list/crimes = list()
 	/// Unique ID generated that is used to fetch lock record
 	var/lock_ref
+	/// List of medical notes
+	var/list/medical_notes = list()
 	/// Names of major disabilities
 	var/major_disabilities
 	/// Fancy description of major disabilities
 	var/major_disabilities_desc
-	/// List of medical notes
-	var/list/medical_notes = list()
 	/// Names of minor disabilities
 	var/minor_disabilities
 	/// Fancy description of minor disabilities
@@ -88,37 +89,58 @@
 	/// Current arrest status
 	var/wanted_status = WANTED_NONE
 
+	/// List of citations
+	var/list/citations = list()
+	/// List of crimes
+	var/list/crimes = list()
+
 	///Photo used for records, which we store here so we don't have to constantly make more of.
 	var/list/obj/item/photo/record_photos
 
 /datum/record/crew/New(
-	age = 18,
-	blood_type = "?",
-	character_appearance,
-	dna_string = "Unknown",
-	fingerprint = "?????",
-	gender = "Other",
-	initial_rank = "Unassigned",
-	name = "Unknown",
-	rank = "Unassigned",
-	active_department = NONE,
-	species = "Human",
-	hud = "None",
+	RECORD_GENERAL_STRICT_ARGS(
+		age = 18,
+		blood_type = "?",
+		character_appearance = null,
+		unique_enzymes = "Unknown",
+		unique_identity = "Unknown",
+		fingerprint = "?????",
+		gender = "Other",
+		initial_rank = "Unassigned",
+		name = "Unknown",
+		rank = "Unassigned",
+		species = "Human",
+		hud = "None",
+		active_department = NONE),
 	/// Crew specific
-	lock_ref,
-	medical_notes,
-	major_disabilities = "None",
-	major_disabilities_desc = "No disabilities have been diagnosed at the moment.",
-	minor_disabilities = "None",
-	minor_disabilities_desc = "No disabilities have been diagnosed at the moment.",
-	physical_status = PHYSICAL_ACTIVE,
-	mental_status = MENTAL_STABLE,
-	quirk_notes = "None",
-	security_note,
-	wanted_status = WANTED_NONE,
-)
-	. = ..()
+	RECORD_CREW_STRICT_ARGS(
+		lock_ref,
+		list/medical_notes = list(),
+		major_disabilities = "None",
+		major_disabilities_desc = "No disabilities have been diagnosed at the moment.",
+		minor_disabilities = "None",
+		minor_disabilities_desc = "No disabilities have been diagnosed at the moment.",
+		physical_status = PHYSICAL_ACTIVE,
+		mental_status = MENTAL_STABLE,
+		quirk_notes = "None",
+		security_note,
+		wanted_status = WANTED_NONE))
+	src.age = age
+	src.blood_type = blood_type
+	src.character_appearance = character_appearance
+	src.unique_enzymes = unique_enzymes
+	src.unique_identity = unique_identity
+	src.fingerprint = fingerprint
+	src.gender = gender
+	src.initial_rank = initial_rank
+	src.name = name
+	src.rank = rank
+	src.species = species
+	src.hud = hud
+	src.active_department = active_department
 	src.lock_ref = lock_ref
+	if(medical_notes && islist(medical_notes))
+		src.medical_notes = medical_notes.Copy()
 	src.major_disabilities = major_disabilities
 	src.major_disabilities_desc = major_disabilities_desc
 	src.minor_disabilities = minor_disabilities
@@ -126,6 +148,8 @@
 	src.physical_status = physical_status
 	src.mental_status = mental_status
 	src.quirk_notes = quirk_notes
+	src.security_note = security_note
+	src.wanted_status = wanted_status
 
 	GLOB.manifest.general += src
 
@@ -144,7 +168,7 @@
 		age = src.age,
 		blood_type = src.blood_type,
 		record_ref = FAST_REF(src),
-		dna = src.dna_string,
+		dna = src.unique_enzymes,
 		gender = src.gender,
 		major_disabilities = src.major_disabilities_desc,
 		minor_disabilities = src.minor_disabilities_desc,
@@ -198,7 +222,7 @@
 
 	age = 18
 	blood_type = pick(list("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"))
-	dna_string = "Unknown"
+	unique_enzymes = "Unknown"
 	gender = "Unknown"
 	medical_notes.Cut()
 	major_disabilities = "None"
@@ -401,27 +425,46 @@
 	var/datum/weakref/weakref_dna
 	/// Mind datum weakref
 	var/datum/weakref/weakref_mind
+	/// Mob's hardcopy DNA datum (Just in case)
+	var/datum/dna/datum_dna
 
 /datum/record/locked/New(
-	age = 18,
-	blood_type = "?",
-	character_appearance,
-	dna_string = "Unknown",
-	fingerprint = "?????",
-	gender = "Other",
-	initial_rank = "Unassigned",
-	name = "Unknown",
-	rank = "Unassigned",
-	active_department = NONE,
-	species = "Human",
-	hud = "None",
+	RECORD_GENERAL_STRICT_ARGS(
+		age = 18,
+		blood_type = "?",
+		character_appearance = null,
+		unique_enzymes = "Unknown",
+		unique_identity = "Unknown",
+		fingerprint = "?????",
+		gender = "Other",
+		initial_rank = "Unassigned",
+		name = "Unknown",
+		rank = "Unassigned",
+		species = "Human",
+		hud = "None",
+		active_department = NONE),
 	/// Locked specific
-	weakref_dna,
-	weakref_mind,
+	RECORD_LOCK_STRICT_ARGS(
+		weakref_dna,
+		weakref_mind,
+		datum_dna)
 )
-	. = ..()
+	src.age = age
+	src.blood_type = blood_type
+	src.character_appearance = character_appearance
+	src.unique_enzymes = unique_enzymes
+	src.unique_identity = unique_identity
+	src.fingerprint = fingerprint
+	src.gender = gender
+	src.initial_rank = initial_rank
+	src.name = name
+	src.rank = rank
+	src.species = species
+	src.hud = hud
+	src.active_department = active_department
 	src.weakref_dna = weakref_dna
 	src.weakref_mind = weakref_mind
+	src.datum_dna = datum_dna
 
 	GLOB.manifest.locked += src
 
@@ -582,7 +625,7 @@
 	med_record_text += "<BR>Age: [age]<BR>"
 	med_record_text += "<BR>\n<CENTER><B>Medical Data</B></CENTER></BR>"
 	med_record_text += "<BR>Blood Type: [blood_type]</BR>"
-	med_record_text += "<BR>DNA: [dna_string]</BR>"
+	med_record_text += "<BR>DNA: [unique_enzymes]</BR>"
 	med_record_text += "<BR>Physical Status: [physical_status]</BR>"
 	med_record_text += "<BR>Mental Status: [mental_status]</BR>"
 	med_record_text += "<BR>Minor Disabilities: [minor_disabilities]</BR>"
@@ -602,101 +645,114 @@
  * Cloning record
  */
 /datum/record/cloning
-
-	var/id
-	var/datum/weakref/weakref_dna
-	var/uni_identity
-	var/SE
+	var/datum/dna/datum_dna
 	var/datum/weakref/weakref_mind
 	var/last_death
-	var/factions
-	var/traumas
+	var/list/factions
+	var/list/traumas
 	var/body_only
 	var/implant
-	var/UE
 	var/bank_account
 
+	/// id of this record. Used in clone record data management.
+	var/id
 
 /datum/record/cloning/New(
-	id,
-	age = "??",
-	blood_type = "?",
-	dna_string = "Unknown",
-	fingerprint = "?????",
-	gender = "Other",
-	initial_rank = "Unassigned",
-	name = "Unknown",
-	species = "Unknown",
-	weakref_dna,
-	uni_identity,
-	SE,
-	weakref_mind,
-	last_death,
-	factions,
-	traumas,
-	body_only,
-	implant,
-	UE,
-	bank_account
-	)
-	src.id = id
+	RECORD_CLONE_STRICT_ARGS(
+		age = 18,
+		blood_type = "?",
+		unique_enzymes = "Unknown",
+		unique_identity = "Unknown",
+		fingerprint = "?????",
+		gender = "Other",
+		initial_rank = "Unassigned",
+		name = "Unknown",
+		species = "Unknown",
+		datum/dna/datum_dna,
+		weakref_mind,
+		last_death,
+		list/factions = list(),
+		list/traumas = list(),
+		body_only,
+		implant,
+		bank_account))
 	src.age = age
 	src.blood_type = blood_type
-	src.dna_string = dna_string
+	src.unique_enzymes = unique_enzymes
+	src.unique_identity = unique_identity
 	src.fingerprint = fingerprint
 	src.gender = gender
 	src.initial_rank = initial_rank
 	src.name = name
 	src.species = species
-	src.weakref_dna = weakref_dna
-	src.uni_identity = uni_identity
-	src.SE = SE
+	src.datum_dna = new()
+	if(datum_dna)
+		datum_dna.copy_dna(src.datum_dna)
 	src.weakref_mind = weakref_mind
 	src.last_death = last_death
-	src.factions = factions
-	src.traumas = traumas
+	src.factions = factions.Copy()
+	src.traumas = traumas.Copy()
 	src.body_only = body_only
 	src.implant = implant
-	src.UE = UE
 	src.bank_account = bank_account
+
+/datum/record/cloning/Destroy(force, ...)
+	. = ..()
+	if(datum_dna)
+		QDEL_NULL(datum_dna)
 
 // Copy the record's data to the target.
 /datum/record/cloning/proc/copy_to(datum/record/cloning/target)
-	id = target.id
-	age = target.age
-	blood_type = target.blood_type
-	dna_string = target.dna_string
-	fingerprint = target.fingerprint
-	gender = target.gender
-	initial_rank = target.initial_rank
-	name = target.name
-	species = target.species
-	weakref_dna = target.weakref_dna
-	uni_identity = target.uni_identity
-	SE = target.SE
-	weakref_mind = target.weakref_mind
-	last_death = target.last_death
-	factions = target.factions
-	traumas = target.traumas
-	body_only = target.body_only
-	implant = target.implant
-	UE = target.UE
+	if(!istype(target, /datum/record/cloning))
+		CRASH("Cannot copy to something that isn't /datum/record/cloning. The proc took '[target?.type]'.")
+
+	// from parent
+	target.age = age
+	target.blood_type = blood_type
+	target.unique_enzymes = unique_enzymes
+	target.unique_identity = unique_identity
+	target.fingerprint = fingerprint
+	target.gender = gender
+	target.initial_rank = initial_rank
+	target.name = name
+	target.species = species
+
+	// from cloning
+	target.id = id
+
+	if(target.datum_dna)
+		QDEL_NULL(target.datum_dna)
+	target.datum_dna = new()
+	datum_dna.copy_dna(target.datum_dna)
+
+	target.weakref_mind = weakref_mind
+	target.last_death = last_death
+	target.factions = factions
+	target.traumas = traumas
+	target.body_only = body_only
+	target.implant = implant
+	target.bank_account = bank_account
+
 	return
 
-/datum/record/cloning/proc/resolve_dna()
-	var/datum/dna/dna = weakref_dna.resolve()
-	return dna
+/datum/record/cloning/proc/get_copied_dna()
+	var/datum/dna/copied_dna_instance = new()
+	datum_dna.copy_dna(copied_dna_instance)
+	return copied_dna_instance
 
-/datum/record/cloning/proc/resolve_dna_features()
-	var/datum/dna/dna = weakref_dna.resolve()
-	return dna.features
+/datum/record/cloning/proc/get_copied_dna_features()
+	return datum_dna.features.Copy()
 
 /datum/record/cloning/proc/resolve_mind()
+	if(isnull(weakref_mind))
+		return null
 	var/datum/mind/mind = weakref_mind.resolve()
 	return mind
 
 /datum/record/cloning/proc/resolve_mind_account_id()
+	if(isnull(weakref_mind))
+		return null
 	var/datum/mind/mind = weakref_mind.resolve()
-	return mind.account_id
+	return mind?.account_id
 
 #undef MAX_CRIME_NAME_LEN

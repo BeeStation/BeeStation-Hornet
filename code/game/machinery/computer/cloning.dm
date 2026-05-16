@@ -64,7 +64,19 @@
 				. = pod
 
 /proc/grow_clone_from_record(obj/machinery/clonepod/pod, datum/record/cloning/cloning_record, experimental)
-	return pod.growclone(cloning_record.name, cloning_record.uni_identity, cloning_record.SE, cloning_record.resolve_mind(), cloning_record.last_death, cloning_record.species, cloning_record.resolve_dna_features(), cloning_record.factions, cloning_record.resolve_mind_account_id(), cloning_record.traumas, cloning_record.body_only, experimental)
+	return pod.growclone(CLONING_STRICT_ARGS(
+		/* 01 */ clonename = cloning_record.name,
+		/* 02 */ unique_identity = cloning_record.unique_identity,
+		/* 03 */ mutation_index = cloning_record.datum_dna.mutation_index.Copy(),
+		/* 04 */ given_mind = cloning_record?.resolve_mind(),
+		/* 05 */ last_death = cloning_record.last_death,
+		/* 06 */ mrace = cloning_record.species,
+		/* 07 */ features = cloning_record.get_copied_dna_features(),
+		/* 08 */ factions = cloning_record.factions.Copy(),
+		/* 09 */ insurance = cloning_record.resolve_mind_account_id(),
+		/* 10 */ traumas = cloning_record.traumas.Copy(),
+		/* 11 */ body_only = cloning_record.body_only,
+		/* 12 */ experimental= experimental ))
 
 /obj/machinery/computer/cloning/process()
 	if(!(scanner && LAZYLEN(pods) && autoprocess))
@@ -196,25 +208,26 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 		. = TRUE
 
-/obj/machinery/computer/cloning/proc/Save(mob/user, target)
-	var/datum/record/cloning/cloning_record_copy = null
-	for(var/datum/record/cloning/record in records)
-		if(record.id == target)
-			cloning_record_copy = record
-			break
-		else
-			continue
-	if(!cloning_record_copy)
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-		scantemp = "Failed saving to disk: Data Corruption"
-		return FALSE
+/obj/machinery/computer/cloning/proc/save_to_disk(mob/user, target)
 	if(!diskette || diskette.read_only)
 		scantemp = !diskette ? "Failed saving to disk: No disk." : "Failed saving to disk: Disk refuses override attempt."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
 
-	diskette.data = new()
-	diskette.data.copy_to(cloning_record_copy)
+	var/datum/record/cloning/found_record
+	for(var/datum/record/cloning/each_record in records)
+		if(each_record.id == target)
+			found_record = each_record
+			break
+
+	if(!found_record)
+		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		scantemp = "Failed saving to disk: Data Corruption"
+		return FALSE
+
+	QDEL_NULL(diskette.data)
+	diskette.data = new /datum/record/cloning(RECORD_STRICT_ARGS_NONE)
+	found_record.copy_to(diskette.data)
 
 	diskette.name = "data disk - '[src.diskette.data.name]'"
 	scantemp = "Saved to disk successfully."
@@ -222,42 +235,45 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	return TRUE
 
 /obj/machinery/computer/cloning/proc/DeleteRecord(mob/user, target)
-	var/datum/record/cloning/cloning_record_copy = null
-	for(var/datum/record/cloning/record in records)
-		if(record.id == target)
-			cloning_record_copy = record
+	var/obj/item/card/id/idcard_for_auth = usr.get_idcard(hand_first = TRUE)
+	if(!istype(idcard_for_auth) || !check_access(idcard_for_auth))
+		scantemp = "Cannot delete: Access Denied."
+		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		return
+
+	var/datum/record/cloning/found_record
+	for(var/datum/record/cloning/each_record in records)
+		if(each_record.id == target)
+			found_record = each_record
 			break
-		else
-			continue
-	if(!cloning_record_copy)
+	if(!found_record)
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		scantemp = "Cannot delete: Data Corrupted."
 		return FALSE
-	var/obj/item/card/id/C = usr.get_idcard(hand_first = TRUE)
-	if(istype(C) || istype(C, /obj/item/modular_computer/tablet))
-		if(check_access(C))
-			scantemp = "[cloning_record_copy.name] => Record deleted."
-			records.Remove(cloning_record_copy)
-			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
-			var/obj/item/circuitboard/computer/cloning/board = circuit
-			board.records = records
-			return TRUE
-	scantemp = "Cannot delete: Access Denied."
-	playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 
-/obj/machinery/computer/cloning/proc/Load(mob/user)
+	scantemp = "[found_record.name] => Record deleted."
+	records.Remove(found_record)
+	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+	var/obj/item/circuitboard/computer/cloning/board = circuit
+	board.records = records // EvilDragon: moving record?? whoever coded this, it seems it's something to change someday??
+	qdel(found_record)
+	return TRUE
+
+/obj/machinery/computer/cloning/proc/load_from_disk(mob/user)
 	if(!diskette || !diskette.data.name || !diskette.data)
 		scantemp = "Failed loading: Load error."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
-	for(var/datum/record/cloning/cloning_record in records)
-		if(cloning_record.id == diskette.data.id)
+
+	for(var/datum/record/cloning/each_record in records)
+		if(each_record.id == diskette.data.id)
 			scantemp = "Failed loading: Data already exists!"
 			return FALSE
-	var/datum/record/cloning/cloning_record = new()
-	cloning_record.copy_to(diskette.data)
 
-	records += cloning_record
+	var/datum/record/cloning/new_record = new /datum/record/cloning(RECORD_STRICT_ARGS_NONE)
+	diskette.data.copy_to(new_record)
+
+	records += new_record
 	scantemp = "Loaded into internal storage successfully."
 	var/obj/item/circuitboard/computer/cloning/board = circuit
 	board.records = records
@@ -265,12 +281,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	return TRUE
 
 /obj/machinery/computer/cloning/proc/Clone(mob/user, target)
-	var/datum/record/cloning/clone_record
-	for(var/datum/record/cloning/record in records)
-		if(record.id == target)
-			clone_record = record
+	var/datum/record/cloning/found_record
+	for(var/datum/record/cloning/each_record in records)
+		if(each_record.id == target)
+			found_record = each_record
 	//Look for that player! They better be dead!
-	if(clone_record)
+	if(found_record)
 		var/obj/machinery/clonepod/pod = GetAvailablePod()
 		//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
 		if(!LAZYLEN(pods))
@@ -286,16 +302,28 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			temp = "Warning: Cloning cycle already in progress."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		else
-			var/cloning_attempt_result = pod.growclone(clone_record.name, clone_record.uni_identity, clone_record.SE, clone_record.resolve_mind(), clone_record.last_death, clone_record.species, clone_record.resolve_dna_features(), clone_record.factions, clone_record.resolve_mind_account_id(), clone_record.traumas, clone_record.body_only, experimental)
+			var/cloning_attempt_result = pod.growclone(CLONING_STRICT_ARGS(
+				/* 01 */ clonename = found_record.name,
+				/* 02 */ unique_identity = found_record.unique_identity,
+				/* 03 */ mutation_index = found_record.datum_dna.mutation_index.Copy(),
+				/* 04 */ given_mind = found_record.resolve_mind(),
+				/* 05 */ last_death = found_record.last_death,
+				/* 06 */ mrace = found_record.species,
+				/* 07 */ features = found_record.get_copied_dna_features(),
+				/* 08 */ factions = found_record.factions.Copy(),
+				/* 09 */ insurance = found_record.resolve_mind_account_id(),
+				/* 10 */ traumas = found_record.traumas.Copy(),
+				/* 11 */ body_only = found_record.body_only,
+				/* 12 */ experimental = experimental ))
 			switch(cloning_attempt_result)
 				if(CLONING_SUCCESS)
-					temp = "Notice: [clone_record.name] => Cloning cycle in progress..."
+					temp = "Notice: [found_record.name] => Cloning cycle in progress..."
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
-					if(!clone_record.body_only)
-						records.Remove(clone_record)
+					if(!found_record.body_only)
+						records.Remove(found_record)
 					return TRUE
 				if(CLONING_SUCCESS_EXPERIMENTAL)
-					temp = "Notice: [clone_record.name] => Experimental cloning cycle in progress..."
+					temp = "Notice: [found_record.name] => Experimental cloning cycle in progress..."
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 					return TRUE
 				if(ERROR_NO_SYNTHFLESH)
@@ -311,28 +339,28 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 					temp = "Error [ERROR_MISSING_EXPERIMENTAL_POD]: Experimental pod is not detected."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_NOT_MIND)
-					temp = "Error [ERROR_NOT_MIND]: [clone_record.name]'s lack of their mind."
+					temp = "Error [ERROR_NOT_MIND]: [found_record.name]'s lack of their mind."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_PRESAVED_CLONE)
-					temp = "Error [ERROR_PRESAVED_CLONE]: [clone_record.name]'s clone record is presaved."
+					temp = "Error [ERROR_PRESAVED_CLONE]: [found_record.name]'s clone record is presaved."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_OUTDATED_CLONE)
-					temp = "Error [ERROR_OUTDATED_CLONE]: [clone_record.name]'s clone record is outdated."
+					temp = "Error [ERROR_OUTDATED_CLONE]: [found_record.name]'s clone record is outdated."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_ALREADY_ALIVE)
-					temp = "Error [ERROR_ALREADY_ALIVE]: [clone_record.name] already alive."
+					temp = "Error [ERROR_ALREADY_ALIVE]: [found_record.name] already alive."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_COMMITED_SUICIDE)
-					temp = "Error [ERROR_COMMITED_SUICIDE]: [clone_record.name] commited a suicide."
+					temp = "Error [ERROR_COMMITED_SUICIDE]: [found_record.name] commited a suicide."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_SOUL_DEPARTED)
-					temp = "Error [ERROR_SOUL_DEPARTED]: [clone_record.name]'s soul had departed."
+					temp = "Error [ERROR_SOUL_DEPARTED]: [found_record.name]'s soul had departed."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_SUICIDED_BODY)
-					temp = "Error [ERROR_SUICIDED_BODY]: Failed to capture [clone_record.name]'s mind from a suicided body."
+					temp = "Error [ERROR_SUICIDED_BODY]: Failed to capture [found_record.name]'s mind from a suicided body."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_UNCLONABLE)
-					temp = "Error [ERROR_UNCLONABLE]: [clone_record.name] is not clonable."
+					temp = "Error [ERROR_UNCLONABLE]: [found_record.name] is not clonable."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				else
 					temp = "Error unknown => Initialisation failure."
@@ -383,20 +411,20 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		if(scanner && HasEfficientPod() && scanner.scan_level >= AUTOCLONING_MINIMAL_LEVEL)
 			data["hasAutoprocess"] = TRUE
 		if(length(records))
-			for(var/datum/record/cloning/cloning_record in records)
+			for(var/datum/record/cloning/each_record in records)
 				var/list/record_entry = list()
-				record_entry["name"] = "[cloning_record.name]"
-				record_entry["id"] = "[cloning_record.id]"
-				var/obj/item/implant/health/H = cloning_record.implant
+				record_entry["name"] = "[each_record.name]"
+				record_entry["id"] = "[each_record.id]"
+				var/obj/item/implant/health/H = each_record.implant
 				if(H && istype(H))
 					record_entry["damages"] = H.sensehealth(TRUE)
 				else
 					record_entry["damages"] = FALSE
-				record_entry["UI"] = "[cloning_record.uni_identity]"
-				record_entry["UE"] = "[cloning_record.dna_string]"
-				record_entry["blood_type"] = "[cloning_record.blood_type]"
-				record_entry["last_death"] = cloning_record.last_death
-				record_entry["body_only"] = cloning_record.body_only
+				record_entry["UI"] = "[each_record.unique_identity]"
+				record_entry["UE"] = "[each_record.unique_enzymes]"
+				record_entry["blood_type"] = "[each_record.blood_type]"
+				record_entry["last_death"] = each_record.last_death
+				record_entry["body_only"] = each_record.body_only
 				records_to_send += list(record_entry)
 			data["records"] = records_to_send
 		else
@@ -405,8 +433,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			var/list/disk_data = list()
 			disk_data["name"] = "[diskette.data.name]"
 			disk_data["id"] = "[diskette.data.id]"
-			disk_data["UI"] = "[diskette.data.uni_identity]"
-			disk_data["UE"] = "[diskette.data.dna_string]"
+			disk_data["UI"] = "[diskette.data.unique_identity]"
+			disk_data["UE"] = "[diskette.data.unique_enzymes]"
 			disk_data["blood_type"] = "[diskette.data.blood_type]"
 			disk_data["last_death"] = diskette.data.last_death
 			disk_data["body_only"] = diskette.data.body_only
@@ -465,10 +493,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			DeleteRecord(usr, params["target"])
 			. = TRUE
 		if("save")
-			Save(usr, params["target"])
+			save_to_disk(usr, params["target"])
 			. = TRUE
 		if("load")
-			Load(usr)
+			load_from_disk(usr)
 			. = TRUE
 		if("eject")
 			. = EjectDisk(usr)
@@ -526,7 +554,19 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		temp = "Cloning cycle already in progress."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 	else
-		pod.growclone(mob_occupant.real_name, dna.unique_identity, dna.mutation_index, null, null, clone_species, dna.blood_type, mob_occupant.faction)
+		pod.growclone(CLONING_STRICT_ARGS(
+			/* 01 */ clonename = mob_occupant.real_name,
+			/* 02 */ unique_identity = dna.unique_identity,
+			/* 03 */ mutation_index = dna.mutation_index.Copy(),
+			/* 04 */ given_mind = null,
+			/* 05 */ last_death = null,
+			/* 06 */ mrace = clone_species,
+			/* 07 */ features = dna.features.Copy(),
+			/* 08 */ factions = mob_occupant.faction.Copy(),
+			/* 09 */ insurance = null,
+			/* 10 */ traumas = null,
+			/* 11 */ body_only = null,
+			/* 12 */ experimental = null ))
 		temp = "[mob_occupant.real_name] => Cloning data sent to pod."
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 		log_cloning("[user ? key_name(user) : "Unknown"] cloned [key_name(mob_occupant)] with [src] at [AREACOORD(src)].")
@@ -584,7 +624,24 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	if(!can_scan(dna, mob_occupant, has_bank_account, body_only))
 		return
 
-	var/datum/record/cloning/cloning_record = new(null, 18, dna.blood_type.name, dna.unique_enzymes, md5(dna.unique_identity), mob_occupant.gender, mob_occupant.mind?.assigned_role, mob_occupant.real_name, null, WEAKREF(dna), dna.unique_identity, dna.mutation_index, WEAKREF(mob_occupant.mind), FALSE, mob_occupant.faction, list(), body_only, null, dna.unique_enzymes, has_bank_account)
+	var/datum/record/cloning/cloning_record = new(RECORD_CLONE_STRICT_ARGS(
+		age = human_mob.age,
+		blood_type = dna.blood_type.name,
+		unique_enzymes = dna.unique_enzymes,
+		unique_identity = dna.unique_identity,
+		fingerprint = md5(dna.unique_identity),
+		gender = mob_occupant.gender,
+		initial_rank = mob_occupant.mind?.assigned_role,
+		name = mob_occupant.real_name,
+		species = null /* Species */,
+		datum_dna = dna,
+		weakref_mind = WEAKREF(mob_occupant.mind),
+		last_death = FALSE,
+		factions = mob_occupant.faction,
+		traumas = list(),
+		body_only = body_only,
+		implant = null,
+		bank_account = has_bank_account))
 
 	if(dna.species)
 		// We store the instance rather than the path, because some
@@ -596,7 +653,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		return //no dna info for species? you're not allowed to clone them. Don't harass xeno, don't try xeno farm.
 		//Note: if you want to clone unusual species, you need to check 'carbon/human' rather than 'dna.species'
 
-	cloning_record.name = mob_occupant.real_name
 	if(experimental) //even if you have the same identity, this will give you different id based on your mind. body_only gets β at their id.
 		cloning_record.id =  copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 10)+"β+" //beta plus
 	else if(body_only)
