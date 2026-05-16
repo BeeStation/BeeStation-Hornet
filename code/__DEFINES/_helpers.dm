@@ -29,7 +29,6 @@
 /// Takes a datum as input, returns its ref string
 #define text_ref(datum) ref(datum)
 
-
 /// #### revise_proc_arg_value(arg_number, new_value)
 /// * __arg_number__ : the order number of proc argument you want to change.
 /// * __new_value__ : The value you want to assign to the target arg (arg_number).
@@ -45,3 +44,6 @@ do{/* GOD, I HATE LINTER*/ \
 		callee_chain = callee_chain.caller;\
 	}while(callee.name == callee_chain.name); /* This means: while(proc_name_foo == proc_name_foo)*/ \
 }while(0); // Linter, my goodness
+
+// I just couldn't find a better room for this
+#define CATEGORY_NO_RUNTIME_LOOP "no_runtime_loop" //! Marks a proc with a category to prevent the loop issue in the runtime tracy.

@@ -94,6 +94,42 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 				SEND_TEXT(world.log, "\[[time_stamp()]] Skipped [skipcount] runtimes in [E.file],[E.line].")
 				GLOB.error_cache.log_error(E, skip_count = skipcount)
 
+	var/static/list/infinite_proc_reminder = list() //! a static list holder that hints when the system should stop checking the runtime
+	if(!silencing)
+		// Failsafe vars to make runtime tracy won't be broken
+		var/force_break = 0 // a var to detect the loop
+		var/proc_loop_detected = 0 // a var to detect the loop with CATEGORY_NO_RUNTIME_LOOP
+		var/list/result_list = list() // direct string management is too slow in Byond. It's better to put strings into a list, then concat later.
+		try
+			var/callee/callee_chain = caller
+			E.desc += " ## Proc call chain: \n"
+			do
+				var/callee_name = "[callee_chain.proc]"
+				if(length(callee_name) && infinite_proc_reminder[callee_name])
+					result_list += "< ERROR: '[callee_name]' was confirmed to be a part of infinite recursion. Please report to the maint team. >\n"
+					result_list += "# Reminder : If you see this error, you need to check the first runtime that [callee_name] was logged."
+					break
+
+				result_list += "[identify_src(callee_chain.src)] | [callee_name]([identify_args(callee_chain.args)])"
+				if(callee_chain.category == CATEGORY_NO_RUNTIME_LOOP && proc_loop_detected++ > 6)
+					result_list += "\n< Notice: \"no loop\" Category detected. Stops the loop. >"
+					break
+				if(force_break++ > 45)
+					result_list += "\n< ERROR: Something is looping. Stops the loop. Please report to the maint team. >"
+					message_admins("")
+					infinite_proc_reminder[callee_name] = TRUE
+					break
+				callee_chain = callee_chain.caller
+				if(!length("[callee_chain]"))
+					result_list += "\n< Notice: Null '/callee' detected. Stops trace callee chain. >"
+					break
+				result_list += " | CalledBy: [callee_chain.file]:[callee_chain.line]\n"
+			while(callee_chain)
+		catch(var/exception/callee_error)
+			result_list += "\n << CRITICAL ERROR: Please report to the maint team. >>"
+			result_list += "# Details: [callee_error.name] at [callee_error.file]:[callee_error.line] / [callee_error.desc]" // just in case when [callee_error.file] is not this 'error_handler.dm'... Maybe.
+		E.desc += jointext(result_list, "")
+
 	error_last_seen[erroruid] = world.time
 	error_cooldown[erroruid] = cooldown
 
