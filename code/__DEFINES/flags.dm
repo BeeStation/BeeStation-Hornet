@@ -51,11 +51,9 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 /// Is this atom on top of another atom, and as such has click priority?
 #define IS_ONTOP_1 (1<<10)
 /// Should we use the initial icon for display? Mostly used by overlay only objects
-#define HTML_USE_INITAL_ICON_1 (1<<11)
-/// Prevents direct access for anything in the contents of this atom.
-#define NO_DIRECT_ACCESS_FROM_CONTENTS_1 (1<<12)
+#define HTML_USE_INITAL_ICON_1 (1<<13)
 /// Prevents aggregation of the item in the stack panel
-#define STAT_UNIQUE_1 (1<<13)
+#define STAT_UNIQUE_1 (1<<14)
 // Whether or not this atom is storing contents for a disassociated storage object
 #define HAS_DISASSOCIATED_STORAGE_1 (1<<14)
 /// Can players recolor this in-game via vendors (and maybe more if support is added)?

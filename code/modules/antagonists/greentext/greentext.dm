@@ -5,7 +5,7 @@
 	banning_key = UNBANNABLE_ANTAGONIST
 	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
-/datum/antagonist/greentext/proc/forge_objectives()
+/datum/antagonist/greentext/forge_objectives()
 	var/datum/objective/O = new /datum/objective("Succeed")
 	O.completed = TRUE //YES!
 	O.owner = owner

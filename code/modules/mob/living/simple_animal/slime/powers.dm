@@ -258,7 +258,7 @@
 	if(transformeffects & SLIME_EFFECT_BLUESPACE)
 		M.add_verb(/mob/living/simple_animal/slime/proc/teleport)
 	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
-		GLOB.poi_list |= M
+		SSpoints_of_interest.on_poi_element_added(M)
 		M.master = master
 		M.set_playable_slime(ROLE_SENTIENCE)
 	M.set_friends(Friends)

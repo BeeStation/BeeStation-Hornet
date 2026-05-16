@@ -581,22 +581,24 @@
 		return ..()
 	return TRUE
 
-/datum/objective/revenantFluff
+/datum/objective/revenant_fluff
 
-/datum/objective/revenantFluff/New()
-	var/list/explanationTexts = list("Assist and exacerbate existing threats at critical moments.", \
-									"Avoid killing in plain sight.", \
-									"Cause as much chaos and anger as you can without being killed.", \
-									"Damage and render as much of the station rusted and unusable as possible.", \
-									"Disable and cause malfunctions in as many machines as possible.", \
-									"Ensure that any holy weapons are rendered unusable.", \
-									"Hinder the crew while attempting to avoid being noticed.", \
-									"Make the crew as miserable as possible.", \
-									"Make the clown as miserable as possible.", \
-									"Make the captain as miserable as possible.", \
-									"Prevent the use of energy weapons where possible.")
-	explanation_text = pick(explanationTexts)
+/datum/objective/revenant_fluff/New()
+	var/list/explanation_texts = list(
+		"Assist and exacerbate existing threats at critical moments.",
+		"Avoid killing in plain sight.",
+		"Cause as much chaos and anger as you can without being killed.",
+		"Damage and render as much of the station rusted and unusable as possible.",
+		"Disable and cause malfunctions in as many machines as possible.",
+		"Ensure that any holy weapons are rendered unusable.",
+		"Hinder the crew while attempting to avoid being noticed.",
+		"Make the crew as miserable as possible.",
+		"Make the clown as miserable as possible.",
+		"Make the captain as miserable as possible.",
+		"Prevent the use of energy weapons where possible."
+	)
+	explanation_text = pick(explanation_texts)
 	..()
 
-/datum/objective/revenantFluff/check_completion()
+/datum/objective/revenant_fluff/check_completion()
 	return TRUE

@@ -72,7 +72,10 @@
 		var/mob/new_character = generate_ruleset_body(chosen_candidate)
 		finish_setup(new_character)
 
-		notify_ghosts("[chosen_candidate] has been picked for the [src] ruleset!", source = new_character, action = NOTIFY_ORBIT, header = "Something Interesting!")
+		notify_ghosts(
+			"[chosen_candidate] has been picked for the [src] ruleset!",
+			source = new_character,
+		)
 
 	return DYNAMIC_EXECUTE_SUCCESS
 
@@ -128,7 +131,10 @@
 		var/mob/new_character = generate_ruleset_body(chosen_candidate)
 		finish_setup(new_character)
 
-		notify_ghosts("[chosen_candidate] has been picked for the [src] ruleset!", source = new_character, action = NOTIFY_ORBIT, header = "Something Interesting!")
+		notify_ghosts(
+			"[chosen_candidate] has been picked for the [src] ruleset!",
+			source = new_character,
+		)
 
 
 /**
@@ -225,8 +231,8 @@
 	return /obj/machinery/nuclearbomb
 
 /datum/dynamic_ruleset/midround/ghost/nuclear_assault/finish_setup(mob/new_character)
-	new_character.mind.special_role = ROLE_OPERATIVE
-	new_character.mind.set_assigned_role(ROLE_OPERATIVE)
+	new_character.mind.special_role = ROLE_NUCLEAR_OPERATIVE
+	new_character.mind.set_assigned_role(ROLE_NUCLEAR_OPERATIVE)
 
 	if(has_made_leader)
 		return ..()

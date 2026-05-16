@@ -266,14 +266,15 @@
 
 /atom/movable/screen/alert/status_effect/strandling/Click(location, control, params)
 	. = ..()
-	if(usr != owner)
+	if(!.)
 		return
+
 	to_chat(owner, span_notice("You attempt to remove the durathread strand from around your neck."))
 	if(do_after(owner, 35, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
 		if(isliving(owner))
-			var/mob/living/L = owner
-			to_chat(owner, span_notice("You successfuly remove the durathread strand."))
-			L.remove_status_effect(/datum/status_effect/strandling)
+			var/mob/living/living_owner = owner
+			to_chat(living_owner , span_notice("You successfuly remove the durathread strand."))
+			living_owner.remove_status_effect(/datum/status_effect/strandling)
 
 /datum/status_effect/syringe
 	id = "syringe"
@@ -1278,6 +1279,9 @@
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/ants/Click()
+	. = ..()
+	if(!.)
+		return
 	var/mob/living/living = owner
 	if(!istype(living) || !living.can_resist() || living != owner)
 		return

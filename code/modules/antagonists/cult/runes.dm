@@ -546,7 +546,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 
 /obj/effect/rune/narsie/Initialize(mapload, set_keyword)
 	. = ..()
-	AddElement(/datum/element/point_of_interest)
+	SSpoints_of_interest.make_point_of_interest(src)
 
 /obj/effect/rune/narsie/conceal() //can't hide this, and you wouldn't want to
 	return
@@ -563,7 +563,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 	if(!(place in summon_objective.summon_spots))
 		to_chat(user, span_cultlarge("The Geometer can only be summoned where the veil is weak - in [english_list(summon_objective.summon_spots)]!"))
 		return
-	if(locate(/obj/eldritch/narsie) in GLOB.poi_list)
+	if(locate(/obj/eldritch/narsie) in SSpoints_of_interest.narsies)
 		for(var/M in invokers)
 			to_chat(M, span_warning("Nar'Sie is already on this plane!"))
 		log_game("Nar'Sie rune failed - already summoned")
@@ -950,7 +950,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 			fail_invoke()
 			log_game("Manifest rune failed - too many summoned ghosts")
 			return list()
-		notify_ghosts("Manifest rune invoked in [get_area(src)].", 'sound/effects/ghost2.ogg', source = src, header = "Manifest rune")
+		notify_ghosts(
+			"Manifest rune invoked in [get_area(src)].",
+			source = src,
+			header = "Manifest rune",
+			ghost_sound = 'sound/effects/ghost2.ogg',
+		)
 		var/list/ghosts_on_rune = list()
 		for(var/mob/dead/observer/O in T)
 			if(O.client && !is_banned_from(O.ckey, ROLE_CULTIST) && !QDELETED(src) && !QDELETED(O))

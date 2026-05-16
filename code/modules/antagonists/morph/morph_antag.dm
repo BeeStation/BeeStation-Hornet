@@ -5,6 +5,7 @@
 	banning_key = ROLE_MORPH
 	antagpanel_category = "Morph"
 	show_name_in_check_antagonists = TRUE
+	antagpanel_category = ANTAG_GROUP_ABOMINATIONS
 	ui_name = "AntagInfoMorph"
 	required_living_playtime = 0
 
@@ -33,7 +34,7 @@
 	if(owner.antag_hud_icon_state == "morph")
 		set_antag_hud(owner.current, null)
 
-/datum/antagonist/morph/proc/forge_objectives()
+/datum/antagonist/morph/forge_objectives()
 	var/datum/objective/eat_everything/consume = new
 	consume.owner = owner
 	objectives += consume

@@ -57,7 +57,7 @@
 	return ..()
 
 /// Generates a complete set of malf AI objectives up to the traitor objective limit.
-/datum/antagonist/malf_ai/proc/forge_objectives()
+/datum/antagonist/malf_ai/forge_objectives()
 	forge_special_objective()
 
 	var/datum/objective/survive/malf/dont_die_objective = new

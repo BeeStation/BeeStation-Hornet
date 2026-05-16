@@ -43,11 +43,14 @@
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
 
 /datum/antagonist/spider
-	name = "Spider"
-	banning_key = ROLE_SPIDER
+	name = "\improper Spider"
+	antagpanel_category = ANTAG_GROUP_ARACHNIDS
+	show_in_roundend = FALSE
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE
+	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
+	banning_key = ROLE_SPIDER
 	ui_name = "AntagInfoSpider"
 	required_living_playtime = 0
 	var/datum/team/spiders/spider_team

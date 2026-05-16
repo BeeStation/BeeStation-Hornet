@@ -1,6 +1,6 @@
 /datum/antagonist/ninja
 	name = "\improper Space Ninja"
-	antagpanel_category = "Ninja"
+	antagpanel_category = ANTAG_GROUP_NINJAS
 	banning_key = ROLE_NINJA
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE

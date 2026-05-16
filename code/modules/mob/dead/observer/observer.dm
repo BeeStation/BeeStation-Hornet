@@ -70,7 +70,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	// Used for displaying in ghost chat, without changing the actual name
 	// of the mob
 	var/deadchat_name
-	var/datum/orbit_menu/orbit_menu
+
+	/// The POI we're orbiting (orbit menu)
+	var/orbiting_ref
 
 /mob/dead/observer/Initialize(mapload)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -152,6 +154,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	show_data_huds()
 	data_huds_on = 1
 
+
+	SSpoints_of_interest.make_point_of_interest(src)
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 	AddElement(/datum/element/movetype_handler)
 	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
@@ -188,7 +192,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 
 	updateallghostimages()
 
-	QDEL_NULL(orbit_menu)
 
 	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
 	if(beacon)
@@ -451,10 +454,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Orbit" // "Haunt"
 	set desc = "Follow and orbit a mob."
 
-	if(!orbit_menu)
-		orbit_menu = new(src)
-
-	orbit_menu.ui_interact(src)
+	GLOB.orbit_menu.show(src)
 
 
 // This is the ghost's follow verb with an argument
@@ -491,32 +491,40 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	. = ..()
 	//restart our floating animation after orbit is done.
 	pixel_y = base_pixel_y
+	// if we were autoobserving, reset perspective
+	set_mob_eye_to(MOB_EYE_SELF)
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = "Ghost"
 	set name = "Jump to Mob"
 	set desc = "Teleport to a mob"
 
-	if(isobserver(usr)) //Make sure they're an observer!
+	if(!isobserver(usr)) //Make sure they're an observer!
+		return
 
+	var/list/possible_destinations = SSpoints_of_interest.get_mob_pois()
+	var/target = null
 
-		var/list/dest = list() //List of possible destinations (mobs)
-		var/target = null	   //Chosen target.
+	target = tgui_input_list(usr, "Please, select a player!", "Jump to Mob", possible_destinations)
+	if(isnull(target))
+		return
+	if (!isobserver(usr))
+		return
 
-		dest += getpois(mobs_only=1) //Fill list, prompt user with list
-		target = tgui_input_list(src, "Please, select a player!", "Jump to Mob", dest)
+	var/mob/destination_mob = possible_destinations[target] //Destination mob
 
-		if (!target)//Make sure we actually have a target
-			return
-		else
-			var/mob/M = dest[target] //Destination mob
-			var/mob/A = src			 //Source mob
-			var/turf/T = get_turf(M) //Turf of the destination mob
+	// During the break between opening the input menu and selecting our target, has this become an invalid option?
+	if(!SSpoints_of_interest.is_valid_poi(destination_mob))
+		return
 
-			if(T && isturf(T))	//Make sure the turf exists, then move the source to that destination.
-				A.abstract_move(T)
-			else
-				to_chat(A, "This mob is not located in the game world.")
+	var/mob/source_mob = src  //Source mob
+	var/turf/destination_turf = get_turf(destination_mob) //Turf of the destination mob
+
+	if(isturf(destination_turf))
+		source_mob.abstract_move(destination_turf)
+		//source_mob.update_parallax_contents()
+	else
+		to_chat(source_mob, "This mob is not located in the game world.")
 
 /mob/dead/observer/verb/change_view_range()
 	set category = "Ghost"
@@ -697,6 +705,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			if(istype(target) && (target != src))
 				check_orbitable(target)
 				return
+
 		if(href_list["x"] && href_list["y"] && href_list["z"])
 			var/tx = text2num(href_list["x"])
 			var/ty = text2num(href_list["y"])
@@ -708,6 +717,34 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(href_list["reenter"])
 			reenter_corpse()
 			return
+
+		if(href_list["view"])
+			var/atom/target = locate(href_list["view"])
+			observer_view(target)
+			return
+
+		if(href_list["play"])
+			var/atom/movable/target = locate(href_list["play"])
+			jump_to_interact(target)
+
+/// We orbit and interact with the target
+/mob/dead/observer/proc/jump_to_interact(atom/target)
+	if(isnull(target) || target == src)
+		return
+
+	check_orbitable(target)
+	target.attack_ghost(usr)
+
+/// We orbit the target or jump if its a turf
+/mob/dead/observer/proc/observer_view(atom/target)
+	if(isnull(target) || target == src)
+		return
+
+	if(isturf(target))
+		abstract_move(target)
+		return
+
+	check_orbitable(target)
 
 //We don't want to update the current var
 //But we will still carry a mind.
@@ -896,9 +933,29 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
 
+/mob/dead/observer/proc/cleanup_observe()
+	var/mob/target = observetarget
+	observetarget = null
+	sight = initial(sight)
+	if(target)
+		LAZYREMOVE(target.observers, src)
+	set_mob_eye_to(MOB_EYE_SELF)
+
 /mob/dead/observer/verb/observe()
 	set name = "Observe"
 	set category = "Ghost"
+
+	if(!isobserver(usr)) //Make sure they're an observer!
+		return
+
+	var/list/possible_destinations = SSpoints_of_interest.get_mob_pois()
+	var/target = null
+
+	target = tgui_input_list(usr, "Please, select a player!", "Jump to Mob", possible_destinations)
+	if(isnull(target))
+		return
+	if (!isobserver(usr))
+		return
 
 	if(observetarget) // stop observing
 		to_chat(src, span_notice("You stopped observing [observetarget]"))
@@ -910,16 +967,29 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			hud_used.show_hud(hud_used.hud_version)
 		return
 
-	var/list/creatures = getpois()
+	var/mob/chosen_target = possible_destinations[target]
 
-	var/eye_name = null
-
-	eye_name = tgui_input_list(src, "Please, select a player!", "Observe", creatures)
-
-	if (!eye_name)
+	// During the break between opening the input menu and selecting our target, has this become an invalid option?
+	if(!SSpoints_of_interest.is_valid_poi(chosen_target))
 		return
 
-	var/mob/mob_eye = creatures[eye_name]
+	if (chosen_target == usr)
+		return
+
+	do_observe(chosen_target)
+
+/mob/dead/observer/proc/do_observe(mob/mob_eye)
+	if(isnewplayer(mob_eye))
+		stack_trace("/mob/dead/new_player: \[[mob_eye]\] is being observed by [key_name(src)]. This should never happen and has been blocked.")
+		message_admins("[ADMIN_LOOKUPFLW(src)] attempted to observe someone in the lobby: [ADMIN_LOOKUPFLW(mob_eye)]. This should not be possible and has been blocked.")
+		return
+
+	if(!isnull(observetarget))
+		stack_trace("do_observe called on an observer ([src]) who was already observing something! (observing: [observetarget], new target: [mob_eye])")
+		message_admins("[ADMIN_LOOKUPFLW(src)] attempted to observe someone while already observing someone, \
+			this is a bug (and a past exploit) and should be investigated.")
+		return
+
 	//Istype so we filter out points of interest that are not mobs
 	if(client && mob_eye && ismob(mob_eye))
 		observetarget = mob_eye
@@ -1009,3 +1079,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/can_examine_in_detail(atom/examinify, silent)
 	return TRUE
+
+/// Called when we exit the orbiting state
+/mob/dead/observer/proc/on_deorbit(datum/source)
+	SIGNAL_HANDLER
+
+	orbiting_ref = null

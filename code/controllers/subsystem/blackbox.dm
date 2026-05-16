@@ -41,10 +41,7 @@ SUBSYSTEM_DEF(blackbox)
 
 	if(!SSdbcore.Connect())
 		return
-	var/playercount = 0
-	for(var/mob/M in GLOB.player_list)
-		if(M.client)
-			playercount += 1
+	var/playercount = LAZYLEN(GLOB.player_list)
 	var/admincount = GLOB.admins.len
 
 

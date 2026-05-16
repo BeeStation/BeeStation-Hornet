@@ -190,6 +190,9 @@
 	/// The job name registered on the card (for example: Assistant).
 	var/assignment
 
+	/// Icons to be displayed in the orbit ui. Source: FontAwesome v6 Free Edition.
+	var/orbit_icon
+
 	/// Access levels held by this card.
 	var/list/access = list()
 	/// Mapping aid for access

@@ -87,24 +87,27 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 	forceMove(T)
 
 /mob/camera/blob/proc/set_strain(datum/blobstrain/new_strain)
-	if (ispath(new_strain))
-		var/hadstrain = FALSE
-		if (istype(blobstrain))
-			blobstrain.on_lose()
-			qdel(blobstrain)
-			hadstrain = TRUE
-		blobstrain = new new_strain(src)
-		blobstrain.on_gain()
-		if (hadstrain)
-			to_chat(src, "Your strain is now: <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font>!")
-			to_chat(src, "The <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font> strain [blobstrain.description]")
-			if(blobstrain.effectdesc)
-				to_chat(src, "The <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font> strain [blobstrain.effectdesc]")
+	if (!ispath(new_strain))
+		return FALSE
 
+	var/had_strain = FALSE
+	if (istype(blobstrain))
+		blobstrain.on_lose()
+		qdel(blobstrain)
+		had_strain = TRUE
 
-/mob/camera/blob/proc/is_valid_turf(turf/T)
-	var/area/A = get_area(T)
-	if((A && !(A.area_flags & BLOBS_ALLOWED)) || !T || !is_station_level(T.z) || isspaceturf(T) || istype(T, /turf/open/openspace))
+	blobstrain = new new_strain(src)
+	blobstrain.on_gain()
+
+	if (had_strain)
+		to_chat(src, span_notice("Your strain is now: <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font>!"))
+		to_chat(src, span_notice("The <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font> strain [blobstrain.description]"))
+		if(blobstrain.effectdesc)
+			to_chat(src, span_notice("The <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font> strain [blobstrain.effectdesc]"))
+
+/mob/camera/blob/proc/is_valid_turf(turf/tile)
+	var/area/area = get_area(tile)
+	if((area && !(area.area_flags & BLOBS_ALLOWED)) || !tile || !is_station_level(tile.z) || isgroundlessturf(tile))
 		return FALSE
 	return TRUE
 
@@ -112,11 +115,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 	if(!blob_core)
 		if(!placed)
 			if(manualplace_min_time && world.time >= manualplace_min_time)
-				to_chat(src, "<b>[span_big("<font color=\"#EE4000\">You may now place your blob core.</font>")]</b>")
-				to_chat(src, span_big("<font color=\"#EE4000\">You will automatically place your blob core in [DisplayTimeText(autoplace_max_time - world.time)].</font>"))
+				to_chat(src, span_boldnotice("You may now place your blob core."))
+				to_chat(src, span_boldannounce("You will automatically place your blob core in [DisplayTimeText(autoplace_max_time - world.time)]."))
 				manualplace_min_time = 0
 			if(autoplace_max_time && world.time >= autoplace_max_time)
-				place_blob_core(1)
+				place_blob_core(BLOB_RANDOM_PLACEMENT)
 		else
 			qdel(src)
 	else if(!victory_in_progress && (blobs_legit.len >= blobwincount))
@@ -127,7 +130,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 		blob_points = INFINITY
 		addtimer(CALLBACK(src, PROC_REF(victory)), 450)
 	else if(!free_strain_rerolls && (last_reroll_time + BLOB_POWER_REROLL_FREE_TIME<world.time))
-		to_chat(src, "<b>[span_big("<font color=\"#EE4000\">You have gained another free strain re-roll.</font>")]</b>")
+		to_chat(src, span_boldnotice("You have gained another free strain re-roll."))
 		free_strain_rerolls = 1
 
 	if(!victory_in_progress && max_count < blobs_legit.len)
@@ -179,7 +182,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 		var/datum/objective/blob_takeover/main_objective = locate() in B.objectives
 		if(main_objective)
 			main_objective.completed = TRUE
-	to_chat(world, "<B>[real_name] consumed the station in an unstoppable tide!</B>")
+	to_chat(world, span_blob("[real_name] consumed the station in an unstoppable tide!"))
 	SSticker.news_report = BLOB_WIN
 	SSticker.force_ending = FORCE_END_ROUND
 
@@ -215,8 +218,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 	. = ..()
 	if(!. || !client)
 		return FALSE
-	to_chat(src, span_notice("You are the overmind!"))
-	blob_help()
+	to_chat(src, span_blob("You are the overmind!"))
+	if(!placed && autoplace_max_time <= world.time)
+		to_chat(src, span_boldannounce("You will automatically place your blob core in [DisplayTimeText(autoplace_max_time - world.time)]."))
+		to_chat(src, span_boldannounce("You [manualplace_min_time ? "will be able to":"can"] manually place your blob core by pressing the Place Blob Core button in the bottom right corner of the screen."))
 	update_health_hud()
 	add_points(0)
 
@@ -227,16 +232,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 	. += "It currently consists of [blobs_legit.len] nodes, out of the [blobwincount] nodes needed to achieve critical mass."
 
 /mob/camera/blob/update_health_hud()
-	if(blob_core)
-		var/current_health = round((blob_core.get_integrity() / blob_core.max_integrity) * 100)
-		hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[current_health]</font></div>")
-		for(var/mob/living/simple_animal/hostile/blob/blobbernaut/B in blob_mobs)
-			if(B.hud_used?.blobpwrdisplay)
-				B.hud_used.blobpwrdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[current_health]</font></div>")
+	if(!blob_core)
+		return FALSE
+	var/current_health = round((blob_core.get_integrity() / blob_core.max_integrity) * 100)
+	hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[current_health]%</font></div>")
+	for(var/mob/living/simple_animal/hostile/blob/blobbernaut/blobbernaut in blob_mobs)
+		if(blobbernaut.hud_used && blobbernaut.hud_used.blobpwrdisplay)
+			blobbernaut.hud_used.blobpwrdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[current_health]%</font></div>")
 
 /mob/camera/blob/proc/add_points(points)
 	blob_points = clamp(blob_points + points, 0, max_blob_points)
-	hud_used.blobpwrdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(blob_points)]</font></div>")
+	hud_used.blobpwrdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round(blob_points)]</font></div>")
 
 /mob/camera/blob/say(
 	message,
@@ -316,6 +322,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 
 /mob/camera/blob/mind_initialize()
 	. = ..()
-	var/datum/antagonist/blob/B = mind.has_antag_datum(/datum/antagonist/blob)
-	if(!B)
+	var/datum/antagonist/blob/blob = mind.has_antag_datum(/datum/antagonist/blob)
+	if(!blob)
 		mind.add_antag_datum(/datum/antagonist/blob)

@@ -130,7 +130,7 @@
 	M.set_buckled(src)
 	M.setDir(dir)
 	buckled_mobs |= M
-	M.throw_alert("buckled", /atom/movable/screen/alert/restrained/buckled)
+	M.throw_alert("buckled", /atom/movable/screen/alert/buckled)
 	M.set_glide_size(glide_size)
 
 	//Something has unbuckled us

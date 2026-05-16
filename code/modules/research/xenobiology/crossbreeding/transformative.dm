@@ -159,7 +159,7 @@ transformative extracts:
 
 /obj/item/slimecross/transformative/lightpink/do_effect(mob/living/simple_animal/slime/S, mob/user)
 	..()
-	GLOB.poi_list |= S
+	SSpoints_of_interest.on_poi_element_added(S)
 	S.make_master(user)
 	S.set_playable_slime(ROLE_SENTIENCE)
 

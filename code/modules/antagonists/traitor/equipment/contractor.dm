@@ -29,7 +29,7 @@
 		if(owner.current.client)
 			owner.current.client.tgui_panel?.give_antagonist_popup("Contractor Support Unit", "Follow your contractor's orders.")
 
-/datum/antagonist/contractor_support/proc/forge_objectives()
+/datum/antagonist/contractor_support/forge_objectives()
 	var/datum/objective/generic_objective = new
 
 	generic_objective.name = "Follow Contractor's Orders"

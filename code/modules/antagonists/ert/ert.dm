@@ -10,6 +10,13 @@
 
 /datum/antagonist/ert
 	name = "Emergency Response Officer"
+	can_elimination_hijack = ELIMINATION_PREVENT
+	show_in_antagpanel = FALSE
+	show_to_ghosts = TRUE
+	antag_moodlet = /datum/mood_event/focused
+	antagpanel_category = ANTAG_GROUP_ERT
+	banning_key = ROLE_ERT
+	required_living_playtime = 1
 	var/datum/team/ert/ert_team
 	var/leader = FALSE
 	var/datum/outfit/outfit = /datum/outfit/centcom/ert/security
@@ -17,12 +24,6 @@
 	var/role = JOB_NAME_SECURITYOFFICER
 	var/list/name_source
 	var/random_names = TRUE
-	can_elimination_hijack = ELIMINATION_PREVENT
-	show_in_antagpanel = FALSE
-	show_to_ghosts = TRUE
-	antag_moodlet = /datum/mood_event/focused
-	banning_key = ROLE_ERT
-	required_living_playtime = 0
 
 /datum/antagonist/ert/get_team()
 	return ert_team
@@ -64,7 +65,7 @@
 		name = owner.current.client?.prefs.read_character_preference(/datum/preference/name/backup_human) || pick(GLOB.last_names)
 	owner.current.fully_replace_character_name(owner.current.real_name, "[role] [name]")
 
-/datum/antagonist/ert/proc/forge_objectives()
+/datum/antagonist/ert/forge_objectives()
 	if(ert_team)
 		objectives |= ert_team.objectives
 

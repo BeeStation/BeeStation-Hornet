@@ -1,9 +1,9 @@
 /datum/antagonist/space_dragon
-	name = "Space Dragon"
+	name = "\improper Space Dragon"
 	roundend_category = "space dragons"
-	antagpanel_category = "Space Dragon"
+	antagpanel_category = ANTAG_GROUP_LEVIATHANS
 	banning_key = ROLE_SPACE_DRAGON
-	show_in_antagpanel = TRUE
+	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
 	required_living_playtime = 0
@@ -33,7 +33,7 @@
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Space Dragon",
 		"You've existed for so long, you have forgotten your purpose. The sight of an intruder in your endless claim of the void of space re-kindles the magic within you. Place rifts and summon an army to snuff out another light intruding in your domain.")
 
-/datum/antagonist/space_dragon/proc/forge_objectives()
+/datum/antagonist/space_dragon/forge_objectives()
 	// Areas that will prove challenging for the dragon and provocative to the crew.
 	var/list/area/allowed_areas = typecacheof(list(
 		/area/station/command/heads_quarters/captain,

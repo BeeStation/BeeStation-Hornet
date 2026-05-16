@@ -6,7 +6,6 @@
 	They are used with the client/screen list and the screen_loc var.
 	For more information, see the byond documentation on the screen_loc and screen vars.
 */
-
 /atom/movable/screen
 	name = ""
 	icon = 'icons/hud/screen_gen.dmi'
@@ -16,6 +15,8 @@
 	speech_span = SPAN_ROBOT
 	vis_flags = VIS_INHERIT_PLANE
 	appearance_flags = APPEARANCE_UI
+	/// A reference to the object in the slot. Grabs or items, generally, but any datum will do.
+	var/datum/weakref/master_ref = null
 	/// A reference to the owner HUD, if any.
 	VAR_PRIVATE/datum/hud/hud = null
 	/**
@@ -31,14 +32,32 @@
 	 * But for now, this works.
 	 */
 	var/del_on_map_removal = TRUE
+
 	///Can we throw things at this
 	var/can_throw_target = FALSE
+	/// If TRUE, clicking the screen element will fall through and perform a default "Click" call
+	/// Obviously this requires your Click override, if any, to call parent on their own.
+	/// This is set to FALSE to default to dissade you from doing this.
+	/// Generally we don't want default Click stuff, which results in bugs like using Telekinesis on a screen element
+	/// or trying to point your gun at your screen.
+	var/default_click = FALSE
 
 /atom/movable/screen/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
 	if(isnull(hud_owner)) //some screens set their hud owners on /new, this prevents overriding them with null post atoms init
 		return
 	set_new_hud(hud_owner)
+
+/atom/movable/screen/Destroy()
+	master_ref = null
+	hud = null
+	return ..()
+
+/atom/movable/screen/Click(location, control, params)
+	if(flags_1 & INITIALIZED_1)
+		SEND_SIGNAL(src, COMSIG_SCREEN_ELEMENT_CLICK, location, control, params, usr)
+	if(default_click)
+		return ..()
 
 /atom/movable/screen/examine(mob/user)
 	return list()
@@ -149,6 +168,16 @@
 	plane = HUD_PLANE
 
 /atom/movable/screen/inventory/Click(location, control, params)
+	// At this point in client Click() code we have passed the 1/10 sec check and little else
+	// We don't even know if it's a middle click
+	if(world.time <= usr.next_move)
+		return TRUE
+
+	if(INCAPACITATED_IGNORING(usr, INCAPABLE_STASIS))
+		return TRUE
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
+		return TRUE
+
 	//This is where putting stuff into hands is handled
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
@@ -272,19 +301,16 @@
 	icon_state = "backpack_close"
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
-	/// A reference to the object in the slot. Grabs or items, generally.
-	var/datum/component/master = null
-
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 
 /atom/movable/screen/close/Initialize(mapload, new_master)
 	. = ..()
-	master = new_master
-	//if (master && !istype(master))
-	//	CRASH("Attempting to create a backpack close without referencing a storage concrete component.")
+	master_ref = WEAKREF(new_master)
 
 /atom/movable/screen/close/Click()
-	var/datum/storage/storage = master
+	var/datum/storage/storage = master_ref?.resolve()
+	if(!storage)
+		return
 	storage.hide_contents(usr)
 	return TRUE
 
@@ -436,21 +462,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	icon_state = "block"
 	screen_loc = "7,7 to 10,8"
 	plane = HUD_PLANE
-	/// A reference to the object in the slot. Grabs or items, generally.
-	var/datum/storage/master = null
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 
 /atom/movable/screen/storage/Initialize(mapload, new_master)
 	. = ..()
-	master = new_master
-	if (master && !istype(master))
-		CRASH("Attempting to create a backpack close without referencing a storage datum.")
+	master_ref = WEAKREF(new_master)
 
-/atom/movable/screen/storage/attackby(location, control, params)
-	var/datum/storage/storage_master = master
+/atom/movable/screen/storage/Click(location, control, params)
+	var/datum/storage/storage_master = master_ref?.resolve()
 	if(!istype(storage_master))
 		return FALSE
+
+	if(world.time <= usr.next_move)
+		return TRUE
+	if(usr.incapacitated)
+		return TRUE
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
+		return TRUE
 
 	var/obj/item/inserted = usr.get_active_held_item()
 	if(inserted)
@@ -642,26 +671,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	screen_loc = ui_internal
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/atom/movable/screen/healths/blob/naut
-	name = "health"
-	icon = 'icons/mob/blob.dmi'
-	icon_state = "nauthealth"
-
-/atom/movable/screen/healths/blob/naut/core
+/atom/movable/screen/healths/blob/overmind
 	name = "overmind health"
+	icon = 'icons/mob/blob.dmi'
 	icon_state = "corehealth"
-	screen_loc = ui_health
-
-/atom/movable/screen/healths/clock
-	icon = 'icons/hud/actions/action_generic.dmi'
-	icon_state = "bg_clock"
-	screen_loc = ui_health
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/atom/movable/screen/healths/clock/gear
-	icon = 'icons/mob/clockwork_mobs.dmi'
-	icon_state = "bg_gear"
-	screen_loc = ui_internal
+	screen_loc = ui_blobbernaut_overmind_health
 
 /atom/movable/screen/healths/revenant
 	name = "essence"
