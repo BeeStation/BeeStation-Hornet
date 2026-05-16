@@ -477,7 +477,7 @@
 
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.mind?.assigned_role == JOB_NAME_ASSISTANT)
+	if(is_assistant_job(affected_mob.mind?.assigned_role))
 		if(affected_mob.heal_bodypart_damage(brute = 1 * REM * delta_time, burn = 1 * REM * delta_time, updating_health = FALSE))
 			return UPDATE_MOB_HEALTH
 

@@ -111,8 +111,8 @@
 /datum/team/brother_team/proc/get_conversion_targets()
 	var/list/candidates = list()
 	var/sec_count = 0
-	for (var/job in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
-		sec_count += SSjob.GetJob(job).current_positions
+	for (var/job in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
+		sec_count += SSjob.get_job_type(job).current_positions
 	var/sec_allowed = sec_count >= 2
 	for (var/datum/mind/mind in SSticker.minds)
 		// Mind has no mob
@@ -134,12 +134,12 @@
 		if (length(mind.antag_datums) || mind.special_role)
 			continue
 		// Are we allowed security?
-		var/datum/job/job = mind.assigned_role_datum
+		var/datum/job/job = mind.assigned_role
 		if (istype(job, /datum/job))
-			if (!sec_allowed && CHECK_BITFIELD(job.departments, DEPT_BITFLAG_SEC))
+			if (!sec_allowed && (/datum/department_group/security in job.departments_list))
 				continue
 			// Are they a head?
-			if (CHECK_BITFIELD(job.departments, DEPT_BITFLAG_COM))
+			if (/datum/department_group/command in job.departments_list)
 				continue
 		// Mind is a target
 		var/is_target = FALSE

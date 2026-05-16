@@ -109,8 +109,8 @@
 		master_wizard.wiz_team.add_member(apprentice_body.mind)
 	apprentice_body.mind.add_antag_datum(new_apprentice, ruleset = master_wizard?.spawning_ruleset)
 
-	apprentice_body.mind.set_assigned_role("Apprentice")
-	apprentice_body.mind.special_role = "apprentice"
+	apprentice_body.mind.set_assigned_role(SSjob.get_job_type(/datum/job/wizard_apprentice))
+	apprentice_body.mind.special_role = ROLE_WIZARD_APPRENTICE
 
 	SEND_SOUND(apprentice_body, sound('sound/effects/magic.ogg'))
 
@@ -122,7 +122,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "locator"
 	/// The name of the special role given to the recruit
-	var/special_role_name = ROLE_OPERATIVE
+	var/special_role_name = ROLE_NUCLEAR_OPERATIVE
 	/// The applied outfit
 	var/datum/outfit/syndicate/outfit = /datum/outfit/syndicate/no_crystals
 	/// The antag datum applied
@@ -158,7 +158,7 @@
 
 	currently_polling_ghosts = TRUE
 	var/datum/poll_config/config = new(
-		check_jobban = ROLE_OPERATIVE,
+		check_jobban = ROLE_NUCLEAR_OPERATIVE,
 		poll_time = 5 SECONDS,
 		jump_target = user,
 		role_name_text = "reinforcement [special_role_name]",
@@ -321,8 +321,8 @@
 			spawning_ruleset = antagonist.spawning_ruleset
 			break
 	demon.key = chosen_client.key
-	demon.mind.set_assigned_role(demon.name)
-	demon.mind.special_role = demon.name
+	demon.mind.set_assigned_role(SSjob.get_job_type(/datum/job/slaughter_demon))
+	demon.mind.special_role = ROLE_SLAUGHTER_DEMON
 	demon.mind.add_antag_datum(antag_type, ruleset = spawning_ruleset)
 	to_chat(demon, span_bold("You are currently not currently in the same plane of existence as the station. Use your Blood Crawl ability near a pool of blood to manifest and wreak havoc."))
 

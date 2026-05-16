@@ -145,81 +145,81 @@
 	if((ismoth(H)) && prob(50))
 		heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
 	else
-		switch(quirk_holder.assigned_role)
-			//Service jobs
-			if(JOB_NAME_CLOWN)
-				heirloom_type = /obj/item/bikehorn/golden
-			if(JOB_NAME_MIME)
-				heirloom_type = /obj/item/food/baguette/mime
-			if(JOB_NAME_JANITOR)
-				heirloom_type = pick(/obj/item/mop, /obj/item/clothing/suit/caution, /obj/item/reagent_containers/cup/bucket)
-			if(JOB_NAME_COOK)
-				heirloom_type = pick(/obj/item/reagent_containers/condiment/saltshaker, /obj/item/kitchen/rollingpin, /obj/item/clothing/head/utility/chefhat)
-			if(JOB_NAME_BOTANIST)
-				heirloom_type = pick(/obj/item/cultivator, /obj/item/reagent_containers/cup/bucket, /obj/item/storage/bag/plants, /obj/item/toy/plush/beeplushie)
-			if(JOB_NAME_BARTENDER)
-				heirloom_type = pick(/obj/item/reagent_containers/cup/rag, /obj/item/clothing/head/hats/tophat, /obj/item/reagent_containers/cup/glass/shaker)
-			if(JOB_NAME_CURATOR)
-				heirloom_type = pick(/obj/item/pen/fountain, /obj/item/storage/pill_bottle/dice)
-			if(JOB_NAME_CHAPLAIN)
-				heirloom_type = pick(/obj/item/toy/windupToolbox, /obj/item/reagent_containers/cup/glass/bottle/holywater)
-			if(JOB_NAME_ASSISTANT)
-				heirloom_type = pick(/obj/item/heirloomtoolbox, /obj/item/clothing/gloves/cut/heirloom)
-			if(JOB_NAME_PRISONER)
-				heirloom_type = pick(/obj/item/heirloomtoolbox, /obj/item/clothing/gloves/cut/heirloom)
-			if(JOB_NAME_BARBER)
-				heirloom_type = /obj/item/handmirror
-			if(JOB_NAME_STAGEMAGICIAN)
-				heirloom_type = /obj/item/gun/magic/wand
-			//Security/Command
-			if(JOB_NAME_CAPTAIN)
-				heirloom_type = /obj/item/reagent_containers/cup/glass/flask/gold
-			if(JOB_NAME_HEADOFSECURITY)
-				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/gun/energy/e_gun/advtaser/heirloom)
-			if(JOB_NAME_WARDEN)
-				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/gun/energy/e_gun/advtaser/heirloom)
-			if(JOB_NAME_SECURITYOFFICER)
-				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/clothing/head/beret/sec, /obj/item/gun/energy/e_gun/advtaser/heirloom)
-			if(JOB_NAME_DETECTIVE)
-				heirloom_type = /obj/item/reagent_containers/cup/glass/bottle/whiskey
-			if(JOB_NAME_LAWYER)
-				heirloom_type = pick(/obj/item/gavelhammer, /obj/item/book/manual/wiki/security_space_law)
-			if(JOB_NAME_BRIGPHYSICIAN)
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/book/manual/wiki/security_space_law)
-			//RnD
-			if(JOB_NAME_RESEARCHDIRECTOR)
-				heirloom_type = pick(typesof(/obj/item/toy/plush/slimeplushie) - /obj/item/toy/plush/slimeplushie/random)
-			if(JOB_NAME_SCIENTIST)
-				heirloom_type = pick(typesof(/obj/item/toy/plush/slimeplushie) - /obj/item/toy/plush/slimeplushie/random)
-			if(JOB_NAME_ROBOTICIST)
-				heirloom_type = pick(subtypesof(/obj/item/toy/mecha)) //look at this nerd
-			//Medical
-			if(JOB_NAME_CHIEFMEDICALOFFICER)
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen)
-			if(JOB_NAME_MEDICALDOCTOR)
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen, /obj/item/scalpel)
-			if(JOB_NAME_PARAMEDIC)
-				heirloom_type = pick(/obj/item/flashlight/pen, /obj/item/sensor_device)
-			if(JOB_NAME_CHEMIST)
-				heirloom_type = /obj/item/reagent_containers/cup/chem_heirloom
-			if(JOB_NAME_VIROLOGIST)
-				heirloom_type = /obj/item/reagent_containers/dropper
-			if(JOB_NAME_GENETICIST)
-				heirloom_type = /obj/item/clothing/under/shorts/purple
-			//Engineering
-			if(JOB_NAME_CHIEFENGINEER)
-				heirloom_type = pick(/obj/item/clothing/head/utility/hardhat/white, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
-			if(JOB_NAME_STATIONENGINEER)
-				heirloom_type = pick(/obj/item/clothing/head/utility/hardhat, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
-			if(JOB_NAME_ATMOSPHERICTECHNICIAN)
-				heirloom_type = pick(/obj/item/lighter, /obj/item/lighter/greyscale, /obj/item/storage/box/matches)
-			//Supply
-			if(JOB_NAME_QUARTERMASTER)
-				heirloom_type = pick(/obj/item/stamp, /obj/item/stamp/denied)
-			if(JOB_NAME_CARGOTECHNICIAN)
-				heirloom_type = /obj/item/clipboard
-			if(JOB_NAME_SHAFTMINER)
-				heirloom_type = pick(/obj/item/pickaxe/mini, /obj/item/shovel)
+		var/datum/job/assigned = quirk_holder.assigned_role
+		//Service jobs
+		if(istype(assigned, /datum/job/clown))
+			heirloom_type = /obj/item/bikehorn/golden
+		else if(istype(assigned, /datum/job/mime))
+			heirloom_type = /obj/item/food/baguette/mime
+		else if(istype(assigned, /datum/job/janitor))
+			heirloom_type = pick(/obj/item/mop, /obj/item/clothing/suit/caution, /obj/item/reagent_containers/cup/bucket)
+		else if(istype(assigned, /datum/job/cook))
+			heirloom_type = pick(/obj/item/reagent_containers/condiment/saltshaker, /obj/item/kitchen/rollingpin, /obj/item/clothing/head/utility/chefhat)
+		else if(istype(assigned, /datum/job/botanist))
+			heirloom_type = pick(/obj/item/cultivator, /obj/item/reagent_containers/cup/bucket, /obj/item/storage/bag/plants, /obj/item/toy/plush/beeplushie)
+		else if(istype(assigned, /datum/job/bartender))
+			heirloom_type = pick(/obj/item/reagent_containers/cup/rag, /obj/item/clothing/head/hats/tophat, /obj/item/reagent_containers/cup/glass/shaker)
+		else if(istype(assigned, /datum/job/curator))
+			heirloom_type = pick(/obj/item/pen/fountain, /obj/item/storage/pill_bottle/dice)
+		else if(istype(assigned, /datum/job/chaplain))
+			heirloom_type = pick(/obj/item/toy/windupToolbox, /obj/item/reagent_containers/cup/glass/bottle/holywater)
+		else if(istype(assigned, /datum/job/assistant))
+			heirloom_type = pick(/obj/item/heirloomtoolbox, /obj/item/clothing/gloves/cut/heirloom)
+		else if(istype(assigned, /datum/job/prisoner))
+			heirloom_type = pick(/obj/item/heirloomtoolbox, /obj/item/clothing/gloves/cut/heirloom)
+		else if(istype(assigned, /datum/job/gimmick/barber))
+			heirloom_type = /obj/item/handmirror
+		else if(istype(assigned, /datum/job/gimmick/stage_magician))
+			heirloom_type = /obj/item/gun/magic/wand
+		//Security/Command
+		else if(istype(assigned, /datum/job/captain))
+			heirloom_type = /obj/item/reagent_containers/cup/glass/flask/gold
+		else if(istype(assigned, /datum/job/head_of_security))
+			heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/gun/energy/e_gun/advtaser/heirloom)
+		else if(istype(assigned, /datum/job/warden))
+			heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/gun/energy/e_gun/advtaser/heirloom)
+		else if(istype(assigned, /datum/job/security_officer))
+			heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/clothing/head/beret/sec, /obj/item/gun/energy/e_gun/advtaser/heirloom)
+		else if(istype(assigned, /datum/job/detective))
+			heirloom_type = /obj/item/reagent_containers/cup/glass/bottle/whiskey
+		else if(istype(assigned, /datum/job/lawyer))
+			heirloom_type = pick(/obj/item/gavelhammer, /obj/item/book/manual/wiki/security_space_law)
+		else if(istype(assigned, /datum/job/brig_physician))
+			heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/book/manual/wiki/security_space_law)
+		//RnD
+		else if(istype(assigned, /datum/job/research_director))
+			heirloom_type = pick(typesof(/obj/item/toy/plush/slimeplushie) - /obj/item/toy/plush/slimeplushie/random)
+		else if(istype(assigned, /datum/job/scientist))
+			heirloom_type = pick(typesof(/obj/item/toy/plush/slimeplushie) - /obj/item/toy/plush/slimeplushie/random)
+		else if(istype(assigned, /datum/job/roboticist))
+			heirloom_type = pick(subtypesof(/obj/item/toy/mecha)) //look at this nerd
+		//Medical
+		else if(istype(assigned, /datum/job/chief_medical_officer))
+			heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen)
+		else if(istype(assigned, /datum/job/medical_doctor))
+			heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/flashlight/pen, /obj/item/scalpel)
+		else if(istype(assigned, /datum/job/paramedic))
+			heirloom_type = pick(/obj/item/flashlight/pen, /obj/item/sensor_device)
+		else if(istype(assigned, /datum/job/chemist))
+			heirloom_type = /obj/item/reagent_containers/cup/chem_heirloom
+		else if(istype(assigned, /datum/job/virologist))
+			heirloom_type = /obj/item/reagent_containers/dropper
+		else if(istype(assigned, /datum/job/geneticist))
+			heirloom_type = /obj/item/clothing/under/shorts/purple
+		//Engineering
+		else if(istype(assigned, /datum/job/chief_engineer))
+			heirloom_type = pick(/obj/item/clothing/head/utility/hardhat/white, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
+		else if(istype(assigned, /datum/job/station_engineer))
+			heirloom_type = pick(/obj/item/clothing/head/utility/hardhat, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
+		else if(istype(assigned, /datum/job/atmospheric_technician))
+			heirloom_type = pick(/obj/item/lighter, /obj/item/lighter/greyscale, /obj/item/storage/box/matches)
+		//Supply
+		else if(istype(assigned, /datum/job/quartermaster))
+			heirloom_type = pick(/obj/item/stamp, /obj/item/stamp/denied)
+		else if(istype(assigned, /datum/job/cargo_technician))
+			heirloom_type = /obj/item/clipboard
+		else if(istype(assigned, /datum/job/shaft_miner))
+			heirloom_type = pick(/obj/item/pickaxe/mini, /obj/item/shovel)
 
 	heirloom_type ||= pick(
 		/obj/item/toy/cards/deck,
@@ -278,13 +278,13 @@
 
 /datum/quirk/foreigner/add()
 	var/mob/living/carbon/human/H = quirk_target
-	if(quirk_holder.assigned_role != JOB_NAME_CURATOR)
+	if(!istype(quirk_holder.assigned_role, /datum/job/curator))
 		H.add_blocked_language(/datum/language/common)
 		H.grant_language(/datum/language/uncommon)
 
 /datum/quirk/foreigner/remove()
 	var/mob/living/carbon/human/H = quirk_target
-	if(quirk_holder.assigned_role != JOB_NAME_CURATOR)
+	if(!istype(quirk_holder.assigned_role, /datum/job/curator))
 		H.remove_blocked_language(/datum/language/common)
 		H.remove_language(/datum/language/uncommon)
 

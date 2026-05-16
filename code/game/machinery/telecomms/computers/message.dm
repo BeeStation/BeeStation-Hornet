@@ -261,7 +261,7 @@
 			to_chat(usr, span_notice("The console flashes a message: 'NOTICE: Log entry deleted.'"))
 			var/turf/the_turf = get_turf(src)
 			usr.log_message("cleared [type] log entry \"[msg]\" using [src] at [AREACOORD(the_turf)]", LOG_GAME)
-			if(isnull(locate(/datum/antagonist) in usr.mind?.antag_datums) && usr.mind?.assigned_role != "Lavaland Syndicate")
+			if(isnull(locate(/datum/antagonist) in usr.mind?.antag_datums) && !istype(usr.mind?.assigned_role, /datum/job/lavaland_syndicate))
 				message_admins("[key_name_admin(usr)][ADMIN_FLW(usr)] deleted [type] log entry \"[msg]\" as a non-antagonist using [src] at [ADMIN_VERBOSEJMP(the_turf)]")
 			return TRUE
 		if("admin_message")

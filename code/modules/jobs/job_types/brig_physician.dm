@@ -1,7 +1,7 @@
 /datum/job/brig_physician
 	title = JOB_NAME_BRIGPHYSICIAN
 	description = "Tend to the health of Security Officers and Prisoners, help out at Medbay if you have free time."
-	department_for_prefs = DEPT_NAME_SECURITY
+	department_for_prefs = DEPARTMENT_NAME_SECURITY
 	department_head_for_prefs = JOB_NAME_HEADOFSECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
@@ -10,13 +10,15 @@
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 60
-	exp_type = EXP_TYPE_MEDICAL
+	exp_required_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brig_physician
 
 	base_access = list(ACCESS_BRIGPHYS, ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE)
 	extra_access = list(ACCESS_MEDICAL, ACCESS_SURGERY)
 
-	departments = DEPT_BITFLAG_SEC
+	departments_list = list(
+		/datum/department_group/civilian,
+		)
 	bank_account_department = ACCOUNT_MED_BITFLAG | ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_MEDIUM)
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)

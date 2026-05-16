@@ -130,6 +130,9 @@
 /proc/cmp_job_display_asc(datum/job/A, datum/job/B)
 	return A.display_order - B.display_order
 
+/proc/cmp_department_display_asc(datum/department_group/A, datum/department_group/B)
+	return A.display_order - B.display_order
+
 /proc/cmp_reagents_asc(datum/reagent/a, datum/reagent/b)
 	return sorttext(initial(b.name),initial(a.name))
 

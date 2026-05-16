@@ -1,7 +1,7 @@
 /datum/job/captain
 	title = JOB_NAME_CAPTAIN
 	description = "Supreme leader of the station, oversee and appoint missing heads of staff, manage alert levels and contact CentCom if needed. Don't forget to secure the nuclear authentication disk."
-	department_for_prefs = DEPT_NAME_CAPTAIN
+	department_for_prefs = DEPARTMENT_NAME_CAPTAIN
 	department_head_for_prefs = JOB_NAME_CAPTAIN
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	department_head = list("CentCom")
@@ -9,17 +9,21 @@
 	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ccccff"
-	req_admin_notify = 1
+	req_admin_notify = TRUE
 	minimal_player_age = 14
 	exp_requirements = 900
-	exp_type = EXP_TYPE_COMMAND
+	exp_required_type = EXP_TYPE_CREW
+	exp_required_type_department = EXP_TYPE_COMMAND
+	exp_granted_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/captain
 
 	base_access = list()  //See get_access()
 	extra_access = list() //See get_access()
 
-	departments = DEPT_BITFLAG_COM
+	departments_list = list(
+		/datum/department_group/command,
+		)
 	bank_account_department = ACCOUNT_SEC_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
@@ -54,9 +58,8 @@
 /datum/job/captain/get_access()
 	return get_all_accesses()
 
-/datum/job/captain/announce_job(mob/living/carbon/human/H)
-	..()
-	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce), "Captain [H.real_name] on deck!"))
+/datum/job/captain/get_captaincy_announcement(mob/living/captain)
+	return "Captain [captain.real_name] on deck!"
 
 /datum/job/captain/get_radio_information()
 	. = ..()

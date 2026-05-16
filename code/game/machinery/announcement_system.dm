@@ -99,6 +99,13 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 
 	broadcast(message, channels)
 
+/// Announces a new security officer joining over the radio
+/obj/machinery/announcement_system/proc/announce_officer(mob/officer, department)
+	if (!is_operational)
+		return
+
+	broadcast("Officer [officer.real_name] has been assigned to [department].", list(RADIO_CHANNEL_SECURITY))
+
 /// Sends a message to the appropriate channels.
 /obj/machinery/announcement_system/proc/broadcast(message, list/channels)
 	if(channels.len == 0)

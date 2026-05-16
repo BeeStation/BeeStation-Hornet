@@ -69,7 +69,7 @@
 		return FALSE
 
 	// Vampire/Curator check
-	if(IS_CURATOR(living_target))
+	if(is_curator_job(living_target?.mind?.assigned_role))
 		owner.balloon_alert(owner, "too powerful.")
 		return FALSE
 

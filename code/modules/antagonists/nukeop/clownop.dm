@@ -3,7 +3,7 @@
 	name = "Clown Operative"
 	roundend_category = "clown operatives"
 	antagpanel_category = "ClownOp"
-	banning_key = ROLE_OPERATIVE
+	banning_key = ROLE_NUCLEAR_OPERATIVE
 	nukeop_outfit = /datum/outfit/syndicate/clownop
 
 /datum/antagonist/nukeop/leader/clownop
@@ -21,7 +21,7 @@
 		owner.current.fully_replace_character_name(owner.current.real_name, "[nuke_team.syndicate_name] [title]")
 
 /datum/antagonist/nukeop/clownop/admin_add(datum/mind/new_owner,mob/admin)
-	new_owner.set_assigned_role(ROLE_OPERATIVE)
+	new_owner.set_assigned_role(SSjob.get_job_type(/datum/job/clown_operative))
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has clown op'ed [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has clown op'ed [key_name(new_owner)].")

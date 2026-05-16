@@ -2,7 +2,7 @@
 	name = "Fugitive Hunter pod"
 	desc = "A small sleeper typically used to make long distance travel a bit more bearable."
 	mob_name = "a fugitive hunter"
-	assignedrole = ROLE_FUGITIVE_HUNTER
+	spawner_job_path = /datum/job/fugitive_hunter
 	roundstart = FALSE
 	death = FALSE
 	random = TRUE

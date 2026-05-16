@@ -21,7 +21,7 @@
 	//Count the number of jobs
 	var/total = 0
 	for (var/job_name in jobs)
-		var/datum/job/located = SSjob.GetJob(job_name)
+		var/datum/job/located = SSjob.get_job(job_name)
 		total += located.current_positions
 	total = CEILING(clamp(total * linear_scaling_rate, minimum, maximum), 1)
 	lootcount = total

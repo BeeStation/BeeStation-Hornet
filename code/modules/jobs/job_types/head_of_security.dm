@@ -1,7 +1,7 @@
 /datum/job/head_of_security
 	title = JOB_NAME_HEADOFSECURITY
 	description = "Oversee the members of security and ensure they follow Space Law. Deputize other crew members when the station is in need of additional protection."
-	department_for_prefs = DEPT_NAME_SECURITY
+	department_for_prefs = DEPARTMENT_NAME_SECURITY
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
@@ -9,10 +9,12 @@
 	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffdddd"
-	req_admin_notify = 1
+	req_admin_notify = TRUE
 	minimal_player_age = 14
 	exp_requirements = 1200
-	exp_type = EXP_TYPE_SECURITY
+	exp_required_type = EXP_TYPE_CREW
+	exp_required_type_department = EXP_TYPE_SECURITY
+	exp_granted_type = EXP_TYPE_SECURITY
 	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/head_of_security
@@ -40,7 +42,10 @@
 	)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_SEC | DEPT_BITFLAG_COM
+	departments_list = list(
+		/datum/department_group/security,
+		/datum/department_group/command,
+		)
 	bank_account_department = ACCOUNT_SEC_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
@@ -67,6 +72,9 @@
 		JOB_NAME_DETECTIVE,
 		JOB_NAME_SECURITYOFFICER
 	)
+
+/datum/job/head_of_security/get_captaincy_announcement(mob/living/captain)
+	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
 
 /datum/outfit/job/head_of_security
 	name = JOB_NAME_HEADOFSECURITY

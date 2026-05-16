@@ -241,14 +241,14 @@
 	.=..()
 	if(!static_roles)
 		static_roles = list(
-			"command" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND),
-			"security" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY),
-			"engineering" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING),
-			"medical" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL),
-			"science" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE),
-			"supply" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO),
-			"silicon" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON),
-			"civilian" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN),
+			"command" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND),
+			"security" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY),
+			"engineering" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_ENGINEERING),
+			"medical" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_MEDICAL),
+			"science" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SCIENCE),
+			"supply" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_CARGO),
+			"silicon" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SILICON),
+			"civilian" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_CIVILIAN),
 			"gimmick" = list(JOB_NAME_CLOWN,JOB_NAME_MIME,JOB_NAME_GIMMICK,JOB_NAME_ASSISTANT), //Hardcoded since it's not a real category but handy for rolebans
 			"antagonist_positions" = list(BAN_ROLE_ALL_ANTAGONISTS) + GLOB.antagonist_bannable_roles,
 			"forced_antagonist_positions" = list(BAN_ROLE_FORCED_ANTAGONISTS) + GLOB.forced_bannable_roles,
@@ -1256,7 +1256,7 @@
 		output += "<div class='row'><div class='column'><label class='rolegroup command'><input type='checkbox' name='Command' class='hidden' onClick='toggle_checkboxes(this, \"_dep\")'>Command</label><div class='content'>"
 		//all heads are listed twice so have a javascript call to toggle both their checkboxes when one is pressed
 		//for simplicity this also includes the captain even though it doesn't do anything
-		for(var/job in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
+		for(var/job in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND))
 			if(break_counter > 0 && (break_counter % 3 == 0))
 				output += "<br>"
 			output += {"<label class='inputlabel checkbox'>[job]
@@ -1266,11 +1266,13 @@
 			break_counter++
 		output += "</div></div>"
 		//standard departments all have identical handling
-		var/list/job_lists = list("Security" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY),
-							"Engineering" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING),
-							"Medical" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL),
-							"Science" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE),
-							"Supply" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO))
+		var/list/job_lists = list(
+			"Security" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY),
+			"Engineering" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_ENGINEERING),
+			"Medical" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_MEDICAL),
+			"Science" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SCIENCE),
+			"Supply" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_CARGO)
+		)
 		for(var/department in job_lists)
 			//the first element is the department head so they need the same javascript call as above
 			output += "<div class='column'><label class='rolegroup [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' onClick='toggle_checkboxes(this, \"_com\")'>[department]</label><div class='content'>"
@@ -1289,7 +1291,7 @@
 				break_counter++
 			output += "</div></div>"
 		//departments/groups that don't have command staff would throw a javascript error since there's no corresponding reference for toggle_head()
-		var/list/headless_job_lists = list("Silicon" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON),
+		var/list/headless_job_lists = list("Silicon" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SILICON),
 										"Abstract" = list("Appearance", "Emote", "OOC", "DSAY"))
 		for(var/department in headless_job_lists)
 			output += "<div class='column'><label class='rolegroup [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' onClick='toggle_checkboxes(this, \"_com\")'>[department]</label><div class='content'>"
@@ -1304,7 +1306,7 @@
 				break_counter++
 			output += "</div></div>"
 		var/list/long_job_lists = list(
-			"Civilian" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN) | JOB_NAME_GIMMICK,
+			"Civilian" = SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_CIVILIAN) | JOB_NAME_GIMMICK,
 			"Antagonist Positions" = list(BAN_ROLE_ALL_ANTAGONISTS) + GLOB.antagonist_bannable_roles,
 			"Forced Antagonist Positions" = list(BAN_ROLE_FORCED_ANTAGONISTS) + GLOB.forced_bannable_roles,
 			"Ghost Roles" = list(BAN_ROLE_ALL_GHOST) + GLOB.ghost_role_bannable_roles,

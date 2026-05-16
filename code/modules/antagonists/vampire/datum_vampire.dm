@@ -457,8 +457,8 @@
 			var/list/vassal_report = list()
 			vassal_report += "<b>[vassal.owner.name]</b>"
 
-			if(vassal.owner.assigned_role)
-				vassal_report += " the [vassal.owner.assigned_role]"
+			if(!is_unassigned_job(vassal.owner.assigned_role))
+				vassal_report += " the [vassal.owner.assigned_role.title]"
 			report += vassal_report.Join()
 
 	if(objectives_complete)

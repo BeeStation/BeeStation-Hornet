@@ -13,13 +13,14 @@
 	show_in_report = TRUE
 	report_message = "We opened a slot for a special job. We expect their duty can fit the station."
 
-	var/datum/job/job_to_add
+	/// Type of job to enable
+	var/datum/job/job_to_add = /datum/job/clown
 
 /datum/station_trait/job/New()
 	if(!job_to_add)
 		return
 
-	var/datum/job/job = SSjob.GetJobType(job_to_add)
+	var/datum/job/job = SSjob.get_job_type(job_to_add)
 	job.total_positions++
 	return ..()
 

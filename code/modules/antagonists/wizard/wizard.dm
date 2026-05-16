@@ -2,7 +2,7 @@
 GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 
 /datum/antagonist/wizard
-	name = "Space Wizard"
+	name = "\improper Space Wizard"
 	roundend_category = "wizards/witches"
 	antagpanel_category = "Wizard"
 	banning_key = ROLE_WIZARD
@@ -11,6 +11,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	hijack_speed = 0.5
 	ui_name = "AntagInfoWizard"
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
+	
 	var/strip = TRUE //strip before equipping
 	var/allow_rename = TRUE
 	var/hud_version = "wizard"

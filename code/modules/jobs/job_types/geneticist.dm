@@ -1,7 +1,7 @@
 /datum/job/geneticist
 	title = JOB_NAME_GENETICIST
 	description = "Discover useful mutations and give them out to the crew at CMO's approval, oversee Cloning, create humanized monkeys for replacement organs and bodyparts if needed."
-	department_for_prefs = DEPT_NAME_MEDICAL
+	department_for_prefs = DEPARTMENT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = FACTION_STATION
@@ -10,14 +10,17 @@
 	// Requires a round in medical, this is a decent role for new players but is poorly
 	// communicated. Once the onboarding is better for this role, playtime requirements
 	// should be removed.
-	exp_requirements = 120
-	exp_type = EXP_TYPE_MEDICAL
+	exp_requirements = 100
+	exp_required_type = EXP_TYPE_CREW
+	exp_granted_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/geneticist
 
 	base_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_MECH_MEDICAL)
 	extra_access = list(ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
 
-	departments = DEPT_BITFLAG_MED
+	departments_list = list(
+		/datum/department_group/medical,
+		)
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_MED_ID = PAYCHECK_MEDIUM

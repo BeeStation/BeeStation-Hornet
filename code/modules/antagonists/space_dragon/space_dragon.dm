@@ -86,6 +86,8 @@
 	wavespeak_ability = new
 	wavespeak_ability.Grant(owner.current)
 	owner.current.faction |= FACTION_CARP
+	owner.special_role = ROLE_SPACE_DRAGON
+	owner.set_assigned_role(SSjob.get_job_type(/datum/job/space_dragon))
 	RegisterSignal(owner.current, COMSIG_LIVING_LIFE, PROC_REF(rift_checks))
 	RegisterSignal(owner.current, COMSIG_LIVING_DEATH, PROC_REF(destroy_rifts))
 	RegisterSignal(owner.current, COMSIG_QDELETING, PROC_REF(destroy_rifts))
@@ -100,6 +102,8 @@
 	UnregisterSignal(owner.current, COMSIG_LIVING_LIFE)
 	UnregisterSignal(owner.current, COMSIG_LIVING_DEATH)
 	rift_list = null
+	owner.special_role = null
+	owner.set_assigned_role(SSjob.get_job_type(/datum/job/unassigned))
 
 /datum/antagonist/space_dragon/Destroy()
 	rift_list = null

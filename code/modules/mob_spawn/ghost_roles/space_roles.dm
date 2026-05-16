@@ -19,7 +19,7 @@
 	id = /obj/item/card/id/away/old/sec
 	r_pocket = /obj/item/restraints/handcuffs
 	l_pocket = /obj/item/assembly/flash/handheld
-	assignedrole = "Ancient Crew"
+	spawner_job_path = /datum/job/ancient_crew
 	use_cooldown = TRUE
 	banType = ROLE_ANCIENT_CREW
 
@@ -47,7 +47,7 @@
 	id = /obj/item/card/id/away/old/eng
 	gloves = /obj/item/clothing/gloves/color/fyellow/old
 	l_pocket = /obj/item/tank/internals/emergency_oxygen
-	assignedrole = "Ancient Crew"
+	spawner_job_path = /datum/job/ancient_crew
 	use_cooldown = TRUE
 	banType = ROLE_ANCIENT_CREW
 
@@ -74,7 +74,7 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	id = /obj/item/card/id/away/old/sci
 	l_pocket = /obj/item/stack/medical/bruise_pack
-	assignedrole = "Ancient Crew"
+	spawner_job_path = /datum/job/ancient_crew
 	use_cooldown = TRUE
 	banType = ROLE_ANCIENT_CREW
 
@@ -97,7 +97,7 @@
 	short_desc = "You are a staff member of a top-of-the-line space hotel!"
 	flavour_text = "You are a staff member of a top-of-the-line space hotel! Cater to guests and make sure the manager doesn't fire you."
 	important_info = "DON'T leave the hotel"
-	assignedrole = "Hotel Staff"
+	spawner_job_path = /datum/job/hotel_staff
 	use_cooldown = TRUE
 	banType = ROLE_HOTEL_STAFF
 

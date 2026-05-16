@@ -1169,60 +1169,6 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/swat/captain
 	cell = /obj/item/stock_parts/cell/upgraded/plus
 
-	//Clown
-/obj/item/clothing/head/helmet/space/hardsuit/clown
-	name = "cosmohonk hardsuit helmet"
-	desc = "A special helmet designed for work in a hazardous, low-humor environment. Has radiation shielding."
-	icon_state = "hardsuit0-clown"
-	inhand_icon_state = "hardsuit0-clown"
-	armor_type = /datum/armor/hardsuit_clown
-	hardsuit_type = "clown"
-
-
-/datum/armor/hardsuit_clown
-	melee = 30
-	bullet = 5
-	laser = 10
-	energy = 20
-	bomb = 10
-	bio = 100
-	fire = 60
-	acid = 30
-	stamina = 20
-	bleed = 70
-
-/obj/item/clothing/suit/space/hardsuit/clown
-	name = "cosmohonk hardsuit"
-	desc = "A special suit that protects against hazardous, low humor environments. Has radiation shielding. Only a true clown can wear it."
-	icon_state = "hardsuit-clown"
-	inhand_icon_state = "clown_hardsuit"
-	armor_type = /datum/armor/hardsuit_clown
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/clown
-
-
-/datum/armor/hardsuit_clown
-	melee = 30
-	bullet = 5
-	laser = 10
-	energy = 20
-	bomb = 10
-	bio = 100
-	fire = 60
-	acid = 30
-	stamina = 20
-	bleed = 70
-
-/obj/item/clothing/suit/space/hardsuit/clown/mob_can_equip(mob/living/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
-	if(!..() || !ishuman(M))
-		return FALSE
-	var/mob/living/carbon/human/H = M
-	if (!H.mind)
-		return FALSE
-	if(H.mind.assigned_role == JOB_NAME_CLOWN)
-		return TRUE
-	else
-		return FALSE
-
 	//Old Prototype
 /obj/item/clothing/head/helmet/space/hardsuit/ancient
 	name = "prototype RIG hardsuit helmet"

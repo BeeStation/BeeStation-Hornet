@@ -53,7 +53,7 @@
 			continue
 
 		// Compatible job?
-		if(candidate.mind.assigned_role && (candidate.mind.assigned_role in restricted_roles))
+		if(candidate.mind.assigned_role in restricted_roles)
 			candidates -= candidate
 			continue
 
@@ -152,7 +152,7 @@
 
 /datum/dynamic_ruleset/gamemode/malf/trim_candidates()
 	. = ..()
-	var/datum/job/ai/ai_job = SSjob.GetJob(JOB_NAME_AI)
+	var/datum/job/ai/ai_job = SSjob.get_job_type(/datum/job/ai)
 	for(var/mob/candidate in candidates)
 		// Must have enough hours to play AI
 		if(ai_job.required_playtime_remaining(candidate.client))
@@ -162,7 +162,7 @@
 /datum/dynamic_ruleset/gamemode/malf/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		SSjob.AssignRole(chosen_mind.current, JOB_NAME_AI)
+		SSjob.assign_role(chosen_mind.current, JOB_NAME_AI)
 
 /datum/dynamic_ruleset/gamemode/malf/security_report()
 	return "The proximity to multiple stars leads to a risk of ion storms born from constructive wave interference. This has been identified \

@@ -134,7 +134,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		skin = new_skin
 	update_appearance()
 
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_MEDICALDOCTOR)
+	var/datum/job/J = SSjob.get_job(JOB_NAME_MEDICALDOCTOR)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
 	linked_techweb = SSresearch.science_tech

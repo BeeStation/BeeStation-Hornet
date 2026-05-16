@@ -130,6 +130,12 @@
 ///From base of datum/controller/subsystem/Initialize
 #define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"
 
+///from SSJob whenever setup_occupations() is called, all occupations are set
+#define COMSIG_OCCUPATIONS_SETUP "occupations_setup"
+
+///from SSJob when divide_occupations() is called
+#define COMSIG_OCCUPATIONS_DIVIDED "occupations_divided"
+
 ///from SSsecurity_level when the security level changes : (new_level)
 #define COMSIG_SECURITY_LEVEL_CHANGED "security_level_changed"
 

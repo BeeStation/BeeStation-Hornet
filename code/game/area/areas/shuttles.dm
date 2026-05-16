@@ -141,6 +141,13 @@
 	name = "Arrival Shuttle"
 	area_flags = UNIQUE_AREA// SSjob refers to this area for latejoiners
 
+/area/shuttle/arrival/on_joining_game(mob/living/boarder)
+	if(SSshuttle.arrivals?.mode == SHUTTLE_CALL)
+		var/atom/movable/screen/splash/Spl = new(null, boarder.client, TRUE)
+		Spl.fade(TRUE)
+		boarder.playsound_local(get_turf(boarder), 'sound/voice/welcomeBee.ogg', 50)
+	boarder.update_parallax_teleport()
+
 /area/shuttle/pod_1
 	name = "Escape Pod One"
 	area_flags = BLOBS_ALLOWED

@@ -588,7 +588,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				if("All Antags!")
 					survivor_probability = 100
 
-			rightandwrong(SUMMON_GUNS, usr, survivor_probability)
+			summon_guns(usr, survivor_probability)
 
 		if("magic")
 			if(!check_rights(R_FUN))
@@ -601,25 +601,24 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				if("All Antags!")
 					survivor_probability = 100
 
-			rightandwrong(SUMMON_MAGIC, usr, survivor_probability)
+			summon_magic(usr, survivor_probability)
 
 		if("events")
 			if(!check_rights(R_FUN))
 				return
-			if(!SSevents.wizardmode)
-				if(tgui_alert(usr, "Do you want to toggle summon events on?", "", list("Yes","No")) == "Yes")
-					summonevents()
-					SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Summon Events", "Activate"))
-
-			else
+			if(SSevents.wizardmode)
 				switch(tgui_alert(usr, "What would you like to do?", "", list("Intensify Summon Events","Turn Off Summon Events","Nothing")))
 					if("Intensify Summon Events")
-						summonevents()
+						summon_events(usr)
 						SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Summon Events", "Intensify"))
 					if("Turn Off Summon Events")
 						SSevents.toggleWizardmode()
 						SSevents.resetFrequency()
 						SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Summon Events", "Disable"))
+			else
+				if(tgui_alert(usr,"Do you want to toggle summon events on?",,list("Yes","No")) == "Yes")
+					summon_events(usr)
+					SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Summon Events", "Activate"))
 
 		if("dorf")
 			if(!check_rights(R_FUN))
@@ -664,10 +663,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("infinite_sec")
 			if(!check_rights(R_DEBUG))
 				return
-			var/datum/job/J = SSjob.GetJob(JOB_NAME_SECURITYOFFICER)
-			if(!J)
-				return
-			J.total_positions = -1
+			var/datum/job/sec_job = SSjob.get_job_type(/datum/job/security_officer)
+			sec_job.total_positions = -1
 			message_admins("[key_name_admin(usr)] has removed the cap on security officers.")
 
 		if("ctfbutton")

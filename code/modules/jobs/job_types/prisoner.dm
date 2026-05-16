@@ -1,18 +1,21 @@
 /datum/job/prisoner
 	title = JOB_NAME_PRISONER
 	description = "As a prisoner your job is to be imprisoned. Play cards or chess, cook some food or grow some plants. Run away when security ain't looking."
-	department_for_prefs = DEPT_NAME_ASSISTANT
+	department_for_prefs = DEPARTMENT_NAME_ASSISTANT
 	show_in_prefs = TRUE
 	faction = FACTION_STATION
 	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_required_type = EXP_TYPE_CREW
+	exp_granted_type = EXP_TYPE_CREW
 	total_positions = 3
 	min_pop = MINPOP_JOB_LIMIT
-	supervisors = "your own conscience"
-	selection_color = "#dddddd"
+	supervisors = "the security team"
+	selection_color = "#ffe1c3"
 
 	base_access = list()
-	departments = DEPT_BITFLAG_UNASSIGNED
+	departments_list = list(
+		/datum/department_group/other,
+		)
 	bank_account_department = NONE
 
 	display_order = JOB_DISPLAY_ORDER_PRISONER

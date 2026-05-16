@@ -27,6 +27,8 @@
 #define JOB_UNAVAILABLE_ACCOUNTAGE 4
 #define JOB_UNAVAILABLE_SLOTFULL 5
 #define JOB_UNAVAILABLE_LOCKED 6
+/// Job unavailable due to incompatibility with an antag role.
+#define JOB_UNAVAILABLE_ANTAG_INCOMPAT 7
 
 // Job spawn groups
 // Spawn group representing the primary roles of a department
@@ -35,6 +37,7 @@
 #define DEFAULT_RELIGION "Christianity"
 #define DEFAULT_DEITY "Space Jesus"
 #define DEFAULT_BIBLE "The Bible"
+#define DEFAULT_BIBLE_REPLACE(religion) "The Holy Book of [religion]"
 
 #define JOB_DISPLAY_ORDER_DEFAULT 0
 
@@ -88,7 +91,8 @@
 #define JOB_NAME_ASSISTANT  "Assistant"
 #define JOB_NAME_BARTENDER  "Bartender"
 #define JOB_NAME_BOTANIST   "Botanist"
-#define JOB_NAME_COOK     "Cook"
+#define JOB_NAME_COOK "Cook"
+#define JOB_NAME_CHEF "Chef" // Alternate cook title.
 #define JOB_NAME_JANITOR  "Janitor"
 #define JOB_NAME_CURATOR  "Curator"
 #define JOB_NAME_LAWYER   "Lawyer"
@@ -131,6 +135,11 @@
 #define JOB_NAME_SECURITYOFFICER "Security Officer"
 #define JOB_NAME_DETECTIVE "Detective"
 #define JOB_NAME_DEPUTY  "Deputy"
+// Security officer department alternate titles
+#define JOB_SECURITY_OFFICER_MEDICAL "Medical Security Officer"
+#define JOB_SECURITY_OFFICER_ENGINEERING "Engineering Security Officer"
+#define JOB_SECURITY_OFFICER_SUPPLY "Supply Security Officer"
+#define JOB_SECURITY_OFFICER_SCIENCE "Science Security Officer"
 
 // Silicon
 #define JOB_NAME_AI     "AI"

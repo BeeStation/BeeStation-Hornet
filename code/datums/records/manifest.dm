@@ -22,7 +22,7 @@
 	/// assoc-ing to head names, so that we give their name an officer mark on crew manifest
 	var/static/list/heads
 	if(!heads) // do not do this in pre-runtime.
-		heads = make_associative(SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
+		heads = make_associative(SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND))
 
 	// Pre-build in sorted order
 	var/list/manifest_out = list()
@@ -45,12 +45,12 @@
 			for(var/datum/department_group/department as anything in SSdepartment.get_department_by_bitflag(dept_bitflags))
 				var/category = dept_to_category[department.dept_id]
 				// Append to beginning of list if captain or department head
-				var/put_at_top = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN) || (department.dept_id != DEPT_NAME_COMMAND && heads[rank])
+				var/put_at_top = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN) || (department.dept_id != DEPARTMENT_NAME_COMMAND && heads[rank])
 				var/list/_internal = manifest_out[category]
 				_internal.Insert(put_at_top, list(entry))
 		else
 			var/put_at_top = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN) || (heads[rank])
-			var/list/_internal = manifest_out[dept_to_category[DEPT_NAME_UNASSIGNED]]
+			var/list/_internal = manifest_out[dept_to_category[DEPARTMENT_NAME_UNASSIGNED]]
 			_internal.Insert(put_at_top, list(entry))
 
 	// Trim empty categories.
@@ -91,9 +91,11 @@
 
 /datum/manifest/proc/inject(mob/living/carbon/human/person, nosignal = FALSE)
 	set waitfor = FALSE
-	var/datum/job/job = person.mind?.assigned_role_datum
+	var/datum/job/job = person.mind?.assigned_role
 	if(job && !(job.job_flags & JOB_CREW_MANIFEST))
 		return
+
+	var/assignment = person.mind?.assigned_role?.title || "None"
 
 	// We need to compile the overlays now, otherwise we're basically copying an empty icon.
 	COMPILE_OVERLAYS(person)
@@ -105,9 +107,6 @@
 		gender_string = "Male"
 	if(person.gender == FEMALE)
 		gender_string = "Female"
-	var/assignment = person.mind?.assigned_role
-	if(isnull(assignment))
-		assignment = "None"
 	var/datum/bank_account/bank_account = person.get_bank_account()
 
 	var/datum/record/locked/lockfile = new(

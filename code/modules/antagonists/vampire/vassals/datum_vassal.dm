@@ -184,6 +184,6 @@
 	if(src in vampiredatum?.vassals)
 		text += span_cult("<EM>This is your vassal!</EM>")
 		examine_text += text
-	else if(HAS_MIND_TRAIT(examiner, TRAIT_VAMPIRE_ALIGNED) || IS_CURATOR(examiner))
+	else if(HAS_MIND_TRAIT(examiner, TRAIT_VAMPIRE_ALIGNED) || is_curator_job(examiner?.mind?.assigned_role))
 		text += span_cult("<EM>This is [master.return_full_name()]'s vassal</EM>")
 		examine_text += text

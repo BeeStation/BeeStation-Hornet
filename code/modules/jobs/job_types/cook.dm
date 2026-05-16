@@ -1,12 +1,13 @@
 /datum/job/cook
 	title = JOB_NAME_COOK
 	description = "Whip up meals for the crew, get creative and cook different meals, request ingredients from Botany and Cargo. Make sure everyone stays well fed and happy."
-	department_for_prefs = DEPT_NAME_SERVICE
+	department_for_prefs = DEPARTMENT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = FACTION_STATION
 	total_positions = 2
 	selection_color = "#bbe291"
+	exp_granted_type = EXP_TYPE_CREW
 	var/cooks = 0 //Counts cooks amount
 
 	outfit = /datum/outfit/job/cook
@@ -22,7 +23,9 @@
 		ACCESS_BAR,
 	)
 
-	departments = DEPT_BITFLAG_SRV
+	departments_list = list(
+		/datum/department_group/service,
+		)
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_ASSISTANT)
 
@@ -31,6 +34,9 @@
 
 	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Tavern Chef"
+	alternate_titles = list(
+		JOB_NAME_CHEF,
+	)
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chef
@@ -56,13 +62,13 @@
 
 /datum/outfit/job/cook/pre_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
-	var/datum/job/cook/J = SSjob.GetJobType(jobtype)
-	if(J) // Fix for runtime caused by invalid job being passed
-		if(J.cooks>0)//Cooks
+	var/datum/job/cook/other_chefs = SSjob.get_job_type(jobtype)
+	if(other_chefs) // If there's other Chefs, you're a Cook
+		if(other_chefs.cooks > 0)//Cooks
 			suit = /obj/item/clothing/suit/apron/chef
 			head = /obj/item/clothing/head/soft
 		if(!visuals_only)
-			J.cooks++
+			other_chefs.cooks++
 
 /datum/outfit/job/cook/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()

@@ -48,10 +48,8 @@
 	var/memory
 	var/list/quirks = list()
 
-	/// The role that this mob was assigned, as a text value, may be a job which GetJob can be called to fetch
-	var/assigned_role
-	/// cached /datum/job reference for the assigned_role. we can nuke this once assigned_role is no longer being used as a string
-	var/datum/job/assigned_role_datum
+	/// Job datum indicating the mind's role. This should always exist after initialization, as a reference to a singleton.
+	var/datum/job/assigned_role
 	var/special_role
 
 	var/list/restricted_roles = list()
@@ -74,6 +72,10 @@
 	var/force_escaped = FALSE  // Set by Into The Sunset command of the shuttle manipulator
 
 	var/list/learned_recipes //List of learned recipe TYPES.
+	///Weakref to thecharacter we joined in as- either at roundstart or latejoin, so we know for persistent scars if we ended as the same person or not
+	var/datum/weakref/original_character
+	/// The index for what character slot, if any, we were loaded from, so we can track persistent scars on a per-character basis. Each character slot gets PERSISTENT_SCAR_SLOTS scar slots
+	var/original_character_slot_index
 	var/list/crew_objectives = list()
 
 	/// A lazy list of statuses to add next to this mind in the traitor panel
@@ -106,11 +108,22 @@
 		src.display_name_chat = found_client.display_name_chat()
 	martial_art = default_martial_art
 	setup_soul_glimmer()
+	set_assigned_role(SSjob.get_job_type(/datum/job/unassigned)) // Unassigned by default.
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
 	QDEL_LIST(antag_datums)
 	set_current(null)
+	return ..()
+
+/datum/mind/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, assigned_role))
+			set_assigned_role(var_value)
+			. = TRUE
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return
 	return ..()
 
 /datum/mind/proc/set_current(mob/new_current)
@@ -127,14 +140,15 @@
 	set_current(null)
 
 /datum/mind/proc/transfer_to(mob/new_character, force_key_move = 0)
-	if(current)	// remove ourself from our old body's mind variable
+	set_original_character(null)
+	if(current) // remove ourself from our old body's mind variable
 		current.mind = null
 		UnregisterSignal(current, COMSIG_LIVING_DEATH)
 		SStgui.on_transfer(current, new_character)
 
 	if(key)
-		if(new_character.key != key)					//if we're transferring into a body with a key associated which is not ours
-			new_character.ghostize(TRUE,SENTIENCE_ERASE)						//we'll need to ghostize so that key isn't mobless.
+		if(new_character.key != key) //if we're transferring into a body with a key associated which is not ours
+			new_character.ghostize(TRUE,SENTIENCE_ERASE) //we'll need to ghostize so that key isn't mobless.
 	else
 		key = new_character.key
 		var/client/found_client = GLOB.directory[ckey(key)]
@@ -142,7 +156,7 @@
 			src.display_name = found_client.display_name()
 			src.display_name_chat = found_client.display_name_chat()
 
-	if(new_character.mind)								//disassociate any mind curently in our new body's mind variable
+	if(new_character.mind) //disassociate any mind curently in our new body's mind variable
 		new_character.mind.set_current(null)
 
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud//we need this because leave_hud() will clear this list
@@ -188,6 +202,10 @@
 		old_current.med_hud_set_status()
 	if(isliving(current))
 		current.med_hud_set_status()
+
+//I cannot trust you fucks to do this properly
+/datum/mind/proc/set_original_character(new_original_character)
+	original_character = WEAKREF(new_original_character)
 
 /datum/mind/proc/set_death_time()
 	SIGNAL_HANDLER
@@ -427,10 +445,14 @@
 		A.admin_remove(usr)
 
 	if (href_list["role_edit"])
-		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in sort_list(get_all_jobs())
-		if (!new_role)
+		var/new_role = input("Select new role", "Assigned role", assigned_role.title) as null|anything in sort_list(SSjob.name_occupations)
+		if(isnull(new_role))
 			return
-		set_assigned_role(new_role)
+		var/datum/job/new_job = SSjob.get_job(new_role)
+		if (!new_job)
+			to_chat(usr, span_warning("Job not found."))
+			return
+		set_assigned_role(new_job)
 
 	else if (href_list["memory_edit"])
 		var/new_memo = stripped_multiline_input(usr, "Write new memory", "Memory", memory, MAX_MESSAGE_LEN)
@@ -636,6 +658,13 @@
 /datum/mind/proc/take_uplink()
 	qdel(find_syndicate_uplink())
 
+/datum/mind/proc/make_wizard()
+	if(has_antag_datum(/datum/antagonist/wizard))
+		return
+	set_assigned_role(SSjob.get_job_type(/datum/job/space_wizard))
+	special_role = ROLE_WIZARD
+	add_antag_datum(/datum/antagonist/wizard)
+
 /datum/mind/proc/transfer_martial_arts(mob/living/new_character)
 	if(!ishuman(new_character))
 		return
@@ -644,6 +673,7 @@
 			martial_art.remove(new_character)
 		else
 			martial_art.teach(new_character)
+
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter, ghosts_with_clients)
 	for(var/mob/dead/observer/G in (ghosts_with_clients ? GLOB.player_list : GLOB.dead_mob_list))
 		if(G.mind == src)
@@ -688,26 +718,21 @@
 	var/datum/addiction/affected_addiction = SSaddiction.all_addictions[type]
 	return affected_addiction.on_lose_addiction_points(src)
 
-/// Setter for assigned_role. Keeps assigned_role (string) and assigned_role_datum (job ref) in sync.
-/// Returns the previous assigned_role value.
-/datum/mind/proc/set_assigned_role(role_title, datum/job/job_datum)
-	if((assigned_role == role_title) && (assigned_role_datum == job_datum))
+/// Setter for the assigned_role job datum.
+/datum/mind/proc/set_assigned_role(datum/job/new_role)
+	if(assigned_role == new_role)
 		return
+	if(!is_job(new_role))
+		CRASH("set_assigned_role called with invalid role: [isnull(new_role) ? "null" : new_role]")
 	. = assigned_role
-	assigned_role = role_title
-	//second argument was filled
-	if(job_datum)
-		assigned_role_datum = job_datum
-	//second argument was not filled, take string and find job datum. If there is no associated job-datum, it will be null anyway
-	else
-		assigned_role_datum = SSjob.GetJob(assigned_role)
+	assigned_role = new_role
 
 /// Sets us to the passed job datum, then greets them to their new job.
 /// Use this one for when you're assigning this mind to a new job for the first time,
 /// or for when someone's receiving a job they'd really want to be greeted to.
-/datum/mind/proc/set_assigned_role_with_greeting(role_title, datum/job/new_role, client/incoming_client)
-	. = set_assigned_role(role_title = role_title, job_datum = new_role)
-	if(assigned_role_datum != new_role)
+/datum/mind/proc/set_assigned_role_with_greeting(datum/job/new_role, client/incoming_client)
+	. = set_assigned_role(new_role)
+	if(assigned_role != new_role)
 		return
 
 	var/intro_message = new_role.get_spawn_message()
@@ -744,26 +769,20 @@
 	..()
 	last_mind = mind
 
-//HUMAN
-/mob/living/carbon/human/mind_initialize()
-	..()
-	if(!mind.assigned_role)
-		mind.set_assigned_role("Unassigned")
-
 //AI
 /mob/living/silicon/ai/mind_initialize()
-	..()
-	mind.set_assigned_role(JOB_NAME_AI)
+	. = ..()
+	mind.set_assigned_role(SSjob.get_job_type(/datum/job/ai))
 
 //BORG
 /mob/living/silicon/robot/mind_initialize()
-	..()
-	mind.set_assigned_role(JOB_NAME_CYBORG)
+	. = ..()
+	mind.set_assigned_role(SSjob.get_job_type(/datum/job/cyborg))
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()
-	..()
-	mind.set_assigned_role(ROLE_PAI)
+	. = ..()
+	mind.set_assigned_role(SSjob.get_job_type(/datum/job/personal_ai))
 	mind.special_role = ""
 
 // Quirk Procs //

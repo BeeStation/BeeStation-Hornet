@@ -13,7 +13,7 @@
 	flavour_text = "Each day you barely scrape by, and between the terrible conditions of your makeshift shelter, \
 	the hostile creatures, and the ash drakes swooping down from the cloudless skies, all you can wish for is the feel of soft grass between your toes and \
 	the fresh air of Earth. These thoughts are dispelled by yet another recollection of how you got here... "
-	assignedrole = "Hermit"
+	spawner_job_path = "Hermit"
 	use_cooldown = TRUE
 	banType = ROLE_HERMIT
 
@@ -62,7 +62,7 @@
 	icon_state = "sleeper"
 	short_desc = "You're, like, totally a dudebro, bruh."
 	flavour_text = "Ch'yea. You came here, like, on spring break, hopin' to pick up some bangin' hot chicks, y'knaw?"
-	assignedrole = "Beach Bum"
+	spawner_job_path = /datum/job/beach_bum
 	use_cooldown = TRUE
 	banType = ROLE_BEACH_BUM
 
@@ -103,12 +103,12 @@
 	icon_state = "sleeper"
 	short_desc = "You are a space bartender!"
 	flavour_text = "Time to mix drinks and change lives. Smoking space drugs makes it easier to understand your patrons' odd dialect."
-	assignedrole = "Space Bartender"
+	spawner_job_path = /datum/job/space_bartender
 	id_job = JOB_NAME_BARTENDER
 	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/bartender/alive/beach
-	assignedrole = "Beach Bartender"
+	spawner_job_path = /datum/job/beach_bum
 	banType = ROLE_BEACH_BUM
 	outfit = /datum/outfit/spacebartender/beach
 
@@ -151,7 +151,7 @@
 	the universe to every planet they could chart. You are in one such seed vault. \
 	Your goal is to cultivate and spread life wherever it will go while waiting for contact from your creators. \
 	Estimated time of last contact: Deployment, 5000 millennia ago."
-	assignedrole = "Lifebringer"
+	spawner_job_path = /datum/job/lifebringer
 	use_cooldown = TRUE
 	banType = ROLE_LIFEBRINGER
 
@@ -185,7 +185,7 @@
 	flavour_text = "The wastes are sacred ground, its monsters a blessed bounty. \
 	You have seen lights in the distance... they foreshadow the arrival of outsiders that seek to tear apart the Necropolis and its domain. \
 	Fresh sacrifices for your nest."
-	assignedrole = "Ash Walker"
+	spawner_job_path = /datum/job/ash_walker
 	var/datum/team/ashwalkers/team
 	use_cooldown = TRUE
 	banType = ROLE_ASHWALKER
@@ -229,7 +229,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 	flavour_text = "Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Continue your research as best you can, and try to keep a low profile."
 	important_info = "The base is rigged with explosives, DO NOT abandon it or let it fall into enemy hands!"
 	outfit = /datum/outfit/lavaland_syndicate
-	assignedrole = "Lavaland Syndicate"
+	spawner_job_path = /datum/job/lavaland_syndicate
 	use_cooldown = TRUE
 	banType = ROLE_LAVALAND_SYNDICATE
 
@@ -239,7 +239,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 	flavour_text = "Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Continue your reconnaissance as best you can, and try to keep a low profile."
 	important_info = "The base is rigged with explosives, DO NOT abandon it or let it fall into enemy hands!"
 	outfit = /datum/outfit/lavaland_syndicate/officer
-	assignedrole = "Lavaland Syndicate"
+	spawner_job_path = /datum/job/lavaland_syndicate
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/special(mob/living/new_spawn)
 	new_spawn.grant_language(/datum/language/codespeak)
@@ -315,7 +315,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 	flavour_text = "What...? Where are you? What's the purpose of this place? This is still the animal hospital - you should know, you've been an intern here for weeks - but \
 	all you did was apply bruise packs. Why is this place full of advanced medical equipment? And what are those screams you hear? The world outside is desolate - tormented with fire and brimstone. But you took an oath. \
 	You have to save these people! You might not have a fancy cloning machine like a real hospital, but surely there must be some way to save these people with the tools you have. Right?"
-	assignedrole = "Translocated Veterinarian"
+	spawner_job_path = /datum/job/ghost_role
 	banType = ROLE_TRANSLOCATED_VET
 	death = FALSE
 	roundstart = FALSE

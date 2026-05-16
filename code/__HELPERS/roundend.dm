@@ -46,7 +46,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 					var/mob/living/carbon/human/H = L
 					category = "humans"
 					if(H.mind)
-						mob_data["job"] = H.mind.assigned_role
+						mob_data["job"] = H.mind.assigned_role.title
 					else
 						mob_data["job"] = "Unknown"
 					mob_data["species"] = H.dna.species.name
@@ -676,13 +676,8 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 
 /proc/printplayer(datum/mind/ply, fleecheck)
 	var/jobtext = ""
-	if(ply.assigned_role || ply.special_role)
-		if(ply.assigned_role != "Unassigned")
-			jobtext = ply.assigned_role
-		if(!jobtext)
-			jobtext = ply.special_role
-		if(jobtext)
-			jobtext = " the <b>[jobtext]</b>"
+	if(!is_unassigned_job(ply.assigned_role))
+		jobtext = " the <b>[ply.assigned_role.title]</b>"
 	var/jobtext_custom = get_custom_title_from_id(ply) // support the custom job title to the roundend report
 
 	var/text = "<b>[ply.name]</b>[jobtext][jobtext_custom] and"
