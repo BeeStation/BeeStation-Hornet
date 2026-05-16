@@ -29,6 +29,7 @@
 
 	///The types of bodyparts that this surgery can have performed on it. Used for augmented surgeries.
 	var/requires_bodypart_type = BODYTYPE_ORGANIC
+
 	///The speed modifier given to the surgery through external means.
 	var/speed_modifier = 0
 	///Whether the surgery requires research to do. You need to add a design if using this!
@@ -42,7 +43,6 @@
 	 *However, they can still be used by them if they meet the normal requirements to access the surgery
 	**/
 	var/abductor_surgery_blacklist = FALSE
-
 
 /datum/surgery/New(atom/surgery_target, surgery_location, surgery_bodypart)
 	. = ..()
