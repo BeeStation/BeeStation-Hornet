@@ -6,8 +6,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/baseturf_helper)
 	name = "baseturf editor"
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = ""
-
+	/// Replacing a specific turf
 	var/list/baseturf_to_replace
+	/// The desired bottom turf
 	var/baseturf
 
 	plane = POINT_PLANE
@@ -33,23 +34,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/baseturf_helper)
 
 	qdel(src)
 
+/// Replaces all the requested baseturfs (usually space/baseturfbottom) with the desired baseturf. Skips if its already there
 /obj/effect/baseturf_helper/proc/replace_baseturf(turf/thing)
+	thing.remove_baseturfs_from_typecache(baseturf_to_replace)
+
 	if(length(thing.baseturfs))
-		var/list/baseturf_cache = thing.baseturfs.Copy()
-		for(var/i in baseturf_cache)
-			if(baseturf_to_replace[i])
-				baseturf_cache -= i
-		thing.baseturfs = baseturfs_string_list(baseturf_cache, thing)
-		if(!baseturf_cache.len)
-			thing.assemble_baseturfs(baseturf)
-		else
-			thing.PlaceOnBottom(null, baseturf)
-	else if(baseturf_to_replace[thing.baseturfs])
-		thing.assemble_baseturfs(baseturf)
-	else
-		thing.PlaceOnBottom(null, baseturf)
+		var/turf/tile = thing.baseturfs[1]
+		if(tile == baseturf)
+			return
 
-
+	thing.place_on_bottom(baseturf)
 
 /obj/effect/baseturf_helper/space
 	name = "space baseturf editor"
@@ -92,6 +86,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 /obj/effect/mapping_helpers
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = ""
+	anchored = TRUE
+	// Unless otherwise specified, layer above everything
+	layer = ABOVE_ALL_MOB_LAYER
 	var/late = FALSE
 
 /obj/effect/mapping_helpers/Initialize(mapload)
@@ -142,11 +139,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 			if(1 to 9)
 				var/turf/here = get_turf(src)
 				for(var/turf/closed/T in range(2, src))
-					here.PlaceOnTop(T.type)
+					here.place_on_top(T.type)
 					qdel(airlock)
 					qdel(src)
 					return
-				here.PlaceOnTop(/turf/closed/wall)
+				here.place_on_top(/turf/closed/wall)
 				qdel(airlock)
 				qdel(src)
 				return
@@ -289,7 +286,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 //air alarm helpers
 /obj/effect/mapping_helpers/airalarm
 	desc = "You shouldn't see this. Report it please."
-	layer = ABOVE_OBJ_LAYER
 	late = TRUE
 
 /obj/effect/mapping_helpers/airalarm/Initialize(mapload)
@@ -300,7 +296,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 
 	var/obj/machinery/airalarm/target = locate(/obj/machinery/airalarm) in loc
 	if(isnull(target))
-		var/area/target_area = get_area(target)
+		var/area/target_area = get_area(src)
 		log_mapping("[src] failed to find an air alarm at [AREACOORD(src)] ([target_area.type]).")
 	else
 		payload(target)
@@ -1026,7 +1022,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mapping_helpers/atom_injector)
 
 	// well, it's a bad idea to put a directional window here. Mapping failsafe process here.
 	if(unliable_atmos_blocking && (isspaceturf(my_turf) || isopenspace(my_turf)))
-		my_turf.PlaceOnTop(list(/turf/open/floor/plating, /turf/open/floor/iron), flags = CHANGETURF_INHERIT_AIR)
+		my_turf.place_on_top(list(/turf/open/floor/plating, /turf/open/floor/iron), flags = CHANGETURF_INHERIT_AIR)
 		for(var/turf/each_turf in nearby_turfs)
 			if(isspaceturf(each_turf) || isopenspace(each_turf))
 				var/obj/d_glass = new window_type(my_turf)
@@ -1200,4 +1196,104 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 /obj/effect/mapping_helpers/burnt_floor/LateInitialize()
 	var/turf/open/floor/floor = get_turf(src)
 	floor.burn_tile()
+	qdel(src)
+
+///Applies BROKEN flag to the first found machine on a tile
+/obj/effect/mapping_helpers/broken_machine
+	name = "broken machine helper"
+	icon_state = "broken_machine"
+	late = TRUE
+
+/obj/effect/mapping_helpers/broken_machine/Initialize(mapload)
+	. = ..()
+	if(!mapload)
+		log_mapping("[src] spawned outside of mapload!")
+		return INITIALIZE_HINT_QDEL
+
+	var/obj/machinery/target = locate(/obj/machinery) in loc
+	if(isnull(target))
+		var/area/target_area = get_area(src)
+		log_mapping("[src] failed to find a machine at [AREACOORD(src)] ([target_area.type]).")
+	else
+		payload(target)
+
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/mapping_helpers/broken_machine/LateInitialize()
+	var/obj/machinery/target = locate(/obj/machinery) in loc
+
+	if(isnull(target))
+		qdel(src)
+		return
+
+	target.update_appearance()
+	qdel(src)
+
+/obj/effect/mapping_helpers/broken_machine/proc/payload(obj/machinery/target)
+	if(target.machine_stat & BROKEN)
+		var/area/area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(area.type)] tried to break [target] but it's already broken!")
+	target.set_machine_stat(target.machine_stat | BROKEN)
+
+///Deals random damage to the first window found on a tile to appear cracked
+/obj/effect/mapping_helpers/damaged_window
+	name = "damaged window helper"
+	icon_state = "damaged_window"
+	late = TRUE
+	/// Minimum roll of integrity damage in percents needed to show cracks
+	var/integrity_damage_min = 0.25
+	/// Maximum roll of integrity damage in percents needed to show cracks
+	var/integrity_damage_max = 0.85
+
+/obj/effect/mapping_helpers/damaged_window/Initialize(mapload)
+	. = ..()
+	if(!mapload)
+		log_mapping("[src] spawned outside of mapload!")
+		return INITIALIZE_HINT_QDEL
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/mapping_helpers/damaged_window/LateInitialize()
+	var/obj/structure/window/target = locate(/obj/structure/window) in loc
+
+	if(isnull(target))
+		var/area/target_area = get_area(src)
+		log_mapping("[src] failed to find a window at [AREACOORD(src)] ([target_area.type]).")
+		qdel(src)
+		return
+	else
+		payload(target)
+
+	target.update_appearance()
+	qdel(src)
+
+/obj/effect/mapping_helpers/damaged_window/proc/payload(obj/structure/window/target)
+	if(target.get_integrity() < target.max_integrity)
+		var/area/area = get_area(target)
+		log_mapping("[src] at [AREACOORD(src)] [(area.type)] tried to damage [target] but it's already damaged!")
+	target.take_damage(rand(target.max_integrity * integrity_damage_min, target.max_integrity * integrity_damage_max))
+
+///Gives a cable a forced node
+/obj/effect/mapping_helpers/power_node
+	name = "power node helper"
+	icon_state = "power_node"
+	late = TRUE
+	var/integrity_damage_max = 0.85
+
+/obj/effect/mapping_helpers/power_node/Initialize(mapload)
+	. = ..()
+	if(!mapload)
+		log_mapping("[src] spawned outside of mapload!")
+		return INITIALIZE_HINT_QDEL
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/mapping_helpers/power_node/LateInitialize()
+	var/obj/structure/cable/target = locate(/obj/structure/cable) in loc
+
+	if(isnull(target))
+		var/area/target_area = get_area(src)
+		log_mapping("[src] failed to find a cable at [AREACOORD(src)] ([target_area.type]).")
+		qdel(src)
+		return
+
+	target.add_power_node()
 	qdel(src)

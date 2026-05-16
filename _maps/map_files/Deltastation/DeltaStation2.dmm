@@ -3361,19 +3361,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/service/chapel/office)
-"bnK" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted,
-/obj/item/bedsheet/brown,
-/obj/structure/bed{
-	dir = 8
-	},
-/obj/effect/landmark/prisonspawn,
-/obj/effect/landmark/start/prisoner,
-/obj/structure/wall_closet/generic/directional/east,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/maintenance,
-/turf/open/floor/iron/dark,
-/area/station/security/prison)
 "bnO" = (
 /obj/effect/turf_decal/bot,
 /obj/item/kirbyplants/random,
@@ -16253,7 +16240,6 @@
 	pixel_y = 24;
 	prison_radio = 1
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -40959,7 +40945,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /turf/open/floor/iron,
@@ -48942,7 +48928,6 @@
 "pqv" = (
 /obj/structure/chair/fancy/bench,
 /obj/structure/cable/yellow,
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "pqA" = (
@@ -50285,7 +50270,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /turf/open/floor/iron,
@@ -53527,7 +53512,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /turf/open/floor/iron,
@@ -54532,24 +54517,6 @@
 	},
 /turf/open/floor/wood,
 /area/station/service/library)
-"qYD" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 4
-	},
-/obj/item/bedsheet/brown,
-/obj/structure/bed{
-	dir = 8
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/obj/effect/landmark/prisonspawn,
-/obj/effect/landmark/start/prisoner,
-/obj/structure/wall_closet/generic/directional/east,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/maintenance,
-/turf/open/floor/iron/dark,
-/area/station/security/prison)
 "qYF" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/disposalpipe/sorting/mail/destination/robotics{
@@ -59144,7 +59111,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /turf/open/floor/iron,
@@ -62314,13 +62281,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
-"tuu" = (
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/station/security/prison)
 "tuH" = (
 /obj/machinery/light/small,
 /obj/structure/disposalpipe/segment{
@@ -68936,10 +68896,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/station/medical/genetics/cloning)
-"vrk" = (
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/station/security/prison)
 "vrm" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/neutral{
@@ -72898,7 +72854,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/iron/techmaint,
 /area/station/security/prison/safe)
 "wFQ" = (
@@ -129689,10 +129644,10 @@ jRN
 duA
 syL
 syL
-tuu
+kwJ
 syL
 syL
-vrk
+syL
 syL
 gdW
 rLx
@@ -131489,7 +131444,7 @@ dCv
 hbl
 cPp
 uQM
-qYD
+nUH
 pzS
 eDZ
 dCv
@@ -132262,7 +132217,7 @@ vPY
 uQM
 nUH
 pHp
-bnK
+eDZ
 aOn
 tnm
 vys
@@ -133031,7 +132986,7 @@ aOn
 jLh
 wAa
 uQM
-qYD
+nUH
 sYE
 eDZ
 aOn

@@ -1,8 +1,8 @@
 //Ancient cryogenic sleepers. Players become NT crewmen from a hundred year old space station, now on the verge of collapse.
-/obj/effect/mob_spawn/human/oldsec
+/obj/effect/mob_spawn/human/oldstation
 	name = "old cryogenics pod"
-	desc = "A humming cryo pod. You can barely recognise a security uniform underneath the built up ice. The machine is attempting to wake up its occupant."
-	mob_name = "a security officer"
+	desc = "A humming cryo pod. You can barely recognise a uniform underneath the built up ice. The machine is attempting to wake up its occupant."
+	mob_name = "an ancient crewman"
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
 	roundstart = FALSE
@@ -11,76 +11,65 @@
 	mob_species = /datum/species/human
 	short_desc = "You are a security officer working for Nanotrasen, stationed onboard a state of the art research station."
 	flavour_text = "You vaguely recall rushing into a cryogenics pod due to an oncoming radiation storm. \
-	The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. \
-	As you open your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
-	Work as a team with your fellow survivors and do not abandon them."
+		The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. \
+		As you open your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
+		Work as a team with your fellow survivors and do not abandon them."
+	assignedrole = "Ancient Crew"
+	use_cooldown = TRUE
+	banType = ROLE_ANCIENT_CREW
+
+/obj/effect/mob_spawn/human/oldstation/Destroy()
+	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
+	return ..()
+
+//Ancient cryogenic sleepers. Players become NT crewmen from a hundred year old space station, now on the verge of collapse.
+/obj/effect/mob_spawn/human/oldstation/sec
+	desc = "A humming cryo pod. You can barely recognise a security uniform underneath the built up ice. The machine is attempting to wake up its occupant."
+	mob_name = "a security officer"
+	short_desc = "You are a security officer working for Nanotrasen, stationed onboard a state of the art research station."
+	outfit = /datum/outfit/oldsec
+
+/datum/outfit/oldsec
+	name = "Ancient Security"
+	id = /obj/item/card/id/away/old/sec
 	uniform = /obj/item/clothing/under/rank/security/officer
 	shoes = /obj/item/clothing/shoes/jackboots
-	id = /obj/item/card/id/away/old/sec
-	r_pocket = /obj/item/restraints/handcuffs
 	l_pocket = /obj/item/assembly/flash/handheld
-	assignedrole = "Ancient Crew"
-	use_cooldown = TRUE
-	banType = ROLE_ANCIENT_CREW
+	r_pocket = /obj/item/restraints/handcuffs
 
-/obj/effect/mob_spawn/human/oldsec/Destroy()
-	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
-	return ..()
-
-/obj/effect/mob_spawn/human/oldeng
-	name = "old cryogenics pod"
+/obj/effect/mob_spawn/human/oldstation/eng
 	desc = "A humming cryo pod. You can barely recognise an engineering uniform underneath the built up ice. The machine is attempting to wake up its occupant."
 	mob_name = "an engineer"
-	icon = 'icons/obj/machines/sleeper.dmi'
-	icon_state = "sleeper"
-	roundstart = FALSE
-	death = FALSE
-	random = TRUE
-	mob_species = /datum/species/human
 	short_desc = "You are an engineer working for Nanotrasen, stationed onboard a state of the art research station."
-	flavour_text = "You vaguely recall rushing into a cryogenics pod due to an oncoming radiation storm. \
-	The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. \
-	As you open your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
-	Work as a team with your fellow survivors and do not abandon them."
-	uniform = /obj/item/clothing/under/rank/engineering/engineer
-	shoes = /obj/item/clothing/shoes/workboots
+	outfit = /datum/outfit/oldeng
+
+/datum/outfit/oldeng
+	name = "Ancient Engineer"
 	id = /obj/item/card/id/away/old/eng
+	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	gloves = /obj/item/clothing/gloves/color/fyellow/old
+	shoes = /obj/item/clothing/shoes/workboots
 	l_pocket = /obj/item/tank/internals/emergency_oxygen
-	assignedrole = "Ancient Crew"
-	use_cooldown = TRUE
-	banType = ROLE_ANCIENT_CREW
 
-/obj/effect/mob_spawn/human/oldeng/Destroy()
-	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
-	return ..()
+/datum/outfit/oldeng/mod
+	name = "Ancient Engineer (MODsuit)"
+	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/prototype
+	mask = /obj/item/clothing/mask/breath
+	internals_slot = ITEM_SLOT_SUITSTORE
 
-/obj/effect/mob_spawn/human/oldsci
-	name = "old cryogenics pod"
+/obj/effect/mob_spawn/human/oldstation/sci
 	desc = "A humming cryo pod. You can barely recognise a science uniform underneath the built up ice. The machine is attempting to wake up its occupant."
 	mob_name = "a scientist"
-	icon = 'icons/obj/machines/sleeper.dmi'
-	icon_state = "sleeper"
-	roundstart = FALSE
-	death = FALSE
-	random = TRUE
-	mob_species = /datum/species/human
 	short_desc = "You are a scientist working for Nanotrasen, stationed onboard a state of the art research station."
-	flavour_text = span_bigbold("You vaguely recall rushing into a cryogenics pod due to an oncoming radiation storm. \
-	The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. \
-	As you open your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
-	Work as a team with your fellow survivors and do not abandon them.")
+	outfit = /datum/outfit/oldsci
+
+/datum/outfit/oldsci
+	name = "Ancient Scientist"
+	id = /obj/item/card/id/away/old/sci
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
 	shoes = /obj/item/clothing/shoes/laceup
-	id = /obj/item/card/id/away/old/sci
 	l_pocket = /obj/item/stack/medical/bruise_pack
-	assignedrole = "Ancient Crew"
-	use_cooldown = TRUE
-	banType = ROLE_ANCIENT_CREW
-
-/obj/effect/mob_spawn/human/oldsci/Destroy()
-	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
-	return ..()
 
 //Space Hotel Staff
 /obj/effect/mob_spawn/human/hotel_staff //not free antag u little shits

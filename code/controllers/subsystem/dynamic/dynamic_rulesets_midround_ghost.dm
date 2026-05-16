@@ -616,7 +616,7 @@
 	return /obj/item/card/id/prisoner
 
 /datum/dynamic_ruleset/midround/ghost/prisoners/get_spawn_locations()
-	for(var/obj/effect/landmark/prisonspawn/spawnpoint in GLOB.landmarks_list)
+	for(var/obj/effect/landmark/start/prisoner/spawnpoint in GLOB.start_landmarks_list)
 		if(isturf(spawnpoint.loc))
 			spawn_locations += spawnpoint.loc
 

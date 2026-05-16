@@ -436,10 +436,10 @@
 			data["shuttleCalled"] = TRUE
 			data["shuttleRecallable"] = SSshuttle.canRecall()
 
-		if (SSshuttle.emergencyCallAmount)
+		if (SSshuttle.emergency_call_amount)
 			data["shuttleCalledPreviously"] = TRUE
-			if (SSshuttle.emergencyLastCallLoc)
-				data["shuttleLastCalled"] = format_text(SSshuttle.emergencyLastCallLoc.name)
+			if (SSshuttle.emergency_last_call_loc)
+				data["shuttleLastCalled"] = format_text(SSshuttle.emergency_last_call_loc.name)
 
 		switch (ui_state)
 			if (STATE_MESSAGES)

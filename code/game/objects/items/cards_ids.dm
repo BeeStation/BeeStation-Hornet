@@ -889,23 +889,24 @@ do { \
 	name = "\proper a perfectly generic identification card"
 	desc = "A perfectly generic identification card. Looks like it could use some flavor."
 	hud_state = JOB_HUD_UNKNOWN
+	icon_state = "retro"
+	registered_age = null
 	access = list(ACCESS_AWAY_GENERAL)
 
 /obj/item/card/id/away/hotel
 	name = "Staff ID"
 	desc = "A staff ID used to access the hotel's doors."
 	hud_state = JOB_HUD_RAWSERVICE
-	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINT)
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINTENANCE)
 
 /obj/item/card/id/away/hotel/securty
 	name = "Officer ID"
 	hud_state = JOB_HUD_RAWSECURITY
-	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINT, ACCESS_AWAY_SEC)
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINTENANCE, ACCESS_AWAY_SEC)
 
 /obj/item/card/id/away/old
 	name = "\proper a perfectly generic identification card"
 	desc = "A perfectly generic identification card. Looks like it could use some flavor."
-	icon_state = "centcom"
 	hud_state = JOB_HUD_RAWCENTCOM
 
 /obj/item/card/id/away/old/sec
@@ -920,20 +921,25 @@ do { \
 	desc = "A faded Charlie Station ID card. You can make out the rank \"Scientist\"."
 	assignment = "Charlie Station Scientist"
 	hud_state = JOB_HUD_RAWSCIENCE
-	access = list(ACCESS_AWAY_GENERAL)
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_SCIENCE)
 
 /obj/item/card/id/away/old/eng
 	name = "Charlie Station Engineer's ID card"
 	desc = "A faded Charlie Station ID card. You can make out the rank \"Station Engineer\"."
 	assignment = "Charlie Station Engineer"
 	hud_state = JOB_HUD_RAWENGINEERING
-	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_ENGINE)
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_ENGINEERING)
 
-/obj/item/card/id/away/old/apc
-	name = "APC Access ID"
-	desc = "A special ID card that allows access to APC terminals."
+/obj/item/card/id/away/old/equipment
+	name = "Engineering Equipment Access"
+	desc = "A special ID card that allows access to engineering equipment."
 	hud_state = JOB_HUD_UNKNOWN
-	access = list(ACCESS_ENGINE_EQUIP)
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_ENGINEERING, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP)
+
+/obj/item/card/id/away/old/robo
+	name = "Delta Station Roboticist's ID card"
+	desc = "An ID card that allows access to bots maintenance protocols."
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_ROBOTICS, ACCESS_TOX)
 
 /obj/item/card/id/away/deep_storage //deepstorage.dmm space ruin
 	name = "bunker access ID"

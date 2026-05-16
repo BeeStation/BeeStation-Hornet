@@ -357,9 +357,9 @@
 
 /obj/item/kirbyplants/Initialize(mapload)
 	. = ..()
-	create_storage(storage_type = /datum/storage/implant)
+	create_storage(storage_type = /datum/storage/kirbyplants)
 	AddComponent(/datum/component/tactical)
-	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=10, force_wielded=10)
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE, force_unwielded = 10, force_wielded = 10)
 
 /datum/storage/kirbyplants
 	max_slots = 1
@@ -390,9 +390,11 @@
 		states += "plant-[number]"
 
 /obj/item/kirbyplants/dead
+	icon_state = "plant-25"
+
+/obj/item/kirbyplants/dead/research_director
 	name = "RD's potted plant"
 	desc = "A gift from the botanical staff, presented after the RD's reassignment. There's a tag on it that says \"Y'all come back now, y'hear?\"\nIt doesn't look very healthy..."
-	icon_state = "plant-25"
 
 /obj/item/kirbyplants/photosynthetic
 	name = "photosynthetic potted plant"

@@ -16,8 +16,6 @@
 	cost = 0
 	priority = MAX_KNOWLEDGE_PRIORITY // Should be at the top
 	route = HERETIC_PATH_START
-	/// Whether we've generated a heretic sacrifice z-level yet, from any heretic.
-	var/static/heretic_level_generated = FALSE
 	/// If TRUE, we skip the ritual when our target list is empty. Done to avoid locking up the heretic.
 	var/skip_this_ritual = FALSE
 	/// A weakref to the mind of our heretic.
@@ -33,19 +31,10 @@
 	. = ..()
 	obtain_targets(user, silent = TRUE, heretic_datum = our_heretic)
 	heretic_mind = our_heretic.owner
-	if(!heretic_level_generated)
-		heretic_level_generated = TRUE
-		log_game("Generating z-level for heretic sacrifices...")
-		INVOKE_ASYNC(src, PROC_REF(generate_heretic_z_level))
-
-/// Generate the sacrifice z-level.
-/datum/heretic_knowledge/hunt_and_sacrifice/proc/generate_heretic_z_level()
-	var/datum/map_template/heretic_sacrifice_level/new_level = new()
-	if(!new_level.load_new_z())
-		log_game("The heretic sacrifice z-level failed to load.")
-		message_admins("The heretic sacrifice z-level failed to load. Heretic sacrifices won't be teleported to the shadow realm. \
-			If you want, you can spawn an /obj/effect/landmark/heretic somewhere to stop that from happening.")
-		CRASH("Failed to initialize heretic sacrifice z-level!")
+	if(!length(GLOB.heretic_sacrifice_landmarks))
+		var/datum/map_template/template = new("_maps/templates/heretic_sacrifice_template.dmm", "Heretic arena")
+		var/datum/turf_reservation/reservation = SSmapping.request_turf_block_reservation(template.width, template.height)
+		template.load(locate(reservation.bottom_left_coords[1], reservation.bottom_left_coords[2], reservation.bottom_left_coords[3]))
 
 /datum/heretic_knowledge/hunt_and_sacrifice/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
@@ -196,7 +185,7 @@
 	if(!our_heretic)
 		CRASH("[type] - begin_sacrifice was called, and no heretic [heretic_mind ? "antag datum":"mind"] could be found!")
 
-	if(!LAZYLEN(GLOB.heretic_sacrifice_landmarks))
+	if(!length(GLOB.heretic_sacrifice_landmarks))
 		CRASH("[type] - begin_sacrifice was called, but no heretic sacrifice landmarks were found!")
 
 	var/obj/effect/landmark/heretic/destination_landmark = GLOB.heretic_sacrifice_landmarks[our_heretic.heretic_path] || GLOB.heretic_sacrifice_landmarks[HERETIC_PATH_START]

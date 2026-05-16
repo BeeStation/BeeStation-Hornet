@@ -306,12 +306,6 @@
 /obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/iron,
 /area/station/cargo/miningoffice)
-"aiV" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/structure/cable/yellow,
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/station/security/prison)
 "ajb" = (
 /obj/structure/chair{
 	dir = 8
@@ -10180,7 +10174,6 @@
 	dir = 8;
 	light_color = "#e8eaff"
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "dWB" = (
@@ -13248,11 +13241,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plating,
 /area/station/science/mixing)
-"eWk" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/station/security/prison)
 "eWm" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/door/airlock/external{
@@ -42521,7 +42509,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "oEy" = (
@@ -55720,11 +55707,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/shuttledock)
-"tnZ" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/station/security/prison)
 "tob" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet{
@@ -59661,7 +59643,6 @@
 	dir = 8;
 	light_color = "#e8eaff"
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "uBT" = (
@@ -89785,7 +89766,7 @@ xJb
 vbq
 kIH
 eip
-eWk
+jhQ
 tuC
 tBB
 yeL
@@ -91584,7 +91565,7 @@ nhW
 qAw
 iSV
 xJb
-aiV
+lKc
 taw
 hHC
 jwW
@@ -92609,7 +92590,7 @@ qAw
 qAw
 qAw
 goZ
-tnZ
+msz
 msz
 aph
 eRW

@@ -332,18 +332,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	SSjob.latejoin_trackers += loc
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/landmark/prisonspawn
-	name = "prisonspawn"
-	icon_state = "error"
-	/* Milviu's sin
-	icon_state = "prison_spawn"
-	*/
-
-/obj/effect/landmark/prisonspawn/Initialize(mapload)
-	..()
-	GLOB.prisonspawn += loc
-	return INITIALIZE_HINT_QDEL
-
 //space carps, magicarps, lone ops, slaughter demons, possibly revenants spawn here
 /obj/effect/landmark/carpspawn
 	name = "carpspawn"
@@ -587,8 +575,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 	/// example) navigation_id = "Bartender's storage"
 	var/navigation_id
 
-	// Note: if multiple area needs a standard name, use "navigation_area_name"
-
 /obj/effect/landmark/navigate_destination/Initialize(mapload)
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD
@@ -602,7 +588,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 			stack_trace("The navigation landmark failed to get an area.")
 			qdel(src)
 			return
-		navigation_id = linked_area.get_navigation_area_name()
+		navigation_id = linked_area.name
 	if(!navigation_id)
 		navigation_id = "Unnamed area"
 

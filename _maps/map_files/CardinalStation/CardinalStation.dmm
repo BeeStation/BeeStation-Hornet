@@ -21707,7 +21707,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "fed" = (
@@ -22174,16 +22173,6 @@
 /obj/structure/extinguisher_cabinet/directional/south,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/cargo/warehouse)
-"fkK" = (
-/obj/effect/turf_decal/siding/thinplating_new/terracotta{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/techfloor/diagonal{
-	dir = 4
-	},
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison/dark,
-/area/station/security/prison)
 "fkL" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4;
@@ -34181,7 +34170,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /turf/open/floor/iron/dark/textured_half,
@@ -45377,7 +45366,6 @@
 /obj/effect/turf_decal/alphabet/number_2/cardinal{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/machinery/digital_clock/directional/north,
 /turf/open/floor/prison,
 /area/station/security/prison)
@@ -49015,10 +49003,6 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/station/engineering/atmos)
-"luZ" = (
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/grass,
-/area/station/security/prison)
 "lvl" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/siding/wideplating_new/dark,
@@ -60783,7 +60767,6 @@
 /obj/effect/turf_decal/alphabet/number_3/cardinal{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/machinery/digital_clock/directional/north,
 /turf/open/floor/prison,
 /area/station/security/prison)
@@ -62446,7 +62429,6 @@
 	dir = 8
 	},
 /obj/structure/chair/stool/directional/east,
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/wood,
 /area/station/security/prison)
 "oCt" = (
@@ -67455,7 +67437,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line,
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -72837,7 +72819,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line,
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -74084,7 +74066,6 @@
 /area/station/hallway/primary/fore)
 "rsK" = (
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "rsY" = (
@@ -75760,7 +75741,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "rNb" = (
@@ -81041,7 +81021,6 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron/freezer,
 /area/station/security/prison)
@@ -101339,7 +101318,6 @@
 /obj/effect/turf_decal/alphabet/number_1/cardinal{
 	dir = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/machinery/digital_clock/directional/north,
 /turf/open/floor/prison,
 /area/station/security/prison)
@@ -144829,7 +144807,7 @@ lsu
 iPm
 iry
 kbX
-luZ
+dEq
 tgQ
 imy
 pup
@@ -145857,7 +145835,7 @@ lsu
 wzR
 pDP
 qqZ
-fkK
+xkd
 xkd
 ghs
 eTZ

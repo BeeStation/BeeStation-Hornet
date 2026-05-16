@@ -237,8 +237,6 @@
 
 /////////////////////////////////////////////////
 
-/datum/config_entry/flag/virtual_reality	//Will virtual reality be loaded
-
 /datum/config_entry/flag/roundstart_away	//Will random away mission be loaded.
 
 /datum/config_entry/number/gateway_delay	//How long the gateway takes before it activates. Default is half an hour. Only matters if roundstart_away is enabled.
@@ -296,7 +294,7 @@
 	min_val = 0
 
 /datum/config_entry/number/space_budget
-	config_entry_value = 40
+	config_entry_value = 16
 	integer = FALSE
 	min_val = 0
 

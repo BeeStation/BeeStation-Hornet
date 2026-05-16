@@ -54,9 +54,9 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	uniform = /obj/item/clothing/under/rank/cargo/exploration
 	backpack_contents = list(
-		/obj/item/knife/combat/survival=1,
-		/obj/item/stack/marker_beacon/thirty=1,
-		/obj/item/mining_voucher/exploration=1,
+		/obj/item/knife/combat/survival = 1,
+		/obj/item/stack/marker_beacon/thirty = 1,
+		/obj/item/mining_voucher/exploration = 1,
 	)
 	r_pocket = /obj/item/gun/energy/e_gun/mini/exploration
 

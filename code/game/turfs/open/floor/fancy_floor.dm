@@ -278,6 +278,7 @@
 	desc = "Safely recreated turf for your hellplanet-scaping."
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "basalt"
+	base_icon_state = "basalt"
 	floor_tile = /obj/item/stack/tile/basalt
 	ore_type = /obj/item/stack/ore/glass/basalt
 	turfverb = "dig up"

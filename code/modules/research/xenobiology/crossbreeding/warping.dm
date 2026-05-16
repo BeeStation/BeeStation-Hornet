@@ -807,7 +807,7 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 	if(!GLOB.warped_room)
 		GLOB.warped_room = new
 		///current x,y,z location of the reserved space for the rune room
-		var/datum/turf_reservation/room_reservation = SSmapping.RequestBlockReservation(GLOB.warped_room.width, GLOB.warped_room.height) //monkey sees valid location
+		var/datum/turf_reservation/room_reservation = SSmapping.request_turf_block_reservation(GLOB.warped_room.width, GLOB.warped_room.height) //monkey sees valid location
 		GLOB.warped_room.load(locate(room_reservation.bottom_left_coords[1], room_reservation.bottom_left_coords[2], room_reservation.bottom_left_coords[3]))//monkey room activate
 		GLOB.warped_room.exit_rune = new (locate(room_reservation.bottom_left_coords[1] + 3, room_reservation.bottom_left_coords[2] + 6, room_reservation.bottom_left_coords[3]))
 	GLOB.warped_room.rainbow_runes += src

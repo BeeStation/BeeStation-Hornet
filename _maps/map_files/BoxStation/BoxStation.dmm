@@ -4595,7 +4595,6 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "cjm" = (
@@ -6244,7 +6243,7 @@
 /area/station/commons/lounge)
 "cZC" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /turf/open/floor/catwalk_floor,
@@ -7285,7 +7284,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /turf/open/floor/catwalk_floor,
@@ -22821,11 +22820,6 @@
 /obj/structure/closet/bombcloset,
 /turf/open/floor/iron/white,
 /area/station/science/mixing)
-"jHn" = (
-/obj/effect/turf_decal/siding/wideplating_new,
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/station/security/prison)
 "jHB" = (
 /obj/structure/table,
 /obj/machinery/button/ignition{
@@ -29271,7 +29265,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/wood,
 /area/station/security/prison)
 "mhL" = (
@@ -30153,7 +30146,6 @@
 /obj/effect/turf_decal/siding/wideplating_new/corner{
 	dir = 8
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/prison,
 /area/station/security/prison)
@@ -44452,12 +44444,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/patients_rooms)
-"swR" = (
-/obj/effect/turf_decal/siding/wideplating_new,
-/obj/effect/landmark/prisonspawn,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/prison,
-/area/station/security/prison)
 "swS" = (
 /obj/machinery/light{
 	dir = 8
@@ -83163,7 +83149,7 @@ bjK
 bjK
 bjK
 sbU
-swR
+qIf
 qGn
 oCW
 gXh
@@ -83420,7 +83406,7 @@ bjK
 bjK
 bjK
 ciK
-jHn
+rsS
 mhC
 kMc
 kMc

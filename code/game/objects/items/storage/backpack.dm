@@ -13,6 +13,7 @@
 	name = "backpack"
 	desc = "You wear this on your back and put items into it."
 	icon = 'icons/obj/storage/backpack.dmi'
+	worn_icon = 'icons/mob/clothing/back/backpack.dmi'
 	icon_state = "backpack"
 	inhand_icon_state = "backpack"
 	worn_icon = 'icons/mob/clothing/back/backpack.dmi'
@@ -28,9 +29,6 @@
 /*
  * Backpack Types
  */
-
-/obj/item/storage/backpack/old
-	storage_type = /datum/storage/backpack/old
 
 /obj/item/storage/backpack/holding
 	name = "bag of holding"
@@ -114,7 +112,6 @@
 		var/obj/item/thing = new /obj/item/a_gift/anything(floor)
 		if(!atom_storage.attempt_insert(src, thing, user, override = TRUE))
 			qdel(thing)
-
 
 /obj/item/storage/backpack/cultpack
 	name = "trophy rack"
@@ -783,15 +780,6 @@
 	new /obj/item/implanter/sad_trombone(src)
 
 /obj/item/storage/backpack/duffelbag/syndie/macho
-	desc = "Become the ultimate Macho Man!"
-
-/obj/item/storage/backpack/duffelbag/syndie/macho/PopulateContents()
-	new /obj/item/storage/belt/champion/wrestling(src)
-	new /obj/item/reagent_containers/hypospray/combat(src)
-	new /obj/item/implanter/adrenalin(src)
-	new /obj/item/clothing/mask/luchador/rudos(src)
-
-
 	desc = "Become the ultimate Macho Man!"
 
 /obj/item/storage/backpack/duffelbag/syndie/macho/PopulateContents()
