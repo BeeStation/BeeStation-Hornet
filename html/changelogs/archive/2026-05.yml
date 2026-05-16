@@ -128,3 +128,6 @@
   - refactor: cleans up a lot of surgery code
   - tweak: revive surgery is roundstart
   - tweak: revive surgery can revive more mobtypes
+2026-05-16:
+  EvilDragonfiend:
+  - code_imp: Our minimum DM version(for compiling) is now 516.1666
