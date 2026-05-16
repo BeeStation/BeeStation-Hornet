@@ -18,40 +18,55 @@
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
 /// Gets the current manifest.
+///
+/// Crew are grouped by employer (Nanotrasen, Stationside Services, etc.).
+/// Each job maps to exactly one employer via SSemployer, so there's no
+/// ambiguity from departments that share a bitflag (e.g. Galley Operations
+/// and Recreation both reuse DEPT_BITFLAG_SRV for radio/access).
 /datum/manifest/proc/get_manifest()
-	/// assoc-ing to head names, so that we give their name an officer mark on crew manifest
+	// Heads-of-staff get inserted at the top of their bucket so they read
+	// as the section's lead. Cached because dept membership doesn't change at runtime.
 	var/static/list/heads
 	if(!heads) // do not do this in pre-runtime.
 		heads = make_associative(SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 
-	// Pre-build in sorted order
+	// Pre-build empty buckets in employer display order so the output list
+	// iterates in the right order. Empty ones get trimmed at the end.
 	var/list/manifest_out = list()
-	var/list/dept_to_category = list()
-	for(var/datum/department_group/department as anything in SSdepartment.sorted_department_for_manifest)
-		manifest_out[department.manifest_category_name] = list()
-		dept_to_category[department.dept_id] = department.manifest_category_name
+	var/fallback_category = null
+	for(var/datum/employer_group/employer as anything in SSemployer?.employer_datums)
+		manifest_out[employer.display_name] = list()
+		// EMPLOYER_ID_NON_CREW catches anyone whose job doesn't map to an employer.
+		if(employer.id == EMPLOYER_ID_NON_CREW)
+			fallback_category = employer.display_name
 
 	for(var/datum/record/crew/person_record in GLOB.manifest.general)
 		var/name = person_record.name
 		var/rank = person_record.rank
 		var/hud = person_record.hud
-		var/dept_bitflags = person_record.active_department
 		var/datum/job/job = SSjob.name_occupations[rank]
 		// Skip jobs that aren't flagged for the crew manifest.
 		if(job && !(job.job_flags & JOB_CREW_MANIFEST))
 			continue
+
+		var/category = null
+		if(job)
+			var/employer_id = job.get_employer_id()
+			if(employer_id)
+				var/datum/employer_group/employer = SSemployer.get_employer(employer_id)
+				if(employer)
+					category = employer.display_name
+		// Anyone we couldn't resolve drops into Non-Crew (or, if even that's
+		// missing for some reason, the first available bucket so they don't vanish).
+		if(!category)
+			category = fallback_category || (length(manifest_out) ? manifest_out[1] : null)
+		if(!category)
+			continue
+
 		var/entry = list("name" = name, "rank" = rank, "hud" = hud)
-		if(dept_bitflags)
-			for(var/datum/department_group/department as anything in SSdepartment.get_department_by_bitflag(dept_bitflags))
-				var/category = dept_to_category[department.dept_id]
-				// Append to beginning of list if captain or department head
-				var/put_at_top = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN) || (department.dept_id != DEPT_NAME_COMMAND && heads[rank])
-				var/list/_internal = manifest_out[category]
-				_internal.Insert(put_at_top, list(entry))
-		else
-			var/put_at_top = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN) || (heads[rank])
-			var/list/_internal = manifest_out[dept_to_category[DEPT_NAME_UNASSIGNED]]
-			_internal.Insert(put_at_top, list(entry))
+		var/put_at_top = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN) || heads[rank]
+		var/list/_internal = manifest_out[category]
+		_internal.Insert(put_at_top, list(entry))
 
 	// Trim empty categories.
 	for(var/category in manifest_out)

@@ -1,7 +1,7 @@
 /datum/job/prisoner
 	title = JOB_NAME_PRISONER
 	description = "As a prisoner your job is to be imprisoned. Play cards or chess, cook some food or grow some plants. Run away when security ain't looking."
-	department_for_prefs = DEPT_NAME_ASSISTANT
+	department_for_prefs = DEPT_NAME_UNASSIGNED
 	show_in_prefs = TRUE
 	faction = FACTION_STATION
 	exp_requirements = 300

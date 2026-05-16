@@ -418,7 +418,12 @@
 			var/list/payment_result = list()
 			for(var/D in registered_account.payment_per_department)
 				if(registered_account.payment_per_department[D] > 0)
-					payment_result += "[D]: $[registered_account.payment_per_department[D]]"
+					// D is the internal ACCOUNT_*_ID key (e.g. "Command", "Civilian").
+					// This is bad. So we instead use the player-facing employer name on the actual budget account so
+					// we don't expose the legacy department naming to players.
+					var/datum/bank_account/department/dept_account = SSeconomy.get_budget_account(D, force=TRUE)
+					var/payer_name = dept_account?.account_holder || D
+					payment_result += "[payer_name]: $[registered_account.payment_per_department[D]]"
 			if(length(payment_result))
 				. += "The payment of this account is -"
 				for(var/each in payment_result)

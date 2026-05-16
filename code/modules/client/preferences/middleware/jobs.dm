@@ -40,6 +40,15 @@
 
 	var/list/departments = list()
 	var/list/jobs = list()
+	var/list/employers = list()
+	var/list/employer_order = list()
+
+	// Build the employers first so each job can announce which one it
+	// belongs to. Shared with the latejoin TGUI via SSemployer.build_tgui_payload().
+	if(SSemployer)
+		var/list/employer_payload = SSemployer.build_tgui_payload()
+		employers = employer_payload["employers"]
+		employer_order = employer_payload["employer_order"]
 
 	for (var/datum/job/job as anything in SSjob.occupations)
 		if(!job.show_in_prefs)
@@ -58,26 +67,58 @@
 			continue
 
 		var/datum/department_group/dept = SSdepartment.department_assoc[department_id]
-		var/department_name = dept ? dept.dept_name : department_id // a bit of hardcoding. Captain/Assistant department doesn't exist, but it has a fancy theme in TGUI side.
+		// Fall back to the raw id if a job points at a department_id that has
+		// no /datum/department_group backing it (display-only buckets, etc).
+		// Colour/theme is sent down via dept_colour and applied inline by
+		// JobsPage.tsx - there is no SCSS theme keyed off department name.
+		var/department_name = dept ? dept.dept_name : department_id
 		if (isnull(departments[department_id]))
-			var/department_head_jobname = job.department_head_for_prefs || job.department_head
-			if(islist(department_head_jobname) && length(department_head_jobname))
-				department_head_jobname = department_head_jobname[1]
+			// Only show a "head" entry for departments that actually have leaders.
+			// Headless departments should render without a head row even if
+			// individual jobs still nominally point at a head for chain-of-command.
+			var/department_head_jobname = null
+			if(dept && length(dept.leaders))
+				department_head_jobname = job.department_head_for_prefs || job.department_head
+				if(islist(department_head_jobname) && length(department_head_jobname))
+					department_head_jobname = department_head_jobname[1]
 			if(length(department_head_jobname))
 				departments[department_id] = list(
 					"head" = department_head_jobname,
+					"name" = department_name,
+					"colour" = dept?.dept_colour,
 				)
 			else
-				departments[department_id] = list()
+				departments[department_id] = list(
+					"name" = department_name,
+					"colour" = dept?.dept_colour,
+				)
 
 		jobs[job.title] = list(
 			"lock_reason" = job.get_lock_reason(),
 			"description" = job.description,
-			"department" = department_name,
+			"department" = department_id, // We give ID not name because "we just handle it"
+			"employer" = job.get_employer_id(),
 		)
 
+	// Department order: prefer the pref_category_order from
+	// SSdepartment so this UI matches with the latejoin window. Any
+	// department ids that don't have a /datum/department_group backing them
+	// (like display-only stuff like Recreation / Support Staff that reuse
+	// another department's bitflag) are appended afterwards
+	var/list/department_order = list()
+	if(SSdepartment?.sorted_department_for_latejoin)
+		for(var/datum/department_group/dept_group as anything in SSdepartment.sorted_department_for_latejoin)
+			if(!isnull(departments[dept_group.dept_id]))
+				department_order += dept_group.dept_id
+	for(var/dept_id in departments)
+		if(!(dept_id in department_order))
+			department_order += dept_id
+
 	data["departments"] = departments
+	data["department_order"] = department_order
 	data["jobs"] = jobs
+	data["employers"] = employers
+	data["employer_order"] = employer_order
 
 	return data
 

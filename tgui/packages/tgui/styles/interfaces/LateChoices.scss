@@ -1,0 +1,64 @@
+// Compact, multi-column layout for the late-join LateChoices interface.
+// Each employer is rendered as its own box; boxes flow side-by-side and
+// wrap onto new rows as the window narrows. Spacing is tightened compared
+// to the default Section padding so we can show several employers at once
+// without the user scrolling forever.
+
+.LateChoices__grid {
+  // CSS multi-column. Browser fills column 1 top-to-bottom, then column 2,
+  // etc., so there's never a mid-column air gap from row baseline alignment
+  // - the only dead space is at the bottom of the shortest column. Order
+  // is column-major, so EMPLOYER_DISPLAY_ORDER reads as "first column
+  // first, then second column, then third".
+  column-count: 3;
+  column-gap: 0.5em;
+
+  @media (max-width: 720px) {
+    column-count: 2;
+  }
+  @media (max-width: 480px) {
+    column-count: 1;
+  }
+}
+
+.LateChoices__employer {
+  // Tight padding so the box is mostly job buttons, not whitespace.
+  padding: 0.4em 0.6em;
+  margin-bottom: 0.5em;
+  // The accent stripe is applied inline with the employer's colour.
+
+  // Don't slice an employer box across two columns.
+  break-inside: avoid;
+  page-break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
+
+.LateChoices__employer-title {
+  font-weight: bold;
+  margin-bottom: 0.3em;
+  font-size: 1.05em;
+}
+
+.LateChoices__department-header {
+  font-weight: bold;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding-bottom: 1px;
+  margin-bottom: 0.2em;
+}
+
+.LateChoices__department {
+  // Small gap between department blocks inside an employer box.
+  margin-bottom: 0.4em;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Pull the per-row stack gap in tighter than the default Stack spacing
+// so a long list of jobs doesn't feel padded out.
+.LateChoices__job-list > .Stack__item + .Stack__item {
+  margin-top: 0.15em;
+}

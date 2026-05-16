@@ -41,10 +41,9 @@
 	extra_access = list()
 
 	departments = DEPT_BITFLAG_SEC | DEPT_BITFLAG_COM
-	bank_account_department = ACCOUNT_SEC_BITFLAG | ACCOUNT_COM_BITFLAG
+	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(
-		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
-		ACCOUNT_SEC_ID = PAYCHECK_COMMAND_DEPT)
+		ACCOUNT_SEC_ID = PAYCHECK_COMMAND)
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_SECURITY
 

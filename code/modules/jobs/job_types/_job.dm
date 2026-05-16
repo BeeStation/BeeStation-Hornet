@@ -68,8 +68,11 @@
 	///The amount of good boy points playing this role will earn you towards a higher chance to roll antagonist next round can be overridden by antag_rep.txt config
 	var/antag_rep = 10
 
-	///vender will not ask you for credits when you buy a stuff from it as long as department matches
-	var/bank_account_department = ACCOUNT_CIV_BITFLAG
+	///vender will not ask you for credits when you buy a stuff from it as long as department matches.
+	///Default is NONE so that any concrete job which forgets to set this is *visibly* unpaid
+	///instead of silently sliding onto the Stationside Civil Services account. Subtypes MUST
+	///set this explicitly. See code/modules/jobs/employer_groups.dm for the contractor mapping.
+	var/bank_account_department = NONE
 	///your payment per department. geneticist will be a good example for this.
 	var/payment_per_department = list(ACCOUNT_CIV_ID = 0)
 
@@ -91,6 +94,10 @@
 	var/departments = NONE
 	/// Same as the departments bitflag, but only one is allowed. Used in the preferences menu.
 	var/department_for_prefs = null
+	/// If set, overrides the employer derived from department_for_prefs in
+	/// the character creation / latejoin UI. Leave null for the default
+	/// (department-based) mapping. See SSemployer / employer_groups.dm.
+	var/employer_id_override = null
 	///Is this job affected by weird spawns like the ones from station traits
 	var/random_spawns_possible = TRUE
 	/// Should this job be allowed to be picked for the bureaucratic error event?
@@ -160,6 +167,16 @@
 		job_flags &= ~JOB_NEW_PLAYER_JOINABLE
 	if(!(job_flags & JOB_NEW_PLAYER_JOINABLE) || gimmick)
 		job_flags |= JOB_CANNOT_OPEN_SLOTS
+
+/// Returns the EMPLOYER_ID_* string this job belongs to in the prefs/latejoin UI.
+/// Falls back to the dept > employer mapping registered in SSemployer.
+/// Returns null if neither an override nor a mapping is found
+/datum/job/proc/get_employer_id()
+	if(employer_id_override)
+		return employer_id_override
+	if(department_for_prefs && SSemployer)
+		return SSemployer.get_employer_id_for_department(department_for_prefs)
+	return null
 
 /// Returns true if there are available slots
 /datum/job/proc/has_space()

@@ -25,10 +25,9 @@
 	extra_access = list()
 
 	departments = DEPT_BITFLAG_SCI | DEPT_BITFLAG_COM
-	bank_account_department = ACCOUNT_SCI_BITFLAG | ACCOUNT_COM_BITFLAG
+	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(
-		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
-		ACCOUNT_SCI_ID = PAYCHECK_COMMAND_DEPT)
+		ACCOUNT_SCI_ID = PAYCHECK_COMMAND)
 
 	display_order = JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR
 

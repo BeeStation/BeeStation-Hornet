@@ -87,9 +87,8 @@ $bg-map: ();
   ));
 }
 
+// Do we keep this JUST for crew manifest? Hmmm...
 $departments: (
-  'Assistant': $grey,
-  'Captain': fg($blue),
   'Cargo': $brown,
   'Supply': $brown,
   'Civilian': $grey,
