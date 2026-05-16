@@ -18,8 +18,8 @@ GLOBAL_VAR_INIT(magic_appearance_detecting_image, new /image) // appearances are
 
 /// 'something.dmi' = isicon && isfile (!isdatum)
 #define isicon_file(thing) (isicon(thing) && isfile(thing))
-/// "/icon" = isicon && isdatum (!isfile)
-#define isicon_datum(thing) (isicon(thing) && isdatum(thing))
+/// "/icon[0xINSTANCE]" = isicon && isdatum (!isfile)
+#define isicon_datum(thing) (isicon(thing) && istype(thing, /icon))
 
 // The filters list has the same ref type id as a filter, but isnt one and also isnt a list, so we have to check if the thing has Cut() instead
 GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
