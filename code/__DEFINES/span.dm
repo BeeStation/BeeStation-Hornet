@@ -219,7 +219,6 @@
 #define span_userdanger(str) ("<span class='userdanger'>" + (str) + "</span>")
 #define span_usernotice(str) ("<span class='usernotice'>" + (str) + "</span>")
 #define span_subtlenotice(str) ("<span class='subtlenotice'>" + (str) + "</span>")
-#define span_value(str) ("<span class='value'>" + (str) + "</span>")
 #define span_warn(str) ("<span class='warn'>" + (str) + "</span>")
 #define span_warner(str) ("<span class='warner'>" + (str) + "</span>")
 #define span_warning(str) ("<span class='warning'>" + (str) + "</span>")
@@ -230,6 +229,10 @@
 #define span_warningrobot(str) ("<span class='warning robot'>" + (str) + "</span>")
 #define span_awe(str) ("<span class='awe'>" + (str) + "</span>")
 #define span_subtle(str) ("<span class='subtle'>" + (str) + "</span>")
+
+// Debug span
+#define span_value(str) ("<span class='value'>" + (str) + "</span>")
+#define span_value_top(str) ("<span class='value align_top'>" + (str) + "</span>")
 
 // Spans that use embedded tgui components:
 // Sorted alphabetically

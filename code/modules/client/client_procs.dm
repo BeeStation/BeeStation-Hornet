@@ -149,6 +149,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			hsrc = mob
 		if("vars")
 			return view_var_Topic(href,href_list,hsrc)
+		if(VV_HK_VIEW_ICON) // "_src_=vars" will be extremely complicating, so I decided making another route. vv needs some refactor, honestly.
+			return send_vv_icon_to_user(usr, href, href_list)
 
 	switch(href_list["action"])
 		if("openLink")

@@ -662,6 +662,7 @@
 #include "code\datums\holocall.dm"
 #include "code\datums\http.dm"
 #include "code\datums\hud.dm"
+#include "code\datums\icon.dm"
 #include "code\datums\map_adjustment.dm"
 #include "code\datums\map_adjustment_include.dm"
 #include "code\datums\map_config.dm"
