@@ -23988,6 +23988,7 @@
 /obj/structure/platform/white{
 	dir = 8
 	},
+/obj/item/pen,
 /turf/open/floor/iron,
 /area/station/commons/fitness/recreation/entertainment)
 "iEq" = (
