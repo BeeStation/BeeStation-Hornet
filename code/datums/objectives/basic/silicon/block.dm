@@ -7,7 +7,7 @@
 		return TRUE
 
 	for(var/mob/living/player in GLOB.player_list)
-		if(!player.mind && player.stat != DEAD && !issilicon(player))
+		if(!player.mind)
 			continue
 		if(player.stat == DEAD)
 			continue
