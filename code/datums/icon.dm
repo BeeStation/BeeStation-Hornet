@@ -21,6 +21,9 @@
 		file_reference = "[icon]"
 		state_reference = "<li>[CHECK_NULL(icon_state)]</li><li>[CHECK_NULL(dir)]</li><li>[CHECK_NULL(frame)]</li><li>[CHECK_NULL(moving)]</li>"
 
+// "[icon_instance]" returns zero string. This suggests a hint at least.
+/icon/proc/operator""()
+	return "/icon [FAST_REF(src)]"
 
 /icon/proc/get_vv_data()
 	return "<ul class='data-column'><li>file: '[file_reference]'</li>[revise_count ? "<li>revise_count = [revise_count]<li>" : ""]</li>[state_reference]</ul>"

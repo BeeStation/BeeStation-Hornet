@@ -84,7 +84,7 @@
 	// 		isicon(/icon[0xINSTANCE]) => returns TRUE
 	// So, You have no idea what it exactly is!!!!!
 	if(isicon_file(value))
-		#ifdef VARSICON
+		var/icon/icon_value = value
 		var/icon/icon_value = icon(value)
 		var/rnd = rand(1,10000)
 		var/rname = "tmp[REF(icon_value)][rnd].png"
@@ -95,7 +95,7 @@
 		#endif
 	if(isicon_datum(value))
 		var/icon/icon_value = value
-		return "/icon [FAST_REF(icon_value)]</br>[icon_value.write_vv_button()]</br>[span_value_top("[icon_value.get_vv_data()]")]"
+		return "[icon_value]</br>[icon_value.write_vv_button()]</br>[span_value_top("[icon_value.get_vv_data()]")]"
 
 	if(isappearance(value)) // Reminder: Do not replace this into /image/debug_variable_value() proc. /appearance can't do that.
 		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(value)]'>/appearance ([span_value("[get_appearance_vv_summary_name(value)]")]) [REF(value)]</a>"
