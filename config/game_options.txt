@@ -103,11 +103,6 @@ STATION_TRAITS
 ## The amount of time it takes for the emergency shuttle to be called, from round start.
 SHUTTLE_REFUEL_DELAY 12000
 
-## The number of objectives traitors get.
-## Not including escaping/hijacking.
-TRAITOR_OBJECTIVES_AMOUNT 2
-BROTHER_OBJECTIVES_AMOUNT 2
-
 ## Uncomment to prohibit jobs that start with loyalty
 ## implants from being most antagonists.
 PROTECT_ROLES_FROM_ANTAGONIST

@@ -31,13 +31,6 @@
 /datum/config_entry/flag/donator_items 	// do you need to be a donator to use donator items
 
 /datum/config_entry/flag/combat_indicator //Whether we show combat indicators when combat mode is enabled
-/datum/config_entry/number/traitor_objectives_amount
-	config_entry_value = 2
-	min_val = 0
-
-/datum/config_entry/number/brother_objectives_amount
-	config_entry_value = 2
-	min_val = 0
 
 /datum/config_entry/flag/reactionary_explosions	//If we use reactionary explosions, explosions that react to walls and doors
 

@@ -32,7 +32,10 @@
 
 /datum/antagonist/brother/on_removal()
 	if (!silent && owner.current)
-		owner.current.visible_message("[span_deconversionmessage("[owner.current] looks like [owner.current.p_theyve()] just remembered [owner.current.p_their()] their true allegiance!")]", null, null, null, owner.current)
+		owner.current.visible_message(
+			span_deconversionmessage("[owner.current] looks like [owner.current.p_theyve()] just remembered [owner.current.p_their()] their true allegiance!"),
+			ignored_mobs = list(owner.current),
+		)
 		to_chat(owner.current, span_userdanger("Your mind slips away from the clutches of your blood-brother. You are no longer required to follow their orders, but blackmail of your past crimes may make it difficult for you to find a way out of working with them..."))
 		owner.current.log_message("has had their blood brother removed!", LOG_ATTACK, color="#960000")
 	owner.special_role = null
@@ -47,9 +50,7 @@
 	return "Conspirators : [get_brother_names()]"
 
 /datum/antagonist/brother/ui_static_data(mob/user)
-	var/list/data = list()
-	data["antag_name"] = name
-	data["objectives"] = get_objectives()
+	var/list/data = ..()
 	data["brothers"] = get_brother_names()
 	return data
 
