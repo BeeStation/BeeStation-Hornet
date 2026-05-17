@@ -597,40 +597,30 @@
  * Hedonism: Indulge in bad things that feel all too right.
  * Survival: Survive. Obviously.
  */
-/datum/antagonist/vampire/proc/forge_objectives()
-	var/datum/objective/vampire/extra_objective
-
+/datum/antagonist/vampire/forge_objectives()
 	if(get_max_vassals() >= 1) // Two trees for if we can make vassals or not.
 		//pick Ego objective
 		switch(rand(1, 3))
 			if(3)
-				extra_objective = new /datum/objective/vampire/ego/department_vassal()
+				add_objective(new /datum/objective/vampire/ego/department_vassal())
 			if(2)
-				extra_objective = new /datum/objective/vampire/ego/bigplaces()
+				add_objective(new /datum/objective/vampire/ego/bigplaces())
 			if(1)
-				extra_objective = new /datum/objective/vampire/ego/lair()
+				add_objective(new /datum/objective/vampire/ego/lair())
 	else
-		extra_objective = new /datum/objective/vampire/ego/bigplaces()
-
-	extra_objective.owner = owner
-	objectives += extra_objective
+		add_objective(new /datum/objective/vampire/ego/bigplaces())
 
 	//pick Hedonism objective
 	switch(rand(1, 3))
 		if(3)
-			extra_objective = new /datum/objective/vampire/hedonism/heartthief()
+			add_objective(new /datum/objective/vampire/hedonism/heartthief())
 		if(2)
-			extra_objective = new /datum/objective/vampire/hedonism/gourmand()
+			add_objective(new /datum/objective/vampire/hedonism/gourmand())
 		if(1)
-			extra_objective = new /datum/objective/vampire/hedonism/thirster()
-
-	extra_objective.owner = owner
-	objectives += extra_objective
+			add_objective(new /datum/objective/vampire/hedonism/thirster())
 
 	// Survive Objective
-	var/datum/objective/survive/vampire/survive_objective = new
-	survive_objective.owner = owner
-	objectives += survive_objective
+	add_objective(new /datum/objective/survive/vampire())
 
 /datum/antagonist/vampire/proc/get_max_vassals()
 	var/total_players = length(GLOB.joined_player_list)

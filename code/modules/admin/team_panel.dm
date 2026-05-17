@@ -64,11 +64,6 @@
 	log_admin("Team Message: [key_name(usr)] -> [name] team : [message]")
 
 /datum/team/proc/admin_add_objective(mob/user)
-	//any antag with get_team == src => add objective to that antag
-	//otherwise create new custom antag
-	if(!GLOB.admin_objective_list)
-		generate_admin_objective_list()
-
 	var/selected_type = tgui_input_list(usr, "Select objective type:", "Objective type", GLOB.admin_objective_list)
 	selected_type = GLOB.admin_objective_list[selected_type]
 	if (!selected_type)
@@ -101,9 +96,6 @@
 	log_admin("[key_name(usr)] added objective \"[O.explanation_text]\" to [name]")
 
 /datum/team/proc/admin_edit_objective(mob/user,datum/objective/old_objective)
-	if(!GLOB.admin_objective_list)
-		generate_admin_objective_list()
-
 	var/selected_type = tgui_input_list(usr, "Select objective type:", "Objective type", GLOB.admin_objective_list)
 	selected_type = GLOB.admin_objective_list[selected_type]
 	if (!selected_type)

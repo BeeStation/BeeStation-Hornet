@@ -6,21 +6,21 @@
 	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 	var/greet_message = ""
 
-/datum/antagonist/survivalist/proc/forge_objectives()
-	if(!give_objectives)
-		return
-	var/datum/objective/survive/survive = new
-	survive.owner = owner
-	objectives += survive
-	log_objective(owner, survive.explanation_text)
-
 /datum/antagonist/survivalist/on_gain()
-	owner.special_role = "survivalist"
-	forge_objectives()
 	. = ..()
+	owner.special_role = ROLE_SURVIVALIST
+	if(give_objectives)
+		forge_objectives()
+
+/datum/antagonist/survivalist/on_removal()
+	owner.special_role = null
+	return ..()
 
 /datum/antagonist/survivalist/greet()
-	to_chat(owner, "<B>You are the survivalist![greet_message]</B>")
+	var/list/msg = list(span_userdanger("You are the survivalist."))
+	if(greet_message)
+		msg += span_warning(greet_message)
+	to_chat(owner.current, examine_block(msg.Join("\n")))
 	owner.announce_objectives()
 
 /datum/antagonist/survivalist/apply_innate_effects(mob/living/mob_override)
@@ -37,15 +37,14 @@
 	if(owner.antag_hud_icon_state == "survivalist")
 		set_antag_hud(owner.current, null)
 
+/datum/antagonist/survivalist/forge_objectives()
+	add_objective(new /datum/objective/survive())
+
 /datum/antagonist/survivalist/guns
 	greet_message = "Your own safety matters above all else, and the only way to ensure your safety is to stockpile weapons! Grab as many guns as possible, by any means necessary. Kill anyone who gets in your way."
 
 /datum/antagonist/survivalist/guns/forge_objectives()
-	var/datum/objective/steal_five_of_type/summon_guns/guns = new
-	guns.owner = owner
-	objectives += guns
-	log_objective(owner, guns.explanation_text)
-	..()
+	add_objective(new /datum/objective/steal_five_of_type/summon_guns())
 
 /datum/antagonist/survivalist/magic
 	name = "Amateur Magician"
@@ -56,8 +55,4 @@
 	to_chat(owner, span_notice("As a wonderful magician, you should remember that spellbooks don't mean anything if they are used up."))
 
 /datum/antagonist/survivalist/magic/forge_objectives()
-	var/datum/objective/steal_five_of_type/summon_magic/magic = new
-	magic.owner = owner
-	objectives += magic
-	log_objective(owner, magic.explanation_text)
-	..()
+	add_objective(new /datum/objective/steal_five_of_type/summon_magic())

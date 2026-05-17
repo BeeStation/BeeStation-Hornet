@@ -1,3 +1,5 @@
+#define MURDERBONE_PROB 10
+
 /datum/team/brother_team
 	name = "brotherhood"
 	member_name = "blood brother"
@@ -49,36 +51,31 @@
 
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
 
-/datum/team/brother_team/proc/add_objective(datum/objective/O, needs_target = FALSE)
-	O.team = src
-	if(needs_target)
-		O.find_target(dupe_search_range = list(src))
-	O.update_explanation_text()
-	objectives += O
-	for(var/datum/mind/member in members)
-		log_objective(member, O.explanation_text)
-
 /datum/team/brother_team/proc/forge_brother_objectives()
-	objectives = list()
-	var/is_hijacker = prob(10)
-	for(var/i = 1 to max(1, CONFIG_GET(number/brother_objectives_amount) + (members.len > 2) - is_hijacker))
-		forge_single_objective()
-	if(is_hijacker)
-		if(!locate(/datum/objective/hijack) in objectives)
-			add_objective(new /datum/objective/hijack)
-	else if(!locate(/datum/objective/escape) in objectives)
-		add_objective(new /datum/objective/escape)
+	var/objectives_to_generate = 2
+	var/hijacker = FALSE
+	if(length(GLOB.joined_player_list) >= CONFIG_GET(number/murderbone_objectives_min_pop) && prob(MURDERBONE_PROB))
+		hijacker = TRUE
+		objectives_to_generate--
 
-/datum/team/brother_team/proc/forge_single_objective()
-	if(prob(50))
-		if(LAZYLEN(active_ais()) && prob(100 / length(GLOB.joined_player_list)))
-			add_objective(new /datum/objective/destroy, TRUE)
-		else if(prob(30))
-			add_objective(new /datum/objective/maroon, TRUE)
+	if(length(members) > 2)
+		objectives_to_generate++
+
+	for(var/i = 1 to objectives_to_generate)
+		if(prob(50))
+			add_objective(new /datum/objective/steal(), find_target = TRUE)
 		else
-			add_objective(new /datum/objective/assassinate, TRUE)
+			if(length(active_ais()) && prob(100 / length(GLOB.joined_player_list)))
+				add_objective(new /datum/objective/destroy(), find_target = TRUE)
+			else if(prob(30))
+				add_objective(new /datum/objective/maroon(), find_target = TRUE)
+			else
+				add_objective(new /datum/objective/assassinate(), find_target = TRUE)
+
+	if(hijacker)
+		add_objective(new /datum/objective/hijack())
 	else
-		add_objective(new /datum/objective/steal, TRUE)
+		add_objective(new /datum/objective/escape())
 
 /datum/team/brother_team/proc/listen_for_joiners()
 	// Whenever a crewmember joins, check to see if we have any empty space for new
@@ -155,3 +152,5 @@
 
 /datum/team/brother_team/antag_listing_name()
 	return "[name] blood brothers"
+
+#undef MURDERBONE_PROB

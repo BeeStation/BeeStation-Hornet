@@ -2,11 +2,17 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 //A barebones antagonist team.
 /datum/team
-	var/list/datum/mind/members = list()
-	var/name = "team"
+	/// Name of the entire Team
+	var/name = "\improper Team"
+	/// What members are considered in the roundend report (ex: 'cultists')
 	var/member_name = "member"
-	var/list/objectives = list() //common objectives, these won't be added or removed automatically, subtypes handle this, this is here for bookkeeping purposes.
+	/// Whether the team shows up in the roundend report.
 	var/show_roundend_report = TRUE
+
+	/// List of all members in the team
+	var/list/datum/mind/members = list()
+	/// Common objectives, these won't be added or removed automatically, subtypes handle this, this is here for bookkeeping purposes.
+	var/list/datum/objective/objectives = list()
 
 /datum/team/New(starting_members)
 	. = ..()
@@ -18,18 +24,34 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		else
 			add_member(starting_members)
 
-/datum/team/Destroy(force, ...)
+/datum/team/Destroy(force)
 	GLOB.antagonist_teams -= src
-	. = ..()
+	members = null
+	objectives = null
+	return ..()
 
 /datum/team/proc/is_solo()
-	return members.len == 1
+	return length(members) == 1
 
 /datum/team/proc/add_member(datum/mind/new_member)
 	members |= new_member
 
 /datum/team/proc/remove_member(datum/mind/member)
 	members -= member
+
+/**
+ * Adds an objective to the team and all members.
+ *
+ * Arguments:
+ * * find_target - If set to true, find_target() is called on the objective
+ */
+/datum/team/proc/add_objective(datum/objective/new_objective, find_target = FALSE)
+	new_objective.team = src
+	if(find_target)
+		new_objective.find_target(dupe_search_range = list(src))
+	objectives += new_objective
+	for(var/datum/mind/member in members)
+		log_objective(member, new_objective.explanation_text)
 
 //Display members/victory/failure/objectives for the team
 /datum/team/proc/roundend_report()

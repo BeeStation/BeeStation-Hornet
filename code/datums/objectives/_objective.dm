@@ -1,5 +1,3 @@
-GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
-
 /datum/objective
 	abstract_type = /datum/objective
 
@@ -19,32 +17,33 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/target_amount = 0
 	/// If the objective is to be marked as completed, regardless of any conditions. Currently only used for custom objectives.
 	var/completed = FALSE
-	/// If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
-	var/martyr_compatible = TRUE
 	/// Whether the objective should show up as optional in the roundend screen
 	var/optional = FALSE
 	/// Used to check if obj owner can buy murderbone stuff
 	var/murderbone_flag = FALSE
+	/// If this objective can be granted in the traitor panel
+	var/admin_grantable = FALSE
 
 /datum/objective/New(text)
+	. = ..()
 	if(text)
 		explanation_text = text
 
 //Apparently objectives can be qdel'd. Learn a new thing every day
 /datum/objective/Destroy()
 	set_target(null)
-	if(team)
-		team.objectives -= src
-	for(var/datum/mind/own as() in get_owners())
-		for(var/datum/antagonist/A as() in own.antag_datums)
-			A.objectives -= src
-		own.crew_objectives -= src
+	team?.objectives -= src
+	for(var/datum/mind/objective_owner as anything in get_owners())
+		for(var/datum/antagonist/antag_datum as anything in objective_owner.antag_datums)
+			antag_datum.objectives -= src
+		objective_owner.crew_objectives -= src
 	return ..()
 
 /datum/objective/proc/get_owners() // Combine owner and team into a single list.
-	. = (team && team.members) ? team.members.Copy() : list()
+	var/list/owners = team?.members?.Copy() || list()
 	if(owner)
-		. += owner
+		owners += owner
+	return owners
 
 /datum/objective/proc/admin_edit(mob/admin)
 	return
@@ -52,17 +51,18 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 //Shared by few objective types
 /datum/objective/proc/admin_simple_target_pick(mob/admin)
 	var/list/possible_targets = list()
-	var/def_value
-	for(var/datum/mind/possible_target as() in SSticker.minds)
-		if ((possible_target != src) && ishuman(possible_target.current))
-			possible_targets += possible_target.current
+	var/def_value = target?.current
 
-
-	if(target?.current)
-		def_value = target.current
+	var/list/datum/mind/objective_owners = get_owners()
+	for(var/datum/mind/possible_target as anything in SSticker.minds)
+		if(possible_target in objective_owners)
+			continue
+		if(!ishuman(possible_target.current))
+			continue
+		possible_targets += possible_target.current
 
 	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in (sort_names(possible_targets) | list("Free objective","Random"))
-	if (!new_target)
+	if (isnull(new_target))
 		return
 
 	if (new_target == "Free objective")
@@ -92,7 +92,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	return completed
 
 /datum/objective/proc/get_completion_message()
-	return check_completion() ? "[explanation_text] [span_greentext("Success!")]" : "[explanation_text] [span_redtext("Fail.")]"
+	return "[explanation_text] [check_completion() ? span_greentext("Success!") : span_redtext("Fail.")]"
 
 /datum/objective/proc/is_unique_objective(possible_target, list/dupe_search_range)
 	if(!islist(dupe_search_range))
@@ -101,16 +101,17 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 	for(var/A in dupe_search_range)
 		var/list/objectives_to_compare
-		if(istype(A,/datum/mind))
+		if(istype(A, /datum/mind))
 			var/datum/mind/M = A
 			objectives_to_compare = M.get_all_objectives()
-		else if(istype(A,/datum/antagonist))
+		else if(istype(A, /datum/antagonist))
 			var/datum/antagonist/G = A
 			objectives_to_compare = G.objectives
-		else if(istype(A,/datum/team))
+		else if(istype(A, /datum/team))
 			var/datum/team/T = A
 			objectives_to_compare = T.objectives
-		for(var/datum/objective/O as() in objectives_to_compare)
+
+		for(var/datum/objective/O as anything in objectives_to_compare)
 			if(istype(O, type) && O.get_target() == possible_target)
 				return FALSE
 	return TRUE
@@ -120,11 +121,11 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/proc/set_target(datum/mind/new_target)
 	if(target)
-		UnregisterSignal(target, COMSIG_MIND_CRYOED)
+		UnregisterSignal(target, list(COMSIG_QDELETING, COMSIG_MIND_CRYOED))
 	target = new_target
 	if(istype(target, /datum/mind))
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(on_target_cryo))
 		RegisterSignal(target, COMSIG_MIND_CRYOED, PROC_REF(on_target_cryo))
-		target.isAntagTarget = TRUE
 
 /datum/objective/proc/get_crewmember_minds()
 	. = list()
@@ -137,19 +138,21 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/proc/find_target(list/dupe_search_range, list/blacklist)
 	if(!dupe_search_range)
 		dupe_search_range = get_owners()
-	var/list/prefered_targets = list()
-	var/list/possible_targets = list()
+
 	var/try_target_late_joiners = FALSE
 	var/owner_is_exploration_crew = FALSE
 	var/owner_is_shaft_miner = FALSE
-	for(var/datum/mind/O as() in get_owners())
-		if(O.late_joiner)
+	for(var/datum/mind/objective_owner as anything in get_owners())
+		if(objective_owner.late_joiner)
 			try_target_late_joiners = TRUE
-		if(O.assigned_role == "Exploration Crew")
+		if(objective_owner.assigned_role == JOB_NAME_EXPLORATIONCREW)
 			owner_is_exploration_crew = TRUE
-		if(O.assigned_role == "Shaft Miner")
+		if(objective_owner.assigned_role == JOB_NAME_SHAFTMINER)
 			owner_is_shaft_miner = TRUE
-	for(var/datum/mind/possible_target as() in get_crewmember_minds())
+
+	var/list/preferred_targets = list()
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target as anything in get_crewmember_minds())
 		if(!is_valid_target(possible_target))
 			continue
 		if(!is_unique_objective(possible_target,dupe_search_range))
@@ -157,36 +160,42 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		if(possible_target in blacklist)
 			continue
 
-		if(possible_target.assigned_role == "Exploration Crew")
+		if(possible_target.assigned_role == JOB_NAME_EXPLORATIONCREW)
 			if(owner_is_exploration_crew)
-				prefered_targets += possible_target
+				preferred_targets += possible_target
 			else
 				//Reduced chance to get people off station
 				if(prob(70) && !owner_is_shaft_miner)
 					continue
-		else if(possible_target.assigned_role == "Shaft Miner")
+		else if(possible_target.assigned_role == JOB_NAME_SHAFTMINER)
 			if(owner_is_shaft_miner)
-				prefered_targets += possible_target
+				preferred_targets += possible_target
 			else
 				//Reduced chance to get people off station
 				if(prob(70) && !owner_is_exploration_crew)
 					continue
 
 		possible_targets += possible_target
+
+	// If we were a latejoiner, target other latejoiners first
 	if(try_target_late_joiners)
 		var/list/all_possible_targets = possible_targets.Copy()
-		for(var/datum/mind/PT as() in all_possible_targets)
-			if(!PT.late_joiner)
-				possible_targets -= PT
-		if(!possible_targets.len)
+		for(var/datum/mind/possible_target as anything in all_possible_targets)
+			if(possible_target.late_joiner)
+				continue
+			possible_targets -= possible_target
+
+		if(!length(possible_targets))
 			possible_targets = all_possible_targets
-	//30% chance to go for a prefered target
-	if(prefered_targets.len > 0 && prob(30))
-		set_target(pick(prefered_targets))
-	else if(possible_targets.len > 0)
+
+	// 30% chance to go for a prefered target
+	if(length(preferred_targets) > 0 && prob(30))
+		set_target(pick(preferred_targets))
+	else if(length(possible_targets) > 0)
 		set_target(pick(possible_targets))
 	else
 		set_target(null)
+
 	update_explanation_text()
 	return target
 
@@ -285,22 +294,23 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	SIGNAL_HANDLER
 
 	find_target(null, list(target))
-	if(!target)
-		if(team)
-			team.objectives -= src
-		for(var/datum/mind/own as() in get_owners())
-			for(var/datum/antagonist/A as() in own.antag_datums)
-				A.objectives -= src
-			own.crew_objectives -= src
-
-			to_chat(own.current, "<BR>[span_userdanger("Your target is no longer within reach. Objective removed!")]")
-			own.announce_objectives()
-		qdel(src)
-	else
+	if(target)
 		update_explanation_text()
-		for(var/datum/mind/own as() in get_owners())
+		for(var/datum/mind/own as anything in get_owners())
 			to_chat(own.current, "<BR>[span_userdanger("You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!")]")
 			own.announce_objectives()
+		return
+
+	// Couldn't find a new target, just remove the objective
+	team?.objectives -= src
+	for(var/datum/mind/own as anything in get_owners())
+		for(var/datum/antagonist/antag as anything in own.antag_datums)
+			antag.objectives -= src
+		own.crew_objectives -= src
+
+		to_chat(own.current, span_userdanger("Your target is no longer within reach. Objective removed!"))
+		own.announce_objectives()
+	qdel(src)
 
 /// Get the tracking target for this objective
 /datum/objective/proc/get_tracking_target(atom/source)

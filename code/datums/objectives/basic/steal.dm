@@ -1,7 +1,9 @@
 GLOBAL_LIST_EMPTY(possible_items)
+
 /datum/objective/steal
 	name = "steal"
-	martyr_compatible = FALSE
+	admin_grantable = TRUE
+
 	var/datum/objective_item/targetinfo = null //Save the chosen item datum so we can access it later.
 	var/obj/item/steal_target = null //Needed for custom objectives (they're just items, not datums).
 
@@ -119,6 +121,7 @@ GLOBAL_LIST_EMPTY(possible_items)
 	return ..()
 
 GLOBAL_LIST_EMPTY(possible_items_special)
+
 /datum/objective/steal/special //ninjas are so special they get their own subtype good for them
 	name = "steal special"
 
@@ -133,7 +136,6 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 
 /datum/objective/steal/exchange
 	name = "exchange"
-	martyr_compatible = FALSE
 
 /datum/objective/steal/exchange/admin_edit(mob/admin)
 	return

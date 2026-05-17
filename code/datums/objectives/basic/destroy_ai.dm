@@ -2,6 +2,7 @@
 
 /datum/objective/destroy
 	name = "destroy AI"
+	admin_grantable = TRUE
 
 /datum/objective/destroy/find_target(list/dupe_search_range, list/blacklist)
 	var/list/possible_targets = list()

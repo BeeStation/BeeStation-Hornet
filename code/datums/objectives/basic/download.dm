@@ -1,6 +1,7 @@
 /datum/objective/download
 	name = "download"
-	martyr_compatible = FALSE
+	admin_grantable = TRUE
+
 	var/amount = 0
 
 /datum/objective/download/proc/gen_amount_goal()

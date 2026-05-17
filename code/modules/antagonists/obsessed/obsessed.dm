@@ -55,8 +55,8 @@
 
 /datum/antagonist/obsessed/Destroy()
 	if(trauma)
-		qdel(trauma)
-	. = ..()
+		QDEL_NULL(trauma)
+	return ..()
 
 /datum/antagonist/obsessed/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/current = mob_override || owner.current
@@ -66,14 +66,11 @@
 	var/mob/living/current = mob_override || owner.current
 	update_obsession_icons_removed(current)
 
-/datum/antagonist/obsessed/proc/forge_objectives(datum/mind/obsession_mind)
+/datum/antagonist/obsessed/forge_objectives(datum/mind/obsession_mind)
 	var/list/objectives_left = list("spendtime", "polaroid", "hug")
-	var/datum/objective/protect/obsessed/yandere = new
-	yandere.owner = owner
-	yandere.set_target(obsession_mind)
-	var/datum/quirk/family_heirloom/family_heirloom = locate() in obsession_mind.quirks
 
-	if(!QDELETED(family_heirloom?.heirloom))//oh, they have an heirloom? Well you know we have to steal that.
+	var/datum/quirk/family_heirloom/family_heirloom = locate() in obsession_mind.quirks
+	if(!QDELETED(family_heirloom?.heirloom)) //oh, they have an heirloom? Well you know we have to steal that.
 		objectives_left += "heirloom"
 
 	if(obsession_mind.assigned_role && obsession_mind.assigned_role != JOB_NAME_CAPTAIN)
@@ -84,40 +81,32 @@
 		objectives_left.Remove(chosen_objective)
 		switch(chosen_objective)
 			if("spendtime")
-				var/datum/objective/spendtime/spendtime = new
-				spendtime.owner = owner
+				var/datum/objective/spendtime/spendtime = new()
 				spendtime.set_target(obsession_mind)
-				objectives += spendtime
-				log_objective(owner, spendtime.explanation_text)
+				add_objective(spendtime)
 			if("polaroid")
-				var/datum/objective/polaroid/polaroid = new
-				polaroid.owner = owner
+				var/datum/objective/polaroid/polaroid = new()
 				polaroid.set_target(obsession_mind)
-				objectives += polaroid
-				log_objective(owner, polaroid.explanation_text)
+				add_objective(polaroid)
 			if("hug")
-				var/datum/objective/hug/hug = new
-				hug.owner = owner
+				var/datum/objective/hug/hug = new()
 				hug.set_target(obsession_mind)
-				objectives += hug
-				log_objective(owner, hug.explanation_text)
+				add_objective(hug)
 			if("heirloom")
-				var/datum/objective/steal/heirloom_thief/heirloom_thief = new
-				heirloom_thief.owner = owner
-				heirloom_thief.set_target(obsession_mind)//while you usually wouldn't need this for stealing, we need the name of the obsession
+				var/datum/objective/steal/heirloom_thief/heirloom_thief = new()
+				heirloom_thief.set_target(obsession_mind) //while you usually wouldn't need this for stealing, we need the name of the obsession
 				heirloom_thief.steal_target = family_heirloom.heirloom
-				objectives += heirloom_thief
-				log_objective(owner, heirloom_thief.explanation_text)
+				add_objective(heirloom_thief)
 			if("jealous")
-				var/datum/objective/assassinate/jealous/jealous = new
-				jealous.owner = owner
+				var/datum/objective/assassinate/jealous/jealous = new()
 				jealous.obsession = obsession_mind
-				jealous.find_target()//will reroll into a coworker on the objective itself
-				objectives += jealous
-				log_objective(owner, jealous.explanation_text)
+				add_objective(jealous, find_target = TRUE) //will reroll into a coworker on the objective itself
 
-	objectives += yandere//finally add the protect last, because you'd have to complete it last to greentext.
-	log_objective(owner, yandere.explanation_text)
+	//finally add the protect last, because you'd have to complete it last to greentext.
+	var/datum/objective/protect/obsessed/yandere = new()
+	yandere.set_target(obsession_mind)
+	add_objective(yandere)
+
 	for(var/datum/objective/objective in objectives)
 		objective.update_explanation_text()
 

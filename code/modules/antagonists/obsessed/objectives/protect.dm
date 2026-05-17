@@ -3,7 +3,7 @@
 /datum/objective/protect/obsessed/update_explanation_text()
 	..()
 	if(target?.current)
-		explanation_text = "Protect [target.name], the [!target_role_type ? target.assigned_role : target.special_role]."
+		explanation_text = "Protect [target.name], the [!target_special_role ? target.assigned_role : target.special_role]."
 	else
 		message_admins("WARNING! [ADMIN_LOOKUPFLW(owner)] obsessed objectives forged without an obsession!")
 		explanation_text = "Free Objective"

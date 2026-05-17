@@ -31,13 +31,6 @@
 /datum/config_entry/flag/donator_items 	// do you need to be a donator to use donator items
 
 /datum/config_entry/flag/combat_indicator //Whether we show combat indicators when combat mode is enabled
-/datum/config_entry/number/traitor_objectives_amount
-	config_entry_value = 2
-	min_val = 0
-
-/datum/config_entry/number/brother_objectives_amount
-	config_entry_value = 2
-	min_val = 0
 
 /datum/config_entry/flag/reactionary_explosions	//If we use reactionary explosions, explosions that react to walls and doors
 
@@ -74,17 +67,6 @@
 	config_entry_value = 5
 	integer = FALSE
 	min_val = 0
-
-/datum/config_entry/number/midround_antag_time_check	// How late (in minutes you want the midround antag system to stay on, setting this to 0 will disable the system)
-	config_entry_value = 60
-	integer = FALSE
-	min_val = 0
-
-/datum/config_entry/number/midround_antag_life_check	// A ratio of how many people need to be alive in order for the round not to immediately end in midround antagonist
-	config_entry_value = 0.7
-	integer = FALSE
-	min_val = 0
-	max_val = 1
 
 /datum/config_entry/number/shuttle_refuel_delay
 	config_entry_value = 12000
@@ -427,9 +409,16 @@
  */
 /datum/config_entry/number/random_loot_weight_modifier
 	integer = FALSE
-	default = 1
+	config_entry_value = 1
 	min_val = 0.05
 
 /datum/config_entry/flag/common_radio_audio
-	config_entry_value = 1
-	default = 1
+	config_entry_value = TRUE
+
+/// Murderbone objectives for normal antags cannot be rolled below this pop
+/// Pop here refers to the amount of people who have joined the round, not connected clients
+/// Some antags like nukie, wizard, and malf AI will always be murderbone
+/datum/config_entry/number/murderbone_objectives_min_pop
+	min_val = 0
+	config_entry_value = 15
+

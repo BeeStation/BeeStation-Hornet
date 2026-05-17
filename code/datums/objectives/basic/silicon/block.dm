@@ -5,8 +5,16 @@
 /datum/objective/block/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
 		return TRUE
+
 	for(var/mob/living/player in GLOB.player_list)
-		if(player.mind && player.stat != DEAD && !issilicon(player))
-			if(get_area(player) in SSshuttle.emergency.shuttle_areas)
-				return ..()
+		if(!player.mind && player.stat != DEAD && !issilicon(player))
+			continue
+		if(player.stat == DEAD)
+			continue
+		if(issilicon(player))
+			continue
+		if(!(get_area(player) in SSshuttle.emergency.shuttle_areas))
+			continue
+		return ..()
+
 	return TRUE

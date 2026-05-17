@@ -363,11 +363,8 @@
 /**
  * Create our objectives for our heretic.
  */
-/datum/antagonist/heretic/proc/forge_objectives()
-	var/datum/objective/ascend/ascend_objective = new()
-	ascend_objective.owner = owner
-	objectives += ascend_objective
-	log_objective(owner, ascend_objective.explanation_text)
+/datum/antagonist/heretic/forge_objectives()
+	add_objective(new /datum/objective/ascend())
 
 /**
  * Add [target] as a sacrifice target for the heretic.

@@ -103,11 +103,6 @@ STATION_TRAITS
 ## The amount of time it takes for the emergency shuttle to be called, from round start.
 SHUTTLE_REFUEL_DELAY 12000
 
-## The number of objectives traitors get.
-## Not including escaping/hijacking.
-TRAITOR_OBJECTIVES_AMOUNT 2
-BROTHER_OBJECTIVES_AMOUNT 2
-
 ## Uncomment to prohibit jobs that start with loyalty
 ## implants from being most antagonists.
 PROTECT_ROLES_FROM_ANTAGONIST
@@ -393,14 +388,6 @@ OVERFLOW_CAP -1
 ## Uncomment to bring back old grey suit assistants instead of the now default rainbow colored assistants.
 GREY_ASSISTANTS
 
-## Midround Antag (aka Mulligan antag) config options ###
-
-## A time, in minutes, after which the midround antag system stops attempting to run and continuous rounds end immediately upon completion.
-MIDROUND_ANTAG_TIME_CHECK 60
-
-## A ratio of living to total crew members, the lower this is, the more people will have to die in order for midround antag to be skipped
-MIDROUND_ANTAG_LIFE_CHECK 0.7
-
 ##Limit Spell Choices##
 ## Uncomment to disallow wizards from using certain spells that may be too chaotic/fun for your playerbase
 
@@ -566,3 +553,8 @@ RANDOM_LOOT_WEIGHT_MODIFIER 1
 
 ## Whether talking on the common channel makes radio noises
 COMMON_RADIO_AUDIO
+
+# Murderbone objectives for normal antags cannot be rolled below this pop
+# Pop here refers to the amount of people who have joined the round, not connected clients
+# Some antags like nukie, wizard, and malf AI will always be murderbone
+MURDERBONE_OBJECTIVES_MIN_POP 15
