@@ -351,6 +351,19 @@
 	},
 /turf/open/floor/iron/stairs,
 /area/shuttle/pirate)
+"ks" = (
+/obj/effect/turf_decal/siding/dark/corner{
+	dir = 4
+	},
+/obj/structure/sink/kitchen/directional/south,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 4
+	},
+/obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/tile_breaker,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/turf/open/floor/iron/techmaint,
+/area/shuttle/pirate)
 "kx" = (
 /obj/item/weldingtool{
 	pixel_x = 7;
@@ -519,6 +532,38 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/wood/big,
 /area/shuttle/pirate)
+"ou" = (
+/obj/item/food/grown/wheat{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/item/food/grown/wheat{
+	pixel_x = -7;
+	pixel_y = 1
+	},
+/obj/item/food/grown/wheat{
+	pixel_x = -6;
+	pixel_y = -3
+	},
+/obj/item/food/grown/wheat{
+	pixel_x = -8;
+	pixel_y = -2
+	},
+/obj/item/food/grown/wheat{
+	pixel_x = 1;
+	pixel_y = -10
+	},
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/wheat,
+/obj/machinery/door/window/eastright{
+	dir = 1;
+	req_access_txt = "180"
+	},
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/turf/open/floor/grass/no_border,
+/area/shuttle/pirate)
 "oM" = (
 /obj/effect/mob_spawn/human/pirate/captain{
 	dir = 1
@@ -577,40 +622,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating/rust,
-/area/shuttle/pirate)
-"pH" = (
-/obj/item/food/grown/wheat{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/item/food/grown/wheat{
-	pixel_x = -7;
-	pixel_y = 1
-	},
-/obj/item/food/grown/wheat{
-	pixel_x = -6;
-	pixel_y = -3
-	},
-/obj/item/food/grown/wheat{
-	pixel_x = -8;
-	pixel_y = -2
-	},
-/obj/item/food/grown/wheat{
-	pixel_x = 1;
-	pixel_y = -10
-	},
-/obj/machinery/hydroponics/soil{
-	self_sustaining = 1
-	},
-/obj/item/seeds/wheat,
-/obj/machinery/door/window/eastright{
-	dir = 1;
-	req_access_txt = "180"
-	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
-/turf/open/floor/grass/no_border,
 /area/shuttle/pirate)
 "qF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -894,26 +905,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/pirate)
-"wN" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = 5;
-	pixel_y = 4
-	},
-/obj/item/pen/fountain{
-	pixel_x = 5;
-	pixel_y = 6
-	},
-/obj/item/cigarette/pipe/cobpipe{
-	pixel_y = 10;
-	pixel_x = -5
-	},
-/obj/item/reagent_containers/condiment/milk{
-	pixel_y = 2;
-	pixel_x = -7
-	},
-/turf/open/floor/iron/tech,
-/area/shuttle/pirate)
 "xm" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/door/poddoor{
@@ -1161,7 +1152,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/arrows,
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -1215,19 +1206,6 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/pod/light,
-/area/shuttle/pirate)
-"Fh" = (
-/obj/effect/turf_decal/siding/dark/corner{
-	dir = 4
-	},
-/obj/structure/sink/kitchen/directional/south,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/cable/yellow,
-/obj/effect/mapping_helpers/tile_breaker,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
 "Fq" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
@@ -1841,6 +1819,26 @@
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
+"UH" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/pen/fountain{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/item/cigarette/pipe/cobpipe{
+	pixel_y = 10;
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/condiment/milk{
+	pixel_y = 2;
+	pixel_x = -7
+	},
+/turf/open/floor/iron/tech,
+/area/shuttle/pirate)
 "UQ" = (
 /obj/structure/table/wood,
 /obj/item/toy/cards/deck/cas/black{
@@ -2330,7 +2328,7 @@ RZ
 LA
 dY
 Gw
-Fh
+ks
 oQ
 Am
 cO
@@ -2430,7 +2428,7 @@ yV
 yV
 Gw
 Jy
-wN
+UH
 VL
 ki
 tB
@@ -2452,7 +2450,7 @@ tL
 QU
 MH
 UD
-pH
+ou
 Gw
 yV
 yV

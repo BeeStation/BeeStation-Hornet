@@ -405,7 +405,7 @@
 /obj/item/deactivated_swarmer/IntegrateAmount()
 	return 50
 
-/obj/machinery/hydroponics/soil/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+/obj/item/plant_tray/soil/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, span_warning("This object does not contain enough materials to work with."))
 	return FALSE
 

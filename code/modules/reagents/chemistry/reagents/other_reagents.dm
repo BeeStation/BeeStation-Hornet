@@ -953,6 +953,7 @@
 	color = COLOR_GRAY
 	chemical_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "chlorine"
+	weed_kill = 0.3
 
 /datum/reagent/chlorine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -967,6 +968,7 @@
 	chemical_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "acid"
 	process_flags = ORGANIC | SYNTHETIC
+	weed_kill = 0.1
 
 /datum/reagent/fluorine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -988,6 +990,7 @@
 	color = "#832828" // rgb: 131, 40, 40
 	chemical_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "vinegar"
+	weed_kill = 0.2
 
 /datum/reagent/lithium
 	name = "Lithium"
@@ -1546,21 +1549,21 @@
 
 /datum/reagent/plantnutriment/left4zednutriment
 	name = "Left 4 Zed"
-	description = "Unstable nutriment that makes plants mutate more often than usual."
+	description = "Unstable nutriment that heals plants effectively, but also makes pest populations explode."
 	color = "#1A1E4D" // RBG: 26, 30, 77
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	tox_prob = 13
 
 /datum/reagent/plantnutriment/robustharvestnutriment
 	name = "Robust Harvest"
-	description = "Very potent nutriment that prevents plants from mutating."
+	description = "Very potent nutriment that improves plants' production."
 	color = "#9D9D00" // RBG: 157, 157, 0
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	tox_prob = 8
 
 /datum/reagent/plantnutriment/slimenutriment
 	name = "Living Fertiliser"
-	description = "A viscous fluid that clings to living tissue and speeds up growth, in exchange for yield."
+	description = "A viscous fluid that clings to living tissue."
 	color = "#6ed8db"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	tox_prob = 17

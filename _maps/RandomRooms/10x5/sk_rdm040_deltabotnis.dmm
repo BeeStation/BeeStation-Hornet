@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -20,29 +20,8 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/template_noop)
-"e" = (
-/obj/structure/table,
-/obj/item/seeds/flower/lily{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/seeds/flower/geranium,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/food/grown/wheat,
-/obj/item/food/grown/corn,
-/obj/item/food/grown/apple,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
-"f" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/tea,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
-/area/template_noop)
 "g" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
@@ -60,13 +39,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"i" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/flower/poppy,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
-/area/template_noop)
 "j" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
@@ -74,32 +46,9 @@
 "k" = (
 /turf/open/floor/iron,
 /area/template_noop)
-"l" = (
-/obj/structure/sink/directional/west,
-/obj/effect/turf_decal/bot,
-/obj/structure/sign/departments/minsky/supply/hydroponics{
-	pixel_x = 32
-	},
-/turf/open/floor/iron,
-/area/template_noop)
-"m" = (
-/obj/structure/sink/directional/east,
-/obj/structure/sign/warning/no_smoking{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/template_noop)
 "n" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
-/area/template_noop)
-"o" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/flower/harebell,
-/obj/machinery/light/small,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -118,15 +67,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"q" = (
-/obj/machinery/seed_extractor,
-/obj/machinery/status_display/evac{
-	pixel_y = -32
-	},
-/obj/item/reagent_containers/cup/bucket,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
-/area/template_noop)
 "s" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
@@ -139,12 +79,69 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"u" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/tower,
+"D" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/tea,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/template_noop)
+"E" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/tower,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/template_noop)
+"H" = (
+/obj/machinery/seeder,
+/obj/machinery/status_display/evac{
+	pixel_y = -32
+	},
+/obj/item/reagent_containers/cup/bucket,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/template_noop)
+"J" = (
+/obj/structure/sink/directional/west,
+/obj/effect/turf_decal/bot,
+/obj/structure/sign/departments/minsky/supply/hydroponics{
+	pixel_x = 32
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"L" = (
+/obj/structure/sink/directional/east,
+/obj/structure/sign/warning/no_smoking{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"O" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/harebell,
+/obj/machinery/light/small,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/template_noop)
+"Q" = (
+/obj/item/plant_tray/soil,
+/obj/item/plant_seeds/preset/poppy,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/template_noop)
+"W" = (
+/obj/structure/table,
+/obj/item/plant_seeds/preset/lily,
+/obj/item/plant_seeds/preset/geranium,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/corn,
+/obj/item/food/grown/apple,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
 
@@ -152,7 +149,7 @@
 b
 j
 k
-m
+L
 n
 "}
 (2,1,1) = {"
@@ -160,7 +157,7 @@ c
 k
 k
 j
-o
+O
 "}
 (3,1,1) = {"
 d
@@ -170,11 +167,11 @@ k
 p
 "}
 (4,1,1) = {"
-e
+W
 j
 k
 k
-q
+H
 "}
 (5,1,1) = {"
 s
@@ -184,7 +181,7 @@ k
 s
 "}
 (6,1,1) = {"
-f
+D
 k
 k
 k
@@ -209,11 +206,11 @@ b
 j
 k
 j
-u
+E
 "}
 (10,1,1) = {"
-i
-l
+Q
+J
 j
 j
 n

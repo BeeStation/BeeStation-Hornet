@@ -802,7 +802,7 @@
 "ix" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "iy" = (
@@ -1171,7 +1171,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "lU" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/structure/cable/yellow,
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/power/apc/syndicate/directional/north,
@@ -2281,7 +2281,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "xS" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 9
 	},
@@ -2435,7 +2435,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/starboard)
 "AF" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 10
 	},
@@ -4142,7 +4142,7 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 10
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light/small/directional/west,
 /obj/machinery/airalarm/directional/west,
 /obj/effect/mapping_helpers/airalarm/syndicate_access,
@@ -4577,7 +4577,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "XE" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 6
 	},

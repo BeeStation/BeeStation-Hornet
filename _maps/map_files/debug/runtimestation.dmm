@@ -1602,11 +1602,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/medical/medbay)
-"vY" = (
-/obj/machinery/gravity_generator/main,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/station/engineering/gravity_generator)
 "wj" = (
 /obj/machinery/computer/rdconsole/core,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -2514,6 +2509,11 @@
 	},
 /turf/open/floor/iron,
 /area/station/science)
+"Ps" = (
+/obj/machinery/gravity_generator/main,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/station/engineering/gravity_generator)
 "Px" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light{
@@ -8297,7 +8297,7 @@ ak
 dT
 Ha
 av
-vY
+Ps
 av
 ak
 by

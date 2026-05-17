@@ -182,6 +182,7 @@
 	taste_description = "burning"
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
+	weed_kill = 0.5
 
 /datum/reagent/napalm/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()

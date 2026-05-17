@@ -21,6 +21,8 @@
 	var/selected_cat
 	/// Cooldown for creating materials
 	COOLDOWN_DECLARE(production_cooldown)
+	///List of mulchable items inserted into us
+	var/list/mulchables = list()
 
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
@@ -30,6 +32,12 @@
 /obj/machinery/biogenerator/Destroy()
 	QDEL_NULL(beaker)
 	return ..()
+
+/obj/machinery/biogenerator/add_context_self(datum/screentip_context/context, mob/user)
+	. = ..()
+	if(!isliving(user))
+		return
+	context.add_left_click_item_action("Insert Plant", /obj/item/shovel/spade)
 
 /obj/machinery/biogenerator/contents_explosion(severity, target)
 	..()
@@ -100,7 +108,7 @@
 
 	if(default_deconstruction_crowbar(O))
 		return
-
+	//Reagent holder for sauce dispension
 	if(istype(O, /obj/item/reagent_containers/cup))
 		. = 1 //no afterattack
 		if(!panel_open)
@@ -116,40 +124,38 @@
 		else
 			to_chat(user, span_warning("Close the maintenance panel first."))
 		return
-
+	//Insert foods from bag
 	else if(istype(O, /obj/item/storage/bag/plants))
-		var/obj/item/storage/bag/plants/PB = O
-		var/i = 0
-		for(var/obj/item/food/grown/G in contents)
-			i++
-		if(i >= max_items)
-			to_chat(user, span_warning("The biogenerator is already full! Activate it."))
-		else
-			for(var/obj/item/food/grown/G in PB.contents)
-				if(i >= max_items)
-					break
-				if(PB.atom_storage.attempt_remove(G, src))
-					i++
-			if(i<max_items)
-				to_chat(user, span_info("You empty the plant bag into the biogenerator."))
-			else if(PB.contents.len == 0)
-				to_chat(user, span_info("You empty the plant bag into the biogenerator, filling it to its capacity."))
-			else
-				to_chat(user, span_info("You fill the biogenerator to its capacity."))
-		ui_update()
-		return TRUE //no afterattack
-
-	else if(istype(O, /obj/item/food/grown))
-		var/i = 0
-		for(var/obj/item/food/grown/G in contents)
-			i++
-		if(i >= max_items)
+		if(length(mulchables) >= max_items)
 			to_chat(user, span_warning("The biogenerator is full! Activate it."))
-		else
-			if(user.transferItemToLoc(O, src))
-				to_chat(user, span_info("You put [O.name] in [src.name]"))
+			ui_update()
+			return TRUE //no afterattack
+		//Dump bag contents into us
+		var/obj/item/storage/bag/plants/PB = O
+		var/bag_capacity = length(PB.contents)
+		var/successful_transfers = 0
+		for(var/obj/item/food/grown/G in PB.contents)
+			if(length(mulchables) < max_items && !PB.atom_storage.attempt_remove(G, src))
+				continue
+			mulchables += G
+			successful_transfers += 1
+		//Feedback dialogue
+		if(successful_transfers >= bag_capacity)
+			to_chat(user, span_info("You empty the plant bag into the biogenerator."))
+		if(successful_transfers < bag_capacity)
+			to_chat(user, span_info("You fill the biogenerator to its capacity."))
 		ui_update()
-		return TRUE //no afterattack
+		return TRUE
+	//Foods
+	else if(istype(O, /obj/item/food/grown))
+		if(length(mulchables) >= max_items)
+			to_chat(user, span_warning("The biogenerator is full! Activate it."))
+		else if(user.transferItemToLoc(O, src))
+			mulchables += O
+			to_chat(user, span_info("You put [O.name] in [src.name]"))
+		ui_update()
+		return TRUE
+	//Disks
 	else if (istype(O, /obj/item/disk/design_disk))
 		user.visible_message("[user] begins to load \the [O] in \the [src]...",
 			"You begin to load a design from \the [O]...",
@@ -164,6 +170,25 @@
 		processing = FALSE
 		ui_update()
 		return TRUE
+	//Inserting plants from spades
+	else if(istype(O, /obj/item/shovel/spade))
+		for(var/obj/item/potential_plant in O.contents)
+			var/datum/component/plant/plant
+			plant = potential_plant.GetComponent(/datum/component/plant)
+			if(!plant)
+				continue
+			//Don't overfeed ourselves
+			if(length(mulchables) >= max_items)
+				to_chat(user, span_warning("The biogenerator is full! Activate it."))
+				ui_update()
+				return TRUE
+			O.vis_contents -= potential_plant
+			potential_plant.forceMove(src)
+			to_chat(user, span_info("You put [potential_plant.name] in [src.name]"))
+			mulchables += potential_plant
+		ui_update()
+		return TRUE
+	//Invalid Item
 	else
 		to_chat(user, span_warning("You cannot put this in [src.name]!"))
 
@@ -186,7 +211,24 @@
 		to_chat(user, span_warning("The biogenerator is in the process of working."))
 		return
 	var/S = 0
-	for(var/obj/item/food/grown/I in contents)
+	//Plants - Split these into 2 FORs for reading
+	for(var/obj/item/I in mulchables)
+		var/datum/component/plant/plant
+		plant = I.GetComponent(/datum/component/plant)
+		if(!plant)
+			continue
+		mulchables -= I
+	//If you add multiple of a feature type on a plant, rewrite this code to support that
+		//Body
+		var/datum/plant_feature/body/body_feature = locate(/datum/plant_feature/body) in plant.plant_features
+		S += max(body_feature?.slot_size, 1) * 5
+		//Fruit
+		var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in plant.plant_features
+		for(var/obj/item/food/grown/fruit in fruit_feature?.fruits)
+			mulchables += fruit
+		qdel(I)
+	//Food items
+	for(var/obj/item/food/grown/I in mulchables)
 		S += 5
 		if(I.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) < 0.1)
 			points += 1 * productivity
@@ -194,6 +236,7 @@
 		else
 			points += I.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) * 10 * productivity
 			ui_update()
+		mulchables -= I
 		qdel(I)
 	if(S)
 		processing = TRUE
@@ -291,7 +334,7 @@
 	data["beaker"] = beaker ? TRUE : FALSE
 	data["biomass"] = points
 	data["processing"] = processing
-	if(locate(/obj/item/food/grown) in contents)
+	if(length(mulchables))
 		data["can_process"] = TRUE
 	else
 		data["can_process"] = FALSE

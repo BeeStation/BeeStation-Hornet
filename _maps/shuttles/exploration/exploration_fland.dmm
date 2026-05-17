@@ -178,7 +178,7 @@
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/carpet,
 /area/shuttle/exploration)
 "ge" = (

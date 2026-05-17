@@ -19,7 +19,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/template_noop)
 "i" = (
@@ -100,7 +100,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/template_noop)
 "J" = (
@@ -121,13 +121,13 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "O" = (
-/obj/machinery/hydroponics/constructable,
-/obj/item/seeds/tea/astra,
+/obj/item/plant_tray,
+/obj/item/plant_seeds/preset/tea/astra,
 /turf/open/floor/wood,
 /area/template_noop)
 "Q" = (
-/obj/machinery/hydroponics/constructable,
-/obj/item/seeds/tea,
+/obj/item/plant_tray,
+/obj/item/plant_seeds/preset/tea,
 /obj/machinery/light{
 	dir = 8
 	},

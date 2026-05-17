@@ -538,13 +538,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/template_noop)
-"iD" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/machinery/hydroponics/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "iJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -637,6 +630,10 @@
 /turf/open/floor/sepia/planetary{
 	slowdown = 0
 	},
+/area/template_noop)
+"kd" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "ki" = (
 /obj/item/clothing/head/beanie/waldo,
@@ -1065,6 +1062,18 @@
 	slowdown = 0
 	},
 /area/template_noop)
+"sC" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	pixel_x = 32;
+	pixel_y = -1
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/freezer,
+/area/template_noop)
 "sD" = (
 /obj/machinery/computer/objective{
 	dir = 8
@@ -1109,10 +1118,6 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/cable,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/template_noop)
-"tb" = (
-/obj/machinery/hydroponics/soil,
-/turf/open/floor/plating/grass,
 /area/template_noop)
 "tf" = (
 /obj/structure/fireplace,
@@ -1292,22 +1297,6 @@
 	},
 /obj/structure/sign/warning/secure_area,
 /turf/open/floor/plating/grass,
-/area/template_noop)
-"wk" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/turf/open/floor/wood,
 /area/template_noop)
 "wm" = (
 /obj/machinery/door/airlock{
@@ -1505,18 +1494,6 @@
 "zX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"Ae" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 32;
-	pixel_y = -1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/freezer,
 /area/template_noop)
 "Ah" = (
 /obj/structure/extinguisher_cabinet{
@@ -1987,6 +1964,13 @@
 	slowdown = 0
 	},
 /area/template_noop)
+"He" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
+/area/template_noop)
 "Hg" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/sand/plating,
@@ -2315,6 +2299,22 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
+/area/template_noop)
+"Ob" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/turf/open/floor/wood,
 /area/template_noop)
 "Og" = (
 /obj/effect/mapping_helpers/dead_body_placer,
@@ -6518,9 +6518,9 @@ gf
 gf
 gf
 Kg
-iD
-tb
-tb
+He
+kd
+kd
 Mg
 Mg
 Mg
@@ -6652,9 +6652,9 @@ gf
 bj
 PO
 FH
-iD
+He
 yW
-tb
+kd
 Mg
 Mg
 Mg
@@ -6786,9 +6786,9 @@ gf
 gf
 gf
 FH
-iD
-tb
-tb
+He
+kd
+kd
 Mg
 Mg
 Mg
@@ -7187,7 +7187,7 @@ gf
 tf
 sV
 gf
-wk
+Ob
 Du
 DS
 Mg
@@ -10980,7 +10980,7 @@ VX
 VX
 xu
 rw
-Ae
+sC
 an
 xu
 vy

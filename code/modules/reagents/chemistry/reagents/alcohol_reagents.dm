@@ -9,6 +9,7 @@
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/beer
 	fallback_icon = 'icons/obj/drinks/bottles.dmi'
 	fallback_icon_state = "beer"
+	weed_kill = 0.1
 	/**
 	 * Boozepwr Chart
 	 *

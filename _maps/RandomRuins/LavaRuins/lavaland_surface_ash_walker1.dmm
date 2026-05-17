@@ -18,6 +18,25 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
+"aK" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/table/wood,
+/obj/item/hatchet,
+/obj/item/stack/cable_coil{
+	pixel_y = 9;
+	pixel_x = 6
+	},
+/obj/item/weldingtool/mini{
+	pixel_y = -8;
+	pixel_x = -5
+	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "bs" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -224,6 +243,33 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
+"lU" = (
+/obj/item/plant_tray/soil,
+/obj/structure/stone_tile/surrounding/cracked,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"lW" = (
+/obj/structure/table/wood,
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/item/storage/bag/plants/portaseeder,
+/obj/item/plant_seeds/preset/tobacco,
+/obj/item/plant_seeds/preset/cotton,
+/obj/item/plant_seeds/preset/glowshroom,
+/obj/item/plant_seeds/preset/glowshroom,
+/obj/item/plant_seeds/preset/bamboo,
+/obj/item/plant_seeds/preset/tower,
+/obj/item/plant_seeds/preset/bamboo,
+/obj/item/plant_seeds/preset/cotton,
+/obj/item/plant_seeds/preset/tower,
+/obj/item/plant_seeds/preset/tobacco,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "mk" = (
 /obj/structure/stone_tile/block/cracked,
 /obj/structure/stone_tile/block{
@@ -370,25 +416,6 @@
 /obj/structure/stone_tile/block/cracked,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
-"sl" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/table/wood,
-/obj/item/hatchet,
-/obj/item/stack/cable_coil{
-	pixel_y = 9;
-	pixel_x = 6
-	},
-/obj/item/weldingtool/mini{
-	pixel_y = -8;
-	pixel_x = -5
-	},
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
 "so" = (
 /obj/structure/stone_tile/block/cracked,
 /obj/structure/stone_tile{
@@ -413,14 +440,7 @@
 /obj/item/knife/combat/bone{
 	pixel_y = 11
 	},
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
-"sG" = (
-/obj/machinery/hydroponics/soil,
-/obj/structure/stone_tile/surrounding_tile/cracked,
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
+/obj/item/plant_seeds/preset/charr,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "tl" = (
@@ -428,6 +448,12 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"ui" = (
+/obj/item/plant_tray/soil,
+/obj/structure/stone_tile/block/cracked,
+/obj/item/plant_seeds/preset/charr,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "up" = (
@@ -496,15 +522,6 @@
 	dir = 8
 	},
 /turf/open/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
-"xz" = (
-/obj/machinery/hydroponics/soil,
-/obj/structure/stone_tile/surrounding/cracked{
-	dir = 1;
-	icon_state = "cracked_surrounding1"
-	},
-/obj/structure/stone_tile/center,
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "xK" = (
 /obj/structure/stone_tile/surrounding_tile/cracked,
@@ -708,6 +725,15 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
+"Ff" = (
+/obj/item/plant_tray/soil,
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 1;
+	icon_state = "cracked_surrounding1"
+	},
+/obj/structure/stone_tile/center,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "Fh" = (
 /obj/structure/table/wood,
 /obj/item/food/grown/ash_flora/cactus_fruit{
@@ -760,6 +786,14 @@
 	},
 /obj/structure/stone_tile/cracked,
 /obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"GI" = (
+/obj/item/plant_tray/soil,
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/cracked{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
@@ -840,11 +874,6 @@
 "IE" = (
 /obj/structure/bonfire/dense/askwalker,
 /obj/structure/stone_tile/center,
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
-"Ji" = (
-/obj/machinery/hydroponics/soil,
-/obj/structure/stone_tile/surrounding/cracked,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "JP" = (
@@ -1167,28 +1196,6 @@
 /obj/structure/stone_tile,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
-"VR" = (
-/obj/structure/table/wood,
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile/surrounding_tile/cracked,
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/obj/item/storage/bag/plants/portaseeder,
-/obj/item/seeds/tobacco/lavaland,
-/obj/item/seeds/cotton,
-/obj/item/seeds/glowshroom,
-/obj/item/seeds/glowshroom,
-/obj/item/seeds/bamboo,
-/obj/item/seeds/tower,
-/obj/item/seeds/bamboo,
-/obj/item/seeds/cotton,
-/obj/item/seeds/tower,
-/obj/item/seeds/tobacco/lavaland,
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
 "Wm" = (
 /obj/structure/stone_tile/surrounding/cracked,
 /obj/structure/stone_tile/center,
@@ -1219,11 +1226,6 @@
 	pixel_x = 5
 	},
 /turf/open/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
-"XG" = (
-/obj/machinery/hydroponics/soil,
-/obj/structure/stone_tile/block/cracked,
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "XS" = (
 /obj/structure/stone_tile/block{
@@ -1452,8 +1454,8 @@ yl
 Hl
 zt
 Ex
-sG
-xz
+GI
+Ff
 yl
 QB
 ey
@@ -1490,7 +1492,7 @@ ey
 ey
 yl
 QB
-sl
+aK
 fx
 uv
 UC
@@ -1503,7 +1505,7 @@ pf
 RY
 LO
 EX
-XG
+ui
 QB
 ey
 ey
@@ -1524,10 +1526,10 @@ cK
 cK
 Hl
 aw
-VR
+lW
 MY
 nt
-Ji
+lU
 QB
 ey
 ey

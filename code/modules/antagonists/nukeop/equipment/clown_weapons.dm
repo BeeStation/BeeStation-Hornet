@@ -207,21 +207,21 @@
 
 //BOMBANANA]
 
-/obj/item/seeds/banana/bombanana
+/obj/item/plant_seeds/preset/bombanana
 	name = "pack of bombanana seeds"
+	name_override = "bombnana tree"
 	desc = "They're seeds that grow into bombanana trees. When grown, give to the clown."
-	plantname = "Bombanana Tree"
-	product = /obj/item/food/grown/banana/bombanana
+	plant_features = list(/datum/plant_feature/roots/sand, /datum/plant_feature/body/tree/palm/banana, /datum/plant_feature/fruit/banana/bomb)
 
 /obj/item/food/grown/banana/bombanana
 	trash_type = /obj/item/grown/bananapeel/bombanana
-	seed = /obj/item/seeds/banana/bombanana
+	seed = /obj/item/plant_seeds/preset/bombanana
 	tastes = list("explosives" = 10)
 	food_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 1)
 
 /obj/item/grown/bananapeel/bombanana
 	desc = "A peel from a banana. Why is it beeping?"
-	seed = /obj/item/seeds/banana/bombanana
+	seed = /obj/item/plant_seeds/preset/bombanana
 	var/det_time = 50
 	var/obj/item/grenade/syndieminibomb/bomb
 

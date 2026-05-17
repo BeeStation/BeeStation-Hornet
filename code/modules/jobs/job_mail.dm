@@ -61,6 +61,7 @@
 		/obj/item/reagent_containers/cup/bottle/toxin/mutagen = 12,
 		/obj/item/grenade/chem_grenade/antiweed = 10,
 		/obj/item/gun/energy/floragun = 10,
+		/obj/item/plant_seeds/preset/mail = 5,
 		/obj/effect/spawner/random/food_or_drink/seed_rare = 10,
 		/obj/item/scythe = 10
 	)

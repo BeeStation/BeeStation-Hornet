@@ -61,6 +61,11 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
+"cS" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/BMPship/Midship)
 "dh" = (
 /obj/item/wrench,
 /turf/open/floor/plating,
@@ -79,6 +84,11 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/awaymission/BMPship/Midship)
+"dG" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
 "ew" = (
@@ -108,13 +118,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/engine,
 /area/awaymission/BMPship/Aft)
-"fa" = (
-/obj/machinery/hydroponics,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/awaymission/BMPship/Midship)
 "fb" = (
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -549,11 +552,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Fore)
-"rc" = (
-/obj/machinery/hydroponics,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/BMPship/Midship)
 "re" = (
 /obj/machinery/light,
 /turf/open/floor/plating/airless,
@@ -696,17 +694,6 @@
 	broken = 1
 	},
 /area/awaymission/BMPship/Midship)
-"uP" = (
-/obj/machinery/hydroponics,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/awaymission/BMPship/Midship)
-"uU" = (
-/obj/structure/mop_bucket,
-/turf/open/floor/plating,
-/area/awaymission/BMPship/Aft)
 "vc" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/middle{
 	dir = 4
@@ -722,6 +709,13 @@
 /obj/machinery/teleport/station,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
+"wb" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/awaymission/BMPship/Midship)
 "wc" = (
 /obj/structure/chair/stool,
 /turf/open/floor/carpet,
@@ -966,6 +960,14 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/awaymission/BMPship/Midship)
+"Cu" = (
+/obj/machinery/seeder,
+/obj/item/plant_seeds/preset/walking,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
 "Cw" = (
@@ -1292,6 +1294,10 @@
 /obj/item/hand_labeler,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
+"KD" = (
+/obj/structure/mop_bucket,
+/turf/open/floor/plating,
+/area/awaymission/BMPship/Aft)
 "KI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1394,6 +1400,13 @@
 	broken = 1
 	},
 /area/awaymission/BMPship/Fore)
+"NK" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/awaymission/BMPship/Midship)
 "NX" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/organ/brain,
@@ -1759,11 +1772,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
-"XS" = (
-/obj/machinery/hydroponics,
-/obj/effect/turf_decal/tile/green/half/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/BMPship/Midship)
 "XZ" = (
 /turf/closed/mineral/random,
 /area/awaymission/BMPship/Midship)
@@ -1793,14 +1801,6 @@
 	broken = 1
 	},
 /area/awaymission/BMPship/Fore)
-"YH" = (
-/obj/machinery/seed_extractor,
-/obj/item/seeds/plump/walkingmushroom,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/awaymission/BMPship/Midship)
 "YI" = (
 /obj/structure/closet,
 /obj/item/clothing/under/rank/civilian/lawyer/bluesuit,
@@ -2756,10 +2756,10 @@ KI
 sp
 CB
 VT
-fa
-fa
-fa
-uP
+wb
+wb
+wb
+NK
 gA
 wY
 wY
@@ -2912,7 +2912,7 @@ VT
 Eo
 cF
 cF
-YH
+Cu
 gA
 wY
 UC
@@ -3011,10 +3011,10 @@ aa
 aa
 aa
 VT
-XS
-XS
-XS
-rc
+cS
+cS
+cS
+dG
 gA
 pj
 ww
@@ -4091,7 +4091,7 @@ Ey
 Wv
 iA
 Wv
-uU
+KD
 zO
 qq
 lA

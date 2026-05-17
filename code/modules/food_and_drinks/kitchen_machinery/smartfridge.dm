@@ -368,7 +368,7 @@
 /obj/machinery/smartfridge/proc/accept_check(obj/item/weapon)
 	var/static/list/accepted_items = list(
 		/obj/item/food/grown,
-		/obj/item/seeds,
+		/obj/item/plant_seeds,
 		/obj/item/grown,
 	)
 	return is_type_in_list(weapon, accepted_items)

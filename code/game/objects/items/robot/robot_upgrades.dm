@@ -804,7 +804,7 @@
 	addmodules = list (
 		/obj/item/storage/bag/plants/portaseeder,
 		/obj/item/cultivator,
-		/obj/item/plant_analyzer,
+		/obj/item/plant_scanner,
 		/obj/item/shovel/spade,
 	)
 	additional_reagents = list(

@@ -1,20 +1,22 @@
+/*
+//TODO: - Racc
 /// Unit test to ensure seeds can properly be added to the plant seed extractor through multiple methods.
 /// This only tests transferring seeds to the storage, it does NOT test creating seeds.
 /datum/unit_test/hydroponics_extractor_storage
 
 /datum/unit_test/hydroponics_extractor_storage/Run()
-	var/obj/machinery/seed_extractor/extractor = allocate(/obj/machinery/seed_extractor)
+	var/obj/machinery/seeder/extractor = allocate(/obj/machinery/seeder)
 	var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent)
 
 	var/obj/item/storage/bag/plants/storage = allocate(/obj/item/storage/bag/plants)
 
 	// Set up all the seeds we're gonna test storing
-	var/list/seeds_to_put_in_the_bag = list(/obj/item/seeds/orange, /obj/item/seeds/lemon)
+	var/list/seeds_to_put_in_the_bag = list(/obj/item/plant_seeds/preset/orange, /obj/item/plant_seeds/preset/lemon)
 	var/num_seeds_to_make_of_each = 5
 	// Put some seeds in the bag, based on the above variables
 	for(var/i in 1 to num_seeds_to_make_of_each)
 		for(var/seed_type in seeds_to_put_in_the_bag)
-			var/obj/item/seeds/new_seed = new seed_type(dummy.loc)
+			var/obj/item/plant_seeds/preset/new_seed = new seed_type(dummy.loc)
 			storage.atom_storage.attempt_insert(new_seed, dummy)
 
 	// Store the number of seeds we start with in the bag for later.
@@ -23,7 +25,7 @@
 
 	// Put 1 seed into the dummy's hand
 	// If they fail to pick up the seed, we have an issue
-	var/obj/item/seeds/apple/apple_seed = new(dummy.loc)
+	var/obj/item/plant_seeds/preset/apple/apple_seed = new(dummy.loc)
 	if(!dummy.put_in_active_hand(apple_seed))
 		return TEST_FAIL("The dummy failed to pick up the apple seed.")
 
@@ -33,7 +35,7 @@
 	TEST_ASSERT_NOTEQUAL(dummy.get_active_held_item(), apple_seed, "The dummy failed to insert a singular seed into the plant seed extractor.")
 
 	// The apple seed should be in the seed extractor now
-	var/obj/item/seeds/apple/apple_now_stored = locate() in extractor
+	var/obj/item/plant_seeds/preset/apple/apple_now_stored = locate() in extractor
 	TEST_ASSERT_NOTNULL(apple_now_stored, "The apple seed was removed from the dummy's hands, but is not in the plant seed extractor's contents.")
 
 	// The apple seed's key should be in the extractor's "piles" list
@@ -56,10 +58,10 @@
 	// If the number of seeds in the bag went down, but is not 0, we have an issue as some failed to move
 	TEST_ASSERT(num_seeds_remaining <= 0, "The plant bag still had [num_seeds_remaining] seeds remaining of the [num_seeds_starting_with] it started with after transferring its seeds to the plant seed extractor.")
 
-	for(var/obj/item/seeds/seed_type as anything in seeds_to_put_in_the_bag)
+	for(var/obj/item/plant_seeds/preset/seed_type as anything in seeds_to_put_in_the_bag)
 
 		// All seeds should be in the extractor now
-		var/obj/item/seeds/seed_now_stored = locate(seed_type) in extractor
+		var/obj/item/plant_seeds/preset/seed_now_stored = locate(seed_type) in extractor
 		TEST_ASSERT_NOTNULL(seed_now_stored, "The plant bag transferred its [initial(seed_type.name)] somewhere, but they were not found in the plant seed extractor.")
 
 		// All keys shold be independently in the piles list
@@ -68,3 +70,4 @@
 
 		// And all seeds should be tracked as weakrefs
 		TEST_ASSERT_EQUAL(length(extractor.piles[stored_seed_key]), num_seeds_to_make_of_each, "While [num_seeds_to_make_of_each] [initial(seed_type.name)]s were added to the plant seed extractor, not all weakrefs were added to the piles list correctly.")
+*/

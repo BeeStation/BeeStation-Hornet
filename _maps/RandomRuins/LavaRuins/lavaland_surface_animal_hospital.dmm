@@ -808,18 +808,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
-"Ik" = (
-/obj/structure/closet/crate/bin,
-/obj/item/trash/pistachios,
-/obj/item/lipstick/random,
-/obj/item/seeds/apple,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/ruin/powered/animal_hospital)
 "Ji" = (
 /obj/structure/closet,
 /obj/item/defibrillator/loaded,
@@ -886,6 +874,14 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
+"OL" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror{
+	pixel_x = -28
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/ruin/powered/animal_hospital)
 "Pt" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -935,14 +931,6 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/ruin/powered/animal_hospital)
-"RD" = (
-/obj/structure/sink/directional/east,
-/obj/structure/mirror{
-	pixel_x = -28
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "Sb" = (
 /obj/machinery/light/small{
@@ -1089,6 +1077,18 @@
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
+/area/ruin/powered/animal_hospital)
+"Zl" = (
+/obj/structure/closet/crate/bin,
+/obj/item/trash/pistachios,
+/obj/item/lipstick/random,
+/obj/item/plant_seeds/preset/apple,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "Zx" = (
 /obj/item/stock_parts/matter_bin/bluespace,
@@ -1260,7 +1260,7 @@ ab
 ae
 aj
 Pt
-RD
+OL
 ae
 HP
 HP
@@ -1270,7 +1270,7 @@ oj
 Qm
 zK
 HP
-Ik
+Zl
 hX
 lX
 ae

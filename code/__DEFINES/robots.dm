@@ -44,6 +44,7 @@
 #define MED_BOT (1<<4)
 #define HONK_BOT (1<<5)
 #define FIRE_BOT (1<<6)
+#define TURTLE_BOT (1<<7)
 
 //transfer_ai() defines. Main proc in ai_core.dm
 ///Downloading AI to InteliCard

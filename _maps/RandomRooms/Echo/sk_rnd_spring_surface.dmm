@@ -584,13 +584,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/template_noop)
-"iD" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/machinery/hydroponics/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "iJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -953,6 +946,22 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium,
 /area/template_noop)
+"pa" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/turf/open/floor/wood,
+/area/template_noop)
 "pb" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/sand/plating,
@@ -1181,10 +1190,6 @@
 /obj/item/bedsheet/dorms,
 /turf/open/floor/wood,
 /area/template_noop)
-"tb" = (
-/obj/machinery/hydroponics/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "tf" = (
 /obj/structure/fireplace,
 /obj/structure/bed/dogbed,
@@ -1312,22 +1317,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
-"wk" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/turf/open/floor/wood,
 /area/template_noop)
 "wm" = (
 /obj/machinery/door/airlock{
@@ -1472,6 +1461,10 @@
 /obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
+"yp" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
+/area/template_noop)
 "yr" = (
 /obj/structure/sign/departments/restroom,
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
@@ -1541,18 +1534,6 @@
 "zX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"Ae" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 32;
-	pixel_y = -1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/freezer,
 /area/template_noop)
 "Ah" = (
 /obj/structure/extinguisher_cabinet{
@@ -1627,6 +1608,13 @@
 /obj/structure/railing,
 /obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/plating/asteroid/planetary,
+/area/template_noop)
+"Bp" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "Bw" = (
 /obj/item/toy/plush/lizard_plushie{
@@ -3133,6 +3121,18 @@
 	},
 /obj/structure/closet/crate/critter,
 /turf/open/floor/mineral/plastitanium,
+/area/template_noop)
+"ZV" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	pixel_x = 32;
+	pixel_y = -1
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "ZW" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -6518,9 +6518,9 @@ gf
 gf
 gf
 Kg
-iD
-tb
-tb
+Bp
+yp
+yp
 IM
 IM
 IM
@@ -6652,9 +6652,9 @@ gf
 bj
 PO
 FH
-iD
+Bp
 yW
-tb
+yp
 IM
 IM
 IM
@@ -6786,9 +6786,9 @@ gf
 gf
 gf
 FH
-iD
-tb
-tb
+Bp
+yp
+yp
 IM
 IM
 IM
@@ -7187,7 +7187,7 @@ gf
 tf
 sV
 gf
-wk
+pa
 Du
 DS
 IM
@@ -10980,7 +10980,7 @@ VX
 VX
 iU
 rw
-Ae
+ZV
 an
 iU
 vy

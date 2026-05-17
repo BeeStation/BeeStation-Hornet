@@ -214,6 +214,7 @@
 	overdose_threshold = 100 // Hyperglycaemic shock
 	taste_description = "sweetness"
 	default_container = /obj/item/reagent_containers/condiment/sugar
+	weed_kill = -0.1
 
 /datum/reagent/consumable/sugar/overdose_start(mob/living/carbon/affected_mob)
 	to_chat(affected_mob, span_userdanger("You go into hyperglycaemic shock! Lay off the twinkies!"))
