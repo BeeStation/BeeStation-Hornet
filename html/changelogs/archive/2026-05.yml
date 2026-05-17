@@ -119,3 +119,17 @@
       and SSmachines.get_machines_by_type() procs. This should improve performance
       across the codebase because now instead of looping through a list of 15,000
       machines, we only have to search through a few hundred at most.
+2026-05-14:
+  rkz, jacquerel:
+  - refactor: refactors worn offsets
+2026-05-15:
+  rkz, ATH1909, Mothblocks, JohnFulpWillard, LT3, flowercuco, Jacquerel, Majkl-J, Melbert, ariaworld:
+  - rscadd: adds new surgery initiation UI
+  - refactor: cleans up a lot of surgery code
+  - tweak: revive surgery is roundstart
+  - tweak: revive surgery can revive more mobtypes
+2026-05-16:
+  EvilDragonfiend:
+  - code_imp: Our minimum DM version(for compiling) is now 516.1666
+  Tsar-Salat:
+  - bugfix: fix self surgery on organ manip and IPC mulligan surgery

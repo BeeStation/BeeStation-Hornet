@@ -111,6 +111,9 @@
 	if(!istype(parent) || parent.get_organ_by_type(/obj/item/organ/eyes) != src)
 		CRASH("Generating a body overlay for [src] targeting an invalid parent '[parent]'.")
 
+	if(isnull(eye_icon_state))
+		return list()
+
 	var/mutable_appearance/eye_left = mutable_appearance(eye_icon, "[eye_icon_state]_l", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 	var/mutable_appearance/eye_right = mutable_appearance(eye_icon, "[eye_icon_state]_r", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 	var/list/overlays = list(eye_left, eye_right)
@@ -130,11 +133,10 @@
 		tears_overlay.color = COLOR_DARK_CYAN
 		overlays += tears_overlay
 
-	if(OFFSET_FACE in parent.dna?.species.offset_features)
-		var/offset = parent.dna.species.offset_features[OFFSET_FACE]
+	var/obj/item/bodypart/head/my_head = parent.get_bodypart(BODY_ZONE_HEAD)
+	if(my_head?.worn_face_offset)
 		for(var/mutable_appearance/overlay in overlays)
-			overlay.pixel_x += offset[OFFSET_X]
-			overlay.pixel_y += offset[OFFSET_Y]
+			my_head.worn_face_offset.apply_offset(overlay)
 
 	return overlays
 
