@@ -8,10 +8,6 @@
 	meat = /obj/item/food/meat/slab/monkey
 	changesource_flags = MIRROR_BADMIN
 	inherent_traits = list(TRAIT_VENTCRAWLER_NUDE)
-	offset_features = list(
-	OFFSET_HEAD = list(0,-3),
-	OFFSET_FACEMASK = list(0,-3)
-	)
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/monkey,

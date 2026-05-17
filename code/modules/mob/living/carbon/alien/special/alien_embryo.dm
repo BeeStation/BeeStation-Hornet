@@ -16,7 +16,7 @@
 	else
 		to_chat(finder, "It's grown quite large, and writhes slightly as you look at it.")
 		if(prob(10))
-			AttemptGrow(0)
+			attempt_grow(kill_on_success = FALSE)
 
 /obj/item/organ/body_egg/alien_embryo/on_life(delta_time, times_fired)
 	. = ..()
@@ -71,13 +71,16 @@
 		INVOKE_ASYNC(src, PROC_REF(RefreshInfectionImage))
 
 	if(stage == 5 && prob(50))
-		for(var/datum/surgery/S in owner.surgeries)
-			if(S.location == BODY_ZONE_CHEST && istype(S.get_surgery_step(), /datum/surgery_step/manipulate_organs))
-				AttemptGrow(FALSE)
+		for(var/datum/surgery/operations as anything in owner.surgeries)
+			if(operations.location != BODY_ZONE_CHEST)
+				continue
+			if(!istype(operations.get_surgery_step(), /datum/surgery_step/manipulate_organs/internal))
+				continue
+				attempt_grow(kill_on_success = FALSE)
 				return
-		AttemptGrow()
+		attempt_grow()
 
-/obj/item/organ/body_egg/alien_embryo/proc/AttemptGrow(kill_on_success = TRUE)
+/obj/item/organ/body_egg/alien_embryo/proc/attempt_grow(kill_on_success = TRUE)
 	if(!owner || bursting)
 		return
 

@@ -273,18 +273,18 @@ SUBSYSTEM_DEF(explosions)
 					baseshakeamount = sqrt((orig_max_distance - dist)*0.1)
 				// If inside the blast radius + world.view (x) - 2
 				if(dist <= round(max_range + getviewsize(world.view)[1] - 2, 1))
-					M.playsound_local(epicenter, null, 100, 1, frequency, falloff_exponent = 5, S = explosion_sound)
+					M.playsound_local(epicenter, null, 100, 1, frequency, falloff_exponent = 5, sound_to_use = explosion_sound)
 					if(baseshakeamount > 0)
 						shake_camera(M, 25, clamp(baseshakeamount, 0, 10))
 				// You hear a far explosion if you're outside the blast radius. Small bombs shouldn't be heard all over the station.
 				else if(dist <= far_dist)
 					var/far_volume = clamp(far_dist/2, FAR_LOWER, FAR_UPPER) // Volume is based on explosion size and dist
 					if(creaking_explosion)
-						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = creaking_explosion_sound, distance_multiplier = 0)
+						M.playsound_local(epicenter, null, far_volume, 1, frequency, sound_to_use = creaking_explosion_sound, distance_multiplier = 0)
 					else if(prob(PROB_SOUND)) // Sound variety during meteor storm/tesloose/other bad event
-						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = far_explosion_sound, distance_multiplier = 0) // Far sound
+						M.playsound_local(epicenter, null, far_volume, 1, frequency, sound_to_use = far_explosion_sound, distance_multiplier = 0) // Far sound
 					else
-						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0) // Echo sound
+						M.playsound_local(epicenter, null, far_volume, 1, frequency, sound_to_use = explosion_echo_sound, distance_multiplier = 0) // Echo sound
 
 					if(baseshakeamount > 0 || devastation_range)
 						if(!baseshakeamount) // Devastating explosions rock the station and ground
@@ -296,7 +296,7 @@ SUBSYSTEM_DEF(explosions)
 						baseshakeamount = devastation_range
 						shake_camera(M, 10, clamp(baseshakeamount*0.25, 0, SHAKE_CLAMP))
 						echo_volume = 60
-					M.playsound_local(epicenter, null, echo_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0)
+					M.playsound_local(epicenter, null, echo_volume, 1, frequency, sound_to_use = explosion_echo_sound, distance_multiplier = 0)
 				if(creaking_explosion) // 5 seconds after the bang, the station begins to creak
 					addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, playsound_local), epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, TRUE, hull_creaking_sound, 0), CREAK_DELAY)
 

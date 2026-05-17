@@ -276,6 +276,15 @@
 
 /mob/living/attack_hand(mob/living/carbon/human/user, list/modifiers)
 	. = ..()
+
+	for(var/datum/surgery/operations as anything in surgeries)
+		if(user.combat_mode)
+			break
+		if(IS_IN_INVALID_SURGICAL_POSITION(src, operations))
+			continue
+		if(operations.next_step(user, modifiers))
+			return TRUE
+
 	var/martial_result = user.apply_martial_art(src, modifiers)
 	if (martial_result != MARTIAL_ATTACK_INVALID)
 		return martial_result
@@ -621,3 +630,10 @@
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
 		. |= R.expose_mob(src, method, reagents[R], show_message, touch_protection, affecting)
+
+/// Simplified ricochet angle calculation for mobs (also the base version doesn't work on mobs)
+/mob/living/handle_ricochet(obj/projectile/ricocheting_projectile)
+	var/face_angle = get_angle_raw(ricocheting_projectile.x, ricocheting_projectile.pixel_x, ricocheting_projectile.pixel_y, ricocheting_projectile.p_y, x, y, pixel_x, pixel_y)
+	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + GET_ANGLE_OF_INCIDENCE(face_angle, (ricocheting_projectile.Angle + 180)))
+	ricocheting_projectile.set_angle(new_angle_s)
+	return TRUE

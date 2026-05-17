@@ -576,6 +576,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	if(choice != selecting)
 		selecting = choice
 		update_icon()
+		SEND_SIGNAL(user, COMSIG_MOB_SELECTED_ZONE_SET, choice)
 
 	return TRUE
 
