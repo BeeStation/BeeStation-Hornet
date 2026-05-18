@@ -582,7 +582,7 @@
 /area/misc/space)
 "aka" = (
 /turf/closed/mineral/random/low_chance,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "akb" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -711,7 +711,7 @@
 /obj/effect/trap/trigger/reusable/random,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "amB" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -762,7 +762,7 @@
 /area/station/ai_monitored/turret_protected/ai)
 "ana" = (
 /turf/closed/mineral/random/high_chance,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "anf" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/ridged/steel,
@@ -1690,7 +1690,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "aCH" = (
 /obj/structure/cable/yellow,
 /obj/structure/platform/black{
@@ -2937,7 +2937,7 @@
 	},
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "aVl" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow,
@@ -3157,7 +3157,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/rock/pile/largejungle,
 /turf/open/floor/plating/broken,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "aZh" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron/dark/smooth_half,
@@ -3643,7 +3643,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "biI" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/iron/dark/smooth_half,
@@ -5076,7 +5076,7 @@
 "bKw" = (
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "bKK" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=Sci";
@@ -5782,7 +5782,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "bYy" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/corner{
@@ -7080,7 +7080,7 @@
 "cwj" = (
 /obj/structure/flora/ash/stem_shroom,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "cwI" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitrogen_input{
 	dir = 1
@@ -7422,7 +7422,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/trimline/white,
 /turf/open/floor/plating/broken,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "cCn" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -8196,7 +8196,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/broken,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "cRc" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 4
@@ -8218,7 +8218,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "cRA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -8975,7 +8975,7 @@
 "deF" = (
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "deJ" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -9164,7 +9164,7 @@
 /area/station/service/library/lounge)
 "djF" = (
 /turf/closed/wall/rust,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "djK" = (
 /obj/machinery/pool_filter,
 /obj/effect/turf_decal/pool{
@@ -9660,7 +9660,7 @@
 "dsd" = (
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "dsL" = (
 /obj/machinery/door/window/northleft{
 	base_state = "right";
@@ -10228,7 +10228,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "dGX" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/blue/half{
@@ -12566,7 +12566,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/broken,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "eyS" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -12795,7 +12795,7 @@
 /obj/effect/decal/remains/human,
 /obj/item/pickaxe/mini,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "eDa" = (
 /obj/structure/table,
 /obj/item/food/cake/birthday,
@@ -12911,11 +12911,8 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit/departure_lounge)
 "eGy" = (
-/obj/item/stack/sheet/glass/fifty,
-/obj/structure/reagent_dispensers/fueltank,
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
-/area/station/service/chapel/funeral)
+/turf/closed/wall,
+/area/ruin/space/has_grav/turretedoutpost)
 "eGz" = (
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
@@ -13509,7 +13506,7 @@
 /obj/structure/lattice,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/pod/dark,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "ePM" = (
 /obj/machinery/requests_console{
 	department = "Detective's office";
@@ -14492,7 +14489,7 @@
 /obj/effect/trap/trigger/reusable/random,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "fiI" = (
 /obj/machinery/suit_storage_unit/hos,
 /obj/machinery/airalarm/directional/north,
@@ -14702,7 +14699,7 @@
 "fmD" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "fmE" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -14929,7 +14926,7 @@
 /obj/structure/lattice,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/broken,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "fpv" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -15558,7 +15555,7 @@
 /obj/structure/lattice/catwalk,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "fCd" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/binary/pump/on/layer2{
@@ -15584,7 +15581,7 @@
 "fDc" = (
 /obj/structure/flora/rock/pile/largejungle,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "fDi" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -15995,7 +15992,7 @@
 /obj/structure/flora/rock/pile,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "fIN" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Toxins Lab"
@@ -16384,7 +16381,7 @@
 "fQe" = (
 /obj/structure/flora/ash/leaf_shroom,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "fQl" = (
 /obj/machinery/computer/atmos_control/nitrogen_tank{
 	dir = 1
@@ -16448,7 +16445,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "fSj" = (
 /obj/structure/closet/bombcloset,
 /obj/structure/sign/poster/official/random{
@@ -16952,7 +16949,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "fZA" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron/white/textured_large,
@@ -17374,7 +17371,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "ggz" = (
 /obj/machinery/atmospherics/miner/station/nitrogen,
 /turf/open/floor/engine/n2,
@@ -18182,7 +18179,7 @@
 	},
 /obj/structure/flora/ash/leaf_shroom,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "guX" = (
 /obj/effect/turf_decal/tile/green/fourcorners,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -18584,7 +18581,7 @@
 "gDK" = (
 /obj/effect/landmark/carpspawn,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "gDL" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/bot,
@@ -18896,7 +18893,7 @@
 	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "gIS" = (
 /obj/machinery/light{
 	dir = 8
@@ -19050,7 +19047,7 @@
 /obj/structure/lattice/catwalk,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "gLC" = (
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/carpet,
@@ -19298,7 +19295,7 @@
 "gQn" = (
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "gQx" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -19477,7 +19474,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "gUt" = (
 /obj/structure/transit_tube/horizontal,
 /obj/structure/window/reinforced/fulltile,
@@ -19492,7 +19489,7 @@
 	faction = list("Syndicate,pirate")
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "gUV" = (
 /obj/machinery/computer/prisoner/gulag_teleporter_computer{
 	dir = 1
@@ -20528,9 +20525,15 @@
 /turf/open/floor/grass,
 /area/station/service/hydroponics)
 "hqa" = (
-/obj/structure/sink/directional/east,
-/turf/open/floor/grass,
-/area/station/service/hydroponics)
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/iron,
+/area/station/hallway/secondary/exit/departure_lounge)
 "hqu" = (
 /obj/machinery/light_switch/directional,
 /turf/closed/wall/mineral/iron,
@@ -21242,7 +21245,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/trimline/white,
 /turf/open/floor/plating/broken,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "hGI" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -22119,7 +22122,7 @@
 	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "hWh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -22678,7 +22681,7 @@
 "ifq" = (
 /obj/structure/flora/grass/jungle/b,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "ifz" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/railing,
@@ -22690,7 +22693,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/barricade/wooden,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "igg" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -22762,6 +22765,14 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/station/maintenance/aft/greater)
+"iim" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/station/maintenance/starboard/lesser)
 "iip" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -22868,7 +22879,7 @@
 /obj/structure/barricade/wooden,
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "ikC" = (
 /obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
@@ -23174,7 +23185,7 @@
 /obj/item/shard,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "iqh" = (
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/stripes/line{
@@ -23818,9 +23829,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/engineering/storage/tech)
-"iBW" = (
-/turf/closed/wall,
-/area/ruin/powered)
 "iBX" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -24876,7 +24884,7 @@
 	picked_color = "Burgundy"
 	},
 /turf/open/space/basic,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "iUO" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
@@ -26215,7 +26223,7 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/broken,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "jAC" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -26339,7 +26347,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "jCt" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
 /obj/effect/turf_decal/tile/black/fourcorners,
@@ -27004,6 +27012,12 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
+"jQq" = (
+/obj/item/stack/sheet/glass/fifty,
+/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/station/service/chapel/funeral)
 "jQw" = (
 /turf/open/floor/plating/asteroid/airless,
 /area/misc/space)
@@ -28405,7 +28419,7 @@
 /obj/structure/flora/rock,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "kpd" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/turf_decal/stripes/line,
@@ -29218,7 +29232,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/item/shard,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "kCH" = (
 /obj/structure/rack,
 /obj/item/storage/belt/utility,
@@ -30529,7 +30543,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/trimline/white,
 /turf/open/floor/plating/broken,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "kZF" = (
 /obj/structure/chair,
 /obj/item/assembly/signaler,
@@ -31979,7 +31993,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "lEp" = (
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/engine,
@@ -32043,7 +32057,7 @@
 "lFI" = (
 /obj/structure/sign/warning/docking,
 /turf/closed/wall,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "lFW" = (
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
@@ -32986,7 +33000,7 @@
 "lZI" = (
 /obj/structure/flora/ash/leaf_shroom,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "mae" = (
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/effect/decal/cleanable/dirt,
@@ -33194,7 +33208,7 @@
 /obj/item/shard,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "mgu" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 9
@@ -33385,7 +33399,7 @@
 	},
 /obj/effect/turf_decal/trimline/white,
 /turf/open/floor/plating/broken,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "mjO" = (
 /obj/structure/transit_tube,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -34322,12 +34336,12 @@
 /area/station/service/library/lounge)
 "mCS" = (
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "mCX" = (
 /obj/structure/lattice,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/broken,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "mDc" = (
 /obj/structure/table/optable{
 	name = "Robotics Operating Table"
@@ -34920,7 +34934,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "mNN" = (
 /obj/structure/sign/directions/engineering{
 	pixel_x = 32;
@@ -35755,7 +35769,7 @@
 /obj/structure/barricade/wooden/crude,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "nfh" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral/fourcorners{
@@ -35914,7 +35928,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "nhw" = (
 /obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only{
 	dir = 4
@@ -36369,7 +36383,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "nsg" = (
 /obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
@@ -37045,7 +37059,7 @@
 /obj/structure/lattice/catwalk,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "nHb" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/purple/half{
@@ -37342,7 +37356,7 @@
 	pixel_x = -24
 	},
 /obj/machinery/turretid{
-	control_area = "/area/ruin/powered";
+	control_area = "/area/ruin/space/has_grav/turretedoutpost";
 	name = "Perimeter Defense Controls";
 	pixel_x = 5;
 	pixel_y = -24;
@@ -38420,16 +38434,6 @@
 /obj/machinery/smartfridge/chemistry/preloaded,
 /turf/open/floor/iron/white/smooth_large,
 /area/station/medical/chemistry)
-"ope" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/iron,
-/area/station/hallway/secondary/exit/departure_lounge)
 "opn" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -38771,7 +38775,7 @@
 	faction = list("Syndicate,pirate")
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "owm" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -39285,7 +39289,7 @@
 /obj/effect/trap/trigger/reusable/random,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "oJd" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/line{
@@ -39586,13 +39590,14 @@
 /turf/open/floor/carpet/green,
 /area/station/commons/fitness/recreation/entertainment)
 "oRx" = (
+/obj/structure/cable/omni,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/station/maintenance/starboard/lesser)
+/turf/open/floor/iron,
+/area/station/engineering/main)
 "oRE" = (
 /obj/structure/cable/yellow,
 /obj/machinery/door/airlock/engineering{
@@ -39893,7 +39898,7 @@
 /obj/structure/flora/rock,
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "oXE" = (
 /turf/closed/wall,
 /area/station/medical/morgue)
@@ -40704,7 +40709,7 @@
 "pqt" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "pqv" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -44352,7 +44357,7 @@
 "qLH" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "qLW" = (
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
@@ -45505,7 +45510,7 @@
 	},
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "rlo" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/scrubber,
@@ -45736,7 +45741,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/ash/leaf_shroom,
 /turf/open/floor/plating/broken,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "rpf" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -46724,15 +46729,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
-"rJp" = (
-/obj/structure/cable/omni,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/iron,
-/area/station/engineering/main)
 "rJD" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/line{
@@ -49529,7 +49525,7 @@
 	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "sMN" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -49953,7 +49949,7 @@
 	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "sTw" = (
 /turf/open/floor/iron/white/textured_large,
 /area/station/medical/virology)
@@ -52397,7 +52393,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "tTX" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 6
@@ -53379,7 +53375,7 @@
 "upr" = (
 /obj/structure/flora/ash/cacti,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "upt" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/sorting/mail{
@@ -53904,7 +53900,7 @@
 /obj/item/stack/rods/five,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "uzz" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -54506,6 +54502,13 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
+"uKk" = (
+/obj/machinery/power/apc/auto_name/directional/east{
+	name = "Outdoor Junctionbox";
+	auto_name = 0
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/ruin/space/has_grav/turretedoutpost)
 "uKn" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/dropper,
@@ -55369,7 +55372,7 @@
 "vch" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/broken,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "vcp" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -57158,7 +57161,7 @@
 	desc = "You can have engaging stories if people just cheese the story, if they dare try it im turning their power fantasy into a rescue Op for Medbay"
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "vHn" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/effect/turf_decal/stripes/corner{
@@ -57317,7 +57320,7 @@
 	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "vJo" = (
 /obj/structure/cable/yellow,
 /obj/machinery/light_switch{
@@ -57791,7 +57794,7 @@
 "vRN" = (
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "vRO" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/yellow/half{
@@ -58045,7 +58048,7 @@
 /obj/structure/barricade/wooden,
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "vVG" = (
 /obj/effect/landmark/start/assistant,
 /obj/structure/cable/yellow,
@@ -58131,6 +58134,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/station/science/xenobiology)
+"vWS" = (
+/obj/structure/sink/directional/east,
+/turf/open/floor/grass,
+/area/station/service/hydroponics)
 "vXi" = (
 /obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/tile/neutral/fourcorners{
@@ -58317,7 +58324,7 @@
 /obj/structure/lattice,
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "wbz" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 5
@@ -58512,7 +58519,7 @@
 	},
 /obj/effect/turf_decal/trimline/white,
 /turf/open/floor/plating/broken,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "weK" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -58834,7 +58841,7 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/broken,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "wmI" = (
 /turf/open/floor/engine,
 /area/station/maintenance/starboard/aft)
@@ -60630,7 +60637,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/broken,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "wZn" = (
 /obj/effect/turf_decal/tile/purple/half{
 	dir = 8
@@ -62634,7 +62641,7 @@
 /area/station/medical/storage)
 "xDA" = (
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "xDF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -63156,7 +63163,7 @@
 /area/station/science/mixing/chamber)
 "xKa" = (
 /turf/closed/mineral,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "xKk" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -64578,7 +64585,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/ruin/powered)
+/area/ruin/space/has_grav/turretedoutpost)
 "yhl" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 10
@@ -79774,7 +79781,7 @@ npW
 npW
 npW
 crB
-eGy
+jQq
 npW
 npW
 nnx
@@ -83798,7 +83805,7 @@ fUf
 dxi
 qQj
 veT
-ope
+hqa
 tkV
 jhy
 foJ
@@ -90755,7 +90762,7 @@ jJL
 hRB
 hRB
 bmM
-hqa
+vWS
 sXP
 lAV
 acY
@@ -93374,7 +93381,7 @@ tNX
 gtz
 eua
 gtz
-rJp
+oRx
 rqD
 tDO
 xdN
@@ -109762,7 +109769,7 @@ pnx
 pnx
 pnx
 lmN
-oRx
+iim
 ktv
 kcS
 nnx
@@ -116891,7 +116898,7 @@ vnY
 gGr
 xDA
 xKa
-iBW
+eGy
 xDA
 pqt
 xDA
@@ -117421,7 +117428,7 @@ ana
 ana
 xKa
 xKa
-iBW
+eGy
 csJ
 csJ
 sBS
@@ -117922,7 +117929,7 @@ xKa
 aka
 aka
 xDA
-xDA
+uKk
 xDA
 aka
 xKa
@@ -122527,7 +122534,7 @@ nnx
 nnx
 nnx
 nnx
-iBW
+eGy
 xKa
 xKa
 ana
