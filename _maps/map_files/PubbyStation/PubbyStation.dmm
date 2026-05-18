@@ -6814,7 +6814,6 @@
 	name = "Port Solar APC";
 	pixel_y = 24
 	},
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/power/solar_control{
 	dir = 8;
@@ -7415,7 +7414,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/structure/cable,
 /obj/machinery/atmospherics/components/binary/pump/on/layer2{
 	dir = 8
 	},
@@ -20532,14 +20530,15 @@
 /turf/open/floor/grass,
 /area/station/service/hydroponics)
 "hqa" = (
-/obj/structure/cable/omni,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron,
-/area/station/engineering/main)
+/area/station/hallway/secondary/exit/departure_lounge)
 "hqu" = (
 /obj/machinery/light_switch/directional,
 /turf/closed/wall/mineral/iron,
@@ -38167,14 +38166,6 @@
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/execution/education)
-"ojv" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/station/maintenance/starboard/lesser)
 "ojy" = (
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
@@ -45300,6 +45291,14 @@
 /obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/textured_large,
 /area/station/medical/medbay/central)
+"rgq" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/station/maintenance/starboard/lesser)
 "rgr" = (
 /obj/structure/cable/yellow,
 /obj/machinery/newscaster{
@@ -63147,15 +63146,14 @@
 /turf/open/floor/engine,
 /area/station/science/mixing/chamber)
 "xKa" = (
+/obj/structure/cable/omni,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
-/area/station/hallway/secondary/exit/departure_lounge)
+/area/station/engineering/main)
 "xKk" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -83797,7 +83795,7 @@ fUf
 dxi
 qQj
 veT
-xKa
+hqa
 tkV
 jhy
 foJ
@@ -93373,7 +93371,7 @@ tNX
 gtz
 eua
 gtz
-hqa
+xKa
 rqD
 tDO
 xdN
@@ -109761,7 +109759,7 @@ pnx
 pnx
 pnx
 lmN
-ojv
+rgq
 ktv
 kcS
 nnx
