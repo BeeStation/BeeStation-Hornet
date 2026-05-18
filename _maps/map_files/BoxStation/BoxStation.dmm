@@ -27548,7 +27548,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/medical/glass{
 	name = "Break Room"
 	},
 /turf/open/floor/wood,
