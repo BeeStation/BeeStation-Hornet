@@ -16,10 +16,11 @@
 GLOBAL_VAR_INIT(magic_appearance_detecting_image, new /image) // appearances are awful to detect safely, but this seems to be the best way ~ninjanomnom
 #define isappearance(thing) (!isimage(thing) && !ispath(thing) && istype(GLOB.magic_appearance_detecting_image, thing))
 
-/// 'something.dmi' = isicon && isfile (!isdatum)
-#define isicon_file(thing) (isicon(thing) && isfile(thing))
-/// "/icon[0xINSTANCE]" = isicon && isdatum (!isfile)
-#define isicon_datum(thing) (isicon(thing) && istype(thing, /icon))
+/// 'something.dmi' == [isicon && isfile (!isdatum)]. This exists because isicon(THING) doesn't let you know if THING is solely a dmi file: 'something.dmi'
+#define is_icondmi(thing) (isicon(thing) && isfile(thing))
+/// '/icon[0xINSTANCE]' == [isicon && isdatum (!isfile)]. This exists because isicon(THING) doesn't let you know if THING is solely a datum: /icon[0xINSTANCE]
+#define is_icondatum(thing) (istype(thing, /icon))
+// Note: isicon('something.dmi') returns TRUE. isicon(/icon[0xINSTANCE]) returns TRUE. This is why these helpers exist.
 
 // The filters list has the same ref type id as a filter, but isnt one and also isnt a list, so we have to check if the thing has Cut() instead
 GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))

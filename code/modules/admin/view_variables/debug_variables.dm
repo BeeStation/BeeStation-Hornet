@@ -83,17 +83,17 @@
 	// 		isicon('some.dmi') => returns TRUE
 	// 		isicon(/icon[0xINSTANCE]) => returns TRUE
 	// So, You have no idea what it exactly is!!!!!
-	if(isicon_file(value))
+	if(is_icondmi(value))
 		var/icon/icon_value = value
-		var/icon/icon_value = icon(value)
-		var/rnd = rand(1,10000)
-		var/rname = "tmp[REF(icon_value)][rnd].png"
-		usr << browse_rsc(icon_value, rname)
+		#ifdef VARSICON
+		var/md5_id = "tmp.[md5("[value]")].[md5(REF(value))]"
+		var/rname = "[md5_id].png"
+		usr << browse_rsc(value, rname)
 		return "/dmi_file ([span_value("'[value]'")]) <img class=icon src=\"[rname]\">"
 		#else
 		return "/dmi_file ([span_value("'[value]'")])"
 		#endif
-	if(isicon_datum(value))
+	if(is_icondatum(value))
 		var/icon/icon_value = value
 		return "[icon_value]</br>[icon_value.write_vv_button()]</br>[span_value_top("[icon_value.get_vv_data()]")]"
 

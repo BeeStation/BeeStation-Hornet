@@ -13,7 +13,7 @@
 // Usually, this is not a good idea to do this, but it's for putting a hint when /icon is created, so that we can investigate what /icon a thing holds.
 /icon/New(icon/icon, icon_state, dir, frame, moving)
 	. = ..()
-	if(isicon_datum(icon) && icon.file_reference)
+	if(is_icondatum(icon) && icon.file_reference)
 		revise_count = icon.revise_count+1 // when /icon was created through an /icon, we might want to check the recursive count
 		file_reference = icon.file_reference || "UNKNOWN"
 		state_reference = "<li>[CHECK_NULL(icon_state)]</li><li>[CHECK_NULL(dir)]</li><li>[CHECK_NULL(frame)]</li><li>[CHECK_NULL(moving)]</li>"
