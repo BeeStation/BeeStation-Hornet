@@ -582,7 +582,7 @@
 /area/misc/space)
 "aka" = (
 /turf/closed/mineral/random/low_chance,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "akb" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -711,7 +711,7 @@
 /obj/effect/trap/trigger/reusable/random,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "amB" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -762,7 +762,7 @@
 /area/station/ai_monitored/turret_protected/ai)
 "ana" = (
 /turf/closed/mineral/random/high_chance,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "anf" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/ridged/steel,
@@ -1690,7 +1690,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "aCH" = (
 /obj/structure/cable/yellow,
 /obj/structure/platform/black{
@@ -2937,7 +2937,7 @@
 	},
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "aVl" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow,
@@ -3157,7 +3157,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/rock/pile/largejungle,
 /turf/open/floor/plating/broken,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "aZh" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron/dark/smooth_half,
@@ -3643,7 +3643,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "biI" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/iron/dark/smooth_half,
@@ -5076,7 +5076,7 @@
 "bKw" = (
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "bKK" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=Sci";
@@ -5782,7 +5782,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "bYy" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/corner{
@@ -6821,6 +6821,7 @@
 	name = "Port Solar Control"
 	},
 /obj/structure/cable/yellow,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port)
 "crK" = (
@@ -7085,7 +7086,7 @@
 "cwj" = (
 /obj/structure/flora/ash/stem_shroom,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "cwI" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitrogen_input{
 	dir = 1
@@ -7417,6 +7418,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on/layer2{
 	dir = 8
 	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port)
 "cCa" = (
@@ -7426,7 +7428,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/trimline/white,
 /turf/open/floor/plating/broken,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "cCn" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -8200,7 +8202,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/broken,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "cRc" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 4
@@ -8222,7 +8224,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "cRA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -8755,6 +8757,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/station/service/chapel/funeral)
 "daH" = (
@@ -8979,7 +8982,7 @@
 "deF" = (
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "deJ" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -9168,7 +9171,7 @@
 /area/station/service/library/lounge)
 "djF" = (
 /turf/closed/wall/rust,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "djK" = (
 /obj/machinery/pool_filter,
 /obj/effect/turf_decal/pool{
@@ -9664,7 +9667,7 @@
 "dsd" = (
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "dsL" = (
 /obj/machinery/door/window/northleft{
 	base_state = "right";
@@ -10232,7 +10235,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "dGX" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/blue/half{
@@ -12570,7 +12573,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/broken,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "eyS" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -12799,7 +12802,7 @@
 /obj/effect/decal/remains/human,
 /obj/item/pickaxe/mini,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "eDa" = (
 /obj/structure/table,
 /obj/item/food/cake/birthday,
@@ -13512,7 +13515,7 @@
 /obj/structure/lattice,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/pod/dark,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "ePM" = (
 /obj/machinery/requests_console{
 	department = "Detective's office";
@@ -14495,7 +14498,7 @@
 /obj/effect/trap/trigger/reusable/random,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "fiI" = (
 /obj/machinery/suit_storage_unit/hos,
 /obj/machinery/airalarm/directional/north,
@@ -14705,7 +14708,7 @@
 "fmD" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "fmE" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -14932,7 +14935,7 @@
 /obj/structure/lattice,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/broken,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "fpv" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -15561,7 +15564,7 @@
 /obj/structure/lattice/catwalk,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "fCd" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/binary/pump/on/layer2{
@@ -15587,7 +15590,7 @@
 "fDc" = (
 /obj/structure/flora/rock/pile/largejungle,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "fDi" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -15997,7 +16000,7 @@
 /obj/structure/flora/rock/pile,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "fIN" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Toxins Lab"
@@ -16386,7 +16389,7 @@
 "fQe" = (
 /obj/structure/flora/ash/leaf_shroom,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "fQl" = (
 /obj/machinery/computer/atmos_control/nitrogen_tank{
 	dir = 1
@@ -16450,7 +16453,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "fSj" = (
 /obj/structure/closet/bombcloset,
 /obj/structure/sign/poster/official/random{
@@ -16954,7 +16957,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "fZA" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron/white/textured_large,
@@ -17376,7 +17379,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "ggz" = (
 /obj/machinery/atmospherics/miner/station/nitrogen,
 /turf/open/floor/engine/n2,
@@ -18184,7 +18187,7 @@
 	},
 /obj/structure/flora/ash/leaf_shroom,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "guX" = (
 /obj/effect/turf_decal/tile/green/fourcorners,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -18586,7 +18589,7 @@
 "gDK" = (
 /obj/effect/landmark/carpspawn,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "gDL" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/bot,
@@ -18898,7 +18901,7 @@
 	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "gIS" = (
 /obj/machinery/light{
 	dir = 8
@@ -19052,7 +19055,7 @@
 /obj/structure/lattice/catwalk,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "gLC" = (
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/carpet,
@@ -19300,7 +19303,7 @@
 "gQn" = (
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "gQx" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -19479,7 +19482,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "gUt" = (
 /obj/structure/transit_tube/horizontal,
 /obj/structure/window/reinforced/fulltile,
@@ -19494,7 +19497,7 @@
 	faction = list("Syndicate,pirate")
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "gUV" = (
 /obj/machinery/computer/prisoner/gulag_teleporter_computer{
 	dir = 1
@@ -20530,15 +20533,9 @@
 /turf/open/floor/grass,
 /area/station/service/hydroponics)
 "hqa" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/iron,
-/area/station/hallway/secondary/exit/departure_lounge)
+/obj/structure/sink/directional/east,
+/turf/open/floor/grass,
+/area/station/service/hydroponics)
 "hqu" = (
 /obj/machinery/light_switch/directional,
 /turf/closed/wall/mineral/iron,
@@ -21250,7 +21247,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/trimline/white,
 /turf/open/floor/plating/broken,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "hGI" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -22127,7 +22124,7 @@
 	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "hWh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -22687,7 +22684,7 @@
 "ifq" = (
 /obj/structure/flora/grass/jungle/b,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "ifz" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/railing,
@@ -22699,7 +22696,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/barricade/wooden,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "igg" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -22877,7 +22874,7 @@
 /obj/structure/barricade/wooden,
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "ikC" = (
 /obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
@@ -23183,7 +23180,7 @@
 /obj/item/shard,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "iqh" = (
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/stripes/line{
@@ -24527,6 +24524,16 @@
 /obj/item/toy/plush/awakenedplushie,
 /turf/open/floor/iron/tech,
 /area/station/ai_monitored/turret_protected/ai)
+"iOQ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/iron,
+/area/station/hallway/secondary/exit/departure_lounge)
 "iOR" = (
 /obj/structure/chair/office/light,
 /obj/effect/turf_decal/tile/purple/fourcorners,
@@ -24882,7 +24889,7 @@
 	picked_color = "Burgundy"
 	},
 /turf/open/space/basic,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "iUO" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
@@ -26221,7 +26228,7 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/broken,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "jAC" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -26345,7 +26352,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "jCt" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
 /obj/effect/turf_decal/tile/black/fourcorners,
@@ -28411,7 +28418,7 @@
 /obj/structure/flora/rock,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "kpd" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/turf_decal/stripes/line,
@@ -29224,7 +29231,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/item/shard,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "kCH" = (
 /obj/structure/rack,
 /obj/item/storage/belt/utility,
@@ -30535,7 +30542,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/trimline/white,
 /turf/open/floor/plating/broken,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "kZF" = (
 /obj/structure/chair,
 /obj/item/assembly/signaler,
@@ -31985,7 +31992,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "lEp" = (
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/engine,
@@ -32049,7 +32056,7 @@
 "lFI" = (
 /obj/structure/sign/warning/docking,
 /turf/closed/wall,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "lFW" = (
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
@@ -32992,7 +32999,7 @@
 "lZI" = (
 /obj/structure/flora/ash/leaf_shroom,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "mae" = (
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/effect/decal/cleanable/dirt,
@@ -33200,7 +33207,7 @@
 /obj/item/shard,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "mgu" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 9
@@ -33391,7 +33398,7 @@
 	},
 /obj/effect/turf_decal/trimline/white,
 /turf/open/floor/plating/broken,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "mjO" = (
 /obj/structure/transit_tube,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -34328,12 +34335,12 @@
 /area/station/service/library/lounge)
 "mCS" = (
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "mCX" = (
 /obj/structure/lattice,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/broken,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "mDc" = (
 /obj/structure/table/optable{
 	name = "Robotics Operating Table"
@@ -34926,7 +34933,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "mNN" = (
 /obj/structure/sign/directions/engineering{
 	pixel_x = 32;
@@ -35761,7 +35768,7 @@
 /obj/structure/barricade/wooden/crude,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "nfh" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral/fourcorners{
@@ -35920,7 +35927,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "nhw" = (
 /obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only{
 	dir = 4
@@ -36375,7 +36382,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "nsg" = (
 /obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
@@ -37051,7 +37058,7 @@
 /obj/structure/lattice/catwalk,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "nHb" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/purple/half{
@@ -37348,7 +37355,7 @@
 	pixel_x = -24
 	},
 /obj/machinery/turretid{
-	control_area = "/area/station/service/chapel/asteroid/monastery";
+	control_area = "/area/station/tcommsat/oldaisat";
 	name = "Perimeter Defense Controls";
 	pixel_x = 5;
 	pixel_y = -24;
@@ -38767,7 +38774,7 @@
 	faction = list("Syndicate,pirate")
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "owm" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -39281,7 +39288,7 @@
 /obj/effect/trap/trigger/reusable/random,
 /obj/effect/trap/trigger/reusable/random,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "oJd" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/line{
@@ -39582,9 +39589,8 @@
 /turf/open/floor/carpet/green,
 /area/station/commons/fitness/recreation/entertainment)
 "oRx" = (
-/obj/structure/sink/kitchen/directional/east,
-/turf/open/floor/grass,
-/area/station/service/hydroponics)
+/turf/closed/mineral,
+/area/station/tcommsat/oldaisat)
 "oRE" = (
 /obj/structure/cable/yellow,
 /obj/machinery/door/airlock/engineering{
@@ -39885,7 +39891,7 @@
 /obj/structure/flora/rock,
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "oXE" = (
 /turf/closed/wall,
 /area/station/medical/morgue)
@@ -40080,6 +40086,9 @@
 	},
 /turf/open/floor/iron,
 /area/station/maintenance/aft/greater)
+"pbO" = (
+/turf/closed/wall,
+/area/station/tcommsat/oldaisat)
 "pbU" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -40695,7 +40704,7 @@
 "pqt" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "pqv" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -44347,7 +44356,7 @@
 "qLH" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "qLW" = (
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
@@ -45291,14 +45300,6 @@
 /obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white/textured_large,
 /area/station/medical/medbay/central)
-"rgq" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/station/maintenance/starboard/lesser)
 "rgr" = (
 /obj/structure/cable/yellow,
 /obj/machinery/newscaster{
@@ -45508,7 +45509,7 @@
 	},
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "rlo" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/scrubber,
@@ -45739,7 +45740,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/ash/leaf_shroom,
 /turf/open/floor/plating/broken,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "rpf" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -49523,7 +49524,7 @@
 	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "sMN" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -49947,7 +49948,7 @@
 	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "sTw" = (
 /turf/open/floor/iron/white/textured_large,
 /area/station/medical/virology)
@@ -52391,7 +52392,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "tTX" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 6
@@ -53373,7 +53374,7 @@
 "upr" = (
 /obj/structure/flora/ash/cacti,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "upt" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/sorting/mail{
@@ -53506,7 +53507,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/lesser)
 "usI" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/kitchen/directional/east,
 /turf/open/floor/grass,
 /area/station/service/hydroponics)
 "usJ" = (
@@ -53898,7 +53899,7 @@
 /obj/item/stack/rods/five,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "uzz" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -55363,7 +55364,7 @@
 "vch" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/broken,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "vcp" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -57152,7 +57153,7 @@
 	desc = "You can have engaging stories if people just cheese the story, if they dare try it im turning their power fantasy into a rescue Op for Medbay"
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "vHn" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/effect/turf_decal/stripes/corner{
@@ -57311,7 +57312,7 @@
 	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "vJo" = (
 /obj/structure/cable/yellow,
 /obj/machinery/light_switch{
@@ -57785,7 +57786,7 @@
 "vRN" = (
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "vRO" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/yellow/half{
@@ -58039,7 +58040,7 @@
 /obj/structure/barricade/wooden,
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating/asteroid/airless,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "vVG" = (
 /obj/effect/landmark/start/assistant,
 /obj/structure/cable/yellow,
@@ -58311,7 +58312,7 @@
 /obj/structure/lattice,
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "wbz" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 5
@@ -58506,7 +58507,7 @@
 	},
 /obj/effect/turf_decal/trimline/white,
 /turf/open/floor/plating/broken,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "weK" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -58650,7 +58651,6 @@
 /turf/open/floor/iron/tech,
 /area/station/science/robotics/lab)
 "wiX" = (
-/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 6
 	},
@@ -58825,7 +58825,7 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/broken,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "wmI" = (
 /turf/open/floor/engine,
 /area/station/maintenance/starboard/aft)
@@ -60621,7 +60621,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/broken,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "wZn" = (
 /obj/effect/turf_decal/tile/purple/half{
 	dir = 8
@@ -62625,7 +62625,7 @@
 /area/station/medical/storage)
 "xDA" = (
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "xDF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -64575,7 +64575,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/planetary,
-/area/station/service/chapel/asteroid/monastery)
+/area/station/tcommsat/oldaisat)
 "yhl" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 10
@@ -64596,6 +64596,14 @@
 	},
 /turf/open/floor/iron,
 /area/station/maintenance/aft/greater)
+"yhu" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/station/maintenance/starboard/lesser)
 "yhB" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/engine,
@@ -83795,7 +83803,7 @@ fUf
 dxi
 qQj
 veT
-hqa
+iOQ
 tkV
 jhy
 foJ
@@ -90746,13 +90754,13 @@ bfN
 bxd
 xNh
 sXP
-oRx
+usI
 bmM
 jJL
 hRB
 hRB
 bmM
-usI
+hqa
 sXP
 lAV
 acY
@@ -109683,13 +109691,13 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 mCS
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 lFI
 nnx
 nnx
@@ -109759,7 +109767,7 @@ pnx
 pnx
 pnx
 lmN
-rgq
+yhu
 ktv
 kcS
 nnx
@@ -109937,25 +109945,25 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
 ana
 aka
 mCS
 aka
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
 aka
-iQE
-iQE
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
+oRx
+oRx
 nnx
 nnx
 nnx
@@ -110193,7 +110201,7 @@ nnx
 aka
 aka
 mCS
-iQE
+oRx
 aka
 aka
 wHW
@@ -110204,15 +110212,15 @@ gTZ
 wHW
 lXt
 wHW
-iQE
-iQE
+oRx
+oRx
 aka
 aka
-iQE
-iQE
+oRx
+oRx
 ana
 aka
-iQE
+oRx
 nnx
 nnx
 nnx
@@ -110445,14 +110453,14 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 aka
-iQE
+oRx
 mCS
-iQE
+oRx
 aka
-iQE
+oRx
 lXt
 bCB
 hRk
@@ -110468,10 +110476,10 @@ lXt
 lXt
 wHW
 ana
-iQE
+oRx
 aka
-iQE
-iQE
+oRx
+oRx
 nnx
 nnx
 nnx
@@ -110701,15 +110709,15 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 aka
 ana
 aka
 qLH
 aka
-iQE
-iQE
+oRx
+oRx
 huQ
 uNC
 xtt
@@ -110728,7 +110736,7 @@ ana
 ana
 aka
 aka
-iQE
+oRx
 lFI
 sBS
 xja
@@ -110956,17 +110964,17 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 aka
 ana
 ana
 aka
 mCS
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 wHW
 lXt
 lXt
@@ -110985,8 +110993,8 @@ ana
 ana
 ana
 aka
-iQE
-iQE
+oRx
+oRx
 nnx
 xja
 sBS
@@ -111211,20 +111219,20 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 aka
 ana
 ana
 aka
-iQE
-iQE
+oRx
+oRx
 mCS
 gQn
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 aka
 aka
 wHW
@@ -111242,8 +111250,8 @@ aka
 aka
 ana
 ana
-iQE
-iQE
+oRx
+oRx
 nnx
 nnx
 nnx
@@ -111472,18 +111480,18 @@ aka
 aka
 ana
 ana
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 mCS
 mCS
 mCS
-iQE
-iQE
+oRx
+oRx
 deF
 deF
 gUv
-iQE
+oRx
 aka
 aka
 xDA
@@ -111496,12 +111504,12 @@ gwX
 wHW
 aka
 aka
-iQE
-iQE
+oRx
+oRx
 ana
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 nnx
 nnx
 nnx
@@ -111728,14 +111736,14 @@ aka
 aka
 ana
 ana
-iQE
-iQE
+oRx
+oRx
 mCS
 mCS
 qLH
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 oXq
 deF
 xDA
@@ -111754,10 +111762,10 @@ xDA
 xDA
 xDA
 xDA
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
 mCS
 nnx
 nnx
@@ -111980,11 +111988,11 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 aka
 ana
-iQE
-iQE
+oRx
+oRx
 qLH
 cwj
 mCS
@@ -112014,7 +112022,7 @@ ygN
 ygN
 ygN
 ygN
-iQE
+oRx
 mCS
 nnx
 nnx
@@ -112239,7 +112247,7 @@ nnx
 nnx
 aka
 aka
-iQE
+oRx
 gQn
 mCS
 mCS
@@ -112271,7 +112279,7 @@ bKw
 bKw
 bKw
 bKw
-iQE
+oRx
 gQn
 nnx
 nnx
@@ -112494,8 +112502,8 @@ nnx
 nnx
 nnx
 lFI
-iQE
-iQE
+oRx
+oRx
 mCS
 mCS
 mCS
@@ -112528,8 +112536,8 @@ ggi
 ggi
 ggi
 ggi
-iQE
-iQE
+oRx
+oRx
 mCS
 nnx
 nnx
@@ -112750,12 +112758,12 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 mCS
 qLH
-iQE
-iQE
+oRx
+oRx
 ana
 ana
 ana
@@ -112785,8 +112793,8 @@ xDA
 xDA
 xDA
 xDA
-iQE
-iQE
+oRx
+oRx
 upr
 mCS
 nnx
@@ -113007,12 +113015,12 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 cwj
 mCS
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 ana
 ana
 xDA
@@ -113043,8 +113051,8 @@ xDA
 xDA
 xDA
 kpc
-iQE
-iQE
+oRx
+oRx
 mCS
 nnx
 nnx
@@ -113264,11 +113272,11 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 mCS
 mCS
-iQE
-iQE
+oRx
+oRx
 ygN
 dGP
 gIR
@@ -113300,8 +113308,8 @@ ygN
 wmE
 wmE
 wmE
-iQE
-iQE
+oRx
+oRx
 mCS
 nnx
 nnx
@@ -113521,11 +113529,11 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 mCS
 mCS
-iQE
-iQE
+oRx
+oRx
 bKw
 bKw
 bKw
@@ -113557,8 +113565,8 @@ bKw
 bKw
 bKw
 bKw
-iQE
-iQE
+oRx
+oRx
 mCS
 nnx
 nnx
@@ -113778,11 +113786,11 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 mCS
 cwj
-iQE
-iQE
+oRx
+oRx
 ggi
 ggi
 ggi
@@ -113814,8 +113822,8 @@ ggi
 ggi
 jAw
 jAw
-iQE
-iQE
+oRx
+oRx
 mCS
 nnx
 nnx
@@ -114035,11 +114043,11 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 mCS
 mCS
-iQE
-iQE
+oRx
+oRx
 hWb
 xDA
 xDA
@@ -114071,8 +114079,8 @@ xDA
 xDA
 xDA
 cQH
-iQE
-iQE
+oRx
+oRx
 mCS
 nnx
 nnx
@@ -114292,12 +114300,12 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 cwj
 mCS
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 xDA
 xDA
 xDA
@@ -114328,8 +114336,8 @@ xDA
 xDA
 xDA
 vch
-iQE
-iQE
+oRx
+oRx
 mCS
 nnx
 nnx
@@ -114549,12 +114557,12 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 mCS
 mCS
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 ygN
 ygN
 ygN
@@ -114585,8 +114593,8 @@ ygN
 ygN
 ygN
 ygN
-iQE
-iQE
+oRx
+oRx
 mCS
 nnx
 nnx
@@ -114806,10 +114814,10 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 mCS
 cwj
-iQE
+oRx
 bKw
 bKw
 bKw
@@ -114842,8 +114850,8 @@ bKw
 sTr
 bKw
 bKw
-iQE
-iQE
+oRx
+oRx
 mCS
 nnx
 nnx
@@ -115062,11 +115070,11 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 aka
 mCS
 mCS
-iQE
+oRx
 ggi
 ggi
 sMM
@@ -115099,8 +115107,8 @@ ggi
 ggi
 ggi
 ggi
-iQE
-iQE
+oRx
+oRx
 cwj
 nnx
 nnx
@@ -115323,7 +115331,7 @@ aka
 gQn
 mCS
 mCS
-iQE
+oRx
 xDA
 xDA
 xDA
@@ -115356,9 +115364,9 @@ xDA
 xDA
 xDA
 xDA
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 mCS
 nnx
 nnx
@@ -115576,11 +115584,11 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 cwj
 qLH
-iQE
+oRx
 xDA
 xDA
 xDA
@@ -115614,8 +115622,8 @@ xDA
 xDA
 wby
 mCX
-iQE
-iQE
+oRx
+oRx
 fQe
 nnx
 nnx
@@ -115834,11 +115842,11 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 nfd
-iQE
-iQE
+oRx
+oRx
 ygN
 dGP
 ygN
@@ -115872,8 +115880,8 @@ rlm
 ePI
 fpp
 ePI
-iQE
-iQE
+oRx
+oRx
 mCS
 nnx
 nnx
@@ -116092,10 +116100,10 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 xDA
 xDA
-iQE
+oRx
 bKw
 sTr
 bKw
@@ -116126,11 +116134,11 @@ bKw
 bKw
 bKw
 gUv
-iQE
+oRx
 lFI
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 mCS
 mCS
 nnx
@@ -116349,15 +116357,15 @@ ajY
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 xDA
 fSi
 ggi
 biA
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 ovZ
 biA
 ggi
@@ -116381,14 +116389,14 @@ ggi
 ggi
 ggi
 wZg
-iQE
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
+oRx
 ana
-iQE
-iQE
+oRx
+oRx
 qLH
 nnx
 nnx
@@ -116606,23 +116614,23 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 xDA
 pqt
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 aka
-iQE
+oRx
 aka
 aka
 aka
-iQE
+oRx
 aka
-iQE
+oRx
 aka
-iQE
+oRx
 aka
 xDA
 xDA
@@ -116639,14 +116647,14 @@ xDA
 xDA
 vch
 xDA
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 ana
 ana
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 mCS
 nnx
 nnx
@@ -116862,33 +116870,33 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 xDA
 xDA
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
 aka
-iQE
+oRx
 aka
-iQE
-iQE
-iQE
-aka
-aka
+oRx
+oRx
+oRx
 aka
 aka
 aka
-iQE
-iQE
+aka
+aka
+oRx
+oRx
 gUv
 vnY
 gGr
 xDA
-iQE
-mGs
+oRx
+pbO
 xDA
 pqt
 xDA
@@ -116897,14 +116905,14 @@ kZw
 xDA
 xDA
 deF
-iQE
-iQE
+oRx
+oRx
 ana
 aka
 aka
 ana
-iQE
-iQE
+oRx
+oRx
 nnx
 nnx
 nnx
@@ -117118,34 +117126,34 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 pqt
-iQE
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
+oRx
 aka
-iQE
+oRx
 aka
 ana
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
 aka
 aka
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 lFW
 akH
 fNE
 fIv
 aka
-iQE
+oRx
 xDA
 aka
 vRN
@@ -117154,14 +117162,14 @@ xDA
 xDA
 deF
 deF
-iQE
-iQE
+oRx
+oRx
 ana
-iQE
+oRx
 ana
 ana
-iQE
-iQE
+oRx
+oRx
 nnx
 nnx
 nnx
@@ -117375,24 +117383,24 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 xDA
 vRN
 xDA
-iQE
-iQE
+oRx
+oRx
 aka
-iQE
+oRx
 aka
 aka
-iQE
-iQE
+oRx
+oRx
 ana
-iQE
-iQE
+oRx
+oRx
 aka
-iQE
-iQE
+oRx
+oRx
 aka
 aka
 aka
@@ -117400,8 +117408,8 @@ aka
 lXt
 eJM
 lXt
-iQE
-iQE
+oRx
+oRx
 aka
 xDA
 aka
@@ -117410,15 +117418,15 @@ xDA
 vJk
 deF
 deF
-iQE
-iQE
+oRx
+oRx
 aka
 ana
 ana
 ana
-iQE
-iQE
-mGs
+oRx
+oRx
+pbO
 csJ
 csJ
 sBS
@@ -117632,27 +117640,27 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 eCV
-iQE
-iQE
+oRx
+oRx
 aka
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 ana
 ana
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 aka
 aka
 ana
-iQE
-iQE
+oRx
+oRx
 ana
-iQE
-iQE
+oRx
+oRx
 wHW
 wHW
 hiM
@@ -117666,15 +117674,15 @@ aka
 aka
 aka
 deF
-iQE
-iQE
+oRx
+oRx
 aka
-iQE
-iQE
+oRx
+oRx
 ana
 ana
 aka
-iQE
+oRx
 csJ
 nnx
 nnx
@@ -117888,45 +117896,45 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
+oRx
 aka
-iQE
-iQE
+oRx
+oRx
 ana
 ana
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 ana
 ana
 aka
 aka
 ana
 ana
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 lXt
 gCK
 hiM
 anr
 lXt
-iQE
+oRx
 aka
 aka
 xDA
 xDA
 xDA
 aka
-iQE
-iQE
+oRx
+oRx
 aka
 aka
-iQE
+oRx
 aka
 ana
 ana
@@ -118145,27 +118153,27 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 aka
 aka
 aka
-iQE
+oRx
 ana
 ana
 aka
 aka
-iQE
-iQE
+oRx
+oRx
 aka
 aka
 aka
 ana
 ana
 ana
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 aka
 lXt
 aRh
@@ -118183,11 +118191,11 @@ lXt
 lXt
 lXt
 wHW
-iQE
+oRx
 aka
 ana
-iQE
-iQE
+oRx
+oRx
 nnx
 xja
 nnx
@@ -118401,26 +118409,26 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 aka
 aka
-iQE
-iQE
+oRx
+oRx
 ana
 ana
 aka
-iQE
-iQE
+oRx
+oRx
 aka
 ana
 aka
 ana
 ana
 aka
-iQE
+oRx
 aka
-iQE
+oRx
 wHW
 lXt
 lXt
@@ -118443,7 +118451,7 @@ lXt
 aka
 aka
 ana
-iQE
+oRx
 nnx
 nnx
 sBS
@@ -118658,26 +118666,26 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 aka
-iQE
-iQE
+oRx
+oRx
 ana
 aka
 aka
-iQE
+oRx
 aka
 aka
 aka
 aka
-iQE
+oRx
 ana
-iQE
-iQE
+oRx
+oRx
 aka
 aka
-iQE
+oRx
 lXt
 eXB
 eXB
@@ -118698,10 +118706,10 @@ dMw
 cbq
 lXt
 aka
-iQE
+oRx
 ana
-iQE
-iQE
+oRx
+oRx
 nnx
 sBS
 nnx
@@ -118915,15 +118923,15 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 aka
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 aka
 aka
-iQE
-iQE
+oRx
+oRx
 ana
 aka
 aka
@@ -118955,10 +118963,10 @@ dfg
 oCi
 lXt
 aka
-iQE
+oRx
 aka
-iQE
-iQE
+oRx
+oRx
 nnx
 sBS
 nnx
@@ -119172,24 +119180,24 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 aka
-iQE
-iQE
+oRx
+oRx
 aka
 aka
-iQE
+oRx
 ana
 aka
 aka
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 aka
 ana
 aka
 aka
-iQE
+oRx
 lXt
 qzc
 ezv
@@ -119212,9 +119220,9 @@ fUQ
 lXt
 wHW
 wHW
-iQE
+oRx
 aka
-iQE
+oRx
 nnx
 nnx
 csJ
@@ -119429,24 +119437,24 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 aka
-iQE
+oRx
 aka
-iQE
+oRx
 aka
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 aka
-iQE
-iQE
+oRx
+oRx
 ana
 ana
 aka
-iQE
-iQE
+oRx
+oRx
 lXt
 lXt
 lXt
@@ -119470,9 +119478,9 @@ hhI
 mgO
 sAm
 wHW
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 nnx
 sBS
 nnx
@@ -119686,24 +119694,24 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 aka
 aka
 aka
 aka
-iQE
-iQE
+oRx
+oRx
 aka
 aka
 aka
-iQE
+oRx
 ana
 ana
 aka
 aka
-iQE
-iQE
+oRx
+oRx
 lXt
 qzc
 kUo
@@ -119728,7 +119736,7 @@ oST
 usS
 wHW
 wHW
-iQE
+oRx
 nnx
 nnx
 sBS
@@ -119943,9 +119951,9 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 aka
 aka
 aka
@@ -119953,14 +119961,14 @@ ana
 ana
 aka
 aka
-iQE
+oRx
 ana
 aka
 ana
-iQE
+oRx
 aka
 aka
-iQE
+oRx
 lXt
 lXt
 lXt
@@ -119985,8 +119993,8 @@ mae
 svz
 mgO
 lXt
-iQE
-iQE
+oRx
+oRx
 nnx
 csJ
 csJ
@@ -120200,23 +120208,23 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 aka
-iQE
+oRx
 aka
 aka
-iQE
-iQE
+oRx
+oRx
 ana
 ana
 ana
-iQE
+oRx
 aka
-iQE
+oRx
 ana
 aka
-iQE
+oRx
 aka
 lXt
 qzc
@@ -120243,7 +120251,7 @@ tkc
 eAx
 wHW
 wHW
-iQE
+oRx
 mCS
 gQn
 nnx
@@ -120457,10 +120465,10 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 aka
 aka
-iQE
+oRx
 aka
 aka
 aka
@@ -120500,9 +120508,9 @@ yjd
 svi
 xPt
 lXt
-iQE
+oRx
 mCS
-iQE
+oRx
 mCS
 nnx
 soQ
@@ -120714,25 +120722,25 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 aka
-iQE
-iQE
+oRx
+oRx
 aka
-iQE
-iQE
+oRx
+oRx
 aka
 aka
 aka
-iQE
+oRx
 aka
 ana
-iQE
-iQE
+oRx
+oRx
 ana
 ana
-iQE
-iQE
+oRx
+oRx
 aka
 lXt
 szp
@@ -120759,7 +120767,7 @@ avh
 lXt
 aka
 aka
-iQE
+oRx
 mCS
 nnx
 soQ
@@ -120971,25 +120979,25 @@ nnx
 ajY
 nnx
 nnx
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 aka
 aka
-iQE
-iQE
+oRx
+oRx
 aka
-iQE
+oRx
 aka
 aka
 aka
-iQE
+oRx
 ana
 ana
 aka
 ana
 aka
-iQE
+oRx
 aka
 wHW
 lXt
@@ -121014,9 +121022,9 @@ pFA
 sCN
 avh
 lXt
-iQE
+oRx
 aka
-iQE
+oRx
 mCS
 nnx
 soQ
@@ -121228,27 +121236,27 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 aka
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
 aka
-iQE
+oRx
 aka
 aka
 aka
-iQE
+oRx
 ana
-iQE
-iQE
+oRx
+oRx
 ana
 aka
 aka
-iQE
+oRx
 lXt
 frM
 ghK
@@ -121271,9 +121279,9 @@ qEc
 svi
 avh
 lXt
-iQE
+oRx
 aka
-iQE
+oRx
 djF
 nnx
 soQ
@@ -121486,26 +121494,26 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 aka
 aka
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 aka
 aka
 aka
-iQE
-iQE
+oRx
+oRx
 aka
 aka
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
 aka
 aka
-iQE
+oRx
 lXt
 fXm
 cKB
@@ -121530,8 +121538,8 @@ iLg
 lXt
 lXt
 wHW
-iQE
-iQE
+oRx
+oRx
 nnx
 nnx
 soQ
@@ -121744,25 +121752,25 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 aka
 aka
-iQE
-iQE
-aka
-aka
-aka
+oRx
+oRx
 aka
 aka
 aka
 aka
-iQE
-iQE
 aka
 aka
-iQE
-iQE
+aka
+oRx
+oRx
+aka
+aka
+oRx
+oRx
 lXt
 tIM
 cjO
@@ -121788,7 +121796,7 @@ rBx
 uum
 lXt
 ana
-iQE
+oRx
 nnx
 nnx
 nnx
@@ -122003,23 +122011,23 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
+oRx
 ana
 ana
 ana
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 aka
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 aka
-iQE
+oRx
 lXt
 aUp
 tQo
@@ -122264,19 +122272,19 @@ nnx
 nnx
 nnx
 lRz
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
 ana
 ana
 ana
-iQE
-iQE
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
+oRx
+oRx
 lXt
 pNC
 dQs
@@ -122301,7 +122309,7 @@ mrK
 xuW
 oqC
 lXt
-iQE
+oRx
 ana
 nnx
 nnx
@@ -122524,15 +122532,15 @@ nnx
 nnx
 nnx
 nnx
-mGs
-iQE
-iQE
+pbO
+oRx
+oRx
 ana
-iQE
+oRx
 nnx
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 aka
 lXt
 lXt
@@ -122558,8 +122566,8 @@ dLR
 vPE
 hjN
 lXt
-iQE
-iQE
+oRx
+oRx
 ana
 nnx
 nnx
@@ -122783,14 +122791,14 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 nnx
 nnx
 nnx
 nnx
 qLH
-iQE
+oRx
 lXt
 fWL
 heS
@@ -122800,12 +122808,12 @@ dLp
 nOs
 lXt
 aka
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 mgs
-iQE
-iQE
+oRx
+oRx
 aka
 lXt
 oqC
@@ -123047,7 +123055,7 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 lXt
 rhi
 lXt
@@ -123056,13 +123064,13 @@ gLD
 lCl
 mjr
 lXt
-iQE
-iQE
+oRx
+oRx
 uzu
 fmD
 fmD
-iQE
-iQE
+oRx
+oRx
 aka
 lXt
 srX
@@ -123074,7 +123082,7 @@ krt
 lXt
 hao
 wHW
-iQE
+oRx
 ana
 ajY
 nnx
@@ -123304,7 +123312,7 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 wHW
 lXt
 lXt
@@ -123313,12 +123321,12 @@ mEW
 kdI
 cDO
 lXt
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 iqf
 aCG
-iQE
+oRx
 wHW
 lXt
 wHW
@@ -123562,20 +123570,20 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
+oRx
+oRx
 wHW
 lXt
 lXt
 lXt
 lXt
 wHW
-iQE
-iQE
+oRx
+oRx
 igc
 mNL
 lEa
-iQE
+oRx
 lXt
 hMQ
 tAD
@@ -123590,7 +123598,7 @@ hII
 oHT
 wHW
 ana
-iQE
+oRx
 nnx
 nnx
 nnx
@@ -123820,18 +123828,18 @@ nnx
 nnx
 nnx
 nnx
-iQE
-iQE
-iQE
-iQE
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
+oRx
+oRx
+oRx
+oRx
 mCS
 vVz
 kCA
-iQE
+oRx
 aka
 lXt
 loh
@@ -123846,9 +123854,9 @@ lXt
 nph
 ktT
 wHW
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 nnx
 nnx
 nnx
@@ -124078,17 +124086,17 @@ nnx
 nnx
 nnx
 mCS
-iQE
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
+oRx
 qLH
 mCS
 mCS
 ikz
-iQE
-iQE
+oRx
+oRx
 aka
 lXt
 hMQ
@@ -124103,9 +124111,9 @@ wHW
 nnM
 fRG
 wHW
-iQE
+oRx
 ana
-iQE
+oRx
 nnx
 nnx
 nnx
@@ -124336,17 +124344,17 @@ nnx
 nnx
 nnx
 mCS
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 nnx
 nnx
 nnx
 gDK
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
 wHW
 lXt
 lXt
@@ -124355,14 +124363,14 @@ lXt
 lXt
 lXt
 wHW
-iQE
+oRx
 wHW
 wHW
 wHW
 wHW
 ana
-iQE
-iQE
+oRx
+oRx
 nnx
 nnx
 nnx
@@ -124593,33 +124601,33 @@ nnx
 nnx
 nnx
 mCS
-iQE
+oRx
 nnx
 nnx
 nnx
 nnx
 nnx
 nnx
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
 ana
-iQE
-ana
-ana
-iQE
-iQE
-iQE
-iQE
-iQE
-iQE
+oRx
 ana
 ana
+oRx
+oRx
+oRx
+oRx
+oRx
+oRx
 ana
-iQE
-iQE
-iQE
+ana
+ana
+oRx
+oRx
+oRx
 nnx
 nnx
 nnx
@@ -124858,25 +124866,25 @@ nnx
 nnx
 nnx
 djF
-iQE
+oRx
 nnx
 nnx
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 nnx
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
 nnx
 mCS
-iQE
-iQE
-iQE
-iQE
-iQE
-iQE
-iQE
+oRx
+oRx
+oRx
+oRx
+oRx
+oRx
+oRx
 nnx
 nnx
 nnx
@@ -125124,16 +125132,16 @@ nnx
 nnx
 nnx
 nnx
-iQE
+oRx
 nnx
 nnx
 qLH
 mCS
-iQE
-iQE
+oRx
+oRx
 mCS
-iQE
-iQE
+oRx
+oRx
 nnx
 nnx
 nnx
@@ -125390,7 +125398,7 @@ mCS
 djF
 qLH
 mCS
-iQE
+oRx
 nnx
 nnx
 nnx
