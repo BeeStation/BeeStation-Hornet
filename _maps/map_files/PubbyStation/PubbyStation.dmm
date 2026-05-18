@@ -30318,7 +30318,7 @@
 /area/station/service/library/lounge)
 "kWT" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/hidden,
+/obj/machinery/atmospherics/pipe/bridge_pipe/orange/hidden,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/yellow/half{
 	dir = 8
