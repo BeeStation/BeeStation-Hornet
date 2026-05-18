@@ -27537,9 +27537,6 @@
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/central)
 "lAa" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Medbay Storage"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/structure/cable/yellow,
 /obj/machinery/door/firedoor,
@@ -27550,6 +27547,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door/airlock/medical{
+	name = "Break Room"
 	},
 /turf/open/floor/wood,
 /area/station/medical/break_room)
