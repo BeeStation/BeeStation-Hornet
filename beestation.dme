@@ -2524,7 +2524,7 @@
 #include "code\modules\antagonists\traitor\directives\recruit\recruit.dm"
 #include "code\modules\antagonists\traitor\directives\secure_deaddrop\deaddrop_box.dm"
 #include "code\modules\antagonists\traitor\directives\secure_deaddrop\secure_deaddrop.dm"
-#include "code\modules\antagonists\traitor\directives\steal\steal.dm"
+#include "code\modules\antagonists\traitor\directives\steal\poison.dm"
 #include "code\modules\antagonists\traitor\equipment\contractor.dm"
 #include "code\modules\antagonists\valentines\heartbreaker.dm"
 #include "code\modules\antagonists\valentines\valentine.dm"

@@ -1,4 +1,4 @@
-/datum/priority_directive/steal
+/datum/priority_directive/poison
 	name = "Apply Poison"
 	objective_explanation = "Apply poison to the target."
 	details = "The Syndicate have identified an object of interest, and would \
@@ -12,7 +12,7 @@
 	var/equipment_summoned = FALSE
 	var/obj/item/steal_target_path = null
 
-/datum/priority_directive/steal/allocate_teams(list/uplinks, list/player_minds, force)
+/datum/priority_directive/poison/allocate_teams(list/uplinks, list/player_minds, force)
 	if (!length(uplinks) && !force)
 		reject()
 		return
@@ -47,10 +47,10 @@
 	// Create the team
 	add_antagonist_team(uplinks)
 
-/datum/priority_directive/steal/generate(list/teams)
+/datum/priority_directive/poison/generate(list/teams)
 	return rand(4, 8)
 
-/datum/priority_directive/steal/get_track_atom(turf/origin, datum/component/uplink/tracker)
+/datum/priority_directive/poison/get_track_atom(turf/origin, datum/component/uplink/tracker)
 	var/closest = INFINITY
 	var/atom/tracked = null
 	for (var/atom/target in get_trackables_by_type(steal_target_path, TRUE))
@@ -68,10 +68,10 @@
 		tracked = target
 	return tracked
 
-/datum/priority_directive/steal/get_special_action(datum/component/uplink)
+/datum/priority_directive/poison/get_special_action(datum/component/uplink)
 	return new /datum/directive_special_action("Get Equipment")
 
-/datum/priority_directive/steal/perform_special_action(datum/component/uplink, mob/living/user)
+/datum/priority_directive/poison/perform_special_action(datum/component/uplink, mob/living/user)
 	if (equipment_summoned)
 		to_chat(user, span_warning("You have already obtained the equipment for this mission."))
 		return
@@ -81,11 +81,11 @@
 	user.put_in_active_hand(spawned)
 	RegisterSignal(spawned, COMSIG_POISON_PAPER_APPLIED, PROC_REF(poison_applied))
 
-/datum/priority_directive/steal/proc/set_target(datum/objective_item/target)
+/datum/priority_directive/poison/proc/set_target(datum/objective_item/target)
 	steal_target_path = target.targetitem
 	objective_explanation = "Apply the provided poison to \the [steal_target_path::name]"
 
-/datum/priority_directive/steal/proc/poison_applied(datum/source, atom/target, mob/living/user)
+/datum/priority_directive/poison/proc/poison_applied(datum/source, atom/target, mob/living/user)
 	SIGNAL_HANDLER
 	if (!istype(target, steal_target_path))
 		mission_update("The poison has been applied to the wrong target, directive failed.")
