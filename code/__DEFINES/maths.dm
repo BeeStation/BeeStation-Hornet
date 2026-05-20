@@ -50,8 +50,8 @@
 /// Similar to clamp but the bottom rolls around to the top and vice versa. min is inclusive, max is exclusive
 #define WRAP(val, min, max) ( min == max ? min : (val) - (round(((val) - (min))/((max) - (min))) * ((max) - (min))) )
 
-/// Real modulus that handles decimals, now just a wrapper for BYOND's %% operator
-#define MODULUS(x, y) ((x) %% (y))
+/// Real modulus that handles decimals
+#define MODULUS(x, y) ( (x) - FLOOR(x, y))
 
 /// Cotangent
 #define COT(x) (1 / tan(x))
@@ -75,7 +75,7 @@
 
 #define ISABOUTEQUAL(a, b, deviation) (deviation ? abs((a) - (b)) <= deviation : abs((a) - (b)) <= 0.1)
 
-#define ISEVEN(x) (!ISODD(x))
+#define ISEVEN(x) (!(ISODD(x))
 
 #define ISODD(x) ((x) & 1)
 
