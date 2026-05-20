@@ -210,12 +210,12 @@
  */
 /datum/component/proc/_GetInverseTypeList(our_type = type)
 	//we can do this one simple trick
-	var/current_type = parent_type
+	var/datum/current_type = parent_type
 	. = list(our_type, current_type)
 	//and since most components are root level + 1, this won't even have to run
 	while (current_type != /datum/component)
-		current_type = type2parent(current_type)
 		. += current_type
+		current_type = current_type::parent_type
 
 /**
  * Return any component assigned to this datum of the given type
