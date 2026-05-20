@@ -57,8 +57,8 @@
 
 
 	var/list/sorted = sortTim(images, GLOBAL_PROC_REF(cmp_atom_layer_asc))
-	var/xcomp = FLOOR(psize_x / 2, 1) - 15
-	var/ycomp = FLOOR(psize_y / 2, 1) - 15
+	var/xcomp = floor(psize_x / 2) - 15
+	var/ycomp = floor(psize_y / 2) - 15
 
 
 	if(!skip_normal) //these are not clones

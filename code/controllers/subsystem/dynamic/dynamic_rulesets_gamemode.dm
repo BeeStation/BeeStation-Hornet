@@ -273,7 +273,7 @@
 
 /datum/dynamic_ruleset/gamemode/vampires/set_drafted_players_amount()
 	// Start with 3 at 14 pop. Every three players above that, a vampire gets added.
-	var/extra = max(FLOOR((length(SSdynamic.roundstart_candidates) - 14) / 3, 1), 0)
+	var/extra = max(floor((length(SSdynamic.roundstart_candidates) - 14) / 3), 0)
 	drafted_players_amount = 3 + extra
 
 /datum/dynamic_ruleset/gamemode/vampires/security_report()
@@ -366,7 +366,7 @@
 	var/datum/team/nuclear/nuke_team
 
 /datum/dynamic_ruleset/gamemode/nuclear/set_drafted_players_amount()
-	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 7, 1), 2)
+	drafted_players_amount = max(floor(length(SSdynamic.roundstart_candidates) / 7), 2)
 
 /datum/dynamic_ruleset/gamemode/nuclear/choose_candidates()
 	. = ..()

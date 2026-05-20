@@ -41,7 +41,7 @@
 
 #define ROUND_UP(x) ( -round(-(x)))
 
-/// `round()` acts like `floor(x, 1)` by default but can't handle other values
+/// `round()` acts like `floor(x)` by default but can't handle other values
 #define FLOOR(x, y) ( round((x) / (y)) * (y) )
 
 /// Similar to clamp but the bottom rolls around to the top and vice versa. min is inclusive, max is exclusive

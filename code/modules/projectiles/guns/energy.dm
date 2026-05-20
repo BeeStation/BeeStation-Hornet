@@ -120,14 +120,14 @@
 
 /obj/item/gun/energy/fire_sounds()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	var/batt_percent = FLOOR(clamp(cell.charge / cell.maxcharge, 0, 1) * 100, 1)
+	var/batt_percent = floor(clamp(cell.charge / cell.maxcharge, 0, 1) * 100)
 	var/shot_cost_percent = 0
 	var/max_shots = 0
 	var/shots_left = 0
 	var/frequency_to_use = 0
 
 	if(shot.e_cost > 0)
-		shot_cost_percent = FLOOR(clamp(shot.e_cost / cell.maxcharge, 0.01, 1) * 100, 1)
+		shot_cost_percent = floor(clamp(shot.e_cost / cell.maxcharge, 0.01, 1) * 100)
 		max_shots = shot_cost_percent ? round(100/shot_cost_percent) : 0 //Division by 0 protection
 		shots_left = shot_cost_percent  ? round(batt_percent/shot_cost_percent) : 0 //Division by 0 protection
 		frequency_to_use = sin((90/max_shots) * shots_left)

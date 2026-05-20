@@ -216,7 +216,7 @@
 			if(iscarbon(host_mob))
 				var/mob/living/carbon/C = host_mob
 				host_mob.visible_message(span_warning("[host_mob] vomits a grainy grey slurry!"), span_warning("You suddenly vomit a metallic-tasting grainy grey slurry!"));
-				C.vomit(0, FALSE, TRUE, FLOOR(excess / 100, 1), FALSE, VOMIT_NANITE, FALSE)
+				C.vomit(0, FALSE, TRUE, floor(excess / 100), FALSE, VOMIT_NANITE, FALSE)
 			else
 				host_mob.visible_message(span_warning("A metallic grey slurry bursts out of [host_mob]'s skin!"), span_userdanger("A metallic grey slurry violently bursts out of your skin!"));
 				if(isturf(host_mob.drop_location()))
