@@ -170,7 +170,7 @@
 		target.adjust_confusion(-actual_effect_heal_amt * 2)
 		target.adjust_hallucinations(-actual_effect_heal_amt * 2)
 	if(heal_clone)
-		target.adjustCloneLoss(-max(ceil(actual_heal_amt * 0.75, 0.5)), updating_health = FALSE)
+		target.adjustCloneLoss(-max(CEILING(actual_heal_amt * 0.75, 0.5), 1), updating_health = FALSE)
 	target.updatehealth()
 	if(old_health > target.health)
 		SSblackbox.record_feedback("associative", "holoparasite_mob_damage_healed", 1, list(
