@@ -15,10 +15,10 @@
 	. = ..()
 	if(is_icondatum(icon) && icon.file_reference)
 		revise_count = icon.revise_count+1 // when /icon was created through an /icon, we might want to check the recursive count
-		file_reference = icon.file_reference || "UNKNOWN"
+		file_reference = icon.file_reference
 		state_reference = "<li>[CHECK_NULL(icon_state)]</li><li>[CHECK_NULL(dir)]</li><li>[CHECK_NULL(frame)]</li><li>[CHECK_NULL(moving)]</li>"
 	else if(icon_state || dir || frame || moving) // If any of these value is given, DM refuses to save 'something.dmi', and it decides to make a new /icon instance.
-		file_reference = "[icon]"
+		file_reference = "[icon]" || "Error: dmi unknown" // if dmi file name is zero string, we will record the file reference name is not trackable.
 		state_reference = "<li>[CHECK_NULL(icon_state)]</li><li>[CHECK_NULL(dir)]</li><li>[CHECK_NULL(frame)]</li><li>[CHECK_NULL(moving)]</li>"
 
 // "[icon_instance]" returns zero string. This suggests a hint at least.
