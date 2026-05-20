@@ -14755,7 +14755,6 @@
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "fmV" = (
 /obj/structure/cable/yellow,
-/obj/effect/landmark/prisonspawn,
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/holofloor/plating,
 /area/station/holodeck/prison)
@@ -16792,9 +16791,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/machinery/door/airlock/arrivals_external{
-	name = "Arrivals Airlock"
-	},
+/obj/machinery/door/airlock/external/arrivals,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/hallway/secondary/entry)
 "fXC" = (
@@ -21168,7 +21165,6 @@
 	pixel_x = 25;
 	specialfunctions = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/effect/landmark/start/prisoner,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
@@ -24515,7 +24511,6 @@
 	pixel_x = -25;
 	specialfunctions = 4
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/effect/landmark/start/prisoner,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
@@ -27688,11 +27683,9 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/machinery/door/airlock/arrivals_external{
-	name = "Arrivals Airlock"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/door/airlock/external/arrivals,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/hallway/secondary/entry)
 "kbL" = (
@@ -30058,11 +30051,9 @@
 /area/station/hallway/primary/central)
 "kSv" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/door/airlock/arrivals_external{
-	name = "Arrivals Airlock"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/door/airlock/external/arrivals,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/hallway/secondary/entry)
 "kSN" = (
@@ -35941,12 +35932,10 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/machinery/door/airlock/arrivals_external{
-	name = "Arrivals Airlock"
-	},
 /obj/effect/landmark/navigate_destination,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/door/airlock/external/arrivals,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/hallway/secondary/entry)
 "ngR" = (
@@ -47609,14 +47598,14 @@
 	pixel_x = 27
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/droneDispenser/hivebot{
-	dispense_type = /mob/living/carbon/human/species/ipc;
+/obj/machinery/drone_dispenser/hivebot{
 	name = "Intergrated Chasis fabricator";
-	glass_cost = 50000;
 	iron_cost = 100000;
-	break_message = "lets out a tiny alarm before falling dark.";
+	glass_cost = 50000;
 	desc = "A large, bulky machine that whirs with activity, steam hisses from vents at its sides, a thin worn out label states 'Insert 25 Glass and 50 Iron to Produce Standard Enrichment Center Testing Doll NTAS3'";
-	end_create_message = "slams open, revealing a IPC Chasis!"
+	dispense_type = /mob/living/carbon/human/species/ipc;
+	end_create_message = "slams open, revealing a IPC Chasis!";
+	break_message = "lets out a tiny alarm before falling dark."
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/station/science/explab)
@@ -53866,7 +53855,6 @@
 /area/station/hallway/secondary/entry)
 "uxw" = (
 /obj/structure/cable/yellow,
-/obj/effect/landmark/prisonspawn,
 /obj/structure/railing{
 	dir = 8;
 	pixel_x = -3
@@ -60914,9 +60902,7 @@
 /area/station/service/chapel/monastery)
 "xdt" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/door/airlock/arrivals_external{
-	name = "Arrivals Airlock"
-	},
+/obj/machinery/door/airlock/external/arrivals,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/hallway/secondary/entry)
 "xdD" = (
