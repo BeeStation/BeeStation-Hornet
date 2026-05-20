@@ -84,7 +84,6 @@
 	// 		isicon(/icon[0xINSTANCE]) => returns TRUE
 	// So, You have no idea what it exactly is!!!!!
 	if(is_icondmi(value))
-		var/icon/icon_value = value
 		#ifdef VARSICON
 		var/md5_id = "tmp.[md5("[value]")].[md5(REF(value))]"
 		var/rname = "[md5_id].png"
