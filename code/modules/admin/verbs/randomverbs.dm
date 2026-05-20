@@ -765,7 +765,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(null, "No")
 			return
 		if("Yes (No Recall)")
-			SSshuttle.adminEmergencyNoRecall = TRUE
+			SSshuttle.admin_emergency_no_recall = TRUE
 			SSshuttle.emergency.mode = SHUTTLE_IDLE
 
 	SSshuttle.emergency.request()
@@ -785,8 +785,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(EMERGENCY_AT_LEAST_DOCKED)
 		return
 
-	if(SSshuttle.adminEmergencyNoRecall)
-		SSshuttle.adminEmergencyNoRecall = FALSE
+	if(SSshuttle.admin_emergency_no_recall)
+		SSshuttle.admin_emergency_no_recall = FALSE
 
 	SSshuttle.emergency.cancel()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Cancel Shuttle") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

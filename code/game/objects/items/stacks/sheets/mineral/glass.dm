@@ -251,10 +251,9 @@
 	max_integrity = 40
 	sharpness = SHARP
 	bleed_force = BLEED_SURFACE
-	var/icon_prefix
 	embedding = list("embed_chance" = 65)
-
-
+	var/icon_prefix
+	var/obj/item/stack/sheet/weld_material = /obj/item/stack/sheet/glass
 
 /datum/armor/item_shard
 	melee = 100
@@ -265,7 +264,6 @@
 /obj/item/shard/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the shard of glass! It looks like [user.p_theyre()] trying to commit suicide."))
 	return BRUTELOSS
-
 
 /obj/item/shard/Initialize(mapload)
 	. = ..()
@@ -289,46 +287,31 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
-/obj/item/shard/afterattack(atom/A as mob|obj, mob/user, proximity)
+/obj/item/shard/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!proximity || !(src in user))
+	if(!proximity_flag || !iscarbon(user) || !user.is_holding(src))
 		return
-	if(isturf(A))
-		return
-	if(istype(A, /obj/item/storage))
-		return
-	var/hit_hand = ((user.active_hand_index % 2 == 0) ? "r_" : "l_") + "arm"
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(!H.gloves && !HAS_TRAIT(H, TRAIT_PIERCEIMMUNE)) // golems, etc
-			to_chat(H, span_warning("[src] cuts into your hand!"))
-			H.apply_damage(force*0.5, BRUTE, hit_hand)
-	else if(ismonkey(user))
-		var/mob/living/carbon/monkey/M = user
-		if(!HAS_TRAIT(M, TRAIT_PIERCEIMMUNE))
-			to_chat(M, span_warning("[src] cuts into your hand!"))
-			M.apply_damage(force*0.5, BRUTE, hit_hand)
 
+	var/mob/living/carbon/jab = user
+	if(HAS_TRAIT(jab, TRAIT_PIERCEIMMUNE))
+		return
 
-/obj/item/shard/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/lightreplacer))
-		I.attackby(src, user)
+	to_chat(user, span_warning("[src] cuts into your hand!"))
+	jab.apply_damage(force * 0.5, BRUTE, user.get_active_hand(), attacking_item = src)
+
+/obj/item/shard/attackby(obj/item/attacking_item, mob/user, params)
+	if(istype(attacking_item, /obj/item/lightreplacer))
+		attacking_item.attackby(src, user)
 	else
 		return ..()
 
-/obj/item/shard/welder_act(mob/living/user, obj/item/I)
-	if(I.use_tool(src, user, 0, volume=50))
-		var/obj/item/stack/sheet/glass/NG = new (user.loc)
-		for(var/obj/item/stack/sheet/glass/G in user.loc)
-			if(G == NG)
-				continue
-			if(G.amount >= G.max_amount)
-				continue
-			G.attackby(NG, user)
-		to_chat(user, span_notice("You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s."))
+/obj/item/shard/welder_act(mob/living/user, obj/item/tool)
+	if(tool.use_tool(src, user, 0, volume = 50))
+		var/obj/item/stack/sheet/new_glass = new weld_material()
+		to_chat(user, span_notice("You melt [src] down into [new_glass.name]."))
+		new_glass.forceMove((Adjacent(user) ? user.drop_location() : loc)) //stack merging is handled automatically.
 		qdel(src)
-	return TRUE
+		return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/item/shard/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
@@ -345,3 +328,4 @@
 	icon_state = "plasmalarge"
 	custom_materials = list(/datum/material/alloy/plasmaglass=MINERAL_MATERIAL_AMOUNT)
 	icon_prefix = "plasma"
+	weld_material = /obj/item/stack/sheet/plasmaglass

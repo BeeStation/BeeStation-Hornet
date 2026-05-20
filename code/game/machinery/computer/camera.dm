@@ -425,10 +425,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertai
 	desc = "A telescreen that connects to the camera network of the evacuation shuttle."
 	network = list(CAMERA_NETWORK_EVAC)
 
-/obj/machinery/computer/security/telescreen/bunker
-	name = "bunker monitor"
-	desc = "A telescreen that connects to the camera network of the bunker."
+// This is used in deepstorage.dmm
+/obj/machinery/computer/security/telescreen/deep_storage
+
+/obj/machinery/computer/security/telescreen/deep_storage/bunker
+	name = "Bunker Entrance monitor"
 	network = list(CAMERA_NETWORK_BUNKER)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/deep_storage/bunker, 32)
 
 /obj/machinery/computer/security/telescreen/station
 	name = "station monitor"

@@ -21,8 +21,6 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	/// How much acid is on that obj
 	var/acid_level = 0
 
-	/// Have something WAY too amazing to live to the next round? Set a new path here. Overuse of this var will make me upset. Will replace the object with the type you specify during persistence.
-	var/persistence_replacement
 	var/current_skin //Has the item been reskinned?
 	var/list/unique_reskin //List of options to reskin.
 	var/list/unique_reskin_icon //List of icons for said options.

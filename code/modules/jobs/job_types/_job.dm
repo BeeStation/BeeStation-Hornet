@@ -641,10 +641,10 @@
 				back = /obj/item/storage/backpack/satchel //Grey satchel
 			if(GDUFFELBAG)
 				back = /obj/item/storage/backpack/duffelbag //Grey Duffel bag
-			if(GMESSENGER)
-				back = /obj/item/storage/backpack/messenger //Grey messenger bag
 			if(LSATCHEL)
 				back = /obj/item/storage/backpack/satchel/leather //Leather Satchel
+			if(GMESSENGER)
+				back = /obj/item/storage/backpack/messenger //Grey messenger bag
 			if(DSATCHEL)
 				back = satchel //Department satchel
 			if(DDUFFELBAG)

@@ -23321,13 +23321,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/station/science/test_area)
-"iXh" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/station/security/prison)
 "iXu" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/westleft{
@@ -37477,7 +37470,6 @@
 /turf/open/floor/iron/dark,
 /area/station/maintenance/department/science)
 "nZw" = (
-/obj/effect/landmark/prisonspawn,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/structure/railing/corner{
 	dir = 1
@@ -61527,11 +61519,6 @@
 /obj/effect/landmark/blobstart,
 /turf/open/floor/catwalk_floor,
 /area/station/maintenance/department/security)
-"xjw" = (
-/obj/effect/turf_decal/tile/black/fourcorners,
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/iron/techmaint,
-/area/station/security/prison)
 "xjY" = (
 /obj/machinery/atmospherics/pipe/layer_manifold/green/visible,
 /turf/open/floor/iron/tech,
@@ -94030,7 +94017,7 @@ jCL
 gUC
 maP
 odh
-xjw
+odh
 geL
 uIw
 uIw
@@ -94547,7 +94534,7 @@ uPI
 uPI
 uPI
 uPI
-iXh
+uPI
 kgA
 oDc
 kri

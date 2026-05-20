@@ -559,7 +559,7 @@
 		return
 	inserted_list = inserted_list.Copy()
 
-	for(var/i = 1, i < inserted_list.len, ++i)
+	for(var/i in 1 to inserted_list.len - 1)
 		inserted_list.Swap(i, rand(i, inserted_list.len))
 
 	return inserted_list
@@ -569,8 +569,10 @@
 	if(!inserted_list)
 		return
 
-	for(var/i = 1, i < inserted_list.len, ++i)
+	for(var/i in 1 to inserted_list.len - 1)
 		inserted_list.Swap(i, rand(i, inserted_list.len))
+
+	return inserted_list
 
 /// Return a list with no duplicate entries
 /proc/unique_list(list/inserted_list)

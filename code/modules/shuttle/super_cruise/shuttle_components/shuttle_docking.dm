@@ -416,9 +416,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
 	playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)
 
 	var/list/L = list()
-	for(var/V in SSshuttle.stationary)
+	for(var/V in SSshuttle.stationary_docking_ports)
 		if(!V)
-			stack_trace("SSshuttle.stationary have null entry!")
+			stack_trace("SSshuttle.stationary_docking_ports have null entry!")
 			continue
 		var/obj/docking_port/stationary/S = V
 		if(console.shuttleObject.docking_target.z_in_contents(S.z) && (S.id in console.valid_docks))

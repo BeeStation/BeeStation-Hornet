@@ -826,7 +826,6 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random/maintenance,
 /obj/structure/wall_closet/generic/directional/west,
@@ -15100,7 +15099,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "exs" = (
@@ -22621,7 +22619,6 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "gKM" = (
@@ -60661,7 +60658,6 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "rPW" = (
@@ -66270,14 +66266,6 @@
 	},
 /turf/open/floor/dock/drydock,
 /area/drydock/security)
-"tzs" = (
-/obj/effect/landmark/prisonspawn,
-/obj/effect/turf_decal/trimline/red/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/red/filled/line,
-/turf/open/floor/prison,
-/area/station/security/prison)
 "tzB" = (
 /obj/effect/turf_decal/guideline/guideline_mid/purple,
 /obj/effect/turf_decal/guideline/guideline_out/yellow,
@@ -117294,7 +117282,7 @@ nRe
 xVR
 xVR
 nKX
-tzs
+eBr
 kqC
 dOy
 eXj

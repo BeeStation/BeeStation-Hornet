@@ -12,8 +12,8 @@
 
 /datum/round_event/ghost_role/prisoner/spawn_role()
 	var/list/possible_spawns = list()
-	for(var/turf/L in GLOB.prisonspawn)
-		possible_spawns += L
+	for(var/obj/effect/landmark/start/prisoner/spawnpoint in GLOB.start_landmarks_list)
+		possible_spawns += spawnpoint.loc
 	if(!length(possible_spawns))
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR

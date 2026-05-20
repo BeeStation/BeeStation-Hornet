@@ -1425,10 +1425,10 @@
 /turf/closed/wall,
 /area/ruin/space/has_grav/hotel/dock)
 "fs" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden{
+/obj/machinery/atmospherics/pipe/bridge_pipe/scrubbers/hidden{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/supply/hidden,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/dock)
 "ft" = (

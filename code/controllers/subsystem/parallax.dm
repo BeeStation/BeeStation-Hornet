@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(parallax)
 	name = "Parallax"
 	wait = 2
-	flags = SS_POST_FIRE_TIMING | SS_BACKGROUND | SS_NO_INIT
+	flags = SS_POST_FIRE_TIMING | SS_BACKGROUND
 	priority = FIRE_PRIORITY_PARALLAX
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	var/current_run_pointer = 1
@@ -74,6 +74,7 @@ SUBSYSTEM_DEF(parallax)
 	SIGNAL_HANDLER
 	//Register the required signals
 	RegisterSignal(new_login, COMSIG_PARENT_MOVED_RELAY, PROC_REF(on_mob_moved))
+	RegisterSignal(new_login, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_mob_changed_z_level))
 	RegisterSignal(new_login, COMSIG_MOB_LOGOUT, PROC_REF(on_mob_logout))
 
 /datum/controller/subsystem/parallax/proc/on_mob_logout(mob/source)
@@ -81,9 +82,13 @@ SUBSYSTEM_DEF(parallax)
 	UnregisterSignal(source, COMSIG_PARENT_MOVED_RELAY)
 	UnregisterSignal(source, COMSIG_MOB_LOGOUT)
 
-/datum/controller/subsystem/parallax/proc/on_mob_moved(mob/moving_mob, atom/parent, force)
+/datum/controller/subsystem/parallax/proc/on_mob_moved(mob/source, atom/parent, force)
 	SIGNAL_HANDLER
-	update_client_parallax(moving_mob.client)
+	update_client_parallax(source.client)
+
+/datum/controller/subsystem/parallax/proc/on_mob_changed_z_level(mob/source, old_z, new_z)
+	SIGNAL_HANDLER
+	update_client_parallax(source.client)
 
 //We need a client var for optimisation purposes
 /client/var/parallax_update_queued = FALSE

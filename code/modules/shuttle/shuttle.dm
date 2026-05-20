@@ -15,8 +15,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 //NORTH default dir
 /obj/docking_port
 	invisibility = INVISIBILITY_ABSTRACT
-	icon = 'icons/effects/landmarks_static.dmi'
-	icon_state = "pinonfar"
+	icon = 'icons/effects/docking_ports.dmi'
+	icon_state = "static"
 
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE
@@ -69,6 +69,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 
 /obj/docking_port/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
+
 /obj/docking_port/singularity_act()
 	return 0
 
@@ -235,11 +236,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 
 /obj/docking_port/stationary/Initialize(mapload)
 	..()
-	SSshuttle.stationary += src
+	SSshuttle.stationary_docking_ports += src
 	if(!id)
-		id = "[SSshuttle.stationary.len]"
+		id = "[SSshuttle.stationary_docking_ports.len]"
 	if(name == "dock")
-		name = "dock[SSshuttle.stationary.len]"
+		name = "dock[SSshuttle.stationary_docking_ports.len]"
 
 	if(mapload)
 		for(var/turf/T in return_turfs())
@@ -254,13 +255,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 
 /obj/docking_port/stationary/LateInitialize()
 	. = ..()
-	if(SSshuttle.shuttles_loaded)
+	if(SSshuttle.initialized)
 		load_roundstart()
-
 
 /obj/docking_port/stationary/Destroy(force)
 	if(force)
-		SSshuttle.stationary -= src
+		SSshuttle.stationary_docking_ports -= src
 	. = ..()
 
 /obj/docking_port/stationary/proc/load_roundstart()
@@ -287,13 +287,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 
 /obj/docking_port/stationary/transit/Initialize(mapload)
 	. = ..()
-	SSshuttle.transit += src
+	SSshuttle.transit_docking_ports += src
 
 /obj/docking_port/stationary/transit/Destroy(force=FALSE)
 	if(force)
 		if(docked)
 			log_world("A transit dock was destroyed while something was docked to it.")
-		SSshuttle.transit -= src
+		SSshuttle.transit_docking_ports -= src
 		if(owner)
 			if(owner.assigned_transit == src)
 				owner.assigned_transit = null
@@ -305,7 +305,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 
 /obj/docking_port/mobile
 	name = "shuttle"
-	icon_state = "pinonclose"
+	icon_state = "mobile"
 
 	var/area_type = SHUTTLE_DEFAULT_SHUTTLE_AREA_TYPE
 
@@ -373,11 +373,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 	var/dynamic_id = FALSE
 
 /obj/docking_port/mobile/proc/register()
-	SSshuttle.mobile |= src
+	SSshuttle.mobile_docking_ports |= src
 
 /obj/docking_port/mobile/Destroy(force)
 	if(force)
-		SSshuttle.mobile -= src
+		SSshuttle.mobile_docking_ports -= src
 		destination = null
 		previous = null
 		QDEL_NULL(assigned_transit)		//don't need it where we're goin'!
@@ -553,12 +553,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 	. = ..()
 
 	if(!id)
-		id = "[SSshuttle.mobile.len]"
+		id = "[SSshuttle.mobile_docking_ports.len]"
 	else if(dynamic_id)
-		name = "[name] [SSshuttle.mobile.len]"
-		id = "[id][SSshuttle.mobile.len]"
+		name = "[name] [SSshuttle.mobile_docking_ports.len]"
+		id = "[id][SSshuttle.mobile_docking_ports.len]"
 	if(name == "shuttle")
-		name = "shuttle[SSshuttle.mobile.len]"
+		name = "shuttle[SSshuttle.mobile_docking_ports.len]"
 
 	shuttle_areas = list()
 	var/list/all_turfs = return_ordered_turfs(x, y, z, dir)

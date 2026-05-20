@@ -12,7 +12,6 @@
 	var/panel_open = FALSE
 	var/datum/barsign/chosen_sign
 
-
 /datum/armor/sign_barsign
 	melee = 20
 	bullet = 20
