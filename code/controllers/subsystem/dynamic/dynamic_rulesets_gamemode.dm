@@ -226,7 +226,7 @@
 	var/datum/team/cult/team
 
 /datum/dynamic_ruleset/gamemode/bloodcult/set_drafted_players_amount()
-	drafted_players_amount = max(CEILING(length(SSdynamic.roundstart_candidates) / 9, 1), 2)
+	drafted_players_amount = max(ceil(length(SSdynamic.roundstart_candidates) / 9), 2)
 
 /datum/dynamic_ruleset/gamemode/bloodcult/execute()
 	team = new
@@ -302,7 +302,7 @@
 	var/datum/team/clock_cult/main_cult
 
 /datum/dynamic_ruleset/roundstart/clockcult/set_drafted_players_amount()
-	drafted_players_amount = max(CEILING(length(SSdynamic.roundstart_candidates) / 7, 1), 3)
+	drafted_players_amount = max(ceil(length(SSdynamic.roundstart_candidates) / 7), 3)
 
 /datum/dynamic_ruleset/gamemode/clockcult/choose_candidates()
 	. = ..()

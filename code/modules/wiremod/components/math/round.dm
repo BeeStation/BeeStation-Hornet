@@ -54,6 +54,6 @@
 		if(COMP_ROUND_FLOOR)
 			value = floor(value)
 		if(COMP_ROUND_CEIL)
-			value = CEILING(value,1)
+			value = ceil(value)
 
 	output.set_output(value)
