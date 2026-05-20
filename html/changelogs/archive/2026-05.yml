@@ -146,3 +146,14 @@
     - code_imp: Added documentation to the shuttle subsystem
     - code_imp: Slightly optimized some map loading code
     - bugfix: Fixed plasma glass shards turning into normal glass when welded
+2026-05-20:
+  WhiskeyMarten:
+  - bugfix: Fixed some mislabelled airlocks on Radstation, Boxstation, and Metastation.
+  - bugfix: Metastation Service Delivery window should now be accessible.
+  - bugfix: Fixed the areas in Radstation Engineering, so SM's Air Alarm should only
+      control its own stuff now.
+  - bugfix: Flipped backwards stools in Metastation's Medbay Breakroom.
+  - rscadd: Metastation Hydroponics has a Brewmaster again, and its backroom is now
+      in the correct area with rest of hydroponics.
+  mrmanlikesbt:
+  - server: The github issue auto-stale has been increased to one year
