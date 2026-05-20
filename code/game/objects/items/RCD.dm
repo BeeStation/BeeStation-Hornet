@@ -754,7 +754,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 /obj/item/construction/rcd/update_overlays()
 	. = ..()
 	if(has_ammobar)
-		var/ratio = ceil((matter / max_matter) * ammo_sections)
+		var/ratio = CEILING((matter / max_matter) * ammo_sections, 1)
 		. += "[icon_state]_charge[ratio]"
 
 /obj/item/construction/rcd/Initialize(mapload)

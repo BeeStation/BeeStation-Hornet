@@ -72,7 +72,7 @@
 					result = null
 					break
 				//BYOND's built in modulus operator doesn't work well with decimals, so I'm using this method instead
-				var/multiples = floor(result / value)
+				var/multiples = FLOOR(result / value, 1)
 				result -= multiples * value
 			if(COMP_ARITHMETIC_MAX)
 				result = max(result, value)
