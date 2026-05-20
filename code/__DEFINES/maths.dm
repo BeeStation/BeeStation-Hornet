@@ -72,7 +72,7 @@
 
 #define ISABOUTEQUAL(a, b, deviation) (deviation ? abs((a) - (b)) <= deviation : abs((a) - (b)) <= 0.1)
 
-#define ISEVEN(x) (!ISODD(x))
+#define ISEVEN(x) (!(ISODD(x))
 
 #define ISODD(x) ((x) & 1)
 
