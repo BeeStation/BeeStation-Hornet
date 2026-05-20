@@ -156,7 +156,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 		board.silence_announcements = TRUE
 	board.locked = FALSE
 
-/obj/machinery/computer/rdconsole/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/computer/rdconsole/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
 		ui = new(user, src, "Techweb", name)

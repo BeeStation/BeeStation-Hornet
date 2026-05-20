@@ -673,7 +673,7 @@
 	name = "Surgery Design"
 	desc = "what"
 	id = "surgery_parent"
-	research_icon = 'icons/obj/surgery.dmi'
+	research_icon = 'icons/obj/medical/surgery_ui.dmi'
 	research_icon_state = "surgery_any"
 	var/surgery
 
@@ -751,13 +751,6 @@
 	name = "Filter Blood Upgrade"
 	surgery = /datum/surgery/blood_filter/femto
 	id = "surgery_filter_upgrade_femto"
-
-/datum/design/surgery/revival
-	name = "Revival"
-	desc = "An experimental surgical procedure which involves reconstruction and reactivation of the patient's brain even long after death. The body must still be able to sustain life."
-	id = "surgery_revival"
-	surgery = /datum/surgery/advanced/revival
-	research_icon_state = "surgery_head"
 
 /datum/design/surgery/brainwashing
 	name = "Brainwashing"

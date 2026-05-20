@@ -58,7 +58,7 @@
 					</i></font>"
 
 	//Fax first
-	for(var/obj/machinery/fax/sec/available_sec_faxes in GLOB.fax_machines)
+	for(var/obj/machinery/fax/sec/available_sec_faxes as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/fax/sec))
 		var/obj/item/paper/message = new /obj/item/paper
 		message.name = "Prisoner transfer Documentation"
 		message.add_raw_text(deets)

@@ -1,15 +1,15 @@
 /datum/surgery/eye_surgery
 	name = "Eye surgery"
+	requires_bodypart_type = NONE
+	organ_to_manipulate = ORGAN_SLOT_EYES
+	possible_locs = list(BODY_ZONE_PRECISE_EYES)
 	steps = list(
 		/datum/surgery_step/incise,
 		/datum/surgery_step/retract_skin,
 		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/fix_eyes,
-		/datum/surgery_step/close
+		/datum/surgery_step/close,
 	)
-	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
-	possible_locs = list(BODY_ZONE_PRECISE_EYES)
-	requires_bodypart_type = 0
 
 //fix eyes
 /datum/surgery_step/fix_eyes
@@ -22,11 +22,7 @@
 	time = 64
 
 /datum/surgery/eye_surgery/can_start(mob/user, mob/living/carbon/target)
-	var/obj/item/organ/eyes/E = target.get_organ_slot(ORGAN_SLOT_EYES)
-	if(!E)
-		to_chat(user, "It's hard to do surgery on someone's eyes when [target.p_they()] [target.p_do()]n't have any.")
-		return FALSE
-	return TRUE
+	return target.get_organ_slot(ORGAN_SLOT_EYES) && ..()
 
 /datum/surgery_step/fix_eyes/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(

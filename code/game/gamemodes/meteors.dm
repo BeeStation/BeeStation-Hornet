@@ -255,7 +255,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 				continue
 			var/dist = get_dist(M.loc, src.loc)
 			shake_camera(M, dist > 20 ? 2 : 4, dist > 20 ? 1 : 3)
-			M.playsound_local(src.loc, null, 50, 1, random_frequency, 10, S = meteor_sound)
+			M.playsound_local(src.loc, null, 50, 1, random_frequency, 10, sound_to_use = meteor_sound)
 
 /obj/effect/meteor/has_gravity(turf/T)
 	return FALSE

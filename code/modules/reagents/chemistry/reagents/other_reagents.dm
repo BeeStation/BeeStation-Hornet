@@ -1026,7 +1026,7 @@
 	var/mob/living/carbon/exposed_carbon = exposed_mob
 
 	if(method in list(TOUCH, VAPOR, PATCH))
-		for(var/datum/surgery/surgery in exposed_carbon.surgeries)
+		for(var/datum/surgery/surgery as anything in exposed_carbon.surgeries)
 			surgery.speed_modifier = max(0.2, surgery.speed_modifier)
 			// +20% surgery speed on each step, useful while operating in less-than-perfect conditions
 
@@ -1612,7 +1612,7 @@
 	. = ..()
 	if(isplatingturf(exposed_turf) || istype(exposed_turf, /turf/open/floor/iron))
 		var/turf/open/floor/floor = exposed_turf
-		floor.PlaceOnTop(carpet_type, flags = CHANGETURF_INHERIT_AIR)
+		floor.place_on_top(carpet_type, flags = CHANGETURF_INHERIT_AIR)
 
 /datum/reagent/carpet/black
 	name = "Black Carpet"

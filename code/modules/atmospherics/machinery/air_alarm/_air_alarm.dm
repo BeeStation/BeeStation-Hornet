@@ -753,7 +753,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
 ///Used for air alarm link helper, which connects air alarm to a sensor with corresponding chamber_id
 /obj/machinery/airalarm/proc/setup_chamber_link()
 	var/obj/machinery/air_sensor/sensor = null
-	for(var/obj/machinery/air_sensor/target in GLOB.machines)
+	for(var/obj/machinery/air_sensor/target as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/air_sensor))
 		if(target.get_virtual_z_level() == get_virtual_z_level() && target.chamber_id == air_sensor_chamber_id)
 			sensor = target
 			break

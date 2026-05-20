@@ -1,18 +1,16 @@
 /datum/surgery/advanced/lobotomy
 	name = "Lobotomy"
 	desc = "An invasive surgical procedure which guarantees removal of almost all brain traumas, but might cause another permanent trauma in return."
+	possible_locs = list(BODY_ZONE_HEAD)
+	requires_bodypart_type = NONE
 	steps = list(
 		/datum/surgery_step/incise,
 		/datum/surgery_step/retract_skin,
 		/datum/surgery_step/saw,
 		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/lobotomize,
-		/datum/surgery_step/close
+		/datum/surgery_step/close,
 	)
-
-	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
-	possible_locs = list(BODY_ZONE_HEAD)
-	requires_bodypart_type = 0
 
 /datum/surgery/advanced/lobotomy/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
@@ -29,7 +27,7 @@
 		/obj/item/melee/energy/sword = 55,
 		/obj/item/knife = 35,
 		/obj/item/shard = 25,
-		/obj/item = 20
+		/obj/item = 20,
 	)
 	time = 100
 	preop_sound = 'sound/surgery/scalpel1.ogg'

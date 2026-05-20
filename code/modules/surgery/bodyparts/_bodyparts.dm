@@ -79,7 +79,7 @@
 	var/burn_modifier = 1
 	/// Stamina damage gets multiplied by this on receive_damage()
 	var/stamina_modifier = 1
-	
+
 	// Damage reduction variables for damage handled on the limb level. Handled after worn armor.
 	/// Amount subtracted from brute damage inflicted on the limb.
 	var/brute_reduction = 0
@@ -117,6 +117,13 @@
 	/// So we know if we need to scream if this limb hits max damage
 	var/last_maxed
 
+	/// Traits that are given to the holder of the part. If you want an effect that changes this, don't add directly to this. Use the add_bodypart_trait() proc
+	var/list/bodypart_traits = list()
+	/// The name of the trait source that the organ gives. Should not be altered during the events of gameplay, and will cause problems if it is.
+	var/bodypart_trait_source = BODYPART_TRAIT
+	/// List of the above datums which have actually been instantiated, managed automatically
+	var/list/feature_offsets = list()
+
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
 	if(can_be_disabled)
@@ -138,6 +145,9 @@
 		stack_trace("[type] qdeleted with [length(wounds)] uncleared wounds")
 		wounds.Cut()
 	*/
+
+	QDEL_LIST_ASSOC_VAL(feature_offsets)
+
 	return ..()
 
 /obj/item/bodypart/forceMove(atom/destination) //Please. Never forcemove a limb if its's actually in use. This is only for borgs.
@@ -506,6 +516,7 @@
 		return FALSE //`null` is a valid option, so we need to use a num var to make it clear no change was made.
 	var/mob/living/carbon/old_owner = owner
 	owner = new_owner
+	SEND_SIGNAL(src, COMSIG_BODYPART_CHANGED_OWNER, new_owner, old_owner)
 	var/needs_update_disabled = FALSE //Only really relevant if there's an owner
 	if(old_owner)
 		if(held_index)
@@ -517,8 +528,8 @@
 			old_owner.update_worn_gloves()
 		//if(speed_modifier)
 		//	old_owner.update_bodypart_speed_modifier()
-		//if(length(bodypart_traits))
-		//	old_owner.remove_traits(bodypart_traits, bodypart_trait_source)
+		if(length(bodypart_traits))
+			old_owner.remove_traits(bodypart_traits, bodypart_trait_source)
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(old_owner, TRAIT_NOLIMBDISABLE))
 				if(!owner || !HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
@@ -538,8 +549,8 @@
 			owner.update_worn_gloves()
 		//if(speed_modifier)
 		//	owner.update_bodypart_speed_modifier()
-		//if(length(bodypart_traits))
-		//	owner.add_traits(bodypart_traits, bodypart_trait_source)
+		if(length(bodypart_traits))
+			owner.add_traits(bodypart_traits, bodypart_trait_source)
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
 				set_can_be_disabled(FALSE)
@@ -552,6 +563,11 @@
 
 	return old_owner
 
+/obj/item/bodypart/proc/on_removal()
+	if(!length(bodypart_traits))
+		return
+
+	owner.remove_traits(bodypart_traits, bodypart_trait_source)
 
 ///Proc to change the value of the `can_be_disabled` variable and react to the event of its change.
 /obj/item/bodypart/proc/set_can_be_disabled(new_can_be_disabled)

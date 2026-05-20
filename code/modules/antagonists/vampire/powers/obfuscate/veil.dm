@@ -44,7 +44,7 @@
 	prev_underwear = user.underwear
 	prev_undershirt = user.undershirt
 	prev_socks = user.socks
-	prev_eye_color = user.eye_color
+	prev_eye_color = user.eye_color_left
 	prev_disfigured = HAS_TRAIT(user, TRAIT_DISFIGURED) // I was disfigured!
 	prev_features = user.dna.features
 
@@ -64,7 +64,10 @@
 	user.underwear = random_underwear(user.gender)
 	user.undershirt = random_undershirt(user.gender)
 	user.socks = random_socks(user.gender)
-	user.eye_color = random_eye_color()
+	var/new_eye_color = random_eye_color()
+	user.eye_color_left = new_eye_color
+	user.eye_color_right = new_eye_color
+
 	if(prev_disfigured)
 		REMOVE_TRAIT(user, TRAIT_DISFIGURED, null)
 	user.dna.features = random_features()
@@ -98,7 +101,8 @@
 	user.underwear = prev_underwear
 	user.undershirt = prev_undershirt
 	user.socks = prev_socks
-	user.eye_color = prev_eye_color
+	user.eye_color_left = prev_eye_color
+	user.eye_color_right = prev_eye_color
 
 	if(prev_disfigured)
 		//We are ASSUMING husk. // user.status_flags |= DISFIGURED // Restore "Unknown" disfigurement

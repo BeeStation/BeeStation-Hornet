@@ -304,6 +304,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 		CONNECT_TO_RND_SERVER_ROUNDSTART(stored_research, src)
 
 /obj/machinery/computer/scan_consolenew/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	// Most of ui_interact is spent setting variables for passing to the tgui
 	//  interface.
 	// We can also do some general state processing here too as it's a good

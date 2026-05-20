@@ -1,4 +1,4 @@
-///Wallet storage
+/// Wallet storage
 /datum/storage/wallet
 	max_specific_storage = WEIGHT_CLASS_SMALL
 	max_slots = 4
@@ -32,3 +32,10 @@
 			/obj/item/clothing/accessory/badge,
 		),
 	)
+
+/// Debug backpack/box
+/datum/storage/debug
+	allow_big_nesting = TRUE
+	max_specific_storage = WEIGHT_CLASS_GIGANTIC
+	max_slots = 1000
+	max_total_storage = 1000

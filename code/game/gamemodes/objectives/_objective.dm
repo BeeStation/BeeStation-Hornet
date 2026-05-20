@@ -244,7 +244,8 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 				// If our airlock isn't accessible to these accesses, then we won't allow the item to spawn here
 				var/list/safe_access_list = list(ACCESS_CARGO, ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE, ACCESS_THEATRE, ACCESS_LAWYER, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 				//Pick a valid airlock
-				for(var/obj/machinery/door/airlock/A in shuffle(GLOB.machines))
+				var/list/obj/machinery/door/airlock/airlocks_to_search = shuffle(SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/airlock))
+				for(var/obj/machinery/door/airlock/A in airlocks_to_search)
 					if (!is_station_level(A.z))
 						continue
 					if (!A.check_access_list(safe_access_list))

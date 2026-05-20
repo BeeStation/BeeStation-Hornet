@@ -38,7 +38,7 @@
 	//collect all sensors that are the closest to this computer
 	var/list/closest_sensors = list()
 	var/turf/comp_turf = get_turf(src)
-	for(var/obj/machinery/sensor in GLOB.machines)
+	for(var/obj/machinery/sensor as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery))
 		if(!istype(sensor, /obj/machinery/air_sensor) && !istype(sensor, /obj/machinery/meter/monitored))
 			continue
 		//same z level
@@ -106,6 +106,7 @@
 	return TRUE
 
 /obj/machinery/computer/atmos_control/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AtmosControlConsole", name)

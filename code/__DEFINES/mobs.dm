@@ -110,6 +110,8 @@
 #define BODYTYPE_LARVA_PLACEHOLDER (1<<6)
 ///The limb is from a xenomorph.
 #define BODYTYPE_ALIEN (1<<7)
+///The limb is from a golem
+#define BODYTYPE_GOLEM (1<<8)
 
 //Species gib types
 #define GIB_TYPE_HUMAN "human"
@@ -392,8 +394,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define OFFSET_BACK "back"
 #define OFFSET_SUIT "suit"
 #define OFFSET_NECK "neck"
-#define OFFSET_LEFT_HAND "l_hand"
-#define OFFSET_RIGHT_HAND "r_hand"
+#define OFFSET_HELD "held"
 
 //MINOR TWEAKS/MISC
 #define AGE_MIN				18	//! youngest a character can be

@@ -9,11 +9,12 @@
 		/datum/surgery_step/retract_skin,
 		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/incise,
-		/datum/surgery_step/dissection,
+		/datum/surgery_step/experimental_dissection,
 		/datum/surgery_step/close,
 	)
+	surgery_flags = SURGERY_REQUIRE_RESTING
 	possible_locs = list(BODY_ZONE_CHEST)
-	target_mobtypes = list(/mob/living/carbon) //Feel free to dissect devils but they're magic.
+	target_mobtypes = list(/mob/living)
 
 /datum/surgery/advanced/experimental_dissection/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
@@ -23,8 +24,9 @@
 		return FALSE
 	if(target.stat != DEAD)
 		return FALSE
+	return .
 
-/datum/surgery_step/dissection
+/datum/surgery_step/experimental_dissection
 	name = "dissection"
 	implements = list(
 		TOOL_SCALPEL = 60,
