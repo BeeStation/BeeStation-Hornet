@@ -56,7 +56,6 @@
 		"surgery_nerve_ground",
 		"surgery_nerve_splice",
 		"surgery_pacify",
-		"surgery_revival",
 		"surgery_vein_thread",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)

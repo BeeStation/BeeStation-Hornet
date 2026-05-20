@@ -81,7 +81,7 @@
 			return FALSE
 
 		playsound(src, 'sound/machines/computer/paper_insert.ogg', 40, vary = TRUE)
-		to_chat(user, span_notice("You insert \the [I] into [src]'s paper recycler."))
+		to_chat(user, span_notice("You insert \the [attacking_item] into [src]'s paper recycler."))
 		balloon_alert(user, "inserted paper!")
 		qdel(attacking_item)
 		stored_paper++
