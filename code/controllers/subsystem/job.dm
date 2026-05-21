@@ -617,8 +617,9 @@ SUBSYSTEM_DEF(job)
 		var/datum/bank_account/bank_account = new(real_name, equipping)
 		if(equipping.job_flags & JOB_GETS_STARTING_PAYCHECK)
 			bank_account.payday(STARTING_PAYCHECKS, TRUE)
-		mind?.account_id = bank_account.account_id
-		player_client.mob.add_memory("Your account ID is [mind?.account_id].")
+		if(mind)
+			mind.account_id = bank_account.account_id
+			mind.current.add_memory("Your account ID is [mind.account_id].")
 
 	. = dress_up_as_job(job = equipping, visual_only = FALSE, player_client = player_client, joined_late = joined_late)
 
