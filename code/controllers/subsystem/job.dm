@@ -615,9 +615,11 @@ SUBSYSTEM_DEF(job)
 /mob/living/carbon/human/on_job_equipping(datum/job/equipping, joined_late, client/player_client)
 	if(equipping.bank_account_department)
 		var/datum/bank_account/bank_account = new(real_name, equipping)
-		bank_account.payday(STARTING_PAYCHECKS, TRUE)
-		mind?.account_id = bank_account.account_id
-		player_client.mob.add_memory("Your account ID is [mind?.account_id].")
+		if(equipping.job_flags & JOB_GETS_STARTING_PAYCHECK)
+			bank_account.payday(STARTING_PAYCHECKS, TRUE)
+		if(mind)
+			mind.account_id = bank_account.account_id
+			mind.current.add_memory("Your account ID is [mind.account_id].")
 
 	. = dress_up_as_job(job = equipping, visual_only = FALSE, player_client = player_client, joined_late = joined_late)
 
