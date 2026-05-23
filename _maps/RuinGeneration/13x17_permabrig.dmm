@@ -4,71 +4,71 @@
 /obj/effect/spawner/random/ruinloot/security,
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aW" = (
 /turf/template_noop,
 /area/template_noop)
 "bO" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "cK" = (
 /obj/machinery/biogenerator,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "dn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/vending/colavend,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "dG" = (
 /obj/structure/closet/secure_closet/brig,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "dQ" = (
 /obj/machinery/computer/libraryconsole/bookmanagement,
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "fZ" = (
 /obj/machinery/door/airlock{
 	name = "Unisex Restroom"
 	},
 /turf/open/floor/iron/freezer,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "gN" = (
 /obj/structure/chair/stool/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "hq" = (
 /obj/structure/table,
 /obj/item/pen,
 /obj/effect/spawner/random/ruinloot/security,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "hu" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "hU" = (
 /obj/structure/bookcase,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "jj" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/hydroponics/soil,
 /obj/item/cultivator,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "jn" = (
 /obj/machinery/washing_machine,
 /obj/structure/window/reinforced/spawner/directional/north,
@@ -76,24 +76,24 @@
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "jz" = (
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "kJ" = (
 /obj/machinery/seed_extractor,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "lv" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "lG" = (
 /obj/structure/toilet{
 	dir = 1
 	},
 /turf/open/floor/iron/freezer,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "lI" = (
 /obj/machinery/door/airlock/public/glass{
 	id_tag = "permabolt2";
@@ -102,7 +102,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "mv" = (
 /obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
@@ -114,19 +114,19 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "mW" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "pC" = (
 /obj/structure/table,
 /obj/item/storage/pill_bottle/dice,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "pO" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 1"
@@ -138,20 +138,20 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "qb" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "qh" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "rp" = (
 /obj/machinery/door/airlock/public/glass{
 	id_tag = "permabolt3";
@@ -160,7 +160,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "sf" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 1;
@@ -170,7 +170,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "si" = (
 /obj/structure/table,
 /obj/structure/bedsheetbin,
@@ -178,7 +178,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "sk" = (
 /obj/structure/table,
 /obj/item/razor{
@@ -192,7 +192,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "su" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/hydroponics/soil,
@@ -201,7 +201,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ve" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/window/westleft{
@@ -210,18 +210,18 @@
 	name = "Unisex Showers"
 	},
 /turf/open/floor/iron/freezer,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "vM" = (
 /obj/structure/table,
 /obj/item/paper,
 /obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "vY" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "xe" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/hydroponics/soil,
@@ -230,10 +230,10 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "xh" = (
 /turf/open/floor/iron/freezer,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "xP" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/hydroponics/soil,
@@ -242,25 +242,25 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "xS" = (
 /obj/machinery/shower{
 	dir = 8
 	},
 /obj/item/soap/nanotrasen,
 /turf/open/floor/iron/freezer,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "xV" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "zd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/freezer,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "zp" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/carrot,
@@ -268,32 +268,32 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "zq" = (
 /obj/structure/table,
 /obj/item/toy/cards/deck,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "AG" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "AM" = (
 /obj/structure/sink/directional/north,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Be" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "BT" = (
 /obj/structure/table,
 /obj/effect/spawner/random/ruinloot/security,
 /obj/effect/spawner/random/ruinloot/security,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "CC" = (
 /obj/machinery/door/airlock/public/glass{
 	id_tag = "permabolt1";
@@ -302,7 +302,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "CE" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -311,35 +311,35 @@
 	},
 /obj/item/pen,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Ez" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "EW" = (
 /turf/closed/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Fz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/paper,
 /obj/item/pen,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Gr" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Ha" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/sustenance,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "KP" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/ambrosia,
@@ -347,32 +347,32 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Le" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "My" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "MX" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Nf" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "NR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "NZ" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 2"
@@ -383,7 +383,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Oe" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -392,11 +392,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Qh" = (
 /obj/structure/sink/directional/east,
 /turf/open/floor/iron/freezer,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "QQ" = (
 /obj/structure/table,
 /obj/item/electropack,
@@ -404,7 +404,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Ra" = (
 /obj/machinery/washing_machine,
 /obj/structure/window/reinforced/spawner/directional/south,
@@ -412,30 +412,30 @@
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "RC" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "SO" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/toy/plush/carpplushie,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "SX" = (
 /obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "TT" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "UG" = (
 /mob/living/basic/mouse/brown/tom,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "VE" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 3"
@@ -446,12 +446,12 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "VL" = (
 /obj/machinery/holopad,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Wj" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/glowshroom,
@@ -459,11 +459,11 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ZT" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 Oe
