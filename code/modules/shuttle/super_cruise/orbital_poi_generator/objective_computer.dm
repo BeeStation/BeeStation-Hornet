@@ -4,9 +4,8 @@
 	icon_screen = "bounty"
 	icon_keyboard = "tech_key"
 	light_color = LIGHT_COLOR_ORANGE
-	req_access = list( )
+	req_access = list()
 	circuit = /obj/item/circuitboard/computer/objective
-	var/list/viewing_mobs = list()
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/objective)
 
@@ -16,11 +15,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/objective)
 	if(!ui)
 		ui = new(user, src, "Objective")
 		ui.open()
-	viewing_mobs += user
-
-/obj/machinery/computer/objective/ui_close(mob/user, datum/tgui/tgui)
-	. = ..()
-	viewing_mobs -= user
 
 /obj/machinery/computer/objective/ui_static_data(mob/user)
 	var/list/data = list()

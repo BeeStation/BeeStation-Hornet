@@ -1,46 +1,42 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aW" = (
+"cp" = (
+/obj/item/gun/energy/recharge/kinetic_accelerator,
+/obj/structure/rack,
+/obj/effect/turf_decal/tile/purple,
 /turf/open/floor/iron/white,
 /area/ruin/powered)
-"aY" = (
-/obj/effect/mob_spawn/human/oldsec{
-	dir = 4
-	},
-/turf/open/floor/iron/showroomfloor,
+"ec" = (
+/turf/open/floor/iron/dark,
 /area/ruin/powered)
-"bb" = (
-/obj/structure/showcase/machinery/tv,
-/obj/structure/table/wood,
+"ed" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/iron/freezer,
+/area/ruin/powered)
+"ek" = (
+/obj/machinery/door/airlock/research{
+	name = "Robotics"
+	},
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"eq" = (
+/obj/machinery/door/firedoor,
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/northleft,
+/turf/open/floor/plating,
+/area/ruin/powered)
+"gb" = (
+/obj/structure/showcase/mecha/marauder,
 /obj/structure/window/spawner/directional/south,
 /turf/open/floor/wood,
 /area/ruin/powered)
-"bs" = (
-/obj/structure/showcase/machinery/microwave,
-/obj/structure/table/wood,
-/obj/structure/window/spawner/directional/south,
-/turf/open/floor/wood,
-/area/ruin/powered)
-"cr" = (
-/obj/structure/sign/departments/minsky/medical/chemistry/chemical2{
-	pixel_x = -32
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"cF" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Cryogenics"
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/showroomfloor,
-/area/ruin/powered)
-"cR" = (
-/obj/machinery/anesthetic_machine,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
+"gr" = (
+/turf/open/floor/iron/dark/side{
 	dir = 8
 	},
-/turf/open/floor/iron/white,
 /area/ruin/powered)
-"db" = (
+"gt" = (
 /obj/structure/table,
 /obj/item/storage/backpack/duffelbag/med/surgery,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -48,16 +44,120 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered)
-"de" = (
+"gI" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 4
+	},
 /turf/open/floor/iron/airless,
 /area/ruin/powered)
-"dS" = (
-/obj/machinery/door/airlock/research{
-	name = "Robotics"
+"gJ" = (
+/obj/effect/spawner/structure/window/reinforced/tinted,
+/turf/open/floor/plating,
+/area/ruin/powered)
+"gX" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/rnd/destructive_analyzer,
+/turf/open/floor/iron/freezer,
+/area/ruin/powered)
+"hf" = (
+/obj/structure/bed/roller,
+/obj/machinery/iv_drip,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered)
-"eh" = (
+"hJ" = (
+/turf/open/floor/iron/dark/side{
+	dir = 10
+	},
+/area/ruin/powered)
+"il" = (
+/obj/structure/sign/departments/minsky/research/research{
+	pixel_y = 32
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"iY" = (
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted,
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"jP" = (
+/obj/machinery/smartfridge/organ,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"kf" = (
+/obj/machinery/door/airlock/research/glass{
+	name = "Research Division"
+	},
+/turf/open/floor/iron/white/side{
+	dir = 1
+	},
+/area/ruin/powered)
+"ko" = (
+/obj/effect/spawner/random/decoration/glowstick/lit,
+/obj/structure/sign/departments/minsky/research/robotics{
+	pixel_y = 32
+	},
+/turf/open/floor/iron/airless,
+/area/ruin/powered)
+"kF" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"kM" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/freezer,
+/area/ruin/powered)
+"ln" = (
+/obj/machinery/cryopod,
+/turf/open/floor/iron/showroomfloor,
+/area/ruin/powered)
+"nL" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"nR" = (
+/obj/machinery/suit_storage_unit{
+	suit_type = /obj/item/clothing/suit/space/hardsuit/ancient
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"oq" = (
+/obj/structure/closet/crate,
+/obj/item/storage/backpack/old,
+/obj/item/storage/backpack/old,
+/obj/item/crowbar,
+/obj/effect/spawner/random/ruinloot/science,
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"pH" = (
+/obj/machinery/modular_fabricator/exosuit_fab,
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"qy" = (
+/obj/machinery/door/firedoor,
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/westleft,
+/turf/open/floor/plating,
+/area/ruin/powered)
+"qV" = (
+/turf/open/floor/iron/airless,
+/area/ruin/powered)
+"rM" = (
 /obj/structure/table/glass/plasma,
 /obj/item/storage/box/firingpins{
 	pixel_y = 9
@@ -72,160 +172,20 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered)
-"ft" = (
-/turf/open/floor/iron/white/side{
-	dir = 5
+"rW" = (
+/obj/item/stock_parts/scanning_module{
+	pixel_x = 2;
+	pixel_y = 3
 	},
-/area/ruin/powered)
-"fF" = (
-/obj/machinery/door/airlock/research/glass{
-	name = "Research Division"
-	},
-/turf/open/floor/iron/white/side{
-	dir = 4
-	},
-/area/ruin/powered)
-"gv" = (
-/obj/effect/abstract/open_area_marker{
-	dir = 4
-	},
-/turf/open/floor/iron/airless,
-/area/ruin/powered)
-"gZ" = (
-/obj/item/stack/cable_coil,
-/obj/item/stock_parts/micro_laser,
-/obj/item/circuitboard/machine/ore_silo,
+/obj/item/stock_parts/manipulator,
+/obj/machinery/recharger,
 /obj/structure/table/glass/plasma,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered)
-"hi" = (
-/obj/machinery/door/airlock/medical{
-	name = "Surgical Theatre"
-	},
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"hp" = (
-/obj/machinery/cryopod,
-/turf/open/floor/iron/showroomfloor,
-/area/ruin/powered)
-"hq" = (
-/obj/effect/spawner/random/ruinloot/basic,
-/turf/open/floor/iron,
-/area/ruin/powered)
-"hQ" = (
-/obj/item/gun/energy/recharge/kinetic_accelerator,
-/obj/structure/rack,
-/obj/effect/turf_decal/tile/purple,
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"iZ" = (
-/obj/machinery/stasis,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"jR" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Corporate Showroom"
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"jW" = (
-/turf/open/floor/iron/white/side{
-	dir = 4
-	},
-/area/ruin/powered)
-"lf" = (
-/turf/closed/wall,
-/area/ruin/powered)
-"lm" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/oldeng{
-	dir = 4
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/ruin/powered)
-"lV" = (
-/obj/machinery/door/airlock/research/glass{
-	name = "Research Division"
-	},
-/turf/open/floor/iron/white/side{
-	dir = 1
-	},
-/area/ruin/powered)
-"lZ" = (
-/turf/open/floor/iron/white/side{
-	dir = 6
-	},
-/area/ruin/powered)
-"mj" = (
-/obj/effect/spawner/random/decoration/glowstick/lit,
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"mn" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/smartfridge/chemistry/preloaded,
-/turf/open/floor/plating,
-/area/ruin/powered)
-"mN" = (
-/obj/structure/chair/office/light,
-/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"mW" = (
-/obj/structure/closet/crate,
-/obj/item/storage/backpack/old,
-/obj/item/storage/backpack/old,
-/obj/item/crowbar,
-/obj/effect/spawner/random/ruinloot/science,
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"na" = (
-/obj/structure/chair/office/light,
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"nX" = (
-/obj/effect/turf_decal/tile/purple,
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"of" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/machinery/rnd/production/protolathe,
-/turf/open/floor/iron/freezer,
-/area/ruin/powered)
-"po" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron/freezer,
-/area/ruin/powered)
-"rj" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Chemistry"
-	},
-/turf/open/floor/iron/white/side{
-	dir = 8
-	},
-/area/ruin/powered)
-"sO" = (
-/obj/machinery/chem_master,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"sU" = (
-/turf/open/floor/iron,
-/area/ruin/powered)
-"td" = (
+"sf" = (
 /obj/item/stock_parts/matter_bin{
 	pixel_y = 4
 	},
@@ -240,30 +200,43 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered)
-"te" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
+"si" = (
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/iron,
+/area/ruin/powered)
+"tn" = (
+/obj/machinery/the_singularitygen,
+/turf/open/floor/iron/dark,
+/area/ruin/powered)
+"uN" = (
+/obj/structure/sign/departments/minsky/medical/chemistry/chemical2{
+	pixel_x = -32
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
-"tt" = (
-/obj/effect/turf_decal/tile/purple/anticorner/contrasted,
+"vf" = (
+/obj/item/flashlight/glowstick,
+/obj/item/flashlight/glowstick,
+/obj/item/shuttle_creator,
+/obj/structure/closet/crate/engineering,
+/obj/item/storage/toolbox/syndicate,
 /turf/open/floor/iron/white,
 /area/ruin/powered)
-"uh" = (
-/turf/open/floor/iron/dark/side{
-	dir = 8
+"vB" = (
+/obj/item/healthanalyzer{
+	desc = "A prototype hand-held body scanner able to distinguish vital signs of the subject.";
+	name = "prototype health analyzer"
 	},
+/obj/structure/rack,
+/obj/structure/window/spawner/directional/north,
+/turf/open/floor/wood,
 /area/ruin/powered)
-"uO" = (
-/obj/structure/table/glass/plasma,
-/obj/item/stack/sheet/mineral/diamond/five{
-	pixel_y = 4
-	},
-/obj/item/stack/sheet/mineral/uranium/twenty,
-/turf/open/floor/iron/white,
+"wd" = (
+/obj/structure/showcase/mecha/ripley,
+/obj/structure/window/spawner/directional/south,
+/turf/open/floor/wood,
 /area/ruin/powered)
-"ww" = (
+"wq" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/cryopod{
@@ -271,7 +244,173 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/powered)
-"wJ" = (
+"wG" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Chemistry"
+	},
+/turf/open/floor/iron/white/side{
+	dir = 8
+	},
+/area/ruin/powered)
+"xO" = (
+/obj/structure/rack,
+/obj/item/storage/firstaid/regular,
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"xX" = (
+/obj/structure/sign/departments/minsky/medical/medical2{
+	pixel_y = -32
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"ym" = (
+/obj/structure/showcase/machinery/tv,
+/obj/structure/table/wood,
+/obj/structure/window/spawner/directional/south,
+/turf/open/floor/wood,
+/area/ruin/powered)
+"yA" = (
+/obj/effect/mob_spawn/human/oldsec{
+	dir = 4
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/ruin/powered)
+"yX" = (
+/turf/open/floor/iron/dark/side{
+	dir = 9
+	},
+/area/ruin/powered)
+"zs" = (
+/obj/structure/rack,
+/obj/item/gun/energy/e_gun/old,
+/obj/structure/window/spawner/directional/north,
+/turf/open/floor/wood,
+/area/ruin/powered)
+"AS" = (
+/obj/item/stack/cable_coil,
+/obj/item/stock_parts/micro_laser,
+/obj/item/circuitboard/machine/ore_silo,
+/obj/structure/table/glass/plasma,
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"Bj" = (
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"Cg" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/rnd/production/protolathe,
+/turf/open/floor/iron/freezer,
+/area/ruin/powered)
+"CA" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/ruin/powered)
+"CQ" = (
+/obj/structure/chair/office/light,
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"Dr" = (
+/obj/machinery/chem_heater,
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"DE" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/smartfridge/chemistry/preloaded,
+/turf/open/floor/plating,
+/area/ruin/powered)
+"DX" = (
+/obj/structure/showcase/machinery/microwave,
+/obj/structure/table/wood,
+/obj/structure/window/spawner/directional/south,
+/turf/open/floor/wood,
+/area/ruin/powered)
+"En" = (
+/obj/effect/spawner/random/ruinloot/basic,
+/turf/open/floor/iron,
+/area/ruin/powered)
+"Ev" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"Ew" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"ER" = (
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/iron/freezer,
+/area/ruin/powered)
+"Fl" = (
+/obj/structure/chair/office/light,
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"Fy" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"IJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/human/oldeng{
+	dir = 4
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/ruin/powered)
+"Jf" = (
+/obj/effect/spawner/random/decoration/glowstick/lit,
+/turf/open/floor/iron,
+/area/ruin/powered)
+"Jh" = (
+/obj/machinery/door/airlock/research/glass{
+	name = "Research Division"
+	},
+/turf/open/floor/iron/white/side{
+	dir = 4
+	},
+/area/ruin/powered)
+"Jx" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/mineral/copper/five,
+/obj/item/stack/sheet/mineral/plasma/five,
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"JM" = (
+/obj/effect/mob_spawn/human/oldsci{
+	dir = 8
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/ruin/powered)
+"JN" = (
+/obj/machinery/door/airlock/medical{
+	name = "Surgical Theatre"
+	},
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"JO" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/armor/vest/old{
 	pixel_x = -1;
@@ -284,136 +423,50 @@
 /obj/structure/window/spawner/directional/north,
 /turf/open/floor/wood,
 /area/ruin/powered)
-"wX" = (
-/turf/open/floor/iron/dark/side{
-	dir = 9
+"LC" = (
+/obj/machinery/door/airlock/medical{
+	name = "Medical"
 	},
+/turf/open/floor/iron/white/side,
 /area/ruin/powered)
-"xZ" = (
-/obj/effect/spawner/random/decoration/glowstick/lit,
-/obj/structure/sign/departments/minsky/research/robotics{
-	pixel_y = 32
-	},
-/turf/open/floor/iron/airless,
-/area/ruin/powered)
-"zf" = (
-/obj/machinery/shower{
-	dir = 4
-	},
-/turf/open/floor/noslip/white,
-/area/ruin/powered)
-"zy" = (
-/obj/item/clothing/gloves/color/fyellow/old,
-/obj/structure/rack,
-/obj/structure/window/spawner/directional/north,
-/turf/open/floor/wood,
-/area/ruin/powered)
-"BO" = (
-/obj/structure/sign/departments/minsky/research/research{
-	pixel_y = 32
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"Cq" = (
-/obj/item/flashlight/glowstick,
-/obj/item/flashlight/glowstick,
-/obj/item/shuttle_creator,
-/obj/structure/closet/crate/engineering,
-/obj/item/storage/toolbox/syndicate,
+"MK" = (
+/obj/structure/frame/machine,
+/obj/item/stack/cable_coil,
 /turf/open/floor/iron/white,
 /area/ruin/powered)
-"Cv" = (
+"MN" = (
+/turf/open/floor/iron,
+/area/ruin/powered)
+"Nl" = (
+/turf/closed/wall,
+/area/ruin/powered)
+"Nq" = (
+/obj/machinery/stasis,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"Ns" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Cryogenics"
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/showroomfloor,
+/area/ruin/powered)
+"Nu" = (
+/turf/open/floor/iron/white/side{
+	dir = 4
+	},
+/area/ruin/powered)
+"Pb" = (
 /obj/machinery/rnd/production/circuit_imprinter,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /turf/open/floor/iron/freezer,
 /area/ruin/powered)
-"Dy" = (
-/obj/effect/spawner/structure/window/reinforced/tinted,
-/turf/open/floor/plating,
-/area/ruin/powered)
-"Fe" = (
-/obj/structure/frame/machine,
-/obj/item/stack/cable_coil,
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"Ff" = (
-/obj/structure/rack,
-/obj/item/gun/energy/e_gun/old,
-/obj/structure/window/spawner/directional/north,
-/turf/open/floor/wood,
-/area/ruin/powered)
-"Fq" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/freezer,
-/area/ruin/powered)
-"Gu" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/ruin/powered)
-"Gw" = (
-/obj/structure/table,
-/obj/item/tank/internals/anesthetic,
-/obj/item/clothing/mask/breath/medical,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"Gz" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"GF" = (
-/obj/machinery/modular_fabricator/exosuit_fab,
-/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"GI" = (
-/obj/machinery/computer/operating{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"GX" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/rnd/destructive_analyzer,
-/turf/open/floor/iron/freezer,
-/area/ruin/powered)
-"Iw" = (
-/turf/open/floor/iron/dark/side{
-	dir = 10
-	},
-/area/ruin/powered)
-"Jd" = (
-/obj/structure/table/optable,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -28
-	},
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"Jw" = (
-/obj/machinery/chem_heater,
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"JG" = (
-/obj/effect/mob_spawn/human/oldsci{
-	dir = 8
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/ruin/powered)
-"Ks" = (
+"Pt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/gun/energy/laser/retro/old{
 	pixel_x = 2;
@@ -425,92 +478,44 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/powered)
-"KM" = (
-/obj/machinery/computer/rdconsole/core{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron/freezer,
-/area/ruin/powered)
-"KR" = (
-/obj/machinery/door/firedoor,
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/northleft,
-/turf/open/floor/plating,
-/area/ruin/powered)
-"KT" = (
-/obj/structure/showcase/mecha/marauder,
-/obj/structure/window/spawner/directional/south,
-/turf/open/floor/wood,
-/area/ruin/powered)
-"Lb" = (
-/obj/machinery/door/airlock/medical{
-	name = "Medical"
-	},
-/turf/open/floor/iron/white/side,
-/area/ruin/powered)
-"Lr" = (
-/obj/machinery/smartfridge/organ,
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"MB" = (
-/obj/structure/rack,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/mineral/copper/five,
-/obj/item/stack/sheet/mineral/plasma/five,
-/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"NQ" = (
-/obj/effect/turf_decal/tile/purple,
-/turf/open/floor/iron,
-/area/ruin/powered)
-"OX" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/ruin/powered)
 "Pw" = (
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
-"PK" = (
-/obj/structure/rack,
-/obj/item/storage/firstaid/regular,
-/turf/open/floor/iron/white,
-/area/ruin/powered)
 "QB" = (
 /turf/template_noop,
 /area/template_noop)
-"QE" = (
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/iron,
-/area/ruin/powered)
-"QI" = (
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
+"QY" = (
+/obj/machinery/chem_master,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered)
-"Rr" = (
-/turf/open/floor/iron/dark,
-/area/ruin/powered)
-"Sy" = (
-/obj/effect/turf_decal/bot_white,
+"RW" = (
+/obj/structure/table/optable,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = -28
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/ruin/powered)
-"SR" = (
+"SC" = (
+/obj/machinery/computer/operating{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"SY" = (
+/obj/effect/turf_decal/tile/blue,
+/turf/open/floor/iron,
+/area/ruin/powered)
+"UM" = (
 /obj/item/reagent_containers/cup/beaker,
 /obj/structure/table,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -518,79 +523,74 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered)
-"TD" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
+"Vo" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Corporate Showroom"
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
-"Uh" = (
-/obj/machinery/suit_storage_unit{
-	suit_type = /obj/item/clothing/suit/space/hardsuit/ancient
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
+"Vs" = (
+/obj/effect/spawner/random/decoration/glowstick/lit,
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"VQ" = (
+/obj/structure/table,
+/obj/item/tank/internals/anesthetic,
+/obj/item/clothing/mask/breath/medical,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered)
-"UJ" = (
-/obj/effect/spawner/random/decoration/glowstick/lit,
-/turf/open/floor/iron,
+"VV" = (
+/obj/structure/table/glass/plasma,
+/obj/item/stack/sheet/mineral/diamond/five{
+	pixel_y = 4
+	},
+/obj/item/stack/sheet/mineral/uranium/twenty,
+/turf/open/floor/iron/white,
 /area/ruin/powered)
-"UP" = (
+"We" = (
 /obj/machinery/modular_fabricator/autolathe/hacked,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/northright,
 /turf/open/floor/plating,
 /area/ruin/powered)
-"UX" = (
-/obj/machinery/door/firedoor,
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/westleft,
-/turf/open/floor/plating,
+"Wm" = (
+/turf/open/floor/iron/white,
 /area/ruin/powered)
-"Vu" = (
-/obj/machinery/the_singularitygen,
-/turf/open/floor/iron/dark,
-/area/ruin/powered)
-"VC" = (
-/obj/structure/showcase/mecha/ripley,
-/obj/structure/window/spawner/directional/south,
-/turf/open/floor/wood,
-/area/ruin/powered)
-"Wc" = (
-/obj/item/healthanalyzer{
-	desc = "A prototype hand-held body scanner able to distinguish vital signs of the subject.";
-	name = "prototype health analyzer"
+"WE" = (
+/obj/machinery/anesthetic_machine,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
 	},
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"YB" = (
+/obj/machinery/shower{
+	dir = 4
+	},
+/turf/open/floor/noslip/white,
+/area/ruin/powered)
+"YH" = (
+/turf/open/floor/iron/white/side{
+	dir = 6
+	},
+/area/ruin/powered)
+"YU" = (
+/obj/effect/turf_decal/bot_white,
+/turf/open/floor/iron/white,
+/area/ruin/powered)
+"Zg" = (
+/obj/item/clothing/gloves/color/fyellow/old,
 /obj/structure/rack,
 /obj/structure/window/spawner/directional/north,
 /turf/open/floor/wood,
 /area/ruin/powered)
-"Wt" = (
-/obj/effect/abstract/open_area_marker{
-	dir = 8
+"ZX" = (
+/turf/open/floor/iron/white/side{
+	dir = 5
 	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"Yp" = (
-/obj/item/stock_parts/scanning_module{
-	pixel_x = 2;
-	pixel_y = 3
-	},
-/obj/item/stock_parts/manipulator,
-/obj/machinery/recharger,
-/obj/structure/table/glass/plasma,
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/ruin/powered)
-"Zo" = (
-/obj/structure/sign/departments/minsky/medical/medical2{
-	pixel_y = -32
-	},
-/turf/open/floor/iron,
 /area/ruin/powered)
 
 (1,1,1) = {"
@@ -599,18 +599,18 @@ Pw
 QB
 QB
 QB
-lf
-lf
-lf
-lf
-sU
-Wt
-sU
-lf
-lf
-lf
-lf
-lf
+Nl
+Nl
+Nl
+Nl
+MN
+kF
+MN
+Nl
+Nl
+Nl
+Nl
+Nl
 "}
 (2,1,1) = {"
 QB
@@ -618,18 +618,18 @@ Pw
 Pw
 Pw
 Pw
-lf
-aY
-lm
-lf
-sU
-sU
-sU
-lf
-GI
-Jd
-Lr
-lf
+Nl
+yA
+IJ
+Nl
+MN
+MN
+MN
+Nl
+SC
+RW
+jP
+Nl
 "}
 (3,1,1) = {"
 QB
@@ -637,18 +637,18 @@ Pw
 QB
 QB
 QB
-lf
-ww
-Ks
-cF
-UJ
-sU
-sU
-Dy
-db
-aW
-Gw
-lf
+Nl
+wq
+Pt
+Ns
+Jf
+MN
+MN
+gJ
+gt
+Wm
+VQ
+Nl
 "}
 (4,1,1) = {"
 QB
@@ -656,263 +656,263 @@ Pw
 QB
 QB
 QB
-lf
-hp
-JG
-lf
-sU
-sU
-QE
-lf
-iZ
-aW
-cR
-lf
+Nl
+ln
+JM
+Nl
+MN
+MN
+SY
+Nl
+Nq
+Wm
+WE
+Nl
 "}
 (5,1,1) = {"
 Pw
-lf
-lf
-lf
-Gu
-lf
-lf
-lf
-lf
-sU
-sU
-lf
-lf
-lf
-hi
-lf
-lf
+Nl
+Nl
+Nl
+CA
+Nl
+Nl
+Nl
+Nl
+MN
+MN
+Nl
+Nl
+Nl
+JN
+Nl
+Nl
 "}
 (6,1,1) = {"
 QB
-lf
-VC
-Rr
-Vu
-Rr
-Ff
-lf
-sU
-sU
-Zo
-lf
-Gz
-aW
-aW
-QI
-lf
+Nl
+wd
+ec
+tn
+ec
+zs
+Nl
+MN
+MN
+xX
+Nl
+nL
+Wm
+Wm
+hf
+Nl
 "}
 (7,1,1) = {"
 QB
-lf
-bb
-Rr
-Rr
-Rr
-wJ
-Gu
-sU
-sU
-sU
-Lb
-aW
-Jw
-aW
-sO
-lf
+Nl
+ym
+ec
+ec
+ec
+JO
+CA
+MN
+MN
+MN
+LC
+Wm
+Dr
+Wm
+QY
+Nl
 "}
 (8,1,1) = {"
 QB
-lf
-bs
-Rr
-Rr
-Rr
-zy
-lf
-te
-sU
-NQ
-lf
-aW
-Fe
-na
-SR
-lf
+Nl
+DX
+ec
+ec
+ec
+Zg
+Nl
+Ev
+MN
+si
+Nl
+Wm
+MK
+CQ
+UM
+Nl
 "}
 (9,1,1) = {"
 QB
-lf
-KT
-wX
-uh
-Iw
-Wc
-lf
-lf
-fF
-lf
-lf
-rj
-lf
-UX
-mn
-lf
+Nl
+gb
+yX
+gr
+hJ
+vB
+Nl
+Nl
+Jh
+Nl
+Nl
+wG
+Nl
+qy
+DE
+Nl
 "}
 (10,1,1) = {"
 Pw
-lf
-lf
-lf
-jR
-lf
-lf
-lf
-OX
-aW
-zf
-lf
-BO
-cr
-sU
-TD
-lf
+Nl
+Nl
+Nl
+Vo
+Nl
+Nl
+Nl
+Ew
+Wm
+YB
+Nl
+il
+uN
+MN
+Fy
+Nl
 "}
 (11,1,1) = {"
 QB
-lf
-eh
-ft
-jW
-lZ
-aW
-aW
-aW
-aW
-aW
-lV
-sU
-sU
-hq
-sU
-lf
+Nl
+rM
+ZX
+Nu
+YH
+Wm
+Wm
+Wm
+Wm
+Wm
+kf
+MN
+MN
+En
+MN
+Nl
 "}
 (12,1,1) = {"
 QB
-lf
-uO
-aW
-aW
-mj
-aW
-aW
-aW
-aW
-aW
-lf
-te
-sU
-de
-de
-lf
+Nl
+VV
+Wm
+Wm
+Vs
+Wm
+Wm
+Wm
+Wm
+Wm
+Nl
+Ev
+MN
+qV
+qV
+Nl
 "}
 (13,1,1) = {"
 QB
-lf
-Uh
-aW
-aW
-mW
-Cq
-nX
-lf
-lf
-dS
-lf
-lf
-xZ
-de
-de
-lf
+Nl
+nR
+Wm
+Wm
+oq
+vf
+Bj
+Nl
+Nl
+ek
+Nl
+Nl
+ko
+qV
+qV
+Nl
 "}
 (14,1,1) = {"
 Pw
-lf
-lf
-td
-aW
-of
-Cv
-nX
-lf
-MB
-aW
-mN
-KR
-de
-de
-de
-lf
+Nl
+Nl
+sf
+Wm
+Cg
+Pb
+Bj
+Nl
+Jx
+Wm
+Fl
+eq
+qV
+qV
+qV
+Nl
 "}
 (15,1,1) = {"
 Pw
 Pw
-lf
-gZ
-aW
-po
-Fq
-nX
-lf
-PK
-aW
-aW
-Gu
-de
-de
-de
-lf
+Nl
+AS
+Wm
+ed
+kM
+Bj
+Nl
+xO
+Wm
+Wm
+CA
+qV
+qV
+qV
+Nl
 "}
 (16,1,1) = {"
 QB
 Pw
-lf
-Yp
-aW
-KM
-GX
-hQ
-lf
-GF
-Sy
-tt
-UP
-de
-de
-de
-lf
+Nl
+rW
+Wm
+ER
+gX
+cp
+Nl
+pH
+YU
+iY
+We
+qV
+qV
+qV
+Nl
 "}
 (17,1,1) = {"
 QB
 QB
-lf
-lf
-lf
-lf
-lf
-lf
-lf
-lf
-lf
-lf
-lf
-de
-gv
-de
-lf
+Nl
+Nl
+Nl
+Nl
+Nl
+Nl
+Nl
+Nl
+Nl
+Nl
+Nl
+qV
+gI
+qV
+Nl
 "}

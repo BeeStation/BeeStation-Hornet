@@ -101,7 +101,7 @@
 	faction = list(FACTION_HOSTILE,FACTION_CREATURE)
 	poison_per_bite = 4
 	poison_type = /datum/reagent/toxin/staminatoxin
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/poison/limbsnake/Initialize(mapload)
 	. = ..()
