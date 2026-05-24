@@ -30,7 +30,8 @@
 	if(visuals_only)
 		return
 	H.fully_replace_character_name(null,"Waldo")
-	H.eye_color = COLOR_BLACK
+	H.eye_color_left = COLOR_BLACK
+	H.eye_color_right = COLOR_BLACK
 	H.gender = MALE
 	H.skin_tone = "caucasian3"
 	H.hair_style = "Business Hair 3"

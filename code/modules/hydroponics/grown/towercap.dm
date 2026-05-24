@@ -98,7 +98,7 @@
 	icon_state = "steellogs"
 	plank_type = /obj/item/stack/rods
 	plank_name = "rods"
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/grown/log/steel/CheckAccepted(obj/item/I)
 	return FALSE
@@ -126,7 +126,7 @@
 	icon_state = "bamboo"
 	plank_type = /obj/item/stack/sheet/bamboo
 	plank_name = "bamboo sticks"
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/grown/log/bamboo/CheckAccepted(obj/item/I)
 	return FALSE

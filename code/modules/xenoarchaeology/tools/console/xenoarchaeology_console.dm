@@ -44,7 +44,6 @@
 		SSxenoarchaeology.register_console(src)
 	RegisterSignal(SSxenoarchaeology, COMSIG_XENOA_REQUEST_NEW_CONSOLE, PROC_REF(be_the_guy))
 	//Link relevant stuff
-	linked_techweb = SSresearch.science_tech
 	budget = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
 	var/list/new_sellers = sellers.Copy()
 	sellers = list()
@@ -55,6 +54,11 @@
 	//Look for sold artifacts
 	RegisterSignal(SSdcs, COMSIG_GLOB_ATOM_SOLD, PROC_REF(check_sold))
 
+/obj/machinery/computer/xenoarchaeology_console/LateInitialize()
+	. = ..()
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
+
 /obj/machinery/computer/xenoarchaeology_console/Destroy()
 	. = ..()
 	QDEL_LIST(sellers)
@@ -62,6 +66,7 @@
 	QDEL_NULL(radio)
 
 /obj/machinery/computer/xenoarchaeology_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "XenoartifactConsole")

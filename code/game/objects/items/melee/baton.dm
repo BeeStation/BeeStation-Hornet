@@ -168,7 +168,7 @@
 	return BATON_ATTACKING
 
 /obj/item/melee/baton/proc/check_parried(mob/living/carbon/human/human_target, mob/living/user)
-	if (human_target.check_block(src, 0, "[user]'s [name]", MELEE_ATTACK))
+	if (istype(human_target) && human_target.check_block(src, 0, "[user]'s [name]", MELEE_ATTACK))
 		playsound(human_target, 'sound/weapons/genhit.ogg', 50, TRUE)
 		return TRUE
 	return FALSE

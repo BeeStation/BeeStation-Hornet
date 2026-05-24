@@ -173,7 +173,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 
 /mob/camera/imaginary_friend/proc/owner_speech(speaker, speech_args)
 	SIGNAL_HANDLER
-	var/list/listening = get_hearers_in_view(6, owner, SEE_INVISIBLE_MAXIMUM)
+	var/list/listening = get_hearers_in_view(6, owner)
 	if(!(src in listening))
 		to_chat(src, span_hear("You hear a distant voice in your head..."))
 		to_chat(src, span_gamesay("[span_name("[speaker]")] [span_message("[generate_messagepart(speech_args[SPEECH_MESSAGE])]")]"))

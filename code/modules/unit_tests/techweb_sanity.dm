@@ -76,21 +76,21 @@
 			if(!istype(U))
 				TEST_FAIL("[TN] has an invalid [u]!")
 				continue
-		for(var/p in TN.boost_item_paths)
+		for(var/p in TN.required_items_to_unlock)
 			if(!ispath(p))
-				TEST_FAIL("[TN] has invalid boost information: [p] is not a valid path.")
+				TEST_FAIL("[TN] has invalid required item: [p] is not a valid path.")
 				continue
-			var/list/points = TN.boost_item_paths[p]
+			var/list/points = TN.required_items_to_unlock[p]
 			if(islist(points))
 				for(var/i in points)
 					if(!isnum_safe(points[i]))
-						TEST_FAIL("[TN] has invalid boost information: [points[i]] is not a valid number.")
+						TEST_FAIL("[TN] has invalid required item: [points[i]] is not a valid number.")
 						continue
 					if(!points_types[i])
-						TEST_FAIL("[TN] has invalid boost information: [i] is not a valid point type.")
+						TEST_FAIL("[TN] has invalid required item: [i] is not a valid point type.")
 						continue
 			else if(!isnull(points))
-				TEST_FAIL("[TN] has invalid boost information: No valid list.")
+				TEST_FAIL("[TN] has invalid required item: No valid list.")
 				continue
 
 /datum/unit_test/techweb_sanity/proc/verify_design_ownership()

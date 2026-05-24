@@ -174,10 +174,11 @@
 
 /obj/machinery/Initialize(mapload)
 	. = ..()
-	GLOB.machines += src
+	SSmachines.register_machine(src)
 
 	if(ispath(circuit, /obj/item/circuitboard))
 		circuit = new circuit(src)
+	if(istype(circuit))
 		circuit.apply_default_parts(src)
 
 	if(processing_flags & START_PROCESSING_ON_INIT)
@@ -215,8 +216,9 @@
 	setup_area_power_relationship()
 
 /obj/machinery/Destroy()
-	GLOB.machines.Remove(src)
+	SSmachines.unregister_machine(src)
 	end_processing()
+
 	dump_inventory_contents()
 	QDEL_LIST(component_parts)
 	QDEL_NULL(circuit)
@@ -290,15 +292,6 @@
 /obj/machinery/proc/end_processing()
 	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
 	STOP_PROCESSING(subsystem, src)
-
-/obj/machinery/Destroy()
-	GLOB.machines.Remove(src)
-	if(datum_flags & DF_ISPROCESSING) // A sizeable portion of machines stops processing before qdel
-		end_processing()
-	dump_inventory_contents()
-	QDEL_LIST(component_parts)
-	QDEL_NULL(circuit)
-	return ..()
 
 /obj/machinery/proc/locate_machinery()
 	return
@@ -934,19 +927,19 @@
 	return TRUE
 
 // Power cell in hand replacement
-/obj/machinery/attackby(obj/item/C, mob/user)
-	if(istype(C, /obj/item/stock_parts/cell) && panel_open)
-		for(var/obj/item/P in component_parts)
-			if(istype(P,/obj/item/stock_parts/cell))
-				if(user.transferItemToLoc(C, src))
-					user.put_in_active_hand(P)
-					component_parts+=C
-					component_parts-=P
-					RefreshParts()
-					playsound(src, 'sound/surgery/taperecorder_close.ogg', 50, FALSE)
-					to_chat(user, span_notice("You replace [P.name] with [C.name]."))
-					return
-	..()
+/obj/machinery/attackby(obj/item/attacking_item, mob/user, params)
+	if(!istype(attacking_item, /obj/item/stock_parts/cell) || !panel_open)
+		return ..()
+
+	for(var/obj/item/stock_part in component_parts)
+		if(istype(stock_part, /obj/item/stock_parts/cell) && user.transferItemToLoc(attacking_item, src))
+			user.put_in_active_hand(stock_part)
+			component_parts += attacking_item
+			component_parts -= stock_part
+			RefreshParts()
+			playsound(src, 'sound/surgery/taperecorder_close.ogg', 50, FALSE)
+			to_chat(user, span_notice("You replace [stock_part] with [attacking_item]."))
+	return ..()
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/replacer_tool)
 	if(!istype(replacer_tool))

@@ -424,14 +424,14 @@
 		TOOL_ANALYZER = uni_icon('icons/obj/device.dmi', "analyzer"),
 		"wires" = uni_icon('icons/obj/power.dmi', "coil"),
 
-		TOOL_RETRACTOR = uni_icon('icons/obj/surgery.dmi', "retractor"),
-		TOOL_HEMOSTAT = uni_icon('icons/obj/surgery.dmi', "hemostat"),
-		TOOL_CAUTERY = uni_icon('icons/obj/surgery.dmi', "cautery"),
-		TOOL_DRILL = uni_icon('icons/obj/surgery.dmi', "drill"),
-		TOOL_SCALPEL = uni_icon('icons/obj/surgery.dmi', "scalpel"),
-		TOOL_SAW = uni_icon('icons/obj/surgery.dmi', "saw"),
-		TOOL_BLOODFILTER = uni_icon('icons/obj/surgery.dmi', "bloodfilter"),
-		"drapes" = uni_icon('icons/obj/surgery.dmi', "surgical_drapes"),
+		TOOL_RETRACTOR = uni_icon('icons/obj/medical/surgery.dmi', "retractor"),
+		TOOL_HEMOSTAT = uni_icon('icons/obj/medical/surgery.dmi', "hemostat"),
+		TOOL_CAUTERY = uni_icon('icons/obj/medical/surgery.dmi', "cautery"),
+		TOOL_DRILL = uni_icon('icons/obj/medical/surgery.dmi', "drill"),
+		TOOL_SCALPEL = uni_icon('icons/obj/medical/surgery.dmi', "scalpel"),
+		TOOL_SAW = uni_icon('icons/obj/medical/surgery.dmi', "saw"),
+		TOOL_BLOODFILTER = uni_icon('icons/obj/medical/surgery.dmi', "bloodfilter"),
+		"drapes" = uni_icon('icons/obj/medical/surgery.dmi', "surgical_drapes"),
 
 		TOOL_MINING = uni_icon('icons/obj/mining.dmi', "minipick"),
 		TOOL_SHOVEL = uni_icon('icons/obj/mining.dmi', "shovel"),
@@ -570,6 +570,30 @@
 /datum/asset/simple/portraits/library_private
 	tab = "library_private"
 
+/// Spritesheet for body zones. Necessary if your tgui uses BodyZoneSelector
+// This is a simple sheet instead of a spritesheet because spritesheets don't support
+// -ms-interpolation-mode when resized, since you need `transform: scale`.
+// Also spritesheets have some weird fudge on the edges of them because of an IE bug I can't track down.
+/datum/asset/simple/body_zones
+
+/datum/asset/simple/body_zones/register()
+	assets["body_zones.base_midnight.png"] = icon('icons/hud/style/screen_midnight.dmi', "zone_sel")
+
+	add_limb(BODY_ZONE_HEAD)
+	add_limb(BODY_ZONE_CHEST)
+	add_limb(BODY_ZONE_L_ARM)
+	add_limb(BODY_ZONE_R_ARM)
+	add_limb(BODY_ZONE_L_LEG)
+	add_limb(BODY_ZONE_R_LEG)
+	add_limb(BODY_ZONE_PRECISE_EYES)
+	add_limb(BODY_ZONE_PRECISE_MOUTH)
+	add_limb(BODY_ZONE_PRECISE_GROIN)
+
+	return ..()
+
+/datum/asset/simple/body_zones/proc/add_limb(limb)
+	assets[SANITIZE_FILENAME("body_zones.[limb].png")] = icon('icons/hud/screen_gen.dmi', limb)
+
 /datum/asset/spritesheet_batched/fish
 	name = "fish"
 
@@ -690,14 +714,14 @@
 		TOOL_ANALYZER = uni_icon('icons/obj/device.dmi', "analyzer"),
 		TOOL_MINING = uni_icon('icons/obj/mining.dmi', "minipick"),
 		TOOL_SHOVEL = uni_icon('icons/obj/mining.dmi', "spade"),
-		TOOL_RETRACTOR = uni_icon('icons/obj/surgery.dmi', "retractor"),
-		TOOL_HEMOSTAT = uni_icon('icons/obj/surgery.dmi', "hemostat"),
-		TOOL_CAUTERY = uni_icon('icons/obj/surgery.dmi', "cautery"),
-		TOOL_DRILL = uni_icon('icons/obj/surgery.dmi', "drill"),
-		TOOL_SCALPEL = uni_icon('icons/obj/surgery.dmi', "scalpel"),
-		TOOL_SAW = uni_icon('icons/obj/surgery.dmi', "saw"),
+		TOOL_RETRACTOR = uni_icon('icons/obj/medical/surgery.dmi', "retractor"),
+		TOOL_HEMOSTAT = uni_icon('icons/obj/medical/surgery.dmi', "hemostat"),
+		TOOL_CAUTERY = uni_icon('icons/obj/medical/surgery.dmi', "cautery"),
+		TOOL_DRILL = uni_icon('icons/obj/medical/surgery.dmi', "drill"),
+		TOOL_SCALPEL = uni_icon('icons/obj/medical/surgery.dmi', "scalpel"),
+		TOOL_SAW = uni_icon('icons/obj/medical/surgery.dmi', "saw"),
 		TOOL_KNIFE = uni_icon('icons/obj/service/kitchen.dmi', "knife"),
-		TOOL_BLOODFILTER = uni_icon('icons/obj/surgery.dmi', "bloodfilter"),
+		TOOL_BLOODFILTER = uni_icon('icons/obj/medical/surgery.dmi', "bloodfilter"),
 		TOOL_ROLLINGPIN = uni_icon('icons/obj/service/kitchen.dmi', "rolling_pin"),
 		TOOL_RUSTSCRAPER = uni_icon('icons/obj/tools.dmi', "wirebrush"),
 	)

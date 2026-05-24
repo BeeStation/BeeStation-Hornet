@@ -458,7 +458,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Break All Lights"))
 			message_admins("[key_name_admin(usr)] broke all lights")
-			for(var/obj/machinery/light/L in GLOB.machines)
+			for(var/obj/machinery/light/L as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light))
 				L.break_light_tube()
 
 		if("anime")
@@ -506,7 +506,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Fix All Lights"))
 			message_admins("[key_name_admin(usr)] fixed all lights")
-			for(var/obj/machinery/light/L in GLOB.machines)
+			for(var/obj/machinery/light/L as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light))
 				L.fix()
 
 		if("floorlava")
@@ -557,7 +557,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_FUN))
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Egalitarian Station"))
-			for(var/obj/machinery/door/airlock/W in GLOB.machines)
+			for(var/obj/machinery/door/airlock/W as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/airlock))
 				if(is_station_level(W.z) && !istype(get_area(W), /area/station/command) && !istype(get_area(W), /area/station/commons) && !istype(get_area(W), /area/station/security/prison))
 					W.req_access = list()
 			message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
@@ -647,7 +647,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("maint_access_brig")
 			if(!check_rights(R_DEBUG))
 				return
-			for(var/obj/machinery/door/airlock/maintenance/M in GLOB.machines)
+			for(var/obj/machinery/door/airlock/maintenance/M as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/airlock/maintenance))
 				M.check_access()
 				if (ACCESS_MAINT_TUNNELS in M.req_access)
 					M.req_access = list(ACCESS_BRIG)
@@ -655,7 +655,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("maint_access_engiebrig")
 			if(!check_rights(R_DEBUG))
 				return
-			for(var/obj/machinery/door/airlock/maintenance/M in GLOB.machines)
+			for(var/obj/machinery/door/airlock/maintenance/M as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/airlock/maintenance))
 				M.check_access()
 				if (ACCESS_MAINT_TUNNELS in M.req_access)
 					M.req_access = list()
@@ -786,7 +786,14 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			)
 
 			message_admins("[key_name(usr)] is creating a custom portal storm...")
-			var/list/prefreturn = presentpreflikepicker(usr,"Customize Portal Storm", "Customize Portal Storm", Button1="Ok", width = 600, StealFocus = 1,Timeout = 0, settings=settings)
+			var/list/prefreturn = present_pref_like_picker(
+				user = usr,
+				message = "Customize Portal Storm",
+				title = "Customize Portal Storm",
+				timeout = 0,
+				settings = settings,
+				width = 600,
+			)
 
 			if (prefreturn["button"] == 1)
 				var/list/prefs = settings["mainsettings"]

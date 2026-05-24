@@ -300,7 +300,6 @@
 	. = ..()
 	circuit = new(src)
 
-
 /*
 This is a good place for AI-related object verbs so I'm sticking it here.
 If adding stuff to this, don't forget that an AI need to cancel_camera() whenever it physically moves to a different location.

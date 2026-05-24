@@ -47,6 +47,9 @@
 /obj/projectile/beam/weak
 	damage = 12
 
+/obj/projectile/beam/cyborg
+	damage = 15
+
 /obj/projectile/beam/weak/shotgun
 	damage = 18
 

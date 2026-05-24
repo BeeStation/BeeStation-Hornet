@@ -50,12 +50,6 @@
 	icon = 'icons/obj/lavaland/spawners.dmi'
 	icon_state = "cryostasis_sleeper_open"
 
-/obj/structure/fluff/broken_flooring
-	name = "broken tiling"
-	desc = "A segment of broken flooring."
-	icon = 'icons/obj/brokentiling.dmi'
-	icon_state = "corner"
-
 /obj/structure/fluff/drake_statue //Ash drake status spawn on either side of the necropolis gate in lavaland.
 	name = "drake statue"
 	desc = "A towering basalt sculpture of a proud and regal drake. Its eyes are six glowing gemstones."
@@ -199,3 +193,11 @@
 	plane = FLOOR_PLANE
 	anchored = FALSE
 	deconstructible = FALSE
+
+/obj/structure/fluff/broken_canister_frame
+	name = "broken canister frame"
+	desc = "A torn apart canister. It looks like some metal can be salvaged with a wrench."
+	icon_state = "broken_canister"
+	anchored = FALSE
+	density = TRUE
+	deconstructible = TRUE

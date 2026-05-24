@@ -52,7 +52,7 @@
 	var/cannot_be_seen = 1
 	var/mob/living/creator = null
 
-	discovery_points = 10000
+	discovery_points = TECHWEB_TIER_4_POINTS
 
 // No movement while seen code.
 

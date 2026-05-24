@@ -33,7 +33,7 @@
 
 	var/next_cast = 0
 
-	discovery_points = 3000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/wizard/Initialize(mapload)
 	. = ..()

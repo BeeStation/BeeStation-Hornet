@@ -29,7 +29,8 @@
 	minimum_distance = 3
 	pass_flags = PASSTABLE
 	loot = list(/obj/item/organ/regenerative_core)
-	discovery_points = 3000
+	discovery_points = TECHWEB_TIER_2_POINTS
+
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
 	var/has_clickbox = TRUE
 

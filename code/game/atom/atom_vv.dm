@@ -80,7 +80,16 @@
 		for (var/i in armorlist)
 			pickerlist += list(list("value" = armorlist[i], "name" = i))
 
-		var/list/result = presentpicker(usr, "Modify armor", "Modify armor: [src]", Button1="Save", Button2 = "Cancel", Timeout=FALSE, inputtype = "text", values = pickerlist)
+		var/list/result = present_picker(
+			user = usr,
+			message = "Modify armor",
+			title = "Modify armor: [src]",
+			button_1 = "Save",
+			button_2 = "Cancel",
+			timeout = 0,
+			values = pickerlist,
+			input_type = "text",
+		)
 		var/list/armor_all = ARMOR_LIST_ALL
 
 		if (islist(result))
