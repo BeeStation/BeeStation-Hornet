@@ -12,6 +12,7 @@ GLOBAL_VAR_INIT(message_delay, FALSE)
 /obj/machinery/telecomms/broadcaster
 	name = "subspace broadcaster"
 	icon_state = "broadcaster"
+	base_icon_state = "broadcaster"
 	desc = "A dish-shaped machine used to broadcast processed subspace signals."
 	telecomms_type = /obj/machinery/telecomms/broadcaster
 	density = TRUE

@@ -55,7 +55,7 @@
 	foodtypes = VEGETABLES
 	juice_typepath = /datum/reagent/consumable/parsnipjuice
 	wine_power = 35
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 
 // White-Beet
@@ -108,4 +108,4 @@
 	bite_consumption_mod = 2
 	foodtypes = VEGETABLES
 	wine_power = 60
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS

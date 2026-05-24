@@ -7,12 +7,13 @@
 #define BAD_TURF	4
 
 /area/shuttle/auxiliary_base
-	name = "auxiliary Base"
+	name = "Auxiliary Base"
 	luminosity = 0 //Lighting gets lost when it lands anyway
-
 
 /obj/machinery/computer/auxiliary_base
 	name = "auxiliary base management console"
+	desc = "Allows a deployable expedition base to be dropped from the station to a designated mining location. It can also \
+		interface with the mining shuttle at the landing site if a mobile beacon is also deployed."
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "dorm_available"
 	base_icon_state = null
@@ -20,14 +21,11 @@
 	smoothing_groups = null
 	canSmoothWith = null
 	var/shuttleId = "colony_drop"
-	desc = "Allows a deployable expedition base to be dropped from the station to a designated mining location. It can also \
-interface with the mining shuttle at the landing site if a mobile beacon is also deployed."
 	var/launch_warning = TRUE
 	var/list/turrets = list() //List of connected turrets
 
 	req_one_access = list(ACCESS_AUX_BASE, ACCESS_HEADS)
 	var/possible_destinations
-	clockwork = TRUE
 	circuit = /obj/item/circuitboard/computer/auxiliary_base
 
 /obj/machinery/computer/auxiliary_base/Initialize(mapload)

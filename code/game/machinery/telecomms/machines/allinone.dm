@@ -5,15 +5,12 @@
 /obj/machinery/telecomms/allinone
 	name = "telecommunications mainframe"
 	icon_state = "comm_server"
+	base_icon_state = "comm_server"
 	desc = "A compact machine used for portable subspace telecommunications processing."
 	density = TRUE
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	var/intercept = FALSE  // If true, only works on the Syndicate frequency.
-
-/obj/machinery/telecomms/allinone/indestructable
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	flags_1 = NODECONSTRUCT_1
 
 /obj/machinery/telecomms/allinone/Initialize(mapload)
 	. = ..()
@@ -43,9 +40,16 @@
 		return attack_hand(user)
 	return ..()
 
+/obj/machinery/telecomms/allinone/indestructable
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	flags_1 = NODECONSTRUCT_1
+
 /obj/machinery/telecomms/allinone/exploration
 	name = "exploration mainframe"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	freq_listening = list(FREQ_EXPLORATION)
 	autolinkers = list("exp_relay")
+
+/obj/machinery/telecomms/allinone/no_heat
+	generates_heat = FALSE
