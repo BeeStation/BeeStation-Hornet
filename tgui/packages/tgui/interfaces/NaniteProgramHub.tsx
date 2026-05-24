@@ -66,7 +66,6 @@ export function NaniteProgramHub(props) {
             <Section
               title="Programs"
               fill
-              scrollable
               buttons={
                 <>
                   <Button
@@ -86,7 +85,7 @@ export function NaniteProgramHub(props) {
                   No nanite programs are currently researched.
                 </NoticeBox>
               ) : (
-                <Stack>
+                <Stack fill>
                   <Stack.Item>
                     <Tabs vertical>
                       {Object.entries(programs).map(
@@ -110,35 +109,13 @@ export function NaniteProgramHub(props) {
                       )}
                     </Tabs>
                   </Stack.Item>
-                  <Stack.Item p={2}>
-                    {detail_view ? (
-                      programsInCategory.map((program) => (
-                        <Section
-                          key={program.id}
-                          title={program.name}
-                          buttons={
-                            <Button
-                              icon="download"
-                              disabled={!has_disk}
-                              onClick={() =>
-                                act('download', {
-                                  program_id: program.id,
-                                })
-                              }
-                            >
-                              Download
-                            </Button>
-                          }
-                        >
-                          {program.desc}
-                        </Section>
-                      ))
-                    ) : (
-                      <LabeledList>
-                        {programsInCategory.map((program) => (
-                          <LabeledList.Item
+                  <Stack.Item p={2} grow>
+                    <Section scrollable fill>
+                      {detail_view ? (
+                        programsInCategory.map((program) => (
+                          <Section
                             key={program.id}
-                            label={program.name}
+                            title={program.name}
                             buttons={
                               <Button
                                 icon="download"
@@ -152,10 +129,34 @@ export function NaniteProgramHub(props) {
                                 Download
                               </Button>
                             }
-                          />
-                        ))}
-                      </LabeledList>
-                    )}
+                          >
+                            {program.desc}
+                          </Section>
+                        ))
+                      ) : (
+                        <LabeledList>
+                          {programsInCategory.map((program) => (
+                            <LabeledList.Item
+                              key={program.id}
+                              label={program.name}
+                              buttons={
+                                <Button
+                                  icon="download"
+                                  disabled={!has_disk}
+                                  onClick={() =>
+                                    act('download', {
+                                      program_id: program.id,
+                                    })
+                                  }
+                                >
+                                  Download
+                                </Button>
+                              }
+                            />
+                          ))}
+                        </LabeledList>
+                      )}
+                    </Section>
                   </Stack.Item>
                 </Stack>
               )}

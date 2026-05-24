@@ -21,7 +21,7 @@ type Data = {
 
 export function NaniteProgrammer(props) {
   return (
-    <Window width={420} height={550}>
+    <Window width={500} height={550}>
       <Window.Content scrollable>
         <NaniteProgrammerContent />
       </Window.Content>
@@ -50,11 +50,7 @@ export function NaniteProgrammerContent(props) {
       title={has_program ? `Program Disk: ${name}` : 'Program Disk'}
       fill
       buttons={
-        <Button
-          icon="eject"
-          disabled={!has_disk}
-          onClick={() => act('eject')}
-        >
+        <Button icon="eject" disabled={!has_disk} onClick={() => act('eject')}>
           Eject
         </Button>
       }
@@ -84,7 +80,9 @@ export function NaniteProgrammerContent(props) {
                       {activated ? 'Active' : 'Inactive'}
                     </Button>
                   </LabeledList.Item>
-                  <LabeledList.Item label="Use Rate">{use_rate}</LabeledList.Item>
+                  <LabeledList.Item label="Use Rate">
+                    {use_rate}
+                  </LabeledList.Item>
                   {!!can_trigger && (
                     <>
                       <LabeledList.Item label="Trigger Cost">
@@ -135,7 +133,13 @@ export function NaniteProgrammerContent(props) {
 
 function ProgramCodes(props) {
   const { act, data } = useBackend<Data>();
-  const { activation_code, deactivation_code, kill_code, trigger_code, can_trigger } = data;
+  const {
+    activation_code,
+    deactivation_code,
+    kill_code,
+    trigger_code,
+    can_trigger,
+  } = data;
 
   return (
     <Section title="Codes" fill mr={0.5}>
@@ -209,7 +213,13 @@ function ProgramCodes(props) {
 
 function ProgramDelays(props) {
   const { act, data } = useBackend<Data>();
-  const { timer_restart, timer_shutdown, timer_trigger, can_trigger, timer_trigger_delay } = data;
+  const {
+    timer_restart,
+    timer_shutdown,
+    timer_trigger,
+    can_trigger,
+    timer_trigger_delay,
+  } = data;
 
   return (
     <Section title="Delays" fill ml={0.5}>

@@ -55,7 +55,7 @@ export function LaunchpadConsole(props) {
   const { launchpads = [], selected_id } = data;
 
   return (
-    <Window width={500} height={320}>
+    <Window width={500} height={300}>
       <Window.Content>
         {launchpads.length === 0 ? (
           <NoticeBox>No Pads Connected</NoticeBox>
@@ -67,7 +67,7 @@ export function LaunchpadConsole(props) {
 
             <Stack.Item grow={3}>
               {!selected_id ? (
-                <Box>Please select a pad</Box>
+                <NoticeBox>No Pad Selected</NoticeBox>
               ) : (
                 <LaunchpadControl />
               )}
@@ -85,17 +85,16 @@ export function LaunchpadControl(props) {
       <Stack.Item>
         <LaunchpadTitle />
       </Stack.Item>
+
       <Stack.Item grow>
-        <Section fill>
-          <Stack fill>
-            <Stack.Item grow>
-              <LaunchpadButtonPad />
-            </Stack.Item>
-            <Stack.Item grow>
-              <TargetingControls />
-            </Stack.Item>
-          </Stack>
-        </Section>
+        <Stack fill>
+          <Stack.Item grow>
+            <LaunchpadButtonPad />
+          </Stack.Item>
+          <Stack.Item grow>
+            <TargetingControls />
+          </Stack.Item>
+        </Stack>
       </Stack.Item>
       <Stack.Item>
         <DeliveryButtons />
@@ -162,31 +161,29 @@ function LaunchpadButtonPad(props) {
 
   return (
     <Section fill title="Controls" align="center">
-      <Box align="center">
-        <Stack justify="center">
-          {buttonConfigs.map((buttonRow, i) => (
-            <Stack.Item key={i}>
-              {buttonRow.map((buttonConfig, j) => (
-                <Button
-                  fluid
-                  icon={buttonConfig.icon}
-                  iconRotation={buttonConfig.iconRotation}
-                  key={j}
-                  mb={1}
-                  onClick={() =>
-                    act('move_pos', {
-                      x: buttonConfig.x,
-                      y: buttonConfig.y,
-                    })
-                  }
-                >
-                  {buttonConfig.text}
-                </Button>
-              ))}
-            </Stack.Item>
-          ))}
-        </Stack>
-      </Box>
+      <Stack justify="center" pt={3}>
+        {buttonConfigs.map((buttonRow, i) => (
+          <Stack.Item key={i}>
+            {buttonRow.map((buttonConfig, j) => (
+              <Button
+                fluid
+                icon={buttonConfig.icon}
+                iconRotation={buttonConfig.iconRotation}
+                key={j}
+                mb={1}
+                onClick={() =>
+                  act('move_pos', {
+                    x: buttonConfig.x,
+                    y: buttonConfig.y,
+                  })
+                }
+              >
+                {buttonConfig.text}
+              </Button>
+            ))}
+          </Stack.Item>
+        ))}
+      </Stack>
     </Section>
   );
 }

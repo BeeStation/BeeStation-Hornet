@@ -328,7 +328,13 @@ function ProgramInfoBox(props) {
           <Stack.Divider />
 
           <Stack.Item>
-            <ProgramBasicInfo activated={activated} use_rate={use_rate} trigger_cost={trigger_cost} trigger_cooldown={trigger_cooldown} can_trigger={can_trigger} />
+            <ProgramBasicInfo
+              activated={activated}
+              use_rate={use_rate}
+              trigger_cost={trigger_cost}
+              trigger_cooldown={trigger_cooldown}
+              can_trigger={can_trigger}
+            />
           </Stack.Item>
         </Stack>
       </Stack.Item>
@@ -338,11 +344,23 @@ function ProgramInfoBox(props) {
       <Stack.Item>
         <Stack>
           <Stack.Item grow>
-            <ProgramCodes activation_code={activation_code} deactivation_code={deactivation_code} kill_code={kill_code} trigger_code={trigger_code} can_trigger={can_trigger} />
+            <ProgramCodes
+              activation_code={activation_code}
+              deactivation_code={deactivation_code}
+              kill_code={kill_code}
+              trigger_code={trigger_code}
+              can_trigger={can_trigger}
+            />
           </Stack.Item>
 
           <Stack.Item grow>
-            <ProgramDelays timer_restart={timer_restart} timer_shutdown={timer_shutdown} timer_trigger={timer_trigger} timer_trigger_delay={timer_trigger_delay} can_trigger={can_trigger} />
+            <ProgramDelays
+              timer_restart={timer_restart}
+              timer_shutdown={timer_shutdown}
+              timer_trigger={timer_trigger}
+              timer_trigger_delay={timer_trigger_delay}
+              can_trigger={can_trigger}
+            />
           </Stack.Item>
         </Stack>
       </Stack.Item>
@@ -355,7 +373,8 @@ function ProgramInfoBox(props) {
 }
 
 function ProgramBasicInfo(props) {
-  const { activated, use_rate, trigger_cost, trigger_cooldown, can_trigger } = props;
+  const { activated, use_rate, trigger_cost, trigger_cooldown, can_trigger } =
+    props;
 
   return (
     <LabeledList>
@@ -380,7 +399,13 @@ function ProgramBasicInfo(props) {
 }
 
 function ProgramCodes(props) {
-  const { activation_code, deactivation_code, kill_code, trigger_code, can_trigger } = props;
+  const {
+    activation_code,
+    deactivation_code,
+    kill_code,
+    trigger_code,
+    can_trigger,
+  } = props;
 
   return (
     <Section title="Codes" fill mr={0.5}>
@@ -393,9 +418,7 @@ function ProgramCodes(props) {
         </LabeledList.Item>
         <LabeledList.Item label="Kill">{kill_code}</LabeledList.Item>
         {!!can_trigger && (
-          <LabeledList.Item label="Trigger">
-            {trigger_code}
-          </LabeledList.Item>
+          <LabeledList.Item label="Trigger">{trigger_code}</LabeledList.Item>
         )}
       </LabeledList>
     </Section>
@@ -403,17 +426,19 @@ function ProgramCodes(props) {
 }
 
 function ProgramDelays(props) {
-  const { timer_restart, timer_shutdown, timer_trigger, timer_trigger_delay, can_trigger } = props;
+  const {
+    timer_restart,
+    timer_shutdown,
+    timer_trigger,
+    timer_trigger_delay,
+    can_trigger,
+  } = props;
 
   return (
     <Section title="Delays" fill ml={0.5}>
       <LabeledList>
-        <LabeledList.Item label="Restart">
-          {timer_restart} s
-        </LabeledList.Item>
-        <LabeledList.Item label="Shutdown">
-          {timer_shutdown} s
-        </LabeledList.Item>
+        <LabeledList.Item label="Restart">{timer_restart} s</LabeledList.Item>
+        <LabeledList.Item label="Shutdown">{timer_shutdown} s</LabeledList.Item>
         {!!can_trigger && (
           <>
             <LabeledList.Item label="Trigger">

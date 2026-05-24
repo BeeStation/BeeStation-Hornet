@@ -21,12 +21,12 @@ type Data = {
   blood: Blood;
   viruses: Virus[];
   resistances: Resistance[];
-}
+};
 
 type Blood = {
   dna: string;
   type: string;
-}
+};
 
 type Virus = {
   name: string;
@@ -44,7 +44,7 @@ type Virus = {
   stage_speed: number;
   transmission: number;
   symptom_severity: number;
-}
+};
 
 type Symptom = {
   name: string;
@@ -62,7 +62,7 @@ type Symptom = {
 type Resistance = {
   id: number;
   name: string;
-}
+};
 
 export function Pandemic(props) {
   const { data } = useBackend<Data>();
@@ -201,9 +201,15 @@ function PandemicDiseaseDisplay(props) {
 
                     <Stack.Item width="50%">
                       <LabeledList>
-                        <LabeledList.Item label="Agent">{virus.agent}</LabeledList.Item>
-                        <LabeledList.Item label="Spread">{virus.spread}</LabeledList.Item>
-                        <LabeledList.Item label="Danger">{virus.danger}</LabeledList.Item>
+                        <LabeledList.Item label="Agent">
+                          {virus.agent}
+                        </LabeledList.Item>
+                        <LabeledList.Item label="Spread">
+                          {virus.spread}
+                        </LabeledList.Item>
+                        <LabeledList.Item label="Danger">
+                          {virus.danger}
+                        </LabeledList.Item>
                         <LabeledList.Item label="Possible Cure">
                           {virus.cure}
                         </LabeledList.Item>
@@ -313,7 +319,9 @@ function PandemicSymptomDisplay(props) {
             <Stack.Item width="40%">
               <LabeledList>
                 <LabeledList.Item label="Level">{level}</LabeledList.Item>
-                <LabeledList.Item label="Resistance">{resistance}</LabeledList.Item>
+                <LabeledList.Item label="Resistance">
+                  {resistance}
+                </LabeledList.Item>
                 <LabeledList.Item label="Stealth">{stealth}</LabeledList.Item>
                 <LabeledList.Item label="Stage Speed">
                   {stage_speed}
@@ -346,7 +354,7 @@ function PandemicSymptomDisplay(props) {
   );
 }
 
-function PandemicAntibodyDisplay (props) {
+function PandemicAntibodyDisplay(props) {
   const { act, data } = useBackend<Data>();
   const { resistances = [] } = data;
 
