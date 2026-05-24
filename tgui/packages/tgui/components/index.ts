@@ -25,7 +25,6 @@ export { DraggableControl } from './DraggableControl';
 export { DraggableClickableControl } from './DraggableClickableControl';
 export { FitText } from './FitText';
 export { Flex } from './Flex';
-export { Grid } from './Grid';
 export { Icon } from './Icon';
 export { Image } from './Image';
 export { InfinitePlane } from './InfinitePlane';
