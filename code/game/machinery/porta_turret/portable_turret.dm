@@ -431,8 +431,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 		qdel(cover) //deletes the cover - no need on keeping it there!
 
 /obj/machinery/porta_turret/process()
-	to_chat(world, "i'm a turret and i'm processing")
-
 	//the main machinery process
 	if(cover == null && anchored)	//if it has no cover and is anchored
 		if(machine_stat & BROKEN)	//if the turret is borked
