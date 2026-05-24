@@ -1,66 +1,104 @@
-import { useBackend } from '../backend';
-import { Button, Input, LabeledList, Section } from '../components';
-import { Window } from '../layouts';
-import { AccessList } from './common/AccessList';
+import {
+  Button,
+  Input,
+  LabeledList,
+  Section,
+  Stack,
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 
-export const AirlockElectronics = (props) => {
-  const { act, data } = useBackend();
-  const { oneAccess, unres_direction, passedName, passedCycleId } = data;
-  const regions = data.regions || [];
-  const accesses = data.accesses || [];
+import { useBackend } from '../backend';
+import { Window } from '../layouts';
+import { AccessConfig, type Region } from './common/AccessConfig';
+
+type Data = {
+  accesses: string[];
+  oneAccess: BooleanLike;
+  passedCycleId: string;
+  passedName: string;
+  regions: Region[];
+  unres_direction: number;
+};
+
+export function AirlockElectronics(props) {
   return (
     <Window width={420} height={485}>
       <Window.Content>
-        <Section title="Main">
+        <AirLockMainSection />
+      </Window.Content>
+    </Window>
+  );
+}
+
+export function AirLockMainSection(props) {
+  const { act, data } = useBackend<Data>();
+  const {
+    accesses = [],
+    oneAccess,
+    passedName,
+    passedCycleId,
+    regions = [],
+    unres_direction,
+  } = data;
+
+  return (
+    <Stack fill vertical>
+      <Stack.Item>
+        <Section fill>
           <LabeledList>
             <LabeledList.Item label="Access Required">
               <Button
                 icon={oneAccess ? 'unlock' : 'lock'}
-                content={oneAccess ? 'One' : 'All'}
                 onClick={() => act('one_access')}
-              />
+              >
+                {oneAccess ? 'One' : 'All'}
+              </Button>
             </LabeledList.Item>
             <LabeledList.Item label="Unrestricted Access">
               <Button
                 icon={unres_direction & 1 ? 'check-square-o' : 'square-o'}
-                content="North"
                 selected={unres_direction & 1}
                 onClick={() =>
                   act('direc_set', {
                     unres_direction: '1',
                   })
                 }
-              />
+              >
+                North
+              </Button>
               <Button
                 icon={unres_direction & 2 ? 'check-square-o' : 'square-o'}
-                content="South"
                 selected={unres_direction & 2}
                 onClick={() =>
                   act('direc_set', {
                     unres_direction: '2',
                   })
                 }
-              />
+              >
+                South
+              </Button>
               <Button
                 icon={unres_direction & 4 ? 'check-square-o' : 'square-o'}
-                content="East"
                 selected={unres_direction & 4}
                 onClick={() =>
                   act('direc_set', {
                     unres_direction: '4',
                   })
                 }
-              />
+              >
+                East
+              </Button>
               <Button
                 icon={unres_direction & 8 ? 'check-square-o' : 'square-o'}
-                content="West"
                 selected={unres_direction & 8}
                 onClick={() =>
                   act('direc_set', {
                     unres_direction: '8',
                   })
                 }
-              />
+              >
+                West
+              </Button>
             </LabeledList.Item>
             <LabeledList.Item label="Airlock Name">
               <Input
@@ -88,7 +126,9 @@ export const AirlockElectronics = (props) => {
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <AccessList
+      </Stack.Item>
+      <Stack.Item grow>
+        <AccessConfig
           accesses={regions}
           selectedList={accesses}
           accessMod={(ref) =>
@@ -109,7 +149,7 @@ export const AirlockElectronics = (props) => {
             })
           }
         />
-      </Window.Content>
-    </Window>
+      </Stack.Item>
+    </Stack>
   );
-};
+}

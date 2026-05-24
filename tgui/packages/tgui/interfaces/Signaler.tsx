@@ -1,29 +1,36 @@
-import { toFixed } from 'common/math';
+import { Button, NumberInput, Section, Stack } from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
 
 import { useBackend } from '../backend';
-import { Button, Grid, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const Signaler = (props) => {
+type Data = {
+  code: number;
+  frequency: number;
+  cooldown: number;
+  minFrequency: number;
+  maxFrequency: number;
+};
+
+export function Signaler(props) {
   return (
-    <Window width={280} height={132}>
+    <Window width={280} height={135}>
       <Window.Content>
         <SignalerContent />
       </Window.Content>
     </Window>
   );
-};
+}
 
-export const SignalerContent = (props) => {
-  const { act, data } = useBackend();
+export function SignalerContent(props) {
+  const { act, data } = useBackend<Data>();
   const { code, frequency, cooldown, minFrequency, maxFrequency } = data;
+
   return (
     <Section>
-      <Grid>
-        <Grid.Column size={1.4} color="label">
-          Frequency:
-        </Grid.Column>
-        <Grid.Column>
+      <Stack>
+        <Stack.Item color="label">Frequency:</Stack.Item>
+        <Stack.Item>
           <NumberInput
             animated
             unit="kHz"
@@ -31,17 +38,17 @@ export const SignalerContent = (props) => {
             stepPixelSize={6}
             minValue={minFrequency / 10}
             maxValue={maxFrequency / 10}
-            value={frequency / 10 || minFrequency / 10}
+            value={frequency / 10}
             format={(value) => toFixed(value, 1)}
             width="80px"
-            onDrag={(value) =>
+            onChange={(value) =>
               act('freq', {
                 freq: value,
               })
             }
           />
-        </Grid.Column>
-        <Grid.Column>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             ml={1.3}
             icon="sync"
@@ -52,29 +59,29 @@ export const SignalerContent = (props) => {
               })
             }
           />
-        </Grid.Column>
-      </Grid>
-      <Grid mt={0.6}>
-        <Grid.Column size={1.4} color="label">
+        </Stack.Item>
+      </Stack>
+      <Stack mt={0.6}>
+        <Stack.Item pr={5.3} color="label">
           Code:
-        </Grid.Column>
-        <Grid.Column>
+        </Stack.Item>
+        <Stack.Item>
           <NumberInput
             animated
             step={1}
             stepPixelSize={6}
             minValue={1}
             maxValue={100}
-            value={code || 1}
+            value={code}
             width="80px"
-            onDrag={(value) =>
+            onChange={(value) =>
               act('code', {
                 code: value,
               })
             }
           />
-        </Grid.Column>
-        <Grid.Column>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             ml={1.3}
             icon="sync"
@@ -85,10 +92,10 @@ export const SignalerContent = (props) => {
               })
             }
           />
-        </Grid.Column>
-      </Grid>
-      <Grid mt={0.8}>
-        <Grid.Column>
+        </Stack.Item>
+      </Stack>
+      <Stack mt={0.8}>
+        <Stack.Item ml={10.5}>
           <Button
             mb={-0.1}
             fluid
@@ -98,8 +105,8 @@ export const SignalerContent = (props) => {
             textAlign="center"
             onClick={() => act('signal')}
           />
-        </Grid.Column>
-      </Grid>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
-};
+}
