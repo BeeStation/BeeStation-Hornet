@@ -1,8 +1,9 @@
 /datum/objective/survival_of_the_fittest
 	name = "survival of the fittest"
 	explanation_text = "Exfiltrate the station while culling the population of humanoids; ensuring that at most %GOAL% non-changeling humanoids escape on board the escape shuttle."
-	martyr_compatible = FALSE
 	murderbone_flag = TRUE
+	admin_grantable = TRUE
+
 	var/amount = 0
 
 /datum/objective/survival_of_the_fittest/proc/generate_amount()
@@ -16,7 +17,10 @@
 /datum/objective/survival_of_the_fittest/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
 		return ..()
+
 	var/total_survivors = 0
+
+	var/list/objective_owners = get_owners()
 	for(var/mob/living/player in GLOB.player_list)
 		if(!player.mind)
 			continue
@@ -28,7 +32,7 @@
 			continue
 		if (IS_CHANGELING(player))
 			continue
-		if (player.mind in get_owners())
+		if (player.mind in objective_owners)
 			continue
 		total_survivors++
 	return (total_survivors <= amount) || ..()

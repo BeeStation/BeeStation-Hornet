@@ -28,7 +28,9 @@
 	/// The original profile of this changeling.
 	var/datum/changeling_profile/first_profile = null
 	/// The amount of DNA gained. Includes DNA sting.
-	var/absorbed_count = 0
+	var/absorbed_genomes = 0
+	/// The amount of people we have absorbed with the absorb ability.
+	var/absorbed_people = 0
 	/// The number of chemicals the changeling currently has.
 	var/chem_charges = 20
 	/// The max chemical storage the changeling currently has.
@@ -355,7 +357,7 @@
 		to_chat(owner.current, span_warning("We have reached our capacity for abilities!"))
 		return FALSE
 
-	if(absorbed_count < initial(sting_path.req_dna))
+	if(absorbed_genomes < initial(sting_path.req_dna))
 		to_chat(owner.current, span_warning("We lack the DNA to evolve this ability!"))
 		return FALSE
 
@@ -531,7 +533,7 @@
 		current_profile = first_profile
 
 	stored_profiles += new_profile
-	absorbed_count++
+	absorbed_genomes++
 
 /*
  * Create a new profile from the given [profile_target]
@@ -611,14 +613,6 @@
 
 /datum/antagonist/changeling/farewell()
 	to_chat(owner.current, span_userdanger("You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!"))
-
-/// Generate objectives for our changeling.
-/datum/antagonist/changeling/proc/forge_objectives()
-	var/datum/objective/survival_of_the_fittest/cull_objective = new
-	cull_objective.owner = owner
-	cull_objective.generate_amount()
-	objectives += cull_objective
-	log_objective(owner, cull_objective.explanation_text)
 
 /datum/antagonist/changeling/admin_add(datum/mind/new_owner,mob/admin)
 	. = ..()
@@ -829,7 +823,7 @@
 		changeling_win = FALSE
 
 	parts += printplayer(owner)
-	parts += "<b>Genomes Extracted:</b> [absorbed_count]<br>"
+	parts += "<b>Genomes Extracted:</b> [absorbed_genomes]<br>"
 
 	if(objectives.len)
 		var/count = 1

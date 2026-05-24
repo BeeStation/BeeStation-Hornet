@@ -168,6 +168,16 @@
       are initialised first, 10 colours will be chosen. It doesn't mean low pop will
       have 10 colours presented at a round. This just lets you to see more colours
       tweaks rather than lame 3 colours.
+  mrmanlikesbt:
+  - code_imp: Slightly improved antag objective code
+  - tweak: Changelings have objective variety once more. Enjoy more than just killing
+      everyone on the escape shuttle.
+  - config: Traitors, Changelings, and Malfunctioning AIs can no longer roll murderbone
+      objectives when the station has less than 15 crew. When the pop requirement
+      is met, they only have a 10% chance to roll a murderbone objective with the
+      exception of malf which has a 50% chance.
+  - config: Heretic now requires 14 roundstart ready pop to roll.
+  - config: Removed some unused midround antag config entries
   ? mrmanlikesbt, Timberpoes, DeltaFire15, JohnFulpWillard, MrMelbert, SuperNovaa41,
     FernandoJ8, SmArtKar, MTandi, SpaceLoveSs13, Ghommie, Absolucy, Archemagus, StrangeWeirdKitten,
     Kylerace, RikuTheKiller, lajret, Guillaume, grungussuss

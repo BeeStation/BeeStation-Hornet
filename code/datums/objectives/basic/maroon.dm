@@ -1,13 +1,15 @@
 /datum/objective/maroon
 	name = "maroon"
-	var/target_role_type=FALSE
+	admin_grantable = TRUE
+
+	var/target_special_role = FALSE
 
 /datum/objective/maroon/check_completion()
 	return ..() || !target || !considered_alive(target) || (!target.current.onCentCom() && !target.current.onSyndieBase())
 
 /datum/objective/maroon/update_explanation_text()
 	if(target && target.current)
-		explanation_text = "Prevent [target.name], the [!target_role_type ? target.assigned_role : target.special_role], from escaping alive."
+		explanation_text = "Prevent [target.name], the [!target_special_role ? target.assigned_role : target.special_role], from escaping alive."
 	else
 		explanation_text = "Free Objective"
 

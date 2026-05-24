@@ -1,5 +1,7 @@
 /datum/objective/capture
 	name = "capture"
+	admin_grantable = TRUE
+
 	var/amount_captured
 
 /datum/objective/capture/proc/gen_amount_goal()

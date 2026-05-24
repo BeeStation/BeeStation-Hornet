@@ -126,7 +126,6 @@
 	role_preference = /datum/role_preference/roundstart/heretic
 	antag_datum = /datum/antagonist/heretic
 	weight = 8
-	ruleset_flags = SHOULD_USE_ANTAG_REP | REQUIRED_POP_ALLOW_UNREADY
 	restricted_roles = list(JOB_NAME_PRISONER)
 	minimum_players_required = 14
 
