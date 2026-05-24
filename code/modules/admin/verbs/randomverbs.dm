@@ -504,7 +504,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				GLOB.manifest.inject(new_character)
 
 			if(alert(new_character,"Would you like an active AI to announce this character?",,"No","Yes")=="Yes")
-				AnnounceArrival(new_character, new_character.mind.assigned_role)
+				announce_arrival(new_character, new_character.mind.assigned_role)
 
 	var/msg = span_adminnotice("[admin] has respawned [player_key] as [new_character.real_name].")
 	message_admins(msg)

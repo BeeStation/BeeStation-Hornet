@@ -103,9 +103,6 @@
 /// Returns the nth root of x.
 #define ROOT(n, x) ((x) ** (1 / (n)))
 
-/// Returns a random decimal between low and high.
-#define RANDOM_DECIMAL(low, high) (rand() * (high - low) + low)
-
 // The quadratic formula. Returns a list with the solutions, or an empty list
 // if they are imaginary.
 /proc/SolveQuadratic(a, b, c)
@@ -240,22 +237,17 @@
 #define DT_PROB(prob_per_second_percent, delta_time) (prob(100*DT_PROB_RATE((prob_per_second_percent)/100, delta_time)))
 // )
 
-/// Taxicab distance--gets you the **actual** time it takes to get from one turf to another due to how we calculate diagonal movement
-#define MANHATTAN_DISTANCE(a, b) (abs(a.x - b.x) + abs(a.y - b.y))
-// )
+#define GET_TRUE_DIST(a, b) ((a == null || b == null) ? -1 : max(abs(a.x -b.x), abs(a.y-b.y), abs(a.z-b.z)))
+
+/// Returns the distance between a and b fully ignoring multiz (normal get_dist counts a z move as 1 extra distance)
+#define GET_CARDINAL_DIST(a, b) ((a == null || b == null) ? -1 : max(abs(a.x -b.x), abs(a.y-b.y)))
 
 /// A function that exponentially approaches a maximum value of L
 /// k is the rate at which is approaches L, x_0 is the point where the function = 0
 #define LOGISTIC_FUNCTION(L,k,x,x_0) (L/(1+(NUM_E**(-k*(x-x_0)))))
 
-// )
-/// Make sure something is a boolean TRUE/FALSE 1/0 value, since things like bitfield & bitflag doesn't always give 1s and 0s.
-#define FORCE_BOOLEAN(x) ((x)? TRUE : FALSE)
-
-// )
-/// Gives the number of pixels in an orthogonal line of tiles.
-#define TILES_TO_PIXELS(tiles)			(tiles * PIXELS)
-// )
+/// Returns a random decimal between low and high.
+#define RANDOM_DECIMAL(low, high) (rand() * (high - low) + low)
 
 #define SI_COEFFICIENT "coefficient"
 #define SI_UNIT "unit"

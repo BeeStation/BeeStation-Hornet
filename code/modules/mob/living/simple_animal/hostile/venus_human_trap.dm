@@ -142,7 +142,7 @@
 	var/last_manual_pull_time = 0
 	var/manual_pull_cooldown = 2 SECONDS
 
-	discovery_points = 2000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/hostile/venus_human_trap/Initialize(mapload)
 	remove_verb(/mob/living/verb/pulled) //No pulling people into the vines

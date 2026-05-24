@@ -157,3 +157,49 @@
       in the correct area with rest of hydroponics.
   mrmanlikesbt:
   - server: The github issue auto-stale has been increased to one year
+2026-05-23:
+  mrmanlikesbt:
+  - bugfix: Fixed assistants not being assigned bank accounts or crew manifest entries
+  - bugfix: Fixed bank account IDs not showing up in your character's notes when joining
+      roundstart
+2026-05-24:
+  ? mrmanlikesbt, Timberpoes, DeltaFire15, JohnFulpWillard, MrMelbert, SuperNovaa41,
+    FernandoJ8, SmArtKar, MTandi, SpaceLoveSs13, Ghommie, Absolucy, Archemagus, StrangeWeirdKitten,
+    Kylerace, RikuTheKiller, lajret, Guillaume, grungussuss
+  : - bugfix: Fixed a runtime when a /datum/component/server is deleted.
+    - bugfix: Fixed not being able to unlock illegal technology from any uplink items.
+    - bugfix: Fixed several abductor items not unlocking abductor technology when
+        analyzed.
+    - bugfix: Fixed a silicon's name not being logged when researching something.
+    - bugfix: Fixed several nodes appearing in the techweb with hidden prerequisites.
+    - bugfix: Fixed reinforced glass only ever actually having 1 unit of glass and
+        0.5 units of iron in it no matter the amount of reinforced glass in the stack
+    - bugfix: Fixed lathes setting their busy var to FALSE just before they actually
+        printed their items
+    - bugfix: Fixed modular fabricators sometimes displaying currently building design
+        when a design was not being constructed
+    - tweak: Tweaked the R&D server controller UI to hopefully look better.
+    - tweak: Research servers by default now generate one point per second. All techweb
+        node costs have been rebalanced in accordance with this.
+    - balance: R&D console circuit boards now start off locked.
+    - rscadd: Added TGUI for the destructive analyzer.
+    - rscadd: R&D consoles can now be locked from the R&D server controller console.
+    - refactor: Refactored the automated announcement system to use datums and the
+        aas_config_announce() proc.
+    - refactor: Techwebs have been made modular meaning you can research independently
+        from the main station now.
+    - refactor: Techwebs instances are now reused whenever possible.
+    - rscadd: You can now copy a techweb to a multitool's buffer from a R&D server
+        and then sync it to other R&D machines.
+    - rscadd: Free golems and Charlie Station now have their own techwebs separate
+        from the main station.
+    - code_imp: Design categories now use defines instead of hardcoded strings.
+    - code_imp: The majority of research related variables are now documented.
+    - code_imp: Techweb nodes now use defines for their costs instead of hardcoded
+        numbers.
+    - code_imp: Renamed COOLDOWN_STATIC_DECLARE to STATIC_COOLDOWN_DECLARE.
+    - rscdel: Removed production R&D consoles.
+    - rscdel: Unused research related defines, variables, and procs have been deleted.
+    - rscdel: Removed the /obj/machinery/doppler_array/research/science typepath.
+    - rscdel: The destructive analyzer can no longer reclaim materials from the incredibly
+        few items it could previously reclaim from.

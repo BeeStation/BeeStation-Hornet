@@ -13,7 +13,9 @@
 
 	base_access = list()
 	departments = DEPT_BITFLAG_UNASSIGNED
-	bank_account_department = NONE
+
+	bank_account_department = ACCOUNT_CIV_BITFLAG
+	payment_per_department = list(ACCOUNT_CIV_ID = 0)
 
 	display_order = JOB_DISPLAY_ORDER_PRISONER
 
