@@ -68,7 +68,7 @@ export function Pandemic(props) {
   const { data } = useBackend<Data>();
 
   return (
-    <Window width={520} height={550}>
+    <Window width={520} height={680}>
       <Window.Content scrollable>
         <Stack vertical>
           <Stack.Item>
