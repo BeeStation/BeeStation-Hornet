@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Section } from 'tgui-core/components';
 
-export function CollapsibleSection (props) {
+export function CollapsibleSection(props) {
   const {
     children,
     startOpen = true,

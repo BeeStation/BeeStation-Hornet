@@ -1,12 +1,6 @@
 import { classes } from 'common/react';
 import { sortBy } from 'es-toolkit';
-import {
-  Box,
-  Flex,
-  Icon,
-  Table,
-  Tooltip,
-} from 'tgui-core/components';
+import { Box, Flex, Icon, Table, Tooltip } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
