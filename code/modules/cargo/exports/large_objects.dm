@@ -1,4 +1,8 @@
+/datum/export/large
+	abstract_type = /datum/export/large
+
 /datum/export/large/reagent_dispenser
+	abstract_type = /datum/export/large/reagent_dispenser
 	cost = 100 // +0-400 depending on amount of reagents left
 	var/contents_cost = 400
 

@@ -34,7 +34,7 @@ Behavior that's still missing from this component that original food items had t
 	var/datum/callback/pre_eat
 	///Callback to be ran before composting something, in case you don't want a piece of food to be compostable for some reason.
 	var/datum/callback/on_compost
-	///Callback to be ran for when you take a bite of something
+	///Callback to be ran for when you finish eating something
 	var/datum/callback/after_eat
 	///Callback to be ran for when you finish eating something
 	var/datum/callback/on_consume
@@ -533,6 +533,8 @@ Behavior that's still missing from this component that original food items had t
 	SEND_SIGNAL(parent, COMSIG_FOOD_CONSUMED, eater, feeder)
 
 	on_consume?.Invoke(eater, feeder)
+	if (QDELETED(parent)) // might be destroyed by the callback
+		return
 
 	to_chat(feeder, span_warning("There is nothing left of [parent], oh no!"))
 	if(isturf(parent))

@@ -3,6 +3,7 @@
 /////////////////////////
 
 /obj/item/mecha_parts
+	abstract_type = /obj/item/mecha_parts
 	name = "mecha part"
 	icon = 'icons/mob/mech_construct.dmi'
 	icon_state = "blank"

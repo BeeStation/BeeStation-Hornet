@@ -10,6 +10,7 @@
 /obj/machinery/telecomms/hub
 	name = "telecommunication hub"
 	icon_state = "hub"
+	base_icon_state = "hub"
 	desc = "A mighty piece of hardware used to send/receive massive amounts of data."
 	telecomms_type = /obj/machinery/telecomms/hub
 	density = TRUE
@@ -19,6 +20,32 @@
 	long_range_link = TRUE
 	netspeed = 40
 	circuit = /obj/item/circuitboard/machine/telecomms/hub
+
+	var/datum/looping_sound/server/sound_loop
+
+/obj/machinery/telecomms/hub/Initialize(mapload)
+	. = ..()
+	sound_loop = new(src, on)
+
+/obj/machinery/telecomms/hub/Destroy()
+	QDEL_NULL(sound_loop)
+	return ..()
+
+/obj/machinery/telecomms/hub/update_power()
+	var/old_on = on
+	if(toggled)
+		if(machine_stat & (BROKEN|NOPOWER|EMPED|OVERHEATED))
+			on = FALSE
+			sound_loop.stop()
+		else
+			on = TRUE
+			sound_loop.start()
+	else
+		on = FALSE
+	if(old_on != on)
+		ui_update()
+		update_appearance(UPDATE_ICON_STATE)
+		set_light(on)
 
 /obj/machinery/telecomms/hub/receive_information(datum/signal/signal, obj/machinery/telecomms/machine_from)
 	if(!is_freq_listening(signal))

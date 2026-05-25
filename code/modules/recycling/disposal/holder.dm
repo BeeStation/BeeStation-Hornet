@@ -32,8 +32,7 @@
 	//Check for any living mobs trigger hasmob.
 	//hasmob effects whether the package goes to cargo or its tagged destination.
 	for(var/mob/living/M in D)
-		if(M.client)
-			M.reset_perspective(src)
+		M.set_mob_eye_to(src)
 		hasmob = TRUE
 
 	//Checks 1 contents level deep. This means that players can be sent through disposals mail...
@@ -89,7 +88,7 @@
 	last_pipe = null
 
 //failsafe in the case the holder is somehow forcemoved somewhere that's not a disposal pipe. Otherwise the above loop breaks.
-/obj/structure/disposalholder/Moved(atom/oldLoc, dir)
+/obj/structure/disposalholder/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	var/static/list/pipes_typecache = typecacheof(/obj/structure/disposalpipe)
 	//Moved to nullspace gang
@@ -129,7 +128,7 @@
 		AM.forceMove(src)		// move everything in other holder to this one
 		if(ismob(AM))
 			var/mob/M = AM
-			M.reset_perspective(src)	// if a client mob, update eye to follow this holder
+			M.set_mob_eye_to(src)	// if a client mob, update eye to follow this holder
 	qdel(other)
 
 

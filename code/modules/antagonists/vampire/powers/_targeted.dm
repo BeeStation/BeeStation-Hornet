@@ -1,5 +1,6 @@
 // NOTE: All Targeted spells are Toggles! We just don't bother checking here.
 /datum/action/vampire/targeted
+	abstract_type = /datum/action/vampire/targeted
 	power_flags = BP_AM_TOGGLE
 
 	///If set, how far the target has to be for the power to work.

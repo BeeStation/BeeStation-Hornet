@@ -12,12 +12,18 @@
 	desc = "Remotely controls airlocks."
 	w_class = WEIGHT_CLASS_TINY
 	var/mode = WAND_OPEN
-	var/region_access = 1 //See access.dm
+	/// based on the given bitflag, gets the full access list of a relevant department
+	var/department_bitflag = DEPT_BITFLAG_SRV //See department.dm
+	/// a list of access that the door remote can control
 	var/list/access_list
 
 /obj/item/door_remote/Initialize(mapload)
 	. = ..()
-	access_list = get_region_accesses(region_access)
+	if(department_bitflag)
+		for(var/datum/department_group/dept_datum as anything in SSdepartment.get_department_by_bitflag(department_bitflag))
+			LAZYADD(access_list, dept_datum.access_list)
+	else
+		CRASH("the item [src.type] has no department_bitflag - cannot grant access!")
 
 /obj/item/door_remote/attack_self(mob/user)
 	var/static/list/desc = list(WAND_OPEN = "Open Door", WAND_BOLT = "Toggle Bolts", WAND_EMERGENCY = "Toggle Emergency Access")
@@ -87,43 +93,43 @@
 	name = "omni door remote"
 	desc = "This control wand can access any door on the station."
 	icon_state = "gangtool-yellow"
-	region_access = 0
+	department_bitflag = DEPT_BITFLAG_STATIONS
 
 /obj/item/door_remote/captain
 	name = "command door remote"
 	icon_state = "gangtool-yellow"
-	region_access = 7
+	department_bitflag = DEPT_BITFLAG_STATIONS
 
 /obj/item/door_remote/chief_engineer
 	name = "engineering door remote"
 	icon_state = "gangtool-orange"
-	region_access = 5
+	department_bitflag = DEPT_BITFLAG_ENG
 
 /obj/item/door_remote/research_director
 	name = "research door remote"
 	icon_state = "gangtool-purple"
-	region_access = 4
+	department_bitflag = DEPT_BITFLAG_SCI
 
 /obj/item/door_remote/head_of_security
 	name = "security door remote"
 	icon_state = "gangtool-red"
-	region_access = 2
+	department_bitflag = DEPT_BITFLAG_SEC
 
 /obj/item/door_remote/quartermaster
 	name = "supply door remote"
 	desc = "Remotely controls airlocks. This remote has additional Vault access."
 	icon_state = "gangtool-green"
-	region_access = 6
+	department_bitflag = DEPT_BITFLAG_CAR
 
 /obj/item/door_remote/chief_medical_officer
 	name = "medical door remote"
 	icon_state = "gangtool-blue"
-	region_access = 3
+	department_bitflag = DEPT_BITFLAG_MED
 
 /obj/item/door_remote/civillian
 	name = "civilian door remote"
 	icon_state = "gangtool-white"
-	region_access = 1
+	department_bitflag = DEPT_BITFLAG_SRV | DEPT_BITFLAG_CAR
 
 #undef WAND_OPEN
 #undef WAND_BOLT

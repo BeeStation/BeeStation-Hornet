@@ -19,7 +19,9 @@
 	H.undershirt = random_undershirt(H.undershirt)
 	H.underwear_color = "#[random_color()]"
 	H.skin_tone = pick(GLOB.skin_tones)
-	H.eye_color = random_eye_color()
+	var/random_eye_color = random_eye_color()
+	H.eye_color_left = random_eye_color
+	H.eye_color_right = random_eye_color
 	H.dna.blood_type = random_blood_type()
 
 	// Things that we should be more careful about to make realistic characters
@@ -69,9 +71,9 @@
 	H.dna.features["frills"] = pick(GLOB.frills_list)
 	H.dna.features["spines"] = pick(GLOB.spines_list)
 	H.dna.features["body_markings"] = pick(GLOB.body_markings_list)
-	H.dna.features["moth_wings"] = pick(GLOB.moth_wings_roundstart_list)
-	H.dna.features["moth_antennae"] = pick(GLOB.moth_antennae_roundstart_list)
-	H.dna.features["moth_markings"] = pick(GLOB.moth_markings_roundstart_list)
+	H.dna.features["moth_wings"] = pick(GLOB.moth_wings_list)
+	H.dna.features["moth_antennae"] = pick(GLOB.moth_antennae_list)
+	H.dna.features["moth_markings"] = pick(GLOB.moth_markings_list)
 	H.dna.features["apid_antenna"] = pick(GLOB.apid_antenna_list)
 	H.dna.features["apid_stripes"] = pick(GLOB.apid_stripes_list)
 	H.dna.features["apid_headstripes"] = pick(GLOB.apid_headstripes_list)

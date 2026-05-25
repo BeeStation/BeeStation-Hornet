@@ -254,8 +254,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	scantemp = "[found_record.name] => Record deleted."
 	records.Remove(found_record)
 	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
-	var/obj/item/circuitboard/computer/cloning/board = circuit
-	board.records = records // EvilDragon: moving record?? whoever coded this, it seems it's something to change someday??
 	qdel(found_record)
 	return TRUE
 
@@ -275,8 +273,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 
 	records += new_record
 	scantemp = "Loaded into internal storage successfully."
-	var/obj/item/circuitboard/computer/cloning/board = circuit
-	board.records = records
 	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 	return TRUE
 
@@ -502,6 +498,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			. = EjectDisk(usr)
 
 /obj/machinery/computer/cloning/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	updatemodules(TRUE)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)

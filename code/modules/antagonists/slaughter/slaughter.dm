@@ -55,7 +55,7 @@
 	del_on_death = TRUE
 	var/crawl_type = /datum/action/spell/jaunt/bloodcrawl/slaughter_demon
 	death_message = "screams in anger as it collapses into a puddle of viscera!"
-	discovery_points = 3000
+	discovery_points = TECHWEB_TIER_3_POINTS
 
 	var/revive_eject = FALSE
 
@@ -97,18 +97,15 @@
 	name = "pile of viscera"
 	desc = "A repulsive pile of guts and gore."
 	gender = NEUTER
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "innards"
 	random_icon_states = null
-
-
-
 
 //The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl
 /obj/item/organ/heart/demon
 	name = "demon heart"
 	desc = "Still it beats furiously, emanating an aura of utter hate."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "demon_heart-on"
 	decay_factor = 0
 

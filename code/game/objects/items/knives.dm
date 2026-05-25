@@ -9,7 +9,7 @@
 	worn_icon_state = "knife"
 	desc = "The original knife, it is said that all other knives are only copies of this one."
 	obj_flags = CONDUCTS_ELECTRICITY
-	force = 10
+	force = 14
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -87,7 +87,6 @@
 	inhand_icon_state = "huntingknife"
 	icon_state = "huntingknife"
 	icon = 'icons/obj/knives.dmi'
-	force = 12
 
 /obj/item/knife/venom
 	name = "venom knife"
@@ -190,6 +189,7 @@
 	embedding = list("pain_mult" = 4, "embed_chance" = 35, "fall_chance" = 10, "armour_block" = 40)
 	obj_flags = parent_type::obj_flags & ~CONDUCTS_ELECTRICITY
 	force = 15
+	armour_penetration = 50
 	throwforce = 15
 	custom_materials = null
 
@@ -228,7 +228,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	desc = "Unlike other carrots, you should probably keep this far away from your eyes."
-	force = 8
+	force = 12
 	throwforce = 12//fuck git
 	custom_materials = list()
 	attack_verb_continuous = list("shanks", "shivs")

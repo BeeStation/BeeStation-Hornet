@@ -9,7 +9,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
  */
 /proc/initialize_starting_knowledge()
 	. = list()
-	for(var/datum/heretic_knowledge/knowledge as anything in subtypesof(/datum/heretic_knowledge))
+	for(var/datum/heretic_knowledge/knowledge as anything in valid_subtypesof(/datum/heretic_knowledge))
 		if(initial(knowledge.route) == HERETIC_PATH_START)
 			. += knowledge
 

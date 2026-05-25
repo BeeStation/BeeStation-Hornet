@@ -96,7 +96,8 @@
 	l_hand = /obj/item/shield/mirror
 
 /datum/outfit/blood_cult_preview/post_equip(mob/living/carbon/human/H, visuals_only)
-	H.eye_color = BLOODCULT_EYE
+	H.eye_color_left = BLOODCULT_EYE
+	H.eye_color_right = BLOODCULT_EYE
 	H.update_body()
 
 /datum/role_preference/roundstart/clock_cultist

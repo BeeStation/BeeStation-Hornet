@@ -6,7 +6,7 @@
 	return null
 
 /mob/living/carbon/examine(mob/user)
-	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE) && !isobserver(user))
 		return list(span_warning("You're struggling to make out any details..."))
 
 	var/t_He = p_They()
@@ -308,7 +308,7 @@
 	if(!(obscured & ITEM_SLOT_EYES) )
 		if(glasses  && !HAS_TRAIT(glasses, TRAIT_EXAMINE_SKIP))
 			. += "[t_He] [t_has] [glasses.examine_title(user)] covering [t_his] eyes."
-		else if(HAS_TRAIT(src, CULT_EYES))
+		else if(HAS_TRAIT(src, TRAIT_UNNATURAL_RED_GLOWY_EYES))
 			. += span_boldwarning("[t_His] eyes are glowing with an unnatural red aura!")
 		else if(HAS_TRAIT(src, TRAIT_BLOODSHOT_EYES))
 			. += span_boldwarning("[t_His] eyes are bloodshot!")
@@ -342,7 +342,7 @@
 	if(!(obscured & ITEM_SLOT_EYES) )
 		if(glasses  && !HAS_TRAIT(glasses, TRAIT_EXAMINE_SKIP))
 			. += "[t_He] [t_has] [glasses.examine_worn_title(src, user)] covering [t_his] eyes."
-		else if(HAS_TRAIT(src, CULT_EYES))
+		else if(HAS_TRAIT(src, TRAIT_UNNATURAL_RED_GLOWY_EYES))
 			. += span_boldwarning("[t_His] eyes are glowing with an unnatural red aura!")
 		else if(HAS_TRAIT(src, TRAIT_BLOODSHOT_EYES))
 			. += span_boldwarning("[t_His] eyes are bloodshot!")
@@ -472,6 +472,9 @@
 		var/obj/item/clothing/under/undershirt = w_uniform
 		if(undershirt.has_sensor == BROKEN_SENSORS)
 			. += list(span_notice("\The [undershirt]'s medical sensors are sparking."))
+
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE) && !isobserver(user))
+		return
 
 	var/limbs_text = get_mismatched_limb_text()
 	if(LAZYLEN(limbs_text))

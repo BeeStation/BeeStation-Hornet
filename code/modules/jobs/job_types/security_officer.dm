@@ -5,7 +5,7 @@
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security, and the head of your assigned department (if applicable)"
-	faction = "Station"
+	faction = FACTION_STATION
 	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
@@ -30,6 +30,8 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_SECURITY)
 
 	display_order = JOB_DISPLAY_ORDER_SECURITY_OFFICER
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Guard"
 
 	species_outfits = list(
@@ -168,12 +170,15 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
+	messenger = /obj/item/storage/backpack/messenger/sec
+
 	box = /obj/item/storage/box/survival/security
 
+	suit_store = /obj/item/gun/ballistic/automatic/pistol/security
+
 	backpack_contents = list(
-		/obj/item/mining_voucher/security = 1,
 		/obj/item/ammo_casing/taser = 1,
-		)
+	)
 
 	implants = list(/obj/item/implant/mindshield)
 

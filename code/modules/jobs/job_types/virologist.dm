@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 2
 	selection_color = "#d4ebf2"
 	exp_requirements = 180
@@ -20,6 +20,8 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_VIROLOGIST
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Plague Doctor"
 
 	species_outfits = list(
@@ -55,4 +57,6 @@
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel/vir
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
+	messenger = /obj/item/storage/backpack/messenger/vir
+
 	pda_slot = ITEM_SLOT_RPOCKET

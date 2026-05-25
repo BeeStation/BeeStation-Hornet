@@ -154,8 +154,7 @@
 	acid = 50
 
 /obj/machinery/power/apc/New(turf/loc, ndir, building=0)
-	..()
-	GLOB.apcs_list += src
+	. = ..()
 
 	wires = new /datum/wires/apc(src)
 	if (building)
@@ -194,8 +193,6 @@
 		apc_hud.add_to_hud(src)
 
 /obj/machinery/power/apc/Destroy()
-	GLOB.apcs_list -= src
-
 	if(malfai && operating)
 		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	disconnect_from_area()

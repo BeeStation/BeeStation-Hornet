@@ -1,5 +1,4 @@
 /datum/objective/vampire
-	martyr_compatible = TRUE
 
 /datum/objective/vampire/New()
 	update_explanation_text()
@@ -73,8 +72,8 @@
 		var/datum/mind/vassal_mind = vassal_datum.owner
 
 		// Mind Assigned
-		if(vassal_mind.assigned_role)
-			all_vassal_jobs += SSjob.GetJob(vassal_mind.assigned_role)
+		if(vassal_mind.assigned_role_datum)
+			all_vassal_jobs += vassal_mind.assigned_role_datum
 			continue
 		// Mob Assigned
 		if(vassal_mind.current?.job)

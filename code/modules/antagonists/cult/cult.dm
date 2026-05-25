@@ -121,9 +121,9 @@
 		magic.Grant(current)
 	current.throw_alert("bloodsense", /atom/movable/screen/alert/bloodsense)
 	if(cult_team.cult_risen)
-		cult_team.rise(current)
-		if(cult_team.cult_ascendent)
-			cult_team.ascend(current)
+		current.AddElement(/datum/element/cult_eyes, initial_delay = 0 SECONDS)
+	if(cult_team.cult_ascendent)
+		current.AddElement(/datum/element/cult_halo, initial_delay = 0 SECONDS)
 
 /datum/antagonist/cult/master/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -137,23 +137,19 @@
 
 /datum/antagonist/cult/remove_innate_effects(mob/living/mob_override)
 	. = ..()
-	var/mob/living/current = owner.current
-	if(mob_override)
-		current = mob_override
+	var/mob/living/current = owner.current || mob_override
 	current.faction -= FACTION_CULT
 	current.remove_language(/datum/language/narsie, source = LANGUAGE_CULTIST)
 	vote.Remove(current)
 	communion.Remove(current)
 	magic.Remove(current)
+
 	current.clear_alert("bloodsense")
-	if(ishuman(current))
-		var/mob/living/carbon/human/H = current
-		H.eye_color = initial(H.eye_color)
-		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
-		REMOVE_TRAIT(H, CULT_EYES, null)
-		if (H.remove_overlay(HALO_LAYER))
-			REMOVE_LUM_SOURCE(H, LUM_SOURCE_HOLY)
-		H.update_body()
+	
+	if (HAS_TRAIT(current, TRAIT_UNNATURAL_RED_GLOWY_EYES))
+		current.RemoveElement(/datum/element/cult_eyes)
+	if (HAS_TRAIT(current, TRAIT_CULT_HALO))
+		current.RemoveElement(/datum/element/cult_halo)
 
 /datum/antagonist/cult/master/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -316,9 +312,9 @@
 		for(var/datum/mind/mind as anything in members)
 			if(mind.current)
 				SEND_SOUND(mind.current, 'sound/ambience/antag/bloodcult_eyes.ogg')
-				to_chat(mind.current, span_cultlarge("The veil weakens as your cult grows, your eyes begin to glow..."))
+				to_chat(mind.current, span_cultlarge(span_warning("The veil weakens as your cult grows, your eyes begin to glow...")))
 				log_game("The blood cult was given red eyes at cult population of [cultplayers].")
-				addtimer(CALLBACK(src, PROC_REF(rise), mind.current), 200)
+				mind.current.AddElement(/datum/element/cult_eyes)
 		cult_risen = TRUE
 		log_game("The blood cult has risen with [cultplayers] players.")
 
@@ -326,35 +322,11 @@
 		for(var/datum/mind/mind as anything in members)
 			if(mind.current)
 				SEND_SOUND(mind.current, 'sound/ambience/antag/bloodcult_halos.ogg')
-				to_chat(mind.current, span_cultlarge("Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!"))
+				to_chat(mind.current, span_cultlarge(span_warning("Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!")))
 				log_game("The blood cult was given halos at cult population of [cultplayers].")
-				addtimer(CALLBACK(src, PROC_REF(ascend), mind.current), 200)
+				mind.current.AddElement(/datum/element/cult_halo)
 		cult_ascendent = TRUE
 		log_game("The blood cult has ascended with [cultplayers] players.")
-
-
-/datum/team/cult/proc/rise(cultist)
-	if(ishuman(cultist))
-		var/mob/living/carbon/human/H = cultist
-		H.eye_color = BLOODCULT_EYE
-		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
-		ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
-		H.update_body()
-
-/datum/team/cult/proc/ascend(cultist)
-	if(ishuman(cultist))
-		var/mob/living/carbon/human/H = cultist
-		if(istype(H.wear_neck, /obj/item/clothing/neck/cloak/fakehalo))
-			H.dropItemToGround(H.wear_neck)
-		if(H.overlays_standing[HALO_LAYER]) // It appears you have this already. Applying this again will break the overlay
-			return
-		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
-		var/istate = pick("halo1","halo2","halo3","halo4","halo5","halo6")
-		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER))
-		new_halo_overlay.overlays.Add(emissive_appearance('icons/effects/32x64.dmi', istate, CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER), 160, filters = H.filters))
-		ADD_LUM_SOURCE(H, LUM_SOURCE_HOLY)
-		H.overlays_standing[HALO_LAYER] = new_halo_overlay
-		H.apply_overlay(HALO_LAYER)
 
 
 /datum/objective/sacrifice

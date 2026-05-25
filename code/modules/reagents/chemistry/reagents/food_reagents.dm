@@ -8,6 +8,7 @@
 
 
 /datum/reagent/consumable
+	abstract_type = /datum/reagent/consumable
 	name = "Consumable"
 	chemical_flags = CHEMICAL_NOT_DEFINED
 	taste_description = "generic food"
@@ -598,7 +599,7 @@
 	. = ..()
 	if(iscarbon(exposed_mob) && (method in list(TOUCH, VAPOR, PATCH)))
 		var/mob/living/carbon/exposed_carbon = exposed_mob
-		for(var/datum/surgery/surgery in exposed_carbon.surgeries)
+		for(var/datum/surgery/surgery as anything in exposed_carbon.surgeries)
 			surgery.speed_modifier = max(0.6, surgery.speed_modifier) // +60% surgery speed on each step, compared to bacchus' blessing's ~46%
 
 /datum/reagent/consumable/mayonnaise

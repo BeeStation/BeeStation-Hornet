@@ -36,7 +36,7 @@ SUBSYSTEM_DEF(lighting)
 
 	return SS_INIT_SUCCESS
 
-/proc/create_all_lighting_objects()
+/datum/controller/subsystem/lighting/proc/create_all_lighting_objects()
 	for(var/area/area as anything in GLOB.areas)
 		if(!area.static_lighting)
 			continue
@@ -79,7 +79,7 @@ SUBSYSTEM_DEF(lighting)
 			stoplag()
 		else if(MC_TICK_CHECK)
 			break
-	if (i)
+	if(i)
 		queue.Cut(1, i + 1)
 		i = 0
 

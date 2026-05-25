@@ -22,10 +22,10 @@
 	icon_state = "mjollnir0"
 	return ..()
 
-/obj/item/mjolnir/Moved(atom/OldLoc, Dir)
+/obj/item/mjolnir/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	//If it was thrown out of an anchored mjolnir, destroy that
-	if (istype(OldLoc, /obj/structure/anchored_mjolnir))
-		var/obj/structure/anchored_mjolnir/old_mjolnir = OldLoc
+	if (istype(old_loc, /obj/structure/anchored_mjolnir))
+		var/obj/structure/anchored_mjolnir/old_mjolnir = old_loc
 		old_mjolnir.contained = null
 		qdel(old_mjolnir)
 	. = ..()

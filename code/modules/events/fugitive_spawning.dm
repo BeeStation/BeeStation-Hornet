@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	player_mind.active = TRUE
 	var/mob/living/carbon/human/S = new(landing_turf)
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = ROLE_FUGITIVE
+	player_mind.set_assigned_role(ROLE_FUGITIVE)
 	player_mind.special_role = ROLE_FUGITIVE
 	var/datum/antagonist/fugitive/A = new()
 	A.backstory = backstory

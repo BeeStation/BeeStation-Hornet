@@ -283,8 +283,8 @@
 
 ///Creates new items inside an atom based on a list
 /proc/generate_items_inside(list/items_list, where_to)
-	for(var/each_item in items_list)
-		for(var/i in 1 to items_list[each_item])
+	for(var/each_item, item_amount in items_list)
+		for(var/i = 1 to item_amount)
 			new each_item(where_to)
 
 ///Returns the atom type in the specified loc

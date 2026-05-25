@@ -23,7 +23,7 @@
 	jaunter.forceMove(src)
 	if(ismob(jaunter))
 		var/mob/mob_jaunter = jaunter
-		mob_jaunter.reset_perspective(src)
+		mob_jaunter.set_mob_eye_to(src)
 
 /obj/effect/dummy/phased_mob/Destroy()
 	jaunter = null // If a mob was left in the jaunter on qdel, they'll be dumped into nullspace

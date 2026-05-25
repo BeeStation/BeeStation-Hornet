@@ -53,6 +53,9 @@
 	log_combat(user, src, "swatted")
 
 /obj/structure/holosign/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 	take_damage(max_integrity / severity, BRUTE, MELEE, TRUE)
 
 /obj/structure/holosign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

@@ -45,7 +45,7 @@
 #define LAZYSET(L, K, V) if(!L) { L = list(); } L[K] = V;
 ///Sets the length of a lazylist
 #define LAZYSETLEN(L, V) if (!L) { L = list(); } L.len = V;
-///Returns the lenght of the list
+///Returns the length of the list
 #define LAZYLEN(L) length(L) // should only be used for lazy lists. Using this with non-lazy lists is bad
 ///Sets a list to null
 #define LAZYNULL(L) L = null
@@ -559,7 +559,7 @@
 		return
 	inserted_list = inserted_list.Copy()
 
-	for(var/i = 1, i < inserted_list.len, ++i)
+	for(var/i in 1 to inserted_list.len - 1)
 		inserted_list.Swap(i, rand(i, inserted_list.len))
 
 	return inserted_list
@@ -569,8 +569,10 @@
 	if(!inserted_list)
 		return
 
-	for(var/i = 1, i < inserted_list.len, ++i)
+	for(var/i in 1 to inserted_list.len - 1)
 		inserted_list.Swap(i, rand(i, inserted_list.len))
+
+	return inserted_list
 
 /// Return a list with no duplicate entries
 /proc/unique_list(list/inserted_list)
@@ -865,12 +867,15 @@
 		UNTYPED_LIST_ADD(keys, key)
 	return keys
 
-/// Checks if a value is contained in an associative list's values
-/proc/assoc_contains_value(list/input, check_for)
+/// Turns an associative list into a flat list of keys, but for sprite accessories, respecting the locked variable
+/proc/assoc_to_keys_features(list/input)
+	var/list/keys = list()
 	for(var/key in input)
-		if(input[key] == check_for)
-			return TRUE
-	return FALSE
+		var/datum/sprite_accessory/value = input[key]
+		if(value?.locked)
+			continue
+		UNTYPED_LIST_ADD(keys, key)
+	return keys
 
 /// Gets the first key that contains the given value in an associative list, otherwise, returns null.
 /proc/assoc_key_for_value(list/input, check_for)

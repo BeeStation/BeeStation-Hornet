@@ -9,6 +9,7 @@ CREATION_TEST_IGNORE_SELF(/mob)
   * Has a lot of the creature game world logic, such as health etc
   */
 /mob
+	abstract_type = /mob
 	density = TRUE
 	layer = MOB_LAYER
 	animate_movement = SLIDE_STEPS
@@ -40,9 +41,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	var/cached_multiplicative_actions_slowdown
 	/// List of action hud items the user has
 	var/list/datum/action/actions = list()
-	/// A list of chameleon actions we have specifically
-	/// This can be unified with the actions list
-	var/list/datum/action/item_action/chameleon/chameleon_item_actions
 	///Cursor icon used when holding shift over things
 	var/examine_cursor_icon = 'icons/effects/mouse_pointers/examine_pointer.dmi'
 
@@ -93,6 +91,8 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	  */
 	var/notransform = null	//Carbon
 
+	/// used for /client/eye variable. Saving which eye this mob is supposed to use when a client is attached to this mob.
+	var/atom/current_mob_eye
 	/// Is the mob blind
 	var/eye_blind = 0		//Carbon
 	/// What is the mobs real name (name is overridden for disguises etc)

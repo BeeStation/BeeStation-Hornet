@@ -39,6 +39,7 @@
  * - [update_spell_name][/datum/action/spell/update_spell_name] updates the prefix of the spell name based on its level.
  */
 /datum/action/spell
+	abstract_type = /datum/action/spell
 	name = "Spell"
 	desc = "A wizard spell."
 	background_icon_state = "bg_spell"

@@ -39,7 +39,7 @@
 			var/obj/item/assembly/timer/timer = assembly
 			. += span_notice("The timer is [timer.timing ? "counting down from [timer.time]":"set for [timer.time] seconds"].")
 
-/obj/item/assembly_holder/Moved(atom/old_loc, movement_dir)
+/obj/item/assembly_holder/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
 	on_move(old_loc, movement_dir)
 

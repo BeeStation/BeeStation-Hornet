@@ -123,6 +123,7 @@ CREATE TABLE IF NOT EXISTS `SS13_characters` (
 	`feature_moth_antennae` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_moth_markings` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_moth_wings` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_moth_eyes` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_ethcolor` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_insect_type` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_ipc_screen` VARCHAR(64) COLLATE 'utf8mb4_general_ci',

@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#dddddd"
 
@@ -21,6 +21,8 @@
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
 
 	display_order = JOB_DISPLAY_ORDER_MIME
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Fool"
 
 	species_outfits = list(

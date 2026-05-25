@@ -146,7 +146,7 @@
 	var/static/list/connections = list(
 		COMSIG_ATOM_ATTACK_HAND = PROC_REF(on_attack_hand)
 	)
-	AddElement(/datum/element/connect_loc, src, connections)
+	AddElement(/datum/element/connect_loc, connections)
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -180,7 +180,7 @@
 	add_filter("mask_filter", 1, list(type="alpha",icon=mask_file,x=mask_x,y=mask_y))
 
 /obj/machinery/door/airlock/proc/update_other_id()
-	for(var/obj/machinery/door/airlock/Airlock in GLOB.airlocks)
+	for(var/obj/machinery/door/airlock/Airlock as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/airlock))
 		if(Airlock.closeOtherId == closeOtherId && Airlock != src)
 			if(!(Airlock in close_others))
 				close_others += Airlock
@@ -291,10 +291,9 @@
 
 /obj/machinery/door/airlock/Destroy()
 	QDEL_NULL(wires)
-	if(charge)
-		qdel(charge)
-		charge = null
 	QDEL_NULL(electronics)
+	if(charge)
+		QDEL_NULL(charge)
 	if (cyclelinkedairlock)
 		if (cyclelinkedairlock.cyclelinkedairlock == src)
 			cyclelinkedairlock.cyclelinkedairlock = null
@@ -304,7 +303,7 @@
 		for(var/obj/machinery/door/airlock/otherlock as anything in close_others)
 			otherlock.close_others -= src
 		close_others.Cut()
-	qdel(note)
+	QDEL_NULL(note)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.remove_from_hud(src)
 	return ..()
@@ -1640,7 +1639,8 @@
 		return
 
 	//Tools
-	context.add_left_click_tool_action("[panel_open ? "Close" : "Open"] Maintenance Panel", TOOL_SCREWDRIVER)
+	if(has_access_panel)
+		context.add_left_click_tool_action("[panel_open ? "Close" : "Open"] Maintenance Panel", TOOL_SCREWDRIVER)
 	if (panel_open)
 		switch (security_level)
 			if (AIRLOCK_SECURITY_IRON, AIRLOCK_SECURITY_PLASTEEL_I, AIRLOCK_SECURITY_PLASTEEL_O)

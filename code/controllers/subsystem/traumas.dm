@@ -149,7 +149,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/clothing/under/rank/security/head_of_security,
 			/obj/item/clothing/under/rank/engineering/chief_engineer,
 			/obj/item/clothing/under/rank/medical/chief_medical_officer,
-			/obj/item/clothing/under/rank/civilian/head_of_personnel,
+			/obj/item/clothing/under/rank/civilian/hop,
 			/obj/item/clothing/under/rank/rnd/research_director,
 			/obj/item/clothing/under/rank/security/head_of_security/white,
 			/obj/item/clothing/under/rank/security/head_of_security/alt,
@@ -215,7 +215,7 @@ SUBSYSTEM_DEF(traumas)
 
 		"authority" = typecacheof(list(
 			/obj/item/clothing/under/rank/captain,
-			/obj/item/clothing/under/rank/civilian/head_of_personnel,
+			/obj/item/clothing/under/rank/civilian/hop,
 			/obj/item/clothing/under/rank/security/head_of_security,
 			/obj/item/clothing/under/rank/rnd/research_director,
 			/obj/item/clothing/under/rank/medical/chief_medical_officer,

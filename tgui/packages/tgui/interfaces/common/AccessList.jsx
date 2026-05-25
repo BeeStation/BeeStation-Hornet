@@ -1,4 +1,4 @@
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 
 import { useLocalState } from '../../backend';
 import { Button, Flex, Grid, Section, Tabs } from '../../components';
@@ -35,10 +35,9 @@ export const AccessList = (props) => {
   const selectedAccess = accesses.find(
     (access) => access.name === selectedAccessName,
   );
-  const selectedAccessEntries = sortBy(
-    selectedAccess?.accesses || [],
+  const selectedAccessEntries = sortBy(selectedAccess?.accesses || [], [
     (entry) => entry.desc,
-  );
+  ]);
 
   const checkAccessIcon = (accesses) => {
     let oneAccess = false;

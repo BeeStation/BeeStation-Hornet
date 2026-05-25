@@ -12,8 +12,8 @@
 
 /datum/round_event/ghost_role/prisoner/spawn_role()
 	var/list/possible_spawns = list()
-	for(var/turf/L in GLOB.prisonspawn)
-		possible_spawns += L
+	for(var/obj/effect/landmark/start/prisoner/spawnpoint in GLOB.start_landmarks_list)
+		possible_spawns += spawnpoint.loc
 	if(!length(possible_spawns))
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
@@ -58,7 +58,7 @@
 	pod.explosionSize = list(0, 0, 0, 0)
 	S.forceMove(pod)
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = ROLE_PRISONER
+	player_mind.set_assigned_role(ROLE_PRISONER)
 	player_mind.special_role = ROLE_PRISONER
 	var/datum/antagonist/prisoner/A = new()
 	player_mind.add_antag_datum(A)

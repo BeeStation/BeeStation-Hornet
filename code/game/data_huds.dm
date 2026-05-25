@@ -253,7 +253,7 @@
 	holder.icon_state = "hudno_id"
 	if(wear_id?.GetID())
 		holder.icon_state = "hud[ckey(wear_id.get_item_job_icon())]"
-	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
 		holder.icon_state = "hudno_id"
 	sec_hud_set_security_status()
 

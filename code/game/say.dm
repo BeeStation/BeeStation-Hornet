@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 
 /atom/movable/proc/send_speech(message_raw, message_range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language, list/message_mods = list(), forced = FALSE)
 	var/list/show_overhead_message_to = list()
-	var/list/listeners = get_hearers_in_view(message_range, source, SEE_INVISIBLE_MAXIMUM)
+	var/list/listeners = get_hearers_in_view(message_range, source)
 	for(var/atom/movable/hearing_movable as anything in listeners)
 		if(!hearing_movable)//theoretically this should use as anything because it shouldnt be able to get nulls but there are reports that it does.
 			stack_trace("somehow theres a null returned from get_hearers_in_view() in send_speech!")
@@ -145,7 +145,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	//Radio freq/name display
 	var/freqpart = radio_freq ? "\[[get_radio_name(radio_freq)]\] " : ""
 	//Speaker name
-	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
+	var/namepart = "[speaker.get_voice()][speaker.get_alt_name()]"
 
 	if(ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
@@ -303,7 +303,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		return "2"
 	return "0"
 
-/atom/movable/proc/GetVoice()
+/atom/movable/proc/get_voice()
 	return "[src]"	//Returns the atom's name, prepended with 'The' if it's not a proper noun
 
 /atom/movable/proc/get_alt_name()
@@ -331,7 +331,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/virtualspeaker)
 	radio = _radio
 	source = M
 	if(istype(M))
-		name = radio.anonymize ? "Unknown" : M.GetVoice()
+		name = radio.anonymize ? "Unknown" : M.get_voice()
 		verb_say = M.get_default_say_verb()
 		verb_ask = M.get_default_say_verb()
 		verb_exclaim = M.get_default_say_verb()

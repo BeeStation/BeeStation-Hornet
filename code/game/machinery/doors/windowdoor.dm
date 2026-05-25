@@ -225,25 +225,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 			playsound(src, 'sound/items/welder.ogg', 100, 1)
 
 
-/obj/machinery/door/window/deconstruct(disassembled = TRUE)
-	if(!(flags_1 & NODECONSTRUCT_1) && !disassembled)
-		if(shards)
-			drop_amount(/obj/item/shard, shards)
-		if(rods)
-			drop_amount(/obj/item/stack/rods, shards)
-		if(cable)
-			drop_amount(/obj/item/stack/cable_coil, cable)
-	qdel(src)
+/obj/machinery/door/window/on_deconstruction(disassembled)
+	if(disassembled)
+		return
 
-/obj/machinery/door/window/proc/drop_amount(path, amt)
-	if(amt <= 0 || amt > 10) // please no more than 10
-		return
-	if(!ispath(path, /obj))
-		return
-	var/turf/T = get_turf(src)
-	for(var/i in 1 to amt)
-		var/obj/fragment = new path(T)
-		transfer_fingerprints_to(fragment)
+	for(var/i in 1 to shards)
+		drop_debris(new /obj/item/shard(src))
+	if(rods)
+		drop_debris(new /obj/item/stack/rods(src, rods))
+	if(cable)
+		drop_debris(new /obj/item/stack/cable_coil(src, cable))
+
+/obj/machinery/door/window/proc/drop_debris(obj/item/debris)
+	debris.forceMove(loc)
+	transfer_fingerprints_to(debris)
 
 /obj/machinery/door/window/narsie_act()
 	add_atom_colour("#7D1919", FIXED_COLOUR_PRIORITY)
@@ -419,30 +414,38 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	operationdelay = 10
 	var/made_glow = FALSE
 
-
 /datum/armor/window_clockwork
 	bomb = 10
 	bio = 100
 	fire = 70
 	acid = 100
 
-/obj/machinery/door/window/clockwork/deconstruct(disassembled)
-	if(!(flags_1 & NODECONSTRUCT_1) && !disassembled)
-		drop_amount(/obj/item/clockwork/alloy_shards/medium/gear_bit/large, 2)
-	return ..()
+/obj/machinery/door/window/clockwork/on_deconstruction(disassembled)
+	if(disassembled)
+		return
+
+	for(var/i in 1 to 2)
+		drop_debris(new /obj/item/clockwork/alloy_shards/medium/gear_bit/large(src))
+	if(rods)
+		drop_debris(new /obj/item/stack/rods(src, rods))
+	if(cable)
+		drop_debris(new /obj/item/stack/cable_coil(src, cable))
 
 /obj/machinery/door/window/clockwork/setDir(direct)
 	if(!made_glow)
-		var/obj/effect/E = new /obj/effect/temp_visual/ratvar/door/window(get_turf(src))
-		E.setDir(direct)
+		var/obj/effect/glow_effect = new /obj/effect/temp_visual/ratvar/door/window(get_turf(src))
+		glow_effect.setDir(direct)
 		made_glow = TRUE
-	..()
+	return ..()
 
 /obj/machinery/door/window/clockwork/Destroy()
 	return ..()
 
 /obj/machinery/door/window/clockwork/emp_act(severity)
-	if(prob(80/severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	if(prob(80 / severity))
 		open()
 
 /obj/machinery/door/window/clockwork/hasPower()

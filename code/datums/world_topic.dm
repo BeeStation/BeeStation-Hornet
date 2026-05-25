@@ -161,8 +161,8 @@
 		return
 
 	minor_announce(input["message"], "Incoming message from [input["message_sender"]]")
-	for(var/obj/machinery/computer/communications/CM in GLOB.machines)
-		CM.override_cooldown()
+	for(var/obj/machinery/computer/communications/communications_console in GLOB.shuttle_caller_list)
+		communications_console.override_cooldown()
 	statuscode = 200
 	response = "Message received"
 

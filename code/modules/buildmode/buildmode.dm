@@ -82,7 +82,7 @@
 	var/pos_idx = 0
 	for(var/thing in elements)
 		var/x = pos_idx % switch_width
-		var/y = FLOOR(pos_idx / switch_width, 1)
+		var/y = floor(pos_idx / switch_width)
 		var/atom/movable/screen/buildmode/B = new buttontype(src, thing)
 		// extra .5 for a nice offset look
 		B.screen_loc = "NORTH-[(1 + 0.5 + y*1.5)],WEST+[0.5 + x*1.5]"

@@ -33,7 +33,7 @@
 	if(owner.antag_hud_icon_state == "morph")
 		set_antag_hud(owner.current, null)
 
-/datum/antagonist/morph/proc/forge_objectives()
+/datum/antagonist/morph/forge_objectives()
 	var/datum/objective/eat_everything/consume = new
 	consume.owner = owner
 	objectives += consume
@@ -53,7 +53,7 @@
 		if(istype(new_mob))
 			new_mob.set_combat_mode(TRUE)
 			M.mind.transfer_to(new_mob)
-			new_owner.assigned_role = ROLE_MORPH
+			new_owner.set_assigned_role(ROLE_MORPH)
 			new_owner.special_role = ROLE_MORPH
 			new_mob.name = "morph"
 			new_mob.real_name = "morph"

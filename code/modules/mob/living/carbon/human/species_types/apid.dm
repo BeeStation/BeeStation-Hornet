@@ -20,6 +20,8 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
 	inert_mutation = /datum/mutation/wax_saliva
+	height_icon_state = "height_displacement_apid"
+
 	var/cold_cycle = 0
 
 	bodypart_overrides = list(

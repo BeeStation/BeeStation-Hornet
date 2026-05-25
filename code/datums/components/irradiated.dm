@@ -117,6 +117,7 @@
 
 	if (HAS_TRAIT(human_parent, TRAIT_RADHEALER))
 		intensity = max(intensity - RAD_HEALER_DECREASE_PER_SECOND * delta_time, 0)
+		return
 
 	if (intensity >= RADIATION_BURN_THRESHOLD && !trying_to_burn)
 		start_burn_splotch_timer()
@@ -147,6 +148,8 @@
 
 /datum/component/irradiated/proc/mutate_human_parent(mob/living/carbon/human/human_parent)
 	COOLDOWN_START(src, irradiated_mutation, rand(45, 120) SECONDS)
+	if(!human_parent.can_mutate())
+		return
 	if(prob(75)) //usually a mutation, sometimes a total appearance change instead
 		human_parent.easy_random_mutate()
 	else

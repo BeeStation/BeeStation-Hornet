@@ -1,7 +1,7 @@
 /datum/dynamic_ruleset/supplementary
+	abstract_type = /datum/dynamic_ruleset/supplementary
 	rule_category = DYNAMIC_CATEGORY_SUPPLEMENTARY
 	ruleset_flags = SHOULD_USE_ANTAG_REP
-	abstract_type = /datum/dynamic_ruleset/supplementary
 	minimum_players_required = 3
 	/// The percentage (0 to 100) chance that this ruleset will be repicked
 	/// when selected, assuming there are cost points available.
@@ -61,6 +61,7 @@
 
 		chosen_mind.special_role = initial(antag_datum.banning_key)
 		chosen_mind.restricted_roles = restricted_roles
+	LAZYNULL(candidates)
 
 /datum/dynamic_ruleset/supplementary/execute()
 	. = ..()
@@ -80,7 +81,7 @@
 	drafted_players_amount = 1
 	weight = 6
 	points_cost = 8
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_PRISONER)
 
 	var/datum/team/brother_team/team
 

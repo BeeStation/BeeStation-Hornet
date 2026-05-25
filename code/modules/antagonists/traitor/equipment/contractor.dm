@@ -29,16 +29,11 @@
 		if(owner.current.client)
 			owner.current.client.tgui_panel?.give_antagonist_popup("Contractor Support Unit", "Follow your contractor's orders.")
 
-/datum/antagonist/contractor_support/proc/forge_objectives()
-	var/datum/objective/generic_objective = new
-
-	generic_objective.name = "Follow Contractor's Orders"
+/datum/antagonist/contractor_support/forge_objectives()
+	var/datum/objective/generic_objective = new("Follow Contractor's Orders")
 	generic_objective.explanation_text = "Follow your orders. Assist agents in this mission area."
-
 	generic_objective.completed = TRUE
-
-	objectives += generic_objective
-	log_objective(owner, generic_objective.explanation_text)
+	add_objective(generic_objective)
 
 /datum/contractor_hub
 	var/contract_rep = 0
@@ -208,7 +203,7 @@
 	suit = /obj/item/clothing/suit/chameleon
 	back = /obj/item/storage/backpack
 	belt = /obj/item/modular_computer/tablet/pda/preset/chameleon
-	mask = /obj/item/clothing/mask/cigarette/syndicate
+	mask = /obj/item/cigarette/syndicate
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	ears = /obj/item/radio/headset/chameleon
 	id = /obj/item/card/id/syndicate
@@ -219,7 +214,7 @@
 
 /datum/outfit/contractor_partner/post_equip(mob/living/carbon/human/H, visuals_only)
 	. = ..()
-	var/obj/item/clothing/mask/cigarette/syndicate/cig = H.get_item_by_slot(ITEM_SLOT_MASK)
+	var/obj/item/cigarette/syndicate/cig = H.get_item_by_slot(ITEM_SLOT_MASK)
 
 	// pre-light their cig
 	cig.light()

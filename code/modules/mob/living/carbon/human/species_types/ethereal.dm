@@ -100,7 +100,7 @@
 	ethereal.update_body()
 	//ethereal.update_hair()
 
-/datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/H, severity)
+/datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/H, severity, protection)
 	SIGNAL_HANDLER
 	EMPeffect = TRUE
 	spec_updatehealth(H)

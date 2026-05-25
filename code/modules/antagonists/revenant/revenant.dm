@@ -68,7 +68,7 @@
 	var/list/drained_mobs = list() //Cannot harvest the same mob twice
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has. //TODO, add objective for getting a perfect soul(s?)
 	var/generated_objectives_and_spells = FALSE
-	discovery_points = 4000
+	discovery_points = TECHWEB_TIER_3_POINTS
 
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
@@ -130,7 +130,7 @@
 	to_chat(src, "<b>Be sure to read <a href=\"[(CONFIG_GET(string/wikiurl)) ? (CONFIG_GET(string/wikiurl)) : "https://wiki.beestation13.com/view"]/Revenant\">the wiki page</a> to learn more.</b>")
 	if(!generated_objectives_and_spells)
 		generated_objectives_and_spells = TRUE
-		mind.assigned_role = ROLE_REVENANT
+		mind.set_assigned_role(ROLE_REVENANT)
 		mind.special_role = ROLE_REVENANT
 		SEND_SOUND(src, sound('sound/effects/ghost.ogg'))
 		mind.add_antag_datum(/datum/antagonist/revenant)
@@ -240,7 +240,7 @@
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
 	. = ..()
 	if(istype(W, /obj/item/nullrod))
-		visible_message(span_warning("[src] violently flinches!"), \
+		visible_message(span_warning("[src] violently flinches!"),
 						span_revendanger("As \the [W] passes through you, you feel your essence draining away!"))
 		adjustBruteLoss(25) //hella effective
 		inhibited = TRUE
@@ -411,7 +411,7 @@
 	alpha=255
 	stasis = FALSE
 
-/mob/living/simple_animal/revenant/Moved(atom/OldLoc)
+/mob/living/simple_animal/revenant/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	if(!orbiting) // only needed when orbiting
 		return ..()
 	if(incorporeal_move_check(src))
@@ -419,7 +419,7 @@
 
 	// back back back it up, the orbitee went somewhere revenant cannot
 	orbiting?.end_orbit(src)
-	abstract_move(OldLoc) // gross but maybe orbit component will be able to check pre move in the future
+	abstract_move(old_loc) // gross but maybe orbit component will be able to check pre move in the future
 
 /mob/living/simple_animal/revenant/stop_orbit(datum/component/orbiter/orbits)
 	// reset the simple_flying animation
@@ -482,7 +482,7 @@
 /obj/item/ectoplasm/revenant/attack_self(mob/user)
 	if(!reforming || inert)
 		return ..()
-	user.visible_message(span_notice("[user] scatters [src] in all directions."), \
+	user.visible_message(span_notice("[user] scatters [src] in all directions."),
 						span_notice("You scatter [src] across the area. The particles slowly fade away."))
 	user.dropItemToGround(src)
 	scatter()
@@ -581,22 +581,23 @@
 		return ..()
 	return TRUE
 
-/datum/objective/revenantFluff
+/datum/objective/revenant_fluff
 
-/datum/objective/revenantFluff/New()
-	var/list/explanationTexts = list("Assist and exacerbate existing threats at critical moments.", \
-									"Avoid killing in plain sight.", \
-									"Cause as much chaos and anger as you can without being killed.", \
-									"Damage and render as much of the station rusted and unusable as possible.", \
-									"Disable and cause malfunctions in as many machines as possible.", \
-									"Ensure that any holy weapons are rendered unusable.", \
-									"Hinder the crew while attempting to avoid being noticed.", \
-									"Make the crew as miserable as possible.", \
-									"Make the clown as miserable as possible.", \
-									"Make the captain as miserable as possible.", \
-									"Prevent the use of energy weapons where possible.")
-	explanation_text = pick(explanationTexts)
-	..()
+/datum/objective/revenant_fluff/New()
+	. = ..()
+	explanation_text = pick(
+		"Assist and exacerbate existing threats at critical moments.",
+		"Avoid killing in plain sight.",
+		"Cause as much chaos and anger as you can without being killed.",
+		"Damage and render as much of the station rusted and unusable as possible.",
+		"Disable and cause malfunctions in as many machines as possible.",
+		"Ensure that any holy weapons are rendered unusable.",
+		"Hinder the crew while attempting to avoid being noticed.",
+		"Make the crew as miserable as possible.",
+		"Make the clown as miserable as possible.",
+		"Make the captain as miserable as possible.",
+		"Prevent the use of energy weapons where possible.",
+	)
 
-/datum/objective/revenantFluff/check_completion()
+/datum/objective/revenant_fluff/check_completion()
 	return TRUE

@@ -118,12 +118,12 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 				A.delay_roundend = FALSE
 				A.prevent_roundtype_conversion = FALSE
 			for(var/objective in objectives)
-				var/datum/objective/O = new/datum/objective(objective)
+				var/datum/objective/O = new(objective)
 				O.owner = MM
 				A.objectives += O
 				log_objective(O.owner, O.explanation_text)
 		if(assignedrole)
-			M.mind.assigned_role = assignedrole
+			M.mind.set_assigned_role(assignedrole)
 		special(M, name)
 		MM.name = M.real_name
 	if(uses > 0)

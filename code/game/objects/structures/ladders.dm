@@ -167,7 +167,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
 			going_up = TRUE
 		if("Down")
 			going_up = FALSE
-		if("Cancel")
+		else
 			return
 
 	if(is_ghost || !travel_time)

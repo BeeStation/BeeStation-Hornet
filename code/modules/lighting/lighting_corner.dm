@@ -25,9 +25,9 @@
 
 	var/needs_update = FALSE
 
-	var/cache_r  = LIGHTING_SOFT_THRESHOLD
-	var/cache_g  = LIGHTING_SOFT_THRESHOLD
-	var/cache_b  = LIGHTING_SOFT_THRESHOLD
+	var/cache_r = LIGHTING_SOFT_THRESHOLD
+	var/cache_g = LIGHTING_SOFT_THRESHOLD
+	var/cache_b = LIGHTING_SOFT_THRESHOLD
 
 	//additive light values
 	var/add_r = 0
@@ -127,18 +127,6 @@
 	UPDATE_SUM_LUM(g)
 	UPDATE_SUM_LUM(b)
 
-	add_r = clamp((self_r - 1.3) * 0.25, 0, 0.22)
-	add_g = clamp((self_g - 1.3) * 0.25, 0, 0.22)
-	add_b = clamp((self_b - 1.3) * 0.25, 0, 0.22)
-
-	// Client-shredding, does not cull any additive overlays.
-	//applying_additive = add_r || add_g || add_b
-	// Cull additive overlays that would be below 0.03 alpha in any color.
-	applying_additive = max(add_r, add_g, add_b) > 0.03
-	// Cull additive overlays whose color alpha sum is lower than 0.03
-	//applying_additive = (add_r + add_g + add_b) > 0.03
-
-
 	#ifdef ZMIMIC_LIGHT_BLEED
 	var/turf/T
 	var/datum/lighting_corner/C
@@ -185,6 +173,10 @@
 	var/old_g = cache_g
 	var/old_b = cache_b
 
+	var/old_add_r = add_r
+	var/old_add_g = add_g
+	var/old_add_b = add_b
+
 #if LIGHTING_SOFT_THRESHOLD != 0
 	else if (largest_color_luminosity < LIGHTING_SOFT_THRESHOLD)
 		. = 0 // 0 means soft lighting.
@@ -198,12 +190,23 @@
 	cache_b  = round(lb * ., LIGHTING_ROUND_VALUE)
 #endif
 
+	add_r = clamp((self_r - 1.1) * 0.3, 0, 0.22)
+	add_g = clamp((self_g - 1.1) * 0.3, 0, 0.22)
+	add_b = clamp((self_b - 1.1) * 0.3, 0, 0.22)
+
+	// Client-shredding, does not cull any additive overlays.
+	//applying_additive = add_r || add_g || add_b
+	// Cull additive overlays that would be below 0.03 alpha in any color.
+	applying_additive = max(add_r, add_g, add_b) > 0.03
+	// Cull additive overlays whose color alpha sum is lower than 0.03
+	//applying_additive = (add_r + add_g + add_b) > 0.03
+
 	src.largest_color_luminosity = round(largest_color_luminosity, LIGHTING_ROUND_VALUE)
 #ifdef VISUALIZE_LIGHT_UPDATES
-	if(!SSlighting.allow_duped_corners && old_r == cache_r && old_g == cache_g && old_b == cache_b)
+	if(!SSlighting.allow_duped_corners && old_r == cache_r && old_g == cache_g && old_b == cache_b && old_add_r == add_r && old_add_b == add_b && old_add_g == add_g)
 		return
 #else
-	if(old_r == cache_r && old_g == cache_g && old_b == cache_b)
+	if(old_r == cache_r && old_g == cache_g && old_b == cache_b && old_add_r == add_r && old_add_b == add_b && old_add_g == add_g)
 		return
 #endif
 

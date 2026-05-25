@@ -2,10 +2,10 @@
   * Run when a client is put in this mob or reconnets to byond and their client was on this mob
   *
   * Things it does:
-  * * call set_eye() to manually manage atom/list/eye_users
   * * Adds player to player_list
   * * sets lastKnownIP
   * * sets computer_id
+  * * calls set_client_eye_to()/OR/_on_setting_mob_eye() to manually manage /atom/list/eye_users AND /eye_mobs
   * * logs the login
   * * tells the world to update it's status (for player count)
   * * create mob huds for the mob if needed
@@ -48,16 +48,23 @@
 			qdel(client)
 		. = FALSE
 		CRASH(msg)
-	// set_eye() is important here, because your eye doesn't know if you're using them as your eye
-	// FALSE when weakref doesn't exist, to prevent using their current eye
-	client.set_eye(client.eye, client.eye_weakref?.resolve() || FALSE)
 	add_to_player_list()
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
 	log_access("Mob Login: [key_name(src)] was assigned to a [type]")
 	world.update_status()
+
+	// eye, hud, images
 	client.screen = list() //remove hud items just in case
 	client.images = list()
+	client.perspective = EYE_PERSPECTIVE
+	if(!current_mob_eye) // in case when your mob isn't ready for client eye
+		_on_setting_mob_eye(get_my_eye())
+	else
+		// set_client_eye_to() is important here, because your eye doesn't know if you're using them as your eye
+		// FALSE when weakref doesn't exist, to prevent using their current eye
+		client.set_client_eye_to(current_mob_eye)
+	update_eye_features()
 	client.set_right_click_menu_mode(shift_to_open_context_menu)
 
 	if(!hud_used)
@@ -98,7 +105,7 @@
 
 	if (key != client.key)
 		key = client.key
-	reset_perspective(loc)
+	// set_mob_eye_to(MOB_EYE_SELF) // DO NOT REVIVE. Bee code works differently.
 
 	if(loc)
 		loc.on_log(TRUE)

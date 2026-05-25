@@ -1,4 +1,4 @@
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { Dropdown } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
@@ -170,7 +170,7 @@ const Blanks = (props) => {
   const { act, data } = useBackend();
   const { blanks, category, has_toner } = data;
 
-  const sortedBlanks = sortBy(blanks || [], (blank) => blank.name);
+  const sortedBlanks = sortBy(blanks || [], [(blank) => blank.name]);
 
   const categories = [];
   for (let blank of sortedBlanks) {

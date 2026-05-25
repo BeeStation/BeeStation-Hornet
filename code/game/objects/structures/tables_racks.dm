@@ -261,7 +261,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 		else
 			for(var/i in custom_materials)
 				var/datum/material/M = i
-				new M.sheet_type(T, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
+				new M.sheet_type(T, floor(custom_materials[M] / MINERAL_MATERIAL_AMOUNT))
 		if(!wrench_disassembly)
 			new frame(T)
 		else
@@ -589,7 +589,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 /obj/structure/table/optable
 	name = "operating table"
 	desc = "Used for advanced medical procedures."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/surgery.dmi'
 	icon_state = "optable"
 	buildstack = /obj/item/stack/sheet/mineral/silver
 	smoothing_flags = NONE

@@ -2,8 +2,8 @@
 						Cyborg Spec Items
 ***********************************************************************/
 /obj/item/borg
+	abstract_type = /obj/item/borg
 	icon = 'icons/mob/robot_items.dmi'
-
 
 /obj/item/borg/stun
 	name = "electrically-charged arm"
@@ -1060,7 +1060,7 @@
 	/obj/item/seeds,
 	/obj/item/storage/fancy/donut_box,
 	/obj/item/storage/fancy/egg_box,
-	/obj/item/clothing/mask/cigarette,
+	/obj/item/cigarette,
 	/obj/item/storage/fancy/cigarettes,
 	/obj/item/reagent_containers/cup/beaker,
 	/obj/item/reagent_containers/cup/bottle,

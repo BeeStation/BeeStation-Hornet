@@ -17,6 +17,10 @@
 	  */
 	var/gc_destroyed
 
+	/// Open uis owned by this datum
+	/// Lazy, since this case is semi rare
+	var/list/open_uis
+
 	/// Active timers with this datum as the target
 	var/list/active_timers
 	/// Status traits attached to this datum. associative list of the form: list(trait name (string) = list(source1, source2, source3,...))
@@ -56,8 +60,12 @@
 	var/list/cooldowns
 
 #ifdef REFERENCE_TRACKING
-	var/running_find_references
+	/// When was this datum last touched by a reftracker?
+	/// If this value doesn't match with the start of the search
+	/// We know this datum has never been seen before, and we should check it
 	var/last_find_references = 0
+	/// How many references we're trying to find when searching
+	var/references_to_clear = 0
 	#ifdef REFERENCE_TRACKING_DEBUG
 	///Stores info about where refs are found, used for sanity checks and testing
 	var/list/found_refs
@@ -73,6 +81,18 @@
 #endif
 	///The layout pref we take from the player looking at this datum's UI to know what layout to give.
 	var/datum/preference/choiced/layout_prefs_used = /datum/preference/choiced/tgui_layout
+
+	/**
+	 * Parent types.
+	 *
+	 * Abstract-ness is a meta-property of a class that is used to indicate
+	 * that the class is intended to be used as a base class for others, and
+	 * should not (or cannot) be instantiated.
+	 * We have no such language concept in DM, and so we provide a datum member
+	 * that can be used to hint at abstractness for circumstances where we would
+	 * like that to be the case, such as base behavior providers.
+	 */
+	var/abstract_type = /datum
 
 /**
  * Called when a href for this datum is clicked

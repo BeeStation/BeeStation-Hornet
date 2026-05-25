@@ -20,7 +20,7 @@
 	forge_objectives()
 	return ..()
 
-/datum/antagonist/prisoner/proc/forge_objectives()
+/datum/antagonist/prisoner/forge_objectives()
 	var/datum/objective/escape/escape = new
 	escape.owner = owner
 	objectives += escape

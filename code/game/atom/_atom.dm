@@ -6,6 +6,7 @@
  * as much as possible to the components/elements system
  */
 /atom
+	abstract_type = /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
 	appearance_flags = TILE_BOUND|LONG_GLIDE
@@ -112,20 +113,26 @@
 	/// What is our default level of luminosity, if you want inherent luminosity
 	/// withing an atom's type, set luminosity instead and we will manage it for you.
 	/// Always use set_base_luminosity instead of directly modifying this
-	VAR_PRIVATE/base_luminosity = 0
+	/// If null, defaults to the initial luminosity
+	VAR_PRIVATE/base_luminosity
 	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
 	VAR_PRIVATE/_emissive_count = 0
 
-	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
-	var/list/eye_users
-
+	/// list of '/client' that using this atom as their eye. SHOULD BE USED CAREFULLY
+	var/list/eye_users // TO-DO: replace into eye_mobs (maybe not)
+	/// list of '/mob' that using this atom as their eye. SHOULD BE USED CAREFULLY
+	var/list/eye_mobs
 	/// Amount of users hovering us, if this is greater than 1 we need to clear references on destroy
 	var/hovered_user_count = 0
+
+	/// Reference to our blindness apperance, essentially just a copy of our apperance but everything is on a specific plane
+	var/mutable_appearance/blind_appearance
 
 /**
   * Top level of the destroy chain for most atoms
   *
   * Cleans up the following:
+  * * Removes eye users who use this, and resets their eye
   * * Removes clients who use this, and resets their eye
   * * Removes alternate apperances from huds that see them
   * * qdels the reagent holder from atoms if it exists
@@ -134,13 +141,22 @@
   * * clears the light object
   */
 /atom/Destroy()
-	for(var/client/each_client as anything in eye_users)
-		eye_users -= each_client
-		if(isnull(each_client.mob))
-			stack_trace("CRITICAL: Failed to recover a client's eye as their mob.")
-			continue
-		each_client.mob.reset_perspective()
-	eye_users = null
+	if(istype(src, /mob/dead/new_player/pre_auth)) // This mob type is buggy. Only happens when a player logs in.
+		LAZYCLEARLIST(eye_mobs)
+		eye_mobs = null
+		LAZYCLEARLIST(eye_users)
+		eye_users = null
+	else
+		for(var/mob/each_mob as anything in eye_mobs)
+			each_mob.set_mob_eye_to(MOB_EYE_SELF)
+		eye_mobs = null
+		for(var/client/each_client as anything in eye_users)
+			eye_users -= each_client
+			if(isnull(each_client.mob))
+				stack_trace("CRITICAL: Failed to recover a client's eye as their mob.")
+				continue
+			each_client.mob.set_mob_eye_to(MOB_EYE_SELF)
+		eye_users = null
 
 	if (chat_messages)
 		for (var/chatmessage in chat_messages)
@@ -188,7 +204,7 @@
 
 /atom/proc/handle_ricochet(obj/projectile/P)
 	var/turf/p_turf = get_turf(P)
-	var/face_direction = get_dir(src, p_turf)
+	var/face_direction = get_dir(src, p_turf) || get_dir(src, P)
 	var/face_angle = dir2angle(face_direction)
 	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (P.Angle + 180))
 	var/a_incidence_s = abs(incidence_s)
@@ -240,7 +256,7 @@
 		return FALSE
 
 	if(is_reserved_level(T.z))
-		for(var/A in SSshuttle.mobile)
+		for(var/A in SSshuttle.mobile_docking_ports)
 			var/obj/docking_port/mobile/M = A
 			if(M.launch_status == ENDGAME_TRANSIT)
 				for(var/place in M.shuttle_areas)
@@ -266,7 +282,7 @@
 	if(isnull(loc_area))
 		return FALSE
 
-	for(var/A in SSshuttle.mobile)
+	for(var/A in SSshuttle.mobile_docking_ports)
 		var/obj/docking_port/mobile/M = A
 		if(M.launch_status == ENDGAME_LAUNCHED)
 			if(loc_area in M.shuttle_areas)
@@ -536,6 +552,7 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	. = dir != newdir
 	dir = newdir
+	SEND_SIGNAL(src, COMSIG_ATOM_POST_DIR_CHANGE, dir, newdir)
 
 /// Attempts to turn to the given direction. May fail if anchored/unconscious/etc.
 /atom/proc/try_face(newdir)
@@ -1027,6 +1044,22 @@
 		luminosity = max(1, base_luminosity)
 	else
 		luminosity = base_luminosity
+
+/atom/proc/get_blind_appearance()
+	if(blind_appearance)
+		return blind_appearance
+	blind_appearance = mutable_appearance(src.icon, src.icon_state)
+	blind_appearance.plane = LOWEST_EVER_PLANE //KEEP that shit hidden away from our eyes
+	blind_appearance.appearance_flags = KEEP_TOGETHER
+	//Copy the overlays by hand to avoid plane issues
+	for(var/image/overlay as anything in overlays)
+		if(!overlay.icon)
+			continue
+		//Don't copy lighting overlays
+		if(overlay.plane == LIGHTING_PLANE || overlay.plane == LIGHTING_PLANE_ADDITIVE || overlay.plane == ABOVE_LIGHTING_PLANE)
+			continue
+		blind_appearance.add_overlay(icon(overlay.icon, overlay.icon_state))
+	return blind_appearance
 
 /atom/movable/update_luminosity()
 	if (isnull(base_luminosity))

@@ -32,9 +32,12 @@
 /obj/item/electronics/airlock/ui_static_data(mob/user)
 	var/list/data = list()
 	var/list/regions = list()
-	for(var/i in 1 to 7)
+	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
+		if(!length(each_dept.access_list) || each_dept.access_filter)
+			continue
+
 		var/list/accesses = list()
-		for(var/access in get_region_accesses(i))
+		for(var/access in each_dept.access_list)
 			if (get_access_desc(access))
 				accesses += list(list(
 					"desc" = replacetext(get_access_desc(access), "&nbsp", " "),
@@ -42,8 +45,8 @@
 				))
 
 		regions += list(list(
-			"name" = get_region_accesses_name(i),
-			"regid" = i,
+			"name" = each_dept.access_group_name,
+			"regid" = each_dept.dept_bitflag,
 			"accesses" = accesses
 		))
 
@@ -88,13 +91,15 @@
 			var/region = text2num(params["region"])
 			if(isnull(region))
 				return
-			accesses |= get_region_accesses(region)
+			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(region)[1]
+			accesses |= dept_datum.access_list
 			. = TRUE
 		if("deny_region")
 			var/region = text2num(params["region"])
 			if(isnull(region))
 				return
-			accesses -= get_region_accesses(region)
+			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(region)[1]
+			accesses -= dept_datum.access_list
 			. = TRUE
 		if("passedName")
 			var/new_name = trim(sanitize("[params["passedName"]]"), 30)

@@ -7,25 +7,23 @@
 	var/time_string = time2text(world.timeofday, format)
 	return show_ds ? "[time_string]:[world.timeofday % 10]" : time_string
 
-/// Returns wtime (defaults world.time) into hh:mm:ss
-/proc/gameTimestamp(format = "hh:mm:ss", wtime=null)
-	if(!wtime)
-		wtime = world.time
-	return time2text(wtime - GLOB.timezoneOffset, format)
+/// Returns timestamp since the server started, for use with world.time
+/proc/gameTimestamp(format = "hh:mm:ss", wtime=world.time)
+	return time2text(wtime, format, NO_TIMEZONE)
 
-/// Returns the station time in deciseconds
-/proc/station_time(display_only = FALSE, wtime=world.time)
-	return (((wtime - SSticker.round_start_time) * SSticker.station_time_rate_multiplier) + SSticker.gametime_offset) % DECISECONDS_IN_DAY
+///returns the current IC station time in a world.time format
+/proc/station_time(wtime = world.time)
+	return (((wtime - SSticker.round_start_time) * SSticker.station_time_rate_multiplier) + SSticker.gametime_offset) % (24 HOURS)
 
-/// Returns the station time in hh:mm:ss
+///returns the current IC station time in a human readable format
 /proc/station_time_timestamp(format = "hh:mm:ss", wtime)
-	return time2text(station_time(TRUE, wtime), format)
+	return time2text(station_time(wtime), format, NO_TIMEZONE)
 
 /proc/station_time_debug(force_set)
 	if(isnum_safe(force_set))
 		SSticker.gametime_offset = force_set
 		return
-	SSticker.gametime_offset = rand(0, DECISECONDS_IN_DAY)		//hours in day * minutes in hour * seconds in minute * deciseconds in second
+	SSticker.gametime_offset = rand(0, 24 HOURS)		//hours in day * minutes in hour * seconds in minute * deciseconds in second
 	if(prob(50))
 		SSticker.gametime_offset = FLOOR(SSticker.gametime_offset, 3600)
 	else
@@ -74,21 +72,21 @@ GLOBAL_VAR_INIT(rollovercheck_last_timeofday, 0)
 		return "right now"
 	if(second < 60)
 		return "[second] second[(second != 1)? "s":""]"
-	var/minute = FLOOR(second / 60, 1)
+	var/minute = floor(second / 60)
 	second = FLOOR(MODULUS(second, 60), round_seconds_to)
 	var/secondT
 	if(second)
 		secondT = " and [second] second[(second != 1)? "s":""]"
 	if(minute < 60)
 		return "[minute] minute[(minute != 1)? "s":""][secondT]"
-	var/hour = FLOOR(minute / 60, 1)
+	var/hour = floor(minute / 60)
 	minute = MODULUS(minute, 60)
 	var/minuteT
 	if(minute)
 		minuteT = " and [minute] minute[(minute != 1)? "s":""]"
 	if(hour < 24)
 		return "[hour] hour[(hour != 1)? "s":""][minuteT][secondT]"
-	var/day = FLOOR(hour / 24, 1)
+	var/day = floor(hour / 24)
 	hour = MODULUS(hour, 24)
 	var/hourT
 	if(hour)

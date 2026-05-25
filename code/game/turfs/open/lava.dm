@@ -1,5 +1,3 @@
-///LAVA
-
 /turf/open/lava
 	name = "lava"
 	desc = "Looks painful to step in. Don't mine down."
@@ -13,6 +11,7 @@
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA
 	light_on = FALSE
+	luminosity = 2
 	bullet_bounce_sound = 'sound/items/welder2.ogg'
 
 	footstep = FOOTSTEP_LAVA
@@ -135,7 +134,7 @@
 	if(passed_mode == RCD_FLOORWALL)
 		to_chat(user, span_notice("You build a floor."))
 		log_attack("[key_name(user)] has constructed a floor over lava at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
-		PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+		place_on_top(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 		return TRUE
 	return FALSE
 

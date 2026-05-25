@@ -6,7 +6,7 @@
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list("Engineering")
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffeeaa"
 	req_admin_notify = 1
@@ -31,6 +31,8 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_ENGINEER
+
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "High Crystallomancer"
 
 	species_outfits = list(
@@ -62,7 +64,10 @@
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel/eng
 	duffelbag = /obj/item/storage/backpack/duffelbag/engineering
+	messenger = /obj/item/storage/backpack/messenger/eng
+
 	box = /obj/item/storage/box/survival/engineer
+
 	pda_slot = ITEM_SLOT_LPOCKET
 	chameleon_extras = /obj/item/stamp/chief_engineer
 

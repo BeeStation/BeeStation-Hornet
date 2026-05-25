@@ -1,4 +1,5 @@
 /datum/action/vampire
+	abstract_type = /datum/action/vampire
 	name = "Vampiric Gift"
 	desc = "A vampiric gift."
 	background_icon = 'icons/vampires/actions_vampire.dmi'

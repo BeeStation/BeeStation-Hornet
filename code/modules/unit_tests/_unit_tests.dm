@@ -8,6 +8,7 @@
 
 // BEGIN_INCLUDE
 
+#include "aas_configs.dm"
 #include "achievement_validation.dm"
 #include "anchored_mobs.dm"
 #include "antag_datums.dm"
@@ -63,6 +64,7 @@
 #include "mob_damage.dm"
 #include "modsuit.dm"
 #include "mouse_bite_cable.dm"
+#include "movement_order_sanity.dm"
 #include "mutant_hands_consistency.dm"
 #include "mutant_organs.dm"
 #include "organs.dm"
@@ -123,7 +125,7 @@
 #include "mapping\check_disposals.dm"
 #include "mapping\check_light_attachment.dm"
 #include "mapping\check_multiple_objects.dm"
-#include "mapping\check_wire_crossing.dm"
+#include "mapping\check_wires.dm"
 #include "mapping\map_test.dm"
 
 // END_INCLUDE

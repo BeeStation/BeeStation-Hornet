@@ -566,6 +566,7 @@
 //////////////////////////////////////////// KEBABS AND OTHER SKEWERS ////////////////////////////////////////////
 
 /obj/item/food/kebab
+	abstract_type = /obj/item/food/kebab
 	trash_type = /obj/item/stack/rods
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "kebab"

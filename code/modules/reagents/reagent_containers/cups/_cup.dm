@@ -1,4 +1,5 @@
 /obj/item/reagent_containers/cup
+	abstract_type = /obj/item/reagent_containers/cup
 	name = "glass"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
@@ -438,7 +439,7 @@
 	volume = 5000
 	list_reagents = list(/datum/reagent/medicine/salglu_solution = 5000)
 
-/obj/item/reagent_containers/cup/saline/Moved(atom/OldLoc, Dir)
+/obj/item/reagent_containers/cup/saline/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	if (loc && !istype(loc, /obj/machinery/iv_drip/saline))
 		qdel(src)
 		return

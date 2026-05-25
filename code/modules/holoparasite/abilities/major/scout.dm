@@ -218,7 +218,7 @@
 		scrambled_message = GLOB.syndicate_code_phrase_regex.Replace(scrambled_message, span_blue("$1"))
 		scrambled_message = GLOB.syndicate_code_response_regex.Replace(scrambled_message, span_red("$1"))
 	// Assemble the message prefix
-	var/message_prefix = span_holoparasiteitalicsrobot("\[[owner.color_name] Sensory Link\] [speaker.GetVoice()]")
+	var/message_prefix = span_holoparasiteitalicsrobot("\[[owner.color_name] Sensory Link\] [speaker.get_voice()]")
 	// Get the say message quote thingy
 	var/message_part
 	if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])

@@ -1,10 +1,3 @@
-/obj/item/stack/cable_coil/building_checks(mob/builder, datum/stack_recipe/R, multiplier)
-	if(R.result_type == /obj/structure/chair/noose)
-		if(!(locate(/obj/structure/chair) in get_turf(builder)))
-			to_chat(builder, span_warning("You have to be standing on top of a chair to make a noose!"))
-			return FALSE
-	return ..()
-
 /obj/structure/chair/noose //It's a "chair".
 	name = "noose"
 	desc = "Well this just got a whole lot more morbid."

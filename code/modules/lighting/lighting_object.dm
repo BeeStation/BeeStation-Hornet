@@ -10,19 +10,25 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_LIGHTING
 
-	var/needs_update = FALSE
-	var/turf/myturf
+	///the underlay we are currently applying to our turf to apply light
 	var/mutable_appearance/additive_underlay
+
+	/// whether we are already in the SSlighting.objects_queue list
+	var/needs_update = FALSE
+
+	///the turf that our light is applied to
+	var/turf/affected_turf
 
 /atom/movable/lighting_object/Initialize(mapload)
 	. = ..()
-	remove_verb(verbs)
+	verbs.Cut()
 	atom_colours.Cut()
 
-	myturf = loc
-	if (myturf.lighting_object)
-		qdel(myturf.lighting_object, force = TRUE)
-	myturf.lighting_object = src
+	affected_turf = loc
+	if (affected_turf.lighting_object)
+		qdel(affected_turf.lighting_object, force = TRUE)
+		stack_trace("a lighting object was assigned to a turf that already had a lighting object!")
+	affected_turf.lighting_object = src
 
 	additive_underlay = mutable_appearance(LIGHTING_ICON, "light", FLOAT_LAYER, LIGHTING_PLANE_ADDITIVE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM)
 	additive_underlay.blend_mode = BLEND_ADD
@@ -31,27 +37,24 @@
 	SSlighting.objects_queue += src
 
 /atom/movable/lighting_object/Destroy(force)
-	if (force)
-		SSlighting.objects_queue -= src
-		if (loc != myturf)
-			var/turf/oldturf = get_turf(myturf)
-			var/turf/newturf = get_turf(loc)
-			stack_trace("A lighting object was qdeleted with a different loc then it is suppose to have ([COORD(oldturf)] -> [COORD(newturf)])")
-		if (isturf(myturf))
-			myturf.lighting_object = null
-			myturf.underlays -= additive_underlay
-		myturf = null
-
-		return ..()
-
-	else
+	if (!force)
 		return QDEL_HINT_LETMELIVE
+	SSlighting.objects_queue -= src
+	if (loc != affected_turf)
+		var/turf/oldturf = get_turf(affected_turf)
+		var/turf/newturf = get_turf(loc)
+		stack_trace("A lighting object was qdeleted with a different loc then it is suppose to have ([COORD(oldturf)] -> [COORD(newturf)])")
+	if (isturf(affected_turf))
+		affected_turf.lighting_object = null
+		affected_turf.underlays -= additive_underlay
+	affected_turf = null
+	return ..()
 
 /atom/movable/lighting_object/proc/update()
 #ifdef VISUALIZE_LIGHT_UPDATES
-	myturf.add_atom_colour(COLOR_BLUE_LIGHT, ADMIN_COLOUR_PRIORITY)
-	animate(myturf, 10, color = null)
-	addtimer(CALLBACK(myturf, TYPE_PROC_REF(/atom, remove_atom_colour), ADMIN_COLOUR_PRIORITY, COLOR_BLUE_LIGHT), 10, TIMER_UNIQUE|TIMER_OVERRIDE)
+	affected_turf.add_atom_colour(COLOR_BLUE_LIGHT, ADMIN_COLOUR_PRIORITY)
+	animate(affected_turf, 10, color = null)
+	addtimer(CALLBACK(affected_turf, TYPE_PROC_REF(/atom, remove_atom_colour), ADMIN_COLOUR_PRIORITY, COLOR_BLUE_LIGHT), 10, TIMER_UNIQUE|TIMER_OVERRIDE)
 #endif
 
 	// To the future coder who sees this and thinks
@@ -65,17 +68,17 @@
 	// See LIGHTING_CORNER_DIAGONAL in lighting_corner.dm for why these values are what they are.
 	var/static/datum/lighting_corner/dummy/dummy_lighting_corner = new
 
-	var/datum/lighting_corner/red_corner = myturf.lighting_corner_SW || dummy_lighting_corner
-	var/datum/lighting_corner/green_corner = myturf.lighting_corner_SE || dummy_lighting_corner
-	var/datum/lighting_corner/blue_corner = myturf.lighting_corner_NW || dummy_lighting_corner
-	var/datum/lighting_corner/alpha_corner = myturf.lighting_corner_NE || dummy_lighting_corner
+	var/datum/lighting_corner/red_corner = affected_turf.lighting_corner_SW || dummy_lighting_corner
+	var/datum/lighting_corner/green_corner = affected_turf.lighting_corner_SE || dummy_lighting_corner
+	var/datum/lighting_corner/blue_corner = affected_turf.lighting_corner_NW || dummy_lighting_corner
+	var/datum/lighting_corner/alpha_corner = affected_turf.lighting_corner_NE || dummy_lighting_corner
 
 	var/max = max(red_corner.largest_color_luminosity, green_corner.largest_color_luminosity, blue_corner.largest_color_luminosity, alpha_corner.largest_color_luminosity)
 
 	#if LIGHTING_SOFT_THRESHOLD != 0
 	var/set_luminosity = max > LIGHTING_SOFT_THRESHOLD
 	#else
-	// Because of floating points�?, it won't even be a flat 0.
+	// Because of floating points™?, it won't even be a flat 0.
 	// This number is mostly arbitrary.
 	var/set_luminosity = max > 1e-6
 	#endif
@@ -100,7 +103,7 @@
 		)
 
 	if(red_corner.applying_additive || green_corner.applying_additive || blue_corner.applying_additive || alpha_corner.applying_additive)
-		myturf.underlays -= additive_underlay
+		affected_turf.underlays -= additive_underlay
 		additive_underlay.icon_state = "light"
 
 		additive_underlay.color = list(
@@ -111,19 +114,19 @@
 			00, 00, 00, 01
 		)
 
-		myturf.underlays += additive_underlay
+		affected_turf.underlays += additive_underlay
 	else
-		myturf.underlays -= additive_underlay
+		affected_turf.underlays -= additive_underlay
 
 	// Use luminosity directly because we are the lighting object
 	// and not the turf
 	luminosity = set_luminosity
 
-	if (myturf.above)
-		if(myturf.above.shadower)
-			myturf.above.shadower.copy_lighting(src, myturf.loc, myturf)
+	if (affected_turf.above)
+		if(affected_turf.above.shadower)
+			affected_turf.above.shadower.copy_lighting(src, affected_turf.loc, affected_turf)
 		else
-			myturf.above.update_mimic()
+			affected_turf.above.update_mimic()
 
 // Variety of overrides so the overlays don't get affected by weird things.
 

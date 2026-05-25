@@ -1,6 +1,7 @@
 //every quirk in this folder should be coded around being applied on spawn
 //these are NOT "mob quirks" like GOTTAGOFAST, but exist as a medium to apply them and other different effects
 /datum/quirk
+	abstract_type = /datum/quirk
 	var/name = "Test Quirk"
 	var/desc = "This is a test quirk."
 	/// The icon to show in the preferences menu.
@@ -19,7 +20,6 @@
 	var/process = FALSE // Does this quirk use on_process()?
 	var/datum/mind/quirk_holder // The mind that contains this quirk
 	var/mob/living/quirk_target // The mob that will be affected by this quirk
-	var/abstract_parent_type = /datum/quirk
 
 /datum/quirk/New(datum/mind/quirk_mind, mob/living/quirk_mob, spawn_effects)
 	..()

@@ -42,7 +42,7 @@
 	traits = TRAIT_THERMAL_VISION
 	power_path = /datum/action/spell/thermal_vision
 
-/datum/mutation/human/thermal/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/thermal/on_losing(mob/living/carbon/human/owner)
 	if(..())
 		return
 
@@ -52,7 +52,7 @@
 		owner.update_sight()
 
 
-/datum/mutation/human/thermal/modify()
+/datum/mutation/thermal/modify()
 	. = ..()
 	var/datum/action/spell/thermal_vision/to_modify = .
 	if(!istype(to_modify)) // null or invalid

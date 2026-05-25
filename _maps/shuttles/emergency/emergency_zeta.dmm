@@ -304,9 +304,9 @@
 /area/shuttle/escape)
 "zQ" = (
 /obj/machinery/door/airlock/abductor{
-	name = "Command Center";
-	req_access_txt = "19"
+	name = "Command Center"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
@@ -322,9 +322,9 @@
 /area/shuttle/escape)
 "Mw" = (
 /obj/machinery/door/airlock/abductor{
-	name = "Holding Facility";
-	req_access_txt = "2"
+	name = "Holding Facility"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
