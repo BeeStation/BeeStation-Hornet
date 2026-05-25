@@ -79,6 +79,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /datum/dna/Destroy()
 	if(iscarbon(holder))
 		var/mob/living/carbon/cholder = holder
+		remove_all_mutations() // mutations hold a reference to the dna
 		if(cholder?.dna == src)
 			cholder.dna = null
 	QDEL_NULL(height_displacement)
@@ -428,22 +429,22 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_pbody_list.Find(features["diona_pbody"]), GLOB.diona_pbody_list.len))
 
 //Please use add_mutation or activate_mutation instead
-/datum/dna/proc/force_give(datum/mutation/HM)
-	if(holder && HM)
-		if(HM.class == MUT_NORMAL)
-			set_se(TRUE, HM)
-		. = HM.on_acquiring(holder)
+/datum/dna/proc/force_give(datum/mutation/mutation)
+	if(holder && mutation)
+		if(mutation.class == MUT_NORMAL)
+			set_se(TRUE, mutation)
+		. = mutation.on_acquiring(holder)
 		if(.)
-			qdel(HM)
+			qdel(mutation)
 		update_instability()
 
 //Use remove_mutation instead
-/datum/dna/proc/force_lose(datum/mutation/HM)
-	if(holder && (HM in mutations))
-		set_se(FALSE, HM)
-		. = HM.on_losing(holder)
+/datum/dna/proc/force_lose(datum/mutation/mutation)
+	if(holder && (mutation in mutations))
+		set_se(FALSE, mutation)
+		. = mutation.on_losing(holder)
+		qdel(mutation) // qdel mutations on removal
 		update_instability(FALSE)
-		return
 
 /**
  * Checks if two DNAs are practically the same by comparing their most defining features

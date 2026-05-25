@@ -148,17 +148,10 @@
 		name = "Mothership [pick_n_take(left_team_names)]"
 	else
 		name = "No.[team_number] Mothership [pick(GLOB.greek_letters)]"
-	add_objective(new /datum/objective/experiment)
+	add_objective(new /datum/objective/experiment())
 
 /datum/team/abductor_team/is_solo()
 	return FALSE
-
-/datum/team/abductor_team/proc/add_objective(datum/objective/O)
-	O.team = src
-	O.update_explanation_text()
-	objectives += O
-	for(var/datum/mind/abductor_mind in members)
-		log_objective(abductor_mind, O.explanation_text)
 
 /datum/team/abductor_team/roundend_report()
 	var/list/result = list()

@@ -50,6 +50,11 @@
 	if(traits && !islist(traits))
 		traits = list(traits)
 
+/datum/mutation/Destroy()
+	dna = null
+	owner = null
+	return ..()
+
 /datum/mutation/proc/on_acquiring(mob/living/carbon/C)
 	if(!istype(C) || C.stat == DEAD || !C.has_dna() || (src in C.dna.mutations))
 		return TRUE
@@ -115,11 +120,6 @@
 		mut_overlay.Remove(get_visual_indicator())
 		owner.overlays_standing[layer_used] = mut_overlay
 		owner.apply_overlay(layer_used)
-	if(power_path)
-		// Any powers we made are linked to our mutation datum,
-		// so deleting ourself will also delete it and remove it
-		// ...Why don't all mutations delete on loss? Not sure.
-		qdel(src)
 	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
 	REMOVE_TRAITS_IN(owner, "[type]")
 	return FALSE

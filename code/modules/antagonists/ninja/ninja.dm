@@ -37,71 +37,57 @@
 	antag_memory += "I am an elite mercenary assassin of the mighty Spider Clan. A <font color='red'><B>SPACE NINJA</B></font>!<br>"
 	antag_memory += "Surprise is my weapon. Shadows are my armor. Without them, I am nothing. (initialize your suit by clicking the initialize UI button, to use abilities like stealth)!<br>"
 
-/datum/antagonist/ninja/proc/addObjectives(quantity = 3)
-	if(!give_objectives)
-		return
-	var/list/possible_targets = list()
-	for(var/datum/mind/M in SSticker.minds)
-		if(M.current && M.current.stat != DEAD)
-			if(ishuman(M.current))
-				if(M.special_role)
-					possible_targets[M] = 0	//bad-guy
-				else if(M.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-					possible_targets[M] = 1	//good-guy
-
+/datum/antagonist/ninja/forge_objectives()
 	// Explosive plant objective - always given
-	var/datum/objective/plant_explosive/bombobjective = new /datum/objective/plant_explosive()
+	var/datum/objective/plant_explosive/bomb_objective = new()
 	for(var/sanity in 1 to 100) // 100 checks at most.
 		var/area/selected_area = pick(GLOB.areas)
 		if(!is_station_level(selected_area.z) || !(selected_area.area_flags & VALID_TERRITORY))
 			continue
-		bombobjective.detonation_location = selected_area
+
+		bomb_objective.detonation_location = selected_area
+		bomb_objective.explanation_text = "Detonate your starter bomb in [bomb_objective.detonation_location]. Note that the bomb will not work anywhere else!"
+		add_objective(bomb_objective)
 		break
-	if(bombobjective.detonation_location)
-		bombobjective.owner = owner
-		bombobjective.explanation_text = "Detonate your starter bomb in [bombobjective.detonation_location]. Note that the bomb will not work anywhere else!"
-		objectives += bombobjective
-		log_objective(owner, bombobjective.explanation_text)
 
 	var/list/possible_objectives = list(1,1,1,2,2,2,3,4,4)
 	// Research(1) and steal(2) weighted higher, kill(3) lower, capture(4) same
 
-	while(objectives.len < quantity)
+	while(length(objectives) < 3)
 		switch(pick_n_take(possible_objectives))
-			if(1)	//research
-				var/datum/objective/download/O = new /datum/objective/download()
-				O.owner = owner
-				O.gen_amount_goal()
-				objectives += O
-				log_objective(owner, O.explanation_text)
+			if(1) //research
+				var/datum/objective/download/download_objective = new()
+				download_objective.gen_amount_goal()
+				add_objective(download_objective)
 
-			if(2)	//steal
-				var/datum/objective/steal/special/O = new /datum/objective/steal/special()
-				O.owner = owner
-				objectives += O
-				log_objective(owner, O.explanation_text)
+			if(2) //steal
+				var/datum/objective/steal/special/steal_objective = new()
+				steal_objective.find_target()
+				add_objective(steal_objective)
 
-			if(3)	//kill
-				if(!possible_targets.len)	continue
-				var/index = rand(1,possible_targets.len)
-				var/datum/mind/M = possible_targets[index]
-				possible_targets.Cut(index,index+1)
-				var/datum/objective/assassinate/O = new /datum/objective/assassinate()
-				O.owner = owner
-				O.set_target(M)
-				O.explanation_text = "Slay \the [M.current.real_name], the [M.assigned_role]."
-				objectives += O
-				log_objective(owner, O.explanation_text)
-			if(4)	//capture
-				var/datum/objective/capture/O = new /datum/objective/capture()
-				O.owner = owner
-				O.gen_amount_goal()
-				objectives += O
-				log_objective(owner, O.explanation_text)
-	var/datum/objective/O = new /datum/objective/survive()
-	O.owner = owner
-	objectives += O
-	log_objective(owner, O.explanation_text)
+			if(3) //kill
+				var/list/datum/mind/potential_targets = list()
+				for(var/datum/mind/potential_target as anything in get_crewmember_minds())
+					if(!ishuman(potential_target.current))
+						continue
+					if(!potential_target.special_role && !(potential_target.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
+						continue
+					potential_targets += potential_target
+
+				if(!length(potential_targets))
+					continue
+
+				var/datum/objective/assassinate/assassinate_objective = new()
+				var/datum/mind/person_to_kill = pick(potential_targets)
+				assassinate_objective.set_target(person_to_kill)
+				assassinate_objective.explanation_text = "Slay [person_to_kill.current.real_name], the [person_to_kill.assigned_role]."
+				add_objective(assassinate_objective)
+			if(4) //capture
+				var/datum/objective/capture/capture_objective = new()
+				capture_objective.gen_amount_goal()
+				add_objective(capture_objective)
+
+	add_objective(new /datum/objective/survive())
 
 /proc/remove_ninja(mob/living/L)
 	if(!L || !L.mind)
@@ -124,7 +110,7 @@
 
 /datum/antagonist/ninja/on_gain()
 	if(give_objectives)
-		addObjectives()
+		forge_objectives()
 	addMemories()
 	if(give_equipment)
 		equip_space_ninja(owner.current)
