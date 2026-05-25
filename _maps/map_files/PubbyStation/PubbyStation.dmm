@@ -35563,8 +35563,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/limbgrower,
 /obj/effect/turf_decal/tile/blue/fourcorners,
+/obj/machinery/limbgrower,
 /turf/open/floor/iron/white/textured_large,
 /area/station/medical/medbay/central)
 "nak" = (
