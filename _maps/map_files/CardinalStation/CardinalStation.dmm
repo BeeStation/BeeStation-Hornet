@@ -2132,7 +2132,7 @@
 /obj/structure/mirror/directional/east,
 /obj/structure/wall_closet/science/directional/south,
 /obj/item/soap/nanotrasen,
-/obj/item/reagent_containers/cup/rag,
+/obj/item/rag,
 /obj/item/reagent_containers/spray/cleaner,
 /turf/open/floor/iron/showroomfloor,
 /area/station/command/heads_quarters/rd)
