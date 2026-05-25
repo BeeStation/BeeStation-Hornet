@@ -11196,7 +11196,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/computer/rdconsole/robotics,
 /turf/open/floor/plating,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "dWu" = (
@@ -13560,10 +13559,10 @@
 /turf/open/floor/grass,
 /area/station/hallway/primary/central)
 "ePX" = (
-/obj/machinery/computer/rdconsole/core{
+/obj/effect/turf_decal/delivery,
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 4
 	},
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/station/science/lab)
 "ePY" = (
@@ -25074,9 +25073,6 @@
 /turf/open/floor/grass,
 /area/station/hallway/secondary/exit/departure_lounge)
 "iZA" = (
-/obj/machinery/computer/rdconsole/robotics{
-	dir = 4
-	},
 /obj/machinery/button/door{
 	id = "robotics";
 	name = "Shutters Control Button";
@@ -25087,6 +25083,9 @@
 /obj/machinery/light_switch{
 	pixel_x = -25;
 	pixel_y = -8
+	},
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 4
 	},
 /turf/open/floor/iron/tech,
 /area/station/science/robotics/lab)
@@ -45472,7 +45471,6 @@
 /area/station/maintenance/port/lesser)
 "rjD" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/obj/machinery/doppler_array/research/science,
 /obj/effect/turf_decal/bot,
 /obj/item/radio/intercom{
 	pixel_x = 28
@@ -45483,6 +45481,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/doppler_array/research,
 /turf/open/floor/iron/tiled,
 /area/station/science/mixing/launch)
 "rjG" = (
@@ -47335,11 +47334,11 @@
 /turf/closed/wall,
 /area/station/science/xenobiology)
 "rSD" = (
-/obj/machinery/computer/rdconsole/production{
-	dir = 8
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 4
 	},
-/turf/open/floor/iron,
-/area/station/engineering/main)
+/turf/closed/wall,
+/area/station/science/robotics/mechbay)
 "rSR" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -99102,8 +99101,8 @@ lfU
 vDB
 kxf
 fys
-rSD
 jeI
+tPL
 wws
 rFa
 rBl
@@ -101882,7 +101881,7 @@ mcP
 bzk
 kjg
 xGJ
-xGJ
+rSD
 qDZ
 qDZ
 xGJ
