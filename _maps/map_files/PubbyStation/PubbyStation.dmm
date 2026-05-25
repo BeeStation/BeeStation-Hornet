@@ -9111,14 +9111,7 @@
 /obj/item/storage/belt/medical{
 	pixel_y = 2
 	},
-/obj/item/storage/belt/medical{
-	pixel_y = 2
-	},
 /obj/item/storage/box/syringes,
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/hud/health,
@@ -9130,6 +9123,14 @@
 	},
 /obj/effect/turf_decal/tile/blue/half{
 	dir = 8
+	},
+/obj/item/circuitboard/machine/limbgrower,
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/belt/medical{
+	pixel_y = 2
 	},
 /turf/open/floor/iron/white/smooth_half,
 /area/station/medical/storage)
@@ -63354,7 +63355,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners,
-/obj/machinery/limbgrower,
 /turf/open/floor/iron/white/textured_large,
 /area/station/medical/medbay/central)
 "xLH" = (
