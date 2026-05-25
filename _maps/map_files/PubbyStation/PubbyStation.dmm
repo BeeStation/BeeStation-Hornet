@@ -35564,7 +35564,12 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners,
-/obj/machinery/limbgrower,
+/obj/structure/showcase/machinery/implanter{
+	icon = 'icons/obj/machines/limbgrower.dmi';
+	icon_state = "limbgrower_idleoff";
+	name = "broken limb grower";
+	desc = "It used to grow new limbs using Synthflesh, now its broken and sad."
+	},
 /turf/open/floor/iron/white/textured_large,
 /area/station/medical/medbay/central)
 "nak" = (
@@ -47241,7 +47246,7 @@
 /obj/item/sticker/sticky_note{
 	pixel_y = 5;
 	pixel_x = 9;
-	custom_text = "Hey uh, there seems to be an error on the sensor relay regarding another _Monastery Asteroid_ and a few people went missing there, something out by dorms is blocking the signal so keep watch for any other asteroids around that area, Thanks, _Dont Call me_";
+	custom_text = "Order new parts for broken limb grower!";
 	name = "medical office note"
 	},
 /turf/open/floor/iron/white/textured_large,
@@ -63349,6 +63354,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners,
+/obj/machinery/limbgrower,
 /turf/open/floor/iron/white/textured_large,
 /area/station/medical/medbay/central)
 "xLH" = (
