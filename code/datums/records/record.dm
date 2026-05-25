@@ -5,27 +5,27 @@
  * Record datum. Used for crew records and admin locked records.
  */
 /datum/record
-	/// Age of the character (Alternatively : age)
+	/// Age of the character
 	var/age
-	/// Their blood type (Alternatively : blood_type)
+	/// Their blood type
 	var/blood_type
 	/// Character appearance
 	var/mutable_appearance/character_appearance
-	/// As known as "DNA string" (Alternatively : unique_enzymes)
+	/// As known as "DNA string"
 	var/unique_enzymes
-	/// The characeter's DNA id (Alternatively : unique_identity)
+	/// The characeter's DNA id
 	var/unique_identity
-	/// Fingerprint string (md5) based on unique identity (Alternatively : fingerprint)
+	/// Fingerprint string (md5) based on unique identity
 	var/fingerprint
-	/// The character's gender (Alternatively : gender)
+	/// The character's gender
 	var/gender
-	/// The character's initial rank at roundstart (Alternatively : initial_rank)
+	/// The character's initial rank at roundstart
 	var/initial_rank
-	/// The character's name (Alternatively : name)
+	/// The character's name
 	var/name = "Unknown"
 	/// The character's rank
 	var/rank
-	/// The character's species (Alternatively : species)
+	/// The character's species
 	var/species
 	/// The character's HUD icon
 	var/hud
