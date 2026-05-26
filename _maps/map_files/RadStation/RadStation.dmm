@@ -20725,8 +20725,8 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Research Division"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science/ordnance,
 /obj/effect/mapping_helpers/airlock/access/any/science/robotics,
+/obj/effect/mapping_helpers/airlock/access/any/science/general,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "hXh" = (
@@ -25029,8 +25029,8 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Research Division"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science/ordnance,
 /obj/effect/mapping_helpers/airlock/access/any/science/robotics,
+/obj/effect/mapping_helpers/airlock/access/any/science/general,
 /turf/open/floor/iron/techmaint,
 /area/station/maintenance/department/science)
 "jEd" = (
@@ -29907,6 +29907,7 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig_physician,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -43558,8 +43559,8 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Research Division"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science/ordnance,
 /obj/effect/mapping_helpers/airlock/access/any/science/robotics,
+/obj/effect/mapping_helpers/airlock/access/any/science/general,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "qvG" = (
@@ -46460,8 +46461,8 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Research Division"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science/ordnance,
 /obj/effect/mapping_helpers/airlock/access/any/science/robotics,
+/obj/effect/mapping_helpers/airlock/access/any/science/general,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "rzy" = (
@@ -50321,8 +50322,8 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Research Division"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science/ordnance,
 /obj/effect/mapping_helpers/airlock/access/any/science/robotics,
+/obj/effect/mapping_helpers/airlock/access/any/science/general,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "sXh" = (

@@ -37718,10 +37718,12 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Medical Outpost"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/security/detective,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/airlock/access/any/security/general,
+/obj/effect/mapping_helpers/airlock/access/any/security/detective,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig_physician,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "pKd" = (

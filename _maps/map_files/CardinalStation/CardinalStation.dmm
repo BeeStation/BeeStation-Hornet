@@ -6343,6 +6343,7 @@
 	id = "Prisongate";
 	name = "Prison Blast Door"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/brig_physician,
 /turf/open/floor/iron/dark/textured_half,
 /area/station/security/medical)
 "bzt" = (
@@ -41587,6 +41588,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig_physician,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
