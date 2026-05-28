@@ -6343,6 +6343,7 @@
 	id = "Prisongate";
 	name = "Prison Blast Door"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/brig_physician,
 /turf/open/floor/iron/dark/textured_half,
 /area/station/security/medical)
 "bzt" = (
@@ -41587,6 +41588,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig_physician,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -63090,12 +63092,10 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/structure/closet/toolcloset,
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = -32
 	},
 /obj/machinery/camera/directional/south,
-/obj/item/storage/belt/utility,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
@@ -81316,6 +81316,8 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
+/obj/structure/closet/toolcloset,
+/obj/item/storage/belt/utility,
 /turf/open/floor/iron/smooth,
 /area/station/maintenance/solars/port/fore)
 "teG" = (

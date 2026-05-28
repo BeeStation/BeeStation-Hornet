@@ -230,3 +230,8 @@
   - code_imp: Fixed /datum/component/proc/_GetInverseTypeList() returning unexpected
       values
   - code_imp: Fixed the ISEVEN() macro throwing a compiler error
+2026-05-28:
+  WhiskeyMarten:
+  - bugfix: Fixed Brig Physician's not being able to enter the brig medbay on some
+      maps.
+  - bugfix: Fixed overlapping locker/smes on Cardstation.
