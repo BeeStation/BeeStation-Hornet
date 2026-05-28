@@ -20,12 +20,9 @@ GLOBAL_ALIST_EMPTY(reftracker_skip_typecache_b)
 		/matrix,
 		/regex,
 		/atom/movable/mirage_holder,
-		/atom/movable/render_step/emissive_blocker,
 		/atom/movable/lighting_object, // only contains turf and MA refs
 		/datum/armor,
 		/datum/asset_cache_item,
-		/datum/book_info,
-		/datum/card,
 		/datum/chat_payload,
 		/datum/comm_log_entry,
 		/datum/gas_mixture,
@@ -42,18 +39,15 @@ GLOBAL_ALIST_EMPTY(reftracker_skip_typecache_b)
 		/datum/tlv,
 		/datum/universal_icon,
 		/datum/weakref,
-		/datum/z_pillar,
-		/obj/effect/abstract/z_holder,
 		// stuff below isn't 100% guaranteed to be ref-free, but they're prolly not an issue
 		/turf/closed/mineral,
 		/turf/open/lava,
-		/turf/open/misc/asteroid,
+		/turf/open/floor/plating/asteroid,
 		/turf/open/openspace,
 		/turf/open/space,
-		/obj/structure/flora, // icebox and such has a LOT of these
+		/obj/structure/flora,
 		/datum/chatmessage,
 		/datum/lighting_corner,
-		/datum/log_entry, // hopefully nobody's silly enough to accidentally pass a reference to these... right???
 		/datum/reagent/consumable/nutriment,
 	))
 		for(var/type in typesof(base_type))
