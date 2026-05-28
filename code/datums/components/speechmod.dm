@@ -72,21 +72,26 @@
 		var/datum/status_effect/effect = parent
 		targeted = effect.owner
 		RegisterSignal(targeted, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+		RegisterSignal(targeted, COMSIG_QDELETING, PROC_REF(on_targeted_deleted))
 		return
 
 	if (ismob(parent))
 		targeted = parent
 		RegisterSignal(targeted, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+		RegisterSignal(targeted, COMSIG_QDELETING, PROC_REF(on_targeted_deleted))
 		return
 
 	if (ismob(owner.loc))
 		targeted = owner.loc
 		RegisterSignal(targeted, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+		RegisterSignal(targeted, COMSIG_QDELETING, PROC_REF(on_targeted_deleted))
 
-	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equipped))
-	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_unequipped))
-	RegisterSignal(parent, COMSIG_ORGAN_IMPLANTED, PROC_REF(on_implanted))
-	RegisterSignal(parent, COMSIG_ORGAN_REMOVED, PROC_REF(on_removed))
+	if (isorgan(parent))
+		RegisterSignal(parent, COMSIG_ORGAN_IMPLANTED, PROC_REF(on_implanted))
+		RegisterSignal(parent, COMSIG_ORGAN_REMOVED, PROC_REF(on_removed))
+	else
+		RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equipped))
+		RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_unequipped))
 
 /datum/component/speechmod/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
@@ -207,6 +212,14 @@
 	if (isnull(targeted))
 		return
 	UnregisterSignal(targeted, COMSIG_MOB_SAY)
+	targeted = null
+
+/datum/component/speechmod/proc/on_targeted_deleted(datum/source)
+	SIGNAL_HANDLER
+
+	if (isnull(targeted))
+		return
+	UnregisterSignal(targeted, COMSIG_QDELETING)
 	targeted = null
 
 /datum/component/speechmod/Destroy()

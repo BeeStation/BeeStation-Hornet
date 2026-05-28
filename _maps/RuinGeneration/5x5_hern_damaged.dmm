@@ -4,17 +4,17 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "k" = (
 /obj/structure/closet/firecloset,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "s" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "u" = (
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "y" = (
 /turf/template_noop,
 /area/template_noop)
@@ -25,20 +25,20 @@
 "D" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "S" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "V" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "W" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 S
