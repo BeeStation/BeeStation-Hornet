@@ -2186,7 +2186,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/gun/blastcannon
 	cost = 14							//High cost because of the potential for extreme damage in the hands of a skilled scientist.
 	restricted_roles = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST)
-	disabled = TRUE // ! #11288 - Reported as non-functional
 	reputation_required = REPUTATION_EXCELLENT
 
 /datum/uplink_item/role_restricted/crushmagboots

@@ -73,7 +73,8 @@
 /obj/item/gun/blastcannon/proc/calculate_bomb()
 	if(!istype(bomb) || !bomb.ready())
 		return 0
-	var/datum/gas_mixture/temp = new(max(reaction_volume_mod, 0))
+	var/datum/gas_mixture/temp = new(1)
+	temp.volume = max(reaction_volume_mod, 0) // makes gas_mixture/New() stop screaming about zero volume.
 	bomb.merge_gases(temp)
 	if(prereaction)
 		temp.react(src)
@@ -143,7 +144,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/blastwave)
 	else if(lightr)
 		amount_destruction = EXPLODE_LIGHT
 		wallbreak_chance = 33
-	if(amount_destruction)
+	if(amount_destruction && loc)
 		if(hugbox)
 			loc.contents_explosion(EXPLODE_HEAVY, loc)
 			if(istype(loc, /turf/closed/wall))
