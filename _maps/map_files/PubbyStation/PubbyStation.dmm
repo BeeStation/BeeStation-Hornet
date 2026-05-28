@@ -38297,13 +38297,7 @@
 /obj/machinery/light_switch{
 	pixel_x = 25
 	},
-/obj/structure/filingcabinet/security{
-	pixel_x = -6
-	},
-/obj/structure/filingcabinet/medical{
-	pixel_y = 0;
-	pixel_x = 6
-	},
+/obj/structure/filingcabinet/security,
 /turf/open/floor/wood,
 /area/station/security/detectives_office/private_investigators_office)
 "ojG" = (
