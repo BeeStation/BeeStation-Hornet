@@ -410,7 +410,7 @@
 
 ///Can the mob hear
 /mob/proc/can_hear()
-	. = TRUE
+	return TRUE
 
 /mob/proc/has_mouth()
 	return FALSE

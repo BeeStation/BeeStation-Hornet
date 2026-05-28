@@ -15,36 +15,37 @@
 	. = ..()
 	if(!weather_type)
 		weather_type = w_type
-		sound_change_signals = list(
-			COMSIG_WEATHER_TELEGRAPH(weather_type),
-			COMSIG_WEATHER_START(weather_type),
-			COMSIG_WEATHER_WINDDOWN(weather_type),
-			COMSIG_WEATHER_END(weather_type)
-		)
+		for(var/type in typesof(weather_type))
+			sound_change_signals += list(
+				COMSIG_WEATHER_TELEGRAPH(type),
+				COMSIG_WEATHER_START(type),
+				COMSIG_WEATHER_WINDDOWN(type),
+				COMSIG_WEATHER_END(type)
+			)
 		weather_trait = trait
 		playlist = weather_playlist
 
-	RegisterSignal(target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(handle_z_level_change), TRUE)
-	RegisterSignal(target, COMSIG_MOB_LOGOUT, PROC_REF(handle_logout), TRUE)
+	RegisterSignal(target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(handle_z_level_change), override = TRUE)
+	RegisterSignal(target, COMSIG_MOB_LOGOUT, PROC_REF(handle_logout), override = TRUE)
 
-	// If the target is already on a z-level that matches this weather, create the
-	// area_sound_manager immediately so they hear the loop without having to
-	// change z-level.
-	if(ismovable(target))
-		var/turf/T = get_turf(target)
-		if(T && (T.z in SSmapping.levels_by_trait(weather_trait)))
-			handle_z_level_change(target, T.z, T.z)
+	var/turf/mob_turf = get_turf(target)
+	handle_z_level_change(target, null, mob_turf.z)
 
 /datum/element/weather_listener/Detach(datum/source)
 	. = ..()
-	UnregisterSignal(source, COMSIG_MOVABLE_Z_CHANGED, COMSIG_MOB_LOGOUT)
+	UnregisterSignal(source, list(COMSIG_MOVABLE_Z_CHANGED, COMSIG_MOB_LOGOUT))
 
 /datum/element/weather_listener/proc/handle_z_level_change(datum/source, old_z, new_z)
 	SIGNAL_HANDLER
 	var/list/fitting_z_levels = SSmapping.levels_by_trait(weather_trait)
 	if(!(new_z in fitting_z_levels))
 		return
-	var/datum/component/our_comp = source.AddComponent(/datum/component/area_sound_manager, playlist, null, COMSIG_MOB_LOGOUT, fitting_z_levels)
+	var/datum/component/our_comp = source.AddComponent(\
+		/datum/component/area_sound_manager, \
+		area_loop_pairs = playlist, \
+		remove_on = COMSIG_MOB_LOGOUT, \
+		acceptable_zs = fitting_z_levels, \
+	)
 	our_comp.RegisterSignals(SSdcs, sound_change_signals, TYPE_PROC_REF(/datum/component/area_sound_manager, handle_change))
 
 /datum/element/weather_listener/proc/handle_logout(datum/source)

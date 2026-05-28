@@ -3,27 +3,24 @@
 	name = "acid rain"
 	desc = "The planet's thunderstorms are by nature acidic, and will incinerate anyone standing beneath them without protection."
 
-	telegraph_duration = 400
+	telegraph_duration = 40 SECONDS
 	telegraph_message = span_boldwarning("Thunder rumbles far above. You hear droplets drumming against the canopy. Seek shelter.")
 	telegraph_sound = 'sound/ambience/acidrain_start.ogg'
 
 	weather_message = span_userdanger("<i>Acidic rain pours down around you! Get inside!</i>")
 	weather_overlay = "acid_rain"
-	weather_duration_lower = 600
-	weather_duration_upper = 1500
+	weather_duration_lower = 1 MINUTES
+	weather_duration_upper = 2.5 MINUTES
 	weather_sound = 'sound/ambience/acidrain_mid.ogg'
 
-	end_duration = 100
+	end_duration = 10 SECONDS
 	end_message = span_boldannounce("The downpour gradually slows to a light shower. It should be safe outside now.")
 	end_sound = 'sound/ambience/acidrain_end.ogg'
 
 	area_type = /area
-	protect_indoors = TRUE
 	target_trait = ZTRAIT_ACIDRAIN
 
-	immunity_type = TRAIT_ACIDSTORM_IMMUNE // temp
-
-	barometer_predictable = TRUE
+	weather_flags = WEATHER_MOBS | WEATHER_BAROMETER
 
 /datum/weather/acid_rain/weather_act_mob(mob/living/victim)
 	var/resist = victim.getarmor(null, ACID)

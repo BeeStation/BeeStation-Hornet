@@ -1,10 +1,10 @@
 /// The subsystem used to play ambience to users every now and then, makes them real excited.
 SUBSYSTEM_DEF(ambience)
 	name = "Ambience"
-	flags = SS_BACKGROUND|SS_NO_INIT
+	flags = SS_BACKGROUND | SS_NO_INIT
 	priority = FIRE_PRIORITY_AMBIENCE
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
-	wait = 2
+	wait = 1 SECONDS
 	///Assoc list of listening client - next ambience time
 	var/list/ambience_listening_clients = list()
 	///Cache for sanic speed :D
@@ -13,12 +13,15 @@ SUBSYSTEM_DEF(ambience)
 /datum/controller/subsystem/ambience/fire(resumed)
 	if(!resumed)
 		currentrun = ambience_listening_clients.Copy()
-	var/list/cached_clients = currentrun
-	for(var/client/client_iterator as anything in cached_clients)
-		if(isnull(client_iterator))
-			continue
 
-		if(isnewplayer(client_iterator.mob))
+	var/list/cached_clients = currentrun
+	while(cached_clients.len)
+		var/client/client_iterator = cached_clients[cached_clients.len]
+		cached_clients.len--
+
+		//Check to see if the client exists and isn't held by a new player
+		var/mob/client_mob = client_iterator?.mob
+		if(isnull(client_iterator) || isnull(client_mob) || isnewplayer(client_mob))
 			continue
 
 		process_ambience_client(client_iterator)
@@ -42,18 +45,18 @@ SUBSYSTEM_DEF(ambience)
 	if(ambience_listening_clients[to_process] > world.time)
 		return //Not ready for the next sound
 
-	if(current_area.ambientsounds && length(current_area.ambientsounds))
+	if(length(current_area.ambientsounds))
 		var/ambi_fx = pick(current_area.ambientsounds)
 
 		// rare minecraft cave noises
 		if(current_area.rare_ambient_sounds && length(current_area.rare_ambient_sounds) && prob(0.5))
 			ambi_fx = pick(current_area.rare_ambient_sounds)
 
-		play_ambience_effects(current_mob, ambi_fx, current_area)
+		play_ambience_effects(current_mob, ambi_fx)
 
-	if(current_area.ambientmusic && length(current_area.ambientmusic))
+	if(length(current_area.ambientmusic))
 		var/ambi_music = pick(current_area.ambientmusic)
-		play_ambience_music(current_mob, ambi_music, current_area)
+		play_ambience_music(current_mob, ambi_music)
 
 	ambience_listening_clients[to_process] = world.time + rand(current_area.min_ambience_cooldown, current_area.max_ambience_cooldown)
 
@@ -67,23 +70,37 @@ SUBSYSTEM_DEF(ambience)
 	currentrun -= to_remove
 
 ///Buzzing sound, the low ship drone that plays constantly, IC (requires the user to be able to hear)
-/datum/controller/subsystem/ambience/proc/play_buzz(mob/M, area/A)
-	if(M.can_hear_ambience() && M.client.prefs.read_player_preference(/datum/preference/toggle/sound_ship_ambience))
-		if (!M.client.buzz_playing || (A.ambient_buzz != M.client.buzz_playing))
-			SEND_SOUND(M, sound(A.ambient_buzz, repeat = 1, wait = 0, volume = A.ambient_buzz_vol, channel = CHANNEL_BUZZ))
-			M.client.buzz_playing = A.ambient_buzz // It's done this way so I can tell when the user switches to an area that has a different buzz effect, so we can seamlessly swap over to that one
+/datum/controller/subsystem/ambience/proc/play_buzz(mob/ambience_hearer, area/buzz_area)
+	if(ambience_hearer.can_hear_ambience())
+		var/pref_volume = ambience_hearer.client?.prefs.read_player_preference(/datum/preference/numeric/volume/sound_ambient_buzz_volume)
+		if (pref_volume > 0 && (!ambience_hearer.client?.buzz_playing || (buzz_area.type != ambience_hearer.client?.buzz_playing)))
+			SEND_SOUND(ambience_hearer, sound(buzz_area.ambient_buzz, repeat = TRUE, wait = FALSE, volume = buzz_area.ambient_buzz_vol * (pref_volume / 100), channel = CHANNEL_BUZZ))
+
+			ambience_hearer.client?.sound_channel_initial_volumes["[CHANNEL_BUZZ]"] = buzz_area.ambient_buzz_vol
+			// It's done this way so I can tell when the user switches to an area that has a different buzz effect, so we can seamlessly swap over to that one
+			ambience_hearer.client?.buzz_playing = buzz_area.type
 		return
 
-	if(M.client.buzz_playing) // If it's playing, and it shouldn't be, stop it
-		M.stop_sound_channel(CHANNEL_BUZZ)
-		M.client.buzz_playing = null
+	if(ambience_hearer.client.buzz_playing) // If it's playing, and it shouldn't be, stop it
+		ambience_hearer.stop_sound_channel(CHANNEL_BUZZ)
+		ambience_hearer.client.buzz_playing = null
 
-///Effect, random sounds that will play at random times, IC (requires the user to be able to hear)
-/datum/controller/subsystem/ambience/proc/play_ambience_effects(mob/M, _ambi_fx, area/A)
-	if(M.can_hear_ambience() && !M.client?.channel_in_use(CHANNEL_AMBIENT_EFFECTS))
-		SEND_SOUND(M, sound(_ambi_fx, repeat = 0, wait = 0, volume = 45, channel = CHANNEL_AMBIENT_EFFECTS))
+/// Effect, random sounds that will play at random times, IC (requires the user to be able to hear)
+/datum/controller/subsystem/ambience/proc/play_ambience_effects(mob/ambience_hearer, sound/effect_to_play)
+	if(!ambience_hearer.can_hear_ambience() || !ambience_hearer.client || ambience_hearer.client?.get_playing_channel(CHANNEL_AMBIENT_EFFECTS))
+		return
 
-///Play background music, the more OOC ambience, like eerie space music
-/datum/controller/subsystem/ambience/proc/play_ambience_music(mob/M, _ambi_music, area/A)
-	if(!M.client?.channel_in_use(CHANNEL_AMBIENT_MUSIC))
-		SEND_SOUND(M, sound(_ambi_music, repeat = 0, wait = 0, volume = 75, channel = CHANNEL_AMBIENT_MUSIC))
+	var/pref_volume = ambience_hearer.client?.prefs.read_player_preference(/datum/preference/numeric/volume/sound_ambience_volume)
+	if(pref_volume > 0)
+		ambience_hearer.client?.sound_channel_initial_volumes["[CHANNEL_AMBIENT_EFFECTS]"] = 45
+		SEND_SOUND(ambience_hearer, sound(effect_to_play, repeat = FALSE, wait = FALSE, volume = 45 * (pref_volume / 100), channel = CHANNEL_AMBIENT_EFFECTS))
+
+/// Play background music, the more OOC ambience, like eerie space music
+/datum/controller/subsystem/ambience/proc/play_ambience_music(mob/ambience_hearer, sound/music_to_play)
+	if(!ambience_hearer.client || ambience_hearer.client.get_playing_channel(CHANNEL_AMBIENT_MUSIC))
+		return
+
+	var/pref_volume = ambience_hearer.client?.prefs.read_player_preference(/datum/preference/numeric/volume/sound_ambience_volume)
+	if(pref_volume > 0)
+		ambience_hearer.client?.sound_channel_initial_volumes["[CHANNEL_AMBIENT_MUSIC]"] = 75
+		SEND_SOUND(ambience_hearer, sound(music_to_play, repeat = FALSE, wait = FALSE, volume = 75 * (pref_volume / 100), channel = CHANNEL_AMBIENT_MUSIC))

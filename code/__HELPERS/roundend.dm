@@ -214,7 +214,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		if(C)
 
 			C?.process_endround_metacoin()
-			C?.playtitlemusic(40)
+			C?.play_title_music(volume_multiplier = 0.5)
 
 			if(CONFIG_GET(flag/allow_crew_objectives))
 				var/mob/M = C?.mob

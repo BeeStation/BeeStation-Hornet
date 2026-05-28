@@ -88,7 +88,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RESISTLOWPRESSURE	"resist_low_pressure"
 #define TRAIT_LOWPRESSURELEAKING "low_pressure_leaking" //Don't take conventional damage at low pressure, instead you start to leak fluids
 #define TRAIT_BOMBIMMUNE "bomb_immunity"
-#define TRAIT_RADIMMUNE "rad_immunity"
 #define TRAIT_GENELESS "geneless"
 #define TRAIT_RADHEALER "rad_healer"
 #define TRAIT_VIRUSIMMUNE		"virus_immunity"
@@ -540,5 +539,23 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 ///Mobs with these trait do not get italicized/quiet speech when speaking in low pressure
 #define TRAIT_SPEECH_BOOSTER "speech_booster"
+
+/// This object has sound debugging tools attached to it
+#define TRAIT_SOUND_DEBUGGED "sound_debugged"
+
+// Radiation defines
+
+/// Marks that this object is irradiated
+#define TRAIT_IRRADIATED "irradiated"
+
+/// Immune to being irradiated
+#define TRAIT_RADIMMUNE "rad_immunity"
+
+/// Harmful radiation effects, the toxin damage and the burns, will not occur while this trait is active
+#define TRAIT_HALT_RADIATION_EFFECTS "halt_radiation_effects"
+
+/// This clothing protects the user from radiation.
+/// This should not be used on clothing_traits, but should be applied to the clothing itself.
+#define TRAIT_RADIATION_PROTECTED_CLOTHING "radiation_protected_clothing"
 
 // END TRAIT DEFINES

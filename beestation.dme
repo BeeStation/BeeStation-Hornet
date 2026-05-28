@@ -2801,7 +2801,6 @@
 #include "code\modules\client\login\tgui_login.dm"
 #include "code\modules\client\preferences\preference_entry.dm"
 #include "code\modules\client\preferences\preference_verbs.dm"
-#include "code\modules\client\preferences\preference_verbs_toggles.dm"
 #include "code\modules\client\preferences\preferences.dm"
 #include "code\modules\client\preferences\entries\character\age.dm"
 #include "code\modules\client\preferences\entries\character\ai_core_display.dm"
