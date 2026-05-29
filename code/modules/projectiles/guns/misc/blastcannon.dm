@@ -73,9 +73,8 @@
 /obj/item/gun/blastcannon/proc/calculate_bomb()
 	if(!istype(bomb) || !bomb.ready())
 		return 0
-	var/datum/gas_mixture/temp = new(1)
-	temp.volume = max(reaction_volume_mod, 0) // makes gas_mixture/New() stop screaming about zero volume.
-	bomb.merge_gases(temp)
+	var/datum/gas_mixture/temp = new(bomb.tank_one.air_contents.volume + bomb.tank_two.air_contents.volume + max(reaction_volume_mod, 0))
+	bomb.merge_gases(temp, FALSE)
 	if(prereaction)
 		temp.react(src)
 		var/prereaction_pressure = temp.return_pressure()
