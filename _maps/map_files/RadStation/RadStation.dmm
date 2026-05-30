@@ -12335,20 +12335,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/station/security/courtroom)
-"eEl" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/siding/wideplating/dark,
-/obj/item/reagent_containers/cup/glass/drinkingglass{
-	pixel_x = -6;
-	pixel_y = 9
-	},
-/obj/item/rag{
-	pixel_x = 6;
-	pixel_y = 8
-	},
-/turf/open/floor/iron/cafeteria_red,
-/area/station/service/bar)
 "eEr" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/light/small{
@@ -14213,22 +14199,6 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
-"flj" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup,
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow,
-/obj/machinery/door/airlock/research/glass{
-	name = "Research Division"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/science/robotics,
-/obj/effect/mapping_helpers/airlock/access/any/science/general,
-/turf/open/floor/iron/techmaint,
-/area/station/maintenance/department/science)
 "flt" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle{
 	name = "Public shuttle flight controller";
@@ -15553,25 +15523,6 @@
 /obj/structure/sign/warning/no_smoking/circle,
 /turf/closed/wall,
 /area/station/service/hydroponics)
-"fOo" = (
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow,
-/obj/machinery/door/airlock/research/glass{
-	name = "Research Division"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/science/robotics,
-/obj/effect/mapping_helpers/airlock/access/any/science/general,
-/turf/open/floor/iron/white,
-/area/station/science/research)
 "fOs" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
@@ -19612,22 +19563,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
-"hzj" = (
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow,
-/obj/machinery/door/airlock/research/glass{
-	name = "Research Division"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/science/robotics,
-/obj/effect/mapping_helpers/airlock/access/any/science/general,
-/turf/open/floor/iron/white,
-/area/station/science/research)
 "hzn" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/stripes/line{
@@ -20778,6 +20713,22 @@
 /mob/living/basic/mothroach,
 /turf/open/floor/grass,
 /area/station/hallway/primary/central)
+"hWW" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow,
+/obj/machinery/door/airlock/research/glass{
+	name = "Research Division"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/science/robotics,
+/obj/effect/mapping_helpers/airlock/access/any/science/general,
+/turf/open/floor/iron/white,
+/area/station/science/research)
 "hXh" = (
 /obj/structure/rack,
 /obj/structure/cloth_pile{
@@ -25066,6 +25017,22 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/station/command/heads_quarters/hop)
+"jDY" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow,
+/obj/machinery/door/airlock/research/glass{
+	name = "Research Division"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/science/robotics,
+/obj/effect/mapping_helpers/airlock/access/any/science/general,
+/turf/open/floor/iron/techmaint,
+/area/station/maintenance/department/science)
 "jEd" = (
 /obj/effect/turf_decal/guideline/guideline_edge/yellow{
 	dir = 8
@@ -25465,24 +25432,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/commons/dorms)
-"jLA" = (
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/unres,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow,
-/obj/machinery/door/airlock/research/glass{
-	name = "Research Division"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/science/robotics,
-/obj/effect/mapping_helpers/airlock/access/any/science/general,
-/turf/open/floor/iron/white,
-/area/station/science/research)
 "jLC" = (
 /obj/structure/frame,
 /turf/open/space/basic,
@@ -29945,6 +29894,25 @@
 /obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/carpet/royalblue,
 /area/station/command/heads_quarters/chief)
+"lux" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig Bay"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/security/general,
+/obj/effect/mapping_helpers/airlock/access/any/security/detective,
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig_physician,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/station/security/medical)
 "luN" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
@@ -40932,6 +40900,20 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/cargo/exploration_prep)
+"prB" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/siding/wideplating/dark,
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = -6;
+	pixel_y = 9
+	},
+/obj/item/rag{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/turf/open/floor/iron/cafeteria_red,
+/area/station/service/bar)
 "prF" = (
 /turf/open/floor/iron/white/corner{
 	dir = 8
@@ -43563,6 +43545,24 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
+"qvC" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/unres,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow,
+/obj/machinery/door/airlock/research/glass{
+	name = "Research Division"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/science/robotics,
+/obj/effect/mapping_helpers/airlock/access/any/science/general,
+/turf/open/floor/iron/white,
+/area/station/science/research)
 "qvG" = (
 /obj/structure/chair/fancy/sofa/old/left,
 /turf/open/floor/wood,
@@ -46446,6 +46446,25 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/station/service/lawoffice)
+"rzq" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/obj/machinery/door/airlock/research/glass{
+	name = "Research Division"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/science/robotics,
+/obj/effect/mapping_helpers/airlock/access/any/science/general,
+/turf/open/floor/iron/white,
+/area/station/science/research)
 "rzy" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -50288,6 +50307,25 @@
 	},
 /turf/open/floor/noslip/white,
 /area/station/commons/toilet)
+"sWV" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow,
+/obj/machinery/door/airlock/research/glass{
+	name = "Research Division"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/science/robotics,
+/obj/effect/mapping_helpers/airlock/access/any/science/general,
+/turf/open/floor/iron/white,
+/area/station/science/research)
 "sXh" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/item/radio/intercom{
@@ -50337,25 +50375,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/lobby)
-"sXJ" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow,
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
-/obj/machinery/door/airlock/research/glass{
-	name = "Research Division"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/science/robotics,
-/obj/effect/mapping_helpers/airlock/access/any/science/general,
-/turf/open/floor/iron/white,
-/area/station/science/research)
 "sXL" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/disposalpipe/segment{
@@ -61646,25 +61665,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/sepia,
 /area/station/cargo/storage)
-"xpt" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig Bay"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/security/general,
-/obj/effect/mapping_helpers/airlock/access/any/security/detective,
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/structure/cable/yellow,
-/obj/effect/mapping_helpers/airlock/access/any/security/brig_physician,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/station/security/medical)
 "xpv" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/turf_decal/bot,
@@ -88154,15 +88154,15 @@ vFV
 piD
 vfp
 suv
-jLA
+qvC
 xSK
 xSK
-fOo
+sWV
 eXg
 xSK
 gtK
 xSK
-flj
+jDY
 vHB
 vHB
 oQh
@@ -89118,7 +89118,7 @@ awD
 dvy
 rLS
 cdx
-xpt
+lux
 cdx
 vcy
 vcy
@@ -95611,7 +95611,7 @@ ecH
 lHs
 trp
 mxT
-hzj
+hWW
 mxT
 xUF
 oIV
@@ -96382,7 +96382,7 @@ nFo
 van
 pZM
 nPc
-sXJ
+rzq
 nPc
 xUF
 xUF
@@ -100972,7 +100972,7 @@ qiq
 fsO
 mtX
 iRe
-eEl
+prB
 pIU
 nls
 wod

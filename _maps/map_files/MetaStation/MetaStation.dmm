@@ -13040,24 +13040,6 @@
 	dir = 1
 	},
 /area/station/engineering/main)
-"eSm" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/shaker{
-	pixel_x = -7;
-	pixel_y = 1
-	},
-/obj/item/rag{
-	pixel_x = -6;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/machinery/requests_console/auto_name/directional/east,
-/obj/machinery/reagentgrinder{
-	pixel_x = -1;
-	pixel_y = 9
-	},
-/turf/open/floor/iron/dark,
-/area/station/service/bar/lounge)
 "eSv" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -19454,6 +19436,24 @@
 /obj/structure/transit_tube/crossing/horizontal,
 /turf/open/space,
 /area/misc/space/nearstation)
+"hga" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/shaker{
+	pixel_x = -7;
+	pixel_y = 1
+	},
+/obj/item/rag{
+	pixel_x = -6;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/requests_console/auto_name/directional/east,
+/obj/machinery/reagentgrinder{
+	pixel_x = -1;
+	pixel_y = 9
+	},
+/turf/open/floor/iron/dark,
+/area/station/service/bar/lounge)
 "hgb" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/engine/air,
@@ -56441,20 +56441,6 @@
 	},
 /turf/open/floor/iron/checker,
 /area/station/service/kitchen)
-"tBL" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/obj/machinery/door/airlock/security/glass{
-	name = "Infirmary"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/security/brig_physician,
-/obj/effect/mapping_helpers/airlock/access/any/security/detective,
-/obj/effect/mapping_helpers/airlock/access/any/security/general,
-/turf/open/floor/iron/dark,
-/area/station/security/brig)
 "tBN" = (
 /obj/structure/cable/yellow,
 /obj/machinery/door/airlock/maintenance,
@@ -64276,6 +64262,20 @@
 /obj/effect/landmark/navigate_destination,
 /turf/open/floor/plating,
 /area/station/service/janitor)
+"wlk" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Infirmary"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/security/brig_physician,
+/obj/effect/mapping_helpers/airlock/access/any/security/detective,
+/obj/effect/mapping_helpers/airlock/access/any/security/general,
+/turf/open/floor/iron/dark,
+/area/station/security/brig)
 "wlo" = (
 /obj/machinery/status_display/ai{
 	pixel_x = -32
@@ -95951,7 +95951,7 @@ cRB
 mMr
 xln
 gMI
-tBL
+wlk
 nyo
 erv
 ugH
@@ -108071,7 +108071,7 @@ tQA
 dUN
 njs
 kHY
-eSm
+hga
 lbo
 uPB
 tnL

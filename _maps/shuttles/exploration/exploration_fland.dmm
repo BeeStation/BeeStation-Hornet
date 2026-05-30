@@ -170,6 +170,10 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"fp" = (
+/obj/machinery/computer/rdconsole/unlocked,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "fW" = (
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 4
@@ -755,18 +759,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
-"Nr" = (
-/obj/structure/table/reinforced,
-/obj/item/rag{
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/cup/glass/shaker{
-	pixel_x = 4;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "Nt" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -931,6 +923,18 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"TD" = (
+/obj/structure/table/reinforced,
+/obj/item/rag{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/cup/glass/shaker{
+	pixel_x = 4;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "Uh" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -1041,10 +1045,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"YS" = (
-/obj/machinery/computer/rdconsole/unlocked,
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Zf" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -1226,7 +1226,7 @@ Qv
 "}
 (7,1,1) = {"
 Om
-YS
+fp
 kV
 qX
 nG
@@ -1263,7 +1263,7 @@ Sw
 nG
 Tf
 wo
-Nr
+TD
 dL
 nG
 Xo

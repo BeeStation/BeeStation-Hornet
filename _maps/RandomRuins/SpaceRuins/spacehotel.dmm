@@ -1424,6 +1424,13 @@
 	},
 /turf/closed/wall,
 /area/ruin/space/has_grav/hotel/dock)
+"fs" = (
+/obj/machinery/atmospherics/pipe/bridge_pipe/scrubbers/hidden{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/supply/hidden,
+/turf/open/floor/wood,
+/area/ruin/space/has_grav/hotel/dock)
 "ft" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
@@ -3288,12 +3295,6 @@
 /obj/structure/toilet,
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/hotel/guestroom/room_6)
-"Ax" = (
-/obj/structure/table/reinforced,
-/obj/item/rag,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/hotel/bar)
 "AP" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
@@ -3343,6 +3344,12 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/hotel/pool)
+"Ci" = (
+/obj/structure/table/reinforced,
+/obj/item/rag,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/hotel/bar)
 "Cw" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -3889,13 +3896,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/power)
-"Ut" = (
-/obj/machinery/atmospherics/pipe/bridge_pipe/scrubbers/hidden{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/bridge_pipe/supply/hidden,
-/turf/open/floor/wood,
-/area/ruin/space/has_grav/hotel/dock)
 "Uy" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -5981,7 +5981,7 @@ aw
 fi
 SQ
 BF
-Ax
+Ci
 oC
 BF
 PW
@@ -7168,7 +7168,7 @@ BR
 dF
 di
 eV
-Ut
+fs
 fO
 fX
 fu
