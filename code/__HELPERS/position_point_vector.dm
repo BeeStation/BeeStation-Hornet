@@ -118,10 +118,10 @@
 	AM.pixel_y = return_py()
 
 /datum/point/proc/return_turf()
-	return locate(CEILING(x / ICON_SIZE_X, 1), CEILING(y / ICON_SIZE_Y, 1), z)
+	return locate(ceil(x / ICON_SIZE_X), ceil(y / ICON_SIZE_Y), z)
 
 /datum/point/proc/return_coordinates()		//[turf_x, turf_y, z]
-	return list(CEILING(x / ICON_SIZE_X, 1), CEILING(y / ICON_SIZE_Y, 1), z)
+	return list(ceil(x / ICON_SIZE_X), ceil(y / ICON_SIZE_Y), z)
 
 /datum/point/proc/return_position()
 	return new /datum/position(src)

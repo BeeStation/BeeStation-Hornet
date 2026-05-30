@@ -218,3 +218,23 @@
     - rscdel: Removed the /obj/machinery/doppler_array/research/science typepath.
     - rscdel: The destructive analyzer can no longer reclaim materials from the incredibly
         few items it could previously reclaim from.
+2026-05-25:
+  Jacquerel:
+  - bugfix: atmos foam spreads over solid objects again
+  mrmanlikesbt:
+  - bugfix: Fixed exploration ruins not having power.
+  - bugfix: Fixed some hard-dels
+  mrmanlikesbt, SyncIt21, Absolucy, tontyGH:
+  - code_imp: Some math macros have been replaced with byond built-ins
+  - code_imp: The type2parent() proc has been removed. Access the parent_type var
+  - code_imp: Fixed /datum/component/proc/_GetInverseTypeList() returning unexpected
+      values
+  - code_imp: Fixed the ISEVEN() macro throwing a compiler error
+2026-05-28:
+  WhiskeyMarten:
+  - bugfix: Fixed Brig Physician's not being able to enter the brig medbay on some
+      maps.
+  - bugfix: Fixed overlapping locker/smes on Cardstation.
+2026-05-29:
+  mrmanlikesbt:
+  - code_imp: The FAST_REFERENCE_TRACKING define no longer causes a compiler error

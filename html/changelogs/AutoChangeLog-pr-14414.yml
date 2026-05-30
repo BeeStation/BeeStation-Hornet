@@ -1,4 +1,0 @@
-author: Jacquerel
-delete-after: true
-changes:
-  - bugfix: atmos foam spreads over solid objects again

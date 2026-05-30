@@ -39,8 +39,8 @@ SUBSYSTEM_DEF(title)
 		lobby_screen_size = "[width]x[height]"
 
 		//Update the new player start (views are centered)
-		var/new_player_x = splash_turf.x + FLOOR(width / 2, 1)
-		var/new_player_y = splash_turf.y + FLOOR(height / 2, 1)
+		var/new_player_x = splash_turf.x + floor(width / 2)
+		var/new_player_y = splash_turf.y + floor(height / 2)
 		newplayer_start_loc = locate(new_player_x, new_player_y, splash_turf.z)
 		// Reset the newplayer start loc
 		GLOB.newplayer_start.Cut()
