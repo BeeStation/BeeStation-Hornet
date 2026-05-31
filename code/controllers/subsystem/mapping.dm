@@ -234,8 +234,8 @@ SUBSYSTEM_DEF(mapping)
 		if(QDELETED(d))
 			nuke_threats -= d
 
-	for(var/turf/open/floor/circuit/C as() in nuke_tiles)
-		C.update_icon()
+	for(var/turf/open/floor/circuit/circuit_floor as anything in nuke_tiles)
+		circuit_floor.update_appearance()
 
 /datum/controller/subsystem/mapping/Recover()
 	flags |= SS_NO_INIT
