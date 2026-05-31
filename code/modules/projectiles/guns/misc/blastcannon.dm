@@ -10,7 +10,7 @@
 	item_flags = NONE
 	clumsy_check = FALSE
 
-	var/hugbox = TRUE
+	var/hugbox = FALSE
 	var/max_power = INFINITY
 	var/reaction_volume_mod = 0
 	var/reaction_cycles = 3				//How many times gases react() before calculation. Very finnicky value, do not mess with without good reason.
