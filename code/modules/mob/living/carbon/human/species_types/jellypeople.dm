@@ -424,7 +424,7 @@
 		var/obj/item/I = H.get_active_held_item()
 		if(istype(I, /obj/item/slime_extract))
 			var/obj/item/slime_extract/S = I
-			if(!S.Uses)
+			if(!S.extract_uses)
 				to_chat(H, span_warning("[I] is spent! You cannot integrate it."))
 				return
 			if(!H.temporarilyRemoveItemFromInventory(S))

@@ -488,8 +488,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/obj/item/bodypart/head/head in C.bodyparts)
 			head.mouth = FALSE
 
-	for(var/X in inherent_traits)
-		ADD_TRAIT(C, X, SPECIES_TRAIT)
+	if(length(inherent_traits))
+		C.add_traits(inherent_traits, SPECIES_TRAIT)
 
 	if(TRAIT_VIRUSIMMUNE in inherent_traits)
 		for(var/datum/disease/A in C.diseases)

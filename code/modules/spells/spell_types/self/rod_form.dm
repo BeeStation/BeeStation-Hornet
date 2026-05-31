@@ -68,6 +68,7 @@
 	var/damage_bonus = 0
 	/// The turf the rod started from, to calcuate distance.
 	var/turf/start_turf
+
 /obj/effect/immovablerod/wizard/Initialize(mapload, atom/target_atom, atom/specific_target, force_looping = FALSE, mob/living/wizard, max_distance = BASE_WIZ_ROD_RANGE, damage_bonus = 0)
 	. = ..()
 	if(wizard)

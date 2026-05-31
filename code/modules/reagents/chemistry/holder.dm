@@ -564,8 +564,8 @@
 
 				if(istype(cached_my_atom, /obj/item/slime_extract))
 					var/obj/item/slime_extract/ME2 = my_atom
-					ME2.Uses--
-					if(ME2.Uses <= 0) // give the notification that the slime core is dead
+					ME2.extract_uses--
+					if(ME2.extract_uses <= 0) // give the notification that the slime core is dead
 						for(var/mob/M as() in seen)
 							to_chat(M, span_notice("[iconhtml] \The [my_atom]'s power is consumed in the reaction."))
 							ME2.name = "used slime extract"

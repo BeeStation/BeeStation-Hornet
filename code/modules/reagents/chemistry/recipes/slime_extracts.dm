@@ -10,7 +10,7 @@
 	if(!istype(extract))
 		return FALSE
 
-	return extract.Uses > 0
+	return extract.extract_uses > 0
 
 /datum/chemical_reaction/slime/on_reaction(datum/reagents/holder)
 	use_slime_core(holder)
@@ -21,9 +21,9 @@
 		delete_extract(holder)
 
 /datum/chemical_reaction/slime/proc/delete_extract(datum/reagents/holder)
-	var/obj/item/slime_extract/M = holder.my_atom
-	if(M.Uses <= 0 && !results.len) //if the slime doesn't output chemicals
-		qdel(M)
+	var/obj/item/slime_extract/extract = holder.my_atom
+	if(!QDELETED(extract) && extract.extract_uses <= 0 && !length(results)) //if the slime doesn't output chemicals
+		qdel(extract)
 
 //Grey
 /datum/chemical_reaction/slime/slimespawn
@@ -489,7 +489,7 @@
 	var/turf/T = get_turf(holder.my_atom)
 	new /obj/effect/timestop(T, null, null, null)
 	if(istype(extract))
-		if(extract.Uses > 0)
+		if(extract.extract_uses > 0)
 			var/mob/lastheld = get_mob_by_ckey(holder.my_atom.fingerprintslast)
 			if(lastheld && !lastheld.equip_to_slot_if_possible(extract, ITEM_SLOT_HANDS, disable_warning = TRUE))
 				extract.forceMove(get_turf(lastheld))

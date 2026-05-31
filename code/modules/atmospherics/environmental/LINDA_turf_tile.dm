@@ -68,7 +68,7 @@
 	if(active_hotspot)
 		QDEL_NULL(active_hotspot)
 	// Adds the adjacent turfs to the current atmos processing
-	for(var/turf/open/near_turf in atmos_adjacent_turfs)
+	for(var/turf/open/near_turf as anything in atmos_adjacent_turfs)
 		SSair.add_to_active(near_turf)
 	return ..()
 
@@ -276,9 +276,6 @@
 			stack_trace("closed turf inside of adjacent turfs")
 			continue
 		#endif
-
-		if(!istype(enemy_tile))
-			continue
 
 		// This var is only rarely set, exists so turfs can request to share at the end of our sharing
 		// We need this so we can assume share is communative, which we need to do to avoid a hellish amount of garbage_collect()s

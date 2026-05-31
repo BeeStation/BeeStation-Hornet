@@ -43,7 +43,7 @@
 
 	force_no_gravity = TRUE
 
-/turf/open/space/basic/New()	//Do not convert to Initialize
+/turf/open/space/basic/New() //Do not convert to Initialize
 	//This is used to optimize the map loader
 	return
 
@@ -63,8 +63,6 @@
 /turf/open/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	icon_state = SPACE_ICON_STATE
-	if(!space_gas)
-		space_gas = new
 	air = space_gas
 
 	if(flags_1 & INITIALIZED_1)
@@ -74,9 +72,6 @@
 	var/area/our_area = loc
 	if(!our_area.has_starlight_overlay)
 		add_overlay(GLOB.starlight_overlay)
-
-	if(requires_activation)
-		SSair.add_to_active(src, TRUE)
 
 	return INITIALIZE_HINT_NORMAL
 
