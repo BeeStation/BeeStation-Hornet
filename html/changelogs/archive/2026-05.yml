@@ -235,3 +235,6 @@
   - bugfix: Fixed Brig Physician's not being able to enter the brig medbay on some
       maps.
   - bugfix: Fixed overlapping locker/smes on Cardstation.
+2026-05-29:
+  mrmanlikesbt:
+  - code_imp: The FAST_REFERENCE_TRACKING define no longer causes a compiler error
