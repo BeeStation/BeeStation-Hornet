@@ -26754,13 +26754,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron,
 /area/station/maintenance/department/security)
-"klR" = (
-/obj/effect/mapping_helpers/tile_breaker,
-/obj/effect/mapping_helpers/airlock/access/any/science/general,
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/station/maintenance/port/aft)
 "klZ" = (
 /obj/machinery/door/airlock/external{
 	name = "Arrival Shuttle Airlock"
@@ -90762,7 +90755,7 @@ wBT
 rrE
 tzH
 tzH
-klR
+swd
 xEv
 nfZ
 qUe
