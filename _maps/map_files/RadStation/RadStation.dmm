@@ -20063,13 +20063,6 @@
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
 /area/station/maintenance/department/engine)
-"hIU" = (
-/obj/effect/mapping_helpers/tile_breaker,
-/obj/effect/mapping_helpers/airlock/access/any/science/general,
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/station/maintenance/port/aft)
 "hJB" = (
 /turf/closed/wall/r_wall,
 /area/station/command/heads_quarters/captain)
@@ -26761,6 +26754,13 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron,
 /area/station/maintenance/department/security)
+"klR" = (
+/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/mapping_helpers/airlock/access/any/science/general,
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/station/maintenance/port/aft)
 "klZ" = (
 /obj/machinery/door/airlock/external{
 	name = "Arrival Shuttle Airlock"
@@ -49816,7 +49816,7 @@
 	name = "Experimentation Chamber";
 	security_level = 6
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/ordnance_storage,
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /turf/open/floor/plating,
 /area/station/science/explab)
 "sPg" = (
@@ -90762,7 +90762,7 @@ wBT
 rrE
 tzH
 tzH
-hIU
+klR
 xEv
 nfZ
 qUe
