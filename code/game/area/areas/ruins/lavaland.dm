@@ -31,59 +31,59 @@
 
 //Syndicate lavaland base
 
-/area/ruin/unpowered/syndicate_lava_base
+/area/ruin/lavaland/syndicate_lava_base
 	name = "Secret Base"
 	icon_state = "dk_yellow"
 	ambience_index = AMBIENCE_DANGER
 	ambient_buzz = 'sound/ambience/magma.ogg'
 	ambient_buzz_vol = 10
 
-/area/ruin/unpowered/syndicate_lava_base/brig
+/area/ruin/lavaland/syndicate_lava_base/brig
 	name = "Syndicate Lavaland Brig"
 
-/area/ruin/unpowered/syndicate_lava_base/bridge
+/area/ruin/lavaland/syndicate_lava_base/bridge
 	name = "Syndicate Lavaland Bridge"
 
-/area/ruin/unpowered/syndicate_lava_base/starboard
+/area/ruin/lavaland/syndicate_lava_base/starboard
 	name = "Syndicate Lavaland Starboard Primary Hallway"
 
-/area/ruin/unpowered/syndicate_lava_base/port
+/area/ruin/lavaland/syndicate_lava_base/port
 	name = "Syndicate Lavaland Port Primary Hallway"
 
-/area/ruin/unpowered/syndicate_lava_base/engineering
+/area/ruin/lavaland/syndicate_lava_base/engineering
 	name = "Syndicate Lavaland Engineering"
 
-/area/ruin/unpowered/syndicate_lava_base/medbay
+/area/ruin/lavaland/syndicate_lava_base/medbay
 	name = "Syndicate Lavaland Medbay"
 
-/area/ruin/unpowered/syndicate_lava_base/arrivals
+/area/ruin/lavaland/syndicate_lava_base/arrivals
 	name = "Syndicate Lavaland Arrivals"
 
-/area/ruin/unpowered/syndicate_lava_base/bar
+/area/ruin/lavaland/syndicate_lava_base/bar
 	name = "\improper Syndicate Lavaland Bar"
 
-/area/ruin/unpowered/syndicate_lava_base/main
+/area/ruin/lavaland/syndicate_lava_base/main
 	name = "\improper Syndicate Lavaland Primary Hallway"
 
-/area/ruin/unpowered/syndicate_lava_base/cargo
+/area/ruin/lavaland/syndicate_lava_base/cargo
 	name = "\improper Syndicate Lavaland Cargo Bay"
 
-/area/ruin/unpowered/syndicate_lava_base/chemistry
+/area/ruin/lavaland/syndicate_lava_base/chemistry
 	name = "Syndicate Lavaland Chemistry"
 
-/area/ruin/unpowered/syndicate_lava_base/virology
+/area/ruin/lavaland/syndicate_lava_base/virology
 	name = "Syndicate Lavaland Virology"
 
-/area/ruin/unpowered/syndicate_lava_base/science
+/area/ruin/lavaland/syndicate_lava_base/science
 	name = "Syndicate Lavaland Science"
 
-/area/ruin/unpowered/syndicate_lava_base/testlab
+/area/ruin/lavaland/syndicate_lava_base/testlab
 	name = "\improper Syndicate Lavaland Experimentation Lab"
 
-/area/ruin/unpowered/syndicate_lava_base/dormitories
+/area/ruin/lavaland/syndicate_lava_base/dormitories
 	name = "\improper Syndicate Lavaland Dormitories"
 
-/area/ruin/unpowered/syndicate_lava_base/telecomms
+/area/ruin/lavaland/syndicate_lava_base/telecomms
 	name = "\improper Syndicate Lavaland Telecommunications"
 
 /area/ruin/unpowered/standruin
