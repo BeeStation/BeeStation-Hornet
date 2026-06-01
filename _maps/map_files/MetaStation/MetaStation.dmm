@@ -4794,7 +4794,7 @@
 /obj/machinery/door/airlock/research{
 	name = "Research and Development Lab"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science/ordnance,
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /obj/effect/mapping_helpers/airlock/access/any/science/robotics,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -4806,6 +4806,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /turf/open/floor/iron/white,
 /area/station/science/lab)
 "cbi" = (
@@ -24449,7 +24450,6 @@
 /obj/machinery/door/airlock/research{
 	name = "Nanite Laboratory"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science/ordnance,
 /obj/effect/mapping_helpers/airlock/access/any/science/research,
 /obj/effect/mapping_helpers/airlock/access/any/science/robotics,
 /obj/structure/cable/yellow,
@@ -35699,7 +35699,6 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Nanite Laboratory Maintenance"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science/ordnance,
 /obj/effect/mapping_helpers/airlock/access/any/science/research,
 /obj/effect/mapping_helpers/airlock/access/any/science/robotics,
 /obj/structure/disposalpipe/segment,
@@ -67192,7 +67191,7 @@
 /obj/machinery/door/airlock/research{
 	name = "Research Break Room"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science/ordnance,
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /obj/effect/mapping_helpers/airlock/access/any/science/robotics,
 /turf/open/floor/iron/cafeteria{
 	dir = 5

@@ -6185,7 +6185,7 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Research and Development Lab"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science/ordnance,
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /obj/effect/mapping_helpers/airlock/access/any/science/robotics,
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow,
@@ -43215,7 +43215,7 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Research and Development Lab"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science/ordnance,
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /obj/effect/mapping_helpers/airlock/access/any/science/robotics,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/turf_decal/stripes/white/line,
@@ -83395,7 +83395,7 @@
 /obj/machinery/door/airlock/glass_large{
 	name = "Experimentation Lab"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/ordnance,
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /turf/open/floor/monotile/steel,
 /area/station/science/explab)
 "tEM" = (
