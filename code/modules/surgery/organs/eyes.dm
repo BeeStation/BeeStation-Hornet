@@ -541,7 +541,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
 	eye_owner.cure_blind(PSYPHOZA_BLINDNESS_SOURCE)
 
 	var/datum/action/item_action/organ_action/psychic_highlight/highlight_ability = locate() in eye_owner.actions
-	highlight_ability.Remove(eye_owner)
+	highlight_ability?.Remove(eye_owner)
 	return ..()
 
 #undef PSYPHOZA_BLINDNESS_SOURCE
