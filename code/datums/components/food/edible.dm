@@ -393,7 +393,8 @@ Behavior that's still missing from this component that original food items had t
 	SEND_SIGNAL(parent, COMSIG_FOOD_EATEN, eater, feeder, bitecount, bite_consumption)
 
 	//Give a buff when the dish is hand-crafted and unbitten
-	apply_buff(eater)
+	if(bitecount == 0)
+		apply_buff(eater)
 
 	var/fraction = min(bite_consumption / owner.reagents.total_volume, 1)
 	owner.reagents.trans_to(eater, bite_consumption, transfered_by = feeder, method = INGEST)
@@ -486,7 +487,7 @@ Behavior that's still missing from this component that original food items had t
 
 /// Get the complexity of the crafted food
 /datum/component/edible/proc/get_recipe_complexity()
-	if(!istype(parent, /obj/item/food))
+	if(!HAS_TRAIT(parent, TRAIT_FOOD_CHEF_MADE) || !istype(parent, /obj/item/food))
 		return 0 // It is factory made. Soulless.
 	var/obj/item/food/food = parent
 	return food.crafting_complexity
