@@ -288,9 +288,9 @@
 
 //Changeling invisibility
 /datum/status_effect/changeling/camouflage
-	id = "changelingcamo"
+	id = "changeling_camo"
 	alert_type = /atom/movable/screen/alert/status_effect/changeling_camouflage
-	tick_interval = 5
+	tick_interval = 0.6 SECONDS
 
 /datum/status_effect/changeling/camouflage/tick()
 	if(!..())
@@ -303,20 +303,20 @@
 /datum/status_effect/changeling/camouflage/on_apply()
 	if(!..())
 		return FALSE
-	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(slight_increase))
-	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(large_increase))
-	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(large_increase))
-	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(slight_increase))
+	RegisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_BUMPED), PROC_REF(slight_increase))
+	RegisterSignal(owner, list(COMSIG_MOB_APPLY_DAMAGE, COMSIG_MOB_ITEM_ATTACK), PROC_REF(large_increase))
 	return TRUE
 
 /datum/status_effect/changeling/camouflage/on_remove()
-	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMAGE, COMSIG_ATOM_BUMPED))
+	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMAGE, COMSIG_MOB_ITEM_ATTACK, COMSIG_ATOM_BUMPED))
 	owner.alpha = 255
 
 /datum/status_effect/changeling/camouflage/proc/slight_increase()
+	SIGNAL_HANDLER
 	owner.alpha = min(owner.alpha + 15, 255)
 
 /datum/status_effect/changeling/camouflage/proc/large_increase()
+	SIGNAL_HANDLER
 	owner.alpha = min(owner.alpha + 50, 255)
 
 /atom/movable/screen/alert/status_effect/changeling_camouflage
@@ -353,10 +353,10 @@
 
 //Hippocratic Oath: Applied when the Rod of Asclepius is activated.
 /datum/status_effect/hippocratic_oath
-	id = "Hippocratic Oath"
+	id = "hippocratic_oath"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = STATUS_EFFECT_PERMANENT
-	tick_interval = 2.5 SECONDS
+	tick_interval = 2.6 SECONDS
 	alert_type = null
 	var/hand
 	var/deathTick = 0
@@ -524,7 +524,7 @@
 	id = "Photosynthesis"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = STATUS_EFFECT_PERMANENT
-	tick_interval = 25
+	tick_interval = 2.6 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/planthealing
 
 /datum/status_effect/planthealing/get_examine_text()
