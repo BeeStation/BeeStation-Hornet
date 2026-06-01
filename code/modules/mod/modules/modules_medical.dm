@@ -395,7 +395,6 @@
 		/datum/surgery/advanced/pacify,
 		/datum/surgery/healing/combo/upgraded,
 		/datum/surgery/blood_filter/upgraded,
-		/datum/surgery/advanced/brainwashing,
 		/datum/surgery/advanced/bioware/nerve_splicing,
 		/datum/surgery/advanced/bioware/nerve_grounding,
 		/datum/surgery/advanced/bioware/vein_threading,
@@ -414,6 +413,5 @@
 /obj/item/surgical_processor/mod/emergency
 	loaded_surgeries = list(
 		/datum/surgery/healing/combo/upgraded,
-		/datum/surgery/advanced/revival,
 		/datum/surgery/blood_filter/upgraded,
 	)
