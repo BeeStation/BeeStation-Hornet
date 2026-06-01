@@ -87,12 +87,13 @@
 	name = ""
 	icon = 'icons/misc/pic_in_pic.dmi'
 	icon_state = "room_background"
-	flags_1 = NOJAUNT_1
+	turf_flags = NOJAUNT
 
 /area/ai_multicam_room
 	name = "ai_multicam_room"
 	icon_state = "ai_camera_room"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 	ambientsounds = list()
 	area_flags = HIDDEN_AREA | UNIQUE_AREA
 	teleport_restriction = TELEPORT_ALLOW_NONE
@@ -238,7 +239,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 	to_chat(src, span_notice("Multiple-camera viewing mode activated."))
 
 /mob/living/silicon/ai/proc/refresh_multicam()
-	reset_perspective(GLOB.ai_camera_room_landmark)
+	set_mob_eye_to(GLOB.ai_camera_room_landmark)
 	if(client)
 		for(var/V in multicam_screens)
 			var/atom/movable/screen/movable/pic_in_pic/P = V
@@ -254,7 +255,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 		for(var/V in multicam_screens)
 			var/atom/movable/screen/movable/pic_in_pic/P = V
 			P.unshow_to(client)
-	reset_perspective()
+	set_mob_eye_to(MOB_EYE_SELF)
 	to_chat(src, span_notice("Multiple-camera viewing mode deactivated."))
 
 /mob/living/silicon/ai/proc/refresh_camera_obj_visibility()

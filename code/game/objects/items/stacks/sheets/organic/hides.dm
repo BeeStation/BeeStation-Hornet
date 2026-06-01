@@ -1,6 +1,7 @@
 /* Null hide */
 
 /obj/item/stack/sheet/animalhide
+	abstract_type = /obj/item/stack/sheet/animalhide
 	name = "hide"
 	desc = "Something went wrong."
 	icon_state = "sheet-hide"

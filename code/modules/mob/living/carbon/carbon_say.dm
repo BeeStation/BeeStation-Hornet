@@ -7,9 +7,9 @@
 	return ..()
 
 /mob/living/carbon/could_speak_language(datum/language/language_path)
-	if(CHECK_BITFIELD(initial(language_path.flags), TONGUELESS_SPEECH))
-		return TRUE
 	var/obj/item/organ/tongue/spoken_with = get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(spoken_with)
+		// the tower of babel needs to bypass the tongue language restrictions without giving omnitongue
 		return spoken_with.could_speak_language(language_path)
-	return FALSE
+
+	return initial(language_path.flags) & TONGUELESS_SPEECH

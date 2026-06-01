@@ -22,6 +22,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 /// A single reagent
 /datum/reagent
+	abstract_type = /datum/reagent
+
 	/// datums don't have names by default
 	var/name = "Reagent"
 	/// nor do they have descriptions

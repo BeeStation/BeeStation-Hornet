@@ -251,29 +251,36 @@
 
 ///GOLEMS (i hate xenobio)
 /obj/item/bodypart/head/golem
+	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
 	limb_id = SPECIES_GOLEM
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
 
 /obj/item/bodypart/chest/golem
+	acceptable_bodytype = BODYTYPE_GOLEM
+	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
 	limb_id = SPECIES_GOLEM
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
 
 /obj/item/bodypart/arm/left/golem
+	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
 	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
 
 /obj/item/bodypart/arm/right/golem
+	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
 	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
 
 /obj/item/bodypart/leg/left/golem
+	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
 	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
 
 /obj/item/bodypart/leg/right/golem
-	limb_id = "golem"
+	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
+	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
 
 /obj/item/bodypart/leg/left/golem/gold

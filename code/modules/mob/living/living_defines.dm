@@ -1,4 +1,5 @@
 /mob/living
+	abstract_type = /mob/living
 	see_invisible = SEE_INVISIBLE_LIVING
 	sight = 0
 	see_in_dark = 2
@@ -161,6 +162,11 @@
 
 	///If combat mode is on or not
 	var/combat_mode = FALSE
+	/// Is combat indicator enabled for this mob?
+	var/combat_indicator = FALSE
+	/// When is the next time this mob will be able to use flick_emote for combat indicator?
+	COOLDOWN_DECLARE(nextcombatpopup)
+	var/combat_notice_cooldown = 7 SECONDS
 
 	/// Is this mob allowed to be buckled/unbuckled to/from things?
 	var/can_buckle_to = TRUE
@@ -179,3 +185,5 @@
 
 	//If we are currently leaning on something, and what that object is
 	var/atom/leaned_object
+	//to track the last use of say's message arg
+	var/last_say_args_ref

@@ -1,4 +1,5 @@
 /obj/item/clothing/under/shorts
+	abstract_type = /obj/item/clothing/under/shorts
 	name = "athletic shorts"
 	desc = "95% Polyester, 5% Spandex!"
 	icon = 'icons/obj/clothing/under/shorts_pants_shirts.dmi'

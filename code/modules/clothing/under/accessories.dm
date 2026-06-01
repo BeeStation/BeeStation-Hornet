@@ -414,6 +414,7 @@
 	inhand_icon_state = "holster"
 	worn_icon_state = "holster"
 	slot_flags = ITEM_SLOT_SUITSTORE|ITEM_SLOT_BELT
+	alternate_worn_layer = UNDER_SUIT_LAYER
 	var/holstertype = /datum/storage/pockets/holster
 
 /obj/item/clothing/accessory/holster/Initialize(mapload)

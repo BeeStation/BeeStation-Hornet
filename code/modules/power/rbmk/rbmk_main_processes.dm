@@ -159,7 +159,7 @@
 
 	if(power >= 90 && world.time >= next_flicker) //You're overloading the reactor. Give a more subtle warning that power is getting out of control.
 		next_flicker = world.time + 1 MINUTES
-		for(var/obj/machinery/light/light in GLOB.machines)
+		for(var/obj/machinery/light/light as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light))
 			if(DT_PROB(75, delta_time)) //If youre running the reactor cold though, no need to flicker the lights.
 				light.flicker()
 	for(var/atom/movable/object in get_turf(src))
@@ -180,5 +180,4 @@
 	var/turf/reactor_turf = get_turf(src)
 	var/obj/structure/cable/reactor_cable = reactor_turf.get_cable_node()
 	if(reactor_cable)
-		reactor_cable.get_connections()
 		reactor_cable.add_avail(last_power_produced)

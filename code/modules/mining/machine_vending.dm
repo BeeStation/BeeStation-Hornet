@@ -257,7 +257,7 @@
 		new /datum/data/requisition_equipment("Pizza", /obj/item/pizzabox/margherita, 200, "Novelty"),
 		new /datum/data/requisition_equipment("Whiskey", /obj/item/reagent_containers/cup/glass/bottle/whiskey, 100, "Novelty"),
 		new /datum/data/requisition_equipment("Absinthe", /obj/item/reagent_containers/cup/glass/bottle/absinthe/premium, 100, "Novelty"),
-		new /datum/data/requisition_equipment("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150, "Novelty"),
+		new /datum/data/requisition_equipment("Cigar", /obj/item/cigarette/cigar/havana, 150, "Novelty"),
 		new /datum/data/requisition_equipment("Soap", /obj/item/soap/nanotrasen, 200, "Novelty"),
 		new /datum/data/requisition_equipment("Laser Pointer", /obj/item/laser_pointer, 300, "Novelty"),
 		new /datum/data/requisition_equipment("Toy Alien", /obj/item/clothing/mask/facehugger/toy, 300, "Novelty"),

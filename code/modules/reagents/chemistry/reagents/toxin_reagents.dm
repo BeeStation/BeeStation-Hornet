@@ -226,14 +226,7 @@
 	toxpwr = 0
 	taste_description = "sourness"
 	addiction_types = list(/datum/addiction/hallucinogens = 18) //7.2 per 2 seconds
-
-/datum/reagent/toxin/mindbreaker/on_mob_metabolize(mob/living/metabolizer)
-	. = ..()
-	ADD_TRAIT(metabolizer, TRAIT_HALLUCINATION_SUPPRESSED, type)
-
-/datum/reagent/toxin/mindbreaker/on_mob_end_metabolize(mob/living/metabolizer)
-	. = ..()
-	REMOVE_TRAIT(metabolizer, TRAIT_HALLUCINATION_SUPPRESSED, type)
+	metabolized_traits = list(TRAIT_HALLUCINATION_SUPPRESSED)
 
 /datum/reagent/toxin/mindbreaker/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()

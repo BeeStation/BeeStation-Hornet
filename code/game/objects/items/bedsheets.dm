@@ -24,10 +24,8 @@
 
 /obj/item/bedsheet/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/surgery_initiator)
 	AddElement(/datum/element/bed_tuckable, 0, 0, 0)
-
-/obj/item/bedsheet/attack(mob/living/M, mob/user)
-	attempt_initiate_surgery(src, M, user)
 
 /obj/item/bedsheet/attack_self(mob/user)
 	if(!user.CanReach(src))		//No telekenetic grabbing.

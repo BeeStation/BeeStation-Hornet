@@ -11,7 +11,7 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 7
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	max_amount = 60
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/copper = 5)
 	merge_type = /obj/item/stack/light_w
@@ -29,7 +29,7 @@
 
 /obj/item/stack/light_w/wirecutter_act(mob/living/user, obj/item/I)
 	var/atom/Tsec = user.drop_location()
-	new /obj/item/stack/cable_coil(Tsec, 5, TRUE, user)
+	new /obj/item/stack/cable_coil(Tsec, 5)
 	new /obj/item/stack/sheet/glass(Tsec, null, TRUE, user)
 	use(1)
 
@@ -40,7 +40,7 @@
 	singular_name = "light floor tile"
 	desc = "A floor tile, made out of glass. It produces light."
 	icon_state = "tile_e"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	attack_verb_continuous = list("bashes", "batters", "bludgeons", "thrashes", "smashes")
 	attack_verb_simple = list("bash", "batter", "bludgeon", "thrash", "smash")
 	turf_type = /turf/open/floor/light

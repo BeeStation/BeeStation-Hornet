@@ -104,8 +104,8 @@
 
 /datum/tgui_modal/Destroy(force, ...)
 	SStgui.close_uis(src)
-	QDEL_NULL(buttons)
-	. = ..()
+	buttons?.Cut()
+	return ..()
 
 /**
  * Waits for a user's response to the tgui_modal's prompt before returning. Returns early if

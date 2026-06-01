@@ -145,13 +145,8 @@
 
 /atom/movable/screen/plane_master/starlight/backdrop(mob/mymob)
 	. = ..()
-	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
-	if (low_graphics_quality)
-		add_filter("guassian_blur", 1, gauss_blur_filter(1))
-	else
-		add_filter("guassian_blur", 1, gauss_blur_filter(6))
 	// Default the colour to whatever the parallax is currently
-	transition_colour(src, GLOB.starlight_colour, 0, FALSE)
+	transition_colour(src, GLOB.starlight_colour, 0.1 SECONDS)
 	// Transition the colour to whatever the global tells us to go to
 	RegisterSignal(SSdcs, COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE, PROC_REF(transition_colour), override = TRUE)
 
@@ -315,9 +310,8 @@
 	add_filter("glow", 1, list(type = "bloom", threshold = rgb(128, 128, 128), size = 2, offset = 1, alpha = 255))
 	add_filter("mask", 2, alpha_mask_filter(render_source = "blind_fullscreen_overlay"))
 
-/obj/screen/plane_master/excited_turfs
+/atom/movable/screen/plane_master/excited_turfs
 	name = "atmos excited turfs"
 	plane = ATMOS_GROUP_PLANE
 	appearance_flags = PLANE_MASTER
-	blend_mode = BLEND_OVERLAY
 	alpha = 0

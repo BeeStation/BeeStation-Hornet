@@ -96,7 +96,8 @@
 	l_hand = /obj/item/shield/mirror
 
 /datum/outfit/blood_cult_preview/post_equip(mob/living/carbon/human/H, visuals_only)
-	H.eye_color = BLOODCULT_EYE
+	H.eye_color_left = BLOODCULT_EYE
+	H.eye_color_right = BLOODCULT_EYE
 	H.update_body()
 
 /datum/role_preference/roundstart/clock_cultist
@@ -250,6 +251,18 @@
 		Choose between a variety of powerful spells in order to cause chaos among Space Station 13."
 	antag_datum = /datum/antagonist/wizard
 	preview_outfit = /datum/outfit/wizard
+
+/datum/role_preference/roundstart/vampire
+	name = "Vampire Court"
+	description = "Multiple vampires rise together at the start of the round. \n\
+		Choose a Clan, build a secret vampire society, compete for the title of Prince, \
+		and maintain the Masquerade."
+	antag_datum = /datum/antagonist/vampire
+
+/datum/role_preference/roundstart/vampire/get_preview_icon()
+	var/icon/icon = render_preview_outfit(/datum/outfit/vampire)
+	icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
+	return finish_preview_icon(icon)
 
 /datum/role_preference/roundstart/malfunctioning_ai
 	name = "Malfunctioning AI"

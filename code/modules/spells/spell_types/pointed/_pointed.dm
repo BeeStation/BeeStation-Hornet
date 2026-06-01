@@ -8,6 +8,7 @@
  * The cast_on atom is the person who was clicked on.
  */
 /datum/action/spell/pointed
+	abstract_type = /datum/action/spell/pointed
 	requires_target = TRUE
 
 	/// The base icon state of the spell's button icon, used for editing the icon "on" and "off"

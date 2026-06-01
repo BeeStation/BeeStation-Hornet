@@ -46,23 +46,24 @@ require only minor tweaks.
 #define ZTRAIT_MINING "Mining"
 #define ZTRAIT_RESERVED "Transit/Reserved"
 #define ZTRAIT_AWAY "Away Mission"
-#define ZTRAIT_DYNAMIC_LEVEL "Dynamic Level"
+#define ZTRAIT_EMPTY "Empty"
+#define ZTRAIT_SPACE_RUINS "Space Ruins"
 #define ZTRAIT_LAVA_RUINS "Lava Ruins"
-#define ZTRAIT_POCKETDIM "Pocket Dimension"
 #define ZTRAIT_ISOLATED_RUINS "Isolated Ruins" //Placing ruins on z levels with this trait will use turf reservation instead of usual placement.
-#define ZTRAIT_DEBUG "Debug Level"
+#define ZTRAIT_NOPHASE "No Phase"
 
 // boolean - weather types that occur on the level
 #define ZTRAIT_ASHSTORM "Weather_Ashstorm"
 #define ZTRAIT_ACIDRAIN "Weather_Acidrain"
 #define ZTRAIT_VOIDSTORM "Weather_Voidstorm"
-/// number - bombcap is multiplied by this before being applied to bombs
+
+// number - bombcap is multiplied by this before being applied to bombs
 #define ZTRAIT_BOMBCAP_MULTIPLIER "Bombcap Multiplier"
 
-/// number - default gravity if there's no gravity generators or area overrides present
+// number - default gravity if there's no gravity generators or area overrides present
 #define ZTRAIT_GRAVITY "Gravity"
 
-// Whether this z level is linked up/down. Bool.
+// boolean -Whether this z level is linked up/down
 #define ZTRAIT_UP "Up"
 #define ZTRAIT_DOWN "Down"
 
@@ -78,24 +79,31 @@ require only minor tweaks.
 /// string - type path of the z-level's baseturf (defaults to space)
 #define ZTRAIT_BASETURF "Baseturf"
 
-/// default trait definitions, used by SSmapping
-#define ZTRAITS_CENTCOM list(ZTRAIT_CENTCOM = TRUE)
-#define ZTRAITS_STATION list(ZTRAIT_LINKAGE = SELFLOOPING, ZTRAIT_STATION = TRUE)
-#define ZTRAITS_SPACE list(ZTRAIT_LINKAGE = SELFLOOPING, ZTRAIT_DYNAMIC_LEVEL = TRUE)
+// default trait definitions, used by SSmapping
+/// Traits for Central Command
+#define ZTRAITS_CENTCOM list(ZTRAIT_CENTCOM = TRUE, ZTRAIT_NOPHASE = TRUE)
+/// Traits for the station
+#define ZTRAITS_STATION list(ZTRAIT_LINKAGE = CROSSLINKED, ZTRAIT_STATION = TRUE)
+/// Traits for populated space
+#define ZTRAITS_POPULATED_SPACE list(ZTRAIT_LINKAGE = CROSSLINKED, ZTRAIT_SPACE_RUINS = TRUE)
+/// Traits for empty space
+#define ZTRAITS_EMPTY_SPACE list(ZTRAIT_LINKAGE = CROSSLINKED, ZTRAIT_EMPTY = TRUE)
+/// Traits for dynamically generated z-levels that are used by SSzclear
+#define ZTRAITS_DYNAMIC list(ZTRAIT_LINKAGE = SELFLOOPING)
+/// Traits for reserved/shuttle transit z-levels
+#define ZTRAITS_RESERVED list(ZTRAIT_RESERVED = TRUE)
+/// Traits for lavaland
 #define ZTRAITS_LAVALAND list(\
 	ZTRAIT_MINING = TRUE, \
 	ZTRAIT_LAVA_RUINS = TRUE, \
 	ZTRAIT_BOMBCAP_MULTIPLIER = 2, \
 	ZTRAIT_ASHSTORM = TRUE, \
-	ZTRAIT_BASETURF = /turf/open/lava/smooth/lava_land_surface)
-#define ZTRAITS_DEBUG list(ZTRAIT_DEBUG = TRUE)
+	ZTRAIT_BASETURF = /turf/open/lava/smooth/lava_land_surface, \
+)
+
 #define DL_NAME "name"
 #define DL_TRAITS "traits"
 #define DECLARE_LEVEL(NAME, TRAITS) list(DL_NAME = NAME, DL_TRAITS = TRAITS)
-
-/// boolean - does this z prevent phasing
-#define ZTRAIT_NOPHASE "No Phase"
-
 
 /// must correspond to _basemap.dm for things to work correctly
 #define DEFAULT_MAP_TRAITS list(\
@@ -109,11 +117,11 @@ require only minor tweaks.
 #define CAMERA_LOCK_REEBE 8
 
 /// Reserved/Transit turf type
-#define RESERVED_TURF_TYPE /turf/open/space/basic			//What the turf is when not being used
+#define RESERVED_TURF_TYPE /turf/open/space/basic //What the turf is when not being used
 
-//Ruin Generation
-
-#define PLACEMENT_TRIES 100 //! How many times we try to fit the ruin somewhere until giving up (really should just swap to some packing algo)
+// Ruin Generation
+/// How many times we try to fit the ruin somewhere until giving up (really should just swap to some packing algo)
+#define PLACEMENT_TRIES 100
 
 #define PLACE_DEFAULT "random"
 #define PLACE_SAME_Z "same" //On same z level as original ruin
@@ -121,6 +129,10 @@ require only minor tweaks.
 #define PLACE_LAVA_RUIN "lavaland" //On lavaland ruin z levels(s)
 #define PLACE_BELOW "below" //On z levl below - centered on same tile
 #define PLACE_ISOLATED "isolated" //On isolated ruin z level
+
+// Map generation defines
+#define DEFAULT_SPACE_RUIN_LEVELS 7
+#define DEFAULT_SPACE_EMPTY_LEVELS 1
 
 ///Map generation defines
 #define PERLIN_LAYER_HEIGHT "perlin_height"

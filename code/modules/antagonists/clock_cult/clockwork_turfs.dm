@@ -47,7 +47,7 @@
 	max_integrity = 1000
 	damage_deflection = 0
 	var/d_state = INTACT
-	flags_1 = NOJAUNT_1
+	turf_flags = NOJAUNT
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"
@@ -371,6 +371,9 @@
 	. += gear_text
 
 /obj/machinery/door/airlock/clockwork/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 	if(prob(80/severity))
 		open()
 

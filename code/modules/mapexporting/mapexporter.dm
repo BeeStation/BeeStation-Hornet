@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 
 	//Step 0: Calculate the amount of letters we need (26 ^ n > turf count)
 	var/turfsNeeded = width * height
-	var/layers = FLOOR(log(GLOB.save_file_chars.len, turfsNeeded) + 0.999,1)
+	var/layers = floor(log(GLOB.save_file_chars.len, turfsNeeded) + 0.999)
 
 	//Step 1: Run through the area and generate file data
 	var/list/header_chars	= list()	//The characters of the header
@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 				location = /area/template_noop
 				objects = list()
 			//Ignore things in space, must be a space turf and the area has to be empty space
-			else if(istype(place, /turf/open/space) && istype(AR, /area/space) && !(save_flag & SAVE_SPACE))
+			else if(istype(place, /turf/open/space) && istype(AR, /area/misc/space) && !(save_flag & SAVE_SPACE))
 				place = /turf/template_noop
 				location = /area/template_noop
 			//Stuff to add
@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	var/output = ""
 	for(var/i in 1 to layers)
 		var/l = GLOB.save_file_chars.len
-		var/c = FLOOR((index-1) / (l ** (i - 1)), 1)
+		var/c = floor((index-1) / (l ** (i - 1)))
 		c = (c % l) + 1
 		output = "[GLOB.save_file_chars[c]][output]"
 	return output

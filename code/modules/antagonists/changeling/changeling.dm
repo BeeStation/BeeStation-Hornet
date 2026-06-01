@@ -27,7 +27,9 @@
 	/// The original profile of this changeling.
 	var/datum/changeling_profile/first_profile = null
 	/// The amount of DNA gained. Includes DNA sting.
-	var/absorbed_count = 0
+	var/absorbed_genomes = 0
+	/// The amount of people we have absorbed with the absorb ability.
+	var/absorbed_people = 0
 	/// The number of chemicals the changeling currently has.
 	var/chem_charges = 20
 	/// The max chemical storage the changeling currently has.
@@ -49,8 +51,6 @@
 	/// Associated list of all powers we have evolved / bought from the emporium. [path] = [instance of path]
 	var/list/purchased_powers = list()
 
-	/// The voice we're mimicing via the changeling voice ability.
-	var/mimicing = ""
 	/// Whether we can currently respec in the cellular emporium.
 	var/can_respec = FALSE
 
@@ -109,7 +109,7 @@
 
 /datum/antagonist/changeling/New()
 	. = ..()
-	for(var/datum/antagonist/changeling/other_ling in GLOB.antagonists)
+	for(var/datum/antagonist/changeling/other_ling in GLOB.active_antagonists)
 		if(!other_ling.owner || other_ling.owner == owner)
 			continue
 		competitive_objectives = TRUE
@@ -358,7 +358,7 @@
 		to_chat(owner.current, span_warning("We have reached our capacity for abilities!"))
 		return FALSE
 
-	if(absorbed_count < initial(sting_path.req_dna))
+	if(absorbed_genomes < initial(sting_path.req_dna))
 		to_chat(owner.current, span_warning("We lack the DNA to evolve this ability!"))
 		return FALSE
 
@@ -534,7 +534,7 @@
 		current_profile = first_profile
 
 	stored_profiles += new_profile
-	absorbed_count++
+	absorbed_genomes++
 
 /*
  * Create a new profile from the given [profile_target]
@@ -614,14 +614,6 @@
 
 /datum/antagonist/changeling/farewell()
 	to_chat(owner.current, span_userdanger("You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!"))
-
-/// Generate objectives for our changeling.
-/datum/antagonist/changeling/proc/forge_objectives()
-	var/datum/objective/survival_of_the_fittest/cull_objective = new
-	cull_objective.owner = owner
-	cull_objective.generate_amount()
-	objectives += cull_objective
-	log_objective(owner, cull_objective.explanation_text)
 
 /datum/antagonist/changeling/proc/update_changeling_icons_added()
 	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_CHANGELING]
@@ -842,7 +834,7 @@
 		changeling_win = FALSE
 
 	parts += printplayer(owner)
-	parts += "<b>Genomes Extracted:</b> [absorbed_count]<br>"
+	parts += "<b>Genomes Extracted:</b> [absorbed_genomes]<br>"
 
 	if(objectives.len)
 		var/count = 1

@@ -87,9 +87,8 @@
 	for(var/obj/item/I in contents)
 		I.on_mob_death(src, gibbed)
 	if(mind)
-		if(mind.name && mind.active && !istype(T.loc, /area/ctf))
-			var/rendered = span_deadsay("<b>[mind.name]</b> has died at <b>[get_area_name(T)]</b>.")
-			deadchat_broadcast(rendered, follow_target = src, turf_target = T, message_type=DEADCHAT_DEATHRATTLE)
+		if(mind.name && mind.active && !istype(T.loc, /area/centcom/ctf))
+			deadchat_broadcast(" has died at <b>[get_area_name(T)]</b>.", "<b>[mind.name]</b>", follow_target = src, turf_target = T, message_type=DEADCHAT_DEATHRATTLE)
 		mind.store_memory("Time of death: [tod]", 0)
 	remove_from_alive_mob_list()
 	if(playable)
@@ -111,8 +110,8 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_DEATH, src, gibbed)
 
+	set_mob_eye_to(MOB_EYE_SELF)
 	if (client)
-		reset_perspective(null)
 		reload_fullscreen()
 		client.move_delay = initial(client.move_delay)
 		client.player_details.time_of_death = timeofdeath

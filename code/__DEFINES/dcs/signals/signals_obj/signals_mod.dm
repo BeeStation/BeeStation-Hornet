@@ -45,3 +45,6 @@
 #define COMSIG_MOD_GET_VISOR_OVERLAY "mod_get_visor_overlay"
 /// Called when the MOD control unit updates its parts speed
 #define COMSIG_MOD_UPDATE_SPEED "mod_update_speed"
+
+/// Called when a MOD module generats its worn overlay
+#define COMSIG_MODULE_GENERATE_WORN_OVERLAY "mod_module_generate_worn_overlay"

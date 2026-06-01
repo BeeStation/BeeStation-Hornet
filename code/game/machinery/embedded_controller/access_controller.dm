@@ -10,7 +10,7 @@
 /obj/machinery/doorButtons/attackby(obj/O, mob/user)
 	return attack_hand(user)
 
-/obj/machinery/doorButtons/proc/findObjsByTag()
+/obj/machinery/doorButtons/proc/find_objects_by_tag()
 	return
 
 /obj/machinery/doorButtons/Initialize(mapload)
@@ -18,7 +18,7 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/doorButtons/LateInitialize()
-	findObjsByTag()
+	find_objects_by_tag()
 
 /obj/machinery/doorButtons/on_emag(mob/user)
 	..()
@@ -40,12 +40,12 @@
 	var/obj/machinery/doorButtons/airlock_controller/controller
 	var/busy
 
-/obj/machinery/doorButtons/access_button/findObjsByTag()
-	for(var/obj/machinery/doorButtons/airlock_controller/A in GLOB.machines)
+/obj/machinery/doorButtons/access_button/find_objects_by_tag()
+	for(var/obj/machinery/doorButtons/airlock_controller/A as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/doorButtons/airlock_controller))
 		if(A.idSelf == idSelf)
 			controller = A
 			break
-	for(var/obj/machinery/door/I as anything in GLOB.airlocks)
+	for(var/obj/machinery/door/airlock/I as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/airlock))
 		if(I.id_tag == idDoor)
 			door = I
 			break
@@ -109,7 +109,7 @@
 		exteriorAirlock = null
 
 /obj/machinery/doorButtons/airlock_controller/Destroy()
-	for(var/obj/machinery/doorButtons/access_button/A in GLOB.machines)
+	for(var/obj/machinery/doorButtons/access_button/A as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/doorButtons/access_button))
 		if(A.controller == src)
 			A.controller = null
 	return ..()
@@ -227,8 +227,8 @@
 		if(!busy)
 			lostPower = FALSE
 
-/obj/machinery/doorButtons/airlock_controller/findObjsByTag()
-	for(var/obj/machinery/door/door as anything in GLOB.airlocks)
+/obj/machinery/doorButtons/airlock_controller/find_objects_by_tag()
+	for(var/obj/machinery/door/airlock/door as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/airlock))
 		if(door.id_tag == idInterior)
 			interiorAirlock = door
 		else if(door.id_tag == idExterior)

@@ -5,7 +5,7 @@
 		but only few can evoke the dangers that lurk beneath reality."
 	icon = 'icons/obj/heretic.dmi'
 	icon_state = "rune_carver"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_SMALL

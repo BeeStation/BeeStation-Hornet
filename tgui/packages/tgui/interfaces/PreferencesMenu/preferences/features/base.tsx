@@ -1,5 +1,5 @@
-import { sortBy } from 'common/collections';
 import { BooleanLike } from 'common/react';
+import { sortBy } from 'es-toolkit';
 import { ComponentType, createElement, ReactNode, useState } from 'react';
 import { Dropdown } from 'tgui-core/components';
 
@@ -10,7 +10,7 @@ import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
 import features from '.';
 
 export const sortChoices = (array: [string, ReactNode][]) =>
-  sortBy(array, ([name]) => name);
+  sortBy(array, [([name]) => name]);
 
 export type Feature<
   TReceiving,

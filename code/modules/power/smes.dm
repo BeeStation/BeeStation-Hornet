@@ -53,10 +53,12 @@
 	if(!terminal)
 		atom_break()
 		return
-	if(mapload)
-		charge = capacity
 	terminal.master = src
 	update_appearance(UPDATE_OVERLAYS)
+
+/obj/machinery/power/smes/on_construction(mob/user)
+	. = ..()
+	connect_to_network()
 
 /obj/machinery/power/smes/disconnect_terminal()
 	if(terminal)
@@ -445,7 +447,7 @@
 	log_smes()
 
 /obj/machinery/power/smes/engineering
-	charge = 1.5e6 // Engineering starts with some charge for singulo
+	charge = 50 MEGAWATT // Engineering starts with some charge for singulo
 
 /obj/machinery/power/smes/magical
 	name = "magical power storage unit"

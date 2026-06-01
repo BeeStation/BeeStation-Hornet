@@ -1,6 +1,7 @@
 CREATION_TEST_IGNORE_SELF(/turf/open)
 
 /turf/open
+	abstract_type = /turf/open
 	plane = FLOOR_PLANE
 	can_hit = FALSE
 	FASTDMM_PROP(\

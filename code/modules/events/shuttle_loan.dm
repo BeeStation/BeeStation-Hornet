@@ -91,150 +91,152 @@
 			endWhen = activeFor + 1
 
 /datum/round_event/shuttle_loan/end()
-	if(SSshuttle.shuttle_loan?.dispatched)
-		//make sure the shuttle was dispatched in time
-		SSshuttle.shuttle_loan = null
+	if(!SSshuttle.shuttle_loan || !SSshuttle.shuttle_loan.dispatched)
+		return
+	//make sure the shuttle was dispatched in time
+	SSshuttle.shuttle_loan = null
 
-		var/list/empty_shuttle_turfs = list()
-		var/list/area/shuttle/shuttle_areas = SSshuttle.supply.shuttle_areas
-		for(var/place in shuttle_areas)
-			var/area/shuttle/shuttle_area = place
-			for(var/turf/open/floor/T in shuttle_area)
-				if(T.is_blocked_turf())
-					continue
-				empty_shuttle_turfs += T
-		if(!empty_shuttle_turfs.len)
-			return
-
-		var/list/shuttle_spawns = list()
-		switch(dispatch_type)
-			if(HIJACK_SYNDIE)
-				var/datum/supply_pack/pack = SSsupply.supply_packs[/datum/supply_pack/emergency/specialops]
-				pack.generate(pick_n_take(empty_shuttle_turfs))
-
-				shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator)
-				shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator)
-				if(prob(75))
-					shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator)
-				if(prob(50))
-					shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator)
-
-			if(RUSKY_PARTY)
-				var/datum/supply_pack/pack = SSsupply.supply_packs[/datum/supply_pack/service/party]
-				pack.generate(pick_n_take(empty_shuttle_turfs))
-
-				shuttle_spawns.Add(/mob/living/simple_animal/hostile/russian)
-				shuttle_spawns.Add(/mob/living/simple_animal/hostile/russian/ranged)	//drops a mateba
-				shuttle_spawns.Add(/mob/living/simple_animal/hostile/bear/russian)
-				if(prob(75))
-					shuttle_spawns.Add(/mob/living/simple_animal/hostile/russian)
-				if(prob(50))
-					shuttle_spawns.Add(/mob/living/simple_animal/hostile/bear/russian)
-
-			if(SPIDER_GIFT)
-				var/datum/supply_pack/pack = SSsupply.supply_packs[/datum/supply_pack/emergency/specialops]
-				pack.generate(pick_n_take(empty_shuttle_turfs))
-
-				shuttle_spawns.Add(/mob/living/simple_animal/hostile/poison/giant_spider)
-				shuttle_spawns.Add(/mob/living/simple_animal/hostile/poison/giant_spider)
-				shuttle_spawns.Add(/mob/living/simple_animal/hostile/poison/giant_spider/nurse)
-				if(prob(50))
-					shuttle_spawns.Add(/mob/living/simple_animal/hostile/poison/giant_spider/hunter)
-
-				var/turf/T = pick_n_take(empty_shuttle_turfs)
-
-				new /obj/effect/decal/remains/human(T)
-				new /obj/item/clothing/shoes(T)
-				new /obj/item/clothing/mask/balaclava(T)
-
-				for(var/i in 1 to 5)
-					T = pick_n_take(empty_shuttle_turfs)
-					new /obj/structure/spider/stickyweb(T)
-
-			if(ANTIDOTE_NEEDED)
-				var/obj/effect/mob_spawn/human/corpse/assistant/infected_assistant = pick(/obj/effect/mob_spawn/human/corpse/assistant/beesease_infection, /obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection, /obj/effect/mob_spawn/human/corpse/assistant/spanishflu_infection)
-				var/turf/T
-				for(var/i in 1 to 10)
-					if(prob(15))
-						shuttle_spawns.Add(/obj/item/reagent_containers/cup/bottle)
-					else if(prob(15))
-						shuttle_spawns.Add(/obj/item/reagent_containers/syringe)
-					else if(prob(25))
-						shuttle_spawns.Add(/obj/item/shard)
-					T = pick_n_take(empty_shuttle_turfs)
-					new infected_assistant(T)
-				shuttle_spawns.Add(/obj/structure/closet/crate)
-				shuttle_spawns.Add(/obj/item/reagent_containers/cup/bottle/pierrot_throat)
-				shuttle_spawns.Add(/obj/item/reagent_containers/cup/bottle/magnitis)
-
-			if(DEPARTMENT_RESUPPLY)
-				var/list/crate_types = list(
-					/datum/supply_pack/emergency/equipment,
-					/datum/supply_pack/security/supplies,
-					/datum/supply_pack/organic/food,
-					/datum/supply_pack/emergency/weedcontrol,
-					/datum/supply_pack/engineering/tools,
-					/datum/supply_pack/engineering/engiequipment,
-					/datum/supply_pack/science/robotics,
-					/datum/supply_pack/science/plasma,
-					/datum/supply_pack/medical/supplies
-					)
-				for(var/crate in crate_types)
-					var/datum/supply_pack/pack = SSsupply.supply_packs[crate]
-					pack.generate(pick_n_take(empty_shuttle_turfs))
-
-				for(var/i in 1 to 5)
-					var/decal = pick(/obj/effect/decal/cleanable/food/flour, /obj/effect/decal/cleanable/robot_debris, /obj/effect/decal/cleanable/oil)
-					new decal(pick_n_take(empty_shuttle_turfs))
-			if(PIZZA_DELIVERY)
-				var/naughtypizza = list(/obj/item/pizzabox/bomb,/obj/item/pizzabox/margherita/robo) //oh look another blaklist, for pizza nonetheless!
-				var/nicepizza = list(/obj/item/pizzabox/margherita, /obj/item/pizzabox/meat, /obj/item/pizzabox/vegetable, /obj/item/pizzabox/mushroom)
-				for(var/i in 1 to 6)
-					shuttle_spawns.Add(pick(prob(5) ? naughtypizza : nicepizza))
-			if(ITS_HIP_TO)
-				var/datum/supply_pack/pack = SSsupply.supply_packs[/datum/supply_pack/organic/hydroponics/beekeeping_fullkit]
-				pack.generate(pick_n_take(empty_shuttle_turfs))
-
-				shuttle_spawns.Add(/obj/effect/mob_spawn/human/corpse/bee_terrorist)
-				shuttle_spawns.Add(/obj/effect/mob_spawn/human/corpse/cargo_tech)
-				shuttle_spawns.Add(/obj/effect/mob_spawn/human/corpse/cargo_tech)
-				shuttle_spawns.Add(/obj/effect/mob_spawn/human/corpse/nanotrasensoldier)
-				shuttle_spawns.Add(/obj/item/gun/ballistic/automatic/pistol/no_mag)
-				shuttle_spawns.Add(/obj/item/gun/ballistic/automatic/pistol/m1911/no_mag)
-				shuttle_spawns.Add(/obj/item/honey_frame)
-				shuttle_spawns.Add(/obj/item/honey_frame)
-				shuttle_spawns.Add(/obj/item/honey_frame)
-				shuttle_spawns.Add(/obj/structure/beebox/unwrenched)
-				shuttle_spawns.Add(/obj/item/queen_bee/bought)
-				shuttle_spawns.Add(/obj/structure/closet/crate/hydroponics)
-
-				for(var/i in 1 to 8)
-					shuttle_spawns.Add(/mob/living/simple_animal/hostile/poison/bees/toxin)
-
-				for(var/i in 1 to 5)
-					var/decal = pick(/obj/effect/decal/cleanable/blood, /obj/effect/decal/cleanable/insectguts)
-					new decal(pick_n_take(empty_shuttle_turfs))
-
-				for(var/i in 1 to 10)
-					var/casing = /obj/item/ammo_casing/spent
-					new casing(pick_n_take(empty_shuttle_turfs))
-
-			if(MY_GOD_JC)
-				shuttle_spawns.Add(/obj/machinery/syndicatebomb/shuttle_loan)
-				if(prob(95))
-					shuttle_spawns.Add(/obj/item/paper/fluff/cargo/bomb)
-				else
-					shuttle_spawns.Add(/obj/item/paper/fluff/cargo/bomb/allyourbase)
-
-		var/false_positive = 0
-		while(shuttle_spawns.len && empty_shuttle_turfs.len)
-			var/turf/T = pick_n_take(empty_shuttle_turfs)
-			if(T.contents.len && false_positive < 5)
-				false_positive++
+	var/list/empty_shuttle_turfs = list()
+	var/list/blocked_shutte_turfs = list()
+	var/list/area/shuttle/shuttle_areas = SSshuttle.supply.shuttle_areas
+	for(var/area/shuttle/shuttle_area as anything in shuttle_areas)
+		for(var/turf/open/floor/shuttle_turf in shuttle_area.get_turfs_from_all_zlevels())
+			if(shuttle_turf.is_blocked_turf())
+				blocked_shutte_turfs += shuttle_turf
 				continue
+			empty_shuttle_turfs += shuttle_turf
+	if(!empty_shuttle_turfs.len)
+		return
 
-			var/spawn_type = pick_n_take(shuttle_spawns)
-			new spawn_type(T)
+	var/list/shuttle_spawns = list()
+	switch(dispatch_type)
+		if(HIJACK_SYNDIE)
+			var/datum/supply_pack/pack = SSsupply.supply_packs[/datum/supply_pack/emergency/specialops]
+			pack.generate(pick_n_take(empty_shuttle_turfs))
+
+			shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator)
+			shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator)
+			if(prob(75))
+				shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator)
+			if(prob(50))
+				shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator)
+
+		if(RUSKY_PARTY)
+			var/datum/supply_pack/pack = SSsupply.supply_packs[/datum/supply_pack/service/party]
+			pack.generate(pick_n_take(empty_shuttle_turfs))
+
+			shuttle_spawns.Add(/mob/living/simple_animal/hostile/russian)
+			shuttle_spawns.Add(/mob/living/simple_animal/hostile/russian/ranged)	//drops a mateba
+			shuttle_spawns.Add(/mob/living/simple_animal/hostile/bear/russian)
+			if(prob(75))
+				shuttle_spawns.Add(/mob/living/simple_animal/hostile/russian)
+			if(prob(50))
+				shuttle_spawns.Add(/mob/living/simple_animal/hostile/bear/russian)
+
+		if(SPIDER_GIFT)
+			var/datum/supply_pack/pack = SSsupply.supply_packs[/datum/supply_pack/emergency/specialops]
+			pack.generate(pick_n_take(empty_shuttle_turfs))
+
+			shuttle_spawns.Add(/mob/living/simple_animal/hostile/poison/giant_spider)
+			shuttle_spawns.Add(/mob/living/simple_animal/hostile/poison/giant_spider)
+			shuttle_spawns.Add(/mob/living/simple_animal/hostile/poison/giant_spider/nurse)
+			if(prob(50))
+				shuttle_spawns.Add(/mob/living/simple_animal/hostile/poison/giant_spider/hunter)
+
+			var/turf/T = pick_n_take(empty_shuttle_turfs)
+
+			new /obj/effect/decal/remains/human(T)
+			new /obj/item/clothing/shoes(T)
+			new /obj/item/clothing/mask/balaclava(T)
+
+			for(var/i in 1 to 5)
+				T = pick_n_take(empty_shuttle_turfs)
+				new /obj/structure/spider/stickyweb(T)
+
+		if(ANTIDOTE_NEEDED)
+			var/obj/effect/mob_spawn/human/corpse/assistant/infected_assistant = pick(/obj/effect/mob_spawn/human/corpse/assistant/beesease_infection, /obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection, /obj/effect/mob_spawn/human/corpse/assistant/spanishflu_infection)
+			var/turf/T
+			for(var/i in 1 to 10)
+				if(prob(15))
+					shuttle_spawns.Add(/obj/item/reagent_containers/cup/bottle)
+				else if(prob(15))
+					shuttle_spawns.Add(/obj/item/reagent_containers/syringe)
+				else if(prob(25))
+					shuttle_spawns.Add(/obj/item/shard)
+				T = pick_n_take(empty_shuttle_turfs)
+				new infected_assistant(T)
+			shuttle_spawns.Add(/obj/structure/closet/crate)
+			shuttle_spawns.Add(/obj/item/reagent_containers/cup/bottle/pierrot_throat)
+			shuttle_spawns.Add(/obj/item/reagent_containers/cup/bottle/magnitis)
+
+		if(DEPARTMENT_RESUPPLY)
+			var/list/crate_types = list(
+				/datum/supply_pack/emergency/equipment,
+				/datum/supply_pack/security/supplies,
+				/datum/supply_pack/organic/food,
+				/datum/supply_pack/emergency/weedcontrol,
+				/datum/supply_pack/engineering/tools,
+				/datum/supply_pack/engineering/engiequipment,
+				/datum/supply_pack/science/robotics,
+				/datum/supply_pack/science/plasma,
+				/datum/supply_pack/medical/supplies
+				)
+			for(var/crate in crate_types)
+				var/datum/supply_pack/pack = SSsupply.supply_packs[crate]
+				pack.generate(pick_n_take(empty_shuttle_turfs))
+
+			for(var/i in 1 to 5)
+				var/decal = pick(/obj/effect/decal/cleanable/food/flour, /obj/effect/decal/cleanable/robot_debris, /obj/effect/decal/cleanable/oil)
+				new decal(pick_n_take(empty_shuttle_turfs))
+		if(PIZZA_DELIVERY)
+			var/naughtypizza = list(/obj/item/pizzabox/bomb,/obj/item/pizzabox/margherita/robo) //oh look another blaklist, for pizza nonetheless!
+			var/nicepizza = list(/obj/item/pizzabox/margherita, /obj/item/pizzabox/meat, /obj/item/pizzabox/vegetable, /obj/item/pizzabox/mushroom)
+			for(var/i in 1 to 6)
+				shuttle_spawns.Add(pick(prob(5) ? naughtypizza : nicepizza))
+		if(ITS_HIP_TO)
+			var/datum/supply_pack/pack = SSsupply.supply_packs[/datum/supply_pack/organic/hydroponics/beekeeping_fullkit]
+			pack.generate(pick_n_take(empty_shuttle_turfs))
+
+			shuttle_spawns.Add(/obj/effect/mob_spawn/human/corpse/bee_terrorist)
+			shuttle_spawns.Add(/obj/effect/mob_spawn/human/corpse/cargo_tech)
+			shuttle_spawns.Add(/obj/effect/mob_spawn/human/corpse/cargo_tech)
+			shuttle_spawns.Add(/obj/effect/mob_spawn/human/corpse/nanotrasensoldier)
+			shuttle_spawns.Add(/obj/item/gun/ballistic/automatic/pistol/no_mag)
+			shuttle_spawns.Add(/obj/item/gun/ballistic/automatic/pistol/m1911/no_mag)
+			shuttle_spawns.Add(/obj/item/honey_frame)
+			shuttle_spawns.Add(/obj/item/honey_frame)
+			shuttle_spawns.Add(/obj/item/honey_frame)
+			shuttle_spawns.Add(/obj/structure/beebox/unwrenched)
+			shuttle_spawns.Add(/obj/item/queen_bee/bought)
+			shuttle_spawns.Add(/obj/structure/closet/crate/hydroponics)
+
+			for(var/i in 1 to 8)
+				shuttle_spawns.Add(/mob/living/simple_animal/hostile/poison/bees/toxin)
+
+			for(var/i in 1 to 5)
+				var/decal = pick(/obj/effect/decal/cleanable/blood, /obj/effect/decal/cleanable/insectguts)
+				new decal(pick_n_take(empty_shuttle_turfs))
+
+			for(var/i in 1 to 10)
+				var/casing = /obj/item/ammo_casing/spent
+				new casing(pick_n_take(empty_shuttle_turfs))
+
+		if(MY_GOD_JC)
+			shuttle_spawns.Add(/obj/machinery/syndicatebomb/shuttle_loan)
+			if(prob(95))
+				shuttle_spawns.Add(/obj/item/paper/fluff/cargo/bomb)
+			else
+				shuttle_spawns.Add(/obj/item/paper/fluff/cargo/bomb/allyourbase)
+
+	var/false_positive = 0
+	while(shuttle_spawns.len && empty_shuttle_turfs.len)
+		var/turf/T = pick_n_take(empty_shuttle_turfs)
+		if(T.contents.len && false_positive < 5)
+			false_positive++
+			continue
+
+		var/spawn_type = pick_n_take(shuttle_spawns)
+		new spawn_type(T)
 
 //items that appear only in shuttle loan events
 

@@ -1,4 +1,5 @@
 /obj/item/melee/energy
+	abstract_type = /obj/item/melee/energy
 	icon = 'icons/obj/transforming_energy.dmi'
 	max_integrity = 200
 	armor_type = /datum/armor/transforming_energy
@@ -148,7 +149,7 @@
 	armour_penetration = 100
 	sharpness = SHARP
 	w_class = WEIGHT_CLASS_NORMAL
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 
 	active_force = 150
@@ -201,7 +202,7 @@
 /obj/item/melee/energy/sword/esaw //Energy Saw on it's own
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/surgery.dmi'
 	icon_state = "esaw"
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -237,7 +238,7 @@
 /obj/item/melee/energy/sword/cyborg/saw //Used by medical Syndicate cyborgs
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "implant-esaw"
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	force = 18
@@ -256,6 +257,7 @@
 	return FALSE
 
 /obj/item/melee/energy/sword/esaw/implant //Energy Saw Arm Implant
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "implant-esaw"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'

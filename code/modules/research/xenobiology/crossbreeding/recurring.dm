@@ -7,6 +7,7 @@ Recurring extracts:
 CREATION_TEST_IGNORE_SELF(/obj/item/slimecross/recurring)
 
 /obj/item/slimecross/recurring
+	abstract_type = /obj/item/slimecross/recurring
 	name = "recurring extract"
 	desc = "A tiny, glowing core, wrapped in several layers of goo."
 	effect = "recurring"

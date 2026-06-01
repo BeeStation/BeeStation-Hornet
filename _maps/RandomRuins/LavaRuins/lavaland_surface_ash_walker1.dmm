@@ -379,7 +379,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/hatchet,
-/obj/item/stack/cable_coil/yellow{
+/obj/item/stack/cable_coil{
 	pixel_y = 9;
 	pixel_x = 6
 	},

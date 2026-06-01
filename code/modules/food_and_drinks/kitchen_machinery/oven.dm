@@ -30,6 +30,8 @@
 	var/datum/looping_sound/oven/oven_loop
 	///Current state of smoke coming from the oven
 	var/smoke_state = OVEN_SMOKE_STATE_NONE
+	///Currently used particle type, if any
+	var/particle_type
 
 /obj/machinery/oven/Initialize(mapload)
 	. = ..()
@@ -40,8 +42,9 @@
 /obj/machinery/oven/Destroy()
 	used_tray?.invisibility = 0
 	QDEL_NULL(oven_loop)
-	QDEL_NULL(particles)
-	. = ..()
+	if (particle_type)
+		remove_shared_particles(particle_type)
+	return ..()
 
 /obj/machinery/oven/update_icon_state()
 	if(!open && used_tray?.contents.len)
@@ -166,16 +169,22 @@
 /obj/machinery/oven/proc/set_smoke_state(new_state)
 	if(new_state == smoke_state)
 		return
-	smoke_state = new_state
 
-	QDEL_NULL(particles)
+	smoke_state = new_state
+	if (particle_type)
+		remove_shared_particles(particle_type)
+		particle_type = null
+
 	switch(smoke_state)
 		if(OVEN_SMOKE_STATE_BAD)
-			particles = new /particles/smoke()
+			particle_type = /particles/smoke
 		if(OVEN_SMOKE_STATE_NEUTRAL)
-			particles = new /particles/smoke/steam()
+			particle_type = /particles/smoke/steam
 		if(OVEN_SMOKE_STATE_GOOD)
-			particles = new /particles/smoke/steam/mild
+			particle_type = /particles/smoke/steam/mild
+
+	if (particle_type)
+		add_shared_particles(particle_type)
 
 /obj/machinery/oven/crowbar_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -195,34 +204,6 @@
 	desc = "Time to bake cookies!"
 	icon_state = "oven_tray"
 	max_items = 6
-
-
-/particles/smoke
-	icon = 'icons/effects/particles/smoke.dmi'
-	icon_state = list("smoke_1" = 1, "smoke_2" = 1, "smoke_3" = 2)
-	width = 100
-	height = 100
-	count = 1000
-	spawning = 4
-	lifespan = 1.5 SECONDS
-	fade = 1 SECONDS
-	velocity = list(0, 0.4, 0)
-	position = list(6, 0, 0)
-	drift = generator("sphere", 0, 2, NORMAL_RAND)
-	friction = 0.2
-	gravity = list(0, 0.95)
-	grow = 0.05
-
-/particles/smoke/steam/mild
-	spawning = 1
-	velocity = list(0, 0.3, 0)
-	friction = 0.25
-
-
-/particles/smoke/steam
-	icon_state = list("steam_1" = 1, "steam_2" = 1, "steam_3" = 2)
-	fade = 1.5 SECONDS
-
 
 #undef OVEN_SMOKE_STATE_NONE
 #undef OVEN_SMOKE_STATE_GOOD

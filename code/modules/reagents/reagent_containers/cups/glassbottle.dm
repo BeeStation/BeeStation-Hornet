@@ -116,7 +116,7 @@
 	desc = "A bottle with a sharp broken bottom."
 	icon = 'icons/obj/drinks/drink_effects.dmi'
 	icon_state = "broken_bottle"
-	force = 9
+	force = 11
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -128,7 +128,7 @@
 	attack_verb_continuous = list("stabs", "slashes", "attacks")
 	attack_verb_simple = list("stab", "slash", "attack")
 	sharpness = SHARP
-	bleed_force = BLEED_SURFACE
+	bleed_force = BLEED_CUT
 	var/static/icon/broken_outline = icon('icons/obj/drinks/drink_effects.dmi', "broken")
 
 /obj/item/broken_bottle/Initialize(mapload)
@@ -245,6 +245,14 @@
 	icon_state = "holyflask"
 	list_reagents = list(/datum/reagent/water/holywater = 100)
 	drink_type = NONE
+
+/obj/item/reagent_containers/cup/glass/bottle/garlic_extract
+	name = "flask of garlic extract"
+	desc = "A flask of concentrated, and sanctified garlic extract. Surely to ward off any vampires trying to bite you. Lucky for you, those don't exist... right?"
+	icon = 'icons/obj/drinks/bottles.dmi'
+	icon_state = "holyflask"
+	list_reagents = list(/datum/reagent/consumable/garlic = 70, /datum/reagent/water/holywater = 30)
+	drink_type = VEGETABLES
 
 /obj/item/reagent_containers/cup/glass/bottle/unholywater
 	name = "flask of unholy water"

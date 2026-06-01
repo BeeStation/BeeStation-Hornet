@@ -18,6 +18,8 @@ GLOBAL_LIST_EMPTY(unit_test_mapping_logs)
 /// Global assoc list of required mapping items, [item typepath] to [required item datum].
 GLOBAL_LIST_EMPTY(required_map_items)
 
+GLOBAL_LIST_EMPTY(test_run_times)
+
 /// A list of every test that is currently focused.
 /// Use the PERFORM_ALL_TESTS macro instead.
 GLOBAL_VAR_INIT(focused_tests, focused_tests())
@@ -31,6 +33,8 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 	return focused_tests.len > 0 ? focused_tests : null
 
 /datum/unit_test
+	abstract_type = /datum/unit_test
+
 	//Bit of metadata for the future maybe
 	var/list/procs_tested
 
@@ -46,9 +50,6 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 	var/succeeded = TRUE
 	var/list/allocated
 	var/list/fail_reasons
-
-	/// Do not instantiate if type matches this
-	var/abstract_type = /datum/unit_test
 
 	/// List of atoms that we don't want to ever initialize in an agnostic context, like for Create and Destroy. Stored on the base datum for usability in other relevant tests that need this data.
 	var/static/list/uncreatables = null
@@ -115,7 +116,7 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 /// Resets the air of our testing room to its default
 /datum/unit_test/proc/restore_atmos()
 	var/area/working_area = run_loc_floor_bottom_left.loc
-	var/list/turf/to_restore = working_area.get_contained_turfs()
+	var/list/turf/to_restore = working_area.get_turfs_from_all_zlevels()
 	for(var/turf/open/restore in to_restore)
 		var/datum/gas_mixture/GM = SSair.parse_gas_string(restore.initial_gas_mix, /datum/gas_mixture/turf)
 		restore.copy_air(GM)
@@ -225,6 +226,8 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 			log_test(message)
 
 		test_output_desc += " [duration / 10]s"
+		if(duration > 10)
+			GLOB.test_run_times[test_path] = duration
 		if (test.succeeded)
 			log_world("[TEST_OUTPUT_GREEN("PASS")] [test_output_desc]")
 
@@ -273,6 +276,12 @@ that means the proc needs to be defined prior to everything else.
 		CHECK_TICK //We check tick first because the unit test we run last may be so expensive that checking tick will lock up this loop forever
 		RunUnitTest(unit_path, test_results)
 	SSticker.delay_end = FALSE
+
+	log_world("::group::Expensive Unit Test Times")
+	sortTim(GLOB.test_run_times, cmp = GLOBAL_PROC_REF(cmp_numeric_dsc), associative = TRUE)
+	for(var/type, duration in GLOB.test_run_times)
+		log_world("[type] took [duration/10]s")
+	log_world("::endgroup::")
 
 	var/file_name = "data/unit_tests.json"
 	fdel(file_name)

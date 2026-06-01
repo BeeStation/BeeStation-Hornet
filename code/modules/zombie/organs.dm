@@ -31,7 +31,7 @@
 		return .
 	START_PROCESSING(SSobj, src)
 	// Find all antag datums and mark romerol objectives as complete
-	for (var/datum/antagonist/antagonist in GLOB.antagonists)
+	for (var/datum/antagonist/antagonist as anything in GLOB.active_antagonists)
 		for (var/datum/objective/romerol/objective in antagonist.objectives)
 			objective.released = TRUE
 

@@ -9,7 +9,7 @@
 	worn_icon_state = "welder"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	force = 3
 	throwforce = 5
@@ -70,7 +70,7 @@
 	. = ..()
 	if(change_icons)
 		var/ratio = get_fuel() / max_fuel
-		ratio = CEILING(ratio*4, 1) * 25
+		ratio = ceil(ratio*4) * 25
 		. += "[initial(icon_state)][ratio]"
 	if(welding)
 		. += "[initial(icon_state)]-on"
@@ -78,7 +78,7 @@
 
 /obj/item/weldingtool/process(delta_time)
 	if(welding)
-		force = 15
+		force = 12
 		damtype = BURN
 		burned_fuel_for += delta_time
 		if(burned_fuel_for >= WELDER_FUEL_BURN_INTERVAL)
@@ -225,7 +225,7 @@
 		if(get_fuel() >= 1)
 			balloon_alert(user, "You turn [src] on.")
 			playsound(loc, acti_sound, 50, 1)
-			force = 15
+			force = 12
 			damtype = BURN
 			hitsound = 'sound/items/welder.ogg'
 			update_icon()

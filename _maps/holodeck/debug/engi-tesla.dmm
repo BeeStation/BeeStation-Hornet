@@ -3,12 +3,8 @@
 /turf/open/floor/engine,
 /area/template_noop)
 "c" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
+/obj/structure/cable/yellow,
 /turf/open/floor/engine,
 /area/template_noop)
 "d" = (
@@ -16,67 +12,13 @@
 	anchored = 1;
 	state = 1
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/open/floor/engine,
-/area/template_noop)
-"e" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/open/floor/engine,
-/area/template_noop)
-"h" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/open/floor/engine,
-/area/template_noop)
-"j" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 1
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/engine,
 /area/template_noop)
 "l" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/terminal{
 	dir = 1
-	},
-/turf/open/floor/engine,
-/area/template_noop)
-"m" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/engine,
-/area/template_noop)
-"o" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/item/tank/internals/plasma/full,
-/turf/open/floor/engine,
-/area/template_noop)
-"q" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
 	},
 /turf/open/floor/engine,
 /area/template_noop)
@@ -86,41 +28,13 @@
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"s" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil,
-/turf/open/floor/engine,
-/area/template_noop)
 "t" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/engine,
 /area/template_noop)
 "v" = (
 /obj/structure/cable,
 /obj/machinery/power/energy_accumulator/tesla_coil,
-/turf/open/floor/engine,
-/area/template_noop)
-"w" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/open/floor/engine,
-/area/template_noop)
-"x" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 1
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /turf/open/floor/engine,
 /area/template_noop)
 "z" = (
@@ -141,49 +55,13 @@
 /obj/machinery/the_singularitygen/tesla,
 /turf/open/floor/plating/airless,
 /area/template_noop)
-"E" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/item/tank/internals/plasma/full,
-/turf/open/floor/engine,
-/area/template_noop)
-"F" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/engine,
-/area/template_noop)
-"G" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/engine,
-/area/template_noop)
-"H" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/engine,
-/area/template_noop)
-"I" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/open/floor/engine,
-/area/template_noop)
 "J" = (
 /obj/machinery/the_singularitygen,
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "K" = (
 /obj/machinery/power/smes/engineering,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/engine,
 /area/template_noop)
 "L" = (
@@ -204,32 +82,6 @@
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"O" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 1
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/open/floor/engine,
-/area/template_noop)
-"P" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil,
-/turf/open/floor/engine,
-/area/template_noop)
-"Q" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/open/floor/engine,
-/area/template_noop)
 "R" = (
 /obj/structure/cable,
 /turf/open/floor/engine,
@@ -240,33 +92,9 @@
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"T" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/open/floor/engine,
-/area/template_noop)
 "U" = (
 /obj/structure/cable,
 /obj/item/tank/internals/plasma/full,
-/turf/open/floor/engine,
-/area/template_noop)
-"V" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/open/floor/engine,
-/area/template_noop)
-"W" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /turf/open/floor/engine,
 /area/template_noop)
 "Z" = (
@@ -281,118 +109,118 @@ a
 a
 a
 a
-s
-s
-I
-E
-o
+v
+v
+R
+U
+U
 a
 a
 "}
 (2,1,1) = {"
 a
 a
-V
+t
 Z
-x
-W
-W
-W
-W
-W
+d
+R
+R
+R
+R
+R
 d
 a
 "}
 (3,1,1) = {"
 a
 a
-G
-o
-w
+t
+U
+R
 z
 z
 z
 z
 z
-Q
+R
 v
 "}
 (4,1,1) = {"
 a
 a
-G
-o
-w
+t
+U
+R
 z
 z
 J
 J
 z
-Q
+R
 v
 "}
 (5,1,1) = {"
 a
 a
-G
-F
-w
+t
+R
+R
 z
 D
 z
 J
 z
-Q
+R
 R
 "}
 (6,1,1) = {"
 a
 a
-G
-P
-w
+t
+v
+R
 z
 D
 D
 z
 z
-Q
+R
 U
 "}
 (7,1,1) = {"
 a
 a
-G
-P
-w
+t
+v
+R
 z
 z
 z
 z
 z
-q
-o
+R
+U
 "}
 (8,1,1) = {"
 a
 a
-T
+t
 Z
-j
-e
-e
-e
-e
-e
-O
+d
+R
+R
+R
+R
+R
+d
 a
 "}
 (9,1,1) = {"
 a
 a
-G
+t
 a
-m
+R
 a
 r
 S
@@ -402,9 +230,9 @@ a
 a
 "}
 (10,1,1) = {"
-V
 t
-H
+t
+t
 t
 c
 t
@@ -416,11 +244,11 @@ a
 a
 "}
 (11,1,1) = {"
-G
+t
 a
 a
 a
-m
+R
 a
 a
 N
@@ -432,9 +260,9 @@ a
 (12,1,1) = {"
 K
 l
-e
-e
-h
+R
+R
+R
 a
 a
 L

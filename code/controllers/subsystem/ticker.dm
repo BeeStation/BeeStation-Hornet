@@ -321,10 +321,7 @@ SUBSYSTEM_DEF(ticker)
 	var/list/lightup_area_typecache = list()
 	var/minimal_access = SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		var/role = player.mind?.assigned_role
-		if(!role)
-			continue
-		var/datum/job/job = SSjob.GetJob(role)
+		var/datum/job/job = player.mind?.assigned_role_datum
 		if(!job)
 			continue
 		lightup_area_typecache |= job.areas_to_light_up(minimal_access)
@@ -410,41 +407,45 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/equip_characters()
 	var/captainless = TRUE
+
 	var/highest_rank = length(SSjob.chain_of_command) + 1
 	var/list/spare_id_candidates = list()
 	var/enforce_coc = CONFIG_GET(flag/spare_enforce_coc)
 
-	for(var/mob/dead/new_player/authenticated/N in GLOB.player_list)
-		var/mob/living/carbon/human/player = N.new_character
-		var/datum/mind/mind = player?.mind
-		if(istype(player) && mind && mind.assigned_role)
-			if(mind.assigned_role == JOB_NAME_CAPTAIN)
-				captainless = FALSE
-				spare_id_candidates += N
-			else if(captainless && (mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)) && !(is_banned_from(N.ckey, JOB_NAME_CAPTAIN)))
-				if(!enforce_coc)
-					spare_id_candidates += N
-				else
-					var/spare_id_priority = SSjob.chain_of_command[mind.assigned_role]
-					if(spare_id_priority)
-						if(spare_id_priority < highest_rank)
-							spare_id_candidates.Cut()
-							spare_id_candidates += N
-							highest_rank = spare_id_priority
-						else if(spare_id_priority == highest_rank)
-							spare_id_candidates += N
-			if(mind.assigned_role != mind.special_role)
-				SSjob.EquipRank(N, mind.assigned_role, FALSE)
-			if(CONFIG_GET(flag/roundstart_traits))
-				SSquirks.AssignQuirks(mind, N.client, TRUE)
+	for(var/mob/dead/new_player/authenticated/player in GLOB.auth_new_player_list)
+		var/mob/living/carbon/human/new_character = player.new_character
+		if(!istype(new_character) || !new_character.mind?.assigned_role)
+			CHECK_TICK
+			continue
+		var/datum/mind/mind = new_character.mind
+		if(mind.assigned_role == JOB_NAME_CAPTAIN)
+			captainless = FALSE
+			spare_id_candidates += player
+		else if(captainless && (mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)) && !is_banned_from(player.ckey, JOB_NAME_CAPTAIN))
+			if(!enforce_coc)
+				spare_id_candidates += player
+			else
+				var/spare_id_priority = SSjob.chain_of_command[mind.assigned_role]
+				if(spare_id_priority)
+					if(spare_id_priority < highest_rank)
+						spare_id_candidates.Cut()
+						spare_id_candidates += player
+						highest_rank = spare_id_priority
+					else if(spare_id_priority == highest_rank)
+						spare_id_candidates += player
+		var/datum/job/job = mind.assigned_role_datum
+		if(job?.job_flags & JOB_EQUIP_RANK)
+			SSjob.EquipRank(player, mind.assigned_role, FALSE)
+		if((job?.job_flags & JOB_ASSIGN_QUIRKS) && CONFIG_GET(flag/roundstart_traits))
+			SSquirks.AssignQuirks(mind, player.client, TRUE)
 		CHECK_TICK
-	if(length(spare_id_candidates))			//No captain, time to choose acting captain
-		if(!enforce_coc)
-			for(var/mob/dead/new_player/authenticated/player in spare_id_candidates)
-				SSjob.promote_to_captain(player, captainless)
 
+	if(length(spare_id_candidates))
+		if(!enforce_coc)
+			for(var/mob/dead/new_player/authenticated/candidate in spare_id_candidates)
+				SSjob.promote_to_captain(candidate, captainless)
 		else
-			SSjob.promote_to_captain(pick(spare_id_candidates), captainless)		//This is just in case 2 heads of the same priority spawn
+			SSjob.promote_to_captain(pick(spare_id_candidates), captainless)
 		CHECK_TICK
 
 

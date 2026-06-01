@@ -3,7 +3,7 @@
 	description = "Use your unique position to provide a service or entertain the crew."
 	department_for_prefs = DEPT_NAME_ASSISTANT
 	show_in_prefs = TRUE
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 0
 	supervisors = "no one"
 	selection_color = "#dddddd"
@@ -16,7 +16,10 @@
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT)
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
+
+	job_flags = STATION_JOB_FLAGS | JOB_CANNOT_OPEN_SLOTS
 	rpg_title = "Peasant"
+
 	allow_bureaucratic_error = FALSE
 	outfit = /datum/outfit/job/gimmick
 	species_outfits = list(
@@ -45,7 +48,7 @@
 
 	rpg_title = "Scissorhands"
 
-	minimal_lightup_areas = list(/area/medical/morgue)
+	minimal_lightup_areas = list(/area/station/medical/morgue)
 
 	manuscript_jobs = list(
 		JOB_NAME_BARBER,
@@ -86,7 +89,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/magic
 	)
 
-	minimal_lightup_areas = list(/area/crew_quarters/theatre)
+	minimal_lightup_areas = list(
+/area/station/service/theater)
 
 /datum/outfit/job/gimmick/stage_magician
 	name = JOB_NAME_STAGEMAGICIAN
@@ -154,6 +158,7 @@
 	departments = DEPT_BITFLAG_VIP
 	bank_account_department = ACCOUNT_VIP_BITFLAG
 	payment_per_department = list(ACCOUNT_VIP_ID = PAYCHECK_VIP)  //our power is being fucking rich
+	mind_traits = list(TRAIT_VIP)
 
 	rpg_title = "Master of Patronage"
 	species_outfits = list(

@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 2
 	selection_color = "#bbe291"
 	var/cooks = 0 //Counts cooks amount
@@ -28,14 +28,18 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_COOK
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Tavern Chef"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chef
 	)
 
-	minimal_lightup_areas = list(/area/crew_quarters/kitchen, /area/medical/morgue)
-	lightup_areas = list(/area/hydroponics)
+	minimal_lightup_areas = list(
+/area/station/service/kitchen, /area/station/medical/morgue)
+	lightup_areas = list(
+/area/station/service/hydroponics)
 
 /datum/outfit/job/cook
 	name = JOB_NAME_COOK

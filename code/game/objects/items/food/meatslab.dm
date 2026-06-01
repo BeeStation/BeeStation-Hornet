@@ -1,4 +1,5 @@
 /obj/item/food/meat
+	abstract_type = /obj/item/food/meat
 	custom_materials = list(/datum/material/meat = MINERAL_MATERIAL_AMOUNT * 4)
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/food/meat.dmi'
@@ -49,6 +50,9 @@
 
 /obj/item/food/meat/slab/human/make_dryable()
 	AddElement(/datum/element/dryable, /obj/item/food/sosjerky/healthy/lean)
+
+/obj/item/food/meat/slab/human/mutant
+	abstract_type = /obj/item/food/meat/slab/human/mutant
 
 /obj/item/food/meat/slab/human/mutant/slime
 	icon_state = "slimemeat"

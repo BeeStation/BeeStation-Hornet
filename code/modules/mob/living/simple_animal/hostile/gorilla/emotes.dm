@@ -1,4 +1,5 @@
 /datum/emote/gorilla
+	abstract_type = /datum/emote/gorilla
 	mob_type_allowed_typecache = /mob/living/simple_animal/hostile/gorilla
 	mob_type_blacklist_typecache = list()
 

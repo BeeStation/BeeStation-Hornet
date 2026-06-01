@@ -172,7 +172,7 @@
 	background_icon_state = "bg_revenant"
 	button_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_default"
-	antimagic_flags = MAGIC_RESISTANCE_HOLY
+	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY)
 	spell_requirements = NONE
 
 	/// If it's locked, and needs to be unlocked before use
@@ -475,7 +475,7 @@
 				to_chat(user, span_warning("[salt] blocks your way to spirit realm!"))
 				// the purpose is just letting not them hide onto salt tiles incorporeally. no need to stun.
 				return
-			if(stepTurf.flags_1 & NOJAUNT_1)
+			if(stepTurf.turf_flags & NOJAUNT)
 				to_chat(user, span_warning("Some strange aura blocks your way to spirit realm."))
 				return
 			if(stepTurf.is_holy())

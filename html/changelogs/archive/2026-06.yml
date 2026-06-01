@@ -1,0 +1,4 @@
+2026-06-01:
+  The-Moon-Itself:
+  - rscadd: Readded the blast cannon to the traitor uplink
+  - bugfix: Fixed the blast cannon being unable to compute bomb strength

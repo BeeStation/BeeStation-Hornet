@@ -6,6 +6,7 @@
  * as much as possible to the components/elements system
  */
 /atom
+	abstract_type = /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
 	appearance_flags = TILE_BOUND|LONG_GLIDE
@@ -112,20 +113,26 @@
 	/// What is our default level of luminosity, if you want inherent luminosity
 	/// withing an atom's type, set luminosity instead and we will manage it for you.
 	/// Always use set_base_luminosity instead of directly modifying this
-	VAR_PRIVATE/base_luminosity = 0
+	/// If null, defaults to the initial luminosity
+	VAR_PRIVATE/base_luminosity
 	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
 	VAR_PRIVATE/_emissive_count = 0
 
-	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
-	var/list/eye_users
-
+	/// list of '/client' that using this atom as their eye. SHOULD BE USED CAREFULLY
+	var/list/eye_users // TO-DO: replace into eye_mobs (maybe not)
+	/// list of '/mob' that using this atom as their eye. SHOULD BE USED CAREFULLY
+	var/list/eye_mobs
 	/// Amount of users hovering us, if this is greater than 1 we need to clear references on destroy
 	var/hovered_user_count = 0
+
+	/// Reference to our blindness apperance, essentially just a copy of our apperance but everything is on a specific plane
+	var/mutable_appearance/blind_appearance
 
 /**
   * Top level of the destroy chain for most atoms
   *
   * Cleans up the following:
+  * * Removes eye users who use this, and resets their eye
   * * Removes clients who use this, and resets their eye
   * * Removes alternate apperances from huds that see them
   * * qdels the reagent holder from atoms if it exists
@@ -134,13 +141,22 @@
   * * clears the light object
   */
 /atom/Destroy()
-	for(var/client/each_client as anything in eye_users)
-		eye_users -= each_client
-		if(isnull(each_client.mob))
-			stack_trace("CRITICAL: Failed to recover a client's eye as their mob.")
-			continue
-		each_client.mob.reset_perspective()
-	eye_users = null
+	if(istype(src, /mob/dead/new_player/pre_auth)) // This mob type is buggy. Only happens when a player logs in.
+		LAZYCLEARLIST(eye_mobs)
+		eye_mobs = null
+		LAZYCLEARLIST(eye_users)
+		eye_users = null
+	else
+		for(var/mob/each_mob as anything in eye_mobs)
+			each_mob.set_mob_eye_to(MOB_EYE_SELF)
+		eye_mobs = null
+		for(var/client/each_client as anything in eye_users)
+			eye_users -= each_client
+			if(isnull(each_client.mob))
+				stack_trace("CRITICAL: Failed to recover a client's eye as their mob.")
+				continue
+			each_client.mob.set_mob_eye_to(MOB_EYE_SELF)
+		eye_users = null
 
 	if (chat_messages)
 		for (var/chatmessage in chat_messages)
@@ -188,7 +204,7 @@
 
 /atom/proc/handle_ricochet(obj/projectile/P)
 	var/turf/p_turf = get_turf(P)
-	var/face_direction = get_dir(src, p_turf)
+	var/face_direction = get_dir(src, p_turf) || get_dir(src, P)
 	var/face_angle = dir2angle(face_direction)
 	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (P.Angle + 180))
 	var/a_incidence_s = abs(incidence_s)
@@ -240,7 +256,7 @@
 		return FALSE
 
 	if(is_reserved_level(T.z))
-		for(var/A in SSshuttle.mobile)
+		for(var/A in SSshuttle.mobile_docking_ports)
 			var/obj/docking_port/mobile/M = A
 			if(M.launch_status == ENDGAME_TRANSIT)
 				for(var/place in M.shuttle_areas)
@@ -266,7 +282,7 @@
 	if(isnull(loc_area))
 		return FALSE
 
-	for(var/A in SSshuttle.mobile)
+	for(var/A in SSshuttle.mobile_docking_ports)
 		var/obj/docking_port/mobile/M = A
 		if(M.launch_status == ENDGAME_LAUNCHED)
 			if(loc_area in M.shuttle_areas)
@@ -287,7 +303,7 @@
 	if(!is_centcom_level(T.z))//if not, don't bother
 		return FALSE
 
-	if(istype(T.loc, /area/shuttle/syndicate) || istype(T.loc, /area/syndicate_mothership) || istype(T.loc, /area/shuttle/assault_pod))
+	if(istype(T.loc, /area/shuttle/syndicate) || istype(T.loc, /area/centcom/syndicate_mothership) || istype(T.loc, /area/shuttle/assault_pod))
 		return TRUE
 
 	return FALSE
@@ -536,6 +552,7 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	. = dir != newdir
 	dir = newdir
+	SEND_SIGNAL(src, COMSIG_ATOM_POST_DIR_CHANGE, dir, newdir)
 
 /// Attempts to turn to the given direction. May fail if anchored/unconscious/etc.
 /atom/proc/try_face(newdir)
@@ -714,22 +731,6 @@
 			stack_trace("Invalid individual logging type: [message_type]. Defaulting to [LOG_GAME] (LOG_GAME).")
 			log_game(log_text)
 
-/// Helper for logging chat messages or other logs with arbitrary inputs (e.g. announcements)
-/atom/proc/log_talk(message, message_type, tag=null, log_globally=TRUE, forced_by=null, custom_say_emote = null)
-	var/prefix = tag ? "([tag]) " : ""
-	var/suffix = forced_by ? " FORCED by [forced_by]" : ""
-	log_message("[prefix][custom_say_emote ? "*[custom_say_emote]*, " : ""]\"[message]\"[suffix]", message_type, log_globally=log_globally)
-
-/// Helper for logging of messages with only one sender and receiver
-/proc/log_directed_talk(atom/source, atom/target, message, message_type, tag)
-	if(!tag)
-		stack_trace("Unspecified tag for private message")
-		tag = "UNKNOWN"
-
-	source.log_talk(message, message_type, tag="[tag] to [key_name(target)]")
-	if(source != target)
-		target.log_talk(message, message_type, tag="[tag] from [key_name(source)]", log_globally=FALSE)
-
 /**
   * Log for crafting items
   *
@@ -806,7 +807,15 @@
 	if(isnull(locate(/datum/antagonist) in buyer.mind?.antag_datums))
 		message_admins("[ADMIN_LOOKUPFLW(buyer)] has [!is_bonus ? "bought" : "received a bonus item"] [object] from \a [type] as a non-antagonist.")
 
-/atom/proc/add_filter(name,priority,list/params)
+/** Add a filter to the atom.
+ * Can also be used to assert a filter's existence. I.E. update a filter regardless if it exists or not.
+ *
+ * Arguments:
+ * * name - Filter name
+ * * priority - Priority used when sorting the filter.
+ * * params - Parameters of the filter.
+ */
+/atom/proc/add_filter(name, priority, list/params)
 	LAZYINITLIST(filter_data)
 	var/list/p = params.Copy()
 	p["priority"] = priority
@@ -823,7 +832,24 @@
 		filters += filter(arglist(arguments))
 	UNSETEMPTY(filter_data)
 
-/** Update a filter's parameter to the new one. If the filter doesn't exist we won't do anything.
+/** Update a filter's parameter and animate this change. If the filter doesnt exist we won't do anything.
+ * Basically a [atom/proc/modify_filter] call but with animations. Unmodified filter parameters are kept.
+ *
+ * Arguments:
+ * * name - Filter name
+ * * new_params - New parameters of the filter
+ * * time - time arg of the BYOND animate() proc.
+ * * easing - easing arg of the BYOND animate() proc.
+ * * loop - loop arg of the BYOND animate() proc.
+ */
+/atom/proc/transition_filter(name, list/new_params, time, easing, loop)
+	var/filter = get_filter(name)
+	if(!filter)
+		return
+	animate(filter, new_params, time = time, easing = easing, loop = loop)
+	modify_filter(name, new_params)
+
+/** Update a filter's parameter to the new one. If the filter doesnt exist we won't do anything.
  *
  * Arguments:
  * * name - Filter name
@@ -840,21 +866,6 @@
 		for(var/thing in new_params)
 			filter_data[name][thing] = new_params[thing]
 	update_filters()
-
-/atom/proc/transition_filter(name, time, list/new_params, easing, loop)
-	var/filter = get_filter(name)
-	if(!filter)
-		return
-
-	var/list/old_filter_data = filter_data[name]
-
-	var/list/params = old_filter_data.Copy()
-	for(var/thing in new_params)
-		params[thing] = new_params[thing]
-
-	animate(filter, new_params, time = time, easing = easing, loop = loop)
-	for(var/param in params)
-		filter_data[name][param] = params[param]
 
 /atom/proc/change_filter_priority(name, new_priority)
 	if(!filter_data || !filter_data[name])
@@ -1043,6 +1054,22 @@
 		luminosity = max(1, base_luminosity)
 	else
 		luminosity = base_luminosity
+
+/atom/proc/get_blind_appearance()
+	if(blind_appearance)
+		return blind_appearance
+	blind_appearance = mutable_appearance(src.icon, src.icon_state)
+	blind_appearance.plane = LOWEST_EVER_PLANE //KEEP that shit hidden away from our eyes
+	blind_appearance.appearance_flags = KEEP_TOGETHER
+	//Copy the overlays by hand to avoid plane issues
+	for(var/image/overlay as anything in overlays)
+		if(!overlay.icon)
+			continue
+		//Don't copy lighting overlays
+		if(overlay.plane == LIGHTING_PLANE || overlay.plane == LIGHTING_PLANE_ADDITIVE || overlay.plane == ABOVE_LIGHTING_PLANE)
+			continue
+		blind_appearance.add_overlay(icon(overlay.icon, overlay.icon_state))
+	return blind_appearance
 
 /atom/movable/update_luminosity()
 	if (isnull(base_luminosity))

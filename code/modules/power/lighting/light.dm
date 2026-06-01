@@ -379,7 +379,7 @@
 			deconstruct()
 		else
 			to_chat(user, span_userdanger("You stick \the [W] into the light socket!"))
-			if(has_power() && (W.flags_1 & CONDUCT_1))
+			if(has_power() && (W.obj_flags & CONDUCTS_ELECTRICITY))
 				do_sparks(3, TRUE, src)
 				if (prob(75))
 					electrocute_mob(user, get_area(src), src, rand(0.7,1.0), TRUE)
@@ -408,7 +408,7 @@
 				break_light_tube()
 			if(status != LIGHT_EMPTY)
 				drop_light_tube()
-			new /obj/item/stack/cable_coil(loc, 1, "red")
+			new /obj/item/stack/cable_coil(loc, 1)
 		transfer_fingerprints_to(newlight)
 		var/obj/item/stock_parts/cell/real_cell = get_cell()
 		if(!QDELETED(real_cell))
@@ -420,7 +420,7 @@
 /obj/machinery/light/attacked_by(obj/item/I, mob/living/user)
 	..()
 	if(status == LIGHT_BROKEN || status == LIGHT_EMPTY)
-		if(on && (I.flags_1 & CONDUCT_1))
+		if(on && (I.obj_flags & CONDUCTS_ELECTRICITY))
 			if(prob(12))
 				electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 
@@ -690,7 +690,7 @@ GLOBAL_VAR_INIT(s_flickering_lights, FALSE)
 	GLOB.s_flickering_lights = TRUE
 	spawn(0)
 		GLOB.s_flickering_lights = FALSE
-		for(var/obj/machinery/light/L in GLOB.machines)
+		for(var/obj/machinery/light/L as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light))
 			if(is_station_level(L.z))
 				addtimer(CALLBACK(L, TYPE_PROC_REF(/obj/machinery/light, flicker), rand(3, 6)), rand(0, 15))
 

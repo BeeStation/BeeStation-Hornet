@@ -348,6 +348,7 @@
 		module_icon.appearance_flags |= RESET_COLOR
 
 	. += module_icon
+	SEND_SIGNAL(src, COMSIG_MODULE_GENERATE_WORN_OVERLAY, ., standing)
 
 /obj/item/mod/module/proc/get_current_overlay_state()
 	if(overlay_state_use && !COOLDOWN_FINISHED(src, cooldown_timer))

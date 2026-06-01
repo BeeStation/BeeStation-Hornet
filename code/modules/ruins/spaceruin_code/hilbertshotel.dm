@@ -59,7 +59,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	if(!storageTurf) //Blame subsystems for not allowing this to be in Initialize
 		if(!GLOB.hhStorageTurf)
 			var/datum/map_template/hilbertshotelstorage/storageTemp = new()
-			var/datum/turf_reservation/storageReservation = SSmapping.RequestBlockReservation(3, 3)
+			var/datum/turf_reservation/storageReservation = SSmapping.request_turf_block_reservation(3, 3)
 			storageTemp.load(locate(storageReservation.bottom_left_coords[1], storageReservation.bottom_left_coords[2], storageReservation.bottom_left_coords[3]))
 			GLOB.hhStorageTurf = locate(storageReservation.bottom_left_coords[1]+1, storageReservation.bottom_left_coords[2]+1, storageReservation.bottom_left_coords[3])
 		else
@@ -82,7 +82,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 /obj/item/hilbertshotel/proc/tryStoredRoom(roomNumber, mob/user)
 	if(storedRooms["[roomNumber]"])
-		var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
+		var/datum/turf_reservation/roomReservation = SSmapping.request_turf_block_reservation(hotelRoomTemp.width, hotelRoomTemp.height)
 		hotelRoomTempEmpty.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
 		var/turfNumber = 1
 		for(var/x in 0 to hotelRoomTemp.width-1)
@@ -104,7 +104,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 		return FALSE
 
 /obj/item/hilbertshotel/proc/sendToNewRoom(roomNumber, mob/user)
-	var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
+	var/datum/turf_reservation/roomReservation = SSmapping.request_turf_block_reservation(hotelRoomTemp.width, hotelRoomTemp.height)
 	var/datum/async_map_generator/placer
 	if(ruinSpawned)
 		mysteryRoom = GLOB.hhmysteryRoomNumber
@@ -120,7 +120,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	user.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
 
 /obj/item/hilbertshotel/proc/linkTurfs(datum/turf_reservation/currentReservation, currentRoomnumber)
-	var/area/hilbertshotel/currentArea = get_area(locate(currentReservation.bottom_left_coords[1], currentReservation.bottom_left_coords[2], currentReservation.bottom_left_coords[3]))
+	var/area/misc/hilbertshotel/currentArea = get_area(locate(currentReservation.bottom_left_coords[1], currentReservation.bottom_left_coords[2], currentReservation.bottom_left_coords[3]))
 	currentArea.name = "Hilbert's Hotel Room [currentRoomnumber]"
 	currentArea.parentSphere = src
 	currentArea.storageTurf = storageTurf
@@ -220,7 +220,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	name = "\proper bluespace hyperzone"
 	icon_state = "bluespace"
 	baseturfs = /turf/open/space/bluespace
-	flags_1 = NOJAUNT_1
+	turf_flags = NOJAUNT
 	explosion_block = INFINITY
 	var/obj/item/hilbertshotel/parentSphere
 
@@ -313,7 +313,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	. = ..()
 	if(get_dist(get_turf(src), get_turf(user)) <= 1)
 		to_chat(user, span_notice("You peak through the door's bluespace peephole..."))
-		user.reset_perspective(parentSphere)
+		user.set_mob_eye_to(parentSphere)
 		user.set_machine(src)
 		var/datum/action/peepholeCancel/PHC = new
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
@@ -332,18 +332,18 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 /datum/action/peepholeCancel/on_activate(mob/user, atom/target)
 	to_chat(owner, span_warning("You move away from the peephole."))
-	owner.reset_perspective()
+	owner.set_mob_eye_to(MOB_EYE_SELF)
 	owner.clear_fullscreen("remote_view", 0)
 	qdel(src)
 
-/area/hilbertshotel
+/area/misc/hilbertshotel
 	name = "Hilbert's Hotel Room"
+	icon = 'icons/area/areas_ruins.dmi'
 	icon_state = "hilbertshotel"
 	requires_power = FALSE
 	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
 	area_flags = HIDDEN_AREA
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	ambientsounds = list('sound/ambience/servicebell.ogg')
 	var/roomnumber = 0
 	var/obj/item/hilbertshotel/parentSphere
@@ -351,13 +351,13 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	var/turf/storageTurf
 	var/virtual_z_value
 
-/area/hilbertshotel/get_virtual_z(turf/T)
+/area/misc/hilbertshotel/get_virtual_z(turf/T)
 	if(virtual_z_value)
 		return virtual_z_value
 	else
 		return ..(T)
 
-/area/hilbertshotel/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+/area/misc/hilbertshotel/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(istype(arrived, /obj/item/hilbertshotel))
 		relocate(arrived)
@@ -366,7 +366,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 		if(parentSphere == H)
 			relocate(H)
 
-/area/hilbertshotel/proc/relocate(obj/item/hilbertshotel/H)
+/area/misc/hilbertshotel/proc/relocate(obj/item/hilbertshotel/H)
 	if(prob(0.135685)) //Because screw you
 		qdel(H)
 		return
@@ -384,7 +384,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 		to_chat(M, span_danger("[H] almost implodes in upon itself, but quickly rebounds, shooting off into a random point in space!"))
 	H.forceMove(targetturf)
 
-/area/hilbertshotel/Exited(atom/movable/gone, direction)
+/area/misc/hilbertshotel/Exited(atom/movable/gone, direction)
 	. = ..()
 	if(ismob(gone))
 		var/mob/M = gone
@@ -398,7 +398,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 			if(!stillPopulated)
 				storeRoom()
 
-/area/hilbertshotel/proc/storeRoom()
+/area/misc/hilbertshotel/proc/storeRoom()
 	var/roomSize = (reservation.top_right_coords[1]-reservation.bottom_left_coords[1]+1)*(reservation.top_right_coords[2]-reservation.bottom_left_coords[2]+1)
 	var/storage[roomSize]
 	var/turfNumber = 1
@@ -420,7 +420,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	parentSphere.activeRooms -= "[roomnumber]"
 	qdel(reservation)
 
-/area/hilbertshotelstorage
+/area/misc/hilbertshotelstorage
 	name = "Hilbert's Hotel Storage Room"
 	icon_state = "hilbertshotel"
 	requires_power = FALSE

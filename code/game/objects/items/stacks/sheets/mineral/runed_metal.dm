@@ -104,7 +104,7 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list( \
 	var/area/user_area = get_area(user)
 
 	var/is_valid_turf = user_turf && (is_station_level(user_turf.z) || is_mining_level(user_turf.z))
-	var/is_valid_area = user_area && (user_area.area_flags & (BLOBS_ALLOWED | VALID_TERRITORY))
+	var/is_valid_area = user_area && (user_area.area_flags & CULT_PERMITTED)
 
 	if(!is_valid_turf || !is_valid_area)
 		to_chat(user, span_warning("The veil is not weak enough here."))

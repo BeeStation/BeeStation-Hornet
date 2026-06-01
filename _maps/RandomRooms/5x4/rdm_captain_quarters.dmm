@@ -35,9 +35,7 @@
 	pixel_x = -1;
 	pixel_y = 6
 	},
-/obj/structure/sink{
-	pixel_y = 25
-	},
+/obj/structure/sink/directional/north,
 /obj/structure/mirror{
 	pixel_y = 35
 	},
@@ -108,10 +106,10 @@
 	pixel_x = 3;
 	pixel_y = -1
 	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar/havana{
 	pixel_y = -1
 	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/cigarette/cigar/havana{
 	pixel_x = -4;
 	pixel_y = 2
 	},

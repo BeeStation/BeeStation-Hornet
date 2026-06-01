@@ -43,12 +43,12 @@
 	playsound(targeted_turf, 'sound/magic/voidblink.ogg', 60, FALSE)
 
 	for(var/mob/living/living_mob in range(damage_radius, source_turf))
-		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == user || living_mob.can_block_magic(MAGIC_RESISTANCE))
+		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == user || living_mob.can_block_magic(MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE))
 			continue
 		living_mob.apply_damage(40, BRUTE)
 
 	for(var/mob/living/living_mob in range(damage_radius, targeted_turf))
-		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == user || living_mob.can_block_magic(MAGIC_RESISTANCE))
+		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == user || living_mob.can_block_magic(MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE))
 			continue
 		living_mob.apply_damage(40, BRUTE)
 

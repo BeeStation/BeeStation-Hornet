@@ -1026,7 +1026,7 @@
 	var/mob/living/carbon/exposed_carbon = exposed_mob
 
 	if(method in list(TOUCH, VAPOR, PATCH))
-		for(var/datum/surgery/surgery in exposed_carbon.surgeries)
+		for(var/datum/surgery/surgery as anything in exposed_carbon.surgeries)
 			surgery.speed_modifier = max(0.2, surgery.speed_modifier)
 			// +20% surgery speed on each step, useful while operating in less-than-perfect conditions
 
@@ -1612,7 +1612,7 @@
 	. = ..()
 	if(isplatingturf(exposed_turf) || istype(exposed_turf, /turf/open/floor/iron))
 		var/turf/open/floor/floor = exposed_turf
-		floor.PlaceOnTop(carpet_type, flags = CHANGETURF_INHERIT_AIR)
+		floor.place_on_top(carpet_type, flags = CHANGETURF_INHERIT_AIR)
 
 /datum/reagent/carpet/black
 	name = "Black Carpet"
@@ -1920,12 +1920,13 @@
 	var/current_size = RESIZE_DEFAULT_SIZE
 
 /datum/reagent/growthserum/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	. = ..()
 	var/newsize = current_size
 	switch(volume)
-		if(0 to 19)
+		if(0 to 9)
+			newsize = RESIZE_DEFAULT_SIZE
+		if(10 to 29)
 			newsize = 1.25 * RESIZE_DEFAULT_SIZE
-		if(20 to 49)
+		if(30 to 49)
 			newsize = 1.5 * RESIZE_DEFAULT_SIZE
 		if(50 to 99)
 			newsize = 2 * RESIZE_DEFAULT_SIZE
@@ -1937,6 +1938,7 @@
 	affected_mob.resize = newsize/current_size
 	current_size = newsize
 	affected_mob.update_transform()
+	..()
 
 /datum/reagent/growthserum/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
@@ -2173,8 +2175,8 @@ Basically, we fill the time between now and 2s from now with hands based off the
 /datum/reagent/helgrasp/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	spawn_hands(affected_mob)
-	lag_remainder += delta_time - FLOOR(delta_time, 1)
-	delta_time = FLOOR(delta_time, 1)
+	lag_remainder += delta_time - floor(delta_time)
+	delta_time = floor(delta_time)
 	if(lag_remainder >= 1)
 		delta_time += 1
 		lag_remainder -= 1

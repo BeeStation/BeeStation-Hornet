@@ -23,7 +23,7 @@
 
 /datum/antagonist/xeno/create_team(datum/team/xeno/new_team)
 	if(!new_team)
-		for(var/datum/antagonist/xeno/X in GLOB.antagonists)
+		for(var/datum/antagonist/xeno/X in GLOB.active_antagonists)
 			if(!X.owner || !X.xeno_team)
 				continue
 			xeno_team = X.xeno_team

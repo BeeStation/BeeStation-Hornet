@@ -79,7 +79,7 @@
 	. = ..()
 	if(istype(ear_owner) && ear_owner.dna)
 		color = ear_owner.hair_color
-		ear_owner.dna.features["ears"] = "None"
+		ear_owner.dna.features["ears"] = SPRITE_ACCESSORY_NONE
 		ear_owner.dna.species.mutant_bodyparts -= "ears"
 		ear_owner.update_body()
 

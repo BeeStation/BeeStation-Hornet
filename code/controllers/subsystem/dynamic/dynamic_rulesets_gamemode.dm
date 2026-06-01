@@ -1,11 +1,11 @@
 /datum/dynamic_ruleset/gamemode
+	abstract_type = /datum/dynamic_ruleset/gamemode
 	rule_category = DYNAMIC_CATEGORY_GAMEMODE
 	// Uses antag rep to pick candidates, as we choose from everyone available.
 	ruleset_flags = SHOULD_USE_ANTAG_REP
-	abstract_type = /datum/dynamic_ruleset/gamemode
 	// Sorry, but if you are going to be THE antagonist, you can't be leaving the station and making
 	// the round boring for everyone else.
-	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_PRISONER, JOB_NAME_SHAFTMINER, JOB_NAME_EXPLORATIONCREW)
+	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_SHAFTMINER, JOB_NAME_EXPLORATIONCREW)
 	/// Default minimum players required so that there is some mystery involved.
 	/// Disabled for now, since traitor works fine on 0 pop
 	minimum_players_required = 3
@@ -70,6 +70,7 @@
 
 		chosen_mind.special_role = initial(antag_datum.banning_key)
 		chosen_mind.restricted_roles = restricted_roles
+	LAZYNULL(candidates)
 
 /datum/dynamic_ruleset/gamemode/execute()
 	. = ..()
@@ -91,6 +92,7 @@
 	antag_datum = /datum/antagonist/traitor
 	weight = 16
 	recent_weight_recovery_linear = 1
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 
 /datum/dynamic_ruleset/gamemode/traitor/security_report()
 	return "Intercepted communications between neighboring orbital stations suggest that Syndicate activity, as always, remains a potential threat."
@@ -124,7 +126,7 @@
 	role_preference = /datum/role_preference/roundstart/heretic
 	antag_datum = /datum/antagonist/heretic
 	weight = 8
-	ruleset_flags = SHOULD_USE_ANTAG_REP | REQUIRED_POP_ALLOW_UNREADY
+	restricted_roles = list(JOB_NAME_PRISONER)
 	minimum_players_required = 14
 
 /datum/dynamic_ruleset/gamemode/heretic/security_report()
@@ -180,24 +182,21 @@
 	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN | NO_CONVERSION_TRANSFER_RULESET | REQUIRED_POP_ALLOW_UNREADY
 
 /datum/dynamic_ruleset/gamemode/wizard/allowed(require_drafted = TRUE)
-	. = ..()
-	if(!.)
-		return FALSE
-
 	if(!length(GLOB.wizardstart))
 		log_dynamic("NOT ALLOWED: [src] couldn't find any spawn points.")
 		return FALSE
+	return ..()
 
 /datum/dynamic_ruleset/gamemode/wizard/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
 
 /datum/dynamic_ruleset/gamemode/wizard/execute()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.current.forceMove(pick(GLOB.wizardstart))
-		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
 
 /datum/dynamic_ruleset/gamemode/wizard/security_report()
 	return "Unconfirmed rumours suggest that a series of powerful artifacts that possess intricate control over space-time are in the hands \
@@ -214,7 +213,7 @@
 	name = "Blood Cult"
 	role_preference = /datum/role_preference/roundstart/blood_cultist
 	antag_datum = /datum/antagonist/cult
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_PRISONER)
 	drafted_players_amount = 2
 	weight = 8
 	minimum_players_required = 24
@@ -226,7 +225,7 @@
 	var/datum/team/cult/team
 
 /datum/dynamic_ruleset/gamemode/bloodcult/set_drafted_players_amount()
-	drafted_players_amount = max(CEILING(length(SSdynamic.roundstart_candidates) / 9, 1), 2)
+	drafted_players_amount = max(ceil(length(SSdynamic.roundstart_candidates) / 9), 2)
 
 /datum/dynamic_ruleset/gamemode/bloodcult/execute()
 	team = new
@@ -257,6 +256,31 @@
 
 //////////////////////////////////////////////
 //                                          //
+//                  VAMPIRES                //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/gamemode/vampires
+	name = "Vampires"
+	role_preference = /datum/role_preference/roundstart/vampire
+	antag_datum = /datum/antagonist/vampire
+	weight = 8
+	minimum_players_required = 14
+	drafted_players_amount = 3
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+
+/datum/dynamic_ruleset/gamemode/vampires/set_drafted_players_amount()
+	// Start with 3 at 14 pop. Every three players above that, a vampire gets added.
+	var/extra = max(floor((length(SSdynamic.roundstart_candidates) - 14) / 3), 0)
+	drafted_players_amount = 3 + extra
+
+/datum/dynamic_ruleset/gamemode/vampires/security_report()
+	return "Several stations in adjacent sectors have reported a statistically anomalous uptick in space rabies. Please be aware of potential medical emergencies resultant of this. Security personnel are advised to escort affected crew to Medical and report \
+	any unusual findings to Central Command via secure channel."
+
+/////////////////////////////////////////////
+//                                          //
 //                CLOCK CULT                //
 //                                          //
 //////////////////////////////////////////////
@@ -265,7 +289,7 @@
 	name = "Clockwork Cult"
 	role_preference = /datum/role_preference/roundstart/clock_cultist
 	antag_datum = /datum/antagonist/servant_of_ratvar
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_PRISONER)
 	drafted_players_amount = 4
 	weight = 8
 	minimum_players_required = 30
@@ -277,7 +301,7 @@
 	var/datum/team/clock_cult/main_cult
 
 /datum/dynamic_ruleset/roundstart/clockcult/set_drafted_players_amount()
-	drafted_players_amount = max(CEILING(length(SSdynamic.roundstart_candidates) / 7, 1), 3)
+	drafted_players_amount = max(ceil(length(SSdynamic.roundstart_candidates) / 7), 3)
 
 /datum/dynamic_ruleset/gamemode/clockcult/choose_candidates()
 	. = ..()
@@ -285,7 +309,7 @@
 	generate_clockcult_scriptures()
 
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
 
 /datum/dynamic_ruleset/gamemode/clockcult/execute()
 	main_cult = new()
@@ -341,12 +365,12 @@
 	var/datum/team/nuclear/nuke_team
 
 /datum/dynamic_ruleset/gamemode/nuclear/set_drafted_players_amount()
-	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 7, 1), 2)
+	drafted_players_amount = max(floor(length(SSdynamic.roundstart_candidates) / 7), 2)
 
 /datum/dynamic_ruleset/gamemode/nuclear/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
 
 /datum/dynamic_ruleset/gamemode/nuclear/execute()
 	var/has_made_leader = FALSE
@@ -416,7 +440,7 @@
 
 /datum/dynamic_ruleset/gamemode/nuclear/clown_ops/execute()
 	. = ..()
-	for(var/obj/machinery/nuclearbomb/syndicate/nuke in GLOB.nuke_list)
+	for(var/obj/machinery/nuclearbomb/syndicate/nuke as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb/syndicate))
 		var/turf/turf = get_turf(nuke)
 		if(turf)
 			var/obj/machinery/nuclearbomb/syndicate/bananium/new_nuke = new(turf)
@@ -438,7 +462,7 @@
 	name = "Revolution"
 	role_preference = /datum/role_preference/roundstart/revolutionary
 	antag_datum = /datum/antagonist/rev/head
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_PRISONER)
 	drafted_players_amount = 3
 	weight = 0	// Temporarily disabled: We need to refactor this so that it executes after round-start, and rolls into a different gamemode if it fails to execute.
 	minimum_players_required = 24

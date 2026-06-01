@@ -237,6 +237,9 @@ Doesn't work on other aliens/AI.*/
 	plasma_cost = 50
 
 /datum/action/alien/acid/neurotoxin/is_available()
+	var/mob/living/carbon/as_carbon = owner
+	if(istype(as_carbon) && as_carbon.is_mouth_covered(ITEM_SLOT_MASK))
+		return FALSE
 	return ..() && isturf(owner.loc)
 
 /datum/action/alien/acid/neurotoxin/set_click_ability(mob/on_who)

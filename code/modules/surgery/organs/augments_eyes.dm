@@ -1,4 +1,10 @@
+/obj/item/organ/cyberimp/eyes
+	abstract_type = /obj/item/organ/cyberimp/eyes
+
 /obj/item/organ/cyberimp/eyes/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 	if(prob(30/severity)) //They same effect as having cybernetic eyes
 		to_chat(owner, span_warning("Static obfuscates your vision!"))
 		owner.flash_act(visual = 1)

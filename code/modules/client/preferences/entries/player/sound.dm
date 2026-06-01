@@ -107,3 +107,9 @@
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "sound_ghostpoll"
 	preference_type = PREFERENCE_PLAYER
+
+/// Controls hearing radio noise
+/datum/preference/toggle/radio_noise
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	db_key = "sound_radio_noise"
+	preference_type = PREFERENCE_PLAYER

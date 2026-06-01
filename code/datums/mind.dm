@@ -50,7 +50,10 @@
 
 	/// The role that this mob was assigned, as a text value, may be a job which GetJob can be called to fetch
 	var/assigned_role
+	/// cached /datum/job reference for the assigned_role. we can nuke this once assigned_role is no longer being used as a string
+	var/datum/job/assigned_role_datum
 	var/special_role
+
 	var/list/restricted_roles = list()
 	/// Martial art on this mind
 	var/datum/martial_art/martial_art = null
@@ -59,7 +62,6 @@
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/holy_role = NONE //is this person a chaplain or admin role allowed to use bibles, Any rank besides 'NONE' allows for this.
-	var/isAntagTarget = FALSE
 	var/no_cloning_at_all = FALSE
 
 	var/datum/mind/enslaved_to //If this mind's master is another mob (i.e. adamantine golems)
@@ -77,6 +79,7 @@
 	var/list/special_statuses
 	/// your bank account id in your mind
 	var/account_id
+
 	/// A holder datum used to handle holoparasites and their shared behavior.
 	var/datum/holoparasite_holder/holoparasite_holder
 
@@ -426,7 +429,7 @@
 		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in sort_list(get_all_jobs())
 		if (!new_role)
 			return
-		assigned_role = new_role
+		set_assigned_role(new_role)
 
 	else if (href_list["memory_edit"])
 		var/new_memo = stripped_multiline_input(usr, "Write new memory", "Memory", memory, MAX_MESSAGE_LEN)
@@ -470,9 +473,6 @@
 							target_antag = add_antag_datum(/datum/antagonist/custom)
 						else
 							target_antag = target
-
-		if(!GLOB.admin_objective_list)
-			generate_admin_objective_list()
 
 		if(old_objective)
 			if(old_objective.name in GLOB.admin_objective_list)
@@ -600,8 +600,8 @@
 /datum/mind/proc/is_murderbone()
 	if(enslaved_to?.is_murderbone())
 		return TRUE
-	for(var/datum/objective/O as() in get_all_objectives())
-		if(O.murderbone_flag)
+	for(var/datum/objective/objective as anything in get_all_objectives())
+		if(objective.murderbone_flag)
 			return TRUE
 	return FALSE
 
@@ -667,10 +667,6 @@
 			if(istype(O,objective_type))
 				return TRUE
 
-/mob/proc/sync_mind()
-	mind_initialize() //updates the mind (or creates and initializes one if one doesn't exist)
-	mind.active = TRUE //indicates that the mind is currently synced with a client
-
 /datum/mind/proc/has_martialart(string)
 	if(martial_art && martial_art.id == string)
 		return martial_art
@@ -687,6 +683,36 @@
 	LAZYSET(addiction_points, type, max(LAZYACCESS(addiction_points, type) - amount, 0))
 	var/datum/addiction/affected_addiction = SSaddiction.all_addictions[type]
 	return affected_addiction.on_lose_addiction_points(src)
+
+/// Setter for assigned_role. Keeps assigned_role (string) and assigned_role_datum (job ref) in sync.
+/// Returns the previous assigned_role value.
+/datum/mind/proc/set_assigned_role(role_title, datum/job/job_datum)
+	if((assigned_role == role_title) && (assigned_role_datum == job_datum))
+		return
+	. = assigned_role
+	assigned_role = role_title
+	//second argument was filled
+	if(job_datum)
+		assigned_role_datum = job_datum
+	//second argument was not filled, take string and find job datum. If there is no associated job-datum, it will be null anyway
+	else
+		assigned_role_datum = SSjob.GetJob(assigned_role)
+
+/// Sets us to the passed job datum, then greets them to their new job.
+/// Use this one for when you're assigning this mind to a new job for the first time,
+/// or for when someone's receiving a job they'd really want to be greeted to.
+/datum/mind/proc/set_assigned_role_with_greeting(role_title, datum/job/new_role, client/incoming_client)
+	. = set_assigned_role(role_title = role_title, job_datum = new_role)
+	if(assigned_role_datum != new_role)
+		return
+
+	var/intro_message = new_role.get_spawn_message()
+	if(incoming_client && intro_message)
+		to_chat(incoming_client, intro_message)
+
+/mob/proc/sync_mind()
+	mind_initialize() //updates the mind (or creates and initializes one if one doesn't exist)
+	mind.active = TRUE //indicates that the mind is currently synced with a client
 
 /mob/dead/new_player/sync_mind()
 	return
@@ -718,22 +744,22 @@
 /mob/living/carbon/human/mind_initialize()
 	..()
 	if(!mind.assigned_role)
-		mind.assigned_role = "Unassigned" //default
+		mind.set_assigned_role("Unassigned")
 
 //AI
 /mob/living/silicon/ai/mind_initialize()
 	..()
-	mind.assigned_role = JOB_NAME_AI
+	mind.set_assigned_role(JOB_NAME_AI)
 
 //BORG
 /mob/living/silicon/robot/mind_initialize()
 	..()
-	mind.assigned_role = JOB_NAME_CYBORG
+	mind.set_assigned_role(JOB_NAME_CYBORG)
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()
 	..()
-	mind.assigned_role = ROLE_PAI
+	mind.set_assigned_role(ROLE_PAI)
 	mind.special_role = ""
 
 // Quirk Procs //

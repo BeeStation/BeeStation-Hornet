@@ -6,6 +6,7 @@
 // where all the reagents related to medicine go.
 
 /datum/reagent/medicine
+	abstract_type = /datum/reagent/medicine
 	name = "Medicine"
 	chemical_flags = CHEMICAL_NOT_DEFINED
 	taste_description = "bitterness"
@@ -406,7 +407,7 @@
 				to_chat(exposed_mob, span_warning("Your stomach feels empty and cramps!"))
 		else
 			var/mob/living/carbon/exposed_carbon = exposed_mob
-			for(var/datum/surgery/surgery in exposed_carbon.surgeries)
+			for(var/datum/surgery/surgery as anything in exposed_carbon.surgeries)
 				surgery.speed_modifier = max(0.1, surgery.speed_modifier)
 				// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
 

@@ -14,7 +14,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	desc = "A hand-held body scanner capable of distinguishing vital signs of the subject. Has a side button to scan for chemicals"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 3
@@ -109,8 +109,9 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/humantarget = target
-		if(humantarget.undergoing_cardiac_arrest() && humantarget.stat != DEAD)
-			render_list += "<span class='alert ml-1'><b>Subject suffering from heart attack: Apply defibrillation or other electric shock immediately!</b></span>\n"
+		var/obj/item/organ/heart/heart = humantarget.get_organ_slot(ORGAN_SLOT_HEART)
+		if(heart && !heart.beating)
+			render_list += "<span class='alert ml-1'><b>No cardiac activity detected. Apply defibrillation or other electric shock immediately!</b></span>\n"
 
 	SEND_SIGNAL(target, COMSIG_LIVING_HEALTHSCAN, render_list, advanced, user, mode, tochat)
 
@@ -200,10 +201,10 @@
 							<td style='width:4em;'><font color='#00cc66'><b>Toxin</b></font></td>\
 							<td style='width:8em;'><font color='#00cccc'><b>Suffocation</b></font></td></tr>\
 							<tr><td><font color='#ff3333'><b>Overall:</b></font></td>\
-							<td><font color='#ff3333'><b>[CEILING(brute_loss,1)]</b></font></td>\
-							<td><font color='#ff9933'><b>[CEILING(fire_loss,1)]</b></font></td>\
-							<td><font color='#00cc66'><b>[CEILING(tox_loss,1)]</b></font></td>\
-							<td><font color='#33ccff'><b>[CEILING(oxy_loss,1)]</b></font></td></tr>"
+							<td><font color='#ff3333'><b>[ceil(brute_loss)]</b></font></td>\
+							<td><font color='#ff9933'><b>[ceil(fire_loss)]</b></font></td>\
+							<td><font color='#00cc66'><b>[ceil(tox_loss)]</b></font></td>\
+							<td><font color='#33ccff'><b>[ceil(oxy_loss)]</b></font></td></tr>"
 
 			if(mode == SCANNER_VERBOSE)
 				for(var/obj/item/bodypart/limb as anything in damaged)
@@ -211,8 +212,8 @@
 						dmgreport += "<tr><td><font color='#cc3333'>[capitalize(limb.name)]:</font></td>"
 					else
 						dmgreport += "<tr><td><font color='#cc3333'>[capitalize(limb.plaintext_zone)]:</font></td>"
-					dmgreport += "<td><font color='#cc3333'>[(limb.brute_dam > 0) ? "[CEILING(limb.brute_dam,1)]" : "0"]</font></td>"
-					dmgreport += "<td><font color='#ff9933'>[(limb.burn_dam > 0) ? "[CEILING(limb.burn_dam,1)]" : "0"]</font></td></tr>"
+					dmgreport += "<td><font color='#cc3333'>[(limb.brute_dam > 0) ? "[ceil(limb.brute_dam)]" : "0"]</font></td>"
+					dmgreport += "<td><font color='#ff9933'>[(limb.burn_dam > 0) ? "[ceil(limb.burn_dam)]" : "0"]</font></td></tr>"
 			dmgreport += "</font></table>"
 			render_list += dmgreport // tables do not need extra linebreak
 		for(var/obj/item/bodypart/limb as anything in carbontarget.bodyparts)
@@ -236,7 +237,7 @@
 				if (status != "")
 					render = TRUE
 					toReport += "<tr><td><font color='#cc3333'>[organ.name]:</font></td>\
-						[advanced ? "<td><font color='#ff3333'>[CEILING(organ.damage,1)]</font></td>" : ""]\
+						[advanced ? "<td><font color='#ff3333'>[ceil(organ.damage)]</font></td>" : ""]\
 						<td>[status]</td></tr>"
 
 			var/missing_organs = list()
@@ -355,7 +356,7 @@
 			var/blood_info = "[blood_type] (Compatible: [jointext(compatible_names, ", ")])"
 
 			if(HAS_TRAIT(carbontarget, TRAIT_MASQUERADE))
-				render_list += "<span class='alert ml-1'>Blood level: 100 %, 560 cl,</span> [span_info("type: [blood_info]")]\n"
+				render_list += "<span class='info ml-1'>Blood level: 100 %, 560 cl,</span> [span_info("type: [blood_info]")]\n"
 			else if(carbontarget.blood_volume <= BLOOD_VOLUME_SAFE && carbontarget.blood_volume > BLOOD_VOLUME_OKAY)
 				render_list += "<span class='alert ml-1'>Blood level: LOW [blood_percent] %, [carbontarget.blood_volume] cl,</span> [span_info("type: [blood_info]")]\n"
 			else if(carbontarget.blood_volume <= BLOOD_VOLUME_OKAY)

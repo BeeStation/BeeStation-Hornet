@@ -51,10 +51,6 @@
 
 		var/datum/antagonist/vassal/vassal = IS_VASSAL(target)
 		if(vassal)
-			if(vassal.special_type)
-				if(!silent)
-					target.visible_message(span_warning("[target] seems to resist the implant!"), span_warning("You feel something interfering with your mental conditioning, but you resist it!"))
-				return FALSE
 			target.mind.remove_antag_datum(/datum/antagonist/vassal)
 		ADD_TRAIT(target, TRAIT_MINDSHIELD, "implant")
 		target.sec_hud_set_implants()

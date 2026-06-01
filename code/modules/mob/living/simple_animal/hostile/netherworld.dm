@@ -17,7 +17,7 @@
 	minbodytemp = 0
 	faction = list(FACTION_NETHER)
 	hardattacks = TRUE
-	discovery_points = 3000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/hostile/netherworld/migo
 	name = "mi-go"
@@ -207,12 +207,11 @@
 		'sound/ai/default/aimalf.ogg'
 	) //hahahaha fuck you code divers // No, fuck you cunt!
 
-/mob/living/simple_animal/hostile/netherworld/migo/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_range = 7, datum/saymode/saymode = null)
-	..()
-	if(stat)
+/mob/living/simple_animal/hostile/netherworld/migo/send_speech(message_raw, message_range, obj/source, bubble_type, list/spans, datum/language/message_language, list/message_mods, forced)
+	. = ..()
+	if(stat != CONSCIOUS)
 		return
-	var/chosen_sound = pick(migo_sounds)
-	playsound(src, chosen_sound, 50, TRUE)
+	playsound(src, pick(migo_sounds), 50, TRUE)
 
 /mob/living/simple_animal/hostile/netherworld/migo/Life(delta_time = SSMOBS_DT, times_fired)
 	..()

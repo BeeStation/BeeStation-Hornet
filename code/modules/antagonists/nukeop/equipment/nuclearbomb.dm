@@ -36,13 +36,11 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	var/proper_bomb = TRUE //Please
 	var/bomb_z_level = null
 	var/obj/effect/countdown/nuclearbomb/countdown
-	var/sound/countdown_music = null
 	COOLDOWN_DECLARE(arm_cooldown)
 
 /obj/machinery/nuclearbomb/Initialize(mapload)
 	. = ..()
 	countdown = new(src)
-	GLOB.nuke_list += src
 	core = new /obj/item/nuke_core(src)
 	STOP_PROCESSING(SSobj, core)
 	update_icon()
@@ -54,10 +52,9 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	if(!exploding)
 		// If we're not exploding, set the alert level back to normal
 		set_safety()
-	GLOB.nuke_list -= src
 	QDEL_NULL(countdown)
 	QDEL_NULL(core)
-	. = ..()
+	return ..()
 
 /obj/machinery/nuclearbomb/examine(mob/user)
 	. = ..()
@@ -448,7 +445,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 		SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 
 		if(proper_bomb) // Why does this exist
-			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
+			play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
 	else
 		detonation_timer = null
 		SSsecurity_level.set_level(previous_level)
@@ -506,7 +503,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	var/area/A = get_area(bomb_location)
 
 	if(bomb_location && is_station_level(bomb_location.z))
-		if(istype(A, /area/space))
+		if(istype(A, /area/misc/space))
 			off_station = NUKE_NEAR_MISS
 		if((bomb_location.x < (128-NUKERANGE)) || (bomb_location.x > (128+NUKERANGE)) || (bomb_location.y < (128-NUKERANGE)) || (bomb_location.y > (128+NUKERANGE)))
 			off_station = NUKE_NEAR_MISS

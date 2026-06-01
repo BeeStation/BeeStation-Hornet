@@ -1,4 +1,5 @@
 /obj/item/clothing/under
+	abstract_type = /obj/item/clothing/under
 	name = "under"
 	icon = 'icons/obj/clothing/under/default.dmi'
 	worn_icon = 'icons/mob/clothing/under/default.dmi'
@@ -27,17 +28,19 @@
 	bleed = 10
 
 /obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
-	if(!isinhands)
-		if(damaged_clothes)
-			. += mutable_appearance('icons/effects/item_damage.dmi', "damageduniform", item_layer +  0.0002)
-		if(GET_ATOM_BLOOD_DNA_LENGTH(src))
-			var/mutable_appearance/bloody_uniform = mutable_appearance('icons/effects/blood.dmi', "uniformblood", item_layer + 0.0002)
-			bloody_uniform.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
-			. += bloody_uniform
-		if(accessory_overlay_under)
-			accessory_overlay_under.layer = item_layer +  0.0001
-			. += accessory_overlay_under
+	. = ..()
+	if(isinhands)
+		return
+
+	if(damaged_clothes)
+		. += mutable_appearance('icons/effects/item_damage.dmi', "damageduniform", item_layer +  0.0002)
+	if(GET_ATOM_BLOOD_DNA_LENGTH(src))
+		var/mutable_appearance/bloody_uniform = mutable_appearance('icons/effects/blood.dmi', "uniformblood", item_layer + 0.0002)
+		bloody_uniform.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+		. += bloody_uniform
+	if(accessory_overlay_under)
+		accessory_overlay_under.layer = item_layer +  0.0001
+		. += accessory_overlay_under
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
 	if((has_sensor == BROKEN_SENSORS) && istype(I, /obj/item/stack/cable_coil))
@@ -389,6 +392,7 @@
 	return adjusted
 
 /obj/item/clothing/under/rank
+	abstract_type = /obj/item/clothing/under/rank
 	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/compile_monkey_icon()

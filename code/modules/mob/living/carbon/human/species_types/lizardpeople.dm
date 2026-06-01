@@ -13,10 +13,10 @@
 	mutant_bodyparts = list(
 		"tail_lizard" = "Smooth",
 		"snout" = "Round",
-		"horns" = "None",
-		"frills" = "None",
-		"spines" = "None",
-		"body_markings" = "None",
+		"horns" = SPRITE_ACCESSORY_NONE,
+		"frills" = SPRITE_ACCESSORY_NONE,
+		"spines" = SPRITE_ACCESSORY_NONE,
+		"body_markings" = SPRITE_ACCESSORY_NONE,
 		"legs" = "Normal Legs",
 		"body_size" = "Normal"
 	)

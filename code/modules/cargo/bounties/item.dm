@@ -1,4 +1,5 @@
 /datum/bounty/item
+	abstract_type = /datum/bounty/item
 	/// How many items have to be shipped to complete the bounty
 	var/required_count = 1
 	/// How many items have been shipped for the bounty so far

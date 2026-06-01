@@ -8,6 +8,7 @@
 
 
 /datum/reagent/consumable
+	abstract_type = /datum/reagent/consumable
 	name = "Consumable"
 	chemical_flags = CHEMICAL_NOT_DEFINED
 	taste_description = "generic food"
@@ -584,14 +585,13 @@
 	default_container = /obj/item/reagent_containers/condiment/honey
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	holder.add_reagent(/datum/reagent/consumable/sugar, 3 * REM * delta_time)
+	holder.add_reagent(/datum/reagent/consumable/sugar, 1 * REM * delta_time)
 	. = ..()
 	var/need_mob_update
-	if(DT_PROB(33, delta_time))
-		need_mob_update = affected_mob.adjustBruteLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
-		need_mob_update += affected_mob.adjustFireLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
-		need_mob_update += affected_mob.adjustOxyLoss(-1, updating_health = FALSE, required_biotype = affected_biotype)
-		need_mob_update += affected_mob.adjustToxLoss(-1, updating_health = FALSE, required_biotype = affected_biotype)
+	need_mob_update = affected_mob.adjustBruteLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
+	need_mob_update += affected_mob.adjustFireLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
+	need_mob_update += affected_mob.adjustOxyLoss(-1, updating_health = FALSE, required_biotype = affected_biotype)
+	need_mob_update += affected_mob.adjustToxLoss(-1, updating_health = FALSE, required_biotype = affected_biotype)
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
@@ -599,7 +599,7 @@
 	. = ..()
 	if(iscarbon(exposed_mob) && (method in list(TOUCH, VAPOR, PATCH)))
 		var/mob/living/carbon/exposed_carbon = exposed_mob
-		for(var/datum/surgery/surgery in exposed_carbon.surgeries)
+		for(var/datum/surgery/surgery as anything in exposed_carbon.surgeries)
 			surgery.speed_modifier = max(0.6, surgery.speed_modifier) // +60% surgery speed on each step, compared to bacchus' blessing's ~46%
 
 /datum/reagent/consumable/mayonnaise

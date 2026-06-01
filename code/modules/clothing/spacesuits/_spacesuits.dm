@@ -9,7 +9,7 @@
 	icon_state = "spaceold"
 	inhand_icon_state = "space_helmet"
 	desc = "A special helmet with solar UV shielding to protect your eyes from harmful rays."
-	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | STACKABLE_HELMET_EXEMPT | HEADINTERNALS
 	armor_type = /datum/armor/helmet_space
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	dynamic_hair_suffix = ""
@@ -24,7 +24,6 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = NONE
 	dog_fashion = null
-	var/obj/item/clothing/head/attached_hat
 	custom_price = 75
 
 /datum/armor/helmet_space
@@ -36,76 +35,10 @@
 
 /obj/item/clothing/head/helmet/space/Initialize(mapload)
 	. = ..()
-	remove_verb(/obj/item/clothing/head/helmet/space/verb/unattach_hat)
+	add_stabilizer()
 
-/obj/item/clothing/head/helmet/space/Destroy()
-	if (attached_hat)
-		if (attached_hat.resistance_flags & INDESTRUCTIBLE)
-			attached_hat.forceMove(get_turf(src))
-		else
-			QDEL_NULL(attached_hat)
-	..()
-
-/obj/item/clothing/head/helmet/space/attackby(obj/item/item, mob/living/user)
-	. = ..()
-	if(istype(item, /obj/item/clothing/head) \
-		// i know someone is gonna do it after i thought about it
-		&& !istype(item, /obj/item/clothing/head/helmet/space) \
-		// messy and icon can't be seen before putting on
-		&& !istype(item, /obj/item/clothing/head/costume/foilhat))
-		var/obj/item/clothing/head/hat = item
-		if(attached_hat)
-			to_chat(user, span_notice("There's already a hat on the helmet!"))
-			return
-		attached_hat = hat
-		hat.forceMove(src)
-		if (user.get_item_by_slot(ITEM_SLOT_HEAD) == src)
-			hat.equipped(user, ITEM_SLOT_HEAD)
-		update_icon()
-		update_button_icons(user)
-		add_verb(/obj/item/clothing/head/helmet/space/verb/unattach_hat)
-
-/obj/item/clothing/head/helmet/space/proc/update_button_icons(mob/user)
-	if(!user)
-		return
-
-	//The icon's may look differently due to overlays being applied asynchronously
-	for(var/X in actions)
-		var/datum/action/A=X
-		A.update_buttons()
-
-/obj/item/clothing/head/helmet/space/equipped(mob/user, slot)
-	. = ..()
-	attached_hat?.equipped(user, slot)
-
-/obj/item/clothing/head/helmet/space/dropped(mob/user)
-	. = ..()
-	attached_hat?.dropped(user)
-
-/obj/item/clothing/head/helmet/space/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = ..()
-	if(!isinhands)
-		if(attached_hat)
-			. += attached_hat.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/default.dmi')
-
-/obj/item/clothing/head/helmet/space/verb/unattach_hat()
-	set name = "Remove Hat"
-	set category = "Object"
-	set src in usr
-
-	usr.put_in_hands(attached_hat)
-	if (usr.get_item_by_slot(ITEM_SLOT_HEAD) == src)
-		attached_hat.dropped(usr)
-	attached_hat = null
-	update_icon()
-	remove_verb(/obj/item/clothing/head/helmet/space/verb/unattach_hat)
-
-/obj/item/clothing/head/helmet/space/examine(mob/user)
-	. = ..()
-	if(attached_hat)
-		. += span_notice("There's \a [attached_hat.name] on the helmet which can be removed through the context menu.")
-	else
-		. += span_notice("A hat can be placed on the helmet.")
+/obj/item/clothing/head/helmet/space/proc/add_stabilizer()
+	AddComponent(/datum/component/hat_stabilizer, loose_hat = TRUE)
 
 /obj/item/clothing/suit/space
 	name = "space suit"

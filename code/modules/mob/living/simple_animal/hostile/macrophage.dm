@@ -29,7 +29,7 @@
 	var/aggressive = FALSE
 	var/datum/disease/base_disease = null
 	var/list/infections = list()
-	discovery_points = 2000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/hostile/macrophage/Initialize(mapload)
 	. = ..()

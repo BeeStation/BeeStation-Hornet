@@ -5,6 +5,7 @@
 
 /obj/machinery/porta_turret_cover
 	name = "turret"
+	desc = "A covered turret that shoots at its enemies."
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "turretCover"
 	layer = HIGH_OBJ_LAYER

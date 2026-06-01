@@ -107,15 +107,15 @@
 
 	return ..()
 
-/atom/movable/openspace/multiplier/proc/copy_lighting(atom/movable/lighting_object/LO, area/A, turf/below)
-	if (!LO)
+/atom/movable/openspace/multiplier/proc/copy_lighting(atom/movable/lighting_object/lighting_object, area/A, turf/below)
+	if (!lighting_object)
 		icon_state = "transparent"
 		luminosity = 1
 		return
 	icon_state = "dark"
 	luminosity = 0
-	// Underlay lighting stuff, if it gets ported: appearance = LO.current_underlay
-	appearance = LO
+	// Underlay lighting stuff, if it gets ported: appearance = lighting_object.current_underlay
+	appearance = lighting_object
 	layer = MIMICKED_LIGHTING_LAYER
 	plane = ZMIMIC_MAX_PLANE
 	blend_mode = BLEND_MULTIPLY

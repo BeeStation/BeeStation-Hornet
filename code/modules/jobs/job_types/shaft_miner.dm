@@ -5,7 +5,7 @@
 	department_head_for_prefs = JOB_NAME_QUARTERMASTER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 3
 	selection_color = "#dcba97"
 	// Requires a little bit of game knowledge to play appropriately
@@ -34,13 +34,15 @@
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_HARD)
 
 	display_order = JOB_DISPLAY_ORDER_SHAFT_MINER
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Adventurer"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/shaft_miner
 	)
 
-	minimal_lightup_areas = list(/area/construction/mining/aux_base)
+	minimal_lightup_areas = list(/area/station/construction/mining/aux_base)
 
 	manuscript_jobs = list(
 		JOB_NAME_SHAFTMINER,
@@ -60,15 +62,18 @@
 	l_pocket = /obj/item/reagent_containers/hypospray/medipen/survival
 	r_pocket = /obj/item/storage/bag/ore	//causes issues if spawned in backpack
 	backpack_contents = list(
-		/obj/item/flashlight/seclite=1,\
-		/obj/item/knife/combat/survival=1,\
-		/obj/item/mining_voucher=1,\
-		/obj/item/stack/marker_beacon/ten=1,\
-		/obj/item/discovery_scanner=1)
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/knife/combat/survival = 1,
+		/obj/item/mining_voucher = 1,
+		/obj/item/stack/marker_beacon/ten = 1,
+		/obj/item/discovery_scanner = 1,
+	)
 
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	duffelbag = /obj/item/storage/backpack/duffelbag
+	messenger = /obj/item/storage/backpack/messenger/explorer
+
 	box = /obj/item/storage/box/survival/mining
 
 	chameleon_extras = /obj/item/gun/energy/recharge/kinetic_accelerator
@@ -81,11 +86,11 @@
 	suit_store = /obj/item/tank/internals/oxygen
 	internals_slot = ITEM_SLOT_SUITSTORE
 	backpack_contents = list(
-		/obj/item/flashlight/seclite=1,
-		/obj/item/knife/combat/survival=1,
-		/obj/item/mining_voucher=1,
-		/obj/item/t_scanner/adv_mining_scanner/lesser=1,
-		)
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/knife/combat/survival = 1,
+		/obj/item/mining_voucher = 1,
+		/obj/item/t_scanner/adv_mining_scanner/lesser = 1,
+	)
 
 	l_hand = /obj/item/gun/energy/recharge/kinetic_accelerator
 

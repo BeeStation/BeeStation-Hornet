@@ -81,8 +81,8 @@
 			moveToNullspace()
 		if(use_static)
 			ai.camera_visibility(src)
-		if(ai.client && !ai.multicam_on)
-			ai.client.set_eye(src)
+		if(!ai.multicam_on)
+			ai.set_mob_eye_to(src)
 		update_ai_detect_hud()
 		//Holopad
 		if(istype(ai.current_holopad, /obj/machinery/holopad))
@@ -183,14 +183,14 @@
 		create_eye()
 
 	transfer_observers_to(eyeobj) // ai core to eyemob
-	eyeobj.setLoc(loc)
+	eyeobj.setLoc(get_turf(src))
 
 /mob/living/silicon/ai/proc/create_eye()
 	if(!eyeobj || QDELETED(eyeobj))
 		eyeobj = new /mob/camera/ai_eye()
 		all_eyes += eyeobj
 		eyeobj.ai = src
-		eyeobj.setLoc(loc)
+		eyeobj.setLoc(get_turf(src))
 		eyeobj.name = "[name] (AI Eye)"
 		eyeobj.real_name = eyeobj.name
 		set_eyeobj_visible(TRUE)
@@ -211,10 +211,10 @@
 	acceleration = !acceleration
 	to_chat(usr, "Camera acceleration has been toggled [acceleration ? "on" : "off"].")
 
-/mob/camera/ai_eye/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+/mob/camera/ai_eye/Hear(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range)
 	. = ..()
 	if(relay_speech && speaker && ai && !radio_freq && speaker != ai && near_camera(speaker))
-		ai.relay_speech(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
+		ai.relay_speech(speaker, message_language, raw_message, radio_freq, spans, message_mods)
 
 /obj/effect/overlay/ai_detect_hud
 	name = ""

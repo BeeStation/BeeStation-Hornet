@@ -443,7 +443,7 @@
 		return
 	message = treat_message_min(message)
 	log_talk(message, LOG_SAY)
-	var/message_a = say_quote(message)
+	var/message_a = generate_messagepart(message)
 	var/valid_span_class = "srt_radio carpspeak"
 	if(istype(src, /mob/living/simple_animal/hostile/space_dragon))
 		valid_span_class += " big"

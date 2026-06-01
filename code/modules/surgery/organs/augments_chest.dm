@@ -1,4 +1,5 @@
 /obj/item/organ/cyberimp/chest
+	abstract_type = /obj/item/organ/cyberimp/chest
 	name = "cybernetic torso implant"
 	desc = "Implants for the organs in your torso."
 	icon_state = "chest_implant"

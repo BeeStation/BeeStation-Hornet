@@ -261,7 +261,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 		else
 			for(var/i in custom_materials)
 				var/datum/material/M = i
-				new M.sheet_type(T, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
+				new M.sheet_type(T, floor(custom_materials[M] / MINERAL_MATERIAL_AMOUNT))
 		if(!wrench_disassembly)
 			new frame(T)
 		else
@@ -589,7 +589,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 /obj/structure/table/optable
 	name = "operating table"
 	desc = "Used for advanced medical procedures."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/surgery.dmi'
 	icon_state = "optable"
 	buildstack = /obj/item/stack/sheet/mineral/silver
 	smoothing_flags = NONE
@@ -753,7 +753,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
  */
 
 /obj/structure/rack/deconstruct(disassembled = TRUE)
-	if(!(flags_1&NODECONSTRUCT_1))
+	if(!(flags_1 & NODECONSTRUCT_1))
 		set_density(FALSE)
 		var/obj/item/rack_parts/newparts = new(loc)
 		transfer_fingerprints_to(newparts)
@@ -769,7 +769,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	desc = "Parts of a rack."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "rack_parts"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	custom_materials = list(/datum/material/iron=2000)
 	var/building = FALSE
 	var/obj/construction_type = /obj/structure/rack

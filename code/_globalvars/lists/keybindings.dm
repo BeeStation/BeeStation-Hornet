@@ -13,8 +13,7 @@
 	LAZYADD(GLOB.keybindings_by_name_to_key[instance.name], LAZYCOPY(instance.keys))
 
 /proc/init_emote_keybinds()
-	for(var/i in subtypesof(/datum/emote))
-		var/datum/emote/faketype = i
+	for(var/datum/emote/faketype as anything in valid_subtypesof(/datum/emote))
 		if(!initial(faketype.key))
 			continue
 		var/datum/keybinding/emote/emote_kb = new

@@ -76,7 +76,7 @@
 
 /datum/action/item_action/noirmode/on_activate(mob/user, atom/target)
 	var/area/A = get_area(user)
-	if(istype(A, /area/security/detectives_office) || istype(A, /area/security/interrogation_room))
+	if(istype(A, /area/station/security/detectives_office) || istype(A, /area/station/security/interrogation))
 		var/list/mobs_to_iterate = mobs_in_area_type(list(A))
 		for(var/mob/living/L as() in mobs_to_iterate)
 			ADD_TRAIT(L, TRAIT_NOIR, TRAIT_GENERIC)

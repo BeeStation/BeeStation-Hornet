@@ -633,7 +633,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	refresh_views()
 
 /// Signal handler for the emp_act() of all contents
-/datum/storage/proc/on_emp_act(datum/source, severity)
+/datum/storage/proc/on_emp_act(datum/source, severity, protection)
 	SIGNAL_HANDLER
 
 	var/obj/item/resolve_location = real_location?.resolve()
@@ -922,7 +922,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		adjusted_contents = numbered_contents.len
 
 	var/columns = clamp(max_slots, 1, screen_max_columns)
-	var/rows = clamp(CEILING(adjusted_contents / columns, 1), 1, screen_max_rows)
+	var/rows = clamp(ceil(adjusted_contents / columns), 1, screen_max_rows)
 
 	orient_item_boxes(rows, columns, numbered_contents)
 

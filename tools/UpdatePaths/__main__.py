@@ -46,7 +46,12 @@ def string_to_props(propstring, verbose = False):
         if not raw_prop or raw_prop.strip() == ';':
             continue
         prop = raw_prop.split('=', maxsplit=1)
-        props[prop[0].strip()] = prop[1].strip() if len(prop) > 1 else None
+        # Check to make sure we aren't of the form {=3}, which is not a variable
+        # rule, but a counter rule
+        if len(prop) > 1 and len(prop[0].strip()) > 0:
+            props[prop[0].strip()] = prop[1].strip()
+        else:
+            props[raw_prop.strip()] = None
     if verbose:
         print("{0} to {1}".format(propstring, props))
     return props
@@ -80,14 +85,30 @@ def update_path(dmm_data, replacement_string, verbose=False):
         subtypes = r"(?:/\w+)*"
 
     replacement_pattern = re.compile(rf"(?P<path>{re.escape(old_path)}(?P<subtype>{subtypes}))\s*(:?{{(?P<props>.*)}})?$")
+    counter_pattern = re.compile(rf"^\s*([>=<])\s*(\d*)\s*$")
 
-    def replace_def(match):
+    def replace_def(match, counter):
         if match['props']:
             old_props = string_to_props(match['props'], verbose)
         else:
             old_props = dict()
         for filter_prop in old_path_props:
-            if filter_prop not in old_props:
+            # Counter checks
+            counter_match = counter_pattern.match(filter_prop)
+            if counter_match:
+                #print(str(counter) + counter_match.group(1) + counter_match.group(2))
+                if counter_match.group(1) == '>':
+                    if counter <= int(counter_match.group(2)):
+                        return [match.group(0)]
+                elif counter_match.group(1) == '=':
+                    if counter != int(counter_match.group(2)):
+                        return [match.group(0)]
+                elif counter_match.group(1) == '<':
+                    if counter >= int(counter_match.group(2)):
+                        return [match.group(0)]
+                else:
+                    continue
+            elif filter_prop not in old_props:
                 if old_path_props[filter_prop] == "@UNSET":
                     continue
                 else:
@@ -134,10 +155,14 @@ def update_path(dmm_data, replacement_string, verbose=False):
             print("Replacing with: {0}".format(out_paths))
         return out_paths
 
+    counter = dict()
+
     def get_result(element):
         match = replacement_pattern.match(element)
         if match:
-            return replace_def(match)
+            new_counter = (counter[match.group('path')] if match.group('path') in counter else 0) + 1
+            counter[match.group('path')] = new_counter
+            return replace_def(match, new_counter)
         else:
             return [element]
 
@@ -145,6 +170,8 @@ def update_path(dmm_data, replacement_string, verbose=False):
     modified_keys = []
     keys = list(dmm_data.dictionary.keys())
     for definition_key in keys:
+        # Reset the counter
+        counter.clear()
         def_value = dmm_data.dictionary[definition_key]
         new_value = tuple(y for x in def_value for y in get_result(x) if y != None)
         if new_value != def_value:

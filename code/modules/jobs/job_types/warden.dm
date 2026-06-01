@@ -5,7 +5,7 @@
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
@@ -24,14 +24,16 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_SECURITY)
 
 	display_order = JOB_DISPLAY_ORDER_WARDEN
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Jailor"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/warden
 	)
 
-	lightup_areas = list(/area/security/detectives_office)
-	minimal_lightup_areas = list(/area/security/warden)
+	lightup_areas = list(/area/station/security/detectives_office)
+	minimal_lightup_areas = list(/area/station/security/warden)
 
 	manuscript_jobs = list(
 		JOB_NAME_WARDEN,
@@ -61,12 +63,15 @@
 	accessory = /obj/item/clothing/accessory/security_pager
 
 	backpack = /obj/item/storage/backpack/security
+	suit_store = /obj/item/gun/ballistic/automatic/pistol/security
+
 	backpack_contents = list(
 		/obj/item/dog_bone = 1,
-		/obj/item/mining_voucher/security = 1,
 	)
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
+	messenger = /obj/item/storage/backpack/messenger/sec
+
 	box = /obj/item/storage/box/survival/security
 
 	implants = list(/obj/item/implant/mindshield)

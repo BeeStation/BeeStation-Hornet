@@ -1,4 +1,5 @@
 /obj/item/clothing/suit/jacket
+	abstract_type = /obj/item/clothing/suit/jacket
 	icon = 'icons/obj/clothing/suits/jacket.dmi'
 	worn_icon = 'icons/mob/clothing/suits/jacket.dmi'
 	allowed = list(

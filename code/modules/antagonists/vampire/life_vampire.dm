@@ -1,5 +1,5 @@
 /// Runs from COMSIG_LIVING_LIFE, handles Vampire constant processes.
-/datum/antagonist/vampire/proc/LifeTick(delta_time, times_fired)
+/datum/antagonist/vampire/proc/life_tick(delta_time, times_fired)
 	SIGNAL_HANDLER
 
 	// Weirdness shield
@@ -9,35 +9,52 @@
 		INVOKE_ASYNC(src, PROC_REF(handle_death))
 		return
 
+	var/mob/living/current = owner.current
+	if(QDELETED(current))
+		return
+
 	// Handle Torpor
 	if(is_in_torpor())
 		check_end_torpor()
 
 	// Deduct Blood
-	if(owner.current.stat == CONSCIOUS && !HAS_TRAIT(owner.current, TRAIT_IMMOBILIZED) && !HAS_TRAIT(owner.current, TRAIT_NODEATH))
-		INVOKE_ASYNC(src, PROC_REF(AddBloodVolume), -VAMPIRE_PASSIVE_BLOOD_DRAIN)
+	if(current.stat == CONSCIOUS && !HAS_TRAIT(current, TRAIT_IMMOBILIZED) && !HAS_TRAIT(current, TRAIT_NODEATH))
+		adjust_vitae(-VAMPIRE_PASSIVE_BLOOD_DRAIN)
 
 	// Healing
-	if(handle_healing() && !istype(owner, /mob/living/simple_animal/hostile/retaliate/bat/vampire))
-		if((COOLDOWN_FINISHED(src, vampire_spam_healing)) && vampire_blood_volume > 0)
+	if(handle_healing() && !istype(current, /mob/living/simple_animal/hostile))
+		if((COOLDOWN_FINISHED(src, vampire_spam_healing)) && current_vitae > 0)
 			to_chat(owner.current, span_notice("The power of your blood knits your wounds..."))
 			COOLDOWN_START(src, vampire_spam_healing, VAMPIRE_SPAM_HEALING)
+
+	var/area/current_area = get_area(current)
+	if(istype(current_area, /area/station/service/chapel) && humanity <= 2)
+		to_chat(owner, span_warning("Your inhuman nature is rejected by a holy presence!"))
+		current.adjustFireLoss(10)
+		current.adjust_fire_stacks(4)
+		current.ignite_mob()
 
 	// Standard Updates
 
 	// Clan specific stuff
 	if(my_clan)
-		INVOKE_ASYNC(my_clan, TYPE_PROC_REF(/datum/vampire_clan, handle_clan_life))
+		my_clan.handle_clan_life()
+	else if(!(locate(/datum/action/vampire/clanselect) in powers))
+		grant_power(new /datum/action/vampire/clanselect)
 
 	// Handle blood
-	INVOKE_ASYNC(src, PROC_REF(handle_blood), delta_time)
+	handle_blood(delta_time)
+
+	// Check for Final Death
+	if(check_final_death())
+		return
 
 	// Set our body's blood_volume to mimick our vampire one (if we aren't using the Masquerade power)
-	INVOKE_ASYNC(src, PROC_REF(update_blood))
-	INVOKE_ASYNC(src, PROC_REF(update_hud))
+	update_blood()
+	update_hud()
 
 /**
- * Assuming you aren't Masquerading and your species has blood, set the body's blood_volume to the internal vampire blood volume
+ * Assuming you aren't Masquerading and your species has blood
 **/
 /datum/antagonist/vampire/proc/update_blood()
 	if(HAS_TRAIT(owner.current, TRAIT_NO_BLOOD))
@@ -47,13 +64,21 @@
 		owner.current.blood_volume = BLOOD_VOLUME_NORMAL
 		return
 
-	owner.current.blood_volume = vampire_blood_volume
+	owner.current.blood_volume = max(BLOOD_VOLUME_BAD, min(BLOOD_VOLUME_NORMAL, current_vitae))	// we want to get pale but not completely fucked up
 
 /**
- * Pretty simple, add a value to the vampire's blood volume
+ * Pretty simple, add a value to the vampire's vitae volume
 **/
-/datum/antagonist/vampire/proc/AddBloodVolume(value)
-	vampire_blood_volume = clamp(vampire_blood_volume + value, 0, max_blood_volume)
+/datum/antagonist/vampire/proc/adjust_vitae(value)
+	current_vitae = clamp(current_vitae + value, 0, max_vitae)
+
+/**
+ * Returns the frenzy threshold modifier based on humanity.
+ * Lower humanity = higher modifier, making frenzy trigger at higher blood levels.
+ * At 10 humanity: +0, at 7 humanity (default): +75, at 0 humanity: +250
+**/
+/datum/antagonist/vampire/proc/get_frenzy_humanity_modifier()
+	return max(0, (10 - humanity) * FRENZY_HUMANITY_MODIFIER_PER_POINT)
 
 /**
  * Runs on the vampire's lifetick.
@@ -67,9 +92,6 @@
 
 	// Weirdness shield
 	if(QDELETED(owner?.current))
-		return FALSE
-	// Don't heal if staked
-	if(check_if_staked())
 		return FALSE
 	// Dont heal if you have TRAIT_MASQUERADE and not undergoing torpor
 	if(!in_torpor && HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
@@ -88,16 +110,16 @@
 		return FALSE
 	var/mob/living/carbon/carbon_owner = owner.current
 
-	var/bloodcost_multiplier = 1 // Coffin makes it cheaper
-	var/healing_mulitplier = 1
+	var/vitaecost_multiplier = 0.5 // Coffin makes it cheaper
+	var/healing_multiplier = 1
 
-	var/brute_heal = min(carbon_owner.getBruteLoss(), actual_regen) * healing_mulitplier
-	var/burn_heal = min(carbon_owner.getFireLoss(), actual_regen) * 0.75 * healing_mulitplier
+	var/brute_heal = min(carbon_owner.getBruteLoss(), actual_regen) * healing_multiplier
+	var/burn_heal = min(carbon_owner.getFireLoss(), actual_regen) * 0.75 * healing_multiplier
 
-	carbon_owner.suppress_bloodloss(BLEED_TINY * healing_mulitplier)
+	carbon_owner.suppress_bloodloss(BLEED_TINY * healing_multiplier)
 
 	if(in_torpor)
-		// If in a coffin: heal 5x as fast, heal burn damage at full capacity, set bloodcost to 50%, and regenerate limbs
+		// If in a coffin: heal 5x as fast, heal burn damage at full capacity, set vitaecost to 50%, and regenerate limbs
 		// If not: heal 3x as fast and heal burn damage at 80%
 		if(istype(carbon_owner.loc, /obj/structure/closet/crate/coffin))
 			if(HAS_TRAIT(owner.current, TRAIT_MASQUERADE) && (COOLDOWN_FINISHED(src, vampire_spam_healing)))
@@ -106,28 +128,35 @@
 				return FALSE
 
 			burn_heal = min(carbon_owner.getFireLoss(), actual_regen)
-			healing_mulitplier = 5
-			bloodcost_multiplier = 0.5 // Decrease cost if we're sleeping in a coffin.
+			healing_multiplier = 5
+			vitaecost_multiplier = 0.25 // Decrease cost if we're sleeping in a coffin.
 
 			// Extinguish and remove embedded objects
 			carbon_owner.extinguish_mob()
 			carbon_owner.remove_all_embedded_objects()
 
-			if(try_regenerate_limbs(bloodcost_multiplier))
+			if(try_regenerate_limbs(vitaecost_multiplier))
 				return TRUE
 		else
 			burn_heal = min(carbon_owner.getFireLoss(), actual_regen) * 0.8
-			healing_mulitplier = 3
+			healing_multiplier = 3
 
 	// Heal if Damaged
-	brute_heal *= healing_mulitplier
-	burn_heal *= healing_mulitplier
+	brute_heal *= healing_multiplier
+	burn_heal *= healing_multiplier
 
 	if(brute_heal > 0 || burn_heal > 0) // Just a check? Don't heal/spend, and return.
-		var/bloodcost = (brute_heal * 0.5 + burn_heal) * bloodcost_multiplier * healing_mulitplier
+		var/vitaecost = (brute_heal * 0.5 + burn_heal) * vitaecost_multiplier * healing_multiplier
 		carbon_owner.heal_overall_damage(brute_heal, burn_heal)
-		AddBloodVolume(-bloodcost)
+		adjust_vitae(-vitaecost)
 		return TRUE
+
+	// Revive them if dead and there is no damage left to heal, just in case we are not in torpor because of some wackyness.
+	// Note this doesn't revive when staked.
+	if(carbon_owner.stat == DEAD && !in_torpor)
+		heal_vampire_organs()
+		return TRUE
+
 	return FALSE
 
 /datum/antagonist/vampire/proc/try_regenerate_limbs(cost_muliplier = 1)
@@ -135,11 +164,11 @@
 	var/limb_regen_cost = 50 * -cost_muliplier
 
 	var/list/missing = carbon_owner.get_missing_limbs()
-	if(missing.len && (vampire_blood_volume < limb_regen_cost + 5))
+	if(missing.len && (current_vitae < limb_regen_cost + 5))
 		return FALSE
 	for(var/missing_limb in missing) //Find ONE Limb and regenerate it.
 		carbon_owner.regenerate_limb(missing_limb, FALSE)
-		AddBloodVolume(-limb_regen_cost)
+		adjust_vitae(-limb_regen_cost)
 		var/obj/item/bodypart/missing_bodypart = carbon_owner.get_bodypart(missing_limb)
 		missing_bodypart.brute_dam = 60
 		to_chat(carbon_owner, span_notice("Your flesh knits as it regrows your [missing_bodypart]!"))
@@ -192,12 +221,12 @@
 		yucky_organ.Remove(carbon_user)
 		yucky_organ.forceMove(get_turf(carbon_user))
 
-	// Revive
-	if(carbon_user.stat == DEAD)
-		carbon_user.revive()
-
-	// Heal suffocation
-	carbon_user.adjustOxyLoss(-200)
+	// Don't Revive if staked
+	if(!check_if_staked())
+		if(carbon_user.stat == DEAD)
+			carbon_user.revive()
+			// Heal suffocation
+			carbon_user.setOxyLoss(0)
 
 /**
  * Called when we die
@@ -228,28 +257,93 @@
 /datum/antagonist/vampire/proc/handle_blood(delta_time)
 	// Set nutrition
 	if(!isoozeling(owner.current))
-		owner.current.set_nutrition(min(vampire_blood_volume, NUTRITION_LEVEL_FED))
+		owner.current.set_nutrition(min(current_vitae, NUTRITION_LEVEL_WELL_FED))
+
+	// Calculate humanity-adjusted frenzy thresholds
+	var/frenzy_modifier = get_frenzy_humanity_modifier()
 
 	// Try and exit frenzy
-	if(vampire_blood_volume >= FRENZY_THRESHOLD_EXIT && frenzied)
+	if(current_vitae >= (FRENZY_THRESHOLD_EXIT + frenzy_modifier) && frenzied)
 		owner.current.remove_status_effect(/datum/status_effect/frenzy)
 
 	// Blood is low, lets show some effects
-	if(vampire_blood_volume < BLOOD_VOLUME_BAD && DT_PROB(5, delta_time) && !HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
+	if(current_vitae < 100 && !HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
 		owner.current.set_jitter_if_lower(6 SECONDS)
 
 	// Enter frenzy if our blood is low enough
-	if(vampire_blood_volume < FRENZY_THRESHOLD_ENTER && !frenzied)
+	if(current_vitae < (FRENZY_THRESHOLD_ENTER + frenzy_modifier) && !frenzied)
 		owner.current.apply_status_effect(/datum/status_effect/frenzy)
 
+	// Warn them at low blood - warning scales with the frenzy threshold so it always comes before frenzy
+	var/adjusted_warning = FRENZY_THRESHOLD_ENTER + frenzy_modifier + VAMPIRE_LOW_BLOOD_WARNING
+	if(current_vitae < adjusted_warning && !low_blood_alerted)
+		to_chat(owner.current, span_narsiesmall("Care now. Your vitae runs low! The Beast stirs at [FRENZY_THRESHOLD_ENTER + frenzy_modifier] blood..."), type = MESSAGE_TYPE_WARNING)
+		low_blood_alerted = TRUE
+	else if(current_vitae > adjusted_warning)
+		low_blood_alerted = FALSE
+
 	// The more blood, the better the regeneration
-	if(vampire_blood_volume < BLOOD_VOLUME_BAD)
+	if(current_vitae < BLOOD_VOLUME_BAD)
 		additional_regen = 0.1
-	else if(vampire_blood_volume < BLOOD_VOLUME_OKAY)
+	else if(current_vitae < BLOOD_VOLUME_OKAY)
 		additional_regen = 0.2
-	else if(vampire_blood_volume < BLOOD_VOLUME_NORMAL)
+	else if(current_vitae < BLOOD_VOLUME_NORMAL)
 		additional_regen = 0.3
-	else if(vampire_blood_volume < BS_BLOOD_VOLUME_MAX_REGEN)
+	else if(current_vitae < BS_BLOOD_VOLUME_MAX_REGEN)
 		additional_regen = 0.4
 	else
 		additional_regen = 0.5
+
+/datum/antagonist/vampire/proc/check_final_death()
+	if(owner.current.stat <= UNCONSCIOUS)
+		return FALSE
+
+	// Fire Damage? (above double health)
+	if(owner.current.getFireLoss() >= (owner.current.maxHealth * 2.5))
+		final_death()
+		return TRUE
+
+	return FALSE
+
+/// dust
+/datum/antagonist/vampire/proc/final_death(skip_destruction = FALSE)
+	var/mob/living/body = owner.current
+	// If we have no body, end here.
+	if(QDELETED(body))
+		return
+
+	UnregisterSignal(body, list(
+		COMSIG_LIVING_LIFE,
+		COMSIG_ATOM_EXAMINE,
+		COMSIG_LIVING_DEATH,
+		COMSIG_MOVABLE_MOVED,
+	))
+
+	final_death = TRUE
+	free_all_vassals()
+
+	if(!skip_destruction)
+		if(iscarbon(body))
+			// Drop anything in us
+			var/mob/living/carbon/carbon_body = body
+			carbon_body.drop_all_held_items()
+			carbon_body.unequip_everything()
+			carbon_body.remove_all_embedded_objects()
+		else
+			body.dust(drop_items = TRUE)
+
+	if(SEND_SIGNAL(src, COMSIG_VAMPIRE_FINAL_DEATH) & DONT_DUST)
+		return
+
+	if(skip_destruction || QDELETED(body))
+		return
+
+	// Get dusted lmao
+	body.visible_message(
+		span_warning("[body]'s skin crackles and dries, [body.p_their()] skin and bones withering to dust. A hollow cry whips from what is now a sandy pile of remains."),
+		span_userdanger("Your soul escapes your withering body as the abyss welcomes you to your Final Death."),
+		span_hear("You hear a dry, crackling sound.")
+	)
+
+	torpor_end() // End it BEFORE we dust them.
+	body.dust(FALSE, TRUE)

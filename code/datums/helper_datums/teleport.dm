@@ -228,7 +228,7 @@
 
 /proc/wizarditis_teleport(mob/living/carbon/affected_mob)
 	var/list/theareas = get_areas_in_range(80, affected_mob)
-	for(var/area/space/S in theareas)
+	for(var/area/misc/space/S in theareas)
 		theareas -= S
 
 	if(!length(theareas))

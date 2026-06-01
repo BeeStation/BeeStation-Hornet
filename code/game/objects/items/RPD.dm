@@ -171,7 +171,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rpd"
 	worn_icon_state = "RPD"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 10
 	throwforce = 10
 	throw_speed = 1

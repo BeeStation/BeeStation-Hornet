@@ -36,12 +36,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
-	GLOB.navigation_computers += src
 	whitelist_turfs = typecacheof(whitelist_turfs)
-
-/obj/machinery/computer/shuttle_flight/Destroy()
-	. = ..()
-	GLOB.navigation_computers -= src
 
 /obj/machinery/computer/shuttle_flight/proc/GrantActions(mob/living/user)
 	if(off_action)
@@ -115,8 +110,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 	eyeobj.eye_user = user
 	eyeobj.name = "Camera Eye ([user.name])"
 	user.remote_control = eyeobj
-	user.reset_perspective(eyeobj)
-	eyeobj.setLoc(eyeobj.loc)
+	user.set_mob_eye_to(eyeobj)
+	eyeobj.setLoc(get_turf(eyeobj))
 	if(!QDELETED(user) && user.client)
 		var/mob/camera/ai_eye/remote/shuttle_docker/the_eye = eyeobj
 		var/list/to_add = list()
@@ -138,8 +133,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 	for(var/V in eyeobj.visibleCameraChunks)
 		var/datum/camerachunk/C = V
 		C.remove(eyeobj)
+	user.set_mob_eye_to(MOB_EYE_SELF)
 	if(user.client)
-		user.reset_perspective(null)
 		if(eyeobj.visible_icon && user.client)
 			user.client.images -= eyeobj.user_image
 
@@ -421,9 +416,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
 	playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)
 
 	var/list/L = list()
-	for(var/V in SSshuttle.stationary)
+	for(var/V in SSshuttle.stationary_docking_ports)
 		if(!V)
-			stack_trace("SSshuttle.stationary have null entry!")
+			stack_trace("SSshuttle.stationary_docking_ports have null entry!")
 			continue
 		var/obj/docking_port/stationary/S = V
 		if(console.shuttleObject.docking_target.z_in_contents(S.z) && (S.id in console.valid_docks))

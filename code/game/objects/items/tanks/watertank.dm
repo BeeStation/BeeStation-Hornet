@@ -68,7 +68,7 @@
 	. += filling
 
 /obj/item/watertank/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
+	. = ..()
 	if(!isinhands)
 		if(reagents.total_volume < 1)
 			return
@@ -646,7 +646,7 @@
 
 //Todo : cache these.
 /obj/item/reagent_containers/chemtank/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin) //apply chemcolor and level
-	. = list()
+	. = ..()
 	//inhands + reagent_filling
 	if(!isinhands && reagents.total_volume)
 		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "backpackmob-10", item_layer)

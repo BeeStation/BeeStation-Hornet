@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_CIVILIAN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 2
 	selection_color = "#dddddd"
 	var/lawyers = 0 //Counts lawyer amount
@@ -20,13 +20,15 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_LAWYER
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Magistrate"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/lawyer
 	)
 
-	minimal_lightup_areas = list(/area/lawoffice)
+	minimal_lightup_areas = list(/area/station/service/lawoffice)
 
 	manuscript_jobs = list(
 		JOB_NAME_LAWYER,

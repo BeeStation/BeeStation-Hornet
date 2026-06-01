@@ -45,7 +45,7 @@
 		else
 			for(var/i in custom_materials)
 				var/datum/material/M = i
-				new M.sheet_type(loc, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
+				new M.sheet_type(loc, floor(custom_materials[M] / MINERAL_MATERIAL_AMOUNT))
 	..()
 
 /obj/structure/chair/attack_paw(mob/user)
@@ -194,21 +194,21 @@
 	. = ..()
 	update_armrest()
 
-/obj/structure/chair/fancy/attackby(obj/item/I, mob/living/user)
+/obj/structure/chair/fancy/attackby(obj/item/attacking_item, mob/living/user)
 	. = ..()
 	if(!colorable)
 		return
-	if(istype(I, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/C = I
-		var/new_color = C.paint_color
-		var/list/hsl = rgb2hsl(hex2num(copytext(new_color, 2, 4)), hex2num(copytext(new_color, 4, 6)), hex2num(copytext(new_color, 6, 8)))
+	if(istype(attacking_item, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/crayon = attacking_item
+		var/list/hsl = rgb2num(crayon.paint_color, COLORSPACE_HSL)
 		hsl[3] = max(hsl[3], 0.4)
-		var/list/rgb = hsl2rgb(arglist(hsl))
-		color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+		color = rgb(hsl[1], hsl[2], hsl[3], space = COLORSPACE_HSL)
+		return TRUE
 	if(color)
 		cut_overlay(armrest)
 		armrest = GetArmrest()
 		update_armrest()
+		return TRUE
 
 /obj/structure/chair/fancy/Initialize(mapload)
 	armrest = GetArmrest()
@@ -326,7 +326,7 @@
 	buildstackamount = 1
 	item_chair = null
 
-/obj/structure/chair/fancy/brass/bronze/Moved()
+/obj/structure/chair/fancy/brass/bronze/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(has_gravity())
 		playsound(src, 'sound/machines/clockcult/integration_cog_install.ogg', 50, TRUE)
@@ -347,7 +347,7 @@
 	setDir(direction)
 	return FALSE
 
-/obj/structure/chair/office/Moved()
+/obj/structure/chair/office/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(has_gravity())
 		playsound(src, 'sound/effects/roll.ogg', 100, 1)

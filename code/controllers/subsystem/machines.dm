@@ -5,42 +5,71 @@ SUBSYSTEM_DEF(machines)
 	)
 	flags = SS_KEEP_TIMING
 	wait = 2 SECONDS
+
+	/// Assosciative list of all machines that exist.
+	VAR_PRIVATE/list/machines_by_type = list()
+
+	/// All machines, not just those that are processing.
+	VAR_PRIVATE/list/all_machines = list()
+
 	var/list/processing = list()
+
 	var/list/currentrun = list()
+
 	var/list/powernets = list()
+	var/list/dirty_powernets = list()
+	var/dirty_index = 1
+	var/dirty_stop_index
+	var/unique_powernets = 0
 
 /datum/controller/subsystem/machines/Initialize()
 	makepowernets()
 	fire()
 	return SS_INIT_SUCCESS
 
+/datum/controller/subsystem/machines/stat_entry(msg)
+	msg = "M:[length(processing)]|PN:[length(powernets)]"
+	return ..()
 
 /datum/controller/subsystem/machines/get_metrics()
 	. = ..()
 	var/list/cust = list()
 	cust["processing"] = length(processing)
+	cust["powernets"] = length(powernets)
 	.["custom"] = cust
-
-/datum/controller/subsystem/machines/proc/makepowernets()
-	for(var/datum/powernet/power_network as anything in powernets)
-		qdel(power_network)
-	powernets.Cut()
-
-	for(var/obj/structure/cable/power_cable as anything in GLOB.cable_list)
-		if(!power_cable.powernet)
-			var/datum/powernet/new_powernet = new()
-			new_powernet.add_cable(power_cable)
-			propagate_network(power_cable, power_cable.powernet)
-
-/datum/controller/subsystem/machines/stat_entry(msg)
-	msg = "M:[length(processing)]|PN:[length(powernets)]"
-	return ..()
 
 /datum/controller/subsystem/machines/fire(resumed = FALSE)
 	if (!resumed)
 		for(var/datum/powernet/powernet as anything in powernets)
 			powernet.reset() //reset the power state.
 		src.currentrun = processing.Copy()
+		dirty_index = 1
+		dirty_stop_index = length(dirty_powernets)
+
+	// Start processing dirty powernets
+	while (length(dirty_powernets) && dirty_index <= dirty_stop_index && dirty_index <= length(dirty_powernets))
+		// Get the element to process
+		var/datum/powernet/first_powernet = dirty_powernets[dirty_index]
+		// Move the last element to our current position in the queue
+		dirty_powernets[dirty_index] = dirty_powernets[length(dirty_powernets)]
+		// Increment the dirty index, to point to the next element
+		// If we needed to process the element we just moved to the start
+		// then don't increment, so we process that element
+		// Note that dirty powernets won't be processed in-order, but they
+		// will always be processed by the end of the machines tick after the
+		// one that they were added on.
+		if (dirty_stop_index <= length(dirty_powernets))
+			dirty_index ++
+		// Shorten the queue without needing to propogate the entire list
+		dirty_powernets.len--
+		// Do processing
+		first_powernet.dirty = FALSE
+		first_powernet.repropogate_cables()
+		// Explicitly doesn't use SPLIT_TICK because we need to recalibrate the powernets
+		// before we calculate power consumption, otherwise machines not connected may
+		// get 1 tick of bluespace power transfer.
+		if (MC_TICK_CHECK)
+			return
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
@@ -54,17 +83,75 @@ SUBSYSTEM_DEF(machines)
 		if (MC_TICK_CHECK)
 			return
 
+/datum/controller/subsystem/machines/proc/makepowernets()
+	for(var/datum/powernet/power_network as anything in powernets)
+		qdel(power_network)
+	powernets.Cut()
+
+	var/datum/powernet/new_powernet = new()
+	for(var/obj/structure/cable/cable as anything in GLOB.cable_list)
+		new_powernet.add_cable(cable)
+	new_powernet.repropogate_cables()
+	new_powernet.dirty = FALSE
+	dirty_powernets.len = 0
+
 /datum/controller/subsystem/machines/proc/setup_template_powernets(list/cables)
-	var/obj/structure/cable/PC
+	var/obj/structure/cable/cable
+	var/datum/powernet/new_powernet = new()
 	for(var/A in 1 to cables.len)
-		PC = cables[A]
-		if(!PC.powernet)
-			var/datum/powernet/NewPN = new()
-			NewPN.add_cable(PC)
-			propagate_network(PC,PC.powernet)
+		cable = cables[A]
+		new_powernet.add_cable(cable)
+	new_powernet.repropogate_cables()
+	new_powernet.dirty = FALSE
+	dirty_powernets.len = 0
 
 /datum/controller/subsystem/machines/Recover()
 	if (istype(SSmachines.processing))
 		processing = SSmachines.processing
 	if (istype(SSmachines.powernets))
 		powernets = SSmachines.powernets
+
+/datum/controller/subsystem/machines/proc/queue_recalculation(datum/powernet/powernet)
+	if (powernet.dirty)
+		return
+	dirty_powernets += powernet
+	powernet.dirty = TRUE
+
+/// Registers a machine with the machine subsystem; should only be called by the machine itself during its creation.
+/datum/controller/subsystem/machines/proc/register_machine(obj/machinery/machine)
+	LAZYADD(machines_by_type[machine.type], machine)
+	all_machines |= machine
+
+/// Removes a machine from the machine subsystem; should only be called by the machine itself inside Destroy.
+/datum/controller/subsystem/machines/proc/unregister_machine(obj/machinery/machine)
+	var/list/existing = machines_by_type[machine.type]
+	existing -= machine
+	if(!length(existing))
+		machines_by_type -= machine.type
+	all_machines -= machine
+
+/// Gets a list of all machines that are either the passed type or a subtype.
+/datum/controller/subsystem/machines/proc/get_machines_by_type_and_subtypes(obj/machinery/machine_type)
+	if(!ispath(machine_type))
+		machine_type = machine_type.type
+	if(!ispath(machine_type, /obj/machinery))
+		CRASH("called get_machines_by_type_and_subtypes with a non-machine type [machine_type]")
+	var/list/machines = list()
+	for(var/next_type in typesof(machine_type))
+		var/list/found_machines = machines_by_type[next_type]
+		if(found_machines)
+			machines += found_machines
+	return machines
+
+/// Gets a list of all machines that are the exact passed type.
+/datum/controller/subsystem/machines/proc/get_machines_by_type(obj/machinery/machine_type)
+	if(!ispath(machine_type))
+		machine_type = machine_type.type
+	if(!ispath(machine_type, /obj/machinery))
+		CRASH("called get_machines_by_type with a non-machine type [machine_type]")
+
+	var/list/machines = machines_by_type[machine_type]
+	return machines?.Copy() || list()
+
+/datum/controller/subsystem/machines/proc/get_all_machines()
+	return all_machines.Copy()

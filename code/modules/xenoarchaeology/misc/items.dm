@@ -16,7 +16,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 /obj/item/xenoartifact/Initialize(mapload, _artifact_type)
 	. = ..()
 	artifact_material = _artifact_type || artifact_material
-	ADD_TRAIT(src, TRAIT_IGNORE_EXPORT_SCAN, GENERIC_ITEM_TRAIT)
+	ADD_TRAIT(src, TRAIT_IGNORE_EXPORT_SCAN, INNATE_TRAIT)
 	add_artifact_component()
 
 ///Proc to add your artifact stuff, here so we can override it

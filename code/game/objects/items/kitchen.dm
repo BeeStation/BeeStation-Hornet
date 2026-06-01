@@ -10,6 +10,7 @@
  */
 
 /obj/item/kitchen
+	abstract_type = /obj/item/kitchen
 	icon = 'icons/obj/service/kitchen.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
@@ -26,7 +27,7 @@
 	throw_range = 5
 	custom_price = 5 /// Silly useless thing
 	custom_materials = list(/datum/material/iron=80)
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	attack_verb_continuous = list("attacks", "stabs", "pokes")
 	attack_verb_simple = list("attack", "stab", "poke")
 	hitsound = 'sound/weapons/bladeslice.ogg'

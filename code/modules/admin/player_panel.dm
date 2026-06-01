@@ -114,7 +114,7 @@
 				data_entry["external_display_name"] = player.client.external_display_name
 				data_entry["formatted_external_display_name"] = player.client.external_method.format_display_name(player.client.external_display_name)
 			if(CONFIG_GET(flag/use_exp_tracking) && player.client.prefs)
-				data_entry["living_playtime"] = FLOOR(player.client.prefs.exp[EXP_TYPE_LIVING] / 60, 1)
+				data_entry["living_playtime"] = floor(player.client.prefs.exp[EXP_TYPE_LIVING] / 60)
 			data_entry["telemetry"] = player.client.tgui_panel?.get_alert_level()
 			data_entry["connected"] = TRUE
 			if(ckey == selected_ckey)
@@ -335,4 +335,6 @@
 	transform.scale(16, 16)
 
 	for (var/icon_state_name in icon_states('icons/mob/hud.dmi'))
-		insert_icon("antag-hud-[icon_state_name]", uni_icon('icons/mob/hud.dmi', icon_state_name, transform=transform))
+		var/datum/universal_icon/antag_icon = uni_icon('icons/mob/hud.dmi', icon_state_name)
+		antag_icon.transform = transform
+		insert_icon("antag-hud-[icon_state_name]", antag_icon)

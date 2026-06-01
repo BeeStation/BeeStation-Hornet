@@ -41,7 +41,7 @@
 	. = ..()
 	AddComponent(/datum/component/anti_magic, \
 		_source = src, \
-		antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY) \
+		antimagic_flags = (MAGIC_RESISTANCE_HOLY) \
 	)
 
 /obj/item/storage/book/bible/suicide_act(mob/living/user)

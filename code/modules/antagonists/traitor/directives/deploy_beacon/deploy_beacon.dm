@@ -22,7 +22,7 @@
 		return
 	// Pick a location that the beacon needs to be deployed at, somewhere out of prying eyes
 	var/area_types = list()
-	area_types += typesof(/area/maintenance)
+	area_types += typesof(/area/station/maintenance)
 	center_turf = null
 	while (!isturf(center_turf) && length(area_types))
 		var/target_type = pick(area_types)
@@ -30,7 +30,7 @@
 		if (!area)
 			area_types -= target_type
 			continue
-		center_turf = pick(area.contained_turfs)
+		center_turf = pick(area.get_turfs_from_all_zlevels())
 	if (!center_turf)
 		reject()
 		return
@@ -95,7 +95,7 @@
 
 /datum/priority_directive/deploy_beacon/proc/update_time(time_left)
 	end_at = world.time + time_left
-	var/time_update = FLOOR(time_left / (30 SECONDS), 1)
+	var/time_update = floor(time_left / (30 SECONDS))
 	if (time_update < last_time_update)
 		mission_update("Beacon activation in [DisplayTimeText(time_left)].")
 		last_time_update = time_update

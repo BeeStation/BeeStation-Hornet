@@ -78,7 +78,7 @@
 /area/ruin/powered/animal_hospital)
 "aD" = (
 /obj/structure/frame/machine,
-/obj/item/stack/cable_coil/random/five,
+/obj/item/stack/cable_coil,
 /obj/item/circuitboard/machine/smartfridge,
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
@@ -919,7 +919,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "QW" = (
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil,
 /obj/item/stack/sheet/mineral/titanium{
 	amount = 30
 	},
@@ -937,11 +937,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "RD" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},

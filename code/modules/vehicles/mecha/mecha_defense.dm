@@ -123,7 +123,6 @@
 		var/mob/living/hitmob = pick(occupants)
 		return hitmob.bullet_act(hitting_projectile, def_zone, piercing_hit) //If the sides are open, the occupant can be hit
 
-	. = ..()
 	log_message("Hit by projectile. Type: [hitting_projectile]([hitting_projectile.damage_type]).", LOG_MECHA, color="red")
 	// yes we *have* to run the armor calc proc here I love tg projectile code too
 	try_damage_component(run_atom_armor(
@@ -176,7 +175,7 @@
 
 	if(!equipment_disabled && LAZYLEN(occupants)) //prevent spamming this message with back-to-back EMPs
 		to_chat(occupants, span_danger("Error -- Connection to equipment control unit has been lost."))
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/vehicle/sealed/mecha, restore_equipment)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/vehicle/sealed/mecha, restore_equipment)), 6 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 	equipment_disabled = TRUE
 	set_mouse_pointer()
 
@@ -384,16 +383,20 @@
 	. = ..()
 	if(user.combat_mode)
 		return
-	. = TRUE
-	if(atom_integrity < max_integrity)
-		if(!W.use_tool(src, user, 0, volume=50, amount=1))
-			return
+	if(atom_integrity >= max_integrity)
+		to_chat(user, span_warning("[src] is at full integrity!"))
+		return TRUE
+	while(atom_integrity < max_integrity) // Check for welder and the fact it's on
+		if(!W.tool_start_check(user, amount=1))
+			break
+		if(!W.use_tool(src, user, 2 SECONDS, volume=30, amount=1)) // Time to wait two seconds per repair
+			break
 		user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to [src]."))
-		atom_integrity += min(10, max_integrity-atom_integrity)
+		atom_integrity = min(max_integrity, atom_integrity + 10)
+		diag_hud_set_mechhealth() // Apparently, this fixed a small issue where mechs wouldn't update their HUD health when being welded
 		if(atom_integrity == max_integrity)
 			to_chat(user, span_notice("It looks to be fully repaired now."))
-		return
-	to_chat(user, span_warning("[src] is at full integrity!"))
+	return TRUE
 
 /obj/vehicle/sealed/mecha/proc/full_repair(charge_cell)
 	atom_integrity = max_integrity

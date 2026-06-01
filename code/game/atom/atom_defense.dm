@@ -108,7 +108,8 @@
 		//	CRASH("/atom/proc/run_atom_armor returned a damage flag as a list. [damage_flag] returning list [length(damage_flag)]")
 		armor_protection = get_armor_rating(damage_flag)
 	if(armor_protection) //Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
-		armor_protection = clamp(armor_protection - armour_penetration, min(armor_protection, 0), 100)
+		var/penetration_mult = 1 - clamp(armour_penetration, -100, 100) / 100
+		armor_protection = clamp(armor_protection * penetration_mult, min(armor_protection, 0), 100)
 	return round(damage_amount * (100 - armor_protection) * 0.01, DAMAGE_PRECISION)
 
 ///the sound played when the atom is damaged.
