@@ -149,8 +149,9 @@
 	key_third_person = "salutes"
 	message = "salutes"
 	message_param = "salutes to %t"
-	emote_type = EMOTE_VISIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 	hands_use_check = TRUE
+	sound = 'sound/emotes/salute.ogg'
 
 /datum/emote/living/carbon/human/shrug
 	key = "shrug"
