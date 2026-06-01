@@ -17,6 +17,3 @@
 
 /area/ruin/powered
 	requires_power = FALSE
-
-/area/ruin/lavaland
-	requires_power = TRUE
