@@ -374,22 +374,27 @@
 	/// Ref to the overlay - hard del edition
 	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay
 
-/datum/action/change_psychic_visual/New(Target)
-	. = ..()
-	RegisterSignal(psychic_overlay, COMSIG_QDELETING, PROC_REF(parent_destroy))
-
 /datum/action/change_psychic_visual/Destroy()
-	UnregisterSignal(psychic_overlay, COMSIG_QDELETING)
-	psychic_overlay = null
+	if(!isnull(psychic_overlay))
+		UnregisterSignal(psychic_overlay, COMSIG_QDELETING)
+		psychic_overlay = null
 	return ..()
 
-/datum/action/change_psychic_visual/proc/parent_destroy(datum/source)
+/datum/action/change_psychic_visual/proc/set_psychic_overlay(atom/movable/screen/fullscreen/blind/psychic_highlight/new_overlay)
+	if(!isnull(psychic_overlay))
+		UnregisterSignal(psychic_overlay, COMSIG_QDELETING)
+	else if(!isnull(new_overlay))
+		RegisterSignal(psychic_overlay, COMSIG_QDELETING, PROC_REF(overlay_destroyed))
+		psychic_overlay = new_overlay
+
+/datum/action/change_psychic_visual/proc/overlay_destroyed(datum/source)
 	SIGNAL_HANDLER
 	qdel(src)
 
 /datum/action/change_psychic_visual/on_activate(mob/user, atom/target)
-	if(!psychic_overlay)
-		psychic_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner?.client?.screen
+	if(isnull(psychic_overlay))
+		var/atom/movable/screen/fullscreen/blind/psychic_highlight/new_overlay = locate() in owner?.client?.screen
+		set_psychic_overlay(new_overlay)
 	psychic_overlay?.cycle_visuals()
 
 //Action for toggling auto sense
