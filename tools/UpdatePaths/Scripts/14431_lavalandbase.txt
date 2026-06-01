@@ -1,0 +1,19 @@
+# Lavaland Base update
+
+/area/ruin/unpowered/syndicate_lava_base : /area/ruin/lavaland/syndicate_lava_base{@OLD}
+/area/ruin/unpowered/syndicate_lava_base/brig : /area/ruin/lavaland/syndicate_lava_base/brig{@OLD}
+/area/ruin/unpowered/syndicate_lava_base/bridge : /area/ruin/lavaland/syndicate_lava_base/bridge{@OLD}
+/area/ruin/unpowered/syndicate_lava_base/starboard : /area/ruin/lavaland/syndicate_lava_base/starboard{@OLD}
+/area/ruin/unpowered/syndicate_lava_base/port : /area/ruin/lavaland/syndicate_lava_base/port{@OLD}
+/area/ruin/unpowered/syndicate_lava_base/engineering : /area/ruin/lavaland/syndicate_lava_base/engineering{@OLD}
+/area/ruin/unpowered/syndicate_lava_base/medbay : /area/ruin/lavaland/syndicate_lava_base/medbay{@OLD}
+/area/ruin/unpowered/syndicate_lava_base/arrivals : /area/ruin/lavaland/syndicate_lava_base/arrivals{@OLD}
+/area/ruin/unpowered/syndicate_lava_base/bar : /area/ruin/lavaland/syndicate_lava_base/bar{@OLD}
+/area/ruin/unpowered/syndicate_lava_base/main : /area/ruin/lavaland/syndicate_lava_base/main{@OLD}
+/area/ruin/unpowered/syndicate_lava_base/cargo : /area/ruin/lavaland/syndicate_lava_base/cargo{@OLD}
+/area/ruin/unpowered/syndicate_lava_base/chemistry : /area/ruin/lavaland/syndicate_lava_base/chemistry{@OLD}
+/area/ruin/unpowered/syndicate_lava_base/virology : /area/ruin/lavaland/syndicate_lava_base/virology{@OLD}
+/area/ruin/unpowered/syndicate_lava_base/science : /area/ruin/lavaland/syndicate_lava_base/science{@OLD}
+/area/ruin/unpowered/syndicate_lava_base/testlab : /area/ruin/lavaland/syndicate_lava_base/testlab{@OLD}
+/area/ruin/unpowered/syndicate_lava_base/dormitories : /area/ruin/lavaland/syndicate_lava_base/dormitories{@OLD}
+/area/ruin/unpowered/syndicate_lava_base/telecomms : /area/ruin/lavaland/syndicate_lava_base/telecomms{@OLD}
