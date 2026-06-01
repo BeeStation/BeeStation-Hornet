@@ -9,8 +9,9 @@
 	flags_ricochet = RICOCHET_HARD
 	ricochet_chance_mod = 0.5
 	pass_flags_self = PASSSTRUCTURE
-	var/broken = FALSE
 	armor_type = /datum/armor/obj_structure
+	burning_particles = /particles/smoke/burning
+	var/broken = FALSE
 
 /datum/armor/obj_structure
 	fire = 50
