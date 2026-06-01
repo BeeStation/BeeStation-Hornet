@@ -86,9 +86,15 @@
 	..()
 
 /datum/status_effect/his_grace/on_apply()
-	owner.log_message("gained His Grace's stun immunity", LOG_ATTACK)
-	owner.add_stun_absorption("hisgrace", INFINITY, 3, null, "His Grace protects you from the stun!")
+	owner.add_stun_absorption(
+		source = id,
+		priority = 3,
+		self_message = span_boldwarning("His Grace protects you from the stun!"),
+	)
 	return ..()
+
+/datum/status_effect/his_grace/on_remove()
+	owner.remove_stun_absorption(id)
 
 /datum/status_effect/his_grace/tick(seconds_between_ticks)
 	bloodlust = 0
@@ -103,19 +109,14 @@
 		qdel(src)
 		return
 	var/grace_heal = bloodlust * 0.02
-	var/need_mob_update = FALSE
-	need_mob_update += owner.adjustBruteLoss(-grace_heal * seconds_between_ticks, updating_health = FALSE, forced = TRUE)
+
+	var/need_mob_update = owner.adjustBruteLoss(-grace_heal * seconds_between_ticks, updating_health = FALSE, forced = TRUE)
 	need_mob_update += owner.adjustFireLoss(-grace_heal * seconds_between_ticks, updating_health = FALSE, forced = TRUE)
 	need_mob_update += owner.adjustToxLoss(-grace_heal * seconds_between_ticks, forced = TRUE)
 	need_mob_update += owner.adjustOxyLoss(-(grace_heal * 2) * seconds_between_ticks, updating_health = FALSE, forced = TRUE)
 	need_mob_update += owner.adjustCloneLoss(-grace_heal * seconds_between_ticks, updating_health = FALSE, forced = TRUE)
 	if(need_mob_update)
 		owner.updatehealth()
-
-/datum/status_effect/his_grace/on_remove()
-	owner.log_message("lost His Grace's stun immunity", LOG_ATTACK)
-	if(islist(owner.stun_absorption) && owner.stun_absorption["hisgrace"])
-		owner.stun_absorption -= "hisgrace"
 
 
 /datum/status_effect/wish_granters_gift //Fully revives after ten seconds.
@@ -177,62 +178,30 @@
 	icon_state = "blooddrunk"
 
 /datum/status_effect/blooddrunk/on_apply()
-	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
+	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_STATUS_EFFECT(id))
 	if(ishuman(owner))
-		var/mob/living/carbon/human/H = owner
-		H.physiology.brute_mod *= 0.1
-		H.physiology.burn_mod *= 0.1
-		H.physiology.tox_mod *= 0.1
-		H.physiology.oxy_mod *= 0.1
-		H.physiology.clone_mod *= 0.1
-		H.physiology.stamina_mod *= 0.1
-	owner.log_message("gained blood-drunk stun immunity", LOG_ATTACK)
-	owner.add_stun_absorption("blooddrunk", INFINITY, 4)
-	owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, 1, use_reverb = FALSE)
+		var/mob/living/carbon/human/human_owner = owner
+		human_owner.physiology.brute_mod *= 0.1
+		human_owner.physiology.burn_mod *= 0.1
+		human_owner.physiology.tox_mod *= 0.1
+		human_owner.physiology.oxy_mod *= 0.1
+		human_owner.physiology.clone_mod *= 0.1
+		human_owner.physiology.stamina_mod *= 0.1
+	owner.add_stun_absorption(source = id, priority = 4)
+	owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
 	return TRUE
 
 /datum/status_effect/blooddrunk/on_remove()
 	if(ishuman(owner))
-		var/mob/living/carbon/human/H = owner
-		H.physiology.brute_mod *= 10
-		H.physiology.burn_mod *= 10
-		H.physiology.tox_mod *= 10
-		H.physiology.oxy_mod *= 10
-		H.physiology.clone_mod *= 10
-		H.physiology.stamina_mod *= 10
-	owner.log_message("lost blood-drunk stun immunity", LOG_ATTACK)
-	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk");
-	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
-		owner.stun_absorption -= "blooddrunk"
-
-/datum/status_effect/sword_spin
-	id = "Bastard Sword Spin"
-	duration = 50
-	tick_interval = 8
-	alert_type = null
-
-
-/datum/status_effect/sword_spin/on_apply()
-	owner.visible_message(span_danger("[owner] begins swinging the sword with inhuman strength!"))
-	var/oldcolor = owner.color
-	owner.color = COLOR_RED
-	owner.add_stun_absorption("bloody bastard sword", duration, 2, "doesn't even flinch as the sword's power courses through them!", "You shrug off the stun!", " glowing with a blazing red aura!")
-	owner.spin(duration,1)
-	animate(owner, color = oldcolor, time = duration, easing = EASE_IN)
-	addtimer(CALLBACK(owner, TYPE_PROC_REF(/atom, update_atom_colour)), duration)
-	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, 0)
-	return ..()
-
-
-/datum/status_effect/sword_spin/tick()
-	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, 0)
-	var/obj/item/slashy
-	slashy = owner.get_active_held_item()
-	for(var/mob/living/M in ohearers(1,owner))
-		slashy.attack(M, owner)
-
-/datum/status_effect/sword_spin/on_remove()
-	owner.visible_message(span_warning("[owner]'s inhuman strength dissipates and the sword's runes grow cold!"))
+		var/mob/living/carbon/human/human_owner = owner
+		human_owner.physiology.brute_mod *= 10
+		human_owner.physiology.burn_mod *= 10
+		human_owner.physiology.tox_mod *= 10
+		human_owner.physiology.oxy_mod *= 10
+		human_owner.physiology.clone_mod *= 10
+		human_owner.physiology.stamina_mod *= 10
+	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_STATUS_EFFECT(id))
+	owner.remove_stun_absorption(id)
 
 //Used by changelings to rapidly heal
 //Being on fire will suppress this healing
@@ -246,9 +215,15 @@
 
 /datum/status_effect/fleshmend/on_apply()
 	. = ..()
-
 	RegisterSignal(owner, COMSIG_LIVING_IGNITED, PROC_REF(on_ignited))
 	RegisterSignal(owner, COMSIG_LIVING_EXTINGUISHED, PROC_REF(on_extinguished))
+
+/datum/status_effect/fleshmend/on_creation(mob/living/new_owner, ...)
+	. = ..()
+	if(!. || !owner || !linked_alert)
+		return
+	if(owner.on_fire)
+		linked_alert.icon_state = "fleshmend_fire"
 
 /datum/status_effect/fleshmend/on_remove()
 	UnregisterSignal(owner, list(COMSIG_LIVING_IGNITED, COMSIG_LIVING_EXTINGUISHED))
@@ -262,14 +237,17 @@
 	else if(ticks_passed == 2)
 		to_chat(owner, span_changeling("We begin to repair our tissue damage..."))
 
+	// Heals a total of 6 bleeding
+	astype(owner, /mob/living/carbon)?.suppress_bloodloss(0.2 * seconds_between_ticks)
+
 	var/need_mob_update = FALSE
-	//Heals 2 brute per second, for a total of 60
+	// Heals 2 brute per second, for a total of 60
 	need_mob_update += owner.adjustBruteLoss(-4 * seconds_between_ticks, updating_health = FALSE)
-	//Heals 1 fireloss per second, for a total of 30
+	// Heals 1 fireloss per second, for a total of 30
 	need_mob_update += owner.adjustFireLoss(-2 * seconds_between_ticks, updating_health = FALSE)
-	//Heals 5 oxyloss per second for a total of 150
+	// Heals 5 oxyloss per second for a total of 150
 	need_mob_update += owner.adjustOxyLoss(-4 * seconds_between_ticks, updating_health = FALSE)
-	//Heals 0.5 cloneloss per second for a total of 15
+	// Heals 0.5 cloneloss per second for a total of 15
 	need_mob_update += owner.adjustCloneLoss(-1 * seconds_between_ticks, updating_health = FALSE)
 	if(need_mob_update)
 		owner.updatehealth()
@@ -348,7 +326,7 @@
 
 //Changeling mindshield
 /datum/status_effect/changeling/mindshield
-	id = "changelingmindshield"
+	id = "changeling_mindshield"
 	alert_type = /atom/movable/screen/alert/status_effect/changeling_mindshield
 	tick_interval = 5 SECONDS
 	chem_per_tick = 1
@@ -360,12 +338,12 @@
 /datum/status_effect/changeling/mindshield/on_apply()
 	if(!..())
 		return FALSE
-	ADD_TRAIT(owner, TRAIT_FAKE_MINDSHIELD, CHANGELING_TRAIT)
+	ADD_TRAIT(owner, TRAIT_FAKE_MINDSHIELD, TRAIT_STATUS_EFFECT(id))
 	owner.sec_hud_set_implants()
 	return TRUE
 
 /datum/status_effect/changeling/mindshield/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_FAKE_MINDSHIELD, CHANGELING_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_FAKE_MINDSHIELD, TRAIT_STATUS_EFFECT(id))
 	owner.sec_hud_set_implants()
 
 /atom/movable/screen/alert/status_effect/changeling_mindshield
@@ -388,13 +366,13 @@
 
 /datum/status_effect/hippocratic_oath/on_apply()
 	//Makes the user passive, it's in their oath not to harm!
-	ADD_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
+	ADD_TRAIT(owner, TRAIT_PACIFISM, TRAIT_STATUS_EFFECT(id))
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.add_hud_to(owner)
 	return ..()
 
 /datum/status_effect/hippocratic_oath/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
+	REMOVE_TRAIT(owner, TRAIT_PACIFISM, TRAIT_STATUS_EFFECT(id))
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.remove_hud_from(owner)
 
@@ -491,8 +469,7 @@
 		to_chat(owner, span_userdanger("Tendrils of vile corruption knit your flesh together and strengthen your sinew. You resist the temptation of giving in to the corruption."))
 	else
 		alreadyinfected = TRUE
-	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")
-	ADD_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
+	owner.add_traits(list(TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_NECROPOLIS_INFECTED), TRAIT_STATUS_EFFECT(id))
 	if(is_mining_level(owner.z))
 		power = 5
 		duration_mod = 2
@@ -508,8 +485,7 @@
 	return TRUE
 
 /datum/status_effect/regenerative_core/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")
-	REMOVE_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
+	owner.remove_traits(list(TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_NECROPOLIS_INFECTED), TRAIT_STATUS_EFFECT(id))
 	if(!alreadyinfected)
 		to_chat(owner, span_userdanger("You feel empty as the vile tendrils slink out of your flesh and leave you, a fragile human once more."))
 
@@ -595,12 +571,12 @@
 	alert_type =/atom/movable/screen/alert/status_effect/duskndawn
 
 /datum/status_effect/duskndawn/on_apply()
-	ADD_TRAIT(owner,TRAIT_XRAY_VISION,type)
+	ADD_TRAIT(owner, TRAIT_XRAY_VISION, TRAIT_STATUS_EFFECT(id))
 	owner.update_sight()
 	return TRUE
 
 /datum/status_effect/duskndawn/on_remove()
-	REMOVE_TRAIT(owner,TRAIT_XRAY_VISION,type)
+	REMOVE_TRAIT(owner, TRAIT_XRAY_VISION, TRAIT_STATUS_EFFECT(id))
 	owner.update_sight()
 
 /atom/movable/screen/alert/status_effect/crucible_soul

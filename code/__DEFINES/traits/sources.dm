@@ -64,7 +64,8 @@
 #define STATUE_MUTE "statue"
 #define CHANGELING_DRAIN "drain"
 #define MAGIC_BLIND "magic_blind"
-#define HIGHLANDER "highlander"
+/// Trait associated with highlander
+#define HIGHLANDER_TRAIT "highlander"
 #define SOURCE_HULK "hulk"
 #define STASIS_MUTE "stasis"
 #define GENETICS_SPELL "genetics_spell"
