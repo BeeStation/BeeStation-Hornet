@@ -79,7 +79,7 @@
 	if(istext(value))
 		return span_value("\"[VV_HTML_ENCODE(value)]\"")
 
-	// Warning - "isicon(value)" doesn't do things correctly
+	// Warning - isicon(value) is misleading
 	// 		isicon('some.dmi') => returns TRUE
 	// 		isicon(/icon[0xINSTANCE]) => returns TRUE
 	// So, You have no idea what it exactly is!!!!!

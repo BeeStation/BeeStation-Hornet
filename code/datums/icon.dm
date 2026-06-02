@@ -8,6 +8,19 @@
 	var/revise_count
 
 	/// Pre-caches the rsc file name
+	/**
+	 * Because icon instances are essentially raw image data, they don't have any extra variables.
+	 * So we have to copy the arguments from New() that we care about into our own vars.
+	 */
+	 
+	/// The file this icon is derived from. i.e: 'icons/mob/ai.dmi'
+	var/file_reference
+	/// The icon_state, dir, frame, and moving vars of this icon in a format used by VV.
+	var/state_reference
+	/// Used to track the amount of times an icon has been "copied". i.e: icon(icon(icon(icon('some.dmi'))))
+	var/revise_count
+
+	/// A fake file name used when browsing this icon in VV. Only set on VV.
 	var/vv_rsc_code
 
 // Usually, this is not a good idea to do this, but it's for putting a hint when /icon is created, so that we can investigate what /icon a thing holds.
@@ -50,7 +63,7 @@
 		return
 
 	var/icon/I = locate(dm_ref)
-	if(isnull(I) || (I.file_reference != file_ref))
+	if(isnull(I) || I.file_reference != file_ref)
 		return
 
 	if(isnull(I.vv_rsc_code))

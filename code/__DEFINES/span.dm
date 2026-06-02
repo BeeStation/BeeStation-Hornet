@@ -230,7 +230,7 @@
 #define span_awe(str) ("<span class='awe'>" + (str) + "</span>")
 #define span_subtle(str) ("<span class='subtle'>" + (str) + "</span>")
 
-// Debug span
+// Debug spans
 #define span_value(str) ("<span class='value'>" + (str) + "</span>")
 #define span_value_top(str) ("<span class='value align_top'>" + (str) + "</span>")
 

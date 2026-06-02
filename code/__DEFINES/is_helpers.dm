@@ -16,9 +16,9 @@
 GLOBAL_VAR_INIT(magic_appearance_detecting_image, new /image) // appearances are awful to detect safely, but this seems to be the best way ~ninjanomnom
 #define isappearance(thing) (!isimage(thing) && !ispath(thing) && istype(GLOB.magic_appearance_detecting_image, thing))
 
-/// 'something.dmi' == [isicon && isfile (!isdatum)]. This exists because isicon(THING) doesn't let you know if THING is solely a dmi file: 'something.dmi'
+/// If an icon is a file (something.dmi)
 #define is_icondmi(thing) (isicon(thing) && isfile(thing))
-/// '/icon[0xINSTANCE]' == [isicon && isdatum (!isfile)]. This exists because isicon(THING) doesn't let you know if THING is solely a datum: /icon[0xINSTANCE]
+/// If an icon is an instance (/icon[0xINSTANCE])
 #define is_icondatum(thing) (istype(thing, /icon))
 // Note: isicon('something.dmi') returns TRUE. isicon(/icon[0xINSTANCE]) returns TRUE. This is why these helpers exist.
 
