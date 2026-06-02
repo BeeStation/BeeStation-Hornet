@@ -101,6 +101,7 @@
 #include "status_effect_validity.dm"
 #include "steal_objectives_trackability.dm"
 #include "strippable.dm"
+#include "subsystem_flags.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
 #include "surgeries.dm"
