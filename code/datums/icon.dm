@@ -1,18 +1,10 @@
 #define CHECK_NULL(thing) isnull(thing) ? #thing+" = null" : #thing+" = [istext(thing) ? "\"[thing]\"" : thing]"
 /icon
-	/// Just used for reference purpose to record which dmi file /icon used uppn creation
-	var/file_reference
-	/// Just used to record which state the /icon was made with
-	var/state_reference
-	/// Used to track when something did icon(icon(icon(icon('some.dmi'))))
-	var/revise_count
-
-	/// Pre-caches the rsc file name
 	/**
 	 * Because icon instances are essentially raw image data, they don't have any extra variables.
 	 * So we have to copy the arguments from New() that we care about into our own vars.
 	 */
-	 
+
 	/// The file this icon is derived from. i.e: 'icons/mob/ai.dmi'
 	var/file_reference
 	/// The icon_state, dir, frame, and moving vars of this icon in a format used by VV.
@@ -62,14 +54,14 @@
 		log_admin("[client.key] tried to call debug proc : send_vv_icon_to_user()")
 		return
 
-	var/icon/I = locate(dm_ref)
-	if(isnull(I) || I.file_reference != file_ref)
+	var/icon/located_icon = locate(dm_ref)
+	if(isnull(located_icon) || located_icon.file_reference != file_ref)
 		return
 
-	if(isnull(I.vv_rsc_code))
-		I.vv_rsc_code = "[FAST_REF(I)][rand(1, 10000)].png"
-	user << browse_rsc(I, I.vv_rsc_code)
-	user << browse("<!DOCTYPE html><html><head>[I.file_reference]</head></br><body><img class='icon' style='border: 1px solid #000000;' src=\"[I.vv_rsc_code]\"></body></html>","window=[I.vv_rsc_code];size=[max(300, I.Width()+50)]x[max(300, I.Height()+50)]")
+	if(isnull(located_icon.vv_rsc_code))
+		located_icon.vv_rsc_code = "[FAST_REF(located_icon)][rand(1, 10000)].png"
+	user << browse_rsc(located_icon, located_icon.vv_rsc_code)
+	user << browse("<!DOCTYPE html><html><head>[located_icon.file_reference]</head></br><body><img class='icon' style='border: 1px solid #000000;' src=\"[located_icon.vv_rsc_code]\"></body></html>","window=[located_icon.vv_rsc_code];size=[max(300, located_icon.Width()+50)]x[max(300, located_icon.Height()+50)]")
 
 #undef CHECK_NULL
 #undef VV_ICON_VIEW_IMAGE
