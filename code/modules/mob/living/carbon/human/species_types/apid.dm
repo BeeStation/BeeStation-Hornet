@@ -65,10 +65,22 @@
 	if(istype(attacking_item, /obj/item/melee/flyswatter))
 		damage_mods += 30 // Yes, a 30x damage modifier
 
-/datum/species/apid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/apid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		H.adjustToxLoss(3)
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		return FALSE
+	if(chem.type == /datum/reagent/drug/nicotine)
+		if(DT_PROB(8, delta_time))
+			to_chat(H, span_warning(pick(
+				"The smoke is making you feel woozy...",
+				"Your senses feel muted by the smoke...",
+				"The smoke makes your head swim...",
+			)))
+		if(chem.volume >= 5)
+			H.adjust_drowsiness(8 SECONDS * REM * delta_time)
+		else
+			H.adjust_drowsiness(3 SECONDS * REM * delta_time)
 		return FALSE
 	return ..()
 
