@@ -33,7 +33,7 @@
 /icon/proc/get_vv_data()
 	return "<ul class='data-column'><li>file: '[file_reference]'</li>[revise_count ? "<li>revise_count = [revise_count]<li>" : ""]</li>[state_reference]</ul>"
 
-// These exist here because long text is diffciult to read
+// These exist here because long text is difficult to read
 #define VV_ICON_VIEW_IMAGE "\[<a href='byond://?_src_="+VV_HK_VIEW_ICON+";[HrefToken()];dm_ref=[FAST_REF(src)];file_ref=[file_reference];'>View icon file</a>\]"
 #define VV_ICON_MARK_DATUM "\[<a href='byond://?_src_=vars;[HrefToken()];[VV_HK_TAG]=TRUE;[VV_HK_TARGET]=[FAST_REF(src)];'>Tag datum (this icon)</a>\]"
 /icon/proc/write_vv_button()
