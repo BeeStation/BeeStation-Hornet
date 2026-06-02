@@ -5,7 +5,7 @@ SUBSYSTEM_DEF(icon_smooth)
 	)
 	wait = 1
 	priority = FIRE_PRIOTITY_SMOOTHING
-	flags = SS_TICKER
+	ss_flags = SS_TICKER
 
 	var/list/blueprint_queue = list()
 	var/list/smooth_queue = list()

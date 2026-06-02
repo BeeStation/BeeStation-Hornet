@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(autotransfer)
 	name = "Autotransfer Vote"
-	flags = SS_KEEP_TIMING | SS_BACKGROUND
+	ss_flags = SS_KEEP_TIMING | SS_BACKGROUND
 	wait = 2 MINUTES
 	runlevels = RUNLEVEL_GAME
 	var/time_to_vote

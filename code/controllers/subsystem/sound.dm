@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(sound_effects)
 	name = "Sound"
 	wait = 0.1 SECONDS
 	priority = FIRE_PRIORITY_AMBIENCE
-	flags = SS_NO_INIT
+	ss_flags = SS_NO_INIT
 	//Note: Make sure you update this if you use sound fading pre-game
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 

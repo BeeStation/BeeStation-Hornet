@@ -22,7 +22,7 @@
 **/
 SUBSYSTEM_DEF(move_manager)
 	name = "Movement Handler"
-	flags = SS_NO_INIT | SS_NO_FIRE
+	ss_flags = SS_NO_INIT | SS_NO_FIRE
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
 ///Adds a movable thing to a movement subsystem. Returns TRUE if it all worked, FALSE if it failed somehow

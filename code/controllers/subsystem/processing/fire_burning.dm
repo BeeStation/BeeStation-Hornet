@@ -5,5 +5,5 @@ PROCESSING_SUBSYSTEM_DEF(burning)
 		/datum/controller/subsystem/atoms
 	)
 	priority = FIRE_PRIORITY_BURNING
-	flags = SS_NO_INIT|SS_BACKGROUND
+	ss_flags = SS_NO_INIT|SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME

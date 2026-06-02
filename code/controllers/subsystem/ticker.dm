@@ -4,7 +4,7 @@ GLOBAL_LIST_EMPTY(roundstart_areas_lights_on)
 SUBSYSTEM_DEF(ticker)
 	name = "Ticker"
 	priority = FIRE_PRIORITY_TICKER
-	flags = SS_KEEP_TIMING
+	ss_flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
 
 	/// State of current round (used by process()) Use the defines GAME_STATE_* !

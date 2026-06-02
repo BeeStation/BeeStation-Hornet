@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(zclear)
 	name = "Z-Clear"
 	wait = 1
 
-	flags = SS_NO_INIT
+	ss_flags = SS_NO_INIT
 	runlevels = RUNLEVEL_GAME
 
 	//List of z-levels to be auto-wiped when they are left
