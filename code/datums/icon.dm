@@ -45,11 +45,11 @@
 	if(isnull(user) || !istext(dm_ref) || !istext(file_ref))
 		return
 	var/client/client = user.client
-	if(isnull(client))
+	if(!client)
 		return
 
 	// exploit check
-	if(!client.holder || !client.holder.CheckAdminHref(href, href_list))
+	if(!client?.holder?.CheckAdminHref(href, href_list))
 		message_admins("[client.key] has attempted to call debug proc : send_vv_icon_to_user()")
 		log_admin("[client.key] tried to call debug proc : send_vv_icon_to_user()")
 		return
