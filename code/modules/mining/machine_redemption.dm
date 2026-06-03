@@ -40,7 +40,7 @@
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		ore_multiplier_temp = 0.65 + (0.35 * B.rating)
 	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
-		ore_multiplier += (0.20 * L.rating)
+		ore_multiplier_temp += (0.25 * L.rating)
 	ore_multiplier = round(ore_multiplier_temp, 0.01)
 
 /obj/machinery/mineral/ore_redemption/examine(mob/user)
@@ -188,6 +188,8 @@
 			to_chat(user, span_notice("[O] has already been refined!"))
 			return
 
+		smelt_ore(O)
+		return TRUE
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/AltClick(mob/living/user)
