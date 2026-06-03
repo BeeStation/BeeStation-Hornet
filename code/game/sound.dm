@@ -431,16 +431,16 @@
 	return soundin
 
 /client/proc/get_playing_channel(channel)
-	for (var/sound/S in src.SoundQuery())
-		if (S.channel == channel)
-			return S
+	for (var/sound/playing_sound in src.SoundQuery())
+		if (playing_sound.channel == channel)
+			return playing_sound
 
 /mob/proc/can_hear_ambience()
-	if (!src.can_hear()) // If they can't hear they can't hear
+	if (!can_hear()) // If they can't hear they can't hear
 		return FALSE
 
-	var/turf/T = get_turf(src)
-	var/datum/gas_mixture/hearer_env = T.return_air()
+	var/turf/our_turf = get_turf(src)
+	var/datum/gas_mixture/hearer_env = our_turf.return_air()
 
 	if (!hearer_env || hearer_env.return_pressure() < SOUND_MINIMUM_PRESSURE) // They can't hear ambience if there isn't enough pressure
 		return FALSE
