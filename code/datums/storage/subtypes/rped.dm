@@ -13,3 +13,37 @@
 	. = ..()
 	if(!to_insert.get_part_rating())
 		return FALSE
+
+/obj/item/storage/part_replacer/attack_self(mob/user)
+	var/list/things = list()
+	var/lowest_rating = INFINITY
+
+	for(var/obj/item/part in contents)
+		if(istype(part, /obj/item/stock_parts/cell))
+			var/obj/item/stock_parts/cell/cell = part
+			if(cell.rating < lowest_rating)
+				lowest_rating = cell.rating
+			things += part
+		else if(part.get_part_rating())
+			if(part.get_part_rating() < lowest_rating)
+				lowest_rating = part.get_part_rating()
+			things += part
+
+	if(lowest_rating == INFINITY)
+		to_chat(user, span_notice("There's no parts to dump out from [src]."))
+		return
+
+	for(var/obj/item/part in things.Copy())
+		if(istype(part, /obj/item/stock_parts/cell))
+			var/obj/item/stock_parts/cell/cell = part
+			if(cell.rating > lowest_rating)
+				things.Remove(part)
+		else if(part.get_part_rating() > lowest_rating)
+			things.Remove(part)
+
+	to_chat(user, span_notice("You dump out Tier [lowest_rating] parts from [src]."))
+
+	var/turf/drop_location = get_turf(src)
+
+	for(var/obj/item/part in things)
+		part.forceMove(drop_location)
