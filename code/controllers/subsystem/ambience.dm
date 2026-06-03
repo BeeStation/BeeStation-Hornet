@@ -45,15 +45,13 @@ SUBSYSTEM_DEF(ambience)
 	if(ambience_listening_clients[to_process] > world.time)
 		return //Not ready for the next sound
 
-	if(length(current_area.ambientsounds))
-		var/ambi_fx
+	var/ambi_fx
+	if(length(current_area.rare_ambient_sounds) && prob(0.5))
+		ambi_fx = pick(current_area.rare_ambient_sounds)
+	else if(length(current_area.ambientsounds))
+		ambi_fx = pick(current_area.ambientsounds)
 
-		// rare minecraft cave noises
-		if(length(current_area.rare_ambient_sounds) && prob(0.5))
-			ambi_fx = pick(current_area.rare_ambient_sounds)
-		else
-			ambi_fx = pick(current_area.ambientsounds)
-
+	if(ambi_fx)
 		play_ambience_effects(current_mob, ambi_fx)
 
 	if(length(current_area.ambientmusic))
