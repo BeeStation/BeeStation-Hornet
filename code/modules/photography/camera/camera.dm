@@ -187,7 +187,7 @@
 	var/list/turfs = list()
 	var/list/mobs = list()
 	var/blueprints = FALSE
-	var/clone_area = SSmapping.RequestBlockReservation(size_x * 2 + 1, size_y * 2 + 1)
+	var/clone_area = SSmapping.request_turf_block_reservation(size_x * 2 + 1, size_y * 2 + 1)
 	for(var/turf/placeholder in block(locate(target_turf.x - size_x, target_turf.y - size_y, target_turf.z), locate(target_turf.x + size_x, target_turf.y + size_y, target_turf.z)))
 		var/turf/turf = placeholder
 		while(istype(turf, /turf/open/openspace)) //Multi-z photography

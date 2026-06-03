@@ -82,14 +82,14 @@
 /datum/antagonist/nukeop/proc/assign_nuke()
 	if(nuke_team && !nuke_team.tracked_nuke)
 		nuke_team.memorized_code = random_code(5)
-		var/obj/machinery/nuclearbomb/syndicate/nuke = locate() in GLOB.nuke_list
+		var/obj/machinery/nuclearbomb/syndicate/nuke = locate() in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb/syndicate)
 		if(nuke)
 			nuke_team.tracked_nuke = nuke
 			if(nuke.r_code == "ADMIN")
 				nuke.r_code = nuke_team.memorized_code
 			else //Already set by admins/something else?
 				nuke_team.memorized_code = nuke.r_code
-			for(var/obj/machinery/nuclearbomb/beer/beernuke in GLOB.nuke_list)
+			for(var/obj/machinery/nuclearbomb/beer/beernuke as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb/beer))
 				if(beernuke.r_code == "ADMIN")
 					beernuke.r_code = nuke_team.memorized_code
 		else
@@ -121,7 +121,7 @@
 	else
 		to_chat(owner, "You were not assigned a frequency for your hardsuits beacons. You will have to coordinate with each other to decide a frequency to use.")
 
-/datum/antagonist/nukeop/proc/forge_objectives()
+/datum/antagonist/nukeop/forge_objectives()
 	if(!give_objectives)
 		return
 	if(nuke_team)
@@ -169,7 +169,7 @@
 
 /datum/antagonist/nukeop/proc/admin_tell_code(mob/admin)
 	var/code
-	for (var/obj/machinery/nuclearbomb/bombue in GLOB.machines)
+	for (var/obj/machinery/nuclearbomb/bombue as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb))
 		if (length(bombue.r_code) <= 5 && bombue.r_code != initial(bombue.r_code))
 			code = bombue.r_code
 			break
@@ -259,7 +259,7 @@
 /datum/antagonist/nukeop/lone/assign_nuke()
 	if(nuke_team && !nuke_team.tracked_nuke)
 		nuke_team.memorized_code = random_code(5)
-		var/obj/machinery/nuclearbomb/selfdestruct/nuke = locate() in GLOB.nuke_list
+		var/obj/machinery/nuclearbomb/selfdestruct/nuke = locate() in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb/selfdestruct)
 		if(nuke)
 			nuke_team.tracked_nuke = nuke
 			if(nuke.r_code == "ADMIN")

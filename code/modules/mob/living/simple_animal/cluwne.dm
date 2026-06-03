@@ -20,7 +20,7 @@
 	speak_language = /datum/language/metalanguage // It's cursing cluwne why not
 	footstep_type = FOOTSTEP_MOB_SHOE
 	chat_color = "#F37EF6"
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/cluwne/Initialize(mapload)
 	. = ..()

@@ -115,6 +115,7 @@
 #define ENVIROSUIT 20
 //No augments
 #define NOAUGMENTS 21
+#define NOEYEHOLES 22
 
 /// Used for determining which wounds are applicable to this species.
 /// if we have flesh (can suffer slash/piercing/burn wounds, requires they don't have NOBLOOD)

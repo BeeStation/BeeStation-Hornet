@@ -76,6 +76,15 @@
 	end_sound = 'sound/machines/microwave/microwave-end.ogg'
 	volume = 90
 
+/datum/looping_sound/lathe_print
+	mid_sounds = list('sound/machines/lathe/lathe_print.ogg')
+	mid_length = 2 SECONDS
+	volume = 50
+	vary = TRUE
+	ignore_walls = FALSE
+	falloff_distance = 1
+	mid_length_vary = 1 SECONDS
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/looping_sound/washing_machine
@@ -94,6 +103,40 @@
 	falloff_exponent = 5
 	falloff_distance = 3
 	volume = 150
+
+/datum/looping_sound/server
+	mid_sounds = list(
+		'sound/machines/tcomms/tcomms_mid1.ogg',
+		'sound/machines/tcomms/tcomms_mid2.ogg',
+		'sound/machines/tcomms/tcomms_mid3.ogg',
+		'sound/machines/tcomms/tcomms_mid4.ogg',
+		'sound/machines/tcomms/tcomms_mid5.ogg',
+		'sound/machines/tcomms/tcomms_mid6.ogg',
+		'sound/machines/tcomms/tcomms_mid7.ogg',
+	)
+	mid_length = 1.8 SECONDS
+	extra_range = -8
+	falloff_distance = 3
+	falloff_exponent = 5
+	volume = 35
+	ignore_walls = FALSE
+	pressure_affected = FALSE
+
+/datum/looping_sound/computer
+	start_sound = 'sound/machines/computer/computer_start.ogg'
+	start_length = 7.2 SECONDS
+	start_volume = 10
+	mid_sounds = list(
+		'sound/machines/computer/computer_mid1.ogg',
+		'sound/machines/computer/computer_mid2.ogg',
+	)
+	mid_length = 1.8 SECONDS
+	end_sound = 'sound/machines/computer/computer_end.ogg'
+	end_volume = 1 SECONDS
+	volume = SOUND_AUDIBLE_VOLUME_MIN
+	falloff_exponent = 5 //Ultra quiet very fast
+	extra_range = -12
+	falloff_distance = 1 //Instant falloff after initial tile
 
 /datum/looping_sound/gas_rig
 	mid_sounds = list(

@@ -8,6 +8,7 @@
 
 // BEGIN_INCLUDE
 
+#include "aas_configs.dm"
 #include "achievement_validation.dm"
 #include "anchored_mobs.dm"
 #include "antag_datums.dm"

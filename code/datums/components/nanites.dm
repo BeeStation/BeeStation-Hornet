@@ -109,7 +109,8 @@
 
 /datum/component/nanites/process(delta_time)
 	if(!IS_IN_STASIS(host_mob))
-		adjust_nanites(amount = (regen_rate + (SSresearch.science_tech.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0)) * delta_time)
+		var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
+		adjust_nanites(amount = (regen_rate + (science_web.researched_nodes[TECHWEB_NODE_NANITE_HARMONIC] ? HARMONIC_REGEN_BOOST : 0)) * delta_time)
 		add_research()
 		for(var/datum/nanite_program/program as anything in programs)
 			program.on_process()
@@ -216,7 +217,7 @@
 			if(iscarbon(host_mob))
 				var/mob/living/carbon/C = host_mob
 				host_mob.visible_message(span_warning("[host_mob] vomits a grainy grey slurry!"), span_warning("You suddenly vomit a metallic-tasting grainy grey slurry!"));
-				C.vomit(0, FALSE, TRUE, FLOOR(excess / 100, 1), FALSE, VOMIT_NANITE, FALSE)
+				C.vomit(0, FALSE, TRUE, floor(excess / 100), FALSE, VOMIT_NANITE, FALSE)
 			else
 				host_mob.visible_message(span_warning("A metallic grey slurry bursts out of [host_mob]'s skin!"), span_userdanger("A metallic grey slurry violently bursts out of your skin!"));
 				if(isturf(host_mob.drop_location()))
@@ -391,7 +392,9 @@
 		research_value *= 0.5
 	if(host_mob.stat == DEAD)
 		research_value *= 0.75
-	SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_NANITES = research_value))
+
+	var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
+	science_web.add_point_list(list(TECHWEB_POINT_TYPE_NANITES = research_value))
 
 /datum/component/nanites/proc/nanite_scan(datum/source, mob/user, full_scan)
 	SIGNAL_HANDLER
@@ -428,7 +431,8 @@
 
 	data["has_nanites"] = TRUE
 	data["nanite_volume"] = nanite_volume
-	data["regen_rate"] = regen_rate + (SSresearch.science_tech.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0)
+	var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
+	data["regen_rate"] = regen_rate + (science_web.researched_nodes[TECHWEB_NODE_NANITE_HARMONIC] ? HARMONIC_REGEN_BOOST : 0)
 	data["safety_threshold"] = safety_threshold
 	data["cloud_id"] = cloud_id
 	data["cloud_active"] = cloud_active

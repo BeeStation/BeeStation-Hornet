@@ -294,7 +294,7 @@
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
 /atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, audible_message_flags = NONE, separation = " ")
-	var/list/hearers = mob_only_listeners(get_hearers_in_view(hearing_distance, src, SEE_INVISIBLE_MAXIMUM))
+	var/list/hearers = mob_only_listeners(get_hearers_in_view(hearing_distance, src))
 	var/raw_msg = message
 	var/is_emote = FALSE
 	if(audible_message_flags & WITH_EMPHASIS_MESSAGE)

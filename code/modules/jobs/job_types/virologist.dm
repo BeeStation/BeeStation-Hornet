@@ -57,6 +57,6 @@
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel/vir
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
-	messenger = /obj/item/storage/backpack/messenger/med
+	messenger = /obj/item/storage/backpack/messenger/vir
 
 	pda_slot = ITEM_SLOT_RPOCKET

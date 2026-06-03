@@ -321,8 +321,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 	// hack to display shuttle timer
 	if(!EMERGENCY_IDLE_OR_RECALLED)
-		var/obj/machinery/computer/communications/C = locate() in GLOB.machines
-		if(C)
+		for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 			C.post_status("shuttle")
 
 /mob/living/silicon/ai/can_interact_with(atom/A)
@@ -383,9 +382,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	var/obj/structure/ai_core/latejoin_inactive/inactivecore = new(loc)
 	transfer_fingerprints_to(inactivecore)
 
-	if(GLOB.announcement_systems.len)
-		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-		announcer.announce("AIWIPE", real_name, mind.assigned_role, list())
+	aas_config_announce(/datum/aas_config_entry/intelligence_storage, list("SILICON" = real_name))
 
 	SSjob.FreeRole(mind.assigned_role)
 
@@ -478,7 +475,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			src << browse(last_tablet_note_seen, "window=show_tablet")
 	//Carn: holopad requests
 	if(href_list["jumptoholopad"])
-		var/obj/machinery/holopad/H = locate(href_list["jumptoholopad"]) in GLOB.machines
+		var/obj/machinery/holopad/H = locate(href_list["jumptoholopad"]) in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/holopad)
 		if(H)
 			H.attack_ai(src) //may as well recycle
 		else

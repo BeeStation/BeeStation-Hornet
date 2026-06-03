@@ -243,14 +243,8 @@
 
 /mob/living/carbon/human/proc/get_bank_account()
 	RETURN_TYPE(/datum/bank_account)
-	var/datum/bank_account/account
 	var/obj/item/card/id/I = get_idcard()
-
-	if(I?.registered_account)
-		account = I.registered_account
-		return account
-
-	return FALSE
+	return I?.registered_account
 
 /mob/living/carbon/human/proc/get_job_id() //Used in secHUD icon generation (the new one)
 	var/obj/item/card/id/I = wear_id.GetID()

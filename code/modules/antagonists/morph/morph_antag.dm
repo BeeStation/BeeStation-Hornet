@@ -33,7 +33,7 @@
 	if(owner.antag_hud_icon_state == "morph")
 		set_antag_hud(owner.current, null)
 
-/datum/antagonist/morph/proc/forge_objectives()
+/datum/antagonist/morph/forge_objectives()
 	var/datum/objective/eat_everything/consume = new
 	consume.owner = owner
 	objectives += consume

@@ -116,8 +116,7 @@
 	else
 		var/turf/T = get_turf(src)
 		new /obj/item/food/badrecipe(T)
-		if(resistance_flags & ON_FIRE)
-			SSfire_burning.processing -= src
+		..()
 		qdel(src)
 
 /obj/item/food/attackby(obj/item/attacking_item, mob/user, params)

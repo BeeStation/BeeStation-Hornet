@@ -59,7 +59,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	if(!storageTurf) //Blame subsystems for not allowing this to be in Initialize
 		if(!GLOB.hhStorageTurf)
 			var/datum/map_template/hilbertshotelstorage/storageTemp = new()
-			var/datum/turf_reservation/storageReservation = SSmapping.RequestBlockReservation(3, 3)
+			var/datum/turf_reservation/storageReservation = SSmapping.request_turf_block_reservation(3, 3)
 			storageTemp.load(locate(storageReservation.bottom_left_coords[1], storageReservation.bottom_left_coords[2], storageReservation.bottom_left_coords[3]))
 			GLOB.hhStorageTurf = locate(storageReservation.bottom_left_coords[1]+1, storageReservation.bottom_left_coords[2]+1, storageReservation.bottom_left_coords[3])
 		else
@@ -82,7 +82,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 /obj/item/hilbertshotel/proc/tryStoredRoom(roomNumber, mob/user)
 	if(storedRooms["[roomNumber]"])
-		var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
+		var/datum/turf_reservation/roomReservation = SSmapping.request_turf_block_reservation(hotelRoomTemp.width, hotelRoomTemp.height)
 		hotelRoomTempEmpty.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
 		var/turfNumber = 1
 		for(var/x in 0 to hotelRoomTemp.width-1)
@@ -104,7 +104,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 		return FALSE
 
 /obj/item/hilbertshotel/proc/sendToNewRoom(roomNumber, mob/user)
-	var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
+	var/datum/turf_reservation/roomReservation = SSmapping.request_turf_block_reservation(hotelRoomTemp.width, hotelRoomTemp.height)
 	var/datum/async_map_generator/placer
 	if(ruinSpawned)
 		mysteryRoom = GLOB.hhmysteryRoomNumber
@@ -338,6 +338,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 /area/misc/hilbertshotel
 	name = "Hilbert's Hotel Room"
+	icon = 'icons/area/areas_ruins.dmi'
 	icon_state = "hilbertshotel"
 	requires_power = FALSE
 	default_gravity = STANDARD_GRAVITY

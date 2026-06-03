@@ -2,7 +2,7 @@
 
 #define in_range(source, user) (get_dist(source, user) <= 1 && (get_step(source, 0)?:z) == (get_step(user, 0)?:z))
 
-/// Within given range, but not counting z-levels
+/// Within given range and on the same z level (get dist is WEIRD bro)
 #define IN_GIVEN_RANGE(source, other, given_range) (get_dist(source, other) <= given_range && (get_step(source, 0)?:z) == (get_step(other, 0)?:z))
 
 #define isatom(A) (isloc(A))
@@ -15,6 +15,12 @@
 
 GLOBAL_VAR_INIT(magic_appearance_detecting_image, new /image) // appearances are awful to detect safely, but this seems to be the best way ~ninjanomnom
 #define isappearance(thing) (!isimage(thing) && !ispath(thing) && istype(GLOB.magic_appearance_detecting_image, thing))
+
+/// If an icon is a file (something.dmi)
+#define is_icondmi(thing) (isicon(thing) && isfile(thing))
+/// If an icon is an instance (/icon[0xINSTANCE])
+#define is_icondatum(thing) (istype(thing, /icon))
+// Note: isicon('something.dmi') returns TRUE. isicon(/icon[0xINSTANCE]) returns TRUE. This is why these helpers exist.
 
 // The filters list has the same ref type id as a filter, but isnt one and also isnt a list, so we have to check if the thing has Cut() instead
 GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))

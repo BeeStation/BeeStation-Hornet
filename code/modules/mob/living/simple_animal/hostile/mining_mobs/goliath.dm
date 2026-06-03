@@ -37,7 +37,7 @@
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 
 	footstep_type = FOOTSTEP_MOB_HEAVY
-	discovery_points = 2000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()

@@ -148,17 +148,10 @@
 		name = "Mothership [pick_n_take(left_team_names)]"
 	else
 		name = "No.[team_number] Mothership [pick(GLOB.greek_letters)]"
-	add_objective(new /datum/objective/experiment)
+	add_objective(new /datum/objective/experiment())
 
 /datum/team/abductor_team/is_solo()
 	return FALSE
-
-/datum/team/abductor_team/proc/add_objective(datum/objective/O)
-	O.team = src
-	O.update_explanation_text()
-	objectives += O
-	for(var/datum/mind/abductor_mind in members)
-		log_objective(abductor_mind, O.explanation_text)
 
 /datum/team/abductor_team/roundend_report()
 	var/list/result = list()
@@ -242,7 +235,7 @@
 	explanation_text = "Experiment on [target_amount] humans."
 
 /datum/objective/experiment/check_completion()
-	for(var/obj/machinery/abductor/experiment/E in GLOB.machines)
+	for(var/obj/machinery/abductor/experiment/E as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/abductor/experiment))
 		if(!istype(team, /datum/team/abductor_team))
 			return ..()
 		var/datum/team/abductor_team/T = team

@@ -154,7 +154,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		if(connected_cable.omni)
 			var/has_other_cable = FALSE
 			var/reverse_dir = REVERSE_DIR(inbetween_dir)
-			for(var/obj/structure/cable/other_cable in connected_cable.connected)
+			for(var/obj/structure/cable/other_cable as anything in connected_cable.connected)
 				if(other_cable.linked_dirs & reverse_dir)
 					has_other_cable = TRUE
 					break
@@ -167,6 +167,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 		connected_cable.update_power_node()
 		connected_cable.update_appearance(UPDATE_ICON)
+	connected.Cut()
 
 	update_power_node()
 
@@ -489,7 +490,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	if (link_powernets)
 		// Don't linkup if they have no powernet, for example in the case of
 		// shuttle moving where we get a null powernet until we land
-		for (var/obj/structure/cable/connected_cable in connected)
+		for (var/obj/structure/cable/connected_cable as anything in connected)
 			if (connected_cable.powernet)
 				if (powernet)
 					merge_powernets(powernet, connected_cable.powernet)

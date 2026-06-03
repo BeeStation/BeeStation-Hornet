@@ -338,6 +338,8 @@
 #define JOB_CANNOT_OPEN_SLOTS (1<<6)
 /// This job is a head of staff.
 #define JOB_HEAD_OF_STAFF (1<<7)
+/// This job gets a paycheck when they spawn in
+#define JOB_GETS_STARTING_PAYCHECK (1<<8)
 
 DEFINE_BITFIELD(job_flags, list(
 	"JOB_ANNOUNCE_ARRIVAL" = JOB_ANNOUNCE_ARRIVAL,
@@ -351,7 +353,7 @@ DEFINE_BITFIELD(job_flags, list(
 ))
 
 /// Combination flag for jobs which are considered regular crew members of the station.
-#define STATION_JOB_FLAGS (JOB_ANNOUNCE_ARRIVAL|JOB_CREW_MANIFEST|JOB_EQUIP_RANK|JOB_CREW_MEMBER|JOB_NEW_PLAYER_JOINABLE|JOB_ASSIGN_QUIRKS)
+#define STATION_JOB_FLAGS (JOB_ANNOUNCE_ARRIVAL|JOB_CREW_MANIFEST|JOB_EQUIP_RANK|JOB_CREW_MEMBER|JOB_NEW_PLAYER_JOINABLE|JOB_ASSIGN_QUIRKS|JOB_GETS_STARTING_PAYCHECK)
 /// Combination flag for jobs which are considered heads of staff.
 #define HEAD_OF_STAFF_JOB_FLAGS (JOB_CANNOT_OPEN_SLOTS|JOB_HEAD_OF_STAFF)
 

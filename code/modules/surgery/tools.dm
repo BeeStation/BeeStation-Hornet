@@ -322,9 +322,11 @@
 	w_class = WEIGHT_CLASS_TINY
 	attack_verb_continuous = list("slaps")
 	attack_verb_simple = list("slap")
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_IGNORE_MOBILITY
 
-/obj/item/surgical_drapes/attack(mob/living/M, mob/user)
-	attempt_initiate_surgery(src, M, user)
+/obj/item/surgical_drapes/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/surgery_initiator)
 
 /obj/item/organ_storage //allows medical cyborgs to manipulate organs without hands
 	name = "organ storage bag"

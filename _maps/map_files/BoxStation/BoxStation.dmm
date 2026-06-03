@@ -1501,13 +1501,6 @@
 	},
 /turf/open/floor/iron/goonplaque,
 /area/station/security/brig)
-"aLI" = (
-/obj/machinery/doppler_array/research/science{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/station/science/mixing)
 "aLM" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -2152,6 +2145,21 @@
 "baW" = (
 /turf/closed/wall,
 /area/station/service/chapel/office)
+"baZ" = (
+/obj/effect/turf_decal/tile/yellow/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/light_switch{
+	pixel_x = -23
+	},
+/obj/machinery/incident_display/delam/directional/north,
+/obj/machinery/modular_computer/console/preset/engineering{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/corner{
+	dir = 1
+	},
+/area/station/engineering/break_room)
 "bbe" = (
 /obj/machinery/button/door{
 	id = "barcounter";
@@ -4595,7 +4603,6 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "cjm" = (
@@ -5061,10 +5068,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible/layer4,
 /turf/open/space,
 /area/misc/space/nearstation)
-"cwb" = (
-/obj/machinery/computer/rdconsole/robotics,
-/turf/open/floor/iron/white,
-/area/station/science/robotics/lab)
 "cwl" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -6244,7 +6247,7 @@
 /area/station/commons/lounge)
 "cZC" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /turf/open/floor/catwalk_floor,
@@ -7285,7 +7288,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/machinery/door/airlock/arrivals_external{
+/obj/machinery/door/airlock/external/arrivals{
 	name = "Arrivals Airlock"
 	},
 /turf/open/floor/catwalk_floor,
@@ -14354,21 +14357,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/station/engineering/gravity_generator)
-"gil" = (
-/obj/machinery/computer/rdconsole/production{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners{
-	dir = 1
-	},
-/obj/machinery/light_switch{
-	pixel_x = -23
-	},
-/obj/machinery/incident_display/delam/directional/north,
-/turf/open/floor/iron/dark/corner{
-	dir = 1
-	},
-/area/station/engineering/break_room)
 "gip" = (
 /obj/effect/spawner/structure/window,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -22821,11 +22809,6 @@
 /obj/structure/closet/bombcloset,
 /turf/open/floor/iron/white,
 /area/station/science/mixing)
-"jHn" = (
-/obj/effect/turf_decal/siding/wideplating_new,
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/station/security/prison)
 "jHB" = (
 /obj/structure/table,
 /obj/machinery/button/ignition{
@@ -23104,6 +23087,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/ai_monitored/security/armory)
+"jNQ" = (
+/obj/machinery/computer/rdconsole/unlocked,
+/turf/open/floor/iron/white,
+/area/station/science/robotics/lab)
 "jOb" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
@@ -23164,17 +23151,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/cargo/storage)
-"jPC" = (
-/obj/machinery/computer/rdconsole{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/station/cargo/exploration_prep)
 "jPO" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/stripes/line{
@@ -27536,23 +27512,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/central)
-"lAa" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Medbay Storage"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/obj/structure/cable/yellow,
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/station/medical/break_room)
 "lAf" = (
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -29271,7 +29230,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
-/obj/effect/landmark/prisonspawn,
 /turf/open/floor/wood,
 /area/station/security/prison)
 "mhL" = (
@@ -30153,7 +30111,6 @@
 /obj/effect/turf_decal/siding/wideplating_new/corner{
 	dir = 8
 	},
-/obj/effect/landmark/prisonspawn,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/prison,
 /area/station/security/prison)
@@ -30362,6 +30319,13 @@
 /obj/effect/spawner/random/vending/snackvend,
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
+"mEN" = (
+/obj/machinery/doppler_array/research{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/station/science/mixing)
 "mEO" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/incinerator_input{
 	dir = 1
@@ -33729,6 +33693,17 @@
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/port/fore)
+"nYV" = (
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/station/cargo/exploration_prep)
 "nYY" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -37743,10 +37718,12 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Medical Outpost"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/security/detective,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/airlock/access/any/security/general,
+/obj/effect/mapping_helpers/airlock/access/any/security/detective,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig_physician,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "pKd" = (
@@ -44120,6 +44097,23 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/station/maintenance/port)
+"spl" = (
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
+/obj/structure/cable/yellow,
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/door/airlock/medical/glass{
+	name = "Break Room"
+	},
+/turf/open/floor/wood,
+/area/station/medical/break_room)
 "spr" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -44452,12 +44446,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/patients_rooms)
-"swR" = (
-/obj/effect/turf_decal/siding/wideplating_new,
-/obj/effect/landmark/prisonspawn,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/prison,
-/area/station/security/prison)
 "swS" = (
 /obj/machinery/light{
 	dir = 8
@@ -44586,6 +44574,12 @@
 	},
 /turf/open/floor/carpet/black,
 /area/station/service/bar/atrium)
+"szW" = (
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/station/science/lab)
 "szX" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -51954,12 +51948,6 @@
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
-"vwz" = (
-/obj/machinery/computer/rdconsole/core{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/station/science/lab)
 "vwP" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -83163,7 +83151,7 @@ bjK
 bjK
 bjK
 sbU
-swR
+qIf
 qGn
 oCW
 gXh
@@ -83420,7 +83408,7 @@ bjK
 bjK
 bjK
 ciK
-jHn
+rsS
 mhC
 kMc
 kMc
@@ -88642,7 +88630,7 @@ vec
 ohf
 gpS
 haJ
-gil
+baZ
 ral
 cln
 vcv
@@ -97882,7 +97870,7 @@ jBU
 oCR
 oCR
 iPN
-lAa
+spl
 iPN
 iPN
 iPN
@@ -103256,7 +103244,7 @@ rSY
 gQj
 rSY
 pbl
-cwb
+jNQ
 tDU
 bvk
 tbk
@@ -105830,7 +105818,7 @@ fvF
 cNz
 eWt
 ozk
-vwz
+szW
 jzQ
 uIj
 dDM
@@ -108149,7 +108137,7 @@ idQ
 xia
 akt
 ydO
-jPC
+nYV
 xia
 iEz
 eBp
@@ -110213,7 +110201,7 @@ dmf
 aeV
 otw
 uyQ
-aLI
+mEN
 wwR
 crQ
 npB

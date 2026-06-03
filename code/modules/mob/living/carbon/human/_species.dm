@@ -19,8 +19,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///Whether or not the race has sexual characteristics (biological genders). At the moment this is only FALSE for skeletons and shadows
 	var/sexes = TRUE
 
-	var/list/offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
-
 	//The maximum number of bodyparts this species can have.
 	var/max_bodypart_count = 6
 
@@ -722,9 +720,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					hair_overlay.color = forced_colour
 
 				hair_overlay.alpha = hair_alpha
-				if(OFFSET_FACE in H.dna.species.offset_features)
-					hair_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
-					hair_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
+				HD.worn_mask_offset?.apply_offset(hair_overlay)
 
 		if(hair_overlay.icon)
 			standing += emissive_blocker(hair_overlay.icon, hair_overlay.icon_state, hair_overlay.layer, hair_overlay.alpha)
@@ -754,9 +750,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(species_human.lip_style && (LIPS in species_traits))
 			var/mutable_appearance/lip_overlay = mutable_appearance('icons/mob/human/human_face.dmi', "lips_[species_human.lip_style]", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 			lip_overlay.color = species_human.lip_color
-			if(OFFSET_FACE in species_human.dna.species.offset_features)
-				lip_overlay.pixel_x += species_human.dna.species.offset_features[OFFSET_FACE][1]
-				lip_overlay.pixel_y += species_human.dna.species.offset_features[OFFSET_FACE][2]
+			noggin.worn_face_offset?.apply_offset(lip_overlay)
 			standing += lip_overlay
 
 		// eyes
@@ -765,21 +759,20 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/mutable_appearance/no_eyeslay
 			var/add_pixel_x = 0
 			var/add_pixel_y = 0
-			if(OFFSET_FACE in species_human.dna.species.offset_features)
-				add_pixel_x = species_human.dna.species.offset_features[OFFSET_FACE][1]
-				add_pixel_y = species_human.dna.species.offset_features[OFFSET_FACE][2]
+			var/list/feature_offset = noggin.worn_face_offset?.get_offset()
+			if(feature_offset)
+				add_pixel_x = feature_offset["x"]
+				add_pixel_y = feature_offset["y"]
 
-			if(!eye_organ)
+			if(eye_organ)
+				eye_organ.refresh(call_update = FALSE)
+				for(var/eye_overlay in eye_organ.generate_body_overlay(species_human))
+					standing += eye_overlay
+			else if (!(NOEYEHOLES in species_traits))
 				no_eyeslay = mutable_appearance('icons/mob/human/human_eyes.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 				no_eyeslay.pixel_x += add_pixel_x
 				no_eyeslay.pixel_y += add_pixel_y
 				standing += no_eyeslay
-			else
-				eye_organ.refresh(call_update = FALSE)
-
-			if(!no_eyeslay)
-				for(var/eye_overlay in eye_organ.generate_body_overlay(species_human))
-					standing += eye_overlay
 
 	//organic body markings
 	if(HAS_MARKINGS in species_traits)

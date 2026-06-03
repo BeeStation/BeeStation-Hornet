@@ -118,7 +118,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 				A.delay_roundend = FALSE
 				A.prevent_roundtype_conversion = FALSE
 			for(var/objective in objectives)
-				var/datum/objective/O = new/datum/objective(objective)
+				var/datum/objective/O = new(objective)
 				O.owner = MM
 				A.objectives += O
 				log_objective(O.owner, O.explanation_text)

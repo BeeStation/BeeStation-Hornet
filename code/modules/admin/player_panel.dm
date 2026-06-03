@@ -114,7 +114,7 @@
 				data_entry["external_display_name"] = player.client.external_display_name
 				data_entry["formatted_external_display_name"] = player.client.external_method.format_display_name(player.client.external_display_name)
 			if(CONFIG_GET(flag/use_exp_tracking) && player.client.prefs)
-				data_entry["living_playtime"] = FLOOR(player.client.prefs.exp[EXP_TYPE_LIVING] / 60, 1)
+				data_entry["living_playtime"] = floor(player.client.prefs.exp[EXP_TYPE_LIVING] / 60)
 			data_entry["telemetry"] = player.client.tgui_panel?.get_alert_level()
 			data_entry["connected"] = TRUE
 			if(ckey == selected_ckey)

@@ -9,7 +9,7 @@
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50 WATT
-	active_power_usage = 300 WATT	// Code does not care for this at all yet
+	active_power_usage = 300 WATT
 	max_integrity = 200
 	integrity_failure = 0.5
 	armor_type = /datum/armor/machinery_computer
@@ -111,8 +111,6 @@
 		set_light(TRUE)
 
 /obj/machinery/computer/screwdriver_act(mob/living/user, obj/item/I)
-	if(..())
-		return TRUE
 	if(circuit && !(flags_1&NODECONSTRUCT_1))
 		to_chat(user, span_notice("You start to disconnect the monitor..."))
 		if(I.use_tool(src, user, time_to_screwdrive, volume=50))
@@ -179,5 +177,21 @@
 /obj/machinery/computer/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
 	context.use_cache()
 	context.add_attack_hand_action("Interact")
-	if(circuit && !(flags_1&NODECONSTRUCT_1))
+	if(circuit && !(flags_1 & NODECONSTRUCT_1))
 		context.add_left_click_tool_action("Deconstruct", TOOL_SCREWDRIVER)
+
+/obj/machinery/computer/ui_interact(mob/user, datum/tgui/ui)
+	SHOULD_CALL_PARENT(TRUE)
+	. = ..()
+	update_use_power(ACTIVE_POWER_USE)
+
+/obj/machinery/computer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	SHOULD_CALL_PARENT(TRUE)
+	. = ..()
+	if(!issilicon(ui.user))
+		playsound(src, "keyboard_clicks", 10, TRUE, FALSE)
+
+/obj/machinery/computer/ui_close(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
+	. = ..()
+	update_use_power(IDLE_POWER_USE)

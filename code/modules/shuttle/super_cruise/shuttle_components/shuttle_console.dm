@@ -89,6 +89,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 	return GLOB.default_state
 
 /obj/machinery/computer/shuttle_flight/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	if(!allowed(user) && !isobserver(user))
 		say("Insufficient access rights.")
 		return
@@ -104,6 +105,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 	ui.set_autoupdate(FALSE)
 
 /obj/machinery/computer/shuttle_flight/ui_close(mob/user, datum/tgui/tgui)
+	. = ..()
 	SSorbits.open_orbital_maps -= tgui
 
 /obj/machinery/computer/shuttle_flight/ui_static_data(mob/user)
@@ -191,7 +193,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 				"name" = "Random Drop",
 				"id" = "custom_location"
 			))
-		for(var/obj/docking_port/stationary/stationary_port as() in SSshuttle.stationary)
+		for(var/obj/docking_port/stationary/stationary_port as() in SSshuttle.stationary_docking_ports)
 			if(LAZYLEN(shuttleObject.docking_target.linked_z_level))
 				for(var/datum/space_level/level in shuttleObject.docking_target.linked_z_level)
 					if(stationary_port.z == level.z_value && (stationary_port.id in valid_docks))

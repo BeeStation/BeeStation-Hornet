@@ -91,7 +91,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 ///This proc is called when the material is added to an object specifically.
 /datum/material/proc/on_applied_obj(obj/o, amount, material_flags)
 	if(material_flags & MATERIAL_AFFECT_STATISTICS)
-		var/new_max_integrity = CEILING(o.max_integrity * integrity_modifier, 1)
+		var/new_max_integrity = ceil(o.max_integrity * integrity_modifier)
 		o.modify_max_integrity(new_max_integrity)
 		o.force *= strength_modifier
 		o.throwforce *= strength_modifier

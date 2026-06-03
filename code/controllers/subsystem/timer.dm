@@ -585,7 +585,7 @@ SUBSYSTEM_DEF(timer)
 		CRASH("addtimer called with a callback assigned to a qdeleted object. It was called with a [callback] callback [callback.object]. Calling file [file] at [line]!")
 
 	if (flags & TIMER_CLIENT_TIME) // REALTIMEOFDAY has a resolution of 1 decisecond
-		wait = max(CEILING(wait, 1), 1) // so if we use tick_lag timers may be inserted in the "past"
+		wait = max(ceil(wait), 1) // so if we use tick_lag timers may be inserted in the "past"
 	else
 		wait = max(CEILING(wait, world.tick_lag), world.tick_lag)
 
@@ -663,6 +663,32 @@ SUBSYSTEM_DEF(timer)
 	if(!timer || timer.spent)
 		return null
 	return timer.timeToRun - (timer.flags & TIMER_CLIENT_TIME ? REALTIMEOFDAY : world.time)
+
+/**
+ * Update the delay on an existing LOOPING timer
+ * Will come into effect on the next process
+ *
+ * Arguments:
+ * * id a timerid or a /datum/timedevent
+ * * new_wait the new wait to give this looping timer
+ */
+/proc/updatetimedelay(id, new_wait, datum/controller/subsystem/timer/timer_subsystem)
+	if (!id)
+		return
+	if (id == TIMER_ID_NULL)
+		CRASH("Tried to update the wait of null timerid. Use TIMER_STOPPABLE flag")
+	if (istype(id, /datum/timedevent))
+		var/datum/timedevent/timer = id
+		timer.wait = new_wait
+		return
+	timer_subsystem = timer_subsystem || SStimer
+	//id is string
+	var/datum/timedevent/timer = timer_subsystem.timer_id_dict[id]
+	if(!timer || timer.spent)
+		return
+	if(!(timer.flags & TIMER_LOOP))
+		CRASH("Tried to update the wait of a non looping timer. This is not supported")
+	timer.wait = new_wait
 
 #undef BUCKET_LEN
 #undef BUCKET_POS
