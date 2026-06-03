@@ -12,7 +12,7 @@
 	var/linked = FALSE
 	var/ready = FALSE
 	var/launched = FALSE
-	max_integrity = 600 // Will survive  about 10 drop-pods before having to be printed again
+	max_integrity = 400 // Will survive  about 6 drop-pods before having to be printed again
 
 /obj/item/supplypod_beacon/proc/update_status(consoleStatus)
 	switch(consoleStatus)
