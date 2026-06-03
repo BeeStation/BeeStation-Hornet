@@ -231,6 +231,16 @@
 					value = list_value[key]
 				variable_html += debug_variable(i, value, 0, (should_delegate_list ? vv_spectre : thing), display_flags = list_flags)
 
+	var/vv_summary
+	if(hascall(thing, "get_vv_summary"))
+		vv_summary = thing.get_vv_summary()
+	if(vv_summary)
+		vv_summary = {"
+	<hr>
+	<div>
+		<b>Summary:</b>
+		[vv_summary]
+	</div>"}
 	// ------------------------------------------------------
 	// Builds text: 'href string' based on the existence of 'vv_spectre' (which remembers actual refID of a special list)
 	var/href_reference_string = \
@@ -389,6 +399,7 @@
 				</tr>
 			</table>
 		</div>
+		[vv_summary]
 		<hr>
 		<font size='1'>
 			<b>E</b> - Edit, tries to determine the variable type by itself.<br>
