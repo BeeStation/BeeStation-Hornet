@@ -57,10 +57,10 @@
 	return ..()
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load)
-	if(human_who_gained_species.dna?.features["moth_eyes"] == "Default")
-		mutanteyes = /obj/item/organ/eyes/moth
-	else
+	if(human_who_gained_species.dna?.features["moth_eyes"] == "Domestic")
 		mutanteyes = /obj/item/organ/eyes/moth/domestic
+	else
+		mutanteyes = /obj/item/organ/eyes/moth
 	if(!pref_load)
 		human_who_gained_species.dna?.features["mcolor"] = "#f4d697"
 	. = ..()

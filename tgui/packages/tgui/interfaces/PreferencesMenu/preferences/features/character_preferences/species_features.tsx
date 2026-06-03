@@ -1,9 +1,7 @@
 import {
-  CheckboxInput,
   Feature,
   FeatureChoiced,
   FeatureColorInput,
-  FeatureToggle,
   FeatureValueProps,
 } from '../base';
 import {
@@ -229,9 +227,4 @@ export const feature_insect_type: FeatureChoiced = {
 export const feature_moth_eyes: FeatureChoiced = {
   name: 'Eye Type',
   component: FeatureButtonedDropdownInput,
-};
-
-export const feature_moth_burnt_wings: FeatureToggle = {
-  name: 'Burnt Wings',
-  component: CheckboxInput,
 };
