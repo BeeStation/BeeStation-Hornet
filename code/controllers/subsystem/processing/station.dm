@@ -8,10 +8,10 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	var/list/station_traits = list()
 	/// Assoc list of trait type || assoc list of traits with weighted value. Used for picking traits from a specific category.
 	var/list/selectable_traits_by_types = list(
-		STATION_TRAIT_POSITIVE = list(),
-		STATION_TRAIT_NEUTRAL = list(),
-		STATION_TRAIT_NEGATIVE = list(),
-		STATION_TRAIT_EXCLUSIVE = list(),
+		/*STATION_TRAIT_POSITIVE = */list(),
+		/*STATION_TRAIT_NEUTRAL = */list(),
+		/*STATION_TRAIT_NEGATIVE = */list(),
+		/*STATION_TRAIT_EXCLUSIVE = */list(),
 	)
 	/// Currently active announcer. Starts as a type but gets initialized after traits are selected
 	var/datum/centcom_announcer/announcer = /datum/centcom_announcer/default
