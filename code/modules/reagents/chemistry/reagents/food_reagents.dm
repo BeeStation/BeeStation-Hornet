@@ -83,9 +83,8 @@
 
 	data = counterlist_normalise(supplied_data)
 
-/datum/reagent/consumable/nutriment/on_merge(list/newdata, newvolume)
-	. = ..()
-	if(!islist(newdata) || !length(newdata))
+/datum/reagent/consumable/nutriment/on_merge(list/mix_data, new_total)
+	if(!islist(data) || !length(mix_data))
 		return
 
 	// data for nutriment is one or more (flavour -> ratio)
@@ -97,8 +96,8 @@
 
 	counterlist_scale(taste_amounts, volume)
 
-	var/list/other_taste_amounts = newdata.Copy()
-	counterlist_scale(other_taste_amounts, newvolume)
+	var/list/other_taste_amounts = mix_data.Copy()
+	counterlist_scale(other_taste_amounts, new_total)
 
 	counterlist_combine(taste_amounts, other_taste_amounts)
 

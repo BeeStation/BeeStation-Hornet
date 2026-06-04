@@ -56,8 +56,10 @@
 /// Trait from being under the floor in some manner
 #define TRAIT_UNDERFLOOR "underfloor"
 #define ACTION_TRAIT "action_trait"
-#define TRAIT_LEANING "leaning"
+#define LEANING_TRAIT "leaning"
 #define TRAIT_REGEN_COMA "regencoma"
+/// From nanites
+#define NANITES_TRAIT "nanites"
 
 /// Trait given to you by shapeshifting
 #define SHAPESHIFT_TRAIT "shapeshift_trait"
@@ -138,6 +140,10 @@
 #define BRAIN_UNAIDED "brain-unaided"
 /// Trait applied by MODsuits.
 #define MOD_TRAIT "mod"
+/// Trait from mob/living/update_transform()
+#define UPDATE_TRANSFORM_TRAIT "update_transform"
+/// Trait from mob/living/update_offsets()
+#define UPDATE_OFFSET_TRAIT "update_offset"
 #define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
 #define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
 #define TABLE_TRAIT "table_trait"
@@ -167,6 +173,8 @@
 
 /// A trait gained from a mob's leap action, like the leaper
 #define LEAPING_TRAIT "leaping"
+/// From grabbing someone
+#define GRABBING_TRAIT "grabbing"
 /// Sources for TRAIT_IGNORING_GRAVITY
 #define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 #define FROM_SHADOW_SECT "shadow_sect"
@@ -205,3 +213,5 @@
 #define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"
 /// Source for chameleon ietms
 #define FROM_CHAMELEON "from_chameleon"
+/// Source for innate toggleable silicon HUDs
+#define SILICON_HUD_TRAIT "silicon_hud"

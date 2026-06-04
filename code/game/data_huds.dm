@@ -8,12 +8,12 @@
 /* DATA HUD DATUMS */
 
 /atom/proc/add_to_all_human_data_huds()
-	for(var/datum/atom_hud/data/human/hud in GLOB.huds)
-		hud.add_to_hud(src)
+	for(var/hud_key, hud_type in GLOB.huds)
+		astype(hud_type, /datum/atom_hud/data/human)?.add_atom_to_hud(src)
 
 /atom/proc/remove_from_all_data_huds()
-	for(var/datum/atom_hud/data/hud in GLOB.huds)
-		hud.remove_from_hud(src)
+	for(var/hud_key, hud_type in GLOB.huds)
+		astype(hud_type, /datum/atom_hud/data)?.remove_atom_from_hud(src)
 
 /datum/atom_hud/data
 
@@ -22,22 +22,9 @@
 
 /datum/atom_hud/data/human/medical/basic
 
-/datum/atom_hud/data/human/medical/basic/proc/check_sensors(mob/living/carbon/human/H)
-	if(!istype(H) && !ismonkey(H))
-		return 0
-	var/obj/item/clothing/under/U = H.w_uniform
-	if(!istype(U))
-		return 0
-	if(U.sensor_mode <= SENSOR_VITALS)
-		return 0
-	return 1
-
-/datum/atom_hud/data/human/medical/basic/add_to_single_hud(mob/M, mob/living/carbon/H)
-	if(check_sensors(H))
-		..()
-
-/datum/atom_hud/data/human/medical/basic/proc/update_suit_sensors(mob/living/carbon/H)
-	check_sensors(H) ? add_to_hud(H) : remove_from_hud(H)
+/datum/atom_hud/data/human/medical/basic/add_atom_to_single_mob_hud(mob/requesting_mob, atom/hud_atom)
+	if(HAS_TRAIT(hud_atom, TRAIT_BASIC_HEALTH_HUD_VISIBLE))
+		return ..()
 
 /datum/atom_hud/data/human/medical/advanced
 
@@ -51,30 +38,34 @@
 
 /datum/atom_hud/data/diagnostic
 
-/datum/atom_hud/data/diagnostic/basic
-	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_CIRCUIT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD, DIAG_NANITE_FULL_HUD, DIAG_LAUNCHPAD_HUD, DIAG_WAKE_HUD)
-
-/datum/atom_hud/data/diagnostic/advanced
-	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_CIRCUIT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD, DIAG_NANITE_FULL_HUD, DIAG_LAUNCHPAD_HUD, DIAG_WAKE_HUD, DIAG_PATH_HUD)
+/datum/atom_hud/data/diagnostic
+	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD, DIAG_NANITE_FULL_HUD, DIAG_LAUNCHPAD_HUD, BLUESPACE_WAKE_HUD)
 
 /datum/atom_hud/data/bot_path
 	hud_icons = list(DIAG_PATH_HUD)
 
+/datum/atom_hud/data/bot_path/private
+	uses_global_hud_category = FALSE
+
 /datum/atom_hud/abductor
 	hud_icons = list(GLAND_HUD)
 
-/datum/atom_hud/sentient_disease
-	hud_icons = list(SENTIENT_DISEASE_HUD)
+// this is very hacky (and wrong), but the abductor hud should be visible across z-levels because the mothership is on centcom
+/datum/atom_hud/abductor/get_hud_atoms_for_z_level(z_level)
+	return hud_atoms_all_z_levels
+
+/datum/atom_hud/abductor/get_hud_users_for_z_level(z_level)
+	return hud_users_all_z_levels
 
 /datum/atom_hud/ai_detector
 	hud_icons = list(AI_DETECT_HUD)
 
-/datum/atom_hud/ai_detector/add_hud_to(mob/M)
-	..()
-	if(M && (hudusers.len == 1))
-		for(var/V in GLOB.ai_eyes)
-			var/mob/camera/ai_eye/E = V
-			E.update_ai_detect_hud()
+/datum/atom_hud/ai_detector/show_to(mob/new_viewer)
+	. = ..()
+	if(!new_viewer || hud_users_all_z_levels.len != 1)
+		return
+	for(var/mob/camera/ai_eye/eye as anything in GLOB.ai_eyes)
+		eye.update_ai_detect_hud()
 
 /datum/atom_hud/hacked_apc
 	hud_icons = list(HACKED_APC_HUD)
@@ -155,90 +146,69 @@
 
 //HOOKS
 
-//called when a human changes suit sensors
-/mob/living/carbon/proc/update_suit_sensors()
-	var/datum/atom_hud/data/human/medical/basic/B = GLOB.huds[DATA_HUD_MEDICAL_BASIC]
-	B.update_suit_sensors(src)
-
 //called when a living mob changes health
 /mob/living/proc/med_hud_set_health()
-	var/image/holder = hud_list[HEALTH_HUD]
-	if(holder)
-		holder.icon_state = "hud[RoundHealth(src)]"
-		var/icon/I = icon(icon, icon_state, dir)
-		holder.pixel_y = I.Height() - world.icon_size
-	else
-		CRASH("[src] does not have a HEALTH_HUD but updates it!")
+	set_hud_image_state(HEALTH_HUD, "hud[RoundHealth(src)]")
 
-//for carbon suit sensors
-/mob/living/carbon/med_hud_set_health()
-	..()
-
-//called when a carbon changes stat, virus or XENO_HOST
+// Called when a carbon changes stat, virus or XENO_HOST
+// Returns TRUE if the mob is considered "perfectly healthy", FALSE otherwise
 /mob/living/proc/med_hud_set_status()
 	SIGNAL_HANDLER
-	var/image/holder = hud_list[STATUS_HUD]
-	if(holder)
-		var/icon/I = icon(icon, icon_state, dir)
-		holder.pixel_y = I.Height() - world.icon_size
-		if(stat == DEAD || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))
-			holder.icon_state = "huddead"
-		else
-			holder.icon_state = "hudhealthy"
-	else
-		CRASH("[src] does not have a HEALTH_HUD but updates it!")
+	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
+		set_hud_image_state(STATUS_HUD, "huddead")
+		return FALSE
+
+	set_hud_image_state(STATUS_HUD, "hudhealthy")
+	return TRUE
 
 /mob/living/carbon/med_hud_set_status()
-	var/image/holder = hud_list[STATUS_HUD]
-	if(holder)
-		var/icon/I = icon(icon, icon_state, dir)
-		var/virus_threat = check_virus()
-		holder.pixel_y = I.Height() - world.icon_size
-		if(HAS_TRAIT(src, TRAIT_XENO_HOST))
-			holder.icon_state = "hudxeno"
-		else if(stat == DEAD)
-			if(!get_organ_by_type(/obj/item/organ/brain) || (!key && !get_ghost(FALSE, TRUE)))
-				holder.icon_state = "huddead-permanent"
-				return
-			if(tod)
-				var/tdelta = round(world.time - timeofdeath)
-				if(tdelta < (DEFIB_TIME_LIMIT * 10))
-					if(!client && key)
-						holder.icon_state = "huddefib-ssd"
-						return
-					holder.icon_state = "huddefib"
-					return
-			if(!client && key)
-				holder.icon_state = "huddead-ssd"
-				return
-			holder.icon_state = "huddead"
-		else if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
-			holder.icon_state = "huddefib"
-		else
-			switch(virus_threat)
-				if(DISEASE_PANDEMIC)
-					holder.icon_state = "hudill6"
-				if(DISEASE_BIOHAZARD)
-					holder.icon_state = "hudill5"
-				if(DISEASE_DANGEROUS)
-					holder.icon_state = "hudill4"
-				if(DISEASE_HARMFUL)
-					holder.icon_state = "hudill3"
-				if(DISEASE_MEDIUM)
-					holder.icon_state = "hudill2"
-				if(DISEASE_MINOR)
-					holder.icon_state = "hudill1"
-				if(DISEASE_NONTHREAT)
-					holder.icon_state = "hudill0"
-				if(DISEASE_POSITIVE)
-					holder.icon_state = "hudbuff"
-				if(DISEASE_BENEFICIAL)
-					holder.icon_state = "hudbuff2"
-				if(null)
-					holder.icon_state = "hudhealthy"
-	else
-		CRASH("[src] does not have a HEALTH_HUD but updates it!")
+	if(HAS_TRAIT(src, TRAIT_XENO_HOST))
+		set_hud_image_state(STATUS_HUD, "hudxeno")
+		return FALSE
 
+	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
+		if(!client && !get_ghost(FALSE, TRUE))
+			set_hud_image_state(STATUS_HUD, "huddead-permanent")
+		else if(station_timestamp_timeofdeath)
+			var/time_since_death = round(world.time - timeofdeath)
+			if(time_since_death < DEFIB_TIME_LIMIT)
+				if(!client && key)
+					set_hud_image_state(STATUS_HUD, "huddefib-ssd")
+				else
+					set_hud_image_state(STATUS_HUD, "huddefib")
+			else
+				set_hud_image_state(STATUS_HUD, "huddead")
+		else if(!client && key)
+			set_hud_image_state(STATUS_HUD, "huddead-ssd")
+		else
+			set_hud_image_state(STATUS_HUD, "huddead")
+		return FALSE
+
+	var/virus_threat = check_virus()
+	if (!virus_threat)
+		set_hud_image_state(STATUS_HUD, "hudhealthy")
+		return TRUE
+
+	switch(virus_threat)
+		if(DISEASE_PANDEMIC)
+			set_hud_image_state(STATUS_HUD, "hudill6")
+		if(DISEASE_BIOHAZARD)
+			set_hud_image_state(STATUS_HUD, "hudill5")
+		if(DISEASE_DANGEROUS)
+			set_hud_image_state(STATUS_HUD, "hudill4")
+		if(DISEASE_HARMFUL)
+			set_hud_image_state(STATUS_HUD, "hudill3")
+		if(DISEASE_MEDIUM)
+			set_hud_image_state(STATUS_HUD, "hudill2")
+		if(DISEASE_MINOR)
+			set_hud_image_state(STATUS_HUD, "hudill1")
+		if(DISEASE_NONTHREAT)
+			set_hud_image_state(STATUS_HUD, "hudill0")
+		if(DISEASE_POSITIVE)
+			set_hud_image_state(STATUS_HUD, "hudbuff")
+		if(DISEASE_BENEFICIAL)
+			set_hud_image_state(STATUS_HUD, "hudbuff2")
+	return FALSE
 
 /***********************************************
  * Security HUDs! Basic mode shows only the job.
@@ -247,37 +217,30 @@
 //HOOKS
 
 /mob/living/carbon/human/proc/sec_hud_set_ID()
-	var/image/holder = hud_list[ID_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
-	holder.icon_state = "hudno_id"
-	if(wear_id?.GetID())
-		holder.icon_state = "hud[ckey(wear_id.get_item_job_icon())]"
-	if(HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
-		holder.icon_state = "hudno_id"
+	var/sechud_icon_state = "hudno_id"
+	var/obj/item/id_to_look_at = wear_id?.GetID()
+
+	if(id_to_look_at && !HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
+		sechud_icon_state = "hud[id_to_look_at.get_item_job_icon()]"
+
+	set_hud_image_state(ID_HUD, sechud_icon_state)
 	sec_hud_set_security_status()
 
 /mob/living/proc/sec_hud_set_implants()
-	var/image/holder
-	for(var/i in list(IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD))
-		holder = hud_list[i]
-		holder.icon_state = null
-	for(var/obj/item/implant/I in implants)
-		if(istype(I, /obj/item/implant/tracking))
-			holder = hud_list[IMPTRACK_HUD]
-			var/icon/IC = icon(icon, icon_state, dir)
-			holder.pixel_y = IC.Height() - world.icon_size
-			holder.icon_state = "hud_imp_tracking"
-		else if(istype(I, /obj/item/implant/chem))
-			holder = hud_list[IMPCHEM_HUD]
-			var/icon/IC = icon(icon, icon_state, dir)
-			holder.pixel_y = IC.Height() - world.icon_size
-			holder.icon_state = "hud_imp_chem"
+	for(var/hud_type in list(IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD))
+		set_hud_image_inactive(hud_type)
+
+	for(var/obj/item/implant/implant in implants)
+		if(istype(implant, /obj/item/implant/tracking))
+			set_hud_image_state(IMPTRACK_HUD, "hud_imp_tracking")
+			set_hud_image_active(IMPTRACK_HUD)
+		else if(istype(implant, /obj/item/implant/chem))
+			set_hud_image_state(IMPCHEM_HUD, "hud_imp_chem")
+			set_hud_image_active(IMPCHEM_HUD)
+
 	if(has_mindshield_hud_icon())
-		holder = hud_list[IMPLOYAL_HUD]
-		var/icon/IC = icon(icon, icon_state, dir)
-		holder.pixel_y = IC.Height() - world.icon_size
-		holder.icon_state = "hud_imp_loyal"
+		set_hud_image_state(IMPLOYAL_HUD, "hud_imp_loyal")
+		set_hud_image_active(IMPLOYAL_HUD)
 
 /mob/living/proc/has_mindshield_hud_icon()
 	if(istype(get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
@@ -296,28 +259,24 @@
 	return target.wanted_status
 
 /mob/living/carbon/human/proc/sec_hud_set_security_status()
-	var/image/holder = hud_list[WANTED_HUD]
-	var/icon/sec_icon = icon(icon, icon_state, dir)
-	holder.pixel_y = sec_icon.Height() - world.icon_size
-	var/perp_name = get_face_name(get_id_name(""))
-
-	if(!perp_name || isnull(GLOB.manifest))
-		holder.icon_state = null
+	var/wanted_status = get_wanted_status()
+	if(wanted_status == WANTED_NONE)
+		set_hud_image_inactive(WANTED_HUD)
 		return
 
-	switch(get_wanted_status())
+	switch(wanted_status)
 		if(WANTED_ARREST)
-			holder.icon_state = "hudwanted"
+			set_hud_image_state(WANTED_HUD, "hudwanted")
 		if(WANTED_PRISONER)
-			holder.icon_state = "hudincarcerated"
+			set_hud_image_state(WANTED_HUD, "hudincarcerated")
 		if(WANTED_SUSPECT)
-			holder.icon_state = "hudsuspected"
+			set_hud_image_state(WANTED_HUD, "hudsuspected")
 		if(WANTED_PAROLE)
-			holder.icon_state = "hudparolled"
+			set_hud_image_state(WANTED_HUD, "hudparolled")
 		if(WANTED_DISCHARGED)
-			holder.icon_state = "huddischarged"
-		if(WANTED_NONE)
-			holder.icon_state = null
+			set_hud_image_state(WANTED_HUD, "huddischarged")
+
+	set_hud_image_active(WANTED_HUD)
 
 //Utility functions
 
@@ -341,12 +300,11 @@
 ************************************************/
 
 /mob/living/proc/hud_set_nanite_indicator()
-	var/image/holder = hud_list[NANITE_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
-	holder.icon_state = null
-	if(HAS_TRAIT(src, TRAIT_NANITE_SENSORS))
-		holder.icon_state = "nanite_ping"
+	if(HAS_TRAIT_FROM(src, TRAIT_TRACKED_SENSORS, NANITES_TRAIT))
+		set_hud_image_state(NANITE_HUD, "nanite_ping")
+		set_hud_image_active(NANITE_HUD)
+	else
+		set_hud_image_inactive(NANITE_HUD)
 
 //For Diag health and cell bars!
 /proc/RoundDiagBar(value)
@@ -368,162 +326,131 @@
 
 //Sillycone hooks
 /mob/living/silicon/proc/diag_hud_set_health()
-	var/image/holder = hud_list[DIAG_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
 	if(stat == DEAD)
-		holder.icon_state = "huddiagdead"
+		set_hud_image_state(DIAG_HUD, "huddiagdead")
 	else
-		holder.icon_state = "huddiag[RoundDiagBar(health/maxHealth)]"
+		set_hud_image_state(DIAG_HUD, "huddiag[RoundDiagBar(health/maxHealth)]")
 
 /mob/living/silicon/proc/diag_hud_set_status()
-	var/image/holder = hud_list[DIAG_STAT_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
 	switch(stat)
 		if(CONSCIOUS)
-			holder.icon_state = "hudstat"
+			set_hud_image_state(DIAG_STAT_HUD, "hudstat")
 		if(UNCONSCIOUS, HARD_CRIT)
-			holder.icon_state = "hudoffline"
+			set_hud_image_state(DIAG_STAT_HUD, "hudoffline")
 		else
-			holder.icon_state = "huddead2"
+			set_hud_image_state(DIAG_STAT_HUD, "huddead2")
 
 //Borgie battery tracking!
 /mob/living/silicon/robot/proc/diag_hud_set_borgcell()
-	var/image/holder = hud_list[DIAG_BATT_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
-	if(cell)
-		var/chargelvl = (cell.charge/cell.maxcharge)
-		holder.icon_state = "hudbatt[RoundDiagBar(chargelvl)]"
+	if(QDELETED(cell) || cell.maxcharge == 0)
+		set_hud_image_state(DIAG_BATT_HUD, "hudnobatt")
 	else
-		holder.icon_state = "hudnobatt"
+		var/chargelvl = cell.charge / cell.maxcharge
+		set_hud_image_state(DIAG_BATT_HUD, "hudbatt[RoundDiagBar(chargelvl)]")
 
 //borg-AI shell tracking
-/mob/living/silicon/robot/proc/diag_hud_set_aishell() //Shows tracking beacons on the mech
-	var/image/holder = hud_list[DIAG_TRACK_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
+/mob/living/silicon/robot/proc/diag_hud_set_aishell() //Shows if AI is controlling a cyborg via a BORIS module
 	if(!shell) //Not an AI shell
-		holder.icon_state = null
-	else if(deployed) //AI shell in use by an AI
-		holder.icon_state = "hudtrackingai"
-	else	//Empty AI shell
-		holder.icon_state = "hudtracking"
+		set_hud_image_inactive(DIAG_TRACK_HUD)
+		return
+	if(deployed) //AI shell in use by an AI
+		set_hud_image_state(DIAG_TRACK_HUD, "hudtrackingai")
+	else //Empty AI shell
+		set_hud_image_state(DIAG_TRACK_HUD, "hudtracking")
+	set_hud_image_active(DIAG_TRACK_HUD)
 
 //AI side tracking of AI shell control
-/mob/living/silicon/ai/proc/diag_hud_set_deployed() //Shows tracking beacons on the mech
-	var/image/holder = hud_list[DIAG_TRACK_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
+/mob/living/silicon/ai/proc/diag_hud_set_deployed() //Shows if AI is currently shunted into a BORIS borg
 	if(!deployed_shell)
-		holder.icon_state = null
-	else //AI is currently controlling a shell
-		holder.icon_state = "hudtrackingai"
+		set_hud_image_inactive(DIAG_TRACK_HUD)
+		return
+	//AI is currently controlling a shell
+	set_hud_image_state(DIAG_TRACK_HUD, "hudtrackingai")
+	set_hud_image_active(DIAG_TRACK_HUD)
 
 /*~~~~~~~~~~~~~~~~~~~~
 	BIG STOMPY MECHS
 ~~~~~~~~~~~~~~~~~~~~~*/
 /obj/vehicle/sealed/mecha/proc/diag_hud_set_mechhealth()
-	var/image/holder = hud_list[DIAG_MECH_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
-	holder.icon_state = "huddiag[RoundDiagBar(atom_integrity/max_integrity)]"
-
+	set_hud_image_state(DIAG_MECH_HUD, "huddiag[RoundDiagBar(atom_integrity/max_integrity)]")
 
 /obj/vehicle/sealed/mecha/proc/diag_hud_set_mechcell()
-	var/image/holder = hud_list[DIAG_BATT_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
-	if(cell)
-		var/chargelvl = cell.maxcharge ? cell.charge/cell.maxcharge : 0 //Division by 0 protection
-		holder.icon_state = "hudbatt[RoundDiagBar(chargelvl)]"
+	if(QDELETED(cell) || cell.maxcharge == 0)
+		set_hud_image_state(DIAG_BATT_HUD, "hudnobatt")
 	else
-		holder.icon_state = "hudnobatt"
-
+		var/chargelvl = cell.charge / cell.maxcharge
+		set_hud_image_state(DIAG_BATT_HUD, "hudbatt[RoundDiagBar(chargelvl)]")
 
 /obj/vehicle/sealed/mecha/proc/diag_hud_set_mechstat()
-	var/image/holder = hud_list[DIAG_STAT_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
-	holder.icon_state = null
-	if(internal_damage)
-		holder.icon_state = "hudwarn"
+	if(!internal_damage)
+		set_hud_image_inactive(DIAG_STAT_HUD)
+		return
 
-/obj/vehicle/sealed/mecha/proc/diag_hud_set_mechtracking() //Shows tracking beacons on the mech
-	var/image/holder = hud_list[DIAG_TRACK_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
+	set_hud_image_state(DIAG_STAT_HUD, "hudwarn")
+	set_hud_image_active(DIAG_STAT_HUD)
+
+///Shows tracking beacons on the mech
+/obj/vehicle/sealed/mecha/proc/diag_hud_set_mechtracking()
 	var/new_icon_state //This var exists so that the holder's icon state is set only once in the event of multiple mech beacons.
-	for(var/obj/item/mecha_parts/mecha_tracking/T in trackers)
-		if(T.ai_beacon) //Beacon with AI uplink
+	for(var/obj/item/mecha_parts/mecha_tracking/tracker in trackers)
+		if(tracker.ai_beacon) //Beacon with AI uplink
 			new_icon_state = "hudtrackingai"
 			break //Immediately terminate upon finding an AI beacon to ensure it is always shown over the normal one, as mechs can have several trackers.
 		else
 			new_icon_state = "hudtracking"
-	holder.icon_state = new_icon_state
+	set_hud_image_state(DIAG_TRACK_HUD, new_icon_state)
 
 /*~~~~~~~~~
 	Bots!
 ~~~~~~~~~~*/
 /mob/living/simple_animal/bot/proc/diag_hud_set_bothealth()
-	var/image/holder = hud_list[DIAG_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
-	holder.icon_state = "huddiag[RoundDiagBar(health/maxHealth)]"
+	set_hud_image_state(DIAG_HUD, "huddiag[RoundDiagBar(health/maxHealth)]")
 
 /mob/living/simple_animal/bot/proc/diag_hud_set_botstat() //On (With wireless on or off), Off, EMP'ed
-	var/image/holder = hud_list[DIAG_STAT_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
 	if(on)
-		holder.icon_state = "hudstat"
+		set_hud_image_state(DIAG_STAT_HUD, "hudstat")
 	else if(stat) //Generally EMP causes this
-		holder.icon_state = "hudoffline"
+		set_hud_image_state(DIAG_STAT_HUD, "hudoffline")
 	else //Bot is off
-		holder.icon_state = "huddead2"
+		set_hud_image_state(DIAG_STAT_HUD, "huddead2")
 
 /mob/living/simple_animal/bot/proc/diag_hud_set_botmode() //Shows a bot's current operation
-	var/image/holder = hud_list[DIAG_BOT_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
 	if(client) //If the bot is player controlled, it will not be following mode logic!
-		holder.icon_state = "hudsentient"
+		set_hud_image_state(DIAG_BOT_HUD, "hudsentient")
 		return
 
 	switch(mode)
 		if(BOT_SUMMON, BOT_RESPONDING) //Responding to PDA or AI summons
-			holder.icon_state = "hudcalled"
+			set_hud_image_state(DIAG_BOT_HUD, "hudcalled")
 		if(BOT_CLEANING, BOT_REPAIRING, BOT_HEALING) //Cleanbot cleaning, Floorbot fixing, or Medibot Healing
-			holder.icon_state = "hudworking"
+			set_hud_image_state(DIAG_BOT_HUD, "hudworking")
 		if(BOT_PATROL, BOT_START_PATROL) //Patrol mode
-			holder.icon_state = "hudpatrol"
+			set_hud_image_state(DIAG_BOT_HUD, "hudpatrol")
 		if(BOT_PREP_ARREST, BOT_ARREST, BOT_HUNT) //STOP RIGHT THERE, CRIMINAL SCUM!
-			holder.icon_state = "hudalert"
+			set_hud_image_state(DIAG_BOT_HUD, "hudalert")
 		if(BOT_MOVING, BOT_DELIVER, BOT_GO_HOME, BOT_NAV) //Moving to target for normal bots, moving to deliver or go home for MULES.
-			holder.icon_state = "hudmove"
+			set_hud_image_state(DIAG_BOT_HUD, "hudmove")
 		else
-			holder.icon_state = ""
+			set_hud_image_state(DIAG_BOT_HUD, "")
 
 /mob/living/simple_animal/bot/mulebot/proc/diag_hud_set_mulebotcell()
-	var/image/holder = hud_list[DIAG_BATT_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
-	if(cell)
-		var/chargelvl = (cell.charge/cell.maxcharge)
-		holder.icon_state = "hudbatt[RoundDiagBar(chargelvl)]"
+	if(QDELETED(cell) || cell.maxcharge == 0)
+		set_hud_image_state(DIAG_BATT_HUD, "hudnobatt")
 	else
-		holder.icon_state = "hudnobatt"
+		var/chargelvl = cell.charge / cell.maxcharge
+		set_hud_image_state(DIAG_BATT_HUD, "hudbatt[RoundDiagBar(chargelvl)]")
 
 /*~~~~~~~~~~~~
 	Airlocks!
 ~~~~~~~~~~~~~*/
 /obj/machinery/door/airlock/proc/diag_hud_set_electrified()
+	if(secondsElectrified == MACHINE_NOT_ELECTRIFIED)
+		set_hud_image_inactive(DIAG_AIRLOCK_HUD)
+		return
+
 	var/image/holder = hud_list[DIAG_AIRLOCK_HUD]
-	if(secondsElectrified != MACHINE_NOT_ELECTRIFIED)
-		holder.icon_state = "electrified"
-	else
-		holder.icon_state = ""
+	holder.icon_state = "electrified"
+	set_hud_image_active(DIAG_AIRLOCK_HUD)
 
 /*~~~~~~~~~~~~
 	APCs!
@@ -533,3 +460,64 @@
 	holder.loc = src
 	holder.icon = 'icons/obj/power.dmi'
 	holder.icon_state = "apcemag"
+
+#define CACHED_WIDTH_INDEX "width"
+#define CACHED_HEIGHT_INDEX "height"
+
+/atom/proc/get_cached_width()
+	if (isnull(icon))
+		return 0
+	var/list/dimensions = get_icon_dimensions(icon)
+	return dimensions[CACHED_WIDTH_INDEX]
+
+/atom/proc/get_cached_height()
+	if (isnull(icon))
+		return 0
+	var/list/dimensions = get_icon_dimensions(icon)
+	return dimensions[CACHED_HEIGHT_INDEX]
+
+#undef CACHED_WIDTH_INDEX
+#undef CACHED_HEIGHT_INDEX
+
+/atom/proc/get_visual_width()
+	var/width = get_cached_width()
+	var/height = get_cached_height()
+	var/scale_list = list(
+		width * transform.a + height * transform.b + transform.c,
+		width * transform.a + transform.c,
+		height * transform.b + transform.c,
+		transform.c
+	)
+	return max(scale_list) - min(scale_list)
+
+/atom/proc/get_visual_height()
+	var/width = get_cached_width()
+	var/height = get_cached_height()
+	var/scale_list = list(
+		width * transform.d + height * transform.e + transform.f,
+		width * transform.d + transform.f,
+		height * transform.e + transform.f,
+		transform.f
+	)
+	return max(scale_list) - min(scale_list)
+
+/atom/proc/adjust_hud_position(image/holder, animate_time = null)
+	if (animate_time)
+		animate(holder, pixel_x = -(get_cached_width() - ICON_SIZE_X) / 2, pixel_y = get_cached_height() - ICON_SIZE_Y, time = animate_time)
+		return
+	holder.pixel_x = -(get_cached_width() - ICON_SIZE_X) / 2
+	holder.pixel_y = get_cached_height() - ICON_SIZE_Y
+
+/atom/proc/set_hud_image_state(hud_type, hud_state, x_offset = 0, y_offset = 0)
+	if (!hud_list) // Still initializing
+		return
+	var/image/holder = hud_list[hud_type]
+	if (!holder)
+		return
+	if (!istype(holder)) // Can contain lists for HUD_LIST_LIST hinted HUDs, if someone fucks up and passes this here we wanna know about it
+		CRASH("[src] ([type]) had a HUD_LIST_LIST hud_type [hud_type] passed into set_hud_image_state!")
+	holder.icon_state = hud_state
+	adjust_hud_position(holder)
+	if (x_offset || y_offset)
+		holder.pixel_x += x_offset
+		holder.pixel_y += y_offset

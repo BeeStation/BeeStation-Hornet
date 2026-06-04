@@ -65,7 +65,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /obj/structure/mirror{
 	pixel_y = 35
 	},

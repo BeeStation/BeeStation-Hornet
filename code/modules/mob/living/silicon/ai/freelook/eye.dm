@@ -8,7 +8,7 @@
 	icon_state = "ai_camera"
 	icon = 'icons/mob/cameramob.dmi'
 	invisibility = INVISIBILITY_MAXIMUM
-	hud_possible = list(ANTAG_HUD, AI_DETECT_HUD = HUD_LIST_LIST)
+	hud_possible = list(AI_DETECT_HUD = HUD_LIST_LIST)
 	var/list/visibleCameraChunks = list()
 	var/mob/living/silicon/ai/ai = null
 	var/relay_speech = FALSE
@@ -25,16 +25,16 @@
 
 /mob/camera/ai_eye/proc/update_ai_detect_hud()
 	var/datum/atom_hud/ai_detector/hud = GLOB.huds[DATA_HUD_AI_DETECT]
-	var/list/old_images = hud_list[AI_DETECT_HUD]
+	var/list/old_images = active_hud_list[AI_DETECT_HUD]
 	if(!ai_detector_visible)
-		hud.remove_from_hud(src)
+		hud.remove_atom_from_hud(src)
 		QDEL_LIST(old_images)
 		return
 
-	if(!length(hud.hudusers))
+	if(!length(hud.hud_users_all_z_levels))
 		return //no one is watching, do not bother updating anything
 
-	hud.remove_from_hud(src)
+	hud.remove_atom_from_hud(src)
 
 	var/static/list/vis_contents_opaque = list()
 	var/obj/effect/overlay/ai_detect_hud/hud_obj = vis_contents_opaque[ai_detector_color]
@@ -54,7 +54,7 @@
 	for(var/i in (new_images.len + 1) to old_images.len)
 		qdel(old_images[i])
 	hud_list[AI_DETECT_HUD] = new_images
-	hud.add_to_hud(src)
+	hud.add_atom_to_hud(src)
 
 /mob/camera/ai_eye/proc/get_visible_turfs()
 	if(!isturf(loc))
@@ -131,7 +131,7 @@
 	GLOB.ai_eyes -= src
 	if(ai_detector_visible)
 		var/datum/atom_hud/ai_detector/hud = GLOB.huds[DATA_HUD_AI_DETECT]
-		hud.remove_from_hud(src)
+		hud.remove_atom_from_hud(src)
 		var/list/L = hud_list[AI_DETECT_HUD]
 		QDEL_LIST(L)
 	return ..()

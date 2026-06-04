@@ -19444,7 +19444,7 @@
 /area/station/tcommsat/computer)
 "ilo" = (
 /obj/effect/turf_decal/siding/thinplating_new/light,
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /obj/structure/mirror{
 	pixel_y = 32
 	},
@@ -26617,7 +26617,7 @@
 /obj/structure/mirror{
 	pixel_y = 32
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/white/textured,
 /area/station/commons/toilet/locker)
 "lgK" = (
@@ -35450,7 +35450,7 @@
 /area/station/ai_monitored/turret_protected/ai)
 "oLy" = (
 /obj/effect/turf_decal/siding/thinplating_new/light,
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /obj/structure/mirror{
 	pixel_y = 32
 	},
@@ -54398,7 +54398,7 @@
 /turf/open/floor/iron/half,
 /area/station/service/janitor)
 "wBs" = (
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
@@ -58442,7 +58442,7 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/cup/glass/shaker,
 /obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/cup/rag,
+/obj/item/rag,
 /obj/structure/noticeboard{
 	pixel_y = 29
 	},

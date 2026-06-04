@@ -281,7 +281,7 @@
 /turf/open/floor/iron,
 /area/ruin/powered)
 "AM" = (
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/open/floor/plating,
 /area/ruin/powered)
 "Be" = (

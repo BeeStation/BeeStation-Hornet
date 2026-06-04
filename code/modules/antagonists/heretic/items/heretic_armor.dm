@@ -11,11 +11,11 @@
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/equipped(mob/user, slot)
 	..()
-	ADD_TRAIT(user, TRAIT_ALLOW_HERETIC_CASTING, CLOTHING_TRAIT)
+	ADD_CLOTHING_TRAIT(user, TRAIT_ALLOW_HERETIC_CASTING)
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/dropped(mob/user)
 	..()
-	REMOVE_TRAIT(user, TRAIT_ALLOW_HERETIC_CASTING, CLOTHING_TRAIT)
+	REMOVE_CLOTHING_TRAIT(user, TRAIT_ALLOW_HERETIC_CASTING)
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/Initialize(mapload)
 	. = ..()

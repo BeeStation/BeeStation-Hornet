@@ -20,6 +20,11 @@
 	custom_price = 40
 	bang_protect = 2
 
+/obj/item/clothing/ears/earmuffs/debug
+	name = "debug earmuffs"
+	desc = "Wearing these sends a chat message for every sound played. Walking to ignore footsteps is highly recommended."
+	clothing_traits = list(TRAIT_SOUND_DEBUGGED)
+
 /obj/item/clothing/ears/earmuffs/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/earhealing)

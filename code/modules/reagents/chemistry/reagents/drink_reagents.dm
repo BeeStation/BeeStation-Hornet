@@ -1270,17 +1270,15 @@
 
 	var/newsize = pick(0.5, 0.75, 1, 1.50, 2)
 	newsize *= RESIZE_DEFAULT_SIZE
-	affected_mob.resize = newsize / current_size
+	affected_mob.update_transform(newsize / current_size)
 	current_size = newsize
-	affected_mob.update_transform()
 	if(DT_PROB(23, delta_time))
 		affected_mob.emote("sneeze")
 
 /datum/reagent/consumable/red_queen/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
-	affected_mob.resize = RESIZE_DEFAULT_SIZE/current_size
+	affected_mob.update_transform(RESIZE_DEFAULT_SIZE / current_size)
 	current_size = RESIZE_DEFAULT_SIZE
-	affected_mob.update_transform()
 
 /datum/reagent/consumable/bungojuice
 	name = "Bungo Juice"

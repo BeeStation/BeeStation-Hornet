@@ -35,9 +35,9 @@
 	sender_override = "Nanotrasen Meteorology Division")
 
 /datum/round_event/aurora_caelus/proc/play_sound_to_all_station_players()
-	for(var/mob/M as anything in GLOB.player_list)
-		if(!is_station_level(M.z))
+	for(var/mob/player_mob as anything in GLOB.player_list)
+		if(!is_station_level(player_mob.z))
 			continue
-		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "star_gazing", /datum/mood_event/witnessed_starlight)
-		if(M.client.prefs.read_player_preference(/datum/preference/toggle/sound_midi))
-			M.playsound_local(M, 'sound/ambience/aurora_caelus.ogg', 20, FALSE, pressure_affected = FALSE)
+
+		SEND_SIGNAL(player_mob, COMSIG_ADD_MOOD_EVENT, "star_gazing", /datum/mood_event/witnessed_starlight)
+		player_mob.playsound_local(null, 'sound/ambience/aurora_caelus.ogg', 20, pressure_affected = FALSE, volume_preference = /datum/preference/numeric/volume/sound_soundtrack_volume)

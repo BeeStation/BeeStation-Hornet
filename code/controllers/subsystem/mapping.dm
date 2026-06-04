@@ -35,9 +35,9 @@ SUBSYSTEM_DEF(mapping)
 
 	var/list/areas_in_z = list()
 
-	var/list/turf/unused_turfs = list()				//Not actually unused turfs they're unused but reserved for use for whatever requests them. "[zlevel_of_turf]" = list(turfs)
-	var/list/datum/turf_reservations		//list of turf reservations
-	var/list/used_turfs = list()				//list of turf = datum/turf_reservation
+	var/list/turf/unused_turfs = list() //Not actually unused turfs they're unused but reserved for use for whatever requests them. "[zlevel_of_turf]" = list(turfs)
+	var/list/datum/turf_reservations //list of turf reservations
+	var/list/used_turfs = list() //list of turf = datum/turf_reservation
 	/// List of lists of turfs to reserve
 	var/list/lists_to_reserve = list()
 
@@ -50,7 +50,8 @@ SUBSYSTEM_DEF(mapping)
 
 	// Z-manager stuff
 	var/station_start  // should only be used for maploading-related tasks
-	var/list/z_list
+	///list of all z level datums in the order of their z (z level 1 is at index 1, etc.)
+	var/list/datum/space_level/z_list
 	///list of all z level indices that form multiz connections and whether theyre linked up or down.
 	///list of lists, inner lists are of the form: list("up or down link direction" = TRUE)
 	var/list/multiz_levels = list()

@@ -1,0 +1,13 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - rscadd: Volume sliders have been added in your preference menu. Because of this,
+      if you had any sounds disabled before they will now be reset to 100% volume.
+  - tweak: The Aurora Caelus event now uses the soundtrack preference instead of the
+      admin music one.
+  - code_imp: Some documentation has been added to /client.
+  - code_imp: Weather code has been optimized a bit.
+  - bugfix: Fixed the ambient magma bubbling sound not increasing in volume when leaving
+      the lavaland base.
+  - bugfix: Fixed several radiation related traits not showing up in the add/remove
+      traits VV dropdown.
