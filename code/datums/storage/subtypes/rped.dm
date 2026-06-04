@@ -33,7 +33,7 @@
 		to_chat(user, span_notice("There's no parts to dump out from [src]."))
 		return
 
-	for(var/obj/item/part in things.Copy())
+	for(var/obj/item/part in things)
 		if(istype(part, /obj/item/stock_parts/cell))
 			var/obj/item/stock_parts/cell/cell = part
 			if(cell.rating > lowest_rating)
@@ -43,7 +43,7 @@
 
 	to_chat(user, span_notice("You dump out Tier [lowest_rating] parts from [src]."))
 
-	var/turf/drop_location = get_turf(src)
+	var/atom/drop_location = drop_location()
 
 	for(var/obj/item/part in things)
 		part.forceMove(drop_location)
