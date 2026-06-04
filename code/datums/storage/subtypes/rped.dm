@@ -44,7 +44,7 @@
 
 	to_chat(user, span_notice("You dump out Tier [lowest_rating] parts from [src]."))
 
-	var/turf/drop_location = drop_location(src)
+	var/atom/drop_location = drop_location()
 
 	for(var/obj/item/part in things)
 		part.forceMove(drop_location)
