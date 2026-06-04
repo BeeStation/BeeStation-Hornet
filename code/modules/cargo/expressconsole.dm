@@ -75,7 +75,7 @@
 		))
 
 /obj/machinery/computer/cargo/express/ui_interact(mob/user, datum/tgui/ui)
-	. = ..()
+	SHOULD_CALL_PARENT(FALSE)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CargoExpress")
