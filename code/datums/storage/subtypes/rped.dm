@@ -18,17 +18,14 @@
 	var/list/things = list()
 	var/lowest_rating = INFINITY
 
-	for(var/obj/item/part in contents)
+	for(var/obj/item/stock_parts/part in contents)
 		if(istype(part, /obj/item/stock_parts/cell))
 			var/obj/item/stock_parts/cell/cell = part
 			lowest_rating = min(lowest_rating, cell.rating)
 			things += part
 			continue
-		var/obj/item/stock_parts/stock_part = part
-		if(!istype(stock_part))
-			continue
-		lowest_rating = min(lowest_rating, stock_part.get_part_rating())
-		things += stock_part
+		lowest_rating = min(lowest_rating, part.get_part_rating())
+		things += part
 
 	if(lowest_rating == INFINITY)
 		to_chat(user, span_notice("There's no parts to dump out from [src]."))
