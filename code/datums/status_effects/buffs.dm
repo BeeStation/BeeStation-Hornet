@@ -375,7 +375,7 @@
 	if(owner.stat == DEAD)
 		if(deathTick < 4)
 			deathTick += 1
-		else6
+		else
 			owner.visible_message("[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty.")
 			var/mob/living/simple_animal/hostile/retaliate/poison/snake/healSnake = new(owner.loc)
 			var/list/chems = list(/datum/reagent/medicine/bicaridine, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/kelotane, /datum/reagent/medicine/antitoxin)
