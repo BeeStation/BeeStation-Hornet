@@ -20,7 +20,7 @@
 /mob/living/simple_animal/bot/atmosbot
 	name = "\improper Atmosbot"
 	desc = "A little robot that just seems happy to keep you alive!"
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "atmosbot0"
 	density = FALSE
 	anchored = FALSE

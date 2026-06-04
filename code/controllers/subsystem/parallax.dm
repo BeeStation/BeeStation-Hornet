@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(parallax)
 	name = "Parallax"
 	wait = 2
-	flags = SS_POST_FIRE_TIMING | SS_BACKGROUND
+	ss_flags = SS_POST_FIRE_TIMING | SS_BACKGROUND
 	priority = FIRE_PRIORITY_PARALLAX
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	var/current_run_pointer = 1

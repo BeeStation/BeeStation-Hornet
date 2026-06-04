@@ -191,10 +191,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 	var/mutable_appearance/delam_pos1_overlay = mutable_appearance(icon, "num_[delam_pos1]")
 	var/mutable_appearance/delam_pos1_emissive = emissive_appearance(icon, "num_[delam_pos1]", alpha = DISPLAY_PIXEL_ALPHA)
 	delam_pos1_overlay.color = delam_display_color
-	delam_pos1_overlay.pixel_w = DISPLAY_PIXEL_1_W
-	delam_pos1_emissive.pixel_w = DISPLAY_PIXEL_1_W
-	delam_pos1_overlay.pixel_z = DISPLAY_PIXEL_1_Z
-	delam_pos1_emissive.pixel_z = DISPLAY_PIXEL_1_Z
+	delam_pos1_overlay.pixel_x = DISPLAY_PIXEL_1_W
+	delam_pos1_emissive.pixel_x = DISPLAY_PIXEL_1_W
+	delam_pos1_overlay.pixel_y = DISPLAY_PIXEL_1_Z
+	delam_pos1_emissive.pixel_y = DISPLAY_PIXEL_1_Z
 	. += delam_pos1_overlay
 	. += delam_pos1_emissive
 
@@ -202,10 +202,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 	var/mutable_appearance/delam_pos2_overlay = mutable_appearance(icon, "num_[delam_pos2]")
 	var/mutable_appearance/delam_pos2_emissive = emissive_appearance(icon, "num_[delam_pos2]", alpha = DISPLAY_PIXEL_ALPHA)
 	delam_pos2_overlay.color = delam_display_color
-	delam_pos2_overlay.pixel_w = DISPLAY_PIXEL_2_W
-	delam_pos2_emissive.pixel_w = DISPLAY_PIXEL_2_W
-	delam_pos2_overlay.pixel_z = DISPLAY_PIXEL_2_Z
-	delam_pos2_emissive.pixel_z = DISPLAY_PIXEL_2_Z
+	delam_pos2_overlay.pixel_x = DISPLAY_PIXEL_2_W
+	delam_pos2_emissive.pixel_x = DISPLAY_PIXEL_2_W
+	delam_pos2_overlay.pixel_y = DISPLAY_PIXEL_2_Z
+	delam_pos2_emissive.pixel_y = DISPLAY_PIXEL_2_Z
 	. += delam_pos2_overlay
 	. += delam_pos2_emissive
 

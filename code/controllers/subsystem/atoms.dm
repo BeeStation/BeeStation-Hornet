@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(atoms)
 		/datum/controller/subsystem/xenoarchaeology,
 		/datum/controller/subsystem/zcopy,
 	)
-	flags = SS_NO_FIRE
+	ss_flags = SS_NO_FIRE
 
 	/// A stack of list(source, desired initialized state)
 	/// We read the source of init changes from the last entry, and assert that all changes will come with a reset

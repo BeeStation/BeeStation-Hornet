@@ -3,7 +3,7 @@
 
 SUBSYSTEM_DEF(communications)
 	name = "Communications"
-	flags = SS_NO_INIT | SS_NO_FIRE
+	ss_flags = SS_NO_INIT | SS_NO_FIRE
 
 	COOLDOWN_DECLARE(silicon_message_cooldown)
 	COOLDOWN_DECLARE(nonsilicon_message_cooldown)

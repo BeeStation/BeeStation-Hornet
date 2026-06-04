@@ -82,14 +82,14 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed, was_dead_before)
 	unset_machine()
 	timeofdeath = world.time
-	tod = station_time_timestamp()
+	station_timestamp_timeofdeath = station_time_timestamp()
 	var/turf/T = get_turf(src)
 	for(var/obj/item/I in contents)
 		I.on_mob_death(src, gibbed)
 	if(mind)
 		if(mind.name && mind.active && !istype(T.loc, /area/centcom/ctf))
 			deadchat_broadcast(" has died at <b>[get_area_name(T)]</b>.", "<b>[mind.name]</b>", follow_target = src, turf_target = T, message_type=DEADCHAT_DEATHRATTLE)
-		mind.store_memory("Time of death: [tod]", 0)
+		mind.store_memory("Time of death: [station_timestamp_timeofdeath]")
 	remove_from_alive_mob_list()
 	if(playable)
 		remove_from_spawner_menu()
@@ -132,4 +132,4 @@
 	update_damage_hud()
 
 	if(!gibbed && !QDELETED(src))
-		addtimer(CALLBACK(src, PROC_REF(med_hud_set_status)), (DEFIB_TIME_LIMIT * 10) + 10)
+		addtimer(CALLBACK(src, PROC_REF(med_hud_set_status)), DEFIB_TIME_LIMIT + 1 SECONDS)

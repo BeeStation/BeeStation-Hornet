@@ -207,7 +207,7 @@
 		if ("slavetoai")
 			var/mob/living/silicon/ai/newai = locate(params["slavetoai"]) in GLOB.ai_list
 			if (newai && newai != borg.connected_ai)
-				borg.notify_ai(DISCONNECT)
+				borg.notify_ai(AI_NOTIFICATION_CYBORG_DISCONNECTED)
 				if(borg.shell)
 					borg.undeploy()
 				borg.connected_ai = newai
@@ -215,7 +215,7 @@
 				message_admins("[key_name_admin(user)] slaved [ADMIN_LOOKUPFLW(borg)] to the AI [ADMIN_LOOKUPFLW(newai)].")
 				log_admin("[key_name(user)] slaved [key_name(borg)] to the AI [key_name(newai)].")
 			else if (params["slavetoai"] == "null")
-				borg.notify_ai(DISCONNECT)
+				borg.notify_ai(AI_NOTIFICATION_CYBORG_DISCONNECTED)
 				if(borg.shell)
 					borg.undeploy()
 				borg.connected_ai = null

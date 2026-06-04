@@ -141,8 +141,8 @@
 	var/client/C = M.client
 	var/oldx = C.pixel_x
 	var/oldy = C.pixel_y
-	var/max = strength*world.icon_size
-	var/min = -(strength*world.icon_size)
+	var/max = strength*ICON_SIZE_ALL
+	var/min = -(strength*ICON_SIZE_ALL)
 
 	for(var/i in 0 to duration-1)
 		if (i == 0)
@@ -410,7 +410,7 @@
 
 ///Can the mob hear
 /mob/proc/can_hear()
-	. = TRUE
+	return TRUE
 
 /mob/proc/has_mouth()
 	return FALSE

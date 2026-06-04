@@ -1,0 +1,9 @@
+author: mrmanlikesbt, LemonInTheDark
+delete-after: true
+changes:
+  - code_imp: Subsystem flags now have VV bitfield support.
+  - code_imp: Renamed /datum/controller/subsystem/var/flags to /datum/controller/subsystem/var/ss_flags.
+  - code_imp: GLOB.vv_special_lists is now dynamically generated with specific lists
+      having special editing rights. For example, the "vars" special list is read
+      only.
+  - server: Subsystem flags are now unit tested to ensure there are no conflicts.

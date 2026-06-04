@@ -182,7 +182,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 
 /obj/effect/warped_rune/orangespace/do_effect(mob/user)
 	var/obj/structure/bonfire/bluespace/B = new (rune_turf)
-	B.StartBurning()
+	B.start_burning()
 	. = ..()
 
 /obj/item/slimecross/warping/purple

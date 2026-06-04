@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(xenoarchaeology)
 	name = "Xenoarchaeology"
-	flags = SS_NO_FIRE
+	ss_flags = SS_NO_FIRE
 
 	///Which console is the main character
 	var/obj/machinery/computer/xenoarchaeology_console/main_console

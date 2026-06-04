@@ -366,21 +366,16 @@
 
 /datum/status_effect/hippocratic_oath/on_apply()
 	//Makes the user passive, it's in their oath not to harm!
-	ADD_TRAIT(owner, TRAIT_PACIFISM, TRAIT_STATUS_EFFECT(id))
-	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	H.add_hud_to(owner)
-	return ..()
+	owner.add_traits(list(TRAIT_PACIFISM, TRAIT_MEDICAL_HUD), TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/hippocratic_oath/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_PACIFISM, TRAIT_STATUS_EFFECT(id))
-	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	H.remove_hud_from(owner)
+	owner.remove_traits(list(TRAIT_PACIFISM, TRAIT_MEDICAL_HUD), TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/hippocratic_oath/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		if(deathTick < 4)
 			deathTick += 1
-		else
+		else6
 			owner.visible_message("[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty.")
 			var/mob/living/simple_animal/hostile/retaliate/poison/snake/healSnake = new(owner.loc)
 			var/list/chems = list(/datum/reagent/medicine/bicaridine, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/kelotane, /datum/reagent/medicine/antitoxin)
@@ -608,7 +603,7 @@
 		var/mutable_appearance/self_appearance = mutable_appearance('icons/hud/actions/actions_minor_antag.dmi', "ninja_cloak")
 		self_appearance.alpha = 100
 		self_appearance.override = TRUE
-		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, REF(src), image(self_appearance, loc = owner), owner)
+		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, REF(src), image(self_appearance, loc = owner), null, owner)
 		can_see_self = TRUE
 	if (owner.alpha > 100 && can_see_self)
 		owner.remove_alt_appearance(REF(src))

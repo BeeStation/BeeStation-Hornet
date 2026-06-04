@@ -10,7 +10,7 @@
 	item_flags = NONE
 	clumsy_check = FALSE
 
-	var/hugbox = TRUE
+	var/hugbox = FALSE
 	var/max_power = INFINITY
 	var/reaction_volume_mod = 0
 	var/reaction_cycles = 3				//How many times gases react() before calculation. Very finnicky value, do not mess with without good reason.
@@ -73,8 +73,8 @@
 /obj/item/gun/blastcannon/proc/calculate_bomb()
 	if(!istype(bomb) || !bomb.ready())
 		return 0
-	var/datum/gas_mixture/temp = new(max(reaction_volume_mod, 0))
-	bomb.merge_gases(temp)
+	var/datum/gas_mixture/temp = new(bomb.tank_one.air_contents.volume + bomb.tank_two.air_contents.volume + max(reaction_volume_mod, 0))
+	bomb.merge_gases(temp, FALSE)
 	if(prereaction)
 		temp.react(src)
 		var/prereaction_pressure = temp.return_pressure()
@@ -143,7 +143,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/blastwave)
 	else if(lightr)
 		amount_destruction = EXPLODE_LIGHT
 		wallbreak_chance = 33
-	if(amount_destruction)
+	if(amount_destruction && loc)
 		if(hugbox)
 			loc.contents_explosion(EXPLODE_HEAVY, loc)
 			if(istype(loc, /turf/closed/wall))

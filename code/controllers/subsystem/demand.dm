@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(demand)
 	name = "Demand"
 	wait = 2.5 MINUTES
-	flags = SS_NO_INIT
+	ss_flags = SS_NO_INIT
 	runlevels = RUNLEVEL_GAME
 	var/list/datum/demand_state/demand_states = list()
 

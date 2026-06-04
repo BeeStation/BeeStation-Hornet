@@ -569,7 +569,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "vL" = (
-/obj/item/reagent_containers/cup/rag,
+/obj/item/rag,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
