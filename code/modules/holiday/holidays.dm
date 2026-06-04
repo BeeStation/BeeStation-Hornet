@@ -186,7 +186,7 @@
 	for(var/i in GLOB.auth_new_player_list)
 		var/mob/dead/new_player/authenticated/P = i
 		if(P.client)
-			P.client.playtitlemusic()
+			P.client.play_title_music()
 
 /datum/holiday/spess
 	name = "Cosmonautics Day"

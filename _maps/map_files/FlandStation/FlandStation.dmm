@@ -1463,7 +1463,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "awP" = (
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 1
 	},
@@ -18959,7 +18959,7 @@
 /obj/machinery/door/airlock/research{
 	name = "Experimentation Lab"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/ordnance,
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow,
@@ -27257,7 +27257,7 @@
 /obj/machinery/door/airlock/research{
 	name = "Research and Development Lab"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science/ordnance,
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /obj/effect/mapping_helpers/airlock/access/any/science/robotics,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -34832,7 +34832,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/station/science/xenobiology)
 "khz" = (
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -36292,7 +36292,7 @@
 /obj/machinery/airalarm/directional/east{
 	pixel_x = 22
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/open/floor/noslip/dark,
 /area/station/science/lobby)
 "kCu" = (
@@ -61183,7 +61183,7 @@
 /turf/open/floor/noslip/white,
 /area/station/security/prison)
 "rXW" = (
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
@@ -69959,7 +69959,7 @@
 "uGd" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/cup/glass/shaker,
-/obj/item/reagent_containers/cup/rag,
+/obj/item/rag,
 /obj/structure/sign/plaques/deempisi{
 	pixel_y = 28
 	},

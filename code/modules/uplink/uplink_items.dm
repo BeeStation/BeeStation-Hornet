@@ -2344,6 +2344,16 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	restricted_roles = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
 	reputation_required = REPUTATION_GOOD
 
+/datum/uplink_item/role_restricted/springlock
+	name = "Springlock Module"
+	desc = "A full-frame internal module mounted beneath the suit's outer shell. \
+		Its springlock exoskeleton retracts to allow entry, then locks into position to assist with boot-up. \
+		Decommissioned after repeated incidents involving sudden re-engagement under humid conditions. \
+		We found this one while recovering stolen cargo"
+	item = /obj/item/mod/module/springlock
+	cost = 2
+	restricted_roles = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
+
 /datum/uplink_item/role_restricted/rewind_camera
 	name = "Sepia-toned Camera"
 	desc = "A camera that rewinds subjects to the time that their photograph was taken after a while. It won't revive them, but wounds will close and limbs will re-attach. Can be refilled with any old film."

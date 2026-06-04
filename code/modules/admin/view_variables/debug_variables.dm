@@ -80,16 +80,22 @@
 	if(istext(value))
 		return span_value("\"[VV_HTML_ENCODE(value)]\"")
 
-	if(isicon(value))
+	// Warning - isicon(value) is misleading
+	// 		isicon('some.dmi') => returns TRUE
+	// 		isicon(/icon[0xINSTANCE]) => returns TRUE
+	// So, You have no idea what it exactly is!!!!!
+	if(is_icondmi(value))
 		#ifdef VARSICON
-		var/icon/icon_value = icon(value)
-		var/rnd = rand(1,10000)
-		var/rname = "tmp[REF(icon_value)][rnd].png"
-		usr << browse_rsc(icon_value, rname)
-		return "([span_value("[value]")]) <img class=icon src=\"[rname]\">"
+		var/md5_id = "tmp.[md5("[value]")].[md5(REF(value))]"
+		var/rname = "[md5_id].png"
+		usr << browse_rsc(value, rname)
+		return "/dmi_file ([span_value("'[value]'")]) <img class=icon src=\"[rname]\">"
 		#else
-		return "/icon ([span_value("[value]")])"
+		return "/dmi_file ([span_value("'[value]'")])"
 		#endif
+	if(is_icondatum(value))
+		var/icon/icon_value = value
+		return "[icon_value]</br>[icon_value.write_vv_button()]</br>[span_value_top("[icon_value.get_vv_data()]")]"
 
 	if(isappearance(value)) // Reminder: Do not replace this into /image/debug_variable_value() proc. /appearance can't do that.
 		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(value)]'>/appearance ([span_value("[get_appearance_vv_summary_name(value)]")]) [REF(value)]</a>"

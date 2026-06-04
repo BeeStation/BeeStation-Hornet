@@ -37,7 +37,6 @@
 	melee_damage = 30
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	bloodcrawl = BLOODCRAWL_EAT
 	hardattacks = TRUE
 	var/playstyle_string = span_bigbold("You are a slaughter demon,") + "<B> a terrible creature from another realm. You have a single desire: To kill.  \
 	You may use the \"Blood Crawl\" ability near blood pools to travel through them, appearing and disappearing from the station at will. \

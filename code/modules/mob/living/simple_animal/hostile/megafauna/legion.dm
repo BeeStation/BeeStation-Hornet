@@ -137,12 +137,10 @@ Difficulty: Medium
 		size--
 		L.size = size
 
-		L.resize = L.size * 0.2
 		transform = initial(transform)
-		resize = size * 0.2
 
-		L.update_transform()
-		update_transform()
+		L.update_transform(L.size * 0.2)
+		update_transform(size * 0.2)
 
 		L.faction = faction.Copy()
 

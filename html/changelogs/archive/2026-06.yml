@@ -2,3 +2,26 @@
   The-Moon-Itself:
   - rscadd: Readded the blast cannon to the traitor uplink
   - bugfix: Fixed the blast cannon being unable to compute bomb strength
+2026-06-02:
+  EvilDragonfiend:
+  - code_imp: improved /icon vv
+  Isaacnml:
+  - bugfix: Lavaland syndicate base is no longer unpowered 24/7
+  - rscadd: You can buy the springlock module from the Uplink at the cost of 2 TC
+2026-06-03:
+  BotTierPC:
+  - rscadd: Added a toggle for moth players to join with burnt and crippled wings.
+  - tweak: Swapped the "Domestic" and "Default" moth eyes, Plus Shaped Eyes are now
+      the Default.
+  WhiskeyMarten:
+  - bugfix: fixed explorer access across several maps
+2026-06-04:
+  Isaac:
+  - bugfix: Ores placed by hand on the ORM will give points
+  - bugfix: Fixed lasers not contributing to the ORM's ore multiplier bonus. It can
+      now go up to 3x with fully upgraded parts.
+  - bugfix: Runtime has it's own sprite when held again
+  - bugfix: Express Cargo Console uses it's own UI again
+  - balance: Express Cargo Beacons will last about 6 drop-pods instead of 3
+  Isaacnml:
+  - rscadd: RPED has the functionality to drop certain tiered parts once again

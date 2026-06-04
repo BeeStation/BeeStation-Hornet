@@ -114,8 +114,7 @@
 /obj/effect/immovablerod/wizard/proc/set_wizard(mob/living/wizard)
 	our_wizard = WEAKREF(wizard)
 	wizard.forceMove(src)
-	wizard.notransform = TRUE
-	wizard.add_traits(list(TRAIT_GODMODE, TRAIT_MAGICALLY_PHASED), "[type]")
+	wizard.add_traits(list(TRAIT_GODMODE, TRAIT_MAGICALLY_PHASED, TRAIT_NO_TRANSFORM), REF(src))
 
 /**
  * Eject our current wizard, removing them from the rod
@@ -125,9 +124,8 @@
 	var/mob/living/wizard = our_wizard?.resolve()
 	if(QDELETED(wizard))
 		return
-	wizard.notransform = FALSE
 	wizard.forceMove(get_turf(src))
 	our_wizard = null
-	wizard.remove_traits(list(TRAIT_GODMODE, TRAIT_MAGICALLY_PHASED), "[type]")
+	wizard.remove_traits(list(TRAIT_GODMODE, TRAIT_MAGICALLY_PHASED, TRAIT_NO_TRANSFORM), REF(src))
 
 #undef BASE_WIZ_ROD_RANGE

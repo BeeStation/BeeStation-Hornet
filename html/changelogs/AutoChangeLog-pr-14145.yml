@@ -1,0 +1,35 @@
+author: mrmanlikesbt, Ghommie, Jacquerel, san7890, Majkl-J, MrMelbert, SmArtKar, tontyGH,
+  MX0739, Mothblocks, LemonInTheDark, kawoppi, JohnFulpWillard, GoldenAlpharex, strandsofivy,
+  vinylspiders
+delete-after: true
+changes:
+  - code_imp: Rags are now standalone items instead of being under the /obj/item/reagent_containers
+      typepath (they can still hold reagents)
+  - code_imp: All uses of world.icon_size have been replaced with their respective
+      ICON_SIZE... defines
+  - code_imp: The notransform mob var is now a trait
+  - code_imp: TRAIT_SUIT_SENSORS and TRAIT_NANITE_SENSORS have been merged into TRAIT_TRACKED_SENSORS
+  - code_imp: All cleaning items have been refactored to use a /datum/component/cleaner
+  - code_imp: Added /datum/element/give_turf_traits. Whenever an atom with this element
+      is on a turf, its turf will have the configured traits, when the atom leaves
+      the turf, the turf will lose the traits
+  - refactor: Refactored atom huds, they are faster and easier to work with now
+  - refactor: Pixel offsets are now sourced instead of everything sharing the same
+      two pixel offset vars
+  - bugfix: Fixed cyborg soap being deleted when runs out of uses, to refill it, use
+      a cyborg recharger
+  - bugfix: Fixed people with the Monitoring nanite program not showing up on basic
+      health HUDs (only the AI has a basic health HUD)
+  - bugfix: "HUD colors are now independent of their owner's color. For example: a\
+      \ purple guy's HUD elements will no longer be purple as well"
+  - bugfix: People no longer continue to float in the air when the noose they are
+      being hung by is cut
+  - bugfix: Fixed people not having the correct pixel offset applied when aggressively
+      grabbed
+  - bugfix: Fixed some sinks pointing the wrong direction
+  - rscadd: If a person has multiple antag datums, their antag icon will now cycle
+      through all of them instead of it being locked to the most recent antag datum.
+      This can only be seen at roundend or by admins
+  - rscadd: Items in water (or lava) now appear immersed
+  - rscadd: It takes a little bit longer for clowns to realize that they're about
+      to die when they enter a chasm

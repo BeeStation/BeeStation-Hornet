@@ -99,12 +99,11 @@
 		if (human_target.get_face_name() == human_target.real_name)
 			track_time -= 1 SECONDS
 		// Check for sensor beacon
-		var/nanite_sensors = HAS_TRAIT(human_target, TRAIT_SUIT_SENSORS)
-		if(!human_target.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK) && (nanite_sensors || HAS_TRAIT(human_target, TRAIT_NANITE_SENSORS)))
+		if(!human_target.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK) && HAS_TRAIT(human_target, TRAIT_TRACKED_SENSORS))
 			// Check for a uniform if not using nanites
 			// If the GPS is on, track instantly
 			var/obj/item/clothing/under/uniform = human_target.w_uniform
-			if (nanite_sensors || uniform.sensor_mode >= SENSOR_COORDS)
+			if (HAS_TRAIT_FROM(human_target, TRAIT_TRACKED_SENSORS, NANITES_TRAIT) || uniform.sensor_mode >= SENSOR_COORDS)
 				track_time = 0
 	if (!instant_track && !ishuman(target))
 		// Animals are easy to track
