@@ -21924,6 +21924,14 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit)
+"jnL" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/turf/open/floor/plating,
+/area/station/maintenance/aft)
 "jnM" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/tile/blue{
@@ -97378,7 +97386,7 @@ nJu
 dda
 dQT
 fpU
-bYe
+jnL
 hbq
 ekI
 gxZ
