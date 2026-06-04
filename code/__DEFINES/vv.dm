@@ -93,6 +93,8 @@
 // /datum/weakref
 #define VV_HK_WEAKREF_RESOLVE "weakref_resolve"
 
+// /icon
+#define VV_HK_VIEW_ICON "view_icon"
 
 // /atom
 #define VV_HK_MODIFY_TRANSFORM "atom_transform"
