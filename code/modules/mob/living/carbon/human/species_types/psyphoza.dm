@@ -134,7 +134,7 @@
 	button_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "activate_psychic"
 	transparent_when_unavailable = TRUE
-	cooldown_time = 5 SECONDS
+	cooldown_time = 1 SECONDS
 
 	/// The distant our psychic sense works
 	var/psychic_scale = 2.28
