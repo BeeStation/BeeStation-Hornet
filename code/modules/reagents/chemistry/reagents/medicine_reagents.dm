@@ -851,6 +851,14 @@
 	affected_mob.set_dizzy_if_lower(2 SECONDS * REM * delta_time)
 	affected_mob.set_jitter_if_lower(2 SECONDS * REM * delta_time)
 
+/datum/reagent/medicine/atropine/on_mob_add(mob/living/owner)
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION, "[type]")
+
+/datum/reagent/medicine/atropine/on_mob_delete(mob/living/owner)
+	REMOVE_TRAIT(owner, TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION, "[type]")
+	return ..()
+
 /datum/reagent/medicine/epinephrine
 	name = "Epinephrine"
 	description = "Minor boost to stun resistance. Slowly heals damage if a patient is in critical condition, as well as regulating oxygen loss. Overdose causes weakness and toxin damage."
