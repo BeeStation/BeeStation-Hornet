@@ -21,19 +21,20 @@
 	for(var/obj/item/part in contents)
 		if(istype(part, /obj/item/stock_parts/cell))
 			var/obj/item/stock_parts/cell/cell = part
-			if(cell.rating < lowest_rating)
-				lowest_rating = cell.rating
+			lowest_rating = min(lowest_rating, cell.rating)
 			things += part
-		else if(part.get_part_rating())
-			if(part.get_part_rating() < lowest_rating)
-				lowest_rating = part.get_part_rating()
-			things += part
+			continue
+		var/obj/item/stock_parts/stock_part = part
+		if(!istype(stock_part))
+			continue
+		lowest_rating = min(lowest_rating, stock_part.get_part_rating())
+		things += stock_part
 
 	if(lowest_rating == INFINITY)
 		to_chat(user, span_notice("There's no parts to dump out from [src]."))
 		return
 
-	for(var/obj/item/part in things.Copy())
+	for(var/obj/item/part in things)
 		if(istype(part, /obj/item/stock_parts/cell))
 			var/obj/item/stock_parts/cell/cell = part
 			if(cell.rating > lowest_rating)
@@ -43,7 +44,7 @@
 
 	to_chat(user, span_notice("You dump out Tier [lowest_rating] parts from [src]."))
 
-	var/turf/drop_location = get_turf(src)
+	var/turf/drop_location = drop_location(src)
 
 	for(var/obj/item/part in things)
 		part.forceMove(drop_location)
