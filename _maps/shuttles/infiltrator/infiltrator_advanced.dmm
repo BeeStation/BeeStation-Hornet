@@ -2011,7 +2011,7 @@
 /obj/structure/mirror{
 	pixel_y = 28
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/medical)
 "KA" = (
