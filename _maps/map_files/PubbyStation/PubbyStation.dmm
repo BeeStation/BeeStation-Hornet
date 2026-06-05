@@ -19024,7 +19024,7 @@
 /obj/machinery/light/small,
 /obj/item/clothing/under/costume/singer/yellow{
 	name = "Ceremonial Attire";
-	desc = "A traditional ethereal garment, just looking at this makes you want to twitch with zealous frevor."
+	desc = "A traditional garment worn by lunatics and con-artists alike, just looking at this makes you want to twitch with zealous frevor."
 	},
 /obj/item/storage/book/bible,
 /obj/item/storage/book/bible,
@@ -57356,6 +57356,7 @@
 	},
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/tile/blue/fourcorners,
+/obj/item/clothing/suit/jacket/straight_jacket,
 /turf/open/floor/iron/white/textured_large,
 /area/station/medical/medbay/central)
 "vHy" = (
