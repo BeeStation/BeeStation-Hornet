@@ -33792,10 +33792,6 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow,
-/obj/structure/sign/poster/official/space_cops{
-	pixel_y = 0;
-	pixel_x = -32
-	},
 /turf/open/floor/carpet,
 /area/station/service/lawoffice)
 "mmS" = (
