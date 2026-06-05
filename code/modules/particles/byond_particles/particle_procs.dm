@@ -8,7 +8,12 @@ particles like bonfires.
 
 /atom
 	///list of all particle emitters
-	var/list/emitters = list()
+	var/list/emitters
+
+/atom/Destroy()
+	. = ..()
+	if(LAZYLEN(emitters))
+		QDEL_LIST_ASSOC_VAL(emitters)
 
 /// priority is in descending order so 10 is the highest 1 is the lowest
 /atom/proc/add_emitter(obj/emitter/updatee, particle_key, priority = 10, lifespan = null, burst_mode = FALSE)
@@ -25,7 +30,7 @@ particles like bonfires.
 
 	new_emitter.layer += (priority / 100)
 	new_emitter.vis_locs |= src
-	emitters[particle_key] = new_emitter
+	LAZYSET(emitters, particle_key, new_emitter)
 	if(lifespan || burst_mode)
 		if(burst_mode)
 			remove_emitter(particle_key, TRUE)
@@ -38,19 +43,19 @@ particles like bonfires.
 	if(!particle_key)
 		CRASH("remove_emitter called without a key ref.")
 
-	if(emitters[particle_key])
+	if(LAZYACCESS(emitters, particle_key))
 		return
-	var/obj/emitter/removed_emitter = emitters[particle_key]
+	var/obj/emitter/removed_emitter = LAZYACCESS(emitters, particle_key)
 	if(!burst_mode)
 		removed_emitter.particles.spawning = 0 //this way it gracefully dies out instead
 	addtimer(CALLBACK(src, PROC_REF(handle_deletion), particle_key), removed_emitter.particles.lifespan)
 
 /atom/proc/handle_deletion(particle_key)
-	var/obj/emitter/removed_emitter = emitters[particle_key]
+	var/obj/emitter/removed_emitter = LAZYACCESS(emitters, particle_key)
 
 	if(!removed_emitter)
 		return
 	removed_emitter.vis_locs -= src
 
-	emitters -= particle_key
+	LAZYREMOVE(emitters, particle_key)
 	qdel(removed_emitter)

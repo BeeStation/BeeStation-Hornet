@@ -1168,7 +1168,7 @@
 	if(href_list[VV_HK_REMOVE_EMITTER])
 		if(!check_rights(R_VAREDIT))
 			return
-		if(!emitters.len)
+		if(!LAZYLEN(emitters))
 			return
 		var/removee = input(usr, "Choose an emitter to remove", "Choose an Emitter") as null|anything in emitters
 		if(!removee)

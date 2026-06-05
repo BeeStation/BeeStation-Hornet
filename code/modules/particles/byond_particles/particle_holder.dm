@@ -49,7 +49,6 @@
 
 /obj/effect/abstract/particle_holder/Destroy(force)
 	QDEL_NULL(particles)
-	QDEL_LIST_ASSOC_VAL(emitters)
 	parent = null
 	return ..()
 
