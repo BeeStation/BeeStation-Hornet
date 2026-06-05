@@ -129,3 +129,31 @@
 		ADD_TRAIT(target, TRAIT_MOTH_BURNT, "fire")
 	else
 		REMOVE_TRAIT(target, TRAIT_MOTH_BURNT, "fire")
+
+/datum/preference/choiced/moth_head_shape
+	db_key = "feature_moth_head_shape"
+	preference_type = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	main_feature_name = "Head Shape"
+	relevant_mutant_bodypart = "moth_head"
+
+/datum/preference/choiced/moth_head_shape/init_possible_values()
+	return list("Round", "Pointed")
+
+/datum/preference/choiced/moth_head_shape/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["moth_head"] = value
+	if (!("moth_head" in target.dna.species.mutant_bodyparts))
+		return
+
+	var/head_type = /obj/item/bodypart/head/moth
+	if (value == "Pointed")
+		head_type = /obj/item/bodypart/head/moth/pointed
+
+	target.dna.species.bodypart_overrides[BODY_ZONE_HEAD] = head_type
+
+	var/obj/item/bodypart/head/current_head = target.get_bodypart(BODY_ZONE_HEAD)
+	if (isnull(current_head) || current_head.type != head_type)
+		target.del_and_replace_bodypart(new head_type, special = TRUE)
+
+/datum/preference/choiced/moth_head_shape/create_default_value()
+	return "Round"

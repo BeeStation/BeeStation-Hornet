@@ -235,3 +235,8 @@ export const feature_moth_burnt_wings: FeatureToggle = {
   name: 'Burnt Wings',
   component: CheckboxInput,
 };
+
+export const feature_moth_head_shape: FeatureChoiced = {
+  name: 'Head Shape',
+  component: FeatureButtonedDropdownInput,
+};

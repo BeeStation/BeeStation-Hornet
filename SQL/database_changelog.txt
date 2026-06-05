@@ -9,11 +9,12 @@ INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 8);
 In any query remember to add a prefix to the table names if you use one.
 
 -----------------------------------------------------
-Version 7.8 4 June 2026, by Raspberry
-Adds Burnt Wing toggle preference
+Version 7.8 5 June 2026, by Raspberry
+Adds Burnt Wing toggle preference and Moth Head Shape choiced pref
 
 ALTER TABLE `SS13_characters`
-	ADD COLUMN IF NOT EXISTS `feature_moth_eyes` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_moth_burnt_wings`;
+	ADD COLUMN IF NOT EXISTS `feature_moth_burnt_wings` TINYINT(1) AFTER `feature_moth_eyes`;
+	ADD COLUM IF NOT EXISTS `feature_moth_head_shape` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER 'feature_moth_burnt_wings';
 
 -----------------------------------------------------
 Version 7.7, 1 April 2026, by boneyards

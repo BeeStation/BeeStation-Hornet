@@ -22,6 +22,7 @@
 		"moth_wings" = "Plain",
 		"moth_antennae" = "Plain",
 		"moth_markings" = SPRITE_ACCESSORY_NONE,
+		"moth_head" = "Round",
 		"moth_eyes" = "Default",
 		"body_size" = "Normal"
 	)
