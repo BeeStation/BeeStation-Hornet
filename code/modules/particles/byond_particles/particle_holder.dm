@@ -36,7 +36,7 @@
 	// Mouse opacity can get set to opaque by some objects when placed into the object's contents (storage containers).
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	src.particle_flags = particle_flags
-	particles = get_particle_effect(particle_path)
+	particles = particle_path ? get_particle_effect(particle_path) : null
 	// /atom doesn't have vis_contents, /turf and /atom/movable do
 	var/atom/movable/lie_about_areas = parent
 	lie_about_areas.vis_contents += src
