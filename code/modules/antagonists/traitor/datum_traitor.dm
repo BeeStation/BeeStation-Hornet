@@ -6,8 +6,9 @@
 	required_living_playtime = 2
 	antag_moodlet = /datum/mood_event/focused
 	faction = FACTION_SYNDICATE
-	hijack_speed = 0.5				//10 seconds per hijack stage by default
+	hijack_speed = 0.5 //10 seconds per hijack stage by default
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
+	antag_hud_name = "traitor"
 	var/special_role = ROLE_TRAITOR
 	/// Shown when giving uplinks and codewords to the player
 	var/employer = "The Syndicate"
@@ -32,7 +33,7 @@
 
 /datum/antagonist/traitor/on_removal()
 	if(!silent && owner.current)
-		to_chat(owner.current,span_userdanger(" You are no longer the [special_role]! "))
+		to_chat(owner.current, span_userdanger(" You are no longer the [special_role]! "))
 	owner.special_role = null
 	..()
 
@@ -42,13 +43,6 @@
 	message = GLOB.syndicate_code_phrase_regex.Replace(message, span_blue("$1"))
 	message = GLOB.syndicate_code_response_regex.Replace(message, span_red("$1"))
 	hearing_args[HEARING_RAW_MESSAGE] = message
-
-/datum/antagonist/traitor/proc/add_objective(datum/objective/O)
-	objectives += O
-	log_objective(owner, O.explanation_text)
-
-/datum/antagonist/traitor/proc/remove_objective(datum/objective/O)
-	objectives -= O
 
 /datum/antagonist/traitor/greet()
 	var/list/msg = list()
@@ -62,19 +56,8 @@
 
 	to_chat(owner.current, examine_block(msg.Join("\n")))
 
-/datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
-	traitorhud.join_hud(owner.current)
-	set_antag_hud(owner.current, "traitor")
-
-/datum/antagonist/traitor/proc/update_traitor_icons_removed(datum/mind/traitor_mind)
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
-	traitorhud.leave_hud(owner.current)
-	set_antag_hud(owner.current, null)
-
 /datum/antagonist/traitor/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	update_traitor_icons_added()
 	// Give codewords to the new mob on mind transfer.
 	if(mob_override)
 		give_codewords(mob_override)
@@ -82,7 +65,6 @@
 
 /datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
 	. = ..()
-	update_traitor_icons_removed()
 	// Remove codewords from the old mob on mind transfer.
 	if(mob_override)
 		remove_codewords(mob_override)
@@ -216,8 +198,8 @@
 
 /// Proc detailing contract kit buys/completed contracts/additional info
 /datum/antagonist/traitor/proc/contractor_round_end()
-	var result = ""
-	var total_spent_rep = 0
+	var/result = ""
+	var/total_spent_rep = 0
 
 	var/completed_contracts = 0
 	var/tc_total = contractor_hub.contract_TC_payed_out + contractor_hub.contract_TC_to_redeem
@@ -257,7 +239,6 @@
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	var message = "<br><b>The code phrases were:</b> [span_bluetext("[phrases]")]<br>\
-					<b>The code responses were:</b> [span_redtext("[responses]")]<br>"
+	var/message = "<br><b>The code phrases were:</b> [span_bluetext(phrases)]<br><b>The code responses were:</b> [span_redtext(responses)]<br>"
 
 	return message

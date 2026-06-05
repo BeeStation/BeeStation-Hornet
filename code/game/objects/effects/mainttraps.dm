@@ -258,13 +258,13 @@
 	melee_damage = 12 //zombies have a base of 21, a bit much
 	stat_attack = CONSCIOUS
 	mobchatspan = "chaplain"
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/alien/hugbox
 	health = 60 //they go down easy, to lull the player into a sense of false security
 	maxHealth = 60
 	mobchatspan = "researchdirector"
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/cat_butcherer/hugbox //a cat butcher without a melee speed buff or a syringe gun. he's not too hard to take down, but can still go on catification rampages
 	ranged = FALSE

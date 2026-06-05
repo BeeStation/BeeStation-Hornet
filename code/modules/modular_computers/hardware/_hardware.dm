@@ -78,10 +78,9 @@
 	playsound(src, 'sound/items/flashlight_on.ogg', 50, TRUE)
 	return
 
-/obj/item/computer_hardware/attackby(obj/item/I, mob/living/user)
-	if(try_insert(I, user))
+/obj/item/computer_hardware/attackby(obj/item/attacking_item, mob/living/user)
+	if(application_attackby(attacking_item, user))
 		return TRUE
-
 	return ..()
 
 /obj/item/computer_hardware/welder_act(mob/living/user, obj/item/I)
@@ -286,8 +285,8 @@
 		try_eject(forced = TRUE)
 	remove_from.ui_update(user)
 
-/// Called when someone tries to insert something in it - paper in printer, card in card reader, etc.
-/obj/item/computer_hardware/proc/try_insert(obj/item/I, mob/living/user = null)
+/// Called when attacking a tablet with an item, checking if any application uses it. Return TRUE to cancel the attack chain.
+/obj/item/computer_hardware/proc/application_attackby(obj/item/attacking_item, mob/living/user)
 	return FALSE
 
 /**

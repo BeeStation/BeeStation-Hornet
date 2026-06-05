@@ -524,16 +524,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
 	setDir(user.dir)
 
 	user.forceMove(src)
-	user.notransform = TRUE
-	ADD_TRAIT(user, TRAIT_GODMODE, "[type]")
+	user.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), REF(src))
 
 	can_destroy = FALSE
 
 	addtimer(CALLBACK(src, PROC_REF(unvanish), user), 10 SECONDS)
 
 /obj/effect/immortality_talisman/proc/unvanish(mob/user)
-	REMOVE_TRAIT(user, TRAIT_GODMODE, "[type]")
-	user.notransform = FALSE
+	user.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), REF(src))
 	user.forceMove(get_turf(src))
 
 	user.visible_message(span_danger("[user] pops back into reality!"))
@@ -681,7 +679,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	to_chat(user, span_notice("You unfold the ladder. It extends much farther than you were expecting."))
 	var/last_ladder = null
 	for(var/i in 1 to world.maxz)
-		if(is_centcom_level(i) || is_reserved_level(i) || is_away_level(i) || is_debug_level(i))
+		if(is_centcom_level(i) || is_reserved_level(i) || is_away_level(i))
 			continue
 		var/turf/T2 = locate(ladder_x, ladder_y, i)
 		last_ladder = new /obj/structure/ladder/unbreakable/jacob(T2, null, last_ladder)

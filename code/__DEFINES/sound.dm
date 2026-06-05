@@ -1,16 +1,23 @@
 //max channel is 1024. Only go lower from here, because byond tends to pick the first availiable channel to play sounds on
-#define CHANNEL_LOBBYMUSIC		1024
-#define CHANNEL_ADMIN			1023
-#define CHANNEL_VOX				1022
-#define CHANNEL_JUKEBOX			1021
-#define CHANNEL_JUSTICAR_ARK	1020
-#define CHANNEL_HEARTBEAT		1019 //sound channel for heartbeats
+#define CHANNEL_LOBBYMUSIC 1024
+#define CHANNEL_ADMIN 1023
+#define CHANNEL_VOX 1022
+#define CHANNEL_JUKEBOX	1021
+#define CHANNEL_JUSTICAR_ARK 1020
+#define CHANNEL_HEARTBEAT 1019 //sound channel for heartbeats
 #define CHANNEL_AMBIENT_EFFECTS	1018
-#define CHANNEL_AMBIENT_MUSIC	1017
-#define CHANNEL_BUZZ			1017
-#define CHANNEL_ELEVATOR_MUSIC	1016
-#define CHANNEL_SOUNDTRACK		1015
-#define CHANNEL_ANTAG_GREETING	1014
+#define CHANNEL_AMBIENT_MUSIC 1017
+#define CHANNEL_BUZZ 1017
+#define CHANNEL_ELEVATOR_MUSIC 1016
+#define CHANNEL_SOUNDTRACK 1015
+#define CHANNEL_ANTAG_GREETING 1014
+#define CHANNEL_WEATHER 1013
+//THIS SHOULD ALWAYS BE THE LOWEST ONE!
+//KEEP IT UPDATED
+#define CHANNEL_HIGHEST_AVAILABLE 1012
+
+/// Used for /client/var/list/sound_channel_initial_volumes
+#define HAS_UNIQUE_SOUND_CHANNEL(sound) (sound.channel > CHANNEL_HIGHEST_AVAILABLE)
 
 /// This is the lowest volume that can be used by playsound otherwise it gets ignored
 /// Most sounds around 10 volume can barely be heard. Almost all sounds at 5 volume or below are inaudible
@@ -61,11 +68,6 @@
 #define SOUND_DEFAULT_FALLOFF_DISTANCE 1 //For a normal sound this would be 1 tile of no falloff
 ///The default exponent of sound falloff
 #define SOUND_FALLOFF_EXPONENT 6
-
-//THIS SHOULD ALWAYS BE THE LOWEST ONE!
-//KEEP IT UPDATED
-
-#define CHANNEL_HIGHEST_AVAILABLE 1014
 
 #define MAX_INSTRUMENT_CHANNELS (128 * 6)
 

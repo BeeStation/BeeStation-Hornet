@@ -46,7 +46,7 @@
 
 	hardattacks = TRUE //A sharp blade wont cut a slime from a mere parry
 
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 	var/cores = 1 // the number of /obj/item/slime_extract's the slime has left inside
 	var/mutation_chance = 30 // Chance of mutating, should be between 25 and 35
@@ -148,7 +148,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
 		set_playable(ROLE_SENTIENCE)
 
-	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	add_traits(list(TRAIT_CAN_MOUNT_HUMANS, TRAIT_VENTCRAWLER_ALWAYS), INNATE_TRAIT)
 
 /mob/living/simple_animal/slime/Destroy()
 	set_target(null)
@@ -363,9 +363,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	else
 		if(stat == DEAD && surgeries.len)
 			if(!M.combat_mode || LAZYACCESS(modifiers, RIGHT_CLICK))
-				for(var/datum/surgery/S in surgeries)
-					if(S.next_step(M, modifiers))
-						return 1
+				for(var/datum/surgery/operations as anything in surgeries)
+					if(operations.next_step(M, modifiers))
+						return TRUE
 		if(..()) //successful attack
 			attacked += 10
 
@@ -379,8 +379,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	if(stat == DEAD && surgeries.len)
 		var/list/modifiers = params2list(params)
 		if(!user.combat_mode || (LAZYACCESS(modifiers, RIGHT_CLICK)))
-			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, modifiers))
+			for(var/datum/surgery/operations as anything in surgeries)
+				if(operations.next_step(user, modifiers))
 					return 1
 	if(istype(W, /obj/item/stack/sheet/mineral/plasma) && !stat) //Let's you feed slimes plasma.
 		add_friendship(user, 1)
@@ -533,10 +533,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 
 /mob/living/simple_animal/slime/pet
 	docile = 1
-
-/mob/living/simple_animal/slime/get_mob_buckling_height(mob/seat)
-	if(..())
-		return 3
 
 /mob/living/simple_animal/slime/can_be_implanted()
 	return TRUE

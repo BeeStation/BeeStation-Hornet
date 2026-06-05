@@ -1,4 +1,4 @@
-/obj/item/modular_computer/tablet  //Its called tablet for theme of 90ies but actually its a "big smartphone" sized
+/obj/item/modular_computer/tablet //Its called tablet for theme of 90ies but actually its a "big smartphone" sized
 	name = "tablet computer"
 	icon = 'icons/obj/modular_tablet.dmi'
 	icon_state = "tablet-red"
@@ -12,7 +12,7 @@
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	has_light = TRUE //LED flashlight!
 	comp_light_luminosity = 3 //not the same as the PDA
-	interaction_flags_atom = INTERACT_ATOM_ALLOW_USER_LOCATION
+	interaction_flags_atom = INTERACT_ATOM_ALLOW_USER_LOCATION | INTERACT_ATOM_IGNORE_MOBILITY
 	can_save_id = TRUE
 	saved_auto_imprint = TRUE
 	can_store_pai = TRUE

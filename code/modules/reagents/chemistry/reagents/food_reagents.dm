@@ -83,9 +83,8 @@
 
 	data = counterlist_normalise(supplied_data)
 
-/datum/reagent/consumable/nutriment/on_merge(list/newdata, newvolume)
-	. = ..()
-	if(!islist(newdata) || !length(newdata))
+/datum/reagent/consumable/nutriment/on_merge(list/mix_data, new_total)
+	if(!islist(data) || !length(mix_data))
 		return
 
 	// data for nutriment is one or more (flavour -> ratio)
@@ -97,8 +96,8 @@
 
 	counterlist_scale(taste_amounts, volume)
 
-	var/list/other_taste_amounts = newdata.Copy()
-	counterlist_scale(other_taste_amounts, newvolume)
+	var/list/other_taste_amounts = mix_data.Copy()
+	counterlist_scale(other_taste_amounts, new_total)
 
 	counterlist_combine(taste_amounts, other_taste_amounts)
 
@@ -599,7 +598,7 @@
 	. = ..()
 	if(iscarbon(exposed_mob) && (method in list(TOUCH, VAPOR, PATCH)))
 		var/mob/living/carbon/exposed_carbon = exposed_mob
-		for(var/datum/surgery/surgery in exposed_carbon.surgeries)
+		for(var/datum/surgery/surgery as anything in exposed_carbon.surgeries)
 			surgery.speed_modifier = max(0.6, surgery.speed_modifier) // +60% surgery speed on each step, compared to bacchus' blessing's ~46%
 
 /datum/reagent/consumable/mayonnaise

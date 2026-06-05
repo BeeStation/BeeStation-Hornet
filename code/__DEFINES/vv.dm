@@ -93,6 +93,8 @@
 // /datum/weakref
 #define VV_HK_WEAKREF_RESOLVE "weakref_resolve"
 
+// /icon
+#define VV_HK_VIEW_ICON "view_icon"
 
 // /atom
 #define VV_HK_MODIFY_TRANSFORM "atom_transform"
@@ -204,27 +206,37 @@
 #define VV_LIST_READ_ONLY___DEBUG_EDITABLE (2)
 #endif
 
-/// A list of all the special byond lists that need to be handled different by vv.
-/// manually adding var name is recommanded.
-GLOBAL_LIST_INIT(vv_special_lists, list(
-	// /datum
-	"vars" = VV_LIST_READ_ONLY,
-	// /atom
-	"overlays" = VV_LIST_EDITABLE,
-	"underlays" = VV_LIST_EDITABLE,
-	"vis_contents" = VV_LIST_EDITABLE,
-	"vis_locs" = VV_LIST_READ_ONLY___DEBUG_EDITABLE,
-	"contents" = VV_LIST_EDITABLE,
-	"locs" = VV_LIST_READ_ONLY___DEBUG_EDITABLE,
-	"verbs" = VV_LIST_READ_ONLY___DEBUG_EDITABLE, // verb is not safe to edit in live server
-	"filters" = VV_LIST_PROTECTED, // This is not good to change in vv, yet.
-	// /client
-	"bounds" = VV_LIST_PROTECTED, // DM document says it's read-only. Better not to edit this.
-	"images" = VV_LIST_EDITABLE,
-	"screen" = VV_LIST_EDITABLE,
-))
+// A list of all the special byond lists that need to be handled different by vv
 // NOTE: this is highly attached to how /datum/vv_ghost works.
+GLOBAL_LIST_INIT(vv_special_lists, init_special_list_names())
 
+/proc/init_special_list_names()
+	var/list/output = list(
+		// datum
+		"vars" = VV_LIST_READ_ONLY,
+		// atom
+		"vis_locs" = VV_LIST_READ_ONLY___DEBUG_EDITABLE,
+		"locs" = VV_LIST_READ_ONLY___DEBUG_EDITABLE,
+		"verbs" = VV_LIST_READ_ONLY___DEBUG_EDITABLE, // verb is not safe to edit in live server
+		"filters" = VV_LIST_PROTECTED, // This is not good to change in vv, yet.
+		// client
+		"bounds" = VV_LIST_PROTECTED, // DM document says it's read-only. Better not to edit this.
+	)
+
+	// Get the remaining special lists & default to VV_LIST_EDITABLE
+	var/obj/sacrifice = new
+	for(var/varname in sacrifice.vars)
+		if(output[varname])
+			continue
+		var/value = sacrifice.vars[varname]
+		if(!islist(value))
+			if(!isdatum(value) && hascall(value, "Cut"))
+				output[varname] = VV_LIST_EDITABLE
+			continue
+		if(isnull(locate(REF(value))))
+			output[varname] = VV_LIST_EDITABLE
+
+	return output
 
 #ifndef DEBUG
 GLOBAL_PROTECT(vv_special_lists) // changing this in live server is a bad idea

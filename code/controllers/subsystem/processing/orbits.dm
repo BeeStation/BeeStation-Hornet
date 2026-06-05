@@ -1,6 +1,6 @@
 PROCESSING_SUBSYSTEM_DEF(orbits)
 	name = "Orbits"
-	flags = SS_KEEP_TIMING
+	ss_flags = SS_KEEP_TIMING
 	init_stage = INITSTAGE_EARLY
 	priority = FIRE_PRIORITY_ORBITS
 	wait = ORBITAL_UPDATE_RATE
@@ -177,8 +177,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 
 /datum/controller/subsystem/processing/orbits/proc/update_objective_computers()
 	for(var/obj/machinery/computer/objective/computer as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/objective))
-		for(var/M in computer.viewing_mobs)
-			computer.update_static_data(M)
+		computer.update_static_data_for_all_viewers()
 
 /// parameter must accept 'get_virtual_z_level()' values
 /datum/controller/subsystem/processing/orbits/proc/get_orbital_map_name_from_z(my_z)

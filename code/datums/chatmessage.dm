@@ -244,8 +244,8 @@
 	if (current_z_idx >= CHAT_LAYER_MAX_Z)
 		current_z_idx = 0
 
-	var/bound_height = world.icon_size
-	var/bound_width = world.icon_size
+	var/bound_height = ICON_SIZE_Y
+	var/bound_width = ICON_SIZE_X
 	if(ismovable(message_loc))
 		var/atom/movable/AM = message_loc
 		bound_height = AM.bound_height
@@ -370,7 +370,7 @@
 			// scheduled time once the EOL has been executed.
 			if (!m.isFading)
 				var/sched_remaining = timeleft(m.fadertimer, SSrunechat)
-				var/remaining_time = (sched_remaining) * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** CEILING(combined_height, 1))
+				var/remaining_time = (sched_remaining) * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** ceil(combined_height))
 				if (remaining_time)
 					deltimer(m.fadertimer, SSrunechat)
 					m.fadertimer = addtimer(CALLBACK(m, PROC_REF(end_of_life)), remaining_time, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
@@ -583,7 +583,7 @@
 	// Register client who owns this message
 	var/client/owned_by = owner.client
 
-	var/bound_width = world.icon_size
+	var/bound_width = ICON_SIZE_X
 	if (ismovable(target))
 		var/atom/movable/movable_source = target
 		bound_width = movable_source.bound_width
@@ -629,7 +629,7 @@
 		duration_mult += duration_length * BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
 
 	// Animate the message
-	animate(group.message, alpha = 255, pixel_y = (group.message.pixel_y + world.icon_size) * 1.1, time = BALLOON_TEXT_SPAWN_TIME)
+	animate(group.message, alpha = 255, pixel_y = (group.message.pixel_y + ICON_SIZE_Y) * 1.1, time = BALLOON_TEXT_SPAWN_TIME)
 
 	LAZYADD(message_loc.balloon_alerts, src)
 

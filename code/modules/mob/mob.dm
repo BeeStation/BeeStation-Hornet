@@ -83,14 +83,12 @@
 	update_incapacitated()
 	set_focus(src)
 	prepare_huds()
-	for(var/v in GLOB.active_alternate_appearances)
-		if(!v)
-			continue
-		var/datum/atom_hud/alternate_appearance/AA = v
-		AA.onNewMob(src)
+	for(var/datum/atom_hud/alternate_appearance/alt_hud as anything in GLOB.active_alternate_appearances)
+		alt_hud.apply_to_new_mob(src)
 
 	set_nutrition(rand(NUTRITION_LEVEL_START_MIN, NUTRITION_LEVEL_START_MAX))
 	. = ..()
+	setup_hud_traits()
 	update_config_movespeed()
 	initialize_actionspeed()
 	update_movespeed(TRUE)
@@ -108,23 +106,70 @@
 	tag = "mob_[next_mob_id++]"
 
 /**
-  * Prepare the huds for this atom
-  *
-  * Goes through hud_possible list and adds the images to the hud_list variable (if not already
-  * cached)
-  */
+ * set every hud image in the given category active so other people with the given hud can see it.
+ * Arguments:
+ * * hud_category - the index in our active_hud_list corresponding to an image now being shown.
+ * * update_huds - if FALSE we will just put the hud_category into active_hud_list without actually updating the atom_hud datums subscribed to it
+ * * exclusive_hud - if given a reference to an atom_hud, will just update that hud instead of all global ones attached to that category.
+ * This is because some atom_hud subtypes arent supposed to work via global categories, updating normally would affect all of these which we dont want.
+ */
+/atom/proc/set_hud_image_active(hud_category, update_huds = TRUE, datum/atom_hud/exclusive_hud)
+	if(!istext(hud_category) || !hud_list?[hud_category] || active_hud_list?[hud_category])
+		return FALSE
+
+	LAZYSET(active_hud_list, hud_category, hud_list[hud_category])
+
+	if(!update_huds)
+		return TRUE
+
+	if(exclusive_hud)
+		exclusive_hud.add_single_hud_category_on_atom(src, hud_category)
+	else
+		for(var/datum/atom_hud/hud_to_update as anything in GLOB.huds_by_category[hud_category])
+			hud_to_update.add_single_hud_category_on_atom(src, hud_category)
+
+	return TRUE
+
+///sets every hud image in the given category inactive so no one can see it
+/atom/proc/set_hud_image_inactive(hud_category, update_huds = TRUE, datum/atom_hud/exclusive_hud)
+	if(!istext(hud_category))
+		return FALSE
+
+	if(!update_huds)
+		LAZYREMOVE(active_hud_list, hud_category)
+		return TRUE
+
+	if(exclusive_hud)
+		exclusive_hud.remove_single_hud_category_on_atom(src, hud_category)
+	else
+		for(var/datum/atom_hud/hud_to_update as anything in GLOB.huds_by_category[hud_category])
+			hud_to_update.remove_single_hud_category_on_atom(src, hud_category)
+
+	LAZYREMOVE(active_hud_list, hud_category)
+
+	return TRUE
+
+/**
+ * Prepare the huds for this atom
+ *
+ * Goes through hud_possible list and adds the images to the hud_list variable (if not already cached)
+ */
 /atom/proc/prepare_huds()
+	if(hud_list) // I choose to be lenient about people calling this proc more then once
+		return
 	hud_list = list()
 	for(var/hud in hud_possible)
 		var/hint = hud_possible[hud]
-		switch(hint)
-			if(HUD_LIST_LIST)
-				hud_list[hud] = list()
-			else
-				var/image/I = image('icons/mob/hud.dmi', src, "")
-				I.appearance_flags = RESET_COLOR|RESET_TRANSFORM
-				I.plane = DATA_HUD_PLANE
-				hud_list[hud] = I
+
+		if(hint == HUD_LIST_LIST)
+			hud_list[hud] = list()
+
+		else
+			var/image/I = image('icons/mob/huds/hud.dmi', src, "")
+			I.appearance_flags = RESET_COLOR|PIXEL_SCALE|KEEP_APART
+			I.plane = DATA_HUD_PLANE
+			hud_list[hud] = I
+		set_hud_image_active(hud, update_huds = FALSE) //by default everything is active. but dont add it to huds to keep control.
 
 /**
   * Some kind of debug verb that gives atmosphere environment details
@@ -1068,7 +1113,7 @@
 		return FALSE
 	if(anchored)
 		return FALSE
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
 		return FALSE
@@ -1232,25 +1277,6 @@
 			return FALSE
 	return ..()
 
-///Call back post buckle to a mob to offset your visual height
-/mob/post_buckle_mob(mob/living/M)
-	var/height = M.get_mob_buckling_height(src)
-	M.pixel_y = initial(M.pixel_y) + height
-	if(M.layer < layer)
-		M.layer = layer + 0.1
-///Call back post unbuckle from a mob, (reset your visual height here)
-/mob/post_unbuckle_mob(mob/living/M)
-	M.layer = initial(M.layer)
-	M.pixel_y = initial(M.pixel_y)
-
-///returns the height in pixel the mob should have when buckled to another mob.
-/mob/proc/get_mob_buckling_height(mob/seat)
-	if(isliving(seat))
-		var/mob/living/L = seat
-		if(L.mob_size <= MOB_SIZE_SMALL) //being on top of a small mob doesn't put you very high.
-			return 0
-	return 9
-
 ///Can the mob interact() with an atom?
 /mob/proc/can_interact_with(atom/A, treat_mob_as_adjacent)
 	if(IsAdminGhost(src))
@@ -1380,6 +1406,7 @@
 
 ///Update the lighting plane and sight of this mob (sends COMSIG_MOB_UPDATE_SIGHT)
 /mob/proc/update_sight()
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
@@ -1625,5 +1652,51 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 /mob/key_down(key, client/client, full_key)
 	..()
 	SEND_SIGNAL(src, COMSIG_MOB_KEYDOWN, key, client, full_key)
+
+/mob/proc/setup_hud_traits()
+	for(var/hud_trait in GLOB.trait_to_hud)
+		RegisterSignal(src, SIGNAL_ADDTRAIT(hud_trait), PROC_REF(hud_trait_enabled))
+		RegisterSignal(src, SIGNAL_REMOVETRAIT(hud_trait), PROC_REF(hud_trait_disabled))
+	for(var/hud_trait in GLOB.trait_blockers_to_hud)
+		RegisterSignal(src, SIGNAL_ADDTRAIT(hud_trait), PROC_REF(hud_trait_blocker_gained))
+		RegisterSignal(src, SIGNAL_REMOVETRAIT(hud_trait), PROC_REF(hud_trait_blocker_lost))
+
+/mob/proc/hud_trait_enabled(datum/source, new_trait)
+	SIGNAL_HANDLER
+
+	for(var/blocker, blocked_traits in GLOB.trait_blockers_to_hud)
+		if(HAS_TRAIT(src, blocker) && (new_trait in blocked_traits))
+			return
+
+	var/datum/atom_hud/datahud = GLOB.huds[GLOB.trait_to_hud[new_trait]]
+	datahud.show_to(src)
+
+/mob/proc/hud_trait_disabled(datum/source, lost_trait)
+	SIGNAL_HANDLER
+
+	for(var/blocker, blocked_traits in GLOB.trait_blockers_to_hud)
+		if(HAS_TRAIT(src, blocker) && (lost_trait in blocked_traits))
+			return // it may seem counterintuitive to check for blockers on trait removal, the blocker now has total reign over whether the hud should come back
+
+	var/datum/atom_hud/datahud = GLOB.huds[GLOB.trait_to_hud[lost_trait]]
+	datahud.hide_from(src)
+
+/mob/proc/hud_trait_blocker_gained(datum/source, new_trait)
+	SIGNAL_HANDLER
+
+	for(var/trait in GLOB.trait_blockers_to_hud[new_trait])
+		if(!HAS_TRAIT(src, trait))
+			continue
+		var/datum/atom_hud/datahud = GLOB.huds[GLOB.trait_to_hud[trait]]
+		datahud.hide_from(src)
+
+/mob/proc/hud_trait_blocker_lost(datum/source, new_trait)
+	SIGNAL_HANDLER
+
+	for(var/trait in GLOB.trait_blockers_to_hud[new_trait])
+		if(!HAS_TRAIT(src, trait))
+			continue
+		var/datum/atom_hud/datahud = GLOB.huds[GLOB.trait_to_hud[trait]]
+		datahud.show_to(src)
 
 #undef MOB_FACE_DIRECTION_DELAY

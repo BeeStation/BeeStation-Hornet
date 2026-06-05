@@ -82,10 +82,7 @@
 		sight = sight&~SEE_OBJS
 		see_in_dark = 0
 
-	if(see_override)
-		see_invisible = see_override
-	sync_lighting_plane_alpha()
-
+	return ..()
 
 /mob/living/silicon/ai/proc/start_RestorePowerRoutine()
 	to_chat(src, "Backup battery online. Scanners, camera, and radio interface offline. Beginning fault-detection.")

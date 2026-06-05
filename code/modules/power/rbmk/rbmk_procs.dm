@@ -523,7 +523,7 @@ Arguments:
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
 
 	// make a little bit of spicy mess, maximum of 4+25=29 tile radius, minimum of 4+4=8 tile radius, scaled on how far over temperature it is
-	var/obj/modules/power/rbmk/nuclear_sludge_spawner/nuclear_sludge_spawner = new /obj/modules/power/rbmk/nuclear_sludge_spawner(get_turf(src))
+	var/obj/effect/nuclear_sludge_spawner/nuclear_sludge_spawner = new /obj/effect/nuclear_sludge_spawner(get_turf(src))
 	nuclear_sludge_spawner.range = 4 + min(25,floor(4 * max(1,(temperature-RBMK_TEMPERATURE_CRITICAL)/RBMK_TEMPERATURE_CRITICAL))) // scales by an extra 4 tile radius per 100% over maximum
 	nuclear_sludge_spawner.fire()
 	Destroy()
@@ -538,11 +538,11 @@ Arguments:
 			to_chat(player_mob, span_userdanger("You hear a horrible metallic explosion."))
 			SEND_SIGNAL(player_mob, COMSIG_ADD_MOOD_EVENT, "delam", /datum/mood_event/delam) //Might as well use the same moodlet since its essentialy the same thing happening
 	for(var/nuclear_sludge_landmark in GLOB.landmarks_list)
-		if(istype(nuclear_sludge_landmark, /obj/modules/power/rbmk/nuclear_sludge_spawner))
-			var/obj/modules/power/rbmk/nuclear_sludge_spawner/nuclear_sludge_spawner = nuclear_sludge_landmark
+		if(istype(nuclear_sludge_landmark, /obj/effect/nuclear_sludge_spawner))
+			var/obj/effect/nuclear_sludge_spawner/nuclear_sludge_spawner = nuclear_sludge_landmark
 			if(compare_z(rbmkzlevel, nuclear_sludge_spawner.get_virtual_z_level())) //Begin the SLUDGING
 				nuclear_sludge_spawner.fire()
-	var/obj/modules/power/rbmk/nuclear_sludge_spawner/nuclear_sludge_spawner = new /obj/modules/power/rbmk/nuclear_sludge_spawner/strong(get_turf(src))
+	var/obj/effect/nuclear_sludge_spawner/nuclear_sludge_spawner = new /obj/effect/nuclear_sludge_spawner/strong(get_turf(src))
 	nuclear_sludge_spawner.fire() //This will take out engineering for a decent amount of time as they have to clean up the sludge.
 	meltdown() //Double kill.
 
@@ -555,7 +555,7 @@ Arguments:
 #define PLUTONIUM_SLUDGE_CHANCE 15
 
 
-/obj/modules/power/rbmk/nuclear_sludge_spawner //Clean way of spawning nuclear gunk after a reactor core meltdown.
+/obj/effect/nuclear_sludge_spawner //Clean way of spawning nuclear gunk after a reactor core meltdown.
 	name = "nuclear waste spawner"
 	var/range = PLUTONIUM_SLUDGE_RANGE //tile radius to spawn goop
 	var/center_sludge = TRUE // Whether or not the center turf should spawn sludge or not.
@@ -578,7 +578,7 @@ Arguments:
 		/obj/machinery/gravity_generator,
 	))
 /// Tries to place plutonium sludge on 'floor'. Returns TRUE if the turf has been successfully processed, FALSE otherwise.
-/obj/modules/power/rbmk/nuclear_sludge_spawner/proc/place_sludge(turf/open/floor, epicenter = FALSE)
+/obj/effect/nuclear_sludge_spawner/proc/place_sludge(turf/open/floor, epicenter = FALSE)
 	if(!floor)
 		return FALSE
 
@@ -597,14 +597,14 @@ Arguments:
 	new /obj/effect/decal/cleanable/nuclear_waste (floor)
 	return TRUE
 
-/obj/modules/power/rbmk/nuclear_sludge_spawner/strong
+/obj/effect/nuclear_sludge_spawner/strong
 	range = PLUTONIUM_SLUDGE_RANGE_STRONG
 
-/obj/modules/power/rbmk/nuclear_sludge_spawner/weak
+/obj/effect/nuclear_sludge_spawner/weak
 	range = PLUTONIUM_SLUDGE_RANGE_WEAK
 	center_sludge = FALSE
 
-/obj/modules/power/rbmk/nuclear_sludge_spawner/proc/fire()
+/obj/effect/nuclear_sludge_spawner/proc/fire()
 	playsound(src, 'sound/effects/gib_step.ogg', 100)
 
 	if(center_sludge)

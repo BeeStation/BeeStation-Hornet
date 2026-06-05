@@ -45,7 +45,7 @@
 		else
 			for(var/i in custom_materials)
 				var/datum/material/M = i
-				new M.sheet_type(loc, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
+				new M.sheet_type(loc, floor(custom_materials[M] / MINERAL_MATERIAL_AMOUNT))
 	..()
 
 /obj/structure/chair/attack_paw(mob/user)
@@ -115,7 +115,7 @@
 	handle_layer()
 
 /obj/structure/chair/setDir(newdir)
-	..()
+	. = ..()
 	handle_rotation(newdir)
 
 // Chair types
@@ -136,10 +136,10 @@
 	flags_1 = NODECONSTRUCT_1
 
 /obj/structure/chair/mime/post_buckle_mob(mob/living/M)
-	M.pixel_y += 5
+	M.add_offsets(type, y_add = 5)
 
 /obj/structure/chair/mime/post_unbuckle_mob(mob/living/M)
-	M.pixel_y -= 5
+	M.remove_offsets(type)
 
 ///Material chair
 /obj/structure/chair/greyscale
@@ -364,13 +364,12 @@
 	item_chair = /obj/item/chair/foldable
 	anchored = FALSE
 
-/obj/structure/chair/foldable/post_buckle_mob(mob/living/Mob)
-	Mob.pixel_y += 2
+/obj/structure/chair/foldable/post_buckle_mob(mob/living/M)
+	M.add_offsets(type, y_add = 2)
 	anchored = TRUE
 
-/obj/structure/chair/foldable/post_unbuckle_mob(mob/living/Mob)
-	Mob.pixel_y -= 2
-	anchored = FALSE
+/obj/structure/chair/foldable/post_unbuckle_mob(mob/living/M)
+	M.remove_offsets(type)
 
 //Stool
 

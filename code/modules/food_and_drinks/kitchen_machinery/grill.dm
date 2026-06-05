@@ -84,7 +84,7 @@
 			var/datum/effect_system/smoke_spread/bad/smoke = new
 			smoke.set_up(1, loc)
 			smoke.start()
-	if(grilled_item)
+	if(!QDELETED(grilled_item))
 		SEND_SIGNAL(grilled_item, COMSIG_ITEM_GRILLED, src, delta_time)
 		grill_time += delta_time
 		grilled_item.reagents.add_reagent(/datum/reagent/consumable/char, 0.5 * delta_time)

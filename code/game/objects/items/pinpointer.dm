@@ -179,7 +179,7 @@
 
 	var/mob/living/L = given_there
 
-	if(HAS_TRAIT(L, TRAIT_NANITE_SENSORS) && (ishuman(L) || L.mind)) // they should be fakehuman with no mind, or be a mob with mind. Nanites spam to mobs will be annoying
+	if(HAS_TRAIT_FROM(L, TRAIT_TRACKED_SENSORS, NANITES_TRAIT) && (ishuman(L) || L.mind)) // they should be fakehuman with no mind, or be a mob with mind. Nanites spam to mobs will be annoying
 		return TRUE
 
 	if(!ishuman(L)) // now human-only part. non-humans should have passed this from above already.

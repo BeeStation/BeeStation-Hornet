@@ -13,32 +13,29 @@
 	grind_results = list()
 	custom_price = 25	// These need defines to separate common / rare / epic, but im nota xenobio person so I won't do it
 	max_demand = 100
-	var/Uses = 1 // uses before it goes inert
+	var/extract_uses = 1 // uses before it goes inert
 	var/qdel_timer // deletion timer, for delayed reactions
 	var/effectmod
 	var/list/activate_reagents = list() //Reagents required for activation
 	var/recurring = FALSE
 	var/color_slime	///the color of the extract and the slime it came from
-	var/sparkly = FALSE //if true, cargo gets 2x the money for them
 
 /obj/item/slime_extract/examine(mob/user)
 	. = ..()
-	if(Uses > 1)
-		. += "It has [Uses] uses remaining."
-	if(sparkly)
-		. += "It looks sparkly."
+	if(extract_uses > 1)
+		. += "It has [extract_uses] uses remaining."
 
 /obj/item/slime_extract/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/slimepotion/enhancer))
-		if(Uses >= 5 || recurring)
+		if(extract_uses >= 5 || recurring)
 			to_chat(user, span_warning("You cannot enhance this extract further!"))
 			return ..()
 		if(O.type == /obj/item/slimepotion/enhancer) //Seriously, why is this defined here...?
 			to_chat(user, span_notice("You apply the enhancer to the slime extract. It may now be reused one more time."))
-			Uses++
+			extract_uses++
 		if(O.type == /obj/item/slimepotion/enhancer/max)
 			to_chat(user, span_notice("You dump the maximizer on the slime extract. It can now be used a total of 5 times!"))
-			Uses = 5
+			extract_uses = 5
 		qdel(O)
 	..()
 
@@ -47,7 +44,7 @@
 	create_reagents(100, INJECTABLE | DRAWABLE)
 
 /obj/item/slime_extract/on_grind()
-	if(Uses)
+	if(extract_uses)
 		grind_results[/datum/reagent/toxin/slimejelly] = 20
 
 //Effect when activated by a Luminescent. Separated into a minor and major effect. Returns cooldown in seconds.

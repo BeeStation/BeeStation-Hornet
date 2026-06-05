@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(async_map_generator)
 	name = "Async Map Generator"
 	wait = 1
-	flags = SS_TICKER | SS_NO_INIT
+	ss_flags = SS_TICKER | SS_NO_INIT
 	// We need to be running while shuttles are loading
 	runlevels = ALL
 
@@ -50,7 +50,6 @@ SUBSYSTEM_DEF(async_map_generator)
 			current_run_index --
 			//Decrement the current run length
 			current_run_length --
-			//to_chat(world, span_announce("Fully completed running map generator [current_run_index + 1]."))
 		//Continue to the next process
 		MC_SPLIT_TICK
 

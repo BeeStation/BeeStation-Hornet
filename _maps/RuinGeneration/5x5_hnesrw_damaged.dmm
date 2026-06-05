@@ -1,42 +1,42 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "d" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "g" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "i" = (
 /turf/template_noop,
 /area/template_noop)
 "p" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "C" = (
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
 "G" = (
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Q" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "U" = (
 /obj/effect/abstract/open_area_marker,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "X" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 p

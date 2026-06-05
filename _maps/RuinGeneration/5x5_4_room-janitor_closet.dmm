@@ -2,36 +2,36 @@
 "b" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "d" = (
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "j" = (
 /obj/structure/sink/directional/west,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "l" = (
 /obj/structure/mop_bucket,
 /obj/item/mop/cyborg,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "w" = (
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "y" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
 /obj/item/soap/nanotrasen,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "H" = (
 /obj/structure/sign/poster/contraband/lusty_xenomorph{
 	pixel_y = 32
@@ -40,10 +40,10 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "M" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "S" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/item/reagent_containers/cup/bucket,
@@ -51,10 +51,10 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "W" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 M

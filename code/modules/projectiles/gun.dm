@@ -436,7 +436,7 @@
 	if(!is_wielded && requires_wielding)
 		bonus_spread += spread_unwielded
 	var/sprd = 0
-	sprd = max(min_gun_sprd, abs(sprd)) * SIGN(sprd)
+	sprd = max(min_gun_sprd, abs(sprd)) * sign(sprd)
 	sprd += (1 - get_integrity_ratio()) * damage_variance
 	return sprd
 

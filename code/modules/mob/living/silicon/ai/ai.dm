@@ -22,9 +22,7 @@
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	hud_type = /datum/hud/ai
-	med_hud = DATA_HUD_MEDICAL_BASIC
-	sec_hud = DATA_HUD_SECURITY_BASIC
-	d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED
+	silicon_huds = list(TRAIT_MEDICAL_HUD_SENSOR_ONLY, TRAIT_SECURITY_HUD_ID_ONLY, TRAIT_DIAGNOSTIC_HUD, TRAIT_BOT_PATH_HUD)
 	mob_size = MOB_SIZE_LARGE
 	radio = /obj/item/radio/headset/silicon/ai
 	can_buckle_to = FALSE
@@ -382,9 +380,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	var/obj/structure/ai_core/latejoin_inactive/inactivecore = new(loc)
 	transfer_fingerprints_to(inactivecore)
 
-	if(GLOB.announcement_systems.len)
-		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-		announcer.announce("AIWIPE", real_name, mind.assigned_role, list())
+	aas_config_announce(/datum/aas_config_entry/intelligence_storage, list("SILICON" = real_name))
 
 	SSjob.FreeRole(mind.assigned_role)
 
@@ -469,7 +465,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		alert_control.ui_interact(src)
 #ifdef AI_VOX
 	if(href_list["say_word"])
-		play_vox_word(href_list["say_word"], null, src)
+		play_vox_word(href_list["say_word"], get_turf(src), src)
 		return
 #endif
 	if(href_list["show_tablet_note"])

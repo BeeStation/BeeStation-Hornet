@@ -121,20 +121,43 @@
 //text trimming (both directions) helper macro
 #define TRIM_TEXT(text) (trim_reduced(text))
 
-/// Shortcut function to parse a map and apply it to the world.
-///
-/// - `dmm_file`: A .dmm file to load (Required).
-/// - `x_offset`, `y_offset`, `z_offset`: Positions representign where to load the map (Optional).
-/// - `cropMap`: When true, the map will be cropped to fit the existing world dimensions (Optional).
-/// - `measureOnly`: When true, no changes will be made to the world (Optional).
-/// - `no_changeturf`: When true, [turf/AfterChange] won't be called on loaded turfs
-/// - `x_lower`, `x_upper`, `y_lower`, `y_upper`: Coordinates (relative to the map) to crop to (Optional).
-/// - `placeOnTop`: Whether to use [turf/PlaceOnTop] rather than [turf/ChangeTurf] (Optional).
-/proc/load_map(dmm_file as file, x_offset as num, y_offset as num, z_offset as num, cropMap as num, measureOnly as num, no_changeturf as num, x_lower = -INFINITY as num, x_upper = INFINITY as num, y_lower = -INFINITY as num, y_upper = INFINITY as num, placeOnTop = FALSE as num, new_z)
-	var/datum/parsed_map/parsed = new(dmm_file, x_lower, x_upper, y_lower, y_upper, measureOnly)
-	if(parsed.bounds && !measureOnly)
-		parsed.load(x_offset, y_offset, z_offset, cropMap, no_changeturf, x_lower, x_upper, y_lower, y_upper, placeOnTop, new_z = new_z)
-	return parsed
+/**
+ * Helper and recommened way to load a map file
+ * - dmm_file: The path to the map file
+ * - x_offset: The x offset to load the map at
+ * - y_offset: The y offset to load the map at
+ * - z_offset: The z offset to load the map at
+ * - crop_map: If true, the map will be cropped to the world bounds
+ * - measure_only: If true, the map will not be loaded, but the bounds will be calculated
+ * - no_changeturf: If true, the map will not call /turf/AfterChange
+ * - x_lower: The minimum x coordinate to load
+ * - x_upper: The maximum x coordinate to load
+ * - y_lower: The minimum y coordinate to load
+ * - y_upper: The maximum y coordinate to load
+ * - z_lower: The minimum z coordinate to load
+ * - z_upper: The maximum z coordinate to load
+ * - place_on_top: Whether to use /turf/proc/PlaceOnTop rather than /turf/proc/ChangeTurf
+ * - new_z: If true, a new z level will be created for the map
+ */
+/proc/load_map(
+	dmm_file,
+	x_offset = 0,
+	y_offset = 0,
+	z_offset = 0,
+	crop_map = FALSE,
+	measure_only = FALSE,
+	no_changeturf = FALSE,
+	x_lower = -INFINITY,
+	x_upper = INFINITY,
+	y_lower = -INFINITY,
+	y_upper = INFINITY,
+	place_on_top = FALSE,
+	new_z = FALSE,
+)
+	var/datum/parsed_map/parsed_map = new(dmm_file, x_lower, x_upper, y_lower, y_upper, measure_only)
+	if(!measure_only && !isnull(parsed_map.bounds))
+		parsed_map.load(x_offset, y_offset, z_offset, crop_map, no_changeturf, x_lower, x_upper, y_lower, y_upper, place_on_top, new_z = new_z)
+	return parsed_map
 
 /// Parse a map, possibly cropping it.
 /datum/parsed_map/New(tfile, x_lower = -INFINITY, x_upper = INFINITY, y_lower = -INFINITY, y_upper=INFINITY, measureOnly=FALSE)
@@ -871,7 +894,7 @@ GLOBAL_LIST_EMPTY(map_model_default)
 
 		// Note: we make the assertion that the last path WILL be a turf. if it isn't, this will fail.
 		if(placeOnTop && !istype(crds, /turf/open/genturf))
-			instance = crds.PlaceOnTop(null, members[index], CHANGETURF_DEFER_CHANGE | (no_changeturf ? CHANGETURF_SKIP : NONE))
+			instance = crds.load_on_top(members[index], CHANGETURF_DEFER_CHANGE | (no_changeturf ? CHANGETURF_SKIP : NONE))
 		else if(no_changeturf)
 			instance = create_atom(members[index], crds)//first preloader pass
 		else

@@ -1,6 +1,6 @@
 // AI (i.e. game AI, not the AI player) controlled bots
 /mob/living/simple_animal/bot
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	layer = MOB_LAYER
 	gender = NEUTER
 	mob_biotypes = MOB_ROBOTIC
@@ -87,7 +87,8 @@
 	var/beacon_freq = FREQ_NAV_BEACON
 	var/model = "" //The type of bot it is.
 	var/bot_type = 0 //The type of bot it is, for radio control.
-	var/data_hud_type = DATA_HUD_DIAGNOSTIC_BASIC //The type of data HUD the bot uses. Diagnostic by default.
+	/// The type of data HUD the bot uses. Diagnostic by default.
+	var/data_hud_type = TRAIT_DIAGNOSTIC_HUD
 	//This holds text for what the bot is mode doing, reported on the remote bot control interface.
 	var/list/mode_name = list("In Pursuit","Preparing to Arrest", "Arresting", \
 	"Beginning Patrol", "Patrolling", "Summoned by PDA", \
@@ -95,8 +96,8 @@
 	"Proceeding to AI waypoint", "Navigating to Delivery Location", "Navigating to Home", \
 	"Waiting for clear path", "Calculating navigation path", "Pinging beacon network", "Unable to reach destination", \
 	"Empty Container")
-	var/datum/atom_hud/data/bot_path/path_hud = new /datum/atom_hud/data/bot_path()
-	var/path_image_icon = 'icons/mob/aibots.dmi'
+	var/datum/atom_hud/data/bot_path/private/path_hud
+	var/path_image_icon = 'icons/mob/silicon/aibots.dmi'
 	var/path_image_icon_state = "path_indicator"
 	var/path_image_color = COLOR_WHITE
 	var/reset_access_timer_id
@@ -165,8 +166,9 @@
 /mob/living/simple_animal/bot/Initialize(mapload)
 	. = ..()
 	GLOB.bots_list += src
+	path_hud = new()
 	access_card = new /obj/item/card/id(src)
-//This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
+	//This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	access_card.access |= ACCESS_ROBOTICS
 	set_custom_texts()
 	Radio = new/obj/item/radio(src)
@@ -180,19 +182,18 @@
 
 	//Adds bot to the diagnostic HUD system
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
 	diag_hud_set_bothealth()
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 
 	//If a bot has its own HUD (for player bots), provide it.
-	if(data_hud_type)
-		var/datum/atom_hud/datahud = GLOB.huds[data_hud_type]
-		datahud.add_hud_to(src)
+	if(!isnull(data_hud_type))
+		ADD_TRAIT(src, data_hud_type, INNATE_TRAIT)
 	if(path_hud)
-		path_hud.add_to_hud(src)
-		path_hud.add_hud_to(src)
+		path_hud.add_atom_to_hud(src)
+		path_hud.show_to(src)
 	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
 	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
 
@@ -1127,14 +1128,14 @@ Pass a positive integer as an argument to override a bot's default speed.
 	path = newpath ? newpath : list()
 	if(!path_hud)
 		return
-	var/list/path_huds_watching_me = list(GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED])
+	var/list/path_huds_watching_me = list(GLOB.huds[DATA_HUD_DIAGNOSTIC], GLOB.huds[DATA_HUD_BOT_PATH])
 	if(path_hud)
 		path_huds_watching_me += path_hud
 	for(var/V in path_huds_watching_me)
 		var/datum/atom_hud/H = V
-		H.remove_from_hud(src)
+		H.remove_atom_from_hud(src)
 
-	var/list/path_images = hud_list[DIAG_PATH_HUD]
+	var/list/path_images = active_hud_list[DIAG_PATH_HUD]
 	LAZYCLEARLIST(path_images)
 	if(length(newpath))
 		var/mutable_appearance/path_image = mutable_appearance(path_image_icon, path_image_icon_state, BOT_PATH_LAYER, appearance_flags = RESET_COLOR|RESET_TRANSFORM|KEEP_APART)
@@ -1172,7 +1173,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 	for(var/V in path_huds_watching_me)
 		var/datum/atom_hud/H = V
-		H.add_to_hud(src)
+		H.add_atom_to_hud(src)
 
 
 /mob/living/simple_animal/bot/proc/increment_path()

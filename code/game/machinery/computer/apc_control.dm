@@ -204,3 +204,6 @@
 		if(A.operator && A.operator == src && !A.machine_stat)
 			return TRUE
 	return
+
+/obj/machinery/computer/apc_control/away
+	req_access = list(ACCESS_AWAY_ENGINEERING)

@@ -64,7 +64,7 @@ GLOBAL_PROTECT(admin_verbs_debug_mapping)
 	desc = "I am a mappers mistake."
 
 /obj/effect/debugging/marker
-	icon = 'icons/turf/areas.dmi'
+	icon = 'icons/area/areas.dmi'
 	icon_state = "yellow"
 	plane = ABOVE_LIGHTING_PLANE
 

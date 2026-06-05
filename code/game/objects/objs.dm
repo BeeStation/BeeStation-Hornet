@@ -21,8 +21,6 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	/// How much acid is on that obj
 	var/acid_level = 0
 
-	/// Have something WAY too amazing to live to the next round? Set a new path here. Overuse of this var will make me upset. Will replace the object with the type you specify during persistence.
-	var/persistence_replacement
 	var/current_skin //Has the item been reskinned?
 	var/list/unique_reskin //List of options to reskin.
 	var/list/unique_reskin_icon //List of icons for said options.
@@ -32,8 +30,11 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	var/req_access_txt = "0"
 	var/list/req_one_access
 	var/req_one_access_txt = "0"
-	/// Custom fire overlay icon
+
+	/// Custom fire overlay icon, will just use the default overlay if this is null
 	var/custom_fire_overlay
+	/// Particles this obj uses when burning, if any
+	var/burning_particles
 
 	/// Set when a player uses a pen on a renamable object
 	var/renamedByPlayer = FALSE
@@ -336,8 +337,6 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 	. = ..()
 	if(acid_level)
 		. += GLOB.acid_overlay
-	if(resistance_flags & ON_FIRE)
-		. += GLOB.fire_overlay
 
 /// Handles exposing an object to reagents.
 /obj/expose_reagents(list/reagents, datum/reagents/source, method=TOUCH, volume_modifier=1, show_message=TRUE)

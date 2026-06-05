@@ -87,7 +87,7 @@
 		var/mob/living/carbon/human/affected_human = owner
 		affected_human.dna.species.handle_body(affected_human) //updates eye icon
 
-/obj/item/organ/eyes/Remove(mob/living/carbon/eye_owner, special = 0, pref_load = FALSE)
+/obj/item/organ/eyes/Remove(mob/living/carbon/eye_owner, special = FALSE, pref_load = FALSE)
 	..()
 	if(ishuman(eye_owner))
 		var/mob/living/carbon/human/human_owner = eye_owner
@@ -111,6 +111,9 @@
 	if(!istype(parent) || parent.get_organ_by_type(/obj/item/organ/eyes) != src)
 		CRASH("Generating a body overlay for [src] targeting an invalid parent '[parent]'.")
 
+	if(isnull(eye_icon_state))
+		return list()
+
 	var/mutable_appearance/eye_left = mutable_appearance(eye_icon, "[eye_icon_state]_l", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 	var/mutable_appearance/eye_right = mutable_appearance(eye_icon, "[eye_icon_state]_r", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 	var/list/overlays = list(eye_left, eye_right)
@@ -130,11 +133,10 @@
 		tears_overlay.color = COLOR_DARK_CYAN
 		overlays += tears_overlay
 
-	if(OFFSET_FACE in parent.dna?.species.offset_features)
-		var/offset = parent.dna.species.offset_features[OFFSET_FACE]
+	var/obj/item/bodypart/head/my_head = parent.get_bodypart(BODY_ZONE_HEAD)
+	if(my_head?.worn_face_offset)
 		for(var/mutable_appearance/overlay in overlays)
-			overlay.pixel_x += offset[OFFSET_X]
-			overlay.pixel_y += offset[OFFSET_Y]
+			my_head.worn_face_offset.apply_offset(overlay)
 
 	return overlays
 
@@ -515,32 +517,34 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/eye_lighting)
 	desc = "Designed for navigating dark hives, these eyes have improvement to low light vision."
 	see_in_dark = NIGHTVISION_FOV_RANGE
 
+#define PSYPHOZA_BLINDNESS_SOURCE "uncurable"
+
 /obj/item/organ/eyes/psyphoza
 	name = "psyphoza eyes"
 	desc = "Conduits for psychic energy, hardly even eyes."
 	icon_state = "psyphoza_eyeballs"
-	actions_types = list(/datum/action/item_action/organ_action/psychic_highlight)
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	blind_type = /atom/movable/screen/fullscreen/blind/psychic
 	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	can_see = FALSE
 
-/obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special, drop_if_replaced, initialising)
+/obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/eye_owner, special = FALSE, drop_if_replaced = FALSE, initialising, pref_load = FALSE)
 	. = ..()
-	M.become_blind("uncurable", /atom/movable/screen/fullscreen/blind/psychic, FALSE)
-	M.remove_client_colour(/datum/client_colour/monochrome/blind)
-	//Handle weird ability code
-	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
-	if(P?.removed)
-		P.Grant(M)
-		P?.removed = FALSE
+	eye_owner.become_blind(PSYPHOZA_BLINDNESS_SOURCE, /atom/movable/screen/fullscreen/blind/psychic, add_color = FALSE)
+	eye_owner.remove_client_colour(/datum/client_colour/monochrome/blind)
 
-/obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
-	M.cure_blind("uncurable", TRUE)
-	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
-	P?.remove()
+	var/datum/action/item_action/organ_action/psychic_highlight/highlight_ability = new(src)
+	highlight_ability.Grant(eye_owner)
+
+/obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/eye_owner, special = FALSE, pref_load = FALSE)
+	eye_owner.cure_blind(PSYPHOZA_BLINDNESS_SOURCE)
+
+	var/datum/action/item_action/organ_action/psychic_highlight/highlight_ability = locate() in eye_owner.actions
+	highlight_ability?.Remove(eye_owner)
 	return ..()
+
+#undef PSYPHOZA_BLINDNESS_SOURCE
 
 /obj/item/organ/eyes/diona
 	name = "receptor node"

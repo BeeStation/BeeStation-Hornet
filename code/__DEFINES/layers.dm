@@ -40,11 +40,11 @@
 #define LOW_SIGIL_LAYER 2.52
 #define SIGIL_LAYER 2.53
 #define HIGH_PIPE_LAYER 2.54
-// Anything aboe this layer is not "on" a turf for the purposes of washing
-// I hate this life of ours
-#define FLOOR_CLEAN_LAYER 2.55
+#define CLEANABLE_OBJECT_LAYER 2.55
 
 #define BELOW_OPEN_DOOR_LAYER 2.6
+///Anything below this layer is to be considered completely (visually) under water by the immerse layer.
+#define WATER_LEVEL_LAYER 2.61
 #define BLASTDOOR_LAYER 2.65
 #define OPEN_DOOR_LAYER 2.7
 #define DOOR_ACCESS_HELPER_LAYER 2.71 //keep this above OPEN_DOOR_LAYER, special layer used for /obj/effect/mapping_helpers/airlock/access

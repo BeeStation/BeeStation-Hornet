@@ -12,6 +12,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/production)
+"af" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/obj/item/soap/nanotrasen,
+/turf/open/floor/iron/freezer,
+/area/mine/living_quarters)
 "ag" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -304,14 +312,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"bJ" = (
-/obj/structure/cable/yellow,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/power/smes/engineering,
-/turf/open/floor/iron/techmaint,
-/area/mine/production)
 "bL" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -918,14 +918,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/mine/atmospost)
-"fD" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/item/soap/nanotrasen,
-/turf/open/floor/iron/freezer,
-/area/mine/living_quarters)
 "fF" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/public/glass{
@@ -2254,14 +2246,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/laborcamp)
-"nJ" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 26
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/iron/freezer,
-/area/mine/laborcamp)
 "nK" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -3131,6 +3115,12 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmospostengine)
+"tg" = (
+/obj/machinery/doppler_array/research{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/mine/atmosposthallway)
 "tj" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -3842,6 +3832,18 @@
 	},
 /turf/open/floor/iron,
 /area/mine/atmospost)
+"xD" = (
+/obj/structure/sink/directional/west,
+/turf/open/floor/iron,
+/area/mine/production)
+"xF" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	pixel_x = 26
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/freezer,
+/area/mine/laborcamp)
 "xJ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/siding/thinplating{
@@ -4341,10 +4343,6 @@
 	},
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
-"Bj" = (
-/obj/structure/sink/directional/west,
-/turf/open/floor/iron,
-/area/mine/production)
 "Bl" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 10
@@ -4882,10 +4880,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer2,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Es" = (
-/obj/structure/sink/directional/west,
-/turf/open/floor/iron/grid/steel,
-/area/mine/laborcamp)
 "Ew" = (
 /turf/open/floor/plating/lavaland,
 /area/mine/laborcamp)
@@ -5054,12 +5048,6 @@
 	},
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
-"Fn" = (
-/obj/machinery/doppler_array/research/science{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/mine/atmosposthallway)
 "Fp" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
@@ -6015,6 +6003,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/atmospostengine)
+"KE" = (
+/obj/structure/sink/directional/west,
+/turf/open/floor/iron/grid/steel,
+/area/mine/laborcamp)
 "KF" = (
 /obj/structure/stone_tile{
 	dir = 4
@@ -8327,6 +8319,14 @@
 "YN" = (
 /turf/open/floor/iron/grid/steel,
 /area/mine/living_quarters)
+"YO" = (
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/power/smes/engineering,
+/turf/open/floor/iron/techmaint,
+/area/mine/production)
 "YU" = (
 /turf/closed/wall,
 /area/mine/atmosposthallway)
@@ -35229,7 +35229,7 @@ CL
 zc
 cj
 zc
-Es
+KE
 zc
 zc
 WB
@@ -36249,7 +36249,7 @@ Ln
 Ln
 BZ
 RH
-nJ
+xF
 Qt
 rA
 fb
@@ -41648,7 +41648,7 @@ JJ
 Wn
 ig
 wS
-Bj
+xD
 uF
 DN
 fw
@@ -42411,7 +42411,7 @@ ND
 ND
 ND
 ND
-bJ
+YO
 Jw
 Sh
 jw
@@ -46011,7 +46011,7 @@ YM
 ZH
 Ml
 CM
-fD
+af
 ZH
 gK
 hP
@@ -54224,7 +54224,7 @@ Zd
 Zd
 Zd
 WV
-Fn
+tg
 OE
 Il
 tc

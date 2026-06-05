@@ -6,9 +6,10 @@
 	required_living_playtime = 4
 	ui_name = "AntagInfoBrother"
 	hijack_speed = 0.5
-	var/datum/team/brother_team/team
 	antag_moodlet = /datum/mood_event/focused
+	antag_hud_name = "brother"
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
+	var/datum/team/brother_team/team
 
 /datum/antagonist/brother/create_team(datum/team/brother_team/new_team)
 	if(!new_team)
@@ -32,11 +33,13 @@
 
 /datum/antagonist/brother/on_removal()
 	if (!silent && owner.current)
-		owner.current.visible_message("[span_deconversionmessage("[owner.current] looks like [owner.current.p_theyve()] just remembered [owner.current.p_their()] their true allegiance!")]", null, null, null, owner.current)
+		owner.current.visible_message(
+			span_deconversionmessage("[owner.current] looks like [owner.current.p_theyve()] just remembered [owner.current.p_their()] their true allegiance!"),
+			ignored_mobs = list(owner.current),
+		)
 		to_chat(owner.current, span_userdanger("Your mind slips away from the clutches of your blood-brother. You are no longer required to follow their orders, but blackmail of your past crimes may make it difficult for you to find a way out of working with them..."))
 		owner.current.log_message("has had their blood brother removed!", LOG_ATTACK, color="#960000")
 	owner.special_role = null
-	remove_antag_hud(ANTAG_HUD_BROTHER, owner.current)
 	if (owner.current)
 		for (var/obj/item/implant/bloodbrother/brother_implant in owner.current.implants)
 			if (brother_implant.linked_team == team)
@@ -47,9 +50,7 @@
 	return "Conspirators : [get_brother_names()]"
 
 /datum/antagonist/brother/ui_static_data(mob/user)
-	var/list/data = list()
-	data["antag_name"] = name
-	data["objectives"] = get_objectives()
+	var/list/data = ..()
 	data["brothers"] = get_brother_names()
 	return data
 
@@ -88,7 +89,7 @@
 		to_chat(brother.current, span_alertsyndie("[owner.current.name] is now your blood brother."))
 
 /datum/antagonist/brother/proc/finalize_brother()
-	add_antag_hud(ANTAG_HUD_BROTHER, "brother", owner.current)
+	add_team_hud(owner.current)
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 
 /datum/antagonist/brother/admin_add(datum/mind/new_owner,mob/admin)

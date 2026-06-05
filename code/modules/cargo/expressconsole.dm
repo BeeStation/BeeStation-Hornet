@@ -75,7 +75,7 @@
 		))
 
 /obj/machinery/computer/cargo/express/ui_interact(mob/user, datum/tgui/ui)
-	. = ..()
+	SHOULD_CALL_PARENT(FALSE)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CargoExpress")
@@ -100,7 +100,7 @@
 	data["printMsg"] = cooldown > 0 ? "Print Beacon for [BEACON_COST] credits ([cooldown])" : "Print Beacon for [BEACON_COST] credits"//buttontext for printing beacons
 	data["supplies"] = list()
 	message = "Sales are near-instantaneous - please choose carefully."
-	if(SSshuttle.supplyBlocked)
+	if(SSshuttle.supply_blocked)
 		message = blockade_warning
 	if(usingBeacon && !beacon)
 		message = "BEACON ERROR: BEACON MISSING"//beacon was destroyed

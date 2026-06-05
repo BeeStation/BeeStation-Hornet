@@ -18,7 +18,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot
 	name = "\improper Medibot"
 	desc = "A little medical robot. He looks somewhat underwhelmed."
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "medibot0"
 	density = FALSE
 	anchored = FALSE
@@ -36,7 +36,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	bot_core_type = /obj/machinery/bot_core/medbot
 	window_id = "automed"
 	window_name = "Automatic Medical Unit v1.1"
-	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
+	data_hud_type = TRAIT_MEDICAL_HUD
 	path_image_color = "#DDDDFF"
 	var/obj/item/reagent_containers/reagent_glass = null //Can be set to draw from this for reagents.
 	var/healthanalyzer = /obj/item/healthanalyzer
@@ -137,7 +137,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_MEDICALDOCTOR)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
-	linked_techweb = SSresearch.science_tech
 
 	if(mapload)
 		reagent_glass = new /obj/item/reagent_containers/chem_bag/epi
@@ -153,6 +152,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		pre_tipped_callback = CALLBACK(src, PROC_REF(pre_tip_over)), \
 		post_tipped_callback = CALLBACK(src, PROC_REF(after_tip_over)), \
 		post_untipped_callback = CALLBACK(src, PROC_REF(after_righted)))
+
+	return INITIALIZE_HINT_LATELOAD
+
+/mob/living/simple_animal/bot/medbot/LateInitialize()
+	. = ..()
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
 
 /mob/living/simple_animal/bot/medbot/bot_reset()
 	..()
@@ -178,6 +184,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 /mob/living/simple_animal/bot/medbot/attack_paw(mob/user)
 	return attack_hand(user)
+
+REGISTER_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
+DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
+	if(istype(buffer, /datum/techweb))
+		balloon_alert(user, "techweb connected")
+		linked_techweb = buffer
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE
 
 /mob/living/simple_animal/bot/medbot/ui_data(mob/user)
 	var/list/data = ..()
@@ -230,6 +244,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		if("synth_epi")
 			synth_epi = !synth_epi
 		if("sync_tech")
+			if(!linked_techweb)
+				to_chat(usr, span_notice("No research techweb connected."))
+				return
 			var/old_eff = efficiency
 			var/tech_boosters
 			for(var/i in linked_techweb.researched_designs)
@@ -278,18 +295,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 /mob/living/simple_animal/bot/medbot/proc/reskin(mob/M)
 	var/skinlist = list(
-		MEDBOT_SKIN_DEFAULT = image(icon = 'icons/mob/aibots.dmi', icon_state = "firstaid_arm"),
-		MEDBOT_SKIN_BRUTE= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_brute"),
-		MEDBOT_SKIN_BURN= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_burn"),
-		MEDBOT_SKIN_TOXIN= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_tox"),
-		MEDBOT_SKIN_OXY= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_oxy"),
-		MEDBOT_SKIN_SURGERY= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_surgery"),
-		MEDBOT_SKIN_ADVANCED= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_advanced"),
-		MEDBOT_SKIN_RADIATION= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_rad")
+		MEDBOT_SKIN_DEFAULT = image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "firstaid_arm"),
+		MEDBOT_SKIN_BRUTE= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "kit_skin_brute"),
+		MEDBOT_SKIN_BURN= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "kit_skin_burn"),
+		MEDBOT_SKIN_TOXIN= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "kit_skin_tox"),
+		MEDBOT_SKIN_OXY= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "kit_skin_oxy"),
+		MEDBOT_SKIN_SURGERY= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "kit_skin_surgery"),
+		MEDBOT_SKIN_ADVANCED= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "kit_skin_advanced"),
+		MEDBOT_SKIN_RADIATION= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "kit_skin_rad")
 	)
 	if(emagged)
-		skinlist +=list(MEDBOT_SKIN_SYNDI= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_syndi"),
-			MEDBOT_SKIN_BEZERK= image(icon = 'icons/mob/aibots.dmi', icon_state = "medskin_bezerk")
+		skinlist +=list(MEDBOT_SKIN_SYNDI= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "kit_skin_syndi"),
+			MEDBOT_SKIN_BEZERK= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "medskin_bezerk")
 			)
 	var/choice = show_radial_menu(M, src, skinlist, radius = 42, require_near = TRUE)
 	if(choice && !M.incapacitated && in_range(M,src))

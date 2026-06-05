@@ -73,7 +73,7 @@
 	var/datum/action/innate/spider/comm/comm
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 	gold_core_spawnable = NO_SPAWN  //Spiders are introduced to the rounds through two types of antagonists
 
 /mob/living/simple_animal/hostile/poison/giant_spider/update_overlays() //Makes spiders eyes emissive, applies to all.
@@ -262,15 +262,10 @@
 	onweb_speed = 0
 	web_speed = 0.33
 	spider_lightmask = "nurse-light-mask"
-	///The health HUD applied to the mob.
-	var/health_hud = DATA_HUD_MEDICAL_ADVANCED
-	var/datum/action/innate/spider/set_directive/set_directive
-
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize(mapload)
 	. = ..()
-	var/datum/atom_hud/datahud = GLOB.huds[health_hud]
-	datahud.add_hud_to(src)
+	ADD_TRAIT(src, TRAIT_MEDICAL_HUD, INNATE_TRAIT)
 
 // Allows nurses to heal other spiders if they're adjacent
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/AttackingTarget()

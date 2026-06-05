@@ -4,9 +4,6 @@
 	max_total_storage = 28
 	max_slots = 25
 
-/datum/storage/backpack/old
-	max_total_storage = 12
-
 /datum/storage/backpack/ert
 	max_slots = 30
 	max_specific_storage = WEIGHT_CLASS_HUGE

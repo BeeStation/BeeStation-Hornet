@@ -1,6 +1,5 @@
 // common trait sources
 #define TRAIT_GENERIC "generic"
-#define GENERIC_ITEM_TRAIT "generic_item"
 #define UNCONSCIOUS_TRAIT "unconscious"
 #define EYE_DAMAGE "eye_damage"
 #define EAR_DAMAGE "ear_damage"
@@ -52,10 +51,15 @@
 #define GLASSES_TRAIT "glasses"
 #define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"
+/// Trait from [/datum/element/rust]. Its rusty and should be applying a special overlay to denote this.
 #define TRAIT_RUSTY "rust_trait"
+/// Trait from being under the floor in some manner
+#define TRAIT_UNDERFLOOR "underfloor"
 #define ACTION_TRAIT "action_trait"
-#define TRAIT_LEANING "leaning"
+#define LEANING_TRAIT "leaning"
 #define TRAIT_REGEN_COMA "regencoma"
+/// From nanites
+#define NANITES_TRAIT "nanites"
 
 /// Trait given to you by shapeshifting
 #define SHAPESHIFT_TRAIT "shapeshift_trait"
@@ -65,7 +69,8 @@
 #define STATUE_MUTE "statue"
 #define CHANGELING_DRAIN "drain"
 #define MAGIC_BLIND "magic_blind"
-#define HIGHLANDER "highlander"
+/// Trait associated with highlander
+#define HIGHLANDER_TRAIT "highlander"
 #define SOURCE_HULK "hulk"
 #define STASIS_MUTE "stasis"
 #define GENETICS_SPELL "genetics_spell"
@@ -110,7 +115,6 @@
 #define PARRY_TRAIT	"parry_trait"
 #define BATTLE_ROYALE_TRAIT "battleroyale_trait"
 #define MADE_UNCLONEABLE "made-uncloneable"
-#define TRAIT_JAWS_OF_LIFE "jaws-of-life"
 #define STICKY_NODROP "sticky-nodrop" //sticky nodrop sounds like a good soundcloud rapper's name
 //#define SKILLCHIP_TRAIT "skillchip"
 #define BUSY_FLOORBOT_TRAIT "busy-floorbot"
@@ -137,7 +141,10 @@
 #define BRAIN_UNAIDED "brain-unaided"
 /// Trait applied by MODsuits.
 #define MOD_TRAIT "mod"
-#define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
+/// Trait from mob/living/update_transform()
+#define UPDATE_TRANSFORM_TRAIT "update_transform"
+/// Trait from mob/living/update_offsets()
+#define UPDATE_OFFSET_TRAIT "update_offset"
 #define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
 #define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
 #define TABLE_TRAIT "table_trait"
@@ -167,11 +174,22 @@
 
 /// A trait gained from a mob's leap action, like the leaper
 #define LEAPING_TRAIT "leaping"
+/// From grabbing someone
+#define GRABBING_TRAIT "grabbing"
 /// Sources for TRAIT_IGNORING_GRAVITY
 #define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 #define FROM_SHADOW_SECT "shadow_sect"
 /// From a priority directive
 #define FROM_DIRECTIVE "directive"
+
+/// some trait sources dirived from bodyparts BODYPART_TRAIT is generic.
+#define BODYPART_TRAIT "bodypart"
+#define HEAD_TRAIT "head"
+#define CHEST_TRAIT "chest"
+#define RIGHT_ARM_TRAIT "right_arm"
+#define LEFT_ARM_TRAIT "left_arm"
+#define RIGHT_LEG_TRAIT "right_leg"
+#define LEFT_LEG_TRAIT "left_leg"
 
 /**
 * Trait granted by [/mob/living/carbon/Initialize] and
@@ -196,3 +214,5 @@
 #define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"
 /// Source for chameleon ietms
 #define FROM_CHAMELEON "from_chameleon"
+/// Source for innate toggleable silicon HUDs
+#define SILICON_HUD_TRAIT "silicon_hud"
