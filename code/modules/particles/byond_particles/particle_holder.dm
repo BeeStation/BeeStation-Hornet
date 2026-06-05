@@ -19,12 +19,10 @@
 	/// Holds info about how this particle emitter works
 	/// See \code\__DEFINES\particles.dm
 	var/particle_flags = NONE
-	///list of all particle emitters
-	var/list/emitters = list()
 
 	var/atom/parent
 
-/obj/effect/abstract/particle_holder/Initialize(mapload, particle_path, particle_flags = NONE)
+/obj/effect/abstract/particle_holder/Initialize(mapload, particle_path = /particles/smoke, particle_flags = NONE)
 	. = ..()
 	if(!loc)
 		stack_trace("particle holder was created with no loc!")
@@ -36,7 +34,7 @@
 	// Mouse opacity can get set to opaque by some objects when placed into the object's contents (storage containers).
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	src.particle_flags = particle_flags
-	particles = particle_path ? get_particle_effect(particle_path) : null
+	particles = get_particle_effect(particle_path)
 	// /atom doesn't have vis_contents, /turf and /atom/movable do
 	var/atom/movable/lie_about_areas = parent
 	lie_about_areas.vis_contents += src
