@@ -47,8 +47,6 @@
 	on_move(parent, null, NORTH)
 
 /obj/effect/abstract/particle_holder/proc/get_particle_effect(particle_path)
-	if(!ispath(particle_path))
-		return
 	return new particle_path()
 
 /obj/effect/abstract/particle_holder/Destroy(force)
