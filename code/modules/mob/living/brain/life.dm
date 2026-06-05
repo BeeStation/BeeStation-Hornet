@@ -1,7 +1,6 @@
 
 /mob/living/brain/Life(delta_time = SSMOBS_DT, times_fired)
-	set invisibility = 0
-	if (notransform)
+	if (HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 	if(!loc)
 		return

@@ -1,5 +1,6 @@
 
 /obj/item/bodypart
+	abstract_type = /obj/item/bodypart
 	name = "limb"
 	desc = "Why is it detached..."
 	force = 3
@@ -19,7 +20,6 @@
 	/// The mob that "owns" this limb
 	/// DO NOT MODIFY DIRECTLY. Use set_owner()
 	var/mob/living/carbon/owner
-	var/datum/weakref/original_owner
 	var/needs_processing = FALSE
 	///A bitfield of bodytypes for clothing, surgery, and misc information
 	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC
@@ -694,8 +694,8 @@
 		icon_state = initial(icon_state)//no overlays found, we default back to initial icon.
 		return
 	for(var/image/img as anything in standing)
-		img.pixel_x = px_x
-		img.pixel_y = px_y
+		img.pixel_x += px_x
+		img.pixel_y += px_y
 	add_overlay(standing)
 
 /obj/item/bodypart/proc/get_limb_icon(dropped)

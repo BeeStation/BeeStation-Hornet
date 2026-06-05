@@ -2730,7 +2730,7 @@
 /area/station/hallway/secondary/exit/departure_lounge)
 "aEx" = (
 /obj/effect/turf_decal/siding/asteroid,
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "aEz" = (
 /obj/effect/turf_decal/stripes/line{
@@ -3430,7 +3430,7 @@
 /obj/effect/turf_decal/siding/dirt/corner{
 	dir = 1
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "aPd" = (
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners,
@@ -7228,7 +7228,7 @@
 "bLh" = (
 /obj/effect/turf_decal/siding/asteroid,
 /obj/effect/turf_decal/siding/asteroid/corner,
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "bLo" = (
 /obj/machinery/digital_clock/directional/south,
@@ -7778,7 +7778,7 @@
 /obj/effect/turf_decal/siding/dirt/corner{
 	dir = 4
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "bTF" = (
 /obj/machinery/computer/atmos_control{
@@ -10847,7 +10847,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/dirt/corner,
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "cDF" = (
 /obj/effect/turf_decal/trimline/blue/filled/corner{
@@ -11531,7 +11531,7 @@
 	pixel_x = 16;
 	pixel_y = -5
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "cKD" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
@@ -18106,7 +18106,7 @@
 /obj/effect/turf_decal/trimline/brown/warning,
 /obj/effect/turf_decal/trimline/red/warning,
 /obj/effect/turf_decal/trimline/neutral/warning,
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/dark/textured_half,
 /area/station/service/theater/backstage)
 "epE" = (
@@ -18363,7 +18363,7 @@
 	pixel_y = -6;
 	pixel_x = 6
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "esL" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
@@ -19761,7 +19761,7 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/cup/rag{
+/obj/item/rag{
 	pixel_y = 3
 	},
 /turf/open/floor/prison,
@@ -20069,7 +20069,7 @@
 /obj/effect/turf_decal/siding/asteroid{
 	dir = 9
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "eMO" = (
 /obj/vehicle/ridden/wheelchair,
@@ -22952,7 +22952,7 @@
 /obj/effect/turf_decal/siding/dirt/corner{
 	dir = 4
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "fvc" = (
 /obj/effect/turf_decal/tile/purple{
@@ -23591,7 +23591,7 @@
 	},
 /area/station/command/bridge)
 "fCT" = (
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "fDe" = (
 /turf/open/floor/carpet/red,
@@ -27548,7 +27548,7 @@
 /area/station/maintenance/port/central)
 "gxV" = (
 /obj/effect/turf_decal/siding/dirt/corner,
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "gyl" = (
 /obj/structure/chair/fancy/bench/left,
@@ -28367,7 +28367,7 @@
 /obj/effect/turf_decal/siding/asteroid{
 	dir = 1
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "gKd" = (
 /obj/structure/disposalpipe/segment{
@@ -29053,7 +29053,7 @@
 /obj/effect/turf_decal/siding/asteroid{
 	dir = 10
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "gSs" = (
 /obj/effect/turf_decal/siding/white{
@@ -36588,7 +36588,7 @@
 /obj/effect/turf_decal/siding/dirt/corner{
 	dir = 8
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "iCm" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
@@ -39395,7 +39395,7 @@
 /obj/effect/turf_decal/siding/dirt/corner{
 	dir = 8
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "jjL" = (
 /obj/machinery/requests_console/auto_name/directional/north,
@@ -39432,7 +39432,7 @@
 /obj/structure/mirror/directional/east,
 /obj/structure/wall_closet/science/directional/south,
 /obj/item/soap/nanotrasen,
-/obj/item/reagent_containers/cup/rag,
+/obj/item/rag,
 /obj/item/reagent_containers/spray/cleaner,
 /turf/open/floor/iron/showroomfloor,
 /area/station/command/heads_quarters/rd)
@@ -39745,7 +39745,7 @@
 /obj/effect/turf_decal/siding/asteroid{
 	dir = 1
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "jor" = (
 /obj/structure/sign/warning/docking,
@@ -45896,7 +45896,7 @@
 /obj/effect/turf_decal/siding/asteroid{
 	dir = 6
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "kNU" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
@@ -47392,7 +47392,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/asteroid/corner,
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "lfA" = (
 /obj/structure/cable/yellow,
@@ -52929,7 +52929,7 @@
 	pixel_x = -3;
 	pixel_y = 15
 	},
-/obj/item/reagent_containers/cup/rag{
+/obj/item/rag{
 	pixel_y = 4;
 	pixel_x = -7
 	},
@@ -58274,7 +58274,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /obj/structure/mirror{
 	pixel_y = 33
 	},
@@ -64160,7 +64160,7 @@
 	pixel_y = -6;
 	pixel_x = 6
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "par" = (
 /obj/item/tank/internals/emergency_oxygen,
@@ -67878,7 +67878,7 @@
 	},
 /obj/structure/window/spawner/directional/south,
 /obj/machinery/door/window/eastleft,
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/dark,
 /area/station/commons/vacant_room/commissary/commissaryRandom)
 "pWf" = (
@@ -71161,7 +71161,7 @@
 	pixel_y = -4;
 	pixel_x = 5
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "qJz" = (
 /turf/open/floor/iron/edge,
@@ -72664,7 +72664,7 @@
 	pixel_y = -6;
 	pixel_x = 6
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "rbk" = (
 /turf/open/floor/iron/dark/smooth_half{
@@ -87170,7 +87170,7 @@
 /obj/effect/turf_decal/siding/asteroid/corner{
 	dir = 4
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "uyo" = (
 /obj/structure/chair/fancy/sofa/corp/corner/concave,
@@ -87983,7 +87983,7 @@
 /obj/effect/turf_decal/siding/asteroid/corner{
 	dir = 8
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "uIO" = (
 /obj/machinery/door/airlock/engineering{
@@ -89076,7 +89076,7 @@
 	desc = "This area actually used to be about 4 times the size, but i had to cut it down because the map's huge already - BarteG";
 	name = "CardinalStation - Garden Dome"
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "uVf" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -91856,7 +91856,7 @@
 /obj/item/taperecorder{
 	pixel_x = -3
 	},
-/obj/item/reagent_containers/cup/rag{
+/obj/item/rag{
 	pixel_y = 6;
 	pixel_x = 10
 	},
@@ -99224,7 +99224,7 @@
 /obj/effect/turf_decal/siding/asteroid{
 	dir = 5
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "xoW" = (
 /obj/machinery/light/directional/north,
@@ -99576,7 +99576,7 @@
 /area/station/medical/virology)
 "xrG" = (
 /obj/effect/turf_decal/siding/dirt,
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "xrM" = (
 /obj/machinery/light/small/directional/north,
@@ -102270,7 +102270,7 @@
 /obj/effect/turf_decal/siding/dirt/corner{
 	dir = 1
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "ybG" = (
 /obj/machinery/light_switch/directional/west,
@@ -102821,7 +102821,7 @@
 /obj/effect/turf_decal/siding/asteroid/corner{
 	dir = 4
 	},
-/turf/open/water/air/station,
+/turf/open/water/air,
 /area/station/service/hydroponics/garden)
 "yik" = (
 /turf/closed/wall/mineral/iron,
@@ -103057,7 +103057,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/tiled,
 /area/station/medical/booth)
 "ylL" = (

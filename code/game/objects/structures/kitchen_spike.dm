@@ -43,7 +43,8 @@
 	desc = "A spike for collecting meat from animals."
 	density = TRUE
 	anchored = TRUE
-	buckle_lying = 0
+	buckle_lying = 180
+	buckle_dir = SOUTH
 	can_buckle = 1
 	max_integrity = 250
 	move_resist = MOVE_FORCE_STRONG
@@ -82,12 +83,11 @@
 			L.emote("scream")
 			L.add_splatter_floor()
 			L.adjustBruteLoss(30)
-			L.setDir(2)
-			buckle_mob(L, force=1)
+			buckle_mob(L, force = TRUE)
 			var/matrix/m180 = matrix(L.transform)
 			m180.Turn(180)
 			animate(L, transform = m180, time = 3)
-			L.pixel_y = L.base_pixel_y + PIXEL_Y_OFFSET_LYING
+			L.add_offsets(type, y_add = -6, animate = FALSE)
 	else if (has_buckled_mobs())
 		for(var/mob/living/L in buckled_mobs)
 			user_unbuckle_mob(L, user)
@@ -132,7 +132,7 @@
 	var/matrix/m180 = matrix(M.transform)
 	m180.Turn(180)
 	animate(M, transform = m180, time = 3)
-	M.pixel_y = M.base_pixel_y + PIXEL_Y_OFFSET_LYING
+	M.remove_offsets(type, animate = FALSE)
 	M.adjustBruteLoss(30)
 	src.visible_message(span_danger("[M] falls free of [src]!"))
 	unbuckle_mob(M,force=1)

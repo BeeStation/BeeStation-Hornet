@@ -38,8 +38,23 @@
  * * pressure_affected - Whether or not difference in pressure affects the sound (E.g. if you can hear in space).
  * * ignore_walls - Whether or not the sound can pass through walls.
  * * falloff_distance - Distance at which falloff begins. Sound is at peak volume (in regards to falloff) aslong as it is in this range.
+ * * volume_preference - Optional: Will be checked to modify the volume of the sound.
  */
-/proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE)
+/proc/playsound(
+	atom/source,
+	soundin,
+	vol as num,
+	vary,
+	extrarange as num,
+	falloff_exponent = SOUND_FALLOFF_EXPONENT,
+	frequency,
+	channel = 0,
+	pressure_affected = TRUE,
+	ignore_walls = TRUE,
+	falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE,
+	use_reverb = TRUE,
+	volume_preference,
+)
 	if(isarea(source))
 		CRASH("playsound(): source is an area")
 
@@ -92,7 +107,7 @@
 				listeners += listening_ghost
 
 	for(var/mob/listening_mob in listeners)//had nulls sneak in here, hence the typecheck
-		listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
+		listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb, volume_preference)
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SOUND_PLAYED, source, soundin)
 
@@ -116,8 +131,24 @@
  * * falloff_distance - Distance at which falloff begins. Sound is at peak volume (in regards to falloff) aslong as it is in this range.
  * * distance_multiplier - Default 1, multiplies the maximum distance of our sound
  * * use_reverb - bool default TRUE, determines if our sound has reverb
+ * * volume_preference - Optional: Will be checked to modify the volume of the sound.
  */
-/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/sound_to_use, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE)
+/mob/proc/playsound_local(
+	turf/turf_source,
+	soundin,
+	vol as num,
+	vary,
+	frequency,
+	falloff_exponent = SOUND_FALLOFF_EXPONENT,
+	channel = 0,
+	pressure_affected = TRUE,
+	sound/sound_to_use,
+	max_distance,
+	falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE,
+	distance_multiplier = 1,
+	use_reverb = TRUE,
+	volume_preference,
+)
 	if(!client || !can_hear())
 		return
 
@@ -197,6 +228,19 @@
 			sound_to_use.echo[3] = 0 //Room setting, 0 means normal reverb
 			sound_to_use.echo[4] = 0 //RoomHF setting, 0 means normal reverb.
 
+	if(HAS_UNIQUE_SOUND_CHANNEL(sound_to_use))
+		client?.sound_channel_initial_volumes["[sound_to_use.channel]"] = sound_to_use.volume
+
+	// Apply user-specific volume modifier, if necessary
+	if(ispath(volume_preference) && client.prefs)
+		var/client_volume_modifier = client.prefs.read_preference(volume_preference)
+		sound_to_use.volume *= (client_volume_modifier / 100)
+		if(sound_to_use.volume < SOUND_AUDIBLE_VOLUME_MIN)
+			return
+
+	if(HAS_TRAIT(src, TRAIT_SOUND_DEBUGGED))
+		to_chat(src, span_admin("Max Range-[max_distance] Distance-[distance] Vol-[round(sound_to_use.volume, 0.01)] Sound-[sound_to_use.file]"))
+
 	SEND_SOUND(src, sound_to_use)
 
 /proc/sound_to_playing_players(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/S)
@@ -210,16 +254,12 @@
 /proc/play_soundtrack_music(
 	datum/soundtrack_song/song,
 	list/hearers = null,
-	ignore_prefs = FALSE,
 	play_to_lobby = FALSE,
 	allow_deaf = TRUE,
 	only_station = SOUNDTRACK_PLAY_RESPECT,
 	is_global = TRUE,
 	fade_time = 0 SECONDS,
 )
-	var/sound/sound = sound(initial(song.file), volume = initial(song.volume), wait = 0, channel = CHANNEL_SOUNDTRACK)
-	. = sound
-
 	// Clear any existing soundtrack
 	if(is_global && !isnull(GLOB.current_soundtrack))
 		stop_soundtrack_music(stop_playing = TRUE)
@@ -232,10 +272,6 @@
 			continue
 
 		if (!hearer.client)
-			hearers -= hearer
-			continue
-
-		if (!ignore_prefs && !hearer.client.prefs?.read_player_preference(/datum/preference/toggle/sound_soundtrack))
 			hearers -= hearer
 			continue
 
@@ -254,11 +290,24 @@
 		if(!is_global) // make sure nothing is already running
 			hearer.stop_sound_channel(CHANNEL_SOUNDTRACK)
 
-		if(fade_time <= 0)
-			SEND_SOUND(hearer, sound)
+		if(fade_time > 0) // handled by the sound_fade() call
+			continue
+
+		hearer.client?.sound_channel_initial_volumes["[CHANNEL_SOUNDTRACK]"] = initial(song.volume)
+
+		var/pref_volume = hearer.client?.prefs?.read_player_preference(/datum/preference/numeric/volume/sound_soundtrack_volume)
+		var/sound/sound = sound(initial(song.file), volume = initial(song.volume) * (pref_volume / 100), wait = FALSE, channel = CHANNEL_SOUNDTRACK)
+		SEND_SOUND(hearer, sound)
 
 	if(fade_time > 0)
-		sound_fade(sound, 0, sound.volume, fade_time, hearers)
+		sound_fade(
+			sound_file = sound(initial(song.file), channel = CHANNEL_SOUNDTRACK),
+			listeners = hearers,
+			time = fade_time,
+			volume_preference = /datum/preference/numeric/volume/sound_soundtrack_volume,
+			start_volume = 0,
+			end_volume = initial(song.volume),
+		)
 
 	if(!is_global)
 		return
@@ -268,30 +317,28 @@
 	// Stop playing this soundtrack for everyone, and also prevent it from playing if the pref is toggled
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(stop_soundtrack_music)), initial(song.length) + 1 SECONDS, TIMER_CLIENT_TIME)
 
-/mob/proc/play_current_soundtrack(volume = 80)
-	return !isnull(GLOB.current_soundtrack) ? play_soundtrack_music(GLOB.current_soundtrack, list(src), is_global = FALSE) : null
-
 /proc/stop_soundtrack_music(stop_playing = FALSE)
 	GLOB.current_soundtrack = null
 	if(!stop_playing)
 		return
-	for(var/mob/player as anything in GLOB.player_list)
-		player.stop_sound_channel(CHANNEL_SOUNDTRACK)
+	for(var/mob/player_mob as anything in GLOB.player_list)
+		player_mob.stop_sound_channel(CHANNEL_SOUNDTRACK)
 
-/mob/proc/stop_sound_channel(chan)
-	SEND_SOUND(src, sound(null, repeat = 0, wait = 0, channel = chan))
+/mob/proc/stop_sound_channel(channel)
+	SEND_SOUND(src, sound(null, repeat = FALSE, wait = FALSE, channel = channel))
 
 /mob/proc/set_sound_channel_volume(channel, volume)
-	var/sound/S = sound(null, FALSE, FALSE, channel, volume)
+	var/sound/S = sound(null, repeat = FALSE, wait = FALSE, channel = channel, volume = volume)
 	S.status = SOUND_UPDATE
 	SEND_SOUND(src, S)
 
-/client/proc/playtitlemusic(vol = 50)
+/client/proc/play_title_music(volume_multiplier = 1)
 	set waitfor = FALSE
 	UNTIL(SSticker.login_music) //wait for SSticker init to set the login music
 
-	if(prefs?.read_player_preference(/datum/preference/toggle/sound_lobby))
-		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = vol, channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
+	sound_channel_initial_volumes["[CHANNEL_LOBBYMUSIC]"] = 100 * volume_multiplier
+	var/music_volume = prefs?.read_preference(/datum/preference/numeric/volume/sound_lobby_volume) * volume_multiplier
+	SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = music_volume, channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
 
 /proc/get_rand_frequency()
 	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.
@@ -383,19 +430,17 @@
 				soundin = pick('sound/machines/switch1.ogg','sound/machines/switch2.ogg','sound/machines/switch3.ogg')
 	return soundin
 
-/client/proc/channel_in_use(channel)
-	for (var/sound/S in src.SoundQuery())
-		if (S.channel == channel)
-			return TRUE
-
-	return FALSE
+/client/proc/get_playing_channel(channel)
+	for (var/sound/playing_sound in src.SoundQuery())
+		if (playing_sound.channel == channel)
+			return playing_sound
 
 /mob/proc/can_hear_ambience()
-	if (!src.can_hear()) // If they can't hear they can't hear
+	if (!can_hear()) // If they can't hear they can't hear
 		return FALSE
 
-	var/turf/T = get_turf(src)
-	var/datum/gas_mixture/hearer_env = T.return_air()
+	var/turf/our_turf = get_turf(src)
+	var/datum/gas_mixture/hearer_env = our_turf.return_air()
 
 	if (!hearer_env || hearer_env.return_pressure() < SOUND_MINIMUM_PRESSURE) // They can't hear ambience if there isn't enough pressure
 		return FALSE

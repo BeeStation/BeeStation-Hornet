@@ -708,7 +708,7 @@
 
 /obj/item/clothing/head/beret/highlander/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER)
+	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER_TRAIT)
 
 
 //CentCom

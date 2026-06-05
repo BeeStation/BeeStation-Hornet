@@ -30,7 +30,6 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	speed = 1
 	unique_name = FALSE
-	hud_possible = list(ANTAG_HUD)
 	hud_type = /datum/hud/revenant
 
 	var/calculated_cogs = 0

@@ -35392,7 +35392,7 @@
 /obj/structure/mirror{
 	pixel_y = 35
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/captain/private)
 "nqE" = (
@@ -40908,7 +40908,7 @@
 	pixel_x = -6;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/cup/rag{
+/obj/item/rag{
 	pixel_x = 6;
 	pixel_y = 8
 	},

@@ -53,7 +53,6 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	var/obj/effect/temp_visual/fcluwne_manifest/cluwnehole
 	move_resist = INFINITY
 	hud_type = /datum/hud/ghost
-	hud_possible = list(ANTAG_HUD)
 	mobchatspan = "rainbow"
 
 /mob/living/simple_animal/hostile/floor_cluwne/Initialize(mapload)

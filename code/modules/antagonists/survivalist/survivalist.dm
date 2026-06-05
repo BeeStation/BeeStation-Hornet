@@ -4,6 +4,7 @@
 	show_name_in_check_antagonists = TRUE
 	banning_key = ROLE_SURVIVALIST
 	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
+	antag_hud_name = "survivalist"
 	var/greet_message = ""
 
 /datum/antagonist/survivalist/on_gain()
@@ -22,20 +23,6 @@
 		msg += span_warning(greet_message)
 	to_chat(owner.current, examine_block(msg.Join("\n")))
 	owner.announce_objectives()
-
-/datum/antagonist/survivalist/apply_innate_effects(mob/living/mob_override)
-	. = ..()
-	var/datum/atom_hud/antag/survivalisthud = GLOB.huds[ANTAG_HUD_SURVIVALIST]
-	survivalisthud.join_hud(owner.current)
-	if(!owner.antag_hud_icon_state)	//Don't override traitor huds etc, they are more important.
-		set_antag_hud(owner.current, "survivalist")
-
-/datum/antagonist/survivalist/remove_innate_effects(mob/living/mob_override)
-	. = ..()
-	var/datum/atom_hud/antag/survivalisthud = GLOB.huds[ANTAG_HUD_SURVIVALIST]
-	survivalisthud.leave_hud(owner.current)
-	if(owner.antag_hud_icon_state == "survivalist")
-		set_antag_hud(owner.current, null)
 
 /datum/antagonist/survivalist/forge_objectives()
 	add_objective(new /datum/objective/survive())
