@@ -27513,7 +27513,7 @@
 /obj/effect/turf_decal/tile/red/half{
 	dir = 4
 	},
-/obj/item/reagent_containers/cup/rag,
+/obj/item/rag,
 /turf/open/floor/iron/dark,
 /area/station/service/bar)
 "jXV" = (
@@ -43589,7 +43589,6 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
 	},
-/obj/item/reagent_containers/cup/rag,
 /obj/machinery/camera/directional/west{
 	c_tag = "Dormitory - Commissionary"
 	},
@@ -47443,6 +47442,10 @@
 /obj/item/reagent_containers/cup/glass/coffee{
 	pixel_y = 5;
 	pixel_x = 3
+	},
+/obj/item/rag{
+	pixel_y = 18;
+	pixel_x = -5
 	},
 /turf/open/floor/iron/grimy,
 /area/station/security/detectives_office/private_investigators_office)
