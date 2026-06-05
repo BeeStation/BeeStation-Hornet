@@ -43,9 +43,9 @@ particles like bonfires.
 	if(!particle_key)
 		CRASH("remove_emitter called without a key ref.")
 
-	if(LAZYACCESS(emitters, particle_key))
-		return
 	var/obj/emitter/removed_emitter = LAZYACCESS(emitters, particle_key)
+	if(isnull(removed_emitter))
+		return
 	if(!burst_mode)
 		removed_emitter.particles.spawning = 0 //this way it gracefully dies out instead
 	addtimer(CALLBACK(src, PROC_REF(handle_deletion), particle_key), removed_emitter.particles.lifespan)
