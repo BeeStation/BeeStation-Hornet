@@ -232,8 +232,8 @@
 				variable_html += debug_variable(i, value, 0, (should_delegate_list ? vv_spectre : thing), display_flags = list_flags)
 
 	var/vv_summary
-	if(hascall(thing, PROC_NAMEOF(thing, _get_vv_summary))) // This 'hascall()' check is to prevent edge case
-		vv_summary = thing._get_vv_summary()
+	if(hascall(thing, PROC_NAMEOF(thing, get_vv_summary_table))) // This 'hascall()' check is to prevent edge case
+		vv_summary = thing.get_vv_summary_table()
 	if(vv_summary)
 		vv_summary = {"
 	<hr>

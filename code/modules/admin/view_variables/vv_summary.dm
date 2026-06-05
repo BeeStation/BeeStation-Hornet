@@ -3,12 +3,12 @@
 	return
 
 /// Wraps the vv summary data
-/datum/proc/_get_vv_summary(summary_title)
+/datum/proc/get_vv_summary_table(summary_title)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	var/output = get_vv_summary_data()
 	if(output)
 		if(summary_title)
-			return "<li>[summary_title]</li><ul class='data-column'>[output]</ul>"
+			return "<li>[summary_title]</li><ul>[output]</ul>"
 		return "<ul class='data-column'>[output]</ul>"
 	return null
 
@@ -74,7 +74,7 @@
 	var/list/result = list()
 	var/count = 1
 	for(var/datum/gas_mixture/each_mix as anything in airs)
-		result += each_mix._get_vv_summary("Gas group [count++]")
+		result += each_mix.get_vv_summary_table("Gas group [count++]")
 	return result.Join()
 
 // Reagent & Chem stuff
@@ -102,18 +102,18 @@
 	var/beaker_result_text
 	var/obj/item/reagent_containers/beaker = hasvar(src, "beaker") && src.vars["beaker"]  // I don't like this, but there are a few hardcoded machines. Note: NAMEOF_STATIC(thing, beaker) makes this damn long. I just used raw string.
 	if(istype(beaker, /obj/item/reagent_containers))
-		beaker_result_text = beaker.reagents._get_vv_summary(summary_title = "Beaker")
+		beaker_result_text = beaker.reagents.get_vv_summary_table(summary_title = "Beaker")
 
 	var/chem_result_text
 	if(reagents)
-		chem_result_text = reagents._get_vv_summary(summary_title = "Internal reagent container")
+		chem_result_text = reagents.get_vv_summary_table(summary_title = "Internal reagent container")
 
 	return "[length(comp_result) ? "<li>Parts : [comp_result.Join(" | ")]</li>" : ""][beaker_result_text][chem_result_text]"
 
 /obj/machinery/sleeper/get_vv_summary_data()
 	var/list/result = list()
 	for(var/obj/item/reagent_containers/each_vial as anything in inserted_vials)
-		result += each_vial._get_vv_summary(each_vial.name)
+		result += each_vial.get_vv_summary_table(each_vial.name)
 	return "[..()][result.Join()]"
 
 /obj/machinery/power/smes/get_vv_summary_data()
@@ -133,7 +133,7 @@
 	return "<li>Channels: [channels.Join(" | ")]</li>"
 
 /obj/item/radio/get_vv_summary_data()
-	return "<li>Freq: [frequency]</li><li>Channels:[channels.Join(" | ")]</li>[keyslot?._get_vv_summary("Keyslot1")]"
+	return "<li>Freq: [frequency]</li><li>Channels:[channels.Join(" | ")]</li>[keyslot?.get_vv_summary_table("Keyslot1")]"
 
 /obj/item/radio/headset/get_vv_summary_data()
-	return "[..()][keyslot2?._get_vv_summary("Keyslot2")]"
+	return "[..()][keyslot2?.get_vv_summary_table("Keyslot2")]"
