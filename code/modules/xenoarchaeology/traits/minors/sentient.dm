@@ -42,7 +42,7 @@
 
 /datum/xenoartifact_trait/minor/sentient/proc/get_canidate()
 	var/datum/poll_config/config = new(
-		question = "Do you want to play as the maleviolent force inside the [component_parent?.parent]?",
+		question = "Do you want to play as the malevolent force inside the [component_parent?.parent]?",
 		check_jobban = ROLE_SENTIENT_XENOARTIFACT,
 		poll_time = 10 SECONDS,
 		jump_target = component_parent?.parent,
@@ -103,7 +103,7 @@
 /obj/effect/mob_spawn/sentient_artifact
 	death = FALSE
 	name = "Sentient Xenoartifact"
-	short_desc = "You're a maleviolent sentience, possesing an ancient alien artifact."
+	short_desc = "You're a malevolent sentience, possessing an ancient alien artifact."
 	flavour_text = "Return to your master..."
 	use_cooldown = TRUE
 	ghost_usable = TRUE
