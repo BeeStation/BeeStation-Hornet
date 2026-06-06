@@ -55,6 +55,11 @@
 	qdel(query_load_mentors)
 	return TRUE
 
+/proc/load_fake_mentors_by_coders()
+	for(var/client/each_client in GLOB.admins)
+		if(check_rights_for(each_client, R_ADMIN)) // We only add them to mentors when they are not admin.
+			continue
+		new /datum/mentors/coders(each_client.key)
 /// Assigns any existing mentor datum from GLOB.mentor_datums to this client,
 /// adding any mentor verbs and adding the client to GLOB.mentors.
 /// This is also responsible for giving admins who are not mentors a mentor datum.

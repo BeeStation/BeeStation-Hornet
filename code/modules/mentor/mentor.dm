@@ -10,6 +10,11 @@
 	var/href_token
 	/// The Mentor Ticket Manager interface
 	var/datum/help_ui/mentor/mentor_interface
+	/// A flag that identifies if a mentor datum is real or fake. Used for coder mentors.
+	var/fake_mentor = FALSE
+
+/datum/mentors/coders
+	fake_mentor = TRUE
 
 /datum/mentors/New(ckey)
 	if(!ckey)

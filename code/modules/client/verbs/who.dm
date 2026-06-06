@@ -33,6 +33,8 @@ AUTH_CLIENT_VERB(mentorwho)  // redundant with staffwho, but people wont check t
 			msg += "\n"
 		msg += "<b>Current Mentors:</b>\n"
 		for(var/client/C in GLOB.mentors)
+			if(C.mentor_datum.fake_mentor)
+				continue
 			msg += "\t[C.display_name_chat()] is a Mentor"
 
 			if(isobserver(C.mob))
@@ -73,6 +75,8 @@ AUTH_CLIENT_VERB(mentorwho)  // redundant with staffwho, but people wont check t
 		for(var/client/C in GLOB.mentors)
 			if(C.is_afk())
 				continue //Don't show afk admins to adminwho
+			if(C.mentor_datum.fake_mentor)
+				continue // They are likely a coder
 			msg += "\t[C.display_name_chat()] is a Mentor\n"
 
 		msg += span_info("Adminhelps are also sent through TGS to services like IRC and Discord. If no admins are available in game adminhelp anyways and an admin will see it and respond.")

@@ -138,6 +138,7 @@ GLOBAL_PROTECT(href_token)
 			winset(owner, "menuoptions", "parent=\"menu\";name=\"&Options and Messages\";command=\".options\";category=\"&Debug\"")
 			winset(owner, "menuprofiler", "parent=\"menu\";name=\"&Profiler\";command=\".profile\";category=\"&Debug\"")
 		GLOB.admins |= C
+		C.assign_mentor_datum_if_exists()
 
 /datum/admins/proc/disassociate()
 	if(IsAdminAdvancedProcCall())
