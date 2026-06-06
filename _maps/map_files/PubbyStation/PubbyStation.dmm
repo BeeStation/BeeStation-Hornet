@@ -5947,11 +5947,6 @@
 /obj/item/tape/random,
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
-"cbK" = (
-/obj/effect/turf_decal/tile/red/fourcorners,
-/obj/machinery/light/small/directional/south,
-/turf/open/floor/iron/dark/smooth_large,
-/area/station/security/brig)
 "cca" = (
 /obj/effect/landmark/start/head_of_security,
 /turf/open/floor/iron/white/smooth_large,
@@ -16883,6 +16878,11 @@
 /obj/effect/spawner/structure/window/reinforced/plasma,
 /turf/open/floor/plating,
 /area/station/engineering/supermatter)
+"fXt" = (
+/obj/effect/turf_decal/tile/red/fourcorners,
+/obj/machinery/light/small/directional/south,
+/turf/open/floor/iron/dark/smooth_large,
+/area/station/security/brig)
 "fXw" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -39418,6 +39418,11 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
+"oGL" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/station/security/processing)
 "oGP" = (
 /obj/structure/lattice,
 /obj/machinery/light/small{
@@ -43971,8 +43976,9 @@
 /turf/open/floor/iron,
 /area/station/construction/mining/aux_base)
 "qvN" = (
-/turf/closed/wall,
-/area/station/service/theater)
+/mob/living/simple_animal/hostile/syndicate/melee/sword,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central)
 "qvV" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -45037,7 +45043,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/mapping_helpers/airlock/access/all/service/theatre,
 /turf/open/floor/plating,
-/area/station/service/theater)
+/area/station/maintenance/department/crew_quarters/bar)
 "qRF" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -49248,11 +49254,6 @@
 /obj/structure/sign/poster/contraband/random,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_sat)
-"sAC" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
-/area/station/security/processing)
 "sAE" = (
 /obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/bot,
@@ -52353,10 +52354,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/station/ai_monitored/turret_protected/aisat/foyer)
-"tKi" = (
-/mob/living/simple_animal/hostile/syndicate/melee/sword,
-/turf/open/floor/iron,
-/area/station/hallway/primary/central)
 "tKt" = (
 /obj/structure/transit_tube/curved/flipped{
 	dir = 8
@@ -85259,7 +85256,7 @@ aQK
 oMG
 oMG
 oMG
-sAC
+oGL
 gpt
 oMG
 oMG
@@ -89895,7 +89892,7 @@ rrS
 wYw
 wYw
 sqU
-cbK
+fXt
 gld
 wQQ
 pCV
@@ -96873,7 +96870,7 @@ gNl
 uPy
 dnd
 ebY
-tKi
+qvN
 ceL
 lzk
 ovP
@@ -98657,11 +98654,11 @@ qJB
 vDd
 daV
 pSe
-qvN
-qvN
-qvN
-qvN
-qvN
+rxd
+rxd
+rxd
+rxd
+rxd
 cTI
 rpf
 fLL
@@ -98914,11 +98911,11 @@ oUF
 cnM
 yfU
 pSe
-qvN
+fOg
 pIb
 dxK
 btg
-qvN
+wTM
 lMd
 uja
 rpf
@@ -99171,7 +99168,7 @@ iTY
 cnM
 wBt
 pSe
-qvN
+fOg
 cLg
 qkI
 bjB
@@ -99428,12 +99425,12 @@ cqq
 cnM
 dNT
 pSe
-qvN
+fOg
 wSk
 dCw
 wTK
-qvN
-qvN
+wTM
+wTM
 wTM
 dbs
 bkF
@@ -99685,12 +99682,12 @@ smp
 cnM
 alr
 pSe
-qvN
+fOg
 eJi
 ovz
 uwv
 qbV
-qvN
+wTM
 scg
 nql
 rpf
@@ -99942,12 +99939,12 @@ xEi
 cnM
 sxm
 pSe
-qvN
-qvN
+fOg
+fOg
 sMk
 khk
 fLt
-qvN
+wTM
 hwK
 kqb
 uja
@@ -100204,7 +100201,7 @@ qRp
 xHm
 gth
 fJJ
-qvN
+wTM
 qDs
 oLM
 rpf
@@ -100457,11 +100454,11 @@ cnM
 fOg
 lfQ
 fOg
-qvN
-qvN
-qvN
-qvN
-qvN
+fOg
+nMw
+nMw
+nMw
+nMw
 wTM
 wTM
 fNm
