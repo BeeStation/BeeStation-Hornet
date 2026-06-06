@@ -90,3 +90,6 @@
 2026-06-05:
   DrDuckedGoose:
   - bugfix: Fix particles smoking, again
+  EvilDragonfiend:
+  - code_imp: VV'ing mobs no longer throws a runtime unnecessarily. Also changed some
+      VV code
