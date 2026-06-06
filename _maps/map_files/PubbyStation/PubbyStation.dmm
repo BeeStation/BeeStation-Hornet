@@ -5947,6 +5947,11 @@
 /obj/item/tape/random,
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
+"cbK" = (
+/obj/effect/turf_decal/tile/red/fourcorners,
+/obj/machinery/light/small/directional/south,
+/turf/open/floor/iron/dark/smooth_large,
+/area/station/security/brig)
 "cca" = (
 /obj/effect/landmark/start/head_of_security,
 /turf/open/floor/iron/white/smooth_large,
@@ -8573,7 +8578,7 @@
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
 /obj/machinery/vending/custom{
-	name = "Exploritory Commision Vendor"
+	name = "Exploration Commision Vendor"
 	},
 /turf/open/floor/iron/dark/textured,
 /area/station/service/library/lounge)
@@ -18005,6 +18010,7 @@
 /area/station/science/robotics/lab)
 "gpt" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow,
 /turf/open/floor/prison/dark,
 /area/station/security/processing)
 "gpC" = (
@@ -18988,7 +18994,7 @@
 /obj/structure/cable,
 /obj/structure/closet/secure_closet/hop,
 /obj/item/hand_labeler,
-/obj/machinery/computer/security/telescreen/entertainment/directional/east,
+/obj/machinery/computer/security/telescreen/entertainment/directional/north,
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron/grimy,
 /area/station/command/heads_quarters/hop)
@@ -25279,9 +25285,6 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
 "jav" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/machinery/flasher{
 	id = "brigentryaux";
 	pixel_x = 25;
@@ -49245,6 +49248,11 @@
 /obj/structure/sign/poster/contraband/random,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_sat)
+"sAC" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/station/security/processing)
 "sAE" = (
 /obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/bot,
@@ -52345,6 +52353,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/station/ai_monitored/turret_protected/aisat/foyer)
+"tKi" = (
+/mob/living/simple_animal/hostile/syndicate/melee/sword,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central)
 "tKt" = (
 /obj/structure/transit_tube/curved/flipped{
 	dir = 8
@@ -59107,7 +59119,6 @@
 /area/station/commons/fitness/recreation/entertainment)
 "wjv" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/railing/perspective/wood{
 	dir = 4
 	},
@@ -80727,7 +80738,7 @@ juY
 juY
 juY
 bUb
-aLj
+njL
 bQf
 juY
 juY
@@ -85248,7 +85259,7 @@ aQK
 oMG
 oMG
 oMG
-kZh
+sAC
 gpt
 oMG
 oMG
@@ -89884,7 +89895,7 @@ rrS
 wYw
 wYw
 sqU
-mXd
+cbK
 gld
 wQQ
 pCV
@@ -96862,7 +96873,7 @@ gNl
 uPy
 dnd
 ebY
-ebY
+tKi
 ceL
 lzk
 ovP
