@@ -33,6 +33,7 @@
 /obj/structure/rack,
 /obj/item/storage/firstaid/regular,
 /obj/effect/turf_decal/tile/purple/fourcorners,
+/obj/item/healthanalyzer,
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "aaC" = (
@@ -1121,6 +1122,12 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/processing)
+"atb" = (
+/obj/machinery/sparker/directional/north{
+	id = "MothIgnitor"
+	},
+/turf/open/floor/engine,
+/area/station/science/explab)
 "atc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -4545,6 +4552,8 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white/smooth_corner{
 	dir = 4
 	},
@@ -14138,6 +14147,8 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/station/medical/morgue)
 "eYZ" = (
@@ -16814,6 +16825,19 @@
 /obj/machinery/light/directional/west,
 /turf/open/floor/iron/freezer,
 /area/syndicate_sat)
+"fWP" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/tile/blue/half{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron,
+/area/station/medical/medbay/central)
 "fWS" = (
 /obj/structure/disposalpipe/sorting/mail{
 	sortType = 21
@@ -17049,6 +17073,8 @@
 /area/ruin/space/has_grav/turretedoutpost)
 "fZA" = (
 /obj/effect/landmark/event_spawn,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white/textured_large,
 /area/station/medical/genetics/cloning)
 "fZC" = (
@@ -18682,6 +18708,11 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/iron,
 /area/station/maintenance/disposal/incinerator)
+"gDa" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron/white/textured_large,
+/area/station/medical/genetics/cloning)
 "gDc" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
@@ -24511,6 +24542,8 @@
 /area/station/hallway/secondary/construction)
 "iNi" = (
 /obj/effect/turf_decal/tile/blue/anticorner,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white/smooth_edge{
 	dir = 1
 	},
@@ -25402,6 +25435,7 @@
 /obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
+/obj/item/geiger_counter,
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "jcP" = (
@@ -25980,6 +26014,13 @@
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
 /area/station/maintenance/department/chapel/monastery)
+"jpW" = (
+/obj/machinery/sparker{
+	id = "xenoigniter";
+	pixel_x = 25
+	},
+/turf/open/floor/engine,
+/area/station/science/xenobiology)
 "jqc" = (
 /obj/machinery/air_sensor/oxygen_tank,
 /turf/open/floor/engine/o2,
@@ -27231,6 +27272,8 @@
 	dir = 10
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
 "jRL" = (
@@ -32212,6 +32255,8 @@
 	dir = 4
 	},
 /obj/item/kirbyplants/random,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white/smooth_corner{
 	dir = 8
 	},
@@ -32310,6 +32355,8 @@
 "lHw" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/station/medical/morgue)
 "lHz" = (
@@ -36982,11 +37029,13 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/lesser)
 "nBe" = (
-/obj/machinery/light_switch{
-	pixel_x = -25
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
 	},
-/turf/closed/wall/r_wall,
-/area/station/science/explab)
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central)
 "nBg" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -38153,6 +38202,8 @@
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/station/medical/morgue)
 "ocd" = (
@@ -47613,11 +47664,13 @@
 /turf/closed/wall,
 /area/station/science/xenobiology)
 "rSD" = (
-/obj/machinery/computer/rdconsole/unlocked{
+/obj/effect/turf_decal/tile/blue/half{
 	dir = 4
 	},
-/turf/closed/wall,
-/area/station/science/robotics/mechbay)
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/iron/white/smooth_half,
+/area/station/medical/medbay/central)
 "rSR" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -48280,6 +48333,12 @@
 /obj/effect/turf_decal/tile/purple/fourcorners,
 /obj/machinery/camera/directional/south{
 	c_tag = "Science - Artifact Lab - Office"
+	},
+/obj/machinery/light_switch/directional/south,
+/obj/machinery/button/ignition{
+	id = "MothIgnitor";
+	pixel_y = -26;
+	pixel_x = 8
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
@@ -50454,6 +50513,7 @@
 /obj/item/ectoplasm,
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/station/medical/morgue)
 "sWT" = (
@@ -58111,7 +58171,6 @@
 /obj/item/crowbar,
 /obj/item/wrench,
 /obj/item/multitool,
-/obj/item/multitool,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -26
@@ -58676,6 +58735,8 @@
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 9
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white/smooth_corner,
 /area/station/medical/genetics)
 "waz" = (
@@ -61993,6 +62054,8 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow,
 /obj/effect/mapping_helpers/airlock/access/any/medical/morgue,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/medical/morgue)
 "xnL" = (
@@ -62629,6 +62692,9 @@
 /obj/machinery/airalarm/directional/north,
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 4
 	},
 /turf/open/floor/iron/tech,
 /area/station/science/robotics/mechbay)
@@ -63655,6 +63721,8 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/any/medical/maintenance,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white/textured_large,
 /area/station/medical/genetics/cloning)
 "xKN" = (
@@ -64091,6 +64159,7 @@
 	stationary_mode = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white/smooth_large,
 /area/station/medical/medbay/central)
 "xSV" = (
@@ -65355,15 +65424,14 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/obj/item/xenoarchaeology_labeler{
-	pixel_x = 1;
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple/half{
 	dir = 8
+	},
+/obj/item/laser_pointer/purple{
+	pixel_y = -5
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
@@ -90163,8 +90231,8 @@ bjS
 drQ
 vkg
 hzJ
-vVp
-ebY
+nBe
+dnd
 jRG
 xnF
 lHw
@@ -90950,10 +91018,10 @@ sze
 pkV
 fge
 lHp
-lHp
+gDa
 fZA
 xKJ
-yho
+cDm
 cDm
 yho
 aeJ
@@ -95817,10 +95885,10 @@ oSQ
 weA
 iHC
 dnd
-ebY
-ebY
-hsM
-lvQ
+rgi
+rgi
+fWP
+rSD
 iNi
 bAS
 xSv
@@ -102240,7 +102308,7 @@ mcP
 bzk
 kjg
 xGJ
-rSD
+xGJ
 qDZ
 qDZ
 xGJ
@@ -104821,7 +104889,7 @@ tIH
 dOq
 mxe
 sgx
-nBe
+vXL
 vQL
 aau
 fdE
@@ -105843,7 +105911,7 @@ lTf
 wZH
 irf
 vXL
-vjW
+atb
 tzW
 qhu
 vXL
@@ -117413,7 +117481,7 @@ bgO
 nnx
 siW
 ylW
-ylW
+jpW
 ylW
 cUL
 ylW
