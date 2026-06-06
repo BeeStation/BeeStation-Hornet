@@ -1001,57 +1001,29 @@
 	qdel(src)
 
 /obj/item/slimepotion/speed
-	name = "slime speed potion"
-	desc = "A potent chemical mix that will remove the slowdown from any item."
+	name = "slime experimental potion"
+	desc = "A potent chemical that is told to upgrade tools to an experimental version."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potyellow"
+	var/uses = 2
 
-/obj/item/slimepotion/speed/afterattack(obj/thingy, mob/user, proximity)
+/obj/item/slimepotion/speed/afterattack(obj/item/tool, mob/user, proximity)
 	. = ..()
 	if(!proximity)
 		return
-	if(SEND_SIGNAL(thingy, COMSIG_SPEED_POTION_APPLIED, src, user) & SPEED_POTION_STOP)
+	if(!istype(tool, /obj/item))
 		return
-	if(!isobj(thingy))
-		to_chat(user, span_warning("The potion can only be used on objects!"))
+	if(isnull(tool.toolspeed))
 		return
-	if(HAS_TRAIT(thingy, TRAIT_SPEED_POTIONED))
-		to_chat(user, span_warning("[thingy] can't be made any faster!"))
+	if(tool.toolspeed <= 0.3)
+		to_chat(user, span_warning("[tool] is already too advanced to be upgraded!"))
 		return
-	if(isitem(thingy))
-		var/obj/item/apply_to = thingy
-		if(apply_to.anchored)
-			to_chat(user, span_warning("[src] can't be used on anchored items!"))
-			return
-		if( apply_to.slowdown <= 0 || (apply_to.obj_flags & IMMUTABLE_SLOW)|| HAS_TRAIT(apply_to, TRAIT_NO_SPEED_POTION))
-			if(thingy.atom_storage)
-				return NONE // lets us put the potion in
-			to_chat(user, span_warning("The [apply_to] can't be made any faster!"))
-			return
-		apply_to.slowdown *= 0.5
-
-	else if(istype(thingy, /obj/vehicle))
-		var/obj/vehicle/vehicle = thingy
-		var/datum/component/riding/riding = vehicle.GetComponent(/datum/component/riding)
-		if(riding)
-			var/vehicle_speed_mod = round(1.5 * 0.85, 0.01)
-			if(riding.vehicle_move_delay <= vehicle_speed_mod)
-				to_chat(user, span_warning("[vehicle] can't be made any faster!"))
-				return
-			riding.vehicle_move_delay = vehicle_speed_mod
-		else
-			to_chat(user, span_warning("[vehicle] can't be made any faster!"))
-			return
-	else
-		return
-
-	to_chat(user, span_notice("You slather the red gunk over [thingy], making it faster."))
-	thingy.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-	thingy.add_atom_colour(COLOR_RED, FIXED_COLOUR_PRIORITY)
-	ADD_TRAIT(thingy, TRAIT_SPEED_POTIONED, SLIME_POTION_TRAIT)
+	tool.toolspeed = 0.3
+	tool.color = "#FF0000"
+	if(!findtext(tool.name, "experimental "))
+		tool.name = "experimental [tool.name]"
+	to_chat(user, span_notice("You upgrade [tool] into an experimental version!"))
 	qdel(src)
-	return FALSE
-
 /obj/item/slimepotion/fireproof
 	name = "slime chill potion"
 	desc = "A potent chemical mix that will fireproof any article of clothing. Has three uses."

@@ -96,7 +96,6 @@
 	new_core?.install(src)
 	update_speed()
 	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
-	RegisterSignal(src, COMSIG_SPEED_POTION_APPLIED, PROC_REF(on_potion))
 	for(var/obj/item/mod/module/module as anything in theme.inbuilt_modules)
 		module = new module(src)
 		install(module)
@@ -668,12 +667,8 @@
 
 /obj/item/mod/control/proc/update_speed()
 	var/total_slowdown = 0
-	var/prevent_slowdown = HAS_TRAIT(src, TRAIT_SPEED_POTIONED)
-	if (!prevent_slowdown)
-		total_slowdown += slowdown_deployed
-
 	var/list/module_slowdowns = list()
-	SEND_SIGNAL(src, COMSIG_MOD_UPDATE_SPEED, module_slowdowns, prevent_slowdown)
+	SEND_SIGNAL(src, COMSIG_MOD_UPDATE_SPEED, module_slowdowns)
 	for (var/module_slow in module_slowdowns)
 		total_slowdown += module_slow
 
@@ -737,24 +732,6 @@
 		return
 	UnregisterSignal(part, COMSIG_ATOM_EXITED)
 	part_datum.overslotting = null
-
-/obj/item/mod/control/proc/on_potion(atom/movable/source, obj/item/slimepotion/speed/speed_potion, mob/living/user)
-	SIGNAL_HANDLER
-
-	if(HAS_TRAIT(src, TRAIT_SPEED_POTIONED))
-		to_chat(user, span_warning("[src] has already been coated with red, that's as fast as it'll go!"))
-		return SPEED_POTION_STOP
-
-	if(active)
-		to_chat(user, span_warning("It's too dangerous to smear [speed_potion] on [src] while it's active!"))
-		return SPEED_POTION_STOP
-
-	to_chat(user, span_notice("You slather the red gunk over [src], making it faster."))
-	set_mod_color(COLOR_RED)
-	ADD_TRAIT(src, TRAIT_SPEED_POTIONED, SLIME_POTION_TRAIT)
-	update_speed()
-	qdel(speed_potion)
-	return SPEED_POTION_STOP
 
 /obj/item/mod/control/proc/get_visor_overlay(mutable_appearance/standing)
 	var/list/overrides = list()

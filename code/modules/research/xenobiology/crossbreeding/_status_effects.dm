@@ -807,12 +807,10 @@
 
 /datum/status_effect/stabilized/red/on_apply()
 	. = ..()
-	owner.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/equipment_speedmod)
-
+	owner.add_actionspeed_modifier(/datum/actionspeed_modifier/stabilized_red)
 /datum/status_effect/stabilized/red/on_remove()
-	owner.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/equipment_speedmod)
+	owner.remove_actionspeed_modifier(/datum/actionspeed_modifier/stabilized_red)
 	return ..()
-
 /datum/status_effect/stabilized/green
 	id = "stabilizedgreen"
 	colour = SLIME_TYPE_GREEN

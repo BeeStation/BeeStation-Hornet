@@ -293,8 +293,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //non-mob traits
 /// Used for limb-based paralysis, where replacing the limb will fix it.
 #define TRAIT_PARALYSIS "paralysis"
-/// This object has been slathered with a speed potion
-#define TRAIT_SPEED_POTIONED "speed_potioned"
 
 /// Lava will be safe to cross while it has this trait.
 #define TRAIT_LAVA_STOPPED "lava_stopped"
@@ -526,9 +524,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// For the detective aurafarming ability
 #define TRAIT_NOIR "noir"
-
-/// Prevents items from being speed potion-ed, but allows their speed to be altered in other ways
-#define TRAIT_NO_SPEED_POTION "no_speed_potion"
 
 /// Is this atom being actively shocked? Used to prevent repeated shocks.
 #define TRAIT_BEING_SHOCKED "shocked"

@@ -13,7 +13,6 @@
 
 /obj/item/clothing/head/mod/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NO_SPEED_POTION, INNATE_TRAIT)
 
 /obj/item/clothing/suit/mod
 	name = "\improper MOD chestplate"
@@ -36,7 +35,6 @@
 
 /obj/item/clothing/suit/mod/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NO_SPEED_POTION, INNATE_TRAIT)
 
 /obj/item/clothing/gloves/mod
 	name = "\improper MOD gauntlets"
@@ -55,7 +53,7 @@
 
 /obj/item/clothing/gloves/mod/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NO_SPEED_POTION, INNATE_TRAIT)
+
 
 /obj/item/clothing/shoes/mod
 	name = "\improper MOD boots"
@@ -74,4 +72,3 @@
 
 /obj/item/clothing/shoes/mod/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NO_SPEED_POTION, INNATE_TRAIT)
