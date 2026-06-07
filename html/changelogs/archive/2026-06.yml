@@ -93,3 +93,8 @@
   EvilDragonfiend:
   - code_imp: VV'ing mobs no longer throws a runtime unnecessarily. Also changed some
       VV code
+2026-06-06:
+  Tsar-Salat:
+  - bugfix: fix slimepeople eye misapplication
+  WhiskeyMarten:
+  - spellcheck: Fixed a few minor misspellings.

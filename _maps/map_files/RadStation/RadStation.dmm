@@ -14283,12 +14283,12 @@
 /turf/open/floor/iron/dark,
 /area/station/maintenance/department/bridge)
 "fmV" = (
-/obj/machinery/clonepod/prefilled,
 /obj/effect/turf_decal/bot,
 /obj/machinery/light_switch{
 	pixel_x = 22;
 	pixel_y = 23
 	},
+/obj/machinery/dna_scannernew,
 /turf/open/floor/iron,
 /area/station/medical/genetics/cloning)
 "fmZ" = (
@@ -15740,7 +15740,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/station/medical/genetics/cloning)
 "fUi" = (
@@ -18573,6 +18572,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/directional/west,
+/obj/machinery/power/apc/auto_name/directional/west,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
@@ -22570,13 +22571,11 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/station/ai_monitored/turret_protected/ai)
 "iJK" = (
-/obj/machinery/power/apc/auto_name/directional/west,
 /obj/machinery/shower{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/cable/yellow,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
@@ -25602,6 +25601,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white/side{
 	dir = 8
 	},
@@ -36587,6 +36587,7 @@
 /obj/effect/turf_decal/tile/blue/half{
 	dir = 4
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/station/medical/genetics/cloning)
 "nKI" = (
@@ -51945,6 +51946,7 @@
 /area/station/hallway/primary/fore)
 "tAc" = (
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white/side{
 	dir = 8
 	},
@@ -57328,15 +57330,10 @@
 /turf/open/floor/circuit/red,
 /area/station/ai_monitored/turret_protected/ai)
 "vMQ" = (
-/obj/machinery/dna_scannernew,
 /obj/effect/turf_decal/bot,
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_x = 1;
-	pixel_y = 23
-	},
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/radio/intercom/directional/west,
+/obj/machinery/clonepod/prefilled,
 /turf/open/floor/iron,
 /area/station/medical/genetics/cloning)
 "vMX" = (
