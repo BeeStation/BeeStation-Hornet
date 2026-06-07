@@ -1,29 +1,46 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aK" = (
-/obj/effect/decal/cleanable/blood/bubblegum,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 8
-	},
+"ao" = (
+/obj/machinery/light/broken/directional/north,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"aD" = (
+/turf/template_noop,
+/area/template_noop)
+"aJ" = (
+/obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/thinplating/dark/corner{
-	dir = 1
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 3
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
-"bb" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/north,
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
-/obj/structure/table/glass,
-/obj/item/gun/medbeam,
-/turf/open/floor/plating/abductor,
+"be" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/item/ammo_casing/spent,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/mob/living/carbon/human/species/abductor,
+/obj/item/gun/energy/laser/retro,
+/turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
-"bf" = (
-/obj/item/bikehorn,
+"bE" = (
+/obj/structure/sign/poster/contraband/busty_backdoor_xeno_babes_6,
+/turf/closed/wall/mineral/abductor,
+/area/shuttle/abandoned)
+"bP" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 5
+	},
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
-"bD" = (
+"co" = (
 /obj/effect/turf_decal/guideline/guideline_edge_alt/darkblue{
 	dir = 4
 	},
@@ -32,25 +49,163 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
-"bK" = (
+"cD" = (
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating/dark/corner{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"cI" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"dh" = (
+/obj/machinery/light/broken,
+/obj/effect/decal/cleanable/shreds,
+/mob/living/simple_animal/hostile/psycho,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"dL" = (
+/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/machinery/light/blacklight/directional/south,
+/obj/structure/barricade/sandbags,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"ec" = (
+/mob/living/simple_animal/hostile/breadloaf,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"et" = (
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"fN" = (
+/mob/living/simple_animal/hostile/psycho/fast,
+/obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
 	dir = 3
 	},
 /obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 4
+	dir = 8
 	},
-/obj/effect/turf_decal/siding/thinplating/dark/corner,
+/obj/machinery/light/broken/directional/north,
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
-"ck" = (
+"fT" = (
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 5
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 9
+	dir = 4
 	},
-/obj/effect/turf_decal/edges,
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark/end{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"fV" = (
+/obj/machinery/door/window/survival_pod,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 6
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"gk" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Shuttle Airlock"
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating/dark,
+/obj/structure/cable/yellow,
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"gQ" = (
+/obj/item/ammo_casing/spent{
+	pixel_y = 7
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 3
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating/dark/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"ha" = (
+/obj/structure/cable/yellow,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "Shipshutters2";
+	name = "Strange Shutters";
+	desc = "Heavy duty Shutters, seem to be made from some highly advanced matereal"
+	},
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/edges{
+	dir = 1
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"hk" = (
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 6
+	},
+/obj/effect/turf_decal/edges{
+	dir = 1
+	},
 /obj/effect/turf_decal/edges/borderfloor/full,
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 4
@@ -58,183 +213,24 @@
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 8
 	},
-/obj/effect/turf_decal/edges,
+/obj/effect/turf_decal/edges{
+	dir = 1
+	},
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
-"db" = (
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/turf/open/floor/plating/abductor,
-/area/shuttle/abandoned)
-"dn" = (
-/obj/machinery/door/window/survival_pod{
-	dir = 8
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/mob/living/simple_animal/hostile/syndicate/melee/sword,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"eF" = (
-/obj/structure/cable/yellow,
-/obj/machinery/airalarm/directional/north,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"eS" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 8
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"fK" = (
-/obj/structure/closet/crate,
-/obj/item/stack/sheet/mineral/plasma/ten,
-/obj/item/stack/sheet/mineral/plasma/ten,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"gm" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
-/mob/living/simple_animal/hostile/psycho/fast,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 9
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"gw" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
-/obj/machinery/light/broken/directional/north,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"gO" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 5
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"gR" = (
-/obj/item/shard{
-	icon_state = "medium"
-	},
-/obj/effect/decal/cleanable/glass,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"hC" = (
-/obj/structure/barricade/sandbags,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 1
-	},
-/obj/machinery/light/broken,
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"ii" = (
-/turf/template_noop,
-/area/template_noop)
-"ix" = (
-/obj/structure/closet/crate/rcd,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"jl" = (
-/obj/effect/decal/cleanable/blood/drip,
+"ic" = (
+/mob/living/simple_animal/hostile/syndicate/ranged/shotgun,
 /obj/effect/turf_decal/guideline/guideline_edge_alt/darkblue{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/thinplating/dark,
-/obj/effect/turf_decal/siding/thinplating/dark/corner,
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"jw" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"jz" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/obj/effect/turf_decal/edges,
-/obj/machinery/button/ignition{
-	id = "AlienShield1";
-	pixel_x = 32;
-	pixel_y = -8;
-	name = "Shield Generator";
-	desc = "You think the Designers were pretty smart putting a decoy button here for those unsuspecting enough to not click the generator first"
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned)
-"jS" = (
-/obj/effect/decal/cleanable/greenglow/filled,
-/obj/structure/falsewall/abductor,
-/turf/open/floor/vault/alien,
-/area/shuttle/abandoned)
-"ke" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
-/obj/structure/window/reinforced/tinted/spawner/directional/south,
-/obj/structure/table/glass,
-/obj/item/tank/internals/oxygen,
-/obj/item/clothing/mask/breath,
-/turf/open/floor/plating/abductor,
-/area/shuttle/abandoned)
-"kj" = (
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/structure/frame/computer,
-/obj/item/shard{
-	icon_state = "medium"
-	},
-/obj/item/shard,
-/turf/open/floor/plating/abductor,
-/area/shuttle/abandoned)
-"kN" = (
-/obj/machinery/power/port_gen/pacman,
-/obj/structure/cable/yellow,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"lg" = (
-/obj/structure/falsewall/abductor,
-/obj/effect/turf_decal/numbers/two_nine,
-/turf/open/floor/vault/alien,
-/area/shuttle/abandoned)
-"lw" = (
-/mob/living/simple_animal/hostile/syndicate,
-/turf/open/floor/plating/abductor,
-/area/shuttle/abandoned)
-"lB" = (
-/mob/living/simple_animal/hostile/breadloaf,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
-/turf/open/floor/plating/abductor2,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
-"lC" = (
-/obj/machinery/light/broken/directional/north,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"lD" = (
-/turf/open/floor/plating/abductor,
-/area/shuttle/abandoned)
-"mi" = (
+"ij" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
 	dir = 4
@@ -254,30 +250,679 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
-"mv" = (
+"iS" = (
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/mineral/plasma/ten,
+/obj/item/stack/sheet/mineral/plasma/ten,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"jq" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/darkblue,
+/obj/effect/turf_decal/siding/thinplating/dark,
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"kM" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 10
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"kR" = (
+/obj/structure/window/reinforced/tinted/spawner/directional/north,
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
+/obj/structure/table/glass,
+/obj/machinery/recharger,
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"lb" = (
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"lR" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "Shipshutters1";
+	name = "Strange Shutters";
+	desc = "Heavy duty Shutters, seem to be made from some highly advanced matereal"
+	},
+/obj/effect/turf_decal/edges,
+/obj/structure/cable/yellow,
+/obj/machinery/power/shieldwallgen/atmos/roundstart{
+	id = "AlienShield2";
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned)
+"nZ" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"od" = (
+/obj/item/hemostat/alien,
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"ol" = (
+/obj/structure/closet/abductor,
+/obj/item/clothing/under/costume/maid,
+/obj/item/toy/toy_xeno,
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"om" = (
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
+/obj/structure/window/reinforced/tinted/spawner/directional/south,
+/obj/structure/table/glass,
+/obj/item/clothing/shoes/magboots,
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"ox" = (
+/obj/structure/falsewall/abductor,
+/obj/effect/turf_decal/numbers/two_nine,
+/turf/open/floor/vault/alien,
+/area/shuttle/abandoned)
+"oU" = (
+/obj/machinery/door/airlock/abductor,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"oV" = (
+/obj/machinery/atmospherics/components/tank/air{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"oW" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/edges{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"pI" = (
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/obj/effect/decal/cleanable/glass,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"pK" = (
+/obj/item/shard,
+/obj/effect/decal/cleanable/blood/gibs/down,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 9
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"qf" = (
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"qk" = (
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/structure/frame/computer,
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/obj/item/shard,
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"qE" = (
+/obj/structure/cable/yellow,
+/obj/machinery/airalarm/directional/north,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"ra" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "Shipshutters1";
+	name = "Strange Shutters";
+	desc = "Heavy duty Shutters, seem to be made from some highly advanced matereal"
+	},
+/obj/effect/turf_decal/edges,
+/obj/structure/cable/yellow,
+/obj/machinery/power/shieldwallgen/atmos/roundstart{
+	id = "AlienShield2";
+	pixel_x = 0.1;
+	pixel_y = 0.1;
+	dir = 4
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"rD" = (
+/mob/living/simple_animal/hostile/psycho/trap,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 6
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"rQ" = (
+/obj/effect/decal/cleanable/blood/gibs/down,
+/obj/item/ammo_casing/spent,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"rV" = (
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
+	dir = 8
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"sc" = (
+/obj/structure/table/abductor,
+/obj/item/restraints/handcuffs/alien,
+/obj/item/surgicaldrill/alien,
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"sE" = (
+/obj/structure/cable/yellow,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating/dark,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/mob_spawn/human/corpse/damaged,
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"sP" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"tG" = (
+/obj/structure/barricade/sandbags,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 3
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 8
+	},
+/obj/machinery/airalarm/directional/north,
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"tU" = (
+/obj/structure/cable/yellow,
+/obj/structure/barricade/sandbags,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark/end{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"tW" = (
+/obj/structure/barricade/sandbags,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 1
+	},
+/obj/machinery/light/broken,
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"va" = (
+/obj/item/ammo_casing/spent{
+	pixel_x = -7
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"vi" = (
+/obj/structure/window/reinforced/tinted/spawner/directional/north,
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
+/obj/structure/table/glass,
+/obj/item/gun/medbeam,
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"vK" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Shuttle Airlock"
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark,
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"wF" = (
+/obj/effect/decal/cleanable/blood/gibs/torso,
+/obj/machinery/light/blacklight/directional/south,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 9
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"xf" = (
+/obj/effect/decal/cleanable/blood/bubblegum,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating/dark/corner{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"xh" = (
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 9
+	},
+/obj/effect/turf_decal/edges,
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/edges,
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow,
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"xt" = (
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/computer/shuttle_flight/white_ship{
+	dir = 1;
+	max_integrity = 2000
+	},
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"xI" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Shuttle Airlock"
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/obj/machinery/button/door{
+	id = "Shipshutters1";
+	name = "Commissary Shutters Control #1";
+	pixel_x = -24;
+	pixel_y = 4
+	},
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"yi" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/edges,
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned)
+"ys" = (
+/mob/living/simple_animal/hostile/breadloaf/slice,
+/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"zg" = (
+/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"zn" = (
+/obj/structure/cable/yellow,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating/dark,
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"zo" = (
+/obj/structure/closet/crate/rcd,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 10
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"zv" = (
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark/end{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"Aw" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"AS" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/syndicate/melee/sword,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"Bc" = (
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"Be" = (
+/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/mob/living/simple_animal/hostile/psycho/fast,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 9
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"Bz" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/item/ammo_casing/spent{
+	pixel_x = 9;
+	pixel_w = 9;
+	pixel_y = 9
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 9
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"BJ" = (
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"BP" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/power/rtg/advanced,
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"BW" = (
 /obj/machinery/light/broken/directional/north,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
-"mw" = (
+"Ce" = (
+/obj/structure/cable/yellow,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "Shipshutters1";
+	name = "Strange Shutters";
+	desc = "Heavy duty Shutters, seem to be made from some highly advanced matereal"
+	},
+/obj/effect/turf_decal/edges,
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/edges,
+/obj/docking_port/mobile{
+	callTime = 250;
+	dir = 2;
+	dynamic_id = 1;
+	id = "whiteship";
+	launch_status = 0;
+	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
+	name = "MK7 Zealot Cruiser";
+	port_direction = 8;
+	preferred_direction = 4
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"Cn" = (
+/obj/structure/cable/yellow,
+/obj/effect/decal/cleanable/blood/bubblegum,
+/obj/item/ammo_casing/spent{
+	pixel_x = 7
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark/end,
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"CM" = (
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"Do" = (
+/obj/structure/cable/yellow,
+/obj/item/clothing/head/helmet/swat,
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating/dark/corner,
+/obj/effect/turf_decal/siding/thinplating/dark/corner{
+	dir = 4
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"Dt" = (
+/obj/effect/decal/cleanable/greenglow/filled,
+/obj/structure/falsewall/abductor,
+/turf/open/floor/vault/alien,
+/area/shuttle/abandoned)
+"DX" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 8
+	},
+/obj/item/bodypart/head/alien,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"DY" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
+/obj/effect/turf_decal/edges{
+	dir = 1
+	},
+/obj/machinery/button/ignition{
+	id = "AlienShield2";
+	pixel_x = 32;
+	pixel_y = -8;
+	name = "Shield Generator";
+	desc = "You think the Designers were pretty smart putting a decoy button here for those unsuspecting enough to not click the generator first"
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned)
+"EA" = (
+/obj/structure/table/abductor,
+/obj/item/retractor/alien,
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"EC" = (
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 3
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating/dark/corner,
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"Fc" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "Shipshutters2";
+	name = "Strange Shutters";
+	desc = "Heavy duty Shutters, seem to be made from some highly advanced matereal"
+	},
+/obj/effect/turf_decal/edges{
+	dir = 1
+	},
+/obj/machinery/power/shieldwallgen/atmos/roundstart{
+	id = "AlienShield1";
+	dir = 4
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned)
+"Fd" = (
+/obj/machinery/door/airlock/abductor,
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"FF" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/shreds,
+/mob/living/simple_animal/hostile/psycho,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 3
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 10
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"FR" = (
+/obj/structure/cable/yellow,
+/obj/machinery/computer/camera_advanced/syndie{
+	dir = 8;
+	name = "Human Observation Console";
+	desc = "An older Model of the Human Observation Console, Shamelessly copied several years later by Syndicate Personell."
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"FX" = (
+/obj/item/bikehorn,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"GF" = (
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"GQ" = (
 /obj/structure/window/reinforced/survival_pod/spawner/directional/west,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
-"mz" = (
-/obj/effect/decal/cleanable/blood/gibs/old,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"nE" = (
+"Hf" = (
 /obj/structure/cable/yellow,
-/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator,
+/obj/effect/decal/cleanable/blood/bubblegum,
+/obj/item/ammo_casing/spent{
+	pixel_w = 3;
+	pixel_y = 7
+	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -291,17 +936,103 @@
 /obj/effect/turf_decal/siding/thinplating/dark,
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
-"nY" = (
-/obj/structure/table/abductor,
-/obj/item/circular_saw/alien,
+"Hi" = (
+/obj/machinery/door/airlock/abductor,
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"HZ" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/darkblue{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating/dark,
+/obj/effect/turf_decal/siding/thinplating/dark/corner,
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"It" = (
+/obj/structure/cable/yellow,
+/obj/effect/decal/cleanable/shreds,
+/mob/living/simple_animal/hostile/psycho,
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"IJ" = (
+/obj/machinery/light/blacklight/directional/south,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/components/unary/portables_connector/layer2{
+	dir = 1
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"Jk" = (
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"Jn" = (
+/obj/structure/cable/yellow,
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/obj/structure/table/optable/abductor,
+/obj/effect/decal/cleanable/blood/bubblegum,
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
-"oi" = (
-/obj/structure/table/abductor,
-/obj/item/retractor/alien,
-/turf/open/floor/plating/abductor,
+"Ke" = (
+/obj/machinery/power/apc/auto_name/directional/west,
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
-"oy" = (
+"Kl" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/obj/effect/turf_decal/edges,
+/obj/machinery/button/ignition{
+	id = "AlienShield1";
+	pixel_x = 32;
+	pixel_y = -8;
+	name = "Shield Generator";
+	desc = "You think the Designers were pretty smart putting a decoy button here for those unsuspecting enough to not click the generator first"
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned)
+"Km" = (
+/mob/living/simple_animal/hostile/psycho/fast,
+/obj/structure/cable/yellow,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating/dark,
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"KG" = (
+/mob/living/simple_animal/hostile/breadloaf/slice,
+/obj/machinery/light/blacklight/directional/south,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"KM" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Shuttle Airlock"
 	},
@@ -323,20 +1054,300 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
-"oE" = (
-/obj/effect/turf_decal/delivery,
+"KZ" = (
+/obj/structure/cable/yellow,
+/obj/structure/barricade/sandbags,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"Li" = (
+/obj/effect/mob_spawn/human/clown/corpse,
+/obj/item/chair/plastic,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"Ly" = (
+/obj/machinery/door/airlock/abductor,
+/obj/structure/cable/yellow,
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"MY" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"Nn" = (
+/obj/item/grenade/frag{
+	name = "old frag grenade";
+	desc = "There's blood and sinnew around the release pin and handle , looks like somebody didnt make it"
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 9
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"NU" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/power/rtg/advanced,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"Oc" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "Shipshutters2";
+	name = "Strange Shutters";
+	desc = "Heavy duty Shutters, seem to be made from some highly advanced matereal"
+	},
+/obj/effect/turf_decal/edges{
+	dir = 1
+	},
+/obj/machinery/power/shieldwallgen/atmos/roundstart{
+	id = "AlienShield1";
+	dir = 8
+	},
 /obj/structure/cable/yellow,
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned)
+"Of" = (
+/obj/structure/falsewall/abductor,
+/turf/open/floor/vault/alien,
+/area/shuttle/abandoned)
+"OK" = (
+/obj/structure/barricade/sandbags,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"OV" = (
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
-"oY" = (
-/obj/item/hemostat/alien,
+"Pg" = (
+/mob/living/simple_animal/hostile/statue,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 6
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"Pv" = (
+/obj/item/scalpel/alien,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"Qu" = (
+/obj/structure/cable/yellow,
+/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating/dark,
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"QG" = (
+/obj/machinery/light/broken/directional/north,
+/obj/item/gun/ballistic/automatic/pistol/no_mag,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 3
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"QS" = (
+/mob/living/simple_animal/hostile/mimic,
+/obj/machinery/light/blacklight/directional/north,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"QT" = (
+/obj/item/ammo_casing/spent{
+	pixel_y = -6
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 3
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 4
+	},
+/obj/machinery/light/broken/directional/north,
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"Rj" = (
+/mob/living/simple_animal/hostile/psycho,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 1
+	},
+/obj/machinery/light/broken,
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"Rr" = (
+/obj/effect/decal/cleanable/blood/gibs/bubblegum,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"Sl" = (
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"Sy" = (
+/obj/effect/decal/cleanable/shreds,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue,
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"Tm" = (
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 3
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/abandoned)
+"TC" = (
+/obj/structure/shuttle/engine/propulsion/left{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
+/turf/open/floor/plating,
+/area/shuttle/abandoned)
+"TD" = (
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
+/obj/structure/window/reinforced/tinted/spawner/directional/south,
+/obj/structure/table/glass,
+/obj/item/tank/internals/oxygen,
+/obj/item/clothing/mask/breath,
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
-"pA" = (
+"TL" = (
+/obj/structure/cable/yellow,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/turf_decal/edges/borderfloor/full,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating/dark,
+/turf/open/floor/iron,
+/area/shuttle/abandoned)
+"Ur" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"UG" = (
+/obj/structure/cable/yellow,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"VE" = (
+/turf/closed/wall/mineral/abductor,
+/area/shuttle/abandoned)
+"Wt" = (
+/mob/living/simple_animal/hostile/syndicate,
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"Xf" = (
+/obj/machinery/smartfridge/abductor,
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"Xi" = (
+/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/machinery/light/broken/directional/north,
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"Xz" = (
+/obj/structure/table/abductor,
+/obj/item/circular_saw/alien,
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"XM" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
+/turf/open/floor/plating/abductor2,
+/area/shuttle/abandoned)
+"XP" = (
+/obj/structure/table/abductor,
+/obj/item/paper/guides/antag/abductor,
+/turf/open/floor/plating/abductor,
+/area/shuttle/abandoned)
+"Zn" = (
 /obj/structure/shuttle/engine/propulsion/left{
 	dir = 8;
 	pixel_x = 10;
@@ -375,828 +1386,7 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
-"qF" = (
-/mob/living/simple_animal/hostile/psycho/trap,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 6
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"qN" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"re" = (
-/obj/effect/decal/cleanable/blood/splatter,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 3
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"rU" = (
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 6
-	},
-/obj/effect/turf_decal/edges{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 8
-	},
-/obj/effect/turf_decal/edges{
-	dir = 1
-	},
-/obj/structure/cable/yellow,
-/obj/structure/cable/yellow,
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"rZ" = (
-/obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 8
-	},
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/thinplating/dark,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/mob_spawn/human/corpse/damaged,
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"sr" = (
-/obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/blood/bubblegum,
-/obj/item/ammo_casing/spent{
-	pixel_w = 3;
-	pixel_y = 7
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/thinplating/dark,
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"sW" = (
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/computer/shuttle_flight/white_ship{
-	dir = 1;
-	max_integrity = 2000
-	},
-/turf/open/floor/plating/abductor,
-/area/shuttle/abandoned)
-"tw" = (
-/obj/machinery/door/window/survival_pod{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"tT" = (
-/obj/effect/decal/cleanable/blood/gibs/bubblegum,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"um" = (
-/obj/effect/decal/cleanable/blood/gibs/down,
-/obj/item/ammo_casing/spent,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"ux" = (
-/obj/machinery/power/apc/auto_name/directional/west,
-/obj/structure/cable/yellow,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"uy" = (
-/obj/machinery/light/broken,
-/obj/effect/decal/cleanable/shreds,
-/mob/living/simple_animal/hostile/psycho,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"uA" = (
-/obj/effect/mob_spawn/human/clown/corpse,
-/obj/item/chair/plastic,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"uX" = (
-/obj/machinery/light/broken/directional/north,
-/obj/item/gun/ballistic/automatic/pistol/no_mag,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 3
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"vp" = (
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"vO" = (
-/mob/living/simple_animal/hostile/psycho/fast,
-/obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/thinplating/dark,
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"vX" = (
-/mob/living/simple_animal/hostile/psycho/fast,
-/obj/effect/decal/cleanable/blood/splatter,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 3
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 8
-	},
-/obj/machinery/light/broken/directional/north,
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"wk" = (
-/obj/structure/closet/abductor,
-/obj/item/clothing/under/costume/maid,
-/obj/item/toy/toy_xeno,
-/turf/open/floor/plating/abductor,
-/area/shuttle/abandoned)
-"wm" = (
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"xg" = (
-/obj/effect/decal/cleanable/blood/drip,
-/obj/item/ammo_casing/spent{
-	pixel_x = 9;
-	pixel_w = 9;
-	pixel_y = 9
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 9
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"xz" = (
-/obj/structure/barricade/sandbags,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 3
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 8
-	},
-/obj/machinery/airalarm/directional/north,
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"xV" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/edges{
-	dir = 1
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"ya" = (
-/obj/effect/decal/cleanable/blood/drip,
-/obj/effect/turf_decal/guideline/guideline_edge_alt/darkblue,
-/obj/effect/turf_decal/siding/thinplating/dark,
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"yd" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/item/ammo_casing/spent,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 8
-	},
-/mob/living/carbon/human/species/abductor,
-/obj/item/gun/energy/laser/retro,
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"yi" = (
-/obj/item/ammo_casing/spent{
-	pixel_y = 7
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 3
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/thinplating/dark/corner{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"yQ" = (
-/obj/machinery/atmospherics/components/tank/air{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"zk" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"zv" = (
-/obj/machinery/door/airlock/abductor,
-/obj/structure/barricade/wooden/crude,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"zJ" = (
-/obj/effect/decal/cleanable/shreds,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"At" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "Shipshutters1";
-	name = "Strange Shutters";
-	desc = "Heavy duty Shutters, seem to be made from some highly advanced matereal"
-	},
-/obj/effect/turf_decal/edges,
-/obj/structure/cable/yellow,
-/obj/machinery/power/shieldwallgen/atmos/roundstart{
-	id = "AlienShield2";
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned)
-"Bw" = (
-/mob/living/simple_animal/hostile/breadloaf/slice,
-/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 10
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"BQ" = (
-/obj/item/scalpel/alien,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"CD" = (
-/obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark/end{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"Dy" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "Shipshutters2";
-	name = "Strange Shutters";
-	desc = "Heavy duty Shutters, seem to be made from some highly advanced matereal"
-	},
-/obj/effect/turf_decal/edges{
-	dir = 1
-	},
-/obj/machinery/power/shieldwallgen/atmos/roundstart{
-	id = "AlienShield1";
-	dir = 8
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned)
-"DX" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"Ey" = (
-/obj/machinery/door/airlock/abductor,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"EI" = (
-/obj/machinery/smartfridge/abductor,
-/turf/open/floor/plating/abductor,
-/area/shuttle/abandoned)
-"EV" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/north,
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
-/obj/structure/table/glass,
-/obj/machinery/recharger,
-/turf/open/floor/plating/abductor,
-/area/shuttle/abandoned)
-"Fe" = (
-/turf/closed/wall/mineral/abductor,
-/area/shuttle/abandoned)
-"Ff" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
-/obj/structure/cable/yellow,
-/obj/structure/cable/yellow,
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/plating/abductor,
-/area/shuttle/abandoned)
-"Fo" = (
-/obj/machinery/door/airlock/abductor,
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"FV" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"GH" = (
-/obj/item/ammo_casing/spent{
-	pixel_y = -6
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 3
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 4
-	},
-/obj/machinery/light/broken/directional/north,
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"GJ" = (
-/obj/structure/barricade/sandbags,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"GR" = (
-/obj/structure/cable/yellow,
-/obj/machinery/computer/camera_advanced/syndie{
-	dir = 8;
-	name = "Human Observation Console";
-	desc = "An older Model of the Human Observation Console, Shamelessly copied several years later by Syndicate Personell."
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/turf/open/floor/plating/abductor,
-/area/shuttle/abandoned)
-"GY" = (
-/mob/living/simple_animal/hostile/breadloaf/slice,
-/obj/machinery/light/blacklight/directional/south,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"Ho" = (
-/obj/machinery/door/airlock/abductor,
-/obj/structure/cable/yellow,
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"Hq" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Shuttle Airlock"
-	},
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 8
-	},
-/obj/machinery/button/door{
-	id = "Shipshutters1";
-	name = "Commissary Shutters Control #1";
-	pixel_x = -24;
-	pixel_y = 4
-	},
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"HA" = (
-/obj/structure/table/abductor,
-/obj/item/paper/guides/antag/abductor,
-/turf/open/floor/plating/abductor,
-/area/shuttle/abandoned)
-"HD" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "Shipshutters1";
-	name = "Strange Shutters";
-	desc = "Heavy duty Shutters, seem to be made from some highly advanced matereal"
-	},
-/obj/effect/turf_decal/edges,
-/obj/structure/cable/yellow,
-/obj/machinery/power/shieldwallgen/atmos/roundstart{
-	id = "AlienShield2";
-	pixel_x = 0.1;
-	pixel_y = 0.1;
-	dir = 4
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"Ip" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "Shipshutters2";
-	name = "Strange Shutters";
-	desc = "Heavy duty Shutters, seem to be made from some highly advanced matereal"
-	},
-/obj/effect/turf_decal/edges{
-	dir = 1
-	},
-/obj/machinery/power/shieldwallgen/atmos/roundstart{
-	id = "AlienShield1";
-	dir = 4
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned)
-"Jl" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"Jw" = (
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/thinplating/dark/corner{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"Jy" = (
-/obj/item/grenade/frag{
-	name = "old frag grenade";
-	desc = "There's blood and sinnew around the release pin and handle , looks like somebody didnt make it"
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"JL" = (
-/obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/shreds,
-/mob/living/simple_animal/hostile/psycho,
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"Ku" = (
-/obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/thinplating/dark,
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"Lp" = (
-/obj/structure/table/abductor,
-/obj/item/restraints/handcuffs/alien,
-/obj/item/surgicaldrill/alien,
-/turf/open/floor/plating/abductor,
-/area/shuttle/abandoned)
-"Ly" = (
-/obj/effect/decal/cleanable/glass,
-/obj/item/shard,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"Mz" = (
-/obj/structure/shuttle/engine/propulsion/left{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
-/turf/open/floor/plating,
-/area/shuttle/abandoned)
-"MF" = (
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"MP" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Shuttle Airlock"
-	},
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/thinplating/dark,
-/obj/structure/cable/yellow,
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"Nd" = (
-/obj/effect/decal/cleanable/blood/drip,
-/obj/effect/decal/cleanable/shreds,
-/mob/living/simple_animal/hostile/psycho,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 3
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"Ni" = (
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark/end{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"NO" = (
-/obj/effect/decal/cleanable/blood/gibs/old,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"NR" = (
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 3
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"Oz" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 8
-	},
-/obj/effect/turf_decal/edges{
-	dir = 1
-	},
-/obj/machinery/button/ignition{
-	id = "AlienShield2";
-	pixel_x = 32;
-	pixel_y = -8;
-	name = "Shield Generator";
-	desc = "You think the Designers were pretty smart putting a decoy button here for those unsuspecting enough to not click the generator first"
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned)
-"OO" = (
-/obj/machinery/light/blacklight/directional/south,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/machinery/atmospherics/components/unary/portables_connector/layer2{
-	dir = 1
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"Pu" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Shuttle Airlock"
-	},
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark,
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"Qn" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"Qx" = (
-/obj/item/ammo_casing/spent{
-	pixel_x = -7
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"QK" = (
-/obj/machinery/door/window/survival_pod,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"Rg" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/obj/effect/turf_decal/edges,
-/obj/structure/cable/yellow,
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned)
-"Rv" = (
-/obj/structure/cable/yellow,
-/obj/structure/barricade/sandbags,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"RR" = (
-/obj/structure/sign/poster/contraband/busty_backdoor_xeno_babes_6,
-/turf/closed/wall/mineral/abductor,
-/area/shuttle/abandoned)
-"RX" = (
-/obj/structure/cable/yellow,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"RY" = (
+"ZT" = (
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/blood/gibs/bubblegum,
 /obj/effect/turf_decal/edges/borderfloor/full,
@@ -1209,605 +1399,411 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 6
 	},
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"Se" = (
-/obj/machinery/door/window/survival_pod{
-	dir = 8
-	},
-/obj/item/bodypart/head/alien,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"SN" = (
-/obj/structure/cable/yellow,
-/obj/structure/barricade/sandbags,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark/end{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"TX" = (
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"Ui" = (
-/obj/item/shard,
-/obj/effect/decal/cleanable/blood/gibs/down,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"Uo" = (
-/obj/structure/cable/yellow,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "Shipshutters1";
-	name = "Strange Shutters";
-	desc = "Heavy duty Shutters, seem to be made from some highly advanced matereal"
-	},
-/obj/effect/turf_decal/edges,
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/edges,
-/obj/docking_port/mobile{
-	callTime = 250;
-	dir = 2;
-	dynamic_id = 1;
-	id = "whiteship";
-	launch_status = 0;
-	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
-	name = "MK7 Zealot Cruiser";
-	port_direction = 8;
-	preferred_direction = 4
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"VX" = (
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
-	dir = 8
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"Wh" = (
-/mob/living/simple_animal/hostile/statue,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"Wm" = (
-/obj/structure/cable/yellow,
-/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
-/obj/structure/table/optable/abductor,
-/obj/effect/decal/cleanable/blood/bubblegum,
-/turf/open/floor/plating/abductor,
-/area/shuttle/abandoned)
-"Wp" = (
-/mob/living/simple_animal/hostile/psycho,
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/darkblue{
-	dir = 1
-	},
-/obj/machinery/light/broken,
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"WT" = (
-/obj/structure/falsewall/abductor,
-/turf/open/floor/vault/alien,
-/area/shuttle/abandoned)
-"Xa" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
-/obj/machinery/light/blacklight/directional/south,
-/obj/structure/barricade/sandbags,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"Xb" = (
-/obj/structure/cable/yellow,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "Shipshutters2";
-	name = "Strange Shutters";
-	desc = "Heavy duty Shutters, seem to be made from some highly advanced matereal"
-	},
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/edges{
-	dir = 1
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"Yo" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/shotgun,
-/obj/effect/turf_decal/guideline/guideline_edge_alt/darkblue{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/shuttle/abandoned)
-"Yq" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
-/obj/structure/window/reinforced/tinted/spawner/directional/south,
-/obj/structure/table/glass,
-/obj/item/clothing/shoes/magboots,
-/turf/open/floor/plating/abductor,
-/area/shuttle/abandoned)
-"Yy" = (
-/obj/structure/cable/yellow,
-/obj/item/clothing/head/helmet/swat,
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/thinplating/dark/corner,
-/obj/effect/turf_decal/siding/thinplating/dark/corner{
-	dir = 4
-	},
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"YD" = (
-/mob/living/simple_animal/hostile/mimic,
-/obj/machinery/light/blacklight/directional/north,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"YV" = (
-/obj/effect/decal/cleanable/blood/gibs/torso,
-/obj/machinery/light/blacklight/directional/south,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 9
-	},
-/turf/open/floor/plating/abductor2,
-/area/shuttle/abandoned)
-"YX" = (
-/obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/blood/bubblegum,
-/obj/item/ammo_casing/spent{
-	pixel_x = 7
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark/end,
-/turf/open/floor/iron,
-/area/shuttle/abandoned)
-"Zb" = (
-/obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/turf_decal/edges/borderfloor/full,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/thinplating/dark,
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
 
 (1,1,1) = {"
-ii
-ii
-ii
-ii
-ii
-Fe
-ii
-Fe
-ii
-ii
-ii
-ii
-ii
+aD
+aD
+aD
+aD
+aD
+VE
+aD
+VE
+aD
+aD
+aD
+aD
+aD
 "}
 (2,1,1) = {"
-ii
-ii
-ii
-ii
-ii
-Fe
-ii
-Fe
-ii
-ii
-ii
-ii
-ii
+aD
+aD
+aD
+aD
+aD
+VE
+aD
+VE
+aD
+aD
+aD
+aD
+aD
 "}
 (3,1,1) = {"
-ii
-ii
-ii
-ii
-Fe
-Fe
-ii
-Fe
-Fe
-ii
-ii
-ii
-ii
+aD
+aD
+aD
+aD
+VE
+VE
+aD
+VE
+VE
+aD
+aD
+aD
+aD
 "}
 (4,1,1) = {"
-ii
-ii
-ii
-ii
-Fe
-Fe
-ii
-Fe
-Fe
-ii
-ii
-ii
-ii
+aD
+aD
+aD
+aD
+VE
+VE
+aD
+VE
+VE
+aD
+aD
+aD
+aD
 "}
 (5,1,1) = {"
-ii
-ii
-ii
-Fe
-Fe
-ii
-ii
-ii
-Fe
-Fe
-ii
-ii
-ii
+aD
+aD
+aD
+VE
+VE
+aD
+aD
+aD
+VE
+VE
+aD
+aD
+aD
 "}
 (6,1,1) = {"
-ii
-ii
-Fe
-Fe
-Fe
-ii
-pA
-ii
-Fe
-Fe
-Fe
-ii
-ii
+aD
+aD
+VE
+VE
+VE
+aD
+Zn
+aD
+VE
+VE
+VE
+aD
+aD
 "}
 (7,1,1) = {"
-ii
-ii
-Fe
-kN
-Fe
-Fe
-Mz
-Fe
-Fe
-ux
-Fe
-ii
-ii
+aD
+aD
+VE
+et
+VE
+VE
+TC
+VE
+VE
+Ke
+VE
+aD
+aD
 "}
 (8,1,1) = {"
-ii
-Fe
-Fe
-RX
-WT
-WT
-oE
-WT
-WT
-eF
-Fe
-Fe
-ii
+aD
+VE
+VE
+UG
+Of
+Of
+BP
+Of
+Of
+qE
+VE
+VE
+aD
 "}
 (9,1,1) = {"
-ii
-Fe
-YD
-RX
-Ho
-JL
-Yy
-RY
-Fo
-VX
-OO
-Fe
-ii
+aD
+VE
+QS
+UG
+Ly
+It
+Do
+ZT
+Fd
+rV
+IJ
+VE
+aD
 "}
 (10,1,1) = {"
-ii
-Fe
-fK
-Qn
-RR
-uX
-rZ
-uy
-Fe
-ix
-yQ
-Fe
-ii
+aD
+VE
+iS
+sP
+bE
+QG
+sE
+dh
+VE
+zo
+oV
+VE
+aD
 "}
 (11,1,1) = {"
-ii
-Fe
-Fe
-Fe
-jS
-Nd
-Ku
-Jy
-WT
-Fe
-Fe
-Fe
-ii
+aD
+VE
+VE
+VE
+Dt
+FF
+zn
+Nn
+Of
+VE
+VE
+VE
+aD
 "}
 (12,1,1) = {"
-Fe
-Fe
-QK
-qF
-Ey
-tT
-Zb
-zJ
-Ey
-gO
-tw
-Fe
-Fe
+VE
+VE
+fV
+rD
+oU
+Rr
+TL
+Sy
+oU
+bP
+MY
+VE
+VE
 "}
 (13,1,1) = {"
-Fe
-lC
-Ly
-eS
-WT
-Fe
-MP
-Fe
-WT
-eS
-zk
-GY
-Fe
+VE
+ao
+Bc
+XM
+Of
+VE
+gk
+VE
+Of
+XM
+zg
+KG
+VE
 "}
 (14,1,1) = {"
-Fe
-jw
-gm
-Fe
-Fe
-NR
-vO
-FV
-Fe
-Fe
-Bw
-lB
-Fe
+VE
+Aw
+Be
+VE
+VE
+Tm
+Km
+cI
+VE
+VE
+ys
+ec
+VE
 "}
 (15,1,1) = {"
-WT
-Fe
-Fe
-Fe
-bK
-um
-CD
-xg
-Jw
-Fe
-Fe
-Fe
-lg
+Of
+VE
+VE
+VE
+EC
+rQ
+fT
+Bz
+cD
+VE
+VE
+VE
+ox
 "}
 (16,1,1) = {"
-HD
-xV
-Fe
-GH
-ya
-bb
-db
-ke
-bD
-Wp
-Fe
-Rg
-Ip
+ra
+oW
+VE
+QT
+jq
+vi
+lb
+TD
+co
+Rj
+VE
+yi
+Fc
 "}
 (17,1,1) = {"
-Uo
-rU
-Hq
-MF
-YX
-kj
-Ff
-sW
-SN
-Rv
-oy
-ck
-Xb
+Ce
+hk
+xI
+qf
+Cn
+qk
+Ur
+xt
+tU
+KZ
+KM
+xh
+ha
 "}
 (18,1,1) = {"
-At
-Oz
-Fe
-vX
-jl
-EV
-GR
-Yq
-Yo
-hC
-Fe
-jz
-Dy
+lR
+DY
+VE
+fN
+HZ
+kR
+FR
+om
+ic
+tW
+VE
+Kl
+Oc
 "}
 (19,1,1) = {"
-lg
-Fe
-Fe
-Fe
-yi
-yd
-Ni
-Qx
-aK
-Fe
-Fe
-Fe
-WT
+ox
+VE
+VE
+VE
+gQ
+be
+zv
+va
+xf
+VE
+VE
+VE
+Of
 "}
 (20,1,1) = {"
-Fe
-jw
-uA
-Fe
-Fe
-re
-sr
-wm
-Fe
-Fe
-Wh
-NO
-Fe
+VE
+Aw
+Li
+VE
+VE
+aJ
+Hf
+OV
+VE
+VE
+Pg
+Sl
+VE
 "}
 (21,1,1) = {"
-Fe
-Fe
-qN
-bf
-Fe
-Fe
-Pu
-Fe
-Fe
-vp
-mz
-Fe
-Fe
+VE
+VE
+NU
+FX
+VE
+VE
+vK
+VE
+VE
+CM
+Jk
+VE
+VE
 "}
 (22,1,1) = {"
-ii
-Fe
-mw
-dn
-Fe
-xz
-nE
-TX
-Fe
-Se
-gR
-Fe
-ii
+aD
+VE
+GQ
+AS
+VE
+tG
+Qu
+GF
+VE
+DX
+pI
+VE
+aD
 "}
 (23,1,1) = {"
-ii
-Fe
-mv
-Jl
-Ey
-DX
-mi
-GJ
-zv
-Ui
-YV
-Fe
-ii
+aD
+VE
+BW
+kM
+oU
+nZ
+ij
+OK
+Hi
+pK
+wF
+VE
+aD
 "}
 (24,1,1) = {"
-ii
-Fe
-Fe
-Fe
-Fe
-gw
-BQ
-Xa
-Fe
-Fe
-Fe
-Fe
-ii
+aD
+VE
+VE
+VE
+VE
+Xi
+Pv
+dL
+VE
+VE
+VE
+VE
+aD
 "}
 (25,1,1) = {"
-ii
-ii
-Fe
-EI
-lD
-lw
-Wm
-oY
-lD
-wk
-Fe
-ii
-ii
+aD
+aD
+VE
+Xf
+BJ
+Wt
+Jn
+od
+BJ
+ol
+VE
+aD
+aD
 "}
 (26,1,1) = {"
-ii
-ii
-Fe
-Fe
-Lp
-oi
-lD
-HA
-nY
-Fe
-Fe
-ii
-ii
+aD
+aD
+VE
+VE
+sc
+EA
+BJ
+XP
+Xz
+VE
+VE
+aD
+aD
 "}
 (27,1,1) = {"
-ii
-ii
-ii
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
-ii
-ii
-ii
+aD
+aD
+aD
+VE
+VE
+VE
+VE
+VE
+VE
+VE
+aD
+aD
+aD
 "}
