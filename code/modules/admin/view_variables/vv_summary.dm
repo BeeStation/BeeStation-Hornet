@@ -94,9 +94,22 @@
 	<li>Next: [queue_next ? "[queue_next.name] ([queue_next.type])" : "null"]</li>
 	"}
 
+// Base of /atom
 /atom/get_vv_summary_data()
+	var/chem_result_text
+	if(reagents)
+		chem_result_text = reagents.get_vv_summary_table(summary_title = "Internal reagent container")
+
+	var/gas_result
+	var/datum/gas_mixture/air_contents = hasvar(src, "air_contents") && src.vars["air_contents"]  // I don't like this, but there are a few hardcoded items.
+	if(istype(air_contents, /datum/gas_mixture))
+		gas_result = air_contents.get_vv_summary_table(summary_title = "air_contents")
+
+
 	return {"
 	<li>atom_integrity: [atom_integrity]/[max_integrity]</li>
+	[chem_result_text]
+	[gas_result]
 	"}
 
 // Base of /mob
@@ -167,6 +180,8 @@
 	<li>Unused stolen essence: [essence_excess]</li>
 	<li>Stolen perfect souls: [perfectsouls]</li>"}
 
+/mob/living/simple_animal/bot/medbot/get_vv_summary_data()
+	return "[..()][reagent_glass?.get_vv_summary_table("reagent_glass")]"
 
 // Atmos related stuff
 /datum/gas_mixture/get_vv_summary_data()
@@ -185,16 +200,20 @@
 	return {"
 	<li>Total Moles: [total_moles]</li>
 	[length(result) ? "<ul>[result.Join()]</ul>" : ""]
-	<li>Temperature: [round(temperature - T0C, 0.01)] Celcius ([round(temperature, 0.01)] K)</li>
+	<li>Temperature: [round(temperature - T0C, 0.01)] Celsius ([round(temperature, 0.01)] K)</li>
 	<li>Volume: [return_volume()]</li>
 	<li>Pressure: [return_pressure()]</li>
 	[length(reaction_result) ? "<li>reaction_results:</li><ul>[reaction_result.Join()]</ul>" : ""]
 	"}
 
 /obj/machinery/portable_atmospherics/get_vv_summary_data()
+	var/internal_air_result
 	if(air_contents)
-		return air_contents.get_vv_summary_data()
-	return null
+		internal_air_result = air_contents.get_vv_summary_table("Internal Atmos data")
+	var/tank_result
+	if(holding)
+		tank_result = holding.air_contents.get_vv_summary_table("Holding tank")
+	return "[internal_air_result][tank_result]"
 
 /obj/machinery/atmospherics/components/get_vv_summary_data()
 	var/list/result = list()
@@ -220,8 +239,14 @@
 /obj/item/reagent_containers/get_vv_summary_data()
 	return reagents?.get_vv_summary_data()
 
+/obj/item/grenade/get_vv_summary_data()
+	var/count = 1
+	var/list/result = list()
+	for(var/obj/item/reagent_containers/each_beaker as anything in contents)
+		result += each_beaker.get_vv_summary_table("#[count++]. [each_beaker]")
+	return "[..()][result.Join()]"
 
-// Base of /obj
+// Base of /obj/machinery
 /obj/machinery/get_vv_summary_data()
 	var/list/comp_result
 	if(length(component_parts))
