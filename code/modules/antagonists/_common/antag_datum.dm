@@ -451,6 +451,7 @@ GLOBAL_LIST(admin_antag_list)
 		/datum/antagonist/ninja,
 		/datum/antagonist/nukeop,
 		/datum/antagonist/wizard,
+		/datum/antagonist/vampire,
 	)
 
 	for(var/datum/antagonist/antag_type as anything in allowed_types)
