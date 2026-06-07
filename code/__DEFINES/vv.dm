@@ -199,7 +199,7 @@
 #define VV_LIST_EDITABLE (3) //! Can vv the list, and edit.
 
 // Becomes read only at live, editable at debug, dynamically
-#ifdef DEBUG
+#if defined(LOWMEMORYMODE) || defined(QUICKSTART)
 #define VV_LIST_READ_ONLY___DEBUG_EDITABLE (VV_LIST_EDITABLE)
 #else
 #define VV_LIST_READ_ONLY___DEBUG_EDITABLE (VV_LIST_READ_ONLY)
