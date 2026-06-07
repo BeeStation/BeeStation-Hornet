@@ -8860,6 +8860,9 @@
 	name = "Outer Lockdown";
 	pixel_y = -24
 	},
+/obj/item/analyzer,
+/obj/item/clothing/neck/stethoscope,
+/obj/structure/rack,
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "dde" = (
@@ -20855,14 +20858,14 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 10
 	},
-/obj/structure/rack,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/analyzer,
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 5
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
+	},
+/obj/machinery/computer/xenoarchaeology_console{
+	dir = 2
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
@@ -26308,6 +26311,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/hidden,
 /turf/open/floor/plating,
 /area/station/maintenance/aft/greater)
+"jAm" = (
+/obj/effect/turf_decal/bot,
+/obj/item/kirbyplants/random,
+/turf/open/floor/iron/cafeteria,
+/area/station/service/kitchen/coldroom)
 "jAt" = (
 /obj/item/storage/fancy/donut_box{
 	pixel_y = 2
@@ -48269,9 +48277,6 @@
 	name = "Connector Port (Air Supply)"
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners,
-/obj/machinery/camera/directional/south{
-	c_tag = "Science - Artifact Lab - Office"
-	},
 /obj/machinery/light_switch/directional/south,
 /obj/machinery/button/ignition{
 	id = "MothIgnitor";
@@ -50965,10 +50970,6 @@
 /obj/effect/turf_decal/tile/green/fourcorners,
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
-"tfu" = (
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/cafeteria,
-/area/station/service/kitchen/coldroom)
 "tfD" = (
 /obj/structure/cable/yellow,
 /obj/item/kirbyplants{
@@ -56619,7 +56620,6 @@
 /area/station/service/chapel/monastery)
 "vqS" = (
 /obj/effect/turf_decal/bot,
-/obj/item/kirbyplants/random,
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen/coldroom)
 "vqW" = (
@@ -65340,7 +65340,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/camera/directional/north,
+/obj/machinery/camera/directional/north{
+	c_tag = "Science - Artifact Lab - Office"
+	},
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/table/reinforced,
@@ -94002,8 +94004,8 @@ vqH
 wdy
 jcN
 uhv
-tfu
 vqS
+jAm
 vqH
 dpl
 oQl
