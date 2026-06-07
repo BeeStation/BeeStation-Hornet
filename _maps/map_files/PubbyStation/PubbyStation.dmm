@@ -32661,7 +32661,9 @@
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
 "lOu" = (
-/obj/structure/bed/roller,
+/obj/vehicle/ridden/wheelchair{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/half{
 	dir = 8
 	},
