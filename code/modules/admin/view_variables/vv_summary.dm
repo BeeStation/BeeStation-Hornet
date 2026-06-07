@@ -89,9 +89,9 @@
 	<li>can_fire: [can_fire]</li>
 	<li>state: [state]</li>
 	<li>queue:</li>
-	<ul><li>Before: [queue_prev.name] ([queue_prev.type])</li>
+	<ul><li>Before: [queue_prev ? "[queue_prev.name] ([queue_prev.type])" : "null"]</li>
 	<li>This: [name] ([type])</li>
-	<li>Next: [queue_next.name] ([queue_next.type])</li>
+	<li>Next: [queue_next ? "[queue_next.name] ([queue_next.type])" : "null"]</li>
 	"}
 
 /atom/get_vv_summary_data()
