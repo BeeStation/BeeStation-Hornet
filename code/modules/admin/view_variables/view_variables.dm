@@ -231,16 +231,6 @@
 					value = list_value[key]
 				variable_html += debug_variable(i, value, 0, (should_delegate_list ? vv_spectre : thing), display_flags = list_flags)
 
-	var/vv_summary
-	if(hascall(thing, PROC_NAMEOF(thing, get_vv_summary_table))) // This 'hascall()' check is to prevent edge case
-		vv_summary = thing.get_vv_summary_table()
-	if(vv_summary)
-		vv_summary = {"
-	<hr>
-	<div>
-		<b>Summary:</b>
-		[vv_summary]
-	</div>"}
 	// ------------------------------------------------------
 	// Builds text: 'href string' based on the existence of 'vv_spectre' (which remembers actual refID of a special list)
 	var/href_reference_string = \
@@ -399,7 +389,7 @@
 				</tr>
 			</table>
 		</div>
-		[vv_summary]
+		[hascall(thing, PROC_NAMEOF(thing, get_vv_grand_summary)) ? thing.get_vv_grand_summary() : ""]
 		<hr>
 		<font size='1'>
 			<b>E</b> - Edit, tries to determine the variable type by itself.<br>
@@ -434,7 +424,7 @@
 
 	// Resets vv_spectre, and shows it to user
 	vv_spectre.reset()
-	src << browse(html, "window=variables[refid];size=475x650")
+	src << browse(html, "window=variables[refid];size=500x850")
 
 /client/proc/vv_update_display(datum/thing, span, content)
 	src << output("[span]:[content]", "variables[REF(thing)].browser:replace_span")
