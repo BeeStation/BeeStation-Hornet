@@ -86,7 +86,6 @@
 	<li>wait: [wait]</li>
 	<li>init_order: [init_order]</li>
 	<li>priority: [priority]</li>
-	<li>flags: [flags]</li>
 	<li>can_fire: [can_fire]</li>
 	<li>state: [state]</li>
 	<li>queue:</li>
