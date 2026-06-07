@@ -472,7 +472,7 @@
 	return ..()
 
 /datum/status_effect/stabilized/tick(seconds_between_ticks)
-	if (duration != -1)
+	if (duration != STATUS_EFFECT_PERMANENT)
 		return ..()
 	if(isnull(linked_extract))
 		duration = world.time + 15 SECONDS

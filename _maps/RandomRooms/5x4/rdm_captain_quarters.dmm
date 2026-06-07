@@ -35,7 +35,7 @@
 	pixel_x = -1;
 	pixel_y = 6
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /obj/structure/mirror{
 	pixel_y = 35
 	},

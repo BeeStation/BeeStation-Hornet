@@ -13,10 +13,6 @@
 	var/death_two_electric_boogaloo = TRUE
 	/// The antag team containing all the holoparasites in this holder.
 	var/datum/team/holoparasites/team
-	/// The current antag HUD for the owner.
-	var/datum/atom_hud/antag/current_antag_hud
-	/// The current antag HUD icon state for the owner.
-	var/current_antag_hud_icon_state
 	/// If the owner is in the process of dying (or is dead).
 	var/dying = FALSE
 	/// If the summoner has 'locked' their holoparasites, preventing them from manifesting.
@@ -37,10 +33,6 @@
 		register_body_signals(owner.current)
 		var/datum/component/team_monitor/team_monitor = get_monitor(owner.current)
 		team_monitor.show_hud(owner.current)
-	if(owner.antag_hud)
-		current_antag_hud = owner.antag_hud
-	if(owner.antag_hud_icon_state)
-		current_antag_hud_icon_state = owner.antag_hud_icon_state
 
 /datum/holoparasite_holder/Destroy()
 	unregister_mind_signals()
@@ -56,8 +48,6 @@
 
 /datum/holoparasite_holder/proc/register_mind_signals()
 	RegisterSignal(owner, COMSIG_MIND_TRANSFER_TO, PROC_REF(on_mind_transfer))
-	RegisterSignal(owner, COMSIG_MIND_JOIN_ANTAG_HUD, PROC_REF(on_join_antag_hud))
-	RegisterSignal(owner, COMSIG_MIND_LEAVE_ANTAG_HUD, PROC_REF(on_leave_antag_hud))
 
 /datum/holoparasite_holder/proc/register_body_signals(mob/living/body)
 	RegisterSignal(body, COMSIG_MOB_LOGIN, PROC_REF(on_login))
@@ -67,7 +57,7 @@
 	RegisterSignal(body, COMSIG_LIVING_EXIT_STASIS, PROC_REF(on_exit_stasis))
 
 /datum/holoparasite_holder/proc/unregister_mind_signals()
-	UnregisterSignal(owner, list(COMSIG_MIND_TRANSFER_TO, COMSIG_MIND_JOIN_ANTAG_HUD, COMSIG_MIND_LEAVE_ANTAG_HUD))
+	UnregisterSignal(owner, COMSIG_MIND_TRANSFER_TO)
 
 /datum/holoparasite_holder/proc/unregister_body_signals(mob/living/body)
 	UnregisterSignal(body, list(COMSIG_MOB_LOGIN, COMSIG_LIVING_DEATH, COMSIG_LIVING_REVIVE, COMSIG_LIVING_ENTER_STASIS, COMSIG_LIVING_EXIT_STASIS))
@@ -95,10 +85,6 @@
 		CRASH("Attempted to add a holoparasite ([key_name(new_holopara)]) with an existing holder ([key_name(new_holopara.parent_holder.owner)]) to the holder of [key_name(owner)]")
 	holoparasites += new_holopara
 	new_holopara.parent_holder = src
-	if(current_antag_hud)
-		current_antag_hud.join_hud(new_holopara)
-	if(current_antag_hud_icon_state)
-		set_antag_hud(new_holopara, current_antag_hud_icon_state)
 	var/datum/component/team_monitor/team_monitor = get_monitor(owner.current)
 	if(team_monitor)
 		team_monitor.get_matching_beacons()
@@ -116,10 +102,6 @@
 		CRASH("Attempted to remove the wrong holder [key_name(owner)] from a holoparasite ([key_name(holopara_to_remove)])!")
 	holoparasites -= holopara_to_remove
 	holopara_to_remove.parent_holder = null
-	if(current_antag_hud)
-		current_antag_hud.leave_hud(holopara_to_remove)
-	if(holopara_to_remove.mind.antag_hud_icon_state == current_antag_hud_icon_state)
-		set_antag_hud(holopara_to_remove, null)
 
 /**
  * Returns TRUE if the holoparasite holder is active (there are actual holoparasites in the holder), FALSE otherwise.
@@ -216,32 +198,6 @@
 	new_body.take_overall_damage(stamina = rand(new_body.maxHealth * 1.1, new_body.maxHealth * 1.5), updating_health = TRUE)
 	new_body.set_confusion_if_lower(2 MINUTES)
 	to_chat(owner, span_userdanger("The process of moving your mind and its manifestations to a new body greatly strains both your mind and body!"))
-
-/**
- * Handles the mind joining an antag HUD, adding their antag HUD to all of their holoparasites.
- */
-/datum/holoparasite_holder/proc/on_join_antag_hud()
-	SIGNAL_HANDLER
-	if(!owner.antag_hud?.self_visible)
-		return
-	current_antag_hud = owner.antag_hud
-	current_antag_hud_icon_state = owner.antag_hud_icon_state
-	for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holoparasites)
-		current_antag_hud.join_hud(holopara)
-		set_antag_hud(holopara, current_antag_hud_icon_state)
-
-/**
- * Handles the mind leaving an antag HUD, removing their antag HUD from all of their holoparasites.
- */
-/datum/holoparasite_holder/proc/on_leave_antag_hud(datum/mind/_source, datum/atom_hud/antag/hud)
-	SIGNAL_HANDLER
-	if(hud != current_antag_hud)
-		return
-	for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holoparasites)
-		hud.leave_hud(holopara)
-		set_antag_hud(holopara, null)
-	current_antag_hud = null
-	current_antag_hud_icon_state = null
 
 /**
  * Handles the owner logging in, so we can tell them about the holopara telepathy saymode.

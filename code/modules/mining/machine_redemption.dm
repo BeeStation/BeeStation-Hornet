@@ -40,8 +40,8 @@
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		ore_multiplier_temp = 0.65 + (0.35 * B.rating)
 	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
-		ore_multiplier += (0.20 * L.rating)
-	ore_multiplier = round(ore_multiplier_temp, 0.01)
+		ore_multiplier_temp += (0.25 * L.rating)
+	ore_multiplier = min(round(ore_multiplier_temp, 0.01), 3) // i dont want that stupid 0.05 in my text
 
 /obj/machinery/mineral/ore_redemption/examine(mob/user)
 	. = ..()
@@ -187,7 +187,7 @@
 		if(isnull(O.refined_type))
 			to_chat(user, span_notice("[O] has already been refined!"))
 			return
-
+		smelt_ore(O)
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/AltClick(mob/living/user)
