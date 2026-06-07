@@ -2341,15 +2341,13 @@
 /turf/open/floor/wood/broken,
 /area/station/security/courtroom)
 "aNA" = (
-/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/machinery/biogenerator,
 /obj/machinery/door/window/westright{
 	dir = 1;
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
-/obj/machinery/door/firedoor,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/door/window/southright,
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "aNI" = (
@@ -2645,11 +2643,15 @@
 /turf/open/floor/wood,
 /area/station/security/detectives_office/private_investigators_office)
 "aSc" = (
-/obj/machinery/biogenerator,
 /obj/machinery/door/window/westright{
 	dir = 1;
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/southright,
+/obj/structure/window/reinforced/spawner/directional/west{
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
@@ -2815,10 +2817,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
-"aUo" = (
-/mob/living/simple_animal/hostile/syndicate/melee/sword,
-/turf/open/floor/iron,
-/area/station/hallway/primary/central)
 "aUp" = (
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
@@ -11345,7 +11343,7 @@
 "dYz" = (
 /obj/machinery/door/window/southleft{
 	name = "Bar Delivery";
-	req_access_txt = "25"
+	req_access_txt = "22;25;26;28;35;37;38;46"
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
@@ -15091,6 +15089,7 @@
 /obj/structure/table,
 /obj/item/plate/oven_tray,
 /obj/item/food/spaghetti/raw,
+/obj/item/reagent_containers/condiment/enzyme,
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen)
 "fqT" = (
@@ -24951,6 +24950,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/desk_bell/wired/service,
+/obj/machinery/door/window/southleft,
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "iTo" = (
@@ -96909,7 +96909,7 @@ gNl
 uPy
 dnd
 ebY
-aUo
+ebY
 ceL
 lzk
 ovP
