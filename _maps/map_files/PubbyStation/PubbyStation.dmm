@@ -16131,6 +16131,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/service/chapel/dock)
+"fJo" = (
+/obj/machinery/newscaster/directional,
+/turf/closed/wall/r_wall,
+/area/station/science/explab)
 "fJx" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -31181,12 +31185,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/ai_monitored/command/storage/eva)
-"lij" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -24
-	},
-/turf/open/floor/engine,
-/area/station/science/explab)
 "lim" = (
 /obj/structure/grille/broken,
 /obj/item/crowbar,
@@ -43069,8 +43067,10 @@
 /turf/open/floor/iron/dark,
 /area/station/service/chapel/monastery)
 "qgo" = (
-/obj/machinery/newscaster/directional,
-/turf/closed/wall/r_wall,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -24
+	},
+/turf/open/floor/engine,
 /area/station/science/explab)
 "qgs" = (
 /obj/effect/turf_decal/delivery,
@@ -43880,6 +43880,10 @@
 /obj/machinery/light_switch/directional/west,
 /turf/open/floor/wood,
 /area/station/service/library/printer)
+"quQ" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/cafeteria,
+/area/station/service/kitchen/coldroom)
 "qva" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -48306,16 +48310,14 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science Requests Console";
-	pixel_y = -30;
-	receive_ore_updates = 1;
-	pixel_x = 0
-	},
 /obj/structure/rack,
 /obj/machinery/light_switch/directional/west,
+/obj/machinery/requests_console/auto_name/directional/south{
+	name = "Science Requests Console";
+	receive_ore_updates = 1;
+	department = "Science";
+	departmentType = 2
+	},
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "sgB" = (
@@ -51205,11 +51207,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/station/service/chapel/funeral)
-"tkp" = (
-/obj/effect/turf_decal/bot,
-/obj/item/kirbyplants/random,
-/turf/open/floor/iron/cafeteria,
-/area/station/service/kitchen/coldroom)
 "tkw" = (
 /obj/effect/turf_decal/tile/yellow/half{
 	dir = 4
@@ -56658,6 +56655,7 @@
 /area/station/service/chapel/monastery)
 "vqS" = (
 /obj/effect/turf_decal/bot,
+/obj/item/kirbyplants/random,
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen/coldroom)
 "vqW" = (
@@ -94017,8 +94015,8 @@ vqH
 wdy
 jcN
 uhv
+quQ
 vqS
-tkp
 vqH
 dpl
 oQl
@@ -104828,7 +104826,7 @@ mAy
 vXL
 vjW
 jPw
-lij
+qgo
 vXL
 mxe
 sgx
@@ -105857,7 +105855,7 @@ vXL
 gpL
 tzW
 qhu
-qgo
+fJo
 ymc
 dcZ
 vXL
