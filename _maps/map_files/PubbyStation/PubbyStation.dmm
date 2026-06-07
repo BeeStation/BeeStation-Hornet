@@ -5077,6 +5077,10 @@
 "bKr" = (
 /obj/structure/cable,
 /obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/machinery/door/poddoor/shutters/window/preopen{
+	id = "SupermatterExternal";
+	name = "Radiation Shutters"
+	},
 /turf/open/floor/plating,
 /area/station/engineering/main)
 "bKw" = (
@@ -17766,6 +17770,8 @@
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced/spawner/directional/north,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "gna" = (
@@ -31266,6 +31272,10 @@
 /obj/structure/table,
 /obj/machinery/airalarm/directional/east,
 /obj/machinery/reagentgrinder,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -3;
+	pixel_y = 15
+	},
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "ljQ" = (
@@ -43158,6 +43168,14 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/item/storage/box/syringes{
+	pixel_x = -4
+	},
+/obj/structure/table,
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "qiO" = (
@@ -50947,6 +50965,10 @@
 /obj/effect/turf_decal/tile/green/fourcorners,
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
+"tfu" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/cafeteria,
+/area/station/service/kitchen/coldroom)
 "tfD" = (
 /obj/structure/cable/yellow,
 /obj/item/kirbyplants{
@@ -56596,8 +56618,8 @@
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/service/chapel/monastery)
 "vqS" = (
-/obj/structure/kitchenspike,
 /obj/effect/turf_decal/bot,
+/obj/item/kirbyplants/random,
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen/coldroom)
 "vqW" = (
@@ -93980,7 +94002,7 @@ vqH
 wdy
 jcN
 uhv
-vqS
+tfu
 vqS
 vqH
 dpl
