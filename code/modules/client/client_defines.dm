@@ -1,8 +1,37 @@
-
+/**
+ * Client datum
+ *
+ * A datum that is created whenever a user joins a BYOND world, one will exist for every active connected
+ * player
+ *
+ * when they first connect, this client object is created and [/client/New] is called
+ *
+ * When they disconnect, this client object is deleted and [/client/Del] is called
+ *
+ * All client topic calls go through [/client/Topic] first, so a lot of our specialised
+ * topic handling starts here
+ */
 /client
-		//////////////////////
-		//BLACK MAGIC THINGS//
-		//////////////////////
+	/**
+	 * This line makes clients parent type be a datum
+	 *
+	 * By default in byond if you define a proc on datums, that proc will exist on nearly every single type
+	 * from icons to images to atoms to mobs to objs to turfs to areas, it won't however, appear on client
+	 *
+	 * instead by default they act like their own independent type so while you can do isdatum(icon)
+	 * and have it return true, you can't do isdatum(client), it will always return false.
+	 *
+	 * This makes writing oo code hard, when you have to consider this extra special case
+	 *
+	 * This line prevents that, and has never appeared to cause any ill effects, while saving us an extra
+	 * pain to think about
+	 *
+	 * This line is widely considered black fucking magic, and the fact it works is a puzzle to everyone
+	 * involved, including the current engine developer, lummox
+	 *
+	 * If you are a future developer and the engine source is now available and you can explain why this
+	 * is the way it is, please do update this comment
+	 */
 	parent_type = /datum
 #ifdef DISABLE_BYOND_AUTH
 	authenticate = FALSE
@@ -25,20 +54,19 @@
 	var/datum/mentors/mentor_datum = null
 
 	/// Whether the client has ai interacting as a ghost enabled or not
-	var/AI_Interact		= 0
+	var/AI_Interact = FALSE
 
 	/// Used to cache this client's bans to save on DB queries
 	var/ban_cache = null
 	///If we are currently building this client's ban cache, this var stores the timeofday we started at
 	var/ban_cache_start = 0
 	/// Contains the last message sent by this client - used to protect against copy-paste spamming.
-	var/last_message	= ""
+	var/last_message = ""
 	/// How many messages sent in the last 10 seconds
 	var/total_message_count = 0
 	/// Next tick to reset the total message counter
 	COOLDOWN_DECLARE(total_count_reset)
 	var/externalreplyamount = 0
-	var/cryo_warned = -3000//when was the last time we warned them about not cryoing without an ahelp, set to -5 minutes so that rounstart cryo still warns
 	var/staff_check_rate = 0 //when was the last time they checked online staff
 
 		/////////
@@ -133,10 +161,13 @@
 	/// Whether or not this client has standard hotkeys enabled
 	var/hotkeys = TRUE
 
-	/// client/eye is immediately changed, and it makes a lot of errors to track eye change
+	/// Whether or not this client has the combo HUD enabled
+	var/combo_hud_enabled = FALSE
+
+	/// client/eye is immediately changed, and it makes a lot of errors to track eye change. This eye_weakref helps to track what the client's old eye was.
 	var/datum/weakref/eye_weakref
 
-///Autoclick list of two elements, first being the clicked thing, second being the parameters.
+	///Autoclick list of two elements, first being the clicked thing, second being the parameters.
 	var/list/atom/selected_target[2]
 	///Used in MouseDrag to preserve the original mouse click parameters
 	var/mouseParams = ""
@@ -183,3 +214,11 @@
 	/// Port currently used by this client's Dream Seeker
 	var/seeker_port
 
+	/// An associative list of unique sound channels to their initial volume.
+	/// Used so we can update channel volumes based on player preferences without restarting audio.
+	/**
+	 * examples:
+	 * "CHANNEL_LOBBYMUSIC" = 100,
+	 * "CHANNEL_AMBIENT_MUSIC" = 75,
+	*/
+	var/list/sound_channel_initial_volumes = list()

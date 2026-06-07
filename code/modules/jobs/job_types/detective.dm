@@ -5,7 +5,7 @@
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
@@ -24,13 +24,20 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_SECURITY)
 
 	display_order = JOB_DISPLAY_ORDER_DETECTIVE
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Thiefcatcher"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/detective
 	)
 
-	minimal_lightup_areas = list(/area/medical/morgue, /area/security/detectives_office)
+	minimal_lightup_areas = list(/area/station/medical/morgue, /area/station/security/detectives_office)
+
+	manuscript_jobs = list(
+		JOB_NAME_DETECTIVE,
+		JOB_NAME_WARDEN
+	)
 
 /datum/outfit/job/detective
 	name = JOB_NAME_DETECTIVE
@@ -43,25 +50,25 @@
 	neck = /obj/item/clothing/neck/tie/detective
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	suit = /obj/item/clothing/suit/jacket/det_suit
-	suit_store = /obj/item/melee/classic_baton/police
+	suit_store = /obj/item/melee/baton
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/fedora/det_hat
 	l_pocket = /obj/item/modular_computer/tablet/pda/preset/detective
-	r_pocket = /obj/item/clothing/accessory/badge/officer/det
+	r_pocket = /obj/item/clothing/accessory/badge/det
 
-	mask = /obj/item/clothing/mask/cigarette
+	mask = /obj/item/cigarette
 
 	implants = list(/obj/item/implant/mindshield)
 
 	chameleon_extras = list(/obj/item/gun/ballistic/revolver/detective, /obj/item/clothing/glasses/sunglasses/advanced)
 
-/datum/outfit/job/detective/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/detective/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
-	var/obj/item/clothing/mask/cigarette/cig = H.wear_mask
+	var/obj/item/cigarette/cig = H.wear_mask
 	if(istype(cig)) //Some species specfic changes can mess this up (plasmamen)
 		cig.light("")
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 /obj/item/storage/belt/fannypack/worn/detective/PopulateContents()

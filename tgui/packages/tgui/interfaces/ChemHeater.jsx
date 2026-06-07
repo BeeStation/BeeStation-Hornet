@@ -72,7 +72,7 @@ export const ChemHeater = (props) => {
           buttons={
             !!isBeakerLoaded && (
               <>
-                <Box inline color="label" mr={2}>
+                <Box inline mr={2}>
                   {beakerCurrentVolume} / {beakerMaxVolume} units
                 </Box>
                 <Button

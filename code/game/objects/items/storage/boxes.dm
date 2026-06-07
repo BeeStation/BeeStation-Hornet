@@ -28,7 +28,7 @@
 	icon = 'icons/obj/storage/box.dmi'
 	w_class = WEIGHT_CLASS_MEDIUM
 	icon_state = "box"
-	item_state = "syringe_kit"
+	inhand_icon_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	resistance_flags = FLAMMABLE
@@ -117,18 +117,18 @@
 	desc = "Unfortunately not large enough to trap the mime."
 	foldable = null
 	icon_state = "box"
-	item_state = null
+	inhand_icon_state = null
 	alpha = 0
 
 /obj/item/storage/box/mime/attack_hand(mob/user, list/modifiers)
 	..()
-	if(user.mind.miming)
+	if(HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		alpha = 255
 
-/obj/item/storage/box/mime/Moved(oldLoc, dir)
-	if (iscarbon(oldLoc))
+/obj/item/storage/box/mime/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	if (iscarbon(old_loc))
 		alpha = 0
-	..()
+	return ..()
 
 //Disk boxes
 
@@ -826,7 +826,7 @@
 	desc = "A small box of Almost But Not Quite Plasma Premium Matches."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "matchbox"
-	item_state = "zippo"
+	inhand_icon_state = "zippo"
 	worn_icon_state = "lighter"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
@@ -851,7 +851,7 @@
 	name = "box of replacement bulbs"
 	illustration = "light"
 	desc = "This box is shaped on the inside so that only light tubes and bulbs fit."
-	item_state = "syringe_kit"
+	inhand_icon_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
@@ -1030,7 +1030,7 @@
 		PopulateContents()
 	name = "[name] ([theme_name])"
 	desc = "A box containing supplementary ingredients for the aspiring chef. The box's theme is '[theme_name]'."
-	item_state = "syringe_kit"
+	inhand_icon_state = "syringe_kit"
 
 /obj/item/storage/box/ingredients/PopulateContents()
 	switch(theme_name)
@@ -1171,7 +1171,7 @@
 	new /obj/item/circuitboard/machine/protolathe(src)
 	new /obj/item/circuitboard/machine/destructive_analyzer(src)
 	new /obj/item/circuitboard/machine/circuit_imprinter(src)
-	new /obj/item/circuitboard/computer/rdconsole(src)
+	new /obj/item/circuitboard/computer/rdconsole/unlocked(src)
 
 /obj/item/storage/box/silver_sulf
 	name = "box of silver sulfadiazine patches"
@@ -1248,46 +1248,51 @@
 
 /obj/item/storage/box/material/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
 	atom_storage.max_specific_storage = 1000
 	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
 	atom_storage.max_slots = 1000
 	atom_storage.allow_big_nesting = TRUE
 
 /obj/item/storage/box/material/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/stack/sheet/iron/fifty=1, \
-		/obj/item/stack/sheet/glass/fifty=1,\
-		/obj/item/stack/sheet/rglass=50,\
-		/obj/item/stack/sheet/mineral/copper/fifty=1,\
-		/obj/item/stack/sheet/plasmaglass=50,\
-		/obj/item/stack/sheet/plasmarglass=50,\
-		/obj/item/stack/sheet/titaniumglass=50,\
-		/obj/item/stack/sheet/plastitaniumglass=50,\
-		/obj/item/stack/sheet/plasteel=50,\
-		/obj/item/stack/sheet/mineral/plastitanium=50,\
-		/obj/item/stack/sheet/mineral/titanium=50,\
-		/obj/item/stack/sheet/mineral/gold=50,\
-		/obj/item/stack/sheet/mineral/silver=50,\
-		/obj/item/stack/sheet/mineral/uranium=50,\
-		/obj/item/stack/sheet/mineral/plasma=50,\
-		/obj/item/stack/sheet/mineral/diamond=50,\
-		/obj/item/stack/ore/bluespace_crystal/refined=50,\
-		/obj/item/stack/sheet/mineral/bananium=50,\
-		/obj/item/stack/sheet/plastic/fifty=1,\
-		/obj/item/stack/sheet/runed_metal/fifty=1,\
-		/obj/item/stack/sheet/brass/fifty=1,\
-		/obj/item/stack/sheet/mineral/abductor=50,\
-		/obj/item/stack/sheet/mineral/adamantine=50,\
-		/obj/item/stack/sheet/wood=50,\
-		/obj/item/stack/sheet/cotton/cloth=50,\
-		/obj/item/stack/sheet/leather=50,\
-		/obj/item/stack/sheet/bone=12,\
-		/obj/item/stack/sheet/cardboard/fifty=1,\
-		/obj/item/stack/sheet/mineral/sandstone=50,\
-		/obj/item/stack/sheet/snow=50
-		)
-	generate_items_inside(items_inside,src)
+	var/static/list/items_inside
+	items_inside ||= list(
+		/obj/item/stack/sheet/iron = 50,
+		/obj/item/stack/sheet/glass = 50,
+		/obj/item/stack/sheet/rglass = 50,
+		/obj/item/stack/sheet/mineral/copper = 50,
+		/obj/item/stack/sheet/plasmaglass = 50,
+		/obj/item/stack/sheet/plasmarglass = 50,
+		/obj/item/stack/sheet/titaniumglass = 50,
+		/obj/item/stack/sheet/plastitaniumglass = 50,
+		/obj/item/stack/sheet/plasteel = 50,
+		/obj/item/stack/sheet/mineral/plastitanium = 50,
+		/obj/item/stack/sheet/mineral/titanium = 50,
+		/obj/item/stack/sheet/mineral/gold = 50,
+		/obj/item/stack/sheet/mineral/silver = 50,
+		/obj/item/stack/sheet/mineral/uranium = 50,
+		/obj/item/stack/sheet/mineral/plasma = 50,
+		/obj/item/stack/sheet/mineral/diamond = 50,
+		/obj/item/stack/ore/bluespace_crystal/refined = 50,
+		/obj/item/stack/sheet/mineral/bananium = 50,
+		/obj/item/stack/sheet/plastic = 50,
+		/obj/item/stack/sheet/runed_metal = 50,
+		/obj/item/stack/sheet/brass = 50,
+		/obj/item/stack/sheet/mineral/abductor = 50,
+		/obj/item/stack/sheet/mineral/adamantine = 50,
+		/obj/item/stack/sheet/wood = 50,
+		/obj/item/stack/sheet/cotton/cloth = 50,
+		/obj/item/stack/sheet/leather = 50,
+		/obj/item/stack/sheet/bone = 12,
+		/obj/item/stack/sheet/cardboard = 50,
+		/obj/item/stack/sheet/mineral/sandstone = 50,
+		/obj/item/stack/sheet/snow = 50,
+	)
+
+	for(var/obj/item/stack/stack_type as anything in items_inside)
+		var/amt = items_inside[stack_type]
+		new stack_type(src, amt, FALSE)
+
+// except iron, glass, copper, plastic, runed metal, brass, and carboard
 
 /obj/item/storage/box/deputy
 	name = "box of deputy armbands"
@@ -1475,3 +1480,11 @@
 		/obj/item/stack/wrapping_paper/small=1
 		)
 	generate_items_inside(items_inside,src)
+
+/obj/item/storage/box/party_poppers
+	name = "box of party_poppers"
+	desc = "Turn any event into a celebration and ensure the janitor stays busy."
+
+/obj/item/storage/box/party_poppers/PopulateContents()
+	for(var/i in 1 to 5)
+		new /obj/item/reagent_containers/spray/chemsprayer/party(src)

@@ -17,9 +17,3 @@
 	desc = "Used to recall the Salvage Pod."
 	circuit = /obj/item/circuitboard/computer/shuttle/white_ship/pod/recall
 	possible_destinations = "whiteship_pod_home"
-
-/obj/effect/spawner/lootdrop/whiteship_cere_ripley
-	name = "25% mech 75% wreckage ripley spawner"
-	loot = list(/obj/vehicle/sealed/mecha/working/ripley/mining = 1,
-				/obj/structure/mecha_wreckage/ripley = 3)
-	lootdoubles = FALSE

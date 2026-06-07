@@ -13,7 +13,7 @@ export const GravityGenerator = (props) => {
   const { act, data } = useBackend();
   const { charging_state, operational } = data;
   return (
-    <Window width={400} height={600}>
+    <Window width={400} height={160}>
       <Window.Content>
         {!operational && <NoticeBox>No data available</NoticeBox>}
         {!!operational && charging_state !== 0 && (

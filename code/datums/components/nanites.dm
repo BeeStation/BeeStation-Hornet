@@ -58,7 +58,7 @@
 
 	if(isliving(parent))
 		RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
-		RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_death))
+		RegisterSignal(parent, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 		RegisterSignal(parent, COMSIG_MOB_TRIED_ACCESS, PROC_REF(check_access))
 		RegisterSignal(parent, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_shock))
 		RegisterSignal(parent, COMSIG_LIVING_MINOR_SHOCK, PROC_REF(on_minor_shock))
@@ -83,7 +83,7 @@
 								COMSIG_NANITE_SCAN,
 								COMSIG_NANITE_SYNC,
 								COMSIG_ATOM_EMP_ACT,
-								COMSIG_MOB_DEATH,
+								COMSIG_LIVING_DEATH,
 								COMSIG_MOB_TRIED_ACCESS,
 								COMSIG_LIVING_ELECTROCUTE_ACT,
 								COMSIG_LIVING_MINOR_SHOCK,
@@ -109,7 +109,8 @@
 
 /datum/component/nanites/process(delta_time)
 	if(!IS_IN_STASIS(host_mob))
-		adjust_nanites(amount = (regen_rate + (SSresearch.science_tech.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0)) * delta_time)
+		var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
+		adjust_nanites(amount = (regen_rate + (science_web.researched_nodes[TECHWEB_NODE_NANITE_HARMONIC] ? HARMONIC_REGEN_BOOST : 0)) * delta_time)
 		add_research()
 		for(var/datum/nanite_program/program as anything in programs)
 			program.on_process()
@@ -216,7 +217,7 @@
 			if(iscarbon(host_mob))
 				var/mob/living/carbon/C = host_mob
 				host_mob.visible_message(span_warning("[host_mob] vomits a grainy grey slurry!"), span_warning("You suddenly vomit a metallic-tasting grainy grey slurry!"));
-				C.vomit(0, FALSE, TRUE, FLOOR(excess / 100, 1), FALSE, VOMIT_NANITE, FALSE)
+				C.vomit(0, FALSE, TRUE, floor(excess / 100), FALSE, VOMIT_NANITE, FALSE)
 			else
 				host_mob.visible_message(span_warning("A metallic grey slurry bursts out of [host_mob]'s skin!"), span_userdanger("A metallic grey slurry violently bursts out of your skin!"));
 				if(isturf(host_mob.drop_location()))
@@ -246,17 +247,15 @@
 
 /// Updates the nanite volume bar visible in diagnostic HUDs
 /datum/component/nanites/proc/set_nanite_bar(remove = FALSE)
-	var/image/holder = host_mob.hud_list[DIAG_NANITE_FULL_HUD]
-	var/icon/I = icon(host_mob.icon, host_mob.icon_state, host_mob.dir)
-	holder.pixel_y = I.Height() - world.icon_size
-	holder.icon_state = null
 	if(remove || stealth)
+		host_mob.set_hud_image_inactive(DIAG_NANITE_FULL_HUD)
 		return //bye icon
 	var/nanite_percent = (nanite_volume / max_nanites) * 100
 	nanite_percent = clamp(CEILING(nanite_percent, 10), 10, 100)
-	holder.icon_state = "nanites[nanite_percent]"
+	host_mob.set_hud_image_state(DIAG_NANITE_FULL_HUD, "nanites[nanite_percent]")
+	host_mob.set_hud_image_active(DIAG_NANITE_FULL_HUD)
 
-/datum/component/nanites/proc/on_emp(datum/source, severity)
+/datum/component/nanites/proc/on_emp(datum/source, severity, protection)
 	SIGNAL_HANDLER
 
 	nanite_volume *= (rand(60, 90) * 0.01)		//Lose 10-40% of nanites
@@ -391,7 +390,9 @@
 		research_value *= 0.5
 	if(host_mob.stat == DEAD)
 		research_value *= 0.75
-	SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_NANITES = research_value))
+
+	var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
+	science_web.add_point_list(list(TECHWEB_POINT_TYPE_NANITES = research_value))
 
 /datum/component/nanites/proc/nanite_scan(datum/source, mob/user, full_scan)
 	SIGNAL_HANDLER
@@ -428,7 +429,8 @@
 
 	data["has_nanites"] = TRUE
 	data["nanite_volume"] = nanite_volume
-	data["regen_rate"] = regen_rate + (SSresearch.science_tech.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0)
+	var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
+	data["regen_rate"] = regen_rate + (science_web.researched_nodes[TECHWEB_NODE_NANITE_HARMONIC] ? HARMONIC_REGEN_BOOST : 0)
 	data["safety_threshold"] = safety_threshold
 	data["cloud_id"] = cloud_id
 	data["cloud_active"] = cloud_active

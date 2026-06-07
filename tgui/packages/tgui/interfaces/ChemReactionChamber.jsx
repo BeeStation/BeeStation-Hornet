@@ -1,5 +1,5 @@
-import { map } from 'common/collections';
 import { classes } from 'common/react';
+import { map } from 'es-toolkit/compat';
 
 import { useBackend, useLocalState } from '../backend';
 import {
@@ -27,7 +27,7 @@ export const ChemReactionChamber = (props) => {
         <Section
           title="Reagents"
           buttons={
-            <Box inline bold color={emptying ? 'bad' : 'good'}>
+            <Box inline bold mt={0.5}>
               {emptying ? 'Emptying' : 'Filling'}
             </Box>
           }

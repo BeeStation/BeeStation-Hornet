@@ -3,92 +3,92 @@
 /obj/machinery/igniter/on,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "b" = (
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "c" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "e" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "j" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "k" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "l" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "m" = (
 /turf/open/floor/circuit/green,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "n" = (
 /obj/machinery/flasher{
 	id = "tdomeflash";
 	name = "Thunderdome Flash"
 	},
 /turf/open/floor/circuit/green,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "o" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "p" = (
 /obj/machinery/camera/motion/thunderdome{
 	pixel_x = 10
 	},
 /turf/open/floor/circuit/green,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "q" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "r" = (
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "v" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "H" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "J" = (
 /obj/effect/turf_decal/tile/green/half/contrasted,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "T" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "Z" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 
 (1,1,1) = {"
 a

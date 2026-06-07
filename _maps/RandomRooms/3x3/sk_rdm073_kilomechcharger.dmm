@@ -25,7 +25,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/effect/spawner/lootdrop/whiteship_cere_ripley,
+/obj/effect/spawner/random/exotic/ripley,
 /turf/open/floor/mech_bay_recharge_floor,
 /area/template_noop)
 "e" = (
@@ -69,7 +69,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
 

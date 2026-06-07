@@ -86,6 +86,7 @@
  */
 
 /obj/machinery
+	abstract_type = /obj/machinery
 	name = "machinery"
 	icon = 'icons/obj/stationobjs.dmi'
 	desc = "Some kind of machine."
@@ -100,6 +101,7 @@
 
 	anchored = TRUE
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
+	initial_language_holder = /datum/language_holder/speaking_machine
 
 	var/machine_stat = NONE
 	var/use_power = IDLE_POWER_USE
@@ -172,10 +174,11 @@
 
 /obj/machinery/Initialize(mapload)
 	. = ..()
-	GLOB.machines += src
+	SSmachines.register_machine(src)
 
 	if(ispath(circuit, /obj/item/circuitboard))
 		circuit = new circuit(src)
+	if(istype(circuit))
 		circuit.apply_default_parts(src)
 
 	if(processing_flags & START_PROCESSING_ON_INIT)
@@ -183,6 +186,9 @@
 
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
+
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_MACHINES_GLITCHED) && mapload)
+		randomize_language_if_on_station()
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -210,8 +216,9 @@
 	setup_area_power_relationship()
 
 /obj/machinery/Destroy()
-	GLOB.machines.Remove(src)
+	SSmachines.unregister_machine(src)
 	end_processing()
+
 	dump_inventory_contents()
 	QDEL_LIST(component_parts)
 	QDEL_NULL(circuit)
@@ -286,19 +293,11 @@
 	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
 	STOP_PROCESSING(subsystem, src)
 
-/obj/machinery/Destroy()
-	GLOB.machines.Remove(src)
-	if(datum_flags & DF_ISPROCESSING) // A sizeable portion of machines stops processing before qdel
-		end_processing()
-	dump_inventory_contents()
-	QDEL_LIST(component_parts)
-	QDEL_NULL(circuit)
-	return ..()
-
 /obj/machinery/proc/locate_machinery()
 	return
 
 /obj/machinery/proc/process_atmos()//If you dont use process why are you here
+	set waitfor = FALSE
 	return PROCESS_KILL
 
 ///Called when we want to change the value of the machine_stat variable. Holds bitflags.
@@ -326,15 +325,23 @@
 
 /obj/machinery/emp_act(severity)
 	. = ..()
-	if(use_power && !machine_stat && !(. & EMP_PROTECT_SELF))
-		use_power(7.5 KILOWATT/severity)
-		//Set the machine to be EMPed
-		machine_stat |= EMPED
-		//Reset EMP state in 120/60 seconds
-		addtimer(CALLBACK(src, PROC_REF(emp_reset)), (emp_disable_time / severity) + rand(-10, 10))
-		//Update power
-		power_change()
-		new /obj/effect/temp_visual/emp(loc)
+	if(!use_power || machine_stat || (. & EMP_PROTECT_SELF))
+		return
+	use_power(7.5 KILOWATT/severity)
+	//Set the machine to be EMPed
+	machine_stat |= EMPED
+	//Reset EMP state in 120/60 seconds
+	addtimer(CALLBACK(src, PROC_REF(emp_reset)), (emp_disable_time / severity) + rand(-10, 10))
+	//Update power
+	power_change()
+	new /obj/effect/temp_visual/emp(loc)
+
+	if(!prob(70/severity))
+		return
+	if (!length(GLOB.uncommon_roundstart_languages))
+		return
+	remove_all_languages(source = LANGUAGE_EMP)
+	grant_random_uncommon_language(source = LANGUAGE_EMP)
 
 /obj/machinery/proc/emp_reset()
 	//Reset EMP state
@@ -603,7 +610,7 @@
 			if(!(istype(C) && C.has_dna() && C.dna.check_mutation(/datum/mutation/telekinesis)))
 				return FALSE
 
-		if(L.incapacitated()) // Finally make sure we aren't incapacitated
+		if(L.incapacitated) // Finally make sure we aren't incapacitated
 			return FALSE
 
 	else // If we aren't a silicon, living, or admin ghost, bad!
@@ -680,7 +687,7 @@
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-		var/damage = take_damage(4, BRUTE, MELEE, 1)
+		var/damage = take_damage(4, BRUTE, MELEE, 1, get_dir(src, user))
 		user.visible_message(span_danger("[user] smashes [src] with [user.p_their()] paws[damage ? "." : ", without leaving a mark!"]"), null, null, COMBAT_MESSAGE_RANGE)
 
 /obj/machinery/attack_robot(mob/user)
@@ -746,17 +753,17 @@
 /obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
 	return
 
-/obj/machinery/proc/default_pry_open(obj/item/I)
-	. = !(state_open || panel_open || is_operational || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR
+/obj/machinery/proc/default_pry_open(obj/item/tool)
+	. = !(state_open || panel_open || is_operational || (flags_1 & NODECONSTRUCT_1)) && tool.tool_behaviour == TOOL_CROWBAR
 	if(.)
-		I.play_tool_sound(src, 50)
+		tool.play_tool_sound(src, 50)
 		visible_message(span_notice("[usr] pries open \the [src]."), span_notice("You pry open \the [src]."))
 		open_machine()
 
-/obj/machinery/proc/default_deconstruction_crowbar(obj/item/I, ignore_panel = 0)
-	. = (panel_open || ignore_panel) && !(flags_1 & NODECONSTRUCT_1) && I.tool_behaviour == TOOL_CROWBAR
+/obj/machinery/proc/default_deconstruction_crowbar(obj/item/tool, ignore_panel = FALSE)
+	. = (panel_open || ignore_panel) && !(flags_1 & NODECONSTRUCT_1) && tool.tool_behaviour == TOOL_CROWBAR
 	if(.)
-		I.play_tool_sound(src, 50)
+		tool.play_tool_sound(src, 50)
 		deconstruct(TRUE)
 
 /obj/machinery/deconstruct(disassembled = TRUE)
@@ -847,34 +854,37 @@
 	for(var/atom/atom_part in old_components)
 		qdel(atom_part)
 
-/obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
-	if(!(flags_1 & NODECONSTRUCT_1) && I.tool_behaviour == TOOL_SCREWDRIVER)
-		I.play_tool_sound(src, 50)
-		if(!panel_open)
-			panel_open = TRUE
+/obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/screwdriver)
+	if((flags_1 & NODECONSTRUCT_1) || screwdriver.tool_behaviour != TOOL_SCREWDRIVER)
+		return FALSE
+
+	screwdriver.play_tool_sound(src, 50)
+	panel_open = !panel_open
+	if(panel_open)
+		if(icon_state_open)
 			icon_state = icon_state_open
-			set_machine_stat(machine_stat | MAINT)
-			to_chat(user, span_notice("You open the maintenance hatch of [src]."))
-		else
-			panel_open = FALSE
+		set_machine_stat(machine_stat | MAINT)
+		to_chat(user, span_notice("You open the maintenance hatch of [src]."))
+	else
+		if(icon_state_closed)
 			icon_state = icon_state_closed
-			set_machine_stat(machine_stat & ~MAINT)
-			to_chat(user, span_notice("You close the maintenance hatch of [src]."))
-		return TRUE
-	return FALSE
+		set_machine_stat(machine_stat & ~MAINT)
+		to_chat(user, span_notice("You close the maintenance hatch of [src]."))
+	return TRUE
 
 /**
  * * turns: The amount of times to turn -90 degrees. Pointless to set this to anything above 4
  */
 /obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/wrench, turns = 1)
+	if(!panel_open || wrench.tool_behaviour != TOOL_WRENCH)
+		return FALSE
+
 	turns *= -90
-	if(panel_open && wrench.tool_behaviour == TOOL_WRENCH)
-		wrench.play_tool_sound(src, 50)
-		setDir(turn(dir,turns))
-		to_chat(user, span_notice("You rotate [src]."))
-		SEND_SIGNAL(src, COMSIG_MACHINERY_DEFAULT_ROTATE_WRENCH, user, wrench)
-		return TRUE
-	return FALSE
+	wrench.play_tool_sound(src, 50)
+	setDir(turn(dir, turns))
+	to_chat(user, span_notice("You rotate [src]."))
+	SEND_SIGNAL(src, COMSIG_MACHINERY_DEFAULT_ROTATE_WRENCH, user, wrench)
+	return TRUE
 
 /obj/proc/can_be_unfasten_wrench(mob/user, silent) //if we can unwrench this object; returns SUCCESSFUL_UNFASTEN and FAILED_UNFASTEN, which are both TRUE, or CANT_UNFASTEN, which isn't.
 	if(!(isfloorturf(loc) || istype(loc, /turf/open/indestructible)) && !anchored)
@@ -917,19 +927,19 @@
 	return TRUE
 
 // Power cell in hand replacement
-/obj/machinery/attackby(obj/item/C, mob/user)
-	if(istype(C, /obj/item/stock_parts/cell) && panel_open)
-		for(var/obj/item/P in component_parts)
-			if(istype(P,/obj/item/stock_parts/cell))
-				if(user.transferItemToLoc(C, src))
-					user.put_in_active_hand(P)
-					component_parts+=C
-					component_parts-=P
-					RefreshParts()
-					playsound(src, 'sound/surgery/taperecorder_close.ogg', 50, FALSE)
-					to_chat(user, span_notice("You replace [P.name] with [C.name]."))
-					return
-	..()
+/obj/machinery/attackby(obj/item/attacking_item, mob/user, params)
+	if(!istype(attacking_item, /obj/item/stock_parts/cell) || !panel_open)
+		return ..()
+
+	for(var/obj/item/stock_part in component_parts)
+		if(istype(stock_part, /obj/item/stock_parts/cell) && user.transferItemToLoc(attacking_item, src))
+			user.put_in_active_hand(stock_part)
+			component_parts += attacking_item
+			component_parts -= stock_part
+			RefreshParts()
+			playsound(src, 'sound/surgery/taperecorder_close.ogg', 50, FALSE)
+			to_chat(user, span_notice("You replace [stock_part] with [attacking_item]."))
+	return ..()
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/replacer_tool)
 	if(!istype(replacer_tool))
@@ -1039,14 +1049,23 @@
 /obj/machinery/proc/can_be_overridden()
 	. = 1
 
-/obj/machinery/tesla_act(power, tesla_flags, shocked_objects)
-	..()
-	if(prob(85) && (tesla_flags & TESLA_MACHINE_EXPLOSIVE))
-		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE)
-	if(tesla_flags & TESLA_OBJ_DAMAGE)
-		take_damage(power/2000, BURN, ENERGY)
+/obj/machinery/zap_act(power, zap_flags)
+	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
+		explosion(
+			epicenter = src,
+			devastation_range = 1,
+			heavy_impact_range = 2,
+			light_impact_range = 4,
+			flame_range = 2,
+			adminlog = FALSE
+		)
+	else if(zap_flags & ZAP_OBJ_DAMAGE)
+		take_damage(power * 2.5e-4, BURN, ENERGY)
 		if(prob(40))
 			emp_act(EMP_LIGHT)
+		power -= power * 5e-4
+
+	return ..()
 
 /obj/machinery/Exited(atom/movable/gone, direction)
 	. = ..()

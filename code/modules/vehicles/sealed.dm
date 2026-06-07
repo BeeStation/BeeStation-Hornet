@@ -1,7 +1,9 @@
 /obj/vehicle/sealed
-	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 | NO_DIRECT_ACCESS_FROM_CONTENTS_1
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	var/enter_delay = 2 SECONDS
 	var/mouse_pointer
+	/// Is combat indicator on for this vehicle? Boolean.
+	var/combat_indicator_vehicle = FALSE
 
 /obj/vehicle/sealed/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()
@@ -17,6 +19,43 @@
 	. = E
 	if(istype(E))
 		E.vehicle_entered_target = src
+
+/**
+ * Called whenever a mob inside a vehicle/sealed/ toggles CI status.
+ *
+ * Tied to the COMSIG_MOB_CI_TOGGLED signal, said signal is assigned when a mob enters a vehicle and unassigned when the mob exits, and is sent whenever set_combat_indicator is called.
+ *
+ * Arguments:
+ * * source -- The mob in question that toggled CI status.
+ */
+
+/obj/vehicle/sealed/proc/mob_toggled_ci(mob/living/source)
+	SIGNAL_HANDLER
+	if ((src.max_occupants > src.max_drivers) && (!(source in return_drivers())) && (src.driver_amount() > 0)) // Only returms true if the mob in question has the driver control flags and/or there are drivers.
+		return
+	combat_indicator_vehicle = source.combat_indicator	// Sync CI between mob and vehicle.
+	if (combat_indicator_vehicle)
+		playsound(src, 'sound/machines/chime.ogg', vol = 10, vary = FALSE, extrarange = -6, falloff_exponent = 4, frequency = null, channel = 0, pressure_affected = FALSE, ignore_walls = FALSE, falloff_distance = 1)
+		flick_emote_popup_on_obj("combat", 20)
+		visible_message(span_boldwarning("[src] prepares for combat!"))
+		combat_indicator_vehicle = TRUE
+	else
+		combat_indicator_vehicle = FALSE
+	update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
+
+//Register the signal to the mob and mechs will listen for when CI is toggled, then call the parent proc, then turn on CI if the mob had CI on.
+/obj/vehicle/sealed/add_occupant(mob/occupant_entering, control_flags)
+	. = ..()
+	if(!.)
+		return
+	RegisterSignal(occupant_entering, COMSIG_MOB_CI_TOGGLED, PROC_REF(mob_toggled_ci))
+	handle_ci_migration(occupant_entering)
+
+//Unregister the signal then disable CI if the vehicle has no other drivers within it.
+/obj/vehicle/sealed/remove_occupant(mob/occupant_exiting)
+	UnregisterSignal(occupant_exiting, COMSIG_MOB_CI_TOGGLED)
+	. = ..()
+	disable_ci(occupant_exiting)
 
 /obj/vehicle/sealed/MouseDrop_T(atom/dropping, mob/M)
 	if(!istype(dropping) || !istype(M))
@@ -39,8 +78,8 @@
 	. = ..()
 	if(istype(A, /obj/machinery/door))
 		var/obj/machinery/door/conditionalwall = A
-		for(var/m in occupants)
-			conditionalwall.bumpopen(m)
+		for(var/mob/occupant as anything in return_drivers())
+			conditionalwall.bumpopen(occupant)
 
 /obj/vehicle/sealed/after_add_occupant(mob/M)
 	. = ..()
@@ -53,15 +92,18 @@
 /obj/vehicle/sealed/proc/mob_try_enter(mob/M)
 	if(!istype(M))
 		return FALSE
-	if(occupant_amount() >= max_occupants)
-		return FALSE
-	if(do_after(M, get_enter_delay(M), src, progress = TRUE, timed_action_flags = IGNORE_HELD_ITEM))
+	if(do_after(M, get_enter_delay(M), src, timed_action_flags = IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(enter_checks), M)))
 		mob_enter(M)
 		return TRUE
 	return FALSE
 
+/// returns enter do_after delay for the given mob in ticks
 /obj/vehicle/sealed/proc/get_enter_delay(mob/M)
 	return enter_delay
+
+///Extra checks to perform during the do_after to enter the vehicle
+/obj/vehicle/sealed/proc/enter_checks(mob/M)
+	return occupant_amount() < max_occupants
 
 /obj/vehicle/sealed/proc/mob_enter(mob/M, silent = FALSE)
 	if(!istype(M))
@@ -76,7 +118,6 @@
 	mob_exit(M, silent, randomstep)
 
 /obj/vehicle/sealed/proc/mob_exit(mob/M, silent = FALSE, randomstep = FALSE)
-	SIGNAL_HANDLER
 	if(!istype(M))
 		return FALSE
 	remove_occupant(M)
@@ -126,7 +167,7 @@
 
 /obj/vehicle/sealed/proc/DumpMobs(randomstep = TRUE)
 	for(var/i in occupants)
-		mob_exit(i, null, randomstep)
+		mob_exit(i, randomstep = randomstep)
 		if(iscarbon(i))
 			var/mob/living/carbon/Carbon = i
 			Carbon.Paralyze(40)
@@ -136,7 +177,7 @@
 	for(var/i in occupants)
 		if(!(occupants[i] & flag))
 			continue
-		mob_exit(i, null, randomstep)
+		mob_exit(i, randomstep = randomstep)
 		if(iscarbon(i))
 			var/mob/living/carbon/C = i
 			C.Paralyze(40)

@@ -127,7 +127,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		return TRUE
 
 	// LOOC commendation
-	
+
 
 	if(href_list["commandbar_typing"])
 		handle_commandbar_typing(href_list)
@@ -149,6 +149,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			hsrc = mob
 		if("vars")
 			return view_var_Topic(href,href_list,hsrc)
+		if(VV_HK_VIEW_ICON) // "_src_=vars" will be extremely complicating, so I decided making another route. vv needs some refactor, honestly.
+			return send_vv_icon_to_user(usr, href, href_list)
 
 	switch(href_list["action"])
 		if("openLink")
@@ -222,9 +224,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	qdel(src)
 
 /client/proc/generate_uuid_string()
-	var/fiftyfifty = prob(50) ? FEMALE : MALE
-	var/hashtext = "[ckey][rand(0,9999)][world.realtime][rand(0,9999)][random_unique_name(fiftyfifty)][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)][GLOB.round_id]"
-	return "[rustg_hash_string(RUSTG_HASH_SHA256, hashtext)]"
+	return "[rustg_csprng_chacha20(RUSTG_RNG_FORMAT_HEX, 32)]"
 
 /client/proc/generate_uuid()
 	if(IsAdminAdvancedProcCall())
@@ -300,34 +300,16 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	GLOB.ahelp_tickets.ClientLogout(src)
 	GLOB.mhelp_tickets.ClientLogout(src)
 	GLOB.interviews.client_logout(src)
+	GLOB.requests.client_logout(src)
 
 	if(holder)
-		adminGreet(1)
 		holder.owner = null
 		GLOB.admins -= src
-		if (!GLOB.admins.len && SSticker.IsRoundInProgress()) //Only report this stuff if we are currently playing.
-			var/cheesy_message = pick(
-				"I have no admins online!",\
-				"I'm all alone :(",\
-				"I'm feeling lonely :(",\
-				"I'm so lonely :(",\
-				"Why does nobody love me? :(",\
-				"I want a man :(",\
-				"Where has everyone gone?",\
-				"I need a hug :(",\
-				"Someone come hold me :(",\
-				"I need someone on me :(",\
-				"What happened? Where has everyone gone?",\
-				"Forever alone :("\
-			)
-
-			send2tgs("Server", "[cheesy_message] (No admins online)")
+		handle_admin_logout()
 
 	if(isatom(eye)) // admeme vv failproof. eye must be atom
 		var/atom/eye_thing = eye
 		LAZYREMOVE(eye_thing.eye_users, src)
-	GLOB.requests.client_logout(src)
-
 
 	SSambience.remove_ambience_client(src)
 	Master.UpdateTickRate()
@@ -517,11 +499,17 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	..()
 
-/// Sets client eye to 1st param.
-/// * WARN: Do not change old_eye. Check client/var/eye_weakref
-/client/proc/set_eye(atom/new_eye, atom/old_eye = src.eye)
+/// Sets a client eye into given new eye. This is intended not to be used. You should use 'set_mob_eye_to(thing)'
+/client/proc/set_client_eye_to(atom/new_eye)
+	_on_setting_client_eye(new_eye, src?.eye_weakref?.resolve() || CLIENT_OLD_EYE_NULL)
+
+/client/proc/_on_setting_client_eye(atom/new_eye, atom/old_eye)
+	PRIVATE_PROC(TRUE)
 	if(new_eye == old_eye)
 		return
+
+	if(old_eye == CLIENT_OLD_EYE_NULL)
+		old_eye = null
 
 	if(isatom(old_eye)) // admeme vv failproof. /datum can't be their eyes
 		LAZYREMOVE(old_eye.eye_users, src)
@@ -532,7 +520,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(isatom(new_eye))
 		LAZYADD(new_eye.eye_users, src)
 
-	// SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye) // use this when you want a thing from TG //This is from planecube pr, dragon, we most certainly dont want from that pr
+	// SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye) // use this when you want a thing from TG //This is from planecube pr, dragon, we most certainly dont want from that pr //EvilDragon: Hey man, this is not related with plane cube. Plane cube may use this, but this signal is not meant to be used only by plane cube...
+	// EvilDragon: Actually, I strongly recommend not using this signal.
+	// There is an alternative signal COMSIG_MOB_SET_MOB_EYE that will be working as intended in most cases.
 
 
 /client/proc/add_verbs_from_config()
@@ -727,6 +717,36 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/proc/increase_score(achievement_type, mob/user, value)
 	return player_details.achievements.increase_score(achievement_type, user, value)
+
+/// Handles any "fluff" or supplementary procedures related to an admin logout event. Should not have anything critically related cleaning up an admin's logout.
+/client/proc/handle_admin_logout()
+	admin_greet(logout = TRUE)
+	if(length(GLOB.admins) || !SSticker.IsRoundInProgress()) // We only want to report this stuff if we are currently playing.
+		return
+
+	var/list/message_to_send = list()
+	var/static/list/cheesy_messages = null
+
+	if (isnull(cheesy_messages))
+		cheesy_messages = list(
+			"Forever alone :(",
+			"I have no admins online!",
+			"I need a hug :(",
+			"I need someone on me :(",
+			"I want a man :(",
+			"I'm all alone :(",
+			"I'm feeling lonely :(",
+			"I'm so lonely :(",
+			"Someone come hold me :(",
+			"What happened? Where has everyone gone?",
+			"Where has everyone gone?",
+			"Why does nobody love me? :(",
+		)
+
+	message_to_send += pick(cheesy_messages)
+	message_to_send += "(No admins online)"
+
+	send2tgs("Server", jointext(message_to_send, " "))
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

@@ -1,4 +1,6 @@
 /* This file contains standalone items for debug purposes. */
+/obj/item/debug
+	abstract_type = /obj/item/debug
 
 /obj/item/debug/human_spawner
 	name = "human spawner"
@@ -70,6 +72,7 @@
 
 /obj/item/debug/omnitool/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/surgery_initiator)
 
 	if(!abstract_tools)
 		abstract_tools = list()
@@ -112,8 +115,6 @@
 
 /obj/item/debug/omnitool/attack(mob/living/M, mob/living/user)
 	switch(tool_behaviour)
-		if("drapes")
-			attempt_initiate_surgery(src, M, user)
 		if("debug_placeholder") // QoL. put anything you need. - pre_attack() is preffered.
 			pass()
 	. = ..()
@@ -152,7 +153,7 @@
 /obj/item/construction/rcd/arcd/debug
 	name = "\improper CentCom Admin RCD"
 	icon_state = "ircd"
-	item_state = "ircd"
+	inhand_icon_state = "ircd"
 	w_class = WEIGHT_CLASS_TINY
 	max_matter = INFINITY
 	matter = INFINITY
@@ -197,6 +198,9 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	geiger_counter = FALSE
 
+/obj/item/clothing/head/helmet/space/hardsuit/debug/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
 
 /datum/armor/hardsuit_debug
 	melee = 300
@@ -205,7 +209,6 @@
 	energy = 300
 	bomb = 300
 	bio = 300
-	rad = 300
 	fire = 300
 	acid = 300
 	stamina = 300
@@ -229,18 +232,21 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
+/obj/item/clothing/suit/space/hardsuit/debug/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
 
 // debug bag
 
 /obj/item/storage/backpack/debug
 	name = "bag of portable hole"
 	desc = "A backpack that opens into a localized pocket of nullspace."
-	icon_state = "holdingpack"
-	item_state = "holdingpack"
+	icon_state = "bag_of_holding"
+	inhand_icon_state = "bag_of_holding"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	item_flags = NO_MAT_REDEMPTION
 	armor_type = /datum/armor/backpack_debug
-
+	storage_type = /datum/storage/debug
 
 /datum/armor/backpack_debug
 	melee = 100
@@ -249,52 +255,38 @@
 	energy = 100
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
-
-/obj/item/storage/backpack/debug/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
-	atom_storage.allow_big_nesting = TRUE
-	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
-	atom_storage.max_slots = 1000
-	atom_storage.max_total_storage = 1000
 
 /obj/item/storage/box/debugtools
 	name = "box of debug tools"
 	icon_state = "syndiebox"
 	w_class = WEIGHT_CLASS_TINY
-
-/obj/item/storage/box/debugtools/Initialize(mapload)
-	. = ..()
-	atom_storage.max_total_storage = 1000
-	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
-	atom_storage.max_slots = 1000
-	atom_storage.allow_big_nesting = TRUE
+	storage_type = /datum/storage/debug
 
 /obj/item/storage/box/debugtools/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/flashlight/emp/debug=1,
-		/obj/item/modular_computer/tablet/pda/preset=1,
-		/obj/item/modular_computer/tablet/preset/advanced=1,
-		/obj/item/storage/belt/military/abductor/full=1,
-		/obj/item/geiger_counter=1,
-		/obj/item/holosign_creator/atmos/debug=1,
-		/obj/item/pipe_dispenser/debug=1,
-		/obj/item/construction/rcd/arcd/debug=1,
-		/obj/item/construction/rld/debug=1,
-		/obj/item/areaeditor/blueprints=1,
-		/obj/item/card/emag=1,
-		/obj/item/storage/belt/medical/ert=1,
-		/obj/item/disk/tech_disk/debug=1,
-		/obj/item/disk/surgery/debug=1,
-		/obj/item/disk/data/debug=1,
-		/obj/item/uplink/debug=1,
-		/obj/item/uplink/nuclear/debug=1,
-		/obj/item/storage/box/beakers/bluespace=1,
-		/obj/item/storage/box/beakers/variety=1,
-		/obj/item/storage/box/material=1
+	var/static/list/items_inside = list(
+		/obj/item/flashlight/emp/debug = 1,
+		/obj/item/modular_computer/tablet/pda/preset = 1,
+		/obj/item/modular_computer/tablet/preset/advanced = 1,
+		/obj/item/storage/belt/military/abductor/full = 1,
+		/obj/item/geiger_counter = 1,
+		/obj/item/holosign_creator/atmos/debug = 1,
+		/obj/item/pipe_dispenser/debug = 1,
+		/obj/item/construction/rcd/arcd/debug = 1,
+		/obj/item/construction/rld/debug = 1,
+		/obj/item/areaeditor/blueprints = 1,
+		/obj/item/card/emag = 1,
+		/obj/item/storage/belt/medical/ert = 1,
+		/obj/item/disk/tech_disk/debug = 1,
+		/obj/item/disk/surgery/debug = 1,
+		/obj/item/disk/data/debug = 1,
+		/obj/item/uplink/debug = 1,
+		/obj/item/uplink/nuclear/debug = 1,
+		/obj/item/clothing/ears/earmuffs/debug = 1,
+		/obj/item/storage/box/beakers/bluespace = 1,
+		/obj/item/storage/box/beakers/variety = 1,
+		/obj/item/storage/box/material = 1
 	)
 	generate_items_inside(items_inside,src)
 
@@ -305,14 +297,13 @@
 	icon_state = "sp_green"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	var/traits_to_give = list(
+	var/static/list/traits_to_give = list(
 		TRAIT_MADNESS_IMMUNE,
 		TRAIT_FEARLESS,
 		TRAIT_SHOCKIMMUNE,
 		TRAIT_SLEEPIMMUNE,
 		TRAIT_STUNIMMUNE,
 		TRAIT_PUSHIMMUNE,
-		TRAIT_CONFUSEIMMUNE,
 		TRAIT_RADIMMUNE,
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_PIERCEIMMUNE,
@@ -339,33 +330,28 @@
 		TRAIT_SECURITY_HUD,
 		TRAIT_BARMASTER,
 		TRAIT_SURGEON,
-		TRAIT_METALANGUAGE_KEY_ALLOWED
+		TRAIT_METALANGUAGE_KEY_ALLOWED,
+		TRAIT_SPACEWALK,
+		TRAIT_MEDICAL_HUD,
+		TRAIT_SECURITY_HUD,
+		TRAIT_DIAGNOSTIC_HUD,
+		TRAIT_BOT_PATH_HUD,
 	)
-	var/spacewalk_initial
+	var/previous_see_invisible
 
 /obj/item/debug/orb_of_power/pickup(mob/user)
 	. = ..()
-	for(var/each in traits_to_give)
-		ADD_TRAIT(user, each, "debug")
+	user.add_traits(traits_to_give, "debug")
 	grant_all_languages(source = "debug")
 	user.grant_language(/datum/language/metalanguage, source = "debug")
-
-	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	hud.add_hud_to(user)
-	hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	hud.add_hud_to(user)
-	hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-	hud.add_hud_to(user)
 
 	if(!isliving(user))
 		user.update_sight()
 		return
 	var/mob/living/picker = user
-	picker.see_override = SEE_INVISIBLE_OBSERVER
+	previous_see_invisible = picker.see_invisible
+	picker.see_invisible = SEE_INVISIBLE_OBSERVER
 	picker.update_sight()
-
-	spacewalk_initial = user.spacewalk
-	user.spacewalk = TRUE
 
 /obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
 	. = ..()
@@ -373,23 +359,12 @@
 	if(orb)
 		return
 
-	user.spacewalk = spacewalk_initial
-
-	for(var/each in traits_to_give)
-		REMOVE_TRAIT(user, each, "debug")
+	user.remove_traits(traits_to_give, "debug")
 	user.remove_all_languages("debug")
 	user.remove_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
-	user.see_override = initial(user.see_override)
+	user.see_invisible = previous_see_invisible
+	previous_see_invisible = null
 	user.update_sight()
-
-	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-	hud.remove_hud_from(user)
-	if(!HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
-		hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-		hud.remove_hud_from(user)
-	if(!HAS_TRAIT(user, TRAIT_SECURITY_HUD))
-		hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-		hud.remove_hud_from(user)
 
 // kinda works like hilbert, but not really
 /obj/item/map_template_diver
@@ -445,7 +420,7 @@
 	to_chat(user, span_notice("Creates a map template..."))
 	working = TRUE
 	map_template = new map_template()
-	var/datum/space_level/space_level = map_template.load_new_z(null, ZTRAITS_DEBUG)
+	var/datum/space_level/space_level = map_template.load_new_z(null)
 	turf_to_dive = locate(round((world.maxx - map_template.width)/2), round((world.maxy - map_template.height)/2), space_level.z_value)
 	to_chat(user, span_notice("Creation is completed."))
 	working = FALSE

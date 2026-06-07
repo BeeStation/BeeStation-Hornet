@@ -62,7 +62,7 @@
 	playsound(src, 'sound/machines/click.ogg', 50)
 	if(occupant)
 		var/mob/living/L = occupant
-		if(!iscarbon(L) || HAS_TRAIT(L, TRAIT_POWERHUNGRY) || !(MOB_ORGANIC in L?.mob_biotypes))
+		if(!iscarbon(L) || HAS_TRAIT(L, TRAIT_POWERHUNGRY) || !(L?.mob_biotypes & MOB_ORGANIC))
 			occupant.forceMove(drop_location())
 			set_occupant(null)
 			return
@@ -169,7 +169,7 @@
 			processing = TRUE
 			soundloop.start()
 			update_icon()
-			set_light(2, 1, "#ff0000")
+			set_light(2, 1, COLOR_RED)
 		else
 			say("Subject not fat enough.")
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 40, FALSE)

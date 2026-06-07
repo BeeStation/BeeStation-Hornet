@@ -54,7 +54,7 @@
 	name = "anesthetic tank"
 	desc = "A tank with an N2O/O2 gas mix."
 	icon_state = "anesthetic"
-	item_state = "an_tank"
+	inhand_icon_state = "an_tank"
 	force = 10
 
 /obj/item/tank/internals/anesthetic/populate_gas()
@@ -66,6 +66,13 @@
 	. += span_notice("A warning is etched into [src]...")
 	. += span_warning("There is no process in the body that uses N2O, so patients will exhale the N2O... exposing you to it. Make sure to work in a well-ventilated space to avoid sleepy mishaps.")
 
+/obj/item/tank/internals/anesthetic/pure
+	desc = "A tank with pure N2O. There is a warning sticker crudely slapped onto the tank."
+
+/obj/item/tank/internals/anesthetic/pure/populate_gas()
+	air_contents.assert_gases(/datum/gas/nitrous_oxide)
+	air_contents.gases[/datum/gas/nitrous_oxide][MOLES] = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+
 /*
  * Air
  */
@@ -73,7 +80,7 @@
 	name = "air tank"
 	desc = "Mixed anyone?"
 	icon_state = "air"
-	item_state = "air"
+	inhand_icon_state = "air"
 	force = 10
 	dog_fashion = /datum/dog_fashion/back
 
@@ -88,10 +95,8 @@
 	name = "plasma tank"
 	desc = "Contains dangerous plasma. Do not inhale. Warning: extremely flammable."
 	icon_state = "plasma"
-	flags_1 = CONDUCT_1
 	slot_flags = null	//they have no straps!
-	force = 8
-
+	force = 10
 
 /obj/item/tank/internals/plasma/populate_gas()
 	SET_MOLES(/datum/gas/plasma, air_contents, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
@@ -123,7 +128,7 @@
 	name = "extended-capacity plasma internals tank"
 	desc = "A tank of plasma gas designed specifically for use as internals, particularly for plasma-based lifeforms. If you're not a Plasmaman, you probably shouldn't use this."
 	icon_state = "plasmaman_tank"
-	item_state = "plasmaman_tank"
+	inhand_icon_state = "plasmaman_tank"
 	worn_icon_state = "plasmaman_tank"
 	force = 10
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
@@ -141,7 +146,7 @@
 /obj/item/tank/internals/plasmaman/belt
 	name = "plasma internals belt tank"
 	icon_state = "plasmaman_tank_belt"
-	item_state = "plasmaman_tank_belt"
+	inhand_icon_state = "plasmaman_tank_belt"
 	worn_icon_state = "plasmaman_tank_belt"
 	worn_icon = null
 	slot_flags = ITEM_SLOT_BELT
@@ -168,7 +173,6 @@
 	icon_state = "emergency"
 	worn_icon_state = "emergency"
 	worn_icon = null
-	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4
@@ -213,7 +217,6 @@
 	name = "emergency prank tank"
 	desc = "Used for pranking in emergencies! Has a smidge of a mystery ingredient for 200% FUN!"
 	icon_state = "clown"
-	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4

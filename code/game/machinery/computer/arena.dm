@@ -67,17 +67,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 /obj/machinery/computer/arena/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	LoadDefaultArenas()
-	GenerateAntagHuds()
-
-/obj/machinery/computer/arena/proc/GenerateAntagHuds()
-	for(var/team in teams)
-		var/datum/atom_hud/antag/teamhud = team_huds[team]
-		if(!teamhud) //These will be shared between arenas because this stuff is expensive and cross arena fighting is not a thing anyway
-			teamhud = new
-			teamhud.icon_color = team_colors[team]
-			GLOB.huds += teamhud
-			team_huds[team] = teamhud
-			team_hud_index[team] = length(GLOB.huds)
 
 /**
   * Loads the arenas from _maps directory.
@@ -199,10 +188,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 	M.faction += team //In case anyone wants to add team based stuff to arena special effects
 	M.key = ckey
 
-	var/datum/atom_hud/antag/team_hud = team_huds[team]
-	team_hud.join_hud(M)
-	set_antag_hud(M,"arena",team_hud_index[team])
-
 /obj/machinery/computer/arena/proc/change_outfit(mob/user,team)
 	outfits[team] = user.client.robust_dress_shop()
 
@@ -228,7 +213,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 	set_doors(closed = TRUE)
 
 /obj/machinery/computer/arena/proc/get_spawn(team)
-	for(var/obj/machinery/arena_spawn/A in GLOB.machines)
+	for(var/obj/machinery/arena_spawn/A as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/arena_spawn))
 		if(A.arena_id == arena_id && A.team == team)
 			return A
 
@@ -262,7 +247,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 
 
 /obj/machinery/computer/arena/proc/set_doors(closed = FALSE)
-	for(var/obj/machinery/door/poddoor/D in GLOB.machines) //I really dislike pathing of these
+	for(var/obj/machinery/door/poddoor/D as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/poddoor)) //I really dislike pathing of these
 		if(D.id != arena_id)
 			continue
 		if(closed)
@@ -404,7 +389,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 /obj/machinery/arena_spawn/proc/get_controller()
 	if(_controller && !QDELETED(_controller) && _controller.arena_id == arena_id)
 		return _controller
-	for(var/obj/machinery/computer/arena/A in GLOB.machines)
+	for(var/obj/machinery/computer/arena/A as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/arena))
 		if(A.arena_id == arena_id)
 			_controller = A
 			return _controller

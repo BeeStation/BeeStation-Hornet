@@ -43,13 +43,13 @@
 
 /mob/living/carbon/monkey/punpun/Life(delta_time = SSMOBS_DT, times_fired)
 	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
-		Write_Memory(FALSE, FALSE)
+		write_memory(FALSE, FALSE)
 		memory_saved = TRUE
 	..()
 
 /mob/living/carbon/monkey/punpun/death(gibbed)
 	if(!memory_saved)
-		Write_Memory(TRUE, gibbed)
+		write_memory(TRUE, gibbed)
 	..()
 
 /mob/living/carbon/monkey/punpun/proc/Read_Memory()
@@ -72,7 +72,10 @@
 		relic_hat = text2path(json["relic_hat"]) // We convert these to paths for type checking
 		relic_mask = text2path(json["relic_mask"])
 
-/mob/living/carbon/monkey/punpun/proc/Write_Memory(dead, gibbed)
+/mob/living/carbon/monkey/punpun/write_memory(dead, gibbed)
+	. = ..()
+	if(!.)
+		return
 	var/json_file = file("data/npc_saves/Punpun.json")
 	var/list/file_data = list()
 	if(gibbed)

@@ -7,8 +7,8 @@
 	label_desc = "Porous: The artifact seems to contain porous components. Triggering these components will cause the artifact to exchange one gas with another."
 	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
-	register_targets = FALSE
 	weight = 15
+	register_targets = FALSE
 	///Possible target gasses
 	var/list/target_gasses = list(
 		/datum/gas/oxygen = 6,
@@ -37,25 +37,29 @@
 	choosen_target = pick_weight(target_gasses)
 	choosen_exchange = pick_weight(exchange_gasses)
 
+/datum/xenoartifact_trait/major/gas/register_parent(datum/source)
+	. = ..()
+	if(!component_parent?.parent)
+		return
+	setup_generic_item_hint()
+
 /datum/xenoartifact_trait/major/gas/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
 		return
-	var/turf/T = get_turf(component_parent.parent)
-	var/datum/gas_mixture/air = T.return_air()
-	if(!air)
+	var/turf/open/T = get_turf(component_parent.parent)
+	var/datum/gas_mixture/air = T.air
+	if(!istype(T) || !air)
 		return
-	var/input_id = initial(choosen_target.id)
-	var/output_id = initial(choosen_exchange.id)
-	var/moles = min(air.total_moles(input_id), max_moles)
-	if(!input_id || !output_id || !moles)
+	var/moles = min(air.total_moles(choosen_target), max_moles)
+	if(!moles)
 		return
-	SET_MOLES(input_id, air, -moles)
-	SET_MOLES(output_id, air, moles)
+	SET_MOLES(choosen_target, air, -moles)
+	SET_MOLES(choosen_exchange, air, moles)
 
 /datum/xenoartifact_trait/major/gas/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_RANDOMISED)
+	return list(XENOA_TRAIT_HINT_RANDOMISED, XENOA_TRAIT_HINT_DETECT("gas analyzer, which will also reveal what gasses the artifact exchanges."))
 
 /datum/xenoartifact_trait/major/gas/do_hint(mob/user, atom/item)
 	if(istype(item, /obj/item/analyzer))

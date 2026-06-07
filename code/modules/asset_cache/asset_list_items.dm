@@ -72,41 +72,8 @@
 		"ntosradarpointerS.png"		= 'icons/ui_icons/tgui/ntosradar_pointer_S.png'
 	)
 
-/datum/asset/spritesheet/simple/pda
-	name = "pda"
-	assets = list(
-		"atmos" = 'icons/pda_icons/pda_atmos.png',
-		"back" = 'icons/pda_icons/pda_back.png',
-		"bell" = 'icons/pda_icons/pda_bell.png',
-		"blank" = 'icons/pda_icons/pda_blank.png',
-		"boom" = 'icons/pda_icons/pda_boom.png',
-		"bucket" = 'icons/pda_icons/pda_bucket.png',
-		"medbot" = 'icons/pda_icons/pda_medbot.png',
-		"floorbot" = 'icons/pda_icons/pda_floorbot.png',
-		"cleanbot" = 'icons/pda_icons/pda_cleanbot.png',
-		"crate" = 'icons/pda_icons/pda_crate.png',
-		"cuffs" = 'icons/pda_icons/pda_cuffs.png',
-		"eject" = 'icons/pda_icons/pda_eject.png',
-		"flashlight" = 'icons/pda_icons/pda_flashlight.png',
-		"honk" = 'icons/pda_icons/pda_honk.png',
-		"mail" = 'icons/pda_icons/pda_mail.png',
-		"medical" = 'icons/pda_icons/pda_medical.png',
-		"menu" = 'icons/pda_icons/pda_menu.png',
-		"mule" = 'icons/pda_icons/pda_mule.png',
-		"notes" = 'icons/pda_icons/pda_notes.png',
-		"power" = 'icons/pda_icons/pda_power.png',
-		"rdoor" = 'icons/pda_icons/pda_rdoor.png',
-		"reagent" = 'icons/pda_icons/pda_reagent.png',
-		"refresh" = 'icons/pda_icons/pda_refresh.png',
-		"scanner" = 'icons/pda_icons/pda_scanner.png',
-		"signaler"		= 'icons/pda_icons/pda_signaler.png',
-		"status"		= 'icons/pda_icons/pda_status.png',
-		"dronephone"	= 'icons/pda_icons/pda_dronephone.png',
-		"emoji"			= 'icons/pda_icons/pda_emoji.png'
-	)
-
-/datum/asset/spritesheet/simple/paper
-	name = "paper"
+/datum/asset/spritesheet/simple/stamps
+	name = "stamps"
 	assets = list(
 		"stamp-clown" = 'icons/stamp_icons/large_stamp-clown.png',
 		"stamp-deny" = 'icons/stamp_icons/large_stamp-deny.png',
@@ -126,6 +93,11 @@
 		"stamp-syndicate" = 'icons/stamp_icons/large_stamp-syndicate.png',
 	)
 
+// Contains 256x128 versions of various in game company logos
+/datum/asset/simple/logos
+	assets = list(
+		"nanotrasen-logo" = 'icons/ui/logos/nanotrasen-logo.png',
+	)
 
 /datum/asset/simple/irv
 	assets = list(
@@ -332,11 +304,12 @@
 	for (var/datum/design/D as() in subtypesof(/datum/design))
 		var/icon_file
 		var/icon_state
-		var/datum/icon_transformer/transform = null
+		var/datum/universal_icon/design_uni_icon = null
 
 		if(initial(D.research_icon) && initial(D.research_icon_state)) //If the design has an icon replacement skip the rest
 			icon_file = initial(D.research_icon)
 			icon_state = initial(D.research_icon_state)
+			design_uni_icon = uni_icon(icon_file, icon_state)
 		else
 			// construct the icon and slap it into the resource cache
 			var/atom/item = initial(D.build_path)
@@ -366,22 +339,22 @@
 
 			icon_state = initial(item.icon_state)
 
+			design_uni_icon = uni_icon(icon_file, icon_state)
+
 			if(initial(item.color))
-				transform = color_transform(initial(item.color))
+				design_uni_icon.blend_color(initial(item.color), ICON_MULTIPLY)
 
 			// computers (and snowflakes) get their screen and keyboard sprites
 			if (ispath(item, /obj/machinery/computer) || ispath(item, /obj/machinery/power/solar_control))
-				if(!transform)
-					transform = new()
 				var/obj/machinery/computer/C = item
 				var/all_states = icon_states(icon_file)
 				var/screen = initial(C.icon_screen)
 				var/keyboard = initial(C.icon_keyboard)
 				if (screen && (screen in all_states))
-					transform.blend_icon(uni_icon(icon_file, screen), ICON_OVERLAY)
+					design_uni_icon.blend_icon(uni_icon(icon_file, screen), ICON_OVERLAY)
 				if (keyboard && (keyboard in all_states))
-					transform.blend_icon(uni_icon(icon_file, keyboard), ICON_OVERLAY)
-		insert_icon(initial(D.id), uni_icon(icon_file, icon_state, transform=transform))
+					design_uni_icon.blend_icon(uni_icon(icon_file, keyboard), ICON_OVERLAY)
+		insert_icon(initial(D.id), design_uni_icon)
 
 /datum/asset/spritesheet_batched/vending
 	name = "vending"
@@ -451,14 +424,14 @@
 		TOOL_ANALYZER = uni_icon('icons/obj/device.dmi', "analyzer"),
 		"wires" = uni_icon('icons/obj/power.dmi', "coil"),
 
-		TOOL_RETRACTOR = uni_icon('icons/obj/surgery.dmi', "retractor"),
-		TOOL_HEMOSTAT = uni_icon('icons/obj/surgery.dmi', "hemostat"),
-		TOOL_CAUTERY = uni_icon('icons/obj/surgery.dmi', "cautery"),
-		TOOL_DRILL = uni_icon('icons/obj/surgery.dmi', "drill"),
-		TOOL_SCALPEL = uni_icon('icons/obj/surgery.dmi', "scalpel"),
-		TOOL_SAW = uni_icon('icons/obj/surgery.dmi', "saw"),
-		TOOL_BLOODFILTER = uni_icon('icons/obj/surgery.dmi', "bloodfilter"),
-		"drapes" = uni_icon('icons/obj/surgery.dmi', "surgical_drapes"),
+		TOOL_RETRACTOR = uni_icon('icons/obj/medical/surgery.dmi', "retractor"),
+		TOOL_HEMOSTAT = uni_icon('icons/obj/medical/surgery.dmi', "hemostat"),
+		TOOL_CAUTERY = uni_icon('icons/obj/medical/surgery.dmi', "cautery"),
+		TOOL_DRILL = uni_icon('icons/obj/medical/surgery.dmi', "drill"),
+		TOOL_SCALPEL = uni_icon('icons/obj/medical/surgery.dmi', "scalpel"),
+		TOOL_SAW = uni_icon('icons/obj/medical/surgery.dmi', "saw"),
+		TOOL_BLOODFILTER = uni_icon('icons/obj/medical/surgery.dmi', "bloodfilter"),
+		"drapes" = uni_icon('icons/obj/medical/surgery.dmi', "surgical_drapes"),
 
 		TOOL_MINING = uni_icon('icons/obj/mining.dmi', "minipick"),
 		TOOL_SHOVEL = uni_icon('icons/obj/mining.dmi', "shovel"),
@@ -550,6 +523,13 @@
 	// Special bee edit to handle Bluespace Crystals
 	insert_icon("polycrystal", uni_icon('icons/obj/stacks/minerals.dmi', "refined_bluespace_crystal_3"))
 
+/datum/asset/spritesheet_batched/mecha_equipment
+	name = "mecha_equipment"
+
+/datum/asset/spritesheet_batched/mecha_equipment/create_spritesheets()
+	insert_all_icons("", 'icons/mob/mecha_equipment.dmi')
+	insert_all_icons("", 'icons/obj/stacks/minerals.dmi')
+
 /datum/asset/simple/pAI
 	assets = list(
 		"paigrid.png" = 'html/paigrid.png'
@@ -589,6 +569,30 @@
 
 /datum/asset/simple/portraits/library_private
 	tab = "library_private"
+
+/// Spritesheet for body zones. Necessary if your tgui uses BodyZoneSelector
+// This is a simple sheet instead of a spritesheet because spritesheets don't support
+// -ms-interpolation-mode when resized, since you need `transform: scale`.
+// Also spritesheets have some weird fudge on the edges of them because of an IE bug I can't track down.
+/datum/asset/simple/body_zones
+
+/datum/asset/simple/body_zones/register()
+	assets["body_zones.base_midnight.png"] = icon('icons/hud/style/screen_midnight.dmi', "zone_sel")
+
+	add_limb(BODY_ZONE_HEAD)
+	add_limb(BODY_ZONE_CHEST)
+	add_limb(BODY_ZONE_L_ARM)
+	add_limb(BODY_ZONE_R_ARM)
+	add_limb(BODY_ZONE_L_LEG)
+	add_limb(BODY_ZONE_R_LEG)
+	add_limb(BODY_ZONE_PRECISE_EYES)
+	add_limb(BODY_ZONE_PRECISE_MOUTH)
+	add_limb(BODY_ZONE_PRECISE_GROIN)
+
+	return ..()
+
+/datum/asset/simple/body_zones/proc/add_limb(limb)
+	assets[SANITIZE_FILENAME("body_zones.[limb].png")] = icon('icons/hud/screen_gen.dmi', limb)
 
 /datum/asset/spritesheet_batched/fish
 	name = "fish"
@@ -710,14 +714,14 @@
 		TOOL_ANALYZER = uni_icon('icons/obj/device.dmi', "analyzer"),
 		TOOL_MINING = uni_icon('icons/obj/mining.dmi', "minipick"),
 		TOOL_SHOVEL = uni_icon('icons/obj/mining.dmi', "spade"),
-		TOOL_RETRACTOR = uni_icon('icons/obj/surgery.dmi', "retractor"),
-		TOOL_HEMOSTAT = uni_icon('icons/obj/surgery.dmi', "hemostat"),
-		TOOL_CAUTERY = uni_icon('icons/obj/surgery.dmi', "cautery"),
-		TOOL_DRILL = uni_icon('icons/obj/surgery.dmi', "drill"),
-		TOOL_SCALPEL = uni_icon('icons/obj/surgery.dmi', "scalpel"),
-		TOOL_SAW = uni_icon('icons/obj/surgery.dmi', "saw"),
+		TOOL_RETRACTOR = uni_icon('icons/obj/medical/surgery.dmi', "retractor"),
+		TOOL_HEMOSTAT = uni_icon('icons/obj/medical/surgery.dmi', "hemostat"),
+		TOOL_CAUTERY = uni_icon('icons/obj/medical/surgery.dmi', "cautery"),
+		TOOL_DRILL = uni_icon('icons/obj/medical/surgery.dmi', "drill"),
+		TOOL_SCALPEL = uni_icon('icons/obj/medical/surgery.dmi', "scalpel"),
+		TOOL_SAW = uni_icon('icons/obj/medical/surgery.dmi', "saw"),
 		TOOL_KNIFE = uni_icon('icons/obj/service/kitchen.dmi', "knife"),
-		TOOL_BLOODFILTER = uni_icon('icons/obj/surgery.dmi', "bloodfilter"),
+		TOOL_BLOODFILTER = uni_icon('icons/obj/medical/surgery.dmi', "bloodfilter"),
 		TOOL_ROLLINGPIN = uni_icon('icons/obj/service/kitchen.dmi', "rolling_pin"),
 		TOOL_RUSTSCRAPER = uni_icon('icons/obj/tools.dmi', "wirebrush"),
 	)

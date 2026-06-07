@@ -42,6 +42,12 @@ export const BanningPanel = (props) => {
     selected_groups,
   } = data;
 
+  // The anti-moderator death grinder
+  const hasValidKey = key_enabled && key && key.trim() !== '';
+  const hasValidIp = ip_enabled && ip && ip.trim() !== '';
+  const hasValidCid = cid_enabled && cid && cid.trim() !== '';
+  const canSubmit = hasValidKey || hasValidIp || hasValidCid;
+
   return (
     <Window
       theme="admin"
@@ -239,6 +245,9 @@ export const BanningPanel = (props) => {
         <Button.Confirm
           content="Submit"
           onClick={() => act('submit_ban')}
+          // Disabled if no key OR no IP OR no CID. Look at the checkbox too so some wiseguy doesn't fuck it up by inputting then unchecking either
+          disabled={!canSubmit}
+          tooltip={!canSubmit ? 'CKEY/IP/CID is required' : null}
           m={0.5}
           width={7}
           height={2}

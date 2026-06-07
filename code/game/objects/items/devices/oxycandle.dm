@@ -5,7 +5,7 @@
 	slot_flags = null
 	light_range = 2
 	icon_state = "oxycandle"
-	item_state = "oxycandle"
+	inhand_icon_state = "oxycandle"
 	actions_types = list()
 	custom_price = 20
 	/// How many seconds of fuel we have left
@@ -75,7 +75,7 @@
 		user.dropItemToGround(src)
 		START_PROCESSING(SSobj, src)
 
-/obj/item/flashlight/oxycandle/is_hot()
+/obj/item/flashlight/oxycandle/get_temperature()
 	return on * heat
 
 /obj/item/flashlight/oxycandle/equipped(mob/user, slot)
@@ -104,7 +104,7 @@
 	light_color = LIGHT_COLOR_BLOOD_MAGIC
 	gasmix = "o2=5;plasma=10;TEMP=700"
 	icon_state = "hellcandle"
-	item_state = "hellcandle"
+	inhand_icon_state = "hellcandle"
 
 /obj/item/flashlight/oxycandle/hellfire/Initialize(mapload)
 	. = ..()

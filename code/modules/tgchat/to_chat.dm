@@ -22,8 +22,10 @@
 	html = "[html]"
 	text = "[text]"
 
-	if(!target || (!html && !text))
+	if(!target)
 		return
+	if(!html && !text)
+		CRASH("Empty or null string in to_chat proc call.")
 	if(target == world)
 		target = GLOB.clients
 
@@ -67,8 +69,10 @@
 	html = "[html]"
 	text = "[text]"
 
-	if(!target || (!html && !text))
+	if(!target)
 		return
+	if(!html && !text)
+		CRASH("Empty or null string in to_chat proc call.")
 	if(target == world)
 		target = GLOB.clients
 

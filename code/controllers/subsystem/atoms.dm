@@ -1,8 +1,15 @@
 #define SUBSYSTEM_INIT_SOURCE "subsystem init"
 SUBSYSTEM_DEF(atoms)
 	name = "Atoms"
-	init_order = INIT_ORDER_ATOMS
-	flags = SS_NO_FIRE
+	dependencies = list(
+		/datum/controller/subsystem/economy,
+		/datum/controller/subsystem/mapping,
+		/datum/controller/subsystem/processing/greyscale,
+		/datum/controller/subsystem/vis_overlays,
+		/datum/controller/subsystem/xenoarchaeology,
+		/datum/controller/subsystem/zcopy,
+	)
+	ss_flags = SS_NO_FIRE
 
 	/// A stack of list(source, desired initialized state)
 	/// We read the source of init changes from the last entry, and assert that all changes will come with a reset

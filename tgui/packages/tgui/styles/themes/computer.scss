@@ -1,0 +1,171 @@
+/**
+ * Copyright (c) 2025 PowerfulBacon
+ * SPDX-License-Identifier: MIT
+ *
+ * The base theme for all Space Station 13 computer interfaces.
+ * Created modularly.
+ */
+
+@use 'sass:color';
+@use 'sass:meta';
+
+@use '../base.scss' with (
+  $color-fg: #dbd8ef,
+  $color-bg: #11121c,
+  $font-size: 12.5px
+);
+
+@use '../colors.scss' with (
+  $red: #ac0c0c,
+  $orange: #9c450b,
+  $yellow: #dece78,
+  $olive: #788a05,
+  $green: #56ba13,
+  $teal: #03807a,
+  $blue: #0b4d80,
+  $violet: #340e86,
+  $purple: #5b0d76,
+  $pink: #9a125f,
+  $brown: #6b3511,
+  $grey: #535353,
+  $light-grey: #848484,
+  $primary: #c0a666,
+  $good: #4a9c13,
+  $average: #b16b11,
+  $bad: #ac0c0c,
+  $bg-lightness: -40%
+);
+
+.theme-computer {
+  // Base theme
+  font-family: consolas, verdana, monospace;
+  font-size: 12.5px;
+  // Base overrides
+  @include meta.load-css('../atomic/color.scss');
+  // Uses color-fg/color-bg
+  @include meta.load-css('../components/ColorSelectBox.scss');
+  @include meta.load-css('../components/Input.scss');
+  @include meta.load-css('../components/Modal.scss');
+  @include meta.load-css(
+    '../components/Section.scss',
+    $with: ('title-text-color': base.$color-bg)
+  );
+  @include meta.load-css('../components/Slider.scss');
+  @include meta.load-css('../components/Tabs.scss');
+  @include meta.load-css('../interfaces/ModularFabricator.scss');
+  @include meta.load-css('../interfaces/RequestManager.scss');
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/PopupWindow.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  // Uses colors.scss
+  @include meta.load-css('../components/ProgressBar.scss');
+  @include meta.load-css('../components/NoticeBox.scss');
+  @include meta.load-css('../interfaces/AlertModal.scss');
+  @include meta.load-css('../interfaces/ChemDispenser.scss');
+  @include meta.load-css('../interfaces/ListInput.scss');
+  @include meta.load-css('../interfaces/TechFab.scss');
+  @include meta.load-css('../interfaces/Techweb.scss');
+  // Button overrides
+  @include meta.load-css(
+    '../components/Button.scss',
+    $with: ('color-default': colors.fg(base.$color-bg))
+  );
+  // Section overrides
+  .Section {
+    border-bottom: 1px solid colors.$primary;
+    display: flex;
+    flex-direction: column;
+  }
+  .Section__title {
+    padding: 0.2em;
+    padding-left: 0.5em;
+    margin-bottom: 0.4em;
+    background-color: colors.$primary;
+    box-shadow: 0px 0px 6px 0px colors.$primary;
+    border-bottom: unset;
+  }
+  .Section__rest {
+    flex-grow: 1;
+    border: 1px solid colors.$primary;
+    border-bottom: none;
+  }
+  .Section__content {
+    box-shadow: 0px 0px 4px -2px colors.$primary;
+    height: 100%;
+  }
+  .Section__buttons {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    // Override transparent colour when inside the header, as we have a light background.
+    .Button--color--transparent {
+      color: base.$color-bg;
+    }
+  }
+  // Progress bar
+  .ProgressBar {
+    min-height: 1.5em;
+  }
+  @supports (margin-left: auto) {
+    .ProgressBar__content {
+      margin-left: auto;
+      width: fit-content;
+      background-color: color.adjust(base.$color-bg, $alpha: -0.3);
+      box-shadow: 0px 0px 4px 4px color.adjust(base.$color-bg, $alpha: -0.3);
+      height: 1.25em;
+    }
+  }
+  // Title-bar overrides
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': #181a21)
+  );
+  @supports (mix-blend-mode: multiply) {
+    // Window overrides
+    .Window::before {
+      content: '';
+      position: fixed;
+      top: 32px;
+      left: 0;
+      width: 100vw;
+      height: calc(100vh - 32px);
+      pointer-events: none;
+      z-index: 9999;
+      background-image: repeating-linear-gradient(
+        to right,
+        #ff0000 0px,
+        #ff0000 1px,
+        #00ff00 1px,
+        #00ff00 2px,
+        #0000ff 2px,
+        #0000ff 3px
+      );
+      background-size: 3px 100%;
+      opacity: 0.07;
+      mix-blend-mode: multiply;
+    }
+
+    .Window::after {
+      content: '';
+      position: fixed;
+      top: 32px;
+      left: 0;
+      width: 100vw;
+      height: calc(100vh - 32px);
+      pointer-events: none;
+      z-index: 9999;
+      background-image: repeating-linear-gradient(
+        to top,
+        #ff0000 0px,
+        #ff0000 2px,
+        #00ff00 2px,
+        #00ff00 4px,
+        #0000ff 4px,
+        #0000ff 6px
+      );
+      background-size: 100% 6px;
+      opacity: 0.02;
+      mix-blend-mode: multiply;
+    }
+  }
+}

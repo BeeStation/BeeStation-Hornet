@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	department_for_prefs = DEPT_BITFLAG_SILICON
 	department_head_for_prefs = JOB_NAME_AI
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 0
 	supervisors = "your laws" //No AI yet as you are just a cube
 	selection_color = "#ddffdd"
@@ -15,12 +15,14 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	exp_type = EXP_TYPE_CREW
 	random_spawns_possible = FALSE
 
+	job_flags = JOB_CANNOT_OPEN_SLOTS
+
 	display_order = JOB_DISPLAY_ORDER_CYBORG
 	departments = DEPT_BITFLAG_SILICON
 
 	show_in_prefs = FALSE //No reason to show in preferences
 
-/datum/job/posibrain/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source = null)
+/datum/job/posibrain/equip(mob/living/carbon/human/H, visuals_only = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source = null)
 
 	var/obj/item/mmi/posibrain/P = pick(GLOB.on_station_posis)
 
@@ -34,8 +36,8 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	qdel(H)
 	return P
 
-/datum/job/posibrain/radio_help_message(mob/M)
-	to_chat(M, "<b>Prefix your message with :b to speak with other cyborgs and AI.</b>")
+/datum/job/posibrain/get_radio_information()
+	return "<b>Prefix your message with :b to speak with other cyborgs and AI.</b>"
 
 /datum/job/posibrain/proc/check_add_posi_slot(obj/item/mmi/posibrain/pb)
 	var/turf/currentturf = get_turf(pb)

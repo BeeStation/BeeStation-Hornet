@@ -5,7 +5,7 @@
 	name = "photo"
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "photo"
-	item_state = "paper"
+	inhand_icon_state = "paper"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
@@ -94,6 +94,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/photo)
 
 	var/n_name = stripped_input(usr, "What would you like to label the photo?", "Photo Labelling", max_length=MAX_NAME_LEN)
 	//loc.loc check is for making possible renaming photos in clipboards
-	if(n_name && (loc == usr || loc.loc && loc.loc == usr) && usr.stat == CONSCIOUS && !usr.incapacitated())
+	if(n_name && (loc == usr || loc.loc && loc.loc == usr) && usr.stat == CONSCIOUS && !usr.incapacitated)
 		name = "photo[(n_name ? "- '[n_name]'" : null)]"
 	add_fingerprint(usr)

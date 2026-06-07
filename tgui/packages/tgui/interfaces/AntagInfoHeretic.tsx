@@ -325,7 +325,7 @@ export const AntagInfoHeretic = (props) => {
   const [currentTab, setTab] = useLocalState('currentTab', 0);
 
   return (
-    <Window width={675} height={625}>
+    <Window width={675} height={625} theme="neutral">
       <Window.Content
         style={{
           backgroundImage: 'none',

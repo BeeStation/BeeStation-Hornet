@@ -12,39 +12,39 @@
 /area/template_noop)
 "d" = (
 /turf/closed/wall/mineral/titanium/survival,
-/area/survivalpod)
+/area/misc/survivalpod)
 "e" = (
 /obj/item/gps/computer,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "g" = (
 /obj/machinery/stasis/survival_pod,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "h" = (
 /obj/machinery/smartfridge/survival_pod/preloaded,
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "i" = (
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "j" = (
 /obj/machinery/door/airlock/survival_pod/glass,
 /obj/structure/fans/tiny,
 /turf/open/floor/pod/light,
-/area/survivalpod)
+/area/misc/survivalpod)
 "k" = (
 /obj/structure/table/survival_pod,
 /obj/item/storage/firstaid,
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "l" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/structure/fans,
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "m" = (
 /obj/machinery/power/solar,
 /turf/open/floor/iron/solarpanel/airless,
@@ -55,11 +55,11 @@
 	dir = 4
 	},
 /turf/open/floor/pod/dark,
-/area/survivalpod)
+/area/misc/survivalpod)
 "D" = (
 /obj/structure/sign/mining/survival,
 /turf/closed/wall/mineral/titanium/survival,
-/area/survivalpod)
+/area/misc/survivalpod)
 
 (1,1,1) = {"
 a

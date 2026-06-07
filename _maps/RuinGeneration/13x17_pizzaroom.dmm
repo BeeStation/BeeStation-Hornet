@@ -1,66 +1,66 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
 /turf/closed/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "c" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "d" = (
 /obj/item/food/pizzaslice/margherita,
 /turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "e" = (
 /turf/closed/mineral/random/high_chance,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "f" = (
 /turf/open/indestructible/hierophant,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "i" = (
 /obj/effect/abstract/open_area_marker,
 /turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "o" = (
 /obj/structure/fans/tiny/invisible,
 /turf/open/indestructible/hierophant,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "p" = (
 /obj/item/food/pizza/pineapple,
 /turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "q" = (
 /obj/item/food/pizza/meat,
 /turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "t" = (
 /mob/living/simple_animal/hostile/asteroid/elite/pandora,
 /turf/open/indestructible/hierophant,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "v" = (
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/indestructible/hierophant,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "A" = (
 /obj/item/pizzabox/infinite,
 /turf/open/indestructible/hierophant,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "C" = (
 /turf/template_noop,
 /area/template_noop)
 "F" = (
 /obj/item/food/pizza/margherita/robo,
 /turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "G" = (
 /turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "I" = (
 /turf/closed/indestructible/riveted/hierophant,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "U" = (
 /obj/item/food/pizzaslice/meat,
 /turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 b

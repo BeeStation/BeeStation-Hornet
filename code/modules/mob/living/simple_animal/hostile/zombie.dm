@@ -16,14 +16,13 @@
 	combat_mode = TRUE
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	spacewalk = FALSE
 	status_flags = CANPUSH
 	del_on_death = TRUE
 	var/zombiejob = JOB_NAME_MEDICALDOCTOR
 	var/infection_chance = 0
 	var/obj/effect/mob_spawn/human/corpse/delayed/corpse
 	mobchatspan = "bartender"
-	discovery_points = 3000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/zombie/Initialize(mapload)
 	. = ..()

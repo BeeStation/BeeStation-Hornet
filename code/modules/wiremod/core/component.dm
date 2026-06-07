@@ -11,7 +11,7 @@
 	name = COMPONENT_DEFAULT_NAME
 	icon = 'icons/obj/module.dmi'
 	icon_state = "component"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 
 	/// The name of the component shown on the UI
@@ -58,7 +58,7 @@
 	/// Determines the amount of space this circuit occupies in an integrated circuit.
 	var/circuit_size = 1
 
-	/// The UI buttons of this circuit component. An assoc list that has this format: "button_icon" = "action_name"
+	/// The UI buttons of this circuit component. An assoc list that has this format: "background_icon" = "action_name"
 	var/ui_buttons = null
 
 	/// How much this costs by itself. Keep this updated with /datum/design/integrated_circuit

@@ -87,7 +87,7 @@
 	// New sleepers
 	for(var/i in found - sleepers)
 		var/mob/living/L = i
-		L.add_atom_colour("#800080", TEMPORARY_COLOUR_PRIORITY)
+		L.add_atom_colour(COLOR_PURPLE, TEMPORARY_COLOUR_PRIORITY)
 		L.visible_message(span_revennotice("A strange purple glow wraps itself around [L] as [L.p_they()] suddenly fall[L.p_s()] unconscious."),
 			span_revendanger("[desc]"))
 		// Don't let them sit suround unconscious forever
@@ -101,7 +101,7 @@
 	// Missing sleepers
 	for(var/i in sleepers - found)
 		var/mob/living/L = i
-		L.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#800080")
+		L.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_PURPLE)
 		L.visible_message(span_revennotice("The glow from [L] fades away."))
 		L.grab_ghost()
 
@@ -215,6 +215,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 	name = "Luxury shuttle ticket booth"
 	desc = "A forceful money collector."
 	initial_duration = 0
+	speech_span = SPAN_ROBOT
 	var/threshold = 500
 	var/static/list/approved_passengers = list()
 	var/static/list/check_times = list()
@@ -283,7 +284,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 		for(var/obj/I in counted_money)
 			qdel(I)
 		payees[AM] -= threshold
-		say(span_robot("Welcome aboard, [AM]!"))
+		say("Welcome aboard, [AM]!")
 		approved_passengers += AM
 
 		if(payees[AM] > 0 && ishuman(AM))
@@ -299,7 +300,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 		for(var/obj/I in counted_money)
 			qdel(I)
 		if(!check_times[AM] || check_times[AM] < world.time) //Let's not spam the message
-			say(span_robot("$[payees[AM]] received, [AM]. You need $[threshold-payees[AM]] more."))
+			say("$[payees[AM]] received, [AM]. You need $[threshold-payees[AM]] more.")
 			check_times[AM] = world.time + LUXURY_MESSAGE_COOLDOWN
 		return ..()
 	else

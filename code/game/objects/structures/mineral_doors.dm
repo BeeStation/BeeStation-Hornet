@@ -13,7 +13,6 @@
 	max_integrity = 200
 	armor_type = /datum/armor/structure_mineral_door
 	can_atmos_pass = ATMOS_PASS_DENSITY
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
 
 	var/door_opened = FALSE //if it's open or not.
@@ -31,7 +30,6 @@
 	melee = 10
 	energy = 100
 	bomb = 10
-	rad = 100
 	fire = 50
 	acid = 50
 
@@ -266,7 +264,7 @@
 	return
 
 /obj/structure/mineral_door/transparent/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.is_hot() > 300)
+	if(W.get_temperature() > 300)
 		plasma_ignition(6, user)
 	else
 		return ..()
@@ -309,8 +307,8 @@
 	return crowbar_door(user, I)
 
 /obj/structure/mineral_door/wood/attackby(obj/item/I, mob/living/user)
-	if(I.is_hot())
-		fire_act(I.is_hot())
+	if(I.get_temperature())
+		fire_act(I.get_temperature())
 		return
 
 	return ..()
@@ -344,8 +342,8 @@
 	return crowbar_door(user, I)
 
 /obj/structure/mineral_door/paperframe/attackby(obj/item/I, mob/living/user)
-	if(I.is_hot()) //BURN IT ALL DOWN JIM
-		fire_act(I.is_hot())
+	if(I.get_temperature()) //BURN IT ALL DOWN JIM
+		fire_act(I.get_temperature())
 		return
 
 	if((!user.combat_mode) && istype(I, /obj/item/paper) && (atom_integrity < max_integrity))

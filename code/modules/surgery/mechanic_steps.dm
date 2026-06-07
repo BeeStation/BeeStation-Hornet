@@ -20,7 +20,7 @@
 	)
 
 /datum/surgery_step/mechanic_incise/tool_check(mob/user, obj/item/tool)
-	if(implement_type == /obj/item && !tool.is_sharp())
+	if(implement_type == /obj/item && !tool.get_sharpness())
 		return FALSE
 	if(tool.usesound)
 		preop_sound = tool.usesound
@@ -49,7 +49,7 @@
 	)
 
 /datum/surgery_step/mechanic_close/tool_check(mob/user, obj/item/tool)
-	if(implement_type == /obj/item && !tool.is_sharp())
+	if(implement_type == /obj/item && !tool.get_sharpness())
 		return FALSE
 	if(tool.usesound)
 		preop_sound = tool.usesound

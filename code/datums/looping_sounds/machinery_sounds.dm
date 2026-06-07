@@ -27,6 +27,11 @@
 	end_sound = 'sound/machines/generator/generator_end.ogg'
 	volume = 40
 
+/datum/looping_sound/portable_generator
+	mid_sounds = list('sound/machines/engine.ogg' = 1)
+	mid_length = 2.9 SECONDS
+	volume = 25
+
 /datum/looping_sound/oven
 	start_sound = 'sound/machines/oven/oven_loop_start.ogg' //my immersions
 	start_length = 1.2 SECONDS
@@ -71,6 +76,15 @@
 	end_sound = 'sound/machines/microwave/microwave-end.ogg'
 	volume = 90
 
+/datum/looping_sound/lathe_print
+	mid_sounds = list('sound/machines/lathe/lathe_print.ogg')
+	mid_length = 2 SECONDS
+	volume = 50
+	vary = TRUE
+	ignore_walls = FALSE
+	falloff_distance = 1
+	mid_length_vary = 1 SECONDS
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/looping_sound/washing_machine
@@ -90,15 +104,69 @@
 	falloff_distance = 3
 	volume = 150
 
-/datum/looping_sound/gravgen
-	mid_sounds = list('sound/machines/gravgen/gravgen_mid1.ogg' = 1, 'sound/machines/gravgen/gravgen_mid2.ogg' = 1, 'sound/machines/gravgen/gravgen_mid3.ogg' = 1, 'sound/machines/gravgen/gravgen_mid4.ogg' = 1)
+/datum/looping_sound/server
+	mid_sounds = list(
+		'sound/machines/tcomms/tcomms_mid1.ogg',
+		'sound/machines/tcomms/tcomms_mid2.ogg',
+		'sound/machines/tcomms/tcomms_mid3.ogg',
+		'sound/machines/tcomms/tcomms_mid4.ogg',
+		'sound/machines/tcomms/tcomms_mid5.ogg',
+		'sound/machines/tcomms/tcomms_mid6.ogg',
+		'sound/machines/tcomms/tcomms_mid7.ogg',
+	)
+	mid_length = 1.8 SECONDS
+	extra_range = -8
+	falloff_distance = 3
+	falloff_exponent = 5
+	volume = 35
+	ignore_walls = FALSE
+	pressure_affected = FALSE
+
+/datum/looping_sound/computer
+	start_sound = 'sound/machines/computer/computer_start.ogg'
+	start_length = 7.2 SECONDS
+	start_volume = 10
+	mid_sounds = list(
+		'sound/machines/computer/computer_mid1.ogg',
+		'sound/machines/computer/computer_mid2.ogg',
+	)
+	mid_length = 1.8 SECONDS
+	end_sound = 'sound/machines/computer/computer_end.ogg'
+	end_volume = 1 SECONDS
+	volume = SOUND_AUDIBLE_VOLUME_MIN
+	falloff_exponent = 5 //Ultra quiet very fast
+	extra_range = -12
+	falloff_distance = 1 //Instant falloff after initial tile
+
+/datum/looping_sound/gas_rig
+	mid_sounds = list(
+		'sound/machines/gas_rig/gas_rig_mid1.ogg' = 1,
+		'sound/machines/gas_rig/gas_rig_mid2.ogg' = 1,
+		'sound/machines/gas_rig/gas_rig_mid3.ogg' = 1,
+		'sound/machines/gas_rig/gas_rig_mid4.ogg' = 1,
+	)
 	mid_length = 1.8 SECONDS
 	extra_range = 10
 	volume = 40
 	falloff_distance = 5
 	falloff_exponent = 20
 
-/datum/looping_sound/gravgen/kinesis
+/datum/looping_sound/grav_gen
+	start_sound = 'sound/machines/grav_gen/grav_gen_start.ogg'
+	start_length = 1 SECONDS
+	mid_sounds = list(
+		'sound/machines/grav_gen/grav_gen_mid1.ogg' = 12,
+		'sound/machines/grav_gen/grav_gen_mid2.ogg' = 1,
+	)
+	mid_length = 1.1 SECONDS
+	end_sound = 'sound/machines/grav_gen/grav_gen_end.ogg'
+	extra_range = 8
+	vary = TRUE
+	volume = 70
+	falloff_distance = 5
+	falloff_exponent = 20
+
+/datum/looping_sound/grav_gen/kinesis
 	volume = 20
 	falloff_distance = 2
 	falloff_exponent = 5
@@ -135,3 +203,10 @@
 	end_sound = 1.5 SECONDS
 	mid_sounds = 'sound/machines/fan/fan_loop.ogg'
 	mid_length = 2 SECONDS
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/transformer
+	mid_sounds = list('sound/machines/transformer.ogg' = 1)
+	mid_length = 0.9 SECONDS
+	volume = 100

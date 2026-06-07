@@ -20,7 +20,7 @@
 	speak_language = /datum/language/metalanguage // It's cursing cluwne why not
 	footstep_type = FOOTSTEP_MOB_SHOE
 	chat_color = "#F37EF6"
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/cluwne/Initialize(mapload)
 	. = ..()
@@ -36,7 +36,7 @@
 		act = "me"
 	..()
 
-/mob/living/simple_animal/cluwne/UnarmedAttack(atom/A, proximity)
+/mob/living/simple_animal/cluwne/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	playsound(src, 'sound/items/bikehorn.ogg', 20, 2)
 	..()
 

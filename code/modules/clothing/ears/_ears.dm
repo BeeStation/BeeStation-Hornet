@@ -1,6 +1,7 @@
 
 //Ears: currently only used for headsets and earmuffs
 /obj/item/clothing/ears
+	abstract_type = /obj/item/clothing/ears
 	name = "ears"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0
@@ -11,12 +12,18 @@
 	name = "earmuffs"
 	desc = "Protects your hearing from loud noises, and quiet ones as well."
 	icon_state = "earmuffs"
-	item_state = "earmuffs"
+	inhand_icon_state = "earmuffs"
+	clothing_traits = list(TRAIT_DEAF)
 	strip_delay = 15
 	equip_delay_other = 25
 	resistance_flags = FLAMMABLE
 	custom_price = 40
 	bang_protect = 2
+
+/obj/item/clothing/ears/earmuffs/debug
+	name = "debug earmuffs"
+	desc = "Wearing these sends a chat message for every sound played. Walking to ignore footsteps is highly recommended."
+	clothing_traits = list(TRAIT_SOUND_DEBUGGED)
 
 /obj/item/clothing/ears/earmuffs/Initialize(mapload)
 	. = ..()
@@ -28,7 +35,7 @@
 	icon = 'icons/obj/clothing/accessories.dmi'
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "headphones"
-	item_state = "headphones"
+	inhand_icon_state = "headphones"
 	slot_flags = ITEM_SLOT_EARS | ITEM_SLOT_HEAD | ITEM_SLOT_NECK //Fluff item, put it wherever you want!
 	actions_types = list(/datum/action/item_action/toggle_headphones)
 	var/headphones_on = FALSE
@@ -43,7 +50,7 @@
 
 /obj/item/clothing/ears/headphones/update_icon_state()
 	icon_state = "[initial(icon_state)]_[headphones_on? "on" : "off"]"
-	item_state = "[initial(item_state)]_[headphones_on? "on" : "off"]"
+	inhand_icon_state = "[initial(inhand_icon_state)]_[headphones_on? "on" : "off"]"
 	. = ..()
 
 /obj/item/clothing/ears/headphones/proc/toggle(owner, force_state)
@@ -80,7 +87,7 @@
 	return ..()
 
 /obj/item/clothing/ears/headphones/proc/should_stop_playing(mob/user)
-	return user.incapacitated() || !((loc == user) || (isturf(loc) && Adjacent(user)))
+	return user.incapacitated || !((loc == user) || (isturf(loc) && Adjacent(user)))
 
 /obj/item/clothing/ears/headphones/AltClick(mob/user)
 	. = ..()

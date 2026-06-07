@@ -154,7 +154,7 @@
 
 /datum/crafting_recipe/food/breadcat
 	name = "Bread cat/bread hybrid"
-	result = /mob/living/simple_animal/pet/cat/breadcat
+	result = /mob/living/basic/pet/cat/breadcat
 	reqs = list(
 		/obj/item/food/bread/plain = 1,
 		/obj/item/organ/ears/cat = 1,

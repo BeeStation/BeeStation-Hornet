@@ -52,6 +52,7 @@
 		return FALSE
 
 	feedback_details += "Delusion: [delusion_name]"
+	RegisterSignal(hallucinator, COMSIG_LIVING_PERCEIVE_EXAMINE_NAME, PROC_REF(examine_name_override))
 
 	var/list/mob/living/carbon/human/funny_looking_mobs = list()
 
@@ -92,6 +93,15 @@
 	funny_image.name = delusion_name
 	funny_image.override = TRUE
 	return funny_image
+
+/datum/hallucination/delusion/proc/examine_name_override(datum/source, mob/living/examined, visible_name, list/name_override)
+	SIGNAL_HANDLER
+
+	if(!ishuman(examined) || !LAZYACCESS(delusions, examined))
+		return NONE
+
+	name_override[1] = delusion_name
+	return COMPONENT_EXAMINE_NAME_OVERRIDEN
 
 /// Used for making custom delusions.
 /datum/hallucination/delusion/custom

@@ -44,6 +44,8 @@
 	var/is_silicon = FALSE
 	/// Whether or not we're in a mime PDA.
 	var/mime_mode = FALSE
+	/// Whether this app can send messages to all.
+	var/spam_mode = FALSE
 
 /datum/computer_file/program/messenger/proc/ScrubMessengerList()
 	var/list/dictionary = list()
@@ -116,6 +118,9 @@
 			if(SEND_SIGNAL(computer, COMSIG_TABLET_CHANGE_RINGTONE, usr_mob, new_ringtone) & COMPONENT_STOP_RINGTONE_CHANGE)
 				ui.close(can_be_suspended = FALSE)
 				return
+			if(SEND_SIGNAL(SSdcs, COMSIG_GLOB_TABLET_CHANGE_RINGTONE, computer, usr_mob, new_ringtone) & COMPONENT_STOP_RINGTONE_CHANGE)
+				ui.close(can_be_suspended = FALSE)
+				return
 			ringtone = new_ringtone
 			return TRUE
 		if("PDA_ringer_status")
@@ -160,7 +165,7 @@
 			for(var/obj/item/modular_computer/mc in GetViewableDevices())
 				targets += mc
 
-			if(targets.len > 0)
+			if(length(targets))
 				if(last_text_everyone && world.time < (last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay))
 					computer.balloon_alert_to_viewers("Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay - world.time)/10] seconds.")
 					to_chat(usr, span_warning("Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay - world.time)/10] seconds."))
@@ -249,6 +254,7 @@
 	data["sortByJob"] = sort_by_job
 	data["isSilicon"] = is_silicon
 	data["photo"] = photo_path
+
 	if(disk)
 		data["virus_attach"] = istype(disk, /obj/item/computer_hardware/hard_drive/role/virus)
 		data["sending_virus"] = sending_virus
@@ -293,7 +299,7 @@
 	return sanitize(message)
 
 /datum/computer_file/program/messenger/proc/send_message(mob/living/user, list/obj/item/modular_computer/targets, everyone = FALSE, fake_name = null, fake_job = null, multi_delay = 0)
-	if(!targets.len)
+	if(!length(targets))
 		return FALSE
 	var/target_name = length(targets) == 1 ? targets[1].saved_identification : "Everyone"
 	var/message = msg_input(user, target_name)
@@ -366,11 +372,11 @@
 
 	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
 	if(everyone)
-		computer.add_log("MSG log : [card.get_network_tag()] to (all): [message]", log_id = FALSE)
+		computer.add_log("MSG log : [card.get_network_tag()] to (all): [message]")
 	else if(targets.len == 1)
 		var/obj/item/modular_computer/target_comp = targets[1]
 		var/obj/item/computer_hardware/network_card/t_card = target_comp.all_components[MC_NET]
-		computer.add_log("MSG Log : [card.get_network_tag()] to [t_card.get_network_tag()]: [message]", log_id = FALSE)
+		computer.add_log("MSG Log : [card.get_network_tag()] to [t_card.get_network_tag()]: [message]")
 	// --------------------------------------------
 
 	// Parse emojis before to_chat

@@ -258,13 +258,13 @@
 	melee_damage = 12 //zombies have a base of 21, a bit much
 	stat_attack = CONSCIOUS
 	mobchatspan = "chaplain"
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/alien/hugbox
 	health = 60 //they go down easy, to lull the player into a sense of false security
 	maxHealth = 60
 	mobchatspan = "researchdirector"
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/cat_butcherer/hugbox //a cat butcher without a melee speed buff or a syringe gun. he's not too hard to take down, but can still go on catification rampages
 	ranged = FALSE
@@ -282,7 +282,7 @@
 	req_cultists = 9//if a cultist invokes this, it acts like an invocation rune by asking them to check this.
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "Cluwne"
-	color = RUNE_COLOR_SUMMON
+	color = COLOR_VIBRANT_LIME
 	pixel_x = -32
 	pixel_y = -32
 	rune_in_use = FALSE
@@ -313,7 +313,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if((HAS_TRAIT(H, TRAIT_MUTE)) || H.silent)// NO MIMES
+		if((HAS_TRAIT(H, TRAIT_MUTE)) || H.has_status_effect(/datum/status_effect/silenced))// NO MIMES
 			to_chat(user, span_warning("The quiet cannot comprehend [src]."))
 			return
 		if(HAS_TRAIT(H, TRAIT_LAW_ENFORCEMENT_METABOLISM) || HAS_TRAIT(H, TRAIT_MINDSHIELD))// NO SHITSEC
@@ -364,7 +364,7 @@
 		FC.dontkill = FALSE
 		FC.delete_after_target_killed = FALSE
 		FC.interest = 300
-	color = RUNE_COLOR_SUMMON
+	color = COLOR_VIBRANT_LIME
 	for(var/mob/living/carbon/C in hearers(10, src))
 		C.Stun(350, ignore_canstun = TRUE)
 	priority_announce("Figments of an elder god have been detected in your sector. Exercise extreme caution, and abide by the 'buddy system' at all times.","Central Command Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES)

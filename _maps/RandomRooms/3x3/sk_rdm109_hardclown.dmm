@@ -7,7 +7,7 @@
 "b" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
@@ -22,7 +22,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
@@ -31,7 +31,7 @@
 	suit_type = /obj/item/clothing/suit/space/hardsuit/clown
 	},
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/clowntrap,
+/obj/effect/spawner/random/unsorted/trap/clowntrap,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "f" = (
@@ -39,7 +39,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
@@ -55,7 +55,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/trap/trigger/all,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (

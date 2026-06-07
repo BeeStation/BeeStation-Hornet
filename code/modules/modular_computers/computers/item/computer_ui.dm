@@ -40,6 +40,8 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
+		// Register the user as a viewer
+		computer_users |= REF(user)
 		if(active_program)
 			ui = new(user, src, active_program.tgui_id, active_program.filedesc)
 			ui.set_autoupdate(TRUE)
@@ -66,6 +68,7 @@
 /obj/item/modular_computer/ui_close(mob/user, datum/tgui/tgui)
 	if(active_program)
 		active_program.on_ui_close(user, tgui)
+	computer_users -= REF(user)
 
 /obj/item/modular_computer/ui_assets(mob/user)
 	var/list/data = list()
@@ -156,8 +159,13 @@
 
 // Handles user's GUI input
 /obj/item/modular_computer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	if(..())
+	SHOULD_CALL_PARENT(TRUE)
+	. = ..()
+	if(.)
 		return
+
+	if(!issilicon(ui.user))
+		playsound(src, "keyboard_clicks", 10, TRUE, FALSE)
 	if(device_theme == THEME_THINKTRONIC)
 		send_select_sound()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]

@@ -5,7 +5,7 @@
 		briefly blinds them (increasing with range) and poisons them (decreasing with range). \
 		Also spreads rust in the path of the plume."
 	background_icon_state = "bg_heretic"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "entropic_plume"
 
 	school = SCHOOL_FORBIDDEN
@@ -67,7 +67,7 @@
 	name = "Patron's Reach"
 	desc = "Channels energy into your hands to release a wave of rust."
 	background_icon_state = "bg_heretic"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "rust_wave"
 
 	school = SCHOOL_FORBIDDEN
@@ -91,7 +91,7 @@
 	range = 15
 	speed = 1
 
-/obj/projectile/magic/aoe/rust_wave/Moved(atom/OldLoc, Dir)
+/obj/projectile/magic/aoe/rust_wave/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	playsound(src, 'sound/items/welder.ogg', 75, TRUE)
 	var/list/turflist = list()

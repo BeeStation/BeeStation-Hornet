@@ -1,3 +1,6 @@
+/**
+ * Interaction Flags
+ */
 
 #define INTERACT_ATOM_REQUIRES_ANCHORED 			(1<<0)	//! whether can_interact() checks for anchored. only works on movables.
 #define INTERACT_ATOM_ATTACK_HAND 					(1<<1)	//! calls try_interact() on attack_hand() and returns that.
@@ -9,6 +12,8 @@
 #define INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND	(1<<7)	//! prevents leaving fingerprints automatically on attack_hand
 #define INTERACT_ATOM_NO_FINGERPRINT_INTERACT 		(1<<8)	//! adds hiddenprints instead of fingerprints on interact
 #define INTERACT_ATOM_ALLOW_USER_LOCATION			(1<<9)  //! allows this atom to skip the adjacency check
+/// ignores mobility check
+#define INTERACT_ATOM_IGNORE_MOBILITY (1<<10)
 
 #define INTERACT_ITEM_ATTACK_HAND_PICKUP (1<<0)		//! attempt pickup on attack_hand for items
 
@@ -21,3 +26,4 @@
 #define INTERACT_MACHINE_SET_MACHINE 		(1<<6)		//! MACHINES HAVE THIS BY DEFAULT, SOMEONE SHOULD RUN THROUGH MACHINES AND REMOVE IT FROM THINGS LIKE LIGHT SWITCHES WHEN POSSIBLE!!--------------------------
 												//This flag determines if a machine set_machine's the user when the user uses it, making updateUsrDialog make the user re-call interact() on it.
 												//THIS FLAG IS ON ALL MACHINES BY DEFAULT, NEEDS TO BE RE-EVALUATED LATER!!
+

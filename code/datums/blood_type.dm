@@ -1,4 +1,5 @@
 /datum/blood_type
+	abstract_type = /datum/blood_type
 	/// Displayed name of the blood type.
 	var/name = "?"
 	/// Shown color of the blood type.
@@ -86,9 +87,10 @@
 	compatible_types = list(
 		/datum/blood_type/animal
 	)
+
 /datum/blood_type/lizard
 	name = "L"
-	blood_color = "#009696"
+	blood_color = COLOR_BLUSH_TEAL
 	compatible_types = list(
 		/datum/blood_type/lizard
 	)

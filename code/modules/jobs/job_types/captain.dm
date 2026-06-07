@@ -6,7 +6,7 @@
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	department_head = list("CentCom")
 	supervisors = "Nanotrasen officials and Space law"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ccccff"
 	req_admin_notify = 1
@@ -27,6 +27,8 @@
 	mind_traits = list(TRAIT_DISK_VERIFIER)
 
 	display_order = JOB_DISPLAY_ORDER_CAPTAIN
+
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "Star Duke"
 
 	species_outfits = list(
@@ -34,17 +36,31 @@
 	)
 
 	minimal_lightup_areas = list(
-		/area/crew_quarters/heads/captain,
-		/area/crew_quarters/heads/hop,
-		/area/security
+		/area/station/command/heads_quarters/captain,
+		/area/station/command/heads_quarters/hop,
+		/area/station/security
+	)
+
+	// captain can write manuscript of command roles
+	manuscript_jobs = list(
+		JOB_NAME_CAPTAIN,
+		JOB_NAME_CHIEFENGINEER,
+		JOB_NAME_CHIEFMEDICALOFFICER,
+		JOB_NAME_HEADOFPERSONNEL,
+		JOB_NAME_HEADOFSECURITY,
+		JOB_NAME_RESEARCHDIRECTOR,
 	)
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
 
-/datum/job/captain/announce(mob/living/carbon/human/H)
+/datum/job/captain/announce_job(mob/living/carbon/human/H)
 	..()
 	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce), "Captain [H.real_name] on deck!"))
+
+/datum/job/captain/get_radio_information()
+	. = ..()
+	. += "\nYou have access to all radio channels, but they are not automatically tuned. Check your radio for more information."
 
 /datum/outfit/job/captain
 	name = JOB_NAME_CAPTAIN
@@ -59,11 +75,12 @@
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	head = /obj/item/clothing/head/hats/caphat
-	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1, /obj/item/station_charter=1)
+	backpack_contents = list(/obj/item/melee/baton/telescopic=1, /obj/item/station_charter=1)
 
 	backpack = /obj/item/storage/backpack/captain
 	satchel = /obj/item/storage/backpack/satchel/cap
 	duffelbag = /obj/item/storage/backpack/duffelbag/captain
+	messenger = /obj/item/storage/backpack/messenger/cap
 
 	implants = list(/obj/item/implant/mindshield)
 	accessory = /obj/item/clothing/accessory/medal/gold/captain

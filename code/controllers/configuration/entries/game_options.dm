@@ -30,13 +30,7 @@
 
 /datum/config_entry/flag/donator_items 	// do you need to be a donator to use donator items
 
-/datum/config_entry/number/traitor_objectives_amount
-	config_entry_value = 2
-	min_val = 0
-
-/datum/config_entry/number/brother_objectives_amount
-	config_entry_value = 2
-	min_val = 0
+/datum/config_entry/flag/combat_indicator //Whether we show combat indicators when combat mode is enabled
 
 /datum/config_entry/flag/reactionary_explosions	//If we use reactionary explosions, explosions that react to walls and doors
 
@@ -74,17 +68,6 @@
 	integer = FALSE
 	min_val = 0
 
-/datum/config_entry/number/midround_antag_time_check	// How late (in minutes you want the midround antag system to stay on, setting this to 0 will disable the system)
-	config_entry_value = 60
-	integer = FALSE
-	min_val = 0
-
-/datum/config_entry/number/midround_antag_life_check	// A ratio of how many people need to be alive in order for the round not to immediately end in midround antagonist
-	config_entry_value = 0.7
-	integer = FALSE
-	min_val = 0
-	max_val = 1
-
 /datum/config_entry/number/shuttle_refuel_delay
 	config_entry_value = 12000
 	integer = FALSE
@@ -113,7 +96,8 @@
 
 /datum/config_entry/flag/no_summon_events	//Allowed
 
-/datum/config_entry/flag/no_intercept_report	//Whether or not to send a communications intercept report roundstart. This may be overridden by gamemodes.
+/datum/config_entry/flag/intercept_report	//Whether or not to send a communications intercept report roundstart. This may be overridden by gamemodes.
+	config_entry_value = TRUE
 
 /datum/config_entry/number/arrivals_shuttle_dock_window	//Time from when a player late joins on the arrivals shuttle to when the shuttle docks on the station
 	config_entry_value = 55
@@ -161,9 +145,8 @@
 	config_entry_value = "Central Command has ordered the Epsilon security level on the station. Consider your contracts terminated."
 
 /datum/config_entry/number/station_goal_budget
-	default = 1
+	config_entry_value = 1
 	min_val = 0
-	integer = FALSE
 
 /datum/config_entry/flag/diona_ghost_spawn
 
@@ -236,8 +219,6 @@
 
 /////////////////////////////////////////////////
 
-/datum/config_entry/flag/virtual_reality	//Will virtual reality be loaded
-
 /datum/config_entry/flag/roundstart_away	//Will random away mission be loaded.
 
 /datum/config_entry/number/gateway_delay	//How long the gateway takes before it activates. Default is half an hour. Only matters if roundstart_away is enabled.
@@ -287,7 +268,6 @@
 /datum/config_entry/string/overflow_job
 	config_entry_value = JOB_NAME_ASSISTANT
 
-/datum/config_entry/flag/starlight
 /datum/config_entry/flag/grey_assistants
 
 /datum/config_entry/number/lavaland_budget
@@ -296,7 +276,7 @@
 	min_val = 0
 
 /datum/config_entry/number/space_budget
-	config_entry_value = 40
+	config_entry_value = 16
 	integer = FALSE
 	min_val = 0
 
@@ -353,6 +333,9 @@
 //Mob spam prevention
 /datum/config_entry/number/max_cube_monkeys
 	config_entry_value = 100
+/datum/config_entry/number/ratcap
+	config_entry_value = 64
+	min_val = 0
 /datum/config_entry/number/max_chickens
 	config_entry_value = 100
 /datum/config_entry/number/max_slimes
@@ -375,6 +358,21 @@
 /datum/config_entry/flag/spare_enforce_coc
 
 /datum/config_entry/flag/station_traits
+
+/datum/config_entry/keyed_list/positive_station_traits
+	config_entry_value = list("0" = 8, "1" = 4, "2" = 2, "3" = 1)
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
+/datum/config_entry/keyed_list/negative_station_traits
+	config_entry_value = list("0" = 8, "1" = 4, "2" = 2, "3" = 1)
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
+/datum/config_entry/keyed_list/neutral_station_traits
+	config_entry_value = list("0" = 10, "1" = 10, "2" = 3, "2.5" = 1)
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
 
 /datum/config_entry/flag/dark_unstaffed_departments
 
@@ -402,5 +400,23 @@
 
 /datum/config_entry/flag/special_symptom_thresholds
 
-/datum/config_entry/number/virus_thinning_cap
-	config_entry_value = 4
+/**
+ * A config that skews with the random spawners weights
+ * If the value is lower than 1, it'll tend to even out the odds
+ * If higher than 1, it'll lean toward common spawns even more.
+ */
+/datum/config_entry/number/random_loot_weight_modifier
+	integer = FALSE
+	config_entry_value = 1
+	min_val = 0.05
+
+/datum/config_entry/flag/common_radio_audio
+	config_entry_value = TRUE
+
+/// Murderbone objectives for normal antags cannot be rolled below this pop
+/// Pop here refers to the amount of people who have joined the round, not connected clients
+/// Some antags like nukie, wizard, and malf AI will always be murderbone
+/datum/config_entry/number/murderbone_objectives_min_pop
+	min_val = 0
+	config_entry_value = 15
+

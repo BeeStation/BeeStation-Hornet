@@ -1,5 +1,0 @@
-author: mrmanlikesbt, TemporalOrobos
-delete-after: true
-changes:
-  - code_imp: Added zebra typecaches
-  - code_imp: Added better documentation for some list helper procs

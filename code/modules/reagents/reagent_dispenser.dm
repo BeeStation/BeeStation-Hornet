@@ -1,4 +1,5 @@
 /obj/structure/reagent_dispensers
+	abstract_type = /obj/structure/reagent_dispensers
 	name = "Dispenser"
 	desc = "..."
 	icon = 'icons/obj/objects.dmi'
@@ -119,7 +120,7 @@
 		if(!fuel_amt)
 			visible_message(span_danger("\The [src] ruptures!"))
 		// Leave it up to future terrorists to figure out the best way to mix reagents with fuel for a useful boom here
-		chem_splash(loc, 2 + (reagents.total_volume + fuel_amt) / 1000, list(reagents), extra_heat=(fuel_amt / 50), adminlog=(fuel_amt<25))
+		chem_splash(loc, min(2 + (reagents.total_volume + fuel_amt) / 1000, 6), list(reagents), extra_heat=(fuel_amt / 50), adminlog=(fuel_amt<25))
 
 	if(fuel_amt) // with that done, actually explode
 		visible_message(span_danger("\The [src] explodes!"))
@@ -142,7 +143,7 @@
 				explosion(src, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 6, flame_range = 8)
 	qdel(src)
 
-/obj/structure/reagent_dispensers/Moved(atom/old_loc, movement_dir)
+/obj/structure/reagent_dispensers/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(rig)
 		rig.on_move(old_loc, movement_dir)
@@ -188,8 +189,8 @@
 /obj/structure/reagent_dispensers/fueltank/fire_act(exposed_temperature, exposed_volume)
 	boom()
 
-/obj/structure/reagent_dispensers/fueltank/tesla_act()
-	..() //extend the zap
+/obj/structure/reagent_dispensers/fueltank/zap_act(power, zap_flags)
+	. = ..()
 	boom()
 
 /obj/structure/reagent_dispensers/fueltank/bullet_act(obj/projectile/P)

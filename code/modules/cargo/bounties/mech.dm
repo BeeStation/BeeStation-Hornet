@@ -1,3 +1,6 @@
+/datum/bounty/item/mech
+	abstract_type = /datum/bounty/item/mech
+
 /datum/bounty/item/mech/New()
 	..()
 	description = "Upper management has requested one [name] mech be sent as soon as possible. Ship it to receive a large payment."
@@ -16,29 +19,41 @@
 /datum/bounty/item/mech/ripleymk2
 	name = "APLU MK-II \"Ripley\""
 	reward = 13000
-	wanted_types = list(/obj/vehicle/sealed/mecha/working/ripley/mk2)
+	wanted_types = list(
+		/obj/vehicle/sealed/mecha/ripley/mk2 = TRUE,
+	)
 
 /datum/bounty/item/mech/clarke
 	name = "Clarke"
 	reward = 16000
-	wanted_types = list(/obj/vehicle/sealed/mecha/working/clarke)
+	wanted_types = list(
+		/obj/vehicle/sealed/mecha/clarke = TRUE,
+	)
 
 /datum/bounty/item/mech/odysseus
 	name = "Odysseus"
 	reward = 11000
-	wanted_types = list(/obj/vehicle/sealed/mecha/medical/odysseus)
+	wanted_types = list(
+		/obj/vehicle/sealed/mecha/odysseus = TRUE,
+	)
 
 /datum/bounty/item/mech/gygax
 	name = "Gygax"
 	reward = 28000
-	wanted_types = list(/obj/vehicle/sealed/mecha/combat/gygax)
+	wanted_types = list(
+		/obj/vehicle/sealed/mecha/gygax = TRUE,
+	)
 
 /datum/bounty/item/mech/durand
 	name = "Durand"
 	reward = 20000
-	wanted_types = list(/obj/vehicle/sealed/mecha/combat/durand)
+	wanted_types = list(
+		/obj/vehicle/sealed/mecha/durand = TRUE,
+	)
 
 /datum/bounty/item/mech/phazon
 	name = "Phazon"
 	reward = 100000
-	wanted_types = list(/obj/vehicle/sealed/mecha/combat/phazon)
+	wanted_types = list(
+		/obj/vehicle/sealed/mecha/phazon = TRUE,
+	)

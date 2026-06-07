@@ -25,10 +25,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/structure/sink/kitchen{
-	dir = 8;
-	pixel_x = 11
-	},
+/obj/structure/sink/kitchen/directional/west,
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
@@ -64,7 +61,7 @@
 /area/template_noop)
 "l" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
 

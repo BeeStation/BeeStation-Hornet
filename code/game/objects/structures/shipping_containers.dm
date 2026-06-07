@@ -3,8 +3,11 @@
 	desc = "A standard-measure shipping container for bulk transport of goods. This one is blank, offering no clue as to its contents."
 	icon = 'icons/obj/containers.dmi'
 	icon_state = "container_blank"
-	max_integrity = 1000
+	max_integrity = 500
+	layer = ABOVE_MOB_LAYER
+	density = TRUE
 	anchored = TRUE
+	bound_width = 96
 
 /obj/structure/shipping_container/conarex
 	name = "\improper Conarex Aeronautics shipping container"
@@ -20,9 +23,6 @@
 	name = "\improper Kahraman Heavy Industry shipping container"
 	desc = "A standard-measure shipping container for bulk transport of goods. This one is from Kahraman, and is reinforced for carrying ore."
 	icon_state = "kahraman"
-
-/obj/structure/shipping_container/kahraman/alt
-	icon_state = "kahraman_alt"
 
 /obj/structure/shipping_container/kosmologistika
 	name = "\improper Kosmologistika shipping container"

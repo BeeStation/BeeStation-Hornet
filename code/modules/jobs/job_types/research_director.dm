@@ -6,7 +6,7 @@
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list("Science")
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffddff"
 	req_admin_notify = 1
@@ -31,6 +31,8 @@
 		ACCOUNT_SCI_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR
+
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "Archmagister"
 
 	species_outfits = list(
@@ -39,15 +41,22 @@
 	biohazard = 40
 
 	minimal_lightup_areas = list(
-		/area/crew_quarters/heads/hor,
-		/area/science/explab,
-		/area/science/misc_lab,
-		/area/science/mixing,
-		/area/science/nanite,
-		/area/science/robotics,
-		/area/science/server,
-		/area/science/storage,
-		/area/science/xenobiology
+		/area/station/command/heads_quarters/rd,
+		/area/station/science/explab,
+		/area/station/science/misc_lab,
+		/area/station/science/mixing,
+		/area/station/science/nanite,
+		/area/station/science/robotics,
+		/area/station/science/server,
+		/area/station/science/storage,
+		/area/station/science/xenobiology
+	)
+
+	manuscript_jobs = list(
+		JOB_NAME_RESEARCHDIRECTOR,
+		JOB_NAME_SCIENTIST,
+		JOB_NAME_EXPLORATIONCREW,
+		JOB_NAME_ROBOTICIST
 	)
 
 /datum/outfit/job/research_director
@@ -55,18 +64,22 @@
 	jobtype = /datum/job/research_director
 
 	id = /obj/item/card/id/job/research_director
-	belt = /obj/item/modular_computer/tablet/pda/preset/heads/research_director
-	ears = /obj/item/radio/headset/heads/research_director
 	uniform = /obj/item/clothing/under/rank/rnd/research_director
-	shoes = /obj/item/clothing/shoes/sneakers/brown
 	suit = /obj/item/clothing/suit/toggle/labcoat/research_director
-	l_hand = /obj/item/clipboard
+	backpack_contents = list(
+		/obj/item/melee/baton/telescopic = 1,
+		)
+	belt = /obj/item/modular_computer/tablet/pda/preset/heads/research_director
+	head = /obj/item/clothing/head/beret/science
+	ears = /obj/item/radio/headset/heads/research_director
+	shoes = /obj/item/clothing/shoes/jackboots_replica //nerd
 	l_pocket = /obj/item/laser_pointer
-	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1)
+	l_hand = /obj/item/clipboard
 
 	backpack = /obj/item/storage/backpack/science
-	satchel = /obj/item/storage/backpack/satchel/tox
+	satchel = /obj/item/storage/backpack/satchel/science
 	duffelbag = /obj/item/storage/backpack/duffelbag/science
+	messenger = /obj/item/storage/backpack/messenger/science
 
 	chameleon_extras = /obj/item/stamp/research_director
 

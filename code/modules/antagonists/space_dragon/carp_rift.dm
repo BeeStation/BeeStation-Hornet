@@ -9,7 +9,7 @@
 	name = "Summon Rift"
 	desc = "Summon a rift to bring forth a horde of space carp."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_space_dragon.dmi'
+	button_icon = 'icons/hud/actions/actions_space_dragon.dmi'
 	button_icon_state = "carp_rift"
 
 /datum/action/innate/summon_rift/on_activate()
@@ -90,7 +90,6 @@
 /datum/armor/structure_carp_rift
 	energy = 100
 	bomb = 50
-	rad = 100
 	fire = 100
 	acid = 100
 
@@ -127,7 +126,7 @@
 		if("carp" in hostilehere.faction)
 			hostilehere.adjustHealth(-10)
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(hostilehere))
-			H.color = "#0000FF"
+			H.color = COLOR_BLUE
 
 	// If we're fully charged, just start mass spawning carp and move around.
 	if(charge_state == CHARGE_COMPLETED)

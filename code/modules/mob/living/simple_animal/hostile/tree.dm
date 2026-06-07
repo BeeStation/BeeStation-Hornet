@@ -36,13 +36,13 @@
 	maxbodytemp = 1200
 
 	faction = list(FACTION_PLANTS)
-	deathmessage = "is hacked into pieces!"
+	death_message = "is hacked into pieces!"
 	loot = list(/obj/item/stack/sheet/wood)
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = TRUE
 	hardattacks = TRUE
 
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/tree/Life(delta_time = SSMOBS_DT, times_fired)
 	..()

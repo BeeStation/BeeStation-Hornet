@@ -2,7 +2,7 @@
 	name = "Invisible Wall"
 	desc = "The mime's performance transmutates a wall into physical reality."
 	background_icon_state = "bg_mime"
-	icon_icon = 'icons/hud/actions/actions_mime.dmi'
+	button_icon = 'icons/hud/actions/actions_mime.dmi'
 	button_icon_state = "invisible_wall"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED
 	sound = null

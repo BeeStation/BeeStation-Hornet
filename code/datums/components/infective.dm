@@ -37,6 +37,22 @@
 	else if(istype(parent, /obj/effect/decal/cleanable/blood/gibs))
 		RegisterSignal(parent, COMSIG_GIBS_STREAK, PROC_REF(try_infect_streak))
 
+/datum/component/infective/UnregisterFromParent()
+	. = ..()
+	UnregisterSignal(parent, list(
+		COMSIG_COMPONENT_CLEAN_ACT,
+		COMSIG_MOVABLE_BUCKLE,
+		COMSIG_MOVABLE_BUMP,
+		COMSIG_MOVABLE_IMPACT_ZONE,
+		COMSIG_ITEM_ATTACK_ZONE,
+		COMSIG_ITEM_ATTACK,
+		COMSIG_ITEM_EQUIPPED,
+		COMSIG_FOOD_EATEN,
+		COMSIG_GLASS_DRANK,
+		COMSIG_GIBS_STREAK,
+	))
+	qdel(GetComponent(/datum/component/connect_loc_behalf))
+
 /datum/component/infective/proc/try_infect_eat(datum/source, mob/living/eater, mob/living/feeder)
 	SIGNAL_HANDLER
 

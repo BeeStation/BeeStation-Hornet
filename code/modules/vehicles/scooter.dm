@@ -20,7 +20,7 @@
 		qdel(src)
 	return TRUE
 
-/obj/vehicle/ridden/scooter/Moved()
+/obj/vehicle/ridden/scooter/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	for(var/m in buckled_mobs)
 		var/mob/living/buckled_mob = m
@@ -153,7 +153,7 @@
 
 
 /obj/vehicle/ridden/scooter/skateboard/proc/pick_up_board(mob/living/carbon/skater)
-	if (skater.incapacitated() || !Adjacent(skater))
+	if (skater.incapacitated || !Adjacent(skater))
 		return
 	if(has_buckled_mobs())
 		to_chat(skater, span_warning("You can't lift this up when somebody's on it."))

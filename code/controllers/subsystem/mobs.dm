@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(mobs)
 	name = "Mobs"
 	priority = FIRE_PRIORITY_MOBS
-	flags = SS_KEEP_TIMING | SS_NO_INIT
+	ss_flags = SS_KEEP_TIMING | SS_NO_INIT
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 2 SECONDS
 
@@ -10,6 +10,7 @@ SUBSYSTEM_DEF(mobs)
 	var/static/list/clients_by_zlevel[][]
 	var/static/list/dead_players_by_zlevel[][] = list(list()) // Needs to support zlevel 1 here, MaxZChanged only happens when z2 is created and new_players can login before that.
 	var/static/list/cubemonkeys = list()
+	var/static/list/cheeserats = list()
 
 	var/datum/spawners_menu/spawner_menu
 

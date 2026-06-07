@@ -16,6 +16,7 @@
 	list/canthold,
 	storage_type = /datum/storage,
 )
+	RETURN_TYPE(/datum/storage)
 
 	if(atom_storage)
 		QDEL_NULL(atom_storage)
@@ -29,6 +30,8 @@
 
 /// A quick and easy way to /clone/ a storage datum for an atom (does not copy over contents, only the datum details)
 /atom/proc/clone_storage(datum/storage/cloning)
+	RETURN_TYPE(/datum/storage)
+
 	if(atom_storage)
 		QDEL_NULL(atom_storage)
 

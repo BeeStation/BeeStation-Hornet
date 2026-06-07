@@ -24,8 +24,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/radio/intercom)
 	GLOB.intercoms_list += src
 
 /obj/item/radio/intercom/Destroy()
-	. = ..()
 	GLOB.intercoms_list -= src
+	return ..()
 
 /obj/item/radio/intercom/examine(mob/user)
 	. = ..()
@@ -96,7 +96,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/radio/intercom)
 	return TRUE
 
 
-/obj/item/radio/intercom/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, list/spans, list/message_mods = list())
+/obj/item/radio/intercom/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range)
 	if(message_mods[RADIO_EXTENSION] == MODE_INTERCOM)
 		return  // Avoid hearing the same thing twice
 	return ..()

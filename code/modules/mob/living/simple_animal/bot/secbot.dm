@@ -1,7 +1,7 @@
 /mob/living/simple_animal/bot/secbot
 	name = "\improper Securitron"
 	desc = "A little security robot.  He looks less than thrilled."
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "secbot"
 	density = FALSE
 	anchored = FALSE
@@ -18,12 +18,12 @@
 	window_id = "autosec"
 	window_name = "Automatic Security Unit v1.6"
 	allow_pai = 0
-	data_hud_type = DATA_HUD_SECURITY_ADVANCED
-	path_image_color = "#FF0000"
+	data_hud_type = TRAIT_SECURITY_HUD
+	path_image_color = COLOR_RED
 	boot_delay = 8 SECONDS
 
 	var/noloot = FALSE
-	var/baton_type = /obj/item/melee/baton
+	var/baton_type = /obj/item/melee/baton/security
 	var/mob/living/carbon/target
 	var/oldtarget_name
 	var/threatlevel = FALSE
@@ -45,12 +45,7 @@
 /mob/living/simple_animal/bot/secbot/beepsky/jr
 	name = "Officer Pipsqueak"
 	desc = "It's Officer Beep O'sky's smaller, just-as aggressive cousin, Pipsqueak."
-
-/mob/living/simple_animal/bot/secbot/beepsky/jr/Initialize(mapload)
-	. = ..()
-	resize = 0.8
-	update_transform()
-
+	initial_size = 0.8
 
 /mob/living/simple_animal/bot/secbot/beepsky/explode()
 	var/atom/Tsec = drop_location()
@@ -74,7 +69,7 @@
 
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	secsensor.add_hud_to(src)
+	secsensor.show_to(src)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -103,6 +98,14 @@
 	text_hack = "You overload [name]'s target identification system."
 	text_dehack = "You reboot [name] and restore the target identification."
 	text_dehack_fail = "[name] refuses to accept your authority!"
+
+/*
+/mob/living/simple_animal/bot/secbot/handle_atom_del(atom/deleting_atom)
+	if(deleting_atom == weapon)
+		weapon = null
+		update_appearance()
+	return ..()
+*/
 
 /mob/living/simple_animal/bot/secbot/ui_data(mob/user)
 	var/list/data = ..()
@@ -186,7 +189,7 @@
 				retaliate(Proj.firer)
 	return ..()
 
-/mob/living/simple_animal/bot/secbot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/secbot/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(!on)
 		return
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
@@ -227,7 +230,11 @@
 
 /mob/living/simple_animal/bot/secbot/proc/stun_attack(mob/living/carbon/C)
 	var/judgment_criteria = judgment_criteria()
+	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
+	icon_state = "[initial(icon_state)]-c"
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance)), 0.2 SECONDS)
 	var/threat = 5
+
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(H.check_shields(src, 0))
@@ -241,16 +248,13 @@
 
 	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, "stamina")
 	C.apply_damage(60, STAMINA, BODY_ZONE_CHEST, armor_block)
-	C.apply_effect(EFFECT_STUTTER, 50)
+	C.set_stutter(10 SECONDS)
 	C.visible_message(
 		span_danger("[src] has stunned [C]!"),\
 		span_userdanger("[src] has stunned you!")
 	)
 
 	log_combat(src, C, "stunned")
-	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
-	icon_state = "[initial(icon_state)]-c"
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 2)
 
 /mob/living/simple_animal/bot/secbot/handle_automated_action()
 	if(!..())

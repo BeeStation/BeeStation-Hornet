@@ -41,7 +41,7 @@
 		real_wall.ScrapeAway()
 		var/turf/underneath = get_turf(src)
 		if(!isfloorturf(underneath)) //These can only be built on floors anyway, but the linter screams at me because space is left behind when they are forcibly deleted under some arcane conditions I can't replicate.
-			underneath.PlaceOnTop(/turf/open/floor/plating)
+			underneath.place_on_top(/turf/open/floor/plating)
 	real_wall = null
 	return ..()
 
@@ -77,7 +77,7 @@
 
 /obj/structure/falsewall/proc/place_real_wall()
 	var/turf/our_turf = get_turf(src) //Get the turf the false wall is on and temporarily store it
-	real_wall = our_turf.PlaceOnTop(walltype) //Place the real wall where the false wall is
+	real_wall = our_turf.place_on_top(walltype) //Place the real wall where the false wall is
 
 /obj/structure/falsewall/update_icon()//Calling icon_update will refresh the smoothwalls if it's closed, otherwise it will make sure the icon is correct if it's open
 	if(opening)
@@ -160,9 +160,10 @@
 	return null
 
 /obj/structure/falsewall/reinforced/attackby(obj/item/tool, mob/user)
-	..()
 	if(tool.tool_behaviour == TOOL_WIRECUTTER)
 		dismantle(user, TRUE, tool)
+		return TRUE
+	return ..()
 
 /*
  * Uranium Falsewalls
@@ -171,28 +172,32 @@
 /obj/structure/falsewall/uranium
 	mineral = /obj/item/stack/sheet/mineral/uranium
 	walltype = /turf/closed/wall/mineral/uranium
-	var/active = null
-	var/last_event = 0
 
-/obj/structure/falsewall/uranium/attackby(obj/item/W, mob/user, params)
+	COOLDOWN_DECLARE(radiate_cooldown)
+
+/obj/structure/falsewall/uranium/attackby(obj/item/attacking_item, mob/user, params)
 	radiate()
 	return ..()
 
 /obj/structure/falsewall/uranium/attack_hand(mob/user, list/modifiers)
 	radiate()
-	. = ..()
+	return ..()
 
 /obj/structure/falsewall/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event+15)
-			active = 1
-			radiation_pulse(src, 150)
-			for(var/turf/closed/wall/mineral/uranium/T in (RANGE_TURFS(1,src)-src))
-				T.radiate()
-			last_event = world.time
-			active = null
-			return
-	return
+	if(!COOLDOWN_FINISHED(src, radiate_cooldown))
+		return
+
+	COOLDOWN_START(src, radiate_cooldown, 1.5 SECONDS)
+	radiation_pulse(
+		src,
+		max_range = 2,
+		threshold = RAD_LIGHT_INSULATION,
+		intensity = URANIUM_IRRADIATION_INTENSITY,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
+	)
+
+	for(var/turf/closed/wall/mineral/uranium/uranium_wall in (RANGE_TURFS(1, src) - src))
+		uranium_wall.radiate()
 /*
  * Other misc falsewall types
  */
@@ -222,7 +227,7 @@
 	AddElement(/datum/element/atmos_sensitive)
 
 /obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.is_hot() > 300)
+	if(W.get_temperature() > 300)
 		if(plasma_ignition(6, user))
 			new /obj/structure/girder/displaced(loc)
 

@@ -5,7 +5,7 @@
 		humankind. The jewelry he kept for himself."
 	icon = 'icons/obj/candle.dmi'
 	icon_state = "candle1"
-	item_state = "candle1"
+	inhand_icon_state = "candle1"
 	w_class = WEIGHT_CLASS_TINY
 	light_color = LIGHT_COLOR_FIRE
 	heat = 1000
@@ -40,7 +40,7 @@
 		light() //honk
 	return ..()
 
-/obj/item/candle/is_hot()
+/obj/item/candle/get_temperature()
 	return lit * heat
 
 /obj/item/candle/proc/light(show_message)

@@ -93,7 +93,7 @@
 /obj/item/papercutter/MouseDrop(atom/over_object)
 	. = ..()
 	var/mob/M = usr
-	if(M.incapacitated() || !Adjacent(M))
+	if(M.incapacitated || !Adjacent(M))
 		return
 
 	if(over_object == M)
@@ -129,6 +129,6 @@
 	desc = "The blade of a paper cutter. Most likely removed for polishing or sharpening."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "cutterblade"
-	item_state = "knife"
+	inhand_icon_state = "knife"
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'

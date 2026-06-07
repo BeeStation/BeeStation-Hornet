@@ -3,13 +3,13 @@
 	icon_state = "fedora"
 	icon = 'icons/obj/clothing/head/hats.dmi'
 	worn_icon = 'icons/mob/clothing/head/hats.dmi'
-	item_state = "fedora"
+	inhand_icon_state = "fedora"
 	desc = "A really cool hat if you're a mobster. A really lame hat if you're not."
 
 /obj/item/clothing/head/fedora/Initialize(mapload)
 	. = ..()
-
-	create_storage(storage_type = /datum/storage/pockets/small/fedora)
+	if(!istype(atom_storage))
+		create_storage(storage_type = /datum/storage/pockets/small/fedora)
 
 /obj/item/clothing/head/fedora/suicide_act(mob/living/user)
 	if(user.gender == FEMALE)

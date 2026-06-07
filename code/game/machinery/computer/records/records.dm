@@ -37,6 +37,9 @@
 
 	var/mob/user = ui.user
 
+	if (issilicon(user)) // Silicons are forbidden from editing records.
+		return FALSE
+
 	var/datum/record/crew/target_record
 	if(params["record_ref"])
 		target_record = locate(params["record_ref"]) in GLOB.manifest.general
@@ -167,7 +170,7 @@
 		playsound(src, 'sound/machines/terminal_error.ogg', 70, TRUE)
 		return FALSE
 
-	if(mugshot.picture.psize_x > world.icon_size || mugshot.picture.psize_y > world.icon_size)
+	if(mugshot.picture.psize_x > ICON_SIZE_X || mugshot.picture.psize_y > ICON_SIZE_Y)
 		balloon_alert(user, "photo too large!")
 		playsound(src, 'sound/machines/terminal_error.ogg', 70, TRUE)
 		return FALSE

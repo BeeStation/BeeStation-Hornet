@@ -22,7 +22,7 @@
 	/// The power of the bolt itself
 	var/bolt_power = 20000
 	/// The flags the bolt itself takes when zapping someone
-	var/bolt_flags =  TESLA_MOB_DAMAGE
+	var/bolt_flags =  ZAP_MOB_DAMAGE
 
 /datum/action/spell/pointed/projectile/lightningbolt/Grant(mob/grant_to)
 	. = ..()

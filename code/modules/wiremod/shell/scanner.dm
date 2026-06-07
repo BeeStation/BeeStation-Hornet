@@ -8,7 +8,7 @@
 	desc = "A handheld device that lets you scan people"
 	icon = 'icons/obj/wiremod.dmi'
 	icon_state = "setup_small"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'

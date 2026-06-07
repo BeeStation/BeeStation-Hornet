@@ -1,5 +1,5 @@
-import { map } from 'common/collections';
 import { toFixed } from 'common/math';
+import { map } from 'es-toolkit/compat';
 
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NumberInput, Section } from '../components';
@@ -30,8 +30,8 @@ export const Radio = (props) => {
   }));
   return (
     <Window
-      width={360}
-      height={106 + (channels.len > 0 ? 6 + channels.len * 21 : 24)}
+      width={370}
+      height={106 + (channels.length > 0 ? 10 + channels.length * 22 : 24)}
     >
       <Window.Content>
         <Section>

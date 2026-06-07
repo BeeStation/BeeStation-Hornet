@@ -256,7 +256,6 @@
 					"volume" = created_amount,
 					"path" = result_path,
 					"description" = result_path::description,
-					"addiction" = result_path::addiction_threshold,
 					"overdose" = result_path::overdose_threshold,
 				))
 			//if (!results.len)
@@ -369,7 +368,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	var/list/datum/reagents/R = list()
-	var/total = min(rand(7,15), FLOOR(cell.charge*powerefficiency, 1))
+	var/total = min(rand(7,15), floor(cell.charge*powerefficiency))
 	var/datum/reagents/Q = new(total*10)
 	if(beaker && beaker.reagents)
 		R += beaker.reagents

@@ -3,7 +3,7 @@
 	name = "Oath of Flame"
 	desc = "For a minute, you will passively create a ring of fire around you."
 	background_icon_state = "bg_heretic"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "fire_ring"
 
 	school = SCHOOL_FORBIDDEN
@@ -32,7 +32,7 @@
 /// Simple status effect for adding a ring of fire around a mob.
 /datum/status_effect/fire_ring
 	id = "fire_ring"
-	tick_interval = 0.1 SECONDS
+	tick_interval = 0.2 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = null
 	/// The radius of the ring around us.
@@ -43,7 +43,7 @@
 	src.ring_radius = radius
 	return ..()
 
-/datum/status_effect/fire_ring/tick(delta_time, times_fired)
+/datum/status_effect/fire_ring/tick(seconds_between_ticks)
 	if(QDELETED(owner) || owner.stat == DEAD)
 		qdel(src)
 		return
@@ -53,16 +53,16 @@
 
 	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, owner))
 		new /obj/effect/hotspot(nearby_turf)
-		nearby_turf.hotspot_expose(750, 25 * delta_time, 1)
+		nearby_turf.hotspot_expose(750, 25 * seconds_between_ticks, 1)
 		for(var/mob/living/fried_living in nearby_turf.contents - owner)
-			fried_living.apply_damage(2.5 * delta_time, BURN)
+			fried_living.apply_damage(2.5 * seconds_between_ticks, BURN)
 
 /// Creates one, large, expanding ring of fire around the caster, which does not follow them.
 /datum/action/spell/fire_cascade
 	name = "Lesser Fire Cascade"
 	desc = "Heats the air around you."
 	background_icon_state = "bg_heretic"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "fire_ring"
 	sound = 'sound/items/welder.ogg'
 
@@ -100,7 +100,7 @@
 	name = "Nightwatcher's Rite"
 	desc = "A powerful spell that releases five streams of eldritch fire towards the target."
 	background_icon_state = "bg_heretic"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "flames"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
@@ -133,7 +133,7 @@
 		if(!check)
 			break
 		T = check
-	return (getline(user, T) - get_turf(user))
+	return (get_line(user, T) - get_turf(user))
 
 /datum/action/spell/pointed/ash_beams/proc/fire_line(atom/source, list/turfs)
 	var/list/hit_list = list()

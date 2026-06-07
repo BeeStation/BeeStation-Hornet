@@ -54,32 +54,32 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	icon_state_open = "reactor_open"
 	icon_state_off = "reactor"
 
-
 	//Processing checks
 
-	///Checks if the user has started the machine
+	/// Checks if the user has started the machine
 	var/start_power = FALSE
-	///Checks for the cooling to start
+	/// Checks for the cooling to start
 	var/start_cooling = FALSE
-	///Checks for the moderators to be injected
+	/// Checks for the moderators to be injected
 	var/start_moderator = FALSE
 
 	// RBMK internal gasmix
 
-	//Stores the information for the control rods computer
+	/// Stores the information for the control rods computer
 	var/obj/machinery/computer/reactor/control_rods/linked_interface
-	//Stores the information of the moderator input
+	/// Stores the information of the moderator input
 	var/obj/machinery/atmospherics/components/unary/rbmk/moderator_input/linked_moderator
-	///Stores the information of the fuel input
+	/// Stores the information of the fuel input
 	var/obj/machinery/atmospherics/components/unary/rbmk/coolant_input/linked_input
-	///Stores the information of the waste output
+	/// Stores the information of the waste output
 	var/obj/machinery/atmospherics/components/unary/rbmk/waste_output/linked_output
-	///Stores the information of the corners of the machine
+	/// Stores the information of the corners of the machine
 	var/list/corners = list()
-	///Stores the three inputs/outputs of the RBMK
+	/// Stores the three inputs/outputs of the RBMK
 	var/list/machine_parts = list()
 
-	//Variables essential to operation
+	// Variables essential to operation
+
 	var/temperature =  0//Lose control of this -> Meltdown
 	var/pressure = 0 //Lose control of this -> Blowout
 	var/rate_of_reaction = 0 //Rate of reaction.
@@ -92,66 +92,75 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	var/gas_absorption_constant = 0.5 //We refer to this one as it's set on init, randomized.
 	var/minimum_coolant_level = 5
 
-	///Our internal radio
+	/// Our internal radio
 	var/obj/item/radio/radio
-	///The key our internal radio uses
+	/// The key our internal radio uses
 	var/radio_key = /obj/item/encryptionkey/headset_eng
-	///The engineering channel
+	/// The engineering channel
 	var/engineering_channel = "Engineering"
-	///The common channel
+	/// The common channel
 	var/common_channel = null
 
-	//Our soundloop for the alarm
+	/// Our soundloop for the alarm
 	var/datum/looping_sound/rbmk/alarmloop
 	var/alarm = FALSE //Is the alarm playing already?
 
-	//Soundloop for ambience
+	/// Soundloop for ambience
 	var/datum/looping_sound/rbmk_ambience/soundloop
 
-	//Console statistics
+	/// Console statistics
 	var/last_coolant_temperature = 0
 	var/last_output_temperature = 0
 	var/last_heat_delta = 0 //For administrative cheating only. Knowing the delta lets you know EXACTLY what to set rate_of_reaction at.
 	var/no_coolant_ticks = 0	//How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
 
-	///Time in 1/10th of seconds since the last sent warning
+	/// Time in 1/10th of seconds since the last sent warning
 	var/lastwarning = 0
-	///Boolean used for logging if we've passed the emergency point
+	/// Boolean used for logging if we've passed the emergency point
 	var/has_reached_emergency = FALSE
 
-	///Integrity of the machine, if reaches 900 the machine will explode. 1 so it doesnt stunlock itself and never change for damage calculations
+	/// Integrity of the machine, if reaches 900 the machine will explode. 1 so it doesnt stunlock itself and never change for damage calculations
 	var/critical_threshold_proximity = 0
-	///Store the integrity for calculations
+	/// Store the integrity for calculations
 	var/critical_threshold_proximity_archived = 0
-	///Our "Shit is no longer fucked" message. We send it when critical_threshold_proximity is less then critical_threshold_proximity_archived
+	/// Our "Shit is no longer fucked" message. We send it when critical_threshold_proximity is less then critical_threshold_proximity_archived
 	var/safe_alert = "RBMK reactor returning to safe operating parameters."
-	///The point at which we should start sending messeges about the critical_threshold_proximity to the engi channels.
+	/// The point at which we should start sending messeges about the critical_threshold_proximity to the engi channels.
 	var/warning_point = 50
-	///The alert we send when we've reached warning_point
+	/// The alert we send when we've reached warning_point
 	var/warning_alert = "Danger! RBMK reactor faltering!"
-	///The point at which we start sending messages to the common channel
+	/// The point at which we start sending messages to the common channel
 	var/emergency_point = 700
-	///The alert we send when we've reached emergency_point
+	/// The alert we send when we've reached emergency_point
 	var/emergency_alert = "NUCLEAR REACTOR MELTDOWN IMMINENT."
-	///The point at which we melt
+	/// The point at which we melt
 	var/melting_point = 900
-	//Light flicker timer
+	/// Light flicker timer
 	var/next_flicker = 0
-	//For logging purposes
+	/// For logging purposes
 	var/last_power_produced = 0
-	///Var used in the meltdown phase
+	/// Var used in the meltdown phase
 	var/final_countdown = FALSE
 
-	///Flags used in the alert proc to select what messages to show when the reactor is delaminating (RBMK_PRESSURE_DAMAGE | RBMK_TEMPERATURE_DAMAGE)
+	/// Flags used in the alert proc to select what messages to show when the reactor is delaminating (RBMK_PRESSURE_DAMAGE | RBMK_TEMPERATURE_DAMAGE)
 	var/warning_damage_flags = NONE
 
-	//Counter for number of reactors on a server
+	/// Counter for number of reactors on a server
 	var/static/reactorcount = 0
 
-	//Grilling.
+	/// Grilling.
 	var/grill_time = 0
 	var/datum/looping_sound/grill/grill_loop
 	var/obj/item/food/grilled_item
+
+	/// Used to create a graph on the reactor UI
+	var/list/logged_pressure = list()
+	var/list/logged_power = list()
+	var/list/logged_coolant_input_temp = list()
+	var/list/logged_coolant_output_temp = list()
+	/// How often we update the logged data
+	var/stat_update_delay = 1 SECONDS
+	COOLDOWN_DECLARE(next_stat_interval)
 
 /obj/effect/overlay/reactor_top_0
 	name = "reactor overlay"
@@ -210,6 +219,9 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	connect_nodes()
 	update_appearance()
 	update_pipenets()
+
+	uid = gl_uid
+	gl_uid++
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/Destroy()
 	soundloop.stop()
@@ -287,3 +299,66 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 		if(95 to 100)
 			msg = span_notice("[src]'s seals look factory new, and the reactor's in excellent shape.")
 	. += msg
+
+// Nuclear reactor UI for ghosts only. Inherited attack_ghost will call this.
+/obj/machinery/atmospherics/components/unary/rbmk/core/ui_interact(mob/user, datum/tgui/ui)
+	if(!isobserver(user))
+		return FALSE
+	. = ..()
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Rbmk")
+		ui.set_autoupdate(TRUE)
+		ui.open()
+
+/obj/machinery/atmospherics/components/unary/rbmk/core/ui_data()
+	var/list/data = list()
+	data["rbmk_data"] = list(rbmk_ui_data())
+	return data
+
+/**
+ * Log the last 100 seconds of data for the RBMK reactor.
+ * This is used to create graphs in the UI.
+**/
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/update_logged_data()
+	COOLDOWN_START(src, next_stat_interval, stat_update_delay)
+
+	// Pressure
+	logged_pressure += pressure
+	if(length(logged_pressure) > 100)
+		logged_pressure.Cut(1, 2)
+
+	// Power
+	logged_power += power * 10
+	if(length(logged_power) > 100)
+		logged_power.Cut(1, 2)
+
+	// Input coolant temp
+	logged_coolant_input_temp += last_coolant_temperature
+	if(length(logged_coolant_input_temp) > 100)
+		logged_coolant_input_temp.Cut(1, 2)
+
+	// Output coolant temp
+	logged_coolant_output_temp += last_output_temperature
+	if(length(logged_coolant_output_temp) > 100)
+		logged_coolant_output_temp.Cut(1, 2)
+
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/rbmk_ui_data()
+	var/list/data = list()
+	data["uid"] = uid
+	data["area_name"] = get_area_name(src)
+
+	// Immediate values
+	data["integrity"] = get_integrity_percent()
+	data["coolant_input_temp"] = last_coolant_temperature
+	data["coolant_output_temp"] = last_output_temperature
+	data["power"] = power
+	data["pressure"] = pressure
+
+	// Graph stuff
+	data["logged_pressure"] = logged_pressure
+	data["logged_power"] = logged_power
+	data["logged_coolant_input_temp"] = logged_coolant_input_temp
+	data["logged_coolant_output_temp"] = logged_coolant_output_temp
+
+	return data

@@ -167,17 +167,17 @@
 		// Heal them up - gets them out of crit/soft crit.
 		M.reagents.add_reagent(/datum/reagent/medicine/stabilizing_nanites, 10)
 		M.flash_act()
-		M.confused += 10
-		M.blur_eyes(5)
+		M.adjust_confusion(10 SECONDS)
+		M.set_eye_blur_if_lower(10 SECONDS)
 		to_chat(M, span_warning("You feel strange..."))
 		sleep(60)
 		to_chat(M, span_warning("That pod did something to you..."))
-		M.Dizzy(35)
+		M.adjust_dizzy(3.5 SECONDS)
 		sleep(65)
 		to_chat(M, span_warning("Your head pounds... It feels like it's going to burst out your skull!"))
 		M.flash_act()
-		M.confused += 20
-		M.blur_eyes(3)
+		M.adjust_confusion(20 SECONDS)
+		M.set_eye_blur_if_lower(6 SECONDS)
 		sleep(30)
 		to_chat(M, span_warning("Your head pounds..."))
 		sleep(100)
@@ -186,9 +186,9 @@
 		to_chat(M, span_reallybighypnophrase("A million voices echo in your head... <i>\"Your mind held many valuable secrets - \
 					we thank you for providing them. Your value is expended, and you will be ransomed back to your station. We always get paid, \
 					so it's only a matter of time before we ship you back...\"</i>"))
-		M.blur_eyes(10)
-		M.Dizzy(15)
-		M.confused += 20
+		M.set_eye_blur_if_lower(20 SECONDS)
+		M.adjust_dizzy(1.5 SECONDS)
+		M.adjust_confusion(20 SECONDS)
 
 // We're returning the victim
 /datum/syndicate_contract/proc/returnVictim(mob/living/M)
@@ -225,9 +225,9 @@
 		M.forceMove(return_pod)
 
 		M.flash_act()
-		M.blur_eyes(30)
-		M.Dizzy(35)
-		M.confused += 20
+		M.set_eye_blur_if_lower(60 SECONDS)
+		M.adjust_dizzy(3.5 SECONDS)
+		M.adjust_confusion(20 SECONDS)
 
 		new /obj/effect/pod_landingzone(possible_drop_loc[pod_rand_loc], return_pod)
 	else

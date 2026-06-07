@@ -5,7 +5,7 @@
 	department_head_for_prefs = JOB_NAME_HEADOFSECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
@@ -22,6 +22,8 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_BRIG_PHYS
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Battle Cleric"
 
 	species_outfits = list(
@@ -29,7 +31,12 @@
 	)
 	biohazard = 25 //still deals with the sick and injured, just less than a medical doctor
 
-	minimal_lightup_areas = list(/area/medical/morgue)
+	minimal_lightup_areas = list(/area/station/medical/morgue)
+
+	manuscript_jobs = list(
+		JOB_NAME_BRIGPHYSICIAN,
+		JOB_NAME_PARAMEDIC // They're somewhat identical
+	)
 
 /datum/outfit/job/brig_physician
 	name = JOB_NAME_BRIGPHYSICIAN
@@ -51,6 +58,7 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
+	messenger = /obj/item/storage/backpack/messenger/med
 
 	box = /obj/item/storage/box/survival/security
 	chameleon_extras = /obj/item/gun/syringe

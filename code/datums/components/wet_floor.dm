@@ -68,29 +68,31 @@
 		current_overlay = intended
 		T.clean_turf_texture()
 
-/datum/component/wet_floor/proc/AfterSlip(mob/living/L)
-	if(highest_strength == TURF_WET_LUBE)
-		L.confused = max(L.confused, 8)
+/datum/component/wet_floor/proc/AfterSlip(mob/living/slipped)
+	if(highest_strength != TURF_WET_LUBE)
+		return
+
+	slipped.set_confusion_if_lower(8 SECONDS)
 
 /datum/component/wet_floor/proc/update_flags()
 	var/intensity
-	lube_flags = NONE
+	lube_flags = SLIPPERY_TURF
 	switch(highest_strength)
 		if(TURF_WET_WATER)
 			intensity = 60
-			lube_flags = NO_SLIP_WHEN_WALKING
+			lube_flags |= NO_SLIP_WHEN_WALKING
 		if(TURF_WET_LUBE)
 			intensity = 80
-			lube_flags = SLIDE | GALOSHES_DONT_HELP
+			lube_flags |= SLIDE | GALOSHES_DONT_HELP
 		if(TURF_WET_ICE)
 			intensity = 120
-			lube_flags = SLIDE | GALOSHES_DONT_HELP | NO_SLIP_ON_CATWALK
+			lube_flags |= SLIDE | GALOSHES_DONT_HELP
 		if(TURF_WET_PERMAFROST)
 			intensity = 120
-			lube_flags = SLIDE_ICE | GALOSHES_DONT_HELP | NO_SLIP_ON_CATWALK
+			lube_flags |= SLIDE_ICE | GALOSHES_DONT_HELP
 		if(TURF_WET_SUPERLUBE)
 			intensity = 120
-			lube_flags = SLIDE | GALOSHES_DONT_HELP | SLIP_WHEN_CRAWLING
+			lube_flags |= SLIDE | GALOSHES_DONT_HELP | SLIP_WHEN_CRAWLING
 		else
 			qdel(parent.GetComponent(/datum/component/slippery))
 			return

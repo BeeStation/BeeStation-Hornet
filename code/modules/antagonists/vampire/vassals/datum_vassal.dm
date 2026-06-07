@@ -1,44 +1,42 @@
 /datum/antagonist/vassal
 	name = "\improper Vassal"
-	roundend_category = "vassals"
+	roundend_category = "Vassal"
 	antagpanel_category = "Vampire"
+	antag_hud_name = "vassal"
 	banning_key = ROLE_VAMPIRE
 	show_in_roundend = FALSE
-
-	var/vassal_hud_name = "vassal"
 
 	/// The Master Vampire's antag datum.
 	var/datum/antagonist/vampire/master
 	/// The Vampire's team
 	var/datum/team/vampire/vampire_team
-	/// List of all Purchased Powers, like Vampires.
+	/// List of Powers, like Vampires.
 	var/list/datum/action/powers = list()
-	/// Whether this vassal is already a special type of Vassal.
-	var/special_type
-	/// Description of what this Vassal does.
-	var/vassal_description
 	/// A link to our team monitor, used to track our master.
 	var/datum/component/team_monitor/monitor
 
 /datum/antagonist/vassal/antag_panel_data()
 	return "Master : [master.owner.name]"
 
+/datum/antagonist/vassal/get_team()
+	return vampire_team
+
 /datum/antagonist/vassal/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 
-	RegisterSignal(current_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(current_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_examined))
 
 	// Tracking
 	setup_monitor(current_mob)
-	current_mob.grant_language(/datum/language/vampiric)
+	current_mob.grant_language(/datum/language/vampiric, source = REF(src))
 
 	// Team
 	vampire_team = master.vampire_team
 	vampire_team.add_member(current_mob.mind)
 	current_mob.faction |= FACTION_VAMPIRE
 
-	add_antag_hud(ANTAG_HUD_VAMPIRE, vassal_hud_name, current_mob)
+	add_team_hud(current_mob, /datum/antagonist/vassal)
 
 /datum/antagonist/vassal/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -48,7 +46,7 @@
 
 	// Tracking
 	QDEL_NULL(monitor)
-	current_mob.remove_language(/datum/language/vampiric)
+	current_mob.remove_language(/datum/language/vampiric, source = REF(src))
 
 	// Remove traits
 	for(var/vampire_trait in owner.current.status_traits)
@@ -59,24 +57,19 @@
 	vampire_team = null
 	current_mob.faction -= FACTION_VAMPIRE
 
-	remove_antag_hud(ANTAG_HUD_VAMPIRE, current_mob)
-
 /datum/antagonist/vassal/on_gain()
 	. = ..()
 	if(!master)
 		owner.remove_antag_datum(src)
 		CRASH("[owner.current] was vassilized without a master!")
 
+	ADD_TRAIT(owner, TRAIT_VAMPIRE_ALIGNED, REF(src))
 	RegisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN, PROC_REF(give_warning))
 
 	// Enslave them to their Master
 	master.vassals |= src
 	owner.enslave_mind_to_creator(master.owner)
 	owner.current.log_message("has been vassalized by [master.owner]!", LOG_ATTACK, color="#960000")
-
-	// Handle special vassalss
-	if(special_type)
-		master.special_vassals[special_type] += 1
 
 	// Give powers
 	grant_power(new /datum/action/vampire/recuperate)
@@ -86,12 +79,11 @@
 	forge_objectives()
 
 /datum/antagonist/vassal/on_removal()
+	REMOVE_TRAIT(owner, TRAIT_VAMPIRE_ALIGNED, REF(src))
 	UnregisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN)
 
 	// Free them from their Master
 	if(master)
-		if(special_type)
-			master.special_vassals[special_type] -= 1
 		master.vassals -= src
 		owner.enslaved_to = null
 
@@ -126,7 +118,7 @@
 	antag_memory += "You are the mortal servant of <b>[living_master]</b>, a vampire!<br>"
 
 	// Alert master
-	to_chat(living_master, span_userdanger("[living_vassal] has become addicted to your immortal blood. [living_vassal.p_they(TRUE)] [living_vassal.p_are()] now your undying servant"))
+	to_chat(living_master, span_userdanger("[living_vassal] has become addicted to your immortal blood. [living_vassal.p_They()] [living_vassal.p_are()] now your undying servant"))
 	living_master.playsound_local(null, 'sound/magic/mutate.ogg', 100, FALSE, pressure_affected = FALSE)
 
 /datum/antagonist/vassal/farewell()
@@ -134,7 +126,7 @@
 		return
 
 	owner.current.visible_message(
-		span_deconversionmessage("[owner.current]'s eyes dart feverishly from side to side, and then stop. [owner.current.p_they(TRUE)] seem[owner.current.p_s()] calm, \
+		span_deconversionmessage("[owner.current]'s eyes dart feverishly from side to side, and then stop. [owner.current.p_They()] seem[owner.current.p_s()] calm, \
 			like [owner.current.p_they()] [owner.current.p_have()] regained some lost part of [owner.current.p_them()]self."),
 		span_deconversionmessage("With a snap, you are no longer enslaved to [master.owner]! You breathe in heavily, having regained your free will.")
 	)
@@ -148,7 +140,7 @@
 	var/list/datum/mind/possible_vampires = list()
 
 	// Get possible vampires
-	for(var/datum/antagonist/vampire/vampire in GLOB.antagonists)
+	for(var/datum/antagonist/vampire/vampire in GLOB.active_antagonists)
 		var/datum/mind/vampire_mind = vampire.owner
 		if(QDELETED(vampire_mind?.current) || vampire_mind.current.stat == DEAD)
 			continue
@@ -170,7 +162,7 @@
 
 	to_chat(choice, span_notice("Through divine intervention, you've gained a new vassal!"))
 
-/datum/antagonist/vassal/proc/forge_objectives()
+/datum/antagonist/vassal/forge_objectives()
 	var/datum/objective/vampire/vassal/vassal_objective = new
 	vassal_objective.owner = owner
 	objectives += vassal_objective
@@ -184,15 +176,15 @@
 	monitor.add_to_tracking_network(master.tracker.tracking_beacon)
 	monitor.show_hud(target)
 
-/datum/antagonist/vassal/proc/on_examine(datum/source, mob/examiner, list/examine_text)
+/datum/antagonist/vassal/proc/on_examined(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
 
-	var/text = icon2html('icons/vampires/vampiric.dmi', world, "vassal")
+	var/text = "<img class='icon' src='\ref['icons/vampires/vampiric.dmi']?state=vassal'> "
 
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(examiner)
 	if(src in vampiredatum?.vassals)
 		text += span_cult("<EM>This is your vassal!</EM>")
 		examine_text += text
-	else if(vampiredatum || IS_CURATOR(examiner) || IS_VASSAL(examiner))
+	else if(HAS_MIND_TRAIT(examiner, TRAIT_VAMPIRE_ALIGNED) || IS_CURATOR(examiner))
 		text += span_cult("<EM>This is [master.return_full_name()]'s vassal</EM>")
 		examine_text += text

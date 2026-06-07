@@ -10,7 +10,7 @@
 	name = "Ethereal Disco Grenade"
 	desc = "An unethical micro-party that will make all non-Ethereal beings dance to its beat!"
 	icon_state = "disco"
-	item_state = "disco"
+	inhand_icon_state = "disco"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	var/list/messages = list("This party is great!", "Wooo!!!", "Party!", "Check out these moves!", "Hey, want to dance with me?")
@@ -40,7 +40,7 @@
 	name = "Micro Disco"
 	desc = "A massive disco contained in a tiny package!"
 	icon_state = "disco"
-	item_state = "disco"
+	inhand_icon_state = "disco"
 	var/spawn_new = TRUE
 	var/timerID
 	var/lightcolor
@@ -121,14 +121,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grenade/discogrenade/subgrenade)
 
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
 		M.show_message(span_warning("You resist your inner urges to break out your best moves."), 2)
-		M.set_drugginess(5)
+		M.set_drugginess(10 SECONDS)
 		return
 	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		to_chat(M, span_userdanger("THOSE GLOW-IN-THE-DARK NANOTRASEN LIGHTBULBS WON'T CORRUPT ME WITH THEIR AGENDA!"))
 		M.emote("scream")
 		return
 
-	M.set_drugginess(10)
+	M.set_drugginess(20 SECONDS)
 	M.show_message(span_warning("You feel a strong rythme and your muscles spasm uncontrollably, you begin dancing and cannot move!"), 2)
 	M.Immobilize(30)
 

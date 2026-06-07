@@ -2,10 +2,9 @@
 /datum/species/human/felinid
 	name = "\improper Felinid"
 	id = SPECIES_FELINID
-	bodyflag = FLAG_FELINID
 	examine_limb_id = SPECIES_HUMAN
 
-	mutant_bodyparts = list("tail_human" = "Cat", "ears" = "Cat", "wings" = "None", "body_size" = "Normal")
+	mutant_bodyparts = list("tail_human" = "Cat", "ears" = "Cat", "wings" = SPRITE_ACCESSORY_NONE, "body_size" = "Normal")
 	forced_features = list("tail_human" = "Cat", "ears" = "Cat")
 
 	mutantears = /obj/item/organ/ears/cat
@@ -36,9 +35,9 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(!pref_load)			//Hah! They got forcefully purrbation'd. Force default felinid parts on them if they have no mutant parts in those areas!
-			if(H.dna.features["tail_human"] == "None")
+			if(H.dna.features["tail_human"] == SPRITE_ACCESSORY_NONE)
 				H.dna.features["tail_human"] = "Cat"
-			if(H.dna.features["ears"] == "None")
+			if(H.dna.features["ears"] == SPRITE_ACCESSORY_NONE)
 				H.dna.features["ears"] = "Cat"
 		if(H.dna.features["ears"] == "Cat")
 			var/obj/item/organ/ears/cat/ears = new
@@ -110,7 +109,7 @@
 
 /datum/species/human/felinid/prepare_human_for_preview(mob/living/carbon/human/human)
 	human.hair_style = "Hime Cut"
-	human.hair_color = "fcc" // pink
+	human.hair_color = COLOR_PINK
 	human.update_hair()
 
 	var/obj/item/organ/ears/cat/cat_ears = human.get_organ_by_type(/obj/item/organ/ears/cat)

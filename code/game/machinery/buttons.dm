@@ -23,7 +23,6 @@
 	laser = 50
 	energy = 50
 	bomb = 10
-	rad = 100
 	fire = 90
 	acid = 70
 

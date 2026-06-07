@@ -55,7 +55,7 @@
 	for(var/mob/living/each_mob in target_turf.get_all_mobs()) // hiding in a closet? No, no, you cheater
 		if(each_mob.anti_artifact_check())
 			to_chat(each_mob, span_notice("A weird energy from you blocks the pulse."))
-			each_mob.adjust_blurriness(2.5)
+			each_mob.adjust_eye_blur(5 SECONDS)
 			continue
 		to_chat(each_mob, span_warning("A wave of dread washes over you..."))
 		each_mob.adjust_blindness(1.5) // very mild blindness

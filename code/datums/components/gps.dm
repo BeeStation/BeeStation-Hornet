@@ -57,7 +57,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	examine_list += span_notice("Alt-click to switch it [tracking ? "off":"on"].")
 
 ///Called on COMSIG_ATOM_EMP_ACT
-/datum/component/gps/item/proc/on_emp_act(datum/source, severity)
+/datum/component/gps/item/proc/on_emp_act(datum/source, severity, protection)
 	SIGNAL_HANDLER
 
 	emped = TRUE

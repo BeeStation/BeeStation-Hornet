@@ -48,22 +48,28 @@
 	var/memory
 	var/list/quirks = list()
 
-	/// Job datum indicating the mind's role. This should always exist after initialization, as a reference to a singleton.
-	var/datum/job/assigned_role
+	/// The role that this mob was assigned, as a text value, may be a job which GetJob can be called to fetch
+	var/assigned_role
+	/// cached /datum/job reference for the assigned_role. we can nuke this once assigned_role is no longer being used as a string
+	var/datum/job/assigned_role_datum
 	var/special_role
+
 	var/list/restricted_roles = list()
 	/// Martial art on this mind
 	var/datum/martial_art/martial_art = null
 	var/static/default_martial_art = new/datum/martial_art
-	var/miming = 0 // Mime's vow of silence
-	var/list/antag_datums
-	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
-	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
-	var/holy_role = NONE //is this person a chaplain or admin role allowed to use bibles, Any rank besides 'NONE' allows for this.
-	var/isAntagTarget = FALSE
-	var/no_cloning_at_all = FALSE
 
-	var/datum/mind/enslaved_to //If this mind's master is another mob (i.e. adamantine golems)
+	/// List of antag datums on this mind
+	var/list/antag_datums
+	/// This mind's antag HUD
+	var/datum/atom_hud/alternate_appearance/basic/antagonist_hud/antag_hud = null
+	/// The icon state of our most recently gained antag datum. Used for the player panel
+	var/antag_hud_icon_state = null
+	/// Is this person a chaplain or admin role allowed to use bibles, Any rank besides 'NONE' allows for this.
+	var/holy_role = NONE
+
+	/// If this mind's master is another mob (i.e. adamantine golems)
+	var/datum/mind/enslaved_to
 	var/unconvertable = FALSE
 	var/late_joiner = FALSE
 
@@ -78,17 +84,23 @@
 	var/list/special_statuses
 	/// your bank account id in your mind
 	var/account_id
+
 	/// A holder datum used to handle holoparasites and their shared behavior.
 	var/datum/holoparasite_holder/holoparasite_holder
 
-	/// The atom of our antag stash
-	var/atom/antag_stash = null
+	/// A list of all antag stashes that we can see
+	var/list/antag_stashes = null
 
 	/// Boolean value indicating if the mob attached to this mind entered cryosleep.
 	var/cryoed = FALSE
 
 	/// What color our soul is
 	var/soul_glimmer
+
+	///Assoc list of addiction values, key is the type of withdrawal (as singleton type), and the value is the amount of addiction points (as number)
+	var/list/addiction_points
+	///Assoc list of key active addictions and value amount of cycles that it has been active.
+	var/list/active_addictions
 
 /datum/mind/New(key)
 	src.key = key
@@ -101,6 +113,7 @@
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
+	QDEL_NULL(antag_hud)
 	QDEL_LIST(antag_datums)
 	set_current(null)
 	return ..()
@@ -121,12 +134,12 @@
 /datum/mind/proc/transfer_to(mob/new_character, force_key_move = 0)
 	if(current)	// remove ourself from our old body's mind variable
 		current.mind = null
-		UnregisterSignal(current, COMSIG_MOB_DEATH)
+		UnregisterSignal(current, COMSIG_LIVING_DEATH)
 		SStgui.on_transfer(current, new_character)
 
 	if(key)
-		if(new_character.key != key)					//if we're transferring into a body with a key associated which is not ours
-			new_character.ghostize(TRUE,SENTIENCE_ERASE)						//we'll need to ghostize so that key isn't mobless.
+		if(new_character.key != key) //if we're transferring into a body with a key associated which is not ours
+			new_character.ghostize(TRUE,SENTIENCE_ERASE) //we'll need to ghostize so that key isn't mobless.
 	else
 		key = new_character.key
 		var/client/found_client = GLOB.directory[ckey(key)]
@@ -134,10 +147,9 @@
 			src.display_name = found_client.display_name()
 			src.display_name_chat = found_client.display_name_chat()
 
-	if(new_character.mind)								//disassociate any mind curently in our new body's mind variable
+	if(new_character.mind) //disassociate any mind curently in our new body's mind variable
 		new_character.mind.set_current(null)
 
-	var/datum/atom_hud/antag/hud_to_transfer = antag_hud//we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
 	if(old_current)
 		//transfer anyone observing the old character to the new one
@@ -155,7 +167,9 @@
 		temp_holder.transfer_mind_languages(old_holder)
 
 	set_current(new_character) //associate ourself with our new body
-	new_character.mind = src							//and associate our new body with ourself
+	QDEL_NULL(antag_hud)
+	new_character.mind = src //and associate our new body with ourself
+	antag_hud = new_character.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/antagonist_hud, "combo_hud", src)
 
 	for(var/datum/quirk/T as() in quirks) //Retarget all traits this mind has
 		T.transfer_mob(new_character)
@@ -165,9 +179,8 @@
 	if(iscarbon(new_character))
 		var/mob/living/carbon/C = new_character
 		C.last_mind = src
-	transfer_antag_huds(hud_to_transfer) //Inherit the antag HUD
 	transfer_martial_arts(new_character) //Todo: Port this proc
-	RegisterSignal(new_character, COMSIG_MOB_DEATH, PROC_REF(set_death_time))
+	RegisterSignal(new_character, COMSIG_LIVING_DEATH, PROC_REF(set_death_time))
 	if(active || force_key_move)
 		new_character.key = key //now transfer the key to link the client to our new body
 	if(new_character.client)
@@ -196,7 +209,7 @@
 	memory = null
 
 // Datum antag mind procs
-/datum/mind/proc/add_antag_datum(datum_type_or_instance, team)
+/datum/mind/proc/add_antag_datum(datum_type_or_instance, team, datum/dynamic_ruleset/ruleset)
 	if(!datum_type_or_instance)
 		return
 	var/datum/antagonist/A
@@ -217,6 +230,7 @@
 	A.owner = src
 	LAZYADD(antag_datums, A)
 	A.create_team(team)
+	S.spawning_ruleset = ruleset
 	var/datum/team/antag_team = A.get_team()
 	if(antag_team)
 		antag_team.add_member(src)
@@ -237,6 +251,7 @@
 		antag.on_removal()
 
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
+	RETURN_TYPE(/datum/antagonist)
 	if(!datum_type)
 		return
 
@@ -247,11 +262,30 @@
 		else if(A.type == datum_type)
 			return A
 
-/datum/mind/proc/equip_traitor(employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = TELECRYSTALS_DEFAULT)
+/datum/mind/proc/equip_traitor(datum/antagonist/traitor/antag_datum, employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = TELECRYSTALS_DEFAULT)
 	if(!current)
 		return
 	var/mob/living/carbon/human/traitor_mob = current
 	if (!istype(traitor_mob))
+		return
+
+	var/obj/item/implant/uplink/starting/I = new(traitor_mob)
+	I.implant(traitor_mob, null, silent = TRUE)
+	var/datum/component/uplink/U = I.GetComponents(/datum/component/uplink)[1]
+	if(!silent)
+		U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly implanted [employer == "You" ? "yourself" : "you"] with a Syndicate Uplink. Simply trigger the uplink to access it."
+		to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
+		traitor_mob.mind.store_memory()
+	return I
+
+/datum/mind/proc/equip_standard_uplink(employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = TELECRYSTALS_DEFAULT, directive_flags = NONE)
+	RETURN_TYPE(/datum/component/uplink)
+	if(!current)
+		return
+	var/mob/living/carbon/human/traitor_mob = current
+	if (!istype(traitor_mob))
+		return
+	if (!traitor_mob.mind)
 		return
 
 	var/list/all_contents = traitor_mob.GetAllContents()
@@ -273,7 +307,6 @@
 			P = inowhaveapen
 
 	var/obj/item/uplink_loc
-	var/implant = FALSE
 
 	var/uplink_spawn_location = traitor_mob.client?.prefs?.read_character_preference(/datum/preference/choiced/uplink_location)
 	switch(uplink_spawn_location)
@@ -299,41 +332,25 @@
 					uplink_loc = P
 		if(UPLINK_PEN)
 			uplink_loc = P
-		if(UPLINK_PEN)
-			uplink_loc = P
-		if(UPLINK_IMPLANT)
-			implant = TRUE
 
-	if(!uplink_loc) // We've looked everywhere, let's just implant you
-		implant = TRUE
+	var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.mind, TRUE, FALSE, starting_tc = telecrystals, directive_flags = directive_flags)
+	if(!U)
+		CRASH("Uplink creation failed.")
+	U.setup_unlock_code()
+	if(uplink_loc == R)
+		U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [R.name]. Simply speak [U.unlock_code] into the :d channel to unlock its hidden features."
+	else if(uplink_loc == PDA)
+		U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
+	else if(uplink_loc == P)
+		U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."
+	if(!silent)
+		to_chat(traitor_mob, span_traitorobjective("[U.unlock_text]"))
 
-	if (!implant)
-		. = uplink_loc
-		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, starting_tc = telecrystals)
-		if(!U)
-			CRASH("Uplink creation failed.")
-		U.setup_unlock_code()
-		if(!silent)
-			if(uplink_loc == R)
-				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [R.name]. Simply speak [U.unlock_code] into the :d channel to unlock its hidden features."
-			else if(uplink_loc == PDA)
-				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
-			else if(uplink_loc == P)
-				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."
-			to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
-
-		if(uplink_owner)
-			uplink_owner.antag_memory += U.unlock_note + "<br>"
-		else
-			traitor_mob.mind.store_memory(U.unlock_note)
+	if(uplink_owner)
+		uplink_owner.antag_memory += U.unlock_note + "<br>"
 	else
-		var/obj/item/implant/uplink/starting/I = new(traitor_mob)
-		I.implant(traitor_mob, null, silent = TRUE)
-		var/datum/component/uplink/U = I.GetComponent(/datum/component/uplink)
-		if(!silent)
-			U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly implanted [employer == "You" ? "yourself" : "you"] with a Syndicate Uplink (although uplink implants cost valuable TC, so you will have slightly less). Simply trigger the uplink to access it."
-			to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
-		return I
+		traitor_mob.mind.store_memory(U.unlock_note)
+	return U
 
 //Link a new mobs mind to the creator of said mob. They will join any team they are currently on, and will only switch teams when their creator does.
 
@@ -343,8 +360,9 @@
 		creator = mob_creator.mind
 	if(!creator || !istype(creator))
 		return
-	if(creator.has_antag_datum(/datum/antagonist/cult))
-		add_antag_datum(/datum/antagonist/cult)
+	var/datum/antagonist/master_cultist = creator.has_antag_datum(/datum/antagonist/cult)
+	if(master_cultist)
+		add_antag_datum(/datum/antagonist/cult, ruleset = master_cultist.spawning_ruleset)
 	else if(creator.has_antag_datum(/datum/antagonist/servant_of_ratvar))
 		INVOKE_ASYNC(src, PROC_REF(add_servant_of_ratvar), current, TRUE)
 	if(creator.has_antag_datum(/datum/antagonist/rev))
@@ -355,7 +373,7 @@
 		var/datum/antagonist/nukeop/nukie_datum = new()
 		nukie_datum.send_to_spawnpoint = FALSE
 		nukie_datum.nukeop_outfit = null
-		add_antag_datum(nukie_datum, creator_nukie.nuke_team)
+		add_antag_datum(nukie_datum, creator_nukie.nuke_team, ruleset = nukie_datum.spawning_ruleset)
 	enslaved_to = creator
 	if(creator.current)
 		current.faction |= creator.current.faction
@@ -417,7 +435,7 @@
 		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in sort_list(get_all_jobs())
 		if (!new_role)
 			return
-		assigned_role = new_role
+		set_assigned_role(new_role)
 
 	else if (href_list["memory_edit"])
 		var/new_memo = stripped_multiline_input(usr, "Write new memory", "Memory", memory, MAX_MESSAGE_LEN)
@@ -461,9 +479,6 @@
 							target_antag = add_antag_datum(/datum/antagonist/custom)
 						else
 							target_antag = target
-
-		if(!GLOB.admin_objective_list)
-			generate_admin_objective_list()
 
 		if(old_objective)
 			if(old_objective.name in GLOB.admin_objective_list)
@@ -561,7 +576,7 @@
 							message_admins("[key_name_admin(usr)] changed [current]'s telecrystal count to [crystals].")
 							log_admin("[key_name(usr)] changed [current]'s telecrystal count to [crystals].")
 			if("uplink")
-				if(!equip_traitor())
+				if(!equip_traitor(has_antag_datum(/datum/antagonist/traitor)))
 					to_chat(usr, span_danger("Equipping a syndicate failed!"))
 					log_admin("[key_name(usr)] tried and failed to give [current] an uplink.")
 				else
@@ -591,8 +606,8 @@
 /datum/mind/proc/is_murderbone()
 	if(enslaved_to?.is_murderbone())
 		return TRUE
-	for(var/datum/objective/O as() in get_all_objectives())
-		if(O.murderbone_flag)
+	for(var/datum/objective/objective as anything in get_all_objectives())
+		if(objective.murderbone_flag)
 			return TRUE
 	return FALSE
 
@@ -616,9 +631,9 @@
 	var/list/L = current.GetAllContents()
 	for (var/i in L)
 		var/atom/movable/I = i
-		. = I.GetComponent(/datum/component/uplink)
-		if(.)
-			break
+		for (var/datum/component/uplink/uplink in I.GetComponents(/datum/component/uplink))
+			if (uplink.owner == src || !uplink.owner)
+				return uplink
 
 /datum/mind/proc/take_uplink()
 	qdel(find_syndicate_uplink())
@@ -658,14 +673,52 @@
 			if(istype(O,objective_type))
 				return TRUE
 
-/mob/proc/sync_mind()
-	mind_initialize()	//updates the mind (or creates and initializes one if one doesn't exist)
-	mind.active = 1		//indicates that the mind is currently synced with a client
-
 /datum/mind/proc/has_martialart(string)
 	if(martial_art && martial_art.id == string)
 		return martial_art
 	return FALSE
+
+///Adds addiction points to the specified addiction
+/datum/mind/proc/add_addiction_points(type, amount)
+	LAZYSET(addiction_points, type, min(LAZYACCESS(addiction_points, type) + amount, MAX_ADDICTION_POINTS))
+	var/datum/addiction/affected_addiction = SSaddiction.all_addictions[type]
+	return affected_addiction.on_gain_addiction_points(src)
+
+///Adds addiction points to the specified addiction
+/datum/mind/proc/remove_addiction_points(type, amount)
+	LAZYSET(addiction_points, type, max(LAZYACCESS(addiction_points, type) - amount, 0))
+	var/datum/addiction/affected_addiction = SSaddiction.all_addictions[type]
+	return affected_addiction.on_lose_addiction_points(src)
+
+/// Setter for assigned_role. Keeps assigned_role (string) and assigned_role_datum (job ref) in sync.
+/// Returns the previous assigned_role value.
+/datum/mind/proc/set_assigned_role(role_title, datum/job/job_datum)
+	if((assigned_role == role_title) && (assigned_role_datum == job_datum))
+		return
+	. = assigned_role
+	assigned_role = role_title
+	//second argument was filled
+	if(job_datum)
+		assigned_role_datum = job_datum
+	//second argument was not filled, take string and find job datum. If there is no associated job-datum, it will be null anyway
+	else
+		assigned_role_datum = SSjob.GetJob(assigned_role)
+
+/// Sets us to the passed job datum, then greets them to their new job.
+/// Use this one for when you're assigning this mind to a new job for the first time,
+/// or for when someone's receiving a job they'd really want to be greeted to.
+/datum/mind/proc/set_assigned_role_with_greeting(role_title, datum/job/new_role, client/incoming_client)
+	. = set_assigned_role(role_title = role_title, job_datum = new_role)
+	if(assigned_role_datum != new_role)
+		return
+
+	var/intro_message = new_role.get_spawn_message()
+	if(incoming_client && intro_message)
+		to_chat(incoming_client, intro_message)
+
+/mob/proc/sync_mind()
+	mind_initialize() //updates the mind (or creates and initializes one if one doesn't exist)
+	mind.active = TRUE //indicates that the mind is currently synced with a client
 
 /mob/dead/new_player/sync_mind()
 	return
@@ -688,6 +741,8 @@
 	if(!mind.name)
 		mind.name = real_name
 	mind.set_current(src)
+	// There's nowhere else to set this up, mind code makes me depressed
+	mind.antag_hud = add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/antagonist_hud, "combo_hud", mind)
 
 /mob/living/carbon/mind_initialize()
 	..()
@@ -697,22 +752,22 @@
 /mob/living/carbon/human/mind_initialize()
 	..()
 	if(!mind.assigned_role)
-		mind.assigned_role = "Unassigned" //default
+		mind.set_assigned_role("Unassigned")
 
 //AI
 /mob/living/silicon/ai/mind_initialize()
 	..()
-	mind.assigned_role = JOB_NAME_AI
+	mind.set_assigned_role(JOB_NAME_AI)
 
 //BORG
 /mob/living/silicon/robot/mind_initialize()
 	..()
-	mind.assigned_role = JOB_NAME_CYBORG
+	mind.set_assigned_role(JOB_NAME_CYBORG)
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()
 	..()
-	mind.assigned_role = ROLE_PAI
+	mind.set_assigned_role(ROLE_PAI)
 	mind.special_role = ""
 
 // Quirk Procs //

@@ -6,17 +6,15 @@
 /datum/surgery/advanced/brainwashing
 	name = "Brainwashing"
 	desc = "A surgical procedure which directly implants a directive into the patient's brain, making it their absolute priority. It can be cleared using a mindshield implant."
-	steps = list(
-	/datum/surgery_step/incise,
-	/datum/surgery_step/retract_skin,
-	/datum/surgery_step/saw,
-	/datum/surgery_step/clamp_bleeders,
-	/datum/surgery_step/brainwash,
-	/datum/surgery_step/close
-	)
-
-	target_mobtypes = list(/mob/living/carbon/human)
 	possible_locs = list(BODY_ZONE_HEAD)
+	steps = list(
+		/datum/surgery_step/incise,
+		/datum/surgery_step/retract_skin,
+		/datum/surgery_step/saw,
+		/datum/surgery_step/clamp_bleeders,
+		/datum/surgery_step/brainwash,
+		/datum/surgery_step/close,
+	)
 	abductor_surgery_blacklist = TRUE
 
 /datum/surgery/advanced/brainwashing/can_start(mob/user, mob/living/carbon/target)
@@ -75,6 +73,10 @@
 	brainwash(target, objective, "brainwashing surgery from [user.mind ? user.mind.name : user.real_name]")
 	message_admins("[ADMIN_LOOKUPFLW(user)] surgically brainwashed [ADMIN_LOOKUPFLW(target)] with the objective '[objective]'.")
 	log_game("[key_name(user)] surgically brainwashed [key_name(target)] with the objective '[objective]'.")
+	// Find all antag datums and mark romerol objectives as complete
+	for (var/datum/antagonist/antagonist in user.mind?.antag_datums)
+		for (var/datum/objective/brainwash_targets/objective in antagonist.objectives)
+			objective.amount++
 	return TRUE
 
 /datum/surgery_step/brainwash/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

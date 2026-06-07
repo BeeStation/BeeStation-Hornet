@@ -62,9 +62,6 @@
 ///(max_strength, immediate, duration_decrease = INFINITY): Returns bool.
 #define COMSIG_TURF_MAKE_DRY "make_turf_try"
 
-///Called on an object to "clean it", such as removing blood decals/overlays, etc. The clean types bitfield is sent with it. Return TRUE if any cleaning was necessary and thus performed.
-#define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
-
 //Creamed
 
 ///called when you wash your face at a sink: (num/strength)
@@ -113,16 +110,6 @@
 	/// Return COMPONENT_NO_DEFAULT_MESSAGE to prevent the transforming component from displaying the default transform message / sound.
 	#define COMPONENT_NO_DEFAULT_MESSAGE (1<<0)
 
-// /datum/mind signals
-// (mob/old, mob/new)
-#define COMSIG_MIND_TRANSFER_TO "mind_transfer_to"
-// (datum/atom_hud/antag/hud)
-#define COMSIG_MIND_JOIN_ANTAG_HUD "mind_join_antag_hud"
-// (datum/atom_hud/antag/hud)
-#define COMSIG_MIND_LEAVE_ANTAG_HUD "mind_leave_antag_hud"
-// Sent when a mob with a mind enters cryo storage: ()
-#define COMSIG_MIND_CRYOED "mind_cryoed"
-
 // /datum/component/clockwork_trap signals
 #define COMSIG_CLOCKWORK_SIGNAL_RECEIVED "clock_received"			//! When anything the trap is attatched to is triggered
 
@@ -156,8 +143,6 @@
 #define COMSIG_PARENT_RECEIVE_BUFFER "receive_buffer"
 	#define COMPONENT_BUFFER_RECEIVED (1 << 0)
 
-///sent from ai controllers when they possess a pawn: (datum/ai_controller/source_controller)
-#define COMSIG_AI_CONTROLLER_POSSESSED_PAWN "ai_controller_possessed_pawn"
 /// Called when a device a traitor has planted effects someone's mood. Pass the mind of the viewer.
 #define COMSIG_DEMORALISING_EVENT "traitor_demoralise_event"
 

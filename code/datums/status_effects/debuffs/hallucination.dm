@@ -5,8 +5,8 @@
 	alert_type = null
 	tick_interval = 2 SECONDS
 	remove_on_fullheal = TRUE
-	/// Can this hallucination apply to silicons?
-	var/affects_silicons = FALSE
+	/// Biotypes which cannot hallucinate.
+	var/barred_biotypes = NO_HALLUCINATION_BIOTYPES
 	/// The lower range of when the next hallucination will trigger after one occurs.
 	var/lower_tick_interval = 10 SECONDS
 	/// The upper range of when the next hallucination will trigger after one occurs.
@@ -14,18 +14,13 @@
 	/// The cooldown for when the next hallucination can occur
 	COOLDOWN_DECLARE(hallucination_cooldown)
 
-/datum/status_effect/hallucination/on_creation(
-	mob/living/new_owner,
-	duration = 10 SECONDS,
-	affects_silicons = FALSE,
-)
-
-	src.duration = duration
-	src.affects_silicons = affects_silicons
+/datum/status_effect/hallucination/on_creation(mob/living/new_owner, new_duration)
+	if(isnum(new_duration))
+		src.duration = new_duration
 	return ..()
 
 /datum/status_effect/hallucination/on_apply()
-	if(!affects_silicons && issilicon(owner))
+	if(owner.mob_biotypes & barred_biotypes)
 		return FALSE
 
 	RegisterSignal(owner, COMSIG_LIVING_HEALTHSCAN, PROC_REF(on_health_scan))
@@ -73,7 +68,7 @@
 	source.cause_hallucination(/datum/hallucination/shock, "hallucinated shock from [bumped]",)
 	return STOP_BUMP
 
-/datum/status_effect/hallucination/tick(delta_time, times_fired)
+/datum/status_effect/hallucination/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		return
 	if(!COOLDOWN_FINISHED(src, hallucination_cooldown))

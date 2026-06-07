@@ -5,7 +5,7 @@
 	can_randomize = FALSE
 
 /datum/preference/choiced/uplink_location/init_possible_values()
-	return list(UPLINK_PDA, UPLINK_RADIO, UPLINK_PEN, UPLINK_IMPLANT)
+	return list(UPLINK_PDA, UPLINK_RADIO, UPLINK_PEN)
 
 /datum/preference/choiced/uplink_location/compile_constant_data()
 	var/list/data = ..()
@@ -13,8 +13,7 @@
 	data[CHOICED_PREFERENCE_DISPLAY_NAMES] = list(
 		UPLINK_PDA = "PDA",
 		UPLINK_RADIO = "Radio",
-		UPLINK_PEN = "Pen",
-		UPLINK_IMPLANT = "Implant ([UPLINK_IMPLANT_TELECRYSTAL_COST]TC)",
+		UPLINK_PEN = "Pen"
 	)
 
 	return data

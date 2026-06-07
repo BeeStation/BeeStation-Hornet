@@ -11,8 +11,6 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
 
-	network_id = __NETWORK_CIRCUITS
-
 	/// Data being sent
 	var/datum/port/input/data_package
 
@@ -24,4 +22,6 @@
 	enc_key = add_input_port("Encryption Key", PORT_TYPE_STRING)
 
 /obj/item/circuit_component/ntnet_send/input_received(datum/port/input/port)
-	ntnet_send(list("data" = data_package.value, "enc_key" = enc_key.value))
+	if(!find_functional_ntnet_relay())
+		return
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CIRCUIT_NTNET_DATA_SENT, list("data" = data_package.value, "enc_key" = enc_key.value))

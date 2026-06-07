@@ -235,6 +235,8 @@
 	var/title			//The real name of the book.
 	var/window_size = null // Specific window size for the book, i.e: "1920x1080", Size x Width
 
+	var/attackby_skip // when TRUE, this will skip 'book/attackby()', so that it can call parent directly.
+
 
 /obj/item/book/attack_self(mob/user)
 	if(!user.can_read(src))
@@ -252,6 +254,8 @@
 
 
 /obj/item/book/attackby(obj/item/I, mob/user, params)
+	if(attackby_skip) // some books are not for this behaviour
+		return ..()
 	if(istype(I, /obj/item/pen))
 		if(user.is_blind())
 			to_chat(user, span_warning(" As you are trying to write on the book, you suddenly feel very stupid!"))

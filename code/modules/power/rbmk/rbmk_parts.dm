@@ -11,9 +11,6 @@
 	var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor
 	var/active = FALSE
 
-/obj/machinery/computer/reactor/Initialize(mapload)
-	. = ..()
-
 /obj/machinery/computer/reactor/control_rods
 	name = "control rod management computer"
 	desc = "A computer which can remotely raise / lower the control rods of an RBMK class nuclear reactor."
@@ -43,11 +40,8 @@
 	update_overlays()
 	update_appearance()
 
-/obj/machinery/computer/reactor/control_rods/attack_hand(mob/living/user)
-	. = ..()
-	ui_interact(user)
-
 /obj/machinery/computer/reactor/control_rods/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "RbmkControlRods")

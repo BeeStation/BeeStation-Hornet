@@ -2,7 +2,9 @@
 	cost = 0	// This is defined later based on cusgenerated prices
 	export_category = EXPORT_CARGO
 	include_subtypes = TRUE
-	export_types = list(/obj/item/food/grown)
+	export_types = list(
+		/obj/item/food/grown = TRUE,
+	)
 
 /datum/export/produce/get_cost(obj/item/food/grown/produce, allowed_categories = NONE)
 	var/amount = get_amount(produce)

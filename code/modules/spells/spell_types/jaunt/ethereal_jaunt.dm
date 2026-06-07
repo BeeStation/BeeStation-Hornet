@@ -30,7 +30,7 @@
 
 	var/turf/cast_turf = get_turf(.)
 	new jaunt_out_type(cast_turf, jaunter.dir)
-	jaunter.ExtinguishMob()
+	jaunter.extinguish_mob()
 	do_steam_effects(cast_turf)
 
 /datum/action/spell/jaunt/ethereal_jaunt/on_cast(mob/living/user, atom/target)
@@ -49,9 +49,9 @@
 /datum/action/spell/jaunt/ethereal_jaunt/proc/do_jaunt(mob/living/cast_on)
 	// Makes sure they don't die or get jostled or something during the jaunt entry
 	// Honestly probably not necessary anymore, but better safe than sorry
-	cast_on.notransform = TRUE
+	ADD_TRAIT(cast_on, TRAIT_NO_TRANSFORM, REF(src))
 	var/obj/effect/dummy/phased_mob/holder = enter_jaunt(cast_on)
-	cast_on.notransform = FALSE
+	REMOVE_TRAIT(cast_on, TRAIT_NO_TRANSFORM, REF(src))
 
 	if(!holder)
 		CRASH("[type] attempted do_jaunt but failed to create a jaunt holder via enter_jaunt.")
@@ -167,9 +167,9 @@
 /datum/action/spell/jaunt/ethereal_jaunt/proc/end_jaunt(mob/living/cast_on, obj/effect/dummy/phased_mob/spell_jaunt/holder, turf/final_point)
 	if(QDELETED(cast_on) || QDELETED(holder) || QDELETED(src))
 		return
-	cast_on.notransform = TRUE
+	ADD_TRAIT(cast_on, TRAIT_NO_TRANSFORM, REF(src))
 	exit_jaunt(cast_on)
-	cast_on.notransform = FALSE
+	REMOVE_TRAIT(cast_on, TRAIT_NO_TRANSFORM, REF(src))
 
 	REMOVE_TRAIT(cast_on, TRAIT_IMMOBILIZED, REF(src))
 
@@ -207,7 +207,7 @@
 	name = "Phase Shift"
 	desc = "This spell allows you to pass through walls."
 	background_icon_state = "bg_demon"
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "phaseshift"
 
 	cooldown_time = 25 SECONDS
@@ -234,9 +234,10 @@
 
 /datum/action/spell/jaunt/ethereal_jaunt/shift/golem
 	name = "Runic Phase Shift"
-	cooldown_time = 80 SECONDS
+	cooldown_time = 40 SECONDS
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/cult/phase
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/cult/phase/out
+	jaunt_duration = 3 SECONDS
 
 
 /// The dummy that holds people jaunting. Maybe one day we can replace it.

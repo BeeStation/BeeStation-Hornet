@@ -13,7 +13,7 @@
 	attack_verb_simple = list("bludgeon", "smash", "beat")
 	icon = 'icons/obj/pneumaticCannon.dmi'
 	icon_state = "pneumaticCannon"
-	item_state = "bulldog"
+	inhand_icon_state = "bulldog"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	armor_type = /datum/armor/item_pneumatic_cannon
@@ -313,7 +313,7 @@
 	desc = "A weapon favored by carp hunters. Fires specialized spears using magnetic energy. A savvy- or desperate- hunter may be able to find more esoteric payloads"
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "speargun"
-	item_state = "speargun"
+	inhand_icon_state = "speargun"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
@@ -346,7 +346,8 @@
 	name = "quiver"
 	desc = "A quiver for holding magspears."
 	icon_state = "quiver"
-	item_state = "quiver"
+	inhand_icon_state = "quiver"
+	worn_icon = 'icons/mob/clothing/back.dmi'
 
 /obj/item/storage/backpack/magspear_quiver/Initialize(mapload)
 	. = ..()
@@ -355,8 +356,8 @@
 	atom_storage.max_total_storage = atom_storage.max_specific_storage * atom_storage.max_slots
 	atom_storage.numerical_stacking = TRUE
 	atom_storage.set_holdable(list(
-		/obj/item/throwing_star/magspear
-		))
+		/obj/item/throwing_star/magspear,
+	))
 
 /obj/item/storage/backpack/magspear_quiver/PopulateContents()
 	for(var/i in 1 to 30)

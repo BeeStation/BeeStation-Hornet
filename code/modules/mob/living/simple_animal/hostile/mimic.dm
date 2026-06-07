@@ -30,7 +30,7 @@
 	del_on_death = TRUE
 	hardattacks = TRUE
 
-	discovery_points = 4000
+	discovery_points = TECHWEB_TIER_3_POINTS
 
 	var/spawaning_obj_type = null
 
@@ -102,7 +102,7 @@
 		visible_message("<b>[src]</b> starts to move!")
 		attempt_open = TRUE
 
-/mob/living/simple_animal/hostile/mimic/crate/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/mimic/crate/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	trigger()
 	. = ..()
 

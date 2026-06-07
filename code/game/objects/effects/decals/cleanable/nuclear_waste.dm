@@ -25,22 +25,15 @@
 	if(isliving(entered_mob))
 		var/mob/living/L = entered_mob
 		playsound(loc, 'sound/effects/gib_step.ogg', HAS_TRAIT(L, TRAIT_LIGHT_STEP) ? 20 : 50, 1)
-	radiation_pulse(src, 625, 5) //MORE RADS
+
+	radiation_pulse(src, max_range = 1, threshold = RAD_EXTREME_INSULATION, intensity = 15)
 
 /obj/effect/decal/cleanable/nuclear_waste/attackby(obj/item/tool, mob/user)
 	if(tool.tool_behaviour == TOOL_SHOVEL)
-		radiation_pulse(src, 500, 5) //MORE RADS //The careful clearing of sludge should not give off as much radiation as casually running through it.
+		radiation_pulse(src, max_range = 1, threshold = RAD_EXTREME_INSULATION, intensity = 20)
 		to_chat(user, span_notice("You start to clear [src]..."))
 		if(tool.use_tool(src, user, 50, volume=100))
 			to_chat(user, span_notice("You clear [src]. "))
 			qdel(src)
 			return
 	. = ..()
-
-/obj/effect/decal/cleanable/nuclear_waste/epicenter //The one that actually does the irradiating. This is to avoid every bit of sludge PROCESSING
-	name = "dense nuclear sludge"
-
-
-/obj/effect/decal/cleanable/nuclear_waste/epicenter/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/radioactive, 1500, src, 0)

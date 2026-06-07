@@ -171,7 +171,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rpd"
 	worn_icon_state = "RPD"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 10
 	throwforce = 10
 	throw_speed = 1
@@ -674,7 +674,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	if(multi_layer)
 		balloon_alert(source_mob, "turn off multi layer!")
 		return
-	if(source_mob.incapacitated())
+	if(source_mob.incapacitated)
 		return
 	if(source_mob.get_active_held_item() != src)
 		return

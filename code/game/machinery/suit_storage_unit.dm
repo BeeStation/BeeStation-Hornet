@@ -143,6 +143,14 @@
 	storage_type = /obj/item/tank/jetpack/oxygen/harness
 	mod_type = /obj/item/mod/control/pre_equipped/nuclear
 
+/obj/machinery/suit_storage_unit/void_old
+	suit_type = /obj/item/clothing/suit/space/nasavoid/old
+	helmet_type = /obj/item/clothing/head/helmet/space/nasavoid/old
+	storage_type = /obj/item/tank/internals/oxygen/yellow
+
+/obj/machinery/suit_storage_unit/void_old/jetpack
+	storage_type = /obj/item/tank/jetpack/void
+
 /obj/machinery/suit_storage_unit/radsuit
 	name = "radiation suit storage unit"
 	suit_type = /obj/item/clothing/suit/utility/radiation
@@ -428,7 +436,7 @@
 			toasted = TRUE
 			if(mob_occupant)
 				visible_message(span_warning("[src]'s door creaks open with a loud whining noise. A foul stench and a cloud of smoke exit the chamber."))
-				mob_occupant.radiation = 0 //The guy inside is toasted to a crisp, no need to leave him with the rads
+				qdel(mob_occupant.GetComponent(/datum/component/irradiated))
 			else
 				visible_message(span_warning("[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber."))
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 50, TRUE)
@@ -447,7 +455,7 @@
 		if(!toasted) //Special toast check to prevent a double finishing message.
 			if(mob_occupant)
 				visible_message(span_warning("[src]'s door slides open, barraging you with the nauseating smell of charred flesh."))
-				mob_occupant.radiation = 0
+				qdel(mob_occupant.GetComponent(/datum/component/irradiated))
 			else
 				visible_message(span_notice("[src]'s door slides open. The glowing yellow lights dim to a gentle green."))
 		toasted = FALSE

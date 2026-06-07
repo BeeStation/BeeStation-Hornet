@@ -62,7 +62,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /obj/effect/trap/nexus/trickyspawner/shitsec,
 /turf/open/floor/plating{
 	burnt = 1

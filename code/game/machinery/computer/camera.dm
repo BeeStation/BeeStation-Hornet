@@ -66,6 +66,7 @@
 	. = ..()
 
 /obj/machinery/computer/security/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	// Update UI
 	ui = SStgui.try_update_ui(user, src, ui)
 
@@ -125,8 +126,6 @@
 	if(action == "switch_camera")
 		var/obj/machinery/camera/selected_camera = locate(params["camera"]) in GLOB.cameranet.cameras
 		active_camera = selected_camera
-		ui_update()
-		playsound(src, get_sfx("terminal_type"), 25, FALSE)
 
 		if(isnull(active_camera))
 			return TRUE
@@ -171,6 +170,7 @@
 	cam_background.fill_rect(1, 1, size_x, size_y)
 
 /obj/machinery/computer/security/ui_close(mob/user, datum/tgui/tgui)
+	. = ..()
 	var/user_ref = REF(user)
 	var/is_living = isliving(user)
 	// Living creature or not, we remove you anyway.
@@ -191,7 +191,7 @@
 // Returns the list of cameras accessible from this computer
 /obj/machinery/computer/security/proc/get_available_cameras()
 	var/list/camlist = list()
-	for(var/obj/machinery/camera/cam as() in GLOB.cameranet.cameras)
+	for(var/obj/machinery/camera/cam as anything in GLOB.cameranet.cameras)
 		if((is_away_level(z) || is_away_level(cam.z)) && (cam.get_virtual_z_level() != get_virtual_z_level()))//if on away mission, can only receive feed from same z_level cameras
 			continue
 		if(!islist(cam.network))
@@ -254,7 +254,7 @@
 
 /obj/machinery/computer/security/qm
 	name = "\improper Quartermaster's camera console"
-	desc = "A console with access to the mining, auxillary base and vault camera networks."
+	desc = "A console with access to the mining, auxiliary base and vault camera networks."
 	network = list(CAMERA_NETWORK_MINE, CAMERA_NETWORK_VAULT, CAMERA_NETWORK_AUXBASE)
 	circuit = null
 
@@ -391,8 +391,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertai
 	network = list(CAMERA_NETWORK_PRISON, CAMERA_NETWORK_LABOR)
 
 /obj/machinery/computer/security/telescreen/auxbase
-	name = "auxillary base monitor"
-	desc = "A telescreen that connects to the auxillary base's camera."
+	name = "auxiliary base monitor"
+	desc = "A telescreen that connects to the auxiliary base's camera."
 	network = list(CAMERA_NETWORK_AUXBASE)
 
 /obj/machinery/computer/security/telescreen/mining
@@ -425,10 +425,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertai
 	desc = "A telescreen that connects to the camera network of the evacuation shuttle."
 	network = list(CAMERA_NETWORK_EVAC)
 
-/obj/machinery/computer/security/telescreen/bunker
-	name = "bunker monitor"
-	desc = "A telescreen that connects to the camera network of the bunker."
+// This is used in deepstorage.dmm
+/obj/machinery/computer/security/telescreen/deep_storage
+
+/obj/machinery/computer/security/telescreen/deep_storage/bunker
+	name = "Bunker Entrance monitor"
 	network = list(CAMERA_NETWORK_BUNKER)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/deep_storage/bunker, 32)
 
 /obj/machinery/computer/security/telescreen/station
 	name = "station monitor"

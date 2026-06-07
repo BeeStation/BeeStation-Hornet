@@ -59,7 +59,7 @@
 	if(.)
 		return
 
-	if (!authenticated)
+	if (!authenticated || issilicon(usr)) // Silicons are forbidden from editing records.
 		return FALSE
 
 	var/datum/record/crew/target_record

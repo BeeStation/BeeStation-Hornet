@@ -3,7 +3,7 @@
 	name = "Abyssal Mask"
 	desc = "A mask created from the suffering of existence. Looking down its eyes, you notice something gazing back at you."
 	icon_state = "mad_mask"
-	item_state = "mad_mask"
+	inhand_icon_state = "mad_mask"
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
@@ -36,13 +36,13 @@
 	if(IS_HERETIC_OR_MONSTER(user))
 		return
 
-	ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+	ADD_CLOTHING_TRAIT(src, TRAIT_NODROP)
 	to_chat(user, span_userdanger("[src] clamps tightly to your face as you feel your soul draining away!"))
 
 /obj/item/clothing/mask/madness_mask/dropped(mob/M)
 	local_user = null
 	STOP_PROCESSING(SSobj, src)
-	REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+	REMOVE_CLOTHING_TRAIT(src, TRAIT_NODROP)
 	return ..()
 
 /obj/item/clothing/mask/madness_mask/process(delta_time)
@@ -50,7 +50,7 @@
 		return PROCESS_KILL
 
 	if(IS_HERETIC_OR_MONSTER(local_user) && HAS_TRAIT(src, TRAIT_NODROP))
-		REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+		REMOVE_CLOTHING_TRAIT(src, TRAIT_NODROP)
 
 	for(var/mob/living/carbon/human/human_in_range in view(local_user))
 		if(IS_HERETIC_OR_MONSTER(human_in_range) || human_in_range.is_blind())
@@ -69,4 +69,4 @@
 			human_in_range.adjustStaminaLoss(10)
 
 		if(DT_PROB(25, delta_time))
-			human_in_range.Dizzy(5)
+			human_in_range.set_dizzy_if_lower(10 SECONDS)

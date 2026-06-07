@@ -59,7 +59,7 @@
 	bite_consumption_mod = 2
 	wine_power = 70 //Water to wine, baby.
 	wine_flavor = "divinity"
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/food/grown/holymelon/make_dryable()
 	return //No drying
@@ -99,7 +99,7 @@
 		uses = round(seed.potency / 20)
 	AddComponent(/datum/component/anti_magic, \
 	_source = src, \
-	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY),\
+	antimagic_flags = (MAGIC_RESISTANCE_HOLY),\
 	charges = uses, \
 	drain_antimagic = CALLBACK(src, PROC_REF(block_magic)),\
 	expiration = CALLBACK(src, PROC_REF(expire))) //deliver us from evil o melon god
@@ -131,10 +131,10 @@
 	name = "ballolon"
 	desc = "A organic balloon, lighter then air."
 	icon_state = "ballolon"
-	item_state = "ballolon"
-	lefthand_file = 'icons/mob/inhands/antag/balloons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/antag/balloons_righthand.dmi'
+	inhand_icon_state = "ballolon"
+	lefthand_file = 'icons/mob/inhands/misc/balloons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/balloons_righthand.dmi'
 	filling_color = "#e35b6f"
 	throw_range = 1
 	throw_speed = 1
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS

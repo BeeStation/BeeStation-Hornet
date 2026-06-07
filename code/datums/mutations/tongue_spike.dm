@@ -2,7 +2,6 @@
 	name = "Tongue Spike"
 	desc = "Allows a creature to voluntary shoot their tongue out as a deadly weapon."
 	quality = POSITIVE
-	text_gain_indication = ("<span class='notice'>Your feel like you can throw your voice.</span>")
 	instability = 15
 	power_path = /datum/action/spell/tongue_spike
 
@@ -12,7 +11,7 @@
 /datum/action/spell/tongue_spike
 	name = "Launch spike"
 	desc = "Shoot your tongue out in the direction you're facing, embedding it and dealing damage until they remove it."
-	icon_icon = 'icons/hud/unused/actions_genetic.dmi'
+	button_icon = 'icons/hud/unused/actions_genetic.dmi'
 	button_icon_state = "spike"
 	mindbound = FALSE
 	cooldown_time = 10 SECONDS
@@ -85,7 +84,6 @@
 	name = "Chem Spike"
 	desc = "Allows a creature to voluntary shoot their tongue out as biomass, allowing a long range transfer of chemicals."
 	quality = POSITIVE
-	text_gain_indication = ("<span class='notice'>Your feel like you can really connect with people by throwing your voice.</span>")
 	instability = 15
 	locked = TRUE
 	power_path = /datum/action/spell/tongue_spike/chem
@@ -146,7 +144,7 @@
 	name = "Transfer Chemicals"
 	desc = "Send all of your reagents into whomever the chem spike is embedded in. One use."
 	background_icon_state = "bg_spell"
-	icon_icon = 'icons/hud/unused/actions_genetic.dmi'
+	button_icon = 'icons/hud/unused/actions_genetic.dmi'
 	button_icon_state = "spikechemswap"
 	check_flags = AB_CHECK_CONSCIOUS
 

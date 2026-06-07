@@ -3,7 +3,7 @@
 	desc = "Attack the weak point for massive damage."
 	health = 500
 	maxHealth = 500
-	spacewalk = TRUE
+
 	combat_mode = TRUE
 	sentience_type = SENTIENCE_BOSS
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
@@ -11,7 +11,7 @@
 	obj_damage = 400
 	light_range = 3
 	faction = list(FACTION_MINING, FACTION_BOSS)
-	weather_immunities = list("lava","ash")
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	robust_searching = TRUE
@@ -31,7 +31,7 @@
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
 	hardattacks = TRUE
-	discovery_points = 10000
+	discovery_points = TECHWEB_TIER_5_POINTS * 2
 	var/achievement_type
 	var/crusher_achievement_type
 	var/score_achievement_type
@@ -60,7 +60,7 @@
 		var/datum/action/small_sprite/small_action = new small_sprite_type()
 		small_action.Grant(src)
 
-/mob/living/simple_animal/hostile/megafauna/Moved()
+/mob/living/simple_animal/hostile/megafauna/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	//Safety check
 	if(!loc)
 		return ..()
@@ -150,7 +150,7 @@
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
-	icon_icon = 'icons/hud/actions/actions_animal.dmi'
+	button_icon = 'icons/hud/actions/actions_animal.dmi'
 	button_icon_state = ""
 	var/chosen_message
 	var/chosen_attack_num = 0

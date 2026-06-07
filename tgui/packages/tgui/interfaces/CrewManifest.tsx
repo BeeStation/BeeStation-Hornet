@@ -1,6 +1,6 @@
 import { classes } from 'common/react';
+import { sortBy } from 'es-toolkit';
 
-import { sortBy } from '../../common/collections';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -16,7 +16,9 @@ type DepartmentCrew = { [department: string]: ManifestEntry[] };
 type JobOrdering = { [job: string]: number };
 
 const sortSpecific = (entries: ManifestEntry[], chain: JobOrdering) =>
-  sortBy(entries, (entry) => chain[entry.hud] ?? Object.keys(chain).length + 1);
+  sortBy(entries, [
+    (entry) => chain[entry.hud] ?? Object.keys(chain).length + 1,
+  ]);
 
 type ManifestEntry = {
   /** The name of this crew member. */

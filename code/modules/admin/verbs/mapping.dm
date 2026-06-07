@@ -31,7 +31,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug_mapping, list(
 	/client/proc/count_objects_all,
 	/client/proc/cmd_assume_direct_control,	//-errorage
 	/client/proc/cmd_give_direct_control,
-	/client/proc/startSinglo,
 	/client/proc/set_server_fps,	//allows you to set the ticklag.
 	/client/proc/cmd_admin_grantfullaccess,
 	/client/proc/cmd_admin_areatest_all,
@@ -65,7 +64,7 @@ GLOBAL_PROTECT(admin_verbs_debug_mapping)
 	desc = "I am a mappers mistake."
 
 /obj/effect/debugging/marker
-	icon = 'icons/turf/areas.dmi'
+	icon = 'icons/area/areas.dmi'
 	icon_state = "yellow"
 	plane = ABOVE_LIGHTING_PLANE
 
@@ -87,7 +86,7 @@ GLOBAL_PROTECT(admin_verbs_debug_mapping)
 
 	if(!on)
 		var/list/seen = list()
-		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
+		for(var/obj/machinery/camera/C as anything in GLOB.cameranet.cameras)
 			for(var/turf/T in C.can_see())
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
 				if (!(T in C.can_see()))
@@ -124,7 +123,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 
 	var/list/obj/machinery/camera/CL = list()
 
-	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
+	for(var/obj/machinery/camera/C as anything in GLOB.cameranet.cameras)
 		CL += C
 
 	var/output = {"<B>Camera Abnormalities Report</B><HR>
@@ -394,7 +393,7 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 	response = tgui_alert(usr, "Message Here", "Title Here", list("Yes", "No"))
 	to_chat(usr, response)
 	var/list/L = list()
-	for (var/obj/machinery/camera/cam in GLOB.cameranet.cameras)
+	for (var/obj/machinery/camera/cam as anything in GLOB.cameranet.cameras)
 		L["[cam.c_tag]"] = cam
 	response = tgui_input_list(usr, "Message Here", "Title Here", L)
 	to_chat(usr, response)

@@ -9,11 +9,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	allow_z_travel = TRUE
 	resistance_flags = INDESTRUCTIBLE
-	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-	/* PORT WITH JPS IMPROVEMENT PR
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pathing_pass_method = TURF_PATHING_PASS_PROC
-	*/
 
 	z_flags = Z_MIMIC_BELOW|Z_MIMIC_OVERWRITE
 
@@ -37,7 +34,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 /turf/open/openspace/Initialize(mapload)
 	. = ..()
 	var/area/our_area = loc
-	if(istype(our_area, /area/space))
+	if(istype(our_area, /area/misc/space))
 		force_no_gravity = TRUE
 	return INITIALIZE_HINT_LATELOAD
 
@@ -55,7 +52,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 /turf/open/openspace/zAirOut()
 	return TRUE
 
-/turf/open/openspace/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
+/turf/open/openspace/zPassIn(direction, falling = FALSE)
 	if(direction == DOWN)
 		for(var/obj/O in contents)
 			if(O.z_flags & Z_BLOCK_IN_DOWN)
@@ -68,12 +65,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 		return TRUE
 	return FALSE
 
-/turf/open/openspace/zPassOut(atom/movable/A, direction, turf/destination, falling = FALSE)
-	//Check if our current location has gravity
-	if(falling && !A.has_gravity(src))
-		return FALSE
-	if(A.anchored)
-		return FALSE
+/turf/open/openspace/zPassOut(direction, falling = FALSE)
 	if(direction == DOWN)
 		for(var/obj/O in contents)
 			if(O.z_flags & Z_BLOCK_OUT_DOWN)
@@ -128,7 +120,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				to_chat(user, span_notice("You build a floor."))
-				PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+				place_on_top(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 			else
 				to_chat(user, span_warning("You need one floor tile to build a floor!"))
 		else
@@ -151,11 +143,27 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 	if(passed_mode == RCD_FLOORWALL)
 		to_chat(user, span_notice("You build a floor."))
 		log_attack("[key_name(user)] has constructed a floor over open space at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
-		PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+		place_on_top(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 		return TRUE
 	return FALSE
 
 /turf/open/openspace/rust_heretic_act()
+	return FALSE
+
+/turf/open/openspace/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	var/atom/movable/our_movable = pass_info.requester_ref?.resolve()
+	if(!our_movable)
+		return FALSE
+	var/turf/destination = GET_TURF_BELOW(src)
+	// Check if the movable can't fall (has flying/floating, no gravity, or is anchored)
+	// If it can't fall, it's safe to path through the openspace
+	if(our_movable.anchored)
+		return TRUE
+	if((our_movable.movement_type & (FLYING|FLOATING)) || !our_movable.has_gravity(src))
+		return TRUE
+	// Otherwise, check if turf passage allows z-travel
+	if(!our_movable.can_zTravel(destination, DOWN))
+		return TRUE
 	return FALSE
 
 //Returns FALSE if gravity is force disabled. True if grav is possible

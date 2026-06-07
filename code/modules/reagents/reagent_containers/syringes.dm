@@ -2,7 +2,7 @@
 	name = "syringe"
 	desc = "A syringe that can hold up to 15 units."
 	icon = 'icons/obj/syringe.dmi'
-	item_state = "syringe_0"
+	inhand_icon_state = "syringe_0"
 	base_icon_state = "syringe"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
@@ -156,7 +156,7 @@
 	else
 		rounded_vol = 0
 	icon_state = "[base_icon_state]_[rounded_vol]"
-	item_state = "[base_icon_state]_[rounded_vol]"
+	inhand_icon_state = "[base_icon_state]_[rounded_vol]"
 
 /obj/item/reagent_containers/syringe/proc/embed(mob/living/carbon/C, injectmult = 1)
 	C.apply_status_effect(/datum/status_effect/syringe, src, injectmult)
@@ -197,6 +197,11 @@
 	desc = "Contains calomel."
 	list_reagents = list(/datum/reagent/medicine/calomel = 15)
 
+/obj/item/reagent_containers/syringe/perfluorodecalin
+	name = "syringe (perfluorodecalin)"
+	desc = "Contains perfluorodecalin."
+	list_reagents = list(/datum/reagent/medicine/perfluorodecalin = 15)
+
 /obj/item/reagent_containers/syringe/antiviral
 	name = "syringe (spaceacillin)"
 	desc = "Contains antiviral agents."
@@ -206,11 +211,6 @@
 	name = "bioterror syringe"
 	desc = "Contains several paralyzing reagents."
 	list_reagents = list(/datum/reagent/consumable/ethanol/neurotoxin = 5, /datum/reagent/toxin/mutetoxin = 5, /datum/reagent/toxin/sodium_thiopental = 5)
-
-/obj/item/reagent_containers/syringe/calomel
-	name = "syringe (calomel)"
-	desc = "Contains calomel."
-	list_reagents = list(/datum/reagent/medicine/calomel = 15)
 
 /obj/item/reagent_containers/syringe/plasma
 	name = "syringe (plasma)"
@@ -332,3 +332,28 @@
 				return TRUE
 
 	return FALSE
+
+/obj/item/reagent_containers/syringe/contraband
+	name = "unlabeled syringe"
+	desc = "A syringe containing some sort of unknown chemical cocktail."
+
+/obj/item/reagent_containers/syringe/contraband/space_drugs
+	list_reagents = list(/datum/reagent/drug/space_drugs = 15)
+
+/obj/item/reagent_containers/syringe/contraband/krokodil
+	list_reagents = list(/datum/reagent/drug/krokodil = 15)
+
+/obj/item/reagent_containers/syringe/contraband/crank
+	list_reagents = list(/datum/reagent/drug/crank = 15)
+
+/obj/item/reagent_containers/syringe/contraband/methamphetamine
+	list_reagents = list(/datum/reagent/drug/methamphetamine = 15)
+
+/obj/item/reagent_containers/syringe/contraband/bath_salts
+	list_reagents = list(/datum/reagent/drug/bath_salts = 15)
+
+/obj/item/reagent_containers/syringe/contraband/fentanyl
+	list_reagents = list(/datum/reagent/toxin/fentanyl = 15)
+
+/obj/item/reagent_containers/syringe/contraband/morphine
+	list_reagents = list(/datum/reagent/medicine/morphine = 15)

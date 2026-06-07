@@ -33,8 +33,9 @@
 
 /mob/living/simple_animal/drone/syndrone/Initialize(mapload)
 	. = ..()
-	var/datum/component/uplink/hidden_uplink = internal_storage.GetComponent(/datum/component/uplink)
+	var/datum/component/uplink/hidden_uplink = internal_storage.GetComponents(/datum/component/uplink)[1]
 	hidden_uplink.telecrystals = 10
+	hidden_uplink.directive_flags = NONE
 
 /mob/living/simple_animal/drone/syndrone/Login()
 	. = ..()
@@ -48,8 +49,9 @@
 
 /mob/living/simple_animal/drone/syndrone/badass/Initialize(mapload)
 	. = ..()
-	var/datum/component/uplink/hidden_uplink = internal_storage.GetComponent(/datum/component/uplink)
+	var/datum/component/uplink/hidden_uplink = internal_storage.GetComponents(/datum/component/uplink)[1]
 	hidden_uplink.telecrystals = 30
+	hidden_uplink.directive_flags = NONE
 	var/obj/item/implant/weapons_auth/W = new/obj/item/implant/weapons_auth(src)
 	W.implant(src, force = TRUE)
 
@@ -97,7 +99,7 @@
 	icon_living = icon_state
 	icon_dead = "[visualAppearance]_dead"
 
-/obj/effect/mob_spawn/drone/dusty
+/obj/effect/mob_spawn/drone/derelict
 	name = "derelict drone shell"
 	desc = "A long-forgotten drone shell. It seems kind of... Space Russian."
 	icon = 'icons/mob/drone.dmi'

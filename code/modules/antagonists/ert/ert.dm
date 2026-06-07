@@ -22,7 +22,7 @@
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
 	banning_key = ROLE_ERT
-	required_living_playtime = 2
+	required_living_playtime = 0
 
 /datum/antagonist/ert/get_team()
 	return ert_team
@@ -64,7 +64,7 @@
 		name = owner.current.client?.prefs.read_character_preference(/datum/preference/name/backup_human) || pick(GLOB.last_names)
 	owner.current.fully_replace_character_name(owner.current.real_name, "[role] [name]")
 
-/datum/antagonist/ert/proc/forge_objectives()
+/datum/antagonist/ert/forge_objectives()
 	if(ert_team)
 		objectives |= ert_team.objectives
 
@@ -76,10 +76,10 @@
 		H.equipOutfit(plasmaman_outfit)
 		H.open_internals(H.get_item_for_held_index(2))
 	H.equipOutfit(outfit)
-	//Set the suits frequency
-	var/obj/item/I = H.get_item_by_slot(ITEM_SLOT_OCLOTHING)
-	if(I)
-		var/datum/component/tracking_beacon/beacon = I.GetComponent(/datum/component/tracking_beacon)
+	//Set the mod frequency
+	var/obj/item/mod = H.get_item_by_slot(ITEM_SLOT_BACK)
+	if(mod)
+		var/datum/component/tracking_beacon/beacon = mod.GetComponent(/datum/component/tracking_beacon)
 		if(beacon)
 			beacon.set_frequency(ert_team.ert_frequency)
 

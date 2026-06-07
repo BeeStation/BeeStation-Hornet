@@ -255,6 +255,7 @@ export const Canvas = (props) => {
   const griddy = !!data.show_grid && !!data.editable && !!data.paint_tool_color;
   return (
     <Window
+      theme="neutral"
       width={scaled_width + 72}
       height={
         scaled_height +

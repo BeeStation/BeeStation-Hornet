@@ -85,7 +85,7 @@
 	if(!istype(start_turf))
 		return
 	// One extra turf is added to max length to get an extra buffer
-	var/list/turf/potential_turfs = getline(start_turf, get_ranged_target_turf(start_turf, dir, maxlength + 1))
+	var/list/turf/potential_turfs = get_line(start_turf, get_ranged_target_turf(start_turf, dir, maxlength + 1))
 	if(!length(potential_turfs))
 		return
 
@@ -264,7 +264,7 @@
 	else if(movement_dir & EAST)
 		x_move = -32
 
-	var/fake_glide_time = round(world.icon_size / glide_size * world.tick_lag, world.tick_lag)
+	var/fake_glide_time = round(ICON_SIZE_ALL / glide_size * world.tick_lag, world.tick_lag)
 	for(var/obj/effect/ebeam/beam as anything in active_beam?.elements)
 		var/matrix/base_transform = matrix(beam.transform)
 		beam.transform = beam.transform.Translate(x_move, y_move)

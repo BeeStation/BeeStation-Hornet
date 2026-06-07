@@ -1,14 +1,16 @@
+@use 'sass:color';
+
 @use '../base.scss';
 @use '../colors.scss';
-@use '../atomic/color.scss';
+@use '../atomic/color.scss' as atomic-color;
 
 @use '../components/Button.scss';
 
 //Colors for obscured slots, based on Button.scss
-$button-gray: darken(Button.$color-default, 20%);
+$button-gray: color.adjust(Button.$color-default, $lightness: -20%);
 $button-gray-hover: Button.$color-default;
 $button-main: Button.$color-default;
-$button-main-hover: lighten(Button.$color-default, 15%);
+$button-main-hover: color.adjust(Button.$color-default, $lightness: 15%);
 
 //Make columns have constant width, allowing buttons to cut off with ellipsis at the end
 .strip-menu-table {
@@ -22,7 +24,7 @@ $button-main-hover: lighten(Button.$color-default, 15%);
     border-image: linear-gradient(
         to right,
         colors.$grey,
-        adjust-color(colors.$grey, $alpha: -1) 70%
+        color.adjust(colors.$grey, $alpha: -1) 70%
       )
       30;
     border-image-width: 1px 0 0 0;
@@ -34,7 +36,7 @@ $button-main-hover: lighten(Button.$color-default, 15%);
     border-image: linear-gradient(
         to right,
         colors.$white,
-        adjust-color(colors.$white, $alpha: -1) 80%
+        color.adjust(colors.$white, $alpha: -1) 80%
       )
       30;
     border-image-width: 1px 0 0 0;

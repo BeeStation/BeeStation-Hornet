@@ -16,14 +16,14 @@
 	if(IS_CHANGELING(M))
 		return FALSE
 	if(..())
-		M.confused = max(M.confused, 12)
-		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, emote), "cough")
+		M.adjust_confusion(12 SECONDS)
+		M.manual_emote("cough")
 		return TRUE
 
 /datum/effect_system/smoke_spread/confusing/changeling
 	effect_type = /obj/effect/particle_effect/smoke/confusing/changeling
 
-/datum/action/changeling/gaseous_pores/sting_action(mob/user)
+/datum/action/changeling/gaseous_pores/sting_action(mob/living/user)
 	..()
 	user.visible_message(span_warning("[user]'s skin begins to bubble!"))
 	playsound(user, 'sound/machines/fryer/deep_fryer_1.ogg', 30, 1)

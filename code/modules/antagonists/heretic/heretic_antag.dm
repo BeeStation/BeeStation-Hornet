@@ -17,9 +17,11 @@
 	roundend_category = "Heretics"
 	antagpanel_category = "Heretic"
 	ui_name = "AntagInfoHeretic"
+	antag_hud_name = "heretic"
 	antag_moodlet = /datum/mood_event/heretics
 	banning_key = ROLE_HERETIC
 	required_living_playtime = 4
+	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	/// Whether we've ascended! (Completed one of the final rituals)
 	var/ascended = FALSE
 	/// The path our heretic has chosen. Mostly used for flavor.
@@ -158,8 +160,6 @@
 	msg += "The Forbidden Knowledge panel allows you to research abilities, read it very carefully! You cannot undo what has been done!"
 	msg += "You gain charges by either collecting influences or sacrificing people tracked by the living heart"
 	msg += "You can find a basic guide at: https://wiki.beestation13.com/view/Heretics"
-	if(locate(/datum/objective/major_sacrifice) in objectives)
-		msg += span_bold("<i>Any</i> head of staff can be sacrificed to complete your objective!")
 	to_chat(owner.current, examine_block(span_cult("[msg.Join("\n")]")))
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Heretic",
 		"Collect influences or sacrifice targets to expand your forbidden knowledge.")
@@ -171,13 +171,20 @@
 
 /datum/antagonist/heretic/on_gain()
 	if(isipc(owner.current))//Due to IPCs having a mechanical heart it messes with the living heart, so no IPC heretics for now
-		var/mob/living/carbon/carbon_current = owner.current //only carbons have dna now, so we have to typecast
-		carbon_current.set_species(/datum/species/human)
-		var/prefs_name = carbon_current.client?.prefs?.read_character_preference(/datum/preference/name/backup_human)
+		var/mob/living/carbon/carbon_owner = owner.current
+		carbon_owner.set_species(/datum/species/human)
+		var/prefs_name = carbon_owner.client?.prefs?.read_character_preference(/datum/preference/name/backup_human)
 		if(prefs_name)
-			carbon_current.fully_replace_character_name(carbon_current.real_name, prefs_name)
+			carbon_owner.fully_replace_character_name(carbon_owner.real_name, prefs_name)
 		else
-			carbon_current.fully_replace_character_name(carbon_current.real_name, random_unique_name(carbon_current.gender))
+			carbon_owner.fully_replace_character_name(carbon_owner.real_name, carbon_owner.generate_random_mob_name())
+		for(var/datum/record/crew/record in GLOB.manifest.general)
+			if(record.name == carbon_owner.real_name)
+				record.species = carbon_owner.dna.species.name
+				record.gender = carbon_owner.gender
+
+				//Not directly assigning carbon_owner.appearance because it might not update in time at roundstart
+				record.character_appearance = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
 	if(give_objectives)
 		forge_objectives()
 
@@ -207,7 +214,6 @@
 	RegisterSignals(our_mob, list(COMSIG_MOB_PRE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED), PROC_REF(on_spell_cast))
 	RegisterSignal(our_mob, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(on_item_afterattack))
 	RegisterSignal(our_mob, COMSIG_MOB_LOGIN, PROC_REF(fix_influence_network))
-	update_heretic_icons_added()
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/our_mob = mob_override || owner.current
@@ -220,17 +226,6 @@
 		COMSIG_MOB_ITEM_AFTERATTACK,
 		COMSIG_MOB_LOGIN
 	))
-	update_heretic_icons_removed()
-
-/datum/antagonist/heretic/proc/update_heretic_icons_added()
-	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_HERETIC]
-	hud.join_hud(owner.current)
-	set_antag_hud(owner.current, "heretic")
-
-/datum/antagonist/heretic/proc/update_heretic_icons_removed()
-	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_HERETIC]
-	hud.leave_hud(owner.current)
-	set_antag_hud(owner.current, null)
 
 /datum/antagonist/heretic/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
@@ -357,31 +352,8 @@
 /**
  * Create our objectives for our heretic.
  */
-/datum/antagonist/heretic/proc/forge_objectives()
-	var/datum/objective/heretic_research/research_objective = new()
-	research_objective.owner = owner
-	objectives += research_objective
-	log_objective(owner, research_objective.explanation_text)
-
-	var/num_heads = 0
-	for(var/mob/player in SSdynamic.current_players[CURRENT_LIVING_PLAYERS])
-		if(player.client && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
-			num_heads++
-	// Give normal sacrifice objective
-	var/datum/objective/minor_sacrifice/sac_objective = new()
-	sac_objective.owner = owner
-	// They won't get major sacrifice, so bump up minor sacrifice a bit
-	if(num_heads < 2)
-		sac_objective.target_amount += 2
-		sac_objective.update_explanation_text()
-	objectives += sac_objective
-	log_objective(owner, sac_objective.explanation_text)
-	// Give command sacrifice objective (if there's at least 2 command staff)
-	if(num_heads >= 2)
-		var/datum/objective/major_sacrifice/other_sac_objective = new()
-		other_sac_objective.owner = owner
-		objectives += other_sac_objective
-		log_objective(owner, other_sac_objective.explanation_text)
+/datum/antagonist/heretic/forge_objectives()
+	add_objective(new /datum/objective/ascend())
 
 /**
  * Add [target] as a sacrifice target for the heretic.
@@ -497,13 +469,14 @@
 
 /datum/antagonist/heretic/get_admin_commands()
 	. = ..()
+	.["Adjust Knowledge Points"] = CALLBACK(src, PROC_REF(admin_change_points))
 	switch(has_living_heart())
 		if(HERETIC_NO_LIVING_HEART)
 			.["Give Living Heart"] = CALLBACK(src, PROC_REF(admin_give_living_heart))
 		if(HERETIC_HAS_LIVING_HEART)
 			.["Add Heart Target (Marked Mob)"] = CALLBACK(src, PROC_REF(admin_add_marked_target))
-			.["Remove Heart Target"] = CALLBACK(src, PROC_REF(admin_remove_target))
-	.["Adjust Knowledge Points"] = CALLBACK(src, PROC_REF(admin_change_points))
+			if(length(sac_targets))
+				.["Remove Heart Target"] = CALLBACK(src, PROC_REF(admin_remove_target))
 
 /*
  * Admin proc for giving a heretic a Living Heart easily.
@@ -580,7 +553,7 @@
 		else
 			string_of_knowledge += knowledge.name
 
-	return "<br><b>Research Done:</b><br>[english_list(string_of_knowledge, and_text = ", and ")]<br>"
+	return "<b>Research Done:</b><br>[english_list(string_of_knowledge, and_text = ", and ")]<br>"
 
 /datum/antagonist/heretic/antag_panel_objectives()
 	. = ..()
@@ -594,7 +567,6 @@
 			. += " - <b>[actual_target.name]</b>, the [actual_target.assigned_role || "Unknown"].<br>"
 	else
 		. += "<i>None!</i><br>"
-	. += "<br>"
 
 /*
  * Learns the passed [typepath] of knowledge, creating a knowledge datum
@@ -644,10 +616,6 @@
 		return
 	if(LAZYACCESS(sac_targets, WEAKREF(target_mind)))
 		return TRUE
-	// You can ALWAYS sacrifice heads of staff if you need to do so.
-	var/datum/objective/major_sacrifice/major_sacc_objective = locate() in objectives
-	if(major_sacc_objective && !major_sacc_objective.check_completion() && (target_mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
-		return TRUE
 
 /*
  * Get a list of all rituals this heretic can invoke on a rune.
@@ -672,10 +640,7 @@
  * Returns FALSE if not all of our objectives are complete, or TRUE otherwise.
  */
 /datum/antagonist/heretic/proc/can_ascend()
-	for(var/datum/objective/must_be_done as anything in objectives)
-		if(!must_be_done.check_completion())
-			return FALSE
-	return TRUE
+	return total_sacrifices >= 3
 
 /*
  * Helper to determine if a Heretic
@@ -688,7 +653,7 @@
  * and returns HERETIC_HAS_LIVING_HEART if they have a living heart
  */
 /datum/antagonist/heretic/proc/has_living_heart()
-	var/obj/item/organ/our_living_heart = owner.current?.get_organ_slot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/our_living_heart = owner.current?.get_organ_slot(living_heart_organ_slot)
 	if(!our_living_heart)
 		return HERETIC_NO_HEART_ORGAN
 
@@ -709,82 +674,20 @@
 	manus_dream_allowed = TRUE
 
 /// Heretic's minor sacrifice objective. "Minor sacrifices" includes anyone.
-/datum/objective/minor_sacrifice
-	name = "minor sacrifice"
+/datum/objective/ascend
+	name = "ascend"
+	explanation_text = "Fully complete a ritual path and ascend as a dark god. The final ritual requires at least 3 sacrifices."
 
-/datum/objective/minor_sacrifice/New(text)
-	. = ..()
-	target_amount = rand(3, 4)
-	update_explanation_text()
-
-/datum/objective/minor_sacrifice/update_explanation_text()
-	. = ..()
-	explanation_text = "Sacrifice at least [target_amount] crewmembers."
-
-/datum/objective/minor_sacrifice/check_completion()
+/datum/objective/ascend/check_completion()
 	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
 	if(!heretic_datum)
 		return FALSE
-	return heretic_datum.total_sacrifices >= target_amount
-
-/// Heretic's major sacrifice objective. "Major sacrifices" are heads of staff.
-/datum/objective/major_sacrifice
-	name = "major sacrifice"
-	target_amount = 1
-	explanation_text = "Sacrifice at least 1 head of staff."
-
-/datum/objective/major_sacrifice/check_completion()
-	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
-	return completed || (heretic_datum?.high_value_sacrifices >= target_amount)
-
-/// Heretic's research objective. "Research" is heretic knowledge nodes (You start with some).
-/datum/objective/heretic_research
-	name = "research"
-	/// The length of a main path. Calculated once in New().
-	var/static/main_path_length = 0
-
-/datum/objective/heretic_research/New(text)
-	. = ..()
-
-	if(!main_path_length)
-		// Let's find the length of a main path. We'll use rust because it's the coolest.
-		// (All the main paths are (should be) the same length, so it doesn't matter.)
-		var/rust_paths_found = 0
-		for(var/datum/heretic_knowledge/knowledge as anything in subtypesof(/datum/heretic_knowledge))
-			if(initial(knowledge.route) == HERETIC_PATH_RUST)
-				rust_paths_found++
-
-		main_path_length = rust_paths_found
-
-	// Factor in the length of the main path first.
-	target_amount = main_path_length
-	// Add in the base research we spawn with, otherwise it'd be too easy.
-	target_amount += length(GLOB.heretic_start_knowledge)
-	// And add in some buffer, to require some sidepathing.
-	target_amount += rand(2, 4)
-	update_explanation_text()
-
-/datum/objective/heretic_research/update_explanation_text()
-	. = ..()
-	explanation_text = "Research at least [target_amount] knowledge from the Mansus. You start with [length(GLOB.heretic_start_knowledge)] researched."
-
-/datum/objective/heretic_research/check_completion()
-	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
-	return ..() || length(heretic_datum?.researched_knowledge) >= target_amount
-
-/datum/objective/heretic_summon
-	name = "summon monsters"
-	target_amount = 2
-	explanation_text = "Summon 2 monsters from the Mansus into this realm."
-
-/datum/objective/heretic_summon/check_completion()
-	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
-	return ..() || (LAZYLEN(heretic_datum?.monsters_summoned) >= target_amount)
+	return heretic_datum.ascended
 
 /datum/action/antag_info/heretic
 	name = "Forbidden Knowledge"
 	desc = "Utilize your connection to the beyond to unlock new eldritch abilities"
-	icon_icon = 'icons/obj/heretic.dmi'
+	button_icon = 'icons/obj/heretic.dmi'
 	button_icon_state = "book_open"
 	background_icon_state = "bg_heretic"
 

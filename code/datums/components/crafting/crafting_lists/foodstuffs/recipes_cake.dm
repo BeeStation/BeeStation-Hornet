@@ -216,7 +216,7 @@
 
 /datum/crafting_recipe/food/cak
 	name = "Living cat/cake hybrid"
-	result = /mob/living/simple_animal/pet/cat/cak
+	result = /mob/living/basic/pet/cat/cak
 	reqs = list(
 		/obj/item/organ/brain = 1,
 		/obj/item/organ/heart = 1,

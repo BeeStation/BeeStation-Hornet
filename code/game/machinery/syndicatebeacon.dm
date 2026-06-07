@@ -97,7 +97,7 @@
 	balloon_alert(user, "enabled!")
 
 /obj/machinery/power/singularity_beacon/proc/deactivate(mob/user)
-	// Unlink singularities that are targetting this beacon
+	// Unlink singularities that are targeting this beacon
 	for(var/datum/component/singularity/singulo in GLOB.singularities)
 		if(singulo.target == src)
 			singulo.target = null

@@ -10,14 +10,14 @@
 	var/report_message = "Complete this goal."
 
 /datum/station_goal/New()
-	if(type in SSstation.goals_by_type)
+	if (type in SSstation.goals_by_type)
 		stack_trace("Creating a new station_goal of type [type] when one already exists in SSstation.goals_by_type this is not supported anywhere. I trust you tho")
 	else
 		SSstation.goals_by_type[type] = src
 	return ..()
 
 /datum/station_goal/Destroy(force)
-	if(SSstation.goals_by_type[type] == src)
+	if (SSstation.goals_by_type[type] == src)
 		SSstation.goals_by_type -= type
 	return ..()
 
@@ -38,7 +38,7 @@
 
 /datum/station_goal/proc/get_result()
 	if(check_completion())
-		return "<li>[name] :  [span_greentext("Completed!")]</li>"
+		return "<li>[name] : [span_greentext("Completed!")]</li>"
 	else
 		return "<li>[name] : [span_redtext("Failed!")]</li>"
 

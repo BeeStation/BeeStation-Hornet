@@ -23,7 +23,7 @@
 	jaunter.forceMove(src)
 	if(ismob(jaunter))
 		var/mob/mob_jaunter = jaunter
-		mob_jaunter.reset_perspective(src)
+		mob_jaunter.set_mob_eye_to(src)
 
 /obj/effect/dummy/phased_mob/Destroy()
 	jaunter = null // If a mob was left in the jaunter on qdel, they'll be dumped into nullspace
@@ -43,7 +43,7 @@
 		// to try to land in a TELEPORT_ALLOW_NONE zone after it is created, AKA trying to exploit.
 		if(isliving(jaunter))
 			var/mob/living/living_cheaterson = jaunter
-			to_chat(living_cheaterson, ("<span class='userdanger'>This area has a heavy universal force occupying it, and you are scattered to the cosmos!</span>"))
+			to_chat(living_cheaterson, span_userdanger("This area has a heavy universal force occupying it, and you are scattered to the cosmos!"))
 			if(ishuman(living_cheaterson))
 				shake_camera(living_cheaterson, 20, 1)
 				addtimer(CALLBACK(living_cheaterson, TYPE_PROC_REF(/mob/living/carbon, vomit)), 2 SECONDS)
@@ -69,6 +69,7 @@
 		return
 	setDir(direction)
 	forceMove(newloc)
+
 /// Checks if the conditions are valid to be able to phase. Returns a turf destination if positive.
 /obj/effect/dummy/phased_mob/proc/phased_check(mob/living/user, direction)
 	RETURN_TYPE(/turf)
@@ -79,10 +80,10 @@
 		return
 	var/area/destination_area = newloc.loc
 	movedelay = world.time + movespeed
-	if(newloc.flags_1 & NOJAUNT_1)
-		to_chat(user, ("<span class='warning'>Some strange aura is blocking the way.</span>"))
+	if(newloc.turf_flags & NOJAUNT)
+		to_chat(user, span_warning("Some strange aura is blocking the way."))
 		return
 	if(destination_area.teleport_restriction == TELEPORT_ALLOW_NONE || SSmapping.level_trait(newloc.z, ZTRAIT_NOPHASE))
-		to_chat(user, ("<span class='danger'>Some dull, universal force is blocking the way. It's overwhelmingly oppressive force feels dangerous.</span>"))
+		to_chat(user, span_danger("Some dull, universal force is blocking the way. It's overwhelmingly oppressive force feels dangerous."))
 		return
 	return newloc

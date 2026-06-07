@@ -81,9 +81,7 @@
 		damaged = TRUE
 		if(console)
 			console.say("Alert, hull breach detected!")
-		var/obj/machinery/announcement_system/announcer = safepick(GLOB.announcement_systems)
-		if(!QDELETED(announcer))
-			announcer.announce("ARRIVALS_BROKEN", channels = list())
+		aas_config_announce(/datum/aas_config_entry/arrivals_broken, list(), command_span = TRUE)
 		if(mode != SHUTTLE_CALL)
 			sound_played = FALSE
 			mode = SHUTTLE_IDLE
@@ -197,9 +195,9 @@
 
 /obj/docking_port/mobile/arrivals/proc/QueueAnnounce(mob, rank)
 	if(mode != SHUTTLE_CALL)
-		AnnounceArrival(mob, rank)
+		announce_arrival(mob, rank)
 	else
-		LAZYADD(queued_announces, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(AnnounceArrival), mob, rank))
+		LAZYADD(queued_announces, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(announce_arrival), mob, rank))
 
 /obj/docking_port/mobile/arrivals/vv_edit_var(var_name, var_value)
 	switch(var_name)

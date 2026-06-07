@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_CIVILIAN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#dddddd"
 	exp_requirements = 60
@@ -20,6 +20,8 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_CHAPLAIN
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Paladin"
 
 	species_outfits = list(
@@ -27,9 +29,16 @@
 	)
 
 	minimal_lightup_areas = list(
-		/area/chapel,
-		/area/medical/morgue,
-		/area/crew_quarters/theatre
+
+/area/station/service/chapel,
+		/area/station/medical/morgue,
+
+/area/station/service/theater
+	)
+
+	manuscript_jobs = list(
+		JOB_NAME_CHAPLAIN,
+		JOB_NAME_BOTANIST // in a sense of religion
 	)
 
 /datum/job/chaplain/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
@@ -44,7 +53,7 @@
 		B.deity_name = GLOB.deity
 		B.name = GLOB.bible_name
 		B.icon_state = GLOB.bible_icon_state
-		B.item_state = GLOB.bible_item_state
+		B.inhand_icon_state = GLOB.bible_inhand_icon_state
 		to_chat(H, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
 		H.equip_to_slot_or_del(B, ITEM_SLOT_BACKPACK)
 		GLOB.religious_sect?.on_conversion(H)

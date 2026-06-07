@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(augury)
 	name = "Augury"
-	flags = SS_NO_INIT
+	ss_flags = SS_NO_INIT
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
 	var/list/watchers = list()
@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(augury)
 
 /datum/action/augury
 	name = "Auto Follow Debris"
-	icon_icon = 'icons/obj/meteor.dmi'
+	button_icon = 'icons/obj/meteor.dmi'
 	button_icon_state = "flaming"
 	background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
 	toggleable = TRUE

@@ -2,6 +2,7 @@
 	name = "Boxing"
 	id = MARTIALART_BOXING
 	pacifist_style = TRUE
+	bypass_blocking = FALSE
 
 /datum/martial_art/boxing/disarm_act(mob/living/A, mob/living/D)
 	to_chat(A, span_warning("Can't disarm while boxing!"))

@@ -47,6 +47,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 \*||||||||||||||||||||||||||||||||||||||||*/
 
 /datum/gas
+	abstract_type = /datum/gas
 	var/id = ""
 	var/specific_heat = 0
 	var/name = ""
@@ -84,7 +85,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	purchaseable = TRUE
 	base_value = 0.2
 	desc = "The gas most life forms need to be able to survive. Also an oxidizer."
-	primary_color = "#0000ff"
+	primary_color = COLOR_BLUE
 
 /datum/gas/nitrogen
 	id = GAS_N2

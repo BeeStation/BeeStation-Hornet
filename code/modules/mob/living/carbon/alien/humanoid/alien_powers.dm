@@ -8,7 +8,7 @@ Doesn't work on other aliens/AI.*/
 /datum/action/alien
 	name = "Alien Power"
 	background_icon_state = "bg_alien"
-	icon_icon = 'icons/hud/actions/actions_xeno.dmi'
+	button_icon = 'icons/hud/actions/actions_xeno.dmi'
 	button_icon_state = null
 	check_flags = AB_CHECK_CONSCIOUS
 	/// How much plasma this action uses.
@@ -237,6 +237,9 @@ Doesn't work on other aliens/AI.*/
 	plasma_cost = 50
 
 /datum/action/alien/acid/neurotoxin/is_available()
+	var/mob/living/carbon/as_carbon = owner
+	if(istype(as_carbon) && as_carbon.is_mouth_covered(ITEM_SLOT_MASK))
+		return FALSE
 	return ..() && isturf(owner.loc)
 
 /datum/action/alien/acid/neurotoxin/set_click_ability(mob/on_who)

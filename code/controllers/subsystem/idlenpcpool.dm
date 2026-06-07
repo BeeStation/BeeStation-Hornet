@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(idlenpcpool)
 	name = "Idling NPC Pool"
-	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_NO_INIT
+	ss_flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_NO_INIT
 	priority = FIRE_PRIORITY_IDLE_NPC
 	wait = 60
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
@@ -8,10 +8,11 @@ SUBSYSTEM_DEF(idlenpcpool)
 	var/list/currentrun = list()
 	var/static/list/idle_mobs_by_zlevel[][]
 
-/datum/controller/subsystem/idlenpcpool/stat_entry()
+/datum/controller/subsystem/idlenpcpool/stat_entry(msg)
 	var/list/idlelist = GLOB.simple_animals[AI_IDLE]
 	var/list/zlist = GLOB.simple_animals[AI_Z_OFF]
-	. = ..("IdleNPCS:[idlelist.len]|Z:[zlist.len]")
+	msg = "Idle NPCS:[length(idlelist)]|Z:[length(zlist)]"
+	return ..()
 
 /datum/controller/subsystem/idlenpcpool/proc/MaxZChanged()
 	if (!islist(idle_mobs_by_zlevel))

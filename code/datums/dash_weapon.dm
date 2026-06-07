@@ -1,7 +1,7 @@
 /datum/action/innate/dash
 	name = "Dash"
 	desc = "Teleport to the targeted location."
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "jetboot"
 	/// How many dash charges do we have?
 	var/current_charges = 1

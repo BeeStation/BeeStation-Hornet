@@ -76,8 +76,9 @@
 	recharge_timerid = addtimer(CALLBACK(src, PROC_REF(reload)), set_recharge_time * carried, TIMER_STOPPABLE)
 	user?.client?.give_cooldown_cursor(set_recharge_time * carried + 1)
 
-/obj/item/gun/energy/recharge/emp_act(severity)
-	return
+/obj/item/gun/energy/recharge/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/gun/energy/recharge/proc/reload()
 	cell.give(cell.maxcharge)
@@ -102,7 +103,7 @@
 	desc = "A weapon favored by syndicate stealth specialists."
 	icon_state = "crossbow"
 	base_icon_state = "crossbow"
-	item_state = "crossbow"
+	inhand_icon_state = "crossbow"
 	no_charge_state = "crossbow_empty"
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=2000)
@@ -139,7 +140,7 @@
 	name = "gamma bow"
 	desc = "A weapon favored by Madmen."
 	icon_state = "crossbow"
-	item_state = "crossbow"
+	inhand_icon_state = "crossbow"
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/radbolt)
 	recharge_time = 250
 

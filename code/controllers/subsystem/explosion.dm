@@ -1,15 +1,14 @@
 #define EXPLOSION_THROW_SPEED 4
 /// Max amount of explosions that we accept in a row from the same turf
-#define EXPLOSION_TURF_MAX 100
+#define SMALL_EXPLOSION_TICK_LIMIT 20
 
 GLOBAL_LIST_EMPTY(explosions)
 
 SUBSYSTEM_DEF(explosions)
 	name = "Explosions"
-	init_order = INIT_ORDER_EXPLOSIONS
 	priority = FIRE_PRIORITY_EXPLOSIONS
 	wait = 1
-	flags = SS_TICKER|SS_NO_INIT
+	ss_flags = SS_TICKER|SS_NO_INIT
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
 	var/cost_lowturf = 0
@@ -39,8 +38,9 @@ SUBSYSTEM_DEF(explosions)
 
 	var/currentpart = SSEXPLOSIONS_TURFS
 
-	var/turf/last_exploded_turf = null
-	var/last_explosion_count = 0
+	var/explosion_count = 0
+	var/queued_index = 1
+	var/list/queued = list()
 
 /datum/controller/subsystem/explosions/stat_entry(msg)
 	msg += "C:{"
@@ -71,10 +71,6 @@ SUBSYSTEM_DEF(explosions)
 
 	msg += "} "
 	return ..()
-
-
-#define SSEX_TURF "turf"
-#define SSEX_OBJ "obj"
 
 /datum/controller/subsystem/explosions/proc/is_exploding()
 	return (lowturf.len || medturf.len || highturf.len || flameturf.len || throwturf.len || low_mov_atom.len || med_mov_atom.len || high_mov_atom.len)
@@ -191,18 +187,14 @@ SUBSYSTEM_DEF(explosions)
 #define FREQ_LOWER 25 //The lower of the above.
 
 /datum/controller/subsystem/explosions/proc/explode(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, explosion_type, magic, holy, cap_modifier, explode_z = TRUE)
+	if (devastation_range <= 2 && heavy_impact_range <= 5)
+		if (explosion_count >= SMALL_EXPLOSION_TICK_LIMIT)
+			queued += list(args)
+			return
+	explosion_count ++
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
 		return
-
-	// If we get a lot of explosions on the same turfs, do a lot of explosions but skip some of the ones towards the end
-	if (epicenter == last_exploded_turf)
-		last_explosion_count ++
-		if (last_explosion_count > EXPLOSION_TURF_MAX)
-			return
-	else
-		last_explosion_count = 0
-		last_exploded_turf = epicenter
 
 	if(isnull(flame_range))
 		flame_range = light_impact_range
@@ -237,7 +229,7 @@ SUBSYSTEM_DEF(explosions)
 		message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [ADMIN_VERBOSEJMP(epicenter)]")
 		log_game("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [loc_name(epicenter)]")
 		if(is_station_level(epicenter.z))
-			deadchat_broadcast(span_ghostalert("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [get_area(epicenter)]!"), turf_target = epicenter)
+			deadchat_broadcast("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [get_area(epicenter)]!", turf_target = epicenter)
 
 	var/x0 = epicenter.x
 	var/y0 = epicenter.y
@@ -281,18 +273,18 @@ SUBSYSTEM_DEF(explosions)
 					baseshakeamount = sqrt((orig_max_distance - dist)*0.1)
 				// If inside the blast radius + world.view (x) - 2
 				if(dist <= round(max_range + getviewsize(world.view)[1] - 2, 1))
-					M.playsound_local(epicenter, null, 100, 1, frequency, falloff_exponent = 5, S = explosion_sound)
+					M.playsound_local(epicenter, null, 100, 1, frequency, falloff_exponent = 5, sound_to_use = explosion_sound)
 					if(baseshakeamount > 0)
 						shake_camera(M, 25, clamp(baseshakeamount, 0, 10))
 				// You hear a far explosion if you're outside the blast radius. Small bombs shouldn't be heard all over the station.
 				else if(dist <= far_dist)
 					var/far_volume = clamp(far_dist/2, FAR_LOWER, FAR_UPPER) // Volume is based on explosion size and dist
 					if(creaking_explosion)
-						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = creaking_explosion_sound, distance_multiplier = 0)
+						M.playsound_local(epicenter, null, far_volume, 1, frequency, sound_to_use = creaking_explosion_sound, distance_multiplier = 0)
 					else if(prob(PROB_SOUND)) // Sound variety during meteor storm/tesloose/other bad event
-						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = far_explosion_sound, distance_multiplier = 0) // Far sound
+						M.playsound_local(epicenter, null, far_volume, 1, frequency, sound_to_use = far_explosion_sound, distance_multiplier = 0) // Far sound
 					else
-						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0) // Echo sound
+						M.playsound_local(epicenter, null, far_volume, 1, frequency, sound_to_use = explosion_echo_sound, distance_multiplier = 0) // Echo sound
 
 					if(baseshakeamount > 0 || devastation_range)
 						if(!baseshakeamount) // Devastating explosions rock the station and ground
@@ -304,7 +296,7 @@ SUBSYSTEM_DEF(explosions)
 						baseshakeamount = devastation_range
 						shake_camera(M, 10, clamp(baseshakeamount*0.25, 0, SHAKE_CLAMP))
 						echo_volume = 60
-					M.playsound_local(epicenter, null, echo_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0)
+					M.playsound_local(epicenter, null, echo_volume, 1, frequency, sound_to_use = explosion_echo_sound, distance_multiplier = 0)
 				if(creaking_explosion) // 5 seconds after the bang, the station begins to creak
 					addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, playsound_local), epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, TRUE, hull_creaking_sound, 0), CREAK_DELAY)
 
@@ -532,6 +524,17 @@ SUBSYSTEM_DEF(explosions)
 /datum/controller/subsystem/explosions/fire(resumed = 0)
 	if (!is_exploding())
 		return
+
+	explosion_count = 0
+	if (queued_index > length(queued))
+		queued.Cut()
+		queued_index = 1
+
+	// Run the next explosions, until the tick limit
+	while (queued_index <= length(queued) && explosion_count < SMALL_EXPLOSION_TICK_LIMIT && MC_TICK_CHECK)
+		var/list/current = queued[queued_index++]
+		explosion(arglist(current))
+
 	var/timer
 	Master.current_ticklimit = TICK_LIMIT_RUNNING //force using the entire tick if we need it.
 
@@ -576,11 +579,6 @@ SUBSYSTEM_DEF(explosions)
 				var/turf/T = thing
 				new /obj/effect/hotspot(T) //Mostly for ambience!
 		cost_flameturf = MC_AVERAGE(cost_flameturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
-
-		// If a significant amount of turfs change, then we will run lighter for the rest of the tick
-		// because maptick is going to have an unexpected increase.
-		if (low_turf.len + med_turf.len + high_turf.len > 10)
-			Master.laggy_byond_map_update_incoming()
 
 	if(currentpart == SSEXPLOSIONS_MOVABLES)
 		currentpart = SSEXPLOSIONS_THROWS
@@ -645,6 +643,4 @@ SUBSYSTEM_DEF(explosions)
 	currentpart = SSEXPLOSIONS_TURFS
 
 #undef EXPLOSION_THROW_SPEED
-#undef EXPLOSION_TURF_MAX
-#undef SSEX_TURF
-#undef SSEX_OBJ
+#undef SMALL_EXPLOSION_TICK_LIMIT

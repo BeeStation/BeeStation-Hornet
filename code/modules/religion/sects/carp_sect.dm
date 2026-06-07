@@ -50,14 +50,16 @@
 	var/turf/altar_turf = get_turf(religious_tool)
 	new /obj/effect/temp_visual/bluespace_fissure/long(altar_turf)
 	user.visible_message(span_notice("A tear in reality appears above the altar!"))
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+	var/datum/poll_config/config = new(
 		check_jobban = ROLE_HOLY_SUMMONED,
 		poll_time = 10 SECONDS,
 		ignore_category = POLL_IGNORE_HOLYCARP,
 		jump_target = religious_tool,
 		role_name_text = "holy carp",
 		alert_pic = /mob/living/simple_animal/hostile/carp,
+		amount_to_pick = 1,
 	)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(!candidate)
 		new /obj/effect/gibspawner/generic(altar_turf)
 		user.visible_message(span_warning("The carp pool was not strong enough to bring forth a space carp."))

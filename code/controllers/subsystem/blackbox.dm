@@ -2,7 +2,6 @@ SUBSYSTEM_DEF(blackbox)
 	name = "Blackbox"
 	wait = 6000
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
-	init_order = INIT_ORDER_BLACKBOX
 
 	var/list/feedback = list()	//list of datum/feedback_variable
 	var/list/first_death = list() //the first death of this round, assoc. vars keep track of different things
@@ -87,11 +86,11 @@ SUBSYSTEM_DEF(blackbox)
 //Recorded on subsystem shutdown
 /datum/controller/subsystem/blackbox/proc/FinalFeedback()
 	record_feedback("tally", "ahelp_stats", GLOB.ahelp_tickets.active_tickets.len, "unresolved")
-	for (var/obj/machinery/telecomms/message_server/MS in GLOB.telecomms_list)
-		if (MS.modular_msgs.len)
-			record_feedback("tally", "radio_usage", MS.modular_msgs.len, "PDA")
-		if (MS.rc_msgs.len)
-			record_feedback("tally", "radio_usage", MS.rc_msgs.len, "request console")
+	for (var/obj/machinery/telecomms/message_server/messages in GLOB.telecomms_list)
+		if (length(messages.modular_msgs))
+			record_feedback("tally", "radio_usage", length(messages.modular_msgs), "PDA")
+		if (length(messages.rc_msgs))
+			record_feedback("tally", "radio_usage", length(messages.rc_msgs), "request console")
 
 	for(var/player_key in GLOB.player_details)
 		var/datum/player_details/PD = GLOB.player_details[player_key]

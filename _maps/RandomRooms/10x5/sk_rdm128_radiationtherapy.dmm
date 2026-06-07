@@ -240,12 +240,12 @@
 "K" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap/reusable,
+/obj/effect/spawner/random/unsorted/trap/reusable,
 /turf/open/floor/plating,
 /area/template_noop)
 "L" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap/reusable,
+/obj/effect/spawner/random/unsorted/trap/reusable,
 /turf/open/floor/iron,
 /area/template_noop)
 

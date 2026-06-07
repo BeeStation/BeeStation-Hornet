@@ -165,6 +165,7 @@
 	return GLOB.default_state
 
 /obj/machinery/computer/pandemic/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Pandemic")
@@ -211,7 +212,7 @@
 			var/id = get_virus_id_by_index(text2num(params["index"]))
 			var/datum/disease/advance/disease = SSdisease.archive_diseases[id]
 			if(istype(disease) && disease.mutable)
-				var/new_name = sanitize_name(html_encode(params["name"]))
+				var/new_name = sanitize_name(html_encode(params["name"]), allow_numbers = TRUE)
 				if(!new_name || ..())
 					return
 				disease.AssignName(new_name)

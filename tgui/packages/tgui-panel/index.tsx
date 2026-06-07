@@ -7,26 +7,28 @@
 // Themes
 import './styles/main.scss';
 import './styles/themes/light.scss';
+import './styles/themes/blue.scss';
 
 import { perf } from 'common/perf';
 import { combineReducers } from 'common/redux';
 import { setGlobalStore } from 'tgui/backend';
 import { setupGlobalEvents } from 'tgui/events';
 import { captureExternalLinks } from 'tgui/links';
-import { createRenderer } from 'tgui/renderer';
+import { render } from 'tgui/renderer';
 import { configureStore } from 'tgui/store';
 import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
 
 import { audioMiddleware, audioReducer } from './audio';
 import { chatMiddleware, chatReducer } from './chat';
 import { gameMiddleware, gameReducer } from './game';
+import { Panel } from './Panel';
 import { setupPanelFocusHacks } from './panelFocus';
 import { pingMiddleware, pingReducer } from './ping';
 import { settingsMiddleware, settingsReducer } from './settings';
 import { statMiddleware, statReducer } from './stat';
 import { telemetryMiddleware } from './telemetry';
 
-perf.mark('inception', window.performance?.timing?.navigationStart);
+perf.mark('inception', window.performance?.timeOrigin);
 perf.mark('init');
 
 const store = configureStore({
@@ -51,19 +53,14 @@ const store = configureStore({
   },
 });
 
-const renderApp = createRenderer(() => {
-  setGlobalStore(store);
-
-  const { Panel } = require('./Panel');
-  return <Panel />;
-});
-
-const setupApp = () => {
+function setupApp() {
   // Delay setup
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setupApp);
     return;
   }
+
+  setGlobalStore(store);
 
   setupGlobalEvents({
     ignoreWindowFocus: true,
@@ -72,7 +69,7 @@ const setupApp = () => {
   captureExternalLinks();
 
   // Re-render UI on store updates
-  store.subscribe(renderApp);
+  store.subscribe(() => render(<Panel />));
 
   // Dispatch incoming messages as store actions
   Byond.subscribe((type, payload) => store.dispatch({ type, payload }));
@@ -99,10 +96,10 @@ const setupApp = () => {
         './telemetry',
       ],
       () => {
-        renderApp();
+        render(<Panel />);
       },
     );
   }
-};
+}
 
 setupApp();

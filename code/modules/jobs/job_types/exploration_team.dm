@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_SCIENCE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 3
 	minimal_player_age = 3
 	// Requires 1 round as a scientist to unlock, which itself reuqires
@@ -23,6 +23,7 @@
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_HARD)
 
 	display_order = JOB_DISPLAY_ORDER_EXPLORATION
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Sailor"
 
 	species_outfits = list(
@@ -31,11 +32,16 @@
 	biohazard = 40//who knows what you'll find out there that could have nasties on it...
 
 	lightup_areas = list(
-		/area/science/mixing,
-		/area/science/storage,
-		/area/science/xenobiology
+		/area/station/science/mixing,
+		/area/station/science/storage,
+		/area/station/science/xenobiology
 	)
-	minimal_lightup_areas = list(/area/quartermaster/exploration_dock, /area/quartermaster/exploration_prep)
+	minimal_lightup_areas = list(/area/station/cargo/exploration_dock, /area/station/cargo/exploration_prep)
+
+	manuscript_jobs = list(
+		JOB_NAME_EXPLORATIONCREW,
+		JOB_NAME_SHAFTMINER
+	)
 
 /datum/outfit/job/exploration_crew
 	name = JOB_NAME_EXPLORATIONCREW
@@ -48,14 +54,16 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	uniform = /obj/item/clothing/under/rank/cargo/exploration
 	backpack_contents = list(
-		/obj/item/knife/combat/survival=1,\
-		/obj/item/stack/marker_beacon/thirty=1,\
-		/obj/item/mining_voucher/exploration=1)
+		/obj/item/knife/combat/survival = 1,
+		/obj/item/stack/marker_beacon/thirty = 1,
+		/obj/item/mining_voucher/exploration = 1,
+	)
 	r_pocket = /obj/item/gun/energy/e_gun/mini/exploration
 
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	duffelbag = /obj/item/storage/backpack/duffelbag
+	messenger = /obj/item/storage/backpack/messenger/explorer
 
 	chameleon_extras = /obj/item/gun/energy/e_gun/mini/exploration
 
@@ -66,17 +74,18 @@
 	r_pocket = /obj/item/modular_computer/tablet/pda/preset/exploration_crew
 
 	backpack_contents = list(
-		/obj/item/knife/combat/survival=1,
-		/obj/item/stack/marker_beacon/thirty=1,
-		/obj/item/gun/energy/e_gun/mini/exploration=1,
-		/obj/item/grenade/exploration=3,				//Breaching charges for entering ruins
-		/obj/item/exploration_detonator=1,				//Detonator for the breaching charges.
-		/obj/item/discovery_scanner=1
+		/obj/item/knife/combat/survival = 1,
+		/obj/item/stack/marker_beacon/thirty = 1,
+		/obj/item/gun/energy/e_gun/mini/exploration = 1,
+		/obj/item/grenade/exploration = 3, //Breaching charges for entering ruins
+		/obj/item/exploration_detonator = 1, //Detonator for the breaching charges.
+		/obj/item/discovery_scanner = 1
 	)
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel/eng
 	duffelbag = /obj/item/storage/backpack/duffelbag/engineering
+	messenger = /obj/item/storage/backpack/messenger/eng
 
 /datum/outfit/job/exploration_crew/scientist
 	name = "Exploration Crew (Scientist)"
@@ -84,25 +93,26 @@
 	glasses = /obj/item/clothing/glasses/science
 
 	backpack_contents = list(
-		/obj/item/knife/combat/survival=1,
-		/obj/item/stack/marker_beacon/thirty=1,
-		/obj/item/discovery_scanner=1,
-		/obj/item/sbeacondrop/exploration=1,			//Spawns in a bluespace beacon
-		/obj/item/research_disk_pinpointer=1			//Locates research disks
+		/obj/item/knife/combat/survival = 1,
+		/obj/item/stack/marker_beacon/thirty = 1,
+		/obj/item/discovery_scanner = 1,
+		/obj/item/sbeacondrop/exploration = 1, //Spawns in a bluespace beacon
+		/obj/item/research_disk_pinpointer = 1, //Locates research disks
 	)
 
 	backpack = /obj/item/storage/backpack/science
-	satchel = /obj/item/storage/backpack/satchel/tox
+	satchel = /obj/item/storage/backpack/satchel/science
+	messenger = /obj/item/storage/backpack/messenger/science
 
 /datum/outfit/job/exploration_crew/medic
 	name = "Exploration Crew (Medical Doctor)"
 
 	backpack_contents = list(
-		/obj/item/knife/combat/survival=1,
-		/obj/item/stack/marker_beacon/thirty=1,
-		/obj/item/pinpointer/crew=1,
-		/obj/item/sensor_device=1,
-		/obj/item/discovery_scanner=1
+		/obj/item/knife/combat/survival = 1,
+		/obj/item/stack/marker_beacon/thirty = 1,
+		/obj/item/pinpointer/crew = 1,
+		/obj/item/sensor_device = 1,
+		/obj/item/discovery_scanner = 1,
 	)
 
 	r_hand = /obj/item/rollerbed
@@ -110,6 +120,7 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
+	messenger = /obj/item/storage/backpack/messenger/med
 
 /datum/outfit/job/exploration_crew/hardsuit
 	name = "Exploration Crew (Hardsuit)"

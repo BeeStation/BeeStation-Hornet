@@ -30,3 +30,6 @@
 /// Called on a mob attempting to use a ladder to go in either direction.  (entrance_ladder, exit_ladder, going_up)
 #define COMSIG_LADDER_TRAVEL "ladder-travel"
 	#define LADDER_TRAVEL_BLOCK (1<<0)
+
+/// Called in /obj/structure/closet/PopulateContents()
+#define COMSIG_CLOSET_CONTENTS_INITIALIZED "closet_initialize_contents"

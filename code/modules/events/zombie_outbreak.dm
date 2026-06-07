@@ -1,7 +1,7 @@
 /datum/round_event_control/zombie_outbreak
 	name = "Zombie Outbreak"
 	typepath = /datum/round_event/zombie_outbreak
-	weight = 5
+	weight = 0
 	max_occurrences = 1
 	min_players = 30
 
@@ -17,7 +17,7 @@
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.player_list))
 		if(H.stat == DEAD)
 			continue
-		if(!SSjob.GetJob(H.mind.assigned_role) || (H.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON)))
+		if(!H.mind.assigned_role_datum || (H.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON)))
 			continue
 		if(!H.get_organ_by_type(/obj/item/organ/brain))
 			continue

@@ -25,6 +25,8 @@
 	var/operating = FALSE
 	var/glass = FALSE
 	var/welded = FALSE
+	/// Whether this door has a panel or not; FALSE also stops the examine blurb about the panel from showing up
+	var/has_access_panel = TRUE
 	var/heat_proof = FALSE // For rglass-windowed airlocks and firedoors
 	var/emergency = FALSE // Emergency access override
 	var/sub_door = FALSE // true if it's meant to go under another door.
@@ -37,6 +39,8 @@
 	var/red_alert_access = FALSE //if TRUE, this door will always open on red alert
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	var/open_speed = 5
+	/// Whether or not this door can be opened through a door remote, ever
+	var/opens_with_door_remote = FALSE
 
 
 /datum/armor/machinery_door
@@ -45,7 +49,6 @@
 	laser = 20
 	energy = 20
 	bomb = 10
-	rad = 100
 	fire = 80
 	acid = 70
 
@@ -54,7 +57,6 @@
 	set_init_door_layer()
 	update_freelook_sight()
 	air_update_turf(TRUE, TRUE)
-	GLOB.airlocks += src
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
 
@@ -74,7 +76,8 @@
 			. += span_notice("Due to a security threat, its access requirements have been lifted!")
 		else
 			. += span_notice("In the event of a red alert, its access requirements will automatically lift.")
-		. += span_notice("Its maintenance panel is <b>screwed</b> in place.")
+	if(has_access_panel)
+		. += span_notice("Its maintenance panel is [panel_open ? "open" : "<b>screwed</b> in place"].")
 
 /obj/machinery/door/check_access_list(list/access_list)
 	if(red_alert_access && SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
@@ -89,7 +92,6 @@
 
 /obj/machinery/door/Destroy()
 	update_freelook_sight()
-	GLOB.airlocks -= src
 	if(spark_system)
 		qdel(spark_system)
 		spark_system = null
@@ -206,8 +208,9 @@
 	return
 
 /obj/machinery/door/welder_act(mob/living/user, obj/item/tool)
-	try_to_weld(tool, user)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	if (!user.combat_mode)
+		try_to_weld(tool, user)
+		return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/door/crowbar_act(mob/living/user, obj/item/tool)
 	if(user.combat_mode || HAS_TRAIT(tool, TRAIT_DOOR_PRYER))

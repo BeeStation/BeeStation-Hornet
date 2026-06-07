@@ -231,12 +231,10 @@
 	is_tipped = new_status
 	if(is_tipped)
 		tipped_mob.transform = turn(tipped_mob.transform, 180)
-		ADD_TRAIT(tipped_mob, TRAIT_MOB_TIPPED, TIPPED_OVER)
 		ADD_TRAIT(tipped_mob, TRAIT_IMMOBILIZED, TIPPED_OVER)
 		return
 
 	tipped_mob.transform = turn(tipped_mob.transform, -180)
-	REMOVE_TRAIT(tipped_mob, TRAIT_MOB_TIPPED, TIPPED_OVER)
 	REMOVE_TRAIT(tipped_mob, TRAIT_IMMOBILIZED, TIPPED_OVER)
 
 /**

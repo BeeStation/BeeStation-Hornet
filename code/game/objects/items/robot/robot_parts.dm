@@ -293,7 +293,7 @@
 				lawsync = 0
 				O.connected_ai = null
 			else
-				O.notify_ai(NEW_BORG)
+				O.notify_ai(AI_NOTIFICATION_NEW_BORG)
 				if(forced_ai)
 					O.connected_ai = forced_ai
 			if(!lawsync)
@@ -352,7 +352,7 @@
 			else
 				if(forced_ai)
 					O.connected_ai = forced_ai
-				O.notify_ai(AI_SHELL)
+				O.notify_ai(AI_NOTIFICATION_AI_SHELL)
 			if(!lawsync)
 				O.lawupdate = FALSE
 				O.make_laws()
@@ -386,7 +386,7 @@
 			popup.open()
 
 /obj/item/robot_suit/Topic(href, href_list)
-	if(usr.incapacitated() || !Adjacent(usr))
+	if(usr.incapacitated || !Adjacent(usr))
 		return
 
 	var/mob/living/living_user = usr

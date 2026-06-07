@@ -153,7 +153,6 @@ Slimecrossing Items
 	bullet = 50
 	laser = -50
 	energy = -50
-	rad = 100
 	fire = -80
 	acid = 30
 

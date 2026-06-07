@@ -1,52 +1,52 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ab" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ac" = (
 /obj/effect/abstract/open_area_marker,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ad" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ae" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "af" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ah" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ai" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ak" = (
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "al" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -55,31 +55,31 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "am" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "an" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 5
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ao" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aq" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "av" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -87,24 +87,24 @@
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aw" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ay" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aC" = (
 /obj/structure/closet/crate/freezer/blood,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aD" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -113,27 +113,27 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aF" = (
 /obj/structure/table/glass,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aG" = (
 /obj/machinery/sleeper{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aH" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aJ" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/cup/beaker/cryoxadone{
@@ -148,30 +148,30 @@
 	pixel_y = 2
 	},
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aL" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 9
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aN" = (
 /obj/machinery/cryo_cell,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aO" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -181,7 +181,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aQ" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 4
@@ -190,45 +190,45 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aR" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/cup/bottle/charcoal,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aS" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aT" = (
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aV" = (
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aW" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "hM" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "BN" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 aS

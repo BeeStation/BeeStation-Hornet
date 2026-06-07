@@ -1,6 +1,7 @@
 //every quirk in this folder should be coded around being applied on spawn
 //these are NOT "mob quirks" like GOTTAGOFAST, but exist as a medium to apply them and other different effects
 /datum/quirk
+	abstract_type = /datum/quirk
 	var/name = "Test Quirk"
 	var/desc = "This is a test quirk."
 	/// The icon to show in the preferences menu.
@@ -19,9 +20,6 @@
 	var/process = FALSE // Does this quirk use on_process()?
 	var/datum/mind/quirk_holder // The mind that contains this quirk
 	var/mob/living/quirk_target // The mob that will be affected by this quirk
-	var/abstract_parent_type = /datum/quirk
-	/// Accent to be used in accent traits
-	var/accent_to_use = null
 
 /datum/quirk/New(datum/mind/quirk_mind, mob/living/quirk_mob, spawn_effects)
 	..()
@@ -34,7 +32,8 @@
 	quirk_holder = quirk_mind
 	quirk_target = quirk_mob
 	SSquirks.quirk_objects += src
-	to_chat(quirk_target, gain_text)
+	if(gain_text)
+		to_chat(quirk_target, gain_text)
 	quirk_holder.quirks += src
 	if(process)
 		START_PROCESSING(SSquirks, src)
@@ -58,7 +57,8 @@
 		UnregisterSignal(quirk_holder, COMSIG_QDELETING)
 		if(!QDELETED(quirk_target))
 			UnregisterSignal(quirk_target, COMSIG_QDELETING)
-			to_chat(quirk_target, lose_text)
+			if(lose_text)
+				to_chat(quirk_target, lose_text)
 		quirk_holder.quirks -= src
 		if(mob_trait)
 			REMOVE_TRAIT(quirk_target, mob_trait, ROUNDSTART_TRAIT)

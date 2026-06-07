@@ -70,7 +70,7 @@
 "k" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/remains/xeno/larva,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /obj/effect/trap/nexus/trickyspawner/xeno,
 /turf/open/floor/plating,
 /area/template_noop)

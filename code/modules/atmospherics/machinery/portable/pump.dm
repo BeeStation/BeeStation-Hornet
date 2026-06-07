@@ -1,9 +1,10 @@
 /obj/machinery/portable_atmospherics/pump
 	name = "portable air pump"
 	desc = "It's a small portable air pump, capable of siphoning or pumping gasses into its surroundings. It has a decent internal gas storage, and a slot for external tanks. It can be wrenched to a connection port to join it into the pipe net."
-	icon_state = "psiphon:0"
+	icon_state = "siphon"
+	base_icon_state = "siphon"
 	density = TRUE
-
+	volume = 1000
 
 	///Is the machine on?
 	var/on = FALSE
@@ -11,8 +12,6 @@
 	var/direction = PUMP_OUT
 	///Player configurable, sets what's the release pressure
 	var/target_pressure = ONE_ATMOSPHERE
-
-	volume = 1000
 
 /obj/machinery/portable_atmospherics/pump/Initialize(mapload)
 	. = ..()
@@ -23,14 +22,16 @@
 	local_turf.assume_air(air_contents)
 	return ..()
 
-/obj/machinery/portable_atmospherics/pump/update_icon()
-	icon_state = "psiphon:[on]"
+/obj/machinery/portable_atmospherics/pump/update_icon_state()
+	icon_state = "[base_icon_state]_[on]"
+	return ..()
 
-	cut_overlays()
+/obj/machinery/portable_atmospherics/pump/update_overlays()
+	. = ..()
 	if(holding)
-		add_overlay("siphon-open")
+		. += "siphon-open"
 	if(connected_port)
-		add_overlay("siphon-connector")
+		. += "siphon-connector"
 
 /obj/machinery/portable_atmospherics/pump/process_atmos()
 	if(take_atmos_damage())
@@ -73,7 +74,7 @@
 	if(prob(100 / severity))
 		direction = PUMP_OUT
 	target_pressure = rand(0, 100 * ONE_ATMOSPHERE)
-	update_icon()
+	update_appearance(UPDATE_ICON)
 
 /obj/machinery/portable_atmospherics/pump/replace_tank(mob/living/user, close_valve)
 	. = ..()
@@ -162,7 +163,7 @@
 			if(holding)
 				replace_tank(usr, FALSE)
 				. = TRUE
-	update_icon()
+	update_appearance(UPDATE_ICON)
 
 /obj/machinery/portable_atmospherics/pump/unregister_holding()
 	on = FALSE

@@ -11,6 +11,7 @@
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/lasergun/cyborg
+	projectile_type = /obj/projectile/beam/cyborg
 	e_cost = 1000 WATT
 
 /obj/item/ammo_casing/energy/lasergun/repeater

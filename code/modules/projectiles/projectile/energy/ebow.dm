@@ -20,7 +20,6 @@
 	eyeblur = 10
 	slur = 10
 	knockdown = 0
-	irradiate = 400
 
 /obj/projectile/energy/bolt/radbolt/Initialize(mapload)
 	. = ..()
@@ -39,7 +38,7 @@
 				reagents.expose(M, INJECT)
 				reagents.trans_to(M, reagents.total_volume)
 				M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 15, 170)
-				M.confused += 3
+				M.adjust_confusion(3 SECONDS)
 				return BULLET_ACT_HIT
 			else
 				blocked = 100

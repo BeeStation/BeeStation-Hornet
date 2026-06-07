@@ -34,7 +34,6 @@
 	move_to_delay = 0 // Very fast
 
 	animate_movement = NO_STEPS // Do not animate movement, you jump around as you're a scary statue.
-	hud_possible = list(ANTAG_HUD)
 
 	see_in_dark = 13
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -53,7 +52,7 @@
 	var/cannot_be_seen = 1
 	var/mob/living/creator = null
 
-	discovery_points = 10000
+	discovery_points = TECHWEB_TIER_4_POINTS
 
 // No movement while seen code.
 
@@ -144,7 +143,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 // Cannot talk
 
 /mob/living/simple_animal/hostile/statue/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
-	return 0
+	return
 
 // Turn to dust when gibbed
 

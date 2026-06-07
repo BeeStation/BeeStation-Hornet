@@ -6,7 +6,7 @@ Assistant
 	description = "Help out around the station or ask the Head of Personnel for an assignment. As the lowest-level position, expect to be treated like an intern most of the time."
 	department_for_prefs = DEPT_NAME_ASSISTANT
 	supervisors = "absolutely everyone"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = -1
 	selection_color = "#dddddd"
 	antag_rep = 7
@@ -16,14 +16,26 @@ Assistant
 	base_access = list()	//See /datum/job/assistant/get_access()
 
 	departments = DEPT_BITFLAG_CIV
-	bank_account_department = NONE // nothing is free for them
+	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT) // Get a job. Job reassignment changes your paycheck now. Get over it.
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
+
+	job_flags = STATION_JOB_FLAGS & ~JOB_GETS_STARTING_PAYCHECK // nothing is free for them
 	rpg_title = "Lout"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
+	)
+
+	// For some reason, they have the knowledge in these jobs...
+	manuscript_jobs = list(
+		JOB_NAME_ASSISTANT,
+		JOB_NAME_JANITOR,
+		JOB_NAME_CARGOTECHNICIAN,
+		JOB_NAME_STATIONENGINEER,
+		JOB_NAME_CHEMIST,
+		JOB_NAME_SCIENTIST
 	)
 
 /datum/job/assistant/get_spawn_position_count()
@@ -75,7 +87,7 @@ Assistant
 	..()
 	give_grey_suit(H)
 
-/datum/outfit/job/assistant/consistent/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/job/assistant/consistent/post_equip(mob/living/carbon/human/H, visuals_only)
 	..()
 
 	// This outfit is used by the assets SS, which is ran before the atoms SS

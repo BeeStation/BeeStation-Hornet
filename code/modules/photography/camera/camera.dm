@@ -6,7 +6,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	desc = "A polaroid camera."
 	icon_state = "camera"
-	item_state = "camera"
+	inhand_icon_state = "camera"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	light_system = MOVABLE_LIGHT //Used as a flash here.
@@ -15,7 +15,7 @@
 	light_power = FLASH_LIGHT_POWER
 	light_on = FALSE
 	w_class = WEIGHT_CLASS_SMALL
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_NECK
 	custom_materials = list(/datum/material/iron = 50, /datum/material/glass = 150)
 	custom_price = 25
@@ -187,7 +187,7 @@
 	var/list/turfs = list()
 	var/list/mobs = list()
 	var/blueprints = FALSE
-	var/clone_area = SSmapping.RequestBlockReservation(size_x * 2 + 1, size_y * 2 + 1)
+	var/clone_area = SSmapping.request_turf_block_reservation(size_x * 2 + 1, size_y * 2 + 1)
 	for(var/turf/placeholder in block(locate(target_turf.x - size_x, target_turf.y - size_y, target_turf.z), locate(target_turf.x + size_x, target_turf.y + size_y, target_turf.z)))
 		var/turf/turf = placeholder
 		while(istype(turf, /turf/open/openspace)) //Multi-z photography
@@ -211,8 +211,8 @@
 		// |=, let's not spam "You can also see a ... thing? 8 times"
 		desc |= mob.get_photo_description(src)
 
-	var/psize_x = (size_x * 2 + 1) * world.icon_size
-	var/psize_y = (size_y * 2 + 1) * world.icon_size
+	var/psize_x = (size_x * 2 + 1) * ICON_SIZE_X
+	var/psize_y = (size_y * 2 + 1) * ICON_SIZE_Y
 	var/get_icon = camera_get_icon(turfs, target_turf, psize_x, psize_y, clone_area, size_x, size_y, (size_x * 2 + 1), (size_y * 2 + 1))
 	qdel(clone_area)
 	var/icon/temp = icon('icons/effects/96x96.dmi',"")

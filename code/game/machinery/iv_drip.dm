@@ -204,7 +204,7 @@
 		return
 	if (!usr.canUseTopic())
 		return
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return
 	if(beaker)
 		beaker.forceMove(drop_location())
@@ -221,7 +221,7 @@
 		return
 	if (!usr.canUseTopic())
 		return
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return
 	mode = !mode
 	to_chat(usr, "The IV drip is now [mode ? "injecting" : "taking blood"].")

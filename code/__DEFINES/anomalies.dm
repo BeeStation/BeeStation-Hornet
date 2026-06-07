@@ -7,8 +7,8 @@
 #define ANOMALY_VORTEX "vortex_anomaly"
 
 ///Defines for area allowances
-#define ANOMALY_AREA_BLACKLIST list(/area/ai_monitored/turret_protected/ai,/area/ai_monitored/turret_protected/ai_upload,/area/engine,/area/solar,/area/holodeck,/area/shuttle)
-#define ANOMALY_AREA_SUBTYPE_WHITELIST list(/area/engine/break_room)
+#define ANOMALY_AREA_BLACKLIST list(/area/station/ai_monitored/turret_protected/ai,/area/station/ai_monitored/turret_protected/ai_upload,/area/station/engineering,/area/station/solars,/area/station/holodeck,/area/shuttle)
+#define ANOMALY_AREA_SUBTYPE_WHITELIST list(/area/station/engineering/break_room)
 
 ///Defines for weighted anomaly chances
 #define ANOMALY_WEIGHTS list(ANOMALY_GRAVITATIONAL = 55, ANOMALY_HALLUCINATION = 45, ANOMALY_BIOSCRAMBLER = 35, ANOMALY_FLUX = 25, ANOMALY_PYRO = 5, ANOMALY_VORTEX = 1)

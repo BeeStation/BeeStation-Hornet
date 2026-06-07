@@ -246,7 +246,7 @@ Please Wait...`}
             : request_messages.map((request) => (
                 <Section
                   key={request.ref}
-                  title={`${request.sending_department} to ${request.receiving_department}`}
+                  title={`${request.sender_department} to ${request.receiving_department}`}
                   buttons={
                     <ButtonConfirm
                       icon="times"

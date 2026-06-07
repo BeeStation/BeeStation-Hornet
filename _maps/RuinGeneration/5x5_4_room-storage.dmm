@@ -1,45 +1,45 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "e" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "f" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "i" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "j" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "k" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "z" = (
 /obj/effect/decal/cleanable/oil/streak,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "G" = (
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "W" = (
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "X" = (
 /obj/vehicle/ridden/atv,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Y" = (
 /obj/structure/closet/crate/secure/loot,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 e

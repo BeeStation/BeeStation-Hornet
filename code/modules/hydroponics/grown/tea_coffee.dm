@@ -21,7 +21,7 @@
 	name = "Tea Aspera tips"
 	desc = "These aromatic tips of the tea plant can be dried to make tea."
 	icon_state = "tea_aspera_leaves"
-	filling_color = "#008000"
+	filling_color = COLOR_GREEN
 	dry_grind = TRUE
 	grind_results = list(/datum/reagent/toxin/teapowder = 0)
 	can_distill = FALSE
@@ -44,7 +44,7 @@
 	icon_state = "tea_astra_leaves"
 	bite_consumption_mod = 2
 	grind_results = list(/datum/reagent/toxin/teapowder = 0, /datum/reagent/medicine/salglu_solution = 0)
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 
 // Coffee
@@ -93,4 +93,4 @@
 	desc = "Increases robustness by 37 percent!"
 	icon_state = "coffee_robusta"
 	grind_results = list(/datum/reagent/toxin/coffeepowder = 0, /datum/reagent/medicine/morphine = 0)
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS

@@ -52,14 +52,15 @@
 		qdel(src)
 		return
 
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
+	var/datum/poll_config/config = new(
 		check_jobban = ROLE_IMAGINARY_FRIEND,
 		poll_time = 10 SECONDS,
-		checked_target = owner,
 		jump_target = owner,
 		role_name_text = "[owner]'s imaginary friend",
 		alert_pic = owner,
+		amount_to_pick = 1,
 	)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
 	if(candidate)
 		friend.key = candidate.key
 		friend_initialized = TRUE
@@ -134,8 +135,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	return ..()
 
 /mob/camera/imaginary_friend/proc/setup_friend()
-	var/gender = pick(MALE, FEMALE)
-	real_name = owner.dna.species.random_name(gender)
+	gender = pick(MALE, FEMALE)
+	real_name = generate_random_name_species_based(gender, FALSE, /datum/species/human)
 	name = real_name
 	human_image = get_flat_human_icon(null, pick(SSjob.occupations))
 
@@ -172,12 +173,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 
 /mob/camera/imaginary_friend/proc/owner_speech(speaker, speech_args)
 	SIGNAL_HANDLER
-	var/list/listening = get_hearers_in_view(6, owner, SEE_INVISIBLE_MAXIMUM)
+	var/list/listening = get_hearers_in_view(6, owner)
 	if(!(src in listening))
 		to_chat(src, span_hear("You hear a distant voice in your head..."))
-		to_chat(src, span_gamesay("[span_name("[speaker]")] [span_message("[say_quote(speech_args[SPEECH_MESSAGE])]")]"))
+		to_chat(src, span_gamesay("[span_name("[speaker]")] [span_message("[generate_messagepart(speech_args[SPEECH_MESSAGE])]")]"))
 
-/mob/camera/imaginary_friend/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/camera/imaginary_friend/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null, message_range = 7, datum/saymode/saymode = null)
 	if (!message)
 		return
 
@@ -190,8 +191,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 
 	friend_talk(message)
 
-/mob/camera/imaginary_friend/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode)
-	to_chat(src, compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mode))
+/mob/camera/imaginary_friend/Hear(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range)
+	to_chat(src, compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods))
 
 /mob/camera/imaginary_friend/proc/friend_talk(message)
 	message = treat_message_min(trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN)))
@@ -207,7 +208,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	if (!owner_chat_map)
 		var/mutable_appearance/MA = mutable_appearance('icons/mob/talk.dmi', src, "default[say_test(message)]", FLY_LAYER)
 		MA.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), MA, list(owner.client), 30)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay_global), MA, list(owner.client), 30)
 
 	if(owner_chat_map || friend_chat_map)
 		var/list/hearers = list()
@@ -217,8 +218,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 			hearers += owner.client
 		new /datum/chatmessage(message, src, hearers, null)
 
-	var/rendered = span_gamesay("[span_name("[name]")] [span_message("[say_quote(message)]")]")
-	var/dead_rendered = span_gamesay("[span_name("[name] (Imaginary friend of [owner])")] [span_message("[say_quote(message)]")]")
+	var/rendered = span_gamesay("[span_name("[name]")] [span_message("[generate_messagepart(message)]")]")
+	var/dead_rendered = span_gamesay("[span_name("[name] (Imaginary friend of [owner])")] [span_message("[generate_messagepart(message)]")]")
 
 	to_chat(owner, "[rendered]")
 	to_chat(src, "[rendered]")
@@ -246,7 +247,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 		return FALSE
 	abstract_move(owner)
 
-/mob/camera/imaginary_friend/pointed(atom/A as mob|obj|turf in view())
+/mob/camera/imaginary_friend/pointed(atom/A as mob|obj|turf in view(client.view, src))
 	if(!..())
 		return FALSE
 	to_chat(owner, "<b>[src]</b> points at [A].")
@@ -256,7 +257,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	var/turf/tile = get_turf(A)
 	var/image/arrow = image(icon = 'icons/hud/screen_gen.dmi', loc = our_tile, icon_state = "arrow")
 	arrow.plane = POINT_PLANE
-	animate(arrow, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
+	animate(arrow, pixel_x = (tile.x - our_tile.x) * ICON_SIZE_X + A.pixel_x, pixel_y = (tile.y - our_tile.y) * ICON_SIZE_Y + A.pixel_y, time = 1.7, easing = EASE_OUT)
 	owner?.client?.images += arrow
 	client?.images += arrow
 	addtimer(CALLBACK(src, PROC_REF(remove_arrow), arrow, client, owner?.client), 2.5 SECONDS)
@@ -270,7 +271,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 /datum/action/innate/imaginary_join
 	name = "Join"
 	desc = "Join your owner, following them from inside their mind."
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	background_icon_state = "bg_revenant"
 	button_icon_state = "join"
 
@@ -281,7 +282,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 /datum/action/innate/imaginary_hide
 	name = "Hide"
 	desc = "Hide yourself from your owner's sight."
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	background_icon_state = "bg_revenant"
 	button_icon_state = "hide"
 

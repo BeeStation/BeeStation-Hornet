@@ -9,6 +9,8 @@
 	plane = MASSIVE_OBJ_PLANE
 	zmm_flags = ZMM_WIDE_LOAD
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	flags_1 = SUPERMATTER_IGNORES_1
+
 	/// The singularity component to move around Nar'Sie.
 	/// A weak ref in case an admin removes the component to preserve the functionality.
 	var/datum/weakref/singularity

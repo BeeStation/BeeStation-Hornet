@@ -9,6 +9,9 @@
 	var/keep_cached_map = FALSE
 	var/station_id = null // used to override the root id when generating
 
+	///Default area associated with the map template
+	var/default_area
+
 	///if true, turfs loaded from this template are placed on top of the turfs already there, defaults to TRUE
 	var/should_place_on_top = TRUE
 
@@ -77,9 +80,6 @@
 	// first or not.  Its defined In Initialize yet its run first in templates
 	// BEFORE so... hummm
 	SSmapping.reg_in_areas_in_z(areas)
-	// We have to do this hack here because its the ONLY place we can get the
-	// meta data from the template so we can properly set up the area
-	SSnetworks.assign_areas_root_ids(areas, src)
 	// If the world is starting up stop here and the world will do the rest
 	if(!SSatoms.initialized)
 		return
@@ -114,7 +114,15 @@
 	var/y = round((world.maxy - height)/2)
 
 	var/datum/space_level/level = SSmapping.add_new_zlevel(name, level_traits, orbital_body_type = orbital_body_type, contain_turfs = FALSE)
-	var/datum/parsed_map/parsed = load_map(file(mappath), x, y, level.z_value, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top, new_z = TRUE)
+	var/datum/parsed_map/parsed = load_map(
+		file(mappath),
+		x,
+		y,
+		level.z_value,
+		no_changeturf = (SSatoms.initialized == INITIALIZATION_INSSATOMS),
+		place_on_top = should_place_on_top,
+		new_z = TRUE,
+	)
 	var/list/bounds = parsed.bounds
 	if(!bounds)
 		return FALSE

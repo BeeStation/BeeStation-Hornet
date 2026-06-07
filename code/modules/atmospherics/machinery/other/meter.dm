@@ -18,7 +18,6 @@
 
 /datum/armor/machinery_meter
 	energy = 100
-	rad = 100
 	fire = 40
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/meter)
@@ -153,7 +152,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/meter)
 	else
 		to_chat(user, status())
 
-/obj/machinery/meter/singularity_pull(S, current_size)
+/obj/machinery/meter/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()

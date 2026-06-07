@@ -31,7 +31,9 @@
 	run_later = TRUE
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
-	light_power = 0.25
+	light_power = 1
+	light_range = 2
+	light_color = COLOR_STARLIGHT
 	fullbright_type = FULLBRIGHT_STARLIGHT
 	bullet_bounce_sound = null
 	vis_flags = VIS_INHERIT_ID //when this be added to vis_contents of something it be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
@@ -41,7 +43,7 @@
 
 	force_no_gravity = TRUE
 
-/turf/open/space/basic/New()	//Do not convert to Initialize
+/turf/open/space/basic/New() //Do not convert to Initialize
 	//This is used to optimize the map loader
 	return
 
@@ -61,20 +63,15 @@
 /turf/open/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	icon_state = SPACE_ICON_STATE
-	if(!space_gas)
-		space_gas = new
 	air = space_gas
 
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 
-	var/area/A = loc
-	if(IS_DYNAMIC_LIGHTING(A))
-		overlays += GLOB.starlight_overlay
-
-	if(requires_activation)
-		SSair.add_to_active(src, TRUE)
+	var/area/our_area = loc
+	if(!our_area.has_starlight_overlay)
+		add_overlay(GLOB.starlight_overlay)
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -151,7 +148,7 @@
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				to_chat(user, span_notice("You build a floor."))
-				PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+				place_on_top(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 			else
 				to_chat(user, span_warning("You need one floor tile to build a floor!"))
 		else
@@ -225,7 +222,7 @@
 	if(passed_mode == RCD_FLOORWALL)
 		to_chat(user, span_notice("You build a floor."))
 		log_attack("[key_name(user)] has constructed a floor over space at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
-		PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+		place_on_top(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 		return TRUE
 	return FALSE
 
@@ -242,11 +239,8 @@
 	destination_z = dest_z
 
 //Don't fall if in zero gravity, but we should allow non-fall movement
-/turf/open/space/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
-	return !falling || A.has_gravity(src)
+/turf/open/space/zPassIn(direction, falling = FALSE)
+	return !falling
 
 /turf/open/space/check_gravity()
 	return FALSE
-
-/turf/open/space/rad_act(pulse_strength)
-	return

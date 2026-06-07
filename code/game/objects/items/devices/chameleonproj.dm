@@ -2,10 +2,10 @@
 	name = "chameleon-projector"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
@@ -116,7 +116,7 @@
 		A.forceMove(active_dummy.loc)
 		if(ismob(A))
 			var/mob/M = A
-			M.reset_perspective(null)
+			M.set_mob_eye_to(MOB_EYE_SELF)
 
 /obj/effect/dummy/chameleon
 	name = ""

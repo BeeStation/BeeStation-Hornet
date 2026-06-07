@@ -140,7 +140,7 @@
 			if(do_after(user, 50, target=src))
 				W.use(5)
 				var/turf/T = get_turf(src)
-				T.PlaceOnTop(/turf/closed/wall/mineral/wood/nonmetal)
+				T.place_on_top(/turf/closed/wall/mineral/wood/nonmetal)
 				transfer_fingerprints_to(T)
 				qdel(src)
 				return
@@ -215,7 +215,6 @@
 	laser = 50
 	energy = 50
 	bomb = 10
-	rad = 100
 	fire = 10
 
 /obj/structure/barricade/security/pick_up_barricade()

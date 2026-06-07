@@ -54,41 +54,39 @@
 		var/_sink_index = _index;\
 		var##_heap_type/tmp;\
 		var/g_child = GREATER_CHILD_HEAP(_heap_list, _sink_index, _compare_value, tmp);\
-		if (g_child <= 0) {\
-			return;\
+		if (g_child > 0) {\
+			var##_heap_type/left = _heap_list[_sink_index];\
+			var##_heap_type/right = _heap_list[g_child];\
+			while(g_child > 0 && (left.##_compare_value - right.##_compare_value < 0)) {\
+				_heap_list.Swap(_sink_index,g_child);\
+				_sink_index = g_child;\
+				g_child = GREATER_CHILD_HEAP(_heap_list, _sink_index, _compare_value, tmp);\
+				if (g_child <= 0) {\
+					break;\
+				}\
+				left = _heap_list[_sink_index];\
+				right = _heap_list[g_child];\
+			};\
 		}\
-		var##_heap_type/left = _heap_list[_sink_index];\
-		var##_heap_type/right = _heap_list[g_child];\
-		while(g_child > 0 && (left.##_compare_value - right.##_compare_value < 0)) {\
-			_heap_list.Swap(_sink_index,g_child);\
-			_sink_index = g_child;\
-			g_child = GREATER_CHILD_HEAP(_heap_list, _sink_index, _compare_value, tmp);\
-			if (g_child <= 0) {\
-				break;\
-			}\
-			left = _heap_list[_sink_index];\
-			right = _heap_list[g_child];\
-		};\
 	} while (0)
 
 #define SWIM_HEAP(_heap_list, _index, _compare_value, _heap_type) do {\
 		var/_swim_index = _index;\
 		var/parent = round(_swim_index * 0.5);\
-		if (parent <= 0) {\
-			return;\
+		if (parent > 0) {\
+			var##_heap_type/left = _heap_list[_swim_index];\
+			var##_heap_type/right = _heap_list[parent];\
+			while(parent > 0 && (left.##_compare_value - right.##_compare_value > 0)) {\
+				_heap_list.Swap(_swim_index,parent);\
+				_swim_index = parent;\
+				parent = round(_swim_index * 0.5);\
+				if (parent <= 0) {\
+					break;\
+				}\
+				left = _heap_list[_swim_index];\
+				right = _heap_list[parent];\
+			};\
 		}\
-		var##_heap_type/left = _heap_list[_swim_index];\
-		var##_heap_type/right = _heap_list[parent];\
-		while(parent > 0 && (left.##_compare_value - right.##_compare_value > 0)) {\
-			_heap_list.Swap(_swim_index,parent);\
-			_swim_index = parent;\
-			parent = round(_swim_index * 0.5);\
-			if (parent <= 0) {\
-				break;\
-			}\
-			left = _heap_list[_swim_index];\
-			right = _heap_list[parent];\
-		};\
 	} while (0)
 
 #define DECLARE_HEAP_TYPE(typepath, stored_type, comparison) ##typepath/var/list/elements;\

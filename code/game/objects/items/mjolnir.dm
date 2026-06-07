@@ -4,7 +4,7 @@
 	icon_state = "mjollnir0"
 	lefthand_file = 'icons/mob/inhands/weapons/hammers_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/hammers_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BACK
 	force = 5
 	throwforce = 30
@@ -14,14 +14,18 @@
 	w_class = WEIGHT_CLASS_HUGE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
+/obj/item/mjolnir/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_multiplier=5, icon_wielded="mjollnir1", attacksound="sparks")
+
 /obj/item/mjolnir/update_icon_state()
 	icon_state = "mjollnir0"
 	return ..()
 
-/obj/item/mjolnir/Moved(atom/OldLoc, Dir)
+/obj/item/mjolnir/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	//If it was thrown out of an anchored mjolnir, destroy that
-	if (istype(OldLoc, /obj/structure/anchored_mjolnir))
-		var/obj/structure/anchored_mjolnir/old_mjolnir = OldLoc
+	if (istype(old_loc, /obj/structure/anchored_mjolnir))
+		var/obj/structure/anchored_mjolnir/old_mjolnir = old_loc
 		old_mjolnir.contained = null
 		qdel(old_mjolnir)
 	. = ..()
@@ -71,7 +75,7 @@
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	icon = 'icons/obj/wizard_48x32.dmi'
 	icon_state = "anchored_mjolnir"
-	flags_1 = CONDUCT_1
+	obj_flags = parent_type::obj_flags | CONDUCTS_ELECTRICITY
 	anchored = TRUE
 	move_resist = INFINITY
 	density = TRUE
@@ -129,7 +133,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/anchored_mjolnir)
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	icon_state = "mjollnir"
 	nodamage = FALSE
-	damage = 0
+	damage = 30
 	range = 40
 	projectile_phasing = NONE
 	projectile_piercing = (ALL & (~PASSCLOSEDTURF))
@@ -143,7 +147,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/mjolnir)
 	contained = contained_hammer
 	if (contained_hammer)
 		contained_hammer.forceMove(src)
-	AddComponent(/datum/component/two_handed, force_multiplier=5, icon_wielded="mjollnir1", attacksound="sparks")
 
 /obj/projectile/mjolnir/Destroy()
 	if (contained)

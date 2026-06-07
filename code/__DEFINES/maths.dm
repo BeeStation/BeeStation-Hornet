@@ -37,14 +37,11 @@
 #define REALTIMEOFDAY (world.timeofday + (MIDNIGHT_ROLLOVER * MIDNIGHT_ROLLOVER_CHECK))
 #define MIDNIGHT_ROLLOVER_CHECK ( GLOB.rollovercheck_last_timeofday != world.timeofday ? update_midnight_rollover() : GLOB.midnight_rollovers )
 
-/// Gets the sign of x, returns -1 if negative, 0 if 0, 1 if positive
-#define SIGN(x) ( ((x) > 0) - ((x) < 0) )
-
 #define CEILING(x, y) ( -round(-(x) / (y)) * (y) )
 
 #define ROUND_UP(x) ( -round(-(x)))
 
-/// `round()` acts like `floor(x, 1)` by default but can't handle other values
+/// `round()` acts like `floor(x)` by default but can't handle other values
 #define FLOOR(x, y) ( round((x) / (y)) * (y) )
 
 /// Similar to clamp but the bottom rolls around to the top and vice versa. min is inclusive, max is exclusive
@@ -94,13 +91,14 @@
 // amount=0.5 returns the mean of a and b.
 #define LERP(a, b, amount) ( amount ? ((a) + ((b) - (a)) * (amount)) : a )
 
+/**
+ * Performs an inverse linear interpolation between a, b, and a provided value between a and b
+ * This returns the amount that you would need to feed into a lerp between A and B to return the third value
+**/
+#define INVERSE_LERP(a, b, value) ((value - a) / (b - a))
+
 /// Returns the nth root of x.
 #define ROOT(n, x) ((x) ** (1 / (n)))
-
-/// Low-pass filter a value to smooth out high frequent peaks. This can be thought of as a moving average filter as well.
-/// delta_time is how many seconds since we last ran this command. RC is the filter constant, high RC means more smoothing
-/// See https://en.wikipedia.org/wiki/Low-pass_filter#Simple_infinite_impulse_response_filter for the maths
-#define LPFILTER(memory, signal, delta_time, RC) (delta_time / (RC + delta_time)) * signal + (1 - delta_time / (RC + delta_time)) * memory
 
 // The quadratic formula. Returns a list with the solutions, or an empty list
 // if they are imaginary.
@@ -236,19 +234,17 @@
 #define DT_PROB(prob_per_second_percent, delta_time) (prob(100*DT_PROB_RATE((prob_per_second_percent)/100, delta_time)))
 // )
 
-/// Taxicab distance--gets you the **actual** time it takes to get from one turf to another due to how we calculate diagonal movement
-#define MANHATTAN_DISTANCE(a, b) (abs(a.x - b.x) + abs(a.y - b.y))
-// )
+#define GET_TRUE_DIST(a, b) ((a == null || b == null) ? -1 : max(abs(a.x -b.x), abs(a.y-b.y), abs(a.z-b.z)))
+
+/// Returns the distance between a and b fully ignoring multiz (normal get_dist counts a z move as 1 extra distance)
+#define GET_CARDINAL_DIST(a, b) ((a == null || b == null) ? -1 : max(abs(a.x -b.x), abs(a.y-b.y)))
 
 /// A function that exponentially approaches a maximum value of L
 /// k is the rate at which is approaches L, x_0 is the point where the function = 0
 #define LOGISTIC_FUNCTION(L,k,x,x_0) (L/(1+(NUM_E**(-k*(x-x_0)))))
 
-// )
-/// Make sure something is a boolean TRUE/FALSE 1/0 value, since things like bitfield & bitflag doesn't always give 1s and 0s.
-#define FORCE_BOOLEAN(x) ((x)? TRUE : FALSE)
+/// Returns a random decimal between low and high.
+#define RANDOM_DECIMAL(low, high) (rand() * (high - low) + low)
 
-// )
-/// Gives the number of pixels in an orthogonal line of tiles.
-#define TILES_TO_PIXELS(tiles)			(tiles * PIXELS)
-// )
+#define SI_COEFFICIENT "coefficient"
+#define SI_UNIT "unit"

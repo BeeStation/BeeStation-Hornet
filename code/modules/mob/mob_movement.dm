@@ -69,8 +69,8 @@
 		return FALSE
 	if(!new_loc || !direct)
 		return FALSE
-	if(mob.notransform)
-		return FALSE	//This is sota the goto stop mobs from moving var
+	if(HAS_TRAIT(mob, TRAIT_NO_TRANSFORM))
+		return FALSE //This is sota the goto stop mobs from moving var
 	if(mob.control_object)
 		return Move_object(direct)
 	if(!isliving(mob))
@@ -78,7 +78,7 @@
 	if(mob.stat == DEAD)
 		mob.ghostize()
 		return FALSE
-	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE) & COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE)
+	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, new_loc, direct) & COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE)
 		return FALSE
 
 	var/mob/living/L = mob  //Already checked for isliving earlier
@@ -108,12 +108,15 @@
 	if(!mob.Process_Spacemove(direct))
 		return FALSE
 
-	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, new_loc) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
+	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, args) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
 		return FALSE
 
 	//We are now going to move
 	var/add_delay = mob.cached_multiplicative_slowdown
-	mob.set_glide_size(DELAY_TO_GLIDE_SIZE(add_delay * ( (NSCOMPONENT(direct) && EWCOMPONENT(direct)) ? sqrt(2) : 1 ) )) // set it now in case of pulled objects
+	var/glide_delay = add_delay
+	if(NSCOMPONENT(direct) && EWCOMPONENT(direct))
+		glide_delay = FLOOR(glide_delay * sqrt(2), world.tick_lag)
+	mob.set_glide_size(DELAY_TO_GLIDE_SIZE(glide_delay)) // set it now in case of pulled objects
 	//If the move was recent, count using old_move_delay
 	//We want fractional behavior and all
 	if(old_move_delay + world.tick_lag > world.time)
@@ -127,22 +130,10 @@
 	//Sometimes you want to look like you're moving with a delay you don't actually have yet
 	visual_delay = 0
 
-	if(L.confused && L.m_intent == MOVE_INTENT_RUN && !HAS_TRAIT(L, TRAIT_CONFUSEIMMUNE))
-		var/newdir = 0
-		if(L.confused > 40)
-			newdir = pick(GLOB.alldirs)
-		else if(prob(L.confused * 1.5))
-			newdir = angle2dir(dir2angle(direct) + pick(90, -90))
-		else if(prob(L.confused * 3))
-			newdir = angle2dir(dir2angle(direct) + pick(45, -45))
-		if(newdir)
-			direct = newdir
-			new_loc = get_step(L, direct)
-
 	. = ..()
 
 	if((direct & (direct - 1)) && mob.loc == new_loc) //moved diagonally successfully
-		add_delay *= sqrt(2)
+		add_delay = FLOOR(add_delay * sqrt(2), world.tick_lag)
 	// Record any time that we gained due to sub-tick slowdown
 	var/move_delta = move_delay - floored_move_delay
 	if(visual_delay)
@@ -245,7 +236,7 @@
 						return
 				var/target = locate(locx,locy,mobloc.z)
 				if(target && !istype(target, /turf/closed/indestructible/cordon))
-					var/lineofturf = getline(mobloc, target)
+					var/lineofturf = get_line(mobloc, target)
 					if(locate(/turf/closed/indestructible/cordon) in lineofturf)
 						return //No phasing over cordons
 					L.forceMove(target)
@@ -271,7 +262,7 @@
 						R.reveal(20)
 						R.stun(20)
 					return
-				if(stepTurf.flags_1 & NOJAUNT_1)
+				if(stepTurf.turf_flags & NOJAUNT)
 					to_chat(L, span_warning("Some strange aura is blocking the way."))
 					return
 				if(stepTurf.is_holy())
@@ -288,10 +279,9 @@
 				if(salt)
 					to_chat(L, span_warning("[salt] bars your passage!"))
 					return
-				if(stepTurf.flags_1 & NOJAUNT_1)
-					if(!is_reebe(loccheck.z))
-						to_chat(L, span_warning("Some strange aura is blocking the way."))
-						return
+				if((stepTurf.turf_flags & NOJAUNT) && !is_on_reebe(loccheck))
+					to_chat(L, span_warning("Some strange aura is blocking the way."))
+					return
 				if(stepTurf.is_holy())
 					to_chat(L, span_warning("Holy energies block your path!"))
 					return
@@ -311,15 +301,25 @@
   */
 /mob/Process_Spacemove(movement_dir = 0)
 	. = ..()
-	if(. ||spacewalk)
+	if(. || HAS_TRAIT(src, TRAIT_SPACEWALK))
 		return TRUE
+
+	if(buckled)
+		return TRUE
+
+	if(movement_type & FLYING)
+		return TRUE
+
 	var/atom/movable/backup = get_spacemove_backup(movement_dir)
-	if(backup)
-		if(istype(backup) && movement_dir && !backup.anchored)
-			if(backup.newtonian_move(turn(movement_dir, 180), instant = TRUE)) //You're pushing off something movable, so it moves
-				to_chat(src, span_info("You push off of [backup] to propel yourself."))
+	if(!backup)
+		return FALSE
+
+	if(!istype(backup) || !movement_dir || backup.anchored)
 		return TRUE
-	return FALSE
+
+	if(backup.newtonian_move(dir2angle(REVERSE_DIR(movement_dir)), instant = TRUE)) //You're pushing off something movable, so it moves
+		to_chat(src, span_info("You push off of [backup] to propel yourself."))
+	return TRUE
 
 /**
  * Finds a target near a mob that is viable for pushing off when moving.
@@ -373,8 +373,8 @@
 	client.visual_delay = MOVEMENT_ADJUSTED_GLIDE_SIZE(inertia_move_delay, SSspacedrift.visual_delay) //Make sure moving into a space move looks like a space move
 
 /// Called when this mob slips over, override as needed
-/mob/proc/slip(knockdown, paralyze, forcedrop, w_amount, obj/O, lube)
-	return
+/mob/proc/slip(knockdown_amount, paralyze, forcedrop, w_amount, obj/slipped_on, lube, force_drop = FALSE)
+	SEND_SIGNAL(src, COMSIG_MOB_SLIPPED, knockdown_amount, slipped_on, lube, paralyze, force_drop)
 
 //bodypart selection verbs - Cyberboss
 //8:repeated presses toggles through head - eyes - mouth
@@ -509,22 +509,24 @@ AUTH_CLIENT_VERB(toggle_walk_run)
 	set name = "toggle-walk-run"
 	set hidden = TRUE
 	set instant = TRUE
-	if(mob)
-		mob.toggle_move_intent(usr)
+	if(isliving(mob))
+		var/mob/living/living_mob = mob
+		living_mob.toggle_move_intent()
 
 /**
-  * Toggle the move intent of the mob
-  *
-  * triggers an update the move intent hud as well
-  */
-/mob/proc/toggle_move_intent(mob/user)
-	if(m_intent == MOVE_INTENT_RUN)
-		m_intent = MOVE_INTENT_WALK
+ * Toggle the move intent of the mob
+ *
+ * triggers an update the move intent hud as well
+ */
+/mob/living/proc/toggle_move_intent()
+	if(move_intent == MOVE_INTENT_RUN)
+		move_intent = MOVE_INTENT_WALK
 	else
-		m_intent = MOVE_INTENT_RUN
-	if(hud_used && hud_used.static_inventory)
+		move_intent = MOVE_INTENT_RUN
+	if(hud_used?.static_inventory)
 		for(var/atom/movable/screen/mov_intent/selector in hud_used.static_inventory)
-			selector.update_icon()
+			selector.update_appearance()
+	update_move_intent_slowdown()
 
 ///Moves a mob upwards in z level
 /mob/verb/up()
@@ -560,12 +562,8 @@ AUTH_CLIENT_VERB(toggle_walk_run)
 			to_chat(feedback_to, span_warning("You couldn't move there!"))
 		return FALSE
 	if(!ventcrawling) //let this be handled in atmosmachinery.dm
-		forceMove(target)
+		return Move(target)
 	else
 		var/obj/machinery/atmospherics/pipe = loc
 		pipe.relaymove(src, dir)
 	return TRUE
-
-/// Can this mob move between z levels. pre_move is using in /mob/living to dictate is fuel is used based on move delay
-/mob/proc/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
-	return FALSE

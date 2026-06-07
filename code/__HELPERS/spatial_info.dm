@@ -78,8 +78,9 @@
  *
  * * view_radius - what radius search circle we are using, worse performance as this increases
  * * source - object at the center of our search area. everything in get_turf(source) is guaranteed to be part of the search area
+ * * contents_type - the type of contents we want to be looking for. defaults to hearing sensitive
  */
-/proc/get_hearers_in_view(view_radius, atom/source)
+/proc/get_hearers_in_view(view_radius, atom/source, contents_type = RECURSIVE_CONTENTS_HEARING_SENSITIVE)
 	var/turf/center_turf = get_turf(source)
 	if(!center_turf)
 		return
@@ -88,37 +89,69 @@
 
 	if(view_radius <= 0)//special case for if only source cares
 		for(var/atom/movable/target as anything in center_turf)
-			var/list/recursive_contents = target.important_recursive_contents?[RECURSIVE_CONTENTS_HEARING_SENSITIVE]
+			var/list/recursive_contents = target.important_recursive_contents?[contents_type]
 			if(recursive_contents)
 				. += recursive_contents
 		return .
 
-	var/list/hearables_from_grid = SSspatial_grid.orthogonal_range_search(source, RECURSIVE_CONTENTS_HEARING_SENSITIVE, view_radius)
+	var/list/hearables_from_grid = SSspatial_grid.orthogonal_range_search(source, contents_type, view_radius)
 
 	if(!length(hearables_from_grid))//we know that something is returned by the grid, but we dont know if we need to actually filter down the output
 		return .
 
 	var/list/assigned_oranges_ears = SSspatial_grid.assign_oranges_ears(hearables_from_grid)
 
-	var/old_luminosity = center_turf.luminosity
-	center_turf.luminosity = 6 //man if only we had an inbuilt dview()
-
-	//this is the ENTIRE reason all this shit is worth it due to how view() and the contents list works and can be optimized
+	//this is the ENTIRE reason all this shit is worth it due to how view()-like procs and the contents list works and can be optimized
 	//internally, the contents list is secretly two linked lists, one for /obj's and one for /mob's (/atom/movable counts as /obj here)
 	//by default, for(var/atom/name in view()) iterates through both the /obj linked list then the /mob linked list of each turf
 	//but because what we want are only a tiny proportion of all movables, most of the things in the /obj contents list are not what we're looking for
-	//while every mob can hear. for this case view() has an optimization to only look through 1 of these lists if it can (eg youre only looking for mobs)
+	//while every mob can hear. for this case view() and similar procs have an optimization to only look through 1 of these lists if it can (eg youre only looking for mobs)
 	//so by representing every hearing contents on a turf with a single /mob/oranges_ear containing references to all of them, we are:
 	//1. making view() only go through the smallest of the two linked lists per turf, which contains the type we're looking for at the end
 	//2. typechecking all mobs in the output to only actually return mobs of type /mob/oranges_ear
 	//on a whole this can outperform iterating through all movables in view() by ~2x especially when hearables are a tiny percentage of movables in view
-	for(var/mob/oranges_ear/ear in view(view_radius, center_turf))
+	//using hearers is a further optimization of that because for our purposes its the same as view except we dont have to set center's luminosity to 6 and then unset it
+	for(var/mob/oranges_ear/ear in hearers(view_radius, center_turf))
 		. += ear.references
 
 	for(var/mob/oranges_ear/remaining_ear as anything in assigned_oranges_ears)//we need to clean up our mess
 		remaining_ear.unassign()
 
-	center_turf.luminosity = old_luminosity
+	return .
+
+/**
+ * The exact same as get_hearers_in_view, but not limited by visibility. Does no filtering for traits, line of sight, or any other such criteria.
+ * Filtering is intended to be done by whatever calls this function.
+ *
+ * This function exists to allow for mobs to hear speech without line of sight, if such a thing is needed.
+ *
+ * * radius - what radius search circle we are using, worse performance as this increases
+ * * source - object at the center of our search area. everything in get_turf(source) is guaranteed to be part of the search area
+ * * contents_type - the type of contents we want to be looking for. defaults to hearing sensitive
+ */
+/proc/get_hearers_in_range(range, atom/source, contents_type = RECURSIVE_CONTENTS_HEARING_SENSITIVE)
+	var/turf/center_turf = get_turf(source)
+	if(!center_turf)
+		return
+
+	. = list()
+
+	if(range <= 0)//special case for if only source cares
+		for(var/atom/movable/target as anything in center_turf)
+			var/list/recursive_contents = target.important_recursive_contents?[contents_type]
+			if(recursive_contents)
+				. += recursive_contents
+		return .
+
+	var/list/hearables_from_grid = SSspatial_grid.orthogonal_range_search(source, contents_type, range)
+
+	if(!length(hearables_from_grid))//we know that something is returned by the grid, but we dont know if we need to actually filter down the output
+		return .
+
+	for(var/atom/movable/hearable as anything in hearables_from_grid)
+		if (get_dist(center_turf, hearable) <= range)
+			. += hearable
+
 	return .
 
 /**
@@ -129,8 +162,9 @@
  *
  * * view_radius - what radius search circle we are using, worse performance as this increases but not as much as it used to
  * * source - object at the center of our search area. everything in get_turf(source) is guaranteed to be part of the search area
+ * * contents_type - the type of contents we want to be looking for. defaults to hearing sensitive
  */
-/proc/get_hearers_in_LOS(view_radius, atom/source)
+/proc/get_hearers_in_LOS(view_radius, atom/source, contents_type = RECURSIVE_CONTENTS_HEARING_SENSITIVE)
 	var/turf/center_turf = get_turf(source)
 	if(!center_turf)
 		return
@@ -138,12 +172,12 @@
 	if(view_radius <= 0)//special case for if only source cares
 		. = list()
 		for(var/atom/movable/target as anything in center_turf)
-			var/list/hearing_contents = target.important_recursive_contents?[RECURSIVE_CONTENTS_HEARING_SENSITIVE]
+			var/list/hearing_contents = target.important_recursive_contents?[contents_type]
 			if(hearing_contents)
 				. += hearing_contents
 		return
 
-	. = SSspatial_grid.orthogonal_range_search(source, SPATIAL_GRID_CONTENTS_TYPE_HEARING, view_radius)
+	. = SSspatial_grid.orthogonal_range_search(source, contents_type, view_radius)
 
 	for(var/atom/movable/target as anything in .)
 		var/turf/target_turf = get_turf(target)
@@ -178,7 +212,23 @@
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	for(var/obj/item/radio/radio as anything in radios)
-		. |= get_hearers_in_LOS(radio.canhear_range, radio, FALSE)
+		. |= get_hearers_in_LOS(radio.canhear_range, radio)
+
+/// A filter to be applied to get_hearers_in_x, that removes any non-mob hearers, converting them to their relevant mob if one exists (such as dullahan heads).
+/// Modifies input list.
+/proc/mob_only_listeners(list/atom/movable/hearers)
+	RETURN_TYPE(/list/mob)
+
+	var/hearers_length
+	if(isnull(hearers) || !(hearers_length = hearers.len)) // note on var assignment in the conditional: this is a micro op so we do not have to do a length() check before assigning hearers.len and so we only have to isnull() once.
+		return list()
+
+	for(var/hearer_index in 1 to hearers_length)
+		var/atom/movable/hearer = hearers[hearer_index]
+		hearers[hearer_index] = hearer.get_listening_mob()
+
+	list_clear_nulls(hearers)
+	return hearers
 
 ///Calculate if two atoms are in sight, returns TRUE or FALSE
 /proc/inLineOfSight(X1,Y1,X2,Y2,Z=1,PX1=16.5,PY1=16.5,PX2=16.5,PY2=16.5)
@@ -187,7 +237,7 @@
 		if(Y1==Y2)
 			return TRUE //Light cannot be blocked on same tile
 		else
-			var/s = SIGN(Y2-Y1)
+			var/s = sign(Y2-Y1)
 			Y1+=s
 			while(Y1!=Y2)
 				T=locate(X1,Y1,Z)
@@ -197,8 +247,8 @@
 	else
 		var/m=(32*(Y2-Y1)+(PY2-PY1))/(32*(X2-X1)+(PX2-PX1))
 		var/b=(Y1+PY1/32-0.015625)-m*(X1+PX1/32-0.015625) //In tiles
-		var/signX = SIGN(X2-X1)
-		var/signY = SIGN(Y2-Y1)
+		var/signX = sign(X2-X1)
+		var/signY = sign(Y2-Y1)
 		if(X1<X2)
 			b+=m
 		while(X1!=X2 || Y1!=Y2)
@@ -252,7 +302,7 @@
 	return atoms
 
 ///Returns the distance between two atoms
-/proc/get_dist_euclidian(atom/first_location as turf|mob|obj, atom/second_location as turf|mob|obj)
+/proc/get_dist_euclidean(atom/first_location, atom/second_location)
 	var/dx = first_location.x - second_location.x
 	var/dy = first_location.y - second_location.y
 
@@ -319,19 +369,27 @@
 
 ///Returns the open turf next to the center in a specific direction
 /proc/get_open_turf_in_dir(atom/center, dir)
-	var/turf/open/get_turf = get_ranged_target_turf(center, dir, 1)
+	var/turf/open/get_turf = get_step(center, dir)
 	if(istype(get_turf))
 		return get_turf
 
 ///Returns a list with all the adjacent open turfs. Clears the list of nulls in the end.
 /proc/get_adjacent_open_turfs(atom/center)
-	. = list(
-		get_open_turf_in_dir(center, NORTH),
-		get_open_turf_in_dir(center, SOUTH),
-		get_open_turf_in_dir(center, EAST),
-		get_open_turf_in_dir(center, WEST)
-		)
-	list_clear_nulls(.)
+	var/list/hand_back = list()
+	// Inlined get_open_turf_in_dir, just to be fast
+	var/turf/open/new_turf = get_step(center, NORTH)
+	if(istype(new_turf))
+		hand_back += new_turf
+	new_turf = get_step(center, SOUTH)
+	if(istype(new_turf))
+		hand_back += new_turf
+	new_turf = get_step(center, EAST)
+	if(istype(new_turf))
+		hand_back += new_turf
+	new_turf = get_step(center, WEST)
+	if(istype(new_turf))
+		hand_back += new_turf
+	return hand_back
 
 ///Returns a list with all the adjacent areas by getting the adjacent open turfs
 /proc/get_adjacent_open_areas(atom/center)

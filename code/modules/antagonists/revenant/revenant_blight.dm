@@ -44,7 +44,7 @@
 		startresting = null
 	if(DT_PROB(1.5 * stage, delta_time) && !finalstage && affected_mob.staminaloss <= stage * 25) //no more lesser flavor messages and sparkles after stage 5
 		to_chat(affected_mob, span_revennotice("You suddenly feel [pick("like you need to rest", "disoriented", "tired and confused", "nauseated", "faint", "dizzy")]..."))
-		affected_mob.confused += 8
+		affected_mob.adjust_confusion(8 SECONDS)
 		affected_mob.adjustStaminaLoss(7.5 * delta_time, FALSE) //Where the real exhaustion builds up.
 		new /obj/effect/temp_visual/revenant(affected_mob.loc)
 

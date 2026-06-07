@@ -2,6 +2,7 @@
 	name = "sticky webbing"
 	icon_state = "spidernet"
 	damage = 0
+	bleed_force = 0
 
 /obj/projectile/bullet/spidernet/on_hit(atom/target, blocked = FALSE)
 	if(iscarbon(target))

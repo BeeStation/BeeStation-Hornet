@@ -24,12 +24,10 @@
 
 /obj/item/storage/fish_case/Initialize(mapload)
 	ADD_TRAIT(src, TRAIT_FISH_SAFE_STORAGE, TRAIT_GENERIC)
-
-	. = ..()
-
 	create_storage(max_slots = 1)
 	atom_storage.can_hold_trait = TRAIT_FISH_CASE_COMPATIBILE
 	atom_storage.can_hold_description = "fish and aquarium equipment"
+	return ..()
 
 /// Fish case with single random fish inside.
 /obj/item/storage/fish_case/random/PopulateContents()
