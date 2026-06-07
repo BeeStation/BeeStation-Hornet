@@ -8860,9 +8860,9 @@
 	name = "Outer Lockdown";
 	pixel_y = -24
 	},
-/obj/item/analyzer,
-/obj/item/clothing/neck/stethoscope,
-/obj/structure/rack,
+/obj/machinery/computer/xenoarchaeology_console{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "dde" = (
@@ -20864,8 +20864,8 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/machinery/computer/xenoarchaeology_console{
-	dir = 2
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
@@ -26311,11 +26311,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/hidden,
 /turf/open/floor/plating,
 /area/station/maintenance/aft/greater)
-"jAm" = (
-/obj/effect/turf_decal/bot,
-/obj/item/kirbyplants/random,
-/turf/open/floor/iron/cafeteria,
-/area/station/service/kitchen/coldroom)
 "jAt" = (
 /obj/item/storage/fancy/donut_box{
 	pixel_y = 2
@@ -27057,8 +27052,6 @@
 /turf/open/floor/plating,
 /area/station/maintenance/aft/greater)
 "jPw" = (
-/obj/effect/landmark/event_spawn,
-/obj/item/beacon,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -31188,6 +31181,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/ai_monitored/command/storage/eva)
+"lij" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -24
+	},
+/turf/open/floor/engine,
+/area/station/science/explab)
 "lim" = (
 /obj/structure/grille/broken,
 /obj/item/crowbar,
@@ -31867,8 +31866,11 @@
 /turf/open/floor/plating/airless,
 /area/station/command/bridge)
 "lwt" = (
-/obj/machinery/computer/shuttle_flight/monastery_shuttle{
-	possible_destinations = "monastery_shuttle_asteroid;monastery_shuttle_station;/area/library"
+/obj/machinery/computer/shuttle_flight{
+	dir = 2;
+	possible_destinations = "monastery_shuttle_asteroid;monastery_shuttle_station;/area/library";
+	shuttleId = "pod1";
+	name = "Monastery Request Shuttle"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark/smooth_half,
@@ -34129,7 +34131,8 @@
 /obj/machinery/xenoarchaeology_machine/calibrator/tutorial,
 /obj/effect/turf_decal/delivery/white,
 /obj/machinery/camera/directional/north{
-	c_tag = "Science - Artifact Lab"
+	c_tag = "Science - Artifact Lab";
+	network_id = "CAMERA_NETWORK_RESEARCH"
 	},
 /turf/open/floor/engine,
 /area/station/science/explab)
@@ -34281,14 +34284,25 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1
-	},
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple/half{
 	dir = 8
+	},
+/obj/structure/rack,
+/obj/item/analyzer,
+/obj/item/clothing/neck/stethoscope,
+/obj/machinery/button/ignition{
+	id = "MothIgnitor";
+	pixel_y = 35;
+	pixel_x = 1
+	},
+/obj/machinery/button/door{
+	id = "telelab";
+	name = "Test Chamber Blast Door";
+	pixel_y = 25;
+	pixel_x = 1
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
@@ -40913,6 +40927,7 @@
 /obj/effect/turf_decal/tile/purple/half{
 	dir = 2
 	},
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "ppi" = (
@@ -43054,13 +43069,9 @@
 /turf/open/floor/iron/dark,
 /area/station/service/chapel/monastery)
 "qgo" = (
-/obj/machinery/button/door{
-	id = "telelab";
-	name = "Test Chamber Blast Door";
-	pixel_x = 6
-	},
+/obj/machinery/newscaster/directional,
 /turf/closed/wall/r_wall,
-/area/station/science/server)
+/area/station/science/explab)
 "qgs" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/railing,
@@ -44111,10 +44122,10 @@
 "qAh" = (
 /obj/effect/landmark/blobstart,
 /obj/effect/landmark/xeno_spawn,
+/obj/effect/landmark/event_spawn,
 /turf/open/floor/engine,
 /area/station/science/explab)
 "qAl" = (
-/obj/structure/chair/stool,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 4
 	},
@@ -44123,6 +44134,10 @@
 	},
 /obj/effect/turf_decal/tile/purple/half{
 	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1;
+	name = "Connector Port (Air Supply)"
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
@@ -48269,20 +48284,38 @@
 /turf/open/floor/iron/tech/grid,
 /area/station/cargo/warehouse)
 "sgx" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -24
-	},
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 1;
-	name = "Connector Port (Air Supply)"
-	},
 /obj/effect/turf_decal/tile/purple/fourcorners,
-/obj/machinery/light_switch/directional/south,
-/obj/machinery/button/ignition{
-	id = "MothIgnitor";
-	pixel_y = -26;
-	pixel_x = 8
+/obj/machinery/camera/directional/south{
+	c_tag = "Science - Artifact Lab - Office"
 	},
+/obj/item/clothing/glasses/science{
+	pixel_x = 5;
+	pixel_y = 3
+	},
+/obj/item/clothing/glasses/science{
+	pixel_x = 5;
+	pixel_y = 3
+	},
+/obj/item/clothing/gloves/artifact_pinchers,
+/obj/item/clothing/gloves/artifact_pinchers,
+/obj/item/xenoarchaeology_labeler{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/xenoarchaeology_labeler{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/machinery/requests_console{
+	department = "Science";
+	departmentType = 2;
+	name = "Science Requests Console";
+	pixel_y = -30;
+	receive_ore_updates = 1;
+	pixel_x = 0
+	},
+/obj/structure/rack,
+/obj/machinery/light_switch/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "sgB" = (
@@ -51172,6 +51205,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/station/service/chapel/funeral)
+"tkp" = (
+/obj/effect/turf_decal/bot,
+/obj/item/kirbyplants/random,
+/turf/open/floor/iron/cafeteria,
+/area/station/service/kitchen/coldroom)
 "tkw" = (
 /obj/effect/turf_decal/tile/yellow/half{
 	dir = 4
@@ -60423,9 +60461,11 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
 "wMa" = (
-/obj/machinery/computer/shuttle_flight/monastery_shuttle{
+/obj/machinery/computer/shuttle_flight{
+	dir = 4;
 	possible_destinations = "monastery_shuttle_asteroid;monastery_shuttle_station;/area/library";
-	dir = 4
+	shuttleId = "pod1";
+	name = "Monastery Request Shuttle"
 	},
 /turf/open/floor/wood/big,
 /area/station/service/library/lounge)
@@ -60907,7 +60947,6 @@
 	id = "telelab";
 	name = "Test Chamber Blast Door"
 	},
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/engine,
@@ -64333,11 +64372,14 @@
 /turf/open/floor/grass,
 /area/station/medical/genetics)
 "xWV" = (
-/obj/machinery/computer/shuttle_flight/monastery_shuttle{
-	possible_destinations = "monastery_shuttle_asteroid;monastery_shuttle_station;/area/library"
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/computer/shuttle_flight{
+	dir = 2;
+	possible_destinations = "monastery_shuttle_asteroid;monastery_shuttle_station;/area/library";
+	shuttleId = "pod1";
+	name = "Monastery Request Shuttle"
+	},
 /turf/open/floor/iron/dark,
 /area/station/commons/fitness/recreation/entertainment)
 "xWY" = (
@@ -65299,18 +65341,6 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/table/reinforced,
-/obj/item/book/manual/wiki/xenoarchaeology,
-/obj/item/clothing/glasses/science{
-	pixel_x = 5;
-	pixel_y = 3
-	},
-/obj/item/clothing/glasses/science{
-	pixel_x = 5;
-	pixel_y = 3
-	},
-/obj/item/clothing/gloves/artifact_pinchers,
-/obj/item/clothing/gloves/artifact_pinchers,
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 9
 	},
@@ -65330,36 +65360,19 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science Requests Console";
-	pixel_y = 30;
-	receive_ore_updates = 1
-	},
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/machinery/camera/directional/north{
-	c_tag = "Science - Artifact Lab - Office"
 	},
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/table/reinforced,
-/obj/item/xenoarchaeology_labeler{
-	pixel_x = 1;
-	pixel_y = 5
-	},
-/obj/item/xenoarchaeology_labeler{
-	pixel_x = 1;
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple/half{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/xenoarchaeology,
 /obj/item/laser_pointer/purple{
 	pixel_y = -5
 	},
@@ -94005,7 +94018,7 @@ wdy
 jcN
 uhv
 vqS
-jAm
+tkp
 vqH
 dpl
 oQl
@@ -104560,7 +104573,7 @@ sJa
 sJa
 sJa
 sJa
-qgo
+sJa
 sJa
 sJa
 sJa
@@ -104815,8 +104828,8 @@ mAy
 vXL
 vjW
 jPw
-tIH
-dOq
+lij
+vXL
 mxe
 sgx
 vXL
@@ -105072,8 +105085,8 @@ irf
 vXL
 jmu
 vjW
-vjW
-pni
+tIH
+dOq
 hwk
 qAl
 nkK
@@ -105844,7 +105857,7 @@ vXL
 gpL
 tzW
 qhu
-vXL
+qgo
 ymc
 dcZ
 vXL
