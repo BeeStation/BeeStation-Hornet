@@ -98,3 +98,9 @@
   - bugfix: fix slimepeople eye misapplication
   WhiskeyMarten:
   - spellcheck: Fixed a few minor misspellings.
+2026-06-07:
+  mrmanlikesbt:
+  - code_imp: The Grid TGUI component has been deprecated.
+  - tweak: Slightly reorganized the bluespace launchpad UI.
+  - bugfix: Fixed some issues with the nanite UIs.
+  - bugfix: Fixed the DNA console UI being a little too small

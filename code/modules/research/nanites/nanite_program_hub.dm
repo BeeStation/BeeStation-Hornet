@@ -69,9 +69,13 @@
 			data["has_program"] = TRUE
 			disk_data["name"] = P.name
 			disk_data["desc"] = P.desc
+		else
+			data["has_program"] = FALSE
+
 		data["disk"] = disk_data
 	else
 		data["has_disk"] = FALSE
+		data["has_program"] = FALSE
 
 	data["detail_view"] = detail_view
 

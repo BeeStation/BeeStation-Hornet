@@ -1,26 +1,152 @@
-import { Dropdown } from 'tgui-core/components';
-
-import { useBackend } from '../backend';
 import {
   Button,
-  Grid,
+  Dropdown,
   Input,
   LabeledList,
   NoticeBox,
   NumberInput,
   Section,
-} from '../components';
-import { Window } from '../layouts';
+  Stack,
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 
-export const NaniteCodes = (props) => {
-  const { act, data } = useBackend();
+import { useBackend } from '../backend';
+import { Window } from '../layouts';
+import type { NaniteProgram } from './common/NaniteTypes';
+
+type Data = {
+  has_disk: BooleanLike;
+  has_program: BooleanLike;
+} & NaniteProgram;
+
+export function NaniteProgrammer(props) {
+  return (
+    <Window width={500} height={550}>
+      <Window.Content scrollable>
+        <NaniteProgrammerContent />
+      </Window.Content>
+    </Window>
+  );
+}
+
+export function NaniteProgrammerContent(props) {
+  const { act, data } = useBackend<Data>();
+  const {
+    has_disk,
+    has_program,
+    name,
+    desc,
+    use_rate,
+    can_trigger,
+    trigger_cost,
+    trigger_cooldown,
+    activated,
+    has_extra_settings,
+    extra_settings = [],
+  } = data;
 
   return (
-    <Section title="Codes" level={3} mr={1}>
+    <Section
+      title={has_program ? `Program Disk: ${name}` : 'Program Disk'}
+      fill
+      buttons={
+        <Button icon="eject" disabled={!has_disk} onClick={() => act('eject')}>
+          Eject
+        </Button>
+      }
+    >
+      {!has_disk ? (
+        <NoticeBox>No Disk Inserted</NoticeBox>
+      ) : !has_program ? (
+        <NoticeBox>No Program Installed</NoticeBox>
+      ) : (
+        <Stack vertical p={1}>
+          <Stack.Item>
+            <Stack>
+              <Stack.Item>{desc}</Stack.Item>
+
+              <Stack.Divider />
+
+              <Stack.Item>
+                <LabeledList>
+                  <LabeledList.Item label="Status">
+                    <Button
+                      icon={activated ? 'power-off' : 'times'}
+                      selected={activated}
+                      color="bad"
+                      bold
+                      onClick={() => act('toggle_active')}
+                    >
+                      {activated ? 'Active' : 'Inactive'}
+                    </Button>
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Use Rate">
+                    {use_rate}
+                  </LabeledList.Item>
+                  {!!can_trigger && (
+                    <>
+                      <LabeledList.Item label="Trigger Cost">
+                        {trigger_cost}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Trigger Cooldown">
+                        {trigger_cooldown}
+                      </LabeledList.Item>
+                    </>
+                  )}
+                </LabeledList>
+              </Stack.Item>
+            </Stack>
+          </Stack.Item>
+
+          <br />
+
+          <Stack.Item>
+            <Stack>
+              <Stack.Item grow>
+                <ProgramCodes />
+              </Stack.Item>
+              <Stack.Item grow>
+                <ProgramDelays />
+              </Stack.Item>
+            </Stack>
+          </Stack.Item>
+
+          {!!has_extra_settings && (
+            <Stack.Item>
+              <Section title="Special">
+                <LabeledList>
+                  {extra_settings.map((setting) => (
+                    <NaniteExtraEntry
+                      key={setting.name}
+                      extra_setting={setting}
+                    />
+                  ))}
+                </LabeledList>
+              </Section>
+            </Stack.Item>
+          )}
+        </Stack>
+      )}
+    </Section>
+  );
+}
+
+function ProgramCodes(props) {
+  const { act, data } = useBackend<Data>();
+  const {
+    activation_code,
+    deactivation_code,
+    kill_code,
+    trigger_code,
+    can_trigger,
+  } = data;
+
+  return (
+    <Section title="Codes" fill mr={0.5}>
       <LabeledList>
         <LabeledList.Item label="Activation">
           <NumberInput
-            value={data.activation_code}
+            value={activation_code}
             width="47px"
             minValue={0}
             maxValue={9999}
@@ -35,7 +161,7 @@ export const NaniteCodes = (props) => {
         </LabeledList.Item>
         <LabeledList.Item label="Deactivation">
           <NumberInput
-            value={data.deactivation_code}
+            value={deactivation_code}
             width="47px"
             minValue={0}
             maxValue={9999}
@@ -50,7 +176,7 @@ export const NaniteCodes = (props) => {
         </LabeledList.Item>
         <LabeledList.Item label="Kill">
           <NumberInput
-            value={data.kill_code}
+            value={kill_code}
             width="47px"
             minValue={0}
             maxValue={9999}
@@ -63,10 +189,10 @@ export const NaniteCodes = (props) => {
             }
           />
         </LabeledList.Item>
-        {!!data.can_trigger && (
+        {!!can_trigger && (
           <LabeledList.Item label="Trigger">
             <NumberInput
-              value={data.trigger_code}
+              value={trigger_code}
               width="47px"
               minValue={0}
               maxValue={9999}
@@ -83,17 +209,24 @@ export const NaniteCodes = (props) => {
       </LabeledList>
     </Section>
   );
-};
+}
 
-export const NaniteDelays = (props) => {
-  const { act, data } = useBackend();
+function ProgramDelays(props) {
+  const { act, data } = useBackend<Data>();
+  const {
+    timer_restart,
+    timer_shutdown,
+    timer_trigger,
+    can_trigger,
+    timer_trigger_delay,
+  } = data;
 
   return (
-    <Section title="Delays" level={3} ml={1}>
+    <Section title="Delays" fill ml={0.5}>
       <LabeledList>
         <LabeledList.Item label="Restart Timer">
           <NumberInput
-            value={data.timer_restart}
+            value={timer_restart}
             unit="s"
             width="57px"
             minValue={0}
@@ -108,7 +241,7 @@ export const NaniteDelays = (props) => {
         </LabeledList.Item>
         <LabeledList.Item label="Shutdown Timer">
           <NumberInput
-            value={data.timer_shutdown}
+            value={timer_shutdown}
             unit="s"
             width="57px"
             minValue={0}
@@ -121,11 +254,11 @@ export const NaniteDelays = (props) => {
             }
           />
         </LabeledList.Item>
-        {!!data.can_trigger && (
+        {!!can_trigger && (
           <>
             <LabeledList.Item label="Trigger Repeat Timer">
               <NumberInput
-                value={data.timer_trigger}
+                value={timer_trigger}
                 unit="s"
                 width="57px"
                 minValue={0}
@@ -140,7 +273,7 @@ export const NaniteDelays = (props) => {
             </LabeledList.Item>
             <LabeledList.Item label="Trigger Delay">
               <NumberInput
-                value={data.timer_trigger_delay}
+                value={timer_trigger_delay}
                 unit="s"
                 width="57px"
                 minValue={0}
@@ -158,11 +291,12 @@ export const NaniteDelays = (props) => {
       </LabeledList>
     </Section>
   );
-};
+}
 
-export const NaniteExtraEntry = (props) => {
+function NaniteExtraEntry(props) {
   const { extra_setting } = props;
   const { name, type } = extra_setting;
+
   const typeComponentMap = {
     number: <NaniteExtraNumber extra_setting={extra_setting} />,
     text: <NaniteExtraText extra_setting={extra_setting} />,
@@ -172,12 +306,14 @@ export const NaniteExtraEntry = (props) => {
   return (
     <LabeledList.Item label={name}>{typeComponentMap[type]}</LabeledList.Item>
   );
-};
+}
 
-export const NaniteExtraNumber = (props) => {
-  const { extra_setting } = props;
+function NaniteExtraNumber(props) {
   const { act } = useBackend();
+
+  const { extra_setting } = props;
   const { name, value, min, max, unit } = extra_setting;
+
   return (
     <NumberInput
       value={value}
@@ -194,12 +330,14 @@ export const NaniteExtraNumber = (props) => {
       }
     />
   );
-};
+}
 
-export const NaniteExtraText = (props) => {
-  const { extra_setting } = props;
+function NaniteExtraText(props) {
   const { act } = useBackend();
+
+  const { extra_setting } = props;
   const { name, value } = extra_setting;
+
   return (
     <Input
       value={value}
@@ -212,12 +350,14 @@ export const NaniteExtraText = (props) => {
       }
     />
   );
-};
+}
 
-export const NaniteExtraType = (props) => {
-  const { extra_setting } = props;
+function NaniteExtraType(props) {
   const { act } = useBackend();
+
+  const { extra_setting } = props;
   const { name, value, types } = extra_setting;
+
   return (
     <Dropdown
       over
@@ -232,127 +372,24 @@ export const NaniteExtraType = (props) => {
       }
     />
   );
-};
+}
 
-export const NaniteExtraBoolean = (props) => {
-  const { extra_setting } = props;
+function NaniteExtraBoolean(props) {
   const { act } = useBackend();
+
+  const { extra_setting } = props;
   const { name, value, true_text, false_text } = extra_setting;
+
   return (
     <Button.Checkbox
-      content={value ? true_text : false_text}
       checked={value}
       onClick={() =>
         act('set_extra_setting', {
           target_setting: name,
         })
       }
-    />
-  );
-};
-
-export const NaniteProgrammer = (props) => {
-  return (
-    <Window width={420} height={550}>
-      <Window.Content scrollable>
-        <NaniteProgrammerContent />
-      </Window.Content>
-    </Window>
-  );
-};
-
-export const NaniteProgrammerContent = (props) => {
-  const { act, data } = useBackend();
-  const {
-    has_disk,
-    has_program,
-    name,
-    desc,
-    use_rate,
-    can_trigger,
-    trigger_cost,
-    trigger_cooldown,
-    activated,
-    has_extra_settings,
-    extra_settings = {},
-  } = data;
-
-  if (!has_disk) {
-    return (
-      <NoticeBox textAlign="center">Insert a nanite program disk</NoticeBox>
-    );
-  }
-
-  if (!has_program) {
-    return (
-      <Section
-        title="Blank Disk"
-        buttons={
-          <Button icon="eject" content="Eject" onClick={() => act('eject')} />
-        }
-      />
-    );
-  }
-
-  return (
-    <Section
-      title={name}
-      buttons={
-        <Button icon="eject" content="Eject" onClick={() => act('eject')} />
-      }
     >
-      <Section title="Info" level={2}>
-        <Grid>
-          <Grid.Column>{desc}</Grid.Column>
-          <Grid.Column size={0.7}>
-            <LabeledList>
-              <LabeledList.Item label="Use Rate">{use_rate}</LabeledList.Item>
-              {!!can_trigger && (
-                <>
-                  <LabeledList.Item label="Trigger Cost">
-                    {trigger_cost}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Trigger Cooldown">
-                    {trigger_cooldown}
-                  </LabeledList.Item>
-                </>
-              )}
-            </LabeledList>
-          </Grid.Column>
-        </Grid>
-      </Section>
-      <Section
-        title="Settings"
-        level={2}
-        buttons={
-          <Button
-            icon={activated ? 'power-off' : 'times'}
-            content={activated ? 'Active' : 'Inactive'}
-            selected={activated}
-            color="bad"
-            bold
-            onClick={() => act('toggle_active')}
-          />
-        }
-      >
-        <Grid>
-          <Grid.Column>
-            <NaniteCodes />
-          </Grid.Column>
-          <Grid.Column>
-            <NaniteDelays />
-          </Grid.Column>
-        </Grid>
-        {!!has_extra_settings && (
-          <Section title="Special" level={3}>
-            <LabeledList>
-              {extra_settings.map((setting) => (
-                <NaniteExtraEntry key={setting.name} extra_setting={setting} />
-              ))}
-            </LabeledList>
-          </Section>
-        )}
-      </Section>
-    </Section>
+      {value ? true_text : false_text}
+    </Button.Checkbox>
   );
-};
+}
