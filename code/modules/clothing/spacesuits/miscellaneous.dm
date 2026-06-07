@@ -630,6 +630,9 @@ Contains:
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
+/obj/item/clothing/head/helmet/space/hardsuit/skinsuit/attack_self(mob/user)
+	return
+
 /obj/item/clothing/suit/space/hardsuit/skinsuit
 	name = "skinsuit"
 	desc = "A slim, compression-based spacesuit meant to protect the user during emergency situations. It's only a little warmer than your uniform."
@@ -654,6 +657,8 @@ Contains:
 	bio = 50
 	bleed = 10
 
+/obj/item/clothing/suit/space/hardsuit/skinsuit/attackby(obj/item/I, mob/user, params)
+	return
 
 /obj/item/clothing/head/helmet/space/hunter
 	name = "bounty hunting helmet"
