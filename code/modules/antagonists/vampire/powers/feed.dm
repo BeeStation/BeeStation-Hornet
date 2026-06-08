@@ -555,6 +555,8 @@
 	/// Tracking of the vitae goal
 	if(target.client)
 		vampiredatum_power.vitae_goal_progress += vitae_absorbed
+		// Milestone levelling: reaching the goal grants a level immediately (gated by a cooldown).
+		vampiredatum_power.check_milestone_levelup()
 
 	vampiredatum_power.adjust_vitae(vitae_absorbed)
 

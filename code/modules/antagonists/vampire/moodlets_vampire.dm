@@ -24,7 +24,7 @@
 	timeout = 10 MINUTES
 
 /datum/mood_event/coffinsleep
-	description = span_nicegreen("I slept in a coffin during the day. I feel whole again.")
+	description = span_nicegreen("I slept in my coffin. I feel whole again.")
 	mood_change = 10
 	timeout = 6 MINUTES
 

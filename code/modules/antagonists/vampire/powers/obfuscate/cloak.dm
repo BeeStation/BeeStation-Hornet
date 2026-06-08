@@ -11,7 +11,6 @@
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_UNCONSCIOUS
 	vitaecost = 20
 	constant_vitaecost = 0
-	sol_multiplier = 2.5
 	cooldown_time = 5 SECONDS
 	/// How much blood is drained per tick while in the light.
 	var/light_vitae_cost = 4
@@ -59,8 +58,6 @@
 	if(!in_shadow)
 		// In light: drain blood
 		var/actual_cost = light_vitae_cost
-		if(user.has_status_effect(/datum/status_effect/vampire_sol))
-			actual_cost *= sol_multiplier
 		if(vampiredatum_power)
 			if(vampiredatum_power.current_vitae < actual_cost)
 				to_chat(user, span_warning("You don't have enough blood to sustain your cloak in the light!"))

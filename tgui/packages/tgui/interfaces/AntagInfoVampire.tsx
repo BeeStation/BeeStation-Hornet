@@ -174,7 +174,7 @@ const VampireGuide = (_props) => {
               onClick={() => setTab(5)}
               style={guideTabStyle}
             >
-              Sol & Levelling
+              Levelling
             </Tabs.Tab>
             <Tabs.Tab
               icon="list"
@@ -440,8 +440,6 @@ const VampireGuide = (_props) => {
               <br />
               <Box fontSize="13px" ml={1}>
                 • Harder to interact with mortals
-                <br />
-                • Difficult to stay active during daylight
                 <br />• Longer{' '}
                 <Box inline textColor="orange">
                   torpor
@@ -562,55 +560,52 @@ const VampireGuide = (_props) => {
             </Box>
           )}
           {tab === 5 && (
-            // Sol
+            // Levelling
             <Box>
-              <Box fontSize="32px" textColor="orange" bold>
-                Sol
-              </Box>
-              <Box inline textColor="yellow">
-                Sol
-              </Box>{' '}
-              refers to the nearby temperamental star, not Earth&apos;s sun.
-              Vampires do well in space. You are just unlucky enough to be near
-              this one.
-              <br />
-              <br />
-              <Box fontSize="14px" bold>
-                Key Facts
-              </Box>
-              <Box fontSize="13px">
-                • Click the HUD icon for more detailed information
-                <br />
-                • You cannot die to Sol if you are protected by lockers,
-                maintenance tunnels, or coffins
-                <br />
-                • If you are caught unprotected, you will burn to dust
-                <br />• Higher humanity grants partial resistance to Sol&apos;s
-                effects
-              </Box>
-              <br />
-              <Box fontSize="14px" bold textColor="red">
-                During Sol
-              </Box>
-              <Box fontSize="13px">
-                • You cannot passively heal; only coffins can restore you
-                <br />
-                • You take 50% more damage from all sources
-                <br />• Your powers have doubled cooldowns, increased vitae
-                costs, and some are blocked entirely
-              </Box>
-              <br />
-              <Box fontSize="16px" textColor="darkred" bold>
+              <Box fontSize="32px" textColor="darkred" bold>
                 Growing in Power
               </Box>
-              As a vampire, you grow stronger over time by meeting your feeding
-              requirements. Click your blood meter on the HUD to see your
-              current progress toward the next rank.
+              As a vampire, you grow stronger over time by feeding on the living
+              crew. Click your blood meter on the HUD to see your current
+              progress toward the next rank.
               <br />
               <br />
-              After each Sol cycle, if you have consumed enough vitae to meet
-              your goal, you will gain a Rank. Each rank provides significant
-              benefits:
+              <Box fontSize="14px" bold textColor="red">
+                Milestone Levelling
+              </Box>
+              <Box fontSize="13px">
+                The moment you have consumed enough{' '}
+                <Box inline textColor="red">
+                  vitae
+                </Box>{' '}
+                from sapient prey to meet your feeding goal, you immediately
+                gain a Rank.
+                <br />
+                <br />• Only blood drained from <b>players</b> counts toward your
+                goal. Mice and monkeys sustain you, but will not advance you.
+                <br />• After ranking up, your body must settle before it can
+                grow again. There is roughly a <b>ten minute</b> cooldown between
+                level-ups.
+                <br />• Excess vitae drunk during the cooldown is not wasted; it
+                banks toward your next goal and pays out on your next feed once
+                the cooldown clears.
+              </Box>
+              <br />
+              <Box
+                mt={1}
+                fontSize="13px"
+                textColor="blue"
+                style={{
+                  borderLeft: '2px solid #4444ff',
+                  paddingLeft: '8px',
+                }}
+              >
+                <b>Tip:</b> Diablerie (draining another vampire who has broken
+                the Masquerade) grants levels instantly and ignores the
+                cooldown.
+              </Box>
+              <br />
+              Each rank provides significant benefits:
               <Box fontSize="13px" ml={1}>
                 • Increased physical strength
                 <br />
@@ -782,10 +777,6 @@ const VampireGuide = (_props) => {
                 offers minimal protection.
                 <br />
                 <br />
-                <b>Sol:</b> Every ten minutes, sunlight cripples you unless
-                protected by a coffin or similar shelter.
-                <br />
-                <br />
                 <b>The Masquerade:</b> Break it and every vampire turns against
                 you. You will be hunted by kindred and mortals alike.
               </Box>
@@ -822,13 +813,9 @@ const VampireGuide = (_props) => {
                 <Box inline textColor="purple">
                   vassals
                 </Box>{' '}
-                or use certain structures. If you just need somewhere to hide
-                during{' '}
-                <Box inline textColor="yellow">
-                  Sol
-                </Box>
-                , any dark corner with a locker will do. The more infrastructure
-                you build, the more evidence you leave behind.
+                or use certain structures. If you just need somewhere to lie
+                low, any dark corner with a locker will do. The more
+                infrastructure you build, the more evidence you leave behind.
               </Box>
               <br />
               <Box bold>

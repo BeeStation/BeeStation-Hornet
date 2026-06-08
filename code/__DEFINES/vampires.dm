@@ -23,19 +23,16 @@
 #define DIABLERIE_DIVISOR 1.5
 /// Amount of vitae drunk from another player required to level up.
 #define VITAE_GOAL_STANDARD 250
+/// How long the vampire must wait between milestone level-ups (emulates the old Sol cadence).
+#define VAMPIRE_LEVELUP_COOLDOWN (10 MINUTES)
 
-/// How many starting levels do we want each one to have?
-#define VAMPIRE_STARTING_LEVELS 3
+/// How many unspent ranks each vampire starts with. They already get one free level in every discipline via their clan, so this is 0 on top of that.
+#define VAMPIRE_STARTING_LEVELS 0
 /// Vampire's default stamina resist. Tuned to withstand one taser and not more.
 #define VAMPIRE_INHERENT_STAMINA_RESIST 0.45
 
 /// When do we warn them about their low blood?
 #define VAMPIRE_LOW_BLOOD_WARNING 300
-
-/// How much blood drained from the vampire each tick during sol
-#define VAMPIRE_SOL_BURN 15
-/// We don't go below this threshold when in a shielded area during sol
-#define VAMPIRE_SOL_SHIELD_THRESHOLD 500
 
 // vassal defines
 /// If someone passes all checks and can be vassalized
@@ -61,18 +58,12 @@
 /// Default Humanity
 #define VAMPIRE_DEFAULT_HUMANITY 7
 
-// List of areas that are shielded from sol.
-#define VAMPIRE_SOL_SHIELDED list(/area/station/maintenance, /area/station/medical/morgue, /area/station/security/prison, /area/station/ai_monitored, /area/station/holodeck/prison, /area/shuttle)
-
 // Cooldown defines
 // Used to prevent spamming vampires
 /// Spam prevention for healing messages.
 #define VAMPIRE_SPAM_HEALING 15 SECONDS
 /// Spam prevention for Sol Masquerade messages.
 #define VAMPIRE_SPAM_MASQUERADE 60 SECONDS
-
-/// Spam prevention for Sol messages.
-#define VAMPIRE_SPAM_SOL 30 SECONDS
 
 // Clan defines
 #define CLAN_BRUJAH "Brujah Clan"
@@ -97,8 +88,6 @@
 #define BP_CANT_USE_WHILE_INCAPACITATED (1<<3)
 /// This Power can't be used while unconscious
 #define BP_CANT_USE_WHILE_UNCONSCIOUS (1<<4)
-/// This Power can't be used during Sol
-#define BP_CANT_USE_DURING_SOL (1<<5)
 
 /// This is a Default Power that all Vampires get.
 #define VAMPIRE_DEFAULT_POWER (1<<1)
@@ -123,25 +112,8 @@
 /// Called when a Vampire breaks the Masquerade
 #define COMSIG_VAMPIRE_BROKE_MASQUERADE "comsig_vampire_broke_masquerade"
 
-// Signals & Defines
-/// Sent every Sol tick
-#define COMSIG_SOL_RISE_TICK "comsig_sol_rise_tick"
-/// Sent 90 seconds before Sol begins
-#define COMSIG_SOL_NEAR_START "comsig_sol_near_start"
-/// Sent at the end of Sol
-#define COMSIG_SOL_END "comsig_sol_end"
-/// Sent 15 seconds before Sol ends
-#define COMSIG_SOL_NEAR_END "comsig_sol_near_end"
-/// Sent when a warning for Sol is meant to go out: (danger_level, vampire_warning_message, vassal_warning_message)
-#define COMSIG_SOL_WARNING_GIVEN "comsig_sol_warning_given"
 /// Sent when tracking humanity gain progress: (type, subject)
 #define COMSIG_VAMPIRE_TRACK_HUMANITY_GAIN "comsig_vampire_track_humanity_gain"
-
-#define DANGER_LEVEL_FIRST_WARNING 1
-#define DANGER_LEVEL_SECOND_WARNING 2
-#define DANGER_LEVEL_THIRD_WARNING 3
-#define DANGER_LEVEL_SOL_ROSE 4
-#define DANGER_LEVEL_SOL_ENDED 5
 
 // Clan defines
 /// Drinks blood the normal Vampire way.

@@ -21,10 +21,10 @@
 	/// Our disciplines
 	var/list/owned_disciplines = list()
 
-	/// Timer between alerts for Burn messages
-	COOLDOWN_DECLARE(vampire_spam_sol_burn)
 	/// Timer between alerts for Healing messages
 	COOLDOWN_DECLARE(vampire_spam_healing)
+	/// Gate between milestone level-ups, emulating the old Sol cadence.
+	COOLDOWN_DECLARE(vampire_levelup_cooldown)
 
 	/// Should we automatically forge objectives?
 	var/should_forge_objectives = TRUE
@@ -85,17 +85,12 @@
 	var/area/vampire_lair_area
 	var/obj/structure/closet/crate/coffin
 
-	/// To make sure we don't spam sol damage messages
-	var/were_shielded = FALSE
-
 	/// Blood display HUD
 	var/atom/movable/screen/vampire/blood_counter/blood_display
 	/// Vampire level display HUD
 	var/atom/movable/screen/vampire/rank_counter/vamprank_display
 	/// Vampire humanity display HUD
 	var/atom/movable/screen/vampire/humanity_counter/humanity_display
-	/// Sunlight timer HUD
-	var/atom/movable/screen/vampire/sunlight_counter/sunlight_display
 
 	/// Tracker so that vassals know where their master is
 	var/obj/effect/abstract/vampire_tracker_holder/tracker
@@ -212,11 +207,9 @@
 		var/datum/hud/hud_used = current_mob.hud_used
 		hud_used.infodisplay -= blood_display
 		hud_used.infodisplay -= vamprank_display
-		hud_used.infodisplay -= sunlight_display
 		hud_used.infodisplay -= humanity_display
 		QDEL_NULL(blood_display)
 		QDEL_NULL(vamprank_display)
-		QDEL_NULL(sunlight_display)
 		QDEL_NULL(humanity_display)
 
 	current_mob.faction -= FACTION_VAMPIRE
@@ -230,9 +223,6 @@
 
 	vamprank_display = new /atom/movable/screen/vampire/rank_counter(null, vampire_hud)
 	vampire_hud.infodisplay += vamprank_display
-
-	sunlight_display = new /atom/movable/screen/vampire/sunlight_counter(null, vampire_hud)
-	vampire_hud.infodisplay += sunlight_display
 
 	humanity_display = new /atom/movable/screen/vampire/humanity_counter(null, vampire_hud)
 	vampire_hud.infodisplay += humanity_display
@@ -261,12 +251,6 @@
 
 /datum/antagonist/vampire/on_gain()
 	. = ..()
-	SSsunlight.send_messages = TRUE
-	RegisterSignal(SSsunlight, COMSIG_SOL_NEAR_START, PROC_REF(sol_near_start))
-	RegisterSignal(SSsunlight, COMSIG_SOL_END, PROC_REF(on_sol_end))
-	RegisterSignal(SSsunlight, COMSIG_SOL_NEAR_END, PROC_REF(sol_near_end))
-	RegisterSignal(SSsunlight, COMSIG_SOL_RISE_TICK, PROC_REF(handle_sol))
-	RegisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN, PROC_REF(give_warning))
 	RegisterSignal(src, COMSIG_VAMPIRE_TRACK_HUMANITY_GAIN, PROC_REF(on_track_humanity_gain_signal))
 
 
@@ -300,7 +284,6 @@
 
 /datum/antagonist/vampire/on_removal()
 	REMOVE_TRAIT(owner, TRAIT_VAMPIRE_ALIGNED, REF(src))
-	UnregisterSignal(SSsunlight, list(COMSIG_SOL_NEAR_END, COMSIG_SOL_NEAR_START, COMSIG_SOL_END, COMSIG_SOL_RISE_TICK, COMSIG_SOL_WARNING_GIVEN))
 
 	owner.forget_crafting_recipe(list(
 		/datum/crafting_recipe/vassalrack,
@@ -312,8 +295,6 @@
 	GLOB.all_vampires -= src
 	check_cancel_society()
 	. = ..()
-	if(!length(get_antag_minds(/datum/antagonist/vampire)))
-		SSsunlight.send_messages = FALSE
 
 /datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()

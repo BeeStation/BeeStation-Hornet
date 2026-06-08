@@ -45,6 +45,9 @@
 	// Handle blood
 	handle_blood(delta_time)
 
+	// Milestone levelling: if our goal is banked, pay it out the moment the cooldown clears (no extra feeding needed).
+	check_milestone_levelup()
+
 	// Check for Final Death
 	if(check_final_death())
 		return
@@ -95,9 +98,6 @@
 		return FALSE
 	// Dont heal if you have TRAIT_MASQUERADE and not undergoing torpor
 	if(!in_torpor && HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
-		return FALSE
-	// No healing during sol, cry about it
-	if(!in_torpor && owner.current.has_status_effect(/datum/status_effect/vampire_sol))
 		return FALSE
 
 	var/actual_regen = vampire_regen_rate + additional_regen

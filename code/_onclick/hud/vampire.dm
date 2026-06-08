@@ -1,16 +1,9 @@
-/// 1 tile up
-#define UI_HUMANITY_DISPLAY "WEST:6,CENTER+1:0"
-/// 1 tile down
+#define UI_HUMANITY_DISPLAY "WEST:6,CENTER:-5"
 #define UI_BLOOD_DISPLAY "WEST:6,CENTER-1:0"
-/// 2 tiles down
 #define UI_VAMPRANK_DISPLAY "WEST:6,CENTER-2:-5"
-/// 6 pixels to the right, zero tiles & 5 pixels DOWN.
-#define UI_SUNLIGHT_DISPLAY "WEST:6,CENTER-0:0"
 
 ///Maptext define for Vampire HUDs
 #define FORMAT_VAMPIRE_HUD_TEXT(valuecolor, value) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='[valuecolor]'>[round(value,1)]</font></div>")
-///Maptext define for Vampire Sunlight HUDs
-#define FORMAT_VAMPIRE_SUNLIGHT_TEXT(valuecolor, value) MAPTEXT("<div align='center' valign='bottom' style='position:relative; top:0px; left:6px'><font color='[valuecolor]'>[value]</font></div>")
 
 /atom/movable/screen/vampire
 	icon = 'icons/vampires/actions_vampire.dmi'
@@ -51,10 +44,11 @@
 
 	msg += span_cultlarge("\n<b>Right now, you are feeling <i>[bloodlevel].</i></b>")
 
-	if(owner_vamp.vitae_goal_progress <= owner_vamp.current_vitae_goal)
-		msg += span_cultlarge("\n<b>Your progress to the next level is: <i>[owner_vamp.vitae_goal_progress]/[owner_vamp.current_vitae_goal].</i></b>")
-	else
-		msg += span_cultlarge("\n<b>You have drank deeply and greedily. Upon next sol, you will level up.</b>")
+	msg += span_cultlarge("\n<b>Your progress to the next level is: <i>[owner_vamp.vitae_goal_progress]/[owner_vamp.current_vitae_goal].</i></b>")
+	if(!COOLDOWN_FINISHED(owner_vamp, vampire_levelup_cooldown))
+		msg += span_cult("Your body is still settling from your last ascension. <b>You will rise in power again in [COOLDOWN_TIMELEFT_TEXT(owner_vamp, vampire_levelup_cooldown)].</b>")
+	else if(owner_vamp.vitae_goal_progress > owner_vamp.current_vitae_goal) // If they catch this, good for them.
+		msg += span_cultlarge("<b>You have drank deeply and greedily. Your power will rise at any moment.</b>")
 
 	to_chat(usr, examine_block(msg.Join("\n")))
 
@@ -90,34 +84,6 @@
 
 	if(disciplinestext)
 		msg += span_cult("\n<b>Your disciplines and their levels are:</b>[disciplinestext]")
-
-	to_chat(usr, examine_block(msg.Join("\n")))
-
-/atom/movable/screen/vampire/sunlight_counter
-	name = "Solar Flare Timer"
-	icon_state = "sunlight"
-	screen_loc = UI_SUNLIGHT_DISPLAY
-
-/atom/movable/screen/vampire/sunlight_counter/Click()
-	. = ..()
-	var/list/msg = list()
-	var/mob/living/owner_mob = hud.mymob
-	var/datum/antagonist/vampire/owner_vamp = IS_VAMPIRE(owner_mob)
-
-	if(!owner_vamp)
-		return
-
-	msg += span_cultlarge("This is the 'Sol' indicator.")
-	msg += span_cult("Here you see the current state of Sol, the frequent solar flares given off by the nearby star.")
-	msg += span_cult("While traditionally, vampires have thrived on space installations, Auri-Geminae's erratic solar behavior risks final death even in a shielded vessel.")
-
-	var/normal_humanity_divisor = min(2, 1 + (owner_vamp.humanity / 10))
-	var/divisor_turned_percentage = ((normal_humanity_divisor - 1) * 200) / 4
-	msg += span_cult("\n<b>Your current humanity affords you a [divisor_turned_percentage]% resistance to the ravages of Sol.</b>")
-
-	msg += span_cult("\n<b>When Sol hits, do not be found in the hallways. You will burn, and draw attention. A locker or maintenance can shield you.</b>")
-
-	msg += span_cult("\nThe best measure of protection is of course afforded only by the terrible deathless sleep, 'Torpor.'")
 
 	to_chat(usr, examine_block(msg.Join("\n")))
 
@@ -163,10 +129,7 @@
 
 	// Pardon me for my math, i was never good at this.
 
-	var/normal_humanity_divisor = min(2, 1 + (owner_vamp.humanity / 10))
-	var/divisor_turned_percentage = ((normal_humanity_divisor - 1) * 200) / 4
-
-	msg += span_cult("\n<b>Right now, others would describe you as <i>'[humanitylevel]',</i> giving you a [divisor_turned_percentage]% resistance to the ravages of Sol.</b>")
+	msg += span_cult("\n<b>Right now, others would describe you as <i>'[humanitylevel]'.</i></b>")
 	if(owner_vamp.humanity > 7)
 		msg += span_cult("Due to your connection to your own human soul, you have achieved the masquerade ability.")
 
@@ -225,41 +188,12 @@
 
 		humanity_display.maptext = FORMAT_VAMPIRE_HUD_TEXT(humanityvaluecolor, humanity)
 
-	if(sunlight_display)
-		var/sunlightvaluecolor = "#ffffff"
-		if(SSsunlight.sunlight_active)
-			sunlightvaluecolor = "#FF5555"
-			sunlight_display.icon_state = "[initial(sunlight_display.icon_state)]_day"
-		else
-			switch(round(SSsunlight.time_til_cycle, 1))
-				if(0 to 30)
-					sunlight_display.icon_state = "[initial(sunlight_display.icon_state)]_30"
-					sunlightvaluecolor = "#FFCCCC"
-				if(31 to 60)
-					sunlight_display.icon_state = "[initial(sunlight_display.icon_state)]_60"
-					sunlightvaluecolor = "#FFE6CC"
-				if(61 to 90)
-					sunlight_display.icon_state = "[initial(sunlight_display.icon_state)]_90"
-					sunlightvaluecolor = "#FFFFCC"
-				else
-					sunlight_display.icon_state = "[initial(sunlight_display.icon_state)]_night"
-					sunlightvaluecolor = "#FFFFFF"
-
-		sunlight_display.maptext = FORMAT_VAMPIRE_SUNLIGHT_TEXT( \
-			sunlightvaluecolor, \
-			(SSsunlight.time_til_cycle >= 60) ? "[round(SSsunlight.time_til_cycle / 60, 1)] m" : "[round(SSsunlight.time_til_cycle, 1)] s" \
-		)
-
 /// 1 tile up
 #undef UI_HUMANITY_DISPLAY
 /// 1 tile down
 #undef UI_BLOOD_DISPLAY
 /// 2 tiles down
 #undef UI_VAMPRANK_DISPLAY
-/// 6 pixels to the right, zero tiles & 5 pixels DOWN.
-#undef UI_SUNLIGHT_DISPLAY
 
 ///Maptext define for Vampire HUDs
 #undef FORMAT_VAMPIRE_HUD_TEXT
-///Maptext define for Vampire Sunlight HUDs
-#undef FORMAT_VAMPIRE_SUNLIGHT_TEXT

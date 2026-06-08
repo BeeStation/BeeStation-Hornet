@@ -5,7 +5,7 @@
 	power_explanation = "Activating Veil of Many Faces will shroud you in smoke and forge you a new identity.\n\
 		Your name and appearance will be completely randomized, deactivating the ability will restore you to your former self."
 	power_flags = BP_AM_TOGGLE
-	check_flags = BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_DURING_SOL
+	check_flags = BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED
 	vitaecost = 25
 	constant_vitaecost = 1.5
 	cooldown_time = 10 SECONDS
@@ -128,6 +128,9 @@
 	puff.start()
 	owner.spin(8, 1) //Spin around like a loon.
 	check_witnesses()
+
+/datum/effect_system/steam_spread/vampire
+	effect_type = /obj/effect/particle_effect/smoke/vampsmoke
 
 /obj/effect/particle_effect/smoke/vampsmoke
 	opacity = FALSE

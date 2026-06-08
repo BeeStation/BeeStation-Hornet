@@ -35,8 +35,6 @@
 	var/vitaecost = 0
 	///The cost to MAINTAIN this Power Only used for constant powers
 	var/constant_vitaecost = 0
-	/// A multiplier for the vitaecost during sol.
-	var/sol_multiplier = 1
 
 	///The upgraded version of this Power. 'null' means it's the max level.
 	var/upgraded_power = null
@@ -133,10 +131,6 @@
 	// Constant Cost (out of blood)
 	if(constant_vitaecost > 0 && vampiredatum_power?.current_vitae <= 0)
 		to_chat(carbon_owner, span_warning("You don't have the blood to upkeep [src]."))
-		return FALSE
-	// Sol check
-	if((check_flags & BP_CANT_USE_DURING_SOL) && carbon_owner.has_status_effect(/datum/status_effect/vampire_sol))
-		to_chat(carbon_owner, span_warning("You can't use [src] during Sol!"))
 		return FALSE
 	return TRUE
 

@@ -53,15 +53,15 @@
 		to_chat(owner.current, span_cultbold("You violated the Masquerade! Break the Masquerade [3 - masquerade_infractions] more times and you will become hunted by all other Vampires!"))
 
 /**
- * Increase our unspent vampire levels by one and try to rank up if inside a coffin
- * Called near the end of Sol and admin abuse
+ * Increase our unspent vampire levels by one and try to rank up.
+ * Called by the milestone level-up gate, diablerie, scourge/prince promotion, and admin abuse.
 **/
 /datum/antagonist/vampire/proc/rank_up(levels, ignore_reqs = FALSE)
 	if(QDELETED(owner) || QDELETED(owner.current))
 		return
 
 	if(vitae_goal_progress <= current_vitae_goal && !ignore_reqs)
-		to_chat(owner.current, span_notice("Your lack of experience has left you unable to level up. Fulfill your vitae goal next time in order to level up."))
+		to_chat(owner.current, span_notice("Your lack of experience has left you unable to level up. Fulfill your vitae goal in order to level up."))
 		return
 
 	vampire_level_unspent += levels
@@ -73,6 +73,26 @@
 
 	current_vitae_goal += VITAE_GOAL_STANDARD
 	vitae_goal_progress = 0
+
+/**
+ * Milestone level-up: the moment the feeding goal is reached, grant a level.
+ * Gated behind a cooldown so a single binge can't hand out multiple ranks at once,
+ * emulating the cadence the old Sol payout used to provide.
+ * Polled both when feeding (instant payout on reaching the goal) and every life tick
+ * (so a banked level pays out automatically once the cooldown clears, no extra feeding needed).
+**/
+/datum/antagonist/vampire/proc/check_milestone_levelup()
+	if(QDELETED(owner) || QDELETED(owner.current))
+		return
+	// Haven't met the goal yet, nothing to do. Mirrors rank_up()'s own requirement check.
+	if(vitae_goal_progress <= current_vitae_goal)
+		return
+	// Met the goal, but still cooling down from the last level-up.
+	// Progress stays banked; once the cooldown clears, the next feed pays it out.
+	if(!COOLDOWN_FINISHED(src, vampire_levelup_cooldown))
+		return
+	COOLDOWN_START(src, vampire_levelup_cooldown, VAMPIRE_LEVELUP_COOLDOWN)
+	rank_up(1) // rank_up resets progress + bumps the goal
 
 /**
  * Decrease the unspent vampire levels by one. Only for admins
