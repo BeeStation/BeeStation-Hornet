@@ -63,7 +63,7 @@
 	carbon_target.apply_status_effect(/datum/status_effect/summoned, summon_duration, owner)
 
 	owner.balloon_alert(owner, "summoning [carbon_target]")
-	to_chat(carbon_target, span_awe("An irresistible compulsion draws you towards [owner]..."), type = MESSAGE_TYPE_WARNING)
+	to_chat(carbon_target, span_awe("An irresistible compulsion draws you..."), type = MESSAGE_TYPE_WARNING)
 	to_chat(owner, span_notice("You beckon [carbon_target] towards you."), type = MESSAGE_TYPE_INFO)
 
 /// Status effect for being summoned towards the vampire
@@ -71,7 +71,7 @@
 	id = "summoned"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = 30 SECONDS
-	tick_interval = 0.6 SECONDS
+	tick_interval = 1 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/summoned
 	/// The vampire who is summoning us
 	var/mob/living/source_vampire
@@ -79,6 +79,10 @@
 	var/datum/move_loop/move_loop
 	/// How long between each step
 	var/step_delay = 0.6 SECONDS
+	/// How many consecutive grace ticks have elapsed while the summon is resolving
+	var/grace_counter = 0
+	/// How many grace ticks must elapse (while a finishing condition holds) before the summon completes with a stun
+	var/grace_period = 10
 
 /datum/status_effect/summoned/on_creation(mob/living/new_owner, set_duration, mob/living/vampire)
 	if(isnum_safe(set_duration))
@@ -113,7 +117,10 @@
 		qdel(move_loop)
 	if(QDELETED(source_vampire) || QDELETED(owner))
 		return
-	move_loop = SSmove_manager.home_onto(owner, source_vampire, step_delay, timeout = INFINITY)
+	// min_dist = 1 so the loop stops stepping once we're adjacent, rather than
+	// homing onto the vampire's exact tile (which would step onto them and
+	// place-swap on help intent).
+	move_loop = SSmove_manager.move_to(owner, source_vampire, 1, step_delay, timeout = INFINITY)
 	if(move_loop)
 		RegisterSignal(move_loop, COMSIG_QDELETING, PROC_REF(on_move_loop_deleted))
 
@@ -121,6 +128,30 @@
 /datum/status_effect/summoned/proc/on_move_loop_deleted(datum/source)
 	SIGNAL_HANDLER
 	move_loop = null
+
+/// End point for the summon. Applies a brief stun(only meaningful on the "arrived" finish)
+/datum/status_effect/summoned/proc/end_summon(stun_duration = 2 SECONDS)
+	if(QDELETED(src))
+		return
+	if(stun_duration > 0 && !QDELETED(owner))
+		owner.Stun(stun_duration)
+	qdel(src)
+
+/// Advances the shared grace countdown by a tick. Every early finishing condition funnels through here,
+/// so the vampire always gets the same visible countdown before it ends.
+/datum/status_effect/summoned/proc/advance_resolution(reason)
+	grace_counter++
+	// Grace spent: finish with the standard stun.
+	if(grace_counter > grace_period)
+		end_summon(2 SECONDS)
+		return
+	if(QDELETED(source_vampire))
+		return
+	// Announce the reason and total on the first grace tick, then count down.
+	if(grace_counter == 1)
+		owner.balloon_alert(source_vampire, "[reason] ([grace_period]s)", color = COLOR_DARK_RED)
+	else
+		owner.balloon_alert(source_vampire, "[grace_period - grace_counter + 1]...", color = COLOR_DARK_RED)
 
 /datum/status_effect/summoned/on_remove()
 	owner.remove_traits(list(TRAIT_INCAPACITATED, TRAIT_MUTE), TRAIT_STATUS_EFFECT(id))
@@ -140,24 +171,30 @@
 	to_chat(owner, span_awe("The compulsion fades and you regain control of yourself."))
 
 /datum/status_effect/summoned/tick(seconds_between_ticks)
-	// Check if vampire is still valid
+	// Summoner gone for good: cut the strings cleanly, no countdown and no stun.
 	if(QDELETED(source_vampire) || source_vampire.stat == DEAD)
-		qdel(src)
+		end_summon(0)
 		return
 
-	// Check if we've reached the vampire (adjacent)
+	// Arrived before the vampire: stop pursuing and let the grace countdown resolve it.
 	if(owner.Adjacent(source_vampire))
-		to_chat(owner, span_awe("You have arrived before [source_vampire]..."))
-		to_chat(source_vampire, span_notice("[owner] has arrived before you."))
-		// Brief stun when arriving so we don’t look weird with the movespeed
-		owner.Stun(4 SECONDS)
-		qdel(src)
+		// Flavour announcement on the very first grace tick.
+		if(grace_counter == 0)
+			to_chat(owner, span_awe("You have arrived before [source_vampire]..."))
+			to_chat(source_vampire, span_notice("[owner] has arrived before you."))
+		// Don't keep trying to move while we're resolving.
+		if(move_loop)
+			UnregisterSignal(move_loop, COMSIG_QDELETING)
+			qdel(move_loop)
+			move_loop = null
+		advance_resolution("arrived")
 		return
 
-	// Check line of sight - if broken, end the effect
+	// Line of sight broken: also resolves through the shared grace countdown.
 	if(!(source_vampire in view(10, owner)))
-		to_chat(owner, span_awe("You lose sight of your summoner and the compulsion breaks."))
-		qdel(src)
+		if(grace_counter == 0)
+			to_chat(owner, span_awe("You lose sight of your target, but the compulsion lingers..."))
+		advance_resolution("sight broken")
 		return
 
 	// Make sure we're facing the vampire
@@ -173,6 +210,6 @@
 /// Alert for summoned status
 /atom/movable/screen/alert/status_effect/summoned
 	name = "Summoned"
-	desc = "You are being compelled to approach someone. You cannot resist."
+	desc = "You are being compelled to approach. You cannot resist."
 	icon_state = "vampire_summon"
 
