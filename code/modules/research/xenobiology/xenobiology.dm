@@ -1026,6 +1026,8 @@
 
 	if(!proximity || !tool)
 		return
+	if(!istype(tool, /obj/item))
+		return
 	var/can_upgrade = FALSE
 	for(var/path in upgradeable_tools)
 		if(istype(tool, path))
