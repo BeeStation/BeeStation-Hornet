@@ -227,6 +227,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	return B.get_part_rating() - A.get_part_rating()
 
 /obj/item/stock_parts
+	abstract_type = /obj/item/stock_parts
 	name = "stock part"
 	desc = "What?"
 	icon = 'icons/obj/stock_parts.dmi'
@@ -393,6 +394,11 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	custom_materials = list(/datum/material/iron=80)
 
 // Subspace stock parts
+
+/obj/item/stock_parts/subspace
+	abstract_type = /obj/item/stock_parts/subspace
+	name = "subspace stock part"
+	desc = "What?"
 
 /obj/item/stock_parts/subspace/ansible
 	name = "subspace ansible"
