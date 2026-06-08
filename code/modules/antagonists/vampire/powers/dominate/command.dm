@@ -150,7 +150,7 @@
 	if(findtext(command, " "))
 		to_chat(owner, span_warning("Please only input a single word."))
 		return FALSE
-	if(length_char(command) > 7)
+	if(length_char(command) > 10)
 		to_chat(owner, span_warning("Command too long!"))
 		return FALSE
 	// qol to avoid confusion
