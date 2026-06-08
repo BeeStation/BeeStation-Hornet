@@ -1029,6 +1029,9 @@
 /obj/item/slimepotion/speed/afterattack(obj/item/tool, mob/user, proximity)
 	. = ..()
 
+	if(!uses)
+		qdel(src)
+		return
 	if(!proximity || !tool)
 		return
 	if(!is_type_in_typecache(tool, upgradeable_tools))
