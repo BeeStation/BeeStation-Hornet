@@ -67,6 +67,12 @@
 /datum/vampire_clan/proc/on_apply()
 	for(var/datum/discipline/disciple as anything in vampiredatum.owned_disciplines)
 		disciple.apply_discipline_quirks(vampiredatum)
+		// Grant one free starting level in every discipline.
+		disciple.level_up()
+		for(var/datum/action/vampire/power_new as anything in disciple.get_abilities_with_level("current"))
+			vampiredatum.grant_power(new power_new)
+
+	to_chat(vampiredatum.owner.current, span_notice("Your blood awakens ancient memories. You already possess a basic command of each of your disciplines."))
 
 	for(var/datum/action/vampire/clanselect/clanselect in vampiredatum.powers)
 		vampiredatum.remove_power(clanselect)
@@ -102,7 +108,7 @@
 	living_vassal.emote("laugh")
 
 /**
- * Called when we level up inside a coffin.
+ * Called when we level up
  */
 
 	/**
