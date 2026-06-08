@@ -137,11 +137,7 @@
 		component_result += result_text
 	component_result = length(component_result) ? "<li>Important Components:</li><ul>[component_result.Join()]</ul>" : ""
 
-	var/list/status_traits_result = status_traits.Join(" | ")
-	if(length(status_traits_result))
-		status_traits_result = "<li>Status Traits: [status_traits_result]</li>"
-
-	return "[..()]<hr>[status_effects_result][component_result][status_traits_result]"
+	return "[..()]<hr>[status_effects_result][component_result]"
 
 /datum/component/irradiated/get_vv_summary_data()
 	return "<li>Irradiated / intensity: [intensity] / trying_to_burn: [trying_to_burn ? "TRUE" : "FALSE"]</li>"
