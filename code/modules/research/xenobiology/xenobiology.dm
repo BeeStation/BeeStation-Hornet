@@ -1007,40 +1007,38 @@
 	icon_state = "potyellow"
 	var/uses = 2
 
-	var/static/list/upgradeable_tools = list( // This is the worst thing ive ever made, but all our tools are an obj/item
-		/obj/item/screwdriver, // No powertools, they're already 2 in 1
-		/obj/item/wrench,
-		/obj/item/crowbar,
-		/obj/item/wirecutters,
-		/obj/item/weldingtool,
-		/obj/item/scalpel,
-		/obj/item/circular_saw,
-		/obj/item/retractor,
-		/obj/item/hemostat,
-		/obj/item/cautery,
-		/obj/item/surgicaldrill,
-	)
+var/static/list/upgradeable_tools = zebra_typecacheof(list(
+	/obj/item/screwdriver = TRUE, // No powertools, they're already 2 in 1
+	/obj/item/wrench = TRUE,
+	/obj/item/crowbar = TRUE,
+	/obj/item/wirecutters = TRUE,
+	/obj/item/weldingtool = TRUE,
+	/obj/item/scalpel = TRUE,
+	/obj/item/circular_saw = TRUE,
+	/obj/item/retractor = TRUE,
+	/obj/item/hemostat = TRUE,
+	/obj/item/cautery = TRUE,
+	/obj/item/surgicaldrill = TRUE,
+
+	// We dont want these being upgraded, they're 2 in 1 tools
+	/obj/item/scalpel/advanced = FALSE,
+	/obj/item/retractor/advanced = FALSE,
+	/obj/item/cautery/advanced = FALSE,
+))
 
 /obj/item/slimepotion/speed/afterattack(obj/item/tool, mob/user, proximity)
 	. = ..()
 
 	if(!proximity || !tool)
 		return
-	if(!istype(tool, /obj/item))
-		return
-	var/can_upgrade = FALSE
-	for(var/path in upgradeable_tools)
-		if(istype(tool, path))
-			can_upgrade = TRUE
-			break
-	if(tool.toolspeed <= 0.3)
-		to_chat(user, span_warning("[tool] is already too advanced to be upgraded!"))
-		return
-	if(!can_upgrade)
+	if(!is_type_in_typecache(tool, upgradeable_tools))
 		to_chat(user, span_warning("[tool] cannot be upgraded!"))
 		return
 	if(tool.experimental_upgrade)
 		to_chat(user, span_warning("[tool] has already been upgraded!"))
+		return
+	if(tool.toolspeed <= 0.3)
+		to_chat(user, span_warning("[tool] is already too advanced to be upgraded!"))
 		return
 	tool.experimental_upgrade = TRUE
 	tool.toolspeed = 0.3
