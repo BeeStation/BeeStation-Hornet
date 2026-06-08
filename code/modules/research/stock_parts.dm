@@ -218,7 +218,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 /obj/item/storage/part_replacer/bluespace/cyborg
 	name = "bluespace rapid part exchange device"
 	desc = "Special mechanical module made to store, sort, and apply standard machine parts. Now with bluespace technology!"
-	icon_state = "borgrped"
+	icon_state = "borgbsrped"
 	inhand_icon_state = "RPED"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
