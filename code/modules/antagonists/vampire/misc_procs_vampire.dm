@@ -131,48 +131,49 @@
 	if(count < 0 && humanity <= 0)
 		return FALSE
 
-	var/temp_humanity = humanity + count
+	var/old_humanity = humanity
 
-	var/power_given = FALSE
-	var/power_removed = FALSE
+	// Commit the new humanity value first, clamped to the valid range, so the
+	// masquerade sync below reads the final value. We are so sane we might see
+	// the face of god.
+	humanity = clamp(humanity + count, 0, 10)
 
-	// Are we adding or removing?
-	if(count > 0)
-		// We are adding
-		if(temp_humanity >= VAMPIRE_HUMANITY_MASQUERADE_POWER && !is_type_in_list(/datum/action/vampire/masquerade, powers))
-			// Grant_power might fail, so we need to check if it actually got granted
-			var/was_granted = grant_power(new /datum/action/vampire/masquerade)
-			if(was_granted)
-				power_given = TRUE
+	// grant/revoke the masquerade power based on our new humanity.
+	var/masquerade_change = update_masquerade_power()
 
-		// Only run this code if there is an actual increase in humanity. Also don't run it if we wanna be silent.
-		if(humanity < temp_humanity && !silent)
-			if(power_given)
+	if(!silent)
+		if(humanity > old_humanity)
+			if(masquerade_change == 1)
 				to_chat(owner.current, span_userdanger("Your closeness to humanity has granted you the ability to feign life!"))
 			else
 				to_chat(owner.current, span_userdanger("You have gained humanity."))
-	else
-		// We are removing
-		if(temp_humanity < VAMPIRE_HUMANITY_MASQUERADE_POWER)
-			for(var/datum/action/vampire/masquerade/power in powers)
-				remove_power(power)
-				power_removed = TRUE
-
-		// Only run this code if there is an actual decrease in humanity
-		if(humanity > temp_humanity && !silent)
-			if(power_removed)
+		else if(humanity < old_humanity)
+			if(masquerade_change == -1)
 				to_chat(owner.current, span_userdanger("Your inhuman actions have caused you to lose the masquerade ability!"))
 			else
 				to_chat(owner.current, span_userdanger("You have lost humanity."))
-
-	// Clamp to valid range, we are so sane we might see the face of god
-	if(temp_humanity > 10)
-		temp_humanity = 10
-	if(temp_humanity < 0)
-		temp_humanity = 0
-
-	humanity = temp_humanity
 	return TRUE
+
+/**
+ * ##update_masquerade_power()
+ *
+ * Grants it at or above VAMPIRE_HUMANITY_MASQUERADE_POWER, revokes it below.
+ *
+ * Returns: 1 if it granted the power, -1 if it revoked it, 0 if no change.
+ */
+/datum/antagonist/vampire/proc/update_masquerade_power()
+	var/has_masquerade = is_type_in_list(/datum/action/vampire/masquerade, powers)
+
+	if(humanity >= VAMPIRE_HUMANITY_MASQUERADE_POWER)
+		if(!has_masquerade && grant_power(new /datum/action/vampire/masquerade))
+			return 1
+
+	else if(has_masquerade)
+		for(var/datum/action/vampire/masquerade/power in powers)
+			remove_power(power)
+		return -1
+
+	return 0
 
 /// Bacon wanted a signal
 /datum/antagonist/vampire/proc/on_track_humanity_gain_signal(datum/source, type, subject)

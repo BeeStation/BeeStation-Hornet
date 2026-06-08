@@ -289,6 +289,8 @@
 	// Assign starting stats skill point.
 	check_blacklisted_species()
 	give_starting_powers()
+	// Sync the masquerade power to our starting humanity.
+	update_masquerade_power()
 	assign_starting_stats()
 	owner.special_role = ROLE_VAMPIRE
 	GLOB.all_vampires += src
