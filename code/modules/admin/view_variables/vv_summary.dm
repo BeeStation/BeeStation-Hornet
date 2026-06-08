@@ -3,7 +3,7 @@
 	var/output_first = get_vv_summary_table()
 	output_first = output_first ? "<b>Summary:</b>[output_first]" : ""
 	var/output_second = get_vv_summary_table_fingerprint()
-	output_second = output_second ? "<b>Fingerprints:</b><ul class='data-column'>[output_second]</ul>" : ""
+	output_second = output_second ? "<details><summary><b>Fingerprints:</b></summary><ul class='data-column'>[output_second]</ul></details>" : ""
 
 	var/bar = length(output_first) && length(output_second) ? "<hr>" : ""
 
@@ -87,6 +87,7 @@
 	<li>init_order: [init_order]</li>
 	<li>priority: [priority]</li>
 	<li>can_fire: [can_fire]</li>
+	<li>ss_flags: [astype(get_matching_bitflags("ss_flags", ss_flags), /list).Join(" | ")]</li>
 	<li>state: [state]</li>
 	<li>queue:</li>
 	<ul><li>Before: [queue_prev ? "[queue_prev.name] ([queue_prev.type])" : "null"]</li>
