@@ -1002,28 +1002,56 @@
 
 /obj/item/slimepotion/speed
 	name = "slime experimental potion"
-	desc = "A potent chemical that is told to upgrade tools to an experimental version."
+	desc = "A potent chemical that is told to upgrade tools to an experimental version, supposedly by making them red."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potyellow"
 	var/uses = 2
 
+	var/static/list/upgradeable_tools = list( // This is the worst thing ive ever made, but all our tools are an obj/item
+		/obj/item/screwdriver, // No powertools, they're already 2 in 1
+		/obj/item/wrench,
+		/obj/item/crowbar,
+		/obj/item/wirecutters,
+		/obj/item/weldingtool,
+		/obj/item/scalpel,
+		/obj/item/circular_saw,
+		/obj/item/retractor,
+		/obj/item/hemostat,
+		/obj/item/cautery,
+		/obj/item/surgicaldrill,
+	)
+
 /obj/item/slimepotion/speed/afterattack(obj/item/tool, mob/user, proximity)
 	. = ..()
-	if(!proximity)
+
+	if(!proximity || !tool)
 		return
-	if(!istype(tool, /obj/item))
-		return
-	if(isnull(tool.toolspeed))
-		return
+	var/can_upgrade = FALSE
+	for(var/path in upgradeable_tools)
+		if(istype(tool, path))
+			can_upgrade = TRUE
+			break
 	if(tool.toolspeed <= 0.3)
 		to_chat(user, span_warning("[tool] is already too advanced to be upgraded!"))
 		return
+	if(!can_upgrade)
+		to_chat(user, span_warning("[tool] cannot be upgraded!"))
+		return
+	if(tool.experimental_upgrade)
+		to_chat(user, span_warning("[tool] has already been upgraded!"))
+		return
+	tool.experimental_upgrade = TRUE
 	tool.toolspeed = 0.3
 	tool.color = "#FF0000"
 	if(!findtext(tool.name, "experimental "))
 		tool.name = "experimental [tool.name]"
-	to_chat(user, span_notice("You upgrade [tool] into an experimental version!"))
-	qdel(src)
+	uses -= 1
+	if(uses)
+		to_chat(user, span_notice("You upgrade [tool] into an experimental version! [uses] uses remaining."))
+	else
+		to_chat(user, span_notice("You upgrade [tool] into an experimental version! The potion has been used up."))
+		qdel(src)
+
 /obj/item/slimepotion/fireproof
 	name = "slime chill potion"
 	desc = "A potent chemical mix that will fireproof any article of clothing. Has three uses."
