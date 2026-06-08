@@ -98,8 +98,8 @@
 
 	heal_vampire_organs()
 
-	if(current_vitae >= 500) // We wake up hungy, but only if it wouldn't kill us. The baby check.
-		current_vitae = 500
+	if(current_vitae >= 300) // We wake up hungy, but only if it wouldn't kill us. The baby check.
+		current_vitae = 300
 		to_chat(living_owner, span_notice("You use your vitae to revive from the deathless sleep."))
 	else
 		to_chat(living_owner, span_notice("You have recovered from Torpor."))
