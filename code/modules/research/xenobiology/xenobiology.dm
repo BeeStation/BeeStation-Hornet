@@ -1007,24 +1007,24 @@
 	icon_state = "potyellow"
 	var/uses = 2
 
-var/static/list/upgradeable_tools = zebra_typecacheof(list(
-	/obj/item/screwdriver = TRUE, // No powertools, they're already 2 in 1
-	/obj/item/wrench = TRUE,
-	/obj/item/crowbar = TRUE,
-	/obj/item/wirecutters = TRUE,
-	/obj/item/weldingtool = TRUE,
-	/obj/item/scalpel = TRUE,
-	/obj/item/circular_saw = TRUE,
-	/obj/item/retractor = TRUE,
-	/obj/item/hemostat = TRUE,
-	/obj/item/cautery = TRUE,
-	/obj/item/surgicaldrill = TRUE,
+	var/static/list/upgradeable_tools = zebra_typecacheof(list(
+		/obj/item/screwdriver = TRUE, // No powertools, they're already 2 in 1
+		/obj/item/wrench = TRUE,
+		/obj/item/crowbar = TRUE,
+		/obj/item/wirecutters = TRUE,
+		/obj/item/weldingtool = TRUE,
+		/obj/item/scalpel = TRUE,
+		/obj/item/circular_saw = TRUE,
+		/obj/item/retractor = TRUE,
+		/obj/item/hemostat = TRUE,
+		/obj/item/cautery = TRUE,
+		/obj/item/surgicaldrill = TRUE,
 
-	// We dont want these being upgraded, they're 2 in 1 tools
-	/obj/item/scalpel/advanced = FALSE,
-	/obj/item/retractor/advanced = FALSE,
-	/obj/item/cautery/advanced = FALSE,
-))
+		// We dont want these being upgraded, they're 2 in 1 tools
+		/obj/item/scalpel/advanced = FALSE,
+		/obj/item/retractor/advanced = FALSE,
+		/obj/item/cautery/advanced = FALSE,
+	))
 
 /obj/item/slimepotion/speed/afterattack(obj/item/tool, mob/user, proximity)
 	. = ..()
