@@ -1,9 +1,9 @@
 /datum/action/vampire/force_of_personality
 	name = "Force of Personality"
-	desc = "Project an overwhelming aura of authority that causes those around you to involuntarily step back."
+	desc = "Project an overwhelming aura of authority that prevents those around you from bringing themselves to approach."
 	button_icon_state = "power_fop"
-	power_explanation = "Project an aura around yourself that subtly pushes people away.\n\
-						Effects on those in 3 tile range. No one will be able to voluntarily approach you.\n\
+	power_explanation = "Project an aura around yourself that stops people from approaching you.\n\
+						Those within 3 tiles will be unable to step any closer to you, and will back away if you close in on them.\n\
 						Targets must be able to see you to be affected."
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY
@@ -59,7 +59,7 @@
 	var/trigger_range = 3
 	COOLDOWN_DECLARE(message_cooldown)
 
-/datum/status_effect/intimidated/on_creation(mob/living/new_owner, mob/living/vampire)
+/datum/status_effect/intimidated/on_creation(mob/living/new_owner, mob/living/vampire, datum/action/vampire/force_of_personality/power)
 	source_vampire = vampire
 	return ..()
 
@@ -70,10 +70,38 @@
 /datum/status_effect/intimidated/on_apply()
 	if(!iscarbon(owner))
 		return FALSE
+	RegisterSignal(owner, COMSIG_MOB_CLIENT_PRE_MOVE, PROC_REF(block_approach))
 	return TRUE
 
-/datum/status_effect/intimidated/refresh()
-	duration = world.time + initial(duration)
+/datum/status_effect/intimidated/on_remove()
+	UnregisterSignal(owner, COMSIG_MOB_CLIENT_PRE_MOVE)
+
+/// Vetoes any player-driven move that would carry the owner into (or keep them
+/// inside) the vampire's inner ring. Lateral and outward moves are allowed so
+/// the victim isn't fully frozen, only barred from approaching.
+/datum/status_effect/intimidated/proc/block_approach(datum/source, list/move_args)
+	SIGNAL_HANDLER
+
+	if(QDELETED(source_vampire))
+		return
+
+	var/atom/new_loc = move_args[MOVE_ARG_NEW_LOC]
+	if(!new_loc)
+		return
+
+	// Distance from the tile they want to enter to the caster
+	if(get_dist(new_loc, source_vampire) >= trigger_range)
+		return
+
+	// Block if this move would take them closer to (or no further from) the vampire
+	if(get_dist(get_turf(source), source_vampire) < get_dist(new_loc, source_vampire))
+		return
+
+	if(COOLDOWN_FINISHED(src, message_cooldown))
+		COOLDOWN_START(src, message_cooldown, 3 SECONDS)
+		to_chat(owner, span_awe("You don't dare approach them..."))
+
+	return COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE
 
 /datum/status_effect/intimidated/tick(seconds_between_ticks)
 	if(QDELETED(source_vampire) || source_vampire.stat == DEAD)
@@ -83,8 +111,7 @@
 	if(INCAPACITATED_IGNORING(owner, INCAPABLE_RESTRAINTS))
 		return
 
-	// Only check if we're within range of the vampire
-	if(get_dist(owner, source_vampire) > trigger_range)
+	if(get_dist(owner, source_vampire) >= trigger_range)
 		return
 
 	// Step away from the vampire
