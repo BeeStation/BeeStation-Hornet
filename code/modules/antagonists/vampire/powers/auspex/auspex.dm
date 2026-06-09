@@ -16,29 +16,26 @@
 /**
  *	# Auspex
  *
- *	Level 1 - Raise sightrange by 2, project sight 2 tiles ahead.
- *	Level 2 - Raise sightrange by 3, project sight 4 tiles ahead. Meson Vision
- *	Level 3 - Raise sightrange by 5, project sight 6 tiles ahead.
- *	Level 4 - Raise sightrange by 7, project sight 8 tiles ahead. Xray Vision
- *	Level 5 - For Malkavians: Gain ability to astral project like a wizard.
  */
 /datum/action/vampire/auspex
 	name = "Auspex"
 	desc = "Sense the vitae of any creature directly, and use your keen senses to widen your perception."
 	button_icon_state = "power_auspex"
 	power_explanation = "- Level 1: When Activated, you will see further. \n\
-					- Level 2: When Activated, you will see further, and be able to sense walls and the layout of rooms. \n\
-					- Level 3: When Activated, You still have meson vision, same as level 3, but even more range. \n\
-					- Level 4: When Activated, you will see further, and be able to sense anything in sight, seeing through walls and barriers as if they were glass."
+					- Level 2: When Activated, you will see further, and hear faint whispers as clearly as normal speech.\n\
+					- Level 3: When Activated, You get meson vision, with even more range. \n\
+					- Level 4: When Activated, you will see much, much further, and be able to sense anything in sight, seeing through walls and barriers as if they were glass, and hearing speech through them too."
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	vitaecost = 20
-	constant_vitaecost = 0.75
+	constant_vitaecost = 0.25
 	cooldown_time = 10 SECONDS
 	var/add_meson = FALSE
 	var/add_xray = FALSE
-	var/zoom_out_amt = 2
-	var/zoom_amt = 6
+	var/add_good_hearing = FALSE
+	var/add_xray_hearing = FALSE
+	var/zoom_out_amt = 5
+	var/zoom_amt = 10
 
 
 	var/looking = FALSE
@@ -47,26 +44,27 @@
 /datum/action/vampire/auspex/two
 	name = "Auspex"
 	vitaecost = 20
-	constant_vitaecost = 1
-	zoom_out_amt = 4
-	zoom_amt = 7
-	add_meson = TRUE
+	constant_vitaecost = 0.5
+	zoom_out_amt = 10
+	zoom_amt = 10
+	add_good_hearing = TRUE
 
 /datum/action/vampire/auspex/three
 	name = "Auspex"
 	vitaecost = 20
-	constant_vitaecost = 1.25
-	zoom_out_amt = 6
-	zoom_amt = 8
+	constant_vitaecost = 0.75
+	zoom_out_amt = 20
+	zoom_amt = 5
 	add_meson = TRUE
 
 /datum/action/vampire/auspex/four
 	name = "Auspex"
 	vitaecost = 20
-	constant_vitaecost = 1.5
-	zoom_out_amt = 10
-	zoom_amt = 10
+	constant_vitaecost = 1
+	zoom_out_amt = 30
+	zoom_amt = 0
 	add_xray = TRUE
+	add_xray_hearing = TRUE
 
 /datum/action/vampire/auspex/activate_power()
 	. = ..()
@@ -103,21 +101,19 @@
 	C.pixel_y = ICON_SIZE_Y * _y
 	looking = TRUE
 
-	if(add_meson)
-		if(HAS_TRAIT(owner, TRAIT_MESON_VISION))
-			return
-		else
-			ADD_TRAIT(owner, TRAIT_MESON_VISION, "Auspex")
-			owner.update_sight()
-			return
+	if(add_good_hearing && !HAS_TRAIT(owner, TRAIT_GOOD_HEARING))
+		ADD_TRAIT(owner, TRAIT_GOOD_HEARING, "Auspex")
 
-	if(add_xray)
-		if(HAS_TRAIT(owner, TRAIT_XRAY_VISION))
-			return
-		else
-			ADD_TRAIT(owner, TRAIT_XRAY_VISION, "Auspex")
-			owner.update_sight()
-			return
+	if(add_xray_hearing && !HAS_TRAIT(owner, TRAIT_XRAY_HEARING))
+		ADD_TRAIT(owner, TRAIT_XRAY_HEARING, "Auspex")
+
+	if(add_meson && !HAS_TRAIT(owner, TRAIT_MESON_VISION))
+		ADD_TRAIT(owner, TRAIT_MESON_VISION, "Auspex")
+		owner.update_sight()
+
+	if(add_xray && !HAS_TRAIT(owner, TRAIT_XRAY_VISION))
+		ADD_TRAIT(owner, TRAIT_XRAY_VISION, "Auspex")
+		owner.update_sight()
 
 /datum/action/vampire/auspex/proc/unlooky()
 	SIGNAL_HANDLER
@@ -132,6 +128,12 @@
 		owner.client.pixel_y = 0
 
 	looking = FALSE
+
+	if(HAS_TRAIT_FROM(owner, TRAIT_GOOD_HEARING, "Auspex"))
+		REMOVE_TRAIT(owner, TRAIT_GOOD_HEARING, "Auspex")
+
+	if(HAS_TRAIT_FROM(owner, TRAIT_XRAY_HEARING, "Auspex"))
+		REMOVE_TRAIT(owner, TRAIT_XRAY_HEARING, "Auspex")
 
 	if(HAS_TRAIT_FROM(owner, TRAIT_MESON_VISION, "Auspex"))
 		REMOVE_TRAIT(owner, TRAIT_MESON_VISION, "Auspex")
