@@ -115,6 +115,15 @@
 /// Sent when tracking humanity gain progress: (type, subject)
 #define COMSIG_VAMPIRE_TRACK_HUMANITY_GAIN "comsig_vampire_track_humanity_gain"
 
+// Vampire Society subsystem
+/// How long after round start before the Vampire Society queues its first prince poll.
+/// Important: Keep this number BELOW the wait time of the subsystem, or the first prince poll will be delayed by an entire extra wait cycle.
+#define VAMPIRE_SOCIETY_PRINCE_DELAY (9 MINUTES)
+/// How often the Vampire Society forgives a single Masquerade infraction for each vampire.
+#define VAMPIRE_SOCIETY_INFRACTION_INTERVAL (30 MINUTES)
+/// The number of Masquerade infractions that tips a vampire over into a broken Masquerade.
+#define VAMPIRE_MASQUERADE_INFRACTION_LIMIT 3
+
 // Clan defines
 /// Drinks blood the normal Vampire way.
 #define VAMPIRE_DRINK_NORMAL "vampire_drink_normal"

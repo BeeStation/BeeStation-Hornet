@@ -47,10 +47,27 @@
 
 	owner.current.playsound_local(null, 'sound/vampires/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
 
-	if(masquerade_infractions >= 3)
+	if(masquerade_infractions >= VAMPIRE_MASQUERADE_INFRACTION_LIMIT)
 		break_masquerade()
 	else
-		to_chat(owner.current, span_cultbold("You violated the Masquerade! Break the Masquerade [3 - masquerade_infractions] more times and you will become hunted by all other Vampires!"))
+		to_chat(owner.current, span_cultbold("You violated the Masquerade! Break the Masquerade [VAMPIRE_MASQUERADE_INFRACTION_LIMIT - masquerade_infractions] more times and you will become hunted by all other Vampires!"))
+
+/**
+ * Forgive a single Masquerade infraction.
+ * returns FALSE if the Masquerade is already broken or there is nothing to forgive.
+ * Returns TRUE when an infraction was actually cleared.
+**/
+/datum/antagonist/vampire/proc/restore_masquerade_infraction()
+	if(broke_masquerade)
+		return FALSE
+	if(masquerade_infractions <= 0)
+		return FALSE
+
+	masquerade_infractions--
+
+	if(owner?.current)
+		to_chat(owner.current, span_cultbold("Kindred society quietly absolves one of your transgressions. You may break the Masquerade [VAMPIRE_MASQUERADE_INFRACTION_LIMIT - masquerade_infractions] more times before becoming hunted."))
+	return TRUE
 
 /**
  * Increase our unspent vampire levels by one and try to rank up.

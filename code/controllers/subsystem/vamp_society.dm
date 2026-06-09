@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(vsociety)
 	name = "Vampire Society"
-	wait = 10 MINUTES	// For some reason this actually fires at HALF this time.
+	wait = 10 MINUTES
 	ss_flags = SS_NO_INIT | SS_BACKGROUND
 	can_fire = FALSE
 
@@ -10,19 +10,34 @@ SUBSYSTEM_DEF(vsociety)
 	// Ref to the prince datum
 	var/datum/weakref/princedatum
 
+	/// Cooldown between the society forgiving a Masquerade infraction for each vampire.
+	/// Started when society activates (see check_start_society) so the clock begins then.
+	COOLDOWN_DECLARE(infraction_restore_cooldown)
+
 /datum/controller/subsystem/vsociety/fire(resumed = FALSE)
 	var/time_elapsed = world.time - SSticker.round_start_time
 
+	// The society performs a handful of independent duties. Each one decides for itself whether the conditions are right to act.
+	try_queue_prince_poll(time_elapsed)
+	try_restore_infractions()
+
+/**
+ * once enough time has passed and there is no sitting Prince, queue the poll that elects one.
+ * Keeps retrying on later fires until a Prince is actually chosen.
+**/
+/datum/controller/subsystem/vsociety/proc/try_queue_prince_poll(time_elapsed)
 	// Give them some breathing room
-	if(time_elapsed < 9 MINUTES)
+	if(time_elapsed < VAMPIRE_SOCIETY_PRINCE_DELAY)
 		return
 
-	if(!princedatum && !currently_polling)
-		for(var/datum/antagonist/vampire as anything in GLOB.all_vampires)
-			to_chat(vampire.owner.current, span_announce("* Vampire Tip: A vote for Prince will occur soon. If you are interested in leading your fellow kindred, read up on princes in your info panel now!"))
-		addtimer(CALLBACK(src, PROC_REF(poll_for_prince)), 2 MINUTES)
-		message_admins("Vampire society has fired, and a prince poll will occur in 2 minutes.")
-		log_game("Vampire society has fired, and a prince poll will occur soon.")
+	if(princedatum || currently_polling)
+		return
+
+	for(var/datum/antagonist/vampire as anything in GLOB.all_vampires)
+		to_chat(vampire.owner.current, span_announce("* Vampire Tip: A vote for Prince will occur soon. If you are interested in leading your fellow kindred, read up on princes in your info panel now!"))
+	addtimer(CALLBACK(src, PROC_REF(poll_for_prince)), 2 MINUTES)
+	message_admins("Vampire society has fired, and a prince poll will occur in 2 minutes.")
+	log_game("Vampire society has fired, and a prince poll will occur soon.")
 
 /datum/controller/subsystem/vsociety/proc/poll_for_prince()
 	message_admins("Vampire society is now polling for a new prince.")
@@ -82,3 +97,21 @@ SUBSYSTEM_DEF(vsociety)
 
 	if(chosen_datum)
 		chosen_datum.princify()
+
+/**
+ * Every VAMPIRE_SOCIETY_INFRACTION_INTERVAL, the society quietly forgives a
+ * single Masquerade infraction for every vampire that has gotten one (and has not
+ * already broken the Masquerade outright).
+**/
+/datum/controller/subsystem/vsociety/proc/try_restore_infractions()
+	if(!COOLDOWN_FINISHED(src, infraction_restore_cooldown))
+		return
+	COOLDOWN_START(src, infraction_restore_cooldown, VAMPIRE_SOCIETY_INFRACTION_INTERVAL)
+
+	var/restored_any = FALSE
+	for(var/datum/antagonist/vampire/vampiredatum as anything in GLOB.all_vampires)
+		if(vampiredatum.restore_masquerade_infraction())
+			restored_any = TRUE
+
+	if(restored_any) // Look at me, remembering to log things. yay
+		log_game("Vampire society has forgiven a Masquerade infraction for eligible vampires.")

@@ -17,6 +17,8 @@ GLOBAL_LIST_EMPTY(all_vampires)
 
 	if(length(GLOB.all_vampires) >= 3)
 		SSvsociety.can_fire = TRUE
+		// Start the infraction-forgiveness clock now that society is active.
+		COOLDOWN_START(SSvsociety, infraction_restore_cooldown, VAMPIRE_SOCIETY_INFRACTION_INTERVAL)
 		message_admins("Vampire Society has started, as there are [length(GLOB.all_vampires)] vampires active.")
 		log_game("Vampire Society has started, as there are [length(GLOB.all_vampires)] vampires active.")
 
