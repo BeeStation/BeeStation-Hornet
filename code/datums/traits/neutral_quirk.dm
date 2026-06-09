@@ -226,7 +226,7 @@
 	. = ..()
 	if(vname == NAMEOF(src, accent_to_use))
 		if(!isnull(accent_component))
-			QDEL_NULL(accent_component)
+			qdel(accent_component)
 		accent_component = quirk_target.AddComponent(/datum/component/speechmod, file_path = accent_to_use)
 
 /datum/quirk/shifty_eyes
