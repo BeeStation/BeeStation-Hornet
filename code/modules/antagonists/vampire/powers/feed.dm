@@ -504,9 +504,7 @@
 
 /**
  * The single funnel that tears down EVERY feed-applied effect from both parties.
- * Always safe to call (idempotent) and must run on every feed exit path so we
- * never leave a victim stuck deaf, blind, muted, or immobilised after an
- * interrupted feed.
+ * must run on every feed exit path so we never leave a victim stuck deaf, blind, muted, or immobilised
 **/
 /datum/action/vampire/targeted/feed/proc/clear_feed_effects(mob/living/feeder, mob/living/victim)
 	if(feeder)
