@@ -8,8 +8,8 @@
 
 	weather_message = span_userdanger("<i>You feel waves of heat wash over you! Find shelter!</i>")
 	weather_overlay = "rad_storm"
-	weather_duration_lower = 60 SECONDS
-	weather_duration_upper = 150 SECONDS
+	weather_duration_lower = 1 MINUTES
+	weather_duration_upper = 2.5 MINUTES
 
 	weather_color = "#00ff0dff"
 
@@ -34,6 +34,8 @@
 		/area/station/holodeck/debug,
 	)
 	target_trait = ZTRAIT_STATION
+
+	weather_flags = (WEATHER_MOBS | WEATHER_INDOORS)
 
 	var/list/playlist = list()
 

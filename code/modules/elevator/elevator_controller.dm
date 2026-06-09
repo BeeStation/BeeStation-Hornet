@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(elevator_controller)
 	name = "Elevator Controller"
-	flags = SS_NO_FIRE | SS_NO_INIT
+	ss_flags = SS_NO_FIRE | SS_NO_INIT
 	///List of elevator groups
 	var/list/elevator_groups = list()
 	///List of elevator group positional stuff

@@ -208,7 +208,7 @@
 /datum/quirk/accent/add()
 	var/list/available = GLOB.accents.Copy()
 	//special accents for BEE donators and BYOND patrons
-	if(IS_PATRON(quirk_target.ckey) || quirk_target.client.IsByondMember())
+	if(IS_PATRON(quirk_target.ckey) || quirk_target.client?.IsByondMember())
 		available += GLOB.accents_donator
 	var/chosen = read_choice_preference(/datum/preference/choiced/quirk/accent)
 	if(chosen && !available[chosen])

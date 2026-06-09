@@ -74,7 +74,7 @@
 	var/atom/movable/screen/robot/modpc/interfaceButton
 
 	var/sight_mode = 0
-	hud_possible = list(ANTAG_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_TRACK_HUD)
+	hud_possible = list(DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_TRACK_HUD)
 
 // ------------------------------------------ Modules (tool slots)
 	var/obj/item/module_active = null
@@ -137,7 +137,6 @@
 	)
 
 	///What types of mobs are allowed to ride/buckle to this mob
-	var/static/list/can_ride_typecache = typecacheof(/mob/living/carbon/human)
 	can_buckle = TRUE
 	buckle_lying = 0
 

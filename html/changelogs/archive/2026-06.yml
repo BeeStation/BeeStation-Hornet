@@ -2,3 +2,108 @@
   The-Moon-Itself:
   - rscadd: Readded the blast cannon to the traitor uplink
   - bugfix: Fixed the blast cannon being unable to compute bomb strength
+2026-06-02:
+  EvilDragonfiend:
+  - code_imp: improved /icon vv
+  Isaacnml:
+  - bugfix: Lavaland syndicate base is no longer unpowered 24/7
+  - rscadd: You can buy the springlock module from the Uplink at the cost of 2 TC
+2026-06-03:
+  BotTierPC:
+  - rscadd: Added a toggle for moth players to join with burnt and crippled wings.
+  - tweak: Swapped the "Domestic" and "Default" moth eyes, Plus Shaped Eyes are now
+      the Default.
+  WhiskeyMarten:
+  - bugfix: fixed explorer access across several maps
+2026-06-04:
+  Isaac:
+  - bugfix: Ores placed by hand on the ORM will give points
+  - bugfix: Fixed lasers not contributing to the ORM's ore multiplier bonus. It can
+      now go up to 3x with fully upgraded parts.
+  - bugfix: Runtime has it's own sprite when held again
+  - bugfix: Express Cargo Console uses it's own UI again
+  - balance: Express Cargo Beacons will last about 6 drop-pods instead of 3
+  Isaacnml:
+  - rscadd: RPED has the functionality to drop certain tiered parts once again
+  mrmanlikesbt:
+  - rscadd: Volume sliders have been added in your preference menu. Because of this,
+      if you had any sounds disabled before they will now be reset to 100% volume.
+  - tweak: The Aurora Caelus event now uses the soundtrack preference instead of the
+      admin music one.
+  - code_imp: Some documentation has been added to /client.
+  - code_imp: Weather code has been optimized a bit.
+  - bugfix: Fixed the ambient magma bubbling sound not increasing in volume when leaving
+      the lavaland base.
+  - bugfix: Fixed several radiation related traits not showing up in the add/remove
+      traits VV dropdown.
+  mrmanlikesbt, Absolucy:
+  - code_imp: Turret processing has been optimized substantially
+  - bugfix: Fixed turrets not targeting basic mobs
+  ? mrmanlikesbt, Ghommie, Jacquerel, san7890, Majkl-J, MrMelbert, SmArtKar, tontyGH,
+    MX0739, Mothblocks, LemonInTheDark, kawoppi, JohnFulpWillard, GoldenAlpharex,
+    strandsofivy, vinylspiders
+  : - code_imp: Rags are now standalone items instead of being under the /obj/item/reagent_containers
+        typepath (they can still hold reagents)
+    - code_imp: All uses of world.icon_size have been replaced with their respective
+        ICON_SIZE... defines
+    - code_imp: The notransform mob var is now a trait
+    - code_imp: TRAIT_SUIT_SENSORS and TRAIT_NANITE_SENSORS have been merged into
+        TRAIT_TRACKED_SENSORS
+    - code_imp: All cleaning items have been refactored to use a /datum/component/cleaner
+    - code_imp: Added /datum/element/give_turf_traits. Whenever an atom with this
+        element is on a turf, its turf will have the configured traits, when the atom
+        leaves the turf, the turf will lose the traits
+    - refactor: Refactored atom huds, they are faster and easier to work with now
+    - refactor: Pixel offsets are now sourced instead of everything sharing the same
+        two pixel offset vars
+    - bugfix: Fixed cyborg soap being deleted when runs out of uses, to refill it,
+        use a cyborg recharger
+    - bugfix: Fixed people with the Monitoring nanite program not showing up on basic
+        health HUDs (only the AI has a basic health HUD)
+    - bugfix: 'HUD colors are now independent of their owner''s color. For example:
+        a purple guy''s HUD elements will no longer be purple as well'
+    - bugfix: People no longer continue to float in the air when the noose they are
+        being hung by is cut
+    - bugfix: Fixed people not having the correct pixel offset applied when aggressively
+        grabbed
+    - bugfix: Fixed some sinks pointing the wrong direction
+    - rscadd: If a person has multiple antag datums, their antag icon will now cycle
+        through all of them instead of it being locked to the most recent antag datum.
+        This can only be seen at roundend or by admins
+    - rscadd: Items in water (or lava) now appear immersed
+    - rscadd: It takes a little bit longer for clowns to realize that they're about
+        to die when they enter a chasm
+  mrmanlikesbt, LemonInTheDark:
+  - code_imp: Subsystem flags now have VV bitfield support.
+  - code_imp: Renamed /datum/controller/subsystem/var/flags to /datum/controller/subsystem/var/ss_flags.
+  - code_imp: GLOB.vv_special_lists is now dynamically generated with specific lists
+      having special editing rights. For example, the "vars" special list is read
+      only.
+  - server: Subsystem flags are now unit tested to ensure there are no conflicts.
+  mrmanlikesbt, MrMelbert, RikuTheKiller:
+  - bugfix: Fixed various runtimes & harddels
+  - bugfix: Fixed autolathes not dropping their materials on destruction
+  - bugfix: Fixed circuit floors not emitting light
+  - bugfix: Status effects should now tick more consistently
+  - bugfix: Fixed two alert sounds playing when becoming a changeling
+  - code_imp: Stun absorptions have been refactored into a status effect
+2026-06-05:
+  DrDuckedGoose:
+  - bugfix: Fix particles smoking, again
+  EvilDragonfiend:
+  - code_imp: VV'ing mobs no longer throws a runtime unnecessarily. Also changed some
+      VV code
+2026-06-06:
+  Tsar-Salat:
+  - bugfix: fix slimepeople eye misapplication
+  WhiskeyMarten:
+  - spellcheck: Fixed a few minor misspellings.
+2026-06-07:
+  mrmanlikesbt:
+  - code_imp: The Grid TGUI component has been deprecated.
+  - tweak: Slightly reorganized the bluespace launchpad UI.
+  - bugfix: Fixed some issues with the nanite UIs.
+  - bugfix: Fixed the DNA console UI being a little too small
+2026-06-08:
+  BotTierPC:
+  - admin: Mass Antag Conversion Secret Now Allows For Vampire Conversion

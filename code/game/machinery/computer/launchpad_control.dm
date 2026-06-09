@@ -140,10 +140,16 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
 		if("move_pos")
 			var/plus_x = text2num(params["x"])
 			var/plus_y = text2num(params["y"])
-			current_pad.set_offset(
-				x = current_pad.x_offset + plus_x,
-				y = current_pad.y_offset + plus_y
-			)
+			if(plus_x || plus_y)
+				current_pad.set_offset(
+					x = current_pad.x_offset + plus_x,
+					y = current_pad.y_offset + plus_y,
+				)
+			else
+				current_pad.set_offset(
+					x = 0,
+					y = 0,
+				)
 			. = TRUE
 		if("set_recall")
 			var/recall_timer = tgui_input_number(usr, "How long until the machine automatically recalls? (0 to disable)", "Recall time", 0, 300, 0)

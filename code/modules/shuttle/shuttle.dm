@@ -780,7 +780,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 			if(M.mind && !istype(t, /turf/open/floor/mineral/plastitanium/red/brig))
 				M.mind.force_escaped = TRUE
 			// Ghostize them and put them in nullspace stasis (for stat & possession checks)
-			M.notransform = TRUE
+			ADD_TRAIT(M, TRAIT_NO_TRANSFORM, REF(src))
 			M.ghostize(FALSE)
 			M.moveToNullspace()
 

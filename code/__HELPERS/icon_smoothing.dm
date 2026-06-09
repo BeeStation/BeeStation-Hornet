@@ -258,8 +258,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 				match = target_turf
 
 	if(isnull(match) && smoothing_flags & SMOOTH_OBJ)
-		for(var/am in target_turf)
-			var/atom/movable/thing = am
+		for(var/atom/movable/thing as anything in target_turf)
 			if(!thing.anchored || isnull(thing.smoothing_groups))
 				continue
 			for(var/target in canSmoothWith)
@@ -429,7 +428,6 @@ DEFINE_BITFIELD(smoothing_junction, list(
 					movable_to_smooth.smooth_icon()
 				else
 					QUEUE_SMOOTH(movable_to_smooth)
-
 
 /atom/proc/clear_smooth_overlays()
 	cut_overlay(top_left_corner)

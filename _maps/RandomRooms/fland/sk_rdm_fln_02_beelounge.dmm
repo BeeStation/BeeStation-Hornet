@@ -76,7 +76,7 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/open/floor/noslip/standard,
 /area/template_noop)
 "G" = (

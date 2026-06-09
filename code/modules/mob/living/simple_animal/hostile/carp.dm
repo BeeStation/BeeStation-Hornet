@@ -180,9 +180,7 @@
 
 /mob/living/simple_animal/hostile/carp/cayenne/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_DISK_VERIFIER, INNATE_TRAIT) //carp can verify disky
-	ADD_TRAIT(src, TRAIT_CAN_USE_NUKE, INNATE_TRAIT)  //carp SMART
-	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, INNATE_TRAIT) //carp SMART
+	add_traits(list(TRAIT_DISK_VERIFIER, TRAIT_CAN_USE_NUKE, TRAIT_ADVANCEDTOOLUSER), INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/carp/cayenne/make_tameable()
 	return

@@ -186,13 +186,21 @@
 #define LIGHT_COLOR_RED "#FA8282" //! Warm but extremely diluted red. rgb(250, 130, 130)
 #define LIGHT_COLOR_CLOCKWORK "#BE8700"
 
-//These ones aren't a direct colour like the ones above, because nothing would fit
-#define LIGHT_COLOR_FIRE "#FAA019" //! Warm orange color, leaning strongly towards yellow. rgb(250, 160, 25)
-#define LIGHT_COLOR_LAVA "#C48A18" //! Very warm yellow, leaning slightly towards orange. rgb(196, 138, 24)
-#define LIGHT_COLOR_FLARE "#FA644B" //! Bright, non-saturated red. Leaning slightly towards pink for visibility. rgb(250, 100, 75)
-#define LIGHT_COLOR_SLIME_LAMP "#AFC84B" //! Weird color, between yellow and green, very slimy. rgb(175, 200, 75)
-#define LIGHT_COLOR_TUNGSTEN "#FAE1AF" //! Extremely diluted yellow, close to skin color (for some reason). rgb(250, 225, 175)
-#define LIGHT_COLOR_HALOGEN "#F0FAFA" //! Barely visible cyan-ish hue, as the doctor prescribed. rgb(240, 250, 250)
+/* These ones aren't a direct colour like the ones above, because nothing would fit */
+/// Warm orange color, leaning strongly towards yellow. rgb(250, 160, 25)
+#define LIGHT_COLOR_FIRE "#FAA019"
+/// Very warm yellow, leaning slightly towards orange. rgb(196, 138, 24)
+#define LIGHT_COLOR_LAVA "#C48A18"
+/// Bright, non-saturated red. Leaning slightly towards pink for visibility. rgb(250, 100, 75)
+#define LIGHT_COLOR_FLARE "#FA644B"
+/// Vivid red. Leans a bit darker to accentuate red colors and leave other channels a bit dry.  rgb(200, 25, 25)
+#define LIGHT_COLOR_INTENSE_RED "#C81919"
+/// Weird color, between yellow and green, very slimy. rgb(175, 200, 75)
+#define LIGHT_COLOR_SLIME_LAMP "#AFC84B"
+/// Extremely diluted yellow, close to skin color (for some reason). rgb(255, 214, 170)
+#define LIGHT_COLOR_TUNGSTEN "#FFD6AA"
+/// Barely visible cyan-ish hue, as the doctor prescribed. rgb(240, 250, 250)
+#define LIGHT_COLOR_HALOGEN "#F0FAFA"
 
 /// Colors for incident displays
 #define COLOR_DISPLAY_RED "#BE3455"

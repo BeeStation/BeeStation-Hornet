@@ -2718,7 +2718,7 @@
 /obj/structure/mirror{
 	pixel_y = 32
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/hotel/pool)
 "lo" = (
@@ -2825,7 +2825,7 @@
 /obj/structure/mirror{
 	pixel_y = 32
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/hotel/pool)
 "md" = (
@@ -3346,7 +3346,7 @@
 /area/ruin/space/has_grav/hotel/pool)
 "Ci" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/rag,
+/obj/item/rag,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/bar)
