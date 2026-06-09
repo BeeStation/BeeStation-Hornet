@@ -459,11 +459,12 @@ GLOBAL_LIST(admin_antag_list)
 
 /// Adds a HUD that will show you other members with the same antagonist.
 /// If an antag typepath is passed to `antag_to_check`, will check that, otherwise will use the source type.
-/datum/antagonist/proc/add_team_hud(mob/target, antag_to_check)
+/// Because vampires are wacky shit we have to be able to swap behaviors, introducing: hud_type
+/datum/antagonist/proc/add_team_hud(mob/target, antag_to_check, hud_type = /datum/atom_hud/alternate_appearance/basic/has_antagonist)
 	QDEL_NULL(team_hud_ref)
 
 	team_hud_ref = WEAKREF(target.add_alt_appearance(
-		/datum/atom_hud/alternate_appearance/basic/has_antagonist,
+		hud_type,
 		"antag_team_hud_[REF(src)]",
 		hud_image_on(target),
 		antag_to_check || type,

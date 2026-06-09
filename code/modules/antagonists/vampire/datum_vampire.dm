@@ -665,6 +665,21 @@
 /datum/antagonist/vampire/get_team()
 	return vampire_team
 
+/// Since vampires each have their own teams, we have to do some wacky shit
+/datum/antagonist/vampire/add_team_hud(mob/target, antag_to_check, hud_type = /datum/atom_hud/alternate_appearance/basic/has_antagonist/vampire)
+	return ..()
+
+/// See: Wacky shit.
+/datum/atom_hud/alternate_appearance/basic/has_antagonist/vampire/mobShouldSee(mob/M)
+	if(add_ghost_version && isobserver(M))
+		return FALSE // i barely understand this shit
+
+	var/datum/mind/viewer_mind = M.mind
+	if(isnull(viewer_mind))
+		return FALSE
+
+	return viewer_mind.has_antag_datum(/datum/antagonist/vampire) || viewer_mind.has_antag_datum(/datum/antagonist/vassal)
+
 /datum/team/vampire
 	name = "vampire team"
 

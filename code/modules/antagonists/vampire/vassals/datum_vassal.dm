@@ -21,6 +21,10 @@
 /datum/antagonist/vassal/get_team()
 	return vampire_team
 
+/// Vassals share the same HUD as their vampires, visible to all vampire-aligned minds.
+/datum/antagonist/vassal/add_team_hud(mob/target, antag_to_check, hud_type = /datum/atom_hud/alternate_appearance/basic/has_antagonist/vampire)
+	return ..()
+
 /datum/antagonist/vassal/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
