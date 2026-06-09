@@ -22,9 +22,7 @@
 	},
 /obj/machinery/light/directional/north,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "aau" = (
 /obj/machinery/light{
 	dir = 8
@@ -479,9 +477,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "aib" = (
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
@@ -500,9 +496,7 @@
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "aiP" = (
 /obj/effect/turf_decal/siding/thinplating_new/corner{
 	dir = 8
@@ -585,11 +579,15 @@
 /turf/open/space/basic,
 /area/misc/space)
 "aka" = (
-/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
-/turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 4
+	},
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/telecomms,
+/area/station/tcommsat/server)
 "akb" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -647,9 +645,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/light/floor,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ald" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -664,9 +660,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "alo" = (
 /obj/machinery/camera/motion/directional/south{
 	c_tag = "Security - Armory - External West";
@@ -771,19 +765,15 @@
 /turf/open/floor/light,
 /area/station/ai_monitored/turret_protected/ai)
 "ana" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 10
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 6
 	},
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 1
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/trimline/red/warning{
+	dir = 6
 	},
-/obj/effect/turf_decal/edges/techfloor/corners,
-/obj/effect/turf_decal/edges/techfloor/corners{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
+/turf/open/floor/iron/kitchen_coldroom/dark,
+/area/ruin/space/has_grav/turretedoutpost)
 "anf" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/ridged/steel,
@@ -795,9 +785,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "anu" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -997,9 +985,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "arb" = (
 /obj/machinery/computer/rdservercontrol{
 	dir = 8
@@ -1288,9 +1274,7 @@
 "avh" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "avq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -1461,9 +1445,7 @@
 /obj/item/multitool,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "axS" = (
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/dark/smooth_large,
@@ -1671,9 +1653,7 @@
 /obj/machinery/vending/dinnerware,
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "aCf" = (
 /obj/machinery/door/airlock/grunge{
 	name = "Library"
@@ -1772,9 +1752,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "aDq" = (
 /obj/machinery/computer/security,
 /obj/effect/turf_decal/tile/red/half{
@@ -2095,9 +2073,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "aHI" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -2187,9 +2163,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "aJR" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -2302,9 +2276,7 @@
 "aLT" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "aMa" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced,
@@ -2549,9 +2521,7 @@
 "aPK" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "aPU" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -2623,9 +2593,7 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/light/directional/north,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "aRi" = (
 /obj/structure/rack,
 /obj/item/wirecutters,
@@ -2720,9 +2688,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/spawner/random/contraband/armory,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "aSz" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/donkpockets,
@@ -2864,9 +2830,7 @@
 	dir = 1
 	},
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "aUr" = (
 /obj/machinery/door/airlock/security{
 	name = "Prison Intake"
@@ -3038,9 +3002,7 @@
 	pixel_x = 8
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "aVJ" = (
 /obj/structure/closet/l3closet/virology,
 /obj/effect/turf_decal/box,
@@ -3131,11 +3093,9 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
 "aWE" = (
-/obj/structure/fans/tiny/invisible,
+/obj/structure/fans/tiny,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "aWV" = (
 /obj/effect/turf_decal/tile/yellow/anticorner{
 	dir = 8
@@ -3420,9 +3380,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "bdK" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -3763,9 +3721,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "bkB" = (
 /obj/machinery/button/flasher{
 	id = "executionflash";
@@ -4050,9 +4006,7 @@
 	dir = 5
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "bpC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -4087,9 +4041,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/target/clown,
 /turf/open/floor/plating/rust,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "bqu" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment,
@@ -4160,9 +4112,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "bsm" = (
 /obj/item/radio/intercom{
 	pixel_y = 26
@@ -4237,9 +4187,7 @@
 	damage_deflection = 0
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "btp" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
@@ -4725,9 +4673,7 @@
 "bCB" = (
 /obj/structure/dresser,
 /turf/open/floor/wood,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "bCM" = (
 /obj/machinery/light/small,
 /obj/structure/railing/perspective/wood,
@@ -4820,9 +4766,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "bEW" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 6
@@ -4836,9 +4780,7 @@
 	dir = 6
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "bEY" = (
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/command/heads_quarters/chief)
@@ -5277,9 +5219,7 @@
 	},
 /obj/machinery/light/directional/west,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "bOJ" = (
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable/yellow,
@@ -5677,9 +5617,7 @@
 /obj/machinery/light/small/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "bUJ" = (
 /obj/structure/closet/crate/internals,
 /obj/item/storage/toolbox/emergency,
@@ -5687,9 +5625,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/item/stack/sheet/iron/fifty,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "bUN" = (
 /obj/structure/table,
 /obj/item/taperecorder,
@@ -5746,9 +5682,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "bVJ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -6012,9 +5946,7 @@
 /obj/machinery/light/directional/south,
 /obj/item/tape/random,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "cca" = (
 /obj/effect/landmark/start/head_of_security,
 /turf/open/floor/iron/white/smooth_large,
@@ -6291,9 +6223,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "chF" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -6422,9 +6352,7 @@
 	dir = 8
 	},
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "cjS" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 4
@@ -6476,9 +6404,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ckS" = (
 /obj/structure/table,
 /obj/item/tape/random,
@@ -6490,9 +6416,7 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "clv" = (
 /obj/structure/rack,
 /obj/item/restraints/handcuffs,
@@ -6828,9 +6752,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "cqg" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/cup/glass/bottle/champagne{
@@ -6917,9 +6839,7 @@
 /obj/structure/closet/bombcloset,
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "crB" = (
 /obj/structure/cable/orange,
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
@@ -7092,9 +7012,7 @@
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ctR" = (
 /obj/machinery/shower{
 	dir = 8;
@@ -7136,9 +7054,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "cuI" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -7191,9 +7107,7 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "cvV" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/blue,
@@ -7209,6 +7123,20 @@
 /obj/machinery/power/supermatter_crystal/engine,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
+"cwj" = (
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
+	},
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor/corners{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges/techfloor,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/telecomms,
+/area/station/tcommsat/server)
 "cwI" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitrogen_input{
 	dir = 1
@@ -7265,9 +7193,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "cxh" = (
 /obj/structure/table,
 /obj/effect/turf_decal/stripes/line{
@@ -7615,9 +7541,7 @@
 "cDO" = (
 /obj/machinery/vending/clothing,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "cDP" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -7846,10 +7770,9 @@
 /turf/open/floor/plating,
 /area/station/security/detectives_office/private_investigators_office)
 "cIX" = (
-/turf/closed/mineral,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/obj/machinery/light/floor,
+/turf/open/floor/plating,
+/area/station/science/shuttle)
 "cJf" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/guideline/guideline_mid/red,
@@ -7912,9 +7835,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/techmaint,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "cKc" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/dark/smooth_half,
@@ -7948,9 +7869,7 @@
 /area/station/maintenance/disposal)
 "cKB" = (
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "cLa" = (
 /obj/structure/sign/directions/security{
 	dir = 8;
@@ -8091,9 +8010,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "cNG" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -8419,9 +8336,7 @@
 /obj/structure/barricade/sandbags,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "cRX" = (
 /obj/machinery/requests_console{
 	department = "Mining";
@@ -8729,9 +8644,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "cWI" = (
 /obj/structure/lattice,
 /obj/machinery/camera/directional/north{
@@ -9036,9 +8949,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ddt" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -9165,9 +9076,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "dfX" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -10181,9 +10090,7 @@
 	pixel_x = 24
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "dCo" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -10235,9 +10142,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "dDx" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24
@@ -10459,9 +10364,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/target/clown,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "dHp" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/blue,
@@ -10755,9 +10658,7 @@
 	},
 /obj/effect/decal/cleanable/oil/slippery,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "dLw" = (
 /obj/machinery/button/crematorium{
 	id = "foo";
@@ -10840,9 +10741,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "dMq" = (
 /obj/machinery/door/airlock{
 	id_tag = "mainthideout";
@@ -10869,9 +10768,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "dMy" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -11112,9 +11009,7 @@
 	dir = 4
 	},
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "dQY" = (
 /obj/structure/cable/yellow,
 /obj/machinery/door/airlock/security{
@@ -11173,9 +11068,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "dSJ" = (
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
@@ -11215,9 +11108,7 @@
 "dTf" = (
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "dTC" = (
 /obj/machinery/field/generator,
 /turf/open/floor/plating,
@@ -11578,9 +11469,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "eam" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -12243,9 +12132,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "enn" = (
 /obj/structure/closet/crate/medical,
 /obj/effect/decal/cleanable/dirt,
@@ -12288,9 +12175,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/trimline/red/corner,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "eoj" = (
 /obj/structure/table/wood/fancy/red,
 /obj/effect/turf_decal/siding/wood{
@@ -12800,9 +12685,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ezQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -12849,9 +12732,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "eAE" = (
 /obj/structure/table/optable,
 /turf/open/floor/iron/white/textured_large,
@@ -12923,9 +12804,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "eBy" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/sorting/mail/destination/xenobiology/flip{
@@ -13025,9 +12904,7 @@
 /obj/item/food/cake/birthday,
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "eDs" = (
 /obj/structure/chair{
 	dir = 4
@@ -13157,9 +13034,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "eGL" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass,
@@ -13378,9 +13253,7 @@
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "eJP" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -13641,9 +13514,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "eNM" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /turf/open/floor/engine,
@@ -13950,9 +13821,7 @@
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "eTu" = (
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -14131,9 +14000,7 @@
 	dir = 10
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "eVw" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -14206,9 +14073,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "eWS" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -14239,9 +14104,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "eXS" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 8
@@ -14300,25 +14163,20 @@
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
 "eYR" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 5
+/obj/machinery/field/generator,
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#c1caff"
 	},
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges/techfloor,
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
+/turf/open/floor/plating,
+/area/station/engineering/storage)
 "eYX" = (
 /obj/structure/closet/crate/medical,
 /obj/item/storage/firstaid/regular,
 /obj/effect/turf_decal/delivery,
 /obj/structure/railing,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "eYY" = (
 /obj/effect/turf_decal/tile/blue/half{
 	dir = 4
@@ -14333,9 +14191,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "eZi" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/chair/office{
@@ -14488,9 +14344,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/microwave,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "fcM" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment,
@@ -14523,9 +14377,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/item/book/manual/nuclear,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "fdE" = (
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/trimline/purple/line,
@@ -14567,9 +14419,7 @@
 	dir = 1
 	},
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "feq" = (
 /obj/structure/table/wood,
 /obj/item/storage/photo_album,
@@ -14967,9 +14817,7 @@
 /obj/structure/cable/yellow,
 /obj/structure/fans/tiny,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "flQ" = (
 /obj/effect/turf_decal/stripes/box,
 /obj/structure/railing{
@@ -15133,9 +14981,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "fot" = (
 /obj/structure/table/reinforced,
 /obj/item/gun/energy/laser,
@@ -15155,9 +15001,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/cardboard/metal,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "foJ" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -15220,16 +15064,13 @@
 /turf/open/floor/iron/ridged/steel,
 /area/station/cargo/exploration_prep)
 "fpp" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 4
+/obj/machinery/power/port_gen/pacman,
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
 	},
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
+/turf/open/floor/plating,
+/area/station/engineering/storage)
 "fpv" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -15250,9 +15091,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "fpV" = (
 /obj/machinery/camera/motion/directional/east{
 	c_tag = "MiniSat Foyer - Port Aft";
@@ -15343,9 +15182,7 @@
 "frM" = (
 /obj/structure/bookcase/random/fiction,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "frR" = (
 /obj/machinery/light{
 	light_color = "#e8eaff"
@@ -15508,9 +15345,7 @@
 	},
 /obj/effect/decal/cleanable/blood/footprints,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ftR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -15526,9 +15361,7 @@
 	dir = 5
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ftW" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -16603,9 +16436,7 @@
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "fOb" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark/smooth_half,
@@ -16674,9 +16505,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "fQc" = (
 /obj/machinery/modular_computer/console/preset/engineering{
 	dir = 8
@@ -16688,12 +16517,9 @@
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/command/heads_quarters/chief)
 "fQe" = (
-/obj/structure/cable/yellow,
-/obj/structure/fans/tiny/invisible,
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/obj/structure/flora/ash/leaf_shroom,
+/turf/open/floor/plating/asteroid/airless,
+/area/centcom/asteroid)
 "fQl" = (
 /obj/machinery/computer/atmos_control/nitrogen_tank{
 	dir = 1
@@ -16731,9 +16557,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/pod/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "fRU" = (
 /obj/structure/railing/sec,
 /obj/effect/turf_decal/tile/red/fourcorners,
@@ -16749,9 +16573,7 @@
 /obj/item/storage/pill_bottle/stimulant,
 /obj/structure/closet/crate,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "fSi" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -16847,9 +16669,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "fTE" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -16866,9 +16686,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "fTX" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 4
@@ -16933,9 +16751,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "fUS" = (
 /obj/machinery/newscaster{
 	pixel_x = -32
@@ -17028,9 +16844,7 @@
 "fWL" = (
 /obj/machinery/light/directional/west,
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "fWS" = (
 /obj/structure/disposalpipe/sorting/mail{
 	sortType = 21
@@ -17061,9 +16875,7 @@
 "fXm" = (
 /obj/structure/fireplace,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "fXs" = (
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "engsm";
@@ -17318,9 +17130,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "gae" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -17758,9 +17568,7 @@
 "ghK" = (
 /obj/structure/bookcase/random/religion,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ghQ" = (
 /obj/structure/table/wood,
 /obj/structure/desk_bell/wired/security{
@@ -18007,9 +17815,7 @@
 /area/station/hallway/primary/fore)
 "gmD" = (
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "gmE" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/bot,
@@ -18152,9 +17958,7 @@
 "goY" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "gpb" = (
 /obj/item/kirbyplants/dead,
 /obj/structure/disposalpipe/segment{
@@ -18406,12 +18210,13 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor{
+/obj/effect/turf_decal/edges/techfloor/corners{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges/techfloor/corners{
 	dir = 4
 	},
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 8
-	},
+/obj/effect/turf_decal/edges,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "gsN" = (
@@ -18480,9 +18285,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "gtz" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -18656,9 +18459,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "gxh" = (
 /obj/structure/sink/puddle,
 /obj/effect/landmark/event_spawn,
@@ -18816,9 +18617,7 @@
 "gAx" = (
 /obj/effect/trap/trigger,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "gAI" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -18924,9 +18723,7 @@
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/lattice/catwalk,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "gCU" = (
 /obj/effect/turf_decal/tile/yellow/half{
 	dir = 8
@@ -18951,20 +18748,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/science/shuttle)
-"gDK" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor/corners{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges/techfloor/corners{
-	dir = 4
-	},
-/obj/effect/turf_decal/edges,
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
 "gDL" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/bot,
@@ -19031,9 +18814,7 @@
 /obj/item/target/clown,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "gEP" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -19149,9 +18930,7 @@
 "gGr" = (
 /obj/structure/sign/poster/contraband/syndicate,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "gGz" = (
 /obj/structure/chair/wood/normal,
 /obj/item/radio/intercom/chapel{
@@ -19252,9 +19031,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "gIl" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/cobweb,
@@ -19419,9 +19196,9 @@
 /turf/open/floor/plating,
 /area/station/ai_monitored/command/storage/satellite)
 "gLj" = (
-/obj/machinery/light/floor,
-/turf/open/floor/plating,
-/area/station/science/shuttle)
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
+/turf/open/floor/iron/kitchen_coldroom/dark,
+/area/ruin/space/has_grav/turretedoutpost)
 "gLs" = (
 /obj/machinery/vending/cola,
 /obj/effect/turf_decal/delivery,
@@ -19437,9 +19214,7 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "gLD" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -19453,9 +19228,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "gLI" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -19567,14 +19340,17 @@
 /turf/open/floor/plating,
 /area/station/maintenance/aft/greater)
 "gOA" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 8
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
 	},
-/obj/effect/turf_decal/edges{
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor/corners{
 	dir = 4
 	},
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "gOD" = (
@@ -19628,9 +19404,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "gPr" = (
 /turf/open/floor/iron,
 /area/station/engineering/storage)
@@ -19685,6 +19459,20 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen)
+"gQn" = (
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
+	},
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges/techfloor/corners{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/iron/dark/telecomms,
+/area/station/tcommsat/server)
 "gQx" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -19833,9 +19621,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "gUc" = (
 /obj/structure/sign/departments/minsky/security/command,
 /turf/closed/wall,
@@ -19900,9 +19686,7 @@
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "gVt" = (
 /obj/structure/table,
 /obj/machinery/recharger{
@@ -20201,9 +19985,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hap" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -20407,26 +20189,20 @@
 /obj/structure/cable/yellow,
 /obj/structure/fans/tiny,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "heS" = (
 /obj/machinery/door/airlock{
 	name = "Private Restroom"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hfo" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/rtg/advanced,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hfw" = (
 /obj/machinery/airalarm/directional/west,
 /obj/structure/cable/yellow,
@@ -20563,9 +20339,7 @@
 	},
 /obj/effect/decal/cleanable/oil/slippery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hhW" = (
 /obj/machinery/computer/camera_advanced/xenobio{
 	dir = 1
@@ -20607,9 +20381,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hiQ" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -20709,9 +20481,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hjV" = (
 /turf/open/floor/carpet,
 /area/station/service/chapel/monastery)
@@ -21038,9 +20808,7 @@
 /obj/item/gun/energy/laser/practice,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/techmaint,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hsJ" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -21094,9 +20862,7 @@
 "huQ" = (
 /obj/structure/sign/poster/contraband/lusty_xenomorph,
 /turf/closed/wall/mineral/plastitanium,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hvo" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -21453,9 +21219,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hCP" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/window/reinforced/spawner/directional/north,
@@ -21563,9 +21327,7 @@
 	candy_options = list(/obj/item/food/rock_candy,/obj/item/food/candy,/obj/item/food/chocolatebar,/obj/item/food/gumball,/obj/item/food/lollipop,/obj/item/grenade/plastic/c4,/obj/item/grenade/clusterbuster/soap,/obj/item/grenade/empgrenade,/obj/item/grenade/frag)
 	},
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hEo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -21604,9 +21366,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/newscaster/directional/north,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hFg" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -21708,9 +21468,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hHX" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -21809,9 +21567,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hIV" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -21828,9 +21584,7 @@
 	damage_deflection = 0
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hIY" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -22064,9 +21818,7 @@
 	name = "Jacuzzi Pool";
 	color = "#ADD8E6"
 	},
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hNb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -22233,9 +21985,7 @@
 "hRk" = (
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hRq" = (
 /turf/closed/wall/rust,
 /area/station/security/prison)
@@ -22384,14 +22134,17 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
 "hTY" = (
-/obj/machinery/light/floor,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
+	},
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 8
+/obj/effect/turf_decal/edges/techfloor/corners{
+	dir = 1
 	},
 /obj/effect/turf_decal/edges/techfloor{
-	dir = 4
+	dir = 1
 	},
+/obj/effect/turf_decal/edges,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "hUc" = (
@@ -22427,9 +22180,14 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/cargo/storage)
 "hUF" = (
-/obj/machinery/newscaster/directional,
-/turf/closed/wall/r_wall,
-/area/station/science/explab)
+/obj/machinery/light/floor,
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor,
+/obj/effect/turf_decal/edges{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/telecomms,
+/area/station/tcommsat/server)
 "hUT" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -22554,9 +22312,7 @@
 	},
 /obj/item/pen,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hWB" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = -32
@@ -22623,9 +22379,7 @@
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "hXw" = (
 /obj/effect/landmark/event_spawn,
 /obj/machinery/computer/nanite_cloud_controller,
@@ -22898,9 +22652,7 @@
 /obj/item/target/clown,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/plating/rust,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ibr" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -22964,9 +22716,7 @@
 	dir = 2
 	},
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ibU" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -22975,9 +22725,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "icd" = (
 /obj/structure/bookcase/random/adult,
 /turf/open/floor/prison/dark,
@@ -23036,9 +22784,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ida" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -23063,9 +22809,7 @@
 "ieF" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ieH" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -23119,9 +22863,7 @@
 /obj/structure/railing,
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "igc" = (
 /obj/structure/lattice,
 /obj/effect/turf_decal/sand/plating,
@@ -23248,9 +22990,7 @@
 /obj/machinery/recharger,
 /obj/structure/table/reinforced,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ijJ" = (
 /obj/structure/bed/roller,
 /obj/effect/turf_decal/tile/blue/half{
@@ -23439,9 +23179,7 @@
 "inc" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ine" = (
 /obj/structure/closet/secure_closet/CMO,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -23741,9 +23479,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "irW" = (
 /turf/open/floor/plating,
 /area/station/hallway/secondary/exit/departure_lounge)
@@ -24444,9 +24180,7 @@
 	dir = 5
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "iEQ" = (
 /obj/machinery/door/window/westright,
 /obj/effect/turf_decal/siding/wood{
@@ -24780,9 +24514,7 @@
 "iLg" = (
 /obj/structure/sign/poster/contraband/random,
 /turf/closed/wall/mineral/plastitanium,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "iLi" = (
 /obj/effect/turf_decal/tile/dark_green/half{
 	dir = 4
@@ -25003,9 +24735,7 @@
 	},
 /obj/effect/turf_decal/edges/techfloor/corners,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "iPl" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/yellow/anticorner{
@@ -25095,9 +24825,7 @@
 	pixel_x = -8
 	},
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "iQp" = (
 /obj/structure/lattice,
 /obj/machinery/portable_atmospherics/canister/air,
@@ -25685,9 +25413,7 @@
 /obj/machinery/nuclearbomb/beer,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "jcm" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/purple/half{
@@ -26374,9 +26100,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "jrC" = (
 /obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall,
@@ -26574,9 +26298,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "jxU" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
@@ -26953,9 +26675,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "jFK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -27727,9 +27447,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "jVg" = (
 /obj/machinery/door/airlock/grunge{
 	name = "Chapel Access"
@@ -28020,9 +27738,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "jZn" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/oxygen_input{
 	dir = 1
@@ -28198,9 +27914,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "kcu" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -28282,9 +27996,7 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "kdJ" = (
 /obj/machinery/holopad,
 /obj/effect/landmark/event_spawn,
@@ -28724,11 +28436,21 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "kkx" = (
-/obj/machinery/light{
-	dir = 8
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
-/turf/open/floor/iron/white/textured_large,
-/area/station/medical/virology)
+/obj/effect/turf_decal/edges/borderfloor/black/full,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "SYND2";
+	name = "Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0.1;
+	pixel_y = 0.1;
+	damage_deflection = 0
+	},
+/turf/open/floor/iron/kitchen_coldroom/dark,
+/area/ruin/space/has_grav/turretedoutpost)
 "kkV" = (
 /obj/machinery/light/warm/directional/south,
 /obj/structure/platform/wood/corner{
@@ -28896,13 +28618,10 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor/corners{
-	dir = 1
-	},
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
-/obj/effect/turf_decal/edges,
+/obj/effect/turf_decal/edges/techfloor,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "koV" = (
@@ -29080,9 +28799,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/machinery/newscaster/directional/south,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "krD" = (
 /turf/open/floor/iron,
 /area/station/engineering/transit_tube)
@@ -29285,9 +29002,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ktU" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/eastright{
@@ -29459,9 +29174,7 @@
 /obj/structure/cable/yellow,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "kwW" = (
 /obj/machinery/shower{
 	dir = 8
@@ -29815,9 +29528,7 @@
 /obj/effect/turf_decal/trimline/red/warning,
 /obj/structure/reagent_dispensers/beerkeg,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "kEg" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark/textured_large,
@@ -29898,9 +29609,7 @@
 	move_resist = 2999
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "kFB" = (
 /obj/machinery/airalarm/directional/east,
 /obj/structure/chair/fancy/comfy{
@@ -30010,9 +29719,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light/directional/west,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "kHj" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/sorting/mail/flip{
@@ -30195,9 +29902,7 @@
 /area/station/security/office)
 "kKG" = (
 /turf/open/floor/plating/rust,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "kKL" = (
 /obj/effect/turf_decal/trimline/yellow/warning,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -30282,9 +29987,7 @@
 /obj/effect/turf_decal/edges/techfloor,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "kMu" = (
 /obj/machinery/light{
 	dir = 4
@@ -30308,9 +30011,7 @@
 	faction = list("Syndicate,pirate")
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "kMO" = (
 /obj/structure/chair/wood/normal,
 /turf/open/floor/iron/dark/smooth_half,
@@ -30433,9 +30134,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "kPA" = (
 /obj/structure/lattice/catwalk,
 /turf/open/space,
@@ -30502,6 +30201,17 @@
 	},
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/command/heads_quarters/chief)
+"kRb" = (
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 8
+	},
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges,
+/turf/open/floor/iron/dark/telecomms,
+/area/station/tcommsat/server)
 "kRs" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -30716,9 +30426,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "kUp" = (
 /obj/structure/table/wood,
 /obj/item/instrument/trombone,
@@ -31122,9 +30830,7 @@
 	pixel_y = 12
 	},
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "kZI" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -31905,9 +31611,7 @@
 	name = "Jacuzzi Pool";
 	color = "#ADD8E6"
 	},
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "lol" = (
 /turf/open/floor/carpet/royalblue,
 /area/station/command/heads_quarters/captain)
@@ -32088,11 +31792,16 @@
 /turf/open/floor/grass,
 /area/station/hallway/secondary/exit/departure_lounge)
 "lsf" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -24
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 8
 	},
-/turf/open/floor/engine,
-/area/station/science/explab)
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/telecomms,
+/area/station/tcommsat/server)
 "lsC" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -32468,9 +32177,7 @@
 /obj/effect/trap/nexus/doorbolt,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "lCx" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -32641,9 +32348,7 @@
 "lFW" = (
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "lGe" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -32889,9 +32594,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "lKG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -33443,9 +33146,7 @@
 	faction = list("Syndicate,pirate")
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "lWR" = (
 /obj/structure/cable,
 /obj/effect/turf_decal/trimline/yellow/filled/line{
@@ -33461,9 +33162,7 @@
 /area/station/hallway/primary/central)
 "lXt" = (
 /turf/closed/wall/mineral/plastitanium,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "lXI" = (
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
@@ -33532,28 +33231,16 @@
 	pixel_x = -6
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "lYH" = (
 /obj/structure/cable/orange,
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/station/science/shuttle)
 "lYK" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 9
-	},
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor/corners{
-	dir = 4
-	},
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges,
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/ruin/space/has_grav/turretedoutpost)
 "lYS" = (
 /obj/machinery/computer/cargo/request{
 	dir = 4
@@ -33603,15 +33290,24 @@
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "lZI" = (
-/obj/structure/flora/ash/leaf_shroom,
-/turf/open/floor/plating/asteroid/airless,
-/area/centcom/asteroid)
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron/white/textured_large,
+/area/station/medical/virology)
 "mae" = (
-/obj/effect/turf_decal/tile/brown/fourcorners,
-/obj/effect/turf_decal/trimline/yellow,
-/obj/machinery/light/floor,
-/turf/open/floor/carpet/lone/star,
-/area/station/service/chapel/monastery)
+/obj/structure/closet/secure_closet/hydroponics,
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/station/service/hydroponics)
 "mal" = (
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 4
@@ -33652,9 +33348,7 @@
 /area/station/science/xenobiology)
 "mbh" = (
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mbp" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -33795,9 +33489,7 @@
 	name = "Private Domicile"
 	},
 /turf/open/floor/iron/stairs,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mfQ" = (
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 1
@@ -33829,9 +33521,7 @@
 	dir = 9
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mgO" = (
 /obj/effect/turf_decal/siding/thinplating/dark/corner{
 	dir = 4
@@ -33840,9 +33530,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mgS" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 6
@@ -33858,9 +33546,7 @@
 	move_resist = 2999
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mgT" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/pump,
@@ -33907,9 +33593,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/edges/techfloor,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mib" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -33985,9 +33669,7 @@
 	pixel_y = 10
 	},
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mjB" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Control"
@@ -34260,9 +33942,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mnJ" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /obj/effect/decal/cleanable/dirt,
@@ -34427,9 +34107,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mrM" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
@@ -34617,9 +34295,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mvy" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/thinplating_new/light,
@@ -34768,7 +34444,7 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
-/obj/effect/turf_decal/edges/techfloor{
+/obj/effect/turf_decal/edges{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/telecomms,
@@ -34995,21 +34671,6 @@
 /obj/machinery/libraryscanner,
 /turf/open/floor/carpet/red,
 /area/station/service/library/lounge)
-"mCS" = (
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 6
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/trimline/red/warning{
-	dir = 6
-	},
-/obj/machinery/door/airlock/hatch{
-	name = "Atmospherics"
-	},
-/turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
 "mCX" = (
 /obj/structure/lattice,
 /obj/effect/turf_decal/sand/plating,
@@ -35060,9 +34721,7 @@
 	pixel_y = -22
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mDP" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/line{
@@ -35112,9 +34771,7 @@
 	},
 /obj/effect/decal/cleanable/oil/slippery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mEH" = (
 /obj/machinery/disposal/bin,
 /obj/structure/window/reinforced/spawner/directional/east,
@@ -35174,9 +34831,7 @@
 	dir = 1
 	},
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mFd" = (
 /obj/effect/turf_decal/siding/yellow,
 /turf/open/floor/iron/airless,
@@ -35259,9 +34914,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mGG" = (
 /obj/structure/table,
 /obj/item/stack/sheet/rglass{
@@ -35560,9 +35213,7 @@
 	pixel_y = 60
 	},
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mMX" = (
 /obj/effect/turf_decal/guideline/guideline_mid/red{
 	dir = 4
@@ -35644,9 +35295,7 @@
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mOk" = (
 /obj/machinery/monkey_recycler,
 /obj/structure/window/reinforced/spawner/directional/south,
@@ -35748,9 +35397,7 @@
 "mPm" = (
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/plating/rust,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mPQ" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -36171,9 +35818,7 @@
 	dir = 9
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "mZa" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -36223,9 +35868,7 @@
 "nak" = (
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "naU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/yellow/anticorner{
@@ -36496,9 +36139,7 @@
 	dir = 6
 	},
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "nfx" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
@@ -36675,9 +36316,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "niA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -36743,9 +36382,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/decal/cleanable/oil/slippery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "njF" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/stripes/line{
@@ -36937,9 +36574,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/pod/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "nnZ" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "barshutters";
@@ -36995,9 +36630,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "npk" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 1;
@@ -37023,9 +36656,7 @@
 	dir = 10
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "npK" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/wood{
@@ -37238,9 +36869,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "nvA" = (
 /obj/machinery/camera/directional/west{
 	c_tag = "Prison - Visitation - Public"
@@ -37279,9 +36908,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "nwC" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -37595,9 +37222,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "nDe" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow,
@@ -38065,10 +37690,11 @@
 /obj/effect/turf_decal/trimline/red/warning{
 	dir = 6
 	},
-/turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/obj/machinery/door/airlock/hatch{
+	name = "Atmospherics"
+	},
+/turf/open/floor/iron/dark,
+/area/ruin/space/has_grav/turretedoutpost)
 "nOg" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron,
@@ -38080,9 +37706,7 @@
 /obj/machinery/light/directional/east,
 /obj/item/wrench,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "nOr" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/techstorage/command_all,
@@ -38108,9 +37732,7 @@
 	req_access = null
 	},
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "nOI" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/abandoned,
@@ -38293,9 +37915,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "nTR" = (
 /obj/machinery/vending/wardrobe/sec_wardrobe,
 /obj/effect/turf_decal/tile/red/half{
@@ -38800,9 +38420,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ofJ" = (
 /obj/structure/cable/yellow,
 /obj/machinery/light_switch{
@@ -38862,9 +38480,7 @@
 /obj/item/clothing/shoes/jackboots,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ohE" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -38895,13 +38511,10 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
 "ohZ" = (
-/obj/machinery/power/port_gen/pacman,
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
-/turf/open/floor/plating,
-/area/station/engineering/storage)
+/obj/effect/turf_decal/bot,
+/obj/item/kirbyplants/random,
+/turf/open/floor/iron/cafeteria,
+/area/station/service/kitchen/coldroom)
 "oih" = (
 /obj/structure/sign/directions/evac{
 	dir = 1;
@@ -38963,9 +38576,7 @@
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ojF" = (
 /obj/machinery/light_switch{
 	pixel_x = 25
@@ -38981,9 +38592,7 @@
 	color = "#ADD8E6";
 	name = "Jacuzzi Pool"
 	},
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ojI" = (
 /obj/structure/lattice,
 /obj/machinery/camera/motion/directional/south{
@@ -39022,9 +38631,7 @@
 	},
 /obj/effect/landmark/loneops,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "okU" = (
 /obj/structure/table,
 /obj/item/restraints/handcuffs,
@@ -39097,9 +38704,7 @@
 /obj/structure/bookcase/random/adult,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "omN" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -39256,9 +38861,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "opR" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -39302,9 +38905,7 @@
 "oqC" = (
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "oqM" = (
 /obj/machinery/door/airlock{
 	name = "Zen Garden"
@@ -39337,9 +38938,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "oqW" = (
 /turf/closed/wall/r_wall,
 /area/station/science/storage)
@@ -39766,9 +39365,7 @@
 /obj/item/reagent_containers/syringe/lethal/choral,
 /obj/item/melee/baton/security/cattleprod,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "oCx" = (
 /obj/structure/cable/yellow,
 /obj/machinery/light/small{
@@ -39836,9 +39433,7 @@
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "oDH" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/wood{
@@ -39910,9 +39505,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "oFr" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/external{
@@ -40061,9 +39654,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "oIm" = (
 /obj/structure/cable/yellow,
 /obj/structure/table,
@@ -40502,9 +40093,7 @@
 	dir = 5
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "oSV" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
@@ -41001,9 +40590,7 @@
 	name = "Syndicate Notice"
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "pde" = (
 /obj/structure/table,
 /obj/item/storage/box/syringes,
@@ -41393,9 +40980,7 @@
 /obj/item/storage/belt/military,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "pmx" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 4
@@ -41549,24 +41134,10 @@
 /turf/open/floor/wood,
 /area/station/service/chapel/monastery)
 "pqt" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges/borderfloor/black/full,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "SYND2";
-	name = "Lockdown Shutter";
-	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
-	max_integrity = 200;
-	pixel_x = 0.1;
-	pixel_y = 0.1;
-	damage_deflection = 0
-	},
+/obj/structure/cable/yellow,
 /obj/structure/fans/tiny/invisible,
-/turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/ruin/space/has_grav/turretedoutpost)
 "pqv" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -41749,9 +41320,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "pwi" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
@@ -41787,9 +41356,7 @@
 /obj/machinery/light/directional/east,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "pxs" = (
 /obj/machinery/camera/directional/east{
 	c_tag = "Monastery - Morgue"
@@ -41888,9 +41455,7 @@
 "pAd" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "pAj" = (
 /obj/machinery/air_sensor/air_tank,
 /turf/open/floor/engine/air,
@@ -42043,13 +41608,7 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges/techfloor/corners{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/edges/techfloor,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "pCh" = (
@@ -42101,9 +41660,7 @@
 "pCN" = (
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "pCO" = (
 /obj/structure/grille/broken,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -42263,9 +41820,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "pFH" = (
 /obj/structure/chair{
 	dir = 4
@@ -42727,9 +42282,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "pNA" = (
 /obj/structure/cable/yellow,
 /obj/machinery/door/airlock/maintenance,
@@ -42747,9 +42300,7 @@
 	dir = 5
 	},
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "pNM" = (
 /obj/machinery/firealarm{
 	pixel_y = 26
@@ -42844,9 +42395,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "pQv" = (
 /obj/structure/table/reinforced,
 /obj/item/gps/security{
@@ -42858,9 +42407,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "pQA" = (
 /obj/effect/turf_decal/tile/blue/half,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -43671,14 +43218,11 @@
 /turf/open/floor/iron/dark,
 /area/station/service/chapel/monastery)
 "qgo" = (
-/obj/machinery/light/floor,
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor,
-/obj/effect/turf_decal/edges{
-	dir = 1
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -24
 	},
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
+/turf/open/floor/engine,
+/area/station/science/explab)
 "qgs" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/railing,
@@ -43687,9 +43231,7 @@
 	opened = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "qgC" = (
 /obj/structure/transit_tube/diagonal,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -44605,15 +44147,20 @@
 "qxH" = (
 /obj/structure/sign/poster/contraband/syndicate,
 /turf/closed/wall/mineral/plastitanium,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "qxI" = (
-/obj/structure/fans/tiny,
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 4
+	},
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/telecomms,
+/area/station/tcommsat/server)
 "qxZ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -44690,16 +44237,12 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/blood/footprints,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "qzc" = (
 /obj/machinery/power/rtg/advanced,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/tech/grid,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "qzg" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "xenobio4";
@@ -44906,9 +44449,7 @@
 	},
 /obj/effect/decal/cleanable/oil/slippery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "qEf" = (
 /obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/window/westleft{
@@ -45002,9 +44543,7 @@
 /area/station/engineering/atmos)
 "qEZ" = (
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "qFV" = (
 /obj/structure/chair/office,
 /obj/machinery/button/flasher{
@@ -45293,11 +44832,14 @@
 /turf/open/floor/iron,
 /area/station/maintenance/disposal/incinerator)
 "qLH" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 10
-	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 4
+	},
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "qLW" = (
@@ -45745,9 +45287,7 @@
 	faction = list("Syndicate,pirate")
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "qTN" = (
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/structure/cable/yellow,
@@ -45755,9 +45295,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "qUj" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners,
 /obj/structure/cable/yellow,
@@ -45795,9 +45333,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "qVC" = (
 /obj/effect/turf_decal/tile/yellow/anticorner{
 	dir = 1
@@ -45940,9 +45476,7 @@
 /obj/structure/lattice/catwalk,
 /obj/item/clothing/mask/gas/syndicate,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "qYE" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -45974,9 +45508,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "qYT" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/decal/cleanable/dirt,
@@ -46092,9 +45624,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "rbJ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/techmaint,
@@ -46305,9 +45835,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "rhB" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -47073,9 +46601,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "rws" = (
 /obj/structure/chair/fancy/sofa/old/left,
 /turf/open/floor/wood/broken,
@@ -47335,9 +46861,7 @@
 /obj/structure/weightmachine,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "rBB" = (
 /obj/item/pen,
 /obj/structure/table,
@@ -47713,9 +47237,7 @@
 	dir = 10
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "rJD" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/line{
@@ -47898,9 +47420,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "rMK" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
@@ -48357,9 +47877,7 @@
 /obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "rUg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -48564,9 +48082,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "rYJ" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/machinery/light{
@@ -48724,9 +48240,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "sbY" = (
 /turf/closed/wall/r_wall,
 /area/station/hallway/secondary/construction)
@@ -49183,9 +48697,7 @@
 "skj" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/rust,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "skT" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
@@ -49233,19 +48745,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/station/science/robotics/lab)
-"slO" = (
-/obj/structure/closet/secure_closet/hydroponics,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/station/service/hydroponics)
 "slX" = (
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/machinery/atmospherics/components/unary/portables_connector/layer4{
@@ -49383,9 +48882,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "snf" = (
 /obj/structure/closet/secure_closet/security/sec,
 /obj/effect/turf_decal/bot,
@@ -49566,9 +49063,7 @@
 /obj/item/clothing/gloves/boxing,
 /obj/item/clothing/mask/russian_balaclava,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ssc" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -49747,9 +49242,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "svn" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -49770,9 +49263,7 @@
 	dir = 5
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "svC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -49918,9 +49409,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "szU" = (
 /obj/structure/chair/stool/bar{
 	dir = 1
@@ -49950,9 +49439,7 @@
 "sAm" = (
 /obj/structure/sign/poster/contraband/random,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "sAE" = (
 /obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/bot,
@@ -49963,9 +49450,7 @@
 /obj/item/mop,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "sAS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -50149,9 +49634,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "sCQ" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
@@ -51272,9 +50755,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "sYC" = (
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/machinery/door/airlock/maintenance,
@@ -51482,9 +50963,7 @@
 /obj/effect/turf_decal/edges/techfloor,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "tbz" = (
 /obj/structure/table/wood,
 /obj/item/storage/lockbox/medal,
@@ -51693,9 +51172,7 @@
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "tfT" = (
 /obj/effect/turf_decal/tile/green/half{
 	dir = 2
@@ -51878,9 +51355,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "tkm" = (
 /obj/structure/chair/wood/normal,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -51968,9 +51443,7 @@
 /obj/structure/closet/crate/large,
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "tlp" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
@@ -52425,9 +51898,7 @@
 	dir = 10
 	},
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "tvz" = (
 /obj/machinery/mech_bay_recharge_port,
 /obj/structure/cable/yellow,
@@ -52469,9 +51940,7 @@
 /obj/effect/landmark/loneops,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "twu" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment,
@@ -52663,9 +52132,7 @@
 	color = "#ADD8E6";
 	name = "Jacuzzi Pool"
 	},
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "tAY" = (
 /obj/machinery/light_switch{
 	pixel_x = 24
@@ -52683,9 +52150,7 @@
 /obj/structure/weightmachine/weightlifter,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "tBm" = (
 /obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only{
 	dir = 4
@@ -52762,9 +52227,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "tCP" = (
 /obj/structure/cable/yellow,
 /obj/machinery/camera/directional/north{
@@ -53020,15 +52483,11 @@
 	dir = 9
 	},
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "tIN" = (
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/closed/wall/mineral/plastitanium,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "tIU" = (
 /obj/machinery/gateway/station,
 /turf/open/floor/iron/dark/textured_large,
@@ -53037,9 +52496,7 @@
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/effect/turf_decal/trimline/red/warning,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "tIZ" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/white/line{
@@ -53378,9 +52835,7 @@
 	},
 /obj/effect/landmark/loneops,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "tQu" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
 /obj/effect/turf_decal/tile/black/fourcorners,
@@ -53563,9 +53018,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "tUw" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -53832,9 +53285,7 @@
 	pixel_y = -3
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "tZK" = (
 /obj/structure/sink/directional/south,
 /turf/open/floor/iron/freezer,
@@ -54119,9 +53570,7 @@
 	},
 /obj/structure/table/reinforced,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ufE" = (
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 8;
@@ -54330,9 +53779,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/edges/techfloor,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ulP" = (
 /obj/machinery/turnstile,
 /obj/effect/turf_decal/bot,
@@ -54514,9 +53961,16 @@
 /turf/open/floor/mineral/plastitanium,
 /area/station/security/checkpoint/supply)
 "upr" = (
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/cafeteria,
-/area/station/service/kitchen/coldroom)
+/obj/machinery/light/floor,
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 8
+	},
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/telecomms,
+/area/station/tcommsat/server)
 "upt" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/sorting/mail{
@@ -54606,9 +54060,7 @@
 /obj/structure/closet/crate/secure/loot,
 /obj/item/card/emagfake,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "ush" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/corner{
@@ -54675,9 +54127,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "uta" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -54702,9 +54152,7 @@
 	circuit = /obj/item/circuitboard/machine/vendor
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "uuo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -55082,21 +54530,16 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "uzC" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor/corners{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
 /obj/effect/turf_decal/edges/techfloor,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "uzE" = (
@@ -55646,9 +55089,7 @@
 	name = "Execution Bay Door"
 	},
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "uJW" = (
 /obj/machinery/computer/pandemic,
 /obj/effect/turf_decal/tile/green/anticorner{
@@ -55827,9 +55268,7 @@
 /obj/item/bedsheet/syndie,
 /obj/structure/bed,
 /turf/open/floor/wood,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "uNE" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/black/fourcorners,
@@ -55975,9 +55414,7 @@
 	pixel_y = -7
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "uPO" = (
 /obj/effect/spawner/structure/window,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -56355,9 +55792,7 @@
 /obj/machinery/recharger,
 /obj/structure/table/reinforced,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "uZU" = (
 /obj/machinery/requests_console{
 	department = "Kitchen";
@@ -56430,9 +55865,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "vaF" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer1,
@@ -56563,9 +55996,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "vcI" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/newscaster{
@@ -56762,9 +56193,7 @@
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "vgC" = (
 /obj/machinery/telecomms/relay/preset/exploration,
 /turf/open/floor/circuit/telecomms/mainframe,
@@ -56783,9 +56212,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "vhj" = (
 /obj/machinery/door/airlock/external{
 	name = "Pod Docking Bay"
@@ -57131,9 +56558,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "vmE" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk,
@@ -57233,9 +56658,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "vnZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -57401,7 +56824,6 @@
 /area/station/service/chapel/monastery)
 "vqS" = (
 /obj/effect/turf_decal/bot,
-/obj/item/kirbyplants/random,
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen/coldroom)
 "vqW" = (
@@ -57550,9 +56972,7 @@
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "vuh" = (
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
@@ -57684,9 +57104,7 @@
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "vvZ" = (
 /obj/structure/chair{
 	name = "Throne of Custodia"
@@ -57784,9 +57202,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "vwT" = (
 /obj/structure/cable/yellow,
 /obj/machinery/button/door{
@@ -58017,9 +57433,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "vAS" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -58054,9 +57468,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/monotile/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "vBh" = (
 /obj/machinery/door/airlock{
 	name = "Bathroom";
@@ -58312,9 +57724,7 @@
 /obj/effect/turf_decal/trimline/red/corner,
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "vGz" = (
 /obj/effect/turf_decal/tile/purple,
 /obj/machinery/button/door{
@@ -58840,9 +58250,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/techmaint,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "vPv" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -58873,9 +58281,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "vQh" = (
 /turf/closed/wall,
 /area/station/hallway/secondary/construction)
@@ -58941,9 +58347,7 @@
 /area/station/engineering/atmos)
 "vRg" = (
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "vRj" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -58997,16 +58401,11 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "vRN" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 9
-	},
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges/techfloor,
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
+/obj/effect/turf_decal/tile/brown/fourcorners,
+/obj/effect/turf_decal/trimline/yellow,
+/obj/machinery/light/floor,
+/turf/open/floor/carpet/lone/star,
+/area/station/service/chapel/monastery)
 "vRO" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/yellow/half{
@@ -59619,9 +59018,7 @@
 /obj/machinery/power/rtg/advanced,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "wdq" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/cup/glass/bottle/patron{
@@ -59935,9 +59332,7 @@
 /obj/effect/spawner/random/maintenance,
 /obj/item/modular_computer/tablet/pda/preset/syndicate,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "wjZ" = (
 /obj/effect/turf_decal/siding/brown{
 	dir = 8
@@ -60355,9 +59750,7 @@
 "wto" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "wtw" = (
 /turf/closed/wall,
 /area/station/commons/fitness/locker_room)
@@ -60449,10 +59842,9 @@
 	pixel_y = 0.1;
 	damage_deflection = 0
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "wuG" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -60487,13 +59879,19 @@
 /turf/open/floor/wood,
 /area/station/cargo/exploration_prep)
 "wvB" = (
-/obj/machinery/field/generator,
-/obj/machinery/light{
-	dir = 4;
-	light_color = "#c1caff"
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
 	},
-/turf/open/floor/plating,
-/area/station/engineering/storage)
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges/techfloor/corners,
+/obj/effect/turf_decal/edges/techfloor/corners{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/telecomms,
+/area/station/tcommsat/server)
 "wvE" = (
 /obj/machinery/meter/monitored/waste_loop,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
@@ -60621,9 +60019,7 @@
 	desc = "Wanted this to be a neat hub for midrounds and maybe tators but seems factions would have to be applied manually via admins to make it functional for regular traitors"
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "wyg" = (
 /turf/open/floor/plating,
 /area/station/maintenance/port/lesser)
@@ -60698,9 +60094,7 @@
 "wAk" = (
 /obj/effect/decal/cleanable/blood/footprints,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "wAI" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/lattice/catwalk,
@@ -60931,9 +60325,7 @@
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "wFr" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/cable/yellow,
@@ -61029,9 +60421,7 @@
 /area/station/service/chapel/funeral)
 "wHW" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "wHY" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Service Door"
@@ -61672,9 +61062,7 @@
 /obj/machinery/oven,
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "wVe" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -61844,9 +61232,7 @@
 /obj/effect/turf_decal/edges/techfloor,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "wYm" = (
 /obj/effect/turf_decal/tile/blue/half{
 	dir = 8
@@ -62566,9 +61952,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "xkk" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -63062,9 +62446,7 @@
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "xqG" = (
 /obj/structure/sign/departments/evac,
 /turf/closed/wall,
@@ -63187,9 +62569,7 @@
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "xtu" = (
 /turf/open/floor/wood,
 /area/station/service/library/printer)
@@ -63272,9 +62652,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "xvj" = (
 /obj/structure/table,
 /obj/machinery/door/poddoor/shutters{
@@ -63395,9 +62773,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "xxf" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 5
@@ -63807,9 +63183,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "xBN" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners{
 	color = "#36454F"
@@ -63917,16 +63291,9 @@
 /turf/closed/wall,
 /area/station/medical/storage)
 "xDA" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 8
-	},
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges,
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
+/obj/machinery/newscaster/directional,
+/turf/closed/wall/r_wall,
+/area/station/science/explab)
 "xDF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -64447,15 +63814,8 @@
 /turf/open/floor/engine,
 /area/station/science/mixing/chamber)
 "xKa" = (
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 4
-	},
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
+/turf/closed/mineral,
+/area/ruin/space/has_grav/turretedoutpost)
 "xKk" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -64809,9 +64169,7 @@
 /obj/machinery/newscaster/directional/south,
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "xPv" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
@@ -65015,9 +64373,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "xTG" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -65060,9 +64416,7 @@
 	dir = 6
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "xUl" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/wideplating_new,
@@ -65166,9 +64520,7 @@
 	},
 /obj/machinery/newscaster/directional/north,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "xVQ" = (
 /obj/machinery/firealarm/directional/east,
 /obj/effect/turf_decal/siding/wood,
@@ -65902,9 +65254,7 @@
 	dir = 10
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "yho" = (
 /turf/open/floor/plating,
 /area/station/maintenance/aft/greater)
@@ -66014,9 +65364,7 @@
 	pixel_x = -4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost{
-	teleport_restriction = 1
-	})
+/area/ruin/space/has_grav/turretedoutpost)
 "yjF" = (
 /obj/structure/rack,
 /obj/item/bodypart/chest/robot,
@@ -82064,7 +81412,7 @@ mnu
 fHE
 iCy
 hAx
-mae
+vRN
 ekd
 ekd
 ekd
@@ -84120,7 +83468,7 @@ mnu
 fHE
 erK
 ekd
-mae
+vRN
 ccu
 ekd
 ekd
@@ -90270,7 +89618,7 @@ vGD
 aeJ
 sTw
 nMg
-kkx
+lZI
 aeJ
 jOq
 aeJ
@@ -92800,7 +92148,7 @@ fOg
 nxC
 xHF
 xNh
-slO
+mae
 vIg
 gbT
 xNh
@@ -92865,7 +92213,7 @@ mnM
 hej
 iDD
 hej
-ohZ
+fpp
 eTw
 vVb
 vVb
@@ -93640,7 +92988,7 @@ sYO
 gHF
 hrt
 hrt
-wvB
+eYR
 hej
 nnx
 nnx
@@ -94450,14 +93798,14 @@ acQ
 oBo
 eMF
 kfX
-eYR
+kox
 cUX
 eQi
 dJH
-mxQ
-mxQ
-mxQ
-kox
+lsf
+lsf
+lsf
+hTY
 rnI
 aTX
 nnx
@@ -94707,14 +94055,14 @@ acQ
 acQ
 oyt
 pjL
-pBZ
-gOA
-gOA
-uzC
+gQn
+mxQ
+mxQ
+cwj
 shb
 pez
 pDy
-xDA
+kRb
 vKl
 aTX
 nnx
@@ -94859,8 +94207,8 @@ vqH
 wdy
 jcN
 uhv
-upr
 vqS
+ohZ
 vqH
 dpl
 oQl
@@ -94963,14 +94311,14 @@ qXC
 fZC
 xeE
 dfc
-hTY
-gDK
+upr
+gsK
 tvB
 cLN
-qgo
-xKa
-xKa
-gsK
+hUF
+aka
+aka
+qxI
 rBW
 fBr
 aTX
@@ -95228,7 +94576,7 @@ cpH
 cGk
 uHz
 asa
-xDA
+kRb
 dPn
 aTX
 nnx
@@ -95476,16 +94824,16 @@ wbA
 pcZ
 acQ
 rDv
-qLH
+pBZ
 lnX
-vRN
+uzC
 nJm
 deV
-ana
-fpp
-fpp
-fpp
-lYK
+wvB
+qLH
+qLH
+qLH
+gOA
 wWK
 aTX
 nnx
@@ -100093,7 +99441,7 @@ iOK
 mHr
 rvy
 bfH
-gLj
+cIX
 kXt
 crG
 mHr
@@ -105670,7 +105018,7 @@ mAy
 vXL
 vjW
 jPw
-lsf
+qgo
 vXL
 mxe
 sgx
@@ -106699,7 +106047,7 @@ vXL
 gpL
 tzW
 qhu
-hUF
+xDA
 ymc
 dcZ
 vXL
@@ -112777,7 +112125,7 @@ rzg
 abN
 abN
 abN
-cIX
+xKa
 wHW
 gwX
 gwX
@@ -113032,7 +112380,7 @@ abN
 abN
 abN
 abN
-lZI
+fQe
 abN
 abN
 abN
@@ -113787,7 +113135,7 @@ soQ
 abN
 abN
 abN
-lZI
+fQe
 eNy
 eNy
 eNy
@@ -115601,13 +114949,13 @@ abN
 abN
 abN
 abN
-lZI
+fQe
 abN
 abN
 abN
 abN
 abN
-lZI
+fQe
 abN
 abN
 abN
@@ -116883,7 +116231,7 @@ cQH
 abN
 vch
 abN
-lZI
+fQe
 abN
 fDc
 abN
@@ -116895,7 +116243,7 @@ kZw
 vch
 abN
 abN
-lZI
+fQe
 abN
 abN
 abN
@@ -116904,7 +116252,7 @@ wby
 mCX
 soQ
 soQ
-lZI
+fQe
 nnx
 nnx
 nnx
@@ -119724,7 +119072,7 @@ lXt
 lKD
 mMH
 clo
-aka
+gLj
 uPJ
 okR
 lXt
@@ -120238,7 +119586,7 @@ lXt
 xBI
 nix
 snb
-aka
+gLj
 dfg
 oCi
 lXt
@@ -120482,8 +119830,8 @@ lXt
 qzc
 ezv
 heP
+lYK
 aWE
-qxI
 tfN
 opF
 rMz
@@ -120752,7 +120100,7 @@ nCX
 xUc
 hIV
 ftU
-nNT
+ana
 opF
 hhI
 mgO
@@ -120996,7 +120344,7 @@ lXt
 qzc
 kUo
 flF
-fQe
+pqt
 ojy
 vaE
 eGC
@@ -121510,8 +120858,8 @@ lXt
 qzc
 ezv
 flF
+lYK
 aWE
-qxI
 bdJ
 kEc
 tkc
@@ -122284,9 +121632,9 @@ lXt
 lXt
 lXt
 lXt
-wuF
+kkx
 qYN
-pqt
+wuF
 lXt
 wUY
 rTT
@@ -125126,7 +124474,7 @@ loh
 ojG
 tAD
 eob
-mCS
+nNT
 rYB
 nOo
 tZF
