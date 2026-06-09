@@ -466,7 +466,7 @@
 /mob/living/simple_animal/hostile/syndicate/ranged{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
@@ -579,12 +579,11 @@
 /turf/open/space/basic,
 /area/misc/space)
 "aka" = (
+/obj/machinery/light/floor,
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 4
-	},
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 8
+/obj/effect/turf_decal/edges/techfloor,
+/obj/effect/turf_decal/edges{
+	dir = 1
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
@@ -765,15 +764,12 @@
 /turf/open/floor/light,
 /area/station/ai_monitored/turret_protected/ai)
 "ana" = (
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 6
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/trimline/red/warning{
-	dir = 6
-	},
-/turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/turf/open/floor/plating/airless,
+/area/centcom/asteroid)
 "anf" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/ridged/steel,
@@ -1701,6 +1697,9 @@
 /obj/structure/flora/rock,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/centcom/asteroid)
 "aCH" = (
@@ -2064,7 +2063,7 @@
 /mob/living/simple_animal/hostile/syndicate/ranged{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/effect/turf_decal/trimline/neutral/warning{
 	dir = 4
@@ -3093,7 +3092,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
 "aWE" = (
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/ruin/space/has_grav/turretedoutpost)
 "aWV" = (
@@ -3376,7 +3375,7 @@
 	desc = "Its his Birthday today";
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
@@ -3716,7 +3715,7 @@
 /mob/living/simple_animal/hostile/syndicate/ranged{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
@@ -4774,7 +4773,7 @@
 /mob/living/simple_animal/hostile/syndicate/ranged{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/effect/turf_decal/trimline/red/warning{
 	dir = 6
@@ -5675,7 +5674,7 @@
 /obj/structure/cable/yellow,
 /mob/living/simple_animal/hostile/syndicate/space{
 	loot = list(/obj/effect/gibspawner/human);
-	faction = list("Syndicate,pirate");
+	faction = list("Syndicate" , "pirate");
 	move_resist = 2999
 	},
 /obj/machinery/atmospherics/components/unary/passive_vent{
@@ -7124,16 +7123,12 @@
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "cwj" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 9
-	},
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor/corners{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges/techfloor,
-/obj/effect/turf_decal/stripes/corner{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 4
+	},
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 8
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
@@ -7770,9 +7765,17 @@
 /turf/open/floor/plating,
 /area/station/security/detectives_office/private_investigators_office)
 "cIX" = (
-/obj/machinery/light/floor,
-/turf/open/floor/plating,
-/area/station/science/shuttle)
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/trap/nexus/trickyspawner/shitsec{
+	spawned = /mob/living/simple_animal/hostile/syndicate/melee/space
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/centcom/asteroid)
 "cJf" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/guideline/guideline_mid/red,
@@ -10316,6 +10319,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/centcom/asteroid)
 "dGX" = (
@@ -12668,6 +12674,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/centcom/asteroid)
 "eyS" = (
@@ -12726,7 +12735,7 @@
 /mob/living/simple_animal/hostile/syndicate/ranged{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/effect/turf_decal/trimline/red/warning{
 	dir = 1
@@ -13609,13 +13618,13 @@
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "ePI" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
+/obj/machinery/power/port_gen/pacman,
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
 	},
-/obj/structure/lattice,
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/plating/airless,
-/area/centcom/asteroid)
+/turf/open/floor/plating,
+/area/station/engineering/storage)
 "ePM" = (
 /obj/machinery/requests_console{
 	department = "Detective's office";
@@ -13819,7 +13828,6 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/oil/slippery,
-/obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
 /area/ruin/space/has_grav/turretedoutpost)
 "eTu" = (
@@ -14163,13 +14171,15 @@
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
 "eYR" = (
-/obj/machinery/field/generator,
-/obj/machinery/light{
-	dir = 4;
-	light_color = "#c1caff"
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 6
 	},
-/turf/open/floor/plating,
-/area/station/engineering/storage)
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/trimline/red/warning{
+	dir = 6
+	},
+/turf/open/floor/iron/kitchen_coldroom/dark,
+/area/ruin/space/has_grav/turretedoutpost)
 "eYX" = (
 /obj/structure/closet/crate/medical,
 /obj/item/storage/firstaid/regular,
@@ -14815,7 +14825,7 @@
 /area/station/security/office)
 "flF" = (
 /obj/structure/cable/yellow,
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/ruin/space/has_grav/turretedoutpost)
 "flQ" = (
@@ -15064,13 +15074,13 @@
 /turf/open/floor/iron/ridged/steel,
 /area/station/cargo/exploration_prep)
 "fpp" = (
-/obj/machinery/power/port_gen/pacman,
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/turf/open/floor/plating,
-/area/station/engineering/storage)
+/obj/structure/lattice,
+/obj/effect/turf_decal/sand/plating,
+/turf/open/floor/plating/airless,
+/area/centcom/asteroid)
 "fpv" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -15341,7 +15351,9 @@
 /area/station/command/heads_quarters/cmo)
 "ftL" = (
 /mob/living/simple_animal/hostile/syndicate/ranged{
-	faction = list("Syndicate,pirate")
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	minbodytemp = 0;
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/effect/decal/cleanable/blood/footprints,
 /turf/open/floor/iron/dark,
@@ -16499,7 +16511,7 @@
 /mob/living/simple_animal/hostile/syndicate/ranged{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
@@ -16951,6 +16963,17 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible,
 /turf/open/floor/plating,
 /area/station/security/execution/education)
+"fYo" = (
+/obj/machinery/light/floor,
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 8
+	},
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/telecomms,
+/area/station/tcommsat/server)
 "fYp" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -18210,13 +18233,12 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor/corners{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges/techfloor/corners{
+/obj/effect/turf_decal/edges/techfloor{
 	dir = 4
 	},
-/obj/effect/turf_decal/edges,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "gsN" = (
@@ -18748,6 +18770,11 @@
 	},
 /turf/open/floor/iron,
 /area/station/science/shuttle)
+"gDK" = (
+/obj/structure/cable/yellow,
+/obj/structure/fans/tiny,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/ruin/space/has_grav/turretedoutpost)
 "gDL" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/bot,
@@ -19196,9 +19223,16 @@
 /turf/open/floor/plating,
 /area/station/ai_monitored/command/storage/satellite)
 "gLj" = (
-/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
-/turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 4
+	},
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/telecomms,
+/area/station/tcommsat/server)
 "gLs" = (
 /obj/machinery/vending/cola,
 /obj/effect/turf_decal/delivery,
@@ -19224,7 +19258,8 @@
 	desc = "He's Just here to make money , No hard feelings";
 	loot = list(/obj/effect/gibspawner/human,/obj/item/storage/bag/money/vault);
 	health = 200;
-	maxHealth = 200
+	maxHealth = 200;
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
@@ -19340,19 +19375,9 @@
 /turf/open/floor/plating,
 /area/station/maintenance/aft/greater)
 "gOA" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 9
-	},
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor/corners{
-	dir = 4
-	},
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges,
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/turretedoutpost)
 "gOD" = (
 /obj/effect/turf_decal/tile/blue/corner_ramp{
 	dir = 1
@@ -19460,17 +19485,17 @@
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen)
 "gQn" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 10
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor{
+/obj/effect/turf_decal/edges/techfloor/corners{
 	dir = 1
 	},
 /obj/effect/turf_decal/edges/techfloor/corners{
-	dir = 8
+	dir = 4
 	},
-/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/edges,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "gQx" = (
@@ -19677,7 +19702,7 @@
 /mob/living/simple_animal/hostile/syndicate/ranged{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/structure/chair/office{
 	dir = 1
@@ -20472,7 +20497,7 @@
 /mob/living/simple_animal/hostile/syndicate/ranged{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/effect/turf_decal/trimline/red/warning{
 	dir = 4
@@ -22134,19 +22159,18 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
 "hTY" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 5
+/obj/structure/closet/secure_closet/hydroponics,
+/obj/effect/turf_decal/tile/green{
+	dir = 4
 	},
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor/corners{
+/obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/effect/turf_decal/edges/techfloor{
+/obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/turf_decal/edges,
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
+/turf/open/floor/iron/dark,
+/area/station/service/hydroponics)
 "hUc" = (
 /turf/closed/wall/r_wall,
 /area/station/ai_monitored/turret_protected/aisat/foyer)
@@ -22180,14 +22204,9 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/cargo/storage)
 "hUF" = (
-/obj/machinery/light/floor,
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor,
-/obj/effect/turf_decal/edges{
-	dir = 1
-	},
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
+/obj/structure/fans/tiny,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/ruin/space/has_grav/turretedoutpost)
 "hUT" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -22375,7 +22394,7 @@
 /mob/living/simple_animal/hostile/syndicate/ranged{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
@@ -23356,6 +23375,7 @@
 /obj/item/storage/bag/construction,
 /obj/item/shard,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating/asteroid/airless,
 /area/centcom/asteroid)
 "iqh" = (
@@ -26951,6 +26971,14 @@
 	},
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/service/chapel/office)
+"jKN" = (
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
+	},
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor,
+/turf/open/floor/iron/dark/telecomms,
+/area/station/tcommsat/server)
 "jLa" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -28436,21 +28464,19 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "kkx" = (
-/obj/effect/turf_decal/stripes/closeup{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
+	},
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor/corners{
 	dir = 1
 	},
-/obj/effect/turf_decal/edges/borderfloor/black/full,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "SYND2";
-	name = "Lockdown Shutter";
-	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
-	max_integrity = 200;
-	pixel_x = 0.1;
-	pixel_y = 0.1;
-	damage_deflection = 0
+/obj/effect/turf_decal/edges/techfloor,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
-/turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/turf/open/floor/iron/dark/telecomms,
+/area/station/tcommsat/server)
 "kkV" = (
 /obj/machinery/light/warm/directional/south,
 /obj/structure/platform/wood/corner{
@@ -28618,10 +28644,13 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor/corners{
+	dir = 1
+	},
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
-/obj/effect/turf_decal/edges/techfloor,
+/obj/effect/turf_decal/edges,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "koV" = (
@@ -29475,6 +29504,7 @@
 /obj/structure/lattice,
 /obj/effect/turf_decal/sand/plating,
 /obj/item/shard,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/asteroid/airless,
 /area/centcom/asteroid)
 "kCH" = (
@@ -29605,7 +29635,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
 	name = "Syndicate Vanguard";
-	faction = list("Syndicate,pirate");
+	faction = list("Syndicate" , "pirate");
 	move_resist = 2999
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
@@ -30008,7 +30038,7 @@
 /mob/living/simple_animal/hostile/syndicate/ranged{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
 /area/ruin/space/has_grav/turretedoutpost)
@@ -31792,16 +31822,13 @@
 /turf/open/floor/grass,
 /area/station/hallway/secondary/exit/departure_lounge)
 "lsf" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 8
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
+/obj/effect/turf_decal/caution/stand_clear,
+/turf/open/floor/plating/airless,
+/area/centcom/asteroid)
 "lsC" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -32277,7 +32304,10 @@
 "lEa" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/lattice,
+/obj/machinery/bluespace_anchor{
+	power_cell = "/obj/item/stock_parts/cell/bluespace"
+	},
+/obj/structure/lattice/catwalk,
 /turf/open/floor/plating/asteroid/airless,
 /area/centcom/asteroid)
 "lEp" = (
@@ -32347,7 +32377,7 @@
 /area/centcom/asteroid)
 "lFW" = (
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
-/turf/open/floor/plating,
+/turf/open/floor/iron/kitchen_coldroom/dark,
 /area/ruin/space/has_grav/turretedoutpost)
 "lGe" = (
 /obj/effect/turf_decal/tile/blue,
@@ -33143,7 +33173,7 @@
 	desc = "Its his Birthday today";
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
 /area/ruin/space/has_grav/turretedoutpost)
@@ -33238,9 +33268,12 @@
 /turf/open/floor/plating,
 /area/station/science/shuttle)
 "lYK" = (
-/obj/structure/fans/tiny/invisible,
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/obj/structure/flora/rock/pile,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/centcom/asteroid)
 "lYS" = (
 /obj/machinery/computer/cargo/request{
 	dir = 4
@@ -33290,24 +33323,16 @@
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "lZI" = (
+/obj/effect/turf_decal/bot,
+/obj/item/kirbyplants/random,
+/turf/open/floor/iron/cafeteria,
+/area/station/service/kitchen/coldroom)
+"mae" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/station/medical/virology)
-"mae" = (
-/obj/structure/closet/secure_closet/hydroponics,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/station/service/hydroponics)
 "mal" = (
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 4
@@ -33542,7 +33567,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
 	name = "Syndicate Vanguard";
-	faction = list("Syndicate,pirate");
+	faction = list("Syndicate" , "pirate");
 	move_resist = 2999
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
@@ -34290,7 +34315,7 @@
 	desc = "Its his Birthday today";
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny/invisible,
@@ -34671,6 +34696,17 @@
 /obj/machinery/libraryscanner,
 /turf/open/floor/carpet/red,
 /area/station/service/library/lounge)
+"mCS" = (
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
+	},
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges/techfloor,
+/turf/open/floor/iron/dark/telecomms,
+/area/station/tcommsat/server)
 "mCX" = (
 /obj/structure/lattice,
 /obj/effect/turf_decal/sand/plating,
@@ -34764,7 +34800,7 @@
 /mob/living/simple_animal/hostile/syndicate/civilian{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/effect/turf_decal/trimline/red/warning{
 	dir = 4
@@ -35265,6 +35301,7 @@
 /obj/item/stack/rods/five,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/asteroid/airless,
 /area/centcom/asteroid)
 "mNN" = (
@@ -36650,7 +36687,7 @@
 /mob/living/simple_animal/hostile/syndicate/ranged{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/effect/turf_decal/trimline/red/warning{
 	dir = 10
@@ -38511,10 +38548,22 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
 "ohZ" = (
-/obj/effect/turf_decal/bot,
-/obj/item/kirbyplants/random,
-/turf/open/floor/iron/cafeteria,
-/area/station/service/kitchen/coldroom)
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges/borderfloor/black/full,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "SYND2";
+	name = "Lockdown Shutter";
+	desc = "A Heavy Duty Shutter, these were meant to be recalled due to some fatal integrity concerns but functionally they are probably just as good!";
+	max_integrity = 200;
+	pixel_x = 0.1;
+	pixel_y = 0.1;
+	damage_deflection = 0
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/iron/kitchen_coldroom/dark,
+/area/ruin/space/has_grav/turretedoutpost)
 "oih" = (
 /obj/structure/sign/directions/evac{
 	dir = 1;
@@ -41134,10 +41183,9 @@
 /turf/open/floor/wood,
 /area/station/service/chapel/monastery)
 "pqt" = (
-/obj/structure/cable/yellow,
-/obj/structure/fans/tiny/invisible,
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/obj/machinery/newscaster/directional,
+/turf/closed/wall/r_wall,
+/area/station/science/explab)
 "pqv" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -41608,7 +41656,13 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges/techfloor/corners,
+/obj/effect/turf_decal/edges/techfloor/corners{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "pCh" = (
@@ -41658,9 +41712,19 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "pCN" = (
-/obj/effect/turf_decal/edges/borderfloor/black/full,
-/turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost)
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
+	},
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges/techfloor/corners{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/iron/dark/telecomms,
+/area/station/tcommsat/server)
 "pCO" = (
 /obj/structure/grille/broken,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -42747,6 +42811,10 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/station/maintenance/disposal/incinerator)
+"pYa" = (
+/obj/machinery/light/floor,
+/turf/open/floor/plating,
+/area/station/science/shuttle)
 "pYt" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -43218,11 +43286,13 @@
 /turf/open/floor/iron/dark,
 /area/station/service/chapel/monastery)
 "qgo" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -24
+/obj/machinery/field/generator,
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#c1caff"
 	},
-/turf/open/floor/engine,
-/area/station/science/explab)
+/turf/open/floor/plating,
+/area/station/engineering/storage)
 "qgs" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/railing,
@@ -44149,15 +44219,13 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/space/has_grav/turretedoutpost)
 "qxI" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/effect/turf_decal/edges/borderfloor/black/cee,
 /obj/effect/turf_decal/edges/techfloor{
-	dir = 4
+	dir = 8
 	},
 /obj/effect/turf_decal/edges/techfloor{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
@@ -44832,16 +44900,11 @@
 /turf/open/floor/iron,
 /area/station/maintenance/disposal/incinerator)
 "qLH" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 4
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
 	},
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
+/turf/open/floor/wood/cold,
+/area/ruin/space/has_grav/turretedoutpost)
 "qLW" = (
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
@@ -45284,7 +45347,7 @@
 /mob/living/simple_animal/hostile/syndicate/civilian{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
 /area/ruin/space/has_grav/turretedoutpost)
@@ -45314,7 +45377,7 @@
 	desc = "Its his Birthday today";
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
@@ -45860,6 +45923,20 @@
 /obj/effect/turf_decal/tile/green/fourcorners,
 /turf/open/floor/iron/white/textured_large,
 /area/station/medical/virology)
+"riD" = (
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
+	},
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/effect/turf_decal/edges/techfloor/corners{
+	dir = 4
+	},
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges,
+/turf/open/floor/iron/dark/telecomms,
+/area/station/tcommsat/server)
 "riG" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -48745,6 +48822,12 @@
 	},
 /turf/open/floor/iron/tech,
 /area/station/science/robotics/lab)
+"slO" = (
+/obj/effect/turf_decal/tile/brown/fourcorners,
+/obj/effect/turf_decal/trimline/yellow,
+/obj/machinery/light/floor,
+/turf/open/floor/carpet/lone/star,
+/area/station/service/chapel/monastery)
 "slX" = (
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/machinery/atmospherics/components/unary/portables_connector/layer4{
@@ -53774,7 +53857,7 @@
 /mob/living/simple_animal/hostile/syndicate/ranged{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/edges/techfloor,
@@ -53961,16 +54044,11 @@
 /turf/open/floor/mineral/plastitanium,
 /area/station/security/checkpoint/supply)
 "upr" = (
-/obj/machinery/light/floor,
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 8
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -24
 	},
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
+/turf/open/floor/engine,
+/area/station/science/explab)
 "upt" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/sorting/mail{
@@ -58401,11 +58479,13 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "vRN" = (
-/obj/effect/turf_decal/tile/brown/fourcorners,
-/obj/effect/turf_decal/trimline/yellow,
-/obj/machinery/light/floor,
-/turf/open/floor/carpet/lone/star,
-/area/station/service/chapel/monastery)
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/turf_decal/trimline/white,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
+/area/centcom/asteroid)
 "vRO" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/yellow/half{
@@ -59842,7 +59922,6 @@
 	pixel_y = 0.1;
 	damage_deflection = 0
 	},
-/obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
 /area/ruin/space/has_grav/turretedoutpost)
 "wuG" = (
@@ -59879,19 +59958,9 @@
 /turf/open/floor/wood,
 /area/station/cargo/exploration_prep)
 "wvB" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 10
-	},
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges/techfloor/corners,
-/obj/effect/turf_decal/edges/techfloor/corners{
-	dir = 8
-	},
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
+/obj/effect/turf_decal/edges/borderfloor/black/full,
+/turf/open/floor/iron/kitchen_coldroom/dark/textured,
+/area/ruin/space/has_grav/turretedoutpost)
 "wvE" = (
 /obj/machinery/meter/monitored/waste_loop,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
@@ -63291,9 +63360,12 @@
 /turf/closed/wall,
 /area/station/medical/storage)
 "xDA" = (
-/obj/machinery/newscaster/directional,
-/turf/closed/wall/r_wall,
-/area/station/science/explab)
+/obj/machinery/bluespace_anchor{
+	power_cell = "/obj/item/stock_parts/cell/bluespace"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plating/asteroid/airless,
+/area/centcom/asteroid)
 "xDF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -64402,7 +64474,7 @@
 /mob/living/simple_animal/hostile/syndicate/ranged{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	minbodytemp = 0;
-	faction = list("Syndicate,pirate")
+	faction = list("Syndicate" , "pirate")
 	},
 /obj/machinery/button/door/directional/south{
 	desc = "Intruder Alert! , Blue Wagies are in the base!";
@@ -65420,6 +65492,18 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
+"ykc" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/centcom/asteroid)
 "ykq" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -81412,7 +81496,7 @@ mnu
 fHE
 iCy
 hAx
-vRN
+slO
 ekd
 ekd
 ekd
@@ -83468,7 +83552,7 @@ mnu
 fHE
 erK
 ekd
-vRN
+slO
 ccu
 ekd
 ekd
@@ -89618,7 +89702,7 @@ vGD
 aeJ
 sTw
 nMg
-lZI
+mae
 aeJ
 jOq
 aeJ
@@ -92148,7 +92232,7 @@ fOg
 nxC
 xHF
 xNh
-mae
+hTY
 vIg
 gbT
 xNh
@@ -92213,7 +92297,7 @@ mnM
 hej
 iDD
 hej
-fpp
+ePI
 eTw
 vVb
 vVb
@@ -92988,7 +93072,7 @@ sYO
 gHF
 hrt
 hrt
-eYR
+qgo
 hej
 nnx
 nnx
@@ -93798,14 +93882,14 @@ acQ
 oBo
 eMF
 kfX
-kox
+mCS
 cUX
 eQi
 dJH
-lsf
-lsf
-lsf
-hTY
+qxI
+qxI
+qxI
+kox
 rnI
 aTX
 nnx
@@ -94055,10 +94139,10 @@ acQ
 acQ
 oyt
 pjL
-gQn
+pCN
 mxQ
 mxQ
-cwj
+kkx
 shb
 pez
 pDy
@@ -94208,7 +94292,7 @@ wdy
 jcN
 uhv
 vqS
-ohZ
+lZI
 vqH
 dpl
 oQl
@@ -94311,14 +94395,14 @@ qXC
 fZC
 xeE
 dfc
-upr
-gsK
+fYo
+gQn
 tvB
 cLN
-hUF
 aka
-aka
-qxI
+cwj
+cwj
+gsK
 rBW
 fBr
 aTX
@@ -94824,16 +94908,16 @@ wbA
 pcZ
 acQ
 rDv
-pBZ
+jKN
 lnX
 uzC
 nJm
 deV
-wvB
-qLH
-qLH
-qLH
-gOA
+pBZ
+gLj
+gLj
+gLj
+riD
 wWK
 aTX
 nnx
@@ -99441,7 +99525,7 @@ iOK
 mHr
 rvy
 bfH
-cIX
+pYa
 kXt
 crG
 mHr
@@ -105018,7 +105102,7 @@ mAy
 vXL
 vjW
 jPw
-qgo
+upr
 vXL
 mxe
 sgx
@@ -106047,7 +106131,7 @@ vXL
 gpL
 tzW
 qhu
-xDA
+pqt
 ymc
 dcZ
 vXL
@@ -111865,9 +111949,9 @@ rzg
 rzg
 wHW
 lXt
-lFW
-lFW
-lFW
+gOA
+gOA
+gOA
 qxH
 lXt
 vRg
@@ -112636,7 +112720,7 @@ ygN
 ygN
 ygN
 ygN
-dGP
+lYK
 ygN
 ygN
 ygN
@@ -113395,7 +113479,7 @@ soQ
 eNy
 eNy
 eNy
-kZw
+vRN
 aYP
 vch
 abN
@@ -113651,8 +113735,8 @@ soQ
 soQ
 eNy
 eNy
-abN
-vch
+xDA
+lsf
 vch
 abN
 abN
@@ -113907,8 +113991,8 @@ soQ
 soQ
 ygN
 dGP
-gIR
-ygN
+cIX
+ykc
 eyo
 ygN
 guS
@@ -113921,7 +114005,7 @@ ygN
 ygN
 ygN
 weG
-eyo
+ana
 ygN
 ygN
 ygN
@@ -115194,7 +115278,7 @@ soQ
 ygN
 ygN
 ygN
-dGP
+lYK
 ygN
 ygN
 fid
@@ -115202,7 +115286,7 @@ ygN
 gIR
 ygN
 ygN
-dGP
+lYK
 ygN
 ygN
 ygN
@@ -115216,7 +115300,7 @@ wmE
 cCa
 ygN
 ygN
-eyo
+ana
 ygN
 ygN
 ygN
@@ -116476,7 +116560,7 @@ nfd
 soQ
 soQ
 ygN
-dGP
+lYK
 ygN
 ygN
 ygN
@@ -116484,9 +116568,9 @@ ygN
 ygN
 ygN
 ygN
-eyo
-eyo
-eyo
+ana
+ana
+ana
 ygN
 ygN
 ygN
@@ -116505,9 +116589,9 @@ tTT
 ygN
 cRo
 rlm
-ePI
-ePI
-ePI
+fpp
+fpp
+fpp
 soQ
 soQ
 abN
@@ -117776,7 +117860,7 @@ rzg
 soQ
 soQ
 soQ
-lFW
+gOA
 akH
 fNE
 fIv
@@ -119072,7 +119156,7 @@ lXt
 lKD
 mMH
 clo
-gLj
+lFW
 uPJ
 okR
 lXt
@@ -119586,7 +119670,7 @@ lXt
 xBI
 nix
 snb
-gLj
+lFW
 dfg
 oCi
 lXt
@@ -119830,8 +119914,8 @@ lXt
 qzc
 ezv
 heP
-lYK
 aWE
+hUF
 tfN
 opF
 rMz
@@ -120100,7 +120184,7 @@ nCX
 xUc
 hIV
 ftU
-ana
+eYR
 opF
 hhI
 mgO
@@ -120343,8 +120427,8 @@ soQ
 lXt
 qzc
 kUo
+gDK
 flF
-pqt
 ojy
 vaE
 eGC
@@ -120857,9 +120941,9 @@ rzg
 lXt
 qzc
 ezv
-flF
-lYK
+gDK
 aWE
+hUF
 bdJ
 kEc
 tkc
@@ -121632,9 +121716,9 @@ lXt
 lXt
 lXt
 lXt
-kkx
-qYN
 wuF
+qYN
+ohZ
 lXt
 wUY
 rTT
@@ -121893,7 +121977,7 @@ eTg
 jFf
 irV
 tbo
-pCN
+wvB
 enm
 eDa
 lXt
@@ -122146,12 +122230,12 @@ lXt
 fXm
 cKB
 gLC
-icX
+qLH
 jUG
 mvg
 xTz
 hXm
-pCN
+wvB
 vua
 lXt
 vPl
@@ -122408,7 +122492,7 @@ cuH
 qUZ
 ddo
 jxF
-pCN
+wvB
 aCb
 lXt
 pAd
@@ -122665,7 +122749,7 @@ hEn
 ieF
 cWr
 wYb
-pCN
+wvB
 wFo
 qxH
 mPm
@@ -122922,7 +123006,7 @@ aJt
 qEZ
 pPI
 kMq
-pCN
+wvB
 cvG
 lXt
 dHj
