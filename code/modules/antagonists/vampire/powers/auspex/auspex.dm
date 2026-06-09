@@ -10,12 +10,25 @@
 	level_3 = list(/datum/action/vampire/auspex/three)
 	level_4 = list(/datum/action/vampire/auspex/four)
 
+/datum/discipline/auspex/level_up(datum/antagonist/vampire/clan_owner)
+	. = ..()
+	var/mob/living/ownermob = clan_owner.owner.current
+	if(level >= 4)
+		to_chat(ownermob, span_cultbold("You have reached level 3 in Auspex, sharpening your senses to such a degree that you can now hear through walls."), type = MESSAGE_TYPE_INFO)
+		if(!HAS_TRAIT(ownermob, TRAIT_XRAY_HEARING))
+			ADD_TRAIT(ownermob, TRAIT_XRAY_HEARING, "Auspex")
+
+/datum/discipline/auspex/apply_discipline_quirks(datum/antagonist/vampire/clan_owner)
+	var/mob/living/ownermob = clan_owner.owner.current
+	if(!HAS_TRAIT(ownermob, TRAIT_GOOD_HEARING))
+		to_chat(ownermob, span_cultbold("You have reached level 1 in Auspex. You are now able to clearly hear whispering of others."), type = MESSAGE_TYPE_INFO)
+		ADD_TRAIT(ownermob, TRAIT_GOOD_HEARING, "Auspex")
+
 /datum/discipline/auspex/malkavian
 	level_5 = list(/datum/action/vampire/auspex/four, /datum/action/vampire/astral_projection)
 
 /**
  *	# Auspex
- *
  */
 /datum/action/vampire/auspex
 	name = "Auspex"
@@ -29,14 +42,13 @@
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	vitaecost = 20
 	constant_vitaecost = 0.25
-	cooldown_time = 10 SECONDS
+	cooldown_time = 1 SECONDS
 	var/add_meson = FALSE
 	var/add_xray = FALSE
 	var/add_good_hearing = FALSE
 	var/add_xray_hearing = FALSE
 	var/zoom_out_amt = 5
 	var/zoom_amt = 10
-
 
 	var/looking = FALSE
 	var/mob/listeningTo
@@ -101,12 +113,6 @@
 	C.pixel_y = ICON_SIZE_Y * _y
 	looking = TRUE
 
-	if(add_good_hearing && !HAS_TRAIT(owner, TRAIT_GOOD_HEARING))
-		ADD_TRAIT(owner, TRAIT_GOOD_HEARING, "Auspex")
-
-	if(add_xray_hearing && !HAS_TRAIT(owner, TRAIT_XRAY_HEARING))
-		ADD_TRAIT(owner, TRAIT_XRAY_HEARING, "Auspex")
-
 	if(add_meson && !HAS_TRAIT(owner, TRAIT_MESON_VISION))
 		ADD_TRAIT(owner, TRAIT_MESON_VISION, "Auspex")
 		owner.update_sight()
@@ -121,6 +127,7 @@
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
 		listeningTo = null
+
 	if(owner?.client)
 		var/client/C = owner.client
 		C.change_view(CONFIG_GET(string/default_view))
@@ -128,12 +135,6 @@
 		owner.client.pixel_y = 0
 
 	looking = FALSE
-
-	if(HAS_TRAIT_FROM(owner, TRAIT_GOOD_HEARING, "Auspex"))
-		REMOVE_TRAIT(owner, TRAIT_GOOD_HEARING, "Auspex")
-
-	if(HAS_TRAIT_FROM(owner, TRAIT_XRAY_HEARING, "Auspex"))
-		REMOVE_TRAIT(owner, TRAIT_XRAY_HEARING, "Auspex")
 
 	if(HAS_TRAIT_FROM(owner, TRAIT_MESON_VISION, "Auspex"))
 		REMOVE_TRAIT(owner, TRAIT_MESON_VISION, "Auspex")

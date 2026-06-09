@@ -68,7 +68,7 @@
 	for(var/datum/discipline/disciple as anything in vampiredatum.owned_disciplines)
 		disciple.apply_discipline_quirks(vampiredatum)
 		// Grant one free starting level in every discipline.
-		disciple.level_up()
+		disciple.level_up(vampiredatum)
 		for(var/datum/action/vampire/power_new as anything in disciple.get_abilities_with_level("current"))
 			vampiredatum.grant_power(new power_new)
 
@@ -171,7 +171,7 @@
 				vampiredatum.remove_power(power_old)
 
 		// increment level
-		chosen_discipline.level_up()
+		chosen_discipline.level_up(vampiredatum)
 
 		// add all current powers (of the new level)
 		for(var/datum/action/vampire/power_new as anything in chosen_discipline.get_abilities_with_level("current"))

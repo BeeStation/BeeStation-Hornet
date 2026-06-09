@@ -18,7 +18,7 @@
 	level_4 = list(/datum/action/vampire/targeted/brawn/brash/four, /datum/action/vampire/targeted/lunge/four)
 	level_5 = list(/datum/action/vampire/targeted/brawn/brash/five, /datum/action/vampire/targeted/lunge/four)
 
-// Extra damage. Will end at around
+// Extra damage.
 /datum/discipline/potence/apply_discipline_quirks(datum/antagonist/vampire/clan_owner)
 	. = ..()
 	var/mob/living/carbon/human/stronkman = clan_owner.owner.current

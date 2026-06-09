@@ -65,7 +65,7 @@
 			return null
 
 /// Can't go over 5 even if you define more
-/datum/discipline/proc/level_up()
+/datum/discipline/proc/level_up(datum/antagonist/vampire/clan_owner)
 	if(level >= 6)	// it's six cuz 1 is null, yadda yadda
 		level = 6
 		return FALSE
