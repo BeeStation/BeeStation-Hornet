@@ -104,3 +104,6 @@
   - tweak: Slightly reorganized the bluespace launchpad UI.
   - bugfix: Fixed some issues with the nanite UIs.
   - bugfix: Fixed the DNA console UI being a little too small
+2026-06-08:
+  BotTierPC:
+  - admin: Mass Antag Conversion Secret Now Allows For Vampire Conversion
