@@ -202,8 +202,9 @@
 			feed_time /= 4
 
 		feed_target.Stun(feed_time, TRUE)
-		feed_target.become_blind(TRAIT_FEED, /atom/movable/screen/fullscreen/blind/feed, FALSE)
-		ADD_TRAIT(feed_target, TRAIT_DEAF, TRAIT_FEED)
+		// Sensory deprivation (blind + deaf) so they slip into a trance and don't notice the feed.
+		// Shares the TRAIT_FEED source so clear_feed_effects() always tears it down, even on an interrupt.
+		apply_feed_sensory(feed_target)
 
 		to_chat(feed_target, span_awe("You suddenly fall into a deep trance..."), type = MESSAGE_TYPE_WARNING)
 		owner.balloon_alert(owner, "subdued! starting feed...")
@@ -313,8 +314,7 @@
 		return
 
 	if(currently_feeding) // Check if we actually started successfully.
-		owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
-		feed_target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
+		apply_feed_restraints(owner, feed_target)
 
 		// Normally removed traits are done. Now we give the victim a lil something to remember us by.
 		feed_target.apply_status_effect(/datum/status_effect/feed_marked)
@@ -425,19 +425,17 @@
 
 /datum/action/vampire/targeted/feed/deactivate_power()
 	. = ..()
-	REMOVE_TRAITS_IN(owner, TRAIT_FEED)
 
 	// Did we already take humanity for killing them?
 	var/humanity_deducted = FALSE
 	var/mob/living/feed_target = target_ref?.resolve()
 
-	if(feed_target)
-		// Call cure_blind after a (truly tiny) delay to make sure they don't see NOTHING
-		addtimer(CALLBACK(feed_target, TYPE_PROC_REF(/mob/living, cure_blind), TRAIT_FEED), 1 SECONDS)
+	// Trait teardown is UNCONDITIONAL and symmetric: this runs no matter how the feed ended
+	// (clean release, interrupted do_after, garlic, failed combat grab) so nobody is left
+	// stuck deaf/blind/immobilised if effects were applied before currently_feeding flipped on.
+	clear_feed_effects(owner, feed_target)
 
 	if(feed_target && currently_feeding)
-		REMOVE_TRAITS_IN(feed_target, TRAIT_FEED)
-
 		animate(owner, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
 		animate(feed_target, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
 
@@ -482,6 +480,54 @@
 
 	warning_target_bloodvol = BLOOD_VOLUME_MAXIMUM
 	blood_taken = 0
+
+/**
+ * Sensory deprivation applied while mesmerising a victim into a feed trance.
+ * Blind + deaf, both sharing the TRAIT_FEED source so clear_feed_effects() can
+ * always strip them no matter where the feed is interrupted.
+**/
+/datum/action/vampire/targeted/feed/proc/apply_feed_sensory(mob/living/victim)
+	if(!victim)
+		return
+	victim.become_blind(TRAIT_FEED, /atom/movable/screen/fullscreen/blind/feed, FALSE)
+	ADD_TRAIT(victim, TRAIT_DEAF, TRAIT_FEED)
+
+/**
+ * Physical restraints applied once a feed is actually underway. Keeps both the
+ * feeder and victim locked in place for the duration. Shares TRAIT_FEED.
+**/
+/datum/action/vampire/targeted/feed/proc/apply_feed_restraints(mob/living/feeder, mob/living/victim)
+	if(feeder)
+		feeder.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
+	if(victim)
+		victim.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
+
+/**
+ * The single funnel that tears down EVERY feed-applied effect from both parties.
+ * Always safe to call (idempotent) and must run on every feed exit path so we
+ * never leave a victim stuck deaf, blind, muted, or immobilised after an
+ * interrupted feed.
+**/
+/datum/action/vampire/targeted/feed/proc/clear_feed_effects(mob/living/feeder, mob/living/victim)
+	if(feeder)
+		REMOVE_TRAITS_IN(feeder, TRAIT_FEED)
+	if(victim)
+		// Free the body immediately (so the struggle-free shove and waking from the trance feel
+		// right), but let the senses (blind + deaf) linger a beat so a practiced vampire can slip
+		// away and look inconspicuous before the victim can see or hear them leave.
+		victim.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
+		addtimer(CALLBACK(src, PROC_REF(restore_victim_senses), victim), 1.5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+
+/**
+ * Restores the senses (blind + deaf) deprived during a feed. Fired on a short delay after the feed
+ * ends so the vampire gets a head start to escape. Safe to call on a since-deleted victim.
+**/
+/datum/action/vampire/targeted/feed/proc/restore_victim_senses(mob/living/victim)
+	if(QDELETED(victim))
+		return
+	REMOVE_TRAIT(victim, TRAIT_DEAF, TRAIT_FEED)
+	// cure_blind() both drops the TRAIT_BLIND entry and refreshes the fullscreen overlay.
+	victim.cure_blind(TRAIT_FEED)
 
 /**
  * This is where the vitae/blood transfer happens. We use a pipeline system:
