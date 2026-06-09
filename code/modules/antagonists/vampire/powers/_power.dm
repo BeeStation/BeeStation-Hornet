@@ -211,10 +211,5 @@
 		if(!vampiredatum_power.is_masq_watcher(watcher))
 			continue
 
-		if(!INCAPACITATED_IGNORING(watcher, INCAPABLE_RESTRAINTS))
-			watcher.face_atom(owner)
-
-		watcher.do_alert_animation(watcher)
-		playsound(watcher, 'sound/machines/chime.ogg', 50, FALSE, -5)
 		vampiredatum_power.give_masquerade_infraction()
 		break

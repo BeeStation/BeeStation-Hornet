@@ -73,11 +73,10 @@
 
 			if(!INCAPACITATED_IGNORING(watcher, INCAPABLE_RESTRAINTS))
 				watcher.face_atom(owner)
-			watcher.do_alert_animation(watcher)
-			to_chat(watcher, span_warning("[owner.first_name()] is biting [target.first_name()]'s neck!"), type = MESSAGE_TYPE_WARNING)
-			playsound(watcher, 'sound/machines/chime.ogg', 50, FALSE, -5)
 
-			owner.balloon_alert(owner, "feed noticed!")
+			to_chat(watcher, span_warning("[owner.first_name()] is biting [target.first_name()]'s neck!"), type = MESSAGE_TYPE_WARNING)
+
+			owner.balloon_alert(owner, "feed noticed by [watcher.name]!")
 			if(!masquerade_breached)
 				masquerade_breached = TRUE
 				vampiredatum_power.give_masquerade_infraction()
@@ -90,11 +89,9 @@
 			if(!INCAPACITATED_IGNORING(watcher, INCAPABLE_RESTRAINTS))
 				watcher.face_atom(owner)
 
-			watcher.do_alert_animation(watcher)
 			to_chat(watcher, span_warning("[owner.first_name()] is biting [target.first_name()]'s neck!"), type = MESSAGE_TYPE_WARNING)
-			playsound(watcher, 'sound/machines/chime.ogg', 50, FALSE, -5)
 
-			owner.balloon_alert(owner, "feed noticed!")
+			owner.balloon_alert(owner, "feed noticed by [watcher.name]!")
 			if(!masquerade_breached)
 				masquerade_breached = TRUE
 				vampiredatum_power.give_masquerade_infraction()
@@ -625,12 +622,16 @@
 	UnregisterSignal(owner, COMSIG_ATOM_EXAMINE)
 
 /datum/status_effect/feed_marked/on_creation(mob/living/new_owner, ...)
-	duration = rand(5 MINUTES, 10 MINUTES)
+	duration = rand(1 MINUTES, 3 MINUTES)
 	return ..()
 
 /datum/status_effect/feed_marked/refresh(effect, ...)
-	duration = max(duration, world.time + rand(5 MINUTES, 10 MINUTES))
+	duration = rand(1 MINUTES, 3 MINUTES)
 
 /datum/status_effect/feed_marked/proc/on_examine(atom/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
+	// Only show the message if the examiner is adjacent
+	if(!owner || !user || !user.Adjacent(owner))
+		return
+
 	examine_list += span_warning("There are two strange punctures on [owner.p_their()] neck.")
