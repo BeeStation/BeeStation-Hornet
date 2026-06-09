@@ -581,11 +581,12 @@ const VampireGuide = (_props) => {
                 from sapient prey to meet your feeding goal, you immediately
                 gain a Rank.
                 <br />
-                <br />• Only blood drained from <b>players</b> counts toward your
-                goal. Mice and monkeys sustain you, but will not advance you.
+                <br />• Only blood drained from <b>players</b> counts toward
+                your goal. Mice and monkeys sustain you, but will not advance
+                you.
                 <br />• After ranking up, your body must settle before it can
-                grow again. There is roughly a <b>ten minute</b> cooldown between
-                level-ups.
+                grow again. There is roughly a <b>ten minute</b> cooldown
+                between level-ups.
                 <br />• Excess vitae drunk during the cooldown is not wasted; it
                 banks toward your next goal and pays out on your next feed once
                 the cooldown clears.
