@@ -409,6 +409,9 @@ Turf and target are separate in case you want to teleport some distance from a t
 	// It's probably not safe if it's not a floor.
 	if(!istype(floor))
 		return FALSE
+	var/area/A = get_area(floor)
+	if(A.area_flags & NOT_SAFE_AREA) // Area considered dangerous by mappers, not the best place to be teleported to, such as the nukie satellite in pubbystation
+		return FALSE
 	var/datum/gas_mixture/air = floor.air
 	// Certainly unsafe if it completely lacks air.
 	if(QDELETED(air))

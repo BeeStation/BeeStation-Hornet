@@ -22,7 +22,7 @@
 	},
 /obj/machinery/light/directional/north,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "aau" = (
 /obj/machinery/light{
 	dir = 8
@@ -477,7 +477,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "aib" = (
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
@@ -496,7 +496,7 @@
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "aiP" = (
 /obj/effect/turf_decal/siding/thinplating_new/corner{
 	dir = 8
@@ -644,7 +644,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/light/floor,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ald" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -659,7 +659,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "alo" = (
 /obj/machinery/camera/motion/directional/south{
 	c_tag = "Security - Armory - External West";
@@ -785,7 +785,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "anu" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -990,7 +990,7 @@
 	pixel_x = 24
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "arb" = (
 /obj/machinery/computer/rdservercontrol{
 	dir = 8
@@ -1279,7 +1279,7 @@
 "avh" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "avq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -1450,7 +1450,7 @@
 /obj/item/multitool,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "axS" = (
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/dark/smooth_large,
@@ -1658,7 +1658,7 @@
 /obj/machinery/vending/dinnerware,
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "aCf" = (
 /obj/machinery/door/airlock/grunge{
 	name = "Library"
@@ -1760,7 +1760,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "aDq" = (
 /obj/machinery/computer/security,
 /obj/effect/turf_decal/tile/red/half{
@@ -2081,7 +2081,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "aHI" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -2171,7 +2171,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "aJR" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -2284,7 +2284,7 @@
 "aLT" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "aMa" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced,
@@ -2529,7 +2529,7 @@
 "aPK" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "aPU" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -2601,7 +2601,7 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/light/directional/north,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "aRi" = (
 /obj/structure/rack,
 /obj/item/wirecutters,
@@ -2698,7 +2698,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "aSz" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/donkpockets,
@@ -2840,7 +2840,7 @@
 	dir = 1
 	},
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "aUr" = (
 /obj/machinery/door/airlock/security{
 	name = "Prison Intake"
@@ -3012,7 +3012,7 @@
 	pixel_x = 8
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "aVJ" = (
 /obj/structure/closet/l3closet/virology,
 /obj/effect/turf_decal/box,
@@ -3105,7 +3105,7 @@
 "aWE" = (
 /obj/structure/fans/tiny,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "aWV" = (
 /obj/effect/turf_decal/tile/yellow/anticorner{
 	dir = 8
@@ -3390,7 +3390,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "bdK" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -3731,7 +3731,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "bkB" = (
 /obj/machinery/button/flasher{
 	id = "executionflash";
@@ -4016,7 +4016,7 @@
 	dir = 5
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "bpC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -4051,7 +4051,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/target/clown,
 /turf/open/floor/plating/rust,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "bqu" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment,
@@ -4122,7 +4122,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "bsm" = (
 /obj/item/radio/intercom{
 	pixel_y = 26
@@ -4197,7 +4197,7 @@
 	damage_deflection = 0
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "btp" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
@@ -4683,7 +4683,7 @@
 "bCB" = (
 /obj/structure/dresser,
 /turf/open/floor/wood,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "bCM" = (
 /obj/machinery/light/small,
 /obj/structure/railing/perspective/wood,
@@ -4776,7 +4776,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "bEW" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 6
@@ -4790,7 +4790,7 @@
 	dir = 6
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "bEY" = (
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/command/heads_quarters/chief)
@@ -5229,7 +5229,7 @@
 	},
 /obj/machinery/light/directional/west,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "bOJ" = (
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable/yellow,
@@ -5627,7 +5627,7 @@
 /obj/machinery/light/small/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "bUJ" = (
 /obj/structure/closet/crate/internals,
 /obj/item/storage/toolbox/emergency,
@@ -5635,7 +5635,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/item/stack/sheet/iron/fifty,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "bUN" = (
 /obj/structure/table,
 /obj/item/taperecorder,
@@ -5692,7 +5692,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "bVJ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -5956,7 +5956,7 @@
 /obj/machinery/light/directional/south,
 /obj/item/tape/random,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "cca" = (
 /obj/effect/landmark/start/head_of_security,
 /turf/open/floor/iron/white/smooth_large,
@@ -6233,7 +6233,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "chF" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -6362,7 +6362,7 @@
 	dir = 8
 	},
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "cjS" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 4
@@ -6414,7 +6414,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ckS" = (
 /obj/structure/table,
 /obj/item/tape/random,
@@ -6426,7 +6426,7 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "clv" = (
 /obj/structure/rack,
 /obj/item/restraints/handcuffs,
@@ -6762,7 +6762,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "cqg" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/cup/glass/bottle/champagne{
@@ -6849,7 +6849,7 @@
 /obj/structure/closet/bombcloset,
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "crB" = (
 /obj/structure/cable/orange,
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
@@ -7022,7 +7022,7 @@
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ctR" = (
 /obj/machinery/shower{
 	dir = 8;
@@ -7064,7 +7064,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "cuI" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -7117,7 +7117,7 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "cvV" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/blue,
@@ -7195,7 +7195,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "cxh" = (
 /obj/structure/table,
 /obj/effect/turf_decal/stripes/line{
@@ -7543,7 +7543,7 @@
 "cDO" = (
 /obj/machinery/vending/clothing,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "cDP" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -7839,7 +7839,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/techmaint,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "cKc" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/dark/smooth_half,
@@ -7873,7 +7873,7 @@
 /area/station/maintenance/disposal)
 "cKB" = (
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "cLa" = (
 /obj/structure/sign/directions/security{
 	dir = 8;
@@ -8014,7 +8014,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "cNG" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -8340,7 +8340,7 @@
 /obj/structure/barricade/sandbags,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "cRX" = (
 /obj/machinery/requests_console{
 	department = "Mining";
@@ -8648,7 +8648,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "cWI" = (
 /obj/structure/lattice,
 /obj/machinery/camera/directional/north{
@@ -8863,7 +8863,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "dcM" = (
 /obj/machinery/portable_atmospherics/pump,
 /obj/machinery/atmospherics/components/unary/portables_connector/layer2{
@@ -8959,7 +8959,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ddt" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -9086,7 +9086,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "dfX" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -10100,7 +10100,7 @@
 	pixel_x = 24
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "dCo" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -10152,7 +10152,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "dDx" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24
@@ -10374,7 +10374,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/target/clown,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "dHp" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/blue,
@@ -10668,7 +10668,7 @@
 	},
 /obj/effect/decal/cleanable/oil/slippery,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "dLw" = (
 /obj/machinery/button/crematorium{
 	id = "foo";
@@ -10751,7 +10751,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "dMq" = (
 /obj/machinery/door/airlock{
 	id_tag = "mainthideout";
@@ -10778,7 +10778,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "dMy" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -11019,7 +11019,7 @@
 	dir = 4
 	},
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "dQY" = (
 /obj/structure/cable/yellow,
 /obj/machinery/door/airlock/security{
@@ -11078,7 +11078,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "dSJ" = (
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
@@ -11118,7 +11118,7 @@
 "dTf" = (
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "dTC" = (
 /obj/machinery/field/generator,
 /turf/open/floor/plating,
@@ -11479,7 +11479,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "eam" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -12142,7 +12142,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "enn" = (
 /obj/structure/closet/crate/medical,
 /obj/effect/decal/cleanable/dirt,
@@ -12185,7 +12185,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/trimline/red/corner,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "eoj" = (
 /obj/structure/table/wood/fancy/red,
 /obj/effect/turf_decal/siding/wood{
@@ -12695,7 +12695,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ezQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -12742,7 +12742,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "eAE" = (
 /obj/structure/table/optable,
 /turf/open/floor/iron/white/textured_large,
@@ -12814,7 +12814,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "eBy" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/sorting/mail/destination/xenobiology/flip{
@@ -12914,7 +12914,7 @@
 /obj/item/food/cake/birthday,
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "eDs" = (
 /obj/structure/chair{
 	dir = 4
@@ -13044,7 +13044,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "eGL" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass,
@@ -13263,7 +13263,7 @@
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "eJP" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -13525,7 +13525,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "eNM" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /turf/open/floor/engine,
@@ -13623,7 +13623,7 @@
 /obj/structure/cable/yellow,
 /obj/structure/fans/tiny,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ePM" = (
 /obj/machinery/requests_console{
 	department = "Detective's office";
@@ -13829,7 +13829,7 @@
 /obj/effect/decal/cleanable/oil/streak,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "eTu" = (
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -14008,7 +14008,7 @@
 	dir = 10
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "eVw" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -14081,7 +14081,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "eWS" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -14112,7 +14112,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "eXS" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 8
@@ -14187,7 +14187,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/railing,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "eYY" = (
 /obj/effect/turf_decal/tile/blue/half{
 	dir = 4
@@ -14202,7 +14202,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "eZi" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/chair/office{
@@ -14355,7 +14355,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/microwave,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "fcM" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment,
@@ -14388,7 +14388,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/item/book/manual/nuclear,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "fdE" = (
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/trimline/purple/line,
@@ -14430,7 +14430,7 @@
 	dir = 1
 	},
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "feq" = (
 /obj/structure/table/wood,
 /obj/item/storage/photo_album,
@@ -14828,7 +14828,7 @@
 /obj/structure/cable/yellow,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "flQ" = (
 /obj/effect/turf_decal/stripes/box,
 /obj/structure/railing{
@@ -14992,7 +14992,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "fot" = (
 /obj/structure/table/reinforced,
 /obj/item/gun/energy/laser,
@@ -15012,7 +15012,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/cardboard/metal,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "foJ" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -15102,7 +15102,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "fpV" = (
 /obj/machinery/camera/motion/directional/east{
 	c_tag = "MiniSat Foyer - Port Aft";
@@ -15193,7 +15193,7 @@
 "frM" = (
 /obj/structure/bookcase/random/fiction,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "frR" = (
 /obj/machinery/light{
 	light_color = "#e8eaff"
@@ -15358,7 +15358,7 @@
 	},
 /obj/effect/decal/cleanable/blood/footprints,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ftR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -15374,7 +15374,7 @@
 	dir = 5
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ftW" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -16449,7 +16449,7 @@
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "fOb" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark/smooth_half,
@@ -16518,7 +16518,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "fQc" = (
 /obj/machinery/modular_computer/console/preset/engineering{
 	dir = 8
@@ -16533,7 +16533,7 @@
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "fQl" = (
 /obj/machinery/computer/atmos_control/nitrogen_tank{
 	dir = 1
@@ -16571,7 +16571,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/pod/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "fRU" = (
 /obj/structure/railing/sec,
 /obj/effect/turf_decal/tile/red/fourcorners,
@@ -16587,7 +16587,7 @@
 /obj/item/storage/pill_bottle/stimulant,
 /obj/structure/closet/crate,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "fSi" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -16683,7 +16683,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "fTE" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -16700,7 +16700,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "fTX" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 4
@@ -16765,7 +16765,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "fUS" = (
 /obj/machinery/newscaster{
 	pixel_x = -32
@@ -16858,7 +16858,7 @@
 "fWL" = (
 /obj/machinery/light/directional/west,
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "fWS" = (
 /obj/structure/disposalpipe/sorting/mail{
 	sortType = 21
@@ -16889,7 +16889,7 @@
 "fXm" = (
 /obj/structure/fireplace,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "fXs" = (
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "engsm";
@@ -17144,7 +17144,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "gae" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -17516,6 +17516,9 @@
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/centcom/asteroid)
+"ggt" = (
+/turf/closed/mineral/random/high_chance,
+/area/ruin/space/has_grav/syndiesat)
 "ggz" = (
 /obj/machinery/atmospherics/miner/station/nitrogen,
 /turf/open/floor/engine/n2,
@@ -17582,7 +17585,7 @@
 "ghK" = (
 /obj/structure/bookcase/random/religion,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ghQ" = (
 /obj/structure/table/wood,
 /obj/structure/desk_bell/wired/security{
@@ -17829,7 +17832,7 @@
 /area/station/hallway/primary/fore)
 "gmD" = (
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "gmE" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/bot,
@@ -17972,7 +17975,7 @@
 "goY" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "gpb" = (
 /obj/item/kirbyplants/dead,
 /obj/structure/disposalpipe/segment{
@@ -18299,7 +18302,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "gtz" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -18473,7 +18476,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "gxh" = (
 /obj/structure/sink/puddle,
 /obj/effect/landmark/event_spawn,
@@ -18631,7 +18634,7 @@
 "gAx" = (
 /obj/effect/trap/trigger,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "gAI" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -18737,7 +18740,7 @@
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/lattice/catwalk,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "gCU" = (
 /obj/effect/turf_decal/tile/yellow/half{
 	dir = 8
@@ -18838,7 +18841,7 @@
 /obj/item/target/clown,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "gEP" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -18954,7 +18957,7 @@
 "gGr" = (
 /obj/structure/sign/poster/contraband/syndicate,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "gGz" = (
 /obj/structure/chair/wood/normal,
 /obj/item/radio/intercom/chapel{
@@ -19055,7 +19058,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "gIl" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/cobweb,
@@ -19251,7 +19254,7 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "gLD" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -19266,7 +19269,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "gLI" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -19436,7 +19439,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "gPr" = (
 /turf/open/floor/iron,
 /area/station/engineering/storage)
@@ -19652,7 +19655,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "gUc" = (
 /obj/structure/sign/departments/minsky/security/command,
 /turf/closed/wall,
@@ -19717,7 +19720,7 @@
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "gVt" = (
 /obj/structure/table,
 /obj/machinery/recharger{
@@ -20016,7 +20019,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hap" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -20220,20 +20223,20 @@
 /obj/structure/cable/yellow,
 /obj/structure/fans/tiny,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "heS" = (
 /obj/machinery/door/airlock{
 	name = "Private Restroom"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hfo" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/rtg/advanced,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hfw" = (
 /obj/machinery/airalarm/directional/west,
 /obj/structure/cable/yellow,
@@ -20370,7 +20373,7 @@
 	},
 /obj/effect/decal/cleanable/oil/streak,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hhW" = (
 /obj/machinery/computer/camera_advanced/xenobio{
 	dir = 1
@@ -20412,7 +20415,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hiQ" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -20512,7 +20515,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hjV" = (
 /turf/open/floor/carpet,
 /area/station/service/chapel/monastery)
@@ -20839,7 +20842,7 @@
 /obj/item/gun/energy/laser/practice,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/techmaint,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hsJ" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -20893,7 +20896,7 @@
 "huQ" = (
 /obj/structure/sign/poster/contraband/lusty_xenomorph,
 /turf/closed/wall/mineral/plastitanium,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hvo" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -21250,7 +21253,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hCP" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/window/reinforced/spawner/directional/north,
@@ -21358,7 +21361,7 @@
 	candy_options = list(/obj/item/food/rock_candy,/obj/item/food/candy,/obj/item/food/chocolatebar,/obj/item/food/gumball,/obj/item/food/lollipop,/obj/item/grenade/plastic/c4,/obj/item/grenade/clusterbuster/soap,/obj/item/grenade/empgrenade,/obj/item/grenade/frag)
 	},
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hEo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -21397,7 +21400,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/newscaster/directional/north,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hFg" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -21502,7 +21505,7 @@
 /obj/item/storage/box/handcuffs,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hHX" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -21601,7 +21604,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hIV" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -21618,7 +21621,7 @@
 	damage_deflection = 0
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hIY" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -21852,7 +21855,7 @@
 	name = "Jacuzzi Pool";
 	color = "#ADD8E6"
 	},
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hNb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -22019,7 +22022,7 @@
 "hRk" = (
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hRq" = (
 /turf/closed/wall/rust,
 /area/station/security/prison)
@@ -22339,7 +22342,7 @@
 	},
 /obj/item/pen,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hWB" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = -32
@@ -22406,7 +22409,7 @@
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "hXw" = (
 /obj/effect/landmark/event_spawn,
 /obj/machinery/computer/nanite_cloud_controller,
@@ -22679,7 +22682,7 @@
 /obj/item/target/clown,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/plating/rust,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ibr" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -22743,7 +22746,7 @@
 	dir = 2
 	},
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ibU" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -22752,7 +22755,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "icd" = (
 /obj/structure/bookcase/random/adult,
 /turf/open/floor/prison/dark,
@@ -22811,7 +22814,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ida" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -22836,7 +22839,7 @@
 "ieF" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ieH" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -22890,7 +22893,7 @@
 /obj/structure/railing,
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "igc" = (
 /obj/structure/lattice,
 /obj/effect/turf_decal/sand/plating,
@@ -23017,7 +23020,7 @@
 /obj/machinery/recharger,
 /obj/structure/table/reinforced,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ijJ" = (
 /obj/structure/bed/roller,
 /obj/effect/turf_decal/tile/blue/half{
@@ -23206,7 +23209,7 @@
 "inc" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ine" = (
 /obj/structure/closet/secure_closet/CMO,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -23508,7 +23511,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "irW" = (
 /turf/open/floor/plating,
 /area/station/hallway/secondary/exit/departure_lounge)
@@ -24209,7 +24212,7 @@
 	dir = 5
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "iEQ" = (
 /obj/machinery/door/window/westright,
 /obj/effect/turf_decal/siding/wood{
@@ -24543,7 +24546,7 @@
 "iLg" = (
 /obj/structure/sign/poster/contraband/random,
 /turf/closed/wall/mineral/plastitanium,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "iLi" = (
 /obj/effect/turf_decal/tile/dark_green/half{
 	dir = 4
@@ -24764,7 +24767,7 @@
 	},
 /obj/effect/turf_decal/edges/techfloor/corners,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "iPl" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/yellow/anticorner{
@@ -24851,7 +24854,7 @@
 	pixel_x = -8
 	},
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "iQp" = (
 /obj/structure/lattice,
 /obj/machinery/portable_atmospherics/canister/air,
@@ -25439,7 +25442,7 @@
 /obj/machinery/nuclearbomb/beer,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "jcm" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/purple/half{
@@ -26136,7 +26139,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "jrC" = (
 /obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall,
@@ -26334,7 +26337,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "jxU" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
@@ -26710,7 +26713,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "jFK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -27482,7 +27485,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "jVg" = (
 /obj/machinery/door/airlock/grunge{
 	name = "Chapel Access"
@@ -27773,7 +27776,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "jZn" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/oxygen_input{
 	dir = 1
@@ -27950,7 +27953,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "kcu" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -28032,7 +28035,7 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "kdJ" = (
 /obj/machinery/holopad,
 /obj/effect/landmark/event_spawn,
@@ -28474,7 +28477,7 @@
 "kkx" = (
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "kkV" = (
 /obj/machinery/light/warm/directional/south,
 /obj/structure/platform/wood/corner{
@@ -28823,7 +28826,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/machinery/newscaster/directional/south,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "krD" = (
 /turf/open/floor/iron,
 /area/station/engineering/transit_tube)
@@ -29026,7 +29029,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ktU" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/eastright{
@@ -29198,7 +29201,7 @@
 /obj/structure/cable/yellow,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "kwW" = (
 /obj/machinery/shower{
 	dir = 8
@@ -29553,7 +29556,7 @@
 /obj/effect/turf_decal/trimline/red/warning,
 /obj/structure/reagent_dispensers/beerkeg,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "kEg" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark/textured_large,
@@ -29637,7 +29640,7 @@
 	pixel_x = 24
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "kFB" = (
 /obj/machinery/airalarm/directional/east,
 /obj/structure/chair/fancy/comfy{
@@ -29747,7 +29750,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light/directional/west,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "kHj" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/sorting/mail/flip{
@@ -29930,7 +29933,7 @@
 /area/station/security/office)
 "kKG" = (
 /turf/open/floor/plating/rust,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "kKL" = (
 /obj/effect/turf_decal/trimline/yellow/warning,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -30015,7 +30018,7 @@
 /obj/effect/turf_decal/edges/techfloor,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "kMu" = (
 /obj/machinery/light{
 	dir = 4
@@ -30039,7 +30042,7 @@
 	faction = list("Syndicate" , "pirate")
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "kMO" = (
 /obj/structure/chair/wood/normal,
 /turf/open/floor/iron/dark/smooth_half,
@@ -30162,7 +30165,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "kPA" = (
 /obj/structure/lattice/catwalk,
 /turf/open/space,
@@ -30232,7 +30235,7 @@
 "kRb" = (
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "kRs" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -30447,7 +30450,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "kUp" = (
 /obj/structure/table/wood,
 /obj/item/instrument/trombone,
@@ -30854,7 +30857,7 @@
 	pixel_y = 12
 	},
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "kZI" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -31635,7 +31638,7 @@
 	name = "Jacuzzi Pool";
 	color = "#ADD8E6"
 	},
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "lol" = (
 /turf/open/floor/carpet/royalblue,
 /area/station/command/heads_quarters/captain)
@@ -32204,7 +32207,7 @@
 /obj/effect/trap/nexus/doorbolt,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "lCx" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -32378,7 +32381,7 @@
 "lFW" = (
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "lGe" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -32624,7 +32627,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "lKG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -33176,7 +33179,7 @@
 	faction = list("Syndicate" , "pirate")
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "lWR" = (
 /obj/structure/cable,
 /obj/effect/turf_decal/trimline/yellow/filled/line{
@@ -33192,7 +33195,7 @@
 /area/station/hallway/primary/central)
 "lXt" = (
 /turf/closed/wall/mineral/plastitanium,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "lXI" = (
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
@@ -33261,7 +33264,7 @@
 	pixel_x = -6
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "lYH" = (
 /obj/structure/cable/orange,
 /obj/effect/spawner/structure/window/reinforced,
@@ -33327,7 +33330,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mal" = (
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 4
@@ -33368,7 +33371,7 @@
 /area/station/science/xenobiology)
 "mbh" = (
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mbp" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -33509,7 +33512,7 @@
 	name = "Private Domicile"
 	},
 /turf/open/floor/iron/stairs,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mfQ" = (
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 1
@@ -33541,7 +33544,7 @@
 	dir = 9
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mgO" = (
 /obj/effect/turf_decal/siding/thinplating/dark/corner{
 	dir = 4
@@ -33550,7 +33553,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mgS" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 6
@@ -33566,7 +33569,7 @@
 	move_resist = 2999
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mgT" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/pump,
@@ -33612,7 +33615,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/edges/techfloor,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mib" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -33688,7 +33691,7 @@
 	pixel_y = 10
 	},
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mjB" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Control"
@@ -33961,7 +33964,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mnJ" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /obj/effect/decal/cleanable/dirt,
@@ -34126,7 +34129,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mrM" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
@@ -34314,7 +34317,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mvy" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/thinplating_new/light,
@@ -34750,7 +34753,7 @@
 	pixel_y = -22
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mDP" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/line{
@@ -34800,7 +34803,7 @@
 	},
 /obj/effect/decal/cleanable/oil/streak,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mEH" = (
 /obj/machinery/disposal/bin,
 /obj/structure/window/reinforced/spawner/directional/east,
@@ -34860,7 +34863,7 @@
 	dir = 1
 	},
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mFd" = (
 /obj/effect/turf_decal/siding/yellow,
 /turf/open/floor/iron/airless,
@@ -34943,7 +34946,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mGG" = (
 /obj/structure/table,
 /obj/item/stack/sheet/rglass{
@@ -35242,7 +35245,7 @@
 	pixel_y = 60
 	},
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mMX" = (
 /obj/effect/turf_decal/guideline/guideline_mid/red{
 	dir = 4
@@ -35325,7 +35328,7 @@
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mOk" = (
 /obj/machinery/monkey_recycler,
 /obj/structure/window/reinforced/spawner/directional/south,
@@ -35427,7 +35430,7 @@
 "mPm" = (
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/plating/rust,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mPQ" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -35841,7 +35844,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "mZa" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -35891,7 +35894,7 @@
 "nak" = (
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "naU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/yellow/anticorner{
@@ -36162,7 +36165,7 @@
 	dir = 6
 	},
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "nfx" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
@@ -36339,7 +36342,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "niA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -36405,7 +36408,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/decal/cleanable/oil/streak,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "njF" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/stripes/line{
@@ -36597,7 +36600,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/pod/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "nnZ" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "barshutters";
@@ -36653,7 +36656,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "npk" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 1;
@@ -36679,7 +36682,7 @@
 	dir = 10
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "npK" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/wood{
@@ -36892,7 +36895,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "nvA" = (
 /obj/machinery/camera/directional/west{
 	c_tag = "Prison - Visitation - Public"
@@ -36931,7 +36934,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "nwC" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -37245,7 +37248,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "nDe" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow,
@@ -37714,7 +37717,7 @@
 	dir = 6
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "nOg" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron,
@@ -37726,7 +37729,7 @@
 /obj/machinery/light/directional/east,
 /obj/item/wrench,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "nOr" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/techstorage/command_all,
@@ -37752,7 +37755,7 @@
 	req_access = null
 	},
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "nOI" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/abandoned,
@@ -37935,7 +37938,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "nTR" = (
 /obj/machinery/vending/wardrobe/sec_wardrobe,
 /obj/effect/turf_decal/tile/red/half{
@@ -38440,7 +38443,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ofJ" = (
 /obj/structure/cable/yellow,
 /obj/machinery/light_switch{
@@ -38500,7 +38503,7 @@
 /obj/item/clothing/shoes/jackboots,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ohE" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -38537,7 +38540,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "oih" = (
 /obj/structure/sign/directions/evac{
 	dir = 1;
@@ -38599,7 +38602,7 @@
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ojF" = (
 /obj/machinery/light_switch{
 	pixel_x = 25
@@ -38615,7 +38618,7 @@
 	color = "#ADD8E6";
 	name = "Jacuzzi Pool"
 	},
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ojI" = (
 /obj/structure/lattice,
 /obj/machinery/camera/motion/directional/south{
@@ -38654,7 +38657,7 @@
 	},
 /obj/effect/landmark/loneops,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "okU" = (
 /obj/structure/table,
 /obj/item/restraints/handcuffs,
@@ -38727,7 +38730,7 @@
 /obj/structure/bookcase/random/adult,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "omN" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -38884,7 +38887,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "opR" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -38928,7 +38931,7 @@
 "oqC" = (
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "oqM" = (
 /obj/machinery/door/airlock{
 	name = "Zen Garden"
@@ -38961,7 +38964,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "oqW" = (
 /turf/closed/wall/r_wall,
 /area/station/science/storage)
@@ -39388,7 +39391,7 @@
 /obj/item/reagent_containers/syringe/lethal/choral,
 /obj/item/melee/baton/security/cattleprod,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "oCx" = (
 /obj/structure/cable/yellow,
 /obj/machinery/light/small{
@@ -39456,7 +39459,7 @@
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "oDH" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/wood{
@@ -39528,7 +39531,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "oFr" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/external{
@@ -39677,7 +39680,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "oIm" = (
 /obj/structure/cable/yellow,
 /obj/structure/table,
@@ -40117,7 +40120,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "oSV" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
@@ -40614,7 +40617,7 @@
 	name = "Syndicate Notice"
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "pde" = (
 /obj/structure/table,
 /obj/item/storage/box/syringes,
@@ -41004,7 +41007,7 @@
 /obj/item/storage/belt/military,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "pmx" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 4
@@ -41347,7 +41350,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "pwi" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
@@ -41383,7 +41386,7 @@
 /obj/machinery/light/directional/east,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "pxs" = (
 /obj/machinery/camera/directional/east{
 	c_tag = "Monastery - Morgue"
@@ -41482,7 +41485,7 @@
 "pAd" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "pAj" = (
 /obj/machinery/air_sensor/air_tank,
 /turf/open/floor/engine/air,
@@ -41863,7 +41866,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "pFH" = (
 /obj/structure/chair{
 	dir = 4
@@ -42325,7 +42328,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "pNA" = (
 /obj/structure/cable/yellow,
 /obj/machinery/door/airlock/maintenance,
@@ -42343,7 +42346,7 @@
 	dir = 5
 	},
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "pNM" = (
 /obj/machinery/firealarm{
 	pixel_y = 26
@@ -42438,7 +42441,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "pQv" = (
 /obj/structure/table/reinforced,
 /obj/item/gps/security{
@@ -42450,7 +42453,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "pQA" = (
 /obj/effect/turf_decal/tile/blue/half,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -43279,7 +43282,7 @@
 	opened = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "qgC" = (
 /obj/structure/transit_tube/diagonal,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -44195,7 +44198,7 @@
 "qxH" = (
 /obj/structure/sign/poster/contraband/syndicate,
 /turf/closed/wall/mineral/plastitanium,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "qxI" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 6
@@ -44208,7 +44211,7 @@
 	name = "Atmospherics"
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "qxZ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -44285,12 +44288,12 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/blood/footprints,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "qzc" = (
 /obj/machinery/power/rtg/advanced,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/tech/grid,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "qzg" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "xenobio4";
@@ -44497,7 +44500,7 @@
 	},
 /obj/effect/decal/cleanable/oil/streak,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "qEf" = (
 /obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/window/westleft{
@@ -44591,7 +44594,7 @@
 /area/station/engineering/atmos)
 "qEZ" = (
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "qFV" = (
 /obj/structure/chair/office,
 /obj/machinery/button/flasher{
@@ -45332,7 +45335,7 @@
 	faction = list("Syndicate" , "pirate")
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "qTN" = (
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/structure/cable/yellow,
@@ -45340,7 +45343,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "qUj" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners,
 /obj/structure/cable/yellow,
@@ -45378,7 +45381,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "qVC" = (
 /obj/effect/turf_decal/tile/yellow/anticorner{
 	dir = 1
@@ -45521,7 +45524,7 @@
 /obj/structure/lattice/catwalk,
 /obj/item/clothing/mask/gas/syndicate,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "qYE" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -45552,7 +45555,7 @@
 	pixel_y = 0.1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "qYT" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/decal/cleanable/dirt,
@@ -45668,7 +45671,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "rbJ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/techmaint,
@@ -45879,7 +45882,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "rhB" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -46645,7 +46648,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "rws" = (
 /obj/structure/chair/fancy/sofa/old/left,
 /turf/open/floor/wood/broken,
@@ -46905,7 +46908,7 @@
 /obj/structure/weightmachine,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "rBB" = (
 /obj/item/pen,
 /obj/structure/table,
@@ -47280,7 +47283,7 @@
 	dir = 10
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "rJD" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/line{
@@ -47463,7 +47466,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "rMK" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
@@ -47920,7 +47923,7 @@
 /obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "rUg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -48292,7 +48295,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "sbY" = (
 /turf/closed/wall/r_wall,
 /area/station/hallway/secondary/construction)
@@ -48761,7 +48764,7 @@
 "skj" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/rust,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "skT" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
@@ -48951,7 +48954,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "snf" = (
 /obj/structure/closet/secure_closet/security/sec,
 /obj/effect/turf_decal/bot,
@@ -49132,7 +49135,7 @@
 /obj/item/clothing/gloves/boxing,
 /obj/item/clothing/mask/russian_balaclava,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ssc" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -49311,7 +49314,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "svn" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -49333,7 +49336,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "svC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -49479,7 +49482,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "szU" = (
 /obj/structure/chair/stool/bar{
 	dir = 1
@@ -49509,7 +49512,7 @@
 "sAm" = (
 /obj/structure/sign/poster/contraband/random,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "sAE" = (
 /obj/machinery/portable_thermomachine,
 /obj/effect/turf_decal/bot,
@@ -49520,7 +49523,7 @@
 /obj/item/mop,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "sAS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -49704,7 +49707,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "sCQ" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
@@ -50826,7 +50829,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/orange,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "sYC" = (
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/machinery/door/airlock/maintenance,
@@ -51034,7 +51037,7 @@
 /obj/effect/turf_decal/edges/techfloor,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "tbz" = (
 /obj/structure/table/wood,
 /obj/item/storage/lockbox/medal,
@@ -51243,7 +51246,7 @@
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "tfT" = (
 /obj/effect/turf_decal/tile/green/half{
 	dir = 2
@@ -51426,7 +51429,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "tkm" = (
 /obj/structure/chair/wood/normal,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -51514,7 +51517,7 @@
 /obj/structure/closet/crate/large,
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "tlp" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
@@ -51969,7 +51972,7 @@
 	dir = 10
 	},
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "tvz" = (
 /obj/machinery/mech_bay_recharge_port,
 /obj/structure/cable/yellow,
@@ -52011,7 +52014,7 @@
 /obj/effect/landmark/loneops,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "twu" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment,
@@ -52203,7 +52206,7 @@
 	color = "#ADD8E6";
 	name = "Jacuzzi Pool"
 	},
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "tAY" = (
 /obj/machinery/light_switch{
 	pixel_x = 24
@@ -52221,7 +52224,7 @@
 /obj/structure/weightmachine/weightlifter,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "tBm" = (
 /obj/machinery/atmospherics/components/unary/airlock_pump/unbolt_only{
 	dir = 4
@@ -52298,7 +52301,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "tCP" = (
 /obj/structure/cable/yellow,
 /obj/machinery/camera/directional/north{
@@ -52554,11 +52557,11 @@
 	dir = 9
 	},
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "tIN" = (
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/closed/wall/mineral/plastitanium,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "tIU" = (
 /obj/machinery/gateway/station,
 /turf/open/floor/iron/dark/textured_large,
@@ -52567,7 +52570,7 @@
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/effect/turf_decal/trimline/red/warning,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "tIZ" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/white/line{
@@ -52906,7 +52909,7 @@
 	},
 /obj/effect/landmark/loneops,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "tQu" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
 /obj/effect/turf_decal/tile/black/fourcorners,
@@ -53089,7 +53092,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "tUw" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -53356,7 +53359,7 @@
 	pixel_y = -3
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "tZK" = (
 /obj/structure/sink/directional/south,
 /turf/open/floor/iron/freezer,
@@ -53641,7 +53644,7 @@
 	},
 /obj/structure/table/reinforced,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ufE" = (
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 8;
@@ -53850,7 +53853,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/edges/techfloor,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ulP" = (
 /obj/machinery/turnstile,
 /obj/effect/turf_decal/bot,
@@ -54134,7 +54137,7 @@
 /obj/structure/closet/crate/secure/loot,
 /obj/item/card/emagfake,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "ush" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/corner{
@@ -54202,7 +54205,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "uta" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -54227,7 +54230,7 @@
 	circuit = /obj/item/circuitboard/machine/vendor
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "uuo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -54605,7 +54608,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "uzC" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
@@ -55167,7 +55170,7 @@
 	name = "Execution Bay Door"
 	},
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "uJW" = (
 /obj/machinery/computer/pandemic,
 /obj/effect/turf_decal/tile/green/anticorner{
@@ -55346,7 +55349,7 @@
 /obj/item/bedsheet/syndie,
 /obj/structure/bed,
 /turf/open/floor/wood,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "uNE" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/black/fourcorners,
@@ -55492,7 +55495,7 @@
 	pixel_y = -7
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "uPO" = (
 /obj/effect/spawner/structure/window,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -55870,7 +55873,7 @@
 /obj/machinery/recharger,
 /obj/structure/table/reinforced,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "uZU" = (
 /obj/machinery/requests_console{
 	department = "Kitchen";
@@ -55943,7 +55946,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/catwalk_floor/iron_dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "vaF" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer1,
@@ -56074,7 +56077,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/carpet,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "vcI" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/newscaster{
@@ -56272,7 +56275,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/orange,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "vgC" = (
 /obj/machinery/telecomms/relay/preset/exploration,
 /turf/open/floor/circuit/telecomms/mainframe,
@@ -56291,7 +56294,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "vhj" = (
 /obj/machinery/door/airlock/external{
 	name = "Pod Docking Bay"
@@ -56638,7 +56641,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/orange,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "vmE" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk,
@@ -56738,7 +56741,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "vnZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -57052,7 +57055,7 @@
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "vuh" = (
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
@@ -57184,7 +57187,7 @@
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "vvZ" = (
 /obj/structure/chair{
 	name = "Throne of Custodia"
@@ -57282,7 +57285,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /turf/open/floor/wood/cold,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "vwT" = (
 /obj/structure/cable/yellow,
 /obj/machinery/button/door{
@@ -57517,7 +57520,7 @@
 	},
 /obj/structure/cable/orange,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "vAS" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -57553,7 +57556,7 @@
 /obj/effect/mapping_helpers/airlock/cutaiwire,
 /obj/structure/cable/omni,
 /turf/open/floor/monotile/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "vBh" = (
 /obj/machinery/door/airlock{
 	name = "Bathroom";
@@ -57809,7 +57812,7 @@
 /obj/effect/turf_decal/trimline/red/corner,
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "vGz" = (
 /obj/effect/turf_decal/tile/purple,
 /obj/machinery/button/door{
@@ -58335,7 +58338,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/techmaint,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "vPv" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -58366,7 +58369,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "vQh" = (
 /turf/closed/wall,
 /area/station/hallway/secondary/construction)
@@ -58432,7 +58435,7 @@
 /area/station/engineering/atmos)
 "vRg" = (
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "vRj" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -59108,7 +59111,7 @@
 /obj/machinery/power/rtg/advanced,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "wdq" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/cup/glass/bottle/patron{
@@ -59422,7 +59425,7 @@
 /obj/effect/spawner/random/maintenance,
 /obj/item/modular_computer/tablet/pda/preset/syndicate,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "wjZ" = (
 /obj/effect/turf_decal/siding/brown{
 	dir = 8
@@ -59840,7 +59843,7 @@
 "wto" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "wtw" = (
 /turf/closed/wall,
 /area/station/commons/fitness/locker_room)
@@ -59933,7 +59936,7 @@
 	pixel_y = 0.1
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "wuG" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -59970,7 +59973,7 @@
 "wvB" = (
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "wvE" = (
 /obj/machinery/meter/monitored/waste_loop,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
@@ -60098,7 +60101,7 @@
 	desc = "Wanted this to be a neat hub for midrounds and maybe tators but seems factions would have to be applied manually via admins to make it functional for regular traitors"
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "wyg" = (
 /turf/open/floor/plating,
 /area/station/maintenance/port/lesser)
@@ -60173,7 +60176,7 @@
 "wAk" = (
 /obj/effect/decal/cleanable/blood/footprints,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "wAI" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/lattice/catwalk,
@@ -60404,7 +60407,7 @@
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "wFr" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/cable/yellow,
@@ -60500,7 +60503,7 @@
 /area/station/service/chapel/funeral)
 "wHW" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "wHY" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Service Door"
@@ -61141,7 +61144,7 @@
 /obj/machinery/oven,
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/kitchen_coldroom/dark/textured,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "wVe" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -61311,7 +61314,7 @@
 /obj/effect/turf_decal/edges/techfloor,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "wYm" = (
 /obj/effect/turf_decal/tile/blue/half{
 	dir = 8
@@ -62031,7 +62034,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "xkk" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -62525,7 +62528,7 @@
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/mineral/plastitanium/red,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "xqG" = (
 /obj/structure/sign/departments/evac,
 /turf/closed/wall,
@@ -62648,7 +62651,7 @@
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "xtu" = (
 /turf/open/floor/wood,
 /area/station/service/library/printer)
@@ -62745,7 +62748,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "xvj" = (
 /obj/structure/table,
 /obj/machinery/door/poddoor/shutters{
@@ -62866,7 +62869,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "xxf" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 5
@@ -63276,7 +63279,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "xBN" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners{
 	color = "#36454F"
@@ -63910,8 +63913,12 @@
 /turf/open/floor/engine,
 /area/station/science/mixing/chamber)
 "xKa" = (
-/turf/closed/mineral,
-/area/ruin/space/has_grav/turretedoutpost)
+/obj/machinery/porta_turret/syndicate/energy/heavy{
+	target_cyborgs = 1;
+	faction = list("Syndicate,pirate")
+	},
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/space/has_grav/syndiesat)
 "xKk" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -64265,7 +64272,7 @@
 /obj/machinery/newscaster/directional/south,
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "xPv" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
@@ -64469,7 +64476,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "xTG" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
@@ -64512,7 +64519,7 @@
 	dir = 6
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "xUl" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/wideplating_new,
@@ -64616,7 +64623,7 @@
 	},
 /obj/machinery/newscaster/directional/north,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "xVQ" = (
 /obj/machinery/firealarm/directional/east,
 /obj/effect/turf_decal/siding/wood,
@@ -65350,7 +65357,7 @@
 	dir = 10
 	},
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "yho" = (
 /turf/open/floor/plating,
 /area/station/maintenance/aft/greater)
@@ -65461,7 +65468,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/kitchen_coldroom/dark,
-/area/ruin/space/has_grav/turretedoutpost)
+/area/ruin/space/has_grav/syndiesat)
 "yjF" = (
 /obj/structure/rack,
 /obj/item/bodypart/chest/robot,
@@ -112222,7 +112229,7 @@ rzg
 abN
 abN
 abN
-xKa
+soQ
 wHW
 gwX
 gwX
@@ -117616,7 +117623,7 @@ rzg
 rzg
 soQ
 soQ
-gUv
+xKa
 vnY
 gGr
 abN
@@ -125337,7 +125344,7 @@ soQ
 soQ
 soQ
 soQ
-eNy
+ggt
 soQ
 eNy
 eNy

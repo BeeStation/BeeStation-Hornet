@@ -125,6 +125,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define REMOTE_APC (1<<12)
 /// This area is prevented from having gravity (ie. space, nearstation, or outside solars)
 #define NO_GRAVITY (1<<13)
+/// Is this area considered safe or not, used specifically for is_turf_safe, turfs are considered safe normally
+#define NOT_SAFE_AREA (1<<14)
 /*
 	These defines are used specifically with the atom/pass_flags bitmask
 	the atom/checkpass() proc uses them (tables will call movable atom checkpass(PASSTABLE) for example)
