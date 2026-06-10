@@ -211,9 +211,27 @@
 		return baton_effect_non_cyborg(target, user, modifiers, stun_override, trait_check)
 
 /obj/item/melee/baton/proc/baton_effect_non_cyborg(mob/living/target, mob/living/user, modifiers, stun_override, trait_check)
-	target.adjustStaminaLoss(stamina_damage)
-	if(!trait_check)
-		target.Knockdown((isnull(stun_override) ? knockdown_time : stun_override))
+	// FIX: Add zone‑specific effects for all batons (legs = trip, arms = disarm, head/chest = stun)
+	var/zone = user ? user.get_combat_bodyzone(target) : BODY_ZONE_CHEST
+	if(!zone)
+		zone = BODY_ZONE_CHEST
+
+	switch(zone)
+		if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+			// Legs: trip (knockdown)
+			if(!trait_check)
+				target.Knockdown(knockdown_time)
+			target.adjustStaminaLoss(stamina_damage)
+			log_combat(user, target, "tripped", src)
+		if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+			// Arms: disarm (stamina damage to arm)
+			var/armor = target.getarmor(MELEE, armour_penetration)
+			target.apply_damage(stamina_damage, STAMINA, zone, armor)
+			log_combat(user, target, "disarmed", src)
+		else
+			// Head or chest: stun (stamina damage only, no knockdown)
+			target.adjustStaminaLoss(stamina_damage)
+			log_combat(user, target, "stunned", src)
 
 	additional_effects_non_cyborg(target, user)
 	return TRUE
@@ -415,9 +433,9 @@
 		return BRUTELOSS
 
 /obj/item/melee/baton/telescopic/baton_effect_non_cyborg(mob/living/target, mob/living/user, modifiers, stun_override, trait_check)
-	if(user.combat_mode)
-		return ..()
-
+	// FIX: Removed the combat mode check – zone targeting always applies.
+	// Previously it fell back to parent (which now also has zone logic) when in combat mode.
+	// Now the telescopic baton always uses its own detailed zone handling.
 	var/def_check = target.getarmor(type = MELEE, penetration = armour_penetration)
 
 	// Head/Chest: stamina hit
