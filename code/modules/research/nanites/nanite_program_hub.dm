@@ -97,9 +97,6 @@
 		program_design["desc"] = D.desc
 		data["programs"][cat_name] += list(program_design)
 
-	if(!length(data["programs"]))
-		data["programs"] = null
-
 	return data
 
 /obj/machinery/nanite_program_hub/ui_act(action, params)
