@@ -37,7 +37,7 @@
 	update_icon()
 
 /obj/item/reagent_containers/blood/proc/update_pack_name()
-	if(!led)
+	if(!labelled)
 		if(blood_type)
 			name = "blood pack[blood_type ? " - [unique_blood ? blood_type : blood_type.name]" : null]"
 		else
@@ -79,7 +79,7 @@
 	blood_type = "Coolant"
 
 /obj/item/reagent_containers/blood/oozeling
-	led = 1
+	labelled = 1
 	name = "blood pack - OZ"
 	blood_type = "OZ"
 	unique_blood = /datum/reagent/toxin/slimejelly
@@ -98,10 +98,10 @@
 		if(user.get_active_held_item() != I)
 			return
 		if(t)
-			labelld = 1
+			labelled = 1
 			name = "blood pack - [t]"
 		else
-			labelld = 0
+			labelled = 0
 			update_pack_name()
 	else
 		return ..()
@@ -160,3 +160,4 @@
 		to_chat(victim, span_warning("[src] is empty!"))
 		return FALSE
 	return TRUE
+
