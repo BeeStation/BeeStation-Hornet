@@ -25,4 +25,4 @@
 	multiplicative_slowdown = -0.5
 
 /datum/movespeed_modifier/reinforced_plating
-	multiplicative_slowdown = 0.5
+	multiplicative_slowdown = 0.4
