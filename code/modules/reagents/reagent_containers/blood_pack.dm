@@ -37,7 +37,7 @@
 	update_icon()
 
 /obj/item/reagent_containers/blood/proc/update_pack_name()
-	if(!labelled)
+	if(!led)
 		if(blood_type)
 			name = "blood pack[blood_type ? " - [unique_blood ? blood_type : blood_type.name]" : null]"
 		else
@@ -79,7 +79,7 @@
 	blood_type = "Coolant"
 
 /obj/item/reagent_containers/blood/oozeling
-	labelled = 1
+	led = 1
 	name = "blood pack - OZ"
 	blood_type = "OZ"
 	unique_blood = /datum/reagent/toxin/slimejelly
@@ -90,18 +90,18 @@
 /obj/item/reagent_containers/blood/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pen) || istype(I, /obj/item/toy/crayon))
 		if(!user.is_literate())
-			to_chat(user, span_notice("You scribble illegibly on the label of [src]!"))
+			to_chat(user, span_notice("You scribble illegibly on the  of [src]!"))
 			return
-		var/t = stripped_input(user, "What would you like to label the blood pack?", name, null, 53)
+		var/t = stripped_input(user, "What would you like to  the blood pack?", name, null, 53)
 		if(!user.canUseTopic(src, BE_CLOSE))
 			return
 		if(user.get_active_held_item() != I)
 			return
 		if(t)
-			labeld = 1
+			labelld = 1
 			name = "blood pack - [t]"
 		else
-			labeld = 0
+			labelld = 0
 			update_pack_name()
 	else
 		return ..()
@@ -115,12 +115,12 @@
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(victim)
 
 	if(victim != attacker)
-		attacker.visib_message(
+		attacker.visible_message(
 			span_notice("[attacker] puts \the [src] up to [victim]'s mouth."),
 			span_notice("You put \the [src] up to [victim]'s mouth."))
 		if(!do_after(attacker, 5 SECONDS, victim))
 			return
-		attacker.visib_message(
+		attacker.visible_message(
 			span_notice("[attacker] forces [victim] to drink from \the [src]."),
 			span_notice("You force [victim] to drink from \the [src]."))
 
@@ -133,17 +133,17 @@
 		return TRUE
 
 	if(vampiredatum?.my_clan?.blood_drink_type == VAMPIRE_DRINK_SNOBBY)
-		balloon_art(victim, "Eugh. Not fresh!")
+		balloon_alert(victim, "Eugh. Not fresh!")
 		return TRUE
 
-	attacker.visib_message(
+	attacker.visible_message(
 			span_notice("[victim] puts \the [src] up to [victim.p_their()] mouth."),
 			span_notice("You put \the [src] up to your mouth."))
 
 	if(!do_after(victim, 5 SECONDS, attacker, timed_action_flags = IGNORE_USER_LOC_CHANGE, extra_checks = CALLBACK(src, PROC_REF(can_drink), victim, attacker)))
 		return
 
-	victim.visib_message(
+	victim.visible_message(
 		span_notice("[victim] sucks the contents out of \the [src]!"),
 		span_notice("You feed from \the [src]."))
 
