@@ -253,7 +253,6 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_VAMPIRE_TRACK_HUMANITY_GAIN, PROC_REF(on_track_humanity_gain_signal))
 
-
 	// Teach them the old knowledge
 	owner.teach_crafting_recipe(list(
 		/datum/crafting_recipe/vassalrack,
@@ -330,7 +329,6 @@
 		var/datum/species/new_species = human_new_body.dna.species
 		new_species.punchdamage += 2
 		human_new_body.physiology.stamina_mod *= VAMPIRE_INHERENT_STAMINA_RESIST
-
 
 	// Vampire Traits
 	old_body?.remove_traits(vampire_traits, TRAIT_VAMPIRE)
@@ -465,6 +463,10 @@
 	// No Skittish "People" allowed
 	if(HAS_TRAIT(user, TRAIT_SKITTISH))
 		REMOVE_TRAIT(user, TRAIT_SKITTISH, ROUNDSTART_TRAIT)
+
+	// Same for mutes
+	if(HAS_TRAIT(user, TRAIT_MUTE))
+		REMOVE_TRAIT(user, TRAIT_MUTE, ROUNDSTART_TRAIT)
 
 	// Tongue & Language
 	user.grant_all_languages(ALL, TRUE, LANGUAGE_VAMPIRE)
