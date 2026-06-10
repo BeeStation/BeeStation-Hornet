@@ -450,7 +450,7 @@
 /obj/item/mod/module/reinforced_plating
 	name = "\improper MOD reinforced plating module"
 	desc = "Additional armor plating integrated into the suit. Increases protection at the cost of mobility."
-	icon_state = "projectile_dampener"
+	icon_state = "armor_plating"
 	module_type = MODULE_PASSIVE
 	complexity = 3
 	required_slots = list(ITEM_SLOT_BACK)
