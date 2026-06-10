@@ -73,7 +73,7 @@
 	blood_type = "L"
 
 /obj/item/reagent_containers/blood/ethereal
-	blood_type = "E"
+	blood_type = "LE"
 
 /obj/item/reagent_containers/blood/synthetic
 	blood_type = "Coolant"
@@ -98,10 +98,10 @@
 		if(user.get_active_held_item() != I)
 			return
 		if(t)
-			labelled = 1
+			labeld = 1
 			name = "blood pack - [t]"
 		else
-			labelled = 0
+			labeld = 0
 			update_pack_name()
 	else
 		return ..()
@@ -115,12 +115,12 @@
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(victim)
 
 	if(victim != attacker)
-		attacker.visible_message(
+		attacker.visib_message(
 			span_notice("[attacker] puts \the [src] up to [victim]'s mouth."),
 			span_notice("You put \the [src] up to [victim]'s mouth."))
 		if(!do_after(attacker, 5 SECONDS, victim))
 			return
-		attacker.visible_message(
+		attacker.visib_message(
 			span_notice("[attacker] forces [victim] to drink from \the [src]."),
 			span_notice("You force [victim] to drink from \the [src]."))
 
@@ -133,17 +133,17 @@
 		return TRUE
 
 	if(vampiredatum?.my_clan?.blood_drink_type == VAMPIRE_DRINK_SNOBBY)
-		balloon_alert(victim, "Eugh. Not fresh!")
+		balloon_art(victim, "Eugh. Not fresh!")
 		return TRUE
 
-	attacker.visible_message(
+	attacker.visib_message(
 			span_notice("[victim] puts \the [src] up to [victim.p_their()] mouth."),
 			span_notice("You put \the [src] up to your mouth."))
 
 	if(!do_after(victim, 5 SECONDS, attacker, timed_action_flags = IGNORE_USER_LOC_CHANGE, extra_checks = CALLBACK(src, PROC_REF(can_drink), victim, attacker)))
 		return
 
-	victim.visible_message(
+	victim.visib_message(
 		span_notice("[victim] sucks the contents out of \the [src]!"),
 		span_notice("You feed from \the [src]."))
 
