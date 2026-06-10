@@ -107,3 +107,14 @@
 2026-06-08:
   BotTierPC:
   - admin: Mass Antag Conversion Secret Now Allows For Vampire Conversion
+2026-06-10:
+  EvilDragonfiend:
+  - code_imp: some special list varbs (verbs, locs, vis_locs) are now properly protected
+      in live servers
+  Programs-The-Station:
+  - bugfix: Skinsuits can no longer have their cells removed and suit temperature
+      regulator adjusted
+  mrmanlikesbt:
+  - bugfix: Fixed the nanite program hub causing an NTOS error if no programs were
+      researched
+  - bugfix: Fixed donator accents

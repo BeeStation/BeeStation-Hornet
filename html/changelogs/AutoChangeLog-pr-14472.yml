@@ -1,5 +1,0 @@
-author: Programs-The-Station
-delete-after: true
-changes:
-  - bugfix: Skinsuits can no longer have their cells removed and suit temperature
-      regulator adjusted

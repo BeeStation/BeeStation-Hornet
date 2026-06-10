@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: some special list varbs (verbs, locs, vis_locs) are now properly protected
-      in live servers
