@@ -3,18 +3,18 @@
 	max_stages = 5
 	stage_prob = 2
 	spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
-	cure_text = "Holy water or extensive rest."
+	cure_text = "Holy water or extensive sleep."   // updated to clarify sleep requirement
 	spread_text = "A burst of unholy energy"
 	cures = list(/datum/reagent/water/holywater)
-	cure_chance = 50 //higher chance to cure, because revenants are assholes
+	cure_chance = 50
 	agent = "Unholy Forces"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	disease_flags = CURABLE
 	spreading_modifier = 1
 	danger = DISEASE_HARMFUL
-	var/finalstage = 0 //Ensures the final stage effects that should only happen once do not happen repeatedly.
-	var/startresting
-	var/turf/restingat
+	var/finalstage = 0
+	var/start_sleeping          // world.time when continuous sleep began
+	var/turf/sleeping_at        // turf where sleep started
 
 /datum/disease/revblight/cure()
 	if(affected_mob)
@@ -31,21 +31,24 @@
 	if(!.)
 		return
 
-	affected_mob.adjustStaminaLoss(1) //Provides gradual exhaustion, but mostly to prevent regeneration and set an upper limit on disease duration to about five minutes
-	if(affected_mob.body_position == LYING_DOWN)
-		if(HAS_TRAIT_FROM(affected_mob, TRAIT_INCAPACITATED, STAMINA) && !finalstage)
-			stage = 5
-		if(!startresting || restingat != get_turf(affected_mob))
-			startresting = world.time
-			restingat = get_turf(affected_mob)
-		else if(world.time - startresting >= 30 SECONDS) //Ensures nobody is left in permanent stamcrit, and also enables players to rest in a safe location to cure themselves
-			cure()
+	// Gradual stamina drain (stages 1-4)
+	affected_mob.adjustStaminaLoss(1)
+
+	// CURE BY SLEEPING (not just lying down)
+	if(affected_mob.IsSleeping())   // checks the sleeping var; true if >0
+		if(!start_sleeping || sleeping_at != get_turf(affected_mob))
+			start_sleeping = world.time
+			sleeping_at = get_turf(affected_mob)
+		else if(world.time - start_sleeping >= 30 SECONDS)
+			cure()                    // sleep for 30 seconds cures the disease
 	else
-		startresting = null
-	if(DT_PROB(1.5 * stage, delta_time) && !finalstage && affected_mob.staminaloss <= stage * 25) //no more lesser flavor messages and sparkles after stage 5
+		start_sleeping = null         // not sleeping: reset timer
+
+	// Early-stage flavour effects and extra drain (unchanged)
+	if(DT_PROB(1.5 * stage, delta_time) && !finalstage && affected_mob.staminaloss <= stage * 25)
 		to_chat(affected_mob, span_revennotice("You suddenly feel [pick("like you need to rest", "disoriented", "tired and confused", "nauseated", "faint", "dizzy")]..."))
 		affected_mob.adjust_confusion(8 SECONDS)
-		affected_mob.adjustStaminaLoss(7.5 * delta_time, FALSE) //Where the real exhaustion builds up.
+		affected_mob.adjustStaminaLoss(7.5 * delta_time, FALSE)
 		new /obj/effect/temp_visual/revenant(affected_mob.loc)
 
 	switch(stage)
@@ -56,8 +59,12 @@
 			if(DT_PROB(5, delta_time))
 				affected_mob.emote(pick("pale","shiver","cries"))
 		if(5)
-			if(affected_mob.staminaloss <= 200) //check required to prevent randomly screaming from limbs being crippled at extreme stamina
-				affected_mob.adjustStaminaLoss(7.5 * delta_time, FALSE) //No longer realistically possible to counteract with stimulants
+			// PERMANENT STAMCRIT
+			if(affected_mob.staminaloss < 200)
+				affected_mob.adjustStaminaLoss(200 - affected_mob.staminaloss, FALSE)
+			// Additional drain to overcome any regen effects
+			affected_mob.adjustStaminaLoss(7.5 * delta_time, FALSE)
+
 			if(!finalstage)
 				finalstage = TRUE
 				to_chat(affected_mob, span_revenbignotice("You feel like [pick("you just can't go on", "you should just give up", "there's nothing you can do", "everything is hopeless")]."))
