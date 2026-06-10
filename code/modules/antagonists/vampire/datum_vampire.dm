@@ -273,8 +273,8 @@
 	// Assign starting stats skill point.
 	check_blacklisted_species()
 	give_starting_powers()
-	// Sync the masquerade power to our starting humanity.
-	update_masquerade_power()
+	// Sync the mimicry power to our starting humanity.
+	update_mimicry_power()
 	assign_starting_stats()
 	owner.special_role = ROLE_VAMPIRE
 	GLOB.all_vampires += src
@@ -479,7 +479,7 @@
  * Removes all Vampire related Powers/Stats changes, setting them back to pre-Vampire
  * Order of steps and reason why:
  * Remove clan - Clans like Nosferatu give Powers on removal, we have to make sure this is given before removing Powers.
- * Powers - Remove all Powers, so things like Masquerade are off.
+ * Powers - Remove all Powers, so things like Mimicry are off.
  * Species traits, Traits, MaxHealth, Language - Misc stuff, has no priority.
  * Organs - At the bottom to ensure everything that changes them has reverted themselves already.
  * Update Sight - Done after Eyes are regenerated.

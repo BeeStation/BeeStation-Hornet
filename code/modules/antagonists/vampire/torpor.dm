@@ -92,7 +92,7 @@
 	living_owner.grab_ghost()
 
 	// Handle traits
-	if(!HAS_TRAIT(living_owner, TRAIT_MASQUERADE))
+	if(!HAS_TRAIT(living_owner, TRAIT_MIMICRY))
 		ADD_TRAIT(living_owner, TRAIT_SLEEPIMMUNE, TRAIT_VAMPIRE)
 	living_owner.remove_traits(torpor_traits, TRAIT_TORPOR)
 

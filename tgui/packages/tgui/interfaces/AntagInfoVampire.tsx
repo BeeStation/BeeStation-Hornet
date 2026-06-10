@@ -357,7 +357,7 @@ const VampireGuide = (_props) => {
               </Box>
               , which can instantly expose you. However, if your{' '}
               <Box inline textColor="gold">
-                Masquerade Ability
+                Mimicry Ability
               </Box>{' '}
               is active, even this ancient tome cannot see through your
               disguise.
@@ -369,7 +369,7 @@ const VampireGuide = (_props) => {
               </Box>{' '}
               above 7, you gain the{' '}
               <Box inline textColor="gold">
-                Masquerade Ability
+                Mimicry Ability
               </Box>
               , which fools health analyzers and the{' '}
               <Box inline textColor="pink">

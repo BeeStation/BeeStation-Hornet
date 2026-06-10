@@ -52,7 +52,7 @@
 	if(check_final_death())
 		return
 
-	// Set our body's blood_volume to mimick our vampire one (if we aren't using the Masquerade power)
+	// Set our body's blood_volume to mimick our vampire one (if we aren't using the mimicry power)
 	update_blood()
 	update_hud()
 
@@ -63,7 +63,7 @@
 	if(HAS_TRAIT(owner.current, TRAIT_NO_BLOOD))
 		return
 
-	if(HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
+	if(HAS_TRAIT(owner.current, TRAIT_MIMICRY))
 		owner.current.blood_volume = BLOOD_VOLUME_NORMAL
 		return
 
@@ -96,8 +96,8 @@
 	// Weirdness shield
 	if(QDELETED(owner?.current))
 		return FALSE
-	// Dont heal if you have TRAIT_MASQUERADE and not undergoing torpor
-	if(!in_torpor && HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
+	// Dont heal if you have TRAIT_MIMICRY and not undergoing torpor
+	if(!in_torpor && HAS_TRAIT(owner.current, TRAIT_MIMICRY))
 		return FALSE
 
 	var/actual_regen = vampire_regen_rate + additional_regen
@@ -122,9 +122,9 @@
 		// If in a coffin: heal 5x as fast, heal burn damage at full capacity, set vitaecost to 50%, and regenerate limbs
 		// If not: heal 3x as fast and heal burn damage at 80%
 		if(istype(carbon_owner.loc, /obj/structure/closet/crate/coffin))
-			if(HAS_TRAIT(owner.current, TRAIT_MASQUERADE) && (COOLDOWN_FINISHED(src, vampire_spam_healing)))
-				to_chat(carbon_owner, span_alert("You do not heal while your Masquerade ability is active."))
-				COOLDOWN_START(src, vampire_spam_healing, VAMPIRE_SPAM_MASQUERADE)
+			if(HAS_TRAIT(owner.current, TRAIT_MIMICRY) && (COOLDOWN_FINISHED(src, vampire_spam_healing)))
+				to_chat(carbon_owner, span_alert("You do not heal while your Mimicry ability is active."))
+				COOLDOWN_START(src, vampire_spam_healing, VAMPIRE_SPAM_MIMICRY)
 				return FALSE
 
 			burn_heal = min(carbon_owner.getFireLoss(), actual_regen)
@@ -195,7 +195,7 @@
 		organ.set_organ_damage(0)
 
 	// Heart
-	if(!HAS_TRAIT(carbon_user, TRAIT_MASQUERADE))
+	if(!HAS_TRAIT(carbon_user, TRAIT_MIMICRY))
 		var/obj/item/organ/heart/current_heart = carbon_user.get_organ_slot(ORGAN_SLOT_HEART)
 		current_heart?.Stop()
 
@@ -267,7 +267,7 @@
 		owner.current.remove_status_effect(/datum/status_effect/frenzy)
 
 	// Blood is low, lets show some effects
-	if(current_vitae < 100 && !HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
+	if(current_vitae < 100 && !HAS_TRAIT(owner.current, TRAIT_MIMICRY))
 		owner.current.set_jitter_if_lower(6 SECONDS)
 
 	// Enter frenzy if our blood is low enough

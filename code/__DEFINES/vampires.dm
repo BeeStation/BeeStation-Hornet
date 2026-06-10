@@ -62,8 +62,8 @@
 // Used to prevent spamming vampires
 /// Spam prevention for healing messages.
 #define VAMPIRE_SPAM_HEALING 15 SECONDS
-/// Spam prevention for Sol Masquerade messages.
-#define VAMPIRE_SPAM_MASQUERADE 60 SECONDS
+/// Spam prevention for Mimicry messages.
+#define VAMPIRE_SPAM_MIMICRY 60 SECONDS
 
 // Clan defines
 #define CLAN_BRUJAH "Brujah Clan"
@@ -129,12 +129,12 @@
 #define VAMPIRE_DRINK_NORMAL "vampire_drink_normal"
 /// Drinks blood but is snobby, refusing to drink from mindless
 #define VAMPIRE_DRINK_SNOBBY "vampire_drink_snobby"
-// Masquerade ability given at this point or above
-#define VAMPIRE_HUMANITY_MASQUERADE_POWER 7
+// Mimicry ability given at this point or above
+#define VAMPIRE_HUMANITY_MIMICRY_POWER 7
 
 // Traits
 /// Falsifies Health analyzer blood levels
-#define TRAIT_MASQUERADE "trait_masquerade"
+#define TRAIT_MIMICRY "trait_mimicry"
 /// Your body is literal room temperature. Does not make you immune to the temp
 #define TRAIT_COLDBLOODED "trait_coldblooded"
 /// For people in the middle of being staked

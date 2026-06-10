@@ -45,7 +45,7 @@
 /datum/vampire_clan/malkavian/handle_clan_life()
 	. = ..()
 	var/mob/living/living_vampire = vampiredatum.owner.current
-	if(!COOLDOWN_FINISHED(src, revelation_cooldown) || HAS_TRAIT(living_vampire, TRAIT_MASQUERADE) || living_vampire.stat != CONSCIOUS)
+	if(!COOLDOWN_FINISHED(src, revelation_cooldown) || HAS_TRAIT(living_vampire, TRAIT_MIMICRY) || living_vampire.stat != CONSCIOUS)
 		return
 
 	if(prob(15))

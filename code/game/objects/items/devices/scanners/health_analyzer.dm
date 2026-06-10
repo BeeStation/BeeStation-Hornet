@@ -355,7 +355,7 @@
 				qdel(compatible_datum)
 			var/blood_info = "[blood_type] (Compatible: [jointext(compatible_names, ", ")])"
 
-			if(HAS_TRAIT(carbontarget, TRAIT_MASQUERADE))
+			if(HAS_TRAIT(carbontarget, TRAIT_MIMICRY))
 				render_list += "<span class='info ml-1'>Blood level: 100 %, 560 cl,</span> [span_info("type: [blood_info]")]\n"
 			else if(carbontarget.blood_volume <= BLOOD_VOLUME_SAFE && carbontarget.blood_volume > BLOOD_VOLUME_OKAY)
 				render_list += "<span class='alert ml-1'>Blood level: LOW [blood_percent] %, [carbontarget.blood_volume] cl,</span> [span_info("type: [blood_info]")]\n"

@@ -33,7 +33,7 @@
 /datum/status_effect/frenzy/get_examine_text()
 	return span_danger("They seem... inhumane, and feral!")
 
-/atom/movable/screen/alert/status_effect/masquerade/MouseEntered(location,control,params)
+/atom/movable/screen/alert/status_effect/mimicry/MouseEntered(location,control,params)
 	desc = initial(desc)
 	return ..()
 

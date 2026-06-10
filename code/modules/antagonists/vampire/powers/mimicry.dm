@@ -1,44 +1,44 @@
-/datum/action/vampire/masquerade
-	name = "Masquerade"
+/datum/action/vampire/mimicry
+	name = "Mimicry"
 	desc = "Feign the vital signs of a mortal, and escape both casual and medical notice as the monster you truly are."
 	button_icon_state = "power_human"
-	power_explanation = "Masquerade will forge your identity to be practically identical to that of a human.\n\
+	power_explanation = "Mimicry will forge your identity to be practically identical to that of a human.\n\
 		You lose nearly all Vampire benefits, including your passive healing.\n\
 		You gain a Genetic sequence, and appear to have 100% blood when scanned by a Health Analyzer.\n\
 		You won't appear as pale when examined. Anything further than pale, however, will not be hidden.\n\
-		After deactivating Masquerade, you will re-gain your Vampiric abilities, as well as lose any Diseases or mutations you might have gained."
+		After deactivating Mimicry, you will re-gain your Vampiric abilities, as well as lose any Diseases or mutations you might have gained."
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN | BP_AM_COSTLESS_UNCONSCIOUS
 	check_flags = BP_CANT_USE_IN_FRENZY | BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED
 	vitaecost = 15
 	cooldown_time = 5 SECONDS
 	constant_vitaecost = 0.5
 
-/datum/action/vampire/masquerade/activate_power()
+/datum/action/vampire/mimicry/activate_power()
 	. = ..()
 	var/mob/living/carbon/carbon_owner = owner
-	carbon_owner.balloon_alert(carbon_owner, "masquerade turned on.")
-	carbon_owner.apply_status_effect(/datum/status_effect/masquerade)
+	carbon_owner.balloon_alert(carbon_owner, "mimicry turned on.")
+	carbon_owner.apply_status_effect(/datum/status_effect/mimicry)
 
-/datum/action/vampire/masquerade/deactivate_power()
+/datum/action/vampire/mimicry/deactivate_power()
 	. = ..()
 	var/mob/living/carbon/carbon_owner = owner
-	carbon_owner.balloon_alert(carbon_owner, "masquerade turned off.")
-	carbon_owner.remove_status_effect(/datum/status_effect/masquerade)
+	carbon_owner.balloon_alert(carbon_owner, "mimicry turned off.")
+	carbon_owner.remove_status_effect(/datum/status_effect/mimicry)
 
-/datum/status_effect/masquerade
-	id = "masquerade"
+/datum/status_effect/mimicry
+	id = "mimicry"
 	duration = STATUS_EFFECT_PERMANENT
 	tick_interval = STATUS_EFFECT_NO_TICK
-	alert_type = /atom/movable/screen/alert/status_effect/masquerade
+	alert_type = /atom/movable/screen/alert/status_effect/mimicry
 
-/atom/movable/screen/alert/status_effect/masquerade
-	name = "Masquerade"
-	desc = "You are currently hiding your identity using the Masquerade power. This halts Vampiric healing."
+/atom/movable/screen/alert/status_effect/mimicry
+	name = "Mimicry"
+	desc = "You are currently hiding your identity using the Mimicry power. This halts Vampiric healing."
 	icon = 'icons/vampires/actions_vampire.dmi'
 	icon_state = "masquerade_alert"
 	alerttooltipstyle = "cult"
 
-/datum/status_effect/masquerade/on_apply()
+/datum/status_effect/mimicry/on_apply()
 	. = ..()
 	var/mob/living/carbon/carbon_owner = owner
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(carbon_owner)
@@ -47,7 +47,7 @@
 
 	// Handle Traits
 	carbon_owner.remove_traits(vampiredatum.vampire_traits, TRAIT_VAMPIRE)
-	ADD_TRAIT(carbon_owner, TRAIT_MASQUERADE, TRAIT_VAMPIRE)
+	ADD_TRAIT(carbon_owner, TRAIT_MIMICRY, TRAIT_VAMPIRE)
 
 	// Handle organs
 	var/obj/item/organ/heart/vampheart = carbon_owner.get_organ_by_type(/obj/item/organ/heart)
@@ -58,7 +58,7 @@
 	to_chat(carbon_owner, span_notice("Your heart beats falsely within your lifeless chest. You may yet pass for a mortal."))
 	to_chat(carbon_owner, span_warning("Your vampiric healing is halted while imitating life."))
 
-/datum/status_effect/masquerade/on_remove()
+/datum/status_effect/mimicry/on_remove()
 	. = ..()
 	var/mob/living/carbon/carbon_owner = owner
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(carbon_owner)
@@ -72,7 +72,7 @@
 
 	// Handle Traits
 	carbon_owner.add_traits(vampiredatum.vampire_traits, TRAIT_VAMPIRE)
-	REMOVE_TRAIT(carbon_owner, TRAIT_MASQUERADE, TRAIT_VAMPIRE)
+	REMOVE_TRAIT(carbon_owner, TRAIT_MIMICRY, TRAIT_VAMPIRE)
 
 	// Handle organs
 	var/obj/item/organ/heart/vampheart = carbon_owner.get_organ_slot(ORGAN_SLOT_HEART)

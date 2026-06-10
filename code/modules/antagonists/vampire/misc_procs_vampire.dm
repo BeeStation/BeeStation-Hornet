@@ -31,9 +31,6 @@
 	to_chat(owner.current, span_userdanger("You have broken the Masquerade!"))
 	to_chat(owner.current, span_warning("Vampire Tip: When you break the Masquerade, you become open for termination by fellow Vampires, and your vassals are no longer completely loyal to you, as other Vampires can steal them for themselves!"))
 
-	antag_hud_name = "masquerade_broken"
-	add_team_hud(owner.current)
-
 	SEND_GLOBAL_SIGNAL(COMSIG_VAMPIRE_BROKE_MASQUERADE, src)
 	GLOB.masquerade_breakers.Add(src)
 
@@ -149,7 +146,6 @@
  * Adds the specified amount of humanity to the vampire
  * Checks to make sure it doesn't exceed 10,
  * Checks to make sure it doesn't go under 0,
- * Adds the masquerade power at 9 or above
  */
 /datum/antagonist/vampire/proc/adjust_humanity(count, silent = FALSE)
 	// Step one: Toreadors have doubled gains and losses
@@ -175,38 +171,38 @@
 	// the face of god.
 	humanity = clamp(humanity + count, 0, 10)
 
-	// grant/revoke the masquerade power based on our new humanity.
-	var/masquerade_change = update_masquerade_power()
+	// grant/revoke the mimicry power based on our new humanity.
+	var/mimicry_change = update_mimicry_power()
 
 	if(!silent)
 		if(humanity > old_humanity)
-			if(masquerade_change == 1)
+			if(mimicry_change == 1)
 				to_chat(owner.current, span_userdanger("Your closeness to humanity has granted you the ability to feign life!"))
 			else
 				to_chat(owner.current, span_userdanger("You have gained humanity."))
 		else if(humanity < old_humanity)
-			if(masquerade_change == -1)
-				to_chat(owner.current, span_userdanger("Your inhuman actions have caused you to lose the masquerade ability!"))
+			if(mimicry_change == -1)
+				to_chat(owner.current, span_userdanger("Your inhuman actions have caused you to lose the mimicry ability!"))
 			else
 				to_chat(owner.current, span_userdanger("You have lost humanity."))
 	return TRUE
 
 /**
- * ##update_masquerade_power()
+ * ##update_mimicry_power()
  *
- * Grants it at or above VAMPIRE_HUMANITY_MASQUERADE_POWER, revokes it below.
+ * Grants it at or above VAMPIRE_HUMANITY_MIMICRY_POWER, revokes it below.
  *
  * Returns: 1 if it granted the power, -1 if it revoked it, 0 if no change.
  */
-/datum/antagonist/vampire/proc/update_masquerade_power()
-	var/has_masquerade = is_type_in_list(/datum/action/vampire/masquerade, powers)
+/datum/antagonist/vampire/proc/update_mimicry_power()
+	var/has_mimicry = is_type_in_list(/datum/action/vampire/mimicry, powers)
 
-	if(humanity >= VAMPIRE_HUMANITY_MASQUERADE_POWER)
-		if(!has_masquerade && grant_power(new /datum/action/vampire/masquerade))
+	if(humanity >= VAMPIRE_HUMANITY_MIMICRY_POWER)
+		if(!has_mimicry && grant_power(new /datum/action/vampire/mimicry))
 			return 1
 
-	else if(has_masquerade)
-		for(var/datum/action/vampire/masquerade/power in powers)
+	else if(has_mimicry)
+		for(var/datum/action/vampire/mimicry/power in powers)
 			remove_power(power)
 		return -1
 
