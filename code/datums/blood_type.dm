@@ -95,7 +95,7 @@
 		/datum/blood_type/lizard
 	)
 /datum/blood_type/ethereal
-	name = "E"
+	name = "LE"
 	blood_color = "#7fff7f"
 	compatible_types = list(
 		/datum/blood_type/ethereal
