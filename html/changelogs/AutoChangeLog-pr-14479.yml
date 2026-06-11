@@ -1,5 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: Fixed the nanite program hub causing an NTOS error if no programs were
-      researched

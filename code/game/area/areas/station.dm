@@ -1677,6 +1677,7 @@
 /area/station/science/explab
 	name = "\improper Experimentation Lab"
 	icon_state = "exp_lab"
+	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_RESEARCH, CAMERA_NETWORK_ARTIFACTS)
 
 /area/station/science/robotics
 	name = "Robotics"
