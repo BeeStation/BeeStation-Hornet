@@ -540,7 +540,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				if(tgui_alert(src, "No laws were entered.", "Custom Roundstart AI Lawset", list("Try Again", "Cancel")) == "Try Again")
 					continue
 				return
-
+			custom_laws += law
 		var/datum/ai_laws/custom_lawset = new /datum/ai_laws()
 		custom_lawset.name = "Admin Custom Laws"
 		custom_lawset.id = "admin_custom"
@@ -548,6 +548,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		GLOB.round_default_lawset = custom_lawset
 
 		log_admin("[key_name(src)] set a custom roundstart AI lawset: [custom_laws.Join(" | ")]")
+		message_admins("[key_name(src)] set a custom roundstart AI lawset: [custom_laws.Join(" | ")]")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Roundstart AI Lawset")
 		return
 
@@ -568,6 +569,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	GLOB.round_default_lawset = lawset_choices[chosen]
 
 	log_admin("[key_name(src)] set the roundstart AI lawset to [chosen].")
+	message_admins("[key_name(src)] set the roundstart AI lawset to [chosen].")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Roundstart AI Lawset")
 
 /client/proc/cmd_admin_add_freeform_ai_law()
