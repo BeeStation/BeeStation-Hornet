@@ -553,7 +553,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/list/lawset_choices = list()
 
-	for(var/datum/ai_laws/law_path as anything in subtypesof(/datum/ai_laws))
+	for(var/law_type in subtypesof(/datum/ai_laws))
+		var/datum/ai_laws/law_path = law_type
 
 		if(law_type == /datum/ai_laws/pai)
 			continue

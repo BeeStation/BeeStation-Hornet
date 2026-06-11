@@ -202,11 +202,11 @@ GLOBAL_VAR(round_default_lawset)
 /* General ai_law functions */
 
 /datum/ai_laws/proc/set_laws_config()
-	var/default_lawset = get_round_default_lawset()
+	var/datum/ai_laws/default_laws = get_round_default_lawset()
 	// get_round_default_lawset() can return an instance if an admin set it to a custom lawset
-	if(ispath(default_laws)
+	if(ispath(default_laws))
 		default_laws = new default_laws()
-	else if(istype(default_lawset)
+	else if(istype(default_laws))
 		default_laws = default_laws.copy_lawset()
 	else
 		stack_trace("Invalid round default lawset, falling back to Asimov.")
