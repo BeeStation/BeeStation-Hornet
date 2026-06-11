@@ -57194,7 +57194,6 @@
 /obj/item/clothing/neck/stethoscope,
 /obj/item/healthanalyzer,
 /obj/machinery/computer/security/telescreen/artifacts{
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /turf/open/floor/iron/dark,

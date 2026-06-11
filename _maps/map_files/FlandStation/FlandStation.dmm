@@ -26188,7 +26188,6 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/computer/security/telescreen/artifacts{
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /turf/open/floor/iron/dark,
