@@ -597,9 +597,9 @@
 			to_chat(user, span_warning("This unit is already equipped with a RPED module."))
 			return FALSE
 
-		RPED = new(robot.model)
-		robot.model.basic_modules += RPED
-		robot.model.add_module(RPED, FALSE, TRUE)
+		var/obj/item/storage/part_replacer/cyborg/newRPED = new(robot.model)
+		robot.model.basic_modules += newRPED
+		robot.model.add_module(newRPED, FALSE, TRUE)
 
 /obj/item/borg/upgrade/rped/deactivate(mob/living/silicon/robot/robot, user = usr)
 	. = ..()
@@ -625,9 +625,9 @@
 			to_chat(user, span_warning("This unit is already equipped with a BSRPED module."))
 			return FALSE
 
-		BSRPED = new(robot.model)
-		robot.model.basic_modules += BSRPED
-		robot.model.add_module(BSRPED, FALSE, TRUE)
+		var/obj/item/storage/part_replacer/bluespace/cyborg/newBSRPED = new(robot.model)
+		robot.model.basic_modules += newBSRPED
+		robot.model.add_module(newBSRPED, FALSE, TRUE)
 
 /obj/item/borg/upgrade/bsrped/deactivate(mob/living/silicon/robot/robot, user = usr)
 	. = ..()
