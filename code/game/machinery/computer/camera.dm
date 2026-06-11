@@ -345,6 +345,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertai
 	desc = "A telescreen with access to the research division's camera network."
 	network = list(CAMERA_NETWORK_RESEARCH)
 
+/obj/machinery/computer/security/telescreen/artifacts
+	name = "artifacts telescreen"
+	desc = "A telescreen with access to the artifacts lab camera network."
+	network = list(CAMERA_NETWORK_ARTIFACTS)
+
 /obj/machinery/computer/security/telescreen/ce
 	name = "\improper Chief Engineer's telescreen"
 	desc = "Used for watching the engine, telecommunications and the minisat."

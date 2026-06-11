@@ -13072,6 +13072,9 @@
 	pixel_x = 4;
 	pixel_y = 10
 	},
+/obj/machinery/computer/security/telescreen/artifacts{
+	pixel_x = 32
+	},
 /turf/open/floor/iron,
 /area/station/science/explab)
 "eRN" = (
@@ -13171,11 +13174,6 @@
 /obj/item/multitool,
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow,
-/obj/machinery/button/door{
-	id = "testlab";
-	name = "Test Chamber Blast Doors";
-	pixel_x = -32
-	},
 /obj/machinery/light_switch{
 	pixel_x = -10;
 	pixel_y = 25
@@ -23688,6 +23686,12 @@
 	},
 /obj/item/xenoarchaeology_labeler,
 /obj/item/xenoarchaeology_labeler,
+/obj/machinery/button/door{
+	id = "testlab";
+	name = "Test Chamber Blast Doors";
+	pixel_x = 28;
+	pixel_y = 6
+	},
 /turf/open/floor/iron,
 /area/station/science/explab)
 "jgl" = (

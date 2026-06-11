@@ -118,3 +118,9 @@
   - bugfix: Fixed the nanite program hub causing an NTOS error if no programs were
       researched
   - bugfix: Fixed donator accents
+2026-06-11:
+  BotTierPC:
+  - rscadd: Adds a new Telescreen to observe Science Artifact Labs
+  - rscadd: Adds a Artifact Telescreen to Radstation, Flandstation, Cardinalstation,
+      Deltastation, and Boxstation
+  - tweak: The science/explab area gives new artsci network to its camera
