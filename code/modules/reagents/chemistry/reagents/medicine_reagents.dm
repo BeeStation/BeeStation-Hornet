@@ -826,6 +826,7 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 15
+	added_traits = list(TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION)
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -850,14 +851,6 @@
 	affected_mob.reagents.remove_reagent(/datum/reagent/medicine/atropine, 2 * REM * delta_time)
 	affected_mob.set_dizzy_if_lower(2 SECONDS * REM * delta_time)
 	affected_mob.set_jitter_if_lower(2 SECONDS * REM * delta_time)
-
-/datum/reagent/medicine/atropine/on_mob_add(mob/living/owner)
-	. = ..()
-	ADD_TRAIT(owner, TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION, "[type]")
-
-/datum/reagent/medicine/atropine/on_mob_delete(mob/living/owner)
-	REMOVE_TRAIT(owner, TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION, "[type]")
-	return ..()
 
 /datum/reagent/medicine/epinephrine
 	name = "Epinephrine"
