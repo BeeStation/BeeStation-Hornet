@@ -804,6 +804,15 @@
 	construction_time = 120
 	category = list(RND_CATEGORY_CYBORG_UPGRADE_MODULES)
 
+/datum/design/borg_upgrade_bsrped
+	name = "Cyborg Upgrade (BSRPED)"
+	id = "borg_upgrade_bsrped"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/bsrped
+	materials = list(/datum/material/iron = 15000, /datum/material/glass = 5000, /datum/material/silver = 2500)
+	construction_time = 120
+	category = list(RND_CATEGORY_CYBORG_UPGRADE_MODULES)
+
 /datum/design/borg_upgrade_circuit_app
 	name = "Cyborg Upgrade (Circuit Manipulator)"
 	id = "borg_upgrade_circuitapp"
