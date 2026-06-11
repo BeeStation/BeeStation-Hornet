@@ -772,14 +772,12 @@
 
 // Quirk Procs //
 
-/datum/mind/proc/add_quirk(quirktype, spawn_effects) //separate proc due to the way these ones are handled
-	if(HAS_TRAIT(src, quirktype))
+/datum/mind/proc/add_quirk(datum/quirk/quirk_type, spawn_effects) //separate proc due to the way these ones are handled
+	if(HAS_TRAIT(src, quirk_type))
 		return
-	var/datum/quirk/T = quirktype
-	var/qname = initial(T.name)
-	if(!SSquirks || !SSquirks.quirks[qname])
+	if(!SSquirks || !SSquirks.quirks[quirk_type::name])
 		return
-	new quirktype (src, current, spawn_effects)
+	new quirk_type (src, current, spawn_effects)
 	return TRUE
 
 /datum/mind/proc/remove_quirk(quirktype)
