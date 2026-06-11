@@ -98,6 +98,7 @@
 	prereq_ids = list(TECHWEB_NODE_CYBORG_UPG_UTIL, TECHWEB_NODE_APPLIED_BLUESPACE)
 	design_ids = list(
 		"borg_upgrade_bsrped",
+		"borg_upgrade_bslightreplacer"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SCIENCE)

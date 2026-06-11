@@ -636,6 +636,35 @@
 		if (BSRPED)
 			robot.model.remove_module(BSRPED, TRUE)
 
+/obj/item/borg/upgrade/bslightreplacer
+	name = "janitor cyborg BS Light Replacer"
+	desc = "A bluespace rapid part exchange device for the janitor cyborg."
+	icon = 'icons/obj/janitor.dmi'
+	icon_state = "lightreplacer_blue0"
+	require_model = TRUE
+	model_type = list(/obj/item/robot_model/janitor)
+	model_flags = BORG_MODEL_JANITOR
+
+/obj/item/borg/upgrade/bslightreplacer/action(mob/living/silicon/robot/robot, user = usr)
+	. = ..()
+	if(.)
+		var/obj/item/borg/upgrade/bslightreplacer/BSLR = locate() in robot.contents
+		if(BSLR)
+			to_chat(user, span_warning("This unit is already equipped with a BS Light Replacer module."))
+			return FALSE
+
+		var/obj/item/lightreplacer/bluespace/cyborg/newBSLR = new(robot.model)
+		robot.model.basic_modules += newBSLR
+		robot.model.add_module(newBSLR, FALSE, TRUE)
+
+/obj/item/borg/upgrade/bslightreplacer/deactivate(mob/living/silicon/robot/robot, user = usr)
+	. = ..()
+	if (.)
+		var/obj/item/lightreplacer/bluespace/cyborg/BSLR = locate() in robot.model
+		if (BSLR)
+			robot.model.remove_module(BSLR, TRUE)
+
+
 
 /obj/item/borg/upgrade/pinpointer
 	name = "medical cyborg crew pinpointer"
