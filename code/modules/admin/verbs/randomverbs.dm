@@ -519,7 +519,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Round"
 	set name = "Set Roundstart AI Lawset"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_FUN))
 		return
 
 	if(SSticker.current_state > GAME_STATE_PREGAME)
@@ -541,46 +541,32 @@ Traitors and the like can also be revived with the previous role mostly intact.
 					continue
 				return
 
-			custom_laws += law
-			if(tgui_alert(src, "Add another law?", "Custom Roundstart AI Lawset", list("Add Another", "Finish")) != "Add Another")
-				break
-
 		var/datum/ai_laws/custom_lawset = new /datum/ai_laws()
 		custom_lawset.name = "Admin Custom Laws"
 		custom_lawset.id = "admin_custom"
-		custom_lawset.inherent = custom_laws.Copy()
+		custom_lawset.inherent = custom_laws
 		GLOB.round_default_lawset = custom_lawset
 
-		var/law_log_text = custom_laws.Join(" | ")
-		log_admin("[key_name(src)] set a custom roundstart AI lawset: [law_log_text]")
-		message_admins("[key_name_admin(src)] set a custom roundstart AI lawset with [length(custom_laws)] laws.")
+		log_admin("[key_name(src)] set a custom roundstart AI lawset: [custom_laws.Join(" | ")]")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Roundstart AI Lawset")
 		return
 
 	var/list/lawset_choices = list()
 
-	for(var/law_type in subtypesof(/datum/ai_laws))
-		var/datum/ai_laws/law_path = law_type
+	for(var/datum/ai_laws/law_path as anything in subtypesof(/datum/ai_laws))
 
 		if(law_type == /datum/ai_laws/pai)
 			continue
 
-		if(initial(law_path.name) == "Unknown Laws")
-			continue
-
 		lawset_choices["[initial(law_path.name)] ([law_type])"] = law_type
-
-	lawset_choices["Config Default"] = null
 
 	var/chosen = tgui_input_list(src, "Choose the lawset the roundstart AI will spawn with.", "Roundstart AI Lawset", sort_list(lawset_choices))
 	if(isnull(chosen))
 		return
 
-	var/selected_lawset = lawset_choices[chosen]
-	GLOB.round_default_lawset = selected_lawset
+	GLOB.round_default_lawset = lawset_choices[chosen]
 
 	log_admin("[key_name(src)] set the roundstart AI lawset to [chosen].")
-	message_admins("[key_name_admin(src)] set the roundstart AI lawset to [chosen].")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Roundstart AI Lawset")
 
 /client/proc/cmd_admin_add_freeform_ai_law()
