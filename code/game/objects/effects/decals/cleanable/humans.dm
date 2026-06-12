@@ -54,6 +54,9 @@
 		var/list/temp_color = rgb2hsv(color || COLOR_WHITE)
 		temp_color[3] = max(temp_color[3] - 100, min(temp_color[3], 10))
 		color = hsv2rgb(temp_color)
+		// Remove glow when dry for Ethereal blood (only droplets have light)
+		if(blood_state == "LE")
+			set_light(0)
 		STOP_PROCESSING(SSobj, src)
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
@@ -324,6 +327,7 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 				GLOB.bloody_footprints_cache["exited-[blood_state]-[Ddir]"] = bloodstep_overlay = image(icon, "[blood_state]2", dir = Ddir)
 			. += bloodstep_overlay
 
+
 /obj/effect/decal/cleanable/blood/footprints/examine(mob/user)
 	. = ..()
 	if((shoe_types.len + species_types.len) > 0)
@@ -354,13 +358,13 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 	return FALSE
 
 // ========== ETHEREAL BLOOD GLOW ==========
-// Make footprints glow for Ethereal blood (blood_state == "LE")
+// Make footprints glow for Ethereal blood (blood_state == "LE") – optional, you can comment out if you don't want footprints to glow
 /obj/effect/decal/cleanable/blood/footprints/Initialize(mapload)
 	. = ..()
 	if(blood_state == "LE")
 		set_light(1, 0.5, "#7fff7f")
 
-// Make crawling trail glow for Ethereal blood
+// Make crawling trail glow for Ethereal blood – optional
 /obj/effect/decal/cleanable/blood/trail_holder/Initialize(mapload)
 	. = ..()
 	if(blood_state == "LE")
