@@ -224,7 +224,7 @@
 			target.adjustStaminaLoss(stamina_damage)
 			log_combat(user, target, "tripped", src)
 		if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-		
+
 			var/armor = target.getarmor(MELEE, armour_penetration)
 			target.apply_damage(stamina_damage, STAMINA, zone, armor)
 			log_combat(user, target, "disarmed", src)
@@ -344,7 +344,7 @@
 	name = "deputy baton"
 	force = 12
 	cooldown = 10
-	stamina_damage = 30  // Changed from 85 to 30
+	stamina_damage = 30
 	stun_animation = TRUE
 	custom_price = 120
 
@@ -593,7 +593,7 @@
 	var/cell_hit_cost = 10 KILOWATT
 	var/can_remove_cell = TRUE
 	var/convertible = TRUE //if it can be converted with a conversion kit
-	/// Blunt hit sound used for harm baton (swing_hit)
+	/// Blunt hit sound AS GOD INTENDED
 	var/harm_sound = 'sound/weapons/swing_hit.ogg'
 
 /datum/armor/melee_baton
@@ -707,11 +707,11 @@
 		playsound(src, "sparks", 75, TRUE, -1)
 		toggle_light(user)
 		do_sparks(1, TRUE, src)
-		// Update hitsound for normal melee attacks (when inactive)
+
 		if(active)
-			hitsound = initial(hitsound) // restore to woodhit
+			hitsound = initial(hitsound)
 		else
-			hitsound = harm_sound // when off, use swing_hit
+			hitsound = harm_sound
 	else
 		active = FALSE
 		if(!cell)
@@ -757,17 +757,12 @@
 /obj/item/melee/baton/security/finalize_baton_attack(mob/living/target, mob/living/user, modifiers, in_attack_chain = TRUE)
 	// Determine which sounds to play
 	if(active && user.combat_mode)
-		// Active harm baton: play both electrical and swing_hit
 		playsound(get_turf(src), 'sound/weapons/egloves.ogg', on_stun_volume, TRUE, -1)
 		playsound(get_turf(src), harm_sound, on_stun_volume, TRUE, -1)
 	else if(active)
-		// Normal stun: electrical sound only
 		playsound(get_turf(src), on_stun_sound, on_stun_volume, TRUE, -1)
 	else
-		// Inactive: no stun sound (normal melee attack uses hitsound which is already set to swing_hit)
-		// No additional sound here; hitsound will play from the normal attack chain.
 
-	// Proceed with the rest of the attack
 	COOLDOWN_START(src, cooldown_check, cooldown)
 	if(user)
 		target.lastattacker = user.real_name
