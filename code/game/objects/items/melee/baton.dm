@@ -211,7 +211,7 @@
 		return baton_effect_non_cyborg(target, user, modifiers, stun_override, trait_check)
 
 /obj/item/melee/baton/proc/baton_effect_non_cyborg(mob/living/target, mob/living/user, modifiers, stun_override, trait_check)
-	// FIX: Add zone‑specific effects for all batons (legs = trip, arms = disarm, head/chest = stun)
+	// Zone‑specific effects for all batons (legs = trip, arms = stamina damage, head/chest = stamina damage)
 	var/zone = user ? user.get_combat_bodyzone(target) : BODY_ZONE_CHEST
 	if(!zone)
 		zone = BODY_ZONE_CHEST
@@ -224,7 +224,7 @@
 			target.adjustStaminaLoss(stamina_damage)
 			log_combat(user, target, "tripped", src)
 		if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-			// Arms: disarm (stamina damage to arm)
+			// Arms: disarm (stamina damage to arm) – no forced drop
 			var/armor = target.getarmor(MELEE, armour_penetration)
 			target.apply_damage(stamina_damage, STAMINA, zone, armor)
 			log_combat(user, target, "disarmed", src)
@@ -232,6 +232,15 @@
 			// Head or chest: stun (stamina damage only, no knockdown)
 			target.adjustStaminaLoss(stamina_damage)
 			log_combat(user, target, "stunned", src)
+
+	// If in combat mode (harm intent) and this baton actually does stamina damage (exclude telescopic),
+	// also apply a small amount of brute damage (half the baton's force).
+	if(user.combat_mode && stamina_damage > 0)
+		var/brute_damage = force * 0.5 // Half force as brute
+		if(brute_damage > 0)
+			var/armor = target.getarmor(MELEE, armour_penetration)
+			target.apply_damage(brute_damage, BRUTE, zone, armor)
+			log_combat(user, target, "harmed while stunning", src)
 
 	additional_effects_non_cyborg(target, user)
 	return TRUE
@@ -358,7 +367,7 @@
 	attack_verb_continuous = list("hits", "pokes")
 	attack_verb_simple = list("hit", "poke")
 	worn_icon_state = "tele_baton"
-	stamina_damage = 0
+	stamina_damage = 0   // No stamina damage
 	stun_animation = FALSE
 	slot_flags = ITEM_SLOT_BELT
 	block_flags = BLOCKING_EFFORTLESS
@@ -433,35 +442,28 @@
 		return BRUTELOSS
 
 /obj/item/melee/baton/telescopic/baton_effect_non_cyborg(mob/living/target, mob/living/user, modifiers, stun_override, trait_check)
-	// FIX: Removed the combat mode check – zone targeting always applies.
-	// Previously it fell back to parent (which now also has zone logic) when in combat mode.
-	// Now the telescopic baton always uses its own detailed zone handling.
-	var/def_check = target.getarmor(type = MELEE, penetration = armour_penetration)
+	// Telescopic baton: No stamina damage, only trip on legs and disarm on arms.
+	var/zone = user.get_combat_bodyzone(target)
+	if(!zone)
+		zone = BODY_ZONE_CHEST
 
-	// Head/Chest: stamina hit
-	if(user.is_zone_selected(BODY_ZONE_HEAD) || user.is_zone_selected(BODY_ZONE_CHEST))
-		target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_CHEST, def_check)
-		log_combat(user, target, "stunned", src)
-		additional_effects_non_cyborg(target, user)
-		return TRUE
+	switch(zone)
+		if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+			// Legs: trip (knockdown only, no stamina)
+			if(!trait_check)
+				target.Knockdown(30)
+			log_combat(user, target, "tripped", src)
+		if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+			// Arms: disarm (force drop held items)
+			target.drop_all_held_items()
+			log_combat(user, target, "disarmed", src)
+		else
+			// Head/Chest: no effect (harmless hit)
+			log_combat(user, target, "lightly tapped", src)
+			return TRUE
 
-	// Legs: trip
-	if(user.is_zone_selected(BODY_ZONE_R_LEG) || user.is_zone_selected(BODY_ZONE_L_LEG))
-		if(!trait_check)
-			target.Knockdown(30)
-		log_combat(user, target, "tripped", src)
-		additional_effects_non_cyborg(target, user)
-		return TRUE
-
-	// Arms: “disarm” (stamina to arm)
-	var/combat_zone = user.get_combat_bodyzone(target)
-	if(combat_zone == BODY_ZONE_L_ARM || combat_zone == BODY_ZONE_R_ARM)
-		target.apply_damage(50, STAMINA, combat_zone, def_check)
-		log_combat(user, target, "disarmed", src)
-		additional_effects_non_cyborg(target, user)
-		return TRUE
-
-	return ..()
+	additional_effects_non_cyborg(target, user)
+	return TRUE
 
 /*
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
