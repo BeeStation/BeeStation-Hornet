@@ -210,8 +210,8 @@
 		// Non-cyborg: delegate to hook
 		return baton_effect_non_cyborg(target, user, modifiers, stun_override, trait_check)
 
+// Default baton_effect_non_cyborg for base baton (police/deputy). Includes zone effects with knockdown on legs.
 /obj/item/melee/baton/proc/baton_effect_non_cyborg(mob/living/target, mob/living/user, modifiers, stun_override, trait_check)
-	// Zone‑specific effects for all batons (legs = trip, arms = stamina damage, head/chest = stamina damage)
 	var/zone = user ? user.get_combat_bodyzone(target) : BODY_ZONE_CHEST
 	if(!zone)
 		zone = BODY_ZONE_CHEST
@@ -224,19 +224,18 @@
 			target.adjustStaminaLoss(stamina_damage)
 			log_combat(user, target, "tripped", src)
 		if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-			// Arms: disarm (stamina damage to arm) – no forced drop
+			// Arms: stamina damage only (no forced drop)
 			var/armor = target.getarmor(MELEE, armour_penetration)
 			target.apply_damage(stamina_damage, STAMINA, zone, armor)
 			log_combat(user, target, "disarmed", src)
 		else
-			// Head or chest: stun (stamina damage only, no knockdown)
+			// Head or chest: stamina damage only, no knockdown
 			target.adjustStaminaLoss(stamina_damage)
 			log_combat(user, target, "stunned", src)
 
-	// If in combat mode (harm intent) and this baton actually does stamina damage (exclude telescopic),
-	// also apply a small amount of brute damage (half the baton's force).
+	// If in combat mode and this baton deals stamina damage, add small brute damage
 	if(user.combat_mode && stamina_damage > 0)
-		var/brute_damage = force * 0.5 // Half force as brute
+		var/brute_damage = force * 0.5
 		if(brute_damage > 0)
 			var/armor = target.getarmor(MELEE, armour_penetration)
 			target.apply_damage(brute_damage, BRUTE, zone, armor)
@@ -562,6 +561,7 @@
 	desc = "A compact, specialised retractible stun baton assigned to bounty hunters."
 	knockdown_time = (2 SECONDS)
 
+// REGULAR SECURITY STUN BATON - Overrides zone effect to remove knockdown (trip)
 /obj/item/melee/baton/security
 	name = "stun baton"
 	desc = "A stun baton for incapacitating people with."
@@ -760,6 +760,7 @@
 	var/trait_check = HAS_TRAIT(target, TRAIT_BATON_RESISTANCE)
 	return baton_effect_non_cyborg(target, user, modifiers, stun_override, trait_check)
 
+// Override for security baton: no knockdown, but still zone-specific stamina damage
 /obj/item/melee/baton/security/baton_effect_non_cyborg(mob/living/target, mob/living/user, modifiers, stun_override, trait_check)
 	// Special handling for stamina-immune limbs
 	if(ishuman(target))
@@ -785,14 +786,34 @@
 			additional_effects_non_cyborg(target, user)
 			return TRUE
 
-	target.adjustStaminaLoss(stamina_damage)
+	// Apply stamina damage based on zone (no knockdown)
+	var/zone = user ? user.get_combat_bodyzone(target) : BODY_ZONE_CHEST
+	if(!zone)
+		zone = BODY_ZONE_CHEST
 
-	// Apply minor effects
+	switch(zone)
+		if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+			target.adjustStaminaLoss(stamina_damage)
+			log_combat(user, target, "stunned (legs)", src)
+		if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+			var/armor = target.getarmor(MELEE, armour_penetration)
+			target.apply_damage(stamina_damage, STAMINA, zone, armor)
+			log_combat(user, target, "stunned (arm)", src)
+		else
+			target.adjustStaminaLoss(stamina_damage)
+			log_combat(user, target, "stunned (torso/head)", src)
+
+	// If in combat mode, add small brute damage
+	if(user.combat_mode)
+		var/brute_damage = force * 0.5
+		if(brute_damage > 0)
+			var/armor = target.getarmor(MELEE, armour_penetration)
+			target.apply_damage(brute_damage, BRUTE, zone, armor)
+			log_combat(user, target, "harmed while stunning", src)
+
 	if(stun_animation)
 		target.do_stun_animation(target)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
-
-	// Call any additional effects
 	additional_effects_non_cyborg(target, user)
 	return TRUE
 
