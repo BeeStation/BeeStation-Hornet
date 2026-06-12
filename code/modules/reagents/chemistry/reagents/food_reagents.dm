@@ -758,7 +758,7 @@
 
 /datum/reagent/consumable/liquidelectricity
 	name = "Liquid Electricity"
-	description = "The blood of Ethereals, and the stuff that keeps them going. Great for them, horrid for anyone else. Causes electric shocks if injected into a non-Ethereal."
+	description = "The blood of Ethereals, and the stuff that keeps them going. Great for them, horrid for anyone else."
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#97ee63"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
@@ -789,7 +789,7 @@
 			var/mob/living/carbon/human/H = affected_mob
 			H.blood_volume = min(H.blood_volume + (1 * REM * delta_time), BLOOD_VOLUME_MAXIMUM)
 	else if(DT_PROB(3, delta_time))
-		affected_mob.electrocute_act(rand(8,13), "Liquid Electricity in their body", 1)
+		affected_mob.electrocute_act(rand(8,13), "Liquid Electricity in their body", 1) //lmao at the newbs who eat energy bars HARDER
 		playsound(affected_mob, "sparks", 50, 1)
 
 
