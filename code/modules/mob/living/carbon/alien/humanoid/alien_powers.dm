@@ -275,7 +275,7 @@ Doesn't work on other aliens/AI.*/
 	// because we use the click parameters for aiming the projectile
 	// (or something like that)
 	var/turf/user_turf = clicker.loc
-	// FIX: Get the actual target's location for recoil direction (works in zero‑g)
+	// Get the actual target's location for recoil direction (works in zero‑g)
 	var/atom/real_target = target
 	var/turf/target_turf = get_turf(real_target)
 	if(!target_turf)
@@ -291,17 +291,23 @@ Doesn't work on other aliens/AI.*/
 	neurotoxin.firer = clicker
 	neurotoxin.fire()
 
-	// FIX: Recoil – push the shooter away from the target, even in zero‑gravity
-	var/recoil_dir = get_dir(target_turf, user_turf) // opposite direction of fire
-	if(recoil_dir && recoil_dir != 0)
-		var/turf/push_turf = get_step(user_turf, recoil_dir)
-		if(push_turf)
-			clicker.throw_at(push_turf, 2, 1, spin = FALSE, diagonals_first = TRUE)
+	// FIX: Recoil only in zero‑gravity
+	// Check if either the shooter or the target is in zero‑gravity
+	var/shooter_has_gravity = has_gravity(clicker)
+	var/target_has_gravity = has_gravity(target_turf)
+	if(!shooter_has_gravity || !target_has_gravity)
+		// Zero‑gravity: push the shooter away from the target
+		var/recoil_dir = get_dir(target_turf, user_turf) // opposite direction of fire
+		if(recoil_dir && recoil_dir != 0)
+			var/turf/push_turf = get_step(user_turf, recoil_dir)
+			if(push_turf)
+				clicker.throw_at(push_turf, 2, 1, spin = FALSE, diagonals_first = TRUE)
+			else
+				step(clicker, recoil_dir)
 		else
-			step(clicker, recoil_dir)
-	else
-		// Fallback to original newtonian_move (for compatibility)
-		clicker.newtonian_move(get_dir(target_turf, user_turf))
+			// Fallback to original newtonian_move (for compatibility)
+			clicker.newtonian_move(get_dir(target_turf, user_turf))
+	// else: both have gravity → no recoil
 
 	return TRUE
 
