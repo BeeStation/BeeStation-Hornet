@@ -1,309 +1,367 @@
-/obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
+/obj/effect/decal/cleanable/blood
+	name = "blood"
+	desc = "It's weird and gooey. Perhaps it's the chef's cooking?"
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "floor1"
+	color = COLOR_BLOOD
+	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
+	blood_state = BLOOD_STATE_HUMAN
+	bloodiness = BLOOD_AMOUNT_PER_DECAL
+	//beauty = -100
+	clean_type = CLEAN_TYPE_BLOOD
+	var/should_dry = TRUE
+	var/dryname = "dried blood" //when the blood lasts long enough, it becomes dry and gets a new name
+	var/drydesc = "Looks like it's been here a while. Eew." //as above
+	var/drytime = 0
 
-	if(issilicon(user) && get_dist(src,user)>1)
-		return attack_hand(user)
-
-	if	(istype(W, /obj/item/stock_parts/cell) && opened)
-		if(cell)
-			to_chat(user, span_warning("There is a power cell already installed!"))
-			return
-		else
-			if (machine_stat & MAINT)
-				to_chat(user, span_warning("There is no connector for your power cell!"))
-				return
-			if(!user.transferItemToLoc(W, src))
-				return
-			cell = W
-			user.visible_message(\
-				"[user.name] has inserted the power cell to [src.name]!",\
-				span_notice("You insert the power cell."))
-			update_appearance()
-	else if (W.GetID())
-		togglelock(user)
-	else if (istype(W, /obj/item/stack/cable_coil) && opened)
-		var/turf/host_turf = get_turf(src)
-		if(!host_turf)
-			CRASH("attackby on APC when it's not on a turf")
-		if (host_turf.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
-			to_chat(user, span_warning("You must remove the floor plating in front of the APC first!"))
-			return
-		else if (terminal)
-			to_chat(user, span_warning("This APC is already wired!"))
-			return
-		else if (!has_electronics)
-			to_chat(user, span_warning("There is nothing to wire!"))
-			return
-
-		var/obj/item/stack/cable_coil/C = W
-		if(C.get_amount() < 10)
-			to_chat(user, span_warning("You need ten lengths of cable for APC!"))
-			return
-		user.visible_message("[user.name] adds cables to the APC frame.", \
-							span_notice("You start adding cables to the APC frame."))
-		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-		if(do_after(user, 20, target = src))
-			if (C.get_amount() < 10 || !C)
-				return
-			if (C.get_amount() >= 10 && !terminal && opened && has_electronics)
-				var/turf/T = get_turf(src)
-				var/obj/structure/cable/N = T.get_cable_node()
-				if (prob(50) && electrocute_mob(usr, N, N, 1, TRUE))
-					do_sparks(5, TRUE, src)
-					return
-				C.use(10)
-				to_chat(user, span_notice("You add cables to the APC frame."))
-				make_terminal()
-				terminal.connect_to_network()
-	else if (istype(W, /obj/item/electronics/apc) && opened)
-		if (has_electronics)
-			to_chat(user, span_warning("There is already a board inside the [src]!"))
-			return
-		else if (machine_stat & BROKEN)
-			to_chat(user, span_warning("You cannot put the board inside, the frame is damaged!"))
-			return
-
-		user.visible_message("[user.name] inserts the power control board into [src].", \
-							span_notice("You start to insert the power control board into the frame."))
-		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-		if(do_after(user, 10, target = src))
-			if(!has_electronics)
-				has_electronics = APC_ELECTRONICS_INSTALLED
-				locked = FALSE
-				wires.ui_update()
-				to_chat(user, span_notice("You place the power control board inside the frame."))
-				qdel(W)
-	else if(istype(W, /obj/item/electroadaptive_pseudocircuit) && opened)
-		var/obj/item/electroadaptive_pseudocircuit/P = W
-		if(!has_electronics)
-			if(machine_stat & BROKEN)
-				to_chat(user, span_warning("[src]'s frame is too damaged to support a circuit."))
-				return
-			if(!P.adapt_circuit(user, 50))
-				return
-			user.visible_message(span_notice("[user] fabricates a circuit and places it into [src]."), \
-			span_notice("You adapt a power control board and click it into place in [src]'s guts."))
-			has_electronics = APC_ELECTRONICS_INSTALLED
-			locked = FALSE
-			wires.ui_update()
-		else if(!cell)
-			if(machine_stat & MAINT)
-				to_chat(user, span_warning("There's no connector for a power cell."))
-				return
-			if(!P.adapt_circuit(user, 500))
-				return
-			var/obj/item/stock_parts/cell/crap/empty/C = new(src)
-			C.forceMove(src)
-			cell = C
-			user.visible_message(span_notice("[user] fabricates a weak power cell and places it into [src]."), \
-			span_warning("Your [P.name] whirs with strain as you create a weak power cell and place it into [src]!"))
-			update_appearance()
-		else
-			to_chat(user, span_warning("[src] has both electronics and a cell."))
-			return
-	else if (istype(W, /obj/item/wallframe/apc) && opened)
-		if (!(machine_stat & BROKEN || opened==APC_COVER_REMOVED || atom_integrity < max_integrity)) // There is nothing to repair
-			to_chat(user, span_warning("You find no reason for repairing this APC."))
-			return
-		if (!(machine_stat & BROKEN) && opened==APC_COVER_REMOVED)
-		// Cover is the only thing broken, we do not need to remove elctronicks to replace cover
-			user.visible_message("[user.name] replaces missing APC's cover.",\
-							span_notice("You begin to replace the APC's cover."))
-			if(do_after(user, 20, target = src)) // replacing cover is quicker than replacing whole frame
-				to_chat(user, span_notice("You replace the missing APC cover."))
-				qdel(W)
-				opened = APC_COVER_OPENED
-				update_appearance()
-			return
-		if (has_electronics)
-			to_chat(user, span_warning("You cannot repair this APC until you remove the electronics still inside!"))
-			return
-		user.visible_message("[user.name] replaces the damaged APC frame with a new one.",\
-							span_notice("You begin to replace the damaged APC frame."))
-		if(do_after(user, 50, target = src))
-			to_chat(user, span_notice("You replace the damaged APC frame with a new one."))
-			qdel(W)
-			set_machine_stat(machine_stat & ~BROKEN)
-			atom_integrity = max_integrity
-			if (opened==APC_COVER_REMOVED)
-				opened = APC_COVER_OPENED
-			update_appearance()
-
-	else if(istype(W, /obj/item/apc_powercord))
-		return //because we put our fancy code in the right places, and this is all in the powercord's afterattack()
-
-	else if(panel_open && !opened && is_wire_tool(W))
-		wires.interact(user)
+/obj/effect/decal/cleanable/blood/Initialize(mapload)
+	. = ..()
+	if(!should_dry)
+		return
+	if(bloodiness)
+		start_drying()
 	else
-		return ..()
+		dry()
 
-// attack with hand - remove cell (if cover open) or interact with the APC
+/obj/effect/decal/cleanable/blood/process()
+	if(world.time > drytime)
+		dry()
 
-/obj/machinery/power/apc/attack_hand(mob/user, list/modifiers)
+/obj/effect/decal/cleanable/blood/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/effect/decal/cleanable/blood/add_blood_DNA(list/blood_dna, list/datum/disease/diseases)
 	. = ..()
-	if(.)
+	if(blood_dna)
+		color = get_blood_dna_color(blood_dna)
+
+/obj/effect/decal/cleanable/blood/proc/get_timer()
+	drytime = world.time + 3 MINUTES
+
+/obj/effect/decal/cleanable/blood/proc/start_drying()
+	get_timer()
+	START_PROCESSING(SSobj, src)
+
+/obj/effect/decal/cleanable/blood/proc/dry()
+	if(bloodiness > 20)
+		bloodiness -= BLOOD_AMOUNT_PER_DECAL
+		get_timer()
+	else
+		name = dryname
+		desc = drydesc
+		bloodiness = 0
+		var/list/temp_color = rgb2hsv(color || COLOR_WHITE)
+		temp_color[3] = max(temp_color[3] - 100, min(temp_color[3], 10))
+		color = hsv2rgb(temp_color)
+		STOP_PROCESSING(SSobj, src)
+
+/obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
+	C.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
+	if (bloodiness)
+		C.bloodiness = min((C.bloodiness + bloodiness), BLOOD_AMOUNT_PER_DECAL)
+	return ..()
+
+/obj/effect/decal/cleanable/blood/old
+	name = "dried blood"
+	desc = "Looks like it's been here a while.  Eew."
+	bloodiness = 0
+	icon_state = "floor1-old"
+	var/list/datum/disease/diseases = list()
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/old)
+
+/obj/effect/decal/cleanable/blood/old/Initialize(mapload, list/datum/disease/diseases)
+	add_blood_DNA(list("Non-human DNA" = random_blood_type())) // Needs to happen before ..()
+	. = ..()
+	if(length(diseases))
+		src.diseases += diseases
+	if(prob(75))
+		var/datum/disease/advance/new_disease = new /datum/disease/advance/random(rand(1, 4), rand(7, 9), 4)
+		src.diseases += new_disease
+
+/obj/effect/decal/cleanable/blood/splatter
+	icon_state = "gibbl1"
+	random_icon_states = list("gibbl1", "gibbl2", "gibbl3", "gibbl4", "gibbl5")
+	dryname = "dried tracks"
+	drydesc = "Some old bloody tracks left by wheels. Machines are evil, perhaps."
+
+/obj/effect/decal/cleanable/blood/tracks
+	name = "tracks"
+	desc = "They look like tracks left by wheels."
+	icon_state = "tracks"
+	random_icon_states = null
+	//beauty = -50
+	dryname = "dried tracks"
+	drydesc = "Some old bloody tracks left by wheels. Machines are evil, perhaps."
+
+/obj/effect/decal/cleanable/blood/trail_holder //not a child of blood on purpose //nice fucking descriptive comment jackass, fuck you //hello fikou //terrible
+	name = "blood"
+	icon = 'icons/effects/blood.dmi'
+	desc = "Your instincts say you shouldn't be following these."
+	//beauty = -50
+	icon_state = null
+	random_icon_states = null
+	var/list/existing_dirs = list()
+
+/obj/effect/decal/cleanable/blood/trail_holder/glowy
+	light_power = 0.5
+	light_range = 0.25
+	light_color = "#7fff7f"
+
+/obj/effect/decal/cleanable/blood/gibs
+	name = "gibs"
+	desc = "They look bloody and gruesome."
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "gib1"
+	layer = LOW_OBJ_LAYER
+	plane = GAME_PLANE
+	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
+	mergeable_decal = FALSE
+	turf_loc_check = FALSE
+
+	dryname = "rotting gibs"
+	drydesc = "They look bloody and gruesome while some terrible smell fills the air."
+	decal_reagent = /datum/reagent/liquidgibs
+	reagent_amount = 5
+	///Information about the diseases our streaking spawns
+	var/list/streak_diseases
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/gibs)
+
+/obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
+	. = ..()
+	var/mutable_appearance/gib_overlay = mutable_appearance(icon, "[icon_state]-overlay", appearance_flags = RESET_COLOR)
+	add_overlay(gib_overlay)
+	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
+
+/obj/effect/decal/cleanable/blood/gibs/Destroy()
+	LAZYNULL(streak_diseases)
+	return ..()
+
+/obj/effect/decal/cleanable/blood/gibs/dry()
+	. = ..()
+	if(!.)
 		return
 
-	if(isethereal(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/stomach/battery/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
-		if(!stomach)
-			return
-		// Maximum values for percentage calculation
-		var/max_hunger = NUTRITION_LEVEL_FED       // typically 600
-		var/max_apc_charge = cell ? cell.maxcharge : 100
+/obj/effect/decal/cleanable/blood/gibs/replace_decal(obj/effect/decal/cleanable/C)
+	return FALSE //Never fail to place us
 
-		// Continuous loop
-		var/keep_going = TRUE
-		while(keep_going)
-			// Check if user is still in the same tile and alive/conscious
-			if(QDELETED(H) || H.stat != CONSCIOUS || get_dist(H, src) > 1)
-				keep_going = FALSE
+/obj/effect/decal/cleanable/blood/gibs/ex_act(severity, target)
+	return
+
+/obj/effect/decal/cleanable/blood/gibs/on_entered(datum/source, atom/movable/L)
+	if(isliving(L) && has_gravity(loc))
+		playsound(loc, 'sound/effects/gib_step.ogg', HAS_TRAIT(L, TRAIT_LIGHT_STEP) ? 20 : 50, TRUE)
+	. = ..()
+
+/obj/effect/decal/cleanable/blood/gibs/proc/on_pipe_eject(atom/source, direction)
+	SIGNAL_HANDLER
+
+	var/list/dirs
+	if(direction)
+		dirs = list(direction, turn(direction, -45), turn(direction, 45))
+	else
+		dirs = GLOB.alldirs.Copy()
+
+	streak(dirs)
+
+/obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions, mapload = FALSE)
+	LAZYINITLIST(streak_diseases)
+	SEND_SIGNAL(src, COMSIG_GIBS_STREAK, directions, streak_diseases)
+	var/direction = pick(directions)
+	streak_diseases = list()
+	var/delay = 2
+	var/range = pick(0, 200; 1, 150; 2, 50; 3, 17; 50) //the 3% chance of 50 steps is intentional and played for laughs.
+	if(!step_to(src, get_step(src, direction), 0))
+		return
+	if(mapload)
+		for (var/i = 1, i < range, i++)
+			var/obj/effect/decal/cleanable/blood/splatter/splat = new /obj/effect/decal/cleanable/blood/splatter(loc, streak_diseases)
+			if(!QDELETED(splat) && GET_ATOM_BLOOD_DNA_LENGTH(src))
+				splat.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
+			if (!step_to(src, get_step(src, direction), 0))
 				break
-
-			if(H.combat_mode)  // Drain APC → gain hunger
-				// Need at least 10% APC charge to drain
-				if(!cell || cell.charge < max_apc_charge * 0.1)
-					to_chat(H, span_warning("The APC doesn't have enough charge to drain ."))
-					break
-				// Check if Ethereal is already at max hunger (prevent overflow)
-				if(H.nutrition >= max_hunger - (max_hunger * 0.1))
-					to_chat(H, span_warning("You are already fully charged! Cannot drain more."))
-					break
-			else  // Give power to APC → lose hunger
-				// Need at least 10% Ethereal hunger to give
-				if(H.nutrition < max_hunger * 0.1)
-					to_chat(H, span_warning("You don't have enough energy to transfer ."))
-					break
-				// APC must have room for 10% more charge
-				if(!cell || cell.charge >= max_apc_charge - (max_apc_charge * 0.1))
-					to_chat(H, span_warning("The APC cannot accept more charge."))
-					break
-
-			// Start the transfer
-			if(H.combat_mode)
-				to_chat(H, span_notice("You start draining energy from the APC."))
-			else
-				to_chat(H, span_notice("You start transferring some of your energy to the APC."))
-
-			// Perform the do_after (user must stand still for APC_DRAIN_TIME)
-			if(!do_after(H, APC_DRAIN_TIME, target = src, progress = TRUE))
-				to_chat(H, span_warning("You stop interacting with the APC."))
-				break
-
-			// Small chance of electrocution during the process (15%)
-			if(prob(15))
-				H.visible_message(span_danger("[H] gets shocked by [src]!"), \
-								  span_userdanger("You are jolted by an electrical discharge from [src]!"))
-				playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE)
-				do_sparks(3, TRUE, src)
-				H.electrocute_act(rand(5, 15), src, siemens_coeff = 0.5, flags = SHOCK_NOGLOVES)
-				// Shock does not interrupt the transfer; it's just an additional hazard.
-
-			if(H.combat_mode)
-				if(!cell || cell.charge < max_apc_charge * 0.1)
-					to_chat(H, span_warning("The APC no longer has enough charge to drain."))
-					break
-				if(H.nutrition >= max_hunger - (max_hunger * 0.1))
-					to_chat(H, span_warning("You are already fully charged!"))
-					break
-
-				var/hunger_gain = max_hunger * 0.1
-				H.adjust_nutrition(hunger_gain)
-				cell.charge = max(0, cell.charge - (max_apc_charge * 0.1))
-				to_chat(H, span_notice("You drain energy from the APC."))
-				H.balloon_alert(H, "Drained APC (+10% energy)")
-				playsound(src, 'sound/machines/defib_charge.ogg', 30, TRUE)
-				update_icon()
-			else
-				if(H.nutrition < max_hunger * 0.1)
-					to_chat(H, span_warning("You no longer have enough energy to transfer."))
-					break
-				if(!cell || cell.charge >= max_apc_charge - (max_apc_charge * 0.1))
-					to_chat(H, span_warning("The APC cannot accept more charge."))
-					break
-
-				var/hunger_loss = max_hunger * 0.1
-				H.adjust_nutrition(-hunger_loss)
-				cell.charge = min(max_apc_charge, cell.charge + (max_apc_charge * 0.1))
-				to_chat(H, span_notice("You transfer some of your energy to the APC."))
-				H.balloon_alert(H, "Transferred energy (+10% APC)")
-				playsound(src, 'sound/machines/defib_charge.ogg', 30, TRUE)
-				update_icon()
-
-			// Small delay to prevent infinite loop if something fails
-			sleep(1) // Let other processes run
-
 		return
 
-	if(opened && (!issilicon(user)))
-		if(cell)
-			user.visible_message("[user] removes \the [cell] from [src]!",span_notice("You remove \the [cell]."))
-			user.put_in_hands(cell)
-			cell.update_appearance()
-			src.cell = null
-			charging = APC_NOT_CHARGING
-			src.update_appearance()
-		return
-	if((machine_stat & MAINT) && !opened) //no board; no interface
-		return
+	var/datum/move_loop/loop = SSmove_manager.move_to(src, get_step(src, direction), delay = delay, timeout = range * delay, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(spread_movement_effects))
 
+/obj/effect/decal/cleanable/blood/gibs/proc/spread_movement_effects(datum/move_loop/has_target/source)
+	SIGNAL_HANDLER
+	new /obj/effect/decal/cleanable/blood/splatter(loc, streak_diseases)
 
-/obj/machinery/power/apc/atom_break(damage_flag)
+/obj/effect/decal/cleanable/blood/gibs/up
+	icon_state = "gibup1"
+	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6","gibup1","gibup1","gibup1")
+
+/obj/effect/decal/cleanable/blood/gibs/down
+	icon_state = "gibdown1"
+	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6","gibdown1","gibdown1","gibdown1")
+
+/obj/effect/decal/cleanable/blood/gibs/body
+	icon_state = "gibtorso"
+	random_icon_states = list("gibhead", "gibtorso")
+
+/obj/effect/decal/cleanable/blood/gibs/torso
+	icon_state = "gibtorso"
+	random_icon_states = null
+
+/obj/effect/decal/cleanable/blood/gibs/limb
+	icon_state = "gibleg"
+	random_icon_states = list("gibleg", "gibarm")
+
+/obj/effect/decal/cleanable/blood/gibs/core
+	icon_state = "gibmid1"
+	random_icon_states = list("gibmid1", "gibmid2", "gibmid3")
+
+/obj/effect/decal/cleanable/blood/gibs/old
+	name = "old rotting gibs"
+	desc = "Space Jesus, why didn't anyone clean this up? They smell terrible."
+	icon_state = "gib1-old"
+	bloodiness = 0
+	should_dry = FALSE
+	dryname = "old rotting gibs"
+	drydesc = "Space Jesus, why didn't anyone clean this up? They smell terrible."
+	var/list/datum/disease/diseases = list()
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/gibs/old)
+
+/obj/effect/decal/cleanable/blood/gibs/old/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
-	if(.)
-		set_broken()
+	setDir(pick(1, 2, 4, 8))
+	add_blood_DNA(list("Non-human DNA" = random_blood_type()))
+	if(length(diseases))
+		src.diseases += diseases
+	if(prob(80))
+		var/datum/disease/advance/new_disease = new /datum/disease/advance/random(rand(3, 6), rand(8, 9), 4)
+		src.diseases += new_disease
+	dry()
 
-/obj/machinery/power/apc/eminence_act(mob/living/simple_animal/eminence/eminence)
-	. = ..()
-	ui_interact(eminence)
+/obj/effect/decal/cleanable/blood/drip
+	name = "drips of blood"
+	desc = "It's red."
+	icon_state = "drip5" //using drip5 since the others tend to blend in with pipes & wires.
+	random_icon_states = list("drip1","drip2","drip3","drip4","drip5")
+	bloodiness = 0
+	var/drips = 1
+	dryname = "drips of blood"
+	drydesc = "It's red."
 
-/obj/machinery/power/apc/blob_act(obj/structure/blob/B)
-	set_broken()
-
-/obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
-	if(IsAdminGhost(user))
-		return TRUE
-	if(user.has_unlimited_silicon_privilege)
-		var/mob/living/silicon/ai/AI = user
-		var/mob/living/silicon/robot/robot = user
-		if(!allowed(user))
-			return FALSE
-		if (                                                             \
-			src.aidisabled ||                                            \
-			malfhack && istype(malfai) &&                                \
-			(                                                            \
-				(istype(AI) && (malfai!=AI && malfai != AI.parent)) ||   \
-				(istype(robot) && (robot in malfai.connected_robots))    \
-			)                                                            \
-		)
-			if(!loud)
-				to_chat(user, span_danger("\The [src] has been disabled!"))
-			return FALSE
+/obj/effect/decal/cleanable/blood/drip/can_bloodcrawl_in()
 	return TRUE
 
-/obj/machinery/power/apc/can_interact(mob/user)
+
+//BLOODY FOOTPRINTS
+/obj/effect/decal/cleanable/blood/footprints
+	name = "footprints"
+	desc = "WHOSE FOOTPRINTS ARE THESE?"
+	icon = 'icons/effects/footprints.dmi'
+	icon_state = "blood1"
+	random_icon_states = null
+	blood_state = BLOOD_STATE_HUMAN //the icon state to load images from
+	var/entered_dirs = 0
+	var/exited_dirs = 0
+
+	/// List of shoe or other clothing that covers feet types that have made footprints here.
+	var/list/shoe_types = list()
+
+	/// List of species that have made footprints here.
+	var/list/species_types = list()
+
+	dryname = "dried footprints"
+	drydesc = "HMM... SOMEONE WAS HERE!"
+
+/obj/effect/decal/cleanable/blood/footprints/Initialize(mapload)
 	. = ..()
-	if (!. && !QDELETED(remote_control))
-		. = remote_control.can_interact(user)
+	icon_state = "" //All of the footprint visuals come from overlays
+	if(mapload)
+		entered_dirs |= dir //Keep the same appearance as in the map editor
+		update_appearance()
 
-/obj/machinery/power/apc/proc/set_broken()
-	if(malfai && operating)
-		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
-	operating = FALSE
-	atom_break()
-	if(occupier)
-		malfvacate(1)
+//Rotate all of the footprint directions too
+/obj/effect/decal/cleanable/blood/footprints/setDir(newdir)
+	if(dir == newdir)
+		return ..()
+
+	var/ang_change = dir2angle(newdir) - dir2angle(dir)
+	var/old_entered_dirs = entered_dirs
+	var/old_exited_dirs = exited_dirs
+	entered_dirs = 0
+	exited_dirs = 0
+
+	for(var/Ddir in GLOB.cardinals)
+		if(old_entered_dirs & Ddir)
+			entered_dirs |= turn_cardinal(Ddir, ang_change)
+		if(old_exited_dirs & Ddir)
+			exited_dirs |= turn_cardinal(Ddir, ang_change)
+
 	update_appearance()
-	update()
+	return ..()
 
-/obj/machinery/power/apc/proc/shock(mob/user, prb)
-	if(!prob(prb))
-		return 0
-	do_sparks(5, TRUE, src)
-	if(isalien(user))
-		return 0
-	if(electrocute_mob(user, src, src, 1, TRUE))
-		return 1
-	else
-		return 0
+/obj/effect/decal/cleanable/blood/footprints/update_icon()
+	. = ..()
+	alpha = min(BLOODY_FOOTPRINT_BASE_ALPHA + (255 - BLOODY_FOOTPRINT_BASE_ALPHA) * bloodiness / (BLOOD_ITEM_MAX / 2), 255)
 
+//Cache of bloody footprint images
+//Key:
+//"entered-[blood_state]-[dir_of_image]"
+//or: "exited-[blood_state]-[dir_of_image]"
+GLOBAL_LIST_EMPTY(bloody_footprints_cache)
+
+/obj/effect/decal/cleanable/blood/footprints/update_overlays()
+	. = ..()
+	for(var/Ddir in GLOB.cardinals)
+		if(entered_dirs & Ddir)
+			var/image/bloodstep_overlay = GLOB.bloody_footprints_cache["entered-[blood_state]-[Ddir]"]
+			if(!bloodstep_overlay)
+				GLOB.bloody_footprints_cache["entered-[blood_state]-[Ddir]"] = bloodstep_overlay = image(icon, "[blood_state]1", dir = Ddir)
+			. += bloodstep_overlay
+
+		if(exited_dirs & Ddir)
+			var/image/bloodstep_overlay = GLOB.bloody_footprints_cache["exited-[blood_state]-[Ddir]"]
+			if(!bloodstep_overlay)
+				GLOB.bloody_footprints_cache["exited-[blood_state]-[Ddir]"] = bloodstep_overlay = image(icon, "[blood_state]2", dir = Ddir)
+			. += bloodstep_overlay
+
+/obj/effect/decal/cleanable/blood/footprints/examine(mob/user)
+	. = ..()
+	if((shoe_types.len + species_types.len) > 0)
+		. += "You recognise the footprints as belonging to:"
+		for(var/sole in shoe_types)
+			var/obj/item/clothing/item = sole
+			var/article = initial(item.gender) == PLURAL ? "Some" : "A"
+			. += "[icon2html(initial(item.icon), user, initial(item.icon_state))] [article] <B>[initial(item.name)]</B>."
+		for(var/species in species_types)
+			// god help me
+			if(species == "unknown")
+				. += "Some <B>feet</B>."
+			else if(species == SPECIES_MONKEY)
+				. += "[icon2html('icons/mob/monkey.dmi', user, "monkey1")] Some <B>monkey feet</B>."
+			else if(species == SPECIES_HUMAN)
+				. += "[icon2html('icons/mob/human/bodyparts.dmi', user, "default_human_l_leg")] Some <B>human feet</B>."
+			else
+				. += "[icon2html('icons/mob/human/bodyparts.dmi', user, "[species]_l_leg")] Some <B>[species] feet</B>."
+
+/obj/effect/decal/cleanable/blood/footprints/replace_decal(obj/effect/decal/cleanable/C)
+	if(blood_state != C.blood_state) //We only replace footprints of the same type as us
+		return FALSE
+	return ..()
+
+/obj/effect/decal/cleanable/blood/footprints/can_bloodcrawl_in()
+	if((blood_state != BLOOD_STATE_OIL) && (blood_state != BLOOD_STATE_NOT_BLOODY))
+		return TRUE
+	return FALSE
+
+// ========== ETHEREAL BLOOD GLOW ==========
+// Make footprints glow for Ethereal blood (blood_state == "LE")
+/obj/effect/decal/cleanable/blood/footprints/Initialize(mapload)
+	. = ..()
+	if(blood_state == "LE")
+		set_light(1, 0.5, "#7fff7f")
+
+// Make crawling trail glow for Ethereal blood
+/obj/effect/decal/cleanable/blood/trail_holder/Initialize(mapload)
+	. = ..()
+	if(blood_state == "LE")
+		set_light(1, 0.5, "#7fff7f")
