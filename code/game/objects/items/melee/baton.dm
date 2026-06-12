@@ -224,7 +224,7 @@
 			target.adjustStaminaLoss(stamina_damage)
 			log_combat(user, target, "tripped", src)
 		if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-
+			// Arms: stamina damage only (no forced drop)
 			var/armor = target.getarmor(MELEE, armour_penetration)
 			target.apply_damage(stamina_damage, STAMINA, zone, armor)
 			log_combat(user, target, "disarmed", src)
@@ -344,7 +344,7 @@
 	name = "deputy baton"
 	force = 12
 	cooldown = 10
-	stamina_damage = 30
+	stamina_damage = 30  // Buffed from 20, but lower than security baton (40)
 	stun_animation = TRUE
 	custom_price = 120
 
@@ -593,8 +593,8 @@
 	var/cell_hit_cost = 10 KILOWATT
 	var/can_remove_cell = TRUE
 	var/convertible = TRUE //if it can be converted with a conversion kit
-	/// Blunt hit sound AS GOD INTENDED
-	var/harm_sound = 'sound/weapons/swing_hit.ogg'
+	/// Blunt hit sound used for harm baton (genhit.ogg since swing_hit.ogg doesn't exist)
+	var/harm_sound = 'sound/weapons/genhit.ogg'
 
 /datum/armor/melee_baton
 	bomb = 50
@@ -707,11 +707,11 @@
 		playsound(src, "sparks", 75, TRUE, -1)
 		toggle_light(user)
 		do_sparks(1, TRUE, src)
-
+		// Update hitsound for normal melee attacks (when inactive)
 		if(active)
-			hitsound = initial(hitsound)
+			hitsound = initial(hitsound) // restore to woodhit
 		else
-			hitsound = harm_sound
+			hitsound = harm_sound // when off, use genhit
 	else
 		active = FALSE
 		if(!cell)
@@ -757,12 +757,15 @@
 /obj/item/melee/baton/security/finalize_baton_attack(mob/living/target, mob/living/user, modifiers, in_attack_chain = TRUE)
 	// Determine which sounds to play
 	if(active && user.combat_mode)
+		// Active harm baton: play both electrical and genhit
 		playsound(get_turf(src), 'sound/weapons/egloves.ogg', on_stun_volume, TRUE, -1)
 		playsound(get_turf(src), harm_sound, on_stun_volume, TRUE, -1)
 	else if(active)
+		// Normal stun: electrical sound only
 		playsound(get_turf(src), on_stun_sound, on_stun_volume, TRUE, -1)
-	else
+	// else: inactive – no stun sound, normal melee attack will use hitsound (already set to harm_sound)
 
+	// Proceed with the rest of the attack
 	COOLDOWN_START(src, cooldown_check, cooldown)
 	if(user)
 		target.lastattacker = user.real_name
