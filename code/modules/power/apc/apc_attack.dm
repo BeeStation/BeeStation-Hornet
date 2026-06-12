@@ -161,9 +161,9 @@
 				break
 
 			if(H.combat_mode)  // Drain APC → gain hunger
-				// Need at least 10% APC charge to drain
-				if(!cell || cell.charge < max_apc_charge * 0.1)
-					to_chat(H, span_warning("The APC doesn't have enough charge to drain ."))
+				// ethereals can't drain APCs under half charge, this is so that they are forced to look to alternative power sources if the station is running low
+				if(!cell || cell.charge < max_apc_charge * 0.5)
+					to_chat(H, span_warning("The APC doesn't have enough charge to drain (needs at least 50%)."))
 					break
 				// Check if Ethereal is already at max hunger (prevent overflow)
 				if(H.nutrition >= max_hunger - (max_hunger * 0.1))
@@ -172,11 +172,11 @@
 			else  // Give power to APC → lose hunger
 				// Need at least 10% Ethereal hunger to give
 				if(H.nutrition < max_hunger * 0.1)
-					to_chat(H, span_warning("You don't have enough energy to transfer ."))
+					to_chat(H, span_warning("You don't have enough energy to transfer (need at least 10%)."))
 					break
 				// APC must have room for 10% more charge
 				if(!cell || cell.charge >= max_apc_charge - (max_apc_charge * 0.1))
-					to_chat(H, span_warning("The APC cannot accept more charge."))
+					to_chat(H, span_warning("The APC cannot accept more charge (would exceed 100%)."))
 					break
 
 			// Start the transfer
@@ -199,14 +199,15 @@
 				H.electrocute_act(rand(5, 15), src, siemens_coeff = 0.5, flags = SHOCK_NOGLOVES)
 				// Shock does not interrupt the transfer; it's just an additional hazard.
 
-			if(H.combat_mode)
-				if(!cell || cell.charge < max_apc_charge * 0.1)
+			// Re-check conditions after the delay (they might have changed)
+			if(H.combat_mode)  // Drain
+				if(!cell || cell.charge < max_apc_charge * 0.5)
 					to_chat(H, span_warning("The APC no longer has enough charge to drain."))
 					break
 				if(H.nutrition >= max_hunger - (max_hunger * 0.1))
 					to_chat(H, span_warning("You are already fully charged!"))
 					break
-
+				// Perform drain
 				var/hunger_gain = max_hunger * 0.1
 				H.adjust_nutrition(hunger_gain)
 				cell.charge = max(0, cell.charge - (max_apc_charge * 0.1))
@@ -214,14 +215,14 @@
 				H.balloon_alert(H, "Drained APC (+10% energy)")
 				playsound(src, 'sound/machines/defib_charge.ogg', 30, TRUE)
 				update_icon()
-			else
+			else  // Give
 				if(H.nutrition < max_hunger * 0.1)
 					to_chat(H, span_warning("You no longer have enough energy to transfer."))
 					break
 				if(!cell || cell.charge >= max_apc_charge - (max_apc_charge * 0.1))
 					to_chat(H, span_warning("The APC cannot accept more charge."))
 					break
-
+				// Perform give
 				var/hunger_loss = max_hunger * 0.1
 				H.adjust_nutrition(-hunger_loss)
 				cell.charge = min(max_apc_charge, cell.charge + (max_apc_charge * 0.1))
@@ -246,7 +247,6 @@
 		return
 	if((machine_stat & MAINT) && !opened) //no board; no interface
 		return
-
 
 /obj/machinery/power/apc/atom_break(damage_flag)
 	. = ..()
