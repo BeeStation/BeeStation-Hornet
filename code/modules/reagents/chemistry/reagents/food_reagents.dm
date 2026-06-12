@@ -758,11 +758,26 @@
 
 /datum/reagent/consumable/liquidelectricity
 	name = "Liquid Electricity"
-	description = "The blood of Ethereals, and the stuff that keeps them going. Great for them, horrid for anyone else."
+	description = "The blood of Ethereals, and the stuff that keeps them going. Great for them, horrid for anyone else. Causes electric shocks if injected into a non-Ethereal."
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#97ee63"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	taste_description = "pure electrictiy"
+	taste_description = "pure electricity"
+
+/datum/reagent/consumable/liquidelectricity/on_new(list/data)
+	. = ..()
+	color = "#97ee63"
+
+/datum/reagent/consumable/liquidelectricity/expose_mob(mob/living/carbon/exposed_mob, method = TOUCH, reac_volume)
+	. = ..()
+	if(method == INJECT && ishuman(exposed_mob))
+		var/mob/living/carbon/human/H = exposed_mob
+		if(H.dna?.species?.id == SPECIES_ETHEREAL)
+			H.blood_volume = min(H.blood_volume + reac_volume, BLOOD_VOLUME_MAXIMUM)
+			var/obj/item/organ/stomach/battery/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
+			if(istype(stomach))
+				stomach.adjust_charge(reac_volume * 0.5)
+			H.reagents.remove_reagent(type, reac_volume)
 
 /datum/reagent/consumable/liquidelectricity/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -770,9 +785,13 @@
 		var/obj/item/organ/stomach/battery/stomach = affected_mob.get_organ_slot(ORGAN_SLOT_STOMACH)
 		if(istype(stomach))
 			stomach.adjust_charge(40 * REM)
-	else if(DT_PROB(1.5, delta_time)) //scp13 optimization
-		affected_mob.electrocute_act(rand(3,5), "Liquid Electricity in their body", 1) //lmao at the newbs who eat energy bars
+		if(ishuman(affected_mob))
+			var/mob/living/carbon/human/H = affected_mob
+			H.blood_volume = min(H.blood_volume + (1 * REM * delta_time), BLOOD_VOLUME_MAXIMUM)
+	else if(DT_PROB(3, delta_time))
+		affected_mob.electrocute_act(rand(8,13), "Liquid Electricity in their body", 1)
 		playsound(affected_mob, "sparks", 50, 1)
+
 
 /datum/reagent/consumable/chlorophyll
 	name = "Liquid Chlorophyll"
