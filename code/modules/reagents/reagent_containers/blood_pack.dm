@@ -73,7 +73,16 @@
 	blood_type = "L"
 
 /obj/item/reagent_containers/blood/ethereal
-	blood_type = "LE"
+	blood_type = "E"
+	unique_blood = /datum/reagent/consumable/liquidelectricity
+
+/obj/item/reagent_containers/blood/ethereal/Initialize(mapload)
+	. = ..()
+	if(blood_type == "E")
+		reagents.clear_reagents()
+		reagents.add_reagent(/datum/reagent/consumable/liquidelectricity, volume, list("blood_type" = get_blood_type("LE")))
+		update_icon()
+	set_light(2, 1, "#7fff7f")
 
 /obj/item/reagent_containers/blood/synthetic
 	blood_type = "Coolant"
@@ -160,4 +169,3 @@
 		to_chat(victim, span_warning("[src] is empty!"))
 		return FALSE
 	return TRUE
-
