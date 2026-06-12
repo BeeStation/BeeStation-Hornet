@@ -31,7 +31,7 @@
 		if(PATCH)
 			. += span_notice("Any chemicals sprayed with this would be applied to the target similar to a patch.")
 		if(TOUCH)
-			. += span_notice("Any chemicals sprayed with this would be less precise, dissimilar to a patch, moreso like pouring the chemical onto the target.")
+			. += span_notice("Any chemicals sprayed with this would be applied as a messy pour rather than a precise patch.")
 		if(VAPOR)
 			. += span_notice("Any chemicals sprayed by this aerosolize into a vapour")
 
