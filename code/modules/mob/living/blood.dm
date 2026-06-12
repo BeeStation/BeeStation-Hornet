@@ -1,4 +1,4 @@
-#define BLOOD_DRIP_RATE_MOD 90 //Greater number means creating blood drips more often while bleeding
+#define BLOOD_DRIP_RATE_MOD 90
 
 /****************************************************
 				BLOOD SYSTEM
@@ -520,6 +520,9 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		else
 			drop = new(T, get_static_viruses())
 			drop.transfer_mob_blood_dna(src)
+			// ADD GLOW FOR ETHEREAL DRIPS
+			if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
+				drop.set_light(1, 0.5, "#7fff7f")
 			return
 
 	// Find a blood decal or create a new one.
@@ -531,10 +534,13 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		break
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(T, get_static_viruses())
-	if(QDELETED(B)) //Give it up
+	if(QDELETED(B))
 		return
 	B.bloodiness = min((B.bloodiness + BLOOD_AMOUNT_PER_DECAL), BLOOD_POOL_MAX)
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
+	// ADD GLOW FOR ETHEREAL SPLATTERS
+	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
+		B.set_light(1, 0.5, "#7fff7f")
 	if(temp_blood_DNA)
 		B.add_blood_DNA(temp_blood_DNA)
 
