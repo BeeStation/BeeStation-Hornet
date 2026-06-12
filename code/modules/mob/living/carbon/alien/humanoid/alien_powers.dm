@@ -291,10 +291,9 @@ Doesn't work on other aliens/AI.*/
 	neurotoxin.firer = clicker
 	neurotoxin.fire()
 
-	// FIX: Recoil only in zero‑gravity
-	// Check if either the shooter or the target is in zero‑gravity
-	var/shooter_has_gravity = has_gravity(clicker)
-	var/target_has_gravity = has_gravity(target_turf)
+	// FIX: Recoil only in zero‑gravity – use .has_gravity() on the atoms
+	var/shooter_has_gravity = clicker.has_gravity()
+	var/target_has_gravity = target_turf.has_gravity()
 	if(!shooter_has_gravity || !target_has_gravity)
 		// Zero‑gravity: push the shooter away from the target
 		var/recoil_dir = get_dir(target_turf, user_turf) // opposite direction of fire
