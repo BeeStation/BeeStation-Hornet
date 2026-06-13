@@ -26,7 +26,7 @@
 	custom_price = 40
 
 /obj/item/reagent_containers/medspray/examine(mob/user)
-	.=..()
+	. = ..()
 	switch(apply_type)
 		if(PATCH)
 			. += span_notice("Any chemicals sprayed with this would be applied to the target similar to a patch.")
