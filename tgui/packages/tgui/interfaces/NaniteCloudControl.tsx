@@ -158,24 +158,25 @@ function NaniteCloudBackupList(props) {
 }
 
 function NaniteCloudBackupDetails(props) {
-  const { data } = useBackend();
+  const { data } = useBackend<Data>();
   const { disk, cloud_backup, cloud_programs = [] } = data;
 
   if (!cloud_backup) {
-    return <NoticeBox>ERROR: Backup not found</NoticeBox>;
+    return <NoticeBox danger>Backup not found</NoticeBox>;
   }
 
-return (
-  <Stack vertical>
-    {cloud_programs.map((program) => (
-      <ProgramEntry
-        key={program.id}
-        program={program}
-        disk={disk}
-      />
-    ))}
-  </Stack>
-);
+  return (
+    <Stack vertical>
+      {cloud_programs.map((program) => (
+        <ProgramEntry
+          key={program.id}
+          program={program}
+          disk={disk}
+        />
+      ))}
+    </Stack>
+  );
+}
 
 
 function ProgramEntry(props) {
@@ -183,7 +184,7 @@ function ProgramEntry(props) {
   const { act } = useBackend();
 
   const [combineSelection, setCombineSelection] = useState(false);
-  const [toCombine, setToCombine] = useState([]);
+  const [toCombine, setToCombine] = useState<number[]>([]);
   const [combineOp, setCombineOp] = useState('AND');
 
   const can_rule = disk?.can_rule || false;
@@ -308,16 +309,6 @@ function ProgramEntry(props) {
           </Stack.Item>
   );
 }
-  const rules = program.rules || [];
-
-  return (
-    <Stack.Item key={program.name} grow>
-      ...
-    </Stack.Item>
-  );
-}
-
-
 
 function ProgramInfoBox(props) {
   const { program } = props;
