@@ -68,6 +68,10 @@
 	soundVolume = 25			// 80 is default
 	delays = list(POD_TRANSIT = 20, POD_FALLING = 4, POD_OPENING = 30, POD_LEAVING = 30)
 
+// Override morph objectives to use escape objective instead of eat_everything
+/datum/antagonist/morph/forge_objectives()
+	add_objective(new /datum/objective/escape())
+
 // Makeship Late-Join Menu - No Job Select, only this...
 /mob/dead/new_player/authenticated/LateChoices()
 	var/datum/browser/popup = new(src, "latechoices", "Join as Morph", 380, 230)
