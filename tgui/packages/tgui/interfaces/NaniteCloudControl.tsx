@@ -158,23 +158,37 @@ function NaniteCloudBackupList(props) {
 }
 
 function NaniteCloudBackupDetails(props) {
-  const { act, data } = useBackend<Data>();
+  const { data } = useBackend();
   const { disk, cloud_backup, cloud_programs = [] } = data;
-
-  const can_rule = disk?.can_rule || false;
 
   if (!cloud_backup) {
     return <NoticeBox>ERROR: Backup not found</NoticeBox>;
   }
 
-  return (
-    <Stack vertical>
-      {cloud_programs.map((program) => {
-        const [combineSelection, setCombineSelection] = useState(false);
-        const [toCombine, setToCombine] = useState<number[]>([]);
-        const [combineOp, setCombineOp] = useState('AND');
+return (
+  <Stack vertical>
+    {cloud_programs.map((program) => (
+      <ProgramEntry
+        key={program.id}
+        program={program}
+        disk={disk}
+      />
+    ))}
+  </Stack>
+);
 
-        const rules = program.rules || [];
+
+function ProgramEntry(props) {
+  const { program, disk } = props;
+  const { act } = useBackend();
+
+  const [combineSelection, setCombineSelection] = useState(false);
+  const [toCombine, setToCombine] = useState([]);
+  const [combineOp, setCombineOp] = useState('AND');
+
+  const can_rule = disk?.can_rule || false;
+
+  const rules = program.rules || [];
         return (
           <Stack.Item key={program.name} grow>
             <Collapsible
@@ -285,18 +299,25 @@ function NaniteCloudBackupDetails(props) {
                         ))}
                       </Stack>
                     ) : (
-                      <Box color="bad">No Active Rules</Box>
-                    )}
-                  </Section>
+                  <Box color="bad">No Active Rules</Box>
                 )}
+                  </Section>
+            )}
               </>
             </Collapsible>
           </Stack.Item>
-        );
-      })}
-    </Stack>
   );
 }
+  const rules = program.rules || [];
+
+  return (
+    <Stack.Item key={program.name} grow>
+      ...
+    </Stack.Item>
+  );
+}
+
+
 
 function ProgramInfoBox(props) {
   const { program } = props;
