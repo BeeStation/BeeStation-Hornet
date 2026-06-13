@@ -8120,7 +8120,7 @@
 	name = "Shutter button"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "bXE" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/junction/yjunction,
@@ -10895,7 +10895,7 @@
 "cDN" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "cDS" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/effect/turf_decal/tile/red/opposingcorners,
@@ -11733,7 +11733,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "cNS" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 6
@@ -17461,7 +17461,7 @@
 	id = "PA2"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "eii" = (
 /turf/closed/wall,
 /area/station/cargo/qm_bedroom)
@@ -21136,7 +21136,7 @@
 	id = "PA"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "eYg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -33098,7 +33098,7 @@
 /obj/structure/cable/orange,
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "hNP" = (
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow,
@@ -36929,7 +36929,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/light/directional/north,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "iFi" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/extinguisher_cabinet/directional/north,
@@ -40070,7 +40070,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "jsI" = (
 /obj/effect/turf_decal/siding/blue,
 /obj/machinery/light/floor,
@@ -40440,7 +40440,7 @@
 	name = "Shutter button"
 	},
 /turf/open/space/basic,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "jwg" = (
 /obj/effect/turf_decal/siding/dark/end{
 	dir = 4
@@ -40637,13 +40637,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/station/science/research)
-"jyE" = (
-/obj/machinery/door/poddoor/shutters/radiation/preopen{
-	id = "smrad"
-	},
-/obj/effect/spawner/structure/window/reinforced/plasma,
-/turf/open/floor/plating,
-/area/station/engineering/main)
 "jyI" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -43446,7 +43439,7 @@
 "kkl" = (
 /obj/machinery/power/energy_accumulator/grounding_rod,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "kko" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -47713,7 +47706,7 @@
 "lig" = (
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "lii" = (
 /obj/effect/turf_decal/trimline/white/filled/warning{
 	dir = 8
@@ -52291,7 +52284,7 @@
 /obj/machinery/field/generator,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "mmm" = (
 /obj/structure/grille,
 /obj/structure/lattice,
@@ -54559,7 +54552,7 @@
 	id = "PA2"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "mNb" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 1;
@@ -55447,7 +55440,7 @@
 /obj/machinery/power/energy_accumulator/grounding_rod,
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "mWy" = (
 /obj/structure/cable/yellow,
 /obj/machinery/vending/cigarette,
@@ -56439,9 +56432,6 @@
 /obj/structure/cable,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
-"niS" = (
-/turf/closed/wall/mineral/plastitanium,
-/area/station/engineering/supermatter/room)
 "nja" = (
 /obj/effect/turf_decal/siding/brown,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -59464,7 +59454,7 @@
 "nUL" = (
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "nUO" = (
 /obj/machinery/door/window/eastleft{
 	color = "#9b1d70"
@@ -59781,7 +59771,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "nYJ" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/techfloor/diagonal,
@@ -60708,7 +60698,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/orange,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "olj" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=9-CARGO";
@@ -63307,9 +63297,6 @@
 	},
 /turf/open/floor/iron/smooth_large,
 /area/station/engineering/hallway)
-"oOq" = (
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/station/engineering/main)
 "oOr" = (
 /obj/effect/turf_decal/trimline/yellow/filled/warning{
 	dir = 1
@@ -65846,7 +65833,7 @@
 /area/station/security/courtroom)
 "pyF" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "pyJ" = (
 /obj/effect/turf_decal/edges/borderfloor,
 /obj/structure/disposalpipe/segment{
@@ -69911,7 +69898,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "quy" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -71234,7 +71221,7 @@
 /obj/machinery/light_switch/directional/west,
 /obj/machinery/camera/directional/west,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "qKs" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
@@ -75061,7 +75048,7 @@
 	id = "PA"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "rFw" = (
 /obj/structure/chair{
 	dir = 1
@@ -82144,7 +82131,7 @@
 	id = "PA2"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "tpG" = (
 /obj/structure/table,
 /obj/item/storage/crayons,
@@ -84014,7 +84001,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "tNh" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
@@ -85507,7 +85494,7 @@
 	},
 /obj/structure/cable/orange,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "ueV" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/item/clothing/suit/hooded/wintercoat/miner,
@@ -87904,7 +87891,7 @@
 "uGS" = (
 /obj/structure/sign/departments/minsky/engineering/engineering,
 /turf/closed/wall/mineral/plastitanium,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "uHe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -89368,7 +89355,7 @@
 	name = "Shutter button"
 	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "uYW" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/beanbag{
@@ -90314,7 +90301,7 @@
 /obj/machinery/light/directional/south,
 /obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/plating/airless,
-/area/station/engineering/supermatter/room)
+/area/station/engineering/main)
 "vla" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/siding/dark{
@@ -90615,8 +90602,11 @@
 /turf/open/floor/iron/dark/smooth_edge,
 /area/station/science/robotics/lab)
 "vov" = (
-/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
-/turf/open/floor/plating/airless,
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
+	id = "smrad"
+	},
+/obj/effect/spawner/structure/window/reinforced/plasma,
+/turf/open/floor/plating,
 /area/station/engineering/main)
 "voK" = (
 /obj/structure/chair/fancy/comfy{
@@ -132596,11 +132586,11 @@ iqF
 auU
 vPx
 hzT
-oOq
-oOq
-vov
-oOq
-oOq
+pyF
+pyF
+nUL
+pyF
+pyF
 qYq
 fvO
 fvO
@@ -132858,7 +132848,7 @@ omD
 bWl
 omD
 jQS
-oOq
+pyF
 hDf
 dFS
 fvO
@@ -133115,7 +133105,7 @@ mlH
 wcd
 mlH
 nfg
-oOq
+pyF
 hDf
 imz
 dFS
@@ -133372,7 +133362,7 @@ blW
 ssX
 tbm
 rHG
-oOq
+pyF
 hDf
 fvO
 hDf
@@ -134917,7 +134907,7 @@ cMA
 dmK
 tKI
 vVZ
-jyE
+vov
 fvO
 hDf
 qjh
@@ -135431,7 +135421,7 @@ aSU
 kwV
 tdY
 mXL
-jyE
+vov
 hDf
 qjh
 qjh
@@ -135945,7 +135935,7 @@ aSU
 iDp
 xlx
 xHP
-jyE
+vov
 hDf
 qjh
 qjh
@@ -136459,7 +136449,7 @@ cMA
 dmK
 rLA
 tbB
-jyE
+vov
 fvO
 qjh
 hDf
@@ -137992,13 +137982,13 @@ jex
 jOW
 djW
 jOW
-oOq
+pyF
 gsm
 uNA
 xAR
 gsm
-oOq
-oOq
+pyF
+pyF
 hDf
 fvO
 hDf
@@ -138255,7 +138245,7 @@ sfA
 fqh
 uDD
 wOD
-oOq
+pyF
 hDf
 imz
 dFS
@@ -138512,7 +138502,7 @@ jNI
 jNI
 sog
 sbw
-oOq
+pyF
 hDf
 dFS
 fvO
@@ -138769,7 +138759,7 @@ uAC
 pJo
 svy
 ulk
-oOq
+pyF
 fvO
 fvO
 fvO
@@ -139026,7 +139016,7 @@ rbT
 dLM
 aFX
 kUL
-oOq
+pyF
 fvO
 fvO
 fvO
@@ -139277,12 +139267,12 @@ hDf
 jOW
 lKm
 jOW
-oOq
-oOq
-oOq
-oOq
-oOq
-oOq
+pyF
+pyF
+pyF
+pyF
+pyF
+pyF
 qYq
 fvO
 fvO
@@ -143130,13 +143120,13 @@ fvO
 fvO
 fvO
 fvO
-niS
+qYq
 pyF
 rFr
 jsr
 eYa
 pyF
-niS
+qYq
 fvO
 fvO
 fvO
@@ -143901,13 +143891,13 @@ mmm
 fvO
 fvO
 fvO
-niS
+qYq
 iFg
 tMY
 lig
 cNP
 vkU
-niS
+qYq
 fvO
 fvO
 fvO
@@ -144672,13 +144662,13 @@ hDf
 hDf
 hDf
 hDf
-niS
+qYq
 pyF
 mMS
 tpl
 eia
 pyF
-niS
+qYq
 hDf
 hDf
 hDf
