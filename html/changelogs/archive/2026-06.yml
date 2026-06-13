@@ -124,3 +124,6 @@
   - rscadd: Adds a Artifact Telescreen to Radstation, Flandstation, Cardinalstation,
       Deltastation, and Boxstation
   - tweak: The science/explab area gives new artsci network to its camera
+2026-06-13:
+  mrmanlikesbt, TealSeer:
+  - code_imp: The codebase now supports compilation on the latest byond version
