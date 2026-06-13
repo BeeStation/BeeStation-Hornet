@@ -3487,6 +3487,7 @@
 #include "code\modules\mob\dead\new_player\login.dm"
 #include "code\modules\mob\dead\new_player\logout.dm"
 #include "code\modules\mob\dead\new_player\new_player.dm"
+#include "code\modules\events\morph_event.dm"
 #include "code\modules\mob\dead\new_player\poll.dm"
 #include "code\modules\mob\dead\observer\login.dm"
 #include "code\modules\mob\dead\observer\logout.dm"
