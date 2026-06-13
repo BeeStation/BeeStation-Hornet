@@ -57193,7 +57193,9 @@
 /obj/item/storage/firstaid/regular,
 /obj/item/clothing/neck/stethoscope,
 /obj/item/healthanalyzer,
-/obj/machinery/light,
+/obj/machinery/computer/security/telescreen/artifacts{
+	pixel_y = -32
+	},
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "rRM" = (
@@ -74532,10 +74534,6 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /turf/open/floor/plating,
 /area/station/security/prison)
-"xev" = (
-/obj/structure/sign/warning/secure_area,
-/turf/closed/wall/r_wall,
-/area/station/science/explab)
 "xeA" = (
 /obj/item/beacon,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -108124,7 +108122,7 @@ wHV
 dgi
 vfm
 rRL
-xev
+aWd
 pdg
 xzy
 mNB

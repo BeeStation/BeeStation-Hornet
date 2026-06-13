@@ -28477,6 +28477,10 @@
 /obj/item/hand_labeler{
 	pixel_x = 2
 	},
+/obj/item/xenoarchaeology_labeler{
+	pixel_x = -1;
+	pixel_y = 11
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/science/explab)
 "gLv" = (
@@ -86131,15 +86135,19 @@
 	color = "#c2bfa3"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/item/xenoarchaeology_labeler{
-	pixel_x = 1;
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
 	},
 /obj/structure/window/reinforced/plasma/spawner/directional/south,
 /obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/item/pen{
+	pixel_x = -2;
+	pixel_y = 7
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/science/explab)
 "ulR" = (
@@ -97943,18 +97951,17 @@
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
 	},
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/obj/item/pen,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/item/sticky_note_pile{
-	pixel_x = -15;
-	pixel_y = 1
+	pixel_x = -19;
+	pixel_y = 2
 	},
 /obj/effect/turf_decal/siding/dark,
 /obj/structure/window/reinforced/plasma/spawner/directional/south,
+/obj/machinery/computer/security/telescreen/artifacts{
+	pixel_x = -1;
+	pixel_y = 3
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/science/explab)
 "xaN" = (
