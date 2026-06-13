@@ -1,3 +1,6 @@
+// Global list to store hit counts per mob per limb
+var/list/baton_hit_counts = list()
+
 /obj/item/melee/baton
 	name = "police baton"
 	desc = "A wooden truncheon for beating criminal scum."
@@ -14,7 +17,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 	custom_price = 100
-	force = 10                           // Police baton force (stronger than deputy in stamina)
+	force = 10
 	hitsound = 'sound/effects/woodhit.ogg'
 
 	var/active = TRUE
@@ -30,9 +33,6 @@
 	var/on_stun_volume = 75
 	var/stun_animation = TRUE
 	var/log_stun_attack = TRUE
-
-	// Paralysis chance – can be overridden in subtypes
-	var/paralysis_chance = 40   // Police baton: 40%
 
 	var/context_living_target_active = "Stun"
 	var/context_living_target_active_combat_mode = "Stun"
@@ -137,7 +137,6 @@
 		return BATON_ATTACK_DONE
 
 	COOLDOWN_START(src, cooldown_check, cooldown)
-	// Wooden & deputy: swing_hit when harming, otherwise woodhit; security handles its own
 	if(user.combat_mode && stamina_damage > 0)
 		playsound(get_turf(src), "swing_hit", on_stun_volume, TRUE, -1)
 	else
@@ -172,61 +171,91 @@
 
 		return baton_effect_non_cyborg(target, user, modifiers, stun_override, trait_check)
 
-// Status effect to count baton hits – no alert
-/datum/status_effect/baton_hit_counter
-	id = "baton_hit_counter"
-	duration = -1
-	alert_type = null          // Prevents "Curse of Mundanity"
-	var/hits = 0
+// =========================================================================
+//  Hit counters using a global list
+// =========================================================================
+/obj/item/melee/baton/proc/get_hit_count(mob/living/target, zone)
+	var/ref = REF(target)
+	if(!baton_hit_counts[ref])
+		baton_hit_counts[ref] = list()
+	return baton_hit_counts[ref][zone] || 0
+
+/obj/item/melee/baton/proc/increment_hit_count(mob/living/target, zone)
+	var/ref = REF(target)
+	if(!baton_hit_counts[ref])
+		baton_hit_counts[ref] = list()
+	var/current = baton_hit_counts[ref][zone] || 0
+	current++
+	baton_hit_counts[ref][zone] = current
+	return current
+
+/obj/item/melee/baton/proc/reset_hit_count(mob/living/target, zone)
+	var/ref = REF(target)
+	if(baton_hit_counts[ref])
+		baton_hit_counts[ref] -= zone
 
 /obj/item/melee/baton/proc/apply_limb_paralysis(mob/living/target, zone, duration = 5 SECONDS)
-	// Get or create the hit counter status effect
-	var/datum/status_effect/baton_hit_counter/counter = target.has_status_effect(/datum/status_effect/baton_hit_counter)
-	if(!counter)
-		counter = target.apply_status_effect(/datum/status_effect/baton_hit_counter)
-	if(!counter)
+	var/is_wooden = (type == /obj/item/melee/baton)
+	var/is_deputy = (type == /obj/item/melee/baton/deputy)
+	var/is_electric = istype(src, /obj/item/melee/baton/security)
+
+	if((is_wooden || is_deputy) && (zone != BODY_ZONE_L_ARM && zone != BODY_ZONE_R_ARM))
 		return
-	counter.hits++
-	// Only allow paralysis after at least 2 hits, then use subtype-specific chance
-	if(counter.hits >= 2 && prob(paralysis_chance))   // 40% for police/electric, 30% for deputy
-		var/paralysis_trait
-		switch(zone)
-			if(BODY_ZONE_L_LEG)
-				paralysis_trait = TRAIT_PARALYSIS_L_LEG
-			if(BODY_ZONE_R_LEG)
-				paralysis_trait = TRAIT_PARALYSIS_R_LEG
-			if(BODY_ZONE_L_ARM)
-				paralysis_trait = TRAIT_PARALYSIS_L_ARM
-			if(BODY_ZONE_R_ARM)
-				paralysis_trait = TRAIT_PARALYSIS_R_ARM
-		if(paralysis_trait)
-			ADD_TRAIT(target, paralysis_trait, "baton_paralysis")
-			addtimer(TRAIT_CALLBACK_REMOVE(target, paralysis_trait, "baton_paralysis"), duration)
-		counter.hits = 0  // reset after paralysis
+
+	var/paralysis_trait
+	switch(zone)
+		if(BODY_ZONE_L_LEG)
+			paralysis_trait = TRAIT_PARALYSIS_L_LEG
+		if(BODY_ZONE_R_LEG)
+			paralysis_trait = TRAIT_PARALYSIS_R_LEG
+		if(BODY_ZONE_L_ARM)
+			paralysis_trait = TRAIT_PARALYSIS_L_ARM
+		if(BODY_ZONE_R_ARM)
+			paralysis_trait = TRAIT_PARALYSIS_R_ARM
+	if(!paralysis_trait)
+		return
+
+	var/hits = increment_hit_count(target, zone)
+	var/paralyze = FALSE
+
+	if(is_wooden)
+		if(hits > 1 && prob(50))
+			paralyze = TRUE
+	else if(is_deputy)
+		if(hits > 1 && prob(40))
+			paralyze = TRUE
+	else if(is_electric)
+		if(hits == 2 && prob(50))
+			paralyze = TRUE
+		else if(hits >= 3)
+			paralyze = TRUE
+
+	if(paralyze)
+		ADD_TRAIT(target, paralysis_trait, "baton_paralysis")
+		addtimer(TRAIT_CALLBACK_REMOVE(target, paralysis_trait, "baton_paralysis"), duration)
+		reset_hit_count(target, zone)
+		to_chat(target, span_warning("Your [parse_zone(zone)] goes limp!"))
 
 /obj/item/melee/baton/proc/baton_effect_non_cyborg(mob/living/target, mob/living/user, modifiers, stun_override, trait_check)
 	var/zone = user ? user.get_combat_bodyzone(target) : BODY_ZONE_CHEST
 	if(!zone)
 		zone = BODY_ZONE_CHEST
 
-	var/is_wooden_or_deputy = istype(src, /obj/item/melee/baton) || istype(src, /obj/item/melee/baton/deputy)
+	var/is_wooden_or_deputy = (type == /obj/item/melee/baton) || (type == /obj/item/melee/baton/deputy)
 	var/is_electric = istype(src, /obj/item/melee/baton/security)
 
 	// ----- LEGS -----
 	if(zone == BODY_ZONE_L_LEG || zone == BODY_ZONE_R_LEG)
 		if(is_wooden_or_deputy)
-			// Legs: knockdown only, no stamina, no paralysis
 			if(!trait_check)
 				target.Knockdown(knockdown_time)
 			log_combat(user, target, "tripped", src)
 		else if(is_electric)
-			// Electric baton: stamina damage + paralysis (no knockdown)
 			var/armor = target.getarmor(MELEE, armour_penetration)
 			target.apply_damage(stamina_damage, STAMINA, zone, armor)
 			apply_limb_paralysis(target, zone)
 			log_combat(user, target, "stunned (legs)", src)
 		else
-			// Fallback (telescopic etc.) – stamina only
 			var/armor = target.getarmor(MELEE, armour_penetration)
 			target.apply_damage(stamina_damage, STAMINA, zone, armor)
 			log_combat(user, target, "stunned (legs)", src)
@@ -250,7 +279,6 @@
 			target.apply_damage(stamina_damage, STAMINA, zone, armor)
 		log_combat(user, target, "stunned (torso/head)", src)
 
-	// If in combat mode and this baton deals stamina damage, add small brute damage
 	if(user.combat_mode && stamina_damage > 0)
 		var/brute_damage = force * 0.5
 		if(brute_damage > 0)
@@ -282,7 +310,6 @@
 	.["localleg"] = span_danger("[user] has beat you in the leg with [src]!")
 	.["visible"] = span_danger("[user] beats [target] with [src]!")
 	.["local"] = span_danger("[user] beats you with [src]!")
-
 	return .
 
 /obj/item/melee/baton/proc/get_cyborg_stun_description(mob/living/target, mob/living/user)
@@ -349,10 +376,9 @@
 	name = "deputy baton"
 	force = 12
 	cooldown = 10
-	stamina_damage = 20                // Lower than police baton (55)
+	stamina_damage = 20
 	stun_animation = TRUE
 	custom_price = 120
-	paralysis_chance = 30              // Weaker paralysis chance
 
 /obj/item/conversion_kit
 	name = "conversion kit"
@@ -361,7 +387,9 @@
 	icon_state = "uk"
 	custom_price = PAYCHECK_COMMAND * 4.5
 
-//Telescopic Baton (unchanged)
+// =========================================================================
+//  TELESCOPIC BATON
+// =========================================================================
 /obj/item/melee/baton/telescopic
 	name = "telescopic baton"
 	desc = "A compact and harmless personal defense weapon. Sturdy enough to knock the feet out from under attackers and robust enough to disarm with a quick strike to the hand"
@@ -449,7 +477,6 @@
 				target.Knockdown(30)
 			log_combat(user, target, "tripped", src)
 		if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-			// Disarm only the specific hand
 			if(zone == BODY_ZONE_L_ARM)
 				var/obj/item/held = target.get_item_for_held_index(LEFT_HANDS)
 				if(held)
@@ -554,7 +581,9 @@
 	desc = "A compact, specialised retractible stun baton assigned to bounty hunters."
 	knockdown_time = (2 SECONDS)
 
-// REGULAR SECURITY STUN BATON
+// =========================================================================
+//  SECURITY STUN BATON (electric)
+// =========================================================================
 /obj/item/melee/baton/security
 	name = "stun baton"
 	desc = "A stun baton for incapacitating people with."
@@ -578,7 +607,6 @@
 	light_on = FALSE
 	light_color = LIGHT_COLOR_ORANGE
 	light_power = 0.5
-	paralysis_chance = 40               // Same as police baton
 
 	var/throw_stun_chance = 35
 	var/obj/item/stock_parts/cell/cell
@@ -773,7 +801,6 @@
 	return baton_effect_non_cyborg(target, user, modifiers, stun_override, trait_check)
 
 /obj/item/melee/baton/security/baton_effect_non_cyborg(mob/living/target, mob/living/user, modifiers, stun_override, trait_check)
-	// Special handling for stamina-immune limbs
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/target_zone = user ? user.get_combat_bodyzone(H) : target.get_random_valid_zone()
@@ -795,11 +822,9 @@
 	if(!zone)
 		zone = BODY_ZONE_CHEST
 
-	// Apply stamina damage based on zone (no knockdown)
 	var/armor = target.getarmor(MELEE, armour_penetration)
 	target.apply_damage(stamina_damage, STAMINA, zone, armor)
 
-	// Apply paralysis on legs and arms (head/chest no paralysis)
 	if(zone == BODY_ZONE_L_LEG || zone == BODY_ZONE_R_LEG || zone == BODY_ZONE_L_ARM || zone == BODY_ZONE_R_ARM)
 		apply_limb_paralysis(target, zone)
 
@@ -807,7 +832,6 @@
 		target.do_stun_animation(target)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
 
-	// If in combat mode, add small brute damage
 	if(user.combat_mode)
 		var/brute_damage = force * 0.5
 		if(brute_damage > 0)
@@ -948,4 +972,3 @@
 	if(!. || target.move_resist >= MOVE_FORCE_OVERPOWERING)
 		return
 	do_teleport(target, get_turf(target), 15, channel = TELEPORT_CHANNEL_BLUESPACE)
-
