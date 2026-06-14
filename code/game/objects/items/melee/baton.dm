@@ -1,5 +1,5 @@
-// Global list to store hit counts per mob per limb
-var/list/baton_hit_counts = list()
+// Global list to store hit counts per mob per limb - defined using helper
+GLOBAL_LIST_EMPTY(baton_hit_counts)
 
 /obj/item/melee/baton
 	name = "police baton"
@@ -223,23 +223,23 @@ var/list/baton_hit_counts = list()
 // =========================================================================
 /obj/item/melee/baton/proc/get_hit_count(mob/living/target, zone)
 	var/ref = REF(target)
-	if(!baton_hit_counts[ref])
-		baton_hit_counts[ref] = list()
-	return baton_hit_counts[ref][zone] || 0
+	if(!GLOB.baton_hit_counts[ref])
+		GLOB.baton_hit_counts[ref] = list()
+	return GLOB.baton_hit_counts[ref][zone] || 0
 
 /obj/item/melee/baton/proc/increment_hit_count(mob/living/target, zone)
 	var/ref = REF(target)
-	if(!baton_hit_counts[ref])
-		baton_hit_counts[ref] = list()
-	var/current = baton_hit_counts[ref][zone] || 0
+	if(!GLOB.baton_hit_counts[ref])
+		GLOB.baton_hit_counts[ref] = list()
+	var/current = GLOB.baton_hit_counts[ref][zone] || 0
 	current++
-	baton_hit_counts[ref][zone] = current
+	GLOB.baton_hit_counts[ref][zone] = current
 	return current
 
 /obj/item/melee/baton/proc/reset_hit_count(mob/living/target, zone)
 	var/ref = REF(target)
-	if(baton_hit_counts[ref])
-		baton_hit_counts[ref] -= zone
+	if(GLOB.baton_hit_counts[ref])
+		GLOB.baton_hit_counts[ref] -= zone
 
 /obj/item/melee/baton/proc/apply_limb_paralysis(mob/living/target, zone, duration = 5 SECONDS)
 	var/is_wooden = (type == /obj/item/melee/baton)
