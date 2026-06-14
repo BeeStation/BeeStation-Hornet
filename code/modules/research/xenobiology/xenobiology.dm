@@ -1045,7 +1045,7 @@
 		return
 	tool.experimental_upgrade = TRUE
 	tool.toolspeed = 0.3
-	tool.color = "#FF0000"
+	tool.color = COLOR_RED
 	if(!findtext(tool.name, "experimental "))
 		tool.name = "experimental [tool.name]"
 	uses -= 1
