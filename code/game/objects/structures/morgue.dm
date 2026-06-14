@@ -27,6 +27,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	dir = SOUTH
 	var/message_cooldown
 	var/breakout_time = 600
+	var/radiation_shield = TRUE   // Blocks external radiation when closed
 
 /obj/structure/bodycontainer/Initialize(mapload)
 	. = ..()
@@ -417,3 +418,15 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		return
 	if(locate(/obj/structure/table) in get_turf(mover))
 		return TRUE
+
+// ========== RADIATION SHIELDING HELPER ==========
+// Use this proc in the radiation storm code to skip shielded mobs.
+/mob/living/proc/is_in_shielded_bodycontainer()
+	var/atom/current = src.loc
+	while(current && !isturf(current))
+		if(istype(current, /obj/structure/bodycontainer))
+			var/obj/structure/bodycontainer/BC = current
+			if(BC.radiation_shield)
+				return TRUE
+		current = current.loc
+	return FALSE
