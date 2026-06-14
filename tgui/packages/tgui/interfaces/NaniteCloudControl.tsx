@@ -158,143 +158,150 @@ function NaniteCloudBackupList(props) {
 }
 
 function NaniteCloudBackupDetails(props) {
-  const { act, data } = useBackend<Data>();
+  const { data } = useBackend<Data>();
   const { disk, cloud_backup, cloud_programs = [] } = data;
 
-  const can_rule = disk?.can_rule || false;
-
   if (!cloud_backup) {
-    return <NoticeBox>ERROR: Backup not found</NoticeBox>;
+    return <NoticeBox> ERROR: Backup not found</NoticeBox>;
   }
 
   return (
     <Stack vertical>
-      {cloud_programs.map((program) => {
-        const [combineSelection, setCombineSelection] = useState(false);
-        const [toCombine, setToCombine] = useState<number[]>([]);
-        const [combineOp, setCombineOp] = useState('AND');
+      {cloud_programs.map((program) => (
+        <ProgramEntry key={program.id} program={program} disk={disk} />
+      ))}
+    </Stack>
+  );
+}
 
-        const rules = program.rules || [];
-        return (
-          <Stack.Item key={program.name} grow>
-            <Collapsible
-              title={program.name}
+function ProgramEntry(props) {
+  const { program, disk } = props;
+  const { act } = useBackend();
+
+  const [combineSelection, setCombineSelection] = useState(false);
+  const [toCombine, setToCombine] = useState<number[]>([]);
+  const [combineOp, setCombineOp] = useState('AND');
+
+  const can_rule = disk?.can_rule || false;
+
+  const rules = program.rules || [];
+  return (
+    <Stack.Item key={program.name} grow>
+      <Collapsible
+        title={program.name}
+        buttons={
+          <Button
+            icon="minus-circle"
+            color="bad"
+            onClick={() =>
+              act('remove_program', {
+                program_id: program.id,
+              })
+            }
+          />
+        }
+      >
+        <>
+          <ProgramInfoBox program={program} />
+          {toCombine.map((id) => (
+            <Box key={id}>{id}</Box>
+          ))}
+          {(can_rule || program.has_rules) && (
+            <Section
+              p={1}
+              title="Rules"
               buttons={
-                <Button
-                  icon="minus-circle"
-                  color="bad"
-                  onClick={() =>
-                    act('remove_program', {
-                      program_id: program.id,
-                    })
-                  }
-                />
+                !!can_rule && (
+                  <Stack>
+                    <Stack.Item>
+                      <Button
+                        icon="plus"
+                        color="good"
+                        onClick={() =>
+                          act('add_rule', {
+                            program_id: program.id,
+                          })
+                        }
+                      >
+                        Add Rule from Disk
+                      </Button>
+                    </Stack.Item>
+                    <Stack.Item>
+                      <Button
+                        selected={combineSelection}
+                        onClick={() => {
+                          if (combineSelection) {
+                            setCombineSelection(false);
+                            if (toCombine.length <= 0) {
+                              return;
+                            }
+                            act('combine_rules', {
+                              program_id: program.id,
+                              rule_ids: toCombine,
+                              op: combineOp,
+                            });
+                          } else {
+                            setCombineSelection(true);
+                          }
+                          setToCombine([]);
+                        }}
+                      >
+                        Combine
+                      </Button>
+                    </Stack.Item>
+                    <Stack.Item>
+                      <Dropdown
+                        width="75px"
+                        disabled={!combineSelection}
+                        selected={combineOp}
+                        options={['AND', 'OR', 'NOR', 'NAND']}
+                        onSelected={(value) => setCombineOp(value)}
+                      />
+                    </Stack.Item>
+                  </Stack>
+                )
               }
             >
-              <>
-                <ProgramInfoBox program={program} />
-                {toCombine.map((id) => (
-                  <Box key={id}>{id}</Box>
-                ))}
-                {(can_rule || program.has_rules) && (
-                  <Section
-                    p={1}
-                    title="Rules"
-                    buttons={
-                      !!can_rule && (
-                        <Stack>
-                          <Stack.Item>
-                            <Button
-                              icon="plus"
-                              color="good"
-                              onClick={() =>
-                                act('add_rule', {
-                                  program_id: program.id,
-                                })
-                              }
-                            >
-                              Add Rule from Disk
-                            </Button>
-                          </Stack.Item>
-                          <Stack.Item>
-                            <Button
-                              selected={combineSelection}
-                              onClick={() => {
-                                if (combineSelection) {
-                                  setCombineSelection(false);
-                                  if (toCombine.length <= 0) {
-                                    return;
-                                  }
-                                  act('combine_rules', {
-                                    program_id: program.id,
-                                    rule_ids: toCombine,
-                                    op: combineOp,
-                                  });
-                                } else {
-                                  setCombineSelection(true);
-                                }
-                                setToCombine([]);
-                              }}
-                            >
-                              Combine
-                            </Button>
-                          </Stack.Item>
-                          <Stack.Item>
-                            <Dropdown
-                              width="75px"
-                              disabled={!combineSelection}
-                              selected={combineOp}
-                              options={['AND', 'OR', 'NOR', 'NAND']}
-                              onSelected={(value) => setCombineOp(value)}
-                            />
-                          </Stack.Item>
-                        </Stack>
-                      )
-                    }
-                  >
-                    {program.has_rules ? (
-                      <Stack vertical>
-                        {rules.map((rule) => (
-                          <Stack.Item key={rule.display}>
-                            {combineSelection && (
-                              <Button.Checkbox
-                                checked={toCombine.includes(rule.id)}
-                                onClick={() => {
-                                  if (toCombine.includes(rule.id)) {
-                                    toCombine.splice(rule.id);
-                                  } else {
-                                    toCombine.push(rule.id);
-                                  }
-                                }}
-                              />
-                            )}
+              {program.has_rules ? (
+                <Stack vertical>
+                  {rules.map((rule) => (
+                    <Stack.Item key={rule.display}>
+                      {combineSelection && (
+                        <Button.Checkbox
+                          checked={toCombine.includes(rule.id)}
+                          onClick={() => {
+                            if (toCombine.includes(rule.id)) {
+                              toCombine.splice(rule.id);
+                            } else {
+                              toCombine.push(rule.id);
+                            }
+                          }}
+                        />
+                      )}
 
-                            <Button
-                              icon="minus-circle"
-                              color="bad"
-                              onClick={() =>
-                                act('remove_rule', {
-                                  program_id: program.id,
-                                  rule_id: rule.id,
-                                })
-                              }
-                            >
-                              {`${rule.display} ${rule.id} ${toCombine.includes(rule.id) ? 'true' : 'false'}`}
-                            </Button>
-                          </Stack.Item>
-                        ))}
-                      </Stack>
-                    ) : (
-                      <Box color="bad">No Active Rules</Box>
-                    )}
-                  </Section>
-                )}
-              </>
-            </Collapsible>
-          </Stack.Item>
-        );
-      })}
-    </Stack>
+                      <Button
+                        icon="minus-circle"
+                        color="bad"
+                        onClick={() =>
+                          act('remove_rule', {
+                            program_id: program.id,
+                            rule_id: rule.id,
+                          })
+                        }
+                      >
+                        {`${rule.display} ${rule.id} ${toCombine.includes(rule.id) ? 'true' : 'false'}`}
+                      </Button>
+                    </Stack.Item>
+                  ))}
+                </Stack>
+              ) : (
+                <Box color="bad">No Active Rules</Box>
+              )}
+            </Section>
+          )}
+        </>
+      </Collapsible>
+    </Stack.Item>
   );
 }
 

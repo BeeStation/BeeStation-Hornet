@@ -403,6 +403,11 @@
 		for(var/i in 1 to coeff)
 			light_replacer.Charge(robot)
 
+	var/obj/item/lightreplacer/bluespace/cyborg/bs_light_replacer = locate(/obj/item/lightreplacer/bluespace/cyborg) in basic_modules
+	if(bs_light_replacer)
+		for(var/i in 1 to coeff)
+			bs_light_replacer.Charge(robot)
+
 	var/obj/item/soap/nanotrasen/cyborg/soap = locate(/obj/item/soap/nanotrasen/cyborg) in basic_modules
 	if(!soap)
 		return
