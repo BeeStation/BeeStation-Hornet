@@ -1049,6 +1049,11 @@
 	req_access = null;
 	req_access_txt = "150"
 	},
+/obj/item/sticker/sticky_note{
+	pixel_x = -8;
+	pixel_y = 40;
+	custom_text = "REMINDER - Due to a wide array of hostile fauna present along with heavy Nanotrasen influence within the array, your turret array has been jammed on "KILL" , Yours Sincerily - Syndicate High Command"
+	},
 /turf/open/floor/circuit/red,
 /area/ruin/syndicate_lava_base/engineering)
 "iz" = (
