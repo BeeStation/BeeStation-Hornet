@@ -664,8 +664,6 @@
 		if (BSLR)
 			robot.model.remove_module(BSLR, TRUE)
 
-
-
 /obj/item/borg/upgrade/pinpointer
 	name = "medical cyborg crew pinpointer"
 	desc = "A crew pinpointer module for the medical cyborg. Permits remote access to the crew monitor."
