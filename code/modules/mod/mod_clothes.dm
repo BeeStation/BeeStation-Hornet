@@ -11,9 +11,6 @@
 	cold_protection = HEAD
 	dynamic_hair_suffix = ""
 
-/obj/item/clothing/head/mod/Initialize(mapload)
-	. = ..()
-
 /obj/item/clothing/suit/mod
 	name = "\improper MOD chestplate"
 	desc = "A chestplate for a MODsuit."
@@ -33,9 +30,6 @@
 	cold_protection = CHEST|GROIN
 	drop_sound = null
 
-/obj/item/clothing/suit/mod/Initialize(mapload)
-	. = ..()
-
 /obj/item/clothing/gloves/mod
 	name = "\improper MOD gauntlets"
 	desc = "A pair of gauntlets for a MODsuit."
@@ -50,10 +44,6 @@
 	equip_sound = null
 	pickup_sound = null
 	drop_sound = null
-
-/obj/item/clothing/gloves/mod/Initialize(mapload)
-	. = ..()
-
 
 /obj/item/clothing/shoes/mod
 	name = "\improper MOD boots"
@@ -70,5 +60,3 @@
 	//can_be_tied = FALSE
 	equip_sound = null
 
-/obj/item/clothing/shoes/mod/Initialize(mapload)
-	. = ..()
