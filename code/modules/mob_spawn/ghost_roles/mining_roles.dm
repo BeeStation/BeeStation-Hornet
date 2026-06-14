@@ -314,10 +314,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 	death = FALSE
 	roundstart = FALSE
 	random = TRUE
-	use_cooldown = TRUE // Use cooldown
+	use_cooldown = TRUE
+	outfit = /datum/outfit/lavaland_doctor
 
 /obj/effect/mob_spawn/human/lavaland_doctor/equip(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	// Remove radio and PDA so they wouldn't annoy station crew.
 	var/list/del_types = list(/obj/item/modular_computer/tablet/pda, /obj/item/radio/headset)
 	for(var/del_type in del_types)
@@ -328,3 +329,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 	var/obj/structure/fluff/empty_sleeper/S = new(drop_location())
 	S.setDir(dir)
 	return ..()
+
+// outfit definition for the translocated vet
+/datum/outfit/lavaland_doctor
+	name = "Lavaland Veterinarian"
+	uniform = /obj/item/clothing/under/rank/medical/doctor
+	suit = /obj/item/clothing/suit/toggle/labcoat
+	shoes = /obj/item/clothing/shoes/sneakers/black
+	back = /obj/item/storage/backpack/medic
