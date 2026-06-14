@@ -320,7 +320,7 @@
 		if(L in hit_list)
 			continue
 		hit_list += L
-		L.adjustFireLoss(30)
+		L.apply_damage(30,BURN,blocked = L.run_armor_check(attack_flag = FIRE))
 		to_chat(L, span_userdanger("You're hit by [src]'s fire breath!"))
 	// deals damage to mechs
 	for(var/obj/vehicle/sealed/mecha/M in T.contents)
