@@ -292,6 +292,8 @@
 			. = TRUE
 
 	if(!is_operational)
+		if(panel_open)
+			to_chat(usr, span_warning("You're unable to operate \the [src] whilst its maintenance panel is open."))
 		return
 
 	switch(action)
