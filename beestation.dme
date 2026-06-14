@@ -3419,6 +3419,7 @@
 #include "code\modules\mapping\random_rooms\4x5.dm"
 #include "code\modules\mapping\random_rooms\5x10.dm"
 #include "code\modules\mapping\random_rooms\5x3.dm"
+#include "code\modules\mapping\random_rooms\random_room.dm"
 #include "code\modules\mapping\random_rooms\special.dm"
 #include "code\modules\mapping\space_management\space_level.dm"
 #include "code\modules\mapping\space_management\space_reservation.dm"

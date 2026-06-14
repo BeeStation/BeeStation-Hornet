@@ -1,7 +1,0 @@
-author: MadmanMartian
-delete-after: true
-changes:
-  - tweak: Medsprays now explain how they function in their description, describing
-      if they're patch-application or spray-application. No way to change them manually
-      is currently implemented.
-  - bugfix: Fixes Barber's Aid not working at all

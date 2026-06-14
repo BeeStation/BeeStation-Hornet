@@ -219,7 +219,7 @@
 /obj/machinery/xenoarchaeology_machine/calibrator/tutorial/Initialize(mapload, _artifact_type)
 	. = ..()
 	var/obj/item/sticker/sticky_note/calibrator_tutorial/label = new(loc)
-	label.afterattack(src, src, TRUE)
+	label.stick_to(src)
 	unregister_contents(label)
 	label.pixel_y = rand(-8, 8)
 	label.pixel_x = rand(-8, 8)

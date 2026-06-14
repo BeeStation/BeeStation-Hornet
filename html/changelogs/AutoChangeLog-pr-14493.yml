@@ -1,6 +1,0 @@
-author: Isaacnml
-delete-after: true
-changes:
-  - rscadd: Nukies have their stolen medibot back
-  - bugfix: Uplink wont give you an energy lens instead of a miniature energy crossbow
-      anymore

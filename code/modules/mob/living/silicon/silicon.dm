@@ -101,13 +101,13 @@
 	modularInterface.saved_identification = real_name || name
 	if(iscyborg(src))
 		modularInterface.saved_job = JOB_NAME_CYBORG
-		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/pda/robot)
+		modularInterface.force_install_component(new /obj/item/computer_hardware/hard_drive/small/pda/robot)
 	if(isAI(src))
 		modularInterface.saved_job = JOB_NAME_AI
-		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
+		modularInterface.force_install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
 	if(ispAI(src))
 		modularInterface.saved_job = JOB_NAME_PAI
-		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
+		modularInterface.force_install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
 
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud
