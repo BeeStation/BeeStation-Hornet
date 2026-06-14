@@ -8,8 +8,7 @@
 	mutantstomach = /obj/item/organ/stomach/battery/ethereal
 	mutanttongue = /obj/item/organ/tongue/ethereal
 	mutantheart = /obj/item/organ/heart/ethereal
-	exotic_bloodtype = "E"
-	exotic_blood = /datum/reagent/consumable/liquidelectricity
+	exotic_bloodtype = "LE"
 	siemens_coeff = 0.5 //They thrive on energy
 	attack_type = BURN //burn bish
 	species_traits = list(
@@ -54,7 +53,7 @@
 		QDEL_NULL(ethereal_light)
 	return ..()
 
-/datum/species/ethereal/on_species_gain(mob/living/carbon/human/new_ethereal, datum/species/old_species, pref_load)
+/datum/species/ethereal/on_species_gain(mob/living/carbon/new_ethereal, datum/species/old_species, pref_load)
 	. = ..()
 	if(!ishuman(new_ethereal))
 		return
