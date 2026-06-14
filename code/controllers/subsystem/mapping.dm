@@ -29,8 +29,6 @@ SUBSYSTEM_DEF(mapping)
 
 	///Random rooms template list, gets initialized and filled when server starts.
 	var/list/random_room_templates = list()
-	///Temporary list, where room spawners are kept roundstart. Not used later.
-	var/list/random_room_spawners = list()
 	var/list/holodeck_templates = list()
 
 	var/list/areas_in_z = list()
