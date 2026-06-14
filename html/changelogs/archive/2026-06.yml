@@ -125,5 +125,26 @@
       Deltastation, and Boxstation
   - tweak: The science/explab area gives new artsci network to its camera
 2026-06-13:
+  Isaacnml:
+  - rscadd: Nukies have their stolen medibot back
+  - bugfix: Uplink wont give you an energy lens instead of a miniature energy crossbow
+      anymore
+  MadmanMartian:
+  - tweak: Medsprays now explain how they function in their description, describing
+      if they're patch-application or spray-application. No way to change them manually
+      is currently implemented.
+  - bugfix: Fixes Barber's Aid not working at all
+  llol111:
+  - rscadd: Adds a verb for admins to change what laws the AI will spawn with
   mrmanlikesbt, TealSeer:
   - code_imp: The codebase now supports compilation on the latest byond version
+2026-06-14:
+  BotTierPC:
+  - bugfix: 'Fixes Custom Vendor''s: They should use the correct image and sell items
+      properly once again.'
+  Isaacnml:
+  - bugfix: Cloud Controller TGUI wont crash anymore, hopefully
+  Programs-The-Station:
+  - rscadd: Engineering Cyborgs can now wield the power of the BS RPED
+  - bugfix: Engineering Cyborgs can no longer get infinite RPEDs installed
+  - rscadd: Janitor Cyborgs can now wield the power of the BS Light Replacer
