@@ -802,6 +802,21 @@
 	desc = "It has pictures of pill bottles on its front."
 	illustration = "pillbox"
 
+/obj/item/storage/box/pillbottles/attackby(obj/item/P, mob/user, params)
+	if(istype(P, /obj/item/pen))
+		if(!user.is_literate())
+			to_chat(user, span_notice("You scribble illegibly on [src]!"))
+			return
+		var/new_label = stripped_input(user, "What would you like to label the box?", name, null, MAX_NAME_LEN)
+		if(!new_label || user.get_active_held_item() != P || !user.canUseTopic(src, BE_CLOSE))
+			return
+		if(new_label)
+			name = "[initial(name)] ([new_label])"
+		else
+			name = initial(name)
+		return
+	return ..()
+
 /obj/item/storage/box/pillbottles/PopulateContents()
 	for(var/i in 1 to 7)
 		new /obj/item/storage/pill_bottle(src)
