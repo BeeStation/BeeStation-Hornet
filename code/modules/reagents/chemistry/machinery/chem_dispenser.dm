@@ -292,8 +292,12 @@
 			. = TRUE
 
 	if(!is_operational)
-		if(panel_open)
-			to_chat(usr, span_warning("You're unable to operate \the [src] whilst its maintenance panel is open."))
+		if(is_broken())
+			to_chat(usr, span_warning("\The [src] is broken."))
+		if(!is_powered())
+			to_chat(usr, span_warning("\The [src] is not currently powered."))
+		if(is_maintenance_mode())
+			to_chat(usr, span_warning("\The [src]'s maintenance panel is open."))
 		return
 
 	switch(action)

@@ -82,6 +82,16 @@
  *
  *  process_atmos()
  *     Called by the 'air subsystem' once per atmos tick for each machine that is listed in its 'atmos_machines' list.
+ *
+ *Helpers:
+ *	is_powered()
+ *		Returns true if the machine_stat for NOPOWER is inactive,
+ *
+ *	is_broken()
+ *		Returns true if the machine_stat for BROKEN is active,
+ *
+ * 	is_maintenance_mode()
+ *		Returns true if the machine_stat for MAINT is active,
  * Compiled by Aygar
  */
 
@@ -574,6 +584,16 @@
 ///Called when the value of `is_operational` changes, so we can react to it.
 /obj/machinery/proc/on_set_is_operational(old_value)
 	return
+
+/obj/machinery/proc/is_powered()
+	return !(machine_stat & NOPOWER)
+
+/obj/machinery/proc/is_broken()
+	return machine_stat & BROKEN
+
+/obj/machinery/proc/is_maintenance_mode()
+	return machine_stat & MAINT
+
 
 /obj/machinery/can_interact(mob/user)
 	var/silicon = issilicon(user)
