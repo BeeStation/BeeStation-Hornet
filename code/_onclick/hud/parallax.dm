@@ -174,7 +174,7 @@
 	// Update the movement direction of the parallax if necessary (for shuttles)
 	set_parallax_movedir(areaobj.parallax_movedir, FALSE)
 
-	for(var/atom/movable/screen/parallax_layer/L as() in C.parallax_layers)
+	for(var/atom/movable/screen/parallax_layer/L as anything in C.parallax_layers)
 		if (L.view_sized != C.view)
 			L.update_o(C.view)
 		L.update_status(mymob)
@@ -280,8 +280,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer)
 		view = world.view
 
 	var/list/viewscales = getviewsize(view)
-	var/countx = ceil((viewscales[1]/2)/(480/world.icon_size))+1
-	var/county = ceil((viewscales[2]/2)/(480/world.icon_size))+1
+	var/countx = ceil((viewscales[1]/2)/(480/ICON_SIZE_X))+1
+	var/county = ceil((viewscales[2]/2)/(480/ICON_SIZE_Y))+1
 	var/list/new_overlays = new
 	for(var/x in -countx to countx)
 		for(var/y in -county to county)

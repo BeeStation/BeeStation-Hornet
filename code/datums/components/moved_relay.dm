@@ -31,7 +31,7 @@
 	return ..()
 
 /datum/component/moved_relay/Destroy(force, silent)
-	for(var/atom/A as() in ordered_parents)
+	for(var/atom/A as anything in ordered_parents)
 		UnregisterSignal(A, COMSIG_QDELETING)
 		UnregisterSignal(A, COMSIG_MOVABLE_MOVED)
 	ordered_parents = null
@@ -39,7 +39,7 @@
 
 /datum/component/moved_relay/UnregisterFromParent()
 	if (ordered_parents)
-		for(var/atom/A as() in ordered_parents)
+		for(var/atom/A as anything in ordered_parents)
 			UnregisterSignal(A, COMSIG_QDELETING)
 			UnregisterSignal(A, COMSIG_MOVABLE_MOVED)
 		ordered_parents.Cut()

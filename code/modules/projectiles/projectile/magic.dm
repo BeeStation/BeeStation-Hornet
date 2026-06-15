@@ -162,13 +162,16 @@
 	id = "life_drain"
 	alert_type = null
 	status_type = STATUS_EFFECT_REPLACE
-	tick_interval = 0.3 SECONDS
+	tick_interval = 0.4 SECONDS
 	duration = 10 SECONDS
 	var/datum/beam/drain_beam
 	var/mob/living/carbon/wizard
 	var/obj/item/gun/magic/wand/drain/wand
 
 /datum/status_effect/life_drain/on_creation(mob/living/new_owner, mob/living/firer, fired_from, duration_override)
+	. = ..()
+	if(!.)
+		return
 	if(isnull(firer) || isnull(fired_from) || !iscarbon(firer) || !iscarbon(new_owner))
 		qdel(src)
 		return
@@ -178,7 +181,6 @@
 	drain_beam = wizard.Beam(new_owner, icon = 'icons/effects/beam.dmi', icon_state = "lifedrain", time = 12 SECONDS, maxdistance = 7, beam_color = COLOR_RED)
 	RegisterSignal(drain_beam, COMSIG_QDELETING, PROC_REF(end_drain))
 	new_owner.visible_message(span_warningbold("[wizard] begins draining the life force from [new_owner]!"), span_warningbold("[wizard] is draining your life force! You need to get away from them to stop it!"))
-	. = ..()
 
 /datum/status_effect/life_drain/on_apply()
 	. = ..()

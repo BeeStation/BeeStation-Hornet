@@ -163,11 +163,12 @@
 			. += mutable_appearance('icons/mob/clothing/head/plasmaman_head.dmi', visor_state + "_weld", item_layer)
 
 /obj/item/clothing/head/helmet/space/plasmaman/wash(clean_types)
-	. = ..()
-	if(smile && (clean_types & CLEAN_TYPE_PAINT))
+	. = NONE
+	if(smile && (clean_types & CLEAN_TYPE_HARD_DECAL))
 		smile = FALSE
-		update_icon()
-		return TRUE
+		update_appearance(UPDATE_OVERLAYS)
+		. |= COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
+	. |= ..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
 	helmet_on = !helmet_on

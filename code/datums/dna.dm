@@ -12,6 +12,7 @@ GLOBAL_LIST_INIT(identity_block_lengths, list(
 		"[DNA_FACIAL_HAIR_COLOR_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
 		"[DNA_EYE_COLOR_LEFT_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
 		"[DNA_EYE_COLOR_RIGHT_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
+		"[DNA_HAIR_GRADIENT_COLOR_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
 	))
 
 /**
@@ -107,7 +108,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(transfer_SE)
 		destination.dna.mutation_index = mutation_index
 		destination.dna.default_mutation_genes = default_mutation_genes
-		for(var/datum/mutation/M as() in mutations)
+		for(var/datum/mutation/M as anything in mutations)
 			if(!istype(M, /datum/mutation/race))
 				destination.dna.add_mutation(M, M.class)
 	if(transfer_species)
@@ -161,7 +162,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /datum/dna/proc/remove_mutation_group(list/group, list/classes = list(MUT_NORMAL, MUT_EXTRA, MUT_OTHER), mutadone = FALSE)
 	if(!group)
 		return
-	for(var/datum/mutation/HM as() in group)
+	for(var/datum/mutation/HM as anything in group)
 		if((HM.class in classes) && !(HM.mutadone_proof && mutadone))
 			force_lose(HM)
 
@@ -467,7 +468,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 /datum/dna/proc/update_instability(alert=TRUE)
 	stability = 100
-	for(var/datum/mutation/M as() in mutations)
+	for(var/datum/mutation/M as anything in mutations)
 		if(M.class == MUT_EXTRA)
 			stability -= M.instability * GET_MUTATION_STABILIZER(M)
 	if(holder)
@@ -629,7 +630,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		update_mutations_overlay()
 
 	if(LAZYLEN(mutations))
-		for(var/datum/mutation/HM as() in mutations)
+		for(var/datum/mutation/HM as anything in mutations)
 			if(HM.allow_transfer || force_transfer_mutations)
 				dna.force_give(new HM.type(HM.class, copymut=HM)) //using force_give since it may include exotic mutations that otherwise wont be handled properly
 
@@ -835,7 +836,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(quality & MINOR_NEGATIVE)
 		mutations += GLOB.not_good_mutations
 	var/list/possible = list()
-	for(var/datum/mutation/A as() in mutations)
+	for(var/datum/mutation/A as anything in mutations)
 		if((!sequence || dna.mutation_in_sequence(A.type)) && !dna.get_mutation(A.type))
 			possible += A.type
 	if(exclude_monkey)

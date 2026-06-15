@@ -6,24 +6,24 @@
 // Used with human/proc/get_heat_protection() and human/proc/get_cold_protection()
 // The values here should add up to 1.
 // Hands and feet have 2.5%, arms and legs 7.5%, each of the torso parts has 15% and the head has 30%
-#define THERMAL_PROTECTION_HEAD			0.3
-#define THERMAL_PROTECTION_CHEST		0.15
-#define THERMAL_PROTECTION_GROIN		0.15
-#define THERMAL_PROTECTION_LEG_LEFT		0.075
-#define THERMAL_PROTECTION_LEG_RIGHT	0.075
-#define THERMAL_PROTECTION_FOOT_LEFT	0.025
-#define THERMAL_PROTECTION_FOOT_RIGHT	0.025
-#define THERMAL_PROTECTION_ARM_LEFT		0.075
-#define THERMAL_PROTECTION_ARM_RIGHT	0.075
-#define THERMAL_PROTECTION_HAND_LEFT	0.025
-#define THERMAL_PROTECTION_HAND_RIGHT	0.025
+#define THERMAL_PROTECTION_HEAD 0.3
+#define THERMAL_PROTECTION_CHEST 0.15
+#define THERMAL_PROTECTION_GROIN 0.15
+#define THERMAL_PROTECTION_LEG_LEFT 0.075
+#define THERMAL_PROTECTION_LEG_RIGHT 0.075
+#define THERMAL_PROTECTION_FOOT_LEFT 0.025
+#define THERMAL_PROTECTION_FOOT_RIGHT 0.025
+#define THERMAL_PROTECTION_ARM_LEFT 0.075
+#define THERMAL_PROTECTION_ARM_RIGHT 0.075
+#define THERMAL_PROTECTION_HAND_LEFT 0.025
+#define THERMAL_PROTECTION_HAND_RIGHT 0.025
 
 /mob/living/carbon/human/Life(delta_time = SSMOBS_DT, times_fired)
-	set invisibility = 0
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	. = ..()
+
 	if(QDELETED(src))
 		return FALSE
 
@@ -52,9 +52,7 @@
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
 
-	if(stat != DEAD)
-		return 1
-
+	return stat != DEAD
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	var/chest_covered = FALSE

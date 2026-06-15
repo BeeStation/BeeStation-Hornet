@@ -2,8 +2,6 @@ GLOBAL_VAR_INIT(stickpocalypse, FALSE) // if true, all non-embeddable items will
 
 GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to embed in people, takes precedence over stickpocalypse
 
-GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/effects/fire.dmi', "fire"))
-
 GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons/effects/welding_effect.dmi', "welding_sparks", GASFIRE_LAYER, ABOVE_LIGHTING_PLANE))
 
 GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
@@ -15,6 +13,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	name = "item"
 	icon = 'icons/obj/items_and_weapons.dmi'
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	burning_particles = /particles/smoke/burning/small
 	/// The icon state for the icons that appear in the players hand while holding it. Gotten from /client/var/lefthand_file and /client/var/righthand_file
 	var/inhand_icon_state = null
 	/// The icon for holding in hand icon states for the left hand.
@@ -502,26 +501,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/proc/attempt_pickup(mob/user)
 	. = TRUE
-
-	if(resistance_flags & ON_FIRE)
-		var/mob/living/carbon/C = user
-		var/can_handle_hot = FALSE
-		if(!istype(C))
-			can_handle_hot = TRUE
-		else if(C.gloves && (C.gloves.max_heat_protection_temperature > 360))
-			can_handle_hot = TRUE
-		else if(HAS_TRAIT(C, TRAIT_RESISTHEAT) || HAS_TRAIT(C, TRAIT_RESISTHEATHANDS))
-			can_handle_hot = TRUE
-
-		if(can_handle_hot)
-			extinguish()
-			to_chat(user, span_notice("You put out the fire on [src]."))
-		else
-			to_chat(user, span_warning("You burn your hand on [src]!"))
-			var/obj/item/bodypart/affecting = C.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
-			if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
-				C.update_damage_overlays()
-			return
 
 	if(acid_level > 20 && !ismob(loc))// so we can still remove the clothes on us that have acid.
 		var/mob/living/carbon/C = user

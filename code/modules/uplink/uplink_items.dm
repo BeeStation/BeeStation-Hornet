@@ -808,7 +808,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	toxin that will damage and disorient targets, causing them to \
 	slur as if inebriated. It can produce an infinite number \
 	of bolts, but takes a small amount of time to automatically recharge after each shot."
-	item = /obj/item/ammo_casing/energy/bolt
+	item = /obj/item/gun/energy/recharge/ebow
 	cost = 10
 	reputation_required = REPUTATION_GOOD
 	surplus = 50
@@ -2186,7 +2186,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/gun/blastcannon
 	cost = 14							//High cost because of the potential for extreme damage in the hands of a skilled scientist.
 	restricted_roles = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST)
-	disabled = TRUE // ! #11288 - Reported as non-functional
 	reputation_required = REPUTATION_EXCELLENT
 
 /datum/uplink_item/role_restricted/crushmagboots
@@ -2344,6 +2343,16 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 3
 	restricted_roles = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
 	reputation_required = REPUTATION_GOOD
+
+/datum/uplink_item/role_restricted/springlock
+	name = "Springlock Module"
+	desc = "A full-frame internal module mounted beneath the suit's outer shell. \
+		Its springlock exoskeleton retracts to allow entry, then locks into position to assist with boot-up. \
+		Decommissioned after repeated incidents involving sudden re-engagement under humid conditions. \
+		We found this one while recovering stolen cargo"
+	item = /obj/item/mod/module/springlock
+	cost = 2
+	restricted_roles = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
 
 /datum/uplink_item/role_restricted/rewind_camera
 	name = "Sepia-toned Camera"

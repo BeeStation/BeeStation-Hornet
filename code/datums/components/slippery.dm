@@ -66,19 +66,26 @@
 	if(slot_whitelist)
 		src.slot_whitelist = slot_whitelist
 
-/*
+/**
  * The proc that does the sliping. Invokes the slip callback we have set.
  *
- * source - the source of the signal
- * AM - the atom/movable that is being slipped.
+ * Arguments:
+ * * source - the source of the signal
+ * * arrived - the atom/movable that is being slipped.
  */
 /datum/component/slippery/proc/Slip(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 	if(!isliving(arrived))
 		return
+	if(lube_flags & SLIPPERY_TURF)
+		var/turf/turf = get_turf(source)
+		if(HAS_TRAIT(turf, TRAIT_TURF_IGNORE_SLIPPERY))
+			return
 	var/mob/living/victim = arrived
-	if(!(victim.movement_type & FLYING) && victim.slip(knockdown_time, parent, lube_flags, paralyze_time, force_drop_items) && callback)
-		callback.Invoke(victim)
+	if(victim.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
+		return
+	if(victim.slip(knockdown_time, parent, lube_flags, paralyze_time, force_drop_items))
+		callback?.Invoke(victim)
 
 /*
  * Gets called when COMSIG_ITEM_EQUIPPED is sent to parent.

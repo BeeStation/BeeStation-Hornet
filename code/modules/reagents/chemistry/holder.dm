@@ -544,11 +544,12 @@
 			for(var/B in cached_required_reagents)
 				multiplier = min(multiplier, round(get_reagent_amount(B) / cached_required_reagents[B]))
 
+			multiplier = max(multiplier, 1) //this shouldn't happen ...
+
 			for(var/B in cached_required_reagents)
 				remove_reagent(B, (multiplier * cached_required_reagents[B]), safety = 1)
 
 			for(var/P in selected_reaction.results)
-				multiplier = max(multiplier, 1) //this shouldn't happen ...
 				SSblackbox.record_feedback("tally", "chemical_reaction", cached_results[P]*multiplier, P)
 				add_reagent(P, cached_results[P]*multiplier, null, chem_temp)
 
@@ -559,14 +560,14 @@
 					if(selected_reaction.mix_sound)
 						playsound(get_turf(cached_my_atom), selected_reaction.mix_sound, 80, 1)
 
-					for(var/mob/M as() in seen)
+					for(var/mob/M as anything in seen)
 						to_chat(M, span_notice("[iconhtml] [selected_reaction.mix_message]"))
 
 				if(istype(cached_my_atom, /obj/item/slime_extract))
 					var/obj/item/slime_extract/ME2 = my_atom
-					ME2.Uses--
-					if(ME2.Uses <= 0) // give the notification that the slime core is dead
-						for(var/mob/M as() in seen)
+					ME2.extract_uses--
+					if(ME2.extract_uses <= 0) // give the notification that the slime core is dead
+						for(var/mob/M as anything in seen)
 							to_chat(M, span_notice("[iconhtml] \The [my_atom]'s power is consumed in the reaction."))
 							ME2.name = "used slime extract"
 							ME2.desc = "This extract has been used up."
@@ -758,7 +759,7 @@
  * * reagtemp - Temperature of this reagent, will be equalized
  * * no_react - prevents reactions being triggered by this addition
  */
-/datum/reagents/proc/add_reagent(datum/reagent/reagent, amount, list/data=null, reagtemp = DEFAULT_REAGENT_TEMPERATURE, no_react = 0)
+/datum/reagents/proc/add_reagent(datum/reagent/reagent, amount, list/data=null, reagtemp = DEFAULT_REAGENT_TEMPERATURE, no_react = FALSE)
 
 	if(!ispath(reagent))
 		stack_trace("invalid reagent passed to add reagent [reagent]")
@@ -885,27 +886,42 @@
  * Amount checks for having a specific amount of that chemical.
  * Needs metabolizing takes into consideration if the chemical is metabolizing when it's checked.
  */
-/datum/reagents/proc/has_reagent(datum/reagent/target_reagent, amount = -1, needs_metabolizing = FALSE)
-	if(!ispath(target_reagent))
+/datum/reagents/proc/has_reagent(
+	datum/reagent/target_reagent,
+	amount = -1,
+	needs_metabolizing = FALSE,
+	check_subtypes = FALSE,
+	chemical_flags = NONE,
+)
+	if(!isnull(target_reagent) && !ispath(target_reagent))
 		stack_trace("invalid reagent path passed to has reagent [target_reagent]")
 		return FALSE
 
 	var/list/cached_reagents = reagent_list
 	for(var/datum/reagent/holder_reagent as anything in cached_reagents)
-		if (holder_reagent.type == target_reagent)
-			if(!amount)
-				if(needs_metabolizing && !holder_reagent.metabolizing)
-					return
-				return holder_reagent
-			else
-				if(FLOOR(holder_reagent.volume, CHEMICAL_QUANTISATION_LEVEL) >= amount)
-					if(needs_metabolizing && !holder_reagent.metabolizing)
-						return
-					return holder_reagent
-				else
-					return
+		//finding for a specific reagent
+		if(!isnull(target_reagent))
+			// first find for specific type or subtype
+			if(!check_subtypes)
+				if(holder_reagent.type != target_reagent)
+					continue
+			else if(!istype(holder_reagent, target_reagent))
+				continue
 
-	return
+		//next check if we have the requested amount
+		if(CEILING(amount, CHEMICAL_QUANTISATION_LEVEL) > 0 && FLOOR(holder_reagent.volume, CHEMICAL_QUANTISATION_LEVEL) < amount)
+			continue
+
+		//next check for metabolization
+		if(needs_metabolizing && !holder_reagent.metabolizing)
+			continue
+
+		//next check if it has the specified flag
+		if(chemical_flags && !(holder_reagent.chemical_flags & chemical_flags))
+			continue
+
+		//after all that if we get here then we have found our reagent
+		return holder_reagent
 
 /**
  * Get the amount of this reagent or the sum of all its subtypes if specified

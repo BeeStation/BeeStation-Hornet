@@ -420,7 +420,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	crime_list = list()
 	//Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
 	message_admins(span_boldannounce("Failed to read the space_law config file! Defaulting to hardcoded datums.")) //Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
-	for (var/datum/crime/crime_path as() in subtypesof(/datum/crime))
+	for (var/datum/crime/crime_path as anything in subtypesof(/datum/crime))
 		// Ignore this crime, it is abstract
 		if (isnull(initial(crime_path.name)))
 			continue

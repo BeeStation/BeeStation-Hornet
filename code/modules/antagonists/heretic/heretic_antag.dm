@@ -17,6 +17,7 @@
 	roundend_category = "Heretics"
 	antagpanel_category = "Heretic"
 	ui_name = "AntagInfoHeretic"
+	antag_hud_name = "heretic"
 	antag_moodlet = /datum/mood_event/heretics
 	banning_key = ROLE_HERETIC
 	required_living_playtime = 4
@@ -213,7 +214,6 @@
 	RegisterSignals(our_mob, list(COMSIG_MOB_PRE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED), PROC_REF(on_spell_cast))
 	RegisterSignal(our_mob, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(on_item_afterattack))
 	RegisterSignal(our_mob, COMSIG_MOB_LOGIN, PROC_REF(fix_influence_network))
-	update_heretic_icons_added()
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/our_mob = mob_override || owner.current
@@ -226,17 +226,6 @@
 		COMSIG_MOB_ITEM_AFTERATTACK,
 		COMSIG_MOB_LOGIN
 	))
-	update_heretic_icons_removed()
-
-/datum/antagonist/heretic/proc/update_heretic_icons_added()
-	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_HERETIC]
-	hud.join_hud(owner.current)
-	set_antag_hud(owner.current, "heretic")
-
-/datum/antagonist/heretic/proc/update_heretic_icons_removed()
-	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_HERETIC]
-	hud.leave_hud(owner.current)
-	set_antag_hud(owner.current, null)
 
 /datum/antagonist/heretic/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()

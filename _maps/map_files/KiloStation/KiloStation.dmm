@@ -22332,7 +22332,7 @@
 	pixel_x = 8;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/cup/rag,
+/obj/item/rag,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -26863,7 +26863,7 @@
 /obj/structure/mirror{
 	pixel_y = 28
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -32497,7 +32497,7 @@
 /obj/structure/mirror{
 	pixel_y = 28
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -45442,7 +45442,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit/departure_lounge)
 "pJl" = (
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/showroomfloor,
 /area/station/service/kitchen)
 "pJF" = (

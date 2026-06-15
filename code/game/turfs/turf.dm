@@ -236,12 +236,12 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		for(var/I in B.vars)
 			B.vars[I] = null
 		return
-	QDEL_LIST(blueprint_data)
+	LAZYCLEARLIST(blueprint_data)
 	flags_1 &= ~INITIALIZED_1
 	requires_activation = FALSE
 	..()
 
-	if (length(vis_contents))
+	if(length(vis_contents))
 		vis_contents.Cut()
 
 /// WARNING WARNING
@@ -639,7 +639,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		if(!force) //readability
 			return
 	var/datum/turf_texture/turf_texture
-	for(var/datum/turf_texture/TF as() in textures)
+	for(var/datum/turf_texture/TF as anything in textures)
 		var/area/A = loc
 		if(TF in A?.get_area_textures())
 			turf_texture = turf_texture ? initial(TF.priority) > initial(turf_texture.priority) ? TF : turf_texture : TF

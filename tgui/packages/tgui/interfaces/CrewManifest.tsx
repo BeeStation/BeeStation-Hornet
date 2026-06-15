@@ -1,16 +1,10 @@
 import { classes } from 'common/react';
 import { sortBy } from 'es-toolkit';
+import { Box, Flex, Icon, Table, Tooltip } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
-import {
-  Box,
-  CollapsibleSection,
-  Flex,
-  Icon,
-  Table,
-  Tooltip,
-} from '../components';
 import { Window } from '../layouts';
+import { CollapsibleSection } from './common/CollapsibleSection';
 
 type DepartmentCrew = { [department: string]: ManifestEntry[] };
 type JobOrdering = { [job: string]: number };

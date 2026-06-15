@@ -1562,9 +1562,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/airalarm/directional/east,
-/obj/effect/mapping_helpers/airalarm/syndicate_access,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/syndicate_access,
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate/medical)
 "dU" = (
@@ -1886,6 +1886,11 @@
 /obj/machinery/light/small,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/airlock)
+"od" = (
+/obj/structure/cable/yellow,
+/mob/living/simple_animal/bot/medbot/nukie,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/shuttle/syndicate/medical)
 "op" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4;
@@ -2009,9 +2014,10 @@
 /area/shuttle/syndicate/medical)
 "JN" = (
 /obj/structure/mirror{
-	pixel_y = 28
+	pixel_y = 35;
+	pixel_x = -1
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/medical)
 "KA" = (
@@ -2217,7 +2223,7 @@ aJ
 aO
 bf
 JN
-Ak
+od
 Jr
 Ll
 bV

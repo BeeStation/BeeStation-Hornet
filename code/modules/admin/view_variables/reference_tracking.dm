@@ -45,7 +45,7 @@ GLOBAL_ALIST_EMPTY(reftracker_skip_typecache_b)
 		/turf/open/floor/plating/asteroid,
 		/turf/open/openspace,
 		/turf/open/space,
-		/obj/structure/flora, // icebox and such has a LOT of these
+		/obj/structure/flora,
 		/datum/chatmessage,
 		/datum/lighting_corner,
 		/datum/reagent/consumable/nutriment,

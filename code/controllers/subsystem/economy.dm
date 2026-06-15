@@ -35,12 +35,12 @@ SUBSYSTEM_DEF(economy)
 	var/remaining_budget_pool = budget_pool
 
 	// First pass: subtract fixed starting budgets
-	for(var/datum/bank_account/department/each as() in subtypesof(/datum/bank_account/department))
+	for(var/datum/bank_account/department/each as anything in subtypesof(/datum/bank_account/department))
 		if(initial(each.starting_budget))
 			remaining_budget_pool -= initial(each.starting_budget)
 
 	// Second pass: count departments that should receive a share
-	for(var/datum/bank_account/department/each as() in subtypesof(/datum/bank_account/department))
+	for(var/datum/bank_account/department/each as anything in subtypesof(/datum/bank_account/department))
 		if(!initial(each.nonstation_account))
 			if(!initial(each.starting_budget)) // only count those without a fixed starting budget
 				budget_size++
@@ -48,7 +48,7 @@ SUBSYSTEM_DEF(economy)
 	var/budget_to_hand_out = (budget_size > 0) ? round(remaining_budget_pool / budget_size) : 0
 
 	// Create department accounts
-	for(var/datum/bank_account/department/dep as() in subtypesof(/datum/bank_account/department))
+	for(var/datum/bank_account/department/dep as anything in subtypesof(/datum/bank_account/department))
 		var/datum/bank_account/department/D
 		if(initial(dep.starting_budget))
 			D = new dep(initial(dep.starting_budget))

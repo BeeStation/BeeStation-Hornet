@@ -6,11 +6,10 @@
 	antag_moodlet = /datum/mood_event/heretics
 	banning_key = ROLE_HERETIC
 	show_in_antagpanel = FALSE
-	var/antag_hud_type = ANTAG_HUD_HERETIC
-	var/antag_hud_name = "heretic_beast"
+	antag_hud_name = "heretic_beast"
+	show_to_ghosts = TRUE
 	/// Our master (a heretic)'s mind.
 	var/datum/mind/master
-	show_to_ghosts = TRUE
 
 /datum/antagonist/heretic_monster/on_gain()
 	. = ..()
@@ -45,14 +44,6 @@
 	owner.announce_objectives()
 	to_chat(owner, span_boldnotice("You are a horrible creation brought to this plane through the Gates of the Mansus."))
 	to_chat(owner, span_notice("Your master is [master.name]. Assist them to all ends."))
-
-/datum/antagonist/heretic_monster/apply_innate_effects(mob/living/mob_override)
-	. = ..()
-	add_antag_hud(antag_hud_type, antag_hud_name, owner.current)
-
-/datum/antagonist/heretic_monster/remove_innate_effects(mob/living/mob_override)
-	. = ..()
-	remove_antag_hud(antag_hud_type, owner.current)
 
 /datum/antagonist/heretic_monster/get_antag_name() // good to recognise who's responsible with these monsters
 	if(!master)

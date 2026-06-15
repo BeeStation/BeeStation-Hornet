@@ -754,7 +754,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 		if(!all_shuttle_areas[oldT?.loc])
 			continue
 		var/area/old_area = oldT.loc
-		for(var/obj/docking_port/mobile/bottom_shuttle as() in all_towed_shuttles)
+		for(var/obj/docking_port/mobile/bottom_shuttle as anything in all_towed_shuttles)
 			if(bottom_shuttle.underlying_turf_area[oldT])
 				var/area/underlying_area = bottom_shuttle.underlying_turf_area[oldT]
 				oldT.change_area(old_area, underlying_area)
@@ -780,7 +780,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 			if(M.mind && !istype(t, /turf/open/floor/mineral/plastitanium/red/brig))
 				M.mind.force_escaped = TRUE
 			// Ghostize them and put them in nullspace stasis (for stat & possession checks)
-			M.notransform = TRUE
+			ADD_TRAIT(M, TRAIT_NO_TRANSFORM, REF(src))
 			M.ghostize(FALSE)
 			M.moveToNullspace()
 
@@ -918,7 +918,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 		shuttle_area.parallax_movedir = FALSE
 	if(assigned_transit && assigned_transit.assigned_area)
 		assigned_transit.assigned_area.parallax_movedir = FALSE
-	for (var/mob/M as() in SSmobs.clients_by_zlevel[z])
+	for (var/mob/M as anything in SSmobs.clients_by_zlevel[z])
 		var/area/A = get_area(M)
 		if(!A)
 			continue
@@ -1095,7 +1095,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 				break
 
 	if(distant_source)
-		for(var/mob/M as() in SSmobs.clients_by_zlevel[z])
+		for(var/mob/M as anything in SSmobs.clients_by_zlevel[z])
 			var/dist_far = get_dist(M, distant_source)
 			//Cannot hear shuttles from other shuttles
 			if(M.get_virtual_z_level() != get_virtual_z_level())

@@ -48,7 +48,8 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		var/datum/clockcult/scripture/default_scripture = new scripture_type(src)
 		scriptures[scripture_type] = default_scripture
 
-		bind_spell(binder = null, scripture = default_scripture)
+		var/datum/action/innate/clockcult/quick_bind/quickbound = new(default_scripture, src)
+		quick_bound_scriptures += quickbound
 
 /obj/item/clockwork/clockwork_slab/Destroy()
 	GLOB.clockwork_slabs -= src

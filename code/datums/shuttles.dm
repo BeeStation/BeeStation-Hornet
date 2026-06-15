@@ -130,7 +130,7 @@
 		//retrieving our cache
 		var/line
 		var/list/cache
-		for(var/datum/grid_set/gset as() in cached_map.gridSets)
+		for(var/datum/grid_set/gset as anything in cached_map.gridSets)
 			if(gset.zcrd - 1 != z_offset) //Not our Z-level
 				continue
 			if((gset.ycrd - 1 < y_offset) || (gset.ycrd - length(gset.gridLines) > y_offset)) //Our y coord isn't in the bounds
@@ -146,7 +146,7 @@
 		//How many baseturfs were added to this turf by the mapload
 		var/baseturf_length
 		var/turf/P //Typecasted for the initial call
-		for(P as() in cache[1])
+		for(P as anything in cache[1])
 			if(ispath(P, /turf))
 				var/list/added_baseturfs = GLOB.created_baseturf_lists[initial(P.baseturfs)] //We can assume that our turf type will be included here because it was just generated in the mapload.
 				if(!islist(added_baseturfs))

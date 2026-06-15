@@ -60,7 +60,7 @@ Stabilized extracts:
 		// No effect exists, apply it
 		holder.apply_status_effect(effectpath, src)
 		return PROCESS_KILL
-	else if(current_effect.duration != -1)
+	else if(current_effect.duration != STATUS_EFFECT_PERMANENT)
 		// Effect exists but is temporary (fading), refresh it to permanent
 		holder.apply_status_effect(effectpath, src)
 		return PROCESS_KILL

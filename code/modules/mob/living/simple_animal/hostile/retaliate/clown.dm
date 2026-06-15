@@ -40,6 +40,10 @@
 	var/banana_type = /obj/item/grown/bananapeel
 	var/attack_reagent
 
+/mob/living/simple_animal/hostile/retaliate/clown/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NAIVE, INNATE_TRAIT)
+
 /mob/living/simple_animal/hostile/retaliate/clown/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
 		adjustBruteLoss(10)
