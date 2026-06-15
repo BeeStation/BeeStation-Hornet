@@ -34,7 +34,7 @@
 	qdel(nadeassembly)
 	nadeassembly = null
 	target = null
-	..()
+	return ..()
 
 /obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
 	if(!nadeassembly && istype(I, /obj/item/assembly_holder))
@@ -55,7 +55,7 @@
 		nadeassembly = null
 		update_icon()
 		return
-	..()
+	return ..()
 
 /obj/item/grenade/plastic/prime(mob/living/lanced_by)
 	. = ..()
@@ -66,7 +66,7 @@
 	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
-			density_check = target.density //since turfs getting exploded makes this a bit fucky wucky we need to assert whether we should go directional before that part
+			density_check = target.density
 			target.cut_overlay(plastic_overlay)
 			if(!ismob(target) || full_damage_on_mobs)
 				EX_ACT(target, EXPLODE_HEAVY, target)
@@ -89,7 +89,6 @@
 
 /obj/item/grenade/plastic/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
-
 	if(nadeassembly)
 		nadeassembly.on_entered(source, AM)
 
@@ -130,9 +129,9 @@
 
 		notify_ghosts("[user] has planted \a [src] on [target] with a [det_time] second fuse!", source = AM, action = (isturf(target) ? NOTIFY_JUMP : NOTIFY_ORBIT), flashwindow = FALSE, header = "Explosive Planted")
 
-		moveToNullspace()	//Yep
+		moveToNullspace()
 
-		if(istype(AM, /obj/item)) //your crappy throwing star can't fly so good with a giant brick of c4 on it.
+		if(istype(AM, /obj/item))
 			var/obj/item/I = AM
 			I.throw_speed = max(1, (I.throw_speed - 3))
 			I.throw_range = max(1, (I.throw_range - 3))
@@ -147,7 +146,7 @@
 			to_chat(user, span_notice("You plant the bomb. Timer counting down from [det_time]."))
 			addtimer(CALLBACK(src, PROC_REF(prime)), det_time*10)
 		else
-			qdel(src)	//How?
+			qdel(src)
 
 /obj/item/grenade/plastic/proc/shout_syndicate_crap(mob/M)
 	if(!M)
@@ -170,7 +169,7 @@
 	log_game("[key_name(user)] suicided with [src] at [AREACOORD(user)]")
 	user.visible_message(span_suicide("[user] activates [src] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!"))
 	shout_syndicate_crap(user)
-	explosion(user,0,2,0) //Cheap explosion imitation because putting prime() here causes runtimes
+	explosion(user,0,2,0)
 	user.gib(1, 1)
 	qdel(src)
 
@@ -188,18 +187,8 @@
 	name = "C4"
 	desc = "Used to put holes in specific areas without too much extra hole. A saboteur's favorite."
 	gender = PLURAL
-	var/open_panel = 0
 	can_attach_mob = TRUE
-
-/obj/item/grenade/plastic/c4/Initialize(mapload)
-	. = ..()
-	wires = new /datum/wires/explosive/c4(src)
-
-/obj/item/grenade/plastic/c4/Destroy()
-	qdel(wires)
-	wires = null
-	target = null
-	return ..()
+	// No wires panel – removed for BeeStation compatibility
 
 /obj/item/grenade/plastic/c4/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] activates the [src.name] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!"))
@@ -212,13 +201,8 @@
 	user.gib(1, 1)
 
 /obj/item/grenade/plastic/c4/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		open_panel = !open_panel
-		to_chat(user, span_notice("You [open_panel ? "open" : "close"] the wire panel."))
-	else if(is_wire_tool(I))
-		wires.interact(user)
-	else
-		return ..()
+	// No wire panel interaction – removed
+	return ..()
 
 /obj/item/grenade/plastic/c4/prime(mob/living/lanced_by)
 	if(QDELETED(src))
@@ -245,10 +229,7 @@
 /obj/item/grenade/plastic/c4/attack(mob/M, mob/user, def_zone)
 	return
 
-// X4 is an upgraded directional variant of c4 which is relatively safe to be standing next to. And much less safe to be standing on the other side of.
-// C4 is intended to be used for infiltration, and destroying tech. X4 is intended to be used for heavy breaching and tight spaces.
-// Intended to replace C4 for nukeops, and to be a randomdrop in surplus/random traitor purchases.
-
+// X4
 /obj/item/grenade/plastic/x4
 	name = "X4"
 	desc = "A shaped high-explosive breaching charge. Designed to ensure user safety and wall nonsafety."
@@ -259,4 +240,3 @@
 	boom_sizes = list(0, 2, 5)
 	can_attach_mob = TRUE
 	full_damage_on_mobs = TRUE
-
