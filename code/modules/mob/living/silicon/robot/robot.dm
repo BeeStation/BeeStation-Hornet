@@ -74,8 +74,6 @@
 		mmi.brainmob.container = mmi
 		mmi.update_icon()
 
-	updatename()
-
 	blacklisted_hats = typecacheof(blacklisted_hats)
 
 	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
@@ -946,7 +944,7 @@
 
 	hat_offset = model.hat_offset
 
-	updatename()
+	INVOKE_ASYNC(src, PROC_REF(updatename))
 
 /mob/living/silicon/robot/proc/place_on_head(obj/item/new_hat)
 	if(hat)

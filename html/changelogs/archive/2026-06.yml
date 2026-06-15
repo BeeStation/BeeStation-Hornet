@@ -142,9 +142,22 @@
   BotTierPC:
   - bugfix: 'Fixes Custom Vendor''s: They should use the correct image and sell items
       properly once again.'
+  DrDuckedGoose:
+  - rscadd: Adds a new round end sound
   Isaacnml:
   - bugfix: Cloud Controller TGUI wont crash anymore, hopefully
+  PowerfulBacon:
+  - bugfix: Fixes some unexpected behaviours in reagent code caused by floating point
+      arithmetic errors.
   Programs-The-Station:
   - rscadd: Engineering Cyborgs can now wield the power of the BS RPED
   - bugfix: Engineering Cyborgs can no longer get infinite RPEDs installed
   - rscadd: Janitor Cyborgs can now wield the power of the BS Light Replacer
+  WhiskeyMarten:
+  - bugfix: Fixed the CardStation Supermatter area being set to rooms around the SM
+      chamber as well.
+  mrmanlikesbt:
+  - code_imp: Sleeping in Initialize() is banned now.
+2026-06-15:
+  mrmanlikesbt:
+  - code_imp: Fixed the codebase not compiling, again

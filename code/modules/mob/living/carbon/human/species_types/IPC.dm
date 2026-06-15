@@ -265,7 +265,7 @@
 
 	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[C.dna.features["ipc_chassis"]]
 
-	for(var/obj/item/bodypart/BP as() in C.bodyparts) //Override bodypart data as necessary
+	for(var/obj/item/bodypart/BP as anything in C.bodyparts) //Override bodypart data as necessary
 		BP.uses_mutcolor = chassis_of_choice.color_src ? TRUE : FALSE
 		if(BP.uses_mutcolor)
 			BP.should_draw_greyscale = TRUE

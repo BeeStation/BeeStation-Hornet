@@ -1472,7 +1472,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 
 			// Run through each mutation in our Advanced Injector and add them to a
 			//  new injector
-			for(var/datum/mutation/HM as() in injector)
+			for(var/datum/mutation/HM as anything in injector)
 				I.add_mutations += new HM.type(copymut=HM)
 
 			// Force apply any mutations, this is functionality similar to mutators
@@ -1542,7 +1542,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 
 			// We then add the instabilities of all other mutations in the injector,
 			//  remembering to apply the Stabilizer chromosome modifiers
-			for(var/datum/mutation/I as() in injector_selection[adv_inj])
+			for(var/datum/mutation/I as anything in injector_selection[adv_inj])
 				instability_total += I.instability * GET_MUTATION_STABILIZER(I)
 
 			// If this would take us over the max instability, we inform the user.
@@ -1821,7 +1821,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 
 		// ---------------------------------------------------------------------- //
 		// Now get additional/"extra" mutations that they shouldn't have by default
-		for(var/datum/mutation/HM as() in scanner_occupant.dna.mutations)
+		for(var/datum/mutation/HM as anything in scanner_occupant.dna.mutations)
 			// If it's in the mutation index array, we've already catalogued this
 			//  mutation and can safely skip over it. It really shouldn't be, but this
 			//  will catch any weird edge cases
@@ -1869,7 +1869,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 
 	// ------------------------------------------------------------------------ //
 	// Build the list of mutations stored within the DNA Console
-	for(var/datum/mutation/HM as() in stored_mutations)
+	for(var/datum/mutation/HM as anything in stored_mutations)
 		var/list/mutation_data = list()
 
 		var/datum/mutation/A = GET_INITIALIZED_MUTATION(HM.type)
@@ -1907,7 +1907,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 	// ------------------------------------------------------------------------ //
 	// Build the list of mutations stored on any inserted diskettes
 	if(diskette)
-		for(var/datum/mutation/HM as() in diskette.mutations)
+		for(var/datum/mutation/HM as anything in diskette.mutations)
 			var/list/mutation_data = list()
 
 			var/datum/mutation/A = GET_INITIALIZED_MUTATION(HM.type)
@@ -1935,7 +1935,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 	if(LAZYLEN(injector_selection))
 		for(var/I in injector_selection)
 			var/list/mutations = list()
-			for(var/datum/mutation/HM as() in injector_selection[I])
+			for(var/datum/mutation/HM as anything in injector_selection[I])
 				var/list/mutation_data = list()
 
 				var/datum/mutation/A = GET_INITIALIZED_MUTATION(HM.type)

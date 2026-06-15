@@ -1280,7 +1280,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	for(var/obj/item/I in user)
 		if(I != src)
 			user.dropItemToGround(I)
-	for(var/turf/T as() in RANGE_TURFS(1, user))
+	for(var/turf/T as anything in RANGE_TURFS(1, user))
 		var/obj/effect/temp_visual/hierophant/blast/B = new(T, user, TRUE)
 		B.damage = 0
 	user.dropItemToGround(src) //Drop us last, so it goes on top of their stuff
@@ -1435,10 +1435,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		user.log_message("teleported self from [AREACOORD(source)] to [beacon]", LOG_GAME)
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(source, user)
-		for(var/turf/t as() in RANGE_TURFS(1, T))
+		for(var/turf/t as anything in RANGE_TURFS(1, T))
 			var/obj/effect/temp_visual/hierophant/blast/B = new /obj/effect/temp_visual/hierophant/blast(t, user, TRUE) //blasts produced will not hurt allies
 			B.damage = 30
-		for(var/turf/t as() in RANGE_TURFS(1, source))
+		for(var/turf/t as anything in RANGE_TURFS(1, source))
 			var/obj/effect/temp_visual/hierophant/blast/B = new /obj/effect/temp_visual/hierophant/blast(t, user, TRUE) //but absolutely will hurt enemies
 			B.damage = 30
 		for(var/mob/living/L in hearers(1, source))

@@ -39,7 +39,7 @@
 	for(var/tab_name in tab_names)
 		var/list/procpaths = tab_names[tab_name]
 		payload[tab_name] = list()
-		for(var/procpath/PP as() in procpaths)
+		for(var/procpath/PP as anything in procpaths)
 			payload[tab_name]["[PP.name]"] = list(
 				action = "verb",
 				params = list("verb" = PP.name),

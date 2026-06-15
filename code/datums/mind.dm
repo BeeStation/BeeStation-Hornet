@@ -171,7 +171,7 @@
 	new_character.mind = src //and associate our new body with ourself
 	antag_hud = new_character.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/antagonist_hud, "combo_hud", src)
 
-	for(var/datum/quirk/T as() in quirks) //Retarget all traits this mind has
+	for(var/datum/quirk/T as anything in quirks) //Retarget all traits this mind has
 		T.transfer_mob(new_character)
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		var/datum/antagonist/A = a
@@ -408,7 +408,7 @@
 				output += "</ul>"
 	if(crew_objectives.len)
 		output += "<br><B>Optional Objectives:</B>"
-		for(var/datum/objective/objective as() in crew_objectives)
+		for(var/datum/objective/objective as anything in crew_objectives)
 			output += "<br>[objective.explanation_text]"
 
 	if(window)
@@ -616,7 +616,7 @@
 	var/list/antag_objectives = get_all_antag_objectives()
 	if(antag_objectives.len)
 		to_chat(current, span_notice("Your current objectives:"))
-		for(var/datum/objective/O as() in antag_objectives)
+		for(var/datum/objective/O as anything in antag_objectives)
 			to_chat(current, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
 			obj_count++
 		// Objectives are often stored in the static data of antag uis, so we should update those as well
@@ -624,7 +624,7 @@
 			antag.update_static_data(current)
 	if(crew_objectives.len)
 		to_chat(current, span_notice("Your optional objectives:"))
-		for(var/datum/objective/C as() in crew_objectives)
+		for(var/datum/objective/C as anything in crew_objectives)
 			to_chat(current, "[C.explanation_text]")
 
 /datum/mind/proc/find_syndicate_uplink()

@@ -179,7 +179,7 @@
 	if(.)
 		if(!morphed)
 			var/list/things = list()
-			for(var/atom/A as() in view(src))
+			for(var/atom/A as anything in view(src))
 				if(allowed(A))
 					things += A
 			if(LAZYLEN(things) >= 1)
