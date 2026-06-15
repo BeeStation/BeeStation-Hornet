@@ -586,7 +586,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			return FALSE
 		if (NAMEOF(src, antag_token_count_cached))
 			return FALSE
-		if (NAMEOF(src, authenticate))
+		if (NAMEOF(src, authenticated))
 			return FALSE
 		if (NAMEOF(src, logged_in))
 			log_admin_private("[key_name(usr)] attempted to auth bypass [key_name(src)] via client.logged_in")
