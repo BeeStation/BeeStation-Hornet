@@ -83,7 +83,6 @@
 		M.gib()
 	qdel(src)
 
-//assembly stuff
 /obj/item/grenade/plastic/receive_signal()
 	prime()
 
@@ -179,16 +178,11 @@
 	else
 		icon_state = "[inhand_icon_state]0"
 
-//////////////////////////
-///// The Explosives /////
-//////////////////////////
-
 /obj/item/grenade/plastic/c4
 	name = "C4"
 	desc = "Used to put holes in specific areas without too much extra hole. A saboteur's favorite."
 	gender = PLURAL
 	can_attach_mob = TRUE
-	// No wires panel – removed for BeeStation compatibility
 
 /obj/item/grenade/plastic/c4/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] activates the [src.name] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!"))
@@ -199,10 +193,6 @@
 	sleep(10)
 	prime()
 	user.gib(1, 1)
-
-/obj/item/grenade/plastic/c4/attackby(obj/item/I, mob/user, params)
-	// No wire panel interaction – removed
-	return ..()
 
 /obj/item/grenade/plastic/c4/prime(mob/living/lanced_by)
 	if(QDELETED(src))
@@ -229,7 +219,6 @@
 /obj/item/grenade/plastic/c4/attack(mob/M, mob/user, def_zone)
 	return
 
-// X4
 /obj/item/grenade/plastic/x4
 	name = "X4"
 	desc = "A shaped high-explosive breaching charge. Designed to ensure user safety and wall nonsafety."
