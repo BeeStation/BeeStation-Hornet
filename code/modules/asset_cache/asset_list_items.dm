@@ -301,7 +301,7 @@
 	name = "design"
 
 /datum/asset/spritesheet_batched/research_designs/create_spritesheets()
-	for (var/datum/design/D as() in subtypesof(/datum/design))
+	for (var/datum/design/D as anything in subtypesof(/datum/design))
 		var/icon_file
 		var/icon_state
 		var/datum/universal_icon/design_uni_icon = null
@@ -598,7 +598,7 @@
 	name = "fish"
 
 /datum/asset/spritesheet_batched/fish/create_spritesheets()
-	for (var/datum/aquarium_behaviour/fish/fish_type as() in subtypesof(/datum/aquarium_behaviour/fish))
+	for (var/datum/aquarium_behaviour/fish/fish_type as anything in subtypesof(/datum/aquarium_behaviour/fish))
 		var/fish_icon = initial(fish_type.icon)
 		var/fish_icon_state = initial(fish_type.icon_state)
 		var/id = sanitize_css_class_name("[fish_icon][fish_icon_state]")
@@ -621,7 +621,7 @@
 	// pre-loading all lanugage icons also helps to avoid meta
 	insert_all_icons("language", 'icons/misc/language.dmi')
 	// catch languages which are pulling icons from another file
-	for(var/datum/language/L as() in subtypesof(/datum/language))
+	for(var/datum/language/L as anything in subtypesof(/datum/language))
 		var/icon = initial(L.icon)
 		if (icon != 'icons/misc/language.dmi')
 			var/icon_state = initial(L.icon_state)

@@ -187,7 +187,7 @@
 
 /datum/holoparasite_ability/lesser/snare/proc/get_snare_by_name(name_to_find)
 	name_to_find = trim(LOWER_TEXT(name_to_find), MAX_NAME_LEN)
-	for(var/obj/effect/snare/snare as() in snares)
+	for(var/obj/effect/snare/snare as anything in snares)
 		if(LOWER_TEXT(snare.name) == name_to_find)
 			return snare
 

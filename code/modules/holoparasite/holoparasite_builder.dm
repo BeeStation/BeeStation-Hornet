@@ -115,7 +115,7 @@
 		.["selected_abilities"] += "[saved_stats.ability.type]"
 		if(saved_stats.ability.forced_weapon)
 			.["forced_weapon"] = "[saved_stats.ability.forced_weapon]"
-	for(var/datum/holoparasite_ability/ability as() in saved_stats.lesser_abilities)
+	for(var/datum/holoparasite_ability/ability as anything in saved_stats.lesser_abilities)
 		.["selected_abilities"] += "[ability.type]"
 	.["selected_abilities"] += "[saved_stats.weapon.type]"
 
@@ -256,7 +256,7 @@
 		if(is_valid_ability(forced_weapon_path, /datum/holoparasite_ability/weapon) && !istype(saved_stats.weapon, forced_weapon_path))
 			QDEL_NULL(saved_stats.weapon)
 			saved_stats.weapon = new forced_weapon_path
-		for(var/datum/holoparasite_ability/lesser/lability as() in saved_stats.lesser_abilities)
+		for(var/datum/holoparasite_ability/lesser/lability as anything in saved_stats.lesser_abilities)
 			if(!lability.can_buy())
 				saved_stats.lesser_abilities -= lability
 				qdel(lability)
@@ -317,7 +317,7 @@
 	points = max_points - max(saved_stats.damage - 1, 0) - max(saved_stats.defense - 1, 0) - max(saved_stats.speed - 1, 0) - max(saved_stats.potential - 1, 0) - max(saved_stats.range - 1, 0) - saved_stats.weapon.cost
 	if(saved_stats.ability)
 		points -= saved_stats.ability.cost
-	for(var/datum/holoparasite_ability/lesser/minor as() in saved_stats.lesser_abilities)
+	for(var/datum/holoparasite_ability/lesser/minor as anything in saved_stats.lesser_abilities)
 		points -= minor.cost
 	return points
 
@@ -396,7 +396,7 @@
  */
 /datum/holoparasite_builder/proc/record_to_blackbox()
 	var/list/lesser_abilities = list()
-	for(var/datum/holoparasite_ability/lesser/lesser_ability as() in saved_stats.lesser_abilities)
+	for(var/datum/holoparasite_ability/lesser/lesser_ability as anything in saved_stats.lesser_abilities)
 		lesser_abilities += "[lesser_abilities.type]"
 	SSblackbox.record_feedback("amount", "holoparasites_created", 1)
 	SSblackbox.record_feedback("associative", "holoparasite_stats", 1, list(

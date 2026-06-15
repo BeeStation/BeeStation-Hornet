@@ -223,7 +223,7 @@
 	else
 		target_mob = get_mob_by_ckey(target_ckey)
 	if(!target_mob)
-		for(var/mob/M as() in GLOB.mob_list)
+		for(var/mob/M as anything in GLOB.mob_list)
 			if(M?.ckey == target_ckey)
 				target_mob = M
 	if(!target_mob)

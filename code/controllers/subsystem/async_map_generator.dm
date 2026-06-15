@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(async_map_generator)
 
 /datum/controller/subsystem/async_map_generator/stat_entry()
 	var/list/things = list()
-	for(var/datum/async_map_generator/running_generator as() in executing_generators)
+	for(var/datum/async_map_generator/running_generator as anything in executing_generators)
 		things += "{Ticks: [running_generator.ticks]}"
 	. = ..("GenCnt:[length(executing_generators)], [things.Join(",")]")
 

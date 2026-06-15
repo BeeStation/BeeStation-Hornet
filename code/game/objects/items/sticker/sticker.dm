@@ -39,23 +39,13 @@
 	if(roll_unusual)
 		generate_unusual()
 
-/obj/item/sticker/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
+/obj/item/sticker/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!can_stick(target) || !proximity_flag)
 		return
-	//Move to our target
-	forceMove(target)
-	layer = target.layer+0.001
-	target.vis_contents += src
-	//Update state
-	sticker_state = STICKER_STATE_STUCK
-	update_appearance()
-	//Build click offset
+
 	var/list/modifiers = params2list(click_parameters)
-	if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
-		return
-	pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
-	pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
+	stick_to(target, text2num(LAZYACCESS(modifiers, ICON_X)), text2num(LAZYACCESS(modifiers, ICON_Y)))
 
 /obj/item/sticker/attack_hand(mob/living/user)
 	if(user.combat_mode && sticker_state == STICKER_STATE_STUCK)
@@ -167,7 +157,7 @@
 		add_emitter(/obj/emitter/electrified, "unusual", 10)
 
 /obj/item/sticker/proc/get_stats()
-	. = ""
+	. = list()
 	//Append rarity
 	var/rarities = STICKER_RARITY_COMMON | STICKER_RARITY_UNCOMMON | STICKER_RARITY_RARE | STICKER_RARITY_EXOTIC | STICKER_RARITY_MYTHIC
 	var/rarity = rarities & sticker_flags
@@ -176,17 +166,31 @@
 	//use this switch to give the rarity name, color, and any other effects you want to add
 	switch(rarity)
 		if(STICKER_RARITY_COMMON)
-			. += "<span class='notice'>Common</span>\n"
+			. += span_notice("Common")
 		if(STICKER_RARITY_UNCOMMON)
-			. += "<span class='green'>Uncommon</span>\n"
+			. += span_green("Uncommon")
 		if(STICKER_RARITY_RARE)
-			. += "<span class='cult'>Rare</span>\n"
+			. += span_cult("Rare")
 		if(STICKER_RARITY_EXOTIC)
-			. += "<span class='revennotice'>Exotic</span>\n"
+			. += span_revennotice("Exotic")
 		if(STICKER_RARITY_MYTHIC)
-			. += "<span class='alien'>Mythic</span>\n"
+			. += span_alien("Mythic")
 		else
-			. += "<span class='warning'>GARBAGE</span>\n"
+			. += span_warning("GARBAGE")
 	//Append unusual status
 	if(is_unusual)
-		. += "<span class='purple'>Unusual</span>\n"
+		. += span_purple("Unusual")
+
+/obj/item/sticker/proc/stick_to(atom/movable/target, x_offset, y_offset)
+	// Move to our target
+	forceMove(target)
+	layer = target.layer+0.001
+	target.vis_contents += src
+	// Update state
+	sticker_state = STICKER_STATE_STUCK
+	update_appearance()
+	// Apply offset
+	if(x_offset)
+		pixel_x = clamp(x_offset - 16, -(ICON_SIZE_X / 2), ICON_SIZE_X / 2)
+	if(y_offset)
+		pixel_y = clamp(y_offset - 16, -(ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)

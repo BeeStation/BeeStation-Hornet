@@ -238,7 +238,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite)
 	SIGNAL_HANDLER
 	if(toggle_overlay)
 		toggle_overlay.color = new_accent_color
-	for(var/mutable_appearance/overlay as() in accent_overlays)
+	for(var/mutable_appearance/overlay as anything in accent_overlays)
 		overlay.color = new_accent_color
 	update_icon()
 

@@ -66,7 +66,7 @@
 		return TRUE
 	if(limb_req && !C.get_bodypart(limb_req))
 		return TRUE
-	for(var/datum/mutation/M as() in C.dna.mutations)//check for conflicting powers
+	for(var/datum/mutation/M as anything in C.dna.mutations)//check for conflicting powers
 		if(!(M.type in conflicts) && !(type in M.conflicts))
 			continue
 		to_chat(C, span_warning("You feel your genes resisting something."))
@@ -127,7 +127,7 @@
 /mob/living/carbon/proc/update_mutations_overlay()
 	if(!has_dna())
 		return
-	for(var/datum/mutation/CM as() in dna.mutations)
+	for(var/datum/mutation/CM as anything in dna.mutations)
 		if(length(CM.mobtypes_allowed) && !CM.mobtypes_allowed.Find(src.type))
 			dna.force_lose(CM)
 			continue
