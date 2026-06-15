@@ -34,7 +34,7 @@
 	qdel(nadeassembly)
 	nadeassembly = null
 	target = null
-	return ..()
+	..()
 
 /obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
 	if(!nadeassembly && istype(I, /obj/item/assembly_holder))
@@ -55,7 +55,7 @@
 		nadeassembly = null
 		update_icon()
 		return
-	return ..()
+	..()
 
 /obj/item/grenade/plastic/prime(mob/living/lanced_by)
 	. = ..()
@@ -66,7 +66,7 @@
 	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
-			density_check = target.density
+			density_check = target.density //since turfs getting exploded makes this a bit fucky wucky we need to assert whether we should go directional before that part
 			target.cut_overlay(plastic_overlay)
 			if(!ismob(target) || full_damage_on_mobs)
 				EX_ACT(target, EXPLODE_HEAVY, target)
@@ -83,11 +83,13 @@
 		M.gib()
 	qdel(src)
 
+//assembly stuff
 /obj/item/grenade/plastic/receive_signal()
 	prime()
 
 /obj/item/grenade/plastic/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(nadeassembly)
 		nadeassembly.on_entered(source, AM)
 
@@ -128,9 +130,9 @@
 
 		notify_ghosts("[user] has planted \a [src] on [target] with a [det_time] second fuse!", source = AM, action = (isturf(target) ? NOTIFY_JUMP : NOTIFY_ORBIT), flashwindow = FALSE, header = "Explosive Planted")
 
-		moveToNullspace()
+		moveToNullspace()	//Yep
 
-		if(istype(AM, /obj/item))
+		if(istype(AM, /obj/item)) //your crappy throwing star can't fly so good with a giant brick of c4 on it.
 			var/obj/item/I = AM
 			I.throw_speed = max(1, (I.throw_speed - 3))
 			I.throw_range = max(1, (I.throw_range - 3))
@@ -145,7 +147,7 @@
 			to_chat(user, span_notice("You plant the bomb. Timer counting down from [det_time]."))
 			addtimer(CALLBACK(src, PROC_REF(prime)), det_time*10)
 		else
-			qdel(src)
+			qdel(src)	//How?
 
 /obj/item/grenade/plastic/proc/shout_syndicate_crap(mob/M)
 	if(!M)
@@ -168,7 +170,7 @@
 	log_game("[key_name(user)] suicided with [src] at [AREACOORD(user)]")
 	user.visible_message(span_suicide("[user] activates [src] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!"))
 	shout_syndicate_crap(user)
-	explosion(user,0,2,0)
+	explosion(user,0,2,0) //Cheap explosion imitation because putting prime() here causes runtimes
 	user.gib(1, 1)
 	qdel(src)
 
@@ -178,10 +180,15 @@
 	else
 		icon_state = "[inhand_icon_state]0"
 
+//////////////////////////
+///// The Explosives /////
+//////////////////////////
+
 /obj/item/grenade/plastic/c4
 	name = "C4"
 	desc = "Used to put holes in specific areas without too much extra hole. A saboteur's favorite."
 	gender = PLURAL
+	// Wire panel removed for BeeStation compatibility - C4 can still be planted on airlocks and used normally
 	can_attach_mob = TRUE
 
 /obj/item/grenade/plastic/c4/suicide_act(mob/living/user)
@@ -193,6 +200,10 @@
 	sleep(10)
 	prime()
 	user.gib(1, 1)
+
+/obj/item/grenade/plastic/c4/attackby(obj/item/I, mob/user, params)
+	// No wire panel interaction – kept for compatibility with other items
+	return ..()
 
 /obj/item/grenade/plastic/c4/prime(mob/living/lanced_by)
 	if(QDELETED(src))
@@ -218,6 +229,10 @@
 
 /obj/item/grenade/plastic/c4/attack(mob/M, mob/user, def_zone)
 	return
+
+// X4 is an upgraded directional variant of c4 which is relatively safe to be standing next to. And much less safe to be standing on the other side of.
+// C4 is intended to be used for infiltration, and destroying tech. X4 is intended to be used for heavy breaching and tight spaces.
+// Intended to replace C4 for nukeops, and to be a randomdrop in surplus/random traitor purchases.
 
 /obj/item/grenade/plastic/x4
 	name = "X4"
