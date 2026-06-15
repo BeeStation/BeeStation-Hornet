@@ -586,7 +586,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			return FALSE
 		if (NAMEOF(src, antag_token_count_cached))
 			return FALSE
-		if (NAMEOF(src, authenticated))
+		if (UNLINT(NAMEOF(src, authenticate))) // OpenDream doesn't have support for this var I guess. It exists.
 			return FALSE
 		if (NAMEOF(src, logged_in))
 			log_admin_private("[key_name(usr)] attempted to auth bypass [key_name(src)] via client.logged_in")
