@@ -62,7 +62,7 @@ SUBSYSTEM_DEF(atoms)
 	var/late_loader_len = late_loaders.len
 	#endif
 	if(late_loaders.len)
-		for(var/atom/A as() in late_loaders)
+		for(var/atom/A as anything in late_loaders)
 			//I hate that we need this
 			if(QDELETED(A))
 				continue
@@ -172,7 +172,7 @@ SUBSYSTEM_DEF(atoms)
 /datum/controller/subsystem/atoms/proc/setupGenetics()
 	var/list/mutations = subtypesof(/datum/mutation)
 	shuffle_inplace(mutations)
-	for(var/datum/generecipe/GR as() in subtypesof(/datum/generecipe))
+	for(var/datum/generecipe/GR as anything in subtypesof(/datum/generecipe))
 		GLOB.mutation_recipes[initial(GR.required)] = initial(GR.result)
 	for(var/i in 1 to length(mutations))
 		var/path = mutations[i] //byond gets pissy when we do it in one line

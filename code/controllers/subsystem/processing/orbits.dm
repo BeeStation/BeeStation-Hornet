@@ -75,7 +75,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	orbital_map_tgui = SSorbits.orbital_map_tgui
 	orbits_setup = SSorbits.orbits_setup
 
-	for(var/datum/tgui/map as() in SSorbits.open_orbital_maps)
+	for(var/datum/tgui/map as anything in SSorbits.open_orbital_maps)
 		map?.close()
 
 	SSorbits.open_orbital_maps.Cut()
@@ -116,7 +116,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		if(MC_TICK_CHECK)
 			return
 		//Update UIs
-		for(var/datum/tgui/tgui as() in open_orbital_maps)
+		for(var/datum/tgui/tgui as anything in open_orbital_maps)
 			tgui.send_update()
 	//Check creating objectives / missions.
 	if(next_objective_time < world.time && length(possible_objectives) < 6)
@@ -130,7 +130,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		if(current_objective.check_failed())
 			QDEL_NULL(current_objective)
 	//Process events
-	for(var/datum/ruin_event/ruin_event as() in ruin_events)
+	for(var/datum/ruin_event/ruin_event as anything in ruin_events)
 		if(!ruin_event.update())
 			ruin_events.Remove(ruin_event)
 	//Do processing.
@@ -139,7 +139,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		if(MC_TICK_CHECK)
 			return
 		//Update UIs
-		for(var/datum/tgui/tgui as() in open_orbital_maps)
+		for(var/datum/tgui/tgui as anything in open_orbital_maps)
 			tgui.send_update()
 
 /mob/dead/observer/verb/open_orbit_ui()
@@ -210,7 +210,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Fetch the active single instances
 	//Get the objects
 	for(var/zone in showing_map.collision_zone_bodies)
-		for(var/datum/orbital_object/object as() in showing_map.collision_zone_bodies[zone])
+		for(var/datum/orbital_object/object as anything in showing_map.collision_zone_bodies[zone])
 			if(!object)
 				continue
 			//we can't see it, unless we are stealth too

@@ -111,7 +111,7 @@
 		//If there's a label and we're obliged to 'help' the player
 		var/obj/item/sticker/xenoartifact_label/label = locate(/obj/item/sticker/xenoartifact_label) in atom_target.contents
 		if(label)
-			for(var/datum/xenoartifact_trait/T as() in label.traits)
+			for(var/datum/xenoartifact_trait/T as anything in label.traits)
 				say("[initial(T.label_name)] - Weight: [initial(T.weight)]")
 				label_weight += initial(T.weight)
 		else if(isitem(atom_target) || isliving(atom_target))
@@ -163,7 +163,7 @@
 		//If there's a label and we're obliged to 'help' the player
 		var/obj/item/sticker/xenoartifact_label/label = locate(/obj/item/sticker/xenoartifact_label) in atom_target.contents
 		if(label)
-			for(var/datum/xenoartifact_trait/T as() in label.traits)
+			for(var/datum/xenoartifact_trait/T as anything in label.traits)
 				say("[initial(T.label_name)] - conductivity: [initial(T.conductivity)]")
 				label_conductivity += initial(T.conductivity)
 		else if(isitem(atom_target) || isliving(atom_target))
@@ -290,7 +290,7 @@
 					max_score = trait_datum.contribute_calibration ?  max_score + 1 : max_score
 		//Check against label length, for extra labeled traits
 		var/label_length = 0
-		for(var/datum/xenoartifact_trait/trait_datum as() in label?.traits)
+		for(var/datum/xenoartifact_trait/trait_datum as anything in label?.traits)
 			if(initial(trait_datum.contribute_calibration))
 				label_length += 1
 		if(label_length != max_score)

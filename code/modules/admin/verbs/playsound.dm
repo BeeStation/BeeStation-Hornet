@@ -223,7 +223,7 @@ GLOBAL_VAR_INIT(web_sound_cooldown, 0)
 	if(station_only == "Cancel" || station_only == null)
 		return
 	var/soundtracks = subtypesof(/datum/soundtrack_song)
-	for(var/datum/soundtrack_song/song as() in soundtracks)
+	for(var/datum/soundtrack_song/song as anything in soundtracks)
 		if(initial(song.file) != null)
 			continue
 		soundtracks -= song

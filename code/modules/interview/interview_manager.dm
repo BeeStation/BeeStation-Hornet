@@ -146,7 +146,7 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
 		var/datum/interview/I = open_interviews[ckey]
 		if (I?.id == id)
 			return I
-	for (var/datum/interview/I as() in closed_interviews)
+	for (var/datum/interview/I as anything in closed_interviews)
 		if (I.id == id)
 			return I
 
@@ -169,7 +169,7 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
 	var/admins_present = send2tgs_adminless_only("panic-bunker-interview", "Interview for [ckey] enqueued for review. Current position in queue: [to_queue.pos_in_queue]")
 	if (admins_present <= 0 && to_queue.owner)
 		to_chat(to_queue.owner, span_notice("No active admins are online, your interview's submission was sent through TGS to admins who are available. This may use IRC or Discord."))
-	for(var/client/X as() in GLOB.admins)
+	for(var/client/X as anything in GLOB.admins)
 		if(X.prefs.read_player_preference(/datum/preference/toggle/sound_adminhelp))
 			SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 		window_flash(X, ignorepref = TRUE)
@@ -191,7 +191,7 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
   * * ckey - The ckey to remove from the cooldown list
   */
 /datum/interview_manager/proc/give_the_boot(ckey)
-	for(var/client/C as() in GLOB.clients_unsafe)
+	for(var/client/C as anything in GLOB.clients_unsafe)
 		if(C?.ckey == ckey)
 			qdel(C)
 			return
@@ -209,7 +209,7 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
 	interview_queue -= to_return
 
 	// Decrement any remaining interview queue positions
-	for(var/datum/interview/I as() in interview_queue)
+	for(var/datum/interview/I as anything in interview_queue)
 		I.pos_in_queue--
 
 	return to_return
@@ -227,7 +227,7 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
 
 	// Decrement all interviews in queue past the interview being removed
 	var/found = FALSE
-	for (var/datum/interview/I as() in interview_queue)
+	for (var/datum/interview/I as anything in interview_queue)
 		if (found)
 			I.pos_in_queue--
 		if (I == to_dequeue)

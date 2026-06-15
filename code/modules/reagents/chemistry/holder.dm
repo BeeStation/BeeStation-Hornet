@@ -544,11 +544,12 @@
 			for(var/B in cached_required_reagents)
 				multiplier = min(multiplier, round(get_reagent_amount(B) / cached_required_reagents[B]))
 
+			multiplier = max(multiplier, 1) //this shouldn't happen ...
+
 			for(var/B in cached_required_reagents)
 				remove_reagent(B, (multiplier * cached_required_reagents[B]), safety = 1)
 
 			for(var/P in selected_reaction.results)
-				multiplier = max(multiplier, 1) //this shouldn't happen ...
 				SSblackbox.record_feedback("tally", "chemical_reaction", cached_results[P]*multiplier, P)
 				add_reagent(P, cached_results[P]*multiplier, null, chem_temp)
 
@@ -559,14 +560,14 @@
 					if(selected_reaction.mix_sound)
 						playsound(get_turf(cached_my_atom), selected_reaction.mix_sound, 80, 1)
 
-					for(var/mob/M as() in seen)
+					for(var/mob/M as anything in seen)
 						to_chat(M, span_notice("[iconhtml] [selected_reaction.mix_message]"))
 
 				if(istype(cached_my_atom, /obj/item/slime_extract))
 					var/obj/item/slime_extract/ME2 = my_atom
 					ME2.extract_uses--
 					if(ME2.extract_uses <= 0) // give the notification that the slime core is dead
-						for(var/mob/M as() in seen)
+						for(var/mob/M as anything in seen)
 							to_chat(M, span_notice("[iconhtml] \The [my_atom]'s power is consumed in the reaction."))
 							ME2.name = "used slime extract"
 							ME2.desc = "This extract has been used up."
@@ -908,7 +909,7 @@
 				continue
 
 		//next check if we have the requested amount
-		if(amount > 0 && holder_reagent.volume < amount)
+		if(CEILING(amount, CHEMICAL_QUANTISATION_LEVEL) > 0 && FLOOR(holder_reagent.volume, CHEMICAL_QUANTISATION_LEVEL) < amount)
 			continue
 
 		//next check for metabolization
