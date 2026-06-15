@@ -302,7 +302,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 		return eye_user.client
 	return null
 
-/mob/camera/ai_eye/remote/setLoc(destination)
+/mob/camera/ai_eye/remote/setLoc(turf/destination, force_update = FALSE)
 	if(eye_user)
 		destination = get_turf(destination)
 		if (destination)
