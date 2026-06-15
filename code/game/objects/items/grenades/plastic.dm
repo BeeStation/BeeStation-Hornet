@@ -20,8 +20,6 @@
 	var/boom_sizes = list(0, 0, 3)
 	var/can_attach_mob = FALSE
 	var/full_damage_on_mobs = FALSE
-	var/datum/weakref/attached_airlock
-	var/mob/living/detonation_victim   // Who opened the door
 
 /obj/item/grenade/plastic/Initialize(mapload)
 	. = ..()
@@ -33,10 +31,6 @@
 	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 
 /obj/item/grenade/plastic/Destroy()
-	if(attached_airlock)
-		var/obj/machinery/door/airlock/A = attached_airlock.resolve()
-		if(A)
-			UnregisterSignal(A, COMSIG_AIRLOCK_OPEN)
 	qdel(nadeassembly)
 	nadeassembly = null
 	target = null
@@ -67,21 +61,12 @@
 	. = ..()
 	if(!.)
 		return
-	if(attached_airlock)
-		var/obj/machinery/door/airlock/A = attached_airlock.resolve()
-		if(A)
-			UnregisterSignal(A, COMSIG_AIRLOCK_OPEN)
-		attached_airlock = null
 	var/turf/location
 	var/density_check = FALSE
-	// If we have a victim from airlock opening, use that as the target location
-	if(detonation_victim && !QDELETED(detonation_victim))
-		location = get_turf(detonation_victim)
-		detonation_victim = null
-	else if(target)
+	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
-			density_check = target.density
+			density_check = target.density //since turfs getting exploded makes this a bit fucky wucky we need to assert whether we should go directional before that part
 			target.cut_overlay(plastic_overlay)
 			if(!ismob(target) || full_damage_on_mobs)
 				EX_ACT(target, EXPLODE_HEAVY, target)
@@ -127,26 +112,6 @@
 	aim_dir = get_dir(user,AM)
 	if(!flag || !user.is_holding(src))
 		return
-	if(istype(AM, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/A = AM
-		if(!A.has_wires())
-			to_chat(user, span_warning("You need to open the maintenance panel first!"))
-			return
-		if(A.charge)
-			to_chat(user, span_warning("There's already something inside [A]!"))
-			return
-		to_chat(user, span_notice("You start planting [src] inside [A]..."))
-		if(do_after(user, 30, target = A))
-			if(!user.temporarilyRemoveItemFromInventory(src))
-				return
-			attached_airlock = WEAKREF(A)
-			A.charge = src
-			moveToNullspace()
-			RegisterSignal(A, COMSIG_AIRLOCK_OPEN, PROC_REF(on_airlock_open))
-			message_admins("[ADMIN_LOOKUPFLW(user)] planted [name] inside [A] at [ADMIN_VERBOSEJMP(A)] with [det_time] second fuse")
-			log_game("[key_name(user)] planted [name] inside [A] at [AREACOORD(A)] with a [det_time] second fuse")
-			notify_ghosts("[user] has planted \a [src] inside [A] with a [det_time] second fuse!", source = A, action = NOTIFY_JUMP, flashwindow = FALSE, header = "Explosive Planted")
-		return
 	if(ismob(AM) && !can_attach_mob)
 		return
 
@@ -183,14 +148,6 @@
 			addtimer(CALLBACK(src, PROC_REF(prime)), det_time*10)
 		else
 			qdel(src)	//How?
-
-/obj/item/grenade/plastic/proc/on_airlock_open(datum/source, mob/user)
-	SIGNAL_HANDLER
-	if(QDELETED(src))
-		return
-	if(user && ismob(user))
-		detonation_victim = user
-	prime()
 
 /obj/item/grenade/plastic/proc/shout_syndicate_crap(mob/M)
 	if(!M)
@@ -258,7 +215,7 @@
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		open_panel = !open_panel
 		to_chat(user, span_notice("You [open_panel ? "open" : "close"] the wire panel."))
-		else if(is_wire_tool(I))
+	else if(is_wire_tool(I))
 		wires.interact(user)
 	else
 		return ..()
@@ -273,10 +230,7 @@
 
 	. = ..()
 	var/turf/location
-	if(detonation_victim && !QDELETED(detonation_victim))
-		location = get_turf(detonation_victim)
-		detonation_victim = null
-	else if(target)
+	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
 			target.cut_overlay(plastic_overlay)
@@ -305,3 +259,4 @@
 	boom_sizes = list(0, 2, 5)
 	can_attach_mob = TRUE
 	full_damage_on_mobs = TRUE
+
