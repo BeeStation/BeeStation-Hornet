@@ -219,7 +219,7 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 		return baton_effect_non_cyborg(target, user, modifiers, stun_override, trait_check)
 
 // =========================================================================
-//  Hit counters using a global list
+//  Hit counters using a global list (reliable)
 // =========================================================================
 /obj/item/melee/baton/proc/get_hit_count(mob/living/target, zone)
 	var/ref = REF(target)
@@ -274,8 +274,8 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 		if(hits > 1 && prob(40))
 			paralyze = TRUE
 	else if(is_electric)
-		// First hit: never paralyze. Second hit: 50% chance. Third+: 100% chance.
-		if(hits == 2 && prob(50))
+		// First hit: never paralyze. Second hit: 75% chance. Third+: 100% chance.
+		if(hits == 2 && prob(75))
 			paralyze = TRUE
 		else if(hits >= 3)
 			paralyze = TRUE
@@ -586,10 +586,6 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 		balloon_alert(user, active ? "extended" : "collapsed")
 	playsound(src, on_sound, 50, TRUE)
 	return COMPONENT_NO_DEFAULT_MESSAGE
-
-// =========================================================================
-//  Contractor Batong
-// =========================================================================
 
 /obj/item/melee/baton/telescopic/contractor_baton
 	name = "contractor baton"
@@ -917,6 +913,10 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 		if(!affecting)
 			affecting = H.bodyparts[1]
 
+		// FIX: Apply paralysis BEFORE early return for stamina-immune limbs
+		if(target_zone == BODY_ZONE_L_LEG || target_zone == BODY_ZONE_R_LEG || target_zone == BODY_ZONE_L_ARM || target_zone == BODY_ZONE_R_ARM)
+			apply_limb_paralysis(target, target_zone)
+
 		// Check if the limb is stamina-immune
 		if(affecting && affecting.stamina_modifier == 0)
 			// take burn damage from electrical shock instead of stamina
@@ -941,6 +941,7 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	var/armor = target.getarmor(MELEE, armour_penetration)
 	target.apply_damage(stamina_damage, STAMINA, zone, armor)
 
+	// No additional paralysis call here because it's already handled above for all limb hits
 	if(stun_animation)
 		target.do_stun_animation(target)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
