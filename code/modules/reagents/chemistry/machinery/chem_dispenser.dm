@@ -292,11 +292,11 @@
 			. = TRUE
 
 	if(!is_operational)
-		if(is_broken())
+		if(machine_stat & BROKEN)
 			to_chat(usr, span_warning("\The [src] is broken."))
-		if(!is_powered())
+		if(machine_stat & NOPOWER)
 			to_chat(usr, span_warning("\The [src] is not currently powered."))
-		if(is_maintenance_mode())
+		if(machine_stat & MAINT)
 			to_chat(usr, span_warning("\The [src]'s maintenance panel is open."))
 		return
 
