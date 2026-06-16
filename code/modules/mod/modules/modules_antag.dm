@@ -188,6 +188,24 @@
 	recharge_path = /obj/item/wizard_armour_charge
 	required_slots = list()
 
+/obj/item/mod/module/energy_shield/emp_act(severity)
+	. = ..()
+	if(!mod || !mod.wearer)
+		return
+	// Disable the shield regardless of any EMP protection
+	if(active)
+		// Deactivate the module
+		on_deactivation(FALSE)
+		// Ensure the shield component is gone and charge is zero
+		current_integrity = 0
+		to_chat(mod.wearer, span_warning("Your energy shield module has been disabled by the EMP!"))
+	else
+		// If inactive, set stored charge to zero so it won't work when reactivated
+		current_integrity = 0
+		to_chat(mod.wearer, span_warning("Your energy shield module's charge has been drained by the EMP!"))
+	// Update the suit's appearance
+	mod.update_appearance()
+
 ///Magic Nullifier - Protects you from magic.
 /obj/item/mod/module/anti_magic
 	name = "\improper MOD magic nullifier module"
