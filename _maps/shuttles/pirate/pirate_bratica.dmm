@@ -56,16 +56,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
 /turf/open/floor/pod,
 /area/shuttle/pirate)
-"ee" = (
-/obj/machinery/button/door{
-	name = "Southern Cargo Shutters";
-	pixel_x = 4;
-	id = "pirate_cargo_shutters2";
-	req_access_txt = "180";
-	pixel_y = -5
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/pirate)
 "ef" = (
 /obj/structure/table/reinforced,
 /obj/item/gun/energy/laser/retro{
@@ -778,7 +768,8 @@
 	color = "#c1b6a5"
 	},
 /obj/machinery/recharger{
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 1
 	},
 /obj/machinery/button/door{
 	name = "Southern Cargo Shutters";
@@ -863,6 +854,16 @@
 	},
 /obj/item/assembly/prox_sensor,
 /turf/open/floor/iron/techmaint,
+/area/shuttle/pirate)
+"xe" = (
+/obj/machinery/button/door{
+	name = "Southern Cargo Shutters";
+	pixel_x = 4;
+	id = "pirate_cargo_shutters2";
+	req_access_txt = "180";
+	pixel_y = -5
+	},
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
 "xu" = (
 /obj/structure/lattice,
@@ -1060,6 +1061,14 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
+"AO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id = "pirate_cargo_shutters1"
+	},
+/turf/open/floor/plating,
+/area/shuttle/pirate)
 "Bf" = (
 /obj/structure/shuttle/engine/huge/chopped/center_left{
 	dir = 4
@@ -1217,16 +1226,6 @@
 	pixel_y = -11
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/shuttle/pirate)
-"GA" = (
-/obj/machinery/button/door{
-	name = "Northern Cargo Shutters";
-	pixel_x = 4;
-	id = "pirate_cargo_shutters1";
-	req_access_txt = "180";
-	pixel_y = 5
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
 "Hh" = (
 /obj/machinery/power/rtg/advanced{
@@ -1483,12 +1482,14 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/pirate)
 "LW" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/fans/tiny,
-/obj/machinery/door/poddoor{
-	id = "pirate_cargo_shutters1"
+/obj/machinery/button/door{
+	name = "Northern Cargo Shutters";
+	pixel_x = 4;
+	id = "pirate_cargo_shutters1";
+	req_access_txt = "180";
+	pixel_y = 5
 	},
-/turf/open/floor/plating,
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
 "Mi" = (
 /obj/structure/platform/black{
@@ -1726,7 +1727,8 @@
 /area/shuttle/pirate)
 "Re" = (
 /obj/machinery/recharger{
-	pixel_x = 7
+	pixel_x = 7;
+	pixel_y = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -1734,7 +1736,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
 	pixel_x = -6;
-	pixel_y = 0
+	pixel_y = 1
 	},
 /obj/structure/fluff/fans{
 	pixel_y = 24
@@ -2308,7 +2310,7 @@ LF
 LI
 "}
 (11,1,1) = {"
-GA
+LW
 LI
 UM
 LI
@@ -2322,10 +2324,10 @@ Ru
 LI
 Bp
 LI
-ee
+xe
 "}
 (12,1,1) = {"
-LW
+AO
 tm
 TD
 LI
