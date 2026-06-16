@@ -180,9 +180,7 @@
 #endif
 
 #ifdef OPENDREAM
-#ifndef DISABLE_BYOND_AUTH
 #define DISABLE_BYOND_AUTH
-#endif
 #endif
 
 
