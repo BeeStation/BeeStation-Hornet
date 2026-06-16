@@ -18,6 +18,16 @@
 /obj/structure/cable,
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
+"ca" = (
+/obj/structure/window/reinforced/shuttle/survival_pod,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "piratebridge"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "piratebridge"
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/pirate)
 "cq" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
@@ -41,16 +51,6 @@
 /turf/open/floor/plating{
 	icon_state = "foam_plating"
 	},
-/area/shuttle/pirate)
-"dg" = (
-/obj/machinery/button/door{
-	name = "Southern Cargo Shutters";
-	pixel_x = 4;
-	id = "pirate_cargo_shutters2";
-	req_access_txt = "180";
-	pixel_y = -5
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
 "du" = (
 /obj/structure/cable/yellow,
@@ -142,6 +142,16 @@
 	pixel_x = -18
 	},
 /turf/open/floor/iron/dark/textured_large,
+/area/shuttle/pirate)
+"fd" = (
+/obj/machinery/button/door{
+	name = "Northern Cargo Shutters";
+	pixel_x = 4;
+	id = "pirate_cargo_shutters1";
+	req_access_txt = "180";
+	pixel_y = 5
+	},
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
 "fi" = (
 /obj/structure/window/reinforced/survival_pod/spawner/directional/north,
@@ -580,16 +590,6 @@
 	pixel_y = 24
 	},
 /turf/open/floor/pod/light,
-/area/shuttle/pirate)
-"rE" = (
-/obj/structure/window/reinforced/shuttle/survival_pod,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "piratebridge"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "piratebridge"
-	},
-/turf/open/floor/plating/airless,
 /area/shuttle/pirate)
 "rN" = (
 /obj/structure/window/reinforced/spawner/directional/north,
@@ -1147,14 +1147,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/textured_large,
 /area/shuttle/pirate)
-"Cc" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/fans/tiny,
-/obj/machinery/door/poddoor{
-	id = "pirate_cargo_shutters2"
-	},
-/turf/open/floor/plating,
-/area/shuttle/pirate)
 "Dg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -1514,14 +1506,10 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/pirate)
 "LW" = (
-/obj/machinery/button/door{
-	name = "Northern Cargo Shutters";
-	pixel_x = 4;
-	id = "pirate_cargo_shutters1";
-	req_access_txt = "180";
-	pixel_y = 5
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/obj/structure/lattice/catwalk,
+/obj/structure/frame/machine,
+/obj/item/assembly/prox_sensor,
+/turf/template_noop,
 /area/shuttle/pirate)
 "Mi" = (
 /obj/structure/platform/black{
@@ -1631,12 +1619,6 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating,
 /area/shuttle/pirate)
-"Pk" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/frame/machine,
-/obj/item/assembly/prox_sensor,
-/turf/template_noop,
-/area/shuttle/pirate)
 "Ps" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
@@ -1694,7 +1676,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
-	id = "pirate_cargo_shutters1"
+	id = "pirate_cargo_shutters2"
 	},
 /turf/open/floor/plating,
 /area/shuttle/pirate)
@@ -1862,11 +1844,13 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/shuttle/pirate)
 "Sy" = (
-/obj/effect/turf_decal/weather/dirt/corner{
-	dir = 1
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id = "pirate_cargo_shutters1"
 	},
-/turf/template_noop,
-/area/template_noop)
+/turf/open/floor/plating,
+/area/shuttle/pirate)
 "SE" = (
 /obj/structure/window/reinforced/shuttle/survival_pod,
 /obj/structure/cable,
@@ -2078,6 +2062,16 @@
 	pixel_y = 7
 	},
 /turf/open/floor/pod,
+/area/shuttle/pirate)
+"WS" = (
+/obj/machinery/button/door{
+	name = "Southern Cargo Shutters";
+	pixel_x = 4;
+	id = "pirate_cargo_shutters2";
+	req_access_txt = "180";
+	pixel_y = -5
+	},
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
 "WY" = (
 /obj/effect/decal/fakestairs/newstairs/middle{
@@ -2338,7 +2332,7 @@ sy
 Rq
 LI
 Ru
-Pk
+LW
 Hv
 Sf
 fi
@@ -2350,7 +2344,7 @@ LF
 LI
 "}
 (11,1,1) = {"
-LW
+fd
 LI
 UM
 LI
@@ -2364,10 +2358,10 @@ Ru
 LI
 Bp
 LI
-dg
+WS
 "}
 (12,1,1) = {"
-Pv
+Sy
 tm
 TD
 LI
@@ -2381,7 +2375,7 @@ LI
 LI
 ea
 Qw
-Cc
+Pv
 "}
 (13,1,1) = {"
 uT
@@ -2483,7 +2477,7 @@ mc
 el
 LI
 zu
-Sy
+HA
 "}
 (19,1,1) = {"
 HA
@@ -2513,7 +2507,7 @@ Kl
 dc
 yF
 LI
-rE
+ca
 LI
 LI
 zu
