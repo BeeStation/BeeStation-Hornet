@@ -56,6 +56,16 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
 /turf/open/floor/pod,
 /area/shuttle/pirate)
+"ee" = (
+/obj/machinery/button/door{
+	name = "Southern Cargo Shutters";
+	pixel_x = 4;
+	id = "pirate_cargo_shutters2";
+	req_access_txt = "180";
+	pixel_y = -5
+	},
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/pirate)
 "ef" = (
 /obj/structure/table/reinforced,
 /obj/item/gun/energy/laser/retro{
@@ -76,7 +86,6 @@
 /turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "ei" = (
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /obj/structure/fluff/fans{
 	pixel_y = 24
@@ -163,12 +172,6 @@
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/assembly/signaler{
-	pixel_y = 10
-	},
-/obj/item/assembly/signaler{
-	pixel_y = 6
-	},
-/obj/item/assembly/signaler{
 	pixel_y = 10;
 	pixel_x = -9
 	},
@@ -185,14 +188,11 @@
 	pixel_x = 9
 	},
 /obj/item/assembly/signaler{
-	pixel_y = 0;
+	pixel_y = 1;
 	pixel_x = 9
 	},
 /obj/item/assembly/signaler{
-	pixel_y = 0
-	},
-/obj/item/assembly/signaler{
-	pixel_y = 0;
+	pixel_y = 1;
 	pixel_x = -9
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -508,8 +508,6 @@
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
 "oV" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /obj/machinery/light/directional/south,
 /turf/template_noop,
@@ -623,16 +621,6 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
-"sU" = (
-/obj/machinery/button/door{
-	name = "Southern Cargo Shutters";
-	pixel_x = 4;
-	id = "pirate_cargo_shutters2";
-	req_access_txt = "180";
-	pixel_y = -5
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/pirate)
 "tm" = (
 /obj/effect/turf_decal/weather/dirt/corner{
 	dir = 4
@@ -722,7 +710,6 @@
 /turf/open/floor/plating,
 /area/shuttle/pirate)
 "vu" = (
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /obj/machinery/power/emitter{
 	dir = 8
@@ -945,7 +932,6 @@
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
 "zG" = (
-/obj/structure/lattice,
 /obj/structure/cable,
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
@@ -981,12 +967,6 @@
 	dir = 4
 	},
 /obj/structure/closet/crate/wooden,
-/obj/item/reagent_containers/cup/beaker/large{
-	list_reagents = list(/datum/reagent/blackpowder = 100)
-	},
-/obj/item/reagent_containers/cup/beaker/large{
-	list_reagents = list(/datum/reagent/blackpowder = 100)
-	},
 /obj/item/reagent_containers/cup/beaker/large{
 	list_reagents = list(/datum/reagent/blackpowder = 100)
 	},
@@ -1160,7 +1140,6 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/shuttle/pirate)
 "DE" = (
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /obj/machinery/light/directional/north,
 /obj/item/stack/cable_coil/cut,
@@ -1219,7 +1198,6 @@
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
 "Ft" = (
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
 /turf/template_noop,
@@ -1240,11 +1218,15 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/shuttle/pirate)
-"Ge" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/frame/machine,
-/obj/item/assembly/prox_sensor,
-/turf/template_noop,
+"GA" = (
+/obj/machinery/button/door{
+	name = "Northern Cargo Shutters";
+	pixel_x = 4;
+	id = "pirate_cargo_shutters1";
+	req_access_txt = "180";
+	pixel_y = 5
+	},
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
 "Hh" = (
 /obj/machinery/power/rtg/advanced{
@@ -1391,7 +1373,6 @@
 /area/shuttle/pirate)
 "Kl" = (
 /obj/machinery/computer/camera_advanced/syndie,
-/obj/machinery/computer/camera_advanced/syndie,
 /obj/machinery/computer/pod/old{
 	density = 0;
 	icon = 'icons/obj/airlock_machines.dmi';
@@ -1505,7 +1486,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
-	id = "pirate_cargo_shutters2"
+	id = "pirate_cargo_shutters1"
 	},
 /turf/open/floor/plating,
 /area/shuttle/pirate)
@@ -1674,7 +1655,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
-	id = "pirate_cargo_shutters1"
+	id = "pirate_cargo_shutters2"
 	},
 /turf/open/floor/plating,
 /area/shuttle/pirate)
@@ -1797,16 +1778,6 @@
 /obj/structure/cable,
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
-"Rz" = (
-/obj/structure/window/reinforced/shuttle/survival_pod,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "piratebridge"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "piratebridge"
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/pirate)
 "RE" = (
 /obj/structure/railing/perspective/black,
 /obj/effect/turf_decal/siding/thinplating/dark,
@@ -1850,14 +1821,10 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/shuttle/pirate)
 "Sy" = (
-/obj/machinery/button/door{
-	name = "Northern Cargo Shutters";
-	pixel_x = 4;
-	id = "pirate_cargo_shutters1";
-	req_access_txt = "180";
-	pixel_y = 5
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/obj/structure/lattice/catwalk,
+/obj/structure/frame/machine,
+/obj/item/assembly/prox_sensor,
+/turf/template_noop,
 /area/shuttle/pirate)
 "SE" = (
 /obj/structure/window/reinforced/shuttle/survival_pod,
@@ -2329,7 +2296,7 @@ sy
 Rq
 LI
 Ru
-Ge
+Sy
 Hv
 Sf
 fi
@@ -2341,7 +2308,7 @@ LF
 LI
 "}
 (11,1,1) = {"
-Sy
+GA
 LI
 UM
 LI
@@ -2355,10 +2322,10 @@ Ru
 LI
 Bp
 LI
-sU
+ee
 "}
 (12,1,1) = {"
-Pv
+LW
 tm
 TD
 LI
@@ -2372,7 +2339,7 @@ LI
 LI
 ea
 Qw
-LW
+Pv
 "}
 (13,1,1) = {"
 uT
@@ -2504,7 +2471,7 @@ Kl
 dc
 yF
 LI
-Rz
+hK
 LI
 LI
 zu
