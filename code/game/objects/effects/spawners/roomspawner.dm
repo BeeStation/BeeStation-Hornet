@@ -10,13 +10,6 @@
 	/// List of room IDs we want
 	var/list/rooms
 
-/obj/effect/spawner/room/New(loc, ...)
-	. = ..()
-#ifndef UNIT_TESTS
-	if(!isnull(SSmapping.random_room_spawners))
-		SSmapping.random_room_spawners += src
-#endif
-
 /obj/effect/spawner/room/Initialize(mapload)
 	. = ..()
 #ifdef UNIT_TESTS

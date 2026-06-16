@@ -161,3 +161,6 @@
 2026-06-15:
   mrmanlikesbt:
   - code_imp: Fixed the codebase not compiling, again
+2026-06-16:
+  mrmanlikesbt:
+  - bugfix: Fixed a horrible random room spawner harddel
