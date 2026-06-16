@@ -219,7 +219,7 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 		return baton_effect_non_cyborg(target, user, modifiers, stun_override, trait_check)
 
 // =========================================================================
-//  Hit counters using a global list (reliable)
+//  Hit counters using a global list
 // =========================================================================
 /obj/item/melee/baton/proc/get_hit_count(mob/living/target, zone)
 	var/ref = REF(target)
@@ -586,6 +586,10 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 		balloon_alert(user, active ? "extended" : "collapsed")
 	playsound(src, on_sound, 50, TRUE)
 	return COMPONENT_NO_DEFAULT_MESSAGE
+
+// =========================================================================
+//  Contractor Batong
+// =========================================================================
 
 /obj/item/melee/baton/telescopic/contractor_baton
 	name = "contractor baton"
