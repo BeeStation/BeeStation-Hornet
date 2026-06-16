@@ -188,8 +188,20 @@
 	name = "C4"
 	desc = "Used to put holes in specific areas without too much extra hole. A saboteur's favorite."
 	gender = PLURAL
+	var/open_panel = 0
 	// Wire panel removed for BeeStation compatibility - C4 can still be planted on airlocks and used normally
 	can_attach_mob = TRUE
+
+/obj/item/grenade/plastic/c4/Initialize(mapload)
+	. = ..()
+	wires = new /datum/wires/explosive/c4(src)
+
+/obj/item/grenade/plastic/c4/Destroy()
+	qdel(wires)
+	wires = null
+	target = null
+	return ..()
+
 
 /obj/item/grenade/plastic/c4/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] activates the [src.name] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!"))
@@ -202,8 +214,13 @@
 	user.gib(1, 1)
 
 /obj/item/grenade/plastic/c4/attackby(obj/item/I, mob/user, params)
-	// No wire panel interaction – kept for compatibility with other items
-	return ..()
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
+		open_panel = !open_panel
+		to_chat(user, span_notice("You [open_panel ? "open" : "close"] the wire panel."))
+	else if(is_wire_tool(I))
+		wires.interact(user)
+	else
+		return ..()
 
 /obj/item/grenade/plastic/c4/prime(mob/living/lanced_by)
 	if(QDELETED(src))
