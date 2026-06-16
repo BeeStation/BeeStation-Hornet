@@ -58,7 +58,13 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	var/list/candidates = SSpolling.poll_ghost_candidates(config)
 	shuffle_inplace(candidates)
 
-	var/datum/map_template/shuttle/pirate/default/ship = new
+	var/datum/map_template/shuttle/pirate/ship
+	var/total_players = GLOB.clients.len
+	if(total_players < 10)
+		ship = new /datum/map_template/shuttle/pirate/bratica()
+	else
+		ship = new /datum/map_template/shuttle/pirate/default()
+
 	var/x = rand(TRANSITIONEDGE,world.maxx - TRANSITIONEDGE - ship.width)
 	var/y = rand(TRANSITIONEDGE,world.maxy - TRANSITIONEDGE - ship.height)
 	var/z = SSmapping.empty_space.z_value
