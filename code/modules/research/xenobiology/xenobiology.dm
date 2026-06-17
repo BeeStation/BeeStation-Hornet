@@ -1035,15 +1035,15 @@
 	if(!proximity || !tool)
 		return
 	if(!is_type_in_typecache(tool, upgradeable_tools)) // Are they in the list?
-		to_chat(user, span_warning("[tool] cannot be upgraded!")) // They aren't dont upgrade them
-		return
-	if(tool.experimental_upgrade) // They've been "upgraded" already, no point in upgrading them again
+		to_chat(user, span_warning("[tool] cannot be upgraded!"))
+		return // They aren't dont upgrade them
+	if(HAS_TRAIT(tool, TRAIT_EXPERIMENTAL_UPGRADE)) // They've been "upgraded" already, no point in upgrading them again
 		to_chat(user, span_warning("[tool] has already been upgraded!"))
 		return
 	if(tool.toolspeed <= 0.3) // Their toolspeed is faster than our buff, no point in upgrading them
 		to_chat(user, span_warning("[tool] is already too advanced to be upgraded!"))
 		return
-	tool.experimental_upgrade = TRUE
+	ADD_TRAIT(tool, TRAIT_EXPERIMENTAL_UPGRADE, SLIME_POTION_TRAIT)
 	tool.toolspeed = 0.3
 	tool.color = COLOR_RED
 	if(!findtext(tool.name, "experimental "))
