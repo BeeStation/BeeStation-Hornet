@@ -24750,7 +24750,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/iron/techmaint,
 /area/station/security/prison)
 "hsP" = (
@@ -39160,7 +39160,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/iron/techmaint,
 /area/station/security/prison)
 "lvr" = (
@@ -67128,7 +67128,8 @@
 "tLI" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/structure/cable/yellow,
-/obj/machinery/vending/cola/black,
+/obj/structure/table/wood,
+/obj/machinery/cell_charger,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "tLK" = (
