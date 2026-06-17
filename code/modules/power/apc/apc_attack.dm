@@ -163,7 +163,7 @@
 			if(H.combat_mode)  // Drain APC → gain hunger
 				// ethereals can't drain APCs under half charge, this is so that they are forced to look to alternative power sources if the station is running low
 				if(!cell || cell.charge < max_apc_charge * 0.5)
-					to_chat(H, span_warning("The APC doesn't have enough charge to drain (needs at least 50%)."))
+					to_chat(H, span_warning("The APC's inner circuitry prevent you from draining anymore."))
 					break
 				// Check if Ethereal is already at max hunger (prevent overflow)
 				if(H.nutrition >= max_hunger - (max_hunger * 0.1))
@@ -172,11 +172,11 @@
 			else  // Give power to APC → lose hunger
 				// Need at least 10% Ethereal hunger to give
 				if(H.nutrition < max_hunger * 0.1)
-					to_chat(H, span_warning("You don't have enough energy to transfer (need at least 10%)."))
+					to_chat(H, span_warning("You don't have enough energy to transfer."))
 					break
 				// APC must have room for 10% more charge
 				if(!cell || cell.charge >= max_apc_charge - (max_apc_charge * 0.1))
-					to_chat(H, span_warning("The APC cannot accept more charge (would exceed 100%)."))
+					to_chat(H, span_warning("The APC cannot accept more charge."))
 					break
 
 			// Start the transfer
