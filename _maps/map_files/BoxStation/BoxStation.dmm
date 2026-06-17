@@ -17926,14 +17926,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
-"hEt" = (
-/obj/effect/turf_decal/siding/wideplating_new{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/cell_charger,
-/turf/open/floor/prison,
-/area/station/security/prison)
 "hEG" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -23059,6 +23051,10 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
+"jMK" = (
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/turf/open/floor/iron/checker,
+/area/station/service/kitchen)
 "jMN" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/line{
@@ -24729,10 +24725,6 @@
 	dir = 4
 	},
 /area/station/engineering/atmos)
-"kxq" = (
-/obj/structure/closet/secure_closet/freezer/kitchen,
-/turf/open/floor/iron/checker,
-/area/station/service/kitchen)
 "kxF" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -32099,11 +32091,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/commons/lounge)
-"nnw" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/secure_closet/freezer/kitchen,
-/turf/open/floor/iron/freezer,
-/area/station/service/kitchen/coldroom)
 "nnE" = (
 /obj/machinery/washing_machine,
 /obj/effect/turf_decal/bot,
@@ -33034,7 +33021,6 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/cell_charger,
 /turf/open/floor/iron/dark,
 /area/station/security/prison)
 "nKv" = (
@@ -33167,6 +33153,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/rd)
+"nNu" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/turf/open/floor/iron/freezer,
+/area/station/service/kitchen/coldroom)
 "nNz" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -83704,7 +83695,7 @@ rdM
 fiP
 rdM
 fiP
-hEt
+rdM
 mCi
 bMS
 baP
@@ -98118,7 +98109,7 @@ npR
 qDL
 kKo
 rYq
-nnw
+nNu
 qDL
 mCc
 wvI
@@ -98377,7 +98368,7 @@ qDL
 aBp
 mMW
 qDL
-kxq
+jMK
 uPq
 wqB
 mIS
