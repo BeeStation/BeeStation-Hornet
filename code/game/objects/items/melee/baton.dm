@@ -96,7 +96,8 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 		if(BATON_DO_NORMAL_ATTACK)
 			return ..()
 		if(BATON_ATTACKING)
-			finalize_baton_attack(target, user, modifiers)
+			finalize_baton_attack(target, user, modifiers, in_attack_chain = TRUE, is_harm = LAZYACCESS(modifiers, RIGHT_CLICK))
+		// else BATON_ATTACK_DONE -> do nothing
 
 /obj/item/melee/baton/add_context_interaction(datum/screentip_context/context, mob/living/user, atom/target)
 	if (isturf(target))
@@ -126,9 +127,18 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	if(clumsy_check(user, target))
 		return BATON_ATTACK_DONE
 
-	if(!active || LAZYACCESS(modifiers, RIGHT_CLICK))
-		return BATON_DO_NORMAL_ATTACK
+	// Inactive baton handling
+	if(!active)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			// Right-click while off -> normal attack
+			return BATON_DO_NORMAL_ATTACK
+		else
+			// Left-click while off -> prod message, cancel attack
+			target.visible_message(span_warning("[user] prods [target] with [src]. Luckily it was off."), \
+				span_warning("[user] prods you with [src]. Luckily it was off."))
+			return BATON_ATTACK_DONE
 
+	// Active baton: both left and right click proceed with stun chain
 	if(!COOLDOWN_FINISHED(src, cooldown_check))
 		var/wait_desc = get_wait_description()
 		if(wait_desc)
@@ -169,6 +179,8 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	if(desc)
 		target.visible_message(desc["visible"], desc["local"])
 
+	// Return BATON_ATTACKING so the attack proc calls finalize_baton_attack
+	// with the right click flag.
 	return BATON_ATTACKING
 
 /obj/item/melee/baton/proc/check_parried(mob/living/carbon/human/human_target, mob/living/user)
@@ -177,17 +189,17 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 		return TRUE
 	return FALSE
 
-/obj/item/melee/baton/proc/finalize_baton_attack(mob/living/target, mob/living/user, modifiers, in_attack_chain = TRUE)
+/obj/item/melee/baton/proc/finalize_baton_attack(mob/living/target, mob/living/user, modifiers, in_attack_chain = TRUE, is_harm = FALSE)
 	if(!in_attack_chain && HAS_TRAIT_FROM(target, TRAIT_IWASBATONED, REF(user)))
 		return BATON_ATTACK_DONE
 
 	COOLDOWN_START(src, cooldown_check, cooldown)
-	// Wooden baton & deputy baton: swing_hit when harming (combat mode), otherwise on_stun_sound (woodhit)
-	if(user.combat_mode && stamina_damage > 0)
+	// Play stun sound (electrical for security, woodhit for wooden/deputy)
+	if(on_stun_sound)
+		playsound(get_turf(src), on_stun_sound, on_stun_volume, TRUE, -1)
+	// If harm and this baton actually deals stamina damage (i.e., not telescopic), play the blunt hit sound
+	if(is_harm && stamina_damage > 0)
 		playsound(get_turf(src), "swing_hit", on_stun_volume, TRUE, -1)
-	else
-		if(on_stun_sound)
-			playsound(get_turf(src), on_stun_sound, on_stun_volume, TRUE, -1)
 	if(user)
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
@@ -195,6 +207,15 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 			log_combat(user, target, "stun attacked", src)
 	if(baton_effect(target, user, modifiers) && user)
 		set_batoned(target, user, cooldown)
+
+	// If harm and this baton deals stamina damage, apply brute damage
+	if(is_harm && stamina_damage > 0)
+		var/brute_damage = force
+		if(brute_damage > 0)
+			var/zone = user ? user.get_combat_bodyzone(target) : BODY_ZONE_CHEST
+			var/armor_brute = target.getarmor(MELEE, armour_penetration)
+			target.apply_damage(brute_damage, BRUTE, zone, armor_brute)
+			log_combat(user, target, "harmed", src)
 
 	return BATON_ATTACK_DONE
 
@@ -331,13 +352,7 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 			target.apply_damage(stamina_damage, STAMINA, zone, armor)
 		log_combat(user, target, "stunned (torso/head)", src)
 
-	// If in combat mode and this baton deals stamina damage, add small brute damage
-	if(user.combat_mode && stamina_damage > 0)
-		var/brute_damage = force * 0.5
-		if(brute_damage > 0)
-			var/armor_brute = target.getarmor(MELEE, armour_penetration)
-			target.apply_damage(brute_damage, BRUTE, zone, armor_brute)
-			log_combat(user, target, "harmed while stunning", src)
+	// Note: brute damage is now applied in finalize_baton_attack for harm attacks
 
 	additional_effects_non_cyborg(target, user)
 	return TRUE
@@ -702,8 +717,6 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	var/cell_hit_cost = 10 KILOWATT
 	var/can_remove_cell = TRUE
 	var/convertible = TRUE //if it can be converted with a conversion kit
-	/// Blunt hit sound used for harm baton (swing_hit)
-	var/harm_sound = "swing_hit"
 
 /datum/armor/melee_baton
 	bomb = 50
@@ -816,19 +829,19 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 		playsound(src, "sparks", 75, TRUE, -1)
 		toggle_light(user)
 		do_sparks(1, TRUE, src)
-		// When active, set hitsound to null to prevent any default melee sound.
-		// The electrical and harm sounds will be played explicitly in finalize_baton_attack.
 		if(active)
-			hitsound = null
+			// hitsound for right-click harm attacks (blunt hit)
+			hitsound = "swing_hit"
 		else
-			hitsound = harm_sound // when off, use swing_hit for melee
+			// When off, also use swing_hit for normal melee
+			hitsound = "swing_hit"
 	else
 		active = FALSE
 		if(!cell)
 			balloon_alert(user, "no power source!")
 		else
 			balloon_alert(user, "out of charge!")
-		hitsound = harm_sound
+		hitsound = "swing_hit"
 	update_appearance()
 	add_fingerprint(user)
 
@@ -849,148 +862,13 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 		set_light_on(FALSE)
 		update_appearance()
 		playsound(src, "sparks", 75, TRUE, -1)
-		hitsound = harm_sound
-
-/// Handles prodding targets with turned off stunbatons and right clicking stun'n'bash
-/obj/item/melee/baton/security/baton_attack(mob/living/target, mob/living/user, modifiers)
-	. = ..()
-	if(. != BATON_DO_NORMAL_ATTACK)
-		return .
-	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		if(active && COOLDOWN_FINISHED(src, cooldown_check) && !check_parried(target, user))
-			finalize_baton_attack(target, user, modifiers, in_attack_chain = FALSE)
-			return BATON_ATTACK_DONE
-	else if(!user.combat_mode)
-		target.visible_message(span_warning("[user] prods [target] with [src]. Luckily it was off."), \
-			span_warning("[user] prods you with [src]. Luckily it was off."))
-		return BATON_ATTACK_DONE
-
-// Override finalize_baton_attack to play sounds for security baton
-/obj/item/melee/baton/security/finalize_baton_attack(mob/living/target, mob/living/user, modifiers, in_attack_chain = TRUE)
-	// Determine which sounds to play
-	if(active)
-		if(user.combat_mode)
-			// Active harm baton: play both electrical and swing_hit
-			playsound(get_turf(src), on_stun_sound, on_stun_volume, TRUE, -1)
-			playsound(get_turf(src), harm_sound, on_stun_volume, TRUE, -1)
-		else
-			// Normal stun: electrical only
-			playsound(get_turf(src), on_stun_sound, on_stun_volume, TRUE, -1)
-
-	COOLDOWN_START(src, cooldown_check, cooldown)
-	if(user)
-		target.lastattacker = user.real_name
-		target.lastattackerckey = user.ckey
-		if(log_stun_attack)
-			log_combat(user, target, "stun attacked", src)
-	if(baton_effect(target, user, modifiers) && user)
-		set_batoned(target, user, cooldown)
-
-	return BATON_ATTACK_DONE
-
-/obj/item/melee/baton/security/baton_effect(mob/living/target, mob/living/user, modifiers, stun_override)
-	if(iscyborg(loc))
-		var/mob/living/silicon/robot/robot = loc
-		if(!robot || !robot.cell || !robot.cell.use(cell_hit_cost))
-			return FALSE
-	else if(!deductcharge(cell_hit_cost))
-		return FALSE
-
-	// For cyborgs, use parent behavior (they get stunned)
-	if(iscyborg(target))
-		return ..()
-
-	var/trait_check = HAS_TRAIT(target, TRAIT_BATON_RESISTANCE)
-	return baton_effect_non_cyborg(target, user, modifiers, stun_override, trait_check)
-
-// Override for security baton: no knockdown, but still zone-specific stamina damage
-/obj/item/melee/baton/security/baton_effect_non_cyborg(mob/living/target, mob/living/user, modifiers, stun_override, trait_check)
-	// Special handling for stamina-immune limbs
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/target_zone = user ? user.get_combat_bodyzone(H) : target.get_random_valid_zone()
-		var/obj/item/bodypart/affecting = H.get_bodypart(target_zone)
-		if(!affecting)
-			affecting = H.bodyparts[1]
-
-		// FIX: Apply paralysis BEFORE early return for stamina-immune limbs
-		if(target_zone == BODY_ZONE_L_LEG || target_zone == BODY_ZONE_R_LEG || target_zone == BODY_ZONE_L_ARM || target_zone == BODY_ZONE_R_ARM)
-			apply_limb_paralysis(target, target_zone)
-
-		// Check if the limb is stamina-immune
-		if(affecting && affecting.stamina_modifier == 0)
-			// take burn damage from electrical shock instead of stamina
-			var/armor_block = H.run_armor_check(affecting, STAMINA, armour_penetration = armour_penetration)
-
-			// Electrocute and deal burn damage (force/4)
-			H.electrocute_act(1, src, flags = SHOCK_NOGLOVES|SHOCK_NOSTUN)
-			H.apply_damage(force/4, BURN, affecting, armor_block)
-
-			// Still apply effects and signals
-			if(stun_animation)
-				target.do_stun_animation(target)
-			SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
-			additional_effects_non_cyborg(target, user)
-			return TRUE
-
-	var/zone = user ? user.get_combat_bodyzone(target) : BODY_ZONE_CHEST
-	if(!zone)
-		zone = BODY_ZONE_CHEST
-
-	// Apply stamina damage to the specific zone
-	var/armor = target.getarmor(MELEE, armour_penetration)
-	target.apply_damage(stamina_damage, STAMINA, zone, armor)
-
-	// No additional paralysis call here because it's already handled above for all limb hits
-	if(stun_animation)
-		target.do_stun_animation(target)
-	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
-
-	// If in combat mode, add small brute damage
-	if(user.combat_mode)
-		var/brute_damage = force * 0.5
-		if(brute_damage > 0)
-			var/armor_brute = target.getarmor(MELEE, armour_penetration)
-			target.apply_damage(brute_damage, BRUTE, zone, armor_brute)
-			log_combat(user, target, "harmed while stunning", src)
-
-	additional_effects_non_cyborg(target, user)
-	return TRUE
-
-/*
- * Additional effects after stamina damage.
- * For stun batons, this is minimal - just a brief trait to prevent rapid double-batoning.
- */
-/obj/item/melee/baton/security/additional_effects_non_cyborg(mob/living/target, mob/living/user)
-	// Brief anti-double-baton trait (0.75 second)
-	var/user_ref = REF(user)
-	ADD_TRAIT(target, TRAIT_IWASBATONED, user_ref)
-	addtimer(TRAIT_CALLBACK_REMOVE(target, TRAIT_IWASBATONED, user_ref), 0.75 SECONDS)
-
-/obj/item/melee/baton/security/get_wait_description()
-	if(!cell)
-		return span_warning("[src] does not have a power source!")
-	if(cell.charge < cell_hit_cost)
-		return span_warning("[src] is out of charge.")
-	return span_danger("The baton is still charging!") // Shouldn't happen with cooldown=0
-
-/obj/item/melee/baton/security/get_stun_description(mob/living/target, mob/living/user)
-	. = list()
-
-	.["visible"] = span_danger("[user] stuns [target] with [src]!")
-	.["local"] = span_userdanger("[user] stuns you with [src]!")
-
-/obj/item/melee/baton/security/get_unga_dunga_cyborg_stun_description(mob/living/target, mob/living/user)
-	. = list()
-
-	.["visible"] = span_danger("[user] tries to stun [target] with [src], and predictably fails!")
-	.["local"] = span_userdanger("[user] tries to... stun you with [src]?")
+		hitsound = "swing_hit"
 
 /obj/item/melee/baton/security/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	//base 35% success chance if you throw it
 	if(!. && active && prob(throw_stun_chance) && isliving(hit_atom))
-		finalize_baton_attack(hit_atom, thrownby?.resolve(), in_attack_chain = FALSE)
+		finalize_baton_attack(hit_atom, thrownby?.resolve(), in_attack_chain = FALSE, is_harm = FALSE)
 
 /obj/item/melee/baton/security/emp_act(severity)
 	. = ..()
