@@ -179,10 +179,6 @@
 #define CBT
 #endif
 
-#ifdef OPENDREAM
-#define DISABLE_BYOND_AUTH
-#endif
-
 
 #if defined(OPENDREAM) && !defined(CIBUILDING)
 #warn You are building with OpenDream. Remember to build TGUI manually.

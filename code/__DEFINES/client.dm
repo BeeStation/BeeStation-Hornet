@@ -12,7 +12,7 @@
 
 /// If BYOND's HTTP API currently responding?
 /// Set to false on the first request failure
-#if !defined(DISABLE_BYOND_AUTH)
+#if !defined(DISABLE_BYOND_AUTH) && !defined(OPENDREAM)
 GLOBAL_VAR_INIT(byond_http, TRUE)
 #else
 GLOBAL_VAR_INIT(byond_http, FALSE)
