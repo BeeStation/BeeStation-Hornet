@@ -64,7 +64,7 @@
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(DT_PROB(30, delta_time))
+	if(DT_PROB(30, delta_time)) //scp13 optimization
 		if(affected_mob.heal_bodypart_damage(brute = brute_heal * REM * delta_time, burn = burn_heal * REM * delta_time, updating_health = FALSE, required_bodytype = BODYTYPE_ORGANIC))
 			return UPDATE_MOB_HEALTH
 
