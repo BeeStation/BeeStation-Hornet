@@ -164,3 +164,8 @@
 2026-06-16:
   mrmanlikesbt:
   - bugfix: Fixed a horrible random room spawner harddel
+2026-06-17:
+  MadmanMartian:
+  - tweak: Dispensers, such as Chemical, Booze, Soda, and Mutagen Dispensers, now
+      tell you when they can not be operated due to their maintenance panel being
+      open.
