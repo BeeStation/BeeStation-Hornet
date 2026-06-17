@@ -142,6 +142,25 @@ Possible to do for anyone motivated enough:
 	else if(disk?.record)
 		replay_start()
 
+/obj/machinery/holopad/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	. = ..()
+	if(!loc)
+		return
+	// move any relevant holograms, basically non-AI, and rays with the pad
+	for(var/mob/living/user as anything in holorays)
+		var/obj/effect/overlay/holoray/ray = holorays[user]
+		ray.abstract_move(loc)
+	var/list/non_call_masters = masters?.Copy()
+	for(var/datum/holocall/holocall as anything in holo_calls)
+		if(!holocall.user || !LAZYACCESS(masters, holocall.user))
+			continue
+		non_call_masters -= holocall.user
+		// moving the eye moves the holo which updates the ray too
+		holocall.eye.setLoc(locate(clamp(x + (holocall.hologram.x - old_loc.x), 1, world.maxx), clamp(y + (holocall.hologram.y - old_loc.y), 1, world.maxy), z))
+	for(var/datum/holo_master as anything in non_call_masters)
+		var/obj/effect/holo = masters[holo_master]
+		update_holoray(holo_master, holo.loc)
+
 /obj/machinery/holopad/tutorial/HasProximity(atom/movable/AM)
 	if (!isliving(AM))
 		return
@@ -223,17 +242,22 @@ Possible to do for anyone motivated enough:
 	return default_deconstruction_crowbar(tool)
 
 /obj/machinery/holopad/attackby(obj/item/attacking_item, mob/user, params)
-	if(!istype(attacking_item, /obj/item/disk/holodisk))
-		return ..()
+	if(is_wire_tool(attacking_item) && panel_open)
+		wires.interact(user)
+		return TRUE
 
-	if(disk)
-		to_chat(user,span_notice("There's already a disk inside [src]"))
-		return
-	if (!user.transferItemToLoc(attacking_item, src))
-		return
-	to_chat(user, span_notice("You insert [attacking_item] into [src]"))
-	disk = attacking_item
-	return TRUE
+	if(istype(attacking_item, /obj/item/disk/holodisk))
+		if(disk)
+			to_chat(user,span_notice("There's already a disk inside [src]"))
+			return
+		if (!user.transferItemToLoc(attacking_item, src))
+			return
+		to_chat(user, span_notice("You insert [attacking_item] into [src]"))
+		disk = attacking_item
+		ui_update()
+		return TRUE
+
+	return ..()
 
 /obj/machinery/holopad/Exited(atom/movable/gone, direction)
 	. = ..()
@@ -257,7 +281,7 @@ Possible to do for anyone motivated enough:
 	var/list/data = list()
 	data["calling"] = calling
 	data["on_network"] = on_network
-	data["on_cooldown"] = COOLDOWN_FINISHED(src, ai_spam_cooldown)
+	data["on_cooldown"] = !COOLDOWN_FINISHED(src, ai_spam_cooldown)
 	data["allowed"] = allowed(user)
 	data["disk"] = !!disk
 	data["disk_record"] = !!disk?.record
@@ -727,15 +751,14 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		replay_entry(1)
 
 /obj/machinery/holopad/proc/replay_stop()
-	if(!disk?.record)
+	if(!disk?.record || !replay_mode)
 		return
-	if(replay_mode)
-		replay_mode = FALSE
-		loop_mode = FALSE
-		offset = FALSE
-		QDEL_NULL(replay_holo)
-		SetLightsAndPower()
-		ui_update()
+	replay_mode = FALSE
+	offset = FALSE
+	clear_holo(disk.record)
+	QDEL_NULL(replay_holo)
+	SetLightsAndPower()
+	ui_update()
 
 /obj/machinery/holopad/proc/record_start(mob/living/user)
 	if(!user || !disk || disk.record)
@@ -780,9 +803,9 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		record_stop()
 		replay_stop()
 		return
-	if (!disk.record.entries.len) // check for zero entries such as photographs and no text recordings
-		return // and pretty much just display them statically until manually stopped
-	if(disk.record.entries.len < entry_number)
+	if (!length(disk.record.entries)) // check for zero entries such as photographs and no text recordings
+		return // and pretty much just display them statically untill manually stopped
+	if(length(disk.record.entries) < entry_number)
 		if(loop_mode)
 			entry_number = 1
 		else

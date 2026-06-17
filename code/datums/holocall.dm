@@ -39,18 +39,22 @@
 	head_call = elevated_access
 	dialed_holopads = list()
 
+	var/auto_connect_failed = FALSE
 	for(var/obj/machinery/holopad/connected_holopad as anything in callees)
 		if(!QDELETED(connected_holopad) && connected_holopad.is_operational)
 			dialed_holopads += connected_holopad
 			if(head_call)
 				if(connected_holopad.secure)
-					calling_pad.say("Auto-connection refused, falling back to call mode.")
+					auto_connect_failed = TRUE
 					connected_holopad.say("Incoming call.")
 				else
 					connected_holopad.say("Incoming connection.")
 			else
 				connected_holopad.say("Incoming call.")
 			connected_holopad.set_holocall(src)
+
+	if(auto_connect_failed)
+		calling_pad.say("Auto-connection refused, falling back to call mode.")
 
 	if(!length(dialed_holopads))
 		calling_pad.say("Connection failure.")
