@@ -1,4 +1,4 @@
-#define BLOOD_DRIP_RATE_MOD 90
+#define BLOOD_DRIP_RATE_MOD 90 //Greater number means creating blood drips more often while bleeding
 
 /****************************************************
 				BLOOD SYSTEM
@@ -534,7 +534,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		break
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(T, get_static_viruses())
-	if(QDELETED(B))
+	if(QDELETED(B)) //Give it up
 		return
 	B.bloodiness = min((B.bloodiness + BLOOD_AMOUNT_PER_DECAL), BLOOD_POOL_MAX)
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
