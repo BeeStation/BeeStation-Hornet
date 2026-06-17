@@ -21201,11 +21201,11 @@
 	},
 /area/station/hallway/primary/central)
 "ifc" = (
-/obj/structure/chair/stool/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /obj/effect/landmark/start/prisoner,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/wood,
 /area/station/security/prison)
 "ifn" = (
@@ -34008,7 +34008,7 @@
 	},
 /area/station/hallway/primary/central)
 "mSo" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/wood,
 /area/station/security/prison)
 "mSA" = (
