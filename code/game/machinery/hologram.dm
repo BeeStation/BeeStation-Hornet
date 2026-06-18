@@ -76,9 +76,10 @@ Possible to do for anyone motivated enough:
 	var/obj/effect/overlay/holo_pad_hologram/replay_holo
 	/// Calls will be automatically answered after a couple rings, here for debugging
 	var/static/force_answer_call = FALSE
-	var/obj/effect/overlay/holoray/ray
+	/// If we're currently ringing another holopad or not. Used to prevent unnecessary update_appearance() calls.
 	var/ringing = FALSE
-	var/offset = FALSE
+	/// The offset of our current holodisk's recording. If 0, there is no offset and it's positioned on our turf.
+	var/offset = 0
 	/// If we're on the main holopad network or not. In other words, can we connect to other holopads?
 	var/on_network = TRUE
 	/// The main holopad network. Directly related to the above variable
@@ -395,12 +396,14 @@ Possible to do for anyone motivated enough:
 		if("offset")
 			offset++
 			if(offset > 4)
-				offset = FALSE
+				offset = 0
 			var/turf/new_turf
 			if(!offset)
 				new_turf = get_turf(src)
 			else
-				new_turf = get_step(src, GLOB.cardinals[offset])
+				// GLOB.cardinals is ugly because it goes NSEW. NESW looks a lot prettier.
+				var/static/list/direction_list = list(NORTH, EAST, SOUTH, WEST)
+				new_turf = get_step(src, direction_list[offset])
 			move_hologram(disk.record, new_turf)
 			return TRUE
 
@@ -751,7 +754,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	if(!disk?.record || !replay_mode)
 		return
 	replay_mode = FALSE
-	offset = FALSE
+	offset = 0
 	clear_holo(disk.record)
 	QDEL_NULL(replay_holo)
 	SetLightsAndPower()
