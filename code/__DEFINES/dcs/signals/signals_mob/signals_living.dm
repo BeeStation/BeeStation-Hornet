@@ -144,8 +144,6 @@
 
 ///From base of mob/living/MobBump() (mob/living)
 #define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
-///From base of mob/living/MobBump() (mob/living)
-#define COMSIG_LIVING_MOB_BUMPED "living_mob_bumped"
 
 ///From base of mob/living/ZImpactDamage() (mob/living, levels, turf/t)
 #define COMSIG_LIVING_Z_IMPACT "living_z_impact"
