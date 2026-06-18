@@ -169,3 +169,8 @@
   - tweak: Dispensers, such as Chemical, Booze, Soda, and Mutagen Dispensers, now
       tell you when they can not be operated due to their maintenance panel being
       open.
+2026-06-18:
+  EvilDragonfiend:
+  - bugfix: Cloning works correctly - it has been something buggy indescribably.
+  - code_imp: improved(maybe) record code. My code comrades, codewise internally,
+      it might look awful but it's good for you...
