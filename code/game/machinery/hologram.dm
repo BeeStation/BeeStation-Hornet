@@ -99,7 +99,6 @@ Possible to do for anyone motivated enough:
 
 /obj/machinery/holopad/Initialize(mapload)
 	. = ..()
-	wires = new /datum/wires/holopad(src)
 	if(on_network)
 		holopads += src
 
@@ -242,22 +241,18 @@ Possible to do for anyone motivated enough:
 	return default_deconstruction_crowbar(tool)
 
 /obj/machinery/holopad/attackby(obj/item/attacking_item, mob/user, params)
-	if(is_wire_tool(attacking_item) && panel_open)
-		wires.interact(user)
-		return TRUE
+	if(!istype(attacking_item, /obj/item/disk/holodisk))
+		return ..()
 
-	if(istype(attacking_item, /obj/item/disk/holodisk))
-		if(disk)
-			to_chat(user,span_notice("There's already a disk inside [src]"))
-			return
-		if (!user.transferItemToLoc(attacking_item, src))
-			return
-		to_chat(user, span_notice("You insert [attacking_item] into [src]"))
-		disk = attacking_item
-		ui_update()
-		return TRUE
-
-	return ..()
+	if(disk)
+		to_chat(user,span_notice("There's already a disk inside [src]"))
+		return
+	if (!user.transferItemToLoc(attacking_item, src))
+		return
+	to_chat(user, span_notice("You insert [attacking_item] into [src]"))
+	disk = attacking_item
+	ui_update()
+	return TRUE
 
 /obj/machinery/holopad/Exited(atom/movable/gone, direction)
 	. = ..()
