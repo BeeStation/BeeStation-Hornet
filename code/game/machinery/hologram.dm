@@ -482,6 +482,8 @@ Possible to do for anyone motivated enough:
 //everything in here can start processing if need be once first set and stop processing after being unset
 /obj/machinery/holopad/process()
 	if(LAZYLEN(masters)) //As someone in the original PR commented, the original code was indeed depressing
+		if(replay_mode && !is_operational)
+			replay_stop()
 		for(var/datum/master as anything in masters)
 			if(!is_operational || !validate_user(master))
 				clear_holo(master)
@@ -794,7 +796,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/machinery/holopad/proc/replay_entry(entry_number)
 	if(!replay_mode)
 		return
-	if(!anchored || (machine_stat & NOPOWER))
+	if(!anchored || !is_operational)
 		record_stop()
 		replay_stop()
 		return
