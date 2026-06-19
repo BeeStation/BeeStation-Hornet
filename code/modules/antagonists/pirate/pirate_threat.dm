@@ -60,7 +60,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 
 	var/datum/map_template/shuttle/pirate/ship
 	var/total_players = GLOB.clients.len
-	if(total_players < 15)
+	if(total_players < 12)
 		ship = new /datum/map_template/shuttle/pirate/bratica()
 	else
 		ship = new /datum/map_template/shuttle/pirate/default()
