@@ -557,7 +557,6 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-	// obj_flags = UNIQUE_RENAME   // REMOVED to prevent double rename prompt when using a pen
 	var/pill_variance = 100 //probability pill_bottle has a different icon state. Put at 0 for no variance
 	var/pill_type = "pill_canister_"
 
@@ -582,7 +581,7 @@
 			name = "[initial(name)] ([new_label])"
 		else
 			name = initial(name)
-		return   // Prevents the pen from being inserted into storage
+		return
 
 	// For any other item, let the parent storage handle it
 	return ..()
