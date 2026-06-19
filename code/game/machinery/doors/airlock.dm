@@ -980,15 +980,15 @@
 		return
 
 	else if(panel_open && istype(C, /obj/item/grenade/plastic) && !charge && !detonated)
-		var/obj/item/grenade/plastic/plastic_charge = C
+		charge = C
 		if(!user.transferItemToLoc(plastic_charge, src))
+		    charge = null
 			return
-		charge = plastic_charge
 		panel_open = FALSE
 		detonated = FALSE
 		update_appearance()
-		to_chat(user, span_warning("You plant [plastic_charge] inside the airlock's electronics. It will detonate when the door opens!"))
-		log_combat(user, src, "planted [plastic_charge] into", addition="charge will explode on open")
+		to_chat(user, span_warning("You plant [charge] inside the airlock's electronics. It will detonate when the door opens!"))
+		log_combat(user, src, "planted [charge] into", addition="charge will explode on open")
 		return
 
 	else if(panel_open && security_level == AIRLOCK_SECURITY_NONE && istype(C, /obj/item/stack/sheet))
