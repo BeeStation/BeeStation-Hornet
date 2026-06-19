@@ -174,3 +174,7 @@
   - bugfix: Cloning works correctly - it has been something buggy indescribably.
   - code_imp: improved(maybe) record code. My code comrades, codewise internally,
       it might look awful but it's good for you...
+2026-06-19:
+  MadmanMartian:
+  - bugfix: You can now examine emitters again to ascertain their stats, and whether
+      or not they're wired/powered properly.
