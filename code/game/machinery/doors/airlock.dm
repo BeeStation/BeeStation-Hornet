@@ -816,9 +816,8 @@
 			to_chat(user, span_warning("You slip and the charge detonates!"))
 			playsound(src, 'sound/effects/pressureplate.ogg', 60, TRUE)
 			visible_message(span_danger("[src]'s charge detonates prematurely!"))
-			var/turf/T = get_turf(user)
 			if(charge.loc == src)
-				charge.forceMove(T)
+				charge.forceMove(get_turf(user))
 			charge.prime()
 			return TOOL_ACT_TOOLTYPE_SUCCESS
 		user.visible_message(span_notice("[user] carefully unscrews the panel and removes [charge] from [src]."),
