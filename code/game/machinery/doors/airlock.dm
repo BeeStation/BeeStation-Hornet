@@ -812,7 +812,7 @@
 /obj/machinery/door/airlock/screwdriver_act(mob/living/user, obj/item/tool)
 	if(charge && !panel_open && !detonated)
 		to_chat(user, span_notice("You start carefully unscrewing the maintenance panel to disarm the hidden charge..."))
-		if(!tool.use_tool(src, user, 50, volume=50)) // 5 seconds
+		if(!tool.use_tool(src, user, 5 SECONDS, volume=50))
 			to_chat(user, span_warning("You slip and the charge detonates!"))
 			playsound(src, 'sound/effects/pressureplate.ogg', 60, TRUE)
 			visible_message(span_danger("[src]'s charge detonates prematurely!"))
@@ -979,10 +979,9 @@
 		return
 
 	else if(panel_open && istype(C, /obj/item/grenade/plastic) && !charge && !detonated)
-		charge = C
-		if(!user.transferItemToLoc(plastic_charge, src))
-		    charge = null
+		if(!user.transferItemToLoc(C, src))
 			return
+		charge = C
 		panel_open = FALSE
 		detonated = FALSE
 		update_appearance()
