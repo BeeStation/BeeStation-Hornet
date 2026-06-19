@@ -201,8 +201,6 @@
 	wires = null
 	target = null
 	return ..()
-
-
 /obj/item/grenade/plastic/c4/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] activates the [src.name] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!"))
 	shout_syndicate_crap(user)
