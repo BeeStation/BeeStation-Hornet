@@ -11,6 +11,9 @@
 	var/popup = FALSE // is the DOUWANNABLOWUP window open?
 	var/active = FALSE
 
+/obj/item/implant/explosive/on_mob_death(mob/living/L, gibbed)
+	activate("death")
+
 /obj/item/implant/explosive/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
 				<b>Name:</b> Robust Corp RX-78 Employee Management Implant<BR>
