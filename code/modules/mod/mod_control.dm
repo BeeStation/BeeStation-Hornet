@@ -13,6 +13,7 @@
 	inhand_icon_state = "mod_control"
 	base_icon_state = "control"
 	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BACK
 	strip_delay = 10 SECONDS
 	armor_type = /datum/armor/none
 	actions_types = list(
