@@ -13,7 +13,6 @@
 	inhand_icon_state = "mod_control"
 	base_icon_state = "control"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = ITEM_SLOT_BACK
 	strip_delay = 10 SECONDS
 	armor_type = /datum/armor/none
 	actions_types = list(
@@ -35,6 +34,8 @@
 	var/datum/mod_theme/theme = /datum/mod_theme
 	/// Looks of the MOD.
 	var/skin = "standard"
+	// Item flags, for now it just shouldnt be glued
+	item_flags = NO_GLUE
 	/// Theme of the MOD TGUI
 	var/ui_theme = "ntos"
 	/// If the suit is deployed and turned on.

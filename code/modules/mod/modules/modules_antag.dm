@@ -141,7 +141,7 @@
 
 /obj/item/mod/module/energy_shield/on_part_activation()
 	mod.AddComponent(/datum/component/shielded, max_integrity = max_integrity, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
-	charge_recovery = charge_recovery, recharge_path = recharge_path, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
+	charge_recovery = charge_recovery, recharge_path = recharge_path, shield_icon_file = shield_icon_file, shield_icon = shield_icon, shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES | ENERGY_SHIELD_BLOCK_MELEE | ENERGY_SHIELD_EMP_VULNERABLE)
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
 	if (shield && current_integrity < max_integrity)
 		shield.set_charge(current_integrity) // No exploiting the integrity by deactivating and reactivating
@@ -169,6 +169,8 @@
 	var/datum/component/shielded/shield = mod?.GetComponent(/datum/component/shielded)
 	if(!shield || shield.current_integrity <= 0)
 		return NONE
+	if(istype(hitby, /obj/projectile/ion))
+		mod.emp_act(EMP_LIGHT)
 	if(drain_power(use_power_cost))
 		return SHIELD_BLOCK
 	return NONE
