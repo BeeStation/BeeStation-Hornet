@@ -114,7 +114,7 @@
 	else
 		. += span_info("It's not anchored to the floor. You can secure it in place with a <b>wrench</b>.")
 
-	if(!in_range(user, src) || !isobserver(user))
+	if(!in_range(user, src) && !isobserver(user))
 		return
 
 	if(!active)
