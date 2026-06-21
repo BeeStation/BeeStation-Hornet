@@ -641,22 +641,28 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 		return FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
 
 ///Returns the occupant mob or brain from a specified input
-/proc/get_mob_or_brainmob(occupant)
-	var/mob/living/mob_occupant
+/proc/get_mob_or_brainmob(target)
+	if(isliving(target))
+		return target
 
-	if(isliving(occupant))
-		mob_occupant = occupant
+	else if(isbodypart(target))
+		var/obj/item/bodypart/head/head = target
+		return head.brainmob
 
-	else if(isbodypart(occupant))
-		var/obj/item/bodypart/head/head = occupant
+	else if(isorgan(target))
+		var/obj/item/organ/brain/brain = target
+		return brain.brainmob
 
-		mob_occupant = head.brainmob
+// get_mob_or_brainmob() is miserable to use when you need to care condition logics carefully...
+/// Returns the brainmob from a thing
+/proc/get_brainmob(target)
+	if(istype(target, /obj/item/bodypart/head))
+		var/obj/item/bodypart/head/head = target
+		return head.brainmob
 
-	else if(isorgan(occupant))
-		var/obj/item/organ/brain/brain = occupant
-		mob_occupant = brain.brainmob
-
-	return mob_occupant
+	else if(istype(target, /obj/item/organ/brain))
+		var/obj/item/organ/brain/brain = target
+		return brain.brainmob
 
 ///Returns the amount of currently living players
 /proc/living_player_count()

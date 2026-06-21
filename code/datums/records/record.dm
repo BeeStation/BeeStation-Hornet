@@ -651,7 +651,7 @@
 	var/list/factions
 	var/list/traumas
 	var/body_only
-	var/implant
+	var/datum/weakref/weakref_health_implant
 	var/bank_account
 
 	/// id of this record. Used in clone record data management.
@@ -674,7 +674,7 @@
 		list/factions = list(),
 		list/traumas = list(),
 		body_only,
-		implant,
+		weakref_health_implant,
 		bank_account))
 	src.age = age
 	src.blood_type = blood_type
@@ -687,13 +687,13 @@
 	src.species = species
 	src.datum_dna = new()
 	if(datum_dna)
-		datum_dna.copy_dna(src.datum_dna)
+		datum_dna.copy_dna_to(src.datum_dna)
 	src.weakref_mind = weakref_mind
 	src.last_death = last_death
 	src.factions = factions.Copy()
 	src.traumas = traumas.Copy()
 	src.body_only = body_only
-	src.implant = implant
+	src.weakref_health_implant = weakref_health_implant
 	src.bank_account = bank_account
 
 /datum/record/cloning/Destroy(force, ...)
@@ -723,25 +723,17 @@
 	if(target.datum_dna)
 		QDEL_NULL(target.datum_dna)
 	target.datum_dna = new()
-	datum_dna.copy_dna(target.datum_dna)
+	datum_dna.copy_dna_to(target.datum_dna)
 
 	target.weakref_mind = weakref_mind
 	target.last_death = last_death
 	target.factions = factions
 	target.traumas = traumas
 	target.body_only = body_only
-	target.implant = implant
+	target.weakref_health_implant = weakref_health_implant
 	target.bank_account = bank_account
 
 	return
-
-/datum/record/cloning/proc/get_copied_dna()
-	var/datum/dna/copied_dna_instance = new()
-	datum_dna.copy_dna(copied_dna_instance)
-	return copied_dna_instance
-
-/datum/record/cloning/proc/get_copied_dna_features()
-	return datum_dna.features.Copy()
 
 /datum/record/cloning/proc/resolve_mind()
 	if(isnull(weakref_mind))

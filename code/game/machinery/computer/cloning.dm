@@ -71,7 +71,7 @@
 		/* 04 */ given_mind = cloning_record?.resolve_mind(),
 		/* 05 */ last_death = cloning_record.last_death,
 		/* 06 */ mrace = cloning_record.species,
-		/* 07 */ features = cloning_record.get_copied_dna_features(),
+		/* 07 */ features = cloning_record.datum_dna.features.Copy(),
 		/* 08 */ factions = cloning_record.factions.Copy(),
 		/* 09 */ insurance = cloning_record.resolve_mind_account_id(),
 		/* 10 */ traumas = cloning_record.traumas.Copy(),
@@ -305,7 +305,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 				/* 04 */ given_mind = found_record.resolve_mind(),
 				/* 05 */ last_death = found_record.last_death,
 				/* 06 */ mrace = found_record.species,
-				/* 07 */ features = found_record.get_copied_dna_features(),
+				/* 07 */ features = found_record.datum_dna.features.Copy(),
 				/* 08 */ factions = found_record.factions.Copy(),
 				/* 09 */ insurance = found_record.resolve_mind_account_id(),
 				/* 10 */ traumas = found_record.traumas.Copy(),
@@ -411,7 +411,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 				var/list/record_entry = list()
 				record_entry["name"] = "[each_record.name]"
 				record_entry["id"] = "[each_record.id]"
-				var/obj/item/implant/health/H = each_record.implant
+				var/obj/item/implant/health/H = each_record.weakref_health_implant?.resolve()
 				if(H && istype(H))
 					record_entry["damages"] = H.sensehealth(TRUE)
 				else
@@ -572,121 +572,144 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		scantemp = "Unable to locate valid genetic data."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return FALSE
-	if(HAS_TRAIT(mob_occupant, TRAIT_NO_DNA_COPY))
-		scantemp = "The DNA of this lifeform could not be read due to an unknown error!"
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-		return FALSE
-	if((HAS_TRAIT(mob_occupant, TRAIT_HUSK)) && (src.scanner.scan_level < 2))
-		scantemp = "Subject's body is too damaged to scan properly."
-		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
-		return FALSE
-	if(HAS_TRAIT(mob_occupant, TRAIT_BADDNA))
-		scantemp = "Subject's DNA is damaged beyond any hope of recovery."
-		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
-		return FALSE
-	if(!experimental)
-		if(!body_only && mob_occupant.suiciding)
-			scantemp = "Subject's brain is not responding to scanning stimuli."
+	if(isliving(mob_occupant))
+		if(HAS_TRAIT(mob_occupant, TRAIT_NO_DNA_COPY))
+			scantemp = "The DNA of this lifeform could not be read due to an unknown error!"
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 			return FALSE
-		if(!body_only && isnull(mob_occupant.mind))
-			scantemp = "Mental interface failure."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		if((HAS_TRAIT(mob_occupant, TRAIT_HUSK)) && (src.scanner.scan_level < 2))
+			scantemp = "Subject's body is too damaged to scan properly."
+			playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 			return FALSE
-		if(!body_only && SSeconomy.full_ancap)
-			if(!account)
-				scantemp = "Subject is either missing an ID card with a bank account on it, or does not have an account to begin with. Please ensure the ID card is on the body before attempting to scan."
+		if(HAS_TRAIT(mob_occupant, TRAIT_BADDNA))
+			scantemp = "Subject's DNA is damaged beyond any hope of recovery."
+			playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
+			return FALSE
+		if(!experimental && !body_only)
+			if(mob_occupant.suiciding)
+				scantemp = "Subject's brain is not responding to scanning stimuli."
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				return FALSE
+			if(isnull(mob_occupant.mind))
+				scantemp = "Mental interface failure."
+				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+				return FALSE
+			if(SSeconomy.full_ancap)
+				if(!account)
+					scantemp = "Subject is either missing an ID card with a bank account on it, or does not have an account to begin with. Please ensure the ID card is on the body before attempting to scan."
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+					return FALSE
 	return TRUE
 
-/obj/machinery/computer/cloning/proc/scan_occupant(occupant, mob/user, body_only)
-	var/mob/living/mob_occupant = get_mob_or_brainmob(occupant)
+/obj/machinery/computer/cloning/proc/scan_occupant(atom/atom_occupant, mob/user, body_only)
+	// Clone target variables
+	var/mob/living/carbon/human/human_mob = ishuman(atom_occupant) ? atom_occupant : null
+	var/mob/living/brain/brainmob = get_brainmob(atom_occupant)
+	var/obj/item/organ/brain/brain_to_clone // Used when this code failed to find human_mob / brainmob (which means "atom_occupant" is an object and mindless)
+	/* Note:
+		Basically a minded mob can have 'brainmob' in their head or brain when they are beheaded
+		but if a mob does not have any mind, they do not get brainmob.
+		This is because letting ghosted players be able to find where their mind-holder exists.
+		So, we should check when we clone mindless mobs
+	*/
 	var/datum/dna/dna
+	var/datum/mind/occupant_mind
 	var/datum/bank_account/has_bank_account
 
-	// Do not use unless you know what they are.
-	var/mob/living/carbon/human/human_mob = mob_occupant
-	var/mob/living/brain/human_brain = mob_occupant
-
-	if(ishuman(mob_occupant))
+	// Scanning a mob - We have a human body in the scanner (NOTE: carbon is not supported)
+	if(human_mob)
+		brain_to_clone = human_mob.get_organ_slot(ORGAN_SLOT_BRAIN)
 		dna = human_mob.has_dna()
+		occupant_mind = human_mob.mind // Reminder : might not exist
 		var/obj/item/card/id/human_id_card = human_mob.get_idcard(TRUE)
 		if(human_id_card)
 			has_bank_account = human_id_card.registered_account
-	if(isbrain(mob_occupant))
-		dna = human_brain.stored_dna
 
-	if(!can_scan(dna, mob_occupant, has_bank_account, body_only))
+	// Scanned an object - We do not have a human body. We have a brain(or head) that holds a mind datum
+	else if(brainmob)
+		brain_to_clone = brainmob.loc
+		dna = brainmob.stored_dna
+		occupant_mind = brainmob.mind // Reminder : likely exist
+		if(!istype(brain_to_clone, /obj/item/organ/brain))
+			stack_trace("var 'brain_to_clone' is not /organ/brain for some reason. From brainmob: [brainmob]")
+			brain_to_clone = null
+	// Note: This might look equivalant from below, but items return "brainmob" if things have a mind(player)
+	// I mean, this attempts to detect the thing from head/brain(object), but it is not actually an object (ARgh I hate this weird description)
+
+	// Scanning an object - Try to find a brain that holds a DNA
+	else if(istype(occupant, /obj/item/bodypart/head)) // From head
+		brain_to_clone = astype(occupant, /obj/item/bodypart/head).brain
+		dna = brain_to_clone.brain_dna
+		// occupant_mind = null // Reminder: does not exist. This line exists for a hint.
+	else if(istype(occupant, /obj/item/organ/brain)) // From brain
+		brain_to_clone = occupant
+		dna = brain_to_clone.brain_dna
+		// occupant_mind = null // Reminder: does not exist. This line exists for a hint.
+
+	if(!can_scan(dna, human_mob, has_bank_account, body_only))
 		return
 
+	if(!dna.species)
+		return //no dna info for species? you're not allowed to clone them. Don't harass xeno, don't try xeno farm.
+		//Note: if you want to clone unusual species, you need to check 'carbon/human' rather than 'dna.species'
+
 	var/datum/record/cloning/cloning_record = new(RECORD_CLONE_STRICT_ARGS(
-		age = human_mob.age,
+		age = human_mob?.age || dna.age,
 		blood_type = dna.blood_type.name,
 		unique_enzymes = dna.unique_enzymes,
 		unique_identity = dna.unique_identity,
 		fingerprint = md5(dna.unique_identity),
-		gender = mob_occupant.gender,
-		initial_rank = mob_occupant.mind?.assigned_role,
-		name = mob_occupant.real_name,
-		species = null /* Species */,
-		datum_dna = dna,
-		weakref_mind = WEAKREF(mob_occupant.mind),
-		last_death = FALSE,
-		factions = mob_occupant.faction,
-		traumas = list(),
-		body_only = body_only,
-		implant = null,
+		gender = human_mob?.gender || dna.gender,
+		initial_rank = occupant_mind?.assigned_role,
+		name = human_mob?.real_name || dna.real_name,
+		species = null,
+		datum_dna = dna /* the record will internally copy this dna datum */,
+		weakref_mind = occupant_mind ? WEAKREF(occupant_mind) : null,
+		last_death = experimental ? FALSE : (occupant_mind && occupant_mind.current.stat == DEAD) ? occupant_mind.last_death : -1,
+		factions = human_mob?.faction.Copy(),
+		traumas = null,
+		body_only = experimental ? FALSE : body_only,
+		weakref_health_implant = null,
 		bank_account = has_bank_account))
 
-	if(dna.species)
-		// We store the instance rather than the path, because some
-		// species (abductors, slimepeople) store state in their
-		// species datums
-		dna.delete_species = FALSE
-		cloning_record.species = dna.species
-	else
-		return //no dna info for species? you're not allowed to clone them. Don't harass xeno, don't try xeno farm.
-		//Note: if you want to clone unusual species, you need to check 'carbon/human' rather than 'dna.species'
+	// We store the instance rather than the path,
+	// because some species (abductors, slimepeople) store
+	// state in their species datums
+	cloning_record.datum_dna.delete_species = FALSE
+	cloning_record.species = cloning_record.datum_dna.species
+		// *EvilDraogn: I do not understand what they are trying to say and do here by assigning the value FALSE
 
-	if(experimental) //even if you have the same identity, this will give you different id based on your mind. body_only gets β at their id.
-		cloning_record.id =  copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 10)+"β+" //beta plus
+	//even if you have the same identity, this will give you different id based on your mind. body_only gets β at their id.
+	if(experimental)
+		cloning_record.id =  copytext_char(rustg_hash_string(RUSTG_HASH_MD5, cloning_record.name), 3, 10)+"β+" //beta plus
 	else if(body_only)
-		cloning_record.id = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 10)+"β" //beta
+		cloning_record.id = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, cloning_record.name), 3, 10)+"β" //beta
 	else
-		cloning_record.id = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 7)+copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.mind), -4)
+		cloning_record.id = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, cloning_record.name), 3, 7)+copytext_char(rustg_hash_string(RUSTG_HASH_MD5, FAST_REF(occupant_mind)), -4)
 
-	if(isbrain(mob_occupant)) //We'll detect the brain first because trauma is from the brain, not from the body.
-		cloning_record.traumas = human_brain.get_traumas()
-	else if(ishuman(mob_occupant))
+	//We'll detect the brain first because trauma is from the brain, not from the body.
+	if(brainmob)
+		cloning_record.traumas = brainmob.get_traumas()
+	else if(human_mob)
 		cloning_record.traumas = human_mob.get_traumas()
+	else if(brain_to_clone)
+		cloning_record.traumas = brain_to_clone.traumas.Copy()
+	else
+		cloning_record.traumas = list() // nothing to copy!
 	//Traumas will be overriden if the brain transplant is made because '/obj/item/organ/brain/Insert' does that thing. This should be done since we want a monkey yelling to people with 'God voice syndrome'
 
-	cloning_record.bank_account = has_bank_account
-	if(!experimental)
-		cloning_record.weakref_mind = WEAKREF(mob_occupant.mind)
-		cloning_record.last_death = (mob_occupant.stat == DEAD && mob_occupant.mind) ? mob_occupant.mind.last_death : -1
-		cloning_record.body_only = body_only
-	else
-		cloning_record.last_death = FALSE
-		cloning_record.body_only = FALSE
-
-	if(!body_only || experimental && mob_occupant.stat != DEAD)
+	if(human_mob && (!body_only || experimental && human_mob.stat != DEAD))
 		//Add an implant if needed
-		var/obj/item/implant/health/implant
-		for(var/obj/item/implant/health/health_implant in mob_occupant.implants)
-			implant = health_implant
-			break
+		var/obj/item/implant/health/implant = locate() in human_mob.implants
 		if(!implant)
-			implant = new /obj/item/implant/health(mob_occupant)
-			implant.implant(mob_occupant)
-		cloning_record.implant = "[REF(implant)]"
+			implant = new /obj/item/implant/health()
+			implant.implant(human_mob)
+		cloning_record.weakref_health_implant = WEAKREF(implant)
 
 	var/found_old_record = null
 	for(var/datum/record/cloning/old_record as anything in records)
 		if(old_record.id == cloning_record.id)
 			found_old_record = old_record
-
 
 	if(found_old_record)
 		records -= found_old_record
@@ -696,10 +719,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 
 	records += cloning_record
 
+	message_admins("[key_name(user)] added the record[body_only ? "(body-only)" : experimental ? "(experi.)" : ""] of [key_name(human_mob)](DNA-name:[dna.real_name]) to [src] at [AREACOORD(src)].")
 	if(!experimental)
-		log_cloning("[user ? key_name(user) : "Autoprocess"] added the [body_only ? "body-only " : ""]record of [key_name(mob_occupant)] to [src] at [AREACOORD(src)].")
+		log_cloning("[user ? key_name(user) : "Autoprocess"] added the record[body_only ? "(body-only)" : ""] of [key_name(human_mob)](DNA-name:[dna.real_name]) to [src] at [AREACOORD(src)].")
 	else
-		log_cloning("[user ? key_name(user) : "Autoprocess"] added the experimental record of [key_name(mob_occupant)] to [src] at [AREACOORD(src)].")
+		log_cloning("[user ? key_name(user) : "Autoprocess"] added the record(experimental) of [key_name(human_mob)](DNA-name:[dna.real_name]) to [src] at [AREACOORD(src)].")
 	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50)
 	ui_update()
 
