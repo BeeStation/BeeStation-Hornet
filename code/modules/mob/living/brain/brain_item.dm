@@ -229,7 +229,8 @@
 	if(brainmob)
 		QDEL_NULL(brainmob)
 	QDEL_LIST(traumas)
-	QDEL_NULL(brain_dna)
+	if(brain_dna)
+		QDEL_NULL(brain_dna)
 
 	if(owner?.mind) //You aren't allowed to return to brains that don't exist
 		owner.mind.set_current(null)
