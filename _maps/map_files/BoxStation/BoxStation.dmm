@@ -6189,7 +6189,8 @@
 	dir = 8
 	},
 /mob/living/simple_animal/kalo{
-	name = "Greentext"
+	name = "Greentext";
+	desc = "A tiny imprisoned lizard."
 	},
 /turf/open/floor/wood,
 /area/station/security/prison)
