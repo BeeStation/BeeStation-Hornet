@@ -16,7 +16,7 @@
 /datum/orbital_objective/nuclear_bomb/get_text()
 	. = "Outpost [station_name] requires immediate decomissioning to prevent infomation from being \
 		leaked to the space press. Retrieve the nuclear authentication disk from the outpost and detonate it \
-		with the provided nuclear bomb which will be delivered to your exploration preparation area."
+		with the provided nuclear bomb which will be delivered to you, via this objectives computer."
 	if(linked_beacon)
 		. += " The station is located at the beacon marked [linked_beacon.name]. Good luck."
 
