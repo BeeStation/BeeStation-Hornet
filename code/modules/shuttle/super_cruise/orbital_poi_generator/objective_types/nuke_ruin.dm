@@ -16,14 +16,17 @@
 /datum/orbital_objective/nuclear_bomb/get_text()
 	. = "Outpost [station_name] requires immediate decomissioning to prevent infomation from being \
 		leaked to the space press. Retrieve the nuclear authentication disk from the outpost and detonate it \
-		with the provided nuclear bomb which will be delivered to the bridge."
+		with the provided nuclear bomb which will be delivered to your exploration preparation area."
 	if(linked_beacon)
 		. += " The station is located at the beacon marked [linked_beacon.name]. Good luck."
 
 /datum/orbital_objective/nuclear_bomb/on_assign(obj/machinery/computer/objective/objective_computer)
-	var/area/A = GLOB.areas_by_type[/area/station/command]
-	var/turf/open/T = locate() in shuffle(A.contents)
-	nuclear_bomb = new /obj/machinery/nuclearbomb/decomission(T)
+	var/obj/structure/closet/supplypod/centcompod/toLaunch = new()
+	nuclear_bomb = new /obj/machinery/nuclearbomb/decomission()
+	nuclear_bomb.forceMove(toLaunch)
+	var/turf/T = get_turf(objective_computer)
+	new /obj/effect/pod_landingzone(T, toLaunch)
+
 
 /datum/orbital_objective/nuclear_bomb/check_failed()
 	if((!QDELETED(nuclear_bomb) && !QDELETED(nuclear_disk) && !QDELETED(linked_beacon)) || !generated)
