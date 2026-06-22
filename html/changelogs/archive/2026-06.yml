@@ -178,3 +178,7 @@
   MadmanMartian:
   - bugfix: You can now examine emitters again to ascertain their stats, and whether
       or not they're wired/powered properly.
+2026-06-20:
+  mrmanlikesbt:
+  - bugfix: Fixed the spaceproof directional windows mapping helper sometimes breaking
+      the entire game
