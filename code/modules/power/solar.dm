@@ -258,6 +258,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 	if(control)
 		control.gen += sgen
 
+/obj/machinery/power/solar/examine(mob/user)
+	.=..()
+	. += span_notice("\The [src]'s panels are composed of [material_type.name], giving it a power coefficient of [span_bold("[power_tier]")]")
+
 //Bit of a hack but this whole type is a hack
 /obj/machinery/power/solar/fake/Initialize(mapload, obj/item/solar_assembly/S)
 	. = ..()
