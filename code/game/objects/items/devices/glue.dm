@@ -22,7 +22,7 @@
 			return
 		if(istype(target, /obj/item))
 			var/obj/item/I = target
-			if(I.item_flags & NO_GLUE)
+			if(HAS_TRAIT(I, TRAIT_NO_GLUE))
 				to_chat(user, span_warning("The glue won't stick to [I]!"))
 				return
 			if(HAS_TRAIT_FROM(I, TRAIT_NODROP, GLUED_ITEM_TRAIT))

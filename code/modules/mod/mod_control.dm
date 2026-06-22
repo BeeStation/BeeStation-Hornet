@@ -35,8 +35,6 @@
 	var/datum/mod_theme/theme = /datum/mod_theme
 	/// Looks of the MOD.
 	var/skin = "standard"
-	// Item flags, for now it just shouldnt be glued
-	item_flags = NO_GLUE
 	/// Theme of the MOD TGUI
 	var/ui_theme = "ntos"
 	/// If the suit is deployed and turned on.
@@ -84,6 +82,7 @@
 
 /obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_GLUE, ABSTRACT_ITEM_TRAIT)
 	if(!movedelay)
 		movedelay = CONFIG_GET(number/movedelay/run_delay)
 	if(new_theme)
