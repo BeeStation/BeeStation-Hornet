@@ -59,8 +59,6 @@
 #define IGNORE_DIGITIGRADE (1<<16)
 /// No blood overlay is allowed to appear on this item, and it cannot gain blood DNA forensics
 #define NO_BLOOD_ON_ITEM (1<<17)
-/// This item cant have glue applied to them for various reasons
-#define NO_GLUE (1<<18)
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
