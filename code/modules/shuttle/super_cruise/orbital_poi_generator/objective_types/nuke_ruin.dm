@@ -16,17 +16,17 @@
 /datum/orbital_objective/nuclear_bomb/get_text()
 	. = "Outpost [station_name] requires immediate decomissioning to prevent infomation from being \
 		leaked to the space press. Retrieve the nuclear authentication disk from the outpost and detonate it \
-		with the provided nuclear bomb which will be delivered to you, via this objectives computer."
+		with the provided nuclear bomb which will be delivered to your home station's bridge. \
+		Note: If the bridge is not available, the nuclear device will be rerouted to your objective computer."
 	if(linked_beacon)
 		. += " The station is located at the beacon marked [linked_beacon.name]. Good luck."
 
 /datum/orbital_objective/nuclear_bomb/on_assign(obj/machinery/computer/objective/objective_computer)
-	var/obj/structure/closet/supplypod/centcompod/toLaunch = new()
-	nuclear_bomb = new /obj/machinery/nuclearbomb/decomission()
-	nuclear_bomb.forceMove(toLaunch)
-	var/turf/T = get_turf(objective_computer)
-	new /obj/effect/pod_landingzone(T, toLaunch)
-
+	var/area/A = GLOB.areas_by_type[/area/station/command/bridge]
+	var/turf/open/T = locate() in shuffle(A.contents)
+	if(!T)
+		T = get_turf(objective_computer) //Backup, in case the bridge doesn't exist
+	nuclear_bomb = new /obj/machinery/nuclearbomb/decomission(T)
 
 /datum/orbital_objective/nuclear_bomb/check_failed()
 	if((!QDELETED(nuclear_bomb) && !QDELETED(nuclear_disk) && !QDELETED(linked_beacon)) || !generated)
@@ -54,6 +54,7 @@
 GLOBAL_LIST_EMPTY(decomission_bombs)
 
 /obj/machinery/nuclearbomb/decomission
+	name = "nuclear fission station-scuttler explosive"
 	desc = "A nuclear bomb for destroying stations. Uses an old version of the nuclear authentication disk."
 	proper_bomb = FALSE
 	var/datum/orbital_objective/nuclear_bomb/linked_objective

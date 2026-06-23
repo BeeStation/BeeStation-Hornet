@@ -163,6 +163,18 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	possible_objectives += objective
 	update_objective_computers()
 
+//Just gives one of each objective for debug purposes
+/datum/controller/subsystem/processing/orbits/proc/create_objectives()
+	for (var/type in list(/datum/orbital_objective/recover_blackbox,
+		/datum/orbital_objective/nuclear_bomb,
+		/datum/orbital_objective/assassination,
+		/datum/orbital_objective/artifact,
+		/datum/orbital_objective/vip_recovery))
+		var/datum/orbital_objective/objective = new type()
+		objective.generate_payout()
+		possible_objectives += objective
+	update_objective_computers()
+
 /datum/controller/subsystem/processing/orbits/proc/assign_objective(objective_computer, datum/orbital_objective/objective)
 	if(!possible_objectives.Find(objective))
 		return "Selected objective is no longer available or has been claimed already."
