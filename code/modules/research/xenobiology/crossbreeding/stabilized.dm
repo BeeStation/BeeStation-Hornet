@@ -123,7 +123,7 @@ Stabilized extracts:
 
 /obj/item/slimecross/stabilized/red
 	colour = SLIME_TYPE_RED
-	effect_desc = "You will work 20% faster"
+	effect_desc = "Nullifies 50% of  equipment based slowdowns."
 
 /obj/item/slimecross/stabilized/green
 	colour = SLIME_TYPE_GREEN

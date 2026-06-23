@@ -82,6 +82,7 @@
 
 /obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_SPEED_POTION, INNATE_TRAIT)
 	if(!movedelay)
 		movedelay = CONFIG_GET(number/movedelay/run_delay)
 	if(new_theme)
@@ -623,7 +624,7 @@
 	old_module.on_uninstall(deleting = deleting)
 	QDEL_LIST_ASSOC_VAL(old_module.pinned_to)
 	old_module.mod = null
-
+e
 /// Intended for callbacks, don't use normally, just get wearer by itself.
 /obj/item/mod/control/proc/get_wearer()
 	return wearer
@@ -667,8 +668,12 @@
 
 /obj/item/mod/control/proc/update_speed()
 	var/total_slowdown = 0
+	var/prevent_slowdown = HAS_TRAIT(src, TRAIT_SPEED_POTIONED)
+	if (!prevent_slowdown)
+		total_slowdown += slowdown_deployed
+
 	var/list/module_slowdowns = list()
-	SEND_SIGNAL(src, COMSIG_MOD_UPDATE_SPEED, module_slowdowns)
+	SEND_SIGNAL(src, COMSIG_MOD_UPDATE_SPEED, module_slowdowns, prevent_slowdown)
 	for (var/module_slow in module_slowdowns)
 		total_slowdown += module_slow
 
@@ -732,6 +737,28 @@
 		return
 	UnregisterSignal(part, COMSIG_ATOM_EXITED)
 	part_datum.overslotting = null
+
+/obj/item/mod/control/proc/on_potion(atom/movable/source, obj/item/slimepotion/speed/speed_potion, mob/living/user)
+	SIGNAL_HANDLER
+
+	if(HAS_TRAIT(src, TRAIT_NO_SPEED_POTION))
+		to_chat(user, span_warning("[src] cannot be coated with this!"))
+		return SPEED_POTION_STOP
+
+	if(HAS_TRAIT(src, TRAIT_SPEED_POTIONED))
+		to_chat(user, span_warning("[src] has already been coated with red, that's as fast as it'll go!"))
+		return SPEED_POTION_STOP
+
+	if(active)
+		to_chat(user, span_warning("It's too dangerous to smear [speed_potion] on [src] while it's active!"))
+		return SPEED_POTION_STOP
+
+	to_chat(user, span_notice("You slather the red gunk over [src], making it faster."))
+	set_mod_color(COLOR_RED)
+	ADD_TRAIT(src, TRAIT_SPEED_POTIONED, SLIME_POTION_TRAIT)
+	update_speed()
+	qdel(speed_potion)
+	return SPEED_POTION_STOP
 
 /obj/item/mod/control/proc/get_visor_overlay(mutable_appearance/standing)
 	var/list/overrides = list()

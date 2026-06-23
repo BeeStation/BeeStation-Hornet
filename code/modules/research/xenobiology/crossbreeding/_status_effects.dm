@@ -807,9 +807,10 @@
 
 /datum/status_effect/stabilized/red/on_apply()
 	. = ..()
-	owner.add_actionspeed_modifier(/datum/actionspeed_modifier/stabilized_red)
+	owner.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/equipment_speedmod)
+
 /datum/status_effect/stabilized/red/on_remove()
-	owner.remove_actionspeed_modifier(/datum/actionspeed_modifier/stabilized_red)
+	owner.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/equipment_speedmod)
 	return ..()
 /datum/status_effect/stabilized/green
 	id = "stabilizedgreen"

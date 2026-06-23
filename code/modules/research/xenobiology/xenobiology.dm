@@ -1001,59 +1001,54 @@
 	qdel(src)
 
 /obj/item/slimepotion/speed
-	name = "slime experimental potion"
-	desc = "A potent chemical that is told to upgrade tools to an experimental version, supposedly by making them red."
+	name = "slime speed potion"
+	desc = "A potent chemical mix that will remove the slowdown from any item."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potyellow"
-	var/uses = 2
 
-	var/static/list/upgradeable_tools = zebra_typecacheof(list(
-		/obj/item/screwdriver = TRUE, // No powertools, they're already 2 in 1
-		/obj/item/wrench = TRUE,
-		/obj/item/crowbar = TRUE,
-		/obj/item/wirecutters = TRUE,
-		/obj/item/weldingtool = TRUE,
-		/obj/item/scalpel = TRUE,
-		/obj/item/circular_saw = TRUE,
-		/obj/item/retractor = TRUE,
-		/obj/item/hemostat = TRUE,
-		/obj/item/cautery = TRUE,
-		/obj/item/surgicaldrill = TRUE,
-
-		// We dont want these being upgraded, they're 2 in 1 tools
-		/obj/item/scalpel/advanced = FALSE,
-		/obj/item/retractor/advanced = FALSE,
-		/obj/item/cautery/advanced = FALSE,
-	))
-
-/obj/item/slimepotion/speed/afterattack(obj/item/tool, mob/user, proximity)
+/obj/item/slimepotion/speed/afterattack(obj/thingy, mob/user, proximity)
 	. = ..()
+	if(SEND_SIGNAL(thingy, COMSIG_SPEED_POTION_APPLIED, src, user) & SPEED_POTION_STOP)
+		return
+	if(!isobj(thingy))
+		to_chat(user, span_warning("The potion can only be used on objects!"))
+		return
+	if(HAS_TRAIT(thingy, TRAIT_SPEED_POTIONED))
+		to_chat(user, span_warning("[thingy] can't be made any faster!"))
+		return
+	if(isitem(thingy))
+		var/obj/item/apply_to = thingy
+		if(apply_to.anchored)
+			to_chat(user, span_warning("[src] can't be used on anchored items!"))
+			return
+		if( apply_to.slowdown <= 0 || (apply_to.obj_flags & IMMUTABLE_SLOW)|| HAS_TRAIT(apply_to, TRAIT_NO_SPEED_POTION))
+			if(thingy.atom_storage)
+				return NONE // lets us put the potion in
+			to_chat(user, span_warning("The [apply_to] can't be made any faster!"))
+			return
+		apply_to.slowdown *= 0.5
 
-	if(!uses)
-		qdel(src)
-		return
-	if(!proximity || !tool)
-		return
-	if(!is_type_in_typecache(tool, upgradeable_tools)) // Are they in the list?
-		to_chat(user, span_warning("[tool] cannot be upgraded!"))
-		return // They aren't dont upgrade them
-	if(HAS_TRAIT(tool, TRAIT_EXPERIMENTAL_UPGRADE)) // They've been "upgraded" already, no point in upgrading them again
-		to_chat(user, span_warning("[tool] has already been upgraded!"))
-		return
-	if(tool.toolspeed <= 0.3) // Their toolspeed is faster than our buff, no point in upgrading them
-		to_chat(user, span_warning("[tool] is already too advanced to be upgraded!"))
-		return
-	ADD_TRAIT(tool, TRAIT_EXPERIMENTAL_UPGRADE, SLIME_POTION_TRAIT)
-	tool.toolspeed = 0.3
-	tool.color = COLOR_RED
-	if(!findtext(tool.name, "experimental "))
-		tool.name = "experimental [tool.name]"
-	uses -= 1
-	if(uses)
-		to_chat(user, span_notice("You upgrade [tool] into an experimental version! [uses] uses remaining."))
+	else if(istype(thingy, /obj/vehicle))
+		var/obj/vehicle/vehicle = thingy
+		var/datum/component/riding/riding = vehicle.GetComponent(/datum/component/riding)
+		if(riding)
+			var/vehicle_speed_mod = round(1.5 * 0.85, 0.01)
+			if(riding.vehicle_move_delay <= vehicle_speed_mod)
+				to_chat(user, span_warning("[vehicle] can't be made any faster!"))
+				return
+			riding.vehicle_move_delay = vehicle_speed_mod
+		else
+			to_chat(user, span_warning("[vehicle] can't be made any faster!"))
+			return
 	else
-		to_chat(user, span_notice("You upgrade [tool] into an experimental version! The potion has been used up."))
-		qdel(src)
+		return
+
+	to_chat(user, span_notice("You slather the red gunk over [thingy], making it faster."))
+	thingy.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	thingy.add_atom_colour(COLOR_RED, FIXED_COLOUR_PRIORITY)
+	ADD_TRAIT(thingy, TRAIT_SPEED_POTIONED, SLIME_POTION_TRAIT)
+	qdel(src)
+	return FALSE
 
 /obj/item/slimepotion/fireproof
 	name = "slime chill potion"
