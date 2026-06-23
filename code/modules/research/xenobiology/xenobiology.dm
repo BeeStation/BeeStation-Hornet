@@ -1008,6 +1008,8 @@
 
 /obj/item/slimepotion/speed/afterattack(obj/thingy, mob/user, proximity)
 	. = ..()
+	if(!proximity)
+		return
 	if(SEND_SIGNAL(thingy, COMSIG_SPEED_POTION_APPLIED, src, user) & SPEED_POTION_STOP)
 		return
 	if(!isobj(thingy))
