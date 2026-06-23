@@ -240,7 +240,7 @@
 
 	data["owner"] = computer.saved_identification
 	// Convert the photo object into a file so it can be rendered properly in Show Messages
-	for(var/list/message as() in messages)
+	for(var/list/message as anything in messages)
 		var/datum/picture/pic = message["photo_obj"]
 		if(!message["photo"] && istype(pic))
 			message["photo"] = pda_rsc_image(pic, message["ref"], user)

@@ -61,11 +61,13 @@
 		amount_to_pick = 1,
 	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
-	if(candidate)
-		friend.key = candidate.key
-		friend_initialized = TRUE
-	else
+	if(isnull(candidate))
 		qdel(src)
+		return
+
+	friend.key = candidate.key
+	friend.setup_friend()
+	friend_initialized = TRUE
 
 /mob/camera/imaginary_friend
 	name = "imaginary friend"
@@ -87,14 +89,12 @@
 	var/mob/living/carbon/owner
 	var/datum/brain_trauma/special/imaginary_friend/trauma
 
-	var/datum/action/innate/imaginary_join/join
-	var/datum/action/innate/imaginary_hide/hide
-
 /mob/camera/imaginary_friend/Login()
 	. = ..()
 	if(!. || !client)
 		return FALSE
-	greet()
+	if(owner)
+		greet()
 	Show()
 
 /mob/camera/imaginary_friend/proc/greet()
@@ -113,11 +113,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	grant_language(/datum/language/metalanguage) // they only speak in metalanguage
 	language_holder.selected_language = /datum/language/metalanguage
 
-	setup_friend()
-
-	join = new
+	var/datum/action/innate/imaginary_join/join = new()
 	join.Grant(src)
-	hide = new
+	var/datum/action/innate/imaginary_hide/hide = new()
 	hide.Grant(src)
 
 	// Update icon on turn
@@ -127,8 +125,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(owner_speech))
 
 /mob/camera/imaginary_friend/Destroy()
-	qdel(join)
-	qdel(hide)
 	UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE)
 	if(owner)
 		UnregisterSignal(owner, COMSIG_MOB_SAY)
@@ -139,6 +135,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	real_name = generate_random_name_species_based(gender, FALSE, /datum/species/human)
 	name = real_name
 	human_image = get_flat_human_icon(null, pick(SSjob.occupations))
+	Show()
 
 /mob/camera/imaginary_friend/proc/Show()
 	SIGNAL_HANDLER

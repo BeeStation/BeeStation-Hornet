@@ -1,17 +1,34 @@
+import { Box, Button, Section, Stack } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+
 import { useBackend } from '../backend';
-import { Box, Button, Grid, Section } from '../components';
 import { Window } from '../layouts';
 
-export const EmergencyShuttleConsole = (props) => {
-  const { act, data } = useBackend();
+type Data = {
+  authorizations_remaining: number;
+  authorizations: Authorization[];
+  emagged: BooleanLike;
+  enabled: BooleanLike;
+  engines_started: BooleanLike;
+  timer_str: string;
+};
+
+type Authorization = {
+  job: string;
+  name: string;
+};
+
+export function EmergencyShuttleConsole(props) {
+  const { act, data } = useBackend<Data>();
   const {
-    timer_str,
-    enabled,
-    emagged,
-    engines_started,
-    authorizations_remaining,
     authorizations = [],
+    authorizations_remaining,
+    emagged,
+    enabled,
+    engines_started,
+    timer_str,
   } = data;
+
   return (
     <Window width={400} height={372}>
       <Window.Content>
@@ -30,42 +47,43 @@ export const EmergencyShuttleConsole = (props) => {
         </Section>
         <Section
           title="Early Launch Authorization"
-          level={2}
           buttons={
             <Button
-              icon="times"
-              content="Repeal All"
               color="bad"
               disabled={!enabled}
+              icon="times"
               onClick={() => act('abort')}
-            />
+            >
+              Repeal All
+            </Button>
           }
         >
-          <Grid>
-            <Grid.Column>
+          <Stack>
+            <Stack.Item grow>
               <Button
+                color="good"
+                disabled={!enabled}
                 fluid
                 icon="exclamation-triangle"
-                color="good"
-                content="AUTHORIZE"
-                disabled={!enabled}
                 onClick={() => act('authorize')}
-              />
-            </Grid.Column>
-            <Grid.Column>
+              >
+                AUTHORIZE
+              </Button>
+            </Stack.Item>
+            <Stack.Item grow>
               <Button
+                disabled={!enabled}
                 fluid
                 icon="minus"
-                content="REPEAL"
-                disabled={!enabled}
                 onClick={() => act('repeal')}
-              />
-            </Grid.Column>
-          </Grid>
+              >
+                REPEAL
+              </Button>
+            </Stack.Item>
+          </Stack>
         </Section>
         <Section
           title="Authorizations"
-          level={3}
           minHeight="150px"
           buttons={
             <Box inline bold>
@@ -73,7 +91,11 @@ export const EmergencyShuttleConsole = (props) => {
             </Box>
           }
         >
-          {authorizations.length > 0 ? (
+          {authorizations.length === 0 ? (
+            <Box bold textAlign="center" fontSize="16px" color="average">
+              No Active Authorizations
+            </Box>
+          ) : (
             authorizations.map((authorization) => (
               <Box
                 key={authorization.name}
@@ -84,13 +106,9 @@ export const EmergencyShuttleConsole = (props) => {
                 {authorization.name} ({authorization.job})
               </Box>
             ))
-          ) : (
-            <Box bold textAlign="center" fontSize="16px" color="average">
-              No Active Authorizations
-            </Box>
           )}
         </Section>
       </Window.Content>
     </Window>
   );
-};
+}

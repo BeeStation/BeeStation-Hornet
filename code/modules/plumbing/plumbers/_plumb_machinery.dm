@@ -28,7 +28,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing)
 	. = ..()
 	anchored = bolt
 	create_reagents(buffer, reagent_flags)
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/plumbing/proc/can_be_rotated(mob/user, rotation_type)
@@ -40,9 +40,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing)
 /obj/machinery/plumbing/examine(mob/user)
 	. = ..()
 	. += span_notice("The maximum volume display reads: <b>[reagents.maximum_volume] units</b>.")
-
-/obj/machinery/plumbing/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/machinery/plumbing/wrench_act(mob/living/user, obj/item/I)
 	..()

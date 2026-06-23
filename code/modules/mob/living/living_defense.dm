@@ -501,7 +501,7 @@
 		if(locate(/obj/structure/lattice) in range(1, get_turf(src)))
 			is_holding = TRUE
 		else
-			for (var/turf/T as() in RANGE_TURFS(1, src))
+			for (var/turf/T as anything in RANGE_TURFS(1, src))
 				if (T.density)
 					is_holding = TRUE
 					break

@@ -22393,16 +22393,17 @@
 /turf/open/floor/grass,
 /area/station/science/xenobiology)
 "ilS" = (
-/obj/structure/bed{
-	dir = 8
-	},
 /obj/machinery/light/small,
-/obj/effect/landmark/start/prisoner,
-/obj/structure/wall_closet/generic/directional/south,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/maintenance,
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 6
+	},
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen{
+	pixel_x = -3
 	},
 /turf/open/floor/prison,
 /area/station/security/prison)
@@ -32130,13 +32131,10 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "luz" = (
-/obj/structure/bed{
-	dir = 8
-	},
-/obj/effect/landmark/start/prisoner,
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 4
 	},
+/obj/structure/chair,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "luC" = (
@@ -49051,10 +49049,13 @@
 	},
 /area/station/engineering/atmos)
 "ral" = (
-/obj/structure/wall_closet/generic/directional/south,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/maintenance,
 /obj/effect/turf_decal/siding/wideplating_new,
+/obj/structure/table,
+/obj/item/flashlight/lamp{
+	pixel_x = 14;
+	pixel_y = 2
+	},
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "raq" = (
@@ -54379,13 +54380,7 @@
 "sTr" = (
 /obj/structure/cable/yellow,
 /obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen{
-	pixel_x = -3
-	},
+/obj/machinery/cell_charger,
 /turf/open/floor/wood,
 /area/station/security/prison)
 "sTs" = (

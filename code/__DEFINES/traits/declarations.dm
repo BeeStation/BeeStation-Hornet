@@ -340,6 +340,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CURRENTLY_CLEANING "currently_cleaning"
 /// If this movable is currently treading in a turf with the immerse element.
 #define TRAIT_IMMERSED "immersed"
+/// This item cant be glued for one or another reason
+#define TRAIT_NO_GLUE "no_glue"
 
 //important_recursive_contents traits
 /*

@@ -468,7 +468,17 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -9;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -9
+	},
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "akc" = (
@@ -28261,17 +28271,7 @@
 	dir = 10
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -9;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/condiment/enzyme{
-	pixel_x = 9;
-	pixel_y = 17
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -9
-	},
+/obj/machinery/cell_charger,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "jkD" = (
@@ -52515,6 +52515,10 @@
 	dir = 8
 	},
 /obj/structure/table,
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_x = 9;
+	pixel_y = 17
+	},
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "qvw" = (
@@ -57193,7 +57197,9 @@
 /obj/item/storage/firstaid/regular,
 /obj/item/clothing/neck/stethoscope,
 /obj/item/healthanalyzer,
-/obj/machinery/light,
+/obj/machinery/computer/security/telescreen/artifacts{
+	pixel_y = -32
+	},
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "rRM" = (
@@ -74532,10 +74538,6 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /turf/open/floor/plating,
 /area/station/security/prison)
-"xev" = (
-/obj/structure/sign/warning/secure_area,
-/turf/closed/wall/r_wall,
-/area/station/science/explab)
 "xeA" = (
 /obj/item/beacon,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -108124,7 +108126,7 @@ wHV
 dgi
 vfm
 rRL
-xev
+aWd
 pdg
 xzy
 mNB

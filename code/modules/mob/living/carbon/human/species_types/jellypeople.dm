@@ -22,6 +22,7 @@
 	)
 	hair_color = "mutcolor"
 	hair_alpha = 150
+	mutanteyes = /obj/item/organ/eyes/jelly
 	var/datum/action/innate/split_body/slime_split
 	var/list/mob/living/carbon/bodies
 	var/datum/action/innate/swap_body/swap_body
@@ -324,6 +325,7 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/luminescent,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/luminescent,
 	)
+	mutanteyes = /obj/item/organ/eyes/jelly
 	var/glow_intensity = LUMINESCENT_DEFAULT_GLOW
 	var/obj/effect/dummy/lighting_obj/moblight/glow
 	var/obj/item/slime_extract/current_extract
@@ -505,6 +507,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	plural_form = null
 	id = SPECIES_STARGAZER
 	examine_limb_id = SPECIES_OOZELING
+	mutanteyes = /obj/item/organ/eyes/jelly
 	/// Special "project thought" telepathy action for stargazers.
 	var/datum/action/innate/project_thought/project_action
 

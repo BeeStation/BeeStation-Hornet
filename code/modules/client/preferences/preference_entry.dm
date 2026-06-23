@@ -405,7 +405,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	if (default && prob(default_probability))
 		return default
 	var/list/allowed = list()
-	for (var/datum/sprite_accessory/accessory as() in sprite_accessories)
+	for (var/datum/sprite_accessory/accessory as anything in sprite_accessories)
 		// Source list is an assoc list
 		if (!istype(accessory))
 			accessory = sprite_accessories[accessory]

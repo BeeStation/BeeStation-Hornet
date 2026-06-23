@@ -288,7 +288,7 @@ SUBSYSTEM_DEF(ticker)
 
 	GLOB.manifest.build()
 
-	transfer_characters()	//transfer keys to the new mobs
+	transfer_characters() //transfer keys to the new mobs
 
 	SEND_SIGNAL(src, COMSIG_TICKER_ROUND_STARTING)
 

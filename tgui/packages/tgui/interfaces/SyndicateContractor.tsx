@@ -1,89 +1,108 @@
-import { Component, Fragment } from 'react';
-
-import { useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
   Flex,
-  Grid,
   Icon,
   LabeledList,
   Modal,
   NoticeBox,
   Section,
+  Stack,
   Table,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+
+import { useBackend, useLocalState } from '../backend';
 import { NtosWindow } from '../layouts';
+import { FakeTerminal } from './common/FakeTerminal';
 
-const CONTRACT_STATUS_INACTIVE = 1;
-const CONTRACT_STATUS_ACTIVE = 2;
-const CONTRACT_STATUS_BOUNTY_CONSOLE_ACTIVE = 3;
-const CONTRACT_STATUS_EXTRACTING = 4;
-const CONTRACT_STATUS_COMPLETE = 5;
-const CONTRACT_STATUS_ABORTED = 6;
-
-export class FakeTerminal extends Component {
-  constructor(props) {
-    super(props);
-    this.timer = null;
-    this.state = {
-      currentIndex: 0,
-      currentDisplay: [],
-    };
-  }
-
-  tick() {
-    const { props, state } = this;
-    if (state.currentIndex <= props.allMessages.length) {
-      this.setState((prevState) => {
-        return {
-          currentIndex: prevState.currentIndex + 1,
-        };
-      });
-      const { currentDisplay } = state;
-      currentDisplay.push(props.allMessages[state.currentIndex]);
-    } else {
-      clearTimeout(this.timer);
-      setTimeout(props.onFinished, props.finishedTimeout);
-    }
-  }
-
-  componentDidMount() {
-    const { linesPerSecond = 2.5 } = this.props;
-    this.timer = setInterval(() => this.tick(), 1000 / linesPerSecond);
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.timer);
-  }
-
-  render() {
-    return (
-      <Box m={1}>
-        {this.state.currentDisplay.map((value) => (
-          <Fragment key={value}>
-            {value}
-            <br />
-          </Fragment>
-        ))}
-      </Box>
-    );
-  }
+enum CONTRACT {
+  Inactive = 1,
+  Active = 2,
+  Complete = 5,
 }
 
-export const SyndContractor = (props) => {
+type Data = {
+  contracts_completed: number;
+  contracts: ContractData[];
+  dropoff_direction: string;
+  earned_tc: number;
+  error: string;
+  extraction_enroute: BooleanLike;
+  first_load: BooleanLike;
+  info_screen: BooleanLike;
+  logged_in: BooleanLike;
+  ongoing_contract: BooleanLike;
+  redeemable_tc: number;
+  contract_rep: number;
+  contractor_hub_items: HubItem[];
+};
+
+type ContractData = {
+  contract: string;
+  dropoff: string;
+  extraction_enroute: BooleanLike;
+  id: number;
+  message: string;
+  payout_bonus: number;
+  payout: number;
+  status: number;
+  target_rank: string;
+  target: string;
+};
+
+type HubItem = {
+  name: string;
+  desc: string;
+  item_icon: string;
+  cost: number;
+  limited: number;
+};
+
+const infoEntries = [
+  'SyndTract v2.0',
+  '',
+  "We've identified potentional high-value targets that are",
+  'currently assigned to your mission area. They are believed',
+  'to hold valuable information which could be of immediate',
+  'importance to our organisation.',
+  '',
+  'Listed below are all of the contracts available to you. You',
+  'are to bring the specified target to the designated',
+  'drop-off, and contact us via this uplink. We will send',
+  'a specialised extraction unit to put the body into.',
+  '',
+  'We want targets alive - but we will sometimes pay slight',
+  "amounts if they're not, you just won't receive the shown",
+  'bonus. You can redeem your payment through this uplink in',
+  'the form of raw telecrystals, which can be put into your',
+  'regular Syndicate uplink to purchase whatever you may need.',
+  'We provide you with these crystals the moment you send the',
+  'target up to us, which can be collected at anytime through',
+  'this system.',
+  '',
+  'Targets extracted will be ransomed back to the station once',
+  'their use to us is fulfilled, with us providing you a small',
+  'percentage cut. You may want to be mindful of them',
+  'identifying you when they come back. We provide you with',
+  'a standard contractor loadout, which will help cover your',
+  'identity.',
+] as const;
+
+export const SyndicateContractor = (props) => {
   return (
     <NtosWindow theme="syndicate" width={500} height={600}>
       <NtosWindow.Content scrollable>
-        <SyndContractorContent />
+        <SyndicateContractorContent />
       </NtosWindow.Content>
     </NtosWindow>
   );
 };
 
-export const SyndContractorContent = (props) => {
-  const { data, act } = useBackend();
+export const SyndicateContractorContent = (props) => {
+  const { data, act } = useBackend<Data>();
+  const { error, logged_in, first_load, info_screen } = data;
 
   const terminalMessages = [
     'Recording biometric data...',
@@ -108,37 +127,7 @@ export const SyndContractorContent = (props) => {
     'WELCOME, AGENT',
   ];
 
-  const infoEntries = [
-    'SyndTract v2.0',
-    '',
-    "We've identified potentional high-value targets that are",
-    'currently assigned to your mission area. They are believed',
-    'to hold valuable information which could be of immediate',
-    'importance to our organisation.',
-    '',
-    'Listed below are all of the contracts available to you. You',
-    'are to bring the specified target to the designated',
-    'drop-off, and contact us via this uplink. We will send',
-    'a specialised extraction unit to put the body into.',
-    '',
-    'We want targets alive - but we will sometimes pay slight',
-    "amounts if they're not, you just won't receive the shown",
-    'bonus. You can redeem your payment through this uplink in',
-    'the form of raw telecrystals, which can be put into your',
-    'regular Syndicate uplink to purchase whatever you may need.',
-    'We provide you with these crystals the moment you send the',
-    'target up to us, which can be collected at anytime through',
-    'this system.',
-    '',
-    'Targets extracted will be ransomed back to the station once',
-    'their use to us is fulfilled, with us providing you a small',
-    'percentage cut. You may want to be mindful of them',
-    'identifying you when they come back. We provide you with',
-    'a standard contractor loadout, which will help cover your',
-    'identity.',
-  ];
-
-  const errorPane = !!data.error && (
+  const errorPane = !!error && (
     <Modal backgroundColor="red">
       <Flex align="center">
         <Flex.Item mr={2}>
@@ -146,30 +135,28 @@ export const SyndContractorContent = (props) => {
         </Flex.Item>
         <Flex.Item mr={2} grow={1} textAlign="center">
           <Box width="260px" textAlign="left" minHeight="80px">
-            {data.error}
+            {error}
           </Box>
-          <Button content="Dismiss" onClick={() => act('PRG_clear_error')} />
+          <Button onClick={() => act('PRG_clear_error')}>Dismiss</Button>
         </Flex.Item>
       </Flex>
     </Modal>
   );
 
-  if (!data.logged_in) {
+  if (!logged_in) {
     return (
       <Section minHeight="525px">
         <Box width="100%" textAlign="center">
-          <Button
-            content="REGISTER USER"
-            color="transparent"
-            onClick={() => act('PRG_login')}
-          />
+          <Button color="transparent" onClick={() => act('PRG_login')}>
+            REGISTER USER
+          </Button>
         </Box>
-        {!!data.error && <NoticeBox>{data.error}</NoticeBox>}
+        {!!error && <NoticeBox>{error}</NoticeBox>}
       </Section>
     );
   }
 
-  if (data.logged_in && data.first_load) {
+  if (logged_in && first_load) {
     return (
       <Box backgroundColor="rgba(0, 0, 0, 0.8)" minHeight="525px">
         <FakeTerminal
@@ -181,7 +168,7 @@ export const SyndContractorContent = (props) => {
     );
   }
 
-  if (data.info_screen) {
+  if (info_screen) {
     return (
       <>
         <Box backgroundColor="rgba(0, 0, 0, 0.8)" minHeight="500px">
@@ -189,11 +176,12 @@ export const SyndContractorContent = (props) => {
         </Box>
         <Button
           fluid
-          content="CONTINUE"
           color="transparent"
           textAlign="center"
           onClick={() => act('PRG_toggle_info')}
-        />
+        >
+          CONTINUE
+        </Button>
       </>
     );
   }
@@ -206,8 +194,9 @@ export const SyndContractorContent = (props) => {
   );
 };
 
-export const StatusPane = (props) => {
-  const { act, data } = useBackend();
+function StatusPane(props) {
+  const { act, data } = useBackend<Data>();
+  const { contract_rep, redeemable_tc, earned_tc, contracts_completed } = data;
 
   return (
     <Section
@@ -215,52 +204,54 @@ export const StatusPane = (props) => {
         <>
           Contractor Status
           <Button
-            content="View Information Again"
             color="transparent"
             mb={0}
             ml={1}
             onClick={() => act('PRG_toggle_info')}
-          />
+          >
+            View Information Again
+          </Button>
         </>
       }
       buttons={
         <Box bold mr={1}>
-          {data.contract_rep} Rep
+          {contract_rep} Rep
         </Box>
       }
     >
-      <Grid>
-        <Grid.Column size={0.85}>
+      <Stack>
+        <Stack.Item grow>
           <LabeledList>
             <LabeledList.Item
               label="TC Availible"
               buttons={
                 <Button
-                  content="Claim"
-                  disabled={data.redeemable_tc <= 0}
+                  disabled={redeemable_tc <= 0}
                   onClick={() => act('PRG_redeem_TC')}
-                />
+                >
+                  Claim
+                </Button>
               }
             >
-              {String(data.redeemable_tc)}
+              {String(redeemable_tc)}
             </LabeledList.Item>
             <LabeledList.Item label="TC Earned">
-              {String(data.earned_tc)}
+              {String(earned_tc)}
             </LabeledList.Item>
           </LabeledList>
-        </Grid.Column>
-        <Grid.Column>
+        </Stack.Item>
+        <Stack.Item grow>
           <LabeledList>
             <LabeledList.Item label="Contracts Completed">
-              {String(data.contracts_completed)}
+              {String(contracts_completed)}
             </LabeledList.Item>
             <LabeledList.Item label="Current Status">ACTIVE</LabeledList.Item>
           </LabeledList>
-        </Grid.Column>
-      </Grid>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
-};
+}
 
 export const SyndPane = (props) => {
   const [tab, setTab] = useLocalState('tab', 1);
@@ -282,29 +273,33 @@ export const SyndPane = (props) => {
 };
 
 const ContractsTab = (props) => {
-  const { act, data } = useBackend();
-  const contracts = data.contracts || [];
+  const { act, data } = useBackend<Data>();
+  const {
+    contracts = [],
+    ongoing_contract,
+    extraction_enroute,
+    dropoff_direction,
+  } = data;
+
   return (
     <>
       <Section
         title="Availible Contracts"
         buttons={
           <Button
-            content="Call Extraction"
-            disabled={!data.ongoing_contract || data.extraction_enroute}
+            disabled={!ongoing_contract || extraction_enroute}
             onClick={() => act('PRG_call_extraction')}
-          />
+          >
+            Call Extraction
+          </Button>
         }
       >
         {contracts.map((contract) => {
-          if (
-            data.ongoing_contract &&
-            contract.status !== CONTRACT_STATUS_ACTIVE
-          ) {
+          if (ongoing_contract && contract.status !== CONTRACT.Active) {
             return;
           }
-          const active = contract.status > CONTRACT_STATUS_INACTIVE;
-          if (contract.status >= CONTRACT_STATUS_COMPLETE) {
+          const active = contract.status > CONTRACT.Inactive;
+          if (contract.status >= CONTRACT.Complete) {
             return;
           }
           return (
@@ -315,14 +310,12 @@ const ContractsTab = (props) => {
                   ? `${contract.target} (${contract.target_rank})`
                   : 'Invalid Target'
               }
-              level={active ? 1 : 2}
               buttons={
                 <>
                   <Box inline bold mr={1}>
                     {`${contract.payout} (+${contract.payout_bonus}) TC`}
                   </Box>
                   <Button
-                    content={active ? 'Abort' : 'Accept'}
                     disabled={contract.extraction_enroute}
                     color={active && 'bad'}
                     onClick={() =>
@@ -330,19 +323,21 @@ const ContractsTab = (props) => {
                         contract_id: contract.id,
                       })
                     }
-                  />
+                  >
+                    {active ? 'Abort' : 'Accept'}
+                  </Button>
                 </>
               }
             >
-              <Grid>
-                <Grid.Column>{contract.message}</Grid.Column>
-                <Grid.Column size={0.5}>
+              <Stack>
+                <Stack.Item grow>{contract.message}</Stack.Item>
+                <Stack.Item>
                   <Box bold mb={1}>
                     Dropoff Location:
                   </Box>
                   <Box>{contract.dropoff}</Box>
-                </Grid.Column>
-              </Grid>
+                </Stack.Item>
+              </Stack>
             </Section>
           );
         })}
@@ -350,17 +345,18 @@ const ContractsTab = (props) => {
       <Section
         title="Dropoff Locator"
         textAlign="center"
-        opacity={data.ongoing_contract ? 100 : 0}
+        opacity={ongoing_contract ? 100 : 0}
       >
-        <Box bold>{data.dropoff_direction}</Box>
+        <Box bold>{dropoff_direction}</Box>
       </Section>
     </>
   );
 };
 
 const HubTab = (props) => {
-  const { act, data } = useBackend();
-  const contractor_hub_items = data.contractor_hub_items || [];
+  const { act, data } = useBackend<Data>();
+  const { contract_rep, contractor_hub_items = [] } = data;
+
   return (
     <Section>
       {contractor_hub_items.map((item) => {
@@ -370,7 +366,6 @@ const HubTab = (props) => {
           <Section
             key={item.name}
             title={item.name + ' - ' + repInfo}
-            level={2}
             buttons={
               <>
                 {limited && (
@@ -379,10 +374,8 @@ const HubTab = (props) => {
                   </Box>
                 )}
                 <Button
-                  content="Purchase"
                   disabled={
-                    data.contract_rep < item.cost ||
-                    (limited && item.limited <= 0)
+                    contract_rep < item.cost || (limited && item.limited <= 0)
                   }
                   onClick={() =>
                     act('buy_hub', {
@@ -390,7 +383,9 @@ const HubTab = (props) => {
                       cost: item.cost,
                     })
                   }
-                />
+                >
+                  Purchase
+                </Button>
               </>
             }
           >
