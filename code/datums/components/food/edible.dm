@@ -135,7 +135,7 @@ Behavior that's still missing from this component that original food items had t
 	datum/callback/after_eat,
 	datum/callback/on_consume,
 	datum/callback/check_liked,
-	)
+)
 
 	. = ..()
 	src.bite_consumption = bite_consumption
@@ -149,11 +149,12 @@ Behavior that's still missing from this component that original food items had t
 	src.after_eat = after_eat
 	src.on_consume = on_consume
 
-/datum/component/edible/Destroy(force, silent)
-	QDEL_NULL(pre_eat)
-	QDEL_NULL(on_compost)
-	QDEL_NULL(after_eat)
-	QDEL_NULL(on_consume)
+/datum/component/edible/Destroy(force)
+	pre_eat = null
+	on_compost = null
+	after_eat = null
+	on_consume = null
+	check_liked = null
 	return ..()
 
 /datum/component/edible/proc/examine(datum/source, mob/user, list/examine_list)

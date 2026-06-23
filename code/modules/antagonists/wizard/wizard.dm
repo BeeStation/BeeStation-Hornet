@@ -225,7 +225,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 			var/static/list/spell_entry
 			if(!spell_entry)
 				spell_entry = list()
-				for(var/datum/spellbook_entry/each_entry as() in subtypesof(/datum/spellbook_entry) - typesof(/datum/spellbook_entry/item) - typesof(/datum/spellbook_entry/summon))
+				for(var/datum/spellbook_entry/each_entry as anything in subtypesof(/datum/spellbook_entry) - typesof(/datum/spellbook_entry/item) - typesof(/datum/spellbook_entry/summon))
 					spell_entry += new each_entry
 
 			var/spells_left = 2

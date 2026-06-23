@@ -30,7 +30,7 @@
 	payday_modifier = modifier
 
 	// initialising payment data into an account for each department including non-station
-	for(var/datum/bank_account/department/each as() in subtypesof(/datum/bank_account/department))
+	for(var/datum/bank_account/department/each as anything in subtypesof(/datum/bank_account/department))
 		payment_per_department += list("[initial(each.department_id)]"=0)
 		bonus_per_department += list("[initial(each.department_id)]"=0)
 
@@ -147,7 +147,7 @@
 			if(card_holder.can_hear())
 				to_chat(card_holder, "[icon2html(A, card_holder)] *[message]*")
 		else if(isturf(A.loc)) //If on the ground
-			for(var/mob/M as() in hearers(1,get_turf(A)))
+			for(var/mob/M as anything in hearers(1,get_turf(A)))
 				if(M.client && !M.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard) && !force)
 					return
 				playsound(A, 'sound/machines/twobeep_high.ogg', 50, TRUE)

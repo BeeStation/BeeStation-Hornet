@@ -21,7 +21,7 @@
 	if(channel != TELEPORT_CHANNEL_WORMHOLE && channel != TELEPORT_CHANNEL_FREE && channel != TELEPORT_CHANNEL_GATEWAY)
 		var/cur_zlevel = cur_turf.get_virtual_z_level()
 		var/dest_zlevel = dest_turf.get_virtual_z_level()
-		for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
+		for (var/obj/machinery/bluespace_anchor/anchor as anything in GLOB.active_bluespace_anchors)
 			var/anchor_zlevel = anchor.get_virtual_z_level()
 			// Not in range of our current turf or destination turf
 			if((cur_zlevel != anchor_zlevel || get_dist(cur_turf, anchor) > anchor.range) && (dest_zlevel != anchor_zlevel || get_dist(dest_turf, anchor) > anchor.range))
@@ -208,7 +208,7 @@
 	//Return only open turfs unless none are available
 	var/list/safe_turfs = list()
 	var/list/posturfs = list()
-	for(var/turf/T as() in RANGE_TURFS(precision, center))
+	for(var/turf/T as anything in RANGE_TURFS(precision, center))
 		if(T.is_transition_turf())
 			continue // Avoid picking these.
 		var/area/A = T.loc

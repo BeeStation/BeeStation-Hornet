@@ -808,7 +808,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	toxin that will damage and disorient targets, causing them to \
 	slur as if inebriated. It can produce an infinite number \
 	of bolts, but takes a small amount of time to automatically recharge after each shot."
-	item = /obj/item/ammo_casing/energy/bolt
+	item = /obj/item/gun/energy/recharge/ebow
 	cost = 10
 	reputation_required = REPUTATION_GOOD
 	surplus = 50

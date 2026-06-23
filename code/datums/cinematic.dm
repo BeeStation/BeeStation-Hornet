@@ -56,7 +56,7 @@
 		C.screen -= screen
 	watching = null
 	QDEL_NULL(screen)
-	QDEL_NULL(special_callback)
+	special_callback = null
 	for(var/mob/M in locked)
 		REMOVE_TRAIT(M, TRAIT_NO_TRANSFORM, CINEMATIC_SOURCE)
 	locked = null

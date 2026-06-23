@@ -13072,6 +13072,9 @@
 	pixel_x = 4;
 	pixel_y = 10
 	},
+/obj/machinery/computer/security/telescreen/artifacts{
+	pixel_x = 32
+	},
 /turf/open/floor/iron,
 /area/station/science/explab)
 "eRN" = (
@@ -13171,11 +13174,6 @@
 /obj/item/multitool,
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow,
-/obj/machinery/button/door{
-	id = "testlab";
-	name = "Test Chamber Blast Doors";
-	pixel_x = -32
-	},
 /obj/machinery/light_switch{
 	pixel_x = -10;
 	pixel_y = 25
@@ -14283,12 +14281,12 @@
 /turf/open/floor/iron/dark,
 /area/station/maintenance/department/bridge)
 "fmV" = (
-/obj/machinery/clonepod/prefilled,
 /obj/effect/turf_decal/bot,
 /obj/machinery/light_switch{
 	pixel_x = 22;
 	pixel_y = 23
 	},
+/obj/machinery/dna_scannernew,
 /turf/open/floor/iron,
 /area/station/medical/genetics/cloning)
 "fmZ" = (
@@ -15740,7 +15738,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/station/medical/genetics/cloning)
 "fUi" = (
@@ -18573,6 +18570,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/directional/west,
+/obj/machinery/power/apc/auto_name/directional/west,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
@@ -19203,7 +19202,8 @@
 	bulb_colour = "#FFE4CE";
 	bulb_vacuum_brightness = 15;
 	nightshift_brightness = 10;
-	nightshift_light_color = "#E6EBFF"
+	nightshift_light_color = "#E6EBFF";
+	pixel_y = 5
 	},
 /turf/open/floor/iron,
 /area/station/service/cafeteria)
@@ -21201,11 +21201,11 @@
 	},
 /area/station/hallway/primary/central)
 "ifc" = (
-/obj/structure/chair/stool/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /obj/effect/landmark/start/prisoner,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/wood,
 /area/station/security/prison)
 "ifn" = (
@@ -22570,13 +22570,11 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/station/ai_monitored/turret_protected/ai)
 "iJK" = (
-/obj/machinery/power/apc/auto_name/directional/west,
 /obj/machinery/shower{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/cable/yellow,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
@@ -23689,6 +23687,12 @@
 	},
 /obj/item/xenoarchaeology_labeler,
 /obj/item/xenoarchaeology_labeler,
+/obj/machinery/button/door{
+	id = "testlab";
+	name = "Test Chamber Blast Doors";
+	pixel_x = 28;
+	pixel_y = 6
+	},
 /turf/open/floor/iron,
 /area/station/science/explab)
 "jgl" = (
@@ -25602,6 +25606,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white/side{
 	dir = 8
 	},
@@ -34003,7 +34008,7 @@
 	},
 /area/station/hallway/primary/central)
 "mSo" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/wood,
 /area/station/security/prison)
 "mSA" = (
@@ -34228,6 +34233,7 @@
 	},
 /obj/item/bedsheet/orange,
 /obj/structure/wall_closet/generic/directional/north,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "mWv" = (
@@ -36587,6 +36593,7 @@
 /obj/effect/turf_decal/tile/blue/half{
 	dir = 4
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/station/medical/genetics/cloning)
 "nKI" = (
@@ -51945,6 +51952,7 @@
 /area/station/hallway/primary/fore)
 "tAc" = (
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white/side{
 	dir = 8
 	},
@@ -56592,9 +56600,8 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/item/kirbyplants/random,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/maintenance,
+/obj/structure/table,
+/obj/machinery/cell_charger,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "vwt" = (
@@ -57328,15 +57335,10 @@
 /turf/open/floor/circuit/red,
 /area/station/ai_monitored/turret_protected/ai)
 "vMQ" = (
-/obj/machinery/dna_scannernew,
 /obj/effect/turf_decal/bot,
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_x = 1;
-	pixel_y = 23
-	},
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/radio/intercom/directional/west,
+/obj/machinery/clonepod/prefilled,
 /turf/open/floor/iron,
 /area/station/medical/genetics/cloning)
 "vMX" = (

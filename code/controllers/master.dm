@@ -942,7 +942,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 /datum/mc_tick/proc/get_stat_text()
 	var/list/output = list()
 	var/list/tickers = list()
-	for (var/datum/controller/subsystem/ss as() in fired_subsystems)
+	for (var/datum/controller/subsystem/ss as anything in fired_subsystems)
 		if (ss.ss_flags & SS_TICKER)
 			tickers += "([ss.name]: [TICK_DELTA_TO_MS(fired_subsystems[ss])]ms)"
 		else

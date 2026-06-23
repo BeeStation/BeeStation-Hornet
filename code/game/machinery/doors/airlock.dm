@@ -475,7 +475,7 @@
 /obj/machinery/door/airlock/update_overlays()
 	. = ..()
 
-	for(var/obj/effect/overlay/airlock_part/part as() in part_overlays)
+	for(var/obj/effect/overlay/airlock_part/part as anything in part_overlays)
 		set_side_overlays(part, airlock_state == AIRLOCK_CLOSING || airlock_state == AIRLOCK_OPENING)
 		if(part.aperture_angle)
 			var/matrix/T

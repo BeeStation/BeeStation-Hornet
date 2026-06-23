@@ -292,6 +292,12 @@
 			. = TRUE
 
 	if(!is_operational)
+		if(machine_stat & BROKEN)
+			to_chat(usr, span_warning("\The [src] is broken."))
+		if(machine_stat & NOPOWER)
+			to_chat(usr, span_warning("\The [src] is not currently powered."))
+		if(machine_stat & MAINT)
+			to_chat(usr, span_warning("\The [src]'s maintenance panel is open."))
 		return
 
 	switch(action)
@@ -431,9 +437,6 @@
 /obj/machinery/chem_dispenser/attack_ai_secondary(mob/user, list/modifiers)
 	return attack_hand_secondary(user, modifiers)
 
-/obj/machinery/chem_dispenser/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
-
 /obj/machinery/chem_dispenser/drinks
 	name = "soda dispenser"
 	desc = "Contains a large reservoir of soft drinks."
@@ -484,7 +487,7 @@
 
 /obj/machinery/chem_dispenser/drinks/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /obj/machinery/chem_dispenser/drinks/setDir()
 	var/old = dir

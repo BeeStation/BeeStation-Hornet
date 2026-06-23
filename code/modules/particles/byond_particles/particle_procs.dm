@@ -12,8 +12,7 @@ particles like bonfires.
 
 /atom/Destroy()
 	. = ..()
-	if(LAZYLEN(emitters))
-		QDEL_LIST_ASSOC_VAL(emitters)
+	QDEL_LIST_ASSOC_VAL(emitters)
 
 /// priority is in descending order so 10 is the highest 1 is the lowest
 /atom/proc/add_emitter(obj/emitter/updatee, particle_key, priority = 10, lifespan = null, burst_mode = FALSE)

@@ -1,7 +1,6 @@
 import { sortBy } from 'es-toolkit';
 import { useState } from 'react';
-
-import { Button, Section, Stack, Tabs } from '../../components';
+import { Button, Section, Stack, Tabs } from 'tgui-core/components';
 
 type BaseProps = {
   accessMod: (ref: string) => void;
@@ -53,7 +52,7 @@ const DIFFMAP = [
   },
 ] as const;
 
-export const AccessConfig = (props) => {
+export function AccessConfig(props: ConfigProps) {
   const {
     accesses = [],
     selectedList = [],
@@ -76,10 +75,10 @@ export const AccessConfig = (props) => {
     (entry: Area) => entry.desc,
   ]);
 
-  const checkAccessIcon = (accesses: Area[]) => {
+  function checkAccessIcon(accesses: Area[]) {
     let oneAccess = false;
     let oneInaccess = false;
-    for (let element of accesses) {
+    for (const element of accesses) {
       if (selectedList.includes(element.ref)) {
         oneAccess = true;
       } else {
@@ -93,7 +92,7 @@ export const AccessConfig = (props) => {
     } else {
       return ACCESS.Granted;
     }
-  };
+  }
 
   return (
     <Section
@@ -145,9 +144,9 @@ export const AccessConfig = (props) => {
       </Stack>
     </Section>
   );
-};
+}
 
-const AccessButtons = (props: AccessButtonProps) => {
+function AccessButtons(props: AccessButtonProps) {
   const {
     selectedAccessEntries,
     selectedList,
@@ -200,4 +199,4 @@ const AccessButtons = (props: AccessButtonProps) => {
       </Stack.Item>
     </Stack>
   );
-};
+}

@@ -1774,8 +1774,8 @@
 /datum/reagent/barbers_aid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
-		var/datum/sprite_accessory/hair/picked_hair = pick(GLOB.hair_styles_list)
-		var/datum/sprite_accessory/facial_hair/picked_beard = pick(GLOB.facial_hair_styles_list)
+		var/datum/sprite_accessory/hair/picked_hair = GLOB.hair_styles_list[pick(GLOB.hair_styles_list)]
+		var/datum/sprite_accessory/facial_hair/picked_beard = GLOB.facial_hair_styles_list[pick(GLOB.facial_hair_styles_list)]
 		exposed_human.hair_style = picked_hair.name
 		exposed_human.facial_hair_style = picked_beard
 		exposed_human.update_hair()

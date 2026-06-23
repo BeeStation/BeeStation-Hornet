@@ -56,7 +56,7 @@
 /datum/xenoartifact_trait/malfunction/animal/twin
 	label_name = "M.B.C."
 	alt_label_name = "Mirrored Bluespace Collapse"
-	label_desc = "Mirrored Bluespace Collapse: The Artifact produces an arguably maleviolent clone of target."
+	label_desc = "Mirrored Bluespace Collapse: The Artifact produces an arguably malevolent clone of target."
 	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = TRUE
 

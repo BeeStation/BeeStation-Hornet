@@ -200,7 +200,7 @@
 		to_chat(owner, span_dangerbold("Your powers are on cooldown! You must wait [COOLDOWN_TIMELEFT_TEXT(src, detonate_cooldown)] before you can manually detonate another bomb!"))
 		owner.balloon_alert(owner, "failed, cooldown", show_in_chat = FALSE)
 		return FALSE
-	for(var/obj/bomb as() in bombs)
+	for(var/obj/bomb as anything in bombs)
 		if(QDELETED(bomb))
 			bombs -= bomb
 			bomb_disarm_timers -= bomb
@@ -289,7 +289,7 @@
 		var/mob/living/carbon/carbon_wearer = wearer
 		if(carbon_wearer.handcuffed == bomb || carbon_wearer.legcuffed == bomb)
 			return TRUE
-		for(var/obj/item/bodypart/bodypart as() in carbon_wearer.bodyparts)
+		for(var/obj/item/bodypart/bodypart as anything in carbon_wearer.bodyparts)
 			if(bomb in bodypart.embedded_objects)
 				return TRUE
 	return wearer.get_item_by_slot(ITEM_SLOT_HEAD) == bomb

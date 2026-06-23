@@ -134,6 +134,8 @@
 	var/shield_icon = "shield-red"
 	/// Self explaining, the integrity it currently has, it's being saved upon deactivation and activation
 	var/current_integrity
+	/// Self explaining, what is it going to block?
+	var/shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES | ENERGY_SHIELD_BLOCK_MELEE | ENERGY_SHIELD_EMP_VULNERABLE
 
 /obj/item/mod/module/energy_shield/Initialize(mapload)
 	. = ..()
@@ -141,7 +143,7 @@
 
 /obj/item/mod/module/energy_shield/on_part_activation()
 	mod.AddComponent(/datum/component/shielded, max_integrity = max_integrity, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
-	charge_recovery = charge_recovery, recharge_path = recharge_path, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
+	charge_recovery = charge_recovery, recharge_path = recharge_path, shield_icon_file = shield_icon_file, shield_icon = shield_icon, shield_flags = shield_flags)
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
 	if (shield && current_integrity < max_integrity)
 		shield.set_charge(current_integrity) // No exploiting the integrity by deactivating and reactivating
@@ -169,6 +171,8 @@
 	var/datum/component/shielded/shield = mod?.GetComponent(/datum/component/shielded)
 	if(!shield || shield.current_integrity <= 0)
 		return NONE
+	if(istype(hitby, /obj/projectile/ion))
+		mod.emp_act(EMP_LIGHT)
 	if(drain_power(use_power_cost))
 		return SHIELD_BLOCK
 	return NONE
@@ -187,6 +191,7 @@
 	charge_recovery = 0
 	recharge_path = /obj/item/wizard_armour_charge
 	required_slots = list()
+	shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES | ENERGY_SHIELD_BLOCK_MELEE // Not vulnerable to EMP's magic bullshit, apart from the fact this one cannot easily refill itself
 
 ///Magic Nullifier - Protects you from magic.
 /obj/item/mod/module/anti_magic

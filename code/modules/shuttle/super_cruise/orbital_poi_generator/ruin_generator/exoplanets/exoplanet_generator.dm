@@ -16,7 +16,7 @@
 	var/seed = rand(0, 999999)
 	var/area/new_area = new biome.area_type
 	new_area.setup("Alien Planet")
-	for(var/turf/T as() in block(locate(1, 1, center_z), locate(world.maxx, world.maxy, center_z)))
+	for(var/turf/T as anything in block(locate(1, 1, center_z), locate(world.maxx, world.maxy, center_z)))
 		var/area/old_area = T.loc
 		if(istype(old_area, /area/misc/space) && new_area)
 			T.change_area(old_area, new_area)

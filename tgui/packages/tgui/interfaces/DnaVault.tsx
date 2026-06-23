@@ -1,28 +1,44 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Grid,
   LabeledList,
   ProgressBar,
   Section,
-} from '../components';
+  Stack,
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-export const DnaVault = (props) => {
-  const { act, data } = useBackend();
+type Data = {
+  animals_max: number;
+  animals: number;
+  choiceA: string;
+  choiceB: string;
+  completed: BooleanLike;
+  dna_max: number;
+  dna: number;
+  plants_max: number;
+  plants: number;
+  used: BooleanLike;
+};
+
+export function DnaVault(props) {
+  const { act, data } = useBackend<Data>();
   const {
-    completed,
-    used,
+    animals_max,
+    animals,
     choiceA,
     choiceB,
-    dna,
+    completed,
     dna_max,
-    plants,
+    dna,
     plants_max,
-    animals,
-    animals_max,
+    plants,
+    used,
   } = data;
+
   return (
     <Window width={350} height={400}>
       <Window.Content>
@@ -30,17 +46,17 @@ export const DnaVault = (props) => {
           <LabeledList>
             <LabeledList.Item label="Human DNA">
               <ProgressBar value={dna / dna_max}>
-                {dna + ' / ' + dna_max + ' Samples'}
+                {`${dna} / ${dna_max} Samples`}
               </ProgressBar>
             </LabeledList.Item>
             <LabeledList.Item label="Plant DNA">
               <ProgressBar value={plants / plants_max}>
-                {plants + ' / ' + plants_max + ' Samples'}
+                {`${plants} / ${plants_max} Samples`}
               </ProgressBar>
             </LabeledList.Item>
             <LabeledList.Item label="Animal DNA">
-              <ProgressBar value={animals / animals}>
-                {animals + ' / ' + animals_max + ' Samples'}
+              <ProgressBar value={animals / animals_max}>
+                {`${animals} / ${animals_max} Samples`}
               </ProgressBar>
             </LabeledList.Item>
           </LabeledList>
@@ -50,37 +66,39 @@ export const DnaVault = (props) => {
             <Box bold textAlign="center" mb={1}>
               Applicable Gene Therapy Treatments
             </Box>
-            <Grid>
-              <Grid.Column>
+            <Stack>
+              <Stack.Item grow>
                 <Button
                   fluid
                   bold
-                  content={choiceA}
                   textAlign="center"
                   onClick={() =>
                     act('gene', {
                       choice: choiceA,
                     })
                   }
-                />
-              </Grid.Column>
-              <Grid.Column>
+                >
+                  {choiceA}
+                </Button>
+              </Stack.Item>
+              <Stack.Item grow>
                 <Button
                   fluid
                   bold
-                  content={choiceB}
                   textAlign="center"
                   onClick={() =>
                     act('gene', {
                       choice: choiceB,
                     })
                   }
-                />
-              </Grid.Column>
-            </Grid>
+                >
+                  {choiceB}
+                </Button>
+              </Stack.Item>
+            </Stack>
           </Section>
         )}
       </Window.Content>
     </Window>
   );
-};
+}

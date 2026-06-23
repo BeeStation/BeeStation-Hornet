@@ -42,7 +42,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 
 /proc/spawn_fugitives(turf/landing_turf, list/candidates, list/spawned_mobs)
 	var/list/possible_backstories = list()
-	for(var/type_key as() in GLOB.fugitive_types)
+	for(var/type_key as anything in GLOB.fugitive_types)
 		var/datum/fugitive_type/F = GLOB.fugitive_types[type_key]
 		// without this second check it will filter out "safe" backstories even if there are enough players to fill it
 		if(length(candidates) > F.max_amount_allowed && F.max_amount_allowed < MAXIMUM_TOTAL_FUGITIVES)
@@ -134,7 +134,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	// Leader goes first, so this is the first one taken
 	if(istype(leader_spawn))
 		announce_fugitive_pod(leader_spawn, candidates)
-	for(var/obj/effect/mob_spawn/human/fugitive_hunter/spawner as() in spawners)
+	for(var/obj/effect/mob_spawn/human/fugitive_hunter/spawner as anything in spawners)
 		announce_fugitive_pod(spawner, candidates)
 	priority_announce("Unidentified ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
 
