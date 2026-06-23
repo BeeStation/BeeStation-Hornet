@@ -625,7 +625,6 @@
 	old_module.on_uninstall(deleting = deleting)
 	QDEL_LIST_ASSOC_VAL(old_module.pinned_to)
 	old_module.mod = null
-e
 /// Intended for callbacks, don't use normally, just get wearer by itself.
 /obj/item/mod/control/proc/get_wearer()
 	return wearer
