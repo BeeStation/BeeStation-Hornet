@@ -45,7 +45,7 @@
 	/// For telling someone they can't drive
 	COOLDOWN_DECLARE(vehicle_move_cooldown)
 
-/datum/component/riding/Initialize(mob/living/riding_mob, force = FALSE, buckle_mob_flags = NONE)
+/datum/component/riding/Initialize(mob/living/riding_mob, force = FALSE, buckle_mob_flags = NONE, potion_boost = FALSE)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -54,6 +54,8 @@
 
 	//Calculate the move multiplier speed, to be proportional to mob speed
 	vehicle_move_multiplier = CONFIG_GET(number/movedelay/run_delay) / 1.5
+	if(potion_boost || HAS_TRAIT(parent, TRAIT_SPEED_POTIONED))
+		vehicle_move_delay = round(CONFIG_GET(number/movedelay/run_delay) * 0.85, 0.01)
 
 /datum/component/riding/RegisterWithParent()
 	. = ..()
