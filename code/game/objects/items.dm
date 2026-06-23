@@ -171,6 +171,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/tool_behaviour = NONE
 	/// The tool speed multiplier of how long it takes to do the tool action.
 	var/toolspeed = 1
+
 	/// Whether or not an item can block attacks
 	var/canblock = FALSE
 	//blocking flags
