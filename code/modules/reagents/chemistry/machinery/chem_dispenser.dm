@@ -437,9 +437,6 @@
 /obj/machinery/chem_dispenser/attack_ai_secondary(mob/user, list/modifiers)
 	return attack_hand_secondary(user, modifiers)
 
-/obj/machinery/chem_dispenser/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
-
 /obj/machinery/chem_dispenser/drinks
 	name = "soda dispenser"
 	desc = "Contains a large reservoir of soft drinks."
@@ -490,7 +487,7 @@
 
 /obj/machinery/chem_dispenser/drinks/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /obj/machinery/chem_dispenser/drinks/setDir()
 	var/old = dir

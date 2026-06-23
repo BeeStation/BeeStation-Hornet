@@ -19,7 +19,7 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
 	/// Ckeys which will either be blocked from reconnecting or be allowed to re-interview after a cooldown. Depends on the "panic_bunker_interview_retries" config flag.
 	var/list/denied_ckeys = list()
 
-/datum/interview_manager/Destroy(force, ...)
+/datum/interview_manager/Destroy(force)
 	QDEL_LIST(open_interviews)
 	QDEL_LIST(interview_queue)
 	QDEL_LIST(closed_interviews)

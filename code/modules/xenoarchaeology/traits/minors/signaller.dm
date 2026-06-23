@@ -32,7 +32,7 @@
 	if(!(locate(/datum/xenoartifact_trait/activator/signal) in component_parent.traits_catagories[TRAIT_PRIORITY_ACTIVATOR]))
 		addtimer(CALLBACK(src, PROC_REF(do_sonar)), 2 SECONDS)
 
-/datum/xenoartifact_trait/minor/signaller/Destroy(force, ...)
+/datum/xenoartifact_trait/minor/signaller/Destroy(force)
 	SSradio.remove_object(src, FREQ_SIGNALER)
 	QDEL_NULL(signal)
 	return ..()

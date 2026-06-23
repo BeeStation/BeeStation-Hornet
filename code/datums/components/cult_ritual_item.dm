@@ -28,7 +28,7 @@
 	else if(ispath(turfs_that_boost_us))
 		src.turfs_that_boost_us = list(turfs_that_boost_us)
 
-/datum/component/cult_ritual_item/Destroy(force, silent)
+/datum/component/cult_ritual_item/Destroy(force)
 	cleanup_shields()
 	return ..()
 

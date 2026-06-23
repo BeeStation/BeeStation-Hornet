@@ -197,7 +197,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/debug_mode = FALSE
 	var/datum/action/spell/aoe/knock/knock = new /datum/action/spell/aoe/knock
 
-/datum/battle_royale_controller/Destroy(force, ...)
+/datum/battle_royale_controller/Destroy(force)
 	QDEL_LIST(death_wall)
 	for(var/client/C in GLOB.admins)
 		C.remove_verb(BATTLE_ROYALE_AVERBS)

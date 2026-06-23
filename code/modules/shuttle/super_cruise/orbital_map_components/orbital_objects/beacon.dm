@@ -58,7 +58,7 @@
 	. = ..()
 	SSorbits.ruin_levels ++
 
-/datum/orbital_object/z_linked/beacon/ruin/spaceruin/Destroy(force, ...)
+/datum/orbital_object/z_linked/beacon/ruin/spaceruin/Destroy(force)
 	. = ..()
 	SSorbits.ruin_levels --
 

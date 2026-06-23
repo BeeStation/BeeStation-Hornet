@@ -105,7 +105,7 @@
 	//Setup description stuff
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examined))
 
-/datum/component/xenoartifact/Destroy(force, silent)
+/datum/component/xenoartifact/Destroy(force)
 	if(!QDELETED(parent))
 		var/atom/atom_parent = parent
 		//Remove discovery component

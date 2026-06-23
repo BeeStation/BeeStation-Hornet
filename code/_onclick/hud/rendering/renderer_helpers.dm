@@ -9,7 +9,7 @@
 	src.map_name = map_name
 	generate_camera_planes(map_name)
 
-/datum/remote_view/Destroy(force, ...)
+/datum/remote_view/Destroy(force)
 	. = ..()
 	QDEL_LIST(cam_plane_masters)
 	QDEL_LIST(relay_images)

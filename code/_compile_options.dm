@@ -100,11 +100,6 @@
 #define REFERENCE_TRACKING_LOG_APART
 #endif // REFERENCE_TRACKING_STANDARD
 
-#ifdef REFERENCE_TRACKING_FAST
-#define REFERENCE_TRACKING
-#define REFERENCE_TRACKING_DEBUG
-#endif
-
 /// If this is uncommented, force our verb processing into just the 2% of a tick
 /// We normally reserve for it
 /// NEVER run this on live, it's for simulating highpop only
@@ -177,10 +172,6 @@
 #ifdef TGS
 // TGS performs its own build of dm.exe, but includes a prepended TGS define.
 #define CBT
-#endif
-
-#ifdef OPENDREAM
-#define DISABLE_BYOND_AUTH
 #endif
 
 

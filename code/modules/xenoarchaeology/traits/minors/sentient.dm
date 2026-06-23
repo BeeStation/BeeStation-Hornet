@@ -30,7 +30,7 @@
 	//Landmarking
 	landmark = new(component_parent?.parent)
 
-/datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
+/datum/xenoartifact_trait/minor/sentient/Destroy(force)
 	QDEL_NULL(sentience)
 	QDEL_NULL(mob_spawner)
 	QDEL_NULL(landmark)

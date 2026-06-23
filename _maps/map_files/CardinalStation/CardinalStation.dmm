@@ -1589,14 +1589,11 @@
 /area/station/engineering/atmos)
 "atm" = (
 /obj/structure/table,
-/obj/item/book/manual/wiki/sopsecurity{
-	pixel_x = -2;
-	pixel_y = 5
-	},
 /obj/item/kirbyplants/random{
 	pixel_y = 26;
 	pixel_x = 16
 	},
+/obj/machinery/cell_charger,
 /turf/open/floor/wood,
 /area/station/security/prison)
 "ato" = (
@@ -82138,7 +82135,10 @@
 /area/station/engineering/main)
 "tpG" = (
 /obj/structure/table,
-/obj/item/storage/crayons,
+/obj/item/book/manual/wiki/sopsecurity{
+	pixel_x = -2;
+	pixel_y = 5
+	},
 /turf/open/floor/wood,
 /area/station/security/prison)
 "tpH" = (

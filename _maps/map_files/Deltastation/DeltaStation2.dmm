@@ -468,7 +468,17 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -9;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -9
+	},
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "akc" = (
@@ -28261,17 +28271,7 @@
 	dir = 10
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -9;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/condiment/enzyme{
-	pixel_x = 9;
-	pixel_y = 17
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -9
-	},
+/obj/machinery/cell_charger,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "jkD" = (
@@ -52515,6 +52515,10 @@
 	dir = 8
 	},
 /obj/structure/table,
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_x = 9;
+	pixel_y = 17
+	},
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "qvw" = (

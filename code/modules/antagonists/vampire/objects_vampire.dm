@@ -290,7 +290,7 @@
 
 		// Find Mind Implant & Destroy
 		for(var/obj/item/implant/mindshield/mindshield in living_target.implants)
-			mindshield.Destroy()
+			qdel(mindshield)
 
 		// We've made a vassal the proper way, do clan stuff
 		vampiredatum.my_clan?.on_vassal_made(living_vampire, living_target)
@@ -426,7 +426,7 @@
 
 // Add rotating and armrest
 /obj/structure/vampire/bloodthrone/Initialize(mapload)
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 	armrest = GetArmrest()
 	armrest.layer = ABOVE_MOB_LAYER
 	return ..()
