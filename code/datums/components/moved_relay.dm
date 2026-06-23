@@ -30,7 +30,7 @@
 		register_parent(A.loc)
 	return ..()
 
-/datum/component/moved_relay/Destroy(force, silent)
+/datum/component/moved_relay/Destroy(force)
 	for(var/atom/A as anything in ordered_parents)
 		UnregisterSignal(A, COMSIG_QDELETING)
 		UnregisterSignal(A, COMSIG_MOVABLE_MOVED)

@@ -165,7 +165,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 
 /atom/movable/proximity_monitor_holder/Destroy()
 	QDEL_NULL(monitor)
-	QDEL_NULL(callback)
+	callback = null
 	return ..()
 
 /datum/artifact_effect/projreflect

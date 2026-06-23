@@ -6189,7 +6189,8 @@
 	dir = 8
 	},
 /mob/living/simple_animal/kalo{
-	name = "Greentext"
+	name = "Greentext";
+	desc = "A tiny imprisoned lizard."
 	},
 /turf/open/floor/wood,
 /area/station/security/prison)
@@ -23051,6 +23052,10 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
+"jMK" = (
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/turf/open/floor/iron/checker,
+/area/station/service/kitchen)
 "jMN" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/line{
@@ -27979,9 +27984,7 @@
 /area/station/maintenance/starboard/fore)
 "lHF" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/structure/chair/fancy/sofa/corp/right{
-	dir = 1
-	},
+/obj/structure/chair/fancy/sofa/corp/left,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "lHK" = (
@@ -33151,6 +33154,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/rd)
+"nNu" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/turf/open/floor/iron/freezer,
+/area/station/service/kitchen/coldroom)
 "nNz" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -39808,8 +39816,10 @@
 "qzH" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/directional/south,
-/obj/structure/closet/secure_closet/freezer/kitchen,
 /obj/effect/turf_decal/bot,
+/obj/structure/closet/secure_closet/freezer/meat,
+/obj/item/food/meat/rawcrab,
+/obj/item/food/meat/rawcrab,
 /turf/open/floor/iron/freezer,
 /area/station/service/kitchen/coldroom)
 "qzU" = (
@@ -56363,6 +56373,7 @@
 /area/station/security/detectives_office)
 "xqy" = (
 /obj/structure/table/wood,
+/obj/machinery/cell_charger,
 /turf/open/floor/carpet/grimy,
 /area/station/security/prison)
 "xqD" = (
@@ -57613,10 +57624,8 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/light/directional/west,
-/obj/structure/chair/fancy/sofa/corp/left{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/chair/fancy/sofa/corp/right,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "xNH" = (
@@ -98101,7 +98110,7 @@ npR
 qDL
 kKo
 rYq
-qyR
+nNu
 qDL
 mCc
 wvI
@@ -98360,7 +98369,7 @@ qDL
 aBp
 mMW
 qDL
-uLi
+jMK
 uPq
 wqB
 mIS

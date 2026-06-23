@@ -182,3 +182,38 @@
   mrmanlikesbt:
   - bugfix: Fixed the spaceproof directional windows mapping helper sometimes breaking
       the entire game
+2026-06-22:
+  Isaac:
+  - bugfix: ED209's no longer use old beepsky stun mechanics, they now follow the
+      new ones
+  - bugfix: Glue cant be applied to the modsuit control unit, preventing cases where
+      it literally cant be taken out of your back
+  - bugfix: Energy Shield MOD is vulnerable to EMP's  once again, how it was supposed
+      to be in the first place
+  WhiskeyMarten:
+  - rscadd: Added cell chargers to the prison of each map, making some minor adjustments
+      to fit them in.
+  - bugfix: Fixed some backwards chairs.
+  - bugfix: Changed the contents of the fridges in Box's kitchen so it has a balanced
+      variety of ingredients.
+  - bugfix: Fixed the marker beacons on FlandStation so they should be the properly
+      placed version.
+  mrmanlikesbt:
+  - code_imp: Replaced some bad Destroy() calls with the proper qdel() calls.
+2026-06-23:
+  mrmanlikesbt, LemonInTheDark, vinylspiders:
+  - code_imp: Callbacks can no longer be qdeleted. When you are done with a callback,
+      clear your references to it. The byond garbage collector will deal with it.
+  - code_imp: Removed some leftover instances of the `silent` argument in `Destroy()`.
+      We deprecated this roughly two years back.
+  - refactor: The simple rotation component is now an element. This should save a
+      few megabytes of memory. Oh the joys of 32bit programming!
+  - admin: The dynamic panel now refreshes configured variables as well when you press
+      the reload storytellers button.
+  - bugfix: Fixed full-tile windows showing up as being rotatable when examining them
+  - bugfix: Fixed a runtime when examining a hydroponics tray
+  - bugfix: Fixed a runtime when a crewmember who had their manifest photo retaken
+      from a photobooth entered cryo.
+  - bugfix: Fixed not being able to easily insert the ID from a PDA into an ID modification
+      console
+  - bugfix: Fixed the ethereal disco ball not glowing valid colors

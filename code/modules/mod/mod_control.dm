@@ -82,6 +82,7 @@
 
 /obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_GLUE, INNATE_TRAIT)
 	if(!movedelay)
 		movedelay = CONFIG_GET(number/movedelay/run_delay)
 	if(new_theme)

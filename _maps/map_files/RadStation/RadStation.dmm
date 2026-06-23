@@ -19202,7 +19202,8 @@
 	bulb_colour = "#FFE4CE";
 	bulb_vacuum_brightness = 15;
 	nightshift_brightness = 10;
-	nightshift_light_color = "#E6EBFF"
+	nightshift_light_color = "#E6EBFF";
+	pixel_y = 5
 	},
 /turf/open/floor/iron,
 /area/station/service/cafeteria)
@@ -21200,11 +21201,11 @@
 	},
 /area/station/hallway/primary/central)
 "ifc" = (
-/obj/structure/chair/stool/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /obj/effect/landmark/start/prisoner,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/wood,
 /area/station/security/prison)
 "ifn" = (
@@ -34007,7 +34008,7 @@
 	},
 /area/station/hallway/primary/central)
 "mSo" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/wood,
 /area/station/security/prison)
 "mSA" = (
@@ -34232,6 +34233,7 @@
 	},
 /obj/item/bedsheet/orange,
 /obj/structure/wall_closet/generic/directional/north,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "mWv" = (
@@ -56598,9 +56600,8 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/item/kirbyplants/random,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/maintenance,
+/obj/structure/table,
+/obj/machinery/cell_charger,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "vwt" = (

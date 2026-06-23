@@ -122,7 +122,7 @@
 		start_time = world.time
 		QDEL_IN(src, timeout)
 
-/datum/tgui_input_text/Destroy(force, ...)
+/datum/tgui_input_text/Destroy(force)
 	SStgui.close_uis(src)
 	. = ..()
 
@@ -201,9 +201,9 @@
 	..(user, message, title, default, max_length, multiline, encode, timeout)
 	src.callback = callback
 
-/datum/tgui_input_text/async/Destroy(force, ...)
-	QDEL_NULL(callback)
-	. = ..()
+/datum/tgui_input_text/async/Destroy(force)
+	callback = null
+	return ..()
 
 /datum/tgui_input_text/async/set_entry(entry)
 	. = ..()
