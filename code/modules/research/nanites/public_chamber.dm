@@ -19,10 +19,16 @@
 	var/message_cooldown = 0
 	var/nanite_coeff = 1
 	var/speed_coeff = 1
+	var/datum/techweb/assigned_techweb
 
 /obj/machinery/public_nanite_chamber/Initialize(mapload)
 	. = ..()
 	occupant_typecache = GLOB.typecache_living
+
+/obj/machinery/public_nanite_chamber/LateInitialize()
+	. = ..()
+	if(!assigned_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(assigned_techweb, src)
 
 /obj/machinery/public_nanite_chamber/RefreshParts()
 	nanite_coeff = 0
@@ -68,7 +74,7 @@
 	if(attacker)
 		occupant.investigate_log("was injected with nanites by [key_name(attacker)] using [src] at [AREACOORD(src)].", INVESTIGATE_NANITES)
 		log_combat(attacker, occupant, "injected", null, "with nanites via [src]")
-	occupant.AddComponent(/datum/component/nanites, 75 * nanite_coeff, cloud_id)
+	occupant.AddComponent(/datum/component/nanites, 75 * nanite_coeff, cloud_id, assigned_techweb)
 
 /obj/machinery/public_nanite_chamber/proc/change_cloud(mob/living/attacker)
 	if(machine_stat & (NOPOWER|BROKEN))
@@ -213,3 +219,11 @@
 	if(close_machine(target, user))
 		log_combat(user, target, "inserted", null, "into [src].")
 	add_fingerprint(user)
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/public_nanite_chamber)
+DEFINE_BUFFER_HANDLER(/obj/machinery/public_nanite_chamber)
+	if(istype(buffer, /datum/techweb))
+		balloon_alert(user, "Server assigned to public nanite chamber.")
+		assigned_techweb = buffer
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE
