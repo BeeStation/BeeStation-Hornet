@@ -65,6 +65,12 @@
 	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_falling"), max(60 * speed_coeff, 25))
 	addtimer(CALLBACK(src, PROC_REF(complete_injection), locked_state, attacker), max(80 * speed_coeff, 30))
 
+/obj/machinery/public_nanite_chamber/examine(mob/user)
+	. = ..()
+	if(in_range(user, src) || isobserver(user))
+		. += span_notice("A <b>Multitool</b> can be used to change the research server")
+		. += span_notice("The linked techweb is <b>[assigned_techweb.id]</b>.")
+
 /obj/machinery/public_nanite_chamber/proc/complete_injection(locked_state, mob/living/attacker)
 	//TODO MACHINE DING
 	locked = locked_state
