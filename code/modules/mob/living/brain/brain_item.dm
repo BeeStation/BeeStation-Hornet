@@ -57,7 +57,7 @@
 		return
 
 	name = initial(name)
-	if(brain_owner?.dna && isnull(brain_dna)) // if "brain_dna = FALSE", we do not copy.
+	if(brain_owner?.has_dna() && isnull(brain_dna)) // if "brain_dna = FALSE", we do not copy.
 		brain_dna = new()
 		brain_owner.dna.copy_dna_to(brain_dna)
 

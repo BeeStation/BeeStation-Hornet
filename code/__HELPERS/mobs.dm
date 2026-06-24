@@ -645,11 +645,11 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 	if(isliving(target))
 		return target
 
-	else if(isbodypart(target))
+	else if(istype(target, /obj/item/bodypart/head))
 		var/obj/item/bodypart/head/head = target
 		return head.brainmob
 
-	else if(isorgan(target))
+	else if(istype(target, /obj/item/organ/brain))
 		var/obj/item/organ/brain/brain = target
 		return brain.brainmob
 

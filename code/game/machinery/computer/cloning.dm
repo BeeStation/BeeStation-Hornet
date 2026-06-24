@@ -594,11 +594,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 				scantemp = "Mental interface failure."
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				return FALSE
-			if(SSeconomy.full_ancap)
-				if(!account)
-					scantemp = "Subject is either missing an ID card with a bank account on it, or does not have an account to begin with. Please ensure the ID card is on the body before attempting to scan."
-					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-					return FALSE
+			if(SSeconomy.full_ancap && !account)
+				scantemp = "Subject is either missing an ID card with a bank account on it, or does not have an account to begin with. Please ensure the ID card is on the body before attempting to scan."
+				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+				return FALSE
 	return TRUE
 
 /obj/machinery/computer/cloning/proc/scan_occupant(atom/atom_occupant, mob/user, body_only)
@@ -616,7 +615,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	var/datum/mind/occupant_mind
 	var/datum/bank_account/has_bank_account
 
-	// Scanning a mob - We have a human body in the scanner (NOTE: carbon is not supported)
+	// Scanning a mob; gets a human mob(likely not carbon) - We have a human body in the scanner (NOTE: carbon is not supported)
 	if(human_mob)
 		brain_to_clone = human_mob.get_organ_slot(ORGAN_SLOT_BRAIN)
 		dna = human_mob.has_dna()
@@ -625,7 +624,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		if(human_id_card)
 			has_bank_account = human_id_card.registered_account
 
-	// Scanned an object - We do not have a human body. We have a brain(or head) that holds a mind datum
+	// Scanning an object; gets a brain mob - We do not have a human body. We have a brain(or head) that holds a mind datum
 	else if(brainmob)
 		brain_to_clone = brainmob.loc
 		dna = brainmob.stored_dna
@@ -636,7 +635,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	// Note: This might look equivalant from below, but items return "brainmob" if things have a mind(player)
 	// I mean, this attempts to detect the thing from head/brain(object), but it is not actually an object (ARgh I hate this weird description)
 
-	// Scanning an object - Try to find a brain that holds a DNA
+	// Scanning an object; gets a brain item - Try to find a brain that holds a DNA
 	else if(istype(occupant, /obj/item/bodypart/head)) // From head
 		brain_to_clone = astype(occupant, /obj/item/bodypart/head).brain
 		dna = brain_to_clone.brain_dna
@@ -719,7 +718,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 
 	records += cloning_record
 
-	message_admins("[key_name(user)] added the record[body_only ? "(body-only)" : experimental ? "(experi.)" : ""] of [key_name(human_mob)](DNA-name:[dna.real_name]) to [src] at [AREACOORD(src)].")
 	if(!experimental)
 		log_cloning("[user ? key_name(user) : "Autoprocess"] added the record[body_only ? "(body-only)" : ""] of [key_name(human_mob)](DNA-name:[dna.real_name]) to [src] at [AREACOORD(src)].")
 	else
