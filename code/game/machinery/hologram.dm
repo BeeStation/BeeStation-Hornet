@@ -66,6 +66,7 @@ Possible to do for anyone motivated enough:
 	var/on_network = TRUE
 	///bitfield. used to turn on and off hearing sensitivity depending on if we can act on Hear() at all - meant for lowering the number of unessesary hearable atoms
 	var/can_hear_flags = NONE
+
 	var/emagged = FALSE
 
 
@@ -161,15 +162,14 @@ Possible to do for anyone motivated enough:
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Current projection range: <b>[holo_range]</b> units.")
 
-// Emag Stuff
 /obj/machinery/holopad/on_emag(mob/user)
-	..()  // call parent (if any)
+	..()
 	if(emagged)
 		emagged = FALSE
 		to_chat(user, span_notice("You reset the holopad's identification spoofing."))
 	else
 		emagged = TRUE
-		to_chat(user, span_warning("You emag the holopad, scrambling its location and user identification sensor'!"))
+		to_chat(user, span_warning("You emag the holopad – all outgoing calls will be anonymised as 'Unknown Caller'!"))
 	playsound(src, "sparks", 50, TRUE)
 	return TRUE
 
@@ -235,7 +235,6 @@ Possible to do for anyone motivated enough:
 			for(var/I in holo_calls)
 				var/datum/holocall/HC = I
 				if(HC.connected_holopad != src)
-					// Hide the Caller ID = Peak
 					var/area_name = HC.emagged ? "Unknown" : get_area(HC.calling_holopad)
 					dat += "<a href='byond://?src=[REF(src)];connectcall=[REF(HC)]'>Answer call from [area_name]</a><br>"
 					one_unanswered_call = TRUE
@@ -497,14 +496,20 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
-		if(HC.connected_holopad == src && speaker != HC.user)   // send to user unless it's the user themselves
-			// Use a huge range so the caller definitely hears it
+		if(HC.connected_holopad == src && speaker != HC.user)
 			HC.user.Hear(speaker, message_language, raw_message, radio_freq, spans, message_mods, 999)
 			if(HC.user.should_show_chat_message(speaker, message_language, FALSE, is_heard = TRUE))
+				if(HC.emagged)
+					spans |= "danger"
+					spans |= "bold"
 				create_chat_message(speaker, message_language, list(HC.user), raw_message, spans, message_mods)
 
 	if(outgoing_call && speaker == outgoing_call.user)
-		outgoing_call.hologram.say(raw_message, spans = spans, sanitize = FALSE, language = message_language, message_mods = message_mods)
+		var/list/new_spans = spans.Copy()
+		if(outgoing_call.emagged)
+			new_spans |= "danger"
+			new_spans |= "bold"
+		outgoing_call.hologram.say(raw_message, null, new_spans, FALSE, message_language, message_mods)
 
 	if(record_mode && speaker == record_user)
 		record_message(speaker, raw_message, message_language)
@@ -593,7 +598,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		var/obj/effect/overlay/holo_pad_hologram/holo = masters[user]
 		var/transfered = FALSE
 		if(!validate_location(new_turf))
-			if(holo.HC)
+			if(holo.HC) // It's a holocall hologram – disconnect instead of transferring
 				holo.HC.Disconnect(src)
 				return FALSE
 			else if(!transfer_to_nearby_pad(new_turf,user))
@@ -760,10 +765,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		QDEL_NULL(disk.record)
 	updateDialog()
 
-// Spoof/Emagged Hologram
-
 /datum/preset_holoimage/unknown
-	outfit_type = /datum/outfit/syndicatesoldiercorpse   // Idk what wouldve been better
+	outfit_type = /datum/outfit/syndicatesoldiercorpse
 	species_type = /datum/species/human
 
 /obj/machinery/holopad/proc/create_spoofed_holo(fake_name)
@@ -774,21 +777,15 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	var/obj/effect/overlay/holo_pad_hologram/Hologram = new(loc)
 	Hologram.add_overlay(spoof_image)
 	Hologram.alpha = 150
-	Hologram.add_atom_colour("#ff4444", FIXED_COLOUR_PRIORITY) // red tint
+	Hologram.add_atom_colour("#ff4444", FIXED_COLOUR_PRIORITY)
 	Hologram.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	Hologram.layer = FLY_LAYER
 	Hologram.set_anchored(TRUE)
 	Hologram.name = "[fake_name] (Hologram)"
 	Hologram.set_light(2)
-	Hologram.speech_span = "danger"   // forces red text
+	Hologram.speech_span = "danger"
 	visible_message(span_danger("A distorted holographic figure flickers into view!"))
 	return Hologram
-
-/obj/effect/overlay/holo_pad_hologram/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, list/message_mods = list())
-	if(HC && HC.emagged)
-		spans |= "danger"
-	. = ..()
-
 
 /obj/effect/overlay/holo_pad_hologram
 	initial_language_holder = /datum/language_holder/universal
