@@ -509,7 +509,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		if(outgoing_call.emagged)
 			new_spans |= "danger"
 			new_spans |= "bold"
-		outgoing_call.hologram.say(raw_message, null, new_spans, FALSE, message_language, message_mods)
+		outgoing_call.hologram.say(raw_message, spans = new_spans, sanitize = FALSE, language = message_language, message_mods = message_mods)
 
 	if(record_mode && speaker == record_user)
 		record_message(speaker, raw_message, message_language)
