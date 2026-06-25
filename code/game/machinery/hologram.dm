@@ -67,8 +67,6 @@ Possible to do for anyone motivated enough:
 	///bitfield. used to turn on and off hearing sensitivity depending on if we can act on Hear() at all - meant for lowering the number of unessesary hearable atoms
 	var/can_hear_flags = NONE
 
-	var/emagged = FALSE
-
 
 /datum/armor/machinery_holopad
 	melee = 50
@@ -162,17 +160,6 @@ Possible to do for anyone motivated enough:
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Current projection range: <b>[holo_range]</b> units.")
 
-/obj/machinery/holopad/on_emag(mob/user)
-	..()
-	if(emagged)
-		emagged = FALSE
-		to_chat(user, span_notice("You reset the holopad's identification and monitoring equipment."))
-	else
-		emagged = TRUE
-		to_chat(user, span_warning("You disable the holo-projectors user identification system'!"))
-	playsound(src, "sparks", 50, TRUE)
-	return TRUE
-
 /obj/machinery/holopad/attackby(obj/item/P, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "holopad_open", "holopad0", P))
 		return
@@ -235,8 +222,7 @@ Possible to do for anyone motivated enough:
 			for(var/I in holo_calls)
 				var/datum/holocall/HC = I
 				if(HC.connected_holopad != src)
-					var/area_name = HC.emagged ? "Unknown" : get_area(HC.calling_holopad)
-					dat += "<a href='byond://?src=[REF(src)];connectcall=[REF(HC)]'>Answer call from [area_name]</a><br>"
+					dat += "<a href='byond://?src=[REF(src)];connectcall=[REF(HC)]'>Answer call from [get_area(HC.calling_holopad)]</a><br>"
 					one_unanswered_call = TRUE
 				else
 					one_answered_call = TRUE
@@ -496,20 +482,13 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
-		if(HC.connected_holopad == src && speaker != HC.user)
-			HC.user.Hear(speaker, message_language, raw_message, radio_freq, spans, message_mods, 999)
+		if(HC.connected_holopad == src && speaker != HC.hologram)
+			HC.user.Hear(speaker, message_language, raw_message, radio_freq, spans, message_mods, message_range)
 			if(HC.user.should_show_chat_message(speaker, message_language, FALSE, is_heard = TRUE))
-				if(HC.emagged)
-					spans |= "danger"
-					spans |= "bold"
 				create_chat_message(speaker, message_language, list(HC.user), raw_message, spans, message_mods)
 
 	if(outgoing_call && speaker == outgoing_call.user)
-		var/list/new_spans = spans.Copy()
-		if(outgoing_call.emagged)
-			new_spans |= "danger"
-			new_spans |= "bold"
-		outgoing_call.hologram.say(raw_message, spans = new_spans, sanitize = FALSE, language = message_language, message_mods = message_mods)
+		outgoing_call.hologram.say(raw_message, spans = spans, sanitize = FALSE, language = message_language, message_mods = message_mods)
 
 	if(record_mode && speaker == record_user)
 		record_message(speaker, raw_message, message_language)
@@ -598,10 +577,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		var/obj/effect/overlay/holo_pad_hologram/holo = masters[user]
 		var/transfered = FALSE
 		if(!validate_location(new_turf))
-			if(holo.HC)
-				holo.HC.Disconnect(src)
-				return FALSE
-			else if(!transfer_to_nearby_pad(new_turf,user))
+			if(!transfer_to_nearby_pad(new_turf,user))
 				clear_holo(user)
 				return FALSE
 			else
@@ -764,28 +740,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	if(disk && disk.record)
 		QDEL_NULL(disk.record)
 	updateDialog()
-
-/datum/preset_holoimage/unknown
-	outfit_type = /datum/outfit/syndicatesoldiercorpse
-	species_type = /datum/species/human
-
-/obj/machinery/holopad/proc/create_spoofed_holo(fake_name)
-	if(!is_operational)
-		return
-	var/datum/preset_holoimage/spoof_preset = new /datum/preset_holoimage/unknown
-	var/image/spoof_image = spoof_preset.build_image()
-	var/obj/effect/overlay/holo_pad_hologram/Hologram = new(loc)
-	Hologram.add_overlay(spoof_image)
-	Hologram.alpha = 150
-	Hologram.add_atom_colour("#ff4444", FIXED_COLOUR_PRIORITY)
-	Hologram.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	Hologram.layer = FLY_LAYER
-	Hologram.set_anchored(TRUE)
-	Hologram.name = "[fake_name] (Hologram)"
-	Hologram.set_light(2)
-	Hologram.speech_span = "danger"
-	visible_message(span_danger("A distorted holographic figure flickers into view!"))
-	return Hologram
 
 /obj/effect/overlay/holo_pad_hologram
 	initial_language_holder = /datum/language_holder/universal
