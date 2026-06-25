@@ -66,9 +66,7 @@ Possible to do for anyone motivated enough:
 	var/on_network = TRUE
 	///bitfield. used to turn on and off hearing sensitivity depending on if we can act on Hear() at all - meant for lowering the number of unessesary hearable atoms
 	var/can_hear_flags = NONE
-
-	// --- EMAG ADDITION ---
-	var/emagged = FALSE   // when TRUE, calls are spoofed
+	var/emagged = FALSE
 
 
 /datum/armor/machinery_holopad
@@ -163,7 +161,7 @@ Possible to do for anyone motivated enough:
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Current projection range: <b>[holo_range]</b> units.")
 
-// --- EMAG INTERACTION (BeeStation uses on_emag) ---
+// Emag Stuff
 /obj/machinery/holopad/on_emag(mob/user)
 	..()  // call parent (if any)
 	if(emagged)
@@ -171,7 +169,7 @@ Possible to do for anyone motivated enough:
 		to_chat(user, span_notice("You reset the holopad's identification spoofing."))
 	else
 		emagged = TRUE
-		to_chat(user, span_warning("You emag the holopad – all outgoing calls will be anonymised as 'Unknown Caller'!"))
+		to_chat(user, span_warning("You emag the holopad, scrambling its location and user identification sensor'!"))
 	playsound(src, "sparks", 50, TRUE)
 	return TRUE
 
@@ -237,7 +235,7 @@ Possible to do for anyone motivated enough:
 			for(var/I in holo_calls)
 				var/datum/holocall/HC = I
 				if(HC.connected_holopad != src)
-					// OBFUSCATE DESTINATION IF EMAGGED
+					// Hide the Caller ID = Peak
 					var/area_name = HC.emagged ? "Unknown" : get_area(HC.calling_holopad)
 					dat += "<a href='byond://?src=[REF(src)];connectcall=[REF(HC)]'>Answer call from [area_name]</a><br>"
 					one_unanswered_call = TRUE
@@ -497,7 +495,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 				continue
 			master.hear_holocall(speaker, message_language, raw_message, radio_freq, spans, message_mods)
 
-	// --- FIX: caller now hears the recipient's speech ---
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
 		if(HC.connected_holopad == src && speaker != HC.user)   // send to user unless it's the user themselves
@@ -591,13 +588,12 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	else
 		return FALSE
 
-// --- MODIFIED: for holocalls, disconnect instead of transferring ---
 /obj/machinery/holopad/proc/move_hologram(mob/living/user, turf/new_turf)
 	if(LAZYLEN(masters) && masters[user])
 		var/obj/effect/overlay/holo_pad_hologram/holo = masters[user]
 		var/transfered = FALSE
 		if(!validate_location(new_turf))
-			if(holo.HC) // It's a holocall hologram – disconnect instead of transferring
+			if(holo.HC)
 				holo.HC.Disconnect(src)
 				return FALSE
 			else if(!transfer_to_nearby_pad(new_turf,user))
@@ -764,10 +760,10 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		QDEL_NULL(disk.record)
 	updateDialog()
 
-// --- SPOOFED HOLOGRAM (EMAG) ---
+// Spoof/Emagged Hologram
 
 /datum/preset_holoimage/unknown
-	outfit_type = /datum/outfit/syndicatesoldiercorpse   // Now using the corpse outfit
+	outfit_type = /datum/outfit/syndicatesoldiercorpse   // Idk what wouldve been better
 	species_type = /datum/species/human
 
 /obj/machinery/holopad/proc/create_spoofed_holo(fake_name)
@@ -788,10 +784,9 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	visible_message(span_danger("A distorted holographic figure flickers into view!"))
 	return Hologram
 
-// Override say() to ensure red text for emagged calls
 /obj/effect/overlay/holo_pad_hologram/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, list/message_mods = list())
 	if(HC && HC.emagged)
-		spans |= "danger"  // ensure red text
+		spans |= "danger"
 	. = ..()
 
 
