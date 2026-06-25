@@ -388,3 +388,5 @@
 	NAME Rigsuit Engineery #1
 	DELAY 10
 	SAY It's gonna be a pain in the ass rebuilding this place when it inevitably gets loose.."}
+
+#undef CAN_HEAR_ACTIVE_HOLOCALLS
