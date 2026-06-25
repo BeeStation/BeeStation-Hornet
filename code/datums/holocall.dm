@@ -1,7 +1,3 @@
-#ifndef CAN_HEAR_ACTIVE_HOLOCALLS
-#define CAN_HEAR_ACTIVE_HOLOCALLS (1<<1)
-#endif
-
 /mob/camera/ai_eye/remote/holo/setLoc()
 	. = ..()
 	var/obj/machinery/holopad/H = origin
@@ -32,21 +28,13 @@
 
 	var/call_start_time
 
-	var/emagged = FALSE
-	var/fake_name = "Unknown Caller"
-
 //creates a holocall made by `holocall_user` from `calling_pad` to `callees`
 /datum/holocall/New(mob/living/holocall_user, obj/machinery/holopad/calling_pad, list/callees)
 	call_start_time = world.time
 	user = holocall_user
 	calling_pad.outgoing_call = src
-	calling_pad.set_can_hear_flags(CAN_HEAR_ACTIVE_HOLOCALLS, TRUE)
 	calling_holopad = calling_pad
 	dialed_holopads = list()
-
-	if(calling_pad.emagged)
-		emagged = TRUE
-		fake_name = "Unknown Caller"
 
 	for(var/obj/machinery/holopad/connected_holopad as anything in callees)
 		if(!QDELETED(connected_holopad) && connected_holopad.is_operational)
@@ -87,7 +75,6 @@
 
 	if(calling_holopad)//if the call is answered, then calling_holopad wont be in dialed_holopads and thus wont have set_holocall(src, FALSE) called
 		calling_holopad.outgoing_call = null
-		calling_holopad.set_can_hear_flags(CAN_HEAR_ACTIVE_HOLOCALLS, FALSE)
 		calling_holopad.SetLightsAndPower()
 		calling_holopad = null
 	if(connected_holopad)
@@ -153,14 +140,7 @@
 	if(!Check())
 		return
 
-	if(emagged)
-		hologram = answering_holopad.create_spoofed_holo(fake_name)
-		answering_holopad.set_holo(user, hologram)
-		var/obj/effect/overlay/holoray/ray = answering_holopad.holorays[user]
-		if(ray)
-			ray.add_atom_colour("#ff0000", FIXED_COLOUR_PRIORITY)
-	else
-		hologram = answering_holopad.activate_holo(user)
+	hologram = answering_holopad.activate_holo(user)
 	hologram.HC = src
 
 	//eyeobj code is horrid, this is the best copypasta I could make
@@ -388,5 +368,3 @@
 	NAME Rigsuit Engineery #1
 	DELAY 10
 	SAY It's gonna be a pain in the ass rebuilding this place when it inevitably gets loose.."}
-
-#undef CAN_HEAR_ACTIVE_HOLOCALLS
