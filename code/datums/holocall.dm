@@ -28,6 +28,10 @@
 
 	var/call_start_time
 
+	/// emag spoofing
+	var/emagged = FALSE
+	var/fake_name = "Unknown Caller"
+
 //creates a holocall made by `holocall_user` from `calling_pad` to `callees`
 /datum/holocall/New(mob/living/holocall_user, obj/machinery/holopad/calling_pad, list/callees)
 	call_start_time = world.time
@@ -35,6 +39,11 @@
 	calling_pad.outgoing_call = src
 	calling_holopad = calling_pad
 	dialed_holopads = list()
+
+	// Emag spoofing
+	if(calling_pad.emagged)
+		emagged = TRUE
+		fake_name = "Unknown Caller"
 
 	for(var/obj/machinery/holopad/connected_holopad as anything in callees)
 		if(!QDELETED(connected_holopad) && connected_holopad.is_operational)
@@ -140,7 +149,17 @@
 	if(!Check())
 		return
 
-	hologram = answering_holopad.activate_holo(user)
+	// If emagged, use spoofed hologram, else normal
+	if(emagged)
+		hologram = answering_holopad.create_spoofed_holo(fake_name)
+		// We need to set the hologram in the answering pad's masters so it can move
+		answering_holopad.set_holo(user, hologram)
+		// Make the holoray red
+		var/obj/effect/overlay/holoray/ray = answering_holopad.holorays[user]
+		if(ray)
+			ray.add_atom_colour("#ff0000", FIXED_COLOUR_PRIORITY)
+	else
+		hologram = answering_holopad.activate_holo(user)
 	hologram.HC = src
 
 	//eyeobj code is horrid, this is the best copypasta I could make
