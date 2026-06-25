@@ -11,7 +11,7 @@
 	user.set_mob_eye_to(MOB_EYE_SELF)
 	user.remote_control = null
 
-//this datum manages its own references
+//this datum manages it's own references
 /datum/holocall
 	///the one that called
 	var/mob/living/user
@@ -31,7 +31,7 @@
 
 	var/call_start_time
 
-	/// emag spoofing
+	/// emag spoofing stuff
 	var/emagged = FALSE
 	var/fake_name = "Unknown Caller"
 
@@ -43,12 +43,10 @@
 	calling_holopad = calling_pad
 	dialed_holopads = list()
 
-	// Emag spoofing
 	if(calling_pad.emagged)
 		emagged = TRUE
 		fake_name = "Unknown Caller"
 
-	// Make the calling pad hearing‑sensitive WITHOUT adding it to holo_calls
 	calling_pad.set_can_hear_flags(CAN_HEAR_ACTIVE_HOLOCALLS, TRUE)
 
 	for(var/obj/machinery/holopad/connected_holopad as anything in callees)
@@ -88,7 +86,7 @@
 
 	dialed_holopads.Cut()
 
-	if(calling_holopad)
+	if(calling_holopad)//if the call is answered, then calling_holopad wont be in dialed_holopads and thus wont have set_holocall(src, FALSE) called
 		calling_holopad.outgoing_call = null
 		calling_holopad.set_can_hear_flags(CAN_HEAR_ACTIVE_HOLOCALLS, FALSE)
 		calling_holopad.SetLightsAndPower()
@@ -156,11 +154,10 @@
 	if(!Check())
 		return
 
-	// Create hologram – use emag spoof if needed
+	// Fancy Red John Doe hologram
 	if(emagged)
 		hologram = answering_holopad.create_spoofed_holo(fake_name)
-		answering_holopad.set_holo(user, hologram)   // register so it can move
-		// Make the holoray red
+		answering_holopad.set_holo(user, hologram)
 		var/obj/effect/overlay/holoray/ray = answering_holopad.holorays[user]
 		if(ray)
 			ray.add_atom_colour("#ff0000", FIXED_COLOUR_PRIORITY)
