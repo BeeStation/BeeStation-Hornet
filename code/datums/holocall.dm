@@ -1,3 +1,7 @@
+#ifndef CAN_HEAR_ACTIVE_HOLOCALLS
+#define CAN_HEAR_ACTIVE_HOLOCALLS (1<<1)
+#endif
+
 /mob/camera/ai_eye/remote/holo/setLoc()
 	. = ..()
 	var/obj/machinery/holopad/H = origin
@@ -7,8 +11,7 @@
 	user.set_mob_eye_to(MOB_EYE_SELF)
 	user.remote_control = null
 
-//this datum manages it's own references
-
+//this datum manages its own references
 /datum/holocall
 	///the one that called
 	var/mob/living/user
@@ -28,6 +31,10 @@
 
 	var/call_start_time
 
+	/// emag spoofing
+	var/emagged = FALSE
+	var/fake_name = "Unknown Caller"
+
 //creates a holocall made by `holocall_user` from `calling_pad` to `callees`
 /datum/holocall/New(mob/living/holocall_user, obj/machinery/holopad/calling_pad, list/callees)
 	call_start_time = world.time
@@ -35,6 +42,14 @@
 	calling_pad.outgoing_call = src
 	calling_holopad = calling_pad
 	dialed_holopads = list()
+
+	// Emag spoofing
+	if(calling_pad.emagged)
+		emagged = TRUE
+		fake_name = "Unknown Caller"
+
+	// Make the calling pad hearing‑sensitive WITHOUT adding it to holo_calls
+	calling_pad.set_can_hear_flags(CAN_HEAR_ACTIVE_HOLOCALLS, TRUE)
 
 	for(var/obj/machinery/holopad/connected_holopad as anything in callees)
 		if(!QDELETED(connected_holopad) && connected_holopad.is_operational)
@@ -73,16 +88,17 @@
 
 	dialed_holopads.Cut()
 
-	if(calling_holopad)//if the call is answered, then calling_holopad wont be in dialed_holopads and thus wont have set_holocall(src, FALSE) called
+	if(calling_holopad)
 		calling_holopad.outgoing_call = null
+		calling_holopad.set_can_hear_flags(CAN_HEAR_ACTIVE_HOLOCALLS, FALSE)
 		calling_holopad.SetLightsAndPower()
 		calling_holopad = null
+
 	if(connected_holopad)
 		connected_holopad.SetLightsAndPower()
 		connected_holopad = null
 
 	testing("Holocall destroyed")
-
 	return ..()
 
 //Gracefully disconnects a holopad `H` from a call. Pads not in the call are ignored. Notifies participants of the disconnection
@@ -140,8 +156,18 @@
 	if(!Check())
 		return
 
-	hologram = answering_holopad.activate_holo(user)
-	hologram.HC = src
+	// Create hologram – use emag spoof if needed
+	if(emagged)
+		hologram = answering_holopad.create_spoofed_holo(fake_name)
+		answering_holopad.set_holo(user, hologram)   // register so it can move
+		// Make the holoray red
+		var/obj/effect/overlay/holoray/ray = answering_holopad.holorays[user]
+		if(ray)
+			ray.add_atom_colour("#ff0000", FIXED_COLOUR_PRIORITY)
+		hologram.HC = src
+	else
+		hologram = answering_holopad.activate_holo(user)
+		hologram.HC = src
 
 	//eyeobj code is horrid, this is the best copypasta I could make
 	eye = new
@@ -219,7 +245,7 @@
 /obj/item/disk/holodisk/Initialize(mapload)
 	. = ..()
 	if(preset_record_text)
-		INVOKE_ASYNC(src, PROC_REF(build_record))
+		build_record()
 
 /obj/item/disk/holodisk/Destroy()
 	QDEL_NULL(record)
