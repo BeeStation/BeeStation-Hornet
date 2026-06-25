@@ -28,7 +28,7 @@
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
 	/// Stores the original dna data of the mob - This is used at cloning. Set FALSE if a specific brain shouldn't use it
-	var/datum/dna/brain_dna = null // 'null' means it will have a DNA upon Init() proc because the var is empty(null)
+	var/datum/dna/brain_dna = null // 'null' means it will have a DNA upon Insert() proc because the var is empty(null). If a DNA exists there, it means no slot for them.
 	var/brain_death = FALSE //if the brainmob was intentionally killed by attacking the brain after removal, or by severe braindamage
 	/// If it's a fake brain with no brainmob assigned. Feedback messages will be faked as if it does have a brainmob. See changelings
 	var/decoy_override = FALSE
