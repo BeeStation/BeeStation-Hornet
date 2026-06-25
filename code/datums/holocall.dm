@@ -1,3 +1,7 @@
+#ifndef CAN_HEAR_ACTIVE_HOLOCALLS
+#define CAN_HEAR_ACTIVE_HOLOCALLS (1<<1)
+#endif
+
 /mob/camera/ai_eye/remote/holo/setLoc()
 	. = ..()
 	var/obj/machinery/holopad/H = origin
@@ -36,6 +40,7 @@
 	call_start_time = world.time
 	user = holocall_user
 	calling_pad.outgoing_call = src
+	calling_pad.set_can_hear_flags(CAN_HEAR_ACTIVE_HOLOCALLS, TRUE)
 	calling_holopad = calling_pad
 	dialed_holopads = list()
 
@@ -82,6 +87,7 @@
 
 	if(calling_holopad)//if the call is answered, then calling_holopad wont be in dialed_holopads and thus wont have set_holocall(src, FALSE) called
 		calling_holopad.outgoing_call = null
+		calling_holopad.set_can_hear_flags(CAN_HEAR_ACTIVE_HOLOCALLS, FALSE)
 		calling_holopad.SetLightsAndPower()
 		calling_holopad = null
 	if(connected_holopad)
