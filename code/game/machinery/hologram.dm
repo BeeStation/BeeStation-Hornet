@@ -166,10 +166,10 @@ Possible to do for anyone motivated enough:
 	..()
 	if(emagged)
 		emagged = FALSE
-		to_chat(user, span_notice("You reset the holopad's identification spoofing."))
+		to_chat(user, span_notice("You reset the holopad's identification and monitoring equipment."))
 	else
 		emagged = TRUE
-		to_chat(user, span_warning("You emag the holopad – all outgoing calls will be anonymised as 'Unknown Caller'!"))
+		to_chat(user, span_warning("You disable the holo-projectors user identification system'!"))
 	playsound(src, "sparks", 50, TRUE)
 	return TRUE
 
@@ -598,7 +598,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		var/obj/effect/overlay/holo_pad_hologram/holo = masters[user]
 		var/transfered = FALSE
 		if(!validate_location(new_turf))
-			if(holo.HC) // It's a holocall hologram – disconnect instead of transferring
+			if(holo.HC)
 				holo.HC.Disconnect(src)
 				return FALSE
 			else if(!transfer_to_nearby_pad(new_turf,user))
