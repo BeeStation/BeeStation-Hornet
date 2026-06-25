@@ -28,7 +28,6 @@
 
 	var/call_start_time
 
-	/// emag spoofing
 	var/emagged = FALSE
 	var/fake_name = "Unknown Caller"
 
@@ -40,7 +39,6 @@
 	calling_holopad = calling_pad
 	dialed_holopads = list()
 
-	// Emag spoofing
 	if(calling_pad.emagged)
 		emagged = TRUE
 		fake_name = "Unknown Caller"
@@ -149,12 +147,9 @@
 	if(!Check())
 		return
 
-	// If emagged, use spoofed hologram, else normal
 	if(emagged)
 		hologram = answering_holopad.create_spoofed_holo(fake_name)
-		// We need to set the hologram in the answering pad's masters so it can move
 		answering_holopad.set_holo(user, hologram)
-		// Make the holoray red
 		var/obj/effect/overlay/holoray/ray = answering_holopad.holorays[user]
 		if(ray)
 			ray.add_atom_colour("#ff0000", FIXED_COLOUR_PRIORITY)
