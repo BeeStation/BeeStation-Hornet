@@ -2785,6 +2785,8 @@
 "aTA" = (
 /obj/structure/closet/l3closet/security,
 /obj/effect/turf_decal/bot,
+/obj/item/clothing/head/bio_hood/security,
+/obj/item/clothing/suit/bio_suit/security,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/brig)
 "aTF" = (
@@ -2834,6 +2836,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
 "aUp" = (
@@ -10097,6 +10100,13 @@
 /obj/effect/turf_decal/guideline/guideline_mid/red{
 	dir = 4
 	},
+/obj/structure/table,
+/obj/item/reagent_containers/cup/glass/waterbottle{
+	pixel_x = 7;
+	desc = "Seems somebody left their water bottle here.... you might snatch it if nobody claims it soon.";
+	name = "old water bottle"
+	},
+/obj/item/stack/medical/bruise_pack,
 /obj/machinery/newscaster/directional/east,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
@@ -19205,6 +19215,12 @@
 /obj/structure/disposalpipe/junction/flip{
 	dir = 4
 	},
+/obj/machinery/door/window/brigdoor/security/cell/eastleft{
+	id = "cell";
+	name = "Gulag Processing Centre";
+	req_one_access_txt = "2";
+	req_access = list(2,34)
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
 "gKo" = (
@@ -20840,6 +20856,19 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
+"hrO" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/dark_red/filled/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_mid/red{
+	dir = 4
+	},
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/open/floor/iron/dark/smooth_large,
+/area/station/security/brig)
 "hrQ" = (
 /turf/closed/wall,
 /area/station/command/bridge)
@@ -22712,6 +22741,7 @@
 /obj/effect/turf_decal/guideline/guideline_mid/red{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
 "ibd" = (
@@ -27310,6 +27340,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
+/obj/structure/chair{
+	name = "Private chamber"
+	},
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
 "jQw" = (
@@ -27375,6 +27410,22 @@
 /obj/item/hand_tele,
 /turf/open/floor/carpet,
 /area/station/command/heads_quarters/captain)
+"jRh" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/dark_red/filled/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_mid/red{
+	dir = 8
+	},
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/ash,
+/turf/open/floor/iron/dark/smooth_large,
+/area/station/security/brig)
 "jRk" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -29602,6 +29653,10 @@
 	},
 /turf/open/floor/iron,
 /area/station/construction/mining/aux_base)
+"kDP" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating,
+/area/station/maintenance/central/lesser)
 "kDQ" = (
 /obj/effect/landmark/xeno_spawn,
 /obj/structure/cable/yellow,
@@ -33047,6 +33102,7 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet/directional/west,
+/obj/item/kirbyplants/random,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
 "lTf" = (
@@ -34722,6 +34778,17 @@
 /obj/machinery/camera/directional/west{
 	c_tag = "Brig Hallway - Aft"
 	},
+/obj/structure/table,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/item/paper_bin{
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/obj/item/pen{
+	pixel_x = -5;
+	pixel_y = 2
+	},
+/obj/effect/spawner/random/contraband/permabrig_gear,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
 "mCk" = (
@@ -56688,15 +56755,49 @@
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "vlv" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 8
+	dir = 4
 	},
 /obj/effect/turf_decal/trimline/dark_red/filled/line{
-	dir = 4
+	dir = 8
 	},
 /obj/effect/turf_decal/guideline/guideline_mid/red{
-	dir = 4
+	dir = 8
 	},
-/obj/structure/extinguisher_cabinet/directional/east,
+/obj/structure/table,
+/obj/item/paper{
+	default_raw_text = "<center><b>RADIO 10-CODES</b></center><br>10-03   Cease radio chatter.<br>10-04   Acknowledgement (OK).<br>10-07   Out of service (unavailable).<br>10-08   Back in service.<br>10-10   Fight in progress.<br>10-13   Officer down, EMERGENCY!<br>10-14   Officer down, non‑emergency.<br>10-16   Rogue silicon, AI unit.<br>10-17   Rogue silicon, cyborg.<br>10-20   Location.<br>10-23   Arrived at scene.<br>10-25   Report in Person/Rendezvous.<br>10-27   Individual with a warrant.<br>10-30   Airborne Hazards.<br>10-31   Crime in progress.<br>10-32   Person with a Gun.<br>10-33   High danger Target.<br>10-35   Hostile Non‑humanoid.<br>10-38   Stop & Frisk.<br>10-41   On duty.<br>10-42   Off‑duty.<br>10-45   Crime reported in radio.<br>10-47   Injured personnel.<br>10-50   Hull breach.<br>10-52   Emergency Medical Services required.<br>10-60   Explosives Detected.<br>10-71   Shots fired.<br>10-76   Enroute/moving to.<br>10-77   Need back up.<br>10-78   Need back up EMERGENCY!<br>10-80   Pursuit in progress.<br>10-90   Robbery/B&E in progress.<br>10-91   Transporting detainee.<br>10-95   Suspect in Custody.<br>10-98   Jail break.<br>";
+	name = "Faded security policy";
+	desc = "An old list of call signs which had long ago lost relevance amongst officers";
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/paper{
+	default_raw_text = "<center><b>RADIO 10-CODES</b></center><br>10-03   Cease radio chatter.<br>10-04   Acknowledgement (OK).<br>10-07   Out of service (unavailable).<br>10-08   Back in service.<br>10-10   Fight in progress.<br>10-13   Officer down, EMERGENCY!<br>10-14   Officer down, non‑emergency.<br>10-16   Rogue silicon, AI unit.<br>10-17   Rogue silicon, cyborg.<br>10-20   Location.<br>10-23   Arrived at scene.<br>10-25   Report in Person/Rendezvous.<br>10-27   Individual with a warrant.<br>10-30   Airborne Hazards.<br>10-31   Crime in progress.<br>10-32   Person with a Gun.<br>10-33   High danger Target.<br>10-35   Hostile Non‑humanoid.<br>10-38   Stop & Frisk.<br>10-41   On duty.<br>10-42   Off‑duty.<br>10-45   Crime reported in radio.<br>10-47   Injured personnel.<br>10-50   Hull breach.<br>10-52   Emergency Medical Services required.<br>10-60   Explosives Detected.<br>10-71   Shots fired.<br>10-76   Enroute/moving to.<br>10-77   Need back up.<br>10-78   Need back up EMERGENCY!<br>10-80   Pursuit in progress.<br>10-90   Robbery/B&E in progress.<br>10-91   Transporting detainee.<br>10-95   Suspect in Custody.<br>10-98   Jail break.<br>";
+	name = "Faded security policy";
+	desc = "An old list of call signs which had long ago lost relevance amongst officers";
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/paper{
+	name = "Faded security policy";
+	desc = "An old list of call signs which had long ago lost relevance amongst officers";
+	pixel_x = 1;
+	pixel_y = 2;
+	default_raw_text = "<center><b>RADIO 10-CODES</b></center><br>10-03   Cease radio chatter.<br>10-04   Acknowledgement (OK).<br>10-07   Out of service (unavailable).<br>10-08   Back in service.<br>10-10   Fight in progress.<br>10-13   Officer down, EMERGENCY!<br>10-14   Officer down, non‑emergency.<br>10-16   Rogue silicon, AI unit.<br>10-17   Rogue silicon, cyborg.<br>10-20   Location.<br>10-23   Arrived at scene.<br>10-25   Report in Person/Rendezvous.<br>10-27   Individual with a warrant.<br>10-30   Airborne Hazards.<br>10-31   Crime in progress.<br>10-32   Person with a Gun.<br>10-33   High danger Target.<br>10-35   Hostile Non‑humanoid.<br>10-38   Stop & Frisk.<br>10-41   On duty.<br>10-42   Off‑duty.<br>10-45   Crime reported in radio.<br>10-47   Injured personnel.<br>10-50   Hull breach.<br>10-52   Emergency Medical Services required.<br>10-60   Explosives Detected.<br>10-71   Shots fired.<br>10-76   Enroute/moving to.<br>10-77   Need back up.<br>10-78   Need back up EMERGENCY!<br>10-80   Pursuit in progress.<br>10-90   Robbery/B&E in progress.<br>10-91   Transporting detainee.<br>10-95   Suspect in Custody.<br>10-98   Jail break.<br>"
+	},
+/obj/item/lighter{
+	pixel_x = -9;
+	pixel_y = 5
+	},
+/obj/item/gavelblock{
+	pixel_x = -7;
+	pixel_y = -4;
+	desc = "This ash tray looks eerily similair to a gavel block... wonder where they got it from";
+	name = "ash tray"
+	},
+/obj/item/cigarette/cigar{
+	pixel_y = 5
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
 "vlF" = (
@@ -87184,9 +87285,9 @@ djL
 jqz
 sPK
 gAi
-djL
+hrO
 dAU
-vlv
+djL
 pBO
 ibc
 djL
@@ -90268,8 +90369,8 @@ fTX
 sQn
 sIZ
 hxo
-fTX
-fTX
+jRh
+vlv
 lSU
 xMw
 wjP
@@ -92852,7 +92953,7 @@ lxF
 xIV
 xIV
 ftr
-emc
+kDP
 qjA
 baq
 baq
