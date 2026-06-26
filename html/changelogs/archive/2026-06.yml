@@ -217,3 +217,7 @@
   - bugfix: Fixed not being able to easily insert the ID from a PDA into an ID modification
       console
   - bugfix: Fixed the ethereal disco ball not glowing valid colors
+2026-06-25:
+  MadmanMartian:
+  - tweak: You can now examine solar panels to infer their power multiplier coefficient,
+      their maximum output, their glass type, and what tools to use on them
