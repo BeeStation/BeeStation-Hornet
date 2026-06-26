@@ -6909,11 +6909,11 @@
 /turf/open/floor/plating,
 /area/station/command/heads_quarters/hos)
 "cQN" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/white,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron,
 /area/station/security/brig)
 "cQZ" = (
@@ -14565,8 +14565,8 @@
 /turf/open/floor/iron/dark,
 /area/station/science/mixing)
 "fnx" = (
-/obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/holopad/secure,
 /turf/open/floor/carpet/red,
 /area/station/command/heads_quarters/hos)
 "fnE" = (
@@ -20854,9 +20854,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/holopad,
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow,
+/obj/machinery/holopad/secure,
 /turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/ai)
 "hwj" = (
@@ -27322,7 +27322,6 @@
 	},
 /area/station/maintenance/fore)
 "jIp" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -27332,6 +27331,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/holopad/secure,
 /turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/ai)
 "jIq" = (
@@ -57397,9 +57397,9 @@
 /turf/open/floor/engine,
 /area/station/engineering/gravity_generator)
 "tPA" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/holopad/secure,
 /turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/ai)
 "tPM" = (
@@ -64217,12 +64217,12 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "whv" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/holopad/secure,
 /turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "whK" = (
@@ -66264,9 +66264,9 @@
 /turf/open/floor/iron/dark,
 /area/station/security/courtroom)
 "wSk" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/holopad/secure,
 /turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/ai)
 "wSn" = (

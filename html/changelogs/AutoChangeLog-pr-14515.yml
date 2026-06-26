@@ -1,0 +1,8 @@
+author: mrmanlikesbt, zxaber, Arkatos1, Tastyfish, ShizCalev, lelandkemble
+delete-after: true
+changes:
+  - rscadd: Added holopad TGUI
+  - rscadd: Heads of staff can now forcibly connect to holopads. Head of staff rooms
+      & AI facilities are immune from this. You can use a multitool on a holopad board
+      to make it immune as well.
+  - bugfix: Fixed holocalls.
