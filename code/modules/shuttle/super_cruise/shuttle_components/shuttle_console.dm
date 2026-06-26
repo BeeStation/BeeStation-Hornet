@@ -70,7 +70,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 	. = ..()
 
 	//Check to see if the shuttleObject was launched by another console.
-	if(isnull(shuttleObject) && SSorbits.assoc_shuttles.Find(shuttleId))
+	if(isnull(shuttleObject))
 		var/datum/orbital_object/new_shuttle = SSorbits.assoc_shuttles[shuttleId]
 		if(new_shuttle)
 			set_linked_shuttle(new_shuttle)
