@@ -25,9 +25,7 @@
 	nanite_volume = amount
 	cloud_id = cloud
 
-	assigned_techweb = locate(/datum/techweb/science) in SSresearch.techwebs // Default techweb we give points to
-	if(provided_techweb) // If someone uses a multitool with a server on it, we change where we give our points towards
-		assigned_techweb = provided_techweb
+	assigned_techweb = provided_techweb || (locate(/datum/techweb/science) in SSresearch.techwebs) // Default techweb we give points to
 
 	//Nanites without hosts are non-interactive through normal means
 	if(isliving(parent))
@@ -396,8 +394,7 @@
 	if(host_mob.stat == DEAD)
 		research_value *= 0.75
 
-	if(assigned_techweb)
-		assigned_techweb.add_point_list(list(TECHWEB_POINT_TYPE_NANITES = research_value))
+	assigned_techweb?.add_point_list(list(TECHWEB_POINT_TYPE_NANITES = research_value))
 
 /datum/component/nanites/proc/nanite_scan(datum/source, mob/user, full_scan)
 	SIGNAL_HANDLER
