@@ -27,22 +27,36 @@
 	var/datum/action/innate/end_holocall/hangup
 
 	var/call_start_time
+	///calls from a head of staff autoconnect, if the receiving pad is not secure.
+	var/head_call = FALSE
 
-//creates a holocall made by `holocall_user` from `calling_pad` to `callees`
-/datum/holocall/New(mob/living/holocall_user, obj/machinery/holopad/calling_pad, list/callees)
+//creates a holocall made by `call_source` from `calling_pad` to `callees`
+/datum/holocall/New(mob/living/call_source, obj/machinery/holopad/calling_pad, list/callees, elevated_access = FALSE)
 	call_start_time = world.time
-	user = holocall_user
+	user = call_source
 	calling_pad.outgoing_call = src
 	calling_holopad = calling_pad
+	head_call = elevated_access
 	dialed_holopads = list()
 
+	var/auto_connect_failed = FALSE
 	for(var/obj/machinery/holopad/connected_holopad as anything in callees)
 		if(!QDELETED(connected_holopad) && connected_holopad.is_operational)
 			dialed_holopads += connected_holopad
-			connected_holopad.say("Incoming call.")
+			if(head_call)
+				if(connected_holopad.secure)
+					auto_connect_failed = TRUE
+					connected_holopad.say("Incoming call.")
+				else
+					connected_holopad.say("Incoming connection.")
+			else
+				connected_holopad.say("Incoming call.")
 			connected_holopad.set_holocall(src)
 
-	if(!dialed_holopads.len)
+	if(auto_connect_failed)
+		calling_pad.say("Auto-connection refused, falling back to call mode.")
+
+	if(!length(dialed_holopads))
 		calling_pad.say("Connection failure.")
 		qdel(src)
 		return
@@ -52,9 +66,7 @@
 //cleans up ALL references :)
 /datum/holocall/Destroy()
 	QDEL_NULL(hangup)
-
-	if(!QDELETED(eye))
-		QDEL_NULL(eye)
+	QDEL_NULL(eye)
 
 	if(connected_holopad && !QDELETED(hologram))
 		hologram = null
@@ -74,8 +86,7 @@
 	dialed_holopads.Cut()
 
 	if(calling_holopad)//if the call is answered, then calling_holopad wont be in dialed_holopads and thus wont have set_holocall(src, FALSE) called
-		calling_holopad.outgoing_call = null
-		calling_holopad.SetLightsAndPower()
+		calling_holopad.callee_hung_up()
 		calling_holopad = null
 	if(connected_holopad)
 		connected_holopad.SetLightsAndPower()
@@ -140,6 +151,7 @@
 	if(!Check())
 		return
 
+	calling_holopad.callee_picked_up()
 	hologram = answering_holopad.activate_holo(user)
 	hologram.HC = src
 
@@ -155,6 +167,8 @@
 
 	hangup = new(eye, src)
 	hangup.Grant(user)
+	playsound(answering_holopad, 'sound/machines/ping.ogg', 100)
+	answering_holopad.say("Connection established.")
 
 //Checks the validity of a holocall and qdels itself if it's not. Returns TRUE if valid, FALSE otherwise
 /datum/holocall/proc/Check()
@@ -172,7 +186,6 @@
 			. = world.time < (call_start_time + HOLOPAD_MAX_DIAL_TIME)
 			if(!.)
 				calling_holopad.say("No answer received.")
-				calling_holopad.temp = ""
 
 	if(!.)
 		testing("Holocall Check fail")
@@ -345,7 +358,7 @@
 /datum/preset_holoimage/clown
 	outfit_type = /datum/outfit/job/clown
 
-/obj/item/disk/holodisk/donutstation/enginewars
+/obj/item/disk/holodisk/enginewars
 	name = "Conversation #DS034"
 	preset_image_type = /datum/preset_holoimage/engineer
 	preset_record_text = {"
