@@ -65,7 +65,8 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	assoc_shuttles |= SSorbits.assoc_shuttles
 	interdicted_shuttles |= SSorbits.interdicted_shuttles
 	research_disks |= SSorbits.research_disks
-	if(!islist(runnable_events)) runnable_events = list()
+	if(!islist(runnable_events))
+		runnable_events = list()
 	runnable_events |= SSorbits.runnable_events
 
 	station_instance = SSorbits.station_instance
@@ -83,7 +84,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	for(var/datum/thing in SSorbits.processing)
 		STOP_PROCESSING(SSorbits, thing)
 		START_PROCESSING(src, thing)
-
 
 /datum/controller/subsystem/processing/orbits/proc/setup_event_list()
 	runnable_events = list()

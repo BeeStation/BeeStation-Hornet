@@ -36,7 +36,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 
-/obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
+/obj/machinery/computer/shuttle_flight/Initialize(mapload)
 	. = ..()
 	valid_docks = params2list(possible_destinations)
 	if(shuttleId)
@@ -87,9 +87,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 			else
 				to_chat(usr, span_notice("Unable to comply."))
 
-/obj/machinery/computer/shuttle_flight/ui_state(mob/user)
-	return GLOB.default_state
-
 /obj/machinery/computer/shuttle_flight/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
 	if(!allowed(user) && !isobserver(user))
@@ -104,7 +101,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 		ui = new(user, src, "OrbitalMap")
 		ui.open()
 	SSorbits.open_orbital_maps |= ui
-	ui.set_autoupdate(FALSE)
 
 /obj/machinery/computer/shuttle_flight/ui_close(mob/user, datum/tgui/tgui)
 	. = ..()
@@ -205,9 +201,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 						))
 	return data
 
-/obj/machinery/computer/shuttle_flight/ui_act(action, params)
+/obj/machinery/computer/shuttle_flight/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
-
 	if(.)
 		return
 
