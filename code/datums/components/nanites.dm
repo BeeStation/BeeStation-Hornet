@@ -98,6 +98,7 @@
 /datum/component/nanites/Destroy()
 	STOP_PROCESSING(SSnanites, src)
 	QDEL_LIST(programs)
+	assigned_techweb = null
 	if(host_mob)
 		set_nanite_bar(TRUE)
 		host_mob.hud_set_nanite_indicator()

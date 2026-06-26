@@ -69,7 +69,7 @@
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("A <b>Multitool</b> can be used to change the research server")
-		. += span_notice("The linked techweb is <b>[assigned_techweb.id]</b>.")
+		. += span_notice("Active research destination: <b>[assigned_techweb.id]</b>.")
 
 /obj/machinery/public_nanite_chamber/proc/complete_injection(locked_state, mob/living/attacker)
 	//TODO MACHINE DING

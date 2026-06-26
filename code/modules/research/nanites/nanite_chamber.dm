@@ -49,7 +49,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Scanning module has been upgraded to level <b>[scan_level]</b>.")
 		. += span_notice("A <b>Multitool</b> can be used to change the research server")
-		. += span_notice("The linked techweb is <b>[assigned_techweb.id]</b>.")
+		. += span_notice("Active research destination: <b>[assigned_techweb.id]</b>.")
 
 /obj/machinery/nanite_chamber/proc/set_busy(status, message, working_icon)
 	busy = status
