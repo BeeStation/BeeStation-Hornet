@@ -613,8 +613,12 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 				calling_mob.Hear(speaker, message_language, raw_message, radio_freq, spans, message_mods, message_range = INFINITY)
 
 	if(outgoing_call && speaker == outgoing_call.user)
-		// Fix: use positional arguments to avoid keyword confusion
-		outgoing_call.hologram.say(raw_message, null, spans, FALSE, message_language, message_mods)
+		// Add bold red spans if the call is spoofed
+		var/list/extra_spans = spans ? spans.Copy() : list()
+		if(outgoing_call.spoofed)
+			extra_spans |= "bold"
+			extra_spans |= "danger"
+		outgoing_call.hologram.say(raw_message, null, extra_spans, FALSE, message_language, message_mods)
 
 	if(record_mode && speaker == record_user)
 		record_message(speaker, raw_message, message_language)
@@ -923,11 +927,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		return Impersonation.examine(user)
 	return ..()
 
-/obj/effect/overlay/holo_pad_hologram/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, list/message_mods = list(), forced = FALSE)
-	if(HC && HC.spoofed)
-		spans |= "bold"
-		spans |= "danger"
-	return ..(message, bubble_type, spans, sanitize, language, message_mods, forced)
+// The custom say() override has been removed – we now handle spans directly in Hear()
 
 /obj/effect/overlay/holoray
 	name = "holoray"
