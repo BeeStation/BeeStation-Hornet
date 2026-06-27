@@ -66,7 +66,7 @@
 	QDEL_NULL(radio)
 	QDEL_NULL(countdown)
 	if(connected)
-		connected.DetachCloner(src)
+		connected.detach_clonepod(src)
 	QDEL_LIST(unattached_flesh)
 	. = ..()
 
@@ -416,8 +416,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 		to_chat(user, "<font color = #666633>-% Successfully linked [buffer] with [src] %-</font color>")
 		var/obj/machinery/computer/cloning/comp = buffer
 		if(connected)
-			connected.DetachCloner(src)
-		comp.AttachCloner(src)
+			connected.detach_clonepod(src)
+		comp.attach_clonepod(src)
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
 	else

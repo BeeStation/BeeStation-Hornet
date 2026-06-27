@@ -640,29 +640,19 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 	if(initator.dir + 2 == target.dir || initator.dir - 2 == target.dir || initator.dir + 6 == target.dir || initator.dir - 6 == target.dir) //Initating mob is looking at the target, while the target mob is looking in a direction perpendicular to the 1st
 		return FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
 
-///Returns the occupant mob or brain from a specified input
-/proc/get_mob_or_brainmob(target)
-	if(isliving(target))
-		return target
-
-	else if(istype(target, /obj/item/bodypart/head))
-		var/obj/item/bodypart/head/head = target
-		return head.brainmob
-
-	else if(istype(target, /obj/item/organ/brain))
-		var/obj/item/organ/brain/brain = target
-		return brain.brainmob
-
-// get_mob_or_brainmob() is miserable to use when you need to care condition logics carefully...
 /// Returns the brainmob from a thing
-/proc/get_brainmob(target)
-	if(istype(target, /obj/item/bodypart/head))
-		var/obj/item/bodypart/head/head = target
+/proc/get_brainmob(obj/target_item, finds_mmi = FALSE)
+	if(istype(target_item, /obj/item/bodypart/head))
+		var/obj/item/bodypart/head/head = target_item
 		return head.brainmob
 
-	else if(istype(target, /obj/item/organ/brain))
-		var/obj/item/organ/brain/brain = target
+	else if(istype(target_item, /obj/item/organ/brain))
+		var/obj/item/organ/brain/brain = target_item
 		return brain.brainmob
+
+	else if(finds_mmi && istype(target_item, /obj/item/mmi))
+		var/obj/item/mmi/mmi = target_item
+		return mmi.brainmob
 
 ///Returns the amount of currently living players
 /proc/living_player_count()
