@@ -19,10 +19,16 @@
 	var/message_cooldown = 0
 	var/nanite_coeff = 1
 	var/speed_coeff = 1
+	var/datum/techweb/assigned_techweb
 
 /obj/machinery/public_nanite_chamber/Initialize(mapload)
 	. = ..()
 	occupant_typecache = GLOB.typecache_living
+
+/obj/machinery/public_nanite_chamber/LateInitialize()
+	. = ..()
+	if(!assigned_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(assigned_techweb, src)
 
 /obj/machinery/public_nanite_chamber/RefreshParts()
 	nanite_coeff = 0
@@ -59,6 +65,12 @@
 	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_falling"), max(60 * speed_coeff, 25))
 	addtimer(CALLBACK(src, PROC_REF(complete_injection), locked_state, attacker), max(80 * speed_coeff, 30))
 
+/obj/machinery/public_nanite_chamber/examine(mob/user)
+	. = ..()
+	if(in_range(user, src) || isobserver(user))
+		. += span_notice("A <b>Multitool</b> can be used to change the research server")
+		. += span_notice("Active research destination: <b>[assigned_techweb.id]</b>.")
+
 /obj/machinery/public_nanite_chamber/proc/complete_injection(locked_state, mob/living/attacker)
 	//TODO MACHINE DING
 	locked = locked_state
@@ -68,7 +80,7 @@
 	if(attacker)
 		occupant.investigate_log("was injected with nanites by [key_name(attacker)] using [src] at [AREACOORD(src)].", INVESTIGATE_NANITES)
 		log_combat(attacker, occupant, "injected", null, "with nanites via [src]")
-	occupant.AddComponent(/datum/component/nanites, 75 * nanite_coeff, cloud_id)
+	occupant.AddComponent(/datum/component/nanites, 75 * nanite_coeff, cloud_id, assigned_techweb)
 
 /obj/machinery/public_nanite_chamber/proc/change_cloud(mob/living/attacker)
 	if(machine_stat & (NOPOWER|BROKEN))
@@ -213,3 +225,11 @@
 	if(close_machine(target, user))
 		log_combat(user, target, "inserted", null, "into [src].")
 	add_fingerprint(user)
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/public_nanite_chamber)
+DEFINE_BUFFER_HANDLER(/obj/machinery/public_nanite_chamber)
+	if(istype(buffer, /datum/techweb))
+		balloon_alert(user, "Server assigned to public nanite chamber.")
+		assigned_techweb = buffer
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE
