@@ -117,14 +117,16 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define BLOCK_SUICIDE (1<<8)
 /// Can the Xenobio management console transverse this area by default?
 #define XENOBIOLOGY_COMPATIBLE (1<<9)
+/// This area shouldn't do xenobiology at all
+#define XENOBIOLOGY_SUPER_INCOMPATIBLE (1<<10)
 /// If blood cultists can draw runes or build structures on this AREA.
-#define CULT_PERMITTED (1<<10)
+#define CULT_PERMITTED (1<<11)
 /// Are hidden stashes allowed to spawn here?
-#define HIDDEN_STASH_LOCATION (1<<11)
+#define HIDDEN_STASH_LOCATION (1<<12)
 /// Indicates that this area uses an APC from another location (Skips the unit tests for APCs)
-#define REMOTE_APC (1<<12)
+#define REMOTE_APC (1<<13)
 /// This area is prevented from having gravity (ie. space, nearstation, or outside solars)
-#define NO_GRAVITY (1<<13)
+#define NO_GRAVITY (1<<14)
 /*
 	These defines are used specifically with the atom/pass_flags bitmask
 	the atom/checkpass() proc uses them (tables will call movable atom checkpass(PASSTABLE) for example)

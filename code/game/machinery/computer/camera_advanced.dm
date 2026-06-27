@@ -7,7 +7,7 @@
 	var/lock_override = NONE
 	var/mob/camera/ai_eye/remote/eyeobj
 	var/mob/living/current_user = null
-	var/list/networks = list("ss13")
+	var/list/compatible_camera_networks = list(CAMERA_NETWORK_STATION)
 	var/datum/action/innate/camera_off/off_action = new
 	var/datum/action/innate/camera_jump/jump_action = new
 	///Camera action button to move up a Z level
@@ -33,9 +33,6 @@
 
 /obj/machinery/computer/camera_advanced/Initialize(mapload)
 	. = ..()
-	for(var/i in networks)
-		networks -= i
-		networks += LOWER_TEXT(i)
 	if(lock_override)
 		if(lock_override & CAMERA_LOCK_STATION)
 			z_lock |= SSmapping.levels_by_trait(ZTRAIT_STATION)
@@ -180,18 +177,17 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 		CreateEye()
 
 	if(!eyeobj.eye_initialized)
-		var/turf/camera_location
 		var/turf/myturf = get_turf(src)
+		var/turf/camera_location = myturf
 		if(eyeobj.use_static) // I don't honestly get what this code means. Feel free to nuke....
 			if((!z_lock.len || (myturf.z in z_lock)) && GLOB.cameranet.checkTurfVis(myturf))
 				camera_location = myturf
 			else
-				for(var/obj/machinery/camera/C as anything in GLOB.cameranet.cameras)
-					if(!C.can_use() || z_lock.len && !(C.z in z_lock))
+				for(var/obj/machinery/camera/each_camera as anything in GLOB.cameranet.cameras)
+					if(!each_camera.can_use() || z_lock.len && !(each_camera.z in z_lock))
 						continue
-					var/list/network_overlap = networks & C.network
-					if(network_overlap.len)
-						camera_location = get_turf(C)
+					if(length(compatible_camera_networks & each_camera.network))
+						camera_location = get_turf(each_camera)
 						break
 		else
 			camera_location = myturf
@@ -302,7 +298,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 		return eye_user.client
 	return null
 
-/mob/camera/ai_eye/remote/setLoc(turf/destination, force_update = FALSE)
+/mob/camera/ai_eye/remote/setLoc(destination)
 	if(eye_user)
 		destination = get_turf(destination)
 		if (destination)
@@ -313,7 +309,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 		update_ai_detect_hud()
 
 		if(use_static)
-			GLOB.cameranet.visibility(src, GetViewerClient(), null, use_static)
+			GLOB.cameranet.check_camera_visibility(src, GetViewerClient(), null, use_static)
 
 		if(visible_icon)
 			if(!user_image)
@@ -377,7 +373,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 	var/list/T = list()
 
 	for (var/obj/machinery/camera/netcam in L)
-		var/list/tempnetwork = netcam.network & origin.networks
+		var/list/tempnetwork = netcam.network & origin.compatible_camera_networks
 		if (length(tempnetwork))
 			if(!netcam.c_tag)
 				continue

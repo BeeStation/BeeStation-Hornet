@@ -11,7 +11,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 	reveal_camera_mob = TRUE
-	networks = list("ss13", "abductor")
+	compatible_camera_networks = list(CAMERA_NETWORK_STATION)
 	camera_mob_icon_state = "abductor_camera"
 
 	// Set in 'console.dm'

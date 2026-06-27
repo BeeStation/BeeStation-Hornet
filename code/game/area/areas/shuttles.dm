@@ -19,6 +19,10 @@
 	var/obj/docking_port/mobile/mobile_port
 	area_limited_icon_smoothing = /area/shuttle
 
+/area/shuttle/Initialize(mapload)
+	..()
+	area_flags |= XENOBIOLOGY_SUPER_INCOMPATIBLE // rather than setting every subtype with this flag, this will be easy to manage
+
 /area/shuttle/Destroy()
 	mobile_port = null
 	return ..()
