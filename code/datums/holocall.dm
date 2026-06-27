@@ -182,12 +182,13 @@
 	else
 		answering_holopad.visible_message(span_notice("A holographic image of [user] flickers to life before your eyes!"))
 
+	// Original eye with static turned off (Step 1)
 	eye = new /mob/camera/ai_eye/remote/holo
 	eye.origin = answering_holopad
 	eye.eye_initialized = TRUE
 	eye.eye_user = user
 	eye.name = "Camera Eye ([user.name])"
-	eye.use_static = FALSE    // Caller can actually see without cams
+	eye.use_static = FALSE
 	user.remote_control = eye
 	user.set_mob_eye_to(eye)
 	eye.setLoc(get_turf(answering_holopad))
