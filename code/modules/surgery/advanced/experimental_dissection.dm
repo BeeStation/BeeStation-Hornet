@@ -81,7 +81,7 @@
 	else if(ismonkey(target))
 		cost /= 5
 	else if(isalienroyal(target))
-		cost *= 4
+		cost *= 10
 	else if(isalienadult(target))
 		cost *= 2
 
