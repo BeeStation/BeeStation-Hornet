@@ -221,3 +221,19 @@
   MadmanMartian:
   - tweak: You can now examine solar panels to infer their power multiplier coefficient,
       their maximum output, their glass type, and what tools to use on them
+2026-06-27:
+  Isaacnml:
+  - bugfix: Some RnD nodes aren't fully hidden forever, now they can be researched
+      if it's prerequisites are also researched
+  - bugfix: Nanite Chambers will now give the research to the server they're linked
+      to
+  - rscadd: You can link nanite chambers using a multitool with a server buffer on
+      it, it'll change where nanite research is given to
+  - rscadd: You can examine nanite chambers and it'll tell you what server it's linked
+      to and a hint how you can change that
+  mrmanlikesbt, zxaber, Arkatos1, Tastyfish, ShizCalev, lelandkemble:
+  - rscadd: Added holopad TGUI
+  - rscadd: Heads of staff can now forcibly connect to holopads. Head of staff rooms
+      & AI facilities are immune from this. You can use a multitool on a holopad board
+      to make it immune as well.
+  - bugfix: Fixed holocalls.
