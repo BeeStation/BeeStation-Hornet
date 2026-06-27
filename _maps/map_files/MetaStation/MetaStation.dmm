@@ -1125,8 +1125,10 @@
 /turf/open/floor/iron/white,
 /area/station/science/explab)
 "aAk" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow,
-/turf/closed/wall,
+/turf/open/floor/iron/dark/smooth_large,
 /area/station/security/office)
 "aAm" = (
 /obj/machinery/vending/cigarette,
@@ -3631,9 +3633,6 @@
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
 "bCj" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "bCr" = (
@@ -4573,9 +4572,6 @@
 /obj/item/stock_parts/scanning_module,
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/structure/sign/warning/no_smoking{
-	pixel_x = 30
 	},
 /obj/item/stock_parts/capacitor,
 /obj/item/stock_parts/micro_laser,
@@ -11748,7 +11744,6 @@
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/security/checkpoint/science/research)
 "eya" = (
-/obj/structure/sink/directional/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -37256,13 +37251,16 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "ngk" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
+/obj/machinery/airalarm/directional/east,
+/obj/structure/closet/firecloset,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/iron/white,
 /area/station/science/research)
 "ngx" = (
 /obj/structure/cable/yellow,
@@ -40238,13 +40236,13 @@
 /turf/open/floor/circuit,
 /area/station/ai_monitored/turret_protected/ai)
 "ocZ" = (
-/obj/machinery/shower{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/noslip/white,
+/obj/machinery/camera/directional/west{
+	pixel_y = -23
+	},
+/turf/open/floor/iron/white,
 /area/station/science/research)
 "odf" = (
 /obj/machinery/conveyor_switch/oneway{
@@ -46861,21 +46859,17 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "qpM" = (
-/obj/machinery/power/apc/highcap/ten_k{
-	areastring = "/area/station/science/research";
-	dir = 1;
-	name = "Research Division APC";
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow,
-/obj/machinery/camera/directional/north{
-	c_tag = "Research Division - Airlock"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/sign/warning/no_smoking{
+	pixel_y = 32
+	},
+/obj/structure/sink/directional/south{
+	pixel_y = 5
+	},
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "qpR" = (
@@ -47613,17 +47607,11 @@
 /turf/open/floor/iron,
 /area/station/commons/fitness/recreation)
 "qCl" = (
-/obj/machinery/shower{
-	dir = 8
-	},
 /obj/item/radio/intercom{
 	dir = 8;
 	pixel_y = -28
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/effect/landmark/event_spawn,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "qCy" = (
@@ -50076,10 +50064,10 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/fore)
 "rrr" = (
-/obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "rrv" = (
@@ -53711,9 +53699,6 @@
 /turf/open/floor/plating/airless,
 /area/station/maintenance/starboard/aft)
 "sIO" = (
-/obj/structure/sign/warning/no_smoking{
-	pixel_y = 32
-	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Research Division Hallway - Central"
 	},
@@ -54453,7 +54438,14 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/iron,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/iron/white,
 /area/station/science/research)
 "sVb" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -60387,13 +60379,14 @@
 /turf/open/floor/plating,
 /area/station/security/execution/education)
 "uRm" = (
-/obj/machinery/light{
+/obj/effect/turf_decal/delivery,
+/obj/machinery/shower/directional/west{
+	pixel_x = 1
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/closet/firecloset,
-/obj/machinery/airalarm/directional/east,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/iron,
+/turf/open/floor/noslip/white,
 /area/station/science/research)
 "uRr" = (
 /obj/structure/lattice/catwalk,
@@ -61738,6 +61731,7 @@
 /obj/effect/mapping_helpers/airlock/access/any/security/general,
 /obj/effect/mapping_helpers/airlock/access/any/security/detective,
 /obj/machinery/door/firedoor,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/office)
 "vqo" = (
@@ -63866,13 +63860,12 @@
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "wfi" = (
-/obj/machinery/shower{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/open/floor/noslip/white,
+/obj/machinery/power/apc/auto_name/directional/west,
+/obj/structure/cable/yellow,
+/turf/open/floor/iron/white,
 /area/station/science/research)
 "wfx" = (
 /obj/structure/extinguisher_cabinet{
@@ -66249,6 +66242,10 @@
 "wVA" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 9
+	},
+/obj/machinery/camera/directional/north{
+	c_tag = "Xenobiology Lab - Fore";
+	pixel_x = 22
 	},
 /turf/open/floor/iron/white,
 /area/station/science/xenobiology)
@@ -101159,7 +101156,7 @@ mve
 trL
 iyo
 vzr
-eov
+vzr
 eov
 xTG
 tZG
@@ -101416,7 +101413,7 @@ lFw
 wwU
 gPg
 tEy
-eov
+vzr
 eEL
 egs
 leR
@@ -101673,7 +101670,7 @@ jub
 xfv
 gDj
 lic
-eov
+vzr
 ycn
 xKC
 eEW
@@ -101843,7 +101840,7 @@ iER
 feE
 vuT
 tvQ
-sOF
+aAk
 skm
 wfe
 wfe
@@ -101930,7 +101927,7 @@ pAe
 ppQ
 jAo
 ffI
-eov
+vzr
 nnu
 xKC
 eEW
@@ -102099,7 +102096,7 @@ iER
 wfe
 wfe
 hZN
-aAk
+wfe
 vqk
 wfe
 wfe
@@ -102187,7 +102184,7 @@ tIH
 qKQ
 nFk
 xnb
-eov
+vzr
 dpR
 ige
 eEW
@@ -102444,7 +102441,7 @@ nZw
 nnv
 wJt
 mnc
-eov
+vzr
 crW
 iwa
 cKC
@@ -102701,7 +102698,7 @@ hOr
 qXO
 iCg
 yeD
-eov
+vzr
 cZG
 mvE
 reU
