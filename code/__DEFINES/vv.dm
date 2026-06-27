@@ -35,7 +35,7 @@
 #define VV_BIG_SIZED_LIST_THRESHOLD 50
 
 //#define IS_VALID_ASSOC_KEY(V) (istext(V) || ispath(V) || isdatum(V) || islist(V))
-#define IS_VALID_ASSOC_KEY(V) (!isnum_safe(V))		//hhmmm..
+#define IS_VALID_ASSOC_KEY(V) (!IS_FINITE(V))		//hhmmm..
 
 //General helpers
 #define VV_HREF_TARGET_INTERNAL(target, href_key) "?_src_=vars;[HrefToken()];[href_key]=TRUE;[VV_HK_TARGET]=[REF(target)]"

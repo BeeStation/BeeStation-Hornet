@@ -50,7 +50,7 @@ Notes:
 
 
 /datum/tooltip/proc/show(atom/movable/thing, params = null, title = null, content = null, theme = "default", special = "none")
-	if (!thing || !params || (!title && !content) || !owner || !isnum_safe(ICON_SIZE_ALL))
+	if (!thing || !params || (!title && !content) || !owner || !IS_FINITE(ICON_SIZE_ALL))
 		return 0
 	if (!init)
 		//Initialize some vars

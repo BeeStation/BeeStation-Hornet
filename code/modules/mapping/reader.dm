@@ -960,7 +960,7 @@ GLOBAL_LIST_EMPTY(map_model_default)
 		if(!left_constant) // damn newlines man. Exists to provide behavior consistency with the above loop. not a major cost becuase this path is cold
 			continue
 
-		if(equal_position && !isnum_safe(left_constant))
+		if(equal_position && !IS_FINITE(left_constant))
 			// Associative var, so do the association.
 			// Note that numbers cannot be keys - the RHS is dropped if so.
 			var/trim_right = TRIM_TEXT(copytext(text, equal_position + length(text[equal_position]), position))
@@ -972,7 +972,7 @@ GLOBAL_LIST_EMPTY(map_model_default)
 /datum/parsed_map/proc/parse_constant(text)
 	// number
 	var/num = text2num(text)
-	if(isnum_safe(num))
+	if(IS_FINITE(num))
 		return num
 
 	// string

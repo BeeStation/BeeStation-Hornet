@@ -304,9 +304,6 @@ GLOBAL_LIST_INIT(book_types, typecacheof(list(
 
 #define isProbablyWallMounted(O) (O.pixel_x > 20 || O.pixel_x < -20 || O.pixel_y > 20 || O.pixel_y < -20)
 
-/// NaN isn't a number, damn it. Infinity is a problem too.
-#define isnum_safe(x) IS_FINITE(x)
-
 #define iscash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash) || istype(A, /obj/item/holochip))
 
 // Jobs

@@ -204,7 +204,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "ears", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")
 		for(var/slot in slots)
 			var/T = vars[slot]
-			if(!isnum_safe(T))
+			if(!IS_FINITE(T))
 				outfit.vars[slot] = T
 		H.equipOutfit(outfit)
 		if(disable_pda)
