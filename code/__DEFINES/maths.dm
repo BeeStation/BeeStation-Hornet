@@ -1,12 +1,5 @@
-// Remove these once we have Byond implementation.
-#define ISNAN(a) (a!=a)
-#define ISINF(a) (!ISNAN(a) && ISNAN(a-a))
-#define IS_INF_OR_NAN(a) (ISNAN(a-a))
-
-#define IS_FINITE__UNSAFE(a) (a-a==a-a)
+#define IS_FINITE__UNSAFE(a) (!isinf(a) && !isnan(a))
 #define IS_FINITE(a) (isnum(a) && IS_FINITE__UNSAFE(a))
-
-// Aight dont remove the rest
 
 // Credits to Nickr5 for the useful procs I've taken from his library resource.
 // This file is quadruple wrapped for your pleasure
@@ -16,7 +9,6 @@
 
 #define PI 3.1416
 #define INFINITY 1e31	//closer then enough
-#define SYSTEM_TYPE_INFINITY 1.#INF //only for isinf check
 
 #define SHORT_REAL_LIMIT 16777216
 
@@ -107,7 +99,7 @@
 	. = list()
 	var/d		= b*b - 4 * a * c
 	var/bottom  = 2 * a
-	if(d < 0 || IS_INF_OR_NAN(d) || IS_INF_OR_NAN(bottom))
+	if(d < 0 || !IS_FINITE__UNSAFE(d) || !IS_FINITE__UNSAFE(bottom))
 		return
 	var/root = sqrt(d)
 	. += (-b + root) / bottom
