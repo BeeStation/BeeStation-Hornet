@@ -30,6 +30,12 @@
 	///calls from a head of staff autoconnect, if the receiving pad is not secure.
 	var/head_call = FALSE
 
+	// Spoofing vars
+	var/spoofed = FALSE
+	var/spoofed_caller_name
+	var/spoofed_location_name
+	var/notified = FALSE  // prevents ring message spam
+
 //creates a holocall made by `call_source` from `calling_pad` to `callees`
 /datum/holocall/New(mob/living/call_source, obj/machinery/holopad/calling_pad, list/callees, elevated_access = FALSE)
 	call_start_time = world.time
@@ -38,6 +44,15 @@
 	calling_holopad = calling_pad
 	head_call = elevated_access
 	dialed_holopads = list()
+
+	if(calling_pad.emagged)
+		spoofed = TRUE
+		spoofed_caller_name = "Unknown"
+		spoofed_location_name = "Unknown Location"
+	else
+		spoofed = FALSE
+		spoofed_caller_name = null
+		spoofed_location_name = null
 
 	var/auto_connect_failed = FALSE
 	for(var/obj/machinery/holopad/connected_holopad as anything in callees)
@@ -100,11 +115,12 @@
 /datum/holocall/proc/Disconnect(obj/machinery/holopad/H)
 	testing("Holocall disconnect")
 	if(H == connected_holopad)
-		var/area/A = get_area(connected_holopad)
-		calling_holopad.say("[A] holopad disconnected.")
+		var/loc_name = spoofed ? "Unknown Location" : get_area_name(H)
+		calling_holopad.say("[loc_name] holopad disconnected.")
+		H.SetLightsAndPower()
 	else if(H == calling_holopad && connected_holopad)
 		connected_holopad.say("[user] disconnected.")
-
+		H.SetLightsAndPower()
 	ConnectionFailure(H, TRUE)
 
 //Forcefully disconnects disconnected_holopad from a call. Pads not in the call are ignored.
@@ -126,7 +142,7 @@
 		qdel(src)
 
 ///Answers a call made to answering_holopad which cannot be the calling holopad. Pads not in the call are ignored
-/datum/holocall/proc/Answer(obj/machinery/holopad/answering_holopad)
+/datum/holocall/proc/Answer(obj/machinery/holopad/answering_holopad, mob/answerer_mob = null)
 	testing("Holocall answer")
 	if(answering_holopad == calling_holopad)
 		CRASH("How cute, a holopad tried to answer itself.")
@@ -155,12 +171,23 @@
 	hologram = answering_holopad.activate_holo(user)
 	hologram.HC = src
 
-	//eyeobj code is horrid, this is the best copypasta I could make
-	eye = new
+	// Spoofed hologram handling
+	if(spoofed)
+		hologram.name = "[spoofed_caller_name] (Hologram)"
+		hologram.add_atom_colour("#ff3333", FIXED_COLOUR_PRIORITY)
+		answering_holopad.visible_message(span_danger("The holopad whirrs violently as it begins to manifest a distorted figure!"))
+		var/obj/effect/overlay/holoray/ray = answering_holopad.holorays[user]
+		if(ray)
+			ray.add_atom_colour("#ff0000", FIXED_COLOUR_PRIORITY)
+	else
+		answering_holopad.visible_message(span_notice("A holographic image of [user] flickers to life before your eyes!"))
+
+	eye = new /mob/camera/ai_eye/remote/holo
 	eye.origin = answering_holopad
 	eye.eye_initialized = TRUE
 	eye.eye_user = user
 	eye.name = "Camera Eye ([user.name])"
+	eye.use_static = FALSE    // Caller can actually see without cams
 	user.remote_control = eye
 	user.set_mob_eye_to(eye)
 	eye.setLoc(get_turf(answering_holopad))
@@ -168,7 +195,9 @@
 	hangup = new(eye, src)
 	hangup.Grant(user)
 	playsound(answering_holopad, 'sound/machines/ping.ogg', 100)
-	answering_holopad.say("Connection established.")
+	var/loc_name = spoofed ? "Unknown Location" : get_area_name(answering_holopad)
+	answering_holopad.say("Connection established with [loc_name].")
+	answering_holopad.SetLightsAndPower()
 
 //Checks the validity of a holocall and qdels itself if it's not. Returns TRUE if valid, FALSE otherwise
 /datum/holocall/proc/Check()
