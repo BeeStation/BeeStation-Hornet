@@ -378,9 +378,9 @@
 
 /obj/item/organ/cyberimp/arm/surgery/on_emag(mob/user)
 	..()
-	to_chat(user, span_notice("You unlock [src]'s integrated combat knife!"))
+	to_chat(user, span_notice("You unlock [src] integrated combat knife!"))
 	var/obj/item/knife/combat/cyborg/knife = new(src)
-	items_list += WEAKREF(knife)
+	items_list.Insert(1, WEAKREF(knife))
 
 /obj/item/organ/cyberimp/arm/power_cord
 	name = "power cord implant"
