@@ -182,7 +182,6 @@
 	else
 		answering_holopad.visible_message(span_notice("A holographic image of [user] flickers to life before your eyes!"))
 
-	// Original eye with static turned off (Step 1)
 	eye = new /mob/camera/ai_eye/remote/holo
 	eye.origin = answering_holopad
 	eye.eye_initialized = TRUE
