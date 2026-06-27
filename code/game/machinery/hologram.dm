@@ -265,8 +265,9 @@ Possible to do for anyone motivated enough:
 	if(gone == disk)
 		disk = null
 
-// Emag interaction
+// Emag interaction – now calls parent
 /obj/machinery/holopad/on_emag(mob/user)
+	. = ..()
 	if(!is_operational)
 		to_chat(user, span_warning("[src] is not operational."))
 		return
@@ -612,7 +613,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 				calling_mob.Hear(speaker, message_language, raw_message, radio_freq, spans, message_mods, message_range = INFINITY)
 
 	if(outgoing_call && speaker == outgoing_call.user)
-		outgoing_call.hologram.say(raw_message, spans = spans, sanitize = FALSE, language = message_language, message_mods = message_mods)
+		// Fix: use positional arguments to avoid keyword confusion
+		outgoing_call.hologram.say(raw_message, null, spans, FALSE, message_language, message_mods)
 
 	if(record_mode && speaker == record_user)
 		record_message(speaker, raw_message, message_language)
