@@ -91,6 +91,11 @@ Possible to do for anyone motivated enough:
 	/// Bitfield. used to turn on and off hearing sensitivity depending on if we can act on Hear() at all - meant for lowering the number of unessesary hearable atoms
 	var/can_hear_flags = NONE
 
+	// Spoofing vars
+	var/emagged = FALSE
+	var/spoofed_caller_name = "Unknown"
+	var/spoofed_location_name = "Unknown Location"
+
 /datum/armor/machinery_holopad
 	melee = 50
 	bullet = 20
@@ -260,6 +265,25 @@ Possible to do for anyone motivated enough:
 	if(gone == disk)
 		disk = null
 
+// Emag interaction
+/obj/machinery/holopad/on_emag(mob/user)
+	if(!is_operational)
+		to_chat(user, span_warning("[src] is not operational."))
+		return
+	if(emagged)
+		emagged = FALSE
+		spoofed_caller_name = initial(spoofed_caller_name)
+		spoofed_location_name = initial(spoofed_location_name)
+		to_chat(user, span_notice("You reset the holopad's security override. The systems return to normal."))
+		visible_message(span_notice("[src]'s indicator lights flicker and return to a steady blue."))
+	else
+		emagged = TRUE
+		spoofed_caller_name = "Unknown"
+		spoofed_location_name = "Unknown Location"
+		to_chat(user, span_danger("You override the holopad's identity systems. It will now project false caller information."))
+		playsound(src, "sparks", 75, 1, -1)
+	return TRUE
+
 /obj/machinery/holopad/ui_status(mob/user, datum/ui_state/state)
 	if(!is_operational)
 		return UI_CLOSE
@@ -286,8 +310,13 @@ Possible to do for anyone motivated enough:
 	data["record_mode"] = record_mode
 	data["holo_calls"] = list()
 	for(var/datum/holocall/HC as anything in holo_calls)
+		var/caller_name_display
+		if(HC.spoofed)
+			caller_name_display = HC.spoofed_caller_name || "Unknown"
+		else
+			caller_name_display = HC.user ? HC.user.name : "Unknown"
 		var/list/call_data = list(
-			"caller" = HC.user,
+			"caller" = caller_name_display,
 			"connected" = (HC.connected_holopad == src),
 			"ref" = REF(HC)
 		)
@@ -500,6 +529,7 @@ Possible to do for anyone motivated enough:
 		if(holocall.connected_holopad == src)
 			continue
 
+		var/caller_loc = holocall.spoofed ? "Unknown Location" : get_area_name(holocall.calling_holopad)
 		if(force_answer_call && world.time > (holocall.call_start_time + (HOLOPAD_MAX_DIAL_TIME / 2)))
 			holocall.Answer(src)
 			break
@@ -510,6 +540,12 @@ Possible to do for anyone motivated enough:
 			holocall.Disconnect(src)//can't answer calls while calling
 		else
 			playsound(src, 'sound/machines/twobeep.ogg', 100) //bring, bring!
+			if(!holocall.notified)
+				if(holocall.spoofed)
+					visible_message(span_danger("[src] rings ominously with a distorted tone, indicating a call from [caller_loc]."))
+				else
+					visible_message(span_notice("[src] rings, indicating an incoming call from [caller_loc]."))
+				holocall.notified = TRUE
 			are_ringing = TRUE
 
 	if(ringing != are_ringing)
@@ -570,7 +606,10 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 			if(speaker == holocall_to_update.hologram && holocall_to_update.user.client?.prefs.read_preference(/datum/preference/toggle/enable_runechat))
 				create_chat_message(speaker, message_language, list(holocall_to_update.user), raw_message, spans, message_mods)
 			else
-				holocall_to_update.user.Hear(speaker, message_language, raw_message, radio_freq, spans, message_mods, message_range = INFINITY)
+				var/mob/calling_mob = holocall_to_update.user
+				if(calling_mob.client && calling_mob.client.prefs.read_preference(/datum/preference/toggle/enable_runechat))
+					create_chat_message(speaker, message_language, list(calling_mob), raw_message, spans, message_mods)
+				calling_mob.Hear(speaker, message_language, raw_message, radio_freq, spans, message_mods, message_range = INFINITY)
 
 	if(outgoing_call && speaker == outgoing_call.user)
 		outgoing_call.hologram.say(raw_message, spans = spans, sanitize = FALSE, language = message_language, message_mods = message_mods)
@@ -593,6 +632,14 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		icon_state = "[base_icon_state]_open"
 		return ..()
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
+	var/has_spoofed_call = FALSE
+	for(var/datum/holocall/HC in holo_calls)
+		if(HC.spoofed && HC.connected_holopad == src)
+			has_spoofed_call = TRUE
+			break
+	if(has_spoofed_call)
+		icon_state = "holopad2"
+		return ..()
 	if(ringing)
 		icon_state = "[base_icon_state]_ringing"
 		return ..()
@@ -604,7 +651,9 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/holopad/proc/set_holo(datum/owner, obj/effect/overlay/holo_pad_hologram/h)
 	LAZYSET(masters, owner, h)
-	LAZYSET(holorays, owner, new /obj/effect/overlay/holoray(loc))
+	// Create the holoray (default blue)
+	var/obj/effect/overlay/holoray/ray = new(loc)
+	LAZYSET(holorays, owner, ray)
 	set_can_hear_flags(CAN_HEAR_MASTERS)
 	var/mob/living/silicon/ai/AI = owner
 	if(istype(AI))
@@ -715,6 +764,11 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		animate(ray, transform = turn(M.Scale(1,sqrt(distx*distx+disty*disty)),newangle),time = 1)
 	else
 		ray.transform = turn(M.Scale(1,sqrt(distx*distx+disty*disty)),newangle)
+
+	if(holo && holo.HC && holo.HC.spoofed)
+		ray.add_atom_colour("#ff0000", FIXED_COLOUR_PRIORITY)
+	else
+		ray.remove_atom_colour(FIXED_COLOUR_PRIORITY)
 
 // RECORDED MESSAGES
 
@@ -866,6 +920,12 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	if(Impersonation)
 		return Impersonation.examine(user)
 	return ..()
+
+/obj/effect/overlay/holo_pad_hologram/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, list/message_mods = list(), forced = FALSE)
+	if(HC && HC.spoofed)
+		spans |= "bold"
+		spans |= "danger"
+	return ..(message, bubble_type, spans, sanitize, language, message_mods, forced)
 
 /obj/effect/overlay/holoray
 	name = "holoray"
