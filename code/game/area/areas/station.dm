@@ -275,7 +275,7 @@
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
 	lighting_brightness_tube = 8
-	area_flags = /area/station::area_flags | XENOBIOLOGY_SUPER_INCOMPATIBLE
+	area_flags = parent_type::area_flags | XENOBIOLOGY_SUPER_INCOMPATIBLE
 
 /area/station/hallway/get_area_textures()
 	return GLOB.turf_texture_hallway
