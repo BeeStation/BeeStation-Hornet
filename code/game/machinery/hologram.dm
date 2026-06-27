@@ -265,7 +265,7 @@ Possible to do for anyone motivated enough:
 	if(gone == disk)
 		disk = null
 
-// Emag interaction – now calls parent
+// emag stuff 
 /obj/machinery/holopad/on_emag(mob/user)
 	. = ..()
 	if(!is_operational)
@@ -926,8 +926,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	if(Impersonation)
 		return Impersonation.examine(user)
 	return ..()
-
-// The custom say() override has been removed – we now handle spans directly in Hear()
 
 /obj/effect/overlay/holoray
 	name = "holoray"
