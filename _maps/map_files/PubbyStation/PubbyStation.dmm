@@ -1738,6 +1738,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating/dark/corner{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/office)
 "aCT" = (
@@ -1899,7 +1905,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/machinery/holopad,
+/obj/machinery/holopad/secure,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow,
@@ -3325,6 +3331,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/quartermaster,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/techmaint,
 /area/station/cargo/qm)
 "bcB" = (
@@ -6103,11 +6110,9 @@
 /obj/structure/closet{
 	name = "Evidence Closet"
 	},
+/obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/edges{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges{
-	dir = 8
+	dir = 9
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/office)
@@ -8808,7 +8813,7 @@
 /turf/open/floor/iron/techmaint,
 /area/station/security/courtroom)
 "das" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad/secure,
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/ai_monitored/security/armory)
@@ -14931,6 +14936,9 @@
 /obj/machinery/camera/directional/east{
 	c_tag = "Brig - Evidence Room"
 	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/office)
 "fnF" = (
@@ -16021,6 +16029,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating/dark,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/office)
 "fGg" = (
@@ -17818,9 +17830,9 @@
 /area/station/service/chapel/asteroid/monastery)
 "gkR" = (
 /obj/structure/closet/secure_closet/evidence,
-/obj/effect/turf_decal/edges,
+/obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/edges{
-	dir = 4
+	dir = 6
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/office)
@@ -19042,11 +19054,9 @@
 /obj/structure/closet{
 	name = "Evidence Closet"
 	},
+/obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/edges{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges{
-	dir = 4
+	dir = 5
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/office)
@@ -20856,19 +20866,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
-"hrO" = (
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 8
-	},
-/obj/effect/turf_decal/trimline/dark_red/filled/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_mid/red{
-	dir = 4
-	},
-/obj/structure/reagent_dispensers/water_cooler,
-/turf/open/floor/iron/dark/smooth_large,
-/area/station/security/brig)
 "hrQ" = (
 /turf/closed/wall,
 /area/station/command/bridge)
@@ -20978,8 +20975,9 @@
 /obj/structure/closet{
 	name = "Evidence Closet"
 	},
-/obj/effect/turf_decal/edges,
 /obj/machinery/light_switch/directional/north,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/edges,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/office)
 "hvt" = (
@@ -23201,6 +23199,12 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/office)
 "ilC" = (
@@ -23731,7 +23735,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/fore/greater)
 "ivg" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad/secure,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -26283,6 +26287,9 @@
 /obj/structure/cable/yellow,
 /obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /obj/effect/mapping_helpers/airlock/access/any/security/detective,
+/obj/effect/turf_decal/siding/thinplating/dark/corner{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/office)
 "jtj" = (
@@ -26847,11 +26854,9 @@
 /area/station/science/misc_lab)
 "jHg" = (
 /obj/structure/closet/secure_closet/evidence,
+/obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/edges{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges{
-	dir = 4
+	dir = 5
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/office)
@@ -27410,22 +27415,6 @@
 /obj/item/hand_tele,
 /turf/open/floor/carpet,
 /area/station/command/heads_quarters/captain)
-"jRh" = (
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 4
-	},
-/obj/effect/turf_decal/trimline/dark_red/filled/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_mid/red{
-	dir = 8
-	},
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/ash,
-/turf/open/floor/iron/dark/smooth_large,
-/area/station/security/brig)
 "jRk" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -27589,7 +27578,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
-/obj/machinery/holopad{
+/obj/machinery/holopad/secure{
 	pixel_x = 16
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -29653,10 +29642,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/construction/mining/aux_base)
-"kDP" = (
-/obj/structure/reagent_dispensers/fueltank,
-/turf/open/floor/plating,
-/area/station/maintenance/central/lesser)
 "kDQ" = (
 /obj/effect/landmark/xeno_spawn,
 /obj/structure/cable/yellow,
@@ -31619,9 +31604,9 @@
 	name = "Evidence Closet"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/edges,
+/obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/edges{
-	dir = 8
+	dir = 10
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/office)
@@ -32755,6 +32740,7 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/box/evidence,
 /obj/item/hand_labeler,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/office)
 "lKT" = (
@@ -33877,7 +33863,7 @@
 /obj/effect/landmark/start/head_of_security,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/holopad,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/heads_quarters/hos)
 "mkm" = (
@@ -36748,7 +36734,7 @@
 /turf/open/floor/iron/dark,
 /area/station/service/bar/lounge)
 "noc" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad/secure,
 /mob/living/simple_animal/bot/secbot/pingsky,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -41011,6 +40997,12 @@
 	dir = 1;
 	light_color = "#c1caff"
 	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/office)
 "pik" = (
@@ -42393,7 +42385,7 @@
 "pLU" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/effect/turf_decal/siding/wood/corner,
-/obj/machinery/holopad,
+/obj/machinery/holopad/secure,
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron/dark/textured,
 /area/station/command/heads_quarters/hop)
@@ -44628,6 +44620,22 @@
 	icon_state = "carpetsymbol"
 	},
 /area/station/service/bar/lounge)
+"qDz" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/dark_red/filled/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_mid/red{
+	dir = 8
+	},
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/ash,
+/turf/open/floor/iron/dark/smooth_large,
+/area/station/security/brig)
 "qDZ" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "Skynet_launch";
@@ -53638,6 +53646,19 @@
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/station/maintenance/port/lesser)
+"ucw" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/dark_red/filled/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_mid/red{
+	dir = 4
+	},
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/open/floor/iron/dark/smooth_large,
+/area/station/security/brig)
 "ucx" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "qm_warehouse";
@@ -53825,6 +53846,53 @@
 "ufF" = (
 /turf/closed/wall,
 /area/station/engineering/atmos)
+"ufS" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/dark_red/filled/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_mid/red{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/paper{
+	default_raw_text = "<center><b>RADIO 10-CODES</b></center><br>10-03   Cease radio chatter.<br>10-04   Acknowledgement (OK).<br>10-07   Out of service (unavailable).<br>10-08   Back in service.<br>10-10   Fight in progress.<br>10-13   Officer down, EMERGENCY!<br>10-14   Officer down, non‑emergency.<br>10-16   Rogue silicon, AI unit.<br>10-17   Rogue silicon, cyborg.<br>10-20   Location.<br>10-23   Arrived at scene.<br>10-25   Report in Person/Rendezvous.<br>10-27   Individual with a warrant.<br>10-30   Airborne Hazards.<br>10-31   Crime in progress.<br>10-32   Person with a Gun.<br>10-33   High danger Target.<br>10-35   Hostile Non‑humanoid.<br>10-38   Stop & Frisk.<br>10-41   On duty.<br>10-42   Off‑duty.<br>10-45   Crime reported in radio.<br>10-47   Injured personnel.<br>10-50   Hull breach.<br>10-52   Emergency Medical Services required.<br>10-60   Explosives Detected.<br>10-71   Shots fired.<br>10-76   Enroute/moving to.<br>10-77   Need back up.<br>10-78   Need back up EMERGENCY!<br>10-80   Pursuit in progress.<br>10-90   Robbery/B&E in progress.<br>10-91   Transporting detainee.<br>10-95   Suspect in Custody.<br>10-98   Jail break.<br>";
+	name = "Faded security policy";
+	desc = "An old list of call signs which had long ago lost relevance amongst officers";
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/paper{
+	default_raw_text = "<center><b>RADIO 10-CODES</b></center><br>10-03   Cease radio chatter.<br>10-04   Acknowledgement (OK).<br>10-07   Out of service (unavailable).<br>10-08   Back in service.<br>10-10   Fight in progress.<br>10-13   Officer down, EMERGENCY!<br>10-14   Officer down, non‑emergency.<br>10-16   Rogue silicon, AI unit.<br>10-17   Rogue silicon, cyborg.<br>10-20   Location.<br>10-23   Arrived at scene.<br>10-25   Report in Person/Rendezvous.<br>10-27   Individual with a warrant.<br>10-30   Airborne Hazards.<br>10-31   Crime in progress.<br>10-32   Person with a Gun.<br>10-33   High danger Target.<br>10-35   Hostile Non‑humanoid.<br>10-38   Stop & Frisk.<br>10-41   On duty.<br>10-42   Off‑duty.<br>10-45   Crime reported in radio.<br>10-47   Injured personnel.<br>10-50   Hull breach.<br>10-52   Emergency Medical Services required.<br>10-60   Explosives Detected.<br>10-71   Shots fired.<br>10-76   Enroute/moving to.<br>10-77   Need back up.<br>10-78   Need back up EMERGENCY!<br>10-80   Pursuit in progress.<br>10-90   Robbery/B&E in progress.<br>10-91   Transporting detainee.<br>10-95   Suspect in Custody.<br>10-98   Jail break.<br>";
+	name = "Faded security policy";
+	desc = "An old list of call signs which had long ago lost relevance amongst officers";
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/paper{
+	name = "Faded security policy";
+	desc = "An old list of call signs which had long ago lost relevance amongst officers";
+	pixel_x = 1;
+	pixel_y = 2;
+	default_raw_text = "<center><b>RADIO 10-CODES</b></center><br>10-03   Cease radio chatter.<br>10-04   Acknowledgement (OK).<br>10-07   Out of service (unavailable).<br>10-08   Back in service.<br>10-10   Fight in progress.<br>10-13   Officer down, EMERGENCY!<br>10-14   Officer down, non‑emergency.<br>10-16   Rogue silicon, AI unit.<br>10-17   Rogue silicon, cyborg.<br>10-20   Location.<br>10-23   Arrived at scene.<br>10-25   Report in Person/Rendezvous.<br>10-27   Individual with a warrant.<br>10-30   Airborne Hazards.<br>10-31   Crime in progress.<br>10-32   Person with a Gun.<br>10-33   High danger Target.<br>10-35   Hostile Non‑humanoid.<br>10-38   Stop & Frisk.<br>10-41   On duty.<br>10-42   Off‑duty.<br>10-45   Crime reported in radio.<br>10-47   Injured personnel.<br>10-50   Hull breach.<br>10-52   Emergency Medical Services required.<br>10-60   Explosives Detected.<br>10-71   Shots fired.<br>10-76   Enroute/moving to.<br>10-77   Need back up.<br>10-78   Need back up EMERGENCY!<br>10-80   Pursuit in progress.<br>10-90   Robbery/B&E in progress.<br>10-91   Transporting detainee.<br>10-95   Suspect in Custody.<br>10-98   Jail break.<br>"
+	},
+/obj/item/lighter{
+	pixel_x = -9;
+	pixel_y = 5
+	},
+/obj/item/gavelblock{
+	pixel_x = -7;
+	pixel_y = -4;
+	desc = "This ash tray looks eerily similair to a gavel block... wonder where they got it from";
+	name = "ash tray"
+	},
+/obj/item/cigarette/cigar{
+	pixel_y = 5
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/station/security/brig)
 "ugD" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -54587,6 +54655,16 @@
 	icon_state = "carpetsymbol"
 	},
 /area/station/service/bar/lounge)
+"uwM" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating/dark,
+/turf/open/floor/iron/dark/textured_large,
+/area/station/security/office)
 "uxb" = (
 /turf/open/floor/iron/techmaint,
 /area/station/ai_monitored/turret_protected/ai_upload)
@@ -55680,6 +55758,10 @@
 /area/station/service/bar/lounge)
 "uQl" = (
 /obj/structure/cable/yellow,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating/dark,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/office)
 "uQy" = (
@@ -56754,52 +56836,9 @@
 /turf/open/floor/plating,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "vlv" = (
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 4
-	},
-/obj/effect/turf_decal/trimline/dark_red/filled/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_mid/red{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/item/paper{
-	default_raw_text = "<center><b>RADIO 10-CODES</b></center><br>10-03   Cease radio chatter.<br>10-04   Acknowledgement (OK).<br>10-07   Out of service (unavailable).<br>10-08   Back in service.<br>10-10   Fight in progress.<br>10-13   Officer down, EMERGENCY!<br>10-14   Officer down, non‑emergency.<br>10-16   Rogue silicon, AI unit.<br>10-17   Rogue silicon, cyborg.<br>10-20   Location.<br>10-23   Arrived at scene.<br>10-25   Report in Person/Rendezvous.<br>10-27   Individual with a warrant.<br>10-30   Airborne Hazards.<br>10-31   Crime in progress.<br>10-32   Person with a Gun.<br>10-33   High danger Target.<br>10-35   Hostile Non‑humanoid.<br>10-38   Stop & Frisk.<br>10-41   On duty.<br>10-42   Off‑duty.<br>10-45   Crime reported in radio.<br>10-47   Injured personnel.<br>10-50   Hull breach.<br>10-52   Emergency Medical Services required.<br>10-60   Explosives Detected.<br>10-71   Shots fired.<br>10-76   Enroute/moving to.<br>10-77   Need back up.<br>10-78   Need back up EMERGENCY!<br>10-80   Pursuit in progress.<br>10-90   Robbery/B&E in progress.<br>10-91   Transporting detainee.<br>10-95   Suspect in Custody.<br>10-98   Jail break.<br>";
-	name = "Faded security policy";
-	desc = "An old list of call signs which had long ago lost relevance amongst officers";
-	pixel_x = 6;
-	pixel_y = 4
-	},
-/obj/item/paper{
-	default_raw_text = "<center><b>RADIO 10-CODES</b></center><br>10-03   Cease radio chatter.<br>10-04   Acknowledgement (OK).<br>10-07   Out of service (unavailable).<br>10-08   Back in service.<br>10-10   Fight in progress.<br>10-13   Officer down, EMERGENCY!<br>10-14   Officer down, non‑emergency.<br>10-16   Rogue silicon, AI unit.<br>10-17   Rogue silicon, cyborg.<br>10-20   Location.<br>10-23   Arrived at scene.<br>10-25   Report in Person/Rendezvous.<br>10-27   Individual with a warrant.<br>10-30   Airborne Hazards.<br>10-31   Crime in progress.<br>10-32   Person with a Gun.<br>10-33   High danger Target.<br>10-35   Hostile Non‑humanoid.<br>10-38   Stop & Frisk.<br>10-41   On duty.<br>10-42   Off‑duty.<br>10-45   Crime reported in radio.<br>10-47   Injured personnel.<br>10-50   Hull breach.<br>10-52   Emergency Medical Services required.<br>10-60   Explosives Detected.<br>10-71   Shots fired.<br>10-76   Enroute/moving to.<br>10-77   Need back up.<br>10-78   Need back up EMERGENCY!<br>10-80   Pursuit in progress.<br>10-90   Robbery/B&E in progress.<br>10-91   Transporting detainee.<br>10-95   Suspect in Custody.<br>10-98   Jail break.<br>";
-	name = "Faded security policy";
-	desc = "An old list of call signs which had long ago lost relevance amongst officers";
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/item/paper{
-	name = "Faded security policy";
-	desc = "An old list of call signs which had long ago lost relevance amongst officers";
-	pixel_x = 1;
-	pixel_y = 2;
-	default_raw_text = "<center><b>RADIO 10-CODES</b></center><br>10-03   Cease radio chatter.<br>10-04   Acknowledgement (OK).<br>10-07   Out of service (unavailable).<br>10-08   Back in service.<br>10-10   Fight in progress.<br>10-13   Officer down, EMERGENCY!<br>10-14   Officer down, non‑emergency.<br>10-16   Rogue silicon, AI unit.<br>10-17   Rogue silicon, cyborg.<br>10-20   Location.<br>10-23   Arrived at scene.<br>10-25   Report in Person/Rendezvous.<br>10-27   Individual with a warrant.<br>10-30   Airborne Hazards.<br>10-31   Crime in progress.<br>10-32   Person with a Gun.<br>10-33   High danger Target.<br>10-35   Hostile Non‑humanoid.<br>10-38   Stop & Frisk.<br>10-41   On duty.<br>10-42   Off‑duty.<br>10-45   Crime reported in radio.<br>10-47   Injured personnel.<br>10-50   Hull breach.<br>10-52   Emergency Medical Services required.<br>10-60   Explosives Detected.<br>10-71   Shots fired.<br>10-76   Enroute/moving to.<br>10-77   Need back up.<br>10-78   Need back up EMERGENCY!<br>10-80   Pursuit in progress.<br>10-90   Robbery/B&E in progress.<br>10-91   Transporting detainee.<br>10-95   Suspect in Custody.<br>10-98   Jail break.<br>"
-	},
-/obj/item/lighter{
-	pixel_x = -9;
-	pixel_y = 5
-	},
-/obj/item/gavelblock{
-	pixel_x = -7;
-	pixel_y = -4;
-	desc = "This ash tray looks eerily similair to a gavel block... wonder where they got it from";
-	name = "ash tray"
-	},
-/obj/item/cigarette/cigar{
-	pixel_y = 5
-	},
-/turf/open/floor/iron/dark/smooth_large,
-/area/station/security/brig)
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating,
+/area/station/maintenance/central/lesser)
 "vlF" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -57235,6 +57274,7 @@
 /obj/structure/closet{
 	name = "Evidence Closet"
 	},
+/obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/edges,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/office)
@@ -59169,6 +59209,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/server)
+"vZq" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/textured_large,
+/area/station/security/office)
 "vZJ" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/bot,
@@ -59783,7 +59832,7 @@
 /turf/open/floor/iron/white/smooth_half,
 /area/station/medical/genetics)
 "wmO" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/rd)
 "wnn" = (
@@ -59966,6 +60015,16 @@
 "wru" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow,
+/obj/effect/turf_decal/siding/thinplating/dark/corner,
+/obj/effect/turf_decal/siding/thinplating/dark/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating/dark/corner{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/office)
 "wrw" = (
@@ -62297,6 +62356,10 @@
 /obj/effect/turf_decal/guideline/guideline_mid/red,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
+"xkH" = (
+/obj/machinery/holopad/secure,
+/turf/open/floor/iron/dark/smooth_half,
+/area/station/command/heads_quarters/chief)
 "xkO" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder{
@@ -64875,6 +64938,13 @@
 /obj/effect/landmark/navigate_destination,
 /turf/open/floor/carpet/red,
 /area/station/command/heads_quarters/hos)
+"xWK" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/holopad/secure,
+/turf/open/floor/iron/white/smooth_large,
+/area/station/command/heads_quarters/cmo)
 "xWO" = (
 /mob/living/carbon/monkey,
 /obj/machinery/door/window/eastleft{
@@ -86761,7 +86831,7 @@ iOK
 nnx
 vUR
 vtG
-aCO
+uwM
 gHl
 vUR
 ewt
@@ -87019,7 +87089,7 @@ iOK
 vUR
 hvr
 aCO
-aCO
+vZq
 jtf
 nxn
 dlB
@@ -87285,7 +87355,7 @@ djL
 jqz
 sPK
 gAi
-hrO
+ucw
 dAU
 djL
 pBO
@@ -90369,8 +90439,8 @@ fTX
 sQn
 sIZ
 hxo
-jRh
-vlv
+qDz
+ufS
 lSU
 xMw
 wjP
@@ -92953,7 +93023,7 @@ lxF
 xIV
 xIV
 ftr
-kDP
+vlv
 qjA
 baq
 baq
@@ -94579,7 +94649,7 @@ eHR
 tzY
 ybi
 aTN
-bEY
+xkH
 gPn
 eKv
 aKt
@@ -95330,7 +95400,7 @@ byc
 icr
 wDZ
 akG
-ugD
+xWK
 cpS
 byc
 xAk
