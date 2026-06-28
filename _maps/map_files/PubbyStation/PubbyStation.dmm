@@ -29392,6 +29392,14 @@
 "kzA" = (
 /turf/open/floor/wood,
 /area/station/service/bar)
+"kzD" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners{
+	color = "#36454F"
+	},
+/obj/effect/turf_decal/siding/thinplating/dark,
+/obj/machinery/holopad,
+/turf/open/floor/iron/dark/smooth_half,
+/area/station/hallway/secondary/construction)
 "kzJ" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners,
 /obj/structure/cable/yellow,
@@ -30419,6 +30427,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
+"kSZ" = (
+/obj/machinery/holopad,
+/turf/open/floor/iron/dark,
+/area/station/service/bar)
 "kTb" = (
 /obj/machinery/button/door{
 	id = "aux_base_shutters";
@@ -37760,6 +37772,10 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
+"nLH" = (
+/obj/machinery/holopad,
+/turf/open/floor/wood,
+/area/station/service/library/lounge)
 "nLS" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/orange/visible,
 /turf/open/floor/engine,
@@ -38406,6 +38422,10 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/command/gateway)
+"oaP" = (
+/obj/machinery/holopad,
+/turf/open/floor/iron,
+/area/station/engineering/main)
 "oaT" = (
 /turf/closed/wall,
 /area/station/service/hydroponics/garden/monastery)
@@ -43651,6 +43671,7 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/holopad,
 /turf/open/floor/iron,
 /area/station/service/theater)
 "qkS" = (
@@ -57961,6 +57982,7 @@
 /turf/closed/wall/r_wall,
 /area/station/command/gateway)
 "vEc" = (
+/obj/machinery/holopad,
 /turf/open/floor/mineral/plastitanium,
 /area/station/security/checkpoint/customs)
 "vEw" = (
@@ -84159,7 +84181,7 @@ bTS
 dcY
 fYp
 xkx
-xkx
+nLH
 iJh
 cHt
 han
@@ -91756,7 +91778,7 @@ sbY
 sdX
 dop
 uhW
-kuB
+kzD
 kWE
 vQh
 qPp
@@ -95939,7 +95961,7 @@ bNn
 tRP
 aKt
 ncv
-tPL
+oaP
 tPL
 tPL
 tPL
@@ -98711,7 +98733,7 @@ xDg
 fDx
 rxd
 ocx
-ttk
+kSZ
 nFX
 sDC
 nyW
