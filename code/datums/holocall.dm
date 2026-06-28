@@ -30,7 +30,7 @@
 	///calls from a head of staff autoconnect, if the receiving pad is not secure.
 	var/head_call = FALSE
 
-	var/spoofed = FALSE   // added
+	var/spoofed = FALSE
 
 //creates a holocall made by `call_source` from `calling_pad` to `callees`
 /datum/holocall/New(mob/living/call_source, obj/machinery/holopad/calling_pad, list/callees, elevated_access = FALSE)
@@ -41,7 +41,7 @@
 	head_call = elevated_access
 	dialed_holopads = list()
 
-	if(calling_pad.obj_flags & EMAGGED)   // added
+	if(calling_pad.obj_flags & EMAGGED)
 		spoofed = TRUE
 
 	var/auto_connect_failed = FALSE
@@ -105,10 +105,10 @@
 /datum/holocall/proc/Disconnect(obj/machinery/holopad/H)
 	testing("Holocall disconnect")
 	if(H == connected_holopad)
-		calling_holopad.say("[spoofed ? "Unknown" : get_area_name(H)] holopad disconnected.")   // changed
+		calling_holopad.say("[spoofed ? "Unknown" : get_area_name(H)] holopad disconnected.")
 		H.SetLightsAndPower()
 	else if(H == calling_holopad && connected_holopad)
-		connected_holopad.say("[spoofed ? "Unknown" : user] disconnected.")   // changed
+		connected_holopad.say("[spoofed ? "Unknown" : user] disconnected.")
 		H.SetLightsAndPower()
 	ConnectionFailure(H, TRUE)
 
@@ -160,7 +160,7 @@
 	hologram = answering_holopad.activate_holo(user)
 	hologram.HC = src
 
-	if(spoofed)   // added block
+	if(spoofed)
 		hologram.name = "Unknown (Hologram)"
 		hologram.add_atom_colour(COLOR_RED_LIGHT, FIXED_COLOUR_PRIORITY)
 		answering_holopad.visible_message(span_danger("The holopad whirrs violently as it begins to manifest a distorted figure!"))
@@ -175,7 +175,7 @@
 	eye.eye_initialized = TRUE
 	eye.eye_user = user
 	eye.name = "Camera Eye ([user.name])"
-	eye.use_static = FALSE   // added – turn off static
+	eye.use_static = FALSE
 	user.remote_control = eye
 	user.set_mob_eye_to(eye)
 	eye.setLoc(get_turf(answering_holopad))
@@ -183,7 +183,7 @@
 	hangup = new(eye, src)
 	hangup.Grant(user)
 	playsound(answering_holopad, 'sound/machines/ping.ogg', 100)
-	answering_holopad.say("Connection established with [spoofed ? "Unknown" : get_area_name(answering_holopad)].")   // changed
+	answering_holopad.say("Connection established with [spoofed ? "Unknown" : get_area_name(answering_holopad)].")
 	answering_holopad.SetLightsAndPower()
 
 //Checks the validity of a holocall and qdels itself if it's not. Returns TRUE if valid, FALSE otherwise
@@ -221,7 +221,7 @@
 	hcall.Disconnect(hcall.calling_holopad)
 
 
-//RECORDS (unchanged)
+//RECORDS
 /datum/holorecord
 	var/caller_name = "Unknown" //Caller name
 	var/image/caller_image
