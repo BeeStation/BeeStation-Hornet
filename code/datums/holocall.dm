@@ -31,7 +31,6 @@
 	var/head_call = FALSE
 
 	var/spoofed = FALSE
-	var/notified = FALSE
 
 //creates a holocall made by `call_source` from `calling_pad` to `callees`
 /datum/holocall/New(mob/living/call_source, obj/machinery/holopad/calling_pad, list/callees, elevated_access = FALSE)
@@ -109,7 +108,7 @@
 		calling_holopad.say("[spoofed ? "Unknown" : get_area_name(H)] holopad disconnected.")
 		H.SetLightsAndPower()
 	else if(H == calling_holopad && connected_holopad)
-		connected_holopad.say("[user] disconnected.")
+		connected_holopad.say("[spoofed ? "Unknown" : user] disconnected.")
 		H.SetLightsAndPower()
 	ConnectionFailure(H, TRUE)
 
