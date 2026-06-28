@@ -790,8 +790,6 @@
 	else if(DT_PROB(3, delta_time))
 		affected_mob.electrocute_act(rand(8,13), "Liquid Electricity in their body", 1) //lmao at the newbs who eat energy bars HARDER
 		playsound(affected_mob, "sparks", 50, 1)
-
-
 /datum/reagent/consumable/chlorophyll
 	name = "Liquid Chlorophyll"
 	description = "A plant-specific elixir of life."
