@@ -591,6 +591,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 				var/mob/calling_mob = holocall_to_update.user
 				if(calling_mob.client && calling_mob.client.prefs.read_preference(/datum/preference/toggle/enable_runechat))
 					create_chat_message(speaker, message_language, list(calling_mob), raw_message, spans, message_mods)
+				calling_mob.Hear(speaker, message_language, raw_message, radio_freq, spans, message_mods, message_range = INFINITY)
 
 	if(outgoing_call && speaker == outgoing_call.user)
 		var/list/extra_spans = spans?.Copy() || list()
@@ -642,7 +643,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/holopad/proc/set_holo(datum/owner, obj/effect/overlay/holo_pad_hologram/h)
 	LAZYSET(masters, owner, h)
-	LAZYSET(holorays, owner, new /obj/effect/overlay/holoray(loc))   // original one‑line version
+	LAZYSET(holorays, owner, new /obj/effect/overlay/holoray(loc))
 	set_can_hear_flags(CAN_HEAR_MASTERS)
 	var/mob/living/silicon/ai/AI = owner
 	if(istype(AI))
