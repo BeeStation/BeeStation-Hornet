@@ -598,7 +598,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		if(outgoing_call.spoofed)
 			extra_spans |= "bold"
 			extra_spans |= "danger"
-		outgoing_call.hologram.say(raw_message, spans = extra_spans)
+		outgoing_call.hologram.say(raw_message, spans = extra_spans, sanitize = FALSE, language = message_language, message_mods = message_mods)
 
 	if(record_mode && speaker == record_user)
 		record_message(speaker, raw_message, message_language)
