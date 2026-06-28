@@ -215,7 +215,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/camera_assembly)
 
 	var/area/myarea = get_area(new_camera)
 	if(respect_area_networks == "Yes")
-		new_camera.network = tempnetwork | myarea.camera_networks // Xenobio shouldn't be manually made, but cameras in Xenobio should have it
+		new_camera.network = tempnetwork | myarea.camera_networks // thunderholme shouldn't be manually made, but cameras in thunderholme should have it
 	else
 		new_camera.network = tempnetwork
 	new_camera.c_tag = "[myarea.name] ([rand(1, 999)])"
