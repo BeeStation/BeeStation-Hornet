@@ -231,8 +231,15 @@
       it, it'll change where nanite research is given to
   - rscadd: You can examine nanite chambers and it'll tell you what server it's linked
       to and a hint how you can change that
+  Nildo1:
+  - balance: Lowers the amount of discovery points the notes given by experimental
+      dissection give for aliens.
+  - bugfix: Fixes experimental dissection for Charlie Station.
   Programs-The-Station:
   - balance: Holofan projectors now have a maxcapacity of 6
+  WhiskeyMarten:
+  - tweak: Removed the minpop requirement to play the Prisoner role. It no longer
+      requires 9 ready-ups at round start to be available.
   mrmanlikesbt, zxaber, Arkatos1, Tastyfish, ShizCalev, lelandkemble:
   - rscadd: Added holopad TGUI
   - rscadd: Heads of staff can now forcibly connect to holopads. Head of staff rooms
