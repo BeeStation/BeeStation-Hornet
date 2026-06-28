@@ -588,13 +588,9 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 			if(speaker == holocall_to_update.hologram && holocall_to_update.user.client?.prefs.read_preference(/datum/preference/toggle/enable_runechat))
 				create_chat_message(speaker, message_language, list(holocall_to_update.user), raw_message, spans, message_mods)
 			else
-				// Recipient's speech: show runechat bubble to the caller
 				var/mob/calling_mob = holocall_to_update.user
 				if(calling_mob.client && calling_mob.client.prefs.read_preference(/datum/preference/toggle/enable_runechat))
 					create_chat_message(speaker, message_language, list(calling_mob), raw_message, spans, message_mods)
-				// Do NOT call Hear() here – the bubble is enough; the original speaker's say() already puts text in chat.
-				// The caller will see the message via the bubble and the chat log (since they're not the speaker).
-				// If we call Hear() it may interfere with runechat rendering.
 
 	if(outgoing_call && speaker == outgoing_call.user)
 		var/list/extra_spans = spans?.Copy() || list()
@@ -646,6 +642,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/holopad/proc/set_holo(datum/owner, obj/effect/overlay/holo_pad_hologram/h)
 	LAZYSET(masters, owner, h)
+	// Create the holoray (default blue)
 	var/obj/effect/overlay/holoray/ray = new(loc)
 	LAZYSET(holorays, owner, ray)
 	set_can_hear_flags(CAN_HEAR_MASTERS)
