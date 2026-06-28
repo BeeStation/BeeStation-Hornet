@@ -89,7 +89,7 @@
 	. = ..()
 	var/area/myarea = get_area(src)
 	if(myarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
-		. += spawn_warning("[myarea.name] is not allowed for the Xenobiology. The console will not work.")
+		. += span_warning("[myarea.name] is not allowed for the Xenobiology. The console will not work.")
 
 /obj/machinery/computer/camera_advanced/xenobio/CreateEye()
 	eyeobj = new /mob/camera/ai_eye/remote/xenobio(get_turf(src))
