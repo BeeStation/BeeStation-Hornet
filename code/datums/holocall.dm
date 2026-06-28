@@ -170,11 +170,11 @@
 	// Spoofed hologram handling
 	if(spoofed)
 		hologram.name = "[spoofed_caller_name] (Hologram)"
-		hologram.add_atom_colour("#ff3333", FIXED_COLOUR_PRIORITY)
+		hologram.add_atom_colour(COLOR_RED_LIGHT, FIXED_COLOUR_PRIORITY)
 		answering_holopad.visible_message(span_danger("The holopad whirrs violently as it begins to manifest a distorted figure!"))
 		var/obj/effect/overlay/holoray/ray = answering_holopad.holorays[user]
 		if(ray)
-			ray.add_atom_colour("#ff0000", FIXED_COLOUR_PRIORITY)
+			ray.add_atom_colour(COLOR_RED, FIXED_COLOUR_PRIORITY)
 	else
 		answering_holopad.visible_message(span_notice("A holographic image of [user] flickers to life before your eyes!"))
 
