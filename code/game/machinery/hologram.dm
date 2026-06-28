@@ -614,7 +614,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 	if(outgoing_call && speaker == outgoing_call.user)
 		// Add bold red spans if the call is spoofed
-		var/list/extra_spans = spans ? spans.Copy() : list()
+		var/list/extra_spans = spans?.Copy() || list()
 		if(outgoing_call.spoofed)
 			extra_spans |= "bold"
 			extra_spans |= "danger"
