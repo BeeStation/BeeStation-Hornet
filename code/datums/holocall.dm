@@ -131,7 +131,7 @@
 		qdel(src)
 
 ///Answers a call made to answering_holopad which cannot be the calling holopad. Pads not in the call are ignored
-/datum/holocall/proc/Answer(obj/machinery/holopad/answering_holopad, mob/answerer_mob = null)
+/datum/holocall/proc/Answer(obj/machinery/holopad/answering_holopad)
 	testing("Holocall answer")
 	if(answering_holopad == calling_holopad)
 		CRASH("How cute, a holopad tried to answer itself.")
@@ -221,7 +221,7 @@
 	hcall.Disconnect(hcall.calling_holopad)
 
 
-//RECORDS
+//RECORDS (unchanged)
 /datum/holorecord
 	var/caller_name = "Unknown" //Caller name
 	var/image/caller_image
