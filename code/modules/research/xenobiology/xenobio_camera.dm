@@ -1,4 +1,4 @@
-//Xenobio control console
+//Xenobio camera eye
 /mob/camera/ai_eye/remote/xenobio
 	visible_icon = TRUE
 	icon = 'icons/mob/cameramob.dmi'
@@ -7,7 +7,7 @@
 
 /mob/camera/ai_eye/remote/xenobio/Initialize(mapload)
 	var/area/myarea = get_area(loc)
-	if(!(myarea.area_flags & XENOBIOLOGY_SUPER_INCOMPATIBLE))
+	if(!(myarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED))
 		allowed_area = myarea.name
 	. = ..()
 
@@ -19,13 +19,19 @@
 	var/area/new_area = get_area(target)
 	return is_valid_area(new_area) ? ..() : FALSE
 
-/mob/camera/ai_eye/remote/xenobio/proc/is_valid_area(area/new_area)
-	return new_area && !(new_area.area_flags & XENOBIOLOGY_SUPER_INCOMPATIBLE) && (new_area.name == allowed_area || (new_area.area_flags & XENOBIOLOGY_COMPATIBLE))
+/// Checks if the camera eye can access this area. This is actually used by Xenobio camera mob.
+/mob/camera/ai_eye/remote/proc/is_valid_area(area/new_area)
+	return TRUE
 
+/mob/camera/ai_eye/remote/xenobio/is_valid_area(area/new_area)
+	return new_area && !(new_area.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED) && (new_area.name == allowed_area || (new_area.area_flags & XENOBIOLOGY_COMPATIBLE))
+
+
+//Xenobio control console
 /obj/machinery/computer/camera_advanced/xenobio
 	name = "Slime management console"
 	desc = "A computer used for remotely handling slimes."
-	compatible_camera_networks = list(CAMERA_NETWORK_XENOBIO)
+	compatible_camera_networks = null // Will take the area's camera networks on Initialize()
 	circuit = /obj/item/circuitboard/computer/xenobiology
 	var/datum/action/innate/slime_place/slime_place_action
 	var/datum/action/innate/slime_pick_up/slime_up_action
@@ -49,6 +55,8 @@
 	reveal_camera_mob = TRUE
 	camera_mob_icon_state = "xeno"
 
+	create_camera_mob_on_computer = TRUE
+
 /obj/machinery/computer/camera_advanced/xenobio/Initialize(mapload)
 	. = ..()
 	slime_place_action = new(src)
@@ -65,6 +73,9 @@
 			connected_recycler = recycler
 			connected_recycler.connected += src
 
+	var/area/myarea = get_area(src)
+	compatible_camera_networks = myarea.camera_networks.Copy()
+
 /obj/machinery/computer/camera_advanced/xenobio/Destroy()
 	stored_slimes = null
 	QDEL_NULL(current_potion)
@@ -73,6 +84,12 @@
 		if(istype(S))
 			S.forceMove(drop_location())
 	return ..()
+
+/obj/machinery/computer/camera_advanced/xenobio/examine(user)
+	. = ..()
+	var/area/myarea = get_area(src)
+	if(myarea.area_flags & 0XENOBIOLOGY_CONSOLE_DISALLOWED)
+		. += spawn_warning("[myarea.name] is not allowed for the Xenobiology. The console will not work.")
 
 /obj/machinery/computer/camera_advanced/xenobio/CreateEye()
 	eyeobj = new /mob/camera/ai_eye/remote/xenobio(get_turf(src))
@@ -87,13 +104,11 @@
 	var/area/myarea = get_area(src)
 	if(!myarea)
 		return
-	if(myarea.area_flags & XENOBIOLOGY_SUPER_INCOMPATIBLE)
+	if(myarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
 		to_chat(user, span_warning("You need to use the camera console in the xenobiology-compatible areas."))
 		return
-	var/mob/camera/ai_eye/remote/xenobio/xenobio_eyeobj = eyeobj
-	if(!xenobio_eyeobj.is_valid_area(get_area(eyeobj)))
-		to_chat(user, span_warning("The Xenobiology camera is seeing at an invalid area. Please rebuild the computer."))
-		return
+	if(!eyeobj.is_valid_area(get_area(eyeobj)))
+		eyeobj.abstract_move(get_turf(src))
 	..()
 
 /obj/machinery/computer/camera_advanced/xenobio/GrantActions(mob/living/user)
@@ -394,7 +409,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	var/mob/living/C = user
 	var/mob/camera/ai_eye/remote/xenobio/E = C.remote_control
 	var/area/mobarea = get_area(S.loc)
-	if(mobarea.area_flags & XENOBIOLOGY_SUPER_INCOMPATIBLE)
+	if(mobarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
 		to_chat(C, span_notice("The target area is not allowed for the Xenobiology manipulation."))
 		return
 	if(mobarea.name == E.allowed_area || (mobarea.area_flags & XENOBIOLOGY_COMPATIBLE))
@@ -411,7 +426,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	var/mob/camera/ai_eye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/mobarea = get_area(S.loc)
-	if(mobarea.area_flags & XENOBIOLOGY_SUPER_INCOMPATIBLE)
+	if(mobarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
 		to_chat(C, span_notice("The target area is not allowed for the Xenobiology manipulation."))
 		return
 	if(QDELETED(X.current_potion))
@@ -431,7 +446,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	var/mob/camera/ai_eye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/mobarea = get_area(S.loc)
-	if(mobarea.area_flags & XENOBIOLOGY_SUPER_INCOMPATIBLE)
+	if(mobarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
 		to_chat(C, span_notice("The target area is not allowed for the Xenobiology manipulation."))
 		return
 	if(mobarea.name == E.allowed_area || (mobarea.area_flags & XENOBIOLOGY_COMPATIBLE))
@@ -458,7 +473,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	var/mob/camera/ai_eye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/turfarea = get_area(T)
-	if(turfarea.area_flags & XENOBIOLOGY_SUPER_INCOMPATIBLE)
+	if(turfarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
 		to_chat(C, span_notice("The target area is not allowed for the Xenobiology manipulation."))
 		return
 	if(turfarea.name == E.allowed_area || (turfarea.area_flags & XENOBIOLOGY_COMPATIBLE))
@@ -478,7 +493,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	var/mob/camera/ai_eye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/turfarea = get_area(T)
-	if(turfarea.area_flags & XENOBIOLOGY_SUPER_INCOMPATIBLE)
+	if(turfarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
 		to_chat(C, span_notice("The target area is not allowed for the Xenobiology manipulation."))
 		return
 	if(turfarea.name == E.allowed_area || (turfarea.area_flags & XENOBIOLOGY_COMPATIBLE))
@@ -502,7 +517,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	var/mob/camera/ai_eye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/mobarea = get_area(M.loc)
-	if(mobarea.area_flags & XENOBIOLOGY_SUPER_INCOMPATIBLE)
+	if(mobarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
 		to_chat(C, span_notice("The target area is not allowed for the Xenobiology manipulation."))
 		return
 	if(!X.connected_recycler)

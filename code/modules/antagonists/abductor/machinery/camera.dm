@@ -4,7 +4,7 @@
 	icon_state = "camera"
 	base_icon_state = null
 
-	lock_override = TRUE
+	lock_override = CAMERA_LOCK_STATION
 	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null

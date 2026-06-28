@@ -474,6 +474,12 @@
 	icon_state = "science"
 	build_path = /obj/machinery/computer/camera_advanced/xenobio
 
+/obj/item/circuitboard/computer/xenobiology/examine(user)
+	. = ..()
+	var/area/myarea = get_area(user)
+	if(myarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
+		. += span_warning("You are currently at [myarea.name] where the area is not allowed for the Xenobiology.")
+
 //Security
 
 /obj/item/circuitboard/computer/gulag_teleporter_console

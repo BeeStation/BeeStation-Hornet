@@ -234,7 +234,6 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 #define CAMERA_NETWORK_PRISON "prison"
 #define CAMERA_NETWORK_MINE "mine"
 #define CAMERA_NETWORK_TOXINS_TEST "toxins_test"
-#define CAMERA_NETWORK_XENOBIO "xenobio"
 #define CAMERA_NETWORK_INTERROGATION "interrogation"
 #define CAMERA_NETWORK_MINISAT "minisat"
 #define CAMERA_NETWORK_AI_UPLOAD "aiupload"
@@ -253,7 +252,7 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 #define CAMERA_NETWORK_CARAVAN_SYNDICATE "caravan_syndicate"
 
 /// some camera area strings shouldn't be allowed to be manually made by players
-#define CAMERA_NETWORK_DISALLOWED_STRINGS list(CAMERA_NETWORK_XENOBIO, CAMERA_NETWORK_VAULT, CAMERA_NETWORK_THUNDERDOME, CAMERA_NETWORK_AI_UPLOAD, CAMERA_NETWORK_TOXINS_TEST)
+#define CAMERA_NETWORK_DISALLOWED_STRINGS list(CAMERA_NETWORK_VAULT, CAMERA_NETWORK_THUNDERDOME, CAMERA_NETWORK_AI_UPLOAD, CAMERA_NETWORK_TOXINS_TEST)
 
 // Air alarm buildstage [/obj/machinery/airalarm/buildstage]
 /// Air alarm missing circuit

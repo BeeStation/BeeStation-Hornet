@@ -8,7 +8,7 @@
 	default_gravity = STANDARD_GRAVITY
 	always_unpowered = FALSE
 	// Loading the same shuttle map at a different time will produce distinct area instances.
-	area_flags = XENOBIOLOGY_SUPER_INCOMPATIBLE
+	area_flags = XENOBIOLOGY_CONSOLE_DISALLOWED
 	icon = 'icons/area/areas_station.dmi'
 	icon_state = "shuttle"
 	lighting_colour_tube = "#fff0dd"

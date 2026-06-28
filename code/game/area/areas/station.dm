@@ -15,7 +15,7 @@
 	ambience_index = AMBIENCE_MAINT
 	ambient_buzz = 'sound/ambience/source_corridor2.ogg'
 	ambient_buzz_vol = 20
-	area_flags = HIDDEN_STASH_LOCATION | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED | XENOBIOLOGY_SUPER_INCOMPATIBLE
+	area_flags = HIDDEN_STASH_LOCATION | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED | XENOBIOLOGY_CONSOLE_DISALLOWED
 	rare_ambient_sounds = list(
 		'sound/machines/airlock.ogg',
 		'sound/effects/snap.ogg',
@@ -129,7 +129,7 @@
 	name = "Xenobiology Maintenance"
 	icon_state = "xenomaint"
 	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | XENOBIOLOGY_COMPATIBLE | CULT_PERMITTED
-	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_XENOBIO)
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
 //Maintenance - Cardstation's club
 
@@ -275,7 +275,7 @@
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
 	lighting_brightness_tube = 8
-	area_flags = parent_type::area_flags | XENOBIOLOGY_SUPER_INCOMPATIBLE
+	area_flags = parent_type::area_flags | XENOBIOLOGY_CONSOLE_DISALLOWED
 
 /area/station/hallway/get_area_textures()
 	return GLOB.turf_texture_hallway
@@ -1618,7 +1618,7 @@
 /area/station/science/xenobiology
 	name = "\improper Xenobiology Lab"
 	icon_state = "xenobio"
-	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_RESEARCH, CAMERA_NETWORK_XENOBIO)
+	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_RESEARCH)
 
 /area/station/science/shuttle
 	name = "Shuttle Construction"
