@@ -88,7 +88,7 @@
 /obj/machinery/computer/camera_advanced/xenobio/examine(user)
 	. = ..()
 	var/area/myarea = get_area(src)
-	if(myarea.area_flags & 0XENOBIOLOGY_CONSOLE_DISALLOWED)
+	if(myarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
 		. += spawn_warning("[myarea.name] is not allowed for the Xenobiology. The console will not work.")
 
 /obj/machinery/computer/camera_advanced/xenobio/CreateEye()
