@@ -639,8 +639,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		return ..()
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
 	var/has_spoofed_call = FALSE
-	for(var/datum/holocall/HC in holo_calls)
-		if(HC.spoofed && HC.connected_holopad == src)
+	for(var/datum/holocall/HC as anything in holo_calls)
+		if(HC.spoofed)
 			has_spoofed_call = TRUE
 			break
 	if(has_spoofed_call)
