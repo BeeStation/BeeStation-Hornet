@@ -588,7 +588,13 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 			if(speaker == holocall_to_update.hologram && holocall_to_update.user.client?.prefs.read_preference(/datum/preference/toggle/enable_runechat))
 				create_chat_message(speaker, message_language, list(holocall_to_update.user), raw_message, spans, message_mods)
 			else
-				holocall_to_update.user.Hear(speaker, message_language, raw_message, radio_freq, spans, message_mods, message_range = INFINITY)
+				// Recipient's speech: show runechat bubble to the caller
+				var/mob/calling_mob = holocall_to_update.user
+				if(calling_mob.client && calling_mob.client.prefs.read_preference(/datum/preference/toggle/enable_runechat))
+					create_chat_message(speaker, message_language, list(calling_mob), raw_message, spans, message_mods)
+				// Do NOT call Hear() here – the bubble is enough; the original speaker's say() already puts text in chat.
+				// The caller will see the message via the bubble and the chat log (since they're not the speaker).
+				// If we call Hear() it may interfere with runechat rendering.
 
 	if(outgoing_call && speaker == outgoing_call.user)
 		var/list/extra_spans = spans?.Copy() || list()
@@ -615,12 +621,18 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		icon_state = "[base_icon_state]_open"
 		return ..()
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
-	var/has_spoofed_call = FALSE
+	var/has_spoofed_ringing = FALSE
+	var/has_spoofed_active = FALSE
 	for(var/datum/holocall/HC in holo_calls)
 		if(HC.spoofed)
-			has_spoofed_call = TRUE
-			break
-	if(has_spoofed_call)
+			if(HC.connected_holopad == src)
+				has_spoofed_active = TRUE
+			else
+				has_spoofed_ringing = TRUE
+	if(ringing && has_spoofed_ringing)
+		icon_state = "holopad_ringing2"
+		return ..()
+	if(has_spoofed_active)
 		icon_state = "holopad2"
 		return ..()
 	if(ringing)
