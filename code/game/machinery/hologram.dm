@@ -771,8 +771,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	else
 		ray.transform = turn(M.Scale(1,sqrt(distx*distx+disty*disty)),newangle)
 
-	if(holo && holo.HC && holo.HC.spoofed)
-		ray.add_atom_colour("#ff0000", FIXED_COLOUR_PRIORITY)
+	if(holo.HC?.spoofed)
+		ray.add_atom_colour(COLOR_RED, FIXED_COLOUR_PRIORITY)
 	else
 		ray.remove_atom_colour(FIXED_COLOUR_PRIORITY)
 
