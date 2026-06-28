@@ -3,6 +3,7 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 
 #ifdef USE_CUSTOM_ERROR_HANDLER
 #define ERROR_USEFUL_LEN 2
+#define CALLEE_DETAILED_RUNTIME_THRESHOLD 2000 //! Value: 2000. If 2000 runtimes are detected, we stop recording full runtime tracy
 
 /world/Error(exception/E, datum/e_src)
 	GLOB.total_runtimes++
@@ -95,7 +96,7 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 				GLOB.error_cache.log_error(E, skip_count = skipcount)
 
 	var/static/list/infinite_proc_reminder = list() //! a static list holder that hints when the system should stop checking the runtime
-	if(!silencing)
+	if(!silencing || (GLOB.total_runtimes < CALLEE_DETAILED_RUNTIME_THRESHOLD))
 		// Failsafe vars to make runtime tracy won't be broken
 		var/force_break = 0 // a var to detect the loop
 		var/proc_loop_detected = 0 // a var to detect the loop with CATEGORY_NO_RUNTIME_LOOP
