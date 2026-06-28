@@ -642,9 +642,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/holopad/proc/set_holo(datum/owner, obj/effect/overlay/holo_pad_hologram/h)
 	LAZYSET(masters, owner, h)
-	// Create the holoray (default blue)
-	var/obj/effect/overlay/holoray/ray = new(loc)
-	LAZYSET(holorays, owner, ray)
+	LAZYSET(holorays, owner, new /obj/effect/overlay/holoray(loc))   // original one‑line version
 	set_can_hear_flags(CAN_HEAR_MASTERS)
 	var/mob/living/silicon/ai/AI = owner
 	if(istype(AI))
