@@ -15,7 +15,7 @@
 
 /datum/objective/download/check_completion()
 	var/datum/techweb/checking = new
-	for(var/datum/mind/owner as() in get_owners())
+	for(var/datum/mind/owner as anything in get_owners())
 		if(ismob(owner.current))
 			var/mob/M = owner.current			//Yeah if you get morphed and you eat a quantum tech disk with the RD's latest backup good on you soldier.
 			if(ishuman(M))

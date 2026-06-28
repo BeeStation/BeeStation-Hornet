@@ -151,7 +151,7 @@
 				if (linked_cable._last_repropogation_update != unique_propogation_identifier)
 					linked_cable._last_repropogation_update = unique_propogation_identifier
 					to_process += linked_cable
-	for (var/obj/structure/cable/processing_wire as() in powernet_id_array)
+	for (var/obj/structure/cable/processing_wire as anything in powernet_id_array)
 		var/datum/powernet/new_powernet = powernet_id_array[processing_wire]
 		new_powernet.add_cable(processing_wire)
 		// Get connected machines

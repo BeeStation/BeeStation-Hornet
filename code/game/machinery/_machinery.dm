@@ -82,6 +82,7 @@
  *
  *  process_atmos()
  *     Called by the 'air subsystem' once per atmos tick for each machine that is listed in its 'atmos_machines' list.
+ *
  * Compiled by Aygar
  */
 
@@ -662,7 +663,7 @@
 	update_last_used(user)
 	. = ..()
 
-/obj/machinery/ui_act(action, params)
+/obj/machinery/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	add_fingerprint(usr)
 	update_last_used(usr)
 	if(isliving(usr) && in_range(src, usr))

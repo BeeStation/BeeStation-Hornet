@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// If the last save was a success or not. True for success, false for fail.
 	var/fail_state = TRUE
 
-/datum/preferences/Destroy(force, ...)
+/datum/preferences/Destroy(force)
 	QDEL_NULL(character_preview_view)
 	QDEL_LIST(middleware)
 	QDEL_NULL(character_data)

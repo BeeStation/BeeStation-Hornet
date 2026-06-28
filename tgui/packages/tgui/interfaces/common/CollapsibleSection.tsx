@@ -1,8 +1,7 @@
-import { useLocalState } from '../backend';
-import { Button } from './Button';
-import { Section } from './Section';
+import { useState } from 'react';
+import { Button, Section } from 'tgui-core/components';
 
-export const CollapsibleSection = (props) => {
+export function CollapsibleSection(props) {
   const {
     children,
     startOpen = true,
@@ -13,10 +12,9 @@ export const CollapsibleSection = (props) => {
     showButton = !forceOpen,
     ...rest
   } = props;
-  const [isOpen, setOpen] = useLocalState(
-    `open_collapsible_${sectionKey}`,
-    startOpen,
-  );
+
+  const [isOpen, setOpen] = useState(startOpen);
+
   return (
     <Section
       fitted={!forceOpen && !isOpen}
@@ -40,4 +38,4 @@ export const CollapsibleSection = (props) => {
       {forceOpen || isOpen ? children : null}
     </Section>
   );
-};
+}

@@ -9,7 +9,7 @@ import {
   Tabs,
 } from '../components';
 import { NtosWindow } from '../layouts';
-import { AccessList } from './common/AccessList';
+import { AccessConfig } from './common/AccessConfig';
 
 export const NtosCard = (props) => {
   return (
@@ -103,7 +103,7 @@ export const NtosCardContent = (props) => {
             </Tabs.Tab>
           </Tabs>
           {tab === 1 && (
-            <AccessList
+            <AccessConfig
               accesses={regions}
               selectedList={access_on_card}
               accessMod={(ref) =>

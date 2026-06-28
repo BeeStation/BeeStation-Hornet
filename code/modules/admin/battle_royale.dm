@@ -197,7 +197,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/debug_mode = FALSE
 	var/datum/action/spell/aoe/knock/knock = new /datum/action/spell/aoe/knock
 
-/datum/battle_royale_controller/Destroy(force, ...)
+/datum/battle_royale_controller/Destroy(force)
 	QDEL_LIST(death_wall)
 	for(var/client/C in GLOB.admins)
 		C.remove_verb(BATTLE_ROYALE_AVERBS)
@@ -220,7 +220,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		generate_good_drop()
 	var/living_victims = 0
 	var/mob/winner
-	for(var/mob/living/M as() in players)
+	for(var/mob/living/M as anything in players)
 		if(QDELETED(M))
 			players -= M
 			continue
@@ -249,7 +249,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	if(!field_delay) //Division by 0 protection
 		field_delay = 1
 	if(process_num % (field_delay) == 0)
-		for(var/obj/effect/death_wall/wall as() in death_wall)
+		for(var/obj/effect/death_wall/wall as anything in death_wall)
 			wall.decrease_size()
 			if(QDELETED(wall))
 				death_wall -= wall
@@ -293,7 +293,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	sleep(50)
 	//Clear all living mobs
 	to_chat(world, span_boldannounce("Battle Royale: Clearing world mobs."))
-	for(var/mob/living/M as() in GLOB.mob_living_list)
+	for(var/mob/living/M as anything in GLOB.mob_living_list)
 		qdel(M)
 		CHECK_TICK
 	sleep(50)

@@ -190,9 +190,9 @@
 	for(var/mob/living/L in view(7, src))
 		if(L.mind)
 			mobss += L
-	for(var/turf/turf as() in turfs)
+	for(var/turf/turf as anything in turfs)
 		var/visible = FALSE
-		for(var/mob/living/L as() in mobss)
+		for(var/mob/living/L as anything in mobss)
 			if(can_see(L, turf))
 				visible = TRUE
 		if(!visible)

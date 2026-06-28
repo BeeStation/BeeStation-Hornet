@@ -1584,15 +1584,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/station/engineering/supermatter)
 "ayX" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -9895,15 +9887,7 @@
 /turf/open/floor/wood,
 /area/station/security/detectives_office)
 "cSW" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/asteroid/airless,
 /area/misc/space/nearstation)
@@ -12312,15 +12296,7 @@
 /area/station/commons/dorms)
 "dDv" = (
 /obj/structure/lattice/catwalk/over,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -24750,7 +24726,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/iron/techmaint,
 /area/station/security/prison)
 "hsP" = (
@@ -26187,6 +26163,9 @@
 	dir = 1
 	},
 /obj/structure/table/reinforced,
+/obj/machinery/computer/security/telescreen/artifacts{
+	pixel_y = -32
+	},
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "hMy" = (
@@ -28482,15 +28461,7 @@
 /area/station/maintenance/department/medical)
 "iuN" = (
 /obj/structure/lattice/catwalk/over,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /turf/open/space/basic,
 /area/misc/space/nearstation)
 "iuR" = (
@@ -32135,15 +32106,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/engine)
 "jtM" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/structure/lattice/catwalk/over,
 /turf/open/space/basic,
 /area/misc/space/nearstation)
@@ -33169,15 +33132,7 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos)
 "jJD" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/misc/space/nearstation)
@@ -38906,15 +38861,7 @@
 /area/station/engineering/atmos)
 "lrt" = (
 /obj/structure/lattice/catwalk/over,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
@@ -39157,7 +39104,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/iron/techmaint,
 /area/station/security/prison)
 "lvr" = (
@@ -40373,9 +40320,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow,
 /mob/living/simple_animal/bot/secbot/pingsky,
-/obj/machinery/holopad,
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload_foyer)
 "lNd" = (
@@ -40451,8 +40398,8 @@
 /area/station/hallway/primary/central)
 "lOt" = (
 /obj/effect/turf_decal/box,
-/obj/machinery/holopad,
 /obj/effect/landmark/event_spawn,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/rd)
 "lOv" = (
@@ -44267,15 +44214,7 @@
 /area/station/security/courtroom)
 "mVo" = (
 /obj/structure/lattice/catwalk/over,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -48162,15 +48101,7 @@
 /area/station/hallway/primary/fore)
 "nZl" = (
 /obj/structure/lattice/catwalk/over,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -50296,15 +50227,7 @@
 /area/station/command/heads_quarters/captain)
 "oFV" = (
 /obj/structure/lattice/catwalk/over,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -51387,15 +51310,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/structure/cable/orange,
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
@@ -52311,11 +52226,11 @@
 /area/station/commons/cryopods)
 "poY" = (
 /obj/effect/turf_decal/box,
-/obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /obj/structure/cable/yellow,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "ppe" = (
@@ -58031,9 +57946,9 @@
 /turf/open/floor/iron/dark,
 /area/station/medical/cryo)
 "rbS" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/box,
 /obj/structure/cable/yellow,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/cmo)
 "rca" = (
@@ -62953,15 +62868,7 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter)
 "sBD" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -63991,15 +63898,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/structure/cable/orange,
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
@@ -67125,7 +67024,8 @@
 "tLI" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/structure/cable/yellow,
-/obj/machinery/vending/cola/black,
+/obj/structure/table/wood,
+/obj/machinery/cell_charger,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "tLK" = (
@@ -71805,11 +71705,11 @@
 /area/station/security/execution/education)
 "vgM" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/holopad,
 /obj/effect/turf_decal/box,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "vgX" = (
@@ -75455,12 +75355,12 @@
 /area/station/hallway/primary/central)
 "wnf" = (
 /obj/effect/landmark/event_spawn,
-/obj/machinery/holopad,
 /obj/effect/turf_decal/box,
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
+/obj/machinery/holopad/secure,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/hos)
 "wnh" = (
@@ -78856,7 +78756,6 @@
 /turf/open/floor/carpet/green,
 /area/station/service/library/lounge)
 "xnG" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/box/corners,
 /obj/effect/turf_decal/box/corners{
 	dir = 8
@@ -78868,6 +78767,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/event_spawn,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/chief)
 "xnJ" = (
@@ -80129,15 +80029,7 @@
 /area/station/hallway/secondary/exit/departure_lounge)
 "xDV" = (
 /obj/structure/lattice/catwalk,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /turf/open/space/basic,
 /area/misc/space/nearstation)
 "xDX" = (
@@ -81324,15 +81216,7 @@
 /turf/open/floor/iron/ameridiner,
 /area/station/engineering/supermatter)
 "xWw" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/hidden{
 	dir = 8

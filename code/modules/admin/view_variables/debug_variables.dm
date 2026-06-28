@@ -80,6 +80,14 @@
 	if(istext(value))
 		return span_value("\"[VV_HTML_ENCODE(value)]\"")
 
+	if(isnum(value) && istext(name) && GLOB.bitfields[name])
+		var/list/matching_bitflags = get_matching_bitflags(name, value)
+
+		if(!isnull(matching_bitflags))
+			if(length(matching_bitflags))
+				return "[VV_HTML_ENCODE(matching_bitflags.Join(", "))]"
+			return "NONE"
+
 	// Warning - isicon(value) is misleading
 	// 		isicon('some.dmi') => returns TRUE
 	// 		isicon(/icon[0xINSTANCE]) => returns TRUE
@@ -160,14 +168,6 @@
 				items += debug_variable(key, val, level + 1, sanitize = sanitize, display_flags = flag)
 
 			return "[a_open][list_type] ([length(list_value)])[a_close]<ul>[items.Join()]</ul>"
-
-	// if it's a number, is it a bitflag?
-	var/list/matching_bitflags = get_matching_bitflags(name, value)
-
-	if(!isnull(matching_bitflags))
-		if(length(matching_bitflags))
-			return "[VV_HTML_ENCODE(matching_bitflags.Join(", "))]"
-		return "NONE"
 
 	return span_value("[VV_HTML_ENCODE(value)]")
 

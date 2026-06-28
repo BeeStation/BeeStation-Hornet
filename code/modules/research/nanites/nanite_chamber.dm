@@ -20,10 +20,16 @@
 	var/busy_icon_state
 	var/busy_message
 	var/message_cooldown = 0
+	var/datum/techweb/assigned_techweb
 
 /obj/machinery/nanite_chamber/Initialize(mapload)
 	. = ..()
 	occupant_typecache = GLOB.typecache_living
+
+/obj/machinery/nanite_chamber/LateInitialize()
+	. = ..()
+	if(!assigned_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(assigned_techweb, src)
 
 /obj/machinery/nanite_chamber/RefreshParts()
 	scan_level = 0
@@ -42,6 +48,8 @@
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Scanning module has been upgraded to level <b>[scan_level]</b>.")
+		. += span_notice("A <b>Multitool</b> can be used to change the research server")
+		. += span_notice("Active research destination: <b>[assigned_techweb.id]</b>.")
 
 /obj/machinery/nanite_chamber/proc/set_busy(status, message, working_icon)
 	busy = status
@@ -84,7 +92,7 @@
 	set_busy(FALSE)
 	if(!occupant)
 		return
-	occupant.AddComponent(/datum/component/nanites, 100 * nanite_coeff)
+	occupant.AddComponent(/datum/component/nanites, 100 * nanite_coeff, 0, assigned_techweb)
 
 /obj/machinery/nanite_chamber/proc/remove_nanites(datum/nanite_program/NP)
 	if(machine_stat & (NOPOWER|BROKEN))
@@ -217,3 +225,11 @@
 	if(close_machine(target))
 		log_combat(user, target, "inserted", null, "into [src].")
 	add_fingerprint(user)
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/nanite_chamber)
+DEFINE_BUFFER_HANDLER(/obj/machinery/nanite_chamber)
+	if(istype(buffer, /datum/techweb))
+		balloon_alert(user, "Server assigned to nanite chamber.")
+		assigned_techweb = buffer
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE

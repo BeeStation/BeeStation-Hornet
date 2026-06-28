@@ -990,12 +990,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			suit_compatible = TRUE
 
 		if((uniform_compatible && suit_compatible) || (suit_compatible && H.wear_suit?.flags_inv & HIDEJUMPSUIT)) //If the uniform is hidden, it doesnt matter if its compatible
-			for(var/obj/item/bodypart/BP as() in H.bodyparts)
+			for(var/obj/item/bodypart/BP as anything in H.bodyparts)
 				if(BP.bodytype & BODYTYPE_DIGITIGRADE)
 					BP.limb_id = BODYPART_ID_DIGITIGRADE
 
 		else
-			for(var/obj/item/bodypart/BP as() in H.bodyparts)
+			for(var/obj/item/bodypart/BP as anything in H.bodyparts)
 				if(BP.bodytype & BODYTYPE_DIGITIGRADE)
 					BP.limb_id = "lizard"
 	///End digi handling

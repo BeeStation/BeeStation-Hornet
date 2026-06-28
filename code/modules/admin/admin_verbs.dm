@@ -93,6 +93,7 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/cinematic,
 	/client/proc/create_ert,
 	/client/proc/cmd_admin_add_freeform_ai_law,
+	/client/proc/cmd_admin_set_roundstart_ai_lawset,
 	/client/proc/object_say,
 	/client/proc/toggle_random_events,
 	/client/proc/set_ooc,

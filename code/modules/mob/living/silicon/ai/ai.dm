@@ -101,9 +101,10 @@
 
 	var/cam_prev
 
-	var/atom/movable/screen/ai/modpc/interfaceButton
-	var/obj/effect/overlay/holo_pad_hologram/ai_hologram
+	/// The AI's currently used holopad
 	VAR_FINAL/obj/machinery/holopad/current_holopad
+
+	var/atom/movable/screen/ai/modpc/interfaceButton
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
@@ -225,7 +226,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(ai_voicechanger)
 		ai_voicechanger.owner = null
 		ai_voicechanger = null
-	. = ..()
+	return ..()
 
 /mob/living/silicon/ai/proc/remove_malf_abilities()
 	QDEL_NULL(modules_action)
@@ -472,10 +473,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		if(last_tablet_note_seen)
 			src << browse(last_tablet_note_seen, "window=show_tablet")
 	//Carn: holopad requests
-	if(href_list["jumptoholopad"])
-		var/obj/machinery/holopad/H = locate(href_list["jumptoholopad"]) in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/holopad)
-		if(H)
-			H.attack_ai(src) //may as well recycle
+	if(href_list["jump_to_holopad"])
+		var/obj/machinery/holopad/holopad = locate(href_list["jump_to_holopad"]) in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/holopad)
+		if(holopad)
+			holopad.attack_ai(src) //may as well recycle
 		else
 			to_chat(src, span_notice("Unable to locate the holopad."))
 	if(href_list["track"])

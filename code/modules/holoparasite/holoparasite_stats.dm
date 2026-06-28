@@ -38,7 +38,7 @@
 		ability.master_stats = src
 		ability.owner = holopara
 		ability.apply()
-	for(var/datum/holoparasite_ability/lesser/lability as() in lesser_abilities)
+	for(var/datum/holoparasite_ability/lesser/lability as anything in lesser_abilities)
 		lability.master_stats = src
 		lability.owner = holopara
 		lability.apply()
@@ -64,7 +64,7 @@
 	holopara.set_varspeed(initial(holopara.speed))
 	if(ability)
 		ability.remove()
-	for(var/datum/holoparasite_ability/lesser/lability as() in lesser_abilities)
+	for(var/datum/holoparasite_ability/lesser/lability as anything in lesser_abilities)
 		lability.remove()
 	weapon.remove()
 	REMOVE_TRAITS_IN(holopara, HOLOPARASITE_STAT_TRAIT)
@@ -305,7 +305,7 @@
 		parts += "(Weapon) [weapon.name]"
 	if(ability && !ability.hidden)
 		parts += "(Ability) [ability.name]"
-	for(var/datum/holoparasite_ability/lesser/ability as() in lesser_abilities)
+	for(var/datum/holoparasite_ability/lesser/ability as anything in lesser_abilities)
 		if(ability.hidden)
 			continue
 		parts += "(L.Ability) [ability.name]"

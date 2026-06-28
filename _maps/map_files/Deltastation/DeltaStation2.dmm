@@ -468,7 +468,17 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -9;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -9
+	},
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "akc" = (
@@ -1659,8 +1669,8 @@
 /turf/open/floor/iron,
 /area/station/maintenance/starboard/aft)
 "aGh" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/aisat/exterior)
 "aGi" = (
@@ -3829,10 +3839,10 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/holopad,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/cmo)
 "buQ" = (
@@ -8296,8 +8306,8 @@
 /turf/open/floor/iron/dark,
 /area/station/security/warden)
 "cZA" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai)
 "cZK" = (
@@ -25414,8 +25424,8 @@
 /area/station/engineering/storage/tech)
 "iqy" = (
 /obj/structure/cable/yellow,
-/obj/machinery/holopad,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/aisat/exterior)
 "iqD" = (
@@ -28261,17 +28271,7 @@
 	dir = 10
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -9;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/condiment/enzyme{
-	pixel_x = 9;
-	pixel_y = 17
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -9
-	},
+/obj/machinery/cell_charger,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "jkD" = (
@@ -32391,7 +32391,6 @@
 /turf/open/floor/plating/airless,
 /area/station/science/test_area)
 "kvT" = (
-/obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow,
@@ -32400,6 +32399,7 @@
 	pixel_x = -20;
 	pixel_y = -21
 	},
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai)
 "kvV" = (
@@ -41976,11 +41976,11 @@
 /area/station/security/prison)
 "npS" = (
 /obj/structure/cable/yellow,
-/obj/machinery/holopad,
 /obj/effect/landmark/start/cyborg,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "nqc" = (
@@ -42907,10 +42907,10 @@
 /turf/open/floor/iron/white,
 /area/station/science/robotics/lab)
 "nEt" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/rd)
 "nEM" = (
@@ -43742,10 +43742,10 @@
 /turf/open/floor/iron/white/telecomms,
 /area/station/tcommsat/server)
 "nRq" = (
-/obj/machinery/holopad,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/holopad/secure,
 /turf/open/floor/carpet/royalblue,
 /area/station/command/heads_quarters/hop)
 "nRr" = (
@@ -52515,6 +52515,10 @@
 	dir = 8
 	},
 /obj/structure/table,
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_x = 9;
+	pixel_y = 17
+	},
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "qvw" = (
@@ -57193,7 +57197,9 @@
 /obj/item/storage/firstaid/regular,
 /obj/item/clothing/neck/stethoscope,
 /obj/item/healthanalyzer,
-/obj/machinery/light,
+/obj/machinery/computer/security/telescreen/artifacts{
+	pixel_y = -32
+	},
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "rRM" = (
@@ -60407,8 +60413,8 @@
 /turf/open/floor/iron,
 /area/station/maintenance/starboard/aft)
 "sQr" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/bot,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/chief)
 "sQG" = (
@@ -67581,11 +67587,11 @@
 /turf/closed/wall,
 /area/station/service/kitchen)
 "uUF" = (
-/obj/machinery/holopad,
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/holopad/secure,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain)
 "uUV" = (
@@ -71482,7 +71488,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/bot,
-/obj/machinery/holopad,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/hos)
 "wmH" = (
@@ -73256,13 +73262,13 @@
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain)
 "wLx" = (
-/obj/machinery/holopad,
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/holopad/secure,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain/private)
 "wLD" = (
@@ -74532,10 +74538,6 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /turf/open/floor/plating,
 /area/station/security/prison)
-"xev" = (
-/obj/structure/sign/warning/secure_area,
-/turf/closed/wall/r_wall,
-/area/station/science/explab)
 "xeA" = (
 /obj/item/beacon,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -108124,7 +108126,7 @@ wHV
 dgi
 vfm
 rRL
-xev
+aWd
 pdg
 xzy
 mNB

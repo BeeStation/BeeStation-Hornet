@@ -240,7 +240,7 @@
 	//Display the names of the inserted vials
 	data["chems"] = list()
 	var/i = 1
-	for(var/obj/item/reagent_containers/chem_vial as() in inserted_vials)
+	for(var/obj/item/reagent_containers/chem_vial as anything in inserted_vials)
 		var/chem_name = chem_vial.renamedByPlayer ? chem_vial.name : chem_vial.label_name || chem_vial.name
 		data["chems"] += list(list("name" = chem_name, "id" = i, "allowed" = chem_allowed(i), "amount" = chem_vial.reagents?.total_volume || 0))
 		i++
