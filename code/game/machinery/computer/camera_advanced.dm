@@ -191,7 +191,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 		var/turf/myturf = get_turf(src)
 		var/turf/camera_location = myturf
 
-		if(create_camera_mob_on_computer)
+		if(create_camera_mob_on_computer) // ignore the logic below that calculates the camera location
 			pass()
 		else if(!eyeobj.use_static && !IS_Z_ALLOWED(src, myturf.z))
 			camera_location = locate(round(world.maxx/2), round(world.maxy/2), allowed_z[1])
