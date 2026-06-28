@@ -45,7 +45,7 @@
 			TOOL_CROWBAR,
 			TOOL_WIRECUTTER,
 			TOOL_MULTITOOL,
-			"welder", // TOOL_WELDER behaviour is not working correctly
+			TOOL_WELDER, // NOTE: Due to how welder works, the tool behaviour is manually managed
 			TOOL_ANALYZER,
 			"wires"
 		),
@@ -78,8 +78,9 @@
 	if(!abstract_tools)
 		abstract_tools = list()
 
+		// TOOL_WELDER behaviour is not working correctly, and we need to put a welder manually
 		welder = new
-		welder.set_welding(TRUE)
+		welder.set_welding(TRUE) // this is why
 		abstract_tools += welder
 
 		cable_coil = new
@@ -103,11 +104,11 @@
 
 /obj/item/debug/omnitool/pre_attack(atom/A, mob/living/user, params)
 	switch(tool_behaviour)
-		if("welder")
-			welder.reagents.add_reagent(/datum/reagent/fuel, 100)
+		if(TOOL_WELDER) // TOOL_WELDER behaviour is not working correctly, and we need to put a welder manually
+			welder.reagents.add_reagent(/datum/reagent/fuel, 100) // This is why - some stuff costs fuels
 			welder.melee_attack_chain(user, A, params)
 		if("wires")
-			cable_coil.amount = 500
+			cable_coil.amount = 500 // recharges wires before & after using it
 			cable_coil.melee_attack_chain(user, A, params)
 			cable_coil.amount = 500
 			return

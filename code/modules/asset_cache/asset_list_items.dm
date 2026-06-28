@@ -420,7 +420,7 @@
 		TOOL_SCREWDRIVER = uni_icon('icons/obj/tools.dmi', "screwdriver_map"),
 		TOOL_WIRECUTTER = uni_icon('icons/obj/tools.dmi', "cutters_map"),
 		TOOL_WRENCH = uni_icon('icons/obj/tools.dmi', "wrench"),
-		"welder" = uni_icon('icons/obj/tools.dmi', "welder"),
+		TOOL_WELDER = uni_icon('icons/obj/tools.dmi', "welder"),
 		TOOL_ANALYZER = uni_icon('icons/obj/device.dmi', "analyzer"),
 		"wires" = uni_icon('icons/obj/power.dmi', "coil"),
 

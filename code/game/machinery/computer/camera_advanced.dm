@@ -309,7 +309,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 		update_ai_detect_hud()
 
 		if(use_static)
-			GLOB.cameranet.check_camera_visibility(src, GetViewerClient(), null, use_static)
+			GLOB.cameranet.update_camera_visibility(src, GetViewerClient(), null, use_static)
 
 		if(visible_icon)
 			if(!user_image)
