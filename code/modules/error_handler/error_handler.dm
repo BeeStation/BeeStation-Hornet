@@ -185,3 +185,4 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 #endif
 
 #undef ERROR_USEFUL_LEN
+#undef CALLEE_DETAILED_RUNTIME_THRESHOLD
