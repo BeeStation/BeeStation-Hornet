@@ -49,10 +49,6 @@
 		spoofed = TRUE
 		spoofed_caller_name = "Unknown"
 		spoofed_location_name = "Unknown Location"
-	else
-		spoofed = FALSE
-		spoofed_caller_name = null
-		spoofed_location_name = null
 
 	var/auto_connect_failed = FALSE
 	for(var/obj/machinery/holopad/connected_holopad as anything in callees)
