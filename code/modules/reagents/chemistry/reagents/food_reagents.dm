@@ -27,9 +27,12 @@
 	. = ..()
 	if(!ishuman(affected_mob) || HAS_TRAIT(affected_mob, TRAIT_NOHUNGER) || HAS_TRAIT(affected_mob, TRAIT_POWERHUNGRY))
 		return
-
-	var/mob/living/carbon/human/affected_human = affected_mob
-	affected_human.adjust_nutrition(nutriment_factor * REM * delta_time)
+	var/mob/living/carbon/human/H = affected_mob
+	// If the mob has a battery stomach but is not an Ethereal, they cannot digest normal food
+	var/obj/item/organ/stomach/battery/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(istype(stomach) && H.dna?.species?.id != SPECIES_ETHEREAL)
+		return
+	H.adjust_nutrition(nutriment_factor * REM * delta_time)
 
 /datum/reagent/consumable/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	. = ..()
@@ -758,7 +761,7 @@
 /datum/reagent/consumable/liquidelectricity
 	name = "Liquid Electricity"
 	description = "The blood of Ethereals, and the stuff that keeps them going. Great for them, horrid for anyone else."
-	nutriment_factor = 5 * REAGENTS_METABOLISM
+	nutriment_factor = 15 * REAGENTS_METABOLISM  // provides nutrition for those with a battery stomach
 	color = "#97ee63"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "pure electricity"
@@ -771,25 +774,30 @@
 	. = ..()
 	if(method == INJECT && ishuman(exposed_mob))
 		var/mob/living/carbon/human/H = exposed_mob
-		if(H.dna?.species?.id == SPECIES_ETHEREAL)
-			H.blood_volume = min(H.blood_volume + reac_volume, BLOOD_VOLUME_MAXIMUM)
-			var/obj/item/organ/stomach/battery/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
-			if(istype(stomach))
+		var/obj/item/organ/stomach/battery/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
+		if(istype(stomach))
+			if(H.dna?.species?.id == SPECIES_ETHEREAL)
+				H.blood_volume = min(H.blood_volume + reac_volume, BLOOD_VOLUME_MAXIMUM)
 				stomach.adjust_charge(reac_volume * 0.5)
 			H.reagents.remove_reagent(type, reac_volume)
 
 /datum/reagent/consumable/liquidelectricity/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(HAS_TRAIT(affected_mob, TRAIT_POWERHUNGRY))
-		var/obj/item/organ/stomach/battery/stomach = affected_mob.get_organ_slot(ORGAN_SLOT_STOMACH)
-		if(istype(stomach))
+	var/obj/item/organ/stomach/battery/stomach = affected_mob.get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(istype(stomach) && ishuman(affected_mob))
+		var/mob/living/carbon/human/H = affected_mob
+		if(H.dna?.species?.id == SPECIES_ETHEREAL)
+			// Ethereals get charge and blood regen
 			stomach.adjust_charge(40 * REM)
-		if(ishuman(affected_mob))
-			var/mob/living/carbon/human/H = affected_mob
 			H.blood_volume = min(H.blood_volume + (1 * REM * delta_time), BLOOD_VOLUME_MAXIMUM)
+		else
+			// Non-Ethereals with battery stomach get nutrition from LE
+			H.adjust_nutrition(nutriment_factor * REM * delta_time)
 	else if(DT_PROB(3, delta_time))
-		affected_mob.electrocute_act(rand(8,13), "Liquid Electricity in their body", 1) //lmao at the newbs who eat energy bars HARDER
+		// No stomach: shock
+		affected_mob.electrocute_act(rand(8,13), "Liquid Electricity in their body", 1)
 		playsound(affected_mob, "sparks", 50, 1)
+
 /datum/reagent/consumable/chlorophyll
 	name = "Liquid Chlorophyll"
 	description = "A plant-specific elixir of life."
