@@ -28,7 +28,7 @@
 	if(!ishuman(affected_mob) || HAS_TRAIT(affected_mob, TRAIT_NOHUNGER) || HAS_TRAIT(affected_mob, TRAIT_POWERHUNGRY))
 		return
 	var/mob/living/carbon/human/H = affected_mob
-	// If the mob has a battery stomach but is not an Ethereal, they cannot digest normal food
+	// If non-ethereal gets ethereal stomach they cannot eat
 	var/obj/item/organ/stomach/battery/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(istype(stomach) && H.dna?.species?.id != SPECIES_ETHEREAL)
 		return
@@ -761,7 +761,7 @@
 /datum/reagent/consumable/liquidelectricity
 	name = "Liquid Electricity"
 	description = "The blood of Ethereals, and the stuff that keeps them going. Great for them, horrid for anyone else."
-	nutriment_factor = 15 * REAGENTS_METABOLISM  // provides nutrition for those with a battery stomach
+	nutriment_factor = 5 * REAGENTS_METABOLISM  // How much LE transfers in to food
 	color = "#97ee63"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "pure electricity"
@@ -791,10 +791,10 @@
 			stomach.adjust_charge(40 * REM)
 			H.blood_volume = min(H.blood_volume + (1 * REM * delta_time), BLOOD_VOLUME_MAXIMUM)
 		else
-			// Non-Ethereals with battery stomach get nutrition from LE
+			// Non-Ethereals need to Sever the spines of rival cyborgs to eat 
 			H.adjust_nutrition(nutriment_factor * REM * delta_time)
 	else if(DT_PROB(3, delta_time))
-		// No stomach: shock
+
 		affected_mob.electrocute_act(rand(8,13), "Liquid Electricity in their body", 1)
 		playsound(affected_mob, "sparks", 50, 1)
 
