@@ -246,3 +246,6 @@
       & AI facilities are immune from this. You can use a multitool on a holopad board
       to make it immune as well.
   - bugfix: Fixed holocalls.
+2026-06-28:
+  mrmanlikesbt:
+  - bugfix: Fixed shuttles hard deleting when exiting supercruise
