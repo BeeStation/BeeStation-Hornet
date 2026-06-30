@@ -4732,14 +4732,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
-"bDv" = (
-/obj/effect/turf_decal/tile/red/half{
-	dir = 1
-	},
-/obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/prison/dark,
-/area/station/security/prison)
 "bDC" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/stripes/line{
@@ -5435,7 +5427,6 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/processing)
 "bSv" = (
@@ -23156,6 +23147,7 @@
 "ikD" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/caution/stand_clear,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/processing)
 "ikF" = (
@@ -35839,6 +35831,7 @@
 	pixel_x = -5
 	},
 /obj/item/seeds/tobacco/space,
+/obj/structure/cable/yellow,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "mUX" = (
@@ -39139,7 +39132,6 @@
 /obj/machinery/power/apc/auto_name/directional/west{
 	name = "Engineering Security APC"
 	},
-/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/processing)
 "orK" = (
@@ -44843,7 +44835,6 @@
 	req_one_access_txt = "2";
 	req_access = list(2,34)
 	},
-/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/processing)
 "qGJ" = (
@@ -46070,6 +46061,7 @@
 /obj/item/paper/guides/jobs/security/labor_camp,
 /obj/item/pen,
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/processing)
 "rhZ" = (
@@ -54276,6 +54268,7 @@
 "upb" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/processing)
 "upi" = (
@@ -86874,7 +86867,7 @@ mPQ
 hYU
 dGZ
 bvs
-bDv
+eSc
 mUS
 gDY
 aaQ
