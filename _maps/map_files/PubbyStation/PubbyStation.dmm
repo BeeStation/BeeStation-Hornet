@@ -39132,6 +39132,7 @@
 /obj/machinery/power/apc/auto_name/directional/west{
 	name = "Engineering Security APC"
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/processing)
 "orK" = (
