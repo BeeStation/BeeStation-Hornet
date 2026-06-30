@@ -4300,7 +4300,6 @@
 /obj/effect/turf_decal/tile/red/anticorner{
 	dir = 1
 	},
-/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
@@ -4732,6 +4731,14 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/brig)
+"bDv" = (
+/obj/effect/turf_decal/tile/red/half{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow,
+/turf/open/floor/prison/dark,
+/area/station/security/prison)
 "bDC" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/stripes/line{
@@ -5427,6 +5434,7 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/processing)
 "bSv" = (
@@ -8701,6 +8709,7 @@
 	name = "Prisoner Dock"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/entrance,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/processing)
 "cYe" = (
@@ -22921,6 +22930,7 @@
 /turf/open/floor/iron/dark,
 /area/station/commons/fitness/recreation/entertainment)
 "ieJ" = (
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/processing)
 "ieX" = (
@@ -23147,7 +23157,6 @@
 "ikD" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/caution/stand_clear,
-/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/processing)
 "ikF" = (
@@ -25933,7 +25942,6 @@
 /turf/open/floor/iron/airless,
 /area/misc/space/nearstation)
 "jkt" = (
-/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/effect/turf_decal/tile/red/half{
 	dir = 1
@@ -35831,7 +35839,6 @@
 	pixel_x = -5
 	},
 /obj/item/seeds/tobacco/space,
-/obj/structure/cable/yellow,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "mUX" = (
@@ -44836,6 +44843,7 @@
 	req_one_access_txt = "2";
 	req_access = list(2,34)
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/processing)
 "qGJ" = (
@@ -46273,7 +46281,6 @@
 /turf/open/floor/plating,
 /area/station/engineering/atmos)
 "rlY" = (
-/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/white/smooth_large,
 /area/station/security/medical)
@@ -51964,6 +51971,7 @@
 /obj/effect/turf_decal/tile/red/half{
 	dir = 8
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/white/smooth_large,
 /area/station/security/medical)
 "trV" = (
@@ -54269,7 +54277,6 @@
 "upb" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/processing)
 "upi" = (
@@ -57330,9 +57337,6 @@
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/lesser)
-"vuj" = (
-/turf/open/floor/iron/white/smooth_large,
-/area/station/security/medical)
 "vux" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -86351,7 +86355,7 @@ doS
 pmu
 dep
 cgz
-vuj
+cgz
 cXO
 ieJ
 bRV
@@ -86868,7 +86872,7 @@ mPQ
 hYU
 dGZ
 bvs
-eSc
+bDv
 mUS
 gDY
 aaQ
