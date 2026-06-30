@@ -59,11 +59,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly)
 		QDEL_NULL(anomaly_core)
 	return ..()
 
-/obj/effect/anomaly/Exited(atom/movable/gone, direction)
-	. = ..()
-	if(gone == anomaly_core)
-		anomaly_core = null
-
 /obj/effect/anomaly/analyzer_act(mob/living/user, obj/item/tool)
 	if(isnull(anomaly_core))
 		return
@@ -95,6 +90,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly)
 	new /obj/effect/particle_effect/smoke/bad(loc)
 
 	anomaly_core.forceMove(drop_location())
+	anomaly_core = null
 	qdel(src)
 
 /**

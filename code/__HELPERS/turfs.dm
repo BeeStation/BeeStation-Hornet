@@ -363,22 +363,21 @@ Turf and target are separate in case you want to teleport some distance from a t
 /proc/get_safe_random_station_turfs(list/areas_to_pick_from = GLOB.the_station_areas, amount = 1)
 	var/list/turf/all_station_turfs = list()
 	for(var/area/area_to_search as anything in areas_to_pick_from)
-		all_station_turfs += get_area_turfs(area_to_search)
+		if(area_to_search.area_flags & VALID_TERRITORY)
+			all_station_turfs += get_area_turfs(area_to_search)
 
 	var/list/turf/picked_turfs = list()
 	while(length(all_station_turfs) && length(picked_turfs) < amount)
 		var/turf/checked_turf = pick_n_take(all_station_turfs)
 
 		if(!checked_turf.density && !isgroundlessturf(checked_turf))
-			var/area/turf_area = get_area(checked_turf)
-			if(turf_area.area_flags & VALID_TERRITORY)
-				var/clear = TRUE
-				for(var/obj/checked_object in checked_turf)
-					if(checked_object.density)
-						clear = FALSE
-						break
-				if(clear)
-					picked_turfs += checked_turf
+			var/clear = TRUE
+			for(var/obj/checked_object in checked_turf)
+				if(checked_object.density)
+					clear = FALSE
+					break
+			if(clear)
+				picked_turfs += checked_turf
 		CHECK_TICK
 
 	if(!length(picked_turfs))
