@@ -139,7 +139,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 // --------------------------------------
 // Manages record and disk
 /obj/machinery/computer/cloning/proc/delete_record(mob/user, target_record)
-	var/obj/item/card/id/idcard_for_auth = usr.get_idcard(hand_first = TRUE)
+	var/obj/item/card/id/idcard_for_auth = user.get_idcard(hand_first = TRUE)
 	if(!istype(idcard_for_auth) || !check_access(idcard_for_auth))
 		scantemp = "Cannot delete: Access Denied."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
@@ -173,7 +173,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			break
 	if(!found_record)
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-		scantemp = "Failed saving to disk: Data Corruption"
+		scantemp = "Failed saving to disk: Data Corrupted"
 		return
 
 	QDEL_NULL(diskette.data)
@@ -204,13 +204,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	return
 
 /obj/machinery/computer/cloning/proc/eject_disk(mob/user)
-	if(diskette)
-		scantemp = "Disk Ejected"
-		diskette.forceMove(drop_location())
-		user.put_in_active_hand(diskette)
-		diskette = null
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
-		. = TRUE
+	if(!diskette)
+		return
+	scantemp = "Disk Ejected"
+	diskette.forceMove(drop_location())
+	user.put_in_active_hand(diskette)
+	diskette = null
+	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+	return TRUE
 
 /obj/machinery/computer/cloning/proc/toggle_lock(mob/user)
 	if(!connected_scanner.is_operational)
