@@ -211,7 +211,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	user.put_in_active_hand(diskette)
 	diskette = null
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
-	return TRUE
 
 /obj/machinery/computer/cloning/proc/toggle_lock(mob/user)
 	if(!connected_scanner.is_operational)
@@ -220,7 +219,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		return
 	connected_scanner.locked = !connected_scanner.locked
 	playsound(src, connected_scanner.locked ? 'sound/machines/terminal_prompt_deny.ogg' : 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
-	. = TRUE
 
 // --------------------------------------
 // Actual clone codes / 1.scan procs / 2.clone proc
@@ -581,9 +579,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			load_from_disk(usr)
 			return TRUE
 		if("eject")
-			. = eject_disk(usr)
+			eject_disk(usr)
+			return TRUE
 		if("toggle_lock")
-			. = toggle_lock(usr)
+			toggle_lock(usr)
+			return TRUE
 
 /obj/machinery/computer/cloning/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
