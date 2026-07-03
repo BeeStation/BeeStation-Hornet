@@ -263,9 +263,6 @@ Possible to do for anyone motivated enough:
 
 /obj/machinery/holopad/on_emag(mob/user)
 	. = ..()
-	if(!is_operational)
-		to_chat(user, span_warning("[src] is not operational."))
-		return
 	if(obj_flags & EMAGGED)
 		to_chat(user, span_danger("You override the holopad's identity systems. It will now project false caller information."))
 	else
