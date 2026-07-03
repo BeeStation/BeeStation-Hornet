@@ -469,7 +469,7 @@
 
 	// Set up a copy of their DNA in our profile.
 	var/datum/dna/new_dna = new target.dna.type()
-	target.dna.copy_dna(new_dna)
+	target.dna.copy_dna_to(new_dna)
 	new_profile.dna = new_dna
 	new_profile.name = target.real_name
 	new_profile.protected = protect
@@ -787,7 +787,7 @@
 	new_profile.name = name
 	new_profile.protected = protected
 	new_profile.dna = new dna.type
-	dna.copy_dna(new_profile.dna)
+	dna.copy_dna_to(new_profile.dna)
 	new_profile.name_list = name_list.Copy()
 	new_profile.appearance_list = appearance_list.Copy()
 	new_profile.flags_cover_list = flags_cover_list.Copy()

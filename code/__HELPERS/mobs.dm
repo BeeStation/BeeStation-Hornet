@@ -640,23 +640,19 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 	if(initator.dir + 2 == target.dir || initator.dir - 2 == target.dir || initator.dir + 6 == target.dir || initator.dir - 6 == target.dir) //Initating mob is looking at the target, while the target mob is looking in a direction perpendicular to the 1st
 		return FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
 
-///Returns the occupant mob or brain from a specified input
-/proc/get_mob_or_brainmob(occupant)
-	var/mob/living/mob_occupant
+/// Returns the brainmob from a thing
+/proc/get_brainmob(obj/target_item, finds_mmi = FALSE)
+	if(istype(target_item, /obj/item/bodypart/head))
+		var/obj/item/bodypart/head/head = target_item
+		return head.brainmob
 
-	if(isliving(occupant))
-		mob_occupant = occupant
+	else if(istype(target_item, /obj/item/organ/brain))
+		var/obj/item/organ/brain/brain = target_item
+		return brain.brainmob
 
-	else if(isbodypart(occupant))
-		var/obj/item/bodypart/head/head = occupant
-
-		mob_occupant = head.brainmob
-
-	else if(isorgan(occupant))
-		var/obj/item/organ/brain/brain = occupant
-		mob_occupant = brain.brainmob
-
-	return mob_occupant
+	else if(finds_mmi && istype(target_item, /obj/item/mmi))
+		var/obj/item/mmi/mmi = target_item
+		return mmi.brainmob
 
 ///Returns the amount of currently living players
 /proc/living_player_count()
