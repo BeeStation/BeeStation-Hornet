@@ -618,11 +618,12 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	var/has_spoofed_ringing = FALSE
 	var/has_spoofed_active = FALSE
 	for(var/datum/holocall/HC in holo_calls)
-		if(HC.spoofed)
-			if(HC.connected_holopad == src)
-				has_spoofed_active = TRUE
-			else
-				has_spoofed_ringing = TRUE
+		if(!HC.spoofed)
+			continue
+		if(HC.connected_holopad == src)
+			has_spoofed_active = TRUE
+		else
+			has_spoofed_ringing = TRUE
 	if(ringing && has_spoofed_ringing)
 		icon_state = "holopad_ringing2"
 		return ..()
