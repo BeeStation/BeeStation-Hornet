@@ -586,7 +586,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 				create_chat_message(speaker, message_language, list(holocall_to_update.user), raw_message, spans, message_mods)
 			else
 				var/mob/calling_mob = holocall_to_update.user
-				if(calling_mob.client && calling_mob.client.prefs.read_preference(/datum/preference/toggle/enable_runechat))
+				if(calling_mob.client?.prefs?.read_preference(/datum/preference/toggle/enable_runechat))
 					create_chat_message(speaker, message_language, list(calling_mob), raw_message, spans, message_mods)
 				calling_mob.Hear(speaker, message_language, raw_message, radio_freq, spans, message_mods, message_range = INFINITY)
 
