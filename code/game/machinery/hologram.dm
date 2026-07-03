@@ -303,7 +303,7 @@ Possible to do for anyone motivated enough:
 		if(HC.spoofed)
 			caller_name_display = "Unknown"
 		else
-			caller_name_display = HC.user ? HC.user.name : "Unknown"
+			caller_name_display = HC.user?.name || "Unknown"
 		var/list/call_data = list(
 			"caller" = caller_name_display,
 			"connected" = (HC.connected_holopad == src),
