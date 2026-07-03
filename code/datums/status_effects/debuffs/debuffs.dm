@@ -1336,11 +1336,11 @@
 		qdel(src)
 		return
 	src.target_dna = new target_dna.type
-	target_dna.copy_dna(src.target_dna)
+	target_dna.copy_dna_to(src.target_dna)
 	charge_left = rand(45, 90)
 	if(original_dna)
 		src.original_dna = new original_dna.type
-		original_dna.copy_dna(src.original_dna)
+		original_dna.copy_dna_to(src.original_dna)
 	src.already_applied = already_applied
 	return ..()
 
@@ -1355,7 +1355,7 @@
 		return
 	else if(!original_dna)
 		original_dna = new carbon_owner.dna.type
-		carbon_owner.dna.copy_dna(original_dna)
+		carbon_owner.dna.copy_dna_to(original_dna)
 	RegisterSignal(owner, COMSIG_CARBON_TRANSFORMED, PROC_REF(on_transformation))
 	if(!already_applied)
 		apply_dna(target_dna)
