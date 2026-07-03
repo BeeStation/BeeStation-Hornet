@@ -119,11 +119,9 @@
 #define MACHINE_ELECTRIFIED_PERMANENT -1
 #define MACHINE_DEFAULT_ELECTRIFY_TIME 30
 
-//cloning defines. These are flags.
-#define CLONING_SUCCESS (1<<0)
-#define CLONING_DELETE_RECORD (1<<1)
-#define CLONING_SUCCESS_EXPERIMENTAL (1<<2)
-
+//cloning defines - used to notify how cloning action did go
+#define CLONING_SUCCESS 1
+#define CLONING_SUCCESS_EXPERIMENTAL 2
 #define ERROR_NO_SYNTHFLESH 101
 #define ERROR_PANEL_OPENED 102
 #define ERROR_MESS_OR_ATTEMPTING 103
