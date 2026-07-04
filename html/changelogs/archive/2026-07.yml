@@ -16,3 +16,15 @@
   MatiAvanti:
   - admin: The banning panel now blocks banning other admin unless "Applies to admins"
       is ticked.
+2026-07-04:
+  EvilDragonfiend:
+  - code_imp: Improved how 'camera networks' work. Also revised some var names and
+      proc names.
+  - code_imp: 'Added "XENOBIOLOGY_CONSOLE_DISALLOWED" area flag. As long as an area
+      has this flag, you cannot do a xenobiology in the area. This flag can be neutralized
+      if you use a slime blueprint. Restricted areas are: shuttles, maint tunnels,
+      and hallways.'
+  - bugfix: Xenobio cameras will be coordinated at the correct areas.
+  - bugfix: Debug Omnitool welder now works.
+  cursedkiller:
+  - rscadd: Added Holopad emag location spoof functionality

@@ -227,7 +227,6 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 #define CAMERA_NETWORK_RESEARCH "research"
 #define CAMERA_NETWORK_ENGINEERING "engineer"
 #define CAMERA_NETWORK_MEDICAL "medical"
-#define CAMERA_NETWORK_THUNDERDOME "thunder"
 #define CAMERA_NETWORK_AUXBASE "auxbase"
 #define CAMERA_NETWORK_LABOR "labor"
 #define CAMERA_NETWORK_PRISON "prison"
@@ -239,7 +238,6 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 #define CAMERA_NETWORK_TCOMMS "tcomms"
 #define CAMERA_NETWORK_COURT "court"
 #define CAMERA_NETWORK_EVAC "evac"
-#define CAMERA_NETWORK_CARAVAN_SYNDICATE "caravan_syndicate"
 #define CAMERA_NETWORK_THEATHRE "theathre"
 #define CAMERA_NETWORK_ARTIFACTS "artsci"
 
@@ -248,6 +246,11 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 
 // Special
 #define CAMERA_NETWORK_PRIVATE "private"
+#define CAMERA_NETWORK_THUNDERDOME "thunder"
+#define CAMERA_NETWORK_CARAVAN_SYNDICATE "caravan_syndicate"
+
+/// some camera area strings shouldn't be allowed to be manually made by players
+#define CAMERA_NETWORK_DISALLOWED_STRINGS list(CAMERA_NETWORK_VAULT, CAMERA_NETWORK_THUNDERDOME, CAMERA_NETWORK_AI_UPLOAD, CAMERA_NETWORK_TOXINS_TEST)
 
 // Air alarm buildstage [/obj/machinery/airalarm/buildstage]
 /// Air alarm missing circuit

@@ -91,6 +91,8 @@ Possible to do for anyone motivated enough:
 	/// Bitfield. used to turn on and off hearing sensitivity depending on if we can act on Hear() at all - meant for lowering the number of unessesary hearable atoms
 	var/can_hear_flags = NONE
 
+	emag_toggleable = TRUE
+
 /datum/armor/machinery_holopad
 	melee = 50
 	bullet = 20
@@ -111,7 +113,6 @@ Possible to do for anyone motivated enough:
 /obj/machinery/holopad/secure/Initialize(mapload)
 	. = ..()
 	var/obj/item/circuitboard/machine/holopad/board = circuit
-	board.secure = TRUE
 	board.build_path = /obj/machinery/holopad/secure
 
 /obj/machinery/holopad/tutorial
@@ -260,6 +261,15 @@ Possible to do for anyone motivated enough:
 	if(gone == disk)
 		disk = null
 
+/obj/machinery/holopad/on_emag(mob/user)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		to_chat(user, span_danger("You override the holopad's identity systems. It will now project false caller information."))
+	else
+		to_chat(user, span_notice("You reset the holopad's security override. The systems return to normal."))
+		visible_message(span_notice("[src]'s indicator lights flicker and return to a steady blue."))
+	return TRUE
+
 /obj/machinery/holopad/ui_status(mob/user, datum/ui_state/state)
 	if(!is_operational)
 		return UI_CLOSE
@@ -286,8 +296,13 @@ Possible to do for anyone motivated enough:
 	data["record_mode"] = record_mode
 	data["holo_calls"] = list()
 	for(var/datum/holocall/HC as anything in holo_calls)
+		var/caller_name_display
+		if(HC.spoofed)
+			caller_name_display = "Unknown"
+		else
+			caller_name_display = HC.user?.name || "Unknown"
 		var/list/call_data = list(
-			"caller" = HC.user,
+			"caller" = caller_name_display,
 			"connected" = (HC.connected_holopad == src),
 			"ref" = REF(HC)
 		)
@@ -570,10 +585,17 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 			if(speaker == holocall_to_update.hologram && holocall_to_update.user.client?.prefs.read_preference(/datum/preference/toggle/enable_runechat))
 				create_chat_message(speaker, message_language, list(holocall_to_update.user), raw_message, spans, message_mods)
 			else
-				holocall_to_update.user.Hear(speaker, message_language, raw_message, radio_freq, spans, message_mods, message_range = INFINITY)
+				var/mob/calling_mob = holocall_to_update.user
+				if(calling_mob.client?.prefs?.read_preference(/datum/preference/toggle/enable_runechat))
+					create_chat_message(speaker, message_language, list(calling_mob), raw_message, spans, message_mods)
+				calling_mob.Hear(speaker, message_language, raw_message, radio_freq, spans, message_mods, message_range = INFINITY)
 
 	if(outgoing_call && speaker == outgoing_call.user)
-		outgoing_call.hologram.say(raw_message, spans = spans, sanitize = FALSE, language = message_language, message_mods = message_mods)
+		var/list/extra_spans = spans?.Copy() || list()
+		if(outgoing_call.spoofed)
+			extra_spans |= "bold"
+			extra_spans |= "danger"
+		outgoing_call.hologram.say(raw_message, spans = extra_spans, sanitize = FALSE, language = message_language, message_mods = message_mods)
 
 	if(record_mode && speaker == record_user)
 		record_message(speaker, raw_message, message_language)
@@ -593,6 +615,21 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		icon_state = "[base_icon_state]_open"
 		return ..()
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
+	var/has_spoofed_ringing = FALSE
+	var/has_spoofed_active = FALSE
+	for(var/datum/holocall/HC in holo_calls)
+		if(!HC.spoofed)
+			continue
+		if(HC.connected_holopad == src)
+			has_spoofed_active = TRUE
+		else
+			has_spoofed_ringing = TRUE
+	if(ringing && has_spoofed_ringing)
+		icon_state = "holopad_ringing2"
+		return ..()
+	if(has_spoofed_active)
+		icon_state = "holopad2"
+		return ..()
 	if(ringing)
 		icon_state = "[base_icon_state]_ringing"
 		return ..()
@@ -715,6 +752,11 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		animate(ray, transform = turn(M.Scale(1,sqrt(distx*distx+disty*disty)),newangle),time = 1)
 	else
 		ray.transform = turn(M.Scale(1,sqrt(distx*distx+disty*disty)),newangle)
+
+	if(holo.HC?.spoofed)
+		ray.add_atom_colour(COLOR_RED, FIXED_COLOUR_PRIORITY)
+	else
+		ray.remove_atom_colour(FIXED_COLOUR_PRIORITY)
 
 // RECORDED MESSAGES
 
