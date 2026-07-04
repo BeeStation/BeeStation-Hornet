@@ -89,7 +89,7 @@
 	. = ..()
 	var/area/myarea = get_area(src)
 	if(myarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
-		. += span_warning("[myarea.name] is not allowed for the Xenobiology. The console will not work.")
+		. += span_warning("[get_area_name(myarea)] lacks xenobiological compatibility. The console will not work here!")
 
 /obj/machinery/computer/camera_advanced/xenobio/CreateEye()
 	eyeobj = new /mob/camera/ai_eye/remote/xenobio(get_turf(src))
@@ -105,7 +105,7 @@
 	if(!myarea)
 		return
 	if(myarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
-		to_chat(user, span_warning("You need to use the camera console in the xenobiology-compatible areas."))
+		to_chat(user, span_warning("[get_area_name(myarea)] lacks xenobiological compatibility. The console will not work here!"))
 		return
 	if(!eyeobj.is_valid_area(get_area(eyeobj)))
 		eyeobj.abstract_move(get_turf(src))
@@ -410,7 +410,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	var/mob/camera/ai_eye/remote/xenobio/E = C.remote_control
 	var/area/mobarea = get_area(S.loc)
 	if(mobarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
-		to_chat(C, span_notice("The target area is not allowed for the Xenobiology manipulation."))
+		to_chat(C, span_warning("This area does not support xenobiological manipulation."))
 		return
 	if(mobarea.name == E.allowed_area || (mobarea.area_flags & XENOBIOLOGY_COMPATIBLE))
 		slime_scan(S, C)
@@ -427,7 +427,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/mobarea = get_area(S.loc)
 	if(mobarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
-		to_chat(C, span_notice("The target area is not allowed for the Xenobiology manipulation."))
+		to_chat(C, span_warning("This area does not support xenobiological manipulation."))
 		return
 	if(QDELETED(X.current_potion))
 		to_chat(C, span_warning("No potion loaded."))
@@ -447,7 +447,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/mobarea = get_area(S.loc)
 	if(mobarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
-		to_chat(C, span_notice("The target area is not allowed for the Xenobiology manipulation."))
+		to_chat(C, span_warning("This area does not support xenobiological manipulation."))
 		return
 	if(mobarea.name == E.allowed_area || (mobarea.area_flags & XENOBIOLOGY_COMPATIBLE))
 		if(X.stored_slimes.len >= X.max_slimes)
@@ -474,7 +474,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/turfarea = get_area(T)
 	if(turfarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
-		to_chat(C, span_notice("The target area is not allowed for the Xenobiology manipulation."))
+		to_chat(C, span_warning("This area does not support xenobiological manipulation."))
 		return
 	if(turfarea.name == E.allowed_area || (turfarea.area_flags & XENOBIOLOGY_COMPATIBLE))
 		for(var/mob/living/simple_animal/slime/S in X.stored_slimes)
@@ -494,7 +494,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/turfarea = get_area(T)
 	if(turfarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
-		to_chat(C, span_notice("The target area is not allowed for the Xenobiology manipulation."))
+		to_chat(C, span_warning("This area does not support xenobiological manipulation."))
 		return
 	if(turfarea.name == E.allowed_area || (turfarea.area_flags & XENOBIOLOGY_COMPATIBLE))
 		if(X.monkeys >= 1)
@@ -518,7 +518,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/mobarea = get_area(M.loc)
 	if(mobarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
-		to_chat(C, span_notice("The target area is not allowed for the Xenobiology manipulation."))
+		to_chat(C, span_warning("This area does not support xenobiological manipulation."))
 		return
 	if(!X.connected_recycler)
 		to_chat(C, span_notice("There is no connected monkey recycler.  Use a multitool to link one."))

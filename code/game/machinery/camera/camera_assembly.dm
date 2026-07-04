@@ -191,7 +191,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/camera_assembly)
 	var/list/tempnetwork = splittext(input, ",")
 	var/list/disallowed_list
 	if(length(tempnetwork) > 20)
-		to_chat(user, span_warning("Connecting the camera to more than 20 networks doesn't look alright."))
+		to_chat(user, span_warning("Connecting the camera to more than 20 networks doesn't seem right..."))
 		return
 	for(var/i in tempnetwork)
 		tempnetwork -= i

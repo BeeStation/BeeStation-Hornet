@@ -474,11 +474,15 @@
 	icon_state = "science"
 	build_path = /obj/machinery/computer/camera_advanced/xenobio
 
-/obj/item/circuitboard/computer/xenobiology/examine(user)
+/obj/item/circuitboard/computer/xenobiology/examine(mob/user)
 	. = ..()
-	var/area/myarea = get_area(user)
+	if(!in_range(user, src)
+		return
+	var/area/myarea = get_area(src)
 	if(myarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
-		. += span_warning("You are currently at [myarea.name] where the area is not allowed for the Xenobiology.")
+		. += span_red("The circuit board's incompatible xenobiological area light is: RED.")
+	else
+		. += span_green("The circuit board's compatible xenobiological area light is: GREEN.")
 
 //Security
 

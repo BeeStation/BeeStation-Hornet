@@ -74,7 +74,7 @@
 	user.set_mob_eye_to(MOB_EYE_SELF)
 
 /obj/item/camera_bug/proc/get_cameras()
-	var/static/list/camera_bug_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_MINE, CAMERA_NETWORK_LABOR, CAMERA_NETWORK_TOXINS_TEST, "rd", "toxins", "minisat") // I don't know if these string values are a thing
+	var/static/list/camera_bug_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_MINE, CAMERA_NETWORK_LABOR, CAMERA_NETWORK_TOXINS_TEST)
 	if( world.time > (last_net_update + 100))
 		bugged_cameras = list()
 		for(var/obj/machinery/camera/camera as anything in GLOB.cameranet.cameras)
