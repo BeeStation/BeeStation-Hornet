@@ -1618,7 +1618,10 @@
 /area/station/science/xenobiology
 	name = "\improper Xenobiology Lab"
 	icon_state = "xenobio"
-	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_RESEARCH)
+
+/area/station/science/xenobiology/hallway
+	name = "\improper Xenobiology Hallway"
+	icon_state = "xenobio_hall"
 
 /area/station/science/shuttle
 	name = "Shuttle Construction"

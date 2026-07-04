@@ -1,5 +1,5 @@
-/// Checks if z is not-allowed by list/allowed_z. If the list has zero length, we regard that as allowed
-#define IS_Z_ALLOWED(comp, my_z) (!length(comp.allowed_z) || comp.allowed_z?.Find(my_z) ? TRUE/*allowed*/ : FALSE/*NOT allowed*/)
+/// Checks if z is allowed(or not) by list/allowed_z. If the list has zero length, we regard that as allowed
+#define IS_Z_ALLOWED(comp, my_z) (!length(comp.allowed_z) || (my_z in comp.allowed_z))
 
 /obj/machinery/computer/camera_advanced
 	name = "advanced camera console"

@@ -476,13 +476,13 @@
 
 /obj/item/circuitboard/computer/xenobiology/examine(mob/user)
 	. = ..()
-	if(!in_range(user, src)
+	if(!in_range(user, src))
 		return
 	var/area/myarea = get_area(src)
 	if(myarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
-		. += span_red("The circuit board's incompatible xenobiological area light is: RED.")
+		. += span_red("The circuit board's indicator is blinking RED: the current area is <b>NOT</b> xenobiology-compatible.")
 	else
-		. += span_green("The circuit board's compatible xenobiological area light is: GREEN.")
+		. += span_green("The circuit board's indicator is glowing GREEN: the current area is xenobiology-compatible.")
 
 //Security
 
