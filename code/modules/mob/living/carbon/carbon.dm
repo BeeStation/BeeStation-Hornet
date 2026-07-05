@@ -566,12 +566,14 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	var/new_sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
+
 	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
-	see_invisible = eyes.see_invisible
-	see_in_dark = eyes.see_in_dark
-	new_sight |= eyes.sight_flags
-	if(!isnull(eyes.lighting_alpha))
-		lighting_alpha = eyes.lighting_alpha
+	if(eyes)
+		see_invisible = eyes.see_invisible
+		see_in_dark = eyes.see_in_dark
+		new_sight |= eyes.sight_flags
+		if(!isnull(eyes.lighting_alpha))
+			lighting_alpha = eyes.lighting_alpha
 
 	if(client.eye && client.eye != src)
 		var/atom/A = client.eye
