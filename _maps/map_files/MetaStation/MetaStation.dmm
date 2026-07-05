@@ -3633,6 +3633,9 @@
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
 "bCj" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "bCr" = (
@@ -37251,14 +37254,12 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "ngk" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/airalarm/directional/east,
 /obj/structure/closet/firecloset,
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
 	},
 /turf/open/floor/iron/white,
 /area/station/science/research)
@@ -40242,6 +40243,7 @@
 /obj/machinery/camera/directional/west{
 	pixel_y = -23
 	},
+/obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "odf" = (
@@ -46870,6 +46872,8 @@
 /obj/structure/sink/directional/south{
 	pixel_y = 5
 	},
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "qpR" = (
@@ -47612,6 +47616,9 @@
 	pixel_y = -28
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "qCy" = (
@@ -54438,12 +54445,10 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
+/obj/structure/cable/yellow,
+/obj/machinery/power/apc/auto_name/directional/east,
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
 	},
 /turf/open/floor/iron/white,
 /area/station/science/research)
@@ -60383,9 +60388,6 @@
 /obj/machinery/shower/directional/west{
 	pixel_x = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/open/floor/noslip/white,
 /area/station/science/research)
 "uRr" = (
@@ -63863,8 +63865,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/power/apc/auto_name/directional/west,
-/obj/structure/cable/yellow,
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "wfx" = (
