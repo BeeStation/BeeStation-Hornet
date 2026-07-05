@@ -1,0 +1,5 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - code_imp: isnum_safe() has been removed since it was logically identical to IS_FINITE()
+  - code_imp: Replaced our isnan() and isinf() overrides with the BYOND built-in procs.

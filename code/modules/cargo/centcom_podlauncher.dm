@@ -293,7 +293,7 @@
 					boomInput.Add(input("Enter the [expNames[i]] range of the explosion. WARNING: This ignores the bomb cap!", "[expNames[i]] Range",  0) as null|num)
 					if (isnull(boomInput[i]))
 						return
-					if (!isnum_safe(boomInput[i])) //If the user doesn't input a number, set that specific explosion value to zero
+					if (!IS_FINITE(boomInput[i])) //If the user doesn't input a number, set that specific explosion value to zero
 						alert(usr, "That wasn't a number! Value set to default (zero) instead.")
 						boomInput = 0
 				explosionChoice = 1
@@ -315,7 +315,7 @@
 				var/damageInput = input("Enter the amount of brute damage dealt by getting hit","How much damage to deal",  0) as null|num
 				if (isnull(damageInput))
 					return
-				if (!isnum_safe(damageInput)) //Sanitize the input for damage to deal.s
+				if (!IS_FINITE(damageInput)) //Sanitize the input for damage to deal.s
 					alert(usr, "That wasn't a number! Value set to default (zero) instead.")
 					damageInput = 0
 				damageChoice = 1

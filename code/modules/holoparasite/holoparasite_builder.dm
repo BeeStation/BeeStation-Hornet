@@ -34,13 +34,13 @@
 	theme = get_holoparasite_theme(_theme)
 	if(!istype(theme))
 		CRASH("Holoparasite builder created without valid theme!")
-	if(isnum_safe(_max_points))
+	if(IS_FINITE(_max_points))
 		max_points = max(round(_max_points), 1)
 	points = max_points
-	if(isnum_safe(_max_level))
+	if(IS_FINITE(_max_level))
 		max_level = max(round(_max_level), 1)
 	saved_stats.max_level = max_level
-	if(isnum_safe(_uses))
+	if(IS_FINITE(_uses))
 		uses = max(round(_uses), 1)
 	debug_mode = _debug_mode
 	accent_color = pick(GLOB.color_list_rainbow)
@@ -172,7 +172,7 @@
 		if("set:stat")
 			var/stat = params["stat"]
 			var/value = params["level"]
-			if(!istext(stat) || !length(stat) || !isnum_safe(value))
+			if(!istext(stat) || !length(stat) || !IS_FINITE(value))
 				return
 			var/level = clamp(round(value), 1, max_level)
 			switch(stat)
@@ -283,7 +283,7 @@
 	if(!path || !ispath(path, base_path))
 		return FALSE
 	var/datum/holoparasite_ability/ability = GLOB.holoparasite_abilities[path]
-	if(!istype(ability) || !isnum_safe(ability.cost)) // null cost means this ability is NOT obtainable through normal means.
+	if(!istype(ability) || !IS_FINITE(ability.cost)) // null cost means this ability is NOT obtainable through normal means.
 		return FALSE
 /**
  * Checks the validity of the name of the holoparasite, returning the reason if it's invalid, or "valid" if it is in fact valid.
@@ -488,7 +488,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holoparasite_creator)
 /obj/item/holoparasite_creator/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if(NAMEOF(src, debug_mode))
-			if(!isnum_safe(var_value))
+			if(!IS_FINITE(var_value))
 				return FALSE
 			builder.debug_mode = var_value
 			builder.datum_flags |= DF_VAR_EDITED
@@ -496,7 +496,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holoparasite_creator)
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
 		if(NAMEOF(src, max_points))
-			if(!isnum_safe(var_value) || var_value < 1)
+			if(!IS_FINITE(var_value) || var_value < 1)
 				return FALSE
 			var/new_max_points = round(var_value)
 			builder.max_points = new_max_points
@@ -505,7 +505,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holoparasite_creator)
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
 		if(NAMEOF(src, max_level))
-			if(!isnum_safe(var_value) || var_value < 1)
+			if(!IS_FINITE(var_value) || var_value < 1)
 				return FALSE
 			var/new_max_level = round(var_value)
 			builder.max_level = new_max_level
@@ -525,7 +525,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holoparasite_creator)
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
 		if(NAMEOF(src, uses))
-			if(!isnum_safe(var_value) || var_value < 0)
+			if(!IS_FINITE(var_value) || var_value < 0)
 				return FALSE
 			var/new_uses = round(var_value)
 			builder.uses = new_uses

@@ -11,7 +11,7 @@
 	var/needs_update_stat = FALSE
 
 /datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration)
-	if(isnum_safe(set_duration))
+	if(IS_FINITE(set_duration))
 		duration = set_duration
 	. = ..()
 	if(. && (needs_update_stat || issilicon(owner)))

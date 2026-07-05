@@ -14,7 +14,7 @@
 	/// How much time we need to recharge
 	var/recharge_time = 1.6 SECONDS
 	/// Sound we use when recharged
-	var/recharge_sound = 'sound/weapons/kenetic_reload.ogg'
+	var/recharge_sound = 'sound/weapons/kinetic_reload.ogg'
 	/// An ID for our recharging timer.
 	var/recharge_timerid
 	/// Do we recharge slower with more of our type?
@@ -95,8 +95,11 @@
 
 /obj/item/gun/energy/recharge/update_icon_state()
 	. = ..()
-	if(no_charge_state && !can_shoot())
-		icon_state = no_charge_state
+	if(no_charge_state)
+		if(can_shoot())
+			icon_state = base_icon_state
+		else
+			icon_state = no_charge_state
 
 /obj/item/gun/energy/recharge/ebow
 	name = "mini energy crossbow"

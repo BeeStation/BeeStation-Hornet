@@ -156,7 +156,7 @@
 	data["players"] = players
 	data["selected_ckey"] = selected_ckey
 	data["search_text"] = search_text
-	data["update_interval"] = isnum_safe(update_interval) ? update_interval : 5
+	data["update_interval"] = IS_FINITE(update_interval) ? update_interval : 5
 	return data
 
 /datum/admin_player_panel/ui_act(action, params)
