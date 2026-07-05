@@ -76,23 +76,24 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	ping_ghosts("requested", FALSE)
 	next_ask = world.time + ask_delay
 	searching = TRUE
-	update_icon()
+	update_appearance()
 	addtimer(CALLBACK(src, PROC_REF(check_success)), ask_delay)
 
 /obj/item/mmi/posibrain/AltClick(mob/living/user)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
-	var/input_seed = stripped_input(user, "Enter a personality seed", "Enter seed", ask_role, MAX_NAME_LEN)
+	var/input_seed = tgui_input_text(user, "Enter a personality seed", "Enter seed", ask_role, MAX_NAME_LEN)
+	if(isnull(input_seed))
+		return
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
-	if(input_seed)
-		to_chat(user, "<span class='notice'>You set the personality seed to \"[input_seed]\".</span>")
-		ask_role = input_seed
-		update_icon()
+	to_chat(user, span_notice("You set the personality seed to \"[input_seed]\"."))
+	ask_role = input_seed
+	update_appearance()
 
 /obj/item/mmi/posibrain/proc/check_success()
 	searching = FALSE
-	update_icon()
+	update_appearance()
 	if(QDELETED(brainmob))
 		return
 	if(brainmob.client)
@@ -165,7 +166,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	brainmob.mind.remove_all_antag_datums()
 	brainmob.mind.wipe_memory()
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
-	update_icon()
+	update_appearance()
 
 /obj/item/mmi/posibrain/proc/transfer_personality(mob/candidate)
 	if(QDELETED(brainmob))
@@ -226,14 +227,15 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	if(autoping)
 		ping_ghosts("created", TRUE)
 
-/obj/item/mmi/posibrain/update_icon()
+/obj/item/mmi/posibrain/update_icon_state()
+	. = ..()
 	if(searching)
-		icon_state = "[initial(icon_state)]-searching"
+		icon_state = "[base_icon_state]-searching"
 		return
 	if(brainmob?.key)
-		icon_state = "[initial(icon_state)]-occupied"
-	else
-		icon_state = initial(icon_state)
+		icon_state = "[base_icon_state]-occupied"
+		return
+	icon_state = "[base_icon_state]"
 
 //This Proc triggers when the Z level changes. If the Posi enters the station level, add it to the Job list.
 //If it leaves, remove it.

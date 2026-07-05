@@ -242,20 +242,10 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 	if(id_card?.hud_state)
 		serialized["icon"] = "hud[id_card.hud_state]"
 
-	/* If jobs are converted to datums properly, do this
-	var/datum/job/job = player.mind?.assigned_role
-	if (isnull(job))
-		return serialized
-
-	var/datum/outfit/outfit = job.get_outfit()
-	if (isnull(outfit))
-		return serialized
-	*/
-
-	var/mind_job = player.mind?.assigned_role
+	var/datum/job/mind_job = player.mind?.assigned_role_datum
 	if (mind_job)
-		serialized["mind_job"] = mind_job
-		var/mind_hud = get_hud_by_jobname(mind_job)
+		serialized["mind_job"] = mind_job.title
+		var/mind_hud = get_hud_by_jobname(mind_job.title)
 		if(mind_hud)
 			serialized["mind_icon"] = "hud[mind_hud]"
 	return serialized
