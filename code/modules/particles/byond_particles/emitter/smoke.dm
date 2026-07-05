@@ -32,25 +32,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/emitter/flare_smoke)
 	friction = 0.2
 	gravity = list(0, 0.95)
 	grow = 0.05
-
-// Fog
-/obj/emitter/fog
-	alpha = 150
-	particles = new/particles/fog
-
-/particles/fog
-	icon = 'icons/effects/particles/smoke.dmi'
-	icon_state = list("steam_1" = 1, "steam_2" = 1, "steam_3" = 2)
-	color = "#DEF4EB"
-	count = 200
-	spawning = 6
-	lifespan = 32
-	fade = 27
-	#ifndef SPACEMAN_DMM
-	fadein = 5
-	#endif
-	position = generator("box", list(-12, 5, -12), list(12, 10, 12), UNIFORM_RAND)
-	gravity = null
-	velocity = list(0, -0.9, 0)
-	friction = list(0, 0.01, 0)
-	drift = generator("box", list(-0.04, 0, 0), list(0.04, 0, 0), UNIFORM_RAND)

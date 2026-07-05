@@ -1,10 +1,2 @@
 cryo_1.ogg, cryo_2.ogg, cryo_3.ogg, cryo_4.ogg, cryo_5.ogg, cryo_6.ogg, cryo_7.ogg, cryo_8.ogg, cryo_9.ogg, cryo_10.ogg:
 converted to OGG / split apart (but is otherwise unchanged) -- original from https://freesound.org/people/DudeAwesome/sounds/386023/ by DudeAwesome -- License: CC BY 4.0
-
-cold_crack_track.ogg:
-Samples sounds from user 'dheming' https://freesound.org/people/dheming/sounds/268023/ CC BY 4.0 & 'Salomé_Lubczanski' https://freesound.org/people/Salom%C3%A9_Lubczanski/sounds/733819/ CC0 1.0
-Samples are snipped & stiched together into one exported ogg track
-
-hum_track.ogg:
-Samples sounds from user 'TRP' https://freesound.org/people/TRP/sounds/713995/ CC0 1.0
-Sample is cleaned up and looped into an ogg track

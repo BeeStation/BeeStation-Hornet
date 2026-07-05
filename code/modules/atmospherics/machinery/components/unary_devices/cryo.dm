@@ -97,10 +97,6 @@
 	var/on = FALSE
 	/// The sound loop that can be heard when the generator is processing.
 	var/datum/looping_sound/cryo_cell/soundloop
-	var/datum/looping_sound/cold_machine_squeaks/cold_squeaks
-	var/datum/looping_sound/cold_machine_hum/machine_hum
-	/// Holder for our foggy cold particles
-	var/obj/emitter/fog_particles
 
 /datum/armor/cryo_cell
 	energy = 100
@@ -113,15 +109,6 @@
 	vis_contents += occupant_vis
 	internal_connector = new(loc, src, dir, CELL_VOLUME * 0.5)
 	soundloop = new(src)
-	cold_squeaks = new(src)
-	machine_hum = new(src)
-// Setup fog particles
-	fog_particles = add_emitter(/obj/emitter/fog, "fog", 10)
-	fog_particles.pixel_y = 4
-	fog_particles.add_filter("tube_mask", 1, alpha_mask_filter(0, 15, icon('icons/obj/medical/cryogenics.dmi', "mask"), flags = MASK_INVERSE))
-	fog_particles.add_filter("fog_blur", 2, gauss_blur_filter(1.3))
-	fog_particles.add_filter("crunchy_outline", 3, outline_filter(1, "#00000044", flags = OUTLINE_SHARP))
-	vis_contents -= fog_particles // We add these back manually when things get chilly
 
 /obj/machinery/cryo_cell/Destroy()
 	vis_contents.Cut()
@@ -129,9 +116,6 @@
 	QDEL_NULL(beaker)
 	QDEL_NULL(internal_connector)
 	QDEL_NULL(soundloop)
-	QDEL_NULL(cold_squeaks)
-	QDEL_NULL(machine_hum)
-	QDEL_NULL(fog_particles)
 	return ..()
 
 /obj/machinery/cryo_cell/add_context_self(datum/screentip_context/context, mob/user)
@@ -198,14 +182,11 @@
 	. = ..()
 	SSair.start_processing_machine(src)
 	soundloop?.start()
-	machine_hum?.start()
 
 /obj/machinery/cryo_cell/end_processing()
 	. = ..()
 	SSair.stop_processing_machine(src)
 	soundloop?.stop()
-	machine_hum?.stop()
-	cold_squeaks?.stop()
 
 /obj/machinery/cryo_cell/get_remote_view_fullscreens(mob/user)
 	user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
@@ -285,11 +266,6 @@
 	if(air1.total_moles() > CRYO_MIN_GAS_MOLES)
 		if(mob_occupant.bodytemperature < T0C) // Sleepytime. Why? More cryo magic.
 			mob_occupant.Unconscious(sleep_factor)
-			vis_contents |= fog_particles
-			cold_squeaks?.start()
-		else
-			vis_contents -= fog_particles
-			cold_squeaks?.stop()
 		if(!QDELETED(beaker))
 			beaker.reagents.trans_to(
 				occupant,
@@ -627,7 +603,6 @@
 		begin_processing()
 	else //Turned off
 		end_processing()
-		vis_contents -= fog_particles
 
 /**
  * Checks if we can actually turn on.

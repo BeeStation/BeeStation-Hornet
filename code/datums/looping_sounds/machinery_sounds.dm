@@ -221,17 +221,3 @@
 	)
 	mid_length = 5 SECONDS
 	volume = 30
-
-/datum/looping_sound/cold_machine_squeaks
-	mid_sounds = list(
-		'sound/machines/cryo/cold_crack_track.ogg',
-	)
-	mid_length = 30 SECONDS
-	volume = 60
-
-/datum/looping_sound/cold_machine_hum
-	mid_sounds = list(
-		'sound/machines/cryo/hum_track.ogg',
-	)
-	mid_length = 30 SECONDS
-	volume = 20
