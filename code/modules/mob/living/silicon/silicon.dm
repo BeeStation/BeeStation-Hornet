@@ -413,9 +413,6 @@
 	add_sensors()
 	to_chat(src, "Sensor overlay activated.")
 
-/mob/living/silicon/is_literate()
-	return TRUE
-
 /mob/living/silicon/get_inactive_held_item()
 	return FALSE
 
