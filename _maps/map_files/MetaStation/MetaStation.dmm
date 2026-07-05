@@ -6417,13 +6417,10 @@
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "cEs" = (
-/obj/machinery/holopad{
-	pixel_x = 9;
-	pixel_y = -9
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/machinery/holopad/secure,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain/private)
 "cEv" = (
@@ -7747,7 +7744,6 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "dfL" = (
-/obj/machinery/holopad,
 /obj/structure/chair{
 	dir = 1
 	},
@@ -7755,6 +7751,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow,
+/obj/machinery/holopad/secure,
 /turf/open/floor/carpet/red,
 /area/station/command/heads_quarters/hos)
 "dfX" = (
@@ -8586,7 +8583,7 @@
 /turf/open/floor/iron,
 /area/station/security/checkpoint/engineering)
 "dun" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "dur" = (
@@ -15650,10 +15647,10 @@
 /area/station/maintenance/department/medical/central)
 "fRv" = (
 /obj/structure/cable/yellow,
-/obj/machinery/holopad,
 /obj/item/beacon,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/aisat/foyer)
 "fRz" = (
@@ -23349,10 +23346,10 @@
 /turf/open/floor/iron,
 /area/station/maintenance/aft)
 "iCg" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/tile/black/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/rd)
 "iCk" = (
@@ -28667,8 +28664,8 @@
 /turf/open/floor/carpet/green,
 /area/station/service/lawoffice)
 "koe" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/chief)
 "kok" = (
@@ -30454,9 +30451,9 @@
 /area/station/command/gateway)
 "kSa" = (
 /obj/structure/cable/yellow,
-/obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/holopad/secure,
 /turf/open/floor/carpet/blue,
 /area/station/command/heads_quarters/hop)
 "kSu" = (
@@ -32796,7 +32793,6 @@
 /turf/open/space/basic,
 /area/misc/space/nearstation)
 "lGe" = (
-/obj/machinery/holopad,
 /obj/machinery/light_switch{
 	pixel_x = -21;
 	pixel_y = -22
@@ -32804,6 +32800,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai)
 "lGg" = (
@@ -39327,8 +39324,8 @@
 	},
 /area/station/commons/locker)
 "nMu" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/tile/red/fourcorners,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/security/office)
 "nMF" = (
@@ -40160,9 +40157,9 @@
 	},
 /area/station/security/prison)
 "obm" = (
-/obj/machinery/holopad,
 /obj/machinery/camera/directional/south,
 /obj/machinery/light/small/directional/south,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/aisat/exterior)
 "obz" = (
@@ -41551,13 +41548,13 @@
 /turf/open/floor/iron/techmaint,
 /area/station/science/shuttledock)
 "ozZ" = (
-/obj/machinery/holopad,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_x = -25;
 	pixel_y = -25
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai)
 "oAj" = (
@@ -48559,10 +48556,10 @@
 /area/station/maintenance/port/fore)
 "qVm" = (
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/holopad,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/machinery/holopad/secure,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain/private)
 "qVy" = (
@@ -52876,13 +52873,13 @@
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
 "stM" = (
-/obj/machinery/holopad,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_x = 25;
 	pixel_y = 25
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai)
 "stU" = (
@@ -53628,8 +53625,8 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow,
-/obj/machinery/holopad,
 /obj/effect/turf_decal/bot,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/cmo)
 "sHn" = (
@@ -56918,7 +56915,6 @@
 /turf/open/floor/iron/smooth_half,
 /area/station/security/warden)
 "tKF" = (
-/obj/machinery/holopad,
 /obj/machinery/camera/directional/north,
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/dark,
@@ -62263,11 +62259,11 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
 "vxK" = (
-/obj/machinery/holopad,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/heat_exchanging/manifold,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/holopad/secure,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -62610,11 +62606,11 @@
 /turf/closed/wall/r_wall,
 /area/station/engineering/supermatter)
 "vFM" = (
-/obj/machinery/holopad,
 /obj/effect/landmark/start/cyborg,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "vFP" = (
@@ -62632,9 +62628,9 @@
 	},
 /area/station/security/office)
 "vGa" = (
-/obj/machinery/holopad,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/aisat/exterior)
 "vGb" = (
@@ -65112,13 +65108,13 @@
 /turf/open/floor/plating,
 /area/station/medical/chemistry)
 "wCl" = (
-/obj/machinery/holopad,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/holopad/secure,
 /turf/open/floor/carpet/grimy,
 /area/station/tcommsat/computer)
 "wCn" = (
@@ -67889,6 +67885,7 @@
 "xzk" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/aisat/exterior)
 "xzt" = (

@@ -16,13 +16,16 @@
 	var/start_time = 0 ///Timestamp to when the nanites were first inserted in the host
 	var/stealth = FALSE //if TRUE, does not appear on HUDs and health scans
 	var/diagnostics = TRUE //if TRUE, displays program list when scanned by nanite scanners
+	var/datum/techweb/assigned_techweb // The server/techweb nanites should give their points towards
 
-/datum/component/nanites/Initialize(amount = 100, cloud = 0)
+/datum/component/nanites/Initialize(amount = 100, cloud = 0, datum/techweb/provided_techweb = null)
 	if(!isliving(parent) && !istype(parent, /datum/nanite_cloud_backup))
 		return COMPONENT_INCOMPATIBLE
 
 	nanite_volume = amount
 	cloud_id = cloud
+
+	assigned_techweb = provided_techweb || (locate(/datum/techweb/science) in SSresearch.techwebs) // Default techweb we give points to
 
 	//Nanites without hosts are non-interactive through normal means
 	if(isliving(parent))
@@ -95,6 +98,7 @@
 /datum/component/nanites/Destroy()
 	STOP_PROCESSING(SSnanites, src)
 	QDEL_LIST(programs)
+	assigned_techweb = null
 	if(host_mob)
 		set_nanite_bar(TRUE)
 		host_mob.hud_set_nanite_indicator()
@@ -109,8 +113,8 @@
 
 /datum/component/nanites/process(delta_time)
 	if(!IS_IN_STASIS(host_mob))
-		var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
-		adjust_nanites(amount = (regen_rate + (science_web.researched_nodes[TECHWEB_NODE_NANITE_HARMONIC] ? HARMONIC_REGEN_BOOST : 0)) * delta_time)
+		var/harmonic_researched = assigned_techweb?.researched_nodes[TECHWEB_NODE_NANITE_HARMONIC]
+		adjust_nanites(amount = (regen_rate + (harmonic_researched ? HARMONIC_REGEN_BOOST : 0)) * delta_time)
 		add_research()
 		for(var/datum/nanite_program/program as anything in programs)
 			program.on_process()
@@ -391,8 +395,7 @@
 	if(host_mob.stat == DEAD)
 		research_value *= 0.75
 
-	var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
-	science_web.add_point_list(list(TECHWEB_POINT_TYPE_NANITES = research_value))
+	assigned_techweb?.add_point_list(list(TECHWEB_POINT_TYPE_NANITES = research_value))
 
 /datum/component/nanites/proc/nanite_scan(datum/source, mob/user, full_scan)
 	SIGNAL_HANDLER
@@ -429,8 +432,8 @@
 
 	data["has_nanites"] = TRUE
 	data["nanite_volume"] = nanite_volume
-	var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
-	data["regen_rate"] = regen_rate + (science_web.researched_nodes[TECHWEB_NODE_NANITE_HARMONIC] ? HARMONIC_REGEN_BOOST : 0)
+	var/has_harmonic_boost = assigned_techweb?.researched_nodes[TECHWEB_NODE_NANITE_HARMONIC]
+	data["regen_rate"] = regen_rate + (has_harmonic_boost ? HARMONIC_REGEN_BOOST : 0)
 	data["safety_threshold"] = safety_threshold
 	data["cloud_id"] = cloud_id
 	data["cloud_active"] = cloud_active

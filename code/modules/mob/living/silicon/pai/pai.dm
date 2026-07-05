@@ -24,7 +24,6 @@
 	held_lh = 'icons/mob/pai_item_lh.dmi'
 	held_rh = 'icons/mob/pai_item_rh.dmi'
 	head_icon = 'icons/mob/pai_item_head.dmi'
-	var/network = "ss13"
 	var/obj/machinery/camera/current = null
 	light_system = MOVABLE_LIGHT
 	light_power = 1

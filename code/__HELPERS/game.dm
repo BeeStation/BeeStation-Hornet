@@ -106,7 +106,7 @@
 
 // Better recursive loop, technically sort of not actually recursive cause that shit is stupid, enjoy.
 //No need for a recursive limit either
-/proc/recursive_mob_check(atom/O,client_check=1,sight_check=1,include_radio=1)
+/proc/recursive_mob_check(atom/O, client_check=TRUE, sight_check=TRUE, include_radio=TRUE)
 
 	var/list/processing_list = list(O)
 	var/list/processed_list = list()

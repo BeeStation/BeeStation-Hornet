@@ -1,0 +1,30 @@
+2026-07-02:
+  mrmanlikesbt:
+  - bugfix: Anomalies no longer slow the game down to a crawl when detonating in space.
+  - code_imp: Anomaly code has been cleaned up
+2026-07-03:
+  EvilDragonfiend:
+  - bugfix: Fixed the cloning console can't scan a brain/head only. Also, fixed some
+      cloning related codes.
+  - tweak: by changing the clone code, there is an unintended change that changeling
+      drained brains can now be cloned. Ling-husked body still cannot be cloned.
+  - tweak: Experimental cloner also can clone brain only. It doesn't mean you can
+      clone xenos.
+  - code_imp: slightly revised the proc name "copy_dna(thing)" to "copy_dna_to(thing)"
+  - code_imp: brains now have DNA datum. This is used for cloning.
+  - code_imp: cleaned up cloning codes
+  MatiAvanti:
+  - admin: The banning panel now blocks banning other admin unless "Applies to admins"
+      is ticked.
+2026-07-04:
+  EvilDragonfiend:
+  - code_imp: Improved how 'camera networks' work. Also revised some var names and
+      proc names.
+  - code_imp: 'Added "XENOBIOLOGY_CONSOLE_DISALLOWED" area flag. As long as an area
+      has this flag, you cannot do a xenobiology in the area. This flag can be neutralized
+      if you use a slime blueprint. Restricted areas are: shuttles, maint tunnels,
+      and hallways.'
+  - bugfix: Xenobio cameras will be coordinated at the correct areas.
+  - bugfix: Debug Omnitool welder now works.
+  cursedkiller:
+  - rscadd: Added Holopad emag location spoof functionality

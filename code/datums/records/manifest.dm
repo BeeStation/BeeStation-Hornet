@@ -99,7 +99,7 @@
 	COMPILE_OVERLAYS(person)
 	var/mutable_appearance/character_appearance = new(person.appearance)
 	var/datum/dna/stored/record_dna = new()
-	person.dna.copy_dna(record_dna)
+	person.dna.copy_dna_to(record_dna)
 	var/gender_string = "Other"
 	if(person.gender == MALE)
 		gender_string = "Male"

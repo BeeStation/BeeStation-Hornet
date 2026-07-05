@@ -40320,9 +40320,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow,
 /mob/living/simple_animal/bot/secbot/pingsky,
-/obj/machinery/holopad,
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload_foyer)
 "lNd" = (
@@ -40398,8 +40398,8 @@
 /area/station/hallway/primary/central)
 "lOt" = (
 /obj/effect/turf_decal/box,
-/obj/machinery/holopad,
 /obj/effect/landmark/event_spawn,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/rd)
 "lOv" = (
@@ -52226,11 +52226,11 @@
 /area/station/commons/cryopods)
 "poY" = (
 /obj/effect/turf_decal/box,
-/obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /obj/structure/cable/yellow,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "ppe" = (
@@ -57946,9 +57946,9 @@
 /turf/open/floor/iron/dark,
 /area/station/medical/cryo)
 "rbS" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/box,
 /obj/structure/cable/yellow,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/cmo)
 "rca" = (
@@ -71705,11 +71705,11 @@
 /area/station/security/execution/education)
 "vgM" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/holopad,
 /obj/effect/turf_decal/box,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "vgX" = (
@@ -75355,12 +75355,12 @@
 /area/station/hallway/primary/central)
 "wnf" = (
 /obj/effect/landmark/event_spawn,
-/obj/machinery/holopad,
 /obj/effect/turf_decal/box,
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
+/obj/machinery/holopad/secure,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/hos)
 "wnh" = (
@@ -78756,7 +78756,6 @@
 /turf/open/floor/carpet/green,
 /area/station/service/library/lounge)
 "xnG" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/box/corners,
 /obj/effect/turf_decal/box/corners{
 	dir = 8
@@ -78768,6 +78767,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/event_spawn,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/chief)
 "xnJ" = (

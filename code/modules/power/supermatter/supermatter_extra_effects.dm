@@ -174,7 +174,7 @@
 		if(ANOMALY_HALLUCINATION)
 			new /obj/effect/anomaly/hallucination(local_turf, has_changed_lifespan ? rand(15 SECONDS, 25 SECONDS) : null, FALSE)
 		if(ANOMALY_VORTEX)
-			new /obj/effect/anomaly/bhole(local_turf, 2 SECONDS, FALSE)
+			new /obj/effect/anomaly/vortex(local_turf, 2 SECONDS, FALSE)
 		if(ANOMALY_BIOSCRAMBLER)
 			new /obj/effect/anomaly/bioscrambler(local_turf, null, FALSE)
 

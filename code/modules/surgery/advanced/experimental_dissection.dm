@@ -1,5 +1,5 @@
 ///How many research points you gain from dissecting a Human.
-#define BASE_HUMAN_REWARD 100
+#define BASE_HUMAN_REWARD 60
 
 /datum/surgery/advanced/experimental_dissection
 	name = "Experimental Dissection"
@@ -35,10 +35,10 @@
 	)
 	time = 12 SECONDS
 
-/datum/surgery_step/dissection/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/experimental_dissection/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(span_notice("[user] starts dissecting [target]."), span_notice("You start dissecting [target]."))
 
-/datum/surgery_step/dissection/success(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
+/datum/surgery_step/experimental_dissection/success(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/points_earned = check_value(target)
 	user.visible_message(span_notice("[user] dissects [target]!"), span_notice("You dissect [target], writing your notes down."))
 
@@ -51,7 +51,7 @@
 	ADD_TRAIT(target, TRAIT_DISSECTED, EXPERIMENTAL_SURGERY_TRAIT)
 	return ..()
 
-/datum/surgery_step/dissection/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/experimental_dissection/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/points_earned = round(check_value(target) * 0.1)
 	user.visible_message(
 		span_notice("[user] dissects [target]!"),
@@ -66,7 +66,7 @@
 	target.apply_damage(80, BRUTE, BODY_ZONE_CHEST)
 	return TRUE
 
-/datum/surgery_step/dissection/proc/check_value(mob/living/target)
+/datum/surgery_step/experimental_dissection/proc/check_value(mob/living/target)
 	var/cost = BASE_HUMAN_REWARD
 
 	if(ishuman(target))
@@ -83,7 +83,7 @@
 	else if(isalienroyal(target))
 		cost *= 10
 	else if(isalienadult(target))
-		cost *= 5
+		cost *= 2
 
 	return cost
 

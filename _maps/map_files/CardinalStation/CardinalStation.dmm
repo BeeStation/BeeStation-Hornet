@@ -1105,9 +1105,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/holopad/secure,
 /turf/open/floor/circuit,
 /area/station/ai_monitored/turret_protected/ai)
 "any" = (
@@ -3461,7 +3461,7 @@
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/holopad,
+/obj/machinery/holopad/secure,
 /turf/open/floor/vault/rock,
 /area/station/command/heads_quarters/rd)
 "aPn" = (
@@ -14372,6 +14372,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/holopad/secure,
 /turf/open/floor/wood/big,
 /area/station/command/heads_quarters/chief)
 "dvb" = (
@@ -15294,7 +15295,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/holopad,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/security/office)
 "dHd" = (
@@ -17619,7 +17620,7 @@
 	pixel_x = -3
 	},
 /obj/effect/turf_decal/siding/dark,
-/obj/machinery/holopad,
+/obj/machinery/holopad/secure,
 /turf/open/floor/circuit,
 /area/station/ai_monitored/turret_protected/ai)
 "ejL" = (
@@ -22593,10 +22594,10 @@
 /area/station/maintenance/club)
 "fre" = (
 /obj/structure/cable/orange,
-/obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow,
+/obj/machinery/holopad/secure,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/aisat/service)
 "frp" = (
@@ -36699,11 +36700,11 @@
 	dir = 1;
 	pixel_y = -20
 	},
-/obj/machinery/holopad{
-	pixel_y = 16;
-	pixel_x = -16
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/holopad/secure{
+	pixel_x = -16;
+	pixel_y = 16
+	},
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain)
 "iDh" = (
@@ -40941,15 +40942,15 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
-/obj/machinery/holopad{
-	pixel_y = -16
-	},
 /obj/structure/cable/orange,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/sign/logo{
 	icon_state = "nanotrasen_sign5";
 	pixel_y = 32
+	},
+/obj/machinery/holopad/secure{
+	pixel_y = -16
 	},
 /turf/open/floor/iron/tech,
 /area/station/ai_monitored/turret_protected/aisat/hallway)
@@ -41181,9 +41182,6 @@
 /turf/open/floor/engine/plasma,
 /area/station/engineering/atmos)
 "jGf" = (
-/obj/machinery/holopad{
-	pixel_y = -16
-	},
 /obj/effect/turf_decal/siding/dark_blue/corner{
 	dir = 1
 	},
@@ -41194,6 +41192,9 @@
 /mob/living/simple_animal/bot/secbot/pingsky,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/holopad/secure{
+	pixel_y = -16
+	},
 /turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "jGq" = (
@@ -49434,7 +49435,7 @@
 /obj/structure/platform/wood/corner{
 	dir = 8
 	},
-/obj/machinery/holopad{
+/obj/machinery/holopad/secure{
 	pixel_y = 12
 	},
 /turf/open/floor/iron/smooth_edge,
@@ -50044,10 +50045,10 @@
 /turf/open/floor/iron/smooth_half,
 /area/station/security/brig)
 "lKD" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/box,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/holopad/secure,
 /turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/aisat/foyer)
 "lKT" = (
@@ -83520,7 +83521,7 @@
 	pixel_x = 3
 	},
 /obj/effect/turf_decal/siding/dark,
-/obj/machinery/holopad,
+/obj/machinery/holopad/secure,
 /turf/open/floor/circuit,
 /area/station/ai_monitored/turret_protected/ai)
 "tFR" = (
@@ -88060,13 +88061,13 @@
 	pixel_x = 32;
 	pixel_y = 28
 	},
-/obj/machinery/holopad{
-	pixel_y = 16;
-	pixel_x = -16
-	},
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/holopad/secure{
+	pixel_x = -16;
+	pixel_y = 16
+	},
 /turf/open/floor/wood/big,
 /area/station/command/heads_quarters/captain/private)
 "uKe" = (
@@ -89510,7 +89511,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/orange,
-/obj/machinery/holopad,
+/obj/machinery/holopad/secure,
 /turf/open/floor/concrete/slab,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "vaq" = (
@@ -99133,6 +99134,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/holopad/secure,
 /turf/open/floor/carpet/cyan,
 /area/station/command/heads_quarters/cmo)
 "xnM" = (
@@ -101200,7 +101202,7 @@
 /obj/effect/turf_decal/siding/white/corner{
 	dir = 4
 	},
-/obj/machinery/holopad{
+/obj/machinery/holopad/secure{
 	pixel_y = -16
 	},
 /turf/open/floor/iron/dark,
