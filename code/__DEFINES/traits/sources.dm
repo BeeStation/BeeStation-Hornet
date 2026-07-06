@@ -120,8 +120,11 @@
 #define BUSY_FLOORBOT_TRAIT "busy-floorbot"
 #define PULLED_WHILE_SOFTCRIT_TRAIT "pulled-while-softcrit"
 #define LOCKED_BORG_TRAIT "locked-borg"
-#define LACKING_LOCOMOTION_APPENDAGES_TRAIT "lacking-locomotion-appengades" //trait associated to not having locomotion appendages nor the ability to fly or float
-#define LACKING_MANIPULATION_APPENDAGES_TRAIT "lacking-manipulation-appengades" //trait associated to not having fine manipulation appendages such as hands
+/// trait associated to not having locomotion appendages nor the ability to fly or float
+#define LACKING_LOCOMOTION_APPENDAGES_TRAIT "lacking-locomotion-appengades"
+#define CRYO_TRAIT "cryo"
+/// trait associated to not having fine manipulation appendages such as hands
+#define LACKING_MANIPULATION_APPENDAGES_TRAIT "lacking-manipulation-appengades"
 #define HANDCUFFED_TRAIT "handcuffed"
 /// Trait granted by [/obj/item/warpwhistle]
 #define WARPWHISTLE_TRAIT "warpwhistle"

@@ -15,24 +15,21 @@
 	hardware_requirement = MC_CHARGER
 	power_consumption = 80 WATT
 
-	var/has_alert = 0
-	var/obj/structure/cable/attached_wire
-	var/obj/machinery/power/apc/local_apc
+	var/datum/weakref/attached_wire_ref
+	var/datum/weakref/local_apc_ref
+
 	var/list/history = list()
 	var/record_size = 60
-	var/record_interval = 50
-	var/next_record = 0
-
+	var/record_interval = 5 SECONDS
+	COOLDOWN_DECLARE(record_cooldown)
 
 /datum/computer_file/program/power_monitor/on_start(mob/living/user)
-	. = ..(user)
+	. = ..()
 	if(!.)
 		return
 	search()
 	history["supply"] = list()
 	history["demand"] = list()
-	if(istype(computer, /obj/machinery/modular_computer/console)) // This way the console doesn't require a signaller
-		return
 
 /datum/computer_file/program/power_monitor/process_tick()
 	if(!get_powernet())
@@ -41,55 +38,56 @@
 		record()
 
 /datum/computer_file/program/power_monitor/proc/search() //keep in sync with /obj/machinery/computer/monitor's version
-	var/turf/T = get_turf(computer)
-	attached_wire = locate(/obj/structure/cable) in T
-	if(attached_wire)
+	var/turf/our_turf = get_turf(src)
+	attached_wire_ref = WEAKREF(locate(/obj/structure/cable) in our_turf)
+	if(attached_wire_ref)
 		return
-	var/area/A = get_area(computer) //if the computer isn't directly connected to a wire, attempt to find the APC powering it to pull it's powernet instead
-	if(!A)
+	var/area/our_area = get_area(src) //if the computer isn't directly connected to a wire, attempt to find the APC powering it to pull it's powernet instead
+	if(!our_area)
 		return
-	local_apc = A.apc
+	var/obj/machinery/power/apc/local_apc = our_area.apc
 	if(!local_apc)
 		return
 	if(!local_apc.terminal) //this really shouldn't happen without badminnery.
 		local_apc = null
+	local_apc_ref = WEAKREF(local_apc)
 
 /datum/computer_file/program/power_monitor/proc/get_powernet() //keep in sync with /obj/machinery/computer/monitor's version
-	if(attached_wire || (local_apc && local_apc.terminal))
-		return attached_wire ? attached_wire.powernet : local_apc.terminal.powernet
-	return FALSE
+	var/obj/structure/cable/attached_wire = attached_wire_ref?.resolve()
+	var/obj/machinery/power/apc/local_apc = local_apc_ref?.resolve()
+	return attached_wire?.powernet || local_apc?.terminal?.powernet
 
 /datum/computer_file/program/power_monitor/proc/record() //keep in sync with /obj/machinery/computer/monitor's version
-	if(world.time >= next_record)
-		next_record = world.time + record_interval
+	if(!COOLDOWN_FINISHED(src, record_cooldown))
+		return
+	COOLDOWN_START(src, record_cooldown, record_interval)
 
-		var/datum/powernet/connected_powernet = get_powernet()
+	var/datum/powernet/connected_powernet = get_powernet()
 
-		var/list/supply = history["supply"]
-		if(connected_powernet)
-			supply += connected_powernet.viewavail
-		if(supply.len > record_size)
-			supply.Cut(1, 2)
+	var/list/supply = history["supply"]
+	if(connected_powernet)
+		supply += connected_powernet.viewavail
+	if(supply.len > record_size)
+		supply.Cut(1, 2)
 
-		var/list/demand = history["demand"]
-		if(connected_powernet)
-			demand += connected_powernet.viewload
-		if(demand.len > record_size)
-			demand.Cut(1, 2)
+	var/list/demand = history["demand"]
+	if(connected_powernet)
+		demand += connected_powernet.viewload
+	if(demand.len > record_size)
+		demand.Cut(1, 2)
 
 /datum/computer_file/program/power_monitor/ui_data()
 	var/datum/powernet/connected_powernet = get_powernet()
 	var/list/data = list()
 	data["stored"] = record_size
 	data["interval"] = record_interval / 10
-	data["attached"] = connected_powernet ? TRUE : FALSE
-	if(connected_powernet)
-		data["supply"] = display_power_persec(connected_powernet.viewavail)
-		data["demand"] = display_power_persec(connected_powernet.viewload)
+	data["attached"] = !!connected_powernet
 	data["history"] = history
 
 	data["areas"] = list()
 	if(connected_powernet)
+		data["supply"] = display_power_persec(connected_powernet.viewavail)
+		data["demand"] = display_power_persec(connected_powernet.viewload)
 		for(var/obj/machinery/power/terminal/term in connected_powernet.nodes)
 			var/obj/machinery/power/apc/A = term.master
 			if(istype(A))

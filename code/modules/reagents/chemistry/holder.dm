@@ -765,7 +765,7 @@
 		stack_trace("invalid reagent passed to add reagent [reagent]")
 		return FALSE
 
-	if(!isnum_safe(amount) || !amount)
+	if(!IS_FINITE(amount) || !amount)
 		return FALSE
 
 	// Prevents small amount problems, as well as zero and below zero amounts.
@@ -956,7 +956,7 @@
 		stack_trace("invalid reagent path passed to remove all type [reagent_type]")
 		return FALSE
 
-	if(!isnum_safe(amount))
+	if(!IS_FINITE(amount))
 		return 1
 	var/list/cached_reagents = reagent_list
 	var/has_removed_reagent = 0

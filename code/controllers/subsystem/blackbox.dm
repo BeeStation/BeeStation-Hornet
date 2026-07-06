@@ -232,7 +232,7 @@ Versioning
 						"gun_fired" = 2)
 */
 /datum/controller/subsystem/blackbox/proc/record_feedback(key_type, key, increment, data, overwrite)
-	if(sealed || !key_type || !istext(key) || !isnum_safe(increment || !data) || CONFIG_GET(flag/limited_feedback))
+	if(sealed || !key_type || !istext(key) || !IS_FINITE(increment || !data) || CONFIG_GET(flag/limited_feedback))
 		return
 	var/datum/feedback_variable/FV = find_feedback_datum(key, key_type)
 	switch(key_type)

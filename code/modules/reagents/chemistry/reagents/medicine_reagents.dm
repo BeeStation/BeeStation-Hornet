@@ -129,16 +129,11 @@
 		return
 
 	var/power = -0.00003 * (affected_mob.bodytemperature ** 2) + 3
-	var/need_mob_update
-	need_mob_update = affected_mob.adjustOxyLoss(-3 * power * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+	var/need_mob_update = affected_mob.adjustOxyLoss(-3 * power * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 	need_mob_update += affected_mob.adjustBruteLoss(-power * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
 	need_mob_update += affected_mob.adjustFireLoss(-power * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
 	need_mob_update += affected_mob.adjustToxLoss(-power * REM * delta_time, updating_health = FALSE, forced = TRUE, required_biotype = affected_biotype) //heals TOXINLOVERs
 	need_mob_update += affected_mob.adjustCloneLoss(-power * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
-	/*
-	for(var/datum/wound/iter_wound in affected_mob.all_wounds)
-		iter_wound.on_xadone(power * REM * delta_time)
-	*/
 	REMOVE_TRAIT(affected_mob, TRAIT_DISFIGURED, TRAIT_GENERIC) //fixes common causes for disfiguration
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
