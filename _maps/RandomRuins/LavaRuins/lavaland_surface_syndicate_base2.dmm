@@ -1000,6 +1000,10 @@
 /obj/effect/mapping_helpers/airalarm/syndicate_access,
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/brig)
+"jz" = (
+/obj/machinery/holopad/secure,
+/turf/open/floor/iron/dark,
+/area/ruin/powered)
 "jA" = (
 /turf/closed/wall/mineral/plastitanium/explosive,
 /area/ruin/syndicate_lava_base/bar)
@@ -6629,7 +6633,7 @@ Ta
 hb
 Pj
 wr
-me
+jz
 GH
 Qh
 aZ

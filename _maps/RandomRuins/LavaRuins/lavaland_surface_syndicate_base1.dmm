@@ -39,6 +39,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/engineering)
+"ax" = (
+/obj/machinery/holopad/secure{
+	pixel_x = 20;
+	pixel_y = 7
+	},
+/turf/open/floor/engine,
+/area/ruin/powered)
 "az" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
@@ -1423,7 +1430,12 @@
 /turf/open/floor/circuit/green,
 /area/ruin/syndicate_lava_base/telecomms)
 "mP" = (
-/obj/structure/filingcabinet/security,
+/obj/structure/filingcabinet/security{
+	pixel_x = 8
+	},
+/obj/structure/filingcabinet/medical{
+	pixel_x = -8
+	},
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/telecomms)
 "mS" = (
@@ -3876,6 +3888,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/bar)
+"Ow" = (
+/obj/structure/table,
+/obj/machinery/fax{
+	syndicate_network = 1;
+	allow_exotic_faxes = 1;
+	name = "Donk Co. Fax Machine"
+	},
+/turf/open/floor/iron/dark,
+/area/ruin/syndicate_lava_base/telecomms)
 "Ox" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/engine,
@@ -5464,7 +5485,7 @@ ab
 ab
 ac
 nl
-mP
+Ow
 tK
 KU
 Cn
@@ -5987,7 +6008,7 @@ RJ
 aq
 aq
 VP
-aq
+ax
 aF
 vg
 RJ
