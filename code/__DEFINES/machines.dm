@@ -1,11 +1,11 @@
 // channel numbers for power
 // These are indexes in a list, and indexes for "dynamic" and static channels should be kept contiguous
-#define AREA_USAGE_EQUIP 1
-#define AREA_USAGE_LIGHT 2
-#define AREA_USAGE_ENVIRON 3
-#define AREA_USAGE_STATIC_EQUIP 4
-#define AREA_USAGE_STATIC_LIGHT 5
-#define AREA_USAGE_STATIC_ENVIRON 6
+#define AREA_USAGE_EQUIP			1
+#define AREA_USAGE_LIGHT			2
+#define AREA_USAGE_ENVIRON			3
+#define AREA_USAGE_STATIC_EQUIP		4
+#define AREA_USAGE_STATIC_LIGHT		5
+#define AREA_USAGE_STATIC_ENVIRON	6
 #define AREA_USAGE_LEN AREA_USAGE_STATIC_ENVIRON // largest idx
 
 /// Index of the first dynamic usage channel
@@ -27,17 +27,16 @@
 #define ACTIVE_POWER_USE 2
 
 /// Bitflags for a machine's preferences on when it should start processing. For use with machinery's `processing_flags` var.
-/// Indicates the machine will automatically start processing right after it's `Initialize()` is ran.
-#define START_PROCESSING_ON_INIT (1<<0)
-/// Machines with this flag will not start processing when it's spawned. Use this if you want to manually control when a machine starts processing.
-#define START_PROCESSING_MANUALLY (1<<1)
+#define START_PROCESSING_ON_INIT	(1<<0) /// Indicates the machine will automatically start processing right after it's `Initialize()` is ran.
+#define START_PROCESSING_MANUALLY	(1<<1) /// Machines with this flag will not start processing when it's spawned. Use this if you want to manually control when a machine starts processing.
 
 //bitflags for door switches.
-#define OPEN (1<<0)
-#define IDSCAN (1<<1)
-#define BOLTS (1<<2)
-#define SHOCK (1<<3)
-#define SAFE (1<<4)
+#define OPEN	(1<<0)
+#define IDSCAN	(1<<1)
+#define BOLTS	(1<<2)
+#define SHOCK	(1<<3)
+#define SAFE	(1<<4)
+#define EMERGENCY (1<<5)
 
 //used in design to specify which machine can build it
 #define IMPRINTER (1<<0) //For circuits. Uses glass/chemicals.
@@ -140,6 +139,8 @@
 #define PLANT_GENE_REMOVABLE	(1<<0)
 #define PLANT_GENE_EXTRACTABLE	(1<<1)
 
+#define CLICKSOUND_INTERVAL (0.1 SECONDS)	//clicky noises, how much time needed in between clicks on the machine for the sound to play on click again.
+
 // From code/game/machinery/computer/communications.dm
 // ---------------------------------------------------
 
@@ -184,6 +185,15 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 #define SD_MESSAGE 2  // 2 = Arbitrary message(s)
 #define SD_PICTURE 3  // 3 = alert picture
 
+// Assembly defines
+// ---------------------------------------------------
+
+#define WIRE_RECEIVE		(1<<0)
+#define WIRE_PULSE			(1<<1)
+#define WIRE_PULSE_SPECIAL	(1<<2)
+#define WIRE_RADIO_RECEIVE	(1<<3)
+#define WIRE_RADIO_PULSE	(1<<4)
+
 // Camera defines
 // ---------------------------------------------------
 
@@ -192,10 +202,16 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 // Particle Accelerator defines
 // ---------------------------------------------------
 
-#define PA_CONSTRUCTION_UNSECURED 0
-#define PA_CONSTRUCTION_UNWIRED 1
+#define PA_CONSTRUCTION_UNSECURED  0
+#define PA_CONSTRUCTION_UNWIRED    1
 #define PA_CONSTRUCTION_PANEL_OPEN 2
-#define PA_CONSTRUCTION_COMPLETE 3
+#define PA_CONSTRUCTION_COMPLETE   3
+
+// Solar defines
+// ---------------------------------------------------
+
+#define SOLAR_MAX_DIST 40
+#define SOLARGENRATE 1500
 
 // Genpop defines
 // ---------------------------------------------------

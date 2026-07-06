@@ -29,6 +29,7 @@
 	circuit = /obj/item/circuitboard/computer/libraryconsole
 	desc = "Checked out books MUST be returned on time."
 	clockwork = TRUE //it'd look weird
+	broken_overlay_emissive = TRUE
 	var/screenstate = 0
 	var/title
 	var/category = "Any"

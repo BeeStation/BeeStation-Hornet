@@ -440,7 +440,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 		say("Occupant has been injected with [bci_to_implant].")
 		bci_to_implant.Insert(carbon_occupant)
 
-/obj/machinery/bci_implanter/open_machine(drop = TRUE, density_to_set = FALSE)
+/obj/machinery/bci_implanter/open_machine()
 	if(state_open)
 		return FALSE
 
@@ -448,7 +448,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 
 	return TRUE
 
-/obj/machinery/bci_implanter/close_machine(mob/living/carbon/user, density_to_set = TRUE)
+/obj/machinery/bci_implanter/close_machine(mob/living/carbon/user)
 	if(!state_open)
 		return FALSE
 

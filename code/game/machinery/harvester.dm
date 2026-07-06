@@ -44,7 +44,7 @@
 	icon_state = base_icon_state
 	return ..()
 
-/obj/machinery/harvester/open_machine(drop = TRUE, density_to_set = FALSE)
+/obj/machinery/harvester/open_machine(drop = TRUE)
 	if(panel_open)
 		return
 	. = ..()

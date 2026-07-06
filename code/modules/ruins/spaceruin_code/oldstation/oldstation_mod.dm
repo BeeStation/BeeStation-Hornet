@@ -80,13 +80,13 @@
 	mod_unit = null
 	open_machine()
 
-/obj/machinery/mod_installer/open_machine(drop = TRUE, density_to_set = FALSE)
+/obj/machinery/mod_installer/open_machine()
 	if(state_open)
 		return FALSE
 	..()
 	return TRUE
 
-/obj/machinery/mod_installer/close_machine(mob/living/carbon/user, density_to_set = TRUE)
+/obj/machinery/mod_installer/close_machine(mob/living/carbon/user)
 	if(!state_open)
 		return FALSE
 	..()

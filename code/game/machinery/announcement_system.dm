@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(announcement_systems)
+
 /obj/machinery/announcement_system
 	density = TRUE
 	name = "\improper Automated Announcement System"
@@ -31,6 +33,7 @@
 	config_entries = init_subtypes(/datum/aas_config_entry, list())
 	. = ..()
 	radio = new radio_type(src)
+	GLOB.announcement_systems += src
 	update_appearance()
 
 /obj/machinery/announcement_system/randomize_language_if_on_station()
@@ -39,6 +42,7 @@
 /obj/machinery/announcement_system/Destroy()
 	QDEL_NULL(radio)
 	QDEL_LAZYLIST(config_entries)
+	GLOB.announcement_systems -= src // "OH GOD WHY ARE THERE 100,000 LISTED ANNOUNCEMENT SYSTEMS?!!"
 	return ..()
 
 /obj/machinery/announcement_system/update_icon_state()
@@ -184,6 +188,17 @@
 			return TRUE
 	return FALSE
 
+/// Can AAS receive request for broadcast from you? Null source means yes.
+/obj/machinery/announcement_system/proc/can_be_reached_from(atom/source)
+	if(!source || !istype(source))
+		return TRUE
+	var/turf/source_turf = get_turf(source)
+	if (!source_turf)
+		return TRUE
+	// Keep updated with broadcasting.dm (/datum/signal/subspace/vocal/New)
+	// FFF (For Future Feature): think about adding radio relay support. Maybe implementing /datum/signal/subspace/aas_event or something similar.
+	return z in source_turf.get_virtual_z_level()
+
 /// Compiles the announcement message with the provided variables. Announcement line is optional.
 /obj/machinery/announcement_system/proc/compile_config_message(aas_config_entry_type, list/variables_map, announcement_line, fail_if_disabled=FALSE)
 	var/datum/aas_config_entry/config = locate(aas_config_entry_type) in config_entries
@@ -213,12 +228,11 @@
 
 /// Returns a random announcement system that is operational, has the specified config entry, signal can reach source and radio supports any channel in list. All args are optional.
 /proc/get_announcement_system(aas_config_entry_type, source, list/channels)
-	var/list/obj/machinery/announcement_system/announcement_systems = SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/announcement_system)
-	if (!length(announcement_systems))
+	if (!length(GLOB.announcement_systems))
 		return null
 	var/list/intact_aass = list()
-	for(var/obj/machinery/announcement_system/announce as anything in announcement_systems)
-		if(announce.is_operational && announce.has_supported_channels(channels) && is_valid_z_level(get_turf(announce), get_turf(source)))
+	for(var/obj/machinery/announcement_system/announce as anything in GLOB.announcement_systems)
+		if(!QDELETED(announce) && announce.is_operational && announce.has_supported_channels(channels) && announce.can_be_reached_from(source))
 			if(aas_config_entry_type)
 				var/datum/aas_config_entry/entry = locate(aas_config_entry_type) in announce.config_entries
 				if(!entry || !entry.enabled)
