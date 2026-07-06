@@ -43,3 +43,6 @@
   - bugfix: Fixed some bad logic with the announcement system
   - code_imp: Removed some unused machinery related vars, defines, and procs
   - code_imp: Cleaned up cryo tank code
+2026-07-06:
+  mrmanlikesbt:
+  - bugfix: fixed machine construction
