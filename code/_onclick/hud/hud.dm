@@ -165,13 +165,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/mob/screenmob = viewmob || mymob
 	if(!screenmob.client)
 		return FALSE
-	// This code is the absolute fucking worst, I want it to go die in a fire
-	// Seriously, why
-	/* ACTUALLY FREAKING CHECK THIS
-	var/wants_preview = screenmob.client.prefs?.character_preview_view && (screenmob.client in screenmob.client.prefs.character_preview_view.viewers)
-	if(wants_preview) // Changing HUDs clears the screen, we need to reregister then.
-		screenmob.client.prefs.character_preview_view.hide_from_client(screenmob.client)
-	*/
 
 	screenmob.client.screen = list()
 	screenmob.client.apply_clickcatcher()
@@ -250,11 +243,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	else if (viewmob.hud_used)
 		viewmob.hud_used.plane_masters_update()
 
-	// Changing HUDs clears the screen, we need to reregister then (but only if we are viewing it already)
-	/* ACTUALLY FREAKING CHECK THIS
-	if (wants_preview)
-		screenmob.client.prefs.character_preview_view.register_to_client(screenmob.client)
-	*/
 	return TRUE
 
 /datum/hud/proc/plane_masters_update()
