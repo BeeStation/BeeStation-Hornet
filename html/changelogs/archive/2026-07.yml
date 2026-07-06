@@ -28,3 +28,21 @@
   - bugfix: Debug Omnitool welder now works.
   cursedkiller:
   - rscadd: Added Holopad emag location spoof functionality
+2026-07-05:
+  mrmanlikesbt:
+  - bugfix: Fixed energy guns hard deleting
+  - spellcheck: Fixed kinetic being spelled as kenetic across the codebase
+  - code_imp: isnum_safe() has been removed since it was logically identical to IS_FINITE()
+  - code_imp: Replaced our isnan() and isinf() overrides with the BYOND built-in procs.
+  mrmanlikesbt, nicbn, Fikou, vincentiusvin, JohnFulpWillard, Momo8289, Jacquerel, timothymtorres:
+  - balance: Cryo tanks are now slightly more efficient and end up giving 0.5 reagents
+      per second to their occupant instead of the previous 0.4 (They only consume
+      0.02 reagents per second from their beaker, yes this breaks the laws of physics).
+  - rscadd: Added sound effects to cryo tanks.
+  - bugfix: Fixed a cable & APC harddel from power monitors
+  - bugfix: Fixed some bad logic with the announcement system
+  - code_imp: Removed some unused machinery related vars, defines, and procs
+  - code_imp: Cleaned up cryo tank code
+2026-07-06:
+  mrmanlikesbt:
+  - bugfix: fixed machine construction

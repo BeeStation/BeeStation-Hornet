@@ -1,5 +1,4 @@
 /obj/item/gun/energy
-	abstract_type = /obj/item/gun/energy
 	icon_state = "energy"
 	name = "energy gun"
 	desc = "A basic energy-based gun."
@@ -158,6 +157,13 @@
 	if (cell)
 		QDEL_NULL(cell)
 	STOP_PROCESSING(SSobj, src)
+
+	// Intentional cast.
+	// Sometimes ammo_type has paths, sometimes it has atoms.
+	for (var/atom/item in ammo_type)
+		qdel(item)
+	ammo_type = null
+
 	return ..()
 
 /obj/item/gun/energy/handle_atom_del(atom/A)

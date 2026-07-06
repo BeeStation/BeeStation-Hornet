@@ -128,7 +128,7 @@
 		var/list/sound_name = sound_filenames[sound.file]
 		if(sound_name)
 			// Just in case something goes fucky wucky, don't cache a bad result.
-			if(!isnum_safe(sound.len) || sound.len <= 0)
+			if(!IS_FINITE(sound.len) || sound.len <= 0)
 				continue
 			var/sound_len = ceil(sound.len * 10)
 			sound_lengths[sound_name] = sound_len

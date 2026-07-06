@@ -237,7 +237,7 @@
 		return FALSE
 	switch(var_name)
 		if(NAMEOF(src, damage), NAMEOF(src, defense), NAMEOF(src, speed), NAMEOF(src, potential), NAMEOF(src, range))
-			if(!isnum_safe(var_value))
+			if(!IS_FINITE(var_value))
 				message_admins("[ADMIN_LOOKUPFLW(usr)] attempted to set an invalid stat ([var_value]) for the holoparasite stats of [ADMIN_LOOKUPFLW(last_holopara)].")
 				log_admin("[key_name_admin(usr)] attempted to set an invalid stat ([var_value]) for the holoparasite stats of [key_name_admin(last_holopara)].")
 				return FALSE
