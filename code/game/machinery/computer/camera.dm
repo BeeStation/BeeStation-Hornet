@@ -189,9 +189,6 @@
 	cam_background = new
 	cam_background.del_on_map_removal = FALSE
 	cam_background.assigned_map = assigned_map
-	//cam_background.icon = 'icons/effects/cameravis.dmi'
-	//cam_background.layer -= 0.01
-	//cam_background.fill_rect(1, 1, DEFAULT_MAP_SIZE, DEFAULT_MAP_SIZE)
 
 /atom/movable/screen/map_view/camera/display_to_client(client/show_to)
 	show_to.register_map_obj(cam_background)
