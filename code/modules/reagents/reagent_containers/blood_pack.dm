@@ -82,7 +82,7 @@
 		reagents.clear_reagents()
 		reagents.add_reagent(/datum/reagent/consumable/liquidelectricity, volume, list("blood_type" = get_blood_type("LE")))
 		update_icon()
-	set_light(2, 1, "#7fff7f")
+	set_light(2, 1, COLOR_ETHEREAL_BLOOD)
 
 /obj/item/reagent_containers/blood/synthetic
 	blood_type = "Coolant"
