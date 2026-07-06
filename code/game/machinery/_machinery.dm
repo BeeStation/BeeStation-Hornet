@@ -99,72 +99,76 @@
 	layer = BELOW_OBJ_LAYER //keeps shit coming out of the machine from ending up underneath it.
 	flags_ricochet = RICOCHET_HARD
 	ricochet_chance_mod = 0.3
-
 	anchored = TRUE
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 	initial_language_holder = /datum/language_holder/speaking_machine
+	armor_type = /datum/armor/obj_machinery
 
+	/// See code/__DEFINES/stat.dm
 	var/machine_stat = NONE
+
+	/// See code/__DEFINES/machines.dm
 	var/use_power = IDLE_POWER_USE
-		//0 = dont use power
-		//1 = use idle_power_usage
-		//2 = use active_power_usage
-	///the amount of static power load this machine adds to its area's power_usage list when use_power = IDLE_POWER_USE
+	/// The amount of static power load this machine adds to its area's power_usage list when use_power = IDLE_POWER_USE
 	var/idle_power_usage = 0
-	///the amount of static power load this machine adds to its area's power_usage list when use_power = ACTIVE_POWER_USE
+	/// The amount of static power load this machine adds to its area's power_usage list when use_power = ACTIVE_POWER_USE
 	var/active_power_usage = 0
-	///the current amount of static power usage this machine is taking from its area
+	/// The current amount of static power usage this machine is taking from its area
 	var/static_power_usage = 0
-
+	/// AREA_USAGE_EQUIP,AREA_USAGE_ENVIRON or AREA_USAGE_LIGHT
 	var/power_channel = AREA_USAGE_EQUIP
-		//AREA_USAGE_EQUIP,AREA_USAGE_ENVIRON or AREA_USAGE_LIGHT
-		///A combination of factors such as having power, not being broken and so on. Boolean.
-	var/is_operational = TRUE
-	var/wire_compatible = FALSE
 
-	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
+	/// List of all the parts used to build it, if made from certain kinds of frames.
+	var/list/component_parts = null
+	/// Circuit to be created and inserted when the machinery is created
+	var/obj/item/circuitboard/circuit
+
+	/// A combination of factors such as having power, not being broken and so on. Boolean.
+	var/is_operational = TRUE
+	/// Is the machines maintenance panel open.
 	var/panel_open = FALSE
+	/// Is the machine open or closed
 	var/state_open = FALSE
-	var/critical_machine = FALSE //If this machine is critical to station operation and should have the area be excempted from power failures.
-	var/list/occupant_typecache //if set, turned into typecache in Initialize, other wise, defaults to mob/living typecache
+	/// If this machine is critical to station operation and should have the area be excempted from power failures.
+	var/critical_machine = FALSE
+
+	/// If set, turned into typecache in Initialize, other wise, defaults to mob/living typecache
+	var/list/occupant_typecache
+	/// The mob that is sealed inside the machine
 	var/atom/movable/occupant = null
+
 	/// Viable flags to go here are START_PROCESSING_ON_INIT, or START_PROCESSING_MANUALLY. See code\__DEFINES\machines.dm for more information on these flags.
 	var/processing_flags = START_PROCESSING_ON_INIT
 	/// What subsystem this machine will use, which is generally SSmachines or SSfastprocess. By default all machinery use SSmachines. This fires a machine's process() roughly every 2 seconds.
 	var/subsystem_type = /datum/controller/subsystem/machines
-	var/obj/item/circuitboard/circuit // Circuit to be created and inserted when the machinery is created
 
+	/// See code/DEFINES/interaction_flags.dm
 	var/interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
+
+	/// Amount charged for an NAP violation
 	var/fair_market_price = 69
+	/// Subject noun for NAP violations
 	var/market_verb = "Customer"
-	/// [Bitflag] the machine sends its profit to the corresponding department budget.
-	var/seller_department = ACCOUNT_CAR_BITFLAG // Your money goes to cargo, and you will like it.
+	/// The department that gets the money from an NAP violation
+	var/seller_department = ACCOUNT_CAR_BITFLAG
 
-	var/clickvol = 40	// sound volume played on successful click
+	/// The sound played when ui_act() is called
+	var/clicksound
+	/// The volume of the above sound
+	var/clickvol = 40
+	/// The cooldown for the above sound
+	COOLDOWN_DECLARE(clicksound_cooldown)
 	var/next_clicksound = 0	// value to compare with world.time for whether to play clicksound according to CLICKSOUND_INTERVAL
-	var/clicksound	// sound played on successful interface use by a carbon lifeform
-
-	// For storing and overriding ui id and dimensions
-	var/tgui_id // ID of TGUI interface
-	var/ui_style // ID of custom TGUI style (optional)
-
-	/// world.time of last use by [/mob/living]
-	var/last_used_time = 0
-	/// Mobtype of last user. Typecast to [/mob/living] for initial() usage
-	var/mob/living/last_user_mobtype
 
 	/// Maximum time an EMP will disable this machine for
 	var/emp_disable_time = 2 MINUTES
 
-	///Is this machine currently in the atmos machinery queue?
+	/// Is this machine currently in the atmos machinery queue?
 	var/atmos_processing = FALSE
-
 	/// Disables some optimizations
 	var/always_area_sensitive = FALSE
-
+	/// If setup_area_power_relationship() has been called or not
 	var/area_relationship_established = FALSE
-
-	armor_type = /datum/armor/obj_machinery
 
 /datum/armor/obj_machinery
 	melee = 25
@@ -328,7 +332,7 @@
 	. = ..()
 	if(!use_power || machine_stat || (. & EMP_PROTECT_SELF))
 		return
-	use_power(7.5 KILOWATT/severity)
+	use_power(7.5 KILOWATT / severity)
 	//Set the machine to be EMPed
 	machine_stat |= EMPED
 	//Reset EMP state in 120/60 seconds
@@ -351,16 +355,17 @@
 	power_change()
 
 /**
-  * Opens the machine.
-  *
-  * Will update the machine icon and any user interfaces currently open.
-  * Arguments:
-  * * drop - Boolean. Whether to drop any stored items in the machine. Does not include components.
-  */
-/obj/machinery/proc/open_machine(drop = TRUE)
+ * Opens the machine.
+ *
+ * Will update the machine icon and any user interfaces currently open.
+ * Arguments:
+ * * drop - Boolean. Whether to drop any stored items in the machine. Does not include components.
+ * * density_to_set - Boolean. Whether to make the object dense when it's open.
+ */
+/obj/machinery/proc/open_machine(drop = TRUE, density_to_set = FALSE)
 	SEND_SIGNAL(src, COMSIG_MACHINE_OPEN, drop)
 	state_open = TRUE
-	set_density(FALSE)
+	set_density(density_to_set)
 	if(drop)
 		dump_inventory_contents()
 	update_icon()
@@ -386,13 +391,13 @@
 	LAZYCLEARLIST(component_parts)
 
 /**
-  * Drop every movable atom in the machine's contents list that is not a component_part.
-  *
-  * Proc does not drop components and will skip over anything in the component_parts list.
-  * Call dump_contents() to drop all contents including components.
-  * Arguments:
-  * * subset - If this is not null, only atoms that are also contained within the subset list will be dropped.
-  */
+ * Drop every movable atom in the machine's contents list that is not a component_part.
+ *
+ * Proc does not drop components and will skip over anything in the component_parts list.
+ * Call dump_contents() to drop all contents including components.
+ * Arguments:
+ * * subset - If this is not null, only atoms that are also contained within the subset list will be dropped.
+ */
 /obj/machinery/proc/dump_inventory_contents(list/subset = null)
 	var/turf/this_turf = get_turf(src)
 	for(var/atom/movable/movable_atom in contents)
@@ -424,9 +429,9 @@
 /obj/machinery/proc/can_be_occupant(atom/movable/am)
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
 
-/obj/machinery/proc/close_machine(atom/movable/target = null)
+/obj/machinery/proc/close_machine(atom/movable/target, density_to_set = TRUE)
 	state_open = FALSE
-	set_density(TRUE)
+	set_density(density_to_set)
 	if(!target)
 		for(var/am in loc)
 			if (!(can_be_occupant(am)))
@@ -620,35 +625,36 @@
 	return TRUE // If we pass all these checks, woohoo! We can interact
 
 /obj/machinery/proc/check_nap_violations()
-	if(!SSeconomy.full_ancap)
+	if(!SSeconomy.full_ancap || !ishuman(occupant) || state_open)
 		return TRUE
-	if(occupant && !state_open)
-		if(ishuman(occupant))
-			var/mob/living/carbon/human/H = occupant
-			var/obj/item/card/id/I = H.get_idcard(TRUE)
-			if(I)
-				var/datum/bank_account/insurance = I.registered_account
-				if(!insurance)
-					say("[market_verb] NAP Violation: No bank account found.")
-					nap_violation(H)
-					return FALSE
-				else
-					if(!insurance.adjust_money(-fair_market_price))
-						say("[market_verb] NAP Violation: Unable to pay.")
-						nap_violation(H)
-						return FALSE
 
-					// each department (seller_department) will earn the profit
-					if(fair_market_price && seller_department)
-						var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
-						if(length(dept_list))
-							fair_market_price = round(fair_market_price/length(dept_list))
-							for(var/datum/bank_account/department/D in dept_list)
-								D.adjust_money(fair_market_price)
-			else
-				say("[market_verb] NAP Violation: No ID card found.")
-				nap_violation(H)
-				return FALSE
+	var/mob/living/carbon/human/human_occupant = occupant
+	var/obj/item/card/id/idcard = human_occupant.get_idcard(TRUE)
+	if(isnull(idcard))
+		say("[market_verb] NAP Violation: No ID card found.")
+		nap_violation(human_occupant)
+		return FALSE
+
+	var/datum/bank_account/insurance = idcard.registered_account
+	if(!insurance)
+		say("[market_verb] NAP Violation: No bank account found.")
+		nap_violation(human_occupant)
+		return FALSE
+
+	if(!fair_market_price)
+		return TRUE
+
+	if(!insurance.adjust_money(-fair_market_price))
+		say("[market_verb] NAP Violation: Unable to pay.")
+		nap_violation(human_occupant)
+		return FALSE
+	// each department (seller_department) will earn the profit
+	if(seller_department)
+		var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
+		if(length(dept_list))
+			fair_market_price = round(fair_market_price / length(dept_list))
+			for(var/datum/bank_account/department/department_budget in dept_list)
+				department_budget.adjust_money(fair_market_price)
 	return TRUE
 
 /obj/machinery/proc/nap_violation(mob/violator)
@@ -660,12 +666,10 @@
 /obj/machinery/interact(mob/user, special_state)
 	if(interaction_flags_machine & INTERACT_MACHINE_SET_MACHINE)
 		user.set_machine(src)
-	update_last_used(user)
 	. = ..()
 
 /obj/machinery/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	add_fingerprint(usr)
-	update_last_used(usr)
 	if(isliving(usr) && in_range(src, usr))
 		play_click_sound()
 	return ..()
@@ -677,7 +681,6 @@
 	if(!usr.canUseTopic(src))
 		return TRUE
 	add_fingerprint(usr)
-	update_last_used(usr)
 	return FALSE
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -724,13 +727,11 @@
 	. = ..()
 	if(.)
 		return
-	update_last_used(user)
 
 /obj/machinery/attackby_secondary(obj/item/weapon, mob/user, params)
 	. = ..()
 	if(.)
 		return
-	update_last_used(user)
 
 /obj/machinery/tool_act(mob/living/user, obj/item/tool, tool_type)
 	if(SEND_SIGNAL(user, COMSIG_TRY_USE_MACHINE, src) & COMPONENT_CANT_USE_MACHINE_TOOLS)
@@ -738,7 +739,6 @@
 	. = ..()
 	if(. & TOOL_ACT_SIGNAL_BLOCKING)
 		return
-	update_last_used(user)
 
 /obj/machinery/_try_interact(mob/user)
 	if((interaction_flags_machine & INTERACT_MACHINE_WIRES_IF_OPEN) && panel_open && (attempt_wire_interaction(user) == WIRE_INTERACTION_BLOCK))
@@ -761,11 +761,12 @@
 		visible_message(span_notice("[usr] pries open \the [src]."), span_notice("You pry open \the [src]."))
 		open_machine()
 
-/obj/machinery/proc/default_deconstruction_crowbar(obj/item/tool, ignore_panel = FALSE)
+/obj/machinery/proc/default_deconstruction_crowbar(obj/item/tool, ignore_panel = FALSE, custom_deconstruct = FALSE)
 	. = (panel_open || ignore_panel) && !(flags_1 & NODECONSTRUCT_1) && tool.tool_behaviour == TOOL_CROWBAR
-	if(.)
-		tool.play_tool_sound(src, 50)
-		deconstruct(TRUE)
+	if(!. || custom_deconstruct)
+		return
+	tool.play_tool_sound(src, 50)
+	deconstruct(TRUE)
 
 /obj/machinery/deconstruct(disassembled = TRUE)
 	if(flags_1 & NODECONSTRUCT_1)
@@ -819,22 +820,6 @@
 
 /obj/machinery/contents_explosion(severity, target)
 	occupant?.ex_act(severity, target)
-
-/obj/machinery/handle_atom_del(atom/A)
-	if(A == occupant)
-		set_occupant(null)
-		update_icon()
-		updateUsrDialog()
-		return ..()
-
-	// The circuit should also be in component parts, so don't early return.
-	if(A == circuit)
-		circuit = null
-	if((A in component_parts) && !QDELETED(src))
-		component_parts.Remove(A)
-		// It would be unusual for a component_part to be qdel'd ordinarily.
-		deconstruct(FALSE)
-	return ..()
 
 /obj/machinery/run_atom_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
@@ -1042,13 +1027,15 @@
 		circuit.configure_machine(src)
 	return
 
-//called on deconstruction before the final deletion
+/**
+ * called on deconstruction before the final deletion
+ * Arguments
+ *
+ * * disassembled - if TRUE means we used tools to deconstruct it, FALSE means it got destroyed by other means
+ */
 /obj/machinery/proc/on_deconstruction(disassembled)
 	PROTECTED_PROC(TRUE)
 	return
-
-/obj/machinery/proc/can_be_overridden()
-	. = 1
 
 /obj/machinery/zap_act(power, zap_flags)
 	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
@@ -1058,23 +1045,27 @@
 			heavy_impact_range = 2,
 			light_impact_range = 4,
 			flame_range = 2,
-			adminlog = FALSE
 		)
 	else if(zap_flags & ZAP_OBJ_DAMAGE)
 		take_damage(power * 2.5e-4, BURN, ENERGY)
 		if(prob(40))
 			emp_act(EMP_LIGHT)
 		power -= power * 5e-4
-
 	return ..()
 
 /obj/machinery/Exited(atom/movable/gone, direction)
 	. = ..()
 	if (gone == occupant)
 		set_occupant(null)
+		update_appearance()
+
+	// The circuit should also be in component parts, so don't early return.
 	if(gone == circuit)
-		LAZYREMOVE(component_parts, gone)
 		circuit = null
+	if((gone in component_parts) && !QDELETED(src))
+		component_parts -= gone
+		// It would be unusual for a component_part to be qdel'd ordinarily.
+		deconstruct(FALSE)
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = rustg_hash_string(RUSTG_HASH_MD5, AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.
@@ -1085,28 +1076,27 @@
 	AM.pixel_y = -8 + (round( . / 3)*8)
 
 /obj/machinery/proc/play_click_sound(custom_clicksound)
-	if((custom_clicksound ||= clicksound) && world.time > next_clicksound)
-		next_clicksound = world.time + CLICKSOUND_INTERVAL
-		playsound(src, custom_clicksound, clickvol)
+	if(!COOLDOWN_FINISHED(src, clicksound_cooldown))
+		return
+
+	COOLDOWN_START(src, clicksound_cooldown, 0.1 SECONDS)
+	playsound(src, custom_clicksound || clicksound, clickvol)
 
 /obj/machinery/rust_heretic_act()
 	take_damage(500, BRUTE, MELEE, 1)
 	return TRUE
 
 /obj/machinery/vv_edit_var(vname, vval)
-	if(vname == "occupant")
+	if(vname == NAMEOF(src, occupant))
 		set_occupant(vval)
+		datum_flags |= DF_VAR_EDITED
+		return TRUE
+	if(vname == NAMEOF(src, machine_stat))
+		set_machine_stat(vval)
 		datum_flags |= DF_VAR_EDITED
 		return TRUE
 	return ..()
 
-/obj/machinery/proc/AI_notify_hack()
+/obj/machinery/proc/ai_notify_hack()
 	var/turf/location = get_turf(src)
-	var/alertstr = "<span class='userdanger'>Network Alert: Hacking attempt detected[location?" in [location]":". Unable to pinpoint location"]</span>."
-	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
-		to_chat(AI, alertstr)
-
-/obj/machinery/proc/update_last_used(mob/user)
-	if(isliving(user))
-		last_used_time = world.time
-		last_user_mobtype = user.type
+	to_chat(GLOB.ai_list, span_userdanger("Network Alert: Hacking attempt detected[location ? " in [location]" : ". Unable to pinpoint location"]."))

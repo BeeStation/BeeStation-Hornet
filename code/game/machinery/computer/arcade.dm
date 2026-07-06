@@ -91,7 +91,6 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	canSmoothWith = null
 
 	clockwork = TRUE //it'd look weird
-	broken_overlay_emissive = TRUE
 	light_color = LIGHT_COLOR_GREEN
 	var/list/prize_override
 	var/prizeselect = /obj/item/coin/arcade_token
