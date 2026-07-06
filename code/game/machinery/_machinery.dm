@@ -821,6 +821,22 @@
 /obj/machinery/contents_explosion(severity, target)
 	occupant?.ex_act(severity, target)
 
+/obj/machinery/handle_atom_del(atom/A)
+	if(A == occupant)
+		set_occupant(null)
+		update_icon()
+		updateUsrDialog()
+		return ..()
+
+	// The circuit should also be in component parts, so don't early return.
+	if(A == circuit)
+		circuit = null
+	if((A in component_parts) && !QDELETED(src))
+		component_parts.Remove(A)
+		// It would be unusual for a component_part to be qdel'd ordinarily.
+		deconstruct(FALSE)
+	return ..()
+
 /obj/machinery/run_atom_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return FALSE
@@ -1061,11 +1077,8 @@
 
 	// The circuit should also be in component parts, so don't early return.
 	if(gone == circuit)
+		LAZYREMOVE(component_parts, gone)
 		circuit = null
-	if((gone in component_parts) && !QDELETED(src))
-		component_parts -= gone
-		// It would be unusual for a component_part to be qdel'd ordinarily.
-		deconstruct(FALSE)
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = rustg_hash_string(RUSTG_HASH_MD5, AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.
