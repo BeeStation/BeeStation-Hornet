@@ -52,7 +52,7 @@
 			for(var/image in current_item.overlays)
 				var/image/current_overlay = image
 				if(current_overlay.plane != LIGHTING_PLANE && current_overlay.plane != EMISSIVE_PLANE || current_item.greyscale_colors || current_item.greyscale_config || current_item.color) //i HATE this "list of shit that breaks" but i have no idea how to solve this any other way
-					list_item["image"] = FAST_REF(current_item.appearance)
+					list_item["image"] = text_ref(current_item.appearance)
 					usr << output(current_item, "push_appearance_placeholder_id")
 					break
 			if(!list_item["image"])

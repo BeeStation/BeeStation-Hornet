@@ -924,7 +924,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	if(isicon(icon) && isfile(icon))
 		//icons compiled in from 'icons/path/to/dmi_file.dmi' at compile time are weird and arent really /icon objects,
 		///but they pass both isicon() and isfile() checks. theyre the easiest case since stringifying them gives us the path we want
-		var/icon_ref = FAST_REF(icon)
+		var/icon_ref = text_ref(icon)
 		var/locate_icon_string = "[locate(icon_ref)]"
 
 		icon_path = locate_icon_string
@@ -935,7 +935,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		// the rsc reference returned by fcopy_rsc() will be stringifiable to "icons/path/to/dmi_file.dmi"
 		var/rsc_ref = fcopy_rsc(icon)
 
-		var/icon_ref = FAST_REF(rsc_ref)
+		var/icon_ref = text_ref(rsc_ref)
 
 		var/icon_path_string = "[locate(icon_ref)]"
 
@@ -945,7 +945,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		var/rsc_ref = fcopy_rsc(icon)
 		//if its the text path of an existing dmi file, the rsc reference returned by fcopy_rsc() will be stringifiable to a dmi path
 
-		var/rsc_ref_ref = FAST_REF(rsc_ref)
+		var/rsc_ref_ref = text_ref(rsc_ref)
 		var/rsc_ref_string = "[locate(rsc_ref_ref)]"
 
 		icon_path = rsc_ref_string
