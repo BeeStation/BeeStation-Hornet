@@ -42,6 +42,16 @@
 	/// Variance in brain traits removed by subtypes
 	var/list/variant_traits_removed
 
+	//What examining this brain will say about its various states
+	var/text_soul_but_damaged = "It seems to still have a bit of energy within it, but it's rather damaged... You may be able to restore it with some <b>mannitol</b>."
+	var/text_soul_but_alive = "You can feel the small spark of life still left in this one."
+
+	var/text_missing_soul_but_damaged = "It seems particularly lifeless and is rather damaged... You may be able to restore it with some <b>mannitol</b> incase it becomes functional again later."
+	var/text_missing_soul_but_alive = "This one seems particularly lifeless. Perhaps it will regain some of its luster later."
+
+	var/test_no_soul_but_damaged = "It's lifeless and severely damaged."
+	var/text_no_soul_but_alive = "This one is completely devoid of life."
+
 	juice_typepath = null	//the moment the brains become juicable, people will find a way to cheese round removal. So NO.
 
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
@@ -207,23 +217,23 @@
 	else if(brainmob)
 		if(brainmob.key || brainmob.get_ghost(FALSE, TRUE))
 			if(brain_death || brainmob.health <= HEALTH_THRESHOLD_DEAD)
-				. += span_info("It's lifeless and severely damaged.")
+				. += span_info(test_no_soul_but_damaged)
 			else if(organ_flags & ORGAN_FAILING)
-				. += span_info("It seems to still have a bit of energy within it, but it's rather damaged... You may be able to restore it with some <b>mannitol</b>.")
+				. += span_info(text_soul_but_damaged)
 			else
-				. += span_info("You can feel the small spark of life still left in this one.")
+				. += span_info(text_soul_but_alive)
 		else if(organ_flags & ORGAN_FAILING)
-			. += span_info("It seems particularly lifeless and is rather damaged... You may be able to restore it with some <b>mannitol</b> incase it becomes functional again later.")
+			. += span_info(text_missing_soul_but_damaged)
 		else
-			. += span_info("This one seems particularly lifeless. Perhaps it will regain some of its luster later.")
+			. += span_info(text_missing_soul_but_alive)
 	else
 		if(decoy_override)
 			if(organ_flags & ORGAN_FAILING)
-				. += span_info("It seems particularly lifeless and is rather damaged... You may be able to restore it with some <b>mannitol</b> incase it becomes functional again later.")
+				. += span_info(text_missing_soul_but_damaged)
 			else
-				. += span_info("This one seems particularly lifeless. Perhaps it will regain some of its luster later.")
+				. += span_info(text_missing_soul_but_alive)
 		else
-			. += span_info("This one is completely devoid of life.")
+			. += span_info(text_no_soul_but_alive)
 
 /obj/item/organ/brain/Destroy() //copypasted from MMIs.
 	if(brainmob)
@@ -348,6 +358,12 @@
 	organ_flags = ORGAN_ROBOTIC
 	base_icon_state = "posibrain"
 	brain_dna = FALSE // we do not store dna
+	text_soul_but_damaged = "The S.O.U.L. light is green, but it is blinking unsteadily... You may be able to repair it with a <b>multitool</b>."
+	text_soul_but_alive = "The S.O.U.L. light is green."
+	text_missing_soul_but_damaged = "The S.O.U.L. light is yellow and it is blinking unsteadily... You may be able to repair it with a <b>multitool</b> incase it becomes active again later."
+	text_missing_soul_but_alive = "The S.O.U.L. light is yellow. Perhaps it will reactivate later."
+	test_no_soul_but_damaged = "The S.O.U.L. light if red, and it is blinking unsteadily"
+	text_no_soul_but_alive = "The S.O.U.L. light is red."
 
 /obj/item/organ/brain/positron/on_insert(mob/living/carbon/human/brain_owner)
 	. = ..()
@@ -357,6 +373,32 @@
 			if(REVIVESBYHEALING in H.dna.species.species_traits)
 				if(H.health > 0)
 					H.revive()
+
+/obj/item/organ/brain/positron/attackby(obj/item/attacking_item, mob/user, params)
+	user.changeNext_move(CLICK_CD_MELEE)
+
+	if(istype(attacking_item, /obj/item/organ_storage))
+		return //Borg organ bags shouldn't be killing brains
+
+	if(istype(attacking_item, /obj/item/multitool)) //attempt to heal the brain
+		. = TRUE //don't do attack animation.
+		user.visible_message("[user] starts to repair the circuitry of [src].", span_notice("You start to repair the circuitry of [src]."))
+		if(!do_after(user, 120, src))
+			to_chat(user, span_warning("You failed to repair [src]!"))
+			return
+
+		user.visible_message("[user] repairs the circuitry of [src], causing it to blink in a more steady pattern.", span_notice("You repair the circuitry of [src], causing it to blink in a more steady pattern."))
+		set_organ_damage(damage - (maxHealth * 0.25))
+		cure_all_traumas(TRAUMA_RESILIENCE_SURGERY)
+		if(damage > 0)
+			to_chat(user, span_notice("The lights still are unsteady. This positronic could be repaired further."))
+		return
+
+	if(brainmob) //if we aren't trying to heal the brain, pass the attack onto the brainmob.
+		attacking_item.attack(brainmob, user) //Oh noooeeeee
+
+	if(attacking_item.force != 0 && !(attacking_item.item_flags & NOBLUDGEON))
+		set_organ_damage(maxHealth) //fails the brain as the brain was attacked, they're pretty fragile.
 
 /obj/item/organ/brain/positron/emp_act(severity)
 	. = ..()
