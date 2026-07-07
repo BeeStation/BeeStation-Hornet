@@ -154,10 +154,8 @@ SUBSYSTEM_DEF(department)
 	var/is_station = FALSE
 
 	// job related variables
-	/// who's responsible of a department? (this is made as a list just in case)
-	var/list/leaders = list()
-	/// title string of the head of staff job, used for UI boldness checks in the jobs menu
-	var/department_head
+	/// Typepath of the job datum leading this department.
+	var/datum/job/department_head = null
 	/// job singleton datums associated to this department. Populated dynamically by setup_occupations().
 	var/list/department_jobs = list()
 	/// experience type granted by playing a job in this department
@@ -207,7 +205,7 @@ SUBSYSTEM_DEF(department)
 /datum/department_group/command
 	department_name = DEPARTMENT_NAME_COMMAND
 	dept_id = DEPARTMENT_NAME_COMMAND
-	department_bitflags = DEPT_BITFLAG_COM
+	department_bitflags = DEPARTMENT_BITFLAG_COMMAND
 	dept_colour = "#ddddff"
 	dept_radio_channel = FREQ_COMMAND
 	is_station = TRUE
@@ -215,7 +213,7 @@ SUBSYSTEM_DEF(department)
 	display_order = 1
 	label_class = "command"
 
-	leaders = list(JOB_NAME_CAPTAIN)
+	department_head = /datum/job/captain
 
 	access_group_name = "Command"
 	access_list = list(
@@ -245,7 +243,7 @@ SUBSYSTEM_DEF(department)
 /datum/department_group/service
 	department_name = DEPARTMENT_NAME_SERVICE
 	dept_id = DEPARTMENT_NAME_SERVICE
-	department_bitflags = DEPT_BITFLAG_SRV
+	department_bitflags = DEPARTMENT_BITFLAG_SERVICE
 	dept_colour = "#bbe291"
 	dept_radio_channel = FREQ_SERVICE
 	is_station = TRUE
@@ -253,7 +251,7 @@ SUBSYSTEM_DEF(department)
 	display_order = 7
 	label_class = "service"
 
-	leaders = list(JOB_NAME_HEADOFPERSONNEL)
+	department_head = /datum/job/head_of_personnel
 
 	access_group_name = "General"
 	// actually station general list
@@ -283,12 +281,12 @@ SUBSYSTEM_DEF(department)
 /datum/department_group/civilian
 	department_name = DEPARTMENT_NAME_CIVILIAN
 	dept_id = DEPARTMENT_NAME_CIVILIAN
-	department_bitflags = DEPT_BITFLAG_CIV
+	department_bitflags = DEPARTMENT_BITFLAG_CIVILIAN
 	dept_colour = "#bbe291"
 	is_station = TRUE
 	display_order = 9
 
-	leaders = list(JOB_NAME_HEADOFPERSONNEL)
+	department_head = /datum/job/head_of_personnel
 
 	access_group_name = "Residential" // in case when it's used
 	// access_list = list() // check service
@@ -305,7 +303,7 @@ SUBSYSTEM_DEF(department)
 /datum/department_group/cargo
 	department_name = DEPARTMENT_NAME_CARGO
 	dept_id = DEPARTMENT_NAME_CARGO
-	department_bitflags = DEPT_BITFLAG_CAR
+	department_bitflags = DEPARTMENT_BITFLAG_CARGO
 	dept_colour = "#d7b088"
 	dept_radio_channel = FREQ_SUPPLY
 	is_station = TRUE
@@ -313,7 +311,7 @@ SUBSYSTEM_DEF(department)
 	display_order = 6
 	label_class = "supply"
 
-	leaders = list(JOB_NAME_HEADOFPERSONNEL)
+	department_head = /datum/job/head_of_personnel
 
 	access_group_name = "Supply"
 	access_list = list(
@@ -340,7 +338,7 @@ SUBSYSTEM_DEF(department)
 /datum/department_group/science
 	department_name = DEPARTMENT_NAME_SCIENCE
 	dept_id = DEPARTMENT_NAME_SCIENCE
-	department_bitflags = DEPT_BITFLAG_SCI
+	department_bitflags = DEPARTMENT_BITFLAG_SCIENCE
 	dept_colour = "#ffddff"
 	dept_radio_channel = FREQ_SCIENCE
 	is_station = TRUE
@@ -348,7 +346,7 @@ SUBSYSTEM_DEF(department)
 	display_order = 5
 	label_class = "science"
 
-	leaders = list(JOB_NAME_RESEARCHDIRECTOR)
+	department_head = /datum/job/research_director
 
 	access_group_name = "Research"
 	access_list = list(
@@ -377,7 +375,7 @@ SUBSYSTEM_DEF(department)
 /datum/department_group/engineering
 	department_name = DEPARTMENT_NAME_ENGINEERING
 	dept_id = DEPARTMENT_NAME_ENGINEERING
-	department_bitflags = DEPT_BITFLAG_ENG
+	department_bitflags = DEPARTMENT_BITFLAG_ENGINEERING
 	dept_colour = "#ffeeaa"
 	dept_radio_channel = FREQ_ENGINEERING
 	is_station = TRUE
@@ -385,7 +383,7 @@ SUBSYSTEM_DEF(department)
 	display_order = 3
 	label_class = "engineering"
 
-	leaders = list(JOB_NAME_CHIEFENGINEER)
+	department_head = /datum/job/chief_engineer
 
 	access_group_name = "Engineering"
 	access_list = list(
@@ -415,7 +413,7 @@ SUBSYSTEM_DEF(department)
 /datum/department_group/medical
 	department_name = DEPARTMENT_NAME_MEDICAL
 	dept_id = DEPARTMENT_NAME_MEDICAL
-	department_bitflags = DEPT_BITFLAG_MED
+	department_bitflags = DEPARTMENT_BITFLAG_MEDICAL
 	dept_colour = "#c1e1ec"
 	dept_radio_channel = FREQ_MEDICAL
 	is_station = TRUE
@@ -423,7 +421,7 @@ SUBSYSTEM_DEF(department)
 	display_order = 4
 	label_class = "medical"
 
-	leaders = list(JOB_NAME_CHIEFMEDICALOFFICER)
+	department_head = /datum/job/chief_medical_officer
 
 	access_group_name = "Medbay"
 	access_list = list(
@@ -450,7 +448,7 @@ SUBSYSTEM_DEF(department)
 /datum/department_group/security
 	department_name = DEPARTMENT_NAME_SECURITY
 	dept_id = DEPARTMENT_NAME_SECURITY
-	department_bitflags = DEPT_BITFLAG_SEC
+	department_bitflags = DEPARTMENT_BITFLAG_SECURITY
 	dept_colour = "#ffdddd"
 	dept_radio_channel = FREQ_SECURITY
 	is_station = TRUE
@@ -458,7 +456,7 @@ SUBSYSTEM_DEF(department)
 	display_order = 2
 	label_class = "security"
 
-	leaders = list(JOB_NAME_HEADOFSECURITY)
+	department_head = /datum/job/head_of_security
 
 	access_group_name = "Security"
 	access_list = list(
@@ -489,7 +487,7 @@ SUBSYSTEM_DEF(department)
 /datum/department_group/vip
 	department_name = DEPARTMENT_NAME_VIP
 	dept_id = DEPARTMENT_NAME_VIP
-	department_bitflags = DEPT_BITFLAG_VIP
+	department_bitflags = DEPARTMENT_BITFLAG_VIP
 
 	manifest_category_name = "Very Important People"
 	manifest_category_order = DEPT_MANIFEST_ORDER_VIP
@@ -514,7 +512,7 @@ SUBSYSTEM_DEF(department)
 /datum/department_group/silicon
 	department_name = DEPARTMENT_NAME_SILICON
 	dept_id = DEPARTMENT_NAME_SILICON
-	department_bitflags = DEPT_BITFLAG_SILICON
+	department_bitflags = DEPARTMENT_BITFLAG_SILICON
 	dept_colour = "#ccffcc"
 	department_experience_type = EXP_TYPE_SILICON
 	display_order = 8
@@ -573,7 +571,7 @@ SUBSYSTEM_DEF(department)
 /datum/department_group/other
 	department_name = DEPARTMENT_NAME_OTHER
 	dept_id = DEPARTMENT_NAME_OTHER
-	department_bitflags = DEPT_BITFLAG_OTHER
+	department_bitflags = DEPARTMENT_BITFLAG_OTHER
 	dept_colour = "#00eba4"
 	dept_radio_channel = FREQ_CENTCOM
 

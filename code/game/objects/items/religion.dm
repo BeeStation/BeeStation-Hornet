@@ -166,7 +166,7 @@
 	name = "command banner"
 	desc = "The banner of Command, a staunch and ancient line of bueraucratic kings and queens."
 	//No icon state here since the default one is the NT banner
-	job_loyalties = DEPT_BITFLAG_COM
+	job_loyalties = DEPARTMENT_BITFLAG_COMMAND
 	warcry = "Hail Nanotrasen!"
 
 /obj/item/banner/command/mundane

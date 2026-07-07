@@ -42,17 +42,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	change_position_cooldown = CONFIG_GET(number/id_console_jobslot_delay)
 
 	// This determines which department payment list the console will show to you.
-	if((department_bitflag & DEPT_BITFLAG_COM) || !department_bitflag)
+	if((department_bitflag & DEPARTMENT_BITFLAG_COMMAND) || !department_bitflag)
 		available_paycheck_departments |= list(ACCOUNT_COM_ID)
-	if((department_bitflag & DEPT_BITFLAG_SRV) || !department_bitflag)
+	if((department_bitflag & DEPARTMENT_BITFLAG_SERVICE) || !department_bitflag)
 		available_paycheck_departments |= list(ACCOUNT_CIV_ID, ACCOUNT_SRV_ID, ACCOUNT_CAR_ID)
-	if((department_bitflag & DEPT_BITFLAG_ENG) || !department_bitflag)
+	if((department_bitflag & DEPARTMENT_BITFLAG_ENGINEERING) || !department_bitflag)
 		available_paycheck_departments |= list(ACCOUNT_ENG_ID)
-	if((department_bitflag & DEPT_BITFLAG_SCI) || !department_bitflag)
+	if((department_bitflag & DEPARTMENT_BITFLAG_SCIENCE) || !department_bitflag)
 		available_paycheck_departments |= list(ACCOUNT_SCI_ID)
-	if((department_bitflag & DEPT_BITFLAG_MED) || !department_bitflag)
+	if((department_bitflag & DEPARTMENT_BITFLAG_MEDICAL) || !department_bitflag)
 		available_paycheck_departments |= list(ACCOUNT_MED_ID)
-	if((department_bitflag & DEPT_BITFLAG_SEC) || !department_bitflag)
+	if((department_bitflag & DEPARTMENT_BITFLAG_SECURITY) || !department_bitflag)
 		available_paycheck_departments |= list(ACCOUNT_SEC_ID)
 
 
@@ -300,17 +300,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if(inserted_scan_id)
 			S = html_encode(inserted_scan_id.name)
 			//Checking all the accesses and their corresponding departments
-			if((ACCESS_HOP in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SRV) || !department_bitflag))
+			if((ACCESS_HOP in inserted_scan_id.access) && ((department_bitflag & DEPARTMENT_BITFLAG_SERVICE) || !department_bitflag))
 				paycheck_departments |= ACCOUNT_SRV_ID
 				paycheck_departments |= ACCOUNT_CIV_ID
 				paycheck_departments |= ACCOUNT_CAR_ID //Currently no seperation between service/civillian and supply
-			if((ACCESS_HOS in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SEC) || !department_bitflag))
+			if((ACCESS_HOS in inserted_scan_id.access) && ((department_bitflag & DEPARTMENT_BITFLAG_SECURITY) || !department_bitflag))
 				paycheck_departments |= ACCOUNT_SEC_ID
-			if((ACCESS_CMO in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_MED) || !department_bitflag))
+			if((ACCESS_CMO in inserted_scan_id.access) && ((department_bitflag & DEPARTMENT_BITFLAG_MEDICAL) || !department_bitflag))
 				paycheck_departments |= ACCOUNT_MED_ID
-			if((ACCESS_RD in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SCI) || !department_bitflag))
+			if((ACCESS_RD in inserted_scan_id.access) && ((department_bitflag & DEPARTMENT_BITFLAG_SCIENCE) || !department_bitflag))
 				paycheck_departments |= ACCOUNT_SCI_ID
-			if((ACCESS_CE in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_ENG) || !department_bitflag))
+			if((ACCESS_CE in inserted_scan_id.access) && ((department_bitflag & DEPARTMENT_BITFLAG_ENGINEERING) || !department_bitflag))
 				paycheck_departments |= ACCOUNT_ENG_ID
 		else
 			S = "--------"
@@ -563,20 +563,20 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
 
 					else
-						if((ACCESS_HOP in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SRV) || !department_bitflag))
-							accessible_region_bitflag |= DEPT_BITFLAG_SRV | DEPT_BITFLAG_CIV | DEPT_BITFLAG_CAR
+						if((ACCESS_HOP in inserted_scan_id.access) && ((department_bitflag & DEPARTMENT_BITFLAG_SERVICE) || !department_bitflag))
+							accessible_region_bitflag |= DEPARTMENT_BITFLAG_SERVICE | DEPARTMENT_BITFLAG_CIVILIAN | DEPARTMENT_BITFLAG_CARGO
 							accessible_dept_payment_bitflag |= ACCOUNT_COM_BITFLAG | ACCOUNT_CIV_BITFLAG | ACCOUNT_SRV_BITFLAG | ACCOUNT_CAR_BITFLAG
-						if((ACCESS_HOS in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SEC) || !department_bitflag))
-							accessible_region_bitflag |= DEPT_BITFLAG_SEC
+						if((ACCESS_HOS in inserted_scan_id.access) && ((department_bitflag & DEPARTMENT_BITFLAG_SECURITY) || !department_bitflag))
+							accessible_region_bitflag |= DEPARTMENT_BITFLAG_SECURITY
 							accessible_dept_payment_bitflag |= ACCOUNT_SEC_BITFLAG
-						if((ACCESS_CMO in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_MED) || !department_bitflag))
-							accessible_region_bitflag |= DEPT_BITFLAG_MED
+						if((ACCESS_CMO in inserted_scan_id.access) && ((department_bitflag & DEPARTMENT_BITFLAG_MEDICAL) || !department_bitflag))
+							accessible_region_bitflag |= DEPARTMENT_BITFLAG_MEDICAL
 							accessible_dept_payment_bitflag |= ACCOUNT_MED_BITFLAG
-						if((ACCESS_RD in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_SCI) || !department_bitflag))
-							accessible_region_bitflag |= DEPT_BITFLAG_SCI
+						if((ACCESS_RD in inserted_scan_id.access) && ((department_bitflag & DEPARTMENT_BITFLAG_SCIENCE) || !department_bitflag))
+							accessible_region_bitflag |= DEPARTMENT_BITFLAG_SCIENCE
 							accessible_dept_payment_bitflag |= ACCOUNT_SCI_BITFLAG
-						if((ACCESS_CE in inserted_scan_id.access) && ((department_bitflag & DEPT_BITFLAG_ENG) || !department_bitflag))
-							accessible_region_bitflag |= DEPT_BITFLAG_ENG
+						if((ACCESS_CE in inserted_scan_id.access) && ((department_bitflag & DEPARTMENT_BITFLAG_ENGINEERING) || !department_bitflag))
+							accessible_region_bitflag |= DEPARTMENT_BITFLAG_ENGINEERING
 							accessible_dept_payment_bitflag |= ACCOUNT_ENG_BITFLAG
 						if(accessible_region_bitflag)
 							authenticated = 1
@@ -631,7 +631,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							if(SSeconomy.is_nonstation_account(each)) // do not touch VIP/Command flag
 								continue
 							record.active_department &= ~SSeconomy.get_budget_acc_bitflag(each) // turn off all bitflag for each department except for VIP/Command. *note: this actually shouldn't use `get_budget_acc_bitflag()` proc, because bitflags are the same but these have a different purpose.
-						record.active_department &= ~DEPT_BITFLAG_COM  // micromanagement2. the reason is the same. Command should be removed manually.
+						record.active_department &= ~DEPARTMENT_BITFLAG_COMMAND  // micromanagement2. the reason is the same. Command should be removed manually.
 
 
 					log_id("[key_name(usr)] unassigned and stripped all access from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
@@ -660,7 +660,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							if(SSeconomy.is_nonstation_account(each))
 								continue
 							record.active_department &= ~SSeconomy.get_budget_acc_bitflag(each)
-						record.active_department &= ~DEPT_BITFLAG_COM  // micromanagement2
+						record.active_department &= ~DEPARTMENT_BITFLAG_COMMAND  // micromanagement2
 						// Note: `active_department = NONE` is a bad idea because you should keep VIP_BITFLAG.
 					// Step 2: giving the job info into their bank and record
 					if(B && jobdatum) // 2-A: setting bank payment
@@ -945,26 +945,26 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	name = "[LOWER_TEXT(typed_circuit.dept_list_name[typed_circuit.counting])] department console"
 
 /obj/machinery/computer/card/minor/hos
-	department_bitflag = DEPT_BITFLAG_SEC
+	department_bitflag = DEPARTMENT_BITFLAG_SECURITY
 	target_paycheck = ACCOUNT_SEC_ID
 	icon_screen = "idhos"
 
 	light_color = LIGHT_COLOR_RED
 
 /obj/machinery/computer/card/minor/cmo
-	department_bitflag = DEPT_BITFLAG_MED
+	department_bitflag = DEPARTMENT_BITFLAG_MEDICAL
 	target_paycheck = ACCOUNT_MED_ID
 	icon_screen = "idcmo"
 
 /obj/machinery/computer/card/minor/rd
-	department_bitflag = DEPT_BITFLAG_SCI
+	department_bitflag = DEPARTMENT_BITFLAG_SCIENCE
 	target_paycheck = ACCOUNT_SCI_ID
 	icon_screen = "idrd"
 
 	light_color = LIGHT_COLOR_PINK
 
 /obj/machinery/computer/card/minor/ce
-	department_bitflag = DEPT_BITFLAG_ENG
+	department_bitflag = DEPARTMENT_BITFLAG_ENGINEERING
 	target_paycheck = ACCOUNT_ENG_ID
 	icon_screen = "idce"
 

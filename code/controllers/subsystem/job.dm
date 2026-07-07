@@ -324,7 +324,7 @@ SUBSYSTEM_DEF(job)
 			job_debug("GRJ: Skipping overflow role, Player: [player], Job: [job]")
 			continue
 
-		if(job.departments_bitflags & DEPT_BITFLAG_COM) //If you want a command position, select it!
+		if(job.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND) //If you want a command position, select it!
 			job_debug("GRJ: Skipping command role, Player: [player], Job: [job]")
 			continue
 

@@ -428,7 +428,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 		return 0
 	else if(FACTION_PIRATE in H.faction) //can't ransom your fellow pirates to CentCom!
 		return 0
-	else if(H.mind.assigned_role.departments_bitflags & DEPT_BITFLAG_COM)
+	else if(H.mind.assigned_role.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND)
 		return 3000
 	else
 		return 1000

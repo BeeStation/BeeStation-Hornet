@@ -38,16 +38,16 @@
 			accessible_region_bitflag |= ALL
 	else
 		minor = TRUE
-		if((ACCESS_HOP in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_SRV) || !department_bitflag))
-			accessible_region_bitflag |= DEPT_BITFLAG_SRV | DEPT_BITFLAG_CIV | DEPT_BITFLAG_CAR
-		if((ACCESS_HOS in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_SEC) || !department_bitflag))
-			accessible_region_bitflag |= DEPT_BITFLAG_SEC
-		if((ACCESS_CMO in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_MED) || !department_bitflag))
-			accessible_region_bitflag |= DEPT_BITFLAG_MED
-		if((ACCESS_RD in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_SCI) || !department_bitflag))
-			accessible_region_bitflag |= DEPT_BITFLAG_SCI
-		if((ACCESS_CE in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_ENG) || !department_bitflag))
-			accessible_region_bitflag |= DEPT_BITFLAG_ENG
+		if((ACCESS_HOP in manager_card.access) && ((department_bitflag & DEPARTMENT_BITFLAG_SERVICE) || !department_bitflag))
+			accessible_region_bitflag |= DEPARTMENT_BITFLAG_SERVICE | DEPARTMENT_BITFLAG_CIVILIAN | DEPARTMENT_BITFLAG_CARGO
+		if((ACCESS_HOS in manager_card.access) && ((department_bitflag & DEPARTMENT_BITFLAG_SECURITY) || !department_bitflag))
+			accessible_region_bitflag |= DEPARTMENT_BITFLAG_SECURITY
+		if((ACCESS_CMO in manager_card.access) && ((department_bitflag & DEPARTMENT_BITFLAG_MEDICAL) || !department_bitflag))
+			accessible_region_bitflag |= DEPARTMENT_BITFLAG_MEDICAL
+		if((ACCESS_RD in manager_card.access) && ((department_bitflag & DEPARTMENT_BITFLAG_SCIENCE) || !department_bitflag))
+			accessible_region_bitflag |= DEPARTMENT_BITFLAG_SCIENCE
+		if((ACCESS_CE in manager_card.access) && ((department_bitflag & DEPARTMENT_BITFLAG_ENGINEERING) || !department_bitflag))
+			accessible_region_bitflag |= DEPARTMENT_BITFLAG_ENGINEERING
 
 	if(accessible_region_bitflag)
 		authenticated = TRUE

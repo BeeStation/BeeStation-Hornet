@@ -182,7 +182,7 @@
 
 /proc/get_all_centcom_admin_access() // exists to filter some href exploit. feel free to remove this if there's a better solution
 	var/list/access_list = list()
-	for(var/datum/department_group/dept_datum as anything in SSdepartment.get_department_by_bitflag(DEPT_BITFLAG_CENTCOM + DEPT_BITFLAG_OTHER))
+	for(var/datum/department_group/dept_datum as anything in SSdepartment.get_department_by_bitflag(DEPT_BITFLAG_CENTCOM + DEPARTMENT_BITFLAG_OTHER))
 		access_list += dept_datum.access_list
 	return access_list
 

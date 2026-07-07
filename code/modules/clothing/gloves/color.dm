@@ -28,7 +28,7 @@
 	var/mob/living/carbon/carbon_user = user
 	if(carbon_user.gloves != src)
 		return
-	if(carbon_user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
+	if(carbon_user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
 		SEND_SIGNAL(carbon_user, COMSIG_CLEAR_MOOD_EVENT, "sec_black_gloves")
 
 /obj/item/clothing/gloves/color/yellow/equipped(mob/user, slot)
