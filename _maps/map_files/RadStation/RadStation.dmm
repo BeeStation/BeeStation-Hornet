@@ -706,9 +706,9 @@
 	},
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
-	on = 0;
 	pixel_x = -5;
-	pixel_y = -2
+	pixel_y = -2;
+	start_on = 0
 	},
 /obj/item/wirecutters{
 	pixel_x = 6;
@@ -3065,7 +3065,7 @@
 /mob/living/basic/mothroach,
 /obj/effect/decal/remains/human,
 /obj/item/flashlight/lantern/heirloom_moth{
-	on = 1
+	start_on = 1
 	},
 /obj/machinery/conveyor{
 	dir = 1;
@@ -13913,9 +13913,9 @@
 "fgg" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
-	on = 0;
 	pixel_x = -5;
-	pixel_y = 8
+	pixel_y = 8;
+	start_on = 0
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood,
@@ -23869,7 +23869,7 @@
 "jjL" = (
 /mob/living/basic/mothroach,
 /obj/item/flashlight/lantern/heirloom_moth{
-	on = 1
+	start_on = 1
 	},
 /obj/structure/sign/poster/official/moth9{
 	pixel_x = -32
@@ -55489,7 +55489,7 @@
 /mob/living/basic/mothroach,
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/flashlight/lantern/heirloom_moth{
-	on = 1
+	start_on = 1
 	},
 /obj/machinery/conveyor{
 	id = "HB"
@@ -56206,7 +56206,7 @@
 /mob/living/basic/mothroach,
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/flashlight/lantern/heirloom_moth{
-	on = 1
+	start_on = 1
 	},
 /obj/machinery/conveyor{
 	id = "HB"
