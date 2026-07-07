@@ -362,7 +362,7 @@
 	text_soul_but_alive = "The S.O.U.L. light is green."
 	text_missing_soul_but_damaged = "The S.O.U.L. light is yellow and it is blinking unsteadily... You may be able to repair it with a <b>multitool</b> incase it becomes active again later."
 	text_missing_soul_but_alive = "The S.O.U.L. light is yellow. Perhaps it will reactivate later."
-	text_no_soul_but_damaged = "The S.O.U.L. light if red, and it is blinking unsteadily"
+	text_no_soul_but_damaged = "The S.O.U.L. light is red, and it is blinking unsteadily"
 	text_no_soul_but_alive = "The S.O.U.L. light is red."
 
 /obj/item/organ/brain/positron/on_insert(mob/living/carbon/human/brain_owner)
