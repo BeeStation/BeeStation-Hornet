@@ -3,13 +3,15 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
-
 import { useState } from 'react';
 
 import { Flex, Section, Tabs } from '../components';
 import { Pane, Window } from '../layouts';
 
-const r = require.context('../stories', false, /\.stories\.jsx$/);
+const r = import.meta.webpackContext('../', {
+  recursive: false,
+  include: /\.stories\.jsx$/,
+});
 
 /**
  * @returns {{
@@ -26,6 +28,10 @@ export const KitchenSink = (props) => {
   const [theme] = useState();
   const [pageIndex, setPageIndex] = useState(0);
   const stories = getStories();
+  if (stories.length === 0) {
+    return <div>Loading stories...</div>;
+  }
+
   const story = stories[pageIndex];
   const Layout = panel ? Pane : Window;
   return (
