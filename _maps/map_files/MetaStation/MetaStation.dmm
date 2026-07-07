@@ -790,7 +790,7 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos)
 "ary" = (
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/iron/cafeteria{
 	dir = 5
 	},
@@ -7758,7 +7758,7 @@
 /obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /obj/effect/landmark/start/exploration,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -22395,13 +22395,8 @@
 	dir = 6
 	},
 /obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen{
-	pixel_x = -3
-	},
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "ilZ" = (
@@ -30446,7 +30441,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/iron,
 /area/station/command/gateway)
 "kSa" = (
@@ -49954,7 +49949,7 @@
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/iron/cafeteria{
 	dir = 5
 	},
@@ -62312,7 +62307,7 @@
 /turf/open/floor/wood,
 /area/station/service/hydroponics/garden)
 "vyG" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /obj/effect/landmark/start/scientist,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
