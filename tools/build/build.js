@@ -164,15 +164,14 @@ export const BunTarget = new Juke.Target({
 export const TgFontTarget = new Juke.Target({
   dependsOn: [BunTarget],
   inputs: [
-    'tgui/packages/tgfont/**/*.+(js|cjs|svg)',
-    'tgui/packages/tgfont/package.json',
+    "tgui/packages/tgfont/**/*.+(js|mjs|svg)",
+    "tgui/packages/tgfont/package.json",
   ],
   outputs: [
-    'tgui/packages/tgfont/dist/tgfont.css',
-    'tgui/packages/tgfont/dist/tgfont.eot',
-    'tgui/packages/tgfont/dist/tgfont.woff2',
+    "tgui/packages/tgfont/dist/tgfont.css",
+    "tgui/packages/tgfont/dist/tgfont.woff2",
   ],
-  executes: async () => bun('tgfont:build'),
+  executes: () => bun("--filter tgfont tgfont:build"),
 });
 
 export const TguiTarget = new Juke.Target({
