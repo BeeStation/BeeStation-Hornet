@@ -12123,9 +12123,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/camera/directional/south{
-	c_tag = "Captain's Quarters"
-	},
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "eAI" = (
@@ -23343,9 +23341,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/camera/directional/north{
-	c_tag = "Teleporter Room"
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/white,
 /area/station/service/kitchen)
 "jaN" = (
@@ -24632,9 +24628,6 @@
 /turf/open/floor/wood,
 /area/station/commons/dorms)
 "jxx" = (
-/obj/machinery/camera/directional/north{
-	c_tag = "Teleporter Room"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -24653,6 +24646,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "jxD" = (
@@ -29478,9 +29472,7 @@
 /area/station/science/robotics)
 "lkZ" = (
 /obj/structure/chair,
-/obj/machinery/camera/directional/north{
-	c_tag = "Teleporter Room"
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/dark,
 /area/station/hallway/secondary/exit/departure_lounge)
 "lla" = (
@@ -43488,7 +43480,7 @@
 "qum" = (
 /obj/machinery/button/door{
 	id = "commissarydoor1";
-	name = "Cabin 2 Privacy Lock";
+	name = "Vacant Commissary Door Control";
 	normaldoorcontrol = 1;
 	pixel_y = -31;
 	specialfunctions = 4
