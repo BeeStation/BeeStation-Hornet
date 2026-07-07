@@ -49,7 +49,7 @@
 	var/text_missing_soul_but_damaged = "It seems particularly lifeless and is rather damaged... You may be able to restore it with some <b>mannitol</b> incase it becomes functional again later."
 	var/text_missing_soul_but_alive = "This one seems particularly lifeless. Perhaps it will regain some of its luster later."
 
-	var/test_no_soul_but_damaged = "It's lifeless and severely damaged."
+	var/text_no_soul_but_damaged = "It's lifeless and severely damaged."
 	var/text_no_soul_but_alive = "This one is completely devoid of life."
 
 	juice_typepath = null	//the moment the brains become juicable, people will find a way to cheese round removal. So NO.
@@ -217,7 +217,7 @@
 	else if(brainmob)
 		if(brainmob.key || brainmob.get_ghost(FALSE, TRUE))
 			if(brain_death || brainmob.health <= HEALTH_THRESHOLD_DEAD)
-				. += span_info(test_no_soul_but_damaged)
+				. += span_info(text_no_soul_but_damaged)
 			else if(organ_flags & ORGAN_FAILING)
 				. += span_info(text_soul_but_damaged)
 			else
@@ -362,7 +362,7 @@
 	text_soul_but_alive = "The S.O.U.L. light is green."
 	text_missing_soul_but_damaged = "The S.O.U.L. light is yellow and it is blinking unsteadily... You may be able to repair it with a <b>multitool</b> incase it becomes active again later."
 	text_missing_soul_but_alive = "The S.O.U.L. light is yellow. Perhaps it will reactivate later."
-	test_no_soul_but_damaged = "The S.O.U.L. light if red, and it is blinking unsteadily"
+	text_no_soul_but_damaged = "The S.O.U.L. light if red, and it is blinking unsteadily"
 	text_no_soul_but_alive = "The S.O.U.L. light is red."
 
 /obj/item/organ/brain/positron/on_insert(mob/living/carbon/human/brain_owner)
