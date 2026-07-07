@@ -52,7 +52,7 @@
 		action.Grant(owner)
 	if(upgrade_overlays && overlay_file)
 		for(var/overlay in upgrade_overlays)
-			var/mut_appearance = mutable_appearance(overlay_file, overlay, upgrade_overlays[overlay])
+			var/mut_appearance = mutable_appearance(overlay_file, overlay, CALCULATE_MOB_OVERLAY_LAYER(upgrade_overlays[overlay]))
 			mut_appearances += mut_appearance
 			owner.add_overlay(mut_appearance)
 		owner.update_appearance(UPDATE_ICON)
@@ -439,7 +439,7 @@
 /datum/status_effect/ipc_upgrade/las_armor
 	id = "ipc las armor"
 	name = "Ablative Plating"
-	upgrade_overlays = list("armor" = SUIT_LAYER - 0.1)
+	upgrade_overlays = list("armor" = UNIFORM_LAYER)
 	slot = UPGRADE_EXTERNAL
 
 /datum/status_effect/ipc_upgrade/las_armor/on_apply()
@@ -459,7 +459,7 @@
 /datum/status_effect/ipc_upgrade/ken_armor
 	id = "ipc ken armor"
 	name = "Reactive Plating"
-	upgrade_overlays = list("armor" = SUIT_LAYER - 0.1)
+	upgrade_overlays = list("armor" = UNIFORM_LAYER)
 	slot = UPGRADE_EXTERNAL
 
 /datum/status_effect/ipc_upgrade/ken_armor/on_apply()
@@ -566,4 +566,4 @@
 	projectile_sound = 'sound/weapons/lasercannonfire.ogg'
 	firing_length = 2 SECONDS
 	firing_time = 3 SECONDS
-	upgrade_overlays = list("ex_cannon" = BODYPARTS_LAYER, "ex_cannon_b" = BELOW_MOB_LAYER)
+	upgrade_overlays = list("ex_cannon" = BODYPARTS_LAYER, "ex_cannon_b" = BODY_BEHIND_LAYER)
