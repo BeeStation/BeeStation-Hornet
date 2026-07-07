@@ -60,6 +60,7 @@
 "mj" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp/green{
+	on = 0;
 	pixel_x = -3;
 	pixel_y = 8
 	},
