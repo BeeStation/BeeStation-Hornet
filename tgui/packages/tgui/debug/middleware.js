@@ -42,7 +42,7 @@ export const debugMiddleware = (store) => {
 };
 
 export const relayMiddleware = (store) => {
-  const devServer = require('tgui-dev-server/link/client.mjs');
+  const devServer = require('tgui-dev-server/link/client');
   const externalBrowser = location.search === '?external';
   if (externalBrowser) {
     devServer.subscribe((msg) => {

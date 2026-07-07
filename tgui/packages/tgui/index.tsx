@@ -48,7 +48,7 @@ import './styles/themes/syndicate.scss';
 import './styles/themes/thinktronic-classic.scss';
 
 import { perf } from 'common/perf';
-import { setupHotReloading } from 'tgui-dev-server/link/client.mjs';
+import { setupHotReloading } from 'tgui-dev-server/link/client';
 
 import { App } from './App';
 import { setGlobalStore } from './backend';

@@ -7,58 +7,50 @@
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
 
-import axios from 'axios';
+import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 
-import { createLogger } from './logging.js';
+import { createLogger } from './logging';
+
+type Entry = {
+  addr: string;
+  pid: number;
+};
 
 const logger = createLogger('dreamseeker');
 
 const instanceByPid = new Map();
 
 export class DreamSeeker {
-  /**
-   * @param {number} pid
-   * @param {string} addr
-   */
-  constructor(pid, addr) {
-    /** @type {number} */
+  public pid: number;
+  public addr: string;
+  public client: AxiosInstance;
+
+  constructor(pid: number, addr: string) {
     this.pid = pid;
-    /** @type {string} */
     this.addr = addr;
-    /** @type {import('axios').AxiosInstance} */
     this.client = axios.create({
       baseURL: `http://${addr}`,
     });
   }
 
-  /**
-   * @param {Object} params
-   * @returns {Promise<Response>}
-   */
-  topic(params = {}) {
+  topic(params: Record<string, any> = {}): Promise<AxiosResponse> {
     const query = Object.keys(params)
       .map(
         (key) =>
-          encodeURIComponent(key) + '=' + encodeURIComponent(params[key]),
+          `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`,
       )
       .join('&');
     logger.log(
       `topic call at ${this.client.defaults.baseURL}/dummy.htm?${query}`,
     );
-    return this.client.get('/dummy.htm?' + query);
+    return this.client.get(`/dummy.htm?${query}`);
   }
 
-  /**
-   * @param {number[]} pids
-   * @returns {Promise<DreamSeeker[]>}
-   */
-  static async getInstancesByPids(pids) {
-    /** @type {DreamSeeker[]} */
-    const instances = [];
-    /** @type {number[]} */
-    const pidsToResolve = [];
+  static async getInstancesByPids(pids: number[]): Promise<DreamSeeker[]> {
+    const instances: DreamSeeker[] = [];
+    const pidsToResolve: number[] = [];
 
-    for (let pid of pids) {
+    for (const pid of pids) {
       const instance = instanceByPid.get(pid);
       if (instance) {
         instances.push(instance);
@@ -81,15 +73,15 @@ export class DreamSeeker {
 
       // Line format:
       // proto addr mask mode pid
-      const entries = [];
+      const entries: Entry[] = [];
       const lines = stdout.split('\r\n');
 
-      for (let line of lines) {
+      for (const line of lines) {
         const words = line.match(/\S+/g);
         if (!words || words.length === 0) {
           continue;
         }
-        const entry = {
+        const entry: Entry = {
           addr: words[1],
           pid: parseInt(words[4], 10),
         };
@@ -100,7 +92,7 @@ export class DreamSeeker {
 
       const len = entries.length;
       logger.log('found', len, plural('instance', len));
-      for (let entry of entries) {
+      for (const entry of entries) {
         const { pid, addr } = entry;
         const instance = new DreamSeeker(pid, addr);
         instances.push(instance);
@@ -118,6 +110,6 @@ export class DreamSeeker {
   }
 }
 
-function plural(word, n) {
-  return n !== 1 ? word + 's' : word;
+function plural(word: string, n: number): string {
+  return n !== 1 ? `${word}s` : word;
 }

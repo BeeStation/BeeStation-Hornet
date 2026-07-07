@@ -6,20 +6,15 @@
 
 import fs from 'node:fs';
 
-import { reloadByondCache } from './reloader.js';
-import { createCompiler } from './webpack.js';
+import { reloadByondCache } from './reloader';
+import { createCompiler } from './webpack';
 
-const noTmp = process.argv.includes('--no-tmp');
 const reloadOnce = process.argv.includes('--reload');
 
 async function setupServer() {
   fs.mkdirSync('./public/.tmp', { recursive: true });
 
-  const compiler = await createCompiler({
-    mode: 'development',
-    devServer: true,
-    useTmpFolder: !noTmp,
-  });
+  const compiler = await createCompiler({ mode: 'development', hot: true });
 
   // Reload cache once
   if (reloadOnce) {

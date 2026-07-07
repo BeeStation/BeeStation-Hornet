@@ -5,7 +5,7 @@ import { createRoot, Root } from 'react-dom/client';
 import { TguiSay } from './interfaces/TguiSay';
 
 // Uncomment to enable hot-reloading
-// import { setupHotReloading } from 'tgui-dev-server/link/client.mjs';
+// import { setupHotReloading } from 'tgui-dev-server/link/client';
 
 let reactRoot: Root | null = null;
 
