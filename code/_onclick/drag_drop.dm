@@ -26,14 +26,20 @@
 /client/var/middragtime = 0
 /client/var/atom/middragatom
 
-/client/MouseDown(object, location, control, params)
+/client/MouseDown(datum/object, location, control, params)
+	if(QDELETED(object)) //Yep, you can click on qdeleted things before they have time to nullspace. Fun.
+		return
+	SEND_SIGNAL(src, COMSIG_CLIENT_MOUSEDOWN, object, location, control, params)
 	if (mouse_down_icon)
 		mouse_pointer_icon = mouse_down_icon
 	active_mousedown_item = mob.canMobMousedown(object, location, params)
 	if(active_mousedown_item)
 		active_mousedown_item.onMouseDown(object, location, params, mob)
 
-/client/MouseUp(object, location, control, params)
+/client/MouseUp(datum/object, location, control, params)
+	if(QDELETED(object)) //Yep, you can click on qdeleted things before they have time to nullspace. Fun.
+		return
+	SEND_SIGNAL(src, COMSIG_CLIENT_MOUSEUP, object, location, control, params)
 	if (mouse_up_icon)
 		mouse_pointer_icon = mouse_up_icon
 	if(active_mousedown_item)
