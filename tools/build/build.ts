@@ -7,16 +7,16 @@
  */
 
 import fs from "node:fs";
-import https from "node:https";
 import Juke from './juke/index.js';
+import { bun } from "./lib/bun";
 import { DreamDaemon, DreamMaker, NamedVersionFile } from './lib/byond.js';
-import { bun } from "./lib/bun.js";
+import { prependDefines } from "./lib/tgs";
 
-const TGS_MODE = process.env.CBT_BUILD_MODE === 'TGS';
+export const TGS_MODE = process.env.CBT_BUILD_MODE === 'TGS';
+
+export const DME_NAME = 'beestation';
 
 Juke.chdir('../..', import.meta.url);
-
-const DME_NAME = 'beestation';
 
 export const DefineParameter = new Juke.Parameter({
   type: 'string[]',
@@ -71,6 +71,24 @@ export const DmTarget = new Juke.Target({
   dependsOn: ({ get }) => [
     get(DefineParameter).includes('ALL_TEMPLATES') && DmMapsIncludeTarget,
   ],
+  inputs: [
+    '_maps/map_files/generic/**',
+    'maps/**/*.dm',
+    'code/**',
+    'html/**',
+    'icons/**',
+    'interface/**',
+    'sound/**',
+    'tgui/public/tgui.html',
+    `${DME_NAME}.dme`,
+    NamedVersionFile,
+  ],
+  outputs: ({ get }) => {
+    if (get(DmVersionParameter)) {
+      return []; // Always rebuild when dm version is provided
+    }
+    return [`${DME_NAME}.dmb`, `${DME_NAME}.rsc`];
+  },
   executes: async ({ get }) => {
     await DreamMaker(`${DME_NAME}.dme`, {
       defines: ['CBT', ...get(DefineParameter)],
@@ -279,7 +297,8 @@ export const TguiCleanTarget = new Juke.Target({
     Juke.rm('tgui/public/*.map');
     Juke.rm('tgui/public/*.{chunk,bundle,hot-update}.*');
     Juke.rm('tgui/packages/tgfont/dist', { recursive: true });
-    Juke.rm("tgui/node_modules", { recursive: true });
+    Juke.rm('tgui/node_modules', { recursive: true });
+    Juke.rm('tgui/packages/*/node_modules', { recursive: true });
   },
 });
 
@@ -301,17 +320,6 @@ export const CleanAllTarget = new Juke.Target({
     Juke.rm('data/logs', { recursive: true });
   },
 });
-
-/**
- * Prepends the defines to the .dme.
- * Does not clean them up, as this is intended for TGS which
- * clones new copies anyway.
- */
-const prependDefines = (...defines) => {
-  const dmeContents = fs.readFileSync(`${DME_NAME}.dme`);
-  const textToWrite = defines.map(define => `#define ${define}\n`);
-  fs.writeFileSync(`${DME_NAME}.dme`, `${textToWrite}\n${dmeContents}`);
-};
 
 export const TgsTarget = new Juke.Target({
   dependsOn: [TguiTarget, TgFontTarget],
