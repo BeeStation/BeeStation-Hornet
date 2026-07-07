@@ -70,6 +70,7 @@
 	var/static/list/traits_to_apply = list(
 		TRAIT_ADVANCEDTOOLUSER,
 		TRAIT_ASHSTORM_IMMUNE,
+		TRAIT_LITERATE,
 		TRAIT_MADNESS_IMMUNE,
 		TRAIT_MARTIAL_ARTS_IMMUNE,
 		TRAIT_NOFIRE_SPREAD,
@@ -411,9 +412,6 @@
 		return
 	add_sensors()
 	to_chat(src, "Sensor overlay activated.")
-
-/mob/living/silicon/is_literate()
-	return TRUE
 
 /mob/living/silicon/get_inactive_held_item()
 	return FALSE

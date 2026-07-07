@@ -21,7 +21,7 @@
 	db_key = "eye_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
-	relevant_species_trait = EYECOLOR
+	relevant_head_flag = HEAD_EYECOLOR
 	priority = PREFERENCE_PRIORITY_EYE_COLOR
 
 /datum/preference/color/eye_color/apply_to_human(mob/living/carbon/human/target, value)
@@ -57,7 +57,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Facial Hair"
 	should_generate_icons = TRUE
-	relevant_species_trait = FACEHAIR
+	relevant_species_trait = FACIAL_HAIR_COLOR
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
 	informed = TRUE
 	priority = PREFERENCE_PRIORITY_FACIAL_HAIR
@@ -87,7 +87,7 @@
 	db_key = "facial_hair_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
-	relevant_species_trait = FACEHAIR
+	relevant_species_trait = FACIAL_HAIR_COLOR
 	informed = TRUE
 	priority = PREFERENCE_PRIORITY_FACIAL_COLOR
 
@@ -107,7 +107,7 @@
 	db_key = "hair_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
-	relevant_species_trait = HAIR
+	relevant_species_trait = HAIR_COLOR
 	priority = PREFERENCE_PRIORITY_HAIR_COLOR
 	informed = TRUE
 	priority = PREFERENCE_PRIORITY_HAIR_COLOR
@@ -141,7 +141,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Hair Style"
 	should_generate_icons = TRUE
-	relevant_species_trait = HAIR
+	relevant_species_trait = HAIR_COLOR
 	preference_spritesheet = PREFERENCE_SHEET_HUGE
 	informed = TRUE
 	priority = PREFERENCE_PRIORITY_HAIR_STYLE
@@ -175,7 +175,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Gradient Style"
 	should_generate_icons = TRUE
-	relevant_species_trait = HAIR
+	relevant_species_trait = HAIR_COLOR
 
 /datum/preference/choiced/gradient_style/init_possible_values()
 	return assoc_to_keys_features(GLOB.hair_gradients_list)
@@ -243,7 +243,7 @@
 	db_key = "gradient_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
-	relevant_species_trait = HAIR
+	relevant_species_trait = HAIR_COLOR
 	informed = TRUE
 	priority = PREFERENCE_PRIORITY_GRADIENT_COLOR
 

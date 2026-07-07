@@ -4,10 +4,8 @@
 	id = SPECIES_PSYPHOZA
 	meat = /obj/item/food/meat/slab/human/mutant/psyphoza
 	species_traits = list(
-		NOEYESPRITES,
 		AGENDER,
-		MUTCOLORS,
-		NOEYEHOLES,
+		MUTANT_COLOR,
 	)
 	inherent_traits = list(
 		TRAIT_PSYCHIC_SENSE,
