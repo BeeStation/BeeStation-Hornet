@@ -10,6 +10,7 @@
 	burn_modifier = 1.25
 	brute_modifier = 0.8
 	stamina_modifier = 0.7
+	head_flags = HEAD_EYECOLOR
 
 /obj/item/bodypart/chest/diona
 	icon_static = 'icons/mob/human/species/diona/bodyparts.dmi'
