@@ -4,14 +4,14 @@
 	icon_state = "camera"
 	base_icon_state = null
 
-	lock_override = TRUE
+	lock_override = CAMERA_LOCK_STATION
 	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 	reveal_camera_mob = TRUE
-	networks = list("ss13", "abductor")
+	compatible_camera_networks = list(CAMERA_NETWORK_STATION)
 	camera_mob_icon_state = "abductor_camera"
 
 	// Set in 'console.dm'

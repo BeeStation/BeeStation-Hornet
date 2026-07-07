@@ -691,7 +691,7 @@
 		process_hit(get_turf(direct_target), direct_target)
 		if(QDELETED(src))
 			return
-	if(isnum_safe(angle))
+	if(IS_FINITE(angle))
 		set_angle(angle)
 	if(spread)
 		set_angle(Angle + ((rand() - 0.5) * spread))

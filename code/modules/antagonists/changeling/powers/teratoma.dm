@@ -67,7 +67,7 @@
 		return FALSE
 	var/mob/living/carbon/monkey/tumor/T = new /mob/living/carbon/monkey/tumor(A)
 	// Copies the DNA, so that you can find who caused it while causing some chaos
-	T.dna.copy_dna(user.dna)
+	T.dna.copy_dna_to(user.dna)
 	T.creator_key = user.key
 	T.key = candidate.key
 	var/datum/antagonist/teratoma/D = new

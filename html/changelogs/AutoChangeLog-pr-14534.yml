@@ -1,0 +1,10 @@
+author: SergeiKoralev
+delete-after: true
+changes:
+  - bugfix: Box engineering should no longer automatically lose power within 1 minute
+      of round start.
+  - rscadd: Added solar panels to existing arrays on Box station.
+  - rscadd: High power inducer and spare power cell next to engineering APC for late-joins.
+  - rscdel: Removed the turbine-to-AI Distro pipe.
+  - tweak: Tweaked areas around solar panels IAW standard mapping practices for areas
+      and lattices.

@@ -40,7 +40,7 @@
 ///Returns the key of the submitted item in the list
 #define LAZYFIND(L, V) L ? L.Find(V) : 0
 ///returns L[I] if L exists and I is a valid index of L, runtimes if L is not a list
-#define LAZYACCESS(L, I) (L ? (isnum_safe(I) ? (I > 0 && I <= length(L) ? L[I] : null) : L[I]) : null)
+#define LAZYACCESS(L, I) (L ? (IS_FINITE(I) ? (I > 0 && I <= length(L) ? L[I] : null) : L[I]) : null)
 ///Sets the item K to the value V, if the list is null it will initialize it
 #define LAZYSET(L, K, V) if(!L) { L = list(); } L[K] = V;
 ///Sets the length of a lazylist
@@ -585,7 +585,7 @@
 	var/temp = inserted_list.Copy()
 	inserted_list.len = 0
 	for(var/key in temp)
-		if (isnum_safe(key))
+		if (IS_FINITE(key))
 			inserted_list |= key
 		else
 			inserted_list[key] = temp[key]
@@ -773,7 +773,7 @@
 	. = inserted_list.Copy()
 	for(var/i in 1 to inserted_list.len)
 		var/key = .[i]
-		if(isnum_safe(key))
+		if(IS_FINITE(key))
 			// numbers cannot ever be associative keys
 			continue
 		var/value = .[key]
@@ -792,7 +792,7 @@
 	var/copied_list = inserted_list.Copy()
 	. = copied_list
 	for(var/key_or_value in inserted_list)
-		if(isnum_safe(key_or_value) || !inserted_list[key_or_value])
+		if(IS_FINITE(key_or_value) || !inserted_list[key_or_value])
 			continue
 		var/value = inserted_list[key_or_value]
 		var/new_value = value

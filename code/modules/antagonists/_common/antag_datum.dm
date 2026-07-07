@@ -93,7 +93,8 @@ GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist/Destroy()
 	GLOB.active_antagonists -= src
-	GLOB.antag_prototypes -= src // Removing that just in case
+	if(length(GLOB.antag_prototypes))
+		GLOB.antag_prototypes -= src // Removing that just in case
 	if(owner)
 		LAZYREMOVE(owner.antag_datums, src)
 	QDEL_NULL(team_hud_ref)

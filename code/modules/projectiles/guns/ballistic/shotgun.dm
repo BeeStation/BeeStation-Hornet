@@ -130,14 +130,18 @@
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
 	//semi_auto = TRUE
 
-/obj/item/gun/ballistic/shotgun/automatic/dual_tube/examine(mob/user)
-	. = ..()
-	. += span_notice("Alt-click to pump it.")
-
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/Initialize(mapload)
 	. = ..()
 	if (!alternate_magazine)
 		alternate_magazine = new mag_type(src)
+
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube/Destroy()
+	QDEL_NULL(alternate_magazine)
+	return ..()
+
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube/examine(mob/user)
+	. = ..()
+	. += span_notice("Alt-click to pump it.")
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/attack_self(mob/living/user)
 	if(!chambered && magazine.contents.len)

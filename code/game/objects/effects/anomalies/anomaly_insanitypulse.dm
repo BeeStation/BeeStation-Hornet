@@ -1,32 +1,27 @@
 /obj/effect/anomaly/insanity_pulse
 	name = "sanity disruption pulse anomaly"
 	icon_state = "insanity"
+	anomaly_core = /obj/item/assembly/signaler/anomaly/insanity
 
 	COOLDOWN_DECLARE(pulse_cooldown)
-	anomaly_core = /obj/item/assembly/signaler/anomaly/insanity
 	var/pulse_interval = 7 SECONDS
 
 	var/weak_pulse_power = 8
 	var/strong_pulse_power = 150
 
-/obj/effect/anomaly/insanity_pulse/anomalyEffect(delta_time)
+/obj/effect/anomaly/insanity_pulse/anomaly_process(delta_time)
 	. = ..()
-
-	if(!COOLDOWN_FINISHED(src, pulse_cooldown))
+	var/turf/our_turf = get_turf(src)
+	if(!COOLDOWN_FINISHED(src, pulse_cooldown) || !istype(our_turf))
 		return
 	COOLDOWN_START(src, pulse_cooldown, pulse_interval)
 
-	var/turf/open/our_turf = get_turf(src)
-	if(!isturf(our_turf))
-		return
 	sends_insanity_pulse(our_turf, weak_pulse_power)
 
 /obj/effect/anomaly/insanity_pulse/detonate()
 	var/turf/open/our_turf = get_turf(src)
-	if(!isturf(our_turf))
-		return
 	sends_insanity_pulse(our_turf, strong_pulse_power)
-	our_turf.generate_fake_pierced_realities(max_spawned_faked)
+	generate_fake_pierced_realities(center_turf = our_turf, max_amount = max_spawned_faked)
 
 /// Sends the insanity pulses from center upto the impact size.
 /// * atom/center: where the pulse starts from.
@@ -47,7 +42,7 @@
 			break
 		var/datum/enumerator/turf_enumerator = get_dereferencing_enumerator(edge_turfs)
 		SSenumeration.tickcheck(turf_enumerator.foreach(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_insanity_pulse_on_turf))))
-		sleep(1)
+		sleep(0.1 SECONDS)
 
 /proc/_insanity_pulse_on_turf(turf/target_turf)
 	if((!isspaceturf(target_turf) && isopenturf(target_turf)) || isopenspace(target_turf)) // you don't see what's comming...

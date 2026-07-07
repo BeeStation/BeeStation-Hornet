@@ -7,7 +7,6 @@
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
 	total_positions = 3
-	min_pop = MINPOP_JOB_LIMIT
 	supervisors = "your own conscience"
 	selection_color = "#dddddd"
 

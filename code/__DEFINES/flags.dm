@@ -115,16 +115,18 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define UNIQUE_AREA (1<<7)
 /// If people are allowed to suicide in it. Mostly for OOC stuff like minigames
 #define BLOCK_SUICIDE (1<<8)
-/// Can the Xenobio management console transverse this area by default?
+/// If given, the Xenobio console camera can transverse this area, even if the camera doesn't belong to that area.
 #define XENOBIOLOGY_COMPATIBLE (1<<9)
+/// If given, prevents people using Xenobio console. Used at public areas like hallway or maints. Neutralizable by slime blueprint.
+#define XENOBIOLOGY_CONSOLE_DISALLOWED (1<<10)
 /// If blood cultists can draw runes or build structures on this AREA.
-#define CULT_PERMITTED (1<<10)
+#define CULT_PERMITTED (1<<11)
 /// Are hidden stashes allowed to spawn here?
-#define HIDDEN_STASH_LOCATION (1<<11)
+#define HIDDEN_STASH_LOCATION (1<<12)
 /// Indicates that this area uses an APC from another location (Skips the unit tests for APCs)
-#define REMOTE_APC (1<<12)
+#define REMOTE_APC (1<<13)
 /// This area is prevented from having gravity (ie. space, nearstation, or outside solars)
-#define NO_GRAVITY (1<<13)
+#define NO_GRAVITY (1<<14)
 /*
 	These defines are used specifically with the atom/pass_flags bitmask
 	the atom/checkpass() proc uses them (tables will call movable atom checkpass(PASSTABLE) for example)

@@ -111,10 +111,10 @@ require only minor tweaks.
 )
 
 // Camera lock flags
-#define CAMERA_LOCK_STATION 1
-#define CAMERA_LOCK_MINING 2
-#define CAMERA_LOCK_CENTCOM 4
-#define CAMERA_LOCK_REEBE 8
+#define CAMERA_LOCK_STATION (1<<0)
+#define CAMERA_LOCK_MINING (1<<1)
+#define CAMERA_LOCK_CENTCOM (1<<2)
+#define CAMERA_LOCK_REEBE (1<<3)
 
 /// Reserved/Transit turf type
 #define RESERVED_TURF_TYPE /turf/open/space/basic //What the turf is when not being used

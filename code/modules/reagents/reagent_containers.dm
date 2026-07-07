@@ -46,7 +46,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 
 /obj/item/reagent_containers/Initialize(mapload, vol)
 	. = ..()
-	if(isnum_safe(vol) && vol > 0)
+	if(IS_FINITE(vol) && vol > 0)
 		volume = vol
 	create_reagents(volume, reagent_flags)
 	if(spawned_disease)
