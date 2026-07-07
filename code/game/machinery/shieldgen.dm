@@ -512,7 +512,7 @@ WANTS_POWER_NODE(/obj/machinery/power/shieldwallgen)
 
 /obj/machinery/power/shieldwallgen/atmos/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /// Same as in the normal shieldwallgen, but with the shieldwalls replaced with atmos shieldwalls
 /obj/machinery/power/shieldwallgen/atmos/setup_field(direction)
@@ -662,4 +662,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 
 /obj/machinery/shieldwall/atmos/Initialize(mapload)
 	. = ..()
-	air_update_turf(TRUE)
+	air_update_turf(TRUE, TRUE)
+	AddElement(/datum/element/give_turf_traits, string_list(list(TRAIT_FIREDOOR_STOP)))
+
+/obj/machinery/shieldwall/atmos/Destroy()
+	air_update_turf(TRUE, FALSE)
+	return ..()

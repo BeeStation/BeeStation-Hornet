@@ -118,7 +118,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	if(C.has_dna())
 		if(!brainmob.stored_dna)
 			brainmob.stored_dna = new /datum/dna/stored(brainmob)
-		C.dna.copy_dna(brainmob.stored_dna)
+		C.dna.copy_dna_to(brainmob.stored_dna)
 	brainmob.timeofdeath = C.timeofdeath
 	brainmob.set_stat(CONSCIOUS)
 	if(brainmob.mind)

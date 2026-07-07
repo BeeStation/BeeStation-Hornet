@@ -5,7 +5,7 @@ SUBSYSTEM_DEF(throwing)
 	name = "Throwing"
 	priority = FIRE_PRIORITY_THROWING
 	wait = 1
-	flags = SS_NO_INIT|SS_KEEP_TIMING|SS_TICKER
+	ss_flags = SS_NO_INIT | SS_TICKER
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
 	var/list/currentrun
@@ -94,10 +94,8 @@ SUBSYSTEM_DEF(throwing)
 	thrownthing = null
 	thrower = null
 	initial_target = null
-	if(callback)
-		QDEL_NULL(callback) //It stores a reference to the thrownthing, its source. Let's clean that.
+	callback = null
 	return ..()
-
 
 ///Defines the datum behavior on the thrownthing's qdeletion event.
 /datum/thrownthing/proc/on_thrownthing_qdel(atom/movable/source, force)

@@ -294,7 +294,7 @@
 	if(!job.has_space())
 		if(is_assistant_job(job))
 			//Newbies can always be assistants
-			if(isnum_safe(client.player_age) && client.player_age <= 14)
+			if(IS_FINITE(client.player_age) && client.player_age <= 14)
 				return JOB_AVAILABLE
 			// If there are other jobs that this user can select, then the assistant is unavailable
 			// If the user has no other choices, then we will display the assistant

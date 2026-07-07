@@ -276,6 +276,14 @@
 /obj/item/lightreplacer/bluespace/update_icon()  // making sure it uses the new icon state names
 	icon_state = "lightreplacer_blue[(obj_flags & EMAGGED ? 1 : 0)]"
 
+
+/obj/item/lightreplacer/bluespace/cyborg
+	name = "cyborg bluespace light replacer"
+	desc = "A modified light replacer that zaps lights into place designed for a cyborg."
+	icon_state = "lightreplacer_blue0"
+	bluespace_toggle = TRUE
+	emaggable = FALSE
+
 #undef LIGHT_OK
 #undef LIGHT_EMPTY
 #undef LIGHT_BROKEN

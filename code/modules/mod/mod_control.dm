@@ -82,6 +82,7 @@
 
 /obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_GLUE, INNATE_TRAIT)
 	if(!movedelay)
 		movedelay = CONFIG_GET(number/movedelay/run_delay)
 	if(new_theme)
@@ -201,9 +202,9 @@
 
 // Grant pinned actions to pin owners, gives AI pinned actions to the AI and not the wearer
 /obj/item/mod/control/grant_action_to_bearer(datum/action/action)
-	if (!istype(action, /datum/action/item_action/mod/pinned_module))
+	if (!istype(action, /datum/action/item_action/mod/pinnable))
 		return ..()
-	var/datum/action/item_action/mod/pinned_module/pinned = action
+	var/datum/action/item_action/mod/pinnable/pinned = action
 	give_item_action(action, pinned.pinner, slot_flags)
 
 /obj/item/mod/control/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
@@ -602,7 +603,7 @@
 	new_module.on_install()
 	if(wearer)
 		new_module.on_equip()
-		var/datum/action/item_action/mod/pinned_module/action = new_module.pinned_to[REF(wearer)]
+		var/datum/action/item_action/mod/pinnable/module/action = new_module.pinned_to[REF(wearer)]
 		if(action)
 			action.Grant(wearer)
 	if(active && new_module.has_required_parts(mod_parts, need_active = TRUE))

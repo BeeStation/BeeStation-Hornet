@@ -13,7 +13,7 @@
 
 	while(A.loc) // Check to see if the brainmob is on our person
 		A = A.loc
-		for(var/datum/mind/M as() in get_owners())
+		for(var/datum/mind/M as anything in get_owners())
 			if(M.current && M.current.stat != DEAD && A == M.current)
 				return TRUE
 	return ..()

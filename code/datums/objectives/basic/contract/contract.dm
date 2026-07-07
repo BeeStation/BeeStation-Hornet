@@ -9,7 +9,7 @@
 	if(!affected_traitor?.contractor_hub)
 		return
 	var/datum/contractor_hub/hub = affected_traitor.contractor_hub
-	for(var/datum/syndicate_contract/affected_contract as() in hub.assigned_contracts)
+	for(var/datum/syndicate_contract/affected_contract as anything in hub.assigned_contracts)
 		if(affected_contract.contract == src)
 			affected_contract.generate(hub.assigned_targets)
 			hub.assigned_targets.Add(affected_contract.contract.target)

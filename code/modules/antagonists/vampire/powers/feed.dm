@@ -543,7 +543,7 @@
 	// Bonuses
 
 	// The VIP has the juiciest blood on the station
-	if(HAS_TRAIT(target, TRAIT_VIP))
+	if(HAS_MIND_TRAIT(target, TRAIT_VIP))
 		vitae_absorbed *= 2
 	// Command/captains are also juicy because of their leadership and authority
 	if(HAS_TRAIT(target, TRAIT_DISK_VERIFIER))

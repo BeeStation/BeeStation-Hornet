@@ -33,6 +33,7 @@
 	toolspeed = 0.1
 	tool_behaviour = TOOL_SCREWDRIVER
 	var/static/obj/item/stack/cable_coil/cable_coil
+	var/static/obj/item/weldingtool/abductor/welder
 	var/static/obj/item/cultivator/cultivator
 	var/static/obj/item/shovel/spade/spade
 	var/static/list/abstract_tools
@@ -44,7 +45,7 @@
 			TOOL_CROWBAR,
 			TOOL_WIRECUTTER,
 			TOOL_MULTITOOL,
-			TOOL_WELDER,
+			TOOL_WELDER, // NOTE: Due to how welder works, the tool behaviour is manually managed
 			TOOL_ANALYZER,
 			"wires"
 		),
@@ -77,10 +78,13 @@
 	if(!abstract_tools)
 		abstract_tools = list()
 
+		// TOOL_WELDER behaviour is not working correctly, and we need to put a welder manually
+		welder = new
+		welder.set_welding(TRUE) // this is why
+		abstract_tools += welder
+
 		cable_coil = new
 		abstract_tools += cable_coil
-		cable_coil.max_amount = INFINITY
-		cable_coil.amount = INFINITY
 
 		cultivator = new
 		abstract_tools += cultivator
@@ -100,8 +104,13 @@
 
 /obj/item/debug/omnitool/pre_attack(atom/A, mob/living/user, params)
 	switch(tool_behaviour)
+		if(TOOL_WELDER) // TOOL_WELDER behaviour is not working correctly, and we need to put a welder manually
+			welder.reagents.add_reagent(/datum/reagent/fuel, 100) // This is why - some stuff costs fuels
+			welder.melee_attack_chain(user, A, params)
 		if("wires")
+			cable_coil.amount = 500 // recharges wires before & after using it
 			cable_coil.melee_attack_chain(user, A, params)
+			cable_coil.amount = 500
 			return
 		if("cultivator")
 			cultivator.melee_attack_chain(user, A, params)
@@ -283,6 +292,7 @@
 		/obj/item/disk/data/debug = 1,
 		/obj/item/uplink/debug = 1,
 		/obj/item/uplink/nuclear/debug = 1,
+		/obj/item/clothing/ears/earmuffs/debug = 1,
 		/obj/item/storage/box/beakers/bluespace = 1,
 		/obj/item/storage/box/beakers/variety = 1,
 		/obj/item/storage/box/material = 1
@@ -330,28 +340,26 @@
 		TRAIT_BARMASTER,
 		TRAIT_SURGEON,
 		TRAIT_METALANGUAGE_KEY_ALLOWED,
-		TRAIT_SPACEWALK
+		TRAIT_SPACEWALK,
+		TRAIT_MEDICAL_HUD,
+		TRAIT_SECURITY_HUD,
+		TRAIT_DIAGNOSTIC_HUD,
+		TRAIT_BOT_PATH_HUD,
 	)
+	var/previous_see_invisible
 
 /obj/item/debug/orb_of_power/pickup(mob/user)
 	. = ..()
-	for(var/each in traits_to_give)
-		ADD_TRAIT(user, each, "debug")
+	user.add_traits(traits_to_give, "debug")
 	grant_all_languages(source = "debug")
 	user.grant_language(/datum/language/metalanguage, source = "debug")
-
-	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	hud.add_hud_to(user)
-	hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	hud.add_hud_to(user)
-	hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-	hud.add_hud_to(user)
 
 	if(!isliving(user))
 		user.update_sight()
 		return
 	var/mob/living/picker = user
-	picker.see_override = SEE_INVISIBLE_OBSERVER
+	previous_see_invisible = picker.see_invisible
+	picker.see_invisible = SEE_INVISIBLE_OBSERVER
 	picker.update_sight()
 
 /obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
@@ -360,21 +368,12 @@
 	if(orb)
 		return
 
-	for(var/each in traits_to_give)
-		REMOVE_TRAIT(user, each, "debug")
+	user.remove_traits(traits_to_give, "debug")
 	user.remove_all_languages("debug")
 	user.remove_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
-	user.see_override = initial(user.see_override)
+	user.see_invisible = previous_see_invisible
+	previous_see_invisible = null
 	user.update_sight()
-
-	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-	hud.remove_hud_from(user)
-	if(!HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
-		hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-		hud.remove_hud_from(user)
-	if(!HAS_TRAIT(user, TRAIT_SECURITY_HUD))
-		hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-		hud.remove_hud_from(user)
 
 // kinda works like hilbert, but not really
 /obj/item/map_template_diver

@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(fail2topic)
 	name = "Fail2Topic"
 	init_stage = INITSTAGE_FIRST
-	flags = SS_BACKGROUND
+	ss_flags = SS_BACKGROUND
 	runlevels = ALL
 
 	var/list/rate_limiting = list()

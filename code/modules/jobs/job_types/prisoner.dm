@@ -8,7 +8,6 @@
 	exp_required_type = EXP_TYPE_CREW
 	exp_granted_type = EXP_TYPE_CREW
 	total_positions = 3
-	min_pop = MINPOP_JOB_LIMIT
 	supervisors = "the security team"
 	selection_color = "#ffe1c3"
 

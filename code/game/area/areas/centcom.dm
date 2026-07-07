@@ -257,7 +257,7 @@
 	base_lighting_alpha = 255
 	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_CLOCKWORK
-	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA
+	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA | XENOBIOLOGY_CONSOLE_DISALLOWED
 	ambience_index = AMBIENCE_REEBE
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 
@@ -267,7 +267,7 @@
 /area/reebe/city_of_cogs
 	name = "Reebe - City of Cogs"
 	icon_state = "purple"
-	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA
+	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA | XENOBIOLOGY_CONSOLE_DISALLOWED
 
 //EXTRA
 

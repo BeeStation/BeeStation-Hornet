@@ -28,7 +28,7 @@
 		var/picked_type = pick(subtypesof(/datum/artifact_effect))
 		var/valid = TRUE
 		var/datum/artifact_effect/effect = new picked_type
-		for(var/datum/artifact_effect/old_effect as() in effects)
+		for(var/datum/artifact_effect/old_effect as anything in effects)
 			//Cant have the same one twice
 			if(istype(old_effect, picked_type))
 				valid = FALSE
@@ -165,7 +165,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 
 /atom/movable/proximity_monitor_holder/Destroy()
 	QDEL_NULL(monitor)
-	QDEL_NULL(callback)
+	callback = null
 	return ..()
 
 /datum/artifact_effect/projreflect
@@ -268,7 +268,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 	for(var/obj/item/card/id/id_card in things_in_view)
 		idcards += id_card
 	var/list/accesses_to_add = get_all_accesses()
-	for(var/obj/item/card/id/id_card as() in idcards)
+	for(var/obj/item/card/id/id_card as anything in idcards)
 		if(length(id_card.access))
 			id_card.access -= pick(id_card.access)
 			id_card.access |= pick(accesses_to_add)
@@ -299,7 +299,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	GLOB.destabliization_exits += source
 
 /datum/artifact_effect/reality_destabilizer/Destroy()
-	for(var/atom/movable/AM as() in contained_things)
+	for(var/atom/movable/AM as anything in contained_things)
 		if(istype(get_area(AM), /area/tear_in_reality))
 			AM.forceMove(get_turf(source_object))
 	contained_things.Cut()

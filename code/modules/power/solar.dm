@@ -1,7 +1,7 @@
 #define SOLAR_GEN_RATE 1500
 #define OCCLUSION_DISTANCE 20
-#define PANEL_Z_OFFSET 13
-#define PANEL_EDGE_Z_OFFSET (PANEL_Z_OFFSET - 2)
+#define PANEL_Y_OFFSET 13
+#define PANEL_EDGE_Y_OFFSET (PANEL_Y_OFFSET - 2)
 
 /obj/machinery/power/solar
 	name = "solar panel"
@@ -42,8 +42,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 /obj/machinery/power/solar/Initialize(mapload, obj/item/solar_assembly/S)
 	. = ..()
 
-	panel_edge = add_panel_overlay("solar_panel_glass_edge", PANEL_EDGE_Z_OFFSET)
-	panel = add_panel_overlay("solar_panel_glass", PANEL_Z_OFFSET)
+	panel_edge = add_panel_overlay("solar_panel_glass_edge", PANEL_EDGE_Y_OFFSET)
+	panel = add_panel_overlay("solar_panel_glass", PANEL_Y_OFFSET)
 
 	Make(S)
 	connect_to_network()
@@ -60,10 +60,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 	appearance_flags = TILE_BOUND
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 
-/obj/machinery/power/solar/proc/add_panel_overlay(icon_state, z_offset)
+/obj/machinery/power/solar/proc/add_panel_overlay(icon_state, y_offset)
 	var/obj/effect/overlay/solar_panel/overlay = new(src)
 	overlay.icon_state = icon_state
-	overlay.pixel_z = z_offset
+	overlay.pixel_y = y_offset
 	vis_contents += overlay
 	return overlay
 
@@ -257,6 +257,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 	add_avail(sgen)
 	if(control)
 		control.gen += sgen
+
+/obj/machinery/power/solar/examine(mob/user)
+	.=..()
+	. += span_notice("\The [src]'s panels could be <b>pried</b> out.")
+
+	if(!in_range(user, src) && !isobserver(user))
+		return
+
+	. += span_notice("\The [src]'s panels are composed of [material_type.name], giving it a power coefficient of [span_bold("[power_tier]")] ([span_italics("[SOLAR_GEN_RATE * power_tier]w maximum output")])")
 
 //Bit of a hack but this whole type is a hack
 /obj/machinery/power/solar/fake/Initialize(mapload, obj/item/solar_assembly/S)
@@ -682,5 +691,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 
 #undef SOLAR_GEN_RATE
 #undef OCCLUSION_DISTANCE
-#undef PANEL_Z_OFFSET
-#undef PANEL_EDGE_Z_OFFSET
+#undef PANEL_Y_OFFSET
+#undef PANEL_EDGE_Y_OFFSET

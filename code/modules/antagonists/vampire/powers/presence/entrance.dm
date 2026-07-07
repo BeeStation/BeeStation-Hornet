@@ -62,7 +62,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/entranced
 
 /datum/status_effect/entranced/on_creation(mob/living/new_owner, set_duration)
-	if(isnum_safe(set_duration))
+	if(IS_FINITE(set_duration))
 		duration = set_duration
 	return ..()
 

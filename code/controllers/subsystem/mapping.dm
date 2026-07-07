@@ -29,15 +29,13 @@ SUBSYSTEM_DEF(mapping)
 
 	///Random rooms template list, gets initialized and filled when server starts.
 	var/list/random_room_templates = list()
-	///Temporary list, where room spawners are kept roundstart. Not used later.
-	var/list/random_room_spawners = list()
 	var/list/holodeck_templates = list()
 
 	var/list/areas_in_z = list()
 
-	var/list/turf/unused_turfs = list()				//Not actually unused turfs they're unused but reserved for use for whatever requests them. "[zlevel_of_turf]" = list(turfs)
-	var/list/datum/turf_reservations		//list of turf reservations
-	var/list/used_turfs = list()				//list of turf = datum/turf_reservation
+	var/list/turf/unused_turfs = list() //Not actually unused turfs they're unused but reserved for use for whatever requests them. "[zlevel_of_turf]" = list(turfs)
+	var/list/datum/turf_reservations //list of turf reservations
+	var/list/used_turfs = list() //list of turf = datum/turf_reservation
 	/// List of lists of turfs to reserve
 	var/list/lists_to_reserve = list()
 
@@ -50,7 +48,8 @@ SUBSYSTEM_DEF(mapping)
 
 	// Z-manager stuff
 	var/station_start  // should only be used for maploading-related tasks
-	var/list/z_list
+	///list of all z level datums in the order of their z (z level 1 is at index 1, etc.)
+	var/list/datum/space_level/z_list
 	///list of all z level indices that form multiz connections and whether theyre linked up or down.
 	///list of lists, inner lists are of the form: list("up or down link direction" = TRUE)
 	var/list/multiz_levels = list()
@@ -234,11 +233,11 @@ SUBSYSTEM_DEF(mapping)
 		if(QDELETED(d))
 			nuke_threats -= d
 
-	for(var/turf/open/floor/circuit/C as() in nuke_tiles)
-		C.update_icon()
+	for(var/turf/open/floor/circuit/circuit_floor as anything in nuke_tiles)
+		circuit_floor.update_appearance()
 
 /datum/controller/subsystem/mapping/Recover()
-	flags |= SS_NO_INIT
+	ss_flags |= SS_NO_INIT
 	initialized = SSmapping.initialized
 	map_templates = SSmapping.map_templates
 	ruins_templates = SSmapping.ruins_templates
@@ -298,7 +297,7 @@ SUBSYSTEM_DEF(mapping)
 		++i
 	//Shared orbital body
 	var/datum/orbital_object/z_linked/orbital_body = new orbital_body_type()
-	for(var/datum/space_level/level as() in space_levels)
+	for(var/datum/space_level/level as anything in space_levels)
 		SSorbits.assoc_z_levels["[level.z_value]"] = orbital_body
 		orbital_body.link_to_z(level)
 
@@ -310,35 +309,6 @@ SUBSYSTEM_DEF(mapping)
 	if(!silent)
 		INIT_ANNOUNCE("Loaded [name] in [round((REALTIMEOFDAY - start_time)/10, 0.01)]s!")
 	return parsed_maps
-
-/datum/controller/subsystem/mapping/proc/LoadStationRooms()
-#ifndef UNIT_TESTS
-	var/start_time = REALTIMEOFDAY
-	for(var/obj/effect/spawner/room/R as() in random_room_spawners)
-		var/list/possibletemplates = list()
-		var/datum/map_template/random_room/candidate
-		shuffle_inplace(random_room_templates)
-		for(var/ID in random_room_templates)
-			candidate = random_room_templates[ID]
-			if((!R.rooms.len && candidate.spawned) || (!R.rooms.len && (R.room_height != candidate.template_height || R.room_width != candidate.template_width)) || (R.rooms.len && !(candidate.room_id in R.rooms)))
-				candidate = null
-				continue
-			possibletemplates[candidate] = candidate.weight
-		if(!length(possibletemplates))
-			stack_trace("Failed to find a valid random room / Room Info - height: [R.room_height], width: [R.room_width], name: [R.name]")
-		else
-			var/datum/map_template/random_room/template = pick_weight(possibletemplates)
-			template.stock--
-			template.weight = (template.weight / 2)
-			if(template.stock <= 0)
-				template.spawned = TRUE
-			template.stationinitload(get_turf(R), centered = template.centerspawner)
-		SSmapping.random_room_spawners -= R
-		R.after_place(null, get_turf(R), null, null)
-		qdel(R)
-	random_room_spawners = null
-	INIT_ANNOUNCE("Loaded Random Rooms in [(REALTIMEOFDAY - start_time)/10]s!")
-#endif
 
 /datum/controller/subsystem/mapping/proc/loadWorld()
 	//if any of these fail, something has gone horribly, HORRIBLY, wrong
@@ -353,7 +323,6 @@ SUBSYSTEM_DEF(mapping)
 	LoadGroup(FailedZs, "Station", current_map.map_path, current_map.map_file, current_map.traits, ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/station)
 
 	LoadStationRoomTemplates()
-	LoadStationRooms()
 
 	if(SSdbcore.Connect())
 		var/datum/db_query/query_round_map_name = SSdbcore.NewQuery({"
@@ -418,23 +387,12 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	preloadHolodeckTemplates()
 
 /datum/controller/subsystem/mapping/proc/LoadStationRoomTemplates()
-	for(var/item in subtypesof(/datum/map_template/random_room))
-		var/datum/map_template/random_room/R = new item()
-		if(!R.mappath || R.mappath == null)
-			world.log << "Skipping template type: [item] (no mappath)"
-			qdel(R)
+	for(var/datum/map_template/random_room/random_room as anything in subtypesof(/datum/map_template/random_room))
+		if(!random_room::mappath)
 			continue
-		random_room_templates[R.room_id] = R
-		map_templates[R.room_id] = R
-
-/datum/map_template/random_room
-	var/room_id //The SSmapping random_room_template list is ordered by this var
-	var/spawned //Whether this template (on the random_room template list) has been spawned
-	var/centerspawner = TRUE
-	var/template_height = 0
-	var/template_width = 0
-	var/weight = 10 //weight a room has to appear
-	var/stock = 1 //how many times this room can appear in a round
+		random_room = new random_room()
+		random_room_templates += random_room
+		map_templates[random_room.room_id] = random_room
 
 /datum/controller/subsystem/mapping/proc/preloadRuinTemplates()
 	// Still supporting bans by filename

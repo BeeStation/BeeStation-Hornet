@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(zclear)
 	name = "Z-Clear"
 	wait = 1
 
-	flags = SS_NO_INIT
+	ss_flags = SS_NO_INIT
 	runlevels = RUNLEVEL_GAME
 
 	//List of z-levels to be auto-wiped when they are left
@@ -67,7 +67,7 @@ SUBSYSTEM_DEF(zclear)
 /datum/controller/subsystem/zclear/fire(resumed)
 	if(times_fired % CHECK_ZLEVEL_TICKS == 0)
 		check_for_empty_levels()
-	for(var/datum/zclear_data/cleardata as() in processing_levels)
+	for(var/datum/zclear_data/cleardata as anything in processing_levels)
 		continue_wipe(cleardata)
 
 /**
@@ -80,23 +80,27 @@ SUBSYSTEM_DEF(zclear)
 	//Levels with mobs dead/alive
 	var/list/mob_levels = list()
 	//Check active mobs
-	for(var/mob/living/L as () in GLOB.mob_list)
+	for(var/mob/living/L as anything in GLOB.mob_list)
 		if(!L)
 			continue
 		//Dead mobs get sent to new ruins
-		if(L.ckey || L.mind || L.client)
-			var/turf/T = get_turf(L)
-			mob_levels["[T.z]"] = TRUE
-			if(L.stat != DEAD)
-				active_levels["[T.z]"] = TRUE
-				living_levels["[T.z]"] = TRUE
+		if(!L.ckey && !L.mind && !L.client)
+			continue
+
+		var/turf/T = get_turf(L)
+		if(isnull(T))
+			continue
+		mob_levels["[T.z]"] = TRUE
+		if(L.stat != DEAD)
+			active_levels["[T.z]"] = TRUE
+			living_levels["[T.z]"] = TRUE
 	//Check active nukes
 	for(var/obj/machinery/nuclearbomb/decomission/bomb in GLOB.decomission_bombs)
 		if(bomb.timing)
 			active_levels["[bomb.z]"] = TRUE
-			living_levels["[bomb.z]"] = TRUE	//Dont perform mob saving actions on mobs about to be blown to smitherines.
+			living_levels["[bomb.z]"] = TRUE //Dont perform mob saving actions on mobs about to be blown to smitherines.
 	//Block z-clear from these levels.
-	for(var/atom/A as() in GLOB.zclear_blockers)
+	for(var/atom/A as anything in GLOB.zclear_blockers)
 		active_levels["[A.z]"] = TRUE
 	//Check for shuttles
 	for(var/obj/docking_port/mobile/M in SSshuttle.mobile_docking_ports)
@@ -248,7 +252,7 @@ SUBSYSTEM_DEF(zclear)
 			if(length(nullspaced_mobs))
 				var/nullspaced_mob_names = ""
 				var/valid = FALSE
-				for(var/mob/M as() in nullspaced_mobs)
+				for(var/mob/M as anything in nullspaced_mobs)
 					if(M.key || !M.get_ghost(FALSE, TRUE))
 						nullspaced_mob_names += " - [M.name]\n"
 						valid = TRUE
@@ -261,7 +265,7 @@ SUBSYSTEM_DEF(zclear)
  */
 /datum/controller/subsystem/zclear/proc/clear_turf_atoms(list/turfs)
 	//Clear atoms
-	for(var/turf/T as() in turfs)
+	for(var/turf/T as anything in turfs)
 		var/max_iterations = 3
 		var/list/allowed_contents = typecache_filter_list_reverse(T.contents, ignored_atoms)
 		while (max_iterations-- > 0 && length(allowed_contents))
@@ -343,7 +347,7 @@ SUBSYSTEM_DEF(zclear)
 
 /datum/controller/subsystem/zclear/proc/reset_turfs(list/turfs)
 	var/list/new_turfs = list()
-	for(var/turf/T as() in turfs)
+	for(var/turf/T as anything in turfs)
 		var/turf/newT
 		if(istype(T, /turf/open/space))
 			newT = T

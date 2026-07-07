@@ -1,7 +1,7 @@
 /mob/living/simple_animal/bot/honkbot
 	name = "\improper honkbot"
 	desc = "A little robot. It looks happy with its bike horn."
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "honkbot"
 	density = FALSE
 	anchored = FALSE
@@ -17,7 +17,7 @@
 	bot_core_type = /obj/machinery/bot_core/honkbot
 	window_id = "autohonk"
 	window_name = "Honkomatic Bike Horn Unit v1.0.7"
-	data_hud_type = DATA_HUD_SECURITY_BASIC // show jobs
+	data_hud_type = TRAIT_SECURITY_HUD_ID_ONLY
 	path_image_color = "#FF69B4"
 
 	var/honksound = 'sound/items/bikehorn.ogg' //customizable sound

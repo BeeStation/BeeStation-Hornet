@@ -16,10 +16,10 @@
 	gravity = list(0, 1)
 	icon = 'icons/effects/particles/smoke.dmi'
 	icon_state = "smoke_3"
-	position = generator("vector", list(-12,8,0), list(12,8,0))
+	position = generator(GEN_VECTOR, list(-12,8,0), list(12,8,0))
 	grow = list(0.3, 0.3)
 	friction = 0.2
-	drift = generator("vector", list(-0.16, -0.2), list(0.16, 0.2))
+	drift = generator(GEN_VECTOR, list(-0.16, -0.2), list(0.16, 0.2))
 	color = "white"
 
 /particles/flare_smoke
@@ -33,5 +33,5 @@
 	gravity = list(0, 1)
 	position = list(10,1,0)
 	friction = 0.1
-	drift = generator("vector", list(-0.2, -0.3), list(0.2, 0.3))
+	drift = generator(GEN_VECTOR, list(-0.2, -0.3), list(0.2, 0.3))
 	color = "#fa7f7f"

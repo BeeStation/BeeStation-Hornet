@@ -80,16 +80,30 @@
 	if(istext(value))
 		return span_value("\"[VV_HTML_ENCODE(value)]\"")
 
-	if(isicon(value))
+	if(isnum(value) && istext(name) && GLOB.bitfields[name])
+		var/list/matching_bitflags = get_matching_bitflags(name, value)
+
+		if(!isnull(matching_bitflags))
+			if(length(matching_bitflags))
+				return "[VV_HTML_ENCODE(matching_bitflags.Join(", "))]"
+			return "NONE"
+
+	// Warning - isicon(value) is misleading
+	// 		isicon('some.dmi') => returns TRUE
+	// 		isicon(/icon[0xINSTANCE]) => returns TRUE
+	// So, You have no idea what it exactly is!!!!!
+	if(is_icondmi(value))
 		#ifdef VARSICON
-		var/icon/icon_value = icon(value)
-		var/rnd = rand(1,10000)
-		var/rname = "tmp[REF(icon_value)][rnd].png"
-		usr << browse_rsc(icon_value, rname)
-		return "([span_value("[value]")]) <img class=icon src=\"[rname]\">"
+		var/md5_id = "tmp.[md5("[value]")].[md5(REF(value))]"
+		var/rname = "[md5_id].png"
+		usr << browse_rsc(value, rname)
+		return "/dmi_file ([span_value("'[value]'")]) <img class=icon src=\"[rname]\">"
 		#else
-		return "/icon ([span_value("[value]")])"
+		return "/dmi_file ([span_value("'[value]'")])"
 		#endif
+	if(is_icondatum(value))
+		var/icon/icon_value = value
+		return "[icon_value]</br>[icon_value.write_vv_button()]</br>[span_value_top("[icon_value.get_vv_data()]")]"
 
 	if(isappearance(value)) // Reminder: Do not replace this into /image/debug_variable_value() proc. /appearance can't do that.
 		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(value)]'>/appearance ([span_value("[get_appearance_vv_summary_name(value)]")]) [REF(value)]</a>"
@@ -155,18 +169,7 @@
 
 			return "[a_open][list_type] ([length(list_value)])[a_close]<ul>[items.Join()]</ul>"
 
-	// if it's a number, is it a bitflag?
-	var/list/valid_bitflags = get_valid_bitflags(name)
-	if(!length(valid_bitflags))
-		return span_value("[VV_HTML_ENCODE(value)]")
-
-	var/list/flags = list()
-	for (var/bit_name in valid_bitflags)
-		if (value & valid_bitflags[bit_name])
-			flags += bit_name
-	if(length(flags))
-		return "[VV_HTML_ENCODE(flags.Join(", "))]"
-	return "NONE"
+	return span_value("[VV_HTML_ENCODE(value)]")
 
 /datum/proc/debug_variable_value(name, level, datum/owner, sanitize, display_flags)
 	if("[src]" != "[type]") // If we have a name var, let's use it.

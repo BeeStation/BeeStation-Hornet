@@ -238,3 +238,14 @@
 2026-05-29:
   mrmanlikesbt:
   - code_imp: The FAST_REFERENCE_TRACKING define no longer causes a compiler error
+2026-05-31:
+  'rkz, repobanned&gitbanned TG author, SuperNovaa41, JohnFulpWillard, Lemon, Smartkar, ':
+  - refactor: optimized particles
+  - refactor: cleaned up thermite component and brought burning to its own component,
+      off a subsystem
+  - code_imp: adds shared particle system, which uses caching and is much more performant
+  - bugfix: fixes thermite exploits
+  - bugfix: fires cannot break open the captain's safe
+  - rscadd: bonfires can be lit by putting burning objects atop them
+  - rscadd: fire stacks emit smoke particles
+  - rscadd: wet stacks emit droplet particles

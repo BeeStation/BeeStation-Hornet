@@ -282,14 +282,14 @@
 		return
 	var/obj/item/bodypart/body_part = organ_owner.get_bodypart(zone)
 	for(var/datum/surgery/organ_manipulation/surgery in organ_owner.surgeries)
-		surgery.Destroy()
+		qdel(surgery)
 	if(istype(body_part, /obj/item/bodypart/chest)) //Does the same things as removing the brain would, since the torso is what keeps the diona together.
 		organ_owner.dna.species.spec_death(FALSE, src)
-		QDEL_NULL(src)
+		qdel(src)
 		return
 	new /mob/living/simple_animal/hostile/retaliate/nymph(organ_owner.loc)
-	QDEL_NULL(body_part)
-	QDEL_NULL(src)
+	qdel(body_part)
+	qdel(src)
 	organ_owner.update_body()
 
 /obj/item/organ/nymph_organ/transfer_to_limb(obj/item/bodypart/LB, mob/living/carbon/C)

@@ -6,20 +6,19 @@
 
 /obj/item/modular_computer/tablet/pda/preset/Initialize(mapload)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/hard_drive/micro)
-	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new cell_type)
-	install_component(new /obj/item/computer_hardware/network_card)
-	install_component(new /obj/item/computer_hardware/card_slot)
-	install_component(new /obj/item/computer_hardware/identifier)
-	install_component(new /obj/item/computer_hardware/sensorpackage)
+	force_install_component(new /obj/item/computer_hardware/hard_drive/micro)
+	force_install_component(new /obj/item/computer_hardware/processor_unit/small)
+	force_install_component(new cell_type)
+	force_install_component(new /obj/item/computer_hardware/network_card)
+	force_install_component(new /obj/item/computer_hardware/card_slot)
+	force_install_component(new /obj/item/computer_hardware/identifier)
+	force_install_component(new /obj/item/computer_hardware/sensorpackage)
 
 	var/obj/item/computer_hardware/hard_drive/hdd = all_components[MC_HDD]
 	if(hdd)
 		hdd.virus_defense = default_virus_defense
 	if(default_disk)
-		var/obj/item/computer_hardware/hard_drive/portable/disk = new default_disk(src)
-		install_component(disk)
+		force_install_component(new default_disk)
 
 	if(ispath(inserted_item))
 		inserted_item = new inserted_item(src)
@@ -95,7 +94,7 @@
 
 /obj/item/modular_computer/tablet/pda/preset/station_engineer/Initialize(mapload)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/recharger/APC/pda)
+	force_install_component(new /obj/item/computer_hardware/recharger/APC/pda)
 
 /obj/item/modular_computer/tablet/pda/preset/security
 	name = "security PDA"
@@ -141,7 +140,7 @@
 
 /obj/item/modular_computer/tablet/pda/preset/science/Initialize(mapload)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/radio_card)
+	force_install_component(new /obj/item/computer_hardware/radio_card)
 
 /obj/item/modular_computer/tablet/pda/preset/service
 	name = "service PDA"
@@ -155,7 +154,7 @@
 
 /obj/item/modular_computer/tablet/pda/preset/heads/Initialize(mapload)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/card_slot/secondary)
+	force_install_component(new /obj/item/computer_hardware/card_slot/secondary)
 
 /obj/item/modular_computer/tablet/pda/preset/heads/head_of_personnel
 	name = "head of personnel PDA"
@@ -164,7 +163,7 @@
 
 /obj/item/modular_computer/tablet/pda/preset/heads/head_of_personnel/Initialize(mapload)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/printer/mini)
+	force_install_component(new /obj/item/computer_hardware/printer/mini)
 
 /obj/item/modular_computer/tablet/pda/preset/heads/head_of_security
 	name = "head of security PDA"
@@ -178,7 +177,7 @@
 
 /obj/item/modular_computer/tablet/pda/preset/heads/chief_engineer/Initialize(mapload)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/recharger/APC/pda)
+	force_install_component(new /obj/item/computer_hardware/recharger/APC/pda)
 
 /obj/item/modular_computer/tablet/pda/preset/heads/chief_medical_officer
 	name = "chief medical officer PDA"
@@ -193,7 +192,7 @@
 
 /obj/item/modular_computer/tablet/pda/preset/heads/research_director/Initialize(mapload)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/radio_card)
+	force_install_component(new /obj/item/computer_hardware/radio_card)
 
 /obj/item/modular_computer/tablet/pda/preset/heads/captain
 	name = "captain PDA"
@@ -218,7 +217,7 @@
 
 /obj/item/modular_computer/tablet/pda/preset/cargo_technician/Initialize(mapload)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/printer/mini)
+	force_install_component(new /obj/item/computer_hardware/printer/mini)
 
 /obj/item/modular_computer/tablet/pda/preset/quartermaster
 	name = "quartermaster PDA"
@@ -229,7 +228,7 @@
 
 /obj/item/modular_computer/tablet/pda/preset/quartermaster/Initialize(mapload)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/printer/mini)
+	force_install_component(new /obj/item/computer_hardware/printer/mini)
 
 /obj/item/modular_computer/tablet/pda/preset/shaft_miner
 	name = "shaft miner PDA"
@@ -259,7 +258,7 @@
 	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
 	if(istype(network_card))
 		forget_component(network_card)
-		install_component(new /obj/item/computer_hardware/network_card/advanced/norelay)
+		force_install_component(new /obj/item/computer_hardware/network_card/advanced/norelay)
 
 /obj/item/modular_computer/tablet/pda/preset/chaplain
 	name = "chaplain PDA"
@@ -318,7 +317,7 @@
 
 /obj/item/modular_computer/tablet/pda/preset/atmospheric_technician/Initialize(mapload)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/recharger/APC/pda)
+	force_install_component(new /obj/item/computer_hardware/recharger/APC/pda)
 
 /obj/item/modular_computer/tablet/pda/preset/chemist
 	name = "chemist PDA"
@@ -355,9 +354,9 @@
 //This is silly
 /obj/item/modular_computer/tablet/pda/prisoner/Initialize(mapload)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/hard_drive/inmate)
-	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery/tiny)
-	install_component(new /obj/item/computer_hardware/card_slot)
-	install_component(new /obj/item/computer_hardware/identifier)
-	install_component(new /obj/item/computer_hardware/network_card)
+	force_install_component(new /obj/item/computer_hardware/hard_drive/inmate)
+	force_install_component(new /obj/item/computer_hardware/processor_unit/small)
+	force_install_component(new /obj/item/computer_hardware/battery/tiny)
+	force_install_component(new /obj/item/computer_hardware/card_slot)
+	force_install_component(new /obj/item/computer_hardware/identifier)
+	force_install_component(new /obj/item/computer_hardware/network_card)

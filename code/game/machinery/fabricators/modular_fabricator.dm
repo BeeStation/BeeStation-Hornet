@@ -120,7 +120,7 @@
 /obj/machinery/modular_fabricator/on_deconstruction(disassembled)
 	if(inserted_disk)
 		inserted_disk.forceMove(drop_location())
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	var/datum/component/material_container/materials = get_material_container()
 	materials.retrieve_all()
 
 /obj/machinery/modular_fabricator/examine(mob/user)

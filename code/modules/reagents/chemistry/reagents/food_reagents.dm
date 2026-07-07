@@ -83,9 +83,8 @@
 
 	data = counterlist_normalise(supplied_data)
 
-/datum/reagent/consumable/nutriment/on_merge(list/newdata, newvolume)
-	. = ..()
-	if(!islist(newdata) || !length(newdata))
+/datum/reagent/consumable/nutriment/on_merge(list/mix_data, new_total)
+	if(!islist(data) || !length(mix_data))
 		return
 
 	// data for nutriment is one or more (flavour -> ratio)
@@ -97,8 +96,8 @@
 
 	counterlist_scale(taste_amounts, volume)
 
-	var/list/other_taste_amounts = newdata.Copy()
-	counterlist_scale(other_taste_amounts, newvolume)
+	var/list/other_taste_amounts = mix_data.Copy()
+	counterlist_scale(other_taste_amounts, new_total)
 
 	counterlist_combine(taste_amounts, other_taste_amounts)
 
@@ -255,8 +254,8 @@
 	switch(current_cycle)
 		if(1 to 15)
 			heating = 5
-			if(holder.has_reagent(/datum/reagent/cryostylane))
-				holder.remove_reagent(/datum/reagent/cryostylane, 5 * REM * delta_time)
+			if(affected_mob.reagents.has_reagent(/datum/reagent/cryostylane))
+				affected_mob.reagents.remove_reagent(/datum/reagent/cryostylane, 5 * REM * delta_time)
 		if(15 to 25)
 			heating = 10
 		if(25 to 35)
@@ -585,10 +584,9 @@
 	default_container = /obj/item/reagent_containers/condiment/honey
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	holder.add_reagent(/datum/reagent/consumable/sugar, 1 * REM * delta_time)
+	affected_mob.reagents.add_reagent(/datum/reagent/consumable/sugar, 1 * REM * delta_time)
 	. = ..()
-	var/need_mob_update
-	need_mob_update = affected_mob.adjustBruteLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
+	var/need_mob_update = affected_mob.adjustBruteLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
 	need_mob_update += affected_mob.adjustFireLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
 	need_mob_update += affected_mob.adjustOxyLoss(-1, updating_health = FALSE, required_biotype = affected_biotype)
 	need_mob_update += affected_mob.adjustToxLoss(-1, updating_health = FALSE, required_biotype = affected_biotype)

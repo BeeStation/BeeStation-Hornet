@@ -30,8 +30,11 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	var/req_access_txt = "0"
 	var/list/req_one_access
 	var/req_one_access_txt = "0"
-	/// Custom fire overlay icon
+
+	/// Custom fire overlay icon, will just use the default overlay if this is null
 	var/custom_fire_overlay
+	/// Particles this obj uses when burning, if any
+	var/burning_particles
 
 	/// Set when a player uses a pen on a renamable object
 	var/renamedByPlayer = FALSE
@@ -112,7 +115,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 	if((obj_flags & IN_USE) && !(obj_flags & USES_TGUI))
 		var/is_in_use = FALSE
 		var/list/nearby = viewers(1, src)
-		for(var/mob/M as() in nearby)
+		for(var/mob/M as anything in nearby)
 			if ((M.client && M.machine == src))
 				is_in_use = TRUE
 				ui_interact(M)
@@ -141,7 +144,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 	if(obj_flags & IN_USE)
 		var/is_in_use = FALSE
 		if(update_viewers)
-			for(var/mob/M as() in viewers(1, src))
+			for(var/mob/M as anything in viewers(1, src))
 				if ((M.client && M.machine == src))
 					is_in_use = TRUE
 					src.interact(M)
@@ -334,8 +337,6 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 	. = ..()
 	if(acid_level)
 		. += GLOB.acid_overlay
-	if(resistance_flags & ON_FIRE)
-		. += GLOB.fire_overlay
 
 /// Handles exposing an object to reagents.
 /obj/expose_reagents(list/reagents, datum/reagents/source, method=TOUCH, volume_modifier=1, show_message=TRUE)

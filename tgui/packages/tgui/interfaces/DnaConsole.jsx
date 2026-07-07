@@ -86,7 +86,7 @@ export const DnaConsole = (props) => {
   const { isPulsing, timeToPulse, subjectUNI, subjectUF } = data;
   const { consoleMode } = data.view;
   return (
-    <Window title="DNA Console" width={539} height={710} resizable>
+    <Window title="DNA Console" width={565} height={700} resizable>
       {!!isPulsing && (
         <Dimmer fontSize="14px" textAlign="center">
           <Icon mr={1} name="spinner" spin />

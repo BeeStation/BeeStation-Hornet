@@ -83,6 +83,7 @@
 	.["user"]["job"] = "No Job"
 	.["user"]["points"] = 0
 	.["user"]["currency_type"] = currency_type
+	.["stock"] = list()
 
 	if(isliving(user))
 		var/mob/living/carbon/human/H = user

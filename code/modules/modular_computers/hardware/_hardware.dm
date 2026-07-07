@@ -276,7 +276,6 @@
 
 /// Called when component is installed into PC.
 /obj/item/computer_hardware/proc/on_install(obj/item/modular_computer/install_into, mob/living/user = null)
-	install_into.ui_update(user)
 	return
 
 /// Called when component is removed from PC.

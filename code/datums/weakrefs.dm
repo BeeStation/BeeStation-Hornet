@@ -9,7 +9,7 @@
 			input.weak_reference = new /datum/weakref(input)
 		return input.weak_reference
 
-/datum/proc/create_weakref()		//Forced creation for admin proccalls
+/datum/proc/create_weakref() //Forced creation for admin proccalls
 	return WEAKREF(src)
 
 /**

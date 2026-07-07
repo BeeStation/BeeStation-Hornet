@@ -228,7 +228,7 @@
 			to_chat(user, "<span class='danger'>You're strangling [src]!</span>")
 			if(!buckled && !density)
 				Move(user.loc)
-	user.set_pull_offsets(src, grab_state)
+	user.set_pull_offsets(src, user.grab_state)
 	return TRUE
 
 
@@ -501,7 +501,7 @@
 		if(locate(/obj/structure/lattice) in range(1, get_turf(src)))
 			is_holding = TRUE
 		else
-			for (var/turf/T as() in RANGE_TURFS(1, src))
+			for (var/turf/T as anything in RANGE_TURFS(1, src))
 				if (T.density)
 					is_holding = TRUE
 					break

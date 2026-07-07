@@ -170,7 +170,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 		var/ability_info = stats.ability.notify_user()
 		if(length(ability_info))
 			stat_popups += "[span_holoparasitebig("Ability: <b>[stats.ability.name]</b>")]\n[ability_info]"
-	for(var/datum/holoparasite_ability/lesser/lability as() in stats.lesser_abilities)
+	for(var/datum/holoparasite_ability/lesser/lability as anything in stats.lesser_abilities)
 		var/ability_info = lability.notify_user()
 		if(length(ability_info))
 			stat_popups += "[span_holoparasitebig("Lesser Ability: <b>[lability.name]</b>")]\n[ability_info]"
@@ -234,7 +234,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 			. += span_holoparasite("<b>WEAPON:</b> [stats.weapon.name] - [replacetext(stats.weapon.desc, "$theme", LOWER_TEXT(theme.name))]")
 		if(stats.ability)
 			. += span_holoparasite("<b>SPECIAL ABILITY:</b> [stats.ability.name] - [replacetext(stats.ability.desc, "$theme", LOWER_TEXT(theme.name))]")
-		for(var/datum/holoparasite_ability/lesser/ability as() in stats.lesser_abilities)
+		for(var/datum/holoparasite_ability/lesser/ability as anything in stats.lesser_abilities)
 			. += span_holoparasite("<b>LESSER ABILITY:</b> [ability.name] - [replacetext(ability.desc, "$theme", LOWER_TEXT(theme.name))]")
 		. += "<span data-component=\"RadarChart\" data-width=\"300\" data-height=\"300\" data-area-color=\"[accent_color]\" data-axes=\"Damage,Defense,Speed,Potential,Range\" data-stages=\"1,2,3,4,5\" data-values=\"[stats.damage],[stats.defense],[stats.speed],[stats.potential],[stats.range]\" />"
 

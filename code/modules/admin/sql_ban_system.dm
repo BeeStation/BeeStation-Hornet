@@ -279,6 +279,7 @@
 	data["duration"] = duration
 	data["can_supress"] = can_supress
 	data["applies_to_admins"] = applies_to_admins
+	data["target_is_admin"] = key ? is_admin(ckey(key)) : FALSE
 	data["reason"] = reason
 	data["force_cryo_after"] = force_cryo_after
 	data["ban_type"] = ban_type
@@ -386,6 +387,8 @@
 		error_state += "Use last connection was ticked, but neither IP nor CID was."
 	if(applies_to_admins && redact)
 		error_state += "Admin bans can not be suppressed."
+	if(player_key && !applies_to_admins && is_admin(ckey(player_key)))
+		error_state += "[player_key] is an admin. You must tick \"Applies to admins\" to ban them."
 	if(!duration)
 		error_state += "No duration was provided."
 	if(!reason)

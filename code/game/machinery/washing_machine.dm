@@ -411,7 +411,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 					to_chat(user, span_warning("You need more space cleaner!"))
 				return TRUE
 
-			else if(istype(W, /obj/item/soap) || istype(W, /obj/item/reagent_containers/cup/rag))
+			else if(istype(W, /obj/item/soap) || istype(W, /obj/item/rag))
 				var/cleanspeed = 50
 				if(istype(W, /obj/item/soap))
 					var/obj/item/soap/used_soap = W
@@ -501,7 +501,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		new /obj/item/stack/sheet/iron(drop_location(), 2)
 	qdel(src)
 
-/obj/machinery/washing_machine/open_machine(drop = 1)
+/obj/machinery/washing_machine/open_machine(drop = TRUE, density_to_set = FALSE)
 	..()
 	set_density(TRUE) //because machinery/open_machine() sets it to FALSE
 	color_source = null

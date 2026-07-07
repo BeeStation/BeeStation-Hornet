@@ -10,7 +10,7 @@
 	wanted_items = typecacheof(wanted_items)
 
 /datum/objective/steal_five_of_type/check_completion()
-	for(var/datum/mind/M as() in get_owners())
+	for(var/datum/mind/M as anything in get_owners())
 		if(!isliving(M.current))
 			continue
 		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
@@ -36,7 +36,7 @@
 	..()
 
 /datum/objective/steal_five_of_type/summon_magic/check_completion()
-	for(var/datum/mind/M as() in get_owners())
+	for(var/datum/mind/M as anything in get_owners())
 		if(!isliving(M.current))
 			continue
 		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
