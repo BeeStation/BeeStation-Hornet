@@ -47,8 +47,6 @@ jobs:
           mysql --defaults-extra-file=${{ env.MYSQL_CONFIG_FILE }} -e 'CREATE DATABASE bee_ci;'
           mysql --defaults-extra-file=${{ env.MYSQL_CONFIG_FILE }} bee_ci < SQL/beestation_schema.sql
           echo "Sucessful MySQL Database Setup"
-      - name: Setup Node
-        uses: ./.github/actions/setup_node
       - name: Install rust-g
         run: |
           bash tools/ci/install_rust_g.sh

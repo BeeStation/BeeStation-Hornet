@@ -21,7 +21,6 @@ const createStats = (verbose) => ({
   performance: false,
   timings: verbose,
   version: verbose,
-  errorDetails: true,
 });
 
 module.exports = (env = {}, argv) => {
@@ -30,11 +29,11 @@ module.exports = (env = {}, argv) => {
   const config = {
     mode: mode === 'production' ? 'production' : 'development',
     context: path.resolve(__dirname),
-    target: ['web', 'browserslist:edge >= 123'],
+    target: ['web', 'browserslist:edge>=123'],
     entry: {
-      tgui: './packages/tgui',
-      'tgui-panel': './packages/tgui-panel',
-      'tgui-say': './packages/tgui-say',
+      tgui: ['./packages/tgui'],
+      'tgui-panel': ['./packages/tgui-panel'],
+      'tgui-say': ['./packages/tgui-say'],
     },
     output: {
       path: argv.useTmpFolder
@@ -47,7 +46,15 @@ module.exports = (env = {}, argv) => {
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.jsx'],
-      alias: {},
+      alias: {
+        tgui: path.resolve(__dirname, './packages/tgui'),
+        'tgui-panel': path.resolve(__dirname, './packages/tgui-panel'),
+        'tgui-say': path.resolve(__dirname, './packages/tgui-say'),
+        'tgui-dev-server': path.resolve(
+          __dirname,
+          './packages/tgui-dev-server',
+        ),
+      },
     },
     module: {
       rules: [
@@ -57,20 +64,6 @@ module.exports = (env = {}, argv) => {
           use: [
             {
               loader: require.resolve('swc-loader'),
-              options: {
-                jsc: {
-                  parser: {
-                    syntax: 'typescript',
-                    tsx: true,
-                    jsx: true,
-                  },
-                  transform: {
-                    react: {
-                      runtime: 'automatic',
-                    },
-                  },
-                },
-              },
             },
           ],
         },
@@ -94,7 +87,6 @@ module.exports = (env = {}, argv) => {
             },
           ],
         },
-
         {
           test: /\.(cur|png|jpg)$/,
           type: 'asset/resource',
@@ -122,7 +114,10 @@ module.exports = (env = {}, argv) => {
     devtool: false,
     cache: {
       type: 'filesystem',
-      cacheLocation: path.resolve(__dirname, `.yarn/webpack/${mode}`),
+      cacheLocation: path.resolve(
+        __dirname,
+        `node_modules/.cache/webpack/${mode}`,
+      ),
       buildDependencies: {
         config: [__filename],
       },
@@ -143,7 +138,7 @@ module.exports = (env = {}, argv) => {
 
   if (bench) {
     config.entry = {
-      'tgui-bench': './packages/tgui-bench/entrypoint',
+      'tgui-bench': ['./packages/tgui-bench/entrypoint'],
     };
   }
 
@@ -153,6 +148,7 @@ module.exports = (env = {}, argv) => {
     config.optimization.minimizer = [
       new EsbuildPlugin({
         css: true,
+        legalComments: 'none',
       }),
     ];
   }

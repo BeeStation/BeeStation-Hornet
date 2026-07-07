@@ -14,10 +14,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node
-        uses: ./.github/actions/setup_node
-        with:
-          restore-yarn-cache: true
+      - name: Setup Bun
+        uses: ./.github/actions/setup_bun
       - name: Compile
         run: pwsh tools/ci/build.ps1
         env:

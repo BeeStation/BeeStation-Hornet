@@ -79,24 +79,23 @@ If you are using the tooling provided in this repo, everything is included! Feel
 > tools/build/build tgui tgui-lint tgui-tsc tgui-test
 > ```
 
-**Via Yarn (cross-platform)**:
+**Via Bun (cross-platform)**:
 
-Run `yarn install` once to install tgui dependencies.
+Run `bun install` once to install tgui dependencies.
 
-- `yarn tgui:build` - Build tgui in production mode.
-  - `yarn tgui:build [options]` - Build tgui with custom webpack options.
-- `yarn tgui:dev` - Launch a development server.
-  - `yarn tgui:dev --reload` - Reload byond cache once.
-  - `yarn tgui:dev --debug` - Run server with debug logging enabled.
-  - `yarn tgui:dev --no-hot` - Disable hot module replacement (helps when doing development on IE8).
-- `yarn tgui:lint` - Show (and auto-fix) problems with the code.
-- `yarn tgui:sonar` - Analyze code with SonarQube.
-- `yarn tgui:tsc` - Check code with TypeScript compiler.
-- `yarn tgui:test` - Run unit and integration tests.
-- `yarn tgui:analyze` - Run a bundle analyzer.
-- `yarn tgui:bench` - Run benchmarks.
-- `yarn tgfont:build` - Build icon fonts.
-- `yarn tgui-polyfill:build` - Build polyfills. You need to run it when updating any of the static (numbered) polyfills.
+- `bun tgui:build` - Build tgui in production mode.
+  - `bun tgui:build [options]` - Build tgui with custom webpack options.
+- `bun tgui:dev` - Launch a development server.
+  - `bun tgui:dev --reload` - Reload byond cache once.
+  - `bun tgui:dev --debug` - Run server with debug logging enabled.
+- `bun tgui:lint` - Show (and auto-fix) problems with the code.
+- `bun tgui:sonar` - Analyze code with SonarQube.
+- `bun tgui:tsc` - Check code with TypeScript compiler.
+- `bun tgui:test` - Run unit and integration tests.
+- `bun tgui:analyze` - Run a bundle analyzer.
+- `bun tgui:bench` - Run benchmarks.
+- `bun tgfont:build` - Build icon fonts.
+- `bun tgui-polyfill:build` - Build polyfills. You need to run it when updating any of the static (numbered) polyfills.
 
 ## Important Memo
 
@@ -111,9 +110,9 @@ once it's running, you may need to press F5 to refresh the page.
 
 **Development server is crashing**
 
-Make sure path to your working directory does not contain spaces, special unicode characters, exclamation marks or any other special symbols. If so, move codebase to a location which does not contain these characters.
-
-This is a known issue with Yarn (and some other tools, like Webpack), and fix is going to happen eventually.
+Make sure path to your working directory does not contain spaces, special
+unicode characters, exclamation marks or any other special symbols. If so, move
+codebase to a location which does not contain these characters.
 
 **Development server doesn't find my BYOND cache!**
 
