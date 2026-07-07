@@ -88,7 +88,7 @@ elif [ -x "$has_pip3" ]; then
 fi
 
 # Get unzip
-# apt-get install -y unzip
+apt-get install -y unzip
 
 # compile tgui
 echo "Compiling tgui..."
