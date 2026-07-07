@@ -160,3 +160,11 @@
 /obj/item/gun/medbeam/mech/Initialize(mapload)
 	. = ..()
 	STOP_PROCESSING(SSobj, src) //Mech mediguns do not process until installed, and are controlled by the holder obj
+
+//////////////////////////////Low-power Version///////////////////////////////
+/obj/item/gun/medbeam/weak
+	name = "Low-power Medical Beamgun"
+
+/obj/item/gun/medbeam/weak/on_beam_tick(mob/living/target)
+	if(target.health < 20)
+		..()

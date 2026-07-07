@@ -27,3 +27,5 @@ throw.ogg, throwhard.ogg and throwsoft.ogg (Royalty-Free and Copyright-Free) are
 https://uppbeat.io/sfx/whoosh-swift-cut/7727/23617
 https://uppbeat.io/sfx/whoosh-air-punch/114/1168
 https://uppbeat.io/sfx/throwing-item-swing/9430/25267
+
+hold_charge.ogg is build from Power_Up by gulfstreamav -- https://freesound.org/s/843330/ -- License: Creative Commons 0
