@@ -3,7 +3,7 @@
 	"tasks": [
 		{
 			"type": "process",
-			"command": "tools/build/build",
+			"command": "tools/build/build.sh",
 			"windows": {
 				"command": ".\\tools\\build\\build.bat"
 			},

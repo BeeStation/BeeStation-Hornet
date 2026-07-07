@@ -156,8 +156,8 @@ export const AutowikiTarget = new Juke.Target({
 export const BunTarget = new Juke.Target({
   parameters: [CiParameter],
   inputs: ["tgui/**/package.json"],
-  executes: ({ get }) => {
-    return bun("install", get(CiParameter));
+  executes: () => {
+    return bun("install", "--frozen-lockfile", "--ignore-scripts");
   },
 });
 
@@ -274,6 +274,7 @@ export const AllTarget = new Juke.Target({
 
 export const TguiCleanTarget = new Juke.Target({
   executes: async () => {
+    Juke.rm('node_modules', { recursive: true });
     Juke.rm('tgui/public/.tmp', { recursive: true });
     Juke.rm('tgui/public/*.map');
     Juke.rm('tgui/public/*.{chunk,bundle,hot-update}.*');

@@ -42,7 +42,7 @@ ENV TG_BOOTSTRAP_NODE_LINUX=1
 WORKDIR /dm-build
 COPY . .
 # Required to satisfy our compile_options
-RUN tools/build/build \
+RUN tools/build/build.sh \
     && tools/deploy.sh /deploy \
     && apt-get autoremove curl -y \
     && rm -rf /var/lib/apt/lists/*
