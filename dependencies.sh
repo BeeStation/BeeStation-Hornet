@@ -7,14 +7,17 @@
 export BYOND_MAJOR=516
 export BYOND_MINOR=1667
 
-#rust version
+# rust version
 export RUST_VERSION=1.89
 
-#rust_g git tag
+# rust_g git tag
 export RUST_G_VERSION=6.0.1
 
-#node version
+# node version
 export NODE_VERSION_LTS=22.11.0
+
+# Bun version
+export BUN_VERSION=1.2.16
 
 # SpacemanDMM git tag
 export SPACEMAN_DMM_VERSION=suite-1.11
