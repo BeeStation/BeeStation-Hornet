@@ -48,7 +48,7 @@ import './styles/themes/syndicate.scss';
 import './styles/themes/thinktronic-classic.scss';
 
 import { perf } from 'common/perf';
-import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
+import { setupHotReloading } from 'tgui-dev-server/link/client.mjs';
 
 import { App } from './App';
 import { setGlobalStore } from './backend';
@@ -82,11 +82,14 @@ function setupApp() {
   Byond.subscribe((type, payload) => store.dispatch({ type, payload }));
 
   // Enable hot module reloading
-  if (module.hot) {
+  if (import.meta.webpackHot) {
     setupHotReloading();
-    module.hot.accept(['./debug', './layouts', './routes', './App'], () => {
-      render(<App />);
-    });
+    import.meta.webpackHot.accept(
+      ['./debug', './layouts', './routes', './App'],
+      () => {
+        render(<App />);
+      },
+    );
   }
 }
 

@@ -5,7 +5,7 @@ import { createRoot, Root } from 'react-dom/client';
 import { TguiSay } from './interfaces/TguiSay';
 
 // Uncomment to enable hot-reloading
-// import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
+// import { setupHotReloading } from 'tgui-dev-server/link/client.mjs';
 
 let reactRoot: Root | null = null;
 
@@ -18,7 +18,7 @@ document.onreadystatechange = function () {
   }
 
   // Uncomment to enable hot-reloading
-  // if (module.hot) {
+  // if (import.meta.webpackHot) {
   //  setupHotReloading();
   // }
 
