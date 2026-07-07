@@ -111,4 +111,4 @@ jobs:
         run: bash tools/ci/check_misc.sh
       - name: Run TGUI Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: bash tools/build/build.sh --ci lint tgui-test
+        run: tools/build/build.sh --ci lint tgui-test
