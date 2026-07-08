@@ -1,3 +1,2 @@
 @echo off
-cd /d "%~dp0\..\tgui"
-bun eslint . --fix %*
+call "%~dp0\..\tools\build\build.bat" --wait-on-error tgui-eslint-fix %*

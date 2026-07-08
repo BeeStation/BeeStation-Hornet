@@ -6,9 +6,9 @@ export const TurbineComputer = (props) => {
   const { act, data } = useBackend();
   const operational = Boolean(
     data.compressor &&
-      !data.compressor_broke &&
-      data.turbine &&
-      !data.turbine_broke,
+    !data.compressor_broke &&
+    data.turbine &&
+    !data.turbine_broke,
   );
   return (
     <Window width={310} height={150}>

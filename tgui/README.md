@@ -83,7 +83,6 @@ Run `bun install` once to install tgui dependencies.
   - `bun tgui:dev --reload` - Reload byond cache once.
   - `bun tgui:dev --debug` - Run server with debug logging enabled.
 - `bun tgui:lint` - Show (and auto-fix) problems with the code.
-- `bun tgui:sonar` - Analyze code with SonarQube.
 - `bun tgui:tsc` - Check code with TypeScript compiler.
 - `bun tgui:test` - Run unit and integration tests.
 - `bun tgui:analyze` - Run a bundle analyzer.

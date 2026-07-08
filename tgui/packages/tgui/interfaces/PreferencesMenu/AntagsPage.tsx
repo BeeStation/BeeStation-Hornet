@@ -283,9 +283,9 @@ export const AntagsPage = (_) => {
                 <AntagSelection
                   name={category}
                   key={category}
-                  antagonists={
-                    antagonists.filter((a) => a.category === category)!
-                  }
+                  antagonists={antagonists.filter(
+                    (a) => a.category === category,
+                  )!}
                 />
               ))
             )}

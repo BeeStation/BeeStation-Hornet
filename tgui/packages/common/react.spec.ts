@@ -5,7 +5,6 @@ import { describe, expect, it } from 'bun:test';
  * @copyright 2021 Aleksej Komarov
  * @license MIT
  */
-
 import { classes } from './react';
 
 describe('classes', () => {

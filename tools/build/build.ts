@@ -216,6 +216,11 @@ export const TguiEslintTarget = new Juke.Target({
   executes: ({ get }) => bun('tgui:lint', !get(CiParameter) && '--fix'),
 });
 
+export const TguiEslintFixTarget = new Juke.Target({
+  dependsOn: [BunTarget],
+  executes: () => bun("tgui:eslint-fix"),
+});
+
 export const TguiPrettierTarget = new Juke.Target({
   dependsOn: [BunTarget],
   executes: () => bun('tgui:prettier'),
@@ -224,11 +229,6 @@ export const TguiPrettierTarget = new Juke.Target({
 export const TguiPrettierFormatTarget = new Juke.Target({
   dependsOn: [BunTarget],
   executes: () => bun("tgui:prettier-format"),
-});
-
-export const TguiSonarTarget = new Juke.Target({
-  dependsOn: [BunTarget],
-  executes: () => bun('tgui:sonar'),
 });
 
 export const TguiTscTarget = new Juke.Target({
@@ -254,11 +254,6 @@ export const TguiDevTarget = new Juke.Target({
 export const TguiAnalyzeTarget = new Juke.Target({
   dependsOn: [BunTarget],
   executes: () => bun('tgui:analyze'),
-});
-
-export const TguiBenchTarget = new Juke.Target({
-  dependsOn: [BunTarget],
-  executes: () => bun('tgui:bench'),
 });
 
 export const TestTarget = new Juke.Target({
