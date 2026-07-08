@@ -1,13 +1,9 @@
-#define UPGRADE_CORE "ipc_upgrade_core"
-#define UPGRADE_UTILITY "ipc_upgrade_utility"
-#define UPGRADE_EXTERNAL "ipc_upgrade_external"
+
 
 #define LOW_POWER_THRESHOLD 100
 //TODO: fix toggling bug (it deactivates due to low power and the action is stuck on the wrong state) should be fixed
 
 //TODO: add emp_act
-//TODO: trash compactor
-//TODO: voice changer (like clown megaphone)
 //TODO: leap legs (needs finishing)
 //TODO: cooling system
 //TODO: internal management system
@@ -15,7 +11,15 @@
 //TODO: System Underclocker: allows IPCs to stay standing with no power (for some sort of drawback)
 //TODO: Upgrade circuit control??
 //TODO: IPC law module / emag working on IPC
-//TODO: fix IPC sugeries
+//TODO: SPRITES!!
+
+//not so sure about making a global proc for this
+proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
+	if(!effects)
+		return
+	for(var/datum/status_effect/ipc_upgrade/upgrade in effects)
+		if(upgrade.slot == slot)
+			return upgrade
 
 /datum/status_effect/ipc_upgrade/
 	id = "ipc upgrade"
@@ -56,6 +60,7 @@
 			mut_appearances += mut_appearance
 			owner.add_overlay(mut_appearance)
 		owner.update_appearance(UPDATE_ICON)
+	RegisterSignal(owner, COMSIG_ATOM_EMP_ACT, PROC_REF(emp_act))
 
 /datum/status_effect/ipc_upgrade/on_remove()
 	if(active)
@@ -63,6 +68,7 @@
 	for(var/mutable_appearance/mut_appearance in mut_appearances)
 		owner.cut_overlay(mut_appearance)
 	QDEL_NULL(action)
+	QDEL_LIST(mut_appearances)
 
 /datum/status_effect/ipc_upgrade/tick(seconds_between_ticks)
 	if(!should_process())
@@ -128,8 +134,15 @@
 	battery.adjust_charge(-amount)
 	return TRUE
 
-/datum/status_effect/ipc_upgrade/proc/emp_act(severity)
+/datum/status_effect/ipc_upgrade/proc/emp_act(severity, protection)
 	return
+
+/datum/status_effect/ipc_upgrade/proc/ui_data()
+	var/list/data = list()
+	data["name"] = name
+	data["power_req"] = power_requirement
+	data["active_power_req"] = active_power_requirement
+	return data
 
 /datum/action/innate/ipc_upgrade_action
 	name = "Generic Upgrade Action"
@@ -515,6 +528,10 @@
 	projectile.preparePixelProjectile(target, owner, params2list(params))
 	projectile.fire(null, target)
 	COOLDOWN_START(src, firing_cooldown, firing_length)
+
+/datum/status_effect/ipc_upgrade/gun/ui_data()
+	var/list/data = ..()
+	data["power_req"] = firing_power_requirement
 
 /datum/status_effect/ipc_upgrade/gun/charged
 	id = "ipc gun charged"
