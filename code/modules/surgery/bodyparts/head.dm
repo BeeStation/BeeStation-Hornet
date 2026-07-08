@@ -41,6 +41,8 @@
 	var/hair_alpha = 255
 	/// Is the hair currently hidden by something?
 	var/hair_hidden = FALSE
+	/// Lazy initialized hashset of all hair masks that should be applied
+	var/list/hair_masks
 
 	/// Facial hair style
 	var/facial_hairstyle = "Shaved"
@@ -50,7 +52,6 @@
 	var/facial_hair_alpha = 255
 	///Is the facial hair currently hidden by something?
 	var/facial_hair_hidden = FALSE
-
 	/// Gradient styles, if any
 	var/list/gradient_styles = list(
 		"None",	//Hair gradient style

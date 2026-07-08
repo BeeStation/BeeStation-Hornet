@@ -22,6 +22,7 @@
 		TRAIT_REVIVESBYHEALING,
 		TRAIT_NO_DEBRAIN_OVERLAY,
 		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_UNHUSKABLE,
 	)
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	mutantbrain = /obj/item/organ/brain/positron

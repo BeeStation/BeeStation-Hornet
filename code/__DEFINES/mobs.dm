@@ -529,6 +529,9 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define GRADIENT_APPLIES_TO_HAIR (1<<0)
 #define GRADIENT_APPLIES_TO_FACIAL_HAIR (1<<1)
 
+// Hair masks
+#define HAIR_MASK_HIDE_ABOVE_45_DEG_MEDIUM "hide_above_45deg"
+
 #define MOB_OVERLAY_LAYER_ABSOLUTE(_mob_layer, _overlay_layer) (_mob_layer - (_overlay_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
 
 /// Converts the layer into a float layer that is within the bounds of the defined maximum mob clothing layer
