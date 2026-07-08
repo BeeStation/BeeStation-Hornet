@@ -137,6 +137,7 @@
 		charge = clamp((charge + amount)*(1-(damage/maxHealth)), 0, max_charge)
 	else
 		charge = clamp(charge + amount, 0, max_charge)
+	SEND_SIGNAL(owner, COMSIG_ORGAN_BATTERY_CHARGED, src, amount)
 	update_nutrition()
 
 /obj/item/organ/stomach/battery/proc/adjust_charge_scaled(amount)
