@@ -1,9 +1,11 @@
+import { describe, expect, it, mock } from 'bun:test';
+
 import { EventEmitter } from './events';
 
 describe('EventEmitter', () => {
   it('should add and trigger an event listener', () => {
     const emitter = new EventEmitter();
-    const mockListener = jest.fn();
+    const mockListener = mock();
     emitter.on('test', mockListener);
     emitter.emit('test', 'payload');
     expect(mockListener).toHaveBeenCalledWith('payload');
@@ -11,7 +13,7 @@ describe('EventEmitter', () => {
 
   it('should remove an event listener', () => {
     const emitter = new EventEmitter();
-    const mockListener = jest.fn();
+    const mockListener = mock();
     emitter.on('test', mockListener);
     emitter.off('test', mockListener);
     emitter.emit('test', 'payload');
@@ -25,7 +27,7 @@ describe('EventEmitter', () => {
 
   it('should clear all event listeners', () => {
     const emitter = new EventEmitter();
-    const mockListener = jest.fn();
+    const mockListener = mock();
     emitter.on('test', mockListener);
     emitter.clear();
     emitter.emit('test', 'payload');

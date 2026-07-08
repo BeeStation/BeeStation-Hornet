@@ -1,3 +1,5 @@
+import { afterEach, describe, expect, it, mock } from 'bun:test';
+
 import {
   addScrollableNode,
   canStealFocus,
@@ -8,7 +10,7 @@ import {
 
 describe('focusEvents', () => {
   afterEach(() => {
-    jest.restoreAllMocks();
+    mock.restore();
   });
 
   it('setupGlobalEvents sets the ignoreWindowFocus flag correctly', () => {
