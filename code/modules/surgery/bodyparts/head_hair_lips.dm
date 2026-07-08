@@ -83,7 +83,7 @@
 	var/image/facial_hair_overlay
 	if(!facial_hair_hidden && facial_hairstyle && (head_flags & HEAD_FACIAL_HAIR))
 		sprite_accessory = GLOB.facial_hairstyles_list[facial_hairstyle]
-		if(sprite_accessory)
+		if(sprite_accessory?.icon_state)
 			//Overlay
 			facial_hair_overlay = image(sprite_accessory.icon, sprite_accessory.icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 			facial_hair_overlay.alpha = facial_hair_alpha
@@ -103,7 +103,7 @@
 	var/image/hair_overlay
 	if(!(show_debrained && (head_flags & HEAD_DEBRAIN)) && !hair_hidden && hair_style && (head_flags & HEAD_HAIR))
 		var/datum/sprite_accessory/hair/hair_sprite_accessory = GLOB.hairstyles_list[hair_style]
-		if(hair_sprite_accessory)
+		if(hair_sprite_accessory?.icon_state)
 			var/icon/base_icon
 			if(LAZYLEN(hair_masks))
 				base_icon = icon(hair_sprite_accessory.icon, hair_sprite_accessory.icon_state)

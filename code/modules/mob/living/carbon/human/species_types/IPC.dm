@@ -267,14 +267,9 @@
 	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[C.dna.features["ipc_chassis"]]
 
 	for(var/obj/item/bodypart/BP as anything in C.bodyparts) //Override bodypart data as necessary
-		BP.uses_mutcolor = chassis_of_choice.color_src ? TRUE : FALSE
-		if(BP.uses_mutcolor)
-			BP.should_draw_greyscale = TRUE
-			BP.species_color = C.dna?.features["mcolor"]
-
-		BP.limb_id = chassis_of_choice.limbs_id
+		BP.species_color = C.dna?.features["mcolor"]
 		BP.name = "\improper[chassis_of_choice.name] [parse_zone(BP.body_zone)]"
-		BP.update_limb()
+		BP.change_appearance(icon = BP.icon_static, id = chassis_of_choice.limbs_id, greyscale = !!chassis_of_choice.color_src)
 
 /datum/species/ipc/get_species_description()
 	return "The newest in artificial life, IPCs are entirely robotic, synthetic life, made of motors, circuits, and wires \

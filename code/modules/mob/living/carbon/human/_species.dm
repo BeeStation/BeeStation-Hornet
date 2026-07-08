@@ -470,7 +470,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	C.mob_biotypes = inherent_biotypes
 
-	if(old_species.type != type)
+	if(pref_load || old_species.type != type)
 		replace_body(C, src)
 
 	regenerate_organs(C, old_species, replace_current = FALSE, visual_only = C.visual_only_organs)

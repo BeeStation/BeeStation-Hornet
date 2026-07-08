@@ -5,7 +5,7 @@
 		head_icon.blend_color(skintone2hex("caucasian1"), ICON_MULTIPLY)
 
 	var/datum/universal_icon/final_icon = head_icon.copy()
-	if (!isnull(sprite_accessory) && sprite_accessory.icon_state && sprite_accessory.icon_state != SPRITE_ACCESSORY_NONE)
+	if (!isnull(sprite_accessory) && sprite_accessory.icon_state != SPRITE_ACCESSORY_NONE)
 		ASSERT(istype(sprite_accessory))
 
 		var/datum/universal_icon/head_accessory_icon = uni_icon(sprite_accessory.icon, sprite_accessory.icon_state)

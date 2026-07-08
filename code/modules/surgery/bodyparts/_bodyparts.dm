@@ -34,7 +34,6 @@
 	var/limb_id = SPECIES_HUMAN
 	//Defines what sprite the limb should use if it is also sexually dimorphic.
 	var/limb_gender = "m"
-	var/uses_mutcolor = TRUE //Does this limb have a greyscale version?
 	///Is there a sprite difference between male and female?
 	var/is_dimorphic = FALSE
 	///The actual color a limb is drawn as, set by /proc/update_limb()
