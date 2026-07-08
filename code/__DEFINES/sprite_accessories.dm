@@ -13,6 +13,3 @@
 #define USE_MUTANT_COLOR "use_mutant_color"
 /// Uses the species's fixed mutant color for the hair color
 #define USE_FIXED_MUTANT_COLOR "use_fixed_mutant_color"
-
-/// Safely sets a variable on a mutable_appearance overlay, doing nothing if the overlay is null
-#define SET_OVERLAY_VALUE(overlay, variable, value) if(overlay) overlay.variable = value

@@ -31,6 +31,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/hair_color_mode
 	///The alpha used by the hair. 255 is completely solid, 0 is invisible.
 	var/hair_alpha = 255
+	///The alpha used by the facial hair. 255 is completely solid, 0 is invisible.
+	var/facial_hair_alpha = 255
 
 	///This is used for children, it will determine their default limb ID for use of examine. See examine.dm.
 	var/examine_limb_id
@@ -546,168 +548,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		C.remove_blocked_language(language, LANGUAGE_SPECIES)
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_LOSS, src)
-
-/datum/species/proc/handle_hair(mob/living/carbon/human/H, forced_colour)
-	H.remove_overlay(HAIR_LAYER)
-	var/obj/item/bodypart/head/HD = H.get_bodypart(BODY_ZONE_HEAD)
-	if(!HD) //Decapitated
-		return
-
-	if(HAS_TRAIT(H, TRAIT_HUSK))
-		return
-	var/datum/sprite_accessory/S
-	var/list/standing = list()
-
-	var/hair_hidden = FALSE //ignored if the matching dynamic_X_suffix is non-empty
-	var/facialhair_hidden = FALSE // ^
-
-	var/dynamic_hair_suffix = "" //if this is non-null, and hair+suffix matches an iconstate, then we render that hair instead
-	var/dynamic_fhair_suffix = ""
-
-	//for augmented heads
-	if(!IS_ORGANIC_LIMB(HD))
-		return
-
-	//we check if our hat or helmet hides our facial hair.
-	if(H.head)
-		var/obj/item/I = H.head
-		if(isclothing(I))
-			var/obj/item/clothing/C = I
-			dynamic_fhair_suffix = C.dynamic_fhair_suffix
-		if(I.flags_inv & HIDEFACIALHAIR)
-			facialhair_hidden = TRUE
-
-	if(H.wear_mask)
-		var/obj/item/I = H.wear_mask
-		if(isclothing(I))
-			var/obj/item/clothing/C = I
-			dynamic_fhair_suffix = C.dynamic_fhair_suffix //mask > head in terms of facial hair
-		if(I.flags_inv & HIDEFACIALHAIR)
-			facialhair_hidden = TRUE
-
-	var/mutable_appearance/facial_hair_overlay = null
-	var/mutable_appearance/hair_overlay = null
-	var/mutable_appearance/gradient_overlay = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
-
-	// Build facial hair overlay (icon/state/alpha only, color applied later)
-	if(H.facial_hair_style && (HD.head_flags & HEAD_FACIAL_HAIR) && (!facialhair_hidden || dynamic_fhair_suffix))
-		S = GLOB.facial_hair_styles_list[H.facial_hair_style]
-		if(S?.icon_state)
-
-			//List of all valid dynamic_fhair_suffixes
-			var/static/list/fextensions
-			if(!fextensions)
-				var/icon/fhair_extensions = icon('icons/mob/facialhair_extensions.dmi')
-				fextensions = list()
-				for(var/s in fhair_extensions.IconStates(1))
-					fextensions[s] = TRUE
-				qdel(fhair_extensions)
-
-			//Is facial_hair+dynamic_fhair_suffix a valid iconstate?
-			var/fhair_state = S.icon_state
-			var/fhair_file = S.icon
-			if(fextensions[fhair_state+dynamic_fhair_suffix])
-				fhair_state += dynamic_fhair_suffix
-				fhair_file = 'icons/mob/facialhair_extensions.dmi'
-
-			facial_hair_overlay = mutable_appearance(fhair_file, fhair_state, CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
-			facial_hair_overlay.alpha = hair_alpha
-
-	if(H.head)
-		var/obj/item/I = H.head
-		if(isclothing(I) && !istype(I, /obj/item/clothing/head/wig))
-			var/obj/item/clothing/C = I
-			dynamic_hair_suffix = C.dynamic_hair_suffix
-		if(I.flags_inv & HIDEHAIR)
-			hair_hidden = TRUE
-
-	if(H.wear_mask)
-		var/obj/item/I = H.wear_mask
-		if(!dynamic_hair_suffix && isclothing(I)) //head > mask in terms of head hair
-			var/obj/item/clothing/C = I
-			dynamic_hair_suffix = C.dynamic_hair_suffix
-		if(I.flags_inv & HIDEHAIR)
-			hair_hidden = TRUE
-
-	// Build hair overlay (icon/state/alpha only, color applied later)
-	var/is_debrained = FALSE
-	if(!hair_hidden || dynamic_hair_suffix)
-		if(!hair_hidden && !H.get_organ_slot(ORGAN_SLOT_BRAIN) && (HD.head_flags & HEAD_DEBRAIN))
-			hair_overlay = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
-			hair_overlay.icon = 'icons/mob/human/human_face.dmi'
-			hair_overlay.icon_state = "debrained"
-			is_debrained = TRUE
-
-		else if(H.hair_style && (HD.head_flags & HEAD_HAIR))
-			var/current_hair_style = H.hair_style
-			var/current_gradient_style = H.gradient_style
-			var/current_gradient_color = H.gradient_color
-			S = GLOB.hair_styles_list[current_hair_style]
-			if(S?.icon_state)
-
-				//List of all valid dynamic_hair_suffixes
-				var/static/list/extensions
-				if(!extensions)
-					var/icon/hair_extensions = icon('icons/mob/hair_extensions.dmi') //hehe
-					extensions = list()
-					for(var/s in hair_extensions.IconStates(1))
-						extensions[s] = TRUE
-					qdel(hair_extensions)
-
-				//Is hair+dynamic_hair_suffix a valid iconstate?
-				var/hair_state = S.icon_state
-				var/hair_file = S.icon
-				if(extensions[hair_state+dynamic_hair_suffix])
-					hair_state += dynamic_hair_suffix
-					hair_file = 'icons/mob/hair_extensions.dmi'
-
-				hair_overlay = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
-				hair_overlay.icon = hair_file
-				hair_overlay.icon_state = hair_state
-				hair_overlay.alpha = hair_alpha
-				HD.worn_mask_offset?.apply_offset(hair_overlay)
-
-				//Gradients (only when not overriding color wholesale)
-				if(!forced_colour && current_gradient_style)
-					var/datum/sprite_accessory/gradient = GLOB.hair_gradients_list[current_gradient_style]
-					var/icon/temp = icon(gradient.icon, gradient.icon_state)
-					var/icon/temp_hair = icon(hair_file, hair_state)
-					temp.Blend(temp_hair, ICON_ADD)
-					gradient_overlay.icon = temp
-					gradient_overlay.color = current_gradient_color
-
-	// Temp color block
-	if(forced_colour)
-		SET_OVERLAY_VALUE(facial_hair_overlay, color, forced_colour)
-		if(!is_debrained)
-			SET_OVERLAY_VALUE(hair_overlay, color, forced_colour)
-	else if(HD.override_hair_color)
-		SET_OVERLAY_VALUE(facial_hair_overlay, color, HD.override_hair_color)
-		if(!is_debrained)
-			SET_OVERLAY_VALUE(hair_overlay, color, HD.override_hair_color)
-	else if(HD.fixed_hair_color)
-		SET_OVERLAY_VALUE(facial_hair_overlay, color, HD.fixed_hair_color)
-		if(!is_debrained)
-			SET_OVERLAY_VALUE(hair_overlay, color, HD.fixed_hair_color)
-	else
-		var/species_color = get_fixed_hair_color(H)
-		SET_OVERLAY_VALUE(facial_hair_overlay, color, species_color || H.facial_hair_color)
-		if(!is_debrained)
-			SET_OVERLAY_VALUE(hair_overlay, color, species_color || H.hair_color)
-
-	if(facial_hair_overlay)
-		standing += facial_hair_overlay
-		standing += emissive_blocker(facial_hair_overlay.icon, facial_hair_overlay.icon_state, facial_hair_overlay.layer, facial_hair_overlay.alpha)
-
-	if(hair_overlay?.icon)
-		standing += emissive_blocker(hair_overlay.icon, hair_overlay.icon_state, hair_overlay.layer, hair_overlay.alpha)
-		standing += hair_overlay
-		standing += gradient_overlay
-
-	if(standing.len)
-		H.overlays_standing[HAIR_LAYER] = standing
-
-	H.apply_overlay(HAIR_LAYER)
 
 /*
  * Handles lipstick, having no eyes, eye color, undergarnments like underwear, undershirts, and socks, and body layers.
@@ -1500,9 +1340,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/go_bald(mob/living/carbon/human/target)
 	if(QDELETED(target)) //may be called from a timer
 		return
-	target.facial_hair_style = "Shaved"
-	target.hair_style = "Bald"
-	target.update_hair()
+	target.set_facial_hairstyle("Shaved", update = FALSE)
+	target.set_hairstyle("Bald", update = TRUE) //This calls update_body_parts()
 
 ////////////////
 // MOVE SPEED //

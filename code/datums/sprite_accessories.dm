@@ -74,6 +74,7 @@
 //////////////////////
 /datum/sprite_accessory/hair
 	icon = 'icons/mob/human/human_face.dmi'	  // default icon for all hairs
+	var/y_offset = 0 // Y offset to apply so we can have hair that reaches above the player sprite's visual bounding box
 
 	// please make sure they're sorted alphabetically and, where needed, categorized
 	// try to capitalize the names please~
@@ -1044,61 +1045,84 @@
 /////////////////////////////////////
 */
 
-/datum/sprite_accessory/hair_gradient
+/datum/sprite_accessory/gradient
 	icon = 'icons/mob/hair_gradients.dmi'
 	use_default = FALSE
+	///whether this gradient applies to hair and/or beards. Some gradients do not work well on beards.
+	var/gradient_category = GRADIENT_APPLIES_TO_HAIR|GRADIENT_APPLIES_TO_FACIAL_HAIR
 
-/datum/sprite_accessory/hair_gradient/none
+/datum/sprite_accessory/gradient/none
 	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 	use_default = TRUE
 
-/datum/sprite_accessory/hair_gradient/fadeup
+/datum/sprite_accessory/gradient/fadeup
 	name = "Fade Up"
 	icon_state = "fadeup"
 	use_default = TRUE
 
-/datum/sprite_accessory/hair_gradient/fadedown
+/datum/sprite_accessory/gradient/fadedown
 	name = "Fade Down"
 	icon_state = "fadedown"
 
-/datum/sprite_accessory/hair_gradient/vertical_split
+/datum/sprite_accessory/gradient/vertical_split
 	name = "Vertical Split"
 	icon_state = "vsplit"
 
-/datum/sprite_accessory/hair_gradient/horizontal_split
+/datum/sprite_accessory/gradient/horizontal_split
 	name = "Horizontal Split"
 	icon_state = "bottomflat"
 
-/datum/sprite_accessory/hair_gradient/reflected
+/datum/sprite_accessory/gradient/reflected
 	name = "Reflected"
 	icon_state = "reflected_high"
 	use_default = TRUE
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
 
-/datum/sprite_accessory/hair_gradient/reflected_inverse
+/datum/sprite_accessory/gradient/reflected/beard
+	icon_state = "reflected_high_beard"
+	gradient_category = GRADIENT_APPLIES_TO_FACIAL_HAIR
+
+/datum/sprite_accessory/gradient/reflected_inverse
 	name = "Reflected Inverse"
 	icon_state = "reflected_inverse_high"
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
 
-/datum/sprite_accessory/hair_gradient/wavy
+/datum/sprite_accessory/gradient/reflected_inverse/beard
+	icon_state = "reflected_inverse_high_beard"
+	gradient_category = GRADIENT_APPLIES_TO_FACIAL_HAIR
+
+/datum/sprite_accessory/gradient/wavy
 	name = "Wavy"
 	icon_state = "wavy"
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
 
-/datum/sprite_accessory/hair_gradient/long_fade_up
+/datum/sprite_accessory/gradient/long_fade_up
 	name = "Long Fade Up"
 	icon_state = "long_fade_up"
 	use_default = TRUE
 
-/datum/sprite_accessory/hair_gradient/long_fade_down
+/datum/sprite_accessory/gradient/long_fade_down
 	name = "Long Fade Down"
 	icon_state = "long_fade_down"
 
-/datum/sprite_accessory/hair_gradient/short_fade_up
+/datum/sprite_accessory/gradient/short_fade_up
 	name = "Short Fade Up"
 	icon_state = "short_fade_up"
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
 
-/datum/sprite_accessory/hair_gradient/short_fade_down
+/datum/sprite_accessory/gradient/short_fade_up/beard
+	icon_state = "short_fade_down"
+	gradient_category = GRADIENT_APPLIES_TO_FACIAL_HAIR
+
+/datum/sprite_accessory/gradient/short_fade_down
 	name = "Short Fade Down"
 	icon_state = "short_fade_down"
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
+
+/datum/sprite_accessory/gradient/short_fade_down/beard
+	icon_state = "short_fade_down_beard"
+	gradient_category = GRADIENT_APPLIES_TO_FACIAL_HAIR
 
 /////////////////////////////
 // Facial Hair Definitions //

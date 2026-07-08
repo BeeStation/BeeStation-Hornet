@@ -29,9 +29,4 @@
 /mob/living/carbon/human/cure_husk(list/sources)
 	. = ..()
 	if(.)
-		update_hair()
-
-/mob/living/carbon/human/become_husk(source)
-	. = ..()
-	if(.)
-		update_hair()
+		update_body_parts()

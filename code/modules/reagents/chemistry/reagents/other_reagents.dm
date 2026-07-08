@@ -510,7 +510,7 @@
 		if(head)
 			head.head_flags |= HEAD_HAIR //No hair? No problem!
 		affected_human.hair_style = "Spiky"
-		affected_human.facial_hair_style = "Shaved"
+		affected_human.facial_hairstyle = "Shaved"
 		affected_human.facial_hair_color = COLOR_BLACK
 		affected_human.hair_color = COLOR_BLACK
 		if(HAS_TRAIT(affected_human, TRAIT_USES_SKINTONES))
@@ -1775,10 +1775,10 @@
 /datum/reagent/barbers_aid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
-		var/datum/sprite_accessory/hair/picked_hair = GLOB.hair_styles_list[pick(GLOB.hair_styles_list)]
-		var/datum/sprite_accessory/facial_hair/picked_beard = GLOB.facial_hair_styles_list[pick(GLOB.facial_hair_styles_list)]
+		var/datum/sprite_accessory/hair/picked_hair = GLOB.hairstyles_list[pick(GLOB.hairstyles_list)]
+		var/datum/sprite_accessory/facial_hair/picked_beard = GLOB.facial_hairstyles_list[pick(GLOB.facial_hairstyles_list)]
 		exposed_human.hair_style = picked_hair.name
-		exposed_human.facial_hair_style = picked_beard
+		exposed_human.facial_hairstyle = picked_beard
 		exposed_human.update_hair()
 
 /datum/reagent/concentrated_barbers_aid
@@ -1793,7 +1793,7 @@
 	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
 		exposed_human.hair_style = "Very Long Hair"
-		exposed_human.facial_hair_style = "Beard (Very Long)"
+		exposed_human.facial_hairstyle = "Beard (Very Long)"
 		exposed_human.update_hair()
 
 /datum/reagent/barbers_afro_mania
@@ -1822,7 +1822,7 @@
 	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
 		exposed_human.hair_style = "Bald 2"
-		exposed_human.facial_hair_style = "Shaved"
+		exposed_human.facial_hairstyle = "Shaved"
 		exposed_human.update_hair()
 
 /datum/reagent/saltpetre

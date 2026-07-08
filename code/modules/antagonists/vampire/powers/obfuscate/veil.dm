@@ -15,7 +15,7 @@
 	var/prev_gender
 	var/prev_skin_tone
 	var/prev_hair_style
-	var/prev_facial_hair_style
+	var/prev_facial_hairstyle
 	var/prev_hair_color
 	var/prev_facial_hair_color
 	var/prev_underwear
@@ -38,7 +38,7 @@
 	prev_gender = user.gender
 	prev_skin_tone = user.skin_tone
 	prev_hair_style = user.hair_style
-	prev_facial_hair_style = user.facial_hair_style
+	prev_facial_hairstyle = user.facial_hairstyle
 	prev_hair_color = user.hair_color
 	prev_facial_hair_color = user.facial_hair_color
 	prev_underwear = user.underwear
@@ -58,7 +58,7 @@
 	user.gender = pick(MALE, FEMALE, PLURAL)
 	user.skin_tone = pick(GLOB.skin_tones)
 	user.hair_style = random_hair_style(user.gender)
-	user.facial_hair_style = pick(random_facial_hair_style(user.gender), "Shaved")
+	user.facial_hairstyle = pick(random_facial_hairstyle(user.gender), "Shaved")
 	user.hair_color = "#[random_color()]"
 	user.facial_hair_color = user.hair_color
 	user.underwear = random_underwear(user.gender)
@@ -95,7 +95,7 @@
 	user.gender = prev_gender
 	user.skin_tone = prev_skin_tone
 	user.hair_style = prev_hair_style
-	user.facial_hair_style = prev_facial_hair_style
+	user.facial_hairstyle = prev_facial_hairstyle
 	user.hair_color = prev_hair_color
 	user.facial_hair_color = prev_facial_hair_color
 	user.underwear = prev_underwear

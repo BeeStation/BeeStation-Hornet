@@ -117,11 +117,9 @@
 
 /obj/item/razor/proc/shave(mob/living/carbon/human/H, location = BODY_ZONE_PRECISE_MOUTH)
 	if(location == BODY_ZONE_PRECISE_MOUTH)
-		H.facial_hair_style = "Shaved"
+		H.set_facial_hairstyle("Shaved", update = TRUE)
 	else
-		H.hair_style = "Skinhead"
-
-	H.update_hair()
+		H.set_hairstyle("Skinhead", update = TRUE)
 	playsound(loc, 'sound/items/welder2.ogg', 20, 1)
 
 
@@ -163,7 +161,7 @@
 			if(!get_location_accessible(H, location))
 				to_chat(user, span_warning("The mask is in the way!"))
 				return
-			if(H.facial_hair_style == "Shaved")
+			if(H.facial_hairstyle == "Shaved")
 				to_chat(user, span_warning("Already clean-shaven!"))
 				return
 
@@ -220,15 +218,14 @@
 		return
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
-	var/new_style = input(user, "Select a hair style", "Grooming")  as null|anything in GLOB.hair_styles_list
+	var/new_style = input(user, "Select a hair style", "Grooming")  as null|anything in GLOB.hairstyles_list
 	if(!get_location_accessible(H, BODY_ZONE_HEAD))
 		to_chat(user, span_warning("The headgear is in the way!"))
 		return
 	user.visible_message(span_notice("[user] tries to change [H]'s hairstyle using [src]."), span_notice("You try to change [H]'s hairstyle using [src]."))
 	if(new_style && do_after(user, 60, target = H))
 		user.visible_message(span_notice("[user] successfully changes [H]'s hairstyle using [src]."), span_notice("You successfully change [H]'s hairstyle using [src]."))
-		H.hair_style = new_style
-		H.update_hair()
+		H.set_hairstyle(new_style, update = TRUE)
 
 /obj/item/razor/proc/new_facial_hairstyle(mob/living/carbon/human/H, mob/user, mirror)
 	if(H == user && !mirror)
@@ -236,15 +233,14 @@
 		return
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
-	var/new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in GLOB.facial_hair_styles_list
+	var/new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in GLOB.facial_hairstyles_list
 	if(!get_location_accessible(H, BODY_ZONE_PRECISE_MOUTH))
 		to_chat(user, span_warning("The mask is in the way!"))
 		return
 	user.visible_message(span_notice("[user] tries to change [H]'s facial hair style using [src]."), span_notice("You try to change [H]'s facial hair style using [src]."))
 	if(new_style && do_after(user, 60, target = H))
 		user.visible_message(span_notice("[user] successfully changes [H]'s facial hair style using [src]."), span_notice("You successfully change [H]'s facial hair style using [src]."))
-		H.facial_hair_style = new_style
-		H.update_hair()
+		H.set_facial_hairstyle(new_style, update = TRUE)
 
 /obj/item/razor/straightrazor
 	name = "straight razor"

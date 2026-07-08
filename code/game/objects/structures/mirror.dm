@@ -38,19 +38,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 		switch(choice)
 			if("Hair")
 				//handle normal hair
-				var/new_style = tgui_input_list(user, "Select a hair style", "Grooming", GLOB.hair_styles_list, H.hair_style)
+				var/new_style = tgui_input_list(user, "Select a hair style", "Grooming", GLOB.hairstyles_list, H.hair_style)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return	//no tele-grooming
 				if(new_style)
-					H.hair_style = new_style
+					H.set_hairstyle(new_style, update = TRUE)
 			if("Facial")
 				//handle facial hair
-				var/new_style = tgui_input_list(user, "Select a facial hair style", "Grooming", GLOB.facial_hair_styles_list, H.facial_hair_style)
+				var/new_style = tgui_input_list(user, "Select a facial hair style", "Grooming", GLOB.facial_hairstyles_list, H.facial_hairstyle)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return	//no tele-grooming
 				if(new_style)
-					H.facial_hair_style = new_style
-		H.update_hair()
+					H.set_facial_hairstyle(new_style, update = TRUE)
 
 /obj/structure/mirror/examine_status(mob/user)
 	if(broken)
@@ -192,9 +191,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 					else
 						to_chat(H, span_notice("Invalid color. Your color is not bright enough."))
 
-			H.update_body()
-			H.update_hair()
-			H.update_body_parts(TRUE)
+			H.update_body(is_creating = TRUE)
 			H.update_mutations_overlay() // no hulk lizard
 
 		if("gender")
@@ -226,7 +223,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 				return
 			if(hairchoice == "Style") //So you just want to use a mirror then?
-				var/new_style = tgui_input_list(user, "Select a hair style", "Hair Style", GLOB.hair_styles_list, H.hair_style)
+				var/new_style = tgui_input_list(user, "Select a hair style", "Hair Style", GLOB.hairstyles_list, H.hair_style)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_style)
@@ -243,7 +240,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 					if(new_face_color)
 						H.facial_hair_color = sanitize_hexcolor(new_face_color)
 						H.dna.update_ui_block(DNA_FACIAL_HAIR_COLOR_BLOCK)
-			H.update_hair()
+			H.update_body_parts()
 
 		if(BODY_ZONE_PRECISE_EYES)
 			var/new_eye_color = tgui_color_picker(H, "Choose your eye color", "Eye Color", H.eye_color_left)

@@ -11,6 +11,7 @@
 	)
 	hair_color_mode = USE_MUTANT_COLOR
 	hair_alpha = 150
+	facial_hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/slime
 	mutanttongue = /obj/item/organ/tongue/slime
 	meat = /obj/item/food/meat/slab/human/mutant/slime

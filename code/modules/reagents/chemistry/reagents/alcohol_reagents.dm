@@ -2717,7 +2717,7 @@
 			if(affected_human.age > 100)
 				affected_human.become_nearsighted(type)
 				if(affected_human.gender == MALE)
-					affected_human.facial_hair_style = "Beard (Very Long)"
+					affected_human.facial_hairstyle = "Beard (Very Long)"
 					affected_human.update_hair()
 
 				if(affected_human.age > 969) //Best not let people get older than this or i might incur G-ds wrath

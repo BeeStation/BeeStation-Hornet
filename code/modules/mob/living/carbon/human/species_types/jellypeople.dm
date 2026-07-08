@@ -17,6 +17,7 @@
 	)
 	hair_color_mode = USE_MUTANT_COLOR
 	hair_alpha = 150
+	facial_hair_alpha = 150
 	mutanteyes = /obj/item/organ/eyes/jelly
 	var/datum/action/innate/split_body/slime_split
 	var/list/mob/living/carbon/bodies

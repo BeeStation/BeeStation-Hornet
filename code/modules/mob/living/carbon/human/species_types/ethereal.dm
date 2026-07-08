@@ -28,6 +28,7 @@
 	bodytemp_cold_damage_limit = (T20C - 10) // about 10c
 	hair_color_mode = USE_FIXED_MUTANT_COLOR
 	hair_alpha = 140
+	facial_hair_alpha = 140
 	swimming_component = /datum/component/swimming/ethereal
 	inert_mutation = /datum/mutation/overload
 
@@ -101,7 +102,6 @@
 		ethereal_light.set_light_on(FALSE)
 		fixed_mut_color = COLOR_GRAY
 		ethereal.update_body()
-		//ethereal.update_hair()
 		ethereal.set_facial_haircolor(COLOR_GRAY, override = TRUE, update = FALSE)
 		ethereal.set_haircolor(COLOR_GRAY, override = TRUE, update = TRUE)
 

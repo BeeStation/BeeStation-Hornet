@@ -48,17 +48,8 @@ There are several things that need to be remembered:
 
 */
 
-//HAIR OVERLAY
-/mob/living/carbon/human/update_hair()
-	dna.species.handle_hair(src)
-
 /mob/living/carbon/human/proc/update_mutant_bodyparts()
 	dna.species.handle_mutant_bodyparts(src)
-
-/mob/living/carbon/human/update_body()
-	remove_overlay(BODY_LAYER)
-	dna.species.handle_body(src)
-	dna.update_body_size()
 
 /* --------------------------------------- */
 //For legacy support.
@@ -864,8 +855,5 @@ generate/load female uniform sprites matching all previously decided variables
 	my_head.update_limb(is_creating = update_limb_data)
 
 	add_overlay(my_head.get_limb_icon())
-
-	dna.species.handle_hair(src)
-
 	update_worn_head()
 	update_worn_mask()

@@ -12,7 +12,6 @@
 	desc = "The commander in chef's head wear."
 	strip_delay = 10
 	equip_delay_other = 10
-	dynamic_hair_suffix = ""
 
 	dog_fashion = /datum/dog_fashion/head/chef
 
@@ -230,7 +229,6 @@
 	icon_state = "hoscap"
 	armor_type = /datum/armor/hats_hos
 	strip_delay = 80
-	dynamic_hair_suffix = ""
 	dying_key = DYE_REGISTRY_CAP
 
 
