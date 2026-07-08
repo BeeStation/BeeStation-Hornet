@@ -255,7 +255,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 				continue
 			var/dist = get_dist(M.loc, src.loc)
 			shake_camera(M, dist > 20 ? 2 : 4, dist > 20 ? 1 : 3)
-			M.playsound_local(src.loc, null, 50, 1, random_frequency, 10, S = meteor_sound)
+			M.playsound_local(src.loc, null, 50, 1, random_frequency, 10, sound_to_use = meteor_sound)
 
 /obj/effect/meteor/has_gravity(turf/T)
 	return FALSE
@@ -459,8 +459,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/falling_meteor)
 	icon_state = contained_meteor.icon_state
 	var/matrix/M = new()
 	M.Scale(3, 3)
-	M.Translate(-1.5 * world.icon_size, -1.5 * world.icon_size)
-	M.Translate(0, world.icon_size * 7)
+	M.Translate(-1.5 * ICON_SIZE_X, -1.5 * ICON_SIZE_Y)
+	M.Translate(0, ICON_SIZE_Y * 7)
 	transform = M
 	INVOKE_ASYNC(src, PROC_REF(fall_animation))
 
@@ -519,5 +519,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/falling_meteor)
 	color = list(0, 0, 0, 0, 0, 0, 0, 0, 0)
 	var/matrix/M = matrix()
 	M.Scale(3, 3)
-	M.Translate(-1.5 * world.icon_size, -1.5 * world.icon_size)
+	M.Translate(-1.5 * ICON_SIZE_X, -1.5 * ICON_SIZE_Y)
 	transform = M

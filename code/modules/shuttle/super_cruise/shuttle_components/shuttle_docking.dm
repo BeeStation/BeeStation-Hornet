@@ -36,12 +36,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
-	GLOB.navigation_computers += src
 	whitelist_turfs = typecacheof(whitelist_turfs)
-
-/obj/machinery/computer/shuttle_flight/Destroy()
-	. = ..()
-	GLOB.navigation_computers -= src
 
 /obj/machinery/computer/shuttle_flight/proc/GrantActions(mob/living/user)
 	if(off_action)
@@ -216,7 +211,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 	if(current_user.client)
 		current_user.client.images -= the_eye.placed_images
 
-	QDEL_LIST(the_eye.placed_images)
+	LAZYCLEARLIST(the_eye.placed_images)
 
 	for(var/V in the_eye.placement_images)
 		var/image/I = V
@@ -355,8 +350,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 /mob/camera/ai_eye/remote/shuttle_docker
 	visible_icon = FALSE
 	use_static = FALSE
-	var/list/placement_images = list()
-	var/list/placed_images = list()
+	var/list/image/placement_images = list()
+	var/list/image/placed_images = list()
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
 
@@ -421,9 +416,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/ai_eye/remote/shuttle_docker)
 	playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)
 
 	var/list/L = list()
-	for(var/V in SSshuttle.stationary)
+	for(var/V in SSshuttle.stationary_docking_ports)
 		if(!V)
-			stack_trace("SSshuttle.stationary have null entry!")
+			stack_trace("SSshuttle.stationary_docking_ports have null entry!")
 			continue
 		var/obj/docking_port/stationary/S = V
 		if(console.shuttleObject.docking_target.z_in_contents(S.z) && (S.id in console.valid_docks))

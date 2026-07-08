@@ -65,16 +65,6 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 /// If a turf can be made dirty at roundstart. This is also used in areas.
 #define CAN_BE_DIRTY_1 (1<<20)
 
-
-//TURF FLAGS
-/// If a turf cant be jaunted through.
-#define NOJAUNT (1<<0)
-#define UNUSED_RESERVATION_TURF (1<<1)
-/// Blocks lava rivers being generated on the turf.
-#define NO_LAVA_GEN (1<<3)
-/// Blocks ruins spawning on the turf.
-#define NO_RUINS (1<<4)
-
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
 #define UPDATE_NAME (1<<0)
@@ -96,6 +86,16 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 /// If the thing can reflect matter (bullets/bomb shrapnel)
 #define RICOCHET_HARD (1<<1)
 
+// TURF FLAGS
+/// If a turf can't be jaunted through.
+#define NOJAUNT (1<<0)
+/// If a turf is an unused reservation turf awaiting assignment
+#define UNUSED_RESERVATION_TURF (1<<1)
+/// Blocks lava rivers being generated on the turf.
+#define NO_LAVA_GEN (1<<3)
+/// Blocks ruins spawning on the turf.
+#define NO_RUINS (1<<4)
+
 ////////////////Area flags\\\\\\\\\\\\\\
 /// If it's a valid territory for cult summoning or the CRAB-17 phone to spawn
 #define VALID_TERRITORY (1<<0)
@@ -115,16 +115,18 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define UNIQUE_AREA (1<<7)
 /// If people are allowed to suicide in it. Mostly for OOC stuff like minigames
 #define BLOCK_SUICIDE (1<<8)
-/// Can the Xenobio management console transverse this area by default?
+/// If given, the Xenobio console camera can transverse this area, even if the camera doesn't belong to that area.
 #define XENOBIOLOGY_COMPATIBLE (1<<9)
+/// If given, prevents people using Xenobio console. Used at public areas like hallway or maints. Neutralizable by slime blueprint.
+#define XENOBIOLOGY_CONSOLE_DISALLOWED (1<<10)
 /// If blood cultists can draw runes or build structures on this AREA.
-#define CULT_PERMITTED (1<<10)
+#define CULT_PERMITTED (1<<11)
 /// Are hidden stashes allowed to spawn here?
-#define HIDDEN_STASH_LOCATION (1<<11)
+#define HIDDEN_STASH_LOCATION (1<<12)
 /// Indicates that this area uses an APC from another location (Skips the unit tests for APCs)
-#define REMOTE_APC (1<<12)
+#define REMOTE_APC (1<<13)
 /// This area is prevented from having gravity (ie. space, nearstation, or outside solars)
-#define NO_GRAVITY (1<<13)
+#define NO_GRAVITY (1<<14)
 /*
 	These defines are used specifically with the atom/pass_flags bitmask
 	the atom/checkpass() proc uses them (tables will call movable atom checkpass(PASSTABLE) for example)
@@ -159,15 +161,22 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 /// Combination flag for movetypes which, for all intents and purposes, mean the mob is not touching the ground
 #define MOVETYPES_NOT_TOUCHING_GROUND (FLYING|FLOATING|UPSIDE_DOWN)
 
-//! ## Fire and Acid stuff, for resistance_flags
-#define LAVA_PROOF		(1<<0)
-#define FIRE_PROOF		(1<<1) //! 100% immune to fire damage (but not necessarily to lava or heat)
-#define FLAMMABLE		(1<<2)
-#define ON_FIRE			(1<<3)
-#define UNACIDABLE		(1<<4) //! acid can't even appear on it, let alone melt it.
-#define ACID_PROOF		(1<<5) //! acid stuck on it doesn't melt it.
-#define INDESTRUCTIBLE	(1<<6) //! doesn't take damage
-#define FREEZE_PROOF	(1<<7) //! can't be frozen
+//Fire and Acid stuff, for resistance_flags
+#define LAVA_PROOF (1<<0)
+/// 100% immune to fire damage (but not necessarily to lava or heat)
+#define FIRE_PROOF (1<<1)
+/// atom is flammable and can have the burning component
+#define FLAMMABLE (1<<2)
+/// currently burning
+#define ON_FIRE (1<<3)
+/// acid can't even appear on it, let alone melt it.
+#define UNACIDABLE (1<<4)
+/// acid stuck on it doesn't melt it.
+#define ACID_PROOF (1<<5)
+/// doesn't take damage
+#define INDESTRUCTIBLE (1<<6)
+/// can't be frozen
+#define FREEZE_PROOF (1<<7)
 
 //tesla_zap
 #define ZAP_MACHINE_EXPLOSIVE (1<<0)

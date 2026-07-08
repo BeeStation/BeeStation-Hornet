@@ -5,7 +5,7 @@
 /datum/orbital_map_tgui/ui_state(mob/user)
 	return GLOB.observer_state
 
-/datum/orbital_map_tgui/Destroy(force, ...)
+/datum/orbital_map_tgui/Destroy(force)
 	. = ..()
 	if(LAZYLEN(open_uis))
 		SSorbits.open_orbital_maps -= open_uis

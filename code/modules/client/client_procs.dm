@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(href_list["seeker_port"])
 		winshow(src, "login", FALSE) // make sure this thing is hidden
 		var/port_num = text2num(href_list["seeker_port"])
-		if(isnum_safe(port_num))
+		if(IS_FINITE(port_num))
 			seeker_port = port_num
 		if(!logged_in) // the login handler is ready now
 			src?.send_saved_session_token()
@@ -149,6 +149,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			hsrc = mob
 		if("vars")
 			return view_var_Topic(href,href_list,hsrc)
+		if(VV_HK_VIEW_ICON) // "_src_=vars" will be extremely complicating, so I decided making another route. vv needs some refactor, honestly.
+			return send_vv_icon_to_user(usr, href, href_list)
 
 	switch(href_list["action"])
 		if("openLink")

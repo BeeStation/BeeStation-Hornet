@@ -141,8 +141,8 @@
 	var/client/C = M.client
 	var/oldx = C.pixel_x
 	var/oldy = C.pixel_y
-	var/max = strength*world.icon_size
-	var/min = -(strength*world.icon_size)
+	var/max = strength*ICON_SIZE_ALL
+	var/min = -(strength*ICON_SIZE_ALL)
 
 	for(var/i in 0 to duration-1)
 		if (i == 0)
@@ -166,11 +166,6 @@
 	var/static/regex/firstname = new("^\[^\\s-\]+") //First word before whitespace or "-"
 	firstname.Find(real_name)
 	return firstname.match
-
-///Checks if the mob is able to see or not. eye_blind is temporary blindness, the trait is if they're permanently blind.
-/mob/proc/is_blind()
-	SHOULD_BE_PURE(TRUE)
-	return eye_blind ? TRUE : HAS_TRAIT(src, TRAIT_BLIND)
 
 // moved out of admins.dm because things other than admin procs were calling this.
 /// Returns TRUE if the game has started and we're either an AI with a 0th law, or we're someone with a special role/antag datum
@@ -410,7 +405,7 @@
 
 ///Can the mob hear
 /mob/proc/can_hear()
-	. = TRUE
+	return TRUE
 
 /mob/proc/has_mouth()
 	return FALSE

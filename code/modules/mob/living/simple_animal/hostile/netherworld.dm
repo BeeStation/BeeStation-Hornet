@@ -17,7 +17,7 @@
 	minbodytemp = 0
 	faction = list(FACTION_NETHER)
 	hardattacks = TRUE
-	discovery_points = 3000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/hostile/netherworld/migo
 	name = "mi-go"
@@ -158,7 +158,7 @@
 		'sound/weapons/genhit1.ogg',
 		'sound/weapons/handcuffs.ogg',
 		'sound/weapons/homerun.ogg',
-		'sound/weapons/kenetic_accel.ogg',
+		'sound/weapons/kinetic_accel.ogg',
 		'sound/machines/clockcult/steam_whoosh.ogg',
 		'sound/machines/fryer/deep_fryer_emerge.ogg',
 		'sound/machines/airlock.ogg',

@@ -23,7 +23,7 @@
 	var/obj/structure/blob/special/factory = null
 	var/independent = FALSE
 	mobchatspan = "blob"
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/blob/update_icons()
 	if(overmind)

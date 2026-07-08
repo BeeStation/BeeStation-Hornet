@@ -17,20 +17,22 @@
 
 	var/range = 5
 
-/obj/effect/anomaly/bioscrambler/anomalyEffect(delta_time)
+/obj/effect/anomaly/bioscrambler/anomaly_process(delta_time)
 	. = ..()
-
 	if(!COOLDOWN_FINISHED(src, pulse_cooldown))
 		return
 	COOLDOWN_START(src, pulse_cooldown, pulse_interval)
-
 	bioscrambler_pulse(src, range)
 
 /proc/bioscrambler_pulse(atom/owner, range = 5, ignore_owner = FALSE, message_admins = FALSE)
+	var/list/atom/nearby_things
+	if(ignore_owner)
+		nearby_things = orange(range, owner)
+	else
+		nearby_things = range(range, owner)
+
 	var/list/mob/living/carbon/affected = list()
-	for(var/mob/living/carbon/target in range(range, owner))
-		if(!ignore_owner && target == owner)
-			continue
+	for(var/mob/living/carbon/target in nearby_things)
 		if(target.run_armor_check(attack_flag = BIO, absorb_text = "Your armor protects you from [owner]!") >= 100)
 			continue //We are protected
 
@@ -63,7 +65,7 @@
 		target.log_message("had their [picked_user_part.type] turned into [new_part.type] by a bioscrambling pulse from [owner].", LOG_ATTACK, color="red")
 
 	if(message_admins)
-		message_admins("[ADMIN_LOOKUPFLW(owner)] has caused a bioscrambler pulse affecting [english_list(affected)].")
+		message_admins("[ADMIN_LOOKUPFLW(owner)] has caused a bioscrambler pulse affecting: [english_list(affected)].")
 
 #undef ANOMALY_BIOSCRAMBLER_ZONES
 #undef ANOMALY_BIOSCRAMBLER_ZONE_CHEST

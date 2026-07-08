@@ -27,6 +27,9 @@
 			ui.close()
 		return FALSE
 
+	if(!user.can_read(src, check_for_light = FALSE))
+		return
+
 	// We are still here, that means there is no program loaded. Load the BIOS/ROM/OS/whatever you want to call it.
 	// This screen simply lists available programs and user may select them.
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
@@ -159,8 +162,13 @@
 
 // Handles user's GUI input
 /obj/item/modular_computer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	if(..())
+	SHOULD_CALL_PARENT(TRUE)
+	. = ..()
+	if(.)
 		return
+
+	if(!issilicon(ui.user))
+		playsound(src, "keyboard_clicks", 10, TRUE, FALSE)
 	if(device_theme == THEME_THINKTRONIC)
 		send_select_sound()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]

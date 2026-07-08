@@ -137,7 +137,7 @@
 			new /obj/item/clothing/under/chameleon(src)
 			new /obj/item/card/id/syndicate(src)
 			new /obj/item/reagent_containers/hypospray/medipen/stimulants(src)
-			new /obj/item/reagent_containers/cup/rag(src)
+			new /obj/item/rag(src)
 			new /obj/item/encryptionkey/syndicate(src)
 
 		if("ninja")

@@ -111,7 +111,6 @@
 	acceptable_bodytype = BODYTYPE_LARVA_PLACEHOLDER
 	wing_types = NONE
 
-/// Parent Type for arms, should not appear in game.
 /obj/item/bodypart/arm
 	abstract_type = /obj/item/bodypart/arm
 	name = "arm"
@@ -135,6 +134,7 @@
 	QDEL_NULL(worn_glove_offset)
 	QDEL_NULL(held_hand_offset)
 	return ..()
+
 
 /// We need to clear out hand hud items and appearance, so do that here
 /obj/item/bodypart/arm/clear_ownership(mob/living/carbon/old_owner)
@@ -184,6 +184,7 @@
 	held_index = 1
 	px_x = -6
 	px_y = 0
+	bodypart_trait_source = LEFT_ARM_TRAIT
 
 /obj/item/bodypart/arm/left/apply_ownership(mob/living/carbon/new_owner)
 	if(HAS_TRAIT(new_owner, TRAIT_PARALYSIS_L_ARM))
@@ -201,6 +202,7 @@
 	else
 		UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM))
 	..()
+
 
 ///Proc to react to the owner gaining the TRAIT_PARALYSIS_L_ARM trait.
 /obj/item/bodypart/arm/left/proc/on_owner_paralysis_gain(mob/living/carbon/source)
@@ -275,10 +277,10 @@
 	body_part = ARM_RIGHT
 	plaintext_zone = "right arm"
 	aux_zone = BODY_ZONE_PRECISE_R_HAND
-	aux_layer = BODYPARTS_HIGH_LAYER
 	held_index = 2
 	px_x = 6
 	px_y = 0
+	bodypart_trait_source = RIGHT_ARM_TRAIT
 
 /obj/item/bodypart/arm/right/apply_ownership(mob/living/carbon/new_owner)
 	if(HAS_TRAIT(new_owner, TRAIT_PARALYSIS_R_ARM))
@@ -362,7 +364,6 @@
 	max_damage = 100
 	should_draw_greyscale = FALSE
 
-/// Parent Type for arms, should not appear in game.
 /obj/item/bodypart/leg
 	abstract_type = /obj/item/bodypart/leg
 	name = "leg"
@@ -374,12 +375,14 @@
 	max_stamina_damage = 50
 	can_be_disabled = TRUE
 	unarmed_attack_effect = ATTACK_EFFECT_KICK
-	body_zone = BODY_ZONE_L_LEG
 	unarmed_attack_verb = "kick" // The lovely kick, typically only accessable by attacking a grouded foe. 1.5 times better than the punch.
 	unarmed_damage = 7
-
 	/// Datum describing how to offset things worn on the foot of this leg, note that an x offset won't do anything here
 	var/datum/worn_feature_offset/worn_foot_offset
+
+/obj/item/bodypart/leg/Destroy()
+	QDEL_NULL(worn_foot_offset)
+	return ..()
 
 /obj/item/bodypart/leg/left
 	name = "left leg"
@@ -391,7 +394,6 @@
 	plaintext_zone = "left leg"
 	px_x = -2
 	px_y = 12
-	can_be_disabled = TRUE
 	bodypart_trait_source = LEFT_LEG_TRAIT
 
 /obj/item/bodypart/leg/left/apply_ownership(mob/living/carbon/new_owner)
@@ -411,7 +413,7 @@
 		UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG))
 	..()
 
-///Proc to react to the owner gaining the TRAIT_PARALYSIS_L_ARM trait.
+///Proc to react to the owner gaining the TRAIT_PARALYSIS_L_LEG trait.
 /obj/item/bodypart/leg/left/proc/on_owner_paralysis_gain(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)

@@ -1,11 +1,9 @@
-/// Chance the malf AI gets a single special objective that isn't assassinate.
-#define PROB_SPECIAL 30
-
 /datum/antagonist/malf_ai
 	name = "Malfunctioning AI"
 	roundend_category = "traitors"
 	antagpanel_category = "Malfunctioning AI"
 	banning_key = ROLE_MALF
+	antag_hud_name = "traitor"
 	ui_name = "AntagInfoMalf"
 	required_living_playtime = 8
 	///the name of the antag flavor this traitor has.
@@ -42,7 +40,7 @@
 	owner.current.grant_language(/datum/language/codespeak, source = LANGUAGE_MALF)
 
 	var/datum/atom_hud/data/hackyhud = GLOB.huds[DATA_HUD_HACKED_APC]
-	hackyhud.add_hud_to(owner.current)
+	hackyhud.show_to(owner.current)
 
 	return ..()
 
@@ -55,31 +53,6 @@
 
 	owner.special_role = null
 	return ..()
-
-/// Generates a complete set of malf AI objectives up to the traitor objective limit.
-/datum/antagonist/malf_ai/proc/forge_objectives()
-	forge_special_objective()
-
-	var/datum/objective/survive/malf/dont_die_objective = new
-	dont_die_objective.owner = owner
-	objectives += dont_die_objective
-
-/// Generates a special objective and adds it to the objective list.
-/datum/antagonist/malf_ai/proc/forge_special_objective()
-	var/special_pick = rand(1,3)
-	switch(special_pick)
-		if(1)
-			var/datum/objective/block/block_objective = new
-			block_objective.owner = owner
-			objectives += block_objective
-		if(2)
-			var/datum/objective/purge/purge_objective = new
-			purge_objective.owner = owner
-			objectives += purge_objective
-		if(3)
-			var/datum/objective/robot_army/robot_objective = new
-			robot_objective.owner = owner
-			objectives += robot_objective
 
 /datum/antagonist/malf_ai/greet()
 	var/list/msg = list()
@@ -111,8 +84,6 @@
 	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_phrase_regex, "blue", src)
 	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_response_regex, "red", src)
 
-	add_antag_hud(ANTAG_HUD_TRAITOR, "traitor", datum_owner)
-
 /datum/antagonist/malf_ai/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 
@@ -123,8 +94,6 @@
 
 	for(var/datum/component/codeword_hearing/component as anything in datum_owner.GetComponents(/datum/component/codeword_hearing))
 		component.delete_if_from_source(src)
-
-	remove_antag_hud(ANTAG_HUD_TRAITOR, datum_owner)
 
 /// Outputs this shift's codewords and responses to the antag's chat and copies them to their memory.
 /datum/antagonist/malf_ai/proc/give_codewords()
@@ -193,5 +162,3 @@
 			SEND_SOUND(owner.current, 'sound/ambience/ambifailure.ogg')
 
 	return result.Join("<br>")
-
-#undef PROB_SPECIAL

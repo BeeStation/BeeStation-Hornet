@@ -96,6 +96,7 @@
 	name = "Ash Walker"
 	id = SPECIES_LIZARD_ASH
 	examine_limb_id = SPECIES_LIZARD
+	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/lungs/ashwalker
 	mutantbrain = /obj/item/organ/brain/primitive
 	inherent_traits = list(

@@ -8,6 +8,7 @@
 	antagpanel_category = "Changeling"
 	banning_key = ROLE_CHANGELING
 	required_living_playtime = 4
+	antag_hud_name = "changeling"
 	ui_name = "AntagInfoChangeling"
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5
@@ -27,7 +28,9 @@
 	/// The original profile of this changeling.
 	var/datum/changeling_profile/first_profile = null
 	/// The amount of DNA gained. Includes DNA sting.
-	var/absorbed_count = 0
+	var/absorbed_genomes = 0
+	/// The amount of people we have absorbed with the absorb ability.
+	var/absorbed_people = 0
 	/// The number of chemicals the changeling currently has.
 	var/chem_charges = 20
 	/// The max chemical storage the changeling currently has.
@@ -110,12 +113,11 @@
 		forge_objectives()
 	handle_clown_mutation(owner.current, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
 	owner.current.get_language_holder().omnitongue = TRUE
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+
 	return ..()
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
 	var/mob/mob_to_tweak = mob_override || owner.current
-	update_changeling_icons_added()
 	if(!isliving(mob_to_tweak))
 		return
 
@@ -166,7 +168,6 @@
 
 /datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/living_mob = mob_override || owner.current
-	update_changeling_icons_removed()
 	handle_clown_mutation(living_mob, removing = FALSE)
 	UnregisterSignal(living_mob, list(COMSIG_MOB_LOGIN, COMSIG_LIVING_LIFE, COMSIG_LIVING_POST_FULLY_HEAL, COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON, COMSIG_MOB_HUD_CREATED))
 	living_mob?.hud_used?.lingchemdisplay?.invisibility = INVISIBILITY_ABSTRACT
@@ -334,7 +335,7 @@
 		to_chat(owner.current, span_warning("We have reached our capacity for abilities!"))
 		return FALSE
 
-	if(absorbed_count < initial(sting_path.req_dna))
+	if(absorbed_genomes < initial(sting_path.req_dna))
 		to_chat(owner.current, span_warning("We lack the DNA to evolve this ability!"))
 		return FALSE
 
@@ -447,7 +448,7 @@
 
 	// Set up a copy of their DNA in our profile.
 	var/datum/dna/new_dna = new target.dna.type()
-	target.dna.copy_dna(new_dna)
+	target.dna.copy_dna_to(new_dna)
 	new_profile.dna = new_dna
 	new_profile.name = target.real_name
 	new_profile.protected = protect
@@ -510,7 +511,7 @@
 		current_profile = first_profile
 
 	stored_profiles += new_profile
-	absorbed_count++
+	absorbed_genomes++
 
 /*
  * Create a new profile from the given [profile_target]
@@ -590,24 +591,6 @@
 
 /datum/antagonist/changeling/farewell()
 	to_chat(owner.current, span_userdanger("You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!"))
-
-/// Generate objectives for our changeling.
-/datum/antagonist/changeling/proc/forge_objectives()
-	var/datum/objective/survival_of_the_fittest/cull_objective = new
-	cull_objective.owner = owner
-	cull_objective.generate_amount()
-	objectives += cull_objective
-	log_objective(owner, cull_objective.explanation_text)
-
-/datum/antagonist/changeling/proc/update_changeling_icons_added()
-	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_CHANGELING]
-	hud.join_hud(owner.current)
-	set_antag_hud(owner.current, "changeling")
-
-/datum/antagonist/changeling/proc/update_changeling_icons_removed()
-	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_CHANGELING]
-	hud.leave_hud(owner.current)
-	set_antag_hud(owner.current, null)
 
 /datum/antagonist/changeling/admin_add(datum/mind/new_owner,mob/admin)
 	. = ..()
@@ -783,7 +766,7 @@
 	new_profile.name = name
 	new_profile.protected = protected
 	new_profile.dna = new dna.type
-	dna.copy_dna(new_profile.dna)
+	dna.copy_dna_to(new_profile.dna)
 	new_profile.name_list = name_list.Copy()
 	new_profile.appearance_list = appearance_list.Copy()
 	new_profile.flags_cover_list = flags_cover_list.Copy()
@@ -818,7 +801,7 @@
 		changeling_win = FALSE
 
 	parts += printplayer(owner)
-	parts += "<b>Genomes Extracted:</b> [absorbed_count]<br>"
+	parts += "<b>Genomes Extracted:</b> [absorbed_genomes]<br>"
 
 	if(objectives.len)
 		var/count = 1

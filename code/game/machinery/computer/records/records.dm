@@ -170,7 +170,7 @@
 		playsound(src, 'sound/machines/terminal_error.ogg', 70, TRUE)
 		return FALSE
 
-	if(mugshot.picture.psize_x > world.icon_size || mugshot.picture.psize_y > world.icon_size)
+	if(mugshot.picture.psize_x > ICON_SIZE_X || mugshot.picture.psize_y > ICON_SIZE_Y)
 		balloon_alert(user, "photo too large!")
 		playsound(src, 'sound/machines/terminal_error.ogg', 70, TRUE)
 		return FALSE
@@ -180,7 +180,21 @@
 	if(!name || !is_operational || !user.canUseTopic(src) || !mugshot || QDELETED(mugshot) || QDELETED(src))
 		return FALSE
 
-	new /datum/record/crew(name = name, character_appearance = mugshot.picture.picture_image)
+	new /datum/record/crew(RECORD_GENERAL_STRICT_ARGS(
+		age = null,
+		blood_type = null,
+		character_appearance = mugshot.picture.picture_image,
+		unique_enzymes = null,
+		unique_identity = null,
+		fingerprint = null,
+		gender = null,
+		initial_rank = null,
+		name = name,
+		rank = null,
+		species = null,
+		hud = null,
+		active_department = null))
+		// This ARG macro might look weird, but it is to make things safe.
 
 	balloon_alert(user, "record created")
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 70, TRUE)

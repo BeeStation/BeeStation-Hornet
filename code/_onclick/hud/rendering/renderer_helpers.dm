@@ -9,7 +9,7 @@
 	src.map_name = map_name
 	generate_camera_planes(map_name)
 
-/datum/remote_view/Destroy(force, ...)
+/datum/remote_view/Destroy(force)
 	. = ..()
 	QDEL_LIST(cam_plane_masters)
 	QDEL_LIST(relay_images)
@@ -18,7 +18,7 @@
 	cam_plane_masters = list()
 	relay_images = list()
 	// Create all the plane masters
-	for(var/atom/movable/screen/plane_master/plane as() in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
+	for(var/atom/movable/screen/plane_master/plane as anything in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
 		// Otherwise continue
 		var/atom/movable/screen/plane_master/instance = new plane()
 		if(instance.blend_mode_override)
@@ -56,7 +56,7 @@
 		relay_images += relay_image
 
 /datum/remote_view/proc/get_plane(plane_type)
-	for (var/atom/plane as() in cam_plane_masters)
+	for (var/atom/plane as anything in cam_plane_masters)
 		if (plane.type == plane_type)
 			return plane
 	return null

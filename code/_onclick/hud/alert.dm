@@ -218,12 +218,6 @@
 	desc = "The air around you is hazardously thick. A fire suit would protect you."
 	icon_state = "highpressure"
 
-/atom/movable/screen/alert/blind
-	name = "Blind"
-	desc = "You can't see! This may be caused by a genetic defect, eye trauma, being unconscious, \
-or something covering your eyes."
-	icon_state = "blind"
-
 /atom/movable/screen/alert/hypnosis
 	name = "Hypnosis"
 	desc = "Something's hypnotizing you, but you're not really sure about what."
@@ -737,7 +731,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		if (time_left_overlay)
 			cut_overlay(time_left_overlay)
 		time_left_overlay = new
-		time_left_overlay.maptext = MAPTEXT("<span style='color: [(timeleft <= 10 SECONDS) ? "red" : "white"]'><b>[CEILING(timeleft / (1 SECONDS), 1)]</b></span>")
+		time_left_overlay.maptext = MAPTEXT("<span style='color: [(timeleft <= 10 SECONDS) ? "red" : "white"]'><b>[ceil(timeleft / (1 SECONDS))]</b></span>")
 		time_left_overlay.transform = time_left_overlay.transform.Translate(4, 19)
 		add_overlay(time_left_overlay)
 	else

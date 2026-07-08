@@ -472,7 +472,7 @@
 	return ..()
 
 /datum/status_effect/stabilized/tick(seconds_between_ticks)
-	if (duration != -1)
+	if (duration != STATUS_EFFECT_PERMANENT)
 		return ..()
 	if(isnull(linked_extract))
 		duration = world.time + 15 SECONDS
@@ -825,7 +825,7 @@
 		var/mob/living/carbon/human/H = owner
 		originalDNA = new H.dna.type
 		originalname = H.real_name
-		H.dna.copy_dna(originalDNA)
+		H.dna.copy_dna_to(originalDNA)
 		randomize_human(H)
 	return ..()
 

@@ -53,7 +53,6 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	var/obj/effect/temp_visual/fcluwne_manifest/cluwnehole
 	move_resist = INFINITY
 	hud_type = /datum/hud/ghost
-	hud_possible = list(ANTAG_HUD)
 	mobchatspan = "rainbow"
 
 /mob/living/simple_animal/hostile/floor_cluwne/Initialize(mapload)
@@ -368,7 +367,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	if(get_dist(src,H) <= 1)
 		visible_message(span_danger("[src] begins dragging [H] under the floor!"))
 		if(do_after(src, 50, target = H) && eating)
-			H.become_blind()
+			H.become_blind("floor_cluwne")
 			H.invisibility = INVISIBILITY_SPIRIT
 			H.set_density(FALSE)
 			H.set_anchored(TRUE)
@@ -406,7 +405,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 			H.cluwneify()
 			H.adjustBruteLoss(30)
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 100)
-			H.cure_blind(null)
+			H.cure_blind("floor_cluwne")
 			H.invisibility = initial(H.invisibility)
 			H.set_density(initial(H.density))
 			H.set_anchored(initial(H.anchored))
@@ -455,7 +454,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	AddElement(/datum/element/point_of_interest)
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/begin_trauma(mob/living/carbon/human/sac_target)
-	if(!LAZYLEN(GLOB.heretic_sacrifice_landmarks))
+	if(!length(GLOB.heretic_sacrifice_landmarks))
 		CRASH("[type] - begin_trauma was called, but no floorcluwne_trauma landmarks were found!")
 
 	var/obj/effect/landmark/heretic/destination_landmark = GLOB.heretic_sacrifice_landmarks[HERETIC_PATH_ASH]
@@ -515,7 +514,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	if(!sac_target.heal_and_revive(75, span_danger("[sac_target]'s heart begins to beat with an unholy force as they return from death!")))
 		return
 
-	sac_target.cure_blind(null)
+	sac_target.cure_blind("floor_cluwne")
 	sac_target.invisibility = initial(sac_target.invisibility)
 	sac_target.set_density(initial(sac_target.density))
 	sac_target.set_anchored(initial(sac_target.anchored))

@@ -3,6 +3,7 @@
 	roundend_category = "abductors"
 	antagpanel_category = "Abductor"
 	banning_key = ROLE_ABDUCTOR
+	antag_hud_name = "abductor"
 	show_in_antagpanel = FALSE //should only show subtypes
 	show_to_ghosts = TRUE
 	required_living_playtime = 4
@@ -91,8 +92,6 @@
 			H.forceMove(LM.loc)
 			break
 
-	update_abductor_icons_added(owner,"abductor")
-
 /datum/antagonist/abductor/scientist/on_gain()
 	ADD_TRAIT(owner, TRAIT_ABDUCTOR_SCIENTIST_TRAINING, ABDUCTOR_ANTAGONIST)
 	ADD_TRAIT(owner, TRAIT_ABDUCTOR_SURGEON, ABDUCTOR_ANTAGONIST)
@@ -148,17 +147,10 @@
 		name = "Mothership [pick_n_take(left_team_names)]"
 	else
 		name = "No.[team_number] Mothership [pick(GLOB.greek_letters)]"
-	add_objective(new /datum/objective/experiment)
+	add_objective(new /datum/objective/experiment())
 
 /datum/team/abductor_team/is_solo()
 	return FALSE
-
-/datum/team/abductor_team/proc/add_objective(datum/objective/O)
-	O.team = src
-	O.update_explanation_text()
-	objectives += O
-	for(var/datum/mind/abductor_mind in members)
-		log_objective(abductor_mind, O.explanation_text)
 
 /datum/team/abductor_team/roundend_report()
 	var/list/result = list()
@@ -183,11 +175,12 @@
 	name = "Abductee"
 	roundend_category = "abductees"
 	antagpanel_category = "Abductee"
+	antag_hud_name = "abductee"
 	banning_key = UNBANNABLE_ANTAGONIST
 
 /datum/antagonist/abductee/on_gain()
 	give_objective()
-	. = ..()
+	return ..()
 
 /datum/antagonist/abductee/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/abductee.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
@@ -219,12 +212,6 @@
 	objectives += extra_objective
 	log_objective(H, extra_objective.explanation_text)
 
-/datum/antagonist/abductee/apply_innate_effects(mob/living/mob_override)
-	update_abductor_icons_added(mob_override ? mob_override.mind : owner,"abductee")
-
-/datum/antagonist/abductee/remove_innate_effects(mob/living/mob_override)
-	update_abductor_icons_removed(mob_override ? mob_override.mind : owner)
-
 // LANDMARKS
 /obj/effect/landmark/abductor
 	var/team_number = 1
@@ -242,20 +229,10 @@
 	explanation_text = "Experiment on [target_amount] humans."
 
 /datum/objective/experiment/check_completion()
-	for(var/obj/machinery/abductor/experiment/E in GLOB.machines)
+	for(var/obj/machinery/abductor/experiment/E as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/abductor/experiment))
 		if(!istype(team, /datum/team/abductor_team))
 			return ..()
 		var/datum/team/abductor_team/T = team
 		if(E.team_number == T.team_number)
 			return (E.points >= target_amount) || ..()
 	return ..()
-
-/datum/antagonist/proc/update_abductor_icons_added(datum/mind/alien_mind,hud_type)
-	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_ABDUCTOR]
-	hud.join_hud(alien_mind.current)
-	set_antag_hud(alien_mind.current, hud_type)
-
-/datum/antagonist/proc/update_abductor_icons_removed(datum/mind/alien_mind)
-	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_ABDUCTOR]
-	hud.leave_hud(alien_mind.current)
-	set_antag_hud(alien_mind.current, null)

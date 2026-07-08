@@ -228,7 +228,7 @@
 		if(backpack_contents)
 			for(var/path in backpack_contents)
 				var/number = backpack_contents[path]
-				if(!isnum_safe(number))//Default to 1
+				if(!IS_FINITE(number))//Default to 1
 					number = 1
 				for(var/i in 1 to number)
 					EQUIP_OUTFIT_ITEM(path, ITEM_SLOT_BACKPACK)

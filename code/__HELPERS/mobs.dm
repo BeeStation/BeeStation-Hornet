@@ -446,6 +446,12 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 /// You only need to use this if you know you're going to be mocking clients somewhere else.
 #define GET_CLIENT(mob) (##mob.client || ##mob.mock_client)
 
+/// Returns a string for the specified body zone. If we have a bodypart in this zone, refers to its plaintext_zone instead.
+/mob/living/proc/parse_zone_with_bodypart(zone)
+	var/obj/item/bodypart/part = get_bodypart(zone)
+
+	return part?.plaintext_zone || parse_zone(zone)
+
 ///Return a string for the specified body zone. Should be used for parsing non-instantiated bodyparts, otherwise use [/obj/item/bodypart/var/plaintext_zone]
 /proc/parse_zone(zone)
 	switch(zone)
@@ -551,18 +557,15 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 	if(initator.dir + 2 == target.dir || initator.dir - 2 == target.dir || initator.dir + 6 == target.dir || initator.dir - 6 == target.dir) //Initating mob is looking at the target, while the target mob is looking in a direction perpendicular to the 1st
 		return FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
 
-///Returns the occupant mob or brain from a specified input
-/proc/get_mob_or_brainmob(occupant)
-	var/mob/living/mob_occupant
+/// Returns the brainmob from a thing
+/proc/get_brainmob(obj/target_item, finds_mmi = FALSE)
+	if(istype(target_item, /obj/item/organ/brain))
+		var/obj/item/organ/brain/brain = target_item
+		return brain.brainmob
 
-	if(isliving(occupant))
-		mob_occupant = occupant
-
-	else if(isorgan(occupant))
-		var/obj/item/organ/brain/brain = occupant
-		mob_occupant = brain.brainmob
-
-	return mob_occupant
+	else if(finds_mmi && istype(target_item, /obj/item/mmi))
+		var/obj/item/mmi/mmi = target_item
+		return mmi.brainmob
 
 ///Returns the amount of currently living players
 /proc/living_player_count()
@@ -658,16 +661,15 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		. += borg
 
 /// Returns a list of AI's
-/proc/active_ais(check_mind=FALSE)
+/proc/active_ais(check_mind = FALSE)
 	. = list()
 	for(var/mob/living/silicon/ai/ai as anything in GLOB.ai_list)
 		if(ai.stat == DEAD)
 			continue
 		if(ai.control_disabled)
 			continue
-		if(check_mind)
-			if(!ai.mind)
-				continue
+		if(check_mind && !ai.mind)
+			continue
 		. += ai
 
 /// Find an active ai with the least borgs. VERBOSE PROCNAME HUH!

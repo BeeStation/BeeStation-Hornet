@@ -1,5 +1,4 @@
 //Preferences stuff
-	//Hairstyles
 /// Body sizes. The names (keys) are what is actually stored in the database. Don't get crazy with changing them.
 GLOBAL_LIST_INIT(body_sizes, list(
 	"Normal" = BODY_SIZE_NORMAL,
@@ -95,7 +94,6 @@ GLOBAL_LIST_INIT(ghost_forms_with_accessories_list, list(
 	"ghost_camo",
 ))
 
-
 GLOBAL_LIST_INIT(ai_core_display_screens, sort_list(list(
 	":thinking:",
 	"Alien",
@@ -166,18 +164,6 @@ GLOBAL_LIST_INIT(security_depts_prefs, sort_list(list(
 	SEC_DEPT_SCIENCE,
 	SEC_DEPT_SUPPLY
 )))
-
-
-GLOBAL_LIST_INIT(backbaglist, list(
-	DBACKPACK,
-	DDUFFELBAG,
-	DSATCHEL,
-	GBACKPACK,
-	GDUFFELBAG,
-	GSATCHEL,
-	LSATCHEL
-))
-
 
 GLOBAL_LIST_INIT(jumpsuitlist, list(
 	PREF_SKIRT,

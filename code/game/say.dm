@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		language = get_selected_language()
 	if(!message_mods[SAY_MOD_VERB])
 		message_mods[SAY_MOD_VERB] = say_mod(message, message_mods)
-	send_speech(message_raw = message,  message_range = message_range,  source = source, bubble_type = bubble_type, spans = spans, message_language = language, message_mods = message_mods, forced = forced)
+	send_speech(message_raw = message,  message_range = message_range, source = source, bubble_type = bubble_type, spans = spans, message_language = language, message_mods = message_mods, forced = forced)
 
 /atom/movable/proc/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range=0)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, args)
@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 
 /atom/movable/proc/send_speech(message_raw, message_range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language, list/message_mods = list(), forced = FALSE)
 	var/list/show_overhead_message_to = list()
-	var/list/listeners = get_hearers_in_view(message_range, source, SEE_INVISIBLE_MAXIMUM)
+	var/list/listeners = get_hearers_in_view(message_range, source)
 	for(var/atom/movable/hearing_movable as anything in listeners)
 		if(!hearing_movable)//theoretically this should use as anything because it shouldnt be able to get nulls but there are reports that it does.
 			stack_trace("somehow theres a null returned from get_hearers_in_view() in send_speech!")

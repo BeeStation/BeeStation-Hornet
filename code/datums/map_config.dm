@@ -22,8 +22,8 @@
 	//This should probably be refactored into a system like the regular configuration
 
 	var/traits = null
-	var/space_ruin_levels = 4	//Keep this low, as new ones are created dynamically when needed.
-	var/space_empty_levels = 1
+	var/space_ruin_levels = DEFAULT_SPACE_RUIN_LEVELS
+	var/space_empty_levels = DEFAULT_SPACE_EMPTY_LEVELS
 
 	///Type of the mining level to use
 	var/minetype = "lavaland"
@@ -154,14 +154,14 @@
 		return
 
 	var/temp = json["space_ruin_levels"]
-	if (isnum_safe(temp))
+	if (IS_FINITE(temp))
 		space_ruin_levels = temp
 	else if (!isnull(temp))
 		log_world("map_config space_ruin_levels is not a number!")
 		return
 
 	temp = json["space_empty_levels"]
-	if (isnum_safe(temp))
+	if (IS_FINITE(temp))
 		space_empty_levels = temp
 	else if (!isnull(temp))
 		log_world("map_config space_empty_levels is not a number!")

@@ -65,7 +65,7 @@
 	. = ..()
 	// Adding an extra break for the sake of presentation
 	if(stamina_damage != 0)
-		offensive_notes = "It takes [span_warning("[CEILING(100 / stamina_damage, 1)] stunning hit\s")] to stun an enemy."
+		offensive_notes = "It takes [span_warning("[ceil(100 / stamina_damage)] stunning hit\s")] to stun an enemy."
 
 /**
  * Ok, think of baton attacks like a melee attack chain:
@@ -168,7 +168,7 @@
 	return BATON_ATTACKING
 
 /obj/item/melee/baton/proc/check_parried(mob/living/carbon/human/human_target, mob/living/user)
-	if (human_target.check_block(src, 0, "[user]'s [name]", MELEE_ATTACK))
+	if (istype(human_target) && human_target.check_block(src, 0, "[user]'s [name]", MELEE_ATTACK))
 		playsound(human_target, 'sound/weapons/genhit.ogg', 50, TRUE)
 		return TRUE
 	return FALSE

@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	var/strip = TRUE //strip before equipping
 	var/allow_rename = TRUE
-	var/hud_version = "wizard"
+	antag_hud_name = "wizard"
 	var/datum/team/wizard/wiz_team //Only created if wizard summons apprentices
 	var/move_to_lair = TRUE
 	var/outfit_type = /datum/outfit/wizard
@@ -23,12 +23,13 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 /datum/antagonist/wizard/on_gain()
 	equip_wizard()
 	if(give_objectives)
-		create_objectives()
+		forge_objectives()
 	if(move_to_lair)
 		send_to_lair()
 	. = ..()
 	if(allow_rename)
 		rename_wizard()
+	owner.special_role = ROLE_WIZARD
 	owner.remove_all_quirks()
 
 /datum/antagonist/wizard/get_antag_name() // wizards are not in the same team
@@ -53,7 +54,6 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	wiz_team = new(owner)
 	wiz_team.name = "Wizard team No.[++count]" // it will be only displayed to admins
 	wiz_team.master_wizard = src
-	update_wiz_icons_added(owner.current)
 
 /datum/antagonist/wizard/proc/send_to_lair()
 	if(!owner || !owner.current)
@@ -70,61 +70,22 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 		return "Spece Wizard [mind_name]"
 	return "Space Wizard [mind_name] in [mob_name]" // tells which one is the real master
 
-/datum/antagonist/wizard/proc/create_objectives()
+/datum/antagonist/wizard/forge_objectives()
 	if(!give_objectives)
 		return
 	switch(rand(1,100))
 		if(1 to 30)
-			var/datum/objective/assassinate/kill_objective = new
-			kill_objective.owner = owner
-			kill_objective.find_target()
-			objectives += kill_objective
-			log_objective(owner, kill_objective.explanation_text)
-
-			if (!(locate(/datum/objective/escape) in objectives))
-				var/datum/objective/escape/escape_objective = new
-				escape_objective.owner = owner
-				objectives += escape_objective
-				log_objective(owner, escape_objective.explanation_text)
-
+			add_objective(new /datum/objective/assassinate(), find_target = TRUE)
+			add_objective(new /datum/objective/escape(), find_target = TRUE)
 		if(31 to 60)
-			var/datum/objective/steal/steal_objective = new
-			steal_objective.owner = owner
-			steal_objective.find_target()
-			objectives += steal_objective
-			log_objective(owner, steal_objective.explanation_text)
-
-			if (!(locate(/datum/objective/escape) in objectives))
-				var/datum/objective/escape/escape_objective = new
-				escape_objective.owner = owner
-				objectives += escape_objective
-				log_objective(owner, escape_objective.explanation_text)
-
+			add_objective(new /datum/objective/steal(), find_target = TRUE)
+			add_objective(new /datum/objective/escape(), find_target = TRUE)
 		if(61 to 85)
-			var/datum/objective/assassinate/kill_objective = new
-			kill_objective.owner = owner
-			kill_objective.find_target()
-			objectives += kill_objective
-			log_objective(owner, kill_objective.explanation_text)
-
-			var/datum/objective/steal/steal_objective = new
-			steal_objective.owner = owner
-			steal_objective.find_target()
-			objectives += steal_objective
-			log_objective(owner, steal_objective.explanation_text)
-
-			if (!(locate(/datum/objective/survive) in objectives))
-				var/datum/objective/survive/survive_objective = new
-				survive_objective.owner = owner
-				objectives += survive_objective
-				log_objective(owner, survive_objective.explanation_text)
-
+			add_objective(new /datum/objective/assassinate(), find_target = TRUE)
+			add_objective(new /datum/objective/steal(), find_target = TRUE)
+			add_objective(new /datum/objective/survive())
 		else
-			if (!(locate(/datum/objective/hijack) in objectives))
-				var/datum/objective/hijack/hijack_objective = new
-				hijack_objective.owner = owner
-				objectives += hijack_objective
-				log_objective(owner, hijack_objective.explanation_text)
+			add_objective(new /datum/objective/hijack())
 
 /datum/antagonist/wizard/on_removal()
 	// Currently removes all spells regardless of innate or not. Could be improved.
@@ -132,6 +93,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 		if(spell.owner == owner)
 			qdel(spell)
 			owner.current.actions -= spell
+	owner.special_role = null
 	return ..()
 
 /datum/antagonist/wizard/proc/equip_wizard()
@@ -179,15 +141,13 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	wiz_mob.fully_replace_character_name(wiz_mob.real_name, newname)
 
 /datum/antagonist/wizard/apply_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_wiz_icons_added(M, wiz_team ? TRUE : FALSE) //Don't bother showing the icon if you're solo wizard
-	M.faction |= FACTION_WIZARD
+	var/mob/living/current_mob = mob_override || owner.current
+	add_team_hud(current_mob)
+	current_mob.faction |= FACTION_WIZARD
 
 /datum/antagonist/wizard/remove_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_wiz_icons_removed(M)
-	M.faction -= FACTION_WIZARD
-
+	var/mob/living/current_mob = mob_override || owner.current
+	current_mob.faction |= FACTION_WIZARD
 
 /datum/antagonist/wizard/get_admin_commands()
 	. = ..()
@@ -198,7 +158,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 
 /datum/antagonist/wizard/apprentice
 	name = "Wizard Apprentice"
-	hud_version = "apprentice"
+	antag_hud_name = "apprentice"
 	var/datum/mind/master
 	var/school = APPRENTICE_DESTRUCTION
 	outfit_type = /datum/outfit/wizard/apprentice
@@ -265,7 +225,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 			var/static/list/spell_entry
 			if(!spell_entry)
 				spell_entry = list()
-				for(var/datum/spellbook_entry/each_entry as() in subtypesof(/datum/spellbook_entry) - typesof(/datum/spellbook_entry/item) - typesof(/datum/spellbook_entry/summon))
+				for(var/datum/spellbook_entry/each_entry as anything in subtypesof(/datum/spellbook_entry) - typesof(/datum/spellbook_entry/item) - typesof(/datum/spellbook_entry/summon))
 					spell_entry += new each_entry
 
 			var/spells_left = 2
@@ -296,13 +256,11 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 		var/obj/item/new_item = new item_type(owner.current)
 		owner.current.put_in_hands(new_item)
 
-/datum/antagonist/wizard/apprentice/create_objectives()
-	var/datum/objective/protect/new_objective = new /datum/objective/protect
-	new_objective.owner = owner
-	new_objective.set_target(master)
-	new_objective.explanation_text = "Protect [master.current.real_name], the wizard."
-	objectives += new_objective
-	log_objective(owner, new_objective.explanation_text)
+/datum/antagonist/wizard/apprentice/forge_objectives()
+	var/datum/objective/protect/protect_objective = new()
+	protect_objective.target_special_role = TRUE
+	protect_objective.set_target(master)
+	add_objective(protect_objective)
 
 //Random event wizard
 /datum/antagonist/wizard/apprentice/imposter
@@ -341,17 +299,6 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	var/datum/action/spell/teleport/radius_turf/blink/blink = new(owner)
 	blink.Grant(H)
 
-/datum/antagonist/wizard/proc/update_wiz_icons_added(mob/living/wiz,join = TRUE)
-	var/datum/atom_hud/antag/wizhud = GLOB.huds[ANTAG_HUD_WIZ]
-	wizhud.join_hud(wiz)
-	set_antag_hud(wiz, hud_version)
-
-/datum/antagonist/wizard/proc/update_wiz_icons_removed(mob/living/wiz)
-	var/datum/atom_hud/antag/wizhud = GLOB.huds[ANTAG_HUD_WIZ]
-	wizhud.leave_hud(wiz)
-	set_antag_hud(wiz, null)
-
-
 /datum/antagonist/wizard/academy
 	name = "Academy Teacher"
 	outfit_type = /datum/outfit/wizard
@@ -374,11 +321,8 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	var/obj/item/implant/exile/exiled = new /obj/item/implant/exile(living_current)
 	exiled.implant(living_current)
 
-/datum/antagonist/wizard/academy/create_objectives()
-	var/datum/objective/new_objective = new("Protect Wizard Academy from the intruders")
-	new_objective.owner = owner
-	objectives += new_objective
-	log_objective(owner, new_objective.explanation_text)
+/datum/antagonist/wizard/academy/forge_objectives()
+	add_objective(new /datum/objective("Protect Wizard Academy from the intruders"))
 
 //Solo wizard report
 /datum/antagonist/wizard/roundend_report()

@@ -19,7 +19,6 @@
 	. = ..()
 
 	egg_owner.add_traits(list(TRAIT_XENO_HOST, TRAIT_XENO_IMMUNE), ORGAN_TRAIT)
-	START_PROCESSING(SSobj, src)
 	egg_owner.med_hud_set_status()
 	INVOKE_ASYNC(src, PROC_REF(AddInfectionImages), egg_owner)
 

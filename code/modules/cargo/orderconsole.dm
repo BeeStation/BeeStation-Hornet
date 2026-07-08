@@ -63,6 +63,7 @@
 	return GLOB.default_state
 
 /obj/machinery/computer/cargo/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Cargo")
@@ -85,7 +86,7 @@
 	var/message = "Remember to stamp and send back the supply manifests."
 	if(SSshuttle.centcom_message)
 		message = SSshuttle.centcom_message
-	if(SSshuttle.supplyBlocked)
+	if(SSshuttle.supply_blocked)
 		message = blockade_warning
 	data["message"] = message
 	data["cart"] = list()
@@ -145,7 +146,7 @@
 			if(!SSshuttle.supply.canMove())
 				say(safety_warning)
 				return
-			if(SSshuttle.supplyBlocked)
+			if(SSshuttle.supply_blocked)
 				say(blockade_warning)
 				return
 			if(SSshuttle.supply.getDockedId() == "supply_home")
@@ -161,7 +162,7 @@
 		if("loan")
 			if(!SSshuttle.shuttle_loan)
 				return
-			if(SSshuttle.supplyBlocked)
+			if(SSshuttle.supply_blocked)
 				say(blockade_warning)
 				return
 			else if(SSshuttle.supply.mode != SHUTTLE_IDLE)

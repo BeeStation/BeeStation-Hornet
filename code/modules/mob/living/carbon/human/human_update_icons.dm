@@ -178,22 +178,23 @@ There are several things that need to be remembered:
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_GLOVES) + 1]
 		inv.update_icon()
 
-	//Bloody hands begin
-	var/mutable_appearance/bloody_lefthand_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands_left", -GLOVES_LAYER)
-	var/mutable_appearance/bloody_righthand_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands_right", -GLOVES_LAYER)
-	cut_overlay(bloody_lefthand_overlay)
-	cut_overlay(bloody_righthand_overlay)
-
 	var/list/blood_dna = GET_ATOM_BLOOD_DNA(src)
 	if(length(blood_dna))
 		bloody_lefthand_overlay.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
 		bloody_righthand_overlay.color = bloody_lefthand_overlay.color
 
-	if(!gloves && blood_in_hands && (num_hands > 0))
-		if(has_left_hand(check_disabled = FALSE))
-			add_overlay(bloody_lefthand_overlay)
-		if(has_right_hand(check_disabled = FALSE))
-			add_overlay(bloody_righthand_overlay)
+	//Bloody hands begin
+	if(isnull(gloves))
+		if(blood_in_hands && (num_hands > 0))
+			// When byond gives us filters that respect dirs we can just use an alpha mask for this but until then, two icons weeeee
+			var/mutable_appearance/hands_combined = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(GLOVES_LAYER), appearance_flags = KEEP_TOGETHER)
+			if(has_left_hand(check_disabled = FALSE))
+				hands_combined.overlays += mutable_appearance('icons/effects/blood.dmi', "bloodyhands_left")
+			if(has_right_hand(check_disabled = FALSE))
+				hands_combined.overlays += mutable_appearance('icons/effects/blood.dmi', "bloodyhands_right")
+			overlays_standing[GLOVES_LAYER] = hands_combined
+			apply_overlay(GLOVES_LAYER)
+		return
 	// Bloody hands end
 
 	if(gloves)
@@ -209,8 +210,6 @@ There are several things that need to be remembered:
 		var/icon_file = 'icons/mob/clothing/hands.dmi'
 
 		var/mutable_appearance/gloves_overlay = gloves.build_worn_icon(src, default_layer = GLOVES_LAYER, default_icon_file = icon_file)
-		if(!gloves_overlay)
-			return
 
 		var/feature_y_offset = 0
 		//needs to be typed, hand_bodyparts can have nulls
@@ -220,6 +219,7 @@ There are several things that need to be remembered:
 				feature_y_offset = glove_offset["y"]
 
 		gloves_overlay.pixel_y += feature_y_offset
+
 		overlays_standing[GLOVES_LAYER] = gloves_overlay
 	apply_overlay(GLOVES_LAYER)
 

@@ -68,9 +68,6 @@
 /mob/proc/update_icons()
 	return
 
-/mob/proc/update_transform()
-	return
-
 ///Updates the handcuff overlay & HUD element.
 /mob/proc/update_worn_handcuffs(update_obscured = FALSE)
 	return

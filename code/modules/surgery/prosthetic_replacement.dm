@@ -1,5 +1,7 @@
 /datum/surgery/prosthetic_replacement
 	name = "Prosthetic replacement"
+	surgery_flags = SURGERY_REQUIRE_RESTING | SURGERY_SELF_OPERABLE
+	requires_bodypart_type = NONE
 	steps = list(
 		/datum/surgery_step/incise,
 		/datum/surgery_step/clamp_bleeders,
@@ -14,11 +16,10 @@
 		BODY_ZONE_R_LEG,
 		BODY_ZONE_HEAD
 	)
-	requires_bodypart = FALSE //need a missing limb
-	requires_bodypart_type = 0
-	self_operable = TRUE
 
 /datum/surgery/prosthetic_replacement/can_start(mob/user, mob/living/carbon/target)
+	if(!..())
+		return FALSE
 	if(!iscarbon(target))
 		return FALSE
 	var/mob/living/carbon/C = target

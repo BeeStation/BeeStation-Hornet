@@ -38,14 +38,14 @@
 	default_price = 100
 	extra_price = 150
 
-/obj/machinery/vending/security/pre_throw(obj/item/I)
-	if(istype(I, /obj/item/grenade))
-		var/obj/item/grenade/G = I
+/obj/machinery/vending/security/pre_throw(obj/item/thrown_item)
+	if(istype(thrown_item, /obj/item/grenade))
+		var/obj/item/grenade/G = thrown_item
 		G.preprime()
-	else if(istype(I, /obj/item/flashlight))
-		var/obj/item/flashlight/F = I
-		F.on = TRUE
-		F.update_brightness()
+	else if(istype(thrown_item, /obj/item/flashlight))
+		var/obj/item/flashlight/thrown_flashlight = thrown_item
+		thrown_flashlight.set_light_on(TRUE)
+		thrown_flashlight.update_brightness()
 
 /obj/item/vending_refill/security
 	machine_name = "SecTech"

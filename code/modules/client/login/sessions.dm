@@ -345,7 +345,7 @@
 	if(is_localhost())
 		ip = "127.0.0.1"
 	var/seeker_port_in = src.seeker_port
-	if(!isnum_safe(seeker_port_in) || seeker_port_in < 1024 || seeker_port_in > 65535)
+	if(!IS_FINITE(seeker_port_in) || seeker_port_in < 1024 || seeker_port_in > 65535)
 		seeker_port_in = null
 	var/my_nonce = add_session_creation_nonce()
 	if(!istext(my_nonce) || !length(my_nonce))
@@ -366,7 +366,7 @@
 	if(!SSdbcore.Connect())
 		return null
 	var/seeker_port_in = src.seeker_port
-	if(!isnum_safe(seeker_port_in) || seeker_port_in < 1024 || seeker_port_in > 65535)
+	if(!IS_FINITE(seeker_port_in) || seeker_port_in < 1024 || seeker_port_in > 65535)
 		seeker_port_in = null
 	// sufficiently entropic, unguessable string unique to this user's current connection
 	var/hashtext = "[rustg_csprng_chacha20(RUSTG_RNG_FORMAT_HEX, 32)][ckey][ip][world.realtime][computer_id][GLOB.round_id]"

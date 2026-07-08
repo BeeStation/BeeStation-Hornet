@@ -1,7 +1,5 @@
 /mob/living/carbon/Life(delta_time = SSMOBS_DT, times_fired)
-	set invisibility = 0
-
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	if(damageoverlaytemp)
@@ -28,7 +26,7 @@
 				BT.on_life(delta_time, times_fired)
 
 		if(stat != DEAD && has_dna())
-			for(var/datum/mutation/HM as() in dna.mutations)
+			for(var/datum/mutation/HM as anything in dna.mutations)
 				HM.on_life(delta_time, times_fired)
 
 	if(stat == DEAD)
@@ -69,7 +67,7 @@
 		else
 			SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "suffocation")
 	else
-		if(istype(loc, /obj/))
+		if(isobj(loc))
 			var/obj/location_as_object = loc
 			location_as_object.handle_internal_lifeform(src,0)
 
@@ -97,7 +95,7 @@
 		losebreath--
 		if(prob(10))
 			emote("gasp")
-		if(istype(loc, /obj/))
+		if(isobj(loc))
 			var/obj/loc_as_obj = loc
 			loc_as_obj.handle_internal_lifeform(src,0)
 	else
@@ -368,7 +366,7 @@
 				dna.temporary_mutations.Remove(mut)
 				continue
 
-	for(var/datum/mutation/HM as() in dna.mutations)
+	for(var/datum/mutation/HM as anything in dna.mutations)
 		if(HM?.timeout)
 			dna.remove_mutation(HM.type)
 

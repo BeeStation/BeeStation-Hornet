@@ -23,7 +23,7 @@
 	// We need to know when our parent atoms move
 	associated_relay = parent.AddComponent(/datum/component/moved_relay)
 
-/datum/component/radio_jamming/Destroy(force, silent)
+/datum/component/radio_jamming/Destroy(force)
 	disable()
 	// Cleanup the moved relay if we need to
 	var/datum/component/moved_relay/move_relay = associated_relay

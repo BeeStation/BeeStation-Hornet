@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(early_assets)
 		/datum/controller/subsystem/atoms
 	)
 	init_stage = INITSTAGE_EARLY
-	flags = SS_NO_FIRE
+	ss_flags = SS_NO_FIRE
 
 /datum/controller/subsystem/early_assets/Initialize()
 	for (var/datum/asset/asset_type as anything in valid_subtypesof(/datum/asset))

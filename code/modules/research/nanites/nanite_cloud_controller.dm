@@ -14,7 +14,6 @@
 	var/obj/item/disk/nanite_program/disk
 	var/list/datum/nanite_cloud_backup/cloud_backups = list()
 	var/current_view = 0 //0 is the main menu, any other number is the page of the backup with that ID
-	var/new_backup_id = 1
 
 /obj/machinery/computer/nanite_cloud_controller/Destroy()
 	QDEL_LIST(cloud_backups) //rip backups
@@ -65,12 +64,14 @@
 	backup.cloud_id = cloud_id
 	backup.nanites = cloud_copy
 	user.investigate_log("created a new nanite cloud backup with id #[cloud_id]", INVESTIGATE_NANITES)
+	balloon_alert(user, "created backup")
 	ui_update()
 
 /obj/machinery/computer/nanite_cloud_controller/ui_state(mob/user)
 	return GLOB.default_state
 
 /obj/machinery/computer/nanite_cloud_controller/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "NaniteCloudControl")
@@ -81,10 +82,12 @@
 
 	if(disk)
 		data["has_disk"] = TRUE
-		var/list/disk_data = list()
 		var/datum/nanite_program/P = disk.program
 		if(P)
 			data["has_program"] = TRUE
+
+			var/list/disk_data = list()
+
 			disk_data["name"] = P.name
 			disk_data["desc"] = P.desc
 			disk_data["use_rate"] = P.use_rate
@@ -110,12 +113,13 @@
 				var/datum/nanite_program/sensor/sensor = P
 				if(sensor.can_rule)
 					disk_data["can_rule"] = TRUE
-		data["disk"] = disk_data
+
+			data["disk"] = disk_data
+		else
+			data["has_program"] = FALSE
 	else
 		data["has_disk"] = FALSE
-		data["disk"] = null
-
-	data["new_backup_id"] = new_backup_id
+		data["has_program"] = FALSE
 
 	data["current_view"] = current_view
 	if(current_view)
@@ -144,16 +148,17 @@
 				cloud_program["deactivation_code"] = P.deactivation_code
 				cloud_program["kill_code"] = P.kill_code
 				cloud_program["trigger_code"] = P.trigger_code
+
 				var/list/rules = list()
 				var/rule_id = 1
-				for(var/X in P.rules)
-					var/datum/nanite_rule/nanite_rule = X
-					var/list/rule = list()
-					rule["display"] = nanite_rule.display()
-					rule["program_id"] = id
-					rule["id"] = rule_id
-					rules += list(rule)
+				for(var/datum/nanite_rule/nanite_rule as anything in P.rules)
+					rules += list(list(
+						"display" = nanite_rule.display(),
+						"program_id" = id,
+						"id" = rule_id,
+					))
 					rule_id++
+
 				cloud_program["rules"] = rules
 				if(LAZYLEN(rules))
 					cloud_program["has_rules"] = TRUE
@@ -167,17 +172,16 @@
 			data["cloud_programs"] = cloud_programs
 	else
 		var/list/backup_list = list()
-		for(var/X in cloud_backups)
-			var/datum/nanite_cloud_backup/backup = X
-			var/list/cloud_backup = list()
-			cloud_backup["cloud_id"] = backup.cloud_id
-			backup_list += list(cloud_backup)
+		for(var/datum/nanite_cloud_backup/backup as anything in cloud_backups)
+			backup_list += backup.cloud_id
 		data["cloud_backups"] = backup_list
 	return data
 
 /obj/machinery/computer/nanite_cloud_controller/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
+
 	switch(action)
 		if("eject")
 			eject(usr)
@@ -185,17 +189,12 @@
 		if("set_view")
 			current_view = text2num(params["view"])
 			. = TRUE
-		if("update_new_backup_value")
-			var/backup_value = text2num(params["value"])
-			new_backup_id = backup_value
-			. = TRUE
 		if("create_backup")
-			var/cloud_id = new_backup_id
+			var/cloud_id = text2num(params["value"])
 			if(!isnull(cloud_id))
 				playsound(src, 'sound/machines/terminal_prompt.ogg', 50, FALSE)
 				cloud_id = clamp(round(cloud_id, 1),1,100)
 				generate_backup(cloud_id, usr)
-				balloon_alert(usr, "created backup")
 				. = TRUE
 		if("delete_backup")
 			var/datum/nanite_cloud_backup/backup = get_backup(current_view)

@@ -1,15 +1,14 @@
 /datum/surgery/blood_filter
 	name = "Filter Blood"
 	desc = "A surgical procedure that filters toxins from the patient's blood."
-	steps = list(/datum/surgery_step/incise,
-				/datum/surgery_step/retract_skin,
-				/datum/surgery_step/incise,
-				/datum/surgery_step/filter_blood,
-				/datum/surgery_step/close)
-
-	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	possible_locs = list(BODY_ZONE_CHEST)
-	ignore_clothes = FALSE
+	steps = list(
+		/datum/surgery_step/incise,
+		/datum/surgery_step/retract_skin,
+		/datum/surgery_step/incise,
+		/datum/surgery_step/filter_blood,
+		/datum/surgery_step/close,
+	)
 	replaced_by = /datum/surgery/blood_filter/upgraded
 	var/antispam = FALSE
 	var/filtering_step_type
@@ -46,9 +45,13 @@
 	if(istype(surgery,/datum/surgery/blood_filter))
 		var/datum/surgery/blood_filter/the_surgery = surgery
 		if(!the_surgery.antispam)
-			display_results(user, target, span_notice("You begin filtering [target]'s blood..."),
-			span_notice("[user] uses [tool] to filtering your blood."),
-			span_notice("[user] uses [tool] on [target]'s chest."))
+			display_results(
+				user,
+				target,
+				span_notice("You begin filtering [target]'s blood..."),
+				span_notice("[user] uses [tool] to filter [target]'s blood."),
+				span_notice("[user] uses [tool] on [target]'s chest."),
+			)
 
 /datum/surgery_step/filter_blood/initiate(mob/living/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	if(..())
@@ -93,9 +96,13 @@
 	return TRUE
 
 /datum/surgery_step/filter_blood/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_warning("You screw up, brusing [target]'s chest!"),
+	display_results(
+		user,
+		target,
+		span_warning("You screw up, bruising [target]'s chest!"),
 		span_warning("[user] screws up, brusing [target]'s chest!"),
-		span_warning("[user] screws up!"))
+		span_warning("[user] screws up!"),
+	)
 	target.adjustBruteLoss(5)
 
 /datum/surgery/blood_filter/upgraded

@@ -66,7 +66,7 @@
 	QDEL_NULL(radio)
 	QDEL_NULL(countdown)
 	if(connected)
-		connected.DetachCloner(src)
+		connected.detach_clonepod(src)
 	QDEL_LIST(unattached_flesh)
 	. = ..()
 
@@ -136,6 +136,11 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 	icon_state = "datadisk[rand(0,6)]"
 	add_overlay("datadisk_gene")
 
+/obj/item/disk/data/Destroy(force)
+	. = ..()
+	if(data)
+		QDEL_NULL(data)
+
 /obj/item/disk/data/attack_self(mob/user)
 	read_only = !read_only
 	to_chat(user, span_notice("You flip the write-protect tab to [read_only ? "protected" : "unprotected"]."))
@@ -151,7 +156,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 
 /obj/item/disk/data/debug/Initialize(mapload)
 	. = ..()
-	for(var/datum/mutation/HM as() in GLOB.all_mutations)
+	for(var/datum/mutation/HM as anything in GLOB.all_mutations)
 		mutations += new HM
 
 //Clonepod
@@ -181,7 +186,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 		. = (100 * ((mob_occupant.health + 100) / (heal_level + 100)))
 
 //Start growing a human clone in the pod!
-/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, given_mind, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental)
+/obj/machinery/clonepod/proc/growclone(CLONING_STRICT_ARGS(clonename, unique_identity, mutation_index, given_mind, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental))
 	var/result = CLONING_SUCCESS
 	if(!reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 		connected_message("Cannot start cloning: Not enough synthflesh.")
@@ -213,15 +218,13 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 				return ERROR_SOUL_DEPARTED
 			if(G.suiciding) // The ghost came from a body that is suiciding.
 				return ERROR_SUICIDED_BODY
-		if(clonemind.no_cloning_at_all) // nope.
-			return ERROR_UNCLONABLE
 		current_insurance = insurance
 	attempting = TRUE //One at a time!!
 	countdown.start()
 
 	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src)
 
-	H.hardset_dna(ui, mutation_index, H.real_name, null, mrace, features)
+	H.hardset_dna(unique_identity, mutation_index, H.real_name, null, mrace, features)
 
 	if(!HAS_TRAIT(H, TRAIT_RADIMMUNE))//dont apply mutations if the species is Mutation proof.
 		if(efficiency > 2)
@@ -289,9 +292,9 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 	var/datum/poll_config/config = new(
 		check_jobban = ROLE_EXPERIMENTAL_CLONE,
 		poll_time = 30 SECONDS,
-		jump_target = H,
+		jump_target = src,
 		role_name_text = "[H.real_name]'s experimental clone?",
-		alert_pic = H,
+		alert_pic = src,
 		amount_to_pick = 1,
 	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, H)
@@ -413,8 +416,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 		to_chat(user, "<font color = #666633>-% Successfully linked [buffer] with [src] %-</font color>")
 		var/obj/machinery/computer/cloning/comp = buffer
 		if(connected)
-			connected.DetachCloner(src)
-		comp.AttachCloner(src)
+			connected.detach_clonepod(src)
+		comp.attach_clonepod(src)
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
 	else

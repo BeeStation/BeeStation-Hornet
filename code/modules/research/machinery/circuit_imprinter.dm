@@ -4,28 +4,22 @@
 	icon_state = "circuit_imprinter"
 	circuit = /obj/item/circuitboard/machine/circuit_imprinter
 	categories = list(
-								"AI Modules",
-								"Computer Boards",
-								"Teleportation Machinery",
-								"Medical Machinery",
-								"Engineering Machinery",
-								"Exosuit Modules",
-								"Hydroponics Machinery",
-								"Subspace Telecomms",
-								"Research Machinery",
-								"Misc. Machinery",
-								"Computer Parts",
-								"Shuttle Machinery",
-								"Circuitry"
-								)
+		RND_CATEGORY_AI_MODULES,
+		RND_CATEGORY_COMPUTER_BOARDS,
+		RND_CATEGORY_TELEPORTATION_MACHINERY,
+		RND_CATEGORY_MEDICAL_MACHINERY,
+		RND_CATEGORY_ENGINEERING_MACHINERY,
+		RND_CATEGORY_EXOSUIT_MODULES,
+		RND_CATEGORY_HYDROPONICS_MACHINERY,
+		RND_CATEGORY_SUBSPACE_TELECOMMS,
+		RND_CATEGORY_RESEARCH_MACHINERY,
+		RND_CATEGORY_MISC_MACHINERY,
+		RND_CATEGORY_COMPUTER_PARTS,
+		RND_CATEGORY_SHUTTLE_MACHINERY,
+		RND_CATEGORY_CIRCUITRY,
+	)
 	production_animation = "circuit_imprinter_ani"
 	allowed_buildtypes = IMPRINTER
-	consoleless_interface = TRUE
-	requires_console = FALSE
-
-/obj/machinery/rnd/production/circuit_imprinter/disconnect_console()
-	linked_console.linked_imprinter = null
-	..()
 
 /obj/machinery/rnd/production/circuit_imprinter/calculate_efficiency()
 	. = ..()

@@ -12,11 +12,11 @@
 	var/mob/living/carbon/human/dummy/consistent/brother2 = new
 
 	brother1.hairstyle = "Pigtails"
-	brother1.hair_color = "532"
+	brother1.hair_color = "#553322"
 	brother1.update_body_parts()
 
 	brother2.hairstyle = "Gelled Spikes"
-	brother2.hair_color = "A55A3B"
+	brother2.hair_color = "#A55A3B"
 	brother2.update_body_parts()
 
 	var/icon/brother1_icon = render_preview_outfit(/datum/outfit/job/quartermaster, brother1)

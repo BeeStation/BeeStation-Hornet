@@ -18,6 +18,7 @@
 	burn_modifier = 1.5
 	brute_modifier = 1.5
 	stamina_modifier = 0
+	head_flags = NONE
 
 	head_flags = HEAD_EYECOLOR|HEAD_EYEHOLES|HEAD_DEBRAIN
 

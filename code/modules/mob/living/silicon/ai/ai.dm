@@ -22,9 +22,7 @@
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	hud_type = /datum/hud/ai
-	med_hud = DATA_HUD_MEDICAL_BASIC
-	sec_hud = DATA_HUD_SECURITY_BASIC
-	d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED
+	silicon_huds = list(TRAIT_MEDICAL_HUD_SENSOR_ONLY, TRAIT_SECURITY_HUD_ID_ONLY, TRAIT_DIAGNOSTIC_HUD, TRAIT_BOT_PATH_HUD)
 	mob_size = MOB_SIZE_LARGE
 	radio = /obj/item/radio/headset/silicon/ai
 	can_buckle_to = FALSE
@@ -103,9 +101,10 @@
 
 	var/cam_prev
 
-	var/atom/movable/screen/ai/modpc/interfaceButton
-	var/obj/effect/overlay/holo_pad_hologram/ai_hologram
+	/// The AI's currently used holopad
 	VAR_FINAL/obj/machinery/holopad/current_holopad
+
+	var/atom/movable/screen/ai/modpc/interfaceButton
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
@@ -227,7 +226,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(ai_voicechanger)
 		ai_voicechanger.owner = null
 		ai_voicechanger = null
-	. = ..()
+	return ..()
 
 /mob/living/silicon/ai/proc/remove_malf_abilities()
 	QDEL_NULL(modules_action)
@@ -321,8 +320,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 	// hack to display shuttle timer
 	if(!EMERGENCY_IDLE_OR_RECALLED)
-		var/obj/machinery/computer/communications/C = locate() in GLOB.machines
-		if(C)
+		for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 			C.post_status("shuttle")
 
 /mob/living/silicon/ai/can_interact_with(atom/A)
@@ -383,9 +381,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	var/obj/structure/ai_core/latejoin_inactive/inactivecore = new(loc)
 	transfer_fingerprints_to(inactivecore)
 
-	if(GLOB.announcement_systems.len)
-		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-		announcer.announce("AIWIPE", real_name, mind.assigned_role, list())
+	aas_config_announce(/datum/aas_config_entry/intelligence_storage, list("SILICON" = real_name))
 
 	SSjob.FreeRole(mind.assigned_role)
 
@@ -470,17 +466,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		alert_control.ui_interact(src)
 #ifdef AI_VOX
 	if(href_list["say_word"])
-		play_vox_word(href_list["say_word"], null, src)
+		play_vox_word(href_list["say_word"], get_turf(src), src)
 		return
 #endif
 	if(href_list["show_tablet_note"])
 		if(last_tablet_note_seen)
 			src << browse(last_tablet_note_seen, "window=show_tablet")
 	//Carn: holopad requests
-	if(href_list["jumptoholopad"])
-		var/obj/machinery/holopad/H = locate(href_list["jumptoholopad"]) in GLOB.machines
-		if(H)
-			H.attack_ai(src) //may as well recycle
+	if(href_list["jump_to_holopad"])
+		var/obj/machinery/holopad/holopad = locate(href_list["jump_to_holopad"]) in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/holopad)
+		if(holopad)
+			holopad.attack_ai(src) //may as well recycle
 		else
 			to_chat(src, span_notice("Unable to locate the holopad."))
 	if(href_list["track"])
@@ -1091,7 +1087,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
 	. = ..() //This needs to be lower so we have a chance to actually update the assigned target_ai.
 
 /mob/living/silicon/ai/proc/camera_visibility(mob/camera/ai_eye/moved_eye)
-	GLOB.cameranet.visibility(moved_eye, client, all_eyes, TRUE)
+	GLOB.cameranet.update_camera_visibility(moved_eye, client, all_eyes, TRUE)
 
 /mob/living/silicon/ai/forceMove(atom/destination)
 	. = ..()

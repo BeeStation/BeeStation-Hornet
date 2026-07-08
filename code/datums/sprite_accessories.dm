@@ -36,7 +36,7 @@
 	var/use_default_gender = NEUTER
 	/**
 	 * Currently only used by mutantparts so don't worry about hair and stuff.
-	 * This is the source that this accessory will get its color from. Default is MUTCOLOR, but can also be HAIR, FACEHAIR, EYECOLOR and 0 if none.
+	 * This is the source that this accessory will get its color from. Default is MUTCOLOR, but can also be HAIR_COLOR, FACIAL_HAIR_COLOR, EYECOLOR and 0 if none.
 	 */
 	var/color_src = MUTANT_COLOR
 	/// Alpha applied to the overlay when rendered on a mob. 255 = fully opaque.

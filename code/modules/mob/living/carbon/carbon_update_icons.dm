@@ -1,9 +1,3 @@
-
-/mob/living/carbon/update_obscured_slots(obscured_flags)
-	..()
-	if(obscured_flags & (HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT|HIDEMUTWINGS))
-		update_body()
-
 /// Updates features and clothing attached to a specific limb with limb-specific offsets
 /mob/living/carbon/proc/update_features(feature_key)
 	switch(feature_key)
@@ -39,33 +33,6 @@
 		if(OFFSET_HELD)
 			update_held_items()
 
-//IMPORTANT: Multiple animate() calls do not stack well, so try to do them all at once if you can.
-/mob/living/carbon/update_transform()
-	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
-	var/final_pixel_y = pixel_y
-	var/final_dir = dir
-	var/changed = 0
-	if(lying_angle != lying_prev && rotate_on_lying)
-		changed++
-		ntransform.TurnTo(lying_prev , lying_angle)
-		if(!lying_angle) //Lying to standing
-			final_pixel_y = base_pixel_y
-		else //if(lying != 0)
-			if(lying_prev == 0) //Standing to lying
-				pixel_y = base_pixel_y
-				final_pixel_y = base_pixel_y + PIXEL_Y_OFFSET_LYING
-				if(dir & (EAST|WEST)) //Facing east or west
-					final_dir = pick(NORTH, SOUTH) //So you fall on your side rather than your face or ass
-	if(resize != RESIZE_DEFAULT_SIZE)
-		changed++
-		ntransform.Scale(resize)
-		resize = RESIZE_DEFAULT_SIZE
-
-	if(changed)
-		SEND_SIGNAL(src, COMSIG_PAUSE_FLOATING_ANIM, 0.3 SECONDS)
-		animate(src, transform = ntransform, time = (lying_prev == 0 || lying_angle == 0) ? 2 : 0, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
-	UPDATE_OO_IF_PRESENT
-
 /mob/living/carbon/var/list/overlays_standing[TOTAL_LAYERS]
 
 /mob/living/carbon/proc/apply_overlay(cache_index)
@@ -91,8 +58,8 @@
 	dna?.update_body_size()
 
 /mob/living/carbon/regenerate_icons()
-	if(notransform)
-		return 1
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
+		return
 	icon_render_keys = list() //Clear this bad larry out
 	update_held_items()
 	update_worn_handcuffs()
@@ -275,6 +242,8 @@
 /mob/living/carbon/proc/update_hud_back(obj/item/I)
 	return
 
+
+
 //Overlays for the worn overlay so you can overlay while you overlay
 //eg: ammo counters, primed grenade flashing, etc.
 //"icon_file" is used automatically for inhands etc. to make sure it gets the right inhand file
@@ -289,7 +258,6 @@
 	SEND_SIGNAL(src, COMSIG_ITEM_GET_WORN_OVERLAYS, ., standing, isinhands, icon_file)
 
 ///Checks to see if any bodyparts need to be redrawn, then does so. update_limb_data = TRUE redraws the limbs to conform to the owner.
-///Returns an integer representing the number of limbs that were updated.
 /mob/living/carbon/proc/update_body_parts(update_limb_data)
 	//Check the cache to see if it needs a new sprite
 	update_damage_overlays()
@@ -316,7 +284,7 @@
 	if(!.)
 		return
 
-	//GENERATE NEW LIMBS
+		//GENERATE NEW LIMBS
 	var/list/new_limbs = list()
 	for(var/obj/item/bodypart/limb as anything in bodyparts)
 		if(limb in needs_update) //Checks to see if the limb needs to be redrawn

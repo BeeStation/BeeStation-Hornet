@@ -318,7 +318,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/supplypod)
 	if (openingSound)
 		playsound(get_turf(holder), openingSound, soundVolume, FALSE, FALSE) //Special admin sound to play
 	for (var/turf_type in turfs_in_cargo)
-		turf_underneath.PlaceOnTop(turf_type)
+		turf_underneath.place_on_top(turf_type)
 	for (var/cargo in contents)
 		var/atom/movable/movable_cargo = cargo
 		movable_cargo.forceMove(turf_underneath)

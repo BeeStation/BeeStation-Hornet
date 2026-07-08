@@ -285,6 +285,16 @@
 	if(!forced)
 		if(HAS_TRAIT(src, TRAIT_GODMODE))
 			return FALSE
+		/*
+		if (required_respiration_type)
+			var/obj/item/organ/lungs/affected_lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
+			if(isnull(affected_lungs))
+				if(!(mob_respiration_type & required_respiration_type))  // if the mob has no lungs, use mob_respiration_type
+					return FALSE
+			else
+				if(!(affected_lungs.respiration_type & required_respiration_type)) // otherwise use the lungs' respiration_type
+					return FALSE
+		*/
 	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_OXY_DAMAGE, OXY, amount, forced) & COMPONENT_IGNORE_CHANGE)
 		return FALSE
 	return TRUE
@@ -304,6 +314,16 @@
 	if(!forced)
 		if(HAS_TRAIT(src, TRAIT_GODMODE))
 			return FALSE
+
+		/*
+		var/obj/item/organ/lungs/affected_lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
+		if(isnull(affected_lungs))
+			if(!(mob_respiration_type & required_respiration_type))
+				return FALSE
+		else
+			if(!(affected_lungs.respiration_type & required_respiration_type))
+				return FALSE
+		*/
 	. = oxyloss
 	oxyloss = amount
 	. -= oxyloss

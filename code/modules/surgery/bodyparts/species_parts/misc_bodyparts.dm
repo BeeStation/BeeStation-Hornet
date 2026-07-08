@@ -198,6 +198,7 @@
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.4
 	brute_modifier = 1.4
+	head_flags = HEAD_EYESPRITES|HEAD_EYEHOLES
 
 /obj/item/bodypart/chest/fly
 	limb_id = SPECIES_FLYPERSON
@@ -305,12 +306,15 @@
 
 ///GOLEMS (i hate xenobio)
 /obj/item/bodypart/head/golem
+	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
 	limb_id = SPECIES_GOLEM
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
 	head_flags = NONE
 
 /obj/item/bodypart/chest/golem
+	acceptable_bodytype = BODYTYPE_GOLEM
+	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
 	limb_id = SPECIES_GOLEM
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
@@ -318,12 +322,14 @@
 	wing_types = NONE
 
 /obj/item/bodypart/arm/left/golem
+	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
 	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
 	bodypart_traits = list(TRAIT_CHUNKYFINGERS)
 	unarmed_damage = 11 // I'd like to take the moment that maintaining all of these random ass golem species is hell and oranges was right
 
 /obj/item/bodypart/arm/right/golem
+	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
 	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
 	bodypart_traits = list(TRAIT_CHUNKYFINGERS)
@@ -331,12 +337,14 @@
 	movespeed_contribution = 1
 
 /obj/item/bodypart/leg/left/golem
+	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
 	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
 	unarmed_damage = 11
 	movespeed_contribution = 1
 
 /obj/item/bodypart/leg/right/golem
+	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
 	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
 	unarmed_damage = 11
@@ -875,6 +883,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.25
+	head_flags = HEAD_EYECOLOR
 	///Carved overlay
 	var/image/carved_overlay
 

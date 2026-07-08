@@ -207,7 +207,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 					var/obj/item/computer_hardware/card_slot/card = PDA.all_components[MC_CARD]
 					qdel(card.stored_card)
 					if(card)
-						card.try_insert(id, H)
+						card.application_attackby(id, H)
 				else if(istype(worn, /obj/item/storage/wallet))
 					var/obj/item/storage/wallet/W = worn
 					W.front_id = id
@@ -322,7 +322,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_all.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/power/apc/APC in GLOB.apcs_list)
+	for(var/obj/machinery/power/apc/APC as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/apc))
 		var/area/A = APC.area
 		if(!A)
 			dat += "Skipped over [APC] in invalid location, [APC.loc]."
@@ -333,7 +333,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_multiple_APCs.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/airalarm/AA in GLOB.machines)
+	for(var/obj/machinery/airalarm/AA as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/airalarm))
 		var/area/A = get_area(AA)
 		if(!A) //Make sure the target isn't inside an object, which results in runtimes.
 			dat += "Skipped over [AA] in invalid location, [AA.loc].<br>"
@@ -342,7 +342,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_air_alarm.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/requests_console/RC in GLOB.machines)
+	for(var/obj/machinery/requests_console/RC as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/requests_console))
 		var/area/A = get_area(RC)
 		if(!A)
 			dat += "Skipped over [RC] in invalid location, [RC.loc].<br>"
@@ -351,7 +351,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_RC.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/light/L in GLOB.machines)
+	for(var/obj/machinery/light/L as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light))
 		var/area/A = get_area(L)
 		if(!A)
 			dat += "Skipped over [L] in invalid location, [L.loc].<br>"
@@ -360,7 +360,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_light.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/light_switch/LS in GLOB.machines)
+	for(var/obj/machinery/light_switch/LS as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light_switch))
 		var/area/A = get_area(LS)
 		if(!A)
 			dat += "Skipped over [LS] in invalid location, [LS.loc].<br>"
@@ -369,7 +369,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_LS.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/item/radio/intercom/I in GLOB.machines)
+	for(var/obj/item/radio/intercom/I as anything in GLOB.intercoms_list)
 		var/area/A = get_area(I)
 		if(!A)
 			dat += "Skipped over [I] in invalid location, [I.loc].<br>"
@@ -378,7 +378,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_intercom.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/camera/C in GLOB.machines)
+	for(var/obj/machinery/camera/C as anything in GLOB.cameranet.cameras)
 		var/area/A = get_area(C)
 		if(!A)
 			dat += "Skipped over [C] in invalid location, [C.loc].<br>"
@@ -644,15 +644,19 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		exists[L.ruin_template] = landmark
 
 	var/list/names = list()
-	names += "---- Dynamic Levels ----"
-	for(var/name in SSmapping.space_ruins_templates)
-		names[name] = list(SSmapping.space_ruins_templates[name], ZTRAIT_DYNAMIC_LEVEL, /area/misc/space)
-	names += "---- Lava Ruins ----"
-	for(var/name in SSmapping.lava_ruins_templates)
-		names[name] = list(SSmapping.lava_ruins_templates[name], ZTRAIT_LAVA_RUINS, /area/lavaland/surface/outdoors/unexplored)
+	var/list/themed_names
+	for (var/theme in SSmapping.themed_ruins)
+		names += "---- [theme] ----"
+		themed_names = list()
+		for (var/name in SSmapping.themed_ruins[theme])
+			var/datum/map_template/ruin/ruin = SSmapping.themed_ruins[theme][name]
+			if(names[name])
+				name = "[theme] [name]"
+			themed_names[name] = list(ruin, theme, list(ruin.default_area))
+		names += sort_list(themed_names)
 
-	var/ruinname = input("Select ruin", "Spawn Ruin") as null|anything in sort_list(names)
-	var/data = names[ruinname]
+	var/ruinname = tgui_input_list(usr, "Select ruin", "Spawn Ruin", names)
+	var/list/data = names[ruinname]
 	if (!data)
 		return
 	var/datum/map_template/ruin/template = data[1]

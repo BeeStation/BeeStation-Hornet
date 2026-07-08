@@ -61,11 +61,13 @@
 		amount_to_pick = 1,
 	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
-	if(candidate)
-		friend.key = candidate.key
-		friend_initialized = TRUE
-	else
+	if(isnull(candidate))
 		qdel(src)
+		return
+
+	friend.key = candidate.key
+	friend.setup_friend()
+	friend_initialized = TRUE
 
 /mob/camera/imaginary_friend
 	name = "imaginary friend"
@@ -87,14 +89,12 @@
 	var/mob/living/carbon/owner
 	var/datum/brain_trauma/special/imaginary_friend/trauma
 
-	var/datum/action/innate/imaginary_join/join
-	var/datum/action/innate/imaginary_hide/hide
-
 /mob/camera/imaginary_friend/Login()
 	. = ..()
 	if(!. || !client)
 		return FALSE
-	greet()
+	if(owner)
+		greet()
 	Show()
 
 /mob/camera/imaginary_friend/proc/greet()
@@ -113,11 +113,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	grant_language(/datum/language/metalanguage) // they only speak in metalanguage
 	language_holder.selected_language = /datum/language/metalanguage
 
-	setup_friend()
-
-	join = new
+	var/datum/action/innate/imaginary_join/join = new()
 	join.Grant(src)
-	hide = new
+	var/datum/action/innate/imaginary_hide/hide = new()
 	hide.Grant(src)
 
 	// Update icon on turn
@@ -127,8 +125,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(owner_speech))
 
 /mob/camera/imaginary_friend/Destroy()
-	qdel(join)
-	qdel(hide)
 	UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE)
 	if(owner)
 		UnregisterSignal(owner, COMSIG_MOB_SAY)
@@ -139,6 +135,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	real_name = generate_random_name_species_based(gender, FALSE, /datum/species/human)
 	name = real_name
 	human_image = get_flat_human_icon(null, pick(SSjob.occupations))
+	Show()
 
 /mob/camera/imaginary_friend/proc/Show()
 	SIGNAL_HANDLER
@@ -173,7 +170,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 
 /mob/camera/imaginary_friend/proc/owner_speech(speaker, speech_args)
 	SIGNAL_HANDLER
-	var/list/listening = get_hearers_in_view(6, owner, SEE_INVISIBLE_MAXIMUM)
+	var/list/listening = get_hearers_in_view(6, owner)
 	if(!(src in listening))
 		to_chat(src, span_hear("You hear a distant voice in your head..."))
 		to_chat(src, span_gamesay("[span_name("[speaker]")] [span_message("[generate_messagepart(speech_args[SPEECH_MESSAGE])]")]"))
@@ -257,7 +254,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 	var/turf/tile = get_turf(A)
 	var/image/arrow = image(icon = 'icons/hud/screen_gen.dmi', loc = our_tile, icon_state = "arrow")
 	arrow.plane = POINT_PLANE
-	animate(arrow, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
+	animate(arrow, pixel_x = (tile.x - our_tile.x) * ICON_SIZE_X + A.pixel_x, pixel_y = (tile.y - our_tile.y) * ICON_SIZE_Y + A.pixel_y, time = 1.7, easing = EASE_OUT)
 	owner?.client?.images += arrow
 	client?.images += arrow
 	addtimer(CALLBACK(src, PROC_REF(remove_arrow), arrow, client, owner?.client), 2.5 SECONDS)

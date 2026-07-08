@@ -80,41 +80,37 @@
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 
-/datum/symptom/sensory_restoration/Activate(datum/disease/advance/source_disease)
+/datum/symptom/sensory_restoration/Activate(datum/disease/advance/advanced_disease)
 	. = ..()
 	if(!.)
 		return
-	var/mob/living/ill_mob = source_disease.affected_mob
-	var/obj/item/organ/eyes/eyes = ill_mob.get_organ_slot(ORGAN_SLOT_EYES)
-	if (!eyes)
-		return
-	switch(source_disease.stage)
+	var/mob/living/carbon/infected_mob = advanced_disease.affected_mob
+	switch(advanced_disease.stage)
 		if(4, 5)
-			var/obj/item/organ/ears/ears = ill_mob.get_organ_slot(ORGAN_SLOT_EARS)
-			if(ears)
+			if(advanced_disease.has_required_infectious_organ(infected_mob, ORGAN_SLOT_EARS))
+				var/obj/item/organ/ears/ears = infected_mob.get_organ_slot(ORGAN_SLOT_EARS)
 				ears.adjustEarDamage(-4, -4)
 
-			if(HAS_TRAIT_FROM(ill_mob, TRAIT_BLIND, EYE_DAMAGE))
-				if(prob(20))
-					if(ill_mob.stat != DEAD)
-						to_chat(ill_mob, span_notice("Your vision slowly returns..."))
-					ill_mob.cure_blind(EYE_DAMAGE)
-					ill_mob.cure_nearsighted(EYE_DAMAGE)
-					ill_mob.set_eye_blur_if_lower(70 SECONDS)
-			else if(HAS_TRAIT_FROM(ill_mob, TRAIT_NEARSIGHT, EYE_DAMAGE))
-				if(ill_mob.stat != DEAD)
-					to_chat(ill_mob, span_notice("You can finally focus your eyes on distant objects."))
-				ill_mob.cure_nearsighted(EYE_DAMAGE)
-				ill_mob.set_eye_blur_if_lower(20 SECONDS)
-			else if(ill_mob.is_blind() || ill_mob.has_status_effect(/datum/status_effect/eye_blur))
-				ill_mob.set_blindness(0)
-				ill_mob.remove_status_effect(/datum/status_effect/eye_blur)
-			else if(eyes.damage > 0)
-				eyes.apply_organ_damage(-1)
-		else
-			if(prob(base_message_chance) && ill_mob.stat != DEAD)
-				to_chat(ill_mob, span_notice("[pick("Your eyes feel great.","You feel like your eyes can focus more clearly.", "You don't feel the need to blink.","Your ears feel great.","Your healing feels more acute.")]"))
+			if(!advanced_disease.has_required_infectious_organ(infected_mob, ORGAN_SLOT_EYES))
+				return
 
+			var/obj/item/organ/eyes/eyes = infected_mob.get_organ_slot(ORGAN_SLOT_EYES)
+			infected_mob.adjust_temp_blindness(-4 SECONDS)
+			infected_mob.adjust_eye_blur(-4 SECONDS)
+
+			eyes.apply_organ_damage(-2)
+			if(prob(20))
+				if(infected_mob.is_blind_from(EYE_DAMAGE))
+					to_chat(infected_mob, span_warning("Your vision slowly returns..."))
+					infected_mob.adjust_eye_blur(20 SECONDS)
+
+				else if(infected_mob.is_nearsighted_from(EYE_DAMAGE))
+					to_chat(infected_mob, span_warning("The blackness in your peripheral vision begins to fade."))
+					infected_mob.adjust_eye_blur(5 SECONDS)
+
+		else
+			if(prob(base_message_chance))
+				to_chat(infected_mob, span_notice("[pick("Your eyes feel great.","You feel like your eyes can focus more clearly.", "You don't feel the need to blink.","Your ears feel great.","Your hearing feels more acute.")]"))
 
 /datum/symptom/organ_restoration //heals damage to other internal organs that get damaged far less often
 	name = "Organ Restoration"
@@ -159,8 +155,8 @@
 		M.adjustOrganLoss(ORGAN_SLOT_LUNGS, -1, required_organ_flag = organtype)
 		M.adjustOrganLoss(ORGAN_SLOT_HEART, -1, required_organ_flag = organtype)
 		M.adjustOrganLoss(ORGAN_SLOT_LIVER, -1, required_organ_flag = organtype)
-		M.adjustOrganLoss(ORGAN_SLOT_EXTERNAL_TAIL, -1, required_organ_flag = organtype)
-		M.adjustOrganLoss(ORGAN_SLOT_EXTERNAL_WINGS, -1, required_organ_flag = organtype)
+		M.adjustOrganLoss(ORGAN_SLOT_TAIL, -1, required_organ_flag = organtype)
+		M.adjustOrganLoss(ORGAN_SLOT_WINGS, -1, required_organ_flag = organtype)
 		if(curing)
 			for(var/datum/disease/D in M.diseases)
 				if(istype(D, /datum/disease/appendicitis) || istype(D, /datum/disease/heart_failure))
@@ -182,7 +178,7 @@
 						O = new S.mutantstomach()
 					else
 						O = new()
-					O.Insert(M, movement_flags = DELETE_IF_REPLACED)
+					O.Insert(M, drop_if_replaced = FALSE)
 					M.adjustOrganLoss(ORGAN_SLOT_STOMACH, 200)
 					return
 				if(!M.get_organ_by_type(/obj/item/organ/lungs) && !(TRAIT_NOBREATH in S.inherent_traits))
@@ -191,22 +187,31 @@
 						O = new S.mutantlungs()
 					else
 						O = new()
-					O.Insert(M, movement_flags = DELETE_IF_REPLACED)
+					O.Insert(M, drop_if_replaced = FALSE)
 					M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 200)
 					return
-				if(!M.get_organ_by_type(/obj/item/organ/heart) && !(TRAIT_NOBLOOD in S.inherent_traits))
+				if(!M.get_organ_by_type(/obj/item/organ/heart) && !HAS_TRAIT(S, TRAIT_NOBLOOD))
 					var/obj/item/organ/heart/O = new()
-					O.Insert(M, movement_flags = DELETE_IF_REPLACED)
+					O.Insert(M, drop_if_replaced = FALSE)
 					M.adjustOrganLoss(ORGAN_SLOT_HEART, 200)
 					return
-				if(!M.get_organ_by_type(/obj/item/organ/liver) && !(TRAIT_LIVERLESS_METABOLISM in S.inherent_traits))
+				if(!M.get_organ_by_type(/obj/item/organ/liver) && !(TRAIT_NOMETABOLISM in S.inherent_traits))
 					var/obj/item/organ/liver/O
 					if(S.mutantliver)
 						O = new S.mutantliver()
 					else
 						O = new()
-					O.Insert(M, movement_flags = DELETE_IF_REPLACED)
+					O.Insert(M, drop_if_replaced = FALSE)
 					M.adjustOrganLoss(ORGAN_SLOT_LIVER, 200)
 					return
+				if(!M.get_organ_by_type(/obj/item/organ/wings))
+					if(S.mutantwings)
+						var/obj/item/organ/wings/O = new S.mutantwings()
+						O.Insert(M, drop_if_replaced = FALSE)
+						M.adjustOrganLoss(ORGAN_SLOT_WINGS, 200)
+						M.visible_message(span_notice("[M] sprouts a new pair of wings!"), span_userdanger("You sprout a new pair of wings!."))
+						playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
+						M.add_splatter_floor(get_turf(M))
+						return
 	if(prob(2) && M.stat != DEAD)
 		to_chat(M, span_notice("[pick("You feel healthy!.","You feel energetic!", "You feel rejuvenated!")]"))

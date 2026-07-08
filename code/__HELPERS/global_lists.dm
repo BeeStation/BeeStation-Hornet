@@ -2,22 +2,18 @@
 //   Initial Building   //
 //----------------------//
 
-/proc/make_datum_references_lists()
-	//Species
-	for(var/spath in subtypesof(/datum/species))
-		var/datum/species/S = new spath()
-		GLOB.species_list[S.id] = spath
-	sort_list(GLOB.species_list, /proc/cmp_typepaths_asc)
-
-	//Surgeries
+/// Inits GLOB.surgeries
+/proc/init_surgeries()
+	var/surgeries = list()
 	for(var/path in subtypesof(/datum/surgery))
-		GLOB.surgeries_list += new path()
-	sort_list(GLOB.surgeries_list, /proc/cmp_typepaths_asc)
-	GLOB.emote_list = init_emote_list()
+		surgeries += new path()
+	sort_list(surgeries, GLOBAL_PROC_REF(cmp_typepaths_asc))
+	return surgeries
 
+/proc/make_datum_references_lists()
 	// Keybindings
 	init_keybindings()
-
+	GLOB.emote_list = init_emote_list()
 	init_crafting_recipes()
 	init_crafting_recipes_atoms()
 

@@ -64,7 +64,7 @@
 
 /datum/tgui_input_pda_message/New()
 
-/datum/tgui_input_pda_message/Destroy(force, ...)
+/datum/tgui_input_pda_message/Destroy(force)
 	SStgui.close_uis(src)
 	. = ..()
 

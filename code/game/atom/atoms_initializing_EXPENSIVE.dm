@@ -106,7 +106,7 @@
   */
 
 /atom/proc/Initialize(mapload, ...)
-	//SHOULD_NOT_SLEEP(TRUE) //TODO: We shouldn't be sleeping initialize
+	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(flags_1 & INITIALIZED_1)
@@ -158,7 +158,7 @@
  * [INITIALIZE_HINT_LATELOAD](code/__DEFINES/subsystems.html#define/INITIALIZE_HINT_LATELOAD)
  * otherwise you will never be called.
  *
- * useful for doing things like finding other machines on GLOB.machines because you can guarantee
+ * useful for doing things like finding other machines because you can guarantee
  * that all atoms will actually exist in the "WORLD" at this time and that all their Intialization
  * code has been run
  */

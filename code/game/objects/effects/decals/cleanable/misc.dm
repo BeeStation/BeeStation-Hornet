@@ -291,6 +291,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/vomit/old)
 	icon = 'icons/obj/debris.dmi'
 	icon_state = "garbage"
 	plane = GAME_PLANE
-	layer = FLOOR_CLEAN_LAYER
+	layer = CLEANABLE_OBJECT_LAYER
 	//beauty = -150
 	clean_type = CLEAN_TYPE_HARD_DECAL

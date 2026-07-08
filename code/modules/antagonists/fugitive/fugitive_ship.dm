@@ -120,10 +120,8 @@
 	. = ..()
 	scan_machinery()
 
-/obj/machinery/computer/fugitive_capture_computer/ui_state(mob/user)
-	return GLOB.default_state
-
 /obj/machinery/computer/fugitive_capture_computer/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "FugitiveCaptureConsole")

@@ -2,10 +2,10 @@
 "a" = (
 /obj/effect/abstract/open_area_marker,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "e" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "o" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -15,28 +15,28 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "x" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "H" = (
 /turf/template_noop,
 /area/template_noop)
 "N" = (
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "O" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "V" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 e

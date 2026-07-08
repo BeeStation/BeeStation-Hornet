@@ -949,7 +949,7 @@
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	armor_type = /datum/armor/hardsuit_rd
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
-	clothing_traits = list(TRAIT_REAGENT_SCANNER)
+	clothing_traits = list(TRAIT_REAGENT_SCANNER, TRAIT_DIAGNOSTIC_HUD)
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet_light,
 		/datum/action/item_action/toggle_research_scanner
@@ -972,18 +972,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/rd/Initialize(mapload)
 	. = ..()
 	bomb_radar = new /obj/machinery/doppler_array/integrated(src)
-
-/obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/living/carbon/human/user, slot)
-	..()
-	if (slot == ITEM_SLOT_HEAD)
-		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
-		DHUD.add_hud_to(user)
-
-/obj/item/clothing/head/helmet/space/hardsuit/rd/dropped(mob/living/carbon/human/user)
-	..()
-	if (user.head == src)
-		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
-		DHUD.remove_hud_from(user)
 
 /obj/item/clothing/suit/space/hardsuit/research_director
 	icon_state = "hardsuit-rd"

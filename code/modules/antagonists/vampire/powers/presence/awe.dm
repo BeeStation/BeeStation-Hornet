@@ -43,7 +43,7 @@
 		return FALSE
 	if(victim.stat != CONSCIOUS)
 		return FALSE
-	if(victim.is_blind() || HAS_TRAIT(victim, TRAIT_NEARSIGHT))
+	if(victim.is_blind() || victim.is_nearsighted_currently())
 		return FALSE
 	if(HAS_MIND_TRAIT(victim, TRAIT_VAMPIRE_ALIGNED) || IS_CURATOR(victim))
 		return FALSE

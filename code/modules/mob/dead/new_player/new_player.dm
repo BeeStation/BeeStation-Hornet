@@ -289,7 +289,7 @@
 	if(!job.has_space())
 		if(job.title == JOB_NAME_ASSISTANT)
 			//Newbies can always be assistants
-			if(isnum_safe(client.player_age) && client.player_age <= 14)
+			if(IS_FINITE(client.player_age) && client.player_age <= 14)
 				return JOB_AVAILABLE
 			// If there are other jobs that this user can select, then the assistant is unavailable
 			// If the user has no other choices, then we will display the assistant
@@ -389,7 +389,7 @@
 		if(SSshuttle.arrivals)
 			SSshuttle.arrivals.QueueAnnounce(humanc, rank)
 		else
-			AnnounceArrival(humanc, rank)
+			announce_arrival(humanc, rank)
 		AddEmploymentContract(humanc)
 		if(GLOB.highlander)
 			to_chat(humanc, span_userdanger("<i>THERE CAN BE ONLY ONE!!!</i>"))

@@ -8,6 +8,7 @@
 
 // BEGIN_INCLUDE
 
+#include "aas_configs.dm"
 #include "achievement_validation.dm"
 #include "anchored_mobs.dm"
 #include "antag_datums.dm"
@@ -19,6 +20,7 @@
 #include "asset_smart_cache.dm"
 #include "async.dm"
 #include "autowiki.dm"
+#include "blindness.dm"
 #include "bloody_footprints.dm"
 #include "breath.dm"
 #include "changeling.dm"
@@ -51,6 +53,7 @@
 #include "handcuff_tests.dm"
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"
+#include "huds.dm"
 #include "hydroponics_extractor_storage.dm"
 #include "icon_smoothing_unit_test.dm"
 #include "janky_actions.dm"
@@ -103,6 +106,8 @@
 #include "status_effect_validity.dm"
 #include "steal_objectives_trackability.dm"
 #include "strippable.dm"
+#include "stuns.dm"
+#include "subsystem_flags.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
 #include "surgeries.dm"

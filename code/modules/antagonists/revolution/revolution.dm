@@ -12,27 +12,21 @@
 	antagpanel_category = "Revolution"
 	banning_key = ROLE_REV
 	antag_moodlet = /datum/mood_event/revolution
-	var/hud_type = "rev"
-	var/datum/team/revolution/rev_team
+	antag_hud_name = "rev"
 	required_living_playtime = 0
+	var/datum/team/revolution/rev_team
 
 /datum/antagonist/rev/can_be_owned(datum/mind/new_owner)
-	. = ..()
-	if(.)
-		if(new_owner.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-			return FALSE
-		if(new_owner.unconvertable)
-			return FALSE
-		if(new_owner.current && HAS_TRAIT(new_owner.current, TRAIT_MINDSHIELD))
-			return FALSE
+	if(new_owner.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
+		return FALSE
+	if(new_owner.unconvertable)
+		return FALSE
+	if(new_owner.current && HAS_TRAIT(new_owner.current, TRAIT_MINDSHIELD))
+		return FALSE
+	return ..()
 
 /datum/antagonist/rev/apply_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_rev_icons_added(M)
-
-/datum/antagonist/rev/remove_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_rev_icons_removed(M)
+	add_team_hud(mob_override || owner.current)
 
 /datum/antagonist/rev/proc/equip_rev()
 	return
@@ -159,7 +153,7 @@
 
 /datum/antagonist/rev/head
 	name = "Head Revolutionary"
-	hud_type = "rev_head"
+	antag_hud_name = "rev_head"
 	banning_key = ROLE_REV_HEAD
 	required_living_playtime = 8
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
@@ -169,16 +163,6 @@
 
 /datum/antagonist/rev/head/antag_listing_name()
 	return ..() + "(Leader)"
-
-/datum/antagonist/rev/proc/update_rev_icons_added(mob/living/M)
-	var/datum/atom_hud/antag/revhud = GLOB.huds[ANTAG_HUD_REV]
-	revhud.join_hud(M)
-	set_antag_hud(M,hud_type)
-
-/datum/antagonist/rev/proc/update_rev_icons_removed(mob/living/M)
-	var/datum/atom_hud/antag/revhud = GLOB.huds[ANTAG_HUD_REV]
-	revhud.leave_hud(M)
-	set_antag_hud(M, null)
 
 /datum/antagonist/rev/proc/can_be_converted(mob/living/candidate)
 	if(!candidate.mind)

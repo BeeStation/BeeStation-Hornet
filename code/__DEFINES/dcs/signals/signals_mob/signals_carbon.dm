@@ -43,6 +43,9 @@
 #define COMSIG_CARBON_POST_ATTACH_LIMB "carbon_post_attach_limb"
 /// Called from carbon losing a limb /obj/item/bodypart/proc/drop_limb(obj/item/bodypart/lost_limb, dismembered)
 #define COMSIG_CARBON_POST_REMOVE_LIMB "carbon_post_remove_limb"
+/// Called from bodypart changing owner, which could be on attach or detachment. Either argument can be null. (mob/living/carbon/new_owner, mob/living/carbon/old_owner)
+#define COMSIG_BODYPART_CHANGED_OWNER "bodypart_changed_owner"
+
 ///from /obj/item/bodypart/proc/receive_damage, sent from the limb owner (limb, brute, burn)
 #define COMSIG_CARBON_LIMB_DAMAGED "carbon_limb_damaged"
 	#define COMPONENT_PREVENT_LIMB_DAMAGE (1 << 0)
@@ -67,9 +70,6 @@
 #define COMSIG_BODYPART_REMOVED "bodypart_removed"
 
 #define COMSIG_CARBON_TRANSFORMED	"carbon_transformed"			//! Called whenever a carbon is transformed into another carbon, i.e monkeyize/humanize (mob/living/carbon/new_body)
-
-/// Called from bodypart changing owner, which could be on attach or detachment. Either argument can be null. (mob/living/carbon/new_owner, mob/living/carbon/old_owner)
-#define COMSIG_BODYPART_CHANGED_OWNER "bodypart_changed_owner"
 
 ///from /mob/living/carbon/human/get_visible_name(), not sent if the mob has TRAIT_UNKNOWN: (identity)
 #define COMSIG_HUMAN_GET_VISIBLE_NAME "human_get_visible_name"

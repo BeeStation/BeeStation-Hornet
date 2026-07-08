@@ -94,14 +94,20 @@ module.exports = (env = {}, argv) => {
             },
           ],
         },
+
         {
-          test: /\.(png|jpg|svg)$/,
-          use: [
+          test: /\.(cur|png|jpg)$/,
+          type: 'asset/resource',
+        },
+        {
+          test: /.svg$/,
+          oneOf: [
             {
-              loader: require.resolve('url-loader'),
-              options: {
-                esModule: false,
-              },
+              issuer: /\.(s)?css$/,
+              type: 'asset/inline',
+            },
+            {
+              type: 'asset/resource',
             },
           ],
         },

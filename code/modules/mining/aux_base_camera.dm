@@ -30,7 +30,7 @@
 /obj/machinery/computer/camera_advanced/base_construction
 	name = "base construction console"
 	desc = "An industrial computer integrated with a camera-assisted rapid construction drone."
-	networks = list("ss13")
+	compatible_camera_networks = list(CAMERA_NETWORK_STATION)
 	var/obj/item/construction/rcd/internal/RCD //Internal RCD. The computer passes user commands to this in order to avoid massive copypaste.
 	circuit = /obj/item/circuitboard/computer/base_construction
 	off_action = new/datum/action/innate/camera_off/base_construction
@@ -72,7 +72,7 @@
 /obj/machinery/computer/camera_advanced/base_construction/CreateEye()
 
 	var/spawn_spot
-	for(var/obj/machinery/computer/auxiliary_base/ABC in GLOB.machines)
+	for(var/obj/machinery/computer/auxiliary_base/ABC as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/auxiliary_base))
 		if(istype(get_area(ABC), /area/shuttle/auxiliary_base))
 			found_aux_console = ABC
 			break

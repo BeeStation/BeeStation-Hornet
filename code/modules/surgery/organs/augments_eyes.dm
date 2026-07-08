@@ -23,43 +23,21 @@
 	name = "HUD implant"
 	desc = "These cybernetic eyes will display a HUD over everything you see. Maybe."
 	slot = ORGAN_SLOT_HUD
-	var/HUD_type
-	var/HUD_trait
-
-/obj/item/organ/cyberimp/eyes/hud/on_mob_insert(mob/living/carbon/eye_owner, special = FALSE, movement_flags)
-	. = ..()
-
-	if(HUD_type)
-		var/datum/atom_hud/H = GLOB.huds[HUD_type]
-		H.add_hud_to(eye_owner)
-	if(HUD_trait)
-		ADD_TRAIT(eye_owner, HUD_trait, ORGAN_TRAIT)
-	return ..()
-
-/obj/item/organ/cyberimp/eyes/hud/on_mob_remove(mob/living/carbon/eye_owner, special, movement_flags)
-	. = ..()
-	if(HUD_type)
-		var/datum/atom_hud/H = GLOB.huds[HUD_type]
-		H.remove_hud_from(eye_owner)
-	if(HUD_trait)
-		REMOVE_TRAIT(eye_owner, HUD_trait, ORGAN_TRAIT)
 
 /obj/item/organ/cyberimp/eyes/hud/medical
 	name = "Medical HUD implant"
 	desc = "These cybernetic eye implants will display a medical HUD over everything you see."
-	HUD_type = DATA_HUD_MEDICAL_ADVANCED
-	HUD_trait = TRAIT_MEDICAL_HUD
+	organ_traits = list(TRAIT_MEDICAL_HUD)
 
 /obj/item/organ/cyberimp/eyes/hud/security
 	name = "Security HUD implant"
 	desc = "These cybernetic eye implants will display a security HUD over everything you see."
-	HUD_type = DATA_HUD_SECURITY_ADVANCED
-	HUD_trait = TRAIT_SECURITY_HUD
+	organ_traits = list(TRAIT_SECURITY_HUD)
 
 /obj/item/organ/cyberimp/eyes/hud/diagnostic
 	name = "Diagnostic HUD implant"
 	desc = "These cybernetic eye implants will display a diagnostic HUD over everything you see."
-	HUD_type = DATA_HUD_DIAGNOSTIC_ADVANCED
+	organ_traits = list(TRAIT_DIAGNOSTIC_HUD, TRAIT_BOT_PATH_HUD)
 
 /obj/item/organ/cyberimp/eyes/hud/security/syndicate
 	name = "Contraband Security HUD Implant"

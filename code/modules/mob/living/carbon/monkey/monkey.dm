@@ -129,7 +129,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.total_chem_storage]")
-			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbed_count]")
+			tab_data["Absorbed Genomes"] = GENERATE_STAT_TEXT("[changeling.absorbed_genomes]")
+			tab_data["Absorbed Humans"] = GENERATE_STAT_TEXT("[changeling.absorbed_people]")
 	return tab_data
 
 
@@ -196,10 +197,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 /mob/living/carbon/monkey/angry/Initialize(mapload)
 	. = ..()
 	if(prob(10))
-		var/obj/item/clothing/head/helmet/toggleable/justice/escape/helmet = new(src)
-		equip_to_slot_or_del(helmet,ITEM_SLOT_HEAD)
-		helmet.attack_self(src) // todo encapsulate toggle
+		INVOKE_ASYNC(src, PROC_REF(give_ape_escape_helmet))
 
+/// Gives our funny monkey an Ape Escape hat reference
+/mob/living/carbon/monkey/angry/proc/give_ape_escape_helmet()
+	var/obj/item/clothing/head/helmet/toggleable/justice/escape/helmet = new(src)
+	equip_to_slot_or_del(helmet, ITEM_SLOT_HEAD)
+	helmet.attack_self(src) // todo encapsulate toggle
 
 //Special monkeycube subtype to track the number of them and prevent spam
 /mob/living/carbon/monkey/cube/Initialize(mapload)

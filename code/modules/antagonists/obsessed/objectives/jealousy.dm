@@ -35,7 +35,7 @@
 		set_target(null)
 		update_explanation_text()
 		return
-	for(var/datum/mind/possible_target as() in get_crewmember_minds())
+	for(var/datum/mind/possible_target as anything in get_crewmember_minds())
 		if(!SSjob.GetJob(possible_target.assigned_role) || possible_target == obsession || possible_target.has_antag_datum(/datum/antagonist/obsessed) || (possible_target in blacklist))
 			continue //the jealousy target has to have a job, and not be the obsession or obsessed.
 		all_coworkers += possible_target

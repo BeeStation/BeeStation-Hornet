@@ -212,6 +212,7 @@
 /obj/item/bodypart/head/monkey/teratoma
 	icon_state = "teratoma_head"
 	limb_id = "teratoma"
+	head_flags = HEAD_EYECOLOR
 
 /obj/item/bodypart/head/alien
 	icon = 'icons/mob/human/species/alien/bodyparts.dmi'

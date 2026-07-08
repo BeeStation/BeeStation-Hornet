@@ -50,11 +50,33 @@
 /mob/living/proc/get_ear_protection()
 	return 0
 
-/mob/living/proc/is_mouth_covered(head_only = 0, mask_only = 0)
-	return FALSE
+/**
+ * Checks if our mob has their mouth covered.
+ *
+ * Note that we only care about [ITEM_SLOT_HEAD] and [ITEM_SLOT_MASK].
+ *  (so if you check all slots, it'll return head, then mask)
+ *That is also the priority order
+ * Arguments
+ * * check_flags: What item slots should we check?
+ *
+ * Returns a truthy value (a ref to what is covering mouth), or a falsey value (null)
+ */
+/mob/living/proc/is_mouth_covered(check_flags = ALL)
+	return null
 
-/mob/living/proc/is_eyes_covered(check_glasses = 1, check_head = 1, check_mask = 1)
-	return FALSE
+/**
+ * Checks if our mob has their eyes covered.
+ *
+ * Note that we only care about [ITEM_SLOT_HEAD], [ITEM_SLOT_MASK], and [ITEM_SLOT_GLASSES].
+ * That is also the priority order (so if you check all slots, it'll return head, then mask, then glasses)
+ *
+ * Arguments
+ * * check_flags: What item slots should we check?
+ *
+ * Returns a truthy value (a ref to what is covering eyes), or a falsey value (null)
+ */
+/mob/living/proc/is_eyes_covered(check_flags = ALL)
+	return null
 
 /mob/living/proc/on_hit(obj/projectile/P)
 	return BULLET_ACT_HIT
@@ -228,7 +250,7 @@
 			to_chat(user, "<span class='danger'>You're strangling [src]!</span>")
 			if(!buckled && !density)
 				Move(user.loc)
-	user.set_pull_offsets(src, grab_state)
+	user.set_pull_offsets(src, user.grab_state)
 	return TRUE
 
 
@@ -276,6 +298,15 @@
 
 /mob/living/attack_hand(mob/living/carbon/human/user, list/modifiers)
 	. = ..()
+
+	for(var/datum/surgery/operations as anything in surgeries)
+		if(user.combat_mode)
+			break
+		if(IS_IN_INVALID_SURGICAL_POSITION(src, operations))
+			continue
+		if(operations.next_step(user, modifiers))
+			return TRUE
+
 	var/martial_result = user.apply_martial_art(src, modifiers)
 	if (martial_result != MARTIAL_ATTACK_INVALID)
 		return martial_result
@@ -492,7 +523,7 @@
 		if(locate(/obj/structure/lattice) in range(1, get_turf(src)))
 			is_holding = TRUE
 		else
-			for (var/turf/T as() in RANGE_TURFS(1, src))
+			for (var/turf/T as anything in RANGE_TURFS(1, src))
 				if (T.density)
 					is_holding = TRUE
 					break
@@ -621,3 +652,10 @@
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
 		. |= R.expose_mob(src, method, reagents[R], show_message, touch_protection, affecting)
+
+/// Simplified ricochet angle calculation for mobs (also the base version doesn't work on mobs)
+/mob/living/handle_ricochet(obj/projectile/ricocheting_projectile)
+	var/face_angle = get_angle_raw(ricocheting_projectile.x, ricocheting_projectile.pixel_x, ricocheting_projectile.pixel_y, ricocheting_projectile.p_y, x, y, pixel_x, pixel_y)
+	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + GET_ANGLE_OF_INCIDENCE(face_angle, (ricocheting_projectile.Angle + 180)))
+	ricocheting_projectile.set_angle(new_angle_s)
+	return TRUE

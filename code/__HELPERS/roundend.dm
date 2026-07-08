@@ -135,7 +135,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		var/greentexted = TRUE
 
 		if(A.objectives.len)
-			for(var/datum/objective/O as() in A.objectives)
+			for(var/datum/objective/O as anything in A.objectives)
 				var/result = O.check_completion() ? "SUCCESS" : "FAIL"
 
 				if (result == "FAIL")
@@ -214,12 +214,12 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		if(C)
 
 			C?.process_endround_metacoin()
-			C?.playtitlemusic(40)
+			C?.play_title_music(volume_multiplier = 0.5)
 
 			if(CONFIG_GET(flag/allow_crew_objectives))
 				var/mob/M = C?.mob
 				if(M?.mind?.current && LAZYLEN(M.mind.crew_objectives))
-					for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
+					for(var/datum/objective/crew/CO as anything in M.mind.crew_objectives)
 						if(!C) //Yes, the client can be null here. BYOND moment.
 							break
 						if(CO.check_completion())
@@ -241,10 +241,9 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	CHECK_TICK
 
 	// Add AntagHUD to everyone, see who was really evil the whole time!
-	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		for(var/m in GLOB.player_list)
-			var/mob/M = m
-			H.add_hud_to(M)
+	for(var/datum/atom_hud/alternate_appearance/basic/antagonist_hud/antagonist_hud in GLOB.active_alternate_appearances)
+		for(var/mob/player as anything in GLOB.player_list)
+			antagonist_hud.show_to(player)
 
 	CHECK_TICK
 
@@ -273,7 +272,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	CHECK_TICK
 
 	//Process veteran achievements
-	for(var/client/C as() in GLOB.clients)
+	for(var/client/C as anything in GLOB.clients)
 		var/hours = round(C?.get_exp_living(TRUE)/60)
 		if(hours > 1000)
 			C?.give_award(/datum/award/achievement/misc/onekhours, C.mob)
@@ -438,7 +437,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 
 		if(CONFIG_GET(flag/allow_crew_objectives))
 			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
-				for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
+				for(var/datum/objective/crew/CO as anything in M.mind.crew_objectives)
 					if(CO.declared_complete)
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] [span_greentext("<B>Success!</B>")]<br>"
 					else
@@ -718,7 +717,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		return
 	var/list/objective_parts = list()
 	var/count = 1
-	for(var/datum/objective/objective as() in objectives)
+	for(var/datum/objective/objective as anything in objectives)
 		objective_parts += "<b>Objective #[count++]</b>: [objective.get_completion_message()]"
 	return objective_parts.Join("<br>")
 

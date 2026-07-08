@@ -23,13 +23,13 @@
 	if(istype(object,/turf) && left_click && !alt_click && !ctrl_click)
 		var/turf/T = object
 		if(isspaceturf(object))
-			T.PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+			T.place_on_top(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 		else if(isplatingturf(object))
-			T.PlaceOnTop(/turf/open/floor/iron, flags = CHANGETURF_INHERIT_AIR)
+			T.place_on_top(/turf/open/floor/iron, flags = CHANGETURF_INHERIT_AIR)
 		else if(isfloorturf(object))
-			T.PlaceOnTop(/turf/closed/wall)
+			T.place_on_top(/turf/closed/wall)
 		else if(iswallturf(object))
-			T.PlaceOnTop(/turf/closed/wall/r_wall)
+			T.place_on_top(/turf/closed/wall/r_wall)
 		log_admin("Build Mode: [key_name(c)] built [T] at [AREACOORD(T)]")
 		return
 	else if(right_click)

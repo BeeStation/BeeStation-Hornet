@@ -1,16 +1,17 @@
 /obj/item/bodypart
+	abstract_type = /obj/item/bodypart
 	name = "limb"
 	desc = "Why is it detached..."
 	force = 3
 	throwforce = 3
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/mob/human/bodyparts.dmi'
-	icon_state = "" //Leave this blank! Bodyparts are built using overlays
+	icon_state = ""
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 //actually mindblowing
 	/// The icon for Organic limbs using greyscale
 	VAR_PROTECTED/icon_greyscale = DEFAULT_BODYPART_ICON_ORGANIC
 	///The icon for non-greyscale limbs
-	VAR_PROTECTED/icon_static = 'icons/mob/human/bodyparts.dmi'
+	var/icon_static = 'icons/mob/human/bodyparts.dmi'
 	///The icon for husked limbs
 	VAR_PROTECTED/icon_husk = 'icons/mob/human/bodyparts.dmi'
 	///The type of husk for building an iconstate
@@ -33,6 +34,7 @@
 	///Random flags that describe this bodypart
 	var/bodypart_flags = NONE
 
+	///Whether the bodypart (and the owner) is husked.
 	var/is_husked = FALSE
 	///The ID of a species used to generate the icon. Needs to match the icon_state portion in the limbs file!
 	var/limb_id = SPECIES_HUMAN
@@ -177,7 +179,7 @@
 	update_icon_dropped()
 
 /obj/item/bodypart/add_context_self(datum/screentip_context/context, mob/user, atom/target)
-	if(istype(context.held_item, /obj/item/clothing/accessory))
+	if(istype(context.held_item, /obj/item/toy/crayon/spraycan))
 		context.add_right_click_action("Color Limb")
 
 /obj/item/bodypart/Destroy()
@@ -415,7 +417,7 @@
 		return FALSE
 	if (!forced)
 		if(!isnull(owner))
-			if (HAS_TRAIT(owner, TRAIT_GODMODE))
+			if(HAS_TRAIT(owner, TRAIT_GODMODE))
 				return FALSE
 			if (SEND_SIGNAL(owner, COMSIG_CARBON_LIMB_DAMAGED, src, brute, burn) & COMPONENT_PREVENT_LIMB_DAMAGE)
 				return FALSE
@@ -691,7 +693,6 @@
 				))
 		set_disabled(FALSE)
 
-
 ///Called when TRAIT_PARALYSIS is added to the limb.
 /obj/item/bodypart/proc/on_paralysis_trait_gain(obj/item/bodypart/source)
 	PROTECTED_PROC(TRUE)
@@ -699,7 +700,6 @@
 
 	if(can_be_disabled)
 		set_disabled(TRUE)
-
 
 ///Called when TRAIT_PARALYSIS is removed from the limb.
 /obj/item/bodypart/proc/on_paralysis_trait_loss(obj/item/bodypart/source)
@@ -709,14 +709,12 @@
 	if(can_be_disabled)
 		update_disabled()
 
-
 ///Called when TRAIT_NOLIMBDISABLE is added to the owner.
 /obj/item/bodypart/proc/on_owner_nolimbdisable_trait_gain(mob/living/carbon/source)
 	PROTECTED_PROC(TRUE)
 	SIGNAL_HANDLER
 
 	set_can_be_disabled(FALSE)
-
 
 ///Called when TRAIT_NOLIMBDISABLE is removed from the owner.
 /obj/item/bodypart/proc/on_owner_nolimbdisable_trait_loss(mob/living/carbon/source)
@@ -815,8 +813,8 @@
 		icon_state = initial(icon_state)//no overlays found, we default back to initial icon.
 		return
 	for(var/image/img as anything in standing)
-		img.pixel_x = px_x
-		img.pixel_y = px_y
+		img.pixel_x += px_x
+		img.pixel_y += px_y
 	add_overlay(standing)
 
 ///Generates an /image for the limb to be used as an overlay
@@ -966,7 +964,7 @@
 /obj/item/bodypart/proc/_unembed_object(obj/item/unembed)
 	embedded_objects -= unembed
 
-//A multi-purpose setter for all things immediately important to the icon and iconstate of the limb.
+///A multi-purpose setter for all things immediately important to the icon and iconstate of the limb.
 /obj/item/bodypart/proc/change_appearance(icon, id, greyscale, dimorphic)
 	var/icon_holder
 	if(greyscale)

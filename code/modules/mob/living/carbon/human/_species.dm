@@ -35,6 +35,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	///The maximum number of bodyparts this species can have.
 	var/max_bodypart_count = 6
+
 	/// This allows races to have specific hair colors.
 	/// If null, it uses the mob's hair/facial hair colors.
 	/// If USE_MUTANT_COLOR, it uses the mob's mutant_color.
@@ -47,6 +48,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	///Never, Optional, or Forced digi legs?
 	var/digitigrade_customization = DIGITIGRADE_NEVER
+
 	/// The color used for blush overlay
 	var/blush_color = COLOR_BLUSH_PINK
 	///If your race bleeds something other than bog standard blood, change this to reagent id. For example, ethereals bleed liquid electricity.
@@ -82,26 +84,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest,
 	)
-	///Internal organs that are unique to this race, like a tail or other cosmetic organs. list(typepath of organ 1, typepath of organ 2 = "Round").
-	var/list/mutant_organs = list()
-	///Replaces default brain with a different organ
-	var/obj/item/organ/brain/mutantbrain = /obj/item/organ/brain
-	///Replaces default heart with a different organ
-	var/obj/item/organ/heart/mutantheart = /obj/item/organ/heart
-	///Replaces default lungs with a different organ
-	var/obj/item/organ/lungs/mutantlungs = /obj/item/organ/lungs
-	///Replaces default eyes with a different organ
-	var/obj/item/organ/eyes/mutanteyes = /obj/item/organ/eyes
-	///Replaces default ears with a different organ
-	var/obj/item/organ/ears/mutantears = /obj/item/organ/ears
-	///Replaces default tongue with a different organ
-	var/obj/item/organ/tongue/mutanttongue = /obj/item/organ/tongue
-	///Replaces default liver with a different organ
-	var/obj/item/organ/liver/mutantliver = /obj/item/organ/liver
-	///Replaces default stomach with a different organ
-	var/obj/item/organ/stomach/mutantstomach = /obj/item/organ/stomach
-	///Replaces default appendix with a different organ.
-	var/obj/item/organ/appendix/mutantappendix = /obj/item/organ/appendix
 
 	/// Store body marking defines. See mobs.dm for bitflags
 	var/list/body_markings = list()
@@ -178,16 +160,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// What bleed status effect should we apply?
 	var/bleed_effect = /datum/status_effect/bleeding
 
-	/// Should we preload this species's organs?
-	var/preload = TRUE
-
-
 	/// Do we try to prevent set_mob_eye_to(MOB_EYE_SELF) from working?
 	var/prevent_perspective_change = FALSE
 
+	//Should we preload this species's organs?
+	var/preload = TRUE
+
 	///List of results you get from knife-butchering. null means you cant butcher it. Associated by resulting type - value of amount
 	var/list/knife_butcher_results
-
 
 	/**
 	 * Was on_species_gain ever actually called?
@@ -204,7 +184,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 ///////////
 // PROCS //
 ///////////
-
 
 /datum/species/New()
 	if(!plural_form)
@@ -354,6 +333,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				if(initial(extra_organ.slot) == slot)
 					return extra_organ
 
+
 /**
  * Corrects organs in a carbon, removing ones it doesn't need and adding ones it does.
  *
@@ -424,6 +404,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(!equipped_item.mob_can_equip(wearer, equipped_item_slot, bypass_equip_delay_self = TRUE, ignore_equipped = TRUE))
 			wearer.dropItemToGround(equipped_item, force = TRUE)
 
+///Handles replacing all of the bodyparts with their species version during set_species()
 /datum/species/proc/replace_body(mob/living/carbon/target, datum/species/new_species)
 	new_species ||= target.dna.species //If no new species is provided, assume its src.
 	//Note for future: Potentially add a new C.dna.species() to build a template species for more accurate limb replacement
@@ -445,7 +426,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			new_part.update_limb(is_creating = TRUE)
 			//new_part.set_initial_damage(old_part.brute_dam, old_part.burn_dam)
 		qdel(old_part)
-
 
 /**
  * Proc called when a carbon becomes this species.
@@ -481,15 +461,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
 		C.dna.blood_type = get_blood_type(exotic_bloodtype)
 	//Otherwise, check if the previous species had an exotic bloodtype and we do not have one and assign a random blood type
-	//(why the fuck is blood type not tied to a fucking DNA block?)
+	//(why the fuck is blood type not tied to a DNA block?)
 	else if(old_species.exotic_bloodtype && !exotic_bloodtype)
 		C.dna.blood_type = random_blood_type()
 
 	if(TRAIT_NOMOUTH in inherent_traits)
 		for(var/obj/item/bodypart/head/head in C.bodyparts)
 			head.mouth = FALSE
-
-	add_body_markings(C)
 
 	if(length(inherent_traits))
 		C.add_traits(inherent_traits, SPECIES_TRAIT)
@@ -516,6 +494,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	C.living_flags &= ~STOP_OVERLAY_UPDATE_BODY_PARTS
 
+
 /**
  * Proc called when a carbon is no longer this species.
  *
@@ -534,8 +513,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(TRAIT_NOMOUTH in inherent_traits)
 		for(var/obj/item/bodypart/head/head in human.bodyparts)
 			head.mouth = TRUE
-	for(var/trait in inherent_traits)
-		REMOVE_TRAIT(human, trait, SPECIES_TRAIT)
+
+	for(var/trait  in inherent_traits)
+		REMOVE_TRAIT(human, trait , SPECIES_TRAIT)
 
 	//If their inert mutation is not the same, swap it out
 	if((inert_mutation != new_species.inert_mutation) && LAZYLEN(human.dna.mutation_index) && (inert_mutation in human.dna.mutation_index))
@@ -565,7 +545,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	SEND_SIGNAL(human, COMSIG_SPECIES_LOSS, src)
 
 	human.living_flags &= ~STOP_OVERLAY_UPDATE_BODY_PARTS
-
 
 /**
  * Handles the body of a human
@@ -654,55 +633,55 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/bodypart/head/noggin = source.get_bodypart(BODY_ZONE_HEAD)
 
 	if(mutant_bodyparts["ipc_screen"])
-		if(!source.dna.features["ipc_screen"] || source.dna.features["ipc_screen"] == SPRITE_ACCESSORY_NONE || (source.head && (source.head.flags_inv & HIDEEYES)) || (source.wear_mask && (source.wear_mask.flags_inv & HIDEEYES)) || !noggin)
+		if(!source.dna.features["ipc_screen"] || source.dna.features["ipc_screen"] == SPRITE_ACCESSORY_NONE || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || !HD)
 			bodyparts_to_add -= "ipc_screen"
 
 	if(mutant_bodyparts["ipc_antenna"])
-		if(!source.dna.features["ipc_antenna"] || source.dna.features["ipc_antenna"] == SPRITE_ACCESSORY_NONE || (source.head?.flags_inv & HIDEEARS) || !noggin)
+		if(!source.dna.features["ipc_antenna"] || source.dna.features["ipc_antenna"] == SPRITE_ACCESSORY_NONE || (H.head?.flags_inv & HIDEEARS) || !HD)
 			bodyparts_to_add -= "ipc_antenna"
 
 	if(mutant_bodyparts["apid_antenna"])
-		if(!source.dna.features["apid_antenna"] || source.dna.features["apid_antenna"] == SPRITE_ACCESSORY_NONE || source.head && (source.head.flags_inv & HIDEHAIR) || (source.wear_mask && (source.wear_mask.flags_inv & HIDEHAIR)) || !noggin)
+		if(!source.dna.features["apid_antenna"] || source.dna.features["apid_antenna"] == SPRITE_ACCESSORY_NONE || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "apid_antenna"
 
 	if(mutant_bodyparts["apid_headstripe"])
-		if(!source.dna.features["apid_headstripe"] || source.dna.features["apid_headstripe"] == SPRITE_ACCESSORY_NONE || (source.wear_mask && (source.wear_mask.flags_inv & HIDEEYES)) || !noggin)
+		if(!source.dna.features["apid_headstripe"] || source.dna.features["apid_headstripe"] == SPRITE_ACCESSORY_NONE || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || !HD)
 			bodyparts_to_add -= "apid_headstripe"
 
 	if(mutant_bodyparts["psyphoza_cap"])
-		if(!source.dna.features["psyphoza_cap"] || source.dna.features["psyphoza_cap"] == SPRITE_ACCESSORY_NONE || !noggin)
+		if(!source.dna.features["psyphoza_cap"] || source.dna.features["psyphoza_cap"] == SPRITE_ACCESSORY_NONE || !HD)
 			bodyparts_to_add -= "psyphoza_cap"
 
-	if(mutant_bodyparts["diona_leaves"])
-		if(!source.dna.features["diona_leaves"] || source.dna.features["diona_leaves"] == SPRITE_ACCESSORY_NONE || (source.wear_suit && (source.wear_suit.flags_inv & HIDEJUMPSUIT) && (!source.wear_suit.species_exception || !is_type_in_list(src, source.wear_suit.species_exception))))
+	if("diona_leaves" in mutant_bodyparts)
+		if(!source.dna.features["diona_leaves"] || source.dna.features["diona_leaves"] == SPRITE_ACCESSORY_NONE || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_leaves"
 
-	if(mutant_bodyparts["diona_thorns"])
-		if(!source.dna.features["diona_thorns"] || source.dna.features["diona_thorns"] == SPRITE_ACCESSORY_NONE || (source.wear_suit && (source.wear_suit.flags_inv & HIDEJUMPSUIT) && (!source.wear_suit.species_exception || !is_type_in_list(src, source.wear_suit.species_exception))))
+	if("diona_thorns" in mutant_bodyparts)
+		if(!source.dna.features["diona_thorns"] || source.dna.features["diona_thorns"] == SPRITE_ACCESSORY_NONE || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_thorns"
 
-	if(mutant_bodyparts["diona_flowers"])
-		if(!source.dna.features["diona_flowers"] || source.dna.features["diona_flowers"] == SPRITE_ACCESSORY_NONE || (source.wear_suit && (source.wear_suit.flags_inv & HIDEJUMPSUIT) && (!source.wear_suit.species_exception || !is_type_in_list(src, source.wear_suit.species_exception))))
+	if("diona_flowers" in mutant_bodyparts)
+		if(!source.dna.features["diona_flowers"] || source.dna.features["diona_flowers"] == SPRITE_ACCESSORY_NONE || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_flowers"
 
-	if(mutant_bodyparts["diona_moss"])
-		if(!source.dna.features["diona_moss"] || source.dna.features["diona_moss"] == SPRITE_ACCESSORY_NONE || (source.wear_suit && (source.wear_suit.flags_inv & HIDEJUMPSUIT) && (!source.wear_suit.species_exception || !is_type_in_list(src, source.wear_suit.species_exception))))
+	if("diona_moss" in mutant_bodyparts)
+		if(!source.dna.features["diona_moss"] || source.dna.features["diona_moss"] == SPRITE_ACCESSORY_NONE || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_moss"
 
-	if(mutant_bodyparts["diona_mushroom"])
-		if(!source.dna.features["diona_mushroom"] || source.dna.features["diona_mushroom"] == SPRITE_ACCESSORY_NONE || !noggin)
+	if("diona_mushroom" in mutant_bodyparts)
+		if(!source.dna.features["diona_mushroom"] || source.dna.features["diona_mushroom"] == SPRITE_ACCESSORY_NONE || !HD)
 			bodyparts_to_add -= "diona_mushroom"
 
-	if(mutant_bodyparts["diona_antennae"])
-		if(!source.dna.features["diona_antennae"] || source.dna.features["diona_antennae"] == SPRITE_ACCESSORY_NONE || !noggin)
+	if("diona_antennae" in mutant_bodyparts)
+		if(!source.dna.features["diona_antennae"] || source.dna.features["diona_antennae"] == SPRITE_ACCESSORY_NONE || !HD)
 			bodyparts_to_add -= "diona_antennae"
 
-	if(mutant_bodyparts["diona_eyes"])
-		if(!source.dna.features["diona_eyes"] || source.dna.features["diona_eyes"] == SPRITE_ACCESSORY_NONE || (source.wear_mask && (source.wear_mask.flags_inv & HIDEEYES)) || source.head && (source.head.flags_inv & HIDEHAIR) || (source.wear_mask && (source.wear_mask.flags_inv & HIDEHAIR)) || !noggin)
+	if("diona_eyes" in mutant_bodyparts)
+		if(!source.dna.features["diona_eyes"] || source.dna.features["diona_eyes"] == SPRITE_ACCESSORY_NONE || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "diona_eyes"
 
-	if(mutant_bodyparts["diona_pbody"])
-		if(!source.dna.features["diona_pbody"] || source.dna.features["diona_pbody"] == SPRITE_ACCESSORY_NONE || (source.wear_suit && (source.wear_suit.flags_inv & HIDEJUMPSUIT) && (!source.wear_suit.species_exception || !is_type_in_list(src, source.wear_suit.species_exception))))
+	if("diona_pbody" in mutant_bodyparts)
+		if(!source.dna.features["diona_pbody"] || source.dna.features["diona_pbody"] == SPRITE_ACCESSORY_NONE || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_pbody"
 
 	if(!bodyparts_to_add)
@@ -717,50 +696,50 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/datum/sprite_accessory/accessory
 			switch(bodypart)
 				if("ipc_screen")
-					accessory = SSaccessories.ipc_screens_list[source.dna.features["ipc_screen"]]
+					S = GLOB.ipc_screens_list[source.dna.features["ipc_screen"]]
 				if("ipc_antenna")
-					accessory = SSaccessories.ipc_antennas_list[source.dna.features["ipc_antenna"]]
+					S = GLOB.ipc_antennas_list[source.dna.features["ipc_antenna"]]
 				if("ipc_chassis")
-					accessory = SSaccessories.ipc_chassis_list[source.dna.features["ipc_chassis"]]
+					S = GLOB.ipc_chassis_list[source.dna.features["ipc_chassis"]]
 				if("insect_type")
-					accessory = SSaccessories.insect_type_list[source.dna.features["insect_type"]]
+					S = GLOB.insect_type_list[source.dna.features["insect_type"]]
 				if("apid_antenna")
-					accessory = SSaccessories.apid_antenna_list[source.dna.features["apid_antenna"]]
+					S = GLOB.apid_antenna_list[source.dna.features["apid_antenna"]]
 				if("apid_stripes")
-					accessory = SSaccessories.apid_stripes_list[source.dna.features["apid_stripes"]]
+					S = GLOB.apid_stripes_list[source.dna.features["apid_stripes"]]
 				if("apid_headstripes")
-					accessory = SSaccessories.apid_headstripes_list[source.dna.features["apid_headstripes"]]
+					S = GLOB.apid_headstripes_list[source.dna.features["apid_headstripes"]]
 				if("psyphoza_cap")
-					accessory = SSaccessories.psyphoza_cap_list[source.dna.features["psyphoza_cap"]]
+					S = GLOB.psyphoza_cap_list[source.dna.features["psyphoza_cap"]]
 				if("diona_leaves")
-					accessory = SSaccessories.diona_leaves_list[source.dna.features["diona_leaves"]]
+					S = GLOB.diona_leaves_list[source.dna.features["diona_leaves"]]
 				if("diona_thorns")
-					accessory = SSaccessories.diona_thorns_list[source.dna.features["diona_thorns"]]
+					S = GLOB.diona_thorns_list[source.dna.features["diona_thorns"]]
 				if("diona_flowers")
-					accessory = SSaccessories.diona_flowers_list[source.dna.features["diona_flowers"]]
+					S = GLOB.diona_flowers_list[source.dna.features["diona_flowers"]]
 				if("diona_moss")
-					accessory = SSaccessories.diona_moss_list[source.dna.features["diona_moss"]]
+					S = GLOB.diona_moss_list[source.dna.features["diona_moss"]]
 				if("diona_mushroom")
-					accessory = SSaccessories.diona_mushroom_list[source.dna.features["diona_mushroom"]]
+					S = GLOB.diona_mushroom_list[source.dna.features["diona_mushroom"]]
 				if("diona_antennae")
-					accessory = SSaccessories.diona_antennae_list[source.dna.features["diona_antennae"]]
+					S = GLOB.diona_antennae_list[source.dna.features["diona_antennae"]]
 				if("diona_eyes")
-					accessory = SSaccessories.diona_eyes_list[source.dna.features["diona_eyes"]]
+					S = GLOB.diona_eyes_list[source.dna.features["diona_eyes"]]
 				if("diona_pbody")
-					accessory = SSaccessories.diona_pbody_list[source.dna.features["diona_pbody"]]
+					S = GLOB.diona_pbody_list[source.dna.features["diona_pbody"]]
 
 
 			if(!accessory || accessory.icon_state == SPRITE_ACCESSORY_NONE)
 				continue
 
-			var/mutable_appearance/accessory_overlay = mutable_appearance(accessory.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
+			var/mutable_appearance/accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
 
 			// Add on emissives, if they have one
 			if (accessory.emissive_state)
 				accessory_overlay.overlays.Add(emissive_appearance(accessory.icon, accessory.emissive_state, layer = layer, alpha = accessory.emissive_alpha, filters = source.filters))
 				ADD_LUM_SOURCE(source, LUM_SOURCE_MUTANT_BODYPART)
 
-			accessory_overlay.alpha = accessory.overlay_alpha
+			accessory_overlay.alpha = S.overlay_alpha
 
 			if(accessory.gender_specific)
 				accessory_overlay.icon_state = "[g]_[bodypart]_[accessory.icon_state]_[layertext]"
@@ -785,7 +764,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					accessory_overlay.color = forced_colour
 			standing += accessory_overlay
 
-		source.overlays_standing[layer] = standing.Copy()
+			source.overlays_standing[layer] = standing.Copy()
 		standing = list()
 
 	source.apply_overlay(BODY_BEHIND_LAYER)
@@ -816,10 +795,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			return "ADJ"
 		if(BODY_FRONT_LAYER)
 			return "FRONT"
-
-///Proc that will randomise the hair, or primary appearance element (i.e. for moths wings) of a species' associated mob
-/datum/species/proc/randomize_main_appearance_element(mob/living/carbon/human/human_mob)
-	human_mob.set_hairstyle(random_hairstyle(human_mob.gender), update = FALSE)
 
 ///Proc that will randomise the underwear (i.e. top, pants and socks) of a species' associated mob,
 /// but will not update the body right away.
@@ -1009,7 +984,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				if(!disable_warning)
 					to_chat(H, span_warning("The [I.name] is too big to attach!")) //should be src?
 				return FALSE
-			if(istype(I, /obj/item/modular_computer/tablet) || istype(I, /obj/item/pen) || is_type_in_list(I, H.wear_suit.allowed))
+			if( istype(I, /obj/item/modular_computer/tablet) || istype(I, /obj/item/pen) || is_type_in_list(I, H.wear_suit.allowed) )
 				return TRUE
 			return FALSE
 		if(ITEM_SLOT_HANDCUFFED)
@@ -1420,7 +1395,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	affecting ||= human.bodyparts[1] //Something went wrong. Maybe the limb is missing?
 	var/hit_area = affecting.plaintext_zone
-
 	var/armor_block = human.run_armor_check(
 		def_zone = affecting,
 		attack_flag = MELEE,
@@ -1991,7 +1965,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
  *
  * Returns a string.
  */
-
 /datum/species/proc/get_species_description()
 	SHOULD_CALL_PARENT(FALSE)
 
@@ -2129,16 +2102,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "burn",
-			SPECIES_PERK_NAME = "Burn Weakness",
-			SPECIES_PERK_DESC = "[plural_form] are weak to burn damage.",
+			SPECIES_PERK_NAME = "Fire Weakness",
+			SPECIES_PERK_DESC = "[plural_form] are weak to fire and burn damage.",
 		))
 
 	else if(initial(fake_chest.burn_modifier) < 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "shield-alt",
-			SPECIES_PERK_NAME = "Burn Resilience",
-			SPECIES_PERK_DESC = "[plural_form] are resilient to burn damage.",
+			SPECIES_PERK_NAME = "Burn Weakness",
+			SPECIES_PERK_DESC = "[plural_form] are weak to burn damage.",
 		))
 
 	//Toxin related
@@ -2174,13 +2147,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_DESC = "[plural_form] have no genes, making genetic scrambling a useless weapon, but also locking them out from getting genetic powers.",
 		))
 
-	else if(siemens_coeff > 1)
+	if(siemens_coeff > 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "bolt",
 			SPECIES_PERK_NAME = "Shock Vulnerability",
 			SPECIES_PERK_DESC = "[plural_form] are vulnerable to being shocked.",
 		))
+
 	else if(siemens_coeff < 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
@@ -2376,21 +2350,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_ICON = "bolt",
 			SPECIES_PERK_NAME = "Shockingly Tasty",
 			SPECIES_PERK_DESC = "[plural_form] can feed on electricity from APCs and powercells; and do not otherwise need to eat.",
-		))
-
-		to_add += list(list(
-			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
-			SPECIES_PERK_ICON = "dna",
-			SPECIES_PERK_NAME = "No Genes",
-			SPECIES_PERK_DESC = "[plural_form] have no genes, making genetic scrambling a useless weapon, but also locking them out from getting genetic powers.",
-		))
-
-	if (TRAIT_NOBREATH in inherent_traits)
-		to_add += list(list(
-			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "wind",
-			SPECIES_PERK_NAME = "No Respiration",
-			SPECIES_PERK_DESC = "[plural_form] have no need to breathe!",
 		))
 
 	return to_add

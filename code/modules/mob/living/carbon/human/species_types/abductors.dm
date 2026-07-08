@@ -3,6 +3,7 @@
 	id = SPECIES_ABDUCTOR
 	sexes = FALSE
 	inherent_traits = list(
+		TRAIT_ABDUCTOR_HUD,
 		TRAIT_NO_UNDERWEAR,
 		TRAIT_NOBREATH,
 		TRAIT_NOHUNGER,
@@ -24,18 +25,6 @@
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/abductor,
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/abductor,
 	)
-
-/datum/species/abductor/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
-	. = ..()
-	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	abductor_hud.add_hud_to(C)
-
-	C.set_safe_hunger_level()
-
-/datum/species/abductor/on_species_loss(mob/living/carbon/C)
-	. = ..()
-	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	abductor_hud.remove_hud_from(C)
 
 /datum/species/abductor/get_species_description()
 	return "Silent, but deadly. It's not known where they really come from, but they seem to have shown up regardless."

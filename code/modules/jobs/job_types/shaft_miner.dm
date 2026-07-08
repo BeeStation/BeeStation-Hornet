@@ -62,11 +62,11 @@
 	l_pocket = /obj/item/reagent_containers/hypospray/medipen/survival
 	r_pocket = /obj/item/storage/bag/ore	//causes issues if spawned in backpack
 	backpack_contents = list(
-		/obj/item/flashlight/seclite=1,
-		/obj/item/knife/combat/survival=1,
-		/obj/item/mining_voucher=1,
-		/obj/item/stack/marker_beacon/ten=1,
-		/obj/item/discovery_scanner=1,
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/knife/combat/survival = 1,
+		/obj/item/mining_voucher = 1,
+		/obj/item/stack/marker_beacon/ten = 1,
+		/obj/item/discovery_scanner = 1,
 	)
 
 	backpack = /obj/item/storage/backpack/explorer
@@ -86,11 +86,11 @@
 	suit_store = /obj/item/tank/internals/oxygen
 	internals_slot = ITEM_SLOT_SUITSTORE
 	backpack_contents = list(
-		/obj/item/flashlight/seclite=1,
-		/obj/item/knife/combat/survival=1,
-		/obj/item/mining_voucher=1,
-		/obj/item/t_scanner/adv_mining_scanner/lesser=1,
-		)
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/knife/combat/survival = 1,
+		/obj/item/mining_voucher = 1,
+		/obj/item/t_scanner/adv_mining_scanner/lesser = 1,
+	)
 
 	l_hand = /obj/item/gun/energy/recharge/kinetic_accelerator
 

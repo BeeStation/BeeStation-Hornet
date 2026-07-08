@@ -67,7 +67,7 @@
 	C.visible_message(span_warning("[user]'s [BP] detaches itself and takes the form of a snake!"),
 			span_userdanger("Our [BP] forms into a horrifying snake and heads towards our attackers!"))
 	BP.dismember()
-	BP.Destroy()
+	qdel(BP)
 	//Deploy limbsnake
 	var/mob/living/snek = new /mob/living/simple_animal/hostile/poison/limbsnake(get_turf(user))
 	//assign faction
@@ -101,7 +101,7 @@
 	faction = list(FACTION_HOSTILE,FACTION_CREATURE)
 	poison_per_bite = 4
 	poison_type = /datum/reagent/toxin/staminatoxin
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/poison/limbsnake/Initialize(mapload)
 	. = ..()

@@ -64,7 +64,7 @@ GLOBAL_PROTECT(admin_verbs_debug_mapping)
 	desc = "I am a mappers mistake."
 
 /obj/effect/debugging/marker
-	icon = 'icons/turf/areas.dmi'
+	icon = 'icons/area/areas.dmi'
 	icon_state = "yellow"
 	plane = ABOVE_LIGHTING_PLANE
 
@@ -86,7 +86,7 @@ GLOBAL_PROTECT(admin_verbs_debug_mapping)
 
 	if(!on)
 		var/list/seen = list()
-		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
+		for(var/obj/machinery/camera/C as anything in GLOB.cameranet.cameras)
 			for(var/turf/T in C.can_see())
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
 				if (!(T in C.can_see()))
@@ -123,7 +123,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 
 	var/list/obj/machinery/camera/CL = list()
 
-	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
+	for(var/obj/machinery/camera/C as anything in GLOB.cameranet.cameras)
 		CL += C
 
 	var/output = {"<B>Camera Abnormalities Report</B><HR>
@@ -165,7 +165,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 
 	if(intercom_range_display_status)
 		for(var/obj/item/radio/intercom/I in world)
-			for(var/turf/T as() in RANGE_TURFS(7,I))
+			for(var/turf/T as anything in RANGE_TURFS(7,I))
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
 				if (!(F in view(7,I.loc)))
 					qdel(F)
@@ -233,7 +233,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 	var/num_level = text2num(level)
 	if(!num_level)
 		return
-	if(!isnum_safe(num_level))
+	if(!IS_FINITE(num_level))
 		return
 
 	var/type_text = capped_input(src, "Which type path?","Path?")
@@ -247,7 +247,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 
 	var/list/atom/atom_list = list()
 
-	for(var/area/T as() in get_areas(/area, num_level))
+	for(var/area/T as anything in get_areas(/area, num_level))
 		for(var/atom/A in T)
 			if(istype(A, type_path))
 				var/atom/B = A
@@ -393,7 +393,7 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 	response = tgui_alert(usr, "Message Here", "Title Here", list("Yes", "No"))
 	to_chat(usr, response)
 	var/list/L = list()
-	for (var/obj/machinery/camera/cam in GLOB.cameranet.cameras)
+	for (var/obj/machinery/camera/cam as anything in GLOB.cameranet.cameras)
 		L["[cam.c_tag]"] = cam
 	response = tgui_input_list(usr, "Message Here", "Title Here", L)
 	to_chat(usr, response)

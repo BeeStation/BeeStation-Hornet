@@ -159,10 +159,8 @@
 			glasses = I
 			var/obj/item/clothing/glasses/G = I
 			if(G.glass_colour_type)
-				update_glasses_color(G, 1)
-			if(G.vision_correction)
-				clear_fullscreen("nearsighted")
-				clear_fullscreen("eye_damage")
+				update_glasses_color(G, 1)	
+				
 			if(G.vision_flags || G.darkness_view || G.invis_override || G.invis_view || !isnull(G.lighting_alpha))
 				update_sight()
 			update_worn_glasses()
@@ -191,7 +189,6 @@
 			if(w_uniform)
 				return
 			w_uniform = I
-			update_suit_sensors()
 			update_worn_undersuit()
 		if(ITEM_SLOT_LPOCKET)
 			l_store = I
@@ -247,7 +244,6 @@
 			if(belt)
 				dropItemToGround(belt)
 		w_uniform = null
-		update_suit_sensors()
 		if(!QDELETED(src))
 			update_worn_undersuit()
 	else if(I == gloves)
@@ -259,9 +255,7 @@
 		var/obj/item/clothing/glasses/G = I
 		if(G.glass_colour_type)
 			update_glasses_color(G, 0)
-		if(G.vision_correction)
-			if(HAS_TRAIT(src, TRAIT_NEARSIGHT))
-				overlay_fullscreen("nearsighted", /atom/movable/screen/fullscreen/impaired, 1)
+
 		if(G.vision_flags || G.darkness_view || G.invis_override || G.invis_view || !isnull(G.lighting_alpha))
 			update_sight()
 		if(!QDELETED(src))
