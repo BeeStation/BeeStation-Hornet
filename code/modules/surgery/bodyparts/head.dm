@@ -45,6 +45,11 @@
 	/// Facial hair color
 	var/facial_hair_color = COLOR_BLACK
 
+	/// An override color that can be cleared later, affects both hair and facial hair
+	var/override_hair_color = null
+	/// An override that cannot be cleared under any circumstances, affects both hair and facial hair
+	var/fixed_hair_color = null
+
 	var/lip_style = null
 	var/lip_color = "white"
 
@@ -183,41 +188,25 @@
 	var/datum/species/S = H.dna.species
 
 	//Facial hair
-	if(H.facial_hair_style && (FACIAL_HAIR_COLOR in S.species_traits))
+	if(H.facial_hair_style && (head_flags & HEAD_FACIAL_HAIR))
 		facial_hair_style = H.facial_hair_style
-		if(S.hair_color)
-			if(S.hair_color == "mutcolor")
-				facial_hair_color = H.dna.features["mcolor"]
-			else if(S.hair_color == "fixedmutcolor")
-				facial_hair_color = S.fixed_mut_color
-			else
-				facial_hair_color = S.hair_color
-		else
-			facial_hair_color = H.facial_hair_color
+		facial_hair_color = S.get_fixed_hair_color(H) || H.facial_hair_color
 		hair_alpha = S.hair_alpha
 	else
 		facial_hair_style = "Shaved"
 		facial_hair_color = COLOR_BLACK
 		hair_alpha = 255
 	//Hair
-	if(H.hair_style && (HAIR_COLOR in S.species_traits))
+	if(H.hair_style && (head_flags & HEAD_HAIR))
 		hair_style = H.hair_style
-		if(S.hair_color)
-			if(S.hair_color == "mutcolor")
-				hair_color = H.dna.features["mcolor"]
-			else if(S.hair_color == "fixedmutcolor")
-				hair_color = S.fixed_mut_color
-			else
-				hair_color = S.hair_color
-		else
-			hair_color = H.hair_color
+		hair_color = S.get_fixed_hair_color(H) || H.hair_color
 		hair_alpha = S.hair_alpha
 	else
 		hair_style = "Bald"
 		hair_color = COLOR_BLACK
 		hair_alpha = initial(hair_alpha)
 	// lipstick
-	if(H.lip_style && (LIPS in S.species_traits))
+	if(H.lip_style && (head_flags & HEAD_LIPS))
 		lip_style = H.lip_style
 		lip_color = H.lip_color
 	else
@@ -245,7 +234,7 @@
 
 		if(IS_ORGANIC_LIMB(src)) //having a robotic head hides certain features.
 			//facial hair
-			if(facial_hair_style && (FACIAL_HAIR_COLOR in species_flags_list))
+			if(facial_hair_style && (head_flags & HEAD_FACIAL_HAIR))
 				var/datum/sprite_accessory/sprite = GLOB.facial_hair_styles_list[facial_hair_style]
 				if(sprite?.icon_state)
 					var/image/facial_overlay = image(sprite.icon, "[sprite.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), SOUTH)
@@ -254,11 +243,11 @@
 					. += facial_overlay
 
 			//Applies the debrained overlay if there is no brain
-			if(!brain)
+			if(!brain && (head_flags & HEAD_DEBRAIN))
 				. += get_debrain_overlay(can_rotate = FALSE)
 			else
 				var/datum/sprite_accessory/sprite2 = GLOB.hair_styles_list[hair_style]
-				if(sprite2?.icon_state && (HAIR_COLOR in species_flags_list))
+				if(sprite2?.icon_state && (head_flags & HEAD_HAIR))
 					var/image/hair_overlay = image(sprite2.icon, "[sprite2.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), SOUTH)
 					hair_overlay.color = hair_color
 					hair_overlay.alpha = hair_alpha
@@ -300,8 +289,6 @@
 	else if(bodytype & BODYTYPE_LARVA_PLACEHOLDER)
 		debrain_icon = 'icons/mob/animal_parts.dmi'
 		debrain_icon_state = "debrained_larva"
-	else if(TRAIT_NOBLOOD in species_flags_list)
-		return null
 
 	var/image/debrain_overlay
 	if(can_rotate)
@@ -332,7 +319,7 @@
 /obj/item/bodypart/head/monkey/teratoma
 	icon_state = "teratoma_head"
 	limb_id = "teratoma"
-	head_flags = HEAD_EYECOLOR
+	head_flags = HEAD_LIPS|HEAD_EYESPRITES|HEAD_EYECOLOR|HEAD_EYEHOLES
 
 /obj/item/bodypart/head/alien
 	icon = 'icons/mob/human/species/alien/bodyparts.dmi'

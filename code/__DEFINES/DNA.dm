@@ -86,38 +86,6 @@
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
 
-//! ## species traits for mutantraces
-#define LIPS 5
-#define NOZOMBIE 8
-#define NO_UNDERWEAR 9
-//Flashing has no effect
-#define NOFLASH 11
-// Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting TRANSLATION: AWFUL.
-#define DYNCOLORS 12
-// No sex!
-#define AGENDER 13
-// DO NOT PROCESS REAGENTS
-#define NOREAGENTS 15
-// Will revive on heal when healing and total HP > 0.
-#define REVIVESBYHEALING 16
-// Can't be husked.
-#define NOHUSK 17
-#define NOMOUTH 18
-// You cannot wear socks.
-#define NOSOCKS 19
-// spawns with an envirosuit
-#define ENVIROSUIT 20
-//No augments
-#define NOAUGMENTS 21
-
-/// Used for determining which wounds are applicable to this species.
-/// if we have flesh (can suffer slash/piercing/burn wounds, requires they don't have NOBLOOD)
-// #define HAS_FLESH 23 [add if we ever port TGs wound system]
-/// if we have bones (can suffer bone wounds)
-// #define HAS_BONE 24 [add if we ever port TGs wound system]
-/// If we have a limb-specific overlay sprite
-#define HAS_MARKINGS 25
-
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"
 #define ORGAN_SLOT_APPENDIX "appendix"

@@ -3,13 +3,6 @@
 	plural_form = "IPCs"
 	id = SPECIES_IPC
 	sexes = FALSE
-	species_traits = list(
-		NOZOMBIE,
-		MUTANT_COLOR,
-		REVIVESBYHEALING,
-		NOHUSK,
-		NOMOUTH
-	)
 	inherent_traits = list(
 		TRAIT_BLOOD_COOLANT,
 		TRAIT_RESISTCOLD,
@@ -23,7 +16,11 @@
 		TRAIT_XENO_IMMUNE,
 		TRAIT_TOXIMMUNE,
 		TRAIT_NOSOFTCRIT,
+		TRAIT_NO_ZOMBIFY,
 		TRAIT_NO_DNA_COPY,
+		TRAIT_MUTANT_COLORS,
+		TRAIT_REVIVESBYHEALING,
+		TRAIT_NO_DEBRAIN_OVERLAY,
 		TRAIT_NOT_TRANSMORPHIC,
 	)
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
@@ -37,7 +34,12 @@
 	mutantlungs = null
 	mutantappendix = null
 	mutant_organs = list(/obj/item/organ/cyberimp/arm/power_cord)
-	mutant_bodyparts = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics (Custom)")
+	mutant_bodyparts = list(
+		"mcolor" = "#7D7D7D",
+		"ipc_screen" = "Static",
+		"ipc_antenna" = "None",
+		"ipc_chassis" = "Morpheus Cyberkinetics (Custom)"
+	)
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
 

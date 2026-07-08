@@ -2,12 +2,10 @@
 	name = "Flyperson"
 	plural_form = "Flypeople"
 	id = SPECIES_FLYPERSON
-	species_traits = list(
-		NO_UNDERWEAR,
-		TRAIT_BEEFRIEND
-	)
 	inherent_traits = list(
-		TRAIT_TACKLING_FRAIL_ATTACKER
+		TRAIT_TACKLING_FRAIL_ATTACKER,
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_BEEFRIEND,
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_BUG
 	meat = /obj/item/food/meat/slab/human/mutant/fly

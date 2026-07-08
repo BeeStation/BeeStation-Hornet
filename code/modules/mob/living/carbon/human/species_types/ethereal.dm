@@ -11,10 +11,10 @@
 	exotic_bloodtype = "E"
 	siemens_coeff = 0.5 //They thrive on energy
 	attack_type = BURN //burn bish
-	species_traits = list(
-		DYNCOLORS,
-		AGENDER,
-		HAIR_COLOR
+	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
+		TRAIT_FIXED_MUTANT_COLORS,
+		TRAIT_AGENDER,
 	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/ethereal
@@ -26,7 +26,7 @@
 	bodytemp_heat_damage_limit = FIRE_MINIMUM_TEMPERATURE_TO_SPREAD // about 150C
 	// Cold temperatures hurt faster as it is harder to move with out the heat energy
 	bodytemp_cold_damage_limit = (T20C - 10) // about 10c
-	hair_color = "fixedmutcolor"
+	hair_color_mode = USE_FIXED_MUTANT_COLOR
 	hair_alpha = 140
 	swimming_component = /datum/component/swimming/ethereal
 	inert_mutation = /datum/mutation/overload
@@ -94,11 +94,16 @@
 		ethereal_light.set_light_range_power_color(1 + (2 * healthpercent), 1 + (1 * healthpercent), current_color)
 		ethereal_light.set_light_on(TRUE)
 		fixed_mut_color = current_color
+		ethereal.update_body()
+		ethereal.set_facial_haircolor(current_color, override = TRUE, update = FALSE)
+		ethereal.set_haircolor(current_color, override = TRUE,  update = TRUE)
 	else
 		ethereal_light.set_light_on(FALSE)
 		fixed_mut_color = COLOR_GRAY
-	ethereal.update_body()
-	//ethereal.update_hair()
+		ethereal.update_body()
+		//ethereal.update_hair()
+		ethereal.set_facial_haircolor(COLOR_GRAY, override = TRUE, update = FALSE)
+		ethereal.set_haircolor(COLOR_GRAY, override = TRUE, update = TRUE)
 
 /datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/H, severity, protection)
 	SIGNAL_HANDLER

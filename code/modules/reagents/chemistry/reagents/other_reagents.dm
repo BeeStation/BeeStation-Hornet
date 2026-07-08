@@ -461,7 +461,7 @@
 	if(method == PATCH || method == VAPOR)
 		var/mob/living/carbon/human/human = exposed_mob
 
-		if(human.dna.species.id == SPECIES_HUMAN)
+		if(HAS_TRAIT(human, TRAIT_USES_SKINTONES))
 			switch(human.skin_tone)
 				if("african1")
 					human.skin_tone = "african2"
@@ -485,8 +485,8 @@
 					human.skin_tone = "caucasian2"
 				if ("albino")
 					human.skin_tone = "caucasian1"
-
-		if(MUTANT_COLOR in human.dna.species.species_traits) //take current alien color and darken it slightly
+		//take current alien color and darken it slightly
+		else if(HAS_TRAIT(human, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(human, TRAIT_FIXED_MUTANT_COLORS))
 			var/list/existing_color = rgb2num(human.dna.features["mcolor"])
 			var/list/darkened_color = list()
 			// Reduces each part of the color by 16
@@ -506,15 +506,16 @@
 
 	if(ishuman(affected_mob))
 		var/mob/living/carbon/human/affected_human = affected_mob
+		var/obj/item/bodypart/head/head = affected_human.get_bodypart(BODY_ZONE_HEAD)
+		if(head)
+			head.head_flags |= HEAD_HAIR //No hair? No problem!
 		affected_human.hair_style = "Spiky"
 		affected_human.facial_hair_style = "Shaved"
 		affected_human.facial_hair_color = COLOR_BLACK
 		affected_human.hair_color = COLOR_BLACK
-		if(!(HAIR_COLOR in affected_human.dna.species.species_traits)) //No hair? No problem!
-			affected_human.dna.species.species_traits += HAIR_COLOR
-		if(affected_human.dna.species.use_skintones)
+		if(HAS_TRAIT(affected_human, TRAIT_USES_SKINTONES))
 			affected_human.skin_tone = "orange"
-		else if(MUTANT_COLOR in affected_human.dna.species.species_traits) //Aliens with custom colors simply get turned orange
+		else if(HAS_TRAIT(affected_human, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(affected_human, TRAIT_FIXED_MUTANT_COLORS)) //Aliens with custom colors simply get turned orange
 			affected_human.dna.features["mcolor"] = COLOR_ORANGE
 		affected_human.regenerate_icons()
 

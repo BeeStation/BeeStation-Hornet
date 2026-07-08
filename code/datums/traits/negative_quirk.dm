@@ -519,7 +519,6 @@
 	icon = "pills"
 	quirk_value = -1
 	gain_text = span_danger("You suddenly feel the craving for drugs.")
-	lose_text = span_notice("You feel like you should kick your drug habit.")
 	medical_record_text = "Patient has a history of hard drugs."
 	process = TRUE
 	var/list/drug_list = list(/datum/reagent/drug/crank, /datum/reagent/drug/krokodil, /datum/reagent/medicine/morphine, /datum/reagent/drug/happiness, /datum/reagent/drug/methamphetamine, /datum/reagent/drug/ketamine) //List of possible IDs
@@ -573,6 +572,8 @@
 	to_chat(quirk_target, span_boldnotice("There is a [initial(drug_container_type.name)] of [initial(reagent_type.name)] [where_drug]. Better hope you don't run out..."))
 
 /datum/quirk/junkie/on_process()
+	if(HAS_TRAIT(quirk_holder, TRAIT_LIVERLESS_METABOLISM))
+		return
 	if(!COOLDOWN_FINISHED(src, next_process))
 		return
 	COOLDOWN_START(src, next_process, process_interval)

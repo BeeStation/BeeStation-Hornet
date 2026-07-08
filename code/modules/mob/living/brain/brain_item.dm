@@ -353,10 +353,9 @@
 	. = ..()
 	if(ishuman(brain_owner))
 		var/mob/living/carbon/human/H = brain_owner
-		if(H.dna?.species)
-			if(REVIVESBYHEALING in H.dna.species.species_traits)
-				if(H.health > 0)
-					H.revive()
+		if(HAS_TRAIT(H, TRAIT_REVIVESBYHEALING))
+			if(H.health > 0)
+				H.revive()
 
 /obj/item/organ/brain/positron/emp_act(severity)
 	. = ..()

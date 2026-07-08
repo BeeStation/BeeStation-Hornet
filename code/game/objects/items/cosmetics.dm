@@ -142,6 +142,7 @@
 	select_bodyzone.continue_with(CALLBACK(src, PROC_REF(razor_action), H, user, mirror))
 
 /obj/item/razor/proc/razor_action(mob/living/carbon/human/H, mob/living/user, mirror, location)
+	var/obj/item/bodypart/head/noggin =  H.get_bodypart(BODY_ZONE_HEAD)
 	if (!user.can_interact_with(H, TRUE))
 		to_chat(user, span_warning("[H] is too far away!"))
 		return
@@ -156,7 +157,7 @@
 			else
 				return
 		else
-			if(!(FACIAL_HAIR_COLOR in H.dna.species.species_traits))
+			if(!(noggin.head_flags & HEAD_FACIAL_HAIR))
 				to_chat(user, span_warning("There is no facial hair to shave!"))
 				return
 			if(!get_location_accessible(H, location))
@@ -186,7 +187,7 @@
 			INVOKE_ASYNC(src, PROC_REF(new_hairstyle), H, user)
 			return
 		else
-			if(!(HAIR_COLOR in H.dna.species.species_traits))
+			if(!(noggin.head_flags & HEAD_HAIR))
 				to_chat(user, span_warning("There is no hair to shave!"))
 				return
 			if(!get_location_accessible(H, location))

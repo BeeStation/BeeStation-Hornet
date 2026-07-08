@@ -5,9 +5,6 @@
 	id = SPECIES_SKELETON
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/skeleton
-	species_traits = list(
-		NOHUSK,
-	)
 	inherent_traits = list(
 		TRAIT_TOXIMMUNE,
 		TRAIT_RESISTHEAT,
