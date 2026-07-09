@@ -1,16 +1,16 @@
-import Juke from "../juke/index.js";
-import { mkdirSync } from "node:fs";
+import { mkdirSync } from 'node:fs';
+import Juke from '../juke/index.js';
 
 let hasInstallFolder = false;
 
-export function bun(...args: any[]): Promise<Juke.ExecReturn> {
+export function bun(dir: string, ...args: any[]): Promise<Juke.ExecReturn> {
   if (!hasInstallFolder) {
-    mkdirSync("./tgui/node_modules/", { recursive: true });
+    mkdirSync(`${dir}/node_modules/`, { recursive: true });
     hasInstallFolder = true;
   }
 
-  return Juke.exec("bun", [...args.filter((arg) => typeof arg === "string")], {
-    cwd: "./tgui",
+  return Juke.exec('bun', [...args.filter((arg) => typeof arg === 'string')], {
+    cwd: dir,
     shell: true,
   });
 }

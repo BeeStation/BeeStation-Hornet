@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 /**
  * Build script for /tg/station 13 codebase.
  *
@@ -6,11 +7,11 @@
  * https://github.com/stylemistake/juke-build
  */
 
-import fs from "node:fs";
+import fs from 'node:fs';
 import Juke from './juke/index.js';
-import { bun } from "./lib/bun";
-import { DreamDaemon, DreamMaker, NamedVersionFile } from './lib/byond.js';
-import { prependDefines } from "./lib/tgs";
+import { bun } from './lib/bun';
+import { DreamDaemon, DreamMaker, NamedVersionFile } from './lib/byond';
+import { prependDefines } from './lib/tgs';
 
 export const TGS_MODE = process.env.CBT_BUILD_MODE === 'TGS';
 
@@ -36,7 +37,7 @@ export const CiParameter = new Juke.Parameter({ type: 'boolean' });
 
 export const ForceRecutParameter = new Juke.Parameter({
   type: 'boolean',
-  name: "force-recut",
+  name: 'force-recut',
 });
 
 export const WarningParameter = new Juke.Parameter({
@@ -58,16 +59,21 @@ export const DmMapsIncludeTarget = new Juke.Target({
       ...Juke.glob('_maps/shuttles/**/*.dmm'),
       ...Juke.glob('_maps/templates/**/*.dmm'),
     ];
-    const content = folders
+    const content = `${folders
       .map((file) => file.replace('_maps/', ''))
       .map((file) => `#include "${file}"`)
-      .join('\n') + '\n';
+      .join('\n')}\n`;
     fs.writeFileSync('_maps/templates.dm', content);
   },
 });
 
 export const DmTarget = new Juke.Target({
-  parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
+  parameters: [
+    DefineParameter,
+    DmVersionParameter,
+    WarningParameter,
+    NoWarningParameter,
+  ],
   dependsOn: ({ get }) => [
     get(DefineParameter).includes('ALL_TEMPLATES') && DmMapsIncludeTarget,
   ],
@@ -100,7 +106,12 @@ export const DmTarget = new Juke.Target({
 });
 
 export const DmTestTarget = new Juke.Target({
-  parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
+  parameters: [
+    DefineParameter,
+    DmVersionParameter,
+    WarningParameter,
+    NoWarningParameter,
+  ],
   dependsOn: ({ get }) => [
     get(DefineParameter).includes('ALL_MAPS') && DmMapsIncludeTarget,
   ],
@@ -114,20 +125,22 @@ export const DmTestTarget = new Juke.Target({
     });
     Juke.rm('data/logs/ci', { recursive: true });
     const options = {
-      dmbFile : `${DME_NAME}.test.dmb`,
+      dmbFile: `${DME_NAME}.test.dmb`,
       namedDmVersion: get(DmVersionParameter),
-    }
+    };
     await DreamDaemon(
       options,
-      '-close', '-trusted', '-verbose',
-      '-params', 'log-directory=ci'
+      '-close',
+      '-trusted',
+      '-verbose',
+      '-params',
+      'log-directory=ci',
     );
     Juke.rm('*.test.*');
     try {
       const cleanRun = fs.readFileSync('data/logs/ci/clean_run.lk', 'utf-8');
       console.log(cleanRun);
-    }
-    catch (err) {
+    } catch (err) {
       Juke.logger.error('Test run was not clean, exiting');
       throw new Juke.ExitCode(1);
     }
@@ -135,13 +148,16 @@ export const DmTestTarget = new Juke.Target({
 });
 
 export const AutowikiTarget = new Juke.Target({
-  parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
+  parameters: [
+    DefineParameter,
+    DmVersionParameter,
+    WarningParameter,
+    NoWarningParameter,
+  ],
   dependsOn: ({ get }) => [
     get(DefineParameter).includes('ALL_TEMPLATES') && DmMapsIncludeTarget,
   ],
-  outputs: [
-    'data/autowiki_edits.txt',
-  ],
+  outputs: ['data/autowiki_edits.txt'],
   executes: async ({ get }) => {
     fs.copyFileSync(`${DME_NAME}.dme`, `${DME_NAME}.test.dme`);
     await DreamMaker(`${DME_NAME}.test.dme`, {
@@ -157,11 +173,14 @@ export const AutowikiTarget = new Juke.Target({
     const options = {
       dmbFile: `${DME_NAME}.test.dmb`,
       namedDmVersion: get(DmVersionParameter),
-    }
+    };
     await DreamDaemon(
       options,
-      '-close', '-trusted', '-verbose',
-      '-params', 'log-directory=ci',
+      '-close',
+      '-trusted',
+      '-verbose',
+      '-params',
+      'log-directory=ci',
     );
     Juke.rm('*.test.*');
     if (!fs.existsSync('data/autowiki_edits.txt')) {
@@ -169,35 +188,46 @@ export const AutowikiTarget = new Juke.Target({
       throw new Juke.ExitCode(1);
     }
   },
-})
+});
 
 export const BunTarget = new Juke.Target({
   parameters: [CiParameter],
-  inputs: ["tgui/**/package.json"],
+  inputs: ['tgui/**/package.json'],
   executes: () => {
-    return bun("install", "--frozen-lockfile", "--ignore-scripts");
+    return bun('./tgui', 'install', '--frozen-lockfile', '--ignore-scripts');
+  },
+});
+
+export const BiomeInstallTarget = new Juke.Target({
+  dependsOn: [BunTarget],
+  inputs: ['package.json', 'bun.lock'],
+  onlyWhen: () => {
+    return Juke.glob('node_modules/@biomejs/**').length === 0;
+  },
+  executes: () => {
+    return bun('.', 'install');
   },
 });
 
 export const TgFontTarget = new Juke.Target({
   dependsOn: [BunTarget],
   inputs: [
-    "tgui/packages/tgfont/**/*.+(js|mjs|svg)",
-    "tgui/packages/tgfont/package.json",
+    'tgui/packages/tgfont/**/*.+(js|mjs|svg)',
+    'tgui/packages/tgfont/package.json',
   ],
   outputs: [
-    "tgui/packages/tgfont/dist/tgfont.css",
-    "tgui/packages/tgfont/dist/tgfont.woff2",
+    'tgui/packages/tgfont/dist/tgfont.css',
+    'tgui/packages/tgfont/dist/tgfont.woff2',
   ],
-  executes: () => bun("--filter tgfont tgfont:build"),
+  executes: () => bun('./tgui/packages/tgfont', 'tgfont:build'),
 });
 
 export const TguiTarget = new Juke.Target({
-  dependsOn: [BunTarget],
+  dependsOn: [BunTarget, BiomeInstallTarget],
   inputs: [
-    "tgui/webpack.config.js",
-    "tgui/**/package.json",
-    "tgui/packages/**/*.+(js|cjs|ts|tsx|jsx|scss)",
+    'tgui/rspack.config.ts',
+    'tgui/**/package.json',
+    'tgui/packages/**/*.+(js|cjs|ts|tsx|jsx|scss)',
   ],
   outputs: [
     'tgui/public/tgui.bundle.css',
@@ -207,53 +237,58 @@ export const TguiTarget = new Juke.Target({
     'tgui/public/tgui-say.bundle.css',
     'tgui/public/tgui-say.bundle.js',
   ],
-  executes: () => bun('tgui:build'),
+  executes: () => bun('./tgui', 'tgui:build'),
 });
 
 export const TguiEslintTarget = new Juke.Target({
   parameters: [CiParameter],
   dependsOn: [BunTarget],
-  executes: ({ get }) => bun('tgui:lint', !get(CiParameter) && '--fix'),
+  executes: ({ get }) => bun('./tgui', 'tgui:lint', !get(CiParameter) && '--fix'),
 });
 
 export const TguiEslintFixTarget = new Juke.Target({
   dependsOn: [BunTarget],
-  executes: () => bun("tgui:eslint-fix"),
+  executes: () => bun('./tgui', 'tgui:eslint-fix'),
 });
 
 export const TguiPrettierTarget = new Juke.Target({
   dependsOn: [BunTarget],
-  executes: () => bun('tgui:prettier'),
+  executes: () => bun('./tgui', 'tgui:prettier'),
 });
 
 export const TguiPrettierFormatTarget = new Juke.Target({
   dependsOn: [BunTarget],
-  executes: () => bun("tgui:prettier-format"),
+  executes: () => bun('./tgui', 'tgui:prettier-format'),
 });
 
 export const TguiTscTarget = new Juke.Target({
   dependsOn: [BunTarget],
-  executes: () => bun('tgui:tsc'),
+  executes: () => bun('./tgui', 'tgui:tsc'),
 });
 
 export const TguiTestTarget = new Juke.Target({
   parameters: [CiParameter],
   dependsOn: [BunTarget],
-  executes: () => bun('tgui:test'),
+  executes: () => bun('./tgui', 'tgui:test'),
+});
+
+export const BiomeCheckTarget = new Juke.Target({
+  dependsOn: [BunTarget, BiomeInstallTarget],
+  executes: () => bun('.', 'tgui:lint'),
 });
 
 export const TguiLintTarget = new Juke.Target({
-  dependsOn: [BunTarget, TguiPrettierTarget, TguiEslintTarget, TguiTscTarget],
+  dependsOn: [BunTarget, BiomeCheckTarget, TguiTscTarget],
 });
 
 export const TguiDevTarget = new Juke.Target({
   dependsOn: [BunTarget],
-  executes: ({ args }) => bun('tgui:dev', ...args),
+  executes: ({ args }) => bun('./tgui', 'tgui:dev', ...args),
 });
 
 export const TguiAnalyzeTarget = new Juke.Target({
   dependsOn: [BunTarget],
-  executes: () => bun('tgui:analyze'),
+  executes: () => bun('./tgui', 'tgui:analyze'),
 });
 
 export const TestTarget = new Juke.Target({
@@ -265,7 +300,7 @@ export const LintTarget = new Juke.Target({
 });
 
 export const BuildTarget = new Juke.Target({
-  dependsOn: [DmTarget, TgFontTarget, TguiTarget],
+  dependsOn: [TguiTarget, TgFontTarget, DmTarget],
 });
 
 export const ServerTarget = new Juke.Target({
@@ -276,7 +311,7 @@ export const ServerTarget = new Juke.Target({
     const options = {
       dmbFile: `${DME_NAME}.dmb`,
       namedDmVersion: get(DmVersionParameter),
-    }
+    };
     await DreamDaemon(options, port, '-trusted');
   },
 });
@@ -327,8 +362,8 @@ export const TgsTarget = new Juke.Target({
 Juke.setup({ file: import.meta.url }).then((code) => {
   // We're using the currently available quirk in Juke Build, which
   // prevents it from exiting on Windows, to wait on errors.
-  if (code !== 0 && process.argv.includes("--wait-on-error")) {
-    Juke.logger.error("Please inspect the error and close the window.");
+  if (code !== 0 && process.argv.includes('--wait-on-error')) {
+    Juke.logger.error('Please inspect the error and close the window.');
     return;
   }
 
