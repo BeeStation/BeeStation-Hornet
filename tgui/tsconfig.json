@@ -1,17 +1,17 @@
 {
-  "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "checkJs": false,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": false,
-    "jsx": "preserve",
-    "lib": ["DOM", "DOM.Iterable", "ESNext", "ScriptHost"],
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "noEmit": true,
-    "paths": {
+	"compilerOptions": {
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"checkJs": false,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"lib": ["DOM", "DOM.Iterable", "ESNext", "ScriptHost"],
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"noEmit": true,
+		"paths": {
 			"tgui": ["./packages/tgui"],
 			"tgui/*": ["./packages/tgui/*"],
 			"tgui-panel": ["./packages/tgui-panel"],
@@ -21,11 +21,11 @@
 			"tgui-dev-server": ["./packages/tgui-dev-server"],
 			"tgui-dev-server/*": ["./packages/tgui-dev-server/*"]
 		},
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": false,
-    "strictNullChecks": true,
-    "target": "ESNext",
-  },
-  "include": ["./*.d.ts", "./packages"]
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"strict": false,
+		"strictNullChecks": true,
+		"target": "ESNext"
+	},
+	"include": ["./*.d.ts", "./packages"]
 }
