@@ -86,9 +86,7 @@ Run `bun install` once to install tgui dependencies.
 - `bun tgui:tsc` - Check code with TypeScript compiler.
 - `bun tgui:test` - Run unit and integration tests.
 - `bun tgui:analyze` - Run a bundle analyzer.
-- `bun tgui:bench` - Run benchmarks.
 - `bun tgfont:build` - Build icon fonts.
-- `bun tgui-polyfill:build` - Build polyfills. You need to run it when updating any of the static (numbered) polyfills.
 
 ## Important Memo
 
