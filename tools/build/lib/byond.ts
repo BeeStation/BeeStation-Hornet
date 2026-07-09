@@ -159,6 +159,7 @@ export async function DreamMaker(
     const version = execReturn.combined.match(
       `DM compiler version (\\d+)\\.(\\d+)`,
     );
+	Juke.logger.log(`execReturn.combined: ${execReturn.combined}`)
     if (version == null) {
       Juke.logger.error(
         `Unexpected DreamMaker return, ensure "${dmPath}" is correct DM path.`,
