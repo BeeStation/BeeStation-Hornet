@@ -32,8 +32,6 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define ATMOS_IS_PROCESSING_1 (1<<0)
 /// For machines and structures that should not break into parts, eg, holodeck stuff
 #define NODECONSTRUCT_1 (1<<1)
-/// atom queued to SSoverlay
-#define OVERLAY_QUEUED_1 (1<<2)
 /// item has priority to check when entering or leaving
 #define ON_BORDER_1 (1<<3)
 /// Prevent clicking things below it on the same turf eg. doors/ fulltile windows

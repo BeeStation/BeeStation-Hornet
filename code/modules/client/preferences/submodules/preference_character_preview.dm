@@ -25,7 +25,6 @@
 	else
 		apply_loadout_to_mob(mannequin, mannequin, preference_source = parent, on_dummy = TRUE)
 
-	COMPILE_OVERLAYS(mannequin)
 	return mannequin.appearance
 
 // This is necessary because you can open the set preferences menu before
