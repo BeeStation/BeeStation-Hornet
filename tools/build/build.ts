@@ -198,17 +198,6 @@ export const BunTarget = new Juke.Target({
   },
 });
 
-export const BiomeInstallTarget = new Juke.Target({
-  dependsOn: [BunTarget],
-  inputs: ['package.json', 'bun.lock'],
-  onlyWhen: () => {
-    return Juke.glob('node_modules/@biomejs/**').length === 0;
-  },
-  executes: () => {
-    return bun('.', 'install');
-  },
-});
-
 export const TgFontTarget = new Juke.Target({
   dependsOn: [BunTarget],
   inputs: [
@@ -223,7 +212,7 @@ export const TgFontTarget = new Juke.Target({
 });
 
 export const TguiTarget = new Juke.Target({
-  dependsOn: [BunTarget, BiomeInstallTarget],
+  dependsOn: [BunTarget],
   inputs: [
     'tgui/rspack.config.ts',
     'tgui/**/package.json',
@@ -272,13 +261,8 @@ export const TguiTestTarget = new Juke.Target({
   executes: () => bun('./tgui', 'tgui:test'),
 });
 
-export const BiomeCheckTarget = new Juke.Target({
-  dependsOn: [BunTarget, BiomeInstallTarget],
-  executes: () => bun('.', 'tgui:lint'),
-});
-
 export const TguiLintTarget = new Juke.Target({
-  dependsOn: [BunTarget, BiomeCheckTarget, TguiTscTarget],
+  dependsOn: [BunTarget, TguiTscTarget],
 });
 
 export const TguiDevTarget = new Juke.Target({
