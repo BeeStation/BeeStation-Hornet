@@ -215,7 +215,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/crew = ""
 		for(var/datum/record/crew/record in sort_record(GLOB.manifest.general))
 			crew += record.name + " - " + record.rank + "<br>"
-		dat = "<tt><b>Crew Manifest:</b><you dbr>Please use security record computer to modify entries.<br><br>[crew]<a href='byond://?src=[REF(src)];choice=print'>Print</a><br><br><a href='byond://?src=[REF(src)];choice=mode;mode_target=0'>Return</a><br></tt>"
+		dat = "<tt><div class='idc-section'><h4>Crew Manifest</h4><div class='idc-section-body'>Please use security record computer to modify entries.<br><br>[crew]<a href='byond://?src=[REF(src)];choice=print'>Print</a><br><br><a href='byond://?src=[REF(src)];choice=mode;mode_target=0'>Return</a></div></div></tt>"
 
 	else if(mode == 2)
 		// JOB MANAGEMENT
@@ -227,17 +227,18 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		else
 			S = "--------"
 		dat += "<a href='byond://?src=[REF(src)];choice=inserted_scan_id'>[S]</a>"
-		dat += "<table>"
-		dat += "<tr><td style='width:25%'><b>Job</b></td><td style='width:5%'><b>Slots</b></td><td style='width:20%'><b>Open job</b></td><td style='width:20%'><b>Close job</b><td style='width:20%'><b>Prioritize</b></td></td></tr>"
+		dat += "<div class='idc-section'><h4>Job Management</h4><div class='idc-section-body'>"
+		dat += "<table class='idc-deptgrid'>"
+		dat += "<tr><td style='width:25%'><b>Job</b></td><td style='width:5%'><b>Slots</b></td><td style='width:20%'><b>Open job</b></td><td style='width:20%'><b>Close job</b></td><td style='width:20%'><b>Prioritize</b></td></tr>"
 		var/ID
 		if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && !department_bitflag)
 			ID = 1
 		else
 			ID = 0
 		for(var/datum/job/job in SSjob.all_occupations)
-			dat += "<tr>"
 			if(!can_edit_job(job))
 				continue
+			dat += "<tr>"
 			dat += "<td>[job.title]</td>"
 			dat += "<td>[job.current_positions]/[job.get_spawn_position_count()]</td>"
 			dat += "<td>"
@@ -291,6 +292,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 			dat += "</td></tr>"
 		dat += "</table>"
+		dat += "</div></div>"
 	else if(mode == 3)
 		//PAYCHECK MANAGEMENT
 		dat = "<a href='byond://?src=[REF(src)];choice=return'>Return</a>"
@@ -320,10 +322,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			for(var/P in available_paycheck_departments)
 				if(SSeconomy.is_nonstation_account(P))
 					continue
-				var/colourful = "[P == target_paycheck ? "<font color=\"6bc473\">" : "" ]"
-				dat += "<a href='byond://?src=[REF(src)];choice=set_paycheck_department;paytype=[P]'>[colourful][P][colourful ? "</font>" : ""]</a> "
+				dat += "<a href='byond://?src=[REF(src)];choice=set_paycheck_department;paytype=[P]'>[P == target_paycheck ? span_good("[P]") : "[P]"]</a> "
 		dat += "</td>"
-		dat += "<table>"
+		dat += "<div class='idc-section'><h4>Paycheck Management</h4><div class='idc-section-body'>"
+		dat += "<table class='idc-deptgrid'>"
 		dat += "<tr><td style='width:30%'><b>Name</b></td><td style='width:20%'><b>Job</b></td><td style='width:20%'><b>Department</b></td><td style='width:15%'><b>Paycheck</b></td><td style='width:15%'><b>Pay Bonus</b></td></tr>"
 
 		if(length(paycheck_departments))
@@ -336,7 +338,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					dat += "<td>(Auth-denied)</td>"
 				else
 					if(B.active_departments & SSeconomy.get_budget_acc_bitflag(target_paycheck))
-						dat += "<td><a href='byond://?src=[REF(src)];choice=turn_on_off_department_bank;bank_account=[B.account_id];check_card=1'><font color=\"6bc473\">Free Vendor Access</font></a></td>"
+						dat += "<td><a href='byond://?src=[REF(src)];choice=turn_on_off_department_bank;bank_account=[B.account_id];check_card=1'>[span_good("Free Vendor Access")]</a></td>"
 					else
 						dat += "<td><a href='byond://?src=[REF(src)];choice=turn_on_off_department_bank;bank_account=[B.account_id];check_card=1;paycheck_t=[target_paycheck]'>No Free Vendor Access</a></td>"
 				if(B.suspended)
@@ -349,6 +351,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					dat += "<td><a href='byond://?src=[REF(src)];choice=adjust_pay;paycheck_t=[target_paycheck];bank_account=[B.account_id]'>$[B.payment_per_department[target_paycheck]]</a></td>"
 					dat += "<td><a href='byond://?src=[REF(src)];choice=adjust_bonus;paycheck_t=[target_paycheck];bank_account=[B.account_id]'>$[B.bonus_per_department[target_paycheck]]</a></td>"
 				dat += "</tr>"
+		dat += "</table>"
+		dat += "</div></div>"
 	else
 		var/header = ""
 
@@ -357,30 +361,38 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/target_owner = (inserted_modify_id && inserted_modify_id.registered_name) ? html_encode(inserted_modify_id.registered_name) : "--------"
 		var/target_rank = (inserted_modify_id && inserted_modify_id.assignment) ? html_encode(inserted_modify_id.assignment) : "Unassigned"
 
+		header += "<div class='idc-section'><h4>Console Status</h4><div class='idc-section-body'>"
 		if(!authenticated)
-			header += "<br><i>Please insert the cards into the slots</i><br>"
+			header += "<i>Please insert the cards into the slots</i><br>"
 			header += "Target: <a href='byond://?src=[REF(src)];choice=inserted_modify_id'>[target_name]</a><br>"
 			header += "Confirm Identity: <a href='byond://?src=[REF(src)];choice=inserted_scan_id'>[scan_name]</a><br>"
 		else
-			header += "<div align='center'><br>"
+			header += "<div align='center'>"
 			header += "<a href='byond://?src=[REF(src)];choice=inserted_modify_id'>Remove [target_name]</a> || "
 			header += "<a href='byond://?src=[REF(src)];choice=inserted_scan_id'>Remove [scan_name]</a> <br> "
 			header += "<a href='byond://?src=[REF(src)];choice=mode;mode_target=1'>Access Crew Manifest</a> <br> "
-			header += "<a href='byond://?src=[REF(src)];choice=logout'>Log Out</a></div>"
+			header += "<a href='byond://?src=[REF(src)];choice=logout' class='linkOff'>Log Out</a></div>"
+		header += "</div></div>"
 
-		header += "<hr>"
-
-		var/jobs_all = "<a href='byond://?src=[REF(src)];choice=assign;assign_target=Unassigned'>Unassigned</a> "
+		var/jobs_all = "<table class='idc-deptgrid'><tr>"
 		for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
 			if(!length(each_dept.department_jobs) || each_dept.access_filter) // no centcom jobs for now
 				continue
-			jobs_all += "<br/>* [each_dept.department_name]: "
-			for(var/each_job in each_dept.department_jobs)
-				if(each_job in SSjob.all_job_exceptions)
+			jobs_all += "<td class='idc-depthead' style='color:[each_dept.dept_colour];border-bottom-color:[each_dept.dept_colour]'>[each_dept.department_name]</td>"
+		jobs_all += "</tr><tr>"
+		for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
+			if(!length(each_dept.department_jobs) || each_dept.access_filter) // no centcom jobs for now
+				continue
+			jobs_all += "<td class='idc-deptcol'>"
+			for(var/datum/job/each_job in each_dept.department_jobs)
+				if(each_job.title in SSjob.all_job_exceptions)
 					continue
-				jobs_all += "<a href='byond://?src=[REF(src)];choice=assign;assign_target=[each_job]'>[each_job]</a> " //make sure there isn't a line break in the middle of a job
-		jobs_all += "<br/>"
-		jobs_all += "<a href='byond://?src=[REF(src)];choice=assign;assign_target=Custom'>Custom</a> "
+				var/is_current_job = (each_job.title == target_rank)
+				var/job_style = is_current_job ? "" : " style='border-left-color:[each_dept.dept_colour]'"
+				jobs_all += "<a class='idc-jobitem[is_current_job ? " current" : ""]'[job_style] href='byond://?src=[REF(src)];choice=assign;assign_target=[each_job.title]'>[each_job.title]</a>" //make sure there isn't a line break in the middle of a job
+			jobs_all += "</td>"
+		jobs_all += "</tr></table>"
+		jobs_all += "<a class='idc-jobitem[target_rank == "Unassigned" ? " current" : ""]' href='byond://?src=[REF(src)];choice=assign;assign_target=Unassigned'>Unassigned</a> <a class='idc-jobitem' href='byond://?src=[REF(src)];choice=assign;assign_target=Custom'>Custom</a>"
 
 
 		var/body
@@ -401,11 +413,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 									}
 									function showAll(){
 										var allJobsSlot = document.getElementById('alljobsslot');
-										allJobsSlot.innerHTML = "<a href='#' onclick='hideAll()'>hide</a>"+ "[jobs_all]";
+										allJobsSlot.innerHTML = "<a class='idc-badge idc-badge-toggle' href='#' onclick='hideAll()'>hide</a>"+ "[jobs_all]";
 									}
 									function hideAll(){
 										var allJobsSlot = document.getElementById('alljobsslot');
-										allJobsSlot.innerHTML = "<a href='#' onclick='showAll()'>show</a>";
+										allJobsSlot.innerHTML = "<a class='idc-badge idc-badge-toggle' href='#' onclick='showAll()'>show</a>";
 									}
 								</script>"}
 				carddesc += "<form name='cardcomp' action='byond://?src=[REF(src)]' method='get'>"
@@ -416,15 +428,15 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				carddesc += "</form>"
 				carddesc += "<b>Assignment:</b> "
 
-				jobs += "<span id='alljobsslot'><a href='#' onclick='showAll()'>[target_rank]</a></span>" //CHECK THIS
+				jobs += "<span id='alljobsslot'><a class='idc-badge idc-badge-toggle' href='#' onclick='showAll()'>[target_rank]</a></span>" //CHECK THIS
 
 			else
-				carddesc += "<b>registered_name:</b> [target_owner]</span>"
-				jobs += "<b>Assignment:</b> [target_rank] (<a href='byond://?src=[REF(src)];choice=demote'>Demote</a>)</span>"
+				carddesc += "<b>registered_name:</b> [target_owner]"
+				jobs += "<b>Assignment:</b> <span class='idc-badge'>[target_rank]</span> (<a href='byond://?src=[REF(src)];choice=demote'>Demote</a>)"
 
 			var/banking = ""
-			banking += "<b>Department active & Bank account status:</b>"
-			banking += "<table border='1' cellspacing='1' cellpadding='0'>"
+			banking += "<div class='idc-section'><h4>Department & Bank Status</h4><div class='idc-section-body'>"
+			banking += "<table class='idc-deptgrid'>"
 			// Department active status
 			banking += "<tr>"
 			banking += "<td><b>Active Department Manifest:</b></td>"
@@ -434,11 +446,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					if(!(SSeconomy.get_budget_acc_bitflag(each) & accessible_dept_payment_bitflag))
 						continue
 					if(record.active_department & SSeconomy.get_budget_acc_bitflag(each))
-						banking += "<td><a href='byond://?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[SSeconomy.get_budget_acc_bitflag(each)]'><font color=\"6bc473\">[each]</a></font></td>"
+						banking += "<td><a class='idc-access-item granted' href='byond://?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[SSeconomy.get_budget_acc_bitflag(each)]'>[each]</a></td>"
 					else
-						banking += "<td><a href='byond://?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[SSeconomy.get_budget_acc_bitflag(each)]'>[each]</a></td>"
+						banking += "<td><a class='idc-access-item' href='byond://?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[SSeconomy.get_budget_acc_bitflag(each)]'>[each]</a></td>"
 			else
-				banking += "<td colspan=\"8\"><b>Error: Cannot locate user entry in data core</b></td>"
+				banking += "<td colspan=\"8\">[span_bad("<b>Error: Cannot locate user entry in data core</b>")]</td>"
 			banking += "</tr>"
 			//adjustable only when they have bank account in their card
 			var/datum/bank_account/B = inserted_modify_id?.registered_account
@@ -450,9 +462,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					if(!(SSeconomy.get_budget_acc_bitflag(each) & accessible_dept_payment_bitflag))
 						continue
 					if(B.active_departments & SSeconomy.get_budget_acc_bitflag(each))
-						banking += "<td><a href='byond://?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[each]'><font color=\"6bc473\">[each]</a></font></td>"
+						banking += "<td><a class='idc-access-item granted' href='byond://?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[each]'>[each]</a></td>"
 					else
-						banking += "<td><a href='byond://?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[each]'>[each]</a></td>"
+						banking += "<td><a class='idc-access-item' href='byond://?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[each]'>[each]</a></td>"
 				banking += "</tr>"
 				// Payment status
 				banking += "<tr>"
@@ -467,48 +479,51 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				banking += "</tr>"
 			else
 				banking += "<td><b>Banking information:</b></td>"
-				banking += "<td colspan=\"8\"><b>Error: No linked bank account detected</b></td>"
+				banking += "<td colspan=\"8\">[span_bad("<b>Error: No linked bank account detected</b>")]</td>"
 			banking += "</table>"
-			banking += "<br>"
+			banking += "</div></div>"
 
 			var/accesses = ""
-			accesses += "<div align='center'><b>Access</b></div>"
-			accesses += "<table style='width:100%'>"
+			accesses += "<div class='idc-section'><h4>Access</h4><div class='idc-section-body'>"
+			accesses += "<table class='idc-deptgrid'>"
 			accesses += "<tr>"
 			for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
 				if(authenticated == 1 && !(each_dept.department_bitflags & accessible_region_bitflag))
 					continue
 				if(!length(each_dept.access_list) || (!is_centcom && each_dept.access_filter))
 					continue
-				accesses += "<td style='width:14%'><b>[each_dept.access_group_name]:</b></td>"
+				accesses += "<td class='idc-depthead' style='color:[each_dept.dept_colour];border-bottom-color:[each_dept.dept_colour]'>[each_dept.access_group_name]</td>"
 			accesses += "</tr><tr>"
 			for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
 				if(authenticated == 1 && !(each_dept.department_bitflags & accessible_region_bitflag))
 					continue
 				if(!length(each_dept.access_list) || (!is_centcom && each_dept.access_filter))
 					continue
-				accesses += "<td style='width:14%' valign='top'>"
+				accesses += "<td class='idc-deptcol'>"
 				for(var/each_access in each_dept.access_list)
 					if(each_access in inserted_modify_id.access)
-						accesses += "<a href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=0'><font color=\"6bc473\">[replacetext(get_access_desc(each_access), " ", "&nbsp")]</font></a> "
+						accesses += "<a class='idc-access-item granted' href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=0'>[get_access_desc(each_access)]</a>"
 					else
-						accesses += "<a href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=1'>[replacetext(get_access_desc(each_access), " ", "&nbsp")]</a> "
-					accesses += "<br>"
+						accesses += "<a class='idc-access-item' style='border-left-color:[each_dept.dept_colour]' href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=1'>[get_access_desc(each_access)]</a>"
 				accesses += "</td>"
 			accesses += "</tr></table>"
-			body = "[carddesc]<br>[jobs]<br>[banking]<br>[accesses]" //CHECK THIS
+			accesses += "</div></div>"
+			body = "<div class='idc-section'><h4>Identity & Assignment</h4><div class='idc-section-body'>[carddesc]<br>[jobs]</div></div>[banking][accesses]" //CHECK THIS
 
 		else
-			body = "<a href='byond://?src=[REF(src)];choice=auth'>{Log in}</a> <br><hr>"
+			body = "<div class='idc-section'><h4>Console Menu</h4><div class='idc-section-body'>"
+			body += "<a class='idc-badge' href='byond://?src=[REF(src)];choice=auth'>{Log in}</a> <br><hr>"
 			body += "<a href='byond://?src=[REF(src)];choice=mode;mode_target=1'>Access Crew Manifest</a>"
 			if(!department_bitflag)
 				body += "<br><hr><a href='byond://?src=[REF(src)];choice=mode;mode_target=2'>Job Management</a>"
 			body += "<a href='byond://?src=[REF(src)];choice=mode;mode_target=3'>Paycheck Management</a>"
 			if(!department_bitflag) // currently locked in HoP console only. other console can make bank account with their own budget if this lock is removed
 				body += "<a href='byond://?src=[REF(src)];choice=open_new_account'>Open a new bank account</a>"
+			body += "</div></div>"
 
 		dat = "<tt>[header][body]<hr><br></tt>"
-	var/datum/browser/popup = new(user, "id_com", src.name, 1150, 720)
+	var/datum/browser/popup = new(user, "id_com", src.name, 1000, 700)
+	popup.add_stylesheet("idcard", 'html/browser/idcard.css')
 	popup.set_content(dat)
 	popup.open()
 

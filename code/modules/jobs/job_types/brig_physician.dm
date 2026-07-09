@@ -17,7 +17,7 @@
 	extra_access = list(ACCESS_MEDICAL, ACCESS_SURGERY)
 
 	departments_list = list(
-		/datum/department_group/civilian,
+		/datum/department_group/security,
 		)
 	bank_account_department = ACCOUNT_MED_BITFLAG | ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_MEDIUM)

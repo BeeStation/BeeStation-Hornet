@@ -144,6 +144,11 @@ SUBSYSTEM_DEF(job)
 	job_debug("SET_OVRFLW: Overflow role set to: [new_overflow.type]")
 
 /datum/controller/subsystem/job/proc/setup_occupations()
+	// A fast client can reach mind/New() -> get_job_type() before Masters detached init
+	// reaches SSdepartment.
+	if(!SSdepartment.initialized)
+		return FALSE
+
 	name_occupations = list()
 	type_occupations = list()
 

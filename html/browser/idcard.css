@@ -1,0 +1,105 @@
+/* Styling for the identification console popup (window=id_com). See card.dm. */
+
+.idc-section {
+	margin: 10px 4px;
+	border: 1px solid #274a68;
+	border-top: 3px solid #3d7ab5;
+	background-color: #202020;
+}
+
+.idc-section h4 {
+	margin: 0;
+	padding: 6px 10px;
+	background-color: #274a68;
+	color: #ffffff;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.idc-section-body {
+	padding: 8px 10px;
+}
+
+.idc-badge {
+	display: inline-block;
+	padding: 2px 10px;
+	border-radius: 12px;
+	background-color: #3d7ab5;
+	color: #ffffff;
+	font-weight: bold;
+}
+
+.idc-badge:hover {
+	background-color: #4c8fd1;
+	color: #ffffff;
+}
+
+.idc-badge-toggle::after {
+	content: " \25BE";
+	font-weight: normal;
+}
+
+.idc-deptgrid {
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+.idc-depthead {
+	background-color: #3d7ab5;
+	color: #ffffff;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 10px;
+	letter-spacing: 0.5px;
+	padding: 4px 6px;
+	border: 1px solid #274a68;
+	border-bottom: 3px solid #274a68; /* color overridden per-department inline, see card.dm */
+	overflow-wrap: break-word;
+}
+
+.idc-deptcol {
+	vertical-align: top;
+	padding: 4px 6px;
+	overflow-wrap: break-word;
+	border: 1px solid #274a68;
+}
+
+.idc-access-item, .idc-jobitem {
+	display: block;
+	margin: 0 0 2px 0;
+	padding: 2px 6px 2px 6px;
+	background-color: #333d47;
+	border-left: 3px solid transparent;
+}
+
+.idc-access-item:hover, .idc-jobitem:hover {
+	background-color: #465060;
+}
+
+.idc-access-item.granted, .idc-jobitem.current {
+	border-left-color: #3ecf6e;
+	background-color: #253828;
+}
+
+.idc-access-item::before {
+	content: "\2014  ";
+	opacity: 0.6;
+}
+
+.idc-access-item.granted::before {
+	content: "\2713  ";
+	opacity: 1;
+	color: #3ecf6e;
+}
+
+.idc-jobitem::before {
+	content: "";
+}
+
+.idc-jobitem.current::before {
+	content: "\2713  ";
+	color: #3ecf6e;
+}
