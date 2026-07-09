@@ -46,8 +46,7 @@
 		rank = "Unassigned",
 		species = "Human",
 		hud = "None",
-		active_department = NONE,
-	))
+		active_department = NONE ))
 
 	src.age = age
 	src.blood_type = blood_type

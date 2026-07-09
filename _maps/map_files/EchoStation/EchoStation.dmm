@@ -22425,8 +22425,8 @@
 /obj/item/flashlight/lantern{
 	desc = "A dim lantern that attracts moths.";
 	light_on = 1;
-	on = 1;
-	pixel_y = 11
+	pixel_y = 11;
+	start_on = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/basalt/planetary,

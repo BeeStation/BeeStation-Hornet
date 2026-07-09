@@ -255,12 +255,12 @@
 		if(!length(each_dept.department_jobs) || each_dept.access_filter) // no centcom jobs in this code for now
 			continue
 		var/list/department_jobs = list()
-		for(var/each_job in each_dept.department_jobs)
-			if(each_job in SSjob.all_job_exceptions)
+		for(var/datum/job/each_job in each_dept.department_jobs)
+			if(each_job.title in SSjob.all_job_exceptions)
 				continue
 			department_jobs += list(list(
-				"display_name" = each_job,
-				"job" = each_job
+				"display_name" = each_job.title,
+				"job" = each_job.title
 			))
 		if(length(department_jobs))
 			data["jobs"][each_dept.department_name] = department_jobs

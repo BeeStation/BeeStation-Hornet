@@ -47,6 +47,13 @@
   mrmanlikesbt:
   - bugfix: fixed machine construction
 2026-07-07:
+  Melbert, vinylspiders, Gpeckman:
+  - refactor: refactors blindness to status effects
+  - bugfix: high luminosity eyes light overlays now follow the user correctly
+  - bugfix: directional flashlights when picked up will now always update their cast
+      light direction correctly no matter what dir you are facing
+  - refactor: refactors high luminosity eye code to better make use of the atom lighting
+      system, adding a new light type 'MOVABLE_LIGHT_BEAM'
   SergeiKoralev:
   - bugfix: Box engineering should no longer automatically lose power within 1 minute
       of round start.

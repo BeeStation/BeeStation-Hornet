@@ -176,14 +176,16 @@ SUBSYSTEM_DEF(job)
 			if(!LAZYLEN(job.departments_list))
 				var/datum/department_group/department = new_joinable_departments_by_type[/datum/department_group/undefined]
 				if(!department)
-					department = SSdepartment.department_datums_by_type[/datum/department_group/undefined] || new /datum/department_group/undefined()
+					department = SSdepartment.department_datums_by_type?[/datum/department_group/undefined] || new /datum/department_group/undefined()
+					department.clear_jobs() //the singleton persists across calls, so wipe last pass orphaned job refs
 					new_joinable_departments_by_type[/datum/department_group/undefined] = department
 				department.add_job(job)
 				continue
 			for(var/department_type in job.departments_list)
 				var/datum/department_group/department = new_joinable_departments_by_type[department_type]
 				if(!department)
-					department = SSdepartment.department_datums_by_type[department_type] || new department_type()
+					department = SSdepartment.department_datums_by_type?[department_type] || new department_type()
+					department.clear_jobs() //the singleton persists across calls, so wipe last pass orphaned job refs
 					new_joinable_departments_by_type[department_type] = department
 				department.add_job(job)
 

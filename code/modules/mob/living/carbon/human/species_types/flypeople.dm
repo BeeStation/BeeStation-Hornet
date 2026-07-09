@@ -3,7 +3,6 @@
 	plural_form = "Flypeople"
 	id = SPECIES_FLYPERSON
 	species_traits = list(
-		NOEYESPRITES,
 		NO_UNDERWEAR,
 		TRAIT_BEEFRIEND
 	)

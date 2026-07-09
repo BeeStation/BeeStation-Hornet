@@ -195,7 +195,12 @@ SUBSYSTEM_DEF(department)
 		if(isnull(manifest_category_name))
 			manifest_category_name = department_name
 
+/datum/department_group/proc/clear_jobs()
+	department_jobs = list()
+
 /datum/department_group/proc/add_job(datum/job/job)
+	if(job in department_jobs)
+		return
 	department_jobs += job
 	job.departments_bitflags |= department_bitflags
 
