@@ -31,7 +31,7 @@
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
-	display_order = JOB_DISPLAY_ORDER_MEDICAL_DOCTOR
+	display_order = JOB_DISPLAY_ORDER_PARAMEDIC
 
 	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Corpse Runner"

@@ -55,7 +55,7 @@
 	TEST_ASSERT_EQUAL(outcome[REF(officer_d.new_character)], SECURITY_OFFICER_DEPARTMENTS_TO_NAMES["a"], "Officer D's department outcome was incorrect.")
 
 /datum/unit_test/security_officer_roundstart_distribution/proc/create_officer(preference)
-	var/mob/dead/new_player/authenticated/new_player = allocate(/mob/dead/new_player)
+	var/mob/dead/new_player/authenticated/new_player = allocate(/mob/dead/new_player/authenticated)
 	var/datum/client_interface/mock_client = new
 
 	mock_client.prefs = new /datum/preferences/mock()
