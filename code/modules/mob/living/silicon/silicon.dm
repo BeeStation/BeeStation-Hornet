@@ -97,18 +97,20 @@
 /mob/living/silicon/proc/create_modularInterface()
 	if(!modularInterface)
 		modularInterface = new /obj/item/modular_computer/tablet/integrated(src)
-	modularInterface.layer = ABOVE_HUD_PLANE
-	modularInterface.plane = ABOVE_HUD_PLANE
-	modularInterface.saved_identification = real_name || name
+	var/job_name = ""
 	if(iscyborg(src))
-		modularInterface.saved_job = JOB_NAME_CYBORG
+		job_name = JOB_NAME_CYBORG
 		modularInterface.force_install_component(new /obj/item/computer_hardware/hard_drive/small/pda/robot)
 	if(isAI(src))
-		modularInterface.saved_job = JOB_NAME_AI
+		job_name = JOB_NAME_AI
 		modularInterface.force_install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
 	if(ispAI(src))
-		modularInterface.saved_job = JOB_NAME_PAI
+		job_name = JOB_NAME_PAI
 		modularInterface.force_install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
+
+	modularInterface.layer = ABOVE_HUD_PLANE
+	modularInterface.plane = ABOVE_HUD_PLANE
+	modularInterface.imprint_id(real_name || name, job_name)
 
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud
@@ -478,7 +480,7 @@
 	if(!modularInterface)
 		stack_trace("Silicon [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
 		create_modularInterface()
-	modularInterface.saved_identification = newname
+	modularInterface.imprint_id(name = newname)
 
 /mob/living/silicon/try_ducttape(mob/living/user, obj/item/stack/sticky_tape/duct/tape)
 	. = FALSE

@@ -1393,7 +1393,7 @@
 		else if(search_pda && istype(A, /obj/item/modular_computer/tablet))
 			var/obj/item/modular_computer/tablet/PDA = A
 			if(PDA.saved_identification == oldname)
-				PDA.saved_identification = newname
+				PDA.imprint_id(name = newname)
 				PDA.update_id_display()
 				if(!search_id)
 					break

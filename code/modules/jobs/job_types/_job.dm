@@ -1,4 +1,5 @@
 /datum/job
+	abstract_type = /datum/job
 	///The name of the job , used for preferences, bans and more. Make sure you know what you're doing before changing this.
 	var/title = "NOPE"
 
@@ -775,3 +776,9 @@
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, src, spawning)
 
+/datum/job/proc/display_order_with_department()
+	var/datum/department_group/main_department = departments_list?[1]
+	if(!main_department)
+		main_department = /datum/department_group/undefined
+
+	return display_order + (main_department::display_order * 1000)

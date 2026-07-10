@@ -666,6 +666,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	enabled = 0
 	update_appearance()
 
+/obj/item/modular_computer/proc/imprint_id(name = null, job_name = null)
+	//These components are so idiotic
+	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
+	var/obj/item/computer_hardware/identifier/id = all_components[MC_IDENTIFY]
+	saved_identification = name || card_slot?.stored_card.registered_name || saved_identification
+	saved_job = job_name || card_slot?.stored_card?.assignment || saved_job
+	id?.UpdateDisplay()
+
 /**
   * Toggles the computer's flashlight, if it has one.
   *

@@ -145,6 +145,7 @@ SUBSYSTEM_DEF(department)
 // --------------------------------------------
 // department group datums for this subsystem
 /datum/department_group
+	abstract_type = /datum/department_group
 	// basic variables
 	var/department_name = "No department"
 	var/dept_id = NONE

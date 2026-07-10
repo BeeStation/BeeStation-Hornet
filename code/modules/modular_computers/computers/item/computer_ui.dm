@@ -278,8 +278,7 @@
 			if(!cardholder || !can_save_id)
 				return TRUE
 
-			saved_identification = cardholder.current_identification
-			saved_job = cardholder.current_job
+			imprint_id()
 
 			update_id_display()
 

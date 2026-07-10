@@ -77,11 +77,10 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
  */
 GLOBAL_LIST_EMPTY(security_officer_distribution)
 
-
 /datum/job/security_officer/after_roundstart_spawn(mob/living/spawning, client/player_client)
 	. = ..()
 	if(ishuman(spawning))
-		setup_department(spawning, player_client)
+		setup_department(spawning, player_client, move_to = TRUE)
 
 
 /datum/job/security_officer/after_latejoin_spawn(mob/living/spawning)
@@ -91,51 +90,45 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 		if(department)
 			announce_latejoin(spawning, department, GLOB.security_officer_distribution)
 
+
 /// Returns the department this mob was assigned to, if any.
-/datum/job/security_officer/proc/setup_department(mob/living/carbon/human/spawning, client/player_client)
+/datum/job/security_officer/proc/setup_department(mob/living/carbon/human/spawning, client/player_client, move_to = FALSE)
 	var/department = player_client?.prefs?.read_character_preference(/datum/preference/choiced/security_department)
-	if(!isnull(department))
-		if(!LAZYLEN(GLOB.available_depts) || department == SEC_DEPT_NONE)
-			department = null
-		else if(department in GLOB.available_depts)
-			LAZYREMOVE(GLOB.available_depts, department)
-		else
-			department = pick_n_take(GLOB.available_depts)
+	if (!isnull(department))
+		department = get_my_department(spawning, department)
+
+		// This should theoretically still run if a player isn't in the distributions, but isn't a late join.
 		GLOB.security_officer_distribution[REF(spawning)] = department
 
 	var/ears = null
 	var/accessory = null
 	var/list/dep_access = null
 	var/destination = null
-	var/spawn_point = null
+
 	switch(department)
 		if(SEC_DEPT_SUPPLY)
 			ears = /obj/item/radio/headset/headset_sec/alt/department/supply
 			accessory = /obj/item/clothing/accessory/armband/cargo
 			dep_access = dept_access_supply
 			destination = /area/station/security/checkpoint/supply
-			spawn_point = locate(/obj/effect/landmark/start/depsec/supply) in GLOB.department_security_spawns
 			minimal_lightup_areas |= GLOB.supply_lightup_areas
 		if(SEC_DEPT_MEDICAL)
 			ears = /obj/item/radio/headset/headset_sec/alt/department/med
 			accessory = /obj/item/clothing/accessory/armband/medblue
 			dep_access = dept_access_medical
 			destination = /area/station/security/checkpoint/medical
-			spawn_point = locate(/obj/effect/landmark/start/depsec/medical) in GLOB.department_security_spawns
 			minimal_lightup_areas |= GLOB.medical_lightup_areas
 		if(SEC_DEPT_SCIENCE)
 			ears = /obj/item/radio/headset/headset_sec/alt/department/sci
 			accessory = /obj/item/clothing/accessory/armband/science
 			dep_access = dept_access_science
 			destination = /area/station/security/checkpoint/science
-			spawn_point = locate(/obj/effect/landmark/start/depsec/science) in GLOB.department_security_spawns
 			minimal_lightup_areas |= GLOB.science_lightup_areas
 		if(SEC_DEPT_ENGINEERING)
 			ears = /obj/item/radio/headset/headset_sec/alt/department/engi
 			accessory = /obj/item/clothing/accessory/armband/engine
 			dep_access = dept_access_engineering
 			destination = /area/station/security/checkpoint/engineering
-			spawn_point = locate(/obj/effect/landmark/start/depsec/engineering) in GLOB.department_security_spawns
 			minimal_lightup_areas |= GLOB.engineering_lightup_areas
 
 	if(accessory)
@@ -147,19 +140,28 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 			qdel(spawning.ears)
 		spawning.equip_to_slot_or_del(new ears(spawning), ITEM_SLOT_EARS)
 
+	// If there's a departmental access to apply to the card, overwrite
 	if(dep_access)
-		var/obj/item/card/id/worn_id = spawning.wear_id
+		var/obj/item/card/id/worn_id = spawning.get_idcard(hand_first = FALSE)
 		worn_id.access |= dep_access
+		spawning.sec_hud_set_ID()
 
-	if(!CONFIG_GET(flag/sec_start_brig) && (destination || spawn_point))
+		// Update PDA.
+		var/obj/item/modular_computer/tablet/pda = spawning.get_item_by_slot(ITEM_SLOT_BELT)
+		if(istype(pda) && !isnull(worn_id.assignment))
+			pda.imprint_id(spawning.real_name, worn_id.assignment)
+
+	var/spawn_point = pick(LAZYACCESS(GLOB.department_security_spawns, department))
+
+	if(!CONFIG_GET(flag/sec_start_brig) && move_to && (destination || spawn_point))
 		if(spawn_point)
-			spawning.Move(get_turf(spawn_point))
+			spawning.forceMove(get_turf(spawn_point))
 		else
 			var/list/possible_turfs = get_area_turfs(destination)
 			while(length(possible_turfs))
 				var/random_index = rand(1, length(possible_turfs))
 				var/turf/target = possible_turfs[random_index]
-				if(spawning.Move(target))
+				if(isopenturf(target) && spawning.forceMove(target))
 					break
 				possible_turfs.Cut(random_index, random_index + 1)
 
@@ -171,7 +173,12 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 
 	return department
 
-/datum/job/security_officer/proc/announce_latejoin(mob/officer, department, list/distribution)
+
+/datum/job/security_officer/proc/announce_latejoin(
+	mob/officer,
+	department,
+	distribution,
+)
 	var/obj/machinery/announcement_system/announcement_system = get_announcement_system(/datum/aas_config_entry/announce_officer, null, list(RADIO_CHANNEL_SECURITY))
 	if(isnull(announcement_system))
 		return
@@ -181,6 +188,8 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 		"DEPARTMENT" = department,
 	), list(RADIO_CHANNEL_SECURITY))
 
+	var/list/targets = list()
+
 	var/list/partners = list()
 	for(var/officer_ref in distribution)
 		var/mob/partner = locate(officer_ref)
@@ -188,18 +197,16 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 			continue
 		partners += partner.real_name
 
-	if(!partners.len)
-		return
-
-	var/list/targets = list()
-	for(var/obj/item/modular_computer/tablet in GLOB.TabletMessengers)
-		if(!(tablet.saved_identification in partners))
-			continue
-		targets += tablet
+	if (partners.len)
+		for(var/obj/item/modular_computer/tablet in GLOB.TabletMessengers)
+			if(!(tablet.saved_identification in partners))
+				continue
+			targets += tablet
 
 	if(!targets.len)
 		return
 
+	// I thought it would be great, if AAS also modifies PDA messages. Especially because it's AASs message.
 	var/datum/signal/subspace/messaging/tablet_msg/signal = new(announcement_system, list(
 		"name" = "Security Department Update",
 		"job" = "Automated Announcement System",
@@ -213,18 +220,34 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 	signal.send_to_receivers()
 
 
+/datum/job/security_officer/proc/get_my_department(mob/character, preferred_department)
+	var/department = GLOB.security_officer_distribution[REF(character)]
+
+	// This passes when they are a round start security officer.
+	if (department)
+		return department
+
+	return get_new_officer_distribution_from_late_join(
+		preferred_department,
+		shuffle(GLOB.available_depts),
+		GLOB.security_officer_distribution,
+	)
 
 /datum/outfit/job/security_officer
 	name = JOB_NAME_SECURITYOFFICER
 	jobtype = /datum/job/security_officer
 
 	id = /obj/item/card/id/job/security_officer
+	uniform = /obj/item/clothing/under/rank/security/officer
+	suit = /obj/item/clothing/suit/armor/vest/alt
+	suit_store = /obj/item/gun/ballistic/automatic/pistol/security
+	backpack_contents = list(
+		/obj/item/ammo_casing/taser = 1,
+	)
 	belt = /obj/item/storage/belt/security/full
 	ears = /obj/item/radio/headset/headset_sec/alt
-	uniform = /obj/item/clothing/under/rank/security/officer
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/helmet/sec
-	suit = /obj/item/clothing/suit/armor/vest/alt
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/modular_computer/tablet/pda/preset/security
 	r_pocket = /obj/item/clothing/accessory/badge
@@ -236,17 +259,13 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 	messenger = /obj/item/storage/backpack/messenger/sec
 
 	box = /obj/item/storage/box/survival/security
-
-	suit_store = /obj/item/gun/ballistic/automatic/pistol/security
-
-	backpack_contents = list(
-		/obj/item/ammo_casing/taser = 1,
+	chameleon_extras = list(
+		/obj/item/gun/energy/disabler,
+		/obj/item/clothing/glasses/hud/security/sunglasses,
+		/obj/item/clothing/head/helmet
 	)
-
-	implants = list(/obj/item/implant/mindshield)
-
-	chameleon_extras = list(/obj/item/gun/energy/disabler, /obj/item/clothing/glasses/hud/security/sunglasses, /obj/item/clothing/head/helmet)
 	//The helmet is necessary because /obj/item/clothing/head/helmet/sec is overwritten in the chameleon list by the standard helmet, which has the same name and icon state
+	implants = list(/obj/item/implant/mindshield)
 
 /datum/outfit/job/security/mod
 	name = "Security Officer (MODsuit)"
@@ -271,20 +290,19 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 	recalculateChannels()
 
 /obj/item/radio/headset/headset_sec/alt/department/engi
-	keyslot = new /obj/item/encryptionkey/headset_sec
-	keyslot2 = new /obj/item/encryptionkey/headset_eng
+	keyslot = /obj/item/encryptionkey/headset_sec
+	keyslot2 = /obj/item/encryptionkey/headset_eng
 
 /obj/item/radio/headset/headset_sec/alt/department/supply
-	keyslot = new /obj/item/encryptionkey/headset_sec
-	keyslot2 = new /obj/item/encryptionkey/headset_cargo
-
+	keyslot = /obj/item/encryptionkey/headset_sec
+	keyslot2 = /obj/item/encryptionkey/headset_cargo
 /obj/item/radio/headset/headset_sec/alt/department/med
-	keyslot = new /obj/item/encryptionkey/headset_sec
-	keyslot2 = new /obj/item/encryptionkey/headset_med
+	keyslot = /obj/item/encryptionkey/headset_sec
+	keyslot2 = /obj/item/encryptionkey/headset_med
 
 /obj/item/radio/headset/headset_sec/alt/department/sci
-	keyslot = new /obj/item/encryptionkey/headset_sec
-	keyslot2 = new /obj/item/encryptionkey/headset_sci
+	keyslot = /obj/item/encryptionkey/headset_sec
+	keyslot2 = /obj/item/encryptionkey/headset_sci
 
 /// Returns the distribution of splitting the given security officers into departments.
 /// Return value is an assoc list of candidate => SEC_DEPT_*.

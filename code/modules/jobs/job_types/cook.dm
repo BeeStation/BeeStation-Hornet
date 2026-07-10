@@ -71,7 +71,7 @@
 			other_chefs.cooks++
 
 /datum/outfit/job/cook/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
-	..()
+	. = ..()
 	if(visuals_only)
 		return
 	var/list/possible_boxes = subtypesof(/obj/item/storage/box/ingredients)
