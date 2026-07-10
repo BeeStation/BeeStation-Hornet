@@ -11521,6 +11521,7 @@
 	pixel_y = 5
 	},
 /obj/item/soap/nanotrasen,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/wood,
 /area/station/maintenance/central)
 "eqc" = (
@@ -12122,9 +12123,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/camera/directional/south{
-	c_tag = "Captain's Quarters"
-	},
+/obj/machinery/camera/directional/south,
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "eAI" = (
@@ -23342,9 +23341,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/camera/directional/north{
-	c_tag = "Teleporter Room"
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/white,
 /area/station/service/kitchen)
 "jaN" = (
@@ -24631,9 +24628,6 @@
 /turf/open/floor/wood,
 /area/station/commons/dorms)
 "jxx" = (
-/obj/machinery/camera/directional/north{
-	c_tag = "Teleporter Room"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -24652,6 +24646,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "jxD" = (
@@ -25525,11 +25520,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/camera/directional/north{
-	c_tag = "Teleporter Room"
-	},
 /obj/structure/table/wood,
 /obj/machinery/computer/libraryconsole/bookmanagement,
+/obj/machinery/camera/directional/north,
 /turf/open/floor/carpet/royalblack,
 /area/station/service/library)
 "jOx" = (
@@ -29479,9 +29472,7 @@
 /area/station/science/robotics)
 "lkZ" = (
 /obj/structure/chair,
-/obj/machinery/camera/directional/north{
-	c_tag = "Teleporter Room"
-	},
+/obj/machinery/camera/directional/north,
 /turf/open/floor/iron/dark,
 /area/station/hallway/secondary/exit/departure_lounge)
 "lla" = (
@@ -43489,7 +43480,7 @@
 "qum" = (
 /obj/machinery/button/door{
 	id = "commissarydoor1";
-	name = "Cabin 2 Privacy Lock";
+	name = "Vacant Commissary Door Control";
 	normaldoorcontrol = 1;
 	pixel_y = -31;
 	specialfunctions = 4
@@ -45664,9 +45655,7 @@
 /obj/machinery/light{
 	light_color = "#7AC3FF"
 	},
-/obj/machinery/camera/directional/south{
-	c_tag = "Captain's Quarters"
-	},
+/obj/machinery/camera/directional/south,
 /turf/open/floor/carpet/royalblack,
 /area/station/service/library)
 "rfH" = (
@@ -46522,7 +46511,7 @@
 	pixel_x = 9;
 	pixel_y = 6
 	},
-/obj/effect/spawner/random/decoration/glowstick/lit,
+/obj/item/gun/ballistic/revolver/russian,
 /turf/open/floor/wood,
 /area/station/maintenance/central)
 "rzU" = (
@@ -54576,6 +54565,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/wood,
 /area/station/maintenance/central)
 "uAL" = (
