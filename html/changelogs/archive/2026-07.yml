@@ -72,3 +72,7 @@
   - bugfix: Fixed a few cameras and a door control being incorrectly named on Radstation.
   - rscadd: Added some additional pAI cards on Box and Cardinal.
   - rscadd: Added a Russian Revolver to Radstation.
+2026-07-10:
+  mrmanlikesbt:
+  - bugfix: Fixed a runtime when an AAS announcement was made in some situations
+  - bugfix: Fixed brains giving people null traits

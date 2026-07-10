@@ -49,7 +49,8 @@
 /obj/item/organ/brain/Initialize(mapload)
 	. = ..()
 	organ_traits.Remove(variant_traits_removed)
-	organ_traits |= variant_traits_added
+	if(variant_traits_added)
+		organ_traits |= variant_traits_added
 
 /obj/item/organ/brain/Insert(mob/living/carbon/brain_owner, special = FALSE, drop_if_replaced = TRUE, no_id_transfer = FALSE, pref_load = FALSE)
 	. = ..()
