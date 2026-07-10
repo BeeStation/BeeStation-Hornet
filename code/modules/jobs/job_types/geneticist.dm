@@ -11,7 +11,7 @@
 	// communicated. Once the onboarding is better for this role, playtime requirements
 	// should be removed.
 	exp_requirements = 100
-	exp_required_type = EXP_TYPE_CREW
+	exp_required_type = EXP_TYPE_MEDICAL
 	exp_granted_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/geneticist
 

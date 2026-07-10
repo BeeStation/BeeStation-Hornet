@@ -14,7 +14,7 @@
 	exp_requirements = 1200
 	exp_required_type = EXP_TYPE_CREW
 	exp_required_type_department = EXP_TYPE_SECURITY
-	exp_granted_type = EXP_TYPE_SECURITY
+	exp_granted_type = EXP_TYPE_COMMAND
 	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/head_of_security

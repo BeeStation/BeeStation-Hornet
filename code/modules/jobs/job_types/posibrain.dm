@@ -13,6 +13,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 	minimal_player_age = 21
 	exp_requirements = 120
 	exp_required_type = EXP_TYPE_CREW
+	exp_granted_type = EXP_TYPE_CREW
 	random_spawns_possible = FALSE
 
 	job_flags = JOB_CANNOT_OPEN_SLOTS

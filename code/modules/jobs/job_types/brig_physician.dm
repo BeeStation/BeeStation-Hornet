@@ -11,6 +11,7 @@
 	minimal_player_age = 7
 	exp_requirements = 60
 	exp_required_type = EXP_TYPE_MEDICAL
+	exp_granted_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/brig_physician
 
 	base_access = list(ACCESS_BRIGPHYS, ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE)
