@@ -89,9 +89,13 @@
 	var/obj/item/tank/target_tank = internal || external
 	if(target_tank)
 		var/datum/gas_mixture/target_tank_air = target_tank.return_air()
+		var/return_pressure = target_tank_air.return_pressure()
 		tab_data["Internal Atmosphere Info"] = GENERATE_STAT_TEXT("[target_tank.name]")
-		tab_data["Tank Pressure"] = GENERATE_STAT_TEXT("[target_tank_air.return_pressure()]")
+		tab_data["Tank Pressure"] = GENERATE_STAT_TEXT("[return_pressure]")
 		tab_data["Distribution Pressure"] = GENERATE_STAT_TEXT("[target_tank.distribute_pressure]")
+		var/moles_per_breath = (clamp(return_pressure, 0, target_tank.distribute_pressure)* BREATH_VOLUME/(R_IDEAL_GAS_EQUATION*target_tank.air_contents.temperature)) //worrying amount of math for the status tab
+		var/breaths_left = target_tank_air.total_moles() / QUANTIZE(moles_per_breath)
+		tab_data["Approximate tank time remaining"] = GENERATE_STAT_TEXT("[round(breaths_left * 2)]s") //As of time of writing, mob subsystem *should* fire every 2 seconds, but in testing it was more like every 5, but I can not find a solid variable as for WHY
 	if(istype(wear_suit, /obj/item/clothing/suit/space))
 		var/obj/item/clothing/suit/space/S = wear_suit
 		tab_data["Thermal Regulator"] = GENERATE_STAT_TEXT("[S.thermal_on ? "on" : "off"]")
