@@ -217,13 +217,19 @@
 	if (!length(announcement_systems))
 		return null
 	var/list/intact_aass = list()
+	var/turf/source_turf = get_turf(source)
 	for(var/obj/machinery/announcement_system/announce as anything in announcement_systems)
-		if(announce.is_operational && announce.has_supported_channels(channels) && is_valid_z_level(get_turf(announce), get_turf(source)))
-			if(aas_config_entry_type)
-				var/datum/aas_config_entry/entry = locate(aas_config_entry_type) in announce.config_entries
-				if(!entry || !entry.enabled)
-					continue
-			intact_aass += announce
+		if(source_turf && !is_valid_z_level(get_turf(announce), source_turf))
+			continue
+		if(!announce.is_operational)
+			continue
+		if(!announce.has_supported_channels(channels))
+			continue
+		if(aas_config_entry_type)
+			var/datum/aas_config_entry/entry = locate(aas_config_entry_type) in announce.config_entries
+			if(!entry || !entry.enabled)
+				continue
+		intact_aass += announce
 	return length(intact_aass) ? pick(intact_aass) : null
 
 /// Announces the provided message with the provided variables and config entry type. Only aas_config_entry_type and variables_map are mandatory. Other args are optional.
