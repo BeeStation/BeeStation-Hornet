@@ -24,4 +24,4 @@
 		for(var/datum/job/current as anything in jobs)
 			if(!current.allow_bureaucratic_error)
 				continue
-			current.total_positions += rand(0, 4)
+			current.total_positions += rand(0, 3)
