@@ -12868,6 +12868,10 @@
 /obj/structure/desk_bell/wired/medical{
 	pixel_x = -7
 	},
+/obj/item/pai_card{
+	pixel_x = 7;
+	pixel_y = 1
+	},
 /turf/open/floor/iron,
 /area/station/medical/medbay/lobby)
 "fzX" = (
@@ -26801,6 +26805,7 @@
 /area/station/engineering/gravity_generator)
 "lmR" = (
 /obj/structure/table/wood,
+/obj/item/pai_card,
 /turf/open/floor/carpet/green,
 /area/station/commons/dorms)
 "lng" = (
@@ -41329,11 +41334,9 @@
 /turf/open/floor/noslip/white,
 /area/station/commons/toilet/locker)
 "rjn" = (
-/obj/structure/chair/stool/directional/south{
-	dir = 1
-	},
-/obj/effect/landmark/start/janitor,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/stool/directional/north,
+/obj/effect/landmark/start/janitor,
 /turf/open/floor/iron/half{
 	dir = 1
 	},
