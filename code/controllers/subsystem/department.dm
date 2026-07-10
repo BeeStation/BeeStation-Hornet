@@ -486,19 +486,6 @@ SUBSYSTEM_DEF(department)
 	manifest_category_order = DEPT_MANIFEST_ORDER_SECURITY
 
 // ---------------------------------------------------------------------
-//                               VIP
-//                     Used for: crew manifest
-// ---------------------------------------------------------------------
-// in fact, nobody belongs here even VIPs don't because how system works. This is dummy department actually.
-/datum/department_group/vip
-	department_name = DEPARTMENT_NAME_VIP
-	dept_id = DEPARTMENT_NAME_VIP
-	department_bitflags = DEPARTMENT_BITFLAG_VIP
-
-	manifest_category_name = "Very Important People"
-	manifest_category_order = DEPT_MANIFEST_ORDER_VIP
-
-// ---------------------------------------------------------------------
 //                            Unassigned
 //                     Used for: crew manifest
 // ---------------------------------------------------------------------
@@ -572,7 +559,7 @@ SUBSYSTEM_DEF(department)
 
 // ---------------------------------------------------------------------
 //                   Others (syndicate, cult, away, etc)
-//     Used for: access sorting (mainly), cerw manifest (admin gimmick)
+//     Used for: access sorting (mainly), crew manifest (admin gimmick)
 // ---------------------------------------------------------------------
 /datum/department_group/other
 	department_name = DEPARTMENT_NAME_OTHER
@@ -607,3 +594,4 @@ SUBSYSTEM_DEF(department)
 	// currently not used, but just in case
 	manifest_category_name = DEPARTMENT_NAME_OTHER
 	manifest_category_order = 1000
+	display_order = 99

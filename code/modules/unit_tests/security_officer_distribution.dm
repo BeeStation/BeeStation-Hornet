@@ -58,7 +58,7 @@
 	var/mob/dead/new_player/authenticated/new_player = allocate(/mob/dead/new_player)
 	var/datum/client_interface/mock_client = new
 
-	mock_client.prefs = new(mock_client)
+	mock_client.prefs = new /datum/preferences/testing()
 	var/write_success = mock_client.prefs.write_preference(
 		GLOB.preference_entries[/datum/preference/choiced/security_department],
 		SECURITY_OFFICER_DEPARTMENTS_TO_NAMES[preference],

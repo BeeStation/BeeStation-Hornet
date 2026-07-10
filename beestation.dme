@@ -1187,6 +1187,7 @@
 #include "code\datums\materials\meat.dm"
 #include "code\datums\mergers\_merger.dm"
 #include "code\datums\mocking\client.dm"
+#include "code\datums\mocking\preferences.dm"
 #include "code\datums\mood_events\drink_events.dm"
 #include "code\datums\mood_events\drug_events.dm"
 #include "code\datums\mood_events\food_events.dm"
