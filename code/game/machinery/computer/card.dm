@@ -181,8 +181,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		target.forceMove(drop_location())
 		if(!issilicon(user) && Adjacent(user))
 			user.put_in_hands(target)
-		user.visible_message(span_notice("[user] gets \the [target] from \the [src]."), \
-							span_notice("You get \the [target] from \the [src]."))
+		user.visible_message(
+			span_notice("[user] gets \the [target] from \the [src]."),
+			span_notice("You get \the [target] from \the [src].")
+		)
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 		updateUsrDialog()
 		return TRUE
@@ -345,11 +347,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					dat += "<td>Closed</td>"
 					dat += "<td>$0</td>"
 				else if(!(target_paycheck in paycheck_departments))
-					dat += "<td>$[B.payment_per_department[target_paycheck]] (Auth-denied)</td>"
-					dat += "<td>$[B.bonus_per_department[target_paycheck]]</td>"
+					dat += "<td>[B.payment_per_department[target_paycheck]] cr (Auth-denied)</td>"
+					dat += "<td>[B.bonus_per_department[target_paycheck]] cr</td>"
 				else
-					dat += "<td><a href='byond://?src=[REF(src)];choice=adjust_pay;paycheck_t=[target_paycheck];bank_account=[B.account_id]'>$[B.payment_per_department[target_paycheck]]</a></td>"
-					dat += "<td><a href='byond://?src=[REF(src)];choice=adjust_bonus;paycheck_t=[target_paycheck];bank_account=[B.account_id]'>$[B.bonus_per_department[target_paycheck]]</a></td>"
+					dat += "<td><a href='byond://?src=[REF(src)];choice=adjust_pay;paycheck_t=[target_paycheck];bank_account=[B.account_id]'>[B.payment_per_department[target_paycheck]] cr</a></td>"
+					dat += "<td><a href='byond://?src=[REF(src)];choice=adjust_bonus;paycheck_t=[target_paycheck];bank_account=[B.account_id]'>[B.bonus_per_department[target_paycheck]] cr</a></td>"
 				dat += "</tr>"
 		dat += "</table>"
 		dat += "</div></div>"
@@ -473,9 +475,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					if(!(SSeconomy.get_budget_acc_bitflag(each) & accessible_dept_payment_bitflag))
 						continue
 					if(SSeconomy.is_nonstation_account(each))
-						banking += "<td>$[B.payment_per_department[each]]</td>"
+						banking += "<td>[B.payment_per_department[each]] cr</td>"
 						continue
-					banking += "<td><a href='byond://?src=[REF(src)];choice=adjust_pay;paycheck_t=[each]'>$[B.payment_per_department[each]]</a></td>"
+					banking += "<td><a href='byond://?src=[REF(src)];choice=adjust_pay;paycheck_t=[each]'>[B.payment_per_department[each]] cr</a></td>"
 				banking += "</tr>"
 			else
 				banking += "<td><b>Banking information:</b></td>"

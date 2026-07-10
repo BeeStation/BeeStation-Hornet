@@ -303,7 +303,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 		for(var/obj/I in counted_money)
 			qdel(I)
 		if(!check_times[AM] || check_times[AM] < world.time) //Let's not spam the message
-			say("$[payees[AM]] received, [AM]. You need $[threshold-payees[AM]] more.")
+			say("[payees[AM]] cr received, [AM]. You need [threshold-payees[AM]] cr more.")
 			check_times[AM] = world.time + LUXURY_MESSAGE_COOLDOWN
 		return ..()
 	else
