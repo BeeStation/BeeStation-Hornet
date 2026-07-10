@@ -16641,6 +16641,7 @@
 /area/station/science/mixing/launch)
 "fSm" = (
 /obj/machinery/newscaster/directional/south,
+/obj/item/kirbyplants/random,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/brig)
 "fSt" = (
