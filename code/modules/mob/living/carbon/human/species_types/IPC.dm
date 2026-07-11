@@ -126,10 +126,11 @@
 	C.dna.features["ipc_screen"] = null //Turns off screen on death
 	C.update_body()
 
-/datum/action/innate/change_screen/access_controller
+/datum/action/innate/access_controller
 	name = "Access Internal Controller"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon_state = "pait"
 
 /datum/action/innate/change_screen/access_controller/on_activate()
 	if(!isipc(owner))
@@ -144,7 +145,7 @@
 	name = "Change Display"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
-	button_icon_state = "pai"
+	button_icon_state = "drone_vision"
 
 /datum/action/innate/change_screen/on_activate()
 	var/screen_choice = tgui_input_list(usr, "Which screen do you want to use?", "Screen Change", GLOB.ipc_screens_list)

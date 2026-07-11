@@ -332,7 +332,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/tablet/integrated)
 
 /obj/item/modular_computer/tablet/ipc/Initialize(mapload)
 	. = ..()
-	vis_flags |= VIS_INHERIT_ID
 	tablet_owner = loc
 	if(!isipc(tablet_owner))
 		tablet_owner = null

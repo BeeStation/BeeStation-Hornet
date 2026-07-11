@@ -20,7 +20,6 @@
 	display_name = "IPC control"
 	desc = "Interfaces with the parent IPC."
 
-	/// A reference to the action button to look at charge/get info
 	var/datum/port/input/message
 	var/datum/port/input/send_message_signal
 	var/datum/port/input/upgrade_target

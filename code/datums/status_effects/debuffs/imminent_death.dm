@@ -30,11 +30,8 @@
 		saved = TRUE
 		qdel(src)
 
-
 /datum/status_effect/imminent_death/proc/give_warning(message)
 	to_chat(owner, message)
-
-
 
 /datum/status_effect/imminent_death/robotic
 	initial_message = "Battery failure reported, backup capacitors activated. Estimated time until failure: 30 seconds."

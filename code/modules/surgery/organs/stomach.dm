@@ -145,6 +145,7 @@
 
 /obj/item/organ/stomach/battery/proc/set_charge(amount)
 	charge = clamp(amount*(1-(damage/maxHealth)), 0, max_charge)
+	SEND_SIGNAL(owner, COMSIG_ORGAN_BATTERY_CHARGED, src, amount)
 	update_nutrition()
 
 /obj/item/organ/stomach/battery/proc/set_charge_scaled(amount)
