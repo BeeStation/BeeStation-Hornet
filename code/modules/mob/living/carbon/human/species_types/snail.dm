@@ -3,7 +3,7 @@
 	plural_form = "Snailpeople"
 	id = SPECIES_SNAIL
 	species_traits = list(
-		MUTCOLORS,
+		MUTANT_COLOR,
 		NO_UNDERWEAR
 	)
 	attack_verb = "slap"

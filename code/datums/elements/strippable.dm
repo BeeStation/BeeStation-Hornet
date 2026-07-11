@@ -425,7 +425,7 @@
 		for(var/section in strippable.layout)
 			var/section_result = list()
 
-			for(var/datum/strippable_item_layout/slot as() in section)
+			for(var/datum/strippable_item_layout/slot as anything in section)
 				section_result += list(list(
 					"id" = slot.key,
 					"indented" = slot.indented,

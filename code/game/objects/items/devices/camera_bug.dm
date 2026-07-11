@@ -74,12 +74,13 @@
 	user.set_mob_eye_to(MOB_EYE_SELF)
 
 /obj/item/camera_bug/proc/get_cameras()
+	var/static/list/camera_bug_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_MINE, CAMERA_NETWORK_LABOR, CAMERA_NETWORK_TOXINS_TEST)
 	if( world.time > (last_net_update + 100))
 		bugged_cameras = list()
 		for(var/obj/machinery/camera/camera as anything in GLOB.cameranet.cameras)
 			if(camera.machine_stat || !camera.can_use())
 				continue
-			if(length(list("ss13","mine", "rd", "labor", "toxins", "minisat") & camera.network))
+			if(length(camera_bug_networks & camera.network))
 				var/datum/weakref/camera_ref = WEAKREF(camera)
 				if(!camera_ref || !camera.c_tag)
 					continue

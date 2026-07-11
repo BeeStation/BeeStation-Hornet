@@ -1,0 +1,74 @@
+2026-07-02:
+  mrmanlikesbt:
+  - bugfix: Anomalies no longer slow the game down to a crawl when detonating in space.
+  - code_imp: Anomaly code has been cleaned up
+2026-07-03:
+  EvilDragonfiend:
+  - bugfix: Fixed the cloning console can't scan a brain/head only. Also, fixed some
+      cloning related codes.
+  - tweak: by changing the clone code, there is an unintended change that changeling
+      drained brains can now be cloned. Ling-husked body still cannot be cloned.
+  - tweak: Experimental cloner also can clone brain only. It doesn't mean you can
+      clone xenos.
+  - code_imp: slightly revised the proc name "copy_dna(thing)" to "copy_dna_to(thing)"
+  - code_imp: brains now have DNA datum. This is used for cloning.
+  - code_imp: cleaned up cloning codes
+  MatiAvanti:
+  - admin: The banning panel now blocks banning other admin unless "Applies to admins"
+      is ticked.
+2026-07-04:
+  EvilDragonfiend:
+  - code_imp: Improved how 'camera networks' work. Also revised some var names and
+      proc names.
+  - code_imp: 'Added "XENOBIOLOGY_CONSOLE_DISALLOWED" area flag. As long as an area
+      has this flag, you cannot do a xenobiology in the area. This flag can be neutralized
+      if you use a slime blueprint. Restricted areas are: shuttles, maint tunnels,
+      and hallways.'
+  - bugfix: Xenobio cameras will be coordinated at the correct areas.
+  - bugfix: Debug Omnitool welder now works.
+  cursedkiller:
+  - rscadd: Added Holopad emag location spoof functionality
+2026-07-05:
+  mrmanlikesbt:
+  - bugfix: Fixed energy guns hard deleting
+  - spellcheck: Fixed kinetic being spelled as kenetic across the codebase
+  - code_imp: isnum_safe() has been removed since it was logically identical to IS_FINITE()
+  - code_imp: Replaced our isnan() and isinf() overrides with the BYOND built-in procs.
+  mrmanlikesbt, nicbn, Fikou, vincentiusvin, JohnFulpWillard, Momo8289, Jacquerel, timothymtorres:
+  - balance: Cryo tanks are now slightly more efficient and end up giving 0.5 reagents
+      per second to their occupant instead of the previous 0.4 (They only consume
+      0.02 reagents per second from their beaker, yes this breaks the laws of physics).
+  - rscadd: Added sound effects to cryo tanks.
+  - bugfix: Fixed a cable & APC harddel from power monitors
+  - bugfix: Fixed some bad logic with the announcement system
+  - code_imp: Removed some unused machinery related vars, defines, and procs
+  - code_imp: Cleaned up cryo tank code
+2026-07-06:
+  mrmanlikesbt:
+  - bugfix: fixed machine construction
+2026-07-07:
+  Melbert, vinylspiders, Gpeckman:
+  - refactor: refactors blindness to status effects
+  - bugfix: high luminosity eyes light overlays now follow the user correctly
+  - bugfix: directional flashlights when picked up will now always update their cast
+      light direction correctly no matter what dir you are facing
+  - refactor: refactors high luminosity eye code to better make use of the atom lighting
+      system, adding a new light type 'MOVABLE_LIGHT_BEAM'
+  SergeiKoralev:
+  - bugfix: Box engineering should no longer automatically lose power within 1 minute
+      of round start.
+  - rscadd: Added solar panels to existing arrays on Box station.
+  - rscadd: High power inducer and spare power cell next to engineering APC for late-joins.
+  - rscdel: Removed the turbine-to-AI Distro pipe.
+  - tweak: Tweaked areas around solar panels IAW standard mapping practices for areas
+      and lattices.
+2026-07-09:
+  Isaacnml:
+  - bugfix: Placed a camera in metastation xenobiology
+  - bugfix: Removed a wire on a wall in metastation security
+  - bugfix: shuffled things around in metastation's science airlock
+  WhiskeyMarten:
+  - bugfix: Fixed some more stools being in the wrong directions on various maps.
+  - bugfix: Fixed a few cameras and a door control being incorrectly named on Radstation.
+  - rscadd: Added some additional pAI cards on Box and Cardinal.
+  - rscadd: Added a Russian Revolver to Radstation.

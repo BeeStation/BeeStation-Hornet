@@ -115,10 +115,8 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 			if(!A)
 				A = MM.add_antag_datum(/datum/antagonist/custom)
 				//Don't delay roundend with ghost role created antags
-				A.delay_roundend = FALSE
-				A.prevent_roundtype_conversion = FALSE
 			for(var/objective in objectives)
-				var/datum/objective/O = new/datum/objective(objective)
+				var/datum/objective/O = new(objective)
 				O.owner = MM
 				A.objectives += O
 				log_objective(O.owner, O.explanation_text)
@@ -206,7 +204,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "ears", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")
 		for(var/slot in slots)
 			var/T = vars[slot]
-			if(!isnum_safe(T))
+			if(!IS_FINITE(T))
 				outfit.vars[slot] = T
 		H.equipOutfit(outfit)
 		if(disable_pda)
@@ -218,7 +216,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 			// Using crew monitors to find corpses while creative makes finding certain ruins too easy.
 			var/obj/item/clothing/under/C = H.w_uniform
 			if(istype(C))
-				C.update_sensors(NO_SENSORS)
+				C.set_sensor_mode(NO_SENSORS)
 
 	var/obj/item/card/id/W = H.wear_id
 	if(W)

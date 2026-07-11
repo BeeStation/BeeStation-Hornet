@@ -46,7 +46,7 @@
 	do { \
 		var/_L = FLOOR(##new_length, 5 SECONDS); \
 		var/_CT = src.to_index##_timeout; \
-		if(!isnum_safe(_CT) || _CT <= 0) { \
+		if(!IS_FINITE(_CT) || _CT <= 0) { \
 			src.cd_index##_cooldown = 0; \
 			src.to_index##_timeout = _L; \
 			break; \
@@ -55,7 +55,7 @@
 		} \
 		src.to_index##_timeout = _L; \
 		var/_CD = src.cd_index##_cooldown; \
-		if(!isnum_safe(_CD) || world.time >= _CD) { \
+		if(!IS_FINITE(_CD) || world.time >= _CD) { \
 			break; \
 		} \
 		src.cd_index##_cooldown = FLOOR(_L * FLOOR((_CD - world.time) / _CT, 0.05), 1 SECONDS); \
@@ -226,6 +226,14 @@
 		return
 	..()
 
+REGISTER_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
+DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
+	if(istype(buffer, /datum/techweb))
+		balloon_alert(user, "techweb connected")
+		stored_research = buffer
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE
+
 /obj/machinery/computer/scan_consolenew/AltClick(mob/user)
 	// Make sure the user can interact with the machine.
 	if(!user.canUseTopic(src, !issilicon(user)))
@@ -290,7 +298,10 @@
 	COOLDOWN_START(src, scramble_cooldown, scramble_timeout)
 	COOLDOWN_START(src, joker_cooldown, joker_timeout)
 
-	stored_research = SSresearch.science_tech
+/obj/machinery/computer/scan_consolenew/LateInitialize()
+	. = ..()
+	if(!stored_research)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(stored_research, src)
 
 /obj/machinery/computer/scan_consolenew/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
@@ -1461,7 +1472,7 @@
 
 			// Run through each mutation in our Advanced Injector and add them to a
 			//  new injector
-			for(var/datum/mutation/HM as() in injector)
+			for(var/datum/mutation/HM as anything in injector)
 				I.add_mutations += new HM.type(copymut=HM)
 
 			// Force apply any mutations, this is functionality similar to mutators
@@ -1531,7 +1542,7 @@
 
 			// We then add the instabilities of all other mutations in the injector,
 			//  remembering to apply the Stabilizer chromosome modifiers
-			for(var/datum/mutation/I as() in injector_selection[adv_inj])
+			for(var/datum/mutation/I as anything in injector_selection[adv_inj])
 				instability_total += I.instability * GET_MUTATION_STABILIZER(I)
 
 			// If this would take us over the max instability, we inform the user.
@@ -1810,7 +1821,7 @@
 
 		// ---------------------------------------------------------------------- //
 		// Now get additional/"extra" mutations that they shouldn't have by default
-		for(var/datum/mutation/HM as() in scanner_occupant.dna.mutations)
+		for(var/datum/mutation/HM as anything in scanner_occupant.dna.mutations)
 			// If it's in the mutation index array, we've already catalogued this
 			//  mutation and can safely skip over it. It really shouldn't be, but this
 			//  will catch any weird edge cases
@@ -1858,7 +1869,7 @@
 
 	// ------------------------------------------------------------------------ //
 	// Build the list of mutations stored within the DNA Console
-	for(var/datum/mutation/HM as() in stored_mutations)
+	for(var/datum/mutation/HM as anything in stored_mutations)
 		var/list/mutation_data = list()
 
 		var/datum/mutation/A = GET_INITIALIZED_MUTATION(HM.type)
@@ -1896,7 +1907,7 @@
 	// ------------------------------------------------------------------------ //
 	// Build the list of mutations stored on any inserted diskettes
 	if(diskette)
-		for(var/datum/mutation/HM as() in diskette.mutations)
+		for(var/datum/mutation/HM as anything in diskette.mutations)
 			var/list/mutation_data = list()
 
 			var/datum/mutation/A = GET_INITIALIZED_MUTATION(HM.type)
@@ -1924,7 +1935,7 @@
 	if(LAZYLEN(injector_selection))
 		for(var/I in injector_selection)
 			var/list/mutations = list()
-			for(var/datum/mutation/HM as() in injector_selection[I])
+			for(var/datum/mutation/HM as anything in injector_selection[I])
 				var/list/mutation_data = list()
 
 				var/datum/mutation/A = GET_INITIALIZED_MUTATION(HM.type)

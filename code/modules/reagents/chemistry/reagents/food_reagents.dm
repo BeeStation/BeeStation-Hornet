@@ -83,9 +83,8 @@
 
 	data = counterlist_normalise(supplied_data)
 
-/datum/reagent/consumable/nutriment/on_merge(list/newdata, newvolume)
-	. = ..()
-	if(!islist(newdata) || !length(newdata))
+/datum/reagent/consumable/nutriment/on_merge(list/mix_data, new_total)
+	if(!islist(data) || !length(mix_data))
 		return
 
 	// data for nutriment is one or more (flavour -> ratio)
@@ -97,8 +96,8 @@
 
 	counterlist_scale(taste_amounts, volume)
 
-	var/list/other_taste_amounts = newdata.Copy()
-	counterlist_scale(other_taste_amounts, newvolume)
+	var/list/other_taste_amounts = mix_data.Copy()
+	counterlist_scale(other_taste_amounts, new_total)
 
 	counterlist_combine(taste_amounts, other_taste_amounts)
 
@@ -260,8 +259,8 @@
 	switch(current_cycle)
 		if(1 to 15)
 			heating = 5
-			if(holder.has_reagent(/datum/reagent/cryostylane))
-				holder.remove_reagent(/datum/reagent/cryostylane, 5 * REM * delta_time)
+			if(affected_mob.reagents.has_reagent(/datum/reagent/cryostylane))
+				affected_mob.reagents.remove_reagent(/datum/reagent/cryostylane, 5 * REM * delta_time)
 		if(15 to 25)
 			heating = 10
 		if(25 to 35)
@@ -332,7 +331,7 @@
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
 			victim.emote("cry")
 			victim.set_eye_blur_if_lower(10 SECONDS) // 10 seconds
-			victim.adjust_blindness(3) // 6 seconds
+			victim.adjust_temp_blindness(6 SECONDS)
 			victim.set_confusion_if_lower(10 SECONDS)
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
@@ -590,10 +589,9 @@
 	default_container = /obj/item/reagent_containers/condiment/honey
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	holder.add_reagent(/datum/reagent/consumable/sugar, 1 * REM * delta_time)
+	affected_mob.reagents.add_reagent(/datum/reagent/consumable/sugar, 1 * REM * delta_time)
 	. = ..()
-	var/need_mob_update
-	need_mob_update = affected_mob.adjustBruteLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
+	var/need_mob_update = affected_mob.adjustBruteLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
 	need_mob_update += affected_mob.adjustFireLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
 	need_mob_update += affected_mob.adjustOxyLoss(-1, updating_health = FALSE, required_biotype = affected_biotype)
 	need_mob_update += affected_mob.adjustToxLoss(-1, updating_health = FALSE, required_biotype = affected_biotype)
@@ -656,7 +654,7 @@
 		else
 			if(!exposed_mob.has_status_effect(/datum/status_effect/eye_blur))
 				to_chat(exposed_mob, span_warning("Tears well up in your eyes!"))
-			exposed_mob.adjust_blindness(2)
+			exposed_mob.adjust_temp_blindness(4 SECONDS)
 			exposed_mob.set_eye_blur_if_lower(10 SECONDS)
 
 /datum/reagent/consumable/tearjuice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -665,7 +663,7 @@
 		affected_mob.set_eye_blur_if_lower(8 SECONDS * REM * delta_time)
 		if(DT_PROB(5, delta_time))
 			to_chat(affected_mob, span_warning("Your eyes sting!"))
-			affected_mob.adjust_blindness(2)
+			affected_mob.adjust_temp_blindness(4 SECONDS)
 
 /datum/reagent/consumable/nutriment/stabilized
 	name = "Stabilized Nutriment"

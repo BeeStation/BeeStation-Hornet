@@ -173,7 +173,7 @@
 		L["Slipspace Wake [++i] ([range])"] = wake
 	// Add on a random turf nearby
 	var/list/turfs = list()
-	for(var/turf/T as() in (RANGE_TURFS(10, user) - get_turf(user)))
+	for(var/turf/T as anything in (RANGE_TURFS(10, user) - get_turf(user)))
 		if(T.x>world.maxx-8 || T.x<8)
 			continue	//putting them at the edge is dumb
 		if(T.y>world.maxy-8 || T.y<8)
@@ -261,7 +261,7 @@
 		var/obj/item/bodypart/head/head = itemUser.get_bodypart(BODY_ZONE_HEAD)
 		if(head)
 			head.drop_limb()
-			var/list/safeLevels = SSmapping.levels_by_any_trait(list(ZTRAIT_DYNAMIC_LEVEL, ZTRAIT_LAVA_RUINS, ZTRAIT_STATION, ZTRAIT_MINING))
+			var/list/safeLevels = SSmapping.levels_by_any_trait(list(ZTRAIT_EMPTY, ZTRAIT_LAVA_RUINS, ZTRAIT_STATION, ZTRAIT_MINING))
 			head.forceMove(locate(rand(1, world.maxx), rand(1, world.maxy), pick(safeLevels)))
 			itemUser.visible_message(span_suicide("The portal snaps closed taking [user]'s head with it!"))
 		else

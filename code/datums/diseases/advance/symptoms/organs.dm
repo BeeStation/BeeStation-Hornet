@@ -80,40 +80,37 @@
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 
-/datum/symptom/sensory_restoration/Activate(datum/disease/advance/A)
-	if(!..())
+/datum/symptom/sensory_restoration/Activate(datum/disease/advance/advanced_disease)
+	. = ..()
+	if(!.)
 		return
-	var/mob/living/M = A.affected_mob
-	var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
-	if (!eyes)
-		return
-	switch(A.stage)
+	var/mob/living/carbon/infected_mob = advanced_disease.affected_mob
+	switch(advanced_disease.stage)
 		if(4, 5)
-			var/obj/item/organ/ears/ears = M.get_organ_slot(ORGAN_SLOT_EARS)
-			if(ears)
+			if(advanced_disease.has_required_infectious_organ(infected_mob, ORGAN_SLOT_EARS))
+				var/obj/item/organ/ears/ears = infected_mob.get_organ_slot(ORGAN_SLOT_EARS)
 				ears.adjustEarDamage(-4, -4)
 
-			if(HAS_TRAIT_FROM(M, TRAIT_BLIND, EYE_DAMAGE))
-				if(prob(20))
-					if(M.stat != DEAD)
-						to_chat(M, span_notice("Your vision slowly returns..."))
-					M.cure_blind(EYE_DAMAGE)
-					M.cure_nearsighted(EYE_DAMAGE)
-					M.set_eye_blur_if_lower(70 SECONDS)
-			else if(HAS_TRAIT_FROM(M, TRAIT_NEARSIGHT, EYE_DAMAGE))
-				if(M.stat != DEAD)
-					to_chat(M, span_notice("You can finally focus your eyes on distant objects."))
-				M.cure_nearsighted(EYE_DAMAGE)
-				M.set_eye_blur_if_lower(20 SECONDS)
-			else if(M.is_blind() || M.has_status_effect(/datum/status_effect/eye_blur))
-				M.set_blindness(0)
-				M.remove_status_effect(/datum/status_effect/eye_blur)
-			else if(eyes.damage > 0)
-				eyes.apply_organ_damage(-1)
-		else
-			if(prob(base_message_chance) && M.stat != DEAD)
-				to_chat(M, span_notice("[pick("Your eyes feel great.","You feel like your eyes can focus more clearly.", "You don't feel the need to blink.","Your ears feel great.","Your healing feels more acute.")]"))
+			if(!advanced_disease.has_required_infectious_organ(infected_mob, ORGAN_SLOT_EYES))
+				return
 
+			var/obj/item/organ/eyes/eyes = infected_mob.get_organ_slot(ORGAN_SLOT_EYES)
+			infected_mob.adjust_temp_blindness(-4 SECONDS)
+			infected_mob.adjust_eye_blur(-4 SECONDS)
+
+			eyes.apply_organ_damage(-2)
+			if(prob(20))
+				if(infected_mob.is_blind_from(EYE_DAMAGE))
+					to_chat(infected_mob, span_warning("Your vision slowly returns..."))
+					infected_mob.adjust_eye_blur(20 SECONDS)
+
+				else if(infected_mob.is_nearsighted_from(EYE_DAMAGE))
+					to_chat(infected_mob, span_warning("The blackness in your peripheral vision begins to fade."))
+					infected_mob.adjust_eye_blur(5 SECONDS)
+
+		else
+			if(prob(base_message_chance))
+				to_chat(infected_mob, span_notice("[pick("Your eyes feel great.","You feel like your eyes can focus more clearly.", "You don't feel the need to blink.","Your ears feel great.","Your hearing feels more acute.")]"))
 
 /datum/symptom/organ_restoration //heals damage to other internal organs that get damaged far less often
 	name = "Organ Restoration"

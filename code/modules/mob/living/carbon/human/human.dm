@@ -48,6 +48,7 @@
 		AddComponent(/datum/component/mood)
 
 	GLOB.human_list += src
+	add_traits(list(TRAIT_CAN_MOUNT_HUMANS, TRAIT_CAN_MOUNT_CYBORGS), INNATE_TRAIT)
 
 /mob/living/carbon/human/proc/setup_physiology()
 	physiology = new()
@@ -57,7 +58,7 @@
 /// Gaining said organs removes these effects
 /mob/living/carbon/human/proc/setup_organless_effects()
 	// All start without eyes, and get them via set species
-	//become_blind(NO_EYES)
+	become_blind(NO_EYES)
 	// Mobs cannot taste anything without a tongue; the tongue organ removes this on Insert
 	ADD_TRAIT(src, TRAIT_AGEUSIA, NO_TONGUE_TRAIT)
 
@@ -100,7 +101,8 @@
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.total_chem_storage]")
-			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbed_count]")
+			tab_data["Absorbed Genomes"] = GENERATE_STAT_TEXT("[changeling.absorbed_genomes]")
+			tab_data["Absorbed Humans"] = GENERATE_STAT_TEXT("[changeling.absorbed_people]")
 	return tab_data
 
 // called when something steps onto a human
@@ -224,7 +226,7 @@
 				var/status = ""
 				if(getBruteLoss())
 					to_chat(human_user, "<b>Physical trauma analysis:</b>")
-					for(var/obj/item/bodypart/BP as() in bodyparts)
+					for(var/obj/item/bodypart/BP as anything in bodyparts)
 						var/brutedamage = BP.brute_dam
 						if(brutedamage > 0)
 							status = "received minor physical injuries."
@@ -239,7 +241,7 @@
 							to_chat(human_user, "<span class='[span]'>[BP] appears to have [status]</span>")
 				if(getFireLoss())
 					to_chat(human_user, "<b>Analysis of skin burns:</b>")
-					for(var/obj/item/bodypart/BP as() in bodyparts)
+					for(var/obj/item/bodypart/BP as anything in bodyparts)
 						var/burndamage = BP.burn_dam
 						if(burndamage > 0)
 							status = "signs of minor burns."
@@ -618,7 +620,7 @@
 	if(!is_mouth_covered() && clean_lips())
 		. = TRUE
 
-	if(glasses && is_eyes_covered(FALSE, TRUE, TRUE) && glasses.wash(clean_types))
+	if(glasses && is_eyes_covered(ITEM_SLOT_MASK|ITEM_SLOT_HEAD) && glasses.wash(clean_types))
 		update_worn_glasses()
 		. = TRUE
 
@@ -717,11 +719,6 @@
 		crew_record.name = newname
 	if(locked_record)
 		locked_record.name = newname
-
-/mob/living/carbon/human/get_total_tint()
-	. = ..()
-	if(glasses)
-		. += glasses.tint
 
 /mob/living/carbon/human/update_health_hud()
 	if(!client || !hud_used)
@@ -1059,14 +1056,13 @@
 	return buckle_mob(target, TRUE, TRUE, RIDER_NEEDS_ARMS)
 
 
-/mob/living/carbon/human/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, buckle_mob_flags= NONE)
-	if(!is_type_in_typecache(target, can_ride_typecache))
-		target.visible_message(span_warning("[target] really can't seem to mount [src]."))
-		return
-
-	if(!force)//humans are only meant to be ridden through piggybacking and special cases
-		return
-
+/mob/living/carbon/human/is_buckle_possible(mob/living/target, force, check_loc)
+	if(!HAS_TRAIT(target, TRAIT_CAN_MOUNT_HUMANS))
+		target.visible_message(span_warning("[target] really can't seem to mount [src]..."))
+		return FALSE
+	// if you don't invoke it with forced, IE via piggyback / fireman, always fail
+	if(!force)
+		return FALSE
 	return ..()
 
 /mob/living/carbon/human/reagent_check(datum/reagent/chem, seconds_per_tick, times_fired)

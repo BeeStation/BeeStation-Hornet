@@ -218,7 +218,6 @@
 	canSmoothWith = null
 
 	clockwork = TRUE //it'd look weird
-	broken_overlay_emissive = TRUE
 	pass_flags = PASSTABLE
 
 /obj/machinery/computer/security/mining
@@ -287,7 +286,6 @@
 	density = FALSE
 	circuit = null
 	clockwork = TRUE //it'd look very weird
-	broken_overlay_emissive = TRUE
 	light_power = 0
 
 /obj/machinery/computer/security/telescreen/update_icon()
@@ -344,6 +342,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertai
 	name = "research telescreen"
 	desc = "A telescreen with access to the research division's camera network."
 	network = list(CAMERA_NETWORK_RESEARCH)
+
+/obj/machinery/computer/security/telescreen/artifacts
+	name = "artifacts telescreen"
+	desc = "A telescreen with access to the artifacts lab camera network."
+	network = list(CAMERA_NETWORK_ARTIFACTS)
 
 /obj/machinery/computer/security/telescreen/ce
 	name = "\improper Chief Engineer's telescreen"
@@ -425,10 +428,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertai
 	desc = "A telescreen that connects to the camera network of the evacuation shuttle."
 	network = list(CAMERA_NETWORK_EVAC)
 
-/obj/machinery/computer/security/telescreen/bunker
-	name = "bunker monitor"
-	desc = "A telescreen that connects to the camera network of the bunker."
+// This is used in deepstorage.dmm
+/obj/machinery/computer/security/telescreen/deep_storage
+
+/obj/machinery/computer/security/telescreen/deep_storage/bunker
+	name = "Bunker Entrance monitor"
 	network = list(CAMERA_NETWORK_BUNKER)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/deep_storage/bunker, 32)
 
 /obj/machinery/computer/security/telescreen/station
 	name = "station monitor"

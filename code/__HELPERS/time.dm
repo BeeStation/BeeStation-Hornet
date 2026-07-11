@@ -20,7 +20,7 @@
 	return time2text(station_time(wtime), format, NO_TIMEZONE)
 
 /proc/station_time_debug(force_set)
-	if(isnum_safe(force_set))
+	if(IS_FINITE(force_set))
 		SSticker.gametime_offset = force_set
 		return
 	SSticker.gametime_offset = rand(0, 24 HOURS)		//hours in day * minutes in hour * seconds in minute * deciseconds in second
@@ -31,7 +31,7 @@
 
 /// Returns 1 if it is the selected month and day
 /proc/isDay(month, day)
-	if(isnum_safe(month) && isnum_safe(day))
+	if(IS_FINITE(month) && IS_FINITE(day))
 		var/MM = text2num(time2text(world.timeofday, "MM")) // get the current month
 		var/DD = text2num(time2text(world.timeofday, "DD")) // get the current day
 		if(month == MM && day == DD)
@@ -72,21 +72,21 @@ GLOBAL_VAR_INIT(rollovercheck_last_timeofday, 0)
 		return "right now"
 	if(second < 60)
 		return "[second] second[(second != 1)? "s":""]"
-	var/minute = FLOOR(second / 60, 1)
+	var/minute = floor(second / 60)
 	second = FLOOR(MODULUS(second, 60), round_seconds_to)
 	var/secondT
 	if(second)
 		secondT = " and [second] second[(second != 1)? "s":""]"
 	if(minute < 60)
 		return "[minute] minute[(minute != 1)? "s":""][secondT]"
-	var/hour = FLOOR(minute / 60, 1)
+	var/hour = floor(minute / 60)
 	minute = MODULUS(minute, 60)
 	var/minuteT
 	if(minute)
 		minuteT = " and [minute] minute[(minute != 1)? "s":""]"
 	if(hour < 24)
 		return "[hour] hour[(hour != 1)? "s":""][minuteT][secondT]"
-	var/day = FLOOR(hour / 24, 1)
+	var/day = floor(hour / 24)
 	hour = MODULUS(hour, 24)
 	var/hourT
 	if(hour)

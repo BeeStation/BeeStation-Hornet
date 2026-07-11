@@ -81,7 +81,7 @@
 		tracking_beacon.remove_from_huds()
 		if(is_manifested() && range != 1)
 			tracking_beacon.add_to_huds()
-	for(var/mutable_appearance/overlay as() in accent_overlays)
+	for(var/mutable_appearance/overlay as anything in accent_overlays)
 		overlay.color = new_color
 	color_name = span_name("[COLOR_TEXT(new_color, real_name)]")
 	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_ACCENT_COLOR, old_accent_color, new_color)

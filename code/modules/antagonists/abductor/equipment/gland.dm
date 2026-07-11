@@ -48,15 +48,12 @@
 /obj/item/organ/heart/gland/proc/update_gland_hud()
 	if(!owner)
 		return
-	var/image/holder = owner.hud_list[GLAND_HUD]
-	var/icon/I = icon(owner.icon, owner.icon_state, owner.dir)
-	holder.pixel_y = I.Height() - world.icon_size
 	if(active_mind_control)
-		holder.icon_state = "hudgland_active"
+		owner.set_hud_image_state(GLAND_HUD, "hudgland_active")
 	else if(mind_control_uses)
-		holder.icon_state = "hudgland_ready"
+		owner.set_hud_image_state(GLAND_HUD, "hudgland_ready")
 	else
-		holder.icon_state = "hudgland_spent"
+		owner.set_hud_image_state(GLAND_HUD, "hudgland_spent")
 
 /obj/item/organ/heart/gland/proc/mind_control(command, mob/living/user)
 	if(!ownerCheck() || !mind_control_uses || active_mind_control)
@@ -84,9 +81,9 @@
 	active = FALSE
 	if(initial(uses) == 1)
 		uses = initial(uses)
+	gland_owner.mind?.remove_antag_datum(/datum/antagonist/abductee)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	gland_owner?.mind?.remove_antag_datum(/datum/antagonist/abductee)
-	hud.remove_from_hud(gland_owner)
+	hud.remove_atom_from_hud(gland_owner)
 	clear_mind_control()
 
 /obj/item/organ/heart/gland/Insert(mob/living/carbon/gland_owner, special = FALSE, drop_if_replaced = TRUE)
@@ -97,7 +94,7 @@
 	if(special != 2 && uses) // Special 2 means abductor surgery
 		Start()
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	hud.add_to_hud(gland_owner)
+	hud.add_atom_to_hud(gland_owner)
 	update_gland_hud()
 
 /obj/item/organ/heart/gland/on_life(delta_time, times_fired)

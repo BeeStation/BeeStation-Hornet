@@ -163,8 +163,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		else
 			id_eject(user, target)
 
-	user.visible_message(span_notice("[user] inserts \the [card_to_insert] into \the [src]."),
-						span_notice("You insert \the [card_to_insert] into \the [src]."))
+	user.visible_message(
+		span_notice("[user] inserts \the [card_to_insert] into \the [src]."),
+		span_notice("You insert \the [card_to_insert] into \the [src]."),
+	)
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	updateUsrDialog()
 	return TRUE
@@ -791,7 +793,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(SSeconomy.is_nonstation_account(paycheck_t))
 				message_admins("[ADMIN_LOOKUPFLW(usr)] tried to adjust [B.account_id] payment. It must be they're hacking the game.")
 				CRASH("[key_name(usr)] tried to adjust [B.account_id] payment. It must be they're hacking the game.")
-			var/new_pay = FLOOR(input(usr, "Input the new paycheck amount.", "Set new paycheck amount.", B.payment_per_department[target_paycheck]) as num|null, 1)
+			var/new_pay = floor(input(usr, "Input the new paycheck amount.", "Set new paycheck amount.", B.payment_per_department[target_paycheck]) as num|null)
 			if(isnull(new_pay))
 				updateUsrDialog()
 				return
@@ -814,7 +816,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(SSeconomy.is_nonstation_account(paycheck_t))
 				message_admins("[ADMIN_LOOKUPFLW(usr)] tried to adjust [inserted_modify_id.registered_name]'s [B.account_holder] pay bonus. It must be they're hacking the game.")
 				CRASH("[key_name(usr)] tried to adjust [inserted_modify_id.registered_name]'s [B.account_holder] pay bonus. It must be they're hacking the game.")
-			var/new_bonus = FLOOR(input(usr, "Input the bonus amount. Negative values will dock paychecks.", "Set paycheck bonus", B.bonus_per_department[target_paycheck]) as num|null, 1)
+			var/new_bonus = floor(input(usr, "Input the bonus amount. Negative values will dock paychecks.", "Set paycheck bonus", B.bonus_per_department[target_paycheck]) as num|null)
 			if(isnull(new_bonus))
 				updateUsrDialog()
 				return

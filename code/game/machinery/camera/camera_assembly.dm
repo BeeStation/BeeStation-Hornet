@@ -180,28 +180,45 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/camera_assembly)
 		return FALSE
 
 	tool.play_tool_sound(src)
-	var/input = tgui_input_text(user, "Which networks would you like to connect this camera to? Separate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13")
+	var/input = tgui_input_text(user, "Which networks would you like to connect this camera to? Separate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", CAMERA_NETWORK_STATION)
 	if(!input) //no input so we return
 		to_chat(user, span_warning("No input found, please try again!"))
 		return
 	if(OOC_FILTER_CHECK(input)) //check for forbidden words (OOC filter)
 		to_chat(user, span_warning("Your input contains forbidden words, try again."))
 		return
+
 	var/list/tempnetwork = splittext(input, ",")
-	if(tempnetwork.len < 1)
-		to_chat(user, span_warning("No network found, please try again!"))
+	var/list/disallowed_list
+	if(length(tempnetwork) > 20)
+		to_chat(user, span_warning("Connecting the camera to more than 20 networks doesn't seem right..."))
 		return
 	for(var/i in tempnetwork)
 		tempnetwork -= i
-		tempnetwork += LOWER_TEXT(i)
-	state = STATE_FINISHED
-	var/obj/machinery/camera/C = new(loc, src)
-	forceMove(C)
-	C.setDir(src.dir)
+		var/temp_string = LOWER_TEXT(i)
+		if(temp_string in CAMERA_NETWORK_DISALLOWED_STRINGS)
+			LAZYADD(disallowed_list, temp_string)
+			continue
+		tempnetwork += temp_string
+	if(length(disallowed_list))
+		to_chat(user, span_warn("Following network strings are rejected: [english_list(disallowed_list)]."))
+	if(length(tempnetwork) < 1)
+		to_chat(user, span_warning("No network found, please try again!"))
+		return
 
-	C.network = tempnetwork
-	var/area/A = get_area(src)
-	C.c_tag = "[A.name] ([rand(1, 999)])"
+	var/respect_area_networks = tgui_alert(user, "Would you like to respect the standard area camera networks?", "Respect the area camera networks?", list("Yes", "No"))
+
+	state = STATE_FINISHED
+	var/obj/machinery/camera/new_camera = new(loc, src)
+	forceMove(new_camera)
+	new_camera.setDir(src.dir)
+
+	var/area/myarea = get_area(new_camera)
+	if(respect_area_networks == "Yes")
+		new_camera.network = tempnetwork | myarea.camera_networks // thunderholme shouldn't be manually made, but cameras in thunderholme should have it
+	else
+		new_camera.network = tempnetwork
+	new_camera.c_tag = "[myarea.name] ([rand(1, 999)])"
 	return TRUE
 
 /obj/structure/camera_assembly/wirecutter_act(mob/user, obj/item/I)

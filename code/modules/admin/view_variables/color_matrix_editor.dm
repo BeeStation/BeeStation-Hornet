@@ -71,7 +71,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/color_matrix_proxy_view)
 	proxy_view.color = current_color
 	proxy_view.register_to_client(owner)
 
-/datum/color_matrix_editor/Destroy(force, ...)
+/datum/color_matrix_editor/Destroy(force)
 	QDEL_NULL(proxy_view)
 	return ..()
 

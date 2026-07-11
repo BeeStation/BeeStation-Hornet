@@ -1,0 +1,318 @@
+/datum/objective
+	abstract_type = /datum/objective
+
+	/// The primary owner of the objective. !!SOMEWHAT DEPRECATED!! Prefer using 'team' for new code.
+	var/datum/mind/owner
+	/// An alternative to 'owner': a team. Use this when writing new code.
+	var/datum/team/team
+	/// Name of the objective for admin prompts
+	var/name = "generic objective"
+	/// What that person is supposed to do.
+	var/explanation_text = "Nothing"
+	/// For when there are multiple owners.
+	var/team_explanation_text
+	/// If they are focused on a particular person.
+	var/datum/mind/target = null
+	/// If they are focused on a particular number. Steal objectives have their own counter.
+	var/target_amount = 0
+	/// If the objective is to be marked as completed, regardless of any conditions. Currently only used for custom objectives.
+	var/completed = FALSE
+	/// Whether the objective should show up as optional in the roundend screen
+	var/optional = FALSE
+	/// Used to check if obj owner can buy murderbone stuff
+	var/murderbone_flag = FALSE
+	/// If this objective can be granted in the traitor panel
+	var/admin_grantable = FALSE
+
+/datum/objective/New(text)
+	. = ..()
+	if(text)
+		explanation_text = text
+
+//Apparently objectives can be qdel'd. Learn a new thing every day
+/datum/objective/Destroy()
+	set_target(null)
+	team?.objectives -= src
+	for(var/datum/mind/objective_owner as anything in get_owners())
+		for(var/datum/antagonist/antag_datum as anything in objective_owner.antag_datums)
+			antag_datum.objectives -= src
+		objective_owner.crew_objectives -= src
+	return ..()
+
+/datum/objective/proc/get_owners() // Combine owner and team into a single list.
+	var/list/owners = team?.members?.Copy() || list()
+	if(owner)
+		owners += owner
+	return owners
+
+/datum/objective/proc/admin_edit(mob/admin)
+	return
+
+//Shared by few objective types
+/datum/objective/proc/admin_simple_target_pick(mob/admin)
+	var/list/possible_targets = list()
+	var/def_value = target?.current
+
+	var/list/datum/mind/objective_owners = get_owners()
+	for(var/datum/mind/possible_target as anything in SSticker.minds)
+		if(possible_target in objective_owners)
+			continue
+		if(!ishuman(possible_target.current))
+			continue
+		possible_targets += possible_target.current
+
+	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in (sort_names(possible_targets) | list("Free objective","Random"))
+	if (isnull(new_target))
+		return
+
+	if (new_target == "Free objective")
+		set_target(null)
+	else if (new_target == "Random")
+		find_target()
+	else
+		set_target(new_target.mind)
+
+	update_explanation_text()
+
+/datum/objective/proc/considered_escaped(datum/mind/M)
+	if(!considered_alive(M))
+		return FALSE
+	if(M.force_escaped)
+		return TRUE
+	if(SSticker.force_ending || GLOB.station_was_nuked) // Just let them win.
+		return TRUE
+	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
+		return FALSE
+	var/turf/location = get_turf(M.current)
+	if(!location || istype(location, /turf/open/floor/mineral/plastitanium/red/brig)) // Fails if they are in the shuttle brig
+		return FALSE
+	return location.onCentCom() || location.onSyndieBase()
+
+/datum/objective/proc/check_completion()
+	return completed
+
+/datum/objective/proc/get_completion_message()
+	return "[explanation_text] [check_completion() ? span_greentext("Success!") : span_redtext("Fail.")]"
+
+/datum/objective/proc/is_unique_objective(possible_target, list/dupe_search_range)
+	if(!islist(dupe_search_range))
+		stack_trace("Non-list passed as duplicate objective search range")
+		dupe_search_range = list(dupe_search_range)
+
+	for(var/A in dupe_search_range)
+		var/list/objectives_to_compare
+		if(istype(A, /datum/mind))
+			var/datum/mind/M = A
+			objectives_to_compare = M.get_all_objectives()
+		else if(istype(A, /datum/antagonist))
+			var/datum/antagonist/G = A
+			objectives_to_compare = G.objectives
+		else if(istype(A, /datum/team))
+			var/datum/team/T = A
+			objectives_to_compare = T.objectives
+
+		for(var/datum/objective/O as anything in objectives_to_compare)
+			if(istype(O, type) && O.get_target() == possible_target)
+				return FALSE
+	return TRUE
+
+/datum/objective/proc/get_target()
+	return target
+
+/datum/objective/proc/set_target(datum/mind/new_target)
+	if(target)
+		UnregisterSignal(target, list(COMSIG_QDELETING, COMSIG_MIND_CRYOED))
+	target = new_target
+	if(istype(target, /datum/mind))
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(on_target_cryo))
+		RegisterSignal(target, COMSIG_MIND_CRYOED, PROC_REF(on_target_cryo))
+
+/datum/objective/proc/get_crewmember_minds()
+	. = list()
+	for(var/datum/record/locked/target in GLOB.manifest.locked)
+		var/datum/mind/mind = target.weakref_mind.resolve()
+		if(mind)
+			. += mind
+
+//dupe_search_range is a list of antag datums / minds / teams
+/datum/objective/proc/find_target(list/dupe_search_range, list/blacklist)
+	if(!dupe_search_range)
+		dupe_search_range = get_owners()
+
+	var/try_target_late_joiners = FALSE
+	var/owner_is_exploration_crew = FALSE
+	var/owner_is_shaft_miner = FALSE
+	for(var/datum/mind/objective_owner as anything in get_owners())
+		if(objective_owner.late_joiner)
+			try_target_late_joiners = TRUE
+		if(objective_owner.assigned_role == JOB_NAME_EXPLORATIONCREW)
+			owner_is_exploration_crew = TRUE
+		if(objective_owner.assigned_role == JOB_NAME_SHAFTMINER)
+			owner_is_shaft_miner = TRUE
+
+	var/list/preferred_targets = list()
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target as anything in get_crewmember_minds())
+		if(!is_valid_target(possible_target))
+			continue
+		if(!is_unique_objective(possible_target,dupe_search_range))
+			continue
+		if(possible_target in blacklist)
+			continue
+
+		if(possible_target.assigned_role == JOB_NAME_EXPLORATIONCREW)
+			if(owner_is_exploration_crew)
+				preferred_targets += possible_target
+			else
+				//Reduced chance to get people off station
+				if(prob(70) && !owner_is_shaft_miner)
+					continue
+		else if(possible_target.assigned_role == JOB_NAME_SHAFTMINER)
+			if(owner_is_shaft_miner)
+				preferred_targets += possible_target
+			else
+				//Reduced chance to get people off station
+				if(prob(70) && !owner_is_exploration_crew)
+					continue
+
+		possible_targets += possible_target
+
+	// If we were a latejoiner, target other latejoiners first
+	if(try_target_late_joiners)
+		var/list/all_possible_targets = possible_targets.Copy()
+		for(var/datum/mind/possible_target as anything in all_possible_targets)
+			if(possible_target.late_joiner)
+				continue
+			possible_targets -= possible_target
+
+		if(!length(possible_targets))
+			possible_targets = all_possible_targets
+
+	// 30% chance to go for a prefered target
+	if(length(preferred_targets) > 0 && prob(30))
+		set_target(pick(preferred_targets))
+	else if(length(possible_targets) > 0)
+		set_target(pick(possible_targets))
+	else
+		set_target(null)
+
+	update_explanation_text()
+	return target
+
+/datum/objective/proc/is_valid_target(datum/mind/possible_target)
+	if(possible_target in get_owners())
+		return FALSE
+	if(!ishuman(possible_target.current))
+		return FALSE
+	if(possible_target.current.stat == DEAD)
+		return FALSE
+	var/target_area = get_area(possible_target.current)
+	if(!HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS) && istype(target_area, /area/shuttle/arrival))
+		return FALSE
+	return TRUE
+
+/datum/objective/proc/update_explanation_text()
+	if(team_explanation_text && LAZYLEN(get_owners()) > 1)
+		explanation_text = team_explanation_text
+
+/// Generates an antagonist stash for a group of owners, or a single owner
+/// Returns a string which describes the stash's location
+/proc/generate_stash(list/special_equipment, list/owners, datum/team/owner_team, silent = FALSE)
+	var/datum/mind/tester = pick(owners)
+	var/obj/item/storage/secret_bag = null
+	for (var/datum/component/stash/stash in tester.antag_stashes)
+		// Is this a valid stash
+		// Must be owned exclusively by our owners
+		var/valid = TRUE
+		for (var/datum/mind/mind in stash.stash_minds)
+			if (owner_team && !(mind in owner_team.members))
+				valid = FALSE
+				break
+		if (!valid)
+			continue
+		// Everyone on the team must own this stash.
+		// Its not good enough for a team item to go into
+		// a stash owned by 1 person.
+		for (var/datum/mind/mind in owners)
+			if (!(mind in stash.stash_minds))
+				valid = FALSE
+				break
+		if (!valid)
+			continue
+		// Must be something that we can store in
+		if (!istype(stash.parent, /obj/item/storage))
+			continue
+		secret_bag = stash.parent
+	//Find and generate the stash
+	if(!secret_bag)
+		secret_bag = new /obj/item/storage/backpack/satchel/flat/empty()
+		var/atom_text = ""
+		switch (pick_weight(list("airlock" = 3)))
+			if("airlock")
+				atom_text = "an airlock"
+				// If our airlock isn't accessible to these accesses, then we won't allow the item to spawn here
+				var/list/safe_access_list = list(ACCESS_CARGO, ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE, ACCESS_THEATRE, ACCESS_LAWYER, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
+				//Pick a valid airlock
+				var/list/obj/machinery/door/airlock/airlocks_to_search = shuffle(SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/airlock))
+				for(var/obj/machinery/door/airlock/A in airlocks_to_search)
+					if (!is_station_level(A.z))
+						continue
+					if (!A.check_access_list(safe_access_list))
+						continue
+					//Make sure its publicly accessible
+					var/area/area = get_area(A)
+					if (!(area.area_flags & HIDDEN_STASH_LOCATION))
+						continue
+					//This airlock is good for us
+					var/stash_comp = A.AddComponent(/datum/component/stash, owners, secret_bag)
+					for (var/datum/mind/receiver in owners)
+						if (!islist(receiver.antag_stashes))
+							receiver.antag_stashes = list()
+						receiver.antag_stashes += stash_comp
+					break
+		//Failsafe
+		if(!secret_bag.loc)
+			atom_text = "the ground beneath your feet"
+			message_admins("Could not find a location to put [ADMIN_FLW(tester.current)]'s stash.")
+			secret_bag.forceMove(get_turf(tester.current))
+			tester.current.equip_to_appropriate_slot(secret_bag)
+		//Update the mind
+		for (var/datum/mind/receiver in owners)
+			receiver.store_memory("You have a secret stash of items hidden on the station required for your objectives. It is hidden inside of [atom_text] ([secret_bag.loc]) located at [get_area(secret_bag.loc)] [COORD(secret_bag.loc)], you may have to search around for it. (Use alt click on the object the stash is inside to access it).")
+			if (!silent)
+				to_chat(receiver?.current, span_traitorobjective("You have a secret stash at [get_area(secret_bag)], more details are stored in your notes. (IC > Notes)"))
+			. = "hidden inside of [atom_text] at [get_area(secret_bag.loc)] [COORD(secret_bag.loc)]"
+	//Create the objects in the bag
+	for(var/eq_path in special_equipment)
+		if (ispath(eq_path))
+			new eq_path(secret_bag)
+		else
+			var/obj/item/object = eq_path
+			object.forceMove(secret_bag)
+
+/datum/objective/proc/on_target_cryo()
+	SIGNAL_HANDLER
+
+	find_target(null, list(target))
+	if(target)
+		update_explanation_text()
+		for(var/datum/mind/own as anything in get_owners())
+			to_chat(own.current, "<BR>[span_userdanger("You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!")]")
+			own.announce_objectives()
+		return
+
+	// Couldn't find a new target, just remove the objective
+	team?.objectives -= src
+	for(var/datum/mind/own as anything in get_owners())
+		for(var/datum/antagonist/antag as anything in own.antag_datums)
+			antag.objectives -= src
+		own.crew_objectives -= src
+
+		to_chat(own.current, span_userdanger("Your target is no longer within reach. Objective removed!"))
+		own.announce_objectives()
+	qdel(src)
+
+/// Get the tracking target for this objective
+/datum/objective/proc/get_tracking_target(atom/source)
+	RETURN_TYPE(/atom)
+	return null

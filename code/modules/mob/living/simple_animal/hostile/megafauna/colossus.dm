@@ -245,7 +245,7 @@ Difficulty: Very Hard
 		sleep(1)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/shoot_projectile(turf/marker, set_angle)
-	if(!isnum_safe(set_angle) && (!marker || marker == loc))
+	if(!IS_FINITE(set_angle) && (!marker || marker == loc))
 		return
 	var/turf/startloc = get_turf(src)
 	var/obj/projectile/P = new /obj/projectile/colossus(startloc)
@@ -267,7 +267,7 @@ Difficulty: Very Hard
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, 1, 2)
 	newtonian_move(get_dir(target_turf, src))
 	var/angle_to_target = get_angle(src, target_turf)
-	if(isnum_safe(set_angle))
+	if(IS_FINITE(set_angle))
 		angle_to_target = set_angle
 	var/static/list/colossus_shotgun_shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)
 	for(var/i in colossus_shotgun_shot_angles)
@@ -748,10 +748,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	. = ..()
 	remove_verb(/mob/living/verb/pulled)
 	remove_verb(/mob/verb/me_verb)
-	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
-
-	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	add_traits(list(TRAIT_MEDICAL_HUD, TRAIT_VENTCRAWLER_ALWAYS), INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/lightgeist/AttackingTarget()
 	. = ..()
@@ -845,8 +842,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	. = ..()
 	if(isliving(arrived) && holder_animal)
 		var/mob/living/L = arrived
-		L.notransform = 1
-		L.add_traits(list(TRAIT_MUTE, TRAIT_GODMODE), STASIS_MUTE)
+		L.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_MUTE, TRAIT_GODMODE), STASIS_MUTE)
 		L.mind.transfer_to(holder_animal)
 		var/datum/action/exit_possession/P = new /datum/action/exit_possession
 		P.Grant(holder_animal)
@@ -855,8 +851,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 /obj/structure/closet/stasis/dump_contents(kill = TRUE)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
-		L.remove_traits(list(TRAIT_MUTE, TRAIT_GODMODE), STASIS_MUTE)
-		L.notransform = 0
+		L.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_MUTE, TRAIT_GODMODE), STASIS_MUTE)
 		if(holder_animal)
 			var/datum/action/exit_possession/P = new /datum/action/exit_possession
 			P.Remove(holder_animal)

@@ -79,8 +79,8 @@
 
 /datum/reagent/toxin/plasma/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(holder.has_reagent(/datum/reagent/medicine/epinephrine))
-		holder.remove_reagent(/datum/reagent/medicine/epinephrine, 2 * REM * delta_time)
+	if(affected_mob.reagents.has_reagent(/datum/reagent/medicine/epinephrine))
+		affected_mob.reagents.remove_reagent(/datum/reagent/medicine/epinephrine, 2 * REM * delta_time)
 	affected_mob.adjustPlasma(20 * REM * delta_time)
 
 /datum/reagent/toxin/plasma/on_mob_metabolize(mob/living/carbon/affected_mob)
@@ -97,7 +97,7 @@
 	if(!istype(exposed_turf))
 		return
 
-	exposed_turf.atmos_spawn_air("[GAS_PLASMA]=[volume];[TURF_TEMPERATURE(holder ? holder.chem_temp : T20C)]")
+	exposed_turf.atmos_spawn_air("[GAS_PLASMA]=[volume];[TURF_TEMPERATURE(holder?.chem_temp || T20C)]")
 
 /datum/reagent/toxin/plasma/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
 	. = ..()
@@ -116,8 +116,8 @@
 
 /datum/reagent/toxin/hot_ice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(holder.has_reagent(/datum/reagent/medicine/epinephrine))
-		holder.remove_reagent(/datum/reagent/medicine/epinephrine, 2 * REM * delta_time)
+	if(affected_mob.reagents.has_reagent(/datum/reagent/medicine/epinephrine))
+		affected_mob.reagents.remove_reagent(/datum/reagent/medicine/epinephrine, 2 * REM * delta_time)
 
 	affected_mob.adjustPlasma(20 * REM * delta_time)
 	affected_mob.adjust_bodytemperature(-7 * TEMPERATURE_DAMAGE_COEFFICIENT * REM * delta_time, affected_mob.get_body_temp_normal())
@@ -514,8 +514,8 @@
 /datum/reagent/toxin/formaldehyde/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(2.5, delta_time))
-		holder.add_reagent(/datum/reagent/toxin/histamine, pick(5,15))
-		holder.remove_reagent(/datum/reagent/toxin/formaldehyde, 1.2)
+		affected_mob.reagents.add_reagent(/datum/reagent/toxin/histamine, pick(5,15))
+		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/formaldehyde, 1.2)
 
 /datum/reagent/toxin/venom
 	name = "Venom"
@@ -533,8 +533,8 @@
 		. = UPDATE_MOB_HEALTH
 
 	if(DT_PROB(8, delta_time))
-		holder.add_reagent(/datum/reagent/toxin/histamine, pick(5,10))
-		holder.remove_reagent(/datum/reagent/toxin/venom, 1.1)
+		affected_mob.reagents.add_reagent(/datum/reagent/toxin/histamine, pick(5,10))
+		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/venom, 1.1)
 
 //Very similar to heparin, but causes toxin damage instead of brute
 /datum/reagent/toxin/apidvenom
@@ -574,7 +574,7 @@
 		affected_mob.Paralyze(3 SECONDS * REM * delta_time, 0)
 		toxpwr += 0.1 //The venom gets stronger until completely purged.
 
-	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid) || holder.has_reagent(/datum/reagent/medicine/charcoal) || holder.has_reagent(/datum/reagent/medicine/carthatoline))
+	if(affected_mob.reagents.has_reagent(/datum/reagent/medicine/calomel) || affected_mob.reagents.has_reagent(/datum/reagent/medicine/pen_acid) || affected_mob.reagents.has_reagent(/datum/reagent/medicine/charcoal) || affected_mob.reagents.has_reagent(/datum/reagent/medicine/carthatoline))
 		current_cycle += 5 // Prevents using purgatives while in combat
 
 	if(affected_mob.getStaminaLoss() <= 70) //Will never stamcrit
@@ -655,8 +655,8 @@
 		. = UPDATE_MOB_HEALTH
 
 	if(DT_PROB(1.5, delta_time))
-		holder.add_reagent(/datum/reagent/toxin/histamine, rand(1, 3))
-		holder.remove_reagent(/datum/reagent/toxin/itching_powder, 1.2)
+		affected_mob.reagents.add_reagent(/datum/reagent/toxin/histamine, rand(1, 3))
+		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/itching_powder, 1.2)
 		return
 	else
 		return ..() || .
@@ -816,7 +816,7 @@
 			if(toxin == src)
 				continue
 
-			holder.remove_reagent(toxin.type, 1)
+			affected_mob.reagents.remove_reagent(toxin.type, 1)
 
 /datum/reagent/toxin/spewium/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -898,11 +898,11 @@
 /datum/reagent/toxin/anacea/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	var/remove_amt = 5
-	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid))
+	if(affected_mob.reagents.has_reagent(/datum/reagent/medicine/calomel) || affected_mob.reagents.has_reagent(/datum/reagent/medicine/pen_acid))
 		remove_amt = 0.5
 
-	for(var/datum/reagent/medicine/medicine in holder.reagent_list)
-		holder.remove_reagent(medicine.type, remove_amt * REM * delta_time)
+	for(var/datum/reagent/medicine/medicine in affected_mob.reagents.reagent_list)
+		affected_mob.reagents.remove_reagent(medicine.type, remove_amt * REM * delta_time)
 
 //ACID
 
@@ -974,13 +974,14 @@
 
 /datum/reagent/toxin/delayed/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(current_cycle > delay)
-		if(holder)
-			holder.remove_reagent(type, actual_metaboliztion_rate * affected_mob.metabolism_efficiency * delta_time)
-		if(affected_mob.adjustToxLoss(actual_toxpwr * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype))
-			. = UPDATE_MOB_HEALTH
-		if(DT_PROB(5, delta_time))
-			affected_mob.Paralyze(20)
+	if(current_cycle <= delay)
+		return
+	if(holder)
+		affected_mob.reagents.remove_reagent(type, actual_metaboliztion_rate * affected_mob.metabolism_efficiency * delta_time)
+	if(affected_mob.adjustToxLoss(actual_toxpwr * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype))
+		. = UPDATE_MOB_HEALTH
+	if(DT_PROB(5, delta_time))
+		affected_mob.Paralyze(2 SECONDS)
 
 /datum/reagent/toxin/mimesbane
 	name = "Mime's Bane"

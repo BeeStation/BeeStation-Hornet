@@ -206,21 +206,21 @@
 	var/datum/component/speechmod/accent_component
 
 /datum/quirk/accent/add()
+	var/client/player_client = GLOB.directory[ckey(quirk_holder.key)]
 	var/list/available = GLOB.accents.Copy()
 	//special accents for BEE donators and BYOND patrons
-	if(IS_PATRON(quirk_target.ckey) || quirk_target.client.IsByondMember())
+	if(IS_PATRON(ckey(quirk_holder.key)) || player_client?.IsByondMember())
 		available += GLOB.accents_donator
 	var/chosen = read_choice_preference(/datum/preference/choiced/quirk/accent)
 	if(chosen && !available[chosen])
-		to_chat(GLOB.directory[quirk_target.ckey], span_warning("Your chosen accent is only accessible to patrons. A random accent has been selected instead."))
+		to_chat(player_client, span_warning("Your chosen accent is only accessible to patrons. A random accent has been selected instead."))
 		chosen = null
 	accent_to_use = available[chosen || pick(available)]
 	accent_component = quirk_target.AddComponent(/datum/component/speechmod, file_path = accent_to_use)
 
 /datum/quirk/accent/remove()
 	if(!isnull(accent_component))
-		qdel(accent_component)
-	accent_component = null
+		QDEL_NULL(accent_component)
 
 /datum/quirk/accent/vv_edit_var(vname, vval)
 	. = ..()

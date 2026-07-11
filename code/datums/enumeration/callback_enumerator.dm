@@ -18,6 +18,12 @@
 	src.enclosed = enclosed
 	src.callback = callback
 
+/datum/enumerator/callback/Destroy()
+	enclosed = null
+	reference = null
+	callback = null
+	return ..()
+
 ///Get the current method
 ///Returns null if there is no current element
 /datum/enumerator/callback/current()

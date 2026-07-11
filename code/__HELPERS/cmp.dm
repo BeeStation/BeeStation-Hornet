@@ -110,8 +110,8 @@
 	return sorttext(B.id, A.id)
 
 /proc/cmp_quirk_asc(datum/quirk/A, datum/quirk/B)
-	var/a_sign = SIGN(initial(A.quirk_value) * -1)
-	var/b_sign = SIGN(initial(B.quirk_value) * -1)
+	var/a_sign = sign(initial(A.quirk_value) * -1)
+	var/b_sign = sign(initial(B.quirk_value) * -1)
 
 	// Neutral traits go last.
 	if(a_sign == 0)

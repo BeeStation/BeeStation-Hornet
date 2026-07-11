@@ -45,9 +45,9 @@
 	//Makes all the holoparasites immune
 	if(owner.summoner.current)
 		immune += owner.summoner.current
-		for(var/mob/living/simple_animal/hostile/holoparasite/other_holopara as() in owner.summoner.current.holoparasites())
+		for(var/mob/living/simple_animal/hostile/holoparasite/other_holopara as anything in owner.summoner.current.holoparasites())
 			immune += other_holopara
-	for(var/mob/living/immune_mob as() in immune)
+	for(var/mob/living/immune_mob as anything in immune)
 		SEND_SOUND(immune_mob, sound('sound/magic/timeparadox2.ogg'))
 		if(isturf(immune_mob.loc))
 			var/mob/living/simple_animal/hostile/illusion/doppelganger/doppelganger = new(immune_mob.loc)
@@ -69,7 +69,7 @@
 	immune = _immune
 	for(var/mob/mob in GLOB.mob_list)
 		if(mobShouldSee(mob))
-			add_hud_to(mob)
+			show_to(mob)
 			mob.reload_huds()
 
 /datum/atom_hud/alternate_appearance/basic/decoy/mobShouldSee(mob/mob)

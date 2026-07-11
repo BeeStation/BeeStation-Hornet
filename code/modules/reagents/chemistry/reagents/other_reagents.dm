@@ -63,7 +63,7 @@
 		if(blood_type)
 			color = blood_type.blood_color
 
-/datum/reagent/blood/on_merge(list/mix_data)
+/datum/reagent/blood/on_merge(list/mix_data, new_total)
 	. = ..()
 	if(data && mix_data)
 		if(data["blood_DNA"] != mix_data["blood_DNA"])
@@ -158,8 +158,7 @@
 				disease.cure()
 		exposed_mob.disease_resistances |= data
 
-/datum/reagent/vaccine/on_merge(list/data)
-	. = ..()
+/datum/reagent/vaccine/on_merge(list/mix_data, new_total)
 	if(istype(data))
 		src.data |= data.Copy()
 
@@ -188,7 +187,7 @@
 	name = "Water"
 	description = "An ubiquitous chemical substance that is composed of hydrogen and oxygen."
 	color = "#AAAAAA77" // rgb: 170, 170, 170, 77 (alpha)
-	chemical_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL // because we want to give it to oozelings
+	chemical_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL | REAGENT_CLEANS // because we want to give it to oozelings
 	taste_description = "water"
 	var/cooling_temperature = 2
 	process_flags = ORGANIC | SYNTHETIC
@@ -288,7 +287,7 @@
 	name = "Holy Water"
 	description = "Water blessed by some deity."
 	color = "#E0E8EF" // rgb: 224, 232, 239
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST|REAGENT_UNAFFECTED_BY_METABOLISM
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | REAGENT_UNAFFECTED_BY_METABOLISM | REAGENT_CLEANS
 	self_consuming = TRUE //divine intervention won't be limited by the lack of a liver
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/holywater
 
@@ -500,7 +499,7 @@
 				if ("albino")
 					human.skin_tone = "caucasian1"
 
-		if(MUTCOLORS in human.dna.species.species_traits) //take current alien color and darken it slightly
+		if(MUTANT_COLOR in human.dna.species.species_traits) //take current alien color and darken it slightly
 			var/list/existing_color = rgb2num(human.dna.features["mcolor"])
 			var/list/darkened_color = list()
 			// Reduces each part of the color by 16
@@ -524,11 +523,11 @@
 		affected_human.facial_hair_style = "Shaved"
 		affected_human.facial_hair_color = COLOR_BLACK
 		affected_human.hair_color = COLOR_BLACK
-		if(!(HAIR in affected_human.dna.species.species_traits)) //No hair? No problem!
-			affected_human.dna.species.species_traits += HAIR
+		if(!(HAIR_COLOR in affected_human.dna.species.species_traits)) //No hair? No problem!
+			affected_human.dna.species.species_traits += HAIR_COLOR
 		if(affected_human.dna.species.use_skintones)
 			affected_human.skin_tone = "orange"
-		else if(MUTCOLORS in affected_human.dna.species.species_traits) //Aliens with custom colors simply get turned orange
+		else if(MUTANT_COLOR in affected_human.dna.species.species_traits) //Aliens with custom colors simply get turned orange
 			affected_human.dna.features["mcolor"] = COLOR_ORANGE
 		affected_human.regenerate_icons()
 
@@ -1192,7 +1191,7 @@
 	name = "Space Cleaner"
 	description = "A compound used to clean things. Now with 50% more sodium hypochlorite! Not safe for consumption. If ingested, contact poison control immediately"
 	color = "#A5F0EE" // rgb: 165, 240, 238
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | REAGENT_CLEANS
 	taste_description = "sourness"
 	addiction_types = list(/datum/addiction/stimulants = 14)
 	reagent_weight = 0.6 //so it sprays further
@@ -1625,7 +1624,7 @@
 	. = ..()
 	if(isplatingturf(exposed_turf) || istype(exposed_turf, /turf/open/floor/iron))
 		var/turf/open/floor/floor = exposed_turf
-		floor.PlaceOnTop(carpet_type, flags = CHANGETURF_INHERIT_AIR)
+		floor.place_on_top(carpet_type, flags = CHANGETURF_INHERIT_AIR)
 
 /datum/reagent/carpet/black
 	name = "Black Carpet"
@@ -1788,8 +1787,8 @@
 /datum/reagent/barbers_aid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
-		var/datum/sprite_accessory/hair/picked_hair = pick(GLOB.hair_styles_list)
-		var/datum/sprite_accessory/facial_hair/picked_beard = pick(GLOB.facial_hair_styles_list)
+		var/datum/sprite_accessory/hair/picked_hair = GLOB.hair_styles_list[pick(GLOB.hair_styles_list)]
+		var/datum/sprite_accessory/facial_hair/picked_beard = GLOB.facial_hair_styles_list[pick(GLOB.facial_hair_styles_list)]
 		exposed_human.hair_style = picked_hair.name
 		exposed_human.facial_hair_style = picked_beard
 		exposed_human.update_hair()
@@ -1948,16 +1947,14 @@
 		if(200 to INFINITY)
 			newsize = 3.5 * RESIZE_DEFAULT_SIZE
 
-	affected_mob.resize = newsize/current_size
+	affected_mob.update_transform(newsize/current_size)
 	current_size = newsize
-	affected_mob.update_transform()
-	..()
+	return ..()
 
 /datum/reagent/growthserum/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
-	affected_mob.resize = RESIZE_DEFAULT_SIZE / current_size
+	affected_mob.update_transform(RESIZE_DEFAULT_SIZE / current_size)
 	current_size = RESIZE_DEFAULT_SIZE
-	affected_mob.update_transform()
 
 /datum/reagent/plastic_polymers
 	name = "Plastic Polymers"
@@ -2188,8 +2185,8 @@ Basically, we fill the time between now and 2s from now with hands based off the
 /datum/reagent/helgrasp/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	spawn_hands(affected_mob)
-	lag_remainder += delta_time - FLOOR(delta_time, 1)
-	delta_time = FLOOR(delta_time, 1)
+	lag_remainder += delta_time - floor(delta_time)
+	delta_time = floor(delta_time)
 	if(lag_remainder >= 1)
 		delta_time += 1
 		lag_remainder -= 1

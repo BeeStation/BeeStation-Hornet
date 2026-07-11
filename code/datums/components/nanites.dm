@@ -16,13 +16,16 @@
 	var/start_time = 0 ///Timestamp to when the nanites were first inserted in the host
 	var/stealth = FALSE //if TRUE, does not appear on HUDs and health scans
 	var/diagnostics = TRUE //if TRUE, displays program list when scanned by nanite scanners
+	var/datum/techweb/assigned_techweb // The server/techweb nanites should give their points towards
 
-/datum/component/nanites/Initialize(amount = 100, cloud = 0)
+/datum/component/nanites/Initialize(amount = 100, cloud = 0, datum/techweb/provided_techweb = null)
 	if(!isliving(parent) && !istype(parent, /datum/nanite_cloud_backup))
 		return COMPONENT_INCOMPATIBLE
 
 	nanite_volume = amount
 	cloud_id = cloud
+
+	assigned_techweb = provided_techweb || (locate(/datum/techweb/science) in SSresearch.techwebs) // Default techweb we give points to
 
 	//Nanites without hosts are non-interactive through normal means
 	if(isliving(parent))
@@ -95,6 +98,7 @@
 /datum/component/nanites/Destroy()
 	STOP_PROCESSING(SSnanites, src)
 	QDEL_LIST(programs)
+	assigned_techweb = null
 	if(host_mob)
 		set_nanite_bar(TRUE)
 		host_mob.hud_set_nanite_indicator()
@@ -109,7 +113,8 @@
 
 /datum/component/nanites/process(delta_time)
 	if(!IS_IN_STASIS(host_mob))
-		adjust_nanites(amount = (regen_rate + (SSresearch.science_tech.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0)) * delta_time)
+		var/harmonic_researched = assigned_techweb?.researched_nodes[TECHWEB_NODE_NANITE_HARMONIC]
+		adjust_nanites(amount = (regen_rate + (harmonic_researched ? HARMONIC_REGEN_BOOST : 0)) * delta_time)
 		add_research()
 		for(var/datum/nanite_program/program as anything in programs)
 			program.on_process()
@@ -226,7 +231,7 @@
 			host_mob.visible_message(span_warning("A torrent of metallic grey slurry violently bursts out of [host_mob]'s face and floods out of [host_mob.p_their()] skin!"),
 								span_userdanger("A torrent of metallic grey slurry violently bursts out of your eyes, ears, and mouth, and floods out of your skin!"));
 
-			host_mob.adjust_blindness(15) //nanites coming out of your eyes
+			host_mob.adjust_temp_blindness(30 SECONDS) //nanites coming out of your eyes
 			host_mob.Paralyze(12 SECONDS)
 			if(iscarbon(host_mob))
 				var/mob/living/carbon/C = host_mob
@@ -246,15 +251,13 @@
 
 /// Updates the nanite volume bar visible in diagnostic HUDs
 /datum/component/nanites/proc/set_nanite_bar(remove = FALSE)
-	var/image/holder = host_mob.hud_list[DIAG_NANITE_FULL_HUD]
-	var/icon/I = icon(host_mob.icon, host_mob.icon_state, host_mob.dir)
-	holder.pixel_y = I.Height() - world.icon_size
-	holder.icon_state = null
 	if(remove || stealth)
+		host_mob.set_hud_image_inactive(DIAG_NANITE_FULL_HUD)
 		return //bye icon
 	var/nanite_percent = (nanite_volume / max_nanites) * 100
 	nanite_percent = clamp(CEILING(nanite_percent, 10), 10, 100)
-	holder.icon_state = "nanites[nanite_percent]"
+	host_mob.set_hud_image_state(DIAG_NANITE_FULL_HUD, "nanites[nanite_percent]")
+	host_mob.set_hud_image_active(DIAG_NANITE_FULL_HUD)
 
 /datum/component/nanites/proc/on_emp(datum/source, severity, protection)
 	SIGNAL_HANDLER
@@ -391,7 +394,8 @@
 		research_value *= 0.5
 	if(host_mob.stat == DEAD)
 		research_value *= 0.75
-	SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_NANITES = research_value))
+
+	assigned_techweb?.add_point_list(list(TECHWEB_POINT_TYPE_NANITES = research_value))
 
 /datum/component/nanites/proc/nanite_scan(datum/source, mob/user, full_scan)
 	SIGNAL_HANDLER
@@ -428,7 +432,8 @@
 
 	data["has_nanites"] = TRUE
 	data["nanite_volume"] = nanite_volume
-	data["regen_rate"] = regen_rate + (SSresearch.science_tech.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0)
+	var/has_harmonic_boost = assigned_techweb?.researched_nodes[TECHWEB_NODE_NANITE_HARMONIC]
+	data["regen_rate"] = regen_rate + (has_harmonic_boost ? HARMONIC_REGEN_BOOST : 0)
 	data["safety_threshold"] = safety_threshold
 	data["cloud_id"] = cloud_id
 	data["cloud_active"] = cloud_active

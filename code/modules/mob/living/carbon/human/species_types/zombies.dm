@@ -210,7 +210,7 @@
 		var/mob/living/carbon/human/H = C
 		skintone = H.skin_tone
 
-	for(var/obj/item/bodypart/BP as() in C.bodyparts)
+	for(var/obj/item/bodypart/BP as anything in C.bodyparts)
 		if(IS_ORGANIC_LIMB(BP))
 			if(BP.body_zone == BODY_ZONE_HEAD || BP.body_zone == BODY_ZONE_CHEST)
 				BP.is_dimorphic = TRUE

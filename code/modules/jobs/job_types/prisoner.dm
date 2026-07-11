@@ -7,13 +7,14 @@
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
 	total_positions = 3
-	min_pop = MINPOP_JOB_LIMIT
 	supervisors = "your own conscience"
 	selection_color = "#dddddd"
 
 	base_access = list()
 	departments = DEPT_BITFLAG_UNASSIGNED
-	bank_account_department = NONE
+
+	bank_account_department = ACCOUNT_CIV_BITFLAG
+	payment_per_department = list(ACCOUNT_CIV_ID = 0)
 
 	display_order = JOB_DISPLAY_ORDER_PRISONER
 

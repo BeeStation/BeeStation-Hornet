@@ -2,41 +2,41 @@
 "a" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "k" = (
 /obj/structure/chair/fancy/comfy,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "o" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "s" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "u" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "v" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "C" = (
 /turf/template_noop,
 /area/template_noop)
 "G" = (
 /obj/effect/spawner/random/vending/snackvend,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "J" = (
 /obj/structure/table/wood,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "O" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -44,16 +44,16 @@
 "Q" = (
 /obj/effect/spawner/random/vending/colavend,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "R" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Y" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 Y

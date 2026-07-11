@@ -4,11 +4,9 @@
 	plural_form = "Lizardfolk"
 	id = SPECIES_LIZARD
 	species_traits = list(
-		MUTCOLORS,
-		EYECOLOR,
+		MUTANT_COLOR,
 		LIPS
 	)
-	inherent_traits = list()
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_REPTILE
 	mutant_bodyparts = list(
 		"tail_lizard" = "Smooth",
@@ -106,8 +104,7 @@
 	id = SPECIES_LIZARD_ASH
 	examine_limb_id = SPECIES_LIZARD
 	species_traits = list(
-		MUTCOLORS,
-		EYECOLOR,
+		MUTANT_COLOR,
 		LIPS,
 		NO_UNDERWEAR
 	)

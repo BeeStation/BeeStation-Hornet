@@ -12,17 +12,18 @@
 	if(!COOLDOWN_FINISHED(src, party_cooldown))
 		return
 
-	COOLDOWN_START(src, party_cooldown, rand(6 MINUTES, 12 MINUTES))
-
 	var/turf/turf = get_safe_random_station_turfs(GLOB.bar_areas)
 	if(!turf)
 		return
+
+	COOLDOWN_START(src, party_cooldown, rand(6 MINUTES, 12 MINUTES))
 
 	var/obj/structure/closet/supplypod/centcompod/drop_pod = new()
 	var/obj/item/pizzabox/pizza_to_spawn = pick(list(/obj/item/pizzabox/margherita, /obj/item/pizzabox/mushroom, /obj/item/pizzabox/meat, /obj/item/pizzabox/vegetable)) //no pineapple pizza you monster
 	new pizza_to_spawn(drop_pod)
 	for(var/i in 1 to 6)
 		new /obj/item/reagent_containers/cup/glass/bottle/beer(drop_pod)
+
 	new /obj/effect/pod_landingzone(turf, drop_pod)
 
 /datum/station_trait/galactic_grant

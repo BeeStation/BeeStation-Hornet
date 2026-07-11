@@ -1,4 +1,9 @@
-import { CheckboxInput, FeatureToggle } from '../base';
+import {
+  CheckboxInput,
+  type Feature,
+  FeatureSliderInput,
+  FeatureToggle,
+} from '../base';
 
 export const sound_adminhelp: FeatureToggle = {
   name: 'Enable adminhelp sounds',
@@ -8,13 +13,12 @@ export const sound_adminhelp: FeatureToggle = {
   important: true,
 };
 
-export const sound_ambience: FeatureToggle = {
-  name: 'Enable ambience',
+export const sound_ambience_volume: Feature<number> = {
+  name: 'Ambience volume',
   category: 'SOUND',
   subcategory: 'Ambience',
-  description:
-    'When enabled, plays various sounds depending on the area of the station you are in.',
-  component: CheckboxInput,
+  description: `Volume of the various sounds that play depending on what area of the station you are in.`,
+  component: FeatureSliderInput,
   important: true,
 };
 
@@ -42,29 +46,30 @@ export const sound_combatmode: FeatureToggle = {
   component: CheckboxInput,
 };
 
-export const sound_instruments: FeatureToggle = {
-  name: 'Enable instruments',
+export const sound_instruments_volume: Feature<number> = {
+  name: 'Instruments volume',
   category: 'SOUND',
   subcategory: 'IC',
-  description: 'When enabled, be able hear instruments in game.',
-  component: CheckboxInput,
+  description: 'Volume of instruments.',
+  component: FeatureSliderInput,
   important: true,
 };
 
-export const sound_lobby: FeatureToggle = {
-  name: 'Enable lobby music',
+export const sound_lobby_volume: Feature<number> = {
+  name: 'Lobby music volume',
   category: 'SOUND',
   subcategory: 'Music',
-  component: CheckboxInput,
+  description: 'Volume of the title screen music.',
+  component: FeatureSliderInput,
   important: true,
 };
 
-export const sound_midi: FeatureToggle = {
-  name: 'Enable admin music',
+export const sound_midi_volume: Feature<number> = {
+  name: 'Admin music volume',
   category: 'SOUND',
   subcategory: 'Music',
-  description: 'When enabled, admins will be able to play music to you.',
-  component: CheckboxInput,
+  description: 'Volume of admin music.',
+  component: FeatureSliderInput,
   important: true,
 };
 
@@ -86,31 +91,41 @@ export const sound_adminalert: FeatureToggle = {
   important: true,
 };
 
-export const sound_ship_ambience: FeatureToggle = {
-  name: 'Enable ship ambience',
+export const sound_ambient_buzz_volume: Feature<number> = {
+  name: 'Ambient buzz volume',
   category: 'SOUND',
   subcategory: 'Ambience',
-  description: "Plays a soft droning sound, like that of a ship's engine.",
-  component: CheckboxInput,
+  description:
+    'Volume of the low droning sound playing depending on your area.',
+  component: FeatureSliderInput,
   important: true,
 };
 
-export const sound_soundtrack: FeatureToggle = {
-  name: 'Enable soundtrack music',
+export const sound_weather_volume: Feature<number> = {
+  name: 'Weather volume',
+  category: 'SOUND',
+  subcategory: 'Ambience',
+  description: 'Volume of weather.',
+  component: FeatureSliderInput,
+  important: true,
+};
+
+export const sound_soundtrack_volume: Feature<number> = {
+  name: 'Soundtrack volume',
   category: 'SOUND',
   subcategory: 'Music',
   description:
-    'When enabled, hear automatic soundtrack music triggered during situations like nuclear countdowns or xenomorph invasions.',
-  component: CheckboxInput,
+    'Volume of soundtracks, like nuclear countdowns or xenomorph invasions.',
+  component: FeatureSliderInput,
   important: true,
 };
 
-export const sound_vox: FeatureToggle = {
-  name: 'Enable AI VOX announcements',
+export const sound_ai_vox_volume: Feature<number> = {
+  name: 'AI VOX announcements volume',
   category: 'SOUND',
   subcategory: 'IC',
-  description: 'When enabled, hear AI VOX (text-to-speech) announcements.',
-  component: CheckboxInput,
+  description: 'Volume of vocal AI announcements (also known as "VOX").',
+  component: FeatureSliderInput,
   important: true,
 };
 

@@ -5,11 +5,11 @@
 	},
 /obj/machinery/door/window/westright,
 /turf/open/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "b" = (
 /obj/machinery/door/airlock,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "d" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/stripes/line{
@@ -17,36 +17,36 @@
 	},
 /obj/effect/spawner/random/ruinloot/basic,
 /turf/open/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "e" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/stripes/line,
 /obj/item/food/pie/cream,
 /turf/open/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "h" = (
 /obj/structure/chair{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "i" = (
 /obj/structure/flora/junglebush/c,
 /turf/open/floor/grass,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "k" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/floor/grass,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "l" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "m" = (
 /turf/open/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "o" = (
 /obj/structure/mirror{
 	pixel_x = 32
@@ -56,78 +56,78 @@
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "p" = (
 /obj/effect/spawner/structure/window/shutter,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "q" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/window/spawner/directional/south,
 /turf/open/floor/grass,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "r" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "s" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "t" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "u" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "v" = (
 /obj/structure/sign/plaques/deempisi{
 	pixel_x = -28;
 	pixel_y = -4
 	},
 /turf/open/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "w" = (
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "x" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "y" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "z" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "A" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/drinks/beer,
 /turf/open/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "B" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "C" = (
 /obj/structure/flora/junglebush/large,
 /turf/open/floor/grass,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "D" = (
 /obj/structure/closet/crate/wooden/toy,
 /obj/effect/spawner/random/ruinloot/security,
@@ -136,13 +136,13 @@
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "E" = (
 /obj/structure/dresser,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "F" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/barman_recipes{
@@ -152,81 +152,81 @@
 	pixel_x = 6;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/cup/rag{
+/obj/item/rag{
 	pixel_x = -3;
 	pixel_y = 2
 	},
 /turf/open/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "H" = (
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/window/spawner/directional/south,
 /turf/open/floor/grass,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "I" = (
 /obj/structure/table/wood,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "J" = (
 /obj/machinery/vending/autodrobe,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "M" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "N" = (
 /obj/machinery/vending/boozeomat/all_access,
 /turf/open/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "O" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/drinks,
 /turf/open/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "P" = (
 /obj/structure/chair/stool/bar,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Q" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "R" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "S" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "V" = (
 /obj/structure/flora/junglebush/b,
 /obj/structure/window/spawner/directional/south,
 /turf/open/floor/grass,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "W" = (
 /obj/effect/abstract/open_area_marker,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Y" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Z" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -234,7 +234,7 @@
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 u

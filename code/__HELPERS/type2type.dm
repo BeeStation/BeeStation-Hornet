@@ -499,27 +499,12 @@ Takes a string and a datum. The string is well, obviously the string being check
 		return "#ffffffff"
 	return rgb(the_matrix[1]*255, the_matrix[6]*255, the_matrix[11]*255, the_matrix[16]*255)
 
-/proc/type2parent(child)
-	var/string_type = "[child]"
-	var/last_slash = findlasttext(string_type, "/")
-	if(last_slash == 1)
-		switch(child)
-			if(/datum)
-				return null
-			if(/obj, /mob)
-				return /atom/movable
-			if(/area, /turf)
-				return /atom
-			else
-				return /datum
-	return text2path(copytext(string_type, 1, last_slash))
-
 // Returns a string the last bit of a type, without the preceeding '/'
-/proc/type2top(the_type)
+/proc/type2top(datum/typepath)
 	//handle the builtins manually
-	if(!ispath(the_type))
+	if(!ispath(typepath))
 		return
-	switch(the_type)
+	switch(typepath)
 		if(/datum)
 			return "datum"
 		if(/atom)
@@ -533,7 +518,7 @@ Takes a string and a datum. The string is well, obviously the string being check
 		if(/turf)
 			return "turf"
 		else //regex everything else (works for /proc too)
-			return LOWER_TEXT(replacetext("[the_type]", "[type2parent(the_type)]/", ""))
+			return LOWER_TEXT(replacetext("[typepath]", "[typepath::parent_type]/", ""))
 
 /// Return html to load a url.
 /// for use inside of browse() calls to html assets that might be loaded on a cdn.

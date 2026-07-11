@@ -50,6 +50,11 @@
 	if(traits && !islist(traits))
 		traits = list(traits)
 
+/datum/mutation/Destroy()
+	dna = null
+	owner = null
+	return ..()
+
 /datum/mutation/proc/on_acquiring(mob/living/carbon/C)
 	if(!istype(C) || C.stat == DEAD || !C.has_dna() || (src in C.dna.mutations))
 		return TRUE
@@ -61,7 +66,7 @@
 		return TRUE
 	if(limb_req && !C.get_bodypart(limb_req))
 		return TRUE
-	for(var/datum/mutation/M as() in C.dna.mutations)//check for conflicting powers
+	for(var/datum/mutation/M as anything in C.dna.mutations)//check for conflicting powers
 		if(!(M.type in conflicts) && !(type in M.conflicts))
 			continue
 		to_chat(C, span_warning("You feel your genes resisting something."))
@@ -115,11 +120,6 @@
 		mut_overlay.Remove(get_visual_indicator())
 		owner.overlays_standing[layer_used] = mut_overlay
 		owner.apply_overlay(layer_used)
-	if(power_path)
-		// Any powers we made are linked to our mutation datum,
-		// so deleting ourself will also delete it and remove it
-		// ...Why don't all mutations delete on loss? Not sure.
-		qdel(src)
 	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
 	REMOVE_TRAITS_IN(owner, "[type]")
 	return FALSE
@@ -127,7 +127,7 @@
 /mob/living/carbon/proc/update_mutations_overlay()
 	if(!has_dna())
 		return
-	for(var/datum/mutation/CM as() in dna.mutations)
+	for(var/datum/mutation/CM as anything in dna.mutations)
 		if(length(CM.mobtypes_allowed) && !CM.mobtypes_allowed.Find(src.type))
 			dna.force_lose(CM)
 			continue

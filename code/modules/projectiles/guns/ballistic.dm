@@ -78,6 +78,10 @@
 	chamber_round()
 	update_icon()
 
+/obj/item/gun/ballistic/Destroy()
+	QDEL_NULL(magazine)
+	return ..()
+
 /obj/item/gun/ballistic/fire_sounds()
 	var/frequency_to_use
 	var/play_click

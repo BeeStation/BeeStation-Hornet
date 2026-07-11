@@ -6,7 +6,6 @@
 /area
 	abstract_type = /area
 	name = "Space"
-	var/navigation_area_name /// when multiple areas should have the same name, set this. get_area_navigation_name() proc will use name variable if this is null
 	icon = 'icons/area/areas_misc.dmi'
 	icon_state = "unknown"
 	layer = AREA_LAYER
@@ -603,8 +602,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/drop_location()
 	CRASH("Bad op: area/drop_location() called")
 
-/// A hook so areas can modify the incoming args (of what??)
-/area/proc/PlaceOnTopReact(turf/T, list/new_baseturfs, turf/fake_turf_type, flags)
+/// A hook so areas can modify the incoming args of ChangeTurf
+/area/proc/place_on_top_react(list/new_baseturfs, turf/added_layer, flags)
 	return flags
 
 /// Gets an areas virtual z value. For having multiple areas on the same z-level treated mechanically as different z-levels
@@ -631,6 +630,3 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/proc/get_area_textures()
 	return list()
 
-/// returns a name of the area. some subtype area needs to return different value.
-/area/proc/get_navigation_area_name()
-	return navigation_area_name || name
