@@ -91,3 +91,10 @@
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
 	install_component(new /obj/item/computer_hardware/recharger/cyborg)
 	install_component(new /obj/item/computer_hardware/network_card/integrated)
+
+/obj/item/modular_computer/tablet/ipc/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/processor_unit/small)
+	install_component(new /obj/item/computer_hardware/recharger/cyborg)
+	install_component(new /obj/item/computer_hardware/network_card)
+	install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ipc)

@@ -334,9 +334,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/tablet/integrated)
 	. = ..()
 	vis_flags |= VIS_INHERIT_ID
 	tablet_owner = loc
-	if(!istype(tablet_owner))
+	if(!isipc(tablet_owner))
 		tablet_owner = null
-		stack_trace("[type] initialized outside of a borg, deleting.")
+		stack_trace("[type] initialized outside of an IPC, deleting.")
 		return INITIALIZE_HINT_QDEL
 
 GLOBAL_LIST_EMPTY(PDAs)
