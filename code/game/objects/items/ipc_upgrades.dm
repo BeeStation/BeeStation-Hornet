@@ -1,20 +1,28 @@
 
 
-#define LOW_POWER_THRESHOLD 100
-//TODO: fix toggling bug (it deactivates due to low power and the action is stuck on the wrong state) should be fixed
+#define LOW_POWER_THRESHOLD 250
 
 //TODO: add emp_act
 //TODO: leap legs (needs finishing)
 //TODO: cooling system
-//TODO: internal management system
-//TODO: make IPCs shutdown when battery runs out
+//TODO: stock parts fabricator
+//TODO: disposable EMP shield
+//TODO: make IPCs shutdown when battery runs out //probably done
 //TODO: System Underclocker: allows IPCs to stay standing with no power (for some sort of drawback)
 //TODO: Upgrade circuit control??
-//TODO: IPC law module / emag working on IPC
+//TODO: Upgrade circuit actions
+//TODO: IPC law module / emag working on IPC //not this pr
 //TODO: SPRITES!!
+//TODO: test action runtime (signal overriding)
+//TODO: improve charge cannon
+//TODO: fix armor not applying
+//TODO: subdermal ID
+//TODO: look into deactivate() returning proper values, as it passes them into action on_deactivate()
+//TODO: refactor nutrition so it I dont have to copy paste the status effect 4 times
+//TODO: action sprite for ex-cannon
 
-//not so sure about making a global proc for this
-proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
+//not so sure about making a global proc for this TODO: fix this warning
+proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/status_effect/ipc_upgrade
 	if(!effects)
 		return
 	for(var/datum/status_effect/ipc_upgrade/upgrade in effects)
@@ -24,6 +32,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 /datum/status_effect/ipc_upgrade/
 	id = "ipc upgrade"
 	alert_type = null
+	on_remove_on_mob_delete = TRUE
 
 	var/name = "Generic Upgrade"
 	///What slot this occupies. Only one upgrade per slot.
@@ -38,6 +47,8 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 	var/active = FALSE
 	///The type of ipc_upgrade_action this upgrade uses, can be null for no action
 	var/action_type = null
+	///What the action icon_state will be. Does nothing if action_type is not specified
+	var/action_icon = null
 	///The actual action, created from action_type
 	var/datum/action/innate/ipc_upgrade_action/action
 	///The length of the cooldown between activations
@@ -53,6 +64,8 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 	. = ..()
 	if(action_type)
 		action = new action_type(src)
+		if(action_icon)
+			action.button_icon_state = action_icon
 		action.Grant(owner)
 	if(upgrade_overlays && overlay_file)
 		for(var/overlay in upgrade_overlays)
@@ -75,16 +88,23 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 		return FALSE
 	if(drain_cell(active_power_requirement * seconds_between_ticks))
 		return TRUE
-	to_chat(owner, span_notice("The [name] deactivates!"))
+	to_chat(owner, span_notice("The [name] runs out of power!"))
 	playsound(owner, 'sound/machines/apc/PowerDown_001.ogg', 10)
-	action.deactivate(owner)
+	if(action)
+		action.deactivate(owner)
 	deactivate()
 
 /datum/status_effect/ipc_upgrade/proc/should_process()
 	return active
 
 /datum/status_effect/ipc_upgrade/proc/can_activate()
-	return !active && can_drain_cell(power_requirement)
+	return !active && can_drain_cell(power_requirement + active_power_requirement)
+
+/datum/status_effect/ipc_upgrade/proc/toggle(atom/target)
+	if(!active)
+		activate()
+	else
+		deactivate()
 
 /datum/status_effect/ipc_upgrade/proc/activate(atom/target)
 	if(!can_activate())
@@ -98,10 +118,13 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 	on_activate(target)
 	return TRUE
 
+/// Called by activate(). target can and will be null, sometimes even for targeted upgrades.
 /datum/status_effect/ipc_upgrade/proc/on_activate(atom/target)
 	return
 
 /datum/status_effect/ipc_upgrade/proc/deactivate()
+	if(!active)
+		return
 	active = FALSE
 	on_deactivate()
 
@@ -135,9 +158,10 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 	return TRUE
 
 /datum/status_effect/ipc_upgrade/proc/emp_act(severity, protection)
+	SIGNAL_HANDLER
 	return
 
-/datum/status_effect/ipc_upgrade/proc/ui_data()
+/datum/status_effect/ipc_upgrade/ui_data()
 	var/list/data = list()
 	data["name"] = name
 	data["power_req"] = power_requirement
@@ -146,6 +170,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 
 /datum/action/innate/ipc_upgrade_action
 	name = "Generic Upgrade Action"
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	var/datum/status_effect/ipc_upgrade/upgrade = null
 
 /datum/action/innate/ipc_upgrade_action/New(datum/status_effect/ipc_upgrade/new_upgrade)
@@ -167,7 +192,6 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 /datum/action/innate/ipc_upgrade_action/toggleable
 	toggleable = TRUE
 
-//TODO: make this use action toggling (toggleable = true)
 /datum/action/innate/ipc_upgrade_action/toggleable/on_activate(mob/user, atom/target)
 	. = ..()
 	if(!upgrade.active)
@@ -179,6 +203,11 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 	if(upgrade.active)
 		return upgrade.deactivate()
 	return FALSE
+
+/datum/action/innate/ipc_upgrade_action/toggleable/update_button(atom/movable/screen/movable/action_button/button, status_only, force)
+	if(upgrade.action_icon)
+		button_icon_state = upgrade.active ? "[upgrade.action_icon]_on" : "[upgrade.action_icon]_off"
+	return ..()
 
 /datum/action/innate/ipc_upgrade_action/targeted
 	requires_target = TRUE
@@ -193,6 +222,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 	name = "Repair Nexus"
 	active_power_requirement = 15
 	var/healing_power = 0.5
+	action_icon = "repair_nexus"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
 
 /datum/status_effect/ipc_upgrade/repair_nexus/tick(seconds_between_ticks)
@@ -207,6 +237,27 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 	for(var/obj/item/bodypart/limb in parts)
 		if(limb.heal_damage((healing_power / parts.len) * seconds_between_ticks, (healing_power / parts.len) * seconds_between_ticks, required_bodytype = BODYTYPE_ROBOTIC))
 			owner.update_damage_overlays()
+
+/datum/status_effect/ipc_upgrade/emp_shield
+	id = "ipc emp shield"
+	name = "Disposable EMP Shielding"
+	var/remaining_pulses = 5 // you get 5 emps before this stops working
+
+/datum/status_effect/ipc_upgrade/emp_shield/on_apply()
+	. = ..()
+	owner.AddElement(/datum/element/empprotection, EMP_PROTECT_SELF|EMP_PROTECT_CONTENTS)
+
+/datum/status_effect/ipc_upgrade/emp_shield/on_remove()
+	. = ..()
+	owner.RemoveElement(/datum/element/empprotection, EMP_PROTECT_SELF|EMP_PROTECT_CONTENTS)
+
+/datum/status_effect/ipc_upgrade/emp_shield/emp_act(severity)
+	. = ..()
+	if(remaining_pulses <= 0)
+		to_chat(owner, span_warningbold("Your [name] has been fried! You are no longer protected from EMP attacks."))
+		do_sparks(2, FALSE, owner)
+		qdel(src)
+	remaining_pulses -= 1
 
 /datum/movespeed_modifier/supply_pack
 	multiplicative_slowdown = 1.75
@@ -282,13 +333,12 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 	to_deploy.moveToNullspace()
 	. = ..()
 
-//TODO: add sprites
 /obj/item/blood_drive
 	name = "blood drive"
 	desc = "An experimental piece of weaponry, this sword extracts blood and uses it to repair a robotic user. Sadly, it does not work on the dead."
-	icon_state = "katana"
-	inhand_icon_state = "katana"
-	worn_icon_state = "katana"
+	icon_state = "blood_drive"
+	inhand_icon_state = "blood_drive"
+	worn_icon_state = "blood_drive"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	obj_flags = CONDUCTS_ELECTRICITY
@@ -304,7 +354,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 
 	block_flags = BLOCKING_ACTIVE | BLOCKING_PROJECTILE
 	sharpness = SHARP_DISMEMBER
-	bleed_force = BLEED_SURFACE
+	bleed_force = BLEED_DEEP_WOUND
 	max_integrity = 200
 	resistance_flags = FIRE_PROOF
 
@@ -313,7 +363,10 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 	create_reagents(50)
 
 /obj/item/blood_drive/attack(mob/living/target_mob, mob/living/user, params)
-	. = ..()
+	if(..())
+		return TRUE
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		return
 	if(iscarbon(target_mob) && target_mob.stat != DEAD)
 		var/mob/living/carbon/carbon_mob = target_mob
 		carbon_mob.transfer_blood_to(src, force / 2, TRUE)
@@ -326,6 +379,8 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 	id = "ipc deployable blood drive"
 	name = "Integrated Blood Drive"
 	active_power_requirement = 5
+	slot = UPGRADE_UTILITY
+	action_icon = "blood_drive"
 	to_deploy_typepath = /obj/item/blood_drive
 
 /datum/status_effect/ipc_upgrade/deployable/medbeam
@@ -333,6 +388,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 	name = "Integrated Revival Beam"
 	active_power_requirement = 40
 	slot = UPGRADE_UTILITY
+	action_icon = "medbeam"
 	to_deploy_typepath = /obj/item/gun/medbeam/weak
 
 /datum/status_effect/ipc_upgrade/deployable/medbeam/should_process()
@@ -347,12 +403,13 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 	name = "Overclocked Servos"
 	slot = UPGRADE_UTILITY
 	active_power_requirement = 25
+	action_icon = "overclocked_servos"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
 
-/datum/status_effect/ipc_upgrade/tool_speedifier/on_activate(atom/target)
+/datum/status_effect/ipc_upgrade/overclocked_servos/on_activate(atom/target)
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/overclocked_servos)
 
-/datum/status_effect/ipc_upgrade/tool_speedifier/on_deactivate()
+/datum/status_effect/ipc_upgrade/overclocked_servos/on_deactivate()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/overclocked_servos)
 
 /datum/status_effect/ipc_upgrade/tool_speedifier
@@ -360,6 +417,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 	name = "Tool Adaptor"
 	slot = UPGRADE_UTILITY
 	active_power_requirement = 15
+	action_icon = "tool_speedifier"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
 
 /datum/status_effect/ipc_upgrade/tool_speedifier/on_activate(atom/target)
@@ -378,6 +436,11 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 
 //TODO: make you go horizontal when leaping. Also, add a hardstun maybe?
 /datum/status_effect/ipc_upgrade/leap_legs/on_activate(atom/target)
+	if(!target)
+		return
+	playsound(owner, 'sound/items/modsuit/loader_charge.ogg', 75, TRUE)
+	if(!do_after(owner, 1 SECONDS, owner))
+		return
 	playsound(owner, 'sound/items/modsuit/loader_launch.ogg', 75, TRUE)
 	owner.throw_at(target, 5, 1, spin = FALSE)
 
@@ -385,6 +448,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 	id = "ipc rtg generator"
 	name = "Isotope Decay Generator"
 	var/power_generation = 5
+	action_icon = "generator"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
 
 /datum/status_effect/ipc_upgrade/ipc_generator/tick(seconds_between_ticks)
@@ -407,6 +471,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 	id = "ipc fuel generator"
 	name = "Plasmatic Generator"
 	power_generation = 10
+	action_icon = "generator"
 	var/fuel_consumption = 50
 	var/datum/component/material_container/materials
 
@@ -416,78 +481,70 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 
 /datum/status_effect/ipc_upgrade/ipc_generator/fuel_generator/on_remove()
 	. = ..()
-	materials = null
+	qdel(materials)
 
 /datum/status_effect/ipc_upgrade/ipc_generator/fuel_generator/can_generate()
 	if(!materials.use_amount_mat(fuel_consumption, /datum/material/plasma))
 		return FALSE
 	return TRUE
 
-/datum/status_effect/ipc_upgrade/vacuum_shielding
+/datum/status_effect/ipc_upgrade/trait
+	id = "ipc trait"
+	name = "Generic Trait Upgrade"
+	var/trait
+
+/datum/status_effect/ipc_upgrade/trait/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, trait, UPGRADE_TRAIT)
+
+/datum/status_effect/ipc_upgrade/trait/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, trait, UPGRADE_TRAIT)
+
+/datum/status_effect/ipc_upgrade/trait/vacuum_shielding
 	id = "ipc vacuum shield"
 	name = "Vacuum Shielding"
 	slot = UPGRADE_EXTERNAL
+	trait = TRAIT_RESISTLOWPRESSURE
 
-/datum/status_effect/ipc_upgrade/vacuum_shielding/on_apply()
-	. = ..()
-	ADD_TRAIT(owner, TRAIT_RESISTLOWPRESSURE, UPGRADE_TRAIT)
-
-/datum/status_effect/ipc_upgrade/vacuum_shielding/on_remove()
-	. = ..()
-	REMOVE_TRAIT(owner, TRAIT_RESISTLOWPRESSURE, UPGRADE_TRAIT)
-
-/datum/status_effect/ipc_upgrade/rad_shielding
+/datum/status_effect/ipc_upgrade/trait/rad_shielding
 	id = "ipc rad shield"
 	name = "Radiation Shielding"
 	slot = UPGRADE_EXTERNAL
+	trait = TRAIT_RADIMMUNE
 
-/datum/status_effect/ipc_upgrade/rad_shielding/on_apply()
+/datum/status_effect/ipc_upgrade/armor
+	id = "ipc armor"
+	name = "Generic Armor"
+	var/armor
+
+/datum/status_effect/ipc_upgrade/armor/on_apply()
 	. = ..()
-	ADD_TRAIT(owner, TRAIT_RADIMMUNE, UPGRADE_TRAIT)
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.physiology.physio_armor.add_other_armor(armor)
 
-/datum/status_effect/ipc_upgrade/rad_shielding/on_remove()
+/datum/status_effect/ipc_upgrade/armor/on_remove()
 	. = ..()
-	REMOVE_TRAIT(owner, TRAIT_RADIMMUNE, UPGRADE_TRAIT)
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.physiology.physio_armor.subtract_other_armor(armor)
 
-/datum/status_effect/ipc_upgrade/las_armor
+/datum/status_effect/ipc_upgrade/armor/las_armor
 	id = "ipc las armor"
 	name = "Ablative Plating"
 	upgrade_overlays = list("armor" = UNIFORM_LAYER)
 	slot = UPGRADE_EXTERNAL
+	armor = /datum/armor/refractive_armor
 
-/datum/status_effect/ipc_upgrade/las_armor/on_apply()
-	. = ..()
-	if(!ishuman(owner))
-		return
-	var/mob/living/carbon/human/human_owner = owner
-	human_owner.physiology.physio_armor.add_other_armor(/datum/armor/refractive_armor)
-
-/datum/status_effect/ipc_upgrade/las_armor/on_remove()
-	. = ..()
-	if(!ishuman(owner))
-		return
-	var/mob/living/carbon/human/human_owner = owner
-	human_owner.physiology.physio_armor.subtract_other_armor(/datum/armor/refractive_armor)
-
-/datum/status_effect/ipc_upgrade/ken_armor
+/datum/status_effect/ipc_upgrade/armor/ken_armor
 	id = "ipc ken armor"
 	name = "Reactive Plating"
 	upgrade_overlays = list("armor" = UNIFORM_LAYER)
 	slot = UPGRADE_EXTERNAL
-
-/datum/status_effect/ipc_upgrade/ken_armor/on_apply()
-	. = ..()
-	if(!ishuman(owner))
-		return
-	var/mob/living/carbon/human/human_owner = owner
-	human_owner.physiology.physio_armor.add_other_armor(/datum/armor/hardening_armor)
-
-/datum/status_effect/ipc_upgrade/ken_armor/on_remove()
-	. = ..()
-	if(!ishuman(owner))
-		return
-	var/mob/living/carbon/human/human_owner = owner
-	human_owner.physiology.physio_armor.subtract_other_armor(/datum/armor/hardening_armor)
+	armor = /datum/armor/hardening_armor
 
 /datum/status_effect/ipc_upgrade/gun
 	id = "ipc gun"
@@ -583,4 +640,4 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot)
 	projectile_sound = 'sound/weapons/lasercannonfire.ogg'
 	firing_length = 2 SECONDS
 	firing_time = 3 SECONDS
-	upgrade_overlays = list("ex_cannon" = BODYPARTS_LAYER, "ex_cannon_b" = BODY_BEHIND_LAYER)
+	upgrade_overlays = list("ex_cannon" = FRONT_MUTATIONS_LAYER, "ex_cannon_b" = BODY_BEHIND_LAYER)

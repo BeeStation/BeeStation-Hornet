@@ -14,6 +14,7 @@
 	)
 	inherent_traits = list(
 		TRAIT_BLOOD_COOLANT,
+		TRAIT_DIES_NO_NUTRITION,
 		TRAIT_RESISTCOLD,
 		TRAIT_LOWPRESSURELEAKING,
 		TRAIT_NOBREATH,
@@ -69,6 +70,8 @@
 
 	var/saved_screen //for saving the screen when they die
 	var/datum/action/innate/change_screen/change_screen
+	var/datum/action/innate/change_screen/access_controller/controller_action
+	var/obj/item/modular_computer/tablet/ipc/controller
 
 	speak_no_tongue = FALSE  // who stole my soundblaster?! (-candy/etherware)
 
@@ -81,6 +84,13 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		H.physiology.bleed_mod *= 0.1
+
+	controller = new(C)
+	controller.saved_identification = "[C.real_name || C.name] :: INTERNAL"
+	controller.messenger_invisible = TRUE
+	controller_action = new
+	controller_action.Grant(C)
+
 	RegisterSignal(C, COMSIG_LIVING_REVIVE, PROC_REF(mechanical_revival))
 
 /datum/species/ipc/on_species_loss(mob/living/carbon/C)
@@ -91,6 +101,7 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		H.physiology.bleed_mod *= 10
+	qdel(controller)
 	UnregisterSignal(C, COMSIG_LIVING_REVIVE)
 
 /datum/species/ipc/handle_radiation(mob/living/carbon/human/source, intensity, delta_time)
@@ -115,11 +126,25 @@
 	C.dna.features["ipc_screen"] = null //Turns off screen on death
 	C.update_body()
 
+/datum/action/innate/change_screen/access_controller
+	name = "Access Internal Controller"
+	check_flags = AB_CHECK_CONSCIOUS
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
+
+/datum/action/innate/change_screen/access_controller/on_activate()
+	if(!isipc(owner))
+		return
+	var/mob/living/carbon/human/human = owner
+	var/datum/species/ipc/ipc = human.dna.species
+	if(!ipc.controller)
+		CRASH("IPC [owner] is missing their integrated modpc controller!")
+	ipc.controller.interact(owner)
+
 /datum/action/innate/change_screen
 	name = "Change Display"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
-	button_icon_state = "drone_vision"
+	button_icon_state = "pai"
 
 /datum/action/innate/change_screen/on_activate()
 	var/screen_choice = tgui_input_list(usr, "Which screen do you want to use?", "Screen Change", GLOB.ipc_screens_list)
