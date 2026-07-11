@@ -116,7 +116,7 @@
 		var/mob/living/carbon/human_target = A
 		biobattery = human_target.get_organ_slot(ORGAN_SLOT_STOMACH)
 		if(!istype(biobattery))
-			to_chat(user, span_alert("Error unable to interface with this entity."))
+			to_chat(user, span_alert("Error, unable to interface with this entity."))
 			recharging = FALSE
 			return FALSE
 
