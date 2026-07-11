@@ -1617,11 +1617,16 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 
 ///Adjust the nutrition of a mob
 /mob/proc/adjust_nutrition(change) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks
-	nutrition = max(0, nutrition + change)
+	set_nutrition(nutrition + change)
 
 ///Force set the mob nutrition
 /mob/proc/set_nutrition(change) //Seriously fuck you oldcoders.
 	nutrition = max(0, change)
+	if(nutrition > 0 || !HAS_TRAIT(src, TRAIT_DIES_NO_NUTRITION))
+		return
+	if(isliving(src)) //why can nonliving mobs have nutrition??
+		var/mob/living/to_die = src
+		to_die.apply_status_effect(to_die.mob_biotypes & MOB_ROBOTIC ? /datum/status_effect/imminent_death/robotic : /datum/status_effect/imminent_death)
 
 /mob/proc/update_equipment_speed_mods()
 	var/speedies = equipped_speed_mods()

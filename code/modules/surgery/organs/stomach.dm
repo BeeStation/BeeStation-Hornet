@@ -155,6 +155,8 @@
 		return
 	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && HAS_TRAIT(owner, TRAIT_POWERHUNGRY))
 		owner.nutrition = (charge/max_charge)*NUTRITION_LEVEL_FULL
+		if(owner.nutrition <= 0) //TODO: think about your sins
+			owner.apply_status_effect(owner.mob_biotypes & MOB_ROBOTIC ? /datum/status_effect/imminent_death/robotic : /datum/status_effect/imminent_death)
 
 /obj/item/organ/stomach/battery/emp_act(severity)
 	. = ..()
