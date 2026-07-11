@@ -70,7 +70,7 @@
 
 	var/saved_screen //for saving the screen when they die
 	var/datum/action/innate/change_screen/change_screen
-	var/datum/action/innate/change_screen/access_controller/controller_action
+	var/datum/action/innate/access_controller/controller_action
 	var/obj/item/modular_computer/tablet/ipc/controller
 
 	speak_no_tongue = FALSE  // who stole my soundblaster?! (-candy/etherware)
@@ -130,9 +130,9 @@
 	name = "Access Internal Controller"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
-	button_icon_state = "pait"
+	button_icon_state = "pai"
 
-/datum/action/innate/change_screen/access_controller/on_activate()
+/datum/action/innate/access_controller/on_activate()
 	if(!isipc(owner))
 		return
 	var/mob/living/carbon/human/human = owner
