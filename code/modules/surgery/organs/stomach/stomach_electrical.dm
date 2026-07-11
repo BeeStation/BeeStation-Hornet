@@ -39,9 +39,6 @@
 
 	return ..()
 
-/obj/item/organ/stomach/electrical/handle_hunger_slowdown(mob/living/carbon/human/human)
-	human.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = (1.5 * (1 - cell.charge / 100)))
-
 /obj/item/organ/stomach/electrical/proc/charge(datum/source, amount, repairs)
 	SIGNAL_HANDLER
 	adjust_charge(amount / 3.5)

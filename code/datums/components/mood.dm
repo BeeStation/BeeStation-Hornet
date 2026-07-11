@@ -378,15 +378,18 @@
 			add_event(null, "nutrition", /datum/mood_event/starving)
 
 /datum/component/mood/proc/HandleCharge(mob/living/L)
-	switch(L.nutrition)
-		if(NUTRITION_LEVEL_WELL_FED to INFINITY)
-			add_event(null, "nutrition", /datum/mood_event/charged)
-		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-			clear_event(null, "nutrition")
-		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_FED)
-			add_event(null, "nutrition", /datum/mood_event/lowpower)
-		if(0 to NUTRITION_LEVEL_STARVING)
-			add_event(null, "nutrition", /datum/mood_event/decharged)
+	var/obj/item/organ/stomach/electrical/battery = L.get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(!istype(battery))
+		return
+	switch(battery.cell.charge)
+		if(ETHEREAL_CHARGE_FULL to INFINITY)
+			add_event(null, "charge", /datum/mood_event/charged)
+		if(ETHEREAL_CHARGE_NORMAL to ETHEREAL_CHARGE_FULL)
+			clear_event(null, "charge")
+		if(ETHEREAL_CHARGE_LOWPOWER to ETHEREAL_CHARGE_NORMAL)
+			add_event(null, "charge", /datum/mood_event/lowpower)
+		if(-INFINITY to ETHEREAL_CHARGE_LOWPOWER)
+			add_event(null, "charge", /datum/mood_event/decharged)
 
 /datum/component/mood/proc/check_area_mood(datum/source, area/A)
 	SIGNAL_HANDLER
