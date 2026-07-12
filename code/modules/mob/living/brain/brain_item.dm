@@ -383,7 +383,7 @@
 	if(istype(attacking_item, /obj/item/multitool)) //attempt to heal the brain
 		. = TRUE //don't do attack animation.
 		user.visible_message("[user] starts to repair the circuitry of [src].", span_notice("You start to repair the circuitry of [src]."))
-		if(!do_after(user, 120, src))
+		if(!do_after(user, 6 SECONDS, src))
 			to_chat(user, span_warning("You failed to repair [src]!"))
 			return
 
