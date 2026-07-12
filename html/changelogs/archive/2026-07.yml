@@ -76,3 +76,6 @@
   mrmanlikesbt:
   - bugfix: Fixed a runtime when an AAS announcement was made in some situations
   - bugfix: Fixed brains giving people null traits
+2026-07-12:
+  mrmanlikesbt:
+  - tweak: The Bureaucratic Error event can no longer remove job openings
