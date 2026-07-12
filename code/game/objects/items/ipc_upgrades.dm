@@ -3,23 +3,17 @@
 #define LOW_POWER_THRESHOLD 250
 
 //TODO: add emp_act
-//TODO: leap legs (needs finishing)
 //TODO: cooling system
 //TODO: stock parts fabricator
-//TODO: disposable EMP shield
-//TODO: make IPCs shutdown when battery runs out //probably done
 //TODO: System Underclocker: allows IPCs to stay standing with no power (for some sort of drawback)
 //TODO: Upgrade circuit control??
 //TODO: Upgrade circuit actions
-//TODO: IPC law module / emag working on IPC //not this pr
 //TODO: SPRITES!!
 //TODO: test action runtime (signal overriding)
 //TODO: improve charge cannon
-//TODO: fix armor not applying
-//TODO: subdermal ID
 //TODO: look into deactivate() returning proper values, as it passes them into action on_deactivate()
-//TODO: refactor nutrition so it I dont have to copy paste the status effect 4 times
 //TODO: action sprite for ex-cannon
+//TODO: audit status effects after a transformation or species change.
 
 //not so sure about making a global proc for this TODO: fix this warning
 proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/status_effect/ipc_upgrade
@@ -115,6 +109,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 		active = TRUE
 	if(action)
 		action.start_cooldown(cooldown_length)
+	drain_cell(power_requirement)
 	on_activate(target)
 	return TRUE
 
@@ -260,7 +255,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	remaining_pulses -= 1
 
 /datum/movespeed_modifier/supply_pack
-	multiplicative_slowdown = 1.75
+	multiplicative_slowdown = 1.50
 
 /datum/storage/supply_pack
 	max_specific_storage = WEIGHT_CLASS_GIGANTIC
@@ -429,8 +424,8 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 /datum/status_effect/ipc_upgrade/leap_legs
 	id = "ipc leap legs"
 	name = "Leap Legs"
-	power_requirement = 100
-	cooldown_length = 10 SECONDS
+	power_requirement = 250
+	cooldown_length = 5 SECONDS
 	singleton = TRUE
 	action_type = /datum/action/innate/ipc_upgrade_action/targeted
 
@@ -523,14 +518,14 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	if(!ishuman(owner))
 		return
 	var/mob/living/carbon/human/human_owner = owner
-	human_owner.physiology.physio_armor.add_other_armor(armor)
+	human_owner.physiology.physio_armor = human_owner.physiology.physio_armor.add_other_armor(armor)
 
 /datum/status_effect/ipc_upgrade/armor/on_remove()
 	. = ..()
 	if(!ishuman(owner))
 		return
 	var/mob/living/carbon/human/human_owner = owner
-	human_owner.physiology.physio_armor.subtract_other_armor(armor)
+	human_owner.physiology.physio_armor = human_owner.physiology.physio_armor.subtract_other_armor(armor)
 
 /datum/status_effect/ipc_upgrade/armor/las_armor
 	id = "ipc las armor"
@@ -549,7 +544,6 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 /datum/status_effect/ipc_upgrade/gun
 	id = "ipc gun"
 	name = "Generic Gun Upgrade"
-	power_requirement = 0
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
 	slot = UPGRADE_UTILITY
 	var/projectile_type = /obj/projectile/beam/laser
