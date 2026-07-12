@@ -25,9 +25,6 @@ SUBSYSTEM_DEF(job)
 
 	var/list/unassigned = list() //Players who need jobs
 	var/initial_players_to_assign = 0 //used for checking against population caps
-	// Whether to run DivideOccupations pure so that there are no side-effects from calling it other than
-	// a player's assigned_role being set to some value.
-	var/run_divide_occupation_pure = FALSE
 
 	var/list/prioritized_jobs = list()
 	var/list/latejoin_trackers = list()
@@ -362,11 +359,10 @@ SUBSYSTEM_DEF(job)
  *  fills var "assigned_role" for all ready players.
  *  This proc must not have any side effect besides of modifying "assigned_role".
  **/
-/datum/controller/subsystem/job/proc/DivideOccupations(pure = FALSE, allow_all = FALSE)
+/datum/controller/subsystem/job/proc/DivideOccupations()
 	//Setup new player list and get the jobs list
-	job_debug("DO: Running, allow_all = [allow_all], pure = [pure]")
-	run_divide_occupation_pure = pure
-	SEND_SIGNAL(src, COMSIG_OCCUPATIONS_DIVIDED, pure, allow_all)
+	job_debug("Running DO")
+	SEND_SIGNAL(src, COMSIG_OCCUPATIONS_DIVIDED)
 
 	//Holder for Triumvirate is stored in the SSticker, this just processes it
 	if(SSticker.triai)
@@ -449,9 +445,8 @@ SUBSYSTEM_DEF(job)
 
 	// Firstly, remove any players over the pop-cap
 	for(var/mob/dead/new_player/authenticated/player in unassigned)
-		if(!allow_all)
-			if(PopcapReached() && !IS_PATRON(player.ckey))
-				RejectPlayer(player)
+		if(PopcapReached() && !IS_PATRON(player.ckey))
+			RejectPlayer(player)
 
 	assign_roles(JP_MEDIUM)
 	assign_roles(JP_LOW)
@@ -460,7 +455,7 @@ SUBSYSTEM_DEF(job)
 	// Hand out random jobs to the people who didn't get any in the last check
 	// Also makes sure that they got their preference correct
 	for(var/mob/dead/new_player/authenticated/player in unassigned)
-		HandleUnassigned(player, allow_all)
+		HandleUnassigned(player)
 	job_debug("DO: Ending handle unassigned")
 
 	job_debug("DO: Handle unrejectable unassigned")
@@ -477,7 +472,6 @@ SUBSYSTEM_DEF(job)
 	setup_officer_positions()
 	job_debug("All divide occupations tasks completed.")
 	job_debug("---------------------------------------------------")
-	run_divide_occupation_pure = FALSE
 	return TRUE
 
 /datum/controller/subsystem/job/proc/assign_roles(priority = JP_MEDIUM)
@@ -588,13 +582,12 @@ SUBSYSTEM_DEF(job)
 	return TRUE
 
 //We couldn't find a job from prefs for this guy.
-/datum/controller/subsystem/job/proc/HandleUnassigned(mob/dead/new_player/authenticated/player, allow_all = FALSE)
+/datum/controller/subsystem/job/proc/HandleUnassigned(mob/dead/new_player/authenticated/player)
 	var/jobless_role = player.client.prefs.read_character_preference(/datum/preference/choiced/jobless_role)
 
-	if(!allow_all)
-		if(PopcapReached() && !IS_PATRON(player.ckey))
-			RejectPlayer(player)
-			return
+	if(PopcapReached() && !IS_PATRON(player.ckey))
+		RejectPlayer(player)
+		return
 
 	switch (jobless_role)
 		if (BEOVERFLOW)
@@ -742,10 +735,9 @@ SUBSYSTEM_DEF(job)
 	if(PopcapReached() && !IS_PATRON(player.ckey))
 		job_debug("Popcap overflow Check observer located, Player: [player]")
 	job_debug("Player rejected :[player]")
+	to_chat(player, span_infoplain("<b>You have failed to qualify for any job you desired.</b>"))
 	unassigned -= player
-	if(!run_divide_occupation_pure)
-		to_chat(player, span_infoplain("<b>You have failed to qualify for any job you desired.</b>"))
-		player.ready = PLAYER_NOT_READY
+	player.ready = PLAYER_NOT_READY
 
 
 /atom/proc/JoinPlayerHere(mob/M, buckle)
