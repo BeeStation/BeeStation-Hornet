@@ -11,7 +11,7 @@
 		return
 	if(is_unassigned_job(crewMind.assigned_role))
 		return
-	var/list/valid_objs = crew_obj_jobs["[crewMind.assigned_role]"]
+	var/list/valid_objs = crew_obj_jobs[crewMind.assigned_role.title]
 	if(!length(valid_objs))
 		return
 	var/selectedObj = pick(valid_objs)

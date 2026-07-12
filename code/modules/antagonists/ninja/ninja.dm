@@ -72,7 +72,7 @@
 				var/datum/objective/assassinate/assassinate_objective = new()
 				var/datum/mind/person_to_kill = pick(potential_targets)
 				assassinate_objective.set_target(person_to_kill)
-				assassinate_objective.explanation_text = "Slay [person_to_kill.current.real_name], the [person_to_kill.assigned_role]."
+				assassinate_objective.explanation_text = "Slay [person_to_kill.current.real_name], the [person_to_kill.assigned_role.title]."
 				add_objective(assassinate_objective)
 			if(4) //capture
 				var/datum/objective/capture/capture_objective = new()

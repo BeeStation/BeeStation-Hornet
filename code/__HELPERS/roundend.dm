@@ -661,13 +661,13 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	if(I)
 		if(I.registered_name == mind.name) // card must be yours
 			custom_title = I.assignment // get the custom title
-		if(custom_title == mind.assigned_role) // non-custom title, lame
+		if(custom_title == mind.assigned_role.title) // non-custom title, lame
 			custom_title = null
 	if(!custom_title) // still no custom title? it seems you don't have a ID card
 		var/datum/record/crew/R = find_record(mind.name, GLOB.manifest.general)
 		if(R)
 			custom_title = R.rank // get a custom title from manifest
-		if(custom_title == mind.assigned_role) // lame...
+		if(custom_title == mind.assigned_role.title) // lame...
 			return
 
 	if(custom_title)

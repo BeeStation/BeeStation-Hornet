@@ -161,7 +161,7 @@
 /datum/dynamic_ruleset/gamemode/malf/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		SSjob.assign_role(chosen_mind.current, JOB_NAME_AI)
+		SSjob.assign_role(chosen_mind.current, SSjob.get_job_type(/datum/job/ai))
 
 /datum/dynamic_ruleset/gamemode/malf/security_report()
 	return "The proximity to multiple stars leads to a risk of ion storms born from constructive wave interference. This has been identified \
@@ -190,13 +190,13 @@
 /datum/dynamic_ruleset/gamemode/wizard/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
+		chosen_mind.set_assigned_role(SSjob.get_job_type(/datum/job/space_wizard))
 
 /datum/dynamic_ruleset/gamemode/wizard/execute()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.current.forceMove(pick(GLOB.wizardstart))
-		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
+		chosen_mind.set_assigned_role(SSjob.get_job_type(/datum/job/space_wizard))
 
 /datum/dynamic_ruleset/gamemode/wizard/security_report()
 	return "Unconfirmed rumours suggest that a series of powerful artifacts that possess intricate control over space-time are in the hands \
@@ -308,9 +308,6 @@
 	load_reebe()
 	generate_clockcult_scriptures()
 
-	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
-
 /datum/dynamic_ruleset/gamemode/clockcult/execute()
 	main_cult = new()
 
@@ -370,7 +367,7 @@
 /datum/dynamic_ruleset/gamemode/nuclear/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
+		chosen_mind.set_assigned_role(SSjob.get_job_type(/datum/job/nuclear_operative))
 
 /datum/dynamic_ruleset/gamemode/nuclear/execute()
 	var/has_made_leader = FALSE

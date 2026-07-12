@@ -51,14 +51,14 @@
 
 	var/datum/job/writer_job
 	if(!is_antag)
-		if(!(user.mind?.assigned_role in valid_jobs))
+		if(!(user.mind?.assigned_role.title in valid_jobs))
 			to_chat(user, span_notice("Your job knowledge doesn't seem to be describable in writing."))
 			return ..()
 		writer_job = user.mind?.assigned_role
 
 	var/list/jobs_with_knowledge = \
 		is_antag ? valid_jobs \
-		: user.mind?.assigned_role == JOB_NAME_CURATOR ? valid_jobs \
+		: user.mind?.assigned_role.title == JOB_NAME_CURATOR ? valid_jobs \
 		: length(writer_job.manuscript_jobs) ? writer_job.manuscript_jobs \
 		: null
 

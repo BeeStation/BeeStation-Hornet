@@ -801,7 +801,6 @@
 			if(istype(new_mob))
 				new_mob.set_combat_mode(TRUE)
 				M.mind.transfer_to(new_mob)
-				new_owner.set_assigned_role(ROLE_SWARMER)
 				new_owner.special_role = ROLE_SWARMER
 			qdel(M)
 	return ..()

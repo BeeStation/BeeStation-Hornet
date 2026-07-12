@@ -205,7 +205,7 @@
 	var/list/goodies = generic_goodies.Copy()
 
 	//Load the job the player have
-	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role] // only station crews have 'assigned role'
+	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role.title] // only station crews have 'assigned role'
 	if(this_job)
 		goodies += this_job.mail_goodies
 		var/datum/record/crew/R = find_record(recipient.name, GLOB.manifest.general)
