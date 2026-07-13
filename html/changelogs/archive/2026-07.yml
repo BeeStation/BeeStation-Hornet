@@ -79,3 +79,11 @@
 2026-07-12:
   mrmanlikesbt:
   - tweak: The Bureaucratic Error event can no longer remove job openings
+2026-07-13:
+  mrmanlikesbt, Aylong:
+  - bugfix: Fixed tiny TGUI mapviews (character preference menu, camera console, records
+      console)
+  - bugfix: Fixed planes not being correctly applied to mapviews (lighting, bloom,
+      etc.)
+  - bugfix: Fixed chairs not being placed in the direction you're facing
+  - bugfix: Fixed an infinite materials exploit with holodeck chairs
