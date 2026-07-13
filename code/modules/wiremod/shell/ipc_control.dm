@@ -71,7 +71,7 @@
 	if(resolved_owner.stat == DEAD)
 		return
 
-	to_chat(resolved_owner, "<i>System notification recieved: </i> \"[span_robot("[html_encode(sent_message)]")]\"")
+	to_chat(resolved_owner, "<i>System notification received: </i> \"[span_robot("[html_encode(sent_message)]")]\"")
 
 /obj/item/circuit_component/ipc_circuit/register_shell(atom/movable/shell)
 	RegisterSignal(shell, COMSIG_ORGAN_IMPLANTED, PROC_REF(on_installed))

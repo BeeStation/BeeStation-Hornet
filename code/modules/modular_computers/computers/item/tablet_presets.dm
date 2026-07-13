@@ -92,7 +92,7 @@
 	force_install_component(new /obj/item/computer_hardware/recharger/cyborg)
 	force_install_component(new /obj/item/computer_hardware/network_card/integrated)
 
-	/obj/item/modular_computer/tablet/ipc/Initialize(mapload)
+/obj/item/modular_computer/tablet/ipc/Initialize(mapload)
 	. = ..()
 	force_install_component(new /obj/item/computer_hardware/processor_unit/small)
 	force_install_component(new /obj/item/computer_hardware/recharger/cyborg)
