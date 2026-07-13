@@ -94,15 +94,18 @@ SUBSYSTEM_DEF(department)
 		CRASH("You did something wrong. Check if you did like 'list(list())'")
 
 	var/list/jobs_to_return = list()
+	var/multiple_departments = length(id_or_list) > 1
 	for(var/each in id_or_list)
 		var/datum/department_group/dept = department_assoc[each]
 		if(!dept)
-			message_admins("is not exist: [each]")
+			stack_trace("[each] isn't an existing department id.")
 			continue
 		if(!length(dept.department_jobs))
 			continue
-		for(var/datum/job/job in dept.department_jobs)
-			jobs_to_return |= job
+		if(multiple_departments)
+			jobs_to_return |= dept.department_jobs
+		else
+			jobs_to_return += dept.department_jobs
 
 	return jobs_to_return
 
@@ -111,7 +114,7 @@ SUBSYSTEM_DEF(department)
 	RETURN_TYPE(/list)
 	var/list/titles = list()
 	for(var/datum/job/job as anything in get_jobs_by_dept_id(id_or_list))
-		titles += job.title
+		titles |= job.title
 	return titles
 
 /// Returns a nation name for this department.

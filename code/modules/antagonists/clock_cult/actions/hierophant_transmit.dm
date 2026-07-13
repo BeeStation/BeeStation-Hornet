@@ -64,7 +64,7 @@
 					prefix = "Pathfinder"
 				else if(is_assistant_job(role))
 					prefix = "Helper"
-				else if(istype(role, /datum/job/mime))
+				else if(is_mime_job(role))
 					prefix = "Cogwatcher"
 				else if(is_clown_job(role))
 					prefix = "Clonker"

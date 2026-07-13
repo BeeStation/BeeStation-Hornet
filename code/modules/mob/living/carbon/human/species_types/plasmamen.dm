@@ -110,10 +110,10 @@
 	. = ..()
 	human_to_equip.open_internals(human_to_equip.get_item_for_held_index(2))
 
-/datum/species/plasmaman/qualifies_for_rank(rank, list/features)
-	if(SSjob.get_job(rank) in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
+/datum/species/plasmaman/qualifies_for_rank(datum/job/rank, list/features)
+	if(rank in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
 		return 0
-	if(rank == JOB_NAME_CLOWN || rank == JOB_NAME_MIME)//No funny bussiness
+	if(is_clown_job(rank) || is_mime_job(rank))//No funny bussiness
 		return 0
 	return ..()
 
