@@ -21,12 +21,16 @@
 	parent_holder.holoparasites |= src
 	if(!tracking_beacon)
 		tracking_beacon = LoadComponent(/datum/component/tracking_beacon, REF(parent_holder), null, parent_holder.get_monitor(), FALSE, accent_color, TRUE, TRUE)
-	mind_initialize()
+
 	if(different_person)
-		// Enslave the holoparasite's mind to the summoner.
-		mind.enslave_mind_to_creator(new_summoner)
-		// This is a nested tally list, just in case that future jobs rework ever gets merged.
-		SSblackbox.record_feedback("nested tally", "holoparasite_summoner_special_roles", 1, new_summoner.special_role ? list(new_summoner.special_role) : list("(none)"))
+		if(mind)
+			// Enslave the holoparasite's mind to the summoner.
+			mind.enslave_mind_to_creator(new_summoner)
+			// This is a nested tally list, just in case that future jobs rework ever gets merged.
+			SSblackbox.record_feedback("nested tally", "holoparasite_summoner_special_roles", 1, new_summoner.special_role ? list(new_summoner.special_role) : list("(none)"))
+		else if(new_summoner.current)
+			// No mind yet (we haven't been possessed), once we get one mind_initialize will slave us
+			faction |= new_summoner.current.faction
 	// Register all signals to our new summoner.
 	if(new_summoner.current)
 		register_body_signals(new_summoner.current)

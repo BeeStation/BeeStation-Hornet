@@ -135,6 +135,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 		QDEL_NULL(tracking_beacon)
 	return ..()
 
+/mob/living/simple_animal/hostile/holoparasite/mind_initialize()
+	. = ..()
+	if(!summoner)
+		return
+	// Enslave the holoparasite's mind to the summoner.
+	mind.enslave_mind_to_creator(summoner)
+	// This is a nested tally list, just in case that future jobs rework ever gets merged.
+	SSblackbox.record_feedback("nested tally", "holoparasite_summoner_special_roles", 1, summoner.special_role ? list(summoner.special_role) : list("(none)"))
+
 /mob/living/simple_animal/hostile/holoparasite/Login()
 	var/datum/antagonist/holoparasite/first_time_show_popup
 	if(mind && key && key != mind.key) // Ooh, new player!
