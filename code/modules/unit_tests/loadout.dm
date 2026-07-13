@@ -4,6 +4,8 @@
 /datum/unit_test/loadout/proc/build_mock_client()
 	var/datum/client_interface/mock_client = new
 	mock_client.prefs = new /datum/preferences/mock()
+	// Force preference so we don't get the 50:50 chance between jumpsuit and jumpskirt
+	mock_client.prefs.write_preference(GLOB.preference_entries[/datum/preference/choiced/jumpsuit_style], PREF_SUIT)
 	return mock_client
 
 /// Gear ids aren't static (assigned in New()), so we have to match by type
