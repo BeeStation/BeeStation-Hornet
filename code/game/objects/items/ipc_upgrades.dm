@@ -1,10 +1,6 @@
-
-
 #define LOW_POWER_THRESHOLD 250
 
 //TODO: add emp_act
-//TODO: cooling system
-//TODO: stock parts fabricator
 //TODO: System Underclocker: allows IPCs to stay standing with no power (for some sort of drawback)
 //TODO: Upgrade circuit control??
 //TODO: Upgrade circuit actions
@@ -167,12 +163,14 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	name = "Generic Upgrade Action"
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	var/datum/status_effect/ipc_upgrade/upgrade = null
+	var/has_deactivate_text = TRUE
+	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/ipc_upgrade_action/New(datum/status_effect/ipc_upgrade/new_upgrade)
 	..()
 	name = "Activate [new_upgrade.name]"
 	enable_text = "Activated [new_upgrade.name]!"
-	disable_text = "Deactivated [new_upgrade.name]!"
+	disable_text = has_deactivate_text ? "Deactivated [new_upgrade.name]!" : null
 	upgrade = new_upgrade
 
 /datum/action/innate/ipc_upgrade_action/is_available(feedback = FALSE)
@@ -207,10 +205,19 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 /datum/action/innate/ipc_upgrade_action/targeted
 	requires_target = TRUE
 	toggleable = FALSE
+	has_deactivate_text = FALSE
 
 /datum/action/innate/ipc_upgrade_action/targeted/on_activate(mob/user, atom/target)
 	..()
 	return upgrade.activate(target)
+
+/datum/action/innate/ipc_upgrade_action/untargeted
+	toggleable = FALSE
+	has_deactivate_text = FALSE
+
+/datum/action/innate/ipc_upgrade_action/untargeted/on_activate(mob/user, atom/target)
+	..()
+	return upgrade.activate()
 
 /datum/status_effect/ipc_upgrade/repair_nexus
 	id = "ipc repair nexus"
@@ -221,7 +228,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
 
 /datum/status_effect/ipc_upgrade/repair_nexus/tick(seconds_between_ticks)
-	if(!..())
+	if(!..(seconds_between_ticks))
 		return FALSE
 	if(!iscarbon(owner))
 		return FALSE
@@ -293,6 +300,29 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	QDEL_NULL(pack)
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/supply_pack)
 
+/datum/status_effect/ipc_upgrade/part_fab
+	id = "ipc part fab"
+	name = "Part Fabricator"
+	slot = UPGRADE_UTILITY
+	action_type = /datum/action/innate/ipc_upgrade_action/untargeted
+	power_requirement = 150
+	singleton = TRUE
+	var/list/part_types = list(/obj/item/stock_parts/manipulator, /obj/item/stock_parts/micro_laser, /obj/item/stock_parts/matter_bin, /obj/item/stock_parts/capacitor, /obj/item/stock_parts/scanning_module)
+
+/datum/status_effect/ipc_upgrade/part_fab/on_activate(atom/target)
+	var/list/choice_list = list()
+	var/list/type_list = list()
+	for(var/atom/item_type as anything in part_types) // why this works??? no clue! I guess you can get default vars from typepaths, but only if you cast it as an atom...?
+		choice_list[item_type.name] = image(icon = item_type.icon, icon_state = item_type.icon_state)
+		type_list[item_type.name] = item_type
+	var/choice_type = type_list[show_radial_menu(owner, owner, choice_list)]
+	if(!choice_type)
+		return
+	var/obj/item/choice = new choice_type(get_turf(owner))
+	owner.put_in_hand(choice, owner.active_hand_index)
+	playsound(owner, 'sound/machines/click.ogg', 50)
+	owner.visible_message(span_notice("[owner] fabricates a [choice.name]."), span_notice("You fabricate a [choice.name]."))
+
 /datum/status_effect/ipc_upgrade/deployable
 	id = "ipc deployable"
 	name = "Generic Deployable Upgrade"
@@ -312,16 +342,13 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	. = ..()
 
 /datum/status_effect/ipc_upgrade/deployable/activate(atom/target)
-	if(!ishuman(owner))
-		return FALSE
-	var/mob/living/carbon/human/human = owner
-	if(!owner.dropItemToGround(human.get_active_held_item(), FALSE))
+	if(!owner.dropItemToGround(owner.get_active_held_item(), FALSE))
 		to_chat(owner, span_notice("Something is preventing the upgrade from deploying!"))
 		return FALSE
 	if(!..())
 		return FALSE
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, TRUE)
-	owner.put_in_hand(to_deploy, human.active_hand_index)
+	owner.put_in_hand(to_deploy, owner.active_hand_index)
 
 /datum/status_effect/ipc_upgrade/deployable/deactivate()
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, TRUE)
@@ -541,6 +568,20 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	slot = UPGRADE_EXTERNAL
 	armor = /datum/armor/hardening_armor
 
+/datum/status_effect/ipc_upgrade/cooling_system
+	id = "ipc cooling system"
+	name = "Cooling System"
+	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
+	slot = UPGRADE_EXTERNAL
+	active_power_requirement = 25
+
+/datum/status_effect/ipc_upgrade/cooling_system/tick(seconds_between_ticks)
+	. = ..(seconds_between_ticks)
+	if(!iscarbon(owner))
+		return
+	var/mob/living/carbon/carbon = owner
+	carbon.adjust_bodytemperature(-BODYTEMP_HEATING_MAX * 0.9 * seconds_between_ticks, BODYTEMP_NORMAL) // insufficient to cool maximium heating, but pretty good for most things lower
+
 /datum/status_effect/ipc_upgrade/gun
 	id = "ipc gun"
 	name = "Generic Gun Upgrade"
@@ -635,3 +676,5 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	firing_length = 2 SECONDS
 	firing_time = 3 SECONDS
 	upgrade_overlays = list("ex_cannon" = FRONT_MUTATIONS_LAYER, "ex_cannon_b" = BODY_BEHIND_LAYER)
+
+#undef LOW_POWER_THRESHOLD
