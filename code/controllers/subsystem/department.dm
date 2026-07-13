@@ -79,7 +79,7 @@ SUBSYSTEM_DEF(department)
 	. = department_assoc[id]
 	if(!.)
 		CRASH("[id] isn't an existing department id.")
-	return department_assoc[id]
+	return .
 
 /datum/controller/subsystem/department/proc/get_jobs_by_dept_id(id_or_list)
 	if(!id_or_list)
@@ -233,6 +233,8 @@ SUBSYSTEM_DEF(department)
 
 	department_head = /datum/job/head_of_personnel
 
+	nation_prefixes = list("Honka", "Boozo", "Fatu", "Danka", "Mimi", "Libra", "Jani", "Religi")
+
 	access_group_name = "General"
 	// actually station general list
 	access_list = list(
@@ -293,6 +295,8 @@ SUBSYSTEM_DEF(department)
 
 	department_head = /datum/job/head_of_personnel
 
+	nation_prefixes = list("Cargo", "Guna", "Suppli", "Mule", "Crate", "Ore", "Mini", "Shaf")
+
 	access_group_name = "Supply"
 	access_list = list(
 		ACCESS_MAILSORTING,
@@ -327,6 +331,8 @@ SUBSYSTEM_DEF(department)
 	label_class = "science"
 
 	department_head = /datum/job/research_director
+
+	nation_prefixes = list("Scien", "Techno", "Xeno", "Quantu", "Chemi", "Geneti")
 
 	access_group_name = "Research"
 	access_list = list(
@@ -364,6 +370,8 @@ SUBSYSTEM_DEF(department)
 	label_class = "engineering"
 
 	department_head = /datum/job/chief_engineer
+
+	nation_prefixes = list("Atomo", "Engino", "Power", "Teleco", "Volt")
 
 	access_group_name = "Engineering"
 	access_list = list(
@@ -403,6 +411,8 @@ SUBSYSTEM_DEF(department)
 
 	department_head = /datum/job/chief_medical_officer
 
+	nation_prefixes = list("Mede", "Healtha", "Recova", "Chemi", "Viro", "Psych")
+
 	access_group_name = "Medbay"
 	access_list = list(
 		ACCESS_MEDICAL,
@@ -437,6 +447,8 @@ SUBSYSTEM_DEF(department)
 	label_class = "security"
 
 	department_head = /datum/job/head_of_security
+
+	nation_prefixes = list("Securi", "Beepski", "Shitcuri", "Red", "Stunba", "Flashbango", "Flasha", "Stanfordi")
 
 	access_group_name = "Security"
 	access_list = list(
