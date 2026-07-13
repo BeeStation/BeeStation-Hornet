@@ -121,6 +121,7 @@
 	plane = LIGHTING_PLANE_ADDITIVE
 	blend_mode_override = BLEND_ADD
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	alpha = ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL
 
 /atom/movable/screen/plane_master/additive_lighting/backdrop(mob/mymob)
 	. = ..()

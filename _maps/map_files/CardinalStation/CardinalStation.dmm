@@ -17706,9 +17706,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/station/maintenance/club)
 "ekV" = (
-/obj/structure/chair/stool/directional/south{
-	dir = 1
-	},
+/obj/structure/chair/stool/directional/north,
 /obj/effect/landmark/event_spawn,
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/carpet,
@@ -40903,9 +40901,7 @@
 /turf/open/floor/wood/big,
 /area/station/service/hydroponics)
 "jCY" = (
-/obj/structure/chair/stool/directional/west{
-	dir = 4
-	},
+/obj/structure/chair/stool/directional/east,
 /obj/machinery/power/terminal{
 	dir = 8
 	},
@@ -55466,6 +55462,7 @@
 /area/station/command/heads_quarters/cmo)
 "mWS" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron/smooth,
 /area/station/maintenance/solars/port/fore)
 "mWT" = (
@@ -69164,8 +69161,8 @@
 /area/station/maintenance/department/crew_quarters/bar)
 "qmG" = (
 /obj/structure/table/wood,
-/obj/item/plate{
-	pixel_y = 3
+/obj/item/pai_card{
+	pixel_x = -5
 	},
 /turf/open/floor/wood/big,
 /area/station/service/kitchen)
@@ -70396,9 +70393,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/cargo)
 "qzT" = (
-/obj/structure/chair/stool/directional/south{
-	dir = 1
-	},
+/obj/structure/chair/stool/directional/north,
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/carpet,
 /area/station/commons/dorms)
@@ -72621,6 +72616,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 6
 	},
+/obj/item/pai_card,
 /turf/open/floor/carpet/black,
 /area/station/commons/vacant_room/office)
 "rbb" = (
@@ -91468,9 +91464,6 @@
 /turf/open/floor/iron/dark,
 /area/station/hallway/secondary/service)
 "vyu" = (
-/obj/structure/chair/stool/directional/north{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable,
 /obj/structure/cable/yellow,
