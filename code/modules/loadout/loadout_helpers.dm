@@ -30,12 +30,15 @@
 	var/list/loadout_datums = loadout_list_to_datums(preference_source.equipped_gear)
 	var/jumpsuit_style = preference_source.read_character_preference(/datum/preference/choiced/jumpsuit_style)
 
-	// Insert loadout item paths into the outfit slots before equipping
+	// We make the outfit establish its job/species baseline first
+	equipped_outfit.pre_equip(src, visuals_only)
+
+	// Then we insert loadout item paths into the outfit slots, it overrides anything pre_equip() set
 	for(var/datum/gear/item as anything in loadout_datums)
 		item.insert_path_into_outfit(equipped_outfit, src, visuals_only, jumpsuit_style)
 
 	// Equip the outfit with loadout items baked in
-	if(!equipped_outfit.equip(src, visuals_only))
+	if(!equipped_outfit.finish_equip(src, visuals_only))
 		return FALSE
 
 	// Handle any snowflake post-equip effects
@@ -194,4 +197,9 @@
 	mob/living/carbon/human/equipper,
 	visuals_only = FALSE,
 )
-	return NONE
+	if(isnull(equipped_item))
+		return NONE
+
+	var/update_flag = NONE
+
+	return update_flag

@@ -807,9 +807,9 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 	var/datum/outfit/outfit = outfit_override || job?.outfit
 	if(job)
-		body.dna.species.pre_equip_species_outfit(job, body, TRUE)
+		body.dna.species.pre_equip_species_outfit(job, body, TRUE, prefs)
 	if(outfit)
-		body.equipOutfit(outfit_override, visuals_only = TRUE)
+		body.equipOutfit(outfit, visuals_only = TRUE)
 
 	var/icon/out_icon = icon('icons/effects/effects.dmi', "nothing")
 	COMPILE_OVERLAYS(body)

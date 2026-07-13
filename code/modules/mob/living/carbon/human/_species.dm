@@ -1335,8 +1335,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return do_after(H, I.equip_delay_self, target = H)
 
 /// Equips the necessary species-relevant gear before putting on the rest of the uniform.
-/datum/species/proc/pre_equip_species_outfit(datum/job/job, mob/living/carbon/human/equipping, visuals_only = FALSE)
-	return
+/datum/species/proc/pre_equip_species_outfit(datum/job/job, mob/living/carbon/human/equipping, visuals_only = FALSE, datum/preferences/preference_source = null)
+	var/outfit_path = job?.species_outfits?[id]
+	if(!outfit_path)
+		return
+	equipping.equipOutfit(outfit_path, visuals_only)
 
 /**
  * Handling special reagent types.
@@ -2891,6 +2894,3 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/check_head_flags(check_flags = NONE)
 	var/obj/item/bodypart/head/fake_head = bodypart_overrides[BODY_ZONE_HEAD]
 	return (initial(fake_head.head_flags) & check_flags)
-
-/// Called after a job's equipment has been applied to the mob. Override in subtypes for species-specific post-equip behaviour.
-/datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H, visuals_only = FALSE, client/preference_source = null)

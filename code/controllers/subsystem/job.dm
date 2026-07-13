@@ -142,7 +142,7 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/proc/setup_occupations()
 	// A fast client can reach mind/New() -> get_job_type() before Masters detached init
-	// reaches SSdepartment.
+	// reaches SSdepartment. Twin of /datum/mind/New() init gate
 	if(!SSdepartment.initialized)
 		return FALSE
 

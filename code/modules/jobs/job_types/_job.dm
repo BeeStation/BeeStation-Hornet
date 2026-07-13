@@ -362,6 +362,8 @@
 		consistent = FALSE,
 	)
 
+	give_random_dormant_disease(equipping.biohazard, (equipping.title == JOB_NAME_CLOWN || equipping.title == JOB_NAME_MIME) ? 0 : 4)
+
 	if(EMERGENCY_PAST_POINT_OF_NO_RETURN && prob(VERY_LATE_ARRIVAL_TOAST_PROB))
 		equip_to_slot_or_del(new /obj/item/food/griddle_toast(src), ITEM_SLOT_MASK)
 
@@ -371,7 +373,7 @@
 	return
 
 /mob/living/carbon/human/dress_up_as_job(datum/job/equipping, visual_only = FALSE, client/player_client, consistent = FALSE)
-	dna.species.pre_equip_species_outfit(equipping, src, visual_only)
+	dna.species.pre_equip_species_outfit(equipping, src, visual_only, player_client?.prefs)
 	equip_outfit_and_loadout(equipping.get_outfit(consistent), player_client?.prefs, visual_only)
 
 /datum/job/proc/get_access()
