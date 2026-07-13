@@ -72,6 +72,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 		owner.cut_overlay(mut_appearance)
 	QDEL_NULL(action)
 	QDEL_LIST(mut_appearances)
+	UnregisterSignal(owner, COMSIG_ATOM_EMP_ACT)
 
 /datum/status_effect/ipc_upgrade/tick(seconds_between_ticks)
 	if(!should_process())
