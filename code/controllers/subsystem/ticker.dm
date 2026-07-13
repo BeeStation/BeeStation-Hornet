@@ -436,7 +436,7 @@ SUBSYSTEM_DEF(ticker)
 		if(is_captain_job(mind.assigned_role))
 			captainless = FALSE
 			spare_id_candidates += new_player_mob
-		else if(captainless && (mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND)) && !is_banned_from(new_player_mob.ckey, JOB_NAME_CAPTAIN))
+		else if(captainless && (mind.assigned_role.title in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND)) && !is_banned_from(new_player_mob.ckey, JOB_NAME_CAPTAIN))
 			if(!enforce_coc)
 				spare_id_candidates += new_player_mob
 			else
@@ -692,7 +692,7 @@ SUBSYSTEM_DEF(ticker)
 	round_credits += "<center><h1>The Glorious Command Staff:</h1>"
 	len_before_addition = round_credits.len
 	for(var/mob/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND)))
+		if(player.mind && (player.mind.assigned_role.title in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND)))
 			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
 			round_credits += "<center><h2>[player] as the [player.mind.assigned_role.title][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
@@ -703,7 +703,7 @@ SUBSYSTEM_DEF(ticker)
 	round_credits += "<center><h1>The Silicon \"Intelligences\":</h1>"
 	len_before_addition = round_credits.len
 	for(var/mob/living/silicon/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SILICON)))
+		if(player.mind && (player.mind.assigned_role.title in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SILICON)))
 			round_credits += "<center><h2>[player] as the [player.mind.assigned_role.title]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>[station_name()] had no silicon helpers!</h2>", "<center><h2>Not a single door was opened today!</h2>")
@@ -713,7 +713,7 @@ SUBSYSTEM_DEF(ticker)
 	round_credits += "<center><h1>The Brave Security Officers:</h1>"
 	len_before_addition = round_credits.len
 	for(var/mob/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY)))
+		if(player.mind && (player.mind.assigned_role.title in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY)))
 			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
 			round_credits += "<center><h2>[player] as the [player.mind.assigned_role.title][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
@@ -724,7 +724,7 @@ SUBSYSTEM_DEF(ticker)
 	round_credits += "<center><h1>The Wise Medical Department:</h1>"
 	len_before_addition = round_credits.len
 	for(var/mob/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_MEDICAL)))
+		if(player.mind && (player.mind.assigned_role.title in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_MEDICAL)))
 			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
 			round_credits += "<center><h2>[player] as the [player.mind.assigned_role.title][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
@@ -735,7 +735,7 @@ SUBSYSTEM_DEF(ticker)
 	round_credits += "<center><h1>The Industrious Engineers:</h1>"
 	len_before_addition = round_credits.len
 	for(var/mob/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_ENGINEERING)))
+		if(player.mind && (player.mind.assigned_role.title in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_ENGINEERING)))
 			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
 			round_credits += "<center><h2>[player] as the [player.mind.assigned_role.title][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
@@ -746,7 +746,7 @@ SUBSYSTEM_DEF(ticker)
 	round_credits += "<center><h1>The Inventive Science Employees:</h1>"
 	len_before_addition = round_credits.len
 	for(var/mob/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SCIENCE)))
+		if(player.mind && (player.mind.assigned_role.title in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SCIENCE)))
 			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
 			round_credits += "<center><h2>[player] as the [player.mind.assigned_role.title][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
@@ -757,7 +757,7 @@ SUBSYSTEM_DEF(ticker)
 	round_credits += "<center><h1>The Rugged Cargo Crew:</h1>"
 	len_before_addition = round_credits.len
 	for(var/mob/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_CARGO)))
+		if(player.mind && (player.mind.assigned_role.title in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_CARGO)))
 			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
 			round_credits += "<center><h2>[player] as the [player.mind.assigned_role.title][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
@@ -769,7 +769,7 @@ SUBSYSTEM_DEF(ticker)
 	round_credits += "<center><h1>The Hardy Civilians:</h1>"
 	len_before_addition = round_credits.len
 	for(var/mob/player in GLOB.mob_list) // gimmicks shouldn't be here, but let's not make the code dirty
-		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_CIVILIAN)))
+		if(player.mind && (player.mind.assigned_role.title in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_CIVILIAN)))
 			if(is_assistant_job(player.mind.assigned_role))
 				human_garbage += player.mind
 			else

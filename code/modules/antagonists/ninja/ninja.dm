@@ -62,7 +62,7 @@
 				for(var/datum/mind/potential_target as anything in get_crewmember_minds())
 					if(!ishuman(potential_target.current))
 						continue
-					if(!potential_target.special_role && !(potential_target.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND)))
+					if(!potential_target.special_role && !(potential_target.assigned_role.title in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND)))
 						continue
 					potential_targets += potential_target
 

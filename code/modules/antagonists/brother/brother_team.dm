@@ -109,7 +109,7 @@
 	var/list/candidates = list()
 	var/sec_count = 0
 	for (var/job in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
-		sec_count += SSjob.get_job_type(job).current_positions
+		sec_count += SSjob.get_job(job).current_positions
 	var/sec_allowed = sec_count >= 2
 	for (var/datum/mind/mind in SSticker.minds)
 		// Mind has no mob

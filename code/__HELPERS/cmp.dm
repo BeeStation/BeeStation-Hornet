@@ -133,6 +133,12 @@
 /proc/cmp_department_display_asc(datum/department_group/A, datum/department_group/B)
 	return A.display_order - B.display_order
 
+/proc/cmp_department_manifest_order_asc(datum/department_group/A, datum/department_group/B)
+	return A.manifest_category_order - B.manifest_category_order
+
+/proc/cmp_department_pref_order_asc(datum/department_group/A, datum/department_group/B)
+	return A.pref_category_order - B.pref_category_order
+
 /proc/cmp_reagents_asc(datum/reagent/a, datum/reagent/b)
 	return sorttext(initial(b.name),initial(a.name))
 

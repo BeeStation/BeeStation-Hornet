@@ -102,14 +102,14 @@
 
 	// First target, any command.
 	for(var/datum/mind/head_mind as anything in shuffle_inplace(valid_targets))
-		if(head_mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND))
+		if(head_mind.assigned_role.title in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND))
 			final_targets += head_mind
 			valid_targets -= head_mind
 			break
 
 	// Second target, any security
 	for(var/datum/mind/sec_mind as anything in shuffle_inplace(valid_targets))
-		if(sec_mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
+		if(sec_mind.assigned_role.title in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
 			final_targets += sec_mind
 			valid_targets -= sec_mind
 			break
@@ -160,7 +160,7 @@
 
 	to_chat(user, span_hypnophrase("Your patron accepts your offer."))
 
-	if(sacrifice_mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND))
+	if(sacrifice_mind.assigned_role.title in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND))
 		heretic_datum.adjust_knowledge_points(1)
 		heretic_datum.high_value_sacrifices++
 

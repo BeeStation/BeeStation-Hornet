@@ -43,12 +43,17 @@ SUBSYSTEM_DEF(department)
 		if(each_dept.dept_id)
 			department_assoc[each_dept.dept_id] = each_dept
 
-	var/datum/department_group/dummy_datum
-	dummy_datum = dummy_datum // be gone compile warning
 	sorted_department_for_manifest = list()
+	for(var/datum/department_group/each_dept as anything in department_datums)
+		if(each_dept.manifest_category_order)
+			sorted_department_for_manifest += each_dept
+	sortTim(sorted_department_for_manifest, GLOBAL_PROC_REF(cmp_department_manifest_order_asc))
+
 	sorted_department_for_latejoin = list()
-	init_and_sort_department(sorted_department_for_manifest, NAMEOF(dummy_datum, manifest_category_order))
-	init_and_sort_department(sorted_department_for_latejoin, NAMEOF(dummy_datum, pref_category_order))
+	for(var/datum/department_group/each_dept as anything in department_datums)
+		if(each_dept.pref_category_order)
+			sorted_department_for_latejoin += each_dept
+	sortTim(sorted_department_for_latejoin, GLOBAL_PROC_REF(cmp_department_pref_order_asc))
 
 	var/list/temp = sorted_department_for_access
 	sorted_department_for_access = list()
@@ -56,37 +61,6 @@ SUBSYSTEM_DEF(department)
 		sorted_department_for_access |= department_assoc[each_dept]
 
 	return SS_INIT_SUCCESS
-
-/// Puts department datums into a list in a desired sort priority. Only called once in subsystem Initialize.
-/// * list_instance<list>: takes a list instance, to initialize and sort departments into this list
-/// * priority_varname<string/NAMEOF>: a hacky one since sorting code does the same thing.
-/datum/controller/subsystem/department/proc/init_and_sort_department(list/list_instance, priority_varname)
-	if(isnull(list_instance))
-		CRASH("'list_instance' does not exist: target_var [priority_varname]")
-	if(!islist(list_instance))
-		CRASH("'list_instance' is not a list: target_var [priority_varname]")
-	if(!priority_varname || !length(priority_varname))
-		CRASH("something's wrong to init department: target_var [priority_varname]")
-
-	var/list/_department_datums_to_sort = department_datums.Copy()
-	var/sanity_check = 1000
-	while(length(_department_datums_to_sort) && sanity_check--)
-		if(!sanity_check)
-			CRASH("the proc reached 0 sanity check - something's causing the infinite loop.")
-
-		var/datum/department_group/current
-		for(var/datum/department_group/each_dept in _department_datums_to_sort)
-			if(!each_dept.vars[priority_varname])
-				_department_datums_to_sort -= each_dept
-				continue
-			if(!current)
-				current = each_dept
-				continue
-			if(each_dept.vars[priority_varname] < current.vars[priority_varname])
-				current = each_dept
-				continue
-		list_instance += current
-		_department_datums_to_sort -= current
 
 /// WARNING: This always returns as a list.
 /// If your bitflag only gets a single department, it will return as a list.
