@@ -28,7 +28,7 @@
 	if(!(..() && iscarbon(target))) //Despite what the arguments say, surgery targets can actually be simple mobs too
 		return FALSE
 	var/obj/item/organ/brain_organ = target.get_organ_slot(ORGAN_SLOT_BRAIN)
-	if(!(brain_organ && isorgan(brain_organ) && brain_organ.zone == BODY_ZONE_HEAD)) //check if this target actually stored the brain in the head (as far as I know, there is no way to dynamically set the body zone of surgeries)
+	if(!(brain_organ && isorgan(brain_organ) && !(brain_organ.organ_flags & ORGAN_ROBOTIC))) // checks if this brain should be repairable by surgery
 		return FALSE
 	return TRUE
 
