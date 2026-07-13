@@ -1,0 +1,7 @@
+author: Isaacnml
+delete-after: true
+changes:
+  - rscadd: Missing Pipes in Radstation's Science and Auth Keycard Device in RD's
+      office
+  - bugfix: United Budget Station trait no longer breaks exploration vendor points
+  - bugfix: Asclepius rod works again
