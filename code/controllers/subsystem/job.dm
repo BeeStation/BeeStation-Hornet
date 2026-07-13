@@ -59,7 +59,7 @@ SUBSYSTEM_DEF(job)
 	spare_id_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
 
 	crew_obj_list = subtypesof(/datum/objective/crew)
-	for(var/type as() in crew_obj_list)
+	for(var/type as anything in crew_obj_list)
 		// Unfortunately, this is necessary because initial() doesn't work on lists
 		var/datum/objective/crew/obj = new type
 		var/list/obj_jobs = obj.jobs

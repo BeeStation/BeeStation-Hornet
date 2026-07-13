@@ -486,7 +486,7 @@
 				if ("albino")
 					human.skin_tone = "caucasian1"
 
-		if(MUTCOLORS in human.dna.species.species_traits) //take current alien color and darken it slightly
+		if(MUTANT_COLOR in human.dna.species.species_traits) //take current alien color and darken it slightly
 			var/list/existing_color = rgb2num(human.dna.features["mcolor"])
 			var/list/darkened_color = list()
 			// Reduces each part of the color by 16
@@ -510,11 +510,11 @@
 		affected_human.facial_hair_style = "Shaved"
 		affected_human.facial_hair_color = COLOR_BLACK
 		affected_human.hair_color = COLOR_BLACK
-		if(!(HAIR in affected_human.dna.species.species_traits)) //No hair? No problem!
-			affected_human.dna.species.species_traits += HAIR
+		if(!(HAIR_COLOR in affected_human.dna.species.species_traits)) //No hair? No problem!
+			affected_human.dna.species.species_traits += HAIR_COLOR
 		if(affected_human.dna.species.use_skintones)
 			affected_human.skin_tone = "orange"
-		else if(MUTCOLORS in affected_human.dna.species.species_traits) //Aliens with custom colors simply get turned orange
+		else if(MUTANT_COLOR in affected_human.dna.species.species_traits) //Aliens with custom colors simply get turned orange
 			affected_human.dna.features["mcolor"] = COLOR_ORANGE
 		affected_human.regenerate_icons()
 
@@ -1774,8 +1774,8 @@
 /datum/reagent/barbers_aid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
-		var/datum/sprite_accessory/hair/picked_hair = pick(GLOB.hair_styles_list)
-		var/datum/sprite_accessory/facial_hair/picked_beard = pick(GLOB.facial_hair_styles_list)
+		var/datum/sprite_accessory/hair/picked_hair = GLOB.hair_styles_list[pick(GLOB.hair_styles_list)]
+		var/datum/sprite_accessory/facial_hair/picked_beard = GLOB.facial_hair_styles_list[pick(GLOB.facial_hair_styles_list)]
 		exposed_human.hair_style = picked_hair.name
 		exposed_human.facial_hair_style = picked_beard
 		exposed_human.update_hair()

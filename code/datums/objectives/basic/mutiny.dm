@@ -18,7 +18,7 @@
 /datum/objective/mutiny/on_target_cryo()
 	set_target(null)
 	team.objectives -= src
-	for(var/datum/mind/M as() in team.members)
+	for(var/datum/mind/M as anything in team.members)
 		var/datum/antagonist/rev/R = M.has_antag_datum(/datum/antagonist/rev)
 		if(R)
 			R.objectives -= src

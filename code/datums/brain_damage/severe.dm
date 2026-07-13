@@ -169,9 +169,10 @@
 		stress = max(stress - (2 * delta_time), 0)
 
 /datum/brain_trauma/severe/monophobia/proc/check_alone()
+	var/check_radius = 7
 	if(owner.is_blind())
-		return TRUE
-	for(var/mob/living/M in oview(7, owner))
+		check_radius = 1
+	for(var/mob/living/M in oview(check_radius, owner))
 		if(istype(M, /mob/living/simple_animal/pet) || istype(M, /mob/living/basic/pet) || M.ckey)
 			return FALSE
 	return TRUE

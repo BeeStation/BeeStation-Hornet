@@ -124,3 +124,128 @@
   - rscadd: Adds a Artifact Telescreen to Radstation, Flandstation, Cardinalstation,
       Deltastation, and Boxstation
   - tweak: The science/explab area gives new artsci network to its camera
+2026-06-13:
+  Isaacnml:
+  - rscadd: Nukies have their stolen medibot back
+  - bugfix: Uplink wont give you an energy lens instead of a miniature energy crossbow
+      anymore
+  MadmanMartian:
+  - tweak: Medsprays now explain how they function in their description, describing
+      if they're patch-application or spray-application. No way to change them manually
+      is currently implemented.
+  - bugfix: Fixes Barber's Aid not working at all
+  llol111:
+  - rscadd: Adds a verb for admins to change what laws the AI will spawn with
+  mrmanlikesbt, TealSeer:
+  - code_imp: The codebase now supports compilation on the latest byond version
+2026-06-14:
+  BotTierPC:
+  - bugfix: 'Fixes Custom Vendor''s: They should use the correct image and sell items
+      properly once again.'
+  DrDuckedGoose:
+  - rscadd: Adds a new round end sound
+  Isaacnml:
+  - bugfix: Cloud Controller TGUI wont crash anymore, hopefully
+  PowerfulBacon:
+  - bugfix: Fixes some unexpected behaviours in reagent code caused by floating point
+      arithmetic errors.
+  Programs-The-Station:
+  - rscadd: Engineering Cyborgs can now wield the power of the BS RPED
+  - bugfix: Engineering Cyborgs can no longer get infinite RPEDs installed
+  - rscadd: Janitor Cyborgs can now wield the power of the BS Light Replacer
+  WhiskeyMarten:
+  - bugfix: Fixed the CardStation Supermatter area being set to rooms around the SM
+      chamber as well.
+  mrmanlikesbt:
+  - code_imp: Sleeping in Initialize() is banned now.
+2026-06-15:
+  mrmanlikesbt:
+  - code_imp: Fixed the codebase not compiling, again
+2026-06-16:
+  mrmanlikesbt:
+  - bugfix: Fixed a horrible random room spawner harddel
+2026-06-17:
+  MadmanMartian:
+  - tweak: Dispensers, such as Chemical, Booze, Soda, and Mutagen Dispensers, now
+      tell you when they can not be operated due to their maintenance panel being
+      open.
+2026-06-18:
+  EvilDragonfiend:
+  - bugfix: Cloning works correctly - it has been something buggy indescribably.
+  - code_imp: improved(maybe) record code. My code comrades, codewise internally,
+      it might look awful but it's good for you...
+2026-06-19:
+  MadmanMartian:
+  - bugfix: You can now examine emitters again to ascertain their stats, and whether
+      or not they're wired/powered properly.
+2026-06-20:
+  mrmanlikesbt:
+  - bugfix: Fixed the spaceproof directional windows mapping helper sometimes breaking
+      the entire game
+2026-06-22:
+  Isaac:
+  - bugfix: ED209's no longer use old beepsky stun mechanics, they now follow the
+      new ones
+  - bugfix: Glue cant be applied to the modsuit control unit, preventing cases where
+      it literally cant be taken out of your back
+  - bugfix: Energy Shield MOD is vulnerable to EMP's  once again, how it was supposed
+      to be in the first place
+  WhiskeyMarten:
+  - rscadd: Added cell chargers to the prison of each map, making some minor adjustments
+      to fit them in.
+  - bugfix: Fixed some backwards chairs.
+  - bugfix: Changed the contents of the fridges in Box's kitchen so it has a balanced
+      variety of ingredients.
+  - bugfix: Fixed the marker beacons on FlandStation so they should be the properly
+      placed version.
+  mrmanlikesbt:
+  - code_imp: Replaced some bad Destroy() calls with the proper qdel() calls.
+2026-06-23:
+  mrmanlikesbt, LemonInTheDark, vinylspiders:
+  - code_imp: Callbacks can no longer be qdeleted. When you are done with a callback,
+      clear your references to it. The byond garbage collector will deal with it.
+  - code_imp: Removed some leftover instances of the `silent` argument in `Destroy()`.
+      We deprecated this roughly two years back.
+  - refactor: The simple rotation component is now an element. This should save a
+      few megabytes of memory. Oh the joys of 32bit programming!
+  - admin: The dynamic panel now refreshes configured variables as well when you press
+      the reload storytellers button.
+  - bugfix: Fixed full-tile windows showing up as being rotatable when examining them
+  - bugfix: Fixed a runtime when examining a hydroponics tray
+  - bugfix: Fixed a runtime when a crewmember who had their manifest photo retaken
+      from a photobooth entered cryo.
+  - bugfix: Fixed not being able to easily insert the ID from a PDA into an ID modification
+      console
+  - bugfix: Fixed the ethereal disco ball not glowing valid colors
+2026-06-25:
+  MadmanMartian:
+  - tweak: You can now examine solar panels to infer their power multiplier coefficient,
+      their maximum output, their glass type, and what tools to use on them
+2026-06-27:
+  Isaacnml:
+  - bugfix: Some RnD nodes aren't fully hidden forever, now they can be researched
+      if it's prerequisites are also researched
+  - bugfix: Nanite Chambers will now give the research to the server they're linked
+      to
+  - rscadd: You can link nanite chambers using a multitool with a server buffer on
+      it, it'll change where nanite research is given to
+  - rscadd: You can examine nanite chambers and it'll tell you what server it's linked
+      to and a hint how you can change that
+  Nildo1:
+  - balance: Lowers the amount of discovery points the notes given by experimental
+      dissection give for aliens.
+  - bugfix: Fixes experimental dissection for Charlie Station.
+  Programs-The-Station:
+  - balance: Holofan projectors now have a maxcapacity of 6
+  WhiskeyMarten:
+  - tweak: Removed the minpop requirement to play the Prisoner role. It no longer
+      requires 9 ready-ups at round start to be available.
+  mrmanlikesbt, zxaber, Arkatos1, Tastyfish, ShizCalev, lelandkemble:
+  - rscadd: Added holopad TGUI
+  - rscadd: Heads of staff can now forcibly connect to holopads. Head of staff rooms
+      & AI facilities are immune from this. You can use a multitool on a holopad board
+      to make it immune as well.
+  - bugfix: Fixed holocalls.
+2026-06-28:
+  mrmanlikesbt:
+  - bugfix: Fixed shuttles hard deleting when exiting supercruise

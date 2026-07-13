@@ -70,6 +70,7 @@
 	var/static/list/traits_to_apply = list(
 		TRAIT_ADVANCEDTOOLUSER,
 		TRAIT_ASHSTORM_IMMUNE,
+		TRAIT_LITERATE,
 		TRAIT_MADNESS_IMMUNE,
 		TRAIT_MARTIAL_ARTS_IMMUNE,
 		TRAIT_NOFIRE_SPREAD,
@@ -101,13 +102,13 @@
 	modularInterface.saved_identification = real_name || name
 	if(iscyborg(src))
 		modularInterface.saved_job = JOB_NAME_CYBORG
-		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/pda/robot)
+		modularInterface.force_install_component(new /obj/item/computer_hardware/hard_drive/small/pda/robot)
 	if(isAI(src))
 		modularInterface.saved_job = JOB_NAME_AI
-		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
+		modularInterface.force_install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
 	if(ispAI(src))
 		modularInterface.saved_job = JOB_NAME_PAI
-		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
+		modularInterface.force_install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
 
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud
@@ -411,9 +412,6 @@
 		return
 	add_sensors()
 	to_chat(src, "Sensor overlay activated.")
-
-/mob/living/silicon/is_literate()
-	return TRUE
 
 /mob/living/silicon/get_inactive_held_item()
 	return FALSE

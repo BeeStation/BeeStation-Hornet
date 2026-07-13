@@ -911,7 +911,7 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 
 /// Replacement for the \th macro when you want the whole word output as text (first instead of 1st)
 /proc/thtotext(number)
-	if(!isnum_safe(number))
+	if(!IS_FINITE(number))
 		return
 	switch(number)
 		if(1)

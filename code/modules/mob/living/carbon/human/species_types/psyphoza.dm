@@ -4,10 +4,8 @@
 	id = SPECIES_PSYPHOZA
 	meat = /obj/item/food/meat/slab/human/mutant/psyphoza
 	species_traits = list(
-		NOEYESPRITES,
 		AGENDER,
-		MUTCOLORS,
-		NOEYEHOLES,
+		MUTANT_COLOR,
 	)
 	inherent_traits = list(
 		TRAIT_PSYCHIC_SENSE,
@@ -325,7 +323,7 @@
 	filters += filter(type = "alpha", render_source = "psychic_mask")
 	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
 	filters += filter(type = "radial_blur", size = 0.0125)
-	cycle_visuals()
+	INVOKE_ASYNC(src, PROC_REF(cycle_visuals))
 	cycle_textures()
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/proc/cycle_visuals()

@@ -27,7 +27,7 @@
 	log_game("Orbital body [name] was destroyed.")
 	//Holy shit this is bad.
 	for(var/mob/living/L in GLOB.mob_living_list)
-		for(var/datum/space_level/level as() in linked_z_level)
+		for(var/datum/space_level/level as anything in linked_z_level)
 			if(L.z == level.z_value)
 				qdel(L)
 				break
@@ -60,7 +60,7 @@
 /datum/orbital_object/z_linked/proc/z_in_contents(z_value)
 	if(!LAZYLEN(linked_z_level))
 		return FALSE
-	for(var/datum/space_level/level as() in linked_z_level)
+	for(var/datum/space_level/level as anything in linked_z_level)
 		if(level.z_value == z_value)
 			return TRUE
 	return FALSE

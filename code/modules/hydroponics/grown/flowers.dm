@@ -28,12 +28,11 @@
 	if(slot == ITEM_SLOT_HEAD)
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn, src)
 
-/obj/item/food/grown/flower/dropped(mob/living/carbon/user)
-	..()
-	if(user.head != src)
+/obj/item/food/grown/flower/dropped(mob/user)
+	. = ..()
+	if(user.get_item_by_slot(ITEM_SLOT_HEAD) != src)
 		return
-	else
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
+	SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
 
 // Poppy
 /obj/item/seeds/flower/poppy

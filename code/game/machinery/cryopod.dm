@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	return control_computer_weakref != null
 
-/obj/machinery/cryopod/close_machine(mob/user)
+/obj/machinery/cryopod/close_machine(mob/user, density_to_set = TRUE)
 	if(!control_computer_weakref)
 		find_control_computer(TRUE)
 	if((isnull(user) || istype(user)) && state_open && !panel_open)
@@ -227,7 +227,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			despawn_world_time = world.time + time_till_despawn
 	icon_state = "cryopod"
 
-/obj/machinery/cryopod/open_machine()
+/obj/machinery/cryopod/open_machine(drop = TRUE, density_to_set = FALSE)
 	..()
 	ghost_offering = FALSE
 	icon_state = "cryopod-open"
@@ -317,14 +317,14 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	// Delete them from manifest.
 
 	var/announce_rank = null
-	for(var/datum/record/crew/R as() in GLOB.manifest.general)
+	for(var/datum/record/crew/R as anything in GLOB.manifest.general)
 		if((R.name == mob_occupant.real_name))
 			announce_rank = R.rank
 			qdel(R)
 
 
 	for(var/obj/machinery/computer/cloning/cloner as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/cloning))
-		for(var/datum/record/R as() in cloner.records)
+		for(var/datum/record/R as anything in cloner.records)
 			if(R.name == mob_occupant.real_name)
 				cloner.records.Remove(R)
 

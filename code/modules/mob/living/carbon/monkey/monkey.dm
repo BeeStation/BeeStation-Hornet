@@ -193,10 +193,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 /mob/living/carbon/monkey/angry/Initialize(mapload)
 	. = ..()
 	if(prob(10))
-		var/obj/item/clothing/head/helmet/toggleable/justice/escape/helmet = new(src)
-		equip_to_slot_or_del(helmet,ITEM_SLOT_HEAD)
-		helmet.attack_self(src) // todo encapsulate toggle
+		INVOKE_ASYNC(src, PROC_REF(give_ape_escape_helmet))
 
+/// Gives our funny monkey an Ape Escape hat reference
+/mob/living/carbon/monkey/angry/proc/give_ape_escape_helmet()
+	var/obj/item/clothing/head/helmet/toggleable/justice/escape/helmet = new(src)
+	equip_to_slot_or_del(helmet, ITEM_SLOT_HEAD)
+	helmet.attack_self(src) // todo encapsulate toggle
 
 //Special monkeycube subtype to track the number of them and prevent spam
 /mob/living/carbon/monkey/cube/Initialize(mapload)
@@ -246,7 +249,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 /datum/species/teratoma
 	name = "Teratoma"
 	id = "teratoma"
-	species_traits = list(EYECOLOR, HAIR, FACEHAIR, LIPS)
+	species_traits = list(HAIR_COLOR, FACIAL_HAIR_COLOR, LIPS)
 	inherent_traits = list(
 		TRAIT_NOHUNGER,
 		TRAIT_RADIMMUNE,

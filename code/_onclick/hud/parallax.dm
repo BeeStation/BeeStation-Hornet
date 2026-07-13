@@ -174,7 +174,7 @@
 	// Update the movement direction of the parallax if necessary (for shuttles)
 	set_parallax_movedir(areaobj.parallax_movedir, FALSE)
 
-	for(var/atom/movable/screen/parallax_layer/L as() in C.parallax_layers)
+	for(var/atom/movable/screen/parallax_layer/L as anything in C.parallax_layers)
 		if (L.view_sized != C.view)
 			L.update_o(C.view)
 		L.update_status(mymob)

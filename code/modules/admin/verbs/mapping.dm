@@ -165,7 +165,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 
 	if(intercom_range_display_status)
 		for(var/obj/item/radio/intercom/I in world)
-			for(var/turf/T as() in RANGE_TURFS(7,I))
+			for(var/turf/T as anything in RANGE_TURFS(7,I))
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
 				if (!(F in view(7,I.loc)))
 					qdel(F)
@@ -233,7 +233,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 	var/num_level = text2num(level)
 	if(!num_level)
 		return
-	if(!isnum_safe(num_level))
+	if(!IS_FINITE(num_level))
 		return
 
 	var/type_text = capped_input(src, "Which type path?","Path?")
@@ -247,7 +247,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 
 	var/list/atom/atom_list = list()
 
-	for(var/area/T as() in get_areas(/area, num_level))
+	for(var/area/T as anything in get_areas(/area, num_level))
 		for(var/atom/A in T)
 			if(istype(A, type_path))
 				var/atom/B = A

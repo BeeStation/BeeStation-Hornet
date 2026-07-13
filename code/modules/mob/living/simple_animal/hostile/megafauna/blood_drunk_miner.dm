@@ -34,7 +34,7 @@ Difficulty: Medium
 	speed = 3
 	move_to_delay = 3
 	projectiletype = /obj/projectile/kinetic/miner
-	projectilesound = 'sound/weapons/kenetic_accel.ogg'
+	projectilesound = 'sound/weapons/kinetic_accel.ogg'
 	ranged = TRUE
 	ranged_cooldown_time = 16
 	pixel_x = -16

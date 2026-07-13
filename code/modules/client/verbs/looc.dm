@@ -143,7 +143,7 @@ AUTH_CLIENT_VERB(looc, msg as text)
 	uuid = GUID()
 	GLOB.sent_looc_messages[uuid] = src
 
-/datum/looc_message/Destroy(force, ...)
+/datum/looc_message/Destroy(force)
 	. = ..()
 	GLOB.sent_looc_messages -= uuid
 

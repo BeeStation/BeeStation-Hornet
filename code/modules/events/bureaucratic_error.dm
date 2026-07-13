@@ -24,5 +24,4 @@
 		for(var/datum/job/current as anything in jobs)
 			if(!current.allow_bureaucratic_error)
 				continue
-			var/ran = rand(-2,4)
-			current.total_positions = max(current.total_positions + ran, 0)
+			current.total_positions += rand(0, 3)
