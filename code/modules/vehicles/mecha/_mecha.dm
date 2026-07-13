@@ -203,7 +203,7 @@
 	var/lavaland_only = FALSE
 
 	/// ref to screen object that displays in the middle of the UI
-	var/atom/movable/screen/mech_view/ui_view
+	var/atom/movable/screen/map_view/ui_view
 
 	/// Theme of the mech TGUI
 	var/ui_theme = "ntos"
@@ -219,7 +219,8 @@
 
 /obj/vehicle/sealed/mecha/Initialize(mapload, built_manually)
 	. = ..()
-	ui_view = new(null, src)
+	ui_view = new
+	ui_view.generate_view("mech_view_[REF(src)]")
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
 	spark_system.set_up(2, 0, src)
