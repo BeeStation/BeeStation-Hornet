@@ -50,7 +50,7 @@
 						: "Clockmaster"
 				hierophant_message = "<span class='leader_brass'>"
 			if(CLOCKCULT_PREFIX_RECRUIT)
-				var/role = sender.mind?.assigned_role.title
+				var/datum/job/role = sender.mind?.assigned_role
 				//Ew, this could be done better with a dictionary list, but this isn't much slower
 				if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND))
 					prefix = "High Priest"
@@ -62,11 +62,11 @@
 					prefix = "Calculator"
 				else if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_CARGO))
 					prefix = "Pathfinder"
-				else if(role == JOB_NAME_ASSISTANT)
+				else if(is_assistant_job(role))
 					prefix = "Helper"
-				else if(role == JOB_NAME_MIME)
+				else if(istype(role, /datum/job/mime))
 					prefix = "Cogwatcher"
-				else if(role == JOB_NAME_CLOWN)
+				else if(is_clown_job(role))
 					prefix = "Clonker"
 				else if((role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_CIVILIAN)))
 					prefix = "Cogworker"

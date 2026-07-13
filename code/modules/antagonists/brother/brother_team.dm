@@ -108,8 +108,8 @@
 /datum/team/brother_team/proc/get_conversion_targets()
 	var/list/candidates = list()
 	var/sec_count = 0
-	for (var/job in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
-		sec_count += SSjob.get_job(job).current_positions
+	for (var/datum/job/job as anything in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
+		sec_count += job.current_positions
 	var/sec_allowed = sec_count >= 2
 	for (var/datum/mind/mind in SSticker.minds)
 		// Mind has no mob

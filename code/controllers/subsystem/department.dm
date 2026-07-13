@@ -81,17 +81,12 @@ SUBSYSTEM_DEF(department)
 		CRASH("[id] isn't an existing department id.")
 	return .
 
+/// Returns the /datum/job instances belonging to the given department id(s). Accepts a single dept_id or a list of them
 /datum/controller/subsystem/department/proc/get_jobs_by_dept_id(id_or_list)
+	RETURN_TYPE(/list)
 	if(!id_or_list)
 		stack_trace("proc has no id value")
 		return list()
-
-	if(istext(id_or_list))
-		var/datum/department_group/dept = department_assoc[id_or_list]
-		var/list/titles = list()
-		for(var/datum/job/job in dept.department_jobs)
-			titles += job.title
-		return titles
 
 	if(!islist(id_or_list))
 		id_or_list = list(id_or_list)
@@ -107,9 +102,17 @@ SUBSYSTEM_DEF(department)
 		if(!length(dept.department_jobs))
 			continue
 		for(var/datum/job/job in dept.department_jobs)
-			jobs_to_return |= job.title
+			jobs_to_return |= job
 
 	return jobs_to_return
+
+/// Same as get_jobs_by_dept_id(), but returns job title strings instead of job datums
+/datum/controller/subsystem/department/proc/get_job_titles_by_dept_id(id_or_list)
+	RETURN_TYPE(/list)
+	var/list/titles = list()
+	for(var/datum/job/job as anything in get_jobs_by_dept_id(id_or_list))
+		titles += job.title
+	return titles
 
 /// Returns a nation name for this department.
 /datum/department_group/proc/generate_nation_name()
