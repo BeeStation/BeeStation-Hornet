@@ -320,13 +320,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		else
 			S = "--------"
 		dat += "<a href='byond://?src=[REF(src)];choice=inserted_scan_id'>[S]</a><br>"
-		dat += "<td>target department: "
+		dat += "<div class='idc-center'>target department: "
 		if(length(paycheck_departments))
 			for(var/P in available_paycheck_departments)
 				if(SSeconomy.is_nonstation_account(P))
 					continue
 				dat += "<a href='byond://?src=[REF(src)];choice=set_paycheck_department;paytype=[P]'>[P == target_paycheck ? span_good("[P]") : "[P]"]</a> "
-		dat += "</td>"
+		dat += "</div>"
 		dat += "<div class='idc-section'><h4>Paycheck Management</h4><div class='idc-section-body'>"
 		dat += "<table class='idc-deptgrid'>"
 		dat += "<colgroup><col class='idc-w30'><col class='idc-w20'><col class='idc-w20'><col class='idc-w15'><col class='idc-w15'></colgroup>"
@@ -482,8 +482,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					banking += "<td><a href='byond://?src=[REF(src)];choice=adjust_pay;paycheck_t=[each]'>[B.payment_per_department[each]] cr</a></td>"
 				banking += "</tr>"
 			else
-				banking += "<td><b>Banking information:</b></td>"
-				banking += "<td colspan=\"8\">[span_bad("<b>Error: No linked bank account detected</b>")]</td>"
+				banking += "<tr><td><b>Banking information:</b></td>"
+				banking += "<td colspan=\"8\">[span_bad("<b>Error: No linked bank account detected</b>")]</td></tr>"
 			banking += "</table>"
 			banking += "</div></div>"
 
