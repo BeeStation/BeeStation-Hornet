@@ -26,5 +26,5 @@
 
 /datum/looping_sound/charge_cannon
 	mid_sounds = list('sound/weapons/hold_charge.ogg' = 1)
-	mid_length = 2.8
+	mid_length = 3
 	volume = 100

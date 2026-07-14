@@ -650,12 +650,13 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	name = "Generic Charged Gun Upgrade"
 	overrides_click = TRUE
 	var/firing_time = 1 SECONDS
-	var/datum/looping_sound/charge_cannon/charging_sound
+	var/datum/looping_sound/charging_sound
+	var/charging_loop
 	COOLDOWN_DECLARE(fire_time)
 
 /datum/status_effect/ipc_upgrade/gun/charged/on_apply()
 	. = ..()
-	charging_sound = new(owner)
+	charging_sound = new charging_loop(owner)
 
 /datum/status_effect/ipc_upgrade/gun/charged/on_activate(atom/target)
 	//TODO: look into more robust methods than this
@@ -697,5 +698,6 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	firing_time = 3 SECONDS
 	upgrade_overlays = list("ex_cannon" = FRONT_MUTATIONS_LAYER, "ex_cannon_b" = BODY_BEHIND_LAYER)
 	item_type = /obj/item/ipc_upgrade/ex_cannon
+	charging_loop = /datum/looping_sound/charge_cannon
 
 #undef LOW_POWER_THRESHOLD
