@@ -10,6 +10,7 @@
 //TODO: look into deactivate() returning proper values, as it passes them into action on_deactivate()
 //TODO: action sprite for ex-cannon
 //TODO: audit status effects after a transformation or species change.
+//TODO: look into reducing type checks to the beginning. Cause the upgrade to remove itself if it SOMEHOW gets applied to a noncarbon (nonhuman?)
 
 //not so sure about making a global proc for this TODO: fix this warning
 proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/status_effect/ipc_upgrade
