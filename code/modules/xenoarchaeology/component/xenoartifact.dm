@@ -355,7 +355,7 @@
 		atom_parent.add_filter("texture_overlay", 1, layering_filter(icon = I, blend_mode = BLEND_INSET_OVERLAY))
 		//Throw on some outlines
 		atom_parent.add_filter("outline_fix", 2, outline_filter(0)) //This fixes a weird byond thing. BLEND_INSET_OVERLAY will encrouch on outline 1 if we dont do this
-		atom_parent.add_filter("outline_1", 3, outline_filter(1, "#000", flags = OUTLINE_SHARP))
+		atom_parent.add_filter("outline_1", 3, outline_filter(1, COLOR_BLACK, flags = OUTLINE_SHARP))
 		atom_parent.add_filter("outline_2", 4, outline_filter(1, artifact_material.material_color, flags = OUTLINE_SHARP))
 
 ///Create a hint beam from the artifact to the target

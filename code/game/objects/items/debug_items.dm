@@ -33,6 +33,7 @@
 	toolspeed = 0.1
 	tool_behaviour = TOOL_SCREWDRIVER
 	var/static/obj/item/stack/cable_coil/cable_coil
+	var/static/obj/item/weldingtool/abductor/welder
 	var/static/obj/item/cultivator/cultivator
 	var/static/obj/item/shovel/spade/spade
 	var/static/list/abstract_tools
@@ -44,7 +45,7 @@
 			TOOL_CROWBAR,
 			TOOL_WIRECUTTER,
 			TOOL_MULTITOOL,
-			TOOL_WELDER,
+			TOOL_WELDER, // NOTE: Due to how welder works, the tool behaviour is manually managed
 			TOOL_ANALYZER,
 			"wires"
 		),
@@ -77,10 +78,13 @@
 	if(!abstract_tools)
 		abstract_tools = list()
 
+		// TOOL_WELDER behaviour is not working correctly, and we need to put a welder manually
+		welder = new
+		welder.set_welding(TRUE) // this is why
+		abstract_tools += welder
+
 		cable_coil = new
 		abstract_tools += cable_coil
-		cable_coil.max_amount = INFINITY
-		cable_coil.amount = INFINITY
 
 		cultivator = new
 		abstract_tools += cultivator
@@ -100,8 +104,13 @@
 
 /obj/item/debug/omnitool/pre_attack(atom/A, mob/living/user, params)
 	switch(tool_behaviour)
+		if(TOOL_WELDER) // TOOL_WELDER behaviour is not working correctly, and we need to put a welder manually
+			welder.reagents.add_reagent(/datum/reagent/fuel, 100) // This is why - some stuff costs fuels
+			welder.melee_attack_chain(user, A, params)
 		if("wires")
+			cable_coil.amount = 500 // recharges wires before & after using it
 			cable_coil.melee_attack_chain(user, A, params)
+			cable_coil.amount = 500
 			return
 		if("cultivator")
 			cultivator.melee_attack_chain(user, A, params)

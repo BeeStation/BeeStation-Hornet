@@ -17,6 +17,7 @@
 	burn_modifier = 1.5
 	brute_modifier = 1.5
 	stamina_modifier = 0
+	head_flags = NONE
 
 /obj/item/bodypart/chest/ipc
 	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'

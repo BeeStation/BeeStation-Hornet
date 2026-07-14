@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	return control_computer_weakref != null
 
-/obj/machinery/cryopod/close_machine(mob/user)
+/obj/machinery/cryopod/close_machine(mob/user, density_to_set = TRUE)
 	if(!control_computer_weakref)
 		find_control_computer(TRUE)
 	if((isnull(user) || istype(user)) && state_open && !panel_open)
@@ -227,7 +227,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			despawn_world_time = world.time + time_till_despawn
 	icon_state = "cryopod"
 
-/obj/machinery/cryopod/open_machine()
+/obj/machinery/cryopod/open_machine(drop = TRUE, density_to_set = FALSE)
 	..()
 	ghost_offering = FALSE
 	icon_state = "cryopod-open"

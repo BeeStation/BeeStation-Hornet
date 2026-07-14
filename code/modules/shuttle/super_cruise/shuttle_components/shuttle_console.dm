@@ -36,7 +36,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 
-/obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
+/obj/machinery/computer/shuttle_flight/Initialize(mapload)
 	. = ..()
 	valid_docks = params2list(possible_destinations)
 	if(shuttleId)
@@ -49,7 +49,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 	. = ..()
 	if(LAZYLEN(open_uis))
 		SSorbits.open_orbital_maps -= open_uis
-	shuttleObject = null
+	set_linked_shuttle(null)
 	//De-link the port
 	if(my_port)
 		my_port.delete_after = TRUE
@@ -70,8 +70,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 	. = ..()
 
 	//Check to see if the shuttleObject was launched by another console.
-	if(QDELETED(shuttleObject) && SSorbits.assoc_shuttles.Find(shuttleId))
-		shuttleObject = SSorbits.assoc_shuttles[shuttleId]
+	if(isnull(shuttleObject))
+		var/datum/orbital_object/new_shuttle = SSorbits.assoc_shuttles[shuttleId]
+		if(new_shuttle)
+			set_linked_shuttle(new_shuttle)
 
 	if(recall_docking_port_id && shuttleObject?.docking_target && shuttleObject.shuttleTarget == shuttleObject.docking_target && shuttleObject.controlling_computer == src)
 		//We are at destination, dock.
@@ -84,9 +86,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 				to_chat(usr, span_warning("Invalid shuttle requested."))
 			else
 				to_chat(usr, span_notice("Unable to comply."))
-
-/obj/machinery/computer/shuttle_flight/ui_state(mob/user)
-	return GLOB.default_state
 
 /obj/machinery/computer/shuttle_flight/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
@@ -102,7 +101,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 		ui = new(user, src, "OrbitalMap")
 		ui.open()
 	SSorbits.open_orbital_maps |= ui
-	ui.set_autoupdate(FALSE)
 
 /obj/machinery/computer/shuttle_flight/ui_close(mob/user, datum/tgui/tgui)
 	. = ..()
@@ -203,9 +201,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 						))
 	return data
 
-/obj/machinery/computer/shuttle_flight/ui_act(action, params)
+/obj/machinery/computer/shuttle_flight/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
-
 	if(.)
 		return
 
@@ -246,7 +243,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 									return
 							if(shuttleObject.shuttleTarget == z_linked && shuttleObject.controlling_computer == src)
 								return
-							shuttleObject = SSorbits.assoc_shuttles[shuttleId]
+							set_linked_shuttle(SSorbits.assoc_shuttles[shuttleId])
 							shuttleObject.shuttleTarget = z_linked
 							shuttleObject.autopilot = TRUE
 							shuttleObject.controlling_computer = src
@@ -451,9 +448,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 		return
 	if(SSorbits.assoc_shuttles.Find(shuttleId))
 		say("Shuttle is controlled from another location, updating telemetry.")
-		shuttleObject = SSorbits.assoc_shuttles[shuttleId]
+		set_linked_shuttle(SSorbits.assoc_shuttles[shuttleId])
 		return shuttleObject
-	shuttleObject = mobile_port.enter_supercruise()
+	set_linked_shuttle(mobile_port.enter_supercruise())
 	if(!shuttleObject)
 		say("Failed to enter supercruise due to an unknown error.")
 		return
@@ -546,3 +543,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 	if(istype(circuit_board) && circuit_board.hacked)
 		return TRUE
 	return ..()
+
+/obj/machinery/computer/shuttle_flight/proc/set_linked_shuttle(datum/orbital_object/shuttle/new_shuttle)
+	if(!isnull(shuttleObject))
+		UnregisterSignal(shuttleObject, COMSIG_QDELETING)
+	shuttleObject = new_shuttle
+	if(!isnull(shuttleObject))
+		RegisterSignal(shuttleObject, COMSIG_QDELETING, PROC_REF(on_shuttle_deleted))
+
+/obj/machinery/computer/shuttle_flight/proc/on_shuttle_deleted(datum/source)
+	SIGNAL_HANDLER
+	UnregisterSignal(shuttleObject, COMSIG_QDELETING)
+	shuttleObject = null

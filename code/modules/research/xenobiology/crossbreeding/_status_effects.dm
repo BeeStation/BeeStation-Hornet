@@ -825,7 +825,7 @@
 		var/mob/living/carbon/human/H = owner
 		originalDNA = new H.dna.type
 		originalname = H.real_name
-		H.dna.copy_dna(originalDNA)
+		H.dna.copy_dna_to(originalDNA)
 		randomize_human(H, TRUE)
 	return ..()
 

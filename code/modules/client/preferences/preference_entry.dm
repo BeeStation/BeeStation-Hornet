@@ -76,6 +76,10 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// Disables database writes. This can be useful for a testmerged preference
 	var/disable_serialization = FALSE
 
+	/// If the selected species has this head_flag by default,
+	/// will show the feature as selectable.
+	var/relevant_head_flag = null
+
 /// Called on the saved input when retrieving.
 /// Also called by the value sent from the user through UI. Do not trust it.
 /// Input is the value inside the database, output is to tell other code

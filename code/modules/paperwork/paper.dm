@@ -304,7 +304,7 @@
 	set category = "Object"
 	set src in usr
 
-	if(!usr.can_read(src) || INCAPACITATED_IGNORING(usr, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB) || (isobserver(usr) && !IsAdminGhost(usr)))
+	if(!usr.can_read(src) || usr.is_blind() || INCAPACITATED_IGNORING(usr, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB) || (isobserver(usr) && !IsAdminGhost(usr)))
 		return
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
@@ -330,13 +330,18 @@
 	if(!in_range(user, src) && !isobserver(user))
 		. += span_warning("You're too far away to read it!")
 		return
+
+	if(user.is_blind())
+		to_chat(user, span_warning("You are blind and can't read anything!"))
+		return
+
 	if(user.can_read(src))
 		ui_interact(user)
 		return
 	. += span_warning("You cannot read it!")
 
 /obj/item/paper/ui_status(mob/user, /datum/ui_state/state)
-		// Are we on fire?  Hard ot read if so
+	// Are we on fire?  Hard to read if so
 	if(resistance_flags & ON_FIRE)
 		return UI_CLOSE
 	if(camera_holder && can_show_to_mob_through_camera(user) || request_state)
@@ -347,6 +352,9 @@
 		return UI_UPDATE
 	// Even harder to read if your blind...braile? humm
 	// .. or if you cannot read
+	if(user.is_blind())
+		to_chat(user, span_warning("You are blind and can't read anything!"))
+		return UI_CLOSE
 	if(!user.can_read(src))
 		return UI_CLOSE
 	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/item/clipboard) || in_contents_of(/obj/item/sticker/sticky_note) || in_contents_of(/obj/item/folder))
@@ -413,7 +421,7 @@
 	// Handle stamping items.
 	if(writing_stats["interaction_mode"] == MODE_STAMPING)
 		to_chat(user, span_notice("You ready your stamp over the paper! "))
-		if(!user.can_read(src))
+		if(!user.can_read(src) || user.is_blind())
 			//The paper's stampable window area is assumed approx 300x400
 			add_stamp(writing_stats["stamp_class"], rand(0, 300), rand(0, 400), rand(0, 360), writing_stats["stamp_icon_state"], stamp_icon = writing_stats["stamp_icon"])
 			user.visible_message(span_notice("[user] blindly stamps [src] with \the [attacking_item]!"))

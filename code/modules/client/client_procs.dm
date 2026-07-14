@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(href_list["seeker_port"])
 		winshow(src, "login", FALSE) // make sure this thing is hidden
 		var/port_num = text2num(href_list["seeker_port"])
-		if(isnum_safe(port_num))
+		if(IS_FINITE(port_num))
 			seeker_port = port_num
 		if(!logged_in) // the login handler is ready now
 			src?.send_saved_session_token()

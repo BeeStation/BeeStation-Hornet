@@ -4,13 +4,11 @@
 	id = SPECIES_IPC
 	sexes = FALSE
 	species_traits = list(
-		NOEYESPRITES,
 		NOZOMBIE,
-		MUTCOLORS,
+		MUTANT_COLOR,
 		REVIVESBYHEALING,
 		NOHUSK,
-		NOMOUTH,
-		MUTCOLORS
+		NOMOUTH
 	)
 	inherent_traits = list(
 		TRAIT_BLOOD_COOLANT,

@@ -233,7 +233,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 	var/num_level = text2num(level)
 	if(!num_level)
 		return
-	if(!isnum_safe(num_level))
+	if(!IS_FINITE(num_level))
 		return
 
 	var/type_text = capped_input(src, "Which type path?","Path?")

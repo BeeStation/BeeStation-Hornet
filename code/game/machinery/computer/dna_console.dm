@@ -46,7 +46,7 @@
 	do { \
 		var/_L = FLOOR(##new_length, 5 SECONDS); \
 		var/_CT = src.to_index##_timeout; \
-		if(!isnum_safe(_CT) || _CT <= 0) { \
+		if(!IS_FINITE(_CT) || _CT <= 0) { \
 			src.cd_index##_cooldown = 0; \
 			src.to_index##_timeout = _L; \
 			break; \
@@ -55,7 +55,7 @@
 		} \
 		src.to_index##_timeout = _L; \
 		var/_CD = src.cd_index##_cooldown; \
-		if(!isnum_safe(_CD) || world.time >= _CD) { \
+		if(!IS_FINITE(_CD) || world.time >= _CD) { \
 			break; \
 		} \
 		src.cd_index##_cooldown = FLOOR(_L * FLOOR((_CD - world.time) / _CT, 0.05), 1 SECONDS); \
