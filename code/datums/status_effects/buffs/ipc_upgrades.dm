@@ -48,6 +48,8 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	var/overlay_file = 'icons/obj/ipc_upgrade_worn.dmi'
 	///A nullable list containing the overlays to add
 	var/upgrade_overlays = null
+	///What item this will create when it is removed
+	var/item_type = null
 
 	var/list/mutable_appearance/mut_appearances = list()
 
@@ -225,9 +227,10 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	id = "ipc repair nexus"
 	name = "Repair Nexus"
 	active_power_requirement = 15
-	var/healing_power = 0.5
+	item_type = /obj/item/ipc_upgrade/repair_nexus
 	action_icon = "repair_nexus"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
+	var/healing_power = 0.5
 
 /datum/status_effect/ipc_upgrade/repair_nexus/tick(seconds_between_ticks)
 	if(!..(seconds_between_ticks))
@@ -245,6 +248,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 /datum/status_effect/ipc_upgrade/emp_shield
 	id = "ipc emp shield"
 	name = "Disposable EMP Shielding"
+	item_type = /obj/item/ipc_upgrade/emp_shield
 	var/remaining_pulses = 5 // you get 5 emps before this stops working
 
 /datum/status_effect/ipc_upgrade/emp_shield/on_apply()
@@ -283,6 +287,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	id = "ipc supply pack"
 	name = "Supply Pack"
 	slot = UPGRADE_UTILITY
+	item_type = /obj/item/ipc_upgrade/supply_pack
 	var/obj/item/storage/supply_pack/pack
 
 /datum/status_effect/ipc_upgrade/supply_pack/on_apply()
@@ -309,6 +314,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	action_type = /datum/action/innate/ipc_upgrade_action/untargeted
 	power_requirement = 150
 	singleton = TRUE
+	item_type = /obj/item/ipc_upgrade/part_fab
 	var/list/part_types = list(/obj/item/stock_parts/manipulator, /obj/item/stock_parts/micro_laser, /obj/item/stock_parts/matter_bin, /obj/item/stock_parts/capacitor, /obj/item/stock_parts/scanning_module)
 
 /datum/status_effect/ipc_upgrade/part_fab/on_activate(atom/target)
@@ -406,6 +412,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	slot = UPGRADE_UTILITY
 	action_icon = "blood_drive"
 	to_deploy_typepath = /obj/item/blood_drive
+	item_type = /obj/item/ipc_upgrade/blood_drive
 
 /datum/status_effect/ipc_upgrade/deployable/medbeam
 	id = "ipc deployable medbeam"
@@ -414,6 +421,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	slot = UPGRADE_UTILITY
 	action_icon = "medbeam"
 	to_deploy_typepath = /obj/item/gun/medbeam/weak
+	item_type = /obj/item/ipc_upgrade/medbeam
 
 /datum/status_effect/ipc_upgrade/deployable/medbeam/should_process()
 	var/obj/item/gun/medbeam/weak/medgun = to_deploy
@@ -429,6 +437,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	active_power_requirement = 25
 	action_icon = "overclocked_servos"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
+	item_type = /obj/item/ipc_upgrade/overclocked_servos
 
 /datum/status_effect/ipc_upgrade/overclocked_servos/on_activate(atom/target)
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/overclocked_servos)
@@ -443,6 +452,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	active_power_requirement = 15
 	action_icon = "tool_speedifier"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
+	item_type = /obj/item/ipc_upgrade/tool_speedifier
 
 /datum/status_effect/ipc_upgrade/tool_speedifier/on_activate(atom/target)
 	owner.tool_proficiency *= 0.5
@@ -457,6 +467,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	cooldown_length = 5 SECONDS
 	singleton = TRUE
 	action_type = /datum/action/innate/ipc_upgrade_action/targeted
+	item_type = /obj/item/ipc_upgrade/leap_legs
 
 //TODO: make you go horizontal when leaping. Also, add a hardstun maybe?
 /datum/status_effect/ipc_upgrade/leap_legs/on_activate(atom/target)
@@ -474,6 +485,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	var/power_generation = 5
 	action_icon = "generator"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
+	item_type = /obj/item/ipc_upgrade/ipc_generator
 
 /datum/status_effect/ipc_upgrade/ipc_generator/tick(seconds_between_ticks)
 	if(!should_process())
@@ -496,6 +508,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	name = "Plasmatic Generator"
 	power_generation = 10
 	action_icon = "generator"
+	item_type = /obj/item/ipc_upgrade/fuel_generator
 	var/fuel_consumption = 50
 	var/datum/component/material_container/materials
 
@@ -530,12 +543,14 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	name = "Vacuum Shielding"
 	slot = UPGRADE_EXTERNAL
 	trait = TRAIT_RESISTLOWPRESSURE
+	item_type = /obj/item/ipc_upgrade/vacuum_shielding
 
 /datum/status_effect/ipc_upgrade/trait/rad_shielding
 	id = "ipc rad shield"
 	name = "Radiation Shielding"
 	slot = UPGRADE_EXTERNAL
 	trait = TRAIT_RADIMMUNE
+	item_type = /obj/item/ipc_upgrade/rad_shielding
 
 /datum/status_effect/ipc_upgrade/armor
 	id = "ipc armor"
@@ -562,6 +577,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	upgrade_overlays = list("armor" = UNIFORM_LAYER)
 	slot = UPGRADE_EXTERNAL
 	armor = /datum/armor/refractive_armor
+	item_type = /obj/item/ipc_upgrade/las_armor
 
 /datum/status_effect/ipc_upgrade/armor/ken_armor
 	id = "ipc ken armor"
@@ -569,6 +585,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	upgrade_overlays = list("armor" = UNIFORM_LAYER)
 	slot = UPGRADE_EXTERNAL
 	armor = /datum/armor/hardening_armor
+	item_type = /obj/item/ipc_upgrade/ken_armor
 
 /datum/status_effect/ipc_upgrade/cooling_system
 	id = "ipc cooling system"
@@ -576,6 +593,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
 	slot = UPGRADE_EXTERNAL
 	active_power_requirement = 25
+	item_type = /obj/item/ipc_upgrade/cooling_system
 
 /datum/status_effect/ipc_upgrade/cooling_system/tick(seconds_between_ticks)
 	. = ..(seconds_between_ticks)
@@ -678,5 +696,6 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	firing_length = 2 SECONDS
 	firing_time = 3 SECONDS
 	upgrade_overlays = list("ex_cannon" = FRONT_MUTATIONS_LAYER, "ex_cannon_b" = BODY_BEHIND_LAYER)
+	item_type = /obj/item/ipc_upgrade/ex_cannon
 
 #undef LOW_POWER_THRESHOLD

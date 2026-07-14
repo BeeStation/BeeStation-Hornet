@@ -13,6 +13,7 @@
 	if(get_ipc_upgrade_by_slot(owner.status_effects, slot))
 		return FALSE
 	owner.apply_status_effect(upgrade)
+	qdel(src)
 	return TRUE
 
 /obj/item/ipc_upgrade/repair_nexus
