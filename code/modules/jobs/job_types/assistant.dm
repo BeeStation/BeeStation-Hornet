@@ -16,6 +16,9 @@ Assistant
 
 	base_access = list()	//See /datum/job/assistant/get_access()
 
+	departments_list = list(
+		/datum/department_group/civilian,
+		)
 	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT) // Get a job. Job reassignment changes your paycheck now. Get over it.
 

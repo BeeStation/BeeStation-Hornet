@@ -13,7 +13,7 @@
 
 	base_access = list()
 	departments_list = list(
-		/datum/department_group/other,
+		/datum/department_group/civilian,
 		)
 
 	bank_account_department = ACCOUNT_CIV_BITFLAG
