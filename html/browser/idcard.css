@@ -1,5 +1,19 @@
 /* Styling for the identification console popup (window=id_com). See card.dm. */
 
+.idc-mono {
+	font-family: "Courier New", Courier, monospace;
+}
+
+.idc-center {
+	text-align: center;
+}
+
+.idc-w5 { width: 5%; }
+.idc-w15 { width: 15%; }
+.idc-w20 { width: 20%; }
+.idc-w25 { width: 25%; }
+.idc-w30 { width: 30%; }
+
 .idc-section {
 	margin: 10px 4px;
 	border: 1px solid #274a68;

@@ -217,7 +217,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/crew = ""
 		for(var/datum/record/crew/record in sort_record(GLOB.manifest.general))
 			crew += record.name + " - " + record.rank + "<br>"
-		dat = "<tt><div class='idc-section'><h4>Crew Manifest</h4><div class='idc-section-body'>Please use security record computer to modify entries.<br><br>[crew]<a href='byond://?src=[REF(src)];choice=print'>Print</a><br><br><a href='byond://?src=[REF(src)];choice=mode;mode_target=0'>Return</a></div></div></tt>"
+		dat = "<div class='idc-mono'><div class='idc-section'><h4>Crew Manifest</h4><div class='idc-section-body'>Please use security record computer to modify entries.<br><br>[crew]<a href='byond://?src=[REF(src)];choice=print'>Print</a><br><br><a href='byond://?src=[REF(src)];choice=mode;mode_target=0'>Return</a></div></div></div>"
 
 	else if(mode == 2)
 		// JOB MANAGEMENT
@@ -231,7 +231,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		dat += "<a href='byond://?src=[REF(src)];choice=inserted_scan_id'>[S]</a>"
 		dat += "<div class='idc-section'><h4>Job Management</h4><div class='idc-section-body'>"
 		dat += "<table class='idc-deptgrid'>"
-		dat += "<tr><td style='width:25%'><b>Job</b></td><td style='width:5%'><b>Slots</b></td><td style='width:20%'><b>Open job</b></td><td style='width:20%'><b>Close job</b></td><td style='width:20%'><b>Prioritize</b></td></tr>"
+		dat += "<colgroup><col class='idc-w25'><col class='idc-w5'><col class='idc-w20'><col class='idc-w20'><col class='idc-w20'></colgroup>"
+		dat += "<tr><td><b>Job</b></td><td><b>Slots</b></td><td><b>Open job</b></td><td><b>Close job</b></td><td><b>Prioritize</b></td></tr>"
 		var/ID
 		if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && !department_bitflag)
 			ID = 1
@@ -328,7 +329,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		dat += "</td>"
 		dat += "<div class='idc-section'><h4>Paycheck Management</h4><div class='idc-section-body'>"
 		dat += "<table class='idc-deptgrid'>"
-		dat += "<tr><td style='width:30%'><b>Name</b></td><td style='width:20%'><b>Job</b></td><td style='width:20%'><b>Department</b></td><td style='width:15%'><b>Paycheck</b></td><td style='width:15%'><b>Pay Bonus</b></td></tr>"
+		dat += "<colgroup><col class='idc-w30'><col class='idc-w20'><col class='idc-w20'><col class='idc-w15'><col class='idc-w15'></colgroup>"
+		dat += "<tr><td><b>Name</b></td><td><b>Job</b></td><td><b>Department</b></td><td><b>Paycheck</b></td><td><b>Pay Bonus</b></td></tr>"
 
 		if(length(paycheck_departments))
 			for(var/datum/bank_account/B in flatten_list(SSeconomy.bank_accounts_by_id))
@@ -369,7 +371,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			header += "Target: <a href='byond://?src=[REF(src)];choice=inserted_modify_id'>[target_name]</a><br>"
 			header += "Confirm Identity: <a href='byond://?src=[REF(src)];choice=inserted_scan_id'>[scan_name]</a><br>"
 		else
-			header += "<div align='center'>"
+			header += "<div class='idc-center'>"
 			header += "<a href='byond://?src=[REF(src)];choice=inserted_modify_id'>Remove [target_name]</a> || "
 			header += "<a href='byond://?src=[REF(src)];choice=inserted_scan_id'>Remove [scan_name]</a> <br> "
 			header += "<a href='byond://?src=[REF(src)];choice=mode;mode_target=1'>Access Crew Manifest</a> <br> "
@@ -485,31 +487,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			banking += "</table>"
 			banking += "</div></div>"
 
-			var/accesses = ""
-			accesses += "<div class='idc-section'><h4>Access</h4><div class='idc-section-body'>"
-			accesses += "<table class='idc-deptgrid'>"
-			accesses += "<tr>"
-			for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-				if(authenticated == 1 && !(each_dept.department_bitflags & accessible_region_bitflag))
-					continue
-				if(!length(each_dept.access_list) || (!is_centcom && each_dept.access_filter))
-					continue
-				accesses += "<td class='idc-depthead' style='color:[each_dept.dept_colour];border-bottom-color:[each_dept.dept_colour]'>[each_dept.access_group_name]</td>"
-			accesses += "</tr><tr>"
-			for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-				if(authenticated == 1 && !(each_dept.department_bitflags & accessible_region_bitflag))
-					continue
-				if(!length(each_dept.access_list) || (!is_centcom && each_dept.access_filter))
-					continue
-				accesses += "<td class='idc-deptcol'>"
-				for(var/each_access in each_dept.access_list)
-					if(each_access in inserted_modify_id.access)
-						accesses += "<a class='idc-access-item granted' href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=0'>[get_access_desc(each_access)]</a>"
-					else
-						accesses += "<a class='idc-access-item' style='border-left-color:[each_dept.dept_colour]' href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=1'>[get_access_desc(each_access)]</a>"
-				accesses += "</td>"
-			accesses += "</tr></table>"
-			accesses += "</div></div>"
+			// Refresh these with byjax to prevent arbitrary page refreshes
+			var/accesses = "<div id='idc_accesses'>[get_accesses_html()]</div>"
 			body = "<div class='idc-section'><h4>Identity & Assignment</h4><div class='idc-section-body'>[carddesc]<br>[jobs]</div></div>[banking][accesses]" //CHECK THIS
 
 		else
@@ -523,11 +502,44 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				body += "<a href='byond://?src=[REF(src)];choice=open_new_account'>Open a new bank account</a>"
 			body += "</div></div>"
 
-		dat = "<tt>[header][body]<hr><br></tt>"
-	var/datum/browser/popup = new(user, "id_com", src.name, 1000, 700)
+		dat = "<div class='idc-mono'>[header][body]<hr><br></div>"
+	var/datum/browser/popup = new(user, "id_com", src.name, 1050, 700)
+	// replaceContent() lets Topic push in-place access-grid updates (see "access").
+	popup.add_head_content({"<script type="text/javascript">[js_byjax]</script>"})
 	popup.add_stylesheet("idcard", 'html/browser/idcard.css')
 	popup.set_content(dat)
 	popup.open()
+
+/// Builds the access grid for the modify ID, it is split out for byjax access
+/obj/machinery/computer/card/proc/get_accesses_html()
+	if(!(authenticated && inserted_modify_id))
+		return ""
+	var/accesses = ""
+	accesses += "<div class='idc-section'><h4>Access</h4><div class='idc-section-body'>"
+	accesses += "<table class='idc-deptgrid'>"
+	accesses += "<tr>"
+	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
+		if(authenticated == 1 && !(each_dept.department_bitflags & accessible_region_bitflag))
+			continue
+		if(!length(each_dept.access_list) || (!is_centcom && each_dept.access_filter))
+			continue
+		accesses += "<td class='idc-depthead' style='color:[each_dept.dept_colour];border-bottom-color:[each_dept.dept_colour]'>[each_dept.access_group_name]</td>"
+	accesses += "</tr><tr>"
+	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
+		if(authenticated == 1 && !(each_dept.department_bitflags & accessible_region_bitflag))
+			continue
+		if(!length(each_dept.access_list) || (!is_centcom && each_dept.access_filter))
+			continue
+		accesses += "<td class='idc-deptcol'>"
+		for(var/each_access in each_dept.access_list)
+			if(each_access in inserted_modify_id.access)
+				accesses += "<a class='idc-access-item granted' href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=0'>[get_access_desc(each_access)]</a>"
+			else
+				accesses += "<a class='idc-access-item' style='border-left-color:[each_dept.dept_colour]' href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=1'>[get_access_desc(each_access)]</a>"
+		accesses += "</td>"
+	accesses += "</tr></table>"
+	accesses += "</div></div>"
+	return accesses
 
 /obj/machinery/computer/card/Topic(href, href_list)
 	if(..())
@@ -619,6 +631,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						inserted_modify_id.access -= access_type
 						log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 					playsound(src, "terminal_type", 50, FALSE)
+					inserted_modify_id.update_label()
+					// Refresh only the access grid, keeping the usr scroll position.
+					send_byjax(usr, "id_com.browser", "idc_accesses", get_accesses_html())
+					return
 		if ("assign")
 			if (authenticated == 2)
 				var/datum/bank_account/B = inserted_modify_id?.registered_account
