@@ -6887,6 +6887,9 @@
 	id = "kitchencounter";
 	name = "Kitchen Shutters"
 	},
+/obj/structure/desk_bell/wired/service{
+	pixel_x = 6
+	},
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen)
 "cOm" = (

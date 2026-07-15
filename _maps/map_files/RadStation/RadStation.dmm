@@ -16605,10 +16605,10 @@
 /area/station/service/hydroponics)
 "gry" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/carpet/blue,
 /area/station/service/cafeteria)
 "grz" = (
@@ -16891,10 +16891,10 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/storage/tech)
 "gyl" = (
-/obj/structure/chair/stool/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
+/obj/structure/chair/stool/directional/east,
 /turf/open/floor/carpet/blue,
 /area/station/service/cafeteria)
 "gyC" = (
