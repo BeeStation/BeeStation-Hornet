@@ -651,6 +651,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/fourcorners,
+/obj/structure/chair/fancy{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/security/execution/education)
 "alm" = (
@@ -36276,6 +36279,11 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
+/obj/item/barcode{
+	pixel_x = 2;
+	pixel_y = 32;
+	desc = "You are sure that any silicon member of staff would be terribly offended by the contents of this message!"
+	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
 "ngf" = (
@@ -43471,6 +43479,9 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
+/obj/item/food/rock_candy{
+	desc = "Candly only suitable for rock consumption."
+	},
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "qiO" = (
@@ -48312,6 +48323,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/station/commons/fitness/recreation/entertainment)
+"saN" = (
+/obj/item/oar{
+	desc = "Only to be used incase of emergency!"
+	},
+/turf/open/floor/plating/airless,
+/area/misc/space)
 "saU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -51654,6 +51671,19 @@
 /obj/effect/decal/fakestairs/newstairs/right,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
+"tmB" = (
+/obj/structure/rack,
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs,
+/obj/effect/turf_decal/tile/black/fourcorners,
+/obj/effect/turf_decal/tile/red/half{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/obj/item/hourglass,
+/turf/open/floor/iron/dark/smooth_large,
+/area/station/security/prison)
 "tns" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/internals,
@@ -53375,6 +53405,10 @@
 	},
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/gloves/maid,
+/obj/item/clothing/under/rank/civilian/janitor/maid,
+/obj/item/clothing/accessory/maidapron,
+/obj/item/clothing/neck/maid,
 /turf/open/floor/iron,
 /area/station/service/janitor)
 "tXM" = (
@@ -89778,7 +89812,7 @@ jCt
 wYw
 sBJ
 qmd
-clv
+tmB
 wYw
 pZe
 kqe
@@ -98128,7 +98162,7 @@ mHr
 mFd
 nnx
 eDW
-hSG
+saN
 eWg
 hSG
 hSG
