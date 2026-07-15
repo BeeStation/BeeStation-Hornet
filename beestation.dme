@@ -4634,6 +4634,7 @@
 #include "code\modules\surgery\limb_augmentation.dm"
 #include "code\modules\surgery\lipoplasty.dm"
 #include "code\modules\surgery\lobectomy.dm"
+#include "code\modules\surgery\manipulate_upgrades.dm"
 #include "code\modules\surgery\mechanic_steps.dm"
 #include "code\modules\surgery\organ_manipulation.dm"
 #include "code\modules\surgery\organic_steps.dm"

@@ -152,6 +152,11 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	battery.adjust_charge(-amount)
 	return TRUE
 
+/datum/status_effect/ipc_upgrade/proc/extract()
+	if(item_type)
+		new item_type(get_turf(owner))
+	owner.remove_status_effect(src.type)
+
 /datum/status_effect/ipc_upgrade/proc/emp_act(severity, protection)
 	SIGNAL_HANDLER
 	return
@@ -344,8 +349,8 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	ADD_TRAIT(to_deploy, TRAIT_NODROP, UPGRADE_TRAIT)
 
 /datum/status_effect/ipc_upgrade/deployable/on_remove()
-	QDEL_NULL(to_deploy)
 	. = ..()
+	QDEL_NULL(to_deploy)
 
 /datum/status_effect/ipc_upgrade/deployable/activate(atom/target)
 	if(!owner.dropItemToGround(owner.get_active_held_item(), FALSE))
