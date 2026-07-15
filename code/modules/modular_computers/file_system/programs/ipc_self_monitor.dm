@@ -37,12 +37,12 @@
 		charge = battery.charge
 		max_charge = battery.max_charge
 
-	data["name"] = tablet.tablet_owner.name
+	data["name"] = tablet.tablet_owner.real_name
 	data["charge"] = charge
 	data["max_charge"] = max_charge
-	data["upgrade_core"] = get_ipc_upgrade_by_slot(tablet.tablet_owner, UPGRADE_CORE)?.ui_data()
-	data["upgrade_external"] = get_ipc_upgrade_by_slot(tablet.tablet_owner, UPGRADE_EXTERNAL)?.ui_data()
-	data["upgrade_utility"] = get_ipc_upgrade_by_slot(tablet.tablet_owner, UPGRADE_UTILITY)?.ui_data()
+	data["upgrade_core"] = get_ipc_upgrade_by_slot(tablet.tablet_owner.status_effects, UPGRADE_CORE)?.ui_data()
+	data["upgrade_external"] = get_ipc_upgrade_by_slot(tablet.tablet_owner.status_effects, UPGRADE_EXTERNAL)?.ui_data()
+	data["upgrade_utility"] = get_ipc_upgrade_by_slot(tablet.tablet_owner.status_effects, UPGRADE_UTILITY)?.ui_data()
 	//data["control_circuit"] = tablet.tablet_owner.get_organ_slot() ? TRUE : FALSE
 
 	return data

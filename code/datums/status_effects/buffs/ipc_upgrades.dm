@@ -1,15 +1,15 @@
 #define LOW_POWER_THRESHOLD 250
 
 //TODO: add emp_act
-//TODO: System Underclocker: allows IPCs to stay standing with no power (for some sort of drawback)
+//TODO: System Underclocker: allows IPCs to stay standing with no power (for some sort of drawback) //combine this with generators
 //TODO: Upgrade circuit control??
 //TODO: Upgrade circuit actions
 //TODO: SPRITES!!
 //TODO: test action runtime (signal overriding)
 //TODO: improve charge cannon
-//TODO: look into deactivate() returning proper values, as it passes them into action on_deactivate()
 //TODO: action sprite for ex-cannon
 //TODO: audit status effects after a transformation or species change.
+//TODO: make you go horizontal when leaping. Also, add a hardstun maybe?
 //TODO: look into reducing type checks to the beginning. Cause the upgrade to remove itself if it SOMEHOW gets applied to a noncarbon (nonhuman?)
 
 //not so sure about making a global proc for this TODO: fix this warning
@@ -79,13 +79,11 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 
 /datum/status_effect/ipc_upgrade/tick(seconds_between_ticks)
 	if(!should_process())
-		return FALSE
+		return
 	if(drain_cell(active_power_requirement * seconds_between_ticks))
-		return TRUE
+		return
 	to_chat(owner, span_notice("The [name] runs out of power!"))
 	playsound(owner, 'sound/machines/apc/PowerDown_001.ogg', 10)
-	if(action)
-		action.deactivate(owner)
 	deactivate()
 
 /datum/status_effect/ipc_upgrade/proc/should_process()
@@ -120,6 +118,8 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 /datum/status_effect/ipc_upgrade/proc/deactivate()
 	if(!active)
 		return
+	if(action)
+		action.deactivate(owner) // kinda bad to call this twice (once when they click, once when the upgrade itself deactivates) but no good way to change action.active externally
 	active = FALSE
 	on_deactivate()
 
@@ -130,7 +130,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	if(!amount)
 		return TRUE
 	if(!battery)
-		if(!istype(owner, /mob/living/carbon))
+		if(!iscarbon(owner))
 			return FALSE
 		if(!istype(owner.get_organ_slot(ORGAN_SLOT_STOMACH), /obj/item/organ/stomach/battery))
 			return FALSE
@@ -159,8 +159,10 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 /datum/status_effect/ipc_upgrade/ui_data()
 	var/list/data = list()
 	data["name"] = name
+	data["active"] = active
 	data["power_req"] = power_requirement
 	data["active_power_req"] = active_power_requirement
+	data["passive"] = (active_power_requirement + power_requirement) <= 0 // dirty way to check if it is a passive upgrade, but better than adding a var just for ui_data
 	return data
 
 /datum/action/innate/ipc_upgrade_action
@@ -190,16 +192,12 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	toggleable = TRUE
 
 /datum/action/innate/ipc_upgrade_action/toggleable/on_activate(mob/user, atom/target)
-	. = ..()
-	if(!upgrade.active)
-		return upgrade.activate(target)
-	return FALSE
+	..()
+	return upgrade.activate(target)
 
 /datum/action/innate/ipc_upgrade_action/toggleable/on_deactivate(mob/user, atom/target)
-	. = ..()
-	if(upgrade.active)
-		return upgrade.deactivate()
-	return FALSE
+	..()
+	upgrade.deactivate()
 
 /datum/action/innate/ipc_upgrade_action/toggleable/update_button(atom/movable/screen/movable/action_button/button, status_only, force)
 	if(upgrade.action_icon)
@@ -233,14 +231,14 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	var/healing_power = 0.5
 
 /datum/status_effect/ipc_upgrade/repair_nexus/tick(seconds_between_ticks)
-	if(!..(seconds_between_ticks))
-		return FALSE
+	if(!..())
+		return
 	if(!iscarbon(owner))
-		return FALSE
+		return
 	var/mob/living/carbon/carbon_owner = owner
 	var/list/parts = carbon_owner.get_damaged_bodyparts(TRUE, TRUE, required_bodytype = BODYTYPE_ROBOTIC)
 	if(!parts.len)
-		return FALSE
+		return
 	for(var/obj/item/bodypart/limb in parts)
 		if(limb.heal_damage((healing_power / parts.len) * seconds_between_ticks, (healing_power / parts.len) * seconds_between_ticks, required_bodytype = BODYTYPE_ROBOTIC))
 			owner.update_damage_overlays()
@@ -467,9 +465,9 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	cooldown_length = 5 SECONDS
 	singleton = TRUE
 	action_type = /datum/action/innate/ipc_upgrade_action/targeted
+	action_icon = "leap_legs"
 	item_type = /obj/item/ipc_upgrade/leap_legs
 
-//TODO: make you go horizontal when leaping. Also, add a hardstun maybe?
 /datum/status_effect/ipc_upgrade/leap_legs/on_activate(atom/target)
 	if(!target)
 		return
@@ -499,6 +497,11 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 		return
 	var/obj/item/organ/stomach/battery/battery = owner.get_organ_slot(ORGAN_SLOT_STOMACH)
 	battery.adjust_charge(power_generation * seconds_between_ticks)
+
+/datum/status_effect/ipc_upgrade/ipc_generator/ui_data()
+	var/list/data = ..()
+	data["active_power_req"] = -power_generation
+	return data
 
 /datum/status_effect/ipc_upgrade/ipc_generator/proc/can_generate()
 	return TRUE
@@ -596,7 +599,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	item_type = /obj/item/ipc_upgrade/cooling_system
 
 /datum/status_effect/ipc_upgrade/cooling_system/tick(seconds_between_ticks)
-	. = ..(seconds_between_ticks)
+	. = ..()
 	if(!iscarbon(owner))
 		return
 	var/mob/living/carbon/carbon = owner
@@ -606,6 +609,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	id = "ipc gun"
 	name = "Generic Gun Upgrade"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
+	action_icon = "shoulder_gun"
 	slot = UPGRADE_UTILITY
 	var/projectile_type = /obj/projectile/beam/laser
 	var/projectile_sound = 'sound/weapons/laser.ogg'
@@ -669,6 +673,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	//TODO: possible bug, if you ghost while you have this status effect you will still have this signal attached.
 	UnregisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN)
 	UnregisterSignal(owner.client, COMSIG_CLIENT_MOUSEUP)
+	charging_sound.stop()
 
 /datum/status_effect/ipc_upgrade/gun/charged/proc/on_mouse_down(client/source, atom/target, location, control, params)
 	SIGNAL_HANDLER
