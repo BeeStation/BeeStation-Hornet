@@ -92,3 +92,8 @@
       etc.)
   - bugfix: Fixed chairs not being placed in the direction you're facing
   - bugfix: Fixed an infinite materials exploit with holodeck chairs
+2026-07-15:
+  SunShine214:
+  - bugfix: Prevented try_face from being called when it shouldn't be.
+  - bugfix: Fixed a missing cob pipe sprite and adjusted the smoke particle offsets
+      for the items.

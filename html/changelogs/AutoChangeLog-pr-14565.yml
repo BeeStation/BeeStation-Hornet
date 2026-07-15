@@ -1,6 +1,0 @@
-author: SunShine214
-delete-after: true
-changes:
-  - bugfix: Prevented try_face from being called when it shouldn't be.
-  - bugfix: Fixed a missing cob pipe sprite and adjusted the smoke particle offsets
-      for the items.
