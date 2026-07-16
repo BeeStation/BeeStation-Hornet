@@ -137,7 +137,7 @@
 		charge = clamp((charge + amount)*(1-(damage/maxHealth)), 0, max_charge)
 	else
 		charge = clamp(charge + amount, 0, max_charge)
-	SEND_SIGNAL(owner, COMSIG_ORGAN_BATTERY_CHARGED, src, amount)
+	SEND_SIGNAL(src, COMSIG_ORGAN_BATTERY_CHARGED, src, amount)
 	update_nutrition()
 
 /obj/item/organ/stomach/battery/proc/adjust_charge_scaled(amount)
@@ -156,9 +156,7 @@
 		return
 	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && HAS_TRAIT(owner, TRAIT_POWERHUNGRY))
 		owner.nutrition = (charge/max_charge)*NUTRITION_LEVEL_FULL
-		if(!HAS_TRAIT(TRAIT_DIES_NO_NUTRITION))
-			return
-		if(owner.nutrition <= 0) //TODO: think about your sins
+		if(owner.nutrition <= 0 && HAS_TRAIT(owner, TRAIT_DIES_NO_NUTRITION)) // think about your sins
 			owner.apply_status_effect(owner.mob_biotypes & MOB_ROBOTIC ? /datum/status_effect/imminent_death/robotic : /datum/status_effect/imminent_death)
 
 /obj/item/organ/stomach/battery/emp_act(severity)

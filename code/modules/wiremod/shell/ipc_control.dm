@@ -1,20 +1,29 @@
 /obj/item/organ/cyberimp/ipc_control
-	name = "IPC control module"
-	desc = "A industrial grade FPGA designed to integrate with IPCs."
+	name = "upgrade control module"
+	desc = "A industrial grade FPGA designed to integrate with installed upgrades."
 	icon = 'icons/obj/wiremod.dmi'
-	icon_state = "bci"
+	icon_state = "setup_implant"
 	visual = FALSE
 	zone = BODY_ZONE_CHEST
 	w_class = WEIGHT_CLASS_TINY
-
+	slot = ORGAN_SLOT_UPGRADE_CONTROL
 	light_range = 0
 
 /obj/item/organ/cyberimp/ipc_control/Initialize(mapload)
 	. = ..()
-
 	AddComponent(/datum/component/shell, list(
 		new /obj/item/circuit_component/ipc_circuit,
 	), SHELL_CAPACITY_MEDIUM)
+
+/obj/item/organ/cyberimp/ipc_control/attack(mob/living/target_mob, mob/living/user, params)
+	if(isipc(target_mob))
+		if(!do_after(user, 2 SECONDS, target_mob))
+			return
+		playsound(tablet.tablet_owner, 'sound/machines/terminal_insert_disc.ogg', 50)
+		to_chat(user, span_notice("You insert \the [src] into [target_mob]."))
+		Insert(target_mob)
+		return TRUE
+	. = ..()
 
 /obj/item/circuit_component/ipc_circuit
 	display_name = "IPC control"
@@ -92,13 +101,14 @@
 	user_port.set_output(null)
 	user = null
 
-/obj/item/circuit_component/ipc_circuit/proc/on_battery_added(obj/item/organ/added)
-	if(!istype(added, /obj/item/organ/stomach/battery))
+/obj/item/circuit_component/ipc_circuit/proc/on_battery_added(obj/item/organ/stomach/battery/added)
+	if(!istype(added))
 		return
 	RegisterSignal(added, COMSIG_ORGAN_BATTERY_CHARGED, PROC_REF(battery_charged))
+	battery_port.set_output(added.charge)
 
-/obj/item/circuit_component/ipc_circuit/proc/on_battery_removed(obj/item/organ/removed)
-	if(!istype(removed, /obj/item/organ/stomach/battery))
+/obj/item/circuit_component/ipc_circuit/proc/on_battery_removed(obj/item/organ/stomach/battery/removed)
+	if(!istype(removed))
 		return
 	UnregisterSignal(removed, COMSIG_ORGAN_BATTERY_CHARGED)
 	battery_port.set_output(0)

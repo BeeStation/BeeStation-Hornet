@@ -1,16 +1,9 @@
 #define LOW_POWER_THRESHOLD 250
 
 //TODO: add emp_act
-//TODO: System Underclocker: allows IPCs to stay standing with no power (for some sort of drawback) //combine this with generators
-//TODO: Upgrade circuit control??
-//TODO: Upgrade circuit actions
 //TODO: SPRITES!!
-//TODO: test action runtime (signal overriding)
-//TODO: improve charge cannon
-//TODO: action sprite for ex-cannon
-//TODO: audit status effects after a transformation or species change.
 //TODO: make you go horizontal when leaping. Also, add a hardstun maybe?
-//TODO: look into reducing type checks to the beginning. Cause the upgrade to remove itself if it SOMEHOW gets applied to a noncarbon (nonhuman?)
+//TODO: refactor the charge cannon COMPLETELY, it is just trash
 
 //not so sure about making a global proc for this TODO: fix this warning
 proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/status_effect/ipc_upgrade
@@ -19,6 +12,9 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	for(var/datum/status_effect/ipc_upgrade/upgrade in effects)
 		if(upgrade.slot == slot)
 			return upgrade
+
+proc/can_have_ipc_upgrade(target)
+	return isipc(target) || isethereal(target)
 
 /datum/status_effect/ipc_upgrade/
 	id = "ipc upgrade"
@@ -53,6 +49,8 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 
 	var/list/mutable_appearance/mut_appearances = list()
 
+	COOLDOWN_DECLARE(activated_cooldown) //You may be wondering why there is a cooldown when actions already have one. It is because wiremod ipc_control shells can activate upgrades directly, so we need to check cooldowns!
+
 /datum/status_effect/ipc_upgrade/on_apply()
 	. = ..()
 	if(action_type)
@@ -67,6 +65,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 			owner.add_overlay(mut_appearance)
 		owner.update_appearance(UPDATE_ICON)
 	RegisterSignal(owner, COMSIG_ATOM_EMP_ACT, PROC_REF(emp_act))
+	RegisterSignal(owner, COMSIG_CARBON_SPECIESCHANGE, PROC_REF(species_change))
 
 /datum/status_effect/ipc_upgrade/on_remove()
 	if(active)
@@ -90,7 +89,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	return active
 
 /datum/status_effect/ipc_upgrade/proc/can_activate()
-	return !active && can_drain_cell(power_requirement + active_power_requirement)
+	return !active && COOLDOWN_FINISHED(src, activated_cooldown) && can_drain_cell(power_requirement + active_power_requirement)
 
 /datum/status_effect/ipc_upgrade/proc/toggle(atom/target)
 	if(!active)
@@ -107,6 +106,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 		active = TRUE
 	if(action)
 		action.start_cooldown(cooldown_length)
+	COOLDOWN_START(src, activated_cooldown, cooldown_length)
 	drain_cell(power_requirement)
 	on_activate(target)
 	return TRUE
@@ -161,13 +161,18 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	SIGNAL_HANDLER
 	return
 
+/datum/status_effect/ipc_upgrade/proc/species_change(new_race)
+	SIGNAL_HANDLER
+	if(can_have_ipc_upgrade(owner))
+		return
+	extract()
+
 /datum/status_effect/ipc_upgrade/ui_data()
 	var/list/data = list()
 	data["name"] = name
 	data["active"] = active
 	data["power_req"] = power_requirement
 	data["active_power_req"] = active_power_requirement
-	data["passive"] = (active_power_requirement + power_requirement) <= 0 // dirty way to check if it is a passive upgrade, but better than adding a var just for ui_data
 	return data
 
 /datum/action/innate/ipc_upgrade_action
@@ -178,7 +183,6 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/ipc_upgrade_action/New(datum/status_effect/ipc_upgrade/new_upgrade)
-	..()
 	name = "Activate [new_upgrade.name]"
 	enable_text = "Activated [new_upgrade.name]!"
 	disable_text = has_deactivate_text ? "Deactivated [new_upgrade.name]!" : null
@@ -515,7 +519,6 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	id = "ipc fuel generator"
 	name = "Plasmatic Generator"
 	power_generation = 10
-	action_icon = "generator"
 	item_type = /obj/item/ipc_upgrade/fuel_generator
 	var/fuel_consumption = 50
 	var/datum/component/material_container/materials
@@ -599,6 +602,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	id = "ipc cooling system"
 	name = "Cooling System"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
+	action_icon = "cooling_system"
 	slot = UPGRADE_EXTERNAL
 	active_power_requirement = 25
 	item_type = /obj/item/ipc_upgrade/cooling_system
@@ -653,6 +657,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 /datum/status_effect/ipc_upgrade/gun/ui_data()
 	var/list/data = ..()
 	data["power_req"] = firing_power_requirement
+	return data
 
 /datum/status_effect/ipc_upgrade/gun/charged
 	id = "ipc gun charged"
@@ -661,6 +666,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	var/firing_time = 1 SECONDS
 	var/datum/looping_sound/charging_sound
 	var/charging_loop
+	var/ready_sound_timer
 	COOLDOWN_DECLARE(fire_time)
 
 /datum/status_effect/ipc_upgrade/gun/charged/on_apply()
@@ -686,6 +692,7 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	if(p2l["button"] != "middle")
 		return
 	charging_sound.start()
+	ready_sound_timer = addtimer(CALLBACK(src, PROC_REF(charged)), firing_time, TIMER_STOPPABLE)
 	COOLDOWN_START(src, fire_time, firing_time)
 
 /datum/status_effect/ipc_upgrade/gun/charged/proc/on_mouse_up(client/source, atom/target, location, control, params)
@@ -694,9 +701,14 @@ proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/s
 	if(p2l["button"] != "middle")
 		return
 	charging_sound.stop()
+	if(ready_sound_timer && timeleft(ready_sound_timer))
+		deltimer(ready_sound_timer)
 	if(!COOLDOWN_FINISHED(src, fire_time))
 		return
 	sling(target, params)
+
+/datum/status_effect/ipc_upgrade/gun/charged/proc/charged()
+	playsound(owner, 'sound/items/modsuit/time_anchor_set.ogg', 50)
 
 /datum/status_effect/ipc_upgrade/gun/charged/ex_cannon
 	id = "ipc gun ex-19"

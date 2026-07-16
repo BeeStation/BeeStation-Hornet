@@ -13,7 +13,6 @@ type Upgrade = {
   active: boolean
   power_req: number
   active_power_req: number
-  passive: boolean
 }
 
 type Data = {
@@ -71,12 +70,21 @@ export const NtosIpcSelfMonitorContent = (_) => {
                   mb={1}
                   icon={'eject'}
                   content="Eject"
-                  disabled={data.control_circuit !== null}
+                  disabled={!data.control_circuit}
                   onClick={() => act('eject_control')}
                 />
               </Flex.Item>
               <Flex.Item grow>
-                <DrawControlPort />
+                <Box style={{ border: `2px solid #323442` }} height="100%" backgroundColor="#0c0e16">
+                <Flex direction={'column'} height="100%" justify="space-evenly" align="center" fontSize="30px" fontFamily="Miriam Mono CLM">
+                  <Flex.Item mb={1}>
+                    IO_PORT_AUX {data.control_circuit ? "OCCUPIED" : "EMPTY"}
+                  </Flex.Item>
+                  <Flex.Item mb={1} fontSize="20px" color={data.control_circuit ? "green" : "red"}>
+                    {data.control_circuit ? "Control Module installed" : "Control Module missing"}
+                  </Flex.Item>
+                </Flex>
+                </Box>
               </Flex.Item>
             </Flex>
           </Section>
@@ -120,28 +128,13 @@ export const UpgradeStats = (props: UpgradeProps) => {
   <Box fontSize="30px" color="red">No Upgrade Detected</Box>
   </Flex>
   ); }
+  let passive = (props.upgrade.power_req + props.upgrade.active_power_req) === 0;
   return (
     <Flex direction={'column'} height="100%" justify="space-evenly">
       <Flex.Item textJustify="center">{props.upgrade.name}</Flex.Item>
-      <Flex.Item textJustify="center" color={props.upgrade.passive ? "green" : props.upgrade.active ? "green" : "red"}>{props.upgrade.passive ? "Passive" : props.upgrade.active ? "Active" : "Inactive"}</Flex.Item>
+      <Flex.Item textJustify="center" color={passive ? "green" : props.upgrade.active ? "green" : "red"}>{passive ? "Passive" : props.upgrade.active ? "Active" : "Inactive"}</Flex.Item>
       <Flex.Item textJustify="center">Draw: {props.upgrade.power_req} KW</Flex.Item>
-      <Flex.Item textJustify="center">{props.upgrade.active_power_req >= 0 ? `Passive Draw: ${props.upgrade.active_power_req} KW` : `Passive Generation: ${-props.upgrade.active_power_req} KW`}</Flex.Item>
+      <Flex.Item textJustify="center">{props.upgrade.active_power_req !== 0 ? `Passive Draw: ${props.upgrade.active_power_req} KW` : `Passive Generation: ${-props.upgrade.active_power_req} KW`}</Flex.Item>
     </Flex>
-  );
-};
-
-export const DrawControlPort = (_) => {
-  const { act, data } = useBackend<Data>();
-  return (
-    <svg width="100%" height="100%">
-      <rect
-        x="0"
-        y="0"
-        width="100%"
-        height="100%"
-        fill="black"
-        stroke="grey"
-      />
-    </svg>
   );
 };

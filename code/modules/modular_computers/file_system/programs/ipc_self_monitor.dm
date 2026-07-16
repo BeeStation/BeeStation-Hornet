@@ -43,6 +43,19 @@
 	data["upgrade_core"] = get_ipc_upgrade_by_slot(tablet.tablet_owner.status_effects, UPGRADE_CORE)?.ui_data()
 	data["upgrade_external"] = get_ipc_upgrade_by_slot(tablet.tablet_owner.status_effects, UPGRADE_EXTERNAL)?.ui_data()
 	data["upgrade_utility"] = get_ipc_upgrade_by_slot(tablet.tablet_owner.status_effects, UPGRADE_UTILITY)?.ui_data()
-	//data["control_circuit"] = tablet.tablet_owner.get_organ_slot() ? TRUE : FALSE
+	data["control_circuit"] = tablet.tablet_owner.get_organ_slot(ORGAN_SLOT_UPGRADE_CONTROL) ? TRUE : FALSE
 
 	return data
+
+/datum/computer_file/program/ipc_self_monitor/ui_act(action, list/params)
+	. = ..()
+	switch(action)
+		if("eject_control")
+			var/obj/item/organ/control = tablet.tablet_owner.get_organ_slot(ORGAN_SLOT_UPGRADE_CONTROL)
+			if(istype(control))
+				control.Remove(tablet.tablet_owner)
+				control.forceMove(get_turf(tablet.tablet_owner))
+				playsound(tablet.tablet_owner, 'sound/machines/terminal_insert_disc.ogg', 50)
+				return TRUE
+
+

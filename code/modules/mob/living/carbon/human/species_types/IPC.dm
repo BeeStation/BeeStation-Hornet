@@ -99,7 +99,9 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		H.physiology.bleed_mod *= 10
-	qdel(controller)
+	if(controller_action)
+		controller_action.Remove(C)
+	QDEL_NULL(controller)
 	UnregisterSignal(C, COMSIG_LIVING_REVIVE)
 
 /datum/species/ipc/handle_radiation(mob/living/carbon/human/source, intensity, delta_time)
