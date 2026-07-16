@@ -23,8 +23,3 @@
 	mid_sounds = list('sound/weapons/taserhit.ogg' = 1)
 	mid_length = 20
 	volume = 100
-
-/datum/looping_sound/charge_cannon
-	mid_sounds = list('sound/weapons/hold_charge.ogg' = 1)
-	mid_length = 3
-	volume = 100
