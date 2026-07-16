@@ -496,11 +496,15 @@
 	close_spawn_windows()
 
 	mind.active = FALSE //we wish to transfer the key manually
-	var/mob/living/spawning_mob = mind.assigned_role.get_spawn_mob(client, destination)
-	LAZYADD(client.player_details.joined_as_jobs, mind.assigned_role)
+	//We can lose mind assigned_role during this, apparently doubly so for AI, so typecast store it for a millisecond
+	var/datum/job/assigned_role = mind.assigned_role
+	var/mob/living/spawning_mob = assigned_role.get_spawn_mob(client, destination)
+	LAZYADD(client.player_details.joined_as_jobs, assigned_role)
 	if(QDELETED(src) || !client)
 		return // Disconnected while checking for the appearance ban.
+
 	if(!isAI(spawning_mob)) // Unfortunately there's still snowflake AI code out there.
+		// transfer_to sets mind to null
 		var/datum/mind/preserved_mind = mind
 		preserved_mind.original_character_slot_index = client.prefs.default_slot
 		preserved_mind.transfer_to(spawning_mob) //won't transfer key since the mind is not active

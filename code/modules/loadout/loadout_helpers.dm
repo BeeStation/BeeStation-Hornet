@@ -105,7 +105,8 @@
 		return
 
 	// Role restriction check
-	if(allowed_roles && equipper.mind && !(equipper.mind.assigned_role.title in allowed_roles))
+	var/equipper_role = equipper.mind?.assigned_role?.title || equipper.job
+	if(allowed_roles && equipper_role && !(equipper_role in allowed_roles))
 		if(equipper.client)
 			to_chat(equipper, span_warning("Your current role does not permit you to spawn with [display_name]!"))
 		return
