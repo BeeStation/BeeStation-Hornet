@@ -17,9 +17,11 @@
 
 /obj/item/organ/cyberimp/ipc_control/attack(mob/living/target_mob, mob/living/user, params)
 	if(isipc(target_mob))
+		if(target_mob != user)
+			to_chat(target_mob, span_warningbig("[user] is installing [src] into your control port!"))
 		if(!do_after(user, 2 SECONDS, target_mob))
 			return
-		playsound(tablet.tablet_owner, 'sound/machines/terminal_insert_disc.ogg', 50)
+		playsound(target_mob, 'sound/machines/terminal_insert_disc.ogg', 50)
 		to_chat(user, span_notice("You insert \the [src] into [target_mob]."))
 		Insert(target_mob)
 		return TRUE
@@ -38,6 +40,7 @@
 	var/datum/port/output/user_port
 	var/datum/port/output/battery_port
 	var/datum/weakref/user
+	var/obj/item/organ/stomach/battery/battery
 
 /obj/item/circuit_component/ipc_circuit/populate_ports()
 	message = add_input_port("Message", PORT_TYPE_STRING)
@@ -94,20 +97,22 @@
 	RegisterSignal(owner, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(on_battery_removed))
 	user_port.set_output(owner)
 	user = WEAKREF(owner)
-	on_battery_added(owner.get_organ_slot(ORGAN_SLOT_STOMACH))
+	on_battery_added(owner, owner.get_organ_slot(ORGAN_SLOT_STOMACH))
 
 /obj/item/circuit_component/ipc_circuit/proc/on_uninstalled(datum/source, mob/living/carbon/owner)
 	UnregisterSignal(owner, list(COMSIG_CARBON_GAIN_ORGAN, COMSIG_CARBON_LOSE_ORGAN))
 	user_port.set_output(null)
 	user = null
+	on_battery_removed(owner, battery)
 
-/obj/item/circuit_component/ipc_circuit/proc/on_battery_added(obj/item/organ/stomach/battery/added)
+/obj/item/circuit_component/ipc_circuit/proc/on_battery_added(mob/living/carbon/owner, obj/item/organ/stomach/battery/added)
 	if(!istype(added))
 		return
-	RegisterSignal(added, COMSIG_ORGAN_BATTERY_CHARGED, PROC_REF(battery_charged))
-	battery_port.set_output(added.charge)
+	battery = added
+	RegisterSignal(battery, COMSIG_ORGAN_BATTERY_CHARGED, PROC_REF(battery_charged))
+	battery_port.set_output(battery.charge)
 
-/obj/item/circuit_component/ipc_circuit/proc/on_battery_removed(obj/item/organ/stomach/battery/removed)
+/obj/item/circuit_component/ipc_circuit/proc/on_battery_removed(mob/living/carbon/owner, obj/item/organ/stomach/battery/removed)
 	if(!istype(removed))
 		return
 	UnregisterSignal(removed, COMSIG_ORGAN_BATTERY_CHARGED)

@@ -134,7 +134,7 @@ export const UpgradeStats = (props: UpgradeProps) => {
       <Flex.Item textJustify="center">{props.upgrade.name}</Flex.Item>
       <Flex.Item textJustify="center" color={passive ? "green" : props.upgrade.active ? "green" : "red"}>{passive ? "Passive" : props.upgrade.active ? "Active" : "Inactive"}</Flex.Item>
       <Flex.Item textJustify="center">Draw: {props.upgrade.power_req} KW</Flex.Item>
-      <Flex.Item textJustify="center">{props.upgrade.active_power_req !== 0 ? `Passive Draw: ${props.upgrade.active_power_req} KW` : `Passive Generation: ${-props.upgrade.active_power_req} KW`}</Flex.Item>
+      <Flex.Item textJustify="center">{props.upgrade.active_power_req >= 0 ? `Passive Draw: ${props.upgrade.active_power_req} KW` : `Passive Generation: ${-props.upgrade.active_power_req} KW`}</Flex.Item>
     </Flex>
   );
 };

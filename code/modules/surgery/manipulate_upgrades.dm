@@ -17,7 +17,7 @@
 /datum/surgery_step/manipulate_upgrades
 	name = "manipulate upgrades"
 	repeatable = TRUE
-	implements = list(/obj/item/ipc_upgrade = 100, /obj/item/crowbar = 100)
+	implements = list(/obj/item/ipc_upgrade = 100, TOOL_CROWBAR = 100)
 	preop_sound = 'sound/surgery/tape_flip.ogg'
 	success_sound = 'sound/surgery/taperecorder_close.ogg'
 	var/extracting //null if preop failed, TRUE if extracting, FALSE if inserting'
@@ -39,7 +39,7 @@
 		)
 		return
 
-	if(istype(tool, /obj/item/crowbar))
+	if(tool.tool_behaviour == TOOL_CROWBAR)
 		var/list/datum/status_effect/ipc_upgrade/choices = list()
 		for(var/datum/status_effect/ipc_upgrade/upgrade in target.status_effects)
 			choices += upgrade

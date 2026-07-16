@@ -3,7 +3,6 @@
 //TODO: add emp_act
 //TODO: SPRITES!!
 //TODO: make you go horizontal when leaping. Also, add a hardstun maybe?
-//TODO: refactor the charge cannon COMPLETELY, it is just trash
 
 //not so sure about making a global proc for this TODO: fix this warning
 proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/status_effect/ipc_upgrade
@@ -93,7 +92,7 @@ proc/can_have_ipc_upgrade(target)
 
 /datum/status_effect/ipc_upgrade/proc/toggle(atom/target)
 	if(!active)
-		activate()
+		activate(target)
 	else
 		deactivate()
 
@@ -104,8 +103,6 @@ proc/can_have_ipc_upgrade(target)
 		return FALSE
 	if(!singleton)
 		active = TRUE
-	if(action)
-		action.start_cooldown(cooldown_length)
 	COOLDOWN_START(src, activated_cooldown, cooldown_length)
 	drain_cell(power_requirement)
 	on_activate(target)
@@ -186,6 +183,7 @@ proc/can_have_ipc_upgrade(target)
 	name = "Activate [new_upgrade.name]"
 	enable_text = "Activated [new_upgrade.name]!"
 	disable_text = has_deactivate_text ? "Deactivated [new_upgrade.name]!" : null
+	cooldown_time = new_upgrade.cooldown_length
 	upgrade = new_upgrade
 
 /datum/action/innate/ipc_upgrade_action/is_available(feedback = FALSE)
@@ -202,11 +200,13 @@ proc/can_have_ipc_upgrade(target)
 
 /datum/action/innate/ipc_upgrade_action/toggleable/on_activate(mob/user, atom/target)
 	..()
-	return upgrade.activate(target)
+	. = upgrade.activate(target)
+	update_buttons()
 
 /datum/action/innate/ipc_upgrade_action/toggleable/on_deactivate(mob/user, atom/target)
 	..()
-	upgrade.deactivate()
+	. = upgrade.deactivate()
+	update_buttons()
 
 /datum/action/innate/ipc_upgrade_action/toggleable/update_button(atom/movable/screen/movable/action_button/button, status_only, force)
 	if(upgrade.action_icon)
@@ -363,10 +363,12 @@ proc/can_have_ipc_upgrade(target)
 	if(!..())
 		return FALSE
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, TRUE)
+	owner.visible_message(span_warning("[owner] extends [to_deploy] from an internal compartment!"), span_notice("You extend [to_deploy] from an internal compartment."))
 	owner.put_in_hand(to_deploy, owner.active_hand_index)
 
 /datum/status_effect/ipc_upgrade/deployable/deactivate()
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, TRUE)
+	owner.visible_message(span_warning("[owner] retracts [to_deploy] from an internal compartment!"), span_notice("You retract [to_deploy] from an internal compartment."))
 	to_deploy.moveToNullspace()
 	. = ..()
 
@@ -484,7 +486,14 @@ proc/can_have_ipc_upgrade(target)
 	if(!do_after(owner, 1 SECONDS, owner))
 		return
 	playsound(owner, 'sound/items/modsuit/loader_launch.ogg', 75, TRUE)
-	owner.throw_at(target, 5, 1, spin = FALSE)
+	var/angle = get_angle(owner, target)
+	owner.transform = owner.transform.Turn(angle)
+	owner.throw_at(target, 5, 1, spin = FALSE, callback = CALLBACK(src, PROC_REF(on_throw_end), owner, -angle))
+
+/datum/status_effect/ipc_upgrade/leap_legs/proc/on_throw_end(mob/user, angle)
+	if(!user)
+		return
+	user.transform = user.transform.Turn(angle)
 
 /datum/status_effect/ipc_upgrade/ipc_generator
 	id = "ipc rtg generator"
@@ -640,7 +649,7 @@ proc/can_have_ipc_upgrade(target)
 	SIGNAL_HANDLER
 	if(!COOLDOWN_FINISHED(src, firing_cooldown))
 		return
-	sling(source, target, params)
+	sling(target, params)
 
 /datum/status_effect/ipc_upgrade/gun/proc/sling(atom/target, params)
 	if(!drain_cell(firing_power_requirement))

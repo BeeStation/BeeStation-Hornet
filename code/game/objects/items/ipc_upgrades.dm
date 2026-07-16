@@ -112,8 +112,3 @@
 	upgrade = /datum/status_effect/ipc_upgrade/cooling_system
 	icon_state = "cooling_system"
 
-/obj/item/ipc_upgrade/ex_cannon
-	name = "mounted EX-19 cannon"
-	desc = "An illegal utility upgrade that installs a shoulder mounted cannon. This model requires a charge-up period before firing."
-	upgrade = /datum/status_effect/ipc_upgrade/gun/charged/ex_cannon
-	icon_state = "ex_cannon"
