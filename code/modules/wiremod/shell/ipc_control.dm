@@ -15,6 +15,11 @@
 		new /obj/item/circuit_component/ipc_circuit,
 	), SHELL_CAPACITY_MEDIUM)
 
+/obj/item/organ/cyberimp/ipc_control/on_insert(mob/living/carbon/receiver)
+	. = ..()
+	// Organs are put in nullspace, but this breaks circuit interactions
+	forceMove(receiver)
+
 /obj/item/organ/cyberimp/ipc_control/attack(mob/living/target_mob, mob/living/user, params)
 	if(isipc(target_mob))
 		if(target_mob != user)
@@ -93,6 +98,7 @@
 	UnregisterSignal(shell, list(COMSIG_ORGAN_IMPLANTED, COMSIG_ORGAN_REMOVED))
 
 /obj/item/circuit_component/ipc_circuit/proc/on_installed(datum/source, mob/living/carbon/owner)
+	SIGNAL_HANDLER
 	RegisterSignal(owner, COMSIG_CARBON_GAIN_ORGAN, PROC_REF(on_battery_added))
 	RegisterSignal(owner, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(on_battery_removed))
 	user_port.set_output(owner)
@@ -100,12 +106,14 @@
 	on_battery_added(owner, owner.get_organ_slot(ORGAN_SLOT_STOMACH))
 
 /obj/item/circuit_component/ipc_circuit/proc/on_uninstalled(datum/source, mob/living/carbon/owner)
+	SIGNAL_HANDLER
 	UnregisterSignal(owner, list(COMSIG_CARBON_GAIN_ORGAN, COMSIG_CARBON_LOSE_ORGAN))
 	user_port.set_output(null)
 	user = null
 	on_battery_removed(owner, battery)
 
 /obj/item/circuit_component/ipc_circuit/proc/on_battery_added(mob/living/carbon/owner, obj/item/organ/stomach/battery/added)
+	SIGNAL_HANDLER
 	if(!istype(added))
 		return
 	battery = added
@@ -113,10 +121,14 @@
 	battery_port.set_output(battery.charge)
 
 /obj/item/circuit_component/ipc_circuit/proc/on_battery_removed(mob/living/carbon/owner, obj/item/organ/stomach/battery/removed)
+	SIGNAL_HANDLER
 	if(!istype(removed))
 		return
+	if(removed == battery)
+		battery = null
 	UnregisterSignal(removed, COMSIG_ORGAN_BATTERY_CHARGED)
 	battery_port.set_output(0)
 
 /obj/item/circuit_component/ipc_circuit/proc/battery_charged(obj/item/organ/stomach/battery/adjusted_battery, amount)
+	SIGNAL_HANDLER
 	battery_port.set_output(adjusted_battery.charge)

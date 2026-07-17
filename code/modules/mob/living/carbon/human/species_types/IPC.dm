@@ -115,6 +115,8 @@
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
 
 /datum/species/ipc/spec_death(gibbed, mob/living/carbon/C)
+	if(!gibbed)
+		controller.shutdown_computer()
 	saved_screen = C.dna.features["ipc_screen"]
 	C.dna.features["ipc_screen"] = "BSOD"
 	C.update_body()
@@ -134,7 +136,7 @@
 
 /datum/action/innate/access_controller/on_activate()
 	if(!isipc(owner))
-		return
+		CRASH("[owner] somehow tried to activate an IPC modpc controller as a non-IPC!")
 	var/mob/living/carbon/human/human = owner
 	var/datum/species/ipc/ipc = human.dna.species
 	if(!ipc.controller)

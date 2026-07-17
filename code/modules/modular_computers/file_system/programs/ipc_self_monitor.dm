@@ -27,17 +27,16 @@
 
 /datum/computer_file/program/ipc_self_monitor/ui_data(mob/user)
 	var/list/data = list()
-	//TODO: fix runtime here
 	if(!tablet.tablet_owner)
 		return data
+
 	var/charge = 0
 	var/max_charge = 0
-	if(istype(tablet.tablet_owner.get_organ_slot(ORGAN_SLOT_STOMACH), /obj/item/organ/stomach/battery))
-		var/obj/item/organ/stomach/battery/battery = tablet.tablet_owner.get_organ_slot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/stomach/battery/battery = tablet.tablet_owner.get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(istype(battery))
 		charge = battery.charge
 		max_charge = battery.max_charge
 
-	data["name"] = tablet.tablet_owner.real_name
 	data["charge"] = charge
 	data["max_charge"] = max_charge
 	data["upgrade_core"] = get_ipc_upgrade_by_slot(tablet.tablet_owner.status_effects, UPGRADE_CORE)?.ui_data()
@@ -45,6 +44,13 @@
 	data["upgrade_utility"] = get_ipc_upgrade_by_slot(tablet.tablet_owner.status_effects, UPGRADE_UTILITY)?.ui_data()
 	data["control_circuit"] = tablet.tablet_owner.get_organ_slot(ORGAN_SLOT_UPGRADE_CONTROL) ? TRUE : FALSE
 
+	return data
+
+/datum/computer_file/program/ipc_self_monitor/ui_static_data(mob/user)
+	var/list/data = list()
+	if(!tablet.tablet_owner)
+		return data
+	data["name"] = tablet.tablet_owner.real_name
 	return data
 
 /datum/computer_file/program/ipc_self_monitor/ui_act(action, list/params)
@@ -57,5 +63,3 @@
 				control.forceMove(get_turf(tablet.tablet_owner))
 				playsound(tablet.tablet_owner, 'sound/machines/terminal_insert_disc.ogg', 50)
 				return TRUE
-
-

@@ -28,7 +28,7 @@ type Data = {
 export const NtosIpcSelfMonitor = (_) => {
   const { data } = useBackend();
   return (
-    <NtosWindow width={800} height={600}>
+    <NtosWindow width={800} height={500}>
       <NtosWindow.Content>
         <NtosIpcSelfMonitorContent />
       </NtosWindow.Content>
@@ -48,14 +48,14 @@ export const NtosIpcSelfMonitorContent = (_) => {
               Internal ID :: {data.name}
             </Box>
             <ProgressBar
-            value={data.max_charge ? data.charge / data.max_charge * 100 : 0}
-            minValue={0}
-            maxValue={100}
-            ranges={{
-              bad: [-Infinity, 25],
-              average: [25, 75],
-              good: [75, Infinity],
-            }}
+              value={data.max_charge ? data.charge / data.max_charge * 100 : 0}
+              minValue={0}
+              maxValue={100}
+              ranges={{
+                bad: [-Infinity, 25],
+                average: [25, 75],
+                good: [75, Infinity],
+              }}
             />
             <Box mt={1}>
               {Math.round(data.charge)} KW / {Math.round(data.max_charge)} KW

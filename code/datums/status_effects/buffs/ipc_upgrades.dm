@@ -2,7 +2,10 @@
 
 //TODO: add emp_act
 //TODO: SPRITES!!
-//TODO: make you go horizontal when leaping. Also, add a hardstun maybe?
+//TODO: sprite for supplypack
+//TODO: fix togglable actions going red on deactivate sometimes
+//TODO: fix extending items having inconsistant prefixes "a the blood drive"
+//TODO: think about other solutions to updating toggle actions
 
 //not so sure about making a global proc for this TODO: fix this warning
 proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/status_effect/ipc_upgrade
@@ -27,6 +30,8 @@ proc/can_have_ipc_upgrade(target)
 	var/active_power_requirement = 0
 	///Activation power requirement
 	var/power_requirement = 0
+	///The battery this upgrade uses power from
+	var/obj/item/organ/stomach/battery/battery
 	///Whether this upgrade should activate once and reset (rather than making active = TRUE)
 	var/singleton = FALSE
 	///Whether this should process or not
@@ -38,7 +43,7 @@ proc/can_have_ipc_upgrade(target)
 	///The actual action, created from action_type
 	var/datum/action/innate/ipc_upgrade_action/action
 	///The length of the cooldown between activations
-	var/cooldown_length = 1 SECONDS
+	var/cooldown_length = 0
 
 	var/overlay_file = 'icons/obj/ipc_upgrade_worn.dmi'
 	///A nullable list containing the overlays to add
@@ -65,6 +70,9 @@ proc/can_have_ipc_upgrade(target)
 		owner.update_appearance(UPDATE_ICON)
 	RegisterSignal(owner, COMSIG_ATOM_EMP_ACT, PROC_REF(emp_act))
 	RegisterSignal(owner, COMSIG_CARBON_SPECIESCHANGE, PROC_REF(species_change))
+	RegisterSignal(owner, COMSIG_CARBON_GAIN_ORGAN, PROC_REF(on_battery_added))
+	RegisterSignal(owner, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(on_battery_removed))
+	on_battery_added(owner, owner.get_organ_slot(ORGAN_SLOT_STOMACH))
 
 /datum/status_effect/ipc_upgrade/on_remove()
 	if(active)
@@ -73,7 +81,8 @@ proc/can_have_ipc_upgrade(target)
 		owner.cut_overlay(mut_appearance)
 	QDEL_NULL(action)
 	QDEL_LIST(mut_appearances)
-	UnregisterSignal(owner, COMSIG_ATOM_EMP_ACT)
+	UnregisterSignal(owner, list(COMSIG_ATOM_EMP_ACT, COMSIG_CARBON_SPECIESCHANGE, COMSIG_CARBON_GAIN_ORGAN, COMSIG_CARBON_LOSE_ORGAN))
+	on_battery_removed(owner, owner.get_organ_slot(ORGAN_SLOT_STOMACH))
 
 /datum/status_effect/ipc_upgrade/tick(seconds_between_ticks)
 	if(!should_process())
@@ -123,28 +132,23 @@ proc/can_have_ipc_upgrade(target)
 /datum/status_effect/ipc_upgrade/proc/on_deactivate()
 	return
 
-/datum/status_effect/ipc_upgrade/proc/can_drain_cell(amount, obj/item/organ/stomach/battery/battery)
+/datum/status_effect/ipc_upgrade/proc/can_drain_cell(amount, dangerous = FALSE)
 	if(!amount)
 		return TRUE
 	if(!battery)
-		if(!iscarbon(owner))
-			return FALSE
-		if(!istype(owner.get_organ_slot(ORGAN_SLOT_STOMACH), /obj/item/organ/stomach/battery))
-			return FALSE
-		battery = owner.get_organ_slot(ORGAN_SLOT_STOMACH)
-	if((battery.charge - LOW_POWER_THRESHOLD) < amount)
 		return FALSE
+	if(dangerous)
+		if(battery.charge < amount)
+			return FALSE
+	else
+		if((battery.charge - LOW_POWER_THRESHOLD) < amount)
+			return FALSE
 	return TRUE
 
-/datum/status_effect/ipc_upgrade/proc/drain_cell(amount)
+/datum/status_effect/ipc_upgrade/proc/drain_cell(amount, dangerous = FALSE)
 	if(!amount)
 		return TRUE
-	if(!iscarbon(owner))
-		return FALSE
-	if(!istype(owner.get_organ_slot(ORGAN_SLOT_STOMACH), /obj/item/organ/stomach/battery))
-		return FALSE
-	var/obj/item/organ/stomach/battery/battery = owner.get_organ_slot(ORGAN_SLOT_STOMACH)
-	if(!can_drain_cell(amount, battery))
+	if(!can_drain_cell(amount, dangerous))
 		return FALSE
 	battery.adjust_charge(-amount)
 	return TRUE
@@ -164,6 +168,25 @@ proc/can_have_ipc_upgrade(target)
 		return
 	extract()
 
+/datum/status_effect/ipc_upgrade/proc/on_battery_added(mob/living/carbon/owner, obj/item/organ/stomach/battery/added)
+	SIGNAL_HANDLER
+	if(!istype(added))
+		return
+	battery = added
+	RegisterSignal(battery, COMSIG_ORGAN_BATTERY_CHARGED, PROC_REF(battery_charged))
+
+/datum/status_effect/ipc_upgrade/proc/on_battery_removed(mob/living/carbon/owner, obj/item/organ/stomach/battery/removed)
+	SIGNAL_HANDLER
+	if(!istype(removed))
+		return
+	UnregisterSignal(removed, COMSIG_ORGAN_BATTERY_CHARGED)
+	battery = null
+
+/datum/status_effect/ipc_upgrade/proc/battery_charged(obj/item/organ/stomach/battery/adjusted_battery, amount)
+	SIGNAL_HANDLER
+	if(action)
+		action.update_buttons()
+
 /datum/status_effect/ipc_upgrade/ui_data()
 	var/list/data = list()
 	data["name"] = name
@@ -176,12 +199,13 @@ proc/can_have_ipc_upgrade(target)
 	name = "Generic Upgrade Action"
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	var/datum/status_effect/ipc_upgrade/upgrade = null
+	var/has_activate_text = TRUE
 	var/has_deactivate_text = TRUE
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/ipc_upgrade_action/New(datum/status_effect/ipc_upgrade/new_upgrade)
 	name = "Activate [new_upgrade.name]"
-	enable_text = "Activated [new_upgrade.name]!"
+	enable_text = has_activate_text ? "Activated [new_upgrade.name]!" : null
 	disable_text = has_deactivate_text ? "Deactivated [new_upgrade.name]!" : null
 	cooldown_time = new_upgrade.cooldown_length
 	upgrade = new_upgrade
@@ -213,6 +237,10 @@ proc/can_have_ipc_upgrade(target)
 		button_icon_state = upgrade.active ? "[upgrade.action_icon]_on" : "[upgrade.action_icon]_off"
 	return ..()
 
+/datum/action/innate/ipc_upgrade_action/toggleable/no_text
+	has_activate_text = FALSE
+	has_deactivate_text = FALSE
+
 /datum/action/innate/ipc_upgrade_action/targeted
 	requires_target = TRUE
 	toggleable = FALSE
@@ -237,19 +265,33 @@ proc/can_have_ipc_upgrade(target)
 	item_type = /obj/item/ipc_upgrade/repair_nexus
 	action_icon = "repair_nexus"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
+	var/overdrive = FALSE
 	var/healing_power = 0.5
 
 /datum/status_effect/ipc_upgrade/repair_nexus/tick(seconds_between_ticks)
-	if(!..())
+	if(!should_process()) // doesnt call parent due to unique power handling
 		return
+	if((owner.stat != DEAD) && (owner.health < HEALTH_THRESHOLD_CRIT))
+		if(!overdrive)
+			to_chat(owner, span_warning("Your installed [src.name] has activated overdrive mode!"))
+			overdrive = TRUE
+	else
+		if(overdrive)
+			to_chat(owner, span_warning("Your installed [src.name] has deactived overdrive mode!"))
+			overdrive = FALSE
+	if(!drain_cell(active_power_requirement * seconds_between_ticks * (overdrive ? 3 : 1), overdrive))
+		to_chat(owner, span_notice("The [name] runs out of power!"))
+		playsound(owner, 'sound/machines/apc/PowerDown_001.ogg', 10)
+		deactivate()
 	if(!iscarbon(owner))
 		return
 	var/mob/living/carbon/carbon_owner = owner
 	var/list/parts = carbon_owner.get_damaged_bodyparts(TRUE, TRUE, required_bodytype = BODYTYPE_ROBOTIC)
 	if(!parts.len)
 		return
+	var/healing_power_actual = healing_power * (overdrive ? 10 : 1)
 	for(var/obj/item/bodypart/limb in parts)
-		if(limb.heal_damage((healing_power / parts.len) * seconds_between_ticks, (healing_power / parts.len) * seconds_between_ticks, required_bodytype = BODYTYPE_ROBOTIC))
+		if(limb.heal_damage((healing_power_actual / parts.len) * seconds_between_ticks, (healing_power_actual / parts.len) * seconds_between_ticks, required_bodytype = BODYTYPE_ROBOTIC))
 			owner.update_damage_overlays()
 
 /datum/status_effect/ipc_upgrade/emp_shield
@@ -321,6 +363,7 @@ proc/can_have_ipc_upgrade(target)
 	action_type = /datum/action/innate/ipc_upgrade_action/untargeted
 	power_requirement = 150
 	singleton = TRUE
+	cooldown_length = 1 SECONDS
 	item_type = /obj/item/ipc_upgrade/part_fab
 	var/list/part_types = list(/obj/item/stock_parts/manipulator, /obj/item/stock_parts/micro_laser, /obj/item/stock_parts/matter_bin, /obj/item/stock_parts/capacitor, /obj/item/stock_parts/scanning_module)
 
@@ -342,7 +385,7 @@ proc/can_have_ipc_upgrade(target)
 	id = "ipc deployable"
 	name = "Generic Deployable Upgrade"
 	slot = UPGRADE_UTILITY
-	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
+	action_type = /datum/action/innate/ipc_upgrade_action/toggleable/no_text
 	var/obj/item/to_deploy
 	var/obj/item/to_deploy_typepath = /obj/item
 
@@ -363,12 +406,12 @@ proc/can_have_ipc_upgrade(target)
 	if(!..())
 		return FALSE
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, TRUE)
-	owner.visible_message(span_warning("[owner] extends [to_deploy] from an internal compartment!"), span_notice("You extend [to_deploy] from an internal compartment."))
+	owner.visible_message(span_warning("[owner] extends a [to_deploy] from an internal compartment!"), span_notice("You extend a [to_deploy] from an internal compartment."))
 	owner.put_in_hand(to_deploy, owner.active_hand_index)
 
 /datum/status_effect/ipc_upgrade/deployable/deactivate()
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, TRUE)
-	owner.visible_message(span_warning("[owner] retracts [to_deploy] from an internal compartment!"), span_notice("You retract [to_deploy] from an internal compartment."))
+	owner.visible_message(span_warning("[owner] retracts a [to_deploy] into an internal compartment!"), span_notice("You retract a [to_deploy] into an internal compartment."))
 	to_deploy.moveToNullspace()
 	. = ..()
 
@@ -506,14 +549,10 @@ proc/can_have_ipc_upgrade(target)
 /datum/status_effect/ipc_upgrade/ipc_generator/tick(seconds_between_ticks)
 	if(!should_process())
 		return
-	if(!iscarbon(owner))
-		return
-	if(!istype(owner.get_organ_slot(ORGAN_SLOT_STOMACH), /obj/item/organ/stomach/battery))
+	if(!battery)
 		return
 	if(!can_generate())
-
 		return
-	var/obj/item/organ/stomach/battery/battery = owner.get_organ_slot(ORGAN_SLOT_STOMACH)
 	battery.adjust_charge(power_generation * seconds_between_ticks)
 
 /datum/status_effect/ipc_upgrade/ipc_generator/ui_data()
