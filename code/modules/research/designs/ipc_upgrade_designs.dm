@@ -1,6 +1,5 @@
 /datum/design/ipc_upgrade
 	name = "Upgrade ( NULL ENTRY )"
-	desc = "I promise this doesn't give you syndicate goodies!"
 	build_type = MECHFAB
 	materials = list(/datum/material/glass = 1000, /datum/material/copper = 300)
 	construction_time = 75

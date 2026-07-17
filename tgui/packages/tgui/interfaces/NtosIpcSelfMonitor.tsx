@@ -42,7 +42,7 @@ export const NtosIpcSelfMonitorContent = (_) => {
   <Flex direction={'row'} height="100%">
     <Flex.Item width="50%" height="100%" mr={1}>
       <Flex direction={'column'} height="100%">
-        <Flex.Item>
+        <Flex.Item mb={1}>
           <Section title="CORE.STAT" width="100%">
             <Box my={1}>
               Internal ID :: {data.name}
@@ -62,7 +62,7 @@ export const NtosIpcSelfMonitorContent = (_) => {
             </Box>
           </Section>
         </Flex.Item>
-        <Flex.Item mt={1} grow>
+        <Flex.Item grow>
           <Section title="CORE.CONTROL" fill>
             <Flex direction={'column'} height="100%">
               <Flex.Item>

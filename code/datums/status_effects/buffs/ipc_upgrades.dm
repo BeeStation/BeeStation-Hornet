@@ -2,10 +2,7 @@
 
 //TODO: add emp_act
 //TODO: SPRITES!!
-//TODO: sprite for supplypack
-//TODO: fix togglable actions going red on deactivate sometimes
 //TODO: fix extending items having inconsistant prefixes "a the blood drive"
-//TODO: think about other solutions to updating toggle actions
 
 //not so sure about making a global proc for this TODO: fix this warning
 proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/status_effect/ipc_upgrade
@@ -86,12 +83,13 @@ proc/can_have_ipc_upgrade(target)
 
 /datum/status_effect/ipc_upgrade/tick(seconds_between_ticks)
 	if(!should_process())
-		return
+		return FALSE
 	if(drain_cell(active_power_requirement * seconds_between_ticks))
-		return
+		return TRUE
 	to_chat(owner, span_notice("The [name] runs out of power!"))
 	playsound(owner, 'sound/machines/apc/PowerDown_001.ogg', 10)
 	deactivate()
+	return FALSE
 
 /datum/status_effect/ipc_upgrade/proc/should_process()
 	return active
@@ -270,7 +268,7 @@ proc/can_have_ipc_upgrade(target)
 
 /datum/status_effect/ipc_upgrade/repair_nexus/tick(seconds_between_ticks)
 	if(!should_process()) // doesnt call parent due to unique power handling
-		return
+		return FALSE
 	if((owner.stat != DEAD) && (owner.health < HEALTH_THRESHOLD_CRIT))
 		if(!overdrive)
 			to_chat(owner, span_warning("Your installed [src.name] has activated overdrive mode!"))
@@ -283,16 +281,18 @@ proc/can_have_ipc_upgrade(target)
 		to_chat(owner, span_notice("The [name] runs out of power!"))
 		playsound(owner, 'sound/machines/apc/PowerDown_001.ogg', 10)
 		deactivate()
+		return FALSE
 	if(!iscarbon(owner))
-		return
+		return FALSE
 	var/mob/living/carbon/carbon_owner = owner
 	var/list/parts = carbon_owner.get_damaged_bodyparts(TRUE, TRUE, required_bodytype = BODYTYPE_ROBOTIC)
 	if(!parts.len)
-		return
+		return FALSE
 	var/healing_power_actual = healing_power * (overdrive ? 10 : 1)
 	for(var/obj/item/bodypart/limb in parts)
 		if(limb.heal_damage((healing_power_actual / parts.len) * seconds_between_ticks, (healing_power_actual / parts.len) * seconds_between_ticks, required_bodytype = BODYTYPE_ROBOTIC))
 			owner.update_damage_overlays()
+	return TRUE
 
 /datum/status_effect/ipc_upgrade/emp_shield
 	id = "ipc emp shield"
@@ -317,20 +317,22 @@ proc/can_have_ipc_upgrade(target)
 	remaining_pulses -= 1
 
 /datum/movespeed_modifier/supply_pack
-	multiplicative_slowdown = 1.50
+	multiplicative_slowdown = 0.35
 
 /datum/storage/supply_pack
 	max_specific_storage = WEIGHT_CLASS_GIGANTIC
 	max_total_storage = 70
-	max_slots = 10
+	max_slots = 20
 
 /obj/item/storage/supply_pack
 	name = "supply pack"
 	desc = "A gargantuan storage pack fused to the carrier's torso."
 	icon = 'icons/obj/storage/backpack.dmi'
-	icon_state = "backpack"
+	worn_icon = 'icons/mob/clothing/back/backpack.dmi'
+	icon_state = "supply_pack"
 	slot_flags = ITEM_SLOT_BACK
 	storage_type = /datum/storage/supply_pack
+	w_class = WEIGHT_CLASS_BULKY
 
 /datum/status_effect/ipc_upgrade/supply_pack
 	id = "ipc supply pack"
@@ -361,6 +363,7 @@ proc/can_have_ipc_upgrade(target)
 	name = "Part Fabricator"
 	slot = UPGRADE_UTILITY
 	action_type = /datum/action/innate/ipc_upgrade_action/untargeted
+	action_icon = "part_fab"
 	power_requirement = 150
 	singleton = TRUE
 	cooldown_length = 1 SECONDS
@@ -485,8 +488,8 @@ proc/can_have_ipc_upgrade(target)
 /datum/status_effect/ipc_upgrade/overclocked_servos
 	id = "ipc overclocked servos"
 	name = "Overclocked Servos"
-	slot = UPGRADE_UTILITY
-	active_power_requirement = 25
+	slot = UPGRADE_CORE
+	active_power_requirement = 50
 	action_icon = "overclocked_servos"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
 	item_type = /obj/item/ipc_upgrade/overclocked_servos
@@ -548,12 +551,13 @@ proc/can_have_ipc_upgrade(target)
 
 /datum/status_effect/ipc_upgrade/ipc_generator/tick(seconds_between_ticks)
 	if(!should_process())
-		return
+		return FALSE
 	if(!battery)
-		return
+		return FALSE
 	if(!can_generate())
-		return
+		return FALSE
 	battery.adjust_charge(power_generation * seconds_between_ticks)
+	return TRUE
 
 /datum/status_effect/ipc_upgrade/ipc_generator/ui_data()
 	var/list/data = ..()
@@ -656,11 +660,13 @@ proc/can_have_ipc_upgrade(target)
 	item_type = /obj/item/ipc_upgrade/cooling_system
 
 /datum/status_effect/ipc_upgrade/cooling_system/tick(seconds_between_ticks)
-	. = ..()
+	if(!..())
+		return FALSE
 	if(!iscarbon(owner))
-		return
+		return FALSE
 	var/mob/living/carbon/carbon = owner
-	carbon.adjust_bodytemperature(-BODYTEMP_HEATING_MAX * 0.9 * seconds_between_ticks, BODYTEMP_NORMAL) // insufficient to cool maximium heating, but pretty good for most things lower
+	carbon.adjust_bodytemperature(-BODYTEMP_HEATING_MAX * 3 * seconds_between_ticks, BODYTEMP_NORMAL) // good for a few firestacks
+	return TRUE
 
 /datum/status_effect/ipc_upgrade/gun
 	id = "ipc gun"
