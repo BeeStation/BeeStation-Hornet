@@ -540,7 +540,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/cigarette/proc/make_cig_smoke()
 	cig_smoke = new(src, /particles/smoke/cig)
-	cig_smoke.particles?.scale *= 1.5
+	cig_smoke.particles.scale *= 1.5
 	return cig_smoke
 
 // Cigarette brands.
@@ -823,11 +823,16 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		return
 	return ..()
 
+/obj/item/cigarette/pipe/make_cig_smoke()
+	cig_smoke = new(src, /particles/smoke/cig/pipe)
+	cig_smoke.particles.scale *= 1.5
+	return cig_smoke
+
 /obj/item/cigarette/pipe/cobpipe
 	name = "corn cob pipe"
 	desc = "A nicotine delivery system popularized by folksy backwoodsmen and kept popular in the modern age and beyond by space hipsters. Can be loaded with objects."
 	icon_state = "cobpipeoff"
-	icon_on = "cobpipeff"  //Note - these are in masks.dmi
+	icon_on = "cobpipeoff"  //Note - these are in masks.dmi
 	icon_off = "cobpipeoff"
 	inhand_icon_on = null
 	inhand_icon_off = null
