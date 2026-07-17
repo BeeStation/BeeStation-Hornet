@@ -66,6 +66,7 @@
 #define RND_CATEGORY_IMPLANTS "Implants"
 #define RND_CATEGORY_CYBERNETICS "Cybernetics"
 #define RND_CATEGORY_IPC_COMPONENTS "IPC Components"
+#define RND_CATEGORY_UPGRADES "Synth Upgrades"
 
 // Nanite Categories
 #define RND_CATEGORY_UTILITY_NANITES "Utility Nanites"
