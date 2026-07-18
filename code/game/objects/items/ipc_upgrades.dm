@@ -111,4 +111,3 @@
 	desc = "An external upgrade that includes advanced cooling devices, reducing overall temperature. Does not protect against heat caused by lack of coolant."
 	upgrade = /datum/status_effect/ipc_upgrade/cooling_system
 	icon_state = "cooling_system"
-

@@ -3,6 +3,7 @@
 //TODO: add emp_act
 //TODO: SPRITES!!
 //TODO: fix extending items having inconsistant prefixes "a the blood drive"
+//TODO: action deactivations and activations audit (try to make it so you dont deactivate / activate twice)
 
 //not so sure about making a global proc for this TODO: fix this warning
 proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/status_effect/ipc_upgrade
@@ -51,6 +52,13 @@ proc/can_have_ipc_upgrade(target)
 	var/list/mutable_appearance/mut_appearances = list()
 
 	COOLDOWN_DECLARE(activated_cooldown) //You may be wondering why there is a cooldown when actions already have one. It is because wiremod ipc_control shells can activate upgrades directly, so we need to check cooldowns!
+
+/datum/status_effect/ipc_upgrade/on_creation(mob/living/new_owner)
+	if(!iscarbon(new_owner))
+		stack_trace("An IPC upgrade has somehow been applied to a non-carbon mob!")
+		qdel(src)
+		return
+	return ..()
 
 /datum/status_effect/ipc_upgrade/on_apply()
 	. = ..()
@@ -196,6 +204,7 @@ proc/can_have_ipc_upgrade(target)
 /datum/action/innate/ipc_upgrade_action
 	name = "Generic Upgrade Action"
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon_state = "shoulder_cannon"
 	var/datum/status_effect/ipc_upgrade/upgrade = null
 	var/has_activate_text = TRUE
 	var/has_deactivate_text = TRUE
