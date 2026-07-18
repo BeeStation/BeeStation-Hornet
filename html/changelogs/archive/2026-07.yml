@@ -100,3 +100,6 @@
 2026-07-16:
   Sunshine214, Fikou, Rohesie, Ryll/Shaps, MrDoomBringer, Timberpoes:
   - rscadd: Adds some signals for client clicks. No player facing changes.
+2026-07-18:
+  BotTierPC:
+  - tweak: Nicotine withdrawal stages now start after 5/10/15minutes
