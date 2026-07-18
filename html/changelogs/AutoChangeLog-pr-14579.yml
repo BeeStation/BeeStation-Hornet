@@ -1,0 +1,4 @@
+author: BotTierPC
+delete-after: true
+changes:
+  - tweak: Nicotine withdrawal stages now start after 5/10/15minutes
