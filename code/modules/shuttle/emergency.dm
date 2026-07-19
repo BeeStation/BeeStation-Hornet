@@ -723,7 +723,13 @@
 	density = FALSE
 	icon = 'icons/obj/storage/storage.dmi'
 	icon_state = "safe"
-	var/unlocked = FALSE
+	var/icon_sparking = "safespark"
+	var/icon_opened = "safe0"
+
+/obj/item/storage/pod/Initialize(mapload)
+	. = ..()
+	atom_storage.locked = TRUE
+	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(alert_unlock))
 
 /obj/item/storage/pod/PopulateContents()
 	new /obj/item/clothing/head/helmet/space/orange(src)
@@ -756,12 +762,36 @@
 	if(!can_interact(user))
 		return
 
+/obj/item/storage/pod/emp_act(severity)
+	. = ..()
+	add_overlay(icon_sparking)	//coincidence?
+	unlock()
+
+/obj/item/storage/pod/on_emag(mob/user)
+	. = ..()
+	add_overlay(icon_sparking)	//or sabotage?
+	unlock()
+
+/obj/item/storage/pod/proc/unlock()
+	atom_storage.locked = FALSE
+	UnregisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED)
+
+/obj/item/storage/pod/proc/alert_unlock(datum/source, new_level)
+	SIGNAL_HANDLER
+
+	if(new_level >= SEC_LEVEL_RED)	//"oh, too bad you already launched, red alert is over, so no gear for you!"
+		add_overlay(icon_opened)
+		unlock()
+
 /obj/item/storage/pod/can_interact(mob/user)
 	if(!..())
 		return FALSE
-	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED || unlocked)
+	if(!atom_storage.locked)
 		return TRUE
-	to_chat(user, "The storage unit will only unlock during a Red or Delta security alert.")
+	if(obj_flags & EMAGGED)
+		return FALSE
+	to_chat(user, "The storage unit will only unlock during a Red, Black, or Delta security alert.")
+	balloon_alert(user, "The storage unit will only unlock during a Red, Black, or Delta security alert.")
 
 /obj/docking_port/mobile/emergency/backup
 	name = "backup shuttle"
