@@ -100,3 +100,12 @@
 2026-07-16:
   Sunshine214, Fikou, Rohesie, Ryll/Shaps, MrDoomBringer, Timberpoes:
   - rscadd: Adds some signals for client clicks. No player facing changes.
+2026-07-18:
+  BotTierPC:
+  - tweak: Nicotine withdrawal stages now start after 5/10/15minutes
+2026-07-19:
+  BotTierPC:
+  - bugfix: Moves Cyborg Language Action Button To Clickable Location
+  mrmanlikesbt, Timberpoes, GoldenAlpharex:
+  - rscadd: Added a ripple effect to people in stasis
+  - spellcheck: Removed improper capitalization for oxygen candles
