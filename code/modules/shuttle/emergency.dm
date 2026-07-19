@@ -797,7 +797,7 @@
 		return TRUE
 	if(obj_flags & EMAGGED)
 		return FALSE
-	to_chat(user, "The storage unit will only unlock during a Red, Black, or Delta security alert.")
+	to_chat(user, span_warning("The storage unit will only unlock during a Red, Black, or Delta security alert."))
 	balloon_alert(user, "The storage unit will only unlock during a Red, Black, or Delta security alert.")
 
 /obj/docking_port/mobile/emergency/backup
