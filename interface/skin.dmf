@@ -219,65 +219,6 @@ window "infowindow"
 		saved-params = "splitter"
 		right = "outputwindow"
 		is-vert = false
-	elem "changelog"
-		type = BUTTON
-		pos = 16,5
-		size = 88x20
-		anchor1 = 3,0
-		anchor2 = 19,0
-		background-color = none
-		saved-params = "is-checked"
-		text = "Changelog"
-		command = "changelog"
-	elem "rules"
-		type = BUTTON
-		pos = 104,5
-		size = 88x20
-		anchor1 = 19,0
-		anchor2 = 34,0
-		saved-params = "is-checked"
-		text = "Rules"
-		command = "rules"
-	elem "wiki"
-		type = BUTTON
-		pos = 192,5
-		size = 88x20
-		anchor1 = 34,0
-		anchor2 = 50,0
-		background-color = none
-		saved-params = "is-checked"
-		text = "Wiki"
-		command = "wiki"
-	elem "forum"
-		type = BUTTON
-		pos = 280,5
-		size = 88x20
-		anchor1 = 50,0
-		anchor2 = 66,0
-		background-color = none
-		saved-params = "is-checked"
-		text = "Forum"
-		command = "forum"
-	elem "github"
-		type = BUTTON
-		pos = 368,5
-		size = 88x20
-		anchor1 = 66,0
-		anchor2 = 81,0
-		background-color = none
-		saved-params = "is-checked"
-		text = "Github"
-		command = "github"
-	elem "report-issue"
-		type = BUTTON
-		pos = 466,5
-		size = 78x20
-		anchor1 = 81,0
-		anchor2 = 97,0
-		background-color = none
-		saved-params = "is-checked"
-		text = "Report Issue"
-		command = "report-issue"
 
 window "outputwindow"
 	elem "outputwindow"

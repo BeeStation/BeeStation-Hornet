@@ -146,6 +146,7 @@
 
 ///sent when a mob/login() finishes: (client)
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
+
 //from base of client/MouseDown(): (/client, object, location, control, params)
 #define COMSIG_CLIENT_MOUSEDOWN "client_mousedown"
 //from base of client/MouseUp(): (/client, object, location, control, params)
@@ -153,6 +154,15 @@
 	#define COMPONENT_CLIENT_MOUSEUP_INTERCEPT (1<<0)
 //from base of client/MouseUp(): (/client, object, location, control, params)
 #define COMSIG_CLIENT_MOUSEDRAG "client_mousedrag"
+
+// Called after one or more verbs are added: (list of verbs added)
+#define COMSIG_CLIENT_VERB_ADDED "client_verb_added"
+
+/// Called after one or more verbs are added: (list of verbs added)
+#define COMSIG_CLIENT_VERB_REMOVED "client_verb_removed"
+
+/// Called after a client logs into a mob: (mob)
+#define COMSIG_CLIENT_MOB_LOGIN "client_mob_changed"
 
 /// Called when a mob pulls the trigger of a gun. From /obj/item/gun/proc/pull_trigger(): (atom/target, mob/living/user, params = null, aimed = GUN_NOT_AIMED)
 #define COMSIG_MOB_PULL_TRIGGER "pull_trigger"

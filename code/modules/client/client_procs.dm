@@ -155,12 +155,24 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])
+		if("openWebMap")
+			open_webmap()
 	if (hsrc)
 		var/datum/real_src = hsrc
 		if(QDELETED(real_src))
 			return
 
 	..()	//redirect to hsrc.Topic()
+
+/// Opens the current map's webmap in the client's browser, centred on them if they're on station.
+/client/proc/open_webmap()
+	var/datum/map_config/current_map = SSmapping.current_map
+	if(!current_map?.mapping_url)
+		return
+	var/map_url = "[current_map.mapping_url][LOWER_TEXT(sanitize_css_class_name(current_map.map_name))]"
+	if(mob && is_station_level(mob.z))
+		map_url += "/?x=[mob.x]&y=[mob.y]&zoom=6"
+	src << link(map_url)
 
 /// If this client is BYOND member.
 /client/proc/is_content_unlocked()
@@ -752,6 +764,16 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	message_to_send += "(No admins online)"
 
 	send2tgs("Server", jointext(message_to_send, " "))
+
+/// Clears the client's screen, aside from ones that opt out
+/client/proc/clear_screen()
+	for (var/object in screen)
+		if (istype(object, /atom/movable/screen))
+			var/atom/movable/screen/screen_object = object
+			if (!screen_object.clear_with_screen)
+				continue
+
+		screen -= object
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

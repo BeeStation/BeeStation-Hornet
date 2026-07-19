@@ -13,8 +13,8 @@
 
 	var/client/recipient
 	if(istext(whom))
-		if(whom[1] == "@")
-			whom = findStealthKey(whom)
+		if(IS_FAKE_KEY(whom))
+			whom = findTrueKey(whom)
 		recipient = GLOB.directory[whom]
 	else if(istype(whom, /client))
 		recipient = whom
@@ -101,8 +101,8 @@
 		return
 	var/client/C
 	if(istext(whom))
-		if(whom[1] == "@")
-			whom = findStealthKey(whom)
+		if(IS_FAKE_KEY(whom))
+			whom = findTrueKey(whom)
 		C = GLOB.directory[whom]
 	else if(istype(whom, /client))
 		C = whom
@@ -129,8 +129,8 @@
 		return
 	var/client/C
 	if(istext(whom))
-		if(whom[1] == "@")
-			whom = findStealthKey(whom)
+		if(IS_FAKE_KEY(whom))
+			whom = findTrueKey(whom)
 		C = GLOB.directory[whom]
 	else if(istype(whom, /client))
 		C = whom

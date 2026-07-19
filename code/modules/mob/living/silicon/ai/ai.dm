@@ -293,12 +293,27 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			//Name, Health, Battery, Model, Area, and Status! Everything an AI wants to know about its borgies!
 			index++
 			tab_data["[R.name] (Connection [index])"] = list(
-				text="S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge]/[R.cell.maxcharge]" : "Empty"] | \
-					Model: [R.designation] | Loc: [get_area_name(R, TRUE)] | Status: [robot_status]", type = STAT_TEXT)
+				text = "S.Integrity: [R.health]% | \
+					Cell: [R.cell ? "[display_energy(R.cell.charge)]/[display_energy(R.cell.maxcharge)]" : "Empty"] | \
+					Model: [R.designation] | Loc: [get_area_name(R, TRUE)] | Status: [robot_status]",
+				type = STAT_BUTTON,
+				action = "track_cyborg",
+				params = list("ref" = REF(R)),
+			)
 		tab_data["AI shell beacons detected"] = GENERATE_STAT_TEXT("[LAZYLEN(GLOB.available_ai_shells)]") //Count of total AI shells
 	else
 		tab_data["Systems"] = GENERATE_STAT_TEXT("nonfunctional")
 	return tab_data
+
+/mob/living/silicon/ai/stat_pressed(button_pressed, params)
+	. = ..()
+	if(IsAdminAdvancedProcCall())
+		return
+	switch(button_pressed)
+		if("track_cyborg")
+			var/mob/living/silicon/robot/cyborg = locate(params["ref"]) in connected_robots
+			if(cyborg)
+				attempt_track(cyborg)
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
 	if(control_disabled)

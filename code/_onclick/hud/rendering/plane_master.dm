@@ -6,6 +6,8 @@
 	plane = LOWEST_EVER_PLANE
 	var/show_alpha = 255
 	var/hide_alpha = 0
+	///reference: the hud that owns us. Set before backdrop() is first called, since mymob.hud_used isn't assigned yet at that point
+	var/datum/hud/our_hud
 
 	//--rendering relay vars--
 	///integer: what plane we will relay this planes render to
@@ -17,11 +19,27 @@
 	///reference: current relay this plane is utilizing to render
 	var/atom/movable/render_plane_relay/relay
 
+/atom/movable/screen/plane_master/Destroy()
+	our_hud = null
+	return ..()
+
+/atom/movable/screen/plane_master/proc/set_hud(datum/hud/our_hud)
+	src.our_hud = our_hud
+
 /atom/movable/screen/plane_master/proc/Show(override)
 	alpha = override || show_alpha
 
 /atom/movable/screen/plane_master/proc/Hide(override)
 	alpha = override || hide_alpha
+
+/// Aliases for Show()/Hide(), matching the naming upstream uses.
+/// We hide via alpha rather than pulling off client.screen, so the mob arg is unused
+/// and only kept so subtypes ported from upstream read the same.
+/atom/movable/screen/plane_master/proc/unhide_plane(mob/enfold)
+	Show()
+
+/atom/movable/screen/plane_master/proc/hide_plane(mob/cast_away)
+	Hide()
 
 //Why do plane masters need a backdrop sometimes? Read https://secure.byond.com/forum/?post=2141928
 //Trust me, you need one. Period. If you don't think you do, you're doing something extremely wrong.
@@ -316,3 +334,34 @@
 	plane = ATMOS_GROUP_PLANE
 	appearance_flags = PLANE_MASTER
 	alpha = 0
+
+/atom/movable/screen/plane_master/escape_menu
+	name = "Escape Menu"
+	plane = ESCAPE_MENU_PLANE
+	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
+	// Not relayed, we'd end up under the HUD. We still want the plane master, Show()/Hide() toggle its alpha.
+	render_relay_plane = null
+	generate_render_target = FALSE
+	alpha = 0
+
+/atom/movable/screen/plane_master/escape_menu/backdrop(mob/mymob)
+	. = ..()
+	if(!our_hud)
+		return
+
+	RegisterSignal(our_hud, SIGNAL_ADDTRAIT(TRAIT_ESCAPE_MENU_OPEN), PROC_REF(escape_opened), override = TRUE)
+	RegisterSignal(our_hud, SIGNAL_REMOVETRAIT(TRAIT_ESCAPE_MENU_OPEN), PROC_REF(escape_closed), override = TRUE)
+	// backdrop() is re-run on graphics pref changes, so re-derive our state instead of
+	// assuming we start closed, otherwise toggling a pref would eat an open menu
+	if(HAS_TRAIT(our_hud, TRAIT_ESCAPE_MENU_OPEN))
+		escape_opened()
+	else
+		escape_closed()
+
+/atom/movable/screen/plane_master/escape_menu/proc/escape_opened(datum/source)
+	SIGNAL_HANDLER
+	unhide_plane()
+
+/atom/movable/screen/plane_master/escape_menu/proc/escape_closed(datum/source)
+	SIGNAL_HANDLER
+	hide_plane()

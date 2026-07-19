@@ -33,6 +33,8 @@ SUBSYSTEM_DEF(input)
 			"Back" = "\".winset \\\"input.text=\\\"\\\"\\\"\"", // This makes it so backspace can remove default inputs
 			"Any" = "\"KeyDown \[\[*\]\]\"",
 			"Any+UP" = "\"KeyUp \[\[*\]\]\"",
+			// A named macro beats the "Any" catch-all, so this never reaches keyDown(). Not rebindable.
+			"Escape" = "Open-Escape-Menu",
 			),
 		"old_default" = list(
 			"Tab" = "\".winset \\\"mainwindow.macro=old_hotkeys map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"",

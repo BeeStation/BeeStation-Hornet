@@ -395,7 +395,7 @@ AUTH_CLIENT_VERB(fit_viewport)
 
 /// Attempt to automatically fit the viewport, assuming the user wants it
 /client/proc/attempt_auto_fit_viewport()
-	if (!prefs || !prefs.read_preference(/datum/preference/toggle/auto_fit_viewport))
+	if (!prefs?.read_preference(/datum/preference/toggle/auto_fit_viewport))
 		return
 	// No need to attempt to fit the viewport on non-initialized clients as they'll auto-fit viewport right before finishing init
 	if(fully_created)

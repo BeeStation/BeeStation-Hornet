@@ -55,7 +55,7 @@
 	world.update_status()
 
 	// eye, hud, images
-	client.screen = list() //remove hud items just in case
+	client.clear_screen() //remove hud items just in case
 	client.images = list()
 	client.perspective = EYE_PERSPECTIVE
 	if(!current_mob_eye) // in case when your mob isn't ready for client eye
@@ -154,6 +154,7 @@
 
 	log_message("Client [key_name(src)] has taken ownership of mob [src]([src.type])", LOG_OWNERSHIP)
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
+	SEND_SIGNAL(client, COMSIG_CLIENT_MOB_LOGIN, src)
 
 	AddElement(/datum/element/weather_listener, /datum/weather/ash_storm, ZTRAIT_ASHSTORM, GLOB.ash_storm_sounds)
 	AddElement(/datum/element/weather_listener, /datum/weather/rad_storm, ZTRAIT_STATION, GLOB.rad_storm_sounds)

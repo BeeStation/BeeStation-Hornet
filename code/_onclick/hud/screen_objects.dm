@@ -33,6 +33,8 @@
 	var/del_on_map_removal = TRUE
 	///Can we throw things at this
 	var/can_throw_target = FALSE
+	/// If FALSE, this will not be cleared when calling /client/clear_screen()
+	var/clear_with_screen = TRUE
 
 /atom/movable/screen/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()

@@ -18,14 +18,19 @@
 	return "\".output [window_id].browser:update [message]\""
 
 /**
- * Creates a JSON encoded message to close TGUI say modals.
+ * Dismisses any say modal the user currently has open.
  *
  * Returns:
- * string - A JSON encoded message to close the modal.
+ * TRUE if a modal was open and has been told to close, FALSE otherwise.
  */
-/client/proc/tgui_say_create_close_command(window_id = "tgui_say")
-	var/message = TGUI_CREATE_MESSAGE_EMPTY("close")
-	return "\".output [window_id].browser:update [message]\""
+/client/proc/close_open_tgui_say()
+	. = FALSE
+	for(var/datum/tgui_say/modal as anything in list(tgui_say, tgui_asay))
+		if(isnull(modal) || !modal.window_open)
+			continue
+		// The window echoes "close" back to us, that's what clears window_open serverside.
+		modal.window.send_message("close")
+		. = TRUE
 
 /**
  * The tgui say modal. This initializes an input window which hides until
