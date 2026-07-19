@@ -95,7 +95,7 @@
 	spawned_carbon.adjust_disgust(rand(5, 55)) //How hungover are you?
 
 	if(prob(35) && !spawned_carbon.head)
-		var/list/hat_types = list(
+		var/static/list/hat_types = list(
 			/obj/item/clothing/head/costume/sombrero/green,
 			/obj/item/clothing/head/fedora,
 			/obj/item/clothing/mask/balaclava,
