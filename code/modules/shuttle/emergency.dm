@@ -723,13 +723,20 @@
 	density = FALSE
 	icon = 'icons/obj/storage/storage.dmi'
 	icon_state = "safe"
+	var/must_be_locked = TRUE
 	var/icon_sparking = "safespark"
 	var/icon_opened = "safe0"
 
+/obj/item/storage/pod/unlocked
+	must_be_locked = FALSE
+
 /obj/item/storage/pod/Initialize(mapload)
 	. = ..()
-	atom_storage.locked = TRUE
-	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(alert_unlock))
+	if(must_be_locked == TRUE)
+		atom_storage.locked = TRUE
+		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(alert_unlock))
+	else
+		add_overlay(icon_opened)
 
 /obj/item/storage/pod/PopulateContents()
 	new /obj/item/clothing/head/helmet/space/orange(src)
