@@ -96,7 +96,7 @@
 	var/breathModifier = (5-(5*(damage/maxHealth)/2)) //range 2.5 - 5
 	if(HAS_TRAIT(H, TRAIT_GODMODE))
 		H.failed_last_breath = FALSE //clear oxy issues
-		H.clear_alert("not_enough_oxy")
+		H.clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 		return
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
 		return
