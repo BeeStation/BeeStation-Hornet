@@ -65,9 +65,7 @@
 	if(!dangerous_nation) //peaceful nations do not wish to strike back
 		return
 	//otherwise, lets add an objective to strike them back
-	var/datum/objective/destroy = new /datum/objective/destroy_nation(null, attacking_nation)
-	destroy.team = src
-	objectives += destroy
+	add_objective(new /datum/objective/destroy_nation(null, attacking_nation))
 	update_all_member_objectives(span_danger("The nation of [attacking_nation] has declared the intent to conquer [src]! You have new objectives."))
 
 /datum/team/nation/proc/update_all_member_objectives(message)
