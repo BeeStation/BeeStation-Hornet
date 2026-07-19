@@ -87,12 +87,11 @@
 	/// Offset to apply to overlays placed on the face
 	var/datum/worn_feature_offset/worn_face_offset
 
-	VAR_PROTECTED
-		/// Draw this head as "debrained"
-		show_debrained = FALSE
+	/// Draw this head as "debrained"
+	VAR_PROTECTED/show_debrained = FALSE
 
-		/// Draw this head as missing eyes
-		show_eyeless = FALSE
+	/// Draw this head as missing eyes
+	VAR_PROTECTED/show_eyeless = FALSE
 
 /obj/item/bodypart/head/Destroy()
 	QDEL_NULL(brainmob) //order is sensitive, see warning in handle_atom_del() below
