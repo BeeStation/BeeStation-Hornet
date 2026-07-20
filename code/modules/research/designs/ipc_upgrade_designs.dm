@@ -27,7 +27,7 @@
 /datum/design/ipc_upgrade/part_fab
 	name = "Part Fabricator"
 	id = "part_fab"
-	build_path = /obj/item/ipc_upgrade/supply_pack
+	build_path = /obj/item/ipc_upgrade/part_fab
 	materials = list(/datum/material/iron = 3000, /datum/material/glass = 500, /datum/material/copper = 500, /datum/material/silver = 250)
 
 /datum/design/ipc_upgrade/medbeam

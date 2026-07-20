@@ -114,7 +114,7 @@ proc/can_have_ipc_upgrade(target)
 /datum/status_effect/ipc_upgrade/proc/activate(atom/target)
 	if(!can_activate())
 		playsound(owner, 'sound/machines/buzz-sigh.ogg', 10)
-		to_chat(owner, span_notice("[name] failed to activate!"))
+		to_chat(owner, span_notice("The [name] failed to activate!"))
 		return FALSE
 	if(!singleton)
 		active = TRUE
@@ -418,12 +418,12 @@ proc/can_have_ipc_upgrade(target)
 	if(!..())
 		return FALSE
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, TRUE)
-	owner.visible_message(span_warning("[owner] extends a [to_deploy] from an internal compartment!"), span_notice("You extend a [to_deploy] from an internal compartment."))
+	owner.visible_message(span_warning("[owner] extends \a [to_deploy] from an internal compartment!"), span_notice("You extend \a [to_deploy] from an internal compartment."))
 	owner.put_in_hand(to_deploy, owner.active_hand_index)
 
 /datum/status_effect/ipc_upgrade/deployable/deactivate()
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, TRUE)
-	owner.visible_message(span_warning("[owner] retracts a [to_deploy] into an internal compartment!"), span_notice("You retract a [to_deploy] into an internal compartment."))
+	owner.visible_message(span_warning("[owner] retracts \a [to_deploy] into an internal compartment!"), span_notice("You retract \a [to_deploy] into an internal compartment."))
 	to_deploy.moveToNullspace()
 	. = ..()
 

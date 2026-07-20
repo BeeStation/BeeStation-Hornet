@@ -163,7 +163,7 @@
 
 //////////////////////////////Low-power Version///////////////////////////////
 /obj/item/gun/medbeam/weak
-	name = "Low-power Medical Beamgun"
+	name = "low-power medical beamgun"
 
 /obj/item/gun/medbeam/weak/on_beam_tick(mob/living/target)
 	if(target.health < 20)

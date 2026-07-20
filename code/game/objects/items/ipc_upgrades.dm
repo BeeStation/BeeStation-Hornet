@@ -54,7 +54,7 @@
 
 /obj/item/ipc_upgrade/overclocked_servos
 	name = "overclocked servos"
-	desc = "A utility upgrade that increase the efficiency of movement servos in the user."
+	desc = "A core upgrade that increase the efficiency of movement servos in the user."
 	upgrade = /datum/status_effect/ipc_upgrade/overclocked_servos
 	icon_state = "overclocked_servos"
 
