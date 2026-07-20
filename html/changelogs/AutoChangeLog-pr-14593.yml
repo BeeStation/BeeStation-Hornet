@@ -1,0 +1,7 @@
+author: St0rmC4st3r
+delete-after: true
+changes:
+  - bugfix: Pod emergency suit storage safes are now correctly locked roundstart.
+  - tweak: Pod emergency suit storage safes can now be opened by EMP or Emag.
+  - tweak: Pod emergency suit storage safes will open on Red alert or higher, but
+      will not lock once alert is lowered.
