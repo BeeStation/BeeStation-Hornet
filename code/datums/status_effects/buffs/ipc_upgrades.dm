@@ -1,11 +1,6 @@
 #define LOW_POWER_THRESHOLD 250
 
-//TODO: add emp_act
-//TODO: SPRITES!!
-//TODO: fix extending items having inconsistant prefixes "a the blood drive"
-//TODO: action deactivations and activations audit (try to make it so you dont deactivate / activate twice)
-
-//not so sure about making a global proc for this TODO: fix this warning
+//not so sure about making a global proc for this
 proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/status_effect/ipc_upgrade
 	if(!effects)
 		return
