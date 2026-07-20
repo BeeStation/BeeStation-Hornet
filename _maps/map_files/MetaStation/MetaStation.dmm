@@ -7937,15 +7937,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
-"diR" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod Three"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
-	cycle_id = "escape-pod-3"
-	},
-/turf/open/floor/plating,
-/area/misc/space)
 "diX" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/white{
@@ -61611,9 +61602,6 @@
 	},
 /turf/open/floor/wood,
 /area/station/command/corporate_showroom)
-"vnM" = (
-/turf/closed/wall,
-/area/misc/space)
 "vnS" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow,
@@ -107483,9 +107471,9 @@ feE
 feE
 feE
 vUJ
-vnM
-diR
-vnM
+vUJ
+jsR
+vUJ
 vUJ
 hHk
 tFu
@@ -111376,7 +111364,7 @@ pdM
 mhL
 pmq
 aHM
-doC
+sJP
 sJP
 moi
 gYt
@@ -111633,7 +111621,7 @@ sug
 sug
 imP
 lKw
-doC
+sJP
 nsT
 rjj
 xQw
@@ -111890,7 +111878,7 @@ fQU
 knC
 diz
 ubd
-doC
+sJP
 kyU
 vPj
 vPj
@@ -112147,7 +112135,7 @@ nMP
 hRi
 qdj
 ubd
-doC
+sJP
 fok
 tgA
 cIk
@@ -112404,7 +112392,7 @@ dtX
 dtX
 qdj
 rXJ
-doC
+sJP
 xpa
 qgp
 gbi
