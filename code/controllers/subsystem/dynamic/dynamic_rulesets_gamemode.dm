@@ -369,11 +369,9 @@
 
 /datum/dynamic_ruleset/gamemode/nuclear/choose_candidates()
 	. = ..()
+	var/job_type = ispath(antag_datum, /datum/antagonist/nukeop/clownop) ? /datum/job/clown_operative : /datum/job/nuclear_operative
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		if(initial(antag_datum.banning_key == ROLE_CLOWN_OPERATIVE))
-			chosen_mind.set_assigned_role(SSjob.get_job_type(/datum/job/clown_operative))
-		else
-			chosen_mind.set_assigned_role(SSjob.get_job_type(/datum/job/nuclear_operative))
+		chosen_mind.set_assigned_role(SSjob.get_job_type(job_type))
 
 /datum/dynamic_ruleset/gamemode/nuclear/execute()
 	var/has_made_leader = FALSE
