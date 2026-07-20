@@ -167,7 +167,7 @@
 				//Reduced chance to get people off station
 				if(prob(70) && !owner_is_shaft_miner)
 					continue
-		else if(istype(possible_target.assigned_role, /datum/job/shaft_miner))
+		else if(is_shaft_miner_job(possible_target.assigned_role))
 			if(owner_is_shaft_miner)
 				preferred_targets += possible_target
 			else

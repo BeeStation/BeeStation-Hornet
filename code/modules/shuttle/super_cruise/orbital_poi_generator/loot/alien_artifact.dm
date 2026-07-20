@@ -10,7 +10,7 @@
 /obj/item/alienartifact/examine(mob/user)
 	. = ..()
 	var/mob/living/L = user
-	if(istype(L) && !istype(L.mind?.assigned_role, /datum/job/curator))
+	if(istype(L) && !is_curator_job(L.mind?.assigned_role))
 		return
 	for(var/datum/artifact_effect/effect in effects)
 		for(var/verb in effect.effect_act_descs)
