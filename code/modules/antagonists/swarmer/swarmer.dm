@@ -1,4 +1,3 @@
-#define SWARMER_SHELL_COST 20
 
 ////Deactivated swarmer shell////
 /obj/item/deactivated_swarmer
