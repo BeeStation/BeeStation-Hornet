@@ -145,9 +145,9 @@
 	for(var/datum/mind/objective_owner as anything in get_owners())
 		if(objective_owner.late_joiner)
 			try_target_late_joiners = TRUE
-		if(istype(objective_owner.assigned_role, /datum/job/exploration_crew))
+		if(is_explorer_job(objective_owner.assigned_role))
 			owner_is_exploration_crew = TRUE
-		if(istype(objective_owner.assigned_role, /datum/job/shaft_miner))
+		if(is_shaft_miner_job(objective_owner.assigned_role))
 			owner_is_shaft_miner = TRUE
 
 	var/list/preferred_targets = list()
@@ -160,7 +160,7 @@
 		if(!is_valid_target(possible_target))
 			continue
 
-		if(istype(possible_target.assigned_role, /datum/job/exploration_crew))
+		if(is_explorer_job(possible_target.assigned_role))
 			if(owner_is_exploration_crew)
 				preferred_targets += possible_target
 			else

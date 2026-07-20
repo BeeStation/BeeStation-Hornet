@@ -278,13 +278,13 @@
 
 /datum/quirk/foreigner/add()
 	var/mob/living/carbon/human/H = quirk_target
-	if(!istype(quirk_holder.assigned_role, /datum/job/curator))
+	if(!is_curator_job(quirk_holder.assigned_role))
 		H.add_blocked_language(/datum/language/common)
 		H.grant_language(/datum/language/uncommon)
 
 /datum/quirk/foreigner/remove()
 	var/mob/living/carbon/human/H = quirk_target
-	if(!istype(quirk_holder.assigned_role, /datum/job/curator))
+	if(!is_curator_job(quirk_holder.assigned_role))
 		H.remove_blocked_language(/datum/language/common)
 		H.remove_language(/datum/language/uncommon)
 

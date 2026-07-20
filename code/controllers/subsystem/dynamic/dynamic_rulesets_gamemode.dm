@@ -308,6 +308,9 @@
 	load_reebe()
 	generate_clockcult_scriptures()
 
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		chosen_mind.set_assigned_role(SSjob.get_job_type(/datum/job/clockcultist))
+
 /datum/dynamic_ruleset/gamemode/clockcult/execute()
 	main_cult = new()
 
@@ -367,7 +370,10 @@
 /datum/dynamic_ruleset/gamemode/nuclear/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.set_assigned_role(SSjob.get_job_type(/datum/job/nuclear_operative))
+		if(initial(antag_datum.banning_key == ROLE_CLOWN_OPERATIVE))
+			chosen_mind.set_assigned_role(SSjob.get_job_type(/datum/job/clown_operative))
+		else
+			chosen_mind.set_assigned_role(SSjob.get_job_type(/datum/job/nuclear_operative))
 
 /datum/dynamic_ruleset/gamemode/nuclear/execute()
 	var/has_made_leader = FALSE

@@ -78,7 +78,7 @@
 	var/list/learned_recipes //List of learned recipe TYPES.
 	///Weakref to thecharacter we joined in as- either at roundstart or latejoin, so we know for persistent scars if we ended as the same person or not
 	var/datum/weakref/original_character
-	/// The index for what character slot, if any, we were loaded from, so we can track persistent scars on a per-character basis. Each character slot gets PERSISTENT_SCAR_SLOTS scar slots
+	/// The index for what character slot, if any, we were loaded from
 	var/original_character_slot_index
 	var/list/crew_objectives = list()
 

@@ -315,11 +315,13 @@ GLOBAL_LIST_INIT(book_types, typecacheof(list(
 #define is_clown_job(job_type) (istype(job_type, /datum/job/clown))
 #define is_curator_job(job_type) (istype(job_type, /datum/job/curator))
 #define is_detective_job(job_type) (istype(job_type, /datum/job/detective))
+#define is_explorer_job(job_type) (istype(job_type, /datum/job/exploration_crew))
 #define is_mime_job(job_type) (istype(job_type, /datum/job/mime))
 #define is_head_of_personnel_job(job_type) (istype(job_type, /datum/job/head_of_personnel))
 #define is_lawyer_job(job_type) (istype(job_type, /datum/job/lawyer))
 #define is_scientist_job(job_type) (istype(job_type, /datum/job/scientist))
 #define is_security_officer_job(job_type) (istype(job_type, /datum/job/security_officer))
+#define is_shaft_miner_job(job_type) (istype(job_type, /datum/job/shaft_miner))
 #define is_research_director_job(job_type) (istype(job_type, /datum/job/research_director))
 #define is_unassigned_job(job_type) (isnull(job_type) || istype(job_type, /datum/job/unassigned))
 
