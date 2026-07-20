@@ -169,7 +169,11 @@
 		))
 		offset_order -= offset_order[1]
 
-	resource_panels += page_holder.give_screen_object(new /atom/movable/screen/escape_menu/lobby_button/small/collapsible(
+	//highlighted while there are changelog entries the player hasn't opened yet.
+	var/changelog_button_type = (client?.prefs?.lastchangelog != GLOB.changelog_hash) \
+		? /atom/movable/screen/escape_menu/lobby_button/small/collapsible/unread \
+		: /atom/movable/screen/escape_menu/lobby_button/small/collapsible
+	resource_panels += page_holder.give_screen_object(new changelog_button_type(
 		null,
 		/* hud_owner = */ null,
 		"Change Log",
@@ -179,6 +183,35 @@
 		/* button_overlay = */ "changelog",
 		/* end_point */ offset_order[1],
 	))
+	offset_order -= offset_order[1]
+
+	var/discordurl = CONFIG_GET(string/discordurl)
+	if(discordurl)
+		resource_panels += page_holder.give_screen_object(new /atom/movable/screen/escape_menu/lobby_button/small/collapsible(
+			null,
+			/* hud_owner = */ null,
+			"Discord",
+			"Join the server's Discord",
+			/* button_screen_loc */ "BOTTOM:30,RIGHT:-20",
+			CALLBACK(client, TYPE_PROC_REF(/client, discord)),
+			/* button_overlay = */ "discord",
+			/* end_point */ offset_order[1],
+		))
+		offset_order -= offset_order[1]
+
+	var/donateurl = CONFIG_GET(string/donateurl)
+	if(donateurl)
+		resource_panels += page_holder.give_screen_object(new /atom/movable/screen/escape_menu/lobby_button/small/collapsible(
+			null,
+			/* hud_owner = */ null,
+			"Donate",
+			"Support the server",
+			/* button_screen_loc */ "BOTTOM:30,RIGHT:-20",
+			CALLBACK(client, TYPE_PROC_REF(/client, donate)),
+			/* button_overlay = */ "donate",
+			/* end_point */ offset_order[1],
+		))
+		offset_order -= offset_order[1]
 
 /datum/escape_menu/proc/home_resume()
 	qdel(src)

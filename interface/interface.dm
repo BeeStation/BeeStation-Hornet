@@ -112,7 +112,6 @@ AUTH_CLIENT_VERB(changelog)
 	if(prefs && prefs.lastchangelog != GLOB.changelog_hash)
 		prefs.lastchangelog = GLOB.changelog_hash
 		prefs.mark_undatumized_dirty_player()
-		winset(src, "infowindow.changelog", "font-style=;")
 
 
 /mob/proc/hotkey_help()

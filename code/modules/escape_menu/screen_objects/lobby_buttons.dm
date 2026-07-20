@@ -9,6 +9,8 @@
 		datum/callback/on_click_callback
 		hovered = FALSE
 		tooltip_text
+		///Optional CSS color for the label, used to draw attention to a button. Left null for the default white.
+		maptext_color
 
 /atom/movable/screen/escape_menu/lobby_button/Initialize(
 	mapload,
@@ -59,9 +61,13 @@
 
 /atom/movable/screen/escape_menu/lobby_button/proc/add_maptext(button_text)
 	animate(src,
-		maptext = MAPTEXT_PIXELLARI("<b style='font-size: [font_size]px; text-align: center'>[button_text]</b>"),
+		maptext = MAPTEXT_PIXELLARI("<b style='font-size: [font_size]px; text-align: center[label_color_style()]'>[button_text]</b>"),
 		flags = ANIMATION_CONTINUE,
 	)
+
+///Returns the color fragment, empty unless maptext_color is set.
+/atom/movable/screen/escape_menu/lobby_button/proc/label_color_style()
+	return maptext_color ? "; color: [maptext_color]" : ""
 
 /atom/movable/screen/escape_menu/lobby_button/small
 	icon = 'icons/hud/escape_menu_icons.dmi'
@@ -73,7 +79,7 @@
 /atom/movable/screen/escape_menu/lobby_button/small/add_maptext(button_text)
 	//overriding parent for a different font here.
 	animate(src,
-		maptext = MAPTEXT_GRAND9K("<b style='font-size: [font_size]px; text-align: center'>[button_text]</b>"),
+		maptext = MAPTEXT_GRAND9K("<b style='font-size: [font_size]px; text-align: center[label_color_style()]'>[button_text]</b>"),
 		flags = ANIMATION_CONTINUE,
 	)
 
@@ -139,5 +145,9 @@
 		addtimer(CALLBACK(page_holder, TYPE_PROC_REF(/datum/screen_object_holder, remove_screen_object), src), COLLAPSIBLE_BUTTON_DURATION)
 	else
 		page_holder.remove_screen_object(src)
+
+///Highlighted variant, for when the button points at something the player hasn't seen yet.
+/atom/movable/screen/escape_menu/lobby_button/small/collapsible/unread
+	maptext_color = "#ffd633"
 
 #undef COLLAPSIBLE_BUTTON_DURATION
