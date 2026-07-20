@@ -109,3 +109,17 @@
   mrmanlikesbt, Timberpoes, GoldenAlpharex:
   - rscadd: Added a ripple effect to people in stasis
   - spellcheck: Removed improper capitalization for oxygen candles
+2026-07-20:
+  rkz, Mothblocks, Fikou, Rohesie, Melbert, Watermelon914, tralezab:
+  - refactor: finishes converting job strings into job datums
+  - bugfix: Fixed players being able to roll antagonist without ever being eligible
+      to play any role. Players who have their preferences set up so that they're
+      likely to return to lobby when the round starts have a lowered chance of becoming
+      antagonist.
+  - refactor: Job sorting is based on department
+  - rscadd: Weighs security departmental assignment to prefer officers with the same
+      department
+  - admin: The nations ruleset/verb is back and is cleaner than ever
+  - bugfix: Fixes summon magic and summon guns
+  - refactor: Refactored wizard rituals (events/ghosts/guns/magic/madness) to reduce
+      code copy+paste.
