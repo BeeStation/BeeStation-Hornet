@@ -381,7 +381,9 @@
 		return FALSE
 	uses--
 	var/mob/dead/observer/candidate = pick(candidates)
-	var/mob/living/simple_animal/hostile/holoparasite/holoparasite = new(user, candidate.key, holopara_name, theme, accent_color, notes, user.mind, saved_stats)
+	var/mob/living/simple_animal/hostile/holoparasite/holoparasite = new(user, holopara_name, theme, accent_color, notes, saved_stats)
+	holoparasite.set_summoner(user.mind, different_person = TRUE)
+	holoparasite.key = candidate.key
 	var/datum/antagonist/holoparasite/holopara_antag = holoparasite.mind.add_antag_datum(new /datum/antagonist/holoparasite(user.mind.holoparasite_holder(), saved_stats, theme))
 	saved_stats = new
 	holopara_antag.ui_interact(holoparasite) // Show them the info popup
@@ -431,7 +433,7 @@
 
 // the item
 /obj/item/holoparasite_creator
-	name = "deck of tarot cards"
+	name = "enchanted deck of tarot cards"
 	desc = "An enchanted deck of tarot cards, rumored to be a source of unimaginable power."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "deck_syndicate_full"

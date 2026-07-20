@@ -201,7 +201,7 @@
 		if(20)
 			//Free wizard!
 			selected_turf.visible_message(span_userdanger("Magic flows out of [src] and into [user]!"))
-			user.mind.add_antag_datum(/datum/antagonist/wizard)
+			user.mind.make_wizard()
 
 /datum/outfit/butler
 	name = "Butler"
