@@ -49,14 +49,14 @@
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.physio_armor.add_other_armor(nanite_armor)
+		H.physiology.physio_armor = H.physiology.physio_armor.add_other_armor(nanite_armor)
 
 
 /datum/nanite_program/hardening/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.physio_armor.subtract_other_armor(nanite_armor)
+		H.physiology.physio_armor = H.physiology.physio_armor.subtract_other_armor(nanite_armor)
 
 /datum/nanite_program/refractive
 	name = "Dermal Refractive Surface"
