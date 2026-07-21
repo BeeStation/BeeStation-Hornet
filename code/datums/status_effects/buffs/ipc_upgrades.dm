@@ -11,7 +11,7 @@
 /proc/can_have_ipc_upgrade(target)
 	return isipc(target) || isethereal(target)
 
-/datum/status_effect/ipc_upgrade/
+/datum/status_effect/ipc_upgrade
 	id = "ipc upgrade"
 	alert_type = null
 	on_remove_on_mob_delete = TRUE
