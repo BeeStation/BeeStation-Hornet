@@ -285,124 +285,24 @@
 
 /// Name for the Global region.
 #define REGION_ALL_GLOBAL "All"
-/// A list of every single access in the game. REGION_ALL_GLOBAL is built live from department access now; this static list is kept for direct callers.
-#define REGION_ACCESS_ALL_GLOBAL REGION_ACCESS_ALL_STATION + CENTCOM_ACCESS + SYNDICATE_ACCESS + AWAY_ACCESS + CULT_ACCESS
 /// Name for the Station All Access region.
 #define REGION_ALL_STATION "Station"
-/// A list of all station accesses. REGION_ALL_STATION is built live from station department access now; this static list is kept for direct callers like silicons.
-#define REGION_ACCESS_ALL_STATION COMMON_ACCESS + COMMAND_ACCESS + PRIVATE_COMMAND_ACCESS + CAPTAIN_ACCESS
 /// Name for the General region.
 #define REGION_GENERAL "General"
-/// Seeds the matching department's department_access. A list of general service accesses that are overseen by the HoP.
-#define REGION_ACCESS_GENERAL list( \
-	ACCESS_KITCHEN, \
-	ACCESS_BAR, \
-	ACCESS_HYDROPONICS, \
-	ACCESS_JANITOR, \
-	ACCESS_CHAPEL_OFFICE, \
-	ACCESS_CREMATORIUM, \
-	ACCESS_LIBRARY, \
-	ACCESS_THEATRE, \
-	ACCESS_LAWYER, \
-	ACCESS_SERVICE, \
-)
 /// Name for the Security region.
 #define REGION_SECURITY "Security"
-/// Seeds the matching department's department_access. A list of all security regional accesses that are overseen by the HoS.
-#define REGION_ACCESS_SECURITY list( \
-	ACCESS_SEC_DOORS, \
-	ACCESS_SEC_RECORDS, \
-	ACCESS_WEAPONS, \
-	ACCESS_SECURITY, \
-	ACCESS_BRIG, \
-	ACCESS_BRIGPHYS, \
-	ACCESS_ARMORY, \
-	ACCESS_FORENSICS_LOCKERS, \
-	ACCESS_COURT, \
-	ACCESS_MECH_SECURITY, \
-	ACCESS_HOS, \
-)
 /// Name for the Medbay region.
 #define REGION_MEDBAY "Medbay"
-/// Seeds the matching department's department_access. A list of all medbay regional accesses that are overseen by the CMO.
-#define REGION_ACCESS_MEDBAY list( \
-	ACCESS_MEDICAL, \
-	ACCESS_GENETICS, \
-	ACCESS_CLONING, \
-	ACCESS_MORGUE, \
-	ACCESS_CHEMISTRY, \
-	ACCESS_VIROLOGY, \
-	ACCESS_SURGERY, \
-	ACCESS_MECH_MEDICAL, \
-	ACCESS_CMO, \
-)
 /// Name for the Research region.
 #define REGION_RESEARCH "Research"
-/// Seeds the matching department's department_access. A list of all research regional accesses that are overseen by the RD.
-#define REGION_ACCESS_RESEARCH list( \
-	ACCESS_RESEARCH, \
-	ACCESS_TOX, \
-	ACCESS_TOX_STORAGE, \
-	ACCESS_ROBOTICS, \
-	ACCESS_XENOBIOLOGY, \
-	ACCESS_EXPLORATION, \
-	ACCESS_RD_SERVER, \
-	ACCESS_MECH_SCIENCE, \
-	ACCESS_MINISAT, \
-	ACCESS_RD, \
-	ACCESS_NETWORK, \
-)
 /// Name for the Engineering region.
 #define REGION_ENGINEERING "Engineering"
-/// Seeds the matching department's department_access. A list of all engineering regional accesses that are overseen by the CE.
-#define REGION_ACCESS_ENGINEERING list( \
-	ACCESS_CONSTRUCTION, \
-	ACCESS_AUX_BASE, \
-	ACCESS_MAINT_TUNNELS, \
-	ACCESS_ENGINE, \
-	ACCESS_ENGINE_EQUIP, \
-	ACCESS_EXTERNAL_AIRLOCKS, \
-	ACCESS_TECH_STORAGE, \
-	ACCESS_ATMOSPHERICS, \
-	ACCESS_MECH_ENGINE, \
-	ACCESS_TCOMSAT, \
-	ACCESS_MINISAT, \
-	ACCESS_CE, \
-)
 /// Name for the Supply region.
 #define REGION_SUPPLY "Supply"
-/// Seeds the matching department's department_access. A list of all cargo regional accesses that are overseen by the HoP.
-#define REGION_ACCESS_SUPPLY list( \
-	ACCESS_MAILSORTING, \
-	ACCESS_MINING, \
-	ACCESS_MINING_STATION, \
-	ACCESS_MECH_MINING, \
-	ACCESS_MINERAL_STOREROOM, \
-	ACCESS_CARGO, \
-	ACCESS_QM, \
-	ACCESS_VAULT, \
-)
 /// Name for the Command region.
 #define REGION_COMMAND "Command"
-/// Seeds the matching department's department_access. A list of all command regional accesses that are overseen by the Captain.
-#define REGION_ACCESS_COMMAND list( \
-	ACCESS_HEADS, \
-	ACCESS_RC_ANNOUNCE, \
-	ACCESS_KEYCARD_AUTH, \
-	ACCESS_CHANGE_IDS, \
-	ACCESS_AI_UPLOAD, \
-	ACCESS_TELEPORTER, \
-	ACCESS_EVA, \
-	ACCESS_GATEWAY, \
-	ACCESS_ALL_PERSONAL_LOCKERS, \
-	ACCESS_HOP, \
-	ACCESS_CAPTAIN, \
-	ACCESS_VAULT, \
-)
 /// Name for the Centcom region.
 #define REGION_CENTCOM "Central Command"
-/// Alias for CENTCOM_ACCESS. REGION_CENTCOM is served from the centcom department now; kept for direct callers.
-#define REGION_ACCESS_CENTCOM CENTCOM_ACCESS
 
 /// All regions that make up the station area. Helper define to quickly designate a region as part of the station or not. Access via SSdepartment.station_regions.
 #define REGION_AREA_STATION list( \
