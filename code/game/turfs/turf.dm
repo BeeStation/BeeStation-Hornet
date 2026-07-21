@@ -236,12 +236,12 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		for(var/I in B.vars)
 			B.vars[I] = null
 		return
-	QDEL_LIST(blueprint_data)
+	LAZYCLEARLIST(blueprint_data)
 	flags_1 &= ~INITIALIZED_1
 	requires_activation = FALSE
 	..()
 
-	if (length(vis_contents))
+	if(length(vis_contents))
 		vis_contents.Cut()
 
 /// WARNING WARNING
@@ -361,32 +361,32 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	// Byond's default turf/Enter() doesn't have the behaviour we want with Bump()
 	// By default byond will call Bump() on the first dense object in contents
 	// Here's hoping it doesn't stay like this for years before we finish conversion to step_
-	var/atom/firstbump
-	var/canPassSelf = CanPass(mover, get_dir(src, mover))
+	var/atom/first_bump
+	var/can_pass_self = CanPass(mover, get_dir(src, mover))
 
-	if(canPassSelf || (mover.movement_type & PHASING))
+	if(can_pass_self)
+		var/atom/mover_loc = mover.loc
+		var/mover_is_phasing = mover.movement_type & PHASING
 		for(var/atom/movable/thing as anything in contents)
-			if(QDELETED(mover))
-				return FALSE //We were deleted, do not attempt to proceed with movement.
-			if(thing == mover || thing == mover.loc) // Multi tile objects and moving out of other objects
+			if(thing == mover || thing == mover_loc) // Multi tile objects and moving out of other objects
 				continue
 			if(!thing.Cross(mover))
-				if(QDELETED(mover)) //Mover deleted from Cross/CanPass, do not proceed.
+				if(QDELETED(mover)) //deleted from Cross() (CanPass is pure so it can't delete, Cross shouldn't be doing this either though, but it can happen)
 					return FALSE
-				if((mover.movement_type & PHASING))
+				if(mover_is_phasing)
 					mover.Bump(thing)
 					if(QDELETED(mover)) //deleted from Bump()
 						return FALSE
 					continue
 				else
-					if(!firstbump || ((thing.layer > firstbump.layer || thing.flags_1 & ON_BORDER_1) && !(firstbump.flags_1 & ON_BORDER_1)))
-						firstbump = thing
+					if(!first_bump || ((thing.layer > first_bump.layer || thing.flags_1 & ON_BORDER_1) && !(first_bump.flags_1 & ON_BORDER_1)))
+						first_bump = thing
 	if(QDELETED(mover)) //Mover deleted from Cross/CanPass/Bump, do not proceed.
 		return FALSE
-	if(!canPassSelf)	//Even if mover is unstoppable they need to bump us.
-		firstbump = src
-	if(firstbump)
-		mover.Bump(firstbump)
+	if(!can_pass_self) //Even if mover is unstoppable they need to bump us.
+		first_bump = src
+	if(first_bump)
+		mover.Bump(first_bump)
 		return (mover.movement_type & PHASING)
 	return TRUE
 
@@ -597,33 +597,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 /turf/proc/take_temperature(temp)
 	temperature += temp
 
-/turf/proc/generate_fake_pierced_realities(centered = TRUE, max_amount = 2)
-	if(max_amount <= 0)
-		return
-	var/to_spawn = pick(1, max_amount)
-	var/spawned = 0
-	var/location_sanity = 0
-	while(spawned < to_spawn && location_sanity < 100)
-		var/precision = pick(5, 15 * max_amount)
-		var/turf/chosen_location = get_safe_random_station_turfs()
-		if(!chosen_location)
-			location_sanity++
-			continue
-		if(centered)
-			chosen_location = get_teleport_turf(src, precision) //Using the random teleportation logic here to find a destination turf
-		// We don't want them close to each other - at least 1 tile of seperation
-		var/list/nearby_things = range(1, chosen_location)
-		var/obj/effect/heretic_influence/what_if_i_have_one = locate() in nearby_things
-		var/obj/effect/visible_heretic_influence/what_if_i_had_one_but_its_used = locate() in nearby_things
-		if(what_if_i_have_one || what_if_i_had_one_but_its_used || isspaceturf(chosen_location))
-			location_sanity++
-			continue
-		addtimer(CALLBACK(src, PROC_REF(create_new_fake_reality), chosen_location), rand(0, 500))
-		spawned++
-
-/turf/proc/create_new_fake_reality(turf/F)
-	new /obj/effect/visible_heretic_influence(F)
-
 /// Checks if the turf was blessed with holy water OR the area its in is Chapel
 /turf/proc/is_holy()
 	if(locate(/obj/effect/blessing) in src)
@@ -639,7 +612,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		if(!force) //readability
 			return
 	var/datum/turf_texture/turf_texture
-	for(var/datum/turf_texture/TF as() in textures)
+	for(var/datum/turf_texture/TF as anything in textures)
 		var/area/A = loc
 		if(TF in A?.get_area_textures())
 			turf_texture = turf_texture ? initial(TF.priority) > initial(turf_texture.priority) ? TF : turf_texture : TF

@@ -12,7 +12,7 @@
 
 /obj/machinery/xenoarchaeology_machine/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
+	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, INNATE_TRAIT)
 
 /obj/machinery/xenoarchaeology_machine/attackby(obj/item/I, mob/living/user, params)
 	if(user.combat_mode || (I.item_flags & ABSTRACT))
@@ -27,8 +27,8 @@
 		if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
 			return
 		//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-		I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)
-		I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
+		I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
+		I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
 		//Handle contents
 		if(move_inside)
 			register_contents(I)
@@ -111,7 +111,7 @@
 		//If there's a label and we're obliged to 'help' the player
 		var/obj/item/sticker/xenoartifact_label/label = locate(/obj/item/sticker/xenoartifact_label) in atom_target.contents
 		if(label)
-			for(var/datum/xenoartifact_trait/T as() in label.traits)
+			for(var/datum/xenoartifact_trait/T as anything in label.traits)
 				say("[initial(T.label_name)] - Weight: [initial(T.weight)]")
 				label_weight += initial(T.weight)
 		else if(isitem(atom_target) || isliving(atom_target))
@@ -163,7 +163,7 @@
 		//If there's a label and we're obliged to 'help' the player
 		var/obj/item/sticker/xenoartifact_label/label = locate(/obj/item/sticker/xenoartifact_label) in atom_target.contents
 		if(label)
-			for(var/datum/xenoartifact_trait/T as() in label.traits)
+			for(var/datum/xenoartifact_trait/T as anything in label.traits)
 				say("[initial(T.label_name)] - conductivity: [initial(T.conductivity)]")
 				label_conductivity += initial(T.conductivity)
 		else if(isitem(atom_target) || isliving(atom_target))
@@ -205,19 +205,21 @@
 	var/cooking_time = 4 SECONDS
 	var/cooking_timer
 	///How effective are our parts, for making DP
-	var/reward_rate = 0.25
+	var/reward_rate = 1 / 16
 
 /obj/machinery/xenoarchaeology_machine/calibrator/Initialize(mapload, _artifact_type)
 	. = ..()
-	//Link relevant stuff
-	linked_techweb = SSresearch.science_tech
-	//Radio setup
 	radio = new /obj/item/radio/headset/headset_sci(src)
+
+/obj/machinery/xenoarchaeology_machine/calibrator/LateInitialize()
+	. = ..()
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
 
 /obj/machinery/xenoarchaeology_machine/calibrator/tutorial/Initialize(mapload, _artifact_type)
 	. = ..()
 	var/obj/item/sticker/sticky_note/calibrator_tutorial/label = new(loc)
-	label.afterattack(src, src, TRUE)
+	label.stick_to(src)
 	unregister_contents(label)
 	label.pixel_y = rand(-8, 8)
 	label.pixel_x = rand(-8, 8)
@@ -231,7 +233,7 @@
 /obj/machinery/xenoarchaeology_machine/calibrator/RefreshParts()
 	//Should only be one, but I'm lazy and this seems safe
 	for(var/obj/item/stock_parts/manipulator/part in component_parts)
-		reward_rate = part.rating / 4
+		reward_rate = part.rating / 16
 
 /obj/machinery/xenoarchaeology_machine/calibrator/examine(mob/user)
 	. = ..()
@@ -288,7 +290,7 @@
 					max_score = trait_datum.contribute_calibration ?  max_score + 1 : max_score
 		//Check against label length, for extra labeled traits
 		var/label_length = 0
-		for(var/datum/xenoartifact_trait/trait_datum as() in label?.traits)
+		for(var/datum/xenoartifact_trait/trait_datum as anything in label?.traits)
 			if(initial(trait_datum.contribute_calibration))
 				label_length += 1
 		if(label_length != max_score)

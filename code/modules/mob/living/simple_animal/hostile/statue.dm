@@ -34,7 +34,6 @@
 	move_to_delay = 0 // Very fast
 
 	animate_movement = NO_STEPS // Do not animate movement, you jump around as you're a scary statue.
-	hud_possible = list(ANTAG_HUD)
 
 	see_in_dark = 13
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -53,7 +52,7 @@
 	var/cannot_be_seen = 1
 	var/mob/living/creator = null
 
-	discovery_points = 10000
+	discovery_points = TECHWEB_TIER_4_POINTS
 
 // No movement while seen code.
 
@@ -135,8 +134,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 			if(M != src && M.client && CanAttack(M) && !M.has_unlimited_silicon_privilege && !M.is_blind())
 				return M
 		for(var/obj/vehicle/sealed/mecha/M in view(getexpandedview(world.view, 1, 1), check)) //assuming if you can see them they can see you
-			for(var/O in M.occupants)
-				var/mob/mechamob = O
+			for(var/mob/mechamob as anything in M.occupants)
 				if(mechamob?.client && !mechamob.is_blind())
 					return mechamob
 	return null
@@ -218,4 +216,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 	return things
 
 /datum/action/spell/aoe/blindness/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
-	victim.set_blindness(4)
+	victim.adjust_temp_blindness(8 SECONDS)

@@ -77,7 +77,7 @@ Chilling extracts:
 
 /obj/item/slimecross/chilling/metal/do_effect(mob/user)
 	user.visible_message(span_danger("[src] melts like quicksilver, and surrounds [user] in a wall!"))
-	for(var/turf/T as() in (RANGE_TURFS(2, user)-get_turf(user)))
+	for(var/turf/T as anything in (RANGE_TURFS(2, user)-get_turf(user)))
 		new /obj/effect/forcefield/slimewall(T)
 	..()
 

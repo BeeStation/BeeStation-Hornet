@@ -311,10 +311,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "bj" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "bk" = (

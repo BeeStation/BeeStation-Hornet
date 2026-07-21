@@ -18,6 +18,7 @@
 	low_threshold_cleared = span_info("The last bouts of pain in your stomach have died out.")
 
 	var/disgust_metabolism = 1
+	var/operated = FALSE
 
 /obj/item/organ/stomach/on_life(delta_time, times_fired)
 	. = ..()

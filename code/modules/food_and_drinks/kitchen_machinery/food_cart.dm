@@ -166,7 +166,7 @@
 	portion = 20
 
 /obj/machinery/food_cart/coffee/Initialize(mapload)
-	..()
+	. = ..()
 	var/A = rand(0,3)
 	var/B = rand(0,3)
 	var/C = rand(0,3)

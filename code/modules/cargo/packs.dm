@@ -1919,7 +1919,7 @@
 		/obj/item/storage/firstaid/brute,
 		/obj/item/storage/firstaid/fire,
 		/obj/item/defibrillator/loaded,
-		/obj/item/reagent_containers/blood/OMinus,
+		/obj/item/reagent_containers/blood/o_minus,
 		/obj/item/storage/pill_bottle/mining,
 		/obj/item/reagent_containers/pill/neurine,
 		/obj/item/vending_refill/medical,
@@ -2271,7 +2271,7 @@
 					/obj/item/clothing/suit/caution,
 					/obj/item/storage/bag/trash,
 					/obj/item/reagent_containers/spray/cleaner,
-					/obj/item/reagent_containers/cup/rag,
+					/obj/item/rag,
 					/obj/item/grenade/chem_grenade/cleaner,
 					/obj/item/grenade/chem_grenade/cleaner,
 					/obj/item/grenade/chem_grenade/cleaner)
@@ -3562,8 +3562,8 @@
 
 /datum/supply_pack/misc/bicycle/generate(atom/A, datum/bank_account/paying_account)
 	. = ..()
-	for(var/client/C as() in GLOB.clients)
-		if(C?.mob.mind.assigned_role == JOB_NAME_QUARTERMASTER || C?.mob.mind.assigned_role == JOB_NAME_CARGOTECHNICIAN)
+	for(var/client/C as anything in GLOB.clients)
+		if(C?.mob.mind.assigned_role.title == JOB_NAME_QUARTERMASTER || C?.mob.mind.assigned_role.title == JOB_NAME_CARGOTECHNICIAN)
 			C?.give_award(/datum/award/achievement/misc/bike, C?.mob)
 
 /datum/supply_pack/misc/bigband

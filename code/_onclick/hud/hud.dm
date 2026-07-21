@@ -114,10 +114,13 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	QDEL_LIST(static_inventory)
 	QDEL_LIST(team_finder_arrows)
 
+	// all already deleted by static inventory clear
 	inv_slots.Cut()
 	action_intent = null
 	zone_select = null
 	pull_icon = null
+	rest_icon = null
+	hand_slots.Cut()
 
 	QDEL_LIST(toggleable_inventory)
 	QDEL_LIST(hotkeybuttons)
@@ -127,6 +130,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	healths = null
 	stamina = null
 	healthdoll = null
+	spacesuit = null
 	lingchemdisplay = null
 	lingstingdisplay = null
 	blobpwrdisplay = null
@@ -161,11 +165,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/mob/screenmob = viewmob || mymob
 	if(!screenmob.client)
 		return FALSE
-	// This code is the absolute fucking worst, I want it to go die in a fire
-	// Seriously, why
-	var/wants_preview = screenmob.client.prefs?.character_preview_view && (screenmob.client in screenmob.client.prefs?.character_preview_view.viewing_clients)
-	if(wants_preview) // Changing HUDs clears the screen, we need to reregister then.
-		screenmob.client.prefs.character_preview_view.unregister_from_client(screenmob.client)
 
 	screenmob.client.screen = list()
 	screenmob.client.apply_clickcatcher()
@@ -243,10 +242,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 			show_hud(hud_version, M)
 	else if (viewmob.hud_used)
 		viewmob.hud_used.plane_masters_update()
-
-	// Changing HUDs clears the screen, we need to reregister then (but only if we are viewing it already)
-	if (wants_preview)
-		screenmob.client.prefs.character_preview_view.register_to_client(screenmob.client)
 
 	return TRUE
 
@@ -369,7 +364,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 			if(!our_client)
 				position_action(button, button.linked_action.default_button_position)
 				return
-			button.screen_loc = get_valid_screen_location(relative_to.screen_loc, world.icon_size, our_client.view_size.getView()) // Asks for a location adjacent to our button that won't overflow the map
+			button.screen_loc = get_valid_screen_location(relative_to.screen_loc, ICON_SIZE_ALL, our_client.view_size.getView()) // Asks for a location adjacent to our button that won't overflow the map
 
 	button.location = relative_to.location
 
@@ -533,14 +528,14 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	// We're primarially concerned about width here, if someone makes us 1x2000 I wish them a swift and watery death
 	var/furthest_screen_loc = ButtonNumberToScreenCoords(column_max - 1)
 	var/list/offsets = screen_loc_to_offset(furthest_screen_loc, owner_view)
-	if(offsets[1] > world.icon_size && offsets[1] < view_size[1] && offsets[2] > world.icon_size && offsets[2] < view_size[2]) // We're all good
+	if(offsets[1] > ICON_SIZE_X && offsets[1] < view_size[1] && offsets[2] > ICON_SIZE_Y && offsets[2] < view_size[2]) // We're all good
 		return
 
 	for(column_max in column_max - 1 to 1 step -1) // Yes I could do this by unwrapping ButtonNumberToScreenCoords, but I don't feel like it
 		var/tested_screen_loc = ButtonNumberToScreenCoords(column_max)
 		offsets = screen_loc_to_offset(tested_screen_loc, owner_view)
 		// We've found a valid max length, pack it in
-		if(offsets[1] > world.icon_size && offsets[1] < view_size[1] && offsets[2] > world.icon_size && offsets[2] < view_size[2])
+		if(offsets[1] > ICON_SIZE_X && offsets[1] < view_size[1] && offsets[2] > ICON_SIZE_Y && offsets[2] < view_size[2])
 			break
 	// Use our newly resized column max
 	refresh_actions()

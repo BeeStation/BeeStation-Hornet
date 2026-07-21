@@ -25,7 +25,7 @@
 	var/advanced_virus = TRUE //default virus is a random advanced disease
 	var/dangerous_virus = FALSE
 	var/unfunny_virus = TRUE
-	max_severity = 3 + max(FLOOR((world.time - control.earliest_start)/3000, 1),0) //2 symptoms at 10 minutes, plus 1 per 5 minutes. reaches symptom cap at 30 minutes
+	max_severity = 3 + max(floor((world.time - control.earliest_start)/3000),0) //2 symptoms at 10 minutes, plus 1 per 5 minutes. reaches symptom cap at 30 minutes
 	if(!virus_type && prob(0 + (2 * max_severity)))
 		dangerous_virus = TRUE // more chance at a dangerous disease the more time passes. at 40 minutes, this event has a 16% chance of a dangerous disease
 	if(!virus_type && prob(max_severity)) //allows for a far higher chance at level 0 symptoms
@@ -39,59 +39,98 @@
 	if(!virus_type && !advanced_virus)
 		virus_type = pick(/datum/disease/fake_gbs, /datum/disease/cold9, /datum/disease/magnitis, /datum/disease/pierrot_throat, /datum/disease/beesease)
 
-	for(var/mob/living/carbon/human/H in shuffle(GLOB.alive_mob_list))
-		var/turf/T = get_turf(H)
+	for(var/mob/living/carbon/human/victim in shuffle(GLOB.human_list))
+		var/turf/T = get_turf(victim)
 		if(!T)
 			continue
 		if(!is_station_level(T.z))
 			continue
-		if(!H.client)
+		if(!victim.client)
 			continue
-		if(H.stat == DEAD)
+		if(victim.stat == DEAD)
 			continue
-		if(!(H.mob_biotypes & MOB_ORGANIC))
+		if(!(victim.mob_biotypes & MOB_ORGANIC))
 			continue
-		if(HAS_TRAIT(H, TRAIT_VIRUSIMMUNE)) //Don't pick someone who's virus immune, only for it to not do anything.
+		if(HAS_TRAIT(victim, TRAIT_VIRUSIMMUNE)) //Don't pick someone who's virus immune, only for it to not do anything.
 			continue
-		var/foundAlready = FALSE	// don't infect someone that already has a disease
-		for(var/thing in H.diseases)
-			foundAlready = TRUE
-			break
-		if(foundAlready)
+		// don't infect someone that already has a disease
+		if(length(victim.diseases))
 			continue
 
-		var/datum/disease/D
+		var/datum/disease/new_disease
 		if(!advanced_virus)
 			if(virus_type == /datum/disease/dnaspread)		//Dnaspread needs strain_data set to work.
-				D = new virus_type()
-				var/datum/disease/dnaspread/DS = D
-				DS.strain_data["name"] = H.real_name
-				DS.strain_data["UI"] = H.dna.unique_identity
-				DS.strain_data["SE"] = H.dna.mutation_index
+				new_disease = new virus_type()
+				var/datum/disease/dnaspread/DS = new_disease
+				DS.strain_data["name"] = victim.real_name
+				DS.strain_data["UI"] = victim.dna.unique_identity
+				DS.strain_data["SE"] = victim.dna.mutation_index
 		else
+			var/static/list/spreadsymptoms = list(
+				/datum/symptom/sneeze = 20,
+				/datum/symptom/cough = 20,
+				/datum/symptom/pierrot = 1,
+				/datum/symptom/meme = 3,
+			)
+			var/static/list/majorspreadsymptoms = list(
+				/datum/symptom/pustule = 10,
+				/datum/symptom/macrophage = 10,
+				/datum/symptom/flesh_death = 1,
+			)
+			var/static/list/effectivesymptoms = list(
+				/datum/symptom/heal/surface,
+				/datum/symptom/sweat,
+				/datum/symptom/parasite,
+				/datum/symptom/alcohol,
+				/datum/symptom/beesease,
+				/datum/symptom/deafness,
+				/datum/symptom/fever,
+				/datum/symptom/genetic_mutation,
+				/datum/symptom/hallucigen,
+				/datum/symptom/lubefeet,
+				/datum/symptom/shedding,
+				/datum/symptom/beard,
+				/datum/symptom/visionloss,
+				/datum/symptom/voice_change,
+				/datum/symptom/cockroach,
+			)
+			var/static/list/majoreffectivesymptoms = list(
+				/datum/symptom/heal/coma,
+				/datum/symptom/EMP,
+				/datum/symptom/growth,
+				/datum/symptom/vampirism,
+				/datum/symptom/braindamage,
+				/datum/symptom/asphyxiation,
+				/datum/symptom/robotic_adaptation,
+				/datum/symptom/alkali,
+				/datum/symptom/heartattack,
+				/datum/symptom/toxoplasmosis,
+			)
+
 			var/list/symptoms = list()
-			var/list/spreadsymptoms = list(/datum/symptom/sneeze = 20, /datum/symptom/cough = 20, /datum/symptom/pierrot = 1, /datum/symptom/meme = 3)
-			var/list/majorspreadsymptoms = list(/datum/symptom/pustule = 10, /datum/symptom/macrophage = 10, /datum/symptom/flesh_death = 1)
-			var/list/effectivesymptoms = list(/datum/symptom/heal/surface, /datum/symptom/sweat, /datum/symptom/parasite, /datum/symptom/alcohol, /datum/symptom/beesease, /datum/symptom/deafness, /datum/symptom/fever, /datum/symptom/genetic_mutation, /datum/symptom/hallucigen, /datum/symptom/lubefeet, /datum/symptom/shedding, /datum/symptom/beard, /datum/symptom/visionloss, /datum/symptom/voice_change, /datum/symptom/cockroach)
-			var/list/majoreffectivesymptoms = list(/datum/symptom/heal/coma, /datum/symptom/EMP, /datum/symptom/growth, /datum/symptom/vampirism, /datum/symptom/braindamage, /datum/symptom/asphyxiation, /datum/symptom/robotic_adaptation, /datum/symptom/alkali, /datum/symptom/heartattack, /datum/symptom/toxoplasmosis)
-			if(dangerous_virus)//pick a symptom with a major effect from either the list of spreading symptoms or effective symptoms
+			// pick a symptom with a major effect from either the list of spreading symptoms or effective symptoms
+			if(dangerous_virus)
 				if(prob(50))
 					symptoms += pick_weight(majorspreadsymptoms)
-					symptoms += pick_weight(effectivesymptoms)
+					symptoms += pick(effectivesymptoms)
 				else
 					symptoms += pick_weight(spreadsymptoms)
-					symptoms += pick_weight(majoreffectivesymptoms)
+					symptoms += pick(majoreffectivesymptoms)
 			else
 				symptoms += pick_weight(spreadsymptoms)
-				symptoms += pick_weight(effectivesymptoms)
-			D = new /datum/disease/advance/random(max_severity, 8 + dangerous_virus, unfunny_virus, symptoms, mute = FALSE, special = TRUE)
-		H.ForceContractDisease(D, FALSE, TRUE)
+				symptoms += pick(effectivesymptoms)
+			new_disease = new /datum/disease/advance/random(max_severity, 8 + dangerous_virus, unfunny_virus, symptoms, mute = FALSE, special = TRUE)
+
+		if(isnull(new_disease))
+			continue
+
+		victim.ForceContractDisease(new_disease, FALSE, TRUE)
 
 		if(advanced_virus)
-			var/datum/disease/advance/A = D
+			var/datum/disease/advance/A = new_disease
 			var/list/name_symptoms = list() //for feedback
 			for(var/datum/symptom/S in A.symptoms)
 				name_symptoms += S.name
-			message_admins("An event has triggered a random advanced virus outbreak on [ADMIN_LOOKUPFLW(H)]! It has these symptoms: [english_list(name_symptoms)]")
-			log_game("An event has triggered a random advanced virus outbreak on [key_name(H)]! It has these symptoms: [english_list(name_symptoms)]")
+			message_admins("An event has triggered a random advanced virus outbreak on [ADMIN_LOOKUPFLW(victim)]! It has these symptoms: [english_list(name_symptoms)]")
+			log_game("An event has triggered a random advanced virus outbreak on [key_name(victim)]! It has these symptoms: [english_list(name_symptoms)]")
 		break

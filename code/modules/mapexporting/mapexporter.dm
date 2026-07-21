@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 
 	//Step 0: Calculate the amount of letters we need (26 ^ n > turf count)
 	var/turfsNeeded = width * height
-	var/layers = FLOOR(log(GLOB.save_file_chars.len, turfsNeeded) + 0.999,1)
+	var/layers = floor(log(GLOB.save_file_chars.len, turfsNeeded) + 0.999)
 
 	//Step 1: Run through the area and generate file data
 	var/list/header_chars	= list()	//The characters of the header
@@ -161,7 +161,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 			value = sanitize_simple(value, list("{"="", "}"="", "\""="", ";"="", ","=""))
 		else if(isicon(value) || isfile(value))
 			symbol = "'"
-		else if(!(isnum_safe(value) || ispath(value)))
+		else if(!(IS_FINITE(value) || ispath(value)))
 			continue
 		//Prevent symbols from being because otherwise you can name something [";},/obj/item/gun/energy/laser/instakill{name="da epic gun] and spawn yourself an instakill gun.
 		data_to_add += "[V] = [symbol][value][symbol]"
@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	var/output = ""
 	for(var/i in 1 to layers)
 		var/l = GLOB.save_file_chars.len
-		var/c = FLOOR((index-1) / (l ** (i - 1)), 1)
+		var/c = floor((index-1) / (l ** (i - 1)))
 		c = (c % l) + 1
 		output = "[GLOB.save_file_chars[c]][output]"
 	return output

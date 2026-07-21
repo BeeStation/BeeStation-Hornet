@@ -30,7 +30,7 @@
 	src.color = circuit_datatype.color
 
 
-/datum/circuit_variable/Destroy(force, ...)
+/datum/circuit_variable/Destroy(force)
 	listeners = null
 	return ..()
 

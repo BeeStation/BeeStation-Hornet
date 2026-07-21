@@ -322,6 +322,7 @@
 	breakouttime = 2 SECONDS // Cyborgs shouldn't have a strong restraint
 
 /obj/item/restraints/legcuffs/beartrap/energy/emp_act(severity)
+	. = ..()
 	do_sparks(1, TRUE, src)
 	qdel(src)
 

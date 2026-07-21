@@ -293,7 +293,7 @@
 				lawsync = 0
 				O.connected_ai = null
 			else
-				O.notify_ai(NEW_BORG)
+				O.notify_ai(AI_NOTIFICATION_NEW_BORG)
 				if(forced_ai)
 					O.connected_ai = forced_ai
 			if(!lawsync)
@@ -314,6 +314,7 @@
 			O.updatename(BM.client)
 
 			BM.mind.transfer_to(O)
+			playsound(O.loc, 'sound/voice/liveagain.ogg', 75, TRUE)
 
 			if(O.mind?.special_role)
 				O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
@@ -352,7 +353,7 @@
 			else
 				if(forced_ai)
 					O.connected_ai = forced_ai
-				O.notify_ai(AI_SHELL)
+				O.notify_ai(AI_NOTIFICATION_AI_SHELL)
 			if(!lawsync)
 				O.lawupdate = FALSE
 				O.make_laws()

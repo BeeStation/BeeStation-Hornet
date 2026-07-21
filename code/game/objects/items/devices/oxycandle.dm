@@ -1,5 +1,5 @@
 /obj/item/flashlight/oxycandle
-	name = "Oxygen Candle"
+	name = "oxygen candle"
 	desc = "A standard Nakamura Engineering branded emergency oxygen candle. There are instructions on the side that read: 'Remove lid with provided key, strike key on striker surface, insert lit key into designated marked receptacle, wait 5 minutes or until the candle cools'."
 	w_class = WEIGHT_CLASS_MEDIUM
 	slot_flags = null
@@ -40,7 +40,7 @@
 
 /obj/item/flashlight/oxycandle/proc/turn_off()
 	STOP_PROCESSING(SSobj, src)
-	on = FALSE
+	set_light_on(FALSE)
 	force = initial(src.force)
 	damtype = initial(src.damtype)
 	if(ismob(loc))
@@ -60,7 +60,7 @@
 		if(user)
 			balloon_alert(user, "out of fuel!")
 		return
-	if(on)
+	if(light_on)
 		if(user)
 			balloon_alert(user, "already lit!")
 		return
@@ -76,7 +76,7 @@
 		START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/oxycandle/get_temperature()
-	return on * heat
+	return light_on * heat
 
 /obj/item/flashlight/oxycandle/equipped(mob/user, slot)
 	..()
@@ -85,7 +85,7 @@
 	var/mob/living/carbon/C = user
 	if(C.gloves)
 		return
-	if(!on)
+	if(!light_on)
 		return
 	var/hit_zone = (C.held_index_to_dir(C.active_hand_index) == "l" ? "l_":"r_") + "arm"
 	var/obj/item/bodypart/affecting = C.get_bodypart(hit_zone)

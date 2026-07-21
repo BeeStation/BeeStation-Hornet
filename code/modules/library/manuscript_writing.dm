@@ -51,14 +51,14 @@
 
 	var/datum/job/writer_job
 	if(!is_antag)
-		if(!(user.mind?.assigned_role in valid_jobs))
+		if(!(user.mind?.assigned_role.title in valid_jobs))
 			to_chat(user, span_notice("Your job knowledge doesn't seem to be describable in writing."))
 			return ..()
-		writer_job = SSjob.GetJob(user.mind?.assigned_role)
+		writer_job = user.mind?.assigned_role
 
 	var/list/jobs_with_knowledge = \
 		is_antag ? valid_jobs \
-		: user.mind?.assigned_role == JOB_NAME_CURATOR ? valid_jobs \
+		: user.mind?.assigned_role.title == JOB_NAME_CURATOR ? valid_jobs \
 		: length(writer_job.manuscript_jobs) ? writer_job.manuscript_jobs \
 		: null
 
@@ -66,7 +66,7 @@
 		writer_job = tgui_input_list(user, "Choose a job", "Manuscript", jobs_with_knowledge)
 		if(!writer_job)
 			return ..()
-		writer_job = SSjob.GetJob(writer_job)
+		writer_job = SSjob.get_job_type(writer_job)
 
 	bookwriting(attacking_item, user, writer_job, is_antag ? 10 SECONDS : 20 SECONDS) // antag can write fast... it will look less suspicious
 	return ..()
@@ -96,7 +96,7 @@
 	writing = FALSE
 
 	// puts a job hud like a sticker on the book. Good to recognise
-	add_overlay(image(icon='icons/mob/hud.dmi', icon_state="hud[get_hud_by_jobname(booked_job.title)]", pixel_x = 12, pixel_y = -8, layer = src.layer+0.1))
+	add_overlay(image(icon='icons/mob/huds/hud.dmi', icon_state="hud[get_hud_by_jobname(booked_job.title)]", pixel_x = 12, pixel_y = -8, layer = src.layer+0.1))
 
 	// Preventing antag book mass production
 	writing_cooldown_list[FAST_REF(user.mind)] = REALTIMEOFDAY + BOOKWRITING_COOLDOWN_TIME

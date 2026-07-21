@@ -17,7 +17,7 @@
 	var/list/turfs = new/list()
 	var/rsq = radius * (radius+0.5)
 
-	for(var/atom/T as() in range(radius, centerturf))
+	for(var/atom/T as anything in range(radius, centerturf))
 		var/dx = T.x - centerturf.x
 		var/dy = T.y - centerturf.y
 		if(dx*dx + dy*dy <= rsq)
@@ -32,7 +32,7 @@
 	var/list/atoms = new/list()
 	var/rsq = radius * (radius+0.5)
 
-	for(var/atom/A as() in view(radius, centerturf))
+	for(var/atom/A as anything in view(radius, centerturf))
 		var/dx = A.x - centerturf.x
 		var/dy = A.y - centerturf.y
 		if(dx*dx + dy*dy <= rsq)
@@ -47,7 +47,7 @@
 	var/list/turfs = new/list()
 	var/rsq = radius * (radius+0.5)
 
-	for(var/turf/T as() in RANGE_TURFS(radius, centerturf))
+	for(var/turf/T as anything in RANGE_TURFS(radius, centerturf))
 		var/dx = T.x - centerturf.x
 		var/dy = T.y - centerturf.y
 		if(dx*dx + dy*dy <= rsq)
@@ -106,7 +106,7 @@
 
 // Better recursive loop, technically sort of not actually recursive cause that shit is stupid, enjoy.
 //No need for a recursive limit either
-/proc/recursive_mob_check(atom/O,client_check=1,sight_check=1,include_radio=1)
+/proc/recursive_mob_check(atom/O, client_check=TRUE, sight_check=TRUE, include_radio=TRUE)
 
 	var/list/processing_list = list(O)
 	var/list/processed_list = list()
@@ -155,7 +155,7 @@
 	var/mob_ckey = ckey(key) //just to be safe
 	if(!mob_ckey)
 		return
-	for(var/mob/M as() in GLOB.player_list)
+	for(var/mob/M as anything in GLOB.player_list)
 		if(M?.ckey == mob_ckey)
 			return M
 
@@ -163,7 +163,7 @@
 	var/mob_ckey = ckey(key) //just to be safe
 	if(!mob_ckey)
 		return
-	for(var/mob/living/potential_target as() in GLOB.mob_living_list)
+	for(var/mob/living/potential_target as anything in GLOB.mob_living_list)
 		if(QDELETED(potential_target) || (healthy && potential_target.stat))
 			continue
 		if(potential_target.ckey == mob_ckey || (!length(potential_target.ckey) && ckey(potential_target.mind?.key) == mob_ckey))
@@ -325,18 +325,14 @@
 
 	return A.loc
 
-/proc/AnnounceArrival(mob/living/carbon/human/character, rank)
-	if(QDELETED(character) || !SSticker.IsRoundInProgress())
+///Send a message in common radio when a player arrives
+/proc/announce_arrival(mob/living/carbon/human/character, rank)
+	if(!SSticker.IsRoundInProgress() || QDELETED(character))
 		return
 	var/area/player_area = get_area(character)
 	deadchat_broadcast(span_game(" has arrived at the station at [span_name(player_area.name)]."), span_game("[span_name(character.real_name)] ([rank])"), follow_target = character, message_type=DEADCHAT_ARRIVALRATTLE)
-	if((!GLOB.announcement_systems.len) || (!character.mind))
-		return
-	if((character.mind.assigned_role == JOB_NAME_CYBORG) || (character.mind.assigned_role == character.mind.special_role))
-		return
-
-	var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-	announcer.announce("ARRIVAL", character.real_name, rank, list()) //make the list empty to make it announce it in common
+	if(character.mind && (character.mind.assigned_role.job_flags & JOB_ANNOUNCE_ARRIVAL))
+		aas_config_announce(/datum/aas_config_entry/arrival, list("PERSON" = character.real_name,"RANK" = rank))
 
 /proc/lavaland_equipment_pressure_check(turf/T)
 	. = FALSE
@@ -361,7 +357,7 @@
 /proc/find_obstruction_free_location(range, atom/center, area/specific_area)
 	var/list/possible_loc = list()
 
-	for(var/turf/found_turf as() in RANGE_TURFS(range, center))
+	for(var/turf/found_turf as anything in RANGE_TURFS(range, center))
 		var/area/turf_area = get_area(found_turf)
 
 		// We check if both the turf is a floor, and that it's actually in the area.
@@ -381,11 +377,12 @@
 	return pick(possible_loc)
 
 /proc/power_fail(duration_min, duration_max)
-	for(var/P in GLOB.apcs_list)
-		var/obj/machinery/power/apc/C = P
-		if(C.cell && SSmapping.level_trait(C.z, ZTRAIT_STATION))
-			var/area/A = C.area
-			if(GLOB.typecache_powerfailure_safe_areas[A.type])
-				continue
+	for(var/obj/machinery/power/apc/current_apc as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/apc))
+		if(!current_apc.cell || SSmapping.level_trait(current_apc.z, ZTRAIT_STATION))
+			continue
+		var/area/apc_area = current_apc.area
+		if(is_type_in_typecache(apc_area, GLOB.typecache_powerfailure_safe_areas))
+			continue
 
-			C.energy_fail(rand(duration_min,duration_max))
+		var/duration = rand(duration_min,duration_max)
+		current_apc.energy_fail(duration)

@@ -41,3 +41,30 @@
 // Bodypart change blocking flags
 ///Bodypart does not get replaced during set_species()
 #define BP_BLOCK_CHANGE_SPECIES (1<<0)
+
+/// When the surgery step fails :(
+#define SURGERY_STEP_FAIL -1
+
+// Flags for surgery_flags on surgery datums
+///Will allow the surgery to bypass clothes
+#define SURGERY_IGNORE_CLOTHES (1<<0)
+///Will allow the surgery to be performed by the user on themselves.
+#define SURGERY_SELF_OPERABLE (1<<1)
+///Will allow the surgery to work on mobs that aren't lying down.
+#define SURGERY_REQUIRE_RESTING (1<<2)
+///Will allow the surgery to work only if there's a limb.
+#define SURGERY_REQUIRE_LIMB (1<<3)
+///Will allow the surgery to work only if there's a real (eg. not pseudopart) limb.
+#define SURGERY_REQUIRES_REAL_LIMB (1<<4)
+
+///Return true if target is not in a valid body position for the surgery
+#define IS_IN_INVALID_SURGICAL_POSITION(target, surgery) ((surgery.surgery_flags & SURGERY_REQUIRE_RESTING) && (target.mobility_flags & MOBILITY_LIEDOWN && target.body_position != LYING_DOWN))
+
+/// Head can have eye sprites
+#define HEAD_EYESPRITES (1<<1)
+/// Head will have colored eye sprites
+#define HEAD_EYECOLOR (1<<2)
+/// Head can have eyeholes when missing eyes
+#define HEAD_EYEHOLES (1<<3)
+/// All head flags, default for most heads
+#define HEAD_ALL_FEATURES (HEAD_EYESPRITES|HEAD_EYECOLOR|HEAD_EYEHOLES)

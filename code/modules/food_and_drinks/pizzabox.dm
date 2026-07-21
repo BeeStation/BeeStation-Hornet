@@ -142,7 +142,7 @@
 				if (isnull(bomb_timer))
 					return
 
-				bomb_timer = clamp(CEILING(bomb_timer, 1), bomb_timer_min, bomb_timer_max)
+				bomb_timer = clamp(ceil(bomb_timer), bomb_timer_min, bomb_timer_max)
 				bomb_defused = FALSE
 				wires.ui_update()
 
@@ -370,7 +370,7 @@
 			var/list/pineapple_pizza_liker = pizza_types.Copy()
 			pineapple_pizza_liker -= /obj/item/food/pizza/pineapple
 			pizza_preferences[nommer.ckey] = pick_weight(pineapple_pizza_liker)
-		else if(nommer.mind && nommer.mind.assigned_role == JOB_NAME_BOTANIST)
+		else if(nommer.mind?.assigned_role.title == /datum/job/botanist)
 			pizza_preferences[nommer.ckey] = /obj/item/food/pizza/dank
 		else
 			pizza_preferences[nommer.ckey] = pick_weight(pizza_types)

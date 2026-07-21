@@ -1,7 +1,12 @@
-#define TRANSFORMATION_DURATION 22
+#define TRANSFORMATION_DURATION (2.2 SECONDS)
+/// Considered "permanent" since we'll be deleting the old mob and the client will be inserted into a new one (without this trait)
+#define PERMANENT_TRANSFORMATION_TRAIT "permanent_transformation"
 
 /mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), skip_animation = FALSE, keep_original_species = FALSE)
-	if (notransform || transformation_timer)
+	if (transformation_timer || HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
+		return
+
+	if(ismonkey(src))
 		return
 
 	var/list/missing_bodyparts_zones = get_missing_limbs()
@@ -17,7 +22,7 @@
 		unequip_everything()
 
 	//Make mob invisible and spawn animation
-	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	Paralyze(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
 	icon = null
 	cut_overlays()
@@ -142,6 +147,7 @@
 
 	if (tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now a monkey.</B>")
+	SEND_SIGNAL(src, COMSIG_HUMAN_MONKEYIZE)
 	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
 
 	for(var/A in loc.vars)
@@ -158,7 +164,7 @@
 //Mostly same as monkey but turns target into teratoma
 
 /mob/living/carbon/proc/teratomize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG))
-	if (notransform || transformation_timer)
+	if (transformation_timer || HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 	//Handle items on mob
 
@@ -177,7 +183,7 @@
 		unequip_everything()
 
 	//Make mob invisible and spawn animation
-	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	Paralyze(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
 	icon = null
 	cut_overlays()
@@ -303,7 +309,7 @@
 //Could probably be merged with monkeyize but other transformations got their own procs, too
 
 /mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), keep_original_species = FALSE, datum/species/original_species, species = /datum/species/human)
-	if (notransform || transformation_timer)
+	if (transformation_timer || HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	var/list/int_organs = list()
@@ -322,7 +328,7 @@
 		unequip_everything()
 
 	//Make mob invisible and spawn animation
-	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	Paralyze(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
 
 	icon = null
@@ -342,8 +348,6 @@
 
 	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
 	O.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(/datum/mutation/race))
-	//Reset offsets to match human settings, in-case they have been changed
-	O.dna.species.offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
 	O.updateappearance(mutcolor_update=1)
 
 	if(findtext(O.dna.real_name, "monkey", 1, 7)) //7 == length("monkey") + 1
@@ -459,6 +463,7 @@
 	if (tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now \a [O.dna.species]].</B>")
 
+	SEND_SIGNAL(src, COMSIG_HUMAN_MONKEYIZE)
 	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
 
 	transfer_observers_to(O, TRUE)
@@ -473,15 +478,13 @@
 
 //A common proc to start an -ize transformation
 /mob/living/carbon/proc/pre_transform(delete_items = FALSE)
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return TRUE
-	notransform = TRUE
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_GENERIC)
+	add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), PERMANENT_TRANSFORMATION_TRAIT)
 	Paralyze(1, ignore_canstun = TRUE)
 
 	if(delete_items)
-		for(var/obj/item/W in get_equipped_items(INCLUDE_POCKETS) | held_items)
+		for(var/obj/item/W in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			qdel(W)
 	else
 		unequip_everything()
@@ -547,7 +550,7 @@
 	if(R.mmi)
 		R.mmi.transfer_identity(src)
 
-	R.notify_ai(NEW_BORG)
+	R.notify_ai(AI_NOTIFICATION_NEW_BORG)
 
 	. = R
 	if(R.ckey && is_banned_from(R.ckey, JOB_NAME_CYBORG))
@@ -650,21 +653,6 @@
 	. = new_gorilla
 	qdel(src)
 
-/mob/living/carbon/proc/junglegorillize()
-	if(pre_transform())
-		return
-	var/mob/living/simple_animal/hostile/gorilla/rabid/new_gorilla = new (get_turf(src))
-	new_gorilla.set_combat_mode(TRUE)
-	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	H.add_hud_to(new_gorilla)
-	if(mind)
-		mind.transfer_to(new_gorilla)
-	else
-		new_gorilla.key = key
-	to_chat(new_gorilla, "<B>You are now a gorilla. Ooga ooga!</B>")
-	. = new_gorilla
-	qdel(src)
-
 /mob/living/carbon/human/Animalize()
 
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
@@ -707,3 +695,4 @@
 	qdel(src)
 
 #undef TRANSFORMATION_DURATION
+#undef PERMANENT_TRANSFORMATION_TRAIT

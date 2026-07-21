@@ -33,9 +33,6 @@
 	/// on the gas coming out of the vent.
 	var/external_temperature = 0
 
-	/// id of air sensor its connected to
-	var/chamber_id
-
 	///area this vent is assigned to
 	var/area/assigned_area
 

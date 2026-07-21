@@ -27,7 +27,7 @@
 	var/namepart = name
 	// If carbon, use voice to account for voice changers
 	if(iscarbon(src))
-		namepart = GetVoice()
+		namepart = get_voice()
 
 	for(var/mob/hearing_mob in GLOB.player_list)
 		if(hearing_mob.binarycheck())

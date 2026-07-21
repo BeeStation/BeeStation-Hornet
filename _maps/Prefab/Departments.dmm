@@ -33,6 +33,7 @@
 /area/misc/space)
 "aJ" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/computer/xenoarchaeology_console,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "aK" = (
@@ -119,6 +120,11 @@
 	},
 /turf/open/floor/circuit,
 /area/misc/space)
+"bV" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/item/xenoarchaeology_labeler,
+/turf/open/floor/iron/white,
+/area/station/science/research)
 "ca" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/structure/closet/secure_closet/chemical,
@@ -194,6 +200,7 @@
 /area/station/commons/dorms)
 "dv" = (
 /obj/machinery/vending/wardrobe/bar_wardrobe,
+/obj/structure/displaycase/forsale/kitchen,
 /turf/open/floor/iron/cafeteria_red,
 /area/station/service/bar)
 "dA" = (
@@ -357,6 +364,11 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/station/cargo/sorting)
+"hA" = (
+/obj/machinery/chem_dispenser/drinks/beer,
+/obj/machinery/vending/boozeomat,
+/turf/open/floor/iron/cafeteria_red,
+/area/station/service/bar)
 "hD" = (
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 6
@@ -366,6 +378,7 @@
 	},
 /area/misc/space)
 "hQ" = (
+/obj/machinery/libraryscanner,
 /obj/machinery/door/morgue{
 	name = "Private Study";
 	req_access_txt = "37"
@@ -467,6 +480,11 @@
 /obj/machinery/suit_storage_unit/captain,
 /turf/open/floor/carpet/blue,
 /area/station/command/heads_quarters/captain)
+"ks" = (
+/obj/machinery/bookbinder,
+/obj/structure/sign/painting/library,
+/turf/open/floor/carpet/royalblack,
+/area/station/service/library)
 "kz" = (
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/door/firedoor,
@@ -479,7 +497,7 @@
 /turf/open/floor/iron,
 /area/misc/space)
 "kG" = (
-/obj/structure/destructible/cult/tome,
+/obj/machinery/modular_computer/console/preset/curator,
 /turf/open/floor/carpet/royalblack,
 /area/station/service/library)
 "kK" = (
@@ -520,7 +538,11 @@
 /turf/open/floor/iron/tech/grid,
 /area/misc/space)
 "mO" = (
-/obj/item/book/manual/wiki/barman_recipes,
+/obj/machinery/chem_master/condimaster{
+	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
+	name = "HoochMaster Deluxe"
+	},
+/obj/machinery/reagentgrinder,
 /turf/open/floor/iron/cafeteria_red,
 /area/station/service/bar)
 "mQ" = (
@@ -606,6 +628,11 @@
 "oa" = (
 /turf/open/floor/carpet/green,
 /area/station/service/lawoffice)
+"oo" = (
+/obj/structure/bookcase/random/fiction,
+/obj/structure/destructible/cult/tome,
+/turf/open/floor/carpet/royalblack,
+/area/station/service/library)
 "oq" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters"
@@ -645,10 +672,6 @@
 	pixel_x = 4;
 	pixel_y = 10
 	},
-/obj/item/xenoartifact_labeler{
-	pixel_y = 4;
-	pixel_x = -5
-	},
 /obj/item/clothing/gloves/artifact_pinchers{
 	pixel_y = 3
 	},
@@ -662,12 +685,6 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/station/science/research)
-"oI" = (
-/obj/machinery/computer/xenoartifact_console{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/station/science/mixing)
 "oO" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/structure/janitorialcart,
@@ -685,9 +702,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/misc/space)
 "ph" = (
-/obj/effect/landmark/start/mime,
 /obj/effect/landmark/start/clown,
-/obj/effect/landmark/start/randommaint/magician,
 /turf/open/floor/carpet/red,
 /area/station/service/theater/backstage)
 "pp" = (
@@ -829,6 +844,7 @@
 /area/station/cargo/storage)
 "sx" = (
 /obj/structure/closet/secure_closet/bar,
+/obj/structure/reagent_dispensers/beerkeg,
 /turf/open/floor/iron/cafeteria_red,
 /area/station/service/bar)
 "sD" = (
@@ -1018,6 +1034,10 @@
 	},
 /turf/open/floor/iron,
 /area/misc/space)
+"xs" = (
+/obj/machinery/computer/libraryconsole/bookmanagement,
+/turf/open/floor/carpet/royalblack,
+/area/station/service/library)
 "xB" = (
 /obj/machinery/button/door,
 /turf/open/floor/iron,
@@ -1036,14 +1056,14 @@
 /obj/machinery/computer/camera_advanced/xenobio,
 /turf/open/floor/iron/grid/steel,
 /area/station/science/xenobiology)
-"xM" = (
-/obj/item/book/manual/hydroponics_pod_people,
-/turf/open/floor/grass/no_border,
-/area/station/service/hydroponics)
 "xS" = (
 /obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/carpet/royalblue,
 /area/station/command/heads_quarters/chief)
+"xZ" = (
+/obj/effect/landmark/start/randommaint/magician,
+/turf/open/floor/carpet/red,
+/area/station/service/theater/backstage)
 "yb" = (
 /obj/structure/disposalpipe/sorting/mail/destination/ce_office,
 /turf/open/floor/carpet/royalblue,
@@ -1282,6 +1302,7 @@
 /turf/open/floor/carpet/blue,
 /area/station/command/heads_quarters/captain)
 "Eb" = (
+/obj/machinery/chem_dispenser/drinks,
 /turf/open/floor/iron/cafeteria_red,
 /area/station/service/bar)
 "Ec" = (
@@ -1514,10 +1535,6 @@
 /obj/structure/closet/firecloset,
 /turf/open/floor/iron,
 /area/misc/space)
-"Kb" = (
-/obj/item/book/codex_gigas,
-/turf/open/floor/carpet/royalblack,
-/area/station/service/library)
 "Kg" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch"
@@ -1561,6 +1578,7 @@
 /turf/open/floor/iron,
 /area/station/commons/dorms)
 "KM" = (
+/obj/machinery/computer/libraryconsole,
 /turf/open/floor/carpet/royalblack,
 /area/station/service/library)
 "KV" = (
@@ -1589,7 +1607,7 @@
 /turf/open/floor/carpet/purple,
 /area/station/service/chapel/office)
 "LC" = (
-/obj/structure/sink/kitchen,
+/obj/structure/sink/kitchen/directional/south,
 /turf/open/floor/iron/freezer,
 /area/station/service/kitchen)
 "LH" = (
@@ -1669,13 +1687,6 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron,
 /area/misc/space)
-"MZ" = (
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/machinery/computer/xenoartifact_console{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/station/science/research)
 "Nb" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/machinery/vending/wardrobe/chem_wardrobe,
@@ -2127,6 +2138,10 @@
 /obj/structure/closet/wardrobe/black,
 /turf/open/floor/iron/dark,
 /area/misc/space)
+"VL" = (
+/obj/effect/landmark/start/mime,
+/turf/open/floor/carpet/red,
+/area/station/service/theater/backstage)
 "VY" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -2151,10 +2166,12 @@
 	},
 /area/misc/space)
 "Wp" = (
+/mob/living/carbon/monkey/punpun,
 /mob/living/simple_animal/chicken{
 	name = "Kentucky";
 	real_name = "Kentucky"
 	},
+/obj/item/book/manual/wiki/barman_recipes,
 /turf/open/floor/iron/cafeteria_red,
 /area/station/service/bar)
 "Wx" = (
@@ -2389,7 +2406,7 @@ tM
 CE
 zT
 nt
-MZ
+bV
 Hb
 ac
 Wx
@@ -2425,9 +2442,9 @@ De
 Bb
 "}
 (8,1,1) = {"
-Kb
+oo
 dF
-KM
+xs
 VD
 LU
 lt
@@ -2446,11 +2463,11 @@ YV
 "}
 (9,1,1) = {"
 hQ
-KM
+ks
 kX
 zU
 lt
-oI
+lt
 LH
 nv
 ba
@@ -2466,7 +2483,7 @@ jA
 "}
 (10,1,1) = {"
 Tj
-Vy
+xZ
 or
 TE
 lX
@@ -2506,7 +2523,7 @@ VY
 "}
 (12,1,1) = {"
 Eg
-Vy
+VL
 XC
 CM
 ei
@@ -2566,7 +2583,7 @@ Qk
 "}
 (15,1,1) = {"
 WN
-Eb
+hA
 dv
 Uq
 fX
@@ -2605,7 +2622,7 @@ XF
 XF
 "}
 (17,1,1) = {"
-xM
+Oz
 Nu
 Tq
 ti

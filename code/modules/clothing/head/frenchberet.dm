@@ -8,33 +8,6 @@
 	dynamic_hair_suffix = ""
 	dying_key = DYE_REGISTRY_BERET
 
-/obj/item/clothing/head/frenchberet/equipped(mob/M, slot)
+/obj/item/clothing/head/frenchberet/Initialize(mapload)
 	. = ..()
-	if(slot == ITEM_SLOT_HEAD)
-		RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-	else
-		UnregisterSignal(M, COMSIG_MOB_SAY)
-
-/obj/item/clothing/head/frenchberet/dropped(mob/M)
-	. = ..()
-	UnregisterSignal(M, COMSIG_MOB_SAY)
-
-/obj/item/clothing/head/frenchberet/proc/handle_speech(datum/source, list/speech_args)
-	SIGNAL_HANDLER
-	var/message = speech_args[SPEECH_MESSAGE]
-	if(message[1] != "*")
-		message = " [message]"
-		var/list/french_words = strings(FRENCH_TALK_FILE, "words")
-
-		for(var/key in french_words)
-			var/value = french_words[key]
-			if(islist(value))
-				value = pick(value)
-
-			message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
-			message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
-			message = replacetextEx(message, " [key]", " [value]")
-
-		if(prob(3))
-			message += pick(" Honh honh honh!"," Honh!"," Zut Alors!")
-	speech_args[SPEECH_MESSAGE] = trim(message)
+	AddComponent(/datum/component/speechmod, file_path = FRENCH_TALK_FILE, end_string = list(" Honh honh honh!"," Honh!"," Zut Alors!"), end_string_chance = 3, slots = ITEM_SLOT_HEAD)

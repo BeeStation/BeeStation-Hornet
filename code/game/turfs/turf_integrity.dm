@@ -316,26 +316,17 @@
 /turf/fire_act(exposed_temperature, exposed_volume)
 	if (resistance_flags & INDESTRUCTIBLE)
 		return
-	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))
-		take_damage(clamp(0.02 * exposed_temperature, 0, 20), BURN, FIRE, 0)
+	var/potential_damage = 0.02 * exposed_temperature
+	if(exposed_temperature && !(resistance_flags & FIRE_PROOF) && (potential_damage > damage_deflection))
+		take_damage(clamp(potential_damage, 0, 20), BURN, FIRE, 0)
 	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
-		resistance_flags |= ON_FIRE
-		SSfire_burning.processing[src] = src
-		update_icon()
-		return 1
+		AddComponent(/datum/component/burning, GLOB.fire_overlay)
+		return TRUE
+	return ..()
 
-//called when the obj is destroyed by fire
+/// Should be called when the atom is destroyed by fire, comparable to acid_melt() proc
 /turf/proc/burn()
-	if(resistance_flags & ON_FIRE)
-		SSfire_burning.processing -= src
 	turf_destruction(FIRE, 0)
-
-/turf/extinguish()
-	. = ..()
-	if(resistance_flags & ON_FIRE)
-		resistance_flags &= ~ON_FIRE
-		update_icon()
-		SSfire_burning.processing -= src
 
 //Whatever happens after high temperature fire dies out or thermite reaction works.
 //Should return new turf

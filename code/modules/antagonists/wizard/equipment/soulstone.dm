@@ -314,9 +314,6 @@
 
 				make_new_construct_from_class(construct_class, theme, contained_shade, user, FALSE, T.loc)
 
-				for(var/datum/antagonist/cult/cultist in GLOB.active_antagonists)
-					if(cultist.owner == contained_shade.mind)
-						cultist.remove_antag_hud(ANTAG_HUD_CULT, cultist.owner.current)
 				qdel(T)
 				contained_shade = null
 				qdel(src)

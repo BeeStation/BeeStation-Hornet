@@ -904,7 +904,7 @@
 	pixel_x = 5;
 	pixel_y = 6
 	},
-/obj/item/clothing/mask/cigarette/pipe/cobpipe{
+/obj/item/cigarette/pipe/cobpipe{
 	pixel_y = 10;
 	pixel_x = -5
 	},
@@ -1220,9 +1220,7 @@
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 4
 	},
-/obj/structure/sink/kitchen{
-	pixel_y = 32
-	},
+/obj/structure/sink/kitchen/directional/south,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},

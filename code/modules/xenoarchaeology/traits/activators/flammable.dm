@@ -29,6 +29,10 @@
 	UnregisterSignal(component_parent?.parent, COMSIG_ITEM_ATTACK_SELF)
 	return ..()
 
+/datum/xenoartifact_trait/activator/flammable/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
 /datum/xenoartifact_trait/activator/flammable/translation_type_a(datum/source, atom/target)
 	lit = FALSE
 	//Indicator hint

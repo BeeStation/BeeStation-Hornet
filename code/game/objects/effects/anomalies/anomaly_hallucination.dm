@@ -14,21 +14,18 @@
 		span_warning("You are going insane!"),
 	)
 
-/obj/effect/anomaly/hallucination/anomalyEffect(delta_time)
+/obj/effect/anomaly/hallucination/anomaly_process(delta_time)
 	. = ..()
-
-	if(!COOLDOWN_FINISHED(src, pulse_cooldown))
+	var/turf/our_turf = get_turf(src)
+	if(!COOLDOWN_FINISHED(src, pulse_cooldown) || !istype(our_turf))
 		return
 	COOLDOWN_START(src, pulse_cooldown, pulse_interval)
 
-	if(!isturf(loc))
-		return
-
 	visible_hallucination_pulse(
-		center = get_turf(src),
+		center = our_turf,
 		radius = 5,
 		hallucination_duration = 50 SECONDS,
-		hallucination_max_duration = 300 SECONDS,
+		hallucination_max_duration = 5 MINUTES,
 		optional_messages = messages,
 	)
 
@@ -39,7 +36,7 @@
 		center = our_turf,
 		radius = 15,
 		hallucination_duration = 50 SECONDS,
-		hallucination_max_duration = 300 SECONDS,
+		hallucination_max_duration = 5 MINUTES,
 		optional_messages = messages,
 	)
-	our_turf.generate_fake_pierced_realities(max_spawned_faked)
+	generate_fake_pierced_realities(center_turf = our_turf, max_amount = max_spawned_faked)

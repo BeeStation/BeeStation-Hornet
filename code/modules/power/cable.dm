@@ -154,7 +154,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		if(connected_cable.omni)
 			var/has_other_cable = FALSE
 			var/reverse_dir = REVERSE_DIR(inbetween_dir)
-			for(var/obj/structure/cable/other_cable in connected_cable.connected)
+			for(var/obj/structure/cable/other_cable as anything in connected_cable.connected)
 				if(other_cable.linked_dirs & reverse_dir)
 					has_other_cable = TRUE
 					break
@@ -167,6 +167,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 		connected_cable.update_power_node()
 		connected_cable.update_appearance(UPDATE_ICON)
+	connected.Cut()
+
+	update_power_node()
+
 	down?.set_up(null)
 	up?.set_down(null)
 
@@ -196,6 +200,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 			adjacent_cable.update_power_node()
 			adjacent_cable.update_appearance(UPDATE_ICON)
 
+	update_power_node()
+
 	// Linkup with multi-z cables
 	if (multiz)
 		var/turf/current_location = get_turf(src)
@@ -217,7 +223,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	has_power_node = FALSE
 
 	// If we have 0 or 1 connections, we get a free power node
-	if((linked_dirs & NORTH) + (linked_dirs & SOUTH) + (linked_dirs & WEST) + (linked_dirs & EAST) <= 1)
+	if(!!(linked_dirs & NORTH) + !!(linked_dirs & SOUTH) + !!(linked_dirs & WEST) + !!(linked_dirs & EAST) <= 1)
 		has_power_node = TRUE
 
 	if (previous_node_state != has_power_node)
@@ -484,7 +490,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	if (link_powernets)
 		// Don't linkup if they have no powernet, for example in the case of
 		// shuttle moving where we get a null powernet until we land
-		for (var/obj/structure/cable/connected_cable in connected)
+		for (var/obj/structure/cable/connected_cable as anything in connected)
 			if (connected_cable.powernet)
 				if (powernet)
 					merge_powernets(powernet, connected_cable.powernet)
@@ -526,8 +532,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		if(!power_machine.connect_to_network())
 			power_machine.disconnect_from_network()
 
-/obj/structure/cable/proc/disconnect_from_machines()
-	for(var/obj/machinery/power/power_machine in get_turf(src))
+/obj/structure/cable/proc/disconnect_from_machines(turf/turf_to_check)
+	for(var/obj/machinery/power/power_machine in turf_to_check)
 		if(!power_machine.connect_to_network()) //can't find a node cable on a the turf to connect to
 			power_machine.disconnect_from_network() //remove from current network
 
@@ -543,12 +549,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		moveToNullspace()
 	powernet.remove_cable(src) //remove the cut cable from its powernet
 
-	if (!location)
-		return
-
 	// Disconnect machines connected to nodes
-	if(has_power_node) // if we cut a node (O-X) cable
-		disconnect_from_machines()
+	if(location && has_power_node) // if we cut a node (O-X) cable
+		disconnect_from_machines(location)
 
 /obj/structure/cable/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
 	. = ..()

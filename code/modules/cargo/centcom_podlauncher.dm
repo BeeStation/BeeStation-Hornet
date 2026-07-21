@@ -66,10 +66,7 @@
 
 	var/obj/structure/closet/supplypod/centcompod/temp_pod //The temporary pod that is modified by this datum, then cloned. The buildObject() clone of this pod is what is launched
 	// Stuff needed to render the map
-	var/map_name
-	var/atom/movable/screen/map_view/cam_screen
-	var/datum/remote_view/remote_view
-	var/atom/movable/screen/background/cam_background
+	var/atom/movable/screen/map_view/camera/cam_screen
 	var/tabIndex = 1
 	var/renderLighting = FALSE
 
@@ -96,26 +93,20 @@
 	refreshBay()
 	ui_interact(owner_client.mob)
 
-/datum/centcom_podlauncher/proc/initMap()
-	if(remote_view)
-		QDEL_NULL(remote_view)
+/datum/centcom_podlauncher/proc/initMap(datum/tgui/ui)
+	if(cam_screen)
+		QDEL_NULL(cam_screen)
 
-	map_name = "admin_supplypod_bay_[REF(src)]_map"
+	var/map_name = "admin_supplypod_bay_[REF(src)]_map"
 	// Initialize map objects
 	cam_screen = new
-	cam_screen.name = "screen"
-	cam_screen.assigned_map = map_name
-	cam_screen.del_on_map_removal = TRUE
-	cam_screen.screen_loc = "[map_name]:1,1"
-	remote_view = new(map_name)
-	cam_background = new
-	cam_background.assigned_map = map_name
-	cam_background.del_on_map_removal = TRUE
-	refreshView()
-	owner_client.register_map_obj(cam_screen)
-	remote_view.join(owner_client)
-	owner_client.register_map_obj(cam_background)
+	cam_screen.generate_view(map_name)
 
+	if (!ui)
+		ui = ui_interact(owner_client.mob)
+	cam_screen.display_to(owner_client.mob, ui.window)
+
+	refreshView()
 
 /datum/centcom_podlauncher/ui_state(mob/user)
 	if (SSticker.current_state >= GAME_STATE_FINISHED)
@@ -134,10 +125,11 @@
 		ui = new(user, src, "CentcomPodLauncher")
 		ui.open()
 		refreshView()
+	return ui
 
 /datum/centcom_podlauncher/ui_static_data(mob/user)
 	var/list/data = list()
-	data["mapRef"] = map_name
+	data["mapRef"] = cam_screen.assigned_map
 	data["defaultSoundVolume"] = initial(temp_pod.soundVolume) //default volume for pods
 	return data
 
@@ -187,7 +179,7 @@
 	data["soundVolume"] = temp_pod.soundVolume //Admin sound to play when the pod leaves
 	return data
 
-/datum/centcom_podlauncher/ui_act(action, params)
+/datum/centcom_podlauncher/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(. || !owner_client.holder)
 		return
@@ -293,7 +285,7 @@
 					boomInput.Add(input("Enter the [expNames[i]] range of the explosion. WARNING: This ignores the bomb cap!", "[expNames[i]] Range",  0) as null|num)
 					if (isnull(boomInput[i]))
 						return
-					if (!isnum_safe(boomInput[i])) //If the user doesn't input a number, set that specific explosion value to zero
+					if (!IS_FINITE(boomInput[i])) //If the user doesn't input a number, set that specific explosion value to zero
 						alert(usr, "That wasn't a number! Value set to default (zero) instead.")
 						boomInput = 0
 				explosionChoice = 1
@@ -315,7 +307,7 @@
 				var/damageInput = input("Enter the amount of brute damage dealt by getting hit","How much damage to deal",  0) as null|num
 				if (isnull(damageInput))
 					return
-				if (!isnum_safe(damageInput)) //Sanitize the input for damage to deal.s
+				if (!IS_FINITE(damageInput)) //Sanitize the input for damage to deal.s
 					alert(usr, "That wasn't a number! Value set to default (zero) instead.")
 					damageInput = 0
 				damageChoice = 1
@@ -506,7 +498,7 @@
 			refreshView()
 			. = TRUE
 		if("refreshView")
-			initMap()
+			initMap(ui)
 			refreshView()
 			. = TRUE
 		if("renderLighting")
@@ -534,10 +526,6 @@
 
 /datum/centcom_podlauncher/ui_close(mob/user, datum/tgui/tgui) //Uses the destroy() proc. When the user closes the UI, we clean up the temp_pod and supplypod_selector variables.
 	QDEL_NULL(temp_pod)
-	remote_view?.leave(user.client)
-	QDEL_NULL(cam_screen)
-	QDEL_NULL(remote_view)
-	QDEL_NULL(cam_background)
 	qdel(src)
 
 /datum/centcom_podlauncher/proc/setupViewPod()
@@ -559,9 +547,7 @@
 	var/size_x = bbox[3] - bbox[1] + 1
 	var/size_y = bbox[4] - bbox[2] + 1
 
-	cam_screen.vis_contents = visible_turfs
-	cam_background.icon_state = "clear"
-	cam_background.fill_rect(1, 1, size_x, size_y)
+	cam_screen.show_camera(visible_turfs, size_x, size_y)
 
 /datum/centcom_podlauncher/proc/updateCursor(forceClear = FALSE) //Update the mouse of the user
 	if (!owner_client) //Can't update the mouse icon if the client doesnt exist!
@@ -799,6 +785,7 @@
 	QDEL_NULL(temp_pod) //Delete the temp_pod
 	QDEL_NULL(selector) //Delete the selector effect
 	QDEL_NULL(indicator)
+	QDEL_NULL(cam_screen)
 	return ..()
 
 /datum/centcom_podlauncher/proc/supplypod_punish_log(turf/target_turf, list/nearby_mobs, list/targeted_mobs, list/pod_contents)

@@ -4,46 +4,43 @@
 	pixel_y = 32
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "g" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -14
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "l" = (
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "p" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "q" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "K" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "M" = (
 /obj/machinery/door/window/eastright,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "X" = (
 /obj/structure/toilet{
 	dir = 8
 	},
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 q

@@ -78,10 +78,9 @@
 	playsound(src, 'sound/items/flashlight_on.ogg', 50, TRUE)
 	return
 
-/obj/item/computer_hardware/attackby(obj/item/I, mob/living/user)
-	if(try_insert(I, user))
+/obj/item/computer_hardware/attackby(obj/item/attacking_item, mob/living/user)
+	if(application_attackby(attacking_item, user))
 		return TRUE
-
 	return ..()
 
 /obj/item/computer_hardware/welder_act(mob/living/user, obj/item/I)
@@ -152,7 +151,7 @@
 /obj/item/computer_hardware/multitool_act_secondary(mob/living/user, obj/item/tool)
 	var/time_to_hack = 3 SECONDS
 	var/fail_chance = 15
-	if(user.mind?.assigned_role == (JOB_NAME_SCIENTIST || JOB_NAME_RESEARCHDIRECTOR))	// Scientist buff
+	if(user.mind?.assigned_role.title == JOB_NAME_SCIENTIST || user.mind?.assigned_role.title == JOB_NAME_RESEARCHDIRECTOR)	// Scientist buff
 		time_to_hack = 2 SECONDS
 		fail_chance = 5
 	if(HAS_TRAIT(user, TRAIT_COMPUTER_WHIZ))	// Trait buff
@@ -277,7 +276,6 @@
 
 /// Called when component is installed into PC.
 /obj/item/computer_hardware/proc/on_install(obj/item/modular_computer/install_into, mob/living/user = null)
-	install_into.ui_update(user)
 	return
 
 /// Called when component is removed from PC.
@@ -286,8 +284,8 @@
 		try_eject(forced = TRUE)
 	remove_from.ui_update(user)
 
-/// Called when someone tries to insert something in it - paper in printer, card in card reader, etc.
-/obj/item/computer_hardware/proc/try_insert(obj/item/I, mob/living/user = null)
+/// Called when attacking a tablet with an item, checking if any application uses it. Return TRUE to cancel the attack chain.
+/obj/item/computer_hardware/proc/application_attackby(obj/item/attacking_item, mob/living/user)
 	return FALSE
 
 /**

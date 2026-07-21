@@ -1,6 +1,6 @@
 /datum/unit_test/trackable/Run()
 	var/list/fails = list()
-	for (var/datum/objective_item/steal/item as() in subtypesof(/datum/objective_item/steal))
+	for (var/datum/objective_item/steal/item as anything in subtypesof(/datum/objective_item/steal))
 		if (ispath(item, /datum/objective_item/special) || ispath(item, /datum/objective_item/stack))
 			continue
 		var/item_target = initial(item.special_track_type) || initial(item.targetitem)

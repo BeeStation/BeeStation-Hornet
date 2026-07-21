@@ -84,7 +84,7 @@
 	if(charge_recovery)
 		START_PROCESSING(SSdcs, src)
 
-/datum/component/shielded/Destroy(force, silent)
+/datum/component/shielded/Destroy(force)
 	if(wearer)
 		shield_icon = "broken"
 		UnregisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS)
@@ -137,7 +137,7 @@
 	if(current_integrity == max_integrity)
 		playsound(item_parent, 'sound/machines/ding.ogg', 50, TRUE)
 
-/datum/component/shielded/proc/emp_destruction(datum/source, severity)
+/datum/component/shielded/proc/emp_destruction(datum/source, severity, protection)
 	SIGNAL_HANDLER
 	if (!current_integrity)
 		return

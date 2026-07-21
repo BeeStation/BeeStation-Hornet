@@ -360,10 +360,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "bz" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "bA" = (
@@ -1099,7 +1096,7 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = -32
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -1232,7 +1229,7 @@
 "ZP" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/bot,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_y = 32
 	},
 /turf/open/floor/mineral/titanium,

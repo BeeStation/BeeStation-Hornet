@@ -287,7 +287,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/airlock)
 "aJ" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/airlock)
 "aK" = (
@@ -916,7 +916,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/medical)
 "ck" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/hallway)
 "cl" = (
@@ -1467,7 +1467,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable/yellow,
-/obj/structure/sign/warning/electricshock{
+/obj/structure/sign/warning/electric_shock{
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1562,9 +1562,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/airalarm/directional/east,
-/obj/effect/mapping_helpers/airalarm/syndicate_access,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/airalarm/directional/west,
+/obj/effect/mapping_helpers/airalarm/syndicate_access,
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate/medical)
 "dU" = (
@@ -1644,7 +1644,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = 28
 	},
 /turf/open/floor/pod/dark,
@@ -1886,6 +1886,11 @@
 /obj/machinery/light/small,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/airlock)
+"od" = (
+/obj/structure/cable/yellow,
+/mob/living/simple_animal/bot/medbot/nukie,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/shuttle/syndicate/medical)
 "op" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4;
@@ -2009,11 +2014,10 @@
 /area/shuttle/syndicate/medical)
 "JN" = (
 /obj/structure/mirror{
-	pixel_y = 28
+	pixel_y = 35;
+	pixel_x = -1
 	},
-/obj/structure/sink{
-	pixel_y = 24
-	},
+/obj/structure/sink/directional/south,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/shuttle/syndicate/medical)
 "KA" = (
@@ -2219,7 +2223,7 @@ aJ
 aO
 bf
 JN
-Ak
+od
 Jr
 Ll
 bV

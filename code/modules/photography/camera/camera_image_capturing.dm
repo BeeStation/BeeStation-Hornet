@@ -57,15 +57,15 @@
 
 
 	var/list/sorted = sortTim(images, GLOBAL_PROC_REF(cmp_atom_layer_asc))
-	var/xcomp = FLOOR(psize_x / 2, 1) - 15
-	var/ycomp = FLOOR(psize_y / 2, 1) - 15
+	var/xcomp = floor(psize_x / 2) - 15
+	var/ycomp = floor(psize_y / 2) - 15
 
 
 	if(!skip_normal) //these are not clones
 		for(var/Adummy in sorted)
 			var/image/photo/A = Adummy
-			var/xo = (A.x - center.x) * world.icon_size + A.pixel_x + xcomp + A._step_x
-			var/yo = (A.y - center.y) * world.icon_size + A.pixel_y + ycomp + A._step_y
+			var/xo = (A.x - center.x) * ICON_SIZE_X + A.pixel_x + xcomp + A._step_x
+			var/yo = (A.y - center.y) * ICON_SIZE_Y + A.pixel_y + ycomp + A._step_y
 			var/icon/img = getFlatIcon(A)
 			if(img)
 				res.Blend(img, blendMode2iconMode(A.blend_mode), xo, yo)
@@ -75,9 +75,9 @@
 		for(var/Adummy in sorted) //these are clones
 			var/image/photo/clone = Adummy
 			// Center of the image in X
-			var/xo = (clone.x - center.x) * world.icon_size + clone.pixel_x + xcomp + clone._step_x
+			var/xo = (clone.x - center.x) * ICON_SIZE_X + clone.pixel_x + xcomp + clone._step_x
 			// Center of the image in Y
-			var/yo = (clone.y - center.y) * world.icon_size + clone.pixel_y + ycomp + clone._step_y
+			var/yo = (clone.y - center.y) * ICON_SIZE_Y + clone.pixel_y + ycomp + clone._step_y
 			var/icon/img = getFlatIcon(clone, no_anim = TRUE)
 			if(img)
 				if(clone.transform) // getFlatIcon doesn't give a snot about transforms.
@@ -90,7 +90,7 @@
 						img.Scale(base_w * abs(decompose.scale_x), base_h * decompose.scale_y)
 						if(decompose.scale_x < 0)
 							img.Flip(EAST)
-						xo -= base_w * (decompose.scale_x - SIGN(decompose.scale_x)) / 2 * SIGN(decompose.scale_x)
+						xo -= base_w * (decompose.scale_x - sign(decompose.scale_x)) / 2 * sign(decompose.scale_x)
 						yo -= base_h * (decompose.scale_y - 1) / 2
 
 					if(!clone.is_orbiting)

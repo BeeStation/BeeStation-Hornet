@@ -163,7 +163,20 @@
   */
 /datum/outfit/proc/equip(mob/living/carbon/human/user, visuals_only = FALSE)
 	pre_equip(user, visuals_only)
+	return finish_equip(user, visuals_only)
 
+/**
+  * Equips all defined types and paths to the mob passed in, minus the pre_equip() step
+  *
+  * Split out from equip() so callers (like the loadout system) can insert overrides
+  * between pre_equip() and the actual slot equipping.
+  *
+  * Extra Arguments
+  * * visuals_only true if this is only for display (in the character setup screen)
+  *
+  * If visuals_only is true, you can omit any work that doesn't visually appear on the character sprite
+  */
+/datum/outfit/proc/finish_equip(mob/living/carbon/human/user, visuals_only = FALSE)
 	//Start with uniform,suit,backpack for additional slots
 	if(uniform)
 		EQUIP_OUTFIT_ITEM(uniform, ITEM_SLOT_ICLOTHING)
@@ -189,8 +202,6 @@
 		EQUIP_OUTFIT_ITEM(back, ITEM_SLOT_BACK)
 	if(id)
 		EQUIP_OUTFIT_ITEM(id, ITEM_SLOT_ID)
-	if(suit_store)
-		EQUIP_OUTFIT_ITEM(suit_store, ITEM_SLOT_SUITSTORE)
 
 	if(!visuals_only && user.wear_id)
 		var/obj/item/card/id/id_card = user.wear_id
@@ -199,6 +210,9 @@
 
 		if(istype(id_card)) //Make sure that we actually found an ID to modify, otherwise this runtimes and cancels equipping the outfit
 			id_card.registered_age = user.age
+
+	if(suit_store)
+		EQUIP_OUTFIT_ITEM(suit_store, ITEM_SLOT_SUITSTORE)
 
 	if(accessory)
 		var/obj/item/clothing/under/U = user.w_uniform
@@ -227,7 +241,7 @@
 		if(backpack_contents)
 			for(var/path in backpack_contents)
 				var/number = backpack_contents[path]
-				if(!isnum_safe(number))//Default to 1
+				if(!IS_FINITE(number))//Default to 1
 					number = 1
 				for(var/i in 1 to number)
 					EQUIP_OUTFIT_ITEM(path, ITEM_SLOT_BACKPACK)

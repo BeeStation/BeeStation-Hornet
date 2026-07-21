@@ -44,8 +44,6 @@
 	name = "Mind Reader"
 	desc = "The affected person can look into the recent memories of others."
 	quality = POSITIVE
-	text_gain_indication = "<span class='notice'>You hear distant voices at the corners of your mind.</span>"
-	text_lose_indication = "<span class='notice'>The distant voices fade.</span>"
 	power_path = /datum/action/spell/pointed/mindread
 	instability = 40
 	difficulty = 8

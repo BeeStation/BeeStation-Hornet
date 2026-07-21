@@ -21,19 +21,32 @@
 	db_key = "eye_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
-	relevant_species_trait = EYECOLOR
+	relevant_head_flag = HEAD_EYECOLOR
 	priority = PREFERENCE_PRIORITY_EYE_COLOR
 
 /datum/preference/color/eye_color/apply_to_human(mob/living/carbon/human/target, value)
 	if(isipc(target))
 		return
-	target.eye_color = value
+	var/hetero = target.eye_color_heterochromatic
+	target.eye_color_left = value
+	if(!hetero)
+		target.eye_color_right = value
 
 	var/obj/item/organ/eyes/eyes_organ = target.get_organ_by_type(/obj/item/organ/eyes)
-	if (istype(eyes_organ))
-		if (!initial(eyes_organ.eye_color))
-			eyes_organ.eye_color = value
-		eyes_organ.old_eye_color = value
+	if (!eyes_organ || !istype(eyes_organ))
+		return
+
+	if (!initial(eyes_organ.eye_color_left))
+		eyes_organ.eye_color_left = value
+	eyes_organ.old_eye_color_left = value
+
+	if(hetero) // Don't override the snowflakes please
+		return
+
+	if (!initial(eyes_organ.eye_color_right))
+		eyes_organ.eye_color_right = value
+	eyes_organ.old_eye_color_right = value
+	eyes_organ.refresh()
 
 /datum/preference/color/eye_color/create_default_value()
 	return random_eye_color()
@@ -44,7 +57,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Facial Hair"
 	should_generate_icons = TRUE
-	relevant_species_trait = FACEHAIR
+	relevant_species_trait = FACIAL_HAIR_COLOR
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
 	informed = TRUE
 	priority = PREFERENCE_PRIORITY_FACIAL_HAIR
@@ -74,7 +87,7 @@
 	db_key = "facial_hair_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
-	relevant_species_trait = FACEHAIR
+	relevant_species_trait = FACIAL_HAIR_COLOR
 	informed = TRUE
 	priority = PREFERENCE_PRIORITY_FACIAL_COLOR
 
@@ -94,7 +107,7 @@
 	db_key = "hair_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
-	relevant_species_trait = HAIR
+	relevant_species_trait = HAIR_COLOR
 	priority = PREFERENCE_PRIORITY_HAIR_COLOR
 	informed = TRUE
 	priority = PREFERENCE_PRIORITY_HAIR_COLOR
@@ -128,7 +141,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Hair Style"
 	should_generate_icons = TRUE
-	relevant_species_trait = HAIR
+	relevant_species_trait = HAIR_COLOR
 	preference_spritesheet = PREFERENCE_SHEET_HUGE
 	informed = TRUE
 	priority = PREFERENCE_PRIORITY_HAIR_STYLE
@@ -162,7 +175,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Gradient Style"
 	should_generate_icons = TRUE
-	relevant_species_trait = HAIR
+	relevant_species_trait = HAIR_COLOR
 
 /datum/preference/choiced/gradient_style/init_possible_values()
 	return assoc_to_keys_features(GLOB.hair_gradients_list)
@@ -230,7 +243,7 @@
 	db_key = "gradient_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
-	relevant_species_trait = HAIR
+	relevant_species_trait = HAIR_COLOR
 	informed = TRUE
 	priority = PREFERENCE_PRIORITY_GRADIENT_COLOR
 

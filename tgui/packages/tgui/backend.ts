@@ -13,6 +13,7 @@
 
 import { perf } from 'common/perf';
 import { createAction } from 'common/redux';
+import { BooleanLike } from 'tgui-core/react';
 
 import { cleanupByondUIs } from './components/ByondUi';
 import { setupDrag } from './drag';
@@ -172,7 +173,6 @@ export const backendReducer = (state = initialState, action) => {
 };
 
 export const backendMiddleware = (store) => {
-  let fancyState;
   let suspendInterval;
 
   return (next) => (action) => {
@@ -216,23 +216,6 @@ export const backendMiddleware = (store) => {
       setTimeout(() => focusMap());
     }
 
-    if (type === 'backend/update') {
-      const fancy = payload.config?.window?.fancy;
-      // Initialize fancy state
-      if (fancyState === undefined) {
-        fancyState = fancy;
-      }
-      // React to changes in fancy
-      else if (fancyState !== fancy) {
-        logger.log('changing fancy mode to', fancy);
-        fancyState = fancy;
-        Byond.winset(Byond.windowId, {
-          titlebar: !fancy,
-          'can-resize': !fancy,
-        });
-      }
-    }
-
     // Resume on incoming update
     if (type === 'backend/update' && suspended) {
       // Show the payload
@@ -253,6 +236,7 @@ export const backendMiddleware = (store) => {
         Byond.winset(Byond.windowId, {
           'is-visible': true,
         });
+        Byond.sendMessage('visible');
         perf.mark('resume/finish');
         if (process.env.NODE_ENV !== 'production') {
           logger.log(
@@ -393,12 +377,11 @@ type BackendState<TData> = {
       name: string;
       layout: string;
     };
-    refreshing: boolean;
+    refreshing: BooleanLike;
     window: {
       key: string;
       size: [number, number];
-      fancy: boolean;
-      locked: boolean;
+      locked: BooleanLike;
     };
     client: {
       ckey: string;

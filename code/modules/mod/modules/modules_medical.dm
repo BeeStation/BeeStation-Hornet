@@ -38,7 +38,7 @@
 	. = ..()
 	if(!.)
 		return
-	if(!isliving(target))
+	if(!isliving(target) || !mod.wearer.can_read(src))
 		return
 	switch(mode)
 		if(HEALTH_SCAN)

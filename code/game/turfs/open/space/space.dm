@@ -43,7 +43,7 @@
 
 	force_no_gravity = TRUE
 
-/turf/open/space/basic/New()	//Do not convert to Initialize
+/turf/open/space/basic/New() //Do not convert to Initialize
 	//This is used to optimize the map loader
 	return
 
@@ -63,8 +63,6 @@
 /turf/open/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	icon_state = SPACE_ICON_STATE
-	if(!space_gas)
-		space_gas = new
 	air = space_gas
 
 	if(flags_1 & INITIALIZED_1)
@@ -74,9 +72,6 @@
 	var/area/our_area = loc
 	if(!our_area.has_starlight_overlay)
 		add_overlay(GLOB.starlight_overlay)
-
-	if(requires_activation)
-		SSair.add_to_active(src, TRUE)
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -153,7 +148,7 @@
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				to_chat(user, span_notice("You build a floor."))
-				PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+				place_on_top(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 			else
 				to_chat(user, span_warning("You need one floor tile to build a floor!"))
 		else
@@ -227,7 +222,7 @@
 	if(passed_mode == RCD_FLOORWALL)
 		to_chat(user, span_notice("You build a floor."))
 		log_attack("[key_name(user)] has constructed a floor over space at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
-		PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+		place_on_top(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 		return TRUE
 	return FALSE
 

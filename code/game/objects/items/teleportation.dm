@@ -151,7 +151,7 @@
 		return
 	// Add on teleport targets
 	var/list/L = list()
-	for(var/obj/machinery/computer/teleporter/com in GLOB.machines)
+	for(var/obj/machinery/computer/teleporter/com as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/teleporter))
 		var/atom/target = com.target_ref?.resolve()
 		if(!target)
 			com.target_ref = null
@@ -173,7 +173,7 @@
 		L["Slipspace Wake [++i] ([range])"] = wake
 	// Add on a random turf nearby
 	var/list/turfs = list()
-	for(var/turf/T as() in (RANGE_TURFS(10, user) - get_turf(user)))
+	for(var/turf/T as anything in (RANGE_TURFS(10, user) - get_turf(user)))
 		if(T.x>world.maxx-8 || T.x<8)
 			continue	//putting them at the edge is dumb
 		if(T.y>world.maxy-8 || T.y<8)
@@ -261,7 +261,7 @@
 		var/obj/item/bodypart/head/head = itemUser.get_bodypart(BODY_ZONE_HEAD)
 		if(head)
 			head.drop_limb()
-			var/list/safeLevels = SSmapping.levels_by_any_trait(list(ZTRAIT_DYNAMIC_LEVEL, ZTRAIT_LAVA_RUINS, ZTRAIT_STATION, ZTRAIT_MINING))
+			var/list/safeLevels = SSmapping.levels_by_any_trait(list(ZTRAIT_EMPTY, ZTRAIT_LAVA_RUINS, ZTRAIT_STATION, ZTRAIT_MINING))
 			head.forceMove(locate(rand(1, world.maxx), rand(1, world.maxy), pick(safeLevels)))
 			itemUser.visible_message(span_suicide("The portal snaps closed taking [user]'s head with it!"))
 		else
@@ -329,15 +329,19 @@
 	check_charges()
 
 /obj/item/teleporter/emp_act(severity)
-	if(prob(50 / severity))
-		if(istype(loc, /mob/living/carbon/human))
-			var/mob/living/carbon/human/user = loc
-			to_chat(user, span_danger("[src] buzzes and activates!"))
-			attempt_teleport(user, TRUE) //EMP Activates a teleport with no safety.
-		else
-			visible_message(span_warning("[src] activates and blinks out of existence!"))
-			do_sparks(2, 1, src)
-			qdel(src)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	if(!prob(50 / severity))
+		return
+	if(istype(loc, /mob/living/carbon/human))
+		var/mob/living/carbon/human/user = loc
+		to_chat(user, span_danger("[src] buzzes and activates!"))
+		attempt_teleport(user, TRUE) //EMP Activates a teleport with no safety.
+	else
+		visible_message(span_warning("[src] activates and blinks out of existence!"))
+		do_sparks(2, 1, src)
+		qdel(src)
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
 	if(!charges)

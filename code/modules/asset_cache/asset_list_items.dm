@@ -301,7 +301,7 @@
 	name = "design"
 
 /datum/asset/spritesheet_batched/research_designs/create_spritesheets()
-	for (var/datum/design/D as() in subtypesof(/datum/design))
+	for (var/datum/design/D as anything in subtypesof(/datum/design))
 		var/icon_file
 		var/icon_state
 		var/datum/universal_icon/design_uni_icon = null
@@ -424,14 +424,14 @@
 		TOOL_ANALYZER = uni_icon('icons/obj/device.dmi', "analyzer"),
 		"wires" = uni_icon('icons/obj/power.dmi', "coil"),
 
-		TOOL_RETRACTOR = uni_icon('icons/obj/surgery.dmi', "retractor"),
-		TOOL_HEMOSTAT = uni_icon('icons/obj/surgery.dmi', "hemostat"),
-		TOOL_CAUTERY = uni_icon('icons/obj/surgery.dmi', "cautery"),
-		TOOL_DRILL = uni_icon('icons/obj/surgery.dmi', "drill"),
-		TOOL_SCALPEL = uni_icon('icons/obj/surgery.dmi', "scalpel"),
-		TOOL_SAW = uni_icon('icons/obj/surgery.dmi', "saw"),
-		TOOL_BLOODFILTER = uni_icon('icons/obj/surgery.dmi', "bloodfilter"),
-		"drapes" = uni_icon('icons/obj/surgery.dmi', "surgical_drapes"),
+		TOOL_RETRACTOR = uni_icon('icons/obj/medical/surgery.dmi', "retractor"),
+		TOOL_HEMOSTAT = uni_icon('icons/obj/medical/surgery.dmi', "hemostat"),
+		TOOL_CAUTERY = uni_icon('icons/obj/medical/surgery.dmi', "cautery"),
+		TOOL_DRILL = uni_icon('icons/obj/medical/surgery.dmi', "drill"),
+		TOOL_SCALPEL = uni_icon('icons/obj/medical/surgery.dmi', "scalpel"),
+		TOOL_SAW = uni_icon('icons/obj/medical/surgery.dmi', "saw"),
+		TOOL_BLOODFILTER = uni_icon('icons/obj/medical/surgery.dmi', "bloodfilter"),
+		"drapes" = uni_icon('icons/obj/medical/surgery.dmi', "surgical_drapes"),
 
 		TOOL_MINING = uni_icon('icons/obj/mining.dmi', "minipick"),
 		TOOL_SHOVEL = uni_icon('icons/obj/mining.dmi', "shovel"),
@@ -570,11 +570,35 @@
 /datum/asset/simple/portraits/library_private
 	tab = "library_private"
 
+/// Spritesheet for body zones. Necessary if your tgui uses BodyZoneSelector
+// This is a simple sheet instead of a spritesheet because spritesheets don't support
+// -ms-interpolation-mode when resized, since you need `transform: scale`.
+// Also spritesheets have some weird fudge on the edges of them because of an IE bug I can't track down.
+/datum/asset/simple/body_zones
+
+/datum/asset/simple/body_zones/register()
+	assets["body_zones.base_midnight.png"] = icon('icons/hud/style/screen_midnight.dmi', "zone_sel")
+
+	add_limb(BODY_ZONE_HEAD)
+	add_limb(BODY_ZONE_CHEST)
+	add_limb(BODY_ZONE_L_ARM)
+	add_limb(BODY_ZONE_R_ARM)
+	add_limb(BODY_ZONE_L_LEG)
+	add_limb(BODY_ZONE_R_LEG)
+	add_limb(BODY_ZONE_PRECISE_EYES)
+	add_limb(BODY_ZONE_PRECISE_MOUTH)
+	add_limb(BODY_ZONE_PRECISE_GROIN)
+
+	return ..()
+
+/datum/asset/simple/body_zones/proc/add_limb(limb)
+	assets[SANITIZE_FILENAME("body_zones.[limb].png")] = icon('icons/hud/screen_gen.dmi', limb)
+
 /datum/asset/spritesheet_batched/fish
 	name = "fish"
 
 /datum/asset/spritesheet_batched/fish/create_spritesheets()
-	for (var/datum/aquarium_behaviour/fish/fish_type as() in subtypesof(/datum/aquarium_behaviour/fish))
+	for (var/datum/aquarium_behaviour/fish/fish_type as anything in subtypesof(/datum/aquarium_behaviour/fish))
 		var/fish_icon = initial(fish_type.icon)
 		var/fish_icon_state = initial(fish_type.icon_state)
 		var/id = sanitize_css_class_name("[fish_icon][fish_icon_state]")
@@ -597,7 +621,7 @@
 	// pre-loading all lanugage icons also helps to avoid meta
 	insert_all_icons("language", 'icons/misc/language.dmi')
 	// catch languages which are pulling icons from another file
-	for(var/datum/language/L as() in subtypesof(/datum/language))
+	for(var/datum/language/L as anything in subtypesof(/datum/language))
 		var/icon = initial(L.icon)
 		if (icon != 'icons/misc/language.dmi')
 			var/icon_state = initial(L.icon_state)
@@ -690,14 +714,14 @@
 		TOOL_ANALYZER = uni_icon('icons/obj/device.dmi', "analyzer"),
 		TOOL_MINING = uni_icon('icons/obj/mining.dmi', "minipick"),
 		TOOL_SHOVEL = uni_icon('icons/obj/mining.dmi', "spade"),
-		TOOL_RETRACTOR = uni_icon('icons/obj/surgery.dmi', "retractor"),
-		TOOL_HEMOSTAT = uni_icon('icons/obj/surgery.dmi', "hemostat"),
-		TOOL_CAUTERY = uni_icon('icons/obj/surgery.dmi', "cautery"),
-		TOOL_DRILL = uni_icon('icons/obj/surgery.dmi', "drill"),
-		TOOL_SCALPEL = uni_icon('icons/obj/surgery.dmi', "scalpel"),
-		TOOL_SAW = uni_icon('icons/obj/surgery.dmi', "saw"),
+		TOOL_RETRACTOR = uni_icon('icons/obj/medical/surgery.dmi', "retractor"),
+		TOOL_HEMOSTAT = uni_icon('icons/obj/medical/surgery.dmi', "hemostat"),
+		TOOL_CAUTERY = uni_icon('icons/obj/medical/surgery.dmi', "cautery"),
+		TOOL_DRILL = uni_icon('icons/obj/medical/surgery.dmi', "drill"),
+		TOOL_SCALPEL = uni_icon('icons/obj/medical/surgery.dmi', "scalpel"),
+		TOOL_SAW = uni_icon('icons/obj/medical/surgery.dmi', "saw"),
 		TOOL_KNIFE = uni_icon('icons/obj/service/kitchen.dmi', "knife"),
-		TOOL_BLOODFILTER = uni_icon('icons/obj/surgery.dmi', "bloodfilter"),
+		TOOL_BLOODFILTER = uni_icon('icons/obj/medical/surgery.dmi', "bloodfilter"),
 		TOOL_ROLLINGPIN = uni_icon('icons/obj/service/kitchen.dmi', "rolling_pin"),
 		TOOL_RUSTSCRAPER = uni_icon('icons/obj/tools.dmi', "wirebrush"),
 	)

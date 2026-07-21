@@ -11,7 +11,7 @@
 	var/needs_update_stat = FALSE
 
 /datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration)
-	if(isnum_safe(set_duration))
+	if(IS_FINITE(set_duration))
 		duration = set_duration
 	. = ..()
 	if(. && (needs_update_stat || issilicon(owner)))
@@ -184,7 +184,7 @@
 		var/delta = world.time - last_dead_time
 		var/new_timeofdeath = owner.timeofdeath + delta
 		owner.timeofdeath = new_timeofdeath
-		owner.tod = station_time_timestamp(wtime=new_timeofdeath)
+		owner.station_timestamp_timeofdeath = station_time_timestamp(wtime=new_timeofdeath)
 		last_dead_time = null
 	if(owner.stat == DEAD)
 		last_dead_time = world.time
@@ -202,12 +202,17 @@
 	if(!.)
 		return
 	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
+	owner.add_filter("stasis_status_ripple", 2, list("type" = "ripple", "flags" = WAVE_BOUNDED, "radius" = 0, "size" = 2))
+	var/filter = owner.get_filter("stasis_status_ripple")
+	animate(filter, radius = 0, time = 0.2 SECONDS, size = 2, easing = JUMP_EASING, loop = -1, flags = ANIMATION_PARALLEL)
+	animate(radius = 32, time = 1.5 SECONDS, size = 0)
 
 /datum/status_effect/grouped/stasis/tick(seconds_between_ticks)
 	update_time_of_death()
 
 /datum/status_effect/grouped/stasis/on_remove()
 	owner.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
+	owner.remove_filter("stasis_status_ripple")
 	update_time_of_death()
 	owner.update_incapacitated()
 	SEND_SIGNAL(owner, COMSIG_LIVING_EXIT_STASIS)
@@ -392,13 +397,13 @@
 		hammer_synced = new_hammer_synced
 
 /datum/status_effect/crusher_mark/on_apply()
-	if(owner.mob_size >= MOB_SIZE_LARGE)
-		marked_underlay = mutable_appearance('icons/effects/effects.dmi', "shield2")
-		marked_underlay.pixel_x = -owner.pixel_x
-		marked_underlay.pixel_y = -owner.pixel_y
-		owner.underlays += marked_underlay
-		return TRUE
-	return FALSE
+	if(owner.mob_size < MOB_SIZE_LARGE)
+		return FALSE
+	marked_underlay = mutable_appearance('icons/effects/effects.dmi', "shield2")
+	marked_underlay.pixel_x = -owner.pixel_x
+	marked_underlay.pixel_y = -owner.pixel_y
+	owner.underlays += marked_underlay
+	return TRUE
 
 /datum/status_effect/crusher_mark/Destroy()
 	hammer_synced = null
@@ -738,14 +743,14 @@
 //Clock cult
 /datum/status_effect/interdiction
 	id = "interdicted"
-	duration = 25
+	duration = 2.6 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
 	tick_interval = 0.2 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/interdiction
 	var/running_toggled = FALSE
 
 /datum/status_effect/interdiction/tick()
-	if(owner.m_intent == MOVE_INTENT_RUN)
+	if(owner.move_intent == MOVE_INTENT_RUN)
 		owner.toggle_move_intent(owner)
 		owner.adjust_confusion_up_to(10 SECONDS, max_duration = 10 SECONDS)
 		running_toggled = TRUE
@@ -754,7 +759,7 @@
 
 /datum/status_effect/interdiction/on_remove()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/interdiction)
-	if(running_toggled && owner.m_intent == MOVE_INTENT_WALK)
+	if(running_toggled && owner.move_intent == MOVE_INTENT_WALK)
 		owner.toggle_move_intent(owner)
 
 /atom/movable/screen/alert/status_effect/interdiction
@@ -1034,7 +1039,7 @@
 
 /datum/status_effect/cyborg_malfunction
 	id = "cyborg_malfunction"
-	duration = MALFUNCTION_DURATION
+	duration = 30 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/generic_malfunction
 	status_type = STATUS_EFFECT_REFRESH
 
@@ -1056,7 +1061,7 @@
 
 /datum/status_effect/cyborg_malfunction/vine
 	id = "cyborg_malfunction_vine"
-	duration = MALFUNCTION_DURATION_VINE
+	duration = 10 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/malfunction_vine
 
 /atom/movable/screen/alert/status_effect/malfunction_vine
@@ -1169,14 +1174,14 @@
 	mob_overlay = mutable_appearance('icons/effects/heretic.dmi', "cloud_swirl", ABOVE_MOB_LAYER)
 	owner.overlays += mob_overlay
 	owner.update_icon()
-	ADD_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
+	owner.become_blind(id)
 	return TRUE
 
 /datum/status_effect/cloudstruck/on_remove()
 	. = ..()
 	if(QDELETED(owner))
 		return
-	REMOVE_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
+	owner.cure_blind(id)
 	if(owner)
 		owner.overlays -= mob_overlay
 		owner.update_icon()
@@ -1231,7 +1236,7 @@
 /datum/status_effect/ants/proc/ants_washed()
 	SIGNAL_HANDLER
 	owner.remove_status_effect(/datum/status_effect/ants)
-	//return COMPONENT_CLEANED
+	return COMPONENT_CLEANED
 
 /datum/status_effect/ants/get_examine_text()
 	return span_warning("[owner.p_They()] [owner.p_are()] covered in ants!")
@@ -1336,11 +1341,11 @@
 		qdel(src)
 		return
 	src.target_dna = new target_dna.type
-	target_dna.copy_dna(src.target_dna)
+	target_dna.copy_dna_to(src.target_dna)
 	charge_left = rand(45, 90)
 	if(original_dna)
 		src.original_dna = new original_dna.type
-		original_dna.copy_dna(src.original_dna)
+		original_dna.copy_dna_to(src.original_dna)
 	src.already_applied = already_applied
 	return ..()
 
@@ -1355,7 +1360,7 @@
 		return
 	else if(!original_dna)
 		original_dna = new carbon_owner.dna.type
-		carbon_owner.dna.copy_dna(original_dna)
+		carbon_owner.dna.copy_dna_to(original_dna)
 	RegisterSignal(owner, COMSIG_CARBON_TRANSFORMED, PROC_REF(on_transformation))
 	if(!already_applied)
 		apply_dna(target_dna)
@@ -1436,9 +1441,6 @@
 /// Helper proc that causes the mob to do a stagger animation.
 /// Doesn't change significantly, just meant to represent swaying back and forth
 /mob/living/proc/do_stagger_animation()
-	var/normal_pos = base_pixel_x + body_position_pixel_x_offset
-	var/jitter_right = normal_pos + 4
-	var/jitter_left = normal_pos - 4
-	animate(src, pixel_x = jitter_left, 0.2 SECONDS, flags = ANIMATION_PARALLEL)
-	animate(pixel_x = jitter_right, time = 0.4 SECONDS)
-	animate(pixel_x = normal_pos, time = 0.2 SECONDS)
+	animate(src, pixel_x = 3, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+	animate(pixel_x = -6, time = 0.4 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(pixel_x = 3, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE)

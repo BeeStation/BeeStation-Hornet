@@ -25,6 +25,7 @@ If you were already familiar with an older, Ractive-based tgui and want to trans
 ### Other Documentation
 
 - [Component Reference](docs/component-reference.md) - UI building blocks
+- [Tgui Core](https://github.com/tgstation/tgui-core) - The component library for tgui.
 - [Using TGUI and Byond API for custom HTML popups](docs/tgui-for-custom-html-popups.md)
 - [Chat Embedded Components](docs/chat-embedded-components.md)
 - [Writing Tests](docs/writing-tests.md)
@@ -42,7 +43,7 @@ If you are using the tooling provided in this repo, everything is included! Feel
   - **LTS** release is recommended instead of latest
   - **DO NOT install Chocolatey if Node installer asks you to!**
 - [Yarn v1.22.4+](https://yarnpkg.com/getting-started/install)
-  - You can run `npm install -g yarn` to install it.
+  - Yarn is normally installed with corepack.
 
 ## Usage
 
@@ -161,7 +162,6 @@ Inspection". You can then f12 to open the standard chrome dev tools.
 - `/packages/tgui/styles/main.scss` - CSS entry point.
 - `/packages/tgui/styles/functions.scss` - Useful SASS functions. Stuff like `lighten`, `darken`, `luminance` are defined here.
 - `/packages/tgui/styles/atomic` - Atomic CSS classes. These are very simple, tiny, reusable CSS classes which you can use and combine to change appearance of your elements. Keep them small.
-- `/packages/tgui/styles/components` - CSS classes which are used in UI components. These stylesheets closely follow the [BEM](https://en.bem.info/methodology/) methodology.
 - `/packages/tgui/styles/interfaces` - Custom stylesheets for your interfaces. Add stylesheets here if you really need a fine control over your UI styles.
 - `/packages/tgui/styles/layouts` - Layout-related styles.
 - `/packages/tgui/styles/themes` - Contains themes that you can use in tgui. Each theme must be registered in `/packages/tgui/index.ts` file.

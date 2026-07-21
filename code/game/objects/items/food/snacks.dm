@@ -233,6 +233,28 @@
 	crafting_complexity = FOOD_COMPLEXITY_1
 	custom_price = 20
 
+/obj/item/food/candy_trash
+	name = "candy cigarette butt"
+	icon = 'icons/obj/cigarettes.dmi'
+	icon_state = "candybum"
+	desc = "The leftover from a smoked-out candy cigarette. Can be eaten!"
+	food_reagents = list(
+		/datum/reagent/consumable/sugar = 4,
+		/datum/reagent/ash = 3,
+	)
+	junkiness = 10 //powergame trash food by buying candy cigs in bulk and eating them when they extinguish
+	foodtypes = JUNKFOOD | SUGAR
+	food_flags = FOOD_FINGER_FOOD
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/food/candy_trash/nicotine
+	desc = "The leftover from a smoked-out candy cigarette. Smells like nicotine...?"
+	food_reagents = list(
+		/datum/reagent/consumable/sugar = 4,
+		/datum/reagent/ash = 3,
+		/datum/reagent/drug/nicotine = 1,
+	)
+
 /obj/item/food/cheesiehonkers
 	name = "\improper Cheesie Honkers"
 	desc = "Bite sized cheesie snacks that will honk all over your mouth."

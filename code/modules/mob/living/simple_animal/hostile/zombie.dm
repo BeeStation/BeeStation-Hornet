@@ -22,14 +22,14 @@
 	var/infection_chance = 0
 	var/obj/effect/mob_spawn/human/corpse/delayed/corpse
 	mobchatspan = "bartender"
-	discovery_points = 3000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/zombie/Initialize(mapload)
 	. = ..()
 	setup_visuals()
 
 /mob/living/simple_animal/hostile/zombie/proc/setup_visuals()
-	var/datum/job/job = SSjob.GetJob(zombiejob)
+	var/datum/job/job = SSjob.get_job(zombiejob)
 
 	var/datum/outfit/outfit = new job.outfit
 	outfit.l_hand = null

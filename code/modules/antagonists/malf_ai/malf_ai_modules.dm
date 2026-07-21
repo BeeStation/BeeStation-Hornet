@@ -70,7 +70,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 /datum/action/innate/ai/is_available(feedback = FALSE)
 	if(owner_AI && !COOLDOWN_FINISHED(owner_AI, malf_cooldown))
 		return FALSE
-	. = ..()
+	return ..()
 
 /datum/action/innate/ai/on_activate(mob/user, atom/target)
 	SHOULD_CALL_PARENT(TRUE)
@@ -397,23 +397,38 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	desc = "Closes, bolts, and electrifies every airlock, firelock, and blast door on the station. After 90 seconds, they will reset themselves."
 	button_icon_state = "lockdown"
 	uses = 1
+	/// Badmin / exploit abuse prevention.
+	/// Check tick may sleep in activate() and we don't want this to be spammable.
+	var/hack_in_progress  = FALSE
+
+/datum/action/innate/ai/lockdown/is_available(feedback = FALSE)
+	return ..() && !hack_in_progress
 
 /datum/action/innate/ai/lockdown/on_activate(mob/user, atom/target)
 	. = ..()
-	for(var/obj/machinery/door/airlock in GLOB.airlocks)
-		if(QDELETED(airlock) || !is_station_level(airlock.z))
+	hack_in_progress = TRUE
+	for(var/obj/machinery/door/locked_down as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door))
+		if(QDELETED(locked_down) || !is_station_level(locked_down.z))
 			continue
-		INVOKE_ASYNC(airlock, TYPE_PROC_REF(/obj/machinery/door, hostile_lockdown), owner)
-		addtimer(CALLBACK(airlock, TYPE_PROC_REF(/obj/machinery/door, disable_lockdown)), 90 SECONDS)
+		INVOKE_ASYNC(locked_down, TYPE_PROC_REF(/obj/machinery/door, hostile_lockdown), owner)
+		CHECK_TICK
 
-	var/obj/machinery/computer/communications/random_comms_console = locate() in GLOB.shuttle_caller_list
-	random_comms_console?.post_status("alert", "lockdown")
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_malf_ai_undo_lockdown)), 90 SECONDS)
 
 	minor_announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.", "Network Alert:", TRUE)
 	to_chat(owner, span_danger("Lockdown initiated. Network reset in 90 seconds."))
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce),
 		"Automatic system reboot complete. Have a secure day.",
 		"Network reset:"), 90 SECONDS)
+	hack_in_progress = FALSE
+
+/// For Lockdown malf AI ability. Opens all doors on the station.
+/proc/_malf_ai_undo_lockdown()
+	for(var/obj/machinery/door/locked_down as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door))
+		if(QDELETED(locked_down) || !is_station_level(locked_down.z))
+			continue
+		INVOKE_ASYNC(locked_down, TYPE_PROC_REF(/obj/machinery/door, disable_lockdown))
+		CHECK_TICK
 
 /// Override Machine: Allows the AI to override a machine, animating it into an angry, living version of itself.
 /datum/ai_module/malf/destructive/override_machine
@@ -565,7 +580,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 /datum/action/innate/ai/blackout/on_activate(mob/user, atom/target)
 	. = ..()
-	for(var/obj/machinery/power/apc/apc in GLOB.apcs_list)
+	for(var/obj/machinery/power/apc/apc as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/apc))
 		if(prob(30 * apc.overload))
 			apc.overload_lighting()
 		else
@@ -730,12 +745,12 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 /datum/action/innate/ai/break_fire_alarms/on_activate(mob/user, atom/target)
 	. = ..()
-	for(var/obj/machinery/firealarm/bellman in GLOB.machines)
+	for(var/obj/machinery/firealarm/bellman as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/firealarm))
 		if(!is_station_level(bellman.z))
 			continue
 		bellman.obj_flags |= EMAGGED
 		bellman.update_icon()
-	for(var/obj/machinery/door/firedoor/firelock in GLOB.machines)
+	for(var/obj/machinery/door/firedoor/firelock as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/firedoor))
 		if(!is_station_level(firelock.z))
 			continue
 		firelock.on_emag(owner_AI)
@@ -820,7 +835,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/ai_module/malf/upgrade/upgrade_turrets/upgrade(mob/living/silicon/ai/AI)
-	for(var/obj/machinery/porta_turret/ai/turret in GLOB.machines)
+	for(var/obj/machinery/porta_turret/ai/turret as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/porta_turret/ai))
 		turret.AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES | EMP_PROTECT_CONTENTS)
 		turret.emp_proofing = TRUE
 		turret.max_integrity = 200
