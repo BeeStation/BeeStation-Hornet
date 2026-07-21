@@ -158,5 +158,12 @@
 		dormant_disease.spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
 		dormant_disease.spread_text = "None"
 		dormant_disease.visibility_flags |= HIDDEN_SCANNER
+
+		#ifdef UNIT_TESTS
+		//We are running unit tests and we need to override the disease contraction code lest our /consistent human gets no-op'd
+		if(istype(src, /mob/living/carbon/human/consistent))
+			dormant_disease.viable_mobtypes += /mob/living/carbon/human/consistent
+		#endif
+
 		ForceContractDisease(dormant_disease, FALSE, TRUE)
 		return TRUE

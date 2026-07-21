@@ -1,7 +1,7 @@
 /datum/job/head_of_personnel
 	title = JOB_NAME_HEADOFPERSONNEL
 	description = "Second in command on the station, oversee the crew assigned to service and cargo positions, handle department transfer requests by consulting relevant heads. Protect Ian at all costs."
-	department_for_prefs = DEPT_NAME_CAPTAIN
+	department_for_prefs = DEPARTMENT_NAME_CAPTAIN
 	department_head_for_prefs = JOB_NAME_CAPTAIN
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
@@ -10,10 +10,12 @@
 	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ddddff"
-	req_admin_notify = 1
+	req_admin_notify = TRUE
 	minimal_player_age = 10
 	exp_requirements = 600
-	exp_type = EXP_TYPE_COMMAND
+	exp_required_type = EXP_TYPE_CREW
+	exp_required_type_department = EXP_TYPE_SERVICE
+	exp_granted_type = EXP_TYPE_COMMAND
 	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/head_of_personnel
@@ -64,7 +66,10 @@
 	)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_COM | DEPT_BITFLAG_SRV
+	departments_list = list(
+		/datum/department_group/service,
+		/datum/department_group/command,
+		)
 	bank_account_department = ACCOUNT_SRV_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
@@ -106,6 +111,9 @@
 // Special handling to avoid lighting up the entirety of supply whenever there's a HoP.
 /datum/job/head_of_personnel/areas_to_light_up(minimal_access = TRUE)
 	return minimal_lightup_areas | GLOB.command_lightup_areas
+
+/datum/job/head_of_personnel/get_captaincy_announcement(mob/living/captain)
+	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
 
 /datum/outfit/job/head_of_personnel
 	name = JOB_NAME_HEADOFPERSONNEL

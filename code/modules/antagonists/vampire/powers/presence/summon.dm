@@ -34,7 +34,7 @@
 		owner.balloon_alert(owner, "[carbon_target] is mindless.")
 		return FALSE
 
-	if(HAS_MIND_TRAIT(carbon_target, TRAIT_VAMPIRE_ALIGNED) || IS_CURATOR(carbon_target))
+	if(HAS_MIND_TRAIT(carbon_target, TRAIT_VAMPIRE_ALIGNED) || is_curator_job(carbon_target?.mind?.assigned_role))
 		owner.balloon_alert(owner, "immune to your presence.")
 		return FALSE
 

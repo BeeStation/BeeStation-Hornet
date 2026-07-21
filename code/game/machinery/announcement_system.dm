@@ -433,3 +433,13 @@
 	)
 	general_tooltip = "Broadcasted when the arrivals shuttle docks for repairs. No replaceable variables provided."
 	modifiable = FALSE
+
+/datum/aas_config_entry/announce_officer
+	name = "Security Alert: Officer Arrival Announcement"
+	announcement_lines_map = list(
+		"Message" = "Officer %OFFICER has been assigned to %DEPARTMENT.")
+	vars_and_tooltips_map = list(
+		"OFFICER" = "will be replaced with the officer's name.",
+		"DEPARTMENT" = "with the department they were assigned to."
+	)
+	modifiable = FALSE

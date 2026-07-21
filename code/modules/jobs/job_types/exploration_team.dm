@@ -1,7 +1,7 @@
 /datum/job/exploration_crew
 	title = JOB_NAME_EXPLORATIONCREW
 	description = "Go out into space to complete different missions for loads of cash. Find and deliver back research disks for rare technologies."
-	department_for_prefs = DEPT_NAME_SCIENCE
+	department_for_prefs = DEPARTMENT_NAME_SCIENCE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
 	faction = FACTION_STATION
@@ -10,15 +10,18 @@
 	// Requires 1 round as a scientist to unlock, which itself reuqires
 	// 2 hours as crew.
 	exp_requirements = 60
-	exp_type = EXP_TYPE_SCIENCE
 	selection_color = "#ffeeff"
+	exp_required_type = EXP_TYPE_SCIENCE
+	exp_granted_type = EXP_TYPE_SCIENCE
 
 	outfit = /datum/outfit/job/exploration_crew
 
 	base_access = list(ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE)
 	extra_access = list(ACCESS_MAINT_TUNNELS, ACCESS_TOX_STORAGE, ACCESS_XENOBIOLOGY)
 
-	departments = DEPT_BITFLAG_SCI
+	departments_list = list(
+		/datum/department_group/science,
+		)
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_HARD)
 
