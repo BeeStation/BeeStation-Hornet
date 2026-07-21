@@ -77,7 +77,7 @@ SUBSYSTEM_DEF(department)
 
 /// Builds the region -> department mapping used by get_region_access_list(). Access lists are read live from each department's department_access.
 /datum/controller/subsystem/department/proc/setup_region_lists()
-	// Region names, not access data - kept as the ordered define for UI ordering.
+	// Region name strings, kept ordered define for UI ordering
 	station_regions = REGION_AREA_STATION
 
 	var/list/station_access_departments = list()
@@ -91,7 +91,7 @@ SUBSYSTEM_DEF(department)
 		if(dept.access_region)
 			region_to_departments[dept.access_region] = list(dept)
 
-	// Aggregate regions are just unions of departments - all station depts, and all access-granting depts.
+	// Aggregate regions are unions of several departments. They are all station depts, and all access-granting depts
 	region_to_departments[REGION_ALL_STATION] = station_access_departments
 	region_to_departments[REGION_ALL_GLOBAL] = all_access_departments
 
@@ -258,7 +258,7 @@ SUBSYSTEM_DEF(department)
 	var/access_group_name = "Unknown"
 	/// A list of the accesses people in this department generally have. Region access reads from here live; the REGION_ACCESS_* / *_ACCESS defines only seed it.
 	var/list/department_access = list()
-	/// The access region (REGION_*) this department represents. Null if it isn't its own region.
+	/// The access region (REGION_*) this department represents. Null if not it's own region
 	var/access_region
 	/// if TRUE, restricts CentCom only
 	var/access_filter
