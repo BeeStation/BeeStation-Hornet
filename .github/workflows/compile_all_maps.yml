@@ -14,7 +14,7 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Setup Node
         uses: ./.github/actions/setup_node
       - name: Restore BYOND from Cache
@@ -36,7 +36,7 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Setup Node
         uses: ./.github/actions/setup_node
       - name: Restore BYOND from Cache
