@@ -606,6 +606,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/proc/place_on_top_react(list/new_baseturfs, turf/added_layer, flags)
 	return flags
 
+/// Called when a living mob that spawned here, joining the round, receives the player client.
+/area/proc/on_joining_game(mob/living/boarder)
+	return
+
 /// Gets an areas virtual z value. For having multiple areas on the same z-level treated mechanically as different z-levels
 /area/proc/get_virtual_z(turf/T)
 	return T.z
@@ -622,7 +626,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 	if(!length(mood_job_allowed))
 		return .
-	if(!(subject.mind?.assigned_role in mood_job_allowed))
+	if(!(subject.mind?.assigned_role.title in mood_job_allowed))
 		. = FALSE
 	if(mood_job_reverse)
 		return !.  // the most eye bleeding syntax ive written

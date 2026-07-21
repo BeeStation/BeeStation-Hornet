@@ -22,7 +22,7 @@
 	. = ..()
 	wires = new/datum/wires/ecto_sniffer(src)
 	radio = new(src)
-	radio.keyslot = new /obj/item/encryptionkey/headset_sci
+	radio.keyslot = /obj/item/encryptionkey/headset_sci
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
 	radio.recalculateChannels()

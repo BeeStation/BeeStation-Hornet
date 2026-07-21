@@ -225,8 +225,8 @@
 	return /obj/machinery/nuclearbomb
 
 /datum/dynamic_ruleset/midround/ghost/nuclear_assault/finish_setup(mob/new_character)
-	new_character.mind.special_role = ROLE_OPERATIVE
-	new_character.mind.set_assigned_role(ROLE_OPERATIVE)
+	new_character.mind.set_assigned_role(SSjob.get_job_type(/datum/job/nuclear_operative))
+	new_character.mind.special_role = ROLE_NUCLEAR_OPERATIVE
 
 	if(has_made_leader)
 		return ..()
@@ -405,7 +405,6 @@
 
 /datum/dynamic_ruleset/midround/ghost/abductors/finish_setup(mob/new_character)
 	new_character.mind.special_role = ROLE_ABDUCTOR
-	new_character.mind.set_assigned_role(ROLE_ABDUCTOR)
 
 	if(!has_made_leader)
 		has_made_leader = TRUE
@@ -436,7 +435,6 @@
 
 /datum/dynamic_ruleset/midround/ghost/lone_abductor/finish_setup(mob/new_character)
 	new_character.mind.special_role = ROLE_ABDUCTOR
-	new_character.mind.set_assigned_role(ROLE_ABDUCTOR)
 
 	team = new
 	new_character.mind.add_antag_datum(antag_datum, team, ruleset = src)
