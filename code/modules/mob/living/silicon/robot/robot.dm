@@ -1,6 +1,6 @@
 /mob/living/silicon/robot/Initialize(mapload)
 	GLOB.cyborg_list += src
-	default_access_list = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
+	default_access_list = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)

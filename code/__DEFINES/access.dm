@@ -285,15 +285,15 @@
 
 /// Name for the Global region.
 #define REGION_ALL_GLOBAL "All"
-/// Used to seed the accesses_by_region list in SSid_access. A list of every single access in the game.
+/// Used to seed the accesses_by_region list in SSdepartment. A list of every single access in the game.
 #define REGION_ACCESS_ALL_GLOBAL REGION_ACCESS_ALL_STATION + CENTCOM_ACCESS + SYNDICATE_ACCESS + AWAY_ACCESS + CULT_ACCESS
 /// Name for the Station All Access region.
 #define REGION_ALL_STATION "Station"
-/// Used to seed the accesses_by_region list in SSid_access. A list of all station accesses.
+/// Used to seed the accesses_by_region list in SSdepartment. A list of all station accesses.
 #define REGION_ACCESS_ALL_STATION COMMON_ACCESS + COMMAND_ACCESS + PRIVATE_COMMAND_ACCESS + CAPTAIN_ACCESS
 /// Name for the General region.
 #define REGION_GENERAL "General"
-/// Used to seed the accesses_by_region list in SSid_access. A list of general service accesses that are overseen by the HoP.
+/// Used to seed the accesses_by_region list in SSdepartment. A list of general service accesses that are overseen by the HoP.
 #define REGION_ACCESS_GENERAL list( \
 	ACCESS_KITCHEN, \
 	ACCESS_BAR, \
@@ -308,7 +308,7 @@
 )
 /// Name for the Security region.
 #define REGION_SECURITY "Security"
-/// Used to seed the accesses_by_region list in SSid_access. A list of all security regional accesses that are overseen by the HoS.
+/// Used to seed the accesses_by_region list in SSdepartment. A list of all security regional accesses that are overseen by the HoS.
 #define REGION_ACCESS_SECURITY list( \
 	ACCESS_SEC_DOORS, \
 	ACCESS_SEC_RECORDS, \
@@ -324,7 +324,7 @@
 )
 /// Name for the Medbay region.
 #define REGION_MEDBAY "Medbay"
-/// Used to seed the accesses_by_region list in SSid_access. A list of all medbay regional accesses that are overseen by the CMO.
+/// Used to seed the accesses_by_region list in SSdepartment. A list of all medbay regional accesses that are overseen by the CMO.
 #define REGION_ACCESS_MEDBAY list( \
 	ACCESS_MEDICAL, \
 	ACCESS_GENETICS, \
@@ -338,7 +338,7 @@
 )
 /// Name for the Research region.
 #define REGION_RESEARCH "Research"
-/// Used to seed the accesses_by_region list in SSid_access. A list of all research regional accesses that are overseen by the RD.
+/// Used to seed the accesses_by_region list in SSdepartment. A list of all research regional accesses that are overseen by the RD.
 #define REGION_ACCESS_RESEARCH list( \
 	ACCESS_RESEARCH, \
 	ACCESS_TOX, \
@@ -354,7 +354,7 @@
 )
 /// Name for the Engineering region.
 #define REGION_ENGINEERING "Engineering"
-/// Used to seed the accesses_by_region list in SSid_access. A list of all engineering regional accesses that are overseen by the CE.
+/// Used to seed the accesses_by_region list in SSdepartment. A list of all engineering regional accesses that are overseen by the CE.
 #define REGION_ACCESS_ENGINEERING list( \
 	ACCESS_CONSTRUCTION, \
 	ACCESS_AUX_BASE, \
@@ -371,7 +371,7 @@
 )
 /// Name for the Supply region.
 #define REGION_SUPPLY "Supply"
-/// Used to seed the accesses_by_region list in SSid_access. A list of all cargo regional accesses that are overseen by the HoP.
+/// Used to seed the accesses_by_region list in SSdepartment. A list of all cargo regional accesses that are overseen by the HoP.
 #define REGION_ACCESS_SUPPLY list( \
 	ACCESS_MAILSORTING, \
 	ACCESS_MINING, \
@@ -384,7 +384,7 @@
 )
 /// Name for the Command region.
 #define REGION_COMMAND "Command"
-/// Used to seed the accesses_by_region list in SSid_access. A list of all command regional accesses that are overseen by the Captain.
+/// Used to seed the accesses_by_region list in SSdepartment. A list of all command regional accesses that are overseen by the Captain.
 #define REGION_ACCESS_COMMAND list( \
 	ACCESS_HEADS, \
 	ACCESS_RC_ANNOUNCE, \
@@ -401,10 +401,10 @@
 )
 /// Name for the Centcom region.
 #define REGION_CENTCOM "Central Command"
-/// Used to seed the accesses_by_region list in SSid_access. A list of all CENTCOM_ACCESS regional accesses.
+/// Used to seed the accesses_by_region list in SSdepartment. A list of all CENTCOM_ACCESS regional accesses.
 #define REGION_ACCESS_CENTCOM CENTCOM_ACCESS
 
-/// All regions that make up the station area. Helper define to quickly designate a region as part of the station or not. Access via SSid_access.station_regions.
+/// All regions that make up the station area. Helper define to quickly designate a region as part of the station or not. Access via SSdepartment.station_regions.
 #define REGION_AREA_STATION list( \
 	REGION_GENERAL, \
 	REGION_SECURITY, \

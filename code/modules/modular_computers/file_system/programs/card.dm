@@ -98,7 +98,7 @@
 						<u>Access:</u><br>
 						"}
 
-			var/list/known_access_rights = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
+			var/list/known_access_rights = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 			for(var/A in target_id_card.access)
 				if(A in known_access_rights)
 					contents += " [SSid_access.get_access_desc(A)]"
@@ -178,7 +178,7 @@
 					playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 					return
 
-				target_id_card.remove_access(SSid_access.get_region_access_list(list(REGION_ALL_STATION)), should_log = FALSE)
+				target_id_card.remove_access(SSdepartment.get_region_access_list(list(REGION_ALL_STATION)), should_log = FALSE)
 				target_id_card.add_access(jobdatum.get_access(), should_log = FALSE)
 
 				// tablet program doesn't change bank/manifest status. check 'card.dm' for the detail
@@ -207,14 +207,14 @@
 		if("PRG_grantall")
 			if(!authenticated || minor)
 				return
-			target_id_card.add_access((is_centcom ? SSid_access.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM)) : SSid_access.get_region_access_list(list(REGION_ALL_STATION))), should_log = FALSE)
+			target_id_card.add_access((is_centcom ? SSdepartment.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM)) : SSdepartment.get_region_access_list(list(REGION_ALL_STATION))), should_log = FALSE)
 			log_id("[key_name(usr)] granted All Access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyall")
 			if(!authenticated || minor)
 				return
-			target_id_card.remove_access((is_centcom ? SSid_access.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM)) : SSid_access.get_region_access_list(list(REGION_ALL_STATION))), should_log = FALSE)
+			target_id_card.remove_access((is_centcom ? SSdepartment.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM)) : SSdepartment.get_region_access_list(list(REGION_ALL_STATION))), should_log = FALSE)
 			log_id("[key_name(usr)] removed All Access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
@@ -224,7 +224,7 @@
 			var/region = params["region"]
 			if(!(region in get_accessible_regions()))
 				return
-			var/list/region_access = SSid_access.get_region_access_list(list(region))
+			var/list/region_access = SSdepartment.get_region_access_list(list(region))
 			if(!length(region_access))
 				return
 			target_id_card.add_access(region_access, should_log = FALSE)
@@ -237,7 +237,7 @@
 			var/region = params["region"]
 			if(!(region in get_accessible_regions()))
 				return
-			var/list/region_access = SSid_access.get_region_access_list(list(region))
+			var/list/region_access = SSdepartment.get_region_access_list(list(region))
 			if(!length(region_access))
 				return
 			target_id_card.remove_access(region_access, should_log = FALSE)
@@ -259,7 +259,7 @@
 		if(dept.access_group_name)
 			region_access |= dept.access_group_name
 	var/list/accessible = list()
-	for(var/region in SSid_access.station_regions)
+	for(var/region in SSdepartment.station_regions)
 		if((minor || department_bitflag) && !(region in region_access))
 			continue
 		accessible += region

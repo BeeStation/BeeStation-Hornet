@@ -16,6 +16,13 @@ SUBSYSTEM_DEF(department)
 	var/list/sorted_department_for_manifest
 	/// department datums in a 'job pref' priority order in character selection.
 	var/list/sorted_department_for_latejoin
+	/// Dictionary of accesses based on station region. Keys are region strings. Values are lists of accesses.
+	var/list/accesses_by_region = list()
+	/// Dictionary of CentCom/ERT job accesses. Keys are job names. Values are lists of accesses.
+	var/list/accesses_by_centcom_job = list()
+	/// Helper list containing all station regions.
+	var/list/station_regions = list()
+
 	/// department datums in access manipulation - actually manual sort
 	var/list/sorted_department_for_access = list(
 		DEPARTMENT_NAME_SERVICE,
@@ -60,7 +67,74 @@ SUBSYSTEM_DEF(department)
 	for(var/each_dept in temp)
 		sorted_department_for_access |= department_assoc[each_dept]
 
+	setup_region_lists()
+	setup_centcom_access()
+
 	return SS_INIT_SUCCESS
+
+/// Populates the region lists with data about which accesses correspond to which regions.
+/datum/controller/subsystem/department/proc/setup_region_lists()
+	accesses_by_region[REGION_ALL_STATION] = REGION_ACCESS_ALL_STATION
+	accesses_by_region[REGION_ALL_GLOBAL] = REGION_ACCESS_ALL_GLOBAL
+	accesses_by_region[REGION_GENERAL] = REGION_ACCESS_GENERAL
+	accesses_by_region[REGION_SECURITY] = REGION_ACCESS_SECURITY
+	accesses_by_region[REGION_MEDBAY] = REGION_ACCESS_MEDBAY
+	accesses_by_region[REGION_RESEARCH] = REGION_ACCESS_RESEARCH
+	accesses_by_region[REGION_ENGINEERING] = REGION_ACCESS_ENGINEERING
+	accesses_by_region[REGION_SUPPLY] = REGION_ACCESS_SUPPLY
+	accesses_by_region[REGION_COMMAND] = REGION_ACCESS_COMMAND
+	accesses_by_region[REGION_CENTCOM] = REGION_ACCESS_CENTCOM
+
+	station_regions = REGION_AREA_STATION
+
+/// Populates the CentCom/ERT job access table. Ugly as sin, but better than it was before
+/datum/controller/subsystem/department/proc/setup_centcom_access()
+	accesses_by_centcom_job[JOB_CENTCOM_VIP] = list(ACCESS_CENT_GENERAL)
+	accesses_by_centcom_job[JOB_CENTCOM_CUSTODIAN] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
+	accesses_by_centcom_job[JOB_CENTCOM_THUNDERDOME_OVERSEER] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER)
+	accesses_by_centcom_job[JOB_CENTCOM_OFFICIAL] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job["CentCom Intern"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job["CentCom Head Intern"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job[JOB_CENTCOM_MEDICAL_DOCTOR] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL)
+	accesses_by_centcom_job[JOB_ERT_DEATHSQUAD] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
+	accesses_by_centcom_job[JOB_CENTCOM_RESEARCH_OFFICER] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_TELEPORTER, ACCESS_CENT_STORAGE)
+	accesses_by_centcom_job["Special Ops Officer"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
+	accesses_by_centcom_job[JOB_CENTCOM_ADMIRAL] = CENTCOM_ACCESS
+	accesses_by_centcom_job[JOB_CENTCOM_COMMANDER] = CENTCOM_ACCESS
+	accesses_by_centcom_job[JOB_ERT_COMMANDER] = CENTCOM_ACCESS
+	accesses_by_centcom_job[JOB_ERT_OFFICER] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job[JOB_ERT_ENGINEER] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
+	accesses_by_centcom_job[JOB_ERT_MEDICAL_DOCTOR] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job[JOB_CENTCOM_BARTENDER] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_BAR)
+	accesses_by_centcom_job["Comedy Response Officer"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job["HONK Squad Trooper"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
+
+/**
+ * Builds and returns a list of accesses from a list of regions.
+ *
+ * Arguments:
+ * * regions - A list of region defines.
+ */
+/datum/controller/subsystem/department/proc/get_region_access_list(list/regions)
+	if(!length(regions))
+		return
+
+	var/list/built_region_list = list()
+
+	for(var/region in regions)
+		built_region_list |= accesses_by_region[region]
+
+	return built_region_list
+
+/**
+ * Returns the CentCom access levels allotted to a given CentCom/ERT job.
+ *
+ * Arguments:
+ * * job - The job name to get CentCom access for.
+ */
+/datum/controller/subsystem/department/proc/get_centcom_access_list(job)
+	var/list/centcom_access = accesses_by_centcom_job[job]
+	return centcom_access?.Copy()
 
 /// WARNING: This always returns as a list.
 /// If your bitflag only gets a single department, it will return as a list.

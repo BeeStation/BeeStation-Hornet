@@ -159,7 +159,7 @@
 /mob/living/simple_animal/hostile/alien/maid/barmaid/Initialize(mapload)
 	. = ..()
 	access_card = new /obj/item/card/id(src)
-	access_card.access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
+	access_card.access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 	access_card.access |= ACCESS_CENT_BAR
 
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)

@@ -60,7 +60,7 @@
 
 	var/list/regions = list()
 	var/list/tgui_region_data = SSid_access.all_region_access_tgui
-	for(var/region in SSid_access.station_regions)
+	for(var/region in SSdepartment.station_regions)
 		regions += tgui_region_data[region]
 	data["regions"] = regions
 	return data
@@ -152,7 +152,7 @@
 			one_access = 0
 			update_access()
 		if("grant_all")
-			accesses = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
+			accesses = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 			update_access()
 		if("one_access")
 			one_access = !one_access
@@ -168,13 +168,13 @@
 			var/region = params["region"]
 			if(isnull(region))
 				return
-			accesses |= SSid_access.get_region_access_list(list(region))
+			accesses |= SSdepartment.get_region_access_list(list(region))
 			update_access()
 		if("deny_region")
 			var/region = params["region"]
 			if(isnull(region))
 				return
-			accesses -= SSid_access.get_region_access_list(list(region))
+			accesses -= SSdepartment.get_region_access_list(list(region))
 			update_access()
 		if("select_module")
 			ui_selected_module_index = text2num(params["index"])

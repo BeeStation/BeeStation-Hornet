@@ -194,7 +194,7 @@
 		return
 
 	var/obj/item/card/id/W = H.wear_id
-	W.access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
+	W.access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 	W.icon_state = "clown_op"
 	W.assignment = "Tunnel Clown!"
 	W.registered_name = H.real_name
@@ -258,7 +258,7 @@
 	pda.saved_job = "Reaper"
 
 	var/obj/item/card/id/syndicate/W = H.wear_id
-	W.access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
+	W.access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 	W.assignment = "Reaper"
 	W.registered_name = H.real_name
 	W.update_label(H.real_name)
@@ -296,7 +296,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
-	W.access = SSid_access.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM))
+	W.access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM))
 	W.assignment = JOB_CENTCOM_COMMANDER
 	W.registered_name = H.real_name
 	W.update_label()
@@ -334,7 +334,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
-	W.access = SSid_access.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM))
+	W.access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM))
 	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name
 	W.update_label()
@@ -404,7 +404,7 @@
 
 	var/obj/item/card/id/silver/W = H.wear_id
 	W.icon_state = "centcom"
-	W.access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
+	W.access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 	W.access |= CENTCOM_ACCESS
 	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name

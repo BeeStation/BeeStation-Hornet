@@ -673,7 +673,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						log_id("[key_name(usr)] changed [inserted_modify_id] assignment to [newJob] using [inserted_scan_id] at [AREACOORD(usr)].")
 
 				else if(t1 == "Unassigned")
-					inserted_modify_id.remove_access(SSid_access.get_region_access_list(list(REGION_ALL_STATION)), should_log = FALSE)
+					inserted_modify_id.remove_access(SSdepartment.get_region_access_list(list(REGION_ALL_STATION)), should_log = FALSE)
 
 					// These lines are to make an individual to an assistant
 					if(B)
@@ -702,7 +702,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						stack_trace("bad job string '[t1]' is given through HoP console by '[ckey(usr)]'")
 						updateUsrDialog()
 						return
-					inserted_modify_id.remove_access(SSid_access.get_region_access_list(list(REGION_ALL_STATION)), should_log = FALSE)
+					inserted_modify_id.remove_access(SSdepartment.get_region_access_list(list(REGION_ALL_STATION)), should_log = FALSE)
 					inserted_modify_id.add_access(jobdatum.get_access(), should_log = FALSE)
 
 					// Step 1: reseting theirs first
