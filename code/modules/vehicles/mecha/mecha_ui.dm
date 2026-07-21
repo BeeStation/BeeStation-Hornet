@@ -165,18 +165,16 @@
 				accesses -= access
 			update_access()
 		if("grant_region")
-			var/region = text2num(params["region"])
+			var/region = params["region"]
 			if(isnull(region))
 				return
-			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(region)[1]
-			accesses |= dept_datum.department_access
+			accesses |= SSid_access.get_region_access_list(list(region))
 			update_access()
 		if("deny_region")
-			var/region = text2num(params["region"])
+			var/region = params["region"]
 			if(isnull(region))
 				return
-			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(region)[1]
-			accesses -= dept_datum.department_access
+			accesses -= SSid_access.get_region_access_list(list(region))
 			update_access()
 		if("select_module")
 			ui_selected_module_index = text2num(params["index"])

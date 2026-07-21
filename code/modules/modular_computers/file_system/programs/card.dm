@@ -221,27 +221,49 @@
 		if("PRG_grantregion")
 			if(!authenticated)
 				return
-			var/region = text2num(params["region"])
-			if(isnull(region))
+			var/region = params["region"]
+			if(!(region in get_accessible_regions()))
 				return
-			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(accessible_region_bitflag)[1]
-			target_id_card.add_access(dept_datum.department_access, should_log = FALSE)
-			log_id("[key_name(usr)] granted [dept_datum.access_group_name] regional access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			var/list/region_access = SSid_access.get_region_access_list(list(region))
+			if(!length(region_access))
+				return
+			target_id_card.add_access(region_access, should_log = FALSE)
+			log_id("[key_name(usr)] granted [region] regional access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyregion")
 			if(!authenticated)
 				return
-			var/region = text2num(params["region"])
-			if(isnull(region))
+			var/region = params["region"]
+			if(!(region in get_accessible_regions()))
 				return
-			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(accessible_region_bitflag)[1]
-			target_id_card.remove_access(dept_datum.department_access, should_log = FALSE)
-			log_id("[key_name(usr)] removed [dept_datum.access_group_name] regional access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			var/list/region_access = SSid_access.get_region_access_list(list(region))
+			if(!length(region_access))
+				return
+			target_id_card.remove_access(region_access, should_log = FALSE)
+			log_id("[key_name(usr)] removed [region] regional access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
 
 
+
+/**
+ * Returns the list of region names (matching SSid_access region strings) that this console is
+ * currently permitted to grant or revoke as a whole.
+ */
+/datum/computer_file/program/card_mod/proc/get_accessible_regions()
+	if(is_centcom)
+		return list(REGION_CENTCOM)
+	var/list/region_access = list()
+	for(var/datum/department_group/dept as anything in SSdepartment.get_department_by_bitflag(accessible_region_bitflag))
+		if(dept.access_group_name)
+			region_access |= dept.access_group_name
+	var/list/accessible = list()
+	for(var/region in SSid_access.station_regions)
+		if((minor || department_bitflag) && !(region in region_access))
+			continue
+		accessible += region
+	return accessible
 
 /datum/computer_file/program/card_mod/ui_static_data(mob/user)
 	var/list/data = list()
@@ -265,21 +287,10 @@
 			data["jobs"][each_dept.department_name] = department_jobs
 
 
-	// The regions (by access_group_name, which matches the SSid_access region names) this program is allowed to modify.
-	var/list/region_access = list()
-	for(var/datum/department_group/dept as anything in SSdepartment.get_department_by_bitflag(accessible_region_bitflag))
-		if(dept.access_group_name)
-			region_access |= dept.access_group_name
-
 	var/list/regions = list()
 	var/list/tgui_region_data = SSid_access.all_region_access_tgui
-	if(is_centcom)
-		regions += tgui_region_data[REGION_CENTCOM]
-	else
-		for(var/region in SSid_access.station_regions)
-			if((minor || department_bitflag) && !(region in region_access))
-				continue
-			regions += tgui_region_data[region]
+	for(var/region in get_accessible_regions())
+		regions += tgui_region_data[region]
 
 	data["regions"] = regions
 
