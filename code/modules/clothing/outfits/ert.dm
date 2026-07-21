@@ -331,7 +331,7 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = list() //wipe access first
-	W.access = get_all_accesses()  //They get full station access.
+	W.access = SSid_access.get_region_access_list(list(REGION_ALL_STATION)) //They get full station access.
 	W.access |= get_centcom_access(JOB_ERT_DEATHSQUAD) //Let's add their alloted CentCom access.
 	W.assignment = JOB_ERT_DEATHSQUAD
 	W.registered_name = H.real_name

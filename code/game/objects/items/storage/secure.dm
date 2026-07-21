@@ -236,9 +236,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
 /obj/item/storage/secure/safe/caps_spare/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 1
-	atom_storage.set_holdable(list(
-		/obj/item/card/id/))
-	l_code = SSjob.spare_id_safe_code
+	atom_storage.set_holdable(list(/obj/item/card/id/))
+	l_code = SSid_access.spare_id_safe_code
 	l_set = TRUE
 	atom_storage.locked = TRUE
 	update_appearance()

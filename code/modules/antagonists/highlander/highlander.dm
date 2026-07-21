@@ -55,8 +55,7 @@
 		P.attack_self(H)
 	var/obj/item/card/id/W = new(H)
 	W.icon_state = "centcom"
-	W.access = get_all_accesses()
-	W.access |= get_all_centcom_access()
+	W.access = SSid_access.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM))
 	W.assignment = "Highlander"
 	W.registered_name = H.real_name
 	ADD_TRAIT(W, TRAIT_NODROP, HIGHLANDER_TRAIT)

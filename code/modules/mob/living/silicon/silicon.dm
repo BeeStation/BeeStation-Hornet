@@ -500,3 +500,6 @@
 	to_chat(user, span_notice("You finish repairing [src] with [tape]."))
 	adjustBruteLoss(-tape.object_repair_value)
 	return TRUE
+
+/mob/living/silicon/get_access()
+	return REGION_ACCESS_ALL_STATION

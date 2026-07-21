@@ -98,10 +98,10 @@
 						<u>Access:</u><br>
 						"}
 
-			var/known_access_rights = get_all_accesses()
+			var/list/known_access_rights = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
 			for(var/A in target_id_card.access)
 				if(A in known_access_rights)
-					contents += "  [get_access_desc(A)]"
+					contents += " [SSid_access.get_access_desc(A)]"
 
 			if(!printer.print_text(contents,"access report"))
 				to_chat(usr, span_notice("Hardware error: Printer was unable to print the file. It may be out of paper."))
@@ -125,7 +125,7 @@
 			if(!authenticated)
 				return
 
-			target_id_card.access -= get_all_centcom_access() + get_all_accesses()
+			target_id_card.access = list()
 			target_id_card.assignment = "Unassigned"
 			target_id_card.update_label()
 			log_id("[key_name(usr)] unassigned and stripped all access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
@@ -178,7 +178,7 @@
 					playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 					return
 
-				target_id_card.access -= get_all_accesses()
+				target_id_card.access -= SSid_access.get_region_access_list(list(REGION_ALL_STATION))
 				target_id_card.access |= jobdatum.get_access()
 
 				// tablet program doesn't change bank/manifest status. check 'card.dm' for the detail
@@ -194,28 +194,28 @@
 			if(!authenticated)
 				return
 			var/access_type = text2num(params["access_target"])
-			if(!is_centcom && (access_type in get_all_centcom_admin_access()))
-				log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](CentCom access) of [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on... This seems to be href exploit.")
+			if(!is_centcom && (SSid_access.get_access_flag(access_type) >= ACCESS_FLAG_CENTCOM))
+				log_id("[key_name(usr)] somehow attempted to manipulate [SSid_access.get_access_desc(access_type)](CentCom access) of [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on... This seems to be href exploit.")
 				return
 			if(access_type in target_id_card.access)
 				target_id_card.access -= access_type
-				log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+				log_id("[key_name(usr)] removed [SSid_access.get_access_desc(access_type)] from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			else
 				target_id_card.access |= access_type
-				log_id("[key_name(usr)] added [get_access_desc(access_type)] to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+				log_id("[key_name(usr)] added [SSid_access.get_access_desc(access_type)] to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, "terminal_type", 50, FALSE)
 			return TRUE
 		if("PRG_grantall")
 			if(!authenticated || minor)
 				return
-			target_id_card.access |= (is_centcom ? get_all_centcom_access()+get_all_accesses() : get_all_accesses())
+			target_id_card.access |= (is_centcom ? SSid_access.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM)) : SSid_access.get_region_access_list(list(REGION_ALL_STATION)))
 			log_id("[key_name(usr)] granted All Access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyall")
 			if(!authenticated || minor)
 				return
-			target_id_card.access -= (is_centcom ? get_all_centcom_access()+get_all_accesses() : get_all_accesses())
+			target_id_card.access -= (is_centcom ? SSid_access.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM)) : SSid_access.get_region_access_list(list(REGION_ALL_STATION)))
 			log_id("[key_name(usr)] removed All Access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
@@ -226,7 +226,7 @@
 			if(isnull(region))
 				return
 			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(accessible_region_bitflag)[1]
-			target_id_card.access |= dept_datum.access_list
+			target_id_card.access |= dept_datum.department_access
 			log_id("[key_name(usr)] granted [dept_datum.access_group_name] regional access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
@@ -237,7 +237,7 @@
 			if(isnull(region))
 				return
 			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(accessible_region_bitflag)[1]
-			target_id_card.access -= dept_datum.access_list
+			target_id_card.access -= dept_datum.department_access
 			log_id("[key_name(usr)] removed [dept_datum.access_group_name] regional access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
@@ -266,26 +266,21 @@
 			data["jobs"][each_dept.department_name] = department_jobs
 
 
+	// The regions (by access_group_name, which matches the SSid_access region names) this program is allowed to modify.
+	var/list/region_access = list()
+	for(var/datum/department_group/dept as anything in SSdepartment.get_department_by_bitflag(accessible_region_bitflag))
+		if(dept.access_group_name)
+			region_access |= dept.access_group_name
+
 	var/list/regions = list()
-	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-		if((minor || department_bitflag) && !(each_dept.department_bitflags & accessible_region_bitflag))
-			continue
-		if(!length(each_dept.access_list) || (each_dept.access_filter && !is_centcom))
-			continue
-
-		var/list/accesses = list()
-		for(var/access in each_dept.access_list)
-			if (get_access_desc(access))
-				accesses += list(list(
-					"desc" = replacetext(get_access_desc(access), "&nbsp", " "),
-					"ref" = access,
-				))
-
-		regions += list(list(
-			"name" = each_dept.access_group_name,
-			"regid" = each_dept.department_bitflags,
-			"accesses" = accesses
-		))
+	var/list/tgui_region_data = SSid_access.all_region_access_tgui
+	if(is_centcom)
+		regions += tgui_region_data[REGION_CENTCOM]
+	else
+		for(var/region in SSid_access.station_regions)
+			if((minor || department_bitflag) && !(region in region_access))
+				continue
+			regions += tgui_region_data[region]
 
 	data["regions"] = regions
 

@@ -29,7 +29,7 @@
 
 //Assumes the requester has all access
 /proc/get_path_to_all_access(atom/movable/requester, atom/end, max_distance = 30, mintargetdist, simulated_only = TRUE, turf/exclude, skip_first=TRUE, diagonal_handling=DIAGONAL_REMOVE_CLUNKY)
-	return get_path_to(requester, end, max_distance, mintargetdist, get_all_accesses(), simulated_only, exclude, skip_first, diagonal_handling)
+	return get_path_to(requester, end, max_distance, mintargetdist, SSid_access.get_region_access_list(list(REGION_ALL_STATION)), simulated_only, exclude, skip_first, diagonal_handling)
 
 /**
  * POTENTIALLY cheaper version of get_path_to

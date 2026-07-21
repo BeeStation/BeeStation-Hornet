@@ -207,6 +207,10 @@
 			hud_state = temp
 	// This is needed for some irregular jobs
 
+/// Returns the sechud icon state.
+/obj/item/card/id/proc/get_sechud_icon_state()
+	return hud_state || JOB_HUD_UNKNOWN
+
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))
 		var/id_href = "<a href='byond://?src=[REF(user)];see_id=1;id_ref=[REF(src)];id_name=[registered_name];examine_time=[world.time]'>[src.name]</a>"
@@ -640,7 +644,7 @@ do { \
 	hud_state = JOB_HUD_CENTCOM
 
 /obj/item/card/id/syndicate/debug/Initialize(mapload)
-	access = get_every_access()
+	access = SSid_access.get_region_access_list(list(REGION_ALL_GLOBAL))
 	registered_account = SSeconomy.get_budget_account(ACCOUNT_VIP_ID)
 	. = ..()
 
@@ -670,7 +674,7 @@ do { \
 	hud_state = JOB_HUD_CENTCOM
 
 /obj/item/card/id/centcom/Initialize(mapload)
-	access = get_all_centcom_access()
+	access = SSid_access.get_region_access_list(list(REGION_CENTCOM))
 	. = ..()
 
 /obj/item/card/id/ert
@@ -682,7 +686,7 @@ do { \
 	hud_state = JOB_HUD_CENTCOM
 
 /obj/item/card/id/ert/Initialize(mapload)
-	access = get_all_accesses()+get_ert_access("commander")-ACCESS_CHANGE_IDS
+	access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))+get_ert_access("commander")-ACCESS_CHANGE_IDS
 	. = ..()
 
 /obj/item/card/id/ert/Security
@@ -691,7 +695,7 @@ do { \
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Security/Initialize(mapload)
-	access = get_all_accesses()+get_ert_access("sec")-ACCESS_CHANGE_IDS
+	access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))+get_ert_access("sec")-ACCESS_CHANGE_IDS
 	. = ..()
 
 /obj/item/card/id/ert/Engineer
@@ -700,7 +704,7 @@ do { \
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Engineer/Initialize(mapload)
-	access = get_all_accesses()+get_ert_access("eng")-ACCESS_CHANGE_IDS
+	access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))+get_ert_access("eng")-ACCESS_CHANGE_IDS
 	. = ..()
 
 /obj/item/card/id/ert/Medical
@@ -709,7 +713,7 @@ do { \
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Medical/Initialize(mapload)
-	access = get_all_accesses()+get_ert_access("med")-ACCESS_CHANGE_IDS
+	access = SSid_access.get_region_access_list(list(REGION_ALL_STATION)) +get_ert_access("med")-ACCESS_CHANGE_IDS
 	. = ..()
 
 /obj/item/card/id/ert/Janitor
@@ -718,7 +722,7 @@ do { \
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Janitor/Initialize(mapload)
-	access = get_all_accesses()
+	access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
 	. = ..()
 
 /obj/item/card/id/ert/clown
@@ -727,7 +731,7 @@ do { \
 	icon_state = "ert"
 
 /obj/item/card/id/ert/clown/Initialize(mapload)
-	access = get_all_accesses()
+	access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
 	. = ..()
 
 /obj/item/card/id/ert/kudzu
@@ -736,7 +740,7 @@ do { \
 	icon_state = "ert"
 
 /obj/item/card/id/ert/kudzu/Initialize(mapload)
-	access = get_all_accesses()
+	access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
 	. = ..()
 
 /obj/item/card/id/ert/lawyer
@@ -1159,7 +1163,7 @@ do { \
 	name = "Job card (Med) - CMO"
 	icon_state = "cmo"
 	assignment = JOB_NAME_CHIEFMEDICALOFFICER
-	hud_state = JOB_HUD_CHEIFMEDICALOFFICIER
+	hud_state = JOB_HUD_CHIEFMEDICALOFFICER
 
 /obj/item/card/id/job/medical_doctor
 	name = "Job card (Med) - Medical Doctor"

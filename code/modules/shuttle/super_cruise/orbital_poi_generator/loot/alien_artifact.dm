@@ -267,7 +267,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 			idcards += H.get_idcard()
 	for(var/obj/item/card/id/id_card in things_in_view)
 		idcards += id_card
-	var/list/accesses_to_add = get_all_accesses()
+	var/list/accesses_to_add = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
 	for(var/obj/item/card/id/id_card as anything in idcards)
 		if(length(id_card.access))
 			id_card.access -= pick(id_card.access)

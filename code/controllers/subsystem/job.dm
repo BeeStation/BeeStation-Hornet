@@ -35,18 +35,18 @@ SUBSYSTEM_DEF(job)
 	/// Lazylist of mob:occupation_string pairs.
 	var/list/dynamic_forced_occupations
 
-	var/spare_id_safe_code = ""
-
 	var/list/chain_of_command = list(
-		"Captain" = 1,				//Not used yet but captain is first in chain_of_command
+		"Captain" = 1,
 		"Head of Personnel" = 2,
-		"Research Director" = 3,
-		"Chief Engineer" = 4,
+		"Chief Engineer" = 3,
+		"Research Director" = 4,
 		"Chief Medical Officer" = 5,
-		"Head of Security" = 6)
+		"Head of Security" = 6
+	)
 
 	//Crew Objective stuff
 	var/list/crew_obj_list = list()
+
 	var/list/crew_obj_jobs = list()
 
 	/// list of jobs that aren't part of standard jobs - used for job manager
@@ -69,13 +69,12 @@ SUBSYSTEM_DEF(job)
 	var/list/job_priorities_to_strings
 
 /datum/controller/subsystem/job/Initialize()
+	setup_job_lists()
 	if(!length(all_occupations))
 		setup_occupations()
 	if(CONFIG_GET(flag/load_jobs_from_txt))
 		LoadJobs()
 	set_overflow_role(CONFIG_GET(string/overflow_job))
-
-	spare_id_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
 
 	crew_obj_list = subtypesof(/datum/objective/crew)
 	for(var/type as anything in crew_obj_list)
@@ -102,7 +101,6 @@ SUBSYSTEM_DEF(job)
 
 	overflow_role = SSjob.overflow_role
 
-	spare_id_safe_code = SSjob.spare_id_safe_code
 	crew_obj_list = SSjob.crew_obj_list
 	crew_obj_jobs = SSjob.crew_obj_jobs
 
@@ -622,9 +620,9 @@ SUBSYSTEM_DEF(job)
 
 	SEND_SIGNAL(equipping, COMSIG_JOB_RECEIVED, job)
 
-	equipping.mind?.set_assigned_role_with_greeting(job, player_client)
-	equipping.on_job_equipping(job, null, player_client)
-	job.announce_job(equipping)
+	equipping.mind?.set_assigned_role_with_greeting(new_role = job, incoming_client = player_client)
+	equipping.on_job_equipping(equipping = job, player_client = player_client)
+	job.announce_job(joining_mob = equipping)
 	SSpersistence.antag_rep_change[player_client.ckey] += job.GetAntagRep()
 
 	if(player_client?.holder)
@@ -902,7 +900,7 @@ SUBSYSTEM_DEF(job)
 	desc = "Proof that you have been approved for Captaincy, with all its glory and all its horror."
 
 /obj/item/paper/fluff/spare_id_safe_code/Initialize(mapload)
-	var/id_safe_code = SSjob.spare_id_safe_code
+	var/id_safe_code = SSid_access.spare_id_safe_code
 	default_raw_text = "Captain's Spare ID safe code combination: [id_safe_code ? id_safe_code : "\[REDACTED\]"]<br><br>The spare ID can be found in its dedicated safe on the bridge."
 	return ..()
 
@@ -910,30 +908,30 @@ SUBSYSTEM_DEF(job)
 	name = "Emergency Spare ID Safe Code Requisition"
 	desc = "Proof that nobody has been approved for Captaincy. A skeleton key for a skeleton shift."
 
-/datum/controller/subsystem/job/proc/promote_to_captain(mob/living/carbon/human/H, acting_captain = FALSE)
-	if(!H)
-		CRASH("Cannot promote to captain: null mob passed.")
+/datum/controller/subsystem/job/proc/promote_to_captain(mob/living/carbon/human/new_captain, acting_captain = FALSE)
+	var/id_safe_code = SSid_access.spare_id_safe_code
 
-	if(!spare_id_safe_code)
-		CRASH("Cannot promote [H.real_name] to Captain, there is no spare_id_safe_code.")
+	if(!id_safe_code)
+		CRASH("Cannot promote [new_captain.real_name] to Captain, there is no spare_id_safe_code.")
 
-	var/paper = new /obj/item/paper/fluff/spare_id_safe_code(H.loc)
+	var/paper = new /obj/item/paper/fluff/spare_id_safe_code(new_captain.loc)
 	var/list/slots = list(
 		"in your left pocket" = ITEM_SLOT_LPOCKET,
 		"in your right pocket" = ITEM_SLOT_RPOCKET,
 		"in your backpack" = ITEM_SLOT_BACKPACK,
 		"in your hands" = ITEM_SLOT_HANDS
 	)
-	var/where = H.equip_in_one_of_slots(paper, slots, FALSE) || "at your feet"
+	var/where = new_captain.equip_in_one_of_slots(paper, slots, FALSE) || "at your feet"
 
 	if(acting_captain)
-		to_chat(H, span_notice("Due to your position in the chain of command, you have been granted access to captain's spare ID. You can find in important note about this [where]."))
+		to_chat(new_captain, span_notice("Due to your position in the chain of command, you have been granted access to captain's spare ID. You can find in important note about this [where]."))
 	else
-		to_chat(H, span_notice("You can find the code to obtain your spare ID from the secure safe on the Bridge [where]."))
+		to_chat(new_captain, span_notice("You can find the code to obtain your spare ID from the secure safe on the Bridge [where]."))
 
 	// Force-give their ID card bridge access.
-	if(H.wear_id?.GetID())
-		var/obj/item/card/id/id_card = H.wear_id
+	var/obj/item/id_slot = new_captain.get_item_by_slot(ITEM_SLOT_ID)
+	if(id_slot)
+		var/obj/item/card/id/id_card = id_slot.GetID()
 		if(!(ACCESS_HEADS in id_card.access))
 			LAZYADD(id_card.access, ACCESS_HEADS)
 

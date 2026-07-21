@@ -59,24 +59,9 @@
 	)
 
 	var/list/regions = list()
-	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-		if(!length(each_dept.access_list) || each_dept.access_filter)
-			continue
-
-		var/list/accesses = list()
-		for(var/access in each_dept.access_list)
-			if (get_access_desc(access))
-				accesses += list(list(
-					"desc" = replacetext(get_access_desc(access), "&nbsp", " "),
-					"ref" = access,
-				))
-
-		regions += list(list(
-			"name" = each_dept.access_group_name,
-			"regid" = each_dept.department_bitflags,
-			"accesses" = accesses
-		))
-
+	var/list/tgui_region_data = SSid_access.all_region_access_tgui
+	for(var/region in SSid_access.station_regions)
+		regions += tgui_region_data[region]
 	data["regions"] = regions
 	return data
 
@@ -167,7 +152,7 @@
 			one_access = 0
 			update_access()
 		if("grant_all")
-			accesses = get_all_accesses()
+			accesses = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
 			update_access()
 		if("one_access")
 			one_access = !one_access
@@ -184,14 +169,14 @@
 			if(isnull(region))
 				return
 			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(region)[1]
-			accesses |= dept_datum.access_list
+			accesses |= dept_datum.department_access
 			update_access()
 		if("deny_region")
 			var/region = text2num(params["region"])
 			if(isnull(region))
 				return
 			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(region)[1]
-			accesses -= dept_datum.access_list
+			accesses -= dept_datum.department_access
 			update_access()
 		if("select_module")
 			ui_selected_module_index = text2num(params["index"])

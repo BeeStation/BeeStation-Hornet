@@ -59,7 +59,7 @@
 	requisition_text += "<hr/>"
 	requisition_text += "Order #[id]<br/>"
 	requisition_text += "Item: [pack.name]<br/>"
-	requisition_text += "Access Restrictions: [get_access_desc(pack.access)]<br/>"
+	requisition_text += "Access Restrictions: [SSid_access.get_access_desc(pack.access)]<br/>"
 	requisition_text += "Requested by: [orderer]<br/>"
 	if(paying_account)
 		requisition_text += "Paid by: [paying_account.account_holder]<br/>"

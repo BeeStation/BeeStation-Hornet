@@ -151,8 +151,8 @@ SUBSYSTEM_DEF(department)
 
 	/// Group name of the access list
 	var/access_group_name = "Unknown"
-	/// list of access that belongs to this department
-	var/list/access_list = list()
+	/// A list of the accesses people in this department generally have. Prefer the REGION_ACCESS_* / *_ACCESS defines in __DEFINES/access.dm so this stays in sync with SSid_access regions.
+	var/list/department_access = list()
 	/// if TRUE, restricts CentCom only
 	var/access_filter
 
@@ -202,20 +202,7 @@ SUBSYSTEM_DEF(department)
 	department_head = /datum/job/captain
 
 	access_group_name = "Command"
-	access_list = list(
-		ACCESS_HEADS,
-		ACCESS_RC_ANNOUNCE,
-		ACCESS_KEYCARD_AUTH,
-		ACCESS_CHANGE_IDS,
-		ACCESS_AI_UPLOAD,
-		ACCESS_TELEPORTER,
-		ACCESS_EVA,
-		ACCESS_GATEWAY,
-		ACCESS_ALL_PERSONAL_LOCKERS,
-		ACCESS_HOP,
-		ACCESS_CAPTAIN,
-		ACCESS_VAULT,
-	)
+	department_access = REGION_ACCESS_COMMAND
 
 	pref_category_name = DEPARTMENT_NAME_COMMAND
 	pref_category_order = DEPT_PREF_ORDER_COMMAND
@@ -243,18 +230,7 @@ SUBSYSTEM_DEF(department)
 
 	access_group_name = "General"
 	// actually station general list
-	access_list = list(
-		ACCESS_KITCHEN,
-		ACCESS_BAR,
-		ACCESS_HYDROPONICS,
-		ACCESS_JANITOR,
-		ACCESS_CHAPEL_OFFICE,
-		ACCESS_CREMATORIUM,
-		ACCESS_LIBRARY,
-		ACCESS_THEATRE,
-		ACCESS_LAWYER,
-		ACCESS_SERVICE,
-	)
+	department_access = REGION_ACCESS_GENERAL
 
 
 	pref_category_name = DEPARTMENT_NAME_SERVICE
@@ -277,7 +253,7 @@ SUBSYSTEM_DEF(department)
 	department_head = /datum/job/head_of_personnel
 
 	access_group_name = "Residential" // in case when it's used
-	// access_list = list() // check service
+	// department_access = list() // check service
 
 	pref_category_name = DEPARTMENT_NAME_CIVILIAN
 	pref_category_order = DEPT_PREF_ORDER_CIVILIAN
@@ -304,16 +280,7 @@ SUBSYSTEM_DEF(department)
 	nation_prefixes = list("Cargo", "Guna", "Suppli", "Mule", "Crate", "Ore", "Mini", "Shaf")
 
 	access_group_name = "Supply"
-	access_list = list(
-		ACCESS_MAILSORTING,
-		ACCESS_MINING,
-		ACCESS_MINING_STATION,
-		ACCESS_MECH_MINING,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_CARGO,
-		ACCESS_QM,
-		ACCESS_VAULT,
-	)
+	department_access = REGION_ACCESS_SUPPLY
 
 
 	pref_category_name = DEPARTMENT_NAME_CARGO
@@ -341,19 +308,7 @@ SUBSYSTEM_DEF(department)
 	nation_prefixes = list("Scien", "Techno", "Xeno", "Quantu", "Chemi", "Geneti")
 
 	access_group_name = "Research"
-	access_list = list(
-		ACCESS_RESEARCH,
-		ACCESS_TOX,
-		ACCESS_TOX_STORAGE,
-		ACCESS_ROBOTICS,
-		ACCESS_XENOBIOLOGY,
-		ACCESS_EXPLORATION,
-		ACCESS_MECH_SCIENCE,
-		ACCESS_MINISAT,
-		ACCESS_RD,
-		ACCESS_NETWORK,
-		ACCESS_RD_SERVER,
-	)
+	department_access = REGION_ACCESS_RESEARCH
 
 	pref_category_name = DEPARTMENT_NAME_SCIENCE
 	pref_category_order = DEPT_PREF_ORDER_SCIENCE
@@ -380,20 +335,7 @@ SUBSYSTEM_DEF(department)
 	nation_prefixes = list("Atomo", "Engino", "Power", "Teleco", "Volt")
 
 	access_group_name = "Engineering"
-	access_list = list(
-		ACCESS_CONSTRUCTION,
-		ACCESS_AUX_BASE,
-		ACCESS_MAINT_TUNNELS,
-		ACCESS_ENGINE,
-		ACCESS_ENGINE_EQUIP,
-		ACCESS_EXTERNAL_AIRLOCKS,
-		ACCESS_TECH_STORAGE,
-		ACCESS_ATMOSPHERICS,
-		ACCESS_MECH_ENGINE,
-		ACCESS_TCOMSAT,
-		ACCESS_MINISAT,
-		ACCESS_CE,
-	)
+	department_access = REGION_ACCESS_ENGINEERING
 
 	pref_category_name = DEPARTMENT_NAME_ENGINEERING
 	pref_category_order = DEPT_PREF_ORDER_ENGINEERING
@@ -420,17 +362,7 @@ SUBSYSTEM_DEF(department)
 	nation_prefixes = list("Mede", "Healtha", "Recova", "Chemi", "Viro", "Psych")
 
 	access_group_name = "Medbay"
-	access_list = list(
-		ACCESS_MEDICAL,
-		ACCESS_GENETICS,
-		ACCESS_CLONING,
-		ACCESS_MORGUE,
-		ACCESS_CHEMISTRY,
-		ACCESS_VIROLOGY,
-		ACCESS_SURGERY,
-		ACCESS_MECH_MEDICAL,
-		ACCESS_CMO,
-	)
+	department_access = REGION_ACCESS_MEDBAY
 
 	pref_category_name = DEPARTMENT_NAME_MEDICAL
 	pref_category_order = DEPT_PREF_ORDER_MEDICAL
@@ -457,19 +389,7 @@ SUBSYSTEM_DEF(department)
 	nation_prefixes = list("Securi", "Beepski", "Shitcuri", "Red", "Stunba", "Flashbango", "Flasha", "Stanfordi")
 
 	access_group_name = "Security"
-	access_list = list(
-		ACCESS_SEC_DOORS,
-		ACCESS_SEC_RECORDS,
-		ACCESS_WEAPONS,
-		ACCESS_SECURITY,
-		ACCESS_BRIG,
-		ACCESS_BRIGPHYS,
-		ACCESS_ARMORY,
-		ACCESS_FORENSICS_LOCKERS,
-		ACCESS_COURT,
-		ACCESS_MECH_SECURITY,
-		ACCESS_HOS,
-	)
+	department_access = REGION_ACCESS_SECURITY
 
 	pref_category_name = DEPARTMENT_NAME_SECURITY
 	pref_category_order = DEPT_PREF_ORDER_SECURITY
@@ -523,18 +443,7 @@ SUBSYSTEM_DEF(department)
 	dept_radio_channel = FREQ_CENTCOM
 
 	access_group_name = "CentCom"
-	access_list = list(
-		ACCESS_CENT_GENERAL,
-		ACCESS_CENT_THUNDER,
-		ACCESS_CENT_SPECOPS,
-		ACCESS_CENT_MEDICAL,
-		ACCESS_CENT_LIVING,
-		ACCESS_CENT_STORAGE,
-		ACCESS_CENT_TELEPORTER,
-		ACCESS_CENT_CAPTAIN,
-		ACCESS_CENT_BAR,
-		ACCESS_PRISONER,
-	)
+	department_access = CENTCOM_ACCESS
 	access_filter = TRUE // CentCom Only
 
 	// currently not used, but just in case
@@ -561,29 +470,14 @@ SUBSYSTEM_DEF(department)
 	dept_radio_channel = FREQ_CENTCOM
 
 	access_group_name = "??? (Admin)"
-	access_list = list(
-		ACCESS_SYNDICATE,
-		ACCESS_SYNDICATE_LEADER,
-		ACCESS_PIRATES,
-		ACCESS_HUNTERS,
-		ACCESS_AWAY_GENERAL,
-		ACCESS_AWAY_MAINTENANCE,
-		ACCESS_AWAY_MEDICAL,
-		ACCESS_AWAY_SEC,
-		ACCESS_AWAY_ENGINEERING,
-		ACCESS_AWAY_GENERIC1,
-		ACCESS_AWAY_GENERIC2,
-		ACCESS_AWAY_GENERIC3,
-		ACCESS_AWAY_GENERIC4,
-		ACCESS_AWAY_SCIENCE,
-		ACCESS_AWAY_SUPPLY,
-		ACCESS_AWAY_COMMAND,
-		ACCESS_BLOODCULT,
-		ACCESS_CLOCKCULT,
-	)
+	// department_access Combined in New() rather than inline
 	access_filter = TRUE // CentCom Only
 
 	// currently not used, but just in case
 	manifest_category_name = DEPARTMENT_NAME_OTHER
 	manifest_category_order = 1000
 	display_order = 99
+
+/datum/department_group/other/New()
+	. = ..()
+	department_access = SYNDICATE_ACCESS + AWAY_ACCESS + CULT_ACCESS
