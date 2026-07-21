@@ -502,4 +502,4 @@
 	return TRUE
 
 /mob/living/silicon/get_access()
-	return REGION_ACCESS_ALL_STATION
+	return SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
