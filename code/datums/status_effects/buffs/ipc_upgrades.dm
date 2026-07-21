@@ -199,7 +199,7 @@ proc/can_have_ipc_upgrade(target)
 /datum/action/innate/ipc_upgrade_action
 	name = "Generic Upgrade Action"
 	button_icon = 'icons/hud/actions/actions_silicon.dmi'
-	button_icon_state = "shoulder_cannon_off"
+	button_icon_state = "shoulder_gun_off"
 	var/datum/status_effect/ipc_upgrade/upgrade = null
 	var/has_activate_text = TRUE
 	var/has_deactivate_text = TRUE
