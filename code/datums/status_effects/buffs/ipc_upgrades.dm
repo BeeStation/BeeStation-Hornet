@@ -1,14 +1,14 @@
 #define LOW_POWER_THRESHOLD 250
 
 //not so sure about making a global proc for this
-proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/status_effect/ipc_upgrade
+/proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/status_effect/ipc_upgrade
 	if(!effects)
 		return
 	for(var/datum/status_effect/ipc_upgrade/upgrade in effects)
 		if(upgrade.slot == slot)
 			return upgrade
 
-proc/can_have_ipc_upgrade(target)
+/proc/can_have_ipc_upgrade(target)
 	return isipc(target) || isethereal(target)
 
 /datum/status_effect/ipc_upgrade/
