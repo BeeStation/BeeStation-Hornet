@@ -508,7 +508,7 @@
 	id = "ipc tool adaptor"
 	name = "Tool Adaptor"
 	slot = UPGRADE_UTILITY
-	active_power_requirement = 15
+	active_power_requirement = 10
 	action_icon = "tool_speedifier"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
 	item_type = /obj/item/ipc_upgrade/tool_speedifier
@@ -559,6 +559,9 @@
 	if(!battery)
 		return FALSE
 	if(!can_generate())
+		to_chat(owner, span_warning("Your installed [name] is out of fuel!"))
+		playsound(owner, 'sound/machines/click.ogg', 50)
+		deactivate()
 		return FALSE
 	battery.adjust_charge(power_generation * seconds_between_ticks)
 	return TRUE
