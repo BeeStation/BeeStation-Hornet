@@ -248,9 +248,23 @@
 		log_access_change(removed, source, user, granting = FALSE)
 	return TRUE
 
+/**
+ * Tallies up all accesses on this card whose flag tier is greater than or equal to access_flag.
+ *
+ * Returns the number of accesses matching access_flag or a higher tier.
+ * Arguments:
+ * * access_flag - The minimum access flag tier required for an access to be counted.
+ */
+/obj/item/card/id/proc/tally_access(access_flag = NONE)
+	var/tally = 0
+	for(var/each_access in access)
+		if(get_access_flag(each_access) >= access_flag)
+			tally++
+	return tally
+
 /// Writes one ID log line for a change to this card's access: who, whose card, what, and from where.
 /obj/item/card/id/proc/log_access_change(list/changed_access, source, mob/user, granting)
-	var/list/descriptions = SSid_access.get_access_descs(changed_access)
+	var/list/descriptions = get_access_descs(changed_access)
 	var/actor = user ? key_name(user) : "Something"
 	var/action = granting ? "added" : "removed"
 	var/preposition = granting ? "to" : "from"
@@ -349,7 +363,7 @@
 
 /// Human-readable names of this grant's accesses.
 /datum/access_grant/proc/access_names()
-	return english_list(SSid_access.get_access_descs(accesses))
+	return english_list(get_access_descs(accesses))
 
 /// One-line examine description: what access this grant provides and how long is left on it.
 /datum/access_grant/proc/get_examine_text()

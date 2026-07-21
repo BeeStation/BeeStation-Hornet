@@ -22,6 +22,8 @@ SUBSYSTEM_DEF(department)
 	var/list/accesses_by_centcom_job = list()
 	/// Helper list containing all station regions.
 	var/list/station_regions = list()
+	/// Specially formatted list for sending access levels to tgui interfaces.
+	var/list/all_region_access_tgui = list()
 
 	/// department datums in access manipulation - actually manual sort
 	var/list/sorted_department_for_access = list(
@@ -69,6 +71,7 @@ SUBSYSTEM_DEF(department)
 
 	setup_region_lists()
 	setup_centcom_access()
+	setup_tgui_lists()
 
 	return SS_INIT_SUCCESS
 
@@ -135,6 +138,28 @@ SUBSYSTEM_DEF(department)
 /datum/controller/subsystem/department/proc/get_centcom_access_list(job)
 	var/list/centcom_access = accesses_by_centcom_job[job]
 	return centcom_access?.Copy()
+
+/// Creates various data structures that primarily get fed to tgui interfaces, although these lists are used in other places.
+/datum/controller/subsystem/department/proc/setup_tgui_lists()
+	for(var/region in accesses_by_region)
+		var/list/region_access = accesses_by_region[region]
+
+		var/parsed_accesses = list()
+
+		for(var/access in region_access)
+			var/access_desc = get_access_desc(access)
+			if(!access_desc)
+				continue
+
+			parsed_accesses += list(list(
+				"desc" = replacetext(access_desc, "&nbsp", " "),
+				"ref" = access,
+			))
+
+		all_region_access_tgui[region] = list(list(
+			"name" = region,
+			"accesses" = parsed_accesses,
+		))
 
 /// WARNING: This always returns as a list.
 /// If your bitflag only gets a single department, it will return as a list.
@@ -225,7 +250,7 @@ SUBSYSTEM_DEF(department)
 
 	/// Group name of the access list
 	var/access_group_name = "Unknown"
-	/// A list of the accesses people in this department generally have. Prefer the REGION_ACCESS_* / *_ACCESS defines in __DEFINES/access.dm so this stays in sync with SSid_access regions.
+	/// A list of the accesses people in this department generally have. Prefer the REGION_ACCESS_* / *_ACCESS defines in __DEFINES/access.dm so this stays in sync with SSdepartment regions.
 	var/list/department_access = list()
 	/// if TRUE, restricts CentCom only
 	var/access_filter

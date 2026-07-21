@@ -153,7 +153,7 @@
 /// Bitflag for Special accesses that ordinaryily shouldn't be on ID cards. See CULT_ACCESS.
 #define ACCESS_FLAG_SPECIAL (1 << 7)
 
-/// Departmental/general/common area accesses. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_COMMON)
+/// Departmental/general/common area accesses. Do not use direct, access via get_flag_access_list(ACCESS_FLAG_COMMON)
 #define COMMON_ACCESS list( \
 	ACCESS_MECH_MINING, \
 	ACCESS_MECH_MEDICAL, \
@@ -208,7 +208,7 @@
 	ACCESS_SERVICE, \
 )
 
-/// Command staff/secure accesses, think bridge/armoury, AI upload, notably access to modify ID cards themselves. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_COMMAND)
+/// Command staff/secure accesses, think bridge/armoury, AI upload, notably access to modify ID cards themselves. Do not use direct, access via get_flag_access_list(ACCESS_FLAG_COMMAND)
 #define COMMAND_ACCESS list( \
 	ACCESS_MINISAT, \
 	ACCESS_TCOMSAT, \
@@ -226,7 +226,7 @@
 	ACCESS_ALL_PERSONAL_LOCKERS, \
 )
 
-/// Private head of staff offices, usually only granted to most cards by trimming. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_PRV_COMMAND)
+/// Private head of staff offices, usually only granted to most cards by trimming. Do not use direct, access via get_flag_access_list(ACCESS_FLAG_PRV_COMMAND)
 #define PRIVATE_COMMAND_ACCESS list( \
 	ACCESS_HOS, \
 	ACCESS_HOP, \
@@ -235,11 +235,11 @@
 	ACCESS_RD, \
 )
 
-/// Captains private rooms. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_CAPTAIN)
+/// Captains private rooms. Do not use direct, access via get_flag_access_list(ACCESS_FLAG_CAPTAIN)
 #define CAPTAIN_ACCESS list( \
 	ACCESS_CAPTAIN, \
 )
-/// Centcom area stuff. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_CENTCOM)
+/// Centcom area stuff. Do not use direct, access via get_flag_access_list(ACCESS_FLAG_CENTCOM)
 #define CENTCOM_ACCESS list( \
 	ACCESS_CENT_BAR, \
 	ACCESS_CENT_CAPTAIN, \
@@ -253,13 +253,13 @@
 	ACCESS_PRISONER, \
 )
 
-/// Syndicate areas off station. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_SYNDICATE)
+/// Syndicate areas off station. Do not use direct, access via get_flag_access_list(ACCESS_FLAG_SYNDICATE)
 #define SYNDICATE_ACCESS list( \
 	ACCESS_SYNDICATE_LEADER, \
 	ACCESS_SYNDICATE, \
 )
 
-/// Away missions/gateway/space ruins.  Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_AWAY)
+/// Away missions/gateway/space ruins.  Do not use direct, access via get_flag_access_list(ACCESS_FLAG_AWAY)
 #define AWAY_ACCESS list( \
 	ACCESS_AWAY_GENERAL, \
 	ACCESS_AWAY_MAINTENANCE, \
@@ -275,7 +275,7 @@
 	ACCESS_AWAY_COMMAND, \
 )
 
-/// Special/internal accesses that ordinarily shouldn't be on ID cards (cult doors, independent factions).  Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_SPECIAL)
+/// Special/internal accesses that ordinarily shouldn't be on ID cards (cult doors, independent factions).  Do not use direct, access via get_flag_access_list(ACCESS_FLAG_SPECIAL)
 #define CULT_ACCESS list( \
 	ACCESS_BLOODCULT, \
 	ACCESS_CLOCKCULT, \

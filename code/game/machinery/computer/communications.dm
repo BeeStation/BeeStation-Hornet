@@ -356,7 +356,7 @@
 				to_chat(usr, span_warning("The safe code has already been requested and delivered to your station!"))
 				return
 
-			if(!SSid_access.spare_id_safe_code)
+			if(!SSjob.spare_id_safe_code)
 				to_chat(usr, span_warning("There is no safe code to deliver to your station!"))
 				return
 
@@ -379,7 +379,7 @@
 	var/has_connection = has_communication()
 	data["hasConnection"] = has_connection
 
-	if(!SSjob.assigned_captain && !SSjob.safe_code_requested && SSid_access.spare_id_safe_code && has_connection)
+	if(!SSjob.assigned_captain && !SSjob.safe_code_requested && SSjob.spare_id_safe_code && has_connection)
 		data["canRequestSafeCode"] = TRUE
 		data["safeCodeDeliveryWait"] = 0
 	else

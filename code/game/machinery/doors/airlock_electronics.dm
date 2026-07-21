@@ -33,7 +33,7 @@
 	var/list/data = list()
 
 	var/list/regions = list()
-	var/list/tgui_region_data = SSid_access.all_region_access_tgui
+	var/list/tgui_region_data = SSdepartment.all_region_access_tgui
 	for(var/region in SSdepartment.station_regions)
 		regions += tgui_region_data[region]
 

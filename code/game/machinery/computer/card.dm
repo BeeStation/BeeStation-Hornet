@@ -523,9 +523,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		card_html += "<div class='idc-dept-head'>[each_dept.access_group_name]<span class='idc-dept-count'>[length(each_dept.department_access)]</span></div>"
 		for(var/each_access in each_dept.department_access)
 			if(each_access in inserted_modify_id.access)
-				card_html += "<a class='idc-access-item granted' href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=0'>[SSid_access.get_access_desc(each_access)]</a>"
+				card_html += "<a class='idc-access-item granted' href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=0'>[get_access_desc(each_access)]</a>"
 			else
-				card_html += "<a class='idc-access-item' style='border-left-color:[each_dept.dept_colour]' href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=1'>[SSid_access.get_access_desc(each_access)]</a>"
+				card_html += "<a class='idc-access-item' style='border-left-color:[each_dept.dept_colour]' href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=1'>[get_access_desc(each_access)]</a>"
 		card_html += "</div>"
 		access_cards += list(list("html" = card_html, "weight" = length(each_dept.department_access) + 2))
 
@@ -649,8 +649,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(authenticated)
 					var/access_type = text2num(href_list["access_target"])
 					var/access_allowed = text2num(href_list["allowed"])
-					if(!is_centcom && (SSid_access.get_access_flag(access_type) >= ACCESS_FLAG_CENTCOM))
-						log_id("[key_name(usr)] somehow attempted to manipulate [SSid_access.get_access_desc(access_type)](CentCom access) of [inserted_modify_id] using [inserted_scan_id] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on...")
+					if(!is_centcom && (get_access_flag(access_type) >= ACCESS_FLAG_CENTCOM))
+						log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](CentCom access) of [inserted_modify_id] using [inserted_scan_id] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on...")
 						return
 					if(access_allowed == 1)
 						inserted_modify_id.add_access(access_type, "[inserted_scan_id] at an ID console at [AREACOORD(usr)]", usr)

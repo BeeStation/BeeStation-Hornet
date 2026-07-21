@@ -56,6 +56,8 @@ SUBSYSTEM_DEF(job)
 		JOB_NAME_PRISONER,
 	)
 
+	/// The roundstart generated code for the spare ID safe. This is given to the Captain on shift start. If there's no Captain, it's given to the HoP.
+	var/spare_id_safe_code = ""
 	/// If TRUE, some player has been assigned Captaincy or Acting Captaincy at some point during the shift and has been given the spare ID safe code.
 	var/assigned_captain = FALSE
 	/// Whether the emergency safe code has been requested via a comms console on shifts with no Captain or Acting Captain.
@@ -70,6 +72,9 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/Initialize()
 	setup_job_lists()
+
+	spare_id_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
+
 	if(!length(all_occupations))
 		setup_occupations()
 	if(CONFIG_GET(flag/load_jobs_from_txt))
@@ -900,7 +905,7 @@ SUBSYSTEM_DEF(job)
 	desc = "Proof that you have been approved for Captaincy, with all its glory and all its horror."
 
 /obj/item/paper/fluff/spare_id_safe_code/Initialize(mapload)
-	var/id_safe_code = SSid_access.spare_id_safe_code
+	var/id_safe_code = SSjob.spare_id_safe_code
 	default_raw_text = "Captain's Spare ID safe code combination: [id_safe_code ? id_safe_code : "\[REDACTED\]"]<br><br>The spare ID can be found in its dedicated safe on the bridge."
 	return ..()
 
@@ -909,7 +914,7 @@ SUBSYSTEM_DEF(job)
 	desc = "Proof that nobody has been approved for Captaincy. A skeleton key for a skeleton shift."
 
 /datum/controller/subsystem/job/proc/promote_to_captain(mob/living/carbon/human/new_captain, acting_captain = FALSE)
-	var/id_safe_code = SSid_access.spare_id_safe_code
+	var/id_safe_code = SSjob.spare_id_safe_code
 
 	if(!id_safe_code)
 		CRASH("Cannot promote [new_captain.real_name] to Captain, there is no spare_id_safe_code.")

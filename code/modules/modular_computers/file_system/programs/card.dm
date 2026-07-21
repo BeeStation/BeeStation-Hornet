@@ -101,7 +101,7 @@
 			var/list/known_access_rights = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 			for(var/A in target_id_card.access)
 				if(A in known_access_rights)
-					contents += " [SSid_access.get_access_desc(A)]"
+					contents += " [get_access_desc(A)]"
 
 			if(!printer.print_text(contents,"access report"))
 				to_chat(usr, span_notice("Hardware error: Printer was unable to print the file. It may be out of paper."))
@@ -194,8 +194,8 @@
 			if(!authenticated)
 				return
 			var/access_type = text2num(params["access_target"])
-			if(!is_centcom && (SSid_access.get_access_flag(access_type) >= ACCESS_FLAG_CENTCOM))
-				log_id("[key_name(usr)] somehow attempted to manipulate [SSid_access.get_access_desc(access_type)](CentCom access) of [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on... This seems to be href exploit.")
+			if(!is_centcom && (get_access_flag(access_type) >= ACCESS_FLAG_CENTCOM))
+				log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](CentCom access) of [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on... This seems to be href exploit.")
 				return
 			var/access_source = "[user_id_card] via a portable ID console at [AREACOORD(usr)]"
 			if(access_type in target_id_card.access)
@@ -248,7 +248,7 @@
 
 
 /**
- * Returns the list of region names (matching SSid_access region strings) that this console is
+ * Returns the list of region names (matching SSdepartment region strings) that this console is
  * currently permitted to grant or revoke as a whole.
  */
 /datum/computer_file/program/card_mod/proc/get_accessible_regions()
@@ -288,7 +288,7 @@
 
 
 	var/list/regions = list()
-	var/list/tgui_region_data = SSid_access.all_region_access_tgui
+	var/list/tgui_region_data = SSdepartment.all_region_access_tgui
 	for(var/region in get_accessible_regions())
 		regions += tgui_region_data[region]
 
