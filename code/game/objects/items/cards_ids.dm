@@ -211,6 +211,50 @@
 /obj/item/card/id/proc/get_sechud_icon_state()
 	return hud_state || JOB_HUD_UNKNOWN
 
+/**
+ * Grants access to this card and logs it. Use this instead of editing access directly.
+ * Arguments:
+ * * access_to_add - a single access or a list of them.
+ * * source - what granted the access, for the log.
+ * * user - who made the change, for the log.
+ * * should_log - set FALSE when the caller writes its own log line for the change.
+ */
+/obj/item/card/id/proc/add_access(access_to_add, source, mob/user, should_log = TRUE)
+	if(!islist(access_to_add))
+		access_to_add = list(access_to_add)
+	var/list/added = access_to_add - access
+	access |= access_to_add
+	if(should_log && length(added))
+		log_access_change(added, source, user, granting = TRUE)
+	return TRUE
+
+/**
+ * Revokes access from this card and logs it. Use this instead of editing access directly.
+ * Arguments:
+ * * access_to_remove - a single access or a list of them.
+ * * source - what revoked the access, for the log.
+ * * user - who made the change, for the log.
+ * * should_log - set FALSE when the caller writes its own log line for the change.
+ */
+/obj/item/card/id/proc/remove_access(access_to_remove, source, mob/user, should_log = TRUE)
+	if(!islist(access_to_remove))
+		access_to_remove = list(access_to_remove)
+	var/list/removed = access & access_to_remove
+	access -= access_to_remove
+	if(should_log && length(removed))
+		log_access_change(removed, source, user, granting = FALSE)
+	return TRUE
+
+/// Writes one ID log line for a change to this card's access: who, whose card, what, and from where.
+/obj/item/card/id/proc/log_access_change(list/changed_access, source, mob/user, granting)
+	var/list/descriptions = list()
+	for(var/access in changed_access)
+		descriptions += SSid_access.get_access_desc(access) || "[access]"
+	var/actor = user ? key_name(user) : "Something"
+	var/action = granting ? "added" : "removed"
+	var/preposition = granting ? "to" : "from"
+	log_id("[actor] [action] [english_list(descriptions)] [preposition] [src] ([registered_name || "unregistered"])[source ? " via [source]" : ""].")
+
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))
 		var/id_href = "<a href='byond://?src=[REF(user)];see_id=1;id_ref=[REF(src)];id_name=[registered_name];examine_time=[world.time]'>[src.name]</a>"
@@ -1319,8 +1363,7 @@ do { \
 		if(!idcard.electric)
 			to_chat(user, to_chat(user, span_warning("You swipe the id card. Nothing happens. ")))
 			return
-		for(var/give_access in access)
-			idcard.access |= give_access
+		idcard.add_access(access.Copy(), "\a [name]", user)
 		if(assignment!=initial(assignment))
 			idcard.assignment = assignment
 		if(name!=initial(name))

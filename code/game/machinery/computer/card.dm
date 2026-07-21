@@ -653,11 +653,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						log_id("[key_name(usr)] somehow attempted to manipulate [SSid_access.get_access_desc(access_type)](CentCom access) of [inserted_modify_id] using [inserted_scan_id] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on...")
 						return
 					if(access_allowed == 1)
-						inserted_modify_id.access |= access_type
-						log_id("[key_name(usr)] added [SSid_access.get_access_desc(access_type)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
+						inserted_modify_id.add_access(access_type, "[inserted_scan_id] at an ID console at [AREACOORD(usr)]", usr)
 					else
-						inserted_modify_id.access -= access_type
-						log_id("[key_name(usr)] removed [SSid_access.get_access_desc(access_type)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
+						inserted_modify_id.remove_access(access_type, "[inserted_scan_id] at an ID console at [AREACOORD(usr)]", usr)
 					playsound(src, "terminal_type", 50, FALSE)
 					inserted_modify_id.update_label()
 					// Refresh only the access grid :)
@@ -675,7 +673,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						log_id("[key_name(usr)] changed [inserted_modify_id] assignment to [newJob] using [inserted_scan_id] at [AREACOORD(usr)].")
 
 				else if(t1 == "Unassigned")
-					inserted_modify_id.access -= SSid_access.get_region_access_list(list(REGION_ALL_STATION))
+					inserted_modify_id.remove_access(SSid_access.get_region_access_list(list(REGION_ALL_STATION)), should_log = FALSE)
 
 					// These lines are to make an individual to an assistant
 					if(B)
@@ -704,8 +702,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						stack_trace("bad job string '[t1]' is given through HoP console by '[ckey(usr)]'")
 						updateUsrDialog()
 						return
-					inserted_modify_id.access -= SSid_access.get_region_access_list(list(REGION_ALL_STATION))
-					inserted_modify_id.access |= jobdatum.get_access()
+					inserted_modify_id.remove_access(SSid_access.get_region_access_list(list(REGION_ALL_STATION)), should_log = FALSE)
+					inserted_modify_id.add_access(jobdatum.get_access(), should_log = FALSE)
 
 					// Step 1: reseting theirs first
 					if(B && jobdatum) // 1-A: reseting bank payment

@@ -125,7 +125,7 @@
 			if(!authenticated)
 				return
 
-			target_id_card.access = list()
+			target_id_card.remove_access(target_id_card.access.Copy(), should_log = FALSE)
 			target_id_card.assignment = "Unassigned"
 			target_id_card.update_label()
 			log_id("[key_name(usr)] unassigned and stripped all access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
@@ -178,8 +178,8 @@
 					playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 					return
 
-				target_id_card.access -= SSid_access.get_region_access_list(list(REGION_ALL_STATION))
-				target_id_card.access |= jobdatum.get_access()
+				target_id_card.remove_access(SSid_access.get_region_access_list(list(REGION_ALL_STATION)), should_log = FALSE)
+				target_id_card.add_access(jobdatum.get_access(), should_log = FALSE)
 
 				// tablet program doesn't change bank/manifest status. check 'card.dm' for the detail
 
@@ -197,25 +197,24 @@
 			if(!is_centcom && (SSid_access.get_access_flag(access_type) >= ACCESS_FLAG_CENTCOM))
 				log_id("[key_name(usr)] somehow attempted to manipulate [SSid_access.get_access_desc(access_type)](CentCom access) of [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on... This seems to be href exploit.")
 				return
+			var/access_source = "[user_id_card] via a portable ID console at [AREACOORD(usr)]"
 			if(access_type in target_id_card.access)
-				target_id_card.access -= access_type
-				log_id("[key_name(usr)] removed [SSid_access.get_access_desc(access_type)] from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+				target_id_card.remove_access(access_type, access_source, usr)
 			else
-				target_id_card.access |= access_type
-				log_id("[key_name(usr)] added [SSid_access.get_access_desc(access_type)] to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+				target_id_card.add_access(access_type, access_source, usr)
 			playsound(computer, "terminal_type", 50, FALSE)
 			return TRUE
 		if("PRG_grantall")
 			if(!authenticated || minor)
 				return
-			target_id_card.access |= (is_centcom ? SSid_access.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM)) : SSid_access.get_region_access_list(list(REGION_ALL_STATION)))
+			target_id_card.add_access((is_centcom ? SSid_access.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM)) : SSid_access.get_region_access_list(list(REGION_ALL_STATION))), should_log = FALSE)
 			log_id("[key_name(usr)] granted All Access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyall")
 			if(!authenticated || minor)
 				return
-			target_id_card.access -= (is_centcom ? SSid_access.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM)) : SSid_access.get_region_access_list(list(REGION_ALL_STATION)))
+			target_id_card.remove_access((is_centcom ? SSid_access.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM)) : SSid_access.get_region_access_list(list(REGION_ALL_STATION))), should_log = FALSE)
 			log_id("[key_name(usr)] removed All Access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
@@ -226,7 +225,7 @@
 			if(isnull(region))
 				return
 			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(accessible_region_bitflag)[1]
-			target_id_card.access |= dept_datum.department_access
+			target_id_card.add_access(dept_datum.department_access, should_log = FALSE)
 			log_id("[key_name(usr)] granted [dept_datum.access_group_name] regional access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
@@ -237,7 +236,7 @@
 			if(isnull(region))
 				return
 			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(accessible_region_bitflag)[1]
-			target_id_card.access -= dept_datum.department_access
+			target_id_card.remove_access(dept_datum.department_access, should_log = FALSE)
 			log_id("[key_name(usr)] removed [dept_datum.access_group_name] regional access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE

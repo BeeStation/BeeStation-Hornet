@@ -54,6 +54,7 @@
 #include "huds.dm"
 #include "hydroponics_extractor_storage.dm"
 #include "icon_smoothing_unit_test.dm"
+#include "id_card_access.dm"
 #include "janky_actions.dm"
 #include "job_display_order.dm"
 #include "keybinding_init.dm"

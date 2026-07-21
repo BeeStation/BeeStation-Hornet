@@ -270,8 +270,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 	var/list/accesses_to_add = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
 	for(var/obj/item/card/id/id_card as anything in idcards)
 		if(length(id_card.access))
-			id_card.access -= pick(id_card.access)
-			id_card.access |= pick(accesses_to_add)
+			id_card.remove_access(pick(id_card.access), "an alien artifact")
+			id_card.add_access(pick(accesses_to_add), "an alien artifact")
 
 //===================
 // Reality Destabilizer
