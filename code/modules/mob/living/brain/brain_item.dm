@@ -380,25 +380,24 @@
 	if(istype(attacking_item, /obj/item/organ_storage))
 		return //Borg organ bags shouldn't be killing brains
 
-	if(istype(attacking_item, /obj/item/multitool)) //attempt to heal the brain
-		. = TRUE //don't do attack animation.
-		user.visible_message("[user] starts to repair the circuitry of [src].", span_notice("You start to repair the circuitry of [src]."))
-		if(!do_after(user, 6 SECONDS, src))
-			to_chat(user, span_warning("You failed to repair [src]!"))
-			return
-
-		user.visible_message("[user] repairs the circuitry of [src], causing it to blink in a more steady pattern.", span_notice("You repair the circuitry of [src], causing it to blink in a more steady pattern."))
-		set_organ_damage(damage - (maxHealth * 0.25))
-		cure_all_traumas(TRAUMA_RESILIENCE_SURGERY)
-		if(damage > 0)
-			to_chat(user, span_notice("The lights still are unsteady. This positronic could be repaired further."))
-		return
-
 	if(brainmob) //if we aren't trying to heal the brain, pass the attack onto the brainmob.
 		attacking_item.attack(brainmob, user) //Oh noooeeeee
 
 	if(attacking_item.force != 0 && !(attacking_item.item_flags & NOBLUDGEON))
 		set_organ_damage(maxHealth) //fails the brain as the brain was attacked, they're pretty fragile.
+
+/obj/item/organ/brain/positron/multitool_act(mob/living/user, obj/item/tool)
+	user.visible_message("[user] starts to repair the circuitry of [src].", span_notice("You start to repair the circuitry of [src]."))
+	if(!do_after(user, 6 SECONDS, src))
+		to_chat(user, span_warning("You mess up the repair to [src] and instead damage it further!"))
+		return FALSE
+
+	user.visible_message("[user] repairs the circuitry of [src], causing it to blink in a more steady pattern.", span_notice("You repair the circuitry of [src], causing it to blink in a more steady pattern."))
+	set_organ_damage(damage - (maxHealth * 0.25))
+	cure_all_traumas(TRAUMA_RESILIENCE_SURGERY)
+	if(damage > 0)
+		to_chat(user, span_notice("The lights are still unsteady. This positronic could be repaired further."))
+	return TRUE
 
 /obj/item/organ/brain/positron/emp_act(severity)
 	. = ..()
