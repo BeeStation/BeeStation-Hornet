@@ -16,8 +16,8 @@ SUBSYSTEM_DEF(department)
 	var/list/sorted_department_for_manifest
 	/// department datums in a 'job pref' priority order in character selection.
 	var/list/sorted_department_for_latejoin
-	/// Dictionary of accesses based on station region. Keys are region strings. Values are lists of accesses.
-	var/list/accesses_by_region = list()
+	/// Maps a region string to the department datums that make it up. Access is pulled live from their department_access. Keys are region strings, values are lists of /datum/department_group.
+	var/list/region_to_departments = list()
 	/// Dictionary of CentCom/ERT job accesses. Keys are job names. Values are lists of accesses.
 	var/list/accesses_by_centcom_job = list()
 	/// Helper list containing all station regions.
@@ -75,20 +75,25 @@ SUBSYSTEM_DEF(department)
 
 	return SS_INIT_SUCCESS
 
-/// Populates the region lists with data about which accesses correspond to which regions.
+/// Builds the region -> department mapping used by get_region_access_list(). Access lists are read live from each department's department_access.
 /datum/controller/subsystem/department/proc/setup_region_lists()
-	accesses_by_region[REGION_ALL_STATION] = REGION_ACCESS_ALL_STATION
-	accesses_by_region[REGION_ALL_GLOBAL] = REGION_ACCESS_ALL_GLOBAL
-	accesses_by_region[REGION_GENERAL] = REGION_ACCESS_GENERAL
-	accesses_by_region[REGION_SECURITY] = REGION_ACCESS_SECURITY
-	accesses_by_region[REGION_MEDBAY] = REGION_ACCESS_MEDBAY
-	accesses_by_region[REGION_RESEARCH] = REGION_ACCESS_RESEARCH
-	accesses_by_region[REGION_ENGINEERING] = REGION_ACCESS_ENGINEERING
-	accesses_by_region[REGION_SUPPLY] = REGION_ACCESS_SUPPLY
-	accesses_by_region[REGION_COMMAND] = REGION_ACCESS_COMMAND
-	accesses_by_region[REGION_CENTCOM] = REGION_ACCESS_CENTCOM
-
+	// Region names, not access data - kept as the ordered define for UI ordering.
 	station_regions = REGION_AREA_STATION
+
+	var/list/station_access_departments = list()
+	var/list/all_access_departments = list()
+	for(var/datum/department_group/dept as anything in department_datums)
+		if(!length(dept.department_access))
+			continue
+		all_access_departments += dept
+		if(dept.is_station)
+			station_access_departments += dept
+		if(dept.access_region)
+			region_to_departments[dept.access_region] = list(dept)
+
+	// Aggregate regions are just unions of departments - all station depts, and all access-granting depts.
+	region_to_departments[REGION_ALL_STATION] = station_access_departments
+	region_to_departments[REGION_ALL_GLOBAL] = all_access_departments
 
 /// Populates the CentCom/ERT job access table. Ugly as sin, but better than it was before
 /datum/controller/subsystem/department/proc/setup_centcom_access()
@@ -125,7 +130,8 @@ SUBSYSTEM_DEF(department)
 	var/list/built_region_list = list()
 
 	for(var/region in regions)
-		built_region_list |= accesses_by_region[region]
+		for(var/datum/department_group/dept as anything in region_to_departments[region])
+			built_region_list |= dept.department_access
 
 	return built_region_list
 
@@ -141,8 +147,8 @@ SUBSYSTEM_DEF(department)
 
 /// Creates various data structures that primarily get fed to tgui interfaces, although these lists are used in other places.
 /datum/controller/subsystem/department/proc/setup_tgui_lists()
-	for(var/region in accesses_by_region)
-		var/list/region_access = accesses_by_region[region]
+	for(var/region in region_to_departments)
+		var/list/region_access = get_region_access_list(list(region))
 
 		var/parsed_accesses = list()
 
@@ -250,8 +256,10 @@ SUBSYSTEM_DEF(department)
 
 	/// Group name of the access list
 	var/access_group_name = "Unknown"
-	/// A list of the accesses people in this department generally have. Prefer the REGION_ACCESS_* / *_ACCESS defines in __DEFINES/access.dm so this stays in sync with SSdepartment regions.
+	/// A list of the accesses people in this department generally have. Region access reads from here live; the REGION_ACCESS_* / *_ACCESS defines only seed it.
 	var/list/department_access = list()
+	/// The access region (REGION_*) this department represents. Null if it isn't its own region.
+	var/access_region
 	/// if TRUE, restricts CentCom only
 	var/access_filter
 
@@ -302,6 +310,7 @@ SUBSYSTEM_DEF(department)
 
 	access_group_name = "Command"
 	department_access = REGION_ACCESS_COMMAND
+	access_region = REGION_COMMAND
 
 	pref_category_name = DEPARTMENT_NAME_COMMAND
 	pref_category_order = DEPT_PREF_ORDER_COMMAND
@@ -330,6 +339,7 @@ SUBSYSTEM_DEF(department)
 	access_group_name = "General"
 	// actually station general list
 	department_access = REGION_ACCESS_GENERAL
+	access_region = REGION_GENERAL
 
 
 	pref_category_name = DEPARTMENT_NAME_SERVICE
@@ -380,6 +390,7 @@ SUBSYSTEM_DEF(department)
 
 	access_group_name = "Supply"
 	department_access = REGION_ACCESS_SUPPLY
+	access_region = REGION_SUPPLY
 
 
 	pref_category_name = DEPARTMENT_NAME_CARGO
@@ -408,6 +419,7 @@ SUBSYSTEM_DEF(department)
 
 	access_group_name = "Research"
 	department_access = REGION_ACCESS_RESEARCH
+	access_region = REGION_RESEARCH
 
 	pref_category_name = DEPARTMENT_NAME_SCIENCE
 	pref_category_order = DEPT_PREF_ORDER_SCIENCE
@@ -435,6 +447,7 @@ SUBSYSTEM_DEF(department)
 
 	access_group_name = "Engineering"
 	department_access = REGION_ACCESS_ENGINEERING
+	access_region = REGION_ENGINEERING
 
 	pref_category_name = DEPARTMENT_NAME_ENGINEERING
 	pref_category_order = DEPT_PREF_ORDER_ENGINEERING
@@ -462,6 +475,7 @@ SUBSYSTEM_DEF(department)
 
 	access_group_name = "Medbay"
 	department_access = REGION_ACCESS_MEDBAY
+	access_region = REGION_MEDBAY
 
 	pref_category_name = DEPARTMENT_NAME_MEDICAL
 	pref_category_order = DEPT_PREF_ORDER_MEDICAL
@@ -489,6 +503,7 @@ SUBSYSTEM_DEF(department)
 
 	access_group_name = "Security"
 	department_access = REGION_ACCESS_SECURITY
+	access_region = REGION_SECURITY
 
 	pref_category_name = DEPARTMENT_NAME_SECURITY
 	pref_category_order = DEPT_PREF_ORDER_SECURITY
@@ -543,6 +558,7 @@ SUBSYSTEM_DEF(department)
 
 	access_group_name = "CentCom"
 	department_access = CENTCOM_ACCESS
+	access_region = REGION_CENTCOM
 	access_filter = TRUE // CentCom Only
 
 	// currently not used, but just in case

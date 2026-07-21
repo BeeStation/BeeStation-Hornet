@@ -135,28 +135,22 @@
 
 	return id_card?.get_sechud_icon_state() || "hudno_id"
 
-/**
- * Singleton datum holding the static metadata for a single access level.
- *
- * One instance exists per access, stored in GLOB.access_datums keyed by the access as text
- * (accesses are frequently stored as text elsewhere). Built once at global init, so lookups are
- * order-independent of subsystem startup.
- */
+/// Static metadata for one access level. One instance per access in GLOB.access_datums, keyed by the access as text.
 /datum/access
-	/// The numeric access level this datum represents.
+	/// The numeric access level.
 	var/id
-	/// Human-readable description of the area/permission this access unlocks. May be null for internal accesses.
+	/// Text description of what this access unlocks. Null for internal accesses.
 	var/desc
-	/// The access flag tier (ACCESS_FLAG_*) this access belongs to. NONE if it isn't part of a tier.
+	/// The access flag tier (ACCESS_FLAG_*) this belongs to. NONE if it isn't in a tier.
 	var/flag = NONE
 
 /datum/access/New(id)
 	. = ..()
 	src.id = id
 
-/// Assoc list of every /datum/access singleton, keyed by the access as text ("[access]").
+/// Every /datum/access singleton, keyed by the access as text.
 GLOBAL_LIST_INIT(access_datums, generate_access_datums())
-/// Assoc list of access flag tier -> the list of accesses in that tier. Keyed by the flag as text ("[flag]").
+/// Assoc list of flag tier -> its accesses. Keyed by the flag as text.
 GLOBAL_LIST_INIT(accesses_by_flag, list(
 	"[ACCESS_FLAG_COMMON]" = COMMON_ACCESS,
 	"[ACCESS_FLAG_COMMAND]" = COMMAND_ACCESS,
@@ -168,11 +162,11 @@ GLOBAL_LIST_INIT(accesses_by_flag, list(
 	"[ACCESS_FLAG_SPECIAL]" = CULT_ACCESS,
 ))
 
-/// Builds the GLOB.access_datums singletons, folding together each access's flag tier and description.
+/// Builds the GLOB.access_datums singletons from the flag tiers and description table.
 /proc/generate_access_datums()
 	var/list/datums = list()
 
-	// Flag tiers. Kept self-contained rather than reading GLOB.accesses_by_flag to avoid depending on global init order.
+	// Flag tiers. Local copy so we don't depend on GLOB init order.
 	var/list/flag_tiers = list(
 		"[ACCESS_FLAG_COMMON]" = COMMON_ACCESS,
 		"[ACCESS_FLAG_COMMAND]" = COMMAND_ACCESS,
@@ -192,7 +186,7 @@ GLOBAL_LIST_INIT(accesses_by_flag, list(
 				datums["[access]"] = access_datum
 			access_datum.flag = flag
 
-	// Descriptions. Any access with a description but no flag tier still gets a datum.
+	// Descriptions. Accesses with a desc but no tier still get a datum.
 	var/list/descriptions = list(
 		"[ACCESS_CARGO]" = "Cargo Bay",
 		"[ACCESS_SERVICE]" = "Service",
@@ -301,7 +295,7 @@ GLOBAL_LIST_INIT(accesses_by_flag, list(
 	return access_datum?.flag
 
 /**
- * Returns the human-readable description associated with any given access level, or null if it has none.
+ * Returns the description associated with any given access level, or null if it has none.
  *
  * Arguments:
  * * access - Access as either pure number or as a string representation of the number.
