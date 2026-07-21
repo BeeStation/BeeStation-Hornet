@@ -71,7 +71,7 @@
 
 	wires = new /datum/wires/mulebot(src)
 
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_CARGOTECHNICIAN)
+	var/datum/job/J = SSjob.get_job(JOB_NAME_CARGOTECHNICIAN)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
 
@@ -470,7 +470,7 @@
 	B.setDir(direct)
 	bloodiness--
 
-/mob/living/simple_animal/bot/mulebot/Moved()
+/mob/living/simple_animal/bot/mulebot/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(has_gravity())
 		for(var/mob/living/carbon/human/future_pancake in loc)

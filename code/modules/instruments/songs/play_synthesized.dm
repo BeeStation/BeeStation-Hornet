@@ -60,11 +60,15 @@
 	var/channel_text = num2text(channel)
 	channels_playing[channel_text] = 100
 	last_channel_played = channel_text
-	for(var/i in hearing_mobs)
-		var/mob/M = i
-		if(!M?.client?.prefs.read_player_preference(/datum/preference/toggle/sound_instruments))
-			continue
-		M.playsound_local(get_turf(parent), null, volume, FALSE, K.frequency, null, channel, null, copy)
+	for(var/mob/M in hearing_mobs)
+		M.playsound_local(
+			turf_source = get_turf(parent),
+			vol = volume,
+			frequency = K.frequency,
+			channel = channel,
+			sound_to_use = copy,
+			volume_preference = /datum/preference/numeric/volume/sound_instruments_volume,
+		)
 		// Could do environment and echo later but not for now
 
 /**

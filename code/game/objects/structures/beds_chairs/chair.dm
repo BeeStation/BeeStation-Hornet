@@ -31,7 +31,7 @@
 
 ///This proc adds the rotate component, overwrite this if you for some reason want to change some specific args.
 /obj/structure/chair/proc/MakeRotate()
-	AddComponent(/datum/component/simple_rotation, ROTATION_IGNORE_ANCHORED|ROTATION_GHOSTS_ALLOWED)
+	AddElement(/datum/element/simple_rotation, ROTATION_IGNORE_ANCHORED|ROTATION_GHOSTS_ALLOWED)
 
 /obj/structure/chair/Destroy()
 	SSjob.latejoin_trackers -= src	//These may be here due to the arrivals shuttle
@@ -45,7 +45,7 @@
 		else
 			for(var/i in custom_materials)
 				var/datum/material/M = i
-				new M.sheet_type(loc, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
+				new M.sheet_type(loc, floor(custom_materials[M] / MINERAL_MATERIAL_AMOUNT))
 	..()
 
 /obj/structure/chair/attack_paw(mob/user)
@@ -60,9 +60,6 @@
 	var/obj/structure/chair/fancy/brass/B = new(get_turf(src))
 	B.setDir(dir)
 	qdel(src)
-
-/obj/structure/chair/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/structure/chair/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/assembly/shock_kit))
@@ -115,7 +112,7 @@
 	handle_layer()
 
 /obj/structure/chair/setDir(newdir)
-	..()
+	. = ..()
 	handle_rotation(newdir)
 
 // Chair types
@@ -136,10 +133,10 @@
 	flags_1 = NODECONSTRUCT_1
 
 /obj/structure/chair/mime/post_buckle_mob(mob/living/M)
-	M.pixel_y += 5
+	M.add_offsets(type, y_add = 5)
 
 /obj/structure/chair/mime/post_unbuckle_mob(mob/living/M)
-	M.pixel_y -= 5
+	M.remove_offsets(type)
 
 ///Material chair
 /obj/structure/chair/greyscale
@@ -326,7 +323,7 @@
 	buildstackamount = 1
 	item_chair = null
 
-/obj/structure/chair/fancy/brass/bronze/Moved()
+/obj/structure/chair/fancy/brass/bronze/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(has_gravity())
 		playsound(src, 'sound/machines/clockcult/integration_cog_install.ogg', 50, TRUE)
@@ -347,7 +344,7 @@
 	setDir(direction)
 	return FALSE
 
-/obj/structure/chair/office/Moved()
+/obj/structure/chair/office/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(has_gravity())
 		playsound(src, 'sound/effects/roll.ogg', 100, 1)
@@ -364,13 +361,12 @@
 	item_chair = /obj/item/chair/foldable
 	anchored = FALSE
 
-/obj/structure/chair/foldable/post_buckle_mob(mob/living/Mob)
-	Mob.pixel_y += 2
+/obj/structure/chair/foldable/post_buckle_mob(mob/living/M)
+	M.add_offsets(type, y_add = 2)
 	anchored = TRUE
 
-/obj/structure/chair/foldable/post_unbuckle_mob(mob/living/Mob)
-	Mob.pixel_y -= 2
-	anchored = FALSE
+/obj/structure/chair/foldable/post_unbuckle_mob(mob/living/M)
+	M.remove_offsets(type)
 
 //Stool
 

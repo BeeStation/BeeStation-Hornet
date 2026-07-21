@@ -65,6 +65,8 @@
 
 	changeling.adjust_chemicals(10)
 	changeling.can_respec = TRUE
+	if(target.mind)
+		changeling.absorbed_people++
 
 	if(target.stat != DEAD)
 		target.investigate_log("has died from being changeling absorbed.", INVESTIGATE_DEATHS)

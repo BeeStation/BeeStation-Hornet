@@ -343,8 +343,8 @@
 	var/clicky
 
 	if(LAZYACCESS(modifiers, ICON_X) && LAZYACCESS(modifiers, ICON_Y))
-		clickx = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)
-		clicky = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
+		clickx = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
+		clicky = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
 
 	if(pre_noise)
 		audible_message(span_notice("You hear spraying."))
@@ -677,7 +677,7 @@
 
 		if(C.client)
 			C.set_eye_blur_if_lower(6 SECONDS)
-			C.adjust_blindness(1)
+			C.adjust_temp_blindness(2 SECONDS)
 		if(!C.is_eyes_covered()) // no eye protection? ARGH IT BURNS.
 			C.set_confusion_if_lower(3 SECONDS)
 			C.Paralyze(60)

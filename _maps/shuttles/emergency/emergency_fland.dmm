@@ -60,7 +60,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/structure/sign/warning/nosmoking/circle{
+/obj/structure/sign/warning/no_smoking/circle{
 	pixel_x = -32
 	},
 /turf/open/floor/mineral/titanium,
@@ -985,10 +985,7 @@
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/escape)
 "KV" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "KX" = (

@@ -85,7 +85,7 @@
 			var/mob/living/carbon/exposed_carbon = exposed_mob
 			var/power_multiplier = boozepwr / 65 // Weak alcohol has less sterilizing power
 
-			for(var/datum/surgery/surgery in exposed_carbon.surgeries)
+			for(var/datum/surgery/surgery as anything in exposed_carbon.surgeries)
 				surgery.speed_modifier = max(0.1 * power_multiplier, surgery.speed_modifier)
 				// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
 
@@ -252,7 +252,7 @@
 	name = "Vodka"
 	description = "Number one drink AND fueling choice for Russians worldwide."
 	color = "#0064C8" // rgb: 0, 100, 200
-	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
+	chemical_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL | REAGENT_CLEANS
 	boozepwr = 65
 	taste_description = "grain alcohol"
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/vodka
@@ -477,7 +477,7 @@
 
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.mind?.assigned_role == JOB_NAME_ASSISTANT)
+	if(is_assistant_job(affected_mob.mind?.assigned_role))
 		if(affected_mob.heal_bodypart_damage(brute = 1 * REM * delta_time, burn = 1 * REM * delta_time, updating_health = FALSE))
 			return UPDATE_MOB_HEALTH
 
@@ -667,7 +667,7 @@
 
 /datum/reagent/consumable/ethanol/screwdrivercocktail/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.mind?.assigned_role in list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER))
+	if(affected_mob.mind?.assigned_role.title in list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER))
 		if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
 			if(affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype))
 				return UPDATE_MOB_HEALTH
@@ -2473,28 +2473,27 @@
 	color = data["color"]
 	generate_data_info(data)
 
-/datum/reagent/consumable/ethanol/fruit_wine/on_merge(list/data, amount)
-	. = ..()
-	var/diff = (amount/volume)
+/datum/reagent/consumable/ethanol/fruit_wine/on_merge(list/mix_data, new_total)
+	var/diff = (new_total/volume)
 	if(diff < 1)
-		color = BlendRGB(color, data["color"], diff / 2) //The percentage difference over two, so that they take average if equal.
+		color = BlendRGB(color, mix_data["color"], diff / 2) //The percentage difference over two, so that they take average if equal.
 	else
-		color = BlendRGB(color, data["color"], 1 / diff / 2) //Adjust so it's always blending properly.
-	var/oldvolume = volume-amount
+		color = BlendRGB(color, mix_data["color"], 1 / diff / 2) //Adjust so it's always blending properly.
+	var/oldvolume = volume-new_total
 
-	var/list/cachednames = data["names"]
+	var/list/cachednames = mix_data["names"]
 	for(var/name in names | cachednames)
-		names[name] = ((names[name] * oldvolume) + (cachednames[name] * amount)) / volume
+		names[name] = ((names[name] * oldvolume) + (cachednames[name] * new_total)) / volume
 
-	var/list/cachedtastes = data["tastes"]
+	var/list/cachedtastes = mix_data["tastes"]
 	for(var/taste in tastes | cachedtastes)
-		tastes[taste] = ((tastes[taste] * oldvolume) + (cachedtastes[taste] * amount)) / volume
+		tastes[taste] = ((tastes[taste] * oldvolume) + (cachedtastes[taste] * new_total)) / volume
 
 	boozepwr *= oldvolume
-	var/newzepwr = data["boozepwr"] * amount
+	var/newzepwr = mix_data["boozepwr"] * new_total
 	boozepwr += newzepwr
 	boozepwr /= volume //Blending boozepwr to volume.
-	generate_data_info(data)
+	generate_data_info(mix_data)
 
 /datum/reagent/consumable/ethanol/fruit_wine/proc/generate_data_info(list/data)
 	//BYOND compiler bug means this must be an explicit constant
@@ -3120,5 +3119,8 @@
 		shake_camera(affected_mob, 15)
 		affected_mob.playsound_local(affected_mob.loc, "sound/effects/hyperspace_end.ogg", 50)
 		affected_mob.become_nearsighted("ftliver")
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/carbon, cure_nearsighted), "ftliver"), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(delayed_cure_nearsighted), affected_mob), 5 SECONDS)
 
+/datum/reagent/consumable/ethanol/ftliver/proc/delayed_cure_nearsighted(mob/living/carbon/target)
+	if(!QDELETED(target))
+		target.cure_nearsighted("ftliver")

@@ -203,7 +203,7 @@
 	var/lavaland_only = FALSE
 
 	/// ref to screen object that displays in the middle of the UI
-	var/atom/movable/screen/mech_view/ui_view
+	var/atom/movable/screen/map_view/ui_view
 
 	/// Theme of the mech TGUI
 	var/ui_theme = "ntos"
@@ -219,7 +219,8 @@
 
 /obj/vehicle/sealed/mecha/Initialize(mapload, built_manually)
 	. = ..()
-	ui_view = new(null, src)
+	ui_view = new
+	ui_view.generate_view("mech_view_[REF(src)]")
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
 	spark_system.set_up(2, 0, src)
@@ -239,8 +240,8 @@
 	log_message("[src.name] created.", LOG_MECHA)
 	GLOB.mechas_list += src //global mech list
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
@@ -307,9 +308,12 @@
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
 	QDEL_NULL(ui_view)
+	QDEL_LIST(trackers)
 	QDEL_NULL(wires)
 
 	GLOB.mechas_list -= src //global mech list
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.remove_atom_from_hud(src) //YEET
 	return ..()
 
 ///Add parts on mech spawning. Skipped in manual construction.
@@ -796,7 +800,7 @@
 			return
 
 		if(AI_MECH_HACK) //Called by AIs on the mech
-			AI.linked_core = new /obj/structure/AIcore/deactivated(AI.loc)
+			AI.linked_core = new /obj/structure/ai_core/deactivated(AI.loc)
 			if(AI.can_dominate_mechs && LAZYLEN(occupants)) //Oh, I am sorry, were you using that?
 				to_chat(AI, span_warning("Occupants detected! Forced ejection initiated!"))
 				to_chat(occupants, span_danger("You have been forcibly ejected!"))

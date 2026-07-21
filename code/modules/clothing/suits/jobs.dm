@@ -39,7 +39,7 @@
 	inhand_icon_state = "bio_suit"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
-	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/cup/glass/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/assembly/flash/handheld, /obj/item/storage/box/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
+	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/cup/glass/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/assembly/flash/handheld, /obj/item/storage/box/matches, /obj/item/lighter, /obj/item/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 
 //Chef
 /obj/item/clothing/suit/toggle/chef
@@ -311,3 +311,17 @@
 	inhand_icon_state = null
 	body_parts_covered = HEAD
 	flags_inv = HIDEHAIR|HIDEEARS
+
+// Research Director
+
+/obj/item/clothing/suit/jacket/research_director
+	name = "research director's coat"
+	desc = "A mix between a labcoat and just a regular coat. It's made out of a special anti-bacterial, anti-acidic, and anti-biohazardous synthetic fabric."
+	icon_state = "labcoat_rd"
+	armor_type = /datum/armor/jacket_research_director
+	body_parts_covered = CHEST|GROIN|ARMS
+
+/datum/armor/jacket_research_director
+	bio = 75
+	fire = 75
+	acid = 75

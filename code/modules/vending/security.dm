@@ -38,63 +38,16 @@
 	default_price = 100
 	extra_price = 150
 
-/obj/machinery/vending/security/pre_throw(obj/item/I)
-	if(istype(I, /obj/item/grenade))
-		var/obj/item/grenade/G = I
+/obj/machinery/vending/security/pre_throw(obj/item/thrown_item)
+	if(istype(thrown_item, /obj/item/grenade))
+		var/obj/item/grenade/G = thrown_item
 		G.preprime()
-	else if(istype(I, /obj/item/flashlight))
-		var/obj/item/flashlight/F = I
-		F.on = TRUE
-		F.update_brightness()
+	else if(istype(thrown_item, /obj/item/flashlight))
+		var/obj/item/flashlight/thrown_flashlight = thrown_item
+		thrown_flashlight.set_light_on(TRUE)
+		thrown_flashlight.update_brightness()
 
 /obj/item/vending_refill/security
 	machine_name = "SecTech"
 	icon_state = "refill_sec"
 
-/obj/machinery/vending/security/proc/redeem_voucher(obj/item/mining_voucher/security/voucher, mob/redeemer)
-
-	// Supports single items or whole boxes.
-	var/atom/movable/spawned
-
-	var/items = list("Carbon Fibre Sabre", "NPS-10")
-
-	var/selection = tgui_input_list(redeemer, "Pick your equipment", "Voucher Redemption", sort_list(items), "NPS-10")
-	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
-		return
-
-	switch(selection)
-		if("Carbon Fibre Sabre")
-			spawned = new /obj/item/storage/belt/sabre/carbon_fiber(redeemer)
-
-		if("NPS-10")
-			spawned = new /obj/item/gun/ballistic/automatic/pistol/security(redeemer)
-
-	// We spawned a box, populated it. Now we put it into the redeemer's hands.
-	if(!redeemer.put_in_hands(spawned))
-		// Couldn't fit in hands, drop it on the ground.
-		spawned.forceMove(drop_location())
-
-	qdel(voucher)
-
-/obj/machinery/vending/security/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/mining_voucher/security))
-		var/obj/item/mining_voucher/security/voucher = I
-		redeem_voucher(voucher, user)
-		return
-	return ..()
-
-
-// The stuff we need
-
-/obj/item/mining_voucher/security
-	name = "Sec-Tech equipment voucher"
-	desc = "A token to redeem for a choice of lethal side-arm. Use on any registered Sec-Tech equipment vendor."
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "security_voucher"
-	w_class = WEIGHT_CLASS_TINY
-	voucher_type = "security"
-
-/obj/item/storage/box/gearvend
-	name = "security gear compression box"
-	desc = "A compression box full of security gear."
-	icon_state = "secbox"

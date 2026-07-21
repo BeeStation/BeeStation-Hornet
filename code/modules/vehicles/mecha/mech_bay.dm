@@ -112,6 +112,7 @@
 	return GLOB.default_state
 
 /obj/machinery/computer/mech_bay_power_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "MechBayPowerConsole")

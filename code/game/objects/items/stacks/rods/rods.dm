@@ -3,6 +3,7 @@
 	desc = "Some rods. Can be used for building or something."
 	singular_name = "iron rod"
 	icon_state = "rods"
+	base_icon_state = "rods"
 	inhand_icon_state = "rods"
 	obj_flags = CONDUCTS_ELECTRICITY
 	w_class = WEIGHT_CLASS_NORMAL
@@ -33,7 +34,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	if(QDELETED(src)) // we can be deleted during merge, check before doing stuff
 		return
 
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
 	AddElement(/datum/element/openspace_item_click_handler)
 
 /obj/item/stack/rods/add_context_self(datum/screentip_context/context, mob/user)
@@ -51,28 +52,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 	. = ..()
 	var/amount = get_amount()
 	if(amount <= 5)
-		icon_state = "rods-[amount]"
+		icon_state = "[base_icon_state]-[amount]"
 	else
-		icon_state = "rods"
+		icon_state = base_icon_state
 
-/obj/item/stack/rods/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WELDER)
-		if(get_amount() < 2)
-			to_chat(user, span_warning("You need at least two rods to do this!"))
-			return
-
-		if(W.use_tool(src, user, 0, volume=40))
-			var/obj/item/stack/sheet/iron/new_item = new(usr.loc)
-			user.visible_message("[user.name] shaped [src] into iron with [W].", \
-						span_notice("You shape [src] into iron with [W]."), \
-						span_italics("You hear welding."))
-			var/obj/item/stack/rods/R = src
-			src = null
-			var/replace = (user.get_inactive_held_item()==R)
-			R.use(2)
-			if (!R && replace)
-				user.put_in_hands(new_item)
-
-	else
-		return ..()
-
+/obj/item/stack/rods/welder_act(mob/living/user, obj/item/tool)
+	if(get_amount() < 2)
+		balloon_alert(user, "not enough rods!")
+		return
+	if(tool.use_tool(src, user, delay = 0, volume = 40))
+		var/obj/item/stack/sheet/iron/new_item = new(user.loc)
+		user.visible_message(
+			span_notice("[user.name] shaped [src] into iron sheets with [tool]."),
+			blind_message = span_hear("You hear welding."),
+			vision_distance = COMBAT_MESSAGE_RANGE,
+			ignored_mobs = user
+		)
+		use(2)
+		user.put_in_inactive_hand(new_item)
+		return TOOL_ACT_TOOLTYPE_SUCCESS

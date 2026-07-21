@@ -24,8 +24,6 @@
 
 	light_power = 0.85
 
-
-
 	FASTDMM_PROP(\
 		set_instance_vars(\
 			pixel_x = dir == EAST ? 24 : (dir == WEST ? -24 : INSTANCE_VAR_DEFAULT),\
@@ -154,8 +152,7 @@
 	acid = 50
 
 /obj/machinery/power/apc/New(turf/loc, ndir, building=0)
-	..()
-	GLOB.apcs_list += src
+	. = ..()
 
 	wires = new /datum/wires/apc(src)
 	if (building)
@@ -190,12 +187,10 @@
 /obj/machinery/power/apc/Initialize(mapload)
 	. = ..()
 	prepare_huds()
-	for(var/datum/atom_hud/hacked_apc/apc_hud in GLOB.huds)
-		apc_hud.add_to_hud(src)
+	var/datum/atom_hud/hacked_apc/apc_hud = GLOB.huds[DATA_HUD_HACKED_APC]
+	apc_hud.add_atom_to_hud(src)
 
 /obj/machinery/power/apc/Destroy()
-	GLOB.apcs_list -= src
-
 	if(malfai && operating)
 		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	disconnect_from_area()

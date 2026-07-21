@@ -91,7 +91,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	context.add_left_click_action("Open stack crafting")
 	context.add_right_click_action("Split Stack")
 
-/obj/item/stack/Moved(atom/old_loc, dir)
+/obj/item/stack/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
 	if((!throwing || throwing.target_turf == loc) && old_loc != loc && (flags_1 & INITIALIZED_1))
 		merge_with_loc(merge_into_ourselves = !isnull(pulledby))
@@ -433,7 +433,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 		var/turf/covered_turf = builder.drop_location()
 		if(!isturf(covered_turf))
 			return
-		covered_turf.PlaceOnTop(recipe.result_type, flags = CHANGETURF_INHERIT_AIR)
+		covered_turf.place_on_top(recipe.result_type, flags = CHANGETURF_INHERIT_AIR)
 		builder.balloon_alert(builder, "placed [ispath(recipe.result_type, /turf/open) ? "floor" : "wall"]")
 
 	else

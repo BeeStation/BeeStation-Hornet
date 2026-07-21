@@ -1,10 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
@@ -102,10 +98,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "s" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/template_noop)

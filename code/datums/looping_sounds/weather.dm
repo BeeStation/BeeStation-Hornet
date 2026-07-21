@@ -1,56 +1,66 @@
 /datum/looping_sound/active_outside_ashstorm
 	mid_sounds = list(
-		'sound/weather/ashstorm/outside/active_mid1.ogg'=1,
-		'sound/weather/ashstorm/outside/active_mid1.ogg'=1,
-		'sound/weather/ashstorm/outside/active_mid1.ogg'=1
-		)
-	mid_length = 80
+		'sound/weather/ashstorm/outside/active_mid1.ogg' = 1,
+		'sound/weather/ashstorm/outside/active_mid1.ogg' = 1,
+		'sound/weather/ashstorm/outside/active_mid1.ogg' = 1,
+	)
+	mid_length = 8 SECONDS
 	start_sound = 'sound/weather/ashstorm/outside/active_start.ogg'
-	start_length = 130
+	start_length = 13 SECONDS
 	end_sound = 'sound/weather/ashstorm/outside/active_end.ogg'
 	volume = 80
+	sound_channel = CHANNEL_WEATHER
+	volume_preference = /datum/preference/numeric/volume/sound_weather_volume
 
 /datum/looping_sound/active_inside_ashstorm
 	mid_sounds = list(
-		'sound/weather/ashstorm/inside/active_mid1.ogg'=1,
-		'sound/weather/ashstorm/inside/active_mid2.ogg'=1,
-		'sound/weather/ashstorm/inside/active_mid3.ogg'=1
-		)
-	mid_length = 80
+		'sound/weather/ashstorm/inside/active_mid1.ogg' = 1,
+		'sound/weather/ashstorm/inside/active_mid2.ogg' = 1,
+		'sound/weather/ashstorm/inside/active_mid3.ogg' = 1,
+	)
+	mid_length = 8 SECONDS
 	start_sound = 'sound/weather/ashstorm/inside/active_start.ogg'
-	start_length = 130
+	start_length = 13 SECONDS
 	end_sound = 'sound/weather/ashstorm/inside/active_end.ogg'
 	volume = 60
+	sound_channel = CHANNEL_WEATHER
+	volume_preference = /datum/preference/numeric/volume/sound_weather_volume
 
 /datum/looping_sound/weak_outside_ashstorm
 	mid_sounds = list(
-		'sound/weather/ashstorm/outside/weak_mid1.ogg'=1,
-		'sound/weather/ashstorm/outside/weak_mid2.ogg'=1,
-		'sound/weather/ashstorm/outside/weak_mid3.ogg'=1
-		)
-	mid_length = 80
+		'sound/weather/ashstorm/outside/weak_mid1.ogg' = 1,
+		'sound/weather/ashstorm/outside/weak_mid2.ogg' = 1,
+		'sound/weather/ashstorm/outside/weak_mid3.ogg' = 1,
+	)
+	mid_length = 10 SECONDS
 	start_sound = 'sound/weather/ashstorm/outside/weak_start.ogg'
-	start_length = 130
+	start_length = 14 SECONDS
 	end_sound = 'sound/weather/ashstorm/outside/weak_end.ogg'
 	volume = 50
+	sound_channel = CHANNEL_WEATHER
+	volume_preference = /datum/preference/numeric/volume/sound_weather_volume
 
 /datum/looping_sound/weak_inside_ashstorm
 	mid_sounds = list(
-		'sound/weather/ashstorm/inside/weak_mid1.ogg'=1,
-		'sound/weather/ashstorm/inside/weak_mid2.ogg'=1,
-		'sound/weather/ashstorm/inside/weak_mid3.ogg'=1
-		)
-	mid_length = 80
+		'sound/weather/ashstorm/inside/weak_mid1.ogg' = 1,
+		'sound/weather/ashstorm/inside/weak_mid2.ogg' = 1,
+		'sound/weather/ashstorm/inside/weak_mid3.ogg' = 1,
+	)
+	mid_length = 10 SECONDS
 	start_sound = 'sound/weather/ashstorm/inside/weak_start.ogg'
-	start_length = 130
+	start_length = 14 SECONDS
 	end_sound = 'sound/weather/ashstorm/inside/weak_end.ogg'
 	volume = 30
+	sound_channel = CHANNEL_WEATHER
+	volume_preference = /datum/preference/numeric/volume/sound_weather_volume
 
 /datum/looping_sound/void_loop
 	mid_sounds = list('sound/ambience/VoidsEmbrace.ogg'=1)
 	mid_length = 1669 // exact length of the music in ticks
 	volume = 100
 	extra_range = 30
+	sound_channel = CHANNEL_WEATHER
+	volume_preference = /datum/preference/numeric/volume/sound_weather_volume
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -59,19 +69,23 @@
 		'sound/weather/radstorm/inside/alert.ogg' = 13,
 		'sound/weather/radstorm/inside/attention.ogg' = 1,
 		'sound/weather/radstorm/inside/radiation.ogg' = 2,
-		'sound/weather/radstorm/inside/seek_shelter.ogg' = 3
+		'sound/weather/radstorm/inside/seek_shelter.ogg' = 3,
 	)
-	mid_length = 20
+	mid_length = 2 SECONDS
 	volume = 100
 	extra_range = 30
+	sound_channel = CHANNEL_WEATHER
+	volume_preference = /datum/preference/numeric/volume/sound_weather_volume
 
 /datum/looping_sound/rad_alert_outside
 	mid_sounds = list(
 		'sound/weather/radstorm/outside/alert.ogg' = 13,
 		'sound/weather/radstorm/outside/attention.ogg' = 1,
 		'sound/weather/radstorm/outside/radiation.ogg' = 2,
-		'sound/weather/radstorm/outside/seek_shelter.ogg' = 3
+		'sound/weather/radstorm/outside/seek_shelter.ogg' = 3,
 	)
-	mid_length = 20
+	mid_length = 2 SECONDS
 	volume = 100
 	extra_range = 30
+	sound_channel = CHANNEL_WEATHER
+	volume_preference = /datum/preference/numeric/volume/sound_weather_volume

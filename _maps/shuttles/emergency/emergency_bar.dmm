@@ -701,10 +701,7 @@
 /obj/structure/mirror/directional/north{
 	pixel_y = 32
 	},
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/freezer,
 /area/shuttle/escape)
 "Qu" = (

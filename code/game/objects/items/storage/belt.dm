@@ -104,8 +104,8 @@
 		/obj/item/clothing/gloves/botanic_leather,
 		/obj/item/rollingpaper,//dudeweed
 		/obj/item/lighter,
-		/obj/item/clothing/mask/cigarette/pipe/cobpipe,
-		/obj/item/clothing/mask/cigarette/rollie,//dudeweedlmao
+		/obj/item/cigarette/pipe/cobpipe,
+		/obj/item/cigarette/rollie,//dudeweedlmao
 		/obj/item/gun/energy/floragun
 		))
 
@@ -997,17 +997,6 @@
 		hitby.forceMove(src)
 		return TRUE
 	. = ..()
-
-/obj/item/storage/belt/sabre/carbon_fiber
-	name = "carbon fiber sabre sheath"
-	desc = "A military grade sabre sheath. This one has special hooks to interface with the suit storage system of common armor classes."
-	icon_state = "sheath_fiber"
-	inhand_icon_state = "sheath_fiber"
-	worn_icon_state = "sheath_fiber"
-
-/obj/item/storage/belt/sabre/carbon_fiber/PopulateContents()
-	new /obj/item/melee/sabre/carbon_fiber(src)
-	update_appearance()
 
 /obj/item/storage/belt/sabre/mime
 	name = "Baguette"

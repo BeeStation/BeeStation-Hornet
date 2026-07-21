@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	chat_color = COLOR_WHITE
 	mobchatspan = "holoparasite"
 	faction = list()
-	discovery_points = 10000
+	discovery_points = TECHWEB_TIER_4_POINTS
 	see_in_dark = 10
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	/**
@@ -106,11 +106,8 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 
-/mob/living/simple_animal/hostile/holoparasite/Initialize(mapload, _key, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/mind/_summoner, datum/holoparasite_stats/_stats)
+/mob/living/simple_animal/hostile/holoparasite/Initialize(mapload, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/holoparasite_stats/_stats)
 	. = ..()
-	if(!istype(_summoner))
-		stack_trace("Holoparasite initialized without a valid summoner!")
-		return INITIALIZE_HINT_QDEL
 	if(!istype(_stats))
 		stack_trace("Holoparasite initialized without valid stats!")
 		return INITIALIZE_HINT_QDEL
@@ -124,14 +121,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 		set_name(_name, internal = TRUE)
 	if(length(_notes))
 		notes = _notes
-	set_summoner(_summoner)
 	stats = _stats
 	stats.apply(src)
 	set_battlecry(pick("ORA", "MUDA", "DORA", "ARRI", "VOLA", "AT"), silent = TRUE)
-	if(length(_key))
-		key = _key
 	RegisterSignal(src, COMSIG_LIVING_PRE_WABBAJACKED, PROC_REF(on_pre_wabbajacked))
-	tracking_beacon = LoadComponent(/datum/component/tracking_beacon, REF(parent_holder), null, parent_holder.get_monitor(), FALSE, accent_color, TRUE, TRUE)
 	ADD_LUM_SOURCE(src, LUM_SOURCE_INNATE)
 
 /mob/living/simple_animal/hostile/holoparasite/Destroy()
@@ -141,6 +134,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 	if(tracking_beacon)
 		QDEL_NULL(tracking_beacon)
 	return ..()
+
+/mob/living/simple_animal/hostile/holoparasite/mind_initialize()
+	. = ..()
+	if(!summoner)
+		return
+	// Enslave the holoparasite's mind to the summoner.
+	mind.enslave_mind_to_creator(summoner)
+	// This is a nested tally list, just in case that future jobs rework ever gets merged.
+	SSblackbox.record_feedback("nested tally", "holoparasite_summoner_special_roles", 1, summoner.special_role ? list(summoner.special_role) : list("(none)"))
 
 /mob/living/simple_animal/hostile/holoparasite/Login()
 	var/datum/antagonist/holoparasite/first_time_show_popup
@@ -170,7 +172,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 		var/ability_info = stats.ability.notify_user()
 		if(length(ability_info))
 			stat_popups += "[span_holoparasitebig("Ability: <b>[stats.ability.name]</b>")]\n[ability_info]"
-	for(var/datum/holoparasite_ability/lesser/lability as() in stats.lesser_abilities)
+	for(var/datum/holoparasite_ability/lesser/lability as anything in stats.lesser_abilities)
 		var/ability_info = lability.notify_user()
 		if(length(ability_info))
 			stat_popups += "[span_holoparasitebig("Lesser Ability: <b>[lability.name]</b>")]\n[ability_info]"
@@ -234,7 +236,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 			. += span_holoparasite("<b>WEAPON:</b> [stats.weapon.name] - [replacetext(stats.weapon.desc, "$theme", LOWER_TEXT(theme.name))]")
 		if(stats.ability)
 			. += span_holoparasite("<b>SPECIAL ABILITY:</b> [stats.ability.name] - [replacetext(stats.ability.desc, "$theme", LOWER_TEXT(theme.name))]")
-		for(var/datum/holoparasite_ability/lesser/ability as() in stats.lesser_abilities)
+		for(var/datum/holoparasite_ability/lesser/ability as anything in stats.lesser_abilities)
 			. += span_holoparasite("<b>LESSER ABILITY:</b> [ability.name] - [replacetext(ability.desc, "$theme", LOWER_TEXT(theme.name))]")
 		. += "<span data-component=\"RadarChart\" data-width=\"300\" data-height=\"300\" data-area-color=\"[accent_color]\" data-axes=\"Damage,Defense,Speed,Potential,Range\" data-stages=\"1,2,3,4,5\" data-values=\"[stats.damage],[stats.defense],[stats.speed],[stats.potential],[stats.range]\" />"
 

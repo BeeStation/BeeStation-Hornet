@@ -3,6 +3,9 @@
 //Don't hear deadchat and are NOT normal ghosts
 //Admin-spawn or random event
 
+/// Source for a trait we get when we're stunned
+#define REVENANT_STUNNED_TRAIT "revenant_got_stunned"
+
 /mob/living/simple_animal/revenant
 	name = "revenant"
 	desc = "A malevolent spirit."
@@ -47,7 +50,6 @@
 	pass_flags = PASSTABLE | PASSMOB
 	speed = 1
 	unique_name = TRUE
-	hud_possible = list(ANTAG_HUD)
 	hud_type = /datum/hud/revenant
 
 	chat_color = "#9A5ACB"
@@ -68,7 +70,7 @@
 	var/list/drained_mobs = list() //Cannot harvest the same mob twice
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has. //TODO, add objective for getting a perfect soul(s?)
 	var/generated_objectives_and_spells = FALSE
-	discovery_points = 4000
+	discovery_points = TECHWEB_TIER_3_POINTS
 
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
@@ -130,7 +132,7 @@
 	to_chat(src, "<b>Be sure to read <a href=\"[(CONFIG_GET(string/wikiurl)) ? (CONFIG_GET(string/wikiurl)) : "https://wiki.beestation13.com/view"]/Revenant\">the wiki page</a> to learn more.</b>")
 	if(!generated_objectives_and_spells)
 		generated_objectives_and_spells = TRUE
-		mind.assigned_role = ROLE_REVENANT
+		mind.set_assigned_role(SSjob.get_job_type(/datum/job/revenant))
 		mind.special_role = ROLE_REVENANT
 		SEND_SOUND(src, sound('sound/effects/ghost.ogg'))
 		mind.add_antag_datum(/datum/antagonist/revenant)
@@ -149,7 +151,7 @@
 		to_chat(src, span_revenboldnotice("You are once more concealed."))
 	if(unstun_time && world.time >= unstun_time)
 		unstun_time = 0
-		notransform = FALSE
+		REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_STUNNED_TRAIT)
 		to_chat(src, span_revenboldnotice("You can move again!"))
 	if(essence_regenerating && !inhibited && essence < essence_regen_cap) //While inhibited, essence will not regenerate
 		essence = min(essence + (essence_regen_amount * delta_time), essence_regen_cap)
@@ -240,7 +242,7 @@
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
 	. = ..()
 	if(istype(W, /obj/item/nullrod))
-		visible_message(span_warning("[src] violently flinches!"), \
+		visible_message(span_warning("[src] violently flinches!"),
 						span_revendanger("As \the [W] passes through you, you feel your essence draining away!"))
 		adjustBruteLoss(25) //hella effective
 		inhibited = TRUE
@@ -272,7 +274,7 @@
 		return 0
 	stasis = TRUE
 	to_chat(src, span_revendanger("NO! No... it's too late, you can feel your essence [pick("breaking apart", "drifting away")]..."))
-	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_STUNNED_TRAIT)
 	revealed = TRUE
 	invisibility = 0
 	playsound(src, 'sound/effects/screech.ogg', 100, 1)
@@ -334,7 +336,7 @@
 		return
 	if(time <= 0)
 		return
-	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_STUNNED_TRAIT)
 	if(!unstun_time)
 		to_chat(src, span_revendanger("You cannot move!"))
 		unstun_time = world.time + time
@@ -345,7 +347,7 @@
 
 /mob/living/simple_animal/revenant/proc/update_spooky_icon()
 	if(revealed)
-		if(notransform)
+		if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 			if(draining)
 				icon_state = icon_drain
 			else
@@ -402,7 +404,7 @@
 /mob/living/simple_animal/revenant/proc/death_reset()
 	revealed = FALSE
 	unreveal_time = 0
-	notransform = 0
+	REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_STUNNED_TRAIT)
 	unstun_time = 0
 	inhibited = FALSE
 	draining = FALSE
@@ -411,7 +413,7 @@
 	alpha=255
 	stasis = FALSE
 
-/mob/living/simple_animal/revenant/Moved(atom/OldLoc)
+/mob/living/simple_animal/revenant/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	if(!orbiting) // only needed when orbiting
 		return ..()
 	if(incorporeal_move_check(src))
@@ -419,7 +421,7 @@
 
 	// back back back it up, the orbitee went somewhere revenant cannot
 	orbiting?.end_orbit(src)
-	abstract_move(OldLoc) // gross but maybe orbit component will be able to check pre move in the future
+	abstract_move(old_loc) // gross but maybe orbit component will be able to check pre move in the future
 
 /mob/living/simple_animal/revenant/stop_orbit(datum/component/orbiter/orbits)
 	// reset the simple_flying animation
@@ -482,7 +484,7 @@
 /obj/item/ectoplasm/revenant/attack_self(mob/user)
 	if(!reforming || inert)
 		return ..()
-	user.visible_message(span_notice("[user] scatters [src] in all directions."), \
+	user.visible_message(span_notice("[user] scatters [src] in all directions."),
 						span_notice("You scatter [src] across the area. The particles slowly fade away."))
 	user.dropItemToGround(src)
 	scatter()
@@ -581,22 +583,25 @@
 		return ..()
 	return TRUE
 
-/datum/objective/revenantFluff
+/datum/objective/revenant_fluff
 
-/datum/objective/revenantFluff/New()
-	var/list/explanationTexts = list("Assist and exacerbate existing threats at critical moments.", \
-									"Avoid killing in plain sight.", \
-									"Cause as much chaos and anger as you can without being killed.", \
-									"Damage and render as much of the station rusted and unusable as possible.", \
-									"Disable and cause malfunctions in as many machines as possible.", \
-									"Ensure that any holy weapons are rendered unusable.", \
-									"Hinder the crew while attempting to avoid being noticed.", \
-									"Make the crew as miserable as possible.", \
-									"Make the clown as miserable as possible.", \
-									"Make the captain as miserable as possible.", \
-									"Prevent the use of energy weapons where possible.")
-	explanation_text = pick(explanationTexts)
-	..()
+/datum/objective/revenant_fluff/New()
+	. = ..()
+	explanation_text = pick(
+		"Assist and exacerbate existing threats at critical moments.",
+		"Avoid killing in plain sight.",
+		"Cause as much chaos and anger as you can without being killed.",
+		"Damage and render as much of the station rusted and unusable as possible.",
+		"Disable and cause malfunctions in as many machines as possible.",
+		"Ensure that any holy weapons are rendered unusable.",
+		"Hinder the crew while attempting to avoid being noticed.",
+		"Make the crew as miserable as possible.",
+		"Make the clown as miserable as possible.",
+		"Make the captain as miserable as possible.",
+		"Prevent the use of energy weapons where possible.",
+	)
 
-/datum/objective/revenantFluff/check_completion()
+/datum/objective/revenant_fluff/check_completion()
 	return TRUE
+
+#undef REVENANT_STUNNED_TRAIT

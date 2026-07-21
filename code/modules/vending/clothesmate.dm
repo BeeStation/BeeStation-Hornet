@@ -31,6 +31,7 @@
 				/obj/item/clothing/mask/bandana = 3,
 				/obj/item/clothing/mask/bandana/striped = 3,
 				/obj/item/clothing/mask/bandana/skull = 3,
+				/obj/item/clothing/neck/cloak/mantle = 2,
 				/obj/item/clothing/neck/scarf/pink = 3,
 				/obj/item/clothing/neck/scarf/red = 3,
 				/obj/item/clothing/neck/scarf/green = 3,
@@ -192,7 +193,8 @@
 		/obj/item/clothing/under/costume/geisha = 1,
 		/obj/item/clothing/under/rank/centcom/officer/replica = 1,
 		/obj/item/clothing/under/rank/centcom/officer_skirt/replica = 1,
-		/obj/item/clothing/neck/cloak/fakehalo = 2
+		/obj/item/clothing/neck/cloak/fakehalo = 2,
+		/obj/item/clothing/neck/cloak/old = 1,
 	)
 	premium = list(
 		/obj/item/clothing/under/suit/checkered = 1,
@@ -200,6 +202,7 @@
 		/obj/item/clothing/suit/jacket/leather/overcoat = 1,
 		/obj/item/clothing/under/pants/mustangjeans = 1,
 		/obj/item/clothing/neck/necklace/dope = 3,
+		/obj/item/clothing/neck/cloak/regal = 2,
 		/obj/item/clothing/suit/jacket/letterman_nanotrasen = 1
 	)
 	refill_canister = /obj/item/vending_refill/clothing

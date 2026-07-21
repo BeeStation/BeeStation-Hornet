@@ -8,14 +8,17 @@
 
 /mob/living/Initialize(mapload)
 	. = ..()
+	if(initial_size != RESIZE_DEFAULT_SIZE)
+		update_transform(initial_size)
+	AddElement(/datum/element/movetype_handler)
 	register_init_signals()
 	if(unique_name)
 		name = "[name] ([rand(1, 1000)])"
 		real_name = name
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medhud.add_to_hud(src)
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
+	medhud.add_atom_to_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
 	faction += "[REF(src)]"
 	GLOB.mob_living_list += src
 	if (playable)
@@ -28,7 +31,6 @@
 	become_area_sensitive()
 
 	gravity_setup()
-	AddElement(/datum/element/movetype_handler)
 
 
 /mob/living/prepare_huds()
@@ -64,7 +66,7 @@
 		return
 	if(buckled || now_pushing)
 		return
-	if(has_status_effect(/datum/status_effect/confusion) && stat == CONSCIOUS && body_position == STANDING_UP && m_intent == "run" && !ismovable(A) && !HAS_TRAIT(src, TRAIT_NO_BUMP_SLAM))
+	if(has_status_effect(/datum/status_effect/confusion) && stat == CONSCIOUS && body_position == STANDING_UP && move_intent == "run" && !ismovable(A) && !HAS_TRAIT(src, TRAIT_NO_BUMP_SLAM))
 		ADD_TRAIT(src, TRAIT_NO_BUMP_SLAM, type) //Bump() is called continuously so ratelimit the check to 20 seconds if it passes or 5 if it doesn't
 		if(prob(10))
 			playsound(get_turf(src), "punch", 25, 1, -1)
@@ -363,8 +365,15 @@
 
 		set_pull_offsets(M, state)
 
-/mob/living/proc/set_pull_offsets(mob/living/M, grab_state = GRAB_PASSIVE)
-	if(M.buckled)
+/**
+ * Updates the offsets of the passed mob according to the passed grab state and the direction between them and us
+ *
+ * * M - the mob to update the offsets of
+ * * grab_state - the state of the grab
+ * * animate - whether or not to animate the offsets
+ */
+/mob/living/proc/set_pull_offsets(mob/living/mob_to_set, grab_state = GRAB_PASSIVE, animate = TRUE)
+	if(mob_to_set.buckled)
 		return //don't make them change direction or offset them if they're buckled into something.
 	var/offset = 0
 	switch(grab_state)
@@ -376,25 +385,35 @@
 			offset = GRAB_PIXEL_SHIFT_NECK
 		if(GRAB_KILL)
 			offset = GRAB_PIXEL_SHIFT_NECK
-	M.setDir(get_dir(M, src))
-	switch(M.dir)
+	mob_to_set.setDir(get_dir(mob_to_set, src))
+	var/dir_filter = mob_to_set.dir
+	if(ISDIAGONALDIR(dir_filter))
+		dir_filter = EWCOMPONENT(dir_filter)
+	switch(dir_filter)
 		if(NORTH)
-			animate(M, pixel_x = M.base_pixel_x, pixel_y = M.base_pixel_y + offset, 3)
+			mob_to_set.add_offsets(GRABBING_TRAIT, x_add = 0, y_add = offset, animate = animate)
 		if(SOUTH)
-			animate(M, pixel_x = M.base_pixel_x, pixel_y = M.base_pixel_y - offset, 3)
+			mob_to_set.add_offsets(GRABBING_TRAIT, x_add = 0, y_add = -offset, animate = animate)
 		if(EAST)
-			if(M.lying_angle == 270) //update the dragged dude's direction if we've turned
-				M.set_lying_angle(90)
-			animate(M, pixel_x = M.base_pixel_x + offset, pixel_y = M.base_pixel_y, 3)
+			if(mob_to_set.lying_angle == LYING_ANGLE_WEST) //update the dragged dude's direction if we've turned
+				mob_to_set.set_lying_angle(LYING_ANGLE_EAST)
+			mob_to_set.add_offsets(GRABBING_TRAIT, x_add = offset, y_add = 0, animate = animate)
 		if(WEST)
-			if(M.lying_angle == 90)
-				M.set_lying_angle(270)
-			animate(M, pixel_x = M.base_pixel_x - offset, pixel_y = M.base_pixel_y, 3)
+			if(mob_to_set.lying_angle == LYING_ANGLE_EAST)
+				mob_to_set.set_lying_angle(LYING_ANGLE_WEST)
+			mob_to_set.add_offsets(GRABBING_TRAIT, x_add = -offset, y_add = 0, animate = animate)
 
+/**
+ * Removes any offsets from the passed mob that are related to being grabbed
+ *
+ * * M - the mob to remove the offsets from
+ * * override - if TRUE, the offsets will be removed regardless of the mob's buckled state
+ * otherwise we won't remove the offsets if the mob is buckled
+ */
 /mob/living/proc/reset_pull_offsets(mob/living/M, override)
 	if(!override && M.buckled)
 		return
-	animate(M, pixel_x = M.base_pixel_x, pixel_y = M.base_pixel_y, 1)
+	M.remove_offsets(GRABBING_TRAIT)
 
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
@@ -611,14 +630,15 @@
 	add_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED, TRAIT_UNDENSE), LYING_DOWN_TRAIT)
 	if(HAS_TRAIT(src, TRAIT_FLOORED) && !(dir & (NORTH|SOUTH)))
 		setDir(pick(NORTH, SOUTH)) // We are and look helpless.
-
+	if(rotate_on_lying)
+		add_offsets(LYING_DOWN_TRAIT, y_add = PIXEL_Y_OFFSET_LYING)
 
 /// Proc to append behavior related to lying down.
 /mob/living/proc/on_standing_up()
 	if(layer == LYING_MOB_LAYER)
 		layer = initial(layer)
-	density = initial(density) // We were prone before, so we become dense and things can bump into us again.
 	remove_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED, TRAIT_UNDENSE), LYING_DOWN_TRAIT)
+	remove_offsets(LYING_DOWN_TRAIT)
 
 /mob/living/proc/update_density()
 	if(HAS_TRAIT(src, TRAIT_UNDENSE))
@@ -715,7 +735,7 @@
 		if(!livingdoll.filtered)
 			livingdoll.filtered = TRUE
 			var/icon/mob_mask = icon(icon, icon_state)
-			if(mob_mask.Height() > world.icon_size || mob_mask.Width() > world.icon_size)
+			if(get_cached_height() > ICON_SIZE_Y || get_cached_width() > ICON_SIZE_X)
 				var/health_doll_icon_state = health_doll_icon ? health_doll_icon : "megasprite"
 				mob_mask = icon('icons/hud/screen_gen.dmi', health_doll_icon_state) //swap to something generic if they have no special doll
 			livingdoll.add_filter("mob_shape_mask", 1, alpha_mask_filter(icon = mob_mask))
@@ -846,10 +866,7 @@
 
 	// These should be tracked by status effects
 	losebreath = 0
-	set_blindness(0)
 	set_disgust(0)
-	cure_nearsighted()
-	cure_blind()
 	cure_husk()
 
 	qdel(GetComponent(/datum/component/irradiated))
@@ -903,40 +920,58 @@
 		lying_angle_on_movement(direct)
 	if (buckled && buckled.loc != newloc) //not updating position
 		if (!buckled.anchored)
-			return buckled.Move(newloc, direct, glide_size)
-		else
-			return 0
+			buckled.moving_from_pull = moving_from_pull
+			. = buckled.Move(newloc, direct, glide_size)
+			buckled.moving_from_pull = null
+		return
 
 	var/old_direction = dir
-	var/turf/T = loc
+	var/turf/old_loc = loc
 
 	if(pulling)
 		update_pull_movespeed()
 
 	. = ..()
 
-	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1 && (pulledby != moving_from_pull))//separated from our puller and not in the middle of a diagonal move.
-		pulledby.stop_pulling()
-	else
-		if(isliving(pulledby))
-			var/mob/living/L = pulledby
-			L.set_pull_offsets(src, pulledby.grab_state)
+	if(moving_diagonally != FIRST_DIAG_STEP && isliving(pulledby))
+		var/mob/living/puller = pulledby
+		puller.set_pull_offsets(src, puller.grab_state)
 
 	if(active_storage && !((active_storage.parent?.resolve() in important_recursive_contents?[RECURSIVE_CONTENTS_ACTIVE_STORAGE]) || CanReach(active_storage.parent?.resolve(),view_only = TRUE)))
 		active_storage.hide_contents(src)
 
 	if(body_position == LYING_DOWN && !buckled && prob(getBruteLoss()*200/maxHealth))
-		makeTrail(newloc, T, old_direction)
+		makeTrail(newloc, old_loc, old_direction)
 
+/**
+ * Called by mob/living attackby()
+ * Checks if there's active surgery on the mob that can be continued with the item
+ */
+/mob/living/proc/can_perform_surgery(mob/living/user, params)
+	for(var/datum/surgery/operations as anything in surgeries)
+		if(user.combat_mode)
+			break
+		if(IS_IN_INVALID_SURGICAL_POSITION(src, operations))
+			continue
+		if(!(operations.surgery_flags & SURGERY_SELF_OPERABLE) && (user == src))
+			continue
+		var/list/modifiers = params2list(params)
+		if(operations.next_step(user, modifiers))
+			return TRUE
+	return FALSE
 
 ///Called by mob Move() when the lying_angle is different than zero, to better visually simulate crawling.
 /mob/living/proc/lying_angle_on_movement(direct)
-	if(direct & EAST)
-		set_lying_angle(90)
-	else if(direct & WEST)
-		set_lying_angle(270)
+	if(buckled && buckled.buckle_lying != NO_BUCKLE_LYING)
+		set_lying_angle(buckled.buckle_lying)
+		return
 
-/mob/living/carbon/alien/humanoid/lying_angle_on_movement(direct)
+	if(direct & EAST)
+		set_lying_angle(LYING_ANGLE_EAST)
+	else if(direct & WEST)
+		set_lying_angle(LYING_ANGLE_WEST)
+
+/mob/living/carbon/alien/adult/lying_angle_on_movement(direct)
 	return
 
 /mob/living/proc/makeTrail(turf/target_turf, turf/start, direction)
@@ -1112,8 +1147,8 @@
 				var/matrix/flipped_matrix = transform
 				flipped_matrix.b = -flipped_matrix.b
 				flipped_matrix.e = -flipped_matrix.e
-				animate(src, transform = flipped_matrix, pixel_y = pixel_y+4, time = 0.5 SECONDS, easing = EASE_OUT, flags = ANIMATION_PARALLEL)
-				base_pixel_y += 4
+				animate(src, transform = flipped_matrix, time = 0.5 SECONDS, easing = EASE_OUT, flags = ANIMATION_PARALLEL)
+				add_offsets(NEGATIVE_GRAVITY_TRAIT, y_add = 4)
 		if(NEGATIVE_GRAVITY + 0.01 to 0)
 			if(!istype(gravity_alert, /atom/movable/screen/alert/weightless))
 				throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/weightless)
@@ -1136,8 +1171,8 @@
 		var/matrix/flipped_matrix = transform
 		flipped_matrix.b = -flipped_matrix.b
 		flipped_matrix.e = -flipped_matrix.e
-		animate(src, transform = flipped_matrix, pixel_y = pixel_y-4, time = 0.5 SECONDS, easing = EASE_OUT, flags = ANIMATION_PARALLEL)
-		base_pixel_y -= 4
+		animate(src, transform = flipped_matrix, time = 0.5 SECONDS, easing = EASE_OUT, flags = ANIMATION_PARALLEL)
+		remove_offsets(NEGATIVE_GRAVITY_TRAIT)
 
 /mob/living/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	. = ..()
@@ -1158,9 +1193,7 @@
 		var/dy = rand(-4, 2)
 		animate(time = 1, pixel_x = dx, pixel_y = dy, easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
 		animate(time = 0, pixel_x = -dx, pixel_y = -dy, easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
-	var/final_pixel_x = base_pixel_x + body_position_pixel_x_offset
-	var/final_pixel_y = base_pixel_y + body_position_pixel_y_offset
-	animate(time = 1, pixel_x = final_pixel_x , pixel_y = final_pixel_y)
+	animate(time = 1, pixel_x = base_pixel_x , pixel_y = base_pixel_y)
 	// Rotational Animation
 	animate(src, time = 3, transform = rotation_matrix, flags = ANIMATION_PARALLEL | ANIMATION_RELATIVE)
 	animate(time = 2, flags = ANIMATION_RELATIVE)
@@ -1253,15 +1286,13 @@
  * Returns a mob (what our mob turned into) or null (if we failed).
  */
 /mob/living/proc/wabbajack(what_to_randomize, change_flags = WABBAJACK)
-	if(stat == DEAD || notransform || HAS_TRAIT(src, TRAIT_GODMODE))
+	if(stat == DEAD || HAS_TRAIT(src, TRAIT_GODMODE) || HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	if(SEND_SIGNAL(src, COMSIG_LIVING_PRE_WABBAJACKED, what_to_randomize) & STOP_WABBAJACK)
 		return
 
-	notransform = TRUE
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, MAGIC_TRAIT)
-	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, MAGIC_TRAIT)
+	add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_NO_TRANSFORM), MAGIC_TRAIT)
 	icon = null
 	cut_overlays()
 	invisibility = INVISIBILITY_ABSTRACT
@@ -1275,7 +1306,7 @@
 			Robot.undeploy() // disconnect any AI shells first
 		if(Robot.mmi)
 			qdel(Robot.mmi)
-		Robot.notify_ai(NEW_BORG)
+		Robot.notify_ai(AI_NOTIFICATION_NEW_BORG)
 	else
 		for(var/obj/item/item in src)
 			if(!dropItemToGround(item))
@@ -1436,11 +1467,6 @@
 	// Well, no mmind, guess we should try to move a key over
 	else if(key)
 		new_mob.key = key
-
-/mob/living/can_block_magic(casted_magic_flags)
-	. = ..()
-	if(.)
-		return
 
 /mob/living/proc/unfry_mob() //Callback proc to tone down spam from multiple sizzling frying oil dipping.
 	REMOVE_TRAIT(src, TRAIT_OIL_FRIED, "cooking_oil_react")
@@ -1617,8 +1643,10 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	refresh_gravity()
 	. = ..()
 	if(.)
-		if(client)
-			reset_perspective()
+		if(isturf(destination))
+			set_mob_eye_to(MOB_EYE_SELF)
+		else
+			set_mob_eye_to(destination)
 
 
 /mob/living/set_stat(new_stat)
@@ -1815,16 +1843,21 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		result += static_virus
 	return result
 
-/mob/living/reset_perspective(atom/A)
-	if(!..())
-		return
+/mob/living/set_mob_eye_to(atom/A)
+	. = ..()
+	update_eye_features()
+
+/mob/proc/update_eye_features()
 	update_sight()
+
+/mob/living/update_eye_features()
+	..()
 	update_fullscreen()
 	update_pipe_vision()
 
-/// Proc used to handle the fullscreen overlay updates, realistically meant for the reset_perspective() proc.
+/// Proc used to handle the fullscreen overlay updates, realistically meant for the set_mob_eye_to(MOB_EYE_SELF) proc.
 /mob/living/proc/update_fullscreen()
-	if(client.eye && client.eye != src)
+	if(client?.eye && client.eye != src)
 		var/atom/client_eye = client.eye
 		client_eye.get_remote_view_fullscreens(src)
 	else
@@ -1862,6 +1895,11 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		if(NAMEOF(src, body_position))
 			set_body_position(var_value)
 			. = TRUE
+		if(NAMEOF(src, current_size))
+			if(var_value == 0) //prevents divisions of and by zero.
+				return FALSE
+			update_transform(var_value/current_size)
+			. = TRUE
 
 	if(!isnull(.))
 		datum_flags |= DF_VAR_EDITED
@@ -1872,8 +1910,6 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	switch(var_name)
 		if(NAMEOF(src, maxHealth))
 			updatehealth()
-		if(NAMEOF(src, resize))
-			update_transform()
 		if(NAMEOF(src, lighting_alpha))
 			sync_lighting_plane_alpha()
 
@@ -2113,7 +2149,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 /mob/living/proc/on_floored_start()
 	if(body_position == STANDING_UP) //force them on the ground
 		set_body_position(LYING_DOWN)
-		set_lying_angle(pick(90, 270))
+		set_lying_angle(pick(LYING_ANGLE_EAST, LYING_ANGLE_WEST))
 		on_fall()
 
 
@@ -2176,8 +2212,8 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	if(mind && mind.special_role && !(mind.datum_flags & DF_VAR_EDITED))
 		exp_list[mind.special_role] = minutes
 
-	if(mind.assigned_role in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])
-		exp_list[mind.assigned_role] = minutes
+	if(mind.assigned_role.title in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])
+		exp_list[mind.assigned_role.title] = minutes
 
 	return exp_list
 
@@ -2200,7 +2236,6 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 
 	// Move the original mob into stasis
 	forceMove(new_shape)
-	notransform = TRUE
 	apply_status_effect(/datum/status_effect/grouped/stasis, STASIS_SHAPECHANGE_EFFECT)
 
 	// Return the new mob
@@ -2361,6 +2396,167 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 
 	SEND_SIGNAL(src, COMSIG_LIVING_UNFRIENDED, old_friend)
 	return TRUE
+
+/obj/effect/overlay/combat_indicator
+	icon = 'icons/misc/combat_indicator.dmi'
+	icon_state = "combat"
+	layer = FLY_LAYER
+	appearance_flags = APPEARANCE_UI | KEEP_APART
+	mouse_opacity = 0
+
+GLOBAL_DATUM_INIT(combat_indicator_vis, /obj/effect/overlay/combat_indicator, new)
+
+/**
+ * Called whenever a mob's stat changes.
+ * Checks if the mob's stat is greater than SOFT_CRIT, and if it is, it will disable CI.
+ *
+ * Arguments:
+ * * source -- The mob in question that toggled CI status.
+ * * new_stat -- The new stat of the mob.
+ */
+
+/mob/living/proc/ci_on_stat_change(mob/source, new_stat)
+	SIGNAL_HANDLER
+	if(new_stat <= SOFT_CRIT)
+		return
+
+	//set_combat_mode will already run set_combat_indicator, but we need to ensure involuntary is passed :)
+	set_combat_indicator(FALSE, involuntary = TRUE)
+	set_combat_mode(FALSE)
+
+/**
+ * Called whenever a mob's CI status changes for any reason.
+ *
+ * Checks if the mob is dead, if config disallows CI, or if the current CI status is the same as state, and if it is, it will change CI status to state.
+ *
+ * Arguments:
+ * * state -- Boolean. Inherited from the procs that call this, basically it's what that proc wants CI to change to - true or false, on or off.
+ * * involuntary -- Boolean. If true, the mob is dead or unconscious, and the log will reflect that.
+ */
+
+/mob/living/proc/set_combat_indicator(state, involuntary = FALSE)
+	if(!CONFIG_GET(flag/combat_indicator))
+		return
+
+	if(combat_indicator == state) // If the mob is dead (should not happen) or if the combat_indicator is the same as state (also shouldnt happen) kill the proc.
+		return
+
+	if(stat == DEAD)
+		disable_combat_indicator(involuntary)
+
+	combat_indicator = state
+
+	SEND_SIGNAL(src, COMSIG_MOB_CI_TOGGLED)
+
+	if(combat_indicator)
+		enable_combat_indicator()
+	else
+		disable_combat_indicator()
+
+/**
+ * Called whenever a mob enables CI.
+ *
+ * Plays a sound, sents a message to chat, updates their overlay, and sets the mob's CI status to true.
+ */
+
+/mob/living/proc/enable_combat_indicator()
+	if(COOLDOWN_FINISHED(src, nextcombatpopup))
+		COOLDOWN_START(src, nextcombatpopup, combat_notice_cooldown)
+		var/turf/sound_turf = get_turf(src)
+		var/maxdistance = SOUND_RANGE - 10
+		var/sound_channel = SSsounds.random_available_channel()
+		var/sound/chime = sound('sound/machines/chime.ogg')
+		for(var/mob/M in get_hearers_in_view(maxdistance, sound_turf))
+			if(M == src)
+				continue
+			M.playsound_local(sound_turf, 'sound/machines/chime.ogg', 5, FALSE, null, 4, sound_channel, FALSE, chime, maxdistance, 1)
+		flick_emote_popup_on_mob("combat", 1 SECONDS)
+		var/ciweapon
+		if(get_active_held_item())
+			ciweapon = get_active_held_item()
+			if(istype(ciweapon, /obj/item/gun))
+				visible_message(span_boldwarning("[src] raises \the [ciweapon] with [p_their()] finger on the trigger!"))
+			else
+				visible_message(span_boldwarning("[src] readies \the [ciweapon] with a tightened grip!"))
+		else
+			if(issilicon(src))
+				visible_message(span_boldwarning("[src] shifts its armour plating into a defensive stance!"))
+			if(ishuman(src))
+				visible_message(span_boldwarning("[src] raises [p_their()] fists!"))
+			if(isalien(src))
+				visible_message(span_boldwarning("[src] hisses in a terrifying stance!"))
+			else
+				visible_message(span_boldwarning("[src] gets ready for combat!"))
+	combat_indicator = TRUE
+	apply_status_effect(/datum/status_effect/grouped/surrender, src)
+	log_message("<font color='red'>[src] has turned ON the combat indicator!</font>", LOG_ATTACK)
+	RegisterSignal(src, COMSIG_MOB_STATCHANGE , PROC_REF(ci_on_stat_change))
+	vis_contents += GLOB.combat_indicator_vis
+
+/**
+ * Called whenever a mob disables CI. Or when they die or fall unconscious.
+ *
+ * Arguments:
+ * * involuntary -- Boolean. If true, the mob is dead or unconscious, and the log will reflect that.
+ */
+
+/mob/living/proc/disable_combat_indicator(involuntary = FALSE)
+	combat_indicator = FALSE
+	remove_status_effect(/datum/status_effect/grouped/surrender, src)
+	if(involuntary)
+		log_message("<font color='cyan'>[src] has fallen unconsious or has died, and lost their combat indicator!</font>", LOG_ATTACK)
+	else
+		log_message("<font color='cyan'>[src] has turned OFF the combat indicator!</font>", LOG_ATTACK)
+	UnregisterSignal(src, COMSIG_MOB_STATCHANGE)
+	vis_contents -= GLOB.combat_indicator_vis
+
+/**
+ * Called whenever a mob enters a vehicle/sealed, after everything else.
+ *
+ * Sets the vehicle's CI status to that of the mob if the mob is a driver and there are no other drivers, or if the mob is a passenger and there are no drivers.
+ *
+ * Arguments:
+ * * user -- mob/living, the mob that is entering the vehicle.
+ */
+
+/obj/vehicle/sealed/proc/handle_ci_migration(mob/living/user)
+	if(!typesof(user.loc, /obj/vehicle/sealed)) //Sanity check: If the mob's location (not the tile they are on) is NOT a type of vehicle/sealed, kill the proc.
+		return
+	//If the vehicle can have more passenger seats than driver seats (note: each driver seat counts as a passenger seat) AND both: The mob is not a driver, and the vehicle has a driver, return.
+	if ((src.max_occupants > src.max_drivers) && ((!(user in return_drivers())) && (src.driver_amount() > 0)))
+		return
+	if (user.combat_indicator && !combat_indicator_vehicle) // Finally, if all conditions prior are not met, and the mob has CI enabled and the vehicle doesn't, enable CI.
+		combat_indicator_vehicle = TRUE
+		vis_contents += GLOB.combat_indicator_vis
+
+/**
+ * Called whenever a mob exits a vehicle/sealed, after everything else.
+ *
+ * Disables the vehicle's CI if it was enabled, and if it was the only occupant (or there was noone else in the mech with CI enabled).
+ *
+ * Arguments:
+ * * user -- mob/living, the mob that is exiting the vehicle.
+ */
+
+/obj/vehicle/sealed/proc/disable_ci(mob/living/user)
+	// If the vehicle can have more occupants than drivers, and either 1. The mob is not a driver and the vehicle has drivers, or 2. The user IS a driver but there is an occupant (drivers count as occupants), return.
+	if ((src.max_occupants > src.max_drivers) && ((!(user in return_drivers()) && (src.driver_amount() > 0)) || ((user in return_drivers()) && (src.occupant_amount() > 0))))
+		return
+	// If the preceding conditions are not met, and the vehicle has CI, look at each occupant to see if there is a non-driver with CI enabled. If yes, stop the proc, if no, disable CI.
+	if (combat_indicator_vehicle)
+		var/has_occupant_with_ci = FALSE
+		if (src.occupant_amount() > src.driver_amount())
+			for (var/mob/living/vehicle_occupant in return_occupants())
+				if (vehicle_occupant in return_drivers()) //this for loop does not account for multiple clowns in clown cars. i will not account for that. fuck that.
+					continue
+				if (vehicle_occupant.combat_indicator)
+					has_occupant_with_ci = TRUE
+					break
+		if (!has_occupant_with_ci)
+			combat_indicator_vehicle = FALSE
+			vis_contents -= GLOB.combat_indicator_vis
+
+//#undef COMBAT_NOTICE_COOLDOWN
 
 /mob/living/mouse_buckle_handling(mob/living/M, mob/living/user)
 	if(can_buckle && isliving(user) && isliving(M) && !(M in buckled_mobs))

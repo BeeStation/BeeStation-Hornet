@@ -1,7 +1,7 @@
 /**
  * Sets the summoner of the holoparasite.
  */
-/mob/living/simple_animal/hostile/holoparasite/proc/set_summoner(datum/mind/new_summoner)
+/mob/living/simple_animal/hostile/holoparasite/proc/set_summoner(datum/mind/new_summoner, different_person = FALSE)
 	if(!istype(new_summoner))
 		stack_trace("Bad summoner type: [new_summoner] on [key_name(src)], expected mind")
 		return FALSE
@@ -19,11 +19,18 @@
 	var/datum/holoparasite_holder/new_holder = new_summoner.holoparasite_holder()
 	new_holder.add_holoparasite(src)
 	parent_holder.holoparasites |= src
-	mind_initialize()
-	// Enslave the holoparasite's mind to the summoner.
-	mind.enslave_mind_to_creator(new_summoner)
-	// This is a nested tally list, just in case that future jobs rework ever gets merged.
-	SSblackbox.record_feedback("nested tally", "holoparasite_summoner_special_roles", 1, new_summoner.special_role ? list(new_summoner.special_role) : list("(none)"))
+	if(!tracking_beacon)
+		tracking_beacon = LoadComponent(/datum/component/tracking_beacon, REF(parent_holder), null, parent_holder.get_monitor(), FALSE, accent_color, TRUE, TRUE)
+
+	if(different_person)
+		if(mind)
+			// Enslave the holoparasite's mind to the summoner.
+			mind.enslave_mind_to_creator(new_summoner)
+			// This is a nested tally list, just in case that future jobs rework ever gets merged.
+			SSblackbox.record_feedback("nested tally", "holoparasite_summoner_special_roles", 1, new_summoner.special_role ? list(new_summoner.special_role) : list("(none)"))
+		else if(new_summoner.current)
+			// No mind yet (we haven't been possessed), once we get one mind_initialize will slave us
+			faction |= new_summoner.current.faction
 	// Register all signals to our new summoner.
 	if(new_summoner.current)
 		register_body_signals(new_summoner.current)
@@ -81,7 +88,7 @@
 		tracking_beacon.remove_from_huds()
 		if(is_manifested() && range != 1)
 			tracking_beacon.add_to_huds()
-	for(var/mutable_appearance/overlay as() in accent_overlays)
+	for(var/mutable_appearance/overlay as anything in accent_overlays)
 		overlay.color = new_color
 	color_name = span_name("[COLOR_TEXT(new_color, real_name)]")
 	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_ACCENT_COLOR, old_accent_color, new_color)

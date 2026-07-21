@@ -61,24 +61,26 @@
 
 /obj/machinery/vending/deputy/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/gps, "DepVend")
 	radio = new /obj/item/radio(src)
 	radio.set_listening(FALSE)
 	radio.set_frequency(FREQ_COMMON)
 
 /obj/machinery/vending/deputy/can_vend()
 	. = ..()
-	if (!.)
-		return FALSE
+	if(!. || allowed(usr))
+		return .
 
-	var/sec_amount = SSjob.GetJob(JOB_NAME_SECURITYOFFICER).current_positions
-	sec_amount += SSjob.GetJob(JOB_NAME_HEADOFSECURITY).current_positions
-	sec_amount += SSjob.GetJob(JOB_NAME_WARDEN).current_positions
-	sec_amount += SSjob.GetJob(JOB_NAME_DETECTIVE).current_positions
-	sec_amount += SSjob.GetJob(JOB_NAME_CAPTAIN).current_positions
-	if(sec_amount >= SECURITY_MAX_POP && !allowed(usr))
-		say("ERROR: Security staff is present. Gear dispensary inactive.")
-		flick(icon_deny, src)
-		return FALSE
+	var/sec_amount = SSjob.get_job(JOB_NAME_CAPTAIN).current_positions
+	var/datum/department_group/sec_dept = SSdepartment.get_department_by_dept_id(DEPARTMENT_NAME_SECURITY)
+	for(var/datum/job/job in sec_dept.department_jobs)
+		sec_amount += job.current_positions
+	if(sec_amount < SECURITY_MAX_POP)
+		return TRUE
+
+	say("ERROR: Security staff is present. Gear dispensary inactive.")
+	flick(icon_deny, src)
+	return FALSE
 
 /obj/machinery/vending/deputy/vend(list/params, list/greyscale_colors)
 
@@ -118,8 +120,9 @@
 
 		if(!..())
 			return FALSE
+
 		playsound(src, 'sound/effects/startup.ogg', 100, FALSE)
-		radio.talk_into(src, "[buyer], [get_area(src)], has just enlisted for Auri Private Security's volunteer deputy program! APS thanks you for your service, and reminds all crew members: **Unauthorized enforcement is strictly prohibited!** Remember; Compliance is a team effort!")
+		radio.talk_into(src, "[buyer] has just enlisted for Auri Private Security's volunteer deputy program! APS thanks you for your service, and reminds all crew members: **Unauthorized enforcement is strictly prohibited!** Remember; Compliance is a team effort!")
 		return TRUE
 
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)

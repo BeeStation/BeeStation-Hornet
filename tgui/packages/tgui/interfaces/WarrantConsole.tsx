@@ -1,5 +1,5 @@
-import { sortBy } from 'common/collections';
 import { BooleanLike } from 'common/react';
+import { sortBy } from 'es-toolkit';
 
 import { useBackend, useLocalState } from '../backend';
 import {
@@ -67,7 +67,7 @@ export const WarrantConsole = (props) => {
 const RecordList = (props) => {
   const { act, data } = useBackend<Data>();
   const { records = [] } = data;
-  const sorted = sortBy(records, (record) => record.crew_name);
+  const sorted = sortBy(records, [(record) => record.crew_name]);
 
   const [selectedRecord, setSelectedRecord] = useLocalState<
     WarrantRecord | undefined

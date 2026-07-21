@@ -3,7 +3,6 @@
 	plural_form = "Flypeople"
 	id = SPECIES_FLYPERSON
 	species_traits = list(
-		NOEYESPRITES,
 		NO_UNDERWEAR,
 		TRAIT_BEEFRIEND
 	)
@@ -55,7 +54,7 @@
 	if(!istype(type_selection))
 		return
 
-	for(var/obj/item/bodypart/BP as() in C.bodyparts) //Override bodypart data as necessary
+	for(var/obj/item/bodypart/BP as anything in C.bodyparts) //Override bodypart data as necessary
 		BP.uses_mutcolor = !!type_selection.color_src
 		if(BP.uses_mutcolor)
 			BP.should_draw_greyscale = TRUE

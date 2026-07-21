@@ -622,20 +622,20 @@ Contains:
 	max_heat_protection_temperature = 100
 	actions_types = null
 
-
 /datum/armor/hardsuit_skinsuit
 	bio = 100
 	bleed = 10
 
-/obj/item/clothing/head/helmet/space/hardsuit/skinsuit/attack_self(mob/user)
-	return
+/obj/item/clothing/head/helmet/space/hardsuit/skinsuit/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
-/obj/item/clothing/head/helmet/space/hardsuit/skinsuit/emp_act(severity)
+/obj/item/clothing/head/helmet/space/hardsuit/skinsuit/attack_self(mob/user)
 	return
 
 /obj/item/clothing/suit/space/hardsuit/skinsuit
 	name = "skinsuit"
-	desc = "A slim, compression-based spacesuit meant to protect the user during emergency situations. It's only a little warmer than your uniform."
+	desc = "A slim, compression-based spacesuit meant to protect the user during emergency situations. It's only a little warmer than your uniform. Has a non-replaceable cell for thermal regulation."
 	icon = 'icons/obj/clothing/suits/spacesuit.dmi'
 	worn_icon = 'icons/mob/clothing/suits/spacesuit.dmi'
 	icon_state = "skinsuit"
@@ -658,6 +658,15 @@ Contains:
 	bleed = 10
 
 /obj/item/clothing/suit/space/hardsuit/skinsuit/attackby(obj/item/I, mob/user, params)
+	return
+
+
+/// Single Use, No Cell cover to open up.
+/obj/item/clothing/suit/space/hardsuit/skinsuit/AltClick(mob/living/user)
+	return
+
+/// Single Use, No Cell to remove
+/obj/item/clothing/suit/space/hardsuit/skinsuit/CtrlClick(mob/living/user)
 	return
 
 /obj/item/clothing/head/helmet/space/hunter

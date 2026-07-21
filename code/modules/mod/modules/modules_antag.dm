@@ -134,6 +134,8 @@
 	var/shield_icon = "shield-red"
 	/// Self explaining, the integrity it currently has, it's being saved upon deactivation and activation
 	var/current_integrity
+	/// Self explaining, what is it going to block?
+	var/shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES | ENERGY_SHIELD_BLOCK_MELEE | ENERGY_SHIELD_EMP_VULNERABLE
 
 /obj/item/mod/module/energy_shield/Initialize(mapload)
 	. = ..()
@@ -141,7 +143,7 @@
 
 /obj/item/mod/module/energy_shield/on_part_activation()
 	mod.AddComponent(/datum/component/shielded, max_integrity = max_integrity, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
-	charge_recovery = charge_recovery, recharge_path = recharge_path, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
+	charge_recovery = charge_recovery, recharge_path = recharge_path, shield_icon_file = shield_icon_file, shield_icon = shield_icon, shield_flags = shield_flags)
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
 	if (shield && current_integrity < max_integrity)
 		shield.set_charge(current_integrity) // No exploiting the integrity by deactivating and reactivating
@@ -169,6 +171,8 @@
 	var/datum/component/shielded/shield = mod?.GetComponent(/datum/component/shielded)
 	if(!shield || shield.current_integrity <= 0)
 		return NONE
+	if(istype(hitby, /obj/projectile/ion))
+		mod.emp_act(EMP_LIGHT)
 	if(drain_power(use_power_cost))
 		return SHIELD_BLOCK
 	return NONE
@@ -187,6 +191,7 @@
 	charge_recovery = 0
 	recharge_path = /obj/item/wizard_armour_charge
 	required_slots = list()
+	shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES | ENERGY_SHIELD_BLOCK_MELEE // Not vulnerable to EMP's magic bullshit, apart from the fact this one cannot easily refill itself
 
 ///Magic Nullifier - Protects you from magic.
 /obj/item/mod/module/anti_magic
@@ -337,10 +342,10 @@
 		blind_message = span_hear("You hear a charging sound."))
 	playsound(src, 'sound/items/modsuit/loader_charge.ogg', 75, TRUE)
 	balloon_alert(mod.wearer, "you start charging...")
-	animate(mod.wearer, 0.3 SECONDS, pixel_z = 16, flags = ANIMATION_RELATIVE|SINE_EASING|EASE_OUT)
+	animate(mod.wearer, 0.3 SECONDS, pixel_y = 16, flags = ANIMATION_RELATIVE|SINE_EASING|EASE_OUT)
 	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/atom, SpinAnimation), 3, 2), 0.3 SECONDS)
 	if(!do_after(mod.wearer, 1 SECONDS, target = mod))
-		animate(mod.wearer, 0.2 SECONDS, pixel_z = -16, flags = ANIMATION_RELATIVE|SINE_EASING|EASE_IN)
+		animate(mod.wearer, 0.2 SECONDS, pixel_y = -16, flags = ANIMATION_RELATIVE|SINE_EASING|EASE_IN)
 		return
 	animate(mod.wearer)
 	drain_power(use_power_cost)
@@ -354,7 +359,7 @@
 	if(!user)
 		return
 	user.transform = user.transform.Turn(angle)
-	animate(user, 0.2 SECONDS, pixel_z = -16, flags = ANIMATION_RELATIVE|SINE_EASING|EASE_IN)
+	animate(user, 0.2 SECONDS, pixel_y = -16, flags = ANIMATION_RELATIVE|SINE_EASING|EASE_IN)
 
 /obj/item/mod/module/power_kick/proc/on_throw_impact(mob/living/source, atom/target, datum/thrownthing/thrownthing)
 	SIGNAL_HANDLER
@@ -503,6 +508,11 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0
 	incompatible_modules = list(/obj/item/mod/module/infiltrator, /obj/item/mod/module/mod_switch, /obj/item/mod/module/welding)
 	required_slots = list(ITEM_SLOT_FEET, ITEM_SLOT_HEAD, ITEM_SLOT_OCLOTHING)
+	var/static/list/traits_to_add = list(
+		TRAIT_SILENT_FOOTSTEPS,
+		TRAIT_UNKNOWN_APPEARANCE,
+		TRAIT_UNKNOWN_VOICE,
+	)
 
 /obj/item/mod/module/infiltrator/on_install()
 	. = ..()
@@ -513,21 +523,19 @@
 	REMOVE_TRAIT(mod, TRAIT_EXAMINE_SKIP, REF(src))
 
 /obj/item/mod/module/infiltrator/on_part_activation()
-	ADD_TRAIT(mod.wearer, TRAIT_SILENT_FOOTSTEPS, MOD_TRAIT)
-	ADD_TRAIT(mod.wearer, TRAIT_UNKNOWN, MOD_TRAIT)
+	mod.wearer.add_traits(traits_to_add, REF(src))
 	RegisterSignal(mod.wearer, COMSIG_TRY_MODIFY_SPEECH, PROC_REF(on_speech_modification))
-	//var/obj/item/organ/tongue/user_tongue = mod.wearer.get_organ_slot(ORGAN_SLOT_TONGUE)
-	//user_tongue.temp_say_mod = "states"
+	var/obj/item/organ/tongue/user_tongue = mod.wearer.get_organ_slot(ORGAN_SLOT_TONGUE)
+	user_tongue.temp_say_mod = "states"
 	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD)
 	if(istype(head_cover))
 		head_cover.flash_protect = FLASH_PROTECTION_WELDER_HYPER_SENSITIVE
 
 /obj/item/mod/module/infiltrator/on_part_deactivation(deleting = FALSE)
-	REMOVE_TRAIT(mod.wearer, TRAIT_SILENT_FOOTSTEPS, MOD_TRAIT)
-	REMOVE_TRAIT(mod.wearer, TRAIT_UNKNOWN, MOD_TRAIT)
+	mod.wearer.remove_traits(traits_to_add, REF(src))
 	UnregisterSignal(mod.wearer, COMSIG_TRY_MODIFY_SPEECH)
-	//var/obj/item/organ/tongue/user_tongue = mod.wearer.get_organ_slot(ORGAN_SLOT_TONGUE)
-	//user_tongue.temp_say_mod = initial(user_tongue.temp_say_mod)
+	var/obj/item/organ/tongue/user_tongue = mod.wearer.get_organ_slot(ORGAN_SLOT_TONGUE)
+	user_tongue.temp_say_mod = initial(user_tongue.temp_say_mod)
 	if(deleting)
 		return
 	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD)

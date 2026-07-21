@@ -18,8 +18,10 @@ SUBSYSTEM_DEF(mapping)
 	var/list/map_templates = list()
 
 	var/list/ruins_templates = list()
-	var/list/space_ruins_templates = list()
-	var/list/lava_ruins_templates = list()
+
+	/// Associative list of ruins. e.g:
+	var/list/list/themed_ruins = list()
+
 	var/datum/space_level/isolated_ruins_z //Created on demand during ruin loading.
 
 	var/list/shuttle_templates = list()
@@ -27,16 +29,13 @@ SUBSYSTEM_DEF(mapping)
 
 	///Random rooms template list, gets initialized and filled when server starts.
 	var/list/random_room_templates = list()
-	///Temporary list, where room spawners are kept roundstart. Not used later.
-	var/list/random_room_spawners = list()
 	var/list/holodeck_templates = list()
 
 	var/list/areas_in_z = list()
 
-	var/loading_ruins = FALSE
-	var/list/turf/unused_turfs = list()				//Not actually unused turfs they're unused but reserved for use for whatever requests them. "[zlevel_of_turf]" = list(turfs)
-	var/list/datum/turf_reservations		//list of turf reservations
-	var/list/used_turfs = list()				//list of turf = datum/turf_reservation
+	var/list/turf/unused_turfs = list() //Not actually unused turfs they're unused but reserved for use for whatever requests them. "[zlevel_of_turf]" = list(turfs)
+	var/list/datum/turf_reservations //list of turf reservations
+	var/list/used_turfs = list() //list of turf = datum/turf_reservation
 	/// List of lists of turfs to reserve
 	var/list/lists_to_reserve = list()
 
@@ -49,18 +48,20 @@ SUBSYSTEM_DEF(mapping)
 
 	// Z-manager stuff
 	var/station_start  // should only be used for maploading-related tasks
-	var/space_levels_so_far = 0
-	var/list/z_list
+	///list of all z level datums in the order of their z (z level 1 is at index 1, etc.)
+	var/list/datum/space_level/z_list
 	///list of all z level indices that form multiz connections and whether theyre linked up or down.
 	///list of lists, inner lists are of the form: list("up or down link direction" = TRUE)
 	var/list/multiz_levels = list()
-	var/datum/space_level/transit
 	var/datum/space_level/empty_space
 	var/num_of_res_levels = 1
 
 	///shows the default gravity value for each z level. recalculated when gravity generators change.
 	///List in the form: list(z level num = max generator gravity in that z level OR the gravity level trait)
 	var/list/gravity_by_z_level = list()
+
+	/// list of traits and their associated z leves
+	var/list/z_trait_levels = list()
 
 	//Echo surface level templates
 	var/list/echo_surface_templates = list()
@@ -99,47 +100,47 @@ SUBSYSTEM_DEF(mapping)
 
 	initialize_biomes()
 	loadWorld()
+
+	//Sets up the wizard teleport locations
 	require_area_resort()
-	process_teleport_locs()			//Sets up the wizard teleport locations
+	process_teleport_locs()
+
 	preloadTemplates()
 
 #ifndef LOWMEMORYMODE
-	// Create space ruin levels
+	// Create space ruin z-levels
+	var/space_levels_so_far = 0
 	while (space_levels_so_far < current_map.space_ruin_levels)
-		++space_levels_so_far
-		LAZYADD(SSzclear.free_levels, add_new_zlevel("Empty Area [space_levels_so_far]", ZTRAITS_SPACE, orbital_body_type = null))
-	// and one level with no ruins
-	for (var/i in 1 to current_map.space_empty_levels)
-		++space_levels_so_far
-		empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = SELFLOOPING), orbital_body_type = /datum/orbital_object/z_linked/beacon/weak)
+		space_levels_so_far++
+		add_new_zlevel("Ruin Area #[space_levels_so_far]", ZTRAITS_POPULATED_SPACE, orbital_body_type = null)
+
+	// and ones with no ruins
+	var/empty_levels_so_far = 0
+	while (empty_levels_so_far < current_map.space_empty_levels)
+		empty_levels_so_far++
+		empty_space = add_new_zlevel("Empty Area #[empty_levels_so_far]", ZTRAITS_EMPTY_SPACE, orbital_body_type = null)
+
+	// Give SSzclear a z-level to work with
+	LAZYADD(SSzclear.free_levels, SSzclear.add_free_zlevel())
+
 	// Pick a random away mission.
 	if(CONFIG_GET(flag/roundstart_away))
 		createRandomZlevel()
 
-	// Load the virtual reality hub
-	if(CONFIG_GET(flag/virtual_reality))
-		to_chat(world, span_boldannounce("Loading virtual reality..."))
-		load_new_z_level("_maps/RandomZLevels/VR/vrhub.dmm", "Virtual Reality Hub")
-		to_chat(world, span_boldannounce("Virtual reality loaded."))
-
-	// Generate mining ruins
-	loading_ruins = TRUE
-	var/list/lava_ruins = levels_by_trait(ZTRAIT_LAVA_RUINS)
-	if (lava_ruins.len)
-		seedRuins(lava_ruins, CONFIG_GET(number/lavaland_budget), /area/lavaland/surface/outdoors/unexplored, lava_ruins_templates, clear_below = TRUE)
-		for (var/lava_z in lava_ruins)
-			spawn_rivers(lava_z)
-	loading_ruins = FALSE
+	setup_ruins()
 #endif
 	// Run map generation after ruin generation to prevent issues
+	setup_rivers()
 	run_map_generation()
+	// Add the first transit level
+	var/datum/space_level/base_transit = add_reservation_zlevel()
 	require_area_resort()
 	// Set up Z-level transitions.
 	setup_map_transitions()
 	generate_station_area_list()
-	transit = add_new_zlevel("Transit/Reserved", list(ZTRAIT_RESERVED = TRUE))
-	initialize_reserved_level(transit.z_value)
+	initialize_reserved_level(base_transit.z_value)
 	calculate_default_z_level_gravities()
+
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/mapping/fire(resumed)
@@ -154,7 +155,8 @@ SUBSYSTEM_DEF(mapping)
 		var/packetlen = length(packet)
 		while(packetlen)
 			if(MC_TICK_CHECK)
-				lists_to_reserve.Cut(1, index)
+				if(index)
+					lists_to_reserve.Cut(1, index)
 				return
 			var/turf/T = packet[packetlen]
 			T.empty(RESERVED_TURF_TYPE, RESERVED_TURF_TYPE, null, TRUE)
@@ -163,7 +165,7 @@ SUBSYSTEM_DEF(mapping)
 			var/area/old_area = T.loc
 			LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, T.z, list())
 			old_area.turfs_to_uncontain_by_zlevel[T.z] += T
-			T.turf_flags |= UNUSED_RESERVATION_TURF
+			T.turf_flags = UNUSED_RESERVATION_TURF
 			// reservation turfs are not allowed to interact with atmos at all
 			T.blocks_air = TRUE
 			world_contents += T
@@ -188,7 +190,7 @@ SUBSYSTEM_DEF(mapping)
 	SSshuttle.transit_requesters.Cut()
 	message_admins("Clearing dynamic reservation space.")
 	var/list/obj/docking_port/mobile/in_transit = list()
-	for(var/i in SSshuttle.transit)
+	for(var/i in SSshuttle.transit_docking_ports)
 		var/obj/docking_port/stationary/transit/T = i
 		if(!istype(T))
 			continue
@@ -231,16 +233,15 @@ SUBSYSTEM_DEF(mapping)
 		if(QDELETED(d))
 			nuke_threats -= d
 
-	for(var/turf/open/floor/circuit/C as() in nuke_tiles)
-		C.update_icon()
+	for(var/turf/open/floor/circuit/circuit_floor as anything in nuke_tiles)
+		circuit_floor.update_appearance()
 
 /datum/controller/subsystem/mapping/Recover()
-	flags |= SS_NO_INIT
+	ss_flags |= SS_NO_INIT
 	initialized = SSmapping.initialized
 	map_templates = SSmapping.map_templates
 	ruins_templates = SSmapping.ruins_templates
-	space_ruins_templates = SSmapping.space_ruins_templates
-	lava_ruins_templates = SSmapping.lava_ruins_templates
+	themed_ruins = SSmapping.themed_ruins
 	shuttle_templates = SSmapping.shuttle_templates
 	random_room_templates = SSmapping.random_room_templates
 	shelter_templates = SSmapping.shelter_templates
@@ -248,7 +249,6 @@ SUBSYSTEM_DEF(mapping)
 	turf_reservations = SSmapping.turf_reservations
 	used_turfs = SSmapping.used_turfs
 	holodeck_templates = SSmapping.holodeck_templates
-	transit = SSmapping.transit
 	areas_in_z = SSmapping.areas_in_z
 
 	current_map = SSmapping.current_map
@@ -297,7 +297,7 @@ SUBSYSTEM_DEF(mapping)
 		++i
 	//Shared orbital body
 	var/datum/orbital_object/z_linked/orbital_body = new orbital_body_type()
-	for(var/datum/space_level/level as() in space_levels)
+	for(var/datum/space_level/level as anything in space_levels)
 		SSorbits.assoc_z_levels["[level.z_value]"] = orbital_body
 		orbital_body.link_to_z(level)
 
@@ -309,35 +309,6 @@ SUBSYSTEM_DEF(mapping)
 	if(!silent)
 		INIT_ANNOUNCE("Loaded [name] in [round((REALTIMEOFDAY - start_time)/10, 0.01)]s!")
 	return parsed_maps
-
-/datum/controller/subsystem/mapping/proc/LoadStationRooms()
-#ifndef UNIT_TESTS
-	var/start_time = REALTIMEOFDAY
-	for(var/obj/effect/spawner/room/R as() in random_room_spawners)
-		var/list/possibletemplates = list()
-		var/datum/map_template/random_room/candidate
-		shuffle_inplace(random_room_templates)
-		for(var/ID in random_room_templates)
-			candidate = random_room_templates[ID]
-			if((!R.rooms.len && candidate.spawned) || (!R.rooms.len && (R.room_height != candidate.template_height || R.room_width != candidate.template_width)) || (R.rooms.len && !(candidate.room_id in R.rooms)))
-				candidate = null
-				continue
-			possibletemplates[candidate] = candidate.weight
-		if(!length(possibletemplates))
-			stack_trace("Failed to find a valid random room / Room Info - height: [R.room_height], width: [R.room_width], name: [R.name]")
-		else
-			var/datum/map_template/random_room/template = pick_weight(possibletemplates)
-			template.stock--
-			template.weight = (template.weight / 2)
-			if(template.stock <= 0)
-				template.spawned = TRUE
-			template.stationinitload(get_turf(R), centered = template.centerspawner)
-		SSmapping.random_room_spawners -= R
-		R.after_place(null, get_turf(R), null, null)
-		qdel(R)
-	random_room_spawners = null
-	INIT_ANNOUNCE("Loaded Random Rooms in [(REALTIMEOFDAY - start_time)/10]s!")
-#endif
 
 /datum/controller/subsystem/mapping/proc/loadWorld()
 	//if any of these fail, something has gone horribly, HORRIBLY, wrong
@@ -352,7 +323,6 @@ SUBSYSTEM_DEF(mapping)
 	LoadGroup(FailedZs, "Station", current_map.map_path, current_map.map_file, current_map.traits, ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/station)
 
 	LoadStationRoomTemplates()
-	LoadStationRooms()
 
 	if(SSdbcore.Connect())
 		var/datum/db_query/query_round_map_name = SSdbcore.NewQuery({"
@@ -362,19 +332,13 @@ SUBSYSTEM_DEF(mapping)
 		qdel(query_round_map_name)
 
 #ifndef LOWMEMORYMODE
-	// TODO: remove this when the DB is prepared for the z-levels getting reordered
-	while (world.maxz < (5 - 1) && space_levels_so_far < current_map.space_ruin_levels)
-		++space_levels_so_far
-		LAZYADD(SSzclear.free_levels, add_new_zlevel("Empty Area [space_levels_so_far]", ZTRAITS_SPACE, orbital_body_type = null))
-
-	// load mining
 	if(current_map.minetype == "lavaland")
 		LoadGroup(FailedZs, "Lavaland", "map_files/Mining", "Lavaland.dmm", default_traits = ZTRAITS_LAVALAND, orbital_body_type = /datum/orbital_object/z_linked/lavaland)
 	else if (!isnull(current_map.minetype))
 		INIT_ANNOUNCE("WARNING: An unknown minetype '[current_map.minetype]' was set! This is being ignored! Update the maploader code!")
 #endif
 
-	if(LAZYLEN(FailedZs))	//but seriously, unless the server's filesystem is messed up this will never happen
+	if(LAZYLEN(FailedZs)) //but seriously, unless the server's filesystem is messed up this will never happen
 		var/msg = "RED ALERT! The following map files failed to load: [FailedZs[1]]"
 		if(FailedZs.len > 1)
 			for(var/I in 2 to FailedZs.len)
@@ -423,23 +387,12 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	preloadHolodeckTemplates()
 
 /datum/controller/subsystem/mapping/proc/LoadStationRoomTemplates()
-	for(var/item in subtypesof(/datum/map_template/random_room))
-		var/datum/map_template/random_room/R = new item()
-		if(!R.mappath || R.mappath == null)
-			world.log << "Skipping template type: [item] (no mappath)"
-			qdel(R)
+	for(var/datum/map_template/random_room/random_room as anything in subtypesof(/datum/map_template/random_room))
+		if(!random_room::mappath)
 			continue
-		random_room_templates[R.room_id] = R
-		map_templates[R.room_id] = R
-
-/datum/map_template/random_room
-	var/room_id //The SSmapping random_room_template list is ordered by this var
-	var/spawned //Whether this template (on the random_room template list) has been spawned
-	var/centerspawner = TRUE
-	var/template_height = 0
-	var/template_width = 0
-	var/weight = 10 //weight a room has to appear
-	var/stock = 1 //how many times this room can appear in a round
+		random_room = new random_room()
+		random_room_templates += random_room
+		map_templates[random_room.room_id] = random_room
 
 /datum/controller/subsystem/mapping/proc/preloadRuinTemplates()
 	// Still supporting bans by filename
@@ -459,10 +412,9 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		map_templates[R.name] = R
 		ruins_templates[R.name] = R
 
-		if(istype(R, /datum/map_template/ruin/lavaland))
-			lava_ruins_templates[R.name] = R
-		else if(istype(R, /datum/map_template/ruin/space))
-			space_ruins_templates[R.name] = R
+		if (!(R.ruin_type in themed_ruins))
+			themed_ruins[R.ruin_type] = list()
+		themed_ruins[R.ruin_type][R.name] = R
 
 /datum/controller/subsystem/mapping/proc/preloadShuttleTemplates()
 	var/list/unbuyable = generateMapList("shuttles_unbuyable.txt")
@@ -501,47 +453,66 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 		holodeck_templates[holo_template.template_id] = holo_template
 
-/datum/controller/subsystem/mapping/proc/RequestBlockReservation(width, height, z, type = /datum/turf_reservation, turf_type_override)
-	UNTIL((!z || reservation_ready["[z]"]) && !clearing_reserved_turfs)
-	var/datum/turf_reservation/reserve = new type
-	if(turf_type_override)
+/// Adds a new reservation z level. A bit of space that can be handed out on request
+/// Of note, reservations default to transit turfs, to make their most common use, shuttles, faster
+/datum/controller/subsystem/mapping/proc/add_reservation_zlevel(for_shuttles)
+	num_of_res_levels++
+	return add_new_zlevel("Transit/Reserved #[num_of_res_levels]", ZTRAITS_RESERVED, orbital_body_type = null)
+
+/datum/controller/subsystem/mapping/proc/request_turf_block_reservation(
+	width,
+	height,
+	z_reservation,
+	reservation_type = /datum/turf_reservation,
+	turf_type_override = null,
+)
+	UNTIL((!z_reservation || reservation_ready["[z_reservation]"]) && !clearing_reserved_turfs)
+	var/datum/turf_reservation/reserve = new reservation_type()
+	if(!isnull(turf_type_override))
 		reserve.turf_type = turf_type_override
-	if(!z)
+	if(!z_reservation)
 		for(var/i in levels_by_trait(ZTRAIT_RESERVED))
 			if(reserve.Reserve(width, height, i))
 				return reserve
 		//If we didn't return at this point, theres a good chance we ran out of room on the exisiting reserved z levels, so lets try a new one
 		num_of_res_levels += 1
-		var/datum/space_level/newReserved = add_new_zlevel("Transit/Reserved [num_of_res_levels]", list(ZTRAIT_RESERVED = TRUE))
+		var/datum/space_level/newReserved = add_reservation_zlevel()
 		initialize_reserved_level(newReserved.z_value)
 		if(reserve.Reserve(width, height, newReserved.z_value))
 			return reserve
 	else
-		if(!level_trait(z, ZTRAIT_RESERVED))
+		if(!level_trait(z_reservation, ZTRAIT_RESERVED))
 			qdel(reserve)
 			return
 		else
-			if(reserve.Reserve(width, height, z))
+			if(reserve.Reserve(width, height, z_reservation))
 				return reserve
 	QDEL_NULL(reserve)
 
-//This is not for wiping reserved levels, use wipe_reservations() for that.
+///Sets up a z level as reserved
+///This is not for wiping reserved levels, use wipe_reservations() for that.
+///If this is called after SSatom init, it will call Initialize on all turfs on the passed z, as its name promises
 /datum/controller/subsystem/mapping/proc/initialize_reserved_level(z)
-	UNTIL(!clearing_reserved_turfs)				//regardless, lets add a check just in case.
-	clearing_reserved_turfs = TRUE			//This operation will likely clear any existing reservations, so lets make sure nothing tries to make one while we're doing it.
+	UNTIL(!clearing_reserved_turfs) //regardless, lets add a check just in case.
+	clearing_reserved_turfs = TRUE //This operation will likely clear any existing reservations, so lets make sure nothing tries to make one while we're doing it.
 	if(!level_trait(z,ZTRAIT_RESERVED))
 		clearing_reserved_turfs = FALSE
 		CRASH("Invalid z level prepared for reservations.")
-	var/turf/A = get_turf(locate(SHUTTLE_TRANSIT_BORDER,SHUTTLE_TRANSIT_BORDER,z))
-	var/turf/B = get_turf(locate(world.maxx - SHUTTLE_TRANSIT_BORDER,world.maxy - SHUTTLE_TRANSIT_BORDER,z))
-	var/block = block(A, B)
-	for(var/t in block)
-		// No need to empty() these, because it's world init and they're
-		// already /turf/open/space/basic.
-		var/turf/T = t
-		T.turf_flags |= UNUSED_RESERVATION_TURF
+	var/list/reserved_block = block(
+		SHUTTLE_TRANSIT_BORDER, SHUTTLE_TRANSIT_BORDER, z,
+		world.maxx - SHUTTLE_TRANSIT_BORDER, world.maxy - SHUTTLE_TRANSIT_BORDER, z
+	)
+	for(var/turf/T as anything in reserved_block)
+		// No need to empty() these, because they just got created and are already /turf/open/space/basic.
+		T.turf_flags = UNUSED_RESERVATION_TURF
 		T.blocks_air = TRUE
-	unused_turfs["[z]"] = block
+		CHECK_TICK
+
+	// Gotta create these suckers if we've not done so already
+	if(SSatoms.initialized)
+		SSatoms.InitializeAtoms(Z_TURFS(z))
+
+	unused_turfs["[z]"] = reserved_block
 	reservation_ready["[z]"] = TRUE
 	clearing_reserved_turfs = FALSE
 
@@ -644,6 +615,27 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	max_gravity = max_gravity || level_trait(z_level_number, ZTRAIT_GRAVITY) || 0 //just to make sure no nulls
 	gravity_by_z_level[z_level_number] = max_gravity
 	return max_gravity
+
+/**
+ * Sets up all of the ruins to be spawned
+ */
+/datum/controller/subsystem/mapping/proc/setup_ruins()
+	// Generate mining ruins
+	var/list/lava_ruins = levels_by_trait(ZTRAIT_LAVA_RUINS)
+	if (length(lava_ruins))
+		seedRuins(lava_ruins, CONFIG_GET(number/lavaland_budget), list(/area/lavaland/surface/outdoors/unexplored), themed_ruins[ZTRAIT_LAVA_RUINS], clear_below = TRUE, ruins_type = ZTRAIT_LAVA_RUINS, minimum_ghost_roles = 1)
+
+	// Generate deep space ruins
+	var/list/space_ruins = levels_by_trait(ZTRAIT_SPACE_RUINS)
+	if (length(space_ruins))
+		// Create a proportional budget by multiplying the amount of space ruin levels in the current map over the default amount
+		var/proportional_budget = round(CONFIG_GET(number/space_budget) * (length(space_ruins) / DEFAULT_SPACE_RUIN_LEVELS))
+		seedRuins(space_ruins, proportional_budget, list(/area/misc/space), themed_ruins[ZTRAIT_SPACE_RUINS], ruins_type = ZTRAIT_SPACE_RUINS, minimum_ghost_roles = 2)
+
+/datum/controller/subsystem/mapping/proc/setup_rivers()
+	var/list/lava_ruins = levels_by_trait(ZTRAIT_LAVA_RUINS)
+	for (var/lava_z in lava_ruins)
+		spawn_rivers(lava_z)
 
 // echo surface templates found in random_rooms.dm
 /datum/controller/subsystem/mapping/proc/echo_surface_templates()

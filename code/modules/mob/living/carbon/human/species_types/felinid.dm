@@ -18,7 +18,7 @@
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
-/datum/species/human/felinid/qualifies_for_rank(rank, list/features)
+/datum/species/human/felinid/qualifies_for_rank(datum/job/rank, list/features)
 	return TRUE
 
 //Curiosity killed the cat's wagging tail.

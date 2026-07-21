@@ -23,6 +23,7 @@
 /datum/role_preference/proc/render_preview_outfit(datum/outfit/outfit, mob/living/carbon/human/dummy)
 	dummy = dummy || new /mob/living/carbon/human/dummy/consistent
 	dummy.equipOutfit(outfit, visuals_only = TRUE)
+	dummy.wear_suit?.update_greyscale()
 	COMPILE_OVERLAYS(dummy)
 	var/icon = getFlatIcon(dummy)
 

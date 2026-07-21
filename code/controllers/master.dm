@@ -193,7 +193,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				FireHim = TRUE
 			if(3)
 				msg = "The [BadBoy.name] subsystem seems to be destabilizing the MC and will be offlined."
-				BadBoy.flags |= SS_NO_FIRE
+				BadBoy.ss_flags |= SS_NO_FIRE
 		if(msg)
 			to_chat(GLOB.admins, span_boldannounce("[msg]"))
 			log_world(msg)
@@ -377,7 +377,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		SS_INIT_NO_NEED,
 	)
 
-	if (subsystem.flags & SS_NO_INIT || subsystem.initialized) //Don't init SSs with the corresponding flag or if they already are initialized
+	if (subsystem.ss_flags & SS_NO_INIT || subsystem.initialized) //Don't init SSs with the corresponding flag or if they already are initialized
 		return
 
 	current_initializing_subsystem = subsystem
@@ -483,7 +483,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/timer = world.time
 	for (var/thing in subsystems)
 		var/datum/controller/subsystem/SS = thing
-		if (SS.flags & SS_NO_FIRE)
+		if (SS.ss_flags & SS_NO_FIRE)
 			continue
 		if (SS.init_stage > init_stage)
 			continue
@@ -491,7 +491,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		SS.queue_next = null
 		SS.queue_prev = null
 		SS.state = SS_IDLE
-		if ((SS.flags & (SS_TICKER|SS_BACKGROUND)) == SS_TICKER)
+		if ((SS.ss_flags & (SS_TICKER|SS_BACKGROUND)) == SS_TICKER)
 			tickersubsystems += SS
 			// Timer subsystems aren't allowed to bunch up, so we offset them a bit
 			timer += world.tick_lag * rand(0, 1)
@@ -689,7 +689,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			continue
 		if (SS.next_fire > world.time)
 			continue
-		SS_flags = SS.flags
+		SS_flags = SS.ss_flags
 		if (SS_flags & SS_NO_FIRE)
 			subsystemstocheck -= SS
 			continue
@@ -741,7 +741,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			if (ran && TICK_USAGE > TICK_LIMIT_RUNNING)
 				break
 
-			queue_node_flags = queue_node.flags
+			queue_node_flags = queue_node.ss_flags
 			queue_node_priority = queue_node.queued_priority
 
 			if(!(queue_node_flags & SS_TICKER) && skip_ticks)
@@ -942,8 +942,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 /datum/mc_tick/proc/get_stat_text()
 	var/list/output = list()
 	var/list/tickers = list()
-	for (var/datum/controller/subsystem/ss as() in fired_subsystems)
-		if (ss.flags & SS_TICKER)
+	for (var/datum/controller/subsystem/ss as anything in fired_subsystems)
+		if (ss.ss_flags & SS_TICKER)
 			tickers += "([ss.name]: [TICK_DELTA_TO_MS(fired_subsystems[ss])]ms)"
 		else
 			output += "([ss.name]: [TICK_DELTA_TO_MS(fired_subsystems[ss])]ms)"

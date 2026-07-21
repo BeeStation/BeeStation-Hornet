@@ -1,8 +1,7 @@
 /mob/living/carbon/human
-	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPLOYAL_HUD,IMPCHEM_HUD,IMPTRACK_HUD, NANITE_HUD, DIAG_NANITE_FULL_HUD,ANTAG_HUD,GLAND_HUD,SENTIENT_DISEASE_HUD)
+	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPLOYAL_HUD,IMPCHEM_HUD,IMPTRACK_HUD, NANITE_HUD, DIAG_NANITE_FULL_HUD,GLAND_HUD)
 	hud_type = /datum/hud/human
 	pressure_resistance = 25
-	can_buckle = TRUE
 	buckle_lying = 0
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	/// build_worn_icon is reponsible for building this, as each bodypart may be emissive and clothes
@@ -21,19 +20,26 @@
 	var/facial_hair_color = COLOR_BLACK
 	///Facial hair style
 	var/facial_hair_style = "Shaved"
+
 	//Eye colour
-	var/eye_color = COLOR_BLACK
-	var/skin_tone = "caucasian1"	//Skin tone
-	var/lip_style = null	//no lipstick by default- arguably misleading, as it could be used for general makeup
-	var/lip_color = "white"
-	var/age = 30		//Player's age
+	var/eye_color_left = COLOR_BLACK
+	var/eye_color_right = COLOR_BLACK
+	var/eye_color_heterochromatic = FALSE
+
+	var/skin_tone = "caucasian1" //Skin tone
+
+	var/lip_style = null //no lipstick by default- arguably misleading, as it could be used for general makeup
+	var/lip_color = COLOR_WHITE
+
+	var/age = 30 //Player's age
+
 	//consider updating /mob/living/carbon/human/copy_clothing_prefs() if adding more of these
-	var/underwear = "Nude"	//Which underwear the player wants
+	var/underwear = "Nude" //Which underwear the player wants
 	var/underwear_color = COLOR_BLACK
 	var/undershirt = "Nude" //Which undershirt the player wants
 	var/socks = "Nude" //Which socks the player wants
-	var/backbag = DBACKPACK		//Which backpack type the player has chosen.
-	var/jumpsuit_style = PREF_SUIT		//suit/skirt
+	var/backpack = DBACKPACK //Which backpack type the player has chosen.
+	var/jumpsuit_style = PREF_SUIT //suit/skirt
 
 	//Equipment slots
 	var/obj/item/clothing/wear_suit = null
@@ -44,23 +50,15 @@
 	var/obj/item/l_store = null
 	var/obj/item/s_store = null
 
-	var/special_voice = "" // For changing our voice. Used by a symptom.
+	/// Allows for special overrides of voice
+	var/override_voice = ""
 
 	var/bleed_rate = 0 //how much are we bleeding
 	/// How many "units of blood" we have on our hands
 	var/blood_in_hands = 0
 
-	var/name_override //For temporary visible name changes
-
 	var/datum/physiology/physiology
 
-	/// What types of mobs are allowed to ride/buckle to this mob
-	var/static/list/can_ride_typecache = typecacheof(list(
-		/mob/living/carbon/human,
-		/mob/living/simple_animal/slime,
-		/mob/living/simple_animal/parrot,
-		/mob/living/carbon/monkey,
-	))
 	var/lastpuke = 0
 
 	/// The core temperature of the human compaired to the skin temp of the body

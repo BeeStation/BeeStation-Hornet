@@ -1,0 +1,135 @@
+/**
+ * Component that can be used to clean things.
+ * Takes care of duration and special cleaning interactions.
+ * A callback can be set by the datum holding the cleaner to add custom functionality.
+ * Soap uses a callback to decrease the amount of uses it has left after cleaning for example.
+ */
+/datum/component/cleaner
+	/// The time it takes to clean something
+	var/cleaning_duration
+	/// Determines what this cleaner can wash off, [the available options are found here](code/__DEFINES/cleaning.dm).
+	var/cleaning_strength
+	/// Gets called before you start cleaning, returns TRUE/FALSE whether the clean should actually wash tiles, or DO_NOT_CLEAN to not clean at all.
+	var/datum/callback/pre_clean_callback
+	/// Gets called when something is successfully cleaned.
+	var/datum/callback/on_cleaned_callback
+
+/datum/component/cleaner/Initialize(
+	cleaning_duration = 3 SECONDS,
+	cleaning_strength = CLEAN_SCRUB,
+	datum/callback/pre_clean_callback = null,
+	datum/callback/on_cleaned_callback = null,
+)
+	src.cleaning_duration = cleaning_duration
+	src.cleaning_strength = cleaning_strength
+	src.pre_clean_callback = pre_clean_callback
+	src.on_cleaned_callback = on_cleaned_callback
+
+/datum/component/cleaner/Destroy(force)
+	pre_clean_callback = null
+	on_cleaned_callback = null
+	return ..()
+
+/datum/component/cleaner/RegisterWithParent()
+	if(ismob(parent))
+		RegisterSignal(parent, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
+	if(isitem(parent))
+		RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, PROC_REF(on_afterattack))
+
+/datum/component/cleaner/UnregisterFromParent()
+	UnregisterSignal(parent, list(
+		COMSIG_ITEM_AFTERATTACK,
+		COMSIG_LIVING_UNARMED_ATTACK,
+	))
+
+/**
+ * Handles the COMSIG_LIVING_UNARMED_ATTACK signal used for cleanbots
+ * Redirects to afterattack, while setting parent (the bot) as user.
+ */
+/datum/component/cleaner/proc/on_unarmed_attack(datum/source, atom/target, proximity_flags, modifiers)
+	SIGNAL_HANDLER
+	on_afterattack(source, target, parent, proximity_flags, modifiers)
+
+/datum/component/cleaner/proc/on_afterattack(datum/source, atom/target, mob/user, proximity_flag, click_parameters)
+	SIGNAL_HANDLER
+	if(!proximity_flag)
+		return
+
+	var/call_wash = TRUE
+	if(pre_clean_callback)
+		var/callback_return = pre_clean_callback.Invoke(source, target, user)
+		if(callback_return & CLEAN_BLOCKED)
+			return
+		if(callback_return & CLEAN_NO_WASH)
+			call_wash = FALSE
+	INVOKE_ASYNC(src, PROC_REF(clean), source, target, user, call_wash) //signal handlers can't have do_afters inside of them
+
+/**
+ * Cleans something using this cleaner.
+ * The cleaning duration is modified by the cleaning skill of the user.
+ * Successfully cleaning gives cleaning experience to the user and invokes the on_cleaned_callback.
+ *
+ * Arguments
+ * * source the datum that sent the signal to start cleaning
+ * * target the thing being cleaned
+ * * user the person doing the cleaning
+ * * call_wash set this to false if the target should not be wash()ed
+ */
+/datum/component/cleaner/proc/clean(datum/source, atom/target, mob/living/user, call_wash = TRUE)
+	//make sure we don't attempt to clean something while it's already being cleaned
+	if(HAS_TRAIT(target, TRAIT_CURRENTLY_CLEANING) || (SEND_SIGNAL(target, COMSIG_ATOM_PRE_CLEAN, user) & COMSIG_ATOM_CANCEL_CLEAN))
+		return
+	//add the trait and overlay
+	ADD_TRAIT(target, TRAIT_CURRENTLY_CLEANING, REF(src))
+	// We need to update our planes on overlay changes
+	RegisterSignal(target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(cleaning_target_moved))
+	var/mutable_appearance/low_bubble = mutable_appearance('icons/effects/effects.dmi', "bubbles", CLEANABLE_OBJECT_LAYER, GAME_PLANE)
+	var/mutable_appearance/high_bubble = mutable_appearance('icons/effects/effects.dmi', "bubbles", CLEANABLE_OBJECT_LAYER, ABOVE_GAME_PLANE)
+	var/list/icon_offsets = target.get_oversized_icon_offsets()
+	low_bubble.pixel_x = icon_offsets["x"]
+	low_bubble.pixel_y = icon_offsets["y"]
+	high_bubble.pixel_x = icon_offsets["x"]
+	high_bubble.pixel_y = icon_offsets["y"]
+	if(target.plane > low_bubble.plane) //check if the higher overlay is necessary
+		target.add_overlay(high_bubble)
+	else if(target.plane == low_bubble.plane)
+		if(target.layer > low_bubble.layer)
+			target.add_overlay(high_bubble)
+		else
+			target.add_overlay(low_bubble)
+	else //(target.plane < low_bubble.plane)
+		target.add_overlay(low_bubble)
+
+	// Assoc list, collects all items being cleaned with its value being any blood on it
+	var/list/all_cleaned = list()
+	all_cleaned[target] = GET_ATOM_BLOOD_DNA(target) || list()
+	//do the cleaning
+	var/clean_succeeded = FALSE
+	if(do_after(user, cleaning_duration, target = target))
+		clean_succeeded = TRUE
+		for(var/obj/effect/decal/cleanable/cleanable_decal in target) //it's important to do this before you wash all of the cleanables off
+			all_cleaned[cleanable_decal] = GET_ATOM_BLOOD_DNA(cleanable_decal)
+		if(call_wash)
+			target.wash(cleaning_strength)
+
+	on_cleaned_callback?.Invoke(source, target, user, clean_succeeded, all_cleaned)
+	//remove the cleaning overlay
+	target.cut_overlay(low_bubble)
+	target.cut_overlay(high_bubble)
+	UnregisterSignal(target, COMSIG_MOVABLE_Z_CHANGED)
+	REMOVE_TRAIT(target, TRAIT_CURRENTLY_CLEANING, REF(src))
+
+/datum/component/cleaner/proc/cleaning_target_moved(atom/movable/source, old_z, new_z)
+	if(old_z == new_z)
+		return
+	// First, get rid of the old overlay
+	var/mutable_appearance/old_low_bubble = mutable_appearance('icons/effects/effects.dmi', "bubbles", CLEANABLE_OBJECT_LAYER, GAME_PLANE)
+	var/mutable_appearance/old_high_bubble = mutable_appearance('icons/effects/effects.dmi', "bubbles", CLEANABLE_OBJECT_LAYER, ABOVE_GAME_PLANE)
+	source.cut_overlay(old_low_bubble)
+	source.cut_overlay(old_high_bubble)
+
+	// Now, add the new one
+	var/mutable_appearance/new_low_bubble = mutable_appearance('icons/effects/effects.dmi', "bubbles", CLEANABLE_OBJECT_LAYER, GAME_PLANE)
+	var/mutable_appearance/new_high_bubble = mutable_appearance('icons/effects/effects.dmi', "bubbles", CLEANABLE_OBJECT_LAYER, ABOVE_GAME_PLANE)
+	source.add_overlay(new_low_bubble)
+	source.add_overlay(new_high_bubble)

@@ -25,16 +25,17 @@
 #define DNA_BLOCK_SIZE 3
 #define DNA_BLOCK_SIZE_COLOR DEFAULT_HEX_COLOR_LEN
 
-#define DNA_UNI_IDENTITY_BLOCKS 9
+#define DNA_UNI_IDENTITY_BLOCKS 10
 #define DNA_HAIR_COLOR_BLOCK 1
 #define DNA_FACIAL_HAIR_COLOR_BLOCK 2
 #define DNA_SKIN_TONE_BLOCK 3
-#define DNA_EYE_COLOR_BLOCK 4
-#define DNA_GENDER_BLOCK 5
-#define DNA_FACIAL_HAIR_STYLE_BLOCK 6
-#define DNA_HAIR_STYLE_BLOCK 7
-#define DNA_HAIR_GRADIENT_COLOR_BLOCK 8
-#define DNA_HAIR_GRADIENT_STYLE_BLOCK 9
+#define DNA_EYE_COLOR_LEFT_BLOCK 4
+#define DNA_EYE_COLOR_RIGHT_BLOCK 5
+#define DNA_GENDER_BLOCK 6
+#define DNA_FACIAL_HAIR_STYLE_BLOCK 7
+#define DNA_HAIR_STYLE_BLOCK 8
+#define DNA_HAIR_GRADIENT_COLOR_BLOCK 9
+#define DNA_HAIR_GRADIENT_STYLE_BLOCK 10
 
 #define DNA_FEATURE_BLOCKS 29
 #define DNA_MUTANT_COLOR_BLOCK 1
@@ -86,10 +87,6 @@
 #define CLONER_MATURE_CLONE "mature"
 
 //! ## species traits for mutantraces
-#define MUTCOLORS 1
-#define HAIR 2
-#define FACEHAIR 3
-#define EYECOLOR 4
 #define LIPS 5
 #define NOZOMBIE 8
 #define NO_UNDERWEAR 9
@@ -99,8 +96,6 @@
 #define DYNCOLORS 12
 // No sex!
 #define AGENDER 13
-// Do not draw eyes or eyeless overlay
-#define NOEYESPRITES 14
 // DO NOT PROCESS REAGENTS
 #define NOREAGENTS 15
 // Will revive on heal when healing and total HP > 0.

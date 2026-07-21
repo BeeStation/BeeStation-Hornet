@@ -19,8 +19,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///Whether or not the race has sexual characteristics (biological genders). At the moment this is only FALSE for skeletons and shadows
 	var/sexes = TRUE
 
-	var/list/offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
-
 	//The maximum number of bodyparts this species can have.
 	var/max_bodypart_count = 6
 
@@ -172,7 +170,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// What bleed status effect should we apply?
 	var/bleed_effect = /datum/status_effect/bleeding
 
-	/// Do we try to prevent reset_perspective() from working?
+	/// Do we try to prevent set_mob_eye_to(MOB_EYE_SELF) from working?
 	var/prevent_perspective_change = FALSE
 
 	//Should we preload this species's organs?
@@ -302,8 +300,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			CRASH("Invalid organ slot [slot]")
 
 //Please override this locally if you want to define when what species qualifies for what rank if human authority is enforced.
-/datum/species/proc/qualifies_for_rank(rank, list/features)
-	if(rank in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
+/datum/species/proc/qualifies_for_rank(datum/job/rank, list/features)
+	if(rank in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND))
 		return 0
 	return 1
 
@@ -490,8 +488,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/obj/item/bodypart/head/head in C.bodyparts)
 			head.mouth = FALSE
 
-	for(var/X in inherent_traits)
-		ADD_TRAIT(C, X, SPECIES_TRAIT)
+	if(length(inherent_traits))
+		C.add_traits(inherent_traits, SPECIES_TRAIT)
 
 	if(TRAIT_VIRUSIMMUNE in inherent_traits)
 		for(var/datum/disease/A in C.diseases)
@@ -607,7 +605,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(I.flags_inv & HIDEFACIALHAIR)
 			facialhair_hidden = TRUE
 
-	if(H.facial_hair_style && (FACEHAIR in species_traits) && (!facialhair_hidden || dynamic_fhair_suffix))
+	if(H.facial_hair_style && (FACIAL_HAIR_COLOR in species_traits) && (!facialhair_hidden || dynamic_fhair_suffix))
 		S = GLOB.facial_hair_styles_list[H.facial_hair_style]
 		if(S?.icon_state)
 
@@ -670,7 +668,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			hair_overlay.icon = 'icons/mob/human/human_face.dmi'
 			hair_overlay.icon_state = "debrained"
 
-		else if((H.hair_style && (HAIR in species_traits)))
+		else if((H.hair_style && (HAIR_COLOR in species_traits)))
 			var/current_hair_style = H.hair_style
 			var/current_hair_color = H.hair_color
 			var/current_gradient_style = H.gradient_style
@@ -722,86 +720,52 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					hair_overlay.color = forced_colour
 
 				hair_overlay.alpha = hair_alpha
-				if(OFFSET_FACE in H.dna.species.offset_features)
-					hair_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
-					hair_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
+				HD.worn_mask_offset?.apply_offset(hair_overlay)
+
 		if(hair_overlay.icon)
+			standing += emissive_blocker(hair_overlay.icon, hair_overlay.icon_state, hair_overlay.layer, hair_overlay.alpha)
 			standing += hair_overlay
 			standing += gradient_overlay
-			standing += emissive_blocker(hair_overlay.icon, hair_overlay.icon_state, hair_overlay.layer, hair_overlay.alpha)
 
 	if(standing.len)
 		H.overlays_standing[HAIR_LAYER] = standing
 
 	H.apply_overlay(HAIR_LAYER)
 
-/datum/species/proc/handle_body(mob/living/carbon/human/H)
-	H.remove_overlay(BODY_LAYER)
+/*
+ * Handles lipstick, having no eyes, eye color, undergarnments like underwear, undershirts, and socks, and body layers.
+ * Calls [handle_mutant_bodyparts][/datum/species/proc/handle_mutant_bodyparts]
+ * Arguments:
+ * * species_human - Human, whoever we're handling the body for
+ */
+/datum/species/proc/handle_body(mob/living/carbon/human/species_human)
+	species_human.remove_overlay(BODY_LAYER)
 
 	var/list/standing = list()
 
-	var/obj/item/bodypart/head/HD = H.get_bodypart(BODY_ZONE_HEAD)
+	if(!HAS_TRAIT(species_human, TRAIT_HUSK))
+		var/obj/item/bodypart/head/noggin = species_human.get_bodypart(BODY_ZONE_HEAD)
+		if(noggin?.head_flags & HEAD_EYESPRITES)
+			// eyes (missing eye sprites get handled by the head itself, but sadly we have to do this stupid shit here, for now)
+			var/obj/item/organ/eyes/eye_organ = species_human.get_organ_slot(ORGAN_SLOT_EYES)
+			if(eye_organ)
+				eye_organ.refresh(call_update = FALSE)
+				for(var/eye_overlay in eye_organ.generate_body_overlay(species_human))
+					standing += eye_overlay
 
-	if(HD && !(HAS_TRAIT(H, TRAIT_HUSK)))
-		// lipstick
-		if(H.lip_style && (LIPS in species_traits))
-			var/mutable_appearance/lip_overlay = mutable_appearance('icons/mob/human/human_face.dmi', "lips_[H.lip_style]", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-			lip_overlay.color = H.lip_color
-			if(OFFSET_FACE in H.dna.species.offset_features)
-				lip_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
-				lip_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
-			standing += lip_overlay
+		// organic body markings (oh my god this is terrible please rework this to be done on the limbs themselves i beg you)
+		if(HAS_MARKINGS in species_traits)
+			var/obj/item/bodypart/chest/chest = species_human.get_bodypart(BODY_ZONE_CHEST)
+			var/obj/item/bodypart/arm/right/right_arm = species_human.get_bodypart(BODY_ZONE_R_ARM)
+			var/obj/item/bodypart/arm/left/left_arm = species_human.get_bodypart(BODY_ZONE_L_ARM)
+			var/obj/item/bodypart/leg/right/right_leg = species_human.get_bodypart(BODY_ZONE_R_LEG)
+			var/obj/item/bodypart/leg/left/left_leg = species_human.get_bodypart(BODY_ZONE_L_LEG)
+			var/datum/sprite_accessory/markings = GLOB.moth_markings_list[species_human.dna.features["moth_markings"]]
+			var/markings_icon_state = markings.icon_state
+			if(ismoth(species_human) && HAS_TRAIT(species_human, TRAIT_MOTH_BURNT))
+				markings_icon_state = "burnt_off"
 
-		// eyes
-		if(!(NOEYESPRITES in species_traits))
-			var/obj/item/organ/eyes/E = H.get_organ_slot(ORGAN_SLOT_EYES)
-			var/mutable_appearance/eye_overlay
-			if(!E)
-				eye_overlay = mutable_appearance('icons/mob/human/human_face.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-			else
-				eye_overlay = mutable_appearance('icons/mob/human/human_face.dmi', E.eye_icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-			if((EYECOLOR in species_traits) && E)
-				eye_overlay.color = H.eye_color
-			if(OFFSET_FACE in H.dna.species.offset_features)
-				eye_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
-				eye_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
-			standing += eye_overlay
-
-		// blush
-		if (HAS_TRAIT(H, TRAIT_BLUSHING)) // Caused by either the *blush emote or the "drunk" mood event
-			var/mutable_appearance/blush_overlay = mutable_appearance('icons/mob/human/human_face.dmi', "blush", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER)) //should appear behind the eyes
-			if(H.dna && H.dna.species && H.dna.species.blush_color)
-				blush_overlay.color = H.dna.species.blush_color
-
-			if(OFFSET_FACE in H.dna.species.offset_features)
-				blush_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
-				blush_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
-			standing += blush_overlay
-
-		//crying
-		if (HAS_TRAIT(H, TRAIT_CRYING)) // Caused by either using *cry or being pepper sprayed
-			var/mutable_appearance/tears_overlay = mutable_appearance('icons/mob/human/human_face.dmi', "tears", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-			tears_overlay.color = COLOR_DARK_CYAN
-
-			if(OFFSET_FACE in H.dna.species.offset_features)
-				tears_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
-				tears_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
-				standing += tears_overlay
-
-	//organic body markings
-	if(HAS_MARKINGS in species_traits)
-		var/obj/item/bodypart/chest/chest = H.get_bodypart(BODY_ZONE_CHEST)
-		var/obj/item/bodypart/arm/right/right_arm = H.get_bodypart(BODY_ZONE_R_ARM)
-		var/obj/item/bodypart/arm/left/left_arm = H.get_bodypart(BODY_ZONE_L_ARM)
-		var/obj/item/bodypart/leg/right/right_leg = H.get_bodypart(BODY_ZONE_R_LEG)
-		var/obj/item/bodypart/leg/left/left_leg = H.get_bodypart(BODY_ZONE_L_LEG)
-		var/datum/sprite_accessory/markings = GLOB.moth_markings_list[H.dna.features["moth_markings"]]
-		var/markings_icon_state = markings.icon_state
-		if(ismoth(H) && HAS_TRAIT(H, TRAIT_MOTH_BURNT))
-			markings_icon_state = "burnt_off"
-
-		if(!HAS_TRAIT(H, TRAIT_HUSK))
-			if(HD && (IS_ORGANIC_LIMB(HD)))
+			if(noggin && (IS_ORGANIC_LIMB(noggin)))
 				var/mutable_appearance/markings_head_overlay = mutable_appearance(markings.icon, "[markings_icon_state]_head", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 				standing += markings_head_overlay
 
@@ -828,36 +792,36 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	//Underwear, Undershirts & Socks
 	if(!(NO_UNDERWEAR in species_traits))
-		if(H.underwear && !(H.bodytype & BODYTYPE_DIGITIGRADE))
-			var/datum/sprite_accessory/underwear/underwear = GLOB.underwear_list[H.underwear]
+		if(species_human.underwear && !(species_human.bodytype & BODYTYPE_DIGITIGRADE))
+			var/datum/sprite_accessory/underwear/underwear = GLOB.underwear_list[species_human.underwear]
 			var/mutable_appearance/underwear_overlay
 			if(underwear)
-				if(H.dna.species.sexes && H.dna.features["body_model"] == FEMALE && (underwear.use_default_gender == MALE))
+				if(species_human.dna.species.sexes && species_human.dna.features["body_model"] == FEMALE && (underwear.use_default_gender == MALE))
 					underwear_overlay = wear_female_version(underwear.icon_state, underwear.icon, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), FEMALE_UNIFORM_FULL)
 				else
 					underwear_overlay = mutable_appearance(underwear.icon, underwear.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 				if(!underwear.use_static)
-					underwear_overlay.color = H.underwear_color
+					underwear_overlay.color = species_human.underwear_color
 				standing += underwear_overlay
 
-		if(H.undershirt)
-			var/datum/sprite_accessory/undershirt/undershirt = GLOB.undershirt_list[H.undershirt]
+		if(species_human.undershirt)
+			var/datum/sprite_accessory/undershirt/undershirt = GLOB.undershirt_list[species_human.undershirt]
 			if(undershirt)
-				if(H.dna.species.sexes && H.dna.features["body_model"] == FEMALE)
+				if(species_human.dna.species.sexes && species_human.dna.features["body_model"] == FEMALE)
 					standing += wear_female_version(undershirt.icon_state, undershirt.icon, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 				else
 					standing += mutable_appearance(undershirt.icon, undershirt.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 
-		if(H.socks && H.num_legs >= 2 && !(H.bodytype & BODYTYPE_DIGITIGRADE) && !(NOSOCKS in species_traits))
-			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[H.socks]
+		if(species_human.socks && species_human.num_legs >= 2 && !(species_human.bodytype & BODYTYPE_DIGITIGRADE) && !(NOSOCKS in species_traits))
+			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[species_human.socks]
 			if(socks)
 				standing += mutable_appearance(socks.icon, socks.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 
 	if(standing.len)
-		H.overlays_standing[BODY_LAYER] = standing
+		species_human.overlays_standing[BODY_LAYER] = standing
 
-	H.apply_overlay(BODY_LAYER)
-	handle_mutant_bodyparts(H)
+	species_human.apply_overlay(BODY_LAYER)
+	handle_mutant_bodyparts(species_human)
 
 /datum/species/proc/handle_mutant_bodyparts(mob/living/carbon/human/H, forced_colour)
 	var/list/bodyparts_to_add = mutant_bodyparts.Copy()
@@ -1004,12 +968,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			suit_compatible = TRUE
 
 		if((uniform_compatible && suit_compatible) || (suit_compatible && H.wear_suit?.flags_inv & HIDEJUMPSUIT)) //If the uniform is hidden, it doesnt matter if its compatible
-			for(var/obj/item/bodypart/BP as() in H.bodyparts)
+			for(var/obj/item/bodypart/BP as anything in H.bodyparts)
 				if(BP.bodytype & BODYTYPE_DIGITIGRADE)
 					BP.limb_id = BODYPART_ID_DIGITIGRADE
 
 		else
-			for(var/obj/item/bodypart/BP as() in H.bodyparts)
+			for(var/obj/item/bodypart/BP as anything in H.bodyparts)
 				if(BP.bodytype & BODYTYPE_DIGITIGRADE)
 					BP.limb_id = "lizard"
 	///End digi handling
@@ -1072,8 +1036,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.moth_wingsopen_list[H.dna.features["moth_wings"]]
 				if("moth_markings")
 					S = GLOB.moth_markings_list[H.dna.features["moth_markings"]]
-				if("caps")
-					S = GLOB.caps_list[H.dna.features["caps"]]
 				if("ipc_screen")
 					S = GLOB.ipc_screens_list[H.dna.features["ipc_screen"]]
 				if("ipc_antenna")
@@ -1118,6 +1080,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				accessory_overlay.overlays.Add(emissive_appearance(S.icon, S.emissive_state, CALCULATE_MOB_OVERLAY_LAYER(layer), S.emissive_alpha, filters = H.filters))
 				ADD_LUM_SOURCE(H, LUM_SOURCE_MUTANT_BODYPART)
 
+			accessory_overlay.alpha = S.overlay_alpha
+
 			//A little rename so we don't have to use tail_lizard or tail_human when naming the sprites.
 			if(bodypart == "tail_lizard" || bodypart == "tail_human")
 				bodypart = "tail"
@@ -1135,20 +1099,20 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(!HAS_TRAIT(H, TRAIT_HUSK))
 				if(!forced_colour)
 					switch(S.color_src)
-						if(MUTCOLORS)
+						if(MUTANT_COLOR)
 							if(fixed_mut_color)
 								accessory_overlay.color = fixed_mut_color
 							else
 								accessory_overlay.color = H.dna.features["mcolor"]
-						if(HAIR)
+						if(HAIR_COLOR)
 							if(hair_color == "mutcolor")
 								accessory_overlay.color = H.dna.features["mcolor"]
 							else
 								accessory_overlay.color = H.hair_color
-						if(FACEHAIR)
+						if(FACIAL_HAIR_COLOR)
 							accessory_overlay.color = H.facial_hair_color
-						if(EYECOLOR)
-							accessory_overlay.color = H.eye_color
+						if(EYE_COLOR)
+							accessory_overlay.color = H.eye_color_left
 				else
 					accessory_overlay.color = forced_colour
 			standing += accessory_overlay
@@ -1370,11 +1334,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.visible_message(span_notice("[H] start putting on [I]."), span_notice("You start putting on [I]."))
 	return do_after(H, I.equip_delay_self, target = H)
 
-/datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null)
-	return
-
-/datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null)
-	H.update_mutant_bodyparts()
+/// Equips the necessary species-relevant gear before putting on the rest of the uniform.
+/datum/species/proc/pre_equip_species_outfit(datum/job/job, mob/living/carbon/human/equipping, visuals_only = FALSE, datum/preferences/preference_source = null)
+	var/outfit_path = job?.species_outfits?[id]
+	if(!outfit_path)
+		return
+	equipping.equipOutfit(outfit_path, visuals_only)
 
 /**
  * Handling special reagent types.
@@ -1552,7 +1517,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		source.vomit(10, TRUE)
 
 	if(intensity > RAD_MOB_HAIRLOSS && DT_PROB(RAD_MOB_HAIRLOSS_PROB, delta_time))
-		if(!(source.hair_style == "Bald") && (HAIR in species_traits) && !HAS_TRAIT(source, TRAIT_NOHAIRLOSS))
+		if(!(source.hair_style == "Bald") && (HAIR_COLOR in species_traits) && !HAS_TRAIT(source, TRAIT_NOHAIRLOSS))
 			to_chat(source, span_danger("Your hair starts to fall out in clumps."))
 			addtimer(CALLBACK(src, PROC_REF(go_bald), source), 5 SECONDS)
 
@@ -2391,6 +2356,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if ( \
 			(preference.relevant_mutant_bodypart in mutant_bodyparts) \
 			|| (preference.relevant_species_trait in species_traits) \
+			|| (preference.relevant_head_flag && check_head_flags(preference.relevant_head_flag)) \
 		)
 			features += preference.db_key
 
@@ -2918,3 +2884,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	to_store += mutantwings
 	//We don't cache mutant hands because it's not constrained enough, too high a potential for failure
 	return to_store
+
+/**
+ * Checks if the species has a head with these head flags, by default.
+ * Admittedly, this is a very weird and seemingly redundant proc, but it
+ * gets used by some preferences (such as hair style) to determine whether
+ * or not they are accessible.
+ **/
+/datum/species/proc/check_head_flags(check_flags = NONE)
+	var/obj/item/bodypart/head/fake_head = bodypart_overrides[BODY_ZONE_HEAD]
+	return (initial(fake_head.head_flags) & check_flags)

@@ -9,6 +9,12 @@
 /datum/preference/choiced/security_department/deserialize(input, datum/preferences/preferences)
 	if (!(input in GLOB.security_depts_prefs))
 		return SEC_DEPT_NONE
+	if (istext(input))
+		switch (input)
+			//This shouldnt have been valid for a long time and wouldnt have done anything, but it could still mess with prefs, so just make sure
+			if ("random")
+				input = SEC_DEPT_NONE
+
 	return ..()
 
 /datum/preference/choiced/security_department/init_possible_values()
@@ -19,3 +25,9 @@
 
 /datum/preference/choiced/security_department/create_default_value()
 	return SEC_DEPT_NONE
+
+/datum/preference/choiced/security_department/is_accessible(datum/preferences/preferences, ignore_page)
+	if (!..(preferences))
+		return FALSE
+
+	return !CONFIG_GET(flag/sec_start_brig)

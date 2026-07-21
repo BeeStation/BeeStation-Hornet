@@ -7,7 +7,7 @@
 /mob/living/simple_animal/bot/firebot
 	name = "\improper Firebot"
 	desc = "A little fire extinguishing bot. He looks rather anxious."
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "firebot0"
 	density = FALSE
 	anchored = FALSE
@@ -43,7 +43,7 @@
 	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	update_icon()
 
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
+	var/datum/job/J = SSjob.get_job(JOB_NAME_STATIONENGINEER)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
 

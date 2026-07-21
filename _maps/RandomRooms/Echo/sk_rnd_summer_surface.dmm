@@ -1254,7 +1254,7 @@
 /obj/structure/fence{
 	dir = 8
 	},
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/open/floor/plating/grass,
 /area/template_noop)
 "wi" = (
@@ -1401,7 +1401,7 @@
 /obj/structure/fence{
 	dir = 8
 	},
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/open/floor/plating/grass,
 /area/template_noop)
 "yl" = (
@@ -1494,11 +1494,7 @@
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "Ae" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 3
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 32;
 	pixel_y = -1
@@ -1688,7 +1684,7 @@
 /obj/structure/fence{
 	dir = 8
 	},
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/grass,
 /area/template_noop)
@@ -2969,7 +2965,7 @@
 /obj/structure/fence{
 	dir = 8
 	},
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/grass,
 /area/template_noop)
@@ -3045,7 +3041,7 @@
 /obj/structure/fence{
 	dir = 8
 	},
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/open/floor/plating/dirt/planetary,
 /area/template_noop)
 "Zt" = (

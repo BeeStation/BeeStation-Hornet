@@ -44,7 +44,6 @@
 	switch(slot)
 		if(ITEM_SLOT_ICLOTHING)
 			w_uniform = I
-			update_suit_sensors()
 			update_worn_undersuit()
 		else
 			to_chat(src, span_danger("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))

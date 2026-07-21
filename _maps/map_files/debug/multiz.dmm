@@ -77,9 +77,6 @@
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "as" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/machinery/airalarm/directional/north{
 	locked = 0;
 	pixel_y = 23
@@ -88,6 +85,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/power/smes/engineering,
 /turf/open/floor/iron,
 /area/station/engineering/gravity_generator)
 "at" = (
@@ -217,7 +215,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/gravity_generator)
 "aX" = (
-/obj/machinery/gravity_generator/main/station,
+/obj/machinery/gravity_generator/main,
 /turf/open/space/basic,
 /area/station/security)
 "aY" = (
@@ -277,7 +275,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/gravity_generator)
 "bi" = (
-/obj/machinery/gravity_generator/main/station,
+/obj/machinery/gravity_generator/main,
 /turf/open/floor/iron{
 	dir = 8
 	},

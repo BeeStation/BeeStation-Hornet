@@ -42,7 +42,7 @@
 	if(cooldown)
 		return
 	cooldown = TRUE
-	for(var/obj/machinery/door/poddoor/M in GLOB.machines)
+	for(var/obj/machinery/door/poddoor/M as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/poddoor))
 		if(M.id == src.id)
 			if(openclose == null || !sync_doors)
 				openclose = M.density
@@ -70,7 +70,7 @@
 	cooldown = TRUE
 	var/doors_need_closing = FALSE
 	var/list/obj/machinery/door/airlock/open_or_close = list()
-	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
+	for(var/obj/machinery/door/airlock/D as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/airlock))
 		if(D.id_tag == src.id)
 			if(specialfunctions & OPEN)
 				open_or_close += D
@@ -89,9 +89,6 @@
 					D.set_electrified(MACHINE_NOT_ELECTRIFIED, usr)
 			if(specialfunctions & SAFE)
 				D.safe = !D.safe
-			if(specialfunctions & EMERGENCY)
-				D.emergency = !D.emergency
-				D.update_icon()
 
 	for(var/D in open_or_close)
 		INVOKE_ASYNC(D, doors_need_closing ? TYPE_PROC_REF(/obj/machinery/door/airlock, close) : TYPE_PROC_REF(/obj/machinery/door/airlock, open))
@@ -107,19 +104,19 @@
 	if(cooldown)
 		return
 	cooldown = TRUE
-	for(var/obj/machinery/door/poddoor/M in GLOB.machines)
+	for(var/obj/machinery/door/poddoor/M as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/poddoor))
 		if (M.id == src.id)
 			INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/machinery/door/poddoor, open))
 
 	sleep(10)
 
-	for(var/obj/machinery/mass_driver/M in GLOB.machines)
+	for(var/obj/machinery/mass_driver/M as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/mass_driver))
 		if(M.id == src.id)
 			M.drive()
 
 	sleep(60)
 
-	for(var/obj/machinery/door/poddoor/M in GLOB.machines)
+	for(var/obj/machinery/door/poddoor/M as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/poddoor))
 		if (M.id == src.id)
 			INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/machinery/door/poddoor, close))
 
@@ -134,11 +131,11 @@
 	if(cooldown)
 		return
 	cooldown = TRUE
-	for(var/obj/machinery/sparker/M in GLOB.machines)
+	for(var/obj/machinery/sparker/M as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/sparker))
 		if (M.id == src.id)
 			INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/machinery/sparker, ignite))
 
-	for(var/obj/machinery/igniter/M in GLOB.machines)
+	for(var/obj/machinery/igniter/M as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/igniter))
 		if(M.id == src.id)
 			M.use_power(50)
 			M.on = !M.on
@@ -154,7 +151,7 @@
 	if(cooldown)
 		return
 	cooldown = TRUE
-	for(var/obj/machinery/flasher/M in GLOB.machines)
+	for(var/obj/machinery/flasher/M as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/flasher))
 		if(M.id == src.id)
 			INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/machinery/flasher, flash))
 
@@ -183,7 +180,7 @@
 	if(cooldown)
 		return
 	cooldown = TRUE
-	for(var/obj/machinery/power/shieldwallgen/machine in GLOB.machines)
+	for(var/obj/machinery/power/shieldwallgen/machine as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/shieldwallgen))
 		if(machine.id == src.id)
 			INVOKE_ASYNC(machine, TYPE_PROC_REF(/obj/machinery/power/shieldwallgen, toggle))
 

@@ -181,10 +181,7 @@
 /obj/effect/turf_decal/trimline/dark/warning{
 	dir = 8
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "rX" = (

@@ -6,7 +6,7 @@
 	id = /obj/item/card/id
 
 /datum/outfit/vr/pre_equip(mob/living/carbon/human/H)
-	H.dna.species.before_equip_job(null, H)
+	H.dna.species.pre_equip_species_outfit(null, H)
 
 /datum/outfit/vr/post_equip(mob/living/carbon/human/H)
 	var/obj/item/card/id/id = H.wear_id

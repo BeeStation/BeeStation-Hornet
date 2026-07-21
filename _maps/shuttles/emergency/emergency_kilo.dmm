@@ -73,7 +73,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "bh" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "bl" = (
@@ -320,11 +320,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "ms" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
@@ -751,10 +747,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "MR" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)

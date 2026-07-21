@@ -442,7 +442,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	return ..()
 
 /obj/machinery/door/window/clockwork/emp_act(severity)
-	if(prob(80/severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	if(prob(80 / severity))
 		open()
 
 /obj/machinery/door/window/clockwork/hasPower()

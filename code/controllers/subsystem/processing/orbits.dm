@@ -1,6 +1,6 @@
 PROCESSING_SUBSYSTEM_DEF(orbits)
 	name = "Orbits"
-	flags = SS_KEEP_TIMING
+	ss_flags = SS_KEEP_TIMING
 	init_stage = INITSTAGE_EARLY
 	priority = FIRE_PRIORITY_ORBITS
 	wait = ORBITAL_UPDATE_RATE
@@ -65,7 +65,8 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	assoc_shuttles |= SSorbits.assoc_shuttles
 	interdicted_shuttles |= SSorbits.interdicted_shuttles
 	research_disks |= SSorbits.research_disks
-	if(!islist(runnable_events)) runnable_events = list()
+	if(!islist(runnable_events))
+		runnable_events = list()
 	runnable_events |= SSorbits.runnable_events
 
 	station_instance = SSorbits.station_instance
@@ -75,7 +76,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	orbital_map_tgui = SSorbits.orbital_map_tgui
 	orbits_setup = SSorbits.orbits_setup
 
-	for(var/datum/tgui/map as() in SSorbits.open_orbital_maps)
+	for(var/datum/tgui/map as anything in SSorbits.open_orbital_maps)
 		map?.close()
 
 	SSorbits.open_orbital_maps.Cut()
@@ -83,7 +84,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	for(var/datum/thing in SSorbits.processing)
 		STOP_PROCESSING(SSorbits, thing)
 		START_PROCESSING(src, thing)
-
 
 /datum/controller/subsystem/processing/orbits/proc/setup_event_list()
 	runnable_events = list()
@@ -116,7 +116,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		if(MC_TICK_CHECK)
 			return
 		//Update UIs
-		for(var/datum/tgui/tgui as() in open_orbital_maps)
+		for(var/datum/tgui/tgui as anything in open_orbital_maps)
 			tgui.send_update()
 	//Check creating objectives / missions.
 	if(next_objective_time < world.time && length(possible_objectives) < 6)
@@ -130,7 +130,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		if(current_objective.check_failed())
 			QDEL_NULL(current_objective)
 	//Process events
-	for(var/datum/ruin_event/ruin_event as() in ruin_events)
+	for(var/datum/ruin_event/ruin_event as anything in ruin_events)
 		if(!ruin_event.update())
 			ruin_events.Remove(ruin_event)
 	//Do processing.
@@ -139,7 +139,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		if(MC_TICK_CHECK)
 			return
 		//Update UIs
-		for(var/datum/tgui/tgui as() in open_orbital_maps)
+		for(var/datum/tgui/tgui as anything in open_orbital_maps)
 			tgui.send_update()
 
 /mob/dead/observer/verb/open_orbit_ui()
@@ -176,9 +176,8 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	return "Objective selected, good luck."
 
 /datum/controller/subsystem/processing/orbits/proc/update_objective_computers()
-	for(var/obj/machinery/computer/objective/computer as() in GLOB.objective_computers)
-		for(var/M in computer.viewing_mobs)
-			computer.update_static_data(M)
+	for(var/obj/machinery/computer/objective/computer as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/objective))
+		computer.update_static_data_for_all_viewers()
 
 /// parameter must accept 'get_virtual_z_level()' values
 /datum/controller/subsystem/processing/orbits/proc/get_orbital_map_name_from_z(my_z)
@@ -211,7 +210,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Fetch the active single instances
 	//Get the objects
 	for(var/zone in showing_map.collision_zone_bodies)
-		for(var/datum/orbital_object/object as() in showing_map.collision_zone_bodies[zone])
+		for(var/datum/orbital_object/object as anything in showing_map.collision_zone_bodies[zone])
 			if(!object)
 				continue
 			//we can't see it, unless we are stealth too

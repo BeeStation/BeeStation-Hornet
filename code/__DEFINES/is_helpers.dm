@@ -2,7 +2,7 @@
 
 #define in_range(source, user) (get_dist(source, user) <= 1 && (get_step(source, 0)?:z) == (get_step(user, 0)?:z))
 
-/// Within given range, but not counting z-levels
+/// Within given range and on the same z level (get dist is WEIRD bro)
 #define IN_GIVEN_RANGE(source, other, given_range) (get_dist(source, other) <= given_range && (get_step(source, 0)?:z) == (get_step(other, 0)?:z))
 
 #define isatom(A) (isloc(A))
@@ -16,9 +16,17 @@
 GLOBAL_VAR_INIT(magic_appearance_detecting_image, new /image) // appearances are awful to detect safely, but this seems to be the best way ~ninjanomnom
 #define isappearance(thing) (!isimage(thing) && !ispath(thing) && istype(GLOB.magic_appearance_detecting_image, thing))
 
+/// If an icon is a file (something.dmi)
+#define is_icondmi(thing) (isicon(thing) && isfile(thing))
+/// If an icon is an instance (/icon[0xINSTANCE])
+#define is_icondatum(thing) (istype(thing, /icon))
+// Note: isicon('something.dmi') returns TRUE. isicon(/icon[0xINSTANCE]) returns TRUE. This is why these helpers exist.
+
 // The filters list has the same ref type id as a filter, but isnt one and also isnt a list, so we have to check if the thing has Cut() instead
 GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 #define isfilter(thing) (!islist(thing) && hascall(thing, "Cut") && TYPEID(thing) == GLOB.refid_filter)
+
+#define isalist(A) (istype(A, /alist))
 
 GLOBAL_DATUM_INIT(regex_rgb_text, /regex, regex(@"^#?(([0-9a-fA-F]{8})|([0-9a-fA-F]{6})|([0-9a-fA-F]{3}))$"))
 #define iscolortext(thing) (istext(thing) && GLOB.regex_rgb_text.Find(thing))
@@ -231,7 +239,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define ismecha(A) (istype(A, /obj/vehicle/sealed/mecha))
 
-#define ismopable(A) (A && (A.layer <= FLOOR_CLEAN_LAYER)) //If something can be cleaned by floor-cleaning devices such as mops or clean bots
+#define ismopable(A) (A && (A.layer <= CLEANABLE_OBJECT_LAYER))
 
 #define isorgan(A) (istype(A, /obj/item/organ))
 
@@ -294,15 +302,7 @@ GLOBAL_LIST_INIT(book_types, typecacheof(list(
 	/obj/item/storage/book,
 )))
 
-/// isnum() returns TRUE for NaN. Also, NaN != NaN. Checkmate, BYOND.
-#define isnan(x) ( (x) != (x) )
-
-#define isinf(x) (isnum((x)) && (((x) == SYSTEM_TYPE_INFINITY) || ((x) == -SYSTEM_TYPE_INFINITY)))
-
 #define isProbablyWallMounted(O) (O.pixel_x > 20 || O.pixel_x < -20 || O.pixel_y > 20 || O.pixel_y < -20)
-
-/// NaN isn't a number, damn it. Infinity is a problem too.
-#define isnum_safe(x) ( isnum((x)) && !isnan((x)) && !isinf((x)) )
 
 #define iscash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash) || istype(A, /obj/item/holochip))
 
@@ -313,8 +313,16 @@ GLOBAL_LIST_INIT(book_types, typecacheof(list(
 #define is_captain_job(job_type) (istype(job_type, /datum/job/captain))
 #define is_chaplain_job(job_type) (istype(job_type, /datum/job/chaplain))
 #define is_clown_job(job_type) (istype(job_type, /datum/job/clown))
+#define is_curator_job(job_type) (istype(job_type, /datum/job/curator))
 #define is_detective_job(job_type) (istype(job_type, /datum/job/detective))
+#define is_explorer_job(job_type) (istype(job_type, /datum/job/exploration_crew))
+#define is_mime_job(job_type) (istype(job_type, /datum/job/mime))
+#define is_head_of_personnel_job(job_type) (istype(job_type, /datum/job/head_of_personnel))
+#define is_lawyer_job(job_type) (istype(job_type, /datum/job/lawyer))
 #define is_scientist_job(job_type) (istype(job_type, /datum/job/scientist))
 #define is_security_officer_job(job_type) (istype(job_type, /datum/job/security_officer))
+#define is_shaft_miner_job(job_type) (istype(job_type, /datum/job/shaft_miner))
 #define is_research_director_job(job_type) (istype(job_type, /datum/job/research_director))
-#define is_unassigned_job(job_type) (istype(job_type, /datum/job/unassigned))
+#define is_unassigned_job(job_type) (isnull(job_type) || istype(job_type, /datum/job/unassigned))
+
+#define is_multi_tile_object(atom) (atom.bound_width > ICON_SIZE_X || atom.bound_height > ICON_SIZE_Y)

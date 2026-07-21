@@ -1,6 +1,6 @@
 //From NSV13
 //Credit to oraclestation for the idea! This just a recode...
-// Recode CanAllowThrough() at some point, it won't allow ridden vehicles
+// Recode CanAllowThrough() at some point, it won't allow ridden vehicles //no
 
 /obj/machinery/turnstile
 	name = "turnstile"
@@ -161,7 +161,7 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /obj/machinery/turnstile/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -285,9 +285,13 @@
 		return TRUE //Allow certain things declared with pass_flags_self through wihout side effects
 	if(machine_stat & BROKEN)
 		return FALSE
-	// Let everything through in 1 direction
+
+	// Nerds get to go one way
 	if(mover.dir == dir)
-		return TRUE
+		// But only if they're actually facing the turnstile
+		if(is_source_facing_target(mover, src))
+			return TRUE
+
 	// Call the default allowed functionality, handles:
 	// - Mobs with security access
 	// - Mobs with security access that are buckled to a vehicle
@@ -416,7 +420,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	crime_list = list()
 	//Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
 	message_admins(span_boldannounce("Failed to read the space_law config file! Defaulting to hardcoded datums.")) //Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
-	for (var/datum/crime/crime_path as() in subtypesof(/datum/crime))
+	for (var/datum/crime/crime_path as anything in subtypesof(/datum/crime))
 		// Ignore this crime, it is abstract
 		if (isnull(initial(crime_path.name)))
 			continue

@@ -20,7 +20,7 @@
 /mob/living/simple_animal/bot/atmosbot
 	name = "\improper Atmosbot"
 	desc = "A little robot that just seems happy to keep you alive!"
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "atmosbot0"
 	density = FALSE
 	anchored = FALSE
@@ -75,7 +75,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 /mob/living/simple_animal/bot/atmosbot/Initialize(mapload, new_toolbox_color)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
+	var/datum/job/J = SSjob.get_job(JOB_NAME_STATIONENGINEER)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
 

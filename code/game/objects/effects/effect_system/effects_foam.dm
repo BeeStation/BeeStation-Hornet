@@ -143,7 +143,7 @@
 	if(metal)
 		var/turf/T = get_turf(src)
 		if(isspaceturf(T)) //Block up any exposed space
-			T.PlaceOnTop(/turf/open/floor/plating/foam, flags = CHANGETURF_INHERIT_AIR)
+			T.place_on_top(/turf/open/floor/plating/foam, flags = CHANGETURF_INHERIT_AIR)
 		for(var/direction in GLOB.cardinals)
 			var/turf/cardinal_turf = get_step(T, direction)
 			if(get_area(cardinal_turf) != get_area(T)) //We're at an area boundary, so let's block off this turf!
@@ -198,6 +198,7 @@
 		return FALSE
 
 	var/datum/can_pass_info/info = new(no_id = TRUE)
+	info.pass_flags = PASSTABLE | PASSGRILLE | PASSMACHINE | PASSSTRUCTURE
 	for(var/iter_dir in GLOB.cardinals)
 		var/turf/spread_turf = get_step(src, iter_dir)
 		if(spread_turf?.density || spread_turf.LinkBlockedWithAccess(spread_turf, info))

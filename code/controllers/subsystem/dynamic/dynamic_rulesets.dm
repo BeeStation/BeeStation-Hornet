@@ -23,7 +23,7 @@
 	/// The antag datum assigned to a candidate's mind on execution
 	var/datum/antagonist/antag_datum
 	/// If the config flag `protect_roles_from_antagonist` is set, these roles are excluded
-	var/list/protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_PRISONER)
+	var/list/protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	/// The roles that can never have this ruleset applied to them regardless of the config
 	var/list/restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	/// A list of rulesets that this ruleset is not compatible with. (A blood and clock cult can't both run)
@@ -164,7 +164,11 @@
  * If we have the SHOULD_USE_ANTAG_REP flag, take antag_rep into account.
  */
 /datum/dynamic_ruleset/proc/select_player()
-	var/mob/selected_player = CHECK_BITFIELD(ruleset_flags, SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
+	var/mob/selected_player
+	if(ruleset_flags & SHOULD_USE_ANTAG_REP)
+		selected_player = SSdynamic.antag_pick(candidates, role_preference)
+	else
+		selected_player = pick(candidates)
 	candidates -= selected_player
 	return selected_player
 

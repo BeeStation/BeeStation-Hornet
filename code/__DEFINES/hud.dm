@@ -107,7 +107,7 @@
 #define ui_borg_store "CENTER+2:16,SOUTH:5"
 #define ui_borg_camera "CENTER+3:21,SOUTH:5"
 #define ui_borg_alerts "CENTER+4:21,SOUTH:5"
-#define ui_borg_language_menu "CENTER+4:19,SOUTH+1:6"
+#define ui_borg_language_menu "CENTER+5:21,SOUTH+1:6"
 #define ui_borg_navigate_menu "CENTER+4:19,SOUTH+1:6"
 
 //AI

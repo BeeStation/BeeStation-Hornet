@@ -76,7 +76,7 @@
 		message = GLOB.syndicate_code_phrase_regex.Replace(message, span_blue("$1"))
 		message = GLOB.syndicate_code_response_regex.Replace(message, span_red("$1"))
 	// Assemble the message prefix
-	var/message_prefix = span_holoparasiteitalicsrobot("\"[COLOR_TEXT(owner.accent_color, snare.name)]\" [speaker.GetVoice()]")
+	var/message_prefix = span_holoparasiteitalicsrobot("\"[COLOR_TEXT(owner.accent_color, snare.name)]\" [speaker.get_voice()]")
 	// Get the say message quote thingy
 	var/message_part
 	if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
@@ -187,7 +187,7 @@
 
 /datum/holoparasite_ability/lesser/snare/proc/get_snare_by_name(name_to_find)
 	name_to_find = trim(LOWER_TEXT(name_to_find), MAX_NAME_LEN)
-	for(var/obj/effect/snare/snare as() in snares)
+	for(var/obj/effect/snare/snare as anything in snares)
 		if(LOWER_TEXT(snare.name) == name_to_find)
 			return snare
 

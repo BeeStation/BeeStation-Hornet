@@ -13,7 +13,7 @@
 		//If a specific bodypart is targetted, check how that bodypart is protected and return the value.
 
 	//If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
-	for(var/obj/item/bodypart/BP as() in bodyparts)
+	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		armorval += checkarmor(BP, type, penetration)
 		organnum++
 	return (armorval/max(organnum, 1))
@@ -397,7 +397,7 @@
 			if(EXPLODE_DEVASTATE)
 				max_limb_loss = 4
 				probability = 50
-		for(var/obj/item/bodypart/BP as() in bodyparts)
+		for(var/obj/item/bodypart/BP as anything in bodyparts)
 			if(prob(probability) && !prob(getarmor(BP, BOMB)) && BP.body_zone != BODY_ZONE_HEAD && BP.body_zone != BODY_ZONE_CHEST)
 				BP.brute_dam = BP.max_damage
 				BP.dismember()
@@ -614,12 +614,12 @@
 	if (client)
 		client.give_award(/datum/award/achievement/misc/singularity_death, client.mob)
 
-	if(mind)
-		if((mind.assigned_role == JOB_NAME_STATIONENGINEER) || (mind.assigned_role == JOB_NAME_CHIEFENGINEER) )
+	switch(mind?.assigned_role.type)
+		if(/datum/job/chief_engineer, /datum/job/station_engineer)
 			. = 100
-		if(mind.assigned_role == JOB_NAME_CLOWN)
+		if(/datum/job/clown)
 			. = rand(-1000, 1000)
-	..()
+	..() //Called afterwards because getting the mind after getting gibbed is sketchy
 
 /mob/living/carbon/human/help_shake_act(mob/living/carbon/M)
 	if(!istype(M))

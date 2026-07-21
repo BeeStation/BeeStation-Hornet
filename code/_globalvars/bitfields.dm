@@ -16,6 +16,29 @@ GLOBAL_LIST_INIT(bitfields, generate_bitfields())
 		bitfields[bitfield.variable] = bitfield.flags
 	return bitfields
 
+/// Returns an associative list of bitflag name -> number for all valid bitflags in the passed in field
+/proc/get_valid_bitflags(var_name)
+	return GLOB.bitfields[var_name] || list()
+
+/proc/get_random_bitflag(var_name)
+	var/list/flags = get_valid_bitflags(var_name)
+	if(!length(flags))
+		return
+	var/name = pick(flags)
+	return flags[name]
+
+/// Returns null if no such field exists, a list of all matching flags by name otherwise
+/proc/get_matching_bitflags(var_name, value)
+	var/list/valid_bitflags = get_valid_bitflags(var_name)
+	if(!length(valid_bitflags))
+		return null
+
+	var/list/flags = list()
+	for (var/bit_name in valid_bitflags)
+		if (value & valid_bitflags[bit_name])
+			flags += bit_name
+	return flags
+
 DEFINE_BITFIELD(appearance_flags, list(
 	"LONG_GLIDE" = LONG_GLIDE,
 	"RESET_COLOR" = RESET_COLOR,
@@ -41,6 +64,7 @@ DEFINE_BITFIELD(area_flags, list(
 	"UNIQUE_AREA" = UNIQUE_AREA,
 	"BLOCK_SUICIDE" = BLOCK_SUICIDE,
 	"XENOBIOLOGY_COMPATIBLE" = XENOBIOLOGY_COMPATIBLE,
+	"XENOBIOLOGY_CONSOLE_DISALLOWED" = XENOBIOLOGY_CONSOLE_DISALLOWED,
 	"HIDDEN_STASH_LOCATION" = HIDDEN_STASH_LOCATION,
 ))
 
@@ -112,7 +136,6 @@ DEFINE_BITFIELD(item_flags, list(
 	"NOBLUDGEON" = NOBLUDGEON,
 	"ABSTRACT" = ABSTRACT,
 	"IN_STORAGE" = IN_STORAGE,
-	"ILLEGAL" = ILLEGAL,
 	"NO_PIXEL_RANDOM_DROP" = NO_PIXEL_RANDOM_DROP,
 	"WAS_THROWN" = WAS_THROWN,
 	"ISWEAPON" = ISWEAPON,
@@ -168,6 +191,7 @@ DEFINE_BITFIELD(interaction_flags_atom, list(
 	"INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND" = INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND,
 	"INTERACT_ATOM_NO_FINGERPRINT_INTERACT" = INTERACT_ATOM_NO_FINGERPRINT_INTERACT,
 	"INTERACT_ATOM_ALLOW_USER_LOCATION" = INTERACT_ATOM_ALLOW_USER_LOCATION,
+	"INTERACT_ATOM_IGNORE_MOBILITY" = INTERACT_ATOM_IGNORE_MOBILITY,
 ))
 
 DEFINE_BITFIELD(interaction_flags_machine, list(
@@ -223,6 +247,16 @@ DEFINE_BITFIELD(resistance_flags, list(
 	"FREEZE_PROOF" = FREEZE_PROOF
 ))
 
+DEFINE_BITFIELD(ss_flags, list(
+	"SS_NO_INIT" = SS_NO_INIT,
+	"SS_NO_FIRE" = SS_NO_FIRE,
+	"SS_BACKGROUND" = SS_BACKGROUND,
+	"SS_TICKER" = SS_TICKER,
+	"SS_KEEP_TIMING" = SS_KEEP_TIMING,
+	"SS_POST_FIRE_TIMING" = SS_POST_FIRE_TIMING,
+	"SS_OK_TO_FAIL_INIT" = SS_OK_TO_FAIL_INIT,
+))
+
 DEFINE_BITFIELD(flags_1, list(
 	"ADMIN_SPAWNED_1" = ADMIN_SPAWNED_1,
 	"CAN_BE_DIRTY_1" = CAN_BE_DIRTY_1,
@@ -266,12 +300,13 @@ DEFINE_BITFIELD(clothing_flags, list(
 	"CASTING_CLOTHES" = CASTING_CLOTHES,
 ))
 
-DEFINE_BITFIELD(tesla_flags, list(
+DEFINE_BITFIELD(zap_flags, list(
+	"ZAP_ALLOW_DUPLICATES" = ZAP_ALLOW_DUPLICATES,
+	"ZAP_MACHINE_EXPLOSIVE" = ZAP_MACHINE_EXPLOSIVE,
 	"ZAP_MOB_DAMAGE" = ZAP_MOB_DAMAGE,
-	"ZAP_OBJ_DAMAGE" = ZAP_OBJ_DAMAGE,
 	"ZAP_MOB_STUN" = ZAP_MOB_STUN,
-	"ZAP_ALLOW_DUPLICATES" = ZAP_ALLOW_DUPLICATES,
-	"ZAP_ALLOW_DUPLICATES" = ZAP_ALLOW_DUPLICATES,
+	"ZAP_OBJ_DAMAGE" = ZAP_OBJ_DAMAGE,
+	"ZAP_GENERATES_POWER" = ZAP_GENERATES_POWER,
 ))
 
 DEFINE_BITFIELD(car_traits, list(
@@ -329,23 +364,6 @@ DEFINE_BITFIELD(trauma_flags, list(
 	"NOT_RANDOM" = TRAUMA_NOT_RANDOM,
 ))
 
-DEFINE_BITFIELD(internal_damage, list(
-	"MECHA_INT_FIRE" = MECHA_INT_FIRE,
-	"MECHA_INT_TEMP_CONTROL" = MECHA_INT_TEMP_CONTROL,
-	"MECHA_CABIN_AIR_BREACH" = MECHA_CABIN_AIR_BREACH,
-	"MECHA_INT_CONTROL_LOST" = MECHA_INT_CONTROL_LOST,
-	"MECHA_INT_SHORT_CIRCUIT" = MECHA_INT_SHORT_CIRCUIT,
-))
-
-DEFINE_BITFIELD(mecha_flags, list(
-	"ID_LOCK_ON" = ID_LOCK_ON,
-	"CAN_STRAFE" = CAN_STRAFE,
-	"LIGHTS_ON" = LIGHTS_ON,
-	"SILICON_PILOT" = SILICON_PILOT,
-	"IS_ENCLOSED" = IS_ENCLOSED,
-	"HAS_LIGHTS" = HAS_LIGHTS,
-))
-
 DEFINE_BITFIELD(mob_biotypes, list(
 	"MOB_ORGANIC" = MOB_ORGANIC,
 	"MOB_INORGANIC" = MOB_INORGANIC,
@@ -382,4 +400,11 @@ DEFINE_BITFIELD(machine_stat, list(
 	"EMPED" = EMPED,
 	"OVERHEATED" = OVERHEATED,
 	"TURNED_OFF" = TURNED_OFF,
+))
+
+DEFINE_BITFIELD(status_flags, list(
+	"CAN STUN" = CANSTUN,
+	"CAN KNOCKDOWN" = CANKNOCKDOWN,
+	"CAN UNCONSCIOUS" = CANUNCONSCIOUS,
+	"CAN PUSH" = CANPUSH,
 ))

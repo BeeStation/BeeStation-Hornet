@@ -125,10 +125,10 @@
 	if(HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		alpha = 255
 
-/obj/item/storage/box/mime/Moved(oldLoc, dir)
-	if (iscarbon(oldLoc))
+/obj/item/storage/box/mime/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	if (iscarbon(old_loc))
 		alpha = 0
-	..()
+	return ..()
 
 //Disk boxes
 
@@ -1171,7 +1171,7 @@
 	new /obj/item/circuitboard/machine/protolathe(src)
 	new /obj/item/circuitboard/machine/destructive_analyzer(src)
 	new /obj/item/circuitboard/machine/circuit_imprinter(src)
-	new /obj/item/circuitboard/computer/rdconsole(src)
+	new /obj/item/circuitboard/computer/rdconsole/unlocked(src)
 
 /obj/item/storage/box/silver_sulf
 	name = "box of silver sulfadiazine patches"
@@ -1254,11 +1254,12 @@
 	atom_storage.allow_big_nesting = TRUE
 
 /obj/item/storage/box/material/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/stack/sheet/iron/fifty = 1,
-		/obj/item/stack/sheet/glass/fifty = 1,
+	var/static/list/items_inside
+	items_inside ||= list(
+		/obj/item/stack/sheet/iron = 50,
+		/obj/item/stack/sheet/glass = 50,
 		/obj/item/stack/sheet/rglass = 50,
-		/obj/item/stack/sheet/mineral/copper/fifty = 1,
+		/obj/item/stack/sheet/mineral/copper = 50,
 		/obj/item/stack/sheet/plasmaglass = 50,
 		/obj/item/stack/sheet/plasmarglass = 50,
 		/obj/item/stack/sheet/titaniumglass = 50,
@@ -1273,19 +1274,20 @@
 		/obj/item/stack/sheet/mineral/diamond = 50,
 		/obj/item/stack/ore/bluespace_crystal/refined = 50,
 		/obj/item/stack/sheet/mineral/bananium = 50,
-		/obj/item/stack/sheet/plastic/fifty = 1,
-		/obj/item/stack/sheet/runed_metal/fifty = 1,
-		/obj/item/stack/sheet/brass/fifty = 1,
+		/obj/item/stack/sheet/plastic = 50,
+		/obj/item/stack/sheet/runed_metal = 50,
+		/obj/item/stack/sheet/brass = 50,
 		/obj/item/stack/sheet/mineral/abductor = 50,
 		/obj/item/stack/sheet/mineral/adamantine = 50,
 		/obj/item/stack/sheet/wood = 50,
 		/obj/item/stack/sheet/cotton/cloth = 50,
 		/obj/item/stack/sheet/leather = 50,
 		/obj/item/stack/sheet/bone = 12,
-		/obj/item/stack/sheet/cardboard/fifty = 1,
+		/obj/item/stack/sheet/cardboard = 50,
 		/obj/item/stack/sheet/mineral/sandstone = 50,
 		/obj/item/stack/sheet/snow = 50,
 	)
+
 	for(var/obj/item/stack/stack_type as anything in items_inside)
 		var/amt = items_inside[stack_type]
 		new stack_type(src, amt, FALSE)
@@ -1302,16 +1304,6 @@
 	for(var/i in 1 to 4)
 		new /obj/item/clothing/accessory/armband/deputy(src)
 		new /obj/item/card/id/pass/deputy(src)
-
-/obj/item/storage/box/vouchers
-	name = "box of security vouchers"
-	desc = "To be issued to new recruits only."
-	icon_state = "secbox"
-	illustration = "writing_syndie"
-
-/obj/item/storage/box/vouchers/PopulateContents()
-	for(var/i in 1 to 4)
-		new /obj/item/mining_voucher/security(src)
 
 /obj/item/storage/box/radiokey
 	name = "box of generic radio keys"

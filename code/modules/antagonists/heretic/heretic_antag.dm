@@ -17,6 +17,7 @@
 	roundend_category = "Heretics"
 	antagpanel_category = "Heretic"
 	ui_name = "AntagInfoHeretic"
+	antag_hud_name = "heretic"
 	antag_moodlet = /datum/mood_event/heretics
 	banning_key = ROLE_HERETIC
 	required_living_playtime = 4
@@ -213,7 +214,6 @@
 	RegisterSignals(our_mob, list(COMSIG_MOB_PRE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED), PROC_REF(on_spell_cast))
 	RegisterSignal(our_mob, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(on_item_afterattack))
 	RegisterSignal(our_mob, COMSIG_MOB_LOGIN, PROC_REF(fix_influence_network))
-	update_heretic_icons_added()
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/our_mob = mob_override || owner.current
@@ -226,17 +226,6 @@
 		COMSIG_MOB_ITEM_AFTERATTACK,
 		COMSIG_MOB_LOGIN
 	))
-	update_heretic_icons_removed()
-
-/datum/antagonist/heretic/proc/update_heretic_icons_added()
-	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_HERETIC]
-	hud.join_hud(owner.current)
-	set_antag_hud(owner.current, "heretic")
-
-/datum/antagonist/heretic/proc/update_heretic_icons_removed()
-	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_HERETIC]
-	hud.leave_hud(owner.current)
-	set_antag_hud(owner.current, null)
 
 /datum/antagonist/heretic/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
@@ -363,11 +352,8 @@
 /**
  * Create our objectives for our heretic.
  */
-/datum/antagonist/heretic/proc/forge_objectives()
-	var/datum/objective/ascend/ascend_objective = new()
-	ascend_objective.owner = owner
-	objectives += ascend_objective
-	log_objective(owner, ascend_objective.explanation_text)
+/datum/antagonist/heretic/forge_objectives()
+	add_objective(new /datum/objective/ascend())
 
 /**
  * Add [target] as a sacrifice target for the heretic.
@@ -406,7 +392,7 @@
 			continue
 		if(possible_target == owner)
 			continue
-		if(!SSjob.name_occupations[possible_target.assigned_role])
+		if(!SSjob.name_occupations[possible_target.assigned_role.title])
 			continue
 		var/turf/player_loc = get_turf(player)
 		if(!is_station_level(player_loc.z))
@@ -518,7 +504,7 @@
 		return
 	if(tgui_alert(admin, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
 		to_chat(owner.current, span_danger("The Mansus has modified your targets. Go find them!"))
-		to_chat(owner.current, span_danger("[new_target.real_name], the [new_target.mind?.assigned_role || "human"]."))
+		to_chat(owner.current, span_danger("[new_target.real_name], the [new_target.mind?.assigned_role.title || "human"]."))
 	add_sacrifice_target(new_target)
 
 /*
@@ -578,7 +564,7 @@
 			var/datum/mind/actual_target = ref.resolve()
 			if(istype(actual_target))
 				continue
-			. += " - <b>[actual_target.name]</b>, the [actual_target.assigned_role || "Unknown"].<br>"
+			. += " - <b>[actual_target.name]</b>, the [actual_target.assigned_role.title || "Unknown"].<br>"
 	else
 		. += "<i>None!</i><br>"
 

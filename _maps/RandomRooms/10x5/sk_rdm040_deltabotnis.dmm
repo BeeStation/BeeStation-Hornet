@@ -75,10 +75,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "l" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/turf_decal/bot,
 /obj/structure/sign/departments/minsky/supply/hydroponics{
 	pixel_x = 32
@@ -86,12 +83,8 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "m" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
-/obj/structure/sign/warning/nosmoking{
+/obj/structure/sink/directional/east,
+/obj/structure/sign/warning/no_smoking{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/bot,

@@ -67,7 +67,7 @@
 	desc = "A very dangerous disease supposedly engineered by the Animal Rights Coalition. Causes mass feline hysteria."
 	mutable = FALSE
 	symptoms = list(new/datum/symptom/toxoplasmosis, new/datum/symptom/viralincubate, new/datum/symptom/sneeze, new/datum/symptom/revitiligo, new/datum/symptom/inorganic_adaptation, new/datum/symptom/organ_restoration)
-	for(var/datum/symptom/S as() in (symptoms))
+	for(var/datum/symptom/S as anything in (symptoms))
 		if(istype(S, /datum/symptom/toxoplasmosis))
 			continue
 		if(istype(S, /datum/symptom/organ_restoration))
@@ -158,5 +158,12 @@
 		dormant_disease.spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
 		dormant_disease.spread_text = "None"
 		dormant_disease.visibility_flags |= HIDDEN_SCANNER
+
+		#ifdef UNIT_TESTS
+		//We are running unit tests and we need to override the disease contraction code lest our /consistent human gets no-op'd
+		if(istype(src, /mob/living/carbon/human/consistent))
+			dormant_disease.viable_mobtypes += /mob/living/carbon/human/consistent
+		#endif
+
 		ForceContractDisease(dormant_disease, FALSE, TRUE)
 		return TRUE
