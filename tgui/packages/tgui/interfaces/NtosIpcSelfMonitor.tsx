@@ -26,7 +26,6 @@ type Data = {
 }
 
 export const NtosIpcSelfMonitor = (_) => {
-  const { data } = useBackend();
   return (
     <NtosWindow width={800} height={500}>
       <NtosWindow.Content>

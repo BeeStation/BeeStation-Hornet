@@ -2,7 +2,7 @@
 	filename = "ipc_self_monitor"
 	filedesc = "IPC Self-Monitoring"
 	extended_desc = "A built-in app for IPC self-management and diagnostics."
-	ui_header = "borg_self_monitor.gif" //DEBUG -- new icon before PR
+	ui_header = "borg_self_monitor.gif"
 	program_icon_state = "command"
 	requires_ntnet = FALSE
 	available_on_ntnet = FALSE
