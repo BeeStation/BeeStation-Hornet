@@ -283,7 +283,8 @@ SUBSYSTEM_DEF(id_access)
  * * job - The job name to get CentCom access for.
  */
 /datum/controller/subsystem/id_access/proc/get_centcom_access_list(job)
-	return accesses_by_centcom_job[job]?.Copy()
+	var/list/centcom_access = accesses_by_centcom_job[job]
+	return centcom_access?.Copy()
 
 /**
  * Returns the list of all accesses associated with any given access flag.
