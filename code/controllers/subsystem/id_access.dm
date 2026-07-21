@@ -249,6 +249,17 @@ SUBSYSTEM_DEF(id_access)
 	return desc_by_access["[access]"]
 
 /**
+ * Returns a list of descriptions for a list of accesses, falling back to the raw access for any without one.
+ * Arguments:
+ * * accesses - A list of access levels.
+ */
+/datum/controller/subsystem/id_access/proc/get_access_descs(list/accesses)
+	var/list/descriptions = list()
+	for(var/access in accesses)
+		descriptions += get_access_desc(access) || "[access]"
+	return descriptions
+
+/**
  * Builds and returns a list of accesses from a list of regions.
  *
  * Arguments:
