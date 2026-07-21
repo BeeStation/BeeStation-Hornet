@@ -6,7 +6,7 @@
 	var/last_blood_state = BLOOD_STATE_NOT_BLOODY
 
 	/// How much of each grubby type we have on our feet
-	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0,BLOOD_STATE_XENO = 0, BLOOD_STATE_OIL = 0, BLOOD_STATE_NOT_BLOODY = 0)
+	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_OIL = 0, BLOOD_STATE_NOT_BLOODY = 0, "LE" = 0)
 
 	/// The ITEM_SLOT_* slot the item is equipped on, if it is.
 	var/equipped_slot
@@ -213,7 +213,7 @@
 	if(!(clean_types & CLEAN_TYPE_BLOOD) || last_blood_state == BLOOD_STATE_NOT_BLOODY)
 		return
 
-	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_OIL = 0, BLOOD_STATE_NOT_BLOODY = 0)
+	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_OIL = 0, BLOOD_STATE_NOT_BLOODY = 0, "LE" = 0)
 	last_blood_state = BLOOD_STATE_NOT_BLOODY
 	update_icon()
 	return TRUE
@@ -245,7 +245,7 @@
 	if(!ishuman(wielder))
 		return
 	if(GET_ATOM_BLOOD_DNA_LENGTH(wielder))
-		bloody_feet.color = bloody_feet.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(wielder))
+		bloody_feet.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(wielder))
 		. += bloody_feet
 	if(bloody_shoes[BLOOD_STATE_HUMAN] > 0 && !is_obscured())
 		wielder.remove_overlay(SHOES_LAYER)
