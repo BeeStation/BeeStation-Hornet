@@ -730,7 +730,7 @@ do { \
 	hud_state = JOB_HUD_CENTCOM
 
 /obj/item/card/id/ert/Initialize(mapload)
-	access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))+get_ert_access("commander")-ACCESS_CHANGE_IDS
+	access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))+SSid_access.get_centcom_access_list(JOB_ERT_COMMANDER)-ACCESS_CHANGE_IDS
 	. = ..()
 
 /obj/item/card/id/ert/Security
@@ -739,7 +739,7 @@ do { \
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Security/Initialize(mapload)
-	access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))+get_ert_access("sec")-ACCESS_CHANGE_IDS
+	access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))+SSid_access.get_centcom_access_list(JOB_ERT_OFFICER)-ACCESS_CHANGE_IDS
 	. = ..()
 
 /obj/item/card/id/ert/Engineer
@@ -748,7 +748,7 @@ do { \
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Engineer/Initialize(mapload)
-	access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))+get_ert_access("eng")-ACCESS_CHANGE_IDS
+	access = SSid_access.get_region_access_list(list(REGION_ALL_STATION))+SSid_access.get_centcom_access_list(JOB_ERT_ENGINEER)-ACCESS_CHANGE_IDS
 	. = ..()
 
 /obj/item/card/id/ert/Medical
@@ -757,7 +757,7 @@ do { \
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Medical/Initialize(mapload)
-	access = SSid_access.get_region_access_list(list(REGION_ALL_STATION)) +get_ert_access("med")-ACCESS_CHANGE_IDS
+	access = SSid_access.get_region_access_list(list(REGION_ALL_STATION)) +SSid_access.get_centcom_access_list(JOB_ERT_MEDICAL_DOCTOR)-ACCESS_CHANGE_IDS
 	. = ..()
 
 /obj/item/card/id/ert/Janitor

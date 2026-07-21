@@ -13,6 +13,8 @@ SUBSYSTEM_DEF(id_access)
 	var/list/access_flag_string_by_flag = list()
 	/// Dictionary of accesses based on station region. Keys are region strings. Values are lists of accesses.
 	var/list/accesses_by_region = list()
+	/// Dictionary of CentCom/ERT job accesses. Keys are job names. Values are lists of accesses.
+	var/list/accesses_by_centcom_job = list()
 	/// Specially formatted list for sending access levels to tgui interfaces.
 	var/list/all_region_access_tgui = list()
 	/// Dictionary of access names. Keys are access levels. Values are their associated names.
@@ -26,6 +28,7 @@ SUBSYSTEM_DEF(id_access)
 /datum/controller/subsystem/id_access/Initialize(timeofday)
 	setup_access_flags()
 	setup_region_lists()
+	setup_centcom_access()
 	setup_access_descriptions()
 	setup_tgui_lists()
 
@@ -90,6 +93,28 @@ SUBSYSTEM_DEF(id_access)
 	accesses_by_region[REGION_CENTCOM] = REGION_ACCESS_CENTCOM
 
 	station_regions = REGION_AREA_STATION
+
+/// Populates the CentCom/ERT job access table. Ugly as sin, but better than it was before
+/datum/controller/subsystem/id_access/proc/setup_centcom_access()
+	accesses_by_centcom_job[JOB_CENTCOM_VIP] = list(ACCESS_CENT_GENERAL)
+	accesses_by_centcom_job[JOB_CENTCOM_CUSTODIAN] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
+	accesses_by_centcom_job[JOB_CENTCOM_THUNDERDOME_OVERSEER] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER)
+	accesses_by_centcom_job[JOB_CENTCOM_OFFICIAL] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job["CentCom Intern"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job["CentCom Head Intern"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job[JOB_CENTCOM_MEDICAL_DOCTOR] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL)
+	accesses_by_centcom_job[JOB_ERT_DEATHSQUAD] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
+	accesses_by_centcom_job[JOB_CENTCOM_RESEARCH_OFFICER] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_TELEPORTER, ACCESS_CENT_STORAGE)
+	accesses_by_centcom_job["Special Ops Officer"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
+	accesses_by_centcom_job[JOB_CENTCOM_ADMIRAL] = CENTCOM_ACCESS
+	accesses_by_centcom_job[JOB_CENTCOM_COMMANDER] = CENTCOM_ACCESS
+	accesses_by_centcom_job[JOB_ERT_COMMANDER] = CENTCOM_ACCESS
+	accesses_by_centcom_job[JOB_ERT_OFFICER] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job[JOB_ERT_ENGINEER] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
+	accesses_by_centcom_job[JOB_ERT_MEDICAL_DOCTOR] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job[JOB_CENTCOM_BARTENDER] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_BAR)
+	accesses_by_centcom_job["Comedy Response Officer"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job["HONK Squad Trooper"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
 
 /// Creates various data structures that primarily get fed to tgui interfaces, although these lists are used in other places.
 /datum/controller/subsystem/id_access/proc/setup_tgui_lists()
@@ -239,6 +264,15 @@ SUBSYSTEM_DEF(id_access)
 		built_region_list |= accesses_by_region[region]
 
 	return built_region_list
+
+/**
+ * Returns the CentCom access levels allotted to a given CentCom/ERT job.
+ *
+ * Arguments:
+ * * job - The job name to get CentCom access for.
+ */
+/datum/controller/subsystem/id_access/proc/get_centcom_access_list(job)
+	return accesses_by_centcom_job[job]?.Copy()
 
 /**
  * Returns the list of all accesses associated with any given access flag.
