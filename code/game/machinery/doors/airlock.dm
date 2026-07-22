@@ -68,7 +68,7 @@
 	var/list/obj/machinery/door/airlock/close_others = list()
 	var/obj/item/electronics/airlock/electronics
 	COOLDOWN_DECLARE(shockCooldown) //Prevents multiple shocks from happening
-	var/obj/item/grenade/charge //If applied, will explode the next time the door opens
+	var/obj/item/grenade/plastic/charge
 	var/obj/item/note //Any papers pinned to the airlock
 	var/detonated = FALSE
 	var/abandoned = FALSE
@@ -314,6 +314,9 @@
 		update_appearance()
 
 /obj/machinery/door/airlock/bumpopen(mob/living/user)
+	if(detonate_if_charged(user))
+		return
+
 	if(!hasPower())
 		return
 
@@ -616,6 +619,8 @@
 		. += span_warning("This airlock does not cycle.")
 	if(obj_flags & EMAGGED)
 		. += span_warning("Its access panel is smoking slightly.")
+	if(charge && !panel_open && in_range(user, src))
+		. += span_warning("The maintenance panel seems haphazardly fastened.")
 	if(charge && panel_open)
 		. += span_warning("Something is wired up to the airlock's electronics!")
 	if(note)
@@ -726,6 +731,8 @@
 #undef CHECK_HACK_STATUS
 
 /obj/machinery/door/airlock/attack_animal(mob/user)
+	if(detonate_if_charged(user))
+		return
 	if(isElectrified() && shock(user, 100))
 		return
 	return ..()
@@ -741,6 +748,8 @@
 /obj/machinery/door/airlock/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
+		return
+	if(detonate_if_charged(user))
 		return
 	if(!(issilicon(user) || IsAdminGhost(user)))
 		if(isElectrified() && shock(user, 100))
@@ -801,6 +810,24 @@
 		updateDialog()
 
 /obj/machinery/door/airlock/screwdriver_act(mob/living/user, obj/item/tool)
+	if(charge && !panel_open && !detonated)
+		to_chat(user, span_notice("You start carefully unscrewing the maintenance panel to disarm the hidden charge..."))
+		if(!tool.use_tool(src, user, 5 SECONDS, volume=50))
+			to_chat(user, span_warning("You slip and the charge detonates!"))
+			playsound(src, 'sound/effects/pressureplate.ogg', 60, TRUE)
+			visible_message(span_danger("[src]'s charge detonates prematurely!"))
+			if(charge.loc == src)
+				charge.forceMove(get_turf(user))
+			charge.prime()
+			return TOOL_ACT_TOOLTYPE_SUCCESS
+		user.visible_message(span_notice("[user] carefully unscrews the panel and removes [charge] from [src]."),
+							span_notice("You disarm the explosive and remove it from the airlock."))
+		charge.forceMove(get_turf(user))
+		charge = null
+		panel_open = TRUE
+		update_appearance()
+		return TOOL_ACT_TOOLTYPE_SUCCESS
+
 	if(panel_open && detonated)
 		to_chat(user, span_warning("[src] has no maintenance panel!"))
 		return TOOL_ACT_TOOLTYPE_SUCCESS
@@ -950,6 +977,18 @@
 	if(is_wire_tool(C) && panel_open)
 		attempt_wire_interaction(user)
 		return
+
+	else if(panel_open && istype(C, /obj/item/grenade/plastic) && !charge && !detonated)
+		if(!user.transferItemToLoc(C, src))
+			return
+		charge = C
+		panel_open = FALSE
+		detonated = FALSE
+		update_appearance()
+		to_chat(user, span_warning("You plant [charge] inside the airlock's electronics. It will detonate when the door opens!"))
+		log_combat(user, src, "planted [charge] into", addition="charge will explode on open")
+		return
+
 	else if(panel_open && security_level == AIRLOCK_SECURITY_NONE && istype(C, /obj/item/stack/sheet))
 		if(istype(C, /obj/item/stack/sheet/iron))
 			return try_reinforce(user, C, 2, AIRLOCK_SECURITY_IRON)
@@ -967,22 +1006,6 @@
 		cable.plugin(src, user)
 	else if(istype(C, /obj/item/airlock_painter))
 		change_paintjob(C, user)
-	else if(istype(C, /obj/item/grenade))
-		if(!panel_open || security_level)
-			to_chat(user, span_warning("The maintenance panel must be open to apply [C]!"))
-			return
-		if(charge && !detonated)
-			to_chat(user, span_warning("There's already a charge hooked up to this door!"))
-			return
-		if(detonated)
-			to_chat(user, span_warning("The maintenance panel is destroyed!"))
-			return
-		to_chat(user, span_warning("You apply [C]. Next time someone opens the door, it will explode."))
-		panel_open = FALSE
-		update_appearance()
-		user.transferItemToLoc(C, src, TRUE)
-		charge = C
-		return
 	else if(istype(C, /obj/item/paper) || istype(C, /obj/item/photo))
 		if(note)
 			to_chat(user, span_warning("There's already something pinned to this airlock! Use wirecutters to remove it."))
@@ -1054,20 +1077,6 @@
 	return TRUE
 
 /obj/machinery/door/airlock/try_to_crowbar(obj/item/I, mob/living/user, forced = FALSE)
-	//Airlock Charges
-	if(panel_open && charge)
-		to_chat(user, span_notice("You carefully start removing [charge] from [src]..."))
-		if(!I.use_tool(src, user, 150, volume=50))
-			to_chat(user, span_warning("You slip and [charge] detonates!"))
-			charge.forceMove(user.loc)
-			charge.prime()
-			return
-		user.visible_message(span_notice("[user] removes [charge] from [src]."), \
-							span_notice("You gently pry out [charge] from [src] and unhook its wires."))
-		charge.forceMove(get_turf(user))
-		charge = null
-		return
-	//End Airlock Charges
 	if(I.tool_behaviour == TOOL_CROWBAR && should_try_removing_electronics() && !operating)
 		user.visible_message("[user] removes the electronics from the airlock assembly.", \
 			span_notice("You start to remove electronics from the airlock assembly..."))
@@ -1111,25 +1120,77 @@
 			return
 		INVOKE_ASYNC(src, (density ? PROC_REF(open) : PROC_REF(close)), 2)
 
+/obj/machinery/door/airlock/proc/detonate_if_charged(mob/user = null)
+	if(!charge || detonated)
+		return FALSE
+
+	detonated = TRUE
+	var/obj/item/grenade/plastic/planted_charge = charge
+	charge = null
+
+	visible_message(span_userdanger("A sharp click is heard as something tumbles out of the door panel! The airlock explodes!"))
+	panel_open = TRUE
+	update_appearance()
+	playsound(src, 'sound/effects/pressureplate.ogg', 60, TRUE)
+
+	var/turf/door_turf = get_turf(src)
+
+	if(istype(planted_charge, /obj/item/grenade/plastic/c4))
+		take_damage(100, BRUTE, BOMB, 0)
+		if(atom_integrity > 50)
+			atom_integrity = max(50, atom_integrity - 80)
+		update_appearance()
+
+		for(var/mob/living/carbon/human/H in view(1, door_turf))
+			H.Unconscious(80)
+			H.apply_damage(18, BRUTE, BODY_ZONE_CHEST)
+			var/obj/item/bodypart/target_part = pick(H.bodyparts)
+			if(target_part && !(target_part.body_part & HEAD))
+				var/limb_removed = FALSE
+				if(target_part.dismember())
+					limb_removed = TRUE
+				else if(target_part.drop_limb())
+					limb_removed = TRUE
+				else
+					var/turf/T = get_turf(H)
+					target_part.drop_limb(T)
+					limb_removed = TRUE
+				if(limb_removed)
+					to_chat(H, span_userdanger("Your [target_part.name] is blown clean off!"))
+
+		if(planted_charge.loc == src)
+			planted_charge.forceMove(door_turf)
+		planted_charge.prime()
+
+	else if(istype(planted_charge, /obj/item/grenade/plastic/x4))
+		take_damage(150, BRUTE, BOMB, 0)
+		if(atom_integrity > 80)
+			atom_integrity = max(80, atom_integrity - 120)
+		update_appearance()
+		for(var/mob/living/carbon/human/H in view(1, door_turf))
+			H.Unconscious(80)
+		explosion(door_turf, 0, 3, 5, 4)
+		qdel(planted_charge)
+
+	return TRUE
+
 /obj/machinery/door/airlock/open(forced = FALSE)
 	if(cycle_pump && !operating && !welded && locked && density)
 		cycle_pump.airlock_act(src)
-		return FALSE // The rest will be handled by the pump
+		return FALSE
 
-	if( operating || welded || locked )
+	if(operating || welded || locked)
+		return FALSE
+
+	// If there's a charge, it would have already detonated in bumpopen/attack_hand/etc.
+	// But in case of direct remote opening (AI, signal), we still need to check.
+	if(detonate_if_charged())
 		return FALSE
 
 	if(!forced)
 		if(!hasPower() || wires.is_cut(WIRE_OPEN))
 			return FALSE
-	if(charge && !detonated)
-		panel_open = TRUE
-		update_icon(state=AIRLOCK_OPENING)
-		visible_message(span_warning("[src]'s panel flies open!"))
-		charge.forceMove(drop_location())
-		addtimer(CALLBACK(charge, TYPE_PROC_REF(/obj/item/grenade, prime)), 3)
-		detonated = 1
-		charge = null
+
 	if(forced < 2)
 		if(!protected_door)
 			use_power(50)
@@ -1305,6 +1366,8 @@
 	loseMainPower(TRUE)
 
 /obj/machinery/door/airlock/attack_alien(mob/living/carbon/alien/humanoid/user)
+	if(detonate_if_charged(user))
+		return
 	add_fingerprint(user)
 	if(isElectrified() && shock(user, 100)) //Mmm, fried xeno!
 		add_fingerprint(user)
