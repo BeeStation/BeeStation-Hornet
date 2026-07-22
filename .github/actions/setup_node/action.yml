@@ -26,7 +26,7 @@ runs:
         source dependencies.sh
         echo "NODE_VERSION_REQUIRED=$NODE_VERSION_LTS" >> $GITHUB_ENV
     - name: Install Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
         node-version: ${{ env.NODE_VERSION_REQUIRED }}
         cache: ${{ fromJSON(inputs.restore-yarn-cache) && 'yarn' || '' }}

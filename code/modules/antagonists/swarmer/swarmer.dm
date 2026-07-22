@@ -169,7 +169,7 @@
 	return FALSE //would logically be TRUE, but we don't want AI swarmers eating player spawn chances.
 
 /obj/effect/mob_spawn/swarmer/IntegrateAmount()
-	return 20
+	return SWARMER_SHELL_COST
 
 /turf/closed/indestructible/swarmer_act()
 	return FALSE
@@ -322,6 +322,14 @@
 	to_chat(S, span_warning("An inhospitable area may be created as a result of destroying this object. Aborting."))
 	return FALSE
 
+/obj/machinery/airalarm/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	to_chat(S, span_warning("An inhospitable area may be created as a result of destroying this object. Aborting."))
+	return FALSE
+
+/obj/structure/reflector/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	to_chat(S, span_warning("An inhospitable area may be created as a result of destroying this object. Aborting."))
+	return FALSE
+
 /obj/machinery/telecomms/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, span_warning("This communications relay should be preserved, it will be a useful resource to our masters in the future. Aborting."))
 	return FALSE
@@ -336,6 +344,10 @@
 
 /obj/machinery/gateway/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, span_warning("This bluespace source will be important to us later. Aborting."))
+	return FALSE
+
+/obj/machinery/computer/communications/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	to_chat(S, span_warning("This console should be preserved, its communication technology will be useful to our masters in the future. Aborting."))
 	return FALSE
 
 /turf/closed/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
@@ -396,7 +408,7 @@
 	return ..()
 
 /obj/item/deactivated_swarmer/IntegrateAmount()
-	return 50
+	return SWARMER_SHELL_COST
 
 /obj/machinery/hydroponics/soil/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, span_warning("This object does not contain enough materials to work with."))
@@ -679,7 +691,7 @@
 	set category = "Swarmer"
 	set desc = "Creates a shell for a new swarmer. Swarmers will self activate."
 	to_chat(src, span_info("We are attempting to replicate ourselves. We will need to stand still until the process is complete."))
-	if(resources < 20)
+	if(resources < SWARMER_SHELL_COST)
 		to_chat(src, span_warning("We do not have the resources for this!"))
 		return
 	if(!isturf(loc))
@@ -687,7 +699,7 @@
 		return
 	if(do_after(src, 10 SECONDS))
 		var/createtype = SwarmerTypeToCreate()
-		if(createtype && Fabricate(createtype, 20))
+		if(createtype && Fabricate(createtype, SWARMER_SHELL_COST))
 			playsound(loc,'sound/items/poster_being_created.ogg',50, 1, -1)
 
 

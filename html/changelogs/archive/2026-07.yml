@@ -128,3 +128,30 @@
   - bugfix: Fixes summon magic and summon guns
   - refactor: Refactored wizard rituals (events/ghosts/guns/magic/madness) to reduce
       code copy+paste.
+2026-07-21:
+  cursedkiller:
+  - bugfix: Ethereal Blood Electrocutes again!
+  - bugfix: Revenant blight stamcrits properly
+  - bugfix: Xenomorphs can now spit in space to change directions and Improved Jump
+      Code
+  - bugfix: Zombies no longer keep brains traumas nor pass out from bloodloss
+  - bugfix: Animal Hospital doctors got their clothes back
+  - bugfix: Pill bottles can be renamed again
+  - bugfix: Lavaland Syndicate base's have power now
+  - bugfix: Gridcheck now properly disables APC's
+2026-07-22:
+  Isaac:
+  - rscadd: Mod Reinforced Armor plating, providing 20 armor against most damage,
+      non stackable
+  SunShine214:
+  - rscadd: IPC brains can now be repaired with a multitool, replacing brain surgery
+      for them.
+  - rscdel: Removed brain recalibration and organic healing surgeries from IPCs.
+  - tweak: Adjusted flavor text on IPC brains.
+  - bugfix: Fixed IPC organ manipulation.
+  WhiskeyMarten:
+  - bugfix: Fixed a few mapping mistakes on Meta and Rad.
+  - bugfix: Fixes deactivated swarmer shells being worth 50 resources, rather than
+      the 20 used to create them.
+  - tweak: Swarmers are no longer able to eat Air Alarms, Reflectors, or the Communications
+      Console.
