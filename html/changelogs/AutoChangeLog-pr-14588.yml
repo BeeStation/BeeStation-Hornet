@@ -1,0 +1,8 @@
+author: WhiskeyMarten
+delete-after: true
+changes:
+  - bugfix: Fixed a few mapping mistakes on Meta and Rad.
+  - bugfix: Fixes deactivated swarmer shells being worth 50 resources, rather than
+      the 20 used to create them.
+  - tweak: Swarmers are no longer able to eat Air Alarms, Reflectors, or the Communications
+      Console.
