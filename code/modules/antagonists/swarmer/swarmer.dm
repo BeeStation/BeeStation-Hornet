@@ -1,4 +1,3 @@
-
 ////Deactivated swarmer shell////
 /obj/item/deactivated_swarmer
 	name = "deactivated swarmer"
