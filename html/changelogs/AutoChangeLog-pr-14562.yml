@@ -1,8 +1,0 @@
-author: SunShine214
-delete-after: true
-changes:
-  - rscadd: IPC brains can now be repaired with a multitool, replacing brain surgery
-      for them.
-  - rscdel: Removed brain recalibration and organic healing surgeries from IPCs.
-  - tweak: Adjusted flavor text on IPC brains.
-  - bugfix: Fixed IPC organ manipulation.
