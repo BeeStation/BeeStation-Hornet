@@ -1,7 +1,7 @@
 /datum/job/shaft_miner
 	title = JOB_NAME_SHAFTMINER
 	description = "Collect resources for the station, redeem them for points, and purchase gear to collect even more ores."
-	department_for_prefs = DEPT_NAME_CARGO
+	department_for_prefs = DEPARTMENT_NAME_CARGO
 	department_head_for_prefs = JOB_NAME_QUARTERMASTER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
@@ -10,7 +10,8 @@
 	selection_color = "#dcba97"
 	// Requires a little bit of game knowledge to play appropriately
 	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
+	exp_required_type = EXP_TYPE_CREW
+	exp_granted_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/miner
 
@@ -29,7 +30,9 @@
 		ACCESS_MAINT_TUNNELS
 	)
 
-	departments = DEPT_BITFLAG_CAR
+	departments_list = list(
+		/datum/department_group/cargo,
+		)
 	bank_account_department = ACCOUNT_CAR_BITFLAG
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_HARD)
 

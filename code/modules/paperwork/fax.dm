@@ -510,7 +510,7 @@
 /obj/machinery/fax/centcom/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_cent
+	radio.keyslot = /obj/item/encryptionkey/headset_cent
 	radio.recalculateChannels()
 
 /obj/machinery/fax/bridge
@@ -521,7 +521,7 @@
 /obj/machinery/fax/bridge/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_com
+	radio.keyslot = /obj/item/encryptionkey/headset_com
 	radio.recalculateChannels()
 
 /obj/machinery/fax/cargo
@@ -532,7 +532,7 @@
 /obj/machinery/fax/cargo/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_cargo
+	radio.keyslot = /obj/item/encryptionkey/headset_cargo
 	radio.recalculateChannels()
 
 /obj/machinery/fax/eng
@@ -543,7 +543,7 @@
 /obj/machinery/fax/eng/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_eng
+	radio.keyslot = /obj/item/encryptionkey/headset_eng
 	radio.recalculateChannels()
 
 /obj/machinery/fax/law
@@ -554,7 +554,7 @@
 /obj/machinery/fax/law/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_srvsec
+	radio.keyslot = /obj/item/encryptionkey/headset_srvsec
 	radio.recalculateChannels()
 
 /obj/machinery/fax/med
@@ -565,7 +565,7 @@
 /obj/machinery/fax/med/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_med
+	radio.keyslot = /obj/item/encryptionkey/headset_med
 	radio.recalculateChannels()
 
 /obj/machinery/fax/sci
@@ -576,7 +576,7 @@
 /obj/machinery/fax/sci/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_sci
+	radio.keyslot = /obj/item/encryptionkey/headset_sci
 	radio.recalculateChannels()
 
 /obj/machinery/fax/sec
@@ -587,7 +587,7 @@
 /obj/machinery/fax/sec/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_sec
+	radio.keyslot = /obj/item/encryptionkey/headset_sec
 	radio.recalculateChannels()
 
 /obj/machinery/fax/service
@@ -598,5 +598,5 @@
 /obj/machinery/fax/service/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_service
+	radio.keyslot = /obj/item/encryptionkey/headset_service
 	radio.recalculateChannels()

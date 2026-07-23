@@ -1,5 +1,5 @@
 /obj/item/flashlight/oxycandle
-	name = "Oxygen Candle"
+	name = "oxygen candle"
 	desc = "A standard Nakamura Engineering branded emergency oxygen candle. There are instructions on the side that read: 'Remove lid with provided key, strike key on striker surface, insert lit key into designated marked receptacle, wait 5 minutes or until the candle cools'."
 	w_class = WEIGHT_CLASS_MEDIUM
 	slot_flags = null

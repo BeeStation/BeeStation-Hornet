@@ -71,7 +71,7 @@
 
 /obj/item/radio/holoparasite/Initialize(mapload)
 	. = ..()
-	keyslot = new /obj/item/encryptionkey/holoparasite
+	keyslot = /obj/item/encryptionkey/holoparasite
 	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/radio/holoparasite/get_specific_hearers()

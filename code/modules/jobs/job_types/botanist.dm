@@ -1,14 +1,15 @@
 /datum/job/botanist
 	title = JOB_NAME_BOTANIST
 	description = "Grow plants for the Kitchen, Bar and Chemistry. Sell cannabis and other goods to the crew."
-	department_for_prefs = DEPT_NAME_SERVICE
+	department_for_prefs = DEPARTMENT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = FACTION_STATION
 	total_positions = 3
 	selection_color = "#bbe291"
 	exp_requirements = 60
-	exp_type = EXP_TYPE_CREW
+	exp_required_type = EXP_TYPE_CREW
+	exp_granted_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/botanist
 
 	base_access = list(
@@ -22,7 +23,9 @@
 		ACCESS_KITCHEN,
 	)
 
-	departments = DEPT_BITFLAG_SRV
+	departments_list = list(
+		/datum/department_group/service,
+		)
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
 

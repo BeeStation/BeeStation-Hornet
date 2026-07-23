@@ -557,7 +557,6 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-	obj_flags = UNIQUE_RENAME
 	var/pill_variance = 100 //probability pill_bottle has a different icon state. Put at 0 for no variance
 	var/pill_type = "pill_canister_"
 
@@ -568,6 +567,24 @@
 
 	atom_storage.allow_quick_gather = TRUE
 	atom_storage.set_holdable(list(/obj/item/reagent_containers/pill))
+
+/obj/item/storage/pill_bottle/attackby(obj/item/P, mob/user, params)
+	// Allow labeling with a pen
+	if(istype(P, /obj/item/pen))
+		if(!user.is_literate())
+			to_chat(user, span_notice("You scribble illegibly on [src]!"))
+			return
+		var/new_label = stripped_input(user, "What would you like to label the bottle?", name, null, MAX_NAME_LEN)
+		if(!new_label || user.get_active_held_item() != P || !user.canUseTopic(src, BE_CLOSE))
+			return
+		if(new_label)
+			name = "[initial(name)] ([new_label])"
+		else
+			name = initial(name)
+		return
+
+	// For any other item, let the parent storage handle it
+	return ..()
 
 /obj/item/storage/pill_bottle/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is trying to get the cap off [src]! It looks like [user.p_theyre()] trying to commit suicide!"))

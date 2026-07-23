@@ -37,7 +37,7 @@
 	get_targets()
 	icon_state = "cleanbot[on]"
 
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_JANITOR)
+	var/datum/job/J = SSjob.get_job(JOB_NAME_JANITOR)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
 	GLOB.janitor_devices += src
