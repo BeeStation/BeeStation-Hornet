@@ -16,7 +16,9 @@
 	volume_percentage = _percentage || volume_percentage
 	. = ..()
 	name = "[capitalize(initial(reagent.name))]"
-	desc = "[volume_percentage*100]% of reagents is [name]"
+	var/datum/plant_feature/fruit/fruit_parent = _parent
+	desc = "[istype(fruit_parent) ? "([volume_percentage*fruit_parent.total_volume]u) " : ""][volume_percentage*100]% of reagents is [name]."
+	// Little helper for showing the exact reagent amount
 	//If we're a fast reagent, try add ourselves to the dictionary
 	if(_reagent && _percentage && !copy_rule)
 		SSbotany.append_reagent_trait(copy())
