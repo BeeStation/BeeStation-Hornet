@@ -155,3 +155,6 @@
       the 20 used to create them.
   - tweak: Swarmers are no longer able to eat Air Alarms, Reflectors, or the Communications
       Console.
+2026-07-23:
+  St0rmC4st3r:
+  - bugfix: Posters can be once again cut down and put back up.
