@@ -1,7 +1,0 @@
-author: mrmanlikesbt, TealSeer, LemonInTheDark
-delete-after: true
-changes:
-  - server: Most unit tests are now only ran on runtimestation during GitHub integration
-      tests.
-  - server: The janky actions unit test now has its work split up across all of the
-      integration tests that it's running alongside.

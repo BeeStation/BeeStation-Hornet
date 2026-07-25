@@ -158,3 +158,9 @@
 2026-07-23:
   St0rmC4st3r:
   - bugfix: Posters can be once again cut down and put back up.
+2026-07-25:
+  mrmanlikesbt, TealSeer, LemonInTheDark:
+  - server: Most unit tests are now only ran on runtimestation during GitHub integration
+      tests.
+  - server: The janky actions unit test now has its work split up across all of the
+      integration tests that it's running alongside.
