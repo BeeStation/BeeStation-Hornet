@@ -419,10 +419,9 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/output_id = initial(output.id)
 	var/moles = min(air.moles[input_id], 5)
 	if(moles)
-		air.adjust_multiple_gases(list(
-			input_id = -moles,
-			output_id = moles,
-		))
+		// adjust_multiple_gases() isn't used here because BYOND is HORRIBLE and will convert the var names when used as keys to strings
+		air.adjust_gas(input_id, -moles)
+		air.adjust_gas(output_id, moles)
 
 //===================
 // Recharger

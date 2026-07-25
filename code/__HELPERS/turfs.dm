@@ -414,7 +414,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	if(!istype(floor))
 		return FALSE
 
-	var/datum/gas_mixture/floor_gas_mixture = floor_turf.air
+	var/datum/gas_mixture/floor_gas_mixture = floor.air
 	if(!floor_gas_mixture)
 		return FALSE
 
