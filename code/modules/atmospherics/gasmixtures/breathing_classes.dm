@@ -5,8 +5,6 @@
 // to simulate asphyxiants, e.g. if I add krypton it could go into the oxygen
 // breathing class at -7, simulating krypton narcosis.
 
-GLOBAL_LIST_INIT(breathing_class_info, init_subtypes(/datum/breathing_class))
-
 /datum/breathing_class
 	var/list/gases = null
 	var/list/products = null
@@ -44,3 +42,12 @@ GLOBAL_LIST_INIT(breathing_class_info, init_subtypes(/datum/breathing_class))
 	low_alert_datum = /atom/movable/screen/alert/not_enough_plas
 	high_alert_category = ALERT_TOO_MUCH_PLASMA
 	high_alert_datum = /atom/movable/screen/alert/too_much_plas
+
+/proc/breathing_class_list()
+	var/list/breathing_classes = list()
+	for(var/breathing_class_path in subtypesof(/datum/breathing_class))
+		var/datum/breathing_class/class = new breathing_class_path
+		breathing_classes[breathing_class_path] = class
+	return breathing_classes
+
+GLOBAL_LIST_INIT(breathing_class_info, breathing_class_list())
