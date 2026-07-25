@@ -544,7 +544,7 @@
 		return
 	var/turf/open/T = get_turf(holder.my_atom)
 	if(istype(T))
-		T.atmos_spawn_air("plasma=[created_volume];TEMP=1000")
+		T.atmos_spawn_air("[GAS_PLASMA]=[created_volume];TEMP=1000")
 	holder.clear_reagents()
 	return
 
