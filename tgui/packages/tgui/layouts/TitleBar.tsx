@@ -56,7 +56,7 @@ export function TitleBar(props: TitleBarProps) {
         />
       )}
       <div className="TitleBar__title">{finalTitle}</div>
-      {!!children && <div className="TitleBar__buttons">{children}</div>}
+      <div className="TitleBar__buttons">{children}</div>
       {process.env.NODE_ENV !== 'production' && (
         <Button
           className="TitleBar__buttons TitleBar__KitchenSink"
