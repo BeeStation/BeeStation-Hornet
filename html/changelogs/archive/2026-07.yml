@@ -159,6 +159,8 @@
   St0rmC4st3r:
   - bugfix: Posters can be once again cut down and put back up.
 2026-07-25:
+  mrmanlikesbt:
+  - bugfix: Fixed some random maintenance rooms
   mrmanlikesbt, TealSeer, LemonInTheDark:
   - server: Most unit tests are now only ran on runtimestation during GitHub integration
       tests.
