@@ -25,9 +25,9 @@
 	. = ..()
 	if(slot != ITEM_SLOT_HEAD)
 		return
-	var/mob/living/carbon/carbon_user = user
-	var/obj/item/organ/brain/brain = carbon_user?.get_organ_slot(ORGAN_SLOT_BRAIN)
-	if(!istype(brain, /obj/item/organ/brain/primate) || user.key)
+	if(!iscarbon(user))
+		return
+	if(!HAS_TRAIT(user, TRAIT_PRIMITIVE) || user.key)
 		to_chat(user, span_boldnotice("You feel a stabbing pain in the back of your head for a moment."))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		if(isliving(user)) //I don't know what normally would force us to check this, but it's worth checking
