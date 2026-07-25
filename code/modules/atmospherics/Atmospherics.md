@@ -39,10 +39,10 @@ _Figure 3.1: The structure of one air controller tick. Not totally accurate, but
 The air controller is, at its core, quite simple, yet it is absolutely fundamental to the atmospheric system. The air controller is the clock which triggers all continuous actions within the atmos system, such as vents distributing air or gas moving between tiles. The actions taken by the air controller are quite simple, and will be enumerated here. Much of the substance of the air ticker is due to the game's master controller, whose intricacies I will not delve into for this document. I will however go into more detail about how SSAir in particular works in Chapter 6. In any case, this is a simplified list of the air controller's actions in a single tick:
 
 1. Rebuild Pipenets
-   - Runs each time SSAir processes, sometimes out of order. It ensures that no pipeline sit unresolved or unbuilt
-   - Processes the `rebuild_queue` list into the `expansion_queue` list, and then builds a full pipeline piecemeal. We do a ton of fenagling here to reduce overrun
+   - Runs each time SSAir processes, sometimes out of order. It ensures that no pipenet sit unresolved or unbuilt
+   - Processes the `rebuild_queue` list into the `expansion_queue` list, and then builds a full pipenet piecemeal. We do a ton of fenagling here to reduce overrun
 2. Pipenets
-   - Updates the internal gasmixes of attached pipe machinery, and reacts the gases in a pipeline
+   - Updates the internal gasmixes of attached pipe machinery, and reacts the gases in a pipenet
    - Calls `process()` on each `/datum/pipenet` in the `networks` list
 3. Machinery
    - Handles machines that effect atmospherics, think vents, the supermatter, pumps, all that
@@ -407,31 +407,31 @@ Hell, space being cold is a hack we use to make gameplay interesting. There's a 
 
 Performance and gameplay are much more important then realism. In all your work on the subsystem, keep this in mind, and you'll build fast and quality code.
 
-## 8. Pipelines and pipeline machinery
+## 8. Pipenets and pipenet machinery
 
-![](https://raw.githubusercontent.com/tgstation/documentation-assets/main/atmos/PipelineVisuals.png)
+![](https://raw.githubusercontent.com/tgstation/documentation-assets/main/atmos/PipenetVisuals.png)
 
-_Figure 8.1: The structure of pipelines shown in color, components are a mix_
+_Figure 8.1: The structure of pipenets shown in color, components are a mix_
 
-`/datum/pipeline` handles the simulation of piping and such. It has 2 main actions, one of which you should know very well. The other is slightly more of a hurdle.
+`/datum/pipenet` handles the simulation of piping and such. It has 2 main actions, one of which you should know very well. The other is slightly more of a hurdle.
 
-To understand pipelines you'll first need to understand how we process things like pumps or vents, atmos components that is.
+To understand pipenets you'll first need to understand how we process things like pumps or vents, atmos components that is.
 To start with, a set of pipes is treated as one gas mixture, however several different components draw from this mix. Think pumps, heaters, mixers, vents, etc.
 
 Since these components change the mix itself, we can't just let them all act on the mix at once, because that would cause concerns around the order in which things process, and so on.
-We don't want canisters that blow up half the time, and the other half of the time don't. Better then to give each component its own gas mix that it alone can act on, that will be shared with the pipeline as a whole. Pipelines do something similar to active turfs by the way, they won't re-equalize their mix if nothing about the state of things has changed.
+We don't want canisters that blow up half the time, and the other half of the time don't. Better then to give each component its own gas mix that it alone can act on, that will be shared with the pipenet as a whole. Pipenets do something similar to active turfs by the way, they won't re-equalize their mix if nothing about the state of things has changed.
 
 We do this sharing based on the proportion of volume between all the components. So if you want a component to consume more gas, give it a higher volume.
 
 On that note, I'd like to be clear about something. In lines of connected pipes, each pipe doesn't have its own gasmix, they instead share mixes, as the pipes themselves won't have any effect on the state of the mix.
 
-Oh, and pipelines react the gas mixture inside them, thought I should mention that.
+Oh, and pipenets react the gas mixture inside them, thought I should mention that.
 
 ### A short note on rebuilding
 
-Everything that needs a pipeline should have it before it's allowed to do any processing. This is to prevent runtimes and shitcode related things.
+Everything that needs a pipenet should have it before it's allowed to do any processing. This is to prevent runtimes and shitcode related things.
 
-The act of rebuilding a pipeline is quite expensive however, since it involves iterating over all the connected pipes/components.
+The act of rebuilding a pipenet is quite expensive however, since it involves iterating over all the connected pipes/components.
 That's why we go to such great pains to make sure no large amount of work is allowed to happen at once. It's in an attempt to avoid the excited group settling type of lag I discussed above. It's ok for atmos to lock up for a short period if the system isn't killing the game as a whole.
 
 All the other behavior of pipes and pipe components are handled by atmos machinery. I'll give a brief rundown of how they're classified, but the details of each machine are left as an exercise to the reader.
@@ -442,7 +442,7 @@ The raw pipes. They have some amount of nuance, mostly around layers, but it's n
 
 ##### Heat Exchange
 
-The HE pipes, used to transfer heat from the pipe to the turf it's sitting on. These work directly with the pipeline's mix, which is ehhhh? Might need some touching up, perhaps making them subnets that do one heat transfer. Not too big a deal in any case, since they're the only thing that acts directly on a pipeline mix. They have some other behavior, like glowing when hot, but it's minor.
+The HE pipes, used to transfer heat from the pipe to the turf it's sitting on. These work directly with the pipenet's mix, which is ehhhh? Might need some touching up, perhaps making them subnets that do one heat transfer. Not too big a deal in any case, since they're the only thing that acts directly on a pipenet mix. They have some other behavior, like glowing when hot, but it's minor.
 
 #### Components
 
@@ -452,11 +452,11 @@ The following classifications are very simple, but I'll run them over anyhow
 
 ##### Unary
 
-Unary devices can only interact with one pipeline, aside from some exceptions, like the heat exchanger. The type path comes from the amount of pipelines a device expects gas-mixtures from. I'm sure you can see where this is going.
+Unary devices can only interact with one pipenet, aside from some exceptions, like the heat exchanger. The type path comes from the amount of pipenets a device expects gas-mixtures from. I'm sure you can see where this is going.
 
 ##### Binary
 
-Binary devices connect to 2 pipelines.
+Binary devices connect to 2 pipenets.
 
 ##### Trinary
 
@@ -472,7 +472,7 @@ This is for the oddballs, the one offs, the half useless things. Things that are
 
 #### Portable
 
-These are the atmos machines you can move around. They interface with connectors to talk to pipelines, and can contain tanks. Not a whole lot more to discuss here.
+These are the atmos machines you can move around. They interface with connectors to talk to pipenets, and can contain tanks. Not a whole lot more to discuss here.
 
 ## 9. A word on processing
 
@@ -489,11 +489,11 @@ This attitude needs to be applied to a few large targets, and you may see it cro
 - _Gas mixtures_ - The datums that store gas information, key to listmos and our underlying method of handling well gas
 - _Diffs_ - The differences between gasmixes. We want to get rid of these over time, and clump them up with their sources so we don't need to process too many turfs
 - _FEA_ - Finite Element Analysis, the underlying system our atmos is built on top of. Ugly in Spanish
-- _Pipelines_ - The datum that represents and handles the gasmixtures of a set of pipes and their components
-- _Components_ - Atmos machines that act on pipelines, modifying their mix
+- _Pipenets_ - The datum that represents and handles the gasmixtures of a set of pipes and their components
+- _Components_ - Atmos machines that act on pipenets, modifying their mix
 - _Active Turfs_ - An optimization of FEA implemented in LINDA that causes processing to only occur when differences are equalizing
 - _Excited Groups_ - Evens out groups of active turfs to compensate for the way `share()` works
-- _Carbon dioxide_ - What the fuck is this?]
+- _Carbon dioxide_ - What the fuck is this?
 - _MC_ - The master controller, makes sure all subsystems get the time they need to process, prevents lockups from one subsystem having a lot of work
 
 ## Appendix B - How to test environmental atmos
