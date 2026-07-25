@@ -52,7 +52,6 @@ $title-bar-height: 32px !default;
     line-height: base.rem($title-bar-height - 1);
     pointer-events: none;
     display: inline-block;
-    flex: 1;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -63,6 +62,7 @@ $title-bar-height: 32px !default;
   &__buttons {
     overflow: hidden;
     white-space: nowrap;
+    flex:1;
     pointer-events: all;
     display: inline-block;
     margin: 0 base.rem(9px);
