@@ -215,6 +215,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CRYING "crying"
 #define TRAIT_NOBLOCK "noblock"
 #define TRAIT_NANITECOMPATIBLE "nanitecompatible"
+/// Can have synth (IPC) upgrades
+#define TRAIT_UPGRADE_COMPATIBLE "upgrade_compatible"
 #define TRAIT_NICE_SHOT "nice_shot" //hnnnnnnnggggg..... you're pretty good....
 /// Prevents hallucinations from the hallucination brain trauma (RDS)
 #define TRAIT_HALLUCINATION_SUPPRESSED "hallucination_suppressed"

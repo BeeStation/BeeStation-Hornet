@@ -26,6 +26,7 @@
 		TRAIT_NOSOFTCRIT,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_UPGRADE_COMPATIBLE,
 	)
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	mutantbrain = /obj/item/organ/brain/positron

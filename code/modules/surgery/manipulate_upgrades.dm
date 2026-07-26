@@ -12,7 +12,7 @@
 	surgery_flags = SURGERY_SELF_OPERABLE
 
 /datum/surgery/upgrade_manipulation/can_start(mob/user, mob/living/patient)
-	return UPGRADE_CAN_HAVE(patient) && ..()
+	return HAS_TRAIT(patient, TRAIT_UPGRADE_COMPATIBLE) && ..()
 
 /datum/surgery_step/manipulate_upgrades
 	name = "manipulate upgrades"

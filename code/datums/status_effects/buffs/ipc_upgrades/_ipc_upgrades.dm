@@ -1,3 +1,5 @@
+#define UPGRADE_LOW_POWER_THRESHOLD 250
+
 //not so sure about making a global proc for this
 /proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/status_effect/ipc_upgrade
 	if(!effects)
@@ -161,7 +163,7 @@
 
 /datum/status_effect/ipc_upgrade/proc/species_change(new_race)
 	SIGNAL_HANDLER
-	if(UPGRADE_CAN_HAVE(owner))
+	if(HAS_TRAIT(owner, TRAIT_UPGRADE_COMPATIBLE))
 		return
 	extract()
 
@@ -255,3 +257,5 @@
 /datum/action/innate/ipc_upgrade_action/untargeted/on_activate(mob/user, atom/target)
 	..()
 	return upgrade.activate()
+
+#undef UPGRADE_LOW_POWER_THRESHOLD
