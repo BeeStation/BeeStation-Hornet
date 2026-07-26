@@ -3,6 +3,7 @@
 	name = "Generic Deployable Upgrade"
 	slot = UPGRADE_UTILITY
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable/no_text
+	abstract_type = /datum/status_effect/ipc_upgrade/deployable
 	var/obj/item/to_deploy
 	var/obj/item/to_deploy_typepath = /obj/item
 

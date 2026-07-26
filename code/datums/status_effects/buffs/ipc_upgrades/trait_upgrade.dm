@@ -1,6 +1,7 @@
 /datum/status_effect/ipc_upgrade/trait
 	id = "ipc trait"
 	name = "Generic Trait Upgrade"
+	abstract_type = /datum/status_effect/ipc_upgrade/trait
 	var/trait
 
 /datum/status_effect/ipc_upgrade/trait/on_apply()

@@ -1,6 +1,7 @@
 /datum/status_effect/ipc_upgrade/armor
 	id = "ipc armor"
 	name = "Generic Armor"
+	abstract_type = /datum/status_effect/ipc_upgrade/armor
 	var/armor
 
 /datum/status_effect/ipc_upgrade/armor/on_apply()

@@ -10,6 +10,7 @@
 	id = "ipc upgrade"
 	alert_type = null
 	on_remove_on_mob_delete = TRUE
+	abstract_type = /datum/status_effect/ipc_upgrade
 
 	var/name = "Generic Upgrade"
 	///What slot this occupies. Only one upgrade per slot.
