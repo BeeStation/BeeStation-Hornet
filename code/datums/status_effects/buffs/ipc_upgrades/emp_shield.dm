@@ -15,7 +15,7 @@
 /datum/status_effect/ipc_upgrade/emp_shield/emp_act(severity)
 	. = ..()
 	if(remaining_pulses <= 0)
-		to_chat(owner, span_warningbold("Your [name] has been fried! You are no longer protected from EMP attacks."))
+		to_chat(owner, span_warningbold("Your [src] has been fried! You are no longer protected from EMP attacks!"))
 		do_sparks(2, FALSE, owner)
 		qdel(src)
 	remaining_pulses -= 1

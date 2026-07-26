@@ -1,10 +1,10 @@
 /datum/status_effect/ipc_upgrade/ipc_generator
 	id = "ipc rtg generator"
 	name = "Isotope Decay Generator"
-	var/power_generation = 5
 	action_icon = "generator"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
 	item_type = /obj/item/ipc_upgrade/ipc_generator
+	var/power_generation = 5
 
 /datum/status_effect/ipc_upgrade/ipc_generator/tick(seconds_between_ticks)
 	if(!should_process())
