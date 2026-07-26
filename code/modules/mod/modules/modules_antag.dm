@@ -564,8 +564,8 @@
 	medbeam.mounted = TRUE
 
 /obj/item/mod/module/medbeam/Destroy()
-    QDEL_NULL(medbeam)
-    return ..()
+	QDEL_NULL(medbeam)
+	return ..()
 
 /obj/item/mod/module/medbeam/on_select_use(atom/target)
 	. = ..()
