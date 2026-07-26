@@ -22,4 +22,4 @@
 	var/obj/item/choice = new choice_type(get_turf(owner))
 	owner.put_in_hand(choice, owner.active_hand_index)
 	playsound(owner, 'sound/machines/click.ogg', 50)
-	owner.visible_message(span_notice("[owner] fabricates a [choice.name]."), span_notice("You fabricate a [choice.name]."))
+	owner.visible_message(span_notice("[owner] fabricates \a [choice]."), span_notice("You fabricate \a [choice]."))

@@ -13,11 +13,11 @@
 		return FALSE
 	if((owner.stat != DEAD) && (owner.health < HEALTH_THRESHOLD_CRIT))
 		if(!overdrive)
-			to_chat(owner, span_warning("Your installed [src.name] has activated overdrive mode!"))
+			to_chat(owner, span_warning("Your installed [src] has activated overdrive mode!"))
 			overdrive = TRUE
 	else
 		if(overdrive)
-			to_chat(owner, span_warning("Your installed [src.name] has deactived overdrive mode!"))
+			to_chat(owner, span_warning("Your installed [src] has deactived overdrive mode!"))
 			overdrive = FALSE
 	if(!drain_cell(active_power_requirement * seconds_between_ticks * (overdrive ? 3 : 1), overdrive))
 		to_chat(owner, span_notice("The [name] runs out of power!"))

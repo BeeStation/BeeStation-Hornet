@@ -85,7 +85,7 @@
 		return FALSE
 	if(drain_cell(active_power_requirement * seconds_between_ticks))
 		return TRUE
-	to_chat(owner, span_notice("The [name] runs out of power!"))
+	to_chat(owner, span_notice("The [src] runs out of power!"))
 	playsound(owner, 'sound/machines/apc/PowerDown_001.ogg', 10)
 	deactivate()
 	return FALSE

@@ -12,7 +12,7 @@
 	if(!battery)
 		return FALSE
 	if(!can_generate())
-		to_chat(owner, span_warning("Your installed [name] is out of fuel!"))
+		to_chat(owner, span_warning("Your installed [src] is out of fuel!"))
 		playsound(owner, 'sound/machines/click.ogg', 50)
 		deactivate()
 		return FALSE
