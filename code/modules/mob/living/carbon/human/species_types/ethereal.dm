@@ -16,12 +16,12 @@
 		AGENDER,
 		HAIR_COLOR
 	)
-	inherent_traits = list(
-		TRAIT_UPGRADE_COMPATIBLE,
-	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/ethereal
-	inherent_traits = list(TRAIT_POWERHUNGRY)
+	inherent_traits = list(
+		TRAIT_POWERHUNGRY,
+		TRAIT_UPGRADE_COMPATIBLE,
+	)
 	sexes = FALSE //no fetish content allowed
 
 	// Body temperature for ethereals is much higher then humans as they like hotter environments
