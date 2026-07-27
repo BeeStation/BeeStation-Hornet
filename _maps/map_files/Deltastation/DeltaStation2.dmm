@@ -12318,7 +12318,7 @@
 /area/station/science/storage)
 "eyA" = (
 /obj/structure/cable/yellow,
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/station/commons/locker)
@@ -13189,7 +13189,7 @@
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/aft)
 "eMA" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
@@ -26659,6 +26659,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/science/misc_lab/range)
+"iLC" = (
+/obj/structure/chair/stool/directional/east,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/station/commons/fitness/recreation)
 "iLX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -26907,9 +26912,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/command)
 "iPU" = (
-/obj/structure/chair/stool/directional/west{
-	dir = 4
-	},
+/obj/structure/chair/stool/directional/east,
 /obj/item/radio/intercom{
 	desc = "Talk through this. It looks like it has been modified to not broadcast.";
 	name = "Prison Intercom (General)";
@@ -36361,7 +36364,7 @@
 /turf/open/floor/iron,
 /area/station/maintenance/starboard/aft)
 "lzh" = (
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool/directional/north,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/station/commons/locker)
@@ -66667,7 +66670,7 @@
 /area/station/commons/storage/primary)
 "uHv" = (
 /obj/effect/landmark/start/assistant,
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool/directional/east,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/station/commons/locker)
@@ -132268,12 +132271,12 @@ vEX
 vEX
 vEX
 thi
-qSP
-qSP
+iLC
+iLC
 icU
 eFG
-qSP
-qSP
+iLC
+iLC
 pLA
 elG
 pgb

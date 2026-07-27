@@ -97,6 +97,15 @@ const CrewTab = (props: { record: SecurityRecord }) => {
     if (selectedRecord?.record_ref === record_ref) {
       setSelectedRecord(undefined);
     } else {
+      // See MedicalRecords/RecordTabs.tsx for explanation
+      if (selectedRecord === undefined) {
+        setTimeout(() => {
+          act('view_record', {
+            character_preview_view: character_preview_view,
+            record_ref: record_ref,
+          });
+        });
+      }
       setSelectedRecord(record);
       act('view_record', {
         character_preview_view: character_preview_view,

@@ -24,7 +24,7 @@
 		return MAP_ERROR
 
 	var/datum/poll_config/config = new(
-		check_jobban = ROLE_OPERATIVE,
+		check_jobban = ROLE_NUCLEAR_OPERATIVE,
 		poll_time = 30 SECONDS,
 		role_name_text = "lone operative",
 		alert_pic = /obj/machinery/nuclearbomb/selfdestruct,
@@ -39,8 +39,8 @@
 	operative.dna.update_dna_identity()
 
 	var/datum/mind/new_mind = new /datum/mind(candidate.key)
-	new_mind.set_assigned_role("Lone Operative")
-	new_mind.special_role = "Lone Operative"
+	new_mind.set_assigned_role(SSjob.get_job_type(/datum/job/lone_operative))
+	new_mind.special_role = ROLE_LONE_OPERATIVE
 	new_mind.active = TRUE
 	new_mind.transfer_to(operative)
 	new_mind.add_antag_datum(/datum/antagonist/nukeop/lone)

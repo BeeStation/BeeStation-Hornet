@@ -29,7 +29,7 @@
 	setup_visuals()
 
 /mob/living/simple_animal/hostile/zombie/proc/setup_visuals()
-	var/datum/job/job = SSjob.GetJob(zombiejob)
+	var/datum/job/job = SSjob.get_job(zombiejob)
 
 	var/datum/outfit/outfit = new job.outfit
 	outfit.l_hand = null

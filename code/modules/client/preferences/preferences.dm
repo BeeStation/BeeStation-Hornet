@@ -171,7 +171,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	// The database won't have the correct name yet, so manually load it, if it changed.
 	if(fresh_character)
 		update_current_character_profile()
-	create_character_preview_view()
 
 	save_locked = FALSE
 
@@ -188,21 +187,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/ui_interact(mob/user, datum/tgui/ui)
 	// IMPORTANT: If someone opens the prefs menu before jobs load, then the jobs menu will be empty for everyone.
 	// Do NOT call ui_assets until the jobs are loaded.
-	if(!length(SSjob.occupations))
+	if(!length(SSjob.joinable_occupations))
 		return
-
-	// If you leave and come back, re-register the character preview. This also runs the first time it's opened
-	if (!isnull(character_preview_view) && istype(user.client) && !(character_preview_view in user.client.screen))
-		character_preview_view.register_to_client(user.client)
-
-	// Just force an update for funsies
-	character_preview_view.update_body()
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
+		create_character_preview_view(user)
 		ui = new(user, src, "PreferencesMenu")
 		ui.set_autoupdate(FALSE)
 		ui.open()
+		character_preview_view.display_to(user, ui.window)
 
 /datum/preferences/ui_state(mob/user)
 	return GLOB.always_state
@@ -235,7 +229,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/list/data = list()
 
 	data["character_preview_view"] = character_preview_view.assigned_map
-	data["overflow_role"] = SSjob.GetJobType(SSjob.overflow_role).title
+	data["overflow_role"] = SSjob.get_job_type(SSjob.overflow_role).title
 	data["window"] = current_window
 
 	data["content_unlocked"] = unlock_content
@@ -383,8 +377,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	save_locked = TRUE
 	save_character()
 	save_preferences()
-	character_preview_view.unregister_from_client(user.client)
 	save_locked = FALSE
+	QDEL_NULL(character_preview_view)
+
+/datum/preferences/proc/create_character_preview_view(mob/user)
+	character_preview_view = new(null, null, src)
+	character_preview_view.generate_view("character_preview_[REF(character_preview_view)]_map")
+	character_preview_view.update_body()
 
 /datum/preferences/proc/compile_character_preferences(mob/user)
 	var/list/preferences = list()
