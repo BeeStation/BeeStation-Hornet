@@ -211,9 +211,9 @@
 	if(Toxins_partialpressure > safe_tox_max)
 		var/ratio = (GET_MOLES(/datum/gas/plasma, breath)/safe_tox_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
-		throw_alert("too_much_plas", /atom/movable/screen/alert/too_much_plas)
+		throw_alert(ALERT_TOO_MUCH_PLASMA, /atom/movable/screen/alert/too_much_plas)
 	else
-		clear_alert("too_much_plas")
+		clear_alert(ALERT_TOO_MUCH_PLASMA)
 
 	//NITROUS OXIDE
 	if(GET_MOLES(/datum/gas/nitrous_oxide, breath))
