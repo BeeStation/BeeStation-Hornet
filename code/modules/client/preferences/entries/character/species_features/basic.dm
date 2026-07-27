@@ -62,6 +62,7 @@
 	should_generate_icons = TRUE
 	relevant_head_flag = HEAD_FACIAL_HAIR
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
+	informed = TRUE
 
 /datum/preference/choiced/facial_hairstyle/init_possible_values()
 	return assoc_to_keys_features(GLOB.facial_hairstyles_list)
@@ -249,13 +250,6 @@
 	data[SUPPLEMENTAL_FEATURE_KEY] = /datum/preference/color/hair_color::db_key
 
 	return data
-
-/datum/preference/choiced/hairstyle/create_informed_default_value(datum/preferences/preferences)
-	// Pick something not insane that might be considered by an average person to match the gender.
-	// These are stricter than what is possible, since its a default not a restriction
-	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
-	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.hairstyles_list, required_gender = gender)
-	return picked.name
 
 /datum/preference/choiced/hair_gradient
 	priority = PREFERENCE_PRIORITY_BODY_TYPE
