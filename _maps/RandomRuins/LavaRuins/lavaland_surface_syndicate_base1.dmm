@@ -1042,9 +1042,6 @@
 /turf/open/floor/plating,
 /area/ruin/syndicate_lava_base/cargo)
 "is" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/machinery/turretid{
 	ailock = 1;
 	control_area = "/area/ruin/syndicate_lava_base";
@@ -1057,7 +1054,7 @@
 	req_access_txt = "150"
 	},
 /turf/open/floor/circuit/red,
-/area/ruin/syndicate_lava_base/engineering)
+/area/ruin/syndicate_lava_base)
 "iz" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -1125,10 +1122,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/syndicate_lava_base/medbay)
-"jc" = (
-/obj/machinery/light/small,
-/turf/open/floor/circuit/red,
-/area/ruin/syndicate_lava_base/engineering)
 "jm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -1693,6 +1686,7 @@
 /obj/structure/sign/warning/explosives/alt{
 	pixel_x = 32
 	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/circuit/red,
 /area/ruin/syndicate_lava_base/engineering)
 "pR" = (
@@ -6873,7 +6867,7 @@ XA
 QW
 is
 iK
-jc
+iJ
 QW
 Nv
 LB
