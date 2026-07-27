@@ -166,3 +166,13 @@
       tests.
   - server: The janky actions unit test now has its work split up across all of the
       integration tests that it's running alongside.
+2026-07-27:
+  Isaac:
+  - bugfix: Radstation telecommunications HE should cover the entire room
+  - bugfix: Radstation Telecommunications is now encased in reinforced walls instead
+      of regular walls
+  - bugfix: Cardstation Telecommunications now has HE
+  - bugfix: Cardstation R&D Server no longer has the plasma canister alongside the
+      servers
+  - bugfix: Moves some areas around in both syndicate lavaland bases so the turrets
+      can actually be turned off by their turret control
