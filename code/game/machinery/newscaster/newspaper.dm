@@ -85,7 +85,8 @@ I am begging someone to remake this to be more like the paper UI, it's so bad.
 						if(i == 0)
 							dat+="<ul>"
 						i++
-						dat+="-[MESSAGE.return_body(notContent(MESSAGE.body_censor_time))] <BR>"
+						dat+="<B>[MESSAGE.headline || "Untitled Article"]</B><BR>"
+						dat+="[MESSAGE.return_body(notContent(MESSAGE.body_censor_time))] <BR>"
 						if(MESSAGE.img)
 							user << browse_rsc(MESSAGE.img, "tmp_photo[i].png")
 							dat+="<img src='tmp_photo[i].png' width = '180'><BR>"
