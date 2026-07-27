@@ -63,6 +63,19 @@
 		chosen_candidate.mind.special_role = antag_datum.banning_key
 	return ..()
 
+/datum/dynamic_ruleset/midround/living/bloodcultist
+	name = "Blood Cultist (Midround)"
+	severity = DYNAMIC_MIDROUND_HEAVY
+	role_preference = /datum/role_preference/midround/bloodcultist
+	antag_datum = /datum/antagonist/cult
+	drafted_players_amount = 3
+	weight = 4
+	points_cost = 40
+	minimum_players_required = 25
+
+/datum/dynamic_ruleset/midround/living/bloodcultist/get_poll_icon()
+	return /obj/item/melee/cultblade/dagger
+
 //////////////////////////////////////////////
 //                                          //
 //         VALUE DRIFTED AI (MEDIUM)        //
