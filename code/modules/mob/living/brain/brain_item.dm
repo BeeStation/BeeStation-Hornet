@@ -328,7 +328,6 @@
 /obj/item/organ/brain/primate
 	name = "primate brain"
 	desc = "This wad of meat is small, but has enlaged occipital lobes for spotting bananas."
-	variant_traits_removed = list(TRAIT_ADVANCEDTOOLUSER)
 	variant_traits_added = list(TRAIT_PRIMITIVE)
 
 /obj/item/organ/brain/lizard
