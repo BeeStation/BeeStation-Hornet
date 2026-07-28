@@ -64,7 +64,7 @@
 	return ..()
 
 /datum/dynamic_ruleset/midround/living/bloodcultist
-	name = "Blood Cultist (Midround)"
+	name = "Blood Cultists"
 	severity = DYNAMIC_MIDROUND_HEAVY
 	role_preference = /datum/role_preference/midround/bloodcultist
 	antag_datum = /datum/antagonist/cult
