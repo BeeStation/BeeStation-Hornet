@@ -96454,8 +96454,8 @@
 	name = "chewed up gas mask";
 	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of Walther's favorite chew toys."
 	},
-/obj/structure/bed/dogbed/walther,
-/mob/living/basic/pet/dog/bullterrier/walther,
+/obj/structure/bed/dogbed/walter,
+/mob/living/basic/pet/dog/bullterrier/walter,
 /turf/open/floor/iron/techmaint,
 /area/station/security/warden)
 "vdR" = (

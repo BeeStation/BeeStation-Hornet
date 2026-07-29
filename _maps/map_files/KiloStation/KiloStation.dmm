@@ -72674,8 +72674,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/structure/bed/dogbed/walther,
-/mob/living/basic/pet/dog/bullterrier/walther,
+/obj/structure/bed/dogbed/walter,
+/mob/living/basic/pet/dog/bullterrier/walter,
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/warden)
 "wQm" = (

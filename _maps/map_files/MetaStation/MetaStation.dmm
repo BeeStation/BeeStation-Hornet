@@ -46217,8 +46217,8 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/box/white,
-/obj/structure/bed/dogbed/walther,
-/mob/living/basic/pet/dog/bullterrier/walther,
+/obj/structure/bed/dogbed/walter,
+/mob/living/basic/pet/dog/bullterrier/walter,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},

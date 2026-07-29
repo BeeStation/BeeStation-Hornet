@@ -36947,8 +36947,8 @@
 /area/station/service/library)
 "nYm" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/bed/dogbed/walther,
-/mob/living/basic/pet/dog/bullterrier/walther,
+/obj/structure/bed/dogbed/walter,
+/mob/living/basic/pet/dog/bullterrier/walter,
 /turf/open/floor/iron/dark,
 /area/station/security/warden)
 "nYp" = (
