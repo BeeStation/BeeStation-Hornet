@@ -181,3 +181,6 @@
   - rscadd: Monkey Sentience Helmets now work on any mob with a primate brain and
       never a soul
   - tweak: Monkeys now spawn with the Primate brain organ
+2026-07-29:
+  jlsnow301, Programs-the-Station:
+  - bugfix: TGUI Titlebars with Buttons in them work once again.
