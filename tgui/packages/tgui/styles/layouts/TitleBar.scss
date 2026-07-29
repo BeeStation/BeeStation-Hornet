@@ -62,7 +62,7 @@ $title-bar-height: 32px !default;
   &__buttons {
     overflow: hidden;
     white-space: nowrap;
-    flex: 1;
+    flex:1;
     pointer-events: all;
     display: inline-block;
     margin: 0 base.rem(9px);
