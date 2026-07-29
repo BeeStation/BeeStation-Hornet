@@ -46210,8 +46210,6 @@
 /turf/open/floor/iron,
 /area/station/maintenance/port/fore)
 "oAn" = (
-/mob/living/basic/pet/dog/bullterrier/tyson,
-/obj/structure/bed/dogbed/tyson,
 /obj/machinery/newscaster{
 	pixel_y = -30
 	},
@@ -46219,6 +46217,8 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/box/white,
+/obj/structure/bed/dogbed/walther,
+/mob/living/basic/pet/dog/bullterrier/walther,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},

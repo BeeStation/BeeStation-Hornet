@@ -63033,8 +63033,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/structure/bed/dogbed/tyson,
-/mob/living/basic/pet/dog/bullterrier/tyson,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -72676,6 +72674,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/bed/dogbed/walther,
+/mob/living/basic/pet/dog/bullterrier/walther,
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/warden)
 "wQm" = (

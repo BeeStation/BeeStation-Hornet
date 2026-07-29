@@ -33,9 +33,9 @@
 	collar_icon_state = "bullterrier"
 	held_state = "bullterrier"
 
-/mob/living/basic/pet/dog/bullterrier/tyson
-	name = "Tyson"
-	real_name = "Tyson"
+/mob/living/basic/pet/dog/bullterrier/walther
+	name = "Walther"
+	real_name = "Walther"
 	gender = MALE
 	desc = "A sturdy bullterrier with a friendly but watchful demeanor. His intelligent eyes belies his trustworthiness, despite what a goofy face and frame might suggest."
 	gold_core_spawnable = NO_SPAWN
