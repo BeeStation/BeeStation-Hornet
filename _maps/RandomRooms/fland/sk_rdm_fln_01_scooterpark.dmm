@@ -147,6 +147,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/template_noop)
+"D" = (
+/obj/item/plant_tray/pot/random,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
+/turf/open/floor/iron,
+/area/template_noop)
 "F" = (
 /obj/effect/decal/cleanable/oil,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -186,18 +193,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/template_noop)
-"R" = (
-/obj/item/plant_tray/pot/random,
-/obj/item/radio/intercom{
-	pixel_x = 29
-	},
-/turf/open/floor/iron,
-/area/template_noop)
-"S" = (
+"Q" = (
 /obj/machinery/door/airlock/maintenance{
 	id_tag = "ScooterFront";
 	name = "Scooter Rental";
-	id = "ScooterFront"
+	id_tag = "ScooterFront"
 	},
 /turf/open/floor/iron/dark,
 /area/template_noop)
@@ -231,7 +231,7 @@ U
 r
 m
 m
-S
+Q
 V
 I
 j
@@ -264,7 +264,7 @@ X
 "}
 (4,1,1) = {"
 U
-R
+D
 z
 G
 h

@@ -155,3 +155,32 @@
       the 20 used to create them.
   - tweak: Swarmers are no longer able to eat Air Alarms, Reflectors, or the Communications
       Console.
+2026-07-23:
+  St0rmC4st3r:
+  - bugfix: Posters can be once again cut down and put back up.
+2026-07-25:
+  mrmanlikesbt:
+  - bugfix: Fixed some random maintenance rooms
+  mrmanlikesbt, TealSeer, LemonInTheDark:
+  - server: Most unit tests are now only ran on runtimestation during GitHub integration
+      tests.
+  - server: The janky actions unit test now has its work split up across all of the
+      integration tests that it's running alongside.
+2026-07-27:
+  Isaac:
+  - bugfix: Radstation telecommunications HE should cover the entire room
+  - bugfix: Radstation Telecommunications is now encased in reinforced walls instead
+      of regular walls
+  - bugfix: Cardstation Telecommunications now has HE
+  - bugfix: Cardstation R&D Server no longer has the plasma canister alongside the
+      servers
+  - bugfix: Moves some areas around in both syndicate lavaland bases so the turrets
+      can actually be turned off by their turret control
+2026-07-28:
+  BotTierPC:
+  - rscadd: Monkey Sentience Helmets now work on any mob with a primate brain and
+      never a soul
+  - tweak: Monkeys now spawn with the Primate brain organ
+2026-07-29:
+  jlsnow301, Programs-the-Station:
+  - bugfix: TGUI Titlebars with Buttons in them work once again.
