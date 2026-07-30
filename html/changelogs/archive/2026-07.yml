@@ -184,3 +184,11 @@
 2026-07-29:
   jlsnow301, Programs-the-Station:
   - bugfix: TGUI Titlebars with Buttons in them work once again.
+2026-07-30:
+  BotTierPC:
+  - bugfix: Fixes pointing. Shift+Middleclick now points again instead of bringing
+      up a text input dialogue
+  mrmanlikesbt:
+  - bugfix: Fixed the pre-round timer moving 25% faster than it should've been
+  - config: Alongside the above fix, the pre-round timer has been reduced to 3.5 minutes
+      to stay (mostly) accurate to the previous actual time

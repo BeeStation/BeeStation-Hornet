@@ -1,5 +1,0 @@
-author: BotTierPC
-delete-after: true
-changes:
-  - bugfix: Fixes pointing. Shift+Middleclick now points again instead of bringing
-      up a text input dialogue
