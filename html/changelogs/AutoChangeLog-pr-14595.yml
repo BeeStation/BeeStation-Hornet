@@ -1,0 +1,6 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: Fixed the pre-round timer moving 25% faster than it should've been
+  - config: Alongside the above fix, the pre-round timer has been reduced to 3.5 minutes
+      to stay (mostly) accurate to the previous actual time
