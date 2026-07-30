@@ -25,6 +25,7 @@ GLOBAL_LIST_INIT(security_dog_male_names, list(
 	"Tyson",
 	"Walder", //Walter but ASOIAF :)
 	"Walter",
+	"Walther",
 ))
 
 GLOBAL_LIST_INIT(security_dog_female_names, list(
