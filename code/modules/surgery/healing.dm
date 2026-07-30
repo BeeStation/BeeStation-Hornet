@@ -20,7 +20,7 @@
 	. = ..()
 	if(!.)
 		return .
-	if(!(patient.mob_biotypes & (MOB_ORGANIC|MOB_HUMANOID)))
+	if(!(patient.mob_biotypes & (MOB_ORGANIC|MOB_INORGANIC)))
 		return FALSE
 	return .
 
