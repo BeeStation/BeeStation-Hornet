@@ -1309,6 +1309,10 @@
 	},
 /turf/open/floor/iron,
 /area/station/security/brig)
+"oX" = (
+/obj/effect/landmark/blobstart,
+/turf/open/floor/iron,
+/area/station/commons/storage/primary)
 "pd" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -8138,7 +8142,7 @@ dD
 dJ
 dI
 dJ
-dJ
+oX
 dJ
 dJ
 dJ
