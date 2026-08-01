@@ -13,3 +13,5 @@
       inside you at the moment of death
   - rscadd: Modsuit Medbeam module, an integrated medbeam gun into your suit with
       some small drawbacks
+  TealSeer:
+  - code_imp: Fixed webpack bundling TGUI being interpreted as an error by vscode
