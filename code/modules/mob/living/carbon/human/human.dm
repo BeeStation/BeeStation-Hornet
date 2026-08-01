@@ -130,9 +130,7 @@
 			to_chat(viewer, span_notice("[p_They()] [p_are()] no longer wearing that ID card."))
 			return
 
-		var/viable_time = can_see_still ? 3 MINUTES : 1 MINUTES // assuming 3min is the length of a hop line visit - give some leeway if they're still in sight
-		if(!same_id || (text2num(href_list["examine_time"]) + viable_time) < world.time)
-			to_chat(viewer, span_notice("You don't have that good of a memory. Examine [p_them()] again."))
+		if(!can_remember_examine(viewer, text2num(href_list["examine_time"])))
 			return
 		if(!isobserver(viewer) && HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
 			to_chat(viewer, span_notice("You can't make out that ID anymore."))
@@ -172,6 +170,18 @@
 		id_examine += "</div>" // text
 
 		to_chat(viewer, examine_block(span_info(id_examine)))
+
+	if(href_list["see_flavor_text"])
+		var/mob/viewer = usr
+
+		if(!can_remember_examine(viewer, text2num(href_list["examine_time"])))
+			return
+
+		if(!isobserver(viewer) && HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
+			to_chat(viewer, span_notice("You can't make out their appearance anymore."))
+			return
+
+		to_chat(viewer, examine_block(src.dna.features["flavor_text"]))
 
 	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		var/obj/item/bodypart/L = locate(href_list["embedded_limb"]) in bodyparts

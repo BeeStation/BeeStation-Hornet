@@ -468,7 +468,8 @@
 /mob/living/carbon/human/examine_more(mob/user)
 	. = ..()
 
-	if(istype(w_uniform, /obj/item/clothing/under) && !(check_obscured_slots() & ITEM_SLOT_ICLOTHING) && !HAS_TRAIT(w_uniform, TRAIT_EXAMINE_SKIP))
+	var/obscured = check_obscured_slots()
+	if(istype(w_uniform, /obj/item/clothing/under) && !(obscured & ITEM_SLOT_ICLOTHING) && !HAS_TRAIT(w_uniform, TRAIT_EXAMINE_SKIP))
 		var/obj/item/clothing/under/undershirt = w_uniform
 		if(undershirt.has_sensor == BROKEN_SENSORS)
 			. += list(span_notice("\The [undershirt]'s medical sensors are sparking."))
@@ -483,6 +484,13 @@
 	var/agetext = get_age_text()
 	if(agetext)
 		. += agetext
+
+	if(dna?.features["flavor_text"])
+		if(obscured & ITEM_SLOT_HEAD)
+			return
+		if((wear_mask?.flags_inv & HIDEFACE) || (head?.flags_inv & HIDEFACE))
+			return
+		. += "<a href='byond://?src=[REF(src)];see_flavor_text=1;examine_time=[world.time]'>\[Look closer\]</a>"
 
 /// Reports all body parts which are mismatched with the user's species
 /mob/living/carbon/human/proc/get_mismatched_limb_text()
@@ -513,6 +521,16 @@
 			age_text = "withering away"
 
 	return span_notice("[p_They()] appear[p_s()] to be [age_text].")
+
+/mob/living/carbon/human/proc/can_remember_examine(mob/viewer, examine_time)
+	var/can_see_still = (viewer in viewers(src))
+
+	var/viable_time = can_see_still ? 3 MINUTES : 1 MINUTES // assuming 3min is the length of a hop line visit - give some leeway if they're still in sight
+
+	if((examine_time + viable_time) < world.time)
+		to_chat(viewer, span_notice("You don't have that good of a memory. Examine [p_them()] again."))
+		return FALSE
+	return TRUE
 
 #undef ADD_NEWLINE_IF_NECESSARY
 #undef CARBON_EXAMINE_EMBEDDING_MAX_DIST

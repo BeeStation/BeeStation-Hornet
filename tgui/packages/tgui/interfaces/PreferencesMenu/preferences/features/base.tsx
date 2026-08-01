@@ -13,6 +13,7 @@ import {
   NumberInput,
   Slider,
   Stack,
+  TextArea,
 } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
 
@@ -268,3 +269,43 @@ export function FeatureValueInput(props: {
     />
   );
 }
+
+type FeatureShortTextData = {
+  maximum_length: number;
+};
+
+export function FeatureShortTextInput(
+  props: FeatureValueProps<string, string, FeatureShortTextData>,
+) {
+  const { serverData, value, handleSetValue } = props;
+
+  return (
+    <Input
+      disabled={!serverData}
+      fluid
+      value={value}
+      maxLength={serverData?.maximum_length}
+      onBlur={(e) => handleSetValue(e.target.value)}
+    />
+  );
+}
+
+export const FeatureLongTextInput = (
+  props: FeatureValueProps<string, string, FeatureShortTextData>,
+) => {
+  const { serverData, handleSetValue, value } = props;
+
+  if (!serverData) {
+    return <Box>Loading...</Box>;
+  }
+
+  return (
+    <TextArea
+      height="100px"
+      fluid
+      value={value}
+      maxLength={serverData?.maximum_length}
+      onBlur={(e) => handleSetValue(e.target.value)}
+    />
+  );
+};
