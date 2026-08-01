@@ -285,7 +285,7 @@ export function FeatureShortTextInput(
       fluid
       value={value}
       maxLength={serverData?.maximum_length}
-      onBlur={(e) => handleSetValue(e.target.value)}
+      onChange={(e, val) => handleSetValue(val)}
     />
   );
 }
@@ -305,7 +305,7 @@ export const FeatureLongTextInput = (
       fluid
       value={value}
       maxLength={serverData?.maximum_length}
-      onBlur={(e) => handleSetValue(e.target.value)}
+      onChange={(e, val) => handleSetValue(val)}
     />
   );
 };
