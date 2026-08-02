@@ -98,9 +98,7 @@ function ReagentEntry(props: ReagentEntryProps) {
   return (
     <Stack.Item>
       <Stack>
-        <Stack.Item grow>
-          {readableReagentType(reagent)}
-        </Stack.Item>
+        <Stack.Item grow>{readableReagentType(reagent)}</Stack.Item>
         <Stack.Item>
           <NumberInput
             fluid
@@ -110,15 +108,14 @@ function ReagentEntry(props: ReagentEntryProps) {
             unit="u"
             value={reagentAmount ?? addingReagentVolume}
             onChange={(value) => {
-              if(reagentAmount !== undefined) {
+              if (reagentAmount !== undefined) {
                 setContainerReagentVolume(
                   container,
                   updateContainer,
                   reagent.id,
                   value,
                 );
-              }
-              else {
+              } else {
                 setAddingReagentVolume(value);
               }
             }}
@@ -129,10 +126,9 @@ function ReagentEntry(props: ReagentEntryProps) {
             color={reagentAmount !== undefined ? 'red' : 'green'}
             icon={reagentAmount !== undefined ? 'minus' : 'plus'}
             onClick={() => {
-              if(reagentAmount !== undefined) {
+              if (reagentAmount !== undefined) {
                 removeContainerReagent(container, updateContainer, reagent.id);
-              }
-              else {
+              } else {
                 setContainerReagentVolume(
                   container,
                   updateContainer,
@@ -160,24 +156,31 @@ function ContainerSection(props: ContainerProps) {
   const { container, number, updateContainer, reagents, containers } = props;
   const { act } = useBackend<Data>();
 
-  const [showContainerDropdown, setShowContainerDropdown] = useState<boolean>(true);
-  const [showReagentsDropdown, setShowReagentsDropdown] = useState<boolean>(true);
+  const [showContainerDropdown, setShowContainerDropdown] =
+    useState<boolean>(true);
+  const [showReagentsDropdown, setShowReagentsDropdown] =
+    useState<boolean>(true);
 
   const [containerSearchText, setContainerSearchText] = useState<string>('');
   const containerSearch = createSearch(
     containerSearchText,
     (container: ContainerType) => container.text,
   );
-  const containersToShow = containerSearchText.length > 0 ? filter(containers, containerSearch) : containers;
+  const containersToShow =
+    containerSearchText.length > 0
+      ? filter(containers, containerSearch)
+      : containers;
 
   const [reagentSearchText, setReagentSearchText] = useState<string>('');
   const reagentSearch = createSearch(
     reagentSearchText,
     (reagent: Reagent) => reagent.text,
   );
-  const reagentsToShow = reagentSearchText.length > 0 ? filter(reagents, reagentSearch) : reagents;
+  const reagentsToShow =
+    reagentSearchText.length > 0 ? filter(reagents, reagentSearch) : reagents;
 
-  const [showSelectedReagentsOnly, setShowSelectedReagentsOnly] = useState<boolean>(false);
+  const [showSelectedReagentsOnly, setShowSelectedReagentsOnly] =
+    useState<boolean>(false);
 
   return (
     <Stack vertical fill>
@@ -192,7 +195,9 @@ function ContainerSection(props: ContainerProps) {
                 <Button
                   icon="cog"
                   onClick={() =>
-                    act('spawn', { spawn_info: containerToSpawnInfo(container) })
+                    act('spawn', {
+                      spawn_info: containerToSpawnInfo(container),
+                    })
                   }
                 >
                   Spawn
@@ -209,13 +214,15 @@ function ContainerSection(props: ContainerProps) {
               <Stack.Item>
                 <Button
                   icon={showContainerDropdown ? 'chevron-down' : 'chevron-up'}
-                  onClick={() => setShowContainerDropdown(!showContainerDropdown)}
+                  onClick={() =>
+                    setShowContainerDropdown(!showContainerDropdown)
+                  }
                 />
               </Stack.Item>
             </Stack>
           }
         >
-          {showContainerDropdown &&
+          {showContainerDropdown && (
             <Stack vertical>
               {containersToShow.map((otherContainer) => (
                 <Stack.Item key={otherContainer.id} grow>
@@ -224,7 +231,15 @@ function ContainerSection(props: ContainerProps) {
                       {readableContainerType(otherContainer)}
                     </Stack.Item>
                     <Stack.Item>
-                      <Button disabled={container.type === otherContainer.id} onClick={() => updateContainer({ ...container, type: otherContainer.id })}>
+                      <Button
+                        disabled={container.type === otherContainer.id}
+                        onClick={() =>
+                          updateContainer({
+                            ...container,
+                            type: otherContainer.id,
+                          })
+                        }
+                      >
                         Select
                       </Button>
                     </Stack.Item>
@@ -232,7 +247,7 @@ function ContainerSection(props: ContainerProps) {
                 </Stack.Item>
               ))}
             </Stack>
-          }
+          )}
         </Section>
       </Stack.Item>
 
@@ -252,7 +267,12 @@ function ContainerSection(props: ContainerProps) {
                 />
               </Stack.Item>
               <Stack.Item>
-                <Button.Checkbox checked={showSelectedReagentsOnly} onClick={() => setShowSelectedReagentsOnly(!showSelectedReagentsOnly)}>
+                <Button.Checkbox
+                  checked={showSelectedReagentsOnly}
+                  onClick={() =>
+                    setShowSelectedReagentsOnly(!showSelectedReagentsOnly)
+                  }
+                >
                   Selected Only
                 </Button.Checkbox>
               </Stack.Item>
@@ -265,11 +285,11 @@ function ContainerSection(props: ContainerProps) {
             </Stack>
           }
         >
-          {showReagentsDropdown &&
+          {showReagentsDropdown && (
             <Stack vertical fill>
               {reagentsToShow.map((reagent) => {
                 const reagentAmount = container.reagents[reagent.id];
-                if(showSelectedReagentsOnly && reagentAmount === undefined) {
+                if (showSelectedReagentsOnly && reagentAmount === undefined) {
                   return;
                 }
 
@@ -284,7 +304,7 @@ function ContainerSection(props: ContainerProps) {
                 );
               })}
             </Stack>
-          }
+          )}
         </Section>
       </Stack.Item>
     </Stack>
