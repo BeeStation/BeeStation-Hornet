@@ -283,17 +283,21 @@
 	var/obj/item/stock_parts/cell/best_cell
 
 	for(var/obj/item/stock_parts/cell/candidate in replacer)
-		if(candidate.rating <= current_rating)
+		if(candidate.rating < current_rating)
+			continue
+		if(candidate.rating == current_rating)
 			continue
 		if(!best_cell || candidate.rating > best_cell.rating)
 			best_cell = candidate
+		else if(candidate.rating == best_cell.rating && candidate.charge > best_cell.charge)
+			best_cell = candidate // We choose the best one and the best one that is fully charged if there is one
 
 	if(!best_cell)
 		return
 
 	if(is_bluespace && (best_cell.rigged || best_cell.corrupted))
 		best_cell.charge = best_cell.maxcharge
-		best_cell.explode()
+		best_cell.explode() // bomba (reused from regular corrupted RPED exchange)
 		return
 
 	var/obj/item/stock_parts/cell/old_cell = cell
@@ -307,7 +311,7 @@
 	charging = APC_NOT_CHARGING
 	update_appearance()
 
-	to_chat(user, span_notice("[capitalize("[old_cell || "empty slot"]")] replaced [best_cell]."))
+	to_chat(user, span_notice("[capitalize("[old_cell || "empty slot"]")] replaced with [best_cell]."))
 	replacer.play_rped_sound()
 
 /obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
