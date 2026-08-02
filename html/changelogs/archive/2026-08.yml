@@ -15,3 +15,6 @@
       some small drawbacks
   TealSeer:
   - code_imp: Fixed webpack bundling TGUI being interpreted as an error by vscode
+2026-08-02:
+  r1ks-iwnl:
+  - bugfix: Fixes power monitors displaying nothing
