@@ -1,7 +1,9 @@
+import { createSearch } from 'common/string';
+import { filter } from 'es-toolkit/compat';
 import { useState } from 'react';
 import {
   Button,
-  Dropdown,
+  Input,
   NumberInput,
   Section,
   Stack,
@@ -81,6 +83,71 @@ function grenadeCheck(containers: Container[]) {
   return containers.every((container) => container.type.includes('beaker'));
 }
 
+type ReagentEntryProps = {
+  container: Container;
+  reagent: Reagent;
+  reagentAmount?: number | undefined | null;
+  updateContainer: (container: Container) => void;
+};
+
+function ReagentEntry(props: ReagentEntryProps) {
+  const { container, reagent, reagentAmount, updateContainer } = props;
+
+  const [addingReagentVolume, setAddingReagentVolume] = useState<number>(50);
+
+  return (
+    <Stack.Item>
+      <Stack>
+        <Stack.Item grow>
+          {readableReagentType(reagent)}
+        </Stack.Item>
+        <Stack.Item>
+          <NumberInput
+            fluid
+            step={1}
+            minValue={0}
+            maxValue={1000}
+            unit="u"
+            value={reagentAmount ?? addingReagentVolume}
+            onChange={(value) => {
+              if(reagentAmount !== undefined) {
+                setContainerReagentVolume(
+                  container,
+                  updateContainer,
+                  reagent.id,
+                  value,
+                );
+              }
+              else {
+                setAddingReagentVolume(value);
+              }
+            }}
+          />
+        </Stack.Item>
+        <Stack.Item>
+          <Button
+            color={reagentAmount !== undefined ? 'red' : 'green'}
+            icon={reagentAmount !== undefined ? 'minus' : 'plus'}
+            onClick={() => {
+              if(reagentAmount !== undefined) {
+                removeContainerReagent(container, updateContainer, reagent.id);
+              }
+              else {
+                setContainerReagentVolume(
+                  container,
+                  updateContainer,
+                  reagent.id,
+                  addingReagentVolume,
+                );
+              }
+            }}
+          />
+        </Stack.Item>
+      </Stack>
+    </Stack.Item>
+  );
+}
+
 type ContainerProps = {
   container: Container;
   number: number;
@@ -89,139 +156,142 @@ type ContainerProps = {
   containers: ContainerType[];
 };
 
-const ContainerSection = (props: ContainerProps) => {
+function ContainerSection(props: ContainerProps) {
   const { container, number, updateContainer, reagents, containers } = props;
   const { act } = useBackend<Data>();
 
-  const [setAddingReagent, setSetAddingReagent] = useState<string>(
-    reagents[0].id,
+  const [showContainerDropdown, setShowContainerDropdown] = useState<boolean>(true);
+  const [showReagentsDropdown, setShowReagentsDropdown] = useState<boolean>(true);
+
+  const [containerSearchText, setContainerSearchText] = useState<string>('');
+  const containerSearch = createSearch(
+    containerSearchText,
+    (container: ContainerType) => container.text,
   );
-  const [setAddingReagentVolume, setSetAddingReagentVolume] =
-    useState<number>(50);
+  const containersToShow = containerSearchText.length > 0 ? filter(containers, containerSearch) : containers;
+
+  const [reagentSearchText, setReagentSearchText] = useState<string>('');
+  const reagentSearch = createSearch(
+    reagentSearchText,
+    (reagent: Reagent) => reagent.text,
+  );
+  const reagentsToShow = reagentSearchText.length > 0 ? filter(reagents, reagentSearch) : reagents;
+
+  const [showSelectedReagentsOnly, setShowSelectedReagentsOnly] = useState<boolean>(false);
 
   return (
-    <Section
-      fill
-      title={`Container ${number}`}
-      buttons={
-        <Button
-          icon="cog"
-          onClick={() =>
-            act('spawn', { spawn_info: containerToSpawnInfo(container) })
-          }
-        >
-          Spawn
-        </Button>
-      }
-    >
-      <Stack fill vertical>
-        <Stack.Item>
-          <Dropdown
-            options={containers.map((container) => ({
-              displayText: readableContainerType(container),
-              value: container.id,
-            }))}
-            placeholder="Select Container Type"
-            selected={container.type}
-            displayText={readableContainerType(
-              containers.find((c) => c.id === container.type)!,
-            )}
-            onSelected={(value) => {
-              updateContainer({ ...container, type: value });
-            }}
-          />
-        </Stack.Item>
-        {Object.keys(container.reagents).map((reagent) => (
-          <Stack.Item key={reagent}>
+    <Stack vertical fill>
+      <Stack.Item grow={showContainerDropdown}>
+        <Section
+          title={`Container ${number}`}
+          fill
+          scrollable
+          buttons={
             <Stack>
-              <Stack.Item grow>
-                <Button disabled fluid>
-                  {reagents.find((r) => r.id === reagent)?.text}
+              <Stack.Item>
+                <Button
+                  icon="cog"
+                  onClick={() =>
+                    act('spawn', { spawn_info: containerToSpawnInfo(container) })
+                  }
+                >
+                  Spawn
                 </Button>
               </Stack.Item>
               <Stack.Item>
-                <NumberInput
-                  fluid
-                  step={1}
-                  minValue={0}
-                  maxValue={1000}
-                  unit="u"
-                  value={container.reagents[reagent]}
-                  onChange={(value) => {
-                    setContainerReagentVolume(
-                      container,
-                      updateContainer,
-                      reagent,
-                      value,
-                    );
-                  }}
+                <Input
+                  autoFocus
+                  placeholder="Search"
+                  value={containerSearchText}
+                  onInput={(_, value) => setContainerSearchText(value)}
                 />
               </Stack.Item>
               <Stack.Item>
                 <Button
-                  color="red"
-                  icon="minus"
-                  onClick={() => {
-                    removeContainerReagent(container, updateContainer, reagent);
-                  }}
+                  icon={showContainerDropdown ? 'chevron-down' : 'chevron-up'}
+                  onClick={() => setShowContainerDropdown(!showContainerDropdown)}
                 />
               </Stack.Item>
             </Stack>
-          </Stack.Item>
-        ))}
-        <Stack.Item>
-          <Stack>
-            <Stack.Item grow>
-              <Dropdown
-                options={reagents.map((reagent) => ({
-                  displayText: readableReagentType(reagent),
-                  value: reagent.id,
-                }))}
-                placeholder="Add Reagent"
-                selected={setAddingReagent}
-                displayText={readableReagentType(
-                  reagents.find((r) => r.id === setAddingReagent)!,
-                )}
-                onSelected={(value) => {
-                  setSetAddingReagent(value);
-                }}
-              />
-            </Stack.Item>
-            <Stack.Item>
-              <NumberInput
-                fluid
-                step={1}
-                minValue={0}
-                maxValue={1000}
-                unit="u"
-                value={setAddingReagentVolume}
-                onChange={(value) => {
-                  setSetAddingReagentVolume(value);
-                }}
-              />
-            </Stack.Item>
-            <Stack.Item>
-              <Button
-                color="green"
-                icon="plus"
-                onClick={() => {
-                  setContainerReagentVolume(
-                    container,
-                    updateContainer,
-                    setAddingReagent,
-                    setAddingReagentVolume,
-                  );
-                }}
-              />
-            </Stack.Item>
-          </Stack>
-        </Stack.Item>
-      </Stack>
-    </Section>
-  );
-};
+          }
+        >
+          {showContainerDropdown &&
+            <Stack vertical>
+              {containersToShow.map((otherContainer) => (
+                <Stack.Item key={otherContainer.id} grow>
+                  <Stack>
+                    <Stack.Item grow>
+                      {readableContainerType(otherContainer)}
+                    </Stack.Item>
+                    <Stack.Item>
+                      <Button disabled={container.type === otherContainer.id} onClick={() => updateContainer({ ...container, type: otherContainer.id })}>
+                        Select
+                      </Button>
+                    </Stack.Item>
+                  </Stack>
+                </Stack.Item>
+              ))}
+            </Stack>
+          }
+        </Section>
+      </Stack.Item>
 
-export const BeakerPanel = () => {
+      <Stack.Item grow={showReagentsDropdown}>
+        <Section
+          title={`Reagents ${number}`}
+          fill
+          scrollable
+          buttons={
+            <Stack>
+              <Stack.Item>
+                <Input
+                  autoFocus
+                  placeholder="Search"
+                  value={reagentSearchText}
+                  onInput={(_, value) => setReagentSearchText(value)}
+                />
+              </Stack.Item>
+              <Stack.Item>
+                <Button.Checkbox checked={showSelectedReagentsOnly} onClick={() => setShowSelectedReagentsOnly(!showSelectedReagentsOnly)}>
+                  Selected Only
+                </Button.Checkbox>
+              </Stack.Item>
+              <Stack.Item>
+                <Button
+                  icon={showReagentsDropdown ? 'chevron-down' : 'chevron-up'}
+                  onClick={() => setShowReagentsDropdown(!showReagentsDropdown)}
+                />
+              </Stack.Item>
+            </Stack>
+          }
+        >
+          {showReagentsDropdown &&
+            <Stack vertical fill>
+              {reagentsToShow.map((reagent) => {
+                const reagentAmount = container.reagents[reagent.id];
+                if(showSelectedReagentsOnly && reagentAmount === undefined) {
+                  return;
+                }
+
+                return (
+                  <ReagentEntry
+                    key={reagent.id}
+                    container={container}
+                    reagent={reagent}
+                    reagentAmount={reagentAmount}
+                    updateContainer={updateContainer}
+                  />
+                );
+              })}
+            </Stack>
+          }
+        </Section>
+      </Stack.Item>
+    </Stack>
+  );
+}
+
+export function BeakerPanel() {
   const { act, data } = useBackend<Data>();
   const { reagents, containers } = data;
 
@@ -237,8 +307,8 @@ export const BeakerPanel = () => {
   return (
     <Window
       title="Spawn a Reagent Container"
-      width={750}
-      height={400}
+      width={800}
+      height={500}
       theme="admin"
     >
       <Window.Content>
@@ -317,4 +387,4 @@ export const BeakerPanel = () => {
       </Window.Content>
     </Window>
   );
-};
+}
