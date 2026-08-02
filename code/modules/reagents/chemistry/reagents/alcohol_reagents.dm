@@ -477,7 +477,7 @@
 
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.mind?.assigned_role == JOB_NAME_ASSISTANT)
+	if(is_assistant_job(affected_mob.mind?.assigned_role))
 		if(affected_mob.heal_bodypart_damage(brute = 1 * REM * delta_time, burn = 1 * REM * delta_time, updating_health = FALSE))
 			return UPDATE_MOB_HEALTH
 
@@ -667,7 +667,7 @@
 
 /datum/reagent/consumable/ethanol/screwdrivercocktail/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.mind?.assigned_role in list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER))
+	if(affected_mob.mind?.assigned_role.title in list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER))
 		if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
 			if(affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype))
 				return UPDATE_MOB_HEALTH
@@ -3119,5 +3119,8 @@
 		shake_camera(affected_mob, 15)
 		affected_mob.playsound_local(affected_mob.loc, "sound/effects/hyperspace_end.ogg", 50)
 		affected_mob.become_nearsighted("ftliver")
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/carbon, cure_nearsighted), "ftliver"), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(delayed_cure_nearsighted), affected_mob), 5 SECONDS)
 
+/datum/reagent/consumable/ethanol/ftliver/proc/delayed_cure_nearsighted(mob/living/carbon/target)
+	if(!QDELETED(target))
+		target.cure_nearsighted("ftliver")

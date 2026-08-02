@@ -245,7 +245,7 @@ Difficulty: Very Hard
 		sleep(1)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/shoot_projectile(turf/marker, set_angle)
-	if(!isnum_safe(set_angle) && (!marker || marker == loc))
+	if(!IS_FINITE(set_angle) && (!marker || marker == loc))
 		return
 	var/turf/startloc = get_turf(src)
 	var/obj/projectile/P = new /obj/projectile/colossus(startloc)
@@ -267,7 +267,7 @@ Difficulty: Very Hard
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, 1, 2)
 	newtonian_move(get_dir(target_turf, src))
 	var/angle_to_target = get_angle(src, target_turf)
-	if(isnum_safe(set_angle))
+	if(IS_FINITE(set_angle))
 		angle_to_target = set_angle
 	var/static/list/colossus_shotgun_shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)
 	for(var/i in colossus_shotgun_shot_angles)
@@ -541,12 +541,11 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 
 /obj/machinery/anomalous_crystal/honk/ActivationReaction(mob/user)
 	if(..() && ishuman(user) && !(user in affected_targets))
-		var/mob/living/carbon/human/H = user
-		for(var/obj/item/W in H)
-			H.dropItemToGround(W)
-		var/datum/job/C = SSjob.GetJob(JOB_NAME_CLOWN)
-		C.equip(H)
-		affected_targets.Add(H)
+		var/mob/living/carbon/human/new_clown = user
+		for(var/obj/item/to_strip in new_clown)
+			new_clown.dropItemToGround(to_strip)
+		new_clown.dress_up_as_job(SSjob.get_job_type(/datum/job/clown))
+		affected_targets.Add(new_clown)
 
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
 	observer_desc = "This crystal warps the area around it to a theme."

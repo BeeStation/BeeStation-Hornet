@@ -62,6 +62,8 @@
 	var/atom/movable/parent_attached_to
 	///Whether we're a directional light
 	var/directional = FALSE
+	///Whether we're a beam light
+	var/beam = FALSE
 	///A cone overlay for directional light, it's alpha and color are dependant on the light
 	var/image/cone
 	///Current tracked direction for the directional cast behaviour
@@ -73,13 +75,13 @@
 	///Cast range for the directional cast (how far away the atom is moved)
 	var/cast_range = 2
 
-/datum/component/overlay_lighting/Initialize(_range, _power, _color, starts_on, is_directional)
+/datum/component/overlay_lighting/Initialize(_range, _power, _color, starts_on, is_directional, is_beam)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	var/atom/movable/movable_parent = parent
-	if(movable_parent.light_system != MOVABLE_LIGHT && movable_parent.light_system != MOVABLE_LIGHT_DIRECTIONAL)
-		stack_trace("[type] added to [parent], with [movable_parent.light_system] value for the light_system var. Use [MOVABLE_LIGHT] or [MOVABLE_LIGHT_DIRECTIONAL] instead.")
+	if(movable_parent.light_system != MOVABLE_LIGHT && movable_parent.light_system != MOVABLE_LIGHT_DIRECTIONAL && movable_parent.light_system != MOVABLE_LIGHT_BEAM)
+		stack_trace("[type] added to [parent], with [movable_parent.light_system] value for the light_system var. Use [MOVABLE_LIGHT], [MOVABLE_LIGHT_DIRECTIONAL] or [MOVABLE_LIGHT_BEAM] instead.")
 		return COMPONENT_INCOMPATIBLE
 
 	. = ..()
@@ -96,6 +98,8 @@
 		cone.alpha = 110
 		cone.transform = cone.transform.Translate(-32, -32)
 		set_direction(movable_parent.dir)
+	if(is_beam)
+		beam = TRUE
 	if(!isnull(_range))
 		movable_parent.set_light_range(_range)
 	set_range(parent, movable_parent.light_range)
@@ -332,7 +336,7 @@
 	var/new_range = source.light_range
 	if(range == new_range)
 		return
-	if(range == 0)
+	if(new_range == 0)
 		turn_off()
 	range = clamp(CEILING(new_range, 0.5), 1, 6)
 	var/pixel_bounds = ((range - 1) * 64) + 32
@@ -341,16 +345,21 @@
 		current_holder.underlays -= visible_mask
 	visible_mask.icon = light_overlays["[pixel_bounds]"]
 	if(pixel_bounds == 32)
-		visible_mask.transform = null
-		return
-	var/offset = (pixel_bounds - 32) * 0.5
-	var/matrix/transform = new
-	transform.Translate(-offset, -offset)
-	visible_mask.transform = transform
+		if(!directional) // it's important that we make it to the end of this function if we are a directional light
+			visible_mask.transform = null
+			return
+	else
+		var/offset = (pixel_bounds - 32) * 0.5
+		var/matrix/transform = new
+		transform.Translate(-offset, -offset)
+		visible_mask.transform = transform
 	if(current_holder && overlay_lighting_flags & LIGHTING_ON)
 		current_holder.underlays += visible_mask
 	if(directional)
-		cast_range = clamp(round(new_range * 0.5), 1, 3)
+		if(beam)
+			cast_range = max(round(new_range * 0.5), 1)
+		else
+			cast_range = clamp(round(new_range * 0.5), 1, 3)
 	if(overlay_lighting_flags & LIGHTING_ON)
 		make_luminosity_update()
 
@@ -474,19 +483,32 @@
 
 	var/translate_x = -((range - 1) * 32)
 	var/translate_y = translate_x
+	var/scale_x = 1
+	var/scale_y = 1
 	switch(current_direction)
 		if(NORTH)
 			translate_y += 32 * final_distance
+			if(beam && range > 1)
+				scale_x = 1 / (range - (range/5))
 		if(SOUTH)
 			translate_y += -32 * final_distance
+			if(beam && range > 1)
+				scale_x = 1 / (range - (range/5))
 		if(EAST)
 			translate_x += 32 * final_distance
+			if(beam && range > 1)
+				scale_y = 1 / (range - (range/5))
 		if(WEST)
 			translate_x += -32 * final_distance
+			if(beam && range > 1)
+				scale_y = 1 / (range - (range/5))
+
 	if((directional_offset_x != translate_x) || (directional_offset_y != translate_y))
 		directional_offset_x = translate_x
 		directional_offset_y = translate_y
 		var/matrix/transform = matrix()
+		if(beam && range > 1)
+			transform.Scale(scale_x, scale_y)
 		transform.Translate(translate_x, translate_y)
 		visible_mask.transform = transform
 	if(overlay_lighting_flags & LIGHTING_ON)

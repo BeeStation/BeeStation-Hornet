@@ -320,7 +320,8 @@
 	if(adminlog)
 		message_admins(adminlog)
 		log_game(adminlog)
-	qdel(loc)
+	if(isobj(loc))
+		qdel(loc)
 	qdel(src)
 
 // the machine's defusal is mostly done from the wires code, this is here if you want the core itself to do anything.

@@ -792,6 +792,12 @@
 	suffix = "default"
 	name = "pirate ship (Default)"
 
+/datum/map_template/shuttle/pirate/bratica
+	suffix = "bratica"
+	name = "Compact Pirate Cutter"
+	credit_cost = INFINITY
+	can_be_bought = FALSE
+
 /datum/map_template/shuttle/hunter/space_cop
 	suffix = "space_cop"
 	name = "Police Spacevan"

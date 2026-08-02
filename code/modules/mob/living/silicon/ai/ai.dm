@@ -108,7 +108,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
-/mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
+/mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai, latejoining = FALSE)
 	default_access_list = get_all_accesses()
 	. = ..()
 	AddElement(/datum/element/trackable)
@@ -123,7 +123,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	else
 		make_laws()
 
-	if(target_ai.mind)
+	if((target_ai.mind && target_ai.mind.active) || SSticker.current_state == GAME_STATE_SETTING_UP || latejoining)
 		target_ai.mind.transfer_to(src)
 		if(mind.special_role)
 			mind.store_memory("As an AI, you must obey your silicon laws above all else. Your objectives will consider you to be dead.")
@@ -137,7 +137,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	to_chat(src, "Use say :b to speak to your cyborgs through binary.")
 	to_chat(src, "For department channels, use the following say commands:")
 	to_chat(src, ":o - AI Private, :c - Command, :s - Security, :e - Engineering, :u - Supply, :v - Service, :m - Medical, :n - Science, :h - Holopad.") //typically, :h will always use a radios key and send speech to that departmental channel, for AI's it sends it to currently used holopad instead
+
 	show_laws()
+
 	to_chat(src, span_bold("These laws may be changed by other players, or by you being the traitor."))
 
 	job = JOB_NAME_AI
@@ -882,7 +884,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(oldname != real_name)
 		if(eyeobj)
 			eyeobj.name = "[newname] (AI Eye)"
-			modularInterface.saved_identification = real_name
+			modularInterface.imprint_id(name = real_name)
 
 		// Notify Cyborgs
 		for(var/mob/living/silicon/robot/Slave in connected_robots)
@@ -1087,7 +1089,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
 	. = ..() //This needs to be lower so we have a chance to actually update the assigned target_ai.
 
 /mob/living/silicon/ai/proc/camera_visibility(mob/camera/ai_eye/moved_eye)
-	GLOB.cameranet.visibility(moved_eye, client, all_eyes, TRUE)
+	GLOB.cameranet.update_camera_visibility(moved_eye, client, all_eyes, TRUE)
 
 /mob/living/silicon/ai/forceMove(atom/destination)
 	. = ..()
@@ -1119,7 +1121,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
 /mob/living/silicon/ai/get_exp_list(minutes)
 	. = ..()
 
-	var/datum/job/ai/ai_job_ref = SSjob.GetJobType(/datum/job/ai)
+	var/datum/job/ai/ai_job_ref = SSjob.get_job_type(/datum/job/ai)
 
 	.[ai_job_ref.title] = minutes
 

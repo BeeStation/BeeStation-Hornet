@@ -12,6 +12,7 @@
 	armor_type = /datum/armor/obj_structure
 	burning_particles = /particles/smoke/burning
 	var/broken = FALSE
+	var/radiation_shield = FALSE   // Blocks rads in containers - see morgue.dm for proc
 
 /datum/armor/obj_structure
 	fire = 50

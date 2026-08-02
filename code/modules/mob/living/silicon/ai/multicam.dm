@@ -140,7 +140,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 	if(screen && screen.ai)
 		screen.ai.camera_visibility(src)
 	else
-		GLOB.cameranet.visibility(src)
+		GLOB.cameranet.update_camera_visibility(src)
 	update_camera_telegraphing()
 	update_ai_detect_hud()
 

@@ -6,6 +6,11 @@
  *	FINGERPRINT CARD
  */
 
+/**
+ * x1, y1, x2, y2 - Represents the bounding box for the ID card's non-transparent portion of its various icon_states.
+ * Used to crop the ID card's transparency away when chaching the icon for better use in tgui chat.
+ */
+#define ID_ICON_BORDERS 1, 9, 32, 24
 
 
 /*
@@ -15,6 +20,9 @@
 	name = "card"
 	desc = "Does card things."
 	icon = 'icons/obj/card.dmi'
+	inhand_icon_state = "card-id"
+	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = ISWEAPON
 
@@ -33,38 +41,11 @@
 /obj/item/card/proc/get_displayed_name(honorifics = FALSE)
 	return null
 
-/obj/item/card/data
-	name = "data card"
-	desc = "A plastic magstripe card for simple and speedy data storage and transfer. This one has a stripe running down the middle."
-	icon_state = "data_1"
-	obj_flags = UNIQUE_RENAME
-	var/function = "storage"
-	var/data = "null"
-	var/special = null
-	inhand_icon_state = "card-id"
-	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
-	var/detail_color = COLOR_ASSEMBLY_ORANGE
-
-/obj/item/card/data/Initialize(mapload)
-	.=..()
-	update_icon()
-
-/obj/item/card/data/update_overlays()
-	. = ..()
-	if(detail_color == COLOR_FLOORTILE_GRAY)
-		return
-	var/mutable_appearance/detail_overlay = mutable_appearance('icons/obj/card.dmi', "[icon_state]-color")
-	detail_overlay.color = detail_color
-	. += detail_overlay
-
-/obj/item/card/data/full_color
-	desc = "A plastic magstripe card for simple and speedy data storage and transfer. This one has the entire card colored."
-	icon_state = "data_2"
-
-/obj/item/card/data/disk
-	desc = "A plastic magstripe card for simple and speedy data storage and transfer. This one inexplicibly looks like a floppy disk."
-	icon_state = "data_3"
+/obj/item/card/proc/get_cached_flat_icon()
+	if(!cached_flat_icon)
+		cached_flat_icon = getFlatIcon(src)
+		cached_flat_icon.Crop(ID_ICON_BORDERS)
+	return cached_flat_icon
 
 /*
  * ID CARDS
@@ -295,7 +276,10 @@
 
 /obj/item/card/id/get_id_examine_strings(mob/user)
 	. = ..()
-	. += list("[icon2html(src, user, extra_classes = "hugeicon idicon")]")
+	. += list("[icon2html(get_cached_flat_icon(), user, extra_classes = "hugeicon idicon")]")
+
+/obj/item/card/id/get_examine_icon(mob/user)
+	return icon2html(get_cached_flat_icon(), user)
 
 /obj/item/card/id/proc/insert_money(obj/item/I, mob/user)
 	if(!registered_account)
@@ -314,7 +298,7 @@
 	else
 		to_chat(user, span_notice("You insert [I] into [src], adding [cash_money] credits to the linked account."))
 
-	to_chat(user, span_notice("The linked account now reports a balance of $[registered_account.account_balance]."))
+	to_chat(user, span_notice("The linked account now reports a balance of [registered_account.account_balance] cr."))
 	qdel(I)
 
 /obj/item/card/id/proc/mass_insert_money(list/money, mob/user)
@@ -408,17 +392,19 @@
 
 /obj/item/card/id/examine(mob/user)
 	. = ..()
+	if(!user.can_read(src))
+		return
 	if(!electric)  // forces off bank info for paper slip
 		return .
 	if(registered_account)
 		if(registered_account.report_currency(ACCOUNT_CURRENCY_MINING))
 			. += "There's [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)] mining equipment redemption point\s loaded onto the account of this card."
-		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
+		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of [registered_account.account_balance] cr."
 		if(!istype(src, /obj/item/card/id/departmental_budget))
 			var/list/payment_result = list()
 			for(var/D in registered_account.payment_per_department)
 				if(registered_account.payment_per_department[D] > 0)
-					payment_result += "[D]: $[registered_account.payment_per_department[D]]"
+					payment_result += "[D]: [registered_account.payment_per_department[D]] cr"
 			if(length(payment_result))
 				. += "The payment of this account is -"
 				for(var/each in payment_result)
@@ -427,11 +413,11 @@
 				for(var/datum/bank_account/department/D in SSeconomy.budget_accounts)
 					if(D.department_bitflag & registered_account.active_departments)
 						if(D.show_budget_information)
-							. += "The [D.account_holder] reports a balance of $[D.account_balance]."
+							. += "The [D.account_holder] reports a balance of [D.account_balance] cr."
 			else
 				var/datum/bank_account/B = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 				if(B)
-					. += "The [B.account_holder] reports a balance of $[B.account_balance]."
+					. += "The [B.account_holder] reports a balance of [B.account_balance] cr."
 
 
 		. += span_info("Alt-Click the ID to pull money from the linked account in the form of holochips.")
@@ -460,20 +446,12 @@
 			powergaming.update_label()
 			powergaming.update_appearance()
 
-/*
-Usage:
-update_label()
-	Sets the id name to whatever registered_name and assignment is
+/// Updates the name based on the card's vars and state.
+/obj/item/card/id/proc/update_label()
+	var/name_string = registered_name ? "[registered_name]'s ID Card" : initial(name)
+	var/assignment_string = " ([assignment])"
 
-update_label("John Doe", "Clowny")
-	Properly formats the name and occupation and sets the id name to the arguments
-*/
-/obj/item/card/id/proc/update_label(newname, newjob)
-	if(newname || newjob)
-		name = "[(!newname)	? "identification card"	: "[newname]'s ID Card"][(!newjob) ? "" : " ([newjob])"]"
-		return
-
-	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
+	name = "[name_string][assignment_string]"
 
 /obj/item/card/id/silver
 	name = "silver identification card"
@@ -1350,3 +1328,5 @@ do { \
 	to_chat(user, "You upgrade your [idcard] with the [name].")
 	log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
 	qdel(src)
+
+#undef ID_ICON_BORDERS

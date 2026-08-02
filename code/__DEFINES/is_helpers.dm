@@ -302,15 +302,7 @@ GLOBAL_LIST_INIT(book_types, typecacheof(list(
 	/obj/item/storage/book,
 )))
 
-/// isnum() returns TRUE for NaN. Also, NaN != NaN. Checkmate, BYOND.
-#define isnan(x) ( (x) != (x) )
-
-#define isinf(x) (isnum((x)) && (((x) == SYSTEM_TYPE_INFINITY) || ((x) == -SYSTEM_TYPE_INFINITY)))
-
 #define isProbablyWallMounted(O) (O.pixel_x > 20 || O.pixel_x < -20 || O.pixel_y > 20 || O.pixel_y < -20)
-
-/// NaN isn't a number, damn it. Infinity is a problem too.
-#define isnum_safe(x) ( isnum((x)) && !isnan((x)) && !isinf((x)) )
 
 #define iscash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash) || istype(A, /obj/item/holochip))
 
@@ -321,10 +313,16 @@ GLOBAL_LIST_INIT(book_types, typecacheof(list(
 #define is_captain_job(job_type) (istype(job_type, /datum/job/captain))
 #define is_chaplain_job(job_type) (istype(job_type, /datum/job/chaplain))
 #define is_clown_job(job_type) (istype(job_type, /datum/job/clown))
+#define is_curator_job(job_type) (istype(job_type, /datum/job/curator))
 #define is_detective_job(job_type) (istype(job_type, /datum/job/detective))
+#define is_explorer_job(job_type) (istype(job_type, /datum/job/exploration_crew))
+#define is_mime_job(job_type) (istype(job_type, /datum/job/mime))
+#define is_head_of_personnel_job(job_type) (istype(job_type, /datum/job/head_of_personnel))
+#define is_lawyer_job(job_type) (istype(job_type, /datum/job/lawyer))
 #define is_scientist_job(job_type) (istype(job_type, /datum/job/scientist))
 #define is_security_officer_job(job_type) (istype(job_type, /datum/job/security_officer))
+#define is_shaft_miner_job(job_type) (istype(job_type, /datum/job/shaft_miner))
 #define is_research_director_job(job_type) (istype(job_type, /datum/job/research_director))
-#define is_unassigned_job(job_type) (istype(job_type, /datum/job/unassigned))
+#define is_unassigned_job(job_type) (isnull(job_type) || istype(job_type, /datum/job/unassigned))
 
 #define is_multi_tile_object(atom) (atom.bound_width > ICON_SIZE_X || atom.bound_height > ICON_SIZE_Y)

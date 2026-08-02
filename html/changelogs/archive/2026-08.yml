@@ -1,0 +1,20 @@
+2026-08-01:
+  Isaac, necromanceranne, DaydreamIQ:
+  - balance: 'Splits the nuclear operative combat medical kit into two versions: basic
+      and premium.'
+  - balance: Basic contains mix chem patches for burn and brute, some spare atropine
+      autoinjectors, price is unchanged).
+  - balance: The premium kit is a far more useful full suite of advanced medical equipment,
+      MODsuit modules, medical supplies and cybernetic implants, including the combat
+      hypospray and a few smaller extra ones to give to your teammates, a combat defib
+      MOD module and a MOD medbeam gun, price changed to 25 to make up for the extra
+      stuff.
+  - balance: microbombs automatically explode upon death, UNLESS you have atropine
+      inside you at the moment of death
+  - rscadd: Modsuit Medbeam module, an integrated medbeam gun into your suit with
+      some small drawbacks
+  TealSeer:
+  - code_imp: Fixed webpack bundling TGUI being interpreted as an error by vscode
+2026-08-02:
+  r1ks-iwnl:
+  - bugfix: Fixes power monitors displaying nothing

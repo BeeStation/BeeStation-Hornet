@@ -52,8 +52,6 @@
 
 	rotate_on_lying = TRUE
 
-	var/tinttotal = 0	// Total level of visualy impairing items
-
 	var/list/icon_render_keys = list()
 	var/list/bodyparts = list(
 		/obj/item/bodypart/chest,

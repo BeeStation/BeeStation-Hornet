@@ -110,7 +110,8 @@
 	ui_update()
 
 /datum/wires/proc/repair()
-	cut_wires.Cut()
+	for(var/wire in cut_wires)
+		cut(wire) // I KNOW I KNOW OK
 	ui_update()
 
 /datum/wires/proc/get_wire(color)

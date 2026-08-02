@@ -104,6 +104,12 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
 
+/obj/item/clothing/glasses/hud/health/night/science
+	name = "night vision medical science scanner HUD"
+	desc = "A clandestine medical science heads-up display that allows operatives to find \
+		dying captains and the perfect poison to finish them off in complete darkness."
+	clothing_traits = list(TRAIT_REAGENT_SCANNER)
+
 /obj/item/clothing/glasses/hud/health/sunglasses
 	gender = PLURAL
 	name = "medical HUDSunglasses"
@@ -120,7 +126,7 @@
 	desc = "Prescription glasses with a built-in medical HUD."
 	icon_state = "prescmedhud"
 	emissive_state = "prehud_emissive"
-	vision_correction = 1
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/hud/health/sunglasses/degraded
 	name = "degraded medical HUDSunglasses"
@@ -165,7 +171,7 @@
 	desc = "Prescription glasses with a built-in diagnostic HUD."
 	icon_state = "prescdiaghud"
 	emissive_state = "prehud_emissive"
-	vision_correction = 1
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/hud/security
 	name = "security HUD"
@@ -230,7 +236,7 @@
 	desc = "Prescription glasses with a built-in security HUD. They do not provide flash protection."
 	icon_state = "prescsechud"
 	emissive_state = "prehud_emissive"
-	vision_correction = 1
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/gars
 	name = "\improper HUD gar glasses"
@@ -329,8 +335,7 @@
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	darkness_view = 8
 	flash_protect = FLASH_PROTECTION_WELDER
-	vision_correction = 1
-	clothing_traits = list(TRAIT_MEDICAL_HUD, TRAIT_SECURITY_HUD, TRAIT_DIAGNOSTIC_HUD, TRAIT_BOT_PATH_HUD, TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER)
+	clothing_traits = list(TRAIT_MEDICAL_HUD, TRAIT_SECURITY_HUD, TRAIT_DIAGNOSTIC_HUD, TRAIT_BOT_PATH_HUD, TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER, TRAIT_NEARSIGHTED_CORRECTED)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = INDESTRUCTIBLE
 	actions_types = list(/datum/action/item_action/toggle,/datum/action/item_action/toggle_research_scanner)

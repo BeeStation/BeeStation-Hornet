@@ -1,7 +1,7 @@
 /proc/getviewsize(view, extra_x = 0, extra_y = 0)
 	var/viewX
 	var/viewY
-	if(isnum_safe(view))
+	if(IS_FINITE(view))
 		var/totalviewrange = (view < 0 ? -1 : 1) + 2 * view
 		viewX = totalviewrange + extra_x
 		viewY = totalviewrange + extra_y
@@ -25,7 +25,7 @@
 /proc/get_zoomed_view(view, zoom_amt)
 	var/viewX
 	var/viewY
-	if(isnum_safe(view))
+	if(IS_FINITE(view))
 		return view + zoom_amt
 	else
 		var/list/viewrangelist = splittext(view,"x")

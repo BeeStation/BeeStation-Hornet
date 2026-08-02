@@ -19,39 +19,48 @@
 
 /// Gets the current manifest.
 /datum/manifest/proc/get_manifest()
-	/// assoc-ing to head names, so that we give their name an officer mark on crew manifest
-	var/static/list/heads
-	if(!heads) // do not do this in pre-runtime.
-		heads = make_associative(SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-
-	// Pre-build in sorted order
+	// Pre-build the categories in manifest sort order (Command first, Misc last).
 	var/list/manifest_out = list()
 	var/list/dept_to_category = list()
 	for(var/datum/department_group/department as anything in SSdepartment.sorted_department_for_manifest)
 		manifest_out[department.manifest_category_name] = list()
 		dept_to_category[department.dept_id] = department.manifest_category_name
 
-	for(var/datum/record/crew/person_record in GLOB.manifest.general)
+	for(var/datum/record/crew/person_record as anything in GLOB.manifest.general)
 		var/name = person_record.name
-		var/rank = person_record.rank
+		var/rank = person_record.rank // user-visible job
 		var/hud = person_record.hud
-		var/dept_bitflags = person_record.active_department
 		var/datum/job/job = SSjob.name_occupations[rank]
 		// Skip jobs that aren't flagged for the crew manifest.
 		if(job && !(job.job_flags & JOB_CREW_MANIFEST))
 			continue
-		var/entry = list("name" = name, "rank" = rank, "hud" = hud)
-		if(dept_bitflags)
-			for(var/datum/department_group/department as anything in SSdepartment.get_department_by_bitflag(dept_bitflags))
-				var/category = dept_to_category[department.dept_id]
-				// Append to beginning of list if captain or department head
-				var/put_at_top = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN) || (department.dept_id != DEPT_NAME_COMMAND && heads[rank])
-				var/list/_internal = manifest_out[category]
-				_internal.Insert(put_at_top, list(entry))
-		else
-			var/put_at_top = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN) || (heads[rank])
-			var/list/_internal = manifest_out[dept_to_category[DEPT_NAME_UNASSIGNED]]
-			_internal.Insert(put_at_top, list(entry))
+		// Append to beginning of list if captain or acting captain, regardless of department.
+		var/is_captain = (hud == JOB_HUD_CAPTAIN) || (hud == JOB_HUD_ACTINGCAPTAIN)
+		var/list/entry = list(
+			"name" = name,
+			"rank" = rank,
+			"hud" = hud,
+		)
+		// Unlawful custom rank, or a job with no department, lands in the unassigned category.
+		if(!job || !LAZYLEN(job.departments_list))
+			var/list/misc_list = manifest_out[dept_to_category[DEPARTMENT_NAME_UNASSIGNED]]
+			misc_list.Insert(is_captain, list(entry))
+			continue
+		for(var/department_type in job.departments_list)
+			// Jobs under multiple departments only display under their first department, plus command for command jobs.
+			if(job.departments_list[1] != department_type && !(job.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND))
+				continue
+			var/datum/department_group/department = SSdepartment.department_datums_by_type[department_type]
+			if(!department)
+				stack_trace("get_manifest() failed to get job department for [department_type] of [job.type]")
+				continue
+			var/category = dept_to_category[department.dept_id]
+			if(isnull(category)) // department has jobs but isn't shown on the crew manifest
+				continue
+			// Append to beginning of list if captain, acting captain, or this department's head.
+			var/put_at_top = is_captain || istype(job, department.department_head)
+			var/list/department_list = manifest_out[category]
+			department_list.Insert(put_at_top, list(entry))
 
 	// Trim empty categories.
 	for(var/category in manifest_out)
@@ -91,23 +100,22 @@
 
 /datum/manifest/proc/inject(mob/living/carbon/human/person, nosignal = FALSE)
 	set waitfor = FALSE
-	var/datum/job/job = person.mind?.assigned_role_datum
+	var/datum/job/job = person.mind?.assigned_role
 	if(job && !(job.job_flags & JOB_CREW_MANIFEST))
 		return
+
+	var/assignment = person.mind?.assigned_role?.title || "None"
 
 	// We need to compile the overlays now, otherwise we're basically copying an empty icon.
 	COMPILE_OVERLAYS(person)
 	var/mutable_appearance/character_appearance = new(person.appearance)
 	var/datum/dna/stored/record_dna = new()
-	person.dna.copy_dna(record_dna)
+	person.dna.copy_dna_to(record_dna)
 	var/gender_string = "Other"
 	if(person.gender == MALE)
 		gender_string = "Male"
 	if(person.gender == FEMALE)
 		gender_string = "Female"
-	var/assignment = person.mind?.assigned_role
-	if(isnull(assignment))
-		assignment = "None"
 	var/datum/bank_account/bank_account = person.get_bank_account()
 
 	var/datum/record/locked/lockfile = new(

@@ -233,7 +233,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 	var/num_level = text2num(level)
 	if(!num_level)
 		return
-	if(!isnum_safe(num_level))
+	if(!IS_FINITE(num_level))
 		return
 
 	var/type_text = capped_input(src, "Which type path?","Path?")
@@ -315,7 +315,7 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 				for(var/obj/item/I in D)
 					qdel(I)
 				randomize_human(D)
-				JB.equip(D, TRUE, FALSE)
+				D.dress_up_as_job(JB, TRUE)
 				COMPILE_OVERLAYS(D)
 				var/icon/I = icon(getFlatIcon(D), frame = 1)
 				final.Insert(I, JB.title)

@@ -158,7 +158,7 @@
 		'sound/weapons/genhit1.ogg',
 		'sound/weapons/handcuffs.ogg',
 		'sound/weapons/homerun.ogg',
-		'sound/weapons/kenetic_accel.ogg',
+		'sound/weapons/kinetic_accel.ogg',
 		'sound/machines/clockcult/steam_whoosh.ogg',
 		'sound/machines/fryer/deep_fryer_emerge.ogg',
 		'sound/machines/airlock.ogg',

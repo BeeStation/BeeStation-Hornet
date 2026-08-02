@@ -13,13 +13,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Install curl (Linux only)
-      if: runner.os != 'Windows'
-      shell: bash
-      run: |
-        sudo dpkg --add-architecture i386
-        sudo apt update || true
-        sudo apt install -o APT::Immediate-Configure=false curl:i386
     - name: Configure Node version
       shell: bash
       run: |

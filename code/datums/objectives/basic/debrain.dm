@@ -21,7 +21,7 @@
 /datum/objective/debrain/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Steal the brain of [target.name], the [!target_special_role ? target.assigned_role : target.special_role]."
+		explanation_text = "Steal the brain of [target.name], the [!target_special_role ? target.assigned_role.title : target.special_role]."
 	else
 		explanation_text = "Free Objective"
 

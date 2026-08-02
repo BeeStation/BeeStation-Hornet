@@ -53,7 +53,7 @@
 			continue
 
 		// Compatible job?
-		if(candidate.mind.assigned_role && (candidate.mind.assigned_role in restricted_roles))
+		if(candidate.mind.assigned_role.title in restricted_roles)
 			candidates -= candidate
 			continue
 
@@ -151,7 +151,7 @@
 
 /datum/dynamic_ruleset/gamemode/malf/trim_candidates()
 	. = ..()
-	var/datum/job/ai/ai_job = SSjob.GetJob(JOB_NAME_AI)
+	var/datum/job/ai/ai_job = SSjob.get_job_type(/datum/job/ai)
 	for(var/mob/candidate in candidates)
 		// Must have enough hours to play AI
 		if(ai_job.required_playtime_remaining(candidate.client))
@@ -161,7 +161,7 @@
 /datum/dynamic_ruleset/gamemode/malf/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		SSjob.AssignRole(chosen_mind.current, JOB_NAME_AI)
+		SSjob.assign_role(chosen_mind.current, SSjob.get_job_type(/datum/job/ai))
 
 /datum/dynamic_ruleset/gamemode/malf/security_report()
 	return "The proximity to multiple stars leads to a risk of ion storms born from constructive wave interference. This has been identified \
@@ -190,13 +190,13 @@
 /datum/dynamic_ruleset/gamemode/wizard/choose_candidates()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
+		chosen_mind.set_assigned_role(SSjob.get_job_type(/datum/job/space_wizard))
 
 /datum/dynamic_ruleset/gamemode/wizard/execute()
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.current.forceMove(pick(GLOB.wizardstart))
-		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
+		chosen_mind.set_assigned_role(SSjob.get_job_type(/datum/job/space_wizard))
 
 /datum/dynamic_ruleset/gamemode/wizard/security_report()
 	return "Unconfirmed rumours suggest that a series of powerful artifacts that possess intricate control over space-time are in the hands \
@@ -309,7 +309,7 @@
 	generate_clockcult_scriptures()
 
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
+		chosen_mind.set_assigned_role(SSjob.get_job_type(/datum/job/clockcultist))
 
 /datum/dynamic_ruleset/gamemode/clockcult/execute()
 	main_cult = new()
@@ -369,8 +369,9 @@
 
 /datum/dynamic_ruleset/gamemode/nuclear/choose_candidates()
 	. = ..()
+	var/job_type = ispath(antag_datum, /datum/antagonist/nukeop/clownop) ? /datum/job/clown_operative : /datum/job/nuclear_operative
 	for(var/datum/mind/chosen_mind in chosen_candidates)
-		chosen_mind.set_assigned_role(initial(antag_datum.banning_key))
+		chosen_mind.set_assigned_role(SSjob.get_job_type(job_type))
 
 /datum/dynamic_ruleset/gamemode/nuclear/execute()
 	var/has_made_leader = FALSE

@@ -88,32 +88,34 @@
 		no_protection = TRUE
 	. = ..()
 
-/datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H, visuals_only = FALSE, client/preference_source = null)
-	H.open_internals(H.get_item_for_held_index(2))
+/datum/species/plasmaman/pre_equip_species_outfit(datum/job/job, mob/living/carbon/human/equipping, visuals_only = FALSE, datum/preferences/preference_source = null)
+	var/outfit_path = job?.species_outfits?[id]
+	if(!outfit_path) //Somehow we were given a job without a plasmaman suit, use the default one so we don't go in naked!
+		outfit_path = /datum/outfit/plasmaman
+		stack_trace("Job [job] lacks a species_outfits entry for plasmamen!")
+	equipping.equipOutfit(outfit_path, visuals_only)
+	equipping.open_internals(equipping.get_item_for_held_index(2))
 
-	if(!preference_source?.prefs)
+	if(!preference_source)
 		return
-	var/path = J.species_outfits?[SPECIES_PLASMAMAN]
-	if (!path) //Somehow we were given a job without a plasmaman suit, use the default one so we don't go in naked!
-		path = /datum/outfit/plasmaman
-		stack_trace("Job [J] lacks a species_outfits entry for plasmamen!")
-	var/datum/outfit/plasmaman/O = new path
-	var/selected_style = preference_source.prefs.read_character_preference(/datum/preference/choiced/helmet_style)
+	var/datum/outfit/plasmaman/style_reference = new outfit_path
+	var/selected_style = preference_source.read_character_preference(/datum/preference/choiced/helmet_style)
 	if(selected_style != HELMET_DEFAULT)
-		if(O.helmet_variants[selected_style])
-			var/helmet = O.helmet_variants[selected_style]
-			qdel(H.head)
-			H.equip_to_slot(new helmet, ITEM_SLOT_HEAD)
-			H.open_internals(H.get_item_for_held_index(2))
+		if(style_reference.helmet_variants[selected_style])
+			var/helmet = style_reference.helmet_variants[selected_style]
+			qdel(equipping.head)
+			equipping.equip_to_slot(new helmet, ITEM_SLOT_HEAD)
+			equipping.open_internals(equipping.get_item_for_held_index(2))
+	qdel(style_reference)
 
 /datum/species/plasmaman/give_important_for_life(mob/living/carbon/human/human_to_equip)
 	. = ..()
 	human_to_equip.open_internals(human_to_equip.get_item_for_held_index(2))
 
-/datum/species/plasmaman/qualifies_for_rank(rank, list/features)
-	if(rank in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
+/datum/species/plasmaman/qualifies_for_rank(datum/job/rank, list/features)
+	if(rank in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
 		return 0
-	if(rank == JOB_NAME_CLOWN || rank == JOB_NAME_MIME)//No funny bussiness
+	if(is_clown_job(rank) || is_mime_job(rank))//No funny bussiness
 		return 0
 	return ..()
 

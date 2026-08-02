@@ -56,6 +56,10 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	var/datum/species/species = new /datum/species/human //The type of mutant race the player is if applicable (i.e. potato-man)
 	var/list/features = list(COLOR_WHITE) //first value is mutant color
 	var/real_name //Stores the real name of the person who originally got this dna datum. Used primarely for changelings,
+
+	var/age //Stores the real age of the mob - used at clone
+	var/gender //Stores the real gender of the mob - used at clone
+
 	var/list/mutations = list()   //All mutations are from now on here
 	var/list/temporary_mutations = list() //Temporary changes to the UE
 	var/list/previous = list() //For temporary name/ui/ue/blood_type modifications
@@ -104,31 +108,36 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	destination.dna.blood_type = blood_type
 	destination.dna.features = features.Copy()
 	destination.dna.real_name = real_name
+	destination.dna.age = age
+	destination.dna.gender = gender
 	destination.dna.temporary_mutations = temporary_mutations.Copy()
 	if(transfer_SE)
-		destination.dna.mutation_index = mutation_index
-		destination.dna.default_mutation_genes = default_mutation_genes
+		destination.dna.mutation_index = mutation_index.Copy()
+		destination.dna.default_mutation_genes = default_mutation_genes.Copy()
 		for(var/datum/mutation/M as anything in mutations)
 			if(!istype(M, /datum/mutation/race))
 				destination.dna.add_mutation(M, M.class)
 	if(transfer_species)
 		destination.set_species(species.type, icon_update=0)
 
-/datum/dna/proc/copy_dna(datum/dna/new_dna)
+/datum/dna/proc/copy_dna_to(datum/dna/new_dna)
 	new_dna.unique_enzymes = unique_enzymes
-	new_dna.mutation_index = mutation_index
-	new_dna.default_mutation_genes = default_mutation_genes
 	new_dna.unique_identity = unique_identity
 	new_dna.unique_features = unique_features
 	new_dna.blood_type = blood_type
-	new_dna.features = features.Copy()
 	new_dna.species = new species.type
+	new_dna.features = features.Copy()
 	new_dna.real_name = real_name
+	new_dna.age = age
+	new_dna.gender = gender
 	new_dna.update_body_size() //Must come after features.Copy()
+
 	// Mutations aren't gc managed, but they still aren't templates
 	// Let's do a proper copy
 	for(var/datum/mutation/mutation in mutations)
 		new_dna.add_mutation(mutation, mutation.class, mutation.timeout)
+	new_dna.mutation_index = mutation_index.Copy()
+	new_dna.default_mutation_genes = default_mutation_genes.Copy()
 
 /datum/dna/proc/compare_dna(datum/dna/other)
 	if (!other)
@@ -500,7 +509,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	features = random_features(holder.gender)
 	unique_features = generate_unique_features()
 
-
 /datum/dna/stored //subtype used by brain mob's stored_dna
 
 /datum/dna/stored/add_mutation(mutation_name) //no mutation changes on stored dna.
@@ -615,6 +623,9 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(newreal_name)
 		real_name = newreal_name
 		dna.generate_unique_enzymes()
+
+	dna.age = age
+	dna.gender = gender
 
 	if(newblood_type)
 		dna.blood_type = newblood_type

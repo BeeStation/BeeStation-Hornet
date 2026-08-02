@@ -11,7 +11,7 @@
 	var/needs_update_stat = FALSE
 
 /datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration)
-	if(isnum_safe(set_duration))
+	if(IS_FINITE(set_duration))
 		duration = set_duration
 	. = ..()
 	if(. && (needs_update_stat || issilicon(owner)))
@@ -202,12 +202,17 @@
 	if(!.)
 		return
 	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
+	owner.add_filter("stasis_status_ripple", 2, list("type" = "ripple", "flags" = WAVE_BOUNDED, "radius" = 0, "size" = 2))
+	var/filter = owner.get_filter("stasis_status_ripple")
+	animate(filter, radius = 0, time = 0.2 SECONDS, size = 2, easing = JUMP_EASING, loop = -1, flags = ANIMATION_PARALLEL)
+	animate(radius = 32, time = 1.5 SECONDS, size = 0)
 
 /datum/status_effect/grouped/stasis/tick(seconds_between_ticks)
 	update_time_of_death()
 
 /datum/status_effect/grouped/stasis/on_remove()
 	owner.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
+	owner.remove_filter("stasis_status_ripple")
 	update_time_of_death()
 	owner.update_incapacitated()
 	SEND_SIGNAL(owner, COMSIG_LIVING_EXIT_STASIS)
@@ -1169,14 +1174,14 @@
 	mob_overlay = mutable_appearance('icons/effects/heretic.dmi', "cloud_swirl", ABOVE_MOB_LAYER)
 	owner.overlays += mob_overlay
 	owner.update_icon()
-	ADD_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
+	owner.become_blind(id)
 	return TRUE
 
 /datum/status_effect/cloudstruck/on_remove()
 	. = ..()
 	if(QDELETED(owner))
 		return
-	REMOVE_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
+	owner.cure_blind(id)
 	if(owner)
 		owner.overlays -= mob_overlay
 		owner.update_icon()
@@ -1336,11 +1341,11 @@
 		qdel(src)
 		return
 	src.target_dna = new target_dna.type
-	target_dna.copy_dna(src.target_dna)
+	target_dna.copy_dna_to(src.target_dna)
 	charge_left = rand(45, 90)
 	if(original_dna)
 		src.original_dna = new original_dna.type
-		original_dna.copy_dna(src.original_dna)
+		original_dna.copy_dna_to(src.original_dna)
 	src.already_applied = already_applied
 	return ..()
 
@@ -1355,7 +1360,7 @@
 		return
 	else if(!original_dna)
 		original_dna = new carbon_owner.dna.type
-		carbon_owner.dna.copy_dna(original_dna)
+		carbon_owner.dna.copy_dna_to(original_dna)
 	RegisterSignal(owner, COMSIG_CARBON_TRANSFORMED, PROC_REF(on_transformation))
 	if(!already_applied)
 		apply_dna(target_dna)

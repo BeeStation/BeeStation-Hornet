@@ -21,12 +21,14 @@
 
 	organ_traits = list(
 		TRAIT_ADVANCEDTOOLUSER,
-		//TRAIT_LITERATE,
+		TRAIT_LITERATE,
 		TRAIT_CAN_STRIP
 	)
 
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
+	/// Stores the original dna data of the mob - This is used at cloning. Set FALSE if a specific brain shouldn't use it
+	var/datum/dna/brain_dna = null // 'null' means it will have a DNA upon Insert() proc because the var is empty(null). If a DNA exists there, it means no slot for them.
 	var/brain_death = FALSE //if the brainmob was intentionally killed by attacking the brain after removal, or by severe braindamage
 	/// If it's a fake brain with no brainmob assigned. Feedback messages will be faked as if it does have a brainmob. See changelings
 	var/decoy_override = FALSE
@@ -40,6 +42,16 @@
 	/// Variance in brain traits removed by subtypes
 	var/list/variant_traits_removed
 
+	//What examining this brain will say about its various states
+	var/text_soul_but_damaged = "It seems to still have a bit of energy within it, but it's rather damaged... You may be able to restore it with some <b>mannitol</b>."
+	var/text_soul_but_alive = "You can feel the small spark of life still left in this one."
+
+	var/text_missing_soul_but_damaged = "It seems particularly lifeless and is rather damaged... You may be able to restore it with some <b>mannitol</b> incase it becomes functional again later."
+	var/text_missing_soul_but_alive = "This one seems particularly lifeless. Perhaps it will regain some of its luster later."
+
+	var/text_no_soul_but_damaged = "It's lifeless and severely damaged."
+	var/text_no_soul_but_alive = "This one is completely devoid of life."
+
 	juice_typepath = null	//the moment the brains become juicable, people will find a way to cheese round removal. So NO.
 
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
@@ -47,7 +59,8 @@
 /obj/item/organ/brain/Initialize(mapload)
 	. = ..()
 	organ_traits.Remove(variant_traits_removed)
-	organ_traits |= variant_traits_added
+	if(variant_traits_added)
+		organ_traits |= variant_traits_added
 
 /obj/item/organ/brain/Insert(mob/living/carbon/brain_owner, special = FALSE, drop_if_replaced = TRUE, no_id_transfer = FALSE, pref_load = FALSE)
 	. = ..()
@@ -55,6 +68,9 @@
 		return
 
 	name = initial(name)
+	if(brain_owner?.has_dna() && isnull(brain_dna)) // if "brain_dna = FALSE", we do not copy.
+		brain_dna = new()
+		brain_owner.dna.copy_dna_to(brain_dna)
 
 	// Special check for if you're trapped in a body you can't control because it's owned by a ling.
 	if(brain_owner?.mind?.has_antag_datum(/datum/antagonist/changeling) && !no_id_transfer)	//congrats, you're trapped in a body you don't control
@@ -158,7 +174,7 @@
 		var/mob/living/carbon/C = L
 		if(!brainmob.stored_dna)
 			brainmob.stored_dna = new /datum/dna/stored(brainmob)
-		C.dna.copy_dna(brainmob.stored_dna)
+		C.dna.copy_dna_to(brainmob.stored_dna)
 		if(HAS_TRAIT(L, TRAIT_BADDNA))
 			LAZYSET(brainmob.status_traits, TRAIT_BADDNA, L.status_traits[TRAIT_BADDNA])
 		var/obj/item/organ/zombie_infection/ZI = L.get_organ_slot(ORGAN_SLOT_ZOMBIE)
@@ -202,28 +218,30 @@
 	else if(brainmob)
 		if(brainmob.key || brainmob.get_ghost(FALSE, TRUE))
 			if(brain_death || brainmob.health <= HEALTH_THRESHOLD_DEAD)
-				. += span_info("It's lifeless and severely damaged.")
+				. += span_info(text_no_soul_but_damaged)
 			else if(organ_flags & ORGAN_FAILING)
-				. += span_info("It seems to still have a bit of energy within it, but it's rather damaged... You may be able to restore it with some <b>mannitol</b>.")
+				. += span_info(text_soul_but_damaged)
 			else
-				. += span_info("You can feel the small spark of life still left in this one.")
+				. += span_info(text_soul_but_alive)
 		else if(organ_flags & ORGAN_FAILING)
-			. += span_info("It seems particularly lifeless and is rather damaged... You may be able to restore it with some <b>mannitol</b> incase it becomes functional again later.")
+			. += span_info(text_missing_soul_but_damaged)
 		else
-			. += span_info("This one seems particularly lifeless. Perhaps it will regain some of its luster later.")
+			. += span_info(text_missing_soul_but_alive)
 	else
 		if(decoy_override)
 			if(organ_flags & ORGAN_FAILING)
-				. += span_info("It seems particularly lifeless and is rather damaged... You may be able to restore it with some <b>mannitol</b> incase it becomes functional again later.")
+				. += span_info(text_missing_soul_but_damaged)
 			else
-				. += span_info("This one seems particularly lifeless. Perhaps it will regain some of its luster later.")
+				. += span_info(text_missing_soul_but_alive)
 		else
-			. += span_info("This one is completely devoid of life.")
+			. += span_info(text_no_soul_but_alive)
 
 /obj/item/organ/brain/Destroy() //copypasted from MMIs.
 	if(brainmob)
 		QDEL_NULL(brainmob)
 	QDEL_LIST(traumas)
+	if(brain_dna)
+		QDEL_NULL(brain_dna)
 
 	if(owner?.mind) //You aren't allowed to return to brains that don't exist
 		owner.mind.set_current(null)
@@ -296,6 +314,7 @@
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
 	variant_traits_removed = list(/*TRAIT_LITERATE,*/ TRAIT_ADVANCEDTOOLUSER)
+	brain_dna = FALSE // we do not store dna
 
 /obj/item/organ/brain/primitive //No like books and stompy metal men
 	name = "primitive brain"
@@ -309,7 +328,6 @@
 /obj/item/organ/brain/primate
 	name = "primate brain"
 	desc = "This wad of meat is small, but has enlaged occipital lobes for spotting bananas."
-	variant_traits_removed = list(TRAIT_ADVANCEDTOOLUSER)
 	variant_traits_added = list(TRAIT_PRIMITIVE)
 
 /obj/item/organ/brain/lizard
@@ -339,6 +357,13 @@
 	icon_state = "posibrain-ipc"
 	organ_flags = ORGAN_ROBOTIC
 	base_icon_state = "posibrain"
+	brain_dna = FALSE // we do not store dna
+	text_soul_but_damaged = "The S.O.U.L. light is green, but it is blinking unsteadily... You may be able to repair it with a <b>multitool</b>."
+	text_soul_but_alive = "The S.O.U.L. light is green."
+	text_missing_soul_but_damaged = "The S.O.U.L. light is yellow and it is blinking unsteadily... You may be able to repair it with a <b>multitool</b> incase it becomes active again later."
+	text_missing_soul_but_alive = "The S.O.U.L. light is yellow. Perhaps it will reactivate later."
+	text_no_soul_but_damaged = "The S.O.U.L. light is red, and it is blinking unsteadily"
+	text_no_soul_but_alive = "The S.O.U.L. light is red."
 
 /obj/item/organ/brain/positron/on_insert(mob/living/carbon/human/brain_owner)
 	. = ..()
@@ -348,6 +373,31 @@
 			if(REVIVESBYHEALING in H.dna.species.species_traits)
 				if(H.health > 0)
 					H.revive()
+
+/obj/item/organ/brain/positron/attackby(obj/item/attacking_item, mob/user, params)
+	user.changeNext_move(CLICK_CD_MELEE)
+
+	if(istype(attacking_item, /obj/item/organ_storage))
+		return //Borg organ bags shouldn't be killing brains
+
+	if(brainmob) //if we aren't trying to heal the brain, pass the attack onto the brainmob.
+		attacking_item.attack(brainmob, user) //Oh noooeeeee
+
+	if(attacking_item.force != 0 && !(attacking_item.item_flags & NOBLUDGEON))
+		set_organ_damage(maxHealth) //fails the brain as the brain was attacked, they're pretty fragile.
+
+/obj/item/organ/brain/positron/multitool_act(mob/living/user, obj/item/tool)
+	user.visible_message("[user] starts to repair the circuitry of [src].", span_notice("You start to repair the circuitry of [src]."))
+	if(!do_after(user, 6 SECONDS, src))
+		to_chat(user, span_warning("You mess up the repair to [src] and instead damage it further!"))
+		return FALSE
+
+	user.visible_message("[user] repairs the circuitry of [src], causing it to blink in a more steady pattern.", span_notice("You repair the circuitry of [src], causing it to blink in a more steady pattern."))
+	set_organ_damage(damage - (maxHealth * 0.25))
+	cure_all_traumas(TRAUMA_RESILIENCE_SURGERY)
+	if(damage > 0)
+		to_chat(user, span_notice("The lights are still unsteady. This positronic could be repaired further."))
+	return TRUE
 
 /obj/item/organ/brain/positron/emp_act(severity)
 	. = ..()
@@ -487,7 +537,18 @@
 		qdel(pick(traumas))
 
 /obj/item/organ/brain/proc/cure_all_traumas(resilience = TRAUMA_RESILIENCE_BASIC, special_method = FALSE)
+	var/amount_cured = 0
 	var/list/traumas = get_traumas_type(resilience = resilience, special_method = special_method)
 	for(var/X in traumas)
 		qdel(X)
+		amount_cured++
+	return amount_cured
 
+/obj/item/organ/brain/apply_organ_damage(damage_amount, maximum = maxHealth, required_organ_flag = NONE)
+	. = ..()
+	if(!owner)
+		return FALSE
+	if(damage >= 60)
+		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "brain_damage", /datum/mood_event/brain_damage)
+	else
+		SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")

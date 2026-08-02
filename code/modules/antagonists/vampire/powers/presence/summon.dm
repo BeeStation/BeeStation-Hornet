@@ -34,7 +34,7 @@
 		owner.balloon_alert(owner, "[carbon_target] is mindless.")
 		return FALSE
 
-	if(HAS_MIND_TRAIT(carbon_target, TRAIT_VAMPIRE_ALIGNED) || IS_CURATOR(carbon_target))
+	if(HAS_MIND_TRAIT(carbon_target, TRAIT_VAMPIRE_ALIGNED) || is_curator_job(carbon_target?.mind?.assigned_role))
 		owner.balloon_alert(owner, "immune to your presence.")
 		return FALSE
 
@@ -81,7 +81,7 @@
 	var/step_delay = 0.6 SECONDS
 
 /datum/status_effect/summoned/on_creation(mob/living/new_owner, set_duration, mob/living/vampire)
-	if(isnum_safe(set_duration))
+	if(IS_FINITE(set_duration))
 		duration = set_duration
 	source_vampire = vampire
 	return ..()

@@ -48,7 +48,7 @@
 
 /obj/item/reagent_containers/blood/random/Initialize(mapload)
 	icon_state = "bloodpack"
-	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-", "L", "E", "Coolant")
+	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-", "L", "LE", "Coolant")
 	return ..()
 
 /obj/item/reagent_containers/blood/a_plus
@@ -74,6 +74,15 @@
 
 /obj/item/reagent_containers/blood/ethereal
 	blood_type = "E"
+	unique_blood = /datum/reagent/consumable/liquidelectricity
+
+/obj/item/reagent_containers/blood/ethereal/Initialize(mapload)
+	. = ..()
+	if(blood_type == "E")
+		reagents.clear_reagents()
+		reagents.add_reagent(/datum/reagent/consumable/liquidelectricity, volume, list("blood_type" = get_blood_type("LE")))
+		update_icon()
+	set_light(2, 1, COLOR_ETHEREAL_BLOOD)
 
 /obj/item/reagent_containers/blood/synthetic
 	blood_type = "Coolant"

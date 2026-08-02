@@ -24,7 +24,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/gibspawner)
 
 	var/obj/effect/decal/cleanable/blood/gib = null
 
-	if(sound_to_play && isnum_safe(sound_vol))
+	if(sound_to_play && IS_FINITE(sound_vol))
 		playsound(src, sound_to_play, sound_vol, TRUE)
 
 	if(sparks)
