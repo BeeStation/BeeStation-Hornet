@@ -10,6 +10,7 @@
 	plural_form = "Mothmen"
 	id = SPECIES_MOTH
 	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
 		TRAIT_HAS_MARKINGS,
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_BUG
