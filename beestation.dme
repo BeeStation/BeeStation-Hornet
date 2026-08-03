@@ -400,6 +400,7 @@
 #include "code\__HELPERS\weakref.dm"
 #include "code\__HELPERS\logging\admin.dm"
 #include "code\__HELPERS\logging\antagonists.dm"
+#include "code\__HELPERS\logging\atmos.dm"
 #include "code\__HELPERS\logging\debug.dm"
 #include "code\__HELPERS\logging\game.dm"
 #include "code\__HELPERS\logging\talk.dm"
