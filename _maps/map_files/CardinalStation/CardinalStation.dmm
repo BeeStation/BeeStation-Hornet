@@ -50747,21 +50747,11 @@
 	},
 /obj/item/plant_tray/pot/random,
 /obj/structure/railing/perspective/black,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 6
-	},
-/obj/structure/railing/perspective/black,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8;
 	name = "output gas connector port"
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
-/obj/effect/mapping_helpers/atmos_auto_connect,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/tcommsat/computer)
 "lSJ" = (
