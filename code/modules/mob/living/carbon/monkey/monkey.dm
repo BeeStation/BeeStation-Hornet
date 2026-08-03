@@ -96,7 +96,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	organs += new /obj/item/organ/appendix
 	organs += new /obj/item/organ/lungs
 	organs += new /obj/item/organ/heart
-	organs += new /obj/item/organ/brain
+	organs += new /obj/item/organ/brain/primate
 	organs += new /obj/item/organ/tongue
 	organs += new /obj/item/organ/eyes
 	organs += new /obj/item/organ/ears

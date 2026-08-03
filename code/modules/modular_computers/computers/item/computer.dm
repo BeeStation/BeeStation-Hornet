@@ -666,6 +666,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	enabled = 0
 	update_appearance()
 
+/obj/item/modular_computer/proc/imprint_id(name = null, job_name = null)
+	//These components are so idiotic
+	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
+	var/obj/item/computer_hardware/identifier/id = all_components[MC_IDENTIFY]
+	saved_identification = name || card_slot?.stored_card.registered_name || saved_identification
+	saved_job = job_name || card_slot?.stored_card?.assignment || saved_job
+	id?.UpdateDisplay()
+
 /**
   * Toggles the computer's flashlight, if it has one.
   *
@@ -881,7 +889,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/multitool_act(mob/living/user, obj/item/I)
 	var/time_to_diagnose = 3 SECONDS
 	var/will_pass = FALSE
-	if(user.mind?.assigned_role in list(JOB_NAME_SCIENTIST, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_DETECTIVE))	// Scientist and Detective buff
+	if(user.mind?.assigned_role.title in list(JOB_NAME_SCIENTIST, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_DETECTIVE))	// Scientist and Detective buff
 		will_pass = TRUE
 	if(HAS_TRAIT(user, TRAIT_COMPUTER_WHIZ))	// Trait buff
 		time_to_diagnose = 1 SECONDS

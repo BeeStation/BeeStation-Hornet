@@ -258,13 +258,14 @@
 	var/charcount = 0
 	var/char = ""
 
-
+	if(t_len > 3 * MAX_NAME_LEN)
+		return
 	for(var/i = 1, i <= t_len, i += length(char))
 		char = t_in[i]
 		switch(text2ascii(char))
 
 			// A  .. Z
-			if(65 to 90)			//Uppercase Letters
+			if(65 to 90) //Uppercase Letters
 				number_of_alphanumeric++
 				last_char_group = LETTERS_DETECTED
 
@@ -276,8 +277,8 @@
 				last_char_group = LETTERS_DETECTED
 
 			// 0  .. 9
-			if(48 to 57)			//Numbers
-				if(last_char_group == NO_CHARS_DETECTED || !allow_numbers) //suppress at start of string
+			if(48 to 57) //Numbers
+				if(!allow_numbers) //suppress numbers entirely if disallowed
 					if(strict)
 						return
 					continue

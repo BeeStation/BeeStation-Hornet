@@ -27,6 +27,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	dir = SOUTH
 	var/message_cooldown
 	var/breakout_time = 600
+	radiation_shield = TRUE   // Blocks external radiation when closed
 
 /obj/structure/bodycontainer/Initialize(mapload)
 	. = ..()
@@ -420,3 +421,14 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		return
 	if(locate(/obj/structure/table) in get_turf(mover))
 		return TRUE
+
+// Helper proc to check if a mob is inside any shielded structure (morgue, etc.)
+/mob/living/proc/is_in_shielded_bodycontainer()
+	var/atom/current = src.loc
+	while(current && !isturf(current))
+		if(istype(current, /obj/structure))
+			var/obj/structure/S = current
+			if(S.radiation_shield)
+				return TRUE
+		current = current.loc
+	return FALSE

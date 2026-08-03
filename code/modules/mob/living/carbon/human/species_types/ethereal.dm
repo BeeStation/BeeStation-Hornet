@@ -5,7 +5,7 @@
 	mutantstomach = /obj/item/organ/stomach/battery/ethereal
 	mutanttongue = /obj/item/organ/tongue/ethereal
 	mutantheart = /obj/item/organ/heart/ethereal
-	exotic_bloodtype = "E"
+	exotic_bloodtype = "LE"
 	siemens_coeff = 0.5 //They thrive on energy
 	inherent_traits = list(
 		TRAIT_MUTANT_COLORS,

@@ -22,36 +22,23 @@
 	var/list/concurrent_users = list()
 
 	// Stuff needed to render the map
-	var/map_name
-	var/atom/movable/screen/map_view/cam_screen
-	/// All the plane masters that need to be applied.
-	var/datum/remote_view/remote_view
-	var/atom/movable/screen/background/cam_background
+	var/atom/movable/screen/map_view/camera/cam_screen
 
 /datum/computer_file/program/secureye/New()
 	. = ..()
 	// Map name has to start and end with an A-Z character,
 	// and definitely NOT with a square bracket or even a number.
-	map_name = "camera_console_[REF(src)]_map"
+	var/map_name = "camera_console_[REF(src)]_map"
 	// Convert networks to lowercase
 	for(var/i in network)
 		network -= i
 		network += LOWER_TEXT(i)
 	// Initialize map objects
 	cam_screen = new
-	cam_screen.name = "screen"
-	cam_screen.assigned_map = map_name
-	cam_screen.del_on_map_removal = FALSE
-	cam_screen.screen_loc = "[map_name]:1,1"
-	remote_view = new(map_name)
-	cam_background = new
-	cam_background.assigned_map = map_name
-	cam_background.del_on_map_removal = FALSE
+	cam_screen.generate_view(map_name)
 
 /datum/computer_file/program/secureye/Destroy()
 	QDEL_NULL(cam_screen)
-	QDEL_NULL(remote_view)
-	QDEL_NULL(cam_background)
 	return ..()
 
 /datum/computer_file/program/secureye/on_ui_create(mob/user, datum/tgui/ui)
@@ -64,9 +51,7 @@
 	if(isliving(user))
 		concurrent_users += user_ref
 	// Register map objects
-	user.client.register_map_obj(cam_screen)
-	remote_view.join(user.client)
-	user.client.register_map_obj(cam_background)
+	cam_screen.display_to(user, ui.window)
 
 /datum/computer_file/program/secureye/ui_data()
 	var/list/data = list()
@@ -83,7 +68,7 @@
 /datum/computer_file/program/secureye/ui_static_data()
 	var/list/data = list()
 	data["network"] = network
-	data["mapRef"] = map_name
+	data["mapRef"] = cam_screen.assigned_map
 	var/list/cameras = get_available_cameras()
 	data["cameras"] = list()
 	for(var/i in cameras)
@@ -133,7 +118,7 @@
 	// Living creature or not, we remove you anyway.
 	concurrent_users -= user_ref
 	// Unregister map objects
-	remote_view.leave(user.client)
+	cam_screen.hide_from(user)
 	// Turn off the console
 	if(length(concurrent_users) == 0 && is_living)
 		camera_ref = null
@@ -143,7 +128,7 @@
 	var/obj/machinery/camera/active_camera = camera_ref?.resolve()
 	// Show static if can't use the camera
 	if(!active_camera?.can_use())
-		show_camera_static()
+		cam_screen.show_camera_static()
 		return
 
 	var/list/visible_turfs = list()
@@ -170,14 +155,7 @@
 	var/size_x = bbox[3] - bbox[1] + 1
 	var/size_y = bbox[4] - bbox[2] + 1
 
-	cam_screen.vis_contents = visible_turfs
-	cam_background.icon_state = "clear"
-	cam_background.fill_rect(1, 1, size_x, size_y)
-
-/datum/computer_file/program/secureye/proc/show_camera_static()
-	cam_screen.vis_contents.Cut()
-	cam_background.icon_state = "scanline2"
-	cam_background.fill_rect(1, 1, DEFAULT_MAP_SIZE, DEFAULT_MAP_SIZE)
+	cam_screen.show_camera(visible_turfs, size_x, size_y)
 
 // Returns the list of cameras accessible from this computer
 /datum/computer_file/program/secureye/proc/get_available_cameras()
@@ -186,7 +164,7 @@
 		if(!is_station_level(cam.z))//Only show station cameras.
 			continue
 		if(!islist(cam.network))
-			stack_trace("Camera in a cameranet has invaid camera network")
+			stack_trace("Camera in a cameranet has invalid camera network")
 			continue
 		if(!length(cam.network & network))
 			continue

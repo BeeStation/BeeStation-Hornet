@@ -483,10 +483,12 @@ GLOBAL_LIST(admin_antag_list)
 	hud.plane = DATA_HUD_PLANE
 	return hud
 
-// Handles adding and removing the clumsy mutation from clown antags. Gets called in apply/remove_innate_effects
+/// Handles adding and removing the clumsy mutation from clown antags. Gets called in apply/remove_innate_effects
 /datum/antagonist/proc/handle_clown_mutation(mob/living/mob_override, message, removing = TRUE)
+	if(!is_clown_job(owner.assigned_role))
+		return
 	var/mob/living/carbon/C = mob_override
-	if(C && istype(C) && C.has_dna() && owner.assigned_role == JOB_NAME_CLOWN)
+	if(C && istype(C) && C.has_dna())
 		if(removing) // They're a clown becoming an antag, remove clumsy
 			C.dna.remove_mutation(/datum/mutation/clumsy)
 			if(!silent && message)

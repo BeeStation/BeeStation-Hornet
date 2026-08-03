@@ -275,6 +275,7 @@
 	name = "Nicotine"
 	addiction_relief_treshold = MIN_NICOTINE_ADDICTION_REAGENT_AMOUNT //much less because your intake is probably from ciggies
 	withdrawal_stage_messages = list("Feel like having a smoke...", "Getting antsy. Really need a smoke now.", "I can't take it! Need a smoke NOW!")
+	withdrawal_cycle_multiplier = 0.2
 
 	medium_withdrawal_moodlet = /datum/mood_event/nicotine_withdrawal_moderate
 	severe_withdrawal_moodlet = /datum/mood_event/nicotine_withdrawal_severe

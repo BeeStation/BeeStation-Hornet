@@ -309,7 +309,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	var/mob/living/mob_occupant = occupant
 
-	if(mob_occupant.mind && mob_occupant.mind.assigned_role)
+	if(mob_occupant.mind && !is_unassigned_job(mob_occupant.mind.assigned_role))
 		//Handle job slot/tater cleanup.
 		var/job = mob_occupant.mind.assigned_role
 		SSjob.FreeRole(job)
