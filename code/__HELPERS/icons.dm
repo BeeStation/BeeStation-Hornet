@@ -891,10 +891,28 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 			CRASH("get_dummy_savefile failed to create a dummy savefile: '[error]'")
 		return get_dummy_savefile(from_failure = TRUE)
 
+/// starts the base64 blob inside a filedata() block
+#define FILEDATA_OPENING_DELIMITER "{\""
+/// ends the base64 blob inside a filedata() block
+#define FILEDATA_CLOSING_DELIMITER "\"}"
+
 /**
  * Converts an icon to base64. Operates by putting the icon in the iconCache savefile,
  * exporting it as text, and then parsing the base64 from that.
  * (This relies on byond automatically storing icons in savefiles as base64)
+ *
+ * The backend:
+ *
+ *	. = object(".0")
+ *	.0
+ *		type = /icon
+ *		icon = filedata("name=;ext=.dmi;length=1127;crc32=0xcb9372b4;encoding=base64",{"
+ *	<the base64, split over several lines>
+ *	"})
+ *		file_reference = "icons/effects/effects.dmi"
+ *		state_reference = "<li>icon_state = \"nothing\"</li>..."
+ *
+ * 516 kind of fucked us in this regard, as there was no savefile stuff appended after png info traditionally
  */
 /proc/icon2base64(icon/icon)
 	if (!isicon(icon))
@@ -902,8 +920,19 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	var/savefile/dummySave = get_dummy_savefile()
 	WRITE_FILE(dummySave["dummy"], icon)
 	var/iconData = dummySave.ExportText("dummy")
-	var/list/partial = splittext(iconData, "{")
-	return replacetext(copytext_char(partial[2], 3, -5), "\n", "") //if cleanup fails we want to still return the correct base64
+
+	//neither delimiter is correct base64, so the first of each is the one we want
+	var/payload_start = findtext(iconData, FILEDATA_OPENING_DELIMITER)
+	var/payload_end = payload_start && findtext(iconData, FILEDATA_CLOSING_DELIMITER, payload_start)
+	if(!payload_start || !payload_end)
+		//an icon with no frames
+		stack_trace("icon2base64 got an icon with no filedata() in its export.")
+		return FALSE
+
+	return replacetext(copytext(iconData, payload_start + length(FILEDATA_OPENING_DELIMITER), payload_end), "\n", "")
+
+#undef FILEDATA_OPENING_DELIMITER
+#undef FILEDATA_CLOSING_DELIMITER
 
 ///given a text string, returns whether it is a valid dmi icons folder path
 /proc/is_valid_dmi_file(icon_path)
