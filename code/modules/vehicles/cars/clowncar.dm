@@ -43,14 +43,14 @@
 		if(!ishuman(user))
 			return FALSE
 		var/mob/living/carbon/human/rider = user
-		if(rider.mind?.assigned_role != JOB_NAME_CLOWN) //Only clowns can drive the syndicate version of the clown car.
+		if(!is_clown_job(rider.mind?.assigned_role)) //Only clowns can drive the syndicate version of the clown car.
 			return FALSE
 	return ..()
 
 /obj/vehicle/sealed/car/clowncar/auto_assign_occupant_flags(mob/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.mind?.assigned_role == JOB_NAME_CLOWN) //Ensures only clowns can drive the car. (Including more at once)
+		if(is_clown_job(H.mind?.assigned_role)) //Ensures only clowns can drive the car. (Including more at once)
 			add_control_flags(H, VEHICLE_CONTROL_DRIVE)
 			RegisterSignal(H, COMSIG_MOB_CLICKON, PROC_REF(FireCannon))
 			return

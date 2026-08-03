@@ -300,8 +300,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			CRASH("Invalid organ slot [slot]")
 
 //Please override this locally if you want to define when what species qualifies for what rank if human authority is enforced.
-/datum/species/proc/qualifies_for_rank(rank, list/features)
-	if(rank in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
+/datum/species/proc/qualifies_for_rank(datum/job/rank, list/features)
+	if(rank in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND))
 		return 0
 	return 1
 
@@ -1334,11 +1334,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.visible_message(span_notice("[H] start putting on [I]."), span_notice("You start putting on [I]."))
 	return do_after(H, I.equip_delay_self, target = H)
 
-/datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null)
-	return
-
-/datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null)
-	H.update_mutant_bodyparts()
+/// Equips the necessary species-relevant gear before putting on the rest of the uniform.
+/datum/species/proc/pre_equip_species_outfit(datum/job/job, mob/living/carbon/human/equipping, visuals_only = FALSE, datum/preferences/preference_source = null)
+	var/outfit_path = job?.species_outfits?[id]
+	if(!outfit_path)
+		return
+	equipping.equipOutfit(outfit_path, visuals_only)
 
 /**
  * Handling special reagent types.

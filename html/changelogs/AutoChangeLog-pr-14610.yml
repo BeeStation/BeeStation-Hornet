@@ -1,0 +1,4 @@
+author: mrmanlikesbt, Pickle-Coding, TheBoondock, antropod, SmArtKar
+delete-after: true
+changes:
+  - code_imp: Atmospherics has received some backend code cleanup and optimizations.

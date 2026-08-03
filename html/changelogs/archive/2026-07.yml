@@ -72,3 +72,123 @@
   - bugfix: Fixed a few cameras and a door control being incorrectly named on Radstation.
   - rscadd: Added some additional pAI cards on Box and Cardinal.
   - rscadd: Added a Russian Revolver to Radstation.
+2026-07-10:
+  mrmanlikesbt:
+  - bugfix: Fixed a runtime when an AAS announcement was made in some situations
+  - bugfix: Fixed brains giving people null traits
+2026-07-12:
+  mrmanlikesbt:
+  - tweak: The Bureaucratic Error event can no longer remove job openings
+2026-07-13:
+  Isaacnml:
+  - rscadd: Missing Pipes in Radstation's Science and Auth Keycard Device in RD's
+      office
+  - bugfix: United Budget Station trait no longer breaks exploration vendor points
+  - bugfix: Asclepius rod works again
+  mrmanlikesbt, Aylong:
+  - bugfix: Fixed tiny TGUI mapviews (character preference menu, camera console, records
+      console)
+  - bugfix: Fixed planes not being correctly applied to mapviews (lighting, bloom,
+      etc.)
+  - bugfix: Fixed chairs not being placed in the direction you're facing
+  - bugfix: Fixed an infinite materials exploit with holodeck chairs
+2026-07-15:
+  SunShine214:
+  - bugfix: Prevented try_face from being called when it shouldn't be.
+  - bugfix: Fixed a missing cob pipe sprite and adjusted the smoke particle offsets
+      for the items.
+2026-07-16:
+  Sunshine214, Fikou, Rohesie, Ryll/Shaps, MrDoomBringer, Timberpoes:
+  - rscadd: Adds some signals for client clicks. No player facing changes.
+2026-07-18:
+  BotTierPC:
+  - tweak: Nicotine withdrawal stages now start after 5/10/15minutes
+2026-07-19:
+  BotTierPC:
+  - bugfix: Moves Cyborg Language Action Button To Clickable Location
+  mrmanlikesbt, Timberpoes, GoldenAlpharex:
+  - rscadd: Added a ripple effect to people in stasis
+  - spellcheck: Removed improper capitalization for oxygen candles
+2026-07-20:
+  St0rmC4st3r:
+  - bugfix: Pod emergency suit storage safes are now correctly locked roundstart.
+  - tweak: Pod emergency suit storage safes can now be opened by EMP or Emag.
+  - tweak: Pod emergency suit storage safes will open on Red alert or higher, but
+      will not lock once alert is lowered.
+  rkz, Mothblocks, Fikou, Rohesie, Melbert, Watermelon914, tralezab:
+  - refactor: finishes converting job strings into job datums
+  - bugfix: Fixed players being able to roll antagonist without ever being eligible
+      to play any role. Players who have their preferences set up so that they're
+      likely to return to lobby when the round starts have a lowered chance of becoming
+      antagonist.
+  - refactor: Job sorting is based on department
+  - rscadd: Weighs security departmental assignment to prefer officers with the same
+      department
+  - admin: The nations ruleset/verb is back and is cleaner than ever
+  - bugfix: Fixes summon magic and summon guns
+  - refactor: Refactored wizard rituals (events/ghosts/guns/magic/madness) to reduce
+      code copy+paste.
+2026-07-21:
+  cursedkiller:
+  - bugfix: Ethereal Blood Electrocutes again!
+  - bugfix: Revenant blight stamcrits properly
+  - bugfix: Xenomorphs can now spit in space to change directions and Improved Jump
+      Code
+  - bugfix: Zombies no longer keep brains traumas nor pass out from bloodloss
+  - bugfix: Animal Hospital doctors got their clothes back
+  - bugfix: Pill bottles can be renamed again
+  - bugfix: Lavaland Syndicate base's have power now
+  - bugfix: Gridcheck now properly disables APC's
+2026-07-22:
+  Isaac:
+  - rscadd: Mod Reinforced Armor plating, providing 20 armor against most damage,
+      non stackable
+  SunShine214:
+  - rscadd: IPC brains can now be repaired with a multitool, replacing brain surgery
+      for them.
+  - rscdel: Removed brain recalibration and organic healing surgeries from IPCs.
+  - tweak: Adjusted flavor text on IPC brains.
+  - bugfix: Fixed IPC organ manipulation.
+  WhiskeyMarten:
+  - bugfix: Fixed a few mapping mistakes on Meta and Rad.
+  - bugfix: Fixes deactivated swarmer shells being worth 50 resources, rather than
+      the 20 used to create them.
+  - tweak: Swarmers are no longer able to eat Air Alarms, Reflectors, or the Communications
+      Console.
+2026-07-23:
+  St0rmC4st3r:
+  - bugfix: Posters can be once again cut down and put back up.
+2026-07-25:
+  mrmanlikesbt:
+  - bugfix: Fixed some random maintenance rooms
+  mrmanlikesbt, TealSeer, LemonInTheDark:
+  - server: Most unit tests are now only ran on runtimestation during GitHub integration
+      tests.
+  - server: The janky actions unit test now has its work split up across all of the
+      integration tests that it's running alongside.
+2026-07-27:
+  Isaac:
+  - bugfix: Radstation telecommunications HE should cover the entire room
+  - bugfix: Radstation Telecommunications is now encased in reinforced walls instead
+      of regular walls
+  - bugfix: Cardstation Telecommunications now has HE
+  - bugfix: Cardstation R&D Server no longer has the plasma canister alongside the
+      servers
+  - bugfix: Moves some areas around in both syndicate lavaland bases so the turrets
+      can actually be turned off by their turret control
+2026-07-28:
+  BotTierPC:
+  - rscadd: Monkey Sentience Helmets now work on any mob with a primate brain and
+      never a soul
+  - tweak: Monkeys now spawn with the Primate brain organ
+2026-07-29:
+  jlsnow301, Programs-the-Station:
+  - bugfix: TGUI Titlebars with Buttons in them work once again.
+2026-07-30:
+  BotTierPC:
+  - bugfix: Fixes pointing. Shift+Middleclick now points again instead of bringing
+      up a text input dialogue
+  mrmanlikesbt:
+  - bugfix: Fixed the pre-round timer moving 25% faster than it should've been
+  - config: Alongside the above fix, the pre-round timer has been reduced to 3.5 minutes
+      to stay (mostly) accurate to the previous actual time

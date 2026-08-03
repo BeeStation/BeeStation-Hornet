@@ -25,7 +25,7 @@
 		var/static/error_count = 30
 		while(!job)
 			if(!length(available_jobs))
-				available_jobs = SSjob.occupations.Copy()
+				available_jobs = SSjob.joinable_occupations.Copy()
 			if(error_count-- < 0)
 				name = "MANUSCRIPT BOUNTY ERROR"
 				CRASH("Failed to make a manuscript bounty: There are no available jobs.")
@@ -38,9 +38,9 @@
 
 	// calculates bounty value
 	var/mult = 1
-	if(bounty_job.departments & DEPT_BITFLAG_CAR)
+	if(/datum/department_group/cargo in bounty_job.departments_list)
 		mult = 0.6 // too easy for cargo
-	if(bounty_job.departments & DEPT_BITFLAG_COM)
+	if(/datum/department_group/command in bounty_job.departments_list)
 		mult += 1
 	if(bounty_job.title == JOB_NAME_CAPTAIN)
 		mult += 0.2
@@ -90,8 +90,8 @@
 	reward = 4000
 
 /datum/bounty/manuscript/assistant/New()
-	bounty_job = SSjob.GetJob(JOB_NAME_ASSISTANT)
+	bounty_job = SSjob.get_job(JOB_NAME_ASSISTANT)
 	if(!length(available_jobs))
-		available_jobs = SSjob.occupations.Copy()
+		available_jobs = SSjob.joinable_occupations.Copy()
 		available_jobs -= JOB_NAME_ASSISTANT
 	..()

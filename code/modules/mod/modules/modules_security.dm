@@ -446,3 +446,34 @@
 	to_chat(mod.wearer, span_notice("You slam your fist into the ground, sending out a sonic wave that detects [detect_living_creatures()] living beings nearby!"))
 	for(var/mob/living/creature as anything in keyed_creatures)
 		new /obj/effect/temp_visual/sonar_ping(mod.wearer.loc, mod.wearer, creature)
+
+/obj/item/mod/module/reinforced_plating
+	name = "\improper MOD reinforced plating module"
+	desc = "Additional armor plating integrated into the suit. Increases protection at the cost of mobility."
+	icon_state = "armor_plating"
+	module_type = MODULE_PASSIVE
+	complexity = 3
+	required_slots = list(ITEM_SLOT_BACK)
+	incompatible_modules = list(/obj/item/mod/module/reinforced_plating, /obj/item/mod/module/mod_switch) // Syndicate suits are quite protective already
+	var/datum/armor/armor_mod = /datum/armor/mod_reinforced_plating
+
+/datum/armor/mod_reinforced_plating
+	melee = 20
+	bullet = 20
+	laser = 20
+	energy = 20
+	bomb = 20
+
+/obj/item/mod/module/reinforced_plating/on_equip()
+	. = ..()
+
+	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
+		part.set_armor(part.get_armor().add_other_armor(armor_mod))
+	mod.wearer.add_movespeed_modifier(/datum/movespeed_modifier/reinforced_plating)
+
+/obj/item/mod/module/reinforced_plating/on_unequip()
+	. = ..()
+
+	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
+		part.set_armor(part.get_armor().subtract_other_armor(armor_mod))
+	mod.wearer.remove_movespeed_modifier(/datum/movespeed_modifier/reinforced_plating)

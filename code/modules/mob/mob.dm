@@ -172,26 +172,6 @@
 		set_hud_image_active(hud, update_huds = FALSE) //by default everything is active. but dont add it to huds to keep control.
 
 /**
-  * Some kind of debug verb that gives atmosphere environment details
-  */
-/mob/proc/Cell()
-	set category = "Admin"
-	set hidden = 1
-
-	if(!loc)
-		return 0
-
-	var/datum/gas_mixture/environment = loc.return_air()
-
-	var/t =	span_notice("Coordinates: [x],[y] \n")
-	t +=	span_danger("Temperature: [environment.return_temperature()] \n")
-	for(var/id in environment.gases)
-		if(environment.gases[id][MOLES])
-			t+=span_notice("[GLOB.meta_gas_info[id][META_GAS_NAME]]: [environment.gases[id][MOLES]] \n")
-
-	to_chat(usr, t)
-
-/**
   * Return the desc of this mob for a photo
   */
 /mob/proc/get_photo_description(obj/item/camera/camera)
@@ -1335,12 +1315,17 @@
   *
   * Calling this proc without an oldname will only update the mob and skip updating the pda, id and records ~Carn
   */
-/mob/proc/fully_replace_character_name(oldname,newname)
-	log_message("[src] name changed from [oldname] to [newname]", LOG_OWNERSHIP)
+/mob/proc/fully_replace_character_name(oldname, newname)
 	if(!newname)
-		return 0
+		log_message("[src] failed name change from [oldname] as no new name was specified", LOG_OWNERSHIP)
+		return FALSE
+	if(oldname == newname)
+		log_message("[src] failed name change as the new name was the same as the old one: [oldname]", LOG_OWNERSHIP)
+		return FALSE
 
-	log_played_names(ckey,newname)
+	log_message("[src] name changed from [oldname] to [newname]", LOG_OWNERSHIP)
+
+	log_played_names(ckey, newname)
 
 	real_name = newname
 	name = newname
@@ -1388,7 +1373,7 @@
 		else if(search_pda && istype(A, /obj/item/modular_computer/tablet))
 			var/obj/item/modular_computer/tablet/PDA = A
 			if(PDA.saved_identification == oldname)
-				PDA.saved_identification = newname
+				PDA.imprint_id(name = newname)
 				PDA.update_id_display()
 				if(!search_id)
 					break

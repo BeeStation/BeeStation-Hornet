@@ -9,7 +9,7 @@
 /obj/item/clothing/accessory/security_pager/Initialize(mapload)
 	. = ..()
 	radio = new(src)
-	radio.keyslot = new /obj/item/encryptionkey/headset_sec
+	radio.keyslot = /obj/item/encryptionkey/headset_sec
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
 	radio.recalculateChannels()

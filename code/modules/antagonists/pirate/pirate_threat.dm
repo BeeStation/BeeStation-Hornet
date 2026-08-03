@@ -58,7 +58,13 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	var/list/candidates = SSpolling.poll_ghost_candidates(config)
 	shuffle_inplace(candidates)
 
-	var/datum/map_template/shuttle/pirate/default/ship = new
+	var/datum/map_template/shuttle/pirate/ship
+	var/total_players = GLOB.clients.len
+	if(total_players < 12)
+		ship = new /datum/map_template/shuttle/pirate/bratica()
+	else
+		ship = new /datum/map_template/shuttle/pirate/default()
+
 	var/x = rand(TRANSITIONEDGE,world.maxx - TRANSITIONEDGE - ship.width)
 	var/y = rand(TRANSITIONEDGE,world.maxy - TRANSITIONEDGE - ship.height)
 	var/z = SSmapping.empty_space.z_value
@@ -424,15 +430,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 
 /datum/export/pirate/ransom/get_cost(atom/movable/AM)
 	var/mob/living/carbon/human/H = AM
-	if(H.stat != CONSCIOUS || !H.mind || !H.mind.assigned_role) //mint condition only
+	if(H.stat != CONSCIOUS || !H.mind) //mint condition only
 		return 0
 	else if(FACTION_PIRATE in H.faction) //can't ransom your fellow pirates to CentCom!
 		return 0
+	else if(H.mind.assigned_role.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND)
+		return 3000
 	else
-		if(H.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-			return 3000
-		else
-			return 1000
+		return 1000
 
 /datum/export/pirate/parrot
 	cost = 2000
