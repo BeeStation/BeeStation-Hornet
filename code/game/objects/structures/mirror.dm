@@ -181,14 +181,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 					H.dna.update_ui_block(DNA_SKIN_TONE_BLOCK)
 
 			else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
-				var/new_mutantcolor = tgui_color_picker(user, "Choose your skin color:", "Race change", H.dna.features["mcolor"])
+				var/new_mutantcolor = tgui_color_picker(user, "Choose your skin color:", "Race change", H.dna.features[FEATURE_MUTANT_COLOR])
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_mutantcolor)
 					var/list/mutant_hsv = rgb2hsv(new_mutantcolor)
 
 					if(mutant_hsv[3] >= 50) // mutantcolors must be bright
-						H.dna.features["mcolor"] = sanitize_hexcolor(new_mutantcolor)
+						H.dna.features[FEATURE_MUTANT_COLOR] = sanitize_hexcolor(new_mutantcolor)
 						H.dna.update_uf_block(DNA_MUTANT_COLOR_BLOCK)
 					else
 						to_chat(H, span_notice("Invalid color. Your color is not bright enough."))

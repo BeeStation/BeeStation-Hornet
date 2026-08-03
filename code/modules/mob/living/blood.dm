@@ -485,6 +485,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	return GLOB.blood_types[type]
 
 /proc/get_blood_dna_color(list/blood_dna)
+	if(!length(blood_dna))
+		return COLOR_BLOOD
 	var/blood_print = blood_dna[length(blood_dna)]
 	var/datum/blood_type/blood_type = blood_dna[blood_print]
 

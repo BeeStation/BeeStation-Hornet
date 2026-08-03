@@ -180,17 +180,19 @@ There are several things that need to be remembered:
 
 	//Bloody hands begin
 	if(isnull(gloves))
-		if(!blood_in_hands && !num_hands)
+		if(!blood_in_hands || !num_hands)
 			return
+		var/list/blood_dna = GET_ATOM_BLOOD_DNA(src)
+		var/blood_color = length(blood_dna) ? get_blood_dna_color(blood_dna) : COLOR_BLOOD
 		// When byond gives us filters that respect dirs we can just use an alpha mask for this but until then, two icons weeeee
 		var/mutable_appearance/hands_combined = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(GLOVES_LAYER), appearance_flags = KEEP_TOGETHER)
 		if(has_left_hand(check_disabled = FALSE))
 			var/mutable_appearance/blood_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands_left")
-			blood_overlay.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+			blood_overlay.color = blood_color
 			hands_combined.overlays += blood_overlay
 		if(has_right_hand(check_disabled = FALSE))
 			var/mutable_appearance/blood_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands_right")
-			blood_overlay.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+			blood_overlay.color = blood_color
 			hands_combined.overlays += blood_overlay
 		overlays_standing[GLOVES_LAYER] = hands_combined
 		apply_overlay(GLOVES_LAYER)

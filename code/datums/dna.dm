@@ -213,12 +213,12 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	. = ""
 	var/list/L = new /list(DNA_FEATURE_BLOCKS)
 
-	if(features["mcolor"])
-		L[DNA_MUTANT_COLOR_BLOCK] = sanitize_hexcolor(features["mcolor"], include_crunch = FALSE)
-	if(features["ethcolor"])
-		L[DNA_ETHEREAL_COLOR_BLOCK] = sanitize_hexcolor(features["ethcolor"], include_crunch = FALSE)
-	if(features["lizard_markings"])
-		L[DNA_LIZARD_MARKINGS_BLOCK] = construct_block(SSaccessories.lizard_markings_list.Find(features["lizard_markings"]), length(SSaccessories.lizard_markings_list))
+	if(features[FEATURE_MUTANT_COLOR])
+		L[DNA_MUTANT_COLOR_BLOCK] = sanitize_hexcolor(features[FEATURE_MUTANT_COLOR], include_crunch = FALSE)
+	if(features[FEATURE_ETHEREAL_COLOR])
+		L[DNA_ETHEREAL_COLOR_BLOCK] = sanitize_hexcolor(features[FEATURE_ETHEREAL_COLOR], include_crunch = FALSE)
+	if(features[FEATURE_LIZARD_MARKINGS])
+		L[DNA_LIZARD_MARKINGS_BLOCK] = construct_block(SSaccessories.lizard_markings_list.Find(features[FEATURE_LIZARD_MARKINGS]), length(SSaccessories.lizard_markings_list))
 	if(features["tail_cat"])
 		L[DNA_TAIL_BLOCK] = construct_block(SSaccessories.tails_list_human.Find(features["tail_cat"]), length(SSaccessories.tails_list_human))
 	if(features["tail_lizard"])
@@ -237,8 +237,8 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		L[DNA_MOTH_WINGS_BLOCK] = construct_block(SSaccessories.moth_wings_list.Find(features["moth_wings"]), length(SSaccessories.moth_wings_list))
 	if(features["moth_antennae"])
 		L[DNA_MOTH_ANTENNAE_BLOCK] = construct_block(SSaccessories.moth_antennae_list.Find(features["moth_antennae"]), length(SSaccessories.moth_antennae_list))
-	if(features["moth_markings"])
-		L[DNA_MOTH_MARKINGS_BLOCK] = construct_block(SSaccessories.moth_markings_list.Find(features["moth_markings"]), length(SSaccessories.moth_markings_list))
+	if(features[FEATURE_MOTH_MARKINGS])
+		L[DNA_MOTH_MARKINGS_BLOCK] = construct_block(SSaccessories.moth_markings_list.Find(features[FEATURE_MOTH_MARKINGS]), length(SSaccessories.moth_markings_list))
 	if(features["apid_antenna"])
 		L[DNA_APID_ANTENNA_BLOCK] = construct_block(SSaccessories.apid_antenna_list.Find(features["apid_antenna"]), length(SSaccessories.apid_antenna_list))
 	if(features["apid_stripes"])
@@ -388,11 +388,11 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		CRASH("Non-human mobs shouldn't have DNA")
 	switch(blocknumber)
 		if(DNA_MUTANT_COLOR_BLOCK)
-			set_uni_feature_block(blocknumber, sanitize_hexcolor(features["mcolor"], include_crunch = FALSE))
+			set_uni_feature_block(blocknumber, sanitize_hexcolor(features[FEATURE_MUTANT_COLOR], include_crunch = FALSE))
 		if(DNA_ETHEREAL_COLOR_BLOCK)
-			set_uni_feature_block(blocknumber, sanitize_hexcolor(features["ethcolor"], include_crunch = FALSE))
+			set_uni_feature_block(blocknumber, sanitize_hexcolor(features[FEATURE_ETHEREAL_COLOR], include_crunch = FALSE))
 		if(DNA_LIZARD_MARKINGS_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.lizard_markings_list.Find(features["lizard_markings"]), length(SSaccessories.lizard_markings_list)))
+			set_uni_feature_block(blocknumber, construct_block(SSaccessories.lizard_markings_list.Find(features[FEATURE_LIZARD_MARKINGS]), length(SSaccessories.lizard_markings_list)))
 		if(DNA_TAIL_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(SSaccessories.tails_list_human.Find(features["tail_cat"]), length(SSaccessories.tails_list_human)))
 		if(DNA_LIZARD_TAIL_BLOCK)
@@ -412,7 +412,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		if(DNA_MOTH_ANTENNAE_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(SSaccessories.moth_antennae_list.Find(features["moth_antennae"]), length(SSaccessories.moth_antennae_list)))
 		if(DNA_MOTH_MARKINGS_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(SSaccessories.moth_markings_list.Find(features["moth_markings"]), length(SSaccessories.moth_markings_list)))
+			set_uni_feature_block(blocknumber, construct_block(SSaccessories.moth_markings_list.Find(features[FEATURE_MOTH_MARKINGS]), length(SSaccessories.moth_markings_list)))
 		if(DNA_APID_ANTENNA_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(SSaccessories.apid_antenna_list.Find(features["apid_antenna"]), length(SSaccessories.apid_antenna_list)))
 		if(DNA_APID_STRIPES_BLOCK)
@@ -529,7 +529,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		for(var/datum/species/random_species as anything in all_species_protoypes)
 			features |= random_species.randomize_features()
 
-		features["mcolor"] = "#[random_color()]"
+		features[FEATURE_MUTANT_COLOR] = "#[random_color()]"
 
 	update_dna_identity()
 
@@ -727,12 +727,12 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		set_hair_gradient_style(gradient_style, update = FALSE)
 
 	var/features = dna.unique_features
-	if(dna.features["mcolor"])
-		dna.features["mcolor"] = sanitize_hexcolor(get_uni_feature_block(features, DNA_MUTANT_COLOR_BLOCK))
-	if(dna.features["ethcolor"])
-		dna.features["ethcolor"] = sanitize_hexcolor(get_uni_feature_block(features, DNA_ETHEREAL_COLOR_BLOCK))
-	if(dna.features["lizard_markings"])
-		dna.features["lizard_markings"] = SSaccessories.lizard_markings_list[deconstruct_block(get_uni_feature_block(features, DNA_LIZARD_MARKINGS_BLOCK), length(SSaccessories.lizard_markings_list))]
+	if(dna.features[FEATURE_MUTANT_COLOR])
+		dna.features[FEATURE_MUTANT_COLOR] = sanitize_hexcolor(get_uni_feature_block(features, DNA_MUTANT_COLOR_BLOCK))
+	if(dna.features[FEATURE_ETHEREAL_COLOR])
+		dna.features[FEATURE_ETHEREAL_COLOR] = sanitize_hexcolor(get_uni_feature_block(features, DNA_ETHEREAL_COLOR_BLOCK))
+	if(dna.features[FEATURE_LIZARD_MARKINGS])
+		dna.features[FEATURE_LIZARD_MARKINGS] = SSaccessories.lizard_markings_list[deconstruct_block(get_uni_feature_block(features, DNA_LIZARD_MARKINGS_BLOCK), length(SSaccessories.lizard_markings_list))]
 	if(dna.features["snout"])
 		dna.features["snout"] = SSaccessories.snouts_list[deconstruct_block(get_uni_feature_block(features, DNA_SNOUT_BLOCK), length(SSaccessories.snouts_list))]
 	if(dna.features["horns"])
@@ -755,8 +755,8 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		var/genetic_value = SSaccessories.moth_antennae_list[deconstruct_block(get_uni_feature_block(features, DNA_MOTH_ANTENNAE_BLOCK), length(SSaccessories.moth_antennae_list))]
 		dna.features["original_moth_antennae"] = genetic_value
 		dna.features["moth_antennae"] = genetic_value
-	if(dna.features["moth_markings"])
-		dna.features["moth_markings"] = SSaccessories.moth_markings_list[deconstruct_block(get_uni_feature_block(features, DNA_MOTH_MARKINGS_BLOCK), length(SSaccessories.moth_markings_list))]
+	if(dna.features[FEATURE_MOTH_MARKINGS])
+		dna.features[FEATURE_MOTH_MARKINGS] = SSaccessories.moth_markings_list[deconstruct_block(get_uni_feature_block(features, DNA_MOTH_MARKINGS_BLOCK), length(SSaccessories.moth_markings_list))]
 	if(dna.features["apid_antenna"])
 		dna.features["apid_antenna"] = SSaccessories.apid_antenna_list[deconstruct_block(get_uni_feature_block(features, DNA_APID_ANTENNA_BLOCK), length(SSaccessories.apid_antenna_list))]
 	if(dna.features["apid_stripes"])

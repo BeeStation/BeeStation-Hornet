@@ -492,6 +492,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/obj/item/bodypart/head/head in C.bodyparts)
 			head.mouth = FALSE
 
+	add_body_markings(C)
+
 	if(length(inherent_traits))
 		C.add_traits(inherent_traits, SPECIES_TRAIT)
 
@@ -508,6 +510,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		C.grant_language(language, SPOKEN_LANGUAGE, LANGUAGE_SPECIES)
 	for(var/language in gaining_holder.blocked_languages)
 		C.add_blocked_language(language, LANGUAGE_SPECIES)
+
 	if(regenerate_icons)
 		C.regenerate_icons()
 
@@ -776,7 +779,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				if(!forced_colour)
 					switch(accessory.color_src)
 						if(MUTANT_COLOR)
-							accessory_overlay.color = fixed_mut_color || source.dna.features["mcolor"]
+							accessory_overlay.color = fixed_mut_color || source.dna.features[FEATURE_MUTANT_COLOR]
 						if(HAIR_COLOR)
 							accessory_overlay.color = get_fixed_hair_color(source) || source.hair_color
 						if(FACIAL_HAIR_COLOR)
@@ -2491,7 +2494,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	ASSERT(!isnull(for_mob))
 	switch(hair_color_mode)
 		if(USE_MUTANT_COLOR)
-			return for_mob.dna.features["mcolor"]
+			return for_mob.dna.features[FEATURE_MUTANT_COLOR]
 		if(USE_FIXED_MUTANT_COLOR)
 			return fixed_mut_color
 
@@ -2508,7 +2511,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				continue
 
 			var/datum/bodypart_overlay/simple/body_marking/overlay = new markings_type()
-			overlay.set_appearance(accessory_name, hooman.dna.features["mcolor"])
+			overlay.set_appearance(accessory_name, hooman.dna.features[FEATURE_MUTANT_COLOR])
 			people_part.add_bodypart_overlay(overlay)
 
 		qdel(markings)

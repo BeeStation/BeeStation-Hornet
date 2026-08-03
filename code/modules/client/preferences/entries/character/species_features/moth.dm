@@ -50,7 +50,7 @@
 
 	var/static/datum/universal_icon/moth_body
 	if (isnull(moth_body))
-		moth_body = uni_icon('icons/effects/effects.dmi', "nothing")
+		moth_body = uni_icon('icons/blanks/32x32.dmi', "nothing")
 
 		for (var/obj/item/bodypart/body_part as anything in body_parts)
 			var/limb_id = initial(body_part.limb_id)
@@ -80,7 +80,7 @@
 	return icon_with_markings
 
 /datum/preference/choiced/moth_markings/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["moth_markings"] = value
+	target.dna.features[FEATURE_MOTH_MARKINGS] = value
 
 /datum/preference/choiced/moth_wings
 	db_key = "feature_moth_wings"

@@ -81,6 +81,14 @@
 #define DNA_MUTATION_BLOCKS 8
 #define DNA_UNIQUE_ENZYMES_LEN 32
 
+//Features
+#define FEATURE_MUTANT_COLOR "mcolor"
+#define FEATURE_ETHEREAL_COLOR "ethcolor"
+#define FEATURE_TAIL_CAT "tail_cat"
+#define FEATURE_TAIL_LIZARD "tail_lizard"
+#define FEATURE_LIZARD_MARKINGS "lizard_markings"
+#define FEATURE_MOTH_MARKINGS "moth_markings"
+
 //Transformation proc stuff
 #define TR_KEEPITEMS	(1<<0)
 #define TR_KEEPVIRUS	(1<<1)

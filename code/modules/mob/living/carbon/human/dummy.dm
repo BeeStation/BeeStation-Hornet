@@ -172,14 +172,14 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 */
 
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
-	target.dna.features["mcolor"] = COLOR_VIBRANT_LIME
-	target.dna.features["ethcolor"] = COLOR_WHITE
-	target.dna.features["lizard_markings"] = SPRITE_ACCESSORY_NONE
+	target.dna.features[FEATURE_MUTANT_COLOR] = COLOR_VIBRANT_LIME
+	target.dna.features[FEATURE_ETHEREAL_COLOR] = COLOR_WHITE
+	target.dna.features[FEATURE_LIZARD_MARKINGS] = SPRITE_ACCESSORY_NONE
 	target.dna.features["ears"] = SPRITE_ACCESSORY_NONE
 	target.dna.features["frills"] = SPRITE_ACCESSORY_NONE
 	target.dna.features["horns"] = SPRITE_ACCESSORY_NONE
 	target.dna.features["moth_antennae"] = "Plain"
-	target.dna.features["moth_markings"] = SPRITE_ACCESSORY_NONE
+	target.dna.features[FEATURE_MOTH_MARKINGS] = SPRITE_ACCESSORY_NONE
 	target.dna.features["moth_wings"] = "Plain"
 	target.dna.features["snout"] = "Round"
 	target.dna.features["spines"] = SPRITE_ACCESSORY_NONE

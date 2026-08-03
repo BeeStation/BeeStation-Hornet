@@ -58,7 +58,7 @@
 	else
 		mutanteyes = /obj/item/organ/eyes/moth
 	if(!pref_load)
-		human_who_gained_species.dna?.features["mcolor"] = "#f4d697"
+		human_who_gained_species.dna?.features[FEATURE_MUTANT_COLOR] = "#f4d697"
 	. = ..()
 	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
 
@@ -74,7 +74,7 @@
 
 /datum/species/moth/randomize_features()
 	var/list/features = ..()
-	features["moth_markings"] = pick(SSaccessories.moth_markings_list)
+	features[FEATURE_MOTH_MARKINGS] = pick(SSaccessories.moth_markings_list)
 	return features
 
 /datum/species/moth/get_laugh_sound(mob/living/carbon/user)
@@ -252,5 +252,5 @@
 	return to_add
 
 /datum/species/moth/prepare_human_for_preview(mob/living/carbon/human/human)
-	human.dna.features["mcolor"] = "#f4d697"
+	human.dna.features[FEATURE_MUTANT_COLOR] = "#f4d697"
 	human.update_body(TRUE)

@@ -53,7 +53,7 @@
 	r_hand = /obj/item/melee/arm_blade
 
 /datum/outfit/medical_doctor_changeling_preview/post_equip(mob/living/carbon/human/H, visuals_only)
-	H.dna.features["mcolor"] = "#8be18b"
+	H.dna.features[FEATURE_MUTANT_COLOR] = "#8be18b"
 	H.dna.features["horns"] = "Short"
 	H.dna.features["frills"] = "Simple"
 	H.set_species(/datum/species/lizard)
@@ -73,7 +73,7 @@
 	brother1.update_body_parts()
 
 	brother2.dna.features["moth_antennae"] = "Plain"
-	brother2.dna.features["moth_markings"] = SPRITE_ACCESSORY_NONE
+	brother2.dna.features[FEATURE_MOTH_MARKINGS] = SPRITE_ACCESSORY_NONE
 	brother2.dna.features["moth_wings"] = "Plain"
 	brother2.set_species(/datum/species/moth)
 
