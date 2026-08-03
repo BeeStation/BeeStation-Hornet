@@ -143,21 +143,6 @@
 		to_chat(user, span_notice("You empty [src]'s fuel tank into [attacked_atom]."))
 		update_appearance()
 
-/obj/item/weldingtool/attack_qdeleted(atom/attacked_atom, mob/user, proximity)
-	. = ..()
-	if(!proximity)
-		return
-
-	if(isOn())
-		handle_fuel_and_temps(1, user)
-
-		if(!QDELETED(attacked_atom) && isliving(attacked_atom)) // can't ignite something that doesn't exist
-			var/mob/living/attacked_mob = attacked_atom
-			if(attacked_mob.ignite_mob())
-				message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(attacked_mob)] on fire with [src] at [AREACOORD(user)].")
-				log_game("set [key_name(attacked_mob)] on fire with [src]")
-
-
 /obj/item/weldingtool/attack_self(mob/user)
 	if(src.reagents.has_reagent(/datum/reagent/toxin/plasma))
 		message_admins("[ADMIN_LOOKUPFLW(user)] activated a rigged welder at [AREACOORD(user)].")
