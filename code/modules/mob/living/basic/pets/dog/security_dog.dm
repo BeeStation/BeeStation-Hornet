@@ -49,10 +49,10 @@ GLOBAL_LIST_INIT(security_dog_female_names, list(
  * Typepath we can use to spawn. Technically doesn't even have to be a dog
  */
 GLOBAL_LIST_INIT(security_dog_breeds, list(
-	/mob/living/basic/pet/dog/bullterrier,
-	/mob/living/basic/pet/dog/pug,
-	/mob/living/basic/pet/dog/corgi,
-	/mob/living/basic/pet/dog/corgi/cardigan,
+	/mob/living/basic/pet/dog/bullterrier = 40,
+	/mob/living/basic/pet/dog/pug = 10,
+	/mob/living/basic/pet/dog/corgi = 25,
+	/mob/living/basic/pet/dog/corgi/cardigan = 25,
 ))
 
 /**
@@ -77,7 +77,7 @@ GLOBAL_LIST_INIT(security_dog_breeds, list(
 	return list(
 		"name" = pick(new_gender == FEMALE ? GLOB.security_dog_female_names : GLOB.security_dog_male_names),
 		"gender" = new_gender,
-		"breed" = pick(GLOB.security_dog_breeds),
+		"breed" = pick_weight(GLOB.security_dog_breeds),
 		"tenure" = 0,
 	)
 
