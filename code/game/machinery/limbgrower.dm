@@ -29,7 +29,7 @@
 		SPECIES_FLYPERSON,
 		SPECIES_MOTH,
 		SPECIES_PLASMAMAN,
-		RND_CATEGORY_OTHER,
+		RND_CATEGORY_LIMBS_OTHER,
 	)
 
 /obj/machinery/limbgrower/Initialize(mapload)

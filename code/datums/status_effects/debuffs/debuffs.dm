@@ -1406,7 +1406,7 @@
 		return FALSE
 
 	// Save the old DNA
-	transforming.dna.copy_dna_top(old_dna)
+	transforming.dna.copy_dna_to(old_dna)
 	// Makes them into the new DNA
 	new_dna.transfer_identity(transforming)
 	transforming.real_name = new_dna.real_name

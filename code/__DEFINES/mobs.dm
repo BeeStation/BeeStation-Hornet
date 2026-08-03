@@ -101,6 +101,8 @@
 #define BODYTYPE_LARVA_PLACEHOLDER (1<<2)
 ///The limb is from a xenomorph.
 #define BODYTYPE_ALIEN (1<<3)
+///The limb is from a golem
+#define BODYTYPE_GOLEM (1<<4)
 
 // Bodyshape defines for how things can be worn, i.e., what "shape" the mob sprite is
 ///The limb fits the human mold. This is not meant to be literal, if the sprite "fits" on a human, it is "humanoid", regardless of origin.

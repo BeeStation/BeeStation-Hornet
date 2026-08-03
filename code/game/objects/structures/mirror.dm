@@ -175,7 +175,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 			H.set_species(newrace, icon_update=0)
 
 			if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
-				var/new_s_tone = tgui_input_list(race_changer, "Choose your skin tone", "Race change", GLOB.skin_tones)
+				var/new_s_tone = tgui_input_list(H, "Choose your skin tone", "Race change", GLOB.skin_tones)
 				if(new_s_tone)
 					H.skin_tone = new_s_tone
 					H.dna.update_ui_block(DNA_SKIN_TONE_BLOCK)

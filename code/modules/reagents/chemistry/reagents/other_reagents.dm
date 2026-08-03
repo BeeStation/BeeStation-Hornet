@@ -1781,11 +1781,11 @@
 
 	var/mob/living/carbon/human/exposed_human = exposed_mob
 	if(!HAS_TRAIT(exposed_human, TRAIT_SHAVED))
-		var/datum/sprite_accessory/hair/picked_hair = GLOB.hair_styles_list[pick(SSaccessories.hairstyles_list)]
-		exposed_human.set_facial_hairstyle(picked_beard, update = FALSE)
+		var/datum/sprite_accessory/hair/picked_hair = SSaccessories.hairstyles_list[pick(SSaccessories.hairstyles_list)]
+		exposed_human.set_facial_hairstyle(picked_hair, update = FALSE)
 	if(!HAS_TRAIT(exposed_human, TRAIT_BALD))
-		var/datum/sprite_accessory/facial_hair/picked_beard = GLOB.facial_hair_styles_list[pick(SSaccessories.facial_hairstyles_list)]
-		exposed_human.set_hairstyle(picked_hair, update = TRUE)
+		var/datum/sprite_accessory/facial_hair/picked_beard = SSaccessories.facial_hairstyles_list[pick(SSaccessories.facial_hairstyles_list)]
+		exposed_human.set_hairstyle(picked_beard, update = TRUE)
 	to_chat(exposed_human, span_notice("Hair starts sprouting from your [HAS_TRAIT(exposed_human, TRAIT_BALD) ? "face" : "scalp"]."))
 
 /datum/reagent/concentrated_barbers_aid
