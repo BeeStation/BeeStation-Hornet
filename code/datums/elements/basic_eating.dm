@@ -54,16 +54,14 @@
 		return NONE
 	return try_eating(source, possible_food, user) ? TOOL_ACT_TOOLTYPE_SUCCESS : NONE
 
-/datum/element/basic_eating/proc/on_unarm_attack(mob/living/eater, atom/target, proximity, modifiers)
+/datum/element/basic_eating/proc/on_unarm_attack(mob/living/eater, atom/target, proximity, list/modifiers)
 	SIGNAL_HANDLER
-
 	if(!proximity)
-		return
+		return NONE
 
 	if(try_eating(eater, target))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
-	return
-
+	return NONE
 
 /datum/element/basic_eating/proc/try_eating(mob/living/eater, atom/target, mob/living/feeder)
 	if(!is_type_in_list(target, food_types))
