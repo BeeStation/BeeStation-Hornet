@@ -50,7 +50,7 @@
 /obj/item/circuitboard/computer/card/minor/screwdriver_act(mob/living/user, obj/item/tool)
 	counting = (counting == length(dept_list)) ? 1 : (counting + 1)
 	to_chat(user, span_notice("You set the board to \"[dept_list_name[counting]]\"."))
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/circuitboard/computer/card/minor/examine(user)
 	. = ..()
@@ -71,7 +71,7 @@
 	else
 		desc = "Can be modified using a screwdriver."
 		to_chat(user, span_notice("You re-enable the shuttle safety features of the board."))
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 //Engineering
 
@@ -285,7 +285,7 @@
 		name = "Book Inventory Management Console [name_extension]"
 		build_path = /obj/machinery/computer/libraryconsole/bookmanagement
 		to_chat(user, span_notice("Access protocols successfully updated."))
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/circuitboard/computer/olddoor
 	name = "DoorMex"
@@ -427,7 +427,7 @@
 		return
 	silence_announcements = !silence_announcements
 	balloon_alert(user, "announcements [silence_announcements ? "enabled" : "disabled"]")
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/circuitboard/computer/rdconsole/on_emag(mob/user)
 	if (locked)
@@ -540,7 +540,7 @@
 
 	contraband = !contraband
 	to_chat(user, span_notice("Receiver spectrum set to [contraband ? "Broad" : "Standard"]."))
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/circuitboard/computer/cargo/on_emag(mob/user)
 	. = ..()
@@ -587,7 +587,7 @@
 		to_chat(user, span_notice("You disable the circuitboard's ID scanning protocols."))
 	else
 		to_chat(user, span_notice("You reset the circuitboard's ID scanning protocols."))
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/circuitboard/computer/shuttle/white_ship
 	name = "White Ship Control"

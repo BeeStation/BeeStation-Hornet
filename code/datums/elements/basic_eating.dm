@@ -52,7 +52,7 @@
 	var/mob/living/living_source = source
 	if(living_source.stat != CONSCIOUS)
 		return NONE
-	return try_eating(source, possible_food, user) ? TOOL_ACT_TOOLTYPE_SUCCESS : NONE
+	return try_eating(source, possible_food, user) ? ITEM_INTERACT_SUCCESS : NONE
 
 /datum/element/basic_eating/proc/on_unarm_attack(mob/living/eater, atom/target, proximity, list/modifiers)
 	SIGNAL_HANDLER

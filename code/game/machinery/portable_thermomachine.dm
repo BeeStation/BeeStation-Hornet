@@ -159,7 +159,7 @@
 /obj/machinery/portable_thermomachine/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
 	default_unfasten_wrench(user, tool)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/portable_thermomachine/attackby(obj/item/I, mob/user, list/modifiers)
 	add_fingerprint(user)

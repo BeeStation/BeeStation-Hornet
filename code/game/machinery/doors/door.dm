@@ -210,13 +210,13 @@
 /obj/machinery/door/welder_act(mob/living/user, obj/item/tool)
 	if (!user.combat_mode)
 		try_to_weld(tool, user)
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/door/crowbar_act(mob/living/user, obj/item/tool)
 	if(user.combat_mode || HAS_TRAIT(tool, TRAIT_DOOR_PRYER))
 		return
 	try_to_crowbar(tool, user)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/door/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(!user.combat_mode && HAS_TRAIT(attacking_item, TRAIT_DOOR_PRYER))
@@ -235,13 +235,13 @@
 
 /obj/machinery/door/welder_act_secondary(mob/living/user, obj/item/tool)
 	try_to_weld_secondary(tool, user)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/door/crowbar_act_secondary(mob/living/user, obj/item/tool)
 	if(HAS_TRAIT(tool, TRAIT_DOOR_PRYER))
 		return
 	try_to_crowbar(tool, user)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()

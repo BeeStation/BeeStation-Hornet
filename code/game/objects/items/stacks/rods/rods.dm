@@ -70,4 +70,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 		)
 		use(2)
 		user.put_in_inactive_hand(new_item)
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
