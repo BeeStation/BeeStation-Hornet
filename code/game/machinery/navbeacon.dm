@@ -79,7 +79,7 @@
 /obj/machinery/navbeacon/update_icon()
 	icon_state = "navbeacon[open]"
 
-/obj/machinery/navbeacon/attackby(obj/item/I, mob/user, params)
+/obj/machinery/navbeacon/attackby(obj/item/I, mob/user, list/modifiers)
 	var/turf/T = loc
 	if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 		return // prevent interaction when T-scanner revealed

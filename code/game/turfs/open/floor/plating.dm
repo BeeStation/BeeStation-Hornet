@@ -54,7 +54,7 @@
 	if(!broken && !burnt)
 		icon_state = icon_plating //Because asteroids are 'platings' too.
 
-/turf/open/floor/plating/attackby(obj/item/C, mob/user, params)
+/turf/open/floor/plating/attackby(obj/item/C, mob/user, list/modifiers)
 	if(..())
 		return
 	if(istype(C, /obj/item/stack/rods) && attachment_holes)
@@ -70,7 +70,7 @@
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 				new /obj/structure/lattice/catwalk/over(src)
 				return
-	var/is_left_cliking = LAZYACCESS(params2list(params), LEFT_CLICK)
+	var/is_left_cliking = LAZYACCESS(modifiers, LEFT_CLICK)
 	if(istype(C, /obj/item/stack/sheet/iron) && attachment_holes && is_left_cliking)
 		if(broken || burnt)
 			to_chat(user, span_warning("Repair the plating first!"))
@@ -145,7 +145,7 @@
 /turf/open/floor/plating/foam/break_tile()
 	return //jetfuel can't break steel foam...
 
-/turf/open/floor/plating/foam/attackby(obj/item/I, mob/user, params)
+/turf/open/floor/plating/foam/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/tile/iron))
 		var/obj/item/stack/tile/iron/P = I
 		if(P.use(1))

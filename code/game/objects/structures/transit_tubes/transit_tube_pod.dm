@@ -29,7 +29,7 @@
 	else
 		icon_state = "pod"
 
-/obj/structure/transit_tube_pod/attackby(obj/item/I, mob/user, params)
+/obj/structure/transit_tube_pod/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_CROWBAR)
 		if(!moving)
 			I.play_tool_sound(src)

@@ -181,7 +181,7 @@
 		if(ZI)
 			brainmob.set_species(ZI.old_species)	//For if the brain is cloned
 
-/obj/item/organ/brain/attackby(obj/item/O, mob/user, params)
+/obj/item/organ/brain/attackby(obj/item/O, mob/user, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	if(istype(O, /obj/item/organ_storage))
@@ -374,7 +374,7 @@
 				if(H.health > 0)
 					H.revive()
 
-/obj/item/organ/brain/positron/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/organ/brain/positron/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	if(istype(attacking_item, /obj/item/organ_storage))

@@ -53,7 +53,7 @@
 		if(tank_volume && (damage_flag == BULLET || damage_flag == LASER))
 			boom()
 
-/obj/structure/reagent_dispensers/attackby(obj/item/W, mob/user, params)
+/obj/structure/reagent_dispensers/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.is_refillable())
 		return 0 //so we can refill them via their afterattack.
 	if(istype(W, /obj/item/assembly_holder) && accepts_rig)
@@ -200,7 +200,7 @@
 			log_bomber(P.firer, "detonated a", src, "via projectile")
 			boom()
 
-/obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WELDER)
 		if(!reagents.has_reagent(/datum/reagent/fuel))
 			to_chat(user, span_warning("[src] is out of fuel!"))

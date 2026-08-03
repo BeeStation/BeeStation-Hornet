@@ -1038,7 +1038,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	cloth_golem = null
 	qdel(src)
 
-/obj/structure/cloth_pile/attackby(obj/item/P, mob/living/carbon/human/user, params)
+/obj/structure/cloth_pile/attackby(obj/item/P, mob/living/carbon/human/user, list/modifiers)
 	. = ..()
 
 	if(resistance_flags & ON_FIRE)

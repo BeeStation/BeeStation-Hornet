@@ -66,7 +66,7 @@
 		reagents.trans_to(our_beaker, our_beaker.reagents.maximum_volume)
 	..()
 
-/obj/machinery/limbgrower/attackby(obj/item/O, mob/living/user, params)
+/obj/machinery/limbgrower/attackby(obj/item/O, mob/living/user, list/modifiers)
 	if (busy)
 		to_chat(user, span_alert("The Limb Grower is busy. Please wait for completion of previous operation."))
 		return

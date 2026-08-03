@@ -215,7 +215,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 		return
 	..()
 
-/obj/structure/window/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/window/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(!can_be_reached(user))
 		return TRUE //skip the afterattack
 

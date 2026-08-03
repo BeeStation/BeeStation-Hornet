@@ -269,7 +269,7 @@
 				return
 	return ..()
 
-/obj/item/bodypart/attackby(obj/item/W, mob/user, params)
+/obj/item/bodypart/attackby(obj/item/W, mob/user, list/modifiers)
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(W.get_sharpness())

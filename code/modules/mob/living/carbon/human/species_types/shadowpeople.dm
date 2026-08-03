@@ -265,7 +265,7 @@
 	ADD_TRAIT(src, TRAIT_DOOR_PRYER, INNATE_TRAIT)
 	AddComponent(/datum/component/butchering, 80, 70)
 
-/obj/item/light_eater/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/light_eater/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!proximity_flag)
 		return

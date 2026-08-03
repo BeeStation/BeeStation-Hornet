@@ -63,7 +63,7 @@
 		accessory_overlay_under.layer = item_layer +  0.0001
 		. += accessory_overlay_under
 
-/obj/item/clothing/under/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/clothing/under/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(has_sensor == BROKEN_SENSORS && istype(attacking_item, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/cable = attacking_item
 		cable.use(1)
@@ -73,7 +73,7 @@
 	if(!attach_accessory(attacking_item, user))
 		return ..()
 
-/obj/item/clothing/under/attack_hand_secondary(mob/user, params)
+/obj/item/clothing/under/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
 	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 		return

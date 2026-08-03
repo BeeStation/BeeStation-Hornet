@@ -425,7 +425,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 	return COMPONENT_BUFFER_RECEIVED
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
-/obj/machinery/clonepod/attackby(obj/item/W, mob/user, params)
+/obj/machinery/clonepod/attackby(obj/item/W, mob/user, list/modifiers)
 	if(!(occupant || mess))
 		if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]",W))
 			return

@@ -321,7 +321,7 @@
 	playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	return FALSE
 
-/obj/item/mod/control/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/item/mod/control/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(istype(attacking_item, /obj/item/pai_card))
 		if(!open)
 			balloon_alert(user, "cover closed!")

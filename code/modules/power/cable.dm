@@ -362,14 +362,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 			return 4
 	return 0
 
-/obj/structure/cable/attackby(obj/item/attacking_item, mob/user, params)
+/obj/structure/cable/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	var/turf/our_turf = get_turf(src)
 	if(our_turf.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 		return FALSE
 
 	if(istype(attacking_item, /obj/item/stack/cable_coil))
 		// Pass the click down to the turf instead
-		return our_turf.attackby(attacking_item, user, params)
+		return our_turf.attackby(attacking_item, user, modifiers)
 
 	add_fingerprint(user)
 	return ..()

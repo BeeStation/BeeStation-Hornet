@@ -441,7 +441,7 @@
 /obj/item/mod/module/adrenaline_boost/on_uninstall(deleting)
 	UnregisterSignal(mod, COMSIG_ATOM_ATTACKBY)
 
-/obj/item/mod/module/adrenaline_boost/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/mod/module/adrenaline_boost/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(charge_boost(attacking_item, user))
 		return TRUE
 	return ..()

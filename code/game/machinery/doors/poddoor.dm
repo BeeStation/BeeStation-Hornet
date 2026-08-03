@@ -46,7 +46,7 @@
 		else if(deconstruction == BLASTDOOR_NEEDS_WIRES)
 			. += span_notice("The <i>wires</i> have been removed and it's ready to be <b>sliced apart</b>.")
 
-/obj/machinery/door/poddoor/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/machinery/door/poddoor/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	. = ..()
 	if(user.combat_mode)
 		return

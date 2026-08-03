@@ -161,7 +161,7 @@
 	default_unfasten_wrench(user, tool)
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/portable_thermomachine/attackby(obj/item/I, mob/user, params)
+/obj/machinery/portable_thermomachine/attackby(obj/item/I, mob/user, list/modifiers)
 	add_fingerprint(user)
 
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))

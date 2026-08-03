@@ -31,7 +31,7 @@
 //BUCKLE HOOKS
 
 /obj/machinery/manned_turret/unbuckle_mob(mob/living/buckled_mob,force = FALSE)
-	playsound(src,'sound/mecha/mechmove01.ogg', 50, 1)
+	playsound(src,'sound/mecha/mechmove01.ogg', 50, TRUE)
 	for(var/obj/item/I in buckled_mob.held_items)
 		if(istype(I, /obj/item/gun_control))
 			qdel(I)
@@ -64,7 +64,7 @@
 	M.pixel_y = 14
 	layer = ABOVE_MOB_LAYER
 	setDir(SOUTH)
-	playsound(src,'sound/mecha/mechmove01.ogg', 50, 1)
+	playsound(src, 'sound/mecha/mechmove01.ogg', 50, TRUE)
 	anchored = TRUE
 	if(M.client)
 		M.client.view_size.setTo(view_range)
@@ -74,19 +74,20 @@
 	if (!update_positioning())
 		return PROCESS_KILL
 
-/obj/machinery/manned_turret/proc/update_positioning(mouseObject, params)
+/obj/machinery/manned_turret/proc/update_positioning()
 	if (!LAZYLEN(buckled_mobs))
 		return FALSE
 	var/mob/living/controller = buckled_mobs[1]
 	if(!istype(controller))
 		return FALSE
-	var/client/C = controller.client
-	if(C)
-		var/atom/A = mouseObject
-		var/turf/T = get_turf(A)
-		if(istype(T))	//They're hovering over something in the map.
-			direction_track(controller, T)
-			calculated_projectile_vars = calculate_projectile_angle_and_pixel_offsets(controller, params)
+	var/client/controlling_client = controller.client
+	if(controlling_client)
+		var/list/modifiers = params2list(controlling_client.mouseParams)
+		var/atom/target_atom = controlling_client.mouse_object_ref?.resolve()
+		var/turf/target_turf = get_turf(target_atom)
+		if(istype(target_turf)) //They're hovering over something in the map.
+			direction_track(controller, target_turf)
+			calculated_projectile_vars = calculate_projectile_angle_and_pixel_offsets(controller, modifiers)
 
 /obj/machinery/manned_turret/proc/direction_track(mob/user, atom/targeted)
 	if(user.incapacitated)
@@ -200,7 +201,7 @@
 /obj/item/gun_control/CanItemAutoclick()
 	return TRUE
 
-/obj/item/gun_control/attack_atom(obj/O, mob/living/user, params)
+/obj/item/gun_control/attack_atom(obj/O, mob/living/user, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 	O.attacked_by(src, user)
 
@@ -210,9 +211,9 @@
 	M.attacked_by(src, user)
 	add_fingerprint(user)
 
-/obj/item/gun_control/afterattack(atom/targeted_atom, mob/user, flag, params)
+/obj/item/gun_control/afterattack(atom/targeted_atom, mob/user, flag, list/modifiers)
 	. = ..()
 	var/obj/machinery/manned_turret/E = user.buckled
-	E.calculated_projectile_vars = calculate_projectile_angle_and_pixel_offsets(user, params)
+	E.calculated_projectile_vars = calculate_projectile_angle_and_pixel_offsets(user, modifiers)
 	E.direction_track(user, targeted_atom)
 	E.checkfire(targeted_atom, user)

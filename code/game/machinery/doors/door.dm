@@ -218,7 +218,7 @@
 	try_to_crowbar(tool, user)
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/door/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/machinery/door/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(!user.combat_mode && HAS_TRAIT(attacking_item, TRAIT_DOOR_PRYER))
 		try_to_crowbar(attacking_item, user, forced = TRUE)
 		return TRUE

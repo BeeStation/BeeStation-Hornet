@@ -365,7 +365,7 @@
 		)
 		open_machine()
 
-/obj/machinery/cryo_cell/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/machinery/cryo_cell/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(user.combat_mode || (attacking_item.item_flags & ABSTRACT) || (attacking_item.flags_1 & HOLOGRAM_1) || !istype(attacking_item, /obj/item/reagent_containers/cup))
 		return ..()
 

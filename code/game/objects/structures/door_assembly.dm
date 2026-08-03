@@ -50,7 +50,7 @@
 	else
 		. += span_notice("There is a small <i>paper</i> placard on the assembly[doorname].")
 
-/obj/structure/door_assembly/attackby(obj/item/W, mob/user, params)
+/obj/structure/door_assembly/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/pen))
 		var/t = stripped_input(user, "Enter the name for the door.", name, created_name,MAX_NAME_LEN)
 		if(!t)

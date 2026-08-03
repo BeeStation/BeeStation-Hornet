@@ -103,7 +103,7 @@
 	return FIRELOSS
 
 
-/obj/item/weldingtool/attackby(obj/item/I, mob/user, params)
+/obj/item/weldingtool/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		flamethrower_screwdriver(I, user)
 	else if(istype(I, /obj/item/stack/rods))

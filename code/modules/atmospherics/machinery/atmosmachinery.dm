@@ -373,7 +373,7 @@
 	nodes[nodes.Find(reference)] = null
 	update_icon()
 
-/obj/machinery/atmospherics/attackby(obj/item/W, mob/user, params)
+/obj/machinery/atmospherics/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/pipe)) //lets you autodrop
 		var/obj/item/pipe/pipe = W
 		if(user.dropItemToGround(pipe))

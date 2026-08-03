@@ -112,7 +112,7 @@
 		power_change()
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/pdapainter/attackby(obj/item/O, mob/living/user, params)
+/obj/machinery/pdapainter/attackby(obj/item/O, mob/living/user, list/modifiers)
 	if(istype(O, /obj/item/modular_computer/tablet/pda))
 		if(stored_pda)
 			to_chat(user, span_warning("There is already a PDA inside!"))

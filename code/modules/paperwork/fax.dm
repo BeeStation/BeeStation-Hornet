@@ -172,7 +172,7 @@
 		fax_name = new_fax_name
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/fax/attackby(obj/item/item, mob/user, params)
+/obj/machinery/fax/attackby(obj/item/item, mob/user, list/modifiers)
 	if(jammed && clear_jam(item, user))
 		return
 	if(panel_open)

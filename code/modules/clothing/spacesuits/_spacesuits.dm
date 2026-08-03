@@ -167,7 +167,7 @@
 				. += "\The [cell] is firmly in place."
 
 // object handling for accessing features of the suit
-/obj/item/clothing/suit/space/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/suit/space/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_CROWBAR)
 		toggle_spacesuit_cell(user)
 		return

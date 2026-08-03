@@ -478,7 +478,7 @@
 			user.visible_message(span_notice("[user] displays their [src.name].\nIt reads: [badge_title]."),span_notice("You display your [src.name]. It reads: [badge_title]."))
 	..()
 
-/obj/item/clothing/accessory/badge/attack(mob/living/target, mob/living/user, params)
+/obj/item/clothing/accessory/badge/attack(mob/living/target, mob/living/user, list/modifiers)
 	. = ..()
 	if (isliving(user) && istype(target))
 		user.visible_message(span_danger("[user] invades [target]'s personal space, thrusting \the [src] into their face insistently."), span_danger("You invade [target]'s personal space, thrusting \the [src] into their face insistently."))

@@ -64,14 +64,13 @@
 		if(3)
 			to_chat(user, "ERROR: ARM ACTUATORS OVERLOADED.")
 
-/obj/item/borg/cyborghug/attack(mob/living/M, mob/living/silicon/robot/user, params)
+/obj/item/borg/cyborghug/attack(mob/living/M, mob/living/silicon/robot/user, list/modifiers)
 	if(M == user)
 		return
 	switch(mode)
 		if(0)
 			if(M.health >= 0)
 				if(isanimal_or_basicmob(M))
-					var/list/modifiers = params2list(params)
 					if (!user.combat_mode && !LAZYACCESS(modifiers, RIGHT_CLICK))
 						M.attack_hand(user, modifiers) //This enables borgs to get the floating heart icon and mob emote from simple_animal's that have petbonus == true.
 					return
@@ -521,7 +520,7 @@
 	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 	return TRUE
 
-/obj/item/borg/lollipop/proc/shootL(atom/target, mob/living/user, params)
+/obj/item/borg/lollipop/proc/shootL(atom/target, mob/living/user, list/modifiers)
 	if(candy <= 0)
 		to_chat(user, span_warning("Not enough lollipops left!"))
 		return FALSE
@@ -532,11 +531,11 @@
 		A.BB.nodamage = FALSE
 	A.BB.speed = 0.5
 	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-	A.fire_casing(target, user, params, fired_from = src)
+	A.fire_casing(target, user, modifiers, fired_from = src)
 	user.visible_message(span_warning("[user] blasts a flying lollipop at [target]!"))
 	check_amount()
 
-/obj/item/borg/lollipop/proc/shootG(atom/target, mob/living/user, params)	//Most certainly a good idea.
+/obj/item/borg/lollipop/proc/shootG(atom/target, mob/living/user, list/modifiers)	//Most certainly a good idea.
 	if(candy <= 0)
 		to_chat(user, span_warning("Not enough gumballs left!"))
 		return FALSE
@@ -548,11 +547,11 @@
 	A.BB.speed = 0.5
 	A.BB.color = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
 	playsound(src.loc, 'sound/weapons/bulletflyby3.ogg', 50, 1)
-	A.fire_casing(target, user, params, fired_from = src)
+	A.fire_casing(target, user, modifiers, fired_from = src)
 	user.visible_message(span_warning("[user] shoots a high-velocity gumball at [target]!"))
 	check_amount()
 
-/obj/item/borg/lollipop/afterattack(atom/target, mob/living/user, proximity, click_params)
+/obj/item/borg/lollipop/afterattack(atom/target, mob/living/user, proximity, list/modifiers)
 	. = ..()
 	check_amount()
 	if(iscyborg(user))
@@ -568,9 +567,9 @@
 				return FALSE
 			dispense(target, user)
 		if(THROW_LOLLIPOP_MODE)
-			shootL(target, user, click_params)
+			shootL(target, user, modifiers)
 		if(THROW_GUMBALL_MODE)
-			shootG(target, user, click_params)
+			shootG(target, user, modifiers)
 	hitdamage = initial(hitdamage)
 
 /obj/item/borg/lollipop/attack_self(mob/living/user)
@@ -913,7 +912,7 @@
 		return ..()
 	stored.forceMove(get_turf(user))
 
-/obj/item/borg/apparatus/pre_attack(atom/A, mob/living/user, params)
+/obj/item/borg/apparatus/pre_attack(atom/A, mob/living/user, list/modifiers)
 	if(!stored)
 		var/itemcheck = FALSE
 		for(var/i in storable)
@@ -928,15 +927,15 @@
 			update_icon()
 			return
 	else
-		stored.melee_attack_chain(user, A, params)
+		stored.melee_attack_chain(user, A, modifiers)
 		return
-	. = ..()
+	return ..()
 
-/obj/item/borg/apparatus/attackby(obj/item/W, mob/user, params)
+/obj/item/borg/apparatus/attackby(obj/item/W, mob/user, list/modifiers)
 	if(stored)
-		W.melee_attack_chain(user, stored, params)
+		W.melee_attack_chain(user, stored, modifiers)
 		return
-	. = ..()
+	return ..()
 
 ////////////////////
 //container holder//
@@ -1041,7 +1040,7 @@
 		. += "The apparatus currently has [stored] secured."
 		. += span_notice("<i>Alt-click</i> will drop the currently stored [stored].")
 
-/obj/item/borg/apparatus/circuit/pre_attack(atom/A, mob/living/user, params)
+/obj/item/borg/apparatus/circuit/pre_attack(atom/A, mob/living/user, list/modifiers)
 	. = ..()
 	if(istype(A, /obj/item/ai_module) && !stored) //If an admin wants a borg to upload laws, who am I to stop them? Otherwise, we can hint that it fails
 		to_chat(user, span_warning("This circuit board doesn't seem to have standard robot apparatus pin holes. You're unable to pick it up."))

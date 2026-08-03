@@ -42,7 +42,7 @@
 		add_overlay("paper")
 
 
-/obj/item/papercutter/attackby(obj/item/P, mob/user, params)
+/obj/item/papercutter/attackby(obj/item/P, mob/user, list/modifiers)
 	if(istype(P, /obj/item/paper) && !storedpaper)
 		if(!user.transferItemToLoc(P, src))
 			return
@@ -112,7 +112,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 
-/obj/item/paperslip/attackby(obj/item/I, mob/living/user, params)
+/obj/item/paperslip/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(burn_paper_product_attackby_check(I, user))
 		return
 	return ..()

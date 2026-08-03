@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 	default_unfasten_wrench(user, tool)
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/deepfryer/attackby(obj/item/weapon, mob/user, params)
+/obj/machinery/deepfryer/attackby(obj/item/weapon, mob/user, list/modifiers)
 	// Dissolving pills into the frier
 	if(istype(weapon, /obj/item/reagent_containers/pill))
 		if(!reagents.total_volume)

@@ -147,7 +147,7 @@
 	inhand_icon_state = "wgloves"
 	var/range = 3
 
-/obj/item/clothing/gloves/color/white/magic/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/gloves/color/white/magic/attackby(obj/item/W, mob/user, list/modifiers)
 	. = ..()
 	if(istype(W, /obj/item/upgradewand))
 		var/obj/item/upgradewand/wand = W

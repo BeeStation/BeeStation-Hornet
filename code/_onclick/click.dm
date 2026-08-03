@@ -141,7 +141,7 @@
 	//User itself, current loc, and user inventory
 	if(HasDirectAccess(A))
 		if(W)
-			W.melee_attack_chain(src, A, params)
+			W.melee_attack_chain(src, A, modifiers)
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
@@ -162,7 +162,7 @@
 	//Standard reach turf to turf or reaching inside storage
 	if(CanReach(A,W))
 		if(W)
-			W.melee_attack_chain(src, A, params)
+			W.melee_attack_chain(src, A, modifiers)
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
@@ -171,25 +171,25 @@
 		if(W)
 			if(LAZYACCESS(modifiers, RIGHT_CLICK))
 				// Try the ranged attack first
-				var/ranged_attack_result = W.ranged_attack_secondary(A, src, params)
+				var/ranged_attack_result = W.ranged_attack_secondary(A, src, modifiers)
 
 				// Defer to normal ranged attack
 				if (ranged_attack_result == SECONDARY_ATTACK_CALL_NORMAL)
-					if (W.ranged_attack(A, src, params))
+					if (W.ranged_attack(A, src, modifiers))
 						return
 
-				var/after_attack_secondary_result = W.afterattack_secondary(A, src, FALSE, params)
+				var/after_attack_secondary_result = W.afterattack_secondary(A, src, FALSE, modifiers)
 
 				if(after_attack_secondary_result == SECONDARY_ATTACK_CALL_NORMAL)
-					W.afterattack(A, src, FALSE, params)
+					W.afterattack(A, src, FALSE, modifiers)
 			else
-				if (!W.ranged_attack(A, src, params))
-					W.afterattack(A,src,0,params)
+				if (!W.ranged_attack(A, src, modifiers))
+					W.afterattack(A, src, FALSE, modifiers)
 		else
 			if(LAZYACCESS(modifiers, RIGHT_CLICK))
 				ranged_secondary_attack(A, modifiers)
 			else
-				RangedAttack(A,modifiers)
+				RangedAttack(A, modifiers)
 
 /// Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
 /atom/proc/IsObscured()
@@ -332,7 +332,7 @@
   * for things like ranged glove touches, spitting alien acid/neurotoxin,
   * animals lunging, etc.
   */
-/mob/proc/RangedAttack(atom/A, modifiers)
+/mob/proc/RangedAttack(atom/A, list/modifiers)
 	if(SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, modifiers) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 

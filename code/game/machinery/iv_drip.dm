@@ -110,7 +110,7 @@
 			to_chat(usr, span_warning("There's nothing attached to the IV drip!"))
 
 
-/obj/machinery/iv_drip/attackby(obj/item/W, mob/user, params)
+/obj/machinery/iv_drip/attackby(obj/item/W, mob/user, list/modifiers)
 	if(is_type_in_typecache(W, drip_containers) || IS_EDIBLE(W))
 		if(beaker)
 			to_chat(user, span_warning("There is already a reagent container loaded!"))

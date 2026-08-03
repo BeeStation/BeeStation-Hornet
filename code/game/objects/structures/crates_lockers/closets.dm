@@ -363,7 +363,7 @@
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		bust_open()
 
-/obj/structure/closet/attackby(obj/item/W, mob/user, params)
+/obj/structure/closet/attackby(obj/item/W, mob/user, list/modifiers)
 	if(user in src)
 		return
 	if(src.tool_interact(W,user))

@@ -23,7 +23,7 @@
 	. += span_notice("<b>Left-click</b> a MODsuit to change skin.")
 	. += span_notice("<b>Right-click</b> a MODsuit to recolor.")
 
-/obj/item/mod/paint/pre_attack(atom/attacked_atom, mob/living/user, params)
+/obj/item/mod/paint/pre_attack(atom/attacked_atom, mob/living/user, list/modifiers)
 	if(!istype(attacked_atom, /obj/item/mod/control))
 		return ..()
 	var/obj/item/mod/control/mod = attacked_atom
@@ -32,7 +32,7 @@
 		return TRUE
 	paint_skin(mod, user)
 
-/obj/item/mod/paint/pre_attack_secondary(atom/attacked_atom, mob/living/user, params)
+/obj/item/mod/paint/pre_attack_secondary(atom/attacked_atom, mob/living/user, list/modifiers)
 	if(!istype(attacked_atom, /obj/item/mod/control))
 		return ..()
 	var/obj/item/mod/control/mod = attacked_atom
@@ -173,7 +173,7 @@
 	. = ..()
 	name = "\improper MOD [skin] skin applier"
 
-/obj/item/mod/skin_applier/pre_attack(atom/attacked_atom, mob/living/user, params)
+/obj/item/mod/skin_applier/pre_attack(atom/attacked_atom, mob/living/user, list/modifiers)
 	if(!istype(attacked_atom, /obj/item/mod/control))
 		return ..()
 	var/obj/item/mod/control/mod = attacked_atom

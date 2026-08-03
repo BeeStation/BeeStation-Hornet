@@ -229,7 +229,7 @@
 			mark(M, user)
 
 
-/obj/item/abductor/gizmo/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/gizmo/afterattack(atom/target, mob/living/user, flag, list/modifiers)
 	. = ..()
 	if(flag)
 		return
@@ -310,7 +310,7 @@
 		icon_state = "mind_device_message"
 	to_chat(user, span_notice("You switch the device to [mode==MIND_DEVICE_MESSAGE? "TRANSMISSION": "COMMAND"] MODE"))
 
-/obj/item/abductor/mind_device/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/mind_device/afterattack(atom/target, mob/living/user, flag, list/modifiers)
 	. = ..()
 	if(!ScientistCheck(user))
 		return
@@ -820,7 +820,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	framestack = /obj/item/stack/sheet/mineral/abductor
 	framestackamount = 1
 
-/obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params)
+/obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, span_notice("You start disassembling [src]..."))
 		I.play_tool_sound(src)

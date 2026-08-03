@@ -968,7 +968,7 @@
 	update_appearance()
 	return TRUE
 
-/obj/machinery/door/airlock/attackby(obj/item/C, mob/living/user, params)
+/obj/machinery/door/airlock/attackby(obj/item/C, mob/living/user, list/modifiers)
 	if(!issilicon(user) && !IsAdminGhost(user))
 		if(isElectrified() && C?.siemens_coefficient && shock(user, 75))
 			return

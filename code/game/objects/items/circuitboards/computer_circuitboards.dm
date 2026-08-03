@@ -439,7 +439,7 @@
 		to_chat(user, span_notice("You overload the node announcement chip, forcing every node to be announced on the common channel."))
 	return ..()
 
-/obj/item/circuitboard/computer/rdconsole/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/item/circuitboard/computer/rdconsole/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if (user.combat_mode || !isidcard(attacking_item))
 		return ..()
 	if (!check_access(attacking_item))

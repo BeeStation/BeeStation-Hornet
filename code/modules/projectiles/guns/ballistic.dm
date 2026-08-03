@@ -310,7 +310,7 @@
 		return FALSE
 	return chambered && ..()
 
-/obj/item/gun/ballistic/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/ballistic/attackby(obj/item/A, mob/user, list/modifiers)
 	..()
 	if (.)
 		return
@@ -352,7 +352,7 @@
 			to_chat(user, span_warning("There's nowhere to load a [cartridge_wording] into!"))
 			return
 		//Otherwise, try loading into the internal magazine next.
-		var/num_loaded = magazine.attackby(A, user, params, TRUE)
+		var/num_loaded = magazine.attackby(A, user, modifiers, TRUE)
 		if (num_loaded)
 			to_chat(user, span_notice("You load [num_loaded] [cartridge_wording]\s into \the [src]."))
 			playsound(src, load_sound, load_sound_volume, load_sound_vary)
@@ -440,7 +440,7 @@
 			bolt_locked = TRUE
 			update_icon()
 
-/obj/item/gun/ballistic/pull_trigger(atom/target, mob/living/user, flag, params, aimed)
+/obj/item/gun/ballistic/pull_trigger(atom/target, mob/living/user, flag, list/modifiers, aimed)
 	prefire_empty_checks()
 	return ..()
 

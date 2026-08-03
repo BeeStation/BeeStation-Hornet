@@ -250,7 +250,7 @@
 	DA.update_icon()
 	DA.update_name()
 
-/obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)
+/obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, list/modifiers)
 	if(C.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		if(plasma_ignition(6, user))
 			PlasmaBurn()

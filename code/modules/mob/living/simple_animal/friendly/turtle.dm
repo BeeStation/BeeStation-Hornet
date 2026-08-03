@@ -55,7 +55,7 @@
 			return
 
 //Mobs with objects
-/mob/living/simple_animal/turtle/attackby(obj/item/O, mob/living/user, params)
+/mob/living/simple_animal/turtle/attackby(obj/item/O, mob/living/user, list/modifiers)
 	if(!stat && !client && !istype(O, /obj/item/stack/medical))
 		if(O.force)
 			if(icon_state == icon_hiding)

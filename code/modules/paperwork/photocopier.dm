@@ -387,7 +387,7 @@
 	default_unfasten_wrench(user, tool)
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
+/obj/machinery/photocopier/attackby(obj/item/O, mob/user, list/modifiers)
 	if(istype(O, /obj/item/paper))
 		if(copier_empty())
 			if(!user.temporarilyRemoveItemFromInventory(O))

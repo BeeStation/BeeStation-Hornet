@@ -160,7 +160,7 @@
 		"failed lick"
 	)
 
-/datum/component/supermatter_crystal/proc/attackby_hit(datum/source, obj/item/item, mob/living/user, params)
+/datum/component/supermatter_crystal/proc/attackby_hit(datum/source, obj/item/item, mob/living/user, list/modifiers)
 	SIGNAL_HANDLER
 
 	var/atom/atom_source = source

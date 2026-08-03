@@ -559,7 +559,7 @@
 		to_chat(user, span_warning("You must first secure [src]."))
 	return TRUE
 
-/obj/machinery/vending/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/vending/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(panel_open && is_wire_tool(I))
 		wires.interact(user)
 		return
@@ -1383,7 +1383,7 @@
 		last_shopper = REF(usr)
 	vend_ready = TRUE
 
-/obj/machinery/vending/custom/attackby(obj/item/I, mob/user, params)
+/obj/machinery/vending/custom/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!private_a)
 		var/mob/living/carbon/human/H
 		var/obj/item/card/id/C

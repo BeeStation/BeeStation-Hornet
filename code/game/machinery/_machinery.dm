@@ -723,12 +723,12 @@
 
 	return _try_interact(user)
 
-/obj/machinery/attackby(obj/item/weapon, mob/user, params)
+/obj/machinery/attackby(obj/item/weapon, mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
 
-/obj/machinery/attackby_secondary(obj/item/weapon, mob/user, params)
+/obj/machinery/attackby_secondary(obj/item/weapon, mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -929,7 +929,7 @@
 	return TRUE
 
 // Power cell in hand replacement
-/obj/machinery/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(!istype(attacking_item, /obj/item/stock_parts/cell) || !panel_open)
 		return ..()
 

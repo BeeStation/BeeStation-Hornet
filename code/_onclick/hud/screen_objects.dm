@@ -450,7 +450,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	if (master && !istype(master))
 		CRASH("Attempting to create a backpack close without referencing a storage datum.")
 
-/atom/movable/screen/storage/attackby(location, control, params)
+/atom/movable/screen/storage/attackby(location, control, list/modifiers)
 	var/datum/storage/storage_master = master
 	if(!istype(storage_master))
 		return FALSE

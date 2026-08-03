@@ -61,7 +61,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if(inserted_scan_id || inserted_modify_id)
 		. += span_notice("Alt-click to eject the ID card.")
 
-/obj/machinery/computer/card/attackby(obj/I, mob/user, params)
+/obj/machinery/computer/card/attackby(obj/I, mob/user, list/modifiers)
 	if(isidcard(I))
 		if(check_access(I) && !inserted_scan_id)
 			if(id_insert(user, I, inserted_scan_id))

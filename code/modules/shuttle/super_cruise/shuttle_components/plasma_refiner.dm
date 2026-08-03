@@ -12,7 +12,7 @@
 /obj/machinery/atmospherics/components/unary/plasma_refiner/on_construction(mob/user)
 	..(dir, dir)
 
-/obj/machinery/atmospherics/components/unary/plasma_refiner/attackby(obj/item/W, mob/user, params)
+/obj/machinery/atmospherics/components/unary/plasma_refiner/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/stack/ore/plasma) || istype(W, /obj/item/stack/sheet/mineral/plasma))
 		var/obj/item/stack/stack = W
 		var/moles_created = moles_per_ore * stack.amount

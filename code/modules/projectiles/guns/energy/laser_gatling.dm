@@ -41,7 +41,7 @@
 	else
 		..()
 
-/obj/item/minigunpack/attackby(obj/item/W, mob/user, params)
+/obj/item/minigunpack/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W == gun) //Don't need armed check, because if you have the gun assume its armed.
 		user.dropItemToGround(gun, TRUE)
 	else
@@ -138,7 +138,7 @@
 	else
 		qdel(src)
 
-/obj/item/gun/energy/minigun/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/energy/minigun/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	if(ammo_pack)
 		if(cooldown < world.time)
 			if(current_heat >= overheat) //We've been firing too long, shut it down
@@ -180,7 +180,7 @@
 	if(heating)
 		current_heat += 2
 
-/obj/item/gun/energy/minigun/pull_trigger(atom/target, mob/living/user, params, aimed)
+/obj/item/gun/energy/minigun/pull_trigger(atom/target, mob/living/user, list/modifiers, aimed)
 	if(!ammo_pack || ammo_pack.loc != user)
 		to_chat(user, span_warning("You need the backpack power source to fire the gun!"))
 	. = ..()

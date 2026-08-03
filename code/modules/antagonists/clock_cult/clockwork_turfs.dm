@@ -197,7 +197,7 @@
 	for(var/obj/structure/lattice/L in src)
 		L.ratvar_act()
 
-/turf/open/floor/clockwork/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+/turf/open/floor/clockwork/try_replace_tile(obj/item/stack/tile/T, mob/user, list/modifiers)
 	return
 
 /turf/open/floor/clockwork/crowbar_act(mob/living/user, obj/item/I)
@@ -388,7 +388,7 @@
 /obj/machinery/door/airlock/clockwork/ratvar_act()
 	return 0
 
-/obj/machinery/door/airlock/clockwork/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/door/airlock/clockwork/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(!attempt_construction(I, user))
 		return ..()
 

@@ -196,7 +196,7 @@ WANTS_POWER_NODE(/obj/structure/grille)
 		return TRUE
 	return FALSE
 
-/obj/structure/grille/attackby(obj/item/W, mob/user, params)
+/obj/structure/grille/attackby(obj/item/W, mob/user, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	if(W.tool_behaviour == TOOL_WIRECUTTER)

@@ -375,9 +375,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		discipline_slime(M)
 
 
-/mob/living/simple_animal/slime/attackby(obj/item/W, mob/living/user, params)
+/mob/living/simple_animal/slime/attackby(obj/item/W, mob/living/user, list/modifiers)
 	if(stat == DEAD && surgeries.len)
-		var/list/modifiers = params2list(params)
 		if(!user.combat_mode || (LAZYACCESS(modifiers, RIGHT_CLICK)))
 			for(var/datum/surgery/operations as anything in surgeries)
 				if(operations.next_step(user, modifiers))

@@ -30,7 +30,7 @@
 	AddComponent(/datum/component/stationloving, FALSE, TRUE)
 
 ///Attacking someone with the book.
-/obj/item/book/kindred/afterattack(mob/living/target, mob/living/user, flag, params)
+/obj/item/book/kindred/afterattack(mob/living/target, mob/living/user, flag, list/modifiers)
 	. = ..()
 	if(!user.can_read(src) || in_use || (target == user) || !ismob(target))
 		return

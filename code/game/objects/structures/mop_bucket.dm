@@ -9,7 +9,7 @@
 	. = ..()
 	create_reagents(100, OPENCONTAINER)
 
-/obj/structure/mop_bucket/attackby(obj/item/attacking_item, mob/user, params)
+/obj/structure/mop_bucket/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(attacking_item.is_drainable() && attacking_item.reagents.total_volume > 0)
 		update_appearance(UPDATE_OVERLAYS)
 		return FALSE // we want to continue the attack chain

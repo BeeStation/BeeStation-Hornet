@@ -52,7 +52,7 @@
 	default_unfasten_wrench(user, tool)
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/sheetifier/attackby(obj/item/I, mob/user, params)
+/obj/machinery/sheetifier/attackby(obj/item/I, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		update_appearance()
 		return

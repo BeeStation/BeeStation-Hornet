@@ -77,7 +77,7 @@
 	qdel(src)
 	user.put_in_hands(I)
 
-/obj/item/storage/box/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/box/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/stack/package_wrap))
 		return 0
 	return ..()
@@ -873,7 +873,7 @@
 	for(var/i in 1 to 10)
 		new /obj/item/match(src)
 
-/obj/item/storage/box/matches/attackby(obj/item/match/W as obj, mob/user as mob, params)
+/obj/item/storage/box/matches/attackby(obj/item/match/W as obj, mob/user as mob, list/modifiers)
 	if(istype(W, /obj/item/match))
 		W.matchignite()
 		playsound(src.loc, 'sound/items/matchstick_lit.ogg', 100, 1)
@@ -967,7 +967,7 @@
 	desc = "A colorful cardboard box for the clown"
 	illustration = "clown"
 
-/obj/item/storage/box/clown/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/box/clown/attackby(obj/item/I, mob/user, list/modifiers)
 	if((istype(I, /obj/item/bodypart/arm/left/robot)) || (istype(I, /obj/item/bodypart/arm/right/robot)))
 		if(contents.len) //prevent accidently deleting contents
 			to_chat(user, span_warning("You need to empty [src] out first!"))

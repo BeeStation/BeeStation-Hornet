@@ -49,7 +49,7 @@
 /atom/movable/openspace/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
-/atom/movable/openspace/attackby(obj/item/W, mob/user, params)
+/atom/movable/openspace/attackby(obj/item/W, mob/user, list/modifiers)
 	return
 
 /atom/movable/openspace/fire_act(exposed_temperature, exposed_volume)

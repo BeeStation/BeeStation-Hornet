@@ -24,7 +24,7 @@
 
 	COOLDOWN_DECLARE(cooldown)
 
-/obj/item/healthanalyzer/rad_laser/attack(mob/living/target_mob, mob/living/user, params)
+/obj/item/healthanalyzer/rad_laser/attack(mob/living/target_mob, mob/living/user, list/modifiers)
 	if(!stealth || !irradiate)
 		. = ..()
 
@@ -218,7 +218,7 @@
 	attack_verb_continuous = null
 	attack_verb_simple = null
 
-/obj/item/shadowcloak/magician/attackby(obj/item/W, mob/user, params)
+/obj/item/shadowcloak/magician/attackby(obj/item/W, mob/user, list/modifiers)
 	. = ..()
 	if(istype(W, /obj/item/upgradewand))
 		var/obj/item/upgradewand/wand = W

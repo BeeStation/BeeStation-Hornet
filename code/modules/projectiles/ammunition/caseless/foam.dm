@@ -23,7 +23,7 @@
 			BB.icon_state = initial(BB.icon_state)
 
 
-/obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
+/obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, list/modifiers)
 	var/obj/projectile/bullet/reusable/foam_dart/FD = BB
 	if (A.tool_behaviour == TOOL_SCREWDRIVER && !modified)
 		modified = TRUE

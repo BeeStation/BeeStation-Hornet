@@ -154,7 +154,7 @@
 		log_combat(user, src, "attacked", I)
 	take_damage(I.force, I.damtype, MELEE, 1)
 
-/turf/attackby(obj/item/W, mob/user, params)
+/turf/attackby(obj/item/W, mob/user, list/modifiers)
 	if (!ISADVANCEDTOOLUSER(user))
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return

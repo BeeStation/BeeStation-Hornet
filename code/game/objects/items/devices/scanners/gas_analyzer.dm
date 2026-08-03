@@ -134,7 +134,7 @@
 
 	ui_interact(user)
 
-/obj/item/analyzer/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/analyzer/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!can_see(user, target, ranged_scan_distance))
 		return

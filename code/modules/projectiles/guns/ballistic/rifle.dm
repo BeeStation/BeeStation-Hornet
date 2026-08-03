@@ -98,7 +98,7 @@
 /obj/item/gun/ballistic/rifle/boltaction/enchanted/attack_self()
 	return
 
-/obj/item/gun/ballistic/rifle/boltaction/enchanted/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/ballistic/rifle/boltaction/enchanted/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	. = ..()
 	if(!.)
 		return
@@ -172,7 +172,7 @@
 	else
 		. += "You could improvise a shoulder sling from some cabling..."
 
-/obj/item/gun/ballistic/rifle/pipe/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/ballistic/rifle/pipe/attackby(obj/item/A, mob/user, list/modifiers)
 	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_off)
 		if(slung)

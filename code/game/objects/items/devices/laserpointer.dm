@@ -39,7 +39,7 @@
 	. = ..()
 	diode = new /obj/item/stock_parts/micro_laser/ultra
 
-/obj/item/laser_pointer/attackby(obj/item/W, mob/user, params)
+/obj/item/laser_pointer/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/stock_parts/micro_laser))
 		if(!diode)
 			if(!user.transferItemToLoc(W, src))
@@ -65,11 +65,11 @@
 		else
 			. += span_notice("A class <b>[diode.rating]</b> laser diode is installed. It is <i>screwed</i> in place.")
 
-/obj/item/laser_pointer/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/laser_pointer/afterattack(atom/target, mob/living/user, flag, list/modifiers)
 	. = ..()
-	laser_act(target, user, params)
+	laser_act(target, user, modifiers)
 
-/obj/item/laser_pointer/proc/laser_act(atom/target, mob/living/user, params)
+/obj/item/laser_pointer/proc/laser_act(atom/target, mob/living/user, list/modifiers)
 	if( !(can_see(user,target,6)) )
 		return
 	if (!diode)
@@ -158,12 +158,11 @@
 	//laser pointer image
 	icon_state = "pointer_[pointer_icon_state]"
 	var/mutable_appearance/laser = mutable_appearance('icons/obj/projectiles.dmi', pointer_icon_state, 10)
-	var/list/modifiers = params2list(params)
 	if(modifiers)
-		if(LAZYACCESS(modifiers, ICON_X))
-			laser.pixel_x = (text2num(LAZYACCESS(modifiers, ICON_X)) - 16)
-		if(LAZYACCESS(modifiers, ICON_Y))
-			laser.pixel_y = (text2num(LAZYACCESS(modifiers, ICON_Y)) - 16)
+		if(modifiers[ICON_X])
+			laser.pixel_x = (text2num(modifiers[ICON_X]) - 16)
+		if(modifiers[ICON_Y])
+			laser.pixel_y = (text2num(modifiers[ICON_Y]) - 16)
 	else
 		laser.pixel_x = target.pixel_x + rand(-5,5)
 		laser.pixel_y = target.pixel_y + rand(-5,5)

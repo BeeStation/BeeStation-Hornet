@@ -69,7 +69,7 @@
 
 	add_fingerprint(user)
 
-/obj/item/healthanalyzer/attack_secondary(mob/living/victim, mob/living/user, params)
+/obj/item/healthanalyzer/attack_secondary(mob/living/victim, mob/living/user, list/modifiers)
 	if(!user.can_read(src))
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 

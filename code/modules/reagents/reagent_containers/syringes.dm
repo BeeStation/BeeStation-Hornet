@@ -29,7 +29,7 @@
 	context.add_left_click_action("Inject")
 	context.add_right_click_action("Draw")
 
-/obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, list/modifiers)
 	return
 
 /obj/item/reagent_containers/syringe/proc/transfer_diseases(mob/living/L)
@@ -105,7 +105,7 @@
 	to_chat(user, "<span class='notice'>You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
 	target.update_appearance()
 
-/obj/item/reagent_containers/syringe/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/reagent_containers/syringe/afterattack_secondary(atom/target, mob/user, proximity_flag, list/modifiers)
 	if (!try_syringe(target, user, proximity_flag))
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 
