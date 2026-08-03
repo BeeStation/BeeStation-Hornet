@@ -170,9 +170,9 @@ export const CargoCatalog = (props) => {
         <Flex.Item ml={-1} mr={1}>
           <Stack.Item mb={1}>
             <Stack align="baseline">
-            <Stack.Item ml={0.5}>
+              <Stack.Item ml={0.5}>
                 <Icon name="search" />
-            </Stack.Item>
+              </Stack.Item>
               <Stack.Item grow>
                 <Input
                   fluid
