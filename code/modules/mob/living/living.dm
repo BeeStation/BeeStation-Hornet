@@ -776,7 +776,7 @@
 		if(full_heal_flags & HEAL_ADMIN)
 			get_up(TRUE)
 		update_sight()
-		clear_alert("not_enough_oxy")
+		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 		reload_fullscreen()
 		. = TRUE
 		if(excess_healing)

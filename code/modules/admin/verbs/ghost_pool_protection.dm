@@ -33,7 +33,7 @@
 	new_role_flags = GLOB.ghost_role_flags
 
 /datum/ghost_pool_menu/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/ghost_pool_menu/ui_close()
 	qdel(src)
