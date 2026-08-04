@@ -283,9 +283,7 @@
 	var/obj/item/stock_parts/cell/best_cell
 
 	for(var/obj/item/stock_parts/cell/candidate in replacer)
-		if(candidate.rating < current_rating)
-			continue
-		if(candidate.rating == current_rating)
+		if(candidate.rating <= current_rating)
 			continue
 		if(!best_cell || candidate.rating > best_cell.rating)
 			best_cell = candidate
