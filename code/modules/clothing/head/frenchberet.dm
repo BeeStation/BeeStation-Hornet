@@ -6,6 +6,7 @@
 	greyscale_config_worn = /datum/greyscale_config/beret/worn
 	greyscale_colors = "#972A2A"
 	dying_key = DYE_REGISTRY_BERET
+	hair_mask = /datum/hair_mask/standard_hat_middle
 
 /obj/item/clothing/head/frenchberet/Initialize(mapload)
 	. = ..()
