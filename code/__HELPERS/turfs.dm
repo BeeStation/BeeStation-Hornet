@@ -413,7 +413,6 @@ Turf and target are separate in case you want to teleport some distance from a t
 	// It's probably not safe if it's not a floor.
 	if(!istype(floor))
 		return FALSE
-    
 	var/area/A = get_area(floor)
 	if(A.area_flags & NOT_SAFE_AREA) // Area considered dangerous by mappers, not the best place to be teleported to, such as the nukie satellite in pubbystation
 		return FALSE
@@ -425,26 +424,15 @@ Turf and target are separate in case you want to teleport some distance from a t
 	for(var/id in air.gases)
 		if(id in GLOB.hardcoded_gases)
 			continue
-
-	var/datum/gas_mixture/floor_gas_mixture = floor.air
-	if(!floor_gas_mixture)
 		return FALSE
-
-	var/static/list/gases_to_check = list(
-		/datum/gas/oxygen = list(16, 100),
-		/datum/gas/nitrogen,
-		/datum/gas/carbon_dioxide = list(0, 10)
-	)
-	if(!floor_gas_mixture.check_gases(gases_to_check))
+	if(GET_MOLES(/datum/gas/oxygen, air) < 16 || GET_MOLES(/datum/gas/plasma, air) || GET_MOLES(/datum/gas/carbon_dioxide, air) >= 10)
 		return FALSE
-
-	// Aim for goldilocks temperatures and pressure
-	if(!ISINRANGE(floor_gas_mixture.temperature, BODYTEMP_COLD_DAMAGE_LIMIT, BODYTEMP_HEAT_DAMAGE_LIMIT))
+	var/temperature = air.temperature
+	if(temperature <= 270 || temperature >= 360)
 		return FALSE
-	var/pressure = floor_gas_mixture.return_pressure()
-	if(!ISINRANGE(pressure, HAZARD_LOW_PRESSURE, HAZARD_HIGH_PRESSURE))
+	var/pressure = air.return_pressure()
+	if(pressure <= 20 || pressure >= 550)
 		return FALSE
-
 	return TRUE
 
 /// returns a turf that isn't holy from the list
@@ -452,3 +440,11 @@ Turf and target are separate in case you want to teleport some distance from a t
 	if(!length(turf_list))
 		CRASH("No turf list has been given")
 	var/list/copied_turf_list = turf_list.Copy()
+	var/turf/found_tile
+	do
+		found_tile = get_turf(pick_n_take(copied_turf_list)) // uses 'pick_an_take()' proc, so an item will be drawn from the list for each iteration. also, uses 'get_turf()` just in case.
+	while(found_tile && found_tile.is_holy() && length(copied_turf_list))
+
+	if(found_tile.is_holy()) // we found no valid tile at all
+		return
+	return found_tile
