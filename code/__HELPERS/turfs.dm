@@ -417,6 +417,14 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/area/A = get_area(floor)
 	if(A.area_flags & NOT_SAFE_AREA) // Area considered dangerous by mappers, not the best place to be teleported to, such as the nukie satellite in pubbystation
 		return FALSE
+	var/datum/gas_mixture/air = floor.air
+	// Certainly unsafe if it completely lacks air.
+	if(QDELETED(air))
+		return FALSE
+	// Can most things breathe?
+	for(var/id in air.gases)
+		if(id in GLOB.hardcoded_gases)
+			continue
 
 	var/datum/gas_mixture/floor_gas_mixture = floor.air
 	if(!floor_gas_mixture)
@@ -444,11 +452,3 @@ Turf and target are separate in case you want to teleport some distance from a t
 	if(!length(turf_list))
 		CRASH("No turf list has been given")
 	var/list/copied_turf_list = turf_list.Copy()
-	var/turf/found_tile
-	do
-		found_tile = get_turf(pick_n_take(copied_turf_list)) // uses 'pick_an_take()' proc, so an item will be drawn from the list for each iteration. also, uses 'get_turf()` just in case.
-	while(found_tile && found_tile.is_holy() && length(copied_turf_list))
-
-	if(found_tile.is_holy()) // we found no valid tile at all
-		return
-	return found_tile
