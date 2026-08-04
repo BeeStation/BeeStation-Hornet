@@ -128,7 +128,7 @@
 
 /// What happens if an aggr spreading vine buckles a mob.
 /datum/spacevine_mutation/aggressive_spread/on_buckle(obj/structure/spacevine/holder, mob/living/buckled)
-		aggrospread_act(holder, buckled)
+	aggrospread_act(holder, buckled)
 
 /// Hurts mobs. To be used when a vine with aggressive spread mutation spreads into the mob's tile or buckles them.
 /datum/spacevine_mutation/aggressive_spread/aggrospread_act(obj/structure/spacevine/S, mob/living/M)
@@ -177,53 +177,49 @@
 	holder.set_opacity(0)
 	holder.alpha = 125
 
-/datum/spacevine_mutation/oxy_eater
+/datum/spacevine_mutation/gas_eater
+	abstract_type = /datum/spacevine_mutation/gas_eater
+	/// Type of gas consumed by this mutation
+	var/datum/gas/gas_type = null
+
+/datum/spacevine_mutation/gas_eater/process_mutation(obj/structure/spacevine/holder)
+	var/turf/open/floor/turf = holder.loc
+	if(!istype(turf))
+		return
+
+	var/datum/gas_mixture/gas_mix = turf.air
+	if(!gas_mix.moles[gas_type])
+		return
+
+	gas_mix.adjust_gas(gas_type, -severity * holder.energy)
+
+/datum/spacevine_mutation/gas_eater/oxy_eater
 	name = "oxygen consuming"
 	hue = "#ffff88"
 	severity = 3
 	quality = NEGATIVE
+	gas_type = /datum/gas/oxygen
 
-/datum/spacevine_mutation/oxy_eater/process_mutation(obj/structure/spacevine/holder)
-	var/turf/open/floor/T = holder.loc
-	if(istype(T))
-		var/datum/gas_mixture/GM = T.air
-		SET_MOLES(/datum/gas/oxygen, GM, max(GET_MOLES(/datum/gas/oxygen, GM) - severity * holder.energy, 0))
-
-/datum/spacevine_mutation/nitro_eater
+/datum/spacevine_mutation/gas_eater/nitro_eater
 	name = "nitrogen consuming"
 	hue = "#8888ff"
 	severity = 3
 	quality = NEGATIVE
+	gas_type = /datum/gas/nitrogen
 
-/datum/spacevine_mutation/nitro_eater/process_mutation(obj/structure/spacevine/holder)
-	var/turf/open/floor/T = holder.loc
-	if(istype(T))
-		var/datum/gas_mixture/GM = T.air
-		SET_MOLES(/datum/gas/nitrogen, GM, max(GET_MOLES(/datum/gas/nitrogen, GM) - severity * holder.energy, 0))
-
-/datum/spacevine_mutation/carbondioxide_eater
+/datum/spacevine_mutation/gas_eater/carbondioxide_eater
 	name = "CO2 consuming"
 	hue = "#00ffff"
 	severity = 3
 	quality = POSITIVE
+	gas_type = /datum/gas/carbon_dioxide
 
-/datum/spacevine_mutation/carbondioxide_eater/process_mutation(obj/structure/spacevine/holder)
-	var/turf/open/floor/T = holder.loc
-	if(istype(T))
-		var/datum/gas_mixture/GM = T.air
-		REMOVE_MOLES(/datum/gas/carbon_dioxide, GM, severity * holder.energy - GET_MOLES(/datum/gas/carbon_dioxide, GM))
-
-/datum/spacevine_mutation/plasma_eater
+/datum/spacevine_mutation/gas_eater/plasma_eater
 	name = "toxins consuming"
 	hue = "#ffbbff"
 	severity = 3
 	quality = POSITIVE
-
-/datum/spacevine_mutation/plasma_eater/process_mutation(obj/structure/spacevine/holder)
-	var/turf/open/floor/T = holder.loc
-	if(istype(T))
-		var/datum/gas_mixture/GM = T.air
-		SET_MOLES(/datum/gas/plasma, GM, max(GET_MOLES(/datum/gas/plasma, GM) - severity * holder.energy, 0))
+	gas_type = /datum/gas/plasma
 
 /datum/spacevine_mutation/thorns
 	name = "thorny"

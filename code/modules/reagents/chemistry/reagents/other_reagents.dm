@@ -838,12 +838,12 @@
 	. = ..()
 	if(!exposed_obj || !reac_volume)
 		return
-	exposed_obj.atmos_spawn_air("o2=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
+	exposed_obj.atmos_spawn_air("[GAS_O2]=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/oxygen/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
 	if(istype(exposed_turf))
-		exposed_turf.atmos_spawn_air("o2=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
+		exposed_turf.atmos_spawn_air("[GAS_O2]=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/copper
 	name = "Copper"
@@ -873,12 +873,12 @@
 	. = ..()
 	if(!exposed_obj || !reac_volume)
 		return
-	exposed_obj.atmos_spawn_air("n2=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
+	exposed_obj.atmos_spawn_air("[GAS_N2]=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/nitrogen/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
 	if(istype(exposed_turf))
-		exposed_turf.atmos_spawn_air("n2=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
+		exposed_turf.atmos_spawn_air("[GAS_N2]=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/hydrogen
 	name = "Hydrogen"
@@ -1371,12 +1371,12 @@
 	. = ..()
 	if(!exposed_obj || !reac_volume)
 		return
-	exposed_obj.atmos_spawn_air("co2=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
+	exposed_obj.atmos_spawn_air("[GAS_CO2]=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/carbondioxide/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
 	if(istype(exposed_turf))
-		exposed_turf.atmos_spawn_air("co2=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
+		exposed_turf.atmos_spawn_air("[GAS_CO2]=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/nitrous_oxide
 	name = "Nitrous Oxide"
@@ -1390,12 +1390,12 @@
 /datum/reagent/nitrous_oxide/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()
 	if(exposed_obj && reac_volume)
-		exposed_obj.atmos_spawn_air("n2o=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
+		exposed_obj.atmos_spawn_air("[GAS_N2O]=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/nitrous_oxide/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
 	if(istype(exposed_turf))
-		exposed_turf.atmos_spawn_air("n2o=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
+		exposed_turf.atmos_spawn_air("[GAS_N2O]=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/nitrous_oxide/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == VAPOR)

@@ -144,7 +144,7 @@
 	notify_ghosts("Kudzu has been deployed!", source=location, header="Kudzu")
 	START_PROCESSING(SSobj, src)
 	vine_mutations_list = list()
-	init_subtypes(/datum/spacevine_mutation/, vine_mutations_list)
+	init_subtypes(/datum/spacevine_mutation, vine_mutations_list)
 	if(potency != null)
 		mutativeness = potency / 10
 	if(production != null && production <= 10) //Prevents runtime in case production is set to 11.
