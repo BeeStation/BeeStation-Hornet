@@ -54,18 +54,17 @@
 		usr.MouseWheelOn(src, delta_x, delta_y, params)
 
 /**
-  * Standard mob ClickOn()
-  * Handles exceptions: Buildmode, middle click, modified clicks, mech actions
-  *
-  * After that, mostly just check your state, check whether you're holding an item,
-  * check whether you're adjacent to the target, then pass off the click to whoever
-  * is receiving it.
-  * The most common are:
-  * * [mob/proc/UnarmedAttack] (atom,adjacent) - used here only when adjacent, with no item in hand; in the case of humans, checks gloves
-  * * [atom/proc/attackby] (item,user) - used only when adjacent
-  * * [obj/item/proc/afterattack] (atom,user,adjacent,params) - used both ranged and adjacent
-  * * [mob/proc/RangedAttack] (atom,params) - used only ranged, only used for tk and laser eyes but could be changed
-  */
+ * Standard mob ClickOn()
+ *
+ * After that, mostly just check your state, check whether you're holding an item,
+ * check whether you're adjacent to the target, then pass off the click to whoever is receiving it.
+ *
+ * The most common are:
+ * * [mob/proc/UnarmedAttack] (atom,adjacent) - used here only when adjacent, with no item in hand; in the case of humans, checks gloves
+ * * [atom/proc/attackby] (item,user) - used only when adjacent
+ * * [obj/item/proc/afterattack] (atom,user,adjacent,params) - used both ranged and adjacent
+ * * [mob/proc/RangedAttack] (atom,modifiers) - used only ranged, only used for tk and laser eyes but could be changed
+ */
 /mob/proc/ClickOn( atom/A, params )
 	if(world.time <= next_click)
 		return

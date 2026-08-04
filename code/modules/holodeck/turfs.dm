@@ -9,8 +9,7 @@
 	return // HOLOFLOOR DOES NOT GIVE A FUCK
 
 /turf/open/floor/holofloor/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
-	SHOULD_CALL_PARENT(FALSE)
-	return NONE // Fuck you
+	return NONE
 
 /turf/open/floor/holofloor/burn_tile()
 	return //you can't burn a hologram!

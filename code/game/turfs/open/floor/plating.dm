@@ -183,8 +183,7 @@
 	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
 /turf/open/floor/plating/foam/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
-	SHOULD_CALL_PARENT(FALSE)
-	return NONE // Fuck you
+	return NONE
 
 /turf/open/floor/plating/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
