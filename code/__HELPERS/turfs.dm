@@ -433,7 +433,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	if(!air.check_gases(gases_to_check))
 		return FALSE
 
-	// Temperature and pressure checks.
+	// Aim for goldilocks temperatures and pressure
 	if(!ISINRANGE(air.temperature, BODYTEMP_COLD_DAMAGE_LIMIT, BODYTEMP_HEAT_DAMAGE_LIMIT))
 		return FALSE
 
