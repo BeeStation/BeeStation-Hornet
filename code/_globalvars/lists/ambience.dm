@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(generic_ambience,list(
+GLOBAL_LIST_INIT(generic_ambience, list(
 	'sound/ambience/ambigen1.ogg',
 	'sound/ambience/ambigen3.ogg',
 	'sound/ambience/ambigen4.ogg',
@@ -14,22 +14,22 @@ GLOBAL_LIST_INIT(generic_ambience,list(
 	'sound/ambience/ambigen15.ogg',
 ))
 
-GLOBAL_LIST_INIT(holy_ambience,list(
+GLOBAL_LIST_INIT(holy_ambience, list(
 	'sound/ambience/ambicha1.ogg',
 	'sound/ambience/ambicha2.ogg',
 	'sound/ambience/ambicha3.ogg',
 	'sound/ambience/ambicha4.ogg',
 	'sound/ambience/ambiholy.ogg',
 	'sound/ambience/ambiholy2.ogg',
-	'sound/ambience/ambiholy3.ogg'
+	'sound/ambience/ambiholy3.ogg',
 ))
 
-GLOBAL_LIST_INIT(danger_ambience,list(
+GLOBAL_LIST_INIT(danger_ambience, list(
 	'sound/ambience/ambidanger.ogg',
-	'sound/ambience/ambidanger2.ogg'
+	'sound/ambience/ambidanger2.ogg',
 ))
 
-GLOBAL_LIST_INIT(ruins_ambience,list(
+GLOBAL_LIST_INIT(ruins_ambience, list(
 	'sound/ambience/ambimine.ogg',
 	'sound/ambience/ambicave.ogg',
 	'sound/ambience/ambiruin.ogg',
@@ -43,10 +43,10 @@ GLOBAL_LIST_INIT(ruins_ambience,list(
 	'sound/ambience/ambidanger2.ogg',
 	'sound/ambience/ambitech3.ogg',
 	'sound/ambience/ambimystery.ogg',
-	'sound/ambience/ambimaint1.ogg'
+	'sound/ambience/ambimaint1.ogg',
 ))
 
-GLOBAL_LIST_INIT(engi_ambience,list(
+GLOBAL_LIST_INIT(engi_ambience, list(
 	'sound/ambience/ambisin1.ogg',
 	'sound/ambience/ambisin2.ogg',
 	'sound/ambience/ambisin3.ogg',
@@ -55,10 +55,10 @@ GLOBAL_LIST_INIT(engi_ambience,list(
 	'sound/ambience/ambiatmos2.ogg',
 	'sound/ambience/ambitech.ogg',
 	'sound/ambience/ambitech2.ogg',
-	'sound/ambience/ambitech3.ogg'
+	'sound/ambience/ambitech3.ogg',
 ))
 
-GLOBAL_LIST_INIT(mining_ambience,list(
+GLOBAL_LIST_INIT(mining_ambience, list(
 	'sound/ambience/ambicave.ogg',
 	'sound/ambience/ambidanger.ogg',
 	'sound/ambience/ambidanger2.ogg',
@@ -74,15 +74,17 @@ GLOBAL_LIST_INIT(mining_ambience,list(
 	'sound/ambience/ambiruin7.ogg',
 ))
 
-GLOBAL_LIST_INIT(medical_ambience,list('sound/ambience/ambinice.ogg'))
+GLOBAL_LIST_INIT(medical_ambience, list(
+	'sound/ambience/ambinice.ogg',
+))
 
-GLOBAL_LIST_INIT(virology_ambience,list(
+GLOBAL_LIST_INIT(virology_ambience, list(
 	'sound/ambience/ambiviro.ogg',
 	'sound/ambience/ambiviro1.ogg',
 	'sound/ambience/ambiviro2.ogg',
 ))
 
-GLOBAL_LIST_INIT(spooky_ambience,list(
+GLOBAL_LIST_INIT(spooky_ambience, list(
 	'sound/ambience/ambimo1.ogg',
 	'sound/ambience/ambimo2.ogg',
 	'sound/ambience/ambimystery.ogg',
@@ -91,7 +93,7 @@ GLOBAL_LIST_INIT(spooky_ambience,list(
 	'sound/ambience/ambiruin7.ogg',
 ))
 
-GLOBAL_LIST_INIT(maint_ambience,list(
+GLOBAL_LIST_INIT(maint_ambience, list(
 	'sound/ambience/ambimaint1.ogg',
 	'sound/ambience/ambimaint2.ogg',
 	'sound/ambience/ambimaint3.ogg',
@@ -105,7 +107,7 @@ GLOBAL_LIST_INIT(maint_ambience,list(
 	'sound/voice/lowHiss4.ogg',
 ))
 
-GLOBAL_LIST_INIT(away_ambience,list(
+GLOBAL_LIST_INIT(away_ambience, list(
 	'sound/ambience/ambiatmos.ogg',
 	'sound/ambience/ambiatmos2.ogg',
 	'sound/ambience/ambidanger.ogg',
@@ -123,13 +125,13 @@ GLOBAL_LIST_INIT(away_ambience,list(
 	'sound/ambience/ambitech2.ogg',
 ))
 
-GLOBAL_LIST_INIT(reebe_ambience,list(
+GLOBAL_LIST_INIT(reebe_ambience, list(
 	'sound/ambience/ambireebe1.ogg',
 	'sound/ambience/ambireebe2.ogg',
-	'sound/ambience/ambireebe3.ogg'
+	'sound/ambience/ambireebe3.ogg',
 ))
 
-GLOBAL_LIST_INIT(creepy_ambience,list(
+GLOBAL_LIST_INIT(creepy_ambience, list(
 	'sound/effects/ghost.ogg',
 	'sound/effects/ghost2.ogg',
 	'sound/effects/heart_beat.ogg',
@@ -152,7 +154,7 @@ GLOBAL_LIST_INIT(creepy_ambience,list(
 	'sound/hallucinations/turn_around1.ogg',
 	'sound/hallucinations/turn_around2.ogg',
 	'sound/hallucinations/veryfar_noise.ogg',
-	'sound/hallucinations/wail.ogg'
+	'sound/hallucinations/wail.ogg',
 ))
 
 GLOBAL_LIST_INIT(ambience_assoc, list(
@@ -173,7 +175,7 @@ GLOBAL_LIST_INIT(ambience_assoc, list(
 ))
 
 
-GLOBAL_LIST_INIT(space_ambient_music,list(
+GLOBAL_LIST_INIT(space_ambient_music, list(
 	'sound/ambience/ambispace.ogg',
 	'sound/ambience/ambispace2.ogg',
 	'sound/ambience/qwerty/constellations.ogg',
