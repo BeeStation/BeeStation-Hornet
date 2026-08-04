@@ -1758,11 +1758,10 @@
 	taste_description = "sourness"
 
 /datum/reagent/hair_dye/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
+	if(method == TOUCH || method == VAPOR || ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
-		exposed_human.hair_color = pick(potential_colors)
-		exposed_human.facial_hair_color = pick(potential_colors)
-		exposed_human.update_hair()
+		exposed_human.set_facial_haircolor(pick(potential_colors), update = FALSE)
+		exposed_human.set_haircolor(pick(potential_colors), update = TRUE)
 
 /datum/reagent/barbers_aid
 	name = "Barber's Aid"
@@ -1777,9 +1776,8 @@
 		var/mob/living/carbon/human/exposed_human = exposed_mob
 		var/datum/sprite_accessory/hair/picked_hair = GLOB.hairstyles_list[pick(GLOB.hairstyles_list)]
 		var/datum/sprite_accessory/facial_hair/picked_beard = GLOB.facial_hairstyles_list[pick(GLOB.facial_hairstyles_list)]
-		exposed_human.hair_style = picked_hair.name
-		exposed_human.facial_hairstyle = picked_beard
-		exposed_human.update_hair()
+		exposed_human.set_facial_hairstyle(picked_beard.name, update = FALSE)
+		exposed_human.set_hairstyle(picked_hair.name, update = TRUE)
 
 /datum/reagent/concentrated_barbers_aid
 	name = "Concentrated Barber's Aid"
@@ -1790,11 +1788,23 @@
 	taste_description = "sourness"
 
 /datum/reagent/concentrated_barbers_aid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
+	if(method == TOUCH || method == VAPOR || ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
-		exposed_human.hair_style = "Very Long Hair"
-		exposed_human.facial_hairstyle = "Beard (Very Long)"
-		exposed_human.update_hair()
+		exposed_human.set_facial_hairstyle("Beard (Very Long)", update = FALSE)
+		exposed_human.set_hairstyle("Very Long Hair", update = TRUE)
+
+/datum/reagent/concentrated_barbers_aid/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, metabolization_ratio)
+	. = ..()
+	if(current_cycle > 21)
+		if(!ishuman(affected_mob))
+			return
+		var/mob/living/carbon/human/human_mob = affected_mob
+		var/obj/item/bodypart/head/head = human_mob.get_bodypart(BODY_ZONE_HEAD)
+		if(!head || (head.head_flags & HEAD_HAIR))
+			return
+		head.head_flags |= HEAD_HAIR
+		to_chat(affected_mob, span_notice("Your scalp mutates, a full head of hair sprouting from it."))
+		human_mob.update_body_parts()
 
 /datum/reagent/barbers_afro_mania
 	name = "Barber's Afro Mania"
@@ -1807,8 +1817,7 @@
 /datum/reagent/barbers_afro_mania/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
-		exposed_human.hair_style = "Afro (Large)"
-		exposed_human.update_hair()
+		exposed_human.set_hairstyle("Afro (Large)", update = TRUE)
 
 /datum/reagent/barbers_shaving_aid
 	name = "Barber's Shaving Aid"
@@ -1821,9 +1830,8 @@
 /datum/reagent/barbers_shaving_aid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
-		exposed_human.hair_style = "Bald 2"
-		exposed_human.facial_hairstyle = "Shaved"
-		exposed_human.update_hair()
+		exposed_human.set_facial_hairstyle("Shaved", update = FALSE)
+		exposed_human.set_hairstyle("Bald 2", update = TRUE)
 
 /datum/reagent/saltpetre
 	name = "Saltpetre"

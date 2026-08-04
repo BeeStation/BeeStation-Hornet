@@ -10,7 +10,7 @@
 	facial_hair_hidden = FALSE
 	LAZYNULL(hair_masks)
 	if(human_head_owner)
-		for(var/obj/item/worn_item in human_head_owner.get_equipped_items())
+		for(var/obj/item/worn_item in human_head_owner.get_equipped_items(INCLUDE_ABSTRACT))
 			if(worn_item.flags_inv & HIDEHAIR)
 				hair_hidden = TRUE
 			if(worn_item.flags_inv & HIDEFACIALHAIR)
