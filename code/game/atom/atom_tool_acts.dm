@@ -20,7 +20,12 @@
 	SHOULD_CALL_PARENT(TRUE)
 	PROTECTED_PROC(TRUE)
 
-	var/is_right_clicking = LAZYACCESS(modifiers, RIGHT_CLICK)
+	if(!user.combat_mode)
+		var/tool_return = tool_act(user, tool, modifiers)
+		if(tool_return)
+			return tool_return
+
+	var/is_right_clicking = text2num(LAZYACCESS(modifiers, RIGHT_CLICK))
 	var/is_left_clicking = !is_right_clicking
 	var/early_sig_return = NONE
 	if(is_left_clicking)
@@ -44,9 +49,46 @@
 	if(interact_return)
 		return interact_return
 
+	// We have to manually handle storage in item_interaction because storage is blocking in 99% of interactions, which stifles a lot
+	// Yeah it sucks not being able to signalize this, but the other option is to have a second signal here just for storage which is also not great
+	if(atom_storage)
+		if(is_left_clicking)
+			if(atom_storage.insert_on_attack)
+				atom_storage.attempt_insert(tool, user)
+				return ITEM_INTERACT_SUCCESS
+		else
+			if(atom_storage.open_storage(user) && atom_storage.display_contents)
+				return ITEM_INTERACT_SUCCESS
+
+	return NONE
+
+/**
+ *
+ * ## Tool Act
+ *
+ * Handles using specific tools on this atom directly.
+ * Only called when combat mode is off.
+ *
+ * Handles the tool_acts in particular, such as wrenches and screwdrivers.
+ *
+ * This can be overridden to handle unique "tool interactions"
+ * IE using an item like a tool (when it's not actually one)
+ * This is particularly useful for things that shouldn't be inserted into storage
+ * (because tool acting runs before storage checks)
+ * but otherwise does nothing that [item_interaction] doesn't already do.
+ *
+ * In other words, use sparingly. It's harder to use (correctly) than [item_interaction].
+ */
+/atom/proc/tool_act(mob/living/user, obj/item/tool, list/modifiers)
+	SHOULD_CALL_PARENT(TRUE)
+	PROTECTED_PROC(TRUE)
+
 	var/tool_type = tool.tool_behaviour
-	if(!tool_type) // here on only deals with ... tools
+	if(!tool_type)
 		return NONE
+
+	var/is_right_clicking = text2num(LAZYACCESS(modifiers, RIGHT_CLICK))
+	var/is_left_clicking = !is_right_clicking
 
 	var/list/processing_recipes = list()
 	var/signal_result = is_left_clicking \
@@ -56,6 +98,7 @@
 		return signal_result
 	if(length(processing_recipes))
 		process_recipes(user, tool, processing_recipes)
+		return ITEM_INTERACT_SUCCESS
 	if(QDELETED(tool))
 		return ITEM_INTERACT_SUCCESS // Safe-ish to assume that if we deleted our item something succeeded
 

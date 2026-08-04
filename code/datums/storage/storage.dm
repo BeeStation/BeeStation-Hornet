@@ -46,6 +46,9 @@
 	/// If we support smartly removing/inserting things from ourselves
 	var/supports_smart_equip = TRUE
 
+	/// Do we insert items when clicked by them?
+	var/insert_on_attack = TRUE
+
 	/// shows what we can hold in examine text
 	var/can_hold_description
 
