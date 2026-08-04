@@ -23,3 +23,8 @@
   - admin: The beaker panel actually works now and is TGUI
   mrmanlikesbt, Pickle-Coding, TheBoondock, antropod, SmArtKar:
   - code_imp: Atmospherics has received some backend code cleanup and optimizations.
+2026-08-04:
+  Tsar-Salat:
+  - rscadd: adds memory system for the security dog. Picks from a list of names and
+      basetypes. Keeping the dog alive for the round will ensure it passes into the
+      next.

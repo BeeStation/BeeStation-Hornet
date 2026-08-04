@@ -1,6 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - rscadd: adds memory system for the security dog. Picks from a list of names and
-      basetypes. Keeping the dog alive for the round will ensure it passes into the
-      next.
