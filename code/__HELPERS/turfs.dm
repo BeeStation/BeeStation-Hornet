@@ -410,17 +410,20 @@ Turf and target are separate in case you want to teleport some distance from a t
 	return TRUE
 
 /proc/is_turf_safe(turf/open/floor/floor)
+	// It's probably not safe if it's not a floor.
 	if(!istype(floor))
 		return FALSE
 
 	var/area/A = get_area(floor)
-	if(A.area_flags & NOT_SAFE_AREA)
+	if(A.area_flags & NOT_SAFE_AREA) // Area considered dangerous by mappers, not the best place to be teleported to, such as the nukie satellite in pubbystation
 		return FALSE
 
 	var/datum/gas_mixture/air = floor.air
+	// Certainly unsafe if it completely lacks air.
 	if(QDELETED(air))
 		return FALSE
 
+	// Check gas composition: oxygen min 16, no plasma, CO2 max 10, nitrogen allowed.
 	var/static/list/gases_to_check = list(
 		/datum/gas/oxygen = list(16, 100),
 		/datum/gas/nitrogen,
@@ -430,6 +433,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	if(!air.check_gases(gases_to_check))
 		return FALSE
 
+	// Temperature and pressure checks.
 	if(!ISINRANGE(air.temperature, BODYTEMP_COLD_DAMAGE_LIMIT, BODYTEMP_HEAT_DAMAGE_LIMIT))
 		return FALSE
 
