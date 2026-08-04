@@ -514,6 +514,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Spoken voice always matches any worn ID. If no worn ID, defaults to actual name.
 #define TRAIT_VOICE_MATCHES_ID "voice_matches_id"
 
+/// If the mob has this trait and die, their bomb implant doesn't detonate automatically. It must be consciously activated.
+#define TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION "prevent_implant_auto_explosion"
+
 /// We are ignoring gravity
 #define TRAIT_IGNORING_GRAVITY "ignores_gravity"
 /// We have some form of forced gravity acting on us

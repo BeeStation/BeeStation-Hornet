@@ -55,39 +55,27 @@
 	var/obj/machinery/portable_atmospherics/canister/C = O
 	var/worth = C.item_price
 	var/datum/gas_mixture/canister_mix = C.return_air()
-	var/canister_gas = canister_mix.gases
-
-	for(var/id in canister_gas)
-		var/datum/gas/path = gas_id2path(id)
-		var/moles = canister_gas[id][MOLES]
-		if(moles > 0)
-			worth += SSdemand.get_gas_value(path, moles)
-
-	canister_mix.garbage_collect()
+	for(var/gas_type, amount in canister_mix.moles)
+		worth += SSdemand.get_gas_value(gas_type, amount)
 	return worth
 
 /datum/export/large/gas_canister/get_amount(obj/O)
 	var/obj/machinery/portable_atmospherics/canister/C = O
 	var/datum/gas_mixture/canister_mix = C.return_air()
-	var/canister_gas = canister_mix.gases
 
-	var/dominant_id = null
-	var/dominant_moles = 0
-	var/total_moles = 0
-
-	for(var/id in canister_gas)
-		var/moles = canister_gas[id][MOLES]
-		if(moles > 0)
-			total_moles += moles
-			if(moles > dominant_moles)
-				dominant_moles = moles
-				dominant_id = id
-
+	var/total_moles = canister_mix.total_moles()
 	if(total_moles <= 0)
 		return 0
 
-	if(dominant_id)
-		var/gas_name = canister_gas[dominant_id][GAS_META][META_GAS_NAME]
+	var/dominant_gas = null
+	var/dominant_moles = 0
+	for(var/gas_type, amount in canister_mix.moles)
+		if(amount > dominant_moles)
+			dominant_moles = amount
+			dominant_gas = gas_type
+
+	if(dominant_gas)
+		var/gas_name = GLOB.meta_gas_info[META_GAS_NAME][dominant_gas]
 		unit_name = "Mole - Gas Canister: [gas_name]"
 	else
 		unit_name = "Mole - Mixed Gases Canister"
@@ -97,24 +85,19 @@
 /datum/export/large/gas_canister/sell_object(obj/O, datum/export_report/report, dry_run = TRUE, allowed_categories = EXPORT_CARGO)
 	var/obj/machinery/portable_atmospherics/canister/C = O
 	var/datum/gas_mixture/canister_mix = C.return_air()
-	var/canister_gas = canister_mix.gases
 
-	// Total value & amount already calculated by existing procs
+	// Total value already calculated by existing procs
 	var/total_value = get_cost(O)
-	var/total_moles = get_amount(O)
 
 	report.total_value[src] += total_value
-	report.total_amount[src] += total_moles
+	report.total_amount[src] += canister_mix.total_moles()
 
 	// Reduce demand for each gas sold
-	for(var/id in canister_gas)
-		var/datum/gas/path = gas_id2path(id)
-		var/moles = canister_gas[id][MOLES]
-		if(moles <= 0)
-			return
-		if(!dry_run)
-			var/datum/demand_state/state = SSdemand.get_demand_state(path)
-			state.current_demand = max(0, state.current_demand - moles)
-			SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[O.type]", "[total_value]"))
+	for(var/gas_type, amount in canister_mix.moles)
+		if(amount <= 0 || dry_run)
+			continue
+		var/datum/demand_state/state = SSdemand.get_demand_state(gas_type)
+		state.current_demand = max(0, state.current_demand - amount)
+		SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[O.type]", "[total_value]"))
 
 	return TRUE

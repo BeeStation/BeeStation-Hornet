@@ -155,22 +155,18 @@
 			var/datum/breathing_class/class = GLOB.breathing_class_info[breathing_class]
 			alert_category = class.low_alert_category
 			alert_type = class.low_alert_datum
-		else
-			var/list/alert = GLOB.meta_gas_info[breathing_class][META_GAS_BREATH_ALERT_INFO]?["not_enough_alert"]
-			if(alert)
-				alert_category = alert["alert_category"]
-				alert_type = alert["alert_type"]
 		throw_alert_for(H, alert_category, alert_type)
 		return FALSE
 
 	#define PP_MOLES(X) ((X / total_moles) * pressure)
 
-	#define PP(air, gas) PP_MOLES(GET_MOLES(gas, air))
+	#define PP(air, gas) PP_MOLES(air.moles[gas])
 
 	var/gas_breathed = 0
 
 	var/pressure = breath.return_pressure()
 	var/total_moles = breath.total_moles()
+	var/list/cached_moles = breath.moles
 	var/list/breathing_classes = GLOB.breathing_class_info
 	var/list/mole_adjustments = list()
 	for(var/entry in gas_min)
@@ -186,9 +182,9 @@
 			alert_category = class.low_alert_category
 			alert_type = class.low_alert_datum
 			for(var/gas in gases)
-				if (!(gas in breath.gases))
+				if (!(gas in cached_moles))
 					continue
-				var/moles = breath.gases[gas][MOLES]
+				var/moles = cached_moles[gas]
 				var/multiplier = gases[gas]
 				mole_adjustments[gas] = (gas in mole_adjustments) ? mole_adjustments[gas] - moles : -moles
 				required_pp += PP_MOLES(moles) * multiplier
@@ -198,14 +194,9 @@
 					for(var/product in products)
 						mole_adjustments[product] = (product in mole_adjustments) ? mole_adjustments[product] + to_add : to_add
 		else
-			required_moles = GET_MOLES(entry, breath)
+			required_moles = cached_moles[entry]
 			required_pp = PP_MOLES(required_moles)
-			var/list/alert = GLOB.meta_gas_info[entry][META_GAS_BREATH_ALERT_INFO]?["not_enough_alert"]
-			if(alert)
-				alert_category = alert["alert_category"]
-				alert_type = alert["alert_type"]
 			mole_adjustments[entry] = -required_moles
-			mole_adjustments[GLOB.meta_gas_info[entry][META_GAS_BREATH_RESULTS]] = required_moles
 		if(required_pp < safe_min)
 			var/multiplier = handle_too_little_breath(H, required_pp, safe_min, required_moles)
 			if(required_moles > 0)
@@ -230,11 +221,6 @@
 			danger_reagent = breathing_class.danger_reagent
 			found_pp = breathing_class.get_effective_pp(breath)
 		else
-			danger_reagent = GLOB.meta_gas_info[entry][META_GAS_BREATH_REAGENT_DANGEROUS]
-			var/list/alert = GLOB.meta_gas_info[entry][META_GAS_BREATH_ALERT_INFO]?["too_much_alert"]
-			if(alert)
-				alert_category = alert["alert_category"]
-				alert_type = alert["alert_type"]
 			found_pp = PP(breath, entry)
 		if(found_pp > gas_max[entry])
 			if(danger_reagent && istype(danger_reagent))
@@ -245,15 +231,10 @@
 			throw_alert_for(H, alert_category, alert_type)
 		else
 			clear_alert_for(H, alert_category)
-	for(var/gas in breath.gases)
-		var/datum/reagent/R = GLOB.meta_gas_info[gas][META_GAS_BREATH_REAGENT]
-		if(R)
-			//H.reagents.add_reagent(R, breath.gases[gas][MOLES] * R.molarity) // See next line
-			H.reagents.add_reagent(R, breath.gases[gas][MOLES] * 2) // 2 represents molarity of O2, we don't have citadel molarity
-			mole_adjustments[gas] = (gas in mole_adjustments) ? mole_adjustments[gas] - breath.gases[gas][MOLES] : -breath.gases[gas][MOLES]
 
-	for(var/gas in mole_adjustments)
-		ADJUST_MOLES(gas, breath, mole_adjustments[gas])
+	for(var/gas_type, gas_amount in mole_adjustments)
+		cached_moles[gas_type] += gas_amount
+	breath.garbage_collect()
 
 	if(breath)	// If there's some other shit in the air lets deal with it here.
 
@@ -298,7 +279,7 @@
 			H.reagents.add_reagent(/datum/reagent/nitrosyl_plasmide, max(0, 4 - existing))
 			H.reagents.add_reagent(/datum/reagent/nitrium, 2) //Triggers overdose message primarily, so players aren't stuck in extreme slowdown for too long.
 
-		REMOVE_MOLES(/datum/gas/nitrium, breath, gas_breathed)
+		breath.adjust_gas(/datum/gas/nitrium, -gas_breathed)
 
 		handle_breath_temperature(breath, H)
 
