@@ -1,5 +1,0 @@
-author: Isaac, Schoolboy215
-delete-after: true
-changes:
-  - rscadd: RPED can now interact with APC's to change their battery
-  - bugfix: APC's wont throw runtimes whenever they have no cell installed
