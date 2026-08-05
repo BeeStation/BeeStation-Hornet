@@ -29,7 +29,7 @@ GLOBAL_LIST_INIT(zaukerite_recipes, list(
 /obj/item/stack/sheet/mineral/zaukerite
 	name = "zaukerite"
 	icon_state = "zaukerite"
-	item_state = "sheet-zaukerite"
+	inhand_icon_state = "sheet-zaukerite"
 	singular_name = "zaukerite crystal"
 	w_class = WEIGHT_CLASS_NORMAL
 	point_value = 100

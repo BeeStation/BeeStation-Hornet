@@ -118,10 +118,10 @@
 
 /datum/gas_reaction/nobliumformation/init_factors()
 	factor = list(
-		/datum/gas/nitrogen = "10 moles of nitrogen needs to be present for the reaction to occur. Nitrogen is consumed at 10 moles per mole of hypernoblium formed.",
-		/datum/gas/tritium = "5 moles of tritium needs to be present for the reaction to occur. Tritium is consumed at 5 moles per mole of hypernoblium formed. The relative consumption rate of tritium decreases in the exposure of BZ.",
+		/datum/gas/nitrogen = "10 moles of nitrogen needs to be present for the reaction to occur. Nitrogen is consumed at 10 moles per mole of Hyper-Noblium formed.",
+		/datum/gas/tritium = "5 moles of tritium needs to be present for the reaction to occur. Tritium is consumed at 5 moles per mole of Hyper-Noblium formed. The relative consumption rate of tritium decreases in the exposure of BZ.",
 		/datum/gas/hypernoblium = "Hyper-Noblium production scales based on the sum of the nitrogen and tritium moles.",
-		"Energy" = "[NOBLIUM_FORMATION_ENERGY] joules of energy is released per mole of hypernoblium produced.",
+		"Energy" = "[NOBLIUM_FORMATION_ENERGY] joules of energy is released per mole of Hyper-Noblium produced.",
 		/datum/gas/bz = "BZ is not consumed in the reaction but will lower the amount of energy released. It also reduces amount of tritium consumed by a ratio between tritium and bz, greater bz than tritium will reduce more.",
 		"Temperature" = "Can only occur between [NOBLIUM_FORMATION_MIN_TEMP] - [NOBLIUM_FORMATION_MAX_TEMP] kelvin",
 	)
@@ -199,10 +199,3 @@
 		"Nuclear Particles" = "This reaction emits extremely high energy nuclear particles, up to [2 * PN_BZASE_NUCLEAR_PARTICLE_MAXIMUM] per second per unique gas mixture.",
 		"Temperature" = "Can only occur between [PN_BZASE_MIN_TEMP] - [PN_BZASE_MAX_TEMP] kelvin.",
 	)
-
-/datum/gas_reaction/antinoblium_replication/init_factors()
-	factor = list(
-		/datum/gas/antinoblium = "[MOLES_GAS_VISIBLE] moles of antinoblium is needed to replicate itself. Requires other gases to be converted to antinoblium.",
-		"Temperature" = "Can only occur above [REACTION_OPPRESSION_MIN_TEMP] Kelvin."
-	)
-

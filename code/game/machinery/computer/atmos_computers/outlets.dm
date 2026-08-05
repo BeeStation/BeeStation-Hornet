@@ -30,22 +30,18 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/freon_output
 	name = "freon tank output inlet"
-	chamber_id = ATMOS_GAS_MONITOR_FREON
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/halon_output
 	name = "halon tank output inlet"
-	chamber_id = ATMOS_GAS_MONITOR_HALON
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/healium_output
 	name = "healium tank output inlet"
-	chamber_id = ATMOS_GAS_MONITOR_HEALIUM
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/hydrogen_output
 	name = "hydrogen tank output inlet"
-	chamber_id = ATMOS_GAS_MONITOR_H2
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/hypernoblium_output
-	name = "hypernoblium tank output inlet"
+	name = "hyper-noblium tank output inlet"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/nitrium_output
 	name = "nitrium tank output inlet"
@@ -55,7 +51,6 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/proto_nitrate_output
 	name = "proto-nitrate tank output inlet"
-	chamber_id = ATMOS_GAS_MONITOR_PROTO_NITRATE
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/tritium_output
 	name = "tritium tank output inlet"
@@ -65,15 +60,12 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/zauker_output
 	name = "zauker tank output inlet"
-	chamber_id = ATMOS_GAS_MONITOR_ZAUKER
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/helium_output
 	name = "helium tank output inlet"
-	chamber_id = ATMOS_GAS_MONITOR_HELIUM
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/antinoblium_output
-	name = "antinoblium tank output inlet"
-	chamber_id = ATMOS_GAS_MONITOR_ANTINOBLIUM
+	name = "anti-noblium tank output inlet"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/incinerator_output
 	name = "incinerator chamber output inlet"

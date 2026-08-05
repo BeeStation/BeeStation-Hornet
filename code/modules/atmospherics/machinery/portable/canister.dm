@@ -72,13 +72,6 @@
 	AddElement(/datum/element/volatile_gas_storage)
 	AddComponent(/datum/component/gas_leaker, leak_rate=0.01)
 
-/obj/machinery/portable_atmospherics/canister/proc/create_gas()
-	if(!gas_type)
-		return
-	air_contents.add_gas(gas_type)
-	air_contents.gases[gas_type][MOLES] = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-	SSair.start_processing_machine(src)
-
 /obj/machinery/portable_atmospherics/canister/examine(user)
 	. = ..()
 	if(atom_integrity < max_integrity)
@@ -378,19 +371,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	. = ..()
 	if(.)
 		return
+
 	switch(action)
 		if("relabel")
 			var/label = tgui_input_list(usr, "New canister label", "Canister", GLOB.gas_id_to_canister)
-			if(label && !..())
-				var/newtype = GLOB.gas_id_to_canister[label]
-				if(isnull(newtype))
-					return
-				var/obj/machinery/portable_atmospherics/canister/replacement = newtype
-				investigate_log("was relabelled to [initial(replacement.name)] by [key_name(usr)].", INVESTIGATE_ATMOS)
-				name = initial(replacement.name)
-				desc = initial(replacement.desc)
-				icon_state = initial(replacement.icon_state)
-				set_greyscale(initial(replacement.greyscale_colors), initial(replacement.greyscale_config))
+			var/newtype = GLOB.gas_id_to_canister[label]
+			if(isnull(newtype))
+				return
+			var/obj/machinery/portable_atmospherics/canister/replacement = newtype
+			investigate_log("was relabelled to [initial(replacement.name)] by [key_name(usr)].", INVESTIGATE_ATMOS)
+			name = initial(replacement.name)
+			desc = initial(replacement.desc)
+			icon_state = initial(replacement.icon_state)
+			set_greyscale(initial(replacement.greyscale_colors), initial(replacement.greyscale_config))
 		if("pressure")
 			var/pressure = params["pressure"]
 			if(pressure == "reset")
@@ -424,8 +417,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 		if("reaction_suppression")
 			toggle_reaction_suppression(usr)
 			. = TRUE
-	ui_update()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/portable_atmospherics/canister/proc/toggle_valve(mob/user, wire_pulsed = FALSE)
 	valve_open = !valve_open
@@ -571,12 +563,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	desc = "Pre-mixed air."
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#c6c0b5"
-
-/obj/machinery/portable_atmospherics/canister/air/create_gas()
-	air_contents.add_gases(/datum/gas/oxygen, /datum/gas/nitrogen)
-	air_contents.gases[/datum/gas/oxygen][MOLES] = (O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-	air_contents.gases[/datum/gas/nitrogen][MOLES] = (N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-	SSair.start_processing_machine(src)
 
 /obj/machinery/portable_atmospherics/canister/antinoblium
 	name = "Anti-Noblium canister"
@@ -726,9 +712,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	SSair.start_processing_machine(src)
 
 /obj/machinery/portable_atmospherics/canister/fusion_test/create_gas()
-	air_contents.add_gases(/datum/gas/hydrogen, /datum/gas/tritium)
-	air_contents.gases[/datum/gas/hydrogen][MOLES] = 10000
-	air_contents.gases[/datum/gas/tritium][MOLES] = 10000
+	air_contents.adjust_multiple_gases(list(
+		/datum/gas/hydrogen = 10000,
+		/datum/gas/tritium = 10000,
+	))
+	SSair.start_processing_machine(src)
 
 #undef CAN_DEFAULT_RELEASE_PRESSURE
 #undef TEMPERATURE_RESISTANCE

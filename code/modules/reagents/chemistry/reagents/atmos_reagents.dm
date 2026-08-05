@@ -74,10 +74,9 @@
 	name = "Freon"
 	description = "A powerful heat absorbent."
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM  // Because nitrium/freon/hypernoblium are handled through gas breathing, metabolism must be lower for breathcode to keep up
-	color = "90560B"
+	color = "#90560B"
 	taste_description = "burning"
-	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_NO_RANDOM_RECIPE
-	randomized_spawns = REAGENT_SPAWN_ALL_RANDOM_SPAWNS
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/freon/on_mob_metabolize(mob/living/breather)
 	. = ..()
@@ -91,10 +90,9 @@
 	name = "Halon"
 	description = "A fire suppression gas that removes oxygen and cools down the area"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	color = "90560B"
+	color = "#216fa3"
 	taste_description = "minty"
-	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_NO_RANDOM_RECIPE
-	randomized_spawns = REAGENT_SPAWN_ALL_RANDOM_SPAWNS
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolized_traits = list(TRAIT_RESISTHEAT)
 
 /datum/reagent/halon/on_mob_metabolize(mob/living/breather)
@@ -109,10 +107,9 @@
 	name = "Healium"
 	description = "A powerful sleeping agent with healing properties"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	color = "90560B"
+	color = "#0fd668"
 	taste_description = "rubbery"
-	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_NO_RANDOM_RECIPE
-	randomized_spawns = REAGENT_SPAWN_ALL_RANDOM_SPAWNS
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/healium/on_mob_end_metabolize(mob/living/breather)
 	. = ..()
@@ -131,10 +128,9 @@
 	name = "Hyper-Noblium"
 	description = "A suppressive gas that stops gas reactions on those who inhale it."
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM // Because nitrium/freon/hyper-nob are handled through gas breathing, metabolism must be lower for breathcode to keep up
-	color = "90560B"
+	color = "#072669"
 	taste_description = "searingly cold"
-	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_NO_RANDOM_RECIPE
-	randomized_spawns = REAGENT_SPAWN_ALL_RANDOM_SPAWNS
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/hypernoblium/on_mob_life(mob/living/carbon/breather, delta_time, times_fired)
 	. = ..()
@@ -147,34 +143,31 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	color = COLOR_GRAY
 	taste_description = "irradiated air"
-	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_NO_RANDOM_RECIPE
-	randomized_spawns = REAGENT_SPAWN_ALL_RANDOM_SPAWNS
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/pluoxium/on_mob_life(mob/living/carbon/breather, delta_time, times_fired)
 	. = ..()
 	if(!HAS_TRAIT(breather, TRAIT_KNOCKEDOUT))
 		return
 
-	for(var/obj/item/organ/organ_being_healed as anything in breather.organs)
+	for(var/obj/item/organ/organ_being_healed as anything in breather.internal_organs)
 		if(!organ_being_healed.damage)
 			continue
-
-		if(organ_being_healed.apply_organ_damage(-0.5 * REM * delta_time, required_organ_flag = ORGAN_ORGANIC))
-			. = UPDATE_MOB_HEALTH
+		organ_being_healed.apply_organ_damage(-0.5 * REM * delta_time, required_organ_flag = ORGAN_ORGANIC)
 
 /datum/reagent/zauker
 	name = "Zauker"
 	description = "An unstable gas that is toxic to all living beings."
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	color = "90560B"
+	color = "#9126e9"
 	taste_description = "bitter"
-	chemical_flags = REAGENT_NO_RANDOM_RECIPE
-	affected_biotype = MOB_ORGANIC | MOB_MINERAL | MOB_PLANT // "toxic to all living beings"
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	affected_biotype = MOB_ORGANIC | MOB_INORGANIC | MOB_BUG // "toxic to all living beings"
 
 /datum/reagent/zauker/on_mob_life(mob/living/breather, delta_time, times_fired)
 	. = ..()
 	var/need_mob_update = breather.adjustBruteLoss(6 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
-	need_mob_update += breather.adjust_oxy_loss(1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+	need_mob_update += breather.adjustOxyLoss(1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 	need_mob_update += breather.adjustFireLoss(2 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
 	need_mob_update += breather.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 	if(need_mob_update)

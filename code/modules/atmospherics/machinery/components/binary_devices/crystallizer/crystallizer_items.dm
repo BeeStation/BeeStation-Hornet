@@ -1,6 +1,6 @@
 /obj/item/hypernoblium_crystal
-	name = "Hypernoblium Crystal"
-	desc = "Crystallized oxygen and hypernoblium stored in a bottle to pressure-proof your clothes or stop reactions occurring in portable atmospheric devices."
+	name = "Hyper-Noblium Crystal"
+	desc = "Crystallized oxygen and Hyper-Noblium stored in a bottle to pressure-proof your clothes or stop reactions occurring in portable atmospheric devices."
 	icon = 'icons/obj/atmospherics/crystallizer_items.dmi'
 	icon_state = "hypernoblium_crystal"
 	var/uses = 1
@@ -15,7 +15,7 @@
 
 	if(istype(atmos_device))
 		if(atmos_device.nob_crystal_inserted)
-			to_chat(user, span_warning("[atmos_device] already has a hypernoblium crystal inserted in it!"))
+			to_chat(user, span_warning("[atmos_device] already has a Hyper-Noblium crystal inserted in it!"))
 			return
 
 		atmos_device.nob_crystal_inserted = TRUE
@@ -83,7 +83,7 @@
 	desc = "Some kind of crystal, this shouldn't spawn"
 	icon = 'icons/obj/atmospherics/crystallizer_items.dmi'
 	icon_state = "healium_crystal"
-	item_state = "flashbang"
+	inhand_icon_state = "flashbang"
 	resistance_flags = FIRE_PROOF
 
 /obj/item/grenade/gas_crystal/preprime(mob/user, delayoverride, msg = TRUE, volume = 60)

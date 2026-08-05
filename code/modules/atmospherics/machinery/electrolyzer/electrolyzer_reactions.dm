@@ -19,23 +19,29 @@ GLOBAL_LIST_INIT(electrolyzer_reactions, electrolyzer_reactions_list())
 	var/list/requirements
 	var/list/factor
 
-/datum/electrolyzer_reaction/proc/react(turf/location, datum/gas_mixture/air_mixture, working_power)
+/**
+ * Electrolyzer reaction.
+ * Args:
+ * * air_mixture: The gas_mixture receiving the electrolysis.
+ * * working_power: How much energy to put into the electrolysis, in electrolyzer units. A value of 1 is what a tier 1 electrolyzer would put in.
+ */
+/datum/electrolyzer_reaction/proc/react(datum/gas_mixture/air_mixture, working_power)
 	return
 
 /**
- * Check if we're allowed to react or not
- **/
+ * Checks whether the requirements are met for a reaction.
+ * Args:
+ * * air_mixture: The air mixture to check the requirements for.
+ */
 /datum/electrolyzer_reaction/proc/reaction_check(datum/gas_mixture/air_mixture)
 	var/temp = air_mixture.temperature
-	var/list/cached_gases = air_mixture.gases
-
+	var/list/cached_moles = air_mixture.moles
 	if((requirements["MIN_TEMP"] && temp < requirements["MIN_TEMP"]) || (requirements["MAX_TEMP"] && temp > requirements["MAX_TEMP"]))
 		return FALSE
-
-	for(var/id in requirements)
-		if(id == "MIN_TEMP" || id == "MAX_TEMP")
+	for(var/requirement, required_amount in requirements)
+		if (requirement == "MIN_TEMP" || requirement == "MAX_TEMP")
 			continue
-		if(!cached_gases[id] || cached_gases[id][MOLES] < requirements[id])
+		if(cached_moles[requirement] < required_amount)
 			return FALSE
 	return TRUE
 
@@ -53,17 +59,13 @@ GLOBAL_LIST_INIT(electrolyzer_reactions, electrolyzer_reactions_list())
 		"Location" = "Can only happen on turfs with an active Electrolyzer.",
 	)
 
-/datum/electrolyzer_reaction/h2o_conversion/react(turf/location, datum/gas_mixture/air_mixture, working_power)
+/datum/electrolyzer_reaction/h2o_conversion/react(datum/gas_mixture/air_mixture, working_power)
 	var/old_heat_capacity = air_mixture.heat_capacity()
 
-	air_mixture.assert_gases(/datum/gas/water_vapor, /datum/gas/oxygen, /datum/gas/hydrogen)
-	var/list/cached_gases = air_mixture.gases
-
-	var/proportion = min(cached_gases[/datum/gas/water_vapor][MOLES] * INVERSE(2), (2.5 * (working_power ** 2)))
-	cached_gases[/datum/gas/water_vapor][MOLES] -= proportion * 2
-	cached_gases[/datum/gas/oxygen][MOLES] += proportion
-	cached_gases[/datum/gas/hydrogen][MOLES] += proportion * 2
-
+	var/proportion = min(air_mixture.moles[/datum/gas/water_vapor] * INVERSE(2), (2.5 * (working_power ** 2)))
+	air_mixture.adjust_gas(/datum/gas/water_vapor, -proportion * 2)
+	air_mixture.adjust_gas(/datum/gas/oxygen, proportion)
+	air_mixture.adjust_gas(/datum/gas/hydrogen, proportion * 2)
 	var/new_heat_capacity = air_mixture.heat_capacity()
 	if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 		air_mixture.temperature = max(air_mixture.temperature * old_heat_capacity / new_heat_capacity, TCMB)
@@ -83,15 +85,15 @@ GLOBAL_LIST_INIT(electrolyzer_reactions, electrolyzer_reactions_list())
 		"Location" = "Can only happen on turfs with an active Electrolyzer.",
 	)
 
-/datum/electrolyzer_reaction/nob_conversion/react(turf/location, datum/gas_mixture/air_mixture, working_power)
+/datum/electrolyzer_reaction/nob_conversion/react(datum/gas_mixture/air_mixture, working_power)
 	var/old_heat_capacity = air_mixture.heat_capacity()
-
 	air_mixture.assert_gases(/datum/gas/hypernoblium, /datum/gas/antinoblium)
-	var/list/cached_gases = air_mixture.gases
+	var/proportion = min(air_mixture.moles[/datum/gas/hypernoblium], (1.5 * (working_power ** 2)))
 
-	var/proportion = min(cached_gases[/datum/gas/hypernoblium][MOLES], (1.5 * (working_power ** 2)))
-	cached_gases[/datum/gas/hypernoblium][MOLES] -= proportion
-	cached_gases[/datum/gas/antinoblium][MOLES] += proportion * 0.5
+	air_mixture.adjust_multiple_gases(list(
+		/datum/gas/hypernoblium = -proportion,
+		/datum/gas/antinoblium = proportion * 0.5,
+	))
 
 	var/new_heat_capacity = air_mixture.heat_capacity()
 	if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
@@ -113,16 +115,17 @@ GLOBAL_LIST_INIT(electrolyzer_reactions, electrolyzer_reactions_list())
 		"Location" = "Can only happen on turfs with an active Electrolyzer.",
 	)
 
-/datum/electrolyzer_reaction/halon_generation/react(turf/location, datum/gas_mixture/air_mixture, working_power)
+/datum/electrolyzer_reaction/halon_generation/react(datum/gas_mixture/air_mixture, working_power, list/electrolyzer_args = list())
 	var/old_heat_capacity = air_mixture.heat_capacity()
-
 	air_mixture.assert_gases(/datum/gas/bz, /datum/gas/oxygen, /datum/gas/halon)
-	var/list/cached_gases = air_mixture.gases
+	var/bz_moles = air_mixture.moles[/datum/gas/bz]
+	var/reaction_efficency = min(bz_moles * (1 - NUM_E ** (-0.5 * air_mixture.temperature * working_power / FIRE_MINIMUM_TEMPERATURE_TO_EXIST)), bz_moles)
 
-	var/reaction_efficency = min(cached_gases[/datum/gas/bz][MOLES] * (1 - NUM_E ** (-0.5 * air_mixture.temperature * working_power / FIRE_MINIMUM_TEMPERATURE_TO_EXIST)), air_mixture.gases[/datum/gas/bz][MOLES])
-	cached_gases[/datum/gas/bz][MOLES] -= reaction_efficency
-	cached_gases[/datum/gas/oxygen][MOLES] += reaction_efficency * 0.2
-	cached_gases[/datum/gas/halon][MOLES] += reaction_efficency * 2
+	air_mixture.adjust_multiple_gases(list(
+		/datum/gas/bz = -reaction_efficency,
+		/datum/gas/oxygen = reaction_efficency * 0.2,
+		/datum/gas/halon = reaction_efficency * 2,
+	))
 
 	var/energy_used = reaction_efficency * HALON_FORMATION_ENERGY
 	var/new_heat_capacity = air_mixture.heat_capacity()

@@ -4,7 +4,7 @@
 		   Aside from conventional sharpened iron rods, it can also fire specialty ammo made from the atmos crystalizer - zaukerite, metallic hydrogen, and healium rods all work. \
 		   Very slow to reload - you can craft the crossbow with a crowbar to loosen the crossbar, but risk a misfire."
 	icon_state = "rebarxbow"
-	item_state = "rebarxbow"
+	inhand_icon_state = "rebarxbow"
 	worn_icon_state = "rebarxbow"
 	rack_sound = 'sound/weapons/sniper_rack.ogg'
 	mag_display = FALSE
@@ -90,7 +90,7 @@
 	desc = "The syndicate liked the bootleg rebar crossbow NT engineers made, so they showed what it could be if properly developed. \
 			Holds three shots without a chance of exploding, and features a built in scope. Compatible with all known crossbow ammunition."
 	icon_state = "rebarxbowsyndie"
-	item_state = "rebarxbowsyndie"
+	inhand_icon_state = "rebarxbowsyndie"
 	worn_icon_state = "rebarxbowsyndie"
 	w_class = WEIGHT_CLASS_NORMAL
 	draw_time = 1 SECONDS

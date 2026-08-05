@@ -58,9 +58,9 @@
 /obj/machinery/portable_atmospherics/examine(mob/user)
 	. = ..()
 	if(nob_crystal_inserted)
-		. += "There is a hypernoblium crystal inside it that allows for reactions inside to be suppressed."
+		. += "There is a Hyper-Noblium crystal inside it that allows for reactions inside to be suppressed."
 	if(suppress_reactions)
-		. += "The hypernoblium crystal inside is glowing with a faint blue colour, indicating reactions inside are currently being suppressed."
+		. += "The Hyper-Noblium crystal inside is glowing with a faint blue colour, indicating reactions inside are currently being suppressed."
 
 /obj/machinery/portable_atmospherics/ex_act(severity, target)
 	if(resistance_flags & INDESTRUCTIBLE)

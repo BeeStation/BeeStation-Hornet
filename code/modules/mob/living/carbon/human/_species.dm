@@ -2129,15 +2129,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
  *	Handles exposure to the skin of various gases.
  */
 /datum/species/proc/handle_gas_interaction(mob/living/carbon/human/human, datum/gas_mixture/environment, delta_time, times_fired)
-	if((human?.wear_suit?.clothing_flags & STOPSPRESSUREDAMAGE) && (human?.head?.clothing_flags & STOPSPRESSUREDAMAGE))
+	/// Some non-clothing items may end up in these slots, e.g. flowers worn on the head, so we should consider clothing_flags as potentially nonexistant as a var.
+	/// Otherwise we will get a very spammy runtime.
+	var/suit_flags = astype(human?.wear_suit, /obj/item/clothing)?.clothing_flags
+	var/head_flags = astype(human?.head, /obj/item/clothing)?.clothing_flags
+
+	if((suit_flags & STOPSPRESSUREDAMAGE) && (head_flags & STOPSPRESSUREDAMAGE))
 		return
 
-	for(var/gas_id in environment.gases)
-		var/gas_amount = environment.gases[gas_id][MOLES]
-		switch(gas_id)
-			if(/datum/gas/antinoblium) // Antinoblium - irradiates the target.
-				if(gas_amount >= MOLES_GAS_VISIBLE && DT_PROB(1, gas_amount * delta_time))
-					SSradiation.irradiate(human)
+	if (environment.moles[/datum/gas/antinoblium] >= MOLES_GAS_VISIBLE)
+		SSradiation.irradiate(human)
 
 //////////
 // FIRE //

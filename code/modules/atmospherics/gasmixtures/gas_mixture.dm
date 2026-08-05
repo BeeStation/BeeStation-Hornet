@@ -749,6 +749,19 @@ GLOBAL_LIST_INIT(meta_gas_info, meta_gas_list()) //see ATMOSPHERICS/gas_types.dm
 	output_air.merge(removed)
 	return TRUE
 
+/**
+ * Calls for electrolyzer_reaction reactions on the gas_mixture.
+ * Arguments:
+ * * working_power - working_power to use for the electrolyzer_reaction reactions.
+ */
+/datum/gas_mixture/proc/electrolyze(working_power = 0)
+	for(var/reaction_type, _reaction in GLOB.electrolyzer_reactions)
+		var/datum/electrolyzer_reaction/reaction = _reaction
+		if(reaction.reaction_check(src))
+			reaction.react(src, working_power)
+
+	garbage_collect()
+
 /// Convert a gas mixture to a string (ie. "o2=22;n2=82;TEMP=180")
 /// Rounds all temperature and gases to 0.01 and skips any gases less than that amount
 /datum/gas_mixture/proc/to_string()

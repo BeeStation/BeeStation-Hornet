@@ -39,17 +39,18 @@
 	. = ..()
 	internal = new
 
-/obj/machinery/atmospherics/components/binary/crystallizer/examine()
+/obj/machinery/atmospherics/components/binary/crystallizer/examine(mob/user)
 	. = ..()
-	. += span_notice("A label on the side reads:")
-	. += "[span_green("Green")] - gas input."
-	. += "[span_red("Red")] - temperature management."
+	if(in_range(user, src) || isobserver(user))
+		. += span_notice("A label on the side reads:")
+		. += "[span_green("Green")] - gas input."
+		. += "[span_red("Red")] - temperature management."
 
 /obj/machinery/atmospherics/components/binary/crystallizer/on_deconstruction(disassembled)
 	var/turf/local_turf = get_turf(loc)
 	if(internal.total_moles())
 		local_turf.assume_air(internal)
-	. = ..()
+	return ..()
 
 /obj/machinery/atmospherics/components/binary/crystallizer/add_context_self(datum/screentip_context/context, mob/user)
 	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
@@ -58,13 +59,11 @@
 	if(panel_open)
 		context.add_left_click_tool_action("Rotate", TOOL_WRENCH)
 
-/obj/machinery/atmospherics/components/binary/crystallizer/attackby(obj/item/attacking_item, mob/user, list/modifiers)
-	if(!on)
-		if(default_deconstruction_screwdriver(user, "[base_icon_state]-open", "[base_icon_state]-off", attacking_item))
-			return
-	if(default_change_direction_wrench(user, attacking_item))
-		return
-	. = ..()
+/obj/machinery/atmospherics/components/binary/crystallizer/screwdriver_act(mob/living/user, obj/item/tool)
+	return on ? NONE : default_deconstruction_screwdriver(user, tool)
+
+/obj/machinery/atmospherics/components/binary/crystallizer/wrench_act(mob/living/user, obj/item/tool)
+	return default_change_direction_wrench(user, tool)
 
 /obj/machinery/atmospherics/components/binary/crystallizer/crowbar_act(mob/living/user, obj/item/tool)
 	return crowbar_deconstruction_act(user, tool, internal.return_pressure())
@@ -97,10 +96,10 @@
 	if(panel_open)
 		balloon_alert(user, "close panel!")
 		return
-	on = !on
+	set_on(!on)
 	balloon_alert(user, "turned [on ? "on" : "off"]")
 	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
 
 ///Checks if the reaction temperature is inside the range of temperature + a little deviation
 /obj/machinery/atmospherics/components/binary/crystallizer/proc/check_temp_requirements()
@@ -111,22 +110,22 @@
 ///Injects the gases from the input inside the internal gasmix, the amount is dependent on the gas_input var
 /obj/machinery/atmospherics/components/binary/crystallizer/proc/inject_gases()
 	var/datum/gas_mixture/contents = airs[2]
-	for(var/gas_type in selected_recipe.requirements)
-		if(!contents.gases[gas_type] || !contents.gases[gas_type][MOLES])
+	for(var/gas_type, required_amount in selected_recipe.requirements)
+		if(!contents.moles[gas_type])
 			continue
-		if(internal.gases[gas_type] && internal.gases[gas_type][MOLES] >= selected_recipe.requirements[gas_type] * 2)
+		if(internal.moles[gas_type] >= required_amount * 2)
 			continue
-		internal.merge(contents.remove_specific(gas_type, contents.gases[gas_type][MOLES] * gas_input))
+		internal.merge(contents.remove_specific(gas_type, contents.moles[gas_type] * gas_input))
 
 ///Checks if the gases required are all inside
 /obj/machinery/atmospherics/components/binary/crystallizer/proc/internal_check()
 	var/gas_check = 0
-	for(var/gas_type in selected_recipe.requirements)
-		if(!internal.gases[gas_type] || !internal.gases[gas_type][MOLES])
+	for(var/gas_type, required_amount in selected_recipe.requirements)
+		if(!internal.moles[gas_type])
 			return FALSE
-		if(internal.gases[gas_type][MOLES] >= selected_recipe.requirements[gas_type])
+		if(internal.moles[gas_type] >= required_amount)
 			gas_check++
-	if(gas_check == selected_recipe.requirements.len)
+	if(gas_check == length(selected_recipe.requirements))
 		return TRUE
 	return FALSE
 
@@ -193,10 +192,9 @@
 		return
 	progress_bar = 0
 
-	for(var/gas_type in selected_recipe.requirements)
-		var/required_gas_moles = selected_recipe.requirements[gas_type]
+	for(var/gas_type, required_gas_moles in selected_recipe.requirements)
 		var/amount_consumed = required_gas_moles + (required_gas_moles * (quality_loss * 0.01))
-		if(internal.gases[gas_type][MOLES] < amount_consumed)
+		if(internal.moles[gas_type] < amount_consumed)
 			quality_loss = min(quality_loss + 10, 100)
 		internal.remove_specific(gas_type, amount_consumed)
 
@@ -222,7 +220,7 @@
 		if(1 to 4)
 			quality_control = "Cracked"
 		if(0)
-			quality_control = "Awful"
+			quality_control = "The absolute worst"
 
 	for(var/path in selected_recipe.products)
 		var/amount_produced = selected_recipe.products[path]
@@ -230,9 +228,8 @@
 			var/obj/creation = new path(get_step(src, SOUTH))
 			creation.name = "[quality_control] [creation.name]"
 			if(selected_recipe.dangerous)
-				investigate_log("[creation] has been created in the crystallizer.", INVESTIGATE_ENGINES)
-				message_admins("[creation] has been created in the crystallizer [ADMIN_JMP(src)].")
-
+				investigate_log("[creation.name] has been created in the crystallizer.", INVESTIGATE_ENGINES)
+				message_admins("[creation.name] has been created in the crystallizer [ADMIN_JMP(src)].")
 
 	quality_loss = 0
 	update_parents()
@@ -264,20 +261,22 @@
 		data["selected"] = ""
 
 	var/list/internal_gas_data = list()
+	var/list/cached_gas_name = GAS_META[META_GAS_NAME]
+	var/list/cached_gas_id = GAS_META[META_GAS_ID]
 	if(internal.total_moles())
-		for(var/gasid in internal.gases)
-			internal_gas_data.Add(list(list(
-			"name"= internal.gases[gasid][GAS_META][META_GAS_NAME],
-			"id" = internal.gases[gasid][GAS_META][META_GAS_ID],
-			"amount" = round(internal.gases[gasid][MOLES], 0.01),
-			)))
+		for(var/gas_type, amount in internal.moles)
+			internal_gas_data += list(list(
+				"name"= cached_gas_name[gas_type],
+				"id" = cached_gas_id[gas_type],
+				"amount" = round(amount, 0.01),
+			))
 	else
-		for(var/gasid in internal.gases)
-			internal_gas_data.Add(list(list(
-				"name"= internal.gases[gasid][GAS_META][META_GAS_NAME],
-				"id" = internal.gases[gasid][GAS_META][META_GAS_ID],
+		for(var/gas_type in internal.moles)
+			internal_gas_data += list(list(
+				"name"= cached_gas_name[gas_type],
+				"id" = cached_gas_id[gas_type],
 				"amount" = 0,
-				)))
+			))
 	data["internal_gas_data"] = internal_gas_data
 
 	var/list/requirements
@@ -285,9 +284,8 @@
 		requirements = list("Select a recipe to see the requirements")
 	else
 		requirements = list("To create [selected_recipe.name] you will need:")
-		for(var/gas_type in selected_recipe.requirements)
+		for(var/gas_type, amount_consumed in selected_recipe.requirements)
 			var/datum/gas/gas_required = gas_type
-			var/amount_consumed = selected_recipe.requirements[gas_type]
 			requirements += "-[amount_consumed] moles of [initial(gas_required.name)]"
 		requirements += "In a temperature range between [selected_recipe.min_temp] K and [selected_recipe.max_temp] K"
 		requirements += "The crystallization reaction will be [selected_recipe.energy_release ? (selected_recipe.energy_release > 0 ? "exothermic" : "endothermic") : "thermally neutral"]"
@@ -309,7 +307,7 @@
 		return
 	switch(action)
 		if("power")
-			on = !on
+			set_on(!on)
 			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			. = TRUE
 		if("recipe")

@@ -197,7 +197,7 @@
 	spawn_id = /datum/gas/hydrogen
 
 /obj/machinery/atmospherics/miner/hypernoblium
-	name = "\improper Hypernoblium Gas Miner"
+	name = "\improper Hyper-Noblium Gas Miner"
 	overlay_color = "#00f7ff"
 	spawn_id = /datum/gas/hypernoblium
 
@@ -232,7 +232,7 @@
 	spawn_id = /datum/gas/helium
 
 /obj/machinery/atmospherics/miner/antinoblium
-	name = "\improper Antinoblium Gas Miner"
+	name = "\improper Anti-Noblium Gas Miner"
 	overlay_color = "#022e00"
 	spawn_id = /datum/gas/antinoblium
 

@@ -514,7 +514,7 @@
 	name = "elder atmosian helmet"
 	desc = "A superb helmet made with the toughest and rarest materials available to man."
 	icon_state = "h2_helmet"
-	item_state = "h2_helmet"
+	inhand_icon_state = "h2_helmet"
 	armor_type = /datum/armor/helmet_elder_atmosian
 	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS //Can change color and add prefix
 	flags_inv = HIDEMASK | HIDEEARS | HIDEEYES | HIDEFACE | HIDEHAIR | HIDESNOUT

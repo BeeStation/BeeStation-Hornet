@@ -163,7 +163,7 @@
 	build_path = /obj/machinery/computer/atmos_control/hydrogen_tank
 
 /obj/item/circuitboard/computer/atmos_control/hypernoblium_tank
-	name = "Hypernoblium Supply Control"
+	name = "Hyper-Noblium Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/hypernoblium_tank
 
 /obj/item/circuitboard/computer/atmos_control/nitrium_tank
@@ -195,7 +195,7 @@
 	build_path = /obj/machinery/computer/atmos_control/helium_tank
 
 /obj/item/circuitboard/computer/atmos_control/antinoblium_tank
-	name = "Antinoblium Supply Control"
+	name = "Anti-Noblium Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/antinoblium_tank
 
 /obj/item/circuitboard/computer/auxiliary_base

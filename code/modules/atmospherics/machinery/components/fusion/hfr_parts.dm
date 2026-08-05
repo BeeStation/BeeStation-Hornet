@@ -14,10 +14,6 @@
 	layer = OBJ_LAYER
 	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
 	circuit = /obj/item/circuitboard/machine/thermomachine
-	///Vars for the state of the icon of the object (open, off, active)
-	var/icon_state_open
-	var/icon_state_off
-	var/icon_state_active
 	///Check if the machine has been activated
 	var/active = FALSE
 	///Check if fusion has started
@@ -33,13 +29,11 @@
 	. = ..()
 	. += span_notice("[src] can be rotated by first opening the panel with a screwdriver and then using a wrench on it.")
 
-/obj/machinery/atmospherics/components/unary/hypertorus/attackby(obj/item/I, mob/user, list/modifiers, list/attack_modifiers)
-	if(!fusion_started)
-		if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_off, I))
-			return
-	if(default_change_direction_wrench(user, I))
-		return
-	return ..()
+/obj/machinery/atmospherics/components/unary/hypertorus/screwdriver_act(mob/living/user, obj/item/tool)
+	return fusion_started ? NONE : default_deconstruction_screwdriver(user, tool)
+
+/obj/machinery/atmospherics/components/unary/hypertorus/wrench_act(mob/living/user, obj/item/tool)
+	return default_change_direction_wrench(user, tool)
 
 /obj/machinery/atmospherics/components/unary/hypertorus/welder_act(mob/living/user, obj/item/tool)
 	if(!cracked)
@@ -57,21 +51,18 @@
 
 /obj/machinery/atmospherics/components/unary/hypertorus/update_icon_state()
 	if(panel_open)
-		icon_state = icon_state_open
+		icon_state = "[base_icon_state]_open"
 		return ..()
-	if(active)
-		icon_state = icon_state_active
-		return ..()
-	icon_state = icon_state_off
+	icon_state = base_icon_state
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/hypertorus/update_overlays()
 	. = ..()
-	if(!cracked)
-		return
-	var/image/crack = image(icon, icon_state = "crack")
-	crack.dir = dir
-	. += crack
+	if(cracked)
+		. += image(icon, "crack", dir = src.dir)
+	if(active)
+		. += "[base_icon_state]_active"
+		. += emissive_appearance(icon, "[base_icon_state]_active", src, alpha = src.alpha)
 
 /obj/machinery/atmospherics/components/unary/hypertorus/update_layer()
 	return
@@ -79,28 +70,22 @@
 /obj/machinery/atmospherics/components/unary/hypertorus/fuel_input
 	name = "HFR fuel input port"
 	desc = "Input port for the Hypertorus Fusion Reactor, designed to take in fuels with the optimal fuel mix being a 50/50 split."
-	icon_state = "fuel_input_off"
-	icon_state_open = "fuel_input_open"
-	icon_state_off = "fuel_input_off"
-	icon_state_active = "fuel_input_active"
+	icon_state = "fuel_input"
+	base_icon_state = "fuel_input"
 	circuit = /obj/item/circuitboard/machine/hfr_fuel_input
 
 /obj/machinery/atmospherics/components/unary/hypertorus/waste_output
 	name = "HFR waste output port"
 	desc = "Waste port for the Hypertorus Fusion Reactor, designed to output the hot waste gases coming from the core of the machine."
-	icon_state = "waste_output_off"
-	icon_state_open = "waste_output_open"
-	icon_state_off = "waste_output_off"
-	icon_state_active = "waste_output_active"
+	icon_state = "waste_output"
+	base_icon_state = "waste_output"
 	circuit = /obj/item/circuitboard/machine/hfr_waste_output
 
 /obj/machinery/atmospherics/components/unary/hypertorus/moderator_input
 	name = "HFR moderator input port"
 	desc = "Moderator port for the Hypertorus Fusion Reactor, designed to move gases inside the machine to cool and control the flow of the reaction."
-	icon_state = "moderator_input_off"
-	icon_state_open = "moderator_input_open"
-	icon_state_off = "moderator_input_off"
-	icon_state_active = "moderator_input_active"
+	icon_state = "moderator_input"
+	base_icon_state = "moderator_input"
 	circuit = /obj/item/circuitboard/machine/hfr_moderator_input
 
 /*
@@ -110,7 +95,8 @@
 	name = "hypertorus_core"
 	desc = "hypertorus_core"
 	icon = 'icons/obj/atmospherics/hypertorus.dmi'
-	icon_state = "core_off"
+	icon_state = "core"
+	base_icon_state = "core"
 	move_resist = INFINITY
 	anchored = TRUE
 	density = TRUE
@@ -118,43 +104,40 @@
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	power_channel = AREA_USAGE_ENVIRON
 	var/active = FALSE
-	var/icon_state_open
-	var/icon_state_off
-	var/icon_state_active
 	var/fusion_started = FALSE
 
 /obj/machinery/hypertorus/examine(mob/user)
 	. = ..()
 	. += span_notice("[src] can be rotated by first opening the panel with a screwdriver and then using a wrench on it.")
 
-/obj/machinery/hypertorus/attackby(obj/item/I, mob/user, list/modifiers, list/attack_modifiers)
-	if(!fusion_started)
-		if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_off, I))
-			return
-	if(default_change_direction_wrench(user, I))
-		return
-	if(default_deconstruction_crowbar(I))
-		return
-	return ..()
+/obj/machinery/hypertorus/screwdriver_act(mob/living/user, obj/item/tool)
+	return fusion_started ? NONE : default_deconstruction_screwdriver(user, tool)
+
+/obj/machinery/hypertorus/wrench_act(mob/living/user, obj/item/tool)
+	return default_change_direction_wrench(user, tool)
+
+/obj/machinery/hypertorus/crowbar_act(mob/living/user, obj/item/tool)
+	return default_deconstruction_crowbar(user, tool)
 
 /obj/machinery/hypertorus/update_icon_state()
 	if(panel_open)
-		icon_state = icon_state_open
+		icon_state = "[base_icon_state]_open"
 		return ..()
-	if(active)
-		icon_state = icon_state_active
-		return ..()
-	icon_state = icon_state_off
+	icon_state = base_icon_state
 	return ..()
+
+/obj/machinery/hypertorus/update_overlays()
+	. = ..()
+	if(active)
+		. += "[base_icon_state]_active"
+		. += emissive_appearance(icon, "[base_icon_state]_active", src, alpha = src.alpha)
 
 /obj/machinery/hypertorus/interface
 	name = "HFR interface"
 	desc = "Interface for the HFR to control the flow of the reaction."
-	icon_state = "interface_off"
+	icon_state = "interface"
+	base_icon_state = "interface"
 	circuit = /obj/item/circuitboard/machine/hfr_interface
-	icon_state_off = "interface_off"
-	icon_state_open = "interface_open"
-	icon_state_active = "interface_active"
 	/// Have we been activated at least once?
 	var/activated = FALSE
 	/// Reference to the core of our machine
@@ -225,45 +208,42 @@
 	return data
 
 /obj/machinery/hypertorus/interface/ui_data()
-	var/data = list()
+	var/list/data = list()
 
-	if(connected_core.selected_fuel)
-		data["selected"] = connected_core.selected_fuel.id
-	else
-		data["selected"] = ""
+	data["selected"] = connected_core.selected_fuel?.id || ""
 
 	//Internal Fusion gases
 	var/list/fusion_gasdata = list()
 	if(connected_core.internal_fusion.total_moles())
-		for(var/gas_type in connected_core.internal_fusion.gases)
+		for(var/gas_type, gas_amount in connected_core.internal_fusion.moles)
 			var/datum/gas/gas = gas_type
-			fusion_gasdata.Add(list(list(
-			"id"= initial(gas.id),
-			"amount" = round(connected_core.internal_fusion.gases[gas][MOLES], 0.01),
-			)))
+			fusion_gasdata += list(list(
+				"id" = initial(gas.id),
+				"amount" = round(gas_amount, 0.01),
+			))
 	else
-		for(var/gas_type in connected_core.internal_fusion.gases)
+		for(var/gas_type in connected_core.internal_fusion.moles)
 			var/datum/gas/gas = gas_type
-			fusion_gasdata.Add(list(list(
+			fusion_gasdata += list(list(
 				"id"= initial(gas.id),
 				"amount" = 0,
-				)))
+			))
 	//Moderator gases
 	var/list/moderator_gasdata = list()
 	if(connected_core.moderator_internal.total_moles())
-		for(var/gas_type in connected_core.moderator_internal.gases)
+		for(var/gas_type, gas_amount in connected_core.moderator_internal.moles)
 			var/datum/gas/gas = gas_type
-			moderator_gasdata.Add(list(list(
-			"id"= initial(gas.id),
-			"amount" = round(connected_core.moderator_internal.gases[gas][MOLES], 0.01),
-			)))
+			moderator_gasdata += list(list(
+				"id"= initial(gas.id),
+				"amount" = round(gas_amount, 0.01),
+			))
 	else
-		for(var/gas_type in connected_core.moderator_internal.gases)
+		for(var/gas_type in connected_core.moderator_internal.moles)
 			var/datum/gas/gas = gas_type
-			moderator_gasdata.Add(list(list(
+			moderator_gasdata += list(list(
 				"id"= initial(gas.id),
 				"amount" = 0,
-				)))
+			))
 
 	data["fusion_gases"] = fusion_gasdata
 	data["moderator_gases"] = moderator_gasdata
@@ -304,9 +284,13 @@
 
 	data["waste_remove"] = connected_core.waste_remove
 	data["filter_types"] = list()
-	for(var/path in GLOB.meta_gas_info)
-		var/list/gas = GLOB.meta_gas_info[path]
-		data["filter_types"] += list(list("gas_id" = gas[META_GAS_ID], "gas_name" = gas[META_GAS_NAME], "enabled" = (path in connected_core.moderator_scrubbing)))
+	var/cached_gas_info = GLOB.meta_gas_info
+	for(var/path in cached_gas_info[META_GAS_ID])
+		data["filter_types"] += list(list(
+			"gas_id" = cached_gas_info[META_GAS_ID][path],
+			"gas_name" = cached_gas_info[META_GAS_NAME][path],
+			"enabled" = (path in connected_core.moderator_scrubbing)
+		))
 
 	data["cooling_volume"] = connected_core.airs[1].volume
 	data["mod_filtering_rate"] = connected_core.moderator_filtering_rate
@@ -393,30 +377,28 @@
 /obj/machinery/hypertorus/corner
 	name = "HFR corner"
 	desc = "Structural piece of the machine."
-	icon_state = "corner_off"
+	icon_state = "corner"
+	base_icon_state = "corner"
 	circuit = /obj/item/circuitboard/machine/hfr_corner
-	icon_state_off = "corner_off"
-	icon_state_open = "corner_open"
-	icon_state_active = "corner_active"
 
 /obj/item/paper/guides/jobs/atmos/hypertorus
 	name = "paper- 'Quick guide to safe handling of the HFR'"
 	default_raw_text = "<B>How to safely(TM) operate the Hypertorus</B><BR>\
 	-Build the machine as it's shown in the main guide.<BR>\
 	-Make a 50/50 gasmix of tritium and hydrogen totalling around 2000 moles.<BR>\
-	-Start the machine, fill up the cooling loop with plasma/hypernoblium and use space or freezers to cool it.<BR>\
+	-Start the machine, fill up the cooling loop with Plasma/Hyper-Noblium and use space or freezers to cool it.<BR>\
 	-Connect the fuel mix into the fuel injector port, allow only 1000 moles into the machine to ease the kickstart of the reaction<BR>\
 	-Set the Heat conductor to 500 when starting the reaction, reset it to 100 when power level is higher than 1<BR>\
 	-In the event of a meltdown, set the heat conductor to max and set the current damper to max. Set the fuel injection to min. \
 	If the heat output doesn�t go negative, try changing the magnetic costrictors untill heat output goes negative. \
-	Make the cooling stronger, put high heat capacity gases inside the moderator (hypernoblium will help dealing with the problem)<BR><BR>\
+	Make the cooling stronger, put high heat capacity gases inside the moderator (Hyper-Noblium will help dealing with the problem)<BR><BR>\
 	<B>Warnings:</B><BR>\
 	-You cannot dismantle the machine if the power level is over 0<BR>\
 	-You cannot power of the machine if the power level is over 0<BR>\
 	-You cannot dispose of waste gases if power level is over 5<BR>\
-	-You cannot remove gases from the fusion mix if they are not helium and antinoblium<BR>\
-	-Hypernoblium will decrease the power of the mix by a lot<BR>\
-	-Antinoblium will INCREASE the power of the mix by a lot more<BR>\
+	-You cannot remove gases from the fusion mix if they are not helium and Anti-Noblium<BR>\
+	-Hyper-Noblium will decrease the power of the mix by a lot<BR>\
+	-Anti-Noblium will INCREASE the power of the mix by a lot more<BR>\
 	-High heat capacity gases are harder to heat/cool<BR>\
 	-Low heat capacity gases are easier to heat/cool<BR>\
 	-The machine consumes 50 KW per power level, reaching 350 KW at power level 6 so prepare the SM accordingly<BR>\

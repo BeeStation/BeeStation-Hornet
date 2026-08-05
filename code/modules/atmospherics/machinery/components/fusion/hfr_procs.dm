@@ -18,7 +18,7 @@
 		if(object.panel_open)
 			. = FALSE
 
-		if(istype(object,/obj/machinery/hypertorus/corner))
+		if(istype(object, /obj/machinery/hypertorus/corner))
 			var/dir = get_dir(src,object)
 			if(dir in GLOB.cardinals)
 				. = FALSE
@@ -41,7 +41,7 @@
 		if(get_step(object,REVERSE_DIR(object.dir)) != loc)
 			. = FALSE
 
-		if(istype(object,/obj/machinery/hypertorus/interface))
+		if(istype(object, /obj/machinery/hypertorus/interface))
 			if(linked_interface && linked_interface != object)
 				. = FALSE
 			linked_interface = object
@@ -53,28 +53,28 @@
 		if(object.panel_open)
 			. = FALSE
 
-		if(get_step(object,REVERSE_DIR(object.dir)) != loc)
+		if(get_step(object, REVERSE_DIR(object.dir)) != loc)
 			. = FALSE
 
-		if(istype(object,/obj/machinery/atmospherics/components/unary/hypertorus/fuel_input))
+		if(istype(object, /obj/machinery/atmospherics/components/unary/hypertorus/fuel_input))
 			if(linked_input && linked_input != object)
 				. = FALSE
 			linked_input = object
 			machine_parts |= object
 
-		if(istype(object,/obj/machinery/atmospherics/components/unary/hypertorus/waste_output))
+		if(istype(object, /obj/machinery/atmospherics/components/unary/hypertorus/waste_output))
 			if(linked_output && linked_output != object)
 				. = FALSE
 			linked_output = object
 			machine_parts |= object
 
-		if(istype(object,/obj/machinery/atmospherics/components/unary/hypertorus/moderator_input))
+		if(istype(object, /obj/machinery/atmospherics/components/unary/hypertorus/moderator_input))
 			if(linked_moderator && linked_moderator != object)
 				. = FALSE
 			linked_moderator = object
 			machine_parts |= object
 
-	if(!linked_interface || !linked_input || !linked_moderator || !linked_output || corners.len != 4)
+	if(!linked_interface || !linked_input || !linked_moderator || !linked_output || length(corners) != 4)
 		. = FALSE
 
 /**
@@ -167,9 +167,9 @@
 
 	internal_fusion.assert_gas(/datum/gas/antinoblium)
 
-	moderator_internal.assert_gases(arglist(GLOB.meta_gas_info))
+	moderator_internal.assert_gases(arglist(GLOB.meta_gas_info[META_GAS_ID]))
 
-	if(!selected_fuel)
+	if (!selected_fuel)
 		return
 
 	internal_fusion.assert_gases(arglist(selected_fuel.requirements | selected_fuel.primary_products))
@@ -214,9 +214,9 @@
 /**
  * Infrequently plays accent sounds, and adjusts main loop parameters
  */
-/obj/machinery/atmospherics/components/unary/hypertorus/core/proc/play_ambience()
+/obj/machinery/atmospherics/components/unary/hypertorus/core/proc/play_ambience(delta_time)
 	// We play delam/neutral sounds at a rate determined by power and critical_threshold_proximity
-	if(last_accent_sound < world.time && prob(20))
+	if(last_accent_sound < world.time && DT_PROB(10, delta_time))
 		var/aggression = min(((critical_threshold_proximity / 800) * ((power_level) / 5)), 1.0) * 100
 		if(critical_threshold_proximity >= 300)
 			playsound(src, "hypertorus_melting", max(50, aggression), FALSE, 40, 30, falloff_distance = 10)
@@ -226,8 +226,8 @@
 		last_accent_sound = world.time + max(HYPERTORUS_ACCENT_SOUND_MIN_COOLDOWN, next_sound)
 
 	var/ambient_hum = 1
-	if(check_fuel())
-		ambient_hum = power_level + 1
+	if (check_fuel())
+		ambient_hum += power_level
 	soundloop.volume = clamp(ambient_hum * 8, 0, 50)
 
 /**
@@ -241,7 +241,7 @@
 		return FALSE
 	for(var/gas_type in selected_fuel.requirements)
 		internal_fusion.assert_gas(gas_type)
-		if(internal_fusion.gases[gas_type][MOLES] < FUSION_MOLE_THRESHOLD)
+		if(internal_fusion.moles[gas_type] < FUSION_MOLE_THRESHOLD)
 			return FALSE
 	return TRUE
 
@@ -261,7 +261,7 @@
 /obj/machinery/atmospherics/components/unary/hypertorus/core/proc/check_gas_requirements()
 	var/datum/gas_mixture/contents = linked_input.airs[1]
 	for(var/gas_type in selected_fuel.requirements)
-		if(!contents.gases[gas_type] || !contents.gases[gas_type][MOLES])
+		if(!contents.moles[gas_type])
 			return FALSE
 	return TRUE
 
@@ -325,13 +325,13 @@
 	// Make sure to get APC levels from the same area the core draws from
 	// Just in case people build an HFR across boundaries
 	var/area/area = get_area(src)
-	if(!area)
+	if (!area)
 		return 0
 	var/obj/machinery/power/apc/apc = area.apc
-	if(!apc)
+	if (!apc)
 		return 0
 	var/obj/item/stock_parts/cell/cell = apc.cell
-	if(!cell)
+	if (!cell)
 		return 0
 	return cell.percent()
 
@@ -368,7 +368,7 @@
 
 /obj/machinery/atmospherics/components/unary/hypertorus/core/emp_act(severity)
 	. = ..()
-	if(. & EMP_PROTECT_SELF)
+	if (. & EMP_PROTECT_SELF)
 		return
 	warning_damage_flags |= HYPERTORUS_FLAG_EMPED
 
@@ -384,8 +384,8 @@
 		characters += GLOB.alphabet
 		characters += GLOB.alphabet_upper
 		characters += GLOB.numerals
-		characters += " "
-		characters += " "
+		characters += GLOB.space
+		characters += GLOB.space //double the amount of them
 		var/message = random_string(rand(50,70), characters)
 		radio.talk_into(src, "[message]", engineering_channel)
 		return
@@ -546,7 +546,7 @@
 		flash_range = flash_explosion,
 		adminlog = TRUE,
 		ignorecap = TRUE
-		)
+	)
 
 	if(rad_pulse)
 		radiation_pulse(
@@ -560,7 +560,7 @@
 			epicenter = loc,
 			heavy_range = critical ? emp_heavy_size * 2 : emp_heavy_size,
 			light_range = critical ? emp_light_size * 2 : emp_heavy_size,
-			log = TRUE
+			log = TRUE,
 		)
 
 	qdel(src)
@@ -603,15 +603,15 @@
 /obj/machinery/atmospherics/components/unary/hypertorus/core/proc/process_moderator_overflow(seconds_per_tick)
 	var/obj/machinery/atmospherics/components/unary/hypertorus/cracked_part = check_cracked_parts()
 	// Processing of a preexisting crack if any.
-	if(cracked_part)
+	if (cracked_part)
 		// We have an existing crack
 		var/leak_rate
-		if(moderator_internal.return_pressure() < HYPERTORUS_MEDIUM_SPILL_PRESSURE)
+		if (moderator_internal.return_pressure() < HYPERTORUS_MEDIUM_SPILL_PRESSURE)
 			// Not high pressure, but can still leak
-			if(!prob(HYPERTORUS_WEAK_SPILL_CHANCE))
+			if (!prob(HYPERTORUS_WEAK_SPILL_CHANCE))
 				return
 			leak_rate = HYPERTORUS_WEAK_SPILL_RATE
-		else if(moderator_internal.return_pressure() < HYPERTORUS_STRONG_SPILL_PRESSURE)
+		else if (moderator_internal.return_pressure() < HYPERTORUS_STRONG_SPILL_PRESSURE)
 			// Lots of gas in here, out we go
 			leak_rate = HYPERTORUS_MEDIUM_SPILL_RATE
 		else
@@ -621,13 +621,13 @@
 		return
 
 	// No crack. Check for conditions to cause a leak and create a crack if possible.
-	if(moderator_internal.total_moles() < HYPERTORUS_HYPERCRITICAL_MOLES)
+	if (moderator_internal.total_moles() < HYPERTORUS_HYPERCRITICAL_MOLES)
 		return
 	cracked_part = create_crack()
 	// See if we do anything in the initial rupture
-	if(moderator_internal.return_pressure() < HYPERTORUS_MEDIUM_SPILL_PRESSURE)
+	if (moderator_internal.return_pressure() < HYPERTORUS_MEDIUM_SPILL_PRESSURE)
 		return
-	if(moderator_internal.return_pressure() < HYPERTORUS_STRONG_SPILL_PRESSURE)
+	if (moderator_internal.return_pressure() < HYPERTORUS_STRONG_SPILL_PRESSURE)
 		// Medium explosion on initial rupture
 		explosion(
 			epicenter = cracked_part,
@@ -646,7 +646,6 @@
 		heavy_impact_range = 1,
 		light_impact_range = 3,
 		flame_range = 5,
-		flash_range = 5
-		)
+		flash_range = 5,
+	)
 	spill_gases(cracked_part, moderator_internal, ratio = HYPERTORUS_STRONG_SPILL_INITIAL)
-	return

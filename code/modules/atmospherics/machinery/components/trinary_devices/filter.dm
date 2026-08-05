@@ -262,7 +262,7 @@
 	filter_type = list(/datum/gas/hydrogen)
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/hypernoblium
-	name = "hypernoblium filter"
+	name = "hyper-noblium filter"
 	filter_type = list(/datum/gas/hypernoblium)
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/no2
@@ -334,7 +334,7 @@
 	filter_type = list(/datum/gas/hydrogen)
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/hypernoblium
-	name = "hypernoblium filter"
+	name = "hyper-noblium filter"
 	filter_type = list(/datum/gas/hypernoblium)
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/no2
@@ -366,7 +366,7 @@
 	filter_type = list(/datum/gas/helium)
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/antinoblium
-	name = "antinoblium filter"
+	name = "anti-noblium filter"
 	filter_type = list(/datum/gas/antinoblium)
 
 // These two filter types have critical_machine flagged to on and thus causes the area they are in to be exempt from the Grid Check event.

@@ -134,8 +134,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (-16))
 	SEND_SIGNAL(A, COMSIG_ADD_MOOD_EVENT, "shower", /datum/mood_event/nice_shower)
 	reagents.expose(A, TOUCH, reaction_volume)
 
-	if(isliving(target))
-		check_heat(target)
+	if(isliving(A))
+		check_heat(A)
 
 /obj/machinery/shower/process()
 	if(on)

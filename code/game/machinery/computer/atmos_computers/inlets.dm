@@ -10,10 +10,6 @@
 	piping_layer = 4
 	icon_state = "inje_map-4"
 
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/Initialize(mapload)
-	id_tag = CHAMBER_INPUT_FROM_ID(chamber_id)
-	return ..()
-
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/plasma_input
 	name = "plasma tank input injector"
 
@@ -40,22 +36,18 @@
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/freon_input
 	name = "freon tank input injector"
-	chamber_id = ATMOS_GAS_MONITOR_FREON
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/halon_input
 	name = "halon tank input injector"
-	chamber_id = ATMOS_GAS_MONITOR_HALON
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/healium_input
 	name = "healium tank input injector"
-	chamber_id = ATMOS_GAS_MONITOR_HEALIUM
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/hydrogen_input
 	name = "hydrogen tank input injector"
-	chamber_id = ATMOS_GAS_MONITOR_H2
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/hypernoblium_input
-	name = "hypernoblium tank input injector"
+	name = "hyper-noblium tank input injector"
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitrium_input
 	name = "nitrium tank input injector"
@@ -65,7 +57,6 @@
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/proto_nitrate_input
 	name = "proto-nitrate tank input injector"
-	chamber_id = ATMOS_GAS_MONITOR_PROTO_NITRATE
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/tritium_input
 	name = "tritium tank input injector"
@@ -75,15 +66,12 @@
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/zauker_input
 	name = "zauker tank input injector"
-	chamber_id = ATMOS_GAS_MONITOR_ZAUKER
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/helium_input
 	name = "helium tank input injector"
-	chamber_id = ATMOS_GAS_MONITOR_HELIUM
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/antinoblium_input
-	name = "antinoblium tank input injector"
-	chamber_id = ATMOS_GAS_MONITOR_ANTINOBLIUM
+	name = "anti-noblium tank input injector"
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/incinerator_input
 	name = "incinerator chamber input injector"

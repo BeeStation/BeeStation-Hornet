@@ -38,8 +38,6 @@
 #define FUSION_INSTABILITY_ENDOTHERMALITY 4
 ///Maximum reachable fusion temperature
 #define FUSION_MAXIMUM_TEMPERATURE 1e8
-///Max amount of radiation that can be emitted per reaction cycle
-#define FUSION_RAD_MAX 5000
 
 //If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
 #define HYPERTORUS_MELTING_PERCENT 5

@@ -47,7 +47,7 @@
 	chamber_id = ATMOS_GAS_MONITOR_H2
 
 /obj/machinery/air_sensor/hypernoblium_tank
-	name = "hypernoblium tank gas sensor"
+	name = "hyper-noblium tank gas sensor"
 	chamber_id = ATMOS_GAS_MONITOR_HYPERNOBLIUM
 
 /obj/machinery/air_sensor/nitrium_tank
@@ -79,7 +79,7 @@
 	chamber_id = ATMOS_GAS_MONITOR_HELIUM
 
 /obj/machinery/air_sensor/antinoblium_tank
-	name = "antinoblium tank gas sensor"
+	name = "anti-noblium tank gas sensor"
 	chamber_id = ATMOS_GAS_MONITOR_ANTINOBLIUM
 
 /obj/machinery/air_sensor/incinerator_tank

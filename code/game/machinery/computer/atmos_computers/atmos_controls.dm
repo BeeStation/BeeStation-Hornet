@@ -59,9 +59,9 @@
 	atmos_chambers = list(ATMOS_GAS_MONITOR_H2 = "Hydrogen Supply")
 
 /obj/machinery/computer/atmos_control/hypernoblium_tank
-	name = "Hypernoblium Supply Control"
+	name = "Hyper-Noblium Supply Control"
 	circuit = /obj/item/circuitboard/computer/atmos_control/hypernoblium_tank
-	atmos_chambers = list(ATMOS_GAS_MONITOR_HYPERNOBLIUM = "Hypernoblium Supply")
+	atmos_chambers = list(ATMOS_GAS_MONITOR_HYPERNOBLIUM = "Hyper-Noblium Supply")
 
 /obj/machinery/computer/atmos_control/nitrium_tank
 	name = "Nitrium Supply Control"
@@ -99,9 +99,9 @@
 	atmos_chambers = list(ATMOS_GAS_MONITOR_HELIUM = "Helium Supply")
 
 /obj/machinery/computer/atmos_control/antinoblium_tank
-	name = "Antinoblium Supply Control"
+	name = "Anti-Noblium Supply Control"
 	circuit = /obj/item/circuitboard/computer/atmos_control/antinoblium_tank
-	atmos_chambers = list(ATMOS_GAS_MONITOR_ANTINOBLIUM = "Antinoblium Supply")
+	atmos_chambers = list(ATMOS_GAS_MONITOR_ANTINOBLIUM = "Anti-Noblium Supply")
 
 /obj/machinery/computer/atmos_control/mix_tank
 	name = "Mix Chamber Control"

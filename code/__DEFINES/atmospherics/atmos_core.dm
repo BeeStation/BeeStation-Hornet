@@ -57,7 +57,7 @@
 /// Molar accuracy to round to
 #define MOLAR_ACCURACY  1E-4
 /// Types of gases (based on gaslist_cache)
-#define GAS_TYPE_COUNT 11
+#define GAS_TYPE_COUNT 19
 /// Maximum error caused by QUANTIZE when removing gas (roughly, in reality around 2 * MOLAR_ACCURACY less)
 #define MAXIMUM_ERROR_GAS_REMOVAL (MOLAR_ACCURACY * GAS_TYPE_COUNT)
 
