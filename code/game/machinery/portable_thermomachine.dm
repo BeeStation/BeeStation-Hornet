@@ -55,7 +55,7 @@
 
 /obj/machinery/portable_thermomachine/Destroy()
 	SSair.stop_processing_machine(src)
-	. = ..()
+	return ..()
 
 /obj/machinery/portable_thermomachine/examine(mob/user)
 	. = ..()

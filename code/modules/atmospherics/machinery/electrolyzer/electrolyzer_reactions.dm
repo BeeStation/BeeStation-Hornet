@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(electrolyzer_reactions, electrolyzer_reactions_list())
 	var/list/factor
 
 /**
- * Electrolyzer reaction.
+ * electrolyzer reaction.
  * Args:
  * * air_mixture: The gas_mixture receiving the electrolysis.
  * * working_power: How much energy to put into the electrolysis, in electrolyzer units. A value of 1 is what a tier 1 electrolyzer would put in.
@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(electrolyzer_reactions, electrolyzer_reactions_list())
 		/datum/gas/water_vapor = "2 moles of H2O get consumed",
 		/datum/gas/oxygen = "1 mole of O2 gets produced",
 		/datum/gas/hydrogen = "2 moles of H2 get produced",
-		"Location" = "Can only happen on turfs with an active Electrolyzer.",
+		"Location" = "Can only happen on turfs with an active electrolyzer.",
 	)
 
 /datum/electrolyzer_reaction/h2o_conversion/react(datum/gas_mixture/air_mixture, working_power)
@@ -73,16 +73,16 @@ GLOBAL_LIST_INIT(electrolyzer_reactions, electrolyzer_reactions_list())
 /datum/electrolyzer_reaction/nob_conversion
 	name = "Hyper-Noblium Conversion"
 	id = "nob_conversion"
-	desc = "Conversion of Hyper-Noblium into Anti-Noblium"
+	desc = "Conversion of hyper-noblium into anti-noblium"
 	requirements = list(
 		/datum/gas/hypernoblium = MINIMUM_MOLE_COUNT,
 		"MAX_TEMP" = 150
 	)
 	factor = list(
-		/datum/gas/hypernoblium = "1 mole of Hyper-Noblium gets consumed",
-		/datum/gas/antinoblium = "0.5 moles of Anti-Noblium get produced",
+		/datum/gas/hypernoblium = "1 mole of hyper-noblium gets consumed",
+		/datum/gas/antinoblium = "0.5 moles of anti-noblium get produced",
 		"Temperature" = "Can only occur under 150 kelvin.",
-		"Location" = "Can only happen on turfs with an active Electrolyzer.",
+		"Location" = "Can only happen on turfs with an active electrolyzer.",
 	)
 
 /datum/electrolyzer_reaction/nob_conversion/react(datum/gas_mixture/air_mixture, working_power)
@@ -112,7 +112,7 @@ GLOBAL_LIST_INIT(electrolyzer_reactions, electrolyzer_reactions_list())
 		/datum/gas/halon = "2 moles of Halon gets produced per mole of BZ consumed.",
 		"Energy" = "91.2321 kJ of thermal energy is released per mole of BZ consumed.",
 		"Temperature" = "Reaction efficiency is proportional to temperature.",
-		"Location" = "Can only happen on turfs with an active Electrolyzer.",
+		"Location" = "Can only happen on turfs with an active electrolyzer.",
 	)
 
 /datum/electrolyzer_reaction/halon_generation/react(datum/gas_mixture/air_mixture, working_power, list/electrolyzer_args = list())

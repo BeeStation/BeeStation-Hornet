@@ -25,7 +25,7 @@
 		exposed_temperature = TCMB
 		CRASH("[src].hotspot_expose() called with exposed_temperature < [TCMB]")
 	//If the air doesn't exist we just return false
-	var/cached_moles = air?.moles
+	var/list/cached_moles = air?.moles
 	if(!cached_moles)
 		return
 
@@ -241,7 +241,7 @@
 	if(temperature > 40000) //Past this temperature the fire will gradually turn a bright purple
 		var/purple_amt = temperature < LERP(40000,200000,0.5) ? gauss_lerp(temperature, 40000, 200000) : 1
 		heat_r = LERP(heat_r,255,purple_amt)
-	if(temperature > 200000 && temperature < 500000) //Somewhere at this temperature nitryl happens.
+	if(temperature > 200000 && temperature < 500000) //Somewhere at this temperature nitrium happens.
 		var/sparkle_amt = gauss_lerp(temperature, 200000, 500000)
 		var/mutable_appearance/sparkle_overlay = mutable_appearance('icons/effects/effects.dmi', "shieldsparkles")
 		sparkle_overlay.blend_mode = BLEND_ADD
@@ -374,9 +374,16 @@
 	alpha = 255
 
 /datum/looping_sound/fire
-	mid_sounds = list('sound/effects/fireclip1.ogg' = 1, 'sound/effects/fireclip2.ogg' = 1, 'sound/effects/fireclip3.ogg' = 1, 'sound/effects/fireclip4.ogg' = 1,
-	'sound/effects/fireclip5.ogg' = 1, 'sound/effects/fireclip6.ogg' = 1, 'sound/effects/fireclip7.ogg' = 1)
-	volume = 30
+	mid_sounds = list(
+		'sound/effects/fireclip1.ogg',
+		'sound/effects/fireclip2.ogg',
+		'sound/effects/fireclip3.ogg',
+		'sound/effects/fireclip4.ogg',
+		'sound/effects/fireclip5.ogg',
+		'sound/effects/fireclip6.ogg',
+		'sound/effects/fireclip7.ogg',
+	)
+	volume = 20
 	mid_length = 2 SECONDS
 	falloff_distance = 1
 
@@ -384,21 +391,24 @@
 ///handle the grouping of hotspot and then determining an average center to play sound in
 /datum/hot_group
 	var/list/obj/effect/hotspot/spot_list = list()
-	///the sound center turf which the looping sound will play
+
+	/// The sound center turf which the looping sound will play
 	var/turf/open/current_sound_loc
 	var/datum/looping_sound/fire/sound
-	var/tiles_limit = 80 // arbitrary limit so we dont have one giant group
-	///these lists and average var are to find the average center of a group
+
+	// Arbitrary limit so we dont have one giant group
+	var/tiles_limit = 80
+
+	/// These lists and average var are to find the average center of a group
 	var/list/x_coord = list()
 	var/list/y_coord = list()
 	var/list/z_coord = list()
 	var/average_x
 	var/average_y
 	var/average_Z
-	///the range for the sound to drop off based on the size of the group
+	/// The range for the sound to drop off based on the size of the group
 	var/drop_off_dist
 	COOLDOWN_DECLARE(update_sound_center)
-
 
 /datum/hot_group/Destroy()
 	. = ..()

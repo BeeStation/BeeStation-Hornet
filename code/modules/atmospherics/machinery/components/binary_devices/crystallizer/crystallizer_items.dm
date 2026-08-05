@@ -1,6 +1,6 @@
 /obj/item/hypernoblium_crystal
-	name = "Hyper-Noblium Crystal"
-	desc = "Crystallized oxygen and Hyper-Noblium stored in a bottle to pressure-proof your clothes or stop reactions occurring in portable atmospheric devices."
+	name = "hyper-noblium crystal"
+	desc = "Crystallized oxygen and hyper-noblium stored in a bottle to pressure-proof your clothes or stop reactions occurring in portable atmospheric devices."
 	icon = 'icons/obj/atmospherics/crystallizer_items.dmi'
 	icon_state = "hypernoblium_crystal"
 	var/uses = 1
@@ -15,7 +15,7 @@
 
 	if(istype(atmos_device))
 		if(atmos_device.nob_crystal_inserted)
-			to_chat(user, span_warning("[atmos_device] already has a Hyper-Noblium crystal inserted in it!"))
+			to_chat(user, span_warning("[atmos_device] already has a hyper-noblium crystal inserted in it!"))
 			return
 
 		atmos_device.nob_crystal_inserted = TRUE
@@ -127,8 +127,8 @@
 	qdel(src)
 
 /obj/item/grenade/gas_crystal/proto_nitrate_crystal
-	name = "Proto Nitrate crystal"
-	desc = "A crystal made from the Proto Nitrate gas, you can see the liquid gases inside."
+	name = "proto-nitrate crystal"
+	desc = "A crystal made from the proto-nitrate gas, you can see the liquid gases inside."
 	icon_state = "proto_nitrate_crystal"
 
 	/// Range of the grenade air refilling

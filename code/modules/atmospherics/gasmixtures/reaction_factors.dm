@@ -118,10 +118,10 @@
 
 /datum/gas_reaction/nobliumformation/init_factors()
 	factor = list(
-		/datum/gas/nitrogen = "10 moles of nitrogen needs to be present for the reaction to occur. Nitrogen is consumed at 10 moles per mole of Hyper-Noblium formed.",
-		/datum/gas/tritium = "5 moles of tritium needs to be present for the reaction to occur. Tritium is consumed at 5 moles per mole of Hyper-Noblium formed. The relative consumption rate of tritium decreases in the exposure of BZ.",
+		/datum/gas/nitrogen = "10 moles of nitrogen needs to be present for the reaction to occur. Nitrogen is consumed at 10 moles per mole of hyper-noblium formed.",
+		/datum/gas/tritium = "5 moles of tritium needs to be present for the reaction to occur. Tritium is consumed at 5 moles per mole of hyper-noblium formed. The relative consumption rate of tritium decreases in the exposure of BZ.",
 		/datum/gas/hypernoblium = "Hyper-Noblium production scales based on the sum of the nitrogen and tritium moles.",
-		"Energy" = "[NOBLIUM_FORMATION_ENERGY] joules of energy is released per mole of Hyper-Noblium produced.",
+		"Energy" = "[NOBLIUM_FORMATION_ENERGY] joules of energy is released per mole of hyper-noblium produced.",
 		/datum/gas/bz = "BZ is not consumed in the reaction but will lower the amount of energy released. It also reduces amount of tritium consumed by a ratio between tritium and bz, greater bz than tritium will reduce more.",
 		"Temperature" = "Can only occur between [NOBLIUM_FORMATION_MIN_TEMP] - [NOBLIUM_FORMATION_MAX_TEMP] kelvin",
 	)
@@ -173,14 +173,14 @@
 /datum/gas_reaction/proto_nitrate_hydrogen_response/init_factors() // Fixed reaction rate
 	factor = list(
 		/datum/gas/hydrogen = "[PN_HYDROGEN_CONVERSION_THRESHOLD] moles of hydrogen needs to be present for the reaction to occur. Hydrogen is consumed at 2 moles per mole of proto-nitrate formed.",
-		/datum/gas/proto_nitrate = "[MINIMUM_MOLE_COUNT] moles of proto-nitrate needs to be present for the reaction to occur. Proto nitrate is produced a rate that scales with its mole count, up to a max of [PN_HYDROGEN_CONVERSION_MAX_RATE * 0.5 SECONDS / SSair.wait] moles per second.",
+		/datum/gas/proto_nitrate = "[MINIMUM_MOLE_COUNT] moles of proto-nitrate needs to be present for the reaction to occur. Proto-Nitrate is produced a rate that scales with its mole count, up to a max of [PN_HYDROGEN_CONVERSION_MAX_RATE * 0.5 SECONDS / SSair.wait] moles per second.",
 		"Energy" = "[PN_HYDROGEN_CONVERSION_ENERGY * 2] joules of energy is absorbed per mole of proto-nitrate formed.",
 	)
 
 /datum/gas_reaction/proto_nitrate_tritium_response/init_factors()
 	factor = list(
 		/datum/gas/tritium = "Tritium radiates its neutrons at a rate that scales with the temperature and proto-nitrate mole count.",
-		/datum/gas/proto_nitrate = "Proto nitrate is consumed at 0.005 moles per mole of neutrons released.",
+		/datum/gas/proto_nitrate = "Proto-Nitrate is consumed at 0.005 moles per mole of neutrons released.",
 		/datum/gas/hydrogen = "Hydrogen remains after the neutrons escape.",
 		"Energy" = "[PN_TRITIUM_CONVERSION_ENERGY / 2] joules of energy is released per mole of neutron released.",
 		"Radiation" = "Neutrons get released as ionising radiation.",

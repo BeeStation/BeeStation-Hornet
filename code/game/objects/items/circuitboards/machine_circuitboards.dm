@@ -154,28 +154,28 @@
 	)
 
 /obj/item/circuitboard/machine/hfr_fuel_input
-	name = "HFR Fuel Input (Machine Board)"
+	name = "HFR Fuel Input"
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/components/unary/hypertorus/fuel_input
 	req_components = list(
 		/obj/item/stack/sheet/plasteel = 5)
 
 /obj/item/circuitboard/machine/hfr_waste_output
-	name = "HFR Waste Output (Machine Board)"
+	name = "HFR Waste Output"
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/components/unary/hypertorus/waste_output
 	req_components = list(
 		/obj/item/stack/sheet/plasteel = 5)
 
 /obj/item/circuitboard/machine/hfr_moderator_input
-	name = "HFR Moderator Input (Machine Board)"
+	name = "HFR Moderator Input"
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/components/unary/hypertorus/moderator_input
 	req_components = list(
 		/obj/item/stack/sheet/plasteel = 5)
 
 /obj/item/circuitboard/machine/hfr_core
-	name = "HFR core (Machine Board)"
+	name = "HFR core"
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/components/unary/hypertorus/core
 	req_components = list(
@@ -184,14 +184,14 @@
 		/obj/item/stack/sheet/plasteel = 10)
 
 /obj/item/circuitboard/machine/hfr_corner
-	name = "HFR Corner (Machine Board)"
+	name = "HFR Corner"
 	icon_state = "engineering"
 	build_path = /obj/machinery/hypertorus/corner
 	req_components = list(
 		/obj/item/stack/sheet/plasteel = 5)
 
 /obj/item/circuitboard/machine/hfr_interface
-	name = "HFR Interface (Machine Board)"
+	name = "HFR Interface"
 	icon_state = "engineering"
 	build_path = /obj/machinery/hypertorus/interface
 	req_components = list(
@@ -200,7 +200,7 @@
 		/obj/item/stack/sheet/plasteel = 5)
 
 /obj/item/circuitboard/machine/electrolyzer
-	name = "electrolyzer (Machine Board)"
+	name = "electrolyzer"
 	icon_state = "engineering"
 	build_path = /obj/machinery/electrolyzer
 	req_components = list(
@@ -211,7 +211,7 @@
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/crystallizer
-	name = "crystallizer (Machine Board)"
+	name = "crystallizer"
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/components/binary/crystallizer
 	req_components = list(

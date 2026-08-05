@@ -656,7 +656,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	greyscale_colors = "#2786e5"
 
 /obj/machinery/portable_atmospherics/canister/proto_nitrate
-	name = "Proto Nitrate canister"
+	name = "Proto-Nitrate canister"
 	gas_type = /datum/gas/proto_nitrate
 	filled = 1
 	greyscale_config = /datum/greyscale_config/canister/double_stripe

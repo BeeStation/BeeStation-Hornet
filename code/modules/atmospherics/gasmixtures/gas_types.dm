@@ -261,7 +261,7 @@
 /datum/gas/proto_nitrate
 	id = GAS_PROTO_NITRATE
 	specific_heat = 30
-	name = "Proto Nitrate"
+	name = "Proto-Nitrate"
 	dangerous = TRUE
 	gas_overlay = "proto_nitrate"
 	moles_visible = MOLES_GAS_VISIBLE

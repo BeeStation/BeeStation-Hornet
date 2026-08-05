@@ -976,7 +976,7 @@
  */
 /datum/gas_reaction/proto_nitrate_formation
 	priority_group = PRIORITY_FORMATION
-	name = "Proto Nitrate Formation"
+	name = "Proto-Nitrate Formation"
 	id = "proto_nitrate_formation"
 	desc = "Production of proto-nitrate from pluoxium and hydrogen under high temperatures."
 
@@ -1018,9 +1018,9 @@
  */
 /datum/gas_reaction/proto_nitrate_hydrogen_response
 	priority_group = PRIORITY_PRE_FORMATION
-	name = "Proto Nitrate Hydrogen Response"
+	name = "Proto-Nitrate Hydrogen Response"
 	id = "proto_nitrate_hydrogen_response"
-	desc = "Conversion of hydrogen into proto nitrate."
+	desc = "Conversion of hydrogen into proto-nitrate."
 
 /datum/gas_reaction/proto_nitrate_hydrogen_response/init_reqs()
 	requirements = list(
@@ -1056,7 +1056,7 @@
  */
 /datum/gas_reaction/proto_nitrate_tritium_response
 	priority_group = PRIORITY_PRE_FORMATION
-	name = "Proto Nitrate Tritium Response"
+	name = "Proto-Nitrate Tritium Response"
 	id = "proto_nitrate_tritium_response"
 	desc = "Conversion of tritium into hydrogen that consumes a small amount of proto-nitrate."
 
@@ -1109,7 +1109,7 @@
  */
 /datum/gas_reaction/proto_nitrate_bz_response
 	priority_group = PRIORITY_PRE_FORMATION
-	name = "Proto Nitrate BZ Response"
+	name = "Proto-Nitrate BZ Response"
 	id = "proto_nitrate_bz_response"
 	desc = "Breakdown of BZ into nitrogen, helium, and plasma by proto-nitrate under low temperatures."
 

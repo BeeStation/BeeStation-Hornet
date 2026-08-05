@@ -387,17 +387,17 @@
 	default_raw_text = "<B>How to safely(TM) operate the Hypertorus</B><BR>\
 	-Build the machine as it's shown in the main guide.<BR>\
 	-Make a 50/50 gasmix of tritium and hydrogen totalling around 2000 moles.<BR>\
-	-Start the machine, fill up the cooling loop with Plasma/Hyper-Noblium and use space or freezers to cool it.<BR>\
+	-Start the machine, fill up the cooling loop with plasma/hyper-noblium and use space or freezers to cool it.<BR>\
 	-Connect the fuel mix into the fuel injector port, allow only 1000 moles into the machine to ease the kickstart of the reaction<BR>\
 	-Set the Heat conductor to 500 when starting the reaction, reset it to 100 when power level is higher than 1<BR>\
 	-In the event of a meltdown, set the heat conductor to max and set the current damper to max. Set the fuel injection to min. \
 	If the heat output doesn�t go negative, try changing the magnetic costrictors untill heat output goes negative. \
-	Make the cooling stronger, put high heat capacity gases inside the moderator (Hyper-Noblium will help dealing with the problem)<BR><BR>\
+	Make the cooling stronger, put high heat capacity gases inside the moderator (hyper-noblium will help dealing with the problem)<BR><BR>\
 	<B>Warnings:</B><BR>\
 	-You cannot dismantle the machine if the power level is over 0<BR>\
 	-You cannot power of the machine if the power level is over 0<BR>\
 	-You cannot dispose of waste gases if power level is over 5<BR>\
-	-You cannot remove gases from the fusion mix if they are not helium and Anti-Noblium<BR>\
+	-You cannot remove gases from the fusion mix if they are not helium and anti-noblium<BR>\
 	-Hyper-Noblium will decrease the power of the mix by a lot<BR>\
 	-Anti-Noblium will INCREASE the power of the mix by a lot more<BR>\
 	-High heat capacity gases are harder to heat/cool<BR>\

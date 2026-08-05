@@ -147,19 +147,19 @@
 	build_path = /obj/machinery/computer/atmos_control/bz_tank
 
 /obj/item/circuitboard/computer/atmos_control/freon_tank
-	name = "Freon Supply Control (Computer Board)"
+	name = "Freon Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/freon_tank
 
 /obj/item/circuitboard/computer/atmos_control/halon_tank
-	name = "Halon Supply Control (Computer Board)"
+	name = "Halon Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/halon_tank
 
 /obj/item/circuitboard/computer/atmos_control/healium_tank
-	name = "Healium Supply Control (Computer Board)"
+	name = "Healium Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/healium_tank
 
 /obj/item/circuitboard/computer/atmos_control/hydrogen_tank
-	name = "Hydrogen Supply Control (Computer Board)"
+	name = "Hydrogen Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/hydrogen_tank
 
 /obj/item/circuitboard/computer/atmos_control/hypernoblium_tank
@@ -167,7 +167,7 @@
 	build_path = /obj/machinery/computer/atmos_control/hypernoblium_tank
 
 /obj/item/circuitboard/computer/atmos_control/nitrium_tank
-	name = "Nitrium Supply Control (Computer Board)"
+	name = "Nitrium Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/nitrium_tank
 
 /obj/item/circuitboard/computer/atmos_control/pluoxium_tank
@@ -175,7 +175,7 @@
 	build_path = /obj/machinery/computer/atmos_control/pluoxium_tank
 
 /obj/item/circuitboard/computer/atmos_control/proto_nitrate_tank
-	name = "Proto-Nitrate Supply Control (Computer Board)"
+	name = "Proto-Nitrate Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/proto_nitrate_tank
 
 /obj/item/circuitboard/computer/atmos_control/tritium_tank
@@ -361,7 +361,7 @@
 	build_path = /obj/machinery/computer/pod/old/syndicate
 
 /obj/item/circuitboard/computer/terminal
-	name = "Terminal (Computer Board)"
+	name = "Terminal"
 	build_path = /obj/machinery/computer/terminal
 
 //Medical
