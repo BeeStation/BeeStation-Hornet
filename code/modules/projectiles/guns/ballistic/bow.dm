@@ -56,6 +56,7 @@
 
 /// No Suppressors, or Lights, or whatever. So... you don't get parent overlays, capiche?
 /obj/item/gun/ballistic/bow/update_overlays()
+	SHOULD_CALL_PARENT(FALSE)
 	return list()
 
 /obj/item/gun/ballistic/bow/can_shoot()
