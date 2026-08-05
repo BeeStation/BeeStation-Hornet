@@ -1,3 +1,8 @@
+ambilava1.ogg was made by NikNakFlak (https://github.com/Niknakflak)
+
+ambilava2.ogg was made by Qustinnus (https://github.com/tgstation/tgstation/pull/50855)
+ambilava3.ogg was made by Qustinnus (https://github.com/tgstation/tgstation/pull/50855)
+
 magma.ogg - is made with:
 Hot spring.Seething and bubbles(2lrs,mltprcssng).wav by newlocknew -- https://freesound.org/s/581417/ -- License: Attribution 4.0
 spliced together with:
