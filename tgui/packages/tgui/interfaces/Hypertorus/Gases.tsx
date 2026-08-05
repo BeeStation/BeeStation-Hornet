@@ -1,5 +1,5 @@
-import { filter, sortBy } from 'common/collections';
-import { toFixed } from 'common/math';
+import { sortBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { useBackend } from 'tgui/backend';
 import { getGasColor, getGasLabel } from 'tgui/constants';
 import {
@@ -10,6 +10,7 @@ import {
   ProgressBar,
   Section,
 } from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
 
 import type { HypertorusFuel, HypertorusGas } from '.';
 import { HelpDummy, HoverHelp } from './helpers';
@@ -90,8 +91,8 @@ const GasList = (props: GasListProps) => {
   const { start_power, start_cooling } = data;
 
   const gases: HypertorusGas[] = sortBy(
-    filter(raw_gases, (gas: HypertorusGas) => gas.amount >= 0.01),
-    (gas: HypertorusGas) => -gas.amount,
+    filter(raw_gases, (gas) => gas.amount >= 0.01),
+    [(gas) => -gas.amount],
   );
 
   if (stickyGases) {

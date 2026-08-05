@@ -6,7 +6,8 @@
 	name = "thermomachine"
 	desc = "Heats or cools gas in connected pipes."
 	icon = 'icons/obj/atmospherics/hypertorus.dmi'
-	icon_state = "core_off"
+	icon_state = "core"
+	base_icon_state = "core"
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
