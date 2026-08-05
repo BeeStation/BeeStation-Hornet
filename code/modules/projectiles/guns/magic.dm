@@ -91,8 +91,9 @@
 		update_icon()
 	return 1
 
-/obj/item/gun/magic/update_icon()
-	return
+/// No gun code overalys for static sprites
+/obj/item/gun/magic/update_overlays()
+	return list()
 
 /obj/item/gun/magic/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, span_warning("The [name] whizzles quietly."))
