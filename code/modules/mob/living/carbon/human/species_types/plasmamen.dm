@@ -2,7 +2,6 @@
 	name = "\improper Plasmaman"
 	plural_form = "Plasmamen"
 	id = SPECIES_PLASMAMAN
-	bodyflag = FLAG_PLASMAMAN
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma
 	species_traits = list(
@@ -15,7 +14,7 @@
 		TRAIT_GENELESS,
 		TRAIT_NOHUNGER,
 		TRAIT_NOBLOOD,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 	inherent_biotypes = MOB_INORGANIC | MOB_HUMANOID
 	mutantlungs = /obj/item/organ/lungs/plasmaman
@@ -24,9 +23,7 @@
 	mutantstomach = /obj/item/organ/stomach/plasmaman
 	mutantappendix = null
 	mutantheart = null
-	burnmod = 1.5
 	heatmod = 1.5
-	brutemod = 1.5
 	breathid = GAS_PLASMA
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	outfit_important_for_life = /datum/outfit/plasmaman
@@ -70,14 +67,12 @@
 			atmos_sealed = TRUE
 	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman) || !istype(H.gloves, /obj/item/clothing/gloves)))
 		var/datum/gas_mixture/environment = H.loc.return_air()
-		if(environment?.total_moles())
-			if(!HAS_TRAIT(H, TRAIT_NOFIRE) && !HAS_TRAIT(H, TRAIT_NOSELFIGNITION))
-				if(GET_MOLES(/datum/gas/oxygen, environment) >= 1) //Same threshold that extinguishes fire
-					H.adjust_fire_stacks(0.5)
-					if(!H.on_fire && H.fire_stacks > 0)
-						H.visible_message(span_danger("[H]'s body reacts with the atmosphere and bursts into flames!"),span_userdanger("Your body reacts with the atmosphere and bursts into flame!"))
-					H.IgniteMob()
-					internal_fire = TRUE
+		if(environment?.moles[/datum/gas/oxygen] >= 1 && !HAS_TRAIT(H, TRAIT_NOFIRE) && !HAS_TRAIT(H, TRAIT_NOSELFIGNITION))
+			H.adjust_fire_stacks(0.5)
+			if(!H.on_fire && H.fire_stacks > 0)
+				H.visible_message(span_danger("[H]'s body reacts with the atmosphere and bursts into flames!"),span_userdanger("Your body reacts with the atmosphere and bursts into flame!"))
+			H.ignite_mob()
+			internal_fire = TRUE
 	else if(H.fire_stacks)
 		var/obj/item/clothing/under/plasmaman/P = H.w_uniform
 		if(istype(P))
@@ -85,48 +80,43 @@
 			internal_fire = FALSE
 	else
 		internal_fire = FALSE
-	H.update_fire()
+	H.update_appearance(UPDATE_OVERLAYS)
 
 /datum/species/plasmaman/handle_fire(mob/living/carbon/human/H, delta_time, times_fired, no_protection = FALSE)
 	if(internal_fire)
 		no_protection = TRUE
 	. = ..()
 
-/datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source = null)
-	H.open_internals(H.get_item_for_held_index(2))
+/datum/species/plasmaman/pre_equip_species_outfit(datum/job/job, mob/living/carbon/human/equipping, visuals_only = FALSE, datum/preferences/preference_source = null)
+	var/outfit_path = job?.species_outfits?[id]
+	if(!outfit_path) //Somehow we were given a job without a plasmaman suit, use the default one so we don't go in naked!
+		outfit_path = /datum/outfit/plasmaman
+		stack_trace("Job [job] lacks a species_outfits entry for plasmamen!")
+	equipping.equipOutfit(outfit_path, visuals_only)
+	equipping.open_internals(equipping.get_item_for_held_index(2))
 
-	if(!preference_source?.prefs)
+	if(!preference_source)
 		return
-	var/path = J.species_outfits?[SPECIES_PLASMAMAN]
-	if (!path) //Somehow we were given a job without a plasmaman suit, use the default one so we don't go in naked!
-		path = /datum/outfit/plasmaman
-		stack_trace("Job [J] lacks a species_outfits entry for plasmamen!")
-	var/datum/outfit/plasmaman/O = new path
-	var/selected_style = preference_source.prefs.read_character_preference(/datum/preference/choiced/helmet_style)
+	var/datum/outfit/plasmaman/style_reference = new outfit_path
+	var/selected_style = preference_source.read_character_preference(/datum/preference/choiced/helmet_style)
 	if(selected_style != HELMET_DEFAULT)
-		if(O.helmet_variants[selected_style])
-			var/helmet = O.helmet_variants[selected_style]
-			qdel(H.head)
-			H.equip_to_slot(new helmet, ITEM_SLOT_HEAD)
-			H.open_internals(H.get_item_for_held_index(2))
+		if(style_reference.helmet_variants[selected_style])
+			var/helmet = style_reference.helmet_variants[selected_style]
+			qdel(equipping.head)
+			equipping.equip_to_slot(new helmet, ITEM_SLOT_HEAD)
+			equipping.open_internals(equipping.get_item_for_held_index(2))
+	qdel(style_reference)
 
 /datum/species/plasmaman/give_important_for_life(mob/living/carbon/human/human_to_equip)
 	. = ..()
 	human_to_equip.open_internals(human_to_equip.get_item_for_held_index(2))
 
-/datum/species/plasmaman/qualifies_for_rank(rank, list/features)
-	if(rank in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
+/datum/species/plasmaman/qualifies_for_rank(datum/job/rank, list/features)
+	if(rank in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
 		return 0
-	if(rank == JOB_NAME_CLOWN || rank == JOB_NAME_MIME)//No funny bussiness
+	if(is_clown_job(rank) || is_mime_job(rank))//No funny bussiness
 		return 0
 	return ..()
-
-/datum/species/plasmaman/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.plasmaman_names)] \Roman[rand(1,99)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, ++attempts)
 
 /datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/consumable/milk)
@@ -137,8 +127,8 @@
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)
-		H.adjustStaminaLoss(7.5 * REAGENTS_EFFECT_MULTIPLIER * delta_time, 0)
-		H.adjustBruteLoss(0.5 * REAGENTS_EFFECT_MULTIPLIER * delta_time, 0)
+		H.adjustStaminaLoss(7.5 * REM * delta_time, 0)
+		H.adjustBruteLoss(0.5 * REM * delta_time, 0)
 		if(DT_PROB(10, delta_time))
 			switch(rand(1, 3))
 				if(1)

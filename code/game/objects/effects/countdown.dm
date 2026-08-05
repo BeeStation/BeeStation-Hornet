@@ -6,7 +6,7 @@
 		To Earth, who can tell?"
 
 	anchored = TRUE
-	color = "#ff0000" // text color
+	color = COLOR_RED // text color
 	var/text_size = 3 // larger values clip when the displayed text is larger than 2 digits.
 	var/started = FALSE
 	var/displayed_text
@@ -62,7 +62,7 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	. = ..()
 
-/obj/effect/countdown/singularity_pull()
+/obj/effect/countdown/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/countdown/singularity_act()
@@ -129,22 +129,21 @@
 	name = "doomsday countdown"
 
 /obj/effect/countdown/doomsday/get_value()
-	var/obj/machinery/doomsday_device/DD = attached_to
-	if(!istype(DD))
+	var/obj/machinery/doomsday_device/doomsday = attached_to
+	if(!istype(doomsday))
 		return
-	else if(DD.timing)
-		return "<div align='center' valign='middle' style='position:relative; top:0px; left:0px'>[DD.seconds_remaining()]</div>"
+	else if(doomsday.timing)
+		return "<div align='center' valign='middle' style='position:relative; top:0px; left:0px'>[round(doomsday.time_remaining() / 10)]</div>"
 
 /obj/effect/countdown/anomaly
 	name = "anomaly countdown"
 
 /obj/effect/countdown/anomaly/get_value()
-	var/obj/effect/anomaly/A = attached_to
-	if(!istype(A))
+	var/obj/effect/anomaly/anomaly = attached_to
+	if(!istype(anomaly))
 		return
-	else
-		var/time_left = max(0, (A.death_time - world.time) / 10)
-		return round(time_left)
+	var/time_left = max(0, (anomaly.death_time - world.time) / 10)
+	return round(time_left)
 
 /obj/effect/countdown/hourglass
 	name = "hourglass countdown"

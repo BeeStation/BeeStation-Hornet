@@ -13,7 +13,6 @@
 	allowed = list(/obj/item/clockwork, /obj/item/stack/sheet/brass, /obj/item/clockwork, /obj/item/gun/ballistic/bow/clockwork)
 	var/allow_any = FALSE
 
-
 /datum/armor/suit_clockwork
 	melee = 50
 	bullet = 60
@@ -44,7 +43,7 @@
 		H.electrocution_animation(20)
 	C.do_jitter_animation(300) // Maximum jitter
 	C.adjust_jitter(20 SECONDS)
-	C.stuttering += 1
+	C.adjust_stutter(2 SECONDS)
 	spawn(20)
 	if(C)
 		C.remove_status_effect(/datum/status_effect/jitter)
@@ -57,7 +56,6 @@
 	slowdown = -0.3
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	armor_type = /datum/armor/clockwork_speed
-
 
 /datum/armor/clockwork_speed
 	melee = 40
@@ -80,11 +78,7 @@
 	slowdown = 0.4
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/shroud_active = FALSE
-	var/i
-	var/f
-	var/start
 	var/previous_alpha
-
 
 /datum/armor/clockwork_cloak
 	melee = 10
@@ -131,7 +125,7 @@
 			H.electrocution_animation(20)
 		C.do_jitter_animation(300) // Maximum jitter
 		C.adjust_jitter(20 SECONDS)
-		C.stuttering += 1
+		C.adjust_stutter(2 SECONDS)
 		spawn(20)
 		if(C)
 			C.remove_status_effect(/datum/status_effect/jitter)

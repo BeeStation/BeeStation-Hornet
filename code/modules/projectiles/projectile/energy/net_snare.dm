@@ -68,7 +68,7 @@
 /obj/effect/nettingportal/singularity_act()
 	return
 
-/obj/effect/nettingportal/singularity_pull()
+/obj/effect/nettingportal/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/projectile/energy/trap
@@ -113,5 +113,8 @@
 	qdel(src)
 
 /obj/projectile/energy/trap/cyborg/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 	do_sparks(1, TRUE, src)
 	qdel(src)

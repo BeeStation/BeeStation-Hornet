@@ -29,16 +29,11 @@
 		if(owner.current.client)
 			owner.current.client.tgui_panel?.give_antagonist_popup("Contractor Support Unit", "Follow your contractor's orders.")
 
-/datum/antagonist/contractor_support/proc/forge_objectives()
-	var/datum/objective/generic_objective = new
-
-	generic_objective.name = "Follow Contractor's Orders"
+/datum/antagonist/contractor_support/forge_objectives()
+	var/datum/objective/generic_objective = new("Follow Contractor's Orders")
 	generic_objective.explanation_text = "Follow your orders. Assist agents in this mission area."
-
 	generic_objective.completed = TRUE
-
-	objectives += generic_objective
-	log_objective(owner, generic_objective.explanation_text)
+	add_objective(generic_objective)
 
 /datum/contractor_hub
 	var/contract_rep = 0
@@ -181,13 +176,15 @@
 	if (.)
 		to_chat(user, span_notice("The uplink vibrates quietly, connecting to nearby agents..."))
 
-		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		var/datum/poll_config/config = new(
 			check_jobban = ROLE_CONTRACTOR_SUPPORT_UNIT,
 			poll_time = 10 SECONDS,
 			jump_target = user,
 			role_name_text = "contractor support unit for [user.real_name]",
 			alert_pic = user,
+			amount_to_pick = 1,
 		)
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 
 		if(candidate)
 			spawn_contractor_partner(user, candidate.key)
@@ -206,7 +203,7 @@
 	suit = /obj/item/clothing/suit/chameleon
 	back = /obj/item/storage/backpack
 	belt = /obj/item/modular_computer/tablet/pda/preset/chameleon
-	mask = /obj/item/clothing/mask/cigarette/syndicate
+	mask = /obj/item/cigarette/syndicate
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	ears = /obj/item/radio/headset/chameleon
 	id = /obj/item/card/id/syndicate
@@ -215,9 +212,9 @@
 	backpack_contents = list(/obj/item/storage/box/survival, /obj/item/implanter/uplink, /obj/item/clothing/mask/chameleon,
 							/obj/item/storage/fancy/cigarettes/cigpack_syndicate, /obj/item/lighter)
 
-/datum/outfit/contractor_partner/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/contractor_partner/post_equip(mob/living/carbon/human/H, visuals_only)
 	. = ..()
-	var/obj/item/clothing/mask/cigarette/syndicate/cig = H.get_item_by_slot(ITEM_SLOT_MASK)
+	var/obj/item/cigarette/syndicate/cig = H.get_item_by_slot(ITEM_SLOT_MASK)
 
 	// pre-light their cig
 	cig.light()
@@ -228,9 +225,7 @@
 
 	partner_outfit.equip(partner)
 
-	var/obj/structure/closet/supplypod/arrival_pod = new()
-
-	arrival_pod.style = STYLE_SYNDICATE
+	var/obj/structure/closet/supplypod/arrival_pod = new(null, STYLE_SYNDICATE)
 	arrival_pod.explosionSize = list(0,0,0,1)
 	arrival_pod.bluespace = TRUE
 

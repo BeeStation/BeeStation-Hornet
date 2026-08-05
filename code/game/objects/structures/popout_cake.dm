@@ -34,7 +34,7 @@
 		string.cake = src
 
 /obj/structure/popout_cake/MouseDrop_T(mob/living/target, mob/user)
-	if(!istype(target) || user.incapacitated() || !target.Adjacent(user) || !Adjacent(user) || !ismob(target) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
+	if(!istype(target) || user.incapacitated || !target.Adjacent(user) || !Adjacent(user) || !ismob(target) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
 		return
 
 	if(occupant)
@@ -82,7 +82,7 @@
 			used_string = FALSE
 			user.visible_message(span_notice("After hearing a click from [src], [user] pulls the [W] outside."), span_notice("You successfully rewind the string inside [src]!"))
 			return FALSE
-	if(W.is_sharp())
+	if(W.get_sharpness())
 		user.visible_message(span_notice("[user] begins cutting into [src] with [W]!"), span_notice("You starts cutting [src] with [W]!"))
 		if(do_after(user, 60, src, timed_action_flags = IGNORE_HELD_ITEM))
 			do_popout()
@@ -164,7 +164,7 @@
 	desc = "Pull the string and pop out of the cake in a surprising fashion, with confetti and everything!"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 	button_icon_state = "pull_string"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	var/obj/structure/popout_cake/cake = null
 
 

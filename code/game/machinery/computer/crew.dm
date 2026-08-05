@@ -1,5 +1,5 @@
 /// How often the sensor data updates.
-#define SENSORS_UPDATE_PERIOD 1 MINUTES
+#define SENSORS_UPDATE_PERIOD (1 MINUTES)
 
 /// The job sorting ID associated with otherwise unknown jobs
 #define UNKNOWN_JOB_ID	81
@@ -86,6 +86,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/crew)
 	icon_keyboard = "syndie_key"
 
 /obj/machinery/computer/crew/ui_interact(mob/user)
+	. = ..()
 	GLOB.crewmonitor.show(user,src)
 
 GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
@@ -100,6 +101,9 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 	/// Cache of last update time for each z-level
 	var/list/last_update = list()
+
+	/// The last update for the crew-member
+	var/list/outdated_update = list()
 
 	/// Map of job to ID for sorting purposes
 	var/list/jobs = list(
@@ -201,7 +205,8 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		z = T.get_virtual_z_level()
 	. = list(
 		"sensors" = update_data(z, T.z),
-		"link_allowed" = isAI(user)
+		"link_allowed" = isAI(user),
+		"time" = world.time
 	)
 
 /// z represents the virtual z-level the user is on
@@ -212,7 +217,9 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 	var/list/results = list()
 
-	for(var/mob/living/carbon/human/tracked_human as () in GLOB.suit_sensors_list)
+	var/list/valid_refs = list()
+
+	for(var/mob/living/carbon/human/tracked_human as anything in GLOB.suit_sensors_list)
 		if(!tracked_human)
 			stack_trace("Null reference in suit sensors list")
 			GLOB.suit_sensors_list -= tracked_human
@@ -237,19 +244,20 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 		// Determine if this person is using nanites for sensors,
 		// in which case the sensors are always set to full detail
-		var/nanite_sensors = HAS_TRAIT(tracked_human, TRAIT_NANITE_SENSORS)
+		var/nanite_sensors = HAS_TRAIT_FROM(tracked_human, TRAIT_TRACKED_SENSORS, NANITES_TRAIT)
 
 		// Check for a uniform if not using nanites
 		var/obj/item/clothing/under/uniform = tracked_human.w_uniform
 
-		if (!nanite_sensors && !istype(uniform))
-			stack_trace("Human without a suit sensors compatible uniform is in suit_sensors_list: [tracked_human] ([tracked_human.type]) ([uniform?.type])")
-			continue
+		if (!nanite_sensors)
+			if(!istype(uniform))
+				stack_trace("Human without a suit sensors compatible uniform is in suit_sensors_list: [tracked_human] ([tracked_human.type]) ([uniform?.type])")
+				continue
 
-		// Are the suit sensors on?
-		if (!nanite_sensors && (uniform?.has_sensor <= NO_SENSORS || !uniform?.sensor_mode))
-			stack_trace("Human without active nanite and suit sensors is in suit_sensors_list: [tracked_human] ([tracked_human.type]) ([uniform.type])")
-			continue
+			// Are the suit sensors on?
+			if (uniform?.has_sensor <= NO_SENSORS || uniform?.sensor_mode == SENSOR_OFF)
+				stack_trace("Human without active nanite or suit sensors is in suit_sensors_list: [tracked_human] ([tracked_human.type]) ([uniform.type])")
+				continue
 
 		// Radio transmitters are jammed
 		if(tracked_human.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))
@@ -260,6 +268,8 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			"ref" = REF(tracked_human),
 			"name" = "Unknown",
 			"ijob" = UNKNOWN_JOB_ID,
+			"last_update" = world.time,
+			"missing" = FALSE
 		)
 
 		var/obj/item/card/id/I = tracked_human.wear_id ? tracked_human.wear_id.GetID() : null
@@ -272,7 +282,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 		// Binary living/dead status
 		if (nanite_sensors || uniform.sensor_mode >= SENSOR_LIVING)
-			entry["life_status"] = !tracked_human.stat
+			entry["life_status"] = (tracked_human.stat == DEAD) ? DEAD : CONSCIOUS
 
 		// Damage
 		if (nanite_sensors || uniform.sensor_mode >= SENSOR_VITALS)
@@ -280,6 +290,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			entry["toxdam"] = round(tracked_human.getToxLoss(), 1)
 			entry["burndam"] = round(tracked_human.getFireLoss(), 1)
 			entry["brutedam"] = round(tracked_human.getBruteLoss(), 1)
+			entry["life_status"] = tracked_human.stat
 
 		// Area
 		if (pos && (nanite_sensors || uniform.sensor_mode >= SENSOR_COORDS))
@@ -288,7 +299,30 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		// Trackability
 		entry["can_track"] = tracked_human.can_track()
 
+		/// Update the tracked entry
+		if (I?.registered_name && find_record(I.registered_name, GLOB.manifest.general))
+			outdated_update[I.registered_name] = list(
+				"name" = I.registered_name,
+				"last_update" = world.time
+			)
+			valid_refs[I.registered_name] = TRUE
+
 		results[++results.len] = entry
+
+	for (var/outdated_ref in outdated_update)
+		if (valid_refs[outdated_ref])
+			continue
+		var/list/last_results = outdated_update[outdated_ref]
+		// Deleted from the records, cryo'd or malicious intent. Remove the target
+		if (!find_record(last_results["name"], GLOB.manifest.general))
+			outdated_update -= outdated_ref
+			continue
+		results[++results.len] = list(
+			"ref" = outdated_ref,
+			"name" = last_results["name"],
+			"last_update" = last_results["last_update"],
+			"missing" = TRUE
+		)
 
 	data_by_z["[z]"] = results
 	last_update["[z]"] = world.time

@@ -116,7 +116,7 @@ export const Telecomms = (props) => {
                     </Table.Cell>
                     <NumberInput
                       animated
-                      unit="GHz"
+                      unit="kHz"
                       step={0.2}
                       stepPixelSize={10}
                       minValue={minfreq / 10}
@@ -171,7 +171,7 @@ export const Telecomms = (props) => {
               <Table>
                 {frequencies.map((entry) => (
                   <Table.Row key={frequencies.i} className="candystripe">
-                    <Table.Cell bold>{entry / 10} GHz</Table.Cell>
+                    <Table.Cell bold>{entry / 10} kHz</Table.Cell>
                     <Table.Cell>
                       {RADIO_CHANNELS.find(
                         (channel) => channel.freq === entry,
@@ -234,7 +234,7 @@ export const Telecomms = (props) => {
                     <Table.Cell>
                       <NumberInput
                         animated
-                        unit="GHz"
+                        unit="kHz"
                         step={0.2}
                         stepPixelSize={10}
                         minValue={minfreq / 10}

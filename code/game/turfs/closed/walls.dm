@@ -150,11 +150,6 @@
 		if(F.try_build(src, user))
 			F.attach(src, user)
 			return TRUE
-		return FALSE
-	//Poster stuff
-	else if(istype(W, /obj/item/poster) && Adjacent(user)) //no tk memes.
-		return place_poster(W,user)
-
 	return FALSE
 
 /turf/closed/wall/try_decon(obj/item/I, mob/user, turf/T)
@@ -184,7 +179,7 @@
 			return TRUE
 	return FALSE
 
-/turf/closed/wall/singularity_pull(S, current_size)
+/turf/closed/wall/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
 	wall_singularity_pull(current_size)
 

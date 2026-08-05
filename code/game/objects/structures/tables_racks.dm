@@ -27,6 +27,7 @@
 	pass_flags_self = PASSTABLE | LETPASSTHROW
 	layer = TABLE_LAYER
 	obj_flags = CAN_BE_HIT | IGNORE_DENSITY
+	var/static/list/turf_traits = list(TRAIT_TURF_IGNORE_SLOWDOWN, TRAIT_TURF_IGNORE_SLIPPERY, TRAIT_IMMERSE_STOPPED)
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
 	var/glass_shard_type = /obj/item/shard
@@ -49,13 +50,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 		buildstack = _buildstack
 	if(can_climb)
 		AddElement(/datum/element/climbable)
+	AddElement(/datum/element/give_turf_traits, string_list(turf_traits))
 
 /obj/structure/table/Bumped(mob/living/carbon/human/H)
 	. = ..()
 	if(!istype(H))
 		return
 	var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
-	if(!HAS_TRAIT(H, TRAIT_ALWAYS_STUBS) && (H.shoes || feetCover || H.body_position == LYING_DOWN || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || H.m_intent == MOVE_INTENT_WALK || H.dna?.species.bodytype & BODYTYPE_DIGITIGRADE))
+	if(!HAS_TRAIT(H, TRAIT_ALWAYS_STUBS) && (H.shoes || feetCover || H.body_position == LYING_DOWN || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || H.move_intent == MOVE_INTENT_WALK || H.bodytype & BODYTYPE_DIGITIGRADE))
 		return
 	if(HAS_TRAIT(H, TRAIT_ALWAYS_STUBS) || ((world.time >= last_bump + 100) && prob(5)))
 		to_chat(H, span_warning("You stub your toe on the [name]!"))
@@ -132,10 +134,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(locate(/obj/structure/table) in get_turf(mover))
 		return TRUE
 
-/obj/structure/table/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
-	. = !density
-	if(istype(passing_atom))
-		. = . || (passing_atom.pass_flags & PASSTABLE)
+
+/obj/structure/table/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags & PASSTABLE)
+		return TRUE
+	return FALSE
 
 /obj/structure/table/proc/tableplace(mob/living/user, mob/living/pushed_mob)
 	pushed_mob.forceMove(loc)
@@ -193,14 +198,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	var/list/modifiers = params2list(params)
 	if(!(flags_1 & NODECONSTRUCT_1) && LAZYACCESS(modifiers, RIGHT_CLICK))
 		if(I.tool_behaviour == TOOL_SCREWDRIVER && deconstruction_ready)
-			to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
-			if(I.use_tool(src, user, 20, volume=50))
+			to_chat(user, span_notice("You start disassembling [src]..."))
+			if(I.use_tool(src, user, 2 SECONDS, volume=50))
 				deconstruct(TRUE)
 			return
 
 		if(I.tool_behaviour == TOOL_WRENCH && deconstruction_ready)
-			to_chat(user, "<span class='notice'>You start deconstructing [src]...</span>")
-			if(I.use_tool(src, user, 40, volume=50))
+			to_chat(user, span_notice("You start deconstructing [src]..."))
+			if(I.use_tool(src, user, 4 SECONDS, volume=50))
 				playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 				deconstruct(TRUE, 1)
 			return
@@ -243,8 +248,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 			if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
 				return
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-			I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)
-			I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
+			I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
+			I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
 			return TRUE
 	else
 		return ..()
@@ -258,7 +263,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 		else
 			for(var/i in custom_materials)
 				var/datum/material/M = i
-				new M.sheet_type(T, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
+				new M.sheet_type(T, floor(custom_materials[M] / MINERAL_MATERIAL_AMOUNT))
 		if(!wrench_disassembly)
 			new frame(T)
 		else
@@ -586,7 +591,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 /obj/structure/table/optable
 	name = "operating table"
 	desc = "Used for advanced medical procedures."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/surgery.dmi'
 	icon_state = "optable"
 	buildstack = /obj/item/stack/sheet/mineral/silver
 	smoothing_flags = NONE
@@ -750,7 +755,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
  */
 
 /obj/structure/rack/deconstruct(disassembled = TRUE)
-	if(!(flags_1&NODECONSTRUCT_1))
+	if(!(flags_1 & NODECONSTRUCT_1))
 		set_density(FALSE)
 		var/obj/item/rack_parts/newparts = new(loc)
 		transfer_fingerprints_to(newparts)
@@ -766,7 +771,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	desc = "Parts of a rack."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "rack_parts"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	custom_materials = list(/datum/material/iron=2000)
 	var/building = FALSE
 	var/obj/construction_type = /obj/structure/rack

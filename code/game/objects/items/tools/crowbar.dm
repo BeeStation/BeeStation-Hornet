@@ -6,9 +6,9 @@
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	usesound = 'sound/items/crowbar.ogg'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
-	force = 5
+	force = 12
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=50)
@@ -38,7 +38,6 @@
 
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"
-	force = 8
 
 /obj/item/crowbar/brass
 	name = "brass crowbar"

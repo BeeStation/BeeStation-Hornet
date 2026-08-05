@@ -41,17 +41,24 @@
 /obj/effect/particle_effect/foam/firefighting/process()
 	..()
 
-	var/turf/open/T = get_turf(src)
-	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && T.air)
-		qdel(hotspot)
-		var/datum/gas_mixture/G = T.air
-		var/plas_amt = min(30,GET_MOLES(/datum/gas/plasma, G)) //Absorb some plasma
-		REMOVE_MOLES(/datum/gas/plasma, G, plas_amt)
-		absorbed_plasma += plas_amt
-		if(G.temperature > T20C)
-			G.temperature = max(G.return_temperature()/2,T20C)
-		T.air_update_turf(FALSE, FALSE)
+	var/turf/open/location = loc
+	if(!istype(location))
+		return
+
+	var/obj/effect/hotspot/hotspot = locate() in location
+	if(!hotspot || !location.air)
+		return
+
+	qdel(hotspot)
+	var/datum/gas_mixture/air = location.air
+	if (air.moles[/datum/gas/plasma])
+		var/scrub_amt = min(30, air.moles[/datum/gas/plasma]) //Absorb some plasma
+		air.adjust_gas(/datum/gas/plasma, -scrub_amt)
+		absorbed_plasma += scrub_amt
+	if (air.temperature > T20C)
+		air.temperature = max(air.temperature / 2, T20C)
+	air.garbage_collect()
+	location.air_update_turf(FALSE, FALSE)
 
 /obj/effect/particle_effect/foam/firefighting/kill_foam()
 	STOP_PROCESSING(SSfastprocess, src)
@@ -68,8 +75,8 @@
 /obj/effect/particle_effect/foam/firefighting/foam_mob(mob/living/L)
 	if(!istype(L))
 		return
-	L.adjust_fire_stacks(-2)
-	L.ExtinguishMob()
+	L.adjust_wet_stacks(2)
+	L.extinguish_mob()
 
 /obj/effect/particle_effect/foam/metal
 	name = "aluminium foam"
@@ -157,7 +164,7 @@
 	if(metal)
 		var/turf/T = get_turf(src)
 		if(isspaceturf(T)) //Block up any exposed space
-			T.PlaceOnTop(/turf/open/floor/plating/foam, flags = CHANGETURF_INHERIT_AIR)
+			T.place_on_top(/turf/open/floor/plating/foam, flags = CHANGETURF_INHERIT_AIR)
 		for(var/direction in GLOB.cardinals)
 			var/turf/cardinal_turf = get_step(T, direction)
 			if(get_area(cardinal_turf) != get_area(T)) //We're at an area boundary, so let's block off this turf!
@@ -207,18 +214,27 @@
 	return 1
 
 /obj/effect/particle_effect/foam/proc/spread_foam()
-	var/turf/t_loc = get_turf(src)
-	for(var/turf/T in t_loc.get_atmos_adjacent_turfs())
-		var/obj/effect/particle_effect/foam/foundfoam = locate() in T //Don't spread foam where there's already foam!
+	var/turf/location = get_turf(src)
+	if(!istype(location))
+		return FALSE
+
+	var/datum/can_pass_info/info = new(no_id = TRUE)
+	info.pass_flags = PASSTABLE | PASSGRILLE | PASSMACHINE | PASSSTRUCTURE
+	for(var/iter_dir in GLOB.cardinals)
+		var/turf/spread_turf = get_step(src, iter_dir)
+		if(spread_turf?.density || spread_turf.LinkBlockedWithAccess(spread_turf, info))
+			continue
+
+		var/obj/effect/particle_effect/foam/foundfoam = locate() in spread_turf //Don't spread foam where there's already foam!
 		if(foundfoam)
 			continue
 
-		if(is_type_in_typecache(T, blacklisted_turfs))
+		if(is_type_in_typecache(spread_turf, blacklisted_turfs))
 			continue
 
-		for(var/mob/living/L in T)
+		for(var/mob/living/L in spread_turf)
 			foam_mob(L)
-		var/obj/effect/particle_effect/foam/F = new src.type(T)
+		var/obj/effect/particle_effect/foam/F = new src.type(spread_turf)
 		F.amount = amount
 		reagents.copy_to(F, (reagents.total_volume))
 		F.add_atom_colour(color, FIXED_COLOUR_PRIORITY)
@@ -357,31 +373,34 @@
 
 /obj/structure/foamedmetal/resin/Initialize(mapload)
 	. = ..()
-	if(isopenturf(loc))
-		var/turf/open/turf = loc
-		turf.ClearWet()
-		if(turf.air)
-			var/datum/gas_mixture/air = turf.air
-			air.temperature = T20C
+	var/turf/open/location = loc
+	if(!istype(location))
+		return
 
-			for(var/obj/effect/hotspot/fire in turf)
-				qdel(fire)
+	location.ClearWet()
+	location.temperature = T20C
+	if(location.air)
+		var/datum/gas_mixture/air = location.air
+		air.temperature = T20C
+		for(var/obj/effect/hotspot/fire in location)
+			qdel(fire)
 
-			var/list/gases = air.gases
-			for(var/gas_type in gases)
-				if(!(ignored_gases[gas_type]))
-					gases[gas_type][MOLES] = 0
-			air.garbage_collect()
+		var/list/cached_moles = air.moles
+		for(var/gas_id in cached_moles)
+			if(!(ignored_gases[gas_id]))
+				cached_moles[gas_id] = 0
+		air.garbage_collect()
 
-		for(var/obj/machinery/atmospherics/components/unary/vent in turf)
-			if(!vent.welded)
-				vent.welded = TRUE
-				vent.update_icon()
-				vent.visible_message(span_danger("[vent] sealed shut!"))
-		for(var/mob/living/living in turf)
-			living.ExtinguishMob()
-		for(var/obj/item/item in turf)
-			item.extinguish()
+	for(var/obj/machinery/atmospherics/components/unary/comp in location)
+		if(!comp.welded)
+			comp.welded = TRUE
+			comp.update_appearance()
+			comp.visible_message(span_danger("[comp] sealed shut!"))
+
+	for(var/mob/living/potential_tinder in location)
+		potential_tinder.extinguish_mob()
+	for(var/obj/item/potential_tinder in location)
+		potential_tinder.extinguish()
 
 /obj/structure/foamedmetal/resin/chainreact
 	name = "\improper Advanced ATMOS Resin"

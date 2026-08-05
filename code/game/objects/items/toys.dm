@@ -28,6 +28,7 @@
 
 
 /obj/item/toy
+	abstract_type = /obj/item/toy
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
@@ -70,7 +71,7 @@
 	desc = "A translucent balloon. There's nothing in it."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "waterballoon-e"
-	item_state = "balloon-empty"
+	inhand_icon_state = "balloon-empty"
 
 
 /obj/item/toy/waterballoon/Initialize(mapload)
@@ -108,7 +109,7 @@
 				to_chat(user, span_notice("You fill the balloon with the contents of [I]."))
 				I.reagents.trans_to(src, 10, transfered_by = user)
 				update_icon()
-	else if(I.is_sharp())
+	else if(I.get_sharpness())
 		balloon_burst()
 	else
 		return ..()
@@ -134,17 +135,17 @@
 /obj/item/toy/waterballoon/update_icon()
 	if(src.reagents.total_volume >= 1)
 		icon_state = "waterballoon"
-		item_state = "balloon"
+		inhand_icon_state = "balloon"
 	else
 		icon_state = "waterballoon-e"
-		item_state = "balloon-empty"
+		inhand_icon_state = "balloon-empty"
 
 /obj/item/toy/balloon
 	name = "balloon"
 	desc = "No birthday is complete without it."
 	icon = 'icons/obj/balloons.dmi'
 	icon_state = "balloon"
-	item_state = "balloon"
+	inhand_icon_state = "balloon"
 	lefthand_file = 'icons/mob/inhands/misc/balloons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/balloons_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
@@ -163,20 +164,20 @@
 		var/chosen_balloon_color = pick("red", "blue", "green", "yellow")
 		name = "[chosen_balloon_color] [name]"
 		icon_state = "[icon_state]_[chosen_balloon_color]"
-		item_state = icon_state
+		inhand_icon_state = icon_state
 
 /obj/item/toy/balloon/corgi
 	name = "corgi balloon"
 	desc = "A balloon with a corgi face on it. For the all year good boys."
 	icon_state = "corgi"
-	item_state = "corgi"
+	inhand_icon_state = "corgi"
 	random_color = FALSE
 
 /obj/item/toy/balloon/syndicate
 	name = "syndicate balloon"
 	desc = "There is a tag on the back that reads \"FUK NT!11!\"."
 	icon_state = "syndballoon"
-	item_state = "syndballoon"
+	inhand_icon_state = "syndballoon"
 	random_color = FALSE
 
 /obj/item/toy/balloon/syndicate/pickup(mob/user)
@@ -213,11 +214,11 @@
 	desc = "Looks almost like the real thing! Ages 8 and up. Please recycle in an autolathe when you're out of caps."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "revolver"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	worn_icon_state = "gun"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
-	flags_1 =  CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_materials = list(/datum/material/iron=10, /datum/material/glass=10)
@@ -269,6 +270,9 @@
 						span_danger("You fire [src] at [target]!"), \
 						span_italics("You hear a gunshot!"))
 
+/obj/item/toy/ammo
+	abstract_type = /obj/item/toy/ammo
+
 /obj/item/toy/ammo/gun
 	name = "capgun ammo"
 	desc = "Make sure to recyle the box in an autolathe when it gets empty."
@@ -293,6 +297,8 @@
 	name = "toy sword"
 	desc = "A cheap, plastic replica of an energy sword. Realistic sounds! Ages 8 and up."
 	icon_state = "e_sword"
+	base_icon_state = "e_sword"
+	inhand_icon_state = "e_sword"
 	icon = 'icons/obj/transforming_energy.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
@@ -338,9 +344,12 @@
 
 /obj/item/toy/sword/update_icon_state()
 	. = ..()
-	var/last_part = HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE) ? "_on[saber_color ? "_[saber_color]" : null]" : null
-	icon_state = "[initial(icon_state)][last_part]"
-	item_state = "[initial(item_state)][last_part]"
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
+		icon_state = "[base_icon_state]_on_[saber_color]" // "esword_on_red"
+		inhand_icon_state = icon_state
+	else
+		icon_state = base_icon_state
+		inhand_icon_state = base_icon_state
 
 /obj/item/toy/sword/multitool_act(mob/living/user, obj/item/tool)
 	if(hacked)
@@ -381,7 +390,7 @@
 	desc = "It says \"Sternside Changs #1 fan\" on it."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "foamblade"
-	item_state = "arm_blade"
+	inhand_icon_state = "arm_blade"
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	attack_verb_continuous = list("pricks", "absorbs", "gores")
@@ -396,9 +405,9 @@
 /obj/item/toy/batong
 	name = "batong"
 	desc = "Despite being a cheap plastic imitation of a stunbaton, it can still be charged."
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/weapons/baton.dmi'
 	icon_state = "stunbaton"
-	item_state = "baton"
+	inhand_icon_state = "baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	attack_verb_continuous = list("batongs", "stuns", "hits")
@@ -410,7 +419,7 @@
 	name = "windup toolbox"
 	desc = "A replica toolbox that rumbles when you turn the key."
 	icon_state = "his_grace"
-	item_state = "artistic_toolbox"
+	inhand_icon_state = "artistic_toolbox"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
 	var/active = FALSE
@@ -492,11 +501,11 @@
 	desc = "Woefully underpowered in D20."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "katana"
-	item_state = "katana"
+	inhand_icon_state = "katana"
 	worn_icon_state = "katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	force = 15
 	throwforce = 5
@@ -506,7 +515,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 	canblock = TRUE
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	item_flags = ISWEAPON
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_SURFACE
@@ -551,7 +560,7 @@
 	SIGNAL_HANDLER
 	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
 		var/mob/living/carbon/M = H
-		if(issilicon(H) || M.m_intent == MOVE_INTENT_RUN)
+		if(issilicon(H) || M.move_intent == MOVE_INTENT_RUN)
 			to_chat(M, span_danger("You step on the snap pop!"))
 			pop_burst(2, 0)
 
@@ -590,6 +599,7 @@
 /obj/item/toy/mecha/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/series, /obj/item/toy/mecha, "Mini-Mecha action figures")
+	AddElement(/datum/element/toy_talk)
 
 //all credit to skasi for toy mech fun ideas
 /obj/item/toy/mecha/attack_self(mob/user)
@@ -1092,7 +1102,7 @@
 /obj/item/toy/cards/cardhand/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	return TRUE
 
@@ -1329,7 +1339,7 @@
 	icon = 'icons/misc/beach.dmi'
 	icon_state = "ball"
 	name = "beach ball"
-	item_state = "beachball"
+	inhand_icon_state = "beachball"
 	w_class = WEIGHT_CLASS_BULKY //Stops people from hiding it in their bags/pockets
 	item_flags = NO_PIXEL_RANDOM_DROP
 
@@ -1368,7 +1378,7 @@
 	desc = "A cheap plastic replica of a dagger. Produced by THE ARM Toys, Inc."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
-	item_state = "cultdagger"
+	inhand_icon_state = "cultdagger"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -1463,6 +1473,7 @@
 /obj/item/toy/figure/Initialize(mapload)
 	. = ..()
 	desc = "A \"Space Life\" brand [src]."
+	AddElement(/datum/element/toy_talk)
 
 /obj/item/toy/figure/attack_self(mob/user as mob)
 	if(cooldown <= world.time)
@@ -1478,7 +1489,7 @@
 /obj/item/toy/figure/assistant
 	name = "\improper Assistant action figure"
 	icon_state = "assistant"
-	item_state = "doll"
+	inhand_icon_state = "doll"
 	toysay = "Greytide world wide!"
 
 /obj/item/toy/figure/atmos
@@ -1680,7 +1691,7 @@
 	desc = "It's a dummy, dummy. Use .l to talk out of it if held in your left hand, or .r if held in your right hand."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "puppet"
-	item_state = "puppet"
+	inhand_icon_state = "puppet"
 	var/doll_name = "Dummy"
 
 //Add changing looks when i feel suicidal about making 20 inhands for these.
@@ -1696,15 +1707,11 @@
 	to_chat(user, "You name the dummy as \"[doll_name]\"")
 	name = "[initial(name)] - [doll_name]"
 
-/obj/item/toy/dummy/talk_into(atom/movable/A, message, channel, list/spans, datum/language/language, list/message_mods)
-	var/mob/M = A
-	if (istype(M))
-		M.log_talk(message, LOG_SAY, tag="dummy toy")
+/obj/item/toy/dummy/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/toy_talk)
 
-	say(message, language)
-	return NOPASS
-
-/obj/item/toy/dummy/GetVoice()
+/obj/item/toy/dummy/get_voice()
 	return doll_name
 
 /*

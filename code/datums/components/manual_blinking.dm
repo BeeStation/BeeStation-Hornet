@@ -13,7 +13,7 @@
 
 /datum/action/blink
 	name = "Blink"
-	icon_icon = 'icons/hud/actions/actions_hive.dmi'
+	button_icon = 'icons/hud/actions/actions_hive.dmi'
 	button_icon_state = "see"						//Feel free to replace
 	check_flags = AB_CHECK_CONSCIOUS
 
@@ -33,7 +33,7 @@
 		button.Grant(parent)
 		to_chat(C, span_userdanger("You suddenly realize you're blinking manually."))
 
-/datum/component/manual_blinking/Destroy(force, silent)
+/datum/component/manual_blinking/Destroy(force)
 	E = null
 	STOP_PROCESSING(SSdcs, src)
 	to_chat(parent, span_userdanger("You revert back to automatic blinking."))
@@ -45,14 +45,14 @@
 	RegisterSignal(parent, COMSIG_CARBON_GAIN_ORGAN, PROC_REF(check_added_organ))
 	RegisterSignal(parent, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(check_removed_organ))
 	RegisterSignal(parent, COMSIG_LIVING_REVIVE, PROC_REF(restart))
-	RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(pause))
+	RegisterSignal(parent, COMSIG_LIVING_DEATH, PROC_REF(pause))
 
 /datum/component/manual_blinking/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_MOB_EMOTE)
 	UnregisterSignal(parent, COMSIG_CARBON_GAIN_ORGAN)
 	UnregisterSignal(parent, COMSIG_CARBON_LOSE_ORGAN)
 	UnregisterSignal(parent, COMSIG_LIVING_REVIVE)
-	UnregisterSignal(parent, COMSIG_MOB_DEATH)
+	UnregisterSignal(parent, COMSIG_LIVING_DEATH)
 
 /datum/component/manual_blinking/proc/restart()
 	SIGNAL_HANDLER

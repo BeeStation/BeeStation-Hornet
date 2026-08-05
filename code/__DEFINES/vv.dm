@@ -35,7 +35,7 @@
 #define VV_BIG_SIZED_LIST_THRESHOLD 50
 
 //#define IS_VALID_ASSOC_KEY(V) (istext(V) || ispath(V) || isdatum(V) || islist(V))
-#define IS_VALID_ASSOC_KEY(V) (!isnum_safe(V))		//hhmmm..
+#define IS_VALID_ASSOC_KEY(V) (!IS_FINITE(V))		//hhmmm..
 
 //General helpers
 #define VV_HREF_TARGET_INTERNAL(target, href_key) "?_src_=vars;[HrefToken()];[href_key]=TRUE;[VV_HK_TARGET]=[REF(target)]"
@@ -61,7 +61,7 @@
 
 // VV HREF KEYS
 #define VV_HK_TARGET "target"
-#define VV_HK_VARNAME "targetvar"		//name or index of var for 1 variable targetting hrefs.
+#define VV_HK_VARNAME "targetvar"		//name or index of var for 1 variable targeting hrefs.
 
 // vv_do_list() keys
 #define VV_HK_LIST_ADD "listadd"
@@ -93,6 +93,8 @@
 // /datum/weakref
 #define VV_HK_WEAKREF_RESOLVE "weakref_resolve"
 
+// /icon
+#define VV_HK_VIEW_ICON "view_icon"
 
 // /atom
 #define VV_HK_MODIFY_TRANSFORM "atom_transform"
@@ -110,10 +112,7 @@
 #define VV_HK_REMOVE_EMITTER "remove_emitter"
 #define VV_HK_ADD_AI "add_ai"
 
-// /datum/gas_mixture
-#define VV_HK_SET_MOLES "set_moles"
-#define VV_HK_EMPTY "empty"
-#define VV_HK_SET_TEMPERATURE "set_temp"
+// /turf
 #define VV_HK_UPDATE_ACTIVE_TURF "update_active_turfs"
 
 // /obj
@@ -152,6 +151,9 @@
 #define VV_HK_GIVE_HALLUCINATION "give_hallucination"
 #define VV_HK_GIVE_DELUSION_HALLUCINATION "give_hallucination_delusion"
 
+// /mob/living
+#define VV_HK_GIVE_SPEECH_IMPEDIMENT "impede_speech"
+
 // /mob/living/carbon
 #define VV_HK_MAKE_AI "aiify"
 #define VV_HK_MODIFY_BODYPART "mod_bodypart"
@@ -189,24 +191,22 @@
 #define VV_ALWAYS_CONTRACT_LIST (1<<0)
 #define VV_READ_ONLY (1<<1)
 
-
-#define VV_LIST_PROTECTED (1) /// Can not vv the list. Doing vv this list is not safe.
-#define VV_LIST_READ_ONLY (2) /// Can vv the list, but can not edit.
-#define VV_LIST_EDITABLE (3) /// Can vv the list, and edit.
+#define VV_LIST_PROTECTED (1) //! Can not vv the list. Doing vv this list is not safe.
+#define VV_LIST_READ_ONLY (2) //! Can vv the list, but can not edit.
+#define VV_LIST_EDITABLE (3) //! Can vv the list, and edit.
 
 // Becomes read only at live, editable at debug, dynamically
-#ifdef DEBUG
-#define VV_LIST_READ_ONLY___DEBUG_EDITABLE (3)
+#if defined(LOWMEMORYMODE) || defined(QUICKSTART)
+#define VV_LIST_READ_ONLY___DEBUG_EDITABLE (VV_LIST_EDITABLE)
 #else
-#define VV_LIST_READ_ONLY___DEBUG_EDITABLE (2)
+#define VV_LIST_READ_ONLY___DEBUG_EDITABLE (VV_LIST_READ_ONLY)
 #endif
-
 /// A list of all the special byond lists that need to be handled different by vv.
 /// manually adding var name is recommanded.
 GLOBAL_LIST_INIT(vv_special_lists, list(
 	// /datum
 	"vars" = VV_LIST_READ_ONLY,
-	// /atom
+	// /atoms
 	"overlays" = VV_LIST_EDITABLE,
 	"underlays" = VV_LIST_EDITABLE,
 	"vis_contents" = VV_LIST_EDITABLE,
@@ -221,7 +221,6 @@ GLOBAL_LIST_INIT(vv_special_lists, list(
 	"screen" = VV_LIST_EDITABLE,
 ))
 // NOTE: this is highly attached to how /datum/vv_ghost works.
-
 
 #ifndef DEBUG
 GLOBAL_PROTECT(vv_special_lists) // changing this in live server is a bad idea

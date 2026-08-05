@@ -8,7 +8,7 @@
 	desc = "A device that is able to create sounds."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "radio"
-	item_state = "radio"
+	inhand_icon_state = "radio"
 	w_class = WEIGHT_CLASS_TINY
 	siemens_coefficient = 1
 
@@ -124,13 +124,13 @@
 	if(sound_lengths[selected_sound_name])
 		return sound_lengths[selected_sound_name]
 	var/list/sound/sounds = hearer.client.SoundQuery()
-	for(var/sound/sound as() in sounds)
+	for(var/sound/sound as anything in sounds)
 		var/list/sound_name = sound_filenames[sound.file]
 		if(sound_name)
 			// Just in case something goes fucky wucky, don't cache a bad result.
-			if(!isnum_safe(sound.len) || sound.len <= 0)
+			if(!IS_FINITE(sound.len) || sound.len <= 0)
 				continue
-			var/sound_len = CEILING(sound.len * 10, 1)
+			var/sound_len = ceil(sound.len * 10)
 			sound_lengths[sound_name] = sound_len
 			if(sound_name == selected_sound_name)
 				. = sound_len

@@ -22,7 +22,6 @@
 #define PARALLAX_DELAY_LOW     2
 
 #define SEC_DEPT_NONE "None"
-#define SEC_DEPT_RANDOM "Random"
 #define SEC_DEPT_ENGINEERING "Engineering"
 #define SEC_DEPT_MEDICAL "Medical"
 #define SEC_DEPT_SCIENCE "Science"
@@ -60,25 +59,36 @@
 #define JP_MEDIUM 2
 #define JP_HIGH 3
 
-//Backpacks
-#define GBACKPACK "Grey Backpack"
-#define GSATCHEL "Grey Satchel"
-#define GDUFFELBAG "Grey Duffel Bag"
-#define LSATCHEL "Leather Satchel"
+// Types of backpack
+/// Backpack type: Department themed backpack
 #define DBACKPACK "Department Backpack"
-#define DSATCHEL "Department Satchel"
+/// Backpack type: Department themed duffelbag
 #define DDUFFELBAG "Department Duffel Bag"
+/// Backpack type: Department themed satchel
+#define DSATCHEL "Department Satchel"
+/// Backpack type: Department themed messenger bag
+#define DMESSENGER "Department Messenger Bag"
+/// Backpack type: Grey backpack
+#define GBACKPACK "Grey Backpack"
+/// Backpack type: Grey duffelbag
+#define GDUFFELBAG "Grey Duffel Bag"
+/// Backpack type: Grey satchel
+#define GSATCHEL "Grey Satchel"
+/// Backpack type: Grey messenger bag
+#define GMESSENGER "Grey Messenger Bag"
+/// Backpack type: Leather satchel
+#define LSATCHEL "Leather Satchel"
 
 //Suit/Skirt
+/// Preference: Jumpsuit
 #define PREF_SUIT "Jumpsuit"
+/// Preference: Jumpskirt
 #define PREF_SKIRT "Jumpskirt"
 
 //Uplink spawn loc
 #define UPLINK_PDA "PDA"
 #define UPLINK_RADIO "Radio"
 #define UPLINK_PEN "Pen" //like a real spy!
-#define UPLINK_IMPLANT "Implant"
-#define UPLINK_IMPLANT_WITH_PRICE "[UPLINK_IMPLANT] (-[UPLINK_IMPLANT_TELECRYSTAL_COST] TC)"
 
 //Plasmamen helmet styles
 #define HELMET_DEFAULT "Default"
@@ -125,6 +135,11 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 /// These are preferences that are supplementary for main features,
 /// such as hair color being affixed to hair.
 #define PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES "supplemental_features"
+
+
+/// The key used for sprite accessories that should never actually be applied to the player.
+#define SPRITE_ACCESSORY_NONE "None"
+
 
 //randomized elements
 #define RANDOM_ANTAG_ONLY 1
@@ -237,6 +252,9 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 
 /// Dependant on gender to create an informed value
 #define PREFERENCE_PRIORITY_UNDERWEAR 4
+
+/// Dependant on gender to create an informed value
+#define PREFERENCE_PRIORITY_JUMPSUIT 4
 
 /// Dependant on hair colour to create an informed value
 #define PREFERENCE_PRIORITY_FACIAL_COLOR 5

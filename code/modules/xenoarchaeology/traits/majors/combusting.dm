@@ -19,7 +19,7 @@
 		if(iscarbon(target))
 			var/mob/living/carbon/victim = target
 			victim.adjust_fire_stacks(max_stacks*(component_parent.trait_strength/100))
-			victim.IgniteMob()
+			victim.ignite_mob()
 		else
 			target.fire_act(1000, 500)
 	dump_targets()

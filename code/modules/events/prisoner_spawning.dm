@@ -12,18 +12,18 @@
 
 /datum/round_event/ghost_role/prisoner/spawn_role()
 	var/list/possible_spawns = list()
-	for(var/turf/L in GLOB.prisonspawn)
-		possible_spawns += L
+	for(var/obj/effect/landmark/start/prisoner/spawnpoint in GLOB.start_landmarks_list)
+		possible_spawns += spawnpoint.loc
 	if(!length(possible_spawns))
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 	var/turf/landing_turf = pick(possible_spawns)
-	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+	var/datum/poll_config/config = new(
 		check_jobban = ROLE_PRISONER,
-		poll_time = 30 SECONDS,
 		role_name_text = "prisoner",
 		alert_pic = /obj/item/card/id/prisoner,
 	)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(config)
 	var/result = spawn_prisoners(landing_turf, candidates, spawned_mobs)
 	if(result != SUCCESSFUL_SPAWN)
 		return result
@@ -35,9 +35,9 @@
 	for (var/mob/H in SSdynamic.current_players[CURRENT_LIVING_PLAYERS])
 		if(H.mind)
 			var/datum/mind/M = H.mind
-			if (M.assigned_role == JOB_NAME_SECURITYOFFICER || M.assigned_role == JOB_NAME_HEADOFSECURITY)
+			if (M.assigned_role.title == JOB_NAME_SECURITYOFFICER || M.assigned_role.title == JOB_NAME_HEADOFSECURITY)
 				job_check += 1
-			if (M.assigned_role == JOB_NAME_WARDEN)
+			if (M.assigned_role.title == JOB_NAME_WARDEN)
 				job_check += 2
 
 	var/member_size = rand(1, round(job_check/2) + 1)
@@ -58,7 +58,7 @@
 	pod.explosionSize = list(0, 0, 0, 0)
 	S.forceMove(pod)
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = ROLE_PRISONER
+	player_mind.set_assigned_role(SSjob.get_job_type(/datum/job/prisoner))
 	player_mind.special_role = ROLE_PRISONER
 	var/datum/antagonist/prisoner/A = new()
 	player_mind.add_antag_datum(A)

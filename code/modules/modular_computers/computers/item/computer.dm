@@ -11,13 +11,13 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 3
 	light_power = 0.6
-	light_color = "#FFFFFF"
+	light_color = COLOR_WHITE
 	light_on = FALSE
 
 	// Whether the computer is turned on.
-	var/enabled = 0
+	var/enabled = FALSE
 	// Whether the computer is active/opened/it's screen is on.
-	var/screen_on = 1
+	var/screen_on = TRUE
 	/// If it's bypassing the set icon state
 	var/bypass_state = FALSE
 	/// Whether or not the computer can be upgraded
@@ -87,7 +87,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// How far the computer's light can reach, is not editable by players.
 	var/comp_light_luminosity = 3
 	/// The built-in light's color, editable by players.
-	var/comp_light_color = "#FFFFFF"
+	var/comp_light_color = COLOR_WHITE
 	/// Whether or not the tablet is invisible in messenger and other apps
 	var/messenger_invisible = FALSE
 	/// The saved image used for messaging purposes
@@ -97,13 +97,20 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// If the device starts with its ringer on
 	var/init_ringer_on = TRUE
 	/// Stored pAI card
-	var/obj/item/paicard/stored_pai_card
+	var/obj/item/pai_card/stored_pai_card
 	/// If the device is capable of storing a pAI
 	var/can_store_pai = FALSE
 	/// Level of Virus Defense to be added on initialize to the pre instaled hard drive this happens in tablet/PDA, Normal detomatix halves at 2, fails at 3
 	var/default_virus_defense = ANTIVIRUS_NONE
 	/// Multiplier for power usage
 	var/power_usage_multiplier = 1
+	/// People looking at the computer
+	var/list/computer_users = list()
+
+	/// Looping sound for when the computer is on.
+	var/datum/looping_sound/computer/soundloop
+	/// Whether or not this modular computer uses the looping sound
+	var/looping_sound = TRUE
 
 /datum/armor/item_modular_computer
 	bullet = 20
@@ -118,6 +125,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		physical = src
 	set_light_color(comp_light_color)
 	set_light_range(comp_light_luminosity)
+	if(looping_sound)
+		soundloop = new(src, enabled)
 	idle_threads = list()
 	update_id_display()
 	if(has_light)
@@ -147,8 +156,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
 
 /obj/item/modular_computer/Destroy()
-	kill_program(forced = TRUE)
 	STOP_PROCESSING(SSobj, src)
+	kill_program(forced = TRUE)
+	if(soundloop)
+		QDEL_NULL(soundloop)
+	looping_sound = FALSE // Necessary to stop a possible runtime trying to call soundloop.stop() when soundloop has been qdel'd
 	all_components?.Cut()
 	if(istype(stored_pai_card))
 		qdel(stored_pai_card)
@@ -212,6 +224,13 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return card_slot.GetID()
 	return ..()
 
+/obj/item/modular_computer/get_id_examine_strings(mob/user)
+	. = ..()
+	var/obj/item/card/id/stored_id = GetID()
+	if(stored_id)
+		. += "[src] is displaying [stored_id]:"
+		. += stored_id.get_id_examine_strings(user)
+
 /obj/item/modular_computer/RemoveID()
 	var/obj/item/computer_hardware/card_slot/card_slot2 = all_components[MC_CARD2]
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
@@ -235,7 +254,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(!inserting_id)
 		return FALSE
 
-	if((card_slot?.try_insert(inserting_id)) || (card_slot2?.try_insert(inserting_id)))
+	if((card_slot?.application_attackby(inserting_id)) || (card_slot2?.application_attackby(inserting_id)))
 		if(ishuman(loc))
 			var/mob/living/carbon/human/human_wearer = loc
 			if(human_wearer.wear_id == src)
@@ -373,18 +392,22 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	// If we have a recharger, enable it automatically. Lets computer without a battery work.
 	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGER]
 	if(recharger)
-		recharger.enabled = 1
+		recharger.enabled = TRUE
 
 	if(all_components[MC_CPU] && use_power()) // use_power() checks if the PC is powered
-		if(issynth)
-			to_chat(user, span_notice("You send an activation signal to \the [src], turning it on."))
+		if(looping_sound)
+			soundloop.start()
 		else
-			to_chat(user, span_notice("You press the power button and start up \the [src]."))
-		enabled = 1
-		playsound(src, 'sound/machines/terminal_on.ogg', 50, TRUE)
+			playsound(src, 'sound/machines/terminal_on.ogg', 50, TRUE)
+		enabled = TRUE
 		update_appearance()
-		if(open_ui)
-			ui_interact(user)
+		if(user)
+			if(issynth)
+				to_chat(user, span_notice("You send an activation signal to \the [src], turning it on."))
+			else
+				to_chat(user, span_notice("You press the power button and start up \the [src]."))
+			if(open_ui)
+				ui_interact(user)
 		return TRUE
 	else // Unpowered
 		if(issynth)
@@ -404,13 +427,17 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		shutdown_computer()
 		return 0
 
-	if(active_program && active_program.requires_ntnet && !get_ntnet_status(active_program.requires_ntnet_feature))
+	if(active_program && active_program.requires_ntnet && !get_ntnet_status())
 		active_program.event_networkfailure(0) // Active program requires NTNet to run but we've just lost connection. Crash.
 
-	for(var/I in idle_threads)
-		var/datum/computer_file/program/P = I
-		if(P.requires_ntnet && !get_ntnet_status(P.requires_ntnet_feature))
-			P.event_networkfailure(1)
+	for(var/datum/computer_file/program/idle_programs as anything in idle_threads)
+		if(idle_programs.program_state == PROGRAM_STATE_KILLED)
+			idle_threads.Remove(idle_programs)
+			continue
+		idle_programs.process_tick(delta_time)
+		idle_programs.ntnet_status = get_ntnet_status()
+		if(idle_programs.requires_ntnet && !idle_programs.ntnet_status)
+			idle_programs.event_networkfailure(TRUE)
 
 	if(active_program)
 		if(active_program.program_state != PROGRAM_STATE_KILLED)
@@ -540,7 +567,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	data["PC_programheaders"] = program_headers
 
 	data["PC_stationtime"] = station_time_timestamp()
-	data["PC_stationdate"] = "[time2text(world.realtime, "DDD, Month DD")], [GLOB.year_integer+YEAR_OFFSET]"
+	data["PC_stationdate"] = "[time2text(world.realtime, "DDD, Month DD")], [CURRENT_STATION_YEAR]"
 	data["PC_hasheader"] = 1
 	data["PC_showexitprogram"] = active_program ? 1 : 0 // Hides "Exit Program" button on mainscreen
 	return data
@@ -585,7 +612,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		to_chat(user, span_danger("\The [src] displays a \"Maximal CPU load reached. Unable to run another program.\" error."))
 		return FALSE
 
-	if(program.requires_ntnet && !get_ntnet_status(program.requires_ntnet_feature)) // The program requires NTNet connection, but we are not connected to NTNet.
+	if(program.requires_ntnet && !get_ntnet_status()) // The program requires NTNet connection, but we are not connected to NTNet.
 		to_chat(user, span_danger("\The [src]'s screen shows \"Unable to connect to NTNet. Please retry. If problem persists contact your system administrator.\" warning."))
 		return FALSE
 
@@ -603,12 +630,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	return TRUE
 
 
-
 // Returns 0 for No Signal, 1 for Low Signal and 2 for Good Signal. 3 is for wired connection (always-on)
-/obj/item/modular_computer/proc/get_ntnet_status(specific_action = 0)
+/obj/item/modular_computer/proc/get_ntnet_status()
 	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
 	if(network_card)
-		return network_card.get_signal(specific_action)
+		return network_card.get_signal()
 	else
 		return 0
 
@@ -616,24 +642,22 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
  * Passes a message to be logged by SSnetworks
  *
  * Should a Modular want to create a log on the network this is the proc to use
- * it will pass all its information onto SSnetworks which have their own add_log proc.
- * It will automatically apply the network argument on its own.
+ * it will pass all its information onto SSmodular_computers which handles logging.
  * Arguments:
  * * text - message to log
- * * log_id - if we want IDs not to be printed on the log (Hardware ID and Identification string)
- * * card = network card, will extract identification string and hardware ID from it (if log_id = TRUE).
  */
-/obj/item/modular_computer/proc/add_log(text, log_id = FALSE, obj/item/computer_hardware/network_card/card)
+/obj/item/modular_computer/proc/add_log(text)
 	if(!get_ntnet_status())
 		return FALSE
-	if(!card)
-		card = all_components[MC_NET]
-	return SSnetworks.add_log(text, card.GetComponent(/datum/component/ntnet_interface).network, card.hardware_id, log_id, card)
-	// We also return network_card so SSnetworks can extract values from it itself
+	return SSmodular_computers.add_log("[src]: [text]")
+
 
 /obj/item/modular_computer/proc/shutdown_computer(loud = 1)
-	playsound(src, 'sound/machines/terminal_off.ogg', 50, TRUE)
 	kill_program(forced = TRUE)
+	if(looping_sound)
+		soundloop.stop()
+	else
+		playsound(src, 'sound/machines/terminal_off.ogg', 50, TRUE)
 	for(var/datum/computer_file/program/P in idle_threads)
 		P.kill_program(forced = TRUE)
 		idle_threads.Remove(P)
@@ -641,6 +665,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		physical.visible_message(span_notice("\The [src] shuts down."))
 	enabled = 0
 	update_appearance()
+
+/obj/item/modular_computer/proc/imprint_id(name = null, job_name = null)
+	//These components are so idiotic
+	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
+	var/obj/item/computer_hardware/identifier/id = all_components[MC_IDENTIFY]
+	saved_identification = name || card_slot?.stored_card.registered_name || saved_identification
+	saved_job = job_name || card_slot?.stored_card?.assignment || saved_job
+	id?.UpdateDisplay()
 
 /**
   * Toggles the computer's flashlight, if it has one.
@@ -764,12 +796,12 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	// Insert items into the components
 	for(var/h in all_components)
 		var/obj/item/computer_hardware/H = all_components[h]
-		if(H.try_insert(attacking_item, user))
+		if(H.application_attackby(attacking_item, user))
 			ui_update()
 			return
 
 	// Insert a pAI card
-	if(can_store_pai && !stored_pai_card && istype(attacking_item, /obj/item/paicard))
+	if(can_store_pai && !stored_pai_card && istype(attacking_item, /obj/item/pai_card))
 		if(!user.transferItemToLoc(attacking_item, src))
 			return
 		stored_pai_card = attacking_item
@@ -793,9 +825,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			balloon_alert(user, "remove the other components!")
 			return
 		attacking_item.play_tool_sound(src, user, 20, volume=20)
-		new /obj/item/stack/sheet/iron( get_turf(src.loc), steel_sheet_cost )
+		if(steel_sheet_cost > 0)
+			new /obj/item/stack/sheet/iron(drop_location(), steel_sheet_cost)
 		user.balloon_alert(user, "disassembled")
-		relay_qdel()
 		qdel(src)
 		return
 
@@ -838,10 +870,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 	update_appearance()
 
-// Used by processor to relay qdel() to machinery type.
-/obj/item/modular_computer/proc/relay_qdel()
-	return
-
 // Perform adjacency checks on our physical counterpart, if any.
 /obj/item/modular_computer/Adjacent(atom/neighbor)
 	if(physical && physical != src)
@@ -855,13 +883,13 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	GLOB.TabletMessengers -= src
 
 // Make messages visible via allow_inside_usr
-/obj/item/modular_computer/visible_message(message, self_message, blind_message, vision_distance, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = TRUE)
+/obj/item/modular_computer/visible_message(message, self_message, blind_message, vision_distance, list/ignored_mobs, visible_message_flags = NONE, allow_inside_usr = TRUE)
 	return ..()
 
 /obj/item/modular_computer/multitool_act(mob/living/user, obj/item/I)
 	var/time_to_diagnose = 3 SECONDS
 	var/will_pass = FALSE
-	if(user.mind?.assigned_role in list(JOB_NAME_SCIENTIST, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_DETECTIVE))	// Scientist and Detective buff
+	if(user.mind?.assigned_role.title in list(JOB_NAME_SCIENTIST, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_DETECTIVE))	// Scientist and Detective buff
 		will_pass = TRUE
 	if(HAS_TRAIT(user, TRAIT_COMPUTER_WHIZ))	// Trait buff
 		time_to_diagnose = 1 SECONDS

@@ -61,7 +61,7 @@
 			ref = i["ref"],
 			name = i["name"],
 		)
-		data["object"] += list(objectdata)
+		data["objects"] += list(objectdata)
 
 	data["target"] = list()
 	var/list/trackinfo = track()
@@ -105,7 +105,7 @@
 	var/pointer_z = ""
 	var/locx = (target_turf.x - here_turf.x) + 24
 	var/locy = (here_turf.y - target_turf.y) + 24
-	var/dist = get_dist_euclidian(here_turf, target_turf)
+	var/dist = get_dist_euclidean(here_turf, target_turf)
 
 	// this stores the z-value difference
 	var/z_comparison_result_value
@@ -217,7 +217,7 @@
 
 	var/here_turf = get_turf(computer)
 	var/target_turf = get_turf(signal)
-	var/trackdistance = get_dist_euclidian(here_turf, target_turf)
+	var/trackdistance = get_dist_euclidean(here_turf, target_turf)
 	switch(trackdistance)
 		if(0)
 			program_icon_state = "[initial(program_icon_state)]direct"
@@ -355,20 +355,20 @@
 	if(!COOLDOWN_FINISHED(src, last_scan))
 		return
 	COOLDOWN_START(src, last_scan, SCAN_COOLDOWN)
-	objects = list()
-	for(var/i in GLOB.nuke_list)
-		var/obj/machinery/nuclearbomb/nuke = i
 
+	objects = list()
+	for(var/obj/machinery/nuclearbomb/nuke as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb))
 		var/list/nukeinfo = list(
-			ref = REF(nuke),
-			name = nuke.name,
-			)
+			"ref" = REF(nuke),
+			"name" = nuke.name,
+		)
 		objects += list(nukeinfo)
+
 	var/obj/item/disk/nuclear/disk = locate() in GLOB.poi_list
 	var/list/nukeinfo = list(
-		ref = REF(disk),
-		name = "Nuke Auth. Disk",
-		)
+		"ref" = REF(disk),
+		"name" = "Nuke Auth. Disk",
+	)
 	objects += list(nukeinfo)
 
 #undef SCAN_COOLDOWN

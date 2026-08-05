@@ -32,7 +32,7 @@
 				to_chat(affected_mob, span_warning("You feel a stabbing pain in your abdomen!"))
 				affected_mob.adjustOrganLoss(ORGAN_SLOT_APPENDIX, 5)
 				affected_mob.Stun(rand(40, 60))
-				affected_mob.adjustToxLoss(1, FALSE)
+				affected_mob.adjustToxLoss(1, forced = TRUE)
 		if(3)
 			if(DT_PROB(0.5, delta_time))
 				affected_mob.vomit(95)

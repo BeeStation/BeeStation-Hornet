@@ -2,6 +2,7 @@
 //they are the easiest to cure, which means that if you want
 //to keep them, you can't cure your other traumas
 /datum/brain_trauma/special
+	abstract_type = /datum/brain_trauma/special
 
 /datum/brain_trauma/special/godwoken
 	name = "Godwoken Syndrome"
@@ -275,7 +276,7 @@
 /obj/effect/client_image_holder/securitron
 	name = "Securitron"
 	desc = "The LAW is coming."
-	image_icon = 'icons/mob/aibots.dmi'
+	image_icon = 'icons/mob/silicon/aibots.dmi'
 	image_state = "secbot-c"
 	var/victim
 
@@ -442,7 +443,7 @@
 			continue
 		if(!isliving(nearby_viewers) || !nearby_viewers.mind || nearby_viewers.client?.is_afk())
 			continue
-		if(IS_VAMPIRE(nearby_viewers) || IS_VASSAL(nearby_viewers))
+		if(HAS_MIND_TRAIT(nearby_viewers, TRAIT_VAMPIRE_ALIGNED))
 			continue
 		if(nearby_viewers.has_unlimited_silicon_privilege || nearby_viewers.is_blind())
 			continue

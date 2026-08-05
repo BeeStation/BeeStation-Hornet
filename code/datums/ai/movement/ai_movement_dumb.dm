@@ -12,9 +12,7 @@
 	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(post_move))
 
 /datum/ai_movement/dumb/allowed_to_move(datum/move_loop/has_target/source)
-	. = ..()
 	var/turf/target_turf = get_step_towards(source.moving, source.target)
-
-	if(is_type_in_typecache(target_turf, GLOB.dangerous_turfs))
-		. = FALSE
-	return .
+	if(!target_turf?.can_cross_safely(source.moving))
+		return FALSE
+	return ..()

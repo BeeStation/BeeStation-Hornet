@@ -1,6 +1,8 @@
 /// Max number of unanchored items that will be moved from a tile when attempting to add a window to a grille.
 #define CLEAR_TILE_MOVE_LIMIT 20
 
+WANTS_POWER_NODE(/obj/structure/grille)
+
 /obj/structure/grille
 	desc = "A flimsy framework of iron rods."
 	name = "grille"
@@ -9,10 +11,9 @@
 	base_icon_state = "grille"
 	density = TRUE
 	anchored = TRUE
-	flags_1 = CONDUCT_1
 	pass_flags_self = PASSGRILLE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
-	obj_flags = CAN_BE_HIT | IGNORE_DENSITY
+	obj_flags = parent_type::obj_flags | CONDUCTS_ELECTRICITY | IGNORE_DENSITY
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
 	armor_type = /datum/armor/structure_grille
@@ -188,10 +189,12 @@
 	if(!. && istype(mover, /obj/projectile))
 		return prob(30)
 
-/obj/structure/grille/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
-	. = !density
-	if(istype(passing_atom))
-		. = . || (passing_atom.pass_flags & PASSGRILLE)
+/obj/structure/grille/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags & PASSGRILLE)
+		return TRUE
+	return FALSE
 
 /obj/structure/grille/attackby(obj/item/W, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -200,13 +203,14 @@
 		if(!shock(user, 100 * W.siemens_coefficient))
 			W.play_tool_sound(src, 100)
 			deconstruct()
+		return TRUE
 	else if((W.tool_behaviour == TOOL_SCREWDRIVER) && (isturf(loc) || anchored))
 		if(!shock(user, 90 * W.siemens_coefficient))
 			W.play_tool_sound(src, 100)
 			set_anchored(!anchored)
 			user.visible_message(span_notice("[user] [anchored ? "fastens" : "unfastens"] [src]."), \
 								span_notice("You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor."))
-			return
+		return TRUE
 	else if(istype(W, /obj/item/stack/rods) && broken)
 		var/obj/item/stack/rods/R = W
 		if(!shock(user, 90 * W.siemens_coefficient))
@@ -214,7 +218,7 @@
 								span_notice("You rebuild the broken grille."))
 			repair_grille()
 			R.use(1)
-			return
+		return TRUE
 
 //window placing begin
 	else if(is_glass_sheet(W))
@@ -248,7 +252,7 @@
 				else if(istype(W, /obj/item/stack/sheet/rglass))
 					WD = new/obj/structure/window/reinforced/fulltile(drop_location()) //reinforced window
 				else if(istype(W, /obj/item/stack/sheet/titaniumglass))
-					WD = new/obj/structure/window/shuttle(drop_location())
+					WD = new/obj/structure/window/reinforced/shuttle(drop_location())
 				else if(istype(W, /obj/item/stack/sheet/plastitaniumglass))
 					WD = new/obj/structure/window/reinforced/plasma/plastitanium(drop_location())
 				else

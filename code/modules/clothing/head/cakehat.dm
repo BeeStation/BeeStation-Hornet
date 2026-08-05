@@ -4,7 +4,7 @@
 	icon = 'icons/obj/clothing/head/costume.dmi'
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "hardhat0_cakehat"
-	item_state = "hardhat0_cakehat"
+	inhand_icon_state = "hardhat0_cakehat"
 	hat_type = "cakehat"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
@@ -48,14 +48,14 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/clothing/head/utility/hardhat/cakehat/is_hot()
+/obj/item/clothing/head/utility/hardhat/cakehat/get_temperature()
 	return on * heat
 
 /obj/item/clothing/head/utility/hardhat/cakehat/energycake
 	name = "energy cake"
 	desc = "You put the energy sword on your cake. Brilliant."
 	icon_state = "hardhat0_energycake"
-	item_state = "hardhat0_energycake"
+	inhand_icon_state = "hardhat0_energycake"
 	hat_type = "energycake"
 	hitsound = 'sound/weapons/tap.ogg'
 	hitsound_on = 'sound/weapons/blade1.ogg'

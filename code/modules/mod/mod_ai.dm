@@ -67,7 +67,7 @@
 	on_removed_assistant(old_ai)
 
 /// Place a pAI in control of your suit functions
-/obj/item/mod/control/proc/insert_pai(mob/user, obj/item/paicard/card)
+/obj/item/mod/control/proc/insert_pai(mob/user, obj/item/pai_card/card)
 	if (!isnull(ai_assistant))
 		balloon_alert(user, "slot occupied!")
 		return FALSE
@@ -85,7 +85,7 @@
 	var/mob/living/silicon/pai/pai_assistant = card.pai
 	pai_assistant.can_transmit = TRUE
 	pai_assistant.can_receive = TRUE
-	pai_assistant.canholo = FALSE
+	pai_assistant.can_holo = FALSE
 	if (pai_assistant.holoform)
 		pai_assistant.fold_in()
 	SStgui.close_uis(card)
@@ -108,7 +108,7 @@
 
 	balloon_alert(user, "pAI removed")
 	var/mob/living/silicon/pai/pai_helper = ai_assistant
-	pai_helper.canholo = TRUE
+	pai_helper.can_holo = TRUE
 	pai_helper.card.forceMove(get_turf(src))
 	on_removed_assistant()
 

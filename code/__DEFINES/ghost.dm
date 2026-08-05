@@ -36,6 +36,8 @@ GLOBAL_LIST_INIT(ghost_accs_options, list(GHOST_ACCS_NONE, GHOST_ACCS_DIR, GHOST
 #define GHOST_OTHERS_DEFAULT_OPTION GHOST_OTHERS_THEIR_SETTING
 
 // DEADCHAT MESSAGE TYPES //
+/// Deadchat notification for important round events (RED_ALERT, shuttle EVAC, communication announcements, etc.)
+#define DEADCHAT_ANNOUNCEMENT "announcement"
 /// Deadchat notification for new players who join the round at arrivals
 #define DEADCHAT_ARRIVALRATTLE "arrivalrattle"
 /// Deadchat notification for players who die during the round

@@ -36,15 +36,15 @@
 				processed_food.reagents.clear_reagents()
 				what.reagents.copy_to(processed_food, what.reagents.total_volume, multiplier = 1 / cached_multiplier)
 
-	if (ismob(what))
-		var/mob/themob = what
+	if (isliving(what))
+		var/mob/living/themob = what
 		themob.gib(TRUE,TRUE,TRUE)
 	else
 		qdel(what)
 
 /obj/machinery/processor/proc/select_recipe(input_item)
 	var/most_specific_type = /atom
-	for (var/datum/food_processor_process/recipe as anything in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
+	for (var/datum/food_processor_process/recipe as anything in valid_subtypesof(/datum/food_processor_process))
 		var/recipe_input = initial(recipe.input)
 		if (istype(src, initial(recipe.required_machine)) && istype(input_item, recipe_input) && ispath(recipe_input, most_specific_type))
 			most_specific_type = recipe_input
@@ -203,8 +203,6 @@
 		var/C = S.cores
 		for(var/i in 1 to (C+rating_amount-1))
 			var/obj/item/slime_extract/item = new S.coretype(drop_location())
-			if(S.transformeffects & SLIME_EFFECT_GOLD)
-				item.sparkly = TRUE
 			adjust_item_drop_location(item)
 			SSblackbox.record_feedback("tally", "slime_core_harvested", 1, S.colour)
 	..()

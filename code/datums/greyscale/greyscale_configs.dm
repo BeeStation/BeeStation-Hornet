@@ -202,6 +202,11 @@
 // PLUSHIES
 //
 
+/datum/greyscale_config/plush_carp
+	name = "Plushie Carp"
+	icon_file = 'icons/obj/plushes.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plushie_carp.json'
+
 /datum/greyscale_config/plush_lizard
 	name = "Plushie Lizard"
 	icon_file = 'icons/obj/plushes.dmi'
@@ -211,6 +216,37 @@
 	name = "Plushie Space Lizard"
 	icon_file = 'icons/obj/plushes.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plushie_spacelizard.json'
+
+/datum/greyscale_config/plush_snake
+	name = "Plushie Snake"
+	icon_file = 'icons/obj/plushes.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plushie_snake.json'
+
+//
+// VAPES
+//
+
+/datum/greyscale_config/vape
+	name = "Vape"
+	icon_file = 'icons/obj/cigarettes.dmi'
+	json_config = 'code/datums/greyscale/json_configs/vape.json'
+
+/datum/greyscale_config/vape/worn
+	name = "Vape (Worn)"
+	icon_file = 'icons/mob/clothing/head/mask_cig.dmi'
+	json_config = 'code/datums/greyscale/json_configs/vape_worn.json'
+
+/datum/greyscale_config/vape/open_low
+	name = "Open Vape Low"
+	json_config = 'code/datums/greyscale/json_configs/vapeopen_low.json'
+
+/datum/greyscale_config/vape/open_med
+	name = "Open Vape Medium"
+	json_config = 'code/datums/greyscale/json_configs/vapeopen_med.json'
+
+/datum/greyscale_config/vape/open_high
+	name = "Open Vape High"
+	json_config = 'code/datums/greyscale/json_configs/vapeopen_high.json'
 
 /datum/greyscale_config/beret
 	name = "Beret"
@@ -330,3 +366,36 @@
 	name = "Party Hat Worn"
 	icon_file = 'icons/mob/clothing/head/costume.dmi'
 	json_config = 'code/datums/greyscale/json_configs/party_hat.json'
+
+/datum/greyscale_config/heck_suit
+	name = "H.E.C.K. Suit"
+	icon_file = 'icons/obj/clothing/suits/armor.dmi'
+	json_config = 'code/datums/greyscale/json_configs/heck_suit.json'
+
+/datum/greyscale_config/heck_suit/worn
+	name = "H.E.C.K. Suit Worn"
+	icon_file = 'icons/mob/clothing/suits/armor.dmi'
+	json_config = 'code/datums/greyscale/json_configs/heck_suit_worn.json'
+
+/datum/greyscale_config/heck_helmet
+	name = "H.E.C.K. Helmet"
+	icon_file = 'icons/obj/clothing/head/helmet.dmi'
+	json_config = 'code/datums/greyscale/json_configs/heck_helmet.json'
+
+/datum/greyscale_config/heck_helmet/worn
+	name = "H.E.C.K. Helmet Worn"
+	icon_file = 'icons/mob/clothing/head/helmet.dmi'
+	json_config = 'code/datums/greyscale/json_configs/heck_helmet_worn.json'
+
+//
+// LABCOATS
+//
+
+/datum/greyscale_config/labcoat
+	name = "Labcoat"
+	icon_file = 'icons/obj/clothing/suits/labcoat.dmi'
+	json_config = 'code/datums/greyscale/json_configs/labcoat.json'
+
+/datum/greyscale_config/labcoat/worn
+	name = "Labcoat (Worn)"
+	icon_file = 'icons/mob/clothing/suits/labcoat.dmi'

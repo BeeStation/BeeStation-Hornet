@@ -15,8 +15,7 @@
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	pass_flags = PASSTABLE
-	ventcrawler = VENTCRAWLER_ALWAYS
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxHealth = 150
 	health = 150
@@ -48,20 +47,24 @@
 	var/atom/movable/throwatom = null
 
 	mobchatspan = "blob"
-	discovery_points = 2000
+	discovery_points = TECHWEB_TIER_2_POINTS
 	var/datum/morph_stomach/morph_stomach
 	var/datum/action/innate/morph_stomach/stomach_action
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+
+/mob/living/simple_animal/hostile/morph/Initialize(mapload)
+	. = ..()
 	morph_stomach = new(src)
 	stomach_action = new(morph_stomach)
 	stomach_action.Grant(src)
-	. = ..()
 
 /mob/living/simple_animal/hostile/morph/Destroy()
 	QDEL_NULL(morph_stomach)
 	QDEL_NULL(stomach_action)
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/hostile/morph/proc/RemoveContents(atom/movable/A, throwatom_required = FALSE)
 	A.forceMove(loc)
@@ -80,28 +83,26 @@
 		throwatom = null
 		playsound(src, 'sound/effects/splat.ogg', 50, 1)
 		morph_stomach.ui_update()
-	. = ..()
-
+	return ..()
 
 /mob/living/simple_animal/hostile/morph/examine(mob/user)
 	if(morphed)
-		. = form.examine(user)
-	else
-		. = ..()
+		return form.examine(user)
+	return ..()
 
 /mob/living/simple_animal/hostile/morph/med_hud_set_health()
 	if(morphed && !isliving(form))
-		var/image/holder = hud_list[HEALTH_HUD]
-		holder.icon_state = null
+		set_hud_image_inactive(HEALTH_HUD)
 		return //we hide medical hud while morphed
-	..()
+	. = ..()
+	set_hud_image_active(HEALTH_HUD)
 
 /mob/living/simple_animal/hostile/morph/med_hud_set_status()
 	if(morphed && !isliving(form))
-		var/image/holder = hud_list[STATUS_HUD]
-		holder.icon_state = null
+		set_hud_image_inactive(STATUS_HUD)
 		return //we hide medical hud while morphed
-	..()
+	. = ..()
+	set_hud_image_active(STATUS_HUD)
 
 /mob/living/simple_animal/hostile/morph/proc/allowed(atom/movable/A) // make it into property/proc ? not sure if worth it
 	return !is_type_in_typecache(A, blacklist_typecache) && (isobj(A) || ismob(A))
@@ -129,7 +130,8 @@
 	if(do_after(src, 3 SECONDS, living_target))
 		if(ishuman(living_target) || ismonkey(living_target) || isalienadult(living_target) || istype(living_target, /mob/living/basic/pet/dog) || istype(living_target, /mob/living/simple_animal/parrot))
 			var/list/turfs_to_throw = view(2, src)
-			for(var/obj/item/item in living_target.contents)
+			var/list/target_contents = living_target.get_equipped_items(INCLUDE_POCKETS) + living_target.held_items
+			for(var/obj/item/item in target_contents)
 				if(isclothing(item))
 					continue //no reason to strip them of sensors
 				living_target.dropItemToGround(item, TRUE)
@@ -259,7 +261,7 @@
 	. = ..()
 	if(.)
 		var/list/things = list()
-		for(var/atom/A as() in view(src))
+		for(var/atom/A as anything in view(src))
 			if(allowed(A))
 				things += A
 		var/atom/movable/T = pick(things)

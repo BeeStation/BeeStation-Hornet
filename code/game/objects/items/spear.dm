@@ -2,6 +2,7 @@
 /obj/item/spear
 	name = "spear"
 	desc = "A haphazardly-constructed yet still deadly weapon of ancient design."
+	icon = 'icons/obj/weapons/spear.dmi'
 	icon_state = "spearglass0"
 	base_icon_state = "spearglass"
 	lefthand_file = 'icons/mob/inhands/weapons/polearms_lefthand.dmi'
@@ -38,11 +39,17 @@
 	. = ..()
 	AddComponent(/datum/component/butchering, 100, 70) //decent in a pinch, but pretty bad.
 	AddComponent(/datum/component/jousting)
-	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, block_power_wielded=25, icon_wielded="[base_icon_state]1")
 
-/obj/item/spear/update_icon()
+	AddComponent(/datum/component/two_handed, \
+		force_unwielded = force_unwielded, \
+		force_wielded=force_wielded, \
+		block_power_wielded=block_power_wielded, \
+		icon_wielded="[base_icon_state]1" \
+	)
+
+/obj/item/spear/update_icon_state()
 	icon_state = "[base_icon_state]0"
-	..()
+	return ..()
 
 /obj/item/spear/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -50,14 +57,9 @@
 
 /obj/item/spear/CheckParts(list/parts_list)
 	var/obj/item/shard/tip = locate() in parts_list
-	if(tip)
-		if (istype(tip, /obj/item/shard/plasma))
-			throwforce = 21
-			base_icon_state = "spearplasma"
-			AddComponent(/datum/component/two_handed, force_unwielded=11, force_wielded=19, icon_wielded="[base_icon_state]1")
-		update_icon()
-		parts_list -= tip
-		qdel(tip)
+	if(!tip)
+		return ..()
+
 	var/obj/item/grenade/G = locate() in parts_list
 	if(G)
 		var/obj/item/spear/explosive/lance = new /obj/item/spear/explosive(src.loc, G)
@@ -66,6 +68,20 @@
 		lance.base_icon_state = base_icon_state
 		parts_list -= G
 		qdel(src)
+
+	switch(tip.type)
+		if(/obj/item/shard/plasma)
+			force = 11
+			throwforce = 21
+			custom_materials = list(/datum/material/iron=1000, /datum/material/alloy/plasmaglass=2000)
+			base_icon_state = "spearplasma"
+			force_unwielded = 11
+			force_wielded = 19
+			AddComponent(/datum/component/two_handed, force_unwielded = force_unwielded, force_wielded = force_wielded, icon_wielded="[base_icon_state]1")
+
+	update_appearance(UPDATE_ICON_STATE)
+	parts_list -= tip
+	qdel(tip)
 	return ..()
 
 /obj/item/spear/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
@@ -155,6 +171,30 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/spear/explosive)
 		user.say("[war_cry]", forced="spear warcry")
 		explosive.prime(lanced_by=user)
 		qdel(src)
+
+//GREY TIDE
+/obj/item/spear/grey_tide
+	name = "\improper Grey Tide"
+	desc = "Recovered from the aftermath of a revolt aboard Defense Outpost Theta Aegis, in which a seemingly endless tide of Assistants caused heavy casualities among Nanotrasen military forces."
+	attack_verb_continuous = list("gores")
+	attack_verb_simple = list("gore")
+	force_unwielded = 15
+	force_wielded = 25
+
+/obj/item/spear/grey_tide/afterattack(atom/movable/AM, mob/living/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	user.faction |= "greytide([REF(user)])"
+	if(isliving(AM))
+		var/mob/living/L = AM
+		if(istype (L, /mob/living/simple_animal/hostile/illusion))
+			return
+		if(!L.stat && prob(50))
+			var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
+			M.faction = user.faction.Copy()
+			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)
+			M.GiveTarget(L)
 
 /*
  * Bone Spear

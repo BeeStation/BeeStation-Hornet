@@ -12,7 +12,6 @@
 	var/extended_desc = "N/A"				// Short description of this program's function.
 	var/program_icon_state = null			// Program-specific screen icon state
 	var/requires_ntnet = 0					// Set to 1 for program to require nonstop NTNet connection to run. If NTNet connection is lost program crashes.
-	var/requires_ntnet_feature = 0			// Optional, if above is set to 1 checks for specific function of NTNet (currently NTNET_SOFTWAREDOWNLOAD, NTNET_PEERTOPEER, NTNET_SYSTEMCONTROL and NTNET_COMMUNICATION)
 	var/ntnet_status = 1					// NTNet status, updated every tick by computer running this program. Don't use this for checks if NTNet works, computers do that. Use this for calculations, etc.
 	var/network_destination = null			// Optional string that describes what NTNet server/system this program connects to. Used in default logging.
 	var/available_on_ntnet = 1				// Whether the program can be downloaded from NTNet. Set to 0 to disable.
@@ -64,7 +63,6 @@
 	temp.filedesc = filedesc
 	temp.program_icon_state = program_icon_state
 	temp.requires_ntnet = requires_ntnet
-	temp.requires_ntnet_feature = requires_ntnet_feature
 	temp.hardware_requirement = hardware_requirement
 	return temp
 
@@ -85,9 +83,9 @@
  * * log_id - if we want IDs not to be printed on the log (Hardware ID and Identification string)
  * * card = network card, will extract identification string and hardware ID from it later on (if log_id = TRUE).
  */
-/datum/computer_file/program/proc/generate_network_log(text, log_id = TRUE, obj/item/computer_hardware/network_card/card)
+/datum/computer_file/program/proc/generate_network_log(text)
 	if(computer)
-		return computer.add_log(text, log_id, card)	//This is important since Hardware_id wasn't working otherwise
+		return computer.add_log(text)	//This is important since Hardware_id wasn't working otherwise
 	return FALSE
 
 /**
@@ -104,6 +102,7 @@
 */
 /datum/computer_file/program/proc/tap(atom/A, mob/living/user, params)
 	return FALSE
+
 
 /**
  * Called during /obj/item/modular_computer/proc/open_program
@@ -125,14 +124,14 @@
 		return FALSE
 	return TRUE
 
-/datum/computer_file/program/proc/get_signal(specific_action = 0)
+/datum/computer_file/program/proc/get_signal()
 	if(computer)
-		return computer.get_ntnet_status(specific_action)
-	return FALSE
+		return computer.get_ntnet_status()
+	return 0
 
 // Called by Process() on device that runs us, once every tick.
 /datum/computer_file/program/proc/process_tick(delta_time)
-	return TRUE
+	return 1
 
 /**
   *Check if the user can run program. Only humans and silicons can operate computer. Automatically called in on_start()
@@ -223,7 +222,7 @@
 	var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
 	if(network_destination)
 		generate_network_log("Connection to [network_destination] closed.", network_card) //Probably should be cut
-	return TRUE
+	return 1
 
 /// Return TRUE if nothing was processed. Return FALSE to prevent further actions running.
 /// Set use_attack = TRUE to receive proccalls from the parent computer.

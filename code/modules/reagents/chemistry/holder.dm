@@ -71,10 +71,6 @@
 	var/chem_temp = 150
 	/// unused
 	var/last_tick = 1
-	/// see [/datum/reagents/proc/metabolize] for usage
-	var/addiction_tick = 1
-	/// currently addicted reagents
-	var/list/datum/reagent/addiction_list = new/list()
 	/// various flags, see code\__DEFINES\reagents.dm
 	var/flags
 
@@ -91,8 +87,6 @@
 
 /datum/reagents/Destroy()
 	. = ..()
-	//We're about to delete all reagents, so lets cleanup
-	addiction_list.Cut()
 	var/list/cached_reagents = reagent_list
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
@@ -379,7 +373,6 @@
 	if(owner?.dna?.species && (NOREAGENTS in owner.dna.species.species_traits))
 		return 0
 	var/list/cached_reagents = reagent_list
-	var/list/cached_addictions = addiction_list
 	if(owner)
 		expose_temperature(owner.bodytemperature, 0.25)
 	var/need_mob_update = 0
@@ -396,61 +389,30 @@
 				return
 			if(liverless && !R.self_consuming) //need to be metabolized
 				continue
+
 			if(!R.metabolizing)
 				R.metabolizing = TRUE
 				R.on_mob_metabolize(owner)
+
 			if(can_overdose)
 				if(R.overdose_threshold)
 					if(R.volume >= R.overdose_threshold && !R.overdosed)
 						R.overdosed = TRUE
 						need_mob_update += R.overdose_start(owner)
 						log_game("[key_name(owner)] has started overdosing on [R.name] at [R.volume] units.")
-				if(R.addiction_threshold)
-					if(R.volume >= R.addiction_threshold && !is_type_in_list(R, cached_addictions))
-						var/datum/reagent/new_reagent = new R.type()
-						cached_addictions.Add(new_reagent)
-						log_game("[key_name(owner)] has become addicted to [R.name] at [R.volume] units.")
+
+					for(var/addiction in R.addiction_types)
+						owner.mind?.add_addiction_points(addiction, R.addiction_types[addiction] * REAGENTS_METABOLISM)
+
 				if(R.overdosed)
 					need_mob_update += R.overdose_process(owner, delta_time, times_fired)
-				if(is_type_in_list(R,cached_addictions))
-					for(var/addiction in cached_addictions)
-						var/datum/reagent/A = addiction
-						if(istype(R, A))
-							A.addiction_stage = -15 // you're satisfied for a good while.
+
 			need_mob_update += R.on_mob_life(owner, delta_time, times_fired)
 
-	if(can_overdose)
-		if(addiction_tick == 6)
-			addiction_tick = 1
-			for(var/addiction in cached_addictions)
-				var/datum/reagent/R = addiction
-				if(owner && R)
-					R.addiction_stage++
-					switch(R.addiction_stage)
-						if(1 to 10)
-							need_mob_update += R.addiction_act_stage1(owner)
-						if(10 to 20)
-							need_mob_update += R.addiction_act_stage2(owner)
-						if(20 to 30)
-							need_mob_update += R.addiction_act_stage3(owner)
-						if(30 to 40)
-							need_mob_update += R.addiction_act_stage4(owner)
-						if(40 to INFINITY)
-							remove_addiction(R)
-						else
-							SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "[R.type]_overdose")
-		addiction_tick++
 	if(owner && need_mob_update) //some of the metabolized reagents had effects on the mob that requires some updates.
 		owner.updatehealth()
 		owner.update_stamina()
 	update_total()
-
-/// Removes addiction to a specific reagent on [/datum/reagents/var/my_atom]
-/datum/reagents/proc/remove_addiction(datum/reagent/R)
-	to_chat(my_atom, "<span class='notice'>You feel like you've gotten over your need for [R.name].</span>")
-	SEND_SIGNAL(my_atom, COMSIG_CLEAR_MOOD_EVENT, "[R.type]_overdose")
-	addiction_list.Remove(R)
-	qdel(R)
 
 /// Signals that metabolization has stopped, triggering the end of trait-based effects
 /datum/reagents/proc/end_metabolization(mob/living/carbon/C, keep_liverless = TRUE)
@@ -582,11 +544,12 @@
 			for(var/B in cached_required_reagents)
 				multiplier = min(multiplier, round(get_reagent_amount(B) / cached_required_reagents[B]))
 
+			multiplier = max(multiplier, 1) //this shouldn't happen ...
+
 			for(var/B in cached_required_reagents)
 				remove_reagent(B, (multiplier * cached_required_reagents[B]), safety = 1)
 
 			for(var/P in selected_reaction.results)
-				multiplier = max(multiplier, 1) //this shouldn't happen ...
 				SSblackbox.record_feedback("tally", "chemical_reaction", cached_results[P]*multiplier, P)
 				add_reagent(P, cached_results[P]*multiplier, null, chem_temp)
 
@@ -597,14 +560,14 @@
 					if(selected_reaction.mix_sound)
 						playsound(get_turf(cached_my_atom), selected_reaction.mix_sound, 80, 1)
 
-					for(var/mob/M as() in seen)
+					for(var/mob/M as anything in seen)
 						to_chat(M, span_notice("[iconhtml] [selected_reaction.mix_message]"))
 
 				if(istype(cached_my_atom, /obj/item/slime_extract))
 					var/obj/item/slime_extract/ME2 = my_atom
-					ME2.Uses--
-					if(ME2.Uses <= 0) // give the notification that the slime core is dead
-						for(var/mob/M as() in seen)
+					ME2.extract_uses--
+					if(ME2.extract_uses <= 0) // give the notification that the slime core is dead
+						for(var/mob/M as anything in seen)
 							to_chat(M, span_notice("[iconhtml] \The [my_atom]'s power is consumed in the reaction."))
 							ME2.name = "used slime extract"
 							ME2.desc = "This extract has been used up."
@@ -655,7 +618,6 @@
 				R.on_mob_delete(mob_consumer)
 
 			//Clear from relevant lists
-			addiction_list -= R
 			reagent_list -= R
 			qdel(R)
 			update_total()
@@ -797,13 +759,13 @@
  * * reagtemp - Temperature of this reagent, will be equalized
  * * no_react - prevents reactions being triggered by this addition
  */
-/datum/reagents/proc/add_reagent(datum/reagent/reagent, amount, list/data=null, reagtemp = DEFAULT_REAGENT_TEMPERATURE, no_react = 0)
+/datum/reagents/proc/add_reagent(datum/reagent/reagent, amount, list/data=null, reagtemp = DEFAULT_REAGENT_TEMPERATURE, no_react = FALSE)
 
 	if(!ispath(reagent))
 		stack_trace("invalid reagent passed to add reagent [reagent]")
 		return FALSE
 
-	if(!isnum_safe(amount) || !amount)
+	if(!IS_FINITE(amount) || !amount)
 		return FALSE
 
 	// Prevents small amount problems, as well as zero and below zero amounts.
@@ -924,27 +886,42 @@
  * Amount checks for having a specific amount of that chemical.
  * Needs metabolizing takes into consideration if the chemical is metabolizing when it's checked.
  */
-/datum/reagents/proc/has_reagent(datum/reagent/target_reagent, amount = -1, needs_metabolizing = FALSE)
-	if(!ispath(target_reagent))
+/datum/reagents/proc/has_reagent(
+	datum/reagent/target_reagent,
+	amount = -1,
+	needs_metabolizing = FALSE,
+	check_subtypes = FALSE,
+	chemical_flags = NONE,
+)
+	if(!isnull(target_reagent) && !ispath(target_reagent))
 		stack_trace("invalid reagent path passed to has reagent [target_reagent]")
 		return FALSE
 
 	var/list/cached_reagents = reagent_list
 	for(var/datum/reagent/holder_reagent as anything in cached_reagents)
-		if (holder_reagent.type == target_reagent)
-			if(!amount)
-				if(needs_metabolizing && !holder_reagent.metabolizing)
-					return
-				return holder_reagent
-			else
-				if(FLOOR(holder_reagent.volume, CHEMICAL_QUANTISATION_LEVEL) >= amount)
-					if(needs_metabolizing && !holder_reagent.metabolizing)
-						return
-					return holder_reagent
-				else
-					return
+		//finding for a specific reagent
+		if(!isnull(target_reagent))
+			// first find for specific type or subtype
+			if(!check_subtypes)
+				if(holder_reagent.type != target_reagent)
+					continue
+			else if(!istype(holder_reagent, target_reagent))
+				continue
 
-	return
+		//next check if we have the requested amount
+		if(CEILING(amount, CHEMICAL_QUANTISATION_LEVEL) > 0 && FLOOR(holder_reagent.volume, CHEMICAL_QUANTISATION_LEVEL) < amount)
+			continue
+
+		//next check for metabolization
+		if(needs_metabolizing && !holder_reagent.metabolizing)
+			continue
+
+		//next check if it has the specified flag
+		if(chemical_flags && !(holder_reagent.chemical_flags & chemical_flags))
+			continue
+
+		//after all that if we get here then we have found our reagent
+		return holder_reagent
 
 /**
  * Get the amount of this reagent or the sum of all its subtypes if specified
@@ -979,7 +956,7 @@
 		stack_trace("invalid reagent path passed to remove all type [reagent_type]")
 		return FALSE
 
-	if(!isnum_safe(amount))
+	if(!IS_FINITE(amount))
 		return 1
 	var/list/cached_reagents = reagent_list
 	var/has_removed_reagent = 0
@@ -1236,3 +1213,20 @@
 		data += "[reagent.name] [reagent.volume]u)"
 
 	return english_list(data)
+
+/datum/reagents/proc/parse_addictions(datum/reagent/reagent)
+	var/addict_text = list()
+	for(var/entry in reagent.addiction_types)
+		var/datum/addiction/ref = SSaddiction.all_addictions[entry]
+		switch(reagent.addiction_types[entry])
+			if(-INFINITY to 0)
+				continue
+			if(0 to 5)
+				addict_text += "Weak [ref.name]"
+			if(5 to 10)
+				addict_text += "[ref.name]"
+			if(10 to 20)
+				addict_text += "Strong [ref.name]"
+			if(20 to INFINITY)
+				addict_text += "Potent [ref.name]"
+	return addict_text

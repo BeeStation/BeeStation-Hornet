@@ -13,7 +13,7 @@
 	src.moods = moods
 	RegisterSignal(host, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
-/datum/proximity_monitor/advanced/demoraliser/field_turf_crossed(atom/movable/crossed, turf/location)
+/datum/proximity_monitor/advanced/demoraliser/field_turf_crossed(atom/movable/crossed, turf/old_location, turf/new_location)
 	if (!isliving(crossed))
 		return
 	if (!can_see(crossed, host, current_range))
@@ -54,7 +54,7 @@
 	if (is_special_character(viewer))
 		to_chat(viewer, span_notice("[moods.antag_notification]"))
 		SEND_SIGNAL(viewer, COMSIG_ADD_MOOD_EVENT, moods.mood_category, moods.antag_mood)
-	else if ((viewer.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)) || (viewer.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY)))
+	else if (viewer.mind.assigned_role.departments_bitflags & (DEPARTMENT_BITFLAG_SECURITY|DEPARTMENT_BITFLAG_COMMAND))
 		to_chat(viewer, span_notice("[moods.authority_notification]"))
 		SEND_SIGNAL(viewer, COMSIG_ADD_MOOD_EVENT, moods.authority_mood)
 	else

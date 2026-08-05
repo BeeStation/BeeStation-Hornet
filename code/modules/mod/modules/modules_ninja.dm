@@ -424,7 +424,7 @@
 	to_chat(mod.wearer, span_notice("You have used the adrenaline boost."))
 	mod.wearer.SetAllImmobility(0)
 	mod.wearer.adjustStaminaLoss(-200)
-	mod.wearer.stuttering = 0
+	mod.wearer.remove_status_effect(/datum/status_effect/speech/stutter)
 	//Speed
 	mod.wearer.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 5)
 	//"Oh fuck I ran out of oxygen and couldnt get into the station in time"

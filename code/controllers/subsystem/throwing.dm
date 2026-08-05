@@ -5,7 +5,7 @@ SUBSYSTEM_DEF(throwing)
 	name = "Throwing"
 	priority = FIRE_PRIORITY_THROWING
 	wait = 1
-	flags = SS_NO_INIT|SS_KEEP_TIMING|SS_TICKER
+	ss_flags = SS_NO_INIT | SS_TICKER
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
 	var/list/currentrun
@@ -52,7 +52,7 @@ SUBSYSTEM_DEF(throwing)
 	var/init_dir
 	var/maxrange
 	var/speed
-	var/mob/thrower
+	var/datum/weakref/thrower
 	var/diagonals_first
 	var/dist_travelled = 0
 	var/start_time
@@ -79,7 +79,8 @@ SUBSYSTEM_DEF(throwing)
 	src.init_dir = init_dir
 	src.maxrange = maxrange
 	src.speed = speed
-	src.thrower = thrower
+	if(thrower)
+		src.thrower = WEAKREF(thrower)
 	src.diagonals_first = diagonals_first
 	src.force = force
 	src.callback = callback
@@ -93,10 +94,8 @@ SUBSYSTEM_DEF(throwing)
 	thrownthing = null
 	thrower = null
 	initial_target = null
-	if(callback)
-		QDEL_NULL(callback) //It stores a reference to the thrownthing, its source. Let's clean that.
+	callback = null
 	return ..()
-
 
 ///Defines the datum behavior on the thrownthing's qdeletion event.
 /datum/thrownthing/proc/on_thrownthing_qdel(atom/movable/source, force)
@@ -104,6 +103,11 @@ SUBSYSTEM_DEF(throwing)
 
 	qdel(src)
 
+/// Returns the mob thrower, or null
+/datum/thrownthing/proc/get_thrower()
+	. = thrower?.resolve()
+	if(isnull(.))
+		thrower = null
 
 /datum/thrownthing/proc/tick()
 	var/atom/movable/AM = thrownthing
@@ -116,10 +120,11 @@ SUBSYSTEM_DEF(throwing)
 		return
 
 	var/atom/movable/actual_target = initial_target?.resolve()
+	var/mob/mob_thrower = get_thrower()
 
 	if(dist_travelled) //to catch sneaky things moving on our tile while we slept
 		for(var/atom/movable/obstacle as anything in get_turf(thrownthing))
-			if (obstacle == thrownthing || (obstacle == thrower && !ismob(thrownthing)))
+			if (obstacle == thrownthing || (obstacle == mob_thrower && !ismob(thrownthing)))
 				continue
 			if(obstacle.pass_flags_self & LETPASSTHROW)
 				continue
@@ -132,7 +137,7 @@ SUBSYSTEM_DEF(throwing)
 	last_move = world.time
 
 	//calculate how many tiles to move, making up for any missed ticks.
-	var/tilestomove = CEILING(min(((((world.time+world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : -1)), speed*MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait), 1)
+	var/tilestomove = ceil(min(((((world.time+world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : -1)), speed*MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait))
 	while (tilestomove-- > 0)
 		if ((dist_travelled >= maxrange || AM.loc == target_turf) && AM.has_gravity(AM.loc))
 			finalize()

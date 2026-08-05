@@ -1,5 +1,6 @@
 #define MINOR_INSANITY_PEN 3
 #define MAJOR_INSANITY_PEN 6
+#define MOOD_SOURCE "mood_component"
 
 /datum/component/mood
 	var/mood //Real happiness
@@ -22,12 +23,19 @@
 
 	RegisterSignal(parent, COMSIG_ADD_MOOD_EVENT, PROC_REF(add_event))
 	RegisterSignal(parent, COMSIG_CLEAR_MOOD_EVENT, PROC_REF(clear_event))
-	RegisterSignal(parent, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(check_area_mood))
+	RegisterSignal(parent, COMSIG_ENTER_AREA, PROC_REF(check_area_mood))
 	RegisterSignal(parent, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 
 	RegisterSignal(parent, COMSIG_MOB_HUD_CREATED, PROC_REF(modify_hud))
 	RegisterSignal(parent, COMSIG_HERETIC_MASK_ACT, PROC_REF(direct_sanity_drain))
+
+	var/area/our_area = get_area(parent)
+	if(our_area)
+		check_area_mood(parent, our_area)
+
 	var/mob/living/owner = parent
+	owner.become_area_sensitive(MOOD_SOURCE)
+
 	if(owner.hud_used)
 		modify_hud()
 		var/datum/hud/hud = owner.hud_used
@@ -35,6 +43,9 @@
 
 /datum/component/mood/Destroy()
 	STOP_PROCESSING(SSmood, src)
+	if(ismob(parent))
+		var/mob/mob_parent = parent
+		mob_parent.lose_area_sensitivity(MOOD_SOURCE)
 	unmodify_hud()
 	QDEL_LIST_ASSOC_VAL(mood_events)
 	return ..()
@@ -191,6 +202,8 @@
 ///Called on SSmood process
 /datum/component/mood/process(delta_time)
 	var/mob/living/owner = parent
+	if(owner.stat == DEAD)
+		return //updating sanity during death leads to people getting revived and being completely insane for simply being dead for a long time
 	switch(sanity)
 		if(SANITY_GREAT-1 to INFINITY)
 			setSanity(sanity+sanity_modifier*delta_time*mood-0.4)
@@ -404,6 +417,7 @@
 	remove_temp_moods()
 	setSanity(initial(sanity))
 
+#undef MOOD_SOURCE
 #undef MINOR_INSANITY_PEN
 #undef MAJOR_INSANITY_PEN
 
@@ -412,3 +426,16 @@
 	SIGNAL_HANDLER
 
 	setSanity(sanity + amount)
+
+/datum/component/mood/proc/HandleAddictions()
+	if(!iscarbon(parent))
+		return
+
+	var/mob/living/carbon/affected_carbon = parent
+
+	if(sanity < SANITY_GREAT) ///Sanity is low, stay addicted.
+		return
+
+	for(var/addiction_type in affected_carbon.mind.addiction_points)
+		var/datum/addiction/addiction_to_remove = SSaddiction.all_addictions[type]
+		affected_carbon.mind.remove_addiction_points(type, addiction_to_remove.high_sanity_addiction_loss) //If true was returned, we lost the addiction!

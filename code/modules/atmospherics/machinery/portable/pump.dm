@@ -1,9 +1,10 @@
 /obj/machinery/portable_atmospherics/pump
 	name = "portable air pump"
 	desc = "It's a small portable air pump, capable of siphoning or pumping gasses into its surroundings. It has a decent internal gas storage, and a slot for external tanks. It can be wrenched to a connection port to join it into the pipe net."
-	icon_state = "psiphon:0"
+	icon_state = "siphon"
+	base_icon_state = "siphon"
 	density = TRUE
-
+	volume = 1000
 
 	///Is the machine on?
 	var/on = FALSE
@@ -11,8 +12,6 @@
 	var/direction = PUMP_OUT
 	///Player configurable, sets what's the release pressure
 	var/target_pressure = ONE_ATMOSPHERE
-
-	volume = 1000
 
 /obj/machinery/portable_atmospherics/pump/Initialize(mapload)
 	. = ..()
@@ -23,14 +22,16 @@
 	local_turf.assume_air(air_contents)
 	return ..()
 
-/obj/machinery/portable_atmospherics/pump/update_icon()
-	icon_state = "psiphon:[on]"
+/obj/machinery/portable_atmospherics/pump/update_icon_state()
+	icon_state = "[base_icon_state]_[on]"
+	return ..()
 
-	cut_overlays()
+/obj/machinery/portable_atmospherics/pump/update_overlays()
+	. = ..()
 	if(holding)
-		add_overlay("siphon-open")
+		. += "siphon-open"
 	if(connected_port)
-		add_overlay("siphon-connector")
+		. += "siphon-connector"
 
 /obj/machinery/portable_atmospherics/pump/process_atmos()
 	if(take_atmos_damage())
@@ -73,7 +74,7 @@
 	if(prob(100 / severity))
 		direction = PUMP_OUT
 	target_pressure = rand(0, 100 * ONE_ATMOSPHERE)
-	update_icon()
+	update_appearance(UPDATE_ICON)
 
 /obj/machinery/portable_atmospherics/pump/replace_tank(mob/living/user, close_valve)
 	. = ..()
@@ -118,8 +119,9 @@
 		data["holding"] = null
 	return data
 
-/obj/machinery/portable_atmospherics/pump/ui_act(action, params)
-	if(..())
+/obj/machinery/portable_atmospherics/pump/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
 	switch(action)
 		if("power")
@@ -127,11 +129,11 @@
 			if(on)
 				SSair.start_processing_machine(src)
 			if(on && !holding)
-				var/plasma = GET_MOLES(/datum/gas/plasma, air_contents)
-				var/n2o = GET_MOLES(/datum/gas/nitrous_oxide, air_contents)
-				if(n2o || plasma)
-					message_admins("[ADMIN_LOOKUPFLW(usr)] turned on a pump that contains [n2o ? "N2O" : ""][n2o && plasma ? " & " : ""][plasma ? "Plasma" : ""] at [ADMIN_VERBOSEJMP(src)]")
-					log_admin("[key_name(usr)] turned on a pump that contains [n2o ? "N2O" : ""][n2o && plasma ? " & " : ""][plasma ? "Plasma" : ""] at [AREACOORD(src)]")
+				var/plasma_moles = air_contents.moles[/datum/gas/plasma]
+				var/n2o_moles = air_contents.moles[/datum/gas/nitrous_oxide]
+				if(n2o_moles || plasma_moles)
+					message_admins("[ADMIN_LOOKUPFLW(usr)] turned on a pump that contains [n2o_moles ? "N2O" : ""][n2o_moles && plasma_moles ? " & " : ""][plasma_moles ? "Plasma" : ""] at [ADMIN_VERBOSEJMP(src)]")
+					log_admin("[key_name(usr)] turned on a pump that contains [n2o_moles ? "N2O" : ""][n2o_moles && plasma_moles ? " & " : ""][plasma_moles ? "Plasma" : ""] at [AREACOORD(src)]")
 			else if(on && direction == PUMP_OUT)
 				usr.investigate_log(" started a transfer into [holding].", INVESTIGATE_ATMOS)
 			. = TRUE
@@ -164,7 +166,7 @@
 			if(holding)
 				replace_tank(usr, FALSE)
 				. = TRUE
-	update_icon()
+	update_appearance(UPDATE_ICON)
 
 /obj/machinery/portable_atmospherics/pump/unregister_holding()
 	on = FALSE

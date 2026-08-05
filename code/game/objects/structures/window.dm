@@ -82,12 +82,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 		setDir()
 		obj_flags &= ~BLOCKS_CONSTRUCTION_DIR
 		obj_flags &= ~IGNORE_DENSITY
+	else
+		AddElement(/datum/element/simple_rotation, ROTATION_NEEDS_ROOM, post_rotation_proccall = PROC_REF(post_rotation))
 
 	//windows only block while reinforced and fulltile, so we'll use the proc
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
-	AddComponent(/datum/component/simple_rotation, ROTATION_NEEDS_ROOM, AfterRotation = CALLBACK(src, PROC_REF(AfterRotation)))
+	AddElement(/datum/element/atmos_sensitive)
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
@@ -95,8 +97,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 
 	if (flags_1 & ON_BORDER_1)
 		AddElement(/datum/element/connect_loc, loc_connections)
-
-	AddElement(/datum/element/atmos_sensitive)
 
 /obj/structure/window/MouseDrop_T(atom/dropping, mob/user, params)
 	. = ..()
@@ -129,7 +129,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 		new/obj/structure/window/reinforced/clockwork/fulltile(get_turf(src))
 	qdel(src)
 
-/obj/structure/window/singularity_pull(S, current_size)
+/obj/structure/window/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
 	if(anchored && current_size >= STAGE_TWO)
 		set_anchored(FALSE)
@@ -276,9 +276,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 			return
 	return ..()
 
-/obj/structure/window/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
-
 /obj/structure/window/set_anchored(anchorvalue)
 	..()
 	air_update_turf(TRUE, anchorvalue)
@@ -343,7 +340,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	if (fulltile)
 		. += new /obj/item/shard(location)
 
-/obj/structure/window/proc/AfterRotation(mob/user, degrees)
+/obj/structure/window/proc/post_rotation(mob/user, degrees)
 	air_update_turf(TRUE, FALSE)
 
 /obj/structure/window/Destroy()
@@ -377,7 +374,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 			return
 
 		var/ratio = atom_integrity / max_integrity
-		ratio = CEILING(ratio*4, 1) * 25
+		ratio = ceil(ratio*4) * 25
 
 		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 			QUEUE_SMOOTH(src)
@@ -397,9 +394,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 /obj/structure/window/get_dumping_location()
 	return null
 
-/obj/structure/window/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
+/obj/structure/window/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
-		return 1
+		return TRUE
 	if(fulltile || (dir == to_dir))
 		return 0
 
@@ -733,6 +730,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/corner/unancho
 	glass_amount = 2
 	ricochet_chance_mod = 0.9
 
+/obj/structure/window/reinforced/shuttle/unanchored
+	anchored = FALSE
 
 /datum/armor/window_shuttle
 	melee = 50
@@ -845,8 +844,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/corner/unancho
 
 
 /obj/structure/window/paperframe/attackby(obj/item/W, mob/living/user)
-	if(W.is_hot())
-		fire_act(W.is_hot())
+	if(W.get_temperature())
+		fire_act(W.get_temperature())
 		return
 	if(user.combat_mode)
 		return ..()

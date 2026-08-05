@@ -24,14 +24,14 @@
 		return FALSE
 
 	//Only species that can be spread by transformation sting can be spread by the retrovirus
-	if(HAS_TRAIT(affected_mob, TRAIT_NO_TRANSFORMATION_STING) || HAS_TRAIT(affected_mob, TRAIT_NO_DNA_COPY))
+	if(HAS_TRAIT(affected_mob, TRAIT_NOT_TRANSMORPHIC) || HAS_TRAIT(affected_mob, TRAIT_NO_DNA_COPY))
 		cure()
 		return FALSE
 
 	if(!strain_data["dna"])
 		//Absorbs the target DNA.
 		strain_data["dna"] = new affected_mob.dna.type
-		affected_mob.dna.copy_dna(strain_data["dna"])
+		affected_mob.dna.copy_dna_to(strain_data["dna"])
 		carrier = TRUE
 		stage = 4
 		return
@@ -54,7 +54,7 @@
 			if(!transformed && !carrier)
 				//Save original dna for when the disease is cured.
 				original_dna = new affected_mob.dna.type
-				affected_mob.dna.copy_dna(original_dna)
+				affected_mob.dna.copy_dna_to(original_dna)
 
 				to_chat(affected_mob, span_danger("You don't feel like yourself.."))
 				var/datum/dna/transform_dna = strain_data["dna"]

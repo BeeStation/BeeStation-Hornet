@@ -6,7 +6,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "g" = (
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
@@ -40,7 +40,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "y" = (
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -56,7 +56,7 @@
 "C" = (
 /obj/structure/chair/stool/bar,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "D" = (
@@ -82,7 +82,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "H" = (
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/template_noop)
@@ -192,7 +192,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "V" = (
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,

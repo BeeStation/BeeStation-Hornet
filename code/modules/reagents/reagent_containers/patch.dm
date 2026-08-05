@@ -3,7 +3,7 @@
 	desc = "A chemical patch for touch based applications."
 	icon = 'icons/obj/medicine_containers.dmi'
 	icon_state = "bandaid_small_cross"
-	item_state = "bandaid_small_cross"
+	inhand_icon_state = "bandaid_small_cross"
 	volume = 40
 	apply_type = PATCH
 	apply_method = "apply"
@@ -57,3 +57,17 @@
 	desc = "Helps with brute and burn injuries."
 	list_reagents = list(/datum/reagent/medicine/synthflesh = 30)
 	icon_state = "bandaid_big_both"
+
+/obj/item/reagent_containers/pill/patch/mixbrute
+	name = "premium brute patch"
+	desc = "Helps with brute injuries."
+	list_reagents = list(/datum/reagent/medicine/bicaridine = 10,
+						/datum/reagent/medicine/sal_acid = 10,)
+	icon_state = "bandaid_big_brute"
+
+/obj/item/reagent_containers/pill/patch/mixburn
+	name = "premium burn patch"
+	desc = "Helps with burn injuries."
+	list_reagents = list(/datum/reagent/medicine/kelotane = 10,
+						/datum/reagent/medicine/oxandrolone = 10,)
+	icon_state = "bandaid_big_burn"

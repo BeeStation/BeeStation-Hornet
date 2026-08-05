@@ -6,14 +6,14 @@
 	button_icon_state = "bg_demon_border"
 
 
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "abyssal_gaze"
 
 	school = SCHOOL_EVOCATION
 	cooldown_time = 75 SECONDS
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
-	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY
+	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY)
 
 	cast_range = 5
 	active_msg = "You prepare to instill a deep terror in a target..."
@@ -36,7 +36,7 @@
 	to_chat(target, ("<span class='userdanger'>A freezing darkness surrounds you...</span>"))
 	target.playsound_local(get_turf(target), 'sound/hallucinations/i_see_you1.ogg', 50, 1)
 	owner.playsound_local(get_turf(owner), 'sound/effects/ghost2.ogg', 50, 1)
-	target.set_blindness(blind_duration)
+	target.adjust_temp_blindness(blind_duration)
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_cast_on = target
 		human_cast_on.adjust_coretemperature(-amount_to_cool)

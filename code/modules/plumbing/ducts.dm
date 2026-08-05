@@ -37,7 +37,7 @@ All the important duct code:
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct)
 
-/obj/machinery/duct/Initialize(mapload, no_anchor, color_of_duct = "#ffffff", layer_of_duct = DUCT_LAYER_DEFAULT, force_connects)
+/obj/machinery/duct/Initialize(mapload, no_anchor, color_of_duct = COLOR_WHITE, layer_of_duct = DUCT_LAYER_DEFAULT, force_connects)
 	. = ..()
 
 	if(no_anchor)

@@ -1,7 +1,7 @@
 /mob/living/simple_animal/bot/ed209
 	name = "\improper ED-209 Security Robot"
 	desc = "A security robot.  He looks less than thrilled."
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "ed2090"
 	density = TRUE
 	anchored = FALSE
@@ -20,8 +20,8 @@
 	window_id = "autoed209"
 	window_name = "Automatic Security Unit v2.6"
 	allow_pai = 0
-	data_hud_type = DATA_HUD_SECURITY_ADVANCED
-	path_image_color = "#FF0000"
+	data_hud_type = TRAIT_SECURITY_HUD
+	path_image_color = COLOR_RED
 	carryable = FALSE
 
 	var/lastfired = 0
@@ -56,7 +56,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 	icon_state = "[lasercolor]ed209[on]"
 	set_weapon() //giving it the right projectile and firing sound.
 
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_DETECTIVE)
+	var/datum/job/J = SSjob.get_job(JOB_NAME_DETECTIVE)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
 	if(lasercolor)
@@ -72,7 +72,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	secsensor.add_hud_to(src)
+	secsensor.show_to(src)
 
 /mob/living/simple_animal/bot/ed209/turn_on()
 	. = ..()
@@ -199,7 +199,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 	var/list/targets = list()
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a target
 		var/threatlevel = 0
-		if(C.incapacitated())
+		if(C.incapacitated)
 			continue
 		threatlevel = C.assess_threat(judgment_criteria, lasercolor, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
 		//speak(C.real_name + ": threat: [threatlevel]")
@@ -362,9 +362,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 	drop_part(cell_type, Tsec)
 
 	if(!lasercolor)
-		var/obj/item/gun/energy/disabler/G = new (Tsec)
-		G.cell.charge = 0
-		G.update_icon()
+		new /obj/item/gun/ballistic/taser(Tsec)
 	else if(lasercolor == "b")
 		var/obj/item/gun/energy/laser/bluetag/G = new (Tsec)
 		G.cell.charge = 0
@@ -500,7 +498,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 /mob/living/simple_animal/bot/ed209/redtag
 	lasercolor = "r"
 
-/mob/living/simple_animal/bot/ed209/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/ed209/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(!on)
 		return
 	if(iscarbon(A))
@@ -531,8 +529,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 	spawn(2)
 		icon_state = "[lasercolor]ed209[on]"
 	var/threat = 5
-	C.Paralyze(100)
-	C.stuttering = 5
+	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, STAMINA)
+	C.apply_damage(70, STAMINA, BODY_ZONE_CHEST, armor_block)
+	C.set_stutter_if_lower(10 SECONDS)
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		var/judgment_criteria = judgment_criteria()

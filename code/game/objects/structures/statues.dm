@@ -1,5 +1,6 @@
 
 /obj/structure/statue
+	abstract_type = /obj/structure/statue
 	name = "statue"
 	desc = "Placeholder. Yell at Qwerty if you SOMEHOW see this."
 	icon = 'icons/obj/statue.dmi'
@@ -22,7 +23,7 @@
 	. = ..()
 	AddElement(art_type, impressiveness)
 	//AddElement(/datum/element/beauty, impressiveness * 75)
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
@@ -41,9 +42,6 @@
 				deconstruct(TRUE)
 			return
 	return ..()
-
-/obj/structure/statue/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/structure/statue/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -134,7 +132,7 @@
 	. = ..()
 
 /obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
+	if(W.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		plasma_ignition(6, user)
 	else
 		return ..()

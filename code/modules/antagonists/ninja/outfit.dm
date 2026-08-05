@@ -9,13 +9,14 @@
 	r_pocket = /obj/item/tank/internals/emergency_oxygen
 	internals_slot = ITEM_SLOT_RPOCKET
 	belt = /obj/item/energy_katana
+	id = /obj/item/card/id/syndicate
 	back = /obj/item/mod/control/pre_equipped/ninja
 	implants = list(/obj/item/implant/explosive)
 
 /datum/outfit/ninja/post_equip(mob/living/carbon/human/ninja)
 	var/obj/item/grenade/plastic/ninja/charge = ninja.l_store
 	if(istype(charge))
-		charge.set_detonation_area(ninja.mind?.has_antag_datum(/datum/antagonist/ninja))
+		charge.set_detonation_area(IS_SPACE_NINJA(ninja))
 	var/obj/item/mod/control/mod = ninja.back
 	if(!istype(mod))
 		return

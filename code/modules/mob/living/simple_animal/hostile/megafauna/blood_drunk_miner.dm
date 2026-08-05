@@ -34,7 +34,7 @@ Difficulty: Medium
 	speed = 3
 	move_to_delay = 3
 	projectiletype = /obj/projectile/kinetic/miner
-	projectilesound = 'sound/weapons/kenetic_accel.ogg'
+	projectilesound = 'sound/weapons/kinetic_accel.ogg'
 	ranged = TRUE
 	ranged_cooldown_time = 16
 	pixel_x = -16
@@ -53,8 +53,8 @@ Difficulty: Medium
 	var/dash_cooldown = 15
 	var/guidance = FALSE
 	var/transform_stop_attack = FALSE // stops the blood drunk miner from attacking after transforming his weapon until the next attack chain
-	deathmessage = "falls to the ground, decaying into glowing particles."
-	deathsound = "bodyfall"
+	death_message = "falls to the ground, decaying into glowing particles."
+	death_sound = "bodyfall"
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
 							   /datum/action/innate/megafauna_attack/kinetic_accelerator,
@@ -66,21 +66,21 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Dash To Target"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = span_colossus("You are now dashing to your target.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/kinetic_accelerator
 	name = "Fire Kinetic Accelerator"
-	icon_icon = 'icons/obj/guns/energy.dmi'
+	button_icon = 'icons/obj/guns/energy.dmi'
 	button_icon_state = "kineticgun"
 	chosen_message = span_colossus("You are now shooting your kinetic accelerator.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/transform_weapon
 	name = "Transform Weapon"
-	icon_icon = 'icons/obj/lavaland/artefacts.dmi'
+	button_icon = 'icons/obj/lavaland/artefacts.dmi'
 	button_icon_state = "cleaving_saw"
 	chosen_message = span_colossus("You are now transforming your weapon.")
 	chosen_attack_num = 3
@@ -108,9 +108,8 @@ Difficulty: Medium
 	open_force = 10
 
 /obj/item/melee/cleaving_saw/miner/attack(mob/living/target, mob/living/carbon/human/user)
-	target.add_stun_absorption("miner", 10, INFINITY)
-	. = ..()
-	target.stun_absorption -= "miner"
+	target.add_stun_absorption(source = "miner", duration = 1 SECONDS, priority = INFINITY)
+	return ..()
 
 /obj/projectile/kinetic/miner
 	damage = 20
@@ -118,7 +117,7 @@ Difficulty: Medium
 	icon_state = "ka_tracer"
 	range = MINER_DASH_RANGE
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	var/adjustment_amount = amount * 0.1
 	if(world.time + adjustment_amount > next_move)
 		changeNext_move(adjustment_amount) //attacking it interrupts it attacking, but only briefly

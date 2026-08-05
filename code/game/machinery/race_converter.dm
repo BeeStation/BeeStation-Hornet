@@ -29,7 +29,7 @@
 /obj/machinery/species_converter/can_be_occupant(atom/movable/am)
 	return ishuman(am)
 
-/obj/machinery/species_converter/close_machine(mob/user)
+/obj/machinery/species_converter/close_machine(mob/user, density_to_set = TRUE)
 	if(panel_open)
 		to_chat(user, span_warning("You need to close the maintenance hatch first!"))
 		return
@@ -114,7 +114,7 @@
 			processing = TRUE
 			soundloop.start()
 			update_icon()
-			set_light(2, 1, "#ff0000")
+			set_light(2, 1, COLOR_RED)
 		else
 			say("Occupant is already the desired race.")
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 40, FALSE)

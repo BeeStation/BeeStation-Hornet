@@ -71,10 +71,10 @@
 		to_chat(owner, "<span class='warning'>You don't particularly want to be dead!</span>")
 		return FALSE
 	if(!living_target.mind && target_requires_mind)
-		to_chat(owner, "<span class='warning'>[living_target.p_theyve(TRUE)] doesn't appear to have a mind to swap into!</span>")
+		to_chat(owner, "<span class='warning'>[living_target.p_Theyve()] doesn't appear to have a mind to swap into!</span>")
 		return FALSE
 	if(!living_target.key && target_requires_key)
-		to_chat(owner, "<span class='warning'>[living_target.p_theyve(TRUE)] appear[living_target.p_s()] to be catatonic! \
+		to_chat(owner, "<span class='warning'>[living_target.p_Theyve()] appear[living_target.p_s()] to be catatonic! \
 			Not even magic can affect [living_target.p_their()] vacant mind.</span>")
 		return FALSE
 
@@ -104,7 +104,7 @@
 		|| mind_to_swap.has_antag_datum(/datum/antagonist/rev) \
 		|| mind_to_swap.key?[1] == "@" \
 	)
-		to_chat(caster, ("<span class='warning'>[to_swap.p_their(TRUE)] mind is resisting your spell!</span>"))
+		to_chat(caster, ("<span class='warning'>[to_swap.p_Their()] mind is resisting your spell!</span>"))
 		return FALSE
 
 	// MIND TRANSFER BEGIN

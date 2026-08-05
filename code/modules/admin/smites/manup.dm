@@ -7,4 +7,4 @@
 	target.playsound_local(get_turf(target), 'sound/magic/manup1.ogg', 200, 0)
 	target.Paralyze(50, ignore_canstun = TRUE)
 	target.set_jitter_if_lower(200 SECONDS)
-	target.confused += 50
+	target.adjust_confusion(50 SECONDS)

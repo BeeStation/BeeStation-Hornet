@@ -29,7 +29,7 @@ Slimecrossing Weapons
 	desc = "A strange, transparent knife which constantly shifts color. It hums slightly when moved."
 	icon = 'icons/obj/knives.dmi'
 	icon_state = "rainbowknife"
-	item_state = "rainbowknife"
+	inhand_icon_state = "rainbowknife"
 	force = 15
 	throwforce = 15
 	damtype = BRUTE
@@ -66,7 +66,7 @@ Slimecrossing Weapons
 	desc = "A gigantic shield made of solid adamantium."
 	icon = 'icons/obj/slimecrossing.dmi'
 	icon_state = "adamshield"
-	item_state = "adamshield"
+	inhand_icon_state = "adamshield"
 	w_class = WEIGHT_CLASS_HUGE
 	armor_type = /datum/armor/shield_adamantineshield
 	slot_flags = ITEM_SLOT_BACK
@@ -74,7 +74,6 @@ Slimecrossing Weapons
 
 	block_power = 75
 	canblock = TRUE
-	block_flags = BLOCKING_PROJECTILE
 	max_integrity = 1000 //This one isn't getting destroyed easily
 
 	throw_range = 1 //How far do you think you're gonna throw a solid crystalline shield...?
@@ -103,7 +102,7 @@ Slimecrossing Weapons
 	desc = "A horrifying weapon made of your own bone and blood vessels. It shoots slowing globules of your own blood. Ech."
 	icon = 'icons/obj/slimecrossing.dmi'
 	icon_state = "bloodgun"
-	item_state = "bloodgun"
+	inhand_icon_state = "bloodgun"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	item_flags = ABSTRACT | DROPDEL

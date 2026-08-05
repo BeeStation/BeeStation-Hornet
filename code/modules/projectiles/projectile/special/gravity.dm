@@ -6,7 +6,7 @@
 	damage = 0
 	damage_type = BRUTE
 	nodamage = TRUE
-	color = "#33CCFF"
+	color = COLOR_BLUE_LIGHT
 	var/turf/T
 	var/power = 4
 	var/list/thrown_items = list()
@@ -30,7 +30,7 @@
 		var/throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(A, src)))
 		A.safe_throw_at(throwtarget,power+1,1, force = MOVE_FORCE_EXTREMELY_STRONG)
 		thrown_items[A] = A
-	for(var/turf/F as() in RANGE_TURFS(power, T))
+	for(var/turf/F as anything in RANGE_TURFS(power, T))
 		new /obj/effect/temp_visual/gravpush(F)
 
 /obj/projectile/gravityattract
@@ -64,7 +64,7 @@
 				continue
 		A.safe_throw_at(T, power+1, 1, force = MOVE_FORCE_EXTREMELY_STRONG)
 		thrown_items[A] = A
-	for(var/turf/F as() in RANGE_TURFS(power, T))
+	for(var/turf/F as anything in RANGE_TURFS(power, T))
 		new /obj/effect/temp_visual/gravpush(F)
 
 /obj/projectile/gravitychaos
@@ -75,7 +75,7 @@
 	damage = 0
 	damage_type = BRUTE
 	nodamage = TRUE
-	color = "#101010"
+	color = COLOR_FULL_TONER_BLACK
 	var/turf/T
 	var/power = 4
 	var/list/thrown_items = list()
@@ -98,5 +98,5 @@
 				continue
 		A.safe_throw_at(get_edge_target_turf(A, pick(GLOB.cardinals)), power+1, 1, force = MOVE_FORCE_EXTREMELY_STRONG)
 		thrown_items[A] = A
-	for(var/turf/Z as() in RANGE_TURFS(power, T))
+	for(var/turf/Z as anything in RANGE_TURFS(power, T))
 		new /obj/effect/temp_visual/gravpush(Z)

@@ -83,6 +83,124 @@
 	May I always act so as to preserve the finest traditions of my calling and may I long experience the joy of healing those who seek my help.
 	</i>"}
 
+/obj/item/paper/fluff/jobs/medical/blood_types
+	name = "blood type compatibility reference"
+	default_raw_text = {"<h2>Blood Type Compatibility</h2>
+<table style="text-align:center;" border="1" width="100%">
+		<tbody>
+			<tr>
+				<td width="25px" height="25px"></td>
+				<td></td>
+				<td colspan="8" style="background-color: red; color: white;">Donor</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td style="background-color: red; color: white;">A+</td>
+				<td style="background-color: red; color: white;">A-</td>
+				<td style="background-color: red; color: white;">B+</td>
+				<td style="background-color: red; color: white;">B-</td>
+				<td style="background-color: red; color: white;">AB+</td>
+				<td style="background-color: red; color: white;">AB-</td>
+				<td style="background-color: red; color: white;">O+</td>
+				<td style="background-color: red; color: white;">O-</td>
+			</tr>
+			<tr>
+				<td rowspan="199" style="margin: 0; padding-left:6px; writing-mode: sideways-rl; background-color: blue; color: white;">Receiver</td>
+				<td style="background-color: blue; color: white;">A+</td>
+				<td>✓</td>
+				<td>✓</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>✓</td>
+				<td>✓</td>
+			</tr>
+			<tr>
+				<td style="background-color: blue; color: white;">A-</td>
+				<td></td>
+				<td>✓</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>✓</td>
+			</tr>
+			<tr>
+				<td style="background-color: blue; color: white;">B+</td>
+				<td></td>
+				<td></td>
+				<td>✓</td>
+				<td>✓</td>
+				<td></td>
+				<td></td>
+				<td>✓</td>
+				<td>✓</td>
+			</tr>
+			<tr>
+				<td style="background-color: blue; color: white;">B-</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>✓</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>✓</td>
+			</tr>
+			<tr>
+				<td style="background-color: blue; color: white;">AB+</td>
+				<td>✓</td>
+				<td>✓</td>
+				<td>✓</td>
+				<td>✓</td>
+				<td>✓</td>
+				<td>✓</td>
+				<td>✓</td>
+				<td>✓</td>
+			</tr>
+			<tr>
+				<td style="background-color: blue; color: white;">AB-</td>
+				<td></td>
+				<td>✓</td>
+				<td></td>
+				<td>✓</td>
+				<td></td>
+				<td>✓</td>
+				<td></td>
+				<td>✓</td>
+			</tr>
+			<tr>
+				<td style="background-color: blue; color: white;">O+</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>✓</td>
+				<td>✓</td>
+			</tr>
+			<tr>
+				<td style="background-color: blue; color: white;">O-</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>✓</td>
+			</tr>
+		</tbody>
+	</table>
+	<br/>
+	Blood types not written above can only receive from the same blood type.
+	Certain species do not have blood.
+	"}
+
 	/*
 	*	Stations
 	*/
@@ -155,3 +273,31 @@
 	default_raw_text = "<i>Since I'm going to be on vacation leave for the next few cycles, \
 	I just wanted to let you know that other than the blood freezer in the surgery room, there's \
 	a second one I left in our storage closet in maintenance (That's just south of the chemistry lab).<br><P align=right>-Dr. Antek</p></i>"
+
+
+/// instructions for nuclear operatives on how to use their medipen
+/obj/item/paper/fluff/operative
+	name = "ATTENTION: How to prevent your untimely demise."
+	color = "#b94030"
+	desc = "Seems important. That's why it's red."
+	default_raw_text = "Greetings operative.<br>\
+	<br>\
+	As you may be aware, since your financial backers do not wish to provide our collective enemies access to any trace of you or your physical form, we've had to augment \
+	you with an explosive located in the base of your neck: a microbomb implant. This implant activates a blood-based explosive the moment your heart stops beating, destroying all \
+	evidence of your physical body and brain, eradicating you permanently so those freaks at Nanotrasen can't interrogate your brain. Or worse, clone you and mindwipe you. \
+	We much prefer you free to die red than a slave to the corporation. I'm sure you agree. <B><i>Right, comrade?</i></B><br>\
+	<br>\
+	Now, don't fret. While this is beneficial for our needs, we understand that operatives sometimes would prefer themselves to be able to have more \
+	precise control over their own total oblivion. This is why our microbomb implants come equipped with a few useful features.<br>\
+	<br>\
+	<Br>First, the bomb can be activated posthumously</B>. There is a small onboard, low-level AI built into the microbomb. Based on a series of arbitrary factors, the bomb can still be activated \
+	by releasing a failsafe vial of monkey blood (notoriously volatile), the timing of which is determined by the onboard AI.<br>\
+	The only factor is whether or not, and forgive me for what I'm about to write, your 'animating spirit' still resides within your body to guide the AI and activate the bomb manually.<br>\
+	Please, do not ask your fellow operatives what this means.<br>\
+	<br>\
+	They'll probably say something absurd like <B>'your ghost needs to still be in your body to use the microbomb'</B>. That's stupid, do not listen to these ridiculous assertions. \
+	It is likely Nanotrasen propaganda.<br>\
+	<br>\
+	Ghosts are not real. Necromancy is <B>bullshit</B>.<br>\
+	<br>\
+	Anyway, best of luck on your mission, operative."

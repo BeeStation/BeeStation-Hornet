@@ -1,5 +1,6 @@
 //Added by Jack Rost
 /obj/item/trash
+	abstract_type = /obj/item/trash
 	icon = 'icons/obj/janitor.dmi'
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
@@ -88,9 +89,8 @@
 	icon = 'icons/obj/food/canned.dmi'
 	icon_state = "air_empty"
 	resistance_flags = NONE
-	var/maint = FALSE
-	var/maint_overlay = ""
 	grind_results = list(/datum/reagent/aluminium = 10)
+	var/maint = FALSE
 
 /obj/item/trash/canned/Initialize(mapload)
 	. = ..()
@@ -98,8 +98,7 @@
 		pixel_x = rand(-4,4)
 		pixel_y = rand(-4,4)
 	if(maint)
-		maint_overlay = "can_maint"
-		add_overlay(maint_overlay)
+		add_overlay("can_maint")
 		name = "maintenance [name]"
 
 /obj/item/trash/canned/maint

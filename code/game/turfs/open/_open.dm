@@ -1,6 +1,7 @@
 CREATION_TEST_IGNORE_SELF(/turf/open)
 
 /turf/open
+	abstract_type = /turf/open
 	plane = FLOOR_PLANE
 	can_hit = FALSE
 	FASTDMM_PROP(\
@@ -41,22 +42,22 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 	return "floor"
 
 //direction is direction of travel of A
-/turf/open/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
-	if(direction == DOWN)
-		for(var/obj/O in contents)
-			if(O.z_flags & Z_BLOCK_IN_DOWN)
-				return FALSE
-		return TRUE
-	return FALSE
+/turf/open/zPassIn(direction, falling = FALSE)
+	if(direction != DOWN)
+		return FALSE
+	for(var/obj/on_us in contents)
+		if(on_us.z_flags & Z_BLOCK_IN_DOWN)
+			return FALSE
+	return TRUE
 
-//direction is direction of travel of A
-/turf/open/zPassOut(atom/movable/A, direction, turf/destination, falling = FALSE)
-	if(direction == UP)
-		for(var/obj/O in contents)
-			if(O.z_flags & Z_BLOCK_OUT_UP)
-				return FALSE
-		return TRUE
-	return FALSE
+//direction is direction of travel of an atom
+/turf/open/zPassOut(direction, falling = FALSE)
+	if(direction != UP)
+		return FALSE
+	for(var/obj/on_us in contents)
+		if(on_us.z_flags & Z_BLOCK_OUT_UP)
+			return FALSE
+	return TRUE
 
 //direction is direction of travel of air
 /turf/open/zAirIn(direction, turf/source)
@@ -229,7 +230,7 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 		else
 			if(!(lube & SLIP_WHEN_CRAWLING) && slipper.body_position == LYING_DOWN || !(slipper.status_flags & CANKNOCKDOWN)) // can't slip unbuckled mob if they're lying or can't fall.
 				return 0
-			if(slipper.m_intent == MOVE_INTENT_WALK && (lube&NO_SLIP_WHEN_WALKING))
+			if(slipper.move_intent == MOVE_INTENT_WALK && (lube&NO_SLIP_WHEN_WALKING))
 				return 0
 		if(!(lube&SLIDE_ICE))
 			to_chat(slipper, span_notice("You slipped[ O ? " on the [O.name]" : ""]!"))

@@ -2,13 +2,14 @@
 #define FIRING_PIN_REMOVAL_DELAY 50
 
 /obj/item/gun
+	abstract_type = /obj/item/gun
 	name = "gun"
 	desc = "It's a gun. It's pretty terrible, though."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "detective"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	worn_icon_state = "gun"
-	flags_1 =  CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	item_flags = SLOWS_WHILE_IN_HAND | NO_WORN_SLOWDOWN | NEEDS_PERMIT
 	custom_materials = list(/datum/material/iron=2000)
@@ -38,7 +39,7 @@
 	var/can_sawoff = FALSE
 	var/sawn_name = null				//used if gun has a special sawn-off rename
 	var/sawn_desc = null				//description change if weapon is sawn-off
-	var/sawn_item_state = null			//used if gun has a special sawn-off in-hand sprite
+	var/sawn_inhand_icon_state = null			//used if gun has a special sawn-off in-hand sprite
 	var/sawn_off = FALSE
 	var/burst_size = 1					//how large a burst is
 	var/fire_delay = 0					//rate of fire for burst firing and semi auto
@@ -215,13 +216,14 @@
 	if(azoom)
 		azoom.Grant(user)
 
-/obj/item/gun/dropped(mob/user)
+/obj/item/gun/dropped(mob/user, silent = FALSE)
 	..()
 	if(azoom)
 		azoom.Remove(user)
 	if(zoomed)
 		zoom(user, user.dir)
-	update_icon()
+	if(!QDELING(src))
+		update_appearance(UPDATE_ICON_STATE)
 	user.client?.clear_cooldown_cursor()
 	if (equip_timer_id)
 		deltimer(equip_timer_id)
@@ -435,7 +437,7 @@
 	if(!is_wielded && requires_wielding)
 		bonus_spread += spread_unwielded
 	var/sprd = 0
-	sprd = max(min_gun_sprd, abs(sprd)) * SIGN(sprd)
+	sprd = max(min_gun_sprd, abs(sprd)) * sign(sprd)
 	sprd += (1 - get_integrity_ratio()) * damage_variance
 	return sprd
 
@@ -623,13 +625,6 @@
 	if(azoom)
 		azoom.Grant(user)
 
-/obj/item/gun/dropped(mob/user)
-	..()
-	if(azoom)
-		azoom.Remove(user)
-	if(zoomed)
-		zoom(user, user.dir)
-
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params, bypass_timer)
 	if(!ishuman(user) || !ishuman(target))
 		return
@@ -701,7 +696,7 @@
 /datum/action/toggle_scope_zoom
 	name = "Toggle Scope"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
 

@@ -5,7 +5,7 @@
 	desc = "Basic brawl essential."
 	icon = 'icons/obj/beds_chairs/chairs.dmi'
 	icon_state = "chair_toppled"
-	item_state = "chair"
+	inhand_icon_state = "chair"
 	lefthand_file = 'icons/mob/inhands/misc/chairs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/chairs_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
@@ -33,19 +33,32 @@
 	plant(user)
 
 /obj/item/chair/proc/plant(mob/user)
-	for(var/obj/A in get_turf(loc))
-		if(istype(A, /obj/structure/chair))
-			to_chat(user, span_danger("There is already a chair here."))
+	var/turf/turf = user.loc
+	if(!istype(turf) || isgroundlessturf(turf))
+		to_chat(user, span_warning("You need ground to plant this on!"))
+		return
+	if(!user.dropItemToGround(src))
+		to_chat(user, span_warning("[src] is stuck to your hand!"))
+		return
+	if(flags_1 & HOLOGRAM_1)
+		to_chat(user, span_notice("You try to place down \the [src], but it fades away!"))
+		qdel(src)
+		return
+
+	for(var/obj/object in turf)
+		if(istype(object, /obj/structure/chair))
+			to_chat(user, span_warning("There is already a chair here!"))
 			return
-		if(A.density && !(A.flags_1 & ON_BORDER_1))
-			to_chat(user, span_danger("There is already something here."))
+		if(object.density && !(object.flags_1 & ON_BORDER_1))
+			to_chat(user, span_warning("There is already something here!"))
 			return
 
 	user.visible_message(span_notice("[user] rights \the [src.name]."), span_notice("You right \the [name]."))
-	var/obj/structure/chair/C = new origin_type(get_turf(loc))
-	C.set_custom_materials(custom_materials)
-	TransferComponents(C)
-	C.setDir(dir)
+	var/obj/structure/chair/chair = new origin_type(turf)
+	chair.set_custom_materials(custom_materials)
+	TransferComponents(chair)
+	chair.setDir(user.dir)
+	chair.update_integrity(get_integrity())
 	qdel(src)
 
 /obj/item/chair/proc/smash(mob/living/user)
@@ -77,7 +90,7 @@
 	name = "fancy chair"
 	desc = "Meeting brawl essential."
 	icon_state = "chair_fancy_toppled"
-	item_state = "chair_fancy"
+	inhand_icon_state = "chair_fancy"
 	hitsound = 'sound/items/trayhit2.ogg'
 	custom_materials = list(/datum/material/iron = 3000)
 	origin_type = /obj/structure/chair/fancy
@@ -90,7 +103,7 @@
 	name = "stool"
 	desc = "The last line of defense."
 	icon_state = "stool_toppled"
-	item_state = "stool"
+	inhand_icon_state = "stool"
 	origin_type = /obj/structure/chair/stool
 	break_chance = 0 //It's too sturdy.
 
@@ -98,14 +111,14 @@
 	name = "bar stool"
 	desc = "Bar brawl essential."
 	icon_state = "bar_toppled"
-	item_state = "stool_bar"
+	inhand_icon_state = "stool_bar"
 	origin_type = /obj/structure/chair/stool/bar
 
 /obj/item/chair/stool/bamboo
 	name = "bamboo stool"
 	desc = "The apex of the bar brawl experience."
 	icon_state = "bamboo_stool_toppled"
-	item_state = "stool_bamboo"
+	inhand_icon_state = "stool_bamboo"
 	hitsound = 'sound/weapons/genhit1.ogg'
 	origin_type = /obj/structure/chair/stool/bamboo
 	custom_materials = null
@@ -118,7 +131,7 @@
 	name = "wooden chair"
 	desc = "Fancy brawl essential."
 	icon_state = "wooden_chair_toppled"
-	item_state = "woodenchair"
+	inhand_icon_state = "woodenchair"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	hitsound = 'sound/weapons/genhit1.ogg'
@@ -139,7 +152,7 @@
 	name = "plastic chair"
 	desc = "Be the reclaimer of your name." //bury the light deep withiiiiiiiiiiiiiiiiin
 	icon_state = "plastic_chair_toppled"
-	item_state = "plastic_chair"
+	inhand_icon_state = "plastic_chair"
 	force = 3//have you ever been hit by a plastic chair? those aren't as bad as a metal or a wood one!
 	throwforce = 6
 

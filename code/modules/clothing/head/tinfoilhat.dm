@@ -2,7 +2,7 @@
 	name = "tinfoil hat"
 	desc = "Thought control rays, psychotronic scanning. Don't mind that, I'm protected cause I made this hat."
 	icon_state = "foilhat"
-	item_state = null
+	inhand_icon_state = null
 	clothing_flags = EFFECT_HAT | SNUG_FIT
 	armor_type = /datum/armor/costume_foilhat
 	equip_delay_other = 140
@@ -63,7 +63,7 @@
 	icon = 'icons/obj/clothing/head/plasmaman_hats.dmi'
 	worn_icon = 'icons/mob/clothing/head/plasmaman_head.dmi'
 	icon_state = "tinfoil_envirohelm"
-	item_state = "tinfoil_envirohelm"
+	inhand_icon_state = "tinfoil_envirohelm"
 	strip_delay = 150
 	clothing_flags = STOPSPRESSUREDAMAGE | EFFECT_HAT | SNUG_FIT | HEADINTERNALS
 	armor_type = /datum/armor/foilhat_plasmaman
@@ -93,7 +93,7 @@
 /obj/item/clothing/head/costume/foilhat/plasmaman/attack_self(mob/user)
 	on = !on
 	icon_state = "[initial(icon_state)][on ? "-light":""]"
-	item_state = icon_state
+	inhand_icon_state = icon_state
 	user.update_worn_head() //So the mob overlay updates
 
 	if(on)

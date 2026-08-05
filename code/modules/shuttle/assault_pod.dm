@@ -21,7 +21,7 @@
 	name = "Assault Pod Targeting Device"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-red"
-	item_state = "radio"
+	inhand_icon_state = "radio"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	desc = "Used to select a landing zone for assault pods."
@@ -54,7 +54,7 @@
 	landing_zone.height = height
 	landing_zone.setDir(lz_dir)
 
-	for(var/obj/machinery/computer/shuttle_flight/S in GLOB.machines)
+	for(var/obj/machinery/computer/shuttle_flight/S as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/shuttle_flight))
 		if(S.shuttleId == shuttle_id)
 			S.recall_docking_port_id = "[landing_zone.id]"
 			S.valid_docks = list("[landing_zone.id]")

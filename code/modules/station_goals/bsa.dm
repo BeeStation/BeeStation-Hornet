@@ -14,7 +14,7 @@ GLOBAL_VAR_INIT(bsa_unlock, FALSE)
 		"We need you to construct BSA-[rand(1,99)] Artillery position aboard your station.",
 		"",
 		"Base parts are available for shipping via cargo.",
-		"-Nanotrasen Naval Command</blockquote>",
+		"<i>- Nanotrasen Naval Command</i></blockquote>",
 	).Join("\n")
 
 /datum/station_goal/bluespace_cannon/on_report()
@@ -233,7 +233,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	add_overlay(top_layer)
 	top_layer.icon_state = "top_[dir2text(dir)]"
 
-	var/charge_quarter = FLOOR(cell.percent() / 25, 1)
+	var/charge_quarter = floor(cell.percent() / 25)
 	var/charge_sound = 'sound/machines/apc/PowerSwitch_Off.ogg'
 	if(charge_quarter >= 1)
 		add_overlay("[base_battery_icon_state]_25")
@@ -253,7 +253,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 		return FALSE
 	firing = TRUE
 	var/sound/charge_up = sound(select_sound)
-	playsound(get_turf(src), charge_up, 50, 1, pressure_affected = FALSE)
+	playsound(get_turf(src), charge_up, 10, 1, pressure_affected = FALSE)
 	var/timerid = addtimer(CALLBACK(src, PROC_REF(fire), user, bullseye), select_sound_length, TIMER_STOPPABLE)
 	winding_up = TRUE
 	var/list/turfs = spiral_range_turfs(ex_power * 2, bullseye)
@@ -268,12 +268,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 
 /obj/machinery/power/bsa/full/proc/fire(mob/user, turf/bullseye)
 	winding_up = FALSE
-	playsound(get_turf(src), fire_sound, 100, 1, world.maxx, pressure_affected = FALSE, ignore_walls = TRUE)
+	playsound(get_turf(src), fire_sound, 15, 1, world.maxx, pressure_affected = FALSE, ignore_walls = TRUE)
 	// we shake camera of every mob with client on the same zlevel as cannon, explosion itself handles shaking camera on target zlevel
 	for(var/mob/M in GLOB.mob_living_list)
 		if(!M.client || !compare_z(M.get_virtual_z_level(), get_virtual_z_level()))
 			continue
-		shake_camera(M, 15, 1)
+		shake_camera(M, 8, 1)
 
 	var/turf/point = get_front_turf()
 	var/turf/target = get_target_turf()
@@ -326,7 +326,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	terminal.add_load(power + idle_power_usage)
 	cell.give(avail_charge)
 	update_appearance(UPDATE_OVERLAYS)
-	last_charge_quarter = FLOOR(cell.percent() / 25, 1)
+	last_charge_quarter = floor(cell.percent() / 25)
 	ui_update()
 
 /obj/structure/filler
@@ -360,6 +360,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	return GLOB.physical_state
 
 /obj/machinery/computer/bsa_control/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "BluespaceArtillery")

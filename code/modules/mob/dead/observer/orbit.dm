@@ -68,14 +68,13 @@
 				var/obj/item/card/id/identification_card = M.get_idcard()
 				if (identification_card)
 					serialized["role_icon"] = "hud[ckey(identification_card.get_item_job_icon())]"
-				else if(SSjob.name_occupations[mind.assigned_role])
+				else if(SSjob.name_occupations[mind.assigned_role.title])
 					//If we have no ID, use the mind job
-					var/located_job_hud = get_hud_by_jobname(mind.assigned_role, returns_unknown=FALSE)
+					var/located_job_hud = get_hud_by_jobname(mind.assigned_role.title, returns_unknown=FALSE)
 					if (located_job_hud)
 						serialized["role_icon"] = "hud[ckey(located_job_hud)]"
 
-				for (var/_A in mind.antag_datums)
-					var/datum/antagonist/A = _A
+				for (var/datum/antagonist/A as anything in mind.antag_datums)
 					if (A.show_to_ghosts)
 						was_antagonist = TRUE
 						var/datum/team/antag_team = A.get_team()
@@ -83,8 +82,6 @@
 							serialized["antag"] = antag_team.get_team_name()
 						else
 							serialized["antag"] = A.get_antag_name()
-						if(mind.antag_hud_icon_state)
-							serialized["antag_icon"] = mind.antag_hud_icon_state
 						antagonists += list(serialized)
 						break
 
@@ -119,5 +116,7 @@
 	// Scale it up
 	transform.scale(16, 16)
 
-	for (var/icon_state_name in icon_states('icons/mob/hud.dmi'))
-		insert_icon("job-icon-[icon_state_name]", uni_icon('icons/mob/hud.dmi', icon_state_name, transform=transform))
+	for (var/icon_state_name in icon_states('icons/mob/huds/hud.dmi'))
+		var/datum/universal_icon/job_icon = uni_icon('icons/mob/huds/hud.dmi', icon_state_name)
+		job_icon.transform = transform
+		insert_icon("job-icon-[icon_state_name]", job_icon)

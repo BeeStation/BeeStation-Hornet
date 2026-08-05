@@ -3,7 +3,7 @@
 	desc = "A handy-dandy holographic projector that displays a janitorial sign."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	force = 0
@@ -209,7 +209,7 @@
 	icon_state = "signmaker_atmos"
 	holosign_type = /obj/structure/holosign/barrier/atmos
 	creation_time = 0
-	max_signs = 3
+	max_signs = 6
 	projectable_through = list(
 		/obj/machinery/door,
 		/obj/structure/mineral_door,

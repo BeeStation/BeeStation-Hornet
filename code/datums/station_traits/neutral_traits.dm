@@ -78,18 +78,10 @@
 	var/birthday_person_name = ""
 	/// Variable that admins can override with a player's ckey in order to set them as the birthday person when the round starts.
 	var/birthday_override_ckey
-	/// All spawned party spots
-	var/list/obj/effect/spawner/hangover_spawn/spawns = list()
 
 /datum/station_trait/birthday/New()
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
-	RegisterSignal(SSmapping, COMSIG_SUBSYSTEM_POST_INITIALIZE, PROC_REF(create_spawners))
-
-/datum/station_trait/birthday/revert()
-	for(var/obj/effect/spawner/hangover_spawn/party_spot in spawns)
-		QDEL_LIST(party_spot.party_debris)
-	return ..()
 
 /datum/station_trait/birthday/on_round_start()
 	. = ..()
@@ -100,31 +92,29 @@
 	if(!birthday_person)
 		var/list/birthday_options = list()
 		for(var/mob/living/carbon/human/human in GLOB.human_list)
-			if(human.mind?.assigned_role in get_all_jobs())
+			if(human.mind?.assigned_role?.departments_bitflags & DEPT_BITFLAG_STATIONS)
 				birthday_options += human
 		if(length(birthday_options))
 			birthday_person = pick(birthday_options)
 			birthday_person_name = birthday_person.real_name
 
+	INVOKE_ASYNC(src, PROC_REF(pick_turfs_and_spawn))
 	addtimer(CALLBACK(src, PROC_REF(announce_birthday)), 10 SECONDS)
 
-/datum/station_trait/birthday/proc/create_spawners()
-	SIGNAL_HANDLER
-
-	INVOKE_ASYNC(src, PROC_REF(pick_turfs_and_spawn))
-	UnregisterSignal(SSmapping, COMSIG_SUBSYSTEM_POST_INITIALIZE)
-
 /datum/station_trait/birthday/proc/pick_turfs_and_spawn()
-	var/list/turf/turfs = get_safe_random_station_turfs(typesof(/area/hallway) | typesof(/area/crew_quarters/bar) | typesof(/area/crew_quarters/dorms), rand(200, 300))
-	for(var/turf/turf as() in turfs)
-		spawns += new /obj/effect/spawner/hangover_spawn(turf)
+	var/list/turf/turfs = get_safe_random_station_turfs(
+		typesof(/area/station/hallway) | typesof(/area/station/service/bar) | typesof(/area/station/commons/dorms),
+		rand(200, 300),
+	)
+	for(var/turf/turf as anything in turfs)
+		new /obj/effect/spawner/hangover_spawn(turf)
 
 /datum/station_trait/birthday/proc/check_valid_override()
 	var/mob/living/carbon/human/birthday_override_mob = get_mob_by_ckey(birthday_override_ckey)
 	if(isnull(birthday_override_mob))
 		return FALSE
 
-	if(birthday_override_mob.mind?.assigned_role in get_all_jobs())
+	if(birthday_override_mob.mind?.assigned_role?.departments_bitflags & DEPT_BITFLAG_STATIONS)
 		birthday_person = birthday_override_mob
 		birthday_person_name = birthday_person.real_name
 		return TRUE

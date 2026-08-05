@@ -114,7 +114,7 @@
 	desc = "The Chromis can vary in color from blue to green depending on the lighting and distance from the lights."
 	icon_state = "greenchromis"
 	dedicated_in_aquarium_icon_state = "fish_greyscale"
-	aquarium_vc_color = "#00ff00"
+	aquarium_vc_color = COLOR_VIBRANT_LIME
 	required_fluid_type = AQUARIUM_FLUID_SALTWATER
 	stable_population = 5
 

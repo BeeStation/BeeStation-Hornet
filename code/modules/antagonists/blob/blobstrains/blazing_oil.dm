@@ -36,7 +36,7 @@
 /datum/reagent/blob/blazing_oil/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	reac_volume = ..()
 	M.adjust_fire_stacks(round(reac_volume/10))
-	M.IgniteMob()
+	M.ignite_mob()
 	if(M)
 		M.apply_damage(0.8*reac_volume, BURN)
 	if(iscarbon(M))

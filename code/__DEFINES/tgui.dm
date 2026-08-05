@@ -42,6 +42,14 @@
 	"%7b%22type%22%3a%22[type]%22%7d" \
 )
 
+/**
+ * Gets a ui_state that checks to see if the user has specific admin permissions.
+ *
+ * Arguments:
+ * * required_perms: Which admin permission flags to check the user for, such as [R_ADMIN]
+ */
+#define ADMIN_STATE(required_perms) (GLOB.admin_states[required_perms] ||= new /datum/ui_state/admin_state(required_perms))
+
 /// Telemetry
 
 /**
@@ -53,7 +61,7 @@
 /**
  * Maximum time allocated for sending a telemetry packet.
  */
-#define TGUI_TELEMETRY_RESPONSE_WINDOW 2 MINUTES
+#define TGUI_TELEMETRY_RESPONSE_WINDOW (2 MINUTES)
 
 /// Telemetry statuses
 #define TGUI_TELEMETRY_STAT_NOT_REQUESTED 0 //Not Yet Requested

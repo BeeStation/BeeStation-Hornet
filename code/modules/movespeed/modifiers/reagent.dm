@@ -26,6 +26,9 @@
 /datum/movespeed_modifier/reagent/methamphetamine
 	multiplicative_slowdown = -0.5
 
+/datum/movespeed_modifier/reagent/cannabis
+	multiplicative_slowdown = 0.4
+
 /datum/movespeed_modifier/reagent/modafil
 	multiplicative_slowdown = -0.25
 	blacklisted_movetypes = FLYING | FLOATING

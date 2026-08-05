@@ -8,4 +8,4 @@ GLOBAL_LIST_EMPTY(religion_sect_datums)
 //bible
 GLOBAL_VAR(bible_name)
 GLOBAL_VAR(bible_icon_state)
-GLOBAL_VAR(bible_item_state)
+GLOBAL_VAR(bible_inhand_icon_state)

@@ -4,7 +4,7 @@
 	desc = "An injector with a cocktail of nanomachines and chemicals, this device can seemingly raise animals from the dead. Testing has shown inconsistent results and the animals with especially strong wills may attack the person reviving them."
 	icon = 'icons/obj/syringe.dmi'
 	icon_state = "lazarus_hypo"
-	item_state = "hypo"
+	inhand_icon_state = "hypo"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throwforce = 0
@@ -22,6 +22,8 @@
 	. = ..()
 	if(!loaded || !(isliving(target) && proximity_flag))
 		return
+	if(SEND_SIGNAL(target, COMSIG_ATOM_ON_LAZARUS_INJECTOR, src, user) & LAZARUS_INJECTOR_USED)
+		return TRUE
 	var/mob/living/target_animal = target
 	if(!target_animal.compare_sentience_type(revive_type)) // Will also return false if not a basic or simple mob, which are the only two we want anyway
 		balloon_alert(user, "invalid creature!")

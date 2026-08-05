@@ -9,7 +9,7 @@
 	 */
 	var/notes = ""
 	/// The accent color of the holoparasite being built.
-	var/accent_color = "#FFFFFF"
+	var/accent_color = COLOR_WHITE
 	/// The maximum amount of points the user can spend on the holoparasite.
 	var/max_points = 20
 	/// The current amount of available points the user can spend on the holoparasite.
@@ -34,13 +34,13 @@
 	theme = get_holoparasite_theme(_theme)
 	if(!istype(theme))
 		CRASH("Holoparasite builder created without valid theme!")
-	if(isnum_safe(_max_points))
+	if(IS_FINITE(_max_points))
 		max_points = max(round(_max_points), 1)
 	points = max_points
-	if(isnum_safe(_max_level))
+	if(IS_FINITE(_max_level))
 		max_level = max(round(_max_level), 1)
 	saved_stats.max_level = max_level
-	if(isnum_safe(_uses))
+	if(IS_FINITE(_uses))
 		uses = max(round(_uses), 1)
 	debug_mode = _debug_mode
 	accent_color = pick(GLOB.color_list_rainbow)
@@ -115,7 +115,7 @@
 		.["selected_abilities"] += "[saved_stats.ability.type]"
 		if(saved_stats.ability.forced_weapon)
 			.["forced_weapon"] = "[saved_stats.ability.forced_weapon]"
-	for(var/datum/holoparasite_ability/ability as() in saved_stats.lesser_abilities)
+	for(var/datum/holoparasite_ability/ability as anything in saved_stats.lesser_abilities)
 		.["selected_abilities"] += "[ability.type]"
 	.["selected_abilities"] += "[saved_stats.weapon.type]"
 
@@ -172,7 +172,7 @@
 		if("set:stat")
 			var/stat = params["stat"]
 			var/value = params["level"]
-			if(!istext(stat) || !length(stat) || !isnum_safe(value))
+			if(!istext(stat) || !length(stat) || !IS_FINITE(value))
 				return
 			var/level = clamp(round(value), 1, max_level)
 			switch(stat)
@@ -195,7 +195,7 @@
 			var/color = params["color"]
 			if(!istext(color) || length(color) != 7)
 				return
-			var/new_accent_color = sanitize_hexcolor(color, desired_format = 6, include_crunch = TRUE, default = (length(accent_color) == 7 && accent_color != initial(accent_color)) ? accent_color : pick(GLOB.color_list_rainbow))
+			var/new_accent_color = sanitize_hexcolor(color, include_crunch = TRUE, default = (length(accent_color) == 7 && accent_color != initial(accent_color)) ? accent_color : pick(GLOB.color_list_rainbow))
 			if(is_color_dark_with_saturation(new_accent_color, HOLOPARA_MAX_ACCENT_LIGHTNESS))
 				to_chat(usr, span_warning("Selected accent color is too dark!"))
 				return
@@ -256,7 +256,7 @@
 		if(is_valid_ability(forced_weapon_path, /datum/holoparasite_ability/weapon) && !istype(saved_stats.weapon, forced_weapon_path))
 			QDEL_NULL(saved_stats.weapon)
 			saved_stats.weapon = new forced_weapon_path
-		for(var/datum/holoparasite_ability/lesser/lability as() in saved_stats.lesser_abilities)
+		for(var/datum/holoparasite_ability/lesser/lability as anything in saved_stats.lesser_abilities)
 			if(!lability.can_buy())
 				saved_stats.lesser_abilities -= lability
 				qdel(lability)
@@ -283,7 +283,7 @@
 	if(!path || !ispath(path, base_path))
 		return FALSE
 	var/datum/holoparasite_ability/ability = GLOB.holoparasite_abilities[path]
-	if(!istype(ability) || !isnum_safe(ability.cost)) // null cost means this ability is NOT obtainable through normal means.
+	if(!istype(ability) || !IS_FINITE(ability.cost)) // null cost means this ability is NOT obtainable through normal means.
 		return FALSE
 /**
  * Checks the validity of the name of the holoparasite, returning the reason if it's invalid, or "valid" if it is in fact valid.
@@ -317,7 +317,7 @@
 	points = max_points - max(saved_stats.damage - 1, 0) - max(saved_stats.defense - 1, 0) - max(saved_stats.speed - 1, 0) - max(saved_stats.potential - 1, 0) - max(saved_stats.range - 1, 0) - saved_stats.weapon.cost
 	if(saved_stats.ability)
 		points -= saved_stats.ability.cost
-	for(var/datum/holoparasite_ability/lesser/minor as() in saved_stats.lesser_abilities)
+	for(var/datum/holoparasite_ability/lesser/minor as anything in saved_stats.lesser_abilities)
 		points -= minor.cost
 	return points
 
@@ -366,13 +366,14 @@
 	if(debug_mode)
 		candidates = list(user)
 	else
-		candidates = SSpolling.poll_ghost_candidates(
+		var/datum/poll_config/config = new(
 			check_jobban = ROLE_HOLOPARASITE,
 			poll_time = 30 SECONDS,
 			jump_target = user,
 			role_name_text = "[holopara_name], [user]'s [theme.name]",
 			alert_pic = /mob/living/simple_animal/hostile/holoparasite,
 		)
+		candidates = SSpolling.poll_ghost_candidates(config)
 	waiting = FALSE
 	if(!length(candidates))
 		theme.display_message(user, HOLOPARA_MESSAGE_FAILED)
@@ -380,7 +381,9 @@
 		return FALSE
 	uses--
 	var/mob/dead/observer/candidate = pick(candidates)
-	var/mob/living/simple_animal/hostile/holoparasite/holoparasite = new(user, candidate.key, holopara_name, theme, accent_color, notes, user.mind, saved_stats)
+	var/mob/living/simple_animal/hostile/holoparasite/holoparasite = new(user, holopara_name, theme, accent_color, notes, saved_stats)
+	holoparasite.set_summoner(user.mind, different_person = TRUE)
+	holoparasite.key = candidate.key
 	var/datum/antagonist/holoparasite/holopara_antag = holoparasite.mind.add_antag_datum(new /datum/antagonist/holoparasite(user.mind.holoparasite_holder(), saved_stats, theme))
 	saved_stats = new
 	holopara_antag.ui_interact(holoparasite) // Show them the info popup
@@ -395,7 +398,7 @@
  */
 /datum/holoparasite_builder/proc/record_to_blackbox()
 	var/list/lesser_abilities = list()
-	for(var/datum/holoparasite_ability/lesser/lesser_ability as() in saved_stats.lesser_abilities)
+	for(var/datum/holoparasite_ability/lesser/lesser_ability as anything in saved_stats.lesser_abilities)
 		lesser_abilities += "[lesser_abilities.type]"
 	SSblackbox.record_feedback("amount", "holoparasites_created", 1)
 	SSblackbox.record_feedback("associative", "holoparasite_stats", 1, list(
@@ -421,7 +424,7 @@
 	return src
 
 /datum/holoparasite_builder/admin/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/holoparasite_builder/admin/ui_status(mob/user, datum/ui_state/_state)
 	if(check_rights_for(user.client, R_FUN))
@@ -430,12 +433,12 @@
 
 // the item
 /obj/item/holoparasite_creator
-	name = "deck of tarot cards"
+	name = "enchanted deck of tarot cards"
 	desc = "An enchanted deck of tarot cards, rumored to be a source of unimaginable power."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "deck_syndicate_full"
 	obj_flags = USES_TGUI
-	item_flags = EXAMINE_SKIP | NOBLUDGEON | NO_MAT_REDEMPTION
+	item_flags = NOBLUDGEON | NO_MAT_REDEMPTION
 	w_class = WEIGHT_CLASS_SMALL
 	custom_price = 20000
 	max_demand = 5
@@ -461,6 +464,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holoparasite_creator)
 /obj/item/holoparasite_creator/Initialize(mapload, datum/holoparasite_theme/theme_override)
 	. = ..()
 	builder = new(src, theme_override || theme, max_points, max_level, uses, debug_mode)
+	ADD_TRAIT(src, TRAIT_EXAMINE_SKIP, INNATE_TRAIT)
 
 /obj/item/holoparasite_creator/Destroy()
 	QDEL_NULL(builder)
@@ -486,7 +490,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holoparasite_creator)
 /obj/item/holoparasite_creator/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if(NAMEOF(src, debug_mode))
-			if(!isnum_safe(var_value))
+			if(!IS_FINITE(var_value))
 				return FALSE
 			builder.debug_mode = var_value
 			builder.datum_flags |= DF_VAR_EDITED
@@ -494,7 +498,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holoparasite_creator)
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
 		if(NAMEOF(src, max_points))
-			if(!isnum_safe(var_value) || var_value < 1)
+			if(!IS_FINITE(var_value) || var_value < 1)
 				return FALSE
 			var/new_max_points = round(var_value)
 			builder.max_points = new_max_points
@@ -503,7 +507,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holoparasite_creator)
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
 		if(NAMEOF(src, max_level))
-			if(!isnum_safe(var_value) || var_value < 1)
+			if(!IS_FINITE(var_value) || var_value < 1)
 				return FALSE
 			var/new_max_level = round(var_value)
 			builder.max_level = new_max_level
@@ -523,7 +527,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holoparasite_creator)
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
 		if(NAMEOF(src, uses))
-			if(!isnum_safe(var_value) || var_value < 0)
+			if(!IS_FINITE(var_value) || var_value < 0)
 				return FALSE
 			var/new_uses = round(var_value)
 			builder.uses = new_uses

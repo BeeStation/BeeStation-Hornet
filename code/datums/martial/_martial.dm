@@ -14,6 +14,7 @@
 	var/timerid
 	/// If set to true this style allows you to punch people despite being a pacifist (for instance Boxing, which does no damage)
 	var/pacifist_style = FALSE
+	var/bypass_blocking = TRUE //Is this martial art specifically allowed to bypass shields and blades?
 
 	/// Weakref to button to access martial guide
 	var/datum/weakref/info_button_ref

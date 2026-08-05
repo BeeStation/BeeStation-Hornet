@@ -1,8 +1,7 @@
 /*****************************Survival Pod********************************/
-/area/survivalpod
+/area/misc/survivalpod
 	name = "\improper Emergency Shelter"
 	icon_state = "away"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	default_gravity = STANDARD_GRAVITY
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
@@ -122,6 +121,12 @@
 	icon = 'icons/obj/mining.dmi'
 	template_id = "shelter_theta"
 
+/obj/item/survivalcapsule/shuttle_husk
+	name = "husk shuttle capsule"
+	desc = "The remains of a shuttle"
+	icon_state = "capsuleeng"
+	icon = 'icons/obj/mining.dmi'
+	template_id = "shuttle_husk"
 //Pod objects
 
 //Window
@@ -379,4 +384,4 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/survival_pod/corner
 	icon = initial(I.icon)
 	desc = initial(I.desc)
 	icon_state = initial(I.icon_state)
-	item_state = initial(I.item_state)
+	inhand_icon_state = initial(I.inhand_icon_state)

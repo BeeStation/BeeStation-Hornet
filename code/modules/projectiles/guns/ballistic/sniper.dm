@@ -4,7 +4,7 @@
 	name = "sniper rifle"
 	desc = "A long ranged weapon that does significant damage. No, you can't quickscope."
 	icon_state = "sniper"
-	item_state = "sniper"
+	inhand_icon_state = "sniper"
 	worn_icon_state = "sniper"
 	fire_sound = "sound/weapons/sniper_shot.ogg"
 	fire_sound_volume = 90

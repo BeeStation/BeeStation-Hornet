@@ -34,9 +34,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -95,9 +93,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/power/apc/syndicate{
 	dir = 8;
 	name = "Syndicate Drop Ship APC";
@@ -107,9 +103,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/caravan/syndicate3)
 "jY" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -140,9 +134,9 @@
 /obj/machinery/door/airlock/hatch{
 	id_tag = "caravansyndicate3_bolt_port";
 	name = "External Airlock";
-	normalspeed = 0;
-	req_access_txt = "150"
+	normalspeed = 0
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/docking_port/mobile{
 	dir = 2;
 	dwidth = 6;
@@ -379,9 +373,9 @@
 /obj/machinery/door/airlock/hatch{
 	id_tag = "caravansyndicate3_bolt_starboard";
 	name = "External Airlock";
-	normalspeed = 0;
-	req_access_txt = "150"
+	normalspeed = 0
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
@@ -423,9 +417,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/item/stack/sheet/iron/twenty,
 /obj/item/stack/sheet/glass{
 	amount = 10
@@ -454,9 +446,9 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/hatch{
 	id_tag = "caravansyndicate3_bolt_bridge";
-	name = "Bridge";
-	req_access_txt = "150"
+	name = "Bridge"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
@@ -506,9 +498,9 @@
 /area/shuttle/caravan/syndicate3)
 "Zo" = (
 /obj/machinery/door/airlock/hatch{
-	name = "Ready Room";
-	req_access_txt = "150"
+	name = "Ready Room"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},

@@ -107,7 +107,7 @@
 #define ui_borg_store "CENTER+2:16,SOUTH:5"
 #define ui_borg_camera "CENTER+3:21,SOUTH:5"
 #define ui_borg_alerts "CENTER+4:21,SOUTH:5"
-#define ui_borg_language_menu "CENTER+4:19,SOUTH+1:6"
+#define ui_borg_language_menu "CENTER+5:21,SOUTH+1:6"
 #define ui_borg_navigate_menu "CENTER+4:19,SOUTH+1:6"
 
 //AI
@@ -151,15 +151,7 @@
 
 //Ghosts
 
-#define ui_ghost_observe "SOUTH:6,CENTER-3"
-#define ui_ghost_jumptomob "SOUTH:6,CENTER-2"
-#define ui_ghost_orbit "SOUTH:6,CENTER-1"
-#define ui_ghost_reenter_corpse "SOUTH:6,CENTER"
-#define ui_ghost_respawn "SOUTH:6,CENTER+1"
-#define ui_ghost_teleport "SOUTH:6,CENTER+2"
-#define ui_ghost_spawners_menu "SOUTH:6,CENTER+3"
-#define ui_ghost_pai "SOUTH:6, CENTER+4"
-#define ui_ghost_language_menu "SOUTH:21, CENTER+5"
+#define ui_ghost_center(offset) "SOUTH:6,CENTER+[offset]"
 
 //Blobbernauts
 #define ui_blobbernaut_overmind_health "EAST-1:28,CENTER+0:19"

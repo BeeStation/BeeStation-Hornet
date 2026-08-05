@@ -3,8 +3,8 @@
 	desc = "A small authentication device, to be inserted into a firearm receiver to allow operation. NT safety regulations require all new designs to incorporate one."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "firing_pin"
-	item_state = "pen"
-	flags_1 = CONDUCT_1
+	inhand_icon_state = "pen"
+	obj_flags = CONDUCTS_ELECTRICITY
 	w_class = WEIGHT_CLASS_TINY
 	attack_verb_continuous = list("pokes")
 	attack_verb_simple = list("poke")
@@ -122,7 +122,7 @@
 /obj/item/firing_pin/clown
 	name = "hilarious firing pin"
 	desc = "Advanced clowntech that can convert any firearm into a far more useful object."
-	color = "#FFFF00"
+	color = COLOR_YELLOW
 	fail_message = span_warning("HONK!")
 	force_replace = TRUE
 
@@ -134,9 +134,19 @@
 // A gun with ultra-honk pin is useful for clown and useless for everyone else.
 /obj/item/firing_pin/clown/ultra/pin_auth(mob/living/user)
 	playsound(src.loc, 'sound/items/bikehorn.ogg', 50, 1)
-	if(user && (!(HAS_TRAIT(user, TRAIT_CLUMSY)) && !(user.mind && user.mind.assigned_role == JOB_NAME_CLOWN)))
-		return FALSE
-	return TRUE
+	if(QDELETED(user))  //how the hell...?
+		stack_trace("/obj/item/firing_pin/clown/ultra/pin_auth called with a [isnull(user) ? "null" : "invalid"] user.")
+		return TRUE
+	if(HAS_TRAIT(user, TRAIT_CLUMSY)) //clumsy
+		return TRUE
+	if(user.mind)
+		if(is_clown_job(user.mind.assigned_role)) //traitor clowns can use this, even though they're technically not clumsy
+			return TRUE
+		if(user.mind.has_antag_datum(/datum/antagonist/nukeop/clownop)) //clown ops aren't clumsy by default and technically don't have an assigned role of "Clown", but come on, they're basically clowns
+			return TRUE
+		if(user.mind.has_antag_datum(/datum/antagonist/nukeop/leader/clownop)) //Wanna hear a funny joke?
+			return TRUE //The clown op leader antag datum isn't a subtype of the normal clown op antag datum.
+	return FALSE
 
 /obj/item/firing_pin/clown/ultra/gun_insert(mob/living/user, obj/item/gun/G)
 	..()
@@ -192,7 +202,7 @@
 /obj/item/firing_pin/paywall
 	name = "paywall firing pin"
 	desc = "A firing pin with a built-in configurable paywall."
-	color = "#FFD700"
+	color = COLOR_GOLD
 	fail_message = ""
 	var/list/gun_owners = list() //list of people who've accepted the license prompt. If this is the multi-payment pin, then this means they accepted the waiver that each shot will cost them money
 	var/payment_amount //how much gets paid out to license yourself to the gun

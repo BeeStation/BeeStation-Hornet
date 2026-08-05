@@ -52,7 +52,7 @@ export const Sleeper = (props) => {
           minHeight="250px"
           buttons={
             !!occupant.stat && (
-              <Box inline bold color={occupant.statstate}>
+              <Box inline bold mt={0.5}>
                 {occupant.stat}
               </Box>
             )

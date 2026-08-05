@@ -9,7 +9,7 @@
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50 WATT
-	active_power_usage = 300 WATT	// Code does not care for this at all yet
+	active_power_usage = 300 WATT
 	max_integrity = 200
 	integrity_failure = 0.5
 	armor_type = /datum/armor/machinery_computer
@@ -24,9 +24,6 @@
 	var/clockwork = FALSE
 	var/time_to_screwdrive = 20
 	var/authenticated = FALSE
-
-	///Should the [icon_state]_broken overlay be shown as an emissive or regular overlay?
-	var/broken_overlay_emissive = FALSE
 
 /datum/armor/machinery_computer
 	fire = 40
@@ -59,7 +56,6 @@
 		icon_screen = "ratvar[rand(1, 3)]"
 		icon_keyboard = "ratvar_key[rand(1, 2)]"
 		icon_state = "ratvarcomputer"
-		broken_overlay_emissive = TRUE
 		smoothing_groups = null
 		QUEUE_SMOOTH_NEIGHBORS(src)
 		smoothing_flags = NONE
@@ -70,7 +66,6 @@
 		clockwork = FALSE
 		icon_screen = initial(icon_screen)
 		icon_keyboard = initial(icon_keyboard)
-		broken_overlay_emissive = initial(broken_overlay_emissive)
 		smoothing_flags = initial(smoothing_flags)
 		smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
 		canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
@@ -111,8 +106,6 @@
 		set_light(TRUE)
 
 /obj/machinery/computer/screwdriver_act(mob/living/user, obj/item/I)
-	if(..())
-		return TRUE
 	if(circuit && !(flags_1&NODECONSTRUCT_1))
 		to_chat(user, span_notice("You start to disconnect the monitor..."))
 		if(I.use_tool(src, user, time_to_screwdrive, volume=50))
@@ -181,3 +174,19 @@
 	context.add_attack_hand_action("Interact")
 	if(circuit && !(flags_1 & NODECONSTRUCT_1))
 		context.add_left_click_tool_action("Deconstruct", TOOL_SCREWDRIVER)
+
+/obj/machinery/computer/ui_interact(mob/user, datum/tgui/ui)
+	SHOULD_CALL_PARENT(TRUE)
+	. = ..()
+	update_use_power(ACTIVE_POWER_USE)
+
+/obj/machinery/computer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	SHOULD_CALL_PARENT(TRUE)
+	. = ..()
+	if(!issilicon(ui.user))
+		playsound(src, "keyboard_clicks", 10, TRUE, FALSE)
+
+/obj/machinery/computer/ui_close(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
+	. = ..()
+	update_use_power(IDLE_POWER_USE)

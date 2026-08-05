@@ -114,12 +114,12 @@
 	melee_damage = 10
 	combat_mode = TRUE
 	del_on_death = TRUE
-	deathmessage = "collapses into bits of plant matter."
+	death_message = "collapses into bits of plant matter."
 	attacked_sound = 'sound/creatures/venus_trap_hurt.ogg'
-	deathsound = 'sound/creatures/venus_trap_death.ogg'
+	death_sound = 'sound/creatures/venus_trap_death.ogg'
 	attack_sound = 'sound/creatures/venus_trap_hit.ogg'
 	//unsuitable_heat_damage = 5 //note that venus human traps do not take cold damage, only heat damage- this is because space vines can cause hull breaches
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 0
 	/// copied over from the code from eyeballs (the mob) to make it easier for venus human traps to see in kudzu that doesn't have the transparency mutation
 	sight = SEE_SELF|SEE_MOBS|SEE_OBJS|SEE_TURFS
@@ -142,7 +142,7 @@
 	var/last_manual_pull_time = 0
 	var/manual_pull_cooldown = 2 SECONDS
 
-	discovery_points = 2000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/hostile/venus_human_trap/Initialize(mapload)
 	remove_verb(/mob/living/verb/pulled) //No pulling people into the vines
@@ -175,7 +175,7 @@
 	playsound(src.loc, 'sound/creatures/venus_trap_hurt.ogg', 50, 1)
 	adjustHealth(maxHealth*0.15)
 
-/mob/living/simple_animal/hostile/venus_human_trap/Moved(atom/OldLoc, Dir)
+/mob/living/simple_animal/hostile/venus_human_trap/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	pixel_x = base_pixel_x + (dir & (NORTH|WEST) ? 2 : -2)
 

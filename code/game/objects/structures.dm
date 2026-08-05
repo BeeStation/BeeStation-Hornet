@@ -1,5 +1,6 @@
 /// Inert structures, such as girders, machine frames, and crates/lockers.
 /obj/structure
+	abstract_type = /obj/structure
 	icon = 'icons/obj/structures.dmi'
 	pressure_resistance = 8
 	max_integrity = 300
@@ -8,8 +9,10 @@
 	flags_ricochet = RICOCHET_HARD
 	ricochet_chance_mod = 0.5
 	pass_flags_self = PASSSTRUCTURE
-	var/broken = FALSE
 	armor_type = /datum/armor/obj_structure
+	burning_particles = /particles/smoke/burning
+	var/broken = FALSE
+	var/radiation_shield = FALSE   // Blocks rads in containers - see morgue.dm for proc
 
 /datum/armor/obj_structure
 	fire = 50

@@ -57,7 +57,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/sanitarium,
+/obj/effect/spawner/random/unsorted/sanitarium,
 /turf/open/floor/plating,
 /area/template_noop)
 "aq" = (
@@ -114,7 +114,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "aE" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "aG" = (
@@ -139,7 +139,7 @@
 /area/template_noop)
 "aJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/sanitarium,
+/obj/effect/spawner/random/unsorted/sanitarium,
 /turf/open/floor/plating,
 /area/template_noop)
 "aK" = (
@@ -149,7 +149,7 @@
 /area/template_noop)
 "aL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/sanitarium,
+/obj/effect/spawner/random/unsorted/sanitarium,
 /obj/effect/trap/nexus/doorbolt,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -160,7 +160,7 @@
 /area/template_noop)
 "aN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/button/door{
 	id = "confine4";
 	name = "Confinement Lock 4";
@@ -225,20 +225,20 @@
 /area/template_noop)
 "aU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/iron,
 /area/template_noop)
 "aV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating{
 	broken = 1
 	},
 /area/template_noop)
 "aW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/sanitarium,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/sanitarium,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 "aX" = (

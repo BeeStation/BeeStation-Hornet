@@ -2,32 +2,32 @@
 "a" = (
 /obj/machinery/door/airlock/medical/glass,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "c" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "f" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "g" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "h" = (
 /obj/machinery/vending/wardrobe/medi_wardrobe,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "o" = (
 /obj/structure/closet/secure_closet/medical3,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "p" = (
 /obj/structure/table/glass,
 /obj/machinery/door/window{
@@ -35,51 +35,51 @@
 	},
 /obj/item/storage/firstaid,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "q" = (
 /obj/machinery/vending/medical,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "t" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "u" = (
 /obj/structure/frame/machine,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "v" = (
 /obj/structure/table/glass,
 /obj/machinery/door/window{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/ruinloot/medical,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "C" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "F" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/closet/secure_closet/medical3,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "J" = (
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "M" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "N" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/frame/computer{
@@ -87,48 +87,48 @@
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "O" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "P" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "R" = (
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "S" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "T" = (
 /obj/structure/table/glass,
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "U" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "W" = (
 /obj/structure/table/glass,
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Y" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 c

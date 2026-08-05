@@ -1,8 +1,15 @@
 #define SUBSYSTEM_INIT_SOURCE "subsystem init"
 SUBSYSTEM_DEF(atoms)
 	name = "Atoms"
-	init_order = INIT_ORDER_ATOMS
-	flags = SS_NO_FIRE
+	dependencies = list(
+		/datum/controller/subsystem/economy,
+		/datum/controller/subsystem/mapping,
+		/datum/controller/subsystem/processing/greyscale,
+		/datum/controller/subsystem/vis_overlays,
+		/datum/controller/subsystem/xenoarchaeology,
+		/datum/controller/subsystem/zcopy,
+	)
+	ss_flags = SS_NO_FIRE
 
 	/// A stack of list(source, desired initialized state)
 	/// We read the source of init changes from the last entry, and assert that all changes will come with a reset
@@ -33,7 +40,7 @@ SUBSYSTEM_DEF(atoms)
 			SSasync_map_generator.fire()
 			sleep(0.5)
 		while (length(SSasync_map_generator.executing_generators) > 0)
-		to_chat(world, span_boldannounce("Map generators completed, initializing atoms.</bold>"))
+		to_chat(world, span_boldannounce("Map generators completed, initializing atoms."))
 
 	GLOB.fire_overlay.appearance_flags = RESET_COLOR
 	setupGenetics() //to set the mutations' sequence
@@ -55,7 +62,7 @@ SUBSYSTEM_DEF(atoms)
 	var/late_loader_len = late_loaders.len
 	#endif
 	if(late_loaders.len)
-		for(var/atom/A as() in late_loaders)
+		for(var/atom/A as anything in late_loaders)
 			//I hate that we need this
 			if(QDELETED(A))
 				continue
@@ -165,7 +172,7 @@ SUBSYSTEM_DEF(atoms)
 /datum/controller/subsystem/atoms/proc/setupGenetics()
 	var/list/mutations = subtypesof(/datum/mutation)
 	shuffle_inplace(mutations)
-	for(var/datum/generecipe/GR as() in subtypesof(/datum/generecipe))
+	for(var/datum/generecipe/GR as anything in subtypesof(/datum/generecipe))
 		GLOB.mutation_recipes[initial(GR.required)] = initial(GR.result)
 	for(var/i in 1 to length(mutations))
 		var/path = mutations[i] //byond gets pissy when we do it in one line

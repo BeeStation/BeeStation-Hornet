@@ -33,7 +33,7 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	loot = list(/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER},
 				/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER})
-	discovery_points = 2000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /obj/projectile/temp/basilisk
 	name = "freezing blast"
@@ -139,7 +139,7 @@
 		var/mob/living/L = target
 		if (istype(L))
 			L.adjust_fire_stacks(0.1)
-			L.IgniteMob()
+			L.ignite_mob()
 
 /obj/projectile/temp/basilisk/icewing
 	damage = 5

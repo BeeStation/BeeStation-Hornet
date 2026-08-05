@@ -3,7 +3,7 @@
 	desc = "A fluffy pancake. The softer, superior relative of the waffle."
 	icon = 'icons/obj/food/pancakes.dmi'
 	icon_state = "pancakes_1"
-	item_state = null
+	inhand_icon_state = null
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/nutriment/vitamin = 2

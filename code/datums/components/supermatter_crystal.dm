@@ -168,8 +168,8 @@
 		return
 	if(is_type_in_typecache(item, sm_item_whitelist))
 		return FALSE
-	if(istype(item, /obj/item/clothing/mask/cigarette))
-		var/obj/item/clothing/mask/cigarette/cig = item
+	if(istype(item, /obj/item/cigarette))
+		var/obj/item/cigarette/cig = item
 		var/clumsy = HAS_TRAIT(user, TRAIT_CLUMSY)
 		if(clumsy)
 			var/obj/item/bodypart/dust_arm = user.get_active_hand()
@@ -306,6 +306,9 @@
 		return
 	if(HAS_TRAIT(consumed_object, TRAIT_GODMODE))
 		return
+	var/obj/consumed_as_object = consumed_object
+	if (istype(consumed_as_object) && (consumed_as_object.resistance_flags & INDESTRUCTIBLE))
+		return
 
 	var/atom/atom_source = source
 	SEND_SIGNAL(consumed_object, COMSIG_SUPERMATTER_CONSUMED, atom_source)
@@ -338,7 +341,7 @@
 
 		consumed_mob.dust(force = TRUE)
 		matter_increase += 100 * object_size * 2
-		if(consumed_mob.mind?.assigned_role == JOB_NAME_CLOWN)
+		if(is_clown_job(consumed_mob.mind?.assigned_role))
 			damage_increase += rand(-30, 30) * 2 // HONK
 		effects_calculated = TRUE
 	else if(isobj(consumed_object))

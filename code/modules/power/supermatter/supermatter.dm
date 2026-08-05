@@ -120,8 +120,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	/// The key our internal radio uses
 	var/radio_key = /obj/item/encryptionkey/headset_eng
 
-	/// Boolean used to log the first activation of the SM.
-	var/activation_logged = FALSE
+	/// Variable used to log the first activation of the SM.
+	var/activation_time
 
 	/// An effect we show to admins and ghosts the percentage of delam we're at
 	var/obj/effect/countdown/supermatter/countdown
@@ -210,6 +210,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	RegisterSignal(src, COMSIG_ATOM_TIMESTOP_FREEZE, PROC_REF(time_frozen))
 	RegisterSignal(src, COMSIG_ATOM_TIMESTOP_UNFREEZE, PROC_REF(time_unfrozen))
 
+	AddElement(/datum/element/trackable)
 	AddComponent(/datum/component/supermatter_crystal, CALLBACK(src, PROC_REF(wrench_act_callback)), CALLBACK(src, PROC_REF(consume_callback)))
 	soundloop = new(src, TRUE)
 
@@ -269,7 +270,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	// Extra effects should always fire after the compositions are all finished
 	// Some extra effects like [/datum/sm_gas/carbon_dioxide/extra_effects]
 	// needs more than one gas and rely on a fully parsed gas_percentage.
-	for (var/gas_path in absorbed_gasmix.gases)
+	for (var/gas_path in absorbed_gasmix.moles)
 		var/datum/sm_gas/sm_gas = current_gas_behavior[gas_path]
 		sm_gas?.extra_effects(src)
 
@@ -317,8 +318,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	merged_gasmix.temperature += device_energy * waste_multiplier / THERMAL_RELEASE_MODIFIER
 	merged_gasmix.temperature = clamp(merged_gasmix.temperature, TCMB, 2500 * waste_multiplier)
 	merged_gasmix.assert_gases(/datum/gas/plasma, /datum/gas/oxygen)
-	merged_gasmix.gases[/datum/gas/plasma][MOLES] += max(device_energy * waste_multiplier / PLASMA_RELEASE_MODIFIER, 0)
-	merged_gasmix.gases[/datum/gas/oxygen][MOLES] += max(((device_energy + merged_gasmix.temperature * waste_multiplier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
+	merged_gasmix.moles[/datum/gas/plasma] += max(device_energy * waste_multiplier / PLASMA_RELEASE_MODIFIER, 0)
+	merged_gasmix.moles[/datum/gas/oxygen] += max(((device_energy + merged_gasmix.temperature * waste_multiplier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
 	merged_gasmix.garbage_collect()
 	env.merge(merged_gasmix)
 	air_update_turf(FALSE, FALSE)
@@ -616,8 +617,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/total_moles = absorbed_gasmix.total_moles()
 	if(total_moles < MINIMUM_MOLE_COUNT) //it's not worth processing small amounts like these, total_moles can also be 0 in vacuume
 		return
-	for (var/gas_path in absorbed_gasmix.gases)
-		var/mole_count = absorbed_gasmix.gases[gas_path][MOLES]
+	for (var/gas_path, mole_count in absorbed_gasmix.moles)
 		if(mole_count < MINIMUM_MOLE_COUNT) //save processing power from small amounts like these
 			continue
 		gas_percentage[gas_path] = mole_count / total_moles
@@ -674,9 +674,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	for(var/powergain_types in additive_power)
 		internal_energy += additive_power[powergain_types]
 	internal_energy = max(internal_energy, 0)
-	if(internal_energy && !activation_logged)
+	if(internal_energy && !activation_time)
 		stack_trace("Supermatter powered for the first time without being logged. Internal energy factors: [json_encode(internal_energy_factors)]")
-		activation_logged = TRUE // so we dont spam the log.
+		activation_time = world.time
 	else if(!internal_energy)
 		last_power_zap = world.time
 		last_energy_accumulation_perspective_machines = SSmachines.times_fired
@@ -691,7 +691,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
  * * how - A datum. How they powered it. Optional.
  */
 /obj/machinery/power/supermatter_crystal/proc/log_activation(who, how)
-	if(activation_logged || disable_power_change)
+	if(activation_time || disable_power_change)
 		return
 	if(!who)
 		CRASH("Supermatter activated by an unknown source")
@@ -702,7 +702,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	else
 		investigate_log("has been powered for the first time by [key_name(who)][how ? " with [how]" : ""].", INVESTIGATE_ENGINES)
 		message_admins("[src] [ADMIN_JMP(src)] has been powered for the first time by [ADMIN_FULLMONTY(who)][how ? " with [how]" : ""].")
-	activation_logged = TRUE
+	activation_time = world.time
 
 /**
  * Perform calculation for the main zap power transmission rate in W/MeV.

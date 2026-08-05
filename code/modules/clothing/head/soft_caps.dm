@@ -19,7 +19,7 @@
 		flip(user)
 
 /obj/item/clothing/head/soft/proc/flip(mob/user)
-	if(!user.incapacitated() && flippable == TRUE)
+	if(!user.incapacitated && flippable == TRUE)
 		flipped = !flipped
 		if(flipped)
 			icon_state = "[soft_color]soft_flipped"
@@ -31,10 +31,8 @@
 
 /obj/item/clothing/head/soft/equipped(mob/user, slot)
 	. = ..()
-	if(slot == ITEM_SLOT_HEAD)
-		if(HAS_TRAIT(user, TRAIT_PROSKATER))
-			if(!flipped)
-				flip(user)
+	if(slot == ITEM_SLOT_HEAD && HAS_TRAIT(user, TRAIT_PROSKATER) && !flipped)
+		flip(user)
 
 /obj/item/clothing/head/soft/examine(mob/user)
 	. = ..()

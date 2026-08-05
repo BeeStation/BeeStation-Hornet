@@ -29,4 +29,4 @@
 	name = "\improper petrifying touch"
 	desc = "That's the bottom line, because flesh to stone said so!"
 	icon_state = "fleshtostone"
-	item_state = "fleshtostone"
+	inhand_icon_state = "fleshtostone"

@@ -32,7 +32,7 @@
 
 
 /obj/item/tank/internals/oxygen/populate_gas()
-	SET_MOLES(/datum/gas/oxygen, air_contents, (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	air_contents.set_gas(/datum/gas/oxygen, (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/oxygen/yellow
 	desc = "A tank of oxygen, this one is yellow."
@@ -54,17 +54,23 @@
 	name = "anesthetic tank"
 	desc = "A tank with an N2O/O2 gas mix."
 	icon_state = "anesthetic"
-	item_state = "an_tank"
+	inhand_icon_state = "an_tank"
 	force = 10
 
 /obj/item/tank/internals/anesthetic/populate_gas()
-	SET_MOLES(/datum/gas/oxygen, air_contents, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
-	SET_MOLES(/datum/gas/nitrous_oxide, air_contents, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
+	air_contents.set_gas(/datum/gas/oxygen, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
+	air_contents.set_gas(/datum/gas/nitrous_oxide, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
 
 /obj/item/tank/internals/anesthetic/examine(mob/user)
 	. = ..()
 	. += span_notice("A warning is etched into [src]...")
 	. += span_warning("There is no process in the body that uses N2O, so patients will exhale the N2O... exposing you to it. Make sure to work in a well-ventilated space to avoid sleepy mishaps.")
+
+/obj/item/tank/internals/anesthetic/pure
+	desc = "A tank with pure N2O. There is a warning sticker crudely slapped onto the tank."
+
+/obj/item/tank/internals/anesthetic/pure/populate_gas()
+	air_contents.adjust_gas(/datum/gas/nitrous_oxide, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /*
  * Air
@@ -73,13 +79,13 @@
 	name = "air tank"
 	desc = "Mixed anyone?"
 	icon_state = "air"
-	item_state = "air"
+	inhand_icon_state = "air"
 	force = 10
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/tank/internals/air/populate_gas()
-	SET_MOLES(/datum/gas/oxygen, air_contents, (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
-	SET_MOLES(/datum/gas/nitrogen, air_contents, (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
+	air_contents.adjust_gas(/datum/gas/oxygen, (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
+	air_contents.adjust_gas(/datum/gas/nitrogen, (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
 
 /*
  * Plasma
@@ -88,13 +94,11 @@
 	name = "plasma tank"
 	desc = "Contains dangerous plasma. Do not inhale. Warning: extremely flammable."
 	icon_state = "plasma"
-	flags_1 = CONDUCT_1
 	slot_flags = null	//they have no straps!
-	force = 8
-
+	force = 10
 
 /obj/item/tank/internals/plasma/populate_gas()
-	SET_MOLES(/datum/gas/plasma, air_contents, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	air_contents.set_gas(/datum/gas/plasma, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/plasma/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/flamethrower))
@@ -110,7 +114,7 @@
 		return ..()
 
 /obj/item/tank/internals/plasma/full/populate_gas()
-	SET_MOLES(/datum/gas/plasma, air_contents, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	air_contents.set_gas(/datum/gas/plasma, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/plasma/empty/populate_gas()
 	return
@@ -123,16 +127,16 @@
 	name = "extended-capacity plasma internals tank"
 	desc = "A tank of plasma gas designed specifically for use as internals, particularly for plasma-based lifeforms. If you're not a Plasmaman, you probably shouldn't use this."
 	icon_state = "plasmaman_tank"
-	item_state = "plasmaman_tank"
+	inhand_icon_state = "plasmaman_tank"
 	worn_icon_state = "plasmaman_tank"
 	force = 10
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
 /obj/item/tank/internals/plasmaman/populate_gas()
-	SET_MOLES(/datum/gas/plasma, air_contents, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	air_contents.set_gas(/datum/gas/plasma, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/plasmaman/full/populate_gas()
-	SET_MOLES(/datum/gas/plasma, air_contents, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	air_contents.set_gas(/datum/gas/plasma, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/plasmaman/empty/populate_gas()
 	return
@@ -141,7 +145,7 @@
 /obj/item/tank/internals/plasmaman/belt
 	name = "plasma internals belt tank"
 	icon_state = "plasmaman_tank_belt"
-	item_state = "plasmaman_tank_belt"
+	inhand_icon_state = "plasmaman_tank_belt"
 	worn_icon_state = "plasmaman_tank_belt"
 	worn_icon = null
 	slot_flags = ITEM_SLOT_BELT
@@ -150,7 +154,7 @@
 	w_class = WEIGHT_CLASS_SMALL //thanks i forgot this
 
 /obj/item/tank/internals/plasmaman/belt/full/populate_gas()
-	SET_MOLES(/datum/gas/plasma, air_contents, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	air_contents.set_gas(/datum/gas/plasma, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/plasmaman/belt/empty/populate_gas()
 	return
@@ -168,7 +172,6 @@
 	icon_state = "emergency"
 	worn_icon_state = "emergency"
 	worn_icon = null
-	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4
@@ -177,7 +180,7 @@
 
 
 /obj/item/tank/internals/emergency_oxygen/populate_gas()
-	SET_MOLES(/datum/gas/oxygen, air_contents, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	air_contents.set_gas(/datum/gas/oxygen, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/emergency_oxygen/empty/populate_gas()
 	return
@@ -213,7 +216,6 @@
 	name = "emergency prank tank"
 	desc = "Used for pranking in emergencies! Has a smidge of a mystery ingredient for 200% FUN!"
 	icon_state = "clown"
-	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4
@@ -221,5 +223,5 @@
 	volume = 1
 
 /obj/item/tank/internals/emergency_oxygen/clown/populate_gas()
-	SET_MOLES(/datum/gas/oxygen, air_contents, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)* 0.95)
-	SET_MOLES(/datum/gas/nitrous_oxide, air_contents, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * 0.05)
+	air_contents.set_gas(/datum/gas/oxygen, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)* 0.95)
+	air_contents.set_gas(/datum/gas/nitrous_oxide, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * 0.05)

@@ -8,7 +8,7 @@
 	name = "artistic toolbox"
 	desc = "A toolbox painted bright green. Looking at it makes you feel uneasy."
 	icon_state = "his_grace"
-	item_state = "artistic_toolbox"
+	inhand_icon_state = "artistic_toolbox"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
 	icon = 'icons/obj/items_and_weapons.dmi'
@@ -86,7 +86,7 @@
 		drowse()
 		return
 	if(bloodthirst < HIS_GRACE_CONSUME_OWNER && !ascended)
-		adjust_bloodthirst((1 + FLOOR(LAZYLEN(contents) * 0.5, 1)) * delta_time) //Maybe adjust this?
+		adjust_bloodthirst((1 + floor(LAZYLEN(contents) * 0.5)) * delta_time) //Maybe adjust this?
 	else
 		adjust_bloodthirst(1 * delta_time) //don't cool off rapidly once we're at the point where His Grace consumes all.
 	var/mob/living/master = get_atom_on_turf(src, /mob/living)
@@ -255,7 +255,7 @@
 	force_bonus += ascend_bonus
 	desc = "A legendary toolbox and a distant artifact from The Age of Three Powers. On its three latches engraved are the words \"The Sun\", \"The Moon\", and \"The Stars\". The entire toolbox has the words \"The World\" engraved into its sides."
 	icon_state = "his_grace_ascended"
-	item_state = "toolbox_gold"
+	inhand_icon_state = "toolbox_gold"
 	ascended = TRUE
 	playsound(src, 'sound/effects/his_grace_ascend.ogg', 100)
 	if(istype(master))

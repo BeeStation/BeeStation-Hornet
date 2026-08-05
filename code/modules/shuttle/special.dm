@@ -87,7 +87,7 @@
 	// New sleepers
 	for(var/i in found - sleepers)
 		var/mob/living/L = i
-		L.add_atom_colour("#800080", TEMPORARY_COLOUR_PRIORITY)
+		L.add_atom_colour(COLOR_PURPLE, TEMPORARY_COLOUR_PRIORITY)
 		L.visible_message(span_revennotice("A strange purple glow wraps itself around [L] as [L.p_they()] suddenly fall[L.p_s()] unconscious."),
 			span_revendanger("[desc]"))
 		// Don't let them sit suround unconscious forever
@@ -101,7 +101,7 @@
 	// Missing sleepers
 	for(var/i in sleepers - found)
 		var/mob/living/L = i
-		L.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#800080")
+		L.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_PURPLE)
 		L.visible_message(span_revennotice("The glow from [L] fades away."))
 		L.grab_ghost()
 
@@ -201,9 +201,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 /obj/structure/table/wood/bar/proc/is_barstaff(mob/living/user)
 	. = FALSE
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.mind?.assigned_role == JOB_NAME_BARTENDER)
+		var/mob/living/carbon/human/human_user = user
+		if(is_bartender_job(human_user.mind?.assigned_role))
 			return TRUE
+
+	if(istype(user, /mob/living/simple_animal/drone/snowflake/bardrone))
+		return TRUE
 
 	var/obj/item/card/id/ID = user.get_idcard(FALSE)
 	if(ID && (ACCESS_CENT_BAR in ID.access))
@@ -215,6 +218,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 	name = "Luxury shuttle ticket booth"
 	desc = "A forceful money collector."
 	initial_duration = 0
+	speech_span = SPAN_ROBOT
 	var/threshold = 500
 	var/static/list/approved_passengers = list()
 	var/static/list/check_times = list()
@@ -283,7 +287,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 		for(var/obj/I in counted_money)
 			qdel(I)
 		payees[AM] -= threshold
-		say(span_robot("Welcome aboard, [AM]!"))
+		say("Welcome aboard, [AM]!")
 		approved_passengers += AM
 
 		if(payees[AM] > 0 && ishuman(AM))
@@ -299,7 +303,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 		for(var/obj/I in counted_money)
 			qdel(I)
 		if(!check_times[AM] || check_times[AM] < world.time) //Let's not spam the message
-			say(span_robot("$[payees[AM]] received, [AM]. You need $[threshold-payees[AM]] more."))
+			say("[payees[AM]] cr received, [AM]. You need [threshold-payees[AM]] cr more.")
 			check_times[AM] = world.time + LUXURY_MESSAGE_COOLDOWN
 		return ..()
 	else

@@ -7,10 +7,8 @@
 	banning_key = ROLE_ASHWALKER
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
-	prevent_roundtype_conversion = FALSE
 	antagpanel_category = "Ash Walkers"
-	delay_roundend = FALSE
-	required_living_playtime = 1
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 	var/datum/team/ashwalkers/ashie_team
 
 /datum/antagonist/ashwalker/create_team(datum/team/team)

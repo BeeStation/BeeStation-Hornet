@@ -19,33 +19,35 @@
 		/obj/item/restraints/legcuffs/bola/energy = 7,
 		/obj/item/club = 5,
 		/obj/item/melee/tonfa = 5,
-		/obj/item/clothing/gloves/tackler = 5,
+		/obj/item/clothing/accessory/security_pager = 5,
 	)
 	contraband = list(
 		/obj/item/clothing/glasses/sunglasses/advanced = 2,
+		/obj/item/coin/antagtoken = 1,
 	)
 	premium = list(
 		/obj/item/storage/belt/security/webbing = 5,
 		/obj/item/storage/backpack/duffelbag/sec/deputy = 4,
-		/obj/item/coin/antagtoken = 1,
 		/obj/item/security_barricade = 4,
 		/obj/item/clothing/head/helmet/blueshirt = 1,
 		/obj/item/clothing/suit/armor/vest/blueshirt = 1,
 		/obj/item/grenade/stingbang = 1,
+		/obj/item/clothing/gloves/tackler = 5,
 	)
 	refill_canister = /obj/item/vending_refill/security
 	default_price = 100
 	extra_price = 150
 
-/obj/machinery/vending/security/pre_throw(obj/item/I)
-	if(istype(I, /obj/item/grenade))
-		var/obj/item/grenade/G = I
+/obj/machinery/vending/security/pre_throw(obj/item/thrown_item)
+	if(istype(thrown_item, /obj/item/grenade))
+		var/obj/item/grenade/G = thrown_item
 		G.preprime()
-	else if(istype(I, /obj/item/flashlight))
-		var/obj/item/flashlight/F = I
-		F.on = TRUE
-		F.update_brightness()
+	else if(istype(thrown_item, /obj/item/flashlight))
+		var/obj/item/flashlight/thrown_flashlight = thrown_item
+		thrown_flashlight.set_light_on(TRUE)
+		thrown_flashlight.update_brightness()
 
 /obj/item/vending_refill/security
 	machine_name = "SecTech"
 	icon_state = "refill_sec"
+

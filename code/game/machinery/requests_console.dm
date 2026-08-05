@@ -328,11 +328,14 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 			return
 		if(isliving(usr))
 			var/mob/living/L = usr
-			message = L.treat_message(message)
+			message = L.treat_message(message)["message"]
+
 		minor_announce(message, "[department] Announcement:", html_encode = FALSE, sound_override = 'sound/misc/announce_dig.ogg')
 		GLOB.news_network.submit_article(message, department, "Station Announcements", null)
 		usr.log_talk(message, LOG_SAY, tag="station announcement from [src]")
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has made a station announcement from [src] at [AREACOORD(usr)].")
+		deadchat_broadcast(" made a station announcement from [span_name("[get_area_name(usr, TRUE)]")].", span_name("[usr.real_name]"), usr, message_type=DEADCHAT_ANNOUNCEMENT)
+
 		announceAuth = FALSE
 		message = ""
 		screen = REQ_SCREEN_MAIN
@@ -374,9 +377,9 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				radio_freq = FREQ_SUPPLY
 
 		var/datum/signal/subspace/messaging/rc/signal = new(src, list(
-			"sender" = department,
-			"rec_dpt" = to_department,
-			"send_dpt" = department,
+			"sender" = department, //Why are you like this
+			"recipient_department" = to_department,
+			"sender_department" = department,
 			"message" = message,
 			"verified" = msgVerified,
 			"stamped" = msgStamped,
@@ -418,7 +421,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	emergency = null
 	update_icon()
 
-//from message_server.dm: Console.createmessage(data["sender"], data["send_dpt"], data["message"], data["verified"], data["stamped"], data["priority"], data["notify_freq"])
+//from message_server.dm: Console.createmessage(data["sender"], data["sender_department"], data["message"], data["verified"], data["stamped"], data["priority"], data["notify_freq"])
 /obj/machinery/requests_console/proc/createmessage(source, source_department, message, msgVerified, msgStamped, priority, radio_freq)
 	var/linkedsender
 

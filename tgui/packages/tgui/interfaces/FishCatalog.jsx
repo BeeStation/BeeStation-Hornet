@@ -1,6 +1,6 @@
-import { sortBy } from 'common/collections';
 import { classes } from 'common/react';
 import { capitalize } from 'common/string';
+import { sortBy } from 'es-toolkit';
 
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, LabeledList, Section, Stack } from '../components';
@@ -9,7 +9,7 @@ import { Window } from '../layouts';
 export const FishCatalog = (props) => {
   const { act, data } = useBackend();
   const { fish_info, sponsored_by } = data;
-  const fish_by_name = sortBy(fish_info || [], (fish) => fish.name);
+  const fish_by_name = sortBy(fish_info || [], [(fish) => fish.name]);
   const [currentFish, setCurrentFish] = useLocalState('currentFish', null);
   return (
     <Window theme="generic" width={500} height={300} resizable>

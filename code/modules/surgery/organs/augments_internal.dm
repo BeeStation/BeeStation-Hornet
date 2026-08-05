@@ -1,13 +1,12 @@
 
 /obj/item/organ/cyberimp
+	abstract_type = /obj/item/organ/cyberimp
 	name = "cybernetic implant"
 	desc = "A state-of-the-art implant that improves a baseline's functionality."
 	visual = FALSE
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
-	var/implant_color = "#FFFFFF"
+	organ_flags = ORGAN_ROBOTIC
+	var/implant_color = COLOR_WHITE
 	var/implant_overlay
-	var/syndicate_implant = FALSE //Makes the implant invisible to health analyzers and medical HUDs.
 
 /obj/item/organ/cyberimp/New(mob/M = null)
 	if(iscarbon(M))
@@ -89,7 +88,7 @@
 /obj/item/organ/cyberimp/brain/anti_stun
 	name = "CNS Rebooter implant"
 	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned."
-	implant_color = "#FFFF00"
+	implant_color = COLOR_YELLOW
 	slot = ORGAN_SLOT_BRAIN_ANTISTUN
 
 	var/static/list/signalCache = list(
@@ -123,7 +122,7 @@
 		owner.SetParalyzed(0)
 
 /obj/item/organ/cyberimp/brain/anti_stun/syndicate
-	syndicate_implant = TRUE
+	organ_flags = ORGAN_ROBOTIC | ORGAN_HIDDEN
 
 
 /obj/item/organ/cyberimp/brain/linkedsurgery
@@ -135,9 +134,13 @@
 	var/static/datum/techweb/linked_techweb
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/Initialize(mapload)
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/item/organ/cyberimp/brain/linkedsurgery/LateInitialize()
 	. = ..()
-	if(isnull(linked_techweb))
-		linked_techweb = SSresearch.science_tech
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/proc/update_surgery()
 	for(var/i in linked_techweb.researched_designs)

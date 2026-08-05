@@ -66,7 +66,7 @@
 	var/list/possible_fakes = list()
 	for(var/datum/mind/possible_fake as anything in get_crewmember_minds())
 		// Sec won't make sense. (Neither will cap but we'll just let it slide)
-		if(possible_fake.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
+		if(possible_fake.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
 			continue
 		// Look for minds on the manifest in control of humans
 		var/mob/living/carbon/human/fake_body = possible_fake.current
@@ -193,7 +193,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/client_image_holder)
 		return
 	regenerate_image()
 
-/obj/effect/client_image_holder/singularity_pull()
+/obj/effect/client_image_holder/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/client_image_holder/singularity_act()

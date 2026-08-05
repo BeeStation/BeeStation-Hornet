@@ -1,7 +1,6 @@
 SUBSYSTEM_DEF(title)
 	name = "Title Screen"
-	flags = SS_NO_FIRE
-	init_order = INIT_ORDER_TITLE
+	ss_flags = SS_NO_FIRE
 	init_stage = INITSTAGE_EARLY
 
 	var/file_path
@@ -40,8 +39,8 @@ SUBSYSTEM_DEF(title)
 		lobby_screen_size = "[width]x[height]"
 
 		//Update the new player start (views are centered)
-		var/new_player_x = splash_turf.x + FLOOR(width / 2, 1)
-		var/new_player_y = splash_turf.y + FLOOR(height / 2, 1)
+		var/new_player_x = splash_turf.x + floor(width / 2)
+		var/new_player_y = splash_turf.y + floor(height / 2)
 		newplayer_start_loc = locate(new_player_x, new_player_y, splash_turf.z)
 		// Reset the newplayer start loc
 		GLOB.newplayer_start.Cut()
@@ -81,7 +80,7 @@ SUBSYSTEM_DEF(title)
 		if(!thing)
 			continue
 		var/atom/movable/screen/splash/S = new(null, thing, FALSE)
-		S.Fade(FALSE,FALSE)
+		S.fade(FALSE,FALSE)
 
 /datum/controller/subsystem/title/Recover()
 	icon = SStitle.icon

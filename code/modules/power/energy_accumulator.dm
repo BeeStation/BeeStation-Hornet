@@ -46,8 +46,8 @@
 /obj/machinery/power/energy_accumulator/proc/calculate_sustainable_power()
 	return ACCUMULATOR_PROPORTIONAL_COEFFICIENT * stored_energy + ACCUMULATOR_CONSTANT_COEFFICIENT
 
-/obj/machinery/power/energy_accumulator/process(seconds_per_tick)
-	release_energy(calculate_energy_output(seconds_per_tick))
+/obj/machinery/power/energy_accumulator/process(delta_time)
+	release_energy(calculate_energy_output(delta_time))
 
 /**
  * Releases joules amount of its stored energy onto the powernet.

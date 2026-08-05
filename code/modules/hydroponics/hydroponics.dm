@@ -3,7 +3,7 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray"
 	density = TRUE
-	pixel_z = 8
+	pixel_y = 8
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
 	circuit = /obj/item/circuitboard/machine/hydroponics
 	idle_power_usage = 5000
@@ -364,8 +364,6 @@
 		to_chat(user, span_warning("It's filled with weeds!"))
 	if(pestlevel >= 5)
 		to_chat(user, span_warning("It's filled with tiny worms!"))
-	to_chat(user, "" )
-
 
 /obj/machinery/hydroponics/proc/weedinvasion() // If a weed growth is sufficient, this happens.
 	dead = 0
@@ -964,7 +962,7 @@
 /obj/machinery/hydroponics/proc/spawnplant() // why would you put strange reagent in a hydro tray you monster I bet you also feed them blood
 	var/list/livingplants = list(/mob/living/simple_animal/hostile/tree, /mob/living/simple_animal/hostile/killertomato)
 	var/chosen = pick(livingplants)
-	var/mob/living/simple_animal/hostile/C = new chosen
+	var/mob/living/simple_animal/hostile/C = new chosen(get_turf(src))
 	C.faction = list(FACTION_PLANTS)
 
 /obj/machinery/hydroponics/proc/become_self_sufficient() // Ambrosia Gaia effect

@@ -3,7 +3,7 @@
 	desc = "An illegally modified BSRPED, capable of reducing the size of most items."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "compression_c"
-	item_state = "RPED"
+	inhand_icon_state = "RPED"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
@@ -20,7 +20,7 @@
 	s.start()
 
 /obj/item/compressionkit/suicide_act(mob/living/carbon/M)
-	M.visible_message(span_suicide("[M] is sticking their head in [src] and turning it on! [M.p_theyre(TRUE)] going to compress their own skull!"))
+	M.visible_message(span_suicide("[M] is sticking their head in [src] and turning it on! [M.p_Theyre()] going to compress their own skull!"))
 	var/obj/item/bodypart/head = M.get_bodypart(BODY_ZONE_HEAD)
 	if(!head)
 		return

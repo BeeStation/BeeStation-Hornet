@@ -48,7 +48,10 @@
 	return sorttext(a.ckey, b.ckey)
 
 /proc/cmp_subsystem_init(datum/controller/subsystem/a, datum/controller/subsystem/b)
-	return initial(b.init_order) - initial(a.init_order)	//uses initial() so it can be used on types
+	return a.init_order - b.init_order
+
+/proc/cmp_subsystem_init_stage(datum/controller/subsystem/a, datum/controller/subsystem/b)
+	return initial(a.init_stage) - initial(b.init_stage)
 
 /proc/cmp_subsystem_display(datum/controller/subsystem/a, datum/controller/subsystem/b)
 	return sorttext(b.name, a.name)
@@ -107,8 +110,8 @@
 	return sorttext(B.id, A.id)
 
 /proc/cmp_quirk_asc(datum/quirk/A, datum/quirk/B)
-	var/a_sign = SIGN(initial(A.quirk_value) * -1)
-	var/b_sign = SIGN(initial(B.quirk_value) * -1)
+	var/a_sign = sign(initial(A.quirk_value) * -1)
+	var/b_sign = sign(initial(B.quirk_value) * -1)
 
 	// Neutral traits go last.
 	if(a_sign == 0)
@@ -124,8 +127,17 @@
 	else
 		return sorttext(b_name, a_name)
 
-/proc/cmp_job_display_asc(datum/job/A, datum/job/B)
+/proc/cmp_job_display_with_departments_asc(datum/job/A, datum/job/B)
+	return A.display_order_with_department() - B.display_order_with_department()
+
+/proc/cmp_department_display_asc(datum/department_group/A, datum/department_group/B)
 	return A.display_order - B.display_order
+
+/proc/cmp_department_manifest_order_asc(datum/department_group/A, datum/department_group/B)
+	return A.manifest_category_order - B.manifest_category_order
+
+/proc/cmp_department_pref_order_asc(datum/department_group/A, datum/department_group/B)
+	return A.pref_category_order - B.pref_category_order
 
 /proc/cmp_reagents_asc(datum/reagent/a, datum/reagent/b)
 	return sorttext(initial(b.name),initial(a.name))
@@ -144,6 +156,10 @@
 
 /proc/cmp_mob_realname_dsc(mob/A,mob/B)
 	return sorttext(A.real_name,B.real_name)
+
+/// Orders bodyparts by their body_part value, ascending.
+/proc/cmp_bodypart_by_body_part_asc(obj/item/bodypart/limb_one, obj/item/bodypart/limb_two)
+	return limb_one.body_part - limb_two.body_part
 
 /// Orders by integrated circuit weight
 /proc/cmp_port_order_asc(datum/port/compare1, datum/port/compare2)

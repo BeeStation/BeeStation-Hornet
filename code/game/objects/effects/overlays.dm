@@ -4,7 +4,7 @@
 /obj/effect/overlay/singularity_act()
 	return
 
-/obj/effect/overlay/singularity_pull()
+/obj/effect/overlay/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/overlay/beam//Not actually a projectile, just an effect.
@@ -45,6 +45,16 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shieldsparkles"
 	anchored = TRUE
+
+/obj/effect/overlay/thermite
+	name = "thermite"
+	desc = "Looks hot."
+	icon = 'icons/effects/fire.dmi'
+	icon_state = "medium" //what?
+	anchored = TRUE
+	plane = ABOVE_GAME_PLANE
+	layer = FLY_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/effect/overlay/vis
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

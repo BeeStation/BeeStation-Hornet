@@ -1,9 +1,10 @@
 /datum/job/gimmick //gimmick var must be set to true for all gimmick jobs BUT the parent
+	abstract_type = /datum/job/gimmick
 	title = JOB_NAME_GIMMICK
 	description = "Use your unique position to provide a service or entertain the crew."
-	department_for_prefs = DEPT_NAME_ASSISTANT
+	department_for_prefs = DEPARTMENT_NAME_ASSISTANT
 	show_in_prefs = TRUE
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 0
 	supervisors = "no one"
 	selection_color = "#dddddd"
@@ -11,20 +12,21 @@
 	base_access = list(ACCESS_MAINT_TUNNELS)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_CIV
+	departments_list = list(
+		/datum/department_group/,
+		)
 	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT)
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
+
+	job_flags = STATION_JOB_FLAGS | JOB_CANNOT_OPEN_SLOTS
 	rpg_title = "Peasant"
+
 	allow_bureaucratic_error = FALSE
-	outfit = /datum/outfit/job/gimmick
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
 	)
-
-/datum/outfit/job/gimmick
-	can_be_admin_equipped = FALSE // we want just the parent outfit to be unequippable since this leads to problems
 
 /datum/job/gimmick/barber
 	title = JOB_NAME_BARBER
@@ -34,20 +36,29 @@
 	gimmick = TRUE
 	show_in_prefs = FALSE
 
-	outfit = /datum/outfit/job/gimmick/barber
+	outfit = /datum/outfit/job/barber
 
 	base_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_SRV
+	display_order = JOB_DISPLAY_ORDER_BARBER
+
+	departments_list = list(
+		/datum/department_group/service,
+		)
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_ASSISTANT)
 
 	rpg_title = "Scissorhands"
 
-	minimal_lightup_areas = list(/area/medical/morgue)
+	minimal_lightup_areas = list(/area/station/medical/morgue)
 
-/datum/outfit/job/gimmick/barber
+	manuscript_jobs = list(
+		JOB_NAME_BARBER,
+		JOB_NAME_ASSISTANT
+	)
+
+/datum/outfit/job/barber
 	name = JOB_NAME_BARBER
 	jobtype = /datum/job/gimmick/barber
 	id = /obj/item/card/id/job/barber
@@ -57,7 +68,6 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	l_hand = /obj/item/storage/wallet
 	l_pocket = /obj/item/razor/straightrazor
-	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/stage_magician
 	title = JOB_NAME_STAGEMAGICIAN
@@ -67,12 +77,16 @@
 	gimmick = TRUE
 	show_in_prefs = FALSE
 
-	outfit = /datum/outfit/job/gimmick/stage_magician
+	outfit = /datum/outfit/job/stage_magician
 
 	base_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_SRV
+	display_order = JOB_DISPLAY_ORDER_STAGE_MAGICIAN
+
+	departments_list = list(
+		/datum/department_group/service,
+		)
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
 
@@ -81,9 +95,10 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/magic
 	)
 
-	minimal_lightup_areas = list(/area/crew_quarters/theatre)
+	minimal_lightup_areas = list(
+/area/station/service/theater)
 
-/datum/outfit/job/gimmick/stage_magician
+/datum/outfit/job/stage_magician
 	name = JOB_NAME_STAGEMAGICIAN
 	jobtype = /datum/job/gimmick/stage_magician
 	id = /obj/item/card/id/job/stage_magician
@@ -96,29 +111,41 @@
 	gloves = /obj/item/clothing/gloves/color/white
 	l_hand = /obj/item/cane
 	backpack_contents = list(/obj/item/choice_beacon/radial/magic=1)
-	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/psychiatrist
 	title = JOB_NAME_PSYCHIATRIST
 	description = "Provide therapy to the crew through talk sessions, psychoactive drugs, and careful consideration of their thoughts and feelings. Provide mental evaluations for Security."
-	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
-	supervisors = "the chief medical officer"
+	department_head = list(
+		JOB_NAME_CHIEFMEDICALOFFICER,
+		JOB_NAME_HEADOFPERSONNEL,
+		)
+	supervisors = "the Head of Personnel and the Chief Medical Officer"
 	gimmick = TRUE
 	show_in_prefs = FALSE
 
-	outfit = /datum/outfit/job/gimmick/psychiatrist
+	outfit = /datum/outfit/job/psychiatrist
 
 	base_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_MED
+	display_order = JOB_DISPLAY_ORDER_PSYCHIATRIST
+	departments_list = list(
+		/datum/department_group/medical,
+		/datum/department_group/service,
+		)
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_EASY)
 	mind_traits = list(TRAIT_MADNESS_IMMUNE, TRAIT_MEDICAL_METABOLISM, TRAIT_SUPERMATTER_SOOTHER)
 
-	rpg_title = "Enchanter"
+	rpg_title = "Mindmelter"
 
-/datum/outfit/job/gimmick/psychiatrist //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
+	manuscript_jobs = list(
+		JOB_NAME_PSYCHIATRIST,
+		JOB_NAME_MEDICALDOCTOR,
+		JOB_NAME_CHEMIST
+	)
+
+/datum/outfit/job/psychiatrist
 	name = JOB_NAME_PSYCHIATRIST
 	jobtype = /datum/job/gimmick/psychiatrist
 	id = /obj/item/card/id/job/psychiatrist
@@ -127,7 +154,6 @@
 	uniform = /obj/item/clothing/under/suit/black
 	shoes = /obj/item/clothing/shoes/laceup
 	backpack_contents = list(/obj/item/choice_beacon/pet/ems=1)
-	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/vip
 	title = JOB_NAME_VIP
@@ -135,21 +161,25 @@
 	gimmick = TRUE
 	show_in_prefs = FALSE
 
-	outfit = /datum/outfit/job/gimmick/vip
+	outfit = /datum/outfit/job/vip
 
 	base_access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_VIP
+	display_order = JOB_DISPLAY_ORDER_VIP
+	departments_list = list(
+		/datum/department_group/civilian,
+		)
 	bank_account_department = ACCOUNT_VIP_BITFLAG
 	payment_per_department = list(ACCOUNT_VIP_ID = PAYCHECK_VIP)  //our power is being fucking rich
+	mind_traits = list(TRAIT_VIP)
 
 	rpg_title = "Master of Patronage"
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/vip
 	)
 
-/datum/outfit/job/gimmick/vip
+/datum/outfit/job/vip
 	name = JOB_NAME_VIP
 	jobtype = /datum/job/gimmick/vip
 	id = /obj/item/card/id/gold/vip
@@ -158,4 +188,3 @@
 	ears = /obj/item/radio/headset/heads //VIP can talk loud for no reason
 	uniform = /obj/item/clothing/under/suit/black_really
 	shoes = /obj/item/clothing/shoes/laceup
-	can_be_admin_equipped = TRUE

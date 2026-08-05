@@ -4,7 +4,7 @@
 	desc_controls = "Alt-click to remove link."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "supplypod_beacon"
-	item_state = "radio"
+	inhand_icon_state = "radio"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -12,6 +12,7 @@
 	var/linked = FALSE
 	var/ready = FALSE
 	var/launched = FALSE
+	max_integrity = 400 // Will survive  about 6 drop-pods before having to be printed again
 
 /obj/item/supplypod_beacon/proc/update_status(consoleStatus)
 	switch(consoleStatus)

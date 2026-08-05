@@ -3,7 +3,7 @@
 	desc = "A banner with Nanotrasen's logo on it."
 	icon = 'icons/obj/banner.dmi'
 	icon_state = "banner"
-	item_state = "banner"
+	inhand_icon_state = "banner"
 	force = 8
 	attack_verb_continuous = list("forcefully inspires", "violently encourages", "relentlessly galvanizes")
 	attack_verb_simple = list("forcefully inspire", "violently encourage", "relentlessly galvanize")
@@ -12,8 +12,10 @@
 	var/inspiration_available = TRUE //If this banner can be used to inspire crew
 	var/morale_time = 0
 	var/morale_cooldown = 600 //How many deciseconds between uses
-	var/list/job_loyalties //Mobs with any of these assigned roles will be inspired
-	var/list/role_loyalties //Mobs with any of these special roles will be inspired
+	/// Mobs with assigned roles whose department bitflags match these will be inspired.
+	var/job_loyalties = NONE
+	/// Mobs with any of these special roles will be inspired
+	var/list/role_loyalties
 	var/warcry
 
 /obj/item/banner/examine(mob/user)
@@ -38,14 +40,14 @@
 	morale_time = world.time + morale_cooldown
 
 	var/list/inspired = list()
-	var/has_job_loyalties = LAZYLEN(job_loyalties)
+	var/has_job_loyalties = job_loyalties != NONE
 	var/has_role_loyalties = LAZYLEN(role_loyalties)
 	inspired += user //The user is always inspired, regardless of loyalties
 	for(var/mob/living/carbon/human/H in viewers(4, get_turf(src)))
 		if(H.stat == DEAD || H == user)
 			continue
 		if(H.mind && (has_job_loyalties || has_role_loyalties))
-			if(has_job_loyalties && (H.mind.assigned_role in job_loyalties))
+			if(has_job_loyalties && (H.mind.assigned_role.departments_bitflags & job_loyalties))
 				inspired += H
 			else if(has_role_loyalties && (H.mind.special_role in role_loyalties))
 				inspired += H
@@ -62,15 +64,18 @@
 /obj/item/banner/proc/check_inspiration(mob/living/carbon/human/H) //Banner-specific conditions for being eligible
 	return
 
-/obj/item/banner/proc/inspiration(mob/living/carbon/human/H)
-	H.adjustBruteLoss(-15)
-	H.adjustFireLoss(-15)
-	H.AdjustStun(-40)
-	H.AdjustKnockdown(-40)
-	H.AdjustImmobilized(-40)
-	H.AdjustParalyzed(-40)
-	H.AdjustUnconscious(-40)
-	playsound(H, 'sound/magic/staff_healing.ogg', 25, FALSE)
+/obj/item/banner/proc/inspiration(mob/living/carbon/human/inspired_human)
+	var/need_mob_update = FALSE
+	need_mob_update += inspired_human.adjustBruteLoss(-15, updating_health = FALSE)
+	need_mob_update += inspired_human.adjustFireLoss(-15, updating_health = FALSE)
+	if(need_mob_update)
+		inspired_human.updatehealth()
+	inspired_human.AdjustStun(-40)
+	inspired_human.AdjustKnockdown(-40)
+	inspired_human.AdjustImmobilized(-40)
+	inspired_human.AdjustParalyzed(-40)
+	inspired_human.AdjustUnconscious(-40)
+	playsound(inspired_human, 'sound/magic/staff_healing.ogg', 25, FALSE)
 
 /obj/item/banner/proc/special_inspiration(mob/living/carbon/human/H) //Any banner-specific inspiration effects go here
 	return
@@ -79,10 +84,10 @@
 	name = "securistan banner"
 	desc = "The banner of Securistan, ruling the station with an iron fist."
 	icon_state = "banner_security"
-	item_state = "banner_security"
+	inhand_icon_state = "banner_security"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_BRIGPHYSICIAN, JOB_NAME_DEPUTY)
+	job_loyalties = DEPARTMENT_BITFLAG_SECURITY
 	warcry = "EVERYONE DOWN ON THE GROUND!!"
 
 /obj/item/banner/security/mundane
@@ -92,10 +97,10 @@
 	name = "meditopia banner"
 	desc = "The banner of Meditopia, generous benefactors that cure wounds and shelter the weak."
 	icon_state = "banner_medical"
-	item_state = "banner_medical"
+	inhand_icon_state = "banner_medical"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST, JOB_NAME_PARAMEDIC, JOB_NAME_CHIEFMEDICALOFFICER)
+	job_loyalties = DEPARTMENT_BITFLAG_MEDICAL
 	warcry = "No wounds cannot be healed!"
 
 /obj/item/banner/medical/mundane
@@ -104,19 +109,22 @@
 /obj/item/banner/medical/check_inspiration(mob/living/carbon/human/H)
 	return H.stat //Meditopia is moved to help those in need
 
-/obj/item/banner/medical/special_inspiration(mob/living/carbon/human/H)
-	H.adjustToxLoss(-15, FALSE, TRUE)
-	H.setOxyLoss(0)
-	H.reagents.add_reagent(/datum/reagent/medicine/inaprovaline, 5)
+/obj/item/banner/medical/special_inspiration(mob/living/carbon/human/inspired_human)
+	var/need_mob_update = FALSE
+	need_mob_update += inspired_human.adjustToxLoss(-15, updating_health = FALSE)
+	need_mob_update += inspired_human.setOxyLoss(0, updating_health = FALSE)
+	if(need_mob_update)
+		inspired_human.updatehealth()
+	inspired_human.reagents.add_reagent(/datum/reagent/medicine/inaprovaline, 5)
 
 /obj/item/banner/science
 	name = "sciencia banner"
 	desc = "The banner of Sciencia, bold and daring thaumaturges and researchers that take the path less traveled."
 	icon_state = "banner_science"
-	item_state = "banner_science"
+	inhand_icon_state = "banner_science"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
+	job_loyalties = DEPARTMENT_BITFLAG_SCIENCE
 	warcry = "For Cuban Pete!"
 
 /obj/item/banner/science/mundane
@@ -129,10 +137,10 @@
 	name = "cargonia banner"
 	desc = "The banner of the eternal Cargonia, with the mystical power of conjuring any object into existence."
 	icon_state = "banner_cargo"
-	item_state = "banner_cargo"
+	inhand_icon_state = "banner_cargo"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_NAME_CARGOTECHNICIAN, JOB_NAME_SHAFTMINER, JOB_NAME_QUARTERMASTER)
+	job_loyalties = DEPARTMENT_BITFLAG_CARGO
 	warcry = "Hail Cargonia!"
 
 /obj/item/banner/cargo/mundane
@@ -142,10 +150,10 @@
 	name = "engitopia banner"
 	desc = "The banner of Engitopia, wielders of limitless power."
 	icon_state = "banner_engineering"
-	item_state = "banner_engineering"
+	inhand_icon_state = "banner_engineering"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER)
+	job_loyalties = DEPARTMENT_BITFLAG_ENGINEERING
 	warcry = "All hail lord Singuloth!!"
 
 /obj/item/banner/engineering/mundane
@@ -158,7 +166,7 @@
 	name = "command banner"
 	desc = "The banner of Command, a staunch and ancient line of bueraucratic kings and queens."
 	//No icon state here since the default one is the NT banner
-	job_loyalties = list(JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_HEADOFSECURITY, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
+	job_loyalties = DEPARTMENT_BITFLAG_COMMAND
 	warcry = "Hail Nanotrasen!"
 
 /obj/item/banner/command/mundane
@@ -170,13 +178,13 @@
 /obj/item/banner/red
 	name = "red banner"
 	icon_state = "banner-red"
-	item_state = "banner-red"
+	inhand_icon_state = "banner-red"
 	desc = "A banner with the logo of the red deity."
 
 /obj/item/banner/blue
 	name = "blue banner"
 	icon_state = "banner-blue"
-	item_state = "banner-blue"
+	inhand_icon_state = "banner-blue"
 	desc = "A banner with the logo of the blue deity."
 
 /obj/item/storage/backpack/bannerpack
@@ -206,7 +214,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	item_flags = ISWEAPON
-	var/conversion_color = "#ffffff"
+	var/conversion_color = COLOR_WHITE
 	var/staffcooldown = 0
 	var/staffwait = 30
 
@@ -222,11 +230,11 @@
 
 /obj/item/godstaff/red
 	icon_state = "godstaff-red"
-	conversion_color = "#ff0000"
+	conversion_color = COLOR_RED
 
 /obj/item/godstaff/blue
 	icon_state = "godstaff-blue"
-	conversion_color = "#0000ff"
+	conversion_color = COLOR_BLUE
 
 /obj/item/clothing/gloves/plate
 	name = "Plate Gauntlets"

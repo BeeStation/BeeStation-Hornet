@@ -184,11 +184,11 @@
 	var/msg = capped_input(usr, "Message:", "Enter the text you wish to appear to everyone within view:")
 	if (!msg)
 		return
-	for(var/mob/M as() in hearers(range,A))
+	for(var/mob/M as anything in hearers(range,A))
 		to_chat(M, msg)
 
 	log_admin("LocalNarrate: [key_name(usr)] at [AREACOORD(A)]: [msg]")
-	message_admins(span_adminnotice("<b> LocalNarrate: [key_name_admin(usr)] at [ADMIN_VERBOSEJMP(A)]:</b> [msg]<BR>"))
+	message_admins(span_adminnotice("<b>LocalNarrate: [key_name_admin(usr)] at [ADMIN_VERBOSEJMP(A)]:</b> [msg]<BR>"))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Local Narrate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_godmode(mob/M in GLOB.mob_list)
@@ -295,55 +295,6 @@
 
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Mute [feedback_string]", "[P.muted & mute_type]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
-//I use this proc for respawn character too. /N
-/proc/create_xeno(ckey)
-	if(!ckey)
-		var/list/candidates = list()
-		for(var/mob/M in GLOB.player_list)
-			if(M.stat != DEAD)
-				continue	//we are not dead!
-			if(!M.client?.should_include_for_role(ROLE_ALIEN))
-				continue	//we don't want to be an alium
-			if(M.client.is_afk())
-				continue	//we are afk
-			if(M.mind?.current && M.mind.current.stat != DEAD)
-				continue	//we have a live body we are tied to
-			candidates += M.ckey
-		if(candidates.len)
-			ckey = input("Pick the player you want to respawn as a xeno.", "Suitable Candidates") as null|anything in sort_key(candidates)
-		else
-			to_chat(usr, span_danger("Error: create_xeno(): no suitable candidates."))
-	if(!istext(ckey))
-		return 0
-
-	var/alien_caste = input(usr, "Please choose which caste to spawn.","Pick a caste",null) as null|anything in list("Queen","Praetorian","Hunter","Sentinel","Drone","Larva")
-	var/obj/effect/landmark/spawn_here = GLOB.xeno_spawn.len ? pick(GLOB.xeno_spawn) : null
-	var/mob/living/carbon/alien/new_xeno
-	switch(alien_caste)
-		if("Queen")
-			new_xeno = new /mob/living/carbon/alien/humanoid/royal/queen(spawn_here)
-		if("Praetorian")
-			new_xeno = new /mob/living/carbon/alien/humanoid/royal/praetorian(spawn_here)
-		if("Hunter")
-			new_xeno = new /mob/living/carbon/alien/humanoid/hunter(spawn_here)
-		if("Sentinel")
-			new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(spawn_here)
-		if("Drone")
-			new_xeno = new /mob/living/carbon/alien/humanoid/drone(spawn_here)
-		if("Larva")
-			new_xeno = new /mob/living/carbon/alien/larva(spawn_here)
-		else
-			return 0
-	if(!spawn_here)
-		SSjob.SendToLateJoin(new_xeno, FALSE)
-
-	new_xeno.ckey = ckey
-	var/msg = span_notice("[key_name_admin(usr)] has spawned [ckey] as a filthy xeno [alien_caste].")
-	message_admins(msg)
-	admin_ticket_log(new_xeno, msg)
-	return 1
-
 /*
 If a guy was gibbed and you want to revive him, this is a good way to do so.
 Works kind of like entering the game with a new character. Character receives a new mind if they didn't have one.
@@ -371,43 +322,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
-		//Check if they were an alien
-		if(G_found.mind.assigned_role == ROLE_ALIEN)
-			if(alert("This character appears to have been an alien. Would you like to respawn them as such?",,"Yes","No")=="Yes")
-				var/turf/T
-				if(GLOB.xeno_spawn.len)
-					T = pick(GLOB.xeno_spawn)
-
-				var/mob/living/carbon/alien/new_xeno
-				switch(G_found.mind.special_role)//If they have a mind, we can determine which caste they were.
-					if("Hunter")
-						new_xeno = new /mob/living/carbon/alien/humanoid/hunter(T)
-					if("Sentinel")
-						new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(T)
-					if("Drone")
-						new_xeno = new /mob/living/carbon/alien/humanoid/drone(T)
-					if("Praetorian")
-						new_xeno = new /mob/living/carbon/alien/humanoid/royal/praetorian(T)
-					if("Queen")
-						new_xeno = new /mob/living/carbon/alien/humanoid/royal/queen(T)
-					else//If we don't know what special role they have, for whatever reason, or they're a larva.
-						create_xeno(G_found.ckey)
-						return
-
-				if(!T)
-					SSjob.SendToLateJoin(new_xeno, FALSE)
-
-				//Now to give them their mind back.
-				G_found.mind.transfer_to(new_xeno)	//be careful when doing stuff like this! I've already checked the mind isn't in use
-				new_xeno.key = G_found.key
-				to_chat(new_xeno, "You have been fully respawned. Enjoy the game.")
-				var/msg = span_adminnotice("[key_name_admin(usr)] has respawned [new_xeno.key] as a filthy xeno.")
-				message_admins(msg)
-				admin_ticket_log(new_xeno, msg)
-				return	//all done. The ghost is auto-deleted
 
 		//check if they were a monkey
-		else if(findtext(G_found.real_name,"monkey"))
+		if(findtext(G_found.real_name,"monkey"))
 			if(alert("This character appears to have been a monkey. Would you like to respawn them as such?",,"Yes","No")=="Yes")
 				var/mob/living/carbon/monkey/new_monkey = new
 				SSjob.SendToLateJoin(new_monkey)
@@ -420,7 +337,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				return	//all done. The ghost is auto-deleted
 
 
-	//Ok, it's not a xeno or a monkey. So, spawn a human.
+	//Ok, it's not a monkey. So, spawn a human.
 	var/mob/living/carbon/human/new_character = new//The mob being spawned.
 	SSjob.SendToLateJoin(new_character)
 
@@ -433,10 +350,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.gender = record_found.gender
 		new_character.age = record_found.age
 		var/datum/dna/found_dna = record_found.weakref_dna.resolve()
-		new_character.hardset_dna(found_dna.unique_identity, record_found.dna_string, null, record_found.name, record_found.blood_type, new record_found.species, found_dna.features)
+		new_character.hardset_dna(found_dna.unique_identity, record_found.unique_enzymes, null, record_found.name, record_found.blood_type, new record_found.species, found_dna.features)
 	else
 		randomize_human(new_character)
-		new_character.real_name = new_character.dna.species.random_name(new_character.gender, TRUE)
+		//Whats the point of this?
+		//new_character.real_name = new_character.dna.species.random_name(new_character.gender, TRUE)
 		new_character.name = new_character.real_name
 		new_character.dna.update_dna_identity()
 
@@ -446,8 +364,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		G_found.mind.transfer_to(new_character)	//be careful when doing stuff like this! I've already checked the mind isn't in use
 	else
 		new_character.mind_initialize()
-	if(!new_character.mind.assigned_role)
-		new_character.mind.assigned_role = JOB_NAME_ASSISTANT//If they somehow got a null assigned role.
+	if(is_unassigned_job(new_character.mind.assigned_role))
+		new_character.mind.set_assigned_role(SSjob.get_job_type(SSjob.overflow_role))
 
 	new_character.key = G_found.key
 
@@ -464,16 +382,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	//Now for special roles and equipment.
 	var/datum/antagonist/traitor/traitordatum = new_character.mind.has_antag_datum(/datum/antagonist/traitor)
 	if(traitordatum)
-		SSjob.EquipRank(new_character, new_character.mind.assigned_role, 1)
+		SSjob.EquipRank(new_character, new_character.mind.assigned_role, new_character.client)
 		traitordatum.equip()
-
 
 	switch(new_character.mind.special_role)
 		if(ROLE_WIZARD)
 			new_character.forceMove(pick(GLOB.wizardstart))
 			var/datum/antagonist/wizard/A = new_character.mind.has_antag_datum(/datum/antagonist/wizard,TRUE)
 			A.equip_wizard()
-		if(ROLE_OPERATIVE)
+		if(ROLE_NUCLEAR_OPERATIVE)
 			new_character.forceMove(pick(GLOB.nukeop_start))
 			var/datum/antagonist/nukeop/N = new_character.mind.has_antag_datum(/datum/antagonist/nukeop,TRUE)
 			N.equip_op()
@@ -487,23 +404,23 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				new_character.forceMove(pick(ninja_spawn))
 
 		else//They may also be a cyborg or AI.
-			switch(new_character.mind.assigned_role)
-				if(JOB_NAME_CYBORG)//More rigging to make em' work and check if they're traitor.
+			switch(new_character.mind.assigned_role.type)
+				if(/datum/job/cyborg)//More rigging to make em' work and check if they're traitor.
 					new_character = new_character.Robotize(TRUE)
-				if(JOB_NAME_AI)
+				if(/datum/job/ai)
 					new_character = new_character.AIize()
 				else
-					SSjob.EquipRank(new_character, new_character.mind.assigned_role, 1)//Or we simply equip them.
+					if(!traitordatum) // Already equipped there.
+						SSjob.EquipRank(new_character, new_character.mind.assigned_role, new_character.client)//Or we simply equip them.
 
 	//Announces the character on all the systems, based on the record.
-	if(!issilicon(new_character))//If they are not a cyborg/AI.
-		if(!record_found&&new_character.mind.assigned_role!=new_character.mind.special_role)//If there are no records for them. If they have a record, this info is already in there. MODE people are not announced anyway.
-			//Power to the user!
-			if(alert(new_character,"Warning: No data core entry detected. Would you like to announce the arrival of this character by adding them to various databases, such as medical records?",,"No","Yes")=="Yes")
-				GLOB.manifest.inject(new_character)
+	if(!record_found && (new_character.mind.assigned_role.job_flags & JOB_CREW_MEMBER))
+		//Power to the user!
+		if(tgui_alert(new_character,"Warning: No data core entry detected. Would you like to announce the arrival of this character by adding them to various databases, such as medical records?",,list("No","Yes"))=="Yes")
+			GLOB.manifest.inject(new_character)
 
-			if(alert(new_character,"Would you like an active AI to announce this character?",,"No","Yes")=="Yes")
-				AnnounceArrival(new_character, new_character.mind.assigned_role)
+		if(tgui_alert(new_character,"Would you like an active AI to announce this character?",,list("No","Yes"))=="Yes")
+			announce_arrival(new_character, new_character.mind.assigned_role.title)
 
 	var/msg = span_adminnotice("[admin] has respawned [player_key] as [new_character.real_name].")
 	message_admins(msg)
@@ -513,6 +430,63 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Respawn Character") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return new_character
+
+/client/proc/cmd_admin_set_roundstart_ai_lawset()
+	set category = "Round"
+	set name = "Set Roundstart AI Lawset"
+
+	if(!check_rights(R_FUN))
+		return
+
+	if(SSticker.current_state > GAME_STATE_PREGAME)
+		to_chat(src, span_warning("The round has already started."))
+		return
+
+	var/mode = tgui_alert(src, "Use an existing lawset or enter a custom lawset?", "Roundstart AI Lawset", list("Existing Lawset", "Custom Lawset", "Cancel"))
+	if(mode == "Cancel" || !mode)
+		return
+
+	if(mode == "Custom Lawset")
+		var/list/custom_laws = list()
+		while(TRUE)
+			var/law = capped_input(src, "Enter law #[length(custom_laws) + 1]. Leave blank when finished.", "Custom Roundstart AI Lawset")
+			if(!law)
+				if(length(custom_laws))
+					break
+				if(tgui_alert(src, "No laws were entered.", "Custom Roundstart AI Lawset", list("Try Again", "Cancel")) == "Try Again")
+					continue
+				return
+			custom_laws += law
+		var/datum/ai_laws/custom_lawset = new /datum/ai_laws()
+		custom_lawset.name = "Admin Custom Laws"
+		custom_lawset.id = "admin_custom"
+		custom_lawset.inherent = custom_laws
+		GLOB.round_default_lawset = custom_lawset
+
+		log_admin("[key_name(src)] set a custom roundstart AI lawset: [custom_laws.Join(" | ")]")
+		message_admins("[key_name(src)] set a custom roundstart AI lawset: [custom_laws.Join(" | ")]")
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Roundstart AI Lawset")
+		return
+
+	var/list/lawset_choices = list()
+
+	for(var/law_type in subtypesof(/datum/ai_laws))
+		var/datum/ai_laws/law_path = law_type
+
+		if(law_type == /datum/ai_laws/pai)
+			continue
+
+		lawset_choices["[initial(law_path.name)] ([law_type])"] = law_type
+
+	var/chosen = tgui_input_list(src, "Choose the lawset the roundstart AI will spawn with.", "Roundstart AI Lawset", sort_list(lawset_choices))
+	if(isnull(chosen))
+		return
+
+	GLOB.round_default_lawset = lawset_choices[chosen]
+
+	log_admin("[key_name(src)] set the roundstart AI lawset to [chosen].")
+	message_admins("[key_name(src)] set the roundstart AI lawset to [chosen].")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Roundstart AI Lawset")
 
 /client/proc/cmd_admin_add_freeform_ai_law()
 	set category = "Fun"
@@ -680,7 +654,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		return
 
-/client/proc/cmd_admin_gib(mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_gib(mob/victim in GLOB.mob_list)
 	set category = "Adminbus"
 	set name = "Gib"
 
@@ -691,19 +665,23 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(confirm == "Cancel" || !confirm)
 		return
 	//Due to the delay here its easy for something to have happened to the mob
-	if(!M)
+	if(!victim)
 		return
 
-	log_admin("[key_name(usr)] has gibbed [key_name(M)]")
-	message_admins("[key_name_admin(usr)] has gibbed [key_name_admin(M)]")
+	log_admin("[key_name(usr)] has gibbed [key_name(victim)]")
+	message_admins("[key_name_admin(usr)] has gibbed [key_name_admin(victim)]")
 
-	if(isobserver(M))
-		new /obj/effect/gibspawner/generic(get_turf(M))
+	if(isobserver(victim))
+		new /obj/effect/gibspawner/generic(get_turf(victim))
 		return
-	if(confirm == "Yes")
-		M.gib()
-	else
-		M.gib(1)
+
+	var/mob/living/living_victim = victim
+	if (istype(living_victim))
+		if(confirm == "Yes")
+			living_victim.gib()
+		else
+			living_victim.gib(TRUE)
+
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Gib") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_gib_self()
@@ -715,7 +693,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		log_admin("[key_name(usr)] used gibself.")
 		message_admins(span_adminnotice("[key_name_admin(usr)] used gibself."))
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Gib Self") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		mob.gib(1, 1, 1)
+
+		var/mob/living/ourself = mob
+		if (istype(ourself))
+			ourself.gib(TRUE, TRUE, TRUE)
 
 /client/proc/cmd_admin_check_contents(mob/living/M in GLOB.mob_list)
 	set category = "Adminbus"
@@ -757,7 +738,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(null, "No")
 			return
 		if("Yes (No Recall)")
-			SSshuttle.adminEmergencyNoRecall = TRUE
+			SSshuttle.admin_emergency_no_recall = TRUE
 			SSshuttle.emergency.mode = SHUTTLE_IDLE
 
 	SSshuttle.emergency.request()
@@ -777,8 +758,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(EMERGENCY_AT_LEAST_DOCKED)
 		return
 
-	if(SSshuttle.adminEmergencyNoRecall)
-		SSshuttle.adminEmergencyNoRecall = FALSE
+	if(SSshuttle.admin_emergency_no_recall)
+		SSshuttle.admin_emergency_no_recall = FALSE
 
 	SSshuttle.emergency.cancel()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Cancel Shuttle") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -854,11 +835,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("[key_name_admin(usr)] changed the security level to [level]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Security Level [capitalize(level)]") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/toggle_nuke(obj/machinery/nuclearbomb/N in GLOB.nuke_list)
+/client/proc/toggle_nuke()
 	set name = "Toggle Nuke"
 	set category = "Fun"
 	set popup_menu = 0
 	if(!check_rights(R_DEBUG))
+		return
+
+	var/obj/machinery/nuclearbomb/N = tgui_input_list(usr, "", "Toggle Nuke", SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb))
+	if (isnull(N))
 		return
 
 	if(!N.timing)
@@ -873,6 +858,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("[ADMIN_LOOKUPFLW(usr)] [N.timing ? "activated" : "deactivated"] a nuke at [ADMIN_VERBOSEJMP(N)].")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Nuke", "[N.timing]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/// List of hud traits in the admin combo hud
+#define ADMIN_HUDS list(TRAIT_SECURITY_HUD, TRAIT_MEDICAL_HUD, TRAIT_DIAGNOSTIC_HUD, TRAIT_BOT_PATH_HUD)
+
 /client/proc/toggle_combo_hud()
 	set category = "Admin"
 	set name = "Toggle Combo HUD"
@@ -881,38 +869,38 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/adding_hud = !has_antag_hud()
+	combo_hud_enabled = !combo_hud_enabled
 
-	for(var/hudtype in list(DATA_HUD_SECURITY_ADVANCED, DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED)) // add data huds
-		var/datum/atom_hud/H = GLOB.huds[hudtype]
-		(adding_hud) ? H.add_hud_to(usr) : H.remove_hud_from(usr)
-	for(var/datum/atom_hud/antag/H in GLOB.huds) // add antag huds
-		(adding_hud) ? H.add_hud_to(usr) : H.remove_hud_from(usr)
+	if(combo_hud_enabled)
+		usr.add_traits(ADMIN_HUDS, ADMIN_TRAIT)
+		for (var/datum/atom_hud/alternate_appearance/basic/antagonist_hud/antag_hud in GLOB.active_alternate_appearances)
+			antag_hud.show_to(mob)
+	else
+		usr.remove_traits(ADMIN_HUDS, ADMIN_TRAIT)
+		for (var/datum/atom_hud/alternate_appearance/basic/antagonist_hud/antag_hud in GLOB.active_alternate_appearances)
+			antag_hud.hide_from(mob)
 
 	if(prefs?.read_player_preference(/datum/preference/toggle/combohud_lighting))
-		if(adding_hud)
+		if(combo_hud_enabled)
 			mob.lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 		else
 			mob.lighting_alpha = initial(mob.lighting_alpha)
 
 	mob.update_sight()
 
-	to_chat(usr, "You toggled your admin combo HUD [adding_hud ? "ON" : "OFF"].")
-	message_admins("[key_name_admin(usr)] toggled their admin combo HUD [adding_hud ? "ON" : "OFF"].")
-	log_admin("[key_name(usr)] toggled their admin combo HUD [adding_hud ? "ON" : "OFF"].")
-	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Combo HUD", "[adding_hud ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	to_chat(usr, "You toggled your admin combo HUD [combo_hud_enabled ? "ON" : "OFF"].")
+	message_admins("[key_name_admin(usr)] toggled their admin combo HUD [combo_hud_enabled ? "ON" : "OFF"].")
+	log_admin("[key_name(usr)] toggled their admin combo HUD [combo_hud_enabled ? "ON" : "OFF"].")
+	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Combo HUD", "[combo_hud_enabled ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
-/client/proc/has_antag_hud()
-	var/datum/atom_hud/A = GLOB.huds[ANTAG_HUD_TRAITOR]
-	return A.hudusers[mob]
+#undef ADMIN_HUDS
 
 /client/proc/open_shuttle_manipulator()
 	set category = "Round"
 	set name = "Shuttle Manipulator"
 	set desc = "Opens the shuttle manipulator UI."
 
-	for(var/obj/machinery/shuttle_manipulator/M in GLOB.machines)
+	for(var/obj/machinery/shuttle_manipulator/M as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/shuttle_manipulator))
 		M.ui_interact(usr)
 
 /client/proc/run_weather()
@@ -929,7 +917,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/turf/T = get_turf(mob)
 	var/z_level = input("Z-Level to target?", "Z-Level", T?.z) as num|null
-	if(!isnum_safe(z_level))
+	if(!IS_FINITE(z_level))
 		return
 
 	SSweather.run_weather(weather_type, z_level)
@@ -1193,7 +1181,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!D)
 		return
 
-	var/add_or_remove = input("Remove/Add?", "Trait Remove/Add") as null|anything in list("Add","Remove")
+	var/add_or_remove = tgui_input_list(usr, "Remove/Add?", "Trait Remove/Add", list("Add", "Remove"))
 	if(!add_or_remove)
 		return
 	var/list/available_traits = list()
@@ -1210,7 +1198,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				var/name = GLOB.trait_name_map[trait] || trait
 				available_traits[name] = trait
 
-	var/chosen_trait = input("Select trait to modify", "Trait") as null|anything in available_traits
+	var/chosen_trait = tgui_input_list(usr, "Select trait to modify", "Trait", sort_list(available_traits))
 	if(!chosen_trait)
 		return
 	chosen_trait = available_traits[chosen_trait]
@@ -1222,17 +1210,17 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				D.AddElement(/datum/element/movetype_handler)
 			ADD_TRAIT(D,chosen_trait,source)
 		if("Remove")
-			var/specific = input("All or specific source ?", "Trait Remove/Add") as null|anything in list("All","Specific")
+			var/specific = tgui_input_list(usr, "All or specific source ?", "Trait Remove/Add", list("All", "Specific"))
 			if(!specific)
 				return
 			switch(specific)
 				if("All")
 					source = null
 				if("Specific")
-					source = input("Source to be removed","Trait Remove/Add") as null|anything in D.status_traits[chosen_trait]
+					source = tgui_input_list(usr, "Source to be removed", "Trait Remove/Add", D.status_traits[chosen_trait])
 					if(!source)
 						return
-			REMOVE_TRAIT(D,chosen_trait,source)
+			REMOVE_TRAIT(D, chosen_trait, source)
 
 /client/proc/spawnhuman()
 	set name = "Spawn human"

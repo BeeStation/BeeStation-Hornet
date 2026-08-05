@@ -29,7 +29,7 @@
 //Lets the wizard summon his art to fight for him
 /datum/action/boss/wizard_summon_minions
 	name = "Summon Minions"
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "art_summon"
 	usage_probability = 40
 	boss_cost = 30
@@ -57,7 +57,7 @@
 //Hitting the wizard himself destroys all decoys
 /datum/action/boss/wizard_mimic
 	name = "Craft Mimicry"
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "mimic_summon"
 	usage_probability = 30
 	boss_cost = 40
@@ -101,7 +101,7 @@
 	var/mob/living/simple_animal/hostile/boss/paper_wizard/original
 
 //Hit a fake? eat pain!
-/mob/living/simple_animal/hostile/boss/paper_wizard/copy/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/boss/paper_wizard/copy/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(amount > 0) //damage
 		if(original)
 			original.minimum_distance = 3
@@ -118,7 +118,7 @@
 		. = ..()
 
 //Hit the real guy? copies go bai-bai
-/mob/living/simple_animal/hostile/boss/paper_wizard/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/boss/paper_wizard/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = ..()
 	if(. > 0)//damage
 		minimum_distance = 3

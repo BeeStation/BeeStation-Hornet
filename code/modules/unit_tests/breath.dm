@@ -14,8 +14,8 @@
 
 	lab_rat.breathe()
 
-	TEST_ASSERT(!lab_rat.has_alert("not_enough_oxy"), "Humans can't get a full breath from standard o2 tanks")
-	lab_rat.clear_alert("not_enough_oxy")
+	TEST_ASSERT(!lab_rat.has_alert(ALERT_NOT_ENOUGH_OXYGEN), "Humans can't get a full breath from standard o2 tanks")
+	lab_rat.clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 
 	//Prep the mob
 	lab_rat.forceMove(run_loc_floor_bottom_left)
@@ -28,7 +28,7 @@
 
 	lab_rat.breathe()
 
-	TEST_ASSERT(!lab_rat.has_alert("not_enough_oxy"), "Humans can't get a full breath from the standard initial_gas_mix on a turf")
+	TEST_ASSERT(!lab_rat.has_alert(ALERT_NOT_ENOUGH_OXYGEN), "Humans can't get a full breath from the standard initial_gas_mix on a turf")
 
 
 

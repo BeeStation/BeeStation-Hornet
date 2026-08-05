@@ -10,7 +10,7 @@
 /obj/effect/landmark/singularity_act()
 	return
 
-/obj/effect/landmark/singularity_pull()
+/obj/effect/landmark/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 INITIALIZE_IMMEDIATE(/obj/effect/landmark)
@@ -204,7 +204,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/ai/after_round_start()
 	if(latejoin_active && !used)
-		new /obj/structure/AIcore/latejoin_inactive(loc)
+		new /obj/structure/ai_core/latejoin_inactive(loc)
 	return ..()
 
 /obj/effect/landmark/start/ai/secondary
@@ -223,9 +223,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/randommaint/New() //automatically opens up a job slot when the job's spawner loads in
 	..()
-	var/datum/job/J = SSjob.GetJob(job)
+	var/datum/job/J = SSjob.get_job(job)
 	J.total_positions += 1
-	SSjob.job_manager_blacklisted -= J.title
+	J.job_flags &= ~JOB_CANNOT_OPEN_SLOTS
 
 /obj/effect/landmark/start/randommaint/backalley_doc
 	name = "Barber"
@@ -257,26 +257,32 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/depsec
 	name = "department_sec"
 	icon_state = "Security Officer"
+	/// What department this spawner is for
+	var/department
 
 /obj/effect/landmark/start/depsec/Initialize(mapload)
 	. = ..()
-	GLOB.department_security_spawns += src
+	LAZYADDASSOCLIST(GLOB.department_security_spawns, department, src)
 
 /obj/effect/landmark/start/depsec/Destroy()
-	GLOB.department_security_spawns -= src
+	LAZYREMOVEASSOC(GLOB.department_security_spawns, department, src)
 	return ..()
 
 /obj/effect/landmark/start/depsec/supply
 	name = "supply_sec"
+	department = SEC_DEPT_SUPPLY
 
 /obj/effect/landmark/start/depsec/medical
 	name = "medical_sec"
+	department = SEC_DEPT_MEDICAL
 
 /obj/effect/landmark/start/depsec/engineering
 	name = "engineering_sec"
+	department = SEC_DEPT_ENGINEERING
 
 /obj/effect/landmark/start/depsec/science
 	name = "science_sec"
+	department = SEC_DEPT_SCIENCE
 
 //Antagonist spawns
 
@@ -330,18 +336,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/latejoin/Initialize(mapload)
 	..()
 	SSjob.latejoin_trackers += loc
-	return INITIALIZE_HINT_QDEL
-
-/obj/effect/landmark/prisonspawn
-	name = "prisonspawn"
-	icon_state = "error"
-	/* Milviu's sin
-	icon_state = "prison_spawn"
-	*/
-
-/obj/effect/landmark/prisonspawn/Initialize(mapload)
-	..()
-	GLOB.prisonspawn += loc
 	return INITIALIZE_HINT_QDEL
 
 //space carps, magicarps, lone ops, slaughter demons, possibly revenants spawn here
@@ -587,8 +581,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 	/// example) navigation_id = "Bartender's storage"
 	var/navigation_id
 
-	// Note: if multiple area needs a standard name, use "navigation_area_name"
-
 /obj/effect/landmark/navigate_destination/Initialize(mapload)
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD
@@ -602,7 +594,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 			stack_trace("The navigation landmark failed to get an area.")
 			qdel(src)
 			return
-		navigation_id = linked_area.get_navigation_area_name()
+		navigation_id = linked_area.name
 	if(!navigation_id)
 		navigation_id = "Unnamed area"
 

@@ -1,9 +1,8 @@
-
 // common trait sources
 #define TRAIT_GENERIC "generic"
-#define GENERIC_ITEM_TRAIT "generic_item"
 #define UNCONSCIOUS_TRAIT "unconscious"
 #define EYE_DAMAGE "eye_damage"
+#define EAR_DAMAGE "ear_damage"
 #define GENETIC_MUTATION "genetic"
 #define OBESITY "obesity"
 #define MAGIC_TRAIT "magic"
@@ -41,6 +40,8 @@
 #define RESTING_TRAIT "resting"
 //trait associated to a stat value or range of
 #define STAT_TRAIT "stat"
+/// obtained from mapping helper
+#define MAPPING_HELPER_TRAIT "mapping-helper"
 /// Trait associated to wearing a suit
 #define SUIT_TRAIT "suit"
 /// Trait associated to lying down (having a [lying_angle] of a different value than zero).
@@ -50,21 +51,31 @@
 #define GLASSES_TRAIT "glasses"
 #define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"
+/// Trait from [/datum/element/rust]. Its rusty and should be applying a special overlay to denote this.
 #define TRAIT_RUSTY "rust_trait"
+/// Trait from being under the floor in some manner
+#define TRAIT_UNDERFLOOR "underfloor"
 #define ACTION_TRAIT "action_trait"
-#define TURF_TRAIT "turf"
+#define LEANING_TRAIT "leaning"
+#define TRAIT_REGEN_COMA "regencoma"
+/// From nanites
+#define NANITES_TRAIT "nanites"
+
+/// Trait given to you by shapeshifting
+#define SHAPESHIFT_TRAIT "shapeshift_trait"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"
 #define STATUE_MUTE "statue"
 #define CHANGELING_DRAIN "drain"
 #define MAGIC_BLIND "magic_blind"
-#define HIGHLANDER "highlander"
+/// Trait associated with highlander
+#define HIGHLANDER_TRAIT "highlander"
 #define SOURCE_HULK "hulk"
 #define STASIS_MUTE "stasis"
 #define GENETICS_SPELL "genetics_spell"
 #define EYES_COVERED "eyes_covered"
-#define CULT_EYES "cult_eyes"
+#define NO_EYES "no_eyes"
 #define TRAIT_SANTA "santa"
 #define SCRYING_ORB "scrying-orb"
 #define ABDUCTOR_ANTAGONIST "abductor-antagonist"
@@ -103,22 +114,25 @@
 #define HOLOPARASITE_SCOUT_TRAIT	"holopara_scout_trait"
 #define HOLOPARASITE_STAT_TRAIT		"holopara_stat_trait"
 #define PARRY_TRAIT	"parry_trait"
-#define LIGHTPINK_TRAIT "lightpinktrait"
 #define BATTLE_ROYALE_TRAIT "battleroyale_trait"
 #define MADE_UNCLONEABLE "made-uncloneable"
-#define TRAIT_JAWS_OF_LIFE "jaws-of-life"
 #define STICKY_NODROP "sticky-nodrop" //sticky nodrop sounds like a good soundcloud rapper's name
 //#define SKILLCHIP_TRAIT "skillchip"
 #define BUSY_FLOORBOT_TRAIT "busy-floorbot"
 #define PULLED_WHILE_SOFTCRIT_TRAIT "pulled-while-softcrit"
 #define LOCKED_BORG_TRAIT "locked-borg"
-#define LACKING_LOCOMOTION_APPENDAGES_TRAIT "lacking-locomotion-appengades" //trait associated to not having locomotion appendages nor the ability to fly or float
-#define LACKING_MANIPULATION_APPENDAGES_TRAIT "lacking-manipulation-appengades" //trait associated to not having fine manipulation appendages such as hands
+/// trait associated to not having locomotion appendages nor the ability to fly or float
+#define LACKING_LOCOMOTION_APPENDAGES_TRAIT "lacking-locomotion-appengades"
+#define CRYO_TRAIT "cryo"
+/// trait associated to not having fine manipulation appendages such as hands
+#define LACKING_MANIPULATION_APPENDAGES_TRAIT "lacking-manipulation-appengades"
 #define HANDCUFFED_TRAIT "handcuffed"
 /// Trait granted by [/obj/item/warpwhistle]
 #define WARPWHISTLE_TRAIT "warpwhistle"
-/// Trait sorce for "was recently shocked by something"
+/// Trait source for "was recently shocked by something"
 #define WAS_SHOCKED "was_shocked"
+/// Trait source for turfs
+#define TURF_TRAIT "turf"
 /// Trait applied by by [/datum/component/soulstoned]
 #define SOULSTONE_TRAIT "soulstone"
 /// Trait applied to slimes by low temperature
@@ -131,17 +145,26 @@
 #define BRAIN_UNAIDED "brain-unaided"
 /// Trait applied by MODsuits.
 #define MOD_TRAIT "mod"
-#define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
+/// Trait from mob/living/update_transform()
+#define UPDATE_TRANSFORM_TRAIT "update_transform"
+/// Trait from mob/living/update_offsets()
+#define UPDATE_OFFSET_TRAIT "update_offset"
 #define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
 #define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
 #define TABLE_TRAIT "table_trait"
 #define LICH_TRAIT "lich_trait"
+/// Trait given by stabilized light pink extracts
+#define STABILIZED_LIGHT_PINK_EXTRACT_TRAIT "stabilized_light_pink"
+/// Trait given by adamantine extracts
+#define ADAMANTINE_EXTRACT_TRAIT "adamantine_extract"
 /// Trait given to an atom/movable when they orbit something.
 #define ORBITING_TRAIT "orbiting"
 /// Trait given by simple/basic mob death
 #define BASIC_MOB_DEATH_TRAIT "basic_mob_death"
 /// Trait applied to a mob when it gets a required "operational datum" (components/elements). Sends out the source as the type of the element.
 #define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
+/// Trait given by mech equipment
+#define TRAIT_MECH_EQUIPMENT(equipment_type) "mech_equipment_[equipment_type]"
 
 /// This trait comes from when a mob is currently typing.
 #define CURRENTLY_TYPING_TRAIT "currently_typing"
@@ -152,12 +175,48 @@
 #define LIFECANDLE_TRAIT "lifecandle"
 #define LEAPER_BUBBLE_TRAIT "leaper-bubble"
 #define NEGATIVE_GRAVITY_TRAIT "negative-gravity"
+
+/// A trait gained from a mob's leap action, like the leaper
+#define LEAPING_TRAIT "leaping"
+/// From grabbing someone
+#define GRABBING_TRAIT "grabbing"
 /// Sources for TRAIT_IGNORING_GRAVITY
 #define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 #define FROM_SHADOW_SECT "shadow_sect"
+/// From a priority directive
+#define FROM_DIRECTIVE "directive"
+
+/// some trait sources dirived from bodyparts BODYPART_TRAIT is generic.
+#define BODYPART_TRAIT "bodypart"
+#define HEAD_TRAIT "head"
+#define CHEST_TRAIT "chest"
+#define RIGHT_ARM_TRAIT "right_arm"
+#define LEFT_ARM_TRAIT "left_arm"
+#define RIGHT_LEG_TRAIT "right_leg"
+#define LEFT_LEG_TRAIT "left_leg"
+
+/**
+* Trait granted by [/mob/living/carbon/Initialize] and
+* granted/removed by [/obj/item/organ/tongue]
+* Used for ensuring that carbons without tongues cannot taste anything
+* so it is added in Initialize, and then removed when a tongue is inserted
+* and readded when a tongue is removed.
+*/
+#define NO_TONGUE_TRAIT "no_tongue_trait"
+
+// specific sources for TRAIT_SPEAKS_CLEARLY
+
+///trait source that tongues should use
+#define SPEAKING_FROM_TONGUE "tongue"
+///trait source that sign language should use
+#define SPEAKING_FROM_HANDS "hands"
 
 /// Trait granted by [/mob/living/silicon/robot]
 /// Traits applied to a silicon mob by their module.
 #define MODULE_TRAIT "module_trait"
 /// trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
 #define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"
+/// Source for chameleon ietms
+#define FROM_CHAMELEON "from_chameleon"
+/// Source for innate toggleable silicon HUDs
+#define SILICON_HUD_TRAIT "silicon_hud"

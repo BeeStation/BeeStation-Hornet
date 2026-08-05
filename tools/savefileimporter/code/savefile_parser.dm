@@ -144,7 +144,7 @@
 	READ_FILE(S["UI_style"], UI_style, "Midnight-Knox")
 	NEW_QUERY(PREFERENCE_TAG_UI_STYLE, owning_ckey, UI_style)
 
-	READ_FILE(S["outline_color"], outline_color, "#75A2BB")
+	READ_FILE(S["outline_color"], outline_color, COLOR_BLUE_GRAY)
 	NEW_QUERY(PREFERENCE_TAG_OUTLINE_COLOUR, owning_ckey, outline_color)
 
 	READ_FILE(S["see_balloon_alerts"], see_balloon_alerts, "Only balloon alerts")
@@ -194,7 +194,7 @@
 	READ_FILE(S["pda_style"], pda_style, "Monospaced")
 	NEW_QUERY(PREFERENCE_TAG_PDA_STYLE, owning_ckey, pda_style)
 
-	READ_FILE(S["pda_color"], pda_color, "#808000")
+	READ_FILE(S["pda_color"], pda_color, COLOR_OLIVE)
 	NEW_QUERY(PREFERENCE_TAG_PDA_COLOUR, owning_ckey, pda_color)
 
 	READ_FILE(S["key_bindings"], key_bindings, null)

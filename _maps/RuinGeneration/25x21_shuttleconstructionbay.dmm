@@ -3,7 +3,7 @@
 /obj/machinery/door/airlock/external/glass,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ay" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -12,14 +12,14 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "aY" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "bf" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/open/floor/plating/airless,
@@ -37,13 +37,13 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "eq" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "es" = (
 /turf/template_noop/open,
 /area/template_noop)
@@ -55,14 +55,14 @@
 /area/template_noop)
 "hf" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "hB" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ib" = (
 /obj/machinery/shuttle/engine/plasma{
 	dir = 1
@@ -80,7 +80,7 @@
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "mf" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "nu" = (
@@ -120,9 +120,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/ruinloot/basic,
+/obj/effect/spawner/random/ruinloot/basic,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "tP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -163,11 +163,11 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "BT" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Cc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -222,7 +222,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "GG" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
@@ -238,7 +238,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "HL" = (
 /obj/structure/frame/computer,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
@@ -252,7 +252,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Ky" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -263,13 +263,13 @@
 "KA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Lp" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "MD" = (
 /obj/structure/girder,
 /turf/open/floor/plating/airless,
@@ -280,7 +280,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "OB" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -293,7 +293,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "PH" = (
 /obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
@@ -333,7 +333,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Tj" = (
 /turf/open/floor/plating/airless,
 /area/template_noop)
@@ -345,20 +345,20 @@
 /area/template_noop)
 "Vz" = (
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "VW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Wh" = (
 /turf/closed/wall/mineral/titanium,
 /area/template_noop)
 "WJ" = (
 /obj/effect/abstract/open_area_marker,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "WT" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -374,7 +374,7 @@
 /area/template_noop)
 "Zp" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 Hx

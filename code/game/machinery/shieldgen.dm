@@ -54,19 +54,21 @@
 	icon_state = "shield-red"
 	max_integrity = 60
 
-/obj/structure/emergency_shield/sanguine/emp_act(severity)
-	return
+/obj/structure/emergency_shield/sanguine/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/structure/emergency_shield/invoker
 	name = "Invoker's Shield"
 	desc = "A weak shield summoned by cultists to protect them while they carry out delicate rituals."
-	color = "#FF0000"
+	color = COLOR_RED
 	max_integrity = 20
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_MOB_LAYER
-/obj/structure/emergency_shield/invoker/emp_act(severity)
-	return
 
+/obj/structure/emergency_shield/invoker/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/machinery/shieldgen
 	name = "anti-breach shielding projector"
@@ -213,6 +215,8 @@
 #define SHIELD_SETUPFIELDS 1
 #define SHIELD_HASFIELDS 2
 
+WANTS_POWER_NODE(/obj/machinery/power/shieldwallgen)
+
 /obj/machinery/power/shieldwallgen
 	name = "shield wall generator"
 	desc = "A shield generator."
@@ -221,7 +225,7 @@
 	anchored = FALSE
 	density = TRUE
 	req_access = list(ACCESS_TELEPORTER)
-	flags_1 = CONDUCT_1
+	obj_flags = parent_type::obj_flags | CONDUCTS_ELECTRICITY
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 50
@@ -258,13 +262,10 @@
 	QDEL_NULL(wires)
 	return ..()
 
-//obj/machinery/power/shieldwallgen/should_have_node()
-//	return anchored
-
 /obj/machinery/power/shieldwallgen/connect_to_network()
 	if(!anchored)
 		return FALSE
-	. = ..()
+	return ..()
 
 /obj/machinery/power/shieldwallgen/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock)
 	id = "[REF(port)][id]"
@@ -511,7 +512,7 @@
 
 /obj/machinery/power/shieldwallgen/atmos/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /// Same as in the normal shieldwallgen, but with the shieldwalls replaced with atmos shieldwalls
 /obj/machinery/power/shieldwallgen/atmos/setup_field(direction)
@@ -661,4 +662,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 
 /obj/machinery/shieldwall/atmos/Initialize(mapload)
 	. = ..()
-	air_update_turf(TRUE)
+	air_update_turf(TRUE, TRUE)
+	AddElement(/datum/element/give_turf_traits, string_list(list(TRAIT_FIREDOOR_STOP)))
+
+/obj/machinery/shieldwall/atmos/Destroy()
+	air_update_turf(TRUE, FALSE)
+	return ..()

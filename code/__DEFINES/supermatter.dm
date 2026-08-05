@@ -115,6 +115,9 @@
 /// Currently counting down to delamination. True [/obj/machinery/power/supermatter_crystal/var/final_countdown]
 #define SUPERMATTER_DELAMINATING 6
 
+/// This is the amount of time that must pass before supermatter delaminations can trigger singularity/tesla, and before explosions reach their old max power
+#define SUPERMATTER_CRITICAL_TIME (45 MINUTES) //Parenthesis are important for order of operations
+
 // SUPERMATTER FACTORS DEFINES
 // This might feel obvious, but mentioning it doesnt hurt anyone:
 // While we separate these factors into neat little boxes, order still matters in the code.
@@ -182,7 +185,6 @@
 /// Colours used for effects.
 #define SUPERMATTER_COLOUR "#ffd04f"
 #define SUPERMATTER_RED "#aa2c16"
-#define SUPERMATTER_CASCADE_COLOUR COLOR_ALMOST_BLACK
-#define SUPERMATTER_TESLA_COLOUR "#00ffff"
+#define SUPERMATTER_TESLA_COLOUR COLOR_CYAN
 #define SUPERMATTER_SINGULARITY_RAYS_COLOUR "#750000"
 #define SUPERMATTER_SINGULARITY_LIGHT_COLOUR "#400060"

@@ -623,7 +623,7 @@
 /area/shuttle/arrival)
 "Wz" = (
 /obj/machinery/light/small/directional/west,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
 	dir = 5
 	},

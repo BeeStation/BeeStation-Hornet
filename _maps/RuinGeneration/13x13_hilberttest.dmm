@@ -5,20 +5,20 @@
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "b" = (
 /obj/structure/table/glass,
-/obj/item/stack/cable_coil/blue,
+/obj/item/stack/cable_coil,
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "e" = (
 /turf/open/floor/iron/vaporwave,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "j" = (
 /turf/open/floor/iron/stairs/right,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "k" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 1
@@ -26,10 +26,10 @@
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "q" = (
 /turf/closed/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "r" = (
 /obj/machinery/porta_turret/syndicate{
 	desc = "A ballistic machine gun auto-turret that fires bluespace bullets.";
@@ -40,70 +40,70 @@
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "s" = (
 /obj/item/paper/crumpled/docslogs,
 /obj/item/pen,
 /turf/open/floor/iron/vaporwave,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "t" = (
 /obj/structure/displaycase{
 	start_showpiece_type = /obj/item/hilbertshotel
 	},
 /turf/open/floor/iron/vaporwave,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "u" = (
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "y" = (
 /obj/structure/table/glass,
 /obj/item/stock_parts/subspace/amplifier,
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "A" = (
 /turf/open/floor/iron/stairs/medium,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "B" = (
 /obj/structure/table/glass,
 /obj/item/assembly/signaler,
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "D" = (
 /obj/structure/table/glass,
 /obj/item/storage/backpack/holding,
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "E" = (
 /turf/open/floor/iron/stairs/left,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "I" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/syringe/bluespace,
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "K" = (
 /obj/structure/table/glass,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "L" = (
 /obj/structure/table/glass,
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "O" = (
 /obj/structure/table/glass,
 /obj/item/stock_parts/subspace/crystal,
@@ -111,38 +111,38 @@
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "S" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/cup/beaker/bluespace,
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "T" = (
 /obj/structure/table/glass,
 /obj/item/analyzer,
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "V" = (
 /obj/machinery/door/airlock/vault{
-	name = "secured Door";
-	req_access = 207
+	name = "secured Door"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/away/generic3,
 /obj/effect/mapping_helpers/airlock/locked,
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 "W" = (
 /obj/structure/table/glass,
 /obj/item/slimecross/industrial/bluespace,
 /turf/open/floor/carpet/grimy{
 	icon_state = "engine"
 	},
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 q

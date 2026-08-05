@@ -2,17 +2,22 @@
 	holder_type = /obj/machinery/door/airlock
 	proper_name = "Airlock"
 	randomize = TRUE
-	var/security_level = 0
 
 /datum/wires/airlock/New(atom/holder, security_level)
 	//Set the default wires
 	wires = list(
 		WIRE_POWER1,
 		WIRE_BACKUP1,
-		WIRE_OPEN, WIRE_BOLTS, WIRE_IDSCAN, WIRE_AI,
-		WIRE_SHOCK, WIRE_SAFETY, WIRE_TIMING, WIRE_LIGHT,
+		WIRE_OPEN,
+		WIRE_BOLTS,
+		WIRE_IDSCAN,
+		WIRE_AI,
+		WIRE_SHOCK,
+		WIRE_SAFETY,
+		WIRE_TIMING,
+		WIRE_BOLTLIGHT,
 	)
-	src.security_level = security_level
+
 	//Add more power wires
 	if (security_level <= AIRLOCK_WIRE_SECURITY_ELITE)
 		wires |= WIRE_POWER2
@@ -30,21 +35,21 @@
 
 	//Add labelled wires
 	if (security_level <= AIRLOCK_WIRE_SECURITY_NONE)
-		labelled_wires[WIRE_POWER1] = TRUE
-		labelled_wires[WIRE_BACKUP1] = TRUE
-		labelled_wires[WIRE_LIGHT] = TRUE
-		labelled_wires[WIRE_OPEN] = TRUE
+		LAZYSET(labelled_wires, WIRE_POWER1, TRUE)
+		LAZYSET(labelled_wires, WIRE_BACKUP1, TRUE)
+		LAZYSET(labelled_wires, WIRE_LIGHT, TRUE)
+		LAZYSET(labelled_wires, WIRE_OPEN, TRUE)
 	if (security_level <= AIRLOCK_WIRE_SECURITY_SIMPLE)
-		labelled_wires[WIRE_SAFETY] = TRUE
-		labelled_wires[WIRE_TIMING] = TRUE
-		labelled_wires[WIRE_SHOCK] = TRUE
-		labelled_wires[WIRE_IDSCAN] = TRUE
+		LAZYSET(labelled_wires, WIRE_SAFETY, TRUE)
+		LAZYSET(labelled_wires, WIRE_TIMING, TRUE)
+		LAZYSET(labelled_wires, WIRE_SHOCK, TRUE)
+		LAZYSET(labelled_wires, WIRE_IDSCAN, TRUE)
 	if (security_level <= AIRLOCK_WIRE_SECURITY_PROTECTED)
-		labelled_wires[WIRE_ZAP1] = TRUE
+		LAZYSET(labelled_wires, WIRE_ZAP1, TRUE)
 	if (security_level <= AIRLOCK_WIRE_SECURITY_ADVANCED)
-		labelled_wires[WIRE_BOLTS] = TRUE
-		labelled_wires[WIRE_AI] = TRUE
-	..()
+		LAZYSET(labelled_wires, WIRE_BOLTS, TRUE)
+		LAZYSET(labelled_wires, WIRE_AI, TRUE)
+	return ..()
 
 /datum/wires/airlock/interact(mob/user)
 	var/obj/machinery/door/airlock/airlock_holder = holder
@@ -125,7 +130,7 @@
 					A.close()
 			if(WIRE_TIMING)
 				A.normalspeed = !A.normalspeed
-			if(WIRE_LIGHT)
+			if(WIRE_BOLTLIGHT)
 				A.lights = !A.lights
 				A.update_icon()
 			if(WIRE_ZAP1, WIRE_ZAP2) // Doors have a lot of power coursing through them, even a multitool can be overloaded on the wrong wires
@@ -187,7 +192,7 @@
 			A.autoclose = mend
 			if(A.autoclose && !A.density)
 				A.close()
-		if(WIRE_LIGHT) // Cut to disable lights, mend to re-enable.
+		if(WIRE_BOLTLIGHT) // Cut to disable lights, mend to re-enable.
 			A.lights = mend
 			A.update_icon()
 	ui_update()

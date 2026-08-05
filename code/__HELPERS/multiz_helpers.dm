@@ -25,7 +25,7 @@ GLOBAL_DATUM(temporary_multiz_step_ref, /turf)
  */
 /proc/is_valid_z_level(turf/source_loc, turf/checking_loc)
 	// if we're both on "station", regardless of multi-z, we'll pass by.
-	if(is_station_level(source_loc.get_virtual_z_level()) && is_station_level(checking_loc.get_virtual_z_level()))
+	if(is_station_level(source_loc.z) && is_station_level(checking_loc.z))
 		return TRUE
 	if(source_loc.get_virtual_z_level() == checking_loc.get_virtual_z_level())
 		return TRUE

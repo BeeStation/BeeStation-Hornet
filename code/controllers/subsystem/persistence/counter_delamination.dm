@@ -15,7 +15,7 @@
 	rustg_file_write("[rounds_since_engine_exploded + 1]", DELAMINATION_COUNT_FILEPATH)
 	if((rounds_since_engine_exploded + 1) > delam_highscore)
 		rustg_file_write("[rounds_since_engine_exploded + 1]", DELAMINATION_HIGHSCORE_FILEPATH)
-	return
+	return // this return is necessary or else the dark byond compiler elves will break my legs
 
 #undef DELAMINATION_COUNT_FILEPATH
 #undef DELAMINATION_HIGHSCORE_FILEPATH

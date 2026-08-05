@@ -13,11 +13,9 @@
 
 /obj/structure/transit_tube_pod/Initialize(mapload)
 	. = ..()
-	air_contents.add_gases(/datum/gas/oxygen, /datum/gas/nitrogen)
-	air_contents.gases[/datum/gas/oxygen][MOLES] = MOLES_O2STANDARD
-	air_contents.gases[/datum/gas/nitrogen][MOLES] = MOLES_N2STANDARD
+	var/static/list/new_gases = list(/datum/gas/oxygen = MOLES_O2STANDARD, /datum/gas/nitrogen = MOLES_N2STANDARD)
+	air_contents.adjust_multiple_gases(new_gases)
 	air_contents.temperature = T20C
-
 
 /obj/structure/transit_tube_pod/Destroy()
 	empty_pod()
@@ -69,13 +67,13 @@
 			if(EXPLODE_LIGHT)
 				SSexplosions.low_mov_atom += thing
 
-/obj/structure/transit_tube_pod/singularity_pull(S, current_size)
+/obj/structure/transit_tube_pod/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct(FALSE)
 
 /obj/structure/transit_tube_pod/container_resist(mob/living/user)
-	if(!user.incapacitated())
+	if(!user.incapacitated)
 		empty_pod()
 		return
 	if(!moving)

@@ -1,3 +1,4 @@
+import { toFixed } from 'common/math';
 import { Component } from 'react';
 
 // AnimatedNumber Copypaste
@@ -22,13 +23,6 @@ export class TimeDisplay extends Component {
     }
   }
 
-  componentDidUpdate() {
-    if (this.props.auto !== undefined) {
-      clearInterval(this.timer);
-      this.timer = setInterval(() => this.tick(), 1000); // every 1 s
-    }
-  }
-
   tick() {
     let current = Number(this.state.value);
     if (this.props.value !== this.last_seen_value) {
@@ -37,7 +31,7 @@ export class TimeDisplay extends Component {
     }
     const mod = this.props.auto === 'up' ? 10 : -10; // Time down by default.
     const value = Math.max(0, current + mod); // one sec tick
-    this.setState({ value });
+    this.setState({ value: value });
   }
 
   componentDidMount() {
@@ -51,7 +45,7 @@ export class TimeDisplay extends Component {
   }
 
   render() {
-    const val = this.state.value;
+    const val = this.props.auto ? this.state.value : this.props.value;
     // Directly display weird stuff
     if (!isSafeNumber(val)) {
       return this.state.value || null;

@@ -2,7 +2,15 @@ import { BooleanLike } from 'common/react';
 import { createSearch } from 'common/string';
 
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Icon, Input, Section, Table } from '../components';
+import {
+  Box,
+  Button,
+  Icon,
+  Input,
+  Section,
+  Table,
+  TimeDisplay,
+} from '../components';
 import { COLORS } from '../constants';
 import { Window } from '../layouts';
 
@@ -25,7 +33,7 @@ const SORT_NAMES = {
 const STAT_LIVING = 0;
 const STAT_DEAD = 4;
 
-const SORT_OPTIONS = ['health', 'ijob', 'name', 'area'];
+const SORT_OPTIONS = ['ijob', 'health', 'name', 'area'];
 
 const jobIsHead = (jobId: number) => jobId % 10 === 0;
 
@@ -68,6 +76,8 @@ const statToIcon = (life_status: number) => {
 };
 
 const healthSort = (a: CrewSensor, b: CrewSensor) => {
+  if (a.missing) return 1;
+  if (b.missing) return -1;
   if (a.life_status > b.life_status) return -1;
   if (a.life_status < b.life_status) return 1;
   if (a.health < b.health) return -1;
@@ -76,6 +86,8 @@ const healthSort = (a: CrewSensor, b: CrewSensor) => {
 };
 
 const areaSort = (a: CrewSensor, b: CrewSensor) => {
+  if (a.missing) return 1;
+  if (b.missing) return -1;
   a.area ??= '~';
   b.area ??= '~';
   if (a.area < b.area) return -1;
@@ -121,24 +133,34 @@ export const CrewConsole = () => {
   );
 };
 
-type CrewSensor = {
-  name: string;
-  assignment: string | undefined;
-  ijob: number;
-  life_status: number;
-  oxydam: number;
-  toxdam: number;
-  burndam: number;
-  brutedam: number;
-  area: string | undefined;
-  health: number;
-  can_track: BooleanLike;
-  ref: string;
-};
+type CrewSensor =
+  | {
+      name: string;
+      assignment: string | undefined;
+      ijob: number;
+      life_status: number;
+      oxydam: number;
+      toxdam: number;
+      burndam: number;
+      brutedam: number;
+      area: string | undefined;
+      health: number;
+      can_track: BooleanLike;
+      ref: string;
+      last_update: number;
+      missing: false;
+    }
+  | {
+      name: string;
+      last_update: number;
+      missing: true;
+      ref: string;
+    };
 
 type CrewConsoleData = {
   sensors: CrewSensor[];
   link_allowed: BooleanLike;
+  time: number;
 };
 
 const CrewTable = (props) => {
@@ -165,6 +187,8 @@ const CrewTable = (props) => {
       case 'name':
         return sortAsc ? +(a.name > b.name) : +(b.name > a.name);
       case 'ijob':
+        if (a.missing) return sortAsc ? 1 : -1;
+        if (b.missing) return sortAsc ? -1 : 1;
         return sortAsc ? a.ijob - b.ijob : b.ijob - a.ijob;
       case 'health':
         return sortAsc ? healthSort(a, b) : healthSort(b, a);
@@ -225,8 +249,31 @@ type CrewTableEntryProps = {
 
 const CrewTableEntry = (props: CrewTableEntryProps) => {
   const { act, data } = useBackend<CrewConsoleData>();
-  const { link_allowed } = data;
+  const { link_allowed, time } = data;
   const { sensor_data } = props;
+  if (sensor_data.missing) {
+    const { name, last_update } = sensor_data;
+    return (
+      <Table.Row className="candystripe">
+        <Table.Cell color={COLORS.department.other}>{name}</Table.Cell>
+        <Table.Cell collapsing textAlign="center">
+          <Icon name="question" color="#aaaaaa" size={1} />
+        </Table.Cell>
+        <Table.Cell collapsing textAlign="center">
+          Missing (<TimeDisplay auto="up" value={time - last_update} />)
+        </Table.Cell>
+        <Table.Cell
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}
+        >
+          <Icon name="question" color="#ffffff" size={1} />{' '}
+        </Table.Cell>
+      </Table.Row>
+    );
+  }
   const {
     name,
     assignment,
@@ -282,7 +329,13 @@ const CrewTableEntry = (props: CrewTableEntryProps) => {
           'Dead'
         )}
       </Table.Cell>
-      <Table.Cell>
+      <Table.Cell
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}
+      >
         {area !== '~' && area !== undefined ? (
           area
         ) : (

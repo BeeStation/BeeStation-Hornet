@@ -2,33 +2,6 @@
 	..()
 	update_body()
 
-//IMPORTANT: Multiple animate() calls do not stack well, so try to do them all at once if you can.
-/mob/living/carbon/update_transform()
-	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
-	var/final_pixel_y = pixel_y
-	var/final_dir = dir
-	var/changed = 0
-	if(lying_angle != lying_prev && rotate_on_lying)
-		changed++
-		ntransform.TurnTo(lying_prev , lying_angle)
-		if(!lying_angle) //Lying to standing
-			final_pixel_y = base_pixel_y
-		else //if(lying != 0)
-			if(lying_prev == 0) //Standing to lying
-				pixel_y = base_pixel_y
-				final_pixel_y = base_pixel_y + PIXEL_Y_OFFSET_LYING
-				if(dir & (EAST|WEST)) //Facing east or west
-					final_dir = pick(NORTH, SOUTH) //So you fall on your side rather than your face or ass
-	if(resize != RESIZE_DEFAULT_SIZE)
-		changed++
-		ntransform.Scale(resize)
-		resize = RESIZE_DEFAULT_SIZE
-
-	if(changed)
-		SEND_SIGNAL(src, COMSIG_PAUSE_FLOATING_ANIM, 0.3 SECONDS)
-		animate(src, transform = ntransform, time = (lying_prev == 0 || lying_angle == 0) ? 2 : 0, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
-	UPDATE_OO_IF_PRESENT
-
 /mob/living/carbon
 	var/list/overlays_standing[TOTAL_LAYERS]
 
@@ -45,13 +18,12 @@
 	return FALSE
 
 /mob/living/carbon/regenerate_icons()
-	if(notransform)
-		return 1
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
+		return
 	update_held_items()
 	update_worn_handcuffs()
 	update_worn_legcuffs()
-	update_fire()
-
+	update_appearance(UPDATE_OVERLAYS)
 
 /mob/living/carbon/update_held_items()
 	remove_overlay(HANDS_LAYER)
@@ -83,15 +55,18 @@
 	overlays_standing[HANDS_LAYER] = hands
 	apply_overlay(HANDS_LAYER)
 
+/mob/living/carbon/get_fire_overlay(stacks, on_fire)
+	var/fire_icon = "human_[stacks > MOB_BIG_FIRE_STACK_THRESHOLD ? "big_fire" : "small_fire"]"
 
-/mob/living/carbon/update_fire(fire_icon = "Generic_mob_burning")
-	remove_overlay(FIRE_LAYER)
-	if(on_fire || islava(loc))
-		var/mutable_appearance/new_fire_overlay = mutable_appearance('icons/mob/OnFire.dmi', fire_icon, -FIRE_LAYER)
-		new_fire_overlay.appearance_flags = RESET_COLOR
-		overlays_standing[FIRE_LAYER] = new_fire_overlay
+	if(!GLOB.fire_appearances[fire_icon])
+		GLOB.fire_appearances[fire_icon] = mutable_appearance(
+			'icons/mob/effects/onfire.dmi',
+			fire_icon,
+			-HIGHEST_LAYER,
+			appearance_flags = RESET_COLOR | KEEP_APART,
+		)
 
-	apply_overlay(FIRE_LAYER)
+	return GLOB.fire_appearances[fire_icon]
 
 /mob/living/carbon/update_damage_overlays()
 	remove_overlay(DAMAGE_LAYER)
@@ -187,7 +162,7 @@
 	if(handcuffed)
 		if(update_obscured)
 			update_obscured_slots(handcuffed.flags_inv)
-		overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', handcuffed.overlay_state, CALCULATE_MOB_OVERLAY_LAYER(HANDCUFF_LAYER))
+		overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", CALCULATE_MOB_OVERLAY_LAYER(HANDCUFF_LAYER))
 		apply_overlay(HANDCUFF_LAYER)
 
 
@@ -224,53 +199,54 @@
 //"icon_file" is used automatically for inhands etc. to make sure it gets the right inhand file
 //Clothing layer is the layer that clothing would usually appear on
 /obj/item/proc/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
+	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
 
 	. = list()
+	SEND_SIGNAL(src, COMSIG_ITEM_GET_WORN_OVERLAYS, ., standing, isinhands, icon_file)
 
 /mob/living/carbon/update_body()
 	update_body_parts()
 
+///Checks to see if any bodyparts need to be redrawn, then does so. update_limb_data = TRUE redraws the limbs to conform to the owner.
 /mob/living/carbon/proc/update_body_parts(update_limb_data)
-	//Check the cache to see if it needs a new sprite
 	update_damage_overlays()
 	var/list/needs_update = list()
 	var/limb_count_update = FALSE
-	for(var/obj/item/bodypart/BP as() in bodyparts)
-		BP.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
-		var/old_key = icon_render_keys?[BP.body_zone]
-		icon_render_keys[BP.body_zone] = (BP.is_husked) ? generate_husk_key(BP) : generate_icon_key(BP)
-		if(!(icon_render_keys[BP.body_zone] == old_key))
-			needs_update += BP
+	for(var/obj/item/bodypart/limb as anything in bodyparts)
+		limb.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
 
+		var/old_key = icon_render_keys?[limb.body_zone]
+		icon_render_keys[limb.body_zone] = (limb.is_husked) ? generate_husk_key(limb) : generate_icon_key(limb)
+
+		if(icon_render_keys[limb.body_zone] != old_key) //If the keys match, that means the limb doesn't need to be redrawn
+			needs_update += limb
 
 	var/list/missing_bodyparts = get_missing_limbs()
-	if(((dna ? dna.species.max_bodypart_count : 6) - icon_render_keys.len) != missing_bodyparts.len)
+	if(((dna ? dna.species.max_bodypart_count : BODYPARTS_DEFAULT_MAXIMUM) - icon_render_keys.len) != missing_bodyparts.len) //Checks to see if the target gained or lost any limbs.
 		limb_count_update = TRUE
-		for(var/X in missing_bodyparts)
-			icon_render_keys -= X
+		for(var/missing_limb in missing_bodyparts)
+			icon_render_keys -= missing_limb
 
 	if(!needs_update.len && !limb_count_update)
 		return
 
-	remove_overlay(BODYPARTS_LAYER)
-
-
 	//GENERATE NEW LIMBS
 	var/list/new_limbs = list()
-	for(var/obj/item/bodypart/BP as() in bodyparts)
-		if(BP in needs_update)
-			var/bp_icon = BP.get_limb_icon()
-			new_limbs += bp_icon
-			limb_icon_cache[icon_render_keys[BP.body_zone]] = bp_icon
+	for(var/obj/item/bodypart/limb as anything in bodyparts)
+		if(limb in needs_update)
+			var/bodypart_icon = limb.get_limb_icon()
+			new_limbs += bodypart_icon
+			limb_icon_cache[icon_render_keys[limb.body_zone]] = bodypart_icon
 		else
-			new_limbs += limb_icon_cache[icon_render_keys[BP.body_zone]]
+			new_limbs += limb_icon_cache[icon_render_keys[limb.body_zone]]
+
+	remove_overlay(BODYPARTS_LAYER)
 
 	if(new_limbs.len)
 		overlays_standing[BODYPARTS_LAYER] = new_limbs
 
 	apply_overlay(BODYPARTS_LAYER)
-
 
 /////////////////////////
 // Limb Icon Cache 2.0 //

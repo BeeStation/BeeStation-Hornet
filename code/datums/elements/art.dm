@@ -24,16 +24,18 @@
 			msg = "What \a [pick("masterpiece", "chef-d'oeuvre")] [source.p_theyre()]. So [pick("trascended", "awe-inspiring", "bewitching", "impeccable")]!"
 		if (GOOD_ART to GREAT_ART)
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "artgood", /datum/mood_event/artgood)
-			msg = "[source.p_theyre(TRUE)] a [pick("respectable", "commendable", "laudable")] art piece, easy on the keen eye."
+			msg = "[source.p_Theyre()] a [pick("respectable", "commendable", "laudable")] art piece, easy on the keen eye."
 		if (BAD_ART to GOOD_ART)
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "artok", /datum/mood_event/artok)
-			msg = "[source.p_theyre(TRUE)] fair to middling, enough to be called an \"art object\"."
+			msg = "[source.p_Theyre()] fair to middling, enough to be called an \"art object\"."
 		if (0 to BAD_ART)
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "artbad", /datum/mood_event/artbad)
 			msg = "Wow, [source.p_they()] sucks."
 
 	user.visible_message(span_notice("[user] stops and looks intently at [source]."), \
 						span_notice("You appraise [source]... [msg]"))
+
+	SEND_SIGNAL(user, COMSIG_LIVING_APPRAISE_ART, source)
 
 /datum/element/art/proc/on_examine(atom/source, mob/user, list/examine_texts)
 	SIGNAL_HANDLER

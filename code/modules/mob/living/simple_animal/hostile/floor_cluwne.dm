@@ -25,7 +25,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	attack_sound = 'sound/items/bikehorn.ogg'
 	del_on_death = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSTRANSPARENT | PASSBLOB//it's practically a ghost when unmanifested (under the floor)
-	loot = list(/obj/item/clothing/mask/cluwne)
+	loot = list(/obj/item/clothing/mask/animal/cluwne)
 	wander = FALSE
 	minimum_distance = 2
 	move_to_delay = 1
@@ -35,7 +35,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	pressure_resistance = 200
 	minbodytemp = 0
 	maxbodytemp = 1500
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	var/mob/living/carbon/human/current_victim
 	var/manifested = FALSE
 	var/switch_stage = 60
@@ -43,7 +43,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	var/delete_after_target_killed = FALSE
 	var/interest = 0
 	var/target_area
-	var/invalid_area_typecache = list(/area/space, /area/lavaland, /area/centcom, /area/shuttle/syndicate)
+	var/invalid_area_typecache = list(/area/misc/space, /area/lavaland, /area/centcom, /area/shuttle/syndicate)
 	var/eating = FALSE
 	var/dontkill = FALSE //for if we just wanna curse a fucker
 	var/terrorize = FALSE //for Heretic curse, rather than kill
@@ -53,7 +53,6 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	var/obj/effect/temp_visual/fcluwne_manifest/cluwnehole
 	move_resist = INFINITY
 	hud_type = /datum/hud/ghost
-	hud_possible = list(ANTAG_HUD)
 	mobchatspan = "rainbow"
 
 /mob/living/simple_animal/hostile/floor_cluwne/Initialize(mapload)
@@ -228,7 +227,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		if(STAGE_HAUNT)
 
 			if(prob(5))
-				H.blur_eyes(1)
+				H.set_eye_blur_if_lower(2 SECONDS)
 
 			if(prob(5))
 				H.playsound_local(src,'sound/voice/cluwnelaugh2_reversed.ogg', 1)
@@ -368,7 +367,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	if(get_dist(src,H) <= 1)
 		visible_message(span_danger("[src] begins dragging [H] under the floor!"))
 		if(do_after(src, 50, target = H) && eating)
-			H.become_blind()
+			H.become_blind("floor_cluwne")
 			H.invisibility = INVISIBILITY_SPIRIT
 			H.set_density(FALSE)
 			H.set_anchored(TRUE)
@@ -406,11 +405,11 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 			H.cluwneify()
 			H.adjustBruteLoss(30)
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 100)
-			H.cure_blind(null)
+			H.cure_blind("floor_cluwne")
 			H.invisibility = initial(H.invisibility)
 			H.set_density(initial(H.density))
 			H.set_anchored(initial(H.anchored))
-			H.blur_eyes(10)
+			H.set_eye_blur_if_lower(20 SECONDS)
 			animate(H.client,color = old_color, time = 20)
 
 	eating = FALSE
@@ -455,7 +454,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	AddElement(/datum/element/point_of_interest)
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/begin_trauma(mob/living/carbon/human/sac_target)
-	if(!LAZYLEN(GLOB.heretic_sacrifice_landmarks))
+	if(!length(GLOB.heretic_sacrifice_landmarks))
 		CRASH("[type] - begin_trauma was called, but no floorcluwne_trauma landmarks were found!")
 
 	var/obj/effect/landmark/heretic/destination_landmark = GLOB.heretic_sacrifice_landmarks[HERETIC_PATH_ASH]
@@ -515,7 +514,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	if(!sac_target.heal_and_revive(75, span_danger("[sac_target]'s heart begins to beat with an unholy force as they return from death!")))
 		return
 
-	sac_target.cure_blind(null)
+	sac_target.cure_blind("floor_cluwne")
 	sac_target.invisibility = initial(sac_target.invisibility)
 	sac_target.set_density(initial(sac_target.density))
 	sac_target.set_anchored(initial(sac_target.anchored))
@@ -537,9 +536,9 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	SEND_SIGNAL(sac_target, COMSIG_ADD_MOOD_EVENT, "shadow_realm", /datum/mood_event/shadow_realm)
 
 	sac_target.flash_act()
-	sac_target.blur_eyes(15)
+	sac_target.set_eye_blur_if_lower(30 SECONDS)
 	sac_target.set_jitter_if_lower(20 SECONDS)
-	sac_target.Dizzy(10)
+	sac_target.set_dizzy_if_lower(20 SECONDS)
 	sac_target.adjust_hallucinations(24 SECONDS)
 	sac_target.emote("scream")
 
@@ -572,16 +571,15 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	LAZYREMOVE(return_timers, REF(sac_target))
 
 	UnregisterSignal(sac_target, COMSIG_MOVABLE_Z_CHANGED)
-	UnregisterSignal(sac_target, COMSIG_MOB_DEATH)
+	UnregisterSignal(sac_target, COMSIG_LIVING_DEATH)
 	sac_target.remove_status_effect(/datum/status_effect/necropolis_curse)
 	sac_target.remove_status_effect(/datum/status_effect/unholy_determination)
 	sac_target.reagents?.del_reagent(/datum/reagent/helgrasp/heretic)
 	SEND_SIGNAL(sac_target, COMSIG_CLEAR_MOOD_EVENT, "shadow_realm")
 
 	// Wherever we end up, we sure as hell won't be able to explain
-	sac_target.slurring += 20
-	sac_target.cultslurring += 20
-	sac_target.stuttering += 20
+	sac_target.adjust_timed_status_effect(40 SECONDS, /datum/status_effect/speech/slurring/heretic)
+	sac_target.adjust_stutter(40 SECONDS)
 
 	// They're already back on the station for some reason, don't bother teleporting
 	if(is_station_level(sac_target.z))
@@ -617,8 +615,8 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	// Oh god where are we?
 	sac_target.flash_act()
 	sac_target.set_jitter_if_lower(120 SECONDS)
-	sac_target.blur_eyes(50)
-	sac_target.Dizzy(30)
+	sac_target.set_eye_blur_if_lower(100 SECONDS)
+	sac_target.set_dizzy_if_lower(60 SECONDS)
 	sac_target.AdjustKnockdown(80)
 	sac_target.adjustStaminaLoss(120)
 

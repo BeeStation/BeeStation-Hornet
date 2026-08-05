@@ -7,7 +7,7 @@
 	},
 /obj/item/pen,
 /turf/open/floor/carpet/black,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "cw" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
@@ -16,52 +16,52 @@
 	dir = 8
 	},
 /turf/open/floor/circuit/red,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ef" = (
 /obj/effect/decal/cleanable/oil/streak,
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "er" = (
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ew" = (
 /obj/structure/table/glass,
-/obj/item/stack/cable_coil/blue{
+/obj/item/stack/cable_coil{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "eH" = (
 /obj/machinery/computer/upload/ai,
 /turf/open/floor/monofloor,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "fm" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/open/floor/carpet/black,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "gf" = (
 /obj/machinery/light,
 /turf/open/floor/circuit/red,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "hB" = (
 /obj/item/kirbyplants/photosynthetic{
 	pixel_y = 10
 	},
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "iT" = (
 /obj/structure/table/reinforced,
-/obj/item/paicard{
+/obj/item/pai_card{
 	desc = "A real Nanotrasen success, these personal AIs provide all of the companionship of an AI without any law related red-tape.";
 	name = "Nanotrasen-brand personal AI device exhibit"
 	},
 /turf/open/floor/carpet/black,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "jp" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -73,72 +73,72 @@
 	pixel_y = 2
 	},
 /turf/open/floor/carpet/black,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "lX" = (
 /obj/effect/decal/cleanable/robot_debris/old,
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
 	},
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "nN" = (
 /obj/item/kirbyplants/photosynthetic{
 	pixel_y = 10
 	},
 /turf/open/floor/carpet/black,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "py" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "qg" = (
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
 	},
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "sx" = (
 /obj/effect/decal/cleanable/glass,
 /obj/structure/windoor_assembly,
 /turf/open/floor/circuit/red,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "sG" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/circuit/red,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "tj" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/item/robot_suit/prebuilt,
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "to" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "tA" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/circuit/red,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "tD" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "tJ" = (
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	name = "Broken Computer"
 	},
 /turf/open/floor/monofloor,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "tL" = (
 /obj/structure/showcase/cyborg/old{
 	pixel_y = 20
@@ -147,32 +147,32 @@
 	dir = 1
 	},
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "tO" = (
 /turf/open/floor/circuit/red,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "tV" = (
 /obj/effect/decal/cleanable/robot_debris/limb,
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "uw" = (
 /turf/template_noop,
 /area/template_noop)
 "vj" = (
 /obj/machinery/holopad,
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "vv" = (
-/obj/structure/AIcore{
+/obj/structure/ai_core{
 	name = "\broken AI core"
 	},
 /turf/open/floor/circuit/red,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "vX" = (
 /obj/effect/spawner/structure/window/reinforced/plasma,
 /obj/machinery/door/poddoor/shutters/preopen,
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "wO" = (
 /obj/machinery/light{
 	dir = 4
@@ -188,7 +188,7 @@
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
 /turf/open/floor/carpet/black,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "za" = (
 /obj/item/kirbyplants/photosynthetic{
 	pixel_y = 10
@@ -197,16 +197,16 @@
 	dir = 1
 	},
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "AP" = (
 /obj/structure/window/reinforced/survival_pod/spawner/directional/east,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = 24
 	},
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/circuit/red,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "BT" = (
 /obj/machinery/door/airlock/highsecurity,
 /obj/effect/mapping_helpers/airlock/locked,
@@ -215,19 +215,19 @@
 	name = "AI Core Shutters"
 	},
 /turf/open/floor/circuit/red,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "CO" = (
 /obj/structure/table/reinforced,
 /obj/item/lighter,
 /turf/open/floor/carpet/black,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Dy" = (
 /obj/item/ammo_casing/c9mm,
 /turf/open/floor/carpet/black,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Fw" = (
 /turf/open/floor/circuit/red/anim,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Gh" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
@@ -236,18 +236,18 @@
 	dir = 4
 	},
 /turf/open/floor/circuit/red,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "GZ" = (
 /obj/effect/decal/cleanable/blood/tracks,
-/obj/structure/sign/warning/nosmoking,
+/obj/structure/sign/warning/no_smoking,
 /turf/closed/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Ib" = (
 /obj/machinery/porta_turret/syndicate/energy{
 	name = "AI Chamber Turret"
 	},
 /turf/open/floor/pod/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "JD" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/white{
@@ -258,7 +258,7 @@
 	pixel_x = 3
 	},
 /turf/open/floor/carpet/black,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "JG" = (
 /obj/machinery/light{
 	dir = 8
@@ -266,23 +266,23 @@
 /obj/effect/turf_decal/bot_red,
 /mob/living/simple_animal/bot/floorbot,
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "JS" = (
 /turf/closed/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Kp" = (
 /obj/structure/table/glass,
 /obj/item/mmi/posibrain,
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Kx" = (
 /obj/machinery/recharge_station,
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "KU" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/secure_area,
 /turf/closed/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "MV" = (
 /obj/structure/rack,
 /obj/machinery/light,
@@ -291,21 +291,21 @@
 	pixel_y = 3
 	},
 /obj/item/storage/toolbox/mechanical/old,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "NP" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1
 	},
 /obj/effect/turf_decal,
 /turf/open/floor/circuit/red,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Os" = (
 /obj/effect/turf_decal/bot_red,
 /obj/item/bot_assembly/medbot,
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Pw" = (
 /obj/structure/table/glass,
 /obj/item/ai_module/core/full/damaged{
@@ -316,23 +316,23 @@
 	pixel_x = -10
 	},
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Qa" = (
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/circuit/red,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Qo" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/carpet/black,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "RT" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "SV" = (
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "TP" = (
 /obj/effect/decal/cleanable/robot_debris/old,
 /obj/machinery/camera{
@@ -346,20 +346,20 @@
 	pixel_y = 3
 	},
 /turf/open/floor/carpet/black,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "WX" = (
 /obj/machinery/door/airlock/grunge{
 	name = "AI Research Room"
 	},
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Xd" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/turf_decal{
 	dir = 1
 	},
 /turf/open/floor/circuit/red,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Zy" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 4;
@@ -378,7 +378,7 @@
 	pixel_y = 3
 	},
 /turf/open/floor/carpet/black,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "ZS" = (
 /obj/effect/turf_decal/bot_red,
 /mob/living/simple_animal/bot/secbot{
@@ -387,7 +387,7 @@
 	name = "Officer Buzzsky"
 	},
 /turf/open/floor/iron/tech/grid,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 JS

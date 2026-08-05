@@ -2,7 +2,7 @@
 /obj/item/kinetic_crusher
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "crusher"
-	item_state = "crusher0"
+	inhand_icon_state = "crusher0"
 	lefthand_file = 'icons/mob/inhands/weapons/hammers_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/hammers_righthand.dmi'
 	name = "proto-kinetic crusher"
@@ -11,6 +11,7 @@
 	force = 0 //You can't hit stuff unless wielded
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
+	resistance_flags = FIRE_PROOF
 	throwforce = 5
 	throw_speed = 4
 	armour_penetration = 10
@@ -113,7 +114,7 @@
 				if(!QDELETED(C))
 					C.total_damage += detonation_damage + backstab_bonus //cheat a little and add the total before killing it, so certain mobs don't have much lower chances of giving an item
 				L.apply_damage(detonation_damage + backstab_bonus, BRUTE, blocked = def_check)
-				playsound(user, 'sound/weapons/kenetic_accel.ogg', 100, 1) //Seriously who spelled it wrong
+				playsound(user, 'sound/weapons/kinetic_accel.ogg', 100, TRUE)
 			else
 				if(!QDELETED(C))
 					C.total_damage += detonation_damage
@@ -156,7 +157,7 @@
 	if(!charged)
 		charged = TRUE
 		update_appearance()
-		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
+		playsound(src.loc, 'sound/weapons/kinetic_reload.ogg', 60, 1)
 
 /obj/item/kinetic_crusher/ui_action_click(mob/user, actiontype)
 	set_light_on(!light_on)
@@ -164,7 +165,7 @@
 	update_appearance()
 
 /obj/item/kinetic_crusher/update_icon_state()
-	item_state = "crusher[HAS_TRAIT(src, TRAIT_WIELDED)]" // this is not icon_state and not supported by 2hcomponent
+	inhand_icon_state = "crusher[HAS_TRAIT(src, TRAIT_WIELDED)]" // this is not icon_state and not supported by 2hcomponent
 	return ..()
 
 /obj/item/kinetic_crusher/update_overlays()

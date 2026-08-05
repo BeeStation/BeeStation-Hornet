@@ -24,6 +24,9 @@
 	integrity_failure = 0.5
 	armor_type = /datum/armor/machinery_porta_turret
 
+	subsystem_type = /datum/controller/subsystem/processing/turrets
+	processing_flags = START_PROCESSING_MANUALLY
+
 	/// If TRUE, this will cause the turret to stop working if the stored_gun var is null in process()
 	var/uses_stored = TRUE
 
@@ -101,9 +104,14 @@
 
 	/// Manual controlling stuff
 	var/manual_control = FALSE
+	/// Action button holder for quitting manual control
 	var/datum/action/turret_quit/quit_action
+	/// Action button holder for switching between turret modes when manually controlling
 	var/datum/action/turret_toggle/toggle_action
+	/// Mob that is remotely controlling the turret
 	var/mob/remote_controller
+	/// Proximity tracker used to activate/deactivate the turret's processing.
+	var/datum/proximity_monitor/advanced/turret_tracking/tracker
 
 	/// The delay between shots
 	var/shot_delay = 1.5 SECONDS
@@ -129,6 +137,8 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
+	tracker = new(src, scan_range)
+	tracker.recalculate_field(full_recalc = TRUE) // manually call this so that our tracker var is set before we set anything up
 	setup()
 	if(has_cover)
 		cover = new /obj/machinery/porta_turret_cover(loc)
@@ -138,6 +148,21 @@
 		underlays += turret_base
 	if(!has_cover)
 		INVOKE_ASYNC(src, PROC_REF(pop_up))
+
+	AddElement(/datum/element/hostile_machine)
+
+/obj/machinery/porta_turret/Destroy()
+	QDEL_NULL(tracker)
+	//deletes its own cover with it
+	QDEL_NULL(cover)
+	base = null
+	QDEL_NULL(stored_gun)
+	QDEL_NULL(spark_system)
+	remove_control()
+	if(control_panel)
+		control_panel.turrets -= src
+		control_panel = null
+	return ..()
 
 /obj/machinery/porta_turret/proc/toggle_on(set_to)
 	var/current = on
@@ -150,13 +175,17 @@
 		if (!on && !always_up)
 			pop_down()
 
+/// Checks to see if this should be processing, and starts/stops processing if so.
+/// Returns TRUE if processing began, FALSE if processing ended, or null if the processing state was not changed.
 /obj/machinery/porta_turret/proc/check_should_process()
-	if(datum_flags & DF_ISPROCESSING)
-		if(!on || !anchored || (machine_stat & BROKEN) || !powered())
+	if (datum_flags & DF_ISPROCESSING)
+		if (!on || !anchored || !LAZYLEN(tracker.tracking) || (machine_stat & BROKEN) || !powered())
 			end_processing()
+			return FALSE
 	else
-		if(on && anchored && !(machine_stat & BROKEN) && powered())
+		if (on && anchored && LAZYLEN(tracker.tracking) && !(machine_stat & BROKEN) && powered())
 			begin_processing()
+			return TRUE
 
 /obj/machinery/porta_turret/update_icon()
 	cut_overlays()
@@ -209,26 +238,13 @@
 		reqpower = gun_properties["reqpower"]
 
 	update_icon()
+	return gun_properties
 
 ///destroys reference to stored_gun to prevent hard deletions
 /obj/machinery/porta_turret/proc/null_gun()
 	SIGNAL_HANDLER
 
 	stored_gun = null
-
-/obj/machinery/porta_turret/Destroy()
-	QDEL_NULL(cover)
-	QDEL_NULL(stored_gun)
-	QDEL_NULL(spark_system)
-	remove_control()
-
-	base = null
-
-	if(control_panel)
-		control_panel.turrets -= src
-		control_panel = null
-
-	. = ..()
 
 /obj/machinery/porta_turret/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
@@ -427,8 +443,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 	if(!on || (machine_stat & (NOPOWER|BROKEN)))
 		return PROCESS_KILL
+
 	if(manual_control)
 		return PROCESS_KILL
+
 	if(uses_stored && !stored_gun)
 		return PROCESS_KILL
 
@@ -440,15 +458,15 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 		temp = GET_TURF_ABOVE(temp)
 
 	var/list/targets = list()
-	for(var/turf_z as() in valid_turfs)
+	for(var/turf_z as anything in valid_turfs)
 		var/turf/T = valid_turfs[turf_z]
-		for(var/mob/mob_target as() in hearers(scan_range, T))
+		for(var/mob/mob_target as anything in hearers(scan_range, T))
 			if(mob_target.invisibility > SEE_INVISIBLE_LIVING)
 				continue
 
 			if(check_anomalies)//if it's set to check for simple animals
-				if(isanimal(mob_target))
-					var/mob/living/simple_animal/animal_target = mob_target
+				if(isanimal_or_basicmob(mob_target))
+					var/mob/living/animal_target = mob_target
 					if(animal_target.stat || in_faction(animal_target)) //don't target if dead or in faction
 						continue
 					targets += animal_target
@@ -655,7 +673,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 /datum/action/turret_toggle
 	name = "Toggle Mode"
-	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
+	button_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_cycle_equip_off"
 
 /datum/action/turret_toggle/on_activate(mob/user, atom/target)
@@ -666,7 +684,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 /datum/action/turret_quit
 	name = "Release Control"
-	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
+	button_icon = 'icons/hud/actions/actions_mecha.dmi'
 	button_icon_state = "mech_eject"
 
 /datum/action/turret_quit/on_activate(mob/user, atom/target)
@@ -685,7 +703,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	if(!toggle_action)
 		toggle_action = new(src)
 	toggle_action.Grant(remote_controller)
-	remote_controller.reset_perspective(src)
+	remote_controller.set_mob_eye_to(src)
 	remote_controller.click_intercept = src
 	manual_control = TRUE
 	always_up = TRUE
@@ -701,7 +719,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 		quit_action.Remove(remote_controller)
 		toggle_action.Remove(remote_controller)
 		remote_controller.click_intercept = null
-		remote_controller.reset_perspective()
+		remote_controller.set_mob_eye_to(MOB_EYE_SELF)
 	always_up = initial(always_up)
 	manual_control = FALSE
 	remote_controller = null

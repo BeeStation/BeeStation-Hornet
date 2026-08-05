@@ -145,14 +145,16 @@
 
 	B.naut = TRUE	//temporary placeholder to prevent creation of more than one per factory.
 	to_chat(src, span_notice("You attempt to produce a blobbernaut."))
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+	var/datum/poll_config/config = new(
 		check_jobban = ROLE_BLOB,
 		poll_time = 10 SECONDS,
 		ignore_category = POLL_IGNORE_BLOB_HELPER,
 		jump_target = B,
 		role_name_text = "[blobstrain.name] blobbernaut",
 		alert_pic = /mob/living/simple_animal/hostile/blob/blobbernaut,
+		amount_to_pick = 1,
 	)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(candidate) //if we got at least one candidate, they're a blobbernaut now.
 		B.modify_max_integrity(initial(B.max_integrity) * 0.25) //factories that produced a blobbernaut have much lower health
 		B.update_icon()

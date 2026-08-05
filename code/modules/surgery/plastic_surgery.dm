@@ -1,12 +1,13 @@
 /datum/surgery/plastic_surgery
-	name = "plastic surgery"
+	name = "Plastic surgery"
+	surgery_flags = SURGERY_REQUIRE_RESTING | SURGERY_REQUIRE_LIMB | SURGERY_REQUIRES_REAL_LIMB
+	possible_locs = list(BODY_ZONE_HEAD)
 	steps = list(
 		/datum/surgery_step/incise,
 		/datum/surgery_step/retract_skin,
 		/datum/surgery_step/reshape_face,
-		/datum/surgery_step/close
+		/datum/surgery_step/close,
 	)
-	possible_locs = list(BODY_ZONE_HEAD)
 
 //reshape_face
 /datum/surgery_step/reshape_face
@@ -42,11 +43,11 @@
 		var/list/names = list()
 		if(!isabductor(user))
 			for(var/i in 1 to 10)
-				names += target.dna.species.random_name(target.gender, TRUE)
+				names += target.generate_random_mob_name(TRUE)
 		else
 			for(var/_i in 1 to 9)
 				names += "Subject [target.gender == MALE ? "i" : "o"]-[pick("a", "b", "c", "d", "e")]-[rand(10000, 99999)]"
-			names += target.dna.species.random_name(target.gender, TRUE) //give one normal name in case they want to do regular plastic surgery
+			names += target.generate_random_mob_name(TRUE) //give one normal name in case they want to do regular plastic surgery
 		var/chosen_name = tgui_input_list(user, "New name to assign", "Plastic Surgery", names)
 		if(isnull(chosen_name))
 			return

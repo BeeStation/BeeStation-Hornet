@@ -25,7 +25,14 @@
 		),
 	)
 
-	var/list/prefreturn = presentpreflikepicker(usr,"Customize ERT", "Customize ERT", Button1="Ok", width = 600, StealFocus = 1,Timeout = 0, settings=settings)
+	var/list/prefreturn = present_pref_like_picker(
+		user = usr,
+		message = "Customize ERT",
+		title = "Customize ERT",
+		timeout = 0,
+		settings = settings,
+		width = 600,
+	)
 
 	if (isnull(prefreturn))
 		return FALSE
@@ -62,13 +69,13 @@
 			else
 				to_chat(usr, span_warning("Could not spawn you in as briefing officer as you are not a ghost!"))
 
-		var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+		var/datum/poll_config/config = new(
 			question = "Do you wish to be considered for [template.polldesc]?",
 			check_jobban = ROLE_ERT,
-			poll_time = 30 SECONDS,
 			role_name_text = "emergency response team",
 			alert_pic = /obj/item/card/id/ert,
 		)
+		var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(config)
 		if(!length(candidates))
 			return FALSE
 
@@ -150,7 +157,7 @@
 			ert_antag.random_names = template.random_names
 
 			ert_operative.mind.add_antag_datum(ert_antag,ert_team)
-			ert_operative.mind.assigned_role = ert_antag.name
+			ert_operative.mind.set_assigned_role(SSjob.get_job_type(/datum/job/ert_generic))
 
 			//Logging and cleanup
 			log_game("[key_name(ert_operative)] has been selected as an [ert_antag.name]")
@@ -162,7 +169,7 @@
 
 		//Open the Armory doors
 		if(template.opendoors)
-			for(var/obj/machinery/door/poddoor/ert/door in GLOB.airlocks)
+			for(var/obj/machinery/door/poddoor/ert/door as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/poddoor/ert))
 				door.open()
 				CHECK_TICK
 		return TRUE
@@ -186,7 +193,7 @@
 	.["mainsettings"]["spawn_admin"]["value"] = newtemplate.spawn_admin ? "Yes" : "No"
 
 /datum/admins/proc/equipAntagOnDummy(mob/living/carbon/human/dummy/mannequin, datum/antagonist/antag)
-	for(var/I in mannequin.get_equipped_items(TRUE))
+	for(var/I in mannequin.get_equipped_items(INCLUDE_POCKETS))
 		qdel(I)
 	if (ispath(antag, /datum/antagonist/ert))
 		var/datum/antagonist/ert/ert = antag

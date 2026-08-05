@@ -13,6 +13,7 @@
 	hide = TRUE
 	shift_underlay_only = FALSE
 	pipe_state = "uvent"
+	vent_movement = VENTCRAWL_ALLOWED | VENTCRAWL_CAN_SEE | VENTCRAWL_ENTRANCE_ALLOWED
 	// vents are more complex machinery and so are less resistant to damage
 	max_integrity = 100
 
@@ -31,9 +32,6 @@
 	/// If the external temperature is lower than this value, then we engage our heating element
 	/// on the gas coming out of the vent.
 	var/external_temperature = 0
-
-	/// id of air sensor its connected to
-	var/chamber_id
 
 	///area this vent is assigned to
 	var/area/assigned_area
@@ -346,9 +344,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/vent_pump)
 	. = ..()
 	if(welded)
 		. += "It seems welded shut."
-
-/obj/machinery/atmospherics/components/unary/vent_pump/can_crawl_through()
-	return !(machine_stat & BROKEN) && !welded
 
 /obj/machinery/atmospherics/components/unary/vent_pump/power_change()
 	. = ..()

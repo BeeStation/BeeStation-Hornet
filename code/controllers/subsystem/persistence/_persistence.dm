@@ -1,7 +1,10 @@
 SUBSYSTEM_DEF(persistence)
 	name = "Persistence"
-	init_order = INIT_ORDER_PERSISTENCE
-	flags = SS_NO_FIRE
+	dependencies = list(
+		/datum/controller/subsystem/mapping,
+		/datum/controller/subsystem/atoms,
+	)
+	ss_flags = SS_NO_FIRE
 
 	/// Soapstone messages
 	var/list/obj/structure/chisel_message/chisel_messages = list()
@@ -44,6 +47,7 @@ SUBSYSTEM_DEF(persistence)
 	save_photo_persistence()
 	save_custom_outfits()
 	save_delamination_counter()
+	save_gamemode_execution()
 
 /datum/controller/subsystem/persistence/proc/load_poly()
 	for(var/mob/living/simple_animal/parrot/Poly/stupid_bird in GLOB.alive_mob_list)

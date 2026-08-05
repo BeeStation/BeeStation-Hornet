@@ -85,7 +85,7 @@
 	var/turf/open/target_turf = get_turf(carbon_target)
 	target_turf.take_temperature(-20)
 	carbon_target.adjust_bodytemperature(-40)
-	carbon_target.silent += 4
+	carbon_target.adjust_silence(10 SECONDS)
 
 /datum/heretic_knowledge/cold_snap
 	name = "Aristocrat's Way"
@@ -258,12 +258,12 @@
 	// Let's get this show on the road!
 	sound_loop = new(user, TRUE, TRUE)
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
-	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_death))
+	RegisterSignal(user, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
 
 /datum/heretic_knowledge/final/void_final/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	on_death() // Losing is pretty much dying. I think
-	RegisterSignals(user, list(COMSIG_LIVING_LIFE, COMSIG_MOB_DEATH))
+	RegisterSignals(user, list(COMSIG_LIVING_LIFE, COMSIG_LIVING_DEATH))
 	SSsecurity_level.set_level(SEC_LEVEL_BLUE)
 
 /**
@@ -280,7 +280,7 @@
 	for(var/mob/living/carbon/close_carbon in view(5, source))
 		if(IS_HERETIC_OR_MONSTER(close_carbon))
 			continue
-		close_carbon.silent += 1
+		close_carbon.adjust_silence_up_to(2 SECONDS, 20 SECONDS)
 		close_carbon.adjust_bodytemperature(-20)
 
 	var/turf/open/source_turf = get_turf(source)
@@ -298,7 +298,7 @@
 	storm.update_areas(list(source_area))
 
 /**
- * Signal proc for [COMSIG_MOB_DEATH].
+ * Signal proc for [COMSIG_LIVING_DEATH].
  *
  * Stop the storm when the heretic passes away.
  */

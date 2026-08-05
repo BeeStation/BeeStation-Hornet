@@ -29,7 +29,6 @@
 	centerspawner = FALSE
 	template_height = 4
 	template_width = 5
-	stock = 2
 
 /datum/map_template/random_room/sk_rdm030
 	name = "Delta Lounge"
@@ -129,7 +128,6 @@
 	template_height = 4
 	template_width = 5
 	weight = 6
-	stock = 2 //because i hate you
 
 /datum/map_template/random_room/sk_rdm076
 	name = "Kilo Haunted Library"

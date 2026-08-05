@@ -75,6 +75,9 @@ Handles equipping/unequipping and pointing with the parent weapon.
 /datum/component/aiming/proc/on_parent_equip(datum/source, mob/equipper, slot)
 	SIGNAL_HANDLER
 	if(slot == ITEM_SLOT_HANDS)
+		// Apparently cyborgs are being snowflakey, so clean up before re-registering
+		if(user)
+			UnregisterSignal(user, COMSIG_MOB_POINTED)
 		RegisterSignal(equipper, COMSIG_MOB_POINTED, PROC_REF(do_aim))
 		user = equipper
 	else // Putting a weapon into storage/direct storage equip by loadout
@@ -199,7 +202,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			to_chat(user, span_warning("You've already given a command recently!"))
 			show_ui(user, target, choice)
 			return
-		if(user.mind.assigned_role == JOB_NAME_MIME)
+		if(HAS_MIND_TRAIT(user, TRAIT_MIMING))
 			user.visible_message(span_warning("[user] waves [parent] around menacingly!"))
 			show_ui(user, target, choice)
 			COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)

@@ -34,7 +34,7 @@ Behavior that's still missing from this component that original food items had t
 	var/datum/callback/pre_eat
 	///Callback to be ran before composting something, in case you don't want a piece of food to be compostable for some reason.
 	var/datum/callback/on_compost
-	///Callback to be ran for when you take a bite of something
+	///Callback to be ran for when you finish eating something
 	var/datum/callback/after_eat
 	///Callback to be ran for when you finish eating something
 	var/datum/callback/on_consume
@@ -135,7 +135,7 @@ Behavior that's still missing from this component that original food items had t
 	datum/callback/after_eat,
 	datum/callback/on_consume,
 	datum/callback/check_liked,
-	)
+)
 
 	. = ..()
 	src.bite_consumption = bite_consumption
@@ -149,11 +149,12 @@ Behavior that's still missing from this component that original food items had t
 	src.after_eat = after_eat
 	src.on_consume = on_consume
 
-/datum/component/edible/Destroy(force, silent)
-	QDEL_NULL(pre_eat)
-	QDEL_NULL(on_compost)
-	QDEL_NULL(after_eat)
-	QDEL_NULL(on_consume)
+/datum/component/edible/Destroy(force)
+	pre_eat = null
+	on_compost = null
+	after_eat = null
+	on_consume = null
+	check_liked = null
 	return ..()
 
 /datum/component/edible/proc/examine(datum/source, mob/user, list/examine_list)
@@ -170,7 +171,7 @@ Behavior that's still missing from this component that original food items had t
 	else if (quality <= TOXIC_FOOD_QUALITY_THRESHOLD)
 		examine_list += span_warning("You find this meal disgusting!")
 	else
-		examine_list += span_green("You find this meal inedible.")
+		examine_list += span_warning("You find this meal inedible.")
 
 	var/datum/mind/mind = user.mind
 	if(mind && HAS_TRAIT_FROM(owner, TRAIT_FOOD_CHEF_MADE, REF(mind)))
@@ -423,9 +424,9 @@ Behavior that's still missing from this component that original food items had t
 		return FALSE
 	var/mob/living/carbon/C = eater
 	var/covered = ""
-	if(C.is_mouth_covered(head_only = 1))
+	if(C.is_mouth_covered(ITEM_SLOT_HEAD))
 		covered = "headgear"
-	else if(C.is_mouth_covered(mask_only = 1))
+	else if(C.is_mouth_covered(ITEM_SLOT_MASK))
 		covered = "mask"
 	if(covered)
 		var/who = (isnull(feeder) || eater == feeder) ? "your" : "[eater.p_their()]"
@@ -461,7 +462,7 @@ Behavior that's still missing from this component that original food items had t
 	if((foodtypes & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)
 		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "breakfast", /datum/mood_event/breakfast)
 	if(HAS_TRAIT(human_eater, TRAIT_AGEUSIA))
-		if(foodtypes & tongue.toxic_food)
+		if(foodtypes & tongue.toxic_foodtypes)
 			to_chat(human_eater, span_warning("You don't feel so good..."))
 			human_eater.adjust_disgust(25 + 30 * fraction)
 		return // Later checks are irrelevant if you have ageusia
@@ -508,13 +509,13 @@ Behavior that's still missing from this component that original food items had t
 
 	var/obj/item/organ/tongue/tongue = eater.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(ishuman(eater))
-		if(count_matching_foodtypes(foodtypes, tongue?.toxic_food)) //if the food is toxic, we don't care about anything else
+		if(count_matching_foodtypes(foodtypes, tongue?.toxic_foodtypes)) //if the food is toxic, we don't care about anything else
 			return TOXIC_FOOD_QUALITY_THRESHOLD
 		if(HAS_TRAIT(eater, TRAIT_AGEUSIA)) //if you can't taste it, it doesn't taste good
 			return 0
 
-	food_quality += DISLIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.disliked_food)
-	food_quality += LIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.liked_food)
+	food_quality += DISLIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.disliked_foodtypes)
+	food_quality += LIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.liked_foodtypes)
 
 	return food_quality
 
@@ -533,6 +534,8 @@ Behavior that's still missing from this component that original food items had t
 	SEND_SIGNAL(parent, COMSIG_FOOD_CONSUMED, eater, feeder)
 
 	on_consume?.Invoke(eater, feeder)
+	if (QDELETED(parent)) // might be destroyed by the callback
+		return
 
 	to_chat(feeder, span_warning("There is nothing left of [parent], oh no!"))
 	if(isturf(parent))

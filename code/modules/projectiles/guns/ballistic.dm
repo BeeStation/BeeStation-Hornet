@@ -1,4 +1,5 @@
 /obj/item/gun/ballistic
+	abstract_type = /obj/item/gun/ballistic
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason."
 	name = "projectile gun"
 	icon_state = "pistol"
@@ -77,6 +78,10 @@
 	caliber = magazine.caliber
 	chamber_round()
 	update_icon()
+
+/obj/item/gun/ballistic/Destroy()
+	QDEL_NULL(magazine)
+	return ..()
 
 /obj/item/gun/ballistic/fire_sounds()
 	var/frequency_to_use
@@ -583,10 +588,10 @@
 		inhand_x_dimension = 32
 		inhand_y_dimension = 32
 		w_class = WEIGHT_CLASS_LARGE
-		if (sawn_item_state)
-			item_state = sawn_item_state
+		if (sawn_inhand_icon_state)
+			inhand_icon_state = sawn_inhand_icon_state
 		else
-			item_state = "gun"
+			inhand_icon_state = "gun"
 		worn_icon_state = "gun"
 		slot_flags &= ~ITEM_SLOT_BACK	//you can't sling it on your back
 		slot_flags |= ITEM_SLOT_BELT	//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)

@@ -139,20 +139,27 @@
 	var/decayedRange //stores original range
 	var/reflect_range_decrease = 5 //amount of original range that falls off when reflecting, so it doesn't go forever
 	var/reflectable = NONE // Can it be reflected or not?
-	//Effects
+
+	// Status effects applied on hit
 	var/stun = 0
 	var/knockdown = 0
 	var/paralyze = 0
 	var/immobilize = 0
 	var/unconscious = 0
-	var/stutter = 0
-	var/slur = 0
 	var/eyeblur = 0
-	var/drowsy = 0
-	var/stamina = 0
+	/// Drowsiness applied on projectile hit
+	var/drowsy = 0 SECONDS
 	/// Jittering applied on projectile hit
 	var/jitter = 0 SECONDS
-	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
+	/// Extra stamina damage applied on projectile hit (in addition to the main damage)
+	var/stamina = 0
+	/// Stuttering applied on projectile hit
+	var/stutter = 0 SECONDS
+	/// Slurring applied on projectile hit
+	var/slur = 0 SECONDS
+
+	/// Damage the limb must have for it to be dismembered upon getting hit. 0 will prevent dismembering altogether
+	var/dismemberment = 0
 	var/impact_effect_type //what type of impact effect to show when hitting something
 	var/log_override = FALSE //is this type spammed enough to not log? (KAs)
 	var/martial_arts_no_deflect = FALSE
@@ -592,14 +599,14 @@
  * Scan turf we're now in for anything we can/should hit. This is useful for hitting non dense objects the user
  * directly clicks on, as well as for PHASING projectiles to be able to hit things at all as they don't ever Bump().
  */
-/obj/projectile/Moved(atom/OldLoc, Dir)
+/obj/projectile/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!fired)
 		return
 	if(temporary_unstoppable_movement)
 		temporary_unstoppable_movement = FALSE
 		movement_type &= ~PHASING
-	scan_moved_turf()		//mostly used for making sure we can hit a non-dense object the user directly clicked on, and for penetrating projectiles that don't bump
+	scan_moved_turf() //mostly used for making sure we can hit a non-dense object the user directly clicked on, and for penetrating projectiles that don't bump
 
 /**
  * Checks if we should pierce something.
@@ -660,7 +667,7 @@
 		return
 	var/elapsed_time_deciseconds = (world.time - last_projectile_move) + time_offset
 	time_offset = 0
-	var/required_moves = speed > 0? FLOOR(elapsed_time_deciseconds / speed, 1) : MOVES_HITSCAN			//Would be better if a 0 speed made hitscan but everyone hates those so I can't make it a universal system :<
+	var/required_moves = speed > 0? floor(elapsed_time_deciseconds / speed) : MOVES_HITSCAN			//Would be better if a 0 speed made hitscan but everyone hates those so I can't make it a universal system :<
 	if(required_moves == MOVES_HITSCAN)
 		required_moves = SSprojectiles.global_max_tick_moves
 	else
@@ -684,7 +691,7 @@
 		process_hit(get_turf(direct_target), direct_target)
 		if(QDELETED(src))
 			return
-	if(isnum_safe(angle))
+	if(IS_FINITE(angle))
 		set_angle(angle)
 	if(spread)
 		set_angle(Angle + ((rand() - 0.5) * spread))
@@ -871,9 +878,10 @@
 		homing_offset_y = -homing_offset_y
 
 //Spread is FORCED!
-/obj/projectile/proc/preparePixelProjectile(atom/target, atom/source, modifiers, spread = 0)
-	if(!isnull(modifiers) && !islist(modifiers))
+/obj/projectile/proc/preparePixelProjectile(atom/target, atom/source, list/modifiers = null, spread = 0)
+	if(!(isnull(modifiers) || islist(modifiers)))
 		stack_trace("WARNING: Projectile [type] fired with non-list modifiers, likely was passed click params.")
+		modifiers = null
 
 	var/turf/current_location = get_turf(source)
 	var/turf/targloc = get_turf(target)
@@ -923,8 +931,8 @@
 
 		//Calculate the "resolution" of screen based on client's view and world's icon size. This will work if the user can view more tiles than average.
 		var/list/screenview = getviewsize(user.client.view)
-		var/screenviewX = screenview[1] * world.icon_size
-		var/screenviewY = screenview[2] * world.icon_size
+		var/screenviewX = screenview[1] * ICON_SIZE_X
+		var/screenviewY = screenview[2] * ICON_SIZE_Y
 
 		var/ox = round(screenviewX/2) - user.client.pixel_x //"origin" x
 		var/oy = round(screenviewY/2) - user.client.pixel_y //"origin" y
@@ -988,6 +996,25 @@
 
 /obj/projectile/experience_pressure_difference()
 	return
+
+/// Fire a projectile from this atom at another atom
+/atom/proc/fire_projectile(projectile_type, atom/target, sound, firer, list/ignore_targets = list())
+	if (!isnull(sound))
+		playsound(src, sound, vol = 100, vary = TRUE)
+
+	var/turf/startloc = get_turf(src)
+	var/obj/projectile/bullet = new projectile_type(startloc)
+	bullet.starting = startloc
+	for (var/atom/thing as anything in ignore_targets)
+		bullet.impacted[WEAKREF(thing)] = TRUE
+	bullet.firer = firer || src
+	bullet.fired_from = src
+	bullet.yo = target.y - startloc.y
+	bullet.xo = target.x - startloc.x
+	bullet.original = target
+	bullet.preparePixelProjectile(target, src)
+	bullet.fire()
+	return bullet
 
 #undef MOVES_HITSCAN
 #undef MUZZLE_EFFECT_PIXEL_INCREMENT

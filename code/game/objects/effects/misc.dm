@@ -15,7 +15,7 @@
 /obj/effect/beam/singularity_act()
 	return
 
-/obj/effect/beam/singularity_pull()
+/obj/effect/beam/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/spawner
@@ -34,6 +34,10 @@
 	moveToNullspace()
 	return QDEL_HINT_QUEUE
 
+/// Override to define loot blacklist behavior
+/obj/effect/spawner/proc/can_spawn(atom/loot)
+	return TRUE
+
 /obj/effect/list_container
 	name = "list container"
 
@@ -42,45 +46,6 @@
 	var/master = null
 
 	var/list/container = list(  )
-
-/obj/effect/overlay/thermite
-	name = "thermite"
-	desc = "Looks hot."
-	icon = 'icons/effects/fire.dmi'
-	icon_state = "medium" //what?
-	anchored = TRUE
-	opacity = FALSE
-	density = FALSE
-	layer = FLY_LAYER
-
-/obj/effect/overlay/thermite/Initialize(mapload)
-	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
-
-/obj/effect/overlay/thermite/proc/on_entered(datum/source, atom/movable/AM)
-	SIGNAL_HANDLER
-	if(isliving(AM))
-		var/mob/living/L = AM
-		L.adjust_fire_stacks(5)
-		L.IgniteMob()
-
-//Makes a tile fully lit no matter what
-/obj/effect/fullbright
-	icon = 'icons/effects/alphacolors.dmi'
-	icon_state = "white"
-	plane = LIGHTING_PLANE
-	blend_mode = BLEND_ADD
-
-/obj/effect/fullbright/starlight
-	plane = STARLIGHT_PLANE
-	transform = matrix(2, 0, 0, 0, 2, 0)
-
-/obj/effect/fullbright/starlight/starfloor
-	icon_state = "grey"
-	transform = matrix(1.5, 0, 0, 0, 1.5, 0)
 
 /obj/effect/abstract/marker
 	name = "marker"

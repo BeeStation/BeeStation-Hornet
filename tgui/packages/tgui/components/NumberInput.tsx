@@ -262,6 +262,7 @@ export class NumberInput extends Component<Props, State> {
       lineHeight,
       fontSize,
       format,
+      disabled,
     } = this.props;
 
     let displayValue = parseFloat(value.toString());
@@ -289,6 +290,7 @@ export class NumberInput extends Component<Props, State> {
           'NumberInput',
           fluid && 'NumberInput--fluid',
           className,
+          disabled && 'NumberInput--disabled',
         ])}
         minWidth={width}
         minHeight={height}

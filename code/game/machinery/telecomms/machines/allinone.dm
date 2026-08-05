@@ -1,20 +1,16 @@
-/*
-	Basically just an empty shell for receiving and broadcasting radio messages. Not
-	very flexible, but it gets the job done.
-*/
-
+/**
+ * Basically just an empty shell for receiving and broadcasting radio messages. Not
+ * very flexible, but it gets the job done.
+ */
 /obj/machinery/telecomms/allinone
 	name = "telecommunications mainframe"
 	icon_state = "comm_server"
+	base_icon_state = "comm_server"
 	desc = "A compact machine used for portable subspace telecommunications processing."
 	density = TRUE
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	var/intercept = FALSE  // If true, only works on the Syndicate frequency.
-
-/obj/machinery/telecomms/allinone/indestructable
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	flags_1 = NODECONSTRUCT_1
 
 /obj/machinery/telecomms/allinone/Initialize(mapload)
 	. = ..()
@@ -39,9 +35,14 @@
 		sleep(signal.data["slow"]) // simulate the network lag if necessary
 	signal.broadcast()
 
-/obj/machinery/telecomms/allinone/attackby(obj/item/P, mob/user, params)
-	if(P.tool_behaviour == TOOL_MULTITOOL)
+/obj/machinery/telecomms/allinone/attackby(obj/item/attacking_item, mob/user, params)
+	if(attacking_item.tool_behaviour == TOOL_MULTITOOL)
 		return attack_hand(user)
+	return ..()
+
+/obj/machinery/telecomms/allinone/indestructable
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	flags_1 = NODECONSTRUCT_1
 
 /obj/machinery/telecomms/allinone/exploration
 	name = "exploration mainframe"
@@ -49,3 +50,6 @@
 	idle_power_usage = 50
 	freq_listening = list(FREQ_EXPLORATION)
 	autolinkers = list("exp_relay")
+
+/obj/machinery/telecomms/allinone/no_heat
+	generates_heat = FALSE

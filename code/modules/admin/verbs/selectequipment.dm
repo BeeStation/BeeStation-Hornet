@@ -50,7 +50,7 @@
 		ui.set_autoupdate(FALSE)
 
 /datum/select_equipment/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/select_equipment/ui_status(mob/user, datum/ui_state/state)
 	if(QDELETED(target_mob))
@@ -112,7 +112,9 @@
 
 	var/icon/dummysprite = get_flat_human_icon(null,
 		dummy_key = dummy_key,
-		outfit_override = selected_outfit)
+		outfit_override = selected_outfit,
+		no_anim = TRUE,
+	)
 	data["icon64"] = icon2base64(dummysprite)
 	data["name"] = target_mob
 
@@ -214,7 +216,8 @@
 				delete_pocket = TRUE
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	for(var/obj/item/item in human_target.get_equipped_items(delete_pocket))
+	var/includes_flags = delete_pocket ? INCLUDE_POCKETS : NONE
+	for(var/obj/item/item in human_target.get_equipped_items(includes_flags))
 		qdel(item)
 
 	if(dresscode != "Naked")

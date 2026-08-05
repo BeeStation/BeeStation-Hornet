@@ -117,7 +117,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 	var/list/data = list()
 	data["min_age"] = AGE_MIN
 	data["max_age"] = AGE_MAX
-	data["character_preview_view"] = character_preview_view.assigned_map
 	return data
 
 /obj/machinery/computer/records/security/ui_act(action, list/params, datum/tgui/ui)
@@ -128,7 +127,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 	var/mob/user = ui.user
 	var/datum/record/crew/target_record
 
-	if (!authenticated)
+	if (!authenticated || issilicon(user)) // Silicons are forbidden from editing records.
 		return FALSE
 
 	if (action == "set_amount")
@@ -414,7 +413,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 		if(sec_record.wanted_status != status_to_set)
 			successful_set++
 			names_of_entries += target["name"]
-		sec_record.wanted_status = status_to_set
+		sec_record.set_wanted_status(src, status_to_set)
 
 	if(successful_set > 0)
 		investigate_log("[parent.get_creator()] has set security records for '[names_of_entries.Join(", ")]' to [status_to_set] via circuits.", INVESTIGATE_RECORDS)

@@ -1,14 +1,15 @@
 /datum/job/scientist
 	title = JOB_NAME_SCIENTIST
 	description = "Engage in Xenobiology, Xenoarchaeology, Nanites, and Toxins; research new technology; and upgrade the machine parts around the station."
-	department_for_prefs = DEPT_NAME_SCIENCE
+	department_for_prefs = DEPARTMENT_NAME_SCIENCE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
-	faction = "Station"
+	faction = FACTION_STATION
 	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#ffeeff"
 	exp_requirements = 120
-	exp_type = EXP_TYPE_CREW
+	exp_required_type = EXP_TYPE_CREW
+	exp_granted_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/scientist
 
@@ -16,11 +17,15 @@
 	base_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_MECH_SCIENCE,
 						ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE, ACCESS_EXPLORATION)
 
-	departments = DEPT_BITFLAG_SCI
+	departments_list = list(
+		/datum/department_group/science,
+		)
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_SCIENTIST
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Thaumaturgist"
 
 	species_outfits = list(
@@ -28,14 +33,19 @@
 	)
 	biohazard = 35
 
-	lightup_areas = list(/area/storage/tech, /area/science/robotics)
+	lightup_areas = list(/area/station/engineering/storage/tech, /area/station/science/robotics)
 	minimal_lightup_areas = list(
-		/area/science/explab,
-		/area/science/misc_lab,
-		/area/science/mixing,
-		/area/science/nanite,
-		/area/science/storage,
-		/area/science/xenobiology
+		/area/station/science/explab,
+		/area/station/science/misc_lab,
+		/area/station/science/mixing,
+		/area/station/science/nanite,
+		/area/station/science/storage,
+		/area/station/science/xenobiology
+	)
+
+	manuscript_jobs = list(
+		JOB_NAME_SCIENTIST,
+		JOB_NAME_ATMOSPHERICTECHNICIAN // thanks to maxcap, they're knowledgeable.
 	)
 
 /datum/job/scientist/get_access()
@@ -62,8 +72,9 @@
 	r_pocket = /obj/item/discovery_scanner
 
 	backpack = /obj/item/storage/backpack/science
-	satchel = /obj/item/storage/backpack/satchel/tox
+	satchel = /obj/item/storage/backpack/satchel/science
 	duffelbag = /obj/item/storage/backpack/duffelbag/science
+	messenger = /obj/item/storage/backpack/messenger/science
 
 /datum/outfit/job/scientist/pre_equip(mob/living/carbon/human/H)
 	..()

@@ -8,6 +8,16 @@
 
 /datum/antagonist/vampire/proc/cleanup_tracker()
 	if(tracker)
+		// Remove the tracking beacon from all vassals, maybe this fixes it..
+		for(var/datum/antagonist/vassal/vassal in vassals)
+			if(!vassal.monitor?.tracking)
+				continue
+			var/atom/movable/screen/arrow = vassal.monitor.tracking[tracker.tracking_beacon]
+			vassal.monitor.tracking.Remove(tracker.tracking_beacon)
+			if(arrow)
+				if(vassal.monitor.updating?.hud_used)
+					vassal.monitor.updating.hud_used.team_finder_arrows -= arrow
+				qdel(arrow)
 		QDEL_NULL(tracker)
 
 /**
@@ -29,6 +39,7 @@
 	)
 
 /obj/effect/abstract/vampire_tracker_holder/Destroy(force)
-	tracking_beacon.toggle_visibility(FALSE)
-	QDEL_NULL(tracking_beacon)
+	if(tracking_beacon)
+		tracking_beacon.toggle_visibility(FALSE)
+		tracking_beacon = null // Let the component system handle cleanup via parent ..()
 	. = ..()

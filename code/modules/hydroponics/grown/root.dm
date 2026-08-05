@@ -26,7 +26,7 @@
 	wine_power = 30
 
 /obj/item/food/grown/carrot/attackby(obj/item/I, mob/user, params)
-	if(I.is_sharp())
+	if(I.get_sharpness())
 		to_chat(user, span_notice("You sharpen the carrot into a shiv with [I]."))
 		var/obj/item/knife/shiv/carrot/Shiv = new /obj/item/knife/shiv/carrot
 		remove_item_from_storage(user)
@@ -55,7 +55,7 @@
 	foodtypes = VEGETABLES
 	juice_typepath = /datum/reagent/consumable/parsnipjuice
 	wine_power = 35
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 
 // White-Beet
@@ -108,4 +108,4 @@
 	bite_consumption_mod = 2
 	foodtypes = VEGETABLES
 	wine_power = 60
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS

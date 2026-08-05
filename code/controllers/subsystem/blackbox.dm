@@ -2,7 +2,6 @@ SUBSYSTEM_DEF(blackbox)
 	name = "Blackbox"
 	wait = 6000
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
-	init_order = INIT_ORDER_BLACKBOX
 
 	var/list/feedback = list()	//list of datum/feedback_variable
 	var/list/first_death = list() //the first death of this round, assoc. vars keep track of different things
@@ -87,11 +86,11 @@ SUBSYSTEM_DEF(blackbox)
 //Recorded on subsystem shutdown
 /datum/controller/subsystem/blackbox/proc/FinalFeedback()
 	record_feedback("tally", "ahelp_stats", GLOB.ahelp_tickets.active_tickets.len, "unresolved")
-	for (var/obj/machinery/telecomms/message_server/MS in GLOB.telecomms_list)
-		if (MS.modular_msgs.len)
-			record_feedback("tally", "radio_usage", MS.modular_msgs.len, "PDA")
-		if (MS.rc_msgs.len)
-			record_feedback("tally", "radio_usage", MS.rc_msgs.len, "request console")
+	for (var/obj/machinery/telecomms/message_server/messages in GLOB.telecomms_list)
+		if (length(messages.modular_msgs))
+			record_feedback("tally", "radio_usage", length(messages.modular_msgs), "PDA")
+		if (length(messages.rc_msgs))
+			record_feedback("tally", "radio_usage", length(messages.rc_msgs), "request console")
 
 	for(var/player_key in GLOB.player_details)
 		var/datum/player_details/PD = GLOB.player_details[player_key]
@@ -233,7 +232,7 @@ Versioning
 						"gun_fired" = 2)
 */
 /datum/controller/subsystem/blackbox/proc/record_feedback(key_type, key, increment, data, overwrite)
-	if(sealed || !key_type || !istext(key) || !isnum_safe(increment || !data) || CONFIG_GET(flag/limited_feedback))
+	if(sealed || !key_type || !istext(key) || !IS_FINITE(increment || !data) || CONFIG_GET(flag/limited_feedback))
 		return
 	var/datum/feedback_variable/FV = find_feedback_datum(key, key_type)
 	switch(key_type)
@@ -318,8 +317,7 @@ Versioning
 	if(!L.suiciding && !first_death.len)
 		first_death["name"] = "[(L.real_name == L.name) ? L.real_name : "[L.real_name] as [L.name]"]"
 		first_death["role"] = null
-		if(L.mind.assigned_role)
-			first_death["role"] = L.mind.assigned_role
+		first_death["role"] = L.mind.assigned_role.title
 		first_death["area"] = "[AREACOORD(L)]"
 		first_death["damage"] = "<font color='#FF5555'>[L.getBruteLoss()]</font>/<font color='orange'>[L.getFireLoss()]</font>/<font color='lightgreen'>[L.getToxLoss()]</font>/<font color='lightblue'>[L.getOxyLoss()]</font>/<font color='pink'>[L.getCloneLoss()]</font>"
 		first_death["last_words"] = L.last_words
@@ -333,7 +331,7 @@ Versioning
 	"}, list(
 		"name" = L.real_name,
 		"key" = L.ckey,
-		"job" = L.mind.assigned_role,
+		"job" = L.mind.assigned_role.title,
 		"special" = L.mind.special_role,
 		"pod" = get_area_name(L, TRUE),
 		"laname" = L.lastattacker,

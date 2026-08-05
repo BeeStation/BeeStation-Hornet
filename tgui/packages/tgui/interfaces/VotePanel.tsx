@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -83,7 +84,7 @@ export const VotePanel = (props) => {
   }
 
   return (
-    <Window title={windowTitle} width={400} height={500}>
+    <Window title={windowTitle} theme="generic" width={400} height={500}>
       <Window.Content>
         <Stack fill vertical>
           <Section
@@ -146,12 +147,23 @@ const VoteOptions = (props) => {
   const { act, data } = useBackend<Data>();
   const { possibleVotes, user, LastVoteTime, VoteCD } = data;
 
+  const [areWeAnonymous, setAnonymous] = useState(true);
+
   return (
     <Stack.Item>
       <Collapsible title="Start a Vote">
         <Section>
           {LastVoteTime + VoteCD > 0 && <VoteOptionDimmer />}
           <Stack vertical justify="space-between">
+            <Stack.Item>
+              <Button.Checkbox
+                width={19.5}
+                color={areWeAnonymous ? 'green' : 'red'}
+                checked={areWeAnonymous}
+                content="Remain Anonymous"
+                onClick={() => setAnonymous(!areWeAnonymous)}
+              />
+            </Stack.Item>
             {possibleVotes.map((option) => (
               <Stack.Item key={option.name}>
                 <Stack>
@@ -193,6 +205,7 @@ const VoteOptions = (props) => {
                       onClick={() =>
                         act('callVote', {
                           voteName: option.name,
+                          anonymous: areWeAnonymous,
                         })
                       }
                     />

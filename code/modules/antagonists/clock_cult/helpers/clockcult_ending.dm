@@ -23,7 +23,7 @@
 		if(!IS_SERVANT_OF_RATVAR(M) && isliving(M))
 			var/mob/living/L = M
 			L.fire_stacks = INFINITY
-			L.IgniteMob()
+			L.ignite_mob()
 			L.emote("scream")
 
 /proc/clockcult_gg()

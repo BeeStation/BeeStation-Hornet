@@ -83,7 +83,7 @@
 			tab_data["admin_name"] = key_name(ticket.claimee, FALSE, FALSE)
 			//Messages:
 			tab_data["messages"] = list()
-			for(var/datum/ticket_interaction/message as() in ticket._interactions)
+			for(var/datum/ticket_interaction/message as anything in ticket._interactions)
 				//Only non-private messages have safe users.
 				//Only admins can see adminbus logs.
 				if(message.from_user_safe && message.to_user_safe)
@@ -137,7 +137,7 @@
 	var/list/checked_layers = list()
 	var/list/obscured_layers = list()
 	// Find items and group them by both name and count
-	for (var/atom/A as() in src)
+	for (var/atom/A as anything in src)
 		// Too many items read
 		if(max_item_sanity-- < 0)
 			break
@@ -175,7 +175,7 @@
 		var/atom/first_atom = atom_items[1]
 		if (istype(first_atom, /obj/item/stack))
 			item_count = 0
-			for (var/obj/item/stack/stack_item as() in atom_items)
+			for (var/obj/item/stack/stack_item as anything in atom_items)
 				item_count += stack_item.amount
 		var/atom_name = first_atom.name
 		var/image_icon
@@ -219,7 +219,7 @@
 			var/list/verbs_to_copy = client.sorted_verbs[i]
 			all_verbs[i] = verbs_to_copy.Copy()
 	//TODO: Call tgui_panel/add_verbs on pickup and remove on drop.
-	for(var/atom/A as() in contents)
+	for(var/atom/A as anything in contents)
 		//As an optimisation we will make it so all verbs on objects will go into the object tab.
 		//If you don't want this to happen change this.
 		if(!all_verbs.Find("Object"))
@@ -257,16 +257,22 @@
 	if(SSticker.round_start_time)
 		tab_data["Security Level"] = GENERATE_STAT_TEXT("[capitalize(SSsecurity_level.get_current_level_as_text())]")
 
-	tab_data["divider_3"] = GENERATE_STAT_DIVIDER
+	if(SSticker.reboot_timer)
+		tab_data["divider_3"] = GENERATE_STAT_BLANK
+		var/reboot_time = timeleft(SSticker.reboot_timer)
+		if(reboot_time)
+			tab_data["Reboot"] = GENERATE_STAT_TEXT(DisplayTimeText(reboot_time, 1))
+	// admin must have delayed round end
+	else if(SSticker.ready_for_reboot)
+		tab_data["divider_3"] = GENERATE_STAT_BLANK
+		tab_data["Reboot"] = GENERATE_STAT_TEXT("DELAYED")
+
+	tab_data["divider_4"] = GENERATE_STAT_DIVIDER
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
 			tab_data[ETA] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
-	if (!isnewplayer(src) && SSautotransfer.can_fire && client?.player_details)
-		if (SSautotransfer.required_votes_to_leave && SSshuttle.canEvac() == TRUE) //THIS MUST BE "== TRUE" TO WORK. canEvac() ALWAYS RETURNS A VALUE.
-			tab_data["Vote to leave"] = GENERATE_STAT_BUTTON("[client?.player_details.voted_to_leave ? "Yes" : "No"] ([SSautotransfer.connected_votes_to_leave]/[CEILING(SSautotransfer.required_votes_to_leave, 1)])", "votetoleave")
-		else
-			tab_data["Vote to leave"] = GENERATE_STAT_BUTTON("[client?.player_details.voted_to_leave ? "Yes" : "No"]", "votetoleave")
+
 	return tab_data
 
 /mob/proc/get_stat_tab_master_controller()
@@ -295,11 +301,11 @@
 		tab_data["divider_3"] = GENERATE_STAT_DIVIDER
 		var/datum/controller/subsystem/queue_node = Master.last_type_processed
 		if (queue_node)
-			tab_data["Last Processed:"] = GENERATE_STAT_TEXT("[queue_node.name] \[FI: [queue_node.next_fire - world.time]ds\] [(queue_node.flags & SS_TICKER) ? " (Ticker)" : ""][(queue_node.flags & SS_BACKGROUND) ? " (Background)" : ""][(queue_node.flags & SS_KEEP_TIMING) ? " (Keep Timing)" : ""]")
+			tab_data["Last Processed:"] = GENERATE_STAT_TEXT("[queue_node.name] \[FI: [queue_node.next_fire - world.time]ds\] [(queue_node.ss_flags & SS_TICKER) ? " (Ticker)" : ""][(queue_node.ss_flags & SS_BACKGROUND) ? " (Background)" : ""][(queue_node.ss_flags & SS_KEEP_TIMING) ? " (Keep Timing)" : ""]")
 		queue_node = Master.queue_head
 		var/i = 0
 		while (queue_node)
-			tab_data["Queue [i++]:"] = GENERATE_STAT_TEXT("[queue_node.name] \[FI: [queue_node.next_fire - world.time]ds\] [(queue_node.flags & SS_TICKER) ? " (Ticker)" : ""][(queue_node.flags & SS_BACKGROUND) ? " (Background)" : ""][(queue_node.flags & SS_KEEP_TIMING) ? " (Keep Timing)" : ""]")
+			tab_data["Queue [i++]:"] = GENERATE_STAT_TEXT("[queue_node.name] \[FI: [queue_node.next_fire - world.time]ds\] [(queue_node.ss_flags & SS_TICKER) ? " (Ticker)" : ""][(queue_node.ss_flags & SS_BACKGROUND) ? " (Background)" : ""][(queue_node.ss_flags & SS_KEEP_TIMING) ? " (Keep Timing)" : ""]")
 			queue_node = queue_node.queue_next
 		tab_data["divider_4"] = GENERATE_STAT_DIVIDER
 		for (var/j in 1 to length(Master.previous_ticks))
@@ -468,8 +474,6 @@
 		if("start_br")
 			if(client.holder && check_rights(R_FUN))
 				client.battle_royale()
-		if ("votetoleave")
-			client.vote_to_leave()
 		if ("do_action")
 			var/datum/action/action = locate(params["ref"]) in actions
 			if (!action)

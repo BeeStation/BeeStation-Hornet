@@ -5,9 +5,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/random/ruinloot/armory,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "b" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -15,16 +15,16 @@
 	},
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "d" = (
 /obj/structure/rack,
 /obj/item/storage/box/sec_barricades,
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "e" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = -32
 	},
 /turf/template_noop,
@@ -32,7 +32,7 @@
 "f" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "j" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -41,25 +41,25 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "k" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "l" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/secure_closet,
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/random/ruinloot/armory,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "m" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "o" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -68,9 +68,9 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "p" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_y = 32
 	},
 /turf/template_noop,
@@ -80,7 +80,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "r" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/sign/poster/official/ian{
@@ -88,7 +88,7 @@
 	},
 /obj/item/rack_parts,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "t" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -101,7 +101,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "v" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -110,7 +110,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "x" = (
 /turf/template_noop,
 /area/template_noop)
@@ -120,22 +120,22 @@
 	req_access_txt = "3"
 	},
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/random/ruinloot/armory,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "A" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "B" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/random/ruinloot/armory,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "E" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -144,26 +144,26 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "G" = (
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "I" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "J" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "K" = (
-/obj/structure/sign/warning/securearea{
+/obj/structure/sign/warning/secure_area{
 	pixel_x = 32
 	},
 /turf/template_noop,
@@ -176,10 +176,10 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "M" = (
 /turf/closed/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "N" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light{
@@ -187,14 +187,14 @@
 	},
 /obj/item/rack_parts,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Q" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "U" = (
 /obj/structure/rack,
 /obj/item/storage/box/teargas{
@@ -203,31 +203,31 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "W" = (
 /obj/machinery/door/airlock/security{
 	name = "Armory";
-	req_access_txt = "3";
 	security_level = 6
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "X" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/random/ruinloot/armory,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Y" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 M

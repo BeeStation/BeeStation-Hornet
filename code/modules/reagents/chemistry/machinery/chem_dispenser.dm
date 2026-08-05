@@ -256,7 +256,6 @@
 					"volume" = created_amount,
 					"path" = result_path,
 					"description" = result_path::description,
-					"addiction" = result_path::addiction_threshold,
 					"overdose" = result_path::overdose_threshold,
 				))
 			//if (!results.len)
@@ -293,6 +292,12 @@
 			. = TRUE
 
 	if(!is_operational)
+		if(machine_stat & BROKEN)
+			to_chat(usr, span_warning("\The [src] is broken."))
+		if(machine_stat & NOPOWER)
+			to_chat(usr, span_warning("\The [src] is not currently powered."))
+		if(machine_stat & MAINT)
+			to_chat(usr, span_warning("\The [src]'s maintenance panel is open."))
 		return
 
 	switch(action)
@@ -369,7 +374,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	var/list/datum/reagents/R = list()
-	var/total = min(rand(7,15), FLOOR(cell.charge*powerefficiency, 1))
+	var/total = min(rand(7,15), floor(cell.charge*powerefficiency))
 	var/datum/reagents/Q = new(total*10)
 	if(beaker && beaker.reagents)
 		R += beaker.reagents
@@ -432,9 +437,6 @@
 /obj/machinery/chem_dispenser/attack_ai_secondary(mob/user, list/modifiers)
 	return attack_hand_secondary(user, modifiers)
 
-/obj/machinery/chem_dispenser/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
-
 /obj/machinery/chem_dispenser/drinks
 	name = "soda dispenser"
 	desc = "Contains a large reservoir of soft drinks."
@@ -485,7 +487,7 @@
 
 /obj/machinery/chem_dispenser/drinks/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /obj/machinery/chem_dispenser/drinks/setDir()
 	var/old = dir

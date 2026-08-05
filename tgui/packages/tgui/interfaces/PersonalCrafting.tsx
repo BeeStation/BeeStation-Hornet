@@ -1,6 +1,7 @@
-import { filter, sortBy } from 'common/collections';
 import { BooleanLike, classes } from 'common/react';
 import { createSearch } from 'common/string';
+import { sortBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { useState } from 'react';
 
 import { useBackend } from '../backend';
@@ -65,6 +66,7 @@ const CATEGORY_ICONS_CRAFTING = {
   Tools: 'screwdriver-wrench',
   Entertainment: 'masks-theater',
   'Blood Cult': 'users',
+  Vampire: 'droplet',
 } as const;
 
 const CATEGORY_ICONS_COOKING = {
@@ -193,10 +195,9 @@ export const PersonalCrafting = (props) => {
   const [activeType, setFoodType] = useState(
     Object.keys(craftability).length ? 'Can Make' : data.foodtypes[0],
   );
-  const material_occurences = sortBy(
-    data.material_occurences,
+  const material_occurences = sortBy(data.material_occurences, [
     (material) => -material.occurences,
-  );
+  ]);
   const [activeMaterial, setMaterial] = useState(
     material_occurences[0].atom_id,
   );
@@ -223,11 +224,12 @@ export const PersonalCrafting = (props) => {
             Boolean(craftability[recipe.ref])) ||
             recipe.category === activeCategory))),
   );
-  recipes = sortBy(recipes, (recipe) => [
-    activeCategory === 'Can Make'
-      ? 99 - Object.keys(recipe.reqs).length
-      : Number(craftability[recipe.ref]),
-    recipe.name.toLowerCase(),
+  recipes = sortBy(recipes, [
+    (recipe) =>
+      activeCategory === 'Can Make'
+        ? 99 - Object.keys(recipe.reqs).length
+        : Number(craftability[recipe.ref]),
+    (recipe) => recipe.name.toLowerCase(),
   ]);
   if (searchText.length > 0) {
     recipes = filter(recipes, searchName);
@@ -250,7 +252,7 @@ export const PersonalCrafting = (props) => {
   const CATEGORY_ICONS =
     mode === MODE.cooking ? CATEGORY_ICONS_COOKING : CATEGORY_ICONS_CRAFTING;
   return (
-    <Window width={700} height={720}>
+    <Window width={700} height={720} theme="generic">
       <Window.Content>
         <Stack fill>
           <Stack.Item width={'200px'}>

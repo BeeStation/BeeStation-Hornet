@@ -6,7 +6,7 @@
 	desc = "A rather dull rock for a stone."
 	icon = 'icons/obj/stacks/minerals.dmi'
 	icon_state = "ore"
-	item_state = "ore"
+	inhand_icon_state = "ore"
 	full_w_class = WEIGHT_CLASS_BULKY
 	singular_name = "ore chunk"
 	material_flags = MATERIAL_EFFECTS

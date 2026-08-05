@@ -21,7 +21,7 @@
 	speak_emote = list("creaks")
 	taunt_chance = 30
 
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 	faction = list(FACTION_MIMIC)
@@ -30,7 +30,7 @@
 	del_on_death = TRUE
 	hardattacks = TRUE
 
-	discovery_points = 4000
+	discovery_points = TECHWEB_TIER_3_POINTS
 
 	var/spawaning_obj_type = null
 
@@ -102,7 +102,7 @@
 		visible_message("<b>[src]</b> starts to move!")
 		attempt_open = TRUE
 
-/mob/living/simple_animal/hostile/mimic/crate/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/mimic/crate/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	trigger()
 	. = ..()
 

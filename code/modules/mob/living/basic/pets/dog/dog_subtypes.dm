@@ -9,6 +9,7 @@
 	icon_living = "pug"
 	icon_dead = "pug_dead"
 	butcher_results = list(/obj/item/food/meat/slab/pug = 3)
+	cult_icon_state = "pug_cult"
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_icon_state = "pug"
 	held_state = "pug"
@@ -31,14 +32,6 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_icon_state = "bullterrier"
 	held_state = "bullterrier"
-
-/mob/living/basic/pet/dog/bullterrier/tyson
-	name = "Tyson"
-	real_name = "Tyson"
-	gender = MALE
-	desc = "A sturdy bullterrier with a friendly but watchful demeanor. His intelligent eyes belies his trustworthiness, despite what a goofy face and frame might suggest."
-	gold_core_spawnable = NO_SPAWN
-	unique_pet = TRUE
 
 /mob/living/basic/pet/dog/corgi/capybara
 	name = "\improper capybara"

@@ -10,7 +10,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/axes_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/axes_righthand.dmi'
 	attack_weight = 3
-	force = 5
+	force = 15
 	throwforce = 15
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
@@ -25,8 +25,7 @@
 	item_flags = ISWEAPON
 
 	var/force_wielded = 24
-	var/force_unwielded = 5
-	var/block_power_wielded = 25
+	var/force_unwielded = 15
 
 /datum/armor/item_fireaxe
 	fire = 100
@@ -35,7 +34,7 @@
 /obj/item/fireaxe/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 100, 80, 0 , hitsound) //axes are not known for being precision butchering tools
-	AddComponent(/datum/component/two_handed, force_unwielded=force_unwielded, force_wielded=force_wielded, block_power_wielded=block_power_wielded, icon_wielded="[base_icon_state]1")
+	AddComponent(/datum/component/two_handed, force_unwielded=force_unwielded, force_wielded=force_wielded, icon_wielded="[base_icon_state]1")
 
 /obj/item/fireaxe/update_icon()
 	icon_state = "[base_icon_state]0"
@@ -64,22 +63,21 @@
 /*
  * Bone Axe
  */
-/obj/item/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
+/obj/item/fireaxe/boneaxe // Blatant imitation of the fireaxe, but made out of bone.
 	name = "bone axe"
 	desc = "A large, vicious axe crafted out of several sharpened bone plates and crudely tied together. Made of monsters, by killing monsters, for killing monsters."
 	base_icon_state = "bone_axe"
 	icon_state = "bone_axe0"
 	force_wielded = 23
-	block_power_wielded = 0
+	armour_penetration = 50
 
 /*
  * Metal Hydrogen Axe
  */
-/obj/item/fireaxe/metal_h2_axe  // Blatant imitation of the fireaxe, but made out of metallic hydrogen
+/obj/item/fireaxe/metal_h2_axe
 	name = "metallic hydrogen axe"
 	desc = "A large, menacing axe made of an unknown substance that the eldest atmosians call Metallic Hydrogen. Truly an otherworldly weapon."
 	icon_state = "metalh2_axe0"
 	base_icon_state = "metalh2_axe"
-	toolspeed = 1
-	tool_behaviour = TOOL_CROWBAR
+	tool_behaviour = TOOL_CROWBAR // also a crowbar
 	usesound = 'sound/items/crowbar.ogg'

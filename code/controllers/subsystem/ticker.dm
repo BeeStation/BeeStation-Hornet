@@ -1,12 +1,12 @@
 #define ROUND_START_MUSIC_LIST "strings/round_start_sounds.txt"
+#define SS_TICKER_TRAIT "SS_Ticker"
+
 GLOBAL_LIST_EMPTY(roundstart_areas_lights_on)
 
 SUBSYSTEM_DEF(ticker)
 	name = "Ticker"
-	init_order = INIT_ORDER_TICKER
-
 	priority = FIRE_PRIORITY_TICKER
-	flags = SS_KEEP_TIMING
+	ss_flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
 
 	/// State of current round (used by process()) Use the defines GAME_STATE_* !
@@ -26,10 +26,17 @@ SUBSYSTEM_DEF(ticker)
 	var/round_end_sound
 	/// If all clients have loaded it
 	var/round_end_sound_sent = TRUE
-
+	/// How early before reboot can we start playing the sound
+	var/round_end_sound_duration
+	/// Timer for syncing up the end of the sound with the server reboot
+	var/round_end_sound_timer
 	/// The characters in the game. Used for objective tracking.
 	var/list/datum/mind/minds = list()
 
+	/// Time when reboot has started
+	var/start_wait
+	/// Time before world reboot happens
+	var/reboot_delay
 	/// If set TRUE, the round will not restart on it's own
 	var/delay_end = FALSE
 	/// A message to display to anyone who tries to restart the world after a delay
@@ -79,6 +86,9 @@ SUBSYSTEM_DEF(ticker)
 	var/list/round_end_events
 	var/mode_result = "undefined"
 	var/end_state = "undefined"
+
+	/// ID of round reboot timer, if it exists
+	var/reboot_timer = null
 
 /datum/controller/subsystem/ticker/Initialize()
 	var/list/byond_sound_formats = list(
@@ -260,7 +270,7 @@ SUBSYSTEM_DEF(ticker)
 		if(!can_continue)
 			log_game("Dynamic failed pre_setup")
 			to_chat(world, "<B>Error setting up dynamic.</B> Reverting to pre-game lobby.")
-			SSjob.ResetOccupations()
+			SSjob.reset_occupations()
 			return FALSE
 	else
 		message_admins("DEBUG: Bypassing prestart checks...")
@@ -278,7 +288,7 @@ SUBSYSTEM_DEF(ticker)
 
 	GLOB.manifest.build()
 
-	transfer_characters()	//transfer keys to the new mobs
+	transfer_characters() //transfer keys to the new mobs
 
 	SEND_SIGNAL(src, COMSIG_TICKER_ROUND_STARTING)
 
@@ -313,10 +323,7 @@ SUBSYSTEM_DEF(ticker)
 	var/list/lightup_area_typecache = list()
 	var/minimal_access = SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		var/role = player.mind?.assigned_role
-		if(!role)
-			continue
-		var/datum/job/job = SSjob.GetJob(role)
+		var/datum/job/job = player.mind?.assigned_role
 		if(!job)
 			continue
 		lightup_area_typecache |= job.areas_to_light_up(minimal_access)
@@ -384,19 +391,16 @@ SUBSYSTEM_DEF(ticker)
 	else
 		LAZYADD(round_end_events, cb)
 
-/datum/controller/subsystem/ticker/proc/station_explosion_detonation(atom/bomb)
-	if(bomb)	//BOOM
-		qdel(bomb)
-		for(var/mob/M in GLOB.mob_list)
-			var/turf/T = get_turf(M)
-			if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer)) //protip: freezers protect you from nukes
-				M.gib(TRUE)
-
 /datum/controller/subsystem/ticker/proc/create_characters()
-	for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
+	for(var/i in GLOB.auth_new_player_list)
+		var/mob/dead/new_player/authenticated/player = i
 		if(player.ready == PLAYER_READY_TO_PLAY && player.mind)
 			GLOB.joined_player_list += player.ckey
-			player.create_character(FALSE)
+			var/atom/destination = player.mind.assigned_role.get_roundstart_spawn_point()
+			if(!destination) // Failed to fetch a proper roundstart location, won't be going anywhere.
+				player.new_player_panel()
+				continue
+			player.create_character(destination)
 		else
 			player.new_player_panel()
 		CHECK_TICK
@@ -409,44 +413,97 @@ SUBSYSTEM_DEF(ticker)
 
 
 /datum/controller/subsystem/ticker/proc/equip_characters()
+	GLOB.security_officer_distribution = decide_security_officer_departments(
+		shuffle(GLOB.auth_new_player_list),
+		shuffle(GLOB.available_depts),
+	)
+
 	var/captainless = TRUE
+
 	var/highest_rank = length(SSjob.chain_of_command) + 1
 	var/list/spare_id_candidates = list()
 	var/enforce_coc = CONFIG_GET(flag/spare_enforce_coc)
 
-	for(var/mob/dead/new_player/authenticated/N in GLOB.player_list)
-		var/mob/living/carbon/human/player = N.new_character
-		var/datum/mind/mind = player?.mind
-		if(istype(player) && mind && mind.assigned_role)
-			if(mind.assigned_role == JOB_NAME_CAPTAIN)
-				captainless = FALSE
-				spare_id_candidates += N
-			else if(captainless && (mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)) && !(is_banned_from(N.ckey, JOB_NAME_CAPTAIN)))
-				if(!enforce_coc)
-					spare_id_candidates += N
-				else
-					var/spare_id_priority = SSjob.chain_of_command[mind.assigned_role]
-					if(spare_id_priority)
-						if(spare_id_priority < highest_rank)
-							spare_id_candidates.Cut()
-							spare_id_candidates += N
-							highest_rank = spare_id_priority
-						else if(spare_id_priority == highest_rank)
-							spare_id_candidates += N
-			if(mind.assigned_role != mind.special_role)
-				SSjob.EquipRank(N, mind.assigned_role, FALSE)
-			if(CONFIG_GET(flag/roundstart_traits))
-				SSquirks.AssignQuirks(mind, N.client, TRUE)
+	for(var/mob/dead/new_player/authenticated/new_player_mob as anything in GLOB.auth_new_player_list)
+		var/mob/living/carbon/human/new_character = new_player_mob.new_character
+		if(!new_character)
+			CHECK_TICK
+			continue
+		if(is_banned_from(new_player_mob.ckey, list(JOB_NAME_CAPTAIN)))
+			CHECK_TICK
+			continue
+		var/datum/mind/mind = new_character.mind
+		if(is_captain_job(mind.assigned_role))
+			captainless = FALSE
+			spare_id_candidates += new_player_mob
+		else if(captainless && (mind.assigned_role.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND) && !is_banned_from(new_player_mob.ckey, JOB_NAME_CAPTAIN))
+			if(!enforce_coc)
+				spare_id_candidates += new_player_mob
+			else
+				var/spare_id_priority = SSjob.chain_of_command[mind.assigned_role.title]
+				if(spare_id_priority)
+					if(spare_id_priority < highest_rank)
+						spare_id_candidates.Cut()
+						spare_id_candidates += new_player_mob
+						highest_rank = spare_id_priority
+					else if(spare_id_priority == highest_rank)
+						spare_id_candidates += new_player_mob
 		CHECK_TICK
-	if(length(spare_id_candidates))			//No captain, time to choose acting captain
+
+	if(length(spare_id_candidates))
 		if(!enforce_coc)
-			for(var/mob/dead/new_player/authenticated/player in spare_id_candidates)
-				SSjob.promote_to_captain(player, captainless)
-
+			for(var/mob/dead/new_player/authenticated/candidate in spare_id_candidates)
+				SSjob.promote_to_captain(candidate.new_character, captainless)
 		else
-			SSjob.promote_to_captain(pick(spare_id_candidates), captainless)		//This is just in case 2 heads of the same priority spawn
+			var/mob/dead/new_player/authenticated/candidate = pick(spare_id_candidates)
+			SSjob.promote_to_captain(candidate.new_character, captainless)
+
+	for(var/mob/dead/new_player/authenticated/new_player_mob as anything in GLOB.auth_new_player_list)
+		if(QDELETED(new_player_mob) || !isliving(new_player_mob.new_character))
+			CHECK_TICK
+			continue
+		var/mob/living/new_player_living = new_player_mob.new_character
+		if(!new_player_living.mind)
+			CHECK_TICK
+			continue
+		var/datum/job/player_assigned_role = new_player_living.mind.assigned_role
+		if(player_assigned_role?.job_flags & JOB_EQUIP_RANK)
+			SSjob.EquipRank(new_player_living, player_assigned_role, new_player_mob.client)
+		player_assigned_role.after_roundstart_spawn(new_player_living, new_player_mob.client)
+		if((player_assigned_role?.job_flags & JOB_ASSIGN_QUIRKS) && CONFIG_GET(flag/roundstart_traits))
+			SSquirks.AssignQuirks(new_player_living.mind, new_player_mob.client, TRUE)
 		CHECK_TICK
 
+	if(captainless && !length(spare_id_candidates))
+		for(var/mob/dead/new_player/authenticated/new_player_mob as anything in GLOB.auth_new_player_list)
+			if(isliving(new_player_mob.new_character))
+				to_chat(new_player_mob, span_notice("Captainship not forced on anyone."))
+			CHECK_TICK
+
+/datum/controller/subsystem/ticker/proc/decide_security_officer_departments(
+	list/new_players,
+	list/departments,
+)
+	var/list/officer_mobs = list()
+	var/list/officer_preferences = list()
+
+	for (var/mob/dead/new_player/authenticated/new_player_mob as anything in new_players)
+		var/mob/living/carbon/human/character = new_player_mob.new_character
+		if (istype(character) && is_security_officer_job(character.mind?.assigned_role))
+			officer_mobs += character
+
+			var/datum/client_interface/client = GET_CLIENT(new_player_mob)
+			var/preference = client?.prefs?.read_preference(/datum/preference/choiced/security_department)
+			officer_preferences += preference
+
+	var/distribution = get_officer_departments(officer_preferences, departments)
+
+	var/list/output = list()
+
+	for (var/index in 1 to officer_mobs.len)
+		output[REF(officer_mobs[index])] = distribution[index]
+
+	return output
 
 /datum/controller/subsystem/ticker/proc/transfer_characters()
 	var/list/livings = list()
@@ -454,18 +511,17 @@ SUBSYSTEM_DEF(ticker)
 		var/mob/living = player.transfer_character()
 		if(living)
 			qdel(player)
-			living.notransform = TRUE
+			ADD_TRAIT(living, TRAIT_NO_TRANSFORM, SS_TICKER_TRAIT)
 			if(living.client)
 				var/atom/movable/screen/splash/S = new(null, living.client, TRUE)
-				S.Fade(TRUE)
+				S.fade(TRUE)
 			livings += living
 	if(livings.len)
-		addtimer(CALLBACK(src, PROC_REF(release_characters), livings), 30, TIMER_CLIENT_TIME)
+		addtimer(CALLBACK(src, PROC_REF(release_characters), livings), 3 SECONDS, TIMER_CLIENT_TIME)
 
 /datum/controller/subsystem/ticker/proc/release_characters(list/livings)
-	for(var/I in livings)
-		var/mob/living/L = I
-		L.notransform = FALSE
+	for(var/mob/living/living_mob as anything in livings)
+		REMOVE_TRAIT(living_mob, TRAIT_NO_TRANSFORM, SS_TICKER_TRAIT)
 
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()
 	var/m
@@ -517,7 +573,7 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/check_respawn_availabilities()
 	for(var/mob/dead/observer/observer in GLOB.player_list)
-		if(observer.check_respawn_delay() && !observer.respawn_notified)
+		if(observer.check_respawn_delay() && !observer.respawn_notified && observer.can_respawn)
 			observer.respawn_notified = TRUE
 			observer.respawn_available = TRUE
 
@@ -636,9 +692,9 @@ SUBSYSTEM_DEF(ticker)
 	round_credits += "<center><h1>The Glorious Command Staff:</h1>"
 	len_before_addition = round_credits.len
 	for(var/mob/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
+		if(player.mind && (player.mind.assigned_role.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND))
 			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
-			round_credits += "<center><h2>[player] as the [player.mind.assigned_role][custom_title_holder]</h2>"
+			round_credits += "<center><h2>[player] as the [player.mind.assigned_role.title][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>A serious bureaucratic error has occurred!</h2>", "<center><h2>No one was in charge of the crew!</h2>")
 	round_credits += "<br>"
@@ -647,8 +703,8 @@ SUBSYSTEM_DEF(ticker)
 	round_credits += "<center><h1>The Silicon \"Intelligences\":</h1>"
 	len_before_addition = round_credits.len
 	for(var/mob/living/silicon/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON)))
-			round_credits += "<center><h2>[player] as the [player.mind.assigned_role]</h2>"
+		if(player.mind && (player.mind.assigned_role.departments_bitflags & DEPARTMENT_BITFLAG_SILICON))
+			round_credits += "<center><h2>[player] as the [player.mind.assigned_role.title]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>[station_name()] had no silicon helpers!</h2>", "<center><h2>Not a single door was opened today!</h2>")
 	round_credits += "<br>"
@@ -657,9 +713,9 @@ SUBSYSTEM_DEF(ticker)
 	round_credits += "<center><h1>The Brave Security Officers:</h1>"
 	len_before_addition = round_credits.len
 	for(var/mob/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY)))
+		if(player.mind && (player.mind.assigned_role.departments_bitflags & DEPARTMENT_BITFLAG_SECURITY))
 			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
-			round_credits += "<center><h2>[player] as the [player.mind.assigned_role][custom_title_holder]</h2>"
+			round_credits += "<center><h2>[player] as the [player.mind.assigned_role.title][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>[station_name()] has fallen to Communism!</h2>", "<center><h2>No one was there to protect the crew!</h2>")
 	round_credits += "<br>"
@@ -668,9 +724,9 @@ SUBSYSTEM_DEF(ticker)
 	round_credits += "<center><h1>The Wise Medical Department:</h1>"
 	len_before_addition = round_credits.len
 	for(var/mob/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL)))
+		if(player.mind && (player.mind.assigned_role.departments_bitflags & DEPARTMENT_BITFLAG_MEDICAL))
 			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
-			round_credits += "<center><h2>[player] as the [player.mind.assigned_role][custom_title_holder]</h2>"
+			round_credits += "<center><h2>[player] as the [player.mind.assigned_role.title][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>Healthcare was not included!</h2>", "<center><h2>There were no doctors today!</h2>")
 	round_credits += "<br>"
@@ -679,9 +735,9 @@ SUBSYSTEM_DEF(ticker)
 	round_credits += "<center><h1>The Industrious Engineers:</h1>"
 	len_before_addition = round_credits.len
 	for(var/mob/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING)))
+		if(player.mind && (player.mind.assigned_role.departments_bitflags & DEPARTMENT_BITFLAG_ENGINEERING))
 			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
-			round_credits += "<center><h2>[player] as the [player.mind.assigned_role][custom_title_holder]</h2>"
+			round_credits += "<center><h2>[player] as the [player.mind.assigned_role.title][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>[station_name()] probably did not last long!</h2>", "<center><h2>No one was holding the station together!</h2>")
 	round_credits += "<br>"
@@ -690,9 +746,9 @@ SUBSYSTEM_DEF(ticker)
 	round_credits += "<center><h1>The Inventive Science Employees:</h1>"
 	len_before_addition = round_credits.len
 	for(var/mob/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE)))
+		if(player.mind && (player.mind.assigned_role.departments_bitflags & DEPARTMENT_BITFLAG_SCIENCE))
 			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
-			round_credits += "<center><h2>[player] as the [player.mind.assigned_role][custom_title_holder]</h2>"
+			round_credits += "<center><h2>[player] as the [player.mind.assigned_role.title][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>No one was doing \"science\" today!</h2>", "<center><h2>Everyone probably made it out alright, then!</h2>")
 	round_credits += "<br>"
@@ -701,9 +757,9 @@ SUBSYSTEM_DEF(ticker)
 	round_credits += "<center><h1>The Rugged Cargo Crew:</h1>"
 	len_before_addition = round_credits.len
 	for(var/mob/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO)))
+		if(player.mind && (player.mind.assigned_role.departments_bitflags & DEPARTMENT_BITFLAG_CARGO))
 			custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
-			round_credits += "<center><h2>[player] as the [player.mind.assigned_role][custom_title_holder]</h2>"
+			round_credits += "<center><h2>[player] as the [player.mind.assigned_role.title][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>The station was freed from paperwork!</h2>", "<center><h2>No one worked in cargo today!</h2>")
 	round_credits += "<br>"
@@ -713,12 +769,12 @@ SUBSYSTEM_DEF(ticker)
 	round_credits += "<center><h1>The Hardy Civilians:</h1>"
 	len_before_addition = round_credits.len
 	for(var/mob/player in GLOB.mob_list) // gimmicks shouldn't be here, but let's not make the code dirty
-		if(player.mind && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN)))
-			if(player.mind.assigned_role == JOB_NAME_ASSISTANT)
+		if(player.mind && (player.mind.assigned_role.departments_bitflags & DEPARTMENT_BITFLAG_CIVILIAN))
+			if(is_assistant_job(player.mind.assigned_role))
 				human_garbage += player.mind
 			else
 				custom_title_holder = get_custom_title_from_id(player.mind, newline=TRUE)
-				round_credits += "<center><h2>[player] as the [player.mind.assigned_role][custom_title_holder]</h2>"
+				round_credits += "<center><h2>[player] as the [player.mind.assigned_role.title][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>Everyone was stuck in traffic this morning!</h2>", "<center><h2>No civilians made it to work!</h2>")
 	round_credits += "<br>"
@@ -751,16 +807,31 @@ SUBSYSTEM_DEF(ticker)
 			//Break chain since this has a sleep input in it
 			addtimer(CALLBACK(player, TYPE_PROC_REF(/mob/dead/new_player/authenticated, make_me_an_observer)), 1)
 
-/datum/controller/subsystem/ticker/proc/SetRoundEndSound(the_sound)
+/datum/controller/subsystem/ticker/proc/SetRoundEndSound(the_sound, duration)
 	set waitfor = FALSE
 	round_end_sound_sent = FALSE
 	round_end_sound = fcopy_rsc(the_sound)
+	round_end_sound_duration = duration
+	if(round_end_sound_timer)// Replace any existing timer with a new one
+		var/time_left = reboot_delay - (world.time - start_wait)
+		if(time_left > round_end_sound_duration)
+			deltimer(round_end_sound_timer)
+			round_end_sound_timer = addtimer(CALLBACK(src, PROC_REF(PlayRoundEndSound)), time_left - round_end_sound_duration, TIMER_STOPPABLE)
+		else // Not enough time, play it anyway
+			deltimer(round_end_sound_timer)
+			round_end_sound_timer = null
+			PlayRoundEndSound()
+
 	for(var/thing in GLOB.clients_unsafe)
 		var/client/C = thing
-		if (!C)
+		if(!C)
 			continue
 		C.Export("##action=load_rsc", round_end_sound)
 	round_end_sound_sent = TRUE
+
+/datum/controller/subsystem/ticker/proc/PlayRoundEndSound()
+	if(!delay_end)
+		SEND_SOUND(world, sound(round_end_sound))
 
 /datum/controller/subsystem/ticker/proc/Reboot(reason, end_string, delay)
 	set waitfor = FALSE
@@ -777,13 +848,30 @@ SUBSYSTEM_DEF(ticker)
 
 	to_chat(world, span_boldannounce("Rebooting World in [DisplayTimeText(delay)]. [reason]"))
 
-	var/start_wait = world.time
+	start_wait = world.time
+	reboot_delay = delay
 	UNTIL(round_end_sound_sent || (world.time - start_wait) > (delay * 2))	//don't wait forever
-	sleep(delay - (world.time - start_wait))
 
-	if(delay_end && !skip_delay)
-		to_chat(world, span_boldannounce("Reboot was cancelled by an admin."))
-		return
+	if(!round_end_sound)
+		var/list/tracks = flist("sound/roundend/")
+		if(tracks.len)
+			var/selected_sound_name = pick(tracks)
+			round_end_sound = "sound/roundend/[selected_sound_name]"
+			// Extract sound duration from file name
+			round_end_sound_duration = text2num(splittext(selected_sound_name, "+")[2]) * 1 SECONDS
+
+			if(delay > round_end_sound_duration) // If there's time, play the round-end sound before rebooting
+				round_end_sound_timer = addtimer(CALLBACK(src, PROC_REF(PlayRoundEndSound)), delay - round_end_sound_duration, TIMER_STOPPABLE)
+	else // Admin added sound
+		if(delay > round_end_sound_duration)
+			round_end_sound_timer = addtimer(CALLBACK(src, PROC_REF(PlayRoundEndSound)), delay - round_end_sound_duration, TIMER_STOPPABLE)
+		else // Not enough time, play it anyway
+			PlayRoundEndSound()
+
+	reboot_timer = addtimer(CALLBACK(src, PROC_REF(reboot_callback), reason, end_string), delay - (world.time - start_wait), TIMER_STOPPABLE)
+
+/// Sends a few messages and then reboots the world
+/datum/controller/subsystem/ticker/proc/reboot_callback(reason, end_string)
 	if(end_string)
 		end_state = end_string
 
@@ -798,16 +886,26 @@ SUBSYSTEM_DEF(ticker)
 
 	world.Reboot()
 
+/**
+ * Deletes the current reboot timer and nulls the var
+ *
+ * Arguments:
+ * * user - the user that cancelled the reboot, may be null
+ */
+/datum/controller/subsystem/ticker/proc/cancel_reboot(mob/user)
+	if(!reboot_timer)
+		to_chat(user, span_warning("There is no pending reboot!"))
+		return FALSE
+	to_chat(world, span_boldannounce("An admin has delayed the round end."))
+	deltimer(reboot_timer)
+	reboot_timer = null
+	return TRUE
+
 /datum/controller/subsystem/ticker/Shutdown()
 	gather_newscaster() //called here so we ensure the log is created even upon admin reboot
 	save_admin_data()
 	update_everything_flag_in_db()
-	if(!round_end_sound)
-		var/list/tracks = flist("sound/roundend/")
-		if(tracks.len)
-			round_end_sound = "sound/roundend/[pick(tracks)]"
-
-	SEND_SOUND(world, sound(round_end_sound))
 	rustg_file_append(login_music, "data/last_round_lobby_music.txt")
 
 #undef ROUND_START_MUSIC_LIST
+#undef SS_TICKER_TRAIT

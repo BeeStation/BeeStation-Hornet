@@ -18,11 +18,6 @@
 		set_light(lon_range)
 		return
 
-	if(update_state & UPSTATE_BLUESCREEN)
-		set_light_color(LIGHT_COLOR_BLUE)
-		set_light(lon_range)
-		return
-
 	set_light(0)
 
 /obj/machinery/power/apc/update_icon_state()
@@ -34,13 +29,10 @@
 		if(update_state & UPSTATE_OPENED1)
 			icon_state = (update_state & (UPSTATE_MAINT|UPSTATE_BROKE)) ? "apcmaint" : basestate
 		else if(update_state & UPSTATE_OPENED2)
-			icon_state = "[basestate][((update_state & UPSTATE_BROKE) || malfhack) ? "-b" : null]-nocover"
+			icon_state = "[basestate][(update_state & UPSTATE_BROKE) ? "-b" : null]-nocover"
 		return ..()
 	if(update_state & UPSTATE_BROKE)
 		icon_state = "apc-b"
-		return ..()
-	if(update_state & UPSTATE_BLUESCREEN)
-		icon_state = "apcemag"
 		return ..()
 	if(update_state & UPSTATE_WIREEXP)
 		icon_state = "apcewires"
@@ -90,8 +82,6 @@
 		if(cell)
 			new_update_state |= UPSTATE_CELL_IN
 
-	else if((obj_flags & EMAGGED) || malfai)
-		new_update_state |= UPSTATE_BLUESCREEN
 	else if(panel_open)
 		new_update_state |= UPSTATE_WIREEXP
 
@@ -120,3 +110,21 @@
 // Used in process so it doesn't update the icon too much
 /obj/machinery/power/apc/proc/queue_icon_update()
 	icon_update_needed = TRUE
+
+// Shows a dark-blue interface for a moment. Shouldn't appear on cameras.
+/obj/machinery/power/apc/proc/flicker_hacked_icon()
+	COOLDOWN_START(src, last_hacked_flicker, rand(5 SECONDS, 10 SECONDS))
+	var/image/hacker_image = image(icon = 'icons/obj/power.dmi', loc = src, icon_state = "apcemag", layer = FLOAT_LAYER)
+	var/list/clients_to_show = list()
+	/// We use the mobs that are directly visible to our turf so that mobs who can see through
+	/// walls or who are on cameras are not able to see the effect.
+	for(var/mob/living/viewer in view(loc))
+		if(viewer.client)
+			clients_to_show += viewer.client
+	animate(hacker_image, time = 1 SECONDS)
+	animate(time = 0.3 SECONDS, alpha = 0, easing = JUMP_EASING)
+	animate(time = 0.3 SECONDS, alpha = 255, easing = JUMP_EASING)
+	animate(time = 0.1 SECONDS, alpha = 0, easing = JUMP_EASING)
+	animate(time = 0.3 SECONDS, alpha = 255, easing = JUMP_EASING)
+	animate(time = 0.1 SECONDS, alpha = 0, easing = JUMP_EASING)
+	flick_overlay(hacker_image, clients_to_show, 2 SECONDS)

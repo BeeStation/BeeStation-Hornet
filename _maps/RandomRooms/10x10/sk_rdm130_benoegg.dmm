@@ -5,7 +5,7 @@
 /area/template_noop)
 "b" = (
 /obj/structure/alien/weeds,
-/obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner,
+/obj/effect/spawner/random/medical/two_percent_xeno_egg_spawner,
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
@@ -31,12 +31,12 @@
 /area/template_noop)
 "h" = (
 /obj/structure/alien/weeds,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
@@ -53,18 +53,18 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "m" = (
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (
 /obj/structure/alien/weeds,
-/obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner,
+/obj/effect/spawner/random/medical/two_percent_xeno_egg_spawner,
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/template_noop)
 "o" = (
 /obj/structure/alien/weeds,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -79,7 +79,7 @@
 /obj/structure/alien/weeds,
 /obj/effect/mob_spawn/facehugger,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
 "r" = (
@@ -93,9 +93,9 @@
 "s" = (
 /obj/structure/alien/weeds,
 /obj/effect/mob_spawn/facehugger,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
 "t" = (

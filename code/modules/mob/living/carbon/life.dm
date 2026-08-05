@@ -1,7 +1,5 @@
 /mob/living/carbon/Life(delta_time = SSMOBS_DT, times_fired)
-	set invisibility = 0
-
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	if(damageoverlaytemp)
@@ -12,15 +10,8 @@
 		. = ..()
 	else
 		//Reagent processing needs to come before breathing, to prevent edge cases.
-		if(stat != DEAD)
-			for(var/V in internal_organs)
-				var/obj/item/organ/O = V
-				O.on_life(delta_time, times_fired)
-		else
-			if(reagents && !reagents.has_reagent(/datum/reagent/toxin/formaldehyde, 1)) // No organ decay if the body contains formaldehyde.
-				for(var/V in internal_organs)
-					var/obj/item/organ/O = V
-					O.on_death(delta_time, times_fired) //Needed so organs decay while inside the body.
+		//handle_dead_metabolization(delta_time, times_fired) //Dead metabolization first since it can modify life metabolization.
+		handle_organs(delta_time, times_fired)
 
 		. = ..()
 		if(QDELETED(src))
@@ -35,7 +26,7 @@
 				BT.on_life(delta_time, times_fired)
 
 		if(stat != DEAD && has_dna())
-			for(var/datum/mutation/HM as() in dna.mutations)
+			for(var/datum/mutation/HM as anything in dna.mutations)
 				HM.on_life(delta_time, times_fired)
 
 	if(stat == DEAD)
@@ -46,6 +37,10 @@
 			update_stamina() //needs to go before updatehealth to remove stamcrit
 			updatehealth()
 
+	if(. && mind) //. == not dead
+		for(var/key in mind.addiction_points)
+			var/datum/addiction/addiction = SSaddiction.all_addictions[key]
+			addiction.process_addiction(src, delta_time, times_fired)
 	if(stat != DEAD)
 		return TRUE
 
@@ -72,7 +67,7 @@
 		else
 			SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "suffocation")
 	else
-		if(istype(loc, /obj/))
+		if(isobj(loc))
 			var/obj/location_as_object = loc
 			location_as_object.handle_internal_lifeform(src,0)
 
@@ -100,7 +95,7 @@
 		losebreath--
 		if(prob(10))
 			emote("gasp")
-		if(istype(loc, /obj/))
+		if(isobj(loc))
 			var/obj/loc_as_obj = loc
 			loc_as_obj.handle_internal_lifeform(src,0)
 	else
@@ -139,6 +134,8 @@
 //Third link in a breath chain, calls handle_breath_temperature()
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
+		failed_last_breath = FALSE
+		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 		return
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		return
@@ -154,8 +151,9 @@
 		adjustOxyLoss(1)
 
 		failed_last_breath = 1
-		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
+		throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 		return 0
+	var/list/cached_moles = breath.moles
 
 	var/safe_oxy_min = 16
 	var/safe_co2_max = 10
@@ -164,10 +162,10 @@
 	var/SA_sleep_min = 5
 	var/oxygen_used = 0
 	var/moles = breath.total_moles()
-	var/breath_pressure = (moles*R_IDEAL_GAS_EQUATION*breath.return_temperature())/BREATH_VOLUME
-	var/O2_partialpressure = ((GET_MOLES(/datum/gas/oxygen, breath)/moles)*breath_pressure) + (((GET_MOLES(/datum/gas/pluoxium, breath)*8)/moles)*breath_pressure)
-	var/Toxins_partialpressure = (GET_MOLES(/datum/gas/plasma, breath)/moles)*breath_pressure
-	var/CO2_partialpressure = (GET_MOLES(/datum/gas/carbon_dioxide, breath)/moles)*breath_pressure
+	var/breath_pressure = (moles * R_IDEAL_GAS_EQUATION * breath.return_temperature()) / BREATH_VOLUME
+	var/O2_partialpressure = ((cached_moles[/datum/gas/oxygen] / moles) * breath_pressure) + (((cached_moles[/datum/gas/pluoxium] * 8) / moles) * breath_pressure)
+	var/Toxins_partialpressure = (cached_moles[/datum/gas/plasma] / moles) * breath_pressure
+	var/CO2_partialpressure = (cached_moles[/datum/gas/carbon_dioxide] / moles) * breath_pressure
 
 
 	//OXYGEN
@@ -178,21 +176,23 @@
 			var/ratio = 1 - O2_partialpressure/safe_oxy_min
 			adjustOxyLoss(min(5*ratio, 3))
 			failed_last_breath = 1
-			oxygen_used = GET_MOLES(/datum/gas/oxygen, breath)*ratio
+			oxygen_used = cached_moles[/datum/gas/oxygen] * ratio
 		else
 			adjustOxyLoss(3)
 			failed_last_breath = 1
-		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
+		throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
 		failed_last_breath = 0
 		if(health >= crit_threshold)
 			adjustOxyLoss(-5)
-		oxygen_used = GET_MOLES(/datum/gas/oxygen, breath)
-		clear_alert("not_enough_oxy")
+		oxygen_used = cached_moles[/datum/gas/oxygen]
+		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 
-	ADD_MOLES(/datum/gas/carbon_dioxide, breath, oxygen_used)
-	REMOVE_MOLES(/datum/gas/oxygen, breath, oxygen_used)
+	breath.adjust_multiple_gases(list(
+		/datum/gas/carbon_dioxide = oxygen_used,
+		/datum/gas/oxygen = -oxygen_used,
+	))
 
 	//CARBON DIOXIDE
 	if(CO2_partialpressure > safe_co2_max)
@@ -211,15 +211,15 @@
 
 	//TOXINS/PLASMA
 	if(Toxins_partialpressure > safe_tox_max)
-		var/ratio = (GET_MOLES(/datum/gas/plasma, breath)/safe_tox_max) * 10
+		var/ratio = (cached_moles[/datum/gas/plasma] / safe_tox_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
-		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_plas)
+		throw_alert(ALERT_TOO_MUCH_PLASMA, /atom/movable/screen/alert/too_much_plas)
 	else
-		clear_alert("too_much_tox")
+		clear_alert(ALERT_TOO_MUCH_PLASMA)
 
 	//NITROUS OXIDE
-	if(GET_MOLES(/datum/gas/nitrous_oxide, breath))
-		var/SA_partialpressure = (GET_MOLES(/datum/gas/nitrous_oxide, breath)/breath.total_moles())*breath_pressure
+	if(cached_moles[/datum/gas/nitrous_oxide])
+		var/SA_partialpressure = (cached_moles[/datum/gas/nitrous_oxide] / breath.total_moles()) * breath_pressure
 		if(SA_partialpressure > SA_para_min)
 			Unconscious(60)
 			if(SA_partialpressure > SA_sleep_min)
@@ -232,16 +232,16 @@
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "chemical_euphoria")
 
 	//BZ (Facepunch port of their Agent B)
-	if(GET_MOLES(/datum/gas/bz, breath))
-		var/bz_partialpressure = (GET_MOLES(/datum/gas/bz, breath)/breath.total_moles())*breath_pressure
+	if(cached_moles[/datum/gas/bz])
+		var/bz_partialpressure = (cached_moles[/datum/gas/bz] / breath.total_moles()) * breath_pressure
 		if(bz_partialpressure > 1)
 			adjust_hallucinations(20)
 		else if(bz_partialpressure > 0.01)
 			adjust_hallucinations(10 SECONDS)
 
 	//NITRIUM
-	if(GET_MOLES(/datum/gas/nitrium, breath))
-		var/nitrium_partialpressure = (GET_MOLES(/datum/gas/nitrium, breath)/breath.total_moles())*breath_pressure
+	if(cached_moles[/datum/gas/nitrium])
+		var/nitrium_partialpressure = (cached_moles[/datum/gas/nitrium] / breath.total_moles()) * breath_pressure
 		if(nitrium_partialpressure > 0.5)
 			adjustFireLoss(nitrium_partialpressure * 0.15)
 		if(nitrium_partialpressure > 5)
@@ -290,7 +290,7 @@
 	var/force_heal = 0
 	//Find how many bodyparts we have with stamina damage
 	if(stam_regen)
-		for(var/obj/item/bodypart/BP as() in bodyparts)
+		for(var/obj/item/bodypart/BP as anything in bodyparts)
 			if(BP.stamina_dam >= DAMAGE_PRECISION)
 				bodyparts_with_stam++
 				total_stamina_loss += BP.stamina_dam * BP.stam_damage_coeff
@@ -300,9 +300,30 @@
 	//Incraesed stamina healing when above 50 stamloss, up to 2x healing rate when at 100 stamloss.
 	stam_heal_multiplier = clamp(total_stamina_loss / 50, 1, 2)
 	//Heal bodypart stamina damage
-	for(var/obj/item/bodypart/BP as() in bodyparts)
+	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		if(BP.needs_processing)
 			. |= BP.on_life(delta_time, times_fired, stam_regen = (force_heal + ((stam_regen * stam_heal * stam_heal_multiplier) / max(bodyparts_with_stam, 1))))
+
+/mob/living/carbon/proc/handle_organs(delta_time, times_fired)
+	if(stat == DEAD)
+		if(reagents && reagents.has_reagent(/datum/reagent/toxin/formaldehyde, 1)) // No organ decay if the body contains formaldehyde.
+			return
+		for(var/obj/item/organ/organ in internal_organs)
+			// On-death is where organ decay is handled
+			if(organ?.owner) // organ + owner can be null due to reagent metabolization causing organ shuffling
+				organ.on_death(delta_time, times_fired)
+			// We need to re-check the stat every organ, as one of our others may have revived us
+			if(stat != DEAD)
+				break
+		return
+
+	// NOTE: organs_slot is sorted by GLOB.organ_process_order on insertion
+	for(var/slot in internal_organs_slot)
+		// We don't use get_organ_slot here because we know we have the organ we want, since we're iterating the list containing em already
+		// This code is hot enough that it's just not worth the time
+		var/obj/item/organ/organ = internal_organs_slot[slot]
+		if(organ?.owner) // This exist mostly because reagent metabolization can cause organ reshuffling
+			organ.on_life(delta_time, times_fired)
 
 /mob/living/carbon/handle_diseases(delta_time, times_fired)
 	for(var/thing in diseases)
@@ -347,178 +368,9 @@
 				dna.temporary_mutations.Remove(mut)
 				continue
 
-	for(var/datum/mutation/HM as() in dna.mutations)
+	for(var/datum/mutation/HM as anything in dna.mutations)
 		if(HM?.timeout)
 			dna.remove_mutation(HM.type)
-
-
-/*
-Alcohol Poisoning Chart
-Note that all higher effects of alcohol poisoning will inherit effects for smaller amounts (i.e. light poisoning inherts from slight poisoning)
-In addition, severe effects won't always trigger unless the drink is poisonously strong
-All effects don't start immediately, but rather get worse over time; the rate is affected by the imbiber's alcohol tolerance
-
-0: Non-alcoholic
-1-10: Barely classifiable as alcohol - occasional slurring
-11-20: Slight alcohol content - slurring
-21-30: Below average - imbiber begins to look slightly drunk
-31-40: Just below average - no unique effects
-41-50: Average - mild disorientation, imbiber begins to look drunk
-51-60: Just above average - disorientation, vomiting, imbiber begins to look heavily drunk
-61-70: Above average - small chance of blurry vision, imbiber begins to look smashed
-71-80: High alcohol content - blurry vision, imbiber completely shitfaced
-81-90: Extremely high alcohol content - light brain damage, passing out
-91-100: Dangerously toxic - swift death
-*/
-#define BALLMER_POINTS 5
-GLOBAL_LIST_INIT(ballmer_good_msg, list("Hey guys, what if we rolled out a bluespace wiring system so mice can't destroy the powergrid anymore?",
-										"Hear me out here. What if, and this is just a theory, we made R&D controllable from our PDAs?",
-										"I'm thinking we should roll out a git repository for our research under the AGPLv3 license so that we can share it among the other stations freely.",
-										"I dunno about you guys, but IDs and PDAs being separate is clunky as fuck. Maybe we should merge them into a chip in our arms? That way they can't be stolen easily.",
-										"Why the fuck aren't we just making every pair of shoes into galoshes? We have the technology."))
-GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put a webserver that's automatically turned on with default admin passwords into every PDA?",
-												"So like, you know how we separate our codebase from the master copy that runs on our consumer boxes? What if we merged the two and undid the separation between codebase and server?",
-												"Dude, radical idea: H.O.N.K mechs but with no bananium required.",
-												"Best idea ever: Disposal pipes instead of hallways.",
-												"We should store bank records in a webscale datastore, like /dev/null.",
-												"You ever wonder if /dev/null supports sharding?",
-												"What if we use a language that was written on a napkin and created over 1 weekend for all of our servers?"))
-
-//this updates all special effects: stun, sleeping, knockdown, druggy, stuttering, etc..
-//this updates all special effects: stun, sleeping, knockdown, druggy, stuttering, etc..
-/mob/living/carbon/handle_status_effects(delta_time, times_fired)
-	..()
-
-	var/restingpwr = 0.5 + 2 * resting
-
-	//Dizziness
-	if(dizziness)
-		var/client/C = client
-		var/pixel_x_diff = 0
-		var/pixel_y_diff = 0
-		var/temp
-		var/saved_dizz = dizziness
-		if(C)
-			var/oldsrc = src
-			var/amplitude = dizziness*(sin(dizziness * world.time) + 1) // This shit is annoying at high strength
-			src = null
-			spawn(0)
-				if(C)
-					temp = amplitude * sin(saved_dizz * world.time)
-					pixel_x_diff += temp
-					C.pixel_x += temp
-					temp = amplitude * cos(saved_dizz * world.time)
-					pixel_y_diff += temp
-					C.pixel_y += temp
-					sleep(3)
-					if(C)
-						temp = amplitude * sin(saved_dizz * world.time)
-						pixel_x_diff += temp
-						C.pixel_x += temp
-						temp = amplitude * cos(saved_dizz * world.time)
-						pixel_y_diff += temp
-						C.pixel_y += temp
-					sleep(3)
-					if(C)
-						C.pixel_x -= pixel_x_diff
-						C.pixel_y -= pixel_y_diff
-			src = oldsrc
-		dizziness = max(dizziness - (restingpwr * delta_time), 0)
-
-	if(drowsyness)
-		drowsyness = max(drowsyness - (restingpwr * delta_time), 0)
-		blur_eyes(1 * delta_time)
-		if(DT_PROB(2.5, delta_time))
-			AdjustSleeping(100)
-			Unconscious(100)
-
-	if(stuttering)
-		stuttering = max(stuttering - (0.5 * delta_time), 0)
-
-	if(slurring)
-		slurring = max(slurring - (0.5 * delta_time),0)
-
-	if(cultslurring)
-		cultslurring = max(cultslurring - (0.5 * delta_time), 0)
-
-	if(clockslurring)
-		clockslurring = max(clockslurring - (0.5 * delta_time), 0)
-
-	if(silent)
-		silent = max(silent - (0.5 * delta_time), 0)
-
-	if(druggy)
-		adjust_drugginess(-0.5 * delta_time)
-
-	if(drunkenness)
-		drunkenness = max(drunkenness - ((0.005 + (drunkenness * 0.02)) * delta_time), 0)
-		if(drunkenness >= 6)
-			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "drunk", /datum/mood_event/drunk)
-			if(DT_PROB(16, delta_time))
-				slurring += 2
-			adjust_jitter(-1.5 * delta_time)
-
-			throw_alert("drunk", /atom/movable/screen/alert/drunk)
-		else
-			SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "drunk")
-			sound_environment_override = SOUND_ENVIRONMENT_NONE
-			clear_alert("drunk")
-
-		if(drunkenness >= 11 && slurring < 5)
-			slurring += 0.6 * delta_time
-
-		if(mind && (mind.assigned_role == JOB_NAME_SCIENTIST || mind.assigned_role == JOB_NAME_RESEARCHDIRECTOR))
-			if(SSresearch.science_tech)
-				if(drunkenness >= 12.9 && drunkenness <= 13.8)
-					drunkenness = round(drunkenness, 0.01)
-					var/ballmer_percent = 0
-					if(drunkenness == 13.35) // why run math if I dont have to
-						ballmer_percent = 1
-					else
-						ballmer_percent = (-abs(drunkenness - 13.35) / 0.9) + 1
-					if(DT_PROB(2.5, delta_time))
-						say(pick(GLOB.ballmer_good_msg), forced = "ballmer")
-					SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_GENERIC = BALLMER_POINTS * ballmer_percent))
-				if(drunkenness > 26) // by this point you're into windows ME territory
-					if(DT_PROB(2.5, delta_time))
-						SSresearch.science_tech.remove_point_list(list(TECHWEB_POINT_TYPE_GENERIC = BALLMER_POINTS))
-						say(pick(GLOB.ballmer_windows_me_msg), forced = "ballmer")
-
-		if(drunkenness >= 41)
-			if(DT_PROB(16, delta_time))
-				confused += 2
-			Dizzy(5 * delta_time)
-
-		if(drunkenness >= 51)
-			if(DT_PROB(1.5, delta_time))
-				confused += 15
-				vomit() // vomiting clears toxloss, consider this a blessing
-			Dizzy(12.5 * delta_time)
-
-		if(drunkenness >= 61)
-			if(DT_PROB(30, delta_time))
-				blur_eyes(5)
-
-		if(drunkenness >= 71)
-			blur_eyes(2.5 * delta_time)
-
-		if(drunkenness >= 81)
-			adjustToxLoss(0.5 * delta_time)
-			if(!stat && DT_PROB(2.5, delta_time))
-				to_chat(src, span_warning("Maybe you should lie down for a bit."))
-
-		if(drunkenness >= 91)
-			adjustToxLoss(0.5 * delta_time)
-			adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2 * delta_time)
-			if(DT_PROB(10, delta_time) && !stat)
-				if(SSshuttle.emergency.mode == SHUTTLE_DOCKED && is_station_level(z)) //QoL mainly
-					to_chat(src, span_warning("You're so tired, but you can't miss that shuttle."))
-				else
-					to_chat(src, span_warning("Just a quick nap."))
-					Sleeping(900)
-
-		if(drunkenness >= 101)
-			adjustToxLoss(1 * delta_time) //Let's be honest you shouldn't be alive by now
 
 /// Base carbon environment handler, adds natural stabilization
 /mob/living/carbon/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)
@@ -685,7 +537,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 	if(!needs_heart())
 		return FALSE
 	var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
-	if(!heart || (heart.organ_flags & ORGAN_SYNTHETIC))
+	if(!heart || IS_ROBOTIC_ORGAN(heart))
 		return FALSE
 	return TRUE
 
@@ -720,5 +572,3 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		return
 
 	heart.beating = !status
-
-#undef BALLMER_POINTS

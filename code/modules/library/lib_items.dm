@@ -115,11 +115,10 @@
 				to_chat(user, span_notice("You empty \the [I] into \the [src]."))
 				update_appearance()
 			else if(istype(I, /obj/item/pen))
-				if(!user.is_literate())
-					to_chat(user, span_notice("You scribble illegibly on the side of [src]!"))
+				if(!user.canUseTopic(src, BE_CLOSE) || !user.can_write(I))
 					return
 				var/newname = stripped_input(user, "What would you like to title this bookshelf?")
-				if(!user.canUseTopic(src, BE_CLOSE))
+				if(!user.canUseTopic(src, BE_CLOSE) || !user.can_write(I))
 					return
 				if(!newname)
 					return
@@ -235,8 +234,13 @@
 	var/title			//The real name of the book.
 	var/window_size = null // Specific window size for the book, i.e: "1920x1080", Size x Width
 
+	var/attackby_skip // when TRUE, this will skip 'book/attackby()', so that it can call parent directly.
+
 
 /obj/item/book/attack_self(mob/user)
+	if(user.is_blind())
+		to_chat(user, span_warning("You are blind and can't read anything!"))
+		return
 	if(!user.can_read(src))
 		return
 	user.visible_message(span_notice("[user] opens a book titled \"[title]\" and begins reading intently."))
@@ -252,6 +256,8 @@
 
 
 /obj/item/book/attackby(obj/item/I, mob/user, params)
+	if(attackby_skip) // some books are not for this behaviour
+		return ..()
 	if(istype(I, /obj/item/pen))
 		if(user.is_blind())
 			to_chat(user, span_warning(" As you are trying to write on the book, you suddenly feel very stupid!"))

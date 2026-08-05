@@ -4,175 +4,175 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "b" = (
 /obj/machinery/door/poddoor/shutters/preopen,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "c" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
 /obj/structure/window/reinforced/tinted/spawner/directional/west,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "f" = (
 /obj/structure/shuttle/engine/propulsion/burst/right{
 	dir = 4
 	},
 /turf/closed/wall/mineral/plastitanium,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "g" = (
 /obj/machinery/computer{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "h" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "i" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "l" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "m" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "n" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "p" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "q" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "r" = (
 /obj/structure/rack,
 /turf/open/floor/mineral/titanium,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "s" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/mineral/titanium,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "t" = (
 /obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "v" = (
 /obj/structure/shuttle/engine/propulsion/burst/left{
 	dir = 4
 	},
 /turf/closed/wall/mineral/plastitanium,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "w" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "y" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "A" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "B" = (
 /turf/closed/wall/mineral/plastitanium,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "C" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "D" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "E" = (
 /turf/open/floor/mineral/titanium,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "G" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "H" = (
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "I" = (
 /obj/machinery/door/airlock/mining,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "J" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "M" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "P" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Q" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "S" = (
 /turf/open/floor/engine,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "T" = (
 /obj/structure/shuttle/engine/propulsion/burst/cargo{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "U" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "V" = (
 /turf/open/floor/iron/dark,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "X" = (
 /obj/machinery/door/poddoor/shutters/preopen,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/titanium,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Y" = (
 /turf/closed/wall/mineral/titanium,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 M

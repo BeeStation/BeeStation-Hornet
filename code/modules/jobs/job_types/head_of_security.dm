@@ -1,18 +1,20 @@
 /datum/job/head_of_security
 	title = JOB_NAME_HEADOFSECURITY
 	description = "Oversee the members of security and ensure they follow Space Law. Deputize other crew members when the station is in need of additional protection."
-	department_for_prefs = DEPT_NAME_SECURITY
+	department_for_prefs = DEPARTMENT_NAME_SECURITY
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list(RADIO_CHANNEL_SECURITY)
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffdddd"
-	req_admin_notify = 1
+	req_admin_notify = TRUE
 	minimal_player_age = 14
 	exp_requirements = 1200
-	exp_type = EXP_TYPE_SECURITY
+	exp_required_type = EXP_TYPE_CREW
+	exp_required_type_department = EXP_TYPE_SECURITY
+	exp_granted_type = EXP_TYPE_COMMAND
 	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/head_of_security
@@ -40,13 +42,18 @@
 	)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_SEC | DEPT_BITFLAG_COM
+	departments_list = list(
+		/datum/department_group/security,
+		/datum/department_group/command,
+		)
 	bank_account_department = ACCOUNT_SEC_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
 		ACCOUNT_SEC_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_SECURITY
+
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "Guard Leader"
 
 	species_outfits = list(
@@ -54,10 +61,20 @@
 	)
 
 	minimal_lightup_areas = list(
-		/area/crew_quarters/heads/hos,
-		/area/security/detectives_office,
-		/area/security/warden
+		/area/station/command/heads_quarters/hos,
+		/area/station/security/detectives_office,
+		/area/station/security/warden
 	)
+
+	manuscript_jobs = list(
+		JOB_NAME_HEADOFSECURITY,
+		JOB_NAME_WARDEN,
+		JOB_NAME_DETECTIVE,
+		JOB_NAME_SECURITYOFFICER
+	)
+
+/datum/job/head_of_security/get_captaincy_announcement(mob/living/captain)
+	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
 
 /datum/outfit/job/head_of_security
 	name = JOB_NAME_HEADOFSECURITY
@@ -73,11 +90,14 @@
 	head = /obj/item/clothing/head/hats/hos/beret
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	r_pocket = /obj/item/modular_computer/tablet/pda/preset/heads/head_of_security
-	l_pocket = /obj/item/clothing/accessory/badge/officer/hos
+	l_pocket = /obj/item/clothing/accessory/badge/hos
+	accessory = /obj/item/clothing/accessory/security_pager
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
+	messenger = /obj/item/storage/backpack/messenger/sec
+
 	box = /obj/item/storage/box/survival/security
 
 	implants = list(/obj/item/implant/mindshield)

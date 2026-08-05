@@ -25,3 +25,6 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	AddElement(/datum/element/update_icon_blocker)
 
 STACKSIZE_MACRO(/obj/item/stack/rods)
+
+/obj/item/stack/rods/twentyfive
+	amount = 25

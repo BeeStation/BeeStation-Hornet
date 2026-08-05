@@ -633,7 +633,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	refresh_views()
 
 /// Signal handler for the emp_act() of all contents
-/datum/storage/proc/on_emp_act(datum/source, severity)
+/datum/storage/proc/on_emp_act(datum/source, severity, protection)
 	SIGNAL_HANDLER
 
 	var/obj/item/resolve_location = real_location?.resolve()
@@ -750,7 +750,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(!resolve_parent || !resolve_location)
 		return
 
-	if(ismecha(user.loc) || user.incapacitated() || !user.canUseStorage())
+	if(ismecha(user.loc) || user.incapacitated || !user.canUseStorage())
 		return
 
 	resolve_parent.add_fingerprint(user)
@@ -834,7 +834,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(!iscarbon(user) && !isdrone(user))
 		return
 	var/mob/living/user_living = user
-	if(user_living.incapacitated())
+	if(user_living.incapacitated)
 		return
 
 	attempt_insert(dropping, user)
@@ -922,7 +922,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		adjusted_contents = numbered_contents.len
 
 	var/columns = clamp(max_slots, 1, screen_max_columns)
-	var/rows = clamp(CEILING(adjusted_contents / columns, 1), 1, screen_max_rows)
+	var/rows = clamp(ceil(adjusted_contents / columns), 1, screen_max_rows)
 
 	orient_item_boxes(rows, columns, numbered_contents)
 
@@ -1004,7 +1004,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		resolve_parent.balloon_alert(to_show, "can't reach!")
 		return FALSE
 
-	if(!isliving(to_show) || to_show.incapacitated())
+	if(!isliving(to_show) || to_show.incapacitated)
 		return FALSE
 
 	if(locked)

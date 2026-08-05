@@ -33,6 +33,8 @@ GLOBAL_PROTECT(href_token)
 	var/datum/filter_editor/filteriffic
 	var/datum/particle_editor/particool
 
+	var/datum/pathfind_debug/path_debug
+
 	/// Player panel
 	var/datum/admin_player_panel/player_panel
 
@@ -78,7 +80,8 @@ GLOBAL_PROTECT(href_token)
 		message_admins("[key_name_admin(usr)][msg]")
 		log_admin("[key_name(usr)][msg]")
 		return QDEL_HINT_LETMELIVE
-	. = ..()
+	QDEL_NULL(path_debug)
+	return ..()
 
 /datum/admins/proc/activate()
 	if(IsAdminAdvancedProcCall())
@@ -101,6 +104,7 @@ GLOBAL_PROTECT(href_token)
 		return
 	GLOB.deadmins[target] = src
 	GLOB.admin_datums -= target
+	QDEL_NULL(path_debug)
 	deadmined = TRUE
 	var/client/C
 	if ((C = owner) || (C = GLOB.directory[target]))

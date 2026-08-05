@@ -1,4 +1,5 @@
 /obj/item/melee/energy
+	abstract_type = /obj/item/melee/energy
 	icon = 'icons/obj/transforming_energy.dmi'
 	max_integrity = 200
 	armor_type = /datum/armor/transforming_energy
@@ -86,7 +87,7 @@
 		var/mob/living/carbon/C = user
 		if(C.wear_mask)
 			in_mouth = ", barely missing [C.p_their()] nose"
-	. = span_warning("[user] swings [user.p_their()] [name][in_mouth]. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [A.name] in the process.")
+	. = span_warning("[user] swings [user.p_their()] [name][in_mouth]. [user.p_They()] light[user.p_s()] [user.p_their()] [A.name] in the process.")
 	playsound(loc, hitsound, get_clamped_volume(), TRUE, -1)
 	add_fingerprint(user)
 
@@ -96,10 +97,10 @@
 		return
 	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		icon_state = "[base_icon_state]_on_[sword_color_icon]" // "esword_on_red"
-		item_state = icon_state
+		inhand_icon_state = icon_state
 	else
 		icon_state = base_icon_state
-		item_state = base_icon_state
+		inhand_icon_state = base_icon_state
 
 /**
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
@@ -134,7 +135,7 @@
 	name = "energy axe"
 	desc = "An energized battle axe."
 	icon_state = "axe"
-	item_state = "axe"
+	inhand_icon_state = "axe"
 	base_icon_state = "axe"
 	lefthand_file = 'icons/mob/inhands/weapons/axes_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/axes_righthand.dmi'
@@ -148,7 +149,7 @@
 	armour_penetration = 100
 	sharpness = SHARP
 	w_class = WEIGHT_CLASS_NORMAL
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 
 	active_force = 150
@@ -174,7 +175,7 @@
 	desc = "May the force be within you."
 	icon_state = "e_sword"
 	base_icon_state = "e_sword"
-	item_state = "e_sword"
+	inhand_icon_state = "e_sword"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	hitsound = "swing_hit"
@@ -201,7 +202,7 @@
 /obj/item/melee/energy/sword/esaw //Energy Saw on it's own
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/surgery.dmi'
 	icon_state = "esaw"
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -237,7 +238,7 @@
 /obj/item/melee/energy/sword/cyborg/saw //Used by medical Syndicate cyborgs
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "implant-esaw"
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	force = 18
@@ -256,6 +257,7 @@
 	return FALSE
 
 /obj/item/melee/energy/sword/esaw/implant //Energy Saw Arm Implant
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "implant-esaw"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
@@ -336,7 +338,7 @@
 	name = "energy cutlass"
 	desc = "Arrrr matey."
 	icon_state = "e_cutlass"
-	item_state = "e_cutlass"
+	inhand_icon_state = "e_cutlass"
 	base_icon_state = "e_cutlass"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
@@ -380,4 +382,4 @@
 	name = "hardlight blade"
 	desc = "An extremely sharp blade made out of hard light. Packs quite a punch."
 	icon_state = "lightblade"
-	item_state = "lightblade"
+	inhand_icon_state = "lightblade"

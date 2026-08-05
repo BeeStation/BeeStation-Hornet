@@ -24,7 +24,7 @@
 /obj/structure/light_construct{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
@@ -35,7 +35,7 @@
 /obj/item/stack/sheet/glass{
 	amount = 12
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
@@ -44,7 +44,7 @@
 	pixel_y = 16
 	},
 /obj/item/hand_labeler,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
@@ -55,7 +55,7 @@
 	},
 /obj/item/wrench,
 /obj/item/flashlight/seclite,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
@@ -65,7 +65,7 @@
 "m" = (
 /obj/structure/rack,
 /obj/item/clothing/glasses/sunglasses/advanced,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/stack/rods{
 	amount = 23
 	},
@@ -74,10 +74,7 @@
 "n" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/plating,
 /area/template_noop)
 "x" = (
@@ -104,7 +101,7 @@
 	amount = 34
 	},
 /obj/item/extinguisher/mini,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/circuit,
 /area/template_noop)
 

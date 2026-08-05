@@ -50,7 +50,6 @@ GLOBAL_VAR(restart_counter)
 
 	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
 
-	generate_selectable_species() // This needs to happen early on to avoid the debugger crying. It needs to be after config load but before you login.
 	make_datum_references_lists_late_setup() // late setup
 
 	#ifdef REFERENCE_DOING_IT_LIVE
@@ -176,7 +175,7 @@ GLOBAL_VAR(restart_counter)
 	GLOB.test_log = file("[GLOB.log_directory]/tests.log")
 	start_log(GLOB.test_log)
 #endif
-#ifdef REFERENCE_DOING_IT_LIVE
+#ifdef REFERENCE_TRACKING_LOG_APART
 	GLOB.harddel_log = "[GLOB.log_directory]/harddels.log"
 	start_log(GLOB.harddel_log)
 #endif
@@ -451,6 +450,7 @@ GLOBAL_VAR(restart_counter)
 	maxz++
 	SSmobs.MaxZChanged()
 	SSidlenpcpool.MaxZChanged()
+	SSai_controllers.on_max_z_changed()
 	world.refresh_atmos_grid()
 
 /world/proc/refresh_atmos_grid()

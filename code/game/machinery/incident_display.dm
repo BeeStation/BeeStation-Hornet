@@ -4,18 +4,8 @@
  */
 GLOBAL_LIST_EMPTY(map_incident_displays)
 
-/// Display days since last delam on incident sign
-#define DISPLAY_DELAM (1<<0)
-
-DEFINE_BITFIELD(sign_features, list(
-	"DISPLAY_DELAM" = DISPLAY_DELAM,
-))
-
 #define TREND_RISING "rising"
 #define TREND_FALLING "falling"
-
-#define NAME_DELAM "delamination incident display"
-#define DESC_DELAM "A signs describe how long it's been since the last delamination incident. Features an advert for SAFETY MOTH."
 
 #define DISPLAY_PIXEL_1_W 21
 #define DISPLAY_PIXEL_1_Z -2
@@ -28,8 +18,8 @@ DEFINE_BITFIELD(sign_features, list(
 #define LIGHT_COLOR_SHAME "#e24e76"
 
 /obj/machinery/incident_display
-	name = NAME_DELAM
-	desc = DESC_DELAM
+	name = "delamination incident display"
+	desc = "A signs describe how long it's been since the last delamination incident. Features an advert for SAFETY MOTH."
 	icon = 'icons/obj/machines/incident_display.dmi'
 	icon_preview = "display_normal"
 	icon_state = "display_normal"
@@ -39,8 +29,6 @@ DEFINE_BITFIELD(sign_features, list(
 	idle_power_usage = 450
 	max_integrity = 150
 	integrity_failure = 0.75
-	/// What statistics we want the sign to display
-	var/sign_features = DISPLAY_DELAM
 	/// Delam digits color
 	var/delam_display_color = COLOR_DISPLAY_YELLOW
 	/// Shifts without delam
@@ -63,9 +51,6 @@ DEFINE_BITFIELD(sign_features, list(
 /obj/machinery/incident_display/bridge
 
 /obj/machinery/incident_display/delam
-	name = NAME_DELAM
-	desc = DESC_DELAM
-	sign_features = DISPLAY_DELAM
 	configured_advert = "advert_meson"
 	configured_advert_duration = 7 SECONDS
 
@@ -79,7 +64,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 /obj/machinery/incident_display/LateInitialize()
 	. = ..()
 	GLOB.map_incident_displays += src
-
 	update_delam_count(SSpersistence.rounds_since_engine_exploded, SSpersistence.delam_highscore)
 	update_appearance()
 
@@ -88,6 +72,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 	return ..()
 
 /obj/machinery/incident_display/process()
+	if(machine_stat & (NOPOWER|BROKEN|MAINT))
+		return
+
 	if(!isnull(configured_advert) && COOLDOWN_FINISHED(src, advert_cooldown)) // time to show an advert
 		show_advert(advert = configured_advert, duration = configured_advert_duration)
 		COOLDOWN_START(src, advert_cooldown, rand(advert_frequency - 5 SECONDS, advert_frequency + 5 SECONDS))
@@ -96,16 +83,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 	if(!live_display) // displaying static content, no processing required
 		return
 
-	if(machine_stat & (NOPOWER|BROKEN|MAINT))
-		return
-
 	if(COOLDOWN_FINISHED(src, active_advert)) // advert finished, revert to static content
 		COOLDOWN_RESET(src, active_advert)
 		live_display = FALSE
 		update_appearance()
 
 /obj/machinery/incident_display/add_context_self(datum/screentip_context/context, mob/user)
-	if(atom_integrity < max_integrity)
+	if(atom_integrity < max_integrity || (machine_stat & BROKEN))
 		context.add_left_click_tool_action("repair display", TOOL_WELDER)
 
 /obj/machinery/incident_display/welder_act(mob/living/user, obj/item/tool)
@@ -180,11 +164,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 	if(machine_stat & NOPOWER)
 		icon_state = "display_normal"
 		set_light(l_on = FALSE)
-		return
 	else if(machine_stat & BROKEN)
 		icon_state = "display_broken"
 		set_light(l_range = 1.7, l_power = 1.5, l_color = LIGHT_COLOR_NORMAL, l_on = TRUE)
-	else if((sign_features & DISPLAY_DELAM) && last_delam <= 0) // you done fucked up
+	else if(last_delam <= 0) // you done fucked up
 		icon_state = "display_shame"
 		set_light(l_range = 1.7, l_power = 1.5, l_color = LIGHT_COLOR_SHAME, l_on = TRUE)
 	else
@@ -201,73 +184,65 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 	if(!COOLDOWN_FINISHED(src, active_advert)) // we don't show the static content during adverts
 		return
 
-	if(sign_features & DISPLAY_DELAM)
-		. += mutable_appearance(icon, "overlay_delam")
-		. += emissive_appearance(icon, "overlay_delam", alpha = DISPLAY_PIXEL_ALPHA)
+	. += mutable_appearance(icon, "overlay_delam")
+	. += emissive_appearance(icon, "overlay_delam", alpha = DISPLAY_PIXEL_ALPHA)
 
-		var/delam_pos1 = clamp(last_delam, 0, 199) % 10
-		var/mutable_appearance/delam_pos1_overlay = mutable_appearance(icon, "num_[delam_pos1]")
-		var/mutable_appearance/delam_pos1_emissive = emissive_appearance(icon, "num_[delam_pos1]", alpha = DISPLAY_PIXEL_ALPHA)
-		delam_pos1_overlay.color = delam_display_color
-		delam_pos1_overlay.pixel_w = DISPLAY_PIXEL_1_W
-		delam_pos1_emissive.pixel_w = DISPLAY_PIXEL_1_W
-		delam_pos1_overlay.pixel_z = DISPLAY_PIXEL_1_Z
-		delam_pos1_emissive.pixel_z = DISPLAY_PIXEL_1_Z
-		. += delam_pos1_overlay
-		. += delam_pos1_emissive
+	var/delam_pos1 = clamp(last_delam, 0, 199) % 10
+	var/mutable_appearance/delam_pos1_overlay = mutable_appearance(icon, "num_[delam_pos1]")
+	var/mutable_appearance/delam_pos1_emissive = emissive_appearance(icon, "num_[delam_pos1]", alpha = DISPLAY_PIXEL_ALPHA)
+	delam_pos1_overlay.color = delam_display_color
+	delam_pos1_overlay.pixel_x = DISPLAY_PIXEL_1_W
+	delam_pos1_emissive.pixel_x = DISPLAY_PIXEL_1_W
+	delam_pos1_overlay.pixel_y = DISPLAY_PIXEL_1_Z
+	delam_pos1_emissive.pixel_y = DISPLAY_PIXEL_1_Z
+	. += delam_pos1_overlay
+	. += delam_pos1_emissive
 
-		var/delam_pos2 = (clamp(last_delam, 0, 199) / 10) % 10
-		var/mutable_appearance/delam_pos2_overlay = mutable_appearance(icon, "num_[delam_pos2]")
-		var/mutable_appearance/delam_pos2_emissive = emissive_appearance(icon, "num_[delam_pos2]", alpha = DISPLAY_PIXEL_ALPHA)
-		delam_pos2_overlay.color = delam_display_color
-		delam_pos2_overlay.pixel_w = DISPLAY_PIXEL_2_W
-		delam_pos2_emissive.pixel_w = DISPLAY_PIXEL_2_W
-		delam_pos2_overlay.pixel_z = DISPLAY_PIXEL_2_Z
-		delam_pos2_emissive.pixel_z = DISPLAY_PIXEL_2_Z
-		. += delam_pos2_overlay
-		. += delam_pos2_emissive
+	var/delam_pos2 = (clamp(last_delam, 0, 199) / 10) % 10
+	var/mutable_appearance/delam_pos2_overlay = mutable_appearance(icon, "num_[delam_pos2]")
+	var/mutable_appearance/delam_pos2_emissive = emissive_appearance(icon, "num_[delam_pos2]", alpha = DISPLAY_PIXEL_ALPHA)
+	delam_pos2_overlay.color = delam_display_color
+	delam_pos2_overlay.pixel_x = DISPLAY_PIXEL_2_W
+	delam_pos2_emissive.pixel_x = DISPLAY_PIXEL_2_W
+	delam_pos2_overlay.pixel_y = DISPLAY_PIXEL_2_Z
+	delam_pos2_emissive.pixel_y = DISPLAY_PIXEL_2_Z
+	. += delam_pos2_overlay
+	. += delam_pos2_emissive
 
-		if(last_delam >= 100)
-			. += mutable_appearance(icon, "num_100_red")
-			. += emissive_appearance(icon, "num_100_red", alpha = DISPLAY_BASE_ALPHA)
+	if(last_delam >= 100)
+		. += mutable_appearance(icon, "num_100_red")
+		. += emissive_appearance(icon, "num_100_red", alpha = DISPLAY_BASE_ALPHA)
 
-		if(last_delam == delam_record)
-			var/mutable_appearance/delam_trend_overlay = mutable_appearance(icon, TREND_RISING)
-			var/mutable_appearance/delam_trend_emissive = emissive_appearance(icon, "[TREND_RISING]", alpha = DISPLAY_PIXEL_ALPHA)
-			delam_trend_overlay.color = COLOR_DISPLAY_GREEN
-			. += delam_trend_overlay
-			. += delam_trend_emissive
-		else
-			var/mutable_appearance/delam_trend_overlay = mutable_appearance(icon, TREND_FALLING)
-			var/mutable_appearance/delam_trend_emissive = emissive_appearance(icon, "[TREND_FALLING]", alpha = DISPLAY_PIXEL_ALPHA)
-			delam_trend_overlay.color = COLOR_DISPLAY_RED
-			. += delam_trend_overlay
-			. += delam_trend_emissive
+	if(last_delam == delam_record)
+		var/mutable_appearance/delam_trend_overlay = mutable_appearance(icon, TREND_RISING)
+		var/mutable_appearance/delam_trend_emissive = emissive_appearance(icon, "[TREND_RISING]", alpha = DISPLAY_PIXEL_ALPHA)
+		delam_trend_overlay.color = COLOR_DISPLAY_GREEN
+		. += delam_trend_overlay
+		. += delam_trend_emissive
+	else
+		var/mutable_appearance/delam_trend_overlay = mutable_appearance(icon, TREND_FALLING)
+		var/mutable_appearance/delam_trend_emissive = emissive_appearance(icon, "[TREND_FALLING]", alpha = DISPLAY_PIXEL_ALPHA)
+		delam_trend_overlay.color = COLOR_DISPLAY_RED
+		. += delam_trend_overlay
+		. += delam_trend_emissive
 
 /obj/machinery/incident_display/examine(mob/user)
 	. = ..()
-
-	if(sign_features & DISPLAY_DELAM)
-		if(last_delam >= 0)
-			. += span_info("It has been [last_delam] shift\s since the last delamination event at this Nanotrasen facility.")
-			switch(last_delam)
-				if(0)
-					. += span_info("Let's do better today.<br/>")
-				if(1 to 5)
-					. += span_info("There's room for improvement.<br/>")
-				if(6 to 10)
-					. += span_info("Good work!<br/>")
-				if(69)
-					. += span_info("Nice.<br/>")
-				else
-					. += span_info("Incredible!<br/>")
-		else
-			. += span_info("The supermatter crystal has delaminated, in case you didn't notice.")
-
-#undef DISPLAY_DELAM
-
-#undef NAME_DELAM
-#undef DESC_DELAM
+	if(last_delam >= 0)
+		. += span_info("It has been [last_delam] shift\s since the last delamination event at this Nanotrasen facility.")
+		switch(last_delam)
+			if(0)
+				. += span_info("Let's do better today.<br/>")
+			if(1 to 5)
+				. += span_info("There's room for improvement.<br/>")
+			if(6 to 10)
+				. += span_info("Good work!<br/>")
+			if(69)
+				. += span_info("Nice.<br/>")
+			else
+				. += span_info("Incredible!<br/>")
+	else
+		. += span_info("The supermatter crystal has delaminated, in case you didn't notice.")
 
 #undef TREND_RISING
 #undef TREND_FALLING
