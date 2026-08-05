@@ -1833,6 +1833,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
  */
 /datum/species/proc/handle_environment(mob/living/carbon/human/humi, datum/gas_mixture/environment, delta_time, times_fired)
 	handle_environment_pressure(humi, environment, delta_time, times_fired)
+	handle_gas_interaction(humi, environment, delta_time, times_fired)
 
 /**
  * Body temperature handler for species
@@ -2123,6 +2124,21 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				var/pressure_damage = LOW_PRESSURE_DAMAGE * H.physiology.pressure_mod * H.physiology.brute_mod * delta_time
 				H.adjustBruteLoss(pressure_damage, required_bodytype = BODYTYPE_ORGANIC)
 				H.throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 2)
+
+/**
+ *	Handles exposure to the skin of various gases.
+ */
+/datum/species/proc/handle_gas_interaction(mob/living/carbon/human/human, datum/gas_mixture/environment, delta_time, times_fired)
+	/// Some non-clothing items may end up in these slots, e.g. flowers worn on the head, so we should consider clothing_flags as potentially nonexistant as a var.
+	/// Otherwise we will get a very spammy runtime.
+	var/suit_flags = astype(human?.wear_suit, /obj/item/clothing)?.clothing_flags
+	var/head_flags = astype(human?.head, /obj/item/clothing)?.clothing_flags
+
+	if((suit_flags & STOPSPRESSUREDAMAGE) && (head_flags & STOPSPRESSUREDAMAGE))
+		return
+
+	if (environment.moles[/datum/gas/antinoblium] >= MOLES_GAS_VISIBLE)
+		SSradiation.irradiate(human)
 
 //////////
 // FIRE //
@@ -2752,6 +2768,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_ICON = "radiation",
 			SPECIES_PERK_NAME = "Radiation Immune",
 			SPECIES_PERK_DESC = "[plural_form] are entirely immune to radiation.",
+		))
+
+	if(TRAIT_GENELESS in inherent_traits)
+		to_add += list(list(
+			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
+			SPECIES_PERK_ICON = "dna",
+			SPECIES_PERK_NAME = "No Genes",
+			SPECIES_PERK_DESC = "[plural_form] have no genes, making genetic scrambling a useless weapon, but also locking them out from getting genetic powers.",
 		))
 
 	if(TRAIT_RESISTHIGHPRESSURE in inherent_traits)

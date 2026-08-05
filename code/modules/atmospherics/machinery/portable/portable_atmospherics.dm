@@ -27,6 +27,11 @@
 	/// Max amount of pressure allowed inside of the canister before it starts to break. [PORTABLE_ATMOS_IGNORE_ATMOS_LIMIT] is special value meaning we are immune.
 	var/pressure_limit = 500000
 
+	/// Should reactions inside the object be suppressed
+	var/suppress_reactions = FALSE
+	/// Is there a hypernoblium crystal inserted into this
+	var/nob_crystal_inserted = FALSE
+
 /datum/armor/machinery_portable_atmospherics
 	energy = 100
 	fire = 60
@@ -46,6 +51,17 @@
 
 	return ..()
 
+/obj/machinery/portable_atmospherics/on_deconstruction()
+	if(nob_crystal_inserted)
+		new /obj/item/hypernoblium_crystal(src)
+
+/obj/machinery/portable_atmospherics/examine(mob/user)
+	. = ..()
+	if(nob_crystal_inserted)
+		. += span_notice("There is a hyper-noblium crystal inside it that allows for reactions inside to be suppressed.")
+	if(suppress_reactions)
+		. += span_notice("The hyper-noblium crystal inside is glowing with a faint blue colour, indicating reactions inside are currently being suppressed.")
+
 /obj/machinery/portable_atmospherics/ex_act(severity, target)
 	if(resistance_flags & INDESTRUCTIBLE)
 		return FALSE //Indestructible cans shouldn't release air
@@ -58,7 +74,7 @@
 	return ..()
 
 /obj/machinery/portable_atmospherics/process_atmos()
-	excited = (excited | air_contents.react(src))
+	excited = (!suppress_reactions && (excited || air_contents.react(src)))
 	if(!excited)
 		return PROCESS_KILL
 	excited = FALSE

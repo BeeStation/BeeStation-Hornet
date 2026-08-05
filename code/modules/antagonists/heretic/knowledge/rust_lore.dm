@@ -266,6 +266,7 @@
 	announcement_text = "Fear the decay, for the Rustbringer, %USER% has ascended! None shall escape the corrosion!"
 	announcement_sound = 'sound/ambience/antag/heretic/ascend_rust.ogg'
 	route = HERETIC_PATH_RUST
+
 	/// If TRUE, then immunities are currently active.
 	var/immunities_active = FALSE
 	/// A typepath to an area that we must finish the ritual in.
@@ -283,8 +284,8 @@
 		TRAIT_RESISTCOLD,
 		TRAIT_RESISTHEAT,
 		TRAIT_PIERCEIMMUNE,
-		TRAIT_NOBREATH
-		)
+		TRAIT_NOBREATH,
+	)
 
 /datum/heretic_knowledge/final/rust_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(ritual_location)

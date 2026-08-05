@@ -34,20 +34,44 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/bz_input
 	name = "bz tank input injector"
 
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/hypernoblium_input
-	name = "hypernoblium tank input injector"
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/freon_input
+	name = "freon tank input injector"
 
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/atmos/nitrium_input
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/halon_input
+	name = "halon tank input injector"
+
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/healium_input
+	name = "healium tank input injector"
+
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/hydrogen_input
+	name = "hydrogen tank input injector"
+
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/hypernoblium_input
+	name = "hyper-noblium tank input injector"
+
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitrium_input
 	name = "nitrium tank input injector"
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/pluoxium_input
 	name = "pluoxium tank input injector"
+
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/proto_nitrate_input
+	name = "proto-nitrate tank input injector"
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/tritium_input
 	name = "tritium tank input injector"
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/water_vapor_input
 	name = "water vapor tank input injector"
+
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/zauker_input
+	name = "zauker tank input injector"
+
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/helium_input
+	name = "helium tank input injector"
+
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/antinoblium_input
+	name = "anti-noblium tank input injector"
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/incinerator_input
 	name = "incinerator chamber input injector"

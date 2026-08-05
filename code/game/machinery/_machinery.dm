@@ -894,7 +894,7 @@
 		return FAILED_UNFASTEN
 	return SUCCESSFUL_UNFASTEN
 
-/obj/proc/default_unfasten_wrench(mob/user, obj/item/wrench, time = 20) //try to unwrench an object in a WONDERFUL DYNAMIC WAY
+/obj/proc/default_unfasten_wrench(mob/user, obj/item/wrench, time = 2 SECONDS) //try to unwrench an object in a WONDERFUL DYNAMIC WAY
 	if((flags_1 & NODECONSTRUCT_1) || wrench.tool_behaviour != TOOL_WRENCH)
 		return CANT_UNFASTEN
 

@@ -355,6 +355,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	data["releasePressure"] = round(release_pressure)
 	data["valveOpen"] = !!valve_open
 	data["hasHoldingTank"] = !!holding
+	data["hasHypernobCrystal"] = !!nob_crystal_inserted
+	data["reactionSuppressionEnabled"] = !!suppress_reactions
 	if (holding)
 		var/datum/gas_mixture/holding_mix = holding.return_air()
 		data["holdingTank"] = list()
@@ -369,19 +371,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	. = ..()
 	if(.)
 		return
+
 	switch(action)
 		if("relabel")
 			var/label = tgui_input_list(usr, "New canister label", "Canister", GLOB.gas_id_to_canister)
-			if(label && !..())
-				var/newtype = GLOB.gas_id_to_canister[label]
-				if(isnull(newtype))
-					return
-				var/obj/machinery/portable_atmospherics/canister/replacement = newtype
-				investigate_log("was relabelled to [initial(replacement.name)] by [key_name(usr)].", INVESTIGATE_ATMOS)
-				name = initial(replacement.name)
-				desc = initial(replacement.desc)
-				icon_state = initial(replacement.icon_state)
-				set_greyscale(initial(replacement.greyscale_colors), initial(replacement.greyscale_config))
+			var/newtype = GLOB.gas_id_to_canister[label]
+			if(isnull(newtype))
+				return
+			var/obj/machinery/portable_atmospherics/canister/replacement = newtype
+			investigate_log("was relabelled to [initial(replacement.name)] by [key_name(usr)].", INVESTIGATE_ATMOS)
+			name = initial(replacement.name)
+			desc = initial(replacement.desc)
+			icon_state = initial(replacement.icon_state)
+			set_greyscale(initial(replacement.greyscale_colors), initial(replacement.greyscale_config))
 		if("pressure")
 			var/pressure = params["pressure"]
 			if(pressure == "reset")
@@ -412,8 +414,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 		if("shielding")
 			toggle_shielding(usr)
 			. = TRUE
-	ui_update()
-	update_icon()
+		if("reaction_suppression")
+			toggle_reaction_suppression(usr)
+			. = TRUE
+	update_appearance()
 
 /obj/machinery/portable_atmospherics/canister/proc/toggle_valve(mob/user, wire_pulsed = FALSE)
 	valve_open = !valve_open
@@ -477,6 +481,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 		user.investigate_log("removed the [holding] [wire_pulsed ? "via wire pulse" : ""], leaving the valve open and transferring into the [span_boldannounce("air")].", INVESTIGATE_ATMOS)
 	replace_tank(user, FALSE)
 	return TRUE
+
+/obj/machinery/portable_atmospherics/canister/proc/toggle_reaction_suppression(mob/user)
+	if(!nob_crystal_inserted)
+		return
+	suppress_reactions = !suppress_reactions
+	SSair.start_processing_machine(src)
+	user.investigate_log("turned [suppress_reactions ? "on" : "off"] the [src] reaction suppression.", INVESTIGATE_ATMOS)
 
 /obj/machinery/portable_atmospherics/canister/unregister_holding()
 	valve_open = FALSE
@@ -548,30 +559,74 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 ///////////////////Canister Presets////////////////////////////////////
 
 /obj/machinery/portable_atmospherics/canister/air
-	name = "air canister"
+	name = "Air canister"
+	desc = "Pre-mixed air."
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#c6c0b5"
 
+/obj/machinery/portable_atmospherics/canister/antinoblium
+	name = "Anti-Noblium canister"
+	gas_type = /datum/gas/antinoblium
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#333333#fefb30"
+
 /obj/machinery/portable_atmospherics/canister/bz
 	name = "\improper BZ canister"
+	desc = "BZ, a powerful hallucinogenic nerve agent."
 	gas_type = /datum/gas/bz
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#9b5d7f#d0d2a0"
 
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide
-	name = "co2 canister"
+	name = "Carbon dioxide canister"
 	gas_type = /datum/gas/carbon_dioxide
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#4e4c48"
 
+/obj/machinery/portable_atmospherics/canister/freon
+	name = "Freon canister"
+	gas_type = /datum/gas/freon
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#6696ee#fefb30"
+
+/obj/machinery/portable_atmospherics/canister/halon
+	name = "Halon canister"
+	gas_type = /datum/gas/halon
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#e9ff5c#f4fce8"
+
+/obj/machinery/portable_atmospherics/canister/healium
+	name = "Healium canister"
+	gas_type = /datum/gas/healium
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#009823#ff0e00"
+
+/obj/machinery/portable_atmospherics/canister/helium
+	name = "Helium canister"
+	gas_type = /datum/gas/helium
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#9b5d7f#368bff"
+
+/obj/machinery/portable_atmospherics/canister/hydrogen
+	name = "Hydrogen canister"
+	gas_type = /datum/gas/hydrogen
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#eaeaea#be3455"
+
 /obj/machinery/portable_atmospherics/canister/nitrogen
-	name = "n2 canister"
+	name = "Nitrogen canister"
 	gas_type = /datum/gas/nitrogen
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#d41010"
 
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide
-	name = "n2o canister"
+	name = "Nitrous Oxide canister"
 	gas_type = /datum/gas/nitrous_oxide
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#c63e3b#f7d5d3"
@@ -582,45 +637,60 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#7b4732"
 
-/obj/machinery/portable_atmospherics/canister/nob
-	name = "hyper-noblium canister"
+/obj/machinery/portable_atmospherics/canister/hyper_noblium
+	name = "Hyper-Noblium canister"
 	gas_type = /datum/gas/hypernoblium
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#6399fc#b2b2b2"
 
 /obj/machinery/portable_atmospherics/canister/oxygen
-	name = "o2 canister"
+	name = "Oxygen canister"
 	gas_type = /datum/gas/oxygen
 	greyscale_config = /datum/greyscale_config/canister/stripe
 	greyscale_colors = "#2786e5#e8fefe"
 
 /obj/machinery/portable_atmospherics/canister/pluoxium
-	name = "pluoxium canister"
+	name = "Pluoxium canister"
 	gas_type = /datum/gas/pluoxium
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#2786e5"
 
+/obj/machinery/portable_atmospherics/canister/proto_nitrate
+	name = "Proto-Nitrate canister"
+	gas_type = /datum/gas/proto_nitrate
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#008200#33cc33"
+
 /obj/machinery/portable_atmospherics/canister/plasma
-	name = "plasma canister"
+	name = "Plasma canister"
 	gas_type = /datum/gas/plasma
 	greyscale_config = /datum/greyscale_config/canister/hazard
 	greyscale_colors = "#f64300#000000"
 
 /obj/machinery/portable_atmospherics/canister/tritium
-	name = "tritium canister"
+	name = "Tritium canister"
 	gas_type = /datum/gas/tritium
 	greyscale_config = /datum/greyscale_config/canister/hazard
 	greyscale_colors = "#3fcd40#000000"
 
 /obj/machinery/portable_atmospherics/canister/water_vapor
-	name = "water vapor canister"
+	name = "Water vapor canister"
 	gas_type = /datum/gas/water_vapor
 	filled = 1
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#4c4e4d#f7d5d3"
 
+/obj/machinery/portable_atmospherics/canister/zauker
+	name = "Zauker canister"
+	gas_type = /datum/gas/zauker
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#009a00#006600"
+
 /obj/machinery/portable_atmospherics/canister/fusion_test
 	name = "fusion test canister"
+	desc = "Don't be a badmin."
 	temp_limit = 1e12
 	pressure_limit = 1e14
 
@@ -643,10 +713,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 
 /obj/machinery/portable_atmospherics/canister/fusion_test/create_gas()
 	air_contents.adjust_multiple_gases(list(
-		/datum/gas/carbon_dioxide = 300,
-		/datum/gas/tritium = 300,
+		/datum/gas/hydrogen = 10000,
+		/datum/gas/tritium = 10000,
 	))
-	air_contents.set_temperature(10000)
 	SSair.start_processing_machine(src)
 
 #undef CAN_DEFAULT_RELEASE_PRESSURE

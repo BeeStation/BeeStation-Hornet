@@ -77,6 +77,7 @@
 #define TECHWEB_NODE_EXPLOSIVE_WEAPONS "explosive_weapons"
 #define TECHWEB_NODE_EXP_SURGERY "exp_surgery"
 #define TECHWEB_NODE_EXP_TOOLS "exp_tools"
+#define TECHWEB_NODE_FUSION "fusion"
 #define TECHWEB_NODE_GRAVITY_GUN "gravity_gun"
 #define TECHWEB_NODE_HIGH_EFFICIENCY "high_efficiency"
 #define TECHWEB_NODE_IMP_WT_SURGERY "imp_wt_surgery"

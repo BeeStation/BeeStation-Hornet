@@ -121,7 +121,6 @@
 		RegisterSignal(src, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(on_set_anchored))
 	M.set_buckled(src)
 	buckled_mobs |= M
-
 	M.throw_alert(ALERT_BUCKLED, /atom/movable/screen/alert/restrained/buckled)
 	M.set_glide_size(glide_size)
 

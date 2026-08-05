@@ -15,7 +15,8 @@
 /// ignores mobility check
 #define INTERACT_ATOM_IGNORE_MOBILITY (1<<10)
 
-#define INTERACT_ITEM_ATTACK_HAND_PICKUP (1<<0)		//! attempt pickup on attack_hand for items
+/// Attempt pickup on attack_hand for items
+#define INTERACT_ITEM_ATTACK_HAND_PICKUP (1<<0)
 
 #define INTERACT_MACHINE_OPEN 				(1<<0)		//! can_interact() while open
 #define INTERACT_MACHINE_OFFLINE 			(1<<1)		//! can_interact() while offline

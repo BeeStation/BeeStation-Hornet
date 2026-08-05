@@ -133,6 +133,7 @@
 	can_atmos_pass = ATMOS_PASS_NO
 	alpha = 150
 	rad_insulation = RAD_LIGHT_INSULATION
+	resistance_flags = FIRE_PROOF | FREEZE_PROOF
 
 /obj/structure/holosign/barrier/atmos/Initialize(mapload)
 	. = ..()
