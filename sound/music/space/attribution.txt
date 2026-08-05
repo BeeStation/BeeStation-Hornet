@@ -4,7 +4,7 @@ ambispace4.ogg is Sipping Bird, by Capsandi. It has been licensed under CC-BY 3.
 
 ambispace5.ogg was made by the-og-gear (https://github.com/tgstation/tgstation/pull/76320)
 
-ambispace6.ogg was made by atlasle (https://github.com/tgstation/tgstation/pull/76547)
+ambispace6.ogg (https://github.com/tgstation/tgstation/pull/76547)
 
 constellations.ogg is from "Constellations" https://www.youtube.com/watch?v=ufwRj1LI3aw by qwertyquerty
 drifting.ogg is from "Drifting" https://www.youtube.com/watch?v=8I3ivc8JcmM by qwertyquerty
