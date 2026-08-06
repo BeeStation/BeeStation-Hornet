@@ -4,6 +4,7 @@
 	name = "\proper space"
 	overfloor_placed = FALSE
 	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
+	skip_minimap_rendering = TRUE
 
 	resistance_flags = INDESTRUCTIBLE
 
