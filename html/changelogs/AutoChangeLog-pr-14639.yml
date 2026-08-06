@@ -1,0 +1,10 @@
+author: rkz, Lemon, Mothblocks, ZephyrTFA, TemporalOroboros, Ryll
+delete-after: true
+changes:
+  - server: shaves 6 seconds off of init through overlay optimization
+  - bugfix: base64 callers have been triple checked and no longer can send malformed
+      or nonexistent images. This fixes admin Outfit selection icons, destructive
+      analyzer, crafting menu recipes, etcetera...
+  - bugfix: If you aim at something through cameras you will now aim at the thing
+      you aimed at from the perspective of yourself instead of the camera you were
+      using to aim.
