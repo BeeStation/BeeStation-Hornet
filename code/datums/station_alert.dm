@@ -168,9 +168,10 @@
 	var/datum/minimap/minimap = isnull(map_z) ? null : GLOB.minimaps[map_z]
 	var/list/area_state = minimap ? get_area_state(minimap) : null
 	data["areaStatus"] = area_state?["status"]
-	data["workOrders"] = area_state?["orders"]
-	data["canAssign"] = can_assign_work(user)
-	data["crew"] = SSwork_orders.get_department_crew()
+	var/board = !issilicon(user)
+	data["workOrders"] = board ? area_state?["orders"] : null
+	data["canAssign"] = board && can_assign_work(user)
+	data["crew"] = board ? SSwork_orders.get_department_crew() : null
 	data["alarms"] = list()
 	var/list/nominal_types = alarm_types.Copy()
 	var/list/alarms = listener.alarms
@@ -208,6 +209,8 @@
 
 	switch(action)
 		if("toggle_claim")
+			if(!usr.get_idcard(FALSE))
+				return
 			var/key = params["key"]
 			if(!key)
 				return

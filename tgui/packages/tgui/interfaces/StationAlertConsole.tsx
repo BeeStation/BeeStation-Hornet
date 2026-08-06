@@ -94,6 +94,7 @@ export const AlertSidebar = (props: AlertSidebarProps) => {
   const { data } = useBackend<Data>();
   const { workOrders } = data;
   const [tab, setTab] = useState('alarms');
+  const showWork = workOrders !== null;
   const orders = workOrders || [];
   const unclaimed = orders.filter((order) => !order.claimant).length;
 
@@ -108,13 +109,15 @@ export const AlertSidebar = (props: AlertSidebarProps) => {
           >
             Alarms
           </Tabs.Tab>
-          <Tabs.Tab selected={tab === 'work'} onClick={() => setTab('work')}>
-            Work {orders.length > 0 && `(${unclaimed}/${orders.length})`}
-          </Tabs.Tab>
+          {showWork && (
+            <Tabs.Tab selected={tab === 'work'} onClick={() => setTab('work')}>
+              Work {orders.length > 0 && `(${unclaimed}/${orders.length})`}
+            </Tabs.Tab>
+          )}
         </Tabs>
       </Stack.Item>
       <Stack.Item grow basis={0} style={{ overflowY: 'auto' }}>
-        {tab === 'work' ? (
+        {showWork && tab === 'work' ? (
           <WorkOrderList
             orders={orders}
             hovered={hovered}
