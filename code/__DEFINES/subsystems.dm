@@ -217,30 +217,6 @@
 /// For admin forcing roundend, can be used to distinguish the two
 #define ADMIN_FORCE_END_ROUND 2
 
-//! ## Overlays subsystem
-
-/// Compile all the overlays for an atom from the cache lists
-#define COMPILE_OVERLAYS(A)\
-	if (A) {\
-		var/list/ad = A.add_overlays;\
-		var/list/rm = A.remove_overlays;\
-		if(LAZYLEN(rm)){\
-			A.overlays -= rm;\
-			rm.Cut();\
-		}\
-		if(LAZYLEN(ad)){\
-			A.overlays |= ad;\
-			ad.Cut();\
-		}\
-		for(var/I in A.alternate_appearances){\
-			var/datum/atom_hud/alternate_appearance/AA = A.alternate_appearances[I];\
-			if(AA.transfer_overlays){\
-				AA.copy_overlays(A, TRUE);\
-			}\
-		}\
-		A.flags_1 &= ~OVERLAY_QUEUED_1;\
-	}
-
 /**
 	Create a new timer and add it to the queue.
 	* Arguments:

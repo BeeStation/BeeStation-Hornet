@@ -24,7 +24,6 @@
 		consistent = TRUE,
 	)
 
-	COMPILE_OVERLAYS(mannequin)
 	return mannequin.appearance
 
 /// A preview of a character for use in the preferences menu
