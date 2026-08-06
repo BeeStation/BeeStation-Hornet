@@ -44,26 +44,26 @@
 	var/antag_elligable = FALSE
 	switch(pick_weight(list("centcom_official" = 4, "greytide" = 3)))
 		if("centcom_official")
-			created_human.flavor_text = "You are a CentCom official onboard a badly damaged station. Making your way back to Space Station 13 to uncover the secrets you hold is \
+			created_human.mob_flavor_text = "You are a CentCom official onboard a badly damaged station. Making your way back to Space Station 13 to uncover the secrets you hold is \
 				your top priority as far as Nanotrasen is concerned, but surviving just one more day is all you can ask for."
 			created_human.equipOutfit(/datum/outfit/vip_target/centcom_official_vip)
 			suit_type = /obj/item/clothing/suit/space/fragile //Riches To Rags
 			antag_elligable = TRUE
 		if("greytide")
-			created_human.flavor_text = "You are just an assistant on a lonely derelict station. You dream of going home, \
+			created_human.mob_flavor_text = "You are just an assistant on a lonely derelict station. You dream of going home, \
 				but it would take another one of the miracles that kept you alive to get you home."
 			created_human.equipOutfit(/datum/outfit/vip_target/greytide)
 			antag_elligable = TRUE
 	if(antag_elligable)
 		if(prob(7))
 			created_human.mind.add_antag_datum(/datum/antagonist/traitor)
-			created_human.flavor_text += " - That was, until you made a deal with your newfound Benefactors. You know Nanotrasen is sending a recovery team - \
+			created_human.mob_flavor_text += " - That was, until you made a deal with your newfound Benefactors. You know Nanotrasen is sending a recovery team - \
 			And, hopefully, how to exploit your newfound position..." //Makes their special status a little more obvious upon entering the mob
 		else if(prob(8))
 			created_human.mind.add_antag_datum(/datum/antagonist/changeling)
-			created_human.flavor_text += " - Or so's the cover story we've curated to sway the hearts of the hapless souls who, one day, may stumble upon \
+			created_human.mob_flavor_text += " - Or so's the cover story we've curated to sway the hearts of the hapless souls who, one day, may stumble upon \
 			our miserable, eeked out existence here... And inadvertently begin the hunt anew." //Ditto
-	created_human.mind.store_memory(created_human.flavor_text)
+	created_human.mind.store_memory(created_human.mob_flavor_text)
 	mob_to_recover = created_human
 	//Give them space-worthy suit and other equipment
 	var/turf/open/T = locate() in shuffle(view(1, created_human))

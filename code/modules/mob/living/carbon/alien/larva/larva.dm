@@ -27,7 +27,7 @@
 	var/max_grown = 100
 	var/time_of_birth
 
-	flavor_text = FLAVOR_TEXT_EVIL
+	mob_flavor_text = FLAVOR_TEXT_EVIL
 	playable = TRUE
 
 

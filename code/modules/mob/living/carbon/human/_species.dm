@@ -462,6 +462,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			new_part.update_limb(is_creating = TRUE)
 		qdel(old_part)
 
+	//identifying someone via flavor text is probably undesirable, also the flavor text likely doesn't make sense anymore.
+	if(target.dna.features["flavor_text"])
+		target.dna.features.Remove("flavor_text")
+
 /datum/species/proc/on_species_gain(mob/living/carbon/human/C, datum/species/old_species, pref_load)
 	SHOULD_CALL_PARENT(TRUE)
 	if((AGENDER in species_traits))

@@ -128,7 +128,7 @@
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = FALSE
 	var/list/datum/disease/spore_diseases = list()
-	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
+	mob_flavor_text = FLAVOR_TEXT_GOAL_ANTAG
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 
@@ -250,7 +250,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 	pressure_resistance = 50
 	mob_size = MOB_SIZE_LARGE
 	hud_type = /datum/hud/blobbernaut
-	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
+	mob_flavor_text = FLAVOR_TEXT_GOAL_ANTAG
 	move_resist = MOVE_FORCE_STRONG
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life(delta_time = SSMOBS_DT, times_fired)
