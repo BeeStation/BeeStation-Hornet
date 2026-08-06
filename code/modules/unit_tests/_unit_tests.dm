@@ -64,6 +64,7 @@
 #include "merge_type.dm"
 #include "metabolizing.dm"
 #include "mindbound_actions.dm"
+#include "minimap_rects.dm"
 #include "missing_icons.dm"
 #include "mob_damage.dm"
 #include "modsuit.dm"
