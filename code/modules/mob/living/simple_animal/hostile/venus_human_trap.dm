@@ -320,7 +320,8 @@
 		if(iscarbon(vine_beam.target)) // If they dont get away quickly, make them take constant stamina damage
 			var/mob/living/vine_carbon_target = vine_beam.target
 			vine_carbon_target.apply_damage(10, STAMINA, BODY_ZONE_CHEST)
-			vine_carbon_target.Knockdown(3 SECONDS)
+			if(!vine_carbon_target.IsKnockdown() || vine_carbon_target.AmountKnockdown() < 1 SECONDS)
+				vine_carbon_target.Knockdown(3 SECONDS)
 
 		if(get_dist(src, vine_beam.target) == 0)
 			qdel(vine_beam)
