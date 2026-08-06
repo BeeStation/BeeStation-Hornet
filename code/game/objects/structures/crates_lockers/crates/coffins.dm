@@ -226,7 +226,7 @@
 		return
 
 	if(locked && item.tool_behaviour == TOOL_CROWBAR)
-		var/pry_time = pry_lid_timer * item.toolspeed // Pry speed must be affected by the speed of the tool.
+		var/pry_time = pry_lid_timer * item.get_toolspeed(user) // Pry speed must be affected by the speed of the tool.
 		user.visible_message(
 			span_notice("[user] tries to pry the lid off of [src] with [item]."),
 			span_notice("You begin prying the lid off of [src] with [item]. This should take about [DisplayTimeText(pry_time)]."),

@@ -322,6 +322,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/tablet/integrated)
 		var/mob/living/silicon/robot/robo = borgo
 		robo.lamp_color = COLOR_RED //Syndicate likes it red
 
+// IPC integrated tablets runtime in the normal creation test, as they need to be initialized in an IPC
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/tablet/ipc)
+
+/obj/item/modular_computer/tablet/ipc
+	name = "modular interface"
+	icon_state = "tablet-silicon"
+	icon_state_menu = "menu"
+	has_light = FALSE
+	comp_light_luminosity = 0
+	var/mob/living/carbon/tablet_owner
+
+/obj/item/modular_computer/tablet/ipc/Initialize(mapload)
+	. = ..()
+	tablet_owner = loc
+	if(!isipc(tablet_owner))
+		tablet_owner = null
+		stack_trace("[type] initialized outside of an IPC, deleting.")
+		return INITIALIZE_HINT_QDEL
+
 GLOBAL_LIST_EMPTY(PDAs)
 
 // Round start tablets
