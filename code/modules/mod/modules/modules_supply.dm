@@ -189,9 +189,9 @@
 
 /obj/item/mod/module/orebag/proc/move_ore(obj/item/stack/ore)
 	for(var/obj/item/stack/stored_ore as anything in ores)
-		if(!ore.can_merge(stored_ore))
+		if(!stored_ore.can_merge(ore))
 			continue
-		ore.merge(stored_ore)
+		stored_ore.merge(ore)
 		if(QDELETED(ore))
 			return
 		break
@@ -199,7 +199,7 @@
 	ores += ore
 
 /obj/item/mod/module/orebag/on_use()
-	for(var/obj/item/ore as anything in ores)
+	for(var/obj/item/ore as anything in ores.Copy())
 		ore.forceMove(drop_location())
 		ores -= ore
 	drain_power(use_power_cost)
