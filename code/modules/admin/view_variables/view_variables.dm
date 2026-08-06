@@ -81,6 +81,7 @@
 	var/title = "[thing] ([refid]) = [type]"
 	var/formatted_type = replacetext("[type]", "/", "<wbr>/")
 	var/ref_line = "@[copytext(refid, 2, -1)]" // get rid of the brackets, add a @ prefix for copy pasting in asay
+	var/ref_count = isdatum(thing) ? "   |   refcount: [refcount(thing)]" : ""
 
 	var/list/header
 	switch(debug_output_style)
@@ -366,7 +367,7 @@
 						</table>
 						<div align='center'>
 							<b><font size='1'>[formatted_type]</font></b>
-							<br><b><font size='1'>[ref_line]</font></b>
+							<br><font size='1'><b>[ref_line]</b>[ref_count]</font>
 							<span id='marked'>[marked_line]</span>
 							<span id='tagged'>[tagged_line]</span>
 							<span id='varedited'>[varedited_line]</span>
@@ -389,6 +390,7 @@
 				</tr>
 			</table>
 		</div>
+		[hascall(thing, PROC_NAMEOF(thing, get_vv_grand_summary)) ? thing.get_vv_grand_summary() : ""]
 		<hr>
 		<font size='1'>
 			<b>E</b> - Edit, tries to determine the variable type by itself.<br>
@@ -423,7 +425,7 @@
 
 	// Resets vv_spectre, and shows it to user
 	vv_spectre.reset()
-	src << browse(html, "window=variables[refid];size=475x650")
+	src << browse(html, "window=variables[refid];size=500x850")
 
 /client/proc/vv_update_display(datum/thing, span, content)
 	src << output("[span]:[content]", "variables[REF(thing)].browser:replace_span")

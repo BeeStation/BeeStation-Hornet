@@ -1,6 +1,7 @@
 /// datum may be null, but it does need to be a typed var
 #define NAMEOF(datum, X) (#X || ##datum.##X)
-
+/// gets the proc name. Used for hascall()
+#define PROC_NAMEOF(datum, procname) (#procname || ##datum.##procname())
 
 /**
  * NAMEOF that actually works in static definitions because src::type requires src to be defined
