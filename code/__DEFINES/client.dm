@@ -20,3 +20,6 @@ GLOBAL_VAR_INIT(byond_http, FALSE)
 
 GLOBAL_LIST_EMPTY(disconnected_mobs)
 GLOBAL_PROTECT(disconnected_mobs)
+
+/// Aghosting AND APPERANTLY STEALTHMINNING sets your ckey/key == "@[old_key]" because it hates me. this detects that
+#define IS_FAKE_KEY(key) (key && key[1] == "@")

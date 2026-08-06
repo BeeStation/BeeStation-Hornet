@@ -371,7 +371,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		observetarget = null
 		set_mob_eye_to(MOB_EYE_SELF)
 		if(hud_used)
-			client.screen = list()
+			client.clear_screen()
 			hud_used.show_hud(hud_used.hud_version)
 	//--------------------------------------
 	client.view_size.resetToDefault(getScreenSize(src))//Let's reset so people can't become allseeing gods //For real this time
@@ -868,7 +868,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		observetarget = null
 		set_mob_eye_to(MOB_EYE_SELF)
 		if(hud_used)
-			client.screen = list()
+			client.clear_screen()
 			hud_used.show_hud(hud_used.hud_version)
 
 	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
@@ -883,7 +883,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		observetarget = null
 		set_mob_eye_to(MOB_EYE_SELF)
 		if(hud_used)
-			client.screen = list()
+			client.clear_screen()
 			hud_used.show_hud(hud_used.hud_version)
 		return
 
@@ -904,7 +904,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		set_mob_eye_to(observetarget)
 		to_chat(src, span_notice("You started observing [observetarget]"))
 		if(observetarget.hud_used)
-			client.screen = list()
+			client.clear_screen()
 			observetarget.hud_used.show_hud(observetarget.hud_used.hud_version, src)
 
 /mob/dead/observer/verb/register_pai_candidate()

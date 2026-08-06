@@ -56,3 +56,7 @@
 /// Called on tablet (PDA) when the user changes the ringtone: (mob/living/user, new_ringtone)
 #define COMSIG_GLOB_TABLET_CHANGE_RINGTONE "!global_comsig_tablet_change_ringtone"
 //	#define COMPONENT_STOP_RINGTONE_CHANGE (1<<0)
+
+/// Global signal called after the station changes its name.
+/// (new_name, old_name)
+#define COMSIG_GLOB_STATION_NAME_CHANGED "!station_name_changed"

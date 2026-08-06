@@ -227,11 +227,13 @@
 #define BLIND_FEATURE_PLANE 552
 
 //-------------------- Rendering ---------------------
+// Anything numbered above RENDER_PLANE_MASTER is drawn raw, on top of the composite.
 #define RENDER_PLANE_GAME 990
 #define RENDER_PLANE_NON_GAME 995
 #define RENDER_PLANE_MASTER 999
 
 //-------------------- HUD ---------------------
+// Nothing from here down has a plane master, so plane order here is absolute.
 //HUD layer defines
 #define HUD_PLANE 1000
 #define HUD_LAYER 25
@@ -242,8 +244,12 @@
 #define ABOVE_HUD_PLANE 1100
 #define ABOVE_HUD_RENDER_TARGET "ABOVE_HUD_PLANE"
 
-///Plane of the "splash" icon used that shows on the lobby screen. Nothing should ever be above this.
-#define SPLASHSCREEN_PLANE 9999
+///Plane of the "splash" icon used on the lobby screen, cinematics and the roundend credits.
+#define SPLASHSCREEN_PLANE 1200
+
+/// Plane for the menu shown when pressing Escape. Nothing should ever be above this.
+#define ESCAPE_MENU_PLANE 1300
 
 ///Plane master controller keys
 #define PLANE_MASTERS_GAME "plane_masters_game"
+#define PLANE_MASTERS_NON_MASTER "plane_masters_non_master"

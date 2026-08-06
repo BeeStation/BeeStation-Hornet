@@ -323,19 +323,24 @@
 //
 
 /datum/help_ticket
+	/// Unique ID of the ticket
 	var/id
+	/// The current name of the ticket
 	var/name
 	var/stat_text
 	var/state = TICKET_UNCLAIMED
 	/// The first (sanitized) message for this ticket
 	var/initial_msg
 
+	/// The time at which the ticket was opened
 	var/opened_at
+	/// The time at which the ticket was closed
 	var/closed_at
-
-	/// The person who a/mhelped OR was bwoinked (the non-admin/mentor)
+	/// Semi-misnomer, it's the person who ahelped/was bwoinked
 	var/client/initiator
+	/// The ckey of the initiator
 	var/initiator_ckey
+	/// The key name of the initiator
 	var/initiator_key_name
 
 	/// The person that has claimed this ticket
@@ -357,10 +362,25 @@
 	/// The message type used for resolve messages
 	var/message_type = MESSAGE_TYPE_ADMINPM
 
+	/// List of admin ckeys that are involved, like through responding
+	var/list/admins_involved = list()
+	/// Has the player replied to this ticket yet?
+	var/player_replied = FALSE
+
 /datum/help_ticket/New(client/C)
 	initiator = C
 	initiator_ckey = initiator.ckey
 	initiator_key_name = key_name(initiator, FALSE, TRUE)
+
+/// Sends a message to the player that they are replying to admins.
+/datum/help_ticket/proc/reply_to_admins_notification(message)
+	to_chat(
+		initiator,
+		type = message_type,
+		html = span_notice("PM to-<b>Admins</b>: [span_linkify(message)]"),
+	)
+
+	player_replied = TRUE
 
 /// Call this on its own to create a ticket, don't manually assign current_ticket, msg is the title of the ticket: usually the ahelp text
 /datum/help_ticket/proc/Create(msg, sanitized = FALSE)
@@ -407,7 +427,11 @@
 		return FALSE
 	var/datum/help_ticket/active_ticket = data_glob.get_active_ticket(initiator)
 	if(active_ticket)
-		to_chat(initiator, span_warning("Your ticket could not be transferred because you already have a ticket of the same type open. Please make another ticket at a later time, or bring up whatever the issue was in your current ticket."), type = message_type)
+		to_chat(
+			initiator,
+			span_warning("Your ticket could not be transferred because you already have a ticket of the same type open. Please make another ticket at a later time, or bring up whatever the issue was in your current ticket."),
+			type = message_type
+		)
 		old_ticket.message_ticket_managers("<span class='[old_ticket.span_class]'>Could not transfer Ticket [old_ticket.TicketHref("#[old_ticket.id]")], [old_ticket.key_name_ticket(old_ticket.initiator)] already has a ticket open of the same type.</span>")
 		ticket_counter--
 		qdel(src)

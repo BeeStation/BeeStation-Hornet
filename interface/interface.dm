@@ -1,62 +1,65 @@
 //Please use mob or src (not usr) in these procs. This way they can be called in the same fashion as procs.
-AUTH_CLIENT_VERB(wiki, query as text)
+AUTH_CLIENT_VERB(wiki)
 	set name = "wiki"
-	set desc = "Type what you want to know about.  This will open the wiki in your web browser. Type nothing to go to the main page."
-	set hidden = 1
+	set desc = "Brings you to the Wiki"
+	set hidden = TRUE
+
 	var/wikiurl = CONFIG_GET(string/wikiurl)
-	if(wikiurl)
-		if(query)
-			var/output = wikiurl + "/Special:Search/" + query
-			src << link(output)
-		else if (query != null)
-			src << link(wikiurl)
-	else
+	if(!wikiurl)
 		to_chat(src, span_danger("The wiki URL is not set in the server configuration."))
-	return
+		return
+
+	var/query = tgui_input_text(src,
+		"Type what you want to know about. This will open the wiki in your web browser. Type nothing to go to the main page.",
+		"Wiki",
+		max_length = MAX_MESSAGE_LEN,
+	)
+	if(isnull(query)) //cancelled out
+		return
+	var/output = wikiurl
+	if(query != "")
+		output += "?title=Special%3ASearch&profile=default&search=[query]"
+	DIRECT_OUTPUT(src, link(output))
+
 
 AUTH_CLIENT_VERB(forum)
 	set name = "forum"
 	set desc = "Visit the forum."
-	set hidden = 1
+	set hidden = TRUE
+
 	var/forumurl = CONFIG_GET(string/forumurl)
-	if(forumurl)
-		if(alert("This will open the forum in your browser. Are you sure?",,"Yes","No")!="Yes")
-			return
-		src << link(forumurl)
-	else
+	if(!forumurl)
 		to_chat(src, span_danger("The forum URL is not set in the server configuration."))
-	return
+		return
+	DIRECT_OUTPUT(src, link(forumurl))
 
 AUTH_CLIENT_VERB(rules)
 	set name = "rules"
 	set desc = "Show Server Rules."
-	set hidden = 1
+	set hidden = TRUE
+
 	var/rulesurl = CONFIG_GET(string/rulesurl)
-	if(rulesurl)
-		if(alert("This will open the rules in your browser. Are you sure?",,"Yes","No")!="Yes")
-			return
-		src << link(rulesurl)
-	else
+	if(!rulesurl)
 		to_chat(src, span_danger("The rules URL is not set in the server configuration."))
-	return
+		return
+	DIRECT_OUTPUT(src, link(rulesurl))
 
 AUTH_CLIENT_VERB(github)
 	set name = "github"
 	set desc = "Visit Github"
-	set hidden = 1
+	set hidden = TRUE
+
 	var/githuburl = CONFIG_GET(string/githuburl)
-	if(githuburl)
-		if(alert("This will open the Github repository in your browser. Are you sure?",,"Yes","No")!="Yes")
-			return
-		src << link(githuburl)
-	else
+	if(!githuburl)
 		to_chat(src, span_danger("The Github URL is not set in the server configuration."))
-	return
+		return
+	DIRECT_OUTPUT(src, link(githuburl))
 
 AUTH_CLIENT_VERB(reportissue)
 	set name = "report-issue"
 	set desc = "Report an issue"
-	set hidden = 1
+	set hidden = TRUE
+
 	var/githuburl = CONFIG_GET(string/githuburl)
 	if(githuburl)
 		var/message = "This will open the Github issue reporter in your browser. Are you sure?"
@@ -101,6 +104,7 @@ Admin:
 AUTH_CLIENT_VERB(changelog)
 	set name = "Changelog"
 	set category = "OOC"
+
 	if(!GLOB.changelog_tgui)
 		GLOB.changelog_tgui = new /datum/changelog()
 
@@ -108,7 +112,6 @@ AUTH_CLIENT_VERB(changelog)
 	if(prefs && prefs.lastchangelog != GLOB.changelog_hash)
 		prefs.lastchangelog = GLOB.changelog_hash
 		prefs.mark_undatumized_dirty_player()
-		winset(src, "infowindow.changelog", "font-style=;")
 
 
 /mob/proc/hotkey_help()

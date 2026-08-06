@@ -98,6 +98,10 @@ SUBSYSTEM_DEF(mapping)
 	if(current_map.map_file == "EchoStation.dmm")
 		echo_surface_templates() //Echo seasonal surface stuff
 
+	var/mapping_url = config.Get(/datum/config_entry/string/webmap_url)
+	if(mapping_url != "")
+		current_map.mapping_url = mapping_url
+
 	initialize_biomes()
 	loadWorld()
 
@@ -643,3 +647,14 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		if (ECHO_TEMPLATE_PATH(path))
 			var/datum/map_template/random_room/echo/template = new path()
 			echo_surface_templates += template
+
+///Returns the map name, with an openlink action tied to it (if one exists) for the map.
+/datum/map_config/proc/return_map_name(webmap_included)
+	var/text
+	if(feedback_link)
+		text = "<a href='byond://?action=openLink&link=[url_encode(feedback_link)]'>[map_name]</a>"
+	else
+		text = map_name
+	if(webmap_included && !isnull(SSmapping.current_map.mapping_url))
+		text += " | <a href='byond://?action=openWebMap'>(Show Map)</a>"
+	return text

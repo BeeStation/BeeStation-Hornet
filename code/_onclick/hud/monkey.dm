@@ -110,7 +110,7 @@
 	combo_display = new /atom/movable/screen/combo(null, src)
 	infodisplay += combo_display
 
-	mymob.client.screen = list()
+	mymob.client.clear_screen()
 
 	using = new /atom/movable/screen/resist(null, src)
 	using.icon = ui_style
