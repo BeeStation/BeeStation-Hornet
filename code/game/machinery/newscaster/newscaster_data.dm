@@ -3,6 +3,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 
 GLOBAL_LIST_EMPTY(allbountyboards)
 GLOBAL_LIST_EMPTY(request_list)
+GLOBAL_LIST_EMPTY(completed_request_list)
 
 /datum/feed_comment
 	///The author of the comment, as seen on a newscaster feed.
@@ -15,6 +16,8 @@ GLOBAL_LIST_EMPTY(request_list)
 /datum/feed_message
 	///Who is the author of the full-size article to the feed channel?
 	var/author = ""
+	/// Tagline given to the article
+	var/headline = ""
 	///What is the job of the author?
 	var/author_job = ""
 	///What is the account of the author?
@@ -29,6 +32,8 @@ GLOBAL_LIST_EMPTY(request_list)
 	var/is_admin_message = FALSE
 	///Is there an image tied to the feed message?
 	var/icon/img = null
+	///Up To 3 images can be attached to a feed
+	var/list/icon/imgs = list()
 	///At what time was the full-size article sent? Time is in station time.
 	var/time_stamp = ""
 	///List consisting of the articles feed comments for this full-size article.
@@ -45,6 +50,8 @@ GLOBAL_LIST_EMPTY(request_list)
 	var/body_censor
 	///Referece to the photo used in picture messages.
 	var/photo_file
+	///References to extra photos used in picture messages.
+	var/list/photo_files = list()
 	///What is the channel ID of the parent channel?
 	var/parent_ID
 	///What number message is this? IE: The first message sent in a round including automated messages is message 1.
@@ -87,6 +94,10 @@ GLOBAL_LIST_EMPTY(request_list)
 	var/channel_name = ""
 	/// The description of the channel, players see this upon clicking on the channel before seeing messages.
 	var/channel_desc = ""
+	/// Chanells pinned message ID
+	var/pinned_message_id = null
+	/// List of accounts with author permissions to post on the channel.
+	var/list/allowed_posters = list()
 	/// Datum list of all feed_messages.
 	var/list/datum/feed_message/messages = list()
 	/// Is the channel locked? Locked channels cannot be commented on.
@@ -108,6 +119,7 @@ GLOBAL_LIST_EMPTY(request_list)
 
 /datum/feed_channel/New()
 	. = ..()
+	allowed_posters = list()
 	channel_ID = random_channel_id_setup()
 
 /**
@@ -155,12 +167,16 @@ GLOBAL_LIST_EMPTY(request_list)
 	GLOB.news_network.last_action ++
 
 /datum/wanted_message
+	/// Wanted issue tracker
+	var/wanted_id
 	/// Is this criminal alert still active?
 	var/active
 	/// What is the criminal in question's name? Not a mob reference as this is a text field.
 	var/criminal
 	/// Message body used to describe what crime has been comitted.
 	var/body
+	/// Danger level for the criminals given alert level.
+	var/danger_level = "Armed and Dangerous"
 	/// Who was it that created this wanted message?
 	var/scanned_user
 	/// Is this an admin message? Prevents editing unless performed by an admin rank.
@@ -175,8 +191,12 @@ GLOBAL_LIST_EMPTY(request_list)
 /datum/feed_network
 	/// All the feed channels that have been made on the feed network.
 	var/list/datum/feed_channel/network_channels = list()
+	/// All wanted cases currently tracked by newscaster.
+	var/list/datum/wanted_message/wanted_issues = list()
 	/// What is the wanted issue being sent out to all newscasters.
 	var/datum/wanted_message/wanted_issue
+	/// Wanted issue ID counter.
+	var/wanted_count = 0
 	/// What time was the last action taken on the feed_network?
 	var/last_action
 	/// What does this feed network say when a message/author is redacted?
@@ -191,6 +211,7 @@ GLOBAL_LIST_EMPTY(request_list)
 	create_feed_channel("AuriNet WeatherCast", "SS13", "Solar weather and radiative events monitoring.", locked = TRUE, hardset_channel = 2000)
 
 	wanted_issue = new /datum/wanted_message
+	wanted_issues = list()
 
 /datum/feed_network/proc/create_feed_channel(channel_name, author, desc, locked, adminChannel = FALSE, hardset_channel)
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
@@ -203,31 +224,49 @@ GLOBAL_LIST_EMPTY(request_list)
 		newChannel.channel_ID = hardset_channel
 	network_channels += newChannel
 
-/datum/feed_network/proc/submit_article(msg, author, channel_name, datum/picture/picture, adminMessage = FALSE, allow_comments = TRUE, update_alert = TRUE, author_job = "", author_account = null)
+/datum/feed_network/proc/submit_article(msg, author, channel_name, picture, adminMessage = FALSE, allow_comments = TRUE, update_alert = TRUE, author_job = "", author_account = null, headline = null)
 	var/datum/feed_message/newMsg = new /datum/feed_message
 	newMsg.author = author
+	// More stripping so headlines don't include html tag names.
+	newMsg.headline = trim(headline || strip_html(strip_html_tags(msg), 80)) || "Untitled Article"
 	newMsg.author_job = author_job
 	newMsg.author_account = author_account
 	newMsg.body = msg
 	newMsg.time_stamp = "[station_time_timestamp()]"
 	newMsg.is_admin_message = adminMessage
 	newMsg.locked = !allow_comments
-	if(picture)
-		newMsg.img = picture.picture_image
-		newMsg.caption = picture.caption
-		newMsg.photo_file = save_photo(picture.picture_image)
+	if(islist(picture))
+		for(var/datum/picture/pic as anything in picture)
+			if(!pic?.picture_image)
+				continue
+			newMsg.imgs += pic.picture_image
+			newMsg.photo_files += save_photo(pic.picture_image)
+			if(!newMsg.img)
+				newMsg.img = pic.picture_image
+				newMsg.caption = pic.caption
+				newMsg.photo_file = newMsg.photo_files[length(newMsg.photo_files)]
+	else if(istype(picture, /datum/picture))
+		var/datum/picture/pic = picture
+		if(pic.picture_image)
+			newMsg.img = pic.picture_image
+			newMsg.imgs += pic.picture_image
+			newMsg.caption = pic.caption
+			newMsg.photo_file = save_photo(pic.picture_image)
+			newMsg.photo_files += newMsg.photo_file
 	for(var/datum/feed_channel/FC in network_channels)
 		if(FC.channel_name == channel_name)
 			FC.messages += newMsg
 			newMsg.parent_ID = FC.channel_ID
 			break
-	if(picture)
+	if(length(newMsg.imgs))
 		// browse_rsc is stupid and too slow to call in ui_data (the image will not be received before the UI renders)
 		// instead we browse_rsc the image to *everyone* because the game is stupid - now everyone has the image cached before opening the newscaster
 		// this means the only person that will get possibly glitchy behavior is the person who posted the image, but it will be fixed the next time the UI opens.
-		var/photo_ID = "tmp_newscaster_[newMsg.parent_ID]_[newMsg.message_ID].png"
-		for(var/client/C as anything in GLOB.clients)
-			C << browse_rsc(newMsg.img, photo_ID)
+		for(var/i in 1 to length(newMsg.imgs))
+			var/photo_ID = "tmp_newscaster_[newMsg.parent_ID]_[newMsg.message_ID]_[i].png"
+			var/icon/photo = newMsg.imgs[i]
+			for(var/client/C as anything in GLOB.clients)
+				C << browse_rsc(photo, photo_ID)
 	for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allCasters)
 		NEWSCASTER.news_alert(channel_name, update_alert)
 	last_action ++
@@ -235,27 +274,56 @@ GLOBAL_LIST_EMPTY(request_list)
 	message_count ++
 	newMsg.message_ID = message_count
 
-/datum/feed_network/proc/submit_wanted(criminal, body, scanned_user, datum/picture/picture, adminMsg = FALSE, newMessage = FALSE, has_image = TRUE)
-	wanted_issue.active = TRUE
-	wanted_issue.criminal = criminal
-	wanted_issue.body = body
-	wanted_issue.scanned_user = scanned_user
-	wanted_issue.is_admin_msg = adminMsg
-	wanted_issue.has_image = has_image
+
+/datum/feed_network/proc/refresh_primary_wanted_issue()
+	if(length(wanted_issues))
+		wanted_issue = wanted_issues[1]
+		return
+	if(!wanted_issue)
+		wanted_issue = new /datum/wanted_message
+	wanted_issue.active = FALSE
+	wanted_issue.criminal = null
+	wanted_issue.body = null
+	wanted_issue.danger_level = null
+	wanted_issue.scanned_user = null
+	wanted_issue.img = null
+	wanted_issue.photo_file = null
+	wanted_issue.has_image = FALSE
+
+/datum/feed_network/proc/submit_wanted(criminal, body, scanned_user, datum/picture/picture, adminMsg = FALSE, newMessage = FALSE, has_image = TRUE, danger_level = "Armed and Dangerous")
+	var/datum/wanted_message/new_issue = new /datum/wanted_message
+	new_issue.wanted_id = ++wanted_count
+	new_issue.active = TRUE
+	new_issue.criminal = criminal
+	new_issue.body = body
+	new_issue.danger_level = danger_level
+	new_issue.scanned_user = scanned_user
+	new_issue.is_admin_msg = adminMsg
+	new_issue.has_image = has_image
 	if(has_image && picture)
-		wanted_issue.img = picture.picture_image
-		wanted_issue.photo_file = save_photo(picture.picture_image)
+		new_issue.img = picture.picture_image
+		new_issue.photo_file = save_photo(picture.picture_image)
+	wanted_issues.Insert(1, new_issue)
+	refresh_primary_wanted_issue()
 	if(newMessage)
 		for(var/obj/machinery/newscaster/N in GLOB.allCasters)
 			N.news_alert()
 			N.update_icon()
 
-/datum/feed_network/proc/delete_wanted()
-	wanted_issue.active = FALSE
-	wanted_issue.criminal = null
-	wanted_issue.body = null
-	wanted_issue.scanned_user = null
-	wanted_issue.img = null
+/datum/feed_network/proc/delete_wanted(wanted_id)
+	if(length(wanted_issues))
+		if(wanted_id)
+			for(var/datum/wanted_message/issue as anything in wanted_issues)
+				if(issue.wanted_id == wanted_id)
+					wanted_issues -= issue
+					qdel(issue)
+					break
+		else
+			var/datum/wanted_message/issue = wanted_issues[1]
+			wanted_issues.Cut(1, 2)
+			if(issue)
+				qdel(issue)
+	refresh_primary_wanted_issue()
 	for(var/obj/machinery/newscaster/updated_newscaster in GLOB.allCasters)
 		updated_newscaster.update_icon()
 
@@ -278,24 +346,63 @@ GLOBAL_LIST_EMPTY(request_list)
  * All of this is passed to the Request Console UI in order to present in organized way.
  */
 /datum/station_request
+	///Unique request IDs counter,
+	var/static/next_request_id = 0
+	///Unique ID for this specific bounty request.
+	var/request_id
 	///Name of the Request Owner.
 	var/owner
 	///Value of the request.
 	var/value
+	///How many of this bounty are requested.
+	var/quantity = 1
+	///Title of the request.
+	var/title
 	///Text description of the request to be shown within the UI.
 	var/description
 	///Internal number of the request for organizing. Id card number.
 	var/req_number
 	///The account of the request owner.
 	var/datum/bank_account/owner_account
-	///the account of the request fulfiller.
-	var/list/applicants = list()
+	///Account claiming to fulfill the request.
+	var/datum/bank_account/claimant_account
+	///Name of the bounty claimer for displaying.
+	var/claimant_name
+	///Current state of the request.
+	var/status = "open"
+	///Tags shown in the completed log.
+	var/list/status_tags = list()
 
-/datum/station_request/New(owned, newvalue, newdescription, reqnum, own_account)
+/datum/station_request/New(owned, newvalue, newquantity, newtitle, newdescription, reqnum, own_account)
 	. = ..()
+	request_id = ++next_request_id
 	owner = owned
 	value = newvalue
+	quantity = max(1, text2num(newquantity))
+	title = newtitle
 	description = newdescription
 	req_number = reqnum
 	if(istype(own_account, /datum/bank_account))
 		owner_account = own_account
+
+/datum/station_request/proc/claim(datum/bank_account/account)
+	if(!istype(account) || status != "open")
+		return FALSE
+	claimant_account = account
+	claimant_name = account.account_holder
+	status = "claimed"
+	return TRUE
+
+/datum/station_request/proc/unclaim()
+	if(status != "claimed")
+		return FALSE
+	claimant_account = null
+	claimant_name = null
+	status = "open"
+	return TRUE
+
+/datum/station_request/proc/complete(list/tags, datum/bank_account/account = claimant_account)
+	status = "completed"
+	claimant_account = account
+	claimant_name = account?.account_holder
+	status_tags = tags?.Copy() || list()

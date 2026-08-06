@@ -21,8 +21,12 @@
 	var/datum/feed_message/current_message
 	///The message that's currently being written for a feed story.
 	var/feed_channel_message
-	///The current image that will be submitted with the newscaster story.
+	///The headline currently being written.
+	var/feed_channel_headline
+	///The image used while making a wanted alert.
 	var/datum/picture/current_image
+	///List of photos being attached to an article.
+	var/list/pending_photos = list()
 	///Is there currently an alert on this newscaster that hasn't been seen yet?
 	var/alert = FALSE
 	///Is the current user viewing the issue at the moment?
@@ -39,6 +43,18 @@
 	var/criminal_name
 	///What is the user submitted, crime description for the new wanted issue?
 	var/crime_description
+	///Sselected danger level for the created wanted issue.
+	var/wanted_danger_level = "Armed and Dangerous"
+	///Currently selected warrant in the ui.
+	var/selected_wanted_id
+	///Danger levels used by wanted alerts.
+	var/static/list/wanted_danger_options = list(
+		"Wanted - Low Threat",
+		"Wanted - Caution",
+		"Armed and Dangerous",
+		"Lethal Threat",
+		"Explosives Risk",
+	)
 	///If the current wanted issue has an image
 	var/wanted_image = FALSE
 	///What is the current, in-creation channel's name going to be?
@@ -52,10 +68,18 @@
 
 	///The station request datum being affected by UI actions.
 	var/datum/station_request/active_request
+	///Is a user currently writing a story
+	var/writing_story = FALSE
 	///Value of the currently bounty input
 	var/bounty_value = 1
-	///Text of the currently written bounty
+	///Quantity of items requested for the bounty.
+	var/bounty_quantity = 1
+	///Title of the bounty.
+	var/bounty_title = ""
+	///Description text for the bounty.
 	var/bounty_text = ""
+	///Timer used to reset UI to hub after user leaves.
+	var/idle_reset_timer
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30)
 
@@ -91,12 +115,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 /obj/machinery/newscaster/update_overlays()
 	. = ..()
 	if(!(machine_stat & (NOPOWER|BROKEN)))
-		var/state = "[base_icon_state]_[GLOB.news_network.wanted_issue.active ? "wanted" : "normal"]"
+		var/wanted_active = GLOB.news_network?.wanted_issue?.active
+		var/state = "[base_icon_state]_[wanted_active ? "wanted" : "normal"]"
 		. += mutable_appearance(icon, state)
 		. += emissive_appearance(icon, state, layer, alpha = src.alpha)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
-		if(!GLOB.news_network.wanted_issue.active && alert)
+		if(!wanted_active && alert)
 			. += mutable_appearance(icon, "[base_icon_state]_alert")
 			. += emissive_appearance(icon, "[base_icon_state]_alert", layer, alpha = src.alpha)
 			ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
@@ -117,12 +142,29 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 
 /obj/machinery/newscaster/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
+	if(idle_reset_timer)
+		deltimer(idle_reset_timer)
+		idle_reset_timer = null
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PhysicalNewscaster", name)
 		ui.open()
 	alert = FALSE //We're checking our messages!
 	update_icon()
+
+/obj/machinery/newscaster/ui_close(mob/user, datum/tgui/ui)
+	. = ..()
+	if(idle_reset_timer)
+		deltimer(idle_reset_timer)
+	idle_reset_timer = addtimer(CALLBACK(src, PROC_REF(reset_to_picker)), 1 MINUTES, TIMER_STOPPABLE)
+
+/obj/machinery/newscaster/proc/reset_to_picker()
+	idle_reset_timer = null
+	// If the user is doing the following the UI shouldnt reset to hub.
+	if(creating_channel || editing_channel || creating_comment || editing_wanted || viewing_wanted || writing_story)
+		return
+	current_channel = null
+	SStgui.update_uis(src)
 
 /obj/machinery/newscaster/proc/get_registered_account(mob/user)
 	if(!isliving(user))
@@ -144,7 +186,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	data["user"] = list()
 	data["user"]["authenticated"] = FALSE
 	data["user"]["silicon"] = FALSE
-	data["security_mode"] = (ACCESS_ARMORY in card?.GetAccess())
+	data["security_mode"] = (ACCESS_SECURITY in card?.GetAccess())
+	data["wanted_create_mode"] = (ACCESS_SEC_RECORDS in card?.GetAccess())
+	data["command_mode"] = (ACCESS_CAPTAIN in card?.GetAccess())
 	if(card?.registered_account)
 		data["user"]["authenticated"] = TRUE
 		data["user"]["name"] = card.registered_account.account_holder
@@ -161,11 +205,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		data["user"]["name"] = user.name
 		data["user"]["job"] = user.job
 		data["security_mode"] = !ispAI(user)
+		data["wanted_create_mode"] = FALSE
+		data["command_mode"] = FALSE
 	else
 		data["user"]["name"] = "Unknown"
 		data["user"]["job"] = "N/A"
 
 	data["photo_data"] = !isnull(current_image)
+	data["photo_count"] = length(pending_photos)
 	data["creating_channel"] = creating_channel
 	data["editing_channel"] = editing_channel
 	data["creating_comment"] = creating_comment
@@ -173,20 +220,29 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	data["editing_wanted"] = editing_wanted
 
 	//Here is all the UI_data sent about the current wanted issue, as well as making a new one in the UI.
-	data["making_wanted_issue"] = !(GLOB.news_network.wanted_issue?.active)
+	data["making_wanted_issue"] = !length(GLOB.news_network.wanted_issues)
 	data["criminal_name"] = criminal_name
 	data["crime_description"] = crime_description
+	data["wanted_danger_level"] = wanted_danger_level
+	data["wanted_danger_options"] = wanted_danger_options
+	if(!selected_wanted_id && length(GLOB.news_network.wanted_issues))
+		selected_wanted_id = GLOB.news_network.wanted_issues[1].wanted_id
+	data["selected_wanted_id"] = selected_wanted_id
 	var/list/wanted_info = list()
-	if(GLOB.news_network.wanted_issue)
-		if(GLOB.news_network.wanted_issue.img)
-			user << browse_rsc(GLOB.news_network.wanted_issue.img, "wanted_photo.png")
-		wanted_info = list(list(
-			"active" = GLOB.news_network.wanted_issue.active,
-			"criminal" = GLOB.news_network.wanted_issue.criminal,
-			"crime" = GLOB.news_network.wanted_issue.body,
-			"author" = GLOB.news_network.wanted_issue.scanned_user,
-			"image" = "wanted_photo.png",
-			"has_image" = GLOB.news_network.wanted_issue.has_image,
+	for(var/datum/wanted_message/wanted_entry as anything in GLOB.news_network.wanted_issues)
+		var/photo_id = null
+		if(wanted_entry.img)
+			photo_id = "wanted_photo_[wanted_entry.wanted_id].png"
+			user << browse_rsc(wanted_entry.img, photo_id)
+		wanted_info += list(list(
+			"id" = wanted_entry.wanted_id,
+			"active" = wanted_entry.active,
+			"criminal" = wanted_entry.criminal,
+			"crime" = wanted_entry.body,
+			"danger_level" = wanted_entry.danger_level,
+			"author" = wanted_entry.scanned_user,
+			"image" = photo_id,
+			"has_image" = wanted_entry.has_image,
 		))
 
 	//Code breaking down the channels that have been made on-station thus far. ha
@@ -194,10 +250,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	if(current_channel)
 		for(var/datum/feed_message/feed_message as anything in current_channel.messages)
 			var/photo_ID = null
+			var/list/photo_IDs = list()
 			var/list/comment_list
-			if(feed_message.img)
-				photo_ID = "tmp_newscaster_[current_channel.channel_ID]_[feed_message.message_ID].png"
+			if(length(feed_message.imgs))
+				for(var/i in 1 to length(feed_message.imgs))
+					var/icon/photo = feed_message.imgs[i]
+					var/iter_photo_ID = "tmp_newscaster_[current_channel.channel_ID]_[feed_message.message_ID]_[i].png"
+					user << browse_rsc(photo, iter_photo_ID)
+					photo_IDs += iter_photo_ID
+			else if(feed_message.img)
+				photo_ID = "tmp_newscaster_[current_channel.channel_ID]_[feed_message.message_ID]_1.png"
 				user << browse_rsc(feed_message.img, photo_ID)
+				photo_IDs += photo_ID
+			if(length(photo_IDs))
+				photo_ID = photo_IDs[1]
 			for(var/datum/feed_comment/comment_message as anything in feed_message.comments)
 				comment_list += list(list(
 					"auth" = comment_message.author,
@@ -206,6 +272,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 				))
 			var/auth_m = feed_message.return_author()
 			message_list += list(list(
+				"headline" = feed_message.headline,
 				"auth" = auth_m,
 				"body" = feed_message.body,
 				"time" = feed_message.time_stamp,
@@ -214,6 +281,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 				"censored_author" = feed_message.author_censor,
 				"ID" = feed_message.message_ID,
 				"photo" = photo_ID,
+				"photos" = photo_IDs,
 				"photo_caption" = feed_message.caption,
 				"comments" = comment_list
 			))
@@ -221,18 +289,42 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 
 	data["viewing_channel"] = current_channel?.channel_ID
 	data["paper"] = paper_remaining
+	var/current_user_name = data["user"]["name"]
+	data["isChannelOwner"] = !!(current_channel && !data["user"]["silicon"] && current_user_name == current_channel.author)
 	//Here we display all the information about the current channel.
 	data["channelName"] = current_channel?.channel_name
 	data["channelAuthor"] = current_channel?.author
 
 	if(!current_channel)
 		data["channelAuthor"] = "Nanotrasen Inc"
-		data["channelDesc"] = "Welcome to Newscaster Net. Interface & News networks Operational."
+		data["channelDesc"] = "Please select a News Source to view broadcasts and articles."
 		data["channelLocked"] = TRUE
+		data["channelAllowedPosters"] = list()
+		data["pinnedArticle"] = null
 	else
 		data["channelDesc"] = current_channel.channel_desc
 		data["channelLocked"] = current_channel.locked
 		data["channelCensored"] = current_channel.censored
+		data["channelAllowedPosters"] = current_channel.allowed_posters
+		var/list/pinned_article = null
+		if(current_channel.pinned_message_id)
+			for(var/datum/feed_message/potential_pinned as anything in current_channel.messages)
+				if(potential_pinned.message_ID == current_channel.pinned_message_id)
+					var/pinned_photo_id = null
+					if(length(potential_pinned.imgs))
+						var/icon/pinned_photo = potential_pinned.imgs[1]
+						pinned_photo_id = "tmp_newscaster_[current_channel.channel_ID]_[potential_pinned.message_ID]_1.png"
+						user << browse_rsc(pinned_photo, pinned_photo_id)
+					else if(potential_pinned.img)
+						pinned_photo_id = "tmp_newscaster_[current_channel.channel_ID]_[potential_pinned.message_ID]_1.png"
+						user << browse_rsc(potential_pinned.img, pinned_photo_id)
+					pinned_article = list(
+						"ID" = potential_pinned.message_ID,
+						"headline" = potential_pinned.headline,
+						"photo" = pinned_photo_id,
+					)
+					break
+		data["pinnedArticle"] = pinned_article
 
 	data["editor"] = list()
 	data["editor"]["channelName"] = channel_name
@@ -244,15 +336,35 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	data["wanted"] = wanted_info
 
 	var/list/formatted_requests = list()
-	var/list/formatted_applicants = list()
+	var/list/formatted_completed_requests = list()
 	for (var/datum/station_request/request as anything in GLOB.request_list)
-		formatted_requests += list(list("owner" = request.owner, "value" = request.value, "description" = request.description, "acc_number" = request.req_number))
-		if(request.applicants)
-			for(var/datum/bank_account/applicant_bank_account as anything in request.applicants)
-				formatted_applicants += list(list("name" = applicant_bank_account.account_holder, "request_id" = request.owner_account.account_id, "requestee_id" = applicant_bank_account.account_id))
+		formatted_requests += list(list(
+			"owner" = request.owner,
+			"value" = request.value,
+			"quantity" = request.quantity,
+			"title" = request.title,
+			"description" = request.description,
+			"acc_number" = request.request_id || request.req_number,
+			"status" = request.status,
+			"claimant" = request.claimant_name,
+		))
+	for (var/datum/station_request/request as anything in GLOB.completed_request_list)
+		formatted_completed_requests += list(list(
+			"owner" = request.owner,
+			"value" = request.value,
+			"quantity" = request.quantity,
+			"title" = request.title,
+			"description" = request.description,
+			"acc_number" = request.request_id || request.req_number,
+			"status" = request.status,
+			"claimant" = request.claimant_name,
+			"tags" = request.status_tags?.Join(", "),
+		))
 	data["requests"] = formatted_requests
-	data["applicants"] = formatted_applicants
+	data["completedRequests"] = formatted_completed_requests
 	data["bountyValue"] = bounty_value
+	data["bountyQuantity"] = bounty_quantity
+	data["bountyTitle"] = bounty_title
 	data["bountyText"] = bounty_text
 
 	var/list/channel_list = list()
@@ -263,6 +375,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 			"censored" = channel.censored,
 			"locked" = channel.locked,
 			"ID" = channel.channel_ID,
+			"desc" = channel.channel_desc,
 		))
 
 	data["channels"] = channel_list
@@ -279,15 +392,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	var/datum/bank_account/request_target
 	if(current_ref_num)
 		for(var/datum/station_request/iterated_station_request as anything in GLOB.request_list)
-			if(iterated_station_request.req_number == current_ref_num)
+			if(iterated_station_request.request_id == current_ref_num || iterated_station_request.req_number == current_ref_num)
 				active_request = iterated_station_request
 				break
-	if(active_request)
-		for(var/datum/bank_account/iterated_bank_account as anything in active_request.applicants)
-			if(iterated_bank_account.account_id == current_app_num)
-				request_target = iterated_bank_account
-				break
-	var/silicon = issilicon(usr)
+	if(active_request?.claimant_account && active_request.claimant_account.account_id == current_app_num)
+		request_target = active_request.claimant_account
+	var/is_silicon_user = issilicon(usr)
 	switch(action)
 		if("setChannel")
 			var/prototype_channel = params["channel"]
@@ -296,6 +406,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 			for(var/datum/feed_channel/potential_channel as anything in GLOB.news_network.network_channels)
 				if(prototype_channel == potential_channel.channel_ID)
 					current_channel = potential_channel
+			viewing_wanted = FALSE
+			editing_wanted = FALSE
+
+		if("returnToSourceSelect")
+			current_channel = null
+			viewing_wanted = FALSE
+			editing_wanted = FALSE
+			return TRUE
 
 		if("createStory")
 			if(!current_channel)
@@ -306,6 +424,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 
 		if("togglePhoto")
 			toggle_photo()
+			return TRUE
+
+		if("clearPhotos")
+			clear_photos()
 			return TRUE
 
 		if("startCreateChannel")
@@ -332,6 +454,30 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 			channel_locked = !!params["channellocked"]
 			return TRUE
 
+		if("manageSetChannelName")
+			manage_set_channel_name()
+			return TRUE
+
+		if("manageSetChannelDesc")
+			manage_set_channel_desc()
+			return TRUE
+
+		if("manageToggleChannelPrivacy")
+			manage_toggle_channel_privacy()
+			return TRUE
+
+		if("manageAddAllowedPoster")
+			manage_add_allowed_poster()
+			return TRUE
+
+		if("manageRemoveAllowedPoster")
+			manage_remove_allowed_poster()
+			return TRUE
+
+		if("manageSetPinnedArticle")
+			manage_set_pinned_article()
+			return TRUE
+
 		if("createChannel")
 			if(creating_channel)
 				create_channel()
@@ -347,12 +493,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 			editing_wanted = FALSE
 			criminal_name = null
 			crime_description = null
+			wanted_danger_level = "Armed and Dangerous"
 			return TRUE
 
 		if("storyCensor")
 			if(ispAI(usr))
 				return TRUE
-			if(!silicon)
+			if(!is_silicon_user)
 				var/obj/item/card/id/id_card
 				if(isliving(usr))
 					var/mob/living/living_user = usr
@@ -369,7 +516,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		if("authorCensor")
 			if(ispAI(usr))
 				return TRUE
-			if(!silicon)
+			if(!is_silicon_user)
 				var/obj/item/card/id/id_card
 				if(isliving(usr))
 					var/mob/living/living_user = usr
@@ -386,12 +533,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		if("channelDNotice")
 			if(ispAI(usr))
 				return TRUE
-			if(!silicon)
+			if(!is_silicon_user)
 				var/obj/item/card/id/id_card
 				if(isliving(usr))
 					var/mob/living/living_user = usr
 					id_card = living_user.get_idcard(hand_first = TRUE)
-				if(!(ACCESS_ARMORY in id_card?.GetAccess()))
+				if(!(ACCESS_CAPTAIN in id_card?.GetAccess()))
 					say("ERROR: Unauthorized request.")
 					return TRUE
 			var/prototype_channel = (params["channel"])
@@ -403,8 +550,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 			return TRUE
 
 		if("startComment")
-			if(!get_registered_account(usr) && !silicon)
-				say("ERROR: Cannote locate linked account ID.")
+			if(!get_registered_account(usr) && !is_silicon_user)
+				say("ERROR: Cannot locate linked account ID.")
 				creating_comment = FALSE
 				return TRUE
 			creating_comment = TRUE
@@ -431,28 +578,159 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 			alert = FALSE
 			viewing_wanted = TRUE
 			editing_wanted = FALSE
+			if(!selected_wanted_id && length(GLOB.news_network.wanted_issues))
+				selected_wanted_id = GLOB.news_network.wanted_issues[1].wanted_id
 			update_overlays()
+			return TRUE
+
+		if("createWantedCase")
+			if(ispAI(usr))
+				return TRUE
+			var/datum/bank_account/account = get_registered_account(usr)
+			if(!istype(account) && !is_silicon_user)
+				say("ERROR: Cannot locate linked account ID.")
+				return TRUE
+			if(!is_silicon_user)
+				var/obj/item/card/id/id_card
+				if(isliving(usr))
+					var/mob/living/living_user = usr
+					id_card = living_user.get_idcard(hand_first = TRUE)
+				if(!(ACCESS_SEC_RECORDS in id_card?.GetAccess()))
+					say("ERROR: Unauthorized request.")
+					return TRUE
+			viewing_wanted = TRUE
+			editing_wanted = TRUE
+			selected_wanted_id = null
+			current_image = null
+			criminal_name = null
+			crime_description = null
+			wanted_danger_level = "Armed and Dangerous"
+			alert = FALSE
+			wanted_image = FALSE
+			update_overlays()
+			return TRUE
+
+		if("setWantedTarget")
+			selected_wanted_id = text2num(params["wantedID"])
 			return TRUE
 
 		if("editWanted")
 			alert = FALSE
 			viewing_wanted = TRUE
 			editing_wanted = TRUE
+			var/datum/wanted_message/selected_wanted
+			for(var/datum/wanted_message/iterated_wanted as anything in GLOB.news_network.wanted_issues)
+				if(iterated_wanted.wanted_id == selected_wanted_id)
+					selected_wanted = iterated_wanted
+					break
+			if(!selected_wanted && length(GLOB.news_network.wanted_issues))
+				selected_wanted = GLOB.news_network.wanted_issues[1]
+				selected_wanted_id = selected_wanted.wanted_id
+			criminal_name = selected_wanted?.criminal || criminal_name
+			crime_description = selected_wanted?.body || crime_description
+			wanted_danger_level = selected_wanted?.danger_level || wanted_danger_level
 			update_overlays()
 			return TRUE
 
+		if("importWantedRecord")
+			if(ispAI(usr))
+				return TRUE
+			if(!is_silicon_user)
+				var/obj/item/card/id/id_card
+				if(isliving(usr))
+					var/mob/living/living_user = usr
+					id_card = living_user.get_idcard(hand_first = TRUE)
+				if(!(ACCESS_SEC_RECORDS in id_card?.GetAccess()))
+					say("ERROR: Unauthorized request.")
+					return TRUE
+			var/list/record_options = list()
+			for(var/datum/record/crew/record as anything in GLOB.manifest.general)
+				if(!record?.name)
+					continue
+				record_options["[record.name] ([record.rank])"] = record.name
+			if(!length(record_options))
+				say("No crew records found.")
+				return TRUE
+			var/chosen_label = tgui_input_list(usr, "Import from security records", "Warrant Alert Handler", sort_list(record_options))
+			if(!chosen_label)
+				return TRUE
+			var/chosen_name = record_options[chosen_label]
+			var/datum/record/crew/chosen_record = find_record(chosen_name, GLOB.manifest.general)
+			if(!chosen_record)
+				say("ERROR: Record not found.")
+				return TRUE
+			var/import_mode = tgui_input_list(
+				usr,
+				"Choose data to import",
+				"Warrant Alert Handler",
+				list(
+					"Name + Charges + Photo",
+					"Name + Charges",
+					"Name + Photo",
+					"Photo Only",
+					"Name Only",
+				)
+			)
+			if(!import_mode)
+				return TRUE
+			if(import_mode != "Photo Only")
+				criminal_name = chosen_record.name
+			if(import_mode == "Name + Charges + Photo" || import_mode == "Name + Charges")
+				var/list/charges = list()
+				for(var/datum/crime_record/crime as anything in chosen_record.crimes)
+					if(crime?.valid)
+						charges += crime.name
+				for(var/datum/crime_record/citation as anything in chosen_record.citations)
+					if(citation?.valid)
+						charges += citation.name
+				if(length(charges))
+					crime_description = "Known charges: [charges.Join(", ")]"
+				else if(chosen_record.security_note)
+					crime_description = "Security note: [chosen_record.security_note]"
+				else
+					crime_description = "Imported from security records."
+			if(import_mode == "Name + Charges + Photo" || import_mode == "Name + Photo" || import_mode == "Photo Only")
+				current_image = null
+				wanted_image = FALSE
+				if(chosen_record.character_appearance)
+					var/obj/item/photo/photo = chosen_record.get_front_photo()
+					if(photo?.picture)
+						current_image = photo.picture
+						wanted_image = TRUE
+				if(!wanted_image)
+					say("No record photo found for this crew member.")
+			return TRUE
+
 		if("setCriminalName")
-			var/temp_name = stripped_input(usr, "Write the Criminal's Name", "Warrent Alert Handler", "John Doe", MAX_NAME_LEN)
+			var/temp_name = stripped_input(usr, "Write the Criminal's Name", "Warrant Alert Handler", "John Doe", MAX_NAME_LEN)
 			if(!temp_name)
 				return TRUE
 			criminal_name = temp_name
 			return TRUE
 
 		if("setCrimeData")
-			var/temp_desc = stripped_multiline_input(usr, "Write the Criminal's Crimes", "Warrent Alert Handler", "Unknown", MAX_BROADCAST_LEN)
-			if(!temp_desc)
+			var/list/charges = list()
+			while(TRUE)
+				var/prompt_text = length(charges) ? "Add another charge line (leave blank to finish)." : "Add a charge line (leave blank to finish)."
+				var/temp_charge = stripped_input(usr, prompt_text, "Warrant Alert Handler", "", MAX_BROADCAST_LEN)
+				if(isnull(temp_charge))
+					return TRUE
+				if(!length(temp_charge))
+					break
+				charges += temp_charge
+			if(!length(charges))
 				return TRUE
-			crime_description = temp_desc
+			crime_description = charges.Join("\n")
+			return TRUE
+
+		if("setDangerLevel")
+			var/list/options = list()
+			for(var/level as anything in wanted_danger_options)
+				options += level
+			var/temp_level = tgui_input_list(usr, "Set wanted danger level", "Warrant Alert Handler", options)
+			if(!temp_level)
+				return TRUE
+			wanted_danger_level = temp_level
 			return TRUE
 
 		if("submitWantedIssue")
@@ -462,38 +740,44 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 				say("ERROR: Missing crime details.")
 				return TRUE
 			var/datum/bank_account/account = get_registered_account(usr)
-			if(!istype(account) && !silicon)
+			if(!istype(account) && !is_silicon_user)
 				say("ERROR: Cannot locate linked account ID.")
 				return TRUE
-			if(!silicon)
+			if(!is_silicon_user)
 				var/obj/item/card/id/id_card
 				if(isliving(usr))
 					var/mob/living/living_user = usr
 					id_card = living_user.get_idcard(hand_first = TRUE)
-				if(!(ACCESS_ARMORY in id_card?.GetAccess()))
+				if(!(ACCESS_SEC_RECORDS in id_card?.GetAccess()))
 					say("ERROR: Unauthorized request.")
 					return TRUE
-			GLOB.news_network.submit_wanted(criminal_name, crime_description, silicon ? usr.name : account.account_holder, current_image, adminMsg = FALSE, newMessage = TRUE, has_image = wanted_image)
+			GLOB.news_network.submit_wanted(criminal_name, crime_description, is_silicon_user ? usr.name : account.account_holder, current_image, adminMsg = FALSE, newMessage = TRUE, has_image = wanted_image, danger_level = wanted_danger_level)
+			selected_wanted_id = GLOB.news_network.wanted_issue?.wanted_id
 			current_image = null
-			viewing_wanted = FALSE
+			viewing_wanted = TRUE
 			editing_wanted = FALSE
 			criminal_name = null
 			crime_description = null
+			wanted_danger_level = "Armed and Dangerous"
 			wanted_image = FALSE
 			return TRUE
 
 		if("clearWantedIssue")
 			if(ispAI(usr))
 				return TRUE
-			if(!silicon)
+			if(!is_silicon_user)
 				var/obj/item/card/id/id_card
 				if(isliving(usr))
 					var/mob/living/living_user = usr
 					id_card = living_user.get_idcard(hand_first = TRUE)
-				if(!(ACCESS_ARMORY in id_card?.GetAccess()))
+				if(!(ACCESS_SEC_RECORDS in id_card?.GetAccess()))
 					say("ERROR: Unauthorized request.")
 					return TRUE
-			clear_wanted_issue(user = usr)
+			clear_wanted_issue(user = usr, wanted_id = selected_wanted_id)
+			if(length(GLOB.news_network.wanted_issues))
+				selected_wanted_id = GLOB.news_network.wanted_issues[1].wanted_id
+			else
+				selected_wanted_id = null
 			for(var/obj/machinery/newscaster/other_newscaster in GLOB.allCasters)
 				other_newscaster.update_icon()
 				return TRUE
@@ -506,12 +790,28 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 			create_bounty()
 			return TRUE
 
-		if("apply")
+		if("claim")
 			apply_to_bounty()
 			return TRUE
 
 		if("payApplicant")
 			pay_applicant(payment_target = request_target)
+			return TRUE
+
+		if("expireBounty")
+			expire_bounty()
+			return TRUE
+
+		if("failBounty")
+			fail_bounty()
+			return TRUE
+
+		if("unclaim")
+			unclaim_bounty()
+			return TRUE
+
+		if("printBounty")
+			print_bounty_request()
 			return TRUE
 
 		if("deleteRequest")
@@ -523,9 +823,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 			if(!bounty_value)
 				bounty_value = 1
 
+		if("bountyQty")
+			bounty_quantity = text2num(params["bountyqty"])
+			if(!bounty_quantity)
+				bounty_quantity = 1
+
+		if("bountyTitle")
+			var/pre_bounty_title = params["bountytitle"]
+			if(isnull(pre_bounty_title))
+				return
+			bounty_title = pre_bounty_title
+
 		if("bountyText")
 			var/pre_bounty_text = params["bountytext"]
-			if(!pre_bounty_text)
+			if(isnull(pre_bounty_text))
 				return
 			bounty_text = pre_bounty_text
 	return TRUE
@@ -609,11 +920,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 
 /**
  * Sends photo data to build the newscaster article.
+ * Returns all pending photos (up to 3) if any, otherwise null.
  */
 /obj/machinery/newscaster/proc/send_photo_data()
-	if(!current_image)
+	if(!length(pending_photos))
 		return null
-	return current_image
+	var/list/photos = list()
+	for(var/datum/picture/pic as anything in pending_photos)
+		photos += pic
+	return photos
 
 /**
  * This takes a held photograph, and updates the current_image variable with that of the held photograph's image.
@@ -805,6 +1120,118 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	editing_channel = TRUE
 	return TRUE
 
+/obj/machinery/newscaster/proc/get_user_feed_name(mob/user = usr)
+	if(issilicon(user))
+		return null
+	var/datum/bank_account/account = get_registered_account(user)
+	if(istype(account))
+		return account.account_holder
+	return null
+
+/obj/machinery/newscaster/proc/can_manage_current_channel(mob/user = usr)
+	if(!current_channel)
+		return FALSE
+	var/user_name = get_user_feed_name(user)
+	if(!user_name)
+		return FALSE
+	return current_channel.author == user_name
+
+/obj/machinery/newscaster/proc/manage_set_channel_name()
+	if(!can_manage_current_channel())
+		say("ERROR: Unauthorized request.")
+		return TRUE
+	var/new_name = stripped_input(usr, "Set channel name", "Channel Management", current_channel.channel_name, 42)
+	if(!new_name)
+		return TRUE
+	for(var/datum/feed_channel/iterated_feed_channel as anything in GLOB.news_network.network_channels)
+		if(iterated_feed_channel != current_channel && iterated_feed_channel.channel_name == new_name)
+			say("ERROR: Feed channel with that name already exists.")
+			return TRUE
+	current_channel.channel_name = new_name
+	return TRUE
+
+/obj/machinery/newscaster/proc/manage_set_channel_desc()
+	if(!can_manage_current_channel())
+		say("ERROR: Unauthorized request.")
+		return TRUE
+	var/new_desc = stripped_multiline_input(usr, "Set channel description", "Channel Management", current_channel.channel_desc, MAX_BROADCAST_LEN)
+	if(!new_desc)
+		return TRUE
+	current_channel.channel_desc = new_desc
+	return TRUE
+
+/obj/machinery/newscaster/proc/manage_toggle_channel_privacy()
+	if(!can_manage_current_channel())
+		say("ERROR: Unauthorized request.")
+		return TRUE
+	current_channel.locked = !current_channel.locked
+	say("Channel is now [current_channel.locked ? "Private" : "Public"].")
+	return TRUE
+
+/obj/machinery/newscaster/proc/manage_add_allowed_poster()
+	if(!can_manage_current_channel())
+		say("ERROR: Unauthorized request.")
+		return TRUE
+	var/list/crew_names = list()
+	for(var/datum/record/crew/record as anything in GLOB.manifest.general)
+		if(!record?.name)
+			continue
+		if(record.name == current_channel.author)
+			continue
+		if(record.name in current_channel.allowed_posters)
+			continue
+		crew_names += record.name
+	if(!length(crew_names))
+		say("No eligible crew found on manifest.")
+		return TRUE
+	crew_names = sort_list(crew_names)
+	var/chosen_name = tgui_input_list(usr, "Select crewmember to allow posting", "Channel Management", crew_names)
+	if(!chosen_name)
+		return TRUE
+	if(!find_record(chosen_name, GLOB.manifest.general))
+		say("ERROR: Crewmember not found on manifest.")
+		return TRUE
+	if(!(chosen_name in current_channel.allowed_posters))
+		current_channel.allowed_posters += chosen_name
+	return TRUE
+
+/obj/machinery/newscaster/proc/manage_remove_allowed_poster()
+	if(!can_manage_current_channel())
+		say("ERROR: Unauthorized request.")
+		return TRUE
+	if(!length(current_channel.allowed_posters))
+		say("No additional posters set.")
+		return TRUE
+	var/list/removable = list()
+	for(var/name as anything in current_channel.allowed_posters)
+		removable += name
+	removable = sort_list(removable)
+	var/chosen_name = tgui_input_list(usr, "Select allowed poster to remove", "Channel Management", removable)
+	if(!chosen_name)
+		return TRUE
+	current_channel.allowed_posters -= chosen_name
+	return TRUE
+
+/obj/machinery/newscaster/proc/manage_set_pinned_article()
+	if(!can_manage_current_channel())
+		say("ERROR: Unauthorized request.")
+		return TRUE
+	if(!length(current_channel.messages))
+		say("No articles available to pin.")
+		return TRUE
+	var/list/choice_to_id = list("None (Unpin)" = null)
+	var/list/options = list("None (Unpin)")
+	for(var/datum/feed_message/message as anything in current_channel.messages)
+		var/headline = message.headline || "Untitled Article"
+		var/label = "[headline] (#ID [message.message_ID])"
+		choice_to_id[label] = message.message_ID
+		options += label
+	var/chosen = tgui_input_list(usr, "Select pinned article", "Channel Management", options)
+	if(isnull(chosen))
+		return TRUE
+	current_channel.pinned_message_id = choice_to_id[chosen]
+	return TRUE
+
 /**
  * Creates a new feed story to the global newscaster network.
  * Verifies that the message is being written to a real feed_channel, then provides a text input for the feed story to be written into.
@@ -820,54 +1247,82 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 			current_channel = potential_channel
 			break
 	var/usr_name = issilicon(usr) ? usr.name : account.account_holder
-	if(current_channel.locked && current_channel.author != usr_name)
+	if(current_channel.locked && current_channel.author != usr_name && !(usr_name in current_channel.allowed_posters))
 		say("ERROR: Unauthorized request.")
 		return TRUE
-	var/temp_message = stripped_multiline_input(usr, "Write your Feed story", "Network Channel Handler", feed_channel_message)
+	writing_story = TRUE
+	var/temp_headline = stripped_input(usr, "Write your article headline", "Network Channel Handler", feed_channel_headline, 250)
+	if(length(temp_headline) <= 1)
+		writing_story = FALSE
+		return TRUE
+	if(temp_headline)
+		feed_channel_headline = temp_headline
+	var/temp_message = stripped_multiline_input(usr, "Write your Feed story", "Network Channel Handler", feed_channel_message, 5000)
 	if(length(temp_message) <= 1)
+		writing_story = FALSE
 		return TRUE
 	if(temp_message)
 		feed_channel_message = temp_message
-	GLOB.news_network.submit_article("<font face=\"[PEN_FONT]\">[parsemarkdown(feed_channel_message, usr)]</font>", usr_name, current_channel.channel_name, send_photo_data(), adminMessage = FALSE, allow_comments = TRUE, author_job = issilicon(usr) ? usr.job : account.account_job.title, author_account = account)
+	GLOB.news_network.submit_article("<font face=\"[PEN_FONT]\">[parsemarkdown(feed_channel_message, usr)]</font>", usr_name, current_channel.channel_name, send_photo_data(), adminMessage = FALSE, allow_comments = TRUE, author_job = issilicon(usr) ? usr.job : account.account_job.title, author_account = account, headline = feed_channel_headline)
 	SSblackbox.record_feedback("amount", "newscaster_stories", 1)
+	feed_channel_headline = ""
 	feed_channel_message = ""
-	current_image = null
+	pending_photos = list()
+	writing_story = FALSE
 
 /**
  * Selects a currently held photo from the user's hand and makes it the current_image held by the newscaster.
  * If a photo is still held in the newscaster, it will otherwise clear it from the machine.
  */
 /obj/machinery/newscaster/proc/toggle_photo()
-	if(current_image)
-		balloon_alert(usr, "current photo cleared.")
-		current_image = null
-		if(editing_wanted)
+	if(editing_wanted)
+		// Wanted issue: single image toggle
+		if(current_image)
+			balloon_alert(usr, "photo cleared.")
+			current_image = null
 			wanted_image = FALSE
-		return TRUE
-	else
+			return TRUE
 		attach_photo(usr)
-		if(editing_wanted)
-			wanted_image = !!current_image
+		wanted_image = !!current_image
 		if(current_image)
 			balloon_alert(usr, "photo selected.")
 			playsound(src, 'sound/machines/terminal_success.ogg', 15, TRUE)
 		else
 			balloon_alert(usr, "no photo identified.")
+	else
+		// Article photos: add to pending list (up to 3)
+		if(length(pending_photos) >= 3)
+			balloon_alert(usr, "max 3 photos queued!")
+			return TRUE
+		attach_photo(usr)
+		if(current_image)
+			pending_photos += current_image
+			current_image = null
+			balloon_alert(usr, "photo queued ([length(pending_photos)]/3).")
+			playsound(src, 'sound/machines/terminal_success.ogg', 15, TRUE)
+		else
+			balloon_alert(usr, "no photo identified.")
 
-/obj/machinery/newscaster/proc/clear_wanted_issue(user)
-	if(ispAI(usr))
+/obj/machinery/newscaster/proc/clear_photos()
+	pending_photos = list()
+	balloon_alert(usr, "photos cleared.")
+
+/obj/machinery/newscaster/proc/clear_wanted_issue(user, wanted_id)
+	if(ispAI(user))
 		return FALSE
-	if(!issilicon(usr))
+	if(!issilicon(user))
 		var/obj/item/card/id/id_card
-		if(isliving(usr))
-			var/mob/living/living_user = usr
+		if(isliving(user))
+			var/mob/living/living_user = user
 			id_card = living_user.get_idcard(hand_first = TRUE)
-		if(!(ACCESS_ARMORY in id_card?.GetAccess()))
+		if(!(ACCESS_SEC_RECORDS in id_card?.GetAccess()))
 			say("Clearance not found.")
 			return TRUE
-	GLOB.news_network.wanted_issue.active = FALSE
+	GLOB.news_network.delete_wanted(wanted_id)
+	GLOB.news_network.wanted_issue.danger_level = null
 	wanted_image = FALSE
 	current_image = null
+	wanted_danger_level = "Armed and Dangerous"
 	return TRUE
 
 /**
@@ -888,8 +1343,71 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		say("ERROR: Unauthorized request.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
-	say("Deleted current request.")
+	if(active_request.status != "open")
+		say("ERROR: Only open bounties can be deleted.")
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+		return TRUE
 	GLOB.request_list.Remove(active_request)
+	active_request = null
+	say("Bounty deleted.")
+
+/obj/machinery/newscaster/proc/unclaim_bounty()
+	if(issilicon(usr))
+		return TRUE
+	var/datum/bank_account/account = get_registered_account(usr)
+	if(!istype(account))
+		say("ERROR: Cannot locate linked account ID.")
+		return TRUE
+	if(!active_request)
+		return TRUE
+	if(active_request.owner != account.account_holder)
+		say("ERROR: Unauthorized request.")
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+		return TRUE
+	if(!active_request.unclaim())
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+		return TRUE
+	say("Bounty reopened.")
+
+/obj/machinery/newscaster/proc/expire_bounty()
+	if(issilicon(usr))
+		return TRUE
+	var/datum/bank_account/account = get_registered_account(usr)
+	if(!istype(account))
+		say("ERROR: Cannot locate linked account ID.")
+		return TRUE
+	if(!active_request)
+		return TRUE
+	if(active_request.owner != account.account_holder)
+		say("ERROR: Unauthorized request.")
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+		return TRUE
+	if(active_request.status != "claimed")
+		say("ERROR: Only claimed bounties can be expired.")
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+		return TRUE
+	archive_bounty(active_request, list("Expired", "Completed"))
+	say("Bounty marked as expired.")
+
+/obj/machinery/newscaster/proc/fail_bounty()
+	if(issilicon(usr))
+		return TRUE
+	var/datum/bank_account/account = get_registered_account(usr)
+	if(!istype(account))
+		say("ERROR: Cannot locate linked account ID.")
+		return TRUE
+	if(!active_request)
+		return TRUE
+	if(active_request.owner != account.account_holder)
+		say("ERROR: Unauthorized request.")
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+		return TRUE
+	if(active_request.status != "claimed")
+		say("ERROR: Only claimed bounties can be failed.")
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+		return TRUE
+	archive_bounty(active_request, list("Failed", "Completed"))
+	say("Bounty marked as failed.")
 
 /**
  * This creates a new bounty to the global list of bounty requests, alongisde the provided value of the request, and the owner of the request.
@@ -903,16 +1421,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		say("ERROR: Cannot locate linked account ID.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
-	if(!bounty_text)
-		say("ERROR: No bounty text.")
+	if(!bounty_title)
+		say("ERROR: No bounty name.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
+	var/active_owned_bounties = 0
 	for(var/datum/station_request/iterated_station_request as anything in GLOB.request_list)
 		if(iterated_station_request.req_number == account.account_id)
-			say("ERROR: Account already has active bounty.")
-			return TRUE
-	var/datum/station_request/curr_request = new /datum/station_request(account.account_holder, bounty_value,bounty_text, account.account_id, account)
+			active_owned_bounties++
+	if(active_owned_bounties >= 3)
+		say("ERROR: Account already has 3 active bounties.")
+		return TRUE
+	var/datum/station_request/curr_request = new /datum/station_request(account.account_holder, bounty_value, bounty_quantity, bounty_title, bounty_text, account.account_id, account)
 	GLOB.request_list += list(curr_request)
+	bounty_quantity = 1
+	bounty_title = ""
+	bounty_text = ""
 	for(var/obj/iterated_bounty_board as anything in GLOB.allbountyboards)
 		iterated_bounty_board.say("New bounty added!")
 		playsound(iterated_bounty_board.loc, 'sound/effects/cashregister.ogg', 30, TRUE)
@@ -927,13 +1451,40 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	if(!istype(account))
 		say("ERROR: Cannot locate linked account ID.")
 		return TRUE
+	if(!active_request)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+		return TRUE
 	if(account.account_holder == active_request.owner)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
-	if(account in active_request.applicants)
+	if(active_request.status != "open")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
-	active_request.applicants += list(account)
+	if(!active_request.claim(account))
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+		return TRUE
+	say("Bounty claimed by [account.account_holder].")
+	print_bounty_request()
+	notify_bounty_owner(active_request, account.account_holder)
+
+/**
+ * Sends an automated PDA message to the bounty owner notifying them their bounty was claimed.
+ */
+/obj/machinery/newscaster/proc/notify_bounty_owner(datum/station_request/request, claimant_name)
+	if(!request?.owner)
+		return
+	for(var/obj/item/modular_computer/tablet as anything in GLOB.TabletMessengers)
+		if(tablet.saved_identification != request.owner)
+			continue
+		var/datum/signal/subspace/messaging/tablet_msg/signal = new(src, list(
+			name = "Bounty Board",
+			job = "Bounty Board",
+			message = "Your bounty \"[request.title || "Untitled"]\" has been claimed by [claimant_name].",
+			targets = list(tablet),
+			automated = TRUE
+		))
+		signal.send_to_receivers()
+		break
 
 /**
  * This pays out the current request_target the amount held by the active request's assigned value, and then clears the active request from the global list.
@@ -945,6 +1496,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	if(!istype(account))
 		say("ERROR: Cannot locate linked account ID.")
 		return TRUE
+	if(!active_request)
+		return TRUE
+	if(!payment_target)
+		payment_target = active_request.claimant_account
+	if(!payment_target)
+		say("ERROR: No claimant selected.")
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
+		return TRUE
 	var/has_money = account.has_money(active_request.value)
 	if((account.account_holder != active_request.owner) || !has_money)
 		if(has_money)
@@ -955,8 +1514,39 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		return TRUE
 	payment_target.transfer_money(account, active_request.value)
 	say("Paid out [active_request.value] credits.")
-	GLOB.request_list.Remove(active_request)
-	qdel(active_request)
+	archive_bounty(active_request, list("Paid", "Completed"), payment_target)
+
+/obj/machinery/newscaster/proc/archive_bounty(datum/station_request/request, list/tags, datum/bank_account/account = request?.claimant_account)
+	if(!request)
+		return FALSE
+	request.complete(tags, account)
+	GLOB.request_list.Remove(request)
+	if(!(request in GLOB.completed_request_list))
+		GLOB.completed_request_list += request
+	if(active_request == request)
+		active_request = null
+	return TRUE
+
+/obj/machinery/newscaster/proc/print_bounty_request()
+	if(issilicon(usr))
+		return TRUE
+	if(!active_request)
+		return TRUE
+	if(active_request.status != "claimed")
+		say("ERROR: Only claimed bounties can be printed.")
+		return TRUE
+	var/obj/item/paper/printed_paper = new /obj/item/paper(drop_location())
+	printed_paper.name = "paper - '[active_request.title || "Bounty Record"]'"
+	var/paper_text = "<center><b>Bounty Claim Slip</b></center><br>"
+	paper_text += "<b>Name:</b> [active_request.title || "Untitled"]<br>"
+	paper_text += "<b>Quantity:</b> [active_request.quantity || 1]<br>"
+	paper_text += "<b>Reward:</b> [active_request.value] credits<br>"
+	paper_text += "<b>Issuer:</b> [active_request.owner || "Unknown"]<br>"
+	paper_text += "<b>Claimant:</b> [active_request.claimant_name || "Unassigned"]<br><br>"
+	paper_text += "<b>Description:</b><br>[active_request.description || "None"]"
+	printed_paper.add_raw_text(paper_text)
+	printed_paper.update_appearance()
+	return TRUE
 
 /obj/item/wallframe/newscaster
 	name = "newscaster frame"

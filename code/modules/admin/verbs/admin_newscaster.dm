@@ -18,6 +18,8 @@
 	var/datum/feed_message/current_message
 	///The message that's currently being written for a feed story.
 	var/feed_channel_message
+	///The headline currently being written for a feed story.
+	var/feed_channel_headline
 	///The current image that will be submitted with the newscaster story.
 	var/datum/picture/current_image
 	///Is the current user creating a new channel at the moment?
@@ -116,6 +118,7 @@
 				))
 			var/auth_m = feed_message.return_author()
 			message_list += list(list(
+				"headline" = feed_message.headline,
 				"auth" = auth_m,
 				"body" = feed_message.body,
 				"time" = feed_message.time_stamp,
@@ -136,7 +139,7 @@
 
 	if(!current_channel)
 		data["channelAuthor"] = "Nanotrasen Inc"
-		data["channelDesc"] = "Welcome to Newscaster Net. Interface & News networks Operational."
+		data["channelDesc"] = "Please select a News Source to view broadcasts and articles."
 		data["channelLocked"] = TRUE
 	else
 		data["channelDesc"] = current_channel.channel_desc
@@ -270,6 +273,25 @@
 		if("showWanted")
 			viewing_wanted = TRUE
 			editing_wanted = FALSE
+			return TRUE
+
+		if("createWantedCase")
+			GLOB.news_network.submit_wanted(
+				criminal = "Unknown Suspect",
+				body = "Case details pending.",
+				scanned_user = "Centcom Official",
+				picture = null,
+				adminMsg = TRUE,
+				newMessage = TRUE,
+				has_image = FALSE,
+				danger_level = "Armed and Dangerous",
+			)
+			viewing_wanted = TRUE
+			editing_wanted = FALSE
+			current_image = null
+			criminal_name = null
+			crime_description = null
+			wanted_image = FALSE
 			return TRUE
 
 		if("editWanted")
@@ -414,13 +436,19 @@
 		if(channel_name == potential_channel.channel_ID)
 			current_channel = potential_channel
 			break
+	var/temp_headline = stripped_input(usr, "Write your article headline", "Network Channel Handler", feed_channel_headline, 80)
+	if(length(temp_headline) <= 1)
+		return TRUE
+	if(temp_headline)
+		feed_channel_headline = temp_headline
 	var/temp_message = stripped_multiline_input(usr, "Write your Feed story", "Network Channel Handler", feed_channel_message)
 	if(length(temp_message) <= 1)
 		return TRUE
 	if(temp_message)
 		feed_channel_message = temp_message
-	GLOB.news_network.submit_article("<font face=\"[PEN_FONT]\">[parsemarkdown(feed_channel_message, usr)]</font>", "Centcom Official", current_channel.channel_name, send_photo_data(), adminMessage = TRUE, allow_comments = TRUE, author_job = "Official")
+	GLOB.news_network.submit_article("<font face=\"[PEN_FONT]\">[parsemarkdown(feed_channel_message, usr)]</font>", "Centcom Official", current_channel.channel_name, send_photo_data(), adminMessage = TRUE, allow_comments = TRUE, author_job = "Official", headline = feed_channel_headline)
 	SSblackbox.record_feedback("amount", "newscaster_stories", 1)
+	feed_channel_headline = ""
 	feed_channel_message = ""
 	current_image = null
 
