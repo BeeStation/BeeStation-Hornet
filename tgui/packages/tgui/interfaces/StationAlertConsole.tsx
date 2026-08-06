@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   Dropdown,
+  Icon,
   Section,
   Stack,
   Tabs,
@@ -154,18 +155,20 @@ const AssignMenu = (props: { orderKey: string; crew: CrewMember[] }) => {
   const { orderKey, crew } = props;
 
   if (!crew.length) {
-    return null;
+    return (
+      <Button compact fluid disabled icon="user-slash">
+        No one to assign
+      </Button>
+    );
   }
   return (
     <Dropdown
-      width="16em"
+      width="100%"
       selected=""
       placeholder="Assign"
       options={crew.map((member) => ({
         // Current load first, then their record, so you can see who is already busy.
-        displayText: `${member.name} - ${member.openJobs} open, ${member.completed} done${
-          member.dropped ? `, ${member.dropped} dropped` : ''
-        }`,
+        displayText: `${member.name} — ${member.openJobs} open, ${member.completed} done`,
         value: member.ckey,
       }))}
       onSelected={(value) =>
@@ -239,6 +242,10 @@ const WorkOrderList = (props: WorkOrderListProps) => {
               onClick={() => onSelect(order.areaRef)}
               style={{
                 cursor: 'pointer',
+                paddingLeft: '4px',
+                borderLeft: order.claimant
+                  ? '2px solid rgba(139, 195, 74, 0.65)'
+                  : '2px solid transparent',
                 background:
                   hovered === order.areaRef
                     ? 'rgba(255, 255, 255, 0.12)'
@@ -248,26 +255,19 @@ const WorkOrderList = (props: WorkOrderListProps) => {
               <Stack align="baseline">
                 <Stack.Item grow>
                   <Box
-                    className={
-                      order.claimant
-                        ? 'color-label'
-                        : PRIORITY_CLASS[order.priority]
-                    }
+                    className={PRIORITY_CLASS[order.priority]}
+                    style={{ opacity: order.claimant ? 0.45 : 1 }}
                   >
                     {order.task}
                   </Box>
-                  {(order.claimant || order.assignedBy) && (
-                    <Box className="color-label" fontSize="0.9em">
+                  {!!order.claimant && (
+                    <Box className="color-good" fontSize="0.9em">
+                      <Icon name="user-check" mr={0.5} />
                       {order.claimant}
                       {order.assignedBy ? ` (by ${order.assignedBy})` : ''}
                     </Box>
                   )}
                 </Stack.Item>
-                {!!canAssign && (
-                  <Stack.Item onClick={(event) => event.stopPropagation()}>
-                    <AssignMenu orderKey={order.key} crew={crew || []} />
-                  </Stack.Item>
-                )}
                 <Stack.Item>
                   <Button
                     compact
@@ -285,6 +285,11 @@ const WorkOrderList = (props: WorkOrderListProps) => {
                   />
                 </Stack.Item>
               </Stack>
+              {!!canAssign && (
+                <Box mb={0.5} onClick={(event) => event.stopPropagation()}>
+                  <AssignMenu orderKey={order.key} crew={crew || []} />
+                </Box>
+              )}
             </Box>
           ))}
         </Box>

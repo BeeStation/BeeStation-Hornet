@@ -171,7 +171,12 @@
 	var/board = !issilicon(user)
 	data["workOrders"] = board ? area_state?["orders"] : null
 	data["canAssign"] = board && can_assign_work(user)
-	data["crew"] = board ? SSwork_orders.get_department_crew() : null
+	var/list/assignable = list()
+	if(board)
+		for(var/list/member in SSwork_orders.get_department_crew())
+			if(member["ckey"] != user?.ckey)
+				assignable += list(member)
+	data["crew"] = board ? assignable : null
 	data["alarms"] = list()
 	var/list/nominal_types = alarm_types.Copy()
 	var/list/alarms = listener.alarms
