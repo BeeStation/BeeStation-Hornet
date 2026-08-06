@@ -33,6 +33,7 @@ SUBSYSTEM_DEF(atoms)
 	initialized = INITIALIZATION_INSSATOMS
 
 /datum/controller/subsystem/atoms/Initialize()
+	set category = CATEGORY_NO_RUNTIME_LOOP // DO NOT REMOVE THIS - This is used in runtime tracy
 	//Wait until map loading is completed
 	if (length(SSasync_map_generator.executing_generators) > 0)
 		to_chat(world, span_boldannounce("Waiting for [length(SSasync_map_generator.executing_generators)] map generators..."))
