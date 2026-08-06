@@ -231,6 +231,7 @@
 						to_chat(displaced, span_warning("[claimant] has taken over your work order: [description]."))
 				SSwork_orders.resolve_claim(key, WORK_OUTCOME_REASSIGNED)
 				SSwork_orders.claims[key] = new /datum/work_claim(claimant, usr?.ckey)
+				SSblackbox.record_feedback("tally", "work_orders_claimed", 1, "self")
 				to_chat(usr, span_notice("You put your name to: [description]."))
 			playsound(ui_host(), 'sound/machines/terminal_prompt_confirm.ogg', 40, FALSE)
 			return TRUE
@@ -263,6 +264,7 @@
 				SSwork_orders.resolve_claim(key, WORK_OUTCOME_REASSIGNED)
 
 			SSwork_orders.claims[key] = new /datum/work_claim(target_name, target_ckey, assigner, usr?.ckey)
+			SSblackbox.record_feedback("tally", "work_orders_claimed", 1, "assigned")
 			notify_work_assignment(target, assigner, description)
 			to_chat(usr, span_notice("You assign [target_name] to: [description]."))
 			playsound(ui_host(), 'sound/machines/terminal_prompt_confirm.ogg', 40, FALSE)

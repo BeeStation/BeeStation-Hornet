@@ -43,6 +43,7 @@ lists outstanding engineering work orders raised against it."
 
 /datum/computer_file/program/alarm_monitor/on_start(mob/living/user)
 	. = ..()
+	SSblackbox.record_feedback("tally", "work_board_opened", 1, "program")
 	alert_pending = FALSE
 
 /datum/computer_file/program/alarm_monitor/process_tick()

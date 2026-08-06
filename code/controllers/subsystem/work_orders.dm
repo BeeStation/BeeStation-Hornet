@@ -224,6 +224,7 @@ SUBSYSTEM_DEF(work_orders)
 	if(!claim)
 		return
 	records += new /datum/work_record(claim, known_orders[key] || key, outcome)
+	SSblackbox.record_feedback("tally", "work_orders_resolved", 1, outcome)
 	if(length(records) > MAX_WORK_RECORDS)
 		records.Cut(1, length(records) - MAX_WORK_RECORDS + 1)
 	claims -= key

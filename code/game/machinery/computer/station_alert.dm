@@ -22,6 +22,7 @@
 
 /obj/machinery/computer/station_alert/ui_interact(mob/user)
 	. = ..()
+	SSblackbox.record_feedback("tally", "work_board_opened", 1, "console")
 	alert_control.ui_interact(user)
 
 /obj/machinery/computer/station_alert/on_set_machine_stat(old_value)

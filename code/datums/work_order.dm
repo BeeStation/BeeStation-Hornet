@@ -296,6 +296,8 @@ GLOBAL_LIST_INIT(work_order_tasks, list(
 			var/key = work_order_key(area_ref, readout)
 			// store the description so completion can name it
 			live_keys[key] = "[task] in [get_area_name(checked_area, TRUE)]"
+			if(!known_orders[key])
+				SSblackbox.record_feedback("tally", "work_orders_raised", 1, task)
 			var/datum/work_claim/claim = claims[key]
 			orders += list(list(
 				"key" = key,
@@ -327,6 +329,8 @@ GLOBAL_LIST_INIT(work_order_tasks, list(
 			if(assigner && assigner != claimant_mob)
 				to_chat(assigner, span_notice("[claim.claimant] completed the work order you assigned: [known_orders[key]]."))
 			resolve_claim(key, WORK_OUTCOME_COMPLETED)
+		else
+			SSblackbox.record_feedback("tally", "work_orders_resolved", 1, "unclaimed")
 
 	var/raised = 0
 	for(var/key in live_keys)
