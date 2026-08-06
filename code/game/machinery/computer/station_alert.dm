@@ -1,3 +1,6 @@
+/**
+ * Its intentional that this does not require access
+ */
 /obj/machinery/computer/station_alert
 	name = "station alert console"
 	desc = "Used to access the station's automated alert system."
@@ -16,10 +19,6 @@
 /obj/machinery/computer/station_alert/Destroy()
 	QDEL_NULL(alert_control)
 	return ..()
-
-
-/obj/machinery/computer/station_alert/ui_state(mob/user)
-	return GLOB.default_state
 
 /obj/machinery/computer/station_alert/ui_interact(mob/user)
 	. = ..()
