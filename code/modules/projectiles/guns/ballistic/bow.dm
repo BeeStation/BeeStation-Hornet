@@ -50,8 +50,14 @@
 		to_chat(user, span_notice("You notch the arrow."))
 		update_icon()
 
-/obj/item/gun/ballistic/bow/update_icon()
+/obj/item/gun/ballistic/bow/update_icon_state()
+	. = ..()
 	icon_state = "[initial(icon_state)]_[get_ammo() ? (chambered ? "firing" : "loaded") : "unloaded"]"
+
+/// No Suppressors, or Lights, or whatever. So... you don't get parent overlays, capiche?
+/obj/item/gun/ballistic/bow/update_overlays()
+	SHOULD_CALL_PARENT(FALSE)
+	return list()
 
 /obj/item/gun/ballistic/bow/can_shoot()
 	return chambered && ..()

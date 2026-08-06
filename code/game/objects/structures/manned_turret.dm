@@ -87,7 +87,7 @@
 		var/turf/target_turf = get_turf(target_atom)
 		if(istype(target_turf)) //They're hovering over something in the map.
 			direction_track(controller, target_turf)
-			calculated_projectile_vars = calculate_projectile_angle_and_pixel_offsets(controller, modifiers)
+			calculated_projectile_vars = calculate_projectile_angle_and_pixel_offsets(controller, target_turf, modifiers)
 
 /obj/machinery/manned_turret/proc/direction_track(mob/user, atom/targeted)
 	if(user.incapacitated)
@@ -214,6 +214,6 @@
 /obj/item/gun_control/afterattack(atom/targeted_atom, mob/user, flag, list/modifiers)
 	. = ..()
 	var/obj/machinery/manned_turret/E = user.buckled
-	E.calculated_projectile_vars = calculate_projectile_angle_and_pixel_offsets(user, modifiers)
+	E.calculated_projectile_vars = calculate_projectile_angle_and_pixel_offsets(user, targeted_atom, modifiers)
 	E.direction_track(user, targeted_atom)
 	E.checkfire(targeted_atom, user)

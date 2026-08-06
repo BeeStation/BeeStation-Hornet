@@ -4,7 +4,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 
 
 /datum/admin_secrets/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/admin_secrets/ui_interact(mob/user, datum/tgui/ui)
 	if(!check_rights(0))

@@ -391,7 +391,7 @@ Arguments:
 		temperature = -200
 	if (pressure >= RBMK_PRESSURE_CRITICAL)
 		playsound(src, 'sound/machines/clockcult/steam_whoosh.ogg', 100, TRUE)
-		core_turf.atmos_spawn_air("water_vapor=[pressure/100];TEMP=[temperature+273.15]")
+		core_turf.atmos_spawn_air("[GAS_WATER_VAPOR]=[pressure/100];TEMP=[temperature+273.15]")
 		core_turf.air_update_turf(TRUE, FALSE)
 		// Warning: Pressure reaching critical thresholds!
 		var/damagevalue = (pressure-10100)/1500

@@ -50,8 +50,9 @@
 		direct_target = target
 	if(!direct_target)
 		BB.preparePixelProjectile(target, user, modifiers, spread)
-	BB.fire(null, direct_target)
+	var/obj/projectile/loaded_projectile_cache = BB
 	BB = null
+	loaded_projectile_cache.fire(null, direct_target)
 	return TRUE
 
 /obj/item/ammo_casing/proc/spread(turf/target, turf/current, distro)

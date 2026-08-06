@@ -314,7 +314,7 @@
 				var/mob/living/carbon/human/humi = mob_occupant
 				humi.adjust_coretemperature(humi.bodytemperature - humi.coretemperature)
 
-		SET_MOLES(/datum/gas/oxygen, air1, max(0,GET_MOLES(/datum/gas/oxygen, air1) - 0.5 / efficiency)) // Magically consume gas? Why not, we run on cryo magic.
+		air1.adjust_gas(/datum/gas/oxygen, -0.5 / efficiency) // Magically consume gas? Why not, we run on cryo magic.
 
 	//spread temperature changes throughout the pipenet
 	internal_connector.gas_connector.update_parents()
@@ -609,7 +609,7 @@
  */
 /obj/machinery/cryo_cell/proc/has_valid_gas_enviroment()
 	var/datum/gas_mixture/air1 = internal_connector.gas_connector.airs[1]
-	return internal_connector.gas_connector.nodes[1] && length(air1?.gases) && air1.total_moles() >= CRYO_MIN_GAS_MOLES
+	return internal_connector.gas_connector.nodes[1] && length(air1?.moles) && air1.total_moles() >= CRYO_MIN_GAS_MOLES
 
 /datum/aas_config_entry/medical_cryo_announcements
 	name = "Medical Alert: Cryogenics Reports"
