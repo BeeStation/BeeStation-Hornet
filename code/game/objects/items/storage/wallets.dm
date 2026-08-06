@@ -26,7 +26,7 @@
 			front_id = id_card
 
 		LAZYINITLIST(combined_access)
-		combined_access |= id_card.access
+		combined_access |= id_card.GetAccess()
 
 	if(ishuman(loc))
 		var/mob/living/carbon/human/wearing_human = loc

@@ -21,7 +21,7 @@
 	. = ..()
 	if(department_bitflag)
 		for(var/datum/department_group/dept_datum as anything in SSdepartment.get_department_by_bitflag(department_bitflag))
-			LAZYADD(access_list, dept_datum.access_list)
+			LAZYADD(access_list, dept_datum.department_access)
 	else
 		CRASH("the item [src.type] has no department_bitflag - cannot grant access!")
 

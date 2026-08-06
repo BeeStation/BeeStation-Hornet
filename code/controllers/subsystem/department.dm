@@ -1,4 +1,92 @@
 
+#define REGION_ACCESS_GENERAL list( \
+	ACCESS_KITCHEN, \
+	ACCESS_BAR, \
+	ACCESS_HYDROPONICS, \
+	ACCESS_JANITOR, \
+	ACCESS_CHAPEL_OFFICE, \
+	ACCESS_CREMATORIUM, \
+	ACCESS_LIBRARY, \
+	ACCESS_THEATRE, \
+	ACCESS_LAWYER, \
+	ACCESS_SERVICE, \
+)
+#define REGION_ACCESS_SECURITY list( \
+	ACCESS_SEC_DOORS, \
+	ACCESS_SEC_RECORDS, \
+	ACCESS_WEAPONS, \
+	ACCESS_SECURITY, \
+	ACCESS_BRIG, \
+	ACCESS_BRIGPHYS, \
+	ACCESS_ARMORY, \
+	ACCESS_FORENSICS_LOCKERS, \
+	ACCESS_COURT, \
+	ACCESS_MECH_SECURITY, \
+	ACCESS_HOS, \
+)
+#define REGION_ACCESS_MEDBAY list( \
+	ACCESS_MEDICAL, \
+	ACCESS_GENETICS, \
+	ACCESS_CLONING, \
+	ACCESS_MORGUE, \
+	ACCESS_CHEMISTRY, \
+	ACCESS_VIROLOGY, \
+	ACCESS_SURGERY, \
+	ACCESS_MECH_MEDICAL, \
+	ACCESS_CMO, \
+)
+#define REGION_ACCESS_RESEARCH list( \
+	ACCESS_RESEARCH, \
+	ACCESS_TOX, \
+	ACCESS_TOX_STORAGE, \
+	ACCESS_ROBOTICS, \
+	ACCESS_XENOBIOLOGY, \
+	ACCESS_EXPLORATION, \
+	ACCESS_RD_SERVER, \
+	ACCESS_MECH_SCIENCE, \
+	ACCESS_MINISAT, \
+	ACCESS_RD, \
+	ACCESS_NETWORK, \
+)
+#define REGION_ACCESS_ENGINEERING list( \
+	ACCESS_CONSTRUCTION, \
+	ACCESS_AUX_BASE, \
+	ACCESS_MAINT_TUNNELS, \
+	ACCESS_ENGINE, \
+	ACCESS_ENGINE_EQUIP, \
+	ACCESS_EXTERNAL_AIRLOCKS, \
+	ACCESS_TECH_STORAGE, \
+	ACCESS_ATMOSPHERICS, \
+	ACCESS_MECH_ENGINE, \
+	ACCESS_TCOMSAT, \
+	ACCESS_MINISAT, \
+	ACCESS_CE, \
+)
+#define REGION_ACCESS_SUPPLY list( \
+	ACCESS_MAILSORTING, \
+	ACCESS_MINING, \
+	ACCESS_MINING_STATION, \
+	ACCESS_MECH_MINING, \
+	ACCESS_MINERAL_STOREROOM, \
+	ACCESS_CARGO, \
+	ACCESS_QM, \
+	ACCESS_VAULT, \
+)
+#define REGION_ACCESS_COMMAND list( \
+	ACCESS_HEADS, \
+	ACCESS_RC_ANNOUNCE, \
+	ACCESS_KEYCARD_AUTH, \
+	ACCESS_CHANGE_IDS, \
+	ACCESS_AI_UPLOAD, \
+	ACCESS_TELEPORTER, \
+	ACCESS_EVA, \
+	ACCESS_GATEWAY, \
+	ACCESS_ALL_PERSONAL_LOCKERS, \
+	ACCESS_HOP, \
+	ACCESS_CAPTAIN, \
+	ACCESS_VAULT, \
+)
+
 SUBSYSTEM_DEF(department)
 	name = "Departments"
 	init_stage = INITSTAGE_EARLY
@@ -16,6 +104,15 @@ SUBSYSTEM_DEF(department)
 	var/list/sorted_department_for_manifest
 	/// department datums in a 'job pref' priority order in character selection.
 	var/list/sorted_department_for_latejoin
+	/// Maps a region string to the department datums that make it up. Access is pulled live from their department_access. Keys are region strings, values are lists of /datum/department_group.
+	var/list/region_to_departments = list()
+	/// Dictionary of CentCom/ERT job accesses. Keys are job names. Values are lists of accesses.
+	var/list/accesses_by_centcom_job = list()
+	/// Helper list containing all station regions.
+	var/list/station_regions = list()
+	/// Specially formatted list for sending access levels to tgui interfaces.
+	var/list/all_region_access_tgui = list()
+
 	/// department datums in access manipulation - actually manual sort
 	var/list/sorted_department_for_access = list(
 		DEPARTMENT_NAME_SERVICE,
@@ -60,7 +157,103 @@ SUBSYSTEM_DEF(department)
 	for(var/each_dept in temp)
 		sorted_department_for_access |= department_assoc[each_dept]
 
+	setup_region_lists()
+	setup_centcom_access()
+	setup_tgui_lists()
+
 	return SS_INIT_SUCCESS
+
+/// Builds the region -> department mapping used by get_region_access_list(). Access lists are read live from each department's department_access.
+/datum/controller/subsystem/department/proc/setup_region_lists()
+	// Region name strings, kept ordered define for UI ordering
+	station_regions = REGION_AREA_STATION
+
+	var/list/station_access_departments = list()
+	var/list/all_access_departments = list()
+	for(var/datum/department_group/dept as anything in department_datums)
+		if(!length(dept.department_access))
+			continue
+		all_access_departments += dept
+		if(dept.is_station)
+			station_access_departments += dept
+		if(dept.access_region)
+			region_to_departments[dept.access_region] = list(dept)
+
+	// Aggregate regions are unions of several departments. They are all station depts, and all access-granting depts
+	region_to_departments[REGION_ALL_STATION] = station_access_departments
+	region_to_departments[REGION_ALL_GLOBAL] = all_access_departments
+
+/// Populates the CentCom/ERT job access table. Ugly as sin, but better than it was before
+/datum/controller/subsystem/department/proc/setup_centcom_access()
+	accesses_by_centcom_job[JOB_CENTCOM_VIP] = list(ACCESS_CENT_GENERAL)
+	accesses_by_centcom_job[JOB_CENTCOM_CUSTODIAN] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
+	accesses_by_centcom_job[JOB_CENTCOM_THUNDERDOME_OVERSEER] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER)
+	accesses_by_centcom_job[JOB_CENTCOM_OFFICIAL] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job["CentCom Intern"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job["CentCom Head Intern"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job[JOB_CENTCOM_MEDICAL_DOCTOR] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL)
+	accesses_by_centcom_job[JOB_ERT_DEATHSQUAD] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
+	accesses_by_centcom_job[JOB_CENTCOM_RESEARCH_OFFICER] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_TELEPORTER, ACCESS_CENT_STORAGE)
+	accesses_by_centcom_job["Special Ops Officer"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
+	accesses_by_centcom_job[JOB_CENTCOM_ADMIRAL] = CENTCOM_ACCESS
+	accesses_by_centcom_job[JOB_CENTCOM_COMMANDER] = CENTCOM_ACCESS
+	accesses_by_centcom_job[JOB_ERT_COMMANDER] = CENTCOM_ACCESS
+	accesses_by_centcom_job[JOB_ERT_OFFICER] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job[JOB_ERT_ENGINEER] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
+	accesses_by_centcom_job[JOB_ERT_MEDICAL_DOCTOR] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job[JOB_CENTCOM_BARTENDER] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_BAR)
+	accesses_by_centcom_job["Comedy Response Officer"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
+	accesses_by_centcom_job["HONK Squad Trooper"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
+
+/**
+ * Builds and returns a list of accesses from a list of regions.
+ *
+ * Arguments:
+ * * regions - A list of region defines.
+ */
+/datum/controller/subsystem/department/proc/get_region_access_list(list/regions)
+	if(!length(regions))
+		return
+
+	var/list/built_region_list = list()
+
+	for(var/region in regions)
+		for(var/datum/department_group/dept as anything in region_to_departments[region])
+			built_region_list |= dept.department_access
+
+	return built_region_list
+
+/**
+ * Returns the CentCom access levels allotted to a given CentCom/ERT job.
+ *
+ * Arguments:
+ * * job - The job name to get CentCom access for.
+ */
+/datum/controller/subsystem/department/proc/get_centcom_access_list(job)
+	var/list/centcom_access = accesses_by_centcom_job[job]
+	return centcom_access?.Copy()
+
+/// Creates various data structures that primarily get fed to tgui interfaces, although these lists are used in other places.
+/datum/controller/subsystem/department/proc/setup_tgui_lists()
+	for(var/region in region_to_departments)
+		var/list/region_access = get_region_access_list(list(region))
+
+		var/parsed_accesses = list()
+
+		for(var/access in region_access)
+			var/access_desc = get_access_desc(access)
+			if(!access_desc)
+				continue
+
+			parsed_accesses += list(list(
+				"desc" = replacetext(access_desc, "&nbsp", " "),
+				"ref" = access,
+			))
+
+		all_region_access_tgui[region] = list(list(
+			"name" = region,
+			"accesses" = parsed_accesses,
+		))
 
 /// WARNING: This always returns as a list.
 /// If your bitflag only gets a single department, it will return as a list.
@@ -151,8 +344,10 @@ SUBSYSTEM_DEF(department)
 
 	/// Group name of the access list
 	var/access_group_name = "Unknown"
-	/// list of access that belongs to this department
-	var/list/access_list = list()
+	/// A list of the accesses people in this department generally have. Region access reads from here live; the REGION_ACCESS_* / *_ACCESS defines only seed it.
+	var/list/department_access = list()
+	/// The access region (REGION_*) this department represents. Null if not it's own region
+	var/access_region
 	/// if TRUE, restricts CentCom only
 	var/access_filter
 
@@ -202,20 +397,8 @@ SUBSYSTEM_DEF(department)
 	department_head = /datum/job/captain
 
 	access_group_name = "Command"
-	access_list = list(
-		ACCESS_HEADS,
-		ACCESS_RC_ANNOUNCE,
-		ACCESS_KEYCARD_AUTH,
-		ACCESS_CHANGE_IDS,
-		ACCESS_AI_UPLOAD,
-		ACCESS_TELEPORTER,
-		ACCESS_EVA,
-		ACCESS_GATEWAY,
-		ACCESS_ALL_PERSONAL_LOCKERS,
-		ACCESS_HOP,
-		ACCESS_CAPTAIN,
-		ACCESS_VAULT,
-	)
+	department_access = REGION_ACCESS_COMMAND
+	access_region = REGION_COMMAND
 
 	pref_category_name = DEPARTMENT_NAME_COMMAND
 	pref_category_order = DEPT_PREF_ORDER_COMMAND
@@ -243,18 +426,8 @@ SUBSYSTEM_DEF(department)
 
 	access_group_name = "General"
 	// actually station general list
-	access_list = list(
-		ACCESS_KITCHEN,
-		ACCESS_BAR,
-		ACCESS_HYDROPONICS,
-		ACCESS_JANITOR,
-		ACCESS_CHAPEL_OFFICE,
-		ACCESS_CREMATORIUM,
-		ACCESS_LIBRARY,
-		ACCESS_THEATRE,
-		ACCESS_LAWYER,
-		ACCESS_SERVICE,
-	)
+	department_access = REGION_ACCESS_GENERAL
+	access_region = REGION_GENERAL
 
 
 	pref_category_name = DEPARTMENT_NAME_SERVICE
@@ -277,7 +450,7 @@ SUBSYSTEM_DEF(department)
 	department_head = /datum/job/head_of_personnel
 
 	access_group_name = "Residential" // in case when it's used
-	// access_list = list() // check service
+	// department_access = list() // check service
 
 	pref_category_name = DEPARTMENT_NAME_CIVILIAN
 	pref_category_order = DEPT_PREF_ORDER_CIVILIAN
@@ -304,16 +477,8 @@ SUBSYSTEM_DEF(department)
 	nation_prefixes = list("Cargo", "Guna", "Suppli", "Mule", "Crate", "Ore", "Mini", "Shaf")
 
 	access_group_name = "Supply"
-	access_list = list(
-		ACCESS_MAILSORTING,
-		ACCESS_MINING,
-		ACCESS_MINING_STATION,
-		ACCESS_MECH_MINING,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_CARGO,
-		ACCESS_QM,
-		ACCESS_VAULT,
-	)
+	department_access = REGION_ACCESS_SUPPLY
+	access_region = REGION_SUPPLY
 
 
 	pref_category_name = DEPARTMENT_NAME_CARGO
@@ -341,19 +506,8 @@ SUBSYSTEM_DEF(department)
 	nation_prefixes = list("Scien", "Techno", "Xeno", "Quantu", "Chemi", "Geneti")
 
 	access_group_name = "Research"
-	access_list = list(
-		ACCESS_RESEARCH,
-		ACCESS_TOX,
-		ACCESS_TOX_STORAGE,
-		ACCESS_ROBOTICS,
-		ACCESS_XENOBIOLOGY,
-		ACCESS_EXPLORATION,
-		ACCESS_MECH_SCIENCE,
-		ACCESS_MINISAT,
-		ACCESS_RD,
-		ACCESS_NETWORK,
-		ACCESS_RD_SERVER,
-	)
+	department_access = REGION_ACCESS_RESEARCH
+	access_region = REGION_RESEARCH
 
 	pref_category_name = DEPARTMENT_NAME_SCIENCE
 	pref_category_order = DEPT_PREF_ORDER_SCIENCE
@@ -380,20 +534,8 @@ SUBSYSTEM_DEF(department)
 	nation_prefixes = list("Atomo", "Engino", "Power", "Teleco", "Volt")
 
 	access_group_name = "Engineering"
-	access_list = list(
-		ACCESS_CONSTRUCTION,
-		ACCESS_AUX_BASE,
-		ACCESS_MAINT_TUNNELS,
-		ACCESS_ENGINE,
-		ACCESS_ENGINE_EQUIP,
-		ACCESS_EXTERNAL_AIRLOCKS,
-		ACCESS_TECH_STORAGE,
-		ACCESS_ATMOSPHERICS,
-		ACCESS_MECH_ENGINE,
-		ACCESS_TCOMSAT,
-		ACCESS_MINISAT,
-		ACCESS_CE,
-	)
+	department_access = REGION_ACCESS_ENGINEERING
+	access_region = REGION_ENGINEERING
 
 	pref_category_name = DEPARTMENT_NAME_ENGINEERING
 	pref_category_order = DEPT_PREF_ORDER_ENGINEERING
@@ -420,17 +562,8 @@ SUBSYSTEM_DEF(department)
 	nation_prefixes = list("Mede", "Healtha", "Recova", "Chemi", "Viro", "Psych")
 
 	access_group_name = "Medbay"
-	access_list = list(
-		ACCESS_MEDICAL,
-		ACCESS_GENETICS,
-		ACCESS_CLONING,
-		ACCESS_MORGUE,
-		ACCESS_CHEMISTRY,
-		ACCESS_VIROLOGY,
-		ACCESS_SURGERY,
-		ACCESS_MECH_MEDICAL,
-		ACCESS_CMO,
-	)
+	department_access = REGION_ACCESS_MEDBAY
+	access_region = REGION_MEDBAY
 
 	pref_category_name = DEPARTMENT_NAME_MEDICAL
 	pref_category_order = DEPT_PREF_ORDER_MEDICAL
@@ -457,19 +590,8 @@ SUBSYSTEM_DEF(department)
 	nation_prefixes = list("Securi", "Beepski", "Shitcuri", "Red", "Stunba", "Flashbango", "Flasha", "Stanfordi")
 
 	access_group_name = "Security"
-	access_list = list(
-		ACCESS_SEC_DOORS,
-		ACCESS_SEC_RECORDS,
-		ACCESS_WEAPONS,
-		ACCESS_SECURITY,
-		ACCESS_BRIG,
-		ACCESS_BRIGPHYS,
-		ACCESS_ARMORY,
-		ACCESS_FORENSICS_LOCKERS,
-		ACCESS_COURT,
-		ACCESS_MECH_SECURITY,
-		ACCESS_HOS,
-	)
+	department_access = REGION_ACCESS_SECURITY
+	access_region = REGION_SECURITY
 
 	pref_category_name = DEPARTMENT_NAME_SECURITY
 	pref_category_order = DEPT_PREF_ORDER_SECURITY
@@ -523,18 +645,8 @@ SUBSYSTEM_DEF(department)
 	dept_radio_channel = FREQ_CENTCOM
 
 	access_group_name = "CentCom"
-	access_list = list(
-		ACCESS_CENT_GENERAL,
-		ACCESS_CENT_THUNDER,
-		ACCESS_CENT_SPECOPS,
-		ACCESS_CENT_MEDICAL,
-		ACCESS_CENT_LIVING,
-		ACCESS_CENT_STORAGE,
-		ACCESS_CENT_TELEPORTER,
-		ACCESS_CENT_CAPTAIN,
-		ACCESS_CENT_BAR,
-		ACCESS_PRISONER,
-	)
+	department_access = CENTCOM_ACCESS
+	access_region = REGION_CENTCOM
 	access_filter = TRUE // CentCom Only
 
 	// currently not used, but just in case
@@ -561,29 +673,22 @@ SUBSYSTEM_DEF(department)
 	dept_radio_channel = FREQ_CENTCOM
 
 	access_group_name = "??? (Admin)"
-	access_list = list(
-		ACCESS_SYNDICATE,
-		ACCESS_SYNDICATE_LEADER,
-		ACCESS_PIRATES,
-		ACCESS_HUNTERS,
-		ACCESS_AWAY_GENERAL,
-		ACCESS_AWAY_MAINTENANCE,
-		ACCESS_AWAY_MEDICAL,
-		ACCESS_AWAY_SEC,
-		ACCESS_AWAY_ENGINEERING,
-		ACCESS_AWAY_GENERIC1,
-		ACCESS_AWAY_GENERIC2,
-		ACCESS_AWAY_GENERIC3,
-		ACCESS_AWAY_GENERIC4,
-		ACCESS_AWAY_SCIENCE,
-		ACCESS_AWAY_SUPPLY,
-		ACCESS_AWAY_COMMAND,
-		ACCESS_BLOODCULT,
-		ACCESS_CLOCKCULT,
-	)
+	// department_access Combined in New() rather than inline
 	access_filter = TRUE // CentCom Only
 
 	// currently not used, but just in case
 	manifest_category_name = DEPARTMENT_NAME_OTHER
 	manifest_category_order = 1000
 	display_order = 99
+
+/datum/department_group/other/New()
+	. = ..()
+	department_access = SYNDICATE_ACCESS + AWAY_ACCESS + CULT_ACCESS
+
+#undef REGION_ACCESS_GENERAL
+#undef REGION_ACCESS_SECURITY
+#undef REGION_ACCESS_MEDBAY
+#undef REGION_ACCESS_RESEARCH
+#undef REGION_ACCESS_ENGINEERING
+#undef REGION_ACCESS_SUPPLY
+#undef REGION_ACCESS_COMMAND
