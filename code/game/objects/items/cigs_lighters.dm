@@ -175,6 +175,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/smoke_all = FALSE
 	/// How much damage this deals to the lungs per drag.
 	var/lung_harm = 1
+	actions_types = list(/datum/action/item_action/cigarette_spray)
 	/// The particle effect of the smoke rising out of the cigarette when lit
 	VAR_PRIVATE/obj/effect/abstract/particle_holder/cig_smoke
 	/// The particle effect of the smoke rising out of the mob when...smoked
@@ -1177,6 +1178,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	item_flags = ISWEAPON
 	flags_1 = IS_PLAYER_COLORABLE_1
 	custom_price = 30
+	actions_types = list(/datum/action/item_action/vape_spray)
 
 	/// The capacity of the vape.
 	var/chem_volume = 100

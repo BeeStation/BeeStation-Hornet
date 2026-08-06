@@ -12,6 +12,8 @@
 	var/lifetime = INFINITY
 	///Are we a part of a stream?
 	var/stream
+	// Prevents masked mobs from being affected by sprays
+	var/block_masked_mob = FALSE
 
 /obj/effect/decal/chempuff/Destroy(force)
 	user = null
@@ -59,6 +61,10 @@
 				continue
 			if(turf_mob.body_position != STANDING_UP && !travelled_max_distance)
 				continue
+			if(block_masked_mob && iscarbon(turf_mob))
+				var/mob/living/carbon/carbon_target = turf_mob
+				if(carbon_target.can_breathe_internals() || carbon_target.internal || carbon_target.external)
+					continue
 
 			lifetime--
 		else if(travelled_max_distance)
