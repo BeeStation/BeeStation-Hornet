@@ -199,7 +199,7 @@
 	ores += ore
 
 /obj/item/mod/module/orebag/on_use()
-	for(var/obj/item/ore as anything in ores.Copy())
+	for(var/obj/item/ore as anything in ores)
 		ore.forceMove(drop_location())
 		ores -= ore
 	drain_power(use_power_cost)
