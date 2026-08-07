@@ -275,6 +275,7 @@
 			//Spit disk out
 			disk.forceMove(get_turf(src))
 			disk = null
+			saving_feature = FALSE
 			last_command = "per reader eject -f"
 			screen.flash()
 			ui_update()

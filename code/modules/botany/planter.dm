@@ -97,7 +97,8 @@
 	//Composting
 	if(IS_EDIBLE(reagent_source) || istype(reagent_source, /obj/item/reagent_containers/pill))
 		obj_parent.visible_message(span_notice("[attacker] composts [reagent_source], spreading it through [obj_parent]"))
-		reagent_source.reagents?.remove_any(reagent_source.reagents.total_volume)
+		if(reagent_source.reagents.total_volume >= reagent_source.reagents.maximum_volume)
+			reagent_source.reagents?.remove_any(reagent_source.reagents.total_volume)
 		reagent_source.reagents?.trans_to(obj_parent, reagent_source.reagents.total_volume, transfered_by = attacker)
 		SEND_SIGNAL(reagent_source, COMSIG_ITEM_ON_COMPOSTED, attacker)
 		qdel(reagent_source)
@@ -105,14 +106,16 @@
 	else if(istype(reagent_source, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/syr = reagent_source
 		obj_parent.visible_message(span_notice("[attacker] injects [obj_parent] with [syr]"))
-		reagent_source.reagents?.remove_any(syr.amount_per_transfer_from_this)
+		if(reagent_source.reagents.total_volume >= reagent_source.reagents.maximum_volume)
+			reagent_source.reagents?.remove_any(syr.amount_per_transfer_from_this)
 		reagent_source.reagents?.trans_to(obj_parent, syr.amount_per_transfer_from_this, transfered_by = attacker)
 	//Sprays
 	else if(istype(reagent_source, /obj/item/reagent_containers/spray))
 		var/obj/item/reagent_containers/spray/spray = reagent_source
 		obj_parent.visible_message(span_notice("[attacker] sprays [obj_parent] with [reagent_source]"))
 		playsound(obj_parent)
-		reagent_source.reagents?.remove_any(spray.amount_per_transfer_from_this)
+		if(reagent_source.reagents.total_volume >= reagent_source.reagents.maximum_volume)
+			reagent_source.reagents?.remove_any(spray.amount_per_transfer_from_this)
 		reagent_source.reagents?.trans_to(obj_parent, spray.amount_per_transfer_from_this, transfered_by = attacker)
 	//Let people fill trays with reagents by hand, non legacy
 	else if(istype(reagent_source, /obj/item/reagent_containers))
@@ -120,7 +123,8 @@
 			to_chat(attacker, span_warning("[reagent_source] is empty!"))
 			return
 		//Transfer reagents
-		reagent_source.reagents.remove_any(reagent_source.amount_per_transfer_from_this)
+		if(reagent_source.reagents.total_volume >= reagent_source.reagents.maximum_volume)
+			reagent_source.reagents.remove_any(reagent_source.amount_per_transfer_from_this)
 		reagent_source.reagents.trans_to(parent, reagent_source.amount_per_transfer_from_this, transfered_by = attacker)
 		to_chat(attacker, span_notice("You add [reagent_source.amount_per_transfer_from_this]u from [reagent_source] to [parent]!"))
 
