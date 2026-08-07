@@ -159,7 +159,7 @@
 	target_key = BB_MOUSE_TARGET
 	hunting_behavior = /datum/ai_behavior/play_with_mouse
 	finding_behavior = /datum/ai_behavior/find_hunt_target/hunt_mice
-	hunt_targets = list(/mob/living/basic/mouse)
+	hunt_targets = list(/mob/living/basic/mouse, /mob/living/simple_animal/friendly_fruit)
 	hunt_chance = 75
 	hunt_range = 9
 
@@ -198,7 +198,8 @@
 
 	consume_chance = istype(target, /mob/living/basic/mouse/brown/tom) ? 5 : initial(consume_chance)
 	if(prob(consume_chance))
-		target.splat()
+		if(istype(target, /mob/living/basic/mouse))
+			target.splat()
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 

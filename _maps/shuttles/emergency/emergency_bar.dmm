@@ -184,11 +184,7 @@
 /turf/open/floor/carpet/grimy,
 /area/shuttle/escape)
 "bc" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/carpet/grimy,
 /area/shuttle/escape)
 "bi" = (
@@ -452,11 +448,7 @@
 /turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "oh" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "ox" = (
@@ -515,20 +507,14 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "wI" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "xh" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/machinery/status_display/evac/directional/east,
 /turf/open/floor/wood,
 /area/shuttle/escape)

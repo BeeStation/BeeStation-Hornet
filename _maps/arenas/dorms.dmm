@@ -17,20 +17,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
-"ad" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/sink/directional/south,
-/turf/open/floor/plating,
-/area/centcom/tdome/arena)
-"ah" = (
-/obj/machinery/seed_extractor,
-/turf/open/floor/plating,
-/area/centcom/tdome/arena)
-"ai" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/sink/directional/south,
-/turf/open/floor/plating,
-/area/centcom/tdome/arena)
 "aj" = (
 /obj/machinery/vending/sustenance,
 /obj/effect/decal/cleanable/dirt,
@@ -59,14 +45,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"ap" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/item/plant_analyzer,
-/obj/item/cultivator,
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
 "at" = (
@@ -234,6 +212,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
+"bq" = (
+/obj/item/plant_tray/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
 "gO" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -241,20 +227,45 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/centcom/tdome/arena)
-"hK" = (
+"lN" = (
+/obj/item/plant_tray/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"qv" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/item/plant_scanner,
+/obj/item/cultivator,
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"vl" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/item/plant_tray/soil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
-"DH" = (
-/obj/machinery/hydroponics/soil,
+"Aw" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/item/plant_tray/soil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 4
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/centcom/tdome/arena)
+"Ay" = (
+/obj/item/plant_tray/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/arena)
@@ -267,37 +278,10 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/centcom/tdome/arena)
-"Ls" = (
-/obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"LA" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"MF" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted,
-/turf/open/floor/iron,
-/area/centcom/tdome/arena)
-"OA" = (
-/obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
+"Gx" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/sink/directional/south,
+/turf/open/floor/plating,
 /area/centcom/tdome/arena)
 "Pf" = (
 /obj/machinery/washing_machine,
@@ -309,11 +293,27 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/centcom/tdome/arena)
+"UK" = (
+/obj/machinery/seeder,
+/turf/open/floor/plating,
+/area/centcom/tdome/arena)
 "VV" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
+/area/centcom/tdome/arena)
+"XU" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/sink/directional/south,
+/turf/open/floor/plating,
+/area/centcom/tdome/arena)
+"YX" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/item/plant_tray/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted,
+/turf/open/floor/iron,
 /area/centcom/tdome/arena)
 
 (1,1,1) = {"
@@ -347,9 +347,9 @@ aI
 aO
 "}
 (4,1,1) = {"
-ad
+Gx
 am
-ap
+qv
 av
 an
 an
@@ -357,9 +357,9 @@ ac
 aP
 "}
 (5,1,1) = {"
-Ls
+Ay
 am
-LA
+Aw
 aw
 an
 ac
@@ -367,9 +367,9 @@ ac
 aQ
 "}
 (6,1,1) = {"
-OA
+bq
 am
-hK
+vl
 ac
 ac
 aY
@@ -377,9 +377,9 @@ ac
 ac
 "}
 (7,1,1) = {"
-DH
+lN
 am
-MF
+YX
 an
 aB
 aE
@@ -387,7 +387,7 @@ ac
 ac
 "}
 (8,1,1) = {"
-ah
+UK
 am
 at
 ax
@@ -397,9 +397,9 @@ aW
 an
 "}
 (9,1,1) = {"
-Ls
+Ay
 am
-LA
+Aw
 ac
 aD
 aF
@@ -407,9 +407,9 @@ an
 an
 "}
 (10,1,1) = {"
-OA
+bq
 am
-hK
+vl
 ac
 aY
 ac
@@ -417,9 +417,9 @@ ac
 an
 "}
 (11,1,1) = {"
-DH
+lN
 am
-MF
+YX
 ay
 ac
 ac
@@ -427,9 +427,9 @@ ac
 aQ
 "}
 (12,1,1) = {"
-ai
+XU
 am
-ap
+qv
 az
 an
 ac

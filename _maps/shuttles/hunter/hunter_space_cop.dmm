@@ -24,10 +24,7 @@
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 1
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-10";
-	pixel_x = null
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron,
 /area/shuttle/hunter)
 "bB" = (
@@ -543,9 +540,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 10
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-03"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/structure/sign/poster/contraband/the_griffin{
 	pixel_x = -32
 	},
@@ -576,9 +571,7 @@
 	pixel_y = 11
 	},
 /obj/effect/turf_decal/caution,
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/purple/hidden,
 /turf/open/floor/engine,
 /area/shuttle/hunter)

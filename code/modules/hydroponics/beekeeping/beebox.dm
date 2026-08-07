@@ -39,6 +39,8 @@
 	var/list/honey_frames = list()
 	var/bee_resources = 0
 
+/obj/structure/beebox/worse
+	icon_state = "beebox_2"
 
 /obj/structure/beebox/Initialize(mapload)
 	. = ..()

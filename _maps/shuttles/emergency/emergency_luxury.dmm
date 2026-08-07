@@ -40,9 +40,7 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "ak" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "al" = (
@@ -258,20 +256,14 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "bl" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "cu" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/pool{
 	dir = 4
 	},
@@ -308,11 +300,7 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "vB" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light,
 /obj/effect/turf_decal/pool{
 	dir = 8
@@ -320,11 +308,7 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "wf" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light,
 /obj/effect/turf_decal/pool{
 	dir = 4
@@ -387,11 +371,7 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "Vq" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/pool{
 	dir = 8
 	},
