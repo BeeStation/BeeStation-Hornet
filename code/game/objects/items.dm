@@ -545,7 +545,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return
 
 	. = FALSE
-	remove_outline()
+	remove_filter(HOVER_OUTLINE_FILTER)
 	add_fingerprint(user)
 	if(!user.put_in_active_hand(src, FALSE, FALSE))
 		user.dropItemToGround(src)
@@ -760,7 +760,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	SEND_SIGNAL(user, COMSIG_MOB_DROPPED_ITEM, src, loc)
 	if(item_flags & SLOWS_WHILE_IN_HAND)
 		user?.update_equipment_speed_mods()
-	remove_outline()
+	remove_filter(HOVER_OUTLINE_FILTER)
 	if(verbs && user?.client)
 		user.client.remove_verbs(verbs)
 	log_item(user, INVESTIGATE_VERB_DROPPED)
@@ -1164,12 +1164,16 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 ///Called BEFORE the object is ground up - use this to change grind results based on conditions. Return "-1" to prevent the grinding from occurring
 /obj/item/proc/on_juice()
+	PROTECTED_PROC(TRUE)
+
 	if(!juice_typepath)
 		return -1
 	return SEND_SIGNAL(src, COMSIG_ITEM_ON_JUICE)
 
 ///Juice item, converting nutriments into juice_typepath and transfering to target_holder if specified
 /obj/item/proc/juice(datum/reagents/target_holder, mob/user)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
 	if(on_juice() == -1)
 		return FALSE
 	if(reagents)
@@ -1219,12 +1223,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	. = ..()
-	remove_outline()
+	remove_filter(HOVER_OUTLINE_FILTER)
 
 /obj/item/MouseExited()
 	deltimer(tip_timer)//delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
-	remove_outline()
+	remove_filter(HOVER_OUTLINE_FILTER)
 
 /obj/item/proc/apply_outline(colour = null)
 	if(((get(src, /mob) != usr) && !loc?.atom_storage && !(item_flags & IN_STORAGE)) || QDELETED(src) || isobserver(usr)) //cancel if the item isn't in an inventory, is being deleted, or if the person hovering is a ghost (so that people spectating you don't randomly make your items glow)
@@ -1237,9 +1241,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		else
 			colour = COLOR_BLUE_GRAY
 	add_filter(HOVER_OUTLINE_FILTER, 1, list(type="outline", size=1, color=colour))
-
-/obj/item/proc/remove_outline()
-	remove_filter(HOVER_OUTLINE_FILTER)
 
 // Called when a mob tries to use the item as a tool.
 // Handles most checks.

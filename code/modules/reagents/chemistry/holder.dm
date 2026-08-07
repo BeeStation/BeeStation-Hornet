@@ -650,19 +650,34 @@
 	if(!ispath(source_reagent_typepath))
 		stack_trace("invalid reagent path passed to convert reagent [source_reagent_typepath]")
 		return FALSE
+	if(!ispath(target_reagent_typepath))
+		stack_trace("invalid reagent path passed to convert reagent [target_reagent_typepath]")
+		return FALSE
 
-	var/reagent_amount
-	if(include_source_subtypes)
-		for(var/datum/reagent/reagent as anything in reagent_list)
-			if(reagent.type in typecacheof(source_reagent_typepath))
-				reagent_amount += reagent.volume
-				remove_reagent(reagent.type, reagent.volume)
-	else
-		var/datum/reagent/source_reagent = get_reagent(source_reagent_typepath)
-		reagent_amount = source_reagent.volume
-		remove_reagent(source_reagent_typepath, reagent_amount)
-	add_reagent(target_reagent_typepath, reagent_amount * multiplier, reagtemp = chem_temp)
+	var/weighted_volume = 0
 
+	var/list/cached_reagents = reagent_list
+	for(var/datum/reagent/cached_reagent as anything in cached_reagents)
+		//check for specific type or subtypes
+		if(!include_source_subtypes)
+			if(cached_reagent.type != source_reagent_typepath)
+				continue
+		else if(!istype(cached_reagent, source_reagent_typepath))
+			continue
+
+		weighted_volume += cached_reagent.volume
+
+		//zero the volume out so it gets removed
+		cached_reagent.volume = 0
+
+		//if we reached here means we have found our specific reagent type so break
+		if(!include_source_subtypes)
+			break
+
+	//add the new target reagent with the combined volume of the source reagents
+	if(weighted_volume > 0)
+		update_total()
+		add_reagent(reagent = target_reagent_typepath, amount = weighted_volume * multiplier, reagtemp = chem_temp)
 
 /// Removes all reagents
 /datum/reagents/proc/clear_reagents()
