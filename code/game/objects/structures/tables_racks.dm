@@ -194,8 +194,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	log_combat(user, pushed_mob, "head slammed", null, "against [src]")
 	SEND_SIGNAL(pushed_mob, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table_headsmash)
 
-/obj/structure/table/attackby(obj/item/I, mob/living/user, params)
-	var/list/modifiers = params2list(params)
+/obj/structure/table/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(!(flags_1 & NODECONSTRUCT_1) && LAZYACCESS(modifiers, RIGHT_CLICK))
 		if(I.tool_behaviour == TOOL_SCREWDRIVER && deconstruction_ready)
 			to_chat(user, span_notice("You start disassembling [src]..."))
@@ -522,7 +521,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	else
 		return span_notice("The top cover is firmly <b>welded</b> on.")
 
-/obj/structure/table/reinforced/attackby_secondary(obj/item/weapon, mob/user, params)
+/obj/structure/table/reinforced/attackby_secondary(obj/item/weapon, mob/user, list/modifiers)
 	if(weapon.tool_behaviour == TOOL_WELDER)
 		if(weapon.tool_start_check(user, amount = 0))
 			if(deconstruction_ready)
@@ -715,8 +714,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
 
-/obj/structure/rack/attackby(obj/item/W, mob/living/user, params)
-	var/list/modifiers = params2list(params)
+/obj/structure/rack/attackby(obj/item/W, mob/living/user, list/modifiers)
 	if (W.tool_behaviour == TOOL_WRENCH && !(flags_1 & NODECONSTRUCT_1) && LAZYACCESS(modifiers, RIGHT_CLICK))
 		W.play_tool_sound(src)
 		deconstruct(TRUE)
@@ -776,7 +774,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	var/building = FALSE
 	var/obj/construction_type = /obj/structure/rack
 
-/obj/item/rack_parts/attackby(obj/item/W, mob/user, params)
+/obj/item/rack_parts/attackby(obj/item/W, mob/user, list/modifiers)
 	if (W.tool_behaviour == TOOL_WRENCH)
 		new /obj/item/stack/sheet/iron(user.loc)
 		qdel(src)

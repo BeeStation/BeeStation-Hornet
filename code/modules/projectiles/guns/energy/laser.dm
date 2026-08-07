@@ -61,7 +61,7 @@
 	cranking = FALSE
 	fire_interrupted = FALSE
 
-/obj/item/gun/energy/laser/repeater/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/energy/laser/repeater/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	if(cranking)
 		fire_interrupted = TRUE //no more cranking when you shoot.
 	return ..()

@@ -64,7 +64,7 @@
 	update_icon()
 	user.balloon_alert(user, "switched [scanning ? "on" : "off"]")
 
-/obj/item/geiger_counter/afterattack(atom/target, mob/living/user, params)
+/obj/item/geiger_counter/afterattack(atom/target, mob/living/user, list/modifiers)
 	. = ..()
 	if(user.combat_mode)
 		return

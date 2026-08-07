@@ -60,7 +60,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 		icon_state = "[base_state]1-p"
 
 //Don't want to render prison breaks impossible
-/obj/machinery/flasher/attackby(obj/item/W, mob/user, params)
+/obj/machinery/flasher/attackby(obj/item/W, mob/user, list/modifiers)
 	add_fingerprint(user)
 	if (W.tool_behaviour == TOOL_WIRECUTTER)
 		if (bulb)
@@ -175,7 +175,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/flasher)
 		if (M.move_intent != MOVE_INTENT_WALK && anchored)
 			flash()
 
-/obj/machinery/flasher/portable/attackby(obj/item/W, mob/user, params)
+/obj/machinery/flasher/portable/attackby(obj/item/W, mob/user, list/modifiers)
 	if (W.tool_behaviour == TOOL_WRENCH)
 		W.play_tool_sound(src, 100)
 

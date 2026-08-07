@@ -31,7 +31,7 @@
 /turf/open/floor/prison/burn_tile() // consider changing this
 	return //unburnable
 
-/turf/open/floor/prison/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+/turf/open/floor/prison/try_replace_tile(obj/item/stack/tile/T, mob/user, list/modifiers)
 	return
 
 /turf/open/floor/prison/crowbar_act(mob/living/user, obj/item/I)
@@ -61,7 +61,7 @@
 	icon_state = "[base_icon_state]_[plates]"
 	return ..()
 
-/turf/open/floor/prison/attackby(obj/item/object, mob/living/user, params)
+/turf/open/floor/prison/attackby(obj/item/object, mob/living/user, list/modifiers)
 	if(plates< MAX_PRISON_PLATES && istype(object, plates_type))
 		var/obj/item/stack/sheet/I = object
 		I.use(1)

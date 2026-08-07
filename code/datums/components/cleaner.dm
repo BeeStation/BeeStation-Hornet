@@ -46,11 +46,11 @@
  * Handles the COMSIG_LIVING_UNARMED_ATTACK signal used for cleanbots
  * Redirects to afterattack, while setting parent (the bot) as user.
  */
-/datum/component/cleaner/proc/on_unarmed_attack(datum/source, atom/target, proximity_flags, modifiers)
+/datum/component/cleaner/proc/on_unarmed_attack(datum/source, atom/target, proximity_flags, list/modifiers)
 	SIGNAL_HANDLER
 	on_afterattack(source, target, parent, proximity_flags, modifiers)
 
-/datum/component/cleaner/proc/on_afterattack(datum/source, atom/target, mob/user, proximity_flag, click_parameters)
+/datum/component/cleaner/proc/on_afterattack(datum/source, atom/target, mob/user, proximity_flag, list/modifiers)
 	SIGNAL_HANDLER
 	if(!proximity_flag)
 		return

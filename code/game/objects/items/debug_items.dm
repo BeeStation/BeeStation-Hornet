@@ -102,31 +102,31 @@
 	. = ..()
 	. += " The mode is: [tool_behaviour]"
 
-/obj/item/debug/omnitool/pre_attack(atom/A, mob/living/user, params)
+/obj/item/debug/omnitool/pre_attack(atom/A, mob/living/user, list/modifiers)
 	switch(tool_behaviour)
 		if(TOOL_WELDER) // TOOL_WELDER behaviour is not working correctly, and we need to put a welder manually
 			welder.reagents.add_reagent(/datum/reagent/fuel, 100) // This is why - some stuff costs fuels
-			welder.melee_attack_chain(user, A, params)
+			welder.melee_attack_chain(user, A, modifiers)
 		if("wires")
 			cable_coil.amount = 500 // recharges wires before & after using it
-			cable_coil.melee_attack_chain(user, A, params)
+			cable_coil.melee_attack_chain(user, A, modifiers)
 			cable_coil.amount = 500
 			return
 		if("cultivator")
-			cultivator.melee_attack_chain(user, A, params)
+			cultivator.melee_attack_chain(user, A, modifiers)
 			return
 		if("spade")
-			spade.melee_attack_chain(user, A, params)
+			spade.melee_attack_chain(user, A, modifiers)
 			return
 		if("debug_placeholder") // QoL. put anything you need.
 			return
-	. = ..()
+	return ..()
 
-/obj/item/debug/omnitool/attack(mob/living/M, mob/living/user)
+/obj/item/debug/omnitool/attack(mob/living/M, mob/living/user, list/modifiers)
 	switch(tool_behaviour)
 		if("debug_placeholder") // QoL. put anything you need. - pre_attack() is preffered.
 			pass()
-	. = ..()
+	return ..()
 
 /obj/item/debug/omnitool/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

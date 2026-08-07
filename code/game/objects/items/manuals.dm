@@ -216,7 +216,7 @@
 	user.visible_message(span_suicide("[user] pretends to read \the [src] intently... then promptly dies of laughter!"))
 	return OXYLOSS
 
-/obj/item/book/manual/wiki/security_space_law/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
+/obj/item/book/manual/wiki/security_space_law/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers)
 	. = ..()
 	if (target != user && isliving(target) && (is_lawyer_job(user.mind.assigned_role) || is_head_of_personnel_job(user.mind.assigned_role)))
 		INVOKE_ASYNC(src, PROC_REF(deconvert_target), user, target)

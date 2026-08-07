@@ -1036,7 +1036,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	update_appearance()
 
 /// Consume the santa hat and add it as an overlay
-/obj/machinery/power/supermatter_crystal/proc/holiday_item_interaction(source, obj/item/attacking_item, mob/user, params)
+/obj/machinery/power/supermatter_crystal/proc/holiday_item_interaction(source, obj/item/attacking_item, mob/user, list/modifiers)
 	SIGNAL_HANDLER
 	if(istype(attacking_item, /obj/item/clothing/head/costume/santa))
 		QDEL_NULL(attacking_item)

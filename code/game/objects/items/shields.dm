@@ -47,7 +47,7 @@
 			owner.visible_message(span_danger("[owner]'s [src] is sent flying from thier hands!"))
 			return FALSE
 
-/obj/item/shield/attackby(obj/item/weldingtool/W, mob/living/user, params)
+/obj/item/shield/attackby(obj/item/weldingtool/W, mob/living/user, list/modifiers)
 	if(istype(W))
 		if(atom_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=0))
@@ -102,7 +102,7 @@
 	transparent = TRUE
 	custom_price = 100
 
-/obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
+/obj/item/shield/riot/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/stack/sheet/mineral/titanium))
 		if (atom_integrity >= max_integrity)
 			to_chat(user, span_notice("[src] is already in perfect condition."))

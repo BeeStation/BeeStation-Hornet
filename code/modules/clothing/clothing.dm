@@ -130,7 +130,7 @@
 			return
 	qdel(resolved_item)
 
-/obj/item/clothing/attack(mob/living/target, mob/living/user, params)
+/obj/item/clothing/attack(mob/living/target, mob/living/user, list/modifiers)
 	if(user.combat_mode)
 		return //combat mode doesnt eat
 	var/obj/item/organ/tongue/tongue = target.get_organ_slot(ORGAN_SLOT_TONGUE)
@@ -143,9 +143,9 @@
 		moth_snack = new
 		moth_snack.name = name
 		moth_snack.clothing = WEAKREF(src)
-	moth_snack.attack(target, user, params)
+	moth_snack.attack(target, user, modifiers)
 
-/obj/item/clothing/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/clothing/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(!istype(attacking_item, repairable_by))
 		return ..()
 
@@ -155,7 +155,7 @@
 		if(CLOTHING_DAMAGED)
 			var/obj/item/stack/cloth_repair = attacking_item
 			cloth_repair.use(1)
-			repair(user, params)
+			repair(user)
 			return TRUE
 		if(CLOTHING_SHREDDED)
 			var/obj/item/stack/cloth_repair = attacking_item
@@ -165,13 +165,13 @@
 			to_chat(user, span_notice("You begin fixing the damage to [src] with [cloth_repair]..."))
 			if(!do_after(user, 6 SECONDS, src) || !cloth_repair.use(3))
 				return TRUE
-			repair(user, params)
+			repair(user)
 			return TRUE
 
 	return ..()
 
 /// Set the clothing's integrity back to 100%, remove all damage to bodyparts, and generally fix it up
-/obj/item/clothing/proc/repair(mob/user, params)
+/obj/item/clothing/proc/repair(mob/user)
 	update_clothes_damaged_state(CLOTHING_PRISTINE)
 	atom_integrity = max_integrity
 	name = initial(name) // remove "tattered" or "shredded" if there's a prefix

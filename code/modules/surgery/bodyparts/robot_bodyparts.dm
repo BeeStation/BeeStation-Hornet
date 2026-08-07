@@ -163,7 +163,7 @@
 	QDEL_NULL(cell)
 	return ..()
 
-/obj/item/bodypart/chest/robot/attackby(obj/item/W, mob/user, params)
+/obj/item/bodypart/chest/robot/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(cell)
 			to_chat(user, span_warning("You have already inserted a cell!"))
@@ -288,7 +288,7 @@
 			. += "It has two eye sockets occupied by flashes."
 		. += span_notice("You can remove the seated flash[single_flash ? "":"es"] with a <b>crowbar</b>.")
 
-/obj/item/bodypart/head/robot/attackby(obj/item/W, mob/user, params)
+/obj/item/bodypart/head/robot/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/assembly/flash/handheld))
 		var/obj/item/assembly/flash/handheld/F = W
 		if(flash1 && flash2)

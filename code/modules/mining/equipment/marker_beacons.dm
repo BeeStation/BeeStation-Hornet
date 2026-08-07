@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 /obj/structure/marker_beacon/attack_tk(mob/user)
 	return
 
-/obj/structure/marker_beacon/attackby(obj/item/attacking_item, mob/user, params)
+/obj/structure/marker_beacon/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(istype(attacking_item, /obj/item/stack/marker_beacon))
 		var/obj/item/stack/marker_beacon/beacon = attacking_item
 		to_chat(user, span_notice("You start picking [src] up..."))

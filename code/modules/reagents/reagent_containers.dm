@@ -65,7 +65,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 		else if(possible_transfer_amounts.len)
 			. += "<span class='notice'>Left-click or right-click in-hand to view its transfer amount.</span>"
 
-/obj/item/reagent_containers/attack(mob/living/target_mob, mob/living/user, params)
+/obj/item/reagent_containers/attack(mob/living/target_mob, mob/living/user, list/modifiers)
 	if (!user.combat_mode)
 		return
 	return ..()
@@ -101,7 +101,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	balloon_alert(user, "transferring [amount_per_transfer_from_this]u")
 	mode_change_message(user)
 
-/obj/item/reagent_containers/pre_attack_secondary(atom/target, mob/living/user, params)
+/obj/item/reagent_containers/pre_attack_secondary(atom/target, mob/living/user, list/modifiers)
 	if (try_splash(user, target))
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 

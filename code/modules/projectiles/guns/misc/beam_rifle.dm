@@ -296,7 +296,7 @@
 	QDEL_LIST(current_tracers)
 	return ..()
 
-/obj/item/gun/energy/beam_rifle/pull_trigger(atom/target, mob/living/user, params, aimed, passthrough = FALSE)
+/obj/item/gun/energy/beam_rifle/pull_trigger(atom/target, mob/living/user, list/modifiers, aimed, passthrough = FALSE)
 	if(!passthrough && (aiming_time > aiming_time_fire_threshold))
 		return FALSE
 	if(lastfire > world.time + delay)
@@ -374,7 +374,7 @@
 	HS_BB.do_pierce = do_pierce
 	HS_BB.gun = host
 
-/obj/item/ammo_casing/energy/beam_rifle/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread)
+/obj/item/ammo_casing/energy/beam_rifle/throw_proj(atom/target, turf/targloc, mob/living/user, list/modifiers, spread)
 	var/turf/current_location = get_turf(user)
 	if(!istype(current_location) || !BB)
 		return FALSE
@@ -388,7 +388,6 @@
 		firing_dir = BB.firer.dir
 	if(!BB.suppressed && firing_effect_type)
 		new firing_effect_type(get_turf(src), firing_dir)
-	var/modifiers = params2list(params)
 	BB.preparePixelProjectile(target, user, modifiers, spread)
 	BB.fire(gun? gun.lastangle : null, null)
 	BB = null

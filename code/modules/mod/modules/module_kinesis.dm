@@ -205,14 +205,6 @@
 		return FALSE
 	return TRUE
 
-
-/obj/item/mod/module/anomaly_locked/kinesis/proc/on_catcher_click(atom/source, location, control, params, user)
-	SIGNAL_HANDLER
-
-	var/list/modifiers = params2list(params)
-	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		clear_grab()
-
 /obj/item/mod/module/anomaly_locked/kinesis/proc/on_statchange(mob/grabbed_mob, new_stat)
 	SIGNAL_HANDLER
 

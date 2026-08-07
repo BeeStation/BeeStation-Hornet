@@ -274,7 +274,7 @@
 	if(usr != owner)
 		return
 	to_chat(owner, span_notice("You attempt to remove the durathread strand from around your neck."))
-	if(do_after(owner, 35, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
+	if(do_after(owner, 3.5 SECONDS, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
 		if(isliving(owner))
 			var/mob/living/L = owner
 			to_chat(owner, span_notice("You successfuly remove the durathread strand."))

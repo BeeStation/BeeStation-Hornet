@@ -321,7 +321,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 		return
 	randomise_offset(anchored ? 0 : random_offset)
 
-/obj/item/solar_assembly/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/solar_assembly/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	var/turf/solarturf = get_turf(src)
 
 	if(attacking_item.tool_behaviour == TOOL_WRENCH && isturf(loc))
@@ -594,7 +594,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 		return TRUE
 	return FALSE
 
-/obj/machinery/power/solar_control/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/power/solar_control/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(I.use_tool(src, user, 20, volume=50))
 			if (src.machine_stat & BROKEN)

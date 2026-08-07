@@ -32,7 +32,7 @@
 		addtimer(CALLBACK(L, /mob/proc/remove_movespeed_modifier, /datum/movespeed_modifier/tree_slowdown), 5) // 10 deciseconds = 1 second
 
 
-/obj/structure/flora/tree/attackby(obj/item/W, mob/user, params)
+/obj/structure/flora/tree/attackby(obj/item/W, mob/user, list/modifiers)
 	if(log_amount && (!(flags_1 & NODECONSTRUCT_1)))
 		if(W.get_sharpness() && W.force > 0)
 			if(W.hitsound)

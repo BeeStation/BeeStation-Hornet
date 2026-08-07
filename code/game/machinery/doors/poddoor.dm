@@ -46,7 +46,7 @@
 		else if(deconstruction == BLASTDOOR_NEEDS_WIRES)
 			. += span_notice("The <i>wires</i> have been removed and it's ready to be <b>sliced apart</b>.")
 
-/obj/machinery/door/poddoor/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/machinery/door/poddoor/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	. = ..()
 	if(user.combat_mode)
 		return
@@ -95,9 +95,9 @@
 
 	if (density)
 		balloon_alert(user, "open the door first!")
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 	else if (default_deconstruction_screwdriver(user, icon_state, icon_state, tool))
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/door/poddoor/crowbar_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -107,13 +107,13 @@
 
 	if (machine_stat & NOPOWER)
 		// ..() will have called open()
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 	if (density)
 		balloon_alert(user, "open the door first!")
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 	if (!panel_open)
 		balloon_alert(user, "open the panel first!")
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 	if (deconstruction != BLASTDOOR_FINISHED)
 		return
 
@@ -123,7 +123,7 @@
 		id = null
 		deconstruction = BLASTDOOR_NEEDS_ELECTRONICS
 		balloon_alert(user, "removed airlock electronics")
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/door/poddoor/wirecutter_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -132,10 +132,10 @@
 
 	if (density)
 		balloon_alert(user, "open the door first!")
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 	if (!panel_open)
 		balloon_alert(user, "open the panel first!")
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 	if (deconstruction != BLASTDOOR_NEEDS_ELECTRONICS)
 		return
 
@@ -145,7 +145,7 @@
 		var/amount = recipe.reqs[/obj/item/stack/cable_coil]
 		new /obj/item/stack/cable_coil(loc, amount)
 		deconstruction = BLASTDOOR_NEEDS_WIRES
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/door/poddoor/welder_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -154,10 +154,10 @@
 
 	if (density)
 		balloon_alert(user, "open the door first!")
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 	if (!panel_open)
 		balloon_alert(user, "open the panel first!")
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 	if (deconstruction != BLASTDOOR_NEEDS_WIRES)
 		return
 
@@ -167,7 +167,7 @@
 		var/amount = recipe.reqs[/obj/item/stack/sheet/plasteel]
 		new /obj/item/stack/sheet/plasteel(loc, amount)
 		qdel(src)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/door/poddoor/multitool_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -176,20 +176,20 @@
 
 	if (density)
 		balloon_alert(user, "open the door first!")
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 	if (!panel_open)
 		balloon_alert(user, "open the panel first!")
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 	if (deconstruction != BLASTDOOR_FINISHED)
 		return
 
 	var/change_id = tgui_input_number(user, "Set the shutters/blast door controller's ID. It must be a number between 1 and 100.", "Controller ID", min_value = 1, max_value = 100)
 	if (isnull(change_id) || QDELETED(src) || QDELETED(user))
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 
 	id = change_id
 	balloon_alert(user, "id changed to [id]")
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/door/poddoor/preopen
 	icon_state = "blast_open"

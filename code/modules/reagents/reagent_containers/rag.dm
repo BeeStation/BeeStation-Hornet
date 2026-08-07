@@ -15,7 +15,7 @@
 	user.visible_message(span_suicide("[user] is smothering [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
-/obj/item/rag/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/rag/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!iscarbon(target) || !reagents?.total_volume)
 		return

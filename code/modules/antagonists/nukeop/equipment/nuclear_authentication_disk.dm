@@ -83,7 +83,7 @@
 	if(isobserver(user) || HAS_MIND_TRAIT(user, TRAIT_DISK_VERIFIER))
 		. += span_warning("The serial numbers on [src] are incorrect.")
 
-/obj/item/disk/nuclear/attackby(obj/item/I, mob/living/user, params)
+/obj/item/disk/nuclear/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/claymore/highlander) && !fake)
 		var/obj/item/claymore/highlander/H = I
 		if(H.nuke_disk)

@@ -507,7 +507,7 @@
 		new /obj/effect/hotspot(get_turf(target))
 	..()
 
-/obj/item/reagent_containers/cup/glass/bottle/molotov/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/cup/glass/bottle/molotov/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.get_temperature() && !active)
 		active = TRUE
 		log_bomber(user, "has primed a", src, "for detonation")

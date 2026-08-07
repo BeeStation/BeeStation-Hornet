@@ -46,6 +46,9 @@
 	/// If we support smartly removing/inserting things from ourselves
 	var/supports_smart_equip = TRUE
 
+	/// Do we insert items when clicked by them?
+	var/insert_on_attack = TRUE
+
 	/// shows what we can hold in examine text
 	var/can_hold_description
 
@@ -647,7 +650,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		thing.emp_act(severity)
 
 /// Signal handler for preattack from an object.
-/datum/storage/proc/on_preattack(datum/source, atom/thing, mob/user, params)
+/datum/storage/proc/on_preattack(datum/source, atom/thing, mob/user, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(!allow_quick_gather || thing.atom_storage)
@@ -840,7 +843,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	attempt_insert(dropping, user)
 
 /// Signal handler for whenever we're attacked by an object.
-/datum/storage/proc/on_attackby(datum/source, obj/item/thing, mob/user, params)
+/datum/storage/proc/on_attackby(datum/source, obj/item/thing, mob/user, list/modifiers)
 	SIGNAL_HANDLER
 
 	var/obj/item/resolve_parent = parent?.resolve()

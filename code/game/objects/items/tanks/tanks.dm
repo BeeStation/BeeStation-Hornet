@@ -149,7 +149,7 @@
 
 	return BRUTELOSS
 
-/obj/item/tank/attackby(obj/item/W, mob/user, params)
+/obj/item/tank/attackby(obj/item/W, mob/user, list/modifiers)
 	add_fingerprint(user)
 	return ..()
 

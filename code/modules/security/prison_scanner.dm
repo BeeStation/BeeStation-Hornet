@@ -21,7 +21,7 @@
 	if(!linked_id)
 		. += "[span_notice("[src] is currently unlinked")]."
 
-/obj/item/prison_scanner/attackby(obj/item/I, mob/living/user, params)
+/obj/item/prison_scanner/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/card/id/prisoner))
 		var/obj/item/card/id/prisoner/C = I
 		if(!linked_id)

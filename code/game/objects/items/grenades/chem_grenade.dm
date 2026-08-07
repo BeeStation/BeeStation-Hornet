@@ -65,7 +65,7 @@
 	else
 		wires.interact(user)
 
-/obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, list/modifiers)
 	if (active)
 		return ..()
 	if(dud_flags & GRENADE_USED)
@@ -335,7 +335,7 @@
 	icon_state = "timeg"
 	var/unit_spread = 10 // Amount of units per repeat. Can be altered with a multitool.
 
-/obj/item/grenade/chem_grenade/adv_release/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/chem_grenade/adv_release/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_MULTITOOL)
 		switch(unit_spread)
 			if(0 to 24)

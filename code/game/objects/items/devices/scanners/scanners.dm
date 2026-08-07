@@ -81,7 +81,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 		scanner = starting_scanner
 	refresh_parts()
 
-/obj/item/extrapolator/attackby(obj/item/item, mob/user, params)
+/obj/item/extrapolator/attackby(obj/item/item, mob/user, list/modifiers)
 	if(istype(item, /obj/item/stock_parts/scanning_module))
 		if(!scanner)
 			if(!user.transferItemToLoc(item, src))
@@ -144,7 +144,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/extrapolator)
 /obj/item/extrapolator/attack(atom/AM, mob/living/user)
 	return
 
-/obj/item/extrapolator/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
+/obj/item/extrapolator/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!proximity_flag && !scan)
 		return

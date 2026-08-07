@@ -22,7 +22,7 @@
 		return
 	..()
 
-/obj/item/gun/magic/wand/pull_trigger(atom/target, mob/living/user, params, aimed)
+/obj/item/gun/magic/wand/pull_trigger(atom/target, mob/living/user, list/modifiers, aimed)
 	if(!charges)
 		shoot_with_empty_chamber(user)
 		return
@@ -71,7 +71,7 @@
 	inhand_icon_state = "drainwand"
 	var/datum/status_effect/life_drain/active_effect
 
-/obj/item/gun/magic/wand/drain/pull_trigger(atom/target, mob/living/user, params, aimed)
+/obj/item/gun/magic/wand/drain/pull_trigger(atom/target, mob/living/user, list/modifiers, aimed)
 	if(charges && active_effect)
 		active_effect.end_drain()
 	return ..()

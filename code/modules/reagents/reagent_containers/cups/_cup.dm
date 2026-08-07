@@ -137,7 +137,7 @@
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user)
 		to_chat(user, span_notice("You fill [src] with [trans] unit\s of the contents of [target]."))
 
-/obj/item/reagent_containers/cup/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/reagent_containers/cup/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	var/hotness = attacking_item.get_temperature()
 	if(hotness && reagents)
 		reagents.expose_temperature(hotness)
@@ -345,7 +345,7 @@
 	fire = 75
 	acid = 50
 
-/obj/item/reagent_containers/cup/bucket/attackby(obj/O, mob/user, params)
+/obj/item/reagent_containers/cup/bucket/attackby(obj/O, mob/user, list/modifiers)
 	if(istype(O, /obj/item/mop))
 		if(reagents.total_volume < 1)
 			to_chat(user, span_warning("[src] is out of water!"))

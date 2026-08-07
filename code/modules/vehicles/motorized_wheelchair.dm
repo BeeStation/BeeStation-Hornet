@@ -89,7 +89,7 @@
 	power_cell = null
 	low_power_alerted = FALSE
 
-/obj/vehicle/ridden/wheelchair/motorized/attackby(obj/item/I, mob/user, params)
+/obj/vehicle/ridden/wheelchair/motorized/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		I.play_tool_sound(src)
 		panel_open = !panel_open

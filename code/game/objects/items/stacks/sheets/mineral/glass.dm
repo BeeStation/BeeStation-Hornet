@@ -40,7 +40,7 @@
 /obj/item/stack/sheet/glass/get_recipes()
 	return GLOB.glass_recipes
 
-/obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user, list/modifiers)
 	add_fingerprint(user)
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
@@ -87,7 +87,7 @@
 	fire = 70
 	acid = 100
 
-/obj/item/stack/sheet/rglass/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/sheet/rglass/attackby(obj/item/W, mob/user, list/modifiers)
 	add_fingerprint(user)
 	..()
 
@@ -140,7 +140,7 @@
 /obj/item/stack/sheet/plasmaglass/get_recipes()
 	return GLOB.pglass_recipes
 
-/obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user, list/modifiers)
 	add_fingerprint(user)
 
 	if(istype(W, /obj/item/stack/rods))
@@ -287,7 +287,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/shard/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/shard/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!proximity_flag || !iscarbon(user) || !user.is_holding(src))
 		return
@@ -299,7 +299,7 @@
 	to_chat(user, span_warning("[src] cuts into your hand!"))
 	jab.apply_damage(force * 0.5, BRUTE, user.get_active_hand(), attacking_item = src)
 
-/obj/item/shard/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/shard/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(istype(attacking_item, /obj/item/lightreplacer))
 		attacking_item.attackby(src, user)
 	else
@@ -311,7 +311,7 @@
 		to_chat(user, span_notice("You melt [src] down into [new_glass.name]."))
 		new_glass.forceMove((Adjacent(user) ? user.drop_location() : loc)) //stack merging is handled automatically.
 		qdel(src)
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 
 /obj/item/shard/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER

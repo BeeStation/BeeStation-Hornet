@@ -50,7 +50,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/bluespace_anchor)
 	new /obj/machinery/bluespace_anchor(get_turf(user), stored_cell)
 	qdel(src)
 
-/obj/item/bluespace_anchor/attackby(obj/item/I, mob/living/user, params)
+/obj/item/bluespace_anchor/attackby(obj/item/I, mob/living/user, list/modifiers)
 	var/obj/item/stock_parts/cell/cell = I
 	if(!istype(cell))
 		return ..()

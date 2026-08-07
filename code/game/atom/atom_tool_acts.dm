@@ -1,6 +1,5 @@
 /**
  * should probably port these:
- * https://github.com/tgstation/tgstation/pull/79968
  * https://github.com/tgstation/tgstation/pull/81893 (partial port)
  * https://github.com/tgstation/tgstation/pull/82625
  * https://github.com/tgstation/tgstation/pull/83818
@@ -8,35 +7,102 @@
  * https://github.com/tgstation/tgstation/pull/83860
  * https://github.com/tgstation/tgstation/pull/85512
  * https://github.com/tgstation/tgstation/pull/90809
- * + a ton of things tg changed in [code/_onclick/item_attack.dm]
  */
 
 /**
- * Tool behavior procedure. Redirects to tool-specific procs by default.
+ * ## Item interaction
  *
- * You can override it to catch all tool interactions, for use in complex deconstruction procs.
- *
- * Must return  parent proc ..() in the end if overridden
+ * Handles non-combat iteractions of a tool on this atom,
+ * such as using a tool on a wall to deconstruct it,
+ * or scanning someone with a health analyzer
  */
-/atom/proc/tool_act(mob/living/user, obj/item/tool, tool_type, is_right_clicking)
-	var/act_result
-	var/signal_result
+/atom/proc/base_item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	SHOULD_CALL_PARENT(TRUE)
+	PROTECTED_PROC(TRUE)
 
+	if(!user.combat_mode)
+		var/tool_return = tool_act(user, tool, modifiers)
+		if(tool_return)
+			return tool_return
+
+	var/is_right_clicking = text2num(LAZYACCESS(modifiers, RIGHT_CLICK))
+	var/is_left_clicking = !is_right_clicking
+	var/early_sig_return = NONE
+	if(is_left_clicking)
+		early_sig_return = SEND_SIGNAL(src, COMSIG_ATOM_ITEM_INTERACTION, user, tool, modifiers) \
+			| SEND_SIGNAL(tool, COMSIG_ITEM_INTERACTING_WITH_ATOM, user, src, modifiers)
+	else
+		early_sig_return = SEND_SIGNAL(src, COMSIG_ATOM_ITEM_INTERACTION_SECONDARY, user, tool, modifiers) \
+			| SEND_SIGNAL(tool, COMSIG_ITEM_INTERACTING_WITH_ATOM_SECONDARY, user, src, modifiers)
+	if(early_sig_return)
+		return early_sig_return
+
+	var/self_interaction = is_left_clicking \
+		? item_interaction(user, tool, modifiers) \
+		: item_interaction_secondary(user, tool, modifiers)
+	if(self_interaction)
+		return self_interaction
+
+	var/interact_return = is_left_clicking \
+		? tool.interact_with_atom(src, user, modifiers) \
+		: tool.interact_with_atom_secondary(src, user, modifiers)
+	if(interact_return)
+		return interact_return
+
+	// We have to manually handle storage in item_interaction because storage is blocking in 99% of interactions, which stifles a lot
+	// Yeah it sucks not being able to signalize this, but the other option is to have a second signal here just for storage which is also not great
+	if(atom_storage)
+		if(is_left_clicking)
+			if(atom_storage.insert_on_attack)
+				atom_storage.attempt_insert(tool, user)
+				return ITEM_INTERACT_SUCCESS
+		else
+			if(atom_storage.open_storage(user) && atom_storage.display_contents)
+				return ITEM_INTERACT_SUCCESS
+
+	return NONE
+
+/**
+ *
+ * ## Tool Act
+ *
+ * Handles using specific tools on this atom directly.
+ * Only called when combat mode is off.
+ *
+ * Handles the tool_acts in particular, such as wrenches and screwdrivers.
+ *
+ * This can be overridden to handle unique "tool interactions"
+ * IE using an item like a tool (when it's not actually one)
+ * This is particularly useful for things that shouldn't be inserted into storage
+ * (because tool acting runs before storage checks)
+ * but otherwise does nothing that [item_interaction] doesn't already do.
+ *
+ * In other words, use sparingly. It's harder to use (correctly) than [item_interaction].
+ */
+/atom/proc/tool_act(mob/living/user, obj/item/tool, list/modifiers)
+	SHOULD_CALL_PARENT(TRUE)
+	PROTECTED_PROC(TRUE)
+
+	var/tool_type = tool.tool_behaviour
+	if(!tool_type)
+		return NONE
+
+	var/is_right_clicking = text2num(LAZYACCESS(modifiers, RIGHT_CLICK))
 	var/is_left_clicking = !is_right_clicking
 
-	if(is_left_clicking) // Left click first for sensibility
-		var/list/processing_recipes = list() //List of recipes that can be mutated by sending the signal
-		signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, tool, processing_recipes)
-		if(signal_result & COMPONENT_BLOCK_TOOL_ATTACK) // The COMSIG_ATOM_TOOL_ACT signal is blocking the act
-			return TOOL_ACT_SIGNAL_BLOCKING
-		if(processing_recipes.len)
-			process_recipes(user, tool, processing_recipes)
-		if(QDELETED(tool))
-			return TRUE
-	else
-		signal_result = SEND_SIGNAL(src, COMSIG_ATOM_SECONDARY_TOOL_ACT(tool_type), user, tool)
-		if(signal_result & COMPONENT_BLOCK_TOOL_ATTACK) // The COMSIG_ATOM_TOOL_ACT signal is blocking the act
-			return TOOL_ACT_SIGNAL_BLOCKING
+	var/list/processing_recipes = list()
+	var/signal_result = is_left_clicking \
+		? SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, tool, processing_recipes) \
+		: SEND_SIGNAL(src, COMSIG_ATOM_SECONDARY_TOOL_ACT(tool_type), user, tool)
+	if(signal_result)
+		return signal_result
+	if(length(processing_recipes))
+		process_recipes(user, tool, processing_recipes)
+		return ITEM_INTERACT_SUCCESS
+	if(QDELETED(tool))
+		return ITEM_INTERACT_SUCCESS // Safe-ish to assume that if we deleted our item something succeeded
+
+	var/act_result = NONE // or FALSE, or null, as some things may return
 
 	switch(tool_type)
 		if(TOOL_CROWBAR)
@@ -53,17 +119,69 @@
 			act_result = is_left_clicking ? welder_act(user, tool) : welder_act_secondary(user, tool)
 		if(TOOL_ANALYZER)
 			act_result = is_left_clicking ? analyzer_act(user, tool) : analyzer_act_secondary(user, tool)
+
 	if(!act_result)
-		return
+		return NONE
 
 	// A tooltype_act has completed successfully
 	if(is_left_clicking)
 		investigate_log("[key_name(user)] used [tool] on [src] at [AREACOORD(src)]", INVESTIGATE_TOOLS)
-		SEND_SIGNAL(tool,  COMSIG_TOOL_ATOM_ACTED_PRIMARY(tool_type), src)
+		SEND_SIGNAL(tool, COMSIG_TOOL_ATOM_ACTED_PRIMARY(tool_type), src)
 	else
 		investigate_log("[key_name(user)] used [tool] on [src] (right click) at [AREACOORD(src)]", INVESTIGATE_TOOLS)
-		SEND_SIGNAL(tool,  COMSIG_TOOL_ATOM_ACTED_SECONDARY(tool_type), src)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+		SEND_SIGNAL(tool, COMSIG_TOOL_ATOM_ACTED_SECONDARY(tool_type), src)
+	return act_result
+
+/**
+ * Called when this atom has an item used on it.
+ * IE, a mob is clicking on this atom with an item.
+ *
+ * Return an ITEM_INTERACT_ flag in the event the interaction was handled, to cancel further interaction code.
+ * Return NONE to allow default interaction / tool handling.
+ */
+/atom/proc/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	return NONE
+
+/**
+ * Called when this atom has an item used on it WITH RIGHT CLICK,
+ * IE, a mob is right clicking on this atom with an item.
+ * Default behavior has it run the same code as left click.
+ *
+ * Return an ITEM_INTERACT_ flag in the event the interaction was handled, to cancel further interaction code.
+ * Return NONE to allow default interaction / tool handling.
+ */
+/atom/proc/item_interaction_secondary(mob/living/user, obj/item/tool, list/modifiers)
+	return item_interaction(user, tool, modifiers)
+
+/**
+ * Called when this item is being used to interact with an atom,
+ * IE, a mob is clicking on an atom with this item.
+ *
+ * Return an ITEM_INTERACT_ flag in the event the interaction was handled, to cancel further interaction code.
+ * Return NONE to allow default interaction / tool handling.
+ */
+/obj/item/proc/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	return NONE
+
+/**
+ * Called when this item is being used to interact with an atom WITH RIGHT CLICK,
+ * IE, a mob is right clicking on an atom with this item.
+ *
+ * Default behavior has it run the same code as left click.
+ *
+ * Return an ITEM_INTERACT_ flag in the event the interaction was handled, to cancel further interaction code.
+ * Return NONE to allow default interaction / tool handling.
+ */
+/obj/item/proc/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	return interact_with_atom(interacting_with, user, modifiers)
+
+/*
+ * Tool-specific behavior procs.
+ *
+ * Return an ITEM_INTERACT_ flag to handle the event, or NONE to allow the mob to attack the atom.
+ * Returning TRUE will also cancel attacks. It is equivalent to an ITEM_INTERACT_ flag. (This is legacy behavior, and is not to be relied on)
+ * Returning FALSE or null will also allow the mob to attack the atom. (This is also legacy behavior)
+ */
 
 /// Called on an object when a tool with crowbar capabilities is used to left click an object
 /atom/proc/crowbar_act(mob/living/user, obj/item/tool)
@@ -80,6 +198,14 @@
 /// Called on an object when a tool with multitool capabilities is used to right click an object
 /atom/proc/multitool_act_secondary(mob/living/user, obj/item/tool)
 	return
+
+///Check if an item supports a data buffer (is a multitool)
+/atom/proc/multitool_check_buffer(user, obj/item/multitool, silent = FALSE)
+	if(!istype(multitool, /obj/item/multitool))
+		if(user && !silent)
+			to_chat(user, span_warning("[multitool] has no data buffer!"))
+		return FALSE
+	return TRUE
 
 /// Called on an object when a tool with screwdriver capabilities is used to left click an object
 /atom/proc/screwdriver_act(mob/living/user, obj/item/tool)
