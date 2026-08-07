@@ -331,17 +331,18 @@
 	addtimer(CALLBACK(src, PROC_REF(mix_complete)), 50 / speed)
 
 /obj/machinery/reagentgrinder/proc/mix_complete()
-	if(beaker?.reagents.total_volume)
-		//Recipe to make Butter
-		var/butter_amt = floor(beaker.reagents.get_reagent_amount(/datum/reagent/consumable/milk) / MILK_TO_BUTTER_COEFF)
-		beaker.reagents.remove_reagent(/datum/reagent/consumable/milk, MILK_TO_BUTTER_COEFF * butter_amt)
-		for(var/i in 1 to butter_amt)
-			new /obj/item/food/butter(drop_location())
-		//Recipe to make Mayonnaise
-		if (beaker.reagents.has_reagent(/datum/reagent/consumable/eggyolk))
-			beaker.reagents.convert_reagent(/datum/reagent/consumable/eggyolk, /datum/reagent/consumable/mayonnaise)
-		//Recipe to make whipped cream
-		if (beaker.reagents.has_reagent(/datum/reagent/consumable/cream))
-			beaker.reagents.convert_reagent(/datum/reagent/consumable/cream, /datum/reagent/consumable/whipped_cream)
+	if(beaker?.reagents.total_volume <= 0)
+		return
+	//Recipe to make Butter
+	var/butter_amt = FLOOR(beaker.reagents.get_reagent_amount(/datum/reagent/consumable/milk) / MILK_TO_BUTTER_COEFF, 1)
+	beaker.reagents.remove_reagent(/datum/reagent/consumable/milk, MILK_TO_BUTTER_COEFF * butter_amt)
+	for(var/i in 1 to butter_amt)
+		var/obj/item/food/butter/tasty_butter = new(drop_location())
+	//Recipe to make Mayonnaise
+	if (beaker.reagents.has_reagent(/datum/reagent/consumable/eggyolk))
+		beaker.reagents.convert_reagent(/datum/reagent/consumable/eggyolk, /datum/reagent/consumable/mayonnaise)
+	//Recipe to make whipped cream
+	if (beaker.reagents.has_reagent(/datum/reagent/consumable/cream))
+		beaker.reagents.convert_reagent(/datum/reagent/consumable/cream, /datum/reagent/consumable/whipped_cream)
 
 #undef MILK_TO_BUTTER_COEFF

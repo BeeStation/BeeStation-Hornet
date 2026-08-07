@@ -150,3 +150,5 @@ DEFINE_BITFIELD(food_types, list(
 #define FOOD_LIKED 1
 #define FOOD_DISLIKED 2
 #define FOOD_TOXIC 3
+
+#define BLACKBOX_LOG_FOOD_MADE(food) SSblackbox.record_feedback("tally", "food_made", 1, food)

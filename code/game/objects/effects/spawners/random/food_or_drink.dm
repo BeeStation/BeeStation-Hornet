@@ -21,6 +21,19 @@
 		/obj/item/storage/box/donkpockets/donkpocketgondolafinlandia = 1
 	)
 
+/obj/effect/spawner/random/food_or_drink/donkpockets_single
+	name = "donk pocket individual spawner"
+	icon_state = "donkpocket"
+	loot = list(
+		/obj/item/food/donkpocket/warm,
+		/obj/item/food/donkpocket/warm/spicy,
+		/obj/item/food/donkpocket/warm/teriyaki,
+		/obj/item/food/donkpocket/warm/pizza,
+		/obj/item/food/donkpocket/warm/honk,
+		/obj/item/food/donkpocket/warm/berry,
+		/obj/item/food/donkpocket/warm/gondola,
+	)
+
 /obj/effect/spawner/random/food_or_drink/seed
 	name = "seed spawner"
 	icon_state = "seed"
