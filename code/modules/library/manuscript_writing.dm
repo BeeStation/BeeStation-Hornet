@@ -78,36 +78,14 @@
 	writing = TRUE
 	to_chat(user, span_notice("You start writing about your profession."))
 
-	var/success = FALSE
-	try
-		success = attacking_item.use_tool(src, user, writing_delay, volume=50)
-	catch(var/exception/error)
-		stack_trace("bookwriting use_tool threw: [error]")
-		success = FALSE
-
-	if(!success)
-		writing = FALSE
+	if(!attacking_item.use_tool(src, user, writing_delay, volume=50)) // TODO: pen writing sound?
 		to_chat(user, span_notice("You stopped writing."))
-		return
-
-	// Everything could have changed during the delay - validate before touching state
-	if(QDELETED(src) || QDELETED(user) || QDELETED(attacking_item))
 		writing = FALSE
 		return
 
-	if(booked_job) // someone/something else already booked it while we were "waiting" (shouldn't happen now, but cheap to check)
+	if(writing_cooldown_list[FAST_REF(user.mind)] && (writing_cooldown_list[FAST_REF(user.mind)] > REALTIMEOFDAY)) // Prevent people writing multiple books
+		to_chat(user, span_notice("You feel too tired to write more books for now. You might feel better in [round((writing_cooldown_list[FAST_REF(user.mind)] - REALTIMEOFDAY) / 600, 0.5)+0.5] minutes."))
 		writing = FALSE
-		return
-
-	var/datum/mind/mind = user.mind
-	if(!mind)
-		writing = FALSE
-		to_chat(user, span_notice("You stopped writing."))
-		return
-
-	if(writing_cooldown_list[FAST_REF(mind)] && (writing_cooldown_list[FAST_REF(mind)] > REALTIMEOFDAY))
-		writing = FALSE
-		to_chat(user, span_notice("You feel too tired to write more books for now. You might feel better in [round((writing_cooldown_list[FAST_REF(mind)] - REALTIMEOFDAY) / 600, 0.5)+0.5] minutes."))
 		return
 
 	booked_job = writer_job
@@ -115,11 +93,13 @@
 	title = name
 	desc = "A book with the expertise of the [booked_job.title]."
 	to_chat(user, span_notice("You finished writing a job manuscript."))
+	writing = FALSE
 
+	// puts a job hud like a sticker on the book. Good to recognise
 	add_overlay(image(icon='icons/mob/huds/hud.dmi', icon_state="hud[get_hud_by_jobname(booked_job.title)]", pixel_x = 12, pixel_y = -8, layer = src.layer+0.1))
 
-	writing_cooldown_list[FAST_REF(mind)] = REALTIMEOFDAY + BOOKWRITING_COOLDOWN_TIME
-	writing = FALSE
+	// Preventing antag book mass production
+	writing_cooldown_list[FAST_REF(user.mind)] = REALTIMEOFDAY + BOOKWRITING_COOLDOWN_TIME
 	return
 
 #undef BOOKWRITING_COOLDOWN_TIME
